@@ -1,79 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.223.95.204
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794916222;
-	b=3jYiKeUP4dBXklKSrizRbHxDh7OF3DlwqWh/RJUTZsv+KrWpscmSoU0mRx5NUEE4nCVI
-	 KBp1qMVUyzdq2ylfw+96NCG8SC5W2WDSs2GeBxGnqwLgYxrHXaMvy3TYA+UjLwP2ohIXA
-	 BjsjJIL2yzItNYxwaottrQQr7UrbbIQuck/6xomTLAYSua8Y8Z+VQ2r2KzsWKBQjPBgZJ
-	 XWt/qzWJKJcAtFH4DRhDs7bS1lW7n8na1v5k+hlGPLmz2WgUWVZjnbrMVX4gEWQ0UwzvR
-	 K28i38Qi75Ijsryv8LRFwlb/7yVmLYiPq7zbvc6rY2nRJ6cAaFOt21gETIvRjkk+ptQ==
+	t=1794916254;
+	b=mlD8KhZjEgvmfp0MA+SJV+90JTfmk+KQb/FFbfpafgPwk1pJzcT9pEh1/SQcKHKRTxXv
+	 YJgu88KzLkA+sp/4tL/1/VOfW5sXkTA/2vFSGmnzjpVWnuPPDUFaT4EUC0DtFwoXJQppq
+	 dntIw2VVuQ7tlORFqLhV1/NxHh3ONlrUue09r2Sv+139xKLQTeXU6Tr+McjOecY/92z+Y
+	 HJBOy1diAFYVoFzg0PGvsYS3p0XIu0vDY6Kieh1qdNHjZGg0bbzEGZecqirrEG6BcRBIh
+	 55rthQjR0I2ml+Aylxjyh7aH/pxpqOEI2t9seSfBOfCmAHdbUjuV6Hw9kWCrARKFD4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794916222;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=EwfpX7pGND05sD8odESGTeZ36nfl99+U15YYrIY2qBE=;
-	b=tJDNc6/f1geH4k98fwrbbzUrodyD+i+XyGKhMa+PMdxPcqER8fy0Xd+OdUM+PgDDX27M
-	 tMS8DkMvD5qiKfK3LU+eBWTgIBVfshM8IoZbar1nbIkUDwYN9gXF0s9JlYqfltoyoa9aA
-	 1nZL0WTyAQv6kPG7NWu9Ow60pFxRVDwUlRibN8lmmGKzOhoSDBcxA48ZxscxBDZM9eTAX
-	 LgBPPVb7o2OXbHmt0ItUpzC6ajBkYHlGc9pbo5yKqEgxS/RtFV07KKKWnxdqBHRoGy+XH
-	 aFMeZjO9UUrAPND/wB7PsS5G/FTptg5b3TMd92BjsAx4WIT3qxZMhD58hy4zzjfZqXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794916254;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=vox9UTwbHA3vT707I3aI3S7jFRVVZiEckXrdeJNrXd0=;
+	b=LUVGTlI0I1SpuMDwuaGGu4nNH+HKJPWojOcyqUpgCo//Zsub9M5J+iofbDc/Oq76OLeX
+	 e7YNw1wUldFDvwQSRGexOWvSkGL6FjRRD3oPQ9ipJ8u/8vNfcUAIhzmUGdRp9qhGKef7t
+	 InxgRQq8TUvNDHXF3T8DaoEY5kzG8iJxQrJN0eMlYcagL7Rr/Cq5ZxX+4kVE6T0eySG7y
+	 NETqdY/ezbu4wBDMmHl9Bwb/rU6kPMdk4iPnU+TTcBUcoLwArVbjH18U+x8bRdZZ9HBGV
+	 +iXDTWXMhtNCI8VM7B7UHk2/XkQhuyF4uTXp0b8CiYFoXE3L+SG3LqG0MZmHVH2ofwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=wunner.de;
-	spf=pass smtp.mailfrom=wunner.de;
-	arc=none smtp.remote-ip=83.223.95.204
-Received: from mailout1.hostsharing.net (mailout1.hostsharing.net [83.223.95.204])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=T8sAbKSm;
+	arc=none smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B91C8606A329;
-	Tue, 17 Nov 2026 11:50:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B91C8606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wunner.de
-Received: from h08.hostsharing.net (h08.hostsharing.net [83.223.95.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature ECDSA (secp384r1) server-digest SHA384
-	 client-signature ECDSA (secp384r1) client-digest SHA384)
-	(Client CN "*.hostsharing.net", Issuer "GlobalSign GCC R6 AlphaSSL CA 2025" (verified OK))
-	by mailout1.hostsharing.net (Postfix) with ESMTPS id 145D31A07;
-	Tue, 17 Nov 2026 12:50:14 +0100 (CET)
-Received: by h08.hostsharing.net (Postfix, from userid 100393)
-	id F2DAC6039C25; Tue, 17 Nov 2026 12:50:13 +0100 (CET)
-Date: Tue, 17 Nov 2026 12:50:13 +0100
-From: Lukas Wunner <lukas@wunner.de>
-To: Pierre Gondois <pierre.gondois@arm.com>
-Cc: linux-kernel@vger.kernel.org, Ashok Raj <ashok.raj@oss.qualcomm.com>,
-	James Morse <james.morse@arm.com>, Mark Brown <broonie@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>, Tony Luck <tony.luck@intel.com>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Shuai Xue <xueshuai@linux.alibaba.com>,
-	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
-	Oliver O'Halloran <oohall@gmail.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
-	Pawel Chmielewski <pawel.chmielewski@intel.com>,
-	Yazen Ghannam <yazen.ghannam@amd.com>,
-	Qiuxu Zhuo <qiuxu.zhuo@intel.com>,
-	Avadhut Naik <avadhut.naik@amd.com>, Radu Rendec <radu@rendec.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Kai-Heng Feng <kaihengf@nvidia.com>,
-	"Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>,
-	Breno Leitao <leitao@debian.org>,
-	Terry Bowman <terry.bowman@amd.com>,
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
-	linux-acpi@vger.kernel.org, linux-edac@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-pci@vger.kernel.org,
-	acpica-devel@lists.linux.dev
-Subject: Re: [PATCH v1 19/19] PCI/ERR: Avoid NULL bridge pointer
-Message-ID: <avw_daENKPcY7_04@wunner.de>
-References: <20261117111444.4185512-1-pierre.gondois@arm.com>
- <20261117111444.4185512-20-pierre.gondois@arm.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27326606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:50:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27326606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=T8sAbKSm
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ad41b47541so4175853a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:50:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794916253; x=1795521053; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vox9UTwbHA3vT707I3aI3S7jFRVVZiEckXrdeJNrXd0=;
+        b=T8sAbKSmnqw0foDwoe4J88XYmKh/nE0/+nZQKU39t/Rq3a9Kzm5WmmULo+Wtw5SnwO
+         rNAiT05lr8OFMBtVKlkDoozNpq5TVnWVk42lx8hlW9j62ntNvPmwVMDuqwxYMb0FU43h
+         GhEqQ9G0dkZvRn4aZTtFaVkSqav5z67WRcKkKQJYQSj8t4WpMGNlRAOuLg9e3oOs7hKM
+         NSVtAE9dhQ6mDwQ6lY/kaZfUlLPGHWeiJb3cy+45BUjs+/KfOw+Aw6DD13bLPpyMnTuj
+         QGJyBUd+QzoUD1phhN68QsZNRSwusVTL9n0up9cP5fLwZd7RAUeAmrTs1y6TbNjK7Htw
+         O63Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794916253; x=1795521053;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vox9UTwbHA3vT707I3aI3S7jFRVVZiEckXrdeJNrXd0=;
+        b=zlbb8sJ18LJytqMJOHtTlLL44BvC5X+2QhoH5SbcNQIEpRbfIMGxmW08QVhBTLlUOK
+         maERj3pN6e6F4W1CaRujSzkjxs4a3XKkNO6sJyQk4YLfJLo3gpLk+lXD0RXNfwDnDXoJ
+         TMJDhbZtBALvWE4SBqxhTV6uJVdJEQDH1r2TPoQ/yJRaZv2aLxj/jZzJGISUjm3uWtiN
+         nqqASQpqB5bXXGfXnkkQ3eu8VvpwSYM+UePCKImu2rnUKFLKGE6YTpf9yxXp/dSG1TkI
+         9DYmJt+bq5BFlWKQAUKGxtdU6iHJntGbDC9gx98XWeKzqacWjqrP5Xy7oeleGC6rRD2i
+         068g==
+X-Forwarded-Encrypted: i=1; AL+hErEJykS10nmFnOBtmb5h2gboG7Y3jgyjhHEe4CL/BRY/alOQ53cIEhJLz466hEyLq+DIEm2fvv0+XfVgoYs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9qD0e0k0FmRj9ChfbRierkMs1k1pAnle6IK90XyaWGvpip4q8G
+	HLWRjSmfPV3PACmSvV+zk8cKvnBzP+I2qdkNJ3xDc8eVNNH0UxYy8D9ZKQUvSpwO0JU=
+X-Gm-Gg: AZFdTZdRrVwALOKNF4kYE1BJiCGQAiws/PSdmXFRXr57ZtFCsDLNHe5MpD3l7mV5/SC
+	VibaVZn/SN4ZXbn2IUOBt2dgmWeH04q1uuRsKErO4odR2M/H19uRzbNJe86CEStDxC1402DC+KS
+	d62iTS96GztiADqo75KJUIa93otde3NCItWAlUhx4T7rbJT7XaFbNW7kvSDGFVDGlAAbc8yGpjk
+	QmPLBFR0+w3X22dPMBF7OfwiEjowzx4yd6rxD+thJHDHwPno3puC4oxxHIC/myrhozjhC9Vaud6
+	POUwdhXBvy/WDLEL3MLHjDcQn0zgCQZyb0Vl1mHYjIzRs5gGf0VmTFihImG1Ni2uf6+pEV6fBqu
+	xGZlHkszhScv1ctwQUt/+iD3aZTgdO9O+Fu5x9g8s38kWdT6FxeYgj/94Lzf8wS7qi47tVwqdh7
+	1WBwzLU/DC5Z/RwkXaxqu0AoaMYsEMDDbG/WEekWTk8Q7jzAL6XxfiCauuMRHKat2VImuDea9HM
+	uObN4s/KTXVdVduIwj7CZwErwtXNqRPg9Mr6WYNKFEsXNlxja/SDXA20rYxbyTT6VgGtWuPkiA9
+	Y36QU3H096K4D83Qy1jwPBdNEXxMtO4vGcFQbYBWxl2mFwig4BhhvyR1sEBA3TYFa5+q1AYCezp
+	CG1kZ1ZaPB6zc+vkYMI3/0zOxyY+zd1NHXq2c3g==
+X-Received: by 2002:a17:90a:c88b:b0:3ac:9c37:9430 with SMTP id 98e67ed59e1d1-3b1b09e6a07mr13635182a91.21.1794916253425;
+        Tue, 17 Nov 2026 03:50:53 -0800 (PST)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:73df:c7da:8e76:82c5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3abe8b263sm4173884a91.13.2026.11.17.03.50.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 03:50:53 -0800 (PST)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: mkp@kernel.org
+Cc: michael.christie@oracle.com,
+	bvanassche@acm.org,
+	target-devel@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] scsi: target: iscsi: run the Time2Retain handler in process context
+Date: Tue, 17 Nov 2026 20:50:46 +0900
+Message-ID: <20261117115046.1955877-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261115121943.1446744-1-yhlee@isslab.korea.ac.kr>
+References: <20261115121943.1446744-1-yhlee@isslab.korea.ac.kr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,22 +102,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261117111444.4185512-20-pierre.gondois@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 17, 2026 at 12:10:29PM +0100, Pierre Gondois wrote:
-> Return PCI_ERS_RESULT_DISCONNECT when no upstream bridge is available,
-> avoiding a NULL pointer dereference in pci_walk_bridge().
+This is superseded by v2:
+  https://lore.kernel.org/all/20261117114920.1955697-1-yhlee@isslab.korea.ac.kr/
 
-How can that happen?  If it can happen (which I doubt), why isn't this
-patch tagged for stable?
-
-Why is it at the end of this series?  Does the series somehow make it
-possible that there's no upstream bridge?  Which patch does that?
-If the preceding patches are not the cause of a potential NULL
-pointer deref, why isn't this patch submitted separately from the series?
-
-Thanks,
-
-Lukas
+Best regards,
+Yehyeong Lee
