@@ -1,60 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794917811;
-	b=ncAKHeB48M928lX77owZFknyG8RLwTO2sMpDuGBqgV2qLwzURnMlMJOo4Ho8E726Cjjv
-	 8PoCQEvfIdUsmRwx0v9G1w+CQHe1Cp+Rrl7F2kUbaB379I6T6Px0TsIV0MpxyAToPDpkv
-	 7OHNj37T6kzvtbXQT6spkLmPZKGUIOkxHfqMzZT8zSBteXxdV3WmBhvzqaYGJWJ1lp9AI
-	 x3iPA3b8bzs/PYjgX4PIgB4axosDAqk2QtK6zEWNieu4CtVl8NRlcxpP7izMNn1koOlOo
-	 7vADohN9HFCZ+fMYGhOlHTvQUGbj79/VkZ9Q7jlMnc8hEZmQCLHE9abSv2EsEUZrjzw==
+	t=1794917839;
+	b=ORn2jfhuRhtmfXnng+kOIxHQfqPt0ng3upkYXsg3xuE7OqAadg5+qaqgUsyjIvSutvz2
+	 dU6MoX7E9Y1e0Cl6lu3fKQcfEDsIxg2PHofe3pupA9lQAStriKYHGq42tUaopIChAueoG
+	 DLVo59O6a57iI22CYogYZdVOXsqMxt0ozX5cLtCMeyVoW2oXNFUvk0PewoRzT4lanRhrN
+	 I20ut6CSgwBD4UpJato7H9oIb0m8hBmwtcqwkLTpZEYL9KqGguW+N1YLCGBiJ8YdiWoHa
+	 oloRJqy+XMNax+RFi2NONw1m37At3NH/GSqMzFsL/7E7NA1diWRjGcTpMMqByiaBzyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794917811;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=oytSVZw7ZCXwq1tGZIXRUB86K7ksbFjm2HjimDVfr+o=;
-	b=ltAIaHJfH/JHQysyVYLR9xaw4uDirJPn7a35PFqz40YWbr1cbmMvmQJ2mfPUVYm8+x5R
-	 6sa97mYyps7PWfUEWqLIxdvc8AprB7qQAQ95SO3gh3opRnPSmqf6SO9unwSJ+CTZgw7e5
-	 CGyk9iWSOWoou/4eGZlnHdL0lDR7bhO1/QgDzSGTNhJbMb/04c5P+ojCsRVDJqfmhWzz3
-	 vY5aLQEFgRzl551ak9B5WX9NXu1Cg7StlQSM0cRtlU9I8eaHgGp+s+p9DSR+qm/MKFmTn
-	 gWlHX4kjLLaKAGMqnXeL5zGq4wNAoDas7czccy59mQF8XjDOn0C3UiMfdxs/NDiYJ5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794917839;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=nU0HNOJX5cxVhUM4H1v4s7zyRGp0x3z7E7rePfZOJiQ=;
+	b=L8wF3pmM0+3VX8te9PA/wpgOvvNA4na5bO1Abm684LAG+K5RuGkPRvQhxh2Tk1gzEDye
+	 cFdQjHagZDu8pBq2PfGE8EBHLTB2ffjg+drohOOqlBjLMSoYFtBawnln3UFD9DVwcpaHN
+	 bN7uBeD13258h4BqeAZNJo/51sWkeFU0xILRcEEHvDS/lmmjFsuBYz2ZRETjESASqZkNu
+	 +N49tmjaCejVkCvVqb1rtYiow+XzvgSSs6WG+bkzHBk1g+UKCubyoKt0dWxYcE25pK/VD
+	 K8o6xc8RviT1OUIYTcqdPREFCW2ltI+9VDIRyUXKzkmP8cVkTOaUE6FmdbAPvHj0ZuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=gJDI6ysv;
-	arc=none smtp.remote-ip=79.135.106.30
-Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch [79.135.106.30])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qBfwRgOR;
+	arc=none smtp.remote-ip=209.85.218.42
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1280606A329;
-	Tue, 17 Nov 2026 12:16:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1280606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C312606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:17:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C312606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=gJDI6ysv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1794917807; x=1795177007;
-	bh=oytSVZw7ZCXwq1tGZIXRUB86K7ksbFjm2HjimDVfr+o=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=gJDI6ysv+wdI+SDlxMrJWOWEKZ7phoEHfS5PmswVJTZOEbtbGVNS/lHQf4voXPOWT
-	 VtNIoujXPSw4Q0FNWnFI95wQmLKWv4AokZmi+TntaMonsy680wVcQKeUZ3SJ9aaW/N
-	 3qq1jAri2D+Co8fRTCSEm15wtrBo2RdWJW5L3lCxmucaWBCP71GUBZrh01bt7ircUZ
-	 qfMYJpEXpcRy18BE5QtSJJLmBwh4C94MfBCymT4Q4BTj02VrtAZOCHxOXnuoyX7KTB
-	 Gbxd1jmoyc8R6j32VqsogcA1XI3MXxIs7r9Kdb0ATJbe6U/xm1wk70D3Pv5pVdzDS7
-	 Ocu7hrTT8JrVg==
-Date: Tue, 17 Nov 2026 12:16:40 +0000
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, Andrew-CT Chen <andrew-ct.chen@mediatek.com>, Lala Lin <lala.lin@mediatek.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH RESEND v5 3/4] nvmem: mtk-efuse: add CPU speedbin post-processing
-Message-ID: <HloHOTfn5uSaFV7GTvC6wE0WlkmHCnyVUIUmQ9LmSnsUGOXn6SZ6ilq-zC9KtWULMprm8ki_LR6qxwWLS0S6q5phg50aHxyE_xK4UzI57n0=@protonmail.com>
-In-Reply-To: <6935d7a4-2f91-4abf-81e9-f77c2b6c80d2@collabora.com>
-References: <20261117-6572-nvmem-v5-0-9b561a8a83e1@protonmail.com> <20261117-6572-nvmem-v5-3-9b561a8a83e1@protonmail.com> <b0fa129a-e9ad-4a7b-a2aa-2202bfa23232@collabora.com> <k8LLawty9o68P00hLr5LO1163o_m16f_vf8fBZvdD18nOatszy1i4Dp7DeC8Hv2--Q08YyZfhCRnQbVDps0lqB2zZrx-k_GxKUaqj6eT6r4=@protonmail.com> <6935d7a4-2f91-4abf-81e9-f77c2b6c80d2@collabora.com>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: bf6f75e33c8727bbe33e0b1401f772d263752cae
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qBfwRgOR
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c40f29667e6so803389666b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:17:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794917838; x=1795522638; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nU0HNOJX5cxVhUM4H1v4s7zyRGp0x3z7E7rePfZOJiQ=;
+        b=qBfwRgOR128pvEdXHm0a3UQwhgEm+6Ls2eiPpMOBn60nQsGZynyeqWF/DgvOR+xjuB
+         HnReB608vVEKzJH+4gkl752mMfF2X/M0RK8Eh6jmh891p695yqoc0KgGTT7S8215k1+v
+         2rhfQS8iaK+K9ldYbnszHLxIdWsftASol/modurz+1tbxEIiYTjAUg2UVeko2MR971/q
+         +8iH1hcWvmYjUvovx4Mnabt+E2GfCZvKRl+0f/01tWZKOB2Civ9cg3lpYKRAU2cJH+e4
+         fj1CP4mAoQtX996AcmBcRvdO0zb7MheUMBNRfpkuhBkfIumsf7RulWjXCpk8238GHz56
+         kVOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794917838; x=1795522638;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nU0HNOJX5cxVhUM4H1v4s7zyRGp0x3z7E7rePfZOJiQ=;
+        b=ScKdZ+2TeeS1mebyvqX3aPDe+FAHunJoHiTK3UhC7CKRxqezAtW5kDhDne5xq9t9N5
+         wZ9UAELIArZGq9gy62sXIOwRMQ7wIsJjW9kJxKG5MYuvVfutvghjF8vy7B8OhJHJGjNX
+         ZpvI8E0/0UEPqmprS7mskUad8od20tOghr3L9R8y4wAvGzKAtCipr9YfUtZjbIYAJD1N
+         sSfR2aB1qGPNg2p8+Q6lBoQNcJwWRyxuLuioZ2j9O1McjIa80GB1vWmbP5VKGDWNn6cJ
+         W6m02b6p6y5RaeZXibbF8Ao8F0oqvLAfRrw9z4LuAfxwmOz7whGHM1VOVpBCAIQMDTMm
+         +5FA==
+X-Forwarded-Encrypted: i=1; AL+hErHNrjXS8Y6wWilm1Ftb5b+BKQtJbRkM/81dyqRjcJDIWGpBgh7MAn/m6mMeve5d55vX7bOkMeLgYm5gXa8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/J2v+X9mF/Apm/83+wz03/57nbfNQiHOnM4CA4v577qDr6Pxwz
+	2xoNj2P66ZdVssy5mIVIS8TF05et1mRSvKyHXFw45hz5CYacM/wOd1PChWPATdnCYKY=
+X-Gm-Gg: AYBFou2ro7cEjBihKQ3brk7opzjAEz1aB7jNLtMp0ht5HOnDtPbCgf4tzmXdFFg8yuY
+	k2Pv0Kkz5ymssW0mq1tLnRzyKk9Bmxdg9oi9VT/3Kd24mkBF95TzqFkdiDOIuFc/SJoRt4JXmXG
+	B9TtyK5R2n2ZyuvJDsxSZP0eDi8uwStcV9LyNHc1JaSfYfYT1mdUnEbiyzdeWmajUCGAl5PA0Vg
+	T8la1ktdjy6bEZj/i0q7F5L9z36lZO2sa78gC800ngkhJWLkzAxAmXye2zo571yOxkdN1PLOxXe
+	gCs83JcK3sNIHmndUCh/V3nXl8zBl/NJ2mU84RgFv12mG+rRlL0WfrYWHqB5M43H0Mpcyft/stX
+	m4rv/9ItnZnVtyhNfrbB6DZS460BSjo8Vtphy75+3+1x5cDx4iJO1CeQQbIB4rmnHoDSXKgzG0k
+	xK8zLcsoGDS837HiBH/LpcGmCKjXmj4sGA2GPqZPgF1318o1NXd0vFgXioefU3Z39YRc1qLhcwy
+	HpgUxJbCu5FjbQl1PM2YUlUH6V4FXUICyKQgAd7UKwsZ1eteNCou4oTfi1aAXQB2CxmMk4ILxi4
+	XDIAzJLqDwgnQ4AjcmPYwQnQUE95ieodt72jTai7IqgVJjF2aTMYPHkHU1mXxIps6mo9gKwJRSq
+	8D8rgsDtQIMP+7hEx6nBPhw==
+X-Received: by 2002:a17:907:1b0a:b0:c50:5e0a:fbad with SMTP id a640c23a62f3a-c5096430d02mr1128651066b.39.1794917837477;
+        Tue, 17 Nov 2026 04:17:17 -0800 (PST)
+Received: from nixos-macbook (20-144-89-188.ftth.glasoperator.nl. [188.89.144.20])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c50c041600asm353859866b.10.2026.11.17.04.17.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 04:17:17 -0800 (PST)
+Date: Tue, 17 Nov 2026 13:17:13 +0100
+From: Jacob Procee <sn125164@gmail.com>
+To: Sven Peter <sven@kernel.org>
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Janne Grunau <j@jannau.net>
+Subject: Re: [PATCH] usb: typec: tipd: cd321x: replay the plug on resume
+Message-ID: <20261117131713.2db5294d@nixos-macbook>
+In-Reply-To: <3bc5a31a-ab2b-40cd-a030-d0498002776a@kernel.org>
+References: <20261112113005.16418-1-sn125164@gmail.com>
+	<avw1kOqmrUii-msr@black.igk.intel.com>
+	<3bc5a31a-ab2b-40cd-a030-d0498002776a@kernel.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; aarch64-unknown-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,142 +102,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tuesday, November 17th, 2026 at 2:08 PM, AngeloGioacchino Del Regno <ang=
-elogioacchino.delregno@collabora.com> wrote:
+On Tue, 17 Nov 2026 13:03:03 +0100
+Sven Peter <sven@kernel.org> wrote:
 
-> On 11/17/26 13:02, Roman Vivchar wrote:
-> > Hi Angelo,
-> >
-> > On Tuesday, November 17th, 2026 at 1:56 PM, AngeloGioacchino Del Regno =
-<angelogioacchino.delregno@collabora.com> wrote:
-> >
-> >> On 11/17/26 12:33, Roman Vivchar via B4 Relay wrote:
-> >>> From: Roman Vivchar <rva333@protonmail.com>
-> >>>
-> >>> MediaTek SoCs are often released under the same marketing name, but w=
-ith
-> >>> different suffix for the speedbin. For example, mt6572m has 1 GHz lim=
-it,
-> >>> mt6572a - 1.2 GHz, mt6572w - 1.4 GHz.
-> >>>
-> >>> Since the speedbin is stored as a number in the efuse, add support fo=
-r
-> >>> converting it to the bitmask for opp-supported-hw usage in the DT.
-> >>>
-> >>> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
-> >>> ---
-> >>>    drivers/nvmem/mtk-efuse.c | 19 +++++++++++++++++++
-> >>>    1 file changed, 19 insertions(+)
-> >>>
-> >>> diff --git a/drivers/nvmem/mtk-efuse.c b/drivers/nvmem/mtk-efuse.c
-> >>> index 980c29d01337..d2e5c69c580e 100644
-> >>> --- a/drivers/nvmem/mtk-efuse.c
-> >>> +++ b/drivers/nvmem/mtk-efuse.c
-> >>> @@ -70,6 +70,18 @@ static int mtk_efuse_gpu_speedbin_pp(void *context=
-, const char *id, int index,
-> >>>    =09return 0;
-> >>>    }
-> >>>
-> >>> +static int mtk_efuse_cpu_speedbin_pp(void *context, const char *id, =
-int index,
-> >>> +=09=09=09=09     unsigned int offset, void *data, size_t bytes)
-> >>
-> >> You can *literally* reuse mtk_efuse_gpu_speedbin_pp....
-> >
-> > No, I can't. On later SoCs CPU speedbin has different encoding.
-> > For example, on mt6768 it can be stored in either low or high 4 bits.
->=20
-> That's the part where you pass the right nbits in devicetree for the spee=
-dbin cell,
-> being it still 4 bits, that statement doesn't change the outcome.
->=20
-> > This is out of scope for this series, but I'd like if we kept this
-> > callback for the future SoCs.
->=20
-> All that the logic of your mtk_efuse_cpu_speedbin_pp is doing is assignin=
-g
->=20
-> BIT(val[0])
->=20
-> to val[0].
->=20
-> All that the logic of mtk_efuse_gpu_speedbin_pp is doing is assigning
->=20
-> BIT(val[0])
->=20
-> to val[0].
->=20
-> To me, that looks code duplication, and duplication is bad.
+> I suspect we're just missing the proper suspend/resume work in the PHY
+> itself to put it into a low power state. Or maybe we need to keep an
+> additional power domain enabled so that the PHY doesn't lose all state
+> and keeps working in a lower power mode.
 
-This is true for this exact patch, but for newer SoC I have other code:
+Agreed, please drop this (and v2).
 
-if (val[0] & 0x0f)
-=09seg =3D val[0] & 0x0f;
-else
-=09seg =3D bitrev8(val[0]);
+That second option is what happens with wakeup enabled: the dwc3 node
+and the ATC PHY share the atc*_usb pmgr domain, and it's only switched
+off in s2idle because xhci and the root hubs default to power/wakeup =
+disabled. With wakeup enabled on xhci-hcd.*.auto and usb* (Asahi 7.3.3,
+j314s), the domain stays on and a device left plugged in stays
+connected through s2idle without re-enumerating (no "xHC error in
+resume ... Reinit"). Asahi's pmgr marks these domains
+GENPD_FLAG_ACTIVE_WAKEUP; mainline's doesn't yet.
 
-if (seg >=3D 16)
-=09return -EINVAL;
-
-if (bytes >=3D 4)
-=09put_unaligned_le32(BIT(seg), data);
-else if (bytes >=3D 2)
-=09put_unaligned_le16(BIT(seg), data);
-else if (seg < 8)
-=09val[0] =3D BIT(seg);
-else
-=09return -EINVAL;
-
-return 0;
-
-If you prefer using GPU post-processing callback in this series and
-adding CPU only when newer SoC support arrives, please let me know.
-
->=20
-> >
-> >>
-> >>> +{
-> >>> +=09u8 *val =3D data;
-> >>> +
-> >>> +=09if (val[0] >=3D 8)
-> >>> +=09=09return -EINVAL;
-> >>> +
-> >>> +=09val[0] =3D BIT(val[0]);
-> >>> +=09return 0;
-> >>> +}
-> >>> +
-> >>>    static void mtk_efuse_fixup_dt_cell_info(struct nvmem_device *nvme=
-m,
-> >>>    =09=09=09=09=09 struct nvmem_cell_info *cell)
-> >>>    {
-> >>> @@ -83,6 +95,13 @@ static void mtk_efuse_fixup_dt_cell_info(struct nv=
-mem_device *nvmem,
-> >>>    =09if (cell->nbits <=3D 3 &&
-> >>>    =09    strncmp(cell->name, "gpu-speedbin", min(sz, strlen("gpu-spe=
-edbin"))) =3D=3D 0)
-> >>>    =09=09cell->read_post_process =3D mtk_efuse_gpu_speedbin_pp;
-> >>> +
-> >>> +=09/*
-> >>> +=09 * On mobile SoCs, the CPU speedbin is a number. Convert it to
-> >>
-> >> Other SoCs have got the same efuse style as mobile SoCs: anyway, all M=
-ediaTek
-> >> SoCs (apart from networking ones) are (in a way or another) variants o=
-f the
-> >> mobile ones.
-> >
-> > They're not really variants, some of them have no direct mt81xx/83xx si=
-bling.
-> >
-> Noone looked hard to find the siblings for some of them - though there mi=
-ght be
-> one (and just one) that has no sibling :-)
-
-Some like mt6595/6795 are indeed very close to 8173. Though most SoCs are
-usually mix of mt81xx, like mt6768 includes mt8183, 8186 and 8192 IPs.
-
-Best regards,
-Roman
+Wake from a USB keyboard still doesn't work: nothing calls
+enable_irq_wake() for the dwc3/xhci IRQ, and irq-apple-aic has neither
+irq_set_wake nor IRQCHIP_SKIP_SET_WAKE.
