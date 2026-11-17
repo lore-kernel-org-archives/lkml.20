@@ -1,98 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794920876;
-	b=ojEINcCThRL3FUhBgP4YSY8cUCb1fcIc/p1ku6QEWzcZQR3DhJKbdfi8jw+/wcRJQ4iS
-	 SHRGemm7k1/OvWNt7nDySmHQT03O646n3ptw/CXttiyZx9dORvGdgkWVvJMTe9hS0FyHo
-	 4wje+lo87r/K7xtiI4fW4krxZ5A03/ZYZHHFJSv0WkEUTQ3v/wAlP1Q+WKpm5qNdTtf3w
-	 HKsks51abayXs5z8y3Er3EAnOMn/q1Vle22YnRdWHAUH3Jgm5Jwu0nAHwI8wgaayaYUR5
-	 CYMF3p4V3VJzd0cQBenqNIU2yxenyG+lrUgFKVJQYwGhqdwVliC3o+DEiUkstCQLVdg==
+	t=1794920881;
+	b=kJyefVV+odqHxluhaxdqE0skTs2Jz4TeTzGOsh1nkdHqz5JxrSO/5aWlPJP7P00FSlGa
+	 EA3RWJvZcxSx3dVjD93iYTpn66Egr/t9UN35BQobaPkb5VxC5zMzHIT6l4Z5C95QRc74P
+	 iQEWFRJxWBsi4RVErY6MGYkh2QDYLNSNgq8SVD5XtQ834k0iBezgKL0YbNOM+wzbO9qmB
+	 TWxc49MvMtDoGzbDSFuTWjY+gEzUmkr0OMkxDeM1aUbNdhNnHo0nsC2siQVtW3en6AvbJ
+	 3HTSmLTnWAaSEXdkhj8pXyNZZAs15yNukY95+2Tz2D6B+hNkqbLN/t2y3u+enF2/2/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920876;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=7DJk0IhM38ENV4rjdcIdtMGuR5PCfXbmy3NasqzQYOc=;
-	b=OhhtV0nr+Ndqm7wyGykzMXoFqb90TfmL3tuP3VzhSjnCZryGyp/WxyT77Q5LywRGAQGs
-	 vfnP56Mxn6hPZNJbtYgKexoaqPiUY50/iAM5qdZlLXFnrNCf4+iO/5exMf6i5fGROtFq5
-	 WIkUgPJcVI2YrgyQUvRKuMyAyIV2rGwWr5Bp4YDshX4NVj/Mzf2VP9L1NFvGyA+Ns10Rj
-	 fZvo5Cj0KmZgRDShkA6O5ktYB6/jM8irE2Xrw16cooXIsTmExXcCzyC6d0zLugFo2luSJ
-	 2NVcXl1DfAwxv5bWRPdNNP3L9tRKaDcuaOHPQIFjtNQBL0+8tgMXRkIESRaSz3rGbhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794920881;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=O3FlsByaFaxp+/zhfhE9AvQlMkAjbHT2mmcY3mRyRnk=;
+	b=HRljXvSx2E8LNRv2Jjzcv0NQYWYehWrCQeEqM5iOX7gMB/umG7wqWiFpG6HTzsM89Zk5
+	 bBsx+ZRLBlTXWc5I9nJW/JfFNygHjlnREyz0MbuG0K8hudNPRFYfg+Ib1h17HvOOA2QeX
+	 DSs93oAVs/fN7nQun2Lp9u+tfvwAEkv/oY4AEvOmXr5iQkqlmwFjsNHbCEqfpLrQAdgaI
+	 lWHxR868b3hp9IgPP0BCUHZBMqS/mrDvG5vQeLXulbpaxcLfMYrBOe2FdR3wyd+a/cv70
+	 Napmv2cRS1ooTx0IYOPfByywGM8+xyryGmMY7A/DTor6KIOn/iBz3Xb9qsVA4Mm9WgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Zo7h5jHD;
-	arc=none smtp.remote-ip=209.85.218.46
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=w6BieCWK;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A50EA606A89D
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:07:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A50EA606A89D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E2B360A3831
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:08:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E2B360A3831
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Zo7h5jHD
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c505186727fso284667966b.3
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:07:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794920874; x=1795525674; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7DJk0IhM38ENV4rjdcIdtMGuR5PCfXbmy3NasqzQYOc=;
-        b=Zo7h5jHD11iDtKJXEzJ5V+r1XIny43nRO31JZu08JCiRC7lH4OM6W+fZBQqaLOcYNF
-         QnU2ppzb5tKRleDTnAN9zbMZMo7lfVrUMzlohs9xre+06b1r2ELyR45efJdfouPQWUKt
-         4PPhIfEVz537A7xFSXAyCtpfe4LEccjtXZU3/JK6rM7zVm1vI/X8+WkskGd0eOcdejb5
-         SIlTDtND9sddi0CRdAYvtIi64xKzjkfb2gGJXVxr1er8TRahFJaG5ZuVA/JJEfl9BSUo
-         jQOgfIc+ALKMvcgMgO8+6/6j5CaRjnRIAAD/wyhCrGQBrFK5e7c6N3ynhkItAOmIdAy5
-         8Nrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794920874; x=1795525674;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7DJk0IhM38ENV4rjdcIdtMGuR5PCfXbmy3NasqzQYOc=;
-        b=NqWgZpyMXRJ77KT1bZMK+RUHW0kG2GZTsB8/QX/1Wwf8XsTpecqXXpwFX7TKonz/4b
-         kIiI4N/aWEKx0tHgj+aEH743FJX/e/mDmpUcQKU5gcAyOzjpv7Rx+iRnzGcmUM11dSgC
-         8xEu798dyQtnOSmRZpNZzPIe1ivdYB6wSm+HKnSRjAYQ9m6NP1z6IUCL7elqJhUcTkX2
-         M4c3sIZICpyzLOcsnl2/AQilCN71YzzIfW2tBlXNmtdzHpNSd0EUDV+pd5AVOaDk5/Or
-         af4mDBv9InJHTuFViStB+oVirulkuN3nQFQutpAUaLBI2+LgJ41+tefkaUIMGxS3Do5Z
-         sT6w==
-X-Forwarded-Encrypted: i=1; AL+hErGDpAdMWjUhgO0A/yFhQtV1SEgNrBbr6A9oIfbFN63HTEtfrS/+qTQm4f9ffL9ZzDQ4s34W+UCwkDqH85M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9zoXlnLD9G1LfUX71bIdbsNmE7Dlc+TwqTf9bGKP7fU9mBN3Xi
-	vD4aioQSbkdY3YRpIsNniCXEDSZQqeV4t2yUBpmcG6g8Rzyvbgv0IJIa
-X-Gm-Gg: AYBFou26WXNwUtgTsRWWXNKtrjLSD+wSs0flNcKP0RZC36PmzH+QP7wIVd4ZlChjHQ3
-	nLfoYK2+8FeMc8btq0I1wg+qSnFEtq1UKRGHfK4HcFFgUXrN9zl6YIkqBejUDmc2R3OZMixxh1i
-	wf5K//a5HvlIb3WAQmGUrm5I9Ji7EdneGvfToTc5TICBnA2OxEm0kzzp/0pjSNQOq6p6dnb5jyN
-	Ih0sYr4Pn4Bd8/+wEDWPLCNAGj6OUYw6lHFvEv3Cp6q9xBijrLzS1GAK/5WGX4em6eg/Xse4vom
-	OSyF5sH7pbi+U4TPO6wpYHYN9E5cFZZjUwmZ8klRtGWDEhX795qnNZB1b8+IGDO6Z9zsb9hDdBF
-	W96SLaBFRGf2m7Y1cUHxvzYX9YwX2nQWlmysh/UOdDYkryZa+J/IRKslb45A2gZYKR5gXJXHhAU
-	c2L2ABefuvRQIHIk/Gz2qiTI9jb0BEtC+tL2eA37BXHNfpSNVfBG7gXu2WiLK29tseahYrgtEwd
-	uM5zUHWOrhtpIruhqDYpxdwXObhPLC16WnakFR+s0t/edSzuech+X37IK0bQTjUJMeG1hX539vn
-	+LQX2dMOJJ+BlUoW82PcjoRt1alBwmXS45Lc4Vc8JRCQ2gO1jTiYK4TUFCvOBZWO3Rz5AE0iFbs
-	fT9bQQy6s4uZ1vz4MmfykAV9lFeDYL3GxEC0YIL3oP2wXx6eETP4UlFG+RCdio0fQKHY=
-X-Received: by 2002:a17:906:ee85:b0:c4d:2895:e492 with SMTP id a640c23a62f3a-c509636a10dmr1086944366b.21.1794920873943;
-        Tue, 17 Nov 2026 05:07:53 -0800 (PST)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c50b13a2ae7sm396508466b.62.2026.11.17.05.07.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 05:07:53 -0800 (PST)
-Date: Tue, 17 Nov 2026 16:07:49 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Shivani Patel <patelshivani2283@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
-	Christian Gromm <christian.gromm@microchip.com>,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Julia Lawall <julia.lawall@inria.fr>
-Subject: Re: [PATCH v2] staging: most: video: Document locks in struct
- most_video_dev
-Message-ID: <avxRpY8InfnNtkvE@stanley.mountain>
-References: <20261116183355.22563-1-patelshivani2283@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=w6BieCWK
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 61804C4CBCD;
+	Tue, 17 Nov 2026 13:07:58 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 034AC5FC81;
+	Tue, 17 Nov 2026 13:07:54 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 40B7E11BC0035;
+	Tue, 17 Nov 2026 14:07:51 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794920872; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=O3FlsByaFaxp+/zhfhE9AvQlMkAjbHT2mmcY3mRyRnk=;
+	b=w6BieCWKAZYDm1VFVB+14gYHziDY1jrdhfbgyVSIJS1kShIuV2epq1Wrajx68AP9cCDfHq
+	0ZtESK7UcngAdJx5YZUkQMduOOXa72+flOFKXB+QvxO8Rk50XgM1/e9x6nxk3wINR0ctlo
+	zLkP/k8MuUsIaDpHYwKdEkQJacq1xKGMLTMMhQjJQCz+yxPUeTYK7K84ydSK3RVvE/7Sf8
+	sdEMJ/4Wj+fHXf+R2R1jWPwI2cC9mSHeX9uVnjx7Uvn6z0p02frke2DRVttCeAobA4ybLC
+	WfYymvqub0tCed2R5woNmvxTMPg0KYoFsIkXkbBreMYDsKOL8SsNDjWqucZ1Ew==
+From: "Richard Genoud (TI)" <richard.genoud@bootlin.com>
+To: Nishanth Menon <nm@ti.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>
+Cc: Tero Kristo <kristo@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Udit Kumar <u-kumar1@ti.com>,
+	Abhash Kumar <a-kumar2@ti.com>,
+	Beleswar Padhi <b-padhi@ti.com>,
+	Thomas Richard <thomas.richard@bootlin.com>,
+	Gregory CLEMENT <gregory.clement@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Richard Genoud <richard.genoud@bootlin.com>
+Subject: [PATCH v6 2/6] remoteproc: k3: skip mapping firewalled lpm-metadata memory region
+Date: Tue, 17 Nov 2026 14:07:33 +0100
+Message-ID: <20261117130737.141993-3-richard.genoud@bootlin.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261117130737.141993-1-richard.genoud@bootlin.com>
+References: <20261117130737.141993-1-richard.genoud@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,46 +82,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116183355.22563-1-patelshivani2283@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Nov 17, 2026 at 12:03:55AM +0530, Shivani Patel wrote:
-> checkpatch.pl reports that list_lock and lock in struct most_video_dev
-> are defined without a comment.
-> 
-> list_lock protects the pending_mbos list and the mute flag, which are
-> accessed both from file operations and from the rx completion callback
-> called by the MOST core. lock is assigned to vdev->lock and is used by
-> the V4L2 core to serialize ioctls.
-> 
-> Add short comments describing what each lock protects.
-> 
-> Signed-off-by: Shivani Patel <patelshivani2283@gmail.com>
-> ---
-> v2:
->  - Add a commit message and Signed-off-by (Andy Shevchenko)
->  - Use the "staging: most: video:" subject prefix
->  - Make the comments shorter and accurate
->  - Drop the outreachy list (Julia Lawall)
-> 
->  drivers/staging/most/video/video.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/staging/most/video/video.c b/drivers/staging/most/video/video.c
-> index 3a0445ff6..8833ab5c7 100644
-> --- a/drivers/staging/most/video/video.c
-> +++ b/drivers/staging/most/video/video.c
-> @@ -33,6 +33,7 @@ struct most_video_dev {
->  	bool mute;
->  
->  	struct list_head pending_mbos;
-> +	/* Protects @pending_mbos and @mute against the rx completion path */
+The region lpm-metadata is firewalled by TIFS on Jacinto devices, so it
+should not be mapped to prevent speculative access crashes
 
-Why is the rx path special?  I feel like if you really look at
-this code you will see things that can be done better.  That's
-what we really want from this kind of analysis.
+Just skip this memory region during initialization.
 
-regards,
-dan carpenter
+Signed-off-by: Richard Genoud (TI) <richard.genoud@bootlin.com>
+---
+ drivers/remoteproc/ti_k3_common.c | 36 +++++++++++++++++++++----------
+ 1 file changed, 25 insertions(+), 11 deletions(-)
 
+diff --git a/drivers/remoteproc/ti_k3_common.c b/drivers/remoteproc/ti_k3_common.c
+index f79ccb57a372..5b7881263b8c 100644
+--- a/drivers/remoteproc/ti_k3_common.c
++++ b/drivers/remoteproc/ti_k3_common.c
+@@ -464,7 +464,7 @@ int k3_reserved_mem_init(struct k3_rproc *kproc)
+ 	struct device *dev = kproc->dev;
+ 	struct device_node *np = dev->of_node;
+ 	int num_rmems;
+-	int ret, i;
++	int ret, i, j;
+ 
+ 	num_rmems = of_reserved_mem_region_count(np);
+ 	if (num_rmems < 0) {
+@@ -494,30 +494,44 @@ int k3_reserved_mem_init(struct k3_rproc *kproc)
+ 		return -ENOMEM;
+ 
+ 	/* use remaining reserved memory regions for static carveouts */
+-	for (i = 0; i < num_rmems; i++) {
++	for (j = 0, i = 0; i < num_rmems; i++) {
+ 		struct resource res;
++		const char *region_name;
+ 
+ 		ret = of_reserved_mem_region_to_resource(np, i + 1, &res);
+ 		if (ret)
+ 			return ret;
+ 
+-		kproc->rmem[i].bus_addr = res.start;
++		ret = of_property_read_string_index(np, "memory-region-names",
++						    i + 1, &region_name);
++		/*
++		 * lpm-metadata is a firewalled region accessible only by TIFS.
++		 * Skip mapping it to avoid speculative access crashes.
++		 */
++		if (!ret && !strcmp(region_name, "lpm-metadata")) {
++			dev_dbg(dev, "Skipping firewalled memory region %s %pR\n",
++				region_name, &res);
++			continue;
++		}
++
++		kproc->rmem[j].bus_addr = res.start;
+ 		/* 64-bit address regions currently not supported */
+-		kproc->rmem[i].dev_addr = (u32)res.start;
+-		kproc->rmem[i].size = resource_size(&res);
+-		kproc->rmem[i].cpu_addr = devm_ioremap_resource_wc(dev, &res);
+-		if (IS_ERR(kproc->rmem[i].cpu_addr)) {
++		kproc->rmem[j].dev_addr = (u32)res.start;
++		kproc->rmem[j].size = resource_size(&res);
++		kproc->rmem[j].cpu_addr = devm_ioremap_resource_wc(dev, &res);
++		if (IS_ERR(kproc->rmem[j].cpu_addr)) {
+ 			dev_err(dev, "failed to map reserved memory#%d at %pR\n",
+ 				i + 1, &res);
+ 			return -ENOMEM;
+ 		}
+ 
+ 		dev_dbg(dev, "reserved memory%d: bus addr %pa size 0x%zx va %p da 0x%x\n",
+-			i + 1, &kproc->rmem[i].bus_addr,
+-			kproc->rmem[i].size, kproc->rmem[i].cpu_addr,
+-			kproc->rmem[i].dev_addr);
++			j + 1, &kproc->rmem[j].bus_addr,
++			kproc->rmem[j].size, kproc->rmem[j].cpu_addr,
++			kproc->rmem[j].dev_addr);
++		j++;
+ 	}
+-	kproc->num_rmems = num_rmems;
++	kproc->num_rmems = j;
+ 
+ 	return 0;
+ }
