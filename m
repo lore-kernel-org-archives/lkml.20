@@ -1,76 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794932454;
-	b=GoTW6lRO3CcZCopr+YJA5yjkSoVSfCQ+uWMTugkCad6WvWepazjWrlnjq4U2kkW0lHMV
-	 7hdcLcnVa8aAtC+cqcrWZSw1Sbp/X0BzjZpNVZzTT2AbueQevGJrfvc5yfu3XTfDeN2V+
-	 sVngwhjPDROQC1snMQ/oyTGObOH4TiyT0TL1tbXVJEjdAUsHaKiHImwdMqNkfCnI4BZH+
-	 il29t9cL8n0HvGgNh2XalZ6QmZLwQSM2fh9P9524lxLzyPOyqJa2D6CLuTBHSPjvHKc8m
-	 UccwpwM4NFivJRWhhOu03jT/H5VJBDtG997018OPzY00TZxKeBzFzjKDJmyW2siupAQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794932454;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=R8YXxcd0YC0WTNF9Vrbn4gzJwhELMl+f2VxUC/rLuRo=;
-	b=ayF7V82n+G4aou9dsyIeUcBuEB2OfKRsfUXvz1vIKwsF8kZOExZvBl81qKf3X3luKpNY
-	 UW5YkHDsHeqzi/TwevLUPkQz7EkbOqacM9ikXm0wm6fq4DI/ZyNTJ68gkFF8BKibX/H82
-	 8L6Hhz04p6Sk41rXwFUI8Ba6NvPEBaN6szUC1WtPQQI+YNBt0dcakmF3OYx0/F1szYi+0
-	 oiCiMrpr5C4qql77CUfwFyS+eCXJefd4kGpvAVsR8lnmjX1FxahEW33f1nypMyzh/wlKt
-	 CCL3POZCzf9t47ao9NAxEU1HexwSMKFaVYV5NzGbedx/d4k2u0r8s+Auuk0JjlES3mw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=svEAUt2k;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.22
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794932484;
+	b=GadBL/1yQwQ85rTZGgobZQCl6J6eYWP4t8XbHWCS3/jXymvNkBhKItuk6wJJGHiFyqan
+	 1JLmE9wcdBWMu0LHyhCj2IGW9zDKnXkeaYEeN0JW4xWg4+sYvKRkQiFuLl+3AIrLH0JW/
+	 4+DwSsUoRc3k1i1r/lIL0Uk72/q9uWDdnQCO07BeQEWGL0JYyYRo/PnqxZjUCVXd1tW3B
+	 Ve5BZaM4J7ojpXPO0gokDHJWa4X+/rGJEtn5avVEuci3m1O1Hbgf0fcteK9/lf40Q2mvx
+	 3qiZcM+gajeOYi+zPqFlKakERpZuk0AaBv3hR5yKt1Cx20uO7echCX66BBINWl7IAdw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794932484;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:Date:From:To:CC:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=BJ2HqAGTJu9w4v2O5g6PU8J8xFhc3iruXNYooPtJp6c=;
+	b=IUNzzvV+yLU+3Wd0r2wzI3Kgs7R6y56V16sox+GKFwCLLiLH6jnlR8TrKEwu7lWAjnkO
+	 CNlBZUJcr+kPhpdYkMV2Ml1goGRSKHV6eBF83OQgYBhqNUzhp0jXI1mh+AwJ6RH+EFS/6
+	 0EetPaqgtuBZlKif/r6ESKwYp3T/m87Y3w7JAEwNCsd4K+PwVjSLzCzAA3ZzhOUKkYpE/
+	 Z2Y62+PLtRkoxNeh4+lrCSQsTPFe41n5/2XVm3FfqbD+PPsfEnjgdN4Wi1usL3CfYY5wP
+	 BMqZZOs93xrG28Ng2f/QIl/axp6/AQB36yOfCtGltccyFvpgF5AcRlab/F3TWFJ3MBw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=GgA9aues;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.22
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011022.outbound.protection.outlook.com [52.101.62.22])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3733606A332;
-	Tue, 17 Nov 2026 16:20:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3733606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E7D606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:21:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5E7D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=svEAUt2k
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=R8YXxcd0YC0WTNF9Vrbn4gzJwhELMl+f2VxUC/rLuRo=; b=svEAUt2ki8b5CN9Mzp7R21FRHX
-	h+1+/6oQtlSNo6UvB0Cxo3jG8j16W9AzngFomfI4mPSzIrbY7VNE5et6/nCjNZmYk/RmIxzJVXDjq
-	F4+Ih38p11f0AHNk427t7VA8S7/moH07nw2rS5D2hIPNYz2KXlLPB/o/CB52S6w8Xoa8=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xTLvD-00HCIO-9E; Tue, 17 Nov 2026 17:20:39 +0100
-Date: Tue, 17 Nov 2026 17:20:39 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Jisheng Zhang <jszhang@kernel.org>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 1/8] dt-bindings: net: Add MDIO demultiplexer
-Message-ID: <4d4dc86c-c947-40e2-bdaf-ed00a39f3771@lunn.ch>
-References: <20261116135442.4827-1-jszhang@kernel.org>
- <20261116135442.4827-2-jszhang@kernel.org>
- <16ecb3ac-7876-4db5-9168-5ac9bf31d4b7@lunn.ch>
- <avvgy_bmRSVApCHA@xhacker>
- <bd19b55b-00b1-406d-a16b-d04c35efb7d3@lunn.ch>
- <avxhJs-51vs2Icje@xhacker>
- <6eb16cd9-27bd-4934-9621-b8928dce6902@lunn.ch>
- <avx43Nv-DJCX5_Rr@xhacker>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=GgA9aues
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UkLjEe1AFNo3e9B/JlgsfMwKnW8JnuSzVSfp2odvvsdGcA5uCTm6SbapElyRSWgRDGgOSGEfFhKkfLZ9SHK0pA5H6sL7sgu+PU5Ti4hDC0mtBmpfenhnufNhqixKsFUNSVm1EVXhxQ7++48bbH7dyfOSBx4B5TQ4Ne102U97DLGGFPShxjomQoaIwvtTAIOcu3L7babFIUe7OMJEO+UryZ+F4acyhmM9e/p2wSrm2Auoz2CODVwwUT+k6Z2berJzrf65/2FyZHcmUHJM/ZC9EWPuo71Dpoe6DNA2ntMV+I2mtgygB10D25Jr4+fv0ejUt/esqX5tQpS58RoApHkV/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BJ2HqAGTJu9w4v2O5g6PU8J8xFhc3iruXNYooPtJp6c=;
+ b=n1+fivEG3pOPrwVTeJlQk2i7rADJEnUs2mDdin1XccukKVu3hdMOSjHt04cnr6TFjTQa8bdIAE1PQjoqZCmZXkrx7AtmDQli4X6QhZFGpBIoXYMaHZf16oEJaSe2oIz8XtNodcbZf+nfzLPqjAX2lpitHAL9RxC9C7H2SqBztArddRthgeMn9VQdlkvnbItK2lub0tt1OM9cE9mtdJKXIwMN/AqRTDNymK0mfojWkOn+Fc6rCZSoXHcnwWg/6N5QWoIhqYWJaA1ESZjCsCrmlTdaymmkePfNUThdVTICEbfwDj8Q7boiPDLBV25LZ10ZHNnfXJAdJDPk9Z68ntn3LQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=arm.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BJ2HqAGTJu9w4v2O5g6PU8J8xFhc3iruXNYooPtJp6c=;
+ b=GgA9auesPnU0VhtW3rDjrQ7EGlgSWalJOww1/b3iQ/WWFdztzLl1e6/MGjnmtHHCB6Ucue0aqaX6EpahGNkAd9KzHlMJNJoEdLbMfTK9HmDGsfMQAw1npc/Tj5IdSXrXIEOUSLNBZcqFIujAzCxepwsgcSZKtXbvvve1ALvrCKPvuXCb4Zr20FAx/jO/qvyoHybm6utshn0GSHl5nmYqsuNlTFjElYugDL7uqeh1bqEgZ4YzEnI47fFgE2J8rOnJiaKfWPx8r6ypa0SaCddwhdRi2EDpy4z12vZGzsl8sDKXB5wJelB22NTLUnC33B5R9m57vZYqJ5gMpAMY5ZybSQ==
+Received: from CH5P223CA0020.NAMP223.PROD.OUTLOOK.COM (2603:10b6:610:1f3::9)
+ by DS0PR12MB7582.namprd12.prod.outlook.com (2603:10b6:8:13c::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
+ 2026 16:21:09 +0000
+Received: from CH2PEPF000166C5.namprd04.prod.outlook.com
+ (2603:10b6:610:1f3:cafe::1b) by CH5P223CA0020.outlook.office365.com
+ (2603:10b6:610:1f3::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Tue, 17
+ Nov 2026 16:21:09 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ CH2PEPF000166C5.mail.protection.outlook.com (10.167.244.235) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 16:21:09 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 17 Nov
+ 2026 08:20:44 -0800
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 17 Nov
+ 2026 08:20:43 -0800
+Received: from nvidia.com (10.127.8.14) by mail.nvidia.com (10.129.68.10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
+ Transport; Tue, 17 Nov 2026 08:20:41 -0800
+Date: Tue, 17 Nov 2026 08:20:39 -0800
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: John Garry <john.garry@arm.com>
+CC: <will@kernel.org>, <jgg@nvidia.com>, <robin.murphy@arm.com>,
+	<joro@8bytes.org>, <praan@google.com>, <kevin.tian@intel.com>,
+	<smostafa@google.com>, <linux-arm-kernel@lists.infradead.org>,
+	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>, <jamien@nvidia.com>,
+	<kas@kernel.org>, Cristian Prundeanu <cpru@amazon.com>, Breno Leitao
+	<leitao@kernel.org>, <xueshuai@linux.alibaba.com>
+Subject: Re: [PATCH v12 11/12] iommu/arm-smmu-v3: Skip RMR bypass for kdump
+ adoption
+Message-ID: <avx+14DDGycsF+LX@nvidia.com>
+References: <cover.1793593923.git.nicolinc@nvidia.com>
+ <22a06965287dd478ee92f8028ae8ac27e054555d.1793593923.git.nicolinc@nvidia.com>
+ <4cf391ff-804a-46a1-8d3e-d0ff8442841f@arm.com>
+ <avtYhjyAarKdi33b@nvidia.com>
+ <4154cfd8-e877-45a7-bf1a-45e2ae560e93@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,23 +122,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <avx43Nv-DJCX5_Rr@xhacker>
+In-Reply-To: <4154cfd8-e877-45a7-bf1a-45e2ae560e93@arm.com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF000166C5:EE_|DS0PR12MB7582:EE_
+X-MS-Office365-Filtering-Correlation-Id: 33728704-d37c-46a5-1853-08df44c6ca09
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|7416014|376014|1800799024|22082099003|18002099003|6133799003|11063799006|4143699003|56012099006|261022075727099003|261026121527099003|261028144727099003|261021121427099003|10067099003|261026140227099003|261009223027099003|261102123227099003|261021135927099003|261022105027099003;
+X-Microsoft-Antispam-Message-Info:
+	wdG/gFlareFoDjtk/O4SsKje50oPJXIYCKoXaFv06dr79K9HLmCRzu87TDOha4X5WqP8Oo8pj+ORud43t4yHKBDogtftx3FFHz01+gHG4oUW2n2BdGnz0qqp2xnSCdOr0vAvP9G7H6KFMl8HEbFPMaPwO05kx6uExpAnwmI/hn7GqZqe7RUX85yGfGaGv3igSeO+Xn6ZNuqkGujkWN+qyC9EaJIf/kRG/C2tXwH3ZqiuDzpcH5K4VyQhVDT4PCt3N5Da25H12wuRI/QQ4TJnlOUaBPffCo9Tgg/KnygBgUyFMUXNy2/kT8ZL6rF6cOvxjGBtvWJv0JcUMF1ylCUwE5e/YqQ+VzQtX1CJYRD9BTL2ouLY04nxPt7RJQUvzcOr/COCPVzO1XrdiBDTE5+cyahi46MeBLc1FQoPg1ros6IJbLTTqt7pl7gx9dU3p+M4luuKfXHqXNwNZjhIHlF7YVu9/XNhc+Tm0ePxUfn9RR6QOXq3PHwfQUVhfROCaw917t+7kww/wL2REiAGHySxiKf+zAwWajbGvZn4cZpog7Fv8G72RFenDktzh0jqFYM/WEWcj+WGzPRKokYJsocT4CAYhxU6djSg0tHTRDSzskiGrrezqw/XIt+cGcqdV61n3HoTysV39De1IMjgKIXrn3Hzs8N4EI/d/tlucPt10g2HfuhoQAqxkRuCoRfeQWiFdr8/LV70XUlwqhv8+gPMaA==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(7416014)(376014)(1800799024)(22082099003)(18002099003)(6133799003)(11063799006)(4143699003)(56012099006)(261022075727099003)(261026121527099003)(261028144727099003)(261021121427099003)(10067099003)(261026140227099003)(261009223027099003)(261102123227099003)(261021135927099003)(261022105027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	eZfCUSrop1PXZ1/2WpmJhbVinj6iQOYr6gYf4rEigXH53Rez5CKMq7HSPJp/kd/hUmiiSqVFJra8jaFKkwW0WT2RuKzKPlpHU50n68412IHVb2tcXPe6uks1vmZzM3h6j3zDdkgoWu9eq2qaXGqZR4bY4SDCyGGoWMdcj6Q5F8bp0zYdfq64LTIwZssIh5AxBG2/GpOQ2cOd2xuk1D9QwQGD1kX9xQ05Y8oLFrkhPq8m+OQs6DtYo6DUpkEsr53RW2Shmej495LiJR/gdkPqGJ1egLUlH0LTXE0i6seQanvkofE4aWO4iYN+5pvU0Y8gNb3yB4z2VnikC7nBqBvx4z/5hu7wrJJ5C0sDSpir9kuYZB9jOgxQXGKFXwWpxzGDXOAmD8jpbvqrxQ2JbBZg1Vpa6C3qpGi+p5a1ahuFtK3XsFDbtufJPXAPNH6o51C8
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 16:21:09.2345
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 33728704-d37c-46a5-1853-08df44c6ca09
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH2PEPF000166C5.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7582
 
-> > Each transaction?
-> > 
-> > Are you proposing to use both MDIO bus master? Why? To the outside
-> > world, it is one MDIO bus, so you only need one active MDIO bus
+On Tue, Nov 17, 2026 at 02:34:05PM +0000, John Garry wrote:
+> On 11/16/26 19:24, Nicolin Chen wrote:
+> > > > adoption keeps the crashed kernel's table live. Rewriting the
+> > > > +	 * adopted STE here could expose an in-flight fetch to a transient V=0
+> > > > +	 * entry, or change Cfg=translate to Cfg=bypass. Must skip here.
+> > > > +	 */
+> > > > +	if (smmu->options & ARM_SMMU_OPT_KDUMP_ADOPT)
+> > > > +		return;
+> > > > +
+> > > >    	INIT_LIST_HEAD(&rmr_list);
+> > > >    	iort_get_rmr_sids(dev_fwnode(smmu->dev), &rmr_list);
+> > > Did you consider if we should sanitise the adopted ste against what
+> > > iort_get_rmr_sids() returns? I suppose that would add even more complexity.
+> > It's not necessary: both crashed and kdump kernels installed them
+> > from the same IORT. If STE is translated, they are mapped as 1:1.
+> > It's certainly not worth the complexity.
 > 
-> Yep, both MDIO bus masters. I wanted to let each MAC uses its own
-> MDIO rather than disturbe another MAC for dual MACs case.
+> BTW, are those regions described in a file(s) in sysfs? I thought that they
+> were, but I can't find it, so I guess that they don't (exist).
 
-How does this actually work? Each bus master sees each PHY. So one
-hardware device is represented twice in Linux. Bad things are then
-going to happen.
+They would, so long as your system has an RMR in IORT.
 
-As i said, the outside world has one bus. So you need one MDIO bus
-master. This is nothing new, the FEC has been doing this for a decade.
+Typically, a QEMU guest enabling the nested SMMU should have one
+at least.
 
-	Andrew
+Nicolin
