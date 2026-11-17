@@ -1,73 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794930068;
-	b=Bomes+ldcaAb2VArHTwaQeo6XWV92OXxq4kG8MIjOabx+wH+GXSCakDslfN8U8EiZZ98
-	 rXj1yrYf/uk5CLiwcJQtijF8vwWVeMNjya26sAJ23m0mt9+u3e9xr8NCXi7wE3UuAxdYE
-	 V9/vMsyjsj74MD5pdGnlejXa/y/JSPrjs5b0m0Ptal0Ns5xP2rKwap4fA5JI1Vy6ntAku
-	 331IgqZ5/ldWfBPpx+wbar6xJcCb3SygVHC1a7JOle+O+MHUVgTmdsm/8OrtCEnlhVOiT
-	 DWqFMmEi7y5xvqmXVr3UGXnnjiG8bAOgOeJaESoHLc3YnZ4zlKbN4++nb5bEGnnkUXA==
+	t=1794930104;
+	b=iNmD5zM5yDHKUq+H9QoSwCAsYtDL2k+VnEw2FjIIW0PxTBQ4qPthqCSk9EPuYRl7NixJ
+	 Elr/Vh4zMnkdjL0ePV/mFXhm9cXLTdcBevotaKSn2n50/h1oVqBc8dPcQnOgQvsZSNyG9
+	 2T3i8F2zJ41W4sUYYU0MEB+Tg3HY4Ascu4DRo5uW9Y9it7lT/v5jxnlbnJS0qwqowM6de
+	 bHj4V4Om1WI4l/7dQndMo6DTc8jCZThHfKdbytFYs1eY5jVQXUv9BbAHt0rjKDronq1u+
+	 r6xjvS7MjZ9baUT9HlfeGxeK7QPL/wmZsYeHNA1A9e0IIAY9PRVHwUjrWZBfsSiOKAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794930068;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=ADeZTUG4nb3axn4kjrDhg1zAcLadBlUVGSnVkOKn6IA=;
-	b=WYKu+dQToy9hkESKGgnc1941O/scxVqSp74JceCfnbwkBhpi6bQhjK+PWCYHU0lk+d5A
-	 RPKQyvdetRy5MkkZzZWT2xSz06AyKnLVU3IMvDH0Jpf3MSy9lzX3bP3jRirb3ix2Eu0CL
-	 eb44TK5ew4jw+iF30KYJzigPu2OL3qtx8KBj7bKMIQQT8oDP4LucK2T3SvQyp1idBHXHk
-	 g8+eQozXKF6X4mboWEk3D2wrMoW5VUwkjOaRCTFm++J/bmukMhz0152Uern3uYqdNuo2t
-	 +je4M97Vg1YYPchehDzyt6AfqgpVPUbQjKH8tYIrnW5ET4wop0gC39w3oQLHalFvPgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794930104;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=ynmtGThVfV9scNtYae6gYp9hmDX80T21RdywDg1Mt7U=;
+	b=Lq1LqWS3QJzA+ohyNI9bTHFPM568NM83nul9ZAgyKSbNci0hlP+WKjiF8BfUrMj/ifYY
+	 DYe+WatoWFqn5z7+Ps4P4ESTos2DxIeucKSdFXrCalQscVlxZhY4UPtPs2qVO07SVct2X
+	 aRIYQAfYC2tZoc/Gg1hjjUxBgdnrndmK/F8L5LcuG01trLj0BHWwLUJWj+OvgV9NJCNHW
+	 UwJqaPJ7vLLHePOYPU6ZuX9OJuHIUEvEoEchgvzwSL2zuB1OH/9Hl3BVJdHdLuG+w4YMs
+	 NmLcZG3PVQem9XSewDKxR1kLW+wWk1Uyv6Z5mkxZqLWSWt+0PpoggQ+eVbFTh7ojVbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="IP54/r+V";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=aaCtm8ia;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09387606A31C;
-	Tue, 17 Nov 2026 15:41:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D226F606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:41:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D226F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IP54/r+V
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D57FB1F000C6;
-	Tue, 17 Nov 2026 15:41:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794930067;
-	bh=ADeZTUG4nb3axn4kjrDhg1zAcLadBlUVGSnVkOKn6IA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=IP54/r+VWtpieoKrwFU/ZNX99gK/L1z3dz4iUGhYYXL1qwEiRW9xJse7SpdapBJEs
-	 qP7jIeNE92nAJN9aoh615SSz//YjG+sDSb0fpEttOJSpF3/B8W3aLyVTHVqE8mBXJK
-	 bfjIrCdZ4WsMXdBOHq0JsCh7aWzecmswWKdjxsRk96zjOOiYn9i9crP4PUnfUAaoj/
-	 NjD5uNN4iNO2cg20oZ8uBNXLPK5MOkRplzd2fqzBRKhssaTFUL1iGLt8BuYm0zYY19
-	 ditRSmDOOgXomGjMgttOd9XT9j4pZAH21hRKeutTKt7uEBFzWaI/fw9jgyBA6kXZy6
-	 4LzTdawDW7w+w==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xTLIv-0000000H5jg-3EL7;
-	Tue, 17 Nov 2026 15:41:05 +0000
-Date: Tue, 17 Nov 2026 15:41:05 +0000
-Message-ID: <86eccj1n5a.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: Re: [PATCH v2 0/3] arm64: dts: qcom: glymur: Add ASUS Ascent QN10
-In-Reply-To: <20261115-qn10-v2-0-19b11603e776@oss.qualcomm.com>
-References: <20261115-qn10-v2-0-19b11603e776@oss.qualcomm.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=aaCtm8ia
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a2d6d01ecbso41375e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:41:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794930102; x=1795534902; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ynmtGThVfV9scNtYae6gYp9hmDX80T21RdywDg1Mt7U=;
+        b=aaCtm8ia+vd7c0FVYlhQx82mtgp3Hnah+Qlm/51wHfJaqZeaLCO6yRn5d3tS3Odnpl
+         dru0X3i5WADXm9cp1dVN4yzqaHNTAEGLY+0DEGf58Xhs+agh81pYOIcSJKda3d+NAT6Q
+         OAarUle2akT2RBwVLnb18ibddaonrWd3TCkctbcQaSBIpbFTJKBgdJVYdUqKfuCWyHSh
+         5Vpl163Jq3IyIMa3qQunmkyZmt/WGye+nTN5FxcYGC+k0OPgXxlWLHWctNOtD4c9jjhg
+         N0rjsJYkYbniKEpCuTeygv5wTjh0vM+kG2Pb+9HSf3GbcQ0M+x/5FPnUEyT/e4IXoXCu
+         pE4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794930102; x=1795534902;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ynmtGThVfV9scNtYae6gYp9hmDX80T21RdywDg1Mt7U=;
+        b=HVwkSQa1u0WS7Y6PG2elYpPxVm+jzc0pr4AH5i5nbYffEnWUhDNaJLrw9S9EYaEoh/
+         BURC7wCc4xzjtQSJ8fqCaLQe6E1jml7+VmvSv1q90fNLgyW7uNDPYQDImqVaQS5q5nkv
+         A0HqjQPetv75pFkbk3XcQzVkGlNEoOZ0Swn5narl4ps0ykqi5dR/E6cENMJEyVi23Ctp
+         GtMwnZ4CzCDVC06pyspwFpZBZlRYFPcYnXM+SpiKwBqHLAfC0W/DfLOp6K7btmYWgq8z
+         MTY4y36uWJty73VpxjL7dDJrS9NJYwdXRwk9X5DsWSdWvxsVn0mTYaAbSejo1NB7nidT
+         FFEg==
+X-Forwarded-Encrypted: i=1; AL+hErE2GIaEEmuc0ahrac1mkiR5M1UZLBMrp5dDLRaquyDGkoD3vVcmTbG9z7knAEq8CtzE6gZw6qxyLCBs0cg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8FX/AE9YJCqzTm2djhXfzt8Gf/bnmV7mMv4KtgSBJZMmqGsDpC
+	EYe42W8YeAIl8pNJnPGqodEvGiN0Q0z7XfeWeDMjJ8RDOHZsL+l7W6TJ/yqeyrHqDg==
+X-Gm-Gg: AYBFou1xFcn5vlyVd5IP2FpRIBCAFIJFh1nLulD6/04VR62d9btGnw6f4A+rG1GN8lr
+	U4u5LHj/3qAS5fKE/7ek6Hv9K+4+3CqfoYokdiI8P7s0jAV8Ry4Kb1k1gqXIDqAqrMhXaep6SjB
+	07sp9KC666Zyawp/L82M/wOBRd1dfp2HeFIo6WE/w9CHjkSIXNGNf1IR4og/0PYcqIPC8e9IT8z
+	gZXaS/Yaf2R5etNQLjJjr6/lPcv6xaVqvRaPrmafgro1EaeTzpaqD5/LgdT/262AUd3i9wTnvVt
+	VD4reofj305shJUVX5rHCqFdyP87hItOHvJIA2KH7jN4krfhatgXwkFLUIgQ5MIZv+5CwrD3zGV
+	aW+uYdYQyPFSLiCdKlhBtEBm6gQpqDPBO0Gn3V30yAHp3LK/cXfLm/Omgw9CjDwq0Vcyp/jpngA
+	megbjVVr/gpEZwW9Vbl1cik07uVBFgGsuypVe+UkFz1sCw1DqIfudi8k6XExSzQjPc4CgNsS6wa
+	u5gUIfqLGeA99r3JkonmBdu1PlO6Tb9si3gOY1ZXepBbNPp6RgfzAwoVJXEAdu5K9riOKRJwa8q
+	n+DVCQdSIRhlyRGtnv8dkS5578kCNkqerI+MvvlejmSv2iMomH/r2C0SnqMr
+X-Received: by 2002:a05:600c:1d0e:b0:49f:e772:6ddf with SMTP id 5b1f17b1804b1-4bb55a7f5f3mr304992945e9.32.1794930101543;
+        Tue, 17 Nov 2026 07:41:41 -0800 (PST)
+Received: from google.com ([2a00:79e0:288a:8:12e4:4602:d8d8:3043])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb7ad9430asm46423145e9.15.2026.11.17.07.41.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 07:41:41 -0800 (PST)
+Date: Tue, 17 Nov 2026 16:41:35 +0100
+From: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
+To: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+Cc: Ada Smith <adasmithgt@gmail.com>, Hungyu Lin <dennylin0707@gmail.com>,
+	James Morris <jmorris@namei.org>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Paul Moore <paul@paul-moore.com>, Serge Hallyn <serge@hallyn.com>,
+	Serge Hallyn <sergeh@kernel.org>, kernel-team@cloudflare.com,
+	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org
+Subject: Re: [PATCH v2 3/6] landlock: Mediate CAP_SETPCAP for inheritable
+ capabilities
+Message-ID: <avx1r36MHsxhAzSf@google.com>
+References: <20261117101157.2520463-1-mic@digikod.net>
+ <20261117101157.2520463-4-mic@digikod.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,52 +102,127 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: bjorn.andersson@oss.qualcomm.com, andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, krzysztof.kozlowski@oss.qualcomm.com, abel.vesa@oss.qualcomm.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261117101157.2520463-4-mic@digikod.net>
 
-On Mon, 16 Nov 2026 03:48:58 +0000,
-Bjorn Andersson <bjorn.andersson@oss.qualcomm.com> wrote:
+On Tue, Nov 17, 2026 at 11:11:53AM +0100, Mickaël Salaün wrote:
+> A process in a domain that denies CAP_SETPCAP could still add
+> capabilities outside of its permitted set to its inheritable set with
+> capset(2), if it held CAP_SETPCAP.  cap_capset() checks CAP_SETPCAP with
+> cap_capable() in cap_inh_is_capped(), so the check never reaches
+> hook_capable().  Through file inheritable capabilities, such a set can
+> grant new permitted capabilities on execve() when no_new_privs is not
+> set, which is possible for a domain enforced by a task holding
+> CAP_SYS_ADMIN.
 > 
-> Introduce the ASUS Ascent QN10 compact desktop computer.
+> Add a Landlock capset hook that checks CAP_SETPCAP against the domain
+> under the same condition as cap_capset().  As with the mmap_addr hook,
+> LSMs implement their own policy in this hook: SELinux checks capset with
+> its own permission.
 > 
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+> Cc: Günther Noack <gnoack@google.com>
+> Cc: Paul Moore <paul@paul-moore.com>
+> Cc: Serge Hallyn <serge@hallyn.com>
+> Acked-by: Serge Hallyn (AMD) <sergeh@kernel.org>
+> Fixes: 97c8386f1d74 ("landlock: Enforce capability restrictions")
+> Signed-off-by: Mickaël Salaün <mic@digikod.net>
 > ---
-> Changes in v2:
-> - Move the RPMH regulator override below the SOCCP remoteproc node.
-> - Sort the GMU and GPU node overrides by label.
-> - Drop the unused EC interrupt pinctrl state.
-> - Link to v1: https://patch.msgid.link/20261113-qn10-v1-0-e09b2aa7ccbe@oss.qualcomm.com
 > 
+> Changes since v1:
+> https://patch.msgid.link/20261110202436.2408244-4-mic@digikod.net
+> - Add Serge Hallyn's Acked-by.
 > ---
-> Bjorn Andersson (3):
->       dt-bindings: arm: qcom: Add ASUS Ascent QN10
->       arm64: dts: qcom: glymur: Add ASUS Ascent QN10
->       firmware: qcom: Allow QSEECOM on ASUS Ascent QN10
+>  security/landlock/cap.c | 30 ++++++++++++++++++++++++++++++
+>  1 file changed, 30 insertions(+)
 > 
->  Documentation/devicetree/bindings/arm/qcom.yaml    |   1 +
->  arch/arm64/boot/dts/qcom/Makefile                  |   1 +
->  .../boot/dts/qcom/glymur-asus-ascent-qn10.dts      | 664 +++++++++++++++++++++
->  drivers/firmware/qcom/qcom_scm.c                   |   1 +
->  4 files changed, 667 insertions(+)
+> diff --git a/security/landlock/cap.c b/security/landlock/cap.c
+> index 10e1ca772b9c..c89e8d76db8c 100644
+> --- a/security/landlock/cap.c
+> +++ b/security/landlock/cap.c
+> @@ -91,6 +91,35 @@ static int hook_capable(const struct cred *cred, struct user_namespace *ns,
+>  	return check_cap(cred, cap, opts);
+>  }
+>  
+> +/**
+> + * hook_capset - Restrict inheritable capability changes
+> + *
+> + * @new: New credentials (unused).
+> + * @old: Current credentials.
+> + * @effective: New effective set (unused).
+> + * @inheritable: New inheritable set.
+> + * @permitted: New permitted set (unused).
+> + *
+> + * cap_capset() requires CAP_SETPCAP to add inheritable capabilities that are
+> + * not in the old permitted set, but calls cap_capable() directly, which skips
+> + * hook_capable().
 
-I've thrown this DT at the Ubuntu installer, and ended up with a (more
-or less) working machine, so something here must be good!
+It has taken me a bit of time to wrap my head around this one.
 
-I get a 2-minute timeout in EFI services though, something that mostly
-speak to the quality of the firmware rather than the HW description,
-and is worked around with an 'efi=noruntime' on the command-line.
+cap_capset() starts with:
 
-Now off to locate the UART on the debug connector...
+	if (cap_inh_is_capped() &&
+	    !cap_issubset(*inheritable,
+			  cap_combine(old->cap_inheritable,
+				      old->cap_permitted)))
+		/* incapable of using this inheritable set */
+		return -EPERM;
 
-FWIW:
+where cap_inh_is_capped() returns true if it does *not* have CAP_SETPCAP.
 
-Tested-by: Marc Zyngier <maz@kernel.org>
+So when this Landlock hooks gets called, cap_capset() has already
+checked that we either have CAP_SETPCAP or inheritable ⊆
+(old->inheritable ⋃ old->permitted).  So the Landlock hook can check
+for the cap_issubset(...) condition to see whether CAP_SETPCAP had to
+be "used".
 
-	M.
+Maybe it would be easier to phrase it like that?
 
--- 
-Without deviation from the norm, progress is not possible.
+
+(A more specific nit about this comment, "calls cap_capable()
+*directly*" has confused me a bit, since cap_capset() calls
+cap_capable() only *indirectly* through cap_inh_is_capped().  Maybe
+"promptly", or "immediately" would be better?)
+
+> Check the same condition against the domain.  commoncap runs
+> + * first, so this only sees requests that commoncap allowed.  capset(2) discards
+> + * @new if this hook fails, so nothing is committed.
+> + *
+> + * Return: 0 if allowed, -EPERM if CAP_SETPCAP use is denied.
+> + */
+> +static int hook_capset(struct cred *new, const struct cred *old,
+> +		       const kernel_cap_t *effective,
+> +		       const kernel_cap_t *inheritable,
+> +		       const kernel_cap_t *permitted)
+> +{
+> +	if (cap_issubset(*inheritable,
+> +			 cap_combine(old->cap_inheritable, old->cap_permitted)))
+> +		return 0;
+> +
+> +	return check_cap(old, CAP_SETPCAP, CAP_OPT_NONE);
+> +}
+> +
+>  /**
+>   * hook_mmap_addr - Restrict mappings below dac_mmap_min_addr
+>   *
+> @@ -113,6 +142,7 @@ static int hook_mmap_addr(unsigned long addr)
+>  
+>  static struct security_hook_list landlock_hooks[] __ro_after_init = {
+>  	LSM_HOOK_INIT(capable, hook_capable),
+> +	LSM_HOOK_INIT(capset, hook_capset),
+>  	LSM_HOOK_INIT(mmap_addr, hook_mmap_addr),
+>  };
+>  
+> -- 
+> 2.56.0
+> 
+
+Reviewed-by: Günther Noack <gnoack@google.com>
+
+Code checks out, only minor comments about the documentation.  It has
+taken me a bit to understand how the Landlock hook's logic matches the
+one in cap_capset().
+
+—Günther
