@@ -1,58 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.153.30
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794917185;
-	b=CdebYDmxV4m7nzjmwcuZd09F0bS3ejFNTRt6wzBnNzksHS+7/cETcg1R0Z0mmSyKR65T
-	 NQooWgXYkBbuMZWjn/wnXBaIY4tmjh7ENnp1DGhPnvNZAKhzoQOIi94w8cuELTvZNd/MG
-	 iHcagAhXTqAYH2NFA3A3bugIcy4ro+TogSCTLfFOEIA971WZXWW1GgG+SyHeI2zDEQzIn
-	 4EHAiAa+/BKwhjhLH4P/5A4QBrZScqaaO7N6hSFjyJWpL4lny0n8faemXoMND8jvxNdMN
-	 UB0iLCBdyovcPLDgdLzjyCZ701OP+oG6ax1vEAQRrkjlKAYtCT5ZvIc5MiIAvY8D3gw==
+	t=1794917209;
+	b=oFcA9utnh5LVuCNufDINO9fHjsD9tFrlMMWfqxZP9OXAfGn8LI2YnirtsFjE3nXY9dCI
+	 8Fb+ZJTRFHMyO0hBLkW4734OmdyfZC1Jb5p4EKUMcnuaIWoQRRM3fRUvOHkbSivz2tt9w
+	 +ITDlO7Lt8BOA0lYw1AtF2pFUBtW1BS69Q5TVmXpWSF8cDXEdC5sIYM0tzZYKXY5K1bZo
+	 l4VHwbNOPI/LM8ftIXK5xDfhzZnsmkxZ7YZGGJZ1+iEr4biAgFdz0lq77ayJ0ERoU13MM
+	 oTX6PJ8eKT2yRh6dHD+uy9xQSQc+puVuiMRZWUg1ySXmDPELfMTQqLDco7yuHfZV27g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794917185;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=ezCv02AV+SxphL6JyP0juEoNENidSv9/iDZpEW3jODQ=;
-	b=rP5pcsW2/MCqq95GbfCnEwEMXWuAqunufk7I1mMpYrHnmHXJOaEUXLmoaDXoCF+TXB69
-	 pnPRIQRFSJNPUCEjhcIfyxokv8y2yQxgOlyXMP4+JfCegfjQed29YiRJGgJkfzmhgE7vt
-	 j01tXdTdPXDrqXAm+cl1iw8EuFL4MshERQoiPtLDKe7Fe0o7DWlbmkkASk7jPeKuCzCdj
-	 cjVvCKAA6B9P7VAYvXZfCuuPmlH2o4qOcixPLffRtMOpyb6qGnYawYFYChYqFkzOSlcTp
-	 +WoPZXKOoXv+DEhfZjOIqXN1VTkvTxyU6eQxFXijGppkuME8R67DU90OwSCyRTxBp+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794917209;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:From:Subject:To:Cc:References:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version;
+	bh=Bne9TlcWx9lJkegSeA2PEiF33AOi34cRImm9wek+4bg=;
+	b=mCbjuN2jytuEtfIRURgy7JEVlHWN7PGIijjJL6zrQYVckGTkgzeicmPod4sq7+tvzbZ6
+	 /zMtmMLYDQXE7rNqSJNumpYTUJ5mAB253ZCGBaftGhFzDPBDjYVXYxRCMUnO6dCKnonIQ
+	 W/bfNkmcRocEFbt62DctqOtHRtEsFLhfhvvQqq5ge0C1wcZSUGuiZRMvkfWiUeJYvzRKF
+	 TIx6Fr9l6M98NlKycJCyzGSkhZ53dFTPs1rTUTYKvrj7kTRkyHcLqi8ju6D9rjitEcANx
+	 EbBKuEczvZKLlYea9AL+S9hy4mAOGd8FJie+ZWRnb87PgUjo1nmeoYygfT1pN4BomcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=KgC550Oy;
-	arc=none smtp.remote-ip=113.46.200.216
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+	dmarc=pass header.from=meta.com;
+	spf=pass smtp.mailfrom=meta.com;
+	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=PoQwf41z;
+	arc=none smtp.remote-ip=67.231.153.30
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 443B7606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:06:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 443B7606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E345606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:06:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E345606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=KgC550Oy
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=ezCv02AV+SxphL6JyP0juEoNENidSv9/iDZpEW3jODQ=;
-	b=KgC550OytW3A9NYWQ0vc1uMq3BoqDHhBnJKPjghKMaaHbzBiO+QqDY8fqpljOvIemmkS9X9sh
-	xBY7pnsrGS2SiH45CZE4vDhuhXKVZZJTeAMzmKAxhHmcj/qMxkVJpB90Oortw5L2oZUmqny1bDU
-	SeoBGJcDv5L7PhlZ6iPp7fI=
-Received: from mail.maildlp.com (unknown [172.19.162.223])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jTNjG1Nmfz1T4HC;
-	Tue, 17 Nov 2026 20:05:38 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 953AF40561;
-	Tue, 17 Nov 2026 20:06:16 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 17 Nov
- 2026 20:06:15 +0800
-Message-ID: <93a4ab7e-d016-42fb-a00b-1ed9ed75ae8d@huawei.com>
-Date: Tue, 17 Nov 2026 20:06:09 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=PoQwf41z
+Received: from pps.filterd (m0528006.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHC0V1g4013187
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:06:47 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	pps82601-s2048-2026-q3; bh=Bne9TlcWx9lJkegSeA2PEiF33AOi34cRImm9w
+	ek+4bg=; b=PoQwf41zrUq3frjRBEqRzaFXs/5Hi65V7Osk1p5yuhkak0G7lYEd0
+	Zg83nC65gjlukrrI42+RgoM0v+WsEXhEnkukInT7+D8ju31cjjhJPEAGr9DVYbA+
+	UCFpIui7NNbOAgwaOtuZGPo8j4+sBw5RymyqkqJlYBBFIKm8CiwVM+UNfdMsE+x0
+	bijjtr0hNgsuMoMVMaW18HNYtdU9Q1dgtsfqp/g65JrpSfapwCKXIYfu/zJ5lWLE
+	xQALLon9EKBCsNe92IKdElwd1uF0B/OdIsZBeJQVX0XhQvKX/PwuwRyCAGzVH14X
+	hdQ3ZAETQuNTUNGE3c4wb3KarsWlFq7Iw==
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com [209.85.221.71])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hy95pduj7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:06:47 -0800 (PST)
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48e2734c4d8so471492f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:06:46 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794917206; x=1795522006;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rbyiXdx+10NL01ReJBrbufipXpKDZVNSkw5joPNn8Ok=;
+        b=0SOdomMXiIkC1W+rqlfRxEAyEH0j4Zlyz7SyDKORXn8sIPGarC2oxLoNxGVVfS8KH+
+         tSYem3ymxEElTQDXUOAZGNDLsd9T37GsBnLy4zxbW/OMLRbOOMjh87Th27oVm0v4wiig
+         F0gxBGHRBfxUa5BtH9WLqTHp4HH5eJ40I+lDNtF3zWU9kjk3t4Y7N3tF5rMlnEheQMt1
+         iKuImTrMWqycfXukC1nf4lk35fAVpo1xRsHtAQo6B2NIYllgH9kY2extie8Zle/UElVO
+         Tr7ZB9jFUP+8cfhSOn+dAp3CoJzSA6je3EqyN++CKSWM7JLitsv4Oj1m2bd8xfmXi7nQ
+         KpQw==
+X-Forwarded-Encrypted: i=1; AL+hErFZVxuY6W3IslZIBY1NE01cMa77JWqIlaRrBEL0Jstj+21URy2OhsW96eiz8s0hevOubDaxYp4c5Zvn7xw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/zVe16m8y/TL8UI4ized1p2/T2iRx6n+mbOXpH/4bp3QVz7lxJ
+	tMg8dO0s+ci7+rcMydtHwvVgPD5Pp01m3Tm9nNEklSje1zL3XGZY3WZGGdRyrhDi/GxQZNU+BMN
+	VXopHJWfrk4EAJqyEkyyV5bUxNbxnr1Rf6pJAp02u3Ra5TRHGo1KJXsP07ly+pOe3
+X-Gm-Gg: AYBFou1ED6pJPCO235v9R1CQx6DKKvy4IfATuPy6HYx8XuYUCvSKBVrMwEgA8KcWy4r
+	VW9X9NUiy8BDAWjfY2k6s1hEH37sASuhUMosTiIbkFfpdBmlS2AjcMZhh1/uJgWP83ccjWoxtoG
+	8Tu3jsUgqOgIAJMPxCI2Vv2hDOVWFAz275rAw3J0p5wLNJnmtTURiMPUS/+vfFemAT+HE6jjOTN
+	fqcJMVjNVXLuzXG+un8TiTIFR/UH0ZjXTb7VdweBRO/alc6JM3BHVIVrHE3kYf/AybP/QRAyn1V
+	3PfLdijh7gI+5hQL78zkdBdQq3U8svPgzM/BOs/a1r32iN+UBeF7l3CW3lgpByM1Edg+CCP4B3Z
+	nENdXUCFgxpGJnX2vKsXWsGDml+2oSDNXTPzMI9LAXRw/cAF/rQegVSLi9JyyTOCfTDN26NXXhj
+	hYeVlFjEVAp19i
+X-Received: by 2002:a05:600c:8909:b0:4bb:7ad9:301f with SMTP id 5b1f17b1804b1-4bb7ad95f8cmr16122785e9.2.1794917205756;
+        Tue, 17 Nov 2026 04:06:45 -0800 (PST)
+X-Received: by 2002:a05:600c:8909:b0:4bb:7ad9:301f with SMTP id 5b1f17b1804b1-4bb7ad95f8cmr16122395e9.2.1794917205299;
+        Tue, 17 Nov 2026 04:06:45 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:e17:9700:3f7b:7276:a343:d339? ([2a01:e0a:e17:9700:3f7b:7276:a343:d339])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb783862d6sm56905345e9.2.2026.11.17.04.06.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 17 Nov 2026 04:06:44 -0800 (PST)
+Message-ID: <e29f42de-64df-4c38-888c-64d7c89a81da@meta.com>
+Date: Tue, 17 Nov 2026 13:06:42 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,188 +100,85 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] arm_mpam: resctrl: Only enable CDP on a resource
- that supports it
-To: Ben Horgan <ben.horgan@arm.com>, Gavin Shan <gshan@redhat.com>,
-	<james.morse@arm.com>, <reinette.chatre@intel.com>, <fenghuay@nvidia.com>,
-	<zengheng4@huawei.com>, <tan.shaopeng@jp.fujitsu.com>, <jic23@kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-References: <20261111081316.3828283-1-ruanjinjie@huawei.com>
- <20261111081316.3828283-3-ruanjinjie@huawei.com>
- <a783b375-7c27-4c91-b40e-7e615d33bc5b@redhat.com>
- <b1fd5fa8-bf03-4575-bc05-540a288b609d@huawei.com>
- <ce03205e-6405-4269-a061-266ef6d67e1d@arm.com>
- <f26828e6-e640-498f-81dc-d568f7cc50c7@huawei.com>
- <552e2119-f08c-4ec9-8c90-4be012a2d690@arm.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <552e2119-f08c-4ec9-8c90-4be012a2d690@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+From: =?UTF-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <cleger@meta.com>
+Subject: Re: [PATCH 2/2] io_uring/net: Add bundle support for multishot
+ recvmsg
+To: Jens Axboe <axboe@kernel.dk>
+Cc: io-uring@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261116111744.702159-1-cleger@meta.com>
+ <20261116111744.702159-3-cleger@meta.com>
+ <19c6db06-d63a-4dc8-9b0d-11fba039b714@kernel.dk>
+Content-Language: en-US
+In-Reply-To: <19c6db06-d63a-4dc8-9b0d-11fba039b714@kernel.dk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA0NyBTYWx0ZWRfX5loJlZdamAWU
+ ua7raOPetUj3RVYgy4ZZlMcthAqTRyxGKRVasRvwGYQd72U7zivXP+MkETmAMUgnVNh7Fz77pSt
+ 0acQhHYiQ4FZSWSfkS04ZJDGuRgnkr2VSl1cZD7zBG9ePUq5/VVN1KNURnNnehQV5UnPhnr4WGp
+ YHdwJnz2Yl1AscpN7uukv2NeCETsrSq9GGKg3SO6ccSgIo4fCXKrisWLBLiAQ4MnW4W4ZKVAp8h
+ dGlwVCwFQWYKBKwCxEJzk2AVL5mY0eEWlWguCbfNN6P1Kjio8X4QTAdzxYaMv4FgQe2OoN4OndS
+ hgZFhpBj1AqFwBsNek0o4Hz3JQN13hwoWgT11HMwQPTOpJ6PXf5XY9Zpq6RS0Z9k76vFbn4lbrZ
+ mxgFzW/R+nPlyGSiKXSHRHYPkNWgL7E+Oc7hIlIvjhqFSPSBHLWRIc+SQ2AB18kHdvsOrarL31L
+ VftfMCUM4V/hZakhcvQ==
+X-Proofpoint-GUID: gkWPLT-RxsXMrlrckHReDhs_ILxISA8g
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA0NyBTYWx0ZWRfXxlvQ1cK4Iy9A
+ fBcuMDz8MqJVW0wBhXkav84qdZs+nH4ykzMrD/EBrAcvJYA+dgnNg7ddGOUzKgW86yWFkLa3vr6
+ BnsVb1VRhtA5c4ho0OCJR6DmQD1WpRs=
+X-Authority-Analysis: v=2.4 cv=Yuea1IYX c=1 sm=1 tr=0 ts=6afc4357 cx=c_pps
+ a=pX1sPZUoWPGeQgUnKQNIgA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=M51BFTxLslgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=7x6HtfJdh03M6CCDgxCd:22 a=kkcUborcUVj0H7zxAXTl:22 a=6KMpyRCIwqAuzVE73isA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=XGGHjNwGSpTZ5T66x7Ix:22
+X-Proofpoint-ORIG-GUID: gkWPLT-RxsXMrlrckHReDhs_ILxISA8g
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_02,2026-11-16_01,2025-10-01_01
 
+On 11/17/26 03:45, Jens Axboe wrote:
+> >=20
+> On 11/16/26 4:17 AM, Cl=C3=A9ment L=C3=A9ger wrote:
+>> IORING_RECVSEND_BUNDLE was disabled for IORING_OP_RECVMSG because the
+>> envelope and control-message sizing was not implemented. Enable
+>> bundled multishot recvmsg by reserving its metadata in the first buffer
+>> and accounting for payload spread across the selected buffer run.
+>=20
+> Patch 1 is fine (though both need rebasing against for-7.5/io_uring),
+> but a few notes on this one:
+>=20
 
+Hi Jens,
 
-在 2026/11/17 19:46, Ben Horgan 写道:
-> Hi Jinjie,
-> 
-> On 17/11/2026 11:41, Jinjie Ruan wrote:
->>
->>
->> 在 2026/11/17 18:35, Ben Horgan 写道:
->>> Hi Gavin, Jinjie,
->>
->> Hi Ben,
->>
->>>
->>> On 17/11/2026 03:31, Jinjie Ruan wrote:
->>>> Hi Gavin,
->>>>
->>>> 在 2026/11/13 7:42, Gavin Shan 写道:
->>>>> On 11/11/26 6:13 PM, Jinjie Ruan wrote:
->>>>>> resctrl_arch_set_cdp_enabled() enables CDP for any cache level that is
->>>>>> requested, even one that has no MPAM cache controls. Mounting resctrl
->>>>>> with -o cdpl2 when only L3 can allocate still turns CDP emulation on for
->>>>>> the whole system, so every CLOSID takes two PARTIDs while resctrl keeps
->>>>>> its CLOSID count at the number of PARTIDs. Control groups in the upper
->>>>>> half then map to PARTIDs beyond mpam_partid_max, which index past the
->>>>>> configuration and monitor arrays and program out of range PARTIDs into
->>>>>> the MSCs. On QEMU with 5 PARTIDs the first monitor read after creating
->>>>>> 2 control groups raises MSMONCFG_ID_RANGE for PARTID 5, and MPAM is
->>>>>> disabled.
->>>>>>
->>>>>> Do not enable CDP when a resource cannot allocate or is not CDP capable,
->>>>>> as x86 does, so the mount fails instead. Only the enable path is checked,
->>>>>> since unmount disables CDP on both cache levels to restore the MBA
->>>>>> control.
->>>>>>
->>>>>> A system where only MBA can allocate, or that only has monitors, now
->>>>>> fails a mount with CDP as well: CDP hides the MBA control because
->>>>>> mbw_max is a per-PARTID maximum, leaving nothing for CDP to apply to.
->>>>>>
->>>>>> Fixes: 6789fb99282c ("arm_mpam: resctrl: Add CDP emulation")
->>>>>> Link: https://sashiko.dev/#/bug/linux-05c19551-0bba-4a06-
->>>>>> aa2c-3c90fab5853d
->>>>>> Suggested-by: Ben Horgan <ben.horgan@arm.com>
->>>>>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
->>>>>> Cc: <stable@vger.kernel.org> # 7.1+
->>>>>> ---
->>>>>>   drivers/resctrl/mpam_resctrl.c | 4 ++++
->>>>>>   1 file changed, 4 insertions(+)
->>>>>>
->>>>>> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/
->>>>>> mpam_resctrl.c
->>>>>> index 573617ba09df..afa3c084c475 100644
->>>>>> --- a/drivers/resctrl/mpam_resctrl.c
->>>>>> +++ b/drivers/resctrl/mpam_resctrl.c
->>>>>> @@ -222,6 +222,10 @@ int resctrl_arch_set_cdp_enabled(enum
->>>>>> resctrl_res_level rid, bool enable)
->>>>>>       if (enable && mpam_partid_max < 1)
->>>>>>           return -EINVAL;
->>>>>>   +    if (enable && (!
->>>>>> mpam_resctrl_controls[rid].resctrl_res.alloc_capable ||
->>>>>> +               !mpam_resctrl_controls[rid].resctrl_res.cdp_capable))
->>>>>> +        return -EINVAL;
->>>>>> +
->>>>>
->>>>> x86 only checks 'cdp_capable', so this check isn't exactly same as to
->>>>> what's
->>>>> done on x86, as claimed in the commit log?
->>>>
->>>> Sorry, the commit message is somewhat misleading and need updated.
->>>>
->>>> In my opinion, CDP is a feature related to resource allocation, and it
->>>> is always reasonable to check alloc_capable.
->>>
->>> Hmm, I know the patch came from my suggestion but I think the reason
->>> that x86 only checks cdp_capable is that alloc_capable is that the
->>> alloc_capable flag is also used to indicate that the resource is fully
->>> setup and can be used.
->>
->> Thank you for your explanation.
->>
->>>
->>> In resctrl_arch_set_cdp_enabled() we manipulate alloc_capable for
->>> re-enabling the MBA resource and the added !alloc_capable check would
->>
->> I think you mean the following code:
->>
->>         if (cdp_enabled &&
->> !mpam_resctrl_controls[RDT_RESOURCE_MBA].cdp_enabled)
->>
->> mpam_resctrl_controls[RDT_RESOURCE_MBA].resctrl_res.alloc_capable = false;
->>
->>         if (mpam_resctrl_controls[RDT_RESOURCE_MBA].cdp_enabled &&
->>             mpam_resctrl_controls[RDT_RESOURCE_MBA].class)
->>
->> mpam_resctrl_controls[RDT_RESOURCE_MBA].resctrl_res.alloc_capable = true;
->>
->>
->>> mean that we'd never be able to do that manipulation. resctrl doesn't
->>
->> Does you mean that we enable CDP for L2 or L3, but not for MBA, which
->> causes aclloc_capable to be cleared to hide MBA. Then, when we try to
->> enable CDP for MBA, it gets intercepted by this newly added
->> alloc_capable() check, resulting in the enabling process failing?
-> 
-> Yes
-> 
->>
->> Sounds we should remove the alloc_capable().
-> 
-> If you mean the check for !alloc_capable, that this patch adds, then I
-> agree.
+Thanks for the review.
 
-Yes. That's exactly what it means, and it will fix this problem.
+> 1) This changes behavior for UDP, which has no inq as per a comment
+>     in here as well, now it asks for MAX_RW_LEN.
 
-> 
-> Thanks,
-> 
-> Ben
-> 
->>
->>> call resctrl_arch_set_cdp_enabled() for the MBA resource but to be more
->>> resilient the MPAM interface allows it.
->>
->> Yes.
->>
->>>
->>> In the future, once we start adding more controls for resources we'll
->>> have to be careful to do the cdp enabling and hiding of features at the
->>> control level rather than the feature level.
->>
->> I agree, in the future there will more control such as
->> MBW_MAX、MBW_MIN、INTPRI、CMAX etc.
->>
->>>
->>> Thanks,
->>>
->>> Ben
->>>
->>>>
->>>> Best regards,
->>>> Jinjie
->>>>
->>>>>
->>>>> int resctrl_arch_set_cdp_enabled(enum resctrl_res_level l, bool enable)
->>>>> {
->>>>>         struct rdt_hw_resource *hw_res = &rdt_resources_all[l];
->>>>>
->>>>>         if (!hw_res->r_resctrl.cdp_capable)
->>>>>                 return -EINVAL;
->>>>>
->>>>>         :
->>>>> }
->>>>>
->>>>>
->>>>>>       /*
->>>>>>        * resctrl_arch_set_cdp_enabled() is only called with enable set to
->>>>>>        * false on error and unmount.
->>>>>
->>>>> Thanks,
->>>>> Gavin
->>>>
->>>
->>
-> 
+Agreed, technically, it doesn't change the existing behavior for plain=20
+recv but differ for the new recvmsg + bundles support. I'll try to match=20
+what's done for plain recv with max_len =3D=3D 0 and use mshot_len with bun=
+dles.
+
+> 2) Why not support incremental buffer rings?
+
+I deliberately left it since it required more wiring/modifications. I=20
+can add it in the next version though.
+
+>=20
+> And the usual, do you have a liburing test and man page updates as
+> well?
+
+Yes indeed, I have liburing tests, just didn't to send them right away.=20
+I'm missing the man page update though. I'll add it for V2
+
+>=20
+> A minor note is that the commenting is a bit excessive... I'd prune
+> that for v2.
+
+I'd usually remove them but they mostly seemed useful to me. I'll prune=20
+that.
+
+Thanks,
+
+Cl=C3=A9ment
+
 
