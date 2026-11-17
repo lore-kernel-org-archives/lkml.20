@@ -1,47 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794929000;
-	b=wxumq1BUoIJ8MlzxeBnPsfdeYalSSS2oMonUUEuUxAlnDUtD7siMwj/XZA6dYrcUd3Kw
-	 tYQPCuN774/J/gtTnmYWgxx4g2m8cs2Wqsvyl7EZ/kLXIFQsKjyYz5GUVXGqyMZY7bNMU
-	 6fzeiSe6XyKTl8m7qudp0u782QRzK5KJaG6V5w4t112pgqe3UgMV448I1wQljrDYFai0/
-	 2oTWhwJkq72cetp+NfW7kFxNlDPSB7PbQuGcCCMbRBwU8jUvO8xba3XYNrFvESHulQ9Es
-	 7t5O66VWWNt+UndDe1wG3n9qFUy+VtLi/G5gbLrjl1gcGxLdcrT5HkHl8126R23eAXQ==
+	t=1794929023;
+	b=TV0IfgUiO4AQX5q3wxyyDOxQAwWWp/eMJQRFg7weRhel3sTGb1PrMgpvDJ3TuSif3Xs6
+	 dQ48Rd1FuScJ/3UjUq1ywL183jyfU3XKHZ8b1dXajFeQiOwsY4+YbFCZ3EAD096UTCx0a
+	 AOGTmIFu7tbBxvLpQ9iLH3i4tMRnJekMIdrX0ewLLJ7y6yyKAybhoU2sFVBrxFZcwNWh5
+	 9MxvgIROIfjaTcLCOXRkaIP6uabZw8tDH8ar+7iVcPnwA7KgXVTPn3FzFQ+kfDSWtRL9L
+	 yEgfj93E5dWQSvkNN5VJZv9L/zoA8TIc9PErw7INGa9jR66jyPdFVB1fiB8RMOl+B6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794929000;
-	h=Received:DKIM-Signature:Date:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version:From:Cc:To:In-Reply-To:References:Message-Id:Subject;
-	bh=pj7Iutfia5o0YgMQ4W5M75M2wxBex2DT4HWlOgqEoUQ=;
-	b=USCH5UMhxfrKZTUvcPFJJ9LjCXJeZWmKXKuF7YKd9o3oI6Ez1+o8Tl/gFYLpcluRt2Rx
-	 +ILidKuJ7RYbLqo+qxtNZPWSgPxNJ5zHBUbsGiEUDHct0k4GRlDnVz6uTN5N+ppUiRgqG
-	 ksYEtKv7lO1UB034378Ta7J/6BagTATtyqf7kV2pVo6OvTD0SDCY8gQ4kNQqASRO2cZw3
-	 DJvY+VfxjHjAYoCw0pUHt2Kc/gyKJVtlXQ1zWQAjhJLTzqG0iDmXO5qttDYZvgLmQrtqp
-	 RO8pQWUnvP0+YrHx4dbTN+ahGrw4sJDBl1qqTQ0j0km3SrR+rd26GYI5MwCQs6chebg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794929023;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Ofm5M00KSieqbiSYXgLgnUfya5lLhDxnmUYEkWnouA8=;
+	b=vOlb+iZWCchI1JghhWziv2lNn0X6l8yMy1Y5kiXyNxiaSsZU+k4q4ZcCPGCRzcBRWSST
+	 Ul9ZLe9Ada/xdzZOgwySEDE6iPbHa+UUcGewGqPmWYTtFvFbXWCJK+THjUcuuFt27Wg7D
+	 xCpHfOkAsglbVLt3uDcXaplMmY1p+mcHmuKKItOZYdbXITGfhcBvU7fzWv9yOdxUH+LTm
+	 dkR8vOBi53VvVxhrY6qbIwxYMz21Qe8ITuUosAE7T38+dYcmB2yXcfIETC1Md76HiJJm8
+	 rs/QlTTmrTtxroZN0x8q43dmebJlA66SmNwCRIdxlh9QFT6AnI3sS/rMnsI/XrAUN9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oC+uPw+o;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XV3bc96W;
+	arc=none smtp.remote-ip=209.85.214.175
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6172606A31C;
-	Tue, 17 Nov 2026 15:23:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66906606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:23:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66906606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oC+uPw+o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76B341F000C4;
-	Tue, 17 Nov 2026 15:23:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794928999;
-	bh=pj7Iutfia5o0YgMQ4W5M75M2wxBex2DT4HWlOgqEoUQ=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=oC+uPw+o0CJJcAQu/FtnCspGzEzNk2m+LS8rDRP9jk30eyRfY1sVemTh+nj8hg/zi
-	 1L2LHZ5OIUk1d9BI42yKOKBE7hEIxXD9bZ5gT6NI+A8IJn7mepdKAGpqnj1hj9U0uZ
-	 2TzmZPmC6sKjYu++VFs0lVcf0P7tbF6C1NvCwpNXTav1kd35xTyVPBFRbM2IqJqGka
-	 u1bWwlyXfBQpzYouOli/ckx8shkq/KmEYaWZVRWx+0QoAzCQWL5OS3Z1tLDlf8766u
-	 pDFi5WqgFK5YidRPxZJHEo5XkQLvRHiCoe0Ii+tKdR9QIEXbk0gjlVYhZxsaE0f6x8
-	 YW1jBmNNwKz8A==
-Date: Tue, 17 Nov 2026 09:23:17 -0600
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XV3bc96W
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2eac75d4143so2483145ad.2
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:23:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794929023; x=1795533823; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ofm5M00KSieqbiSYXgLgnUfya5lLhDxnmUYEkWnouA8=;
+        b=XV3bc96Wca2hr4zPcYBq+6ILfG4SItRkT9ixosvgf8aLWT7sp4FRkWmuU5PygrAEGV
+         Qcf0/PL4h/BapNu+C0n2NNeojaM6oeFadF7xNy303yiNtETTiWoLLuFlgELIniFSgdJK
+         EmeUAMDRzabdoJbDza9DfpcqRaaTxdt5ftTzc0SQ471H38RStbjozBTtkuV5VXuVuj1L
+         sUSku5rS+DdSqCPy4nwYQ5bciIETSOsxlJpzlZb9oqVjx0YFvgtFvlcUutP+2imTHHi5
+         02aa1GWK+DapP4yFjaDL4i19YYOeDix1ZfFMG/aU2qsCLPxsvPLFIEjI6NTDcPXlw4FO
+         +wow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794929023; x=1795533823;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ofm5M00KSieqbiSYXgLgnUfya5lLhDxnmUYEkWnouA8=;
+        b=YzUS3s3tgWGEZ8KIpPX5g4viIOL5qw7t+cp6N7bGceLwjKIeOqURi05fz6OOm42C32
+         F448/VBQlH70isaJZJuJn+t2qk12iosaYIzuPhQXOwylx0F47/Aes+dHWWFitrAa8IoV
+         hUuBmUfO1uPDjAIOMfWITWkqiDAf8rQVrWS5plQk9K+P5kMkWPRQKVHFGLjzoN2Fsv0f
+         MuXq8oI65cdvdfNnAjAjk8dIpdJYLCcbmYeL/p011attV++nC/SqE4mqDC5WRCsUDWm/
+         TSTI3hGS0pxdoNKUyg2KjH5iFMO7IcvmmiCo6aX8EPdEIg527j2jgTN7R9d/WiEdwDIu
+         MvVw==
+X-Forwarded-Encrypted: i=1; AL+hErEQxzXcTOwyACmN3OKmdOEw8xBy7Oin93YwovJ6Orwf9+SvLs3k/E4iT0zMs0E2LLPSPzfwR4cWe/BYcJM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/FpwO8U56nC/RmL1ZDrUVAekpIjHeoSdh9KOg+fBv9UnYDT6DC
+	+CJFYm/zDBM0qTTRKduvvup9zg/inKsJonj8DpaZ071YEjG6qwRiN91D
+X-Gm-Gg: AZFdTZen19C6btHgvXEXL3FuYBFQoXP+6L2tApGM3HSVvO+aqaYpS5Y9NA+96dRS9dP
+	C22Nw/guW8MIu0XYlCDuQsYYe6ZluFMULEsTYFhTBimp49hJ3BJ7LwyxIyY0BN+o1Cb4NYbyklj
+	T7BxScEwQuiMs8qloM2lmDgIgXtD8TIIP3qyBcPuMlDbGQ4xBE49Mcdg/oUgW7EFSwoJUlVg3Ua
+	8MK/2wc0OtKqWXKTZ5WaRc26zFIHawA/QCuQ+68XhSf6E8/wcQXaBw6Z+DXdJJk6qvVDzdq+ijZ
+	9+uh0jiIBKcibZ61kMaJYz3eaUcHViNBXX48ZyoIAXe74yBPgCPuIphpw02BtcHd81m0oNFvSMf
+	rLcSuRm6l3Zrm7c+Vuc8hl8Qgy0XTK23iUZ/EHXTNjtwJHIFTvAgvb9IHQ78nn1OarVo5EnrbFX
+	DcFlSuNzHQspxcByi8dph+G0oMrjxPFBOW51E1N+GzohSepzTlxfxl8pYuivy/qnCezMjxdmHUr
+	no/9WIK+qGm0jMFHahfVgta8jfyZ0vrd6EpowIID5G7CW3PFxtvpdQWxXSlbs/TZ96Bxt3ylvRp
+	jAdzaJbgraf5lzcGbyeQHNJnkBa8Z9XqxaYK0jVooWZ4VINRcmWHxqWBbM5/0Tz1bvdoOQgMjYT
+	5Ozg=
+X-Received: by 2002:a17:902:e852:b0:2ed:29a5:782d with SMTP id d9443c01a7336-2ee0dd0f21amr218160435ad.2.1794929022438;
+        Tue, 17 Nov 2026 07:23:42 -0800 (PST)
+Received: from DESKTOP-CJ1L666.localdomain ([211.198.99.62])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd7a11da1sm17810695ad.16.2026.11.17.07.23.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 07:23:42 -0800 (PST)
+From: Jiwoo Kim <arpe1618@gmail.com>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Sargun Dhillon <sargun@sargun.me>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Jann Horn <jannh@google.com>,
+	Chen Linxuan <me@black-desk.cn>,
+	linux-fsdevel@vger.kernel.org,
+	linux-api@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] pidfd: restrict pidfd_getfd() to the caller's pid namespace
+Date: Wed, 18 Nov 2026 00:23:32 +0900
+Message-ID: <20261117152332.1221-1-arpe1618@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,73 +100,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>, 
- devicetree@vger.kernel.org, linux-phy@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Simona Vetter <simona@ffwll.ch>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Manivannan Sadhasivam <mani@kernel.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Conor Dooley <conor+dt@kernel.org>, Maxime Ripard <mripard@kernel.org>, 
- Mahadevan P <mahadevan.p@oss.qualcomm.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, dri-devel@lists.freedesktop.org, 
- Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
- Kuogee Hsieh <quic_khsieh@quicinc.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Shawn Guo <shengchao.guo@oss.qualcomm.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>
-To: Nabige Aala <nabige.aala@oss.qualcomm.com>
-In-Reply-To: <20261116-nord-drv-dt-v3-3-e3d3bf0e2c49@oss.qualcomm.com>
-References: <20261116-nord-drv-dt-v3-0-e3d3bf0e2c49@oss.qualcomm.com>
- <20261116-nord-drv-dt-v3-3-e3d3bf0e2c49@oss.qualcomm.com>
-Message-Id: <179492860187.13563.669305827453272246.robh@kernel.org>
-Subject: Re: [PATCH v3 03/11] dt-bindings: display/msm: Document Nord MDSS
+Content-Transfer-Encoding: 8bit
 
+pidfds can cross pid namespace boundaries: a task can obtain one for a
+process outside of its own pid namespace hierarchy through SO_PASSPIDFD
+or SO_PEERPIDFD, via SCM_RIGHTS, or through file descriptor
+inheritance.
 
-On Mon, 16 Nov 2026 18:46:42 +0530, Nabige Aala wrote:
-> From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
-> 
-> Nord has a new MDSS 12.1 revision with DPU 1499A and two independent,
-> DP-only display interface controllers (no DSI), which no existing
-> schema describes. Add a dedicated qcom,nord-mdss binding to document.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
-> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
-> ---
->  .../bindings/display/msm/qcom,nord-mdss.yaml       | 396 +++++++++++++++++++++
->  1 file changed, 396 insertions(+)
-> 
+Commit ee8323fdc827 ("pidfd: restrict task access ioctls to the caller's
+pid namespace") made the pidfs namespace ioctls fail with -EREMOTE
+unless the target is visible in the caller's active pid namespace, as
+PIDFD_GET_INFO already does, following the rule that operations which
+grant access to additional resources of the target require this [1].
 
-My bot found errors running 'make dt_binding_check' on your patch:
+pidfd_getfd() grants access to the target's open files, but it only
+performs the ptrace access check, which does not take the pid namespace
+relationship between the caller and the target into account. With the
+caller in a child pid namespace and in the same user namespace as the
+target, PIDFD_GET_INFO and PIDFD_GET_UTS_NAMESPACE fail with -EREMOTE
+for such a pidfd, while pidfd_getfd() on the same pidfd returns a
+duplicate of the target's file descriptor.
 
-yamllint warnings/errors:
+Apply the same rule to pidfd_getfd() and fail with -EREMOTE unless the
+target is visible in the caller's active pid namespace. Callers in
+ancestor pid namespaces are unaffected.
 
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/display/msm/qcom,nord-mdss.example.dtb: displayport-controller@af54000 (qcom,nord-dp): compatible: ["qcom,nord-dp"] is not valid under any of the schemas listed in the 'oneOf' keyword
-	from schema $id: http://devicetree.org/schemas/display/msm/dp-controller.yaml
-Documentation/devicetree/bindings/display/msm/qcom,nord-mdss.example.dtb: displayport-controller@af5c000 (qcom,nord-dp): compatible: ["qcom,nord-dp"] is not valid under any of the schemas listed in the 'oneOf' keyword
-	from schema $id: http://devicetree.org/schemas/display/msm/dp-controller.yaml
+This was found with an AI coding assistant, which also drafted this
+patch and its changelog. The problem was reproduced in a QEMU guest,
+and the fix was tested there.
 
-doc reference errors (make refcheckdocs):
+Link: https://lore.kernel.org/all/20260925-gewischt-auftrag-tierzucht-c153cb3f9f74@brauner/ [1]
+Fixes: 8649c322f75c ("pid: Implement pidfd_getfd syscall")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
+---
+-EREMOTE is a new error for pidfd_getfd(). The check is done before the
+task lookup, so, as with PIDFD_GET_INFO, a reaped target outside of the
+caller's pid namespace hierarchy gives -EREMOTE rather than -ESRCH, and
+the check comes before the ptrace access check.
 
-See https://patchwork.kernel.org/project/devicetree/patch/20261116-nord-drv-dt-v3-3-e3d3bf0e2c49@oss.qualcomm.com
+setns() also accepts such pidfds without this check, but it requires
+CAP_SYS_ADMIN over the namespaces being joined, so it is left alone
+here.
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+A reproducer is available on request.
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+ kernel/pid.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
-pip3 install dtschema --upgrade
+diff --git a/kernel/pid.c b/kernel/pid.c
+index adf721606768..4f9a29eb29de 100644
+--- a/kernel/pid.c
++++ b/kernel/pid.c
+@@ -893,6 +893,13 @@ static int pidfd_getfd(struct pid *pid, int fd)
+ 	struct file *file;
+ 	int ret;
+ 
++	/*
++	 * Require the target to be visible in the caller's pid namespace,
++	 * like the pidfs ioctls that grant access to its resources.
++	 */
++	if (!pid_vnr(pid))
++		return -EREMOTE;
++
+ 	task = get_pid_task(pid, PIDTYPE_PID);
+ 	if (!task)
+ 		return -ESRCH;
+@@ -917,9 +924,10 @@ static int pidfd_getfd(struct pid *pid, int fd)
+  *
+  * This syscall gets a copy of a file descriptor from another process
+  * based on the pidfd, and file descriptor number. It requires that
+- * the calling process has the ability to ptrace the process represented
+- * by the pidfd. The process which is having its file descriptor copied
+- * is otherwise unaffected.
++ * the process represented by the pidfd is visible in the caller's pid
++ * namespace and that the calling process has the ability to ptrace it.
++ * The process which is having its file descriptor copied is otherwise
++ * unaffected.
+  *
+  * Return: On success, a cloexec file descriptor is returned.
+  *         On error, a negative errno number will be returned.
 
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+base-commit: 44cc27050381e92de64cc3d7836376eda4d92a5f
+-- 
+2.43.0
 
