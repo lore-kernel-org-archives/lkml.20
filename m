@@ -1,13 +1,13 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.73
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794896063;
-	b=ntsjqZd4y5evUg+Ev3yO2UvhMYxdNdOCvQiOXtcQt5uuoQL4QpdX+TlEhf3pRIK1FEtf
-	 EQhEvh7oOHFwwh1pvt8PA7hSR4w3ZgR0Px1yaP/qU0odqOu6kFAa1AdrWvPf8TWqwE9Hy
-	 KhvVodTszBILf9bp1bpUaeK66L4jUkMukehQgVf60LShWvBugYT5WwkWamFFSEQWBQpbh
-	 xqRTw6jx4t6ZiqcifP0toFWLLh+/olzH23k9C9d8GQk4jgaRj/2lzmRlVWF7XELUQuWEX
-	 mvuODX99T0XavJY5ihGxLcnalBUw8x9AmqLK3IRbiy/YTVkw8jBq9ucIPl9WizKWTpw==
+	t=1794896064;
+	b=lR0si1AurPSHNMww+xnsdks5svWLgeh9y9vxUVYgmdHhbgd+ay4S9U6zr/u2Uq3WcISa
+	 zgt9GsStxv6U+yi4tLpjpVWkouZZTi6dBbc2nDOjT/ZZ5mfWQMN4yeXJFP1w+DWM3Pdxo
+	 kUZifrFRkoOhd+cUTV4K5yBI7QrefbPV1/DFZlcMyfGAKTSqTRScpK/KKZ20ZmxJsUqtx
+	 KUO56idgExXRMtP5C25aegjGzj7xnXR2Odc6+HDHFeRaUD7qv57lWGAxTd0jcU52Mz8eO
+	 vKC2Dhf0HtfbCA4H9gkzgpEvLWAWS66EcEp2B2JXs6dtTrYfvkASoImu5uYsSXy9BUA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794896063;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794896064;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
@@ -25,61 +25,61 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=OgMzjLxnJmAV7zU1n1doVIEiYS8OH42EabYDwDi9m+M=;
-	b=UhntzrhRrfkHPyvn9pEaDpo79kI70anc73Svrj9H6wqMCGutl7y4+HeUbyrvGStHjC1S
-	 bEVzWHWMUyFD4NLkROFn0ptGpbsNn58dbR0CUY1oiZNNq+22eyc5sHwBq8EF1RBoI5sH3
-	 Pn1Ubb2sdTsZrcju7QNIMC+Agb0EDq9w4sqW3NjVGgYsb6IdSWTa8NCsBne0xrdo2i/CA
-	 nyiW1U8B4bT8jJqLTHIf7SHw/bBaNm71XqUcLFIuCkJuf8Y3qMZ3Nyb3eqWkQDEsF+jka
-	 cC6iKuw7SnOC61YliQ71B75Ci0mULQY+XTu/9d486GrfAPzNr3ubXovnh4H1CbNg1cg==
+	bh=XMaeVK0+vvSmz0BgfnVmnrm45Y8sxR0FNYjuSe2QVnI=;
+	b=wDNQMjAl490Eub1Ik+BQM+B9JZI5C2l1ljIugu4AxsCiPZTZ2nhRs0s2WnmdnUMKpCUv
+	 F8f39wkRmy3W0HhgqtIrFuS/urB5y4ZiTQDCXNp5Zx1ksEEfaHJf7PLMENIbB8ZLnAPQ5
+	 8z3brC3gAMYUcESkIotOF/Wjs978YksH7UixOETM7Hjy3RUJfHKYyB3NGeXJcm8u3XPVa
+	 +Gng8omOnyQ8u7ZQaeubp8yB73fzeEmhgriHfUwqueYt9FcqvioImeoEXT7Ip93r7yz6s
+	 11trYb+IWgHBxQcrRrIOJvRtaRRpy6ImFrBpQgyXlGc/3rO2Be8I6IV9lrH1POS4aNw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=vaisala.com;
 	spf=pass smtp.mailfrom=vaisala.com;
-	dkim=pass header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=gEleRSrb;
+	dkim=pass header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=LmQAEfBn;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.73
 Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11023073.outbound.protection.outlook.com [40.107.162.73])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EDCC606A338;
-	Tue, 17 Nov 2026 06:14:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EDCC606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C4A606A336;
+	Tue, 17 Nov 2026 06:14:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75C4A606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vaisala.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vaisala.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=gEleRSrb
+	dkim=pass (2048-bit key, unprotected) header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=LmQAEfBn
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vQxS7UTlaXiGEpdfEfN4kCgHvKZkoizc2I4Ic12QvR6XWWkSTTkn7N5s4MWoBfq5ojaUZJatP1fhOo2Gl+Zh4TL3YmapMypa7a9nGCzS7bid84xvctvks5xd+plNMGXcqnMH7l8gX/68VYKOnzFjzprtZbAoQqQnlNOSacq9R9/Bqeq7vYfJiHOVCWwymOA3ctP6aay1EGF/e6UFrKsLmhyR12eqRQ8baTSyDmOAXLJ/2XVGBCvuH+Axpf5MJlquBUfcGeBlwWKgnjnQlPRXiyHqhI9h9ZxktogkK0M1/IDsZAy0/i7bq8Wv2wm5AKG/5FBel2gZy6IsFqwxrl7lwQ==
+ b=pjKSEkW0M5NWmtriQGK1t9fz0hJ2MY773nxaCA602ZC+hR/NszQ73tz9DdIR8oFiL1zN8qfVrUg+nsc/owaa8vJXFZ4u1a/Ffl/+pTLG1ik+z2bauZw2IgBzoFtoOR/lO85sZnpfIUu5riznCSDgopBszptX0n/b4w14LcJf0VD0NeL3Y1Ne+kjpiUHILtSF3CSmLyhLZvmcVpKUXUuUYGLT2lpn4ostqrtQEXkERwu886lT8a8/d5mFI0MYgVlRYZ6gSUeoKAnJN05Uf/a9GDMprJgV/TtRQqoEIurGw5aI7G0yn9Zi+naJdAJx+gVykPpZGE7YtZQfFrrSKrryVg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OgMzjLxnJmAV7zU1n1doVIEiYS8OH42EabYDwDi9m+M=;
- b=jmV2yKT+WUI3LOuJFsJJuFeoOZt6YBv8R3RmS127j5BK/3CrimYo7FSdXmZ7jBUf3A83SdQJ2ukV99YK0PvrBRFMlrUCeEFyP6ijwu4S/kh4RhuTtuslJDaAQNrvLLGqnWMbHm9XvU2j01RQvwvHzGY0JLh/dJnNEWc0XJATrzzdsRDjlXlo05Wn3cDe0dnEMXl00lIY1FcUXC4TCnYv3dbepSu58z11gjelmbpPCTP9uDS0SLfGlZngGwzrfrnVO83Y7iUn+YOwiQM0GED10R4I5CNfwUlrxb1/W4BWWNf9oV8ajsnPYo+blS/7UwRJylInLe9dsrD/XK667apmgg==
+ bh=XMaeVK0+vvSmz0BgfnVmnrm45Y8sxR0FNYjuSe2QVnI=;
+ b=nX6pH4tmIJeCb+f/47A9baUhn/aC7BGs/TfMwp+oj6GDOD6fJFOxmhpXie9B/GOoll+NbsFkQRo8LM/BpXIKuHKxtAeXBu0v99oG4QMRVCYxPWQvzwh6SndWw3yADx6f1AUmlAkOD79kwhveRKN5fYPCU8vGTm9AZ8ukynklFjZDbi8ydd2S1n0wrXk+eAAvh3kCKoXx7HCOhFI+ySzP9+MCW0PZhJusEqlklnzrpC1GaZDMgkd3VsxNcK56IlKdIqCqrqGFC/eY8MkiHAkuIp5z/BJHlmyYsP42xL0LGdHkBOuA1EglhYX1km7qO/VBqOqShi44juaf3kAJNwE3AQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=vaisala.com; dmarc=pass action=none header.from=vaisala.com;
  dkim=pass header.d=vaisala.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vaisala.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OgMzjLxnJmAV7zU1n1doVIEiYS8OH42EabYDwDi9m+M=;
- b=gEleRSrbboqHQe4T9fvN7kLvYk3J562RQPmgz483UiTtjN/o0za48BBOjrkGDdmzh8xFu9JNuJ+evmeWZ2QdgJgkgDvii0XN8g6dM9U4jZ4ajXSCSrnld7iXtv0p6AbLd+u13bX48JB8qZoowz7z+ExxLqo8pen3ccgHFzyAkXdT7eRbO1jqACyRlBsTfDkXN4tzZVZKcycZKRl/jfAWlQaMciSsHRz0J9PbRPkd99/3h6C+I3krkn7fVPemtOs6BXBTbPC40LsMzx3BWaWChW5PPjrsXk5XX9D1IofPrXIUo0a4JkEALUUS28PmqRGnjj7dV2rCNnIGyudZ+rNdAg==
+ bh=XMaeVK0+vvSmz0BgfnVmnrm45Y8sxR0FNYjuSe2QVnI=;
+ b=LmQAEfBnEFVJNqvPls4A1WyRov5xWCWLgWp/UmMflRQzMG0V9r1EiYq9XNDHPgN+BNwltdrh726s5h3fJKID4Hgi7IuCXOPNn4werREbAVDDrh6F3QlEceRNiUNdxHGKvWxom7Z8LfwmSWH+xOa+578DiLtY8XoJIrm+l6Q4jpvR3v4XDzTDYT3o3tRmpS9GiL8Kwzd2+POJbJrl1tiBO9WJDxlpAaopZamlrfcZDPIj2xdlPbldXHeMRPuxpTWKWnHEXsRF+rJHiM0y2HfGl7Oro/B4dmn5bdg7NNGl3NykZfSweR4MA0o0cMLE1AG4f51W15z5/E9OLmFeW+O0ZQ==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=vaisala.com;
 Received: from PA2PR06MB9176.eurprd06.prod.outlook.com (2603:10a6:102:407::17)
  by DUZPR06MB8724.eurprd06.prod.outlook.com (2603:10a6:10:4b1::6) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Tue, 17 Nov
- 2026 06:14:13 +0000
+ 2026 06:14:14 +0000
 Received: from PA2PR06MB9176.eurprd06.prod.outlook.com
  ([fe80::b6d:8160:d324:3bfc]) by PA2PR06MB9176.eurprd06.prod.outlook.com
  ([fe80::b6d:8160:d324:3bfc%7]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
- 06:14:13 +0000
+ 06:14:14 +0000
 From: Tapio Reijonen <tapio.reijonen@vaisala.com>
-Date: Tue, 17 Nov 2026 06:14:05 +0000
-Subject: [PATCH v2 2/4] serial: max310x: re-check the TX queue before the
- after-send hold
+Date: Tue, 17 Nov 2026 06:14:06 +0000
+Subject: [PATCH v2 3/4] serial: max310x: hold TX data until the software
+ RTS send phase
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-max310x-tx-fixes-v2-2-b395126fd23d@vaisala.com>
+Message-Id: <20261117-max310x-tx-fixes-v2-3-b395126fd23d@vaisala.com>
 References: <20261117-max310x-tx-fixes-v2-0-b395126fd23d@vaisala.com>
 In-Reply-To: <20261117-max310x-tx-fixes-v2-0-b395126fd23d@vaisala.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -88,11 +88,11 @@ Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
  Hugo Villeneuve <hvilleneuve@dimonoff.com>, 
  Tapio Reijonen <tapio.reijonen@vaisala.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794896051; l=2547;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794896051; l=7600;
  i=tapio.reijonen@vaisala.com; s=20250903; h=from:subject:message-id;
- bh=yxw+rga1UVi0Z2vhADlUFN5h1RESJIQyhsg2WO4xdTQ=;
- b=s5bPoFY2LHNStLGPELMd8bwqufjYMTLYi9fR8mVVBGxMvlSmlc+sciSmEHXQMRptKaujHj2u7
- HdcYS1ubGa4BylJ6bkr3FLJf+miY7d1E0VwLeQlhpsscLTvOqRtRDP+
+ bh=eawYP+amhLcsiszAvBXsQrRq2vOHPblbI7yOPemon40=;
+ b=wRX4cBxUUPTw3ujh/F0ovn3x9hbpKhjIVzuuzmLwFCq7cPrgoFWBbsoWXyie60kGN6RXg78BN
+ Nd6UDCoCWeyBIf4QQ4LaUSu8D0RvsaC6SpDFdbpsLtcn1trN8v0rkS4
 X-Developer-Key: i=tapio.reijonen@vaisala.com; a=ed25519;
  pk=jWBz3VD84WbWgfEgIqB5iFFiyVIHZr52zVBPOm7qiGo=
 X-ClientProxiedBy: GV3P280CA0020.SWEP280.PROD.OUTLOOK.COM
@@ -109,120 +109,245 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PA2PR06MB9176:EE_|DUZPR06MB8724:EE_
-X-MS-Office365-Filtering-Correlation-Id: fbe3e0b3-ac38-4980-a1ab-08df447200a5
+X-MS-Office365-Filtering-Correlation-Id: acb4558f-304e-469e-6c5e-08df44720102
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|52116014|1800799024|376014|18002099003|22082099003|5023799004|11063799006|10067099003|261026140227099003|261022075727099003|261026121527099003|261022105027099003|261028144727099003|261021123027099003|261021121427099003|56012099006|261009223027099003|261102123227099003|38350700014;
+	BCL:0;ARA:13230040|23010399003|366016|52116014|1800799024|376014|18002099003|22082099003|6133799003|3023799007|5023799004|11063799006|10067099003|261026140227099003|261022075727099003|261026121527099003|261022105027099003|261028144727099003|261021123027099003|261021121427099003|56012099006|261009223027099003|261102123227099003|38350700014;
 X-Microsoft-Antispam-Message-Info:
-	XkhMrE7w3y2Io77XJIJbSh4LN6eneEWWvaBn9hUfqHvzHbq7IpiWDwyoE8BxuTmNc0ul3C+dqo4EXtbDcUUdGvSPbIejNyQdmdUqlMt1nwrQjjObqAFxGqpytp3+Ne9QsvrIXre6CsaPBZacLgInu7OKXHUyt8xfQyK2odQ8GgehSwf+NeA9EySyz3QBeSRxrVi1rkLrZsIw2Ozo/oZ4vaZidrV5EuUxG0M33oznmwXSPXMTQ6elAJBU7fbOE2LVXOcdTUIRa299rwX2URBmoN6IvJGPelsvzMMD9SUM1ILzuW3I7SggAxlbAEyH2ZIIndQvQPUz4hlWS6GlTaVfOvLqwQFqanNgvTVmnqIma6iinOYtEaemyNqydyLyNiu8jJU4zBad4/YD1OCox64BcilZOUGhtcGGAOch1+9t9kvmF7ub0wjeD0X0F5QYDohjEXu26J2/spuPkr903AjTarEIAi9Cff5VtSFoTCW2WJTEv3SnGLHkLewuT5SntkvS1xWnGOhYcExtKO1PDSd+EAENvPMH+2aQ/jIr3KkBGaT15jese24IYqU6/REv/EkEe5HNpixAL+F/Oj1aehg1GjYGv3jmVUiXHPRwZsegryRK9chc6Ey1Qc4rKBveI3t2zcynyrLI7KMNH/j/o+ZB7OZyhWm9VCbo6CgoKw+7bFEjiWcjOLJdjaTQ4+9LoFKDonC5JLcUicBEMGU1v/cUhw==
+	l1OO7L1PxAnVD8wyYMJ6gIyMcwO2XWWmGCm91dt4Vk87CBObQXz3guR1rbjZDOXcWmMBI5k/q8Xv7/2SkOUiJxjxJcvlbSWplmErRdwzZnCCzdpZxBc1b6exsPKKCGEBbRqeRM1Pc5CHJ8iHE7iDq8B4eFOF4cW/csRD9QjpGsXHFVqc5HLZBwhKq3sapgdLNrJNgy3VrDB2pOmsoDV9WthBZAF62id793Mzrv/J3w0HZt2E53nUGo8n46qqDecdKDZaqxaELhOMY8aL1T59g7pcTsugUklepULA7c6IGP9Pw7Mf5G2209wissvRrxeqV4fxWdBLAMkUKR23WfubGXOVpyVdoXm5TjOhrUy/cpTpe9A6UjyXYV79Abx9rWZ59E/WcSC0DPKT7rzbESFhPLqZSjMnQZnTqi/wYC8CiiuxOBGnRFYRVSZMySMXxULAZskcQOPVsitsvNi2wJQq3jikkHt8ZuzWBKAudO80ZTmglmEkwQg3Dz22lvirwlHyOya1+O1w3LYxVviTO+kNeS2uQM7I0qiqY7Gdg6EPK6bwi5mCJectjD9Yt4/F2VpzWmCKaqJptuUgMgddpDbXOJBHD1YnWD5Ry+muKdXxMxaWey69/z1Uy8w76AXYwdhqpZj2UDHPyJHq9BVwBB3e++r2XDwZuzpQTCx+r78mWxDsa2H7goZxfvOwZ0ONYjsEyyfZ/qCUUytNRJC1FNlWHfw1WkYGVSh/Q2M6MqasNp8=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA2PR06MB9176.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(52116014)(1800799024)(376014)(18002099003)(22082099003)(5023799004)(11063799006)(10067099003)(261026140227099003)(261022075727099003)(261026121527099003)(261022105027099003)(261028144727099003)(261021123027099003)(261021121427099003)(56012099006)(261009223027099003)(261102123227099003)(38350700014);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA2PR06MB9176.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(52116014)(1800799024)(376014)(18002099003)(22082099003)(6133799003)(3023799007)(5023799004)(11063799006)(10067099003)(261026140227099003)(261022075727099003)(261026121527099003)(261022105027099003)(261028144727099003)(261021123027099003)(261021121427099003)(56012099006)(261009223027099003)(261102123227099003)(38350700014);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Q0xWSEZFTWFWWFAzV1hNNjlNdHlGZEJabkNvMmN3TmMwWTkvQnI5UXRTcmgr?=
- =?utf-8?B?cytEVHN4Zk40QXZ5b3hqNUFxUGtrR21oQjNKZDQ4Q2JiSGp6dkovV3VTci95?=
- =?utf-8?B?U3BUZWRldy9kOEN1NVJLQm91VkFUbXZPMEhNSUw4Y1crS2FiVU9pK3lGcWQz?=
- =?utf-8?B?cVNlN2ZDWEZaTzJnZXA1YzRuNGhlSXdaTDBhTkU3bmx0VTI0K29BRWZlbnNl?=
- =?utf-8?B?d2U0STJ2N2hpTjlURS96UURBc2VtK0V6MDBnN3YzbWRpaXN5TEowaWVSYXN5?=
- =?utf-8?B?TmpYTzU2eVR1cG5KRWgrWFc1eGtSYXQyc05UNDBVWDc0clgwWEVaT24weGZF?=
- =?utf-8?B?ZDAveC9DTFNtRFpUUmdEY2h6cVVGVkcyRUVjOXNDQ2QrK3lzR1U5YmViRnBi?=
- =?utf-8?B?UVpXaitoU2Y5Q2JIT21jM3JRNlYvdDc3bE82SEF0M3ltbVBKRzJnbzVxSW93?=
- =?utf-8?B?OTF3YmtzVHpMY1drSGxSYjlvRnRKa2hqS3dTM08xQWVwZGpSbUZFdlpaeFJM?=
- =?utf-8?B?Zlo5M2pTcmxSL3RyemdTVlVlNG5ReCtiYit4empTSUhUNm42ODl2L0lXZm1I?=
- =?utf-8?B?eTZYMUlNRnpNQTJwWlljTXhDSjZ3QUMrL3hWTnNMSzNmTHZaZDlTKytWOHNr?=
- =?utf-8?B?T3phYUJVeHNFc0tKRUd5OGNBNG5VbzV6WkZxbEFqYk9YcUxvRXNkejI1RUtW?=
- =?utf-8?B?LytWYWpPYVppblZkTlN3SDl3UU83K3VwUis1SnRPNHpUdFZ1M0M4VGc0Ujh1?=
- =?utf-8?B?MVlkYkVJZVJ0N3k0bjRhNEJGR0xkZ1U0R1pQcW4rZUJLelRURXloVE8ya1Bl?=
- =?utf-8?B?Tk9aNGJPZHRob0ZRcVVYWi9id1Y3VE5uUDl2WldrRHhzb0FuUVl1UlNpd3l5?=
- =?utf-8?B?NU9zZmE0RGl4Ti9JT3Vab3B5Zks0eDZiNjJoQ1FIYUtTT2lQN1JEQWoveGUw?=
- =?utf-8?B?ckxkS3JMVWtZcld3STlUMTRCdG5sdGo0M2o3RnFrRXhHUUdoSWEzSEljS3ky?=
- =?utf-8?B?Z0FhM0U4aFA0ck91Tjlid1crd3Bza29ZTGplNW55ZU0wRXVHVkZCMml3NUox?=
- =?utf-8?B?VVhldlRORHVrR3kxajZ0ZjFOdFd6RVk5dWdwLzNCMFNSNUhCR001M0lERDdk?=
- =?utf-8?B?Q3A1L0RvWjMxVkFCT0hPWHMxNjd6bGNDaUJKZ2o5YnN6dUxicjFaemVoOUVZ?=
- =?utf-8?B?UmJPSDJDZjk5cXM4c0NXanZZM2tWMVJPMzhCUGlyZ2ZZWExBKzdLM1QxOFdk?=
- =?utf-8?B?QXZrODl3N1hQSi91M05XYlIxWXUxZHhnZWJid1BiUGFKRmRSYVA1RTBqMkRt?=
- =?utf-8?B?aFZtU0FqN0VucGx3YnpVUXRma0RzSXZwdjRWWWZ0RDM4R2hkbmJoUjNWS2Fn?=
- =?utf-8?B?VXlRTTM2Q1NJeHFOWk51d3Jjd0NyUnR5V1ZEVmk3U0oxa0tLbzJnWUNmdVQ2?=
- =?utf-8?B?dmJQcnVtcTJHd2o1TW9MSm5NRGdYeSs5SGhvM0NQc1I3VUJjTk1hTzExQ1RV?=
- =?utf-8?B?S2FTNHh4aGhFVzNWZjgzK0NacVRUMDdtTUl6ZTFLMUdOcVVTQjBwOVh3YVIx?=
- =?utf-8?B?UjJiT3RDeklsSzFybjNHRDh4M2FrTVNUVkNwbm9jNllFT2NnaGczaUxDMDR4?=
- =?utf-8?B?SVVvdjBZV2lvRE5UcmhoU2VOSlFlaVZTL0t6RkU2eldRL2U0MnQyWmpDOXdy?=
- =?utf-8?B?NUZENmd2R0tKZHpYZ2k4Wi9XTFdBN252My9MQUNIdC9FbW9pUW83VmxUd2d5?=
- =?utf-8?B?ak5WY1lZNStMYkRkNGNXOXplb3VWM1Q5ZWdFRllUVTY2ZGtFNDZCMnpqU1Y2?=
- =?utf-8?B?M0wyMVpkdFRJV1hPTHVPaENvejZtRWlyRFdGRVNwVElFeGxsbStnekIrTENT?=
- =?utf-8?B?QWxwQXV0ano2bEhQT2Y4a29ueGJIODRQRlN5TUV6NFROOURUYU5TVmFyM0tk?=
- =?utf-8?B?VndjUmNsSGdDWFdaU2ttblBuUHNJcksxWHlRK2hxY1dCM2dpYVZ0V2wrREc1?=
- =?utf-8?B?RVhXRGZxSml5SXdYY04yNFNTQkphRnJPQmwyeHM0MjBZek95dzFWK3FFME5a?=
- =?utf-8?B?UE5IT0pjdFVtd2VXTHRsTElaQml3eG4rVE9zYU45SEtLR09ZcnJmTGxPSDBZ?=
- =?utf-8?B?Y2RlRG53YWZaUGNvLzBxM3poWmJkc3E4R0tjTFZCTjRnMzRVYkhMYnA5b1pS?=
- =?utf-8?B?dHNUUlNGZ1Z5T0VMSi9jSHRvZ1RLN1lBcWZiaGszeHNMVURHcVF6MWZRaTcv?=
- =?utf-8?B?eGxTZi9MNmZUOGxlSnlUSllhRFE4T3VKN3VDOFYrZGhMcGxkdEJTSWJPZXZ1?=
- =?utf-8?B?R3FXdUtKN1lGR05XajY2dTdFa2Q4RXlDdGh2U0RlVVZWbVIzY3czN1RVM1BU?=
- =?utf-8?Q?VJqBJn4f4zIQtFdE=3D?=
+	=?utf-8?B?K25hdkJIUW9taDl1N0I5b1gybGJ6UThPV211c0pTWm1PWnRqZkxsVkFFWjRo?=
+ =?utf-8?B?cGNiTkRJQ2FGL1BLVmZqR2hvTkt4cHBEYVdmUm9HN3BTT0thZmRQS2tkV2xy?=
+ =?utf-8?B?cmdvNHEwMHIvTC9PalozMWpHV0pGRk0wQVJ2bDQ2UERCMVpaSmJPWE1JbGpi?=
+ =?utf-8?B?TmZxUVpnMzlxM01aNVUrbUNEM0hEWjg1Q05SYjdBTlJkcWVrMk5jOTR2bjR6?=
+ =?utf-8?B?d2RPMjlxTExXTEhsWDlpQ0tBUFlwSUQrcDJvc1A2eFJtNFZ5aExFQWYySXJh?=
+ =?utf-8?B?aHdBVVF6TmY2dUNGSnRKZ3ViMWRiZWtNdm1mbi9aYmJnamZRYXNNQldQKytN?=
+ =?utf-8?B?a0FHTWliVnhFSDJNRGFNT010UXNaZUhNc3BLOWtRWHg0ZS9rc1dvZGhYQ3ow?=
+ =?utf-8?B?ZEVOdGJNT0QyaE1VTC9YeWwxckpxVktvWnFHczlTTVFTemlEdWZiRUE0L2pH?=
+ =?utf-8?B?SUNiQ1hqNm90WWllZGNzYUcvNXZweTc1ZzA5WS9NSm1HMmN5ckRYYkowVllC?=
+ =?utf-8?B?WGpJc1djclh6c05tYWhlT2p4N0ozWlpvNWxYRW4vZTg2OFB6RE94VXJOdENw?=
+ =?utf-8?B?VGxKS0pMaElLMVFEL3dLQTlUOHA1TFZ0bnMwcURJZUUvbXh4N3BwUWU3bzNs?=
+ =?utf-8?B?VEpLc2JTN25mNU1IbWtROC9HSTJNak5OYnAzSDBjWFVPcXd0em9FbjJDeGF3?=
+ =?utf-8?B?UUx3UGx6aGRsODZSU1Jyc3UrZzdBdWxSczBZdXlXNkw3R2RKZjc3bjVRQU5x?=
+ =?utf-8?B?akIycTFCTC82blFPZHlQdHJGM1hLUnc4RU1kTHFra0ZWdnlYcXZ4YmFUbU1l?=
+ =?utf-8?B?aVgrY2VDS3hlb205cU1ac1phN09zMmFhbnJEUU9CVXc5R0o4bWtWRTBERU9W?=
+ =?utf-8?B?QlNwbDVYU0lmTXc0bDZLbnVWSkNMVnVZMm9pc0VRRlVhdktjU1k4N0JjT2t6?=
+ =?utf-8?B?QmJKL3dlUlIwbktGdUdkVlFoMWk0eXBYbC9EM3I1VStWdFUzY0k0T3B2clU2?=
+ =?utf-8?B?UnFXc29BSGt1WlljcWM2bkg3WGMyWmsyWXgvVmZOaUliMC9Sd0ZXNVg3N2VB?=
+ =?utf-8?B?enFGR0ZWSU1nRHZTSzVvbWhJOFNqa3pzdEhFVHJVdTlYTy9kd0o3OFFkdita?=
+ =?utf-8?B?TXZxaUZaL3V1aFFJQklkQUJzeVNDUnRhUXdQWCtoR3lVeTdCWnVaSXhzT3Bi?=
+ =?utf-8?B?QWFSY0grVi9FbTJ4U2tFUnBwRmFvdjVYVkxqWXZYNDVUNDd0QWtld2hDQ1g3?=
+ =?utf-8?B?SU81Q1hEOW4rZkp3K3J6REZ2Z3NaMWE3T2U0MldSUlpRRWlTRGhjMUFTamdE?=
+ =?utf-8?B?ZW1BbXlnSnRTMUltRDduVWFoNU4rV3orcVNxeEZ3TklCaTB6M0tOcWh1bmdl?=
+ =?utf-8?B?K2ZjVThrcjQ2RXVWYnloRWZmVzQwVWh2QW5zRDdqY1c0aUxRVFFZU2R5VFFO?=
+ =?utf-8?B?dm82dFNoci9GVDltc0hPQXlGb2VYcjErZWg5aHFjV002TkNZTEJpWmpVOUpa?=
+ =?utf-8?B?Zi81c1FuZFRBcHVvZlh6Zkg4d2dYUlEzaHlITDM1WnlmR1ZhelBUWnZuRjFG?=
+ =?utf-8?B?c3kxM2NjSGE2MENZVEdqbVdDeG93czFCdEZFTEREb0cvSzRmeFY1bE8xcm9j?=
+ =?utf-8?B?aEovZ0hDb08yVkVRMll5Y2ZSN2gyRzJaSmFtdDJ4UWJMandiZGx2MUNsR3Zi?=
+ =?utf-8?B?aVMzcG1RTWd6NzRJN3R3OHpLalNpVkJtbnJQQWk4ZlVOdE9qZ3d6VHlDOUJa?=
+ =?utf-8?B?bTN6UHFkWk9Wa1ZFN0xZWlNhVFFHN3FEU01MNVc2Y01DSWlXaDRnRnJJMkJ5?=
+ =?utf-8?B?TXAzaUlKanZpTi9nRFVGOXhLbWtaUWNhUDBuUUE2YTcrMGI3Tm8zWHlkWmNn?=
+ =?utf-8?B?L1o0L3ZLbWFVSzE1L1dhdUNFMzJ1VmJVTzJUM2ZKakZXQ09Gb2h1UEhyVFJH?=
+ =?utf-8?B?YzdvRTZzNUpLVmhtUTQ3QjMySldacDVuNWlZSXRKc1dZYzZUV1RPRVEzcDR6?=
+ =?utf-8?B?THVXVFpoaVB1bXdHS0ZwOW9KSUZxZ3ljYmROZVNVaXk3S2FhWFpVZVF3bnhP?=
+ =?utf-8?B?NFhaUmFQbll4WTdXT1BmQU5tMXlNK1VxWTliOElTcERFZGxKeTIxMll6TzJG?=
+ =?utf-8?B?N0hiQjl1LzgrUEhDLzlHMU52SHBuY0VXN1lzMGU3aFRSWFdCMjgrOTFhSlp5?=
+ =?utf-8?B?L1FNd0FkZWV4Q2g1enhlQWVzVzY1TStDOHZycVZJbGlJbVB3ZzhHbllVTTZy?=
+ =?utf-8?B?TTJhcUw3YlQ0Ni83YnNZZHlYVHpTUXRROWM1Y05FRGNHU2p5TkdYb3dLMFBS?=
+ =?utf-8?B?aVVwaTBXVjR1NkdWby9YdTVGTU10eFltVHJMblVEL0wyL2hjUmlnVzg4Zldn?=
+ =?utf-8?Q?uMkfE0RehmNNa0NM=3D?=
 X-OriginatorOrg: vaisala.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fbe3e0b3-ac38-4980-a1ab-08df447200a5
+X-MS-Exchange-CrossTenant-Network-Message-Id: acb4558f-304e-469e-6c5e-08df44720102
 X-MS-Exchange-CrossTenant-AuthSource: PA2PR06MB9176.eurprd06.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 06:14:13.8375
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 06:14:14.4608
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 6d7393e0-41f5-4c2e-9b12-4c2be5da5c57
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VdoSKn5aCWGnyrOOmFDMN5NK2ArvSv0120NC7YBsXC4xEpJpRzsx6wVmy6Byp4x7bgmNI//7EkOljBNS2+BstVje6a2SLPMmLRoWT+d7GME=
+X-MS-Exchange-CrossTenant-UserPrincipalName: PIVxgoc9QpTNh9/n+eU43+r/GByKNAYliashtf79p+mt0eB0uQOORaY4Eos6nZkOioIqAD6rGthHgbrwbMd8JSLUcJgAi0h4dRGDDULeeG0=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DUZPR06MB8724
 
-max310x_delayed_stop_tx() decides that a software-timed RS-485 envelope
-is over when the transmit queue is empty and the chip's TX FIFO is
-empty. It tests the queue first, then reads TXFIFOLVL over the bus, and
-only then takes the port lock and arms the after-send hold. The bus read
-sleeps, under load for tens of milliseconds, and write() queues data
-under the port lock in that window. start_tx() finds the envelope in
-MAX310X_TX_SEND and does nothing but reschedule tx_work.
+On the software-timed RS-485 path, start_tx() begins an envelope by
+setting MAX310X_TX_WAIT_BEFORE_SEND and queuing the RTS worker; the
+data may only go to the chip once the before-send timer has moved the
+envelope to MAX310X_TX_SEND and scheduled tx_work. Nothing enforced
+that: max310x_handle_tx() pushed whatever was queued whenever it ran.
 
-When the stop routine resumes it sees an empty chip FIFO and arms the
-hold on a queue that was empty before the read. The hold expires, the
-RTS release is scheduled, the rescheduled tx_work pushes the new data
-into the chip FIFO, and RTS drops while the chip is still shifting it
-out. The tail of the write leaves through a disabled transceiver. No
-FIFO overflows, so no counter moves; the loss is silent.
+The chip latches its TX-empty interrupt when the last byte of the
+previous envelope leaves the FIFO. Under load the IRQ thread reads that
+bit late, after the next write has started a new envelope, and
+schedules tx_work for it. That run found the new data and pushed it
+into the FIFO while RTS was still down or the setup delay still
+running; the chip transmitted at once, the head of the write left
+through a disabled transceiver and the receiver saw the rest misframed.
 
-Seen on a MAX14830 behind a slow SPI path with 20 ms of before-send
-delay: 25-byte writes every 20 ms lost 1600 to 2200 bytes per port in
-five minutes in RS-485 mode and nothing in RS-232 mode under the same
-traffic, overrun counters equal; 96-byte writes every 60 ms lost
-partial chunks of 14 to 75 bytes a few times per run.
+Seen on a MAX14830 with a 20 ms before-send delay: with 25-byte writes
+every 20 ms, 33 to 88 such losses per port in five minutes remained
+after the after-send race was fixed, several of them as misframed
+bytes.
 
-Re-check the queue under the port lock before arming the hold. Data
-queued before the check keeps the envelope open and the pending tx_work
-ends it once that data has drained; data queued after the hold is
-armed is already handled by start_tx(), which cancels the hold.
+Hold the data while the envelope is not in its send phase. The
+before-send timer schedules tx_work when it moves the envelope to
+MAX310X_TX_SEND, and so does a write arriving during a send, so the
+data leaves as soon as RTS is up.
+
+One more path enters MAX310X_TX_SEND, and it does not schedule
+tx_work: a set_termios() that moves a running transfer from chip-timed
+to driver-timed RTS adopts it in max310x_adopt_hw_tx(). A tx_work that
+runs after the path has changed and before the adoption is now held,
+and with the chip FIFO empty nothing sends the queued data until the
+serial core's runtime PM calls start_tx() about 0.5 s later. With only
+the hold in place, 10 of 338 baud rate changes made near the end of a
+chip FIFO load stalled for 370 to 490 ms. Restart the transmission at
+the end of set_termios() the way rs_work does after an RS485
+reconfigure, through a helper for both. The helper leaves stopped
+output alone, as serial core does.
+
+A software envelope between two FIFO loads looks the same as an
+adopted transfer, so a set_termios() that lands there restarts it as
+well: RTS stays asserted and the rest of the data waits for one more
+before-send delay. rs_work has always done that for TIOCSRS485.
+
+The comment in the IRQ handler said that a stale TX-empty interrupt
+cannot push data during the setup delay; correct it. The hold does
+not apply to the hardware RTS path, which does not use tx_state.
 
 Fixes: 33632215e1bb ("serial: max310x: drive RTS in software when hardware delays are too short")
 Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
 ---
- drivers/tty/serial/max310x.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/tty/serial/max310x.c | 72 ++++++++++++++++++++++++++++++++------------
+ 1 file changed, 52 insertions(+), 20 deletions(-)
 
 diff --git a/drivers/tty/serial/max310x.c b/drivers/tty/serial/max310x.c
-index e6a740295b96653281a92f8d94999f06c2c74685..7ddfe8773faf9bc51621c49fa5d8e7d6b1e4bc34 100644
+index 7ddfe8773faf9bc51621c49fa5d8e7d6b1e4bc34..d92bf241558862cd83073c1d12ec9f0aaf88f090 100644
 --- a/drivers/tty/serial/max310x.c
 +++ b/drivers/tty/serial/max310x.c
-@@ -897,6 +897,14 @@ static void max310x_delayed_stop_tx(struct uart_port *port)
- 	    READ_ONCE(one->tx_state) != MAX310X_TX_SEND)
+@@ -942,6 +942,16 @@ static void max310x_handle_tx(struct uart_port *port)
  		return;
+ 	}
  
 +	/*
-+	 * Data queued while TXFIFOLVL was read: start_tx() saw SEND and only
-+	 * rescheduled tx_work, so arming the hold now would drop RTS under it.
++	 * Outside the send phase of a software envelope RTS is down, still
++	 * in its setup delay, or about to drop: a late TX-empty interrupt
++	 * must not push the data out now. start_tx() opens an envelope and
++	 * tmr_tx() reschedules us at MAX310X_TX_SEND.
 +	 */
-+	if (!kfifo_is_empty(&port->state->port.xmit_fifo) &&
-+	    !uart_tx_stopped(port))
++	if (READ_ONCE(one->sw_rts_during_tx) &&
++	    READ_ONCE(one->tx_state) != MAX310X_TX_SEND)
 +		return;
 +
- 	if (!hrtimer_active(&one->tx_delay_tmr)) {
+ 	while (!kfifo_is_empty(&tport->xmit_fifo)) {
+ 		unsigned int txlen, to_send;
+ 		unsigned long flags;
+@@ -1077,8 +1087,8 @@ static irqreturn_t max310x_port_irq(struct max310x_port *s, int portno)
+ 		if (rxlen)
+ 			max310x_handle_rx(port, rxlen);
  		/*
- 		 * Add one character for the byte still in the shift register -
+-		 * TXEMPTY latches on the FIFO becoming empty, so a stale
+-		 * interrupt cannot pump data during an RTS setup delay.
++		 * A TX-empty read late can belong to the previous envelope;
++		 * max310x_handle_tx() holds the data until the send phase.
+ 		 */
+ 		if (ists & MAX310X_IRQ_TXEMPTY_BIT)
+ 			schedule_work(&s->p[portno].tx_work);
+@@ -1314,6 +1324,28 @@ static void max310x_set_rts_ctl_params(struct max310x_one *one)
+ 			    MAX310X_IRDA_RTSINVERT_BIT, irda);
+ }
+ 
++/*
++ * A reconfigure is applied: restart a transmission that it left queued, on
++ * the path that is now configured. A send state without chip data has
++ * nothing in flight: restart it as a fresh envelope so the before-send delay
++ * is honoured. start_tx() can drop and retake the lock through the uart_port
++ * API - callers must take it with uart_port_lock*(), not a spinlock guard.
++ */
++static void max310x_restart_tx(struct max310x_one *one, bool chip_tx_empty)
++{
++	struct uart_port *port = &one->port;
++
++	lockdep_assert_held(&port->lock);
++
++	if (!port->x_char && (kfifo_is_empty(&port->state->port.xmit_fifo) ||
++			      uart_tx_stopped(port)))
++		return;
++
++	if (chip_tx_empty && READ_ONCE(one->tx_state) == MAX310X_TX_SEND)
++		WRITE_ONCE(one->tx_state, MAX310X_TX_OFF);
++	max310x_start_tx(port);
++}
++
+ static void max310x_break_ctl(struct uart_port *port, int break_state)
+ {
+ 	struct max310x_one *one = to_max310x_port(port);
+@@ -1363,7 +1395,10 @@ static void max310x_set_termios(struct uart_port *port,
+ 				const struct ktermios *old)
+ {
+ 	unsigned int frame_bits = tty_get_frame_size(termios->c_cflag);
++	struct max310x_one *one = to_max310x_port(port);
+ 	unsigned int lcr = 0, flow = 0;
++	unsigned long flags;
++	bool chip_tx_empty;
+ 	int baud;
+ 
+ 	/* Mask termios capabilities we don't support */
+@@ -1482,10 +1517,19 @@ static void max310x_set_termios(struct uart_port *port,
+ 	 * taking over an in-flight transfer arms the after-send hold from
+ 	 * the character time.
+ 	 */
+-	to_max310x_port(port)->baud = baud;
+-	to_max310x_port(port)->char_time_us =
+-		DIV_ROUND_UP(USEC_PER_SEC * frame_bits, baud);
+-	max310x_set_rts_ctl_params(to_max310x_port(port));
++	one->baud = baud;
++	one->char_time_us = DIV_ROUND_UP(USEC_PER_SEC * frame_bits, baud);
++	max310x_set_rts_ctl_params(one);
++
++	/*
++	 * A tx_work that ran while the RTS path was switched above has
++	 * returned without sending, and nothing else pushes the data it left.
++	 */
++	chip_tx_empty = !max310x_port_read(port, MAX310X_TXFIFOLVL_REG);
++
++	uart_port_lock_irqsave(port, &flags);
++	max310x_restart_tx(one, chip_tx_empty);
++	uart_port_unlock_irqrestore(port, flags);
+ }
+ 
+ static void max310x_rs_proc(struct work_struct *ws)
+@@ -1518,26 +1562,14 @@ static void max310x_rs_proc(struct work_struct *ws)
+ 	/*
+ 	 * The configuration is applied: release any TX that start_tx()
+ 	 * deferred while the reconfigure was pending, now on the right
+-	 * path. start_tx() can drop and retake the lock through the
+-	 * uart_port API - a raw spinlock guard here would unbalance it.
++	 * path.
+ 	 */
+ 	chip_tx_empty = !max310x_port_read(&one->port,
+ 					   MAX310X_TXFIFOLVL_REG);
+ 
+ 	uart_port_lock_irqsave(&one->port, &flags);
+ 	one->rs485_pending = false;
+-	if (one->port.x_char ||
+-	    !kfifo_is_empty(&one->port.state->port.xmit_fifo)) {
+-		/*
+-		 * A send state adopted without chip data is the deferred
+-		 * write itself: restart it as a fresh envelope so the
+-		 * before-send delay is honoured.
+-		 */
+-		if (chip_tx_empty &&
+-		    READ_ONCE(one->tx_state) == MAX310X_TX_SEND)
+-			WRITE_ONCE(one->tx_state, MAX310X_TX_OFF);
+-		max310x_start_tx(&one->port);
+-	}
++	max310x_restart_tx(one, chip_tx_empty);
+ 	uart_port_unlock_irqrestore(&one->port, flags);
+ }
+ 
 
 -- 
 2.47.3
