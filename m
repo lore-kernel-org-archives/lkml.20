@@ -1,62 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=89.253.219.113
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.217
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794926013;
-	b=CRYU+t2tUb+ctGBhnwjxdc0TigKKdwZqEEfBb3KLl4lxm6jShASgwyfOApTsdtJNzC6t
-	 PgbSklce/y3DKH4ezhwlI6wTUC779ksJbloUFFF1yWlvEgGPdZsrNoAlZsfin8MRX2t04
-	 bMrnH39NKpktCkG+oWYyaIzrGqdoiDlrajDPg4vzNpveSjPYu1I1KAZh+kDwBLj+bNeQE
-	 v+7klWZs1UGdsnM8O9mMtne9SWOheuHgZW0SOhSK8Bz7tG15NQ0fZPMcnkP5NSxg34jk/
-	 CAVrca75CuDxOtW2sCTZIHamEyA/h+955a1Qg/2mcMypFqSbvzE31x8Nyg9pBDexWbw==
+	t=1794926019;
+	b=pFmSiYRBrYCv/w8WTxBg36P9TQfr/d6kcdgAhNYiZsZ+irgjou0ImbCaXoKWDZuGjakU
+	 RcU7h22z9LTNSW0C403ipBUZLvf6cFQd16oXZ2FJVxPzMKBCiWSZNKl217vNx5+Kszo5R
+	 UwozkVQ5DS+mJ2PbFgcQGgEqZ/mHwOkDjvPNz8mXOUFUSsO0nkWC3Jl8MfzDGMzAcZ1Fh
+	 8d6pIksm7IGse2uOWyR+VZkk/SIwRuQ/CMaH74ntNytt/4+Sp0qXHm/wI1eNfR8sFj60P
+	 jFAyOWSBaIUYMtRmgeL4zNU5VppQrnJ9AAU1IUdujRSrzm6MKjipz23yNYFB8cOGyqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794926013;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=HbRB8RotjZVigpTj6I8exRxBXT1uTFvRAAMa/gtAUV8=;
-	b=0GcAXRJbZnBHL2Fbd+wiEr0B3fXsy6nwQtqAh0Wz1cFOam1Tzbju0eTKdjhBSb9wj7xI
-	 sz6Ihl3lpFDD+T2D6jXZNfv/mH7IqEByJjSz8T138VKYa6SeqmK4ulfuYA7ZXjFEHMHfp
-	 vNd1xydikcGIbTI10IHjpEWNnpoWPPmttQCnduC11MtT3zSDaBCTPlYSy4nvaxT+NFypq
-	 kj7+B3Lt+oikLzctH+aVsKxKC7rdNtavRU1Y+sUBE9ZuV1sSa+xSd51KYYNFitRrmDcrg
-	 lJfHGeKK7ld22XKknXVpdTC4rQlnTOrDUPvjYYTBmO1mzfrMjcqSBdRC7GHXsys0Y2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794926019;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy;
+	bh=By2TgM9Xeiq5fwyI6d3OB7CNRr7DwQCDNevlT/7vutY=;
+	b=1lmiG/sUBHJEkcbeRUXDRODjtrzpGl8f76dPrZX0JxcWGSOEq4PwxFRY1kmfRYqVlGNR
+	 ACGZ/LCRNVqdlVgdSKs7zh3n/sDp29Ejtl3oY5OJsOcRQKund5rQYzxq1jo1AOucltwSI
+	 sXRrpegTF215zSi1NCINQQT4edAp4RBfdki2aKjaXjLeEuvXFw4zMLqDJwuiZxau6yHZP
+	 i17byLJYbmEXi1FEVoXtL3N9RbLYtS8O7vt45K2ZbXZcBMo9sz8zfKT/8qxZb8KTuNZ1C
+	 NqzyEcaW+4Pr+MkVmqRehDYV3GYaC8JtstBZXoaMayapg0LQa0V22fMxclabC8tGOSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pavel.bz;
-	spf=pass smtp.mailfrom=pavel.bz;
-	dkim=pass header.d=pavel.bz header.i=@pavel.bz header.a=rsa-sha256 header.s=primary header.b=UfGuC9ln;
-	arc=none smtp.remote-ip=89.253.219.113
-Received: from mail.pavel.bz (mail.pavel.bz [89.253.219.113])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=fmE8M1h5;
+	arc=none smtp.remote-ip=113.46.200.217
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14EAE606A893;
-	Tue, 17 Nov 2026 14:33:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14EAE606A893
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pavel.bz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pavel.bz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23CB7606A882;
+	Tue, 17 Nov 2026 14:33:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23CB7606A882
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pavel.bz header.i=@pavel.bz header.a=rsa-sha256 header.s=primary header.b=UfGuC9ln
-Received: from p-745-g5.pavel.bz (unknown [130.94.27.201])
-	by mail.pavel.bz (Postfix) with ESMTPSA id 6CA32616E8;
-	Tue, 17 Nov 2026 14:33:28 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.pavel.bz 6CA32616E8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pavel.bz; s=primary;
-	t=1794926010; bh=HbRB8RotjZVigpTj6I8exRxBXT1uTFvRAAMa/gtAUV8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=UfGuC9lnBlPMUu6rjcrmQDLGGX9k8z/1VQo8T0QipmDku9YRaaPIY6AxV44zf1/Hp
-	 8gSD9Q7GYIFgr/KJ5xDbvNircU/xn3Ds1avxQVLVdDFWvKbyloJgqcH8FhYV8NrB0S
-	 l9W7ws5Q0SJwZJNPTTv0eAwgtWf1MyM9xhIpJ2EYsYQxgm0dEmL1HPqHRkPw3wUW2p
-	 LDMZo6slbIPpxRpWHMUhM9F/jNaSkpyp1KoMYc0jyHHBJpIjh2pvBkLLk31PfWgiUK
-	 w/fz7GtaNSteZnRyGgMYRL2cfZG/RZyMZX03mO2bbXp7VJAUuRTimOeA5PhG+UtvFX
-	 LAyimqDGcPQHw==
-From: Pavel Artemev <a@pavel.bz>
-To: Takashi Iwai <tiwai@suse.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] ALSA: usb-audio: add MIXER_STATE_REPUSH quirk flag
-Date: Tue, 17 Nov 2026 21:33:14 +0700
-Message-ID: <20261117143314.41853-3-a@pavel.bz>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261117143314.41853-1-a@pavel.bz>
-References: <20261117143314.41853-1-a@pavel.bz>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=fmE8M1h5
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=By2TgM9Xeiq5fwyI6d3OB7CNRr7DwQCDNevlT/7vutY=;
+	b=fmE8M1h5jCOHDWXgeJCJFeb0hX7leMPaHPbVAUYxGt8hzFBowo9Z2rEnwEM2Ez5r8Ka6rpuE6
+	fQfdQkYAzFq3InspAmYMT/Q1LWAGscF3EBrD7IpGRyf97gtdnnwp61LHAuyS/9PH/5bg4Hjc0Wp
+	6DdiHT2efGkXmfXx1MI9Whg=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4jTRym4C4Gzcb3H;
+	Tue, 17 Nov 2026 22:32:32 +0800 (CST)
+Received: from whupemk100010.china.huawei.com (unknown [7.152.184.41])
+	by mail.maildlp.com (Postfix) with ESMTPS id A5EA34057F;
+	Tue, 17 Nov 2026 22:33:23 +0800 (CST)
+Received: from octopus.huawei.com (10.67.174.191) by
+ whupemk100010.china.huawei.com (7.152.184.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 17 Nov 2026 22:33:17 +0800
+From: Cai Xinchen <caixinchen1@huawei.com>
+To: <mic@digikod.net>, <gnoack@google.com>, <paul@paul-moore.com>,
+	<brauner@kernel.org>, <jack@suse.cz>, <caixinchen1@huawei.com>
+CC: <amir73il@gmail.com>, <andrii@kernel.org>, <apparmor@lists.ubuntu.com>,
+	<ast@kernel.org>, <axboe@kernel.dk>, <bpf@vger.kernel.org>,
+	<casey@schaufler-ca.com>, <cel@kernel.org>, <cem@kernel.org>,
+	<chenxiaosong@chenxiaosong.com>, <code@tyhicks.com>, <corbet@lwn.net>,
+	<Dai.Ngo@oracle.com>, <dakr@kernel.org>, <daniel@iogearbox.net>,
+	<dhowells@redhat.com>, <dlemoal@kernel.org>, <dmitry.kasatkin@gmail.com>,
+	<driver-core@lists.linux.dev>, <dsterba@suse.com>,
+	<ecryptfs@vger.kernel.org>, <eddyz87@gmail.com>, <emil@etsalapatis.com>,
+	<eric.snowberg@oracle.com>, <exfat@lists.linux.dev>,
+	<georgia.garcia@canonical.com>, <gregkh@linuxfoundation.org>, <hch@lst.de>,
+	<hirofumi@mail.parknet.co.jp>, <hyc.lee@gmail.com>,
+	<ihor.solodrai@linux.dev>, <jlayton@kernel.org>, <jmorris@namei.org>,
+	<johan@kernel.org>, <john.fastabend@gmail.com>,
+	<john.johansen@canonical.com>, <jolsa@kernel.org>, <kpsingh@kernel.org>,
+	<linkinjeon@kernel.org>, <linux-api@vger.kernel.org>,
+	<linux-block@vger.kernel.org>, <linux-btrfs@vger.kernel.org>,
+	<linux-cifs@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+	<linux-fsdevel@vger.kernel.org>, <linux-integrity@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+	<linux-nfs@vger.kernel.org>, <linux-security-module@vger.kernel.org>,
+	<linux-trace-kernel@vger.kernel.org>, <linux-unionfs@vger.kernel.org>,
+	<linux-xfs@vger.kernel.org>, <liubaolin12138@163.com>,
+	<martin.lau@linux.dev>, <mason@kernel.org>, <mathieu.desnoyers@efficios.com>,
+	<matt@bobrowski.net>, <memxor@gmail.com>, <mhiramat@kernel.org>,
+	<miklos@szeredi.hu>, <neil@brown.name>, <netfs@lists.linux.dev>,
+	<ntfs@lists.linux.dev>, <okorniev@redhat.com>, <omosnacek@gmail.com>,
+	<penguin-kernel@I-love.SAKURA.ne.jp>, <rafael@kernel.org>,
+	<rdunlap@infradead.org>, <roberto.sassu@huawei.com>, <rostedt@goodmis.org>,
+	<selinux@vger.kernel.org>, <senozhatsky@chromium.org>, <serge@hallyn.com>,
+	<sj1557.seo@samsung.com>, <skhan@linuxfoundation.org>, <song@kernel.org>,
+	<stephen.smalley.work@gmail.com>, <takedakn@nttdata.co.jp>, <tom@talpey.com>,
+	<viro@zeniv.linux.org.uk>, <yonghong.song@linux.dev>, <yuezhang.mo@sony.com>,
+	<zohar@linux.ibm.com>, <utilityemal77@gmail.com>, <lujialin4@huawei.com>
+Subject: [PATCH -next -v4 00/17] landlock: Add READ_METADATA and WRITE_METADATA access rights
+Date: Tue, 17 Nov 2026 23:05:25 +0800
+Message-ID: <20261117150542.1169451-1-caixinchen1@huawei.com>
+X-Mailer: git-send-email 2.18.0.huawei.25
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,941 +99,312 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ whupemk100010.china.huawei.com (7.152.184.41)
 
-Some USB audio devices silently drop Feature Unit control writes in
-the first seconds after USB enumeration, and occasionally drop
-individual writes at any later time as well.  When GET_CUR on such a
-device is broken there is no way to detect the divergence by reading
-back, so the state the host believes in silently drifts from the
-hardware state: a channel left at a stale value is never corrected.
+This series adds two new Landlock filesystem access rights,
+LANDLOCK_ACCESS_FS_READ_METADATA and LANDLOCK_ACCESS_FS_WRITE_METADATA,
+which control access to file and directory metadata such as inode
+attributes (mode, ownership, timestamps), extended attributes, POSIX
+ACLs and chattr(1)-style flags.  It picks up the work from the
+"landlock: add chmod and chown support" series [1] and follows the
+coarse-grained grouping discussed in that thread [2]: instead of
+separate chmod/chown rights, metadata operations are grouped into one
+read and one write right.
 
-The Windows driver of one such chipset (Weltrend/XiiSound, 040b:0897)
-handles this by never reading back at all.  USBPcap captures of it
-show a single source of truth for the whole channel picture, every
-channel of a control written in one short burst - master first, then
-the channels - and the complete state re-pushed at every device open.
-That every-open re-push is the load-bearing mechanism: it repairs
-whatever writes were swallowed around enumeration.
+Landlock evaluates access rights on a per-path basis, but the
+metadata related LSM hooks (inode_setattr, inode_setsecctx, the inode
+xattr, POSIX ACL and fileattr hooks) only receive the dentry of the
+accessed object.  Patches 1-8 therefore first pass struct path
+instead of dentry through the metadata-related VFS helpers and LSM
+hooks.  The hooks also receive a struct file argument, set by the
+VFS to the file through which the operation is requested when there
+is one (i.e. for the file descriptor-based system calls such as
+fchmod(2), fchown(2), fgetxattr(2), utimensat(2) on an empty path,
+and for the FS_IOC_* ioctls and file_[gs]etattr(2) with
+AT_EMPTY_PATH), and NULL otherwise (i.e. for the path-based system
+calls and for kernel-internal accesses).  This is a pure refactoring
+with no behavior change for the other LSMs, which only have their
+hook implementations' signatures updated; the file argument is only
+consumed by Landlock (patch 14).  The series is split so that every
+patch builds on its own:
 
-Add QUIRK_FLAG_MIXER_STATE_REPUSH, which replicates that write
-discipline in the driver:
+  1: notify_change() and its callers
+  2: inode_setsecctx hook (must come before 3: the SELinux and Smack
+     implementations call __vfs_setxattr_locked internally)
+  3: xattr helpers, which also drops a redundant EVM xattr size sanity
+     check whose vfs_getxattr() call only has a dentry and therefore
+     cannot be migrated to the new path-based signature
+  4: POSIX ACL helpers
+  5: inode xattr hooks, threaded through the xattr helpers so that
+     the f[gs]etxattr(2) and io_uring flows pass their file
+  6: inode POSIX ACL hooks, threaded through do_set_acl()/do_get_acl()
+  7: inode fileattr hooks (FS_IOC_[GS]ETFLAGS, FS_IOC_FS[SG]ETXATTR,
+     file_[gs]etattr(2)), which also adds a __vfs_fileattr_get()
+     counterpart without security checks for the kernel-internal
+     readers (nfsd), and removes the ovl_security_fileattr() hack by
+     forwarding the real upper/lower path to the checked
+     vfs_fileattr_get()/_set() from ecryptfs and overlayfs
+  8: inode_setattr hook, which now receives the struct file held by
+     the fd-based callers (fchmod(2), fchown(2), fchmodat2(2) and
+     fchownat(2) with AT_EMPTY_PATH, utimensat(2) on an empty path);
+     do_truncate() passes NULL because size changes are governed by
+     the truncate hooks.  The hook is renamed to path_setattr in the
+     same patch, so that a stale BPF LSM program attaching to
+     lsm/inode_setattr fails to load instead of reading dentry->d_flags
+     where it expects iattr->ia_valid (see below)
 
-  * volume and mute puts only record values; the cache is defined as
-    "what user space last asked for" and is never read back from the
-    device, and never invalidated by device status notifications;
+Three deliberate scoping decisions for this refactor:
 
-  * a single deferred flush (30 ms quiescence) writes each touched
-    feature unit in one burst, master first, derived as the loudest
-    channel - never asserted from its own possibly stale cache.  The
-    last writer owns the master: an explicit master put stops
-    derivation for that unit until user space writes one of its
-    volume channels again, dropping any unflushed explicit value
-    with the ownership, so a value saved and restored by alsactl
-    does not pin the volume forever;
+- The hooks consistently take struct path rather than struct file as
+  their primary object.  The VFS call sites involved (chmod(2),
+  chown(2), utimensat(2), xattr(2) and ACL syscalls) operate on
+  paths, and several of them (lstat(2), lchown(2), llistxattr(2),
+  ...) have no struct file to begin with.  The optional struct file
+  argument carries the open-time semantic described below.
 
-  * a PCM stream open and a resume re-push all cached volume values
-    through the same timer - the every-open repair the Windows stack
-    relies on.  A resume re-push also re-asserts cached mute
-    switches, taking over the job restore_mixer_value() usually does
-    at resume: restore runs without the mixer lock, so writing the
-    deferred controls there could clobber values a concurrent
-    deferred put just recorded, and would re-send a derived master
-    from a cache that lags its channels.
+- struct inode_operations->setattr still receives (idmap, dentry, attr).
+  Only the VFS boundary (notify_change()) and the LSM hook layer see the
+  path, which keeps the refactor contained to fs/attr.c and the LSM
+  infrastructure instead of touching every filesystem.
 
-The flush runs under the mixer lock, like the write path of the put
-callback it replaces, so a put can never interleave with a burst.
-Re-push requests are lock-free atomic bits, because neither PM
-callback may block on that lock: a control write inside a flush can
-trigger the runtime resume whose callback then runs on the very
-thread holding it.  Suspend marks the mixer and cancels the flush
-timer without waiting - a flush in flight may be blocked in
-runtime-PM resume, waiting for the suspend callback to finish, so
-waiting for it there would deadlock the PM worker against the flush
-worker - and a flush already running stops at the next unit, with
-writes that failed mid-suspend kept pending for retry.  Resume
-requests a re-push and arms the worker without taking the lock; the
-worker re-checks the request bits after every run, so a request
-raised while it runs is never lost, and the disarm ordering against
-disconnect (disconnected flag under the mixer lock before the
-synchronizing cancel, and checked under the same lock by the
-deferred put callback before it arms the timer, because free()
-cancels the work before the controls are unregistered) keeps the
-teardown race-free.
+- The path argument of the hooks is only meant to be handed to VFS
+  helpers taking a struct path (e.g., notify_change(), the xattr
+  helpers): the VFS makes no guarantees with regard to path->mnt,
+  whose layout and implementation details are subject to change, and
+  implementations must not rely on its properties.  The idmap, in
+  contrast, is passed separately so that the VFS and the filesystem
+  are guaranteed to see the same idmap.
 
-Only controls written through mixer_ctl_feature_put() with a volume
-or mute selector are deferred.  Mixer unit controls share that put
-callback but store an input channel number in the selector field and
-are excluded (num_outputs is only ever set for mixer units); other
-feature unit controls (AGC, tone) keep the direct write path, as do
-the caches of non-deferred controls on notification; and read-only
-channels are neither written nor cached, matching the direct write
-path.  The master is re-asserted on every flush and re-push,
-including unchanged values, except when it sits at the control's raw
-maximum: that re-send would only trigger the in-headset limit
-notification (nothing moved), while power-up leaves the master at
-raw max anyway, so the skip is quiet and correct at once.  A
-sporadically dropped master write below raw max is therefore healed
-by the next re-push; at raw max it self-evidences as a missing
-arrival notification and heals at the next gesture.  The vendor
-driver has no readback either.
+Unlike what was done for LANDLOCK_ACCESS_FS_TRUNCATE, no new file_*
+hooks are introduced for the file descriptor flows: the metadata
+hooks are already consumed by other LSMs (SELinux, Smack, EVM, IMA,
+AppArmor, TOMOYO) on these flows, and routing them to new hooks
+would either silently remove the other LSMs' checks, or keep the
+path_* hooks as well and check twice with Landlock.  Passing the
+struct file to the existing path_* hooks instead keeps the pipeline
+and the other LSMs' behavior unchanged, while giving Landlock the
+information it needs to apply the open-time semantic below.
 
-Mute switches are only written when user space changed them, or at a
-resume re-push: a lost re-assert can at worst fail to mute (power-up
-is unmuted), and mute writes during playback audibly chop the stream
-on these devices.  Volume writes are delayed by the quiescence
-window, which is not perceptible for a volume control.
+Since these hooks now operate on paths rather than inodes, patches
+8-13 rename them to the path_* naming convention used by the other
+hooks that take a struct path (path_chmod, path_chown, path_link,
+...).  The inode_setattr hook is renamed in patch 8, in the same patch
+that changes its ctx layout: BPF LSM program arguments are retyped
+from the hook prototype at verification time and are not checked
+against a versioned ABI, so leaving the old name in place for a few
+patches would let a stale program read dentry->d_flags where it
+expects iattr->ia_valid, silently inverting a deny rule.  The
+inode_getattr hook, which already received a struct path, is renamed
+to path_getattr as well; patch 9 also threads the struct file held by
+the fd-based vfs_fstat() and vfs_statx_fd() callers through it, while
+the many kernel-internal vfs_getattr() callers keep a wrapper which
+passes NULL.  Apart from patch 8 and the file threading in patch 9,
+these renames are purely mechanical and can be reviewed independently.
 
-The flag is enabled for 040b:0897, whose loss window was measured on
-the wire at 6.5-9 s after enumeration with a ragged tail (beep-ACKed
-limit-write probes at increasing delays).
+Patch 14 then adds the access rights and implements their
+enforcement, and patches 15-17 add the selftests, the sandboxer
+sample update and the documentation.
 
-Testing: ran on the device as a locally built DKMS module (7.2 tree,
-daily use over 10 days) and wire-verified: 21 volume gestures produced
-21 bursts of exactly one write per channel in the master-first order,
-no readbacks, no re-sends; endpoint limit notifications fire only on
-user arrivals at a limit; no stream chops during playback; replug,
-suspend/resume, balance and mute pass end to end.  The same mechanism
-also ran on the device as a DKMS module against 7.3.4, wire-verified:
-volume gestures each produced exactly one burst of one write per
-channel in the master-first order, with no readbacks and no writes to
-the capture unit.  The changes over the v3 revision were also
-wire-verified against 7.3.4: a deferred put issued while the device
-is runtime-suspended produces no bus traffic and its value is
-delivered by the resume re-push, which re-asserts the cached volume
-and mute controls; a stream-open re-push re-sends volumes only; an
-explicit master put is followed again by derivation once user space
-writes a volume channel of the unit; and the derived master equal to
-the cached value is not re-sent in that tree (no endpoint
-notification without a user arrival).  The changes over the v4
-revision are also wire-verified against 7.3.4: an explicit master put
-superseded by a channel put in the same flush window produces one
-derived burst, and the superseded explicit value never reaches the
-wire; a stream-open re-push at a non-limit volume re-asserts the
-derived master (present on the wire, where v4 skipped it); parked at
-the raw maximum the re-push keeps the master absent; the runtime-PM
-paths (zero bus traffic for a put on a suspended device, resume
-re-push delivering the pending gesture, mutes and mic) behave as in
-v4.
+Patch 14 applies the LANDLOCK_ACCESS_FS_TRUNCATE mechanic to the
+new rights, following Mickaël's confirmation [4]: for operations on
+already opened files, it is the access rights at the time of open(2)
+which decide whether a metadata operation is permitted, not the
+rights of the current thread.  READ_METADATA and WRITE_METADATA are
+looked up at open time, recorded in the opened file, and consumed by
+the metadata hooks when they are called with a file.  As a
+consequence:
 
-Closes: https://github.com/alsa-project/alsa-ucm-conf/issues/760
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=221401
-Link: https://lore.kernel.org/linux-sound/20261117124242.12237-3-a@pavel.bz
-Assisted-by: LLM
-Signed-off-by: Pavel Artemev <a@pavel.bz>
----
- Documentation/sound/alsa-configuration.rst |   5 +
- sound/usb/mixer.c                          | 539 ++++++++++++++++++++-
- sound/usb/mixer.h                          |  19 +
- sound/usb/pcm.c                            |   4 +
- sound/usb/quirks.c                         |   2 +
- sound/usb/usbaudio.h                       |  18 +
- 6 files changed, 572 insertions(+), 15 deletions(-)
+- A file descriptor opened before sandboxing keeps allowing metadata
+  operations whatever the current domain is, which resolves the
+  "catch-22" raised by Justin [5]: an already opened file descriptor
+  keeps working, it is not an escape hatch because its rights were
+  fixed when it was legitimate to open the file.
+- Conversely, a restricted file descriptor passed to another
+  (possibly non-landlocked) process keeps denying metadata
+  operations: the file descriptor carries the rights of the process
+  which opened it.
+- ioctl(FS_IOC_GETFLAGS) and friends on a file descriptor opened
+  without READ_METADATA are now denied, which closes the metadata
+  leak Justin was concerned about.
+- O_PATH file descriptors are an exception: they are not opened
+  through the open permission checks (cf. do_dentry_open()) and
+  carry no recorded rights; metadata accesses through them are
+  checked against the current domain, like path-based accesses.
+- File descriptors obtained without going through the file_open
+  hook (e.g. memfd_create(2), pipes, sockets) keep the full access
+  rights granted at file allocation time, consistent with the
+  truncate behavior.
+- deny_masks_t is widened from u8 to u16 to keep tracking one
+  nibble per optional access right for the audit logs.
 
-diff --git a/Documentation/sound/alsa-configuration.rst b/Documentation/sound/alsa-configuration.rst
-index ea7f5aa31..9b4b13969 100644
---- a/Documentation/sound/alsa-configuration.rst
-+++ b/Documentation/sound/alsa-configuration.rst
-@@ -2417,6 +2417,11 @@ quirk_flags
-           Initialize the volume control channels to the maximum value instead
-           of the minimum at mixer creation.  For devices that silence their
-           audio path while a volume channel sits at the minimum value.
-+        * bit 35: ``mixer_state_repush``
-+          Defer volume and mute writes into one burst per feature unit, and
-+          re-push the complete cached mixer state at every PCM stream open
-+          and after resume.  For devices that silently drop control writes
-+          around enumeration and whose controls cannot be read back.
- 
- This module supports multiple devices, autoprobe and hotplugging.
- 
-diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-index bf1d9fbf0..03d6fa3ab 100644
---- a/sound/usb/mixer.c
-+++ b/sound/usb/mixer.c
-@@ -37,6 +37,7 @@
- #include <linux/usb/audio.h>
- #include <linux/usb/audio-v2.h>
- #include <linux/usb/audio-v3.h>
-+#include <linux/workqueue.h>
- 
- #include <sound/core.h>
- #include <sound/control.h>
-@@ -584,13 +585,22 @@ static int set_cur_ctl_value(struct usb_mixer_elem_info *cval,
- 	return snd_usb_mixer_set_ctl_value(cval, UAC_SET_CUR, validx, value);
- }
- 
-+/* read-only indication of one channel of a control (channel 0 = master);
-+ * read-only channels are not written and not cached
-+ */
-+static unsigned int mixer_ch_readonly(const struct usb_mixer_elem_info *cval,
-+				      int channel)
-+{
-+	if (channel == 0)
-+		return cval->master_readonly;
-+	return cval->ch_readonly & BIT(channel - 1);
-+}
-+
- int snd_usb_set_cur_mix_value(struct usb_mixer_elem_info *cval, int channel,
- 			     int index, int value)
- {
- 	int err;
--	unsigned int read_only = (channel == 0) ?
--		cval->master_readonly :
--		cval->ch_readonly & BIT(channel - 1);
-+	unsigned int read_only = mixer_ch_readonly(cval, channel);
- 
- 	if (read_only) {
- 		usb_audio_dbg(cval->head.mixer->chip,
-@@ -1608,18 +1618,369 @@ static int mixer_ctl_feature_get(struct snd_kcontrol *kcontrol,
- 	return 0;
- }
- 
-+/*
-+ * Atomic mixer write bursts (QUIRK_FLAG_MIXER_STATE_REPUSH).
-+ *
-+ * Some devices silently drop mixer writes issued in the first seconds
-+ * after USB enumeration, and can drop individual writes at any later
-+ * time as well; GET_CUR is broken on them, so the divergence cannot
-+ * be detected by reading back.  The vendor's Windows driver never
-+ * reads either: it collects the whole channel picture at a single
-+ * source of truth and writes every channel of a control in one short
-+ * burst (master first), re-pushing the complete state at every device
-+ * open.
-+ *
-+ * User space applies one logical volume change as multiple fragmented
-+ * control writes (one per channel, the first carrying stale siblings),
-+ * so the stock write-per-put path cannot produce that burst.  Puts
-+ * therefore only record values - the cache is defined as "what user
-+ * space last asked for" and is never read back from the device - and
-+ * a single flush timer coalesces the fragments.  When it fires, each
-+ * touched feature unit is written in the Windows order: the master,
-+ * derived as the loudest channel, first, then the changed channels,
-+ * one write each.  A stream open requests a full-state re-push
-+ * (healing writes lost in the post-enumeration window), merged into
-+ * the same timer so a burst never observes a half-applied gesture
-+ * (user space opens streams mid-gesture for UI feedback sounds).
-+ *
-+ * The flush runs under the mixer lock, like the write path of the put
-+ * callback it replaces: snd_usb_set_cur_mix_value() completes its USB
-+ * transfer before updating the cache, so an unlocked flush could
-+ * clobber values recorded concurrently by a put.  The PM callbacks
-+ * must not block on that lock, though: a control write inside a flush
-+ * can trigger the runtime resume whose callback then runs on the very
-+ * thread holding it.  Re-push requests are therefore lock-free atomic
-+ * bits; whoever cannot take the lock (the resume callback) only sets
-+ * them and arms the worker, and the worker re-checks the bits after
-+ * every run so no request is lost.
-+ */
-+
-+/* quiescence window for the flush; user space applies a stereo change
-+ * as two control writes 5..20 ms apart
-+ */
-+#define MIXER_FLUSH_DELAY	msecs_to_jiffies(30)
-+
-+/* mixer->flush_flags bits */
-+#define MIXER_FLUSH_FULL	0	/* re-push all cached volume values */
-+#define MIXER_FLUSH_RESUME	1	/* resume: also re-assert cached mutes */
-+#define MIXER_FLUSH_SUSPENDED	2	/* suspend in flight: stop writing */
-+
-+/* flush levels latched from the flags by the worker */
-+enum {
-+	FLUSH_TOUCHED,		/* only channels user space changed */
-+	FLUSH_FULL_STATE,	/* plus every cached volume value */
-+	FLUSH_RESUME_STATE,	/* plus every cached mute switch */
-+};
-+
-+static int mixer_ctl_feature_put(struct snd_kcontrol *kcontrol,
-+				 struct snd_ctl_elem_value *ucontrol);
-+
-+static bool is_feature_volume_mute_ctl(struct usb_mixer_elem_info *cval)
-+{
-+	if (!cval->head.kctl || !cval->head.kctl->put)
-+		return false;
-+	/* the info callback is shared with processing unit controls, whose
-+	 * put writes through a different path and does not manage the
-+	 * shared cache; the put callback is unique to feature unit and
-+	 * mixer unit controls, which the cache does cover
-+	 */
-+	if (cval->head.kctl->put != mixer_ctl_feature_put)
-+		return false;
-+	/* mixer unit controls share that put callback but store the
-+	 * 1-based input channel in cval->control, not a UAC_FU_* selector;
-+	 * num_outputs is only ever set for mixer units, so it tells the
-+	 * two apart
-+	 */
-+	if (cval->num_outputs)
-+		return false;
-+	return cval->control == UAC_FU_VOLUME || cval->control == UAC_FU_MUTE;
-+}
-+
-+/* Re-send every cached channel of one control, unchanged values
-+ * included
-+ */
-+static void repush_ctl_cached(struct usb_mixer_elem_info *cval)
-+{
-+	int c, err, idx = 0;
-+
-+	if (cval->cmask) {
-+		for (c = 0; c < MAX_CHANNELS; c++) {
-+			if (!(cval->cmask & BIT_ULL(c)))
-+				continue;
-+			if (test_bit(c + 1, cval->cached)) {
-+				err = snd_usb_set_cur_mix_value(cval, c + 1,
-+								idx, cval->cache_val[idx]);
-+				if (err < 0)
-+					usb_audio_dbg(cval->head.mixer->chip,
-+						      "repush ctl %d ch %d failed (%d)\n",
-+						      cval->control, c + 1, err);
-+			}
-+			idx++;
-+		}
-+	} else {
-+		/* master channel */
-+		if (test_bit(0, cval->cached)) {
-+			err = snd_usb_set_cur_mix_value(cval, 0, 0,
-+							*cval->cache_val);
-+			if (err < 0)
-+				usb_audio_dbg(cval->head.mixer->chip,
-+					      "repush ctl %d ch 0 failed (%d)\n",
-+					      cval->control, err);
-+		}
-+	}
-+}
-+
-+/* Write one control's pending (changed-since-last-flush) channels.
-+ * Pending bits are only set together with cache_val by a put, so the
-+ * value is written unconditionally; the cache bit may have been
-+ * cleared under us, and snd_usb_set_cur_mix_value() sets it again.
-+ */
-+static void flush_ctl_pending(struct usb_mixer_elem_info *cval)
-+{
-+	int c, err, idx = 0;
-+
-+	for (c = 0; c < MAX_CHANNELS; c++) {
-+		if (!(cval->cmask & BIT_ULL(c)))
-+			continue;
-+		if (test_bit(c + 1, cval->pending)) {
-+			clear_bit(c + 1, cval->pending);
-+			err = snd_usb_set_cur_mix_value(cval, c + 1,
-+							idx, cval->cache_val[idx]);
-+			if (err < 0) {
-+				/* keep the channel pending so the next
-+				 * flush (stream open, resume) retries it
-+				 */
-+				set_bit(c + 1, cval->pending);
-+				usb_audio_dbg(cval->head.mixer->chip,
-+					      "flush ctl %d ch %d failed (%d)\n",
-+					      cval->control, c + 1, err);
-+			}
-+		}
-+		idx++;
-+	}
-+	if (!cval->cmask && test_bit(0, cval->pending)) {
-+		/* master channel */
-+		clear_bit(0, cval->pending);
-+		err = snd_usb_set_cur_mix_value(cval, 0, 0,
-+						*cval->cache_val);
-+		if (err < 0) {
-+			set_bit(0, cval->pending);
-+			usb_audio_dbg(cval->head.mixer->chip,
-+				      "flush ctl %d ch 0 failed (%d)\n",
-+				      cval->control, err);
-+		}
-+	}
-+}
-+
-+/*
-+ * One atomic write burst per touched feature unit, Windows-style.
-+ * level FLUSH_FULL_STATE re-pushes every cached volume value (the
-+ * stream-open heal); FLUSH_RESUME_STATE additionally re-asserts
-+ * cached mute switches (restore_mixer_value() leaves them to the
-+ * flush under this quirk, and nothing is playing yet at resume, so
-+ * the write cannot chop a stream).  Otherwise only the channels user
-+ * space changed since the last flush are written.  The master is
-+ * written first and derived as the loudest cached channel - never
-+ * asserted from its own (possibly stale) cache.  An explicit master
-+ * put owns the master until user space writes a volume channel of
-+ * the unit again.
-+ * The master is re-asserted whenever the derived value differs from
-+ * the cached one, and unchanged as well unless it sits at the
-+ * control's raw maximum: re-sending an unchanged raw-max value makes
-+ * these devices emit their in-headset limit notification with no
-+ * user action nearby, while power-up leaves the master at raw max
-+ * anyway, so the skip is quiet and correct at the same time.  A
-+ * sporadically dropped master write is thus healed by the next
-+ * re-push unless the value is raw max, where it self-evidences as a
-+ * missing arrival notification and heals at the next gesture.
-+ * Mute switches are only written when user space changed them (or at
-+ * resume re-push): a lost re-assert can only fail to mute (power-up
-+ * is unmuted), and mute writes during playback audibly chop the
-+ * stream on these devices.
-+ *
-+ * Called with mixer->lock held.
-+ */
-+static void snd_usb_mixer_flush_pending(struct usb_mixer_interface *mixer,
-+					int level)
-+{
-+	struct usb_mixer_elem_list *list;
-+	struct usb_mixer_elem_info *cval, *master;
-+	int id, c, idx, max_val;
-+	bool have_ch, touched, master_pending;
-+
-+	lockdep_assert_held(&mixer->lock);
-+
-+	if (mixer->disconnected)
-+		return;
-+
-+	for (id = 0; id < MAX_ID_ELEMS; id++) {
-+		if (test_bit(MIXER_FLUSH_SUSPENDED, &mixer->flush_flags)) {
-+			/* A suspend landed mid-run: stop writing (the
-+			 * writes would race the port suspend, and a
-+			 * failed one only stays pending anyway) and
-+			 * request the strongest re-push, which the
-+			 * resume path delivers.
-+			 */
-+			set_bit(MIXER_FLUSH_RESUME, &mixer->flush_flags);
-+			return;
-+		}
-+		master = NULL;
-+		max_val = 0;
-+		have_ch = false;
-+		touched = false;
-+		master_pending = false;
-+		for_each_mixer_elem(list, mixer, id) {
-+			cval = mixer_elem_list_to_info(list);
-+			if (!is_feature_volume_mute_ctl(cval) ||
-+			    cval->control != UAC_FU_VOLUME)
-+				continue;
-+			if (!cval->cmask) {
-+				if (!master) {
-+					master = cval;
-+					master_pending =
-+						test_bit(0, cval->pending);
-+				}
-+				continue;
-+			}
-+			if (!bitmap_empty(cval->pending, MAX_CHANNELS + 1))
-+				touched = true;
-+			idx = 0;
-+			for (c = 0; c < MAX_CHANNELS; c++) {
-+				if (!(cval->cmask & BIT_ULL(c)))
-+					continue;
-+				if (test_bit(c + 1, cval->cached)) {
-+					/* seed from the first cached value:
-+					 * raw volume ranges can be signed
-+					 * and all-negative
-+					 */
-+					if (!have_ch ||
-+					    cval->cache_val[idx] > max_val)
-+						max_val = cval->cache_val[idx];
-+					have_ch = true;
-+				}
-+				idx++;
-+			}
-+		}
-+		/* master first (the Windows burst order).  Re-asserted
-+		 * even unchanged, unless the value is the control's raw
-+		 * maximum: that re-send would only trigger the in-headset
-+		 * limit notification, and the device sits at raw max
-+		 * after every reset anyway.
-+		 */
-+		if (master && !master_pending && !master->master_explicit &&
-+		    have_ch &&
-+		    (touched || level != FLUSH_TOUCHED) &&
-+		    (!test_bit(0, master->cached) ||
-+		     *master->cache_val != max_val ||
-+		     max_val != master->max)) {
-+			int err = snd_usb_set_cur_mix_value(master, 0, 0,
-+							    max_val);
-+			if (err < 0)
-+				usb_audio_dbg(mixer->chip,
-+					      "derive ctl %d ch 0 failed (%d)\n",
-+					      master->control, err);
-+		}
-+		if (master && level != FLUSH_TOUCHED && !master_pending &&
-+		    (master->master_explicit || !have_ch) &&
-+		    !(test_bit(0, master->cached) &&
-+		      *master->cache_val == master->max))
-+			/* user-owned master, or a unit without per-channel
-+			 * data: re-assert the cached master value, except
-+			 * the unchanged raw maximum (same notification /
-+			 * reset-at-max reasoning as the derive above)
-+			 */
-+			repush_ctl_cached(master);
-+		for_each_mixer_elem(list, mixer, id) {
-+			cval = mixer_elem_list_to_info(list);
-+			if (!is_feature_volume_mute_ctl(cval))
-+				continue;
-+			if (cval->control == UAC_FU_VOLUME && cval->cmask &&
-+			    level != FLUSH_TOUCHED) {
-+				bitmap_zero(cval->pending, MAX_CHANNELS + 1);
-+				repush_ctl_cached(cval);
-+				continue;
-+			}
-+			if (cval->control == UAC_FU_MUTE &&
-+			    level == FLUSH_RESUME_STATE) {
-+				bitmap_zero(cval->pending, MAX_CHANNELS + 1);
-+				repush_ctl_cached(cval);
-+				continue;
-+			}
-+			if (!bitmap_empty(cval->pending, MAX_CHANNELS + 1))
-+				flush_ctl_pending(cval);
-+		}
-+	}
-+}
-+
-+static void snd_usb_mixer_flush_work(struct work_struct *work)
-+{
-+	struct usb_mixer_interface *mixer =
-+		container_of(work, struct usb_mixer_interface,
-+			     flush_work.work);
-+	int level;
-+
-+	scoped_guard(mutex, &mixer->lock) {
-+		level = FLUSH_TOUCHED;
-+		if (test_and_clear_bit(MIXER_FLUSH_FULL,
-+				       &mixer->flush_flags))
-+			level = FLUSH_FULL_STATE;
-+		if (test_and_clear_bit(MIXER_FLUSH_RESUME,
-+				       &mixer->flush_flags))
-+			level = FLUSH_RESUME_STATE;
-+		if (mixer->disconnected)
-+			return;
-+		if (level != FLUSH_TOUCHED)
-+			usb_audio_dbg(mixer->chip,
-+				      "re-pushing mixer state (level %d)\n",
-+				      level);
-+		snd_usb_mixer_flush_pending(mixer, level);
-+	}
-+	/* A request may have arrived while we ran - from a stream open,
-+	 * or from the resume callback, which cannot take this lock (see
-+	 * the comment in snd_usb_mixer_resume()).  Re-arm so it gets
-+	 * its own run; arming here is safe against teardown because the
-+	 * disconnect path cancels this work only after this function
-+	 * has returned.  While suspended, the resume callback does the
-+	 * arming: re-arming here would only loop on failing writes.
-+	 */
-+	if (!test_bit(MIXER_FLUSH_SUSPENDED, &mixer->flush_flags) &&
-+	    (test_bit(MIXER_FLUSH_FULL, &mixer->flush_flags) ||
-+	     test_bit(MIXER_FLUSH_RESUME, &mixer->flush_flags)))
-+		mod_delayed_work(system_wq, &mixer->flush_work,
-+				 MIXER_FLUSH_DELAY);
-+}
-+
-+/* Arm the deferred flush - unless the mixer is being torn down:
-+ * free() cancels the work before the controls are unregistered, so
-+ * a put must never arm the timer after the disconnect mark (which
-+ * disconnect sets under the mixer lock the put already holds).
-+ */
-+static void mixer_arm_flush(struct usb_mixer_interface *mixer)
-+{
-+	if (!mixer->disconnected)
-+		mod_delayed_work(system_wq, &mixer->flush_work,
-+				 MIXER_FLUSH_DELAY);
-+}
-+
- /* put the current value to feature/mixer unit */
- static int mixer_ctl_feature_put(struct snd_kcontrol *kcontrol,
- 				 struct snd_ctl_elem_value *ucontrol)
- {
- 	struct usb_mixer_elem_info *cval = snd_kcontrol_chip(kcontrol);
-+	bool deferred;
- 	int max_val;
- 	int c, cnt, val, oval, err;
- 	int changed = 0;
- 
-+	deferred = (cval->head.mixer->chip->quirk_flags &
-+		    QUIRK_FLAG_MIXER_STATE_REPUSH) &&
-+		   is_feature_volume_mute_ctl(cval);
-+
- 	guard(mutex)(&cval->head.mixer->lock);
- 	max_val = get_max_exposed(cval);
- 	if (cval->cmask) {
-+		bool ch_put = false;
-+
- 		cnt = 0;
- 		for (c = 0; c < MAX_CHANNELS; c++) {
- 			if (!(cval->cmask & BIT(c)))
-@@ -1632,14 +1993,54 @@ static int mixer_ctl_feature_put(struct snd_kcontrol *kcontrol,
- 				return -EINVAL;
- 			val = get_abs_value(cval, val);
- 			if (oval != val) {
--				err = snd_usb_set_cur_mix_value(cval, c + 1,
--								cnt, val);
--				if (err < 0)
--					return filter_error(cval, err);
-+				if (deferred) {
-+					/* record only; one flush writes the
-+					 * whole unit in a single burst.
-+					 * Read-only channels keep the
-+					 * direct-path behaviour: no write,
-+					 * no cache update.
-+					 */
-+					if (!mixer_ch_readonly(cval, c + 1)) {
-+						set_bit(c + 1, cval->cached);
-+						cval->cache_val[cnt] = val;
-+						set_bit(c + 1, cval->pending);
-+						mixer_arm_flush(cval->head.mixer);
-+						ch_put = true;
-+					}
-+				} else {
-+					err = snd_usb_set_cur_mix_value(cval, c + 1,
-+									cnt, val);
-+					if (err < 0)
-+						return filter_error(cval, err);
-+				}
- 				changed = 1;
- 			}
- 			cnt++;
- 		}
-+		/* The last writer owns the master: a volume channel
-+		 * write (the way audio servers drive this unit)
-+		 * re-claims master derivation, so a master saved and
-+		 * restored by e.g. alsactl does not pin the volume
-+		 * forever.  An unflushed explicit master value is
-+		 * dropped along with the ownership: the pending bit is
-+		 * cleared so the flush re-derives the master instead of
-+		 * writing the superseded value.
-+		 */
-+		if (ch_put && cval->control == UAC_FU_VOLUME) {
-+			struct usb_mixer_elem_list *ml;
-+
-+			for_each_mixer_elem(ml, cval->head.mixer,
-+					    cval->head.id) {
-+				struct usb_mixer_elem_info *m =
-+					mixer_elem_list_to_info(ml);
-+
-+				if (is_feature_volume_mute_ctl(m) &&
-+				    m->control == UAC_FU_VOLUME && !m->cmask) {
-+					m->master_explicit = false;
-+					clear_bit(0, m->pending);
-+				}
-+			}
-+		}
- 	} else {
- 		/* master channel */
- 		err = snd_usb_get_cur_mix_value(cval, 0, 0, &oval);
-@@ -1650,9 +2051,24 @@ static int mixer_ctl_feature_put(struct snd_kcontrol *kcontrol,
- 			return -EINVAL;
- 		val = get_abs_value(cval, val);
- 		if (val != oval) {
--			err = snd_usb_set_cur_mix_value(cval, 0, 0, val);
--			if (err < 0)
--				return filter_error(cval, err);
-+			if (deferred) {
-+				/* record only; one flush writes the whole
-+				 * unit in a single burst.  Read-only
-+				 * masters keep the direct-path behaviour:
-+				 * no write, no cache update.
-+				 */
-+				if (!mixer_ch_readonly(cval, 0)) {
-+					set_bit(0, cval->cached);
-+					cval->cache_val[0] = val;
-+					set_bit(0, cval->pending);
-+					cval->master_explicit = true;
-+					mixer_arm_flush(cval->head.mixer);
-+				}
-+			} else {
-+				err = snd_usb_set_cur_mix_value(cval, 0, 0, val);
-+				if (err < 0)
-+					return filter_error(cval, err);
-+			}
- 			changed = 1;
- 		}
- 	}
-@@ -3259,6 +3675,8 @@ static void snd_usb_mixer_free(struct usb_mixer_interface *mixer)
- 	/* kill pending URBs */
- 	snd_usb_mixer_disconnect(mixer);
- 
-+	cancel_delayed_work_sync(&mixer->flush_work);
-+
- 	/* Unregister controls first, snd_ctl_remove() frees the element */
- 	if (mixer->id_elems) {
- 		for (id = 0; id < MAX_ID_ELEMS; id++) {
-@@ -3685,8 +4103,14 @@ void snd_usb_mixer_notify_id(struct usb_mixer_interface *mixer, int unitid)
- 		if (!list->is_std_info)
- 			continue;
- 		info = mixer_elem_list_to_info(list);
--		/* invalidate cache, so the value is read from the device */
--		if (!info->get_cur_broken)
-+		/* invalidate cache, so the value is read from the device;
-+		 * under QUIRK_FLAG_MIXER_STATE_REPUSH the deferred controls
-+		 * own their cache as the host-side truth and are never
-+		 * invalidated
-+		 */
-+		if (!info->get_cur_broken &&
-+		    !(mixer->chip->quirk_flags & QUIRK_FLAG_MIXER_STATE_REPUSH &&
-+		      is_feature_volume_mute_ctl(info)))
- 			bitmap_zero(info->cached, MAX_CHANNELS + 1);
- 		snd_ctl_notify(mixer->chip->card, SNDRV_CTL_EVENT_MASK_VALUE,
- 			       &list->kctl->id);
-@@ -3783,8 +4207,14 @@ static void snd_usb_mixer_interrupt_v2(struct usb_mixer_interface *mixer,
- 
- 		switch (attribute) {
- 		case UAC2_CS_CUR:
--			/* invalidate cache, so the value is read from the device */
--			if (!info->get_cur_broken) {
-+			/* invalidate cache, so the value is read from the
-+			 * device; under QUIRK_FLAG_MIXER_STATE_REPUSH the
-+			 * deferred controls own their cache as the
-+			 * host-side truth and are never invalidated
-+			 */
-+			if (!info->get_cur_broken &&
-+			    !(mixer->chip->quirk_flags & QUIRK_FLAG_MIXER_STATE_REPUSH &&
-+			      is_feature_volume_mute_ctl(info))) {
- 				if (channel)
- 					clear_bit(channel, info->cached);
- 				else /* master channel */
-@@ -3914,6 +4344,7 @@ int snd_usb_create_mixer(struct snd_usb_audio *chip, int ctrlif)
- 	if (!mixer)
- 		return -ENOMEM;
- 	mixer->chip = chip;
-+	INIT_DELAYED_WORK(&mixer->flush_work, snd_usb_mixer_flush_work);
- 	mixer->ignore_ctl_error = !!(chip->quirk_flags & QUIRK_FLAG_IGNORE_CTL_ERROR);
- 	mixer->id_elems = kzalloc_objs(*mixer->id_elems, MAX_ID_ELEMS);
- 	if (!mixer->id_elems) {
-@@ -3976,13 +4407,51 @@ void snd_usb_mixer_disconnect(struct usb_mixer_interface *mixer)
- {
- 	if (mixer->disconnected)
- 		return;
-+	/* Every mod_delayed_work() call site either holds this lock and
-+	 * re-checks ->disconnected inside it, or runs from a PM callback
-+	 * (which completes before the USB core calls driver->disconnect),
-+	 * or is the flush worker itself before it returns.  Marking the
-+	 * mixer disconnected under the lock before cancelling therefore
-+	 * guarantees no flush can be armed after the cancel returns.
-+	 */
-+	scoped_guard(mutex, &mixer->lock) {
-+		mixer->disconnected = true;
-+	}
-+	cancel_delayed_work_sync(&mixer->flush_work);
- 	if (mixer->urb)
- 		usb_kill_urb(mixer->urb);
- 	if (mixer->rc_urb)
- 		usb_kill_urb(mixer->rc_urb);
- 	if (mixer->private_free)
- 		mixer->private_free(mixer);
--	mixer->disconnected = true;
-+}
-+
-+/**
-+ * snd_usb_mixer_stream_opened - notify mixers of a PCM stream open
-+ * @chip: the USB audio chip
-+ *
-+ * Called from the PCM open path.  Devices flagged
-+ * QUIRK_FLAG_MIXER_STATE_REPUSH request a full-state re-push (the
-+ * vendor driver's every-open write pattern, healing writes swallowed
-+ * in the post-enumeration loss window), merged into the flush timer
-+ * so the burst never observes a half-applied gesture.
-+ */
-+void snd_usb_mixer_stream_opened(struct snd_usb_audio *chip)
-+{
-+	struct usb_mixer_interface *mixer;
-+
-+	if (!(chip->quirk_flags & QUIRK_FLAG_MIXER_STATE_REPUSH))
-+		return;
-+
-+	list_for_each_entry(mixer, &chip->mixer_list, list) {
-+		scoped_guard(mutex, &mixer->lock) {
-+			if (mixer->disconnected)
-+				continue;
-+			set_bit(MIXER_FLUSH_FULL, &mixer->flush_flags);
-+			mod_delayed_work(system_wq, &mixer->flush_work,
-+					 MIXER_FLUSH_DELAY);
-+		}
-+	}
- }
- 
- /* stop any bus activity of a mixer */
-@@ -4007,6 +4476,16 @@ static int snd_usb_mixer_activate(struct usb_mixer_interface *mixer)
- 
- int snd_usb_mixer_suspend(struct usb_mixer_interface *mixer)
- {
-+	/* Do not wait for an in-flight flush here: its control writes can
-+	 * be blocked in runtime-PM resume, waiting for this very suspend
-+	 * callback to finish - cancel_delayed_work_sync() would deadlock
-+	 * the PM worker against the flush worker.  Cancel without waiting
-+	 * and mark the mixer suspended; a flush already in flight stops
-+	 * at the next unit (failed writes keep their values pending),
-+	 * and the resume path re-pushes the complete state.
-+	 */
-+	set_bit(MIXER_FLUSH_SUSPENDED, &mixer->flush_flags);
-+	cancel_delayed_work(&mixer->flush_work);
- 	snd_usb_mixer_inactivate(mixer);
- 	if (mixer->private_suspend)
- 		mixer->private_suspend(mixer);
-@@ -4021,6 +4500,17 @@ static int restore_mixer_value(struct usb_mixer_elem_list *list)
- 	if (cval->val_type == USB_MIXER_BESPOKEN)
- 		return 0;
- 
-+	/* Deferred controls belong to the flush mechanism: restore runs
-+	 * without the mixer lock, so writing them here could clobber
-+	 * values a concurrent deferred put just recorded, and it would
-+	 * re-send a derived master from a cache that lags its channels.
-+	 * The resume path requests a re-push that re-derives and
-+	 * re-asserts all of them instead.
-+	 */
-+	if (cval->head.mixer->chip->quirk_flags & QUIRK_FLAG_MIXER_STATE_REPUSH &&
-+	    is_feature_volume_mute_ctl(cval))
-+		return 0;
-+
- 	if (cval->cmask) {
- 		idx = 0;
- 		for (c = 0; c < MAX_CHANNELS; c++) {
-@@ -4067,6 +4557,25 @@ int snd_usb_mixer_resume(struct usb_mixer_interface *mixer)
- 
- 	snd_usb_mixer_resume_quirk(mixer);
- 
-+	/* A suspend may have cancelled a flush that had not fired yet,
-+	 * and restore_mixer_value() leaves the deferred controls to the
-+	 * flush: request the re-push that re-derives and re-asserts all
-+	 * of them.  No lock is taken here, not even trylock: a flush
-+	 * whose control write triggered this very resume holds the lock
-+	 * and must not be blocked or silently skipped - the worker
-+	 * re-checks the request bits after every run, so this never
-+	 * gets lost.  Arming without the lock is safe against teardown:
-+	 * the USB core autoresumes the device before calling the
-+	 * driver's disconnect, so this callback always runs before the
-+	 * flush work is cancelled for good.
-+	 */
-+	if (mixer->chip->quirk_flags & QUIRK_FLAG_MIXER_STATE_REPUSH) {
-+		clear_bit(MIXER_FLUSH_SUSPENDED, &mixer->flush_flags);
-+		set_bit(MIXER_FLUSH_RESUME, &mixer->flush_flags);
-+		mod_delayed_work(system_wq, &mixer->flush_work,
-+				 MIXER_FLUSH_DELAY);
-+	}
-+
- 	return snd_usb_mixer_activate(mixer);
- }
- 
-diff --git a/sound/usb/mixer.h b/sound/usb/mixer.h
-index c40f83285..813a1694c 100644
---- a/sound/usb/mixer.h
-+++ b/sound/usb/mixer.h
-@@ -41,6 +41,15 @@ struct usb_mixer_interface {
- 
- 	bool disconnected;
- 
-+	/* atomic write bursts (QUIRK_FLAG_MIXER_STATE_REPUSH) */
-+	struct delayed_work flush_work;
-+	/* flush requests, atomic bit ops only (see mixer.c):
-+	 * 0 - re-push all cached volume values at the next flush
-+	 * 1 - resume: also re-assert cached mute switches
-+	 * 2 - suspend in flight: stop writing, retry after resume
-+	 */
-+	unsigned long flush_flags;
-+
- 	void *private_data;
- 	void (*private_free)(struct usb_mixer_interface *mixer);
- 	void (*private_suspend)(struct usb_mixer_interface *mixer);
-@@ -95,6 +104,14 @@ struct usb_mixer_elem_info {
- 	int dBmin, dBmax;
- 	DECLARE_BITMAP(cached, MAX_CHANNELS + 1);
- 	int cache_val[MAX_CHANNELS];
-+	/* channels changed since the last flush
-+	 * (QUIRK_FLAG_MIXER_STATE_REPUSH); same bit layout as cached
-+	 */
-+	DECLARE_BITMAP(pending, MAX_CHANNELS + 1);
-+	/* user space has put this master explicitly: stop deriving it from
-+	 * the channels (QUIRK_FLAG_MIXER_STATE_REPUSH)
-+	 */
-+	bool master_explicit;
- 	u8 initialized;
- 	u8 min_mute;
- 	u8 get_cur_broken;
-@@ -129,6 +146,8 @@ int snd_usb_mixer_vol_tlv(struct snd_kcontrol *kcontrol, int op_flag,
- int snd_usb_mixer_suspend(struct usb_mixer_interface *mixer);
- int snd_usb_mixer_resume(struct usb_mixer_interface *mixer);
- 
-+void snd_usb_mixer_stream_opened(struct snd_usb_audio *chip);
-+
- int snd_usb_set_cur_mix_value(struct usb_mixer_elem_info *cval, int channel,
-                              int index, int value);
- 
-diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index 57a26492d..ec8ad7bd7 100644
---- a/sound/usb/pcm.c
-+++ b/sound/usb/pcm.c
-@@ -24,6 +24,7 @@
- #include "power.h"
- #include "media.h"
- #include "implicit.h"
-+#include "mixer.h"
- 
- #define SUBSTREAM_FLAG_DATA_EP_STARTED	0
- #define SUBSTREAM_FLAG_SYNC_EP_STARTED	1
-@@ -1271,6 +1272,9 @@ static int snd_usb_pcm_open(struct snd_pcm_substream *substream)
- 	if (ret < 0)
- 		goto err_resume;
- 
-+	/* may re-push the cached mixer state (write-loss recovery) */
-+	snd_usb_mixer_stream_opened(chip);
-+
- 	return 0;
- 
- err_resume:
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index 6ef6d4410..5328faa3d 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -2504,6 +2504,7 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
- 		   QUIRK_FLAG_GET_SAMPLE_RATE | QUIRK_FLAG_MIC_RES_16),
- 	DEVICE_FLG(0x040b, 0x0897, /* XiiSound/Weltrend Temple and rebranded headsets */
- 		   QUIRK_FLAG_MIXER_INIT_VOLUME_MAX |
-+		   QUIRK_FLAG_MIXER_STATE_REPUSH |
- 		   QUIRK_FLAG_MIXER_PLAYBACK_LINEAR_VOL |
- 		   QUIRK_FLAG_MIXER_CAPTURE_LINEAR_VOL),
- 	DEVICE_FLG(0x041e, 0x3000, /* Creative SB Extigy */
-@@ -2984,6 +2985,7 @@ static const char *const snd_usb_audio_quirk_flag_names[] = {
- 	QUIRK_STRING_ENTRY(ALWAYS_SET_RATE),
- 	QUIRK_STRING_ENTRY(SWAP_RATES),
- 	QUIRK_STRING_ENTRY(MIXER_INIT_VOLUME_MAX),
-+	QUIRK_STRING_ENTRY(MIXER_STATE_REPUSH),
- 	NULL
- };
- 
-diff --git a/sound/usb/usbaudio.h b/sound/usb/usbaudio.h
-index 61794fdc4..b530513a3 100644
---- a/sound/usb/usbaudio.h
-+++ b/sound/usb/usbaudio.h
-@@ -271,6 +271,22 @@ extern bool snd_usb_skip_validation;
-  *  Initialize the volume control channels to the maximum instead of
-  *  the minimum; the controls remain writable and the hardware volume
-  *  operates normally afterwards.
-+ * QUIRK_FLAG_MIXER_STATE_REPUSH
-+ *  Some devices silently drop mixer writes issued in the first seconds
-+ *  after USB enumeration, and can drop individual writes at any later
-+ *  time as well, so the state the host believes in never reaches the
-+ *  hardware (and GET_CUR is typically broken on these devices, so the
-+ *  divergence cannot be detected by reading back).  The vendor's own
-+ *  Windows driver never reads back either: it collects the whole
-+ *  channel picture at a single source of truth and writes every
-+ *  channel of a control in one short burst, re-pushing the complete
-+ *  state at every device open.  Record volume and mute control writes
-+ *  instead of issuing them directly, and write each touched feature
-+ *  unit in one burst from a deferred flush (the master volume first,
-+ *  derived from the loudest channel); a PCM stream open requests a
-+ *  full-state re-push through the same timer.  Under this flag the
-+ *  cache holds what user space last asked for and is never invalidated
-+ *  by device status notifications.
-  */
- 
- enum {
-@@ -309,6 +325,7 @@ enum {
- 	QUIRK_TYPE_ALWAYS_SET_RATE		= 32,
- 	QUIRK_TYPE_SWAP_RATES			= 33,
- 	QUIRK_TYPE_MIXER_INIT_VOLUME_MAX	= 34,
-+	QUIRK_TYPE_MIXER_STATE_REPUSH		= 35,
- /* Please also edit snd_usb_audio_quirk_flag_names and alsa-configuration.rst */
- };
- 
-@@ -349,5 +366,6 @@ enum {
- #define QUIRK_FLAG_ALWAYS_SET_RATE		QUIRK_FLAG(ALWAYS_SET_RATE)
- #define QUIRK_FLAG_SWAP_RATES			QUIRK_FLAG(SWAP_RATES)
- #define QUIRK_FLAG_MIXER_INIT_VOLUME_MAX	QUIRK_FLAG(MIXER_INIT_VOLUME_MAX)
-+#define QUIRK_FLAG_MIXER_STATE_REPUSH		QUIRK_FLAG(MIXER_STATE_REPUSH)
- 
- #endif /* __USBAUDIO_H */
+The Landlock ABI version is incremented from 12 to 13; ABI 12 was
+taken by the capability and namespace use restrictions that are
+already in linux-next.
+
+The series is based on linux-next commit 749a4de37040 ("Add linux-next
+specific files for 20261116").
+
+Changes since v3 [6]:
+
+- The empty-path branch of do_fchmodat(), do_fchownat() and
+  do_utimes_path() used fdget(), which rejects O_PATH file
+  descriptors.  It now uses fd_raw, the same lookup path_init() uses
+  for an empty path, so AT_EMPTY_PATH metadata operations work again
+  on O_PATH descriptors; futimens(2) keeps rejecting O_PATH, and a
+  NULL pathname returns -EFAULT instead of being turned into an empty
+  path (patch 8).
+- Every hook that gained a struct file argument is declared with a
+  strong file__nullable definition in kernel/bpf/bpf_lsm_proto.c, so
+  the verifier requires a NULL check before dereferencing it
+  (patches 5-12).
+- The ntfs named stream setattr no longer bypasses the hooks: it goes
+  through notify_change_target(), which performs the path-based LSM
+  checks on the caller-supplied path while the attributes land on the
+  base inode, and the borrowed path is dropped from the caller-owned
+  struct iattr before notify_change() returns (patch 1).
+- ecryptfs and overlayfs run the fileattr hooks on the real
+  upper/lower path instead of calling unchecked helpers, and the
+  ksmbd xattr helper passes the file it was given instead of NULL
+  (patches 5 and 7).
+- Since a trusted struct path lets BPF LSM programs reach path->dentry
+  and call the dentry xattr kfuncs, the sleepable path hooks that
+  always run under i_rwsem use the _locked kfunc variants, while the
+  hooks that can run either way (path_link, path_rename, path_rmdir,
+  path_unlink and path_getattr, which nfsd reaches with the inode
+  already locked) reject both variants (patch 8).
+- fchmod(2) and fchown(2) are not O_PATH-capable metadata interfaces
+  and are no longer listed as such in the UAPI header and in the
+  userspace documentation (patches 14 and 17).
+- The setattr hook rename is folded into the patch that changes its
+  ctx layout, so that a stale BPF LSM program cannot be silently
+  reinterpreted, and that patch now comes right before the getattr
+  rename (patch 8).
+- ksmbd reports the share root for the ".." entry when follow_up()
+  cannot leave a mount that was detached, instead of using a parent
+  which that mount does not cover (patch 3).
+- The Landlock changelog states that kernel-internal getattr calls
+  made under the caller's credentials, such as NFS localio's
+  post-write attribute refresh, are subject to READ_METADATA too, and
+  that localio discards the resulting error (patch 14).
+
+[1]
+https://lore.kernel.org/all/20220827111215.131442-1-xiujianfeng@huawei.com/
+[2]
+https://lore.kernel.org/all/abc960a1-e66e-792e-6869-cfd201c29dbe@digikod.net/
+[3]
+https://lore.kernel.org/all/20261015125425.3246251-1-caixinchen1@huawei.com/
+[4] https://lore.kernel.org/all/20260929.Ahgoo4yeetai@digikod.net/
+[5] https://lore.kernel.org/all/arvjb0HJYh1KyEBB@suesslenovo/
+[6]
+https://lore.kernel.org/all/20261027121151.1887650-1-caixinchen1@huawei.com/
+
+Cai Xinchen (17):
+  fs: pass struct path to notify_change()
+  LSM: pass struct path to the inode_setsecctx hook
+  fs: pass struct path to xattr helpers
+  fs: pass struct path to POSIX ACL helpers
+  LSM: pass struct path and struct file to the inode xattr hooks
+  LSM: pass struct path and struct file to the inode posix acl hooks
+  LSM: pass struct path and struct file to the inode fileattr hooks
+  LSM: rename inode_setattr to path_setattr and pass struct path and
+    file
+  LSM: rename inode_getattr to path_getattr and pass struct file
+  LSM: rename the inode xattr hooks to path_xattr hooks
+  LSM: rename the inode posix acl hooks to path_*_acl hooks
+  LSM: rename the inode fileattr hooks to path_file_* hooks
+  LSM: rename inode_setsecctx to path_setsecctx
+  landlock: Add READ_METADATA and WRITE_METADATA access rights
+  selftests/landlock: Add tests for metadata access rights
+  samples/landlock: Add metadata rights to sandboxer
+  Documentation: Update landlock doc for metadata rights
+
+ Documentation/admin-guide/LSM/landlock.rst    |   2 +
+ Documentation/bpf/fs_kfuncs.rst               |   2 +-
+ Documentation/filesystems/porting.rst         |  63 ++
+ Documentation/trace/events-landlock.rst       |  18 +-
+ Documentation/userspace-api/landlock.rst      | 148 ++-
+ drivers/base/devtmpfs.c                       |   6 +-
+ drivers/block/loop.c                          |  12 +-
+ drivers/block/zloop.c                         |  23 +-
+ fs/attr.c                                     | 119 ++-
+ fs/bpf_fs_kfuncs.c                            |  58 +-
+ fs/btrfs/volumes.c                            |   2 +-
+ fs/cachefiles/xattr.c                         |  45 +-
+ fs/coredump.c                                 |   2 +-
+ fs/ecryptfs/inode.c                           |  48 +-
+ fs/exfat/file.c                               |   5 +-
+ fs/fat/file.c                                 |   5 +-
+ fs/file_attr.c                                | 136 ++-
+ fs/init.c                                     |   6 +-
+ fs/inode.c                                    |   7 +-
+ fs/internal.h                                 |  26 +-
+ fs/namei.c                                    |   5 +-
+ fs/nfsd/nfs4ctl.h                             |   5 +-
+ fs/nfsd/nfs4state.c                           |  16 +-
+ fs/nfsd/nfs4xdr.c                             |   2 +-
+ fs/nfsd/state.h                               |   2 +-
+ fs/nfsd/vfs.c                                 |  87 +-
+ fs/ntfs/named_stream.c                        |  14 +-
+ fs/open.c                                     |  77 +-
+ fs/overlayfs/copy_up.c                        |   4 +-
+ fs/overlayfs/inode.c                          |  27 +-
+ fs/overlayfs/overlayfs.h                      |  44 +-
+ fs/overlayfs/xattrs.c                         |  12 +-
+ fs/posix_acl.c                                |  61 +-
+ fs/smb/server/smb2pdu.c                       |  59 +-
+ fs/smb/server/smb_common.c                    |  59 +-
+ fs/smb/server/smbacl.c                        |  12 +-
+ fs/smb/server/vfs.c                           | 101 +-
+ fs/smb/server/vfs.h                           |  19 +-
+ fs/stat.c                                     |  82 +-
+ fs/utimes.c                                   |  38 +-
+ fs/xattr.c                                    | 114 ++-
+ fs/xfs/xfs_ioctl.c                            |   2 +-
+ include/linux/fileattr.h                      |  10 +-
+ include/linux/fs.h                            |  30 +-
+ include/linux/landlock.h                      |   4 +-
+ include/linux/lsm_hook_defs.h                 |  66 +-
+ include/linux/posix_acl.h                     |  25 +-
+ include/linux/security.h                      | 131 +--
+ include/linux/xattr.h                         |  32 +-
+ include/uapi/linux/landlock.h                 |  47 +-
+ init/initramfs.c                              |   2 +-
+ kernel/bpf/bpf_lsm.c                          |  10 +-
+ kernel/bpf/bpf_lsm_proto.c                    | 108 ++
+ kernel/bpf/verifier.c                         |  13 +
+ kernel/trace/bpf_trace.c                      |   2 +-
+ samples/landlock/sandboxer.c                  |  16 +-
+ security/apparmor/lsm.c                       |   5 +-
+ security/commoncap.c                          |  17 +-
+ security/integrity/evm/evm_crypto.c           |   8 +-
+ security/integrity/evm/evm_main.c             |  77 +-
+ security/integrity/ima/ima_appraise.c         |  41 +-
+ security/landlock/access.h                    |  13 +-
+ security/landlock/fs.c                        | 235 ++++-
+ security/landlock/limits.h                    |   2 +-
+ security/landlock/syscalls.c                  |   2 +-
+ security/security.c                           | 179 ++--
+ security/selinux/hooks.c                      | 105 +-
+ security/smack/smack_lsm.c                    | 128 ++-
+ security/tomoyo/tomoyo.c                      |   8 +-
+ .../testing/selftests/bpf/prog_tests/d_path.c |   2 +-
+ .../selftests/bpf/prog_tests/fs_kfuncs.c      |  10 +-
+ .../testing/selftests/bpf/progs/test_d_path.c |   5 +-
+ .../bpf/progs/test_d_path_check_rdonly_mem.c  |   5 +-
+ .../bpf/progs/test_d_path_check_types.c       |   5 +-
+ .../selftests/bpf/progs/test_get_xattr.c      |   7 +-
+ .../bpf/progs/test_set_remove_xattr.c         |  34 +-
+ .../bpf/progs/verifier_lsm_init_xattr.c       |   8 +-
+ .../selftests/bpf/progs/verifier_vfs_accept.c |   2 +-
+ .../selftests/bpf/progs/verifier_vfs_reject.c |   2 +-
+ tools/testing/selftests/landlock/base_test.c  |   2 +-
+ tools/testing/selftests/landlock/fs_test.c    | 932 +++++++++++++++++-
+ .../selftests/landlock/trace_fs_test.c        |   3 +-
+ 82 files changed, 3003 insertions(+), 905 deletions(-)
+
 -- 
-2.56.1
+2.18.0.huawei.25
 
