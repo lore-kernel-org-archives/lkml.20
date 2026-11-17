@@ -1,47 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794908632;
-	b=4rgUyjB/JZ9lUqmytoFzI6Hfc2PCHfgPZ2/rCdT2BIsRqPjbILKOzvEBST9NRxBA5Me7
-	 jG8jedMY3anz6Edo4OYIZIazAS2ViNN4ItqZWy8pL2L3fBo5HO3LAq/FoXfKeYCGU1Y94
-	 XYLzTfauY6BU+Yr0kvjzGWG/ElgNFCyVU7ae3tuJZSQf2uB9TFV7iRJjpjkx69mJ/ZU50
-	 TxC9mvxB9KHJQ1waSHGIpdUjjdKta+iTvimUU0RgVqnN8Px24lZF3c11YA+mDgUiAs9q6
-	 AbG6kI+Hn9ezrZz7eb3EGUxPd38ihbLXByKg7egDqPk8edPDm3r0VC8rdLdT0z9AXsg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908632;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=U8Uuy//B8VLhVUEAfNen2OqeBRsqmMAJ6ktOCeoG89w=;
-	b=CBXYB84rpc2QZGSvxN6vBCpZwTS8NmYdsfXdriudvIIvQ0We0ts+UmWxFHg4XiotV88z
-	 A7TMKA/V3nbm7tTapfZU33o/N4HD/BjI59tXcHro0POvB0tDs9BNWqZ3sI5i5rLyD7GOk
-	 Q6j2HYJELK4w8I+UsgRY9BelFGe3n7cxAu8LzlhhTMPYodUKljkExKS1JwSr9HsDZ6pOL
-	 Ywdq7hLE3AYxSxGnbXmQeFNxm3gDuPiZO107A3MTszkfSXmV7ip5wcyQZ9dIAzXqWnYxZ
-	 pMcdx7GgrgSBho/hbxz4O43d5spYmRdFIqE6KEihJjQvRT6epRyULvm+C2cCJntqfEw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CmAX2rVy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.84
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794908627;
+	b=Hhs4qpOwNr2zUJ//i6P/YhX+38vOS77DcmaiykCMmL3bcFTs6fJ/AUz09GMV6EcRgrJx
+	 RafwumbcHwn+vYARyj9PzDPv3W8m7D8SUcutso3jSeYs8vVJfePxof9zRD219CAAFU4pB
+	 Vwi6I2TlFPkQxTmzRjayrJ5bpjs2QhD/4tYrpSH9wQifhetva9AeN1VkSGr8e+EKtzgYR
+	 XnRiB12AYh3Q4qVcvTuQ2R5qKZbV9pMv8ym0vH0vaY9blBBL4QqSLb0E6ISPPRwR5hcIh
+	 hp3m20BWMQbtz+G9ej4kyIS0DZ8BL5acq4TPGZR1FLnsy1+zRBDXIAHZEu020o+d3kQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908627;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=CYZRM522jsotT+mYGbZi/HF1GOonj0Msu3pPKcHltIQ=;
+	b=D7JHrZ2f82DnqlfpGLHN4dMGU2J0crVHmDTd8hpf8YruanpMGzM48/GAuPLuF5Y+M1ib
+	 s6PoJlyQPuBIBw3OBxAlcvSrH09rf9xZKQnpF/mgsOTBJWXSQA/jGoJiIHbKv/ySI8RZR
+	 b4pNSFaFtEk/G0hwsFVIfjlkEHH8ErGSEqimopAZLreP991X3HjTpZ5yOpMy5TAODr1JE
+	 ptYZg3LZ+Mem6Oz9x6myYCEGnDndqQeoBYAqVEePYRuaQD+/zHlFX7Mm390WvQaIQgNvN
+	 9YCp+tPi0bJMp2pVmjeud0J+9ZcB8FzkHju1TmIIn4ReKnBUZCYOVKRPcz5kjdP8AHA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.84
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022084.outbound.protection.outlook.com [52.101.126.84])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1CFC606A8BB;
-	Tue, 17 Nov 2026 09:43:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CmAX2rVy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AB931F01819;
-	Tue, 17 Nov 2026 09:43:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794908631;
-	bh=U8Uuy//B8VLhVUEAfNen2OqeBRsqmMAJ6ktOCeoG89w=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=CmAX2rVyN+dOqJ+NLX4LjVjwKCXCFMSaLbnZ8h1DpHG3wM0ioWSiviVFsIXYifxt+
-	 8ANiBw6z296xRRNmUI0ToOpH1ne8GxIXmR4KLvbq/EQW4ykJPj+p6WZFASCClLs1o3
-	 ndkIrgA6/jOVyznXW+C0SZ196uf+VlZFxxRuH0TbXXTdVUEmzk0d8m1i14utDslwNI
-	 ZneMfO99B2ELp4e6MtULSOIeeRDYu2wTijkM5La2vPbVzxp8DHNLq+Q5N0xJXsZHQX
-	 r3vwzKJdg8/qUgQjiyt2FGnvpTwWfKyasBQ8xIHnzzrFvTA57v92bFkKFJoE5VfD8x
-	 BPXNNKXde286A==
-Message-ID: <558f6c84-84d6-4029-8199-46d4e07c8c0a@kernel.org>
-Date: Tue, 17 Nov 2026 10:43:45 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 794D360A3801;
+	Tue, 17 Nov 2026 09:43:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 794D360A3801
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GJyHjbbOp9y/5E5wf3P4luw2P2vRuCNGf7mzyfX51O6fcrkVls0jsckLe3yxOp5kg8tExKVcncdXyFHJa/qOq3vcfeCdEGKQ4Th/wwwozWPcy+ssEV5V7p91rdl7j6LIj3rS8AmlJ66wtLmxT1WFI/URkRrWo9Pkm06I9EYnFAlwkkqBShRL2B44Vz9o0nFylk2nM7FNLxMzKTv86qSD2kLLtOnKwGcPRenyqwbfcL/Te1igkH1dEcKYC4sGaLwAkvtbj10/ptRV72SLhRScjZqiVT2hTCGRStOVjHLgRvKSC3Wg8vuvxbpR3uuktM32VtXka88c9z2KLiBK/8xkyg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CYZRM522jsotT+mYGbZi/HF1GOonj0Msu3pPKcHltIQ=;
+ b=ZUp38fb3MCYb86I3kM6/HrRF0U/IZuR1xZoCR/oOI/TnD3GIey+akN5+DckpxYYpKJ/qRccUJJSUHzllL89Cxn6RoAbhNsNVrwQpn1A7Kku6yWLDiLU21uMjUVh7DDZrNyIeDBL4n/UwDXmCq5Jwi/x98vn3QnRho03eMJSKNCNyJqescoPGCRbKfeXCy6ytkF3hF1Lk2BrrB7SX7ywauXGnS7TePvBWwqzZCFQQescaQ/L/z7Djy/MCff3gsbzp0cuz4ZdhrFPFsfXSZzOKXXDbmRqKZudVwEWlHv22eovJo/x87EN1HN6YIexn+NlPjJkl/U42NP/1UvoUvpZD4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from TY4P286CA0034.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:2b2::13)
+ by TY1PPFB8C1195D3.apcprd06.prod.outlook.com (2603:1096:408::922) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.7; Tue, 17 Nov
+ 2026 09:43:44 +0000
+Received: from TY2PEPF0000AB88.apcprd03.prod.outlook.com
+ (2603:1096:405:2b2:cafe::3) by TY4P286CA0034.outlook.office365.com
+ (2603:1096:405:2b2::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Tue,
+ 17 Nov 2026 09:43:44 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ TY2PEPF0000AB88.mail.protection.outlook.com (10.167.253.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 09:43:44 +0000
+Received: from ubuntu (unknown [172.20.64.99])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 7375F40920EB;
+	Tue, 17 Nov 2026 17:43:38 +0800 (CST)
+From: Jelly Jia <Jelly.Jia@cixtech.com>
+To: vkoul@kernel.org,
+	Frank.Li@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	robin.murphy@arm.com
+Cc: devicetree@vger.kernel.org,
+	cix-kernel-upstream@cixtech.com,
+	dmaengine@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jelly.Jia@cixtech.com
+Subject: [PATCH v7 07/10] dmaengine: arm-dma350: Track descriptor byte lengths explicitly
+Date: Tue, 17 Nov 2026 17:43:32 +0800
+Message-ID: <20261117094335.1393735-8-Jelly.Jia@cixtech.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261117094335.1393735-1-Jelly.Jia@cixtech.com>
+References: <20261117094335.1393735-1-Jelly.Jia@cixtech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,186 +106,135 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/3] mm: gup: allow long-term pins of CMA-allocated
- HugeTLB folios
-To: Qi Zheng <qi.zheng@linux.dev>, muchun.song@linux.dev, osalvador@suse.de,
- akpm@linux-foundation.org, azpijr@gmail.com, lance.yang@linux.dev,
- fvdl@google.com
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org
-References: <cover.1794907279.git.zhengqi.arch@bytedance.com>
- <295af6601ce79f2c2b3dc4352a3279f0e6ac513e.1794907279.git.zhengqi.arch@bytedance.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <295af6601ce79f2c2b3dc4352a3279f0e6ac513e.1794907279.git.zhengqi.arch@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB88:EE_|TY1PPFB8C1195D3:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 4f0b8b3b-d62b-43ed-db57-08df448f454d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|7416014|376014|1800799024|82310400026|23010399003|261022105027099003|261026130827099003|56012099006|261021123027099003|261021121427099003|10067099003|261021130227099003|261021133027099003|261021135927099003|261102123227099003|261026140227099003|261009223027099003|261026121527099003|261022075727099003|261022113327099003|261026135527099003|261022115727099003|261028144727099003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	osignJsEbbxtuB8s1+2aC0f2WoDseOWTlao7ePAlmCNjU/jyBuQY8oFnSnPdV6Mag2ZxM7ZRMiIPq8r+ODXYSZ1pYkiFLQB4MRjfOgeJR/Gx7l8neLWVGjFQoqcTWaHeqSlZ7lcGNwOLYN8cmrqbMFAO+4KX/ym+DmYKF4WM6FNZH8Xz8SQwCXTdPHNQ3SW9jPHktml7129US7cw+pCE66/DGwsFqKiKfJJzGwmc5vPifO3X8hFZxcWTzIepificWLk4dEyKRimqoJ6W6yunpFpwLcwtEhTmZzt+fj0QT2K061iFAqXut4L1LqNrUUvGN3KA7O1K84EvvvI9LgMrJQP2/4k3Cg6U/Ded6R8gv4to/JoMdkTi3+0v1cav3E5sPQWfMgR2WhRKyTscmSoxDtLAB8KJAm/cDFzPxOnOnc27o5sX5AMlhxNd7d2Wp6ZkhJeh6wrkv/kxsEFCldqoB0s1TkbUm+G9MhLMosMz9AHLhIepL3rGw4znE5GP9GqR958pdkUwnaVC0wi0tp7OMkWV4FLfjSncilHnDvByQqNFUYCAYS893EOzZDZJVIFODQTbVK3NzVpEiaNQapsRK00BVa5crVJvkfSO9a5lh7nlza34HN6lGHZXl/z0/Zbv1CZEIYtslcUDiQcFD6KeuH4/OFtEAXbPigV13CUELoJsZlOvbHaWz0/wBnFVG5mw1p6rr49cHwHovPmXMm9BhQ==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(7416014)(376014)(1800799024)(82310400026)(23010399003)(261022105027099003)(261026130827099003)(56012099006)(261021123027099003)(261021121427099003)(10067099003)(261021130227099003)(261021133027099003)(261021135927099003)(261102123227099003)(261026140227099003)(261009223027099003)(261026121527099003)(261022075727099003)(261022113327099003)(261026135527099003)(261022115727099003)(261028144727099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	5CpbyMqPcfcTecdvFGYCD+cfpy0BfurY99StJbBOqcNsoo7yDk5QkmoTyQkFVDH3YXcdpsrAZd+/NaktrP/ifF5qFQASIj+6R4NJR8zHvJ4F+AU8FQbAx7vSSzku0vCv32d39le3xNLYPZj2pRWsEmq09GcTeF8Ev5s0Nc2+AAMOHzUXi7yh2bAeVQXIBiJ9WiT3wIpYbNaFNHTsvlQ2p4JQ9/bkF5Mg4ZUwRDQmQjdfBvzflf3I36Pd9mdAwOP2RroijkvpBlVrn/CgH+QZSvrOrE3tkZTELk91FRq0YFpNAvaKaB5nXlgyMUw3KFNTiUv+Iwrxl9qR2UXzg4g5KiWGAdJU/ud3YpFAqYnxWL8Nl0fji8XEdqDrgkfmR88G90OZ0fof/h3xwz9DVnVaD4wQx9LNOEzsYSOsUF8JI3yxr7syppuOk9Vl4LLMV3aJ
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 09:43:44.1593
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4f0b8b3b-d62b-43ed-db57-08df448f454d
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	TY2PEPF0000AB88.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY1PPFB8C1195D3
 
-On 11/17/26 10:33, Qi Zheng wrote:
-> From: Qi Zheng <zhengqi.arch@bytedance.com>
-> 
-> Long-term pinning rejects HugeTLB folios explicitly allocated from CMA,
-> causing unnecessary migration or pinning failures. These folios already
-> own their CMA memory and do not need to be migrated out for future CMA
-> allocations.
-> 
-> Add cma_folio_is_longterm_pinnable() to recognize these allocations
-> through HPG_cma. Allow them to be pinned even in ZONE_MOVABLE, since
-> memory blocks overlapping boot-time CMA areas cannot be offlined. Ordinary
-> movable allocations that borrow CMA memory remain unpinnable.
-> 
-> Fixes: cf11e85fc08c ("mm: hugetlb: optionally allocate gigantic hugepages using cma")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Muchun Song <muchun.song@linux.dev>
-> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
-> Acked-by: Muchun Song <muchun.song@linux.dev>
-> Reviewed-by: Oscar Salvador <osalvador@suse.de>
-> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-> Reviewed-by: Frank van der Linden <fvdl@google.com>
-> ---
->  include/linux/cma.h |  3 +++
->  include/linux/mm.h  |  9 ++++++---
->  mm/cma.c            | 11 +++++++++++
->  3 files changed, 20 insertions(+), 3 deletions(-)
-> 
-> diff --git a/include/linux/cma.h b/include/linux/cma.h
-> index 8555d38a97b1a..d829fd0355bae 100644
-> --- a/include/linux/cma.h
-> +++ b/include/linux/cma.h
-> @@ -21,6 +21,9 @@
->  #define CMA_MIN_ALIGNMENT_BYTES (PAGE_SIZE * CMA_MIN_ALIGNMENT_PAGES)
->  
->  struct cma;
-> +struct folio;
-> +
-> +bool cma_folio_is_longterm_pinnable(struct folio *folio);
->  
->  extern unsigned long totalcma_pages;
->  extern phys_addr_t cma_get_base(const struct cma *cma);
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index daf5c5b567ebc..e71aae8001831 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -38,6 +38,7 @@
->  #include <linux/bitops.h>
->  #include <linux/iommu-debug-pagealloc.h>
->  #include <linux/kcsan-checks.h>
-> +#include <linux/cma.h>
->  
->  struct mempolicy;
->  struct anon_vma;
-> @@ -3015,15 +3016,18 @@ static inline bool is_zero_folio(const struct folio *folio)
->  	return is_zero_page(&folio->page);
->  }
->  
-> -/* MIGRATE_CMA and ZONE_MOVABLE do not allow pin folios */
->  #ifdef CONFIG_MIGRATION
-> +/*
-> + * MIGRATE_CMA and ZONE_MOVABLE folios cannot normally be long-term pinned.
-> + * CMA may allow pinning folios explicitly allocated from its areas.
-> + */
->  static inline bool folio_is_longterm_pinnable(struct folio *folio)
->  {
->  #ifdef CONFIG_CMA
->  	int mt = folio_migratetype(folio);
->  
->  	if (mt == MIGRATE_CMA || mt == MIGRATE_ISOLATE)
-> -		return false;
-> +		return cma_folio_is_longterm_pinnable(folio);
->  #endif
->  	/* The zero page can be "pinned" but gets special handling. */
->  	if (is_zero_folio(folio))
-> @@ -3042,7 +3046,6 @@ static inline bool folio_is_longterm_pinnable(struct folio *folio)
->  
->  	/* Otherwise, non-movable zone folios can be pinned. */
->  	return !folio_is_zone_movable(folio);
-> -
->  }
->  #else
->  static inline bool folio_is_longterm_pinnable(struct folio *folio)
-> diff --git a/mm/cma.c b/mm/cma.c
-> index 9ec1d1fd5dff5..fea5d1015319d 100644
-> --- a/mm/cma.c
-> +++ b/mm/cma.c
-> @@ -29,6 +29,7 @@
->  #include <linux/highmem.h>
->  #include <linux/io.h>
->  #include <linux/kmemleak.h>
-> +#include <linux/hugetlb.h>
->  #include <trace/events/cma.h>
->  
->  #include "internal.h"
-> @@ -38,6 +39,16 @@
->  struct cma cma_areas[MAX_CMA_AREAS];
->  unsigned int cma_area_count;
->  
-> +bool cma_folio_is_longterm_pinnable(struct folio *folio)
-> +{
-> +	/*
-> +	 * Explicitly allocated CMA folios own their CMA memory and can be
-> +	 * pinned even in ZONE_MOVABLE, as CMA memory cannot be offlined.
-> +	 * For now, only HugeTLB tracks these allocations with a folio flag.
-> +	 */
-> +	return folio_test_hugetlb(folio) && folio_test_hugetlb_cma(folio);
-> +}
-> +
->  phys_addr_t cma_get_base(const struct cma *cma)
->  {
->  	WARN_ON_ONCE(cma->nranges != 1);
+Keep the total transfer length in the descriptor instead of deriving it
+from memcpy/memset-specific size fields. This allows the queued-status and
+start paths to report the total length for linked peripheral work.
 
-Thanks.
+Use local size fields when constructing existing memcpy/memset commands.
+Keep these CPU-consumed command words and their MMIO loader in CPU byte
+order; little-endian pool storage is introduced with peripheral support.
 
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Jelly Jia <Jelly.Jia@cixtech.com>
+---
+ drivers/dma/arm-dma350.c | 27 ++++++++++++++++-----------
+ 1 file changed, 16 insertions(+), 11 deletions(-)
 
-This can go through Andrew's tree with the other hugetlb stuff.
-
+diff --git a/drivers/dma/arm-dma350.c b/drivers/dma/arm-dma350.c
+index bf87460c1c20..465a8b9b722a 100644
+--- a/drivers/dma/arm-dma350.c
++++ b/drivers/dma/arm-dma350.c
+@@ -178,8 +178,7 @@ enum ch_cfg_memattr {
+ struct d350_desc {
+ 	struct virt_dma_desc vd;
+ 	u32 command[16];
+-	u16 xsize;
+-	u16 xsizehi;
++	size_t bytes;
+ 	u8 tsz;
+ };
+ 
+@@ -224,15 +223,18 @@ static struct dma_async_tx_descriptor *d350_prep_memcpy(struct dma_chan *chan,
+ {
+ 	struct d350_chan *dch = to_d350_chan(chan);
+ 	struct d350_desc *desc;
++	u16 xsize;
++	u16 xsizehi;
+ 	u32 *cmd;
+ 
+ 	desc = kzalloc_obj(*desc, GFP_NOWAIT);
+ 	if (!desc)
+ 		return NULL;
+ 
++	desc->bytes = len;
+ 	desc->tsz = __ffs(len | dest | src | (1 << dch->tsz));
+-	desc->xsize = lower_16_bits(len >> desc->tsz);
+-	desc->xsizehi = upper_16_bits(len >> desc->tsz);
++	xsize = lower_16_bits(len >> desc->tsz);
++	xsizehi = upper_16_bits(len >> desc->tsz);
+ 
+ 	cmd = desc->command;
+ 	cmd[0] = LINK_CTRL | LINK_SRCADDR | LINK_SRCADDRHI | LINK_DESADDR |
+@@ -247,8 +249,8 @@ static struct dma_async_tx_descriptor *d350_prep_memcpy(struct dma_chan *chan,
+ 	cmd[3] = upper_32_bits(src);
+ 	cmd[4] = lower_32_bits(dest);
+ 	cmd[5] = upper_32_bits(dest);
+-	cmd[6] = FIELD_PREP(CH_XY_SRC, desc->xsize) | FIELD_PREP(CH_XY_DES, desc->xsize);
+-	cmd[7] = FIELD_PREP(CH_XY_SRC, desc->xsizehi) | FIELD_PREP(CH_XY_DES, desc->xsizehi);
++	cmd[6] = FIELD_PREP(CH_XY_SRC, xsize) | FIELD_PREP(CH_XY_DES, xsize);
++	cmd[7] = FIELD_PREP(CH_XY_SRC, xsizehi) | FIELD_PREP(CH_XY_DES, xsizehi);
+ 	cmd[8] = dch->coherent ? TRANSCFG_WB : TRANSCFG_NC;
+ 	cmd[9] = dch->coherent ? TRANSCFG_WB : TRANSCFG_NC;
+ 	cmd[10] = FIELD_PREP(CH_XY_SRC, 1) | FIELD_PREP(CH_XY_DES, 1);
+@@ -262,15 +264,18 @@ static struct dma_async_tx_descriptor *d350_prep_memset(struct dma_chan *chan,
+ {
+ 	struct d350_chan *dch = to_d350_chan(chan);
+ 	struct d350_desc *desc;
++	u16 xsize;
++	u16 xsizehi;
+ 	u32 *cmd;
+ 
+ 	desc = kzalloc_obj(*desc, GFP_NOWAIT);
+ 	if (!desc)
+ 		return NULL;
+ 
++	desc->bytes = len;
+ 	desc->tsz = __ffs(len | dest | (1 << dch->tsz));
+-	desc->xsize = lower_16_bits(len >> desc->tsz);
+-	desc->xsizehi = upper_16_bits(len >> desc->tsz);
++	xsize = lower_16_bits(len >> desc->tsz);
++	xsizehi = upper_16_bits(len >> desc->tsz);
+ 
+ 	cmd = desc->command;
+ 	cmd[0] = LINK_CTRL | LINK_DESADDR | LINK_DESADDRHI |
+@@ -283,8 +288,8 @@ static struct dma_async_tx_descriptor *d350_prep_memset(struct dma_chan *chan,
+ 
+ 	cmd[2] = lower_32_bits(dest);
+ 	cmd[3] = upper_32_bits(dest);
+-	cmd[4] = FIELD_PREP(CH_XY_DES, desc->xsize);
+-	cmd[5] = FIELD_PREP(CH_XY_DES, desc->xsizehi);
++	cmd[4] = FIELD_PREP(CH_XY_DES, xsize);
++	cmd[5] = FIELD_PREP(CH_XY_DES, xsizehi);
+ 	cmd[6] = dch->coherent ? TRANSCFG_WB : TRANSCFG_NC;
+ 	cmd[7] = FIELD_PREP(CH_XY_DES, 1);
+ 	cmd[8] = (u8)value * 0x01010101;
+@@ -387,7 +392,7 @@ static void d350_synchronize(struct dma_chan *chan)
+ 
+ static u32 d350_desc_bytes(struct d350_desc *desc)
+ {
+-	return ((u32)desc->xsizehi << 16 | desc->xsize) << desc->tsz;
++	return desc->bytes;
+ }
+ 
+ static struct virt_dma_desc *d350_find_queued_desc(struct d350_chan *dch,
 -- 
-Cheers,
+2.54.0
 
-David
