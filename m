@@ -1,97 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.5
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794910956;
-	b=nuaK1K/nBn2oYW1JRFK6tdiNNGYrHfYlqiGuBSV3ygVUuMxcUr5sqrKioWV/8KcWWFES
-	 +NrHbuQ0PTQ2IbImP1xA1C8tIS2dH5fZ1Kw9K4hp3GvcBSBHerKAxVbjmfV+d6LZp+mRb
-	 TRaSF1G2346gjzrzo4IqbXKuDMtBsiK0vTM4FCiUDZtxZoqaRI6tSz8SDYgjqXn2x/WM8
-	 sIa6SxOURFZs6F8ngN1eHj8gEZsJ573UDb5RTXzVnJgQWkVtc/LX3x6vpUcIMyJpIU3Ed
-	 dHLWdJTLfjiDIiDKFE/mmQBk9wrBFdf+o5ByUWOG1VSw8eL6lkc2dneL/tOAhmGty8Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794910956;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Aq2HfZxK57r5c8CIAtTaplQVsaI9UayBsZXE7N5Vioc=;
-	b=ahbAAuKrsHr6UO7U/v3NVdp9otcKb/pM1zVsTEievfAcmoAxRkDcAeSziHd3d2MQrNVF
-	 R/OXMwNio0BH4roUigNJfWDTUXwkRoQSfBViwt+Km5vC8AUfHTRIv41p6vYMvR+lfVy1L
-	 P2v7jygzCg1qpyENJORMcw2QoIeTzk3E90FnSeYgGBFLl6HIgbfFM2AdP4WgyOa0cvw/s
-	 Q6oh2Bn+AWGfkGwjg7r/x8smxtBPyNUFU4lvPfA2dZN3+8wQqn9QfJNL3NLoI9besk6n5
-	 Z++RvCEh1Sy+bk2uIfUHX1JPlTnFHjMgCRb5a7X4Wph5h9S8cyX/W6Ejy9kWO2jUi8g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=0V4GjCUF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.5
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010005.outbound.protection.outlook.com [52.101.85.5])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794910989;
+	b=A0q63otVO1Ht/W4j0JUuqso2CqOj3H6OPUebCOzS6L/zbv9xG1QtS8b1N3YDA6o2C+W4
+	 RJM1bOTZF4bQvNzQ0op7vz/UM65+HnKVKpA3PcFXEEbHDcZW/jZo8OuKUoPjy4eu0pWsN
+	 m67+hIFR5CgPWlViAxk0Zw34dppzvB8l4Rnw5gUzeGFWKgCTTOXJp+C7zhUPLazVZypdI
+	 q6EtjHJ8mHpvoxRLAWPhE0btlUWF/jN7QGHEh3rXpd6CwglyasbA2A+LmotZAEPzr99/t
+	 G92GEcIlzuY5DSM+b+7chyexjeEEwG08po7xR1CI7Q4xyOuScsAHbkNBKzBkJmjq+zA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794910989;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=jLMD7Jcy+SufZWp/84cELInAfnlXl2JNyOiu/MIj0FU=;
+	b=jc0cvI6VHqhqGNZKGXGOGI6wIMocWmtbPf6EbEEtBEzlAyJbp3RaS8n8S0jytSfWzTyA
+	 1+3OKup9mRaWamO8705t7to0M0sRRpkTDJDPXomyLvJYEXHtdlJcI9ltWFtx7Sw8dSzS/
+	 EzVU6QNu/+tVM4YFV3/UVZgpjXG+nYGbhGOxk+Wf8J/ymMcOgO4hv5trnOv0BppY/nxB4
+	 jzzxGw8S9OxdroLr7MiFbl6W6uiQB0W0bIIlK5DMBBZS4FBvmFYKxwvdOzy2UMwpAVVCQ
+	 1Hf36vSHkFm0Rtp4seakB/VTXMdbo1eb0HXUzMkSs5vTVogg6I1B1tbMr9EW8lPyK5A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=d3z5tUbW;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF795606A32F;
-	Tue, 17 Nov 2026 10:22:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF795606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B142606A32C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:23:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B142606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=0V4GjCUF
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=h2sCR6UksDclMJx3ws4gFt5tr57E/ofkH7cxbZeNDswtKxPXhNggLq5/ECMJWxRRicPPLogYDoIacn7fUI3bJBZH6mFeVFnnrvKFVxgTHoMDA57Ad9kXczi5ZX9zsUY5Jqm29B2AXGxLt68r5J8+noPYTOlhndVKQdy+BG7YHN4VkENGQ8vfQ/Md+U370Tcw2RxYvwZGXeIrI0XTfH8EZUvVWZNtJp6hxHzIncwo7w5PgLR6TWWi9t2HMyz6YsQxGUJXJE4/b6t5RT/vq8TorScVeXPrUDLziLZ0ajSpqpiWF4qFUdf0fwtq/oNUGokZ7jglcA35Oq3bSH4Y/VAY/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Aq2HfZxK57r5c8CIAtTaplQVsaI9UayBsZXE7N5Vioc=;
- b=k/VxjEDTtQHMByPFpCD0A4Jjkzc7FRUmKN8i9bf2pSzeZGCFLViuWlwuLp7hB1h8G9PT4l5iwpFq0F4Dxi/xUpDGO/INBYSrCHLWQqhHD+t2EsQDFMeNiiH7t7azvrnG0VyGwwdkdtOwfb9cBgtqoe0n2sOE/SkUjpLVXiSN/dfIkj3Qtvw7tgvo1x8Gyi7QMSke20lcgvKN4bvAAmn5CEtdikiYmEi8NmW5SPaBFgwPkNV/RdwdYLc2n3Mg2DSZtjYE+fQWleIN8ahchezrK5ih8VxHgtM461izPOigcDGdYRJIck8v5wAphDkRJ3a89caE9ks59g6IWclw7/Zv0Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Aq2HfZxK57r5c8CIAtTaplQVsaI9UayBsZXE7N5Vioc=;
- b=0V4GjCUFlcM1+iK8BnkJ2q2MWo5Kv9wdvhnQ7pS+yz5u4cjVW0+yCjN13AhwQsAF8efQ46atxncvRkaJZNvNkgSq3tvhnV+lyPbKd3nKNT6//oM2D3+oyE5nc/RHUy6h0DuO2l3qCs01N0cVPbswZ/Rm3iAV0NmIRSEaqW62280=
-Received: from BY3PR05CA0023.namprd05.prod.outlook.com (2603:10b6:a03:254::28)
- by PH7PR12MB5594.namprd12.prod.outlook.com (2603:10b6:510:134::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 10:22:29 +0000
-Received: from MW3PEPF00001652.namprd21.prod.outlook.com
- (2603:10b6:a03:254:cafe::a8) by BY3PR05CA0023.outlook.office365.com
- (2603:10b6:a03:254::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.0 via Frontend Transport; Tue, 17
- Nov 2026 10:22:29 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- MW3PEPF00001652.mail.protection.outlook.com (10.167.249.196) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.0 via Frontend Transport; Tue, 17 Nov 2026 10:22:28 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 17 Nov
- 2026 04:22:26 -0600
-Received: from [10.136.43.35] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
- Transport; Tue, 17 Nov 2026 04:22:21 -0600
-Message-ID: <add0d6ee-c28d-4274-b8d1-58638abac47a@amd.com>
-Date: Tue, 17 Nov 2026 15:52:15 +0530
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=d3z5tUbW
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 117C01A158C;
+	Tue, 17 Nov 2026 10:23:07 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D955A5FC81;
+	Tue, 17 Nov 2026 10:23:06 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7731111BC02EE;
+	Tue, 17 Nov 2026 11:23:02 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794910986; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=jLMD7Jcy+SufZWp/84cELInAfnlXl2JNyOiu/MIj0FU=;
+	b=d3z5tUbW2GcoX0WC/98MuU2z0bAT8USRMeH+o2CGaNOep+aeNYXELx4Y1v2MHRoM0xGICq
+	oxOYKwvOKqmUeGhZfl9swdwLLx10azhdpMnKdr9ZMKtfiKYBi/1HCPBGXQAiVu3BY4g4+S
+	6tN5i+TTIz/p0rFUKOo5WN4/Cx468e3XAcwRGb7ZOeoNRlJ7hYmCmVjOSTyXHI5WuCeYO/
+	1cPo3/BM7QFOiCN6Slf0sfuS+/c4QW9arb0kJYsywuZYnO+rme+SzwOnd7zfmAhlljzNyR
+	7b40lWdEOpoO8h8tyc3b+b4Or4Bv5ymopOUXYYm6ytVPUnyGCyn9byOqwX4voA==
+Message-ID: <6c323fca-5d38-40f4-a923-26bdf43cea7c@bootlin.com>
+Date: Tue, 17 Nov 2026 11:23:01 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,129 +63,264 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] core scheduling latency with idle load
-To: Mihail Mihov <mihovmihailp@gmail.com>, Peter Zijlstra
-	<peterz@infradead.org>
-CC: <mingo@kernel.org>, <longman@redhat.com>, <chenridong@huaweicloud.com>,
-	<juri.lelli@redhat.com>, <vincent.guittot@linaro.org>,
-	<dietmar.eggemann@arm.com>, <rostedt@goodmis.org>, <bsegall@google.com>,
-	<mgorman@suse.de>, <vschneid@redhat.com>, <tj@kernel.org>,
-	<hannes@cmpxchg.org>, <mkoutny@suse.com>, <cgroups@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <jstultz@google.com>, <qyousef@layalina.io>,
-	<regressions@lists.linux.dev>
-References: <20260605105513.354837583@infradead.org>
- <20260605124052.227463677@infradead.org> <avt_mdiPQ5gwAisa@lima-fedora>
+Subject: Re: [PATCH net-next v3] net: stmmac: program the FSM timeout timer
+To: Zxyan Zhu <zxyan0222@gmail.com>, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com
+Cc: netdev@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ rmk+kernel@armlinux.org.uk
+References: <20261116114923.1157920-1-zxyan0222@gmail.com>
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
 Content-Language: en-US
-From: K Prateek Nayak <kprateek.nayak@amd.com>
-In-Reply-To: <avt_mdiPQ5gwAisa@lima-fedora>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20261116114923.1157920-1-zxyan0222@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW3PEPF00001652:EE_|PH7PR12MB5594:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3e121163-96ea-4b30-f577-08df4494aedd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|36860700016|82310400026|23010399003|10067099003|56012099006|11063799006|4143699003|261028144727099003|261022105027099003|261021123027099003|261026140227099003|261026121527099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	ijFy5q4LflUk9pl93AgPesXP6hvx3Js30ZxhpTXDjAZ0qR9CvpDhElwAQ/ih2FadMqXM1GTtXrCm4LyxvzMhGEB772wPxYO9QqmARgZYKMKn3Z+z71F6zfWU47eC2/ed/JbFe3thzta/I+p9KbNyK0ooIUd0oN7lAZKWB2veIq8HlVBeluwwpM/4ylr6viCKF4XlgJlwltkD9oraeMywwV1X3HRkCar3sOSPNN5EOf6IEvi+zlbRFu8ljbyerArITKwm2o9Ijcj1KmWcE7cGQqcKs089OwfDfQ3OcwZOSxXKxc2sL59Kfk/EVuOMn8laxLTaDjrvb6EUTFn3HL7Z7h/tykcGvla9nT3VyOa4jxQwnnHUZS0eYkzEY2Ibwbvu78v3T3gZI3iE4Qpo73EEDPbIiJQwPml3J3K9JOmFkzx+CQfmxlqf0lRm9s441rVXPBO+G2VBA6U3yzHrv5RjTmuoHwKzmu3QbP9rViYIuxC1FdqEd2QrAhfkP8nf4zlgNg+E7NK7Nq8588e5VwtchrfpL2u62xkLjCLnfXg4eqy6equsNMoDvObu1ttIUPWclt5CauerK6XQo8HilY2wPQOkhKHC4kYXeyZdQBrHQLRvkGKaMrCdBskjc204lnz664o3wSQwL4VrJYo72GBnydclf4yV1uT30UkK6jYa+eAvY9RimHptpTnq71Zz5uinktXK0oXq8TgNqmJiB3qORQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(36860700016)(82310400026)(23010399003)(10067099003)(56012099006)(11063799006)(4143699003)(261028144727099003)(261022105027099003)(261021123027099003)(261026140227099003)(261026121527099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	SF5XajKHmlt+Oczs5Z04j2AecoNq2qM9hehJfGEDYc+Hyi/5zCivrVDdgT/NsYqhv9TpIufFQgw486MkXOr9eB8TEskVCakkzbGuzNHdhx9IBtEvbAF9rzFXhfB8/Gd1Z5pQCQOBLDR+SSVH2vnVcLdI+ZmU5H1PjKW3MchigABiKt4Xj9Qpfl4mAytbzeA7nCRd32Gw+OPkq1ONekatyk8D6plgQi17haOzyghYKTBLP3lLqzQxAppK+VCA7UJJEejMLWeJdQ3EqPajP8UMCXy/3qCj7Mp5IGiNLvhbyv80nxu3w/E9Dg/JQ9hGTUb1PGwjJrrn/u4/KWsPdsoDlwt0TSoSPzcDk5y+pRV5JmTqLWOc9qfoBiTNueiI/qhX5YkMryxmH8UkHYLKIsXRisPhXY/1+oLQB4s+uSIfaNQ0qVA4+eH0KQHuKlwqlDKx
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 10:22:28.8194
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3e121163-96ea-4b30-f577-08df4494aedd
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MW3PEPF00001652.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5594
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hello Mihail,
+Hi,
 
-On 11/17/2026 3:52 AM, Mihail Mihov wrote:
-> On Fri, Jun 05, 2026 at 02:40:20PM +0200, Peter Zijlstra wrote:
->> @@ -14893,30 +14803,8 @@ bool cfs_prio_less(const struct task_str
-> [...]
->> -     se_fi_update(sea, rq->core->core_forceidle_seq, in_fi);
->> -     se_fi_update(seb, rq->core->core_forceidle_seq, in_fi);
+On 11/16/26 12:49, Zxyan Zhu wrote:
+> stmmac enables the FSM timeout checker (TMOUTEN) but never programs the
+> MAC_FSM_ACT_Timer register.  Per the databook the checker only fires once
+> NTMRMD is programmed with a non-zero duration; NTMRMD == 0 disables the
+> timer, so with TMOUTEN set but the timer left at reset a stuck FSM is
+> never reported and the advertised timeout protection is ineffective.
 > 
-> In case it helps: adding these two calls back on v7.3.4 brought the
-> cookie p99 back to 55 us.
+> Program MAC_FSM_ACT_Timer right after TMOUTEN is enabled, deriving the
+> TMR field (CSR clocks per 1us tic) from the CSR clock rate and defaulting
+> to a 1s timeout.  A platform can override the default through the new
+> ntmrmd field in stmmac_safety_feature_cfg.
+> 
+> The NTMRMD field holds a power-of-two microsecond timeout per the
+> databook: 0x0 disables it, and 0x1..0xa encode 1us, 1.024ms (~1ms),
+> 16.384ms (~16ms), 65.536ms (~64ms), 262.144ms (~256ms), 1.048s (~1s),
+> 4.194s (~4s), 16.777s (~16s), 33.554s (~32s), 67.108s (~64s).
+> 
+> The issue was hit in testing on dwmac4 and dwxgmac, where a stuck FSM was
+> not reported through the safety interrupt despite TMOUTEN being set.
+> 
+> Signed-off-by: Zxyan Zhu <zxyan0222@gmail.com>
+> ---
+> v3:
+> - Make the MAC_FSM_ACT_Timer write a read-modify-write so the other
+>   fields (e.g. LTMRMD) are preserved.
+> - Warn when a valid CSR clock rate cannot be obtained.
+> - Document the NTMRMD encodings and fix 0x2 to 1ms (was 4ms).
+> 
+> v2: https://lore.kernel.org/netdev/20261112053321.1103678-1-zxyan0222@gmail.com/
+> v1: https://lore.kernel.org/netdev/20261111143322.2234321-1-zxyan0222@gmail.com/
+> 
+>  drivers/net/ethernet/stmicro/stmmac/dwmac5.c  | 22 +++++++++++++++++-
+>  drivers/net/ethernet/stmicro/stmmac/dwmac5.h  |  6 ++++-
+>  .../net/ethernet/stmicro/stmmac/dwxgmac2.h    |  3 +++
+>  .../ethernet/stmicro/stmmac/dwxgmac2_core.c   | 23 ++++++++++++++++++-
+>  drivers/net/ethernet/stmicro/stmmac/hwif.h    |  3 ++-
+>  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 11 ++++++++-
+>  include/linux/stmmac.h                        | 17 ++++++++++++++
+>  7 files changed, 80 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
+> index f1bb981cab7c..c1e3d634f153 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
+> @@ -2,6 +2,7 @@
+>  // Copyright (c) 2017 Synopsys, Inc. and/or its affiliates.
+>  // stmmac Support for 5.xx Ethernet QoS cores
+>  
+> +#include <linux/bitfield.h>
+>  #include <linux/bitops.h>
+>  #include <linux/iopoll.h>
+>  #include "common.h"
+> @@ -184,7 +185,8 @@ static void dwmac5_handle_dma_err(struct net_device *ndev,
+>  }
+>  
+>  int dwmac5_safety_feat_config(void __iomem *ioaddr, unsigned int asp,
+> -			      struct stmmac_safety_feature_cfg *safety_feat_cfg)
+> +			      struct stmmac_safety_feature_cfg *safety_feat_cfg,
+> +			      unsigned int csr_clk_mhz)
+>  {
+>  	struct stmmac_safety_feature_cfg all_safety_feats = {
+>  		.tsoee = 1,
+> @@ -245,6 +247,24 @@ int dwmac5_safety_feat_config(void __iomem *ioaddr, unsigned int asp,
+>  		value |= TMOUTEN; /* FSM Timeout Feature */
+>  	writel(value, ioaddr + MAC_FSM_CONTROL);
+>  
+> +	/* Program the FSM active timer so the timeout checker actually fires.
+> +	 * TMR is the number of CSR clocks per 1us tic, i.e. csr_clk in MHz.
+> +	 * Default to a 1s timeout when the platform did not select one.
+> +	 */
+> +	if (safety_feat_cfg->tmouten && csr_clk_mhz) {
+> +		u32 ntmrmd = safety_feat_cfg->ntmrmd;
+> +
+> +		ntmrmd = (ntmrmd >= STMMAC_NTMRMD_1US &&
+> +			  ntmrmd <= STMMAC_NTMRMD_64SEC) ?
+> +			 ntmrmd : STMMAC_NTMRMD_1SEC;
+> +
+> +		value = readl(ioaddr + MAC_FSM_ACT_TIMER);
+> +		value &= ~(MAC_FSM_ACT_TIMER_NTMRMD | MAC_FSM_ACT_TIMER_TMR);
+> +		value |= FIELD_PREP(MAC_FSM_ACT_TIMER_NTMRMD, ntmrmd) |
+> +			 FIELD_PREP(MAC_FSM_ACT_TIMER_TMR, csr_clk_mhz);
+> +		writel(value, ioaddr + MAC_FSM_ACT_TIMER);
+> +	}
+> +
+>  	/* 4. Enable Data Parity Protection */
+>  	value = readl(ioaddr + MTL_DPP_CONTROL);
+>  	if (safety_feat_cfg->edpp)
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac5.h b/drivers/net/ethernet/stmicro/stmmac/dwmac5.h
+> index 00b151b3b688..734e7630f28d 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac5.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac5.h
+> @@ -8,8 +8,11 @@
+>  #define MAC_DPP_FSM_INT_STATUS		0x00000140
+>  #define MAC_AXI_SLV_DPE_ADDR_STATUS	0x00000144
+>  #define MAC_FSM_CONTROL			0x00000148
+> +#define MAC_FSM_ACT_TIMER		0x0000014C
+>  #define PRTYEN				BIT(1)
+>  #define TMOUTEN				BIT(0)
+> +#define MAC_FSM_ACT_TIMER_TMR		GENMASK(9, 0)
+> +#define MAC_FSM_ACT_TIMER_NTMRMD	GENMASK(19, 16)
+>  
+>  #define MAC_PPS_CONTROL			0x00000b70
+>  #define PPS_MAXIDX(x)			((((x) + 1) * 8) - 1)
+> @@ -82,7 +85,8 @@
+>  #define GMAC_INT_FPE_EN			BIT(17)
+>  
+>  int dwmac5_safety_feat_config(void __iomem *ioaddr, unsigned int asp,
+> -			      struct stmmac_safety_feature_cfg *safety_cfg);
+> +			      struct stmmac_safety_feature_cfg *safety_cfg,
+> +			      unsigned int csr_clk_mhz);
+>  int dwmac5_safety_feat_irq_status(struct net_device *ndev,
+>  		void __iomem *ioaddr, unsigned int asp,
+>  		struct stmmac_safety_stats *stats);
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> index f8ab347f7b5b..1fd501728b18 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> @@ -169,8 +169,11 @@
+>  #define XGMAC_HWFEAT_PCSEL		GENMASK(1, 0)
+>  #define XGMAC_MAC_DPP_FSM_INT_STATUS	0x00000150
+>  #define XGMAC_MAC_FSM_CONTROL		0x00000158
+> +#define XGMAC_MAC_FSM_ACT_TIMER		0x0000015C
+>  #define XGMAC_PRTYEN			BIT(1)
+>  #define XGMAC_TMOUTEN			BIT(0)
+> +#define XGMAC_MAC_FSM_ACT_TIMER_TMR		GENMASK(9, 0)
+> +#define XGMAC_MAC_FSM_ACT_TIMER_NTMRMD		GENMASK(19, 16)
+>  #define XGMAC_MDIO_ADDR			0x00000200
+>  #define XGMAC_MDIO_DATA			0x00000204
+>  #define XGMAC_MDIO_C22P			0x00000220
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> index 7ad08651675e..b3f99a6dfcd7 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> @@ -4,6 +4,7 @@
+>   * stmmac XGMAC support.
+>   */
+>  
+> +#include <linux/bitfield.h>
+>  #include <linux/bitrev.h>
+>  #include <linux/crc32.h>
+>  #include <linux/iopoll.h>
+> @@ -837,7 +838,8 @@ static void dwxgmac3_handle_dma_err(struct net_device *ndev,
+>  
+>  static int
+>  dwxgmac3_safety_feat_config(void __iomem *ioaddr, unsigned int asp,
+> -			    struct stmmac_safety_feature_cfg *safety_cfg)
+> +			    struct stmmac_safety_feature_cfg *safety_cfg,
+> +			    unsigned int csr_clk_mhz)
+>  {
+>  	u32 value;
+>  
+> @@ -873,6 +875,25 @@ dwxgmac3_safety_feat_config(void __iomem *ioaddr, unsigned int asp,
+>  	value |= XGMAC_TMOUTEN; /* FSM Timeout Feature */
+>  	writel(value, ioaddr + XGMAC_MAC_FSM_CONTROL);
+>  
+> +	/* Program the FSM active timer so the timeout checker actually fires.
+> +	 * TMR is the number of CSR clocks per 1us tic, i.e. csr_clk in MHz.
+> +	 * Default to a 1s timeout when the platform did not select one.
+> +	 */
+> +	if (safety_cfg && safety_cfg->tmouten && csr_clk_mhz) {
+> +		u32 ntmrmd = safety_cfg->ntmrmd;
+> +
+> +		ntmrmd = (ntmrmd >= STMMAC_NTMRMD_1US &&
+> +			  ntmrmd <= STMMAC_NTMRMD_64SEC) ?
+> +			 ntmrmd : STMMAC_NTMRMD_1SEC;
+> +
+> +		value = readl(ioaddr + XGMAC_MAC_FSM_ACT_TIMER);
+> +		value &= ~(XGMAC_MAC_FSM_ACT_TIMER_NTMRMD |
+> +			   XGMAC_MAC_FSM_ACT_TIMER_TMR);
+> +		value |= FIELD_PREP(XGMAC_MAC_FSM_ACT_TIMER_NTMRMD, ntmrmd) |
+> +			 FIELD_PREP(XGMAC_MAC_FSM_ACT_TIMER_TMR, csr_clk_mhz);
+> +		writel(value, ioaddr + XGMAC_MAC_FSM_ACT_TIMER);
+> +	}
+> +
+>  	/* 5. Enable Data Path Parity Protection */
+>  	value = readl(ioaddr + XGMAC_MTL_DPP_CONTROL);
+>  	/* already enabled by default, explicit enable it again */
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+> index 8ae95e91a36a..395655b01ea8 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+> @@ -378,7 +378,8 @@ struct stmmac_ops {
+>  			     bool srgmi_ral);
+>  	/* Safety Features */
+>  	int (*safety_feat_config)(void __iomem *ioaddr, unsigned int asp,
+> -				  struct stmmac_safety_feature_cfg *safety_cfg);
+> +				  struct stmmac_safety_feature_cfg *safety_cfg,
+> +				  unsigned int csr_clk_mhz);
+>  	int (*safety_feat_irq_status)(struct net_device *ndev,
+>  			void __iomem *ioaddr, unsigned int asp,
+>  			struct stmmac_safety_stats *stats);
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 552840d29668..949ed3e5bb05 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -3691,10 +3691,19 @@ static void stmmac_mtl_configuration(struct stmmac_priv *priv)
+>  
+>  static void stmmac_safety_feat_configuration(struct stmmac_priv *priv)
+>  {
+> +	unsigned int csr_clk_mhz = 0;
+> +
+>  	if (priv->dma_cap.asp) {
+>  		netdev_info(priv->dev, "Enabling Safety Features\n");
+> +		if (priv->plat->stmmac_clk)
+> +			csr_clk_mhz = clk_get_rate(priv->plat->stmmac_clk) /
+> +				      1000000;
+> +		if (!csr_clk_mhz)
+> +			netdev_warn(priv->dev,
+> +				    "unable to get a valid CSR clock rate\n");
 
-I can confirm I see skipped cfs_rq->zero_vruntime_fi updates for root from
-cfs_prio_less() which would have previously bumped up the zero_vruntime_fi
-at common ancestor.
+I know it's the bot who asked for that, but I don't agree with this log here.
 
-> I don't know whether that is the right thing
-> to do, only that it changes this result.
+FWIU it's legit to have ASP but no CSR clock (e.g. stmmac PCI)
 
-It might be since cfs_prio_less() would have compared the zero_vruntime_fi
-at common ancestor but now, everything is driven at root cfs_rq.
+>  		stmmac_safety_feat_config(priv, priv->ioaddr, priv->dma_cap.asp,
+> -					  priv->plat->safety_feat_cfg);
+> +					  priv->plat->safety_feat_cfg,
+> +					  csr_clk_mhz);
+>  	} else {
+>  		netdev_info(priv->dev, "No Safety Features support found\n");
+>  	}
+> diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+> index 00be2df63d22..35c39cd6b630 100644
+> --- a/include/linux/stmmac.h
+> +++ b/include/linux/stmmac.h
+> @@ -168,8 +168,25 @@ struct stmmac_safety_feature_cfg {
+>  	u32 edpp;
+>  	u32 prtyen;
+>  	u32 tmouten;
+> +	/* FSM normal-mode timeout value (MAC_FSM_ACT_Timer.NTMRMD). The TMR
+> +	 * field (CSR clocks per 1us) is derived from the CSR clock by stmmac.
+> +	 * 0 selects the default 1s timeout.
+> +	 */
 
-That said, perhaps se_fi_update() could itself be optimized now with
-flattened pick. Could you try below changes a try:
+I'd rather this comment to be with the register value definitions :)
 
-  (Prepared on top of v7.4-rc3; Lightly tested)
+> +	u32 ntmrmd;
 
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 0c8af1cac2d5..3935693bdf2f 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -15278,30 +15278,21 @@ static inline void task_tick_core(struct rq *rq, struct task_struct *curr)
- /*
-  * se_fi_update - Update the cfs_rq->zero_vruntime_fi in a CFS hierarchy if needed.
-  */
--static void se_fi_update(const struct sched_entity *se, unsigned int fi_seq,
--			 bool forceidle)
-+static void cfs_rq_fi_update(struct cfs_rq *cfs_rq, unsigned int fi_seq, bool forceidle)
- {
--	for_each_sched_entity(se) {
--		struct cfs_rq *cfs_rq = cfs_rq_of(se);
--
--		if (forceidle) {
--			if (cfs_rq->forceidle_seq == fi_seq)
--				break;
--			cfs_rq->forceidle_seq = fi_seq;
--		}
-+	if (forceidle && cfs_rq->forceidle_seq == fi_seq)
-+		return;
- 
--		cfs_rq->zero_vruntime_fi = cfs_rq->zero_vruntime;
--	}
-+	cfs_rq->forceidle_seq = fi_seq;
-+	cfs_rq->zero_vruntime_fi = cfs_rq->zero_vruntime;
- }
- 
- void task_vruntime_update(struct rq *rq, struct task_struct *p, bool in_fi)
- {
--	struct sched_entity *se = &p->se;
--
- 	if (p->sched_class != &fair_sched_class)
- 		return;
- 
--	se_fi_update(se, rq->core->core_forceidle_seq, in_fi);
-+	cfs_rq_fi_update(&rq->cfs, rq->core->core_forceidle_seq, in_fi);
- }
- 
- bool cfs_prio_less(const struct task_struct *a, const struct task_struct *b,
-@@ -15319,6 +15310,9 @@ bool cfs_prio_less(const struct task_struct *a, const struct task_struct *b,
- 	cfs_rqa = &task_rq(a)->cfs;
- 	cfs_rqb = &task_rq(b)->cfs;
- 
-+	cfs_rq_fi_update(cfs_rqa, rq->core->core_forceidle_seq, in_fi);
-+	cfs_rq_fi_update(cfs_rqb, rq->core->core_forceidle_seq, in_fi);
-+
- 	/*
- 	 * Find delta after normalizing se's vruntime with its cfs_rq's
- 	 * zero_vruntime_fi, which would have been updated in prior calls
--- 
-Thanks and Regards,
-Prateek
+I don't see any user for ntmrmd. If this is prep work for upcoming glue
+drivers, then this should come with the driver in question. If really
+needed, can't we just program a reasonable hardcoded default for the
+time being ?
 
+Maxime
