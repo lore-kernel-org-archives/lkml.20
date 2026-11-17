@@ -1,32 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794921111;
-	b=vsuzuubgiKBP6dED7KZbe6TbmGKhXmbQCxOX0Be5JRRUy1kV83RAKZ6F6owlynqZy7PR
-	 m/y9ILb9UTUqjFwKs8bpECtBThRcsBvZo4uCSrlk4UzET1OypOwT3qZ98yRzijcOU84Da
-	 TVyA7/7mYhm+KqP0FtitgZAfPrginwjMfPvJbsn2gwBs0imU+KXiK093qM6e27uyy0O8u
-	 gc1otdGjrcePrdSS3yBkzi2Vm32AOffG1lAY6lI6iKFR8Uplcioho+4gen38+Jr2Wms84
-	 z8tWW59x6ZZBvkGK0QxQK4XtyP2KXca8yqjNEvshg48+2x2Qhk6Oo0/d7h6Fn7guuag==
+	t=1794921133;
+	b=pgrPjsbB+AmYxALavMszdi+Oov7MrUZnmtj8ZlK0tDNkXw+34U9FW33WSIoCjgH1P/YW
+	 P0Qu2CE0s/KTdCxPA7vHk1IUib+OnB+XucaZUZGsDT+CFWZsg/ux+b/Hmi/OGvqBhj+gY
+	 DaTTKFxtL1lyHvomEdgh09HlUCoiaG1j7Mzy60e49GelX0fEHbBfTaIzZi0+UHNNZ9Pgn
+	 gXvA6kghXDnKVXGPpsMBqomWYWVRhKvy5G7kDVASF/klDuxR5b896FOvincrO/LVfd3gM
+	 rSLOOTdxCiPZWCvNxsw8b/cb3QRml26APkVmnwHeLWpKV68KR3kiv5Au9y+vlFXbclg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794921111;
-	h=Received:MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:
-	 From:To:Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=ySVWsnfCog/7pgRJNqt9P4GlYco39PXa3wYJpV9GemM=;
-	b=GjaeJ47fOWvNQSbTj77bwuo5J1X0835N6VKJJkfMpo03OZI2hy94bjo0jqnDoogutL8g
-	 KaKeaquwQrShhfVLzofDic0MnXH4EcX2O41Dl5WE3KLzOdrHVh6bZvX5nPx3x7jk8EUxp
-	 yF625HiVA0UYt3kAvHM9zZz1iaVi6vQnuf8WedsZVWCM/1zn3xDrgBeNzUn5ylmqAxCaT
-	 x2z16MT7ajefFC39HTopfw9ODfivSHWyb5M3zGK1cCwJrX9558Ea/qj/BfxE2x9QNCEGm
-	 DR+70RSL7NcT4ynh4rrRGUNEC8yD3cDVQOUtRAib2wsjwmJ6uNFJ4mKBSnbLMlNxAlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794921133;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=NaocV5i0wmjEhtCT2sDj6B3rEgWHxQJ1puADK2Yh36I=;
+	b=r0AiA7Dvxt8yni/RzD8/sKyR7Ff7yJUxr3EpeLdUlyU6UxjS4VS+h947UToDn6skhvJN
+	 DVo4KvypwNzlgCi+ZKpSWF2pGO450/tpY492GoXrEi31yWlYSlqIVdhohX7RICA48TtGN
+	 fH7TCLt5PsZBg7rqA5M0CXehcI5rP1MSIHXCzKVmURtGMTMdmE6AAlMJZrN2NaIxlEqt3
+	 taVwyqDXXkhaNUAmNZy5SJPCjf50nAb6MVvx/HCwmvNuLIoVo4vcgx4iCNxFXk59MmEer
+	 uvyRHx5d5/nmD3kyONQSk+fcAAfxvCFCr01JKxJtfyWYn6uXma0TMrJnDV4rqkZaj4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T4c7eFfD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58875606A323;
-	Tue, 17 Nov 2026 13:11:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00F2B1F000C4;
-	Tue, 17 Nov 2026 13:11:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7767606A31C;
+	Tue, 17 Nov 2026 13:12:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T4c7eFfD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2A9E1F000C4;
+	Tue, 17 Nov 2026 13:12:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794921132;
+	bh=NaocV5i0wmjEhtCT2sDj6B3rEgWHxQJ1puADK2Yh36I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=T4c7eFfDB54djRWp25C7fnistvTCVMopMDAasuZ9Ig6g3pVVz00LGG1p6tuz+h/Ez
+	 TVNz8dQvLpaNZycq4+DfKd9+W0ljOcv8BNCtgFHuWf8nXidoz8qwY/9Cterv2sWBz+
+	 xHpjx029/DrkrmV7FJo3qfPal25pRc/A1YqKuW+J9OLKn6VGFRU6n3Qdyb6Zm66EZX
+	 DPZ1v8bO3g2hw3twqO/wdLGNvghb6MuCvChNH8DWXgnhllRMrxQayKO7EdazZlSrRo
+	 8+NWmamh8ccOKmevgtl5UQJ/7uKWyc29gcqVuyuxveUQ413lYvabEtcWqfsyPiYaam
+	 baj8LKdf4gDxQ==
+Message-ID: <600165c4-eaa7-4b1e-806c-63d3b97d5064@kernel.org>
+Date: Tue, 17 Nov 2026 14:12:06 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -36,150 +51,153 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/4] arm64: dts: mediatek: mt8167: Add DRM nodes
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+ linux-mediatek@lists.infradead.org
+Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, CK Hu <ck.hu@mediatek.com>,
+ Jitao shi <jitao.shi@mediatek.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260921113914.779393-1-l.scorcia@gmail.com>
+ <20260921113914.779393-5-l.scorcia@gmail.com>
+ <bbefcf0b-b31e-4f74-bf79-b0ccc983f62b@kernel.org>
+ <200ef6c1-eced-4c36-832d-3fb409aac866@collabora.com>
+ <5715e9e5-857d-4104-aedd-9662da0fc0ab@kernel.org>
+ <911e4163-8a2c-4ca2-8903-8d3ddb7266e8@collabora.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <911e4163-8a2c-4ca2-8903-8d3ddb7266e8@collabora.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] PCI: qcom: Mask PARF_INT_ALL_3 events on Nord
-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, 
- Manivannan Sadhasivam <mani@kernel.org>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Rob Herring <robh@kernel.org>, linux-pci@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261114084700.907031-1-shengchao.guo@oss.qualcomm.com>
-References: <20261114084700.907031-1-shengchao.guo@oss.qualcomm.com>
-Date: Tue, 17 Nov 2026 14:11:40 +0100
-Message-Id: <179492110006.194330.16578214355369868159.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4530;
- i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=ek7lqrLBaWUR0k1khNecNn45o74By3r8KaJ2yN33pWs=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq/FKPHAlhyKpcxHf0mQc5N7nw9VlcKRbFWwEjt
- 2Uc1tvDEViJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCavxSjwAKCRBVnxHm/pHO
- 9WwOB/90mexFSa7x+j5lKKA65EnTO3030tEaWe5ae7XGAGN2umVkKtRfOwqzXoCGa86AW8LGsDk
- w6E9/VFQnsLk7x7VKcuj5EFCtYeZJw+RzXRuXJpOUmkrnCHyfa6etNUyIZlH218D9dmIYHgcVMm
- ZrpPFL+Uor6HN/JaWgdqPsscCPKA7cI52VsxEjqZOHtT0/Nv2WoHFcd9+ihpGc+uiKxqxYzcju+
- Pr3PngMF7a6EdmtKAUNU2yxJlI1mMSA9A4BeC7KsRyGXLaLOwTqcR9890xd+MDU4XN+adBtP7EB
- fOlByVqKfJFyU4S5Uz6ElMxGvecEZIyYJve4LLizbjEDn+rX
-X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-On 2026-11-14 16:47 +0800, Shawn Guo wrote:
-> On Nord, the PARF_INT_ALL_3 interrupt group is unmasked out of reset
-> (PARF_INT_ALL_3_MASK reads 0x43fff), and its events are routed to the
-> same 'global' IRQ as PARF_INT_ALL. The driver neither handles nor clears
-> any of them, and the global IRQ handler only looks at
-> PARF_INT_ALL_STATUS.
+On 17/11/2026 14:00, AngeloGioacchino Del Regno wrote:
+> On 11/17/26 13:55, Krzysztof Kozlowski wrote:
+>> On 17/11/2026 13:53, AngeloGioacchino Del Regno wrote:
+>>> On 11/17/26 13:35, Krzysztof Kozlowski wrote:
+>>>> On 21/09/2026 13:38, Luca Leonardo Scorcia wrote:
+>>>>> Add all the DRM nodes required to get DSI and DPI to work on MT8167 SoC.
+>>>>>
+>>>>> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+>>>>> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+>>>>> ---
+>>>>>    arch/arm64/boot/dts/mediatek/mt8167.dtsi | 369 +++++++++++++++++++++++
+>>>>>    1 file changed, 369 insertions(+)
+>>>>>
+>>>>> diff --git a/arch/arm64/boot/dts/mediatek/mt8167.dtsi b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
+>>>>> index 27cf32d7ae35..a50bae4307c1 100644
+>>>>> --- a/arch/arm64/boot/dts/mediatek/mt8167.dtsi
+>>>>> +++ b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
+>>>>> @@ -16,6 +16,22 @@
+>>>>>    / {
+>>>>>    	compatible = "mediatek,mt8167";
+>>>>>    
+>>>>> +	aliases {
+>>>>> +		aal0 = &aal;
+>>>>> +		ccorr0 = &ccorr;
+>>>>> +		color0 = &color;
+>>>>> +		dither0 = &dither;
+>>>>> +		dpi0 = &dpi0;
+>>>>> +		dpi1 = &dpi1;
+>>>>> +		dsi0 = &dsi;
+>>>>> +		gamma0 = &gamma;
+>>>>> +		ovl0 = &ovl0;
+>>>>> +		pwm0 = &disp_pwm;
+>>>>> +		rdma0 = &rdma0;
+>>>>> +		rdma1 = &rdma1;
+>>>>> +		wdma0 = &wdma;
+>>>>
+>>>> Folks, what is happening here? Why Mediatek is adding bunch of
+>>>> undocumented aliases? This should have never been accepted to Mediatek SoC.
+>>>>
+>>>
+>>> It's always been like this on MediaTek from day 1, what's up with that!?
+>>
+>> I wrote what is wrong - they are undocumented. You were never allowed to
+>> add undocumented ABI, never. Even 10 years ago.
+>>
 > 
-> Some endpoints send a Device Readiness Status (DRS) message after link
-> up, e.g. the SK hynix HFS001TFM9X186N NVMe drive (1c5c:1069). This
-> latches DRS_MSG_RECEIVED (bit 12) in PARF_INT_ALL_3_STATUS and keeps
-> the level triggered global IRQ asserted. The threaded handler then runs
-> in a tight loop with PARF_INT_ALL_STATUS reading 0, starving other work
-> and stalling the boot (RCU/SRCU stall warnings).
+> Well, that's right.
 > 
-> Mask all PARF_INT_ALL_3 events and clear any latched status on Nord,
-> before the global IRQ is requested in probe and again in
-> qcom_pcie_reset_root_port(), since the register is reset together with
-> PARF_INT_ALL_MASK. To keep the two writes together, move the
-> PARF_INT_ALL_MASK programming in probe into the same helper, which now
-> runs right before devm_request_threaded_irq() instead of after it.
+>> I don't know what is day 1 in this context, but for a few (5-8 years?)
+>> we do not allow more custom aliases. Neither new DTS users of these.
+>>
 > 
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> That actually poses a severe issue, as mediatek-drm relies on aliases to find out
+> the instance number of the display controller components, on all SoCs.
 
-Missing Fixes tag.
+If someone sent these for DT maintainers review, we would provide review
+telling they are not allowed and you need to use other methods. The
+problem is that someone sneaked undocumented ABI.
 
-> ---
->  drivers/pci/controller/dwc/pcie-qcom.c | 30 +++++++++++++++++++++-----
->  1 file changed, 25 insertions(+), 5 deletions(-)
+Instance IDs are not allowed in DT - neither as aliases nor as properties.
+
+If the graph topology or phandles do not point to proper relation
+between components, then the recommended way I know (happy to learn more
+myself) is to map instances to IDs in the drivers. For example
+Qualcomm/MSM is doing that.
+
 > 
-> diff --git a/drivers/pci/controller/dwc/pcie-qcom.c b/drivers/pci/controller/dwc/pcie-qcom.c
-> index eba1b2cb30f0..03b2e61fc20f 100644
-> --- a/drivers/pci/controller/dwc/pcie-qcom.c
-> +++ b/drivers/pci/controller/dwc/pcie-qcom.c
-> @@ -73,6 +73,8 @@
->  #define PARF_DEVICE_TYPE			0x1000
->  #define PARF_BDF_TO_SID_TABLE_N			0x2000
->  #define PARF_BDF_TO_SID_CFG			0x2c00
-> +#define PARF_INT_ALL_3_MASK			0x2d8c
-> +#define PARF_INT_ALL_3_CLEAR			0x2d90
->  
->  /*
->   * Outbound blocker range registers. The blocked range has a write pair
-> @@ -294,6 +296,8 @@ struct qcom_pcie_ops {
->    * @override_no_snoop: Override NO_SNOOP attribute in TLP to enable cache
->    * snooping
->    * @firmware_managed: Set if the Root Complex is firmware managed
-> +  * @mask_int_all_3: Mask PARF_INT_ALL_3 events, which are unmasked by default
-> +  * and would otherwise keep the 'global' IRQ asserted
+> Any advice on how to possibly resolve this without rewriting the entire thing?
+> 
+> Mapping that by mmio address in the driver seems too stupid/dirty/bad/etc.
 
-Reword the last line to 'and are not handled by the driver'.
+Driver needs that, so why exactly stupid? You do not represent any
+actual hardware information in DT with these aliases. You want to tell
+drivers how drivers should behave - that's not a job for DT, that's job
+for driver data. Of course if there is smarter way than MMIO->ID, I am
+all in.
 
->    */
->  struct qcom_pcie_cfg {
->  	const struct qcom_pcie_ops *ops;
-> @@ -301,6 +305,7 @@ struct qcom_pcie_cfg {
->  	bool firmware_managed;
->  	bool no_l0s;
->  	bool disable_cgc;
-> +	bool mask_int_all_3;
->  };
->  
->  struct qcom_pcie_perst {
-> @@ -1738,6 +1743,7 @@ static const struct qcom_pcie_cfg cfg_nord = {
->  	.override_no_snoop = true,
->  	.no_l0s = true,
->  	.disable_cgc = true,
-> +	.mask_int_all_3 = true,
->  };
->  
->  static const struct qcom_pcie_cfg cfg_sc8280xp = {
-> @@ -1871,6 +1877,22 @@ static int qcom_pcie_set_max_opp(struct device *dev)
->  	return ret;
->  }
->  
-> +static void qcom_pcie_enable_global_irq_events(struct qcom_pcie *pcie)
-> +{
-> +	/*
-> +	 * The PARF_INT_ALL_3 events (e.g. DRS_MSG_RECEIVED) are unmasked by
-> +	 * default, but not handled by the driver. Once latched, they keep the
-> +	 * level triggered 'global' IRQ asserted, so mask and clear them.
-> +	 */
-
-This comment can be dropped.
-
-> +	if (pcie->cfg->mask_int_all_3) {
-> +		writel_relaxed(0, pcie->parf + PARF_INT_ALL_3_MASK);
-> +		writel_relaxed(~0U, pcie->parf + PARF_INT_ALL_3_CLEAR);
-> +	}
-> +
-> +	writel_relaxed(PARF_INT_ALL_LINK_DOWN | PARF_INT_MSI_DEV_0_7,
-> +		       pcie->parf + PARF_INT_ALL_MASK);
-> +}
-> +
->  /*
->   * Qcom PCIe controllers only support one Root Port per controller instance. So
->   * this function ignores the 'pci_dev' associated with the Root Port and just
-> @@ -1928,8 +1950,7 @@ static int qcom_pcie_reset_root_port(struct pci_host_bridge *bridge,
->  	 * non-sticky.
->  	 */
->  	if (pcie->global_irq)
-> -		writel_relaxed(PARF_INT_ALL_LINK_DOWN | PARF_INT_MSI_DEV_0_7,
-> -				pcie->parf + PARF_INT_ALL_MASK);
-> +		qcom_pcie_enable_global_irq_events(pcie);
->  
->  	qcom_pcie_start_link(pci);
->  
-> @@ -2429,6 +2450,8 @@ static int qcom_pcie_probe(struct platform_device *pdev)
->  			goto err_host_deinit;
->  		}
->  
-> +		qcom_pcie_enable_global_irq_events(pcie);
-
-You should not enable interrupts before registering handler. So you'd have to
-mask and clear here and keep the enable where it was. This means, you don't need
-a helper at all.
-
-- Mani
-
+Best regards,
+Krzysztof
