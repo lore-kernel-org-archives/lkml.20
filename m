@@ -1,77 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.64.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794916429;
-	b=ZRtcFwER2fjPtERG24YUzgI1cGJw2oiwv/y5+VDCJJXWT+nt3v26vf0k86A/BZmfnSnB
-	 Sa7BNb3mVRWO7ZSQkiHDqez9d47Vx2WZoKvjb1hQV9l6ntzc4nZwO9/3E/Ud0F2bdBMm2
-	 rf57JssYa6aMKjLcBBJRllq2guKZKMrl5ubcLpuVZxEmna+RImtOnbzL8ElY9HucWA5Oc
-	 P3uT/bsMAdiopDZxsH6mQPVUlR31PeBNyBuCp3xHoNPbwQDhrnkWOgCX+zfNRlgAh/If/
-	 te3BbGjIIaD3H5dbJ4opsZMvllEzXV+pBV5VnpCMA5yxWQK1S39P5szIm1YEf0qryIg==
+	t=1794916434;
+	b=mDyn3xJZMRSsUMpc1ZqJCWrWLXidI2c3wCRfkeWk7xWJPFCd1Mg3gCsAbt6FOhp/1V7S
+	 TPDyzunuNIchJuwiKw7EXM/q3y4rmKlmCDoy/9vE3Wi2QlL3AJszK6QRA9djFPzhXa/68
+	 1OPSNsPfhLuupduhC37KKmjEH/+Id0fD+Not1vtRe4E56JCl7/fjUSPAcMdJJT+FFT1GN
+	 3hf1dLkvAn2AqRKdLdy0+xZIWtvszR+Oi9v99VMG+L8zT+JnYOUm0raNHe9WBth6LDeQB
+	 MEEVoE7ZvxePpYzRTTxFanb7aaXv5g1/o8YoXMpvEcusPLD48XVpaVmIqgSGw5S6o3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794916429;
-	h=DMARC-Filter:Received:X-ICL-RepId:Dkim-Signature:
-	 mail-alias-created-date:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Authority-Info-Out:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:X-JNJ;
-	bh=/FnNG8vqcCiU2cyM1KkwsgWOUElHYE9t3oC7rJ9yncA=;
-	b=ucHr/8zF9/x/gOagJvfYpo3OzlVjB6xSlC+kGltul2vqQWpf4XjIk4vBpm4kzx+p9s6Q
-	 KEYSVhxrUpYtLDb40fZ1OAu5Bfl+G0qTkTJ8JqkF4872Vrl+4d9JqwDF0F5Mxhaa2msDl
-	 UKhn2qHcKGodkrEcOFft9oAzVZsd/T0lZ6nl9eSzZUb9KLobjPS6pLJrivFOUkbybK6nG
-	 gD6y36Qcucz1YOw69wgICfjA8VszcVN36qGkQR1A4LkCTVvtpW3s40cUJJ5ctg2TprOMo
-	 CWo8G+GGFGAL+a5yovGVT9CeWvtWrOy6JuP1xurdngYg7FSIKUqAkVirBoL+v5w+oZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794916434;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=fCqZ0Zd4HVCI/jRgXBSCy8S8OFyXtFOLF3BsI1zh8Sg=;
+	b=0Id8jgaSsEcJ0aWzWxlUgWOgybelyLqmuIURe+749FJa224kmWBo7YudIZjDLUH6l5ln
+	 kWduGjpuEjpYdTkDDFx9w97iCOSVOLBsN+XdcWVIdMxY+Z75uAAt5sGQ67bzHB0XUv869
+	 WpOZNiFAlOyPcEnKkdY22sPSKsFE9BecLbqeOAJnt+p4JWfb9vwT0siWMQVJ9MOn/ama3
+	 iriNGRZe9AY0Oe/QIQY6Zk6PjvMZNv/ZfkA1OXER0VkSmEC1S9b6DzcK3dkKNw5D640+a
+	 zRK8x4fXIA86oSSXY07MP10FMdFgQk/nDZGWotANrZEyMjMe1+9vRlRXqR6RcfqYoRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=verdict.gg;
-	spf=pass smtp.mailfrom=verdict.gg;
-	dkim=pass header.d=verdict.gg header.i=@verdict.gg header.a=rsa-sha256 header.s=sig1 header.b=e4kZUtng;
-	arc=none smtp.remote-ip=57.103.64.158
-Received: from outbound.pv.icloud.com (pv-2002k-snip4-7.eps.apple.com [57.103.64.158])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.222.51
+Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com [209.85.222.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FD8C606A8A1
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:53:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FD8C606A8A1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=verdict.gg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=verdict.gg
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=verdict.gg header.i=@verdict.gg header.a=rsa-sha256 header.s=sig1 header.b=e4kZUtng
-Received: from outbound.pv.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-1a-20-percent-1 (Postfix) with ESMTPS id EFED318000BC;
-	Tue, 17 Nov 2026 11:53:46 +0000 (UTC)
-X-ICL-RepId: 01a1e95b-2497-7cf0-9c77-3bf765588f1f
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=verdict.gg; s=sig1; t=1794916429; x=1826452429; bh=/FnNG8vqcCiU2cyM1KkwsgWOUElHYE9t3oC7rJ9yncA=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=e4kZUtngllAAcMXLhDcoNaGeEf9XdNSmFy4g3oZgrMykjhU+TddLjximwVCVzGcI3WGJXe5Mgz3Fq+sbqJCiXKq+F7U7PAamBQRQlW2hOHOvnmEEy07WNrnj2f2Shxq9y7Xjo/Y7+bgJ54aeZJ0E6MD1PlYZTqc2/B0YEE+0MT8jeMT1VfNvrqsvQLJT8Q7cD84FOHTokYF9Kkjt323jtKgNzLQBerWoTYbZBxAmTJm79N0oPNjrL7xPCiQpXPY9Uoo9IDonDaSzgQiX7GNJt4fE/mpGg2hFs7dp/S0GOHrQN6wPGAksSepE+DJbdycUXnPl7xn0Numz7+h6i6nU1w==
-mail-alias-created-date: 1621344842221
-Received: from DelNac.mail.msk (unknown [17.156.192.29])
-	by p00-icloudmta-asmtp-us-west-1a-20-percent-1 (Postfix) with ESMTPSA id 5A85018001A9;
-	Tue, 17 Nov 2026 11:53:42 +0000 (UTC)
-From: Vladimir Vdovin <deliran@verdict.gg>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Aaron Conole <aconole@redhat.com>,
-	Eelco Chaudron <echaudro@redhat.com>,
-	Ilya Maximets <i.maximets@ovn.org>
-Cc: Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	dev@openvswitch.org,
-	linux-hardening@vger.kernel.org,
-	Fernando Fernandez Mancera <fmancera@suse.de>,
-	Vladimir Vdovin <deliran@verdict.gg>
-Subject: [PATCH nf-next v1 1/5] netfilter: nf_conncount: bound the gc walk by examined entries
-Date: Tue, 17 Nov 2026 14:53:04 +0300
-Message-ID: <20261117115308.95134-2-deliran@verdict.gg>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261117115308.95134-1-deliran@verdict.gg>
-References: <20261117115308.95134-1-deliran@verdict.gg>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFC4D606A33B
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:53:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFC4D606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f51.google.com with SMTP id a1e0cc1a2514c-9950a7530d9so3547859241.2
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:53:53 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794916433; x=1795521233;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=fCqZ0Zd4HVCI/jRgXBSCy8S8OFyXtFOLF3BsI1zh8Sg=;
+        b=wVBMqCXTNgmL8NsN6IO6jywK/y5tZq7yk4xlNQvD7GvY9QZcyWcNlI6BoJ3XRb6ea2
+         W1MZACCaG1NHI8juDK9ShxNW0La7wBJp28DynaD4FDh8JaTzuz8Zj8gGtR/EuGL7TaG3
+         Uop7hhT7/I2+vSMWWzd43JbuKYLVZCgEYCbyYBMMHJD/TovojuK0hOSorrpuru8AhYgE
+         Lge9XiULhFlwKkaNsRvh25JRKdlFn+S0VDkNaah8so1XeE0sNF5Zc6E/VdMW6D7qMfIu
+         l8YN4omKLLmFUFZhxOO4HcFXvNXN05bcVkURQF9aiH2MPlXYLs5yEs0UfYpHNlIZOdJn
+         3FBg==
+X-Forwarded-Encrypted: i=1; AL+hErGQ6Ib+9DfPA7PFIKQnQpw66UXeoBaaoSO5nzqwLL+4tUmcNcBt8b4DS55qxCKTubfSbv+Dxvn7r+FTVUM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9WSx66ouxOtI/1Cq9aEqSFu4kQGTVHPHw3Kb1O7//7wiEAKthv
+	ufs5Pa9lKVM8rmoCnKD/uqz7NtiPMrUlRrNumlMvGvFCFuDyEcJHKlq/P3ifke04
+X-Gm-Gg: AYBFou2oJRR4D4VDCa+kDM6AWuY2osx4no3n/gCA2h8EdqzLSYNDe6dYcFHIrSTwTjz
+	uHxWgiDcrD3KJaFP4w/O5p5EyZ+EE+vzKFlf2lxsxD4Eeg1Ce/B0roYcykiYtIBgp3i7uH3A/ix
+	UV0uEahiGxVu6kJwLbkt50HHof6mNIYV43qiH+B4nm9HyI3ng68hh8vWqhTcpIRgdq5TzYw9V9u
+	TWto7mI5MjO0gystwvfHogIbllQCDNBBp1xn4scc608xGrSo4pFYrbEwCoHzlf8Cje0xx6/DdoN
+	r1OKhRXOFcm15cjA4vCKemiYyTZrJKLDuY2aKKrjSsEtbpVTw01/G3JBXmHnTuFdu9TUD6bYfMg
+	zKNwEeFPhkWafvTEuRtIjAxlrigzSikugvBgPGQH6J2dWY2gfme98yzeQjZvURQVlQuxm/o5whP
+	4JYKhmPXSxoM8RvAAUi0NPemFdQoE01fmplSLKvjOtwdxteKPVXIWGL9vmMGkqfGspWTq1uTDa9
+	ktLXl2/RINOVmSL9Dyjtc6D8/uE0UvCbsaozll8T77KY0UZagO50qRHbtcxdmY3roVav7qRKt46
+	LYK7UzgfP1Cx4O4bF8iwuf5ZmBlihN/3DohOkTOhp0uA7bzkOcdar7RelZlz87aptzc=
+X-Received: by 2002:a05:6102:3585:b0:7cc:21cd:9b68 with SMTP id ada2fe7eead31-7d64d6f17a3mr5266082137.15.1794916432791;
+        Tue, 17 Nov 2026 03:53:52 -0800 (PST)
+Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com. [209.85.217.50])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d69dfddcebsm2003774137.5.2026.11.17.03.53.52
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 17 Nov 2026 03:53:52 -0800 (PST)
+Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-7d2b25786d9so3196973137.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:53:52 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEMdyyEQEGD/WTUj2r9SqBaZzRdl6eQ1dyeJV62qk4i3fUbnCVvXIObezIfRbwdILKmbfH/aXwbM65LBAg=@vger.kernel.org
+X-Received: by 2002:a05:6102:578c:b0:7d2:c786:5a95 with SMTP id
+ ada2fe7eead31-7d64d69dc95mr4808481137.13.1794916104363; Tue, 17 Nov 2026
+ 03:48:24 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,160 +80,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Info-Out: v=2.4 cv=f+5FxeyM c=1 sm=1 tr=0 ts=6afc404c
- cx=c_apl:c_pps:t_out a=aW9mcIavGNWWFvFFKOxBSA==:117
- a=aW9mcIavGNWWFvFFKOxBSA==:17 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Y_NIGFiZ6U2ltCn7DMEA:9
-X-Proofpoint-GUID: GtEXESwVMOMfDuoaNcvlo_Mwg5R3km_b
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA0NyBTYWx0ZWRfX9jbzQhTkSopV
- joqfBH+Iccnu9qLjdSnp7AZeIdrf+EBRr2cNR45fxlRWxJI98g2N/iw8cdiqNDIiOEZd8bPrc0u
- pS97uyh804O+lbBvE/IcSVYavEbOMH8S3mEFy/WRvvN1GLMxt4v4PTmRq6KneHILEw3dAIlPR9D
- dZ9rpWbvJYfWeO7toJBXLn1GRj36Xxu6NEcBt98DGtdZm0f5xhBgS2VOEH2wiQ0667yXtJwUTk4
- IxNv8/7N6ogVT8pzv+0dC1btjBo23ZuYCa5+WzYFEgeA6T3UjtkkJa0W/n07DzwKfEHX4mBw5s1
- 9ZjLe1mp2/MnRtHGtV1/pAgUY5WD3vhj/9LjIydpTlXJEPpsTS80E93U8uYBQI=
-X-Proofpoint-ORIG-GUID: GtEXESwVMOMfDuoaNcvlo_Mwg5R3km_b
-X-JNJ: AAAAAAABlLv8BcWSW2AxynIy4vyDYETJcqdS45kX6kSxavv5zhuw1qMawmYTkRDjKNr50F
- pJHyH2MXj8LiyV1b/x8UxqOgxW9WhlBKR4YGET/plPR5zLuxqCR4LVbE1Ft425oNGtYMK5
- 2PtLX+7n9T/HVZh1qB6nn5+8hGE/hEnJ5o4ww5QnMK+vA2Ix0ulEDIEqIzS5jiBHBtlloc
- cVRhoOj9IaQShFgftrHy36l+44AT7mx7WsjRfxLOJehlSgxKwQhuisAP349M9xfQsI+jFL
- Nlb1bxv5G+9tKgmUREZyyUaZbfrAH1kZYu7+7UZjfmWZW6EWRWO74yvtPZ/VibbfU52wc9
- kIAUwk99XrQM+FM3EVNxsf+UjxEqnkGLH4wYLoUDLaNbfUvSNM/yNSI/dQtWDXWblYRGo/
- uW4MAkUfFizMgZ2wQ3P4B98wJ6ILBovlU/UFMCChMFjJoqhi75hwwc9UuBHhNOrHQZe0Pe
- IU9H6sM5PBHStldDqxr3TtcbNyAx/5QU3GaU6yW9hZJqDzpVhi5uVqib5P7CDmUA8wqhmF
- COQWq4khsBvAnXrQjRUwMAxHWjS9RUIHokoWbq7u9ZDoxmZcl7kme/RjXY3wfyG8vCWgNf
- YI9Z+izoMF+BLT81OIB1wuyj+VtQOuwJWi8BHH51/ZNttRudQ1pMFlNwSaS9bzj3toWk/D
- d47NgU9umL3y6cXuDfoLnlM1S+zB7huuIaY+G8E7o4g/+vvwpvjGwvHkIjxwTpFyxxSVPk
- nPNq384a8fTMHBLFN5gvuo8v2ih1hjeAEYwtBHP7Xg7uSE0+K+3f24hrAz71WNFsMmZp8L
- bB76PDI2s0qAaHhaianBgE4DKTEA5UL98NBBYoszKgnYRS/IdeLdNiWMxfnn5fN8UL3lu7
- fIE0Nm7VqeUn9wqPcKxVD9jFPfRuRvebzm17bz65l9yRQTygSQJI3pIjIUAJtwkNR6tQZX
- M9Uh
+References: <20261024223501.1420953-1-daniel.lezcano@oss.qualcomm.com> <20261024223501.1420953-2-daniel.lezcano@oss.qualcomm.com>
+In-Reply-To: <20261024223501.1420953-2-daniel.lezcano@oss.qualcomm.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 17 Nov 2026 12:48:13 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdXJOpcC3a6wMXF_m=uNjuqSO1Z3kyM7Az1uP_2GBurOvA@mail.gmail.com>
+X-Gm-Features: Aa3M54o4xtj3bYccvEv51xwUP0A3vPBfjxtiJtpZqQUGyQco56wW9LsC221L5Po
+Message-ID: <CAMuHMdXJOpcC3a6wMXF_m=uNjuqSO1Z3kyM7Az1uP_2GBurOvA@mail.gmail.com>
+Subject: Re: [PATCH v3 1/4] platform profile: Extract the core from ACPI
+To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Cc: rafael@kernel.org, Len Brown <lenb@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Viresh Kumar <viresh.kumar@linaro.org>, Hans de Goede <hansg@kernel.org>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Maximilian Luz <luzmaximilian@gmail.com>, Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, 
+	Mark Pearson <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+	Lukasz Luba <lukasz.luba@arm.com>, Armin Wolf <W_Armin@gmx.de>, 
+	Jai Luthra <jai.luthra@ideasonboard.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jack Wu <jackbb_wu@compal.com>, 
+	"Mario Limonciello (AMD)" <superm1@kernel.org>, linux-acpi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-pm@vger.kernel.org, platform-driver-x86@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The gc walk in __nf_conncount_add() and __nf_conncount_gc_list() stops
-once CONNCOUNT_GC_MAX_COLLECT entries have been evicted, but nothing
-bounds how many entries it examines to get there. Live entries and
-entries another cpu is still adding (-EAGAIN) do not count, so on a
-list made of such entries every pass walks the whole list, one
-conntrack hash lookup per entry, under list_lock with BH disabled.
+Hi Daniel,
 
-Stop a pass after CONNCOUNT_GC_MAX_SCAN examined entries and rotate
-the list so that the next pass resumes where this one stopped.
-Successive passes still cover the whole list, so stale entries are
-reclaimed as before, spread over several passes instead of one.
+On Sun, 25 Oct 2026 at 00:56, Daniel Lezcano
+<daniel.lezcano@oss.qualcomm.com> wrote:
+> Platform profile providers already use device-based callbacks and do not
+> need ACPI types. The core is nevertheless confined to the ACPI build and
+> refuses to initialize when ACPI is disabled.
+>
+> Move the implementation to drivers/platform/profile and introduce the
+> firmware-independent PLATFORM_PROFILE symbol. Update all provider
+> selectors. Keep provider-specific ACPI dependencies and the
+> platform_profile module name.
+>
+> Isolate access to the legacy ACPI kobject in an optional compatibility
+> object linked into the same module. Retain the legacy ABI on active ACPI
+> systems, and initialize the class even when ACPI is absent or disabled.
+>
+> Use subsys_initcall_sync so the class is ready before built-in thermal
+> and CPUFreq providers, but after ACPI has initialized its compatibility
+> kobject.
+>
+> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
 
-The walk done for an already confirmed conntrack looks for a
-duplicate, which can be anywhere in the list, so it stays unbounded.
+Thanks for your patch, which is now commit 699041135f75b13a
+("platform profile: Extract the core from ACPI") in pm/linux-next/
 
-Signed-off-by: Vladimir Vdovin <deliran@verdict.gg>
----
- net/netfilter/nf_conncount.c | 34 +++++++++++++++++++++++++++++++---
- 1 file changed, 31 insertions(+), 3 deletions(-)
+> --- a/drivers/platform/Kconfig
+> +++ b/drivers/platform/Kconfig
+> @@ -1,4 +1,20 @@
+>  # SPDX-License-Identifier: GPL-2.0-only
+> +config PLATFORM_PROFILE
+> +       tristate "Platform profile support"
 
-diff --git a/net/netfilter/nf_conncount.c b/net/netfilter/nf_conncount.c
-index eca7a8d330ce..84290e363245 100644
---- a/net/netfilter/nf_conncount.c
-+++ b/net/netfilter/nf_conncount.c
-@@ -36,6 +36,8 @@
- 
- #define CONNCOUNT_GC_MAX_NODES		8
- #define CONNCOUNT_GC_MAX_COLLECT	64
-+/* Upper bound on the number of entries examined by one gc pass. */
-+#define CONNCOUNT_GC_MAX_SCAN		(CONNCOUNT_GC_MAX_COLLECT * 2)
- #define MAX_KEYLEN			5
- 
- /* we will save the tuples of all connections we care about */
-@@ -98,6 +100,19 @@ static void conn_free(struct nf_conncount_list *list,
- 	kmem_cache_free(conncount_conn_cachep, conn);
- }
- 
-+/* A gc pass that stopped at @conn has examined every entry in front of it.
-+ * Move those behind @conn so that the next pass resumes where this one
-+ * stopped instead of rescanning the same live entries over and over.
-+ */
-+static void gc_resume_at(struct nf_conncount_list *list,
-+			 struct nf_conncount_tuple *conn)
-+{
-+	lockdep_assert_held(&list->list_lock);
-+
-+	if (&conn->node != &list->head)
-+		list_rotate_to_front(&conn->node, &list->head);
-+}
-+
- static const struct nf_conntrack_tuple_hash *
- find_or_evict(struct net *net, struct nf_conncount_list *list,
- 	      struct nf_conncount_tuple *conn)
-@@ -176,8 +191,10 @@ static int __nf_conncount_add(struct net *net,
- 	struct nf_conncount_tuple *conn, *conn_n;
- 	struct nf_conntrack_tuple tuple;
- 	struct nf_conn *ct = NULL;
-+	unsigned int max_scan = CONNCOUNT_GC_MAX_SCAN;
- 	struct nf_conn *found_ct;
- 	unsigned int collect = 0;
-+	unsigned int scanned = 0;
- 	bool refcounted = false;
- 	int err = 0;
- 
-@@ -195,6 +212,10 @@ static int __nf_conncount_add(struct net *net,
- 			goto out_put;
- 		}
- 
-+		/* The entry for this connection can be anywhere in the list,
-+		 * so deduplication needs a full walk.
-+		 */
-+		max_scan = UINT_MAX;
- 		goto check_connections;
- 	}
- 
-@@ -205,8 +226,9 @@ static int __nf_conncount_add(struct net *net,
- check_connections:
- 	/* check the saved connections */
- 	list_for_each_entry_safe(conn, conn_n, &list->head, node) {
--		if (collect > CONNCOUNT_GC_MAX_COLLECT)
-+		if (collect > CONNCOUNT_GC_MAX_COLLECT || scanned >= max_scan)
- 			break;
-+		scanned++;
- 
- 		found = find_or_evict(net, list, conn);
- 		if (IS_ERR(found)) {
-@@ -247,6 +269,7 @@ static int __nf_conncount_add(struct net *net,
- 
- 		nf_ct_put(found_ct);
- 	}
-+	gc_resume_at(list, conn);
- 	list->last_gc = (u32)jiffies;
- 	list->last_gc_count = list->count;
- 
-@@ -310,6 +333,7 @@ static bool __nf_conncount_gc_list(struct net *net,
- 	struct nf_conncount_tuple *conn, *conn_n;
- 	struct nf_conn *found_ct;
- 	unsigned int collected = 0;
-+	unsigned int scanned = 0;
- 	bool ret = false;
- 
- 	/* don't bother if we just did GC */
-@@ -317,6 +341,11 @@ static bool __nf_conncount_gc_list(struct net *net,
- 		return false;
- 
- 	list_for_each_entry_safe(conn, conn_n, &list->head, node) {
-+		if (collected > CONNCOUNT_GC_MAX_COLLECT ||
-+		    scanned >= CONNCOUNT_GC_MAX_SCAN)
-+			break;
-+		scanned++;
-+
- 		found = find_or_evict(net, list, conn);
- 		if (IS_ERR(found)) {
- 			if (PTR_ERR(found) == -ENOENT)
-@@ -337,9 +366,8 @@ static bool __nf_conncount_gc_list(struct net *net,
- 		}
- 
- 		nf_ct_put(found_ct);
--		if (collected > CONNCOUNT_GC_MAX_COLLECT)
--			break;
- 	}
-+	gc_resume_at(list, conn);
- 
- 	if (!list->count)
- 		ret = true;
+I guess this can be invisible (perhaps "... if COMPILE_TEST"?), as
+you have updated all provider selectors?
+
+If not, I guess this needs a "depend on X86 || COMPILE_TEST", so people
+configuring kernels for different architectures do not see this option?
+
+> +       help
+> +         Provide a common sysfs interface for selecting platform power,
+> +         performance and cooling profiles. Platform-specific provider drivers
+> +         map their operating modes onto standard profile names, independently
+> +         of the firmware interface they use.
+> +
+> +         The core exposes per-provider controls under /sys/class/platform-profile/.
+> +         A provider driver must register before profile attributes become
+> +         available. ACPI is not required; on ACPI systems the legacy system-wide
+> +         interface under /sys/firmware/acpi/ is also provided.
+> +
+> +         To compile this as a module, choose M here: the module will be called
+> +         platform_profile.
+> +
+>  source "drivers/platform/mips/Kconfig"
+>
+>  source "drivers/platform/loongarch/Kconfig"
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
 -- 
-2.56.0
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
