@@ -1,65 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794875460;
-	b=OOnzWcON4qdxFLoGf3tKf/26FFDHKHVxEIlgFMMZFLBRr1MAsP2jjUCMHhwwX+LTYx93
-	 BPlQvFvHlec/UTN3mfqxnw92R3he+efcjAh2NKLY85vizlogOpaIDlRkPLXUEySJgMU1o
-	 ts6COlr+a+eONS8ZEjg8CTAXg80l6ggRfaNXEE/FbTVsCx4F0b2GPrQjEhYfH6RWF62Xm
-	 dXuej4klqR/Xu/d5UeQEPt+Wof3WcbxjCQy6wvK/uPRlT/F1Ob06j8plpzliHR08xQtDB
-	 g+XDBI0a4JHkmdEotEuOJyWCUOHvJ/dDb35e8a0O3gOZfs8CIzxWffBzh1U4Ppvcb4w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794875460;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Debian-User;
-	bh=ZJaGE4hmAwAu3ci11rwBq8atZ3mF8O9TjUp2VfkCbf4=;
-	b=H2K/gAoohpmdwiffgSh7X9Ot3V1R6Wu+Wm4mqMvoue1cbRRi6HChKQx1M1gahldmrCD1
-	 WPQDukBtbGq076xkL/olEIQUdhxH11hrmJW7b0TftGpwCU2JZtq6x51fwSsV6nBKQ4qiL
-	 7d6hoRN2ThdhwccdO4vCkOdQkBSN/O1jLc1aoIco432s8hJWtFc20WUC/aj4iNr+e+lMh
-	 MZ9p4lF6rLZ1NCKTLBY9GjOF2wB69izDJ1WDbsANdrmlqCDWv3IcYWAXilg/VTeEwrpaD
-	 5SclTfFV5efkmED4CWzwqk9ulmAY2MHxTNapa5ECVO1R7sqRoB4Od/MekMlH0AbWmrQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=Rug6qZeI;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794875505;
+	b=xZnSn089ywRytHtQ0yfm3cYXmr6S+/tQAdb5q7sXn0EKi4ZTJPCU9HB07VPKicFuVJVy
+	 1DgCLB5Rb4Npg0rPz81mRs9zx9qpinLSzKB5iAxmz/cxBoQ3DkoPg9lLTDqYV06URYvFx
+	 Jz/wpUDdrB1rX6V2p2GP/zjD6RAYr88ne81wVN0dkRFiLHupjHv3pJoyjUWI/Nalh8ovB
+	 HPjIAulTbK8RUdE3luRnhd/UCYIARN1/MgMSMt+EOA+AJODvsmCWegX45PEo+gK8qYc/u
+	 mWdm3dL1NA9/9FIgEMsKScmpSEezHD2p9OgBmRACf7AGJ9eU/yJvIej0B9u+ymDnBfQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794875505;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=LkEWweRJXMzM9FVrkOv5FBKaYPCrzSWeUakLe3PsQ0o=;
+	b=xoBCgWZ1V9z6kgOd7Wl+49vZyfGTSiPR6tNqoP+sNk3Sxqs/hRJX8evOtI4XvbzG2k57
+	 7QAoZ/c39ar6NFXkIeKW1HoNxeZOWxwPM2VAlvS1iFk1j7J35o4fZcxtqXAJebFvDzyBX
+	 71ygguMCinuphvFXZUZRnWNPDgFsMPJdvIoph44sZ6CFRRuchvW+hgbx5vOWf7EvAkuhi
+	 hFsQLiIKyyfdNuocMIbHKlWZhTyjQEQ5SJcWtJ9pYF8hCjxg4+4OdBHlWIxQzxj0xbvlF
+	 0y9YwwBXWPO7So6VqVqejkjG0sWaPWPIWkWy24ApENu3+JVmxZW3MnGJI7uh9DpD92g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PbOwQwyM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEE9B606A31C;
-	Tue, 17 Nov 2026 00:30:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEE9B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 926BE606A31C;
+	Tue, 17 Nov 2026 00:31:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=Rug6qZeI
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Content-Transfer-Encoding:MIME-Version
-	:Message-ID:Date:Subject:Cc:To:From:Reply-To:Content-Type:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=ZJaGE4hmAwAu3ci11rwBq8atZ3mF8O9TjUp2VfkCbf4=; b=Rug6qZeIX2SF8N2kSW5wWPXpcE
-	YM9Kbql2jDN+i6pGt00oG4yorjcWqL2awETcJvu9XXUfon/FntVFe5CURlPG/X2HePo8saH30P/Rn
-	OXNUABAzDkfFFQUU1hl4rZO6YHRiRvIpYarw3Hk+ty4qcQ1fqJ8QLzyDTdr2JWP/gpmRNw/wUu6tS
-	CqVPE8F01BC71uMLHauTMZDxakhvmN12SOf9nBVxELsMAgRO8GAQOS9r/A9YPY+aG6VxlaSFdgV1K
-	UGMozESDyCQY42P7icBvvyA+FRIAGQ7h/dD4gNP4LF9uDJBFQbNYp4wTwpRK//aN+u0aZ1h11jw9W
-	xhuVa6Uw==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <emfox@debian.org>)
-	id 1xT764-0009Cw-0c;
-	Tue, 17 Nov 2026 00:30:53 +0000
-From: Emfox Zhou <emfox@debian.org>
-To: Even Xu <even.xu@intel.com>,
-	Xinpeng Sun <xinpeng.sun@intel.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4] HID: intel-thc-hid: intel-thc: restore PRD table capacity
-Date: Tue, 17 Nov 2026 08:27:55 +0800
-Message-ID: <20261117002755.936097-1-emfox@debian.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PbOwQwyM
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794875505;
+	b=FJYRe2+jmTskLf6R2BIuE2T3dcuGycGp5G5eD98inJ6GsZuOxE5QUcjFXsuIxKhZfg2X
+	 F9mQp1IJ+Nu/c8z8NTFutsFbkAsGHUpdf/TxS9nhq3RBIOjzyOjLaoxmNbNcsV6cOef2e
+	 h1je08zF3QApIfeBi9KDeA4HdsRwy9bJk63wDV2aR5wU7xQRb2r8dd57vX74KYAkwXvPq
+	 buY49aJOaGjctnqsmsXTeBEfCko3IQc2f87ZcwDLGCHMlUNuxZEqiAwxlrxU2talXz+Z0
+	 c2wQn2Frs+JDYpifQfYLSp09QxpQOyKvzF+yziWiCg+AlOoktYMlqyjiW4vfa9931ig==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794875505;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=LkEWweRJXMzM9FVrkOv5FBKaYPCrzSWeUakLe3PsQ0o=;
+	b=l4emcLhVDNuMT3998irPjp7Svthj1qe6tkp5PZKUDroUVZiY/ofJnljH9UiZz+J/50jL
+	 1HuF1NvzV7HU+vqcJY0hzefLtvcBns4cAKtLw3E7yVhjawGe6auS4kofyFUPQ5SgDPRmI
+	 aEKUBSAXrWquV0c2/WYndcRqZoDXZ4KDi5EqMLgq5QYeu9AK5n/8EZgOIWXt5L1dOuMPo
+	 AEHYUJ85XyFkVTmD8bXjXS1baO6VGZyCPbUfhYY1PyJVNPsweYnZkst11b5+dp8zuZjuL
+	 Qsr37kPvELe8n4XRXFA/aCksCTeqbnUPWNAPRdP4zVip9L3/+Q3jLLM3ldrozvw3yJw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 7B83C1F000C5;
+	Tue, 17 Nov 2026 00:31:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794875505;
+	bh=LkEWweRJXMzM9FVrkOv5FBKaYPCrzSWeUakLe3PsQ0o=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=PbOwQwyMkakBXJ4jEb6H3kBUQUvw31Fh9vCQxfm+bW1cIk2NWA0wcRGyFSWycqO2Z
+	 gKfanxrADwf8JM8TDzqQhxNoITUZQh+TFSJt9lFwI09zP2iF8L42adQjs5FZWrUyzQ
+	 IEPls2vGwzwbcquPd2DaB2ai4eMxly3aW1vmBB5S3E6o7Zdl18YD5Q720uQtA9oyCE
+	 WqoewJRHDvxnz6ceM4fCJrYjjli0sVU2MmGO7ZnWZrsXsyXisusLfFkpeF28MInJhJ
+	 BfiP1bmQmeo8xxnSxNf7A9voggah+AIczjvKwUXyiVibjYTj0BoeJyC0S3qlTPtVQZ
+	 Sb6y9mg8c7eOQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id CD4E74A649;
+	Tue, 17 Nov 2026 00:31:43 +0000 (UTC)
+From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
+Subject: [PATCH v2 0/2] phy: Add the Siflower SF19A2890 USB 2.0 PHY
+Date: Mon, 16 Nov 2026 19:31:31 -0500
+Message-Id: <20261116-sf19a2890-usb-phy-v2-0-df3ce9d23f5a@telaak.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,166 +83,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Debian-User: emfox
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGOg+2oC/22OQQ6CMBBFr2K6dkxbC1hX3sOwaOkgVQPYlkZCu
+ LsFNW5cvsn//81EPDqLnhw3E3EYrbddm4BvN6RqVHtBsCYx4ZTnjFEOvmZS8YOkMHgNfTNCpnU
+ uhJS8yChJvd5hbZ/r5rl8sx/0FauwDH0SDh9DkoVfrLE+dG5cP4lsuX6l4o80MqBgNK2UkfsiZ
+ +IU8K7UbWcwknKe5xdhdQyo2gAAAA==
+X-Change-ID: 20261102-sf19a2890-usb-phy-5bb644992750
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Chuanhong Guo <gch981213@gmail.com>, linux-mips@vger.kernel.org, 
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>, 
+ Joseph Telaak <joseph@telaak.dev>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794875503; l=2526;
+ i=joseph@telaak.dev; s=20261104; h=from:subject:message-id;
+ bh=KCD1K/RN5VnCsfZu7rP3RZx/6edB+L0TT1Z4KmlF39I=;
+ b=WcdohhKHXSOvPKligVFFb1OadZvEoZIDiJQUqATxR0TTAkUhAMRhpnu+IGra/PT827BRGH/kv
+ fP+pa6WRHIoDE1zcapecz2lQXoH9+Zaa9VNR0wkfFOKAEZTLL7Z4gqi
+X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
+ pk=oQI+UfddlZ0wK2ac4WKOGNjUl1ZEN8j9ZVFSqEDoNP0=
+X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261104 with
+ auth_id=1404
+X-Original-From: Joseph Telaak <joseph@telaak.dev>
+Reply-To: joseph@telaak.dev
 
-The controller writes the frame length into the PRD entry it filled and
-marks the end of the frame there; only a read puts the capacity back.
-thc_reset_dma_settings() rewinds the read pointers but not those lengths:
-a frame still queued when it runs is dropped, and the next frame that does
-not fit runs past the end of its entry. The controller reports a buffer
-overrun, which is a transfer error and leads back into the same reset,
-with the table still short.
+This series adds a binding and a driver for the USB 2.0 PHY of the
+Siflower SF19A2890, a MIPS SoC for home routers. The PHY takes its
+reference clock and its two resets from the USB block's clock and reset
+manager, which goes to the clk tree.
 
-Rebuild a table before the engine that reads it is started:
-thc_dma_configure() for probe, resume and the RxDMA reset, the SWDMA start
-for its own table once that engine reports idle (a transfer that timed out
-leaves it running), and the end of an SWDMA round trip for the receive
-tables that the same reset rewound.
+The driver is Chuanhong Guo's, from his SF19A2890 branch [1], with my
+changes noted.
 
-A drain in the threaded handler reads a table without the bus lock, so a
-rebuild can land in the middle of it, and a reset does not rule the
-handler out either. Give the tables a mutex taken by both, inside the bus
-lock where the caller holds it, and no path takes the two in the other
-order.
+The SoC support itself (MACH_SIFLOWER_MIPS) goes through the MIPS tree;
+until then the driver builds with COMPILE_TEST. The DWC2 part goes to
+the USB tree.
 
-thc_copy_sgls_to_prd() returns early for a channel whose tables are gone.
+Tested on a GL.iNet GL-SFT1200 with the DWC2 patches. With v1 on
+v7.4-rc1, a USB stick enumerates at 480 Mb/s and reads at 5.6 MB/s
+(5.0 MB/s with the same stick on OpenWrt's 6.18 kernel), and comes back
+after unplugging and replugging it twice. v2 takes the resets with the
+bulk API, so it was run again, on OpenWrt's 6.18 kernel with the driver
+backported: the stick enumerates at 480 Mb/s after a cold and a warm
+boot and after reloading dwc2, which powers the PHY off and on, and
+comes back after a replug.
 
-Fixes: a688404b2e20 ("HID: intel-thc-hid: intel-thc: Add THC DMA interfaces")
-Signed-off-by: Emfox Zhou <emfox@debian.org>
+[1] https://github.com/981213/linux/commits/siflower-7.1
+
 ---
-Changes in v4:
-  - The tables are rebuilt under a mutex that the receive path takes as
-    well: the threaded handler drains the ring outside the bus lock, so a
-    rebuild could land in the middle of a read.
-  - The SWDMA table is rebuilt after its engine is waited for, and the
-    receive tables are rebuilt where an SWDMA round trip restarts the
-    receive engine.
+Changes in v2:
+- Write my note on Chuanhong's patch as a list.
+- Add a MAINTAINERS entry for the driver and its binding, naming the
+  driver's file, since drivers/phy/siflower/ will also hold the SF21
+  PHY drivers.
+- Get and toggle both resets with the reset_control_bulk API (Philipp).
+- Word the error messages the same way, name the error labels, include
+  <linux/device-id/of.h> instead of <linux/of.h>, and use GPL-2.0-only,
+  not the deprecated GPL-2.0 SPDX identifier.
+- Patch 1: add Conor's Ack.
+- Link to v1: https://patch.msgid.link/20261104-sf19a2890-usb-phy-v1-0-db0cad937614@telaak.dev
 
-Link: https://lore.kernel.org/r/20261115040756.602092-1-emfox@debian.org
 ---
- .../intel-thc-hid/intel-thc/intel-thc-dma.c   | 31 ++++++++++++++++++-
- .../intel-thc-hid/intel-thc/intel-thc-dma.h   |  7 +++++
- 2 files changed, 37 insertions(+), 1 deletion(-)
+Chuanhong Guo (1):
+      phy: siflower: Add SF19A2890 USB 2.0 PHY driver
 
-diff --git a/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c b/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c
-index c80ef8c20..413f264e3 100644
---- a/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c
-+++ b/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c
-@@ -211,12 +211,27 @@ static void thc_copy_sgls_to_prd(struct thc_device *dev,
- {
- 	unsigned int i;
- 
-+	guard(mutex)(&dev->dma_ctx->prd_lock);
-+
-+	if (!config->is_enabled || !config->prd_tbls)
-+		return;
-+
- 	memset(config->prd_tbls, 0, array_size(PRD_TABLE_SIZE, config->prd_tbl_num));
- 
- 	for (i = 0; i < config->prd_tbl_num; i++)
- 		thc_copy_one_sgl_to_prd(dev, config, i);
- }
- 
-+/*
-+ * A frame that is never read leaves its entry short, and the engine reads
-+ * the table again on every start: put the capacity back.
-+ */
-+static void thc_rebuild_rx_prd(struct thc_device *dev)
-+{
-+	thc_copy_sgls_to_prd(dev, &dev->dma_ctx->dma_config[THC_RXDMA1]);
-+	thc_copy_sgls_to_prd(dev, &dev->dma_ctx->dma_config[THC_RXDMA2]);
-+}
-+
- static int setup_dma_buffers(struct thc_device *dev,
- 			     struct thc_dma_configuration *config,
- 			     enum dma_data_direction dir)
-@@ -327,6 +342,7 @@ struct thc_dma_context *thc_dma_init(struct thc_device *dev)
- 		return NULL;
- 
- 	dev->dma_ctx = dma_ctx;
-+	mutex_init(&dma_ctx->prd_lock);
- 
- 	dma_ctx->dma_config[THC_RXDMA1].dma_channel = THC_RXDMA1;
- 	dma_ctx->dma_config[THC_RXDMA2].dma_channel = THC_RXDMA2;
-@@ -491,6 +507,9 @@ int thc_dma_configure(struct thc_device *dev)
- 		return -EINVAL;
- 	}
- 
-+	/* An entry may still be short from a frame nobody read. */
-+	thc_rebuild_rx_prd(dev);
-+
- 	for (chan = 0; chan < MAX_THC_DMA_CHANNEL; chan++) {
- 		dma_set_prd_base_addr(dev,
- 				      dma_ctx->dma_config[chan].prd_tbls_dma_handle,
-@@ -685,6 +704,8 @@ static int thc_dma_read(struct thc_device *dev,
- 	u8 read_ptr, write_ptr, prd_table_index;
- 	int status;
- 
-+	guard(mutex)(&dev->dma_ctx->prd_lock);
-+
- 	if (!is_dma_buf_empty(dev, read_config, &read_ptr, &write_ptr)) {
- 		prd_table_index = write_ptr & THC_POINTER_MASK;
- 
-@@ -765,11 +786,16 @@ static int thc_swdma_read_start(struct thc_device *dev, void *write_buff,
- 	if (ret)
- 		return ret;
- 
--	if (thc_wait_for_dma_pause(dev, THC_RXDMA1) || thc_wait_for_dma_pause(dev, THC_RXDMA2))
-+	if (thc_wait_for_dma_pause(dev, THC_RXDMA1) ||
-+	    thc_wait_for_dma_pause(dev, THC_RXDMA2) ||
-+	    thc_wait_for_dma_pause(dev, THC_SWDMA))
- 		return -EIO;
- 
- 	thc_reset_dma_settings(dev);
- 
-+	/* A transfer that timed out left its frame length in the entry. */
-+	thc_copy_sgls_to_prd(dev, &dev->dma_ctx->dma_config[THC_SWDMA]);
-+
- 	/*
- 	 * Max input size control feature is only available for RxDMA, it must keep disabled
- 	 * during SWDMA operation, and restore to previous state after SWDMA is done.
-@@ -854,6 +880,9 @@ static int thc_swdma_read_completion(struct thc_device *dev)
- 
- 	thc_reset_dma_settings(dev);
- 
-+	/* The receive engine starts again just below. */
-+	thc_rebuild_rx_prd(dev);
-+
- 	dma_set_start_bit(dev, &dev->dma_ctx->dma_config[THC_RXDMA2]);
- 
- 	ret = thc_interrupt_quiesce(dev, false);
-diff --git a/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.h b/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.h
-index 715423453..264cd26b7 100644
---- a/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.h
-+++ b/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.h
-@@ -6,6 +6,7 @@
- 
- #include <linux/bits.h>
- #include <linux/dma-mapping.h>
-+#include <linux/mutex.h>
- #include <linux/sizes.h>
- #include <linux/time64.h>
- #include <linux/types.h>
-@@ -123,6 +124,9 @@ struct thc_dma_configuration {
-  * struct thc_dma_context - THC DMA context
-  * @thc_dma_configuration: Array of all THC Channel configures
-  * @use_write_interrupts: Indicate TxDMA using interrupt or polling
-+ * @prd_lock: Keeps a table from being rebuilt while the DMA read path is
-+ *            using it; a sleeping lock, taken inside the bus lock where the
-+ *            caller holds that one.
-  * @rx_max_size_en: Temp flag to indicate THC I2C Rx max input size control feature
-  *                  enabled or not, only be used during SWDMA operation.
-  * @rx_int_delay_en: Temp flag to indicate THC I2C Rx interrupt delay feature
-@@ -132,6 +136,9 @@ struct thc_dma_context {
- 	struct thc_dma_configuration dma_config[MAX_THC_DMA_CHANNEL];
- 	u8 use_write_interrupts;
- 
-+	/* Serialises a rebuild of the tables with the DMA read path. */
-+	struct mutex prd_lock;
-+
- 	bool rx_max_size_en;
- 	bool rx_int_delay_en;
- };
+Joseph Telaak (1):
+      dt-bindings: phy: Add Siflower SF19A2890 USB 2.0 PHY
 
-base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+ .../bindings/phy/siflower,sf19a2890-usb-phy.yaml   |  58 +++++++++
+ MAINTAINERS                                        |   7 ++
+ drivers/phy/Kconfig                                |   1 +
+ drivers/phy/Makefile                               |   1 +
+ drivers/phy/siflower/Kconfig                       |  12 ++
+ drivers/phy/siflower/Makefile                      |   2 +
+ drivers/phy/siflower/phy-sf19a2890-usb.c           | 132 +++++++++++++++++++++
+ 7 files changed, 213 insertions(+)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261102-sf19a2890-usb-phy-5bb644992750
+
+Best regards,
+--  
+Joseph Telaak <joseph@telaak.dev>
+
+
