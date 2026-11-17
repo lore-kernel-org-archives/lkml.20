@@ -1,67 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794928396;
-	b=KFYfNOIw6zBUpbsxYLhbCzxVuO70N7ACy8+RNm4zJBe1J94A63HK9aB/1D+TZN2B9qnF
-	 2KxMqcE2f0dU7j6aeAqvs+ZEV0vsKmWhvI/SsDGSr/PNHGiN6/NQfm6nz6Fan1giGt3hO
-	 AyaGJC5V1JttkxRtGqLlcnXfXqd59jkI9H1UDW0KiK1fkpUC7sz/a3J+YBSa5XKl3t0Fv
-	 SgIZFDzO9W2R+PERBV3iC078g5bG+mSSUPdzZ1cyahnRYUVa1VURbccBAxTE/MkpUl/hi
-	 ASfMvfY3pCZEzbQDkEsD4Qozx970Ci1ryoeJov6t3pK2+A2IDmRMWoWbbM6OPXZb5zQ==
+	t=1794928405;
+	b=rHOWmyfiOC8fqaqySu/am4UIO/8k2MG9/OMzSDVexCmPO1G6GU+5T0qKnHcJFZPlqTJt
+	 bjwHWN+ehmW1oRQdN6IC7OZWDeI2DXIQVabnTRp/vLIReWsvQgJGvzhawWnesIBiazaTr
+	 S/Y0xQPUQIEOFHGnSoeR4larAmYk11ljyMroRdZP4BT4q5YYCKT/o+72YhL+BGMHIenzO
+	 Wozd0Ht/hjKZvdoIV/KRipbABnToFXRgdAR7bzsT+GJpzz4VAx7CxJMQpnq25zkK2TZbn
+	 4I5Am9UJUVtytmzmm9m5YrYffwa/d26qZ6tZ0ARuiEXoajgoMxtejmX2R7CdsxlG5Qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794928396;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
-	bh=tmKVAets7j8FHflkKIRT+VDi64RAZwb1CW8sxK1it3I=;
-	b=xVJeUpW4vWsZU54NV/JlpjLX9wglUuUB+7q4ZbEkLMCrpkpqrceu1I5172u0abj9zxRZ
-	 MqVzc+1aEQzqTB1EoX3t6Ocul7p5kPZx49zjJdy+OaYgp1Baf0Mrvr8/yoBTWWNTocfVU
-	 ND4Hzvo1wSgArzi0bLsjBl/4Fv7kiar3viuYkXudbXDHN41Tmo37ROgJlDUl38x0WBkmF
-	 RuJl6bl5HHDhZT/kjRZxOmtNosJwGPtEIOx0cA8p6NNXPqY7F+5TBStDa78zfC0Px5Yn4
-	 bRrOMkkECoi0YUXCZnfmMfr/QMNEVhEtjDOh/HXkauCD/wFH7DPeVah/emTbGq+uDjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794928405;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=f+YFQvL5C9p5UH90uuV2o0Lu6pGVMNmrGLVZ9HmJFk0=;
+	b=b5a7agMGDs0nFcLUpL+4rHlvf66Bqwfx9M5MCzhopplAafjHqrDQ6Qo64RikVk0Jdyov
+	 zLJs2Qrmy+V8KVXQOtrjx8ouy0h38UzyMgs5n3VQHzXYDEQzcRAi86N4Lj1tRiE9gzCmW
+	 0AOsOp83k5GQhn5UzOvMSi+M+aONjnbdMBQZ8DZQ04IW2PmNjgKCF4/ylrxQo7jbegpVR
+	 6NLpj3UQo5gS8cQzp0iMQnyls2tLNurSpueGxw4mnB956/PImErkAlXqz9dGDAQYpqsXt
+	 z/08ofD96uCtCckWWaIipOYqNnYk3ekgtbzyjhfGAW2Q8wu3YyGOYTpJC1wtHdgyGNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=WXndG8ca;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0ez1x1tV;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 452A5606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:13:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 452A5606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 762B1606A32F
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:13:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 762B1606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=WXndG8ca
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794928395;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tmKVAets7j8FHflkKIRT+VDi64RAZwb1CW8sxK1it3I=;
-	b=WXndG8caB/ykadP/gTIE95pHhXvv4M/2YDdNUMNOjEkkcDZ2JhtggsjMmGQzJUMivfWNcM
-	yQcqlHnHhPjnYvFJq4JYco7ikq4nyrO4LJAfzru3LXzzQIn0MO5ul1aXFL5nZb7DEBDUls
-	km9Ao0Duqz1B+Mx6QrAXFzT4/0arLFA=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-642-2r5fIyqXONmwdEA9poClHw-1; Tue,
- 17 Nov 2026 10:13:09 -0500
-X-MC-Unique: 2r5fIyqXONmwdEA9poClHw-1
-X-Mimecast-MFC-AGG-ID: 2r5fIyqXONmwdEA9poClHw_1794928386
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 70C461955F73;
-	Tue, 17 Nov 2026 15:13:06 +0000 (UTC)
-Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 9FA4A1800543;
-	Tue, 17 Nov 2026 15:13:03 +0000 (UTC)
-Message-ID: <dd335ee6-c879-4bee-9ea8-6d9e9216fb0e@redhat.com>
-Date: Tue, 17 Nov 2026 10:13:02 -0500
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0ez1x1tV
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4b467581b98so45010345e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:13:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794928404; x=1795533204; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=f+YFQvL5C9p5UH90uuV2o0Lu6pGVMNmrGLVZ9HmJFk0=;
+        b=0ez1x1tVETbVuKs6ZgS6iPGAnZoPBZ0m+F351/Nr7XCUBKEY9rmb0bxdjrJkVjIv7O
+         4Bq6UA6HR/pik8uGM3gt5Te/RoB7+knum+XI9YOR/hkQbZ1alm4wIb+vxUtMJt2nBZ+v
+         sXJdcBP1Zq+J/hZU2KIz3WhSIDNw57Hz3XhfTveA4DeCEKkF+Z7oLe5KgWAYDL+uYPqa
+         kfx7AsRDAa9F2kPnPJ7m+S6XGsWO1YqV05tMZ3ue4NxDIUWbPtwmMMwqXCBqJ6NmHAS2
+         QSe6H25gie3d7x1l0oyjuk3gstSyQXgk4b6EGfgBlFSENB37foBk05rBOGynIQWv71Ol
+         n6+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794928404; x=1795533204;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=f+YFQvL5C9p5UH90uuV2o0Lu6pGVMNmrGLVZ9HmJFk0=;
+        b=q4FwGrTWv14hAz9f9YqoFy3GzRaEYyDuksdEVT8u+i8HCL2aRJQsF0XNygRfV+kXeU
+         6Duo2hVG7l0J8L8PFzFhZrLNjtuAZ9frMZ9dcSAE0Gs30hay49IQDXXdJ47E1qbEiEEN
+         tMXa2YS5XlMEqNQIRZaes4SDPZGq2NREWYm/gPLSx2/QF1+espHypJa795KrGROA2D9C
+         C2Ebtleh59BWvMfCWHUTCHBwJuu6lzEcNvyIoBczfdEszLD+sBt8rPMrGH97tP/PCCzk
+         R/J3s91IAzqmkvM1FTvg/8CJ9F/QUwvv8/G/LGJt0y1Jrm5eCVZc7+BNRnJHkeNbrYMo
+         fsmA==
+X-Forwarded-Encrypted: i=1; AL+hErGUM5EeBq8gadKw6XrO70M/poFpwfe0dN518lOYEe5LUbXS2vNv7hBNkRQp97CjSspfCawhXL73/j3rzns=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8k1jlTF0AxVxv8RQC10fiNnXARCs7UGalFXBs3Sy9Yh94JXKcz
+	QUCvcswVNgyU4MCB2SAK6n+0U1ZT6dXYUQHSZkWIGBnSe3230X7yMNyj
+X-Gm-Gg: AYBFou3str9z0n6BVt4S1IltGjBvkTmG7SDmagOb4ZeiE3Gf4fju6IaXk/4BT037QZi
+	5yZ6YuL8nWvQHcgZPvNqY8YmM8Z0HTnnmC5mhSz6iWf105DC9lG/tMsGW49EqbU1U9U++KDMMxg
+	YQteDLIuPinsebtLEKISoMxlGQn2ZzRBKz1tfT6hGFXxVl7K//KpRn5CVYaRAIDYQOUiWY4/1be
+	fL+0Y805nvTFBhD1hMJcaSy7dTNeWdo6aivodVbEqB4yHLFkBCniPmhfImOsWjxfw2Uv9/sNvYX
+	roEi5PsYrEO2j7rkpjHnAujhRDDfh7NnaB1YRRa3gam/i+N97U/qlHTU4Uu1kFDteltbKXg2TX2
+	2UUEM0ykPGociRXsnQpx/SeR8q/b3qDTCpsgZgK88B/o2bejPPpl2v1JQR/CXHtTMe0t4mbYlGE
+	eqHli7cptMwAyXv7vdM98IWV+5UK8k5rPu1xI1aOyb91ULM6Xx1E+op1WxyQmnj1ZEdKgU5CL/o
+	C/nF0X2uR/2vEx6FhP22+Dw7YRCoZQufghylMx6DnhmSZvEJd0aFO7XYH9OT7P0ZOOTIzgem9Gw
+	xY8RGGad/Y42pIRUHqxzJ5S8PsunC1aAUzc=
+X-Received: by 2002:a05:600c:4f07:b0:4bb:7b4d:6396 with SMTP id 5b1f17b1804b1-4bb7b4d63f0mr23921525e9.3.1794928403587;
+        Tue, 17 Nov 2026 07:13:23 -0800 (PST)
+Received: from deb05.proceq.com ([213.160.61.66])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb68c00b10sm146014255e9.0.2026.11.17.07.13.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 07:13:23 -0800 (PST)
+From: Mehmet Fide <mehmet.fide@gmail.com>
+To: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
+Cc: Chun-Yeow Yeoh <yeohchunyeow@gmail.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	mehmet.fide@screeningeagle.com
+Subject: Re: [PATCH ath-next] wifi: ath9k_htc: do not fetch the beacon of a finished countdown
+Date: Tue, 17 Nov 2026 16:13:22 +0100
+Message-ID: <20261117151322.1801523-1-mehmet.fide@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <878q2rtvbk.fsf@toke.dk>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,208 +99,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG] sched: BUG() in select_fallback_rq() at boot with
- isolcpus=domain on the boot CPU and CONFIG_CPUSETS=n
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Frederic Weisbecker <frederic@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Michal Hocko <mhocko@suse.com>, Tejun Heo <tj@kernel.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>, linux-kernel@vger.kernel.org
-References: <20261117144817.265109-1-mathieu.desnoyers@efficios.com>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <20261117144817.265109-1-mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Transfer-Encoding: 8bit
 
-On 11/17/26 9:48 AM, Mathieu Desnoyers wrote:
-> Hi,
->
-> With CONFIG_CPUSETS=n, a kernel booted with isolcpus=domain,0 hits the
-> BUG() in select_fallback_rq() during boot. CPU 0 is the boot CPU. I
-> found it while testing a SCHED_DEADLINE series [1]. I then reproduced
-> it on v7.4-rc2 alone. tip/master of 2026-11-17 and next-20261116 have
-> the same code. A proposed fix follows the scissors line.
->
-> Trigger
-> =======
->
-> Build x86-64 with CONFIG_CPUSETS=n. Boot a VM of 4 CPUs with
-> isolcpus=domain,0 or isolcpus=domain,0,1. The kernel panics before
-> init runs, in every boot.
->
-> These boot fine:
-> - the same kernel with isolcpus=domain,1,2, or without isolcpus;
-> - a kernel with CONFIG_CPUSETS=y, with isolcpus=domain,0,1.
+Hi Toke,
 
-I am now thinking about disallowing the boot CPU from being domain 
-isolated. That will include using isolcpus=domain boot time isolation 
-parameter as well as in setting up isolated cpuset partition. Will that 
-be a simpler solution than fixing all these places where isolating the 
-boot CPU will cause various problems that need to be fixed?
+> I think doing a similar change in ath9k_htc would allow us to have the
+> pre-check use the same function without this issue, *and* get rid of the
+> setting of csa_vif without any locks protecting it, no?
 
-Thanks,
-Longman
+Yes. With the check on the vif of the beacon slot, csa_vif and the
+channel_switch_beacon callback can go. I'll send that as v2, and the
+mac80211 order change as a separate patch.
 
-> Log
-> ===
->
->    kernel BUG at kernel/sched/core.c:3642!
->    Oops: invalid opcode: 0000 [#1] SMP NOPTI
->    CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Not tainted 7.4.0-rc2-g7475ea8b5861 #1 PREEMPT(lazy)
->    Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
->    RIP: 0010:select_fallback_rq+0x1fd/0x350
->    Call Trace:
->     <TASK>
->     try_to_wake_up+0x299/0x9b0
->     create_worker+0x17d/0x200
->     workqueue_init+0x2bd/0x2f0
->     kernel_init_freeable+0x79/0x1f0
->     kernel_init+0x1a/0x130
->     ret_from_fork+0x22a/0x330
->     ret_from_fork_asm+0x1a/0x30
->     </TASK>
->    Kernel panic - not syncing: Fatal exception
->
-> Analysis
-> ========
->
-> workqueue_init() runs before smp_init(), so only the boot CPU is
-> online. create_worker() binds a new unbound kworker to the CPUs of its
-> pool. Workqueue restricts unbound workers to the housekeeping CPUs. With
-> isolcpus=domain,0,1, those are CPUs 2 and 3. Neither is online yet.
->
-> The wakeup of the kworker then calls select_fallback_rq(). It finds no
-> allowed CPU online, and widens the mask of the task in two steps:
-> - cpuset_cpus_allowed_fallback(). With CONFIG_CPUSETS=y, it gives the
->    mask of the top cpuset, which holds every CPU. The kworker then runs
->    on CPU 0. With CONFIG_CPUSETS=n, it is a stub that returns false.
-> - task_cpu_fallback_mask(), which is
->    housekeeping_cpumask(HK_TYPE_DOMAIN). That is CPUs 2 and 3 again.
->
-> No step is left, and the loop reaches BUG().
->
-> The last step used to allow all CPUs. 3a5446612a3f ("sched,arm64:
-> Handle CPU isolation on last resort fallback rq selection"), in v6.14,
-> changed it to the nohz_full housekeeping CPUs. With isolcpus=domain
-> alone, those are all CPUs. bf5b0c27fad2 ("sched: Switch the fallback
-> task allowed cpumask to HK_TYPE_DOMAIN"), in v7.0, changed it to the
-> domain housekeeping CPUs. A kernel with bf5b0c27fad2 reverted boots
-> with isolcpus=domain,0,1 and CONFIG_CPUSETS=n.
->
-> Where to fix
-> ============
->
-> The patch adds a last step before the BUG(): task_cpu_possible_mask(),
-> the mask the fallback used before 3a5446612a3f. It is reached only when
-> no housekeeping CPU is online. The kworker then runs on the boot CPU, as
-> with CONFIG_CPUSETS=y.
->
-> Another option is to have workqueue_init() leave the unbound workers
-> on the boot CPU until a housekeeping CPU is online. It would fix this
-> path only. Other early kthreads with a housekeeping mask could hit the
-> same BUG(). This is from reading.
->
-> Testing
-> =======
->
-> I ran v7.4-rc2 in VMs with 4 CPUs, built with CONFIG_CPUSETS=n:
-> - Without the patch: isolcpus=domain,0,1 hits the BUG() in 3 boots of
->    3, and isolcpus=domain,0 in 1 of 1. isolcpus=domain,1,2 and no
->    isolcpus boot.
-> - With bf5b0c27fad2 reverted: isolcpus=domain,0,1 boots, 3 of 3.
-> - With the patch: isolcpus=domain,0,1 boots, 3 of 3. So do
->    isolcpus=domain,0, isolcpus=domain,1,2 and no isolcpus.
->
-> After boot, the unbound kworkers have the same CPUs with the patch as
-> with CONFIG_CPUSETS=y: CPUs 2 and 3 for isolcpus=domain,0,1. No "no
-> longer affine" message is printed. The patch also builds with
-> CONFIG_CPUSETS=y. That kernel boots with isolcpus=domain,0,1. I did
-> not run other tests, nor other architectures.
->
-> The analysis and the patch were written by an LLM coding assistant
-> under my direction and review.
->
-> Thanks,
->
-> Mathieu
->
-> [1] https://lore.kernel.org/all/cover.1794922146.git.mathieu.desnoyers@efficios.com/
->
-> -- >8 --
-> From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-> Subject: sched: Fall back to all possible CPUs when no housekeeping CPU is online
->
-> select_fallback_rq() picks a CPU for a task that has no allowed CPU
-> online. Its last steps widen the mask of the task: first to its
-> cpuset, then to task_cpu_fallback_mask(). Commit bf5b0c27fad2 ("sched:
-> Switch the fallback task allowed cpumask to HK_TYPE_DOMAIN") made that
-> mask the domain housekeeping CPUs. The task then does not land on an
-> isolated CPU. If none of these CPUs is online, the next step is BUG().
->
-> That happens at boot when isolcpus=domain isolates the boot CPU.
-> workqueue_init() runs before the other CPUs come online. It wakes a new
-> unbound kworker, bound to the housekeeping CPUs. With CONFIG_CPUSETS=y,
-> the cpuset step gives the kworker every CPU, and it runs on the boot
-> CPU. With CONFIG_CPUSETS=n, that step does nothing, and the kernel
-> panics at boot.
->
-> Fix this by adding a last step before the BUG(): allow every CPU the
-> task can run on, as task_cpu_possible_mask() gives. This was the last
-> step before commit 3a5446612a3f ("sched,arm64: Handle CPU isolation on
-> last resort fallback rq selection"). It is reached only when no
-> housekeeping CPU is online. In testing, the kernel then boots. After
-> boot, the unbound kworkers have the housekeeping CPUs, as with
-> CONFIG_CPUSETS=y.
->
-> Fixes: bf5b0c27fad2 ("sched: Switch the fallback task allowed cpumask to HK_TYPE_DOMAIN")
-> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-> ---
->   kernel/sched/core.c | 15 ++++++++++++---
->   1 file changed, 12 insertions(+), 3 deletions(-)
->
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index 1a088d4576f5..556a27f14619 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -3599,7 +3599,7 @@ static int select_fallback_rq(int cpu, struct task_struct *p)
->   {
->   	int nid = cpu_to_node(cpu);
->   	const struct cpumask *nodemask = NULL;
-> -	enum { cpuset, possible, fail } state = cpuset;
-> +	enum { cpuset, housekeeping, possible, fail } state = cpuset;
->   	int dest_cpu;
->
->   	/*
-> @@ -3630,12 +3630,21 @@ static int select_fallback_rq(int cpu, struct task_struct *p)
->   		switch (state) {
->   		case cpuset:
->   			if (cpuset_cpus_allowed_fallback(p)) {
-> -				state = possible;
-> +				state = housekeeping;
->   				break;
->   			}
->   			fallthrough;
-> -		case possible:
-> +		case housekeeping:
->   			set_cpus_allowed_force(p, task_cpu_fallback_mask(p));
-> +			state = possible;
-> +			break;
-> +		case possible:
-> +			/*
-> +			 * No housekeeping CPU is online. This happens at boot
-> +			 * when isolcpus=domain isolates the boot CPU. Allow
-> +			 * every CPU, as the cpuset fallback does.
-> +			 */
-> +			set_cpus_allowed_force(p, task_cpu_possible_mask(p));
->   			state = fail;
->   			break;
->   		case fail:
-
+Mehmet
