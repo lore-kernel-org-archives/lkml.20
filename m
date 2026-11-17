@@ -1,95 +1,132 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794877283;
-	b=tUXJiv+azH7iGcUIxcSLO4xONmnS8Gyu2k/72UumHEGWM4h+2y6fjad88vnq5EYkEHri
-	 b0UGD8PEGnXmevNT+Oi6HAcg+zbXH44OxlKbYF3S2XnL/6phH9js918oaANhmc+p8loHH
-	 7v+p2I1HnVYFYUN78qykThiFTQFmVIXbi5zqCFM7Y8hVB7g5B2jqre7WlASeoy9JLyWYy
-	 hJ6oa88zv5jNnRzQP/Iy8HZ/0pcBxIcgwh/cUplPK0u+tX+M1xRW7LCkRVCqQ6QCFn9Q7
-	 o8nkUIngaHofxxKXpJJ7J7M0yIzmWVVZBisfQJqU8OreDgXiT/7p9zjBvTRXTDM7Tzg==
+	t=1794877333;
+	b=YWJozQ5w7MXUVrK6NjYPkaeHIm+1B2DG2vPfOrdihJq6PzH3JFb0kl0z2aPL7Twditw6
+	 5PEtSW0QU6tpSXYXzXUE7umkK0+O+Lz3E2+iMT1DGv2VEHI2Cx5nrehdOafraWLRYg/Q+
+	 bC+nlDf2gSbj4QiT7vNbQQllbDCgVKPievWk/wbwPJavaCRW18oL4FirPSeqUTD1G8CKJ
+	 JWHUR//2IpSs14dY0znKhXmDrJwyJERltrZkY3C0e/fGrPgwFbMgNa54mXTTpVGBrCWzN
+	 Dp7irMJ49pxXR/9IIJ3vMOsmFY5IczPNGFhDToW+j98IlTMaxbyG1I+w4O2get8lTXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794877283;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794877333;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=vzqoAyjUokJZqlOT6Q8pZfCZ/k/84aYSFWealQEk2eE=;
-	b=jTlaMqmdXUoSxrYipj9ghS+3yomEhnJhe3J1FA5fI8avsHx6Qr2VBNMECnncnN+1LPzu
-	 HJVJxHMDGb2rs6lZMnHagaAtXJo6Txt5hh4EM27bhndi6W4hlhHqP9rvvHJW1ll38E45+
-	 LLYqOI3c5xs3KHxwG6jpCRkk5y6/n0SC5+3T8Wamt6CXDyeLKCqBAhJzr3Fzmkdubwshs
-	 +kuetzcGzx8mperiK5R8BIIIrWklJdJWngKaykau5LGjlhHGHRCNWqjNcJHr69TZXyBjL
-	 GfgfEgF78GSdPaq1C9OCeNxN1hccQBK0yieGXdc0B2scO32eqk8yB2bzLyH8FMQJZ8w==
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=ctO9Vz6cUZ/f6mDE7Wd85I95KP6xrh4TKj1b7pGFnJo=;
+	b=iys7hGjPffjttKWsgwosRgLmhHYENOmgJ49LERyfe/mNNTrDnIjdndOckvrGN6opBsx1
+	 vvoa8RhkmMY4GIGp6ZabPym8UtBrfxo10Kev+cmqrlfRI4zgBZ7aCDXCFvv02Lr86WIRn
+	 IX0jmg6r6aELy1bBMe/+cWRtnSwL7xZTRCVGE6Ou7uYv7nmhBJpeI5QYuvh1KQC+ac37F
+	 iuMesDrUU6vajLy9KPsKOr81OS5r0xzCx+vu9FDjtwA1rWX2RGfUrWKMwlMMsc8QfL0xc
+	 5pKv7zIQ2NWs76ugWudJKL6/jgwruf8neXX+VwWq9FwCR3FUPaMZqFbAHRX10oShRhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="c3k/A2Pm";
-	arc=none smtp.remote-ip=74.125.82.42
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	dmarc=none header.from=dubeyko.com;
+	spf=pass smtp.mailfrom=dubeyko.com;
+	dkim=pass header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=dt31SZdx;
+	arc=none smtp.remote-ip=209.85.128.180
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC072606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:01:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC072606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC12A606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:02:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC12A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c3k/A2Pm
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-15ea896ddc8so6374207c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:01:22 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=dt31SZdx
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8b4e246acc2so11038557b3.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:02:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794877282; x=1795482082; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vzqoAyjUokJZqlOT6Q8pZfCZ/k/84aYSFWealQEk2eE=;
-        b=c3k/A2PmKeSGs2Qm8K7XMRV9h7Y+op+8+mM/AluBP90OnZB5uiyUFzQZEVTDAA4d3F
-         AWaIT5O7tO4AADhhUfjDB1T0HZyjj3goJ4qjW8SepzQMHdzfUlxkGllGNfTBsz4wcfMM
-         U9GcT+dHu+CQ8qD8X+x0kQk77yvGrgCA0cNvxRG1HMHCEOPMhZHpnxdhNCfbTLTHpKEb
-         M6DkBEqKk+LAurAXSCjQbuu2bqBWYEhHKUzBy4jQEcvM757lmHFtvYDX89ap5h3CDeTX
-         EnU3NBqiXig0GKqloAbS/afKYsUcgIzK1wZXEaGJ0mIqyvux/XSsWpQKheTzlDd8GZJz
-         9Drw==
+        d=dubeyko-com.20260707.gappssmtp.com; s=20260707; t=1794877331; x=1795482131; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ctO9Vz6cUZ/f6mDE7Wd85I95KP6xrh4TKj1b7pGFnJo=;
+        b=dt31SZdxfONJbUY4PzJHpsbWv0MWVR/WO9awjT8S0C48qzdETeFT7+me5lmrUtQhdU
+         PPW0iRgYMDFhf3rw8UZDchJQgE3Q6igEc6LM1TKAT8HsUlkDXHpEcc6EAEibBLjZhTRo
+         hebOwyHjmdNjs9SW5Q7myC6yopooi2yjqNI9twtLk/x3f6LAJgyPswvaiK/cfD6QCSYl
+         kIBCWgV3iln18rNf5WZadcyxaANDr6STrvecE5T29FP9XzpL+PrNjW/2VEsNnNen5R25
+         UiLIUiFZzPStRrXYa+uYPv3AzeoC9baXgdsZri4mgLrffdmGK3mefj53O1ysT7gVmNp4
+         f9vw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794877282; x=1795482082;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vzqoAyjUokJZqlOT6Q8pZfCZ/k/84aYSFWealQEk2eE=;
-        b=II/QuIMgCgyK0EvcmoJL/cJT8eoM4HVu72zvKx60cuePNebT+MAhoCl9K+CdF4V3Xt
-         P+aBiRAwrMtBYC7c6Bgfl2RQkqXqlEon7VLQJCkmUJXNeGH9U//egEdYrWx9oovV+B/J
-         r14zgh462Cix+zfxdgVFwkqfnX+Go8fzZec3tWmEY4BRfmoCQmCkikTr6tN6si+cuxPS
-         yoi/TRCmrUm8UHVzlaflbAbGS2Xvc1iQXR/Lzv2Dn27hFSI/gENOdERlKsEUAXCuPETN
-         iTgp+6jVgzw0WbZjI+Kgk/WwKXfus7rd4vccAJPaMvt59j5BW5HQFqSUn53Rrn+XPLaD
-         /YLg==
-X-Forwarded-Encrypted: i=1; AL+hErHk7juVtPIIYjIonqIKtsc5BT0cUhO3SYsYetIH35lYlzYSGQxLucvfeLOfAKZ1WsrmLThBdFlUU9bYn+I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+dNMxhngKjoGnFU3ct1yPZK5M9aHH6ZoCip71cGW8QH8v8TR53
-	u11x6aR36W1K5B3t5r6sxNtICIdVShfqRJapwvlTFE2T9n6odyS8cHAw
-X-Gm-Gg: AYBFou2hjI7phHZC9+xhuYGDH2M3bMa7VZZ/RaP5jtIsP1H3WKyBXPDetwZYYveHOOC
-	9Zgnl3XPaONty20+US1J1Ol9x+zbihYC5vgTVwgh7M3mEn1qJNGID0GGUmqhHRvfeU0UtoGDrN+
-	eoJ3YAxdaq0OWJnswjzaaBE6GN5pFxQsyjEe/x8kd3IIfEOLtELsebycsDfO/cPJ2JApCkkMPSc
-	j5OqQqKI88MwRJI5X53n+LYqJE6VLtAmgofxxqXChtksA+LPWUQdKXBjJ8cxUVfgsuScpQzP5oh
-	ikcKQZvqoMI7dkcqfHDM8bo3YS06s6kM3zcWgHbNcba2PyVIyNKuAbF+iW+hXM8tFGT2xw7Lua3
-	r4m9nRnJb0hpwdXGhGc+K6iHUQ/VjirJfVsQSb7MZKYZSRJHmPCdr4bJj1u7IRYESHaV4MWVE3d
-	xaj1rpi72mfOxHid3TE+XG+KO5Vfmv2FXkZyDyzbxXVvE/YeD3U8R1QK9sNdyeQ3sCtA4dD0ysJ
-	ojC2C4vA+RdHqxqVwjQ8tlQUksQQkNC1/AlPtvQUFh5kq69CdJvA+gohXoNAw5MwOTaPyr8Lg1E
-	Iqr58klYWbS0g5EDQTQcCvt0ghLypbEqWb/Mo5PwgxZwWQb9Yc2AvkH/
-X-Received: by 2002:a05:7022:290:b0:1b3:a881:4d9f with SMTP id a92af1059eb24-1b5030ad209mr10751139c88.20.1794877281631;
-        Mon, 16 Nov 2026 17:01:21 -0800 (PST)
-Received: from localhost ([2400:2650:24e0:bf00:cc77:213f:afc3:65e2])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50309b2b5sm30987948c88.1.2026.11.16.17.01.18
+        d=1e100.net; s=20260707; t=1794877331; x=1795482131;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ctO9Vz6cUZ/f6mDE7Wd85I95KP6xrh4TKj1b7pGFnJo=;
+        b=bFuojEbbJ4VBEkxDx2KWevrpelFHs2nEgkbiW8KMb8m1rS4Gh74CPESjrZIBt+IgNR
+         a6+f564IJMp/QZ0bDoMk5xugPWH6EsJXaAh4BEE+8+4ZmPd+eNOQ2CAvrWsbSH1Xcns0
+         V4UOiYgD02A22+wJqMBn7xkJs/3qmrKWSaLbazmbeYKjBuVYeyGcdmprxffbgxaiVDo2
+         HnFAo5B4WKeWmP6iR1dWvYLXEr0ichyxLeTrZkAs+A4xLe8TRJ7YHtpyZxrnMpPBl6Bp
+         EXU9zLCU0lCLJ2+gzeDxMRULSBpVj/FwSzQmB9T9lj6y0vpSE7jhRHHYhSiTmmjrVpgp
+         P23A==
+X-Forwarded-Encrypted: i=1; AL+hErHzUSnHpZD4yE/+9ZzneqOhPUd8993k156o0MNNXc5H9Dgg7FEeDqHDch0btQHn0R+TW3KNJ3Xz6nBkfhE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Yr09Se+60nazLdDuW7BLw4Citx4ydeSH5J7w8o/XdUfYvKqKE
+	f1mHekp0lzEvxp60JVJVAJWT2f4fU9e51U8PRB9b5MGg1GcSbtV5oXJ8BAsXgEUAwSo=
+X-Gm-Gg: AZFdTZfiFK5v+rc+gv+6q2IXl2OYyTdWToIpwBOYzGgkCQDHVK8Ur+RmbPp0KJxcEci
+	gWbwU4uzipsnrsTisoYrfO6skI0GYp1H9vfv0+gmwJ37tGu7xK9w4AGQHUj5h4vwGCNjNEF2NXA
+	TfDfxniAqGc2itEKmAn0aJPgaeF0ORdWckdgASkkXMpEYDLtLZQO53qUNyreYea1FUlPLfwH8u2
+	rFt6+CiqPulAudIKuttpL89LOiauad/L1k3RIuhax4yZXtjjTshLPpkxQyMAXSGdqbYvSXr8QSX
+	2cGqQke0YISrCKpEM6Om1hMGxQUzGb5NtuNRToWXIe43Jk9mwt64oSX55hdANk8pnrXBplWMO1G
+	8IOo8fkn+nhZXmCq8NQzKodVtIcIob8sUAzjSVVxoYiPwiNmMQy0hUVJZN8LdX2UtioVQre2HoQ
+	VBsyQwuOWIVwPNp8goa3dvT6oynOe6a6gerquPd99usg6wmwiq/U4lNBNN8B/L6rrFU3Dr3zo3j
+	5rVL5SRC4oO8v+KUZ+H3ZptLl2m1WogAreghCEF0+wNUYxjU69DDc804aQ9YfDxFZYWe31lAipw
+	lUsVfHtmHPe8r4b3KS/tglmvbvFtIf5F8NKUsIDMLxUI1kndgxIttOv8M8xbGM/KaA04FkC+Rvp
+	Cl6+3p9PBm7C/7f4YKFk23WzSeZ6BJpEqJNC29HBuzS6HOdAJNUkVOAQL+twlbcSDooLoHSoq+o
+	wWvftzznPdczOTnsEp
+X-Received: by 2002:a05:690c:931b:20b0:8b3:5b88:a21e with SMTP id 00721157ae682-8b4aa326b56mr56600327b3.31.1794877330573;
+        Mon, 16 Nov 2026 17:02:10 -0800 (PST)
+Received: from system76-laptop.attlocal.net ([2600:1700:6476:1430:d1c7:8722:e551:bec4])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4ec065f84sm12694907b3.29.2026.11.16.17.02.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 17:01:20 -0800 (PST)
-Date: Tue, 17 Nov 2026 10:01:16 +0900
-From: Zhenyu Wang <zhenyuw.linux@gmail.com>
-To: Tuo Li <islituo@gmail.com>
-Cc: zhi.wang.linux@gmail.com, jani.nikula@linux.intel.com,
-	joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
-	tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch,
-	ankit.k.nautiyal@intel.com, intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/i915/gvt: Fix NULL pointer dereference in slot switch
-Message-ID: <avunXOrG8wfAI2cR@dell-wzy>
-References: <20261112155822.1336713-1-islituo@gmail.com>
+        Mon, 16 Nov 2026 17:02:10 -0800 (PST)
+Message-ID: <138ca05e57377469c0e44126314c98d008629229.camel@dubeyko.com>
+Subject: Re: [PATCH v2] hfs: avoid reusing occupied CNIDs after deletion
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Hengyu Liang <hengyul@cs.unc.edu>
+Cc: glaubitz@physik.fu-berlin.de, frank.li@vivo.com, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Date: Mon, 16 Nov 2026 17:02:08 -0800
+In-Reply-To: <20261112110128.4082071-1-hengyul@cs.unc.edu>
+References: <20261112110128.4082071-1-hengyul@cs.unc.edu>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+ NFdvziOa4FgUBC4X71upsZIoZJeii2V/Jtc3B4g==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-9 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,52 +136,507 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112155822.1336713-1-islituo@gmail.com>
 
-On Thu, Nov 12, 2026 at 11:58:22PM +0800, Tuo Li wrote:
-> The running slot is updated to the pending slot before updating the running
-> context. However, the condition checks the old running context instead of
-> the newly assigned running slot.
-> 
-> When no pending slot exists, running_slot becomes NULL. If the previous
-> running_context is non-NULL, the code attempts to access
-> running_slot->ctx[0], resulting in a NULL pointer dereference.
-> 
-> To fix this possible NULL pointer dereference, check running_slot instead
-> to ensure that running_context is updated only when a valid slot is
-> available.
-
-Well, just AI generated static check but without any runtime analysis,
-again...and can't even show kernel oops of this, as it simply can't happen..
-
-> 
-> Fixes: 8453d674ae7e ("drm/i915/gvt: vGPU execlist virtualization")
-> Signed-off-by: Tuo Li <islituo@gmail.com>
+On Thu, 2026-11-12 at 06:01 -0500, Hengyu Liang wrote:
+> Commit a06ec283e125 ("hfs: add logic of correcting a next unused
+> CNID")
+> made hfs_correct_next_unused_CNID() lower the next CNID after the
+> newest file or directory is deleted. It takes the CNID of the last
+> file or directory record in the catalog as the largest CNID in use.
+>=20
+> However, catalog records are sorted by parent ID and name, not by
+> CNID, so the next CNID can be one that is still in use. As of now,
+> creating a file after deleting the newest one can fail with EEXIST.
+> Commit 6592287869bf ("hfs: fix incorrect inode ID assignment in
+> hfs_new_inode()") exposed this issue.
+>=20
+> The issue can be reproduced on a freshly formatted HFS volume with:
+>=20
+> =C2=A0=C2=A0=C2=A0 mkdir z
+> =C2=A0=C2=A0=C2=A0 touch a b
+> =C2=A0=C2=A0=C2=A0 rm b
+> =C2=A0=C2=A0=C2=A0 touch c
+>=20
+> Without this change, the result is:
+>=20
+> =C2=A0=C2=A0=C2=A0 touch: cannot touch 'c': File exists
+>=20
+> With it, c is created.
+>=20
+> Keep the largest CNID of the records in and below each catalog node
+> in memory, in leaf nodes and in index nodes, so that the root node
+> gives the largest CNID in use. Adding a record raises it in the nodes
+> above, and removing the record with the largest CNID makes them
+> compute it again.
+>=20
+> Fixes: a06ec283e125 ("hfs: add logic of correcting a next unused
+> CNID")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Viacheslav Dubeyko <slava@dubeyko.com>
+> Assisted-by: LLM
+> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
 > ---
->  drivers/gpu/drm/i915/gvt/execlist.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gvt/execlist.c b/drivers/gpu/drm/i915/gvt/execlist.c
-> index 29147a9f162e..763c310f2aaf 100644
-> --- a/drivers/gpu/drm/i915/gvt/execlist.c
-> +++ b/drivers/gpu/drm/i915/gvt/execlist.c
-> @@ -73,7 +73,7 @@ static void switch_virtual_execlist_slot(struct intel_vgpu_execlist *execlist)
->  
->  	execlist->running_slot = execlist->pending_slot;
->  	execlist->pending_slot = NULL;
-> -	execlist->running_context = execlist->running_context ?
-> +	execlist->running_context = execlist->running_slot ?
->  		&execlist->running_slot->ctx[0] : NULL;
->
+> Changes in v2:
+> - Keep the largest CNID in memory in every catalog node, leaf and
+> =C2=A0 index, as Viacheslav Dubeyko suggested. v1 walked the leaf nodes.
+> - Rebase on hfs for-next.
+> - v1:
+> https://lore.kernel.org/r/20261015110114.1649059-1-hengyul@cs.unc.edu
+>=20
+> Tested in KVM with KASAN on 34ee5f8c2198, without and with this
+> patch.
+> All fstests on HFS: 24 failures without the patch, 20 with it, no new
+> failures. Deleting 8000 files:
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unpatched=C2=A0=C2=A0 patched
+> =C2=A0=C2=A0=C2=A0 newest first=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 11 s=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 0.36 s
+> =C2=A0=C2=A0=C2=A0 odd ones, then even ones
+> =C2=A0=C2=A0=C2=A0 newest first=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 3.8 s=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 0.19 s
+>=20
+> Creating the files (0.54 s and 0.55 s) and deleting them oldest first
+> (0.37 s and 0.38 s) take about the same time.
+>=20
+> =C2=A0fs/hfs/brec.c=C2=A0=C2=A0=C2=A0 | 172
+> +++++++++++++++++++++++++++++++++++++++++++++++
+> =C2=A0fs/hfs/btree.h=C2=A0=C2=A0 |=C2=A0=C2=A0 5 ++
+> =C2=A0fs/hfs/catalog.c |=C2=A0 96 +++-----------------------
+> =C2=A03 files changed, 186 insertions(+), 87 deletions(-)
+>=20
+> diff --git a/fs/hfs/brec.c b/fs/hfs/brec.c
+> index 1ca1ee9f73ef..318bbee43529 100644
+> --- a/fs/hfs/brec.c
+> +++ b/fs/hfs/brec.c
+> @@ -62,6 +62,174 @@ u16 hfs_brec_keylen(struct hfs_bnode *node, u16
+> rec)
+> =C2=A0	return retval;
+> =C2=A0}
+> =C2=A0
+> +/* Get the CNID of a file or directory record of the catalog tree */
+> +static u32 hfs_brec_cnid(struct hfs_bnode *node, u32 off)
+> +{
+> +	__be32 cnid;
+> +
+> +	switch (hfs_bnode_read_u8(node, off)) {
+> +	case HFS_CDR_DIR:
+> +		off +=3D offsetof(struct hfs_cat_dir, DirID);
+> +		break;
+> +	case HFS_CDR_FIL:
+> +		off +=3D offsetof(struct hfs_cat_file, FlNum);
+> +		break;
+> +	default:
+> +		return 0;
+> +	}
+> +	hfs_bnode_read(node, &cnid, off, sizeof(cnid));
+> +	return be32_to_cpu(cnid);
 
-Current code calls this switch in case whenever running_slot is
-available, so it won't have null ptr reference. But code looks a
-little weird, as current code tried to assign running_context in other
-place e.g when new request happened, or even it might seem to miss
-when enter execlist idle state...but it is still valid in switch
-call. So I think this is just harmless. If you'd like for further
-cleanup, that needs testing result for sure.
+This function is completely not clear. You try to read the hfs_cat_rec.
+Simply read it and analyze the record. Now it looks like a dark magic.=20
 
-Thanks.
+> +}
+> +
+> +/* Forget max_cnid of all nodes of the tree */
+> +static void hfs_btree_drop_max_cnid(struct hfs_btree *tree)
+> +{
+> +	struct hfs_bnode *node;
+> +	int i;
+> +
+> +	spin_lock(&tree->hash_lock);
+> +	for (i =3D 0; i < NODE_HASH_SIZE; i++) {
+> +		for (node =3D tree->node_hash[i]; node; node =3D node-
+> >next_hash)
+> +			clear_bit(HFS_BNODE_MAX_CNID, &node->flags);
+> +	}
+> +	spin_unlock(&tree->hash_lock);
+> +}
+> +
+> +/*
+> + * The record at @off has been added to the catalog leaf @node, or
+> is about
+> + * to be removed from it. Update max_cnid of the node and of its
+> parents:
+> + * a new CNID can only raise it, and after the largest CNID is gone
+> it has
+> + * to be computed again.
+> + */
+> +static void hfs_brec_update_max_cnid(struct hfs_bnode *node, u32
+> off,
+> +				=C2=A0=C2=A0=C2=A0=C2=A0 bool insert)
+
+Is this insert argument used anywhere?
+
+> +{
+> +	struct hfs_btree *tree =3D node->tree;
+> +	u32 nidx =3D node->this;
+> +	u32 cnid;
+> +	bool done;
+> +
+> +	if (tree->cnid !=3D HFS_CAT_CNID || node->type !=3D
+> HFS_NODE_LEAF)
+
+I would like to see some inline function with good name for this check.
+
+> +		return;
+
+Please, add empty line here.
+
+> +	cnid =3D hfs_brec_cnid(node, off);
+> +	if (!cnid)
+
+The #0 is reserved CNID. It's not good choice for such check.
+
+> +		return;
+> +
+> +	for (;;) {
+
+I assume that we limited by tree's height here. Could we used it
+instead of infinite loop?
+
+> +		node =3D hfs_bnode_find(tree, nidx);
+> +		if (IS_ERR(node))
+> +			break;
+> +
+> +		done =3D nidx =3D=3D tree->root;
+> +		if (test_bit(HFS_BNODE_MAX_CNID, &node->flags)) {
+> +			if (insert && node->max_cnid < cnid)
+
+I dislike insert like a boolean value. Why do we need to inform this
+function about insert? Why this function cannot make this decision
+alone?
+
+> +				node->max_cnid =3D cnid;
+> +			else if (!insert && node->max_cnid <=3D cnid)
+> +				clear_bit(HFS_BNODE_MAX_CNID, &node-
+> >flags);
+> +			else
+> +				done =3D true;	/* the parents do
+> not change */
+> +		}
+
+Ad empty line.
+
+> +		nidx =3D node->parent;
+> +		hfs_bnode_put(node);
+> +
+> +		if (done)
+
+You don't need in done if you are limited by b-tree height.
+
+> +			return;
+
+Add empty line.
+
+> +		if (!nidx)
+> +			break;
+> +	}
+> +
+> +	/* a parent could not be reached */
+> +	hfs_btree_drop_max_cnid(tree);
+> +}
+
+I will continue the review tomorrow. I don't have more time today. :)
+
+Thanks,
+Slava.
+
+> +
+> +/*
+> + * Compute max_cnid of a catalog node: the largest CNID of the file
+> and
+> + * directory records of a leaf node, or the largest max_cnid of the
+> children
+> + * of an index node. If a child has no max_cnid yet, return the
+> number of
+> + * that child in @child instead.
+> + */
+> +static int hfs_brec_calc_max_cnid(struct hfs_bnode *node, u32
+> *child)
+> +{
+> +	struct hfs_bnode *cnode;
+> +	u32 max_cnid =3D 0;
+> +	u16 off, len, keylen;
+> +	__be32 data;
+> +	int i;
+> +
+> +	for (i =3D 0; i < node->num_recs; i++) {
+> +		len =3D hfs_brec_lenoff(node, i, &off);
+> +		keylen =3D hfs_brec_keylen(node, i);
+> +		if (!keylen || keylen + sizeof(data) > len)
+> +			return -EIO;
+> +		off +=3D keylen;
+> +
+> +		if (node->type =3D=3D HFS_NODE_LEAF) {
+> +			max_cnid =3D max(max_cnid, hfs_brec_cnid(node,
+> off));
+> +			continue;
+> +		}
+> +
+> +		hfs_bnode_read(node, &data, off, sizeof(data));
+> +		cnode =3D hfs_bnode_find(node->tree,
+> be32_to_cpu(data));
+> +		if (IS_ERR(cnode))
+> +			return PTR_ERR(cnode);
+> +		if (cnode->height !=3D node->height - 1) {
+> +			hfs_bnode_put(cnode);
+> +			return -EIO;
+> +		}
+> +		if (!test_bit(HFS_BNODE_MAX_CNID, &cnode->flags)) {
+> +			cnode->parent =3D node->this;
+> +			*child =3D cnode->this;
+> +			hfs_bnode_put(cnode);
+> +			return 0;
+> +		}
+> +		max_cnid =3D max(max_cnid, cnode->max_cnid);
+> +		hfs_bnode_put(cnode);
+> +	}
+> +
+> +	node->max_cnid =3D max_cnid;
+> +	set_bit(HFS_BNODE_MAX_CNID, &node->flags);
+> +	return 0;
+> +}
+> +
+> +/*
+> + * hfs_btree_max_cnid()
+> + *
+> + * Find the largest CNID of the file and directory records of the
+> catalog
+> + * tree. It is max_cnid of the root node. max_cnid is not stored on
+> disk,
+> + * so walk down to the nodes that do not have it and compute it from
+> the
+> + * bottom up.
+> + */
+> +int hfs_btree_max_cnid(struct hfs_btree *tree, u32 *max_cnid)
+> +{
+> +	struct hfs_bnode *node;
+> +	u32 nidx =3D tree->root;
+> +	u32 child;
+> +	int res =3D 0;
+> +
+> +	*max_cnid =3D 0;
+> +	while (nidx && !res) {
+> +		node =3D hfs_bnode_find(tree, nidx);
+> +		if (IS_ERR(node))
+> +			return PTR_ERR(node);
+> +
+> +		child =3D 0;
+> +		if (!test_bit(HFS_BNODE_MAX_CNID, &node->flags))
+> +			res =3D hfs_brec_calc_max_cnid(node, &child);
+> +
+> +		if (res || child) {
+> +			nidx =3D child;
+> +		} else if (nidx =3D=3D tree->root) {
+> +			*max_cnid =3D node->max_cnid;
+> +			nidx =3D 0;
+> +		} else {
+> +			/* a node that was read again has lost its
+> parent */
+> +			nidx =3D node->parent ? node->parent : tree-
+> >root;
+> +		}
+> +		hfs_bnode_put(node);
+> +	}
+> +	return res;
+> +}
+> +
+> =C2=A0int hfs_brec_insert(struct hfs_find_data *fd, void *entry, u32
+> entry_len)
+> =C2=A0{
+> =C2=A0	struct hfs_btree *tree;
+> @@ -131,6 +299,7 @@ int hfs_brec_insert(struct hfs_find_data *fd,
+> void *entry, u32 entry_len)
+> =C2=A0skip:
+> =C2=A0	hfs_bnode_write(node, fd->search_key, data_off, key_len);
+> =C2=A0	hfs_bnode_write(node, entry, data_off + key_len, entry_len);
+> +	hfs_brec_update_max_cnid(node, data_off + key_len, true);
+> =C2=A0	hfs_bnode_dump(node);
+> =C2=A0
+> =C2=A0	/*
+> @@ -183,6 +352,7 @@ int hfs_brec_remove(struct hfs_find_data *fd)
+> =C2=A0
+> =C2=A0	tree =3D fd->tree;
+> =C2=A0	node =3D fd->bnode;
+> +	hfs_brec_update_max_cnid(node, fd->entryoffset, false);
+> =C2=A0again:
+> =C2=A0	rec_off =3D tree->node_size - (fd->record + 2) * 2;
+> =C2=A0	end_off =3D tree->node_size - (node->num_recs + 1) * 2;
+> @@ -322,6 +492,8 @@ static struct hfs_bnode *hfs_bnode_split(struct
+> hfs_find_data *fd)
+> =C2=A0	}
+> =C2=A0	new_node->num_recs =3D node->num_recs - num_recs;
+> =C2=A0	node->num_recs =3D num_recs;
+> +	/* the records that move to the new node may hold the
+> largest CNID */
+> +	clear_bit(HFS_BNODE_MAX_CNID, &node->flags);
+> =C2=A0
+> =C2=A0	new_rec_off =3D tree->node_size - rec_size;
+> =C2=A0	new_off =3D node_desc_size;
+> diff --git a/fs/hfs/btree.h b/fs/hfs/btree.h
+> index 1f703f2c53d8..21f69cddc683 100644
+> --- a/fs/hfs/btree.h
+> +++ b/fs/hfs/btree.h
+> @@ -62,6 +62,9 @@ struct hfs_bnode {
+> =C2=A0	u8 type;
+> =C2=A0	u8 height;
+> =C2=A0
+> +	/* catalog tree: largest CNID in the records in and below
+> the node */
+> +	u32 max_cnid;
+> +
+> =C2=A0	struct hfs_bnode *next_hash;
+> =C2=A0	unsigned long flags;
+> =C2=A0	wait_queue_head_t lock_wq;
+> @@ -73,6 +76,7 @@ struct hfs_bnode {
+> =C2=A0#define HFS_BNODE_ERROR		0
+> =C2=A0#define HFS_BNODE_NEW		1
+> =C2=A0#define HFS_BNODE_DELETED	2
+> +#define HFS_BNODE_MAX_CNID	3	/* max_cnid is valid */
+> =C2=A0
+> =C2=A0struct hfs_find_data {
+> =C2=A0	btree_key *key;
+> @@ -140,6 +144,7 @@ extern u16 hfs_brec_lenoff(struct hfs_bnode
+> *node, u16 rec, u16 *off);
+> =C2=A0extern u16 hfs_brec_keylen(struct hfs_bnode *node, u16 rec);
+> =C2=A0extern int hfs_brec_insert(struct hfs_find_data *fd, void *entry,
+> u32 entry_len);
+> =C2=A0extern int hfs_brec_remove(struct hfs_find_data *fd);
+> +extern int hfs_btree_max_cnid(struct hfs_btree *tree, u32
+> *max_cnid);
+> =C2=A0
+> =C2=A0/* bfind.c */
+> =C2=A0extern int hfs_find_init(struct hfs_btree *tree, struct
+> hfs_find_data *fd);
+> diff --git a/fs/hfs/catalog.c b/fs/hfs/catalog.c
+> index 490c5e130da3..ead094e44c9a 100644
+> --- a/fs/hfs/catalog.c
+> +++ b/fs/hfs/catalog.c
+> @@ -271,102 +271,24 @@ void hfs_set_next_unused_CNID(struct
+> super_block *sb,
+> =C2=A0static
+> =C2=A0int hfs_correct_next_unused_CNID(struct super_block *sb, u32 cnid)
+> =C2=A0{
+> -	struct hfs_btree *cat_tree;
+> -	struct hfs_bnode *node;
+> -	s64 leaf_head;
+> -	s64 leaf_tail;
+> -	s64 node_id;
+> +	u32 max_cnid;
+> +	int res;
+> =C2=A0
+> =C2=A0	hfs_dbg("cnid %u, next_id %lld\n",
+> =C2=A0		cnid, atomic64_read(&HFS_SB(sb)->next_id));
+> =C2=A0
+> -	if ((cnid + 1) < atomic64_read(&HFS_SB(sb)->next_id)) {
+> +	if ((cnid + 1) !=3D atomic64_read(&HFS_SB(sb)->next_id)) {
+> =C2=A0		/* next ID should be unchanged */
+> =C2=A0		return 0;
+> =C2=A0	}
+> =C2=A0
+> -	cat_tree =3D HFS_SB(sb)->cat_tree;
+> -	leaf_head =3D cat_tree->leaf_head;
+> -	leaf_tail =3D cat_tree->leaf_tail;
+> -
+> -	if (leaf_head > leaf_tail) {
+> -		pr_err("node is corrupted: leaf_head %lld, leaf_tail
+> %lld\n",
+> -			leaf_head, leaf_tail);
+> -		return -ERANGE;
+> -	}
+> -
+> -	node =3D hfs_bnode_find(cat_tree, leaf_tail);
+> -	if (IS_ERR(node)) {
+> -		pr_err("fail to find leaf node: node ID %lld\n",
+> -			leaf_tail);
+> -		return -ENOENT;
+> -	}
+> -
+> -	node_id =3D leaf_tail;
+> -
+> -	do {
+> -		int i;
+> -
+> -		if (node_id !=3D leaf_tail) {
+> -			node =3D hfs_bnode_find(cat_tree, node_id);
+> -			if (IS_ERR(node))
+> -				return -ENOENT;
+> -		}
+> -
+> -		hfs_dbg("node %lld, leaf_tail %lld, leaf_head
+> %lld\n",
+> -			node_id, leaf_tail, leaf_head);
+> -
+> -		hfs_bnode_dump(node);
+> -
+> -		for (i =3D node->num_recs - 1; i >=3D 0; i--) {
+> -			hfs_cat_rec rec;
+> -			u16 off, len, keylen;
+> -			int entryoffset;
+> -			int entrylength;
+> -			u32 found_cnid;
+> -
+> -			len =3D hfs_brec_lenoff(node, i, &off);
+> -			keylen =3D hfs_brec_keylen(node, i);
+> -			if (keylen =3D=3D 0) {
+> -				pr_err("fail to get the keylen: "
+> -					"node_id %lld, record index
+> %d\n",
+> -					node_id, i);
+> -				return -EINVAL;
+> -			}
+> -
+> -			entryoffset =3D off + keylen;
+> -			entrylength =3D len - keylen;
+> -
+> -			if (entrylength > sizeof(rec)) {
+> -				pr_err("unexpected record length: "
+> -					"entrylength %d\n",
+> -					entrylength);
+> -				return -EINVAL;
+> -			}
+> -
+> -			hfs_bnode_read(node, &rec, entryoffset,
+> entrylength);
+> -
+> -			if (rec.type =3D=3D HFS_CDR_DIR) {
+> -				found_cnid =3D
+> be32_to_cpu(rec.dir.DirID);
+> -				hfs_dbg("found_cnid %u\n",
+> found_cnid);
+> -				hfs_set_next_unused_CNID(sb, cnid,
+> found_cnid);
+> -				hfs_bnode_put(node);
+> -				return 0;
+> -			} else if (rec.type =3D=3D HFS_CDR_FIL) {
+> -				found_cnid =3D
+> be32_to_cpu(rec.file.FlNum);
+> -				hfs_dbg("found_cnid %u\n",
+> found_cnid);
+> -				hfs_set_next_unused_CNID(sb, cnid,
+> found_cnid);
+> -				hfs_bnode_put(node);
+> -				return 0;
+> -			}
+> -		}
+> -
+> -		node_id =3D node->prev;
+> -		hfs_bnode_put(node);
+> -
+> -	} while (node_id >=3D leaf_head);
+> +	res =3D hfs_btree_max_cnid(HFS_SB(sb)->cat_tree, &max_cnid);
+> +	if (res)
+> +		return res;
+> =C2=A0
+> -	return -ENOENT;
+> +	hfs_dbg("max_cnid %u\n", max_cnid);
+> +	hfs_set_next_unused_CNID(sb, cnid, max_cnid);
+> +	return 0;
+> =C2=A0}
+> =C2=A0
+> =C2=A0/*
+>=20
+> base-commit: 34ee5f8c2198db9585da6c181c50869d2eb43c3a
