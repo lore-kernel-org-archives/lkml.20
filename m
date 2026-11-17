@@ -1,108 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794917927;
-	b=CKPtavts23Mb+P9WCSSPEtLJIZ8hWN8xatkbiM4QeneqCb5ocOlZcwaEkcAgjjt9UVr6
-	 KqFR+NTdM/HJj2QSo7eFFkKYNlNYVcjpo/8esgN2HYndDnJuFyBd7ibP23XRe8Z6eLhE/
-	 bEvJPmWQoLp++MsFjvm4zEfNj6BZMl5FFvoaLAHqJpgGXHqDknKl84TXCZW1MLT6STzd8
-	 K8kYeGTFqdCiw6d6Nwi0m9ttYdp2Y4TwOrdvui913wfa8pYw8cLNJV8s34NSNXLvmDEoJ
-	 WhRuBgub6HofvpbBm8fOV+opFOwAQZnjJvcH+BsXOWfhhmVLZyI3QALbiUz0I6MKVmg==
+	t=1794917959;
+	b=Hu/SeP61Spd3ODos2/XuJLxYAH3ddb6FU1mqLcX8h88XA+h61/MFh7Zl6S7I+OGDBpsx
+	 MibyF4heBTR9SJHDsHLc+b/sIGdqdbuc5Jnzf3DEJYeI2OZv+tPH4l+kQhTEHaPPG989h
+	 gvAJDaDC5Aik0/1JFvbwyKphNKS3xlEWu5zKlm6qB2RdHdx6re7SH4im4dB9eug7A3u7Y
+	 NHyh837LBVA6W/e0/gHeukmgBqq3G6xGC5If0BwDcpMWme12VV+0i28J80C5p2sq9nJUo
+	 TT3dvxTqcd0ioeiEUKfyeoeQ97ogvZ1w/r5eYCD9A9HMsFSB7rWPr+FBDtZkA5spmCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794917927;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794917959;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=Saf3SetBsCoiktrO+qd7rI13GSO6x+2RpySl+aH8Vbs=;
-	b=2cCH+PfXp4oRtne8SnXGOVDd2/QVPtZOLsxpSUemXZlAr7uQaAfl3Z874X4XfJB5Ml4H
-	 WxC97mCfQIZKcDOMjZVGafgFUTQHPtUlllIhA0qseQI97BmkEi2ywQt0hRpI5bQRT6a/I
-	 vZvq70LrUdLS0AYlwxcJ4MUWZpsKhoUX4ETtwI/lJiC9ye+i1dXI32g9jc/ZLY5hxoFvX
-	 74CDqvtNLkf3QQqxNSGJN8U9xKNJ4bbobO8+C980CYY/YEZ/ft/DIaO7PcvHhsPq44Ky4
-	 o9LjmxEFNA31M3lQ1ZJKg1Iznx+JZxpdhUcRgTtpFJu0ZsJBcUkdXu8blcoMcXIMk/Q==
+	bh=9Qo5HED32HMIac07kWLfa/dQnNfHE6QDn+AhMsssE8w=;
+	b=bSLTC6E85jpcbBperftALjgWJIZjG3QcGakTsLhyckavI6ijzf89g0LJhvq+FBXx222a
+	 JpUld8UEVSWvtuCeBrAKC+7ifYytJV/DM1lA58BdrbMk1+DBHDUy2rVpWTSJN+dGidpmX
+	 6kcJ0DRhQ3y7XJmKVBu+wyLnYAkyo7qRfNjV4JDrCT7qTvn7IkrC8t64Na2z8QOIc08lZ
+	 j4jKcivNQBpHMPwyUJKkkgVoUtKi50YIKedL6gsm1TSSsx3mQBZtJJroj+N183u7G9wEU
+	 cMySryPKZCfa8QQn7oaidoBTUy9iBow3jgoUpl2vKaUfYKiOStDgZKIHLzHbvDzQX9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=HXz3m7Jh;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=IU70th4p;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9F09606A339
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:18:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9F09606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=HXz3m7Jh;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=IU70th4p
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794917925;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Saf3SetBsCoiktrO+qd7rI13GSO6x+2RpySl+aH8Vbs=;
-	b=HXz3m7Jh/roq1qHArAsSoNXy2GvR4/JofBYDi8vH8e1hI5HNx7nWu6qxQVtJs4iDAz3+OL
-	ceg9SxhQTQX8u2cdhA4N96CWMzn7SllmVqlLbS0Jk0zDc1fXXH20Yx5kyKxXyp82CWjUSE
-	BgDDXDHUSA1iyNR/mSc/TuNhR4WsvLM=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-386-NUxpvPFcNMCFawXbfDKkDA-1; Tue, 17 Nov 2026 07:18:42 -0500
-X-MC-Unique: NUxpvPFcNMCFawXbfDKkDA-1
-X-Mimecast-MFC-AGG-ID: NUxpvPFcNMCFawXbfDKkDA_1794917921
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-492d47f142cso671052f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:18:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794917921; x=1795522721; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Saf3SetBsCoiktrO+qd7rI13GSO6x+2RpySl+aH8Vbs=;
-        b=IU70th4p55Ubx0ZuL5bmx32DVMBbG4I6m575HnjpltFOGQ7riySTZfGrVYQQFasNio
-         nE7E0tjrjVmYxWi96qoEwSndGiTSiyQBU8qle4Vtg+Z8kOUoUlLWOzondWvNEifqJiFg
-         AskPA8PD2kaS3sMb2oJyh0YlKJ5qmnPXSbI5gtJ2uAJD5SFZnjJEqNuofi1VhCzSZ0dO
-         etydb0CIiUERTqTzfqdzZGHADW3dnGfaTLlDpXiMkzwsRpSosgn3ZYEzIGpi9F4nDVlR
-         aiePleUHDMs2JQuEKMEAoN29j8ZNRaq8vvFKOogbYdKsRfUMZ1eyvsj54auahabLDmpS
-         V86w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794917921; x=1795522721;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Saf3SetBsCoiktrO+qd7rI13GSO6x+2RpySl+aH8Vbs=;
-        b=sUC+G56uC2astwdz9uzkt1bGFdSObCbwIOQosKlwij273tqKK6GeW2m1s3Yubwnr/g
-         1IeGJRAiN7Xs4hlkAdt19RIHc1DBrZ12wGmuyjZU1EE4Ed/WIaqBENJVXBu8VtQWaqQ1
-         +vZ+KriLOfNABVtUKmYUvXHd1bEWXz/PMgxdV+huYuPvz8uRv26SANEQdfYAT6Jcier6
-         Cx/4F2K+xU/KmaCpSFB8oNPa+1BTiJN1IOfbw+fFVmnP3wXHORSsWUrC3cu63kS30wI3
-         k3eqfPkhouXA0mZzD+c4ZdPh7W1w8jokzipSpnG6L7JLmFkn6gHdRFQPp9fhg8YZ0vXZ
-         PElA==
-X-Forwarded-Encrypted: i=1; AL+hErFCfxpRmPGuma3d7zQzRYz6RzO80BbmuppYL0EXPCcwUO/b4nZAOPelWlocsQukfds1KIK0HvGNNRjgMnA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8MqJ13w2uPW4y8wmsspGzXJkbrgbmnLGjJVo1jTSc1gmUQnqCx
-	orF3OKIrkbd1Ms9x3ExE5I2qBYW2d27Day0WgHT5WZ+3jpI6AvFzBqgT0lKkykgv2628coc9fhw
-	VLGpjNXIiTEcN3MaTDTiNbvFoHYHCXBUTuz7GFDT31ZoDeqf4wADgtBy1adJVUDf3vg==
-X-Gm-Gg: AZFdTZehPj0ex4xhKMvERZmz0DxPb7J46ei5toCIJF5MW0wQxWZaIdDB0JcrVPFtlqe
-	2g+2Pwsl5LHTkLKkV4+4asDE5K7l3EqmtUTrUbWzqPc3mUe5KHjoK31I3iBeNP810bqbVlyYm7J
-	8F1u9+Wiy145thUkfrrfNqyFtUdp2OzXilpmniUN8157AUoD3un8y3Jy3PHsGTzo2XgPTHQzSZg
-	0V/YusPkU0vJjQa+q7syeo1EA/lOnPNHh50fbIT87Gx0KkQtVqs673bOViw/+iTePBOOMp5VZe2
-	IQT9sZX7BdTF5x1HBwL1yVMtTU373f1SZ6Zu1N53VeEAxCq7CstAZjqvgJ4FpMdctml1qcUFUte
-	ocYNnUypTKBnqFW95YBf7INFMkeHD3Ys1p4hruBYuEPLHyteuSjfjnbMqKLUnOmbZxn/wiPIHen
-	Xi00098HYguAFMNwK88YQuWZ4Jt13OLAJH7FK/cEefIsnw
-X-Received: by 2002:a5d:64e6:0:b0:499:527f:ce55 with SMTP id ffacd0b85a97d-4a377c71e8amr6033005f8f.27.1794917921181;
-        Tue, 17 Nov 2026 04:18:41 -0800 (PST)
-X-Received: by 2002:a5d:64e6:0:b0:499:527f:ce55 with SMTP id ffacd0b85a97d-4a377c71e8amr6032937f8f.27.1794917920728;
-        Tue, 17 Nov 2026 04:18:40 -0800 (PST)
-Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c60f8d615sm28246035f8f.56.2026.11.17.04.18.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2026 04:18:38 -0800 (PST)
-Message-ID: <f781b15a-a731-4698-8161-d384af5bb535@redhat.com>
-Date: Tue, 17 Nov 2026 13:18:37 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90C76606A323;
+	Tue, 17 Nov 2026 12:19:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90C76606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 17d328e0e28111f19a56ed5b684f684d-20261117
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:c2d38929-4bc9-4092-a310-5fe27e8b968a,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:c748a0bded8e2b883384503dc73395a3,BulkI
+	D:nil,BulkQuantity:0,SF:80|81|82|83|102|136|865|898,TC:nil,Content:0|15|50
+	|99,EDM:-3|-100,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,CO
+	L:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 17d328e0e28111f19a56ed5b684f684d-20261117
+X-User: liwang@kylinos.cn
+Received: from [10.42.16.85] [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <liwang@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
+	with ESMTP id 811876433; Tue, 17 Nov 2026 20:19:10 +0800
+Message-ID: <6c6cea56-1af2-4a37-b081-83244d5e09cd@kylinos.cn>
+Date: Tue, 17 Nov 2026 20:19:07 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,39 +63,195 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net: wwan: mhi_wwan_mbim: fix dangling links on
- registration failure
-To: Xia Yan <yanxia@cmss.chinamobile.com>, netdev@vger.kernel.org,
- loic.poulain@oss.qualcomm.com, ryazanov.s.a@gmail.com
-Cc: johannes@sipsolutions.net, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, yana06070@163.com
-References: <20261111113213.280066-1-yanxia@cmss.chinamobile.com>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20261111113213.280066-1-yanxia@cmss.chinamobile.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v4] fuse: virtio-fs: fix lost wakeup on a full virtqueue
+To: Qihang <q.h.hack.winter@gmail.com>, German Maglione
+ <gmaglione@redhat.com>, Vivek Goyal <vgoyal@redhat.com>,
+ Stefan Hajnoczi <stefanha@redhat.com>, Miklos Szeredi <miklos@szeredi.hu>
+Cc: Eugenio Perez <eperezma@redhat.com>, virtualization@lists.linux.dev,
+ linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20261113091758.77678-1-q.h.hack.winter@gmail.com>
+Content-Language: en-GB
+From: Li Wang <liwang@kylinos.cn>
+In-Reply-To: <20261113091758.77678-1-q.h.hack.winter@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11/11/26 12:32, Xia Yan wrote:
-> mhi_mbim_newlink() adds the link to mbim->link_list before calling
-> register_netdevice(). If registration fails, the caller frees the
-> netdev without removing the link, leaving a dangling list entry that
-> RCU readers such as mhi_mbim_rx() can access after free.
-> 
-> Register the netdev before adding the link to the list so that failed
-> registrations do not publish a link.
-> 
-> Found while reviewing newlink error paths. A UML/KASAN test module
-> using driver wrappers and a fake MHI context reproduced the use-after-free
-> in the driver's RCU lookup. The fix passed the registration-failure and
-> create/delete tests. Both UML builds passed with W=1.
-> 
-> Fixes: aa730a9905b7 ("net: wwan: Add MHI MBIM network driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
+Hi Hang,
 
-This is not 'net' nor stable material.
+On 13/11/2026 17:17, Qihang wrote:
+> When virtio_fs_enqueue_req() returns -ENOSPC, completion processing
+> can run before the caller adds the request to queued_reqs. If no
+> further completions arrive, dispatch is never scheduled and the
+> request remains counted in in_flight, hanging queue draining.
+> 
+> Track completion progress under fsvq->lock and sample it when
+> submission fails with -ENOSPC. After queueing, schedule dispatch if
+> the sequence changed; otherwise completion processing will see the
+> queued request and schedule it. Each failed submission keeps its own
+> snapshot, so concurrent submitters cannot consume each other's wakeup.
+> 
+> Fixes: 106e4df1206b ("virtio-fs: improved request latencies when Virtio queue is full")
+> Cc: stable@vger.kernel.org # 6.11+
+> Link: https://lore.kernel.org/all/sashiko-outbox-204365@kernel.org/
+> Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
+> ---
+> Changes since v3:
+> 
+> - Only the lost-wakeup fix is included here.  v3 also carried teardown
+>   admission control; that is a separate change, not part of this patch,
+>   and nothing here depends on it.
+> - Add a completion sequence sampled per failed submission to close the
+>   window between -ENOSPC and queue insertion.
+> 
+> Runtime tests used an arm64 kernel with the separate teardown
+> admission change also applied.  The request scenarios ran before
+> admission was stopped, with fsvq->aborting remaining false.  The
+> standalone patch was not run on its own.
+> 
+> - Filled the request virtqueue and held the submitter between -ENOSPC and
+>   queue insertion while real device completions ran.  The unpatched
+>   kernel hung in virtio_fs_drain_queue(); this change finished the drain.
+> - Held the dispatch worker in the same place.  The unpatched kernel
+>   stranded the request; this change rescheduled dispatch once more and
+>   every request finished.
+> - Kept the queue full without completions: dispatch did not reschedule
+>   itself in a loop.
+> 
+>  fs/fuse/virtio_fs.c | 29 ++++++++++++++++++++++++-----
+>  1 file changed, 24 insertions(+), 5 deletions(-)
+> 
+> diff --git a/fs/fuse/virtio_fs.c b/fs/fuse/virtio_fs.c
+> index e445398..68aeaa6 100644
+> --- a/fs/fuse/virtio_fs.c
+> +++ b/fs/fuse/virtio_fs.c
+> @@ -55,6 +55,7 @@ struct virtio_fs_vq {
+>  	struct work_struct dispatch_work;
+>  	struct fuse_dev *fud;
+>  	bool connected;
+> +	u64 completion_seq; /* completion progress under lock */
+>  	long in_flight;
+>  	struct completion in_flight_zero; /* No inflight requests */
+>  	struct kobject *kobj;
+> @@ -99,7 +100,7 @@ struct virtio_fs_req_work {
+>  
+>  static int virtio_fs_enqueue_req(struct virtio_fs_vq *fsvq,
+>  				 struct fuse_req *req, bool in_flight,
+> -				 gfp_t gfp);
+> +				 gfp_t gfp, u64 *completion_seq);
+>  
+>  static const struct constant_table dax_param_enums[] = {
+>  	{"always",	FUSE_VDAX_ALWAYS },
+> @@ -348,6 +349,7 @@ static void virtio_fs_start_all_queues(struct virtio_fs *fs)
+>  		fsvq = &fs->vqs[i];
+>  		spin_lock(&fsvq->lock);
+>  		fsvq->connected = true;
+> +		fsvq->completion_seq = 0;
+>  		spin_unlock(&fsvq->lock);
+>  	}
+>  }
+> @@ -576,6 +578,7 @@ static void virtio_fs_request_dispatch_work(struct work_struct *work)
+>  	/* Dispatch pending requests */
+>  	while (1) {
+>  		unsigned int flags;
+> +		u64 completion_seq;
+>  
+>  		spin_lock(&fsvq->lock);
+>  		req = list_first_entry_or_null(&fsvq->queued_reqs,
+> @@ -588,12 +591,15 @@ static void virtio_fs_request_dispatch_work(struct work_struct *work)
+>  		spin_unlock(&fsvq->lock);
+>  
+>  		flags = memalloc_nofs_save();
+> -		ret = virtio_fs_enqueue_req(fsvq, req, true, GFP_KERNEL);
+> +		ret = virtio_fs_enqueue_req(fsvq, req, true, GFP_KERNEL,
+> +					    &completion_seq);
+>  		memalloc_nofs_restore(flags);
+>  		if (ret < 0) {
+>  			if (ret == -ENOSPC) {
+>  				spin_lock(&fsvq->lock);
+>  				list_add_tail(&req->list, &fsvq->queued_reqs);
+> +				if (completion_seq != fsvq->completion_seq)
+> +					schedule_work(&fsvq->dispatch_work);
+>  				spin_unlock(&fsvq->lock);
+>  				return;
+>  			}
+> @@ -902,6 +908,8 @@ static void virtio_fs_requests_done_work(struct work_struct *work)
+>  
+>  	/* Try to push previously queued requests, as the queue might no longer be full */
+>  	spin_lock(&fsvq->lock);
+> +	/* Record progress for submitters not yet on queued_reqs. */
+> +	fsvq->completion_seq++;
+>  	if (!list_empty(&fsvq->queued_reqs))
+>  		schedule_work(&fsvq->dispatch_work);
+>  	spin_unlock(&fsvq->lock);
+> @@ -1418,10 +1426,15 @@ static unsigned int sg_init_fuse_args(struct scatterlist *sg,
+>  	return total_sgs;
+>  }
+>  
+> -/* Add a request to a virtqueue and kick the device */
+> +/*
+> + * Add a request to a virtqueue and kick the device.  On -ENOSPC, return the
+> + * completion sequence under the same lock as the failed submission.  If it
+> + * changes before the caller queues the request, the caller must schedule
+> + * dispatch itself: done_work may have run before the request was queued.
+> + */
+>  static int virtio_fs_enqueue_req(struct virtio_fs_vq *fsvq,
+>  				 struct fuse_req *req, bool in_flight,
+> -				 gfp_t gfp)
+> +				 gfp_t gfp, u64 *completion_seq)
+>  {
+>  	/* requests need at least 4 elements */
+>  	struct scatterlist *stack_sgs[6];
+> @@ -1488,6 +1501,8 @@ static int virtio_fs_enqueue_req(struct virtio_fs_vq *fsvq,
+>  	vq = fsvq->vq;
+>  	ret = virtqueue_add_sgs(vq, sgs, out_sgs, in_sgs, req, GFP_ATOMIC);
+>  	if (ret < 0) {
+> +		if (ret == -ENOSPC)
+> +			*completion_seq = fsvq->completion_seq;
+>  		spin_unlock(&fsvq->lock);
+>  		goto out;
+>  	}
+> @@ -1529,6 +1544,7 @@ static void virtio_fs_send_req(struct fuse_iqueue *fiq, struct fuse_req *req)
+>  	unsigned int queue_id;
+>  	struct virtio_fs *fs;
+>  	struct virtio_fs_vq *fsvq;
+> +	u64 completion_seq;
+>  	int ret;
+>  
+>  	fuse_request_assign_unique(fiq, req);
+> @@ -1545,7 +1561,8 @@ static void virtio_fs_send_req(struct fuse_iqueue *fiq, struct fuse_req *req)
+>  		 queue_id);
+>  
+>  	fsvq = &fs->vqs[queue_id];
+> -	ret = virtio_fs_enqueue_req(fsvq, req, false, GFP_ATOMIC);
+> +	ret = virtio_fs_enqueue_req(fsvq, req, false, GFP_ATOMIC,
+> +				    &completion_seq);
+>  	if (ret < 0) {
+>  		if (ret == -ENOSPC) {
+>  			/*
+> @@ -1555,6 +1572,8 @@ static void virtio_fs_send_req(struct fuse_iqueue *fiq, struct fuse_req *req)
+>  			spin_lock(&fsvq->lock);
+>  			list_add_tail(&req->list, &fsvq->queued_reqs);
+>  			inc_in_flight_req(fsvq);
+> +			if (completion_seq != fsvq->completion_seq)
+> +				schedule_work(&fsvq->dispatch_work);
+>  			spin_unlock(&fsvq->lock);
+>  			return;
+>  		}
 
-/P
+Regarding handling -ENOSPC, it looks like we can simplify things similar to 
+how send_forget_request() does it:
+
+If -ENOSPC is encountered while holding fsvq->lock, we can simply use 
+list_add_tail() to queue it into queued_reqs. For newly submitted requests, 
+we increment via inc_in_flight_req().
+
+virtio_fs_send_req() and virtio_fs_request_dispatch_work() can just return 
+immediately upon seeing -ENOSPC, avoiding a second lock acquisition and re-queuing.
+
+With this approach, we won't need completion_seq, per-call sequence snapshots, 
+or an extra scheduling step from the submitter side.
+
+Thanks,
+Li Wang
 
