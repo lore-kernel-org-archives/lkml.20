@@ -1,67 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794877510;
-	b=XHGZoFV0e/YZHNeuWfk6tXeQ31y2M/tiMa6VFxt3qwxylNM6mHL/LqaJpTc6UDmKwrRS
-	 HI/k2LjOT4P0Z1NQM7kwyTig7zuj0XYbNCMq22pZz87DIfABUR8w0WCx8iPLufZyjpw36
-	 0PbLCzaUbXpVWx7nfOLhi5OX1fBzzQWvKJVreS7Bkv7Sw0JRqooYGusu/AKEwHgCTgXT0
-	 bfhcxPe8YB+HfeqjEzoy68+623ajaiOatn97Njm+eQwzYe7KhVZtMGMHCCLq7/7wbBzIo
-	 62OMTisdON3voFCcZ2Z59seAhCoUX4DwOZsK+yknIiOOnm3XMYcB6mJrAzDhLSj2GBQ==
+	t=1794877507;
+	b=cvCtlP2M/CUhAXwCCMt0+Vlx4AnhVv0MC/xmmr0zK+3rQQ96UIjs87CccjaYhv9TesQ4
+	 uSNMQBLNFhGuOfguyfV3z/0v5OfOK71aQnVivudpR1etBJKqbgd5Aj0aOOTVtS2ILWzfN
+	 SwyaDoVjFulK76lMA9+bLgi69MjXw/AmkLCZR4vOORtacJbCzGfdpWMhl+EZ+qW6z8w2D
+	 enTtjmGuZiEHCcXN23RXZ4jFOAjX734sfJE1MzxTES5nFJa+MiXVKU4Da2kaugw5mq+Cw
+	 6g+dequazim7Z3vVQXeGDKrfMQ2bpc48H5RRyKo90Lv1KQpFFfoPZRbF+b2QGBjVRgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794877510;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794877507;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=XeumyvQCd4S7fdZQ7muXokPzHhKB+s9W6ReNA6vfRRU=;
-	b=D793VnoZQejOY6rZuwCnusI0UU6g+1EcCt/tKRESUFD3lYn1oHKuyTujQLAn6eBqKxGo
-	 4TzYUe4M9MmEA1sCqtPbSk7fkAwHVm/gJAQX4o8JOPToS/UFx3VWljYvHI9XnY/R7wUqx
-	 QYgNs151EJ9JYIuB/QwFE0WtdEY08ABsWXRGNSLdHU/2Vt807kp+LmK3ErmNRRgHVXWav
-	 0IOSi5nC0lPTMMmzFEOjQ6sOpya8isd0vuWxZBBNUOLWf1YEcY8twUCfIVJZhpNbbH1/A
-	 GBEUyrBPZVq7BKZVYOyX3oA28hNwFpR7fpeVeUFjwzVQY2unjbmE3EbpwIHTkZ+92Wg==
+	bh=bAKWIAVqDT3AcQkpi2qynUpaTpqH3SIx5CGznaLOzLM=;
+	b=IzHloWCTFCX4wcJJTKTuD7l5vHD1MPtY+wa1sFeM9CIenYBCasPGg4WFcqrCINVNMMhl
+	 bCE2QID/HGNvJTn9udCeOX6LmhJg3yFH2qRgIt6ATvsGxYEPYBD2MxEk2SPbVPDUsQxyG
+	 07V9xXPuUHlEhyo4hA1uWT9TXxGjFmyVPUqZuR1idH0YjBJuogQ4XK0M8OqBALfED5C5b
+	 6T2OOIwBFCsQid01fl3VpEO6Ke54YXlPsau6lLU7hAQs+OhMECQCkR/u7ijQOVHGgqnEc
+	 mOY1ebsJJHBAK/gvkvV18oNtyP6gK+6gpEdPQA5EDb1T7g+y80Da1jA/5skphs5Ix3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o2UqY+RG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MCxGRqoo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3F31606A88E;
-	Tue, 17 Nov 2026 01:05:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60ECA606A323;
+	Tue, 17 Nov 2026 01:05:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o2UqY+RG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 961731F00927;
-	Tue, 17 Nov 2026 01:05:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MCxGRqoo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 093AE1F000CC;
+	Tue, 17 Nov 2026 01:05:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794877509;
-	bh=XeumyvQCd4S7fdZQ7muXokPzHhKB+s9W6ReNA6vfRRU=;
+	s=k20260515; t=1794877507;
+	bh=bAKWIAVqDT3AcQkpi2qynUpaTpqH3SIx5CGznaLOzLM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=o2UqY+RGiTi36xq1ul6k5AVgFFAbbS5+trAbtVFgiFgHWbwvHHI23/ZjzsUIeKj7g
-	 8ZrsmoEcr8lWqdS0xhGetz3edCbDYaae9UqVfRG+rFfYJr/szWvXKlOMyj+Q+CZEv2
-	 R3WpPyGmcJsOgozeF6+S8iv8Tr3m6Kye85h0JtxO4pWeT7+eKSPx+5bLuQ1DYb35se
-	 qC0UlKHBE1jpAE8DWDCfF7Zrje7xwcqiZUnDETvjND/4a5Jb0VorIGh82PwOT1S2ws
-	 aXCqxEcNaDjKsBq5SB14RUxO48qz95aD//1bB10lADj2AycmiQVXcWvWKnOSNQ9WuL
-	 U7SxiZ/srNYog==
+	b=MCxGRqooq5Vy3Ft5sWW1NSrM9EcCDMvHyt8pPFxyp+1L0mzZa3rsXD+y39F99+6pa
+	 8BxF5yirjGiIZl3NneUN4/LVEqzcQ/TfXbKdeQdXmnGMz0JMX9Y3GqEQaFfOs0kLYT
+	 KbgkIxA3RmnHAoDYRucY2UQud3C01BXrua6w7gt6UYpv2Se6RRAl+NZNz/Wk2nSUqr
+	 c/erAXbs3V8IdJfBEW66qczkMIa9faoWu87SK0t0Ml8NtQRySZ/H6XCBnmuNlZ0HGn
+	 zaBxrKC4QLQS6MoyzKGeF+NmC8n1ifqnIRLRqxkXjhWY1BbKg4BECOIJ5MLdef0KMA
+	 w3e06CVN9OT3w==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-Cc: aiqun.yu@oss.qualcomm.com,
-	tingwei.zhang@oss.qualcomm.com,
-	trilok.soni@oss.qualcomm.com,
-	yijie.yang@oss.qualcomm.com,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Tengfei Fan <quic_tengfan@quicinc.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Ling Xu <quic_lxu5@quicinc.com>,
+	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Cc: Bharath Kumar <quic_bkumar@quicinc.com>,
+	Chenna Kesava Raju <quic_chennak@quicinc.com>,
 	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Chunkai Deng <chunkai.deng@oss.qualcomm.com>,
-	Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH 0/5] arm64: dts: qcom: Introduce Maili platform device tree
-Date: Mon, 16 Nov 2026 19:04:45 -0600
-Message-ID: <179487749292.432567.1836788904518743298.b4-ty@b4>
+	stable@kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: lemans: Remove secure FastRPC context bank
+Date: Mon, 16 Nov 2026 19:04:43 -0600
+Message-ID: <179487749347.432567.13609391802226605329.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260922-maili-dts-v1-0-ac2b1b76bfd9@oss.qualcomm.com>
-References: <20260922-maili-dts-v1-0-ac2b1b76bfd9@oss.qualcomm.com>
+In-Reply-To: <20261111-lemanscb10-v1-1-7164700b7be6@oss.qualcomm.com>
+References: <20261111-lemanscb10-v1-1-7164700b7be6@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,42 +76,20 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 22 Sep 2026 16:19:57 -0700, Jingyi Wang wrote:
-> Introduce the Device Tree for the recently announced Snapdragon SoC from Qualcomm:
-> https://www.qualcomm.com/smartphones/products/8-series/snapdragon-8-elite-gen-6-mobile-platform
+On Wed, 11 Nov 2026 22:18:32 +0530, Ekansh Gupta wrote:
+> FastRPC context bank 10 is reserved for the secure PD feature available
+> in downstream. The secure PD feature is not supported upstream and the
+> context bank must not be used by any other PD.
 > 
-> Add bindings and base Device Tree for the Maili SoC, MTP (Mobile Test Platform) which enables
-> boot-to-shell with ufs, PCIE, sdcard, usb, DSPs, PMIC related, tsense, bus, crypto etc.
-> 
-> Features added and enabled:
-> - CPUs with PSCI idle states and cpufreq
-> - Interrupt-controller with PDC wakeup support
-> - Timers, TCSR Clock Controllers
-> - Reserved Shared memory
-> - GCC/RPMHCC/videocc/gpucc
-> - TLMM
-> - Interconnect with CPU BWMONs
-> - QuP with uart
-> - SMMU
-> - RPMHPD and regulator
-> - UFS with inline crypto engine (ICE)
-> - LLCC
-> - Watchdog
-> - cDSP, aDSP with SMP2P and fastrpc
-> - BUS with I2C and SPI
-> - USB2/USB3/type-C
-> - Modem and SoCCP
-> - SDHCI
-> - random number generator (RNG)
-> - tsens
-> - PCIe
+> Using this context bank for a non-secure PD results in an SMMU
+> non-secure global fault.
 > 
 > [...]
 
 Applied, thanks!
 
-[5/5] arm64: dts: qcom: maili: Add base MTP board
-      commit: f3f4200857b386dad64487aca359741965aedb10
+[1/1] arm64: dts: qcom: lemans: Remove secure FastRPC context bank
+      commit: 38281f5b033a639c4e92bd699d14d42d0d79e7fa
 
 Best regards,
 -- 
