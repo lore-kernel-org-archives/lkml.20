@@ -1,75 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794875122;
-	b=fYJnJGM5jYM3uTeDfqt2g5BC3/KK2PokgF3CCPAkwz/XwZTz6atyX8/zcwK14MMSwRTW
-	 4OncA+ahXZaJtIP2BdMvRsPMNKl4d5zXbkmiuKdtpXbQgJOZW4C/Oz7OkAMC7Os5ELrVv
-	 UgavYU6JUeLYKmiJNzvTLUbDzLNxiW8gEQq/L+4kUZugf3qJNOP+1atVo8lh3iyixvdjy
-	 jN3o9lDEUCtOMd9+aVc6Evyuh/USmjnSKCJ6+X2EpMmANAXY7rbaEdJEVZ9YQ2zb7EM3m
-	 QHQziDEp38D9hHQTuuZMKfuf0opQAMxOh0YHtISMgGtKpaJfgzCdDQwopdY6od9+oqA==
+	t=1794875429;
+	b=yRMxRik1cCgfcHyRUaymT8QyQJf2HY419k9OlhY6LGO/3IfCQ9HPWZHjgpNjEb1Qh+Ho
+	 h0XRuaTHuqD7yJKEw5zBcDIAfTyauhFenDy4bAiLCWSfEzi2fY1oL0orUFg1O1oWiiK+g
+	 U/b0MmQk5gS1QAsCIV8LjVtX3naYZU+uFB//ADwCiSwKBgekoG4CXsbtTZvC91IVmbIYm
+	 1xxd/YDCb6qIEqTAK9z26/OFhXP2OnbT3MwFN3+gNnVlUsxnk2BiZ3he6DpLpGh1RcYmJ
+	 JJMXSPd0T0neNfJ7TKrU/3p3UKZDf/BvV84t3FQ0GRVuaGGFa2kUdAAVAoZRulR3Yaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794875122;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:Cc:In-Reply-To:Subject:Date:Message-ID:
-	 MIME-Version:Content-Transfer-Encoding:X-Mailer:Thread-Index:
-	 Content-Language:X-CMS-MailID:X-Msg-Generator:Content-Type:CMS-TYPE:
-	 cpgsPolicy:X-CFilter-Loop:X-CMS-RootMailID:References;
-	bh=QGgWgQaBDnFhyxITg/5JYi2mF4ivdfxPk9uPLffvh5Y=;
-	b=kHgtjJnQKoxo5YG1K3icXP5kVyaG500ZrK/JBy/y4FD15aFGCiOBbZm536rqmiEWTI3q
-	 uv394w/IpCzlgSqahf1WvxK1ELjbKN4tIYVT6oUCT/ekwmHmPd1EQhLXbDMpZgSQ1q8kR
-	 l7sTd3PZyrtsoaX28pbHJB2chzssEGI944JRd8zu5y7PE+xV0s7AgjFOBNQlji04tWS2k
-	 yWUPT1zxSyi3dP2gSnJhHRw3SEavrP+jZ2dEnW/BjbDqqJzUvl7IJILrjuIxAWIreQH32
-	 SaLyd9y/iqhNOBfycly3bnH9HLlOIz3KYxjnUHda0yUh7RM+sRkQQEkoSJWSU6K+UzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794875429;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=U2B/uabe/QmuXvbvHoYk8ZWVeldXL8jP6hg7gbVv3cw=;
+	b=zwJnUREsamVwSdhONsvX3l79e1JkxTM1poLHzAC1rHaWxm2aQIvpLX/UX8sdVz5QE4q9
+	 7EBsOjvgS/PN/pyb+0VF4COqkuj0YKXDuP8NHX9xT9a4Ek1QlCV359hR2a+YL+k+OpS06
+	 xYQk5qlVQXoNzVa2VlEnIFC/et5MQ5Fv3F8Ax+etWlPpcAwB28cX+eyxQ3QKJimtrYBiI
+	 qca0Qr7xAeEI6ry7VML6CfY7alzHPBfW2FzM+yx5s2J3UgkhHzkQg0yYXpAiInsIQ31h6
+	 YNyDjua3+pnlYcJQ02A3d+lcuCA7DxjbGYn1N1g037VgIy+Dvwurx9Mz+yMKZVol7UQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=fKZARoek;
-	arc=none smtp.remote-ip=203.254.224.25
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GaOC5+JJ;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CFCC606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 00:25:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CFCC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53111606A323;
+	Tue, 17 Nov 2026 00:30:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53111606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=fKZARoek
-Received: from epcas1p3.samsung.com (unknown [182.195.41.47])
-	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261117002511epoutp02d1c8a5343e1409ebb2e78b6960e4a00d~orWeWRHvi0602606026epoutp02O
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 00:25:11 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261117002511epoutp02d1c8a5343e1409ebb2e78b6960e4a00d~orWeWRHvi0602606026epoutp02O
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1794875111;
-	bh=QGgWgQaBDnFhyxITg/5JYi2mF4ivdfxPk9uPLffvh5Y=;
-	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
-	b=fKZARoekz5MXZptPOTwvUaYiQeqEyxcZTqLWUOKCpKiUeFymtnqX/CGGKjTo6dC7B
-	 pH7rppThAaYxWBlmWffL7v0Wd/e25kfi6tfA+SATBKsu1ltOu5voeZiFvwdE13v41Y
-	 x5AsGnG9MGfOz8CYYaLwDa5AG2KJe7oHxNLEy3No=
-Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
-	epcas1p1.samsung.com (KnoxPortal) with ESMTPS id
-	20261117002511epcas1p1cbe40920668da17a8929d2b8413456ec~orWeAUQLU1254312543epcas1p1B;
-	Tue, 17 Nov 2026 00:25:11 +0000 (GMT)
-Received: from epcas1p1.samsung.com (unknown [182.195.38.116]) by
-	epsnrtp01.localdomain (Postfix) with ESMTP id 4jT5930lsjz6B9m5; Tue, 17 Nov
-	2026 00:25:11 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas1p3.samsung.com (KnoxPortal) with ESMTPA id
-	20261117002510epcas1p375a79d93a0869035c4a60515a3e5f5c3~orWdI6qpy3154231542epcas1p35;
-	Tue, 17 Nov 2026 00:25:10 +0000 (GMT)
-Received: from gichoonhan02 (unknown [10.88.99.189]) by epsmtip2.samsung.com
-	(KnoxPortal) with ESMTPA id
-	20261117002510epsmtip28a571dc1e9b9308c6790eb6aa07979d8~orWdGBtyv0355303553epsmtip2U;
-	Tue, 17 Nov 2026 00:25:10 +0000 (GMT)
-From: <gichoon.han@samsung.com>
-To: "'Alan Stern'" <stern@rowland.harvard.edu>
-Cc: "'Greg Kroah-Hartman'" <gregkh@linuxfoundation.org>, "'Takashi Iwai'"
-	<tiwai@suse.de>, <linux-usb@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-In-Reply-To: <5ed0f4b7-beb3-4059-9e12-b9738af65d91@rowland.harvard.edu>
-Subject: RE: [PATCH] usb: host: ehci-sched: Don't let a bogus siTD remaining
- length underflow
-Date: Tue, 17 Nov 2026 09:25:10 +0900
-Message-ID: <000001dd762a$1b15f230$5141d690$@samsung.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GaOC5+JJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794875429; x=1826411429;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=8gVBDSdO3QnCkbysAcQxx5Ix2FP39pCUquIV8ycUM/c=;
+  b=GaOC5+JJ+/9sOLtq2q8nU9Et3dEDthkP1JqORLT3X/utq69w2hGx+aY+
+   3so0i7ffyQXQbqXPFFhEecybY6/YtTt8cs6+BSNNu9XAW3kZKnDsdH3wo
+   KOeFL7ieQOMMKSXi0JOzlGb++HbPAXXmXgPwh00u6ePNeeUsil6xsIosC
+   wNX60uygoJhc12rCwHSs5hYKWIsof79Pu65SEzDoheBgCFJHT/reSXZLu
+   HtVJp/IIab0G0frzfxjs61vsRBEKxKD+nh2DKijjXShII4E6r1QN8Rnae
+   uOdmNciWduGgMLIkp5vyCYoAIFP0oUGU1RmQfLxFCgrZtF0wGAP1eKdA4
+   Q==;
+X-CSE-ConnectionGUID: LhY3yEzRQoW4VfwCzXmv/w==
+X-CSE-MsgGUID: 8htIENRYQX2bVzeYKKz2Fw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3648152"
+X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
+   d="scan'208";a="3648152"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 16:30:28 -0800
+X-CSE-ConnectionGUID: VAgfbtYiRm+5yRsw4auy4A==
+X-CSE-MsgGUID: fNNJQyq1Ri65VGTx7OzBtg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
+   d="scan'208";a="9479561"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa008.jf.intel.com with ESMTP; 16 Nov 2026 16:30:23 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xT75X-000000019f5-0w2K;
+	Tue, 17 Nov 2026 00:30:19 +0000
+Date: Tue, 17 Nov 2026 08:30:15 +0800
+From: kernel test robot <lkp@intel.com>
+To: Caleb James DeLisle <cjd@cjdns.fr>, netdev@vger.kernel.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev, andrew@lunn.ch,
+	olteanv@gmail.com, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com, chester.a.unal@arinc9.com,
+	daniel@makrotopia.org, linux@armlinux.org.uk, arinc.unal@arinc9.com,
+	Landen.Chao@mediatek.com, dqfext@gmail.com, sean.wang@mediatek.com,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, naseefkm@gmail.com,
+	b.larsson@gmx.com, Caleb James DeLisle <cjd@cjdns.fr>
+Subject: Re: [net-next v5 3/7] net: dsa: mediatek: add support for
+ passthrough mode
+Message-ID: <202611170845.l4X9RRsI-lkp@intel.com>
+References: <20261116183332.168858-4-cjd@cjdns.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,136 +92,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQJAw0W1MzUdd2pxp7jiVwua62XKywEoK6GMAU9T2V22VxCWEA==
-Content-Language: ko
-X-CMS-MailID: 20261117002510epcas1p375a79d93a0869035c4a60515a3e5f5c3
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 101P
-cpgsPolicy: CPGSC10-702,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261116052855epcas1p403c518b90d70d98752ad0ca2d9ac05e9
-References: <CGME20261116052855epcas1p403c518b90d70d98752ad0ca2d9ac05e9@epcas1p4.samsung.com>
-	<20261116052851.2272125-1-gichoon.han@samsung.com>
-	<5ed0f4b7-beb3-4059-9e12-b9738af65d91@rowland.harvard.edu>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116183332.168858-4-cjd@cjdns.fr>
 
-On Mon, Nov 16, 2026 at ..., Alan Stern wrote:
-> The type of CPU doesn't matter as much as the type of EHCI controller,
-> since you're talking about a controller hardware bug.
+Hi Caleb,
 
-Fair point.  It is the on-chip EHCI controller of a Novatek TV SoC
-(DT compatible "nvt,NT72668-ehci"), driven by ehci-hcd through a
-vendor platform glue that is not in mainline.
+kernel test robot noticed the following build warnings:
 
-> Actually the bug lies in the host controller hardware.  Not the driver.
+[auto build test WARNING on 7ccc5e05043b1bb84326b19a2b05938d8f7a2ae6]
 
-Agreed, I'll fix the wording.
+url:    https://github.com/intel-lab-lkp/linux/commits/Caleb-James-DeLisle/net-dsa-mt7530-get-ctrl-phy-addr-using-a-function/20261116-183326
+base:   7ccc5e05043b1bb84326b19a2b05938d8f7a2ae6
+patch link:    https://lore.kernel.org/r/20261116183332.168858-4-cjd%40cjdns.fr
+patch subject: [net-next v5 3/7] net: dsa: mediatek: add support for passthrough mode
+config: arm-randconfig-1003-20261117 (https://download.01.org/0day-ci/archive/20261117/202611170845.l4X9RRsI-lkp@intel.com/config)
+compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project 6009708b4367171ccdbf4b5905cb6a803753fe18)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261117/202611170845.l4X9RRsI-lkp@intel.com/reproduce)
 
-> So you have no way of knowing whether this patch really fixes the
-> problem?
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611170845.l4X9RRsI-lkp@intel.com/
 
-Not directly, no.  I don't have the siTD contents from the failing
-device, so the claim that the controller wrote a remaining count
-larger than the programmed length is an inference: the faulting
-memcpy() still had about 122 KB left to copy out of a full-speed
-packet, which can be at most 1023 bytes, and this subtraction is the
-only place in the path that can produce a value that large.
+All warnings (new ones prefixed by >>):
 
-What the patch does guarantee is narrower: whatever the controller
-writes into the siTD, ehci-hcd never hands a class driver an
-actual_length larger than the requested length.  The crash itself is
-already prevented on the ALSA side.
+>> Warning: drivers/net/dsa/mt7530.c:1410 function parameter 'dp' not described in 'mt753x_upstream_port_index'
+>> Warning: drivers/net/dsa/mt7530.c:1410 function parameter 'dp' not described in 'mt753x_upstream_port_index'
 
-If you think that is not enough to justify the change without
-hardware confirmation, I'm fine with dropping it.  Otherwise I'll
-send a v2 with the controller identified and the wording fixed.
-
-Thanks,
-Gichoon
-
------Original Message-----
-From: Alan Stern <stern@rowland.harvard.edu> 
-Sent: Tuesday, November 17, 2026 3:09 AM
-To: Gichoon Han <gichoon.han@samsung.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>; Takashi Iwai
-<tiwai@suse.de>; linux-usb@vger.kernel.org; linux-kernel@vger.kernel.org;
-stable@vger.kernel.org
-Subject: Re: [PATCH] usb: host: ehci-sched: Don't let a bogus siTD remaining
-length underflow
-
-On Mon, Nov 16, 2026 at 02:28:51PM +0900, Gichoon Han wrote:
-> sitd_complete() computes the received length of a split isochronous 
-> packet as desc->length - SITD_LENGTH(t), where SITD_LENGTH() is the 
-> "Total Bytes to Transfer" count the controller leaves in the siTD.
-> Nothing checks that this remaining count is not larger than what was 
-> programmed.  If the controller reports a larger value, the unsigned 
-> subtraction wraps and the class driver gets an actual_length of nearly 
-> 4 GiB for a packet that can hold at most 1023 bytes.
-> 
-> This was seen on an ARM32 system (vendor 5.4 kernel; this code is
-
-The type of CPU doesn't matter as much as the type of EHCI controller, since
-you're talking about a controller hardware bug.
-
-> unchanged in mainline) with a full-speed UAC1 microphone behind a 
-> high-speed hub.  snd-usb-audio trusted the value and read far past the 
-> URB transfer buffer:
-> 
->   Unable to handle kernel paging request at virtual address e8756000
->   Internal error: Oops: 7 [#1] PREEMPT SMP ARM
-> 
-> The register state at the fault is only consistent with a wrapped 
-> actual_length coming from this path.
-> 
-> snd-usb-audio now rejects such packets (commit eed0e9583a29 ("ALSA:
-> usb-audio: Drop capture packets with bogus actual_length")), but as 
-> noted when that was applied, the bug really lies in the host 
-> controller driver,
-
-Actually the bug lies in the host controller hardware.  Not the driver.
-
->  and other class drivers trust actual_length too.
-> 
-> Treat a remaining count larger than the programmed length as a 
-> protocol error instead of reporting a wrapped length.
-> 
-> Link: https://lore.kernel.org/r/87se19ufoi.wl-tiwai@suse.de
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Gichoon Han <gichoon.han@samsung.com>
-> ---
-> Compile-tested only (ARM32, W=1) on linux-next.  I could not capture 
-> the siTD contents on the affected hardware; the wrapped value is 
-> inferred from the oops above.
-
-So you have no way of knowing whether this patch really fixes the problem?
-
-Alan Stern
-
->  drivers/usb/host/ehci-sched.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/usb/host/ehci-sched.c 
-> b/drivers/usb/host/ehci-sched.c index 57d07d1c2dfa..12a10248a4b6 
-> 100644
-> --- a/drivers/usb/host/ehci-sched.c
-> +++ b/drivers/usb/host/ehci-sched.c
-> @@ -2241,6 +2241,10 @@ static bool sitd_complete(struct ehci_hcd *ehci,
-struct ehci_sitd *sitd)
->  	} else if (unlikely(t & SITD_STS_ACTIVE)) {
->  		/* URB was too late */
->  		urb->error_count++;
-> +	} else if (unlikely(SITD_LENGTH(t) > desc->length)) {
-> +		/* controller claims more left than was programmed */
-> +		urb->error_count++;
-> +		desc->status = -EPROTO;
->  	} else {
->  		desc->status = 0;
->  		desc->actual_length = desc->length - SITD_LENGTH(t);
-> 
-> base-commit: 84abb955b1015477aa11a96e2f3ac1b938b77f48
-> --
-> 2.25.1
-
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
