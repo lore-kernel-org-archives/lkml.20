@@ -1,93 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.132
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794898833;
-	b=iq6F7J3yEij229tRqpkmxjYPRlljbA1LF7W7MEGpu7alXwMeZuSmnqmpJqsjjPrSO9pL
-	 wzSf8ptzr1PdaCJZFKkGMvRsDno1e4W9a8/gKzdQYBEJ0tPmotDiB+FKc+mA0FIA+etN+
-	 PzczEk1uu0/bHb4M2OpMXj2e8yQsz5cJBx27XpFHIkD6YrewMSwX0JNJ+gj1Z7MY/z1fs
-	 NVe+t933XP3qgDwnHmD4ppvTHF7TkXDUbK2PDTUXWgcYgJlCQadfrcP1V8aFsxtFcKjOp
-	 i2xZeWtJnnzbBoGvnPjwgFoeQ80LpofbWz2o6wkn7WTZGky99lyqe0+cRleGvqxeINA==
+	t=1794898853;
+	b=pgUnfaE0vGbxLVZkN6c34zjrDp6xRlT/2pLtdikhKEfDbTvV/DgzOXgxPp13QNuROQ43
+	 o2316Xrtc6VGSIsoIl04SPT83BR8wpFMm94Y37vU8Rn/X1i2WiAiOSVH7wEqpRD+jfMTm
+	 9yJ+6D2t0N8h0sbPPD6Ie+6CNrY+MUg/ovcUCcuKOnWH5H3GwJIihoMay5MdpZzTJlVtH
+	 qgQ61SJGu5ao6tFPWEj5iy9/kPk0NuqjIK6nmX/sn8+vYOO8TLqWNWo0Tile+uN3kZEPl
+	 XTNRnsNPHRUj8Bgb3Vqb/QyNfhXGbDXEWaY9EPxi0WTs7ggcYX7c+tLMcY1fRXXXtjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794898833;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794898853;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=U3P0AtUP4KhdIQUUOen9w3NNVWGFvqPKse8JMMmbPrs=;
-	b=xzpmRJFtO3pQnNE5yX833rgpfL2nvMKGXYE4TqqOVCGlcQEV3928DlFbJmWvFqUyPjwk
-	 f/kunxNV1ZgZUwvfTSMRy7/GbbeIivRNTNQrymxWsb5beo5zelBBb1Njg6t0TR3jE0BDm
-	 DV/iwtA0O4gZYPTdRV4+OhYzJmedoaAJxi7jbOnny2ZTs1GKaCyLqJHkinb3OM/LFLB17
-	 FBHkqKtnMlExx6Q74VHMYpjL0swkuK7exjMA6tzH9bTODAt2hVZc5xDUVQAuMSBPV/oQO
-	 Lcb2AkaBG6W2reZcWtxZeNl6Et0O6c49cY2x959oumkqZc2SgtbQj5eMMbSeb/85uqg==
+	bh=1YXPcLXzICaGPRz8rHCfa6s3tChPEmNKPoNy40HFGsk=;
+	b=HNLBmUC9vfIN/u5FlvkgnEDWkEFwt4Idy4A80VcOeGTyLapsFKrUal1NwWSyjWYjYmvK
+	 hZTfCq8W2sp+b8uwQc4EpUl6W+kARhuzFT//zNfRgsEEPYg3yGjhyIuHXBVqaC9WmNmF/
+	 i02tGiu1a760jzn6PmsOX6l43gSaTvbBjJdezkG7MsMDEDxFj8Ar3AJgX+0bO5WRa42m4
+	 0rqY6/rkitYB57QL7gvZi3glMMtHrtRskRSI2lQ2wctptbsMZmsEyXYZ4LnyGd1f6SIdy
+	 zQOuRZuYnJ9RC0gkqJk0N3O1rnKUwYlvXaAwoc0qw/qY4xExUEDw5zCTTtliJfx66vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JyJIe8xr;
-	arc=none smtp.remote-ip=209.85.216.46
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=Wz293g4Y;
+	arc=none smtp.remote-ip=115.124.30.132
+Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 138B1606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:00:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 138B1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 523AE606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:00:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 523AE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JyJIe8xr
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3b094e649d3so3598466a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:00:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794898832; x=1795503632; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=U3P0AtUP4KhdIQUUOen9w3NNVWGFvqPKse8JMMmbPrs=;
-        b=JyJIe8xrk8xiPUcvsHsEcRidnCdGZFjXxFdcxtG9o/wo/7nJen4lULHEYLucXN892I
-         brfSu6eMC3cvnBddRolr9i9OaBVwWnKHwjS+MGhD+4BS/0IgLpqf+e/PUnvtdB0ZVExf
-         fjTe/a2Ryz5+eu3H8kO7D24iao8U1xUZW3YgNLpGfwS3CY7/Ug6fOffhKeLK+QXydZgl
-         UQMdGanFjm88jDaG91628TPNrjrCguTiZEVSjIYkZ7yvpv8fNhNNLDRVF58fUURAxa03
-         wNuf3M+CVZD7JKbQGGS8ATay8rWNbUzcQRqHgaIZEHKJiDlB/uHL/gkCGDHi4Q2vq4Yv
-         5ilw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794898832; x=1795503632;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=U3P0AtUP4KhdIQUUOen9w3NNVWGFvqPKse8JMMmbPrs=;
-        b=kXZir7xW3RBaRxrh881x/90fgSSGEgknVZZLM+gYUHUdOzC7fjbVPBbJUz6e0rQL5Q
-         nfmqHv7+RGThpJ9pFxqiCMxM8z64UdhgZ+xgsTvvZxsQUhRJpPt4LFbLlIE6FgYkVD++
-         MsgX965af5GEQGsGXIVatxDnvOuiiUbs2iecypsc3qhBG51Ofjnvz5RYnRoBa86a3m4x
-         z9KMfDSaicntomJPY5OMf9/tTYc39iDfPg5y1sSWnD6tBKgct+iywPuBw8Q69AvZCpgd
-         gjI+6EmHp1Nd8dlmkawd3cYZfl8qNDM+n4qwUrCBFrqMA5L4flqeQnVaXAX4aKe9BZEy
-         B7pw==
-X-Forwarded-Encrypted: i=1; AL+hErGS8TyN8k8euvNIjNoRNvaYdJTAXOowOgOvqjT9tKQRSkHxWSq/c7msPg1mU1e9wlo5A9mtASKUZNnSr1Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ywRZoGax+ddwveQ04gQd0gIl5TSKsG3MXQh7SqYpJ0qipUEvZ
-	WeQ+x3yAREHsmLRwe/7QRiR59MjE2fSmqsFvyYepTMJ6n3ItHBdNTVDj
-X-Gm-Gg: AZFdTZewYTfSjPSiKvPeHtu8eTna/nIlYyJ64+h0vVlEJzhMkCEeMXrJLxPHkSQVSF7
-	bSMRvmbsc0o+wCfGmF4TEmxay7xOPqg2/YFn3qAyVXU8PhaV9HNGOWSwKq9S1bNSHSIPX3NGie0
-	BkvVYeDJiBV7YOt93zvj2jBf6kAgJ0RmkK10i8+i8WWNqXFBsvbT4ngUbCAbe9xrwPsoA59eva4
-	jlO3iK1/0EHijem5jWA29IhMR0p1c9ljjLhrK2uGMq53B+MQOm/4Y1EiNDvthxm4tvuczEaX+f3
-	7RZHavghr1fBGE1nWpiqsJiEtkYmdPNnSSq2mYs0lPqUH8Ha+soH8oOauxyGFI0/o4bJtXbpCeD
-	qaKjoMK0LIkCue//WIZYYMo38OHotE8FVc82ppFi8LL/pyWGJtxZSJqQxpZQfiXwrjN2kzI0ITZ
-	ogIBTw8izjASg8Qf01Xt1gCGW0SE5KA1hPh4fg+7egSwU+kT+r7m7+v4uYlSEO5A/5CBpQ4kOMW
-	V3K1CFkEVJx7IWyWswlnOK7fuO7EAwqGiw80cqtSVW3mM/1cwidJA5sLeYVnvZOag4+SK3GGHai
-	KN94DMBz6ZnsxPEj80hhaOx8iKpXctBijurJzQ==
-X-Received: by 2002:a17:90b:3c4e:b0:3ae:c413:c07e with SMTP id 98e67ed59e1d1-3b1b0b667bfmr11646462a91.14.1794898832250;
-        Mon, 16 Nov 2026 23:00:32 -0800 (PST)
-Received: from hp.mioffice.cn ([2408:8607:1b00:8:401e:3331:e6b7:ac3a])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3ac4d98b8sm2492672a91.13.2026.11.16.23.00.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 23:00:31 -0800 (PST)
-From: huang zheng <huangzheng9869@gmail.com>
-To: jaegeuk@kernel.org,
-	chao@kernel.org
-Cc: linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	huangzheng1@xiaomi.com,
-	Huang Zheng <huangzheng9869@gmail.com>
-Subject: [PATCH v3] f2fs: add checkpoint step timing statistics to debugfs
-Date: Tue, 17 Nov 2026 15:00:16 +0800
-Message-ID: <20261117070016.3457670-1-huangzheng9869@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=Wz293g4Y
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1794898849; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=1YXPcLXzICaGPRz8rHCfa6s3tChPEmNKPoNy40HFGsk=;
+	b=Wz293g4YeWfkJzWjAfGhc3WtyR93RApz0uJjlZ9fQYHqvRbpV5uLU78rV42OCarL53yXXKiuOIHW0YikKevBIgwfk+LpSuIBkZElnkS9CdGhJWDCxenypmUc1mYii39J2W9xbSAWfgTLxhk2jptN+IH7BWMI0XuSXzGveT58VO4=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R791e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=15;SR=0;TI=SMTPD_---0XEyG6TV_1794898846;
+Received: from localhost.localdomain(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XEyG6TV_1794898846 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 17 Nov 2026 15:00:48 +0800
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+To: akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org
+Cc: riel@surriel.com,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	harry@kernel.org,
+	jannh@google.com,
+	lance.yang@linux.dev,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	baolin.wang@linux.alibaba.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] mm: use memory barriers for non PMD-sized folios to sync
+Date: Tue, 17 Nov 2026 15:00:30 +0800
+Message-ID: <6274e62645b9f176dd10d7a79e86b900a39cec5f.1794898535.git.baolin.wang@linux.alibaba.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,125 +73,182 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Huang Zheng <huangzheng9869@gmail.com>
+Commit 243cf1f67b36 ("mm: memory: fix truncation removing mapped folios")
+uses PMD lock via sync_with_folio_pmd_zap() to synchronize when a cleared
+PMD is found while unmapping a folio.
 
-This patch adds detailed timing statistics for each checkpoint step
-to the debugfs stat_show interface. It displays the time taken by
-each phase of the checkpoint process, including:
+However, for non PMD-sized folios, the only PMD clear that can race with
+this unmap is PTE table reclaim, which clears the PMD only after the rmaps
+for the table have been removed. This is plain message passing, and taking
+the PMD lock is more than needed, like I did in the previous patch[1].
 
-- lock acquisition
-- block operations
-- flushing data/node/meta pages
-- flushing NAT/SIT
-- syncing metadata
-- waiting for dirty meta/checkpoint data
-- device flushing
-- waiting for last checkpoint
+Without barriers, the walker can observe the cleared PMD but a stale
+mapcount on weakly ordered architectures:
 
-This information is valuable for debugging checkpoint performance
-issues and identifying which steps are taking the most time during
-the checkpoint process.
+CPU 0 (unmap folio)                 CPU 1 (MADV_DONTNEED, full PMD)
+================================    ================================
+folio_lock()
+                                    lock(ptl)
+                                    clear PTEs
+                                    remove rmaps   /* W mapcount */
+[mapcount load satisfied early,
+ folio still mapped]
+                                    pmd_clear()    /* W pmd */
+                                    unlock(ptl)
+pmdp_get_lockless() -> none         /* R pmd */
+skip the PMD
+folio_mapped() -> true              /* R mapcount, stale */
+unmapping assumed to have failed
 
-The statistics show the longest recorded time for each step, helping
-developers and users understand where checkpoint bottlenecks occur.
+Pairing an smp_wmb() before the PMD clear with an smp_rmb() after the
+PMD read forbids this outcome:
 
-Signed-off-by: Huang Zheng <huangzheng1@xiaomi.com>
+CPU 0 (unmap folio)                 CPU 1 (MADV_DONTNEED, full PMD)
+================================    ================================
+                                    remove rmaps   /* W mapcount */
+                                    smp_wmb()
+                                    pmd_clear()    /* W pmd */
+pmdp_get_lockless() -> none         /* R pmd */
+smp_rmb()
+folio_mapped()                      /* R mapcount */
+
+If R pmd observes W pmd, R mapcount must observe W mapcount, so
+folio_mapped() no longer reports the removed mappings.
+
+Pass a 'folio' parameter to sync_with_folio_pmd_zap(), allowing us to
+skip those pfn walkers: pfn_mkclean_range and mapping_wrprotect_range,
+which don't need synchronization.
+
+Similarly, skip sync for page_mapped_in_vma() since the subsequent
+operations don't check the folio's mapcount.
+
+No changes for PMD-sized folios unmapping.
+
+[1] https://lore.kernel.org/all/542c97482eae84f86704bcee56482633d1b32321.1791616645.git.baolin.wang@linux.alibaba.com/
+Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 ---
-v2:
-- Use the global lock f2fs_stat_lock to keep statistics consistent 
-when updating cp stat data in the super block
-- The qualify test result as follow:
-
-#cat /sys/kernel/debug/f2fs/status
-
-CP steps (longest):
-  - Total : 524(ms)
-  - lock : 0(ms)
-  - block_operation : 13(ms)
-  - flush_data_node_meta : 0(ms)
-  - flush_nat : 93(ms)
-  - flush_sit : 56(ms)
-  - sync_meta : 32(ms)
-  - sync_cp_meta : 0(ms)
-  - wait_dirty_meta : 0(ms)
-  - wait_cp_data : 0(ms)
-  - flush_device : 0(ms)
-  - wait_last_cp : 0(ms)
-  - unblock_operation : 327(ms)
-
-v3:
-- As `f2fs_stat_lock` depends on `CONFIG_DEBUG_FS`, `check_cp_time` updates stats even when `CONFIG_DEBUG_FS` is disabled. 
-  Revise the stat concurrency protection using `stat_lock` resides in `f2fs_sb_info`. 
+Changes from v1:
+ - Pass in a folio for sync_with_folio_pmd_zap(), per David.
 ---
- fs/f2fs/checkpoint.c |  2 ++
- fs/f2fs/debug.c      | 30 ++++++++++++++++++++++++++++++
- 2 files changed, 32 insertions(+)
+ include/linux/rmap.h |  2 ++
+ mm/internal.h        | 26 ++++++++++++++++++++++----
+ mm/memory.c          | 12 ++++++++++--
+ mm/page_vma_mapped.c |  4 ++--
+ 4 files changed, 36 insertions(+), 8 deletions(-)
 
-diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
-index 5c5b45d3c67b..bbf8bc9a9f34 100644
---- a/fs/f2fs/checkpoint.c
-+++ b/fs/f2fs/checkpoint.c
-@@ -1738,7 +1738,9 @@ static inline void check_cp_time(struct f2fs_sb_info *sbi, struct cp_control *cp
- 					cpc->stats.times[CP_TIME_START]);
+diff --git a/include/linux/rmap.h b/include/linux/rmap.h
+index 74cca0e3c726..62e7341de179 100644
+--- a/include/linux/rmap.h
++++ b/include/linux/rmap.h
+@@ -862,6 +862,7 @@ struct page *make_device_exclusive(struct mm_struct *mm, unsigned long addr,
+ #define PVMW_PGTABLE_CROSSED	(1 << 16)
  
- 	if (cur_diff > sb_diff) {
-+		spin_lock(&sbi->stat_lock);
- 		sbi->cp_stats = cpc->stats;
-+		spin_unlock(&sbi->stat_lock);
- 		if (cur_diff < CP_LONG_LATENCY_THRESHOLD)
- 			return;
+ struct page_vma_mapped_walk {
++	struct folio *folio;
+ 	unsigned long pfn;
+ 	unsigned long nr_pages;
+ 	pgoff_t pgoff;	/* Only meaningful if nr_pages > 1 and not a KSM walk */
+@@ -876,6 +877,7 @@ struct page_vma_mapped_walk {
  
-diff --git a/fs/f2fs/debug.c b/fs/f2fs/debug.c
-index 6fe606e2c70d..4fa44eb38bc8 100644
---- a/fs/f2fs/debug.c
-+++ b/fs/f2fs/debug.c
-@@ -445,9 +445,26 @@ static const char *ipu_mode_names[F2FS_IPU_MAX] = {
- 	[F2FS_IPU_HONOR_OPU_WRITE]	= "HONOR_OPU_WRITE",
- };
- 
-+static const char *cp_time_names[CP_TIME_MAX] = {
-+	[CP_TIME_START]		= "begin",
-+	[CP_TIME_LOCK]		= "lock",
-+	[CP_TIME_OP_LOCK]	= "block_operation",
-+	[CP_TIME_MERGE_WRITE]	= "flush_data_node_meta",
-+	[CP_TIME_FLUSH_NAT]	= "flush_nat",
-+	[CP_TIME_FLUSH_SIT]	= "flush_sit",
-+	[CP_TIME_SYNC_META]	= "sync_meta",
-+	[CP_TIME_SYNC_CP_META]	= "sync_cp_meta",
-+	[CP_TIME_WAIT_DIRTY_META] = "wait_dirty_meta",
-+	[CP_TIME_WAIT_CP_DATA]	= "wait_cp_data",
-+	[CP_TIME_FLUSH_DEVICE]	= "flush_device",
-+	[CP_TIME_WAIT_LAST_CP]	= "wait_last_cp",
-+	[CP_TIME_END]		= "unblock_operation",
-+};
-+
- static int stat_show(struct seq_file *s, void *v)
+ #define DEFINE_FOLIO_VMA_WALK(name, _folio, _vma, _address, _flags)	\
+ 	struct page_vma_mapped_walk name = {				\
++		.folio = _folio,					\
+ 		.pfn = folio_pfn(_folio),				\
+ 		.nr_pages = folio_nr_pages(_folio),			\
+ 		.pgoff = folio_pgoff(_folio),				\
+diff --git a/mm/internal.h b/mm/internal.h
+index cd3675c044e0..ad7e051cb198 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -592,6 +592,7 @@ void pmd_install(struct mm_struct *mm, pmd_t *pmd, pgtable_t *pte);
+  * sync_with_folio_pmd_zap - sync with concurrent zapping of folios
+  * @mm: The mm_struct.
+  * @pmdp: Pointer to the pmd that was found to be pmd_none().
++ * @folio: The folio being zapped.
+  *
+  * When we find a pmd_none() while unmapping a folio without holding the PTL,
+  * zap_huge_pmd() may have cleared the PMD but not yet updated the folio
+@@ -600,13 +601,30 @@ void pmd_install(struct mm_struct *mm, pmd_t *pmd, pgtable_t *pte);
+  * against later mapcount reads. Skipping the PMD without synchronization
+  * could make folio unmapping code assume that unmapping failed.
+  *
+- * Wait for concurrent zapping to complete by grabbing the PTL.
++ * Wait for concurrent zapping to complete by grabbing the PTL for PMD-sized
++ * folios, otherwise smp_rmb() is sufficient.
+  */
+-static inline void sync_with_folio_pmd_zap(struct mm_struct *mm, pmd_t *pmdp)
++static inline void sync_with_folio_pmd_zap(struct mm_struct *mm,
++		pmd_t *pmdp, struct folio *folio)
  {
- 	struct f2fs_stat_info *si;
-+	struct cp_stats ct;
- 	int i = 0, j = 0;
+-	spinlock_t *ptl = pmd_lock(mm, pmdp);
++	if (folio_test_pmd_mappable(folio)) {
++		spinlock_t *ptl = pmd_lock(mm, pmdp);
  
- 	spin_lock(&f2fs_stat_lock);
-@@ -631,6 +648,19 @@ static int stat_show(struct seq_file *s, void *v)
- 		seq_printf(s, "  - Total : %4d\n", si->nr_total_ckpt);
- 		seq_printf(s, "  - Cur time : %4d(ms)\n", si->cur_ckpt_time);
- 		seq_printf(s, "  - Peak time : %4d(ms)\n", si->peak_ckpt_time);
+-	spin_unlock(ptl);
++		spin_unlock(ptl);
++		return;
++	}
 +
-+		spin_lock(&sbi->stat_lock);
-+		ct = sbi->cp_stats;
-+		spin_unlock(&sbi->stat_lock);
-+
-+		seq_puts(s, "CP steps (longest):\n");
-+		seq_printf(s, "  - Total : %llu(ms)\n",
-+			   (u64)ktime_ms_delta(ct.times[CP_TIME_END],
-+					ct.times[CP_TIME_START]));
-+		for (j = 0; j < CP_TIME_MAX - 1; j++)
-+			seq_printf(s, "  - %s : %llu(ms)\n", cp_time_names[j + 1],
-+				   (u64)ktime_ms_delta(ct.times[j + 1], ct.times[j]));
-+
- 		seq_printf(s, "GC calls: %d (gc_thread: %d)\n",
- 			   si->gc_call_count[BACKGROUND] +
- 			   si->gc_call_count[FOREGROUND],
++	/*
++	 * For non PMD-sized folios zapping, concurrent zap_empty_pte_table()
++	 * may clear the PMD after the rmaps for the table have been removed,
++	 * but later mapcount reads could still be observed before the PMD
++	 * read, making the folio appear to be still mapped after unmapping.
++	 * Order the PMD read before later mapcount reads, so that observing
++	 * the cleared PMD implies observing the rmap removals.
++	 *
++	 * Pairs with smp_wmb() in zap_pte_range().
++	 */
++	smp_rmb();
+ }
+ 
+ struct zap_details;
+diff --git a/mm/memory.c b/mm/memory.c
+index 529a9189e426..dcf205175f71 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -2054,8 +2054,15 @@ static unsigned long zap_pte_range(struct mmu_gather *tlb,
+ 	 * Clear the PMD after the rmaps for the table have been removed, in case
+ 	 * an incorrect mapcount is observed after unmapping the folio.
+ 	 */
+-	if (can_reclaim_pt && direct_reclaim && addr == end)
++	if (can_reclaim_pt && direct_reclaim && addr == end) {
++		/*
++		 * rmap changes need to be observed before page tables get zapped.
++		 *
++		 * Pairs with smp_rmb() in sync_with_folio_pmd_zap().
++		 */
++		smp_wmb();
+ 		direct_reclaim = zap_empty_pte_table(mm, pmd, ptl, &pmdval);
++	}
+ 	pte_unmap_unlock(start_pte, ptl);
+ 
+ 	/*
+@@ -2110,7 +2117,8 @@ static inline unsigned long zap_pmd_range(struct mmu_gather *tlb,
+ 			/* fall through */
+ 		} else if (pmd_none(*pmd)) {
+ 			if (details && details->single_folio)
+-				sync_with_folio_pmd_zap(tlb->mm, pmd);
++				sync_with_folio_pmd_zap(tlb->mm, pmd,
++							details->single_folio);
+ 			addr = next;
+ 			continue;
+ 		}
+diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+index a931243ca42b..9b72ac408c70 100644
+--- a/mm/page_vma_mapped.c
++++ b/mm/page_vma_mapped.c
+@@ -294,8 +294,8 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+ 			spin_unlock(pvmw->ptl);
+ 			pvmw->ptl = NULL;
+ 		} else if (!pmd_present(pmde)) {
+-			if (pvmw->flags & PVMW_SYNC)
+-				sync_with_folio_pmd_zap(mm, pvmw->pmd);
++			if ((pvmw->flags & PVMW_SYNC) && pvmw->folio)
++				sync_with_folio_pmd_zap(mm, pvmw->pmd, pvmw->folio);
+ 
+ 			goto next_pmd;
+ 		}
 -- 
-2.43.0
+2.47.3
 
