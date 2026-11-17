@@ -1,100 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794927836;
-	b=EkpVsk77lLL0Ic3zjrerkfjm/gBIsd/ms7blghgRNx7aXJV0PirsV2cdwQwhZIs/2KGw
-	 AaAk32suKxWf4uPENIm1Q1Oi0brdzmLI1RJRLeqhv+J5oM8jIACYj31/OoKWrPYEWdkMT
-	 gTk3Yb5SDxrVTX0vModFGZLYtZeAcvb4he/Zri8K1iax+O4ii7NwQyfbi+OerNM/VpGA0
-	 q7ZZr5Gs9IrW6miJ/fIf1wdYOcpYZWbIgFHaKTm2kzy4QjPdiqbD3jx9uBPSi5GR9+9Pl
-	 a8AJcDlD9ZjG5fRkg5Q1zE2LQitN7YyVooxBbGd13lJiia8p0burY/uMM/555+QRExA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794927836;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=UR0Gfgv/fdEsWHImhEXrlTh92/mXRBGXB0/jlnan5Vo=;
-	b=dPzrNT5zq5C2XQv5jR3Iy5SmMo8z4urzvUtWl1wia6ml7Co0DVsKx+sfEA7EPsIQe6tz
-	 yFhdYq0QlKZkmbnARH3V2kgm3OdoGAlJOkqz0HkSU6pqnjbrnpoZ8Rf1e1joB+lRKnKOy
-	 Iwt1w5Mc++oJk290R4loDMJBtvjWcXS4+Vj9rh7hGAHwaT39WYCO7OYulCvWRosId9UAS
-	 RvcKq/k6V+6mq/huqWCV5i9wYKDDVflzaDhK2821QVg+a+mpOYvAh7Whyxc3q97uNkVwI
-	 poMbRq5+xLss1OlezCzs9teLmluYsLIgoAmTBZGGgtGO5Lj03bEgtB+8O5dOe7PKYhA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=RLgZDS+t;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.54
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.118
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794927855;
+	b=Vgq2uFoLwvJi4aNrHg5NzK6M/9sVl0SEk+zeQqybYHXxj1WGnNr1OQG0h6sUB5L6bk9o
+	 gfEndFduVcqQ0NX0O2/5he1HDHF+LU9sWT22QFRrVPraoaKa1xnYRkep4kJBoxQZ5u9A0
+	 NNgAwD0VvpDFhSQWkUUJeC2mR0ZxqENjga6EywySFdEHaDDxlyhN+O/6Is4DYscd72OOk
+	 vMaFQZT/1rdl9Hi/tJF0jhKzuNBoZ64lZuZKZb8PMdzxEnDNZUwebl0eqV9wL4PuPIPdg
+	 OT+c3JSJmRkTf+3crJPSqG2lYjprcgjjY5EGoTWiJnwL8O84220OdqlcnpWAn4HkEcQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794927855;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=pzx1xyaW4sUUsdz2pDb9Y+wGAMP4JHlewv5IqeGTNg8=;
+	b=Q1dgXp0VKBla70SEZgBuIOeTdrVC+TgoFZsUDYm06JDAuiM/mpspy8xJHzeifoZ7v9TE
+	 lZf/M4Iw4ijYk1I9Oz5TJLzZ1Qd3F+lM8/xFO2Ly4nGfFR8kU0ZlmmQGuIt13H/b99oe3
+	 NomyV6WIzEHAB1H4mzrkBpu+zNxvtsKhe1dZEnyc8EnQxz7v0/FEwnb/nG5s6qAvevzqR
+	 dgxPMTUB1VHby/xSEd+Dh/sodzVmy2bFG4UQHhpiqRDPqT4U4G6z8yivC7EAMzDMrGNx/
+	 DWrDu4pPumK2UAJ8yoqlj6nxD0eb0QeFy6D2fsO9CoI3GFLiZ9uMRozknNsDehV/c7g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=logarcheon.com;
+	spf=pass smtp.mailfrom=logarcheon.com;
+	dkim=pass header.d=logarcheon.com header.i=@logarcheon.com header.a=rsa-sha256 header.s=protonmail3 header.b=aPCppup2;
+	arc=none smtp.remote-ip=109.224.244.118
+Received: from mail-244118.protonmail.ch (mail-244118.protonmail.ch [109.224.244.118])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BA56606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:03:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BA56606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51A2F606A31C;
+	Tue, 17 Nov 2026 15:04:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51A2F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=logarcheon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=logarcheon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=RLgZDS+t
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5c14bc5a743so10196e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:03:56 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794927835; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YFgPrsX94eF2p0ecBZ8S5TBwgjyDYiMSu2bvegOwdPY6j/uxADZHOrk9z8HImaD+Fy
-         ifibgW9mCPdZ88BLg6VtQJemRs6676q6di+kNLKhDat39WwpPwiF454goX9NSWgoD/Nr
-         ee31znd3Y28MDje/1PrvMId1BX0aQYiEmUapuAW0TRchwIeegFWjgjblRvaKSp0eJcrs
-         VqWfxAkFLaaXnpG66eugSAoW6I/P/iGsS0HDngeg6GDW/OID3dRLCr8bXzOExeQzSaoo
-         35mAzQyxylX5VZEN7mm4XQ6zPSRXGnhkw5f2krr+8ZJ8QCTCf4CFtNzgJdtphyO/8giV
-         nuXg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=UR0Gfgv/fdEsWHImhEXrlTh92/mXRBGXB0/jlnan5Vo=;
-        fh=B8bghf4lCBaQnUTSO6Wlvlurtrw9cmZFTVF7vM1ArpY=;
-        b=C/uLT6zac9EqJ7eFwBjXarFvJv9DPtn/wVeulb3QM4Ti+nzbs3EVoz2cBluPRwah3j
-         /eNszvG4rd37rripYn9zPpI7Cq3RqtzSrM5pbMIXVzRuTwtqee0ytJM8g61XCQG5A7Ni
-         ny3AVXTgLmVm8QL8rY3FsEvXQzpSUn0OQXdGMdUM3wSMzoG8fl4woZ18xfUWJObTDcq/
-         EFdJ8ALqC0Yf9Z5cosEMvBmmdhapO+sYqFrNAQjq/LVvV81olp4NcmLj6/a6mLQUpPLQ
-         a2kFybaUzNSU0Hojdxhwb5UIxRDmqIje1rEjrTaeoeFewGDpeC4zap3NMkxDCQ2hcitP
-         Z8dg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794927835; x=1795532635; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UR0Gfgv/fdEsWHImhEXrlTh92/mXRBGXB0/jlnan5Vo=;
-        b=RLgZDS+tUgc+aaNm9VRRya/8Y5bVpU4/cnLDxlbXQR24Gg5ANKvAXTLTsFYt2NCIp0
-         2jyd5aeguZJl1ctNFBKuwfCP8SbVTnExWnMKW3Fv0poSqRoXhOMUMcWnTHNuuPMkEZZW
-         VTUXELdZNIIKZd7vVYOYo0ZBBmTopJdjskXM7GNk1gDPZZbSFJghrNYpil+4I2MCEzE5
-         2PzAI+sGRJSChS27Q/oSTVEq3+DBnGcdSMXh01K9y7TcThm4Fkw4xVhjciQJ40RZVrcS
-         L62FCt+c9SrrGjUIx3SR5Oom/VMjwoSwn1FAUhMKLgUr1NmtdvCAnJZM+Ieelqyj0/9c
-         I4ag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794927835; x=1795532635;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=UR0Gfgv/fdEsWHImhEXrlTh92/mXRBGXB0/jlnan5Vo=;
-        b=dV/nXlg4d7bN7Dfm8dn7XeG/vVTgilzq87hetrhMXxvn04cVVKOiqSn7LthqM68243
-         uE7B8rwtiwfgm0/za/xUVAWXkzmwaLRdKsT80slwDF3diu+ZjeCy/wF6/XjAZXGAon7v
-         wD28oqWIaQ75oXnvUUJ+dK8+2VZ66/7LRvbkD/rn5CNgIHxJWQHXHXcioycCgE9g2oWI
-         8kgUfqnnqRWJUbS00b6urfogKEERsFUtH3dyBClkIG9LPHdPOtvBiODBqbXXo2kNl6bk
-         0of603dagJHtOAeeGjVZROxlf+3WHG3ZJ/s7/g2NHJGYDkAYF9XP+JGu47EQMPiSBrvL
-         e1gg==
-X-Forwarded-Encrypted: i=1; AL+hErGHaOsEkWtwJ7tCSZBqftdmsD/YPkj4gUKHzRU4XRKRS7d51Mveuo7SkxS+I2/H/urUTKC3x9ZO34yPqDw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/6Dw4wrYm+aRPe32xGlGovS/hq2C7ZNVdiT/hDUK1D9cp0IOV0
-	5MZUsKA1fFyflHImUQ+V2NwMPzj1mh3lYH5wtaohNK2peQm2fbAguP6dD98z9r4xJq+WRUuK1RV
-	eFqPGn3RJqPkughMQYTvoSCsyI7AlxlmfToGRKmiA
-X-Gm-Gg: AYBFou3LgK0xglz7lO4AwMmCE3lzJ2MWZf5+Jx10Qpsa5aBybvzkZC9lzKF89naOXcz
-	zg2x2hImNRYIv2XFIn1G08mb+7LGTFzca7jhR2yEGa5UYpVe0cJOTRaJCko3a1M3iWlOKA5LI8H
-	EfqFZaYEXLRw2YM/rR2kfiFcXyY9TIuZQ8j9NNfOCRYX0rzaRT7gQkd16tyKQVFLuuGeopT8Liw
-	55+ts8zu4KEBWjhGcJOKaLgjFePfJSMDuootbHKQjmSFAH6Zv5FhuOS8TrrEP/sdLW7uOFCZg8q
-	vW8nAd0US2qglhn6WWgXUc/Al+h2wLPlG6pwUTj0doMl5nX/nXlR67Ni7nEeRwWmxrope9NwzC1
-	rqygp9iIEDPMHeq6+mu9wD9Ny96AZ8Sd8n2dmlAx6TAsk7AgEX2OOtr2ZNeyS5ayTMTiN0UwxC+
-	40W4wPAR6K8PkdpOjT/enonp/t
-X-Received: by 2002:a05:6512:2249:b0:5c1:543d:2e3e with SMTP id
- 2adb3069b0e04-5c1a2166b35mr171174e87.7.1794927834031; Tue, 17 Nov 2026
- 07:03:54 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=logarcheon.com header.i=@logarcheon.com header.a=rsa-sha256 header.s=protonmail3 header.b=aPCppup2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=logarcheon.com;
+	s=protonmail3; t=1794927852; x=1795187052;
+	bh=pzx1xyaW4sUUsdz2pDb9Y+wGAMP4JHlewv5IqeGTNg8=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=aPCppup2m+QXQC1pRIA5uYyoA9PaPgEM2u/Bljce4E2ZYSeBeHCgq8m6Y+kFY18mG
+	 sUfxGxJrXdy0p2cIg3RZy5cwWFzxxJLIXpkeM13BW3m1KFRDxsI9hSMtYLa4XGSf9d
+	 //uXe2xrNoswYBV/yz6eRw9ny0+l9ZpMBGkjcBPwCp5/oXCYuyZ3g+8THXJfGyYz/j
+	 FDHu+nAesaXvctQMMc4jgTiZxE3DUDPUDTp5SWCOGwOXywaxX6Z5IBsnnBEfsEc7Ig
+	 UwVHAOGkJuWKDZMII5+DX+3GmNpC11JsLDlb9JYkfstu2PtQRz26fHLR3RbdNC4jg7
+	 J5R/SBbh4ndRA==
+Date: Tue, 17 Nov 2026 15:04:06 +0000
+To: Breno Leitao <leitao@debian.org>
+From: William Chuang <founder@logarcheon.com>
+Cc: Andreas Hindborg <a.hindborg@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, syzbot+c75a7db5ca6ae96ed2d4@syzkaller.appspotmail.com, syzkaller-bugs@googlegroups.com
+Subject: Re: [PATCH] configfs: give the root directory inode its own lockdep class
+Message-ID: <20261117150358.8149-1-founder@logarcheon.com>
+In-Reply-To: <20261117065314.4309-1-founder@logarcheon.com>
+References: <20261117065314.4309-1-founder@logarcheon.com>
+Feedback-ID: 145408520:user:proton
+X-Pm-Message-ID: 4a35432a783bbfda2261fff32445b853f8b7451a
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,50 +64,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116164358.142785-1-steven.price@arm.com> <20261116164358.142785-11-steven.price@arm.com>
-In-Reply-To: <20261116164358.142785-11-steven.price@arm.com>
-From: Fuad Tabba <tabba@google.com>
-Date: Tue, 17 Nov 2026 15:02:00 +0000
-X-Gm-Features: AclHuK_cslY3zjG6J6IGbNXJdnealsL3yNGOi2bev9GDyOWEmQLYI5dVsAlimaY
-Message-ID: <CA+EHjTy-0k08Ukyo+4mmzqVn9UjRnvhy=BQT9kxSj7CBzzwO_Q@mail.gmail.com>
-Subject: Re: [PATCH v3 10/11] KVM: arm64: Dispatch stage-2 destruction by VM flavor
-To: Steven Price <steven.price@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, 
-	Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>, Will Deacon <will@kernel.org>, 
-	James Morse <james.morse@arm.com>, Oliver Upton <oliver.upton@linux.dev>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Joey Gouly <joey.gouly@arm.com>, Alexandru Elisei <alexandru.elisei@arm.com>, 
-	Christoffer Dall <christoffer.dall@arm.com>, linux-coco@lists.linux.dev, 
-	Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>, Gavin Shan <gshan@redhat.com>, 
-	Shanker Donthineni <sdonthineni@nvidia.com>, Alper Gun <alpergun@google.com>, 
-	"Aneesh Kumar K . V" <aneesh.kumar@kernel.org>, Emi Kisanuki <fj0570is@fujitsu.com>, 
-	Vishal Annapurve <vannapurve@google.com>, WeiLin.Chang@arm.com, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Kohei Enju <enju.kohei@fujitsu.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Steven,
+On Tue, Nov 17, 2026, Sashiko AI review wrote:
+> Does assigning a separate lockdep class to the configfs root inode's
+> i_rwsem hide a real ABBA deadlock between renameat2() and mkdir()?
 
-On Mon, 16 Nov 2026 16:43:56 +0000, Steven Price <steven.price@arm.com> wrote:
-[...]
-> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-[...]
->  static void kvm_stage2_destroy(struct kvm_pgtable *pgt)
->  {
->          struct kvm *kvm = kvm_s2_mmu_to_kvm(pgt->mmu);
-> -        unsigned int ia_bits = VTCR_EL2_IPA(pgt->mmu->vtcr);
-> -
-> -        /*
-> -         * Realm RTTs are inaccessible to the host and may contain stale data
-> -         * after the RMM has released them. The non-root RTTs are explicitly
-> -         * destroyed through RMI before the RD is destroyed; only the root PGD
-> -         * pages remain to be freed here.
-> -         */
-> -        if (!kvm_vm_is_realm(kvm))
-> -                stage2_destroy_range(pgt, 0, BIT(ia_bits));
+Yes, and the deadlock is real.  Please drop this patch.
 
-Could this patch go before patch 4? Then patch 4 wouldn't need to add
-this check.
+My analysis missed rename(): lock_rename() locks both parent
+directories before vfs_rename() finds that configfs has no ->rename(),
+and when one parent is the configfs root, the root is locked first.
+mkdir() of target/usb_gadget/naa.<wwn>/tpgt_1 runs with the naa.<wwn>
+directory locked by the VFS, and usbg_make_tpg() then locks the root in
+configfs_depend_item_unlocked().  The two orders are opposite.
 
-Cheers,
-/fuad
+Reproduced on mainline 666539eec without this patch, in QEMU (x86_64,
+2 CPUs): one process loops mkdir/rmdir of tpgt_1, another loops
+
+  rename("/sys/kernel/config/nonexistent",
+         "/sys/kernel/config/target/usb_gadget/naa.<wwn>/nonexistent")
+
+Both hang within about a second.  sysrq-w shows:
+
+  mkdir:  down_write
+          configfs_depend_item_unlocked
+          usbg_make_tpg
+          target_fabric_make_tpg
+          configfs_mkdir
+          vfs_mkdir
+
+  rename: down_write_nested
+          lock_two_directories
+          __start_renaming
+          filename_renameat2
+
+A third process doing readdir() of the configfs root then blocks in
+configfs_dir_open().  I ran the test as root; I have not checked how
+much privilege the rename() side needs.
+
+So the root lock that configfs_depend_item_unlocked() takes for a
+target in another subsystem, when called from a ->make_group()
+callback, can deadlock against rename() whatever the su_mutex chain in
+the syzbot report.  I don't have a fix to propose yet.  Is the root
+lock there only to keep the target subsystem from being unregistered
+during the dependency, or does it protect more than that?
+
+Thanks,
+William
+
