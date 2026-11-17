@@ -1,102 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.219
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794933344;
-	b=cl83e0TMzRObumKskIrn4okL2V0Zh5VuwarUc21PB87+BNDrrWHOLuJ1PpiU00DEV/eT
-	 +IljuiAnj6RuAb65WX0+6uJXfDYuyH3mzVhEQSolEB/6Khkpy7pqZjzdV7pevZusZ7d6O
-	 JXbk9onp6AU+WtamT5GVqZsxqLRRR1GxbpxetKhyd8DB2NN7TeMOPUEGsGzwIh5P0N3zM
-	 qw/+OBCojH6R4ZfLaZ+2yIbvkMljVBqCWvfu/CLH/p5iArMVaQi2grSBY55UXw/mX7OEg
-	 1rn/FOnlJwWwjyYxM/yzjTeT8YMmtW7n6hoOVgDm1hbEHP5/tt6bM28/VpAXt2YXE5g==
+	t=1794933415;
+	b=5bOhCRtgsSb9cvZe0M7gWku66UTMRoR7xmqs7pVHq6ErKMp8halyldv20X77dH+3w0Am
+	 qDVj1RFGYtCyAuWo/18RuQ4QDRYiwNQ8SEIGjUuQCVezoEF1UFRYNOo9a8OLLXVtngDzc
+	 SDen2VULCWZr6CFCMxMHRmz99YLQTagMqKU02uRSjGSQChvDGWreUe9l8lCZ0UZlRcEV2
+	 Aj3S6IQoDUrNQ1i/8U3f5fAoL5s45q9l3DugkamwffXY+aeqK27KxEHJve/IThGrsNQJn
+	 E8khlUCnE3+jlpVAQuDOXRMNU891uu+KbwOn6Tq0wYYGmWjdzFUVd8ltFKBJ2iVUULg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794933344;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type;
-	bh=XOOROMKIPXr3CQSNIxjA9uq5C/f3wnb7r92RzJgi0oU=;
-	b=cmiV89CBUNpYFytg1ZHHGu6lbfXTgsV3/zlhAA5riHJETWEnyPAKUKWg3cEVIWkS6CKw
-	 RtLoIX1Lr13gw5rXBq0hoUDn/jbU8JVuHXz4M1vCZZJVYVr98G1nWJasAO2VX1r0JPT1B
-	 Rky/Ow5VZwrndfIh7f8nHHstH9t4gkeAtqSm4RJ+MPM9w79vvoSfOmfEHcoWd2aBQOIgg
-	 Y+hUtzvJ58l0bBcvswyjd+EfBgWmk20NYSxBgTVgIKTmUd2F14Qy87k5sP2XuY4ZF+bg2
-	 SYvoOK6MStyBk5FatA2NOnw/q19l46pKZL20ABHUVuMBVWgSZfq+U571gHFC6GwyHeg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794933415;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
+	 References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=LtO2Y97atFfjM45o/5R+9MnpH4sUAPyrAmnZSjvt41g=;
+	b=GZIwVxzaQcmxAjLpfgFiJjhU6Vt6JY1nN0CYfpQDPzz/onM8f/SaZQXUCyKC5o+Q5WxO
+	 CiR44k1RaOzSzb86GGDBIL61xeRzaA7xPDoioJJ+NNf03tpYBbzFaUHMpPMQmogM/u7Z/
+	 35xqOTeK3XwVJBY+In4uB8FhWwmUQvtwMM796osJ0pb9JftA5aPw+nc8ncuKWhnNMj/CA
+	 pQpxr+2LbHbfB1IIXFI9TU+B+/oD0g1NSOIs/xWeWgLG0Ryccs/8hjOPPagriaZu8GyZI
+	 m4qXzXpOFIh1R4P+vaf3NYrRLmQSoTaXASu4BlC24fmKQFByovYgVkEyyPVNWB1ZwFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pyE2NEWb;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="E/8v1Q0f";
+	arc=none smtp.remote-ip=91.218.175.219
+Received: from mta0.migadu.com (out-219.mta0.migadu.com [91.218.175.219])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFB02606A32C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:35:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFB02606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 413E7606A32F
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:36:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 413E7606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pyE2NEWb
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so404815e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:35:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794933342; x=1795538142; darn=vger.kernel.org;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XOOROMKIPXr3CQSNIxjA9uq5C/f3wnb7r92RzJgi0oU=;
-        b=pyE2NEWbgjgnRxtgeP8OZzqnjZI0vTosGSDhziGibQl9wqRWYYG+B6fE1fCra0Ta2W
-         SJ9w0OkJjdVbt4LPYFO5ANpp1nIvROLiH2YWHFvINYAewueB+LAP9UDempZVvxFPdeCO
-         n6EN6zuQO/tiHNNadCcCF//1v0WIBNXhm618Gbpev4tjM05vw9o2xfWQYXAbrQtuNfVv
-         g8htTpo0dCMUhIcKYhOEC/1IUWCFIzv8HRMnniRtodST/hN2VLWTsyxaYT/YqFIz4CQG
-         20+IJbzgQisouSSacl3m0D9DQruurBaXzbd91L1VDrb5/7shtZRXeMKFA3kytpMJsWQv
-         muUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794933342; x=1795538142;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XOOROMKIPXr3CQSNIxjA9uq5C/f3wnb7r92RzJgi0oU=;
-        b=DN5st2mQKkuYJkDkevrAhTdiM9ISnnw/TdcYJbVYk/14OyczSkoctpuYrenlN5lhmG
-         XDsyn/nz/IAhyWDC+Emn2NHUQHl+5JWUFPhm6wib5m+TWeK5aE6tPO6ix/BmxQhPGC1X
-         63QPqJZ64lSANzREPkPbvIW/nvlzHAb53YxE9+KYdxJzQjJnYsX+3yNVROpr4Sx1eerd
-         62R6CRwr9rvb+rIk2/UTsRyUQjSijrH3TeS3RgRDXa2WQR6VT8G5bOhNlsgaWgOXwuhq
-         ylH/At7r2cdJkb36/1hQDEGYjxyvSsN0Atl1oxCFwj8AbpRhhyfWSDCh/j4/hhOXZ2+f
-         VHVA==
-X-Forwarded-Encrypted: i=1; AL+hErH2nnj3ao+MgZH3JfSNKjgezeKWRQHzUUjh3flNvrj4KWZ5r21DyLW2qI9YGaDR1EOWR1Kwwj+OYo6YsA0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+BXrBAfWxMuGFzzEl/PLdz2jhb7RCz62XWPNuJ5B180QcHIgwa
-	nKar+eh4FK3OZ6B7/8bLhWnTatv0hs+PciVCLIz8jnTEXn1gpsNguCpe
-X-Gm-Gg: AYBFou3kJqveyeFW3j3YDVEqyiodFaYksXmfxn/UQ2LXtS+cVmHxTC+61LP8yMz9Ien
-	DGpDUEhR79xKcFO+mR6nV/wBj/yWtGO39Nnp1dSBF4eG8qvvk9l6WjiN5N+zdztGKe0AOPq/oFs
-	66HUE4+JtuDhe9A+FSWIGY1yQc/TMzgbs+mz6CLJ7p/yw4xLkzgYB/gW+X3k0It//WSPJuFcIRz
-	OZuA4j7Vx0zKB9qmktteFx0yFYGZxLkzzzm/KwgfObfmQUT0RWSobo2PEs9hlZveuXVSBYb0yI0
-	+OZ4kzghFC327AY3in80Ftag7mAZzD8z46doJDOy/XoD6K9MieneOq4Uv2iAsjPQ0hmk2jqfaAq
-	z/h+H/Q58+GPBE0YsJ+eG/Pf4M0OIcfh34BT4avBeNEw1zkO56VVGLmextAd/M1gHEbzbxaxX0T
-	/WrJYoieHCuhSaUJ2D4oWjYACvZhWSYTPM+D/5eQQnFXaLDfzl8ZI6eRcT+ADf8vpEg06LPThE7
-	Pj48FBoD5ACm2I+WxljcWaOEXtERm4APD/CYGQLtfnDtuQQBQVsZcPzmJT95F14WefHmBtcbw1n
-	y3ZtxaXBnEy/T5C8Ct+F7EtEaMKwJeqSvNGattVBKmEKRaDCP10bxuSHj9sUHeuWsk0ywLTBQ9c
-	lPtmy5mQYGo7wJOkxaCilkzIg7O2DzdUciFfQA8QYeqgne6+7HqsSGqpn1zLr1lEx1fHO5gVdeG
-	nBwbVIs7gLRvfJpKyRq2nDe5NPpAkPbDs+xJd5kYeXU+7G9g11nnClYf8p8ROIIlwPHGE7buNVw
-	lww+M4veW+MqXUplObAm71L8Wc/eulTMAr9GZrMN9BHW0oa5UxCxdWzKjs=
-X-Received: by 2002:a05:600c:620a:b0:4bb:6991:2330 with SMTP id 5b1f17b1804b1-4bb69912526mr176343095e9.22.1794933342249;
-        Tue, 17 Nov 2026 08:35:42 -0800 (PST)
-Received: from jernej-laptop.localnet (95-143-148-21.dynamic.telemach.net. [95.143.148.21])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c69406640sm28919970f8f.12.2026.11.17.08.35.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 08:35:41 -0800 (PST)
-From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: Chen-Yu Tsai <wens@kernel.org>, linux-sunxi@lists.linux.dev
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Simona Vetter <simona@ffwll.ch>, Samuel Holland <samuel@sholland.org>,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
- Yang Siyuan <hsyysy@163.com>
-Subject:
- Re: [PATCH RESEND] drm/sun4i: report coverage pixel blending for
- alpha-capable planes
-Date: Tue, 17 Nov 2026 17:35:40 +0100
-Message-ID: <VyjYt3XHQ3e42-zx5UUDfg@gmail.com>
-In-Reply-To: <20261117091932.12063-1-hsyysy@163.com>
-References: <20261117091932.12063-1-hsyysy@163.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=E/8v1Q0f
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=wITi1xWZ2npOttf0kmXzox4ZAbCuBGj497SvMh9Y7rU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794933413; v=1; x=1795538213;
+ b=E/8v1Q0ft74i1SikdgnSuuEymGQNmfur10hKj6GLML9Vu2YOVGsrVOp6PZ3VIQqpJBY0/u8I
+ uR7Z7yUumqSjY2Lzw0279VELezvwz6mF7ecvyusS6pfKkkII4ByYCXYkvB3dtULCBKD9VS0ZVsM
+ TBFvwmtYuVO+CnRJ4EDQZNgI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f9f8caa2c26511e5;
+	Tue, 17 Nov 2026 16:36:53 +0000
+X-Mizu-Trace-ID: f9f8caa2c26511e5
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 17 Nov 2026 16:36:54 +0000
+From: Bradley Morgan <bradley.morgan@linux.dev>
+To: Christian Brauner <brauner@kernel.org>, Serge Hallyn <serge@hallyn.com>
+CC: =?ISO-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ Josef Bacik <josef@toxicpanda.com>, linux-security-module@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_userns=3A_security=3A_Inform_LSMs_?=
+ =?US-ASCII?Q?of_capability_check_during_userns_creation?=
+In-Reply-To: <20261117-brennen-tastatur-ekelhaft-22ee93d5200a@brauner>
+References: <20261111205814.3282968-1-bradley.morgan@linux.dev> <aveDlb6PlPSVoLD9@hallyn.com> <4A0D804A-1199-4402-91EE-E37E8D6EA9E7@linux.dev> <0c403a09-38cf-4953-a73a-ee57837b3799@hallyn.com> <20261117-brennen-tastatur-ekelhaft-22ee93d5200a@brauner>
+Message-ID: <69BA4071-048F-4D90-9936-4B4856AABDF7@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,112 +68,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-Dne torek, 17. november 2026 ob 10:19:32 Srednjeevropski standardni =C4=8Da=
-s je Yang Siyuan napisal(a):
-> Linux 7.3 added validate_blend_mode_for_alpha_formats(), which warns once
-> per plane that exposes a pixel format with an alpha channel but has no
-> blend mode property:
->=20
->   sun4i-drm display-engine: [drm] [PLANE:35:plane-0] pixel format with
->   alpha exposed but blend mode not setup. Please fix.
->=20
-> The mixer blends a layer using its own alpha channel: ALPHA_MODE is set
-> to PIXEL when plane alpha is opaque and to COMBINED otherwise, while
-> BLEND_PREMULTIPLY keeps its reset value. That is straight alpha, i.e. the
-> DRM "coverage" blending equation.
->=20
-> Advertise exactly DRM_MODE_BLEND_COVERAGE on every layer that can expose
-> an alpha format (UI always, VI on DE3 and later). This matches the
-> existing register programming, keeps userspace behaviour unchanged and
-> satisfies the new validation. Premultiplied blending would require
-> driving BLEND_PREMULTIPLY and is left as a follow-up.
+On 17 November 2026 16:31:16 GMT, Christian Brauner <brauner@kernel.org>
+wrote:
+>On Sat, Nov 14, 2026 at 08:34:07AM -0600, Serge Hallyn wrote:
+>> Nov 13, 2026 15:54:37 Bradley Morgan <bradley.morgan@linux.dev>:
+>> 
+>> > On 13 November 2026 21:39:33 GMT, "Serge E. Hallyn" <serge@hallyn.com>
+>> > wrote:
+>> >> On Wed, Nov 11, 2026 at 08:58:14PM +0000, Bradley Morgan wrote:
+>> >>> Right now security_capable() gets called in create_user_ns() to
+>snapshot
+>> >>> whether the parent could setfcap, but the LSM gets zero context on
+>where
+>> >>> the check actually came from. It is the same story as setid: without
+>a
+>> >>> dedicated flag, security modules cannot tell this apart from regular
+>> >>> capability checks.
+>> >>>
+>> >>> Add CAP_OPT_USERNS_CREATE and pass it along from create_user_ns().
+>> >>
+>> >> This should be patch 1/N in a set that introduces a user of it
+>> >> in some lsm.
+>> >
+>> > hmm. Did you read Christians suggestion?
+>> 
+>> I did, when he first sent it. Actually it seems to me that what the
+>> lsm would really like to know is that this is not for an immediate use
+>> of setfcap, but possible future use. But that doesn't really matter. I
+>> wasn't judging the patch. I was just going by what i believe is
+>> general lsm subsystem policy.
+>
+>My main point is this: right now security_capable() doesn't actually
+>specify what specific action it denies. I think we would be much better
+>served if we had an enum that would allow us to annotate places where it
+>matters what specific action is checked. I would make use of this in bpf
+>lsms.
 
-The subject says drm/sun4i, but the DE1 backend planes (sun4i_layer.c)
-also expose ARGB8888/ARGB4444/ARGB1555 without a blend mode property, so
-A10/A20/A31/A33 still trigger the warning. Either handle them in a separate
-patch or say in the commit message that this one only covers the DE2+
-mixer.
+Does this patch look okay to you? Would you like any improvements? (Except
+from adding a user) :)
 
->=20
-> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format wi=
-th alpha exposed")
+>
 
-This is incorrect. That patch only added general check. Drop the tag.
-
-> Signed-off-by: Yang Siyuan <hsyysy@163.com>
-> ---
->  drivers/gpu/drm/sun4i/sun8i_ui_layer.c | 13 +++++++++++++
->  drivers/gpu/drm/sun4i/sun8i_vi_layer.c | 14 ++++++++++++++
->  2 files changed, 27 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/sun4i/sun8i_ui_layer.c b/drivers/gpu/drm/sun=
-4i/sun8i_ui_layer.c
-> index 7d894e1eb..ef059ac47 100644
-> --- a/drivers/gpu/drm/sun4i/sun8i_ui_layer.c
-> +++ b/drivers/gpu/drm/sun4i/sun8i_ui_layer.c
-> @@ -283,6 +283,19 @@ struct sun8i_layer *sun8i_ui_layer_init_one(struct d=
-rm_device *drm,
->  		return ERR_PTR(ret);
->  	}
-> =20
-> +	/*
-> +	 * The mixer blends the layer using its own alpha channel with the
-> +	 * pixels not premultiplied (BLEND_PREMULTIPLY keeps its reset value),
-> +	 * which is the DRM "coverage" equation. Report it so that the blend
-> +	 * mode validation in drm_mode_config_validate() is satisfied.
-> +	 */
-
-Above comment doesn't add much value.
-
-> +	ret =3D drm_plane_create_blend_mode_property(&layer->plane,
-> +						   BIT(DRM_MODE_BLEND_COVERAGE));
-> +	if (ret) {
-> +		dev_err(drm->dev, "Couldn't add blend mode property\n");
-> +		return ERR_PTR(ret);
-> +	}
-> +
->  	ret =3D drm_plane_create_zpos_property(&layer->plane, index,
->  					     0, plane_cnt - 1);
->  	if (ret) {
-> diff --git a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c b/drivers/gpu/drm/sun=
-4i/sun8i_vi_layer.c
-> index 92dd5a97f..b6771576b 100644
-> --- a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-> +++ b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-> @@ -470,6 +470,20 @@ struct sun8i_layer *sun8i_vi_layer_init_one(struct d=
-rm_device *drm,
->  		}
->  	}
-> =20
-> +	/*
-> +	 * Only DE3 and later expose pixel formats with an alpha channel, and
-> +	 * the mixer blends them with straight alpha (coverage), same as the UI
-> +	 * layer.
-> +	 */
-
-And neither this.
-
-Best regards,
-Jernej
-
-> +	if (layer->cfg->de_type >=3D SUN8I_MIXER_DE3) {
-> +		ret =3D drm_plane_create_blend_mode_property(&layer->plane,
-> +							   BIT(DRM_MODE_BLEND_COVERAGE));
-> +		if (ret) {
-> +			dev_err(drm->dev, "Couldn't add blend mode property\n");
-> +			return ERR_PTR(ret);
-> +		}
-> +	}
-> +
->  	ret =3D drm_plane_create_zpos_property(&layer->plane, index,
->  					     0, plane_cnt - 1);
->  	if (ret) {
-> base-commit: 091b06388b117fefdcb63336ac09956a4914b961
->=20
-
-
-
-
+--- Thanks!
