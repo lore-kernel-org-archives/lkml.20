@@ -1,112 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794898101;
-	b=NPRfnnFxwTkd5KhMbGgrJY0u/teI+a5iuy42uWGJJ9cVCTiLqhWBv/DtKhj+s+qLUL7C
-	 +sgTGx2HQbEFQRCFugIakifEtykhHy9mQ+bCxSGJJ6LAqxPU9hzWqmIix42Ofhji+r3FQ
-	 LTiWeWGI/eEbHZqBhho5glep8TUttkNgHNB/FJHgMhesa9VdzB2NezCM3Qo5vtvkTejq6
-	 2SyZaYZ5i2ndy/ClnLsTxTlpui4/KBwXblzQbWyVh8tCCS5JbJQj/pag0HZSoNCcG/BQd
-	 RDQgQCR+IrAknXg1hdaV/PRbpVilrA7CUTA2pE8amY6sNCv9k62ImF0mKBMmik3h8Fw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794898101;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Z/dnX5/SV/KEoQ3eZLEz4TQa4serIPxwyBipxDqbnFc=;
-	b=AJnmqg3fAD8lh2JtF5Ub/26pz4jZbHt0Yu7MF+V7R0HvqBytB1zchi5s/5MjUs3LVxN3
-	 AiYDvv6BppDc7gMFjbiB+XNM7lGTyFGY3+0Dbf4k7MsNxSq05hkWBEaSMH9pihAE31XpG
-	 xLMkYM3zRumiiit2IOMuP4yeWSQ62UKHV0/6RyqBAlZR3Yo+Jsiishekp966N4UnZv3k3
-	 Mr6iMz6fC1snqPE/AMTkZRWMUDAZUWZ8sxTdYXKCh1XX78MKo9jcryy/uFPOtRxTGxsla
-	 NWXaPrm3B+bSU08Zo6fRSsi20WEbK4IVxLKb7h6G/qmRjdjXZ2wFWJWjl/KUapSbY7w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=S3TgUpv5;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LVkZCp+G;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794898225;
+	b=fru6qssPELv7A8CmZ8GbmsGFYltYhzVhUpxF/qeRFgHLieuk6ClJkPwJqNQgjxbsVZLk
+	 7otYN5yfSVf6etxbG1yKgdno4fxOwF46ZYcLGP4VXGTQXP2LeCzSsv4aRmcGPss9X/l17
+	 U9dRgFrMxHHKpoIry1WZj1VnzLB5KsDuobu4w8Rck2lEY8A7l0Ca3uIiRFoJc11u8bhgh
+	 ZSqffukDeJT2F4VwU453+nxbGlQab/Qwx2Tl7tvrYhqznNQyJoXuV9ckHW6vEEnr+ogXS
+	 oWRYyU5ysCfUQ4HKYMGmrrLtImIkb2Wn7Z5k15KjqAezuPhNOhipxMIIhIFZ/buZaIA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794898225;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=w2ujTW8JKgVpi8GBaPpe+a6Vi5r6q/k7HuBea5FdHPY=;
+	b=GcyB6UCOztZAQX+4RN2Fl7pcmpLHXp3nAPhoSQEYkPGkFo1Mr7hV+S7kmrfHQkh4W/GH
+	 RLWqDXokrRVkFGXEoHYZQ1Xamk090fqH9+0Pzxe/rWiuUfL2ghMK1y3ko9mr6zA4FuUCR
+	 RNkMRpozZazlwke8pzA4b64GjUhUWAlKdbJNuJVShTho2Z/e5FEe8tsuJvnbQzvLlMc2q
+	 zbc2kCRdVZPwLXfteKnJ5cPUII1YliTH60C8xoZKZ3F/2PHYhsc8hRorMOWzM8eaOMRmX
+	 wL3acLJW6DOiTniKTaaC8DQ0lPa+kRTESEnICeE2H1Xk2XymdxR/hYzt4iyj8vV8Y8A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P1oVbfCH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFAC8606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:48:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFAC8606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A98C606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:50:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A98C606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=S3TgUpv5;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LVkZCp+G
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH2aGPn200074
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:48:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Z/dnX5/SV/KEoQ3eZLEz4TQa4serIPxwyBipxDqbnFc=; b=S3TgUpv5OLUytlAv
-	DR56eDkDTn8PxKqOfhPj37kOtZVgNYkPn9vEIuortZeI0tM/5/jg7gqMnsEYD+ro
-	zUGMfLbDjFmx7s2bg02aOh4JnDXGGhxCpi3AR3PIxhp/u5s+OmQ/YQ5zaBEK1sVQ
-	qzkIPnDtJWDkCktIClhd8sKI2TqcPre0WBmLkySIs/lhVQ6D2a0GfwTgZoRhFmob
-	oFWsDjYqqjB8uHfZM0pcYKHj4ZjoaTP270+kCx7qKK5szodp7OeBjEy713CkIMcT
-	8GxVqui2K/nrmpCPDJVcQsTTT/FLXnOBnA1O5wicJQkHwQAzDMDVgguUpz86ZBDA
-	MV73IA==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j038mbdm2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:48:19 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ae19907a31so712749a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:48:19 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P1oVbfCH
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c50715c2757so551329866b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:50:24 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794898223; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Z9h6kUH8BHzfaH6E35NJ0PAO34A+iG7bTM4qrXsJW9yXp1umMVFQK7oU2oQ9q1JM/L
+         1aeeWMbhlCsb94NpuGm5uo7n0s1ic077PqJ16Ebs2YZaxOYrjmfF3W6RKGi0FFqBOKYK
+         WiRvRVcxpmKT68tZkcJyhNXPbv9isCRg5Ocqak9Ln2pApcMzSFNW02aoiMZahVPhRgwN
+         GtB1E/PxnstWSoZXAlP5bLA0iCYfTd78kep7q1ikAFTY3wfls+HYcE7qzvcXilHjAW2N
+         w2u7lmH9GYYF0ZGiijhi3LLvm0FK3h4aQh249AWIr+m96ojgeBmKSclohTuhmH9wEp+Q
+         Ndlg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=w2ujTW8JKgVpi8GBaPpe+a6Vi5r6q/k7HuBea5FdHPY=;
+        fh=TUtOqVh6Wu5rR6R024gbnRlIWhiQyk+sv8wMnfd4WuA=;
+        b=Qe20OWjHK7V153oRhyZG4pEGUr0uUDXRPZZGCA6+DJ4yQH8zAVtu/G2+rUNoQoCmfK
+         k1u0Rldp40R59dKkJtiAS/xdgN7g0gvjJjWhVaT71eCqCTIQnvzeY6eUgnUDZgu1y9my
+         aR6vYEhRlvvOYzxCnS88zWqECXS3rYC0BnzQwiFzloeD6sBw/F5SBVWchPYm01lGwJvy
+         VtIWBpqrcoiQb8AjH7A4LimeJQvjxUZAIBAVayPXgHadRMjn3x/kyDyCbL2tBe7Vl3bF
+         Z7aERum0k+bBdKZD/e8PEr58f+UqH3LqtGXijhnhkY2nIt7cXMq/VYG89Utpk3c9X7BK
+         pCxg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794898099; x=1795502899; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Z/dnX5/SV/KEoQ3eZLEz4TQa4serIPxwyBipxDqbnFc=;
-        b=LVkZCp+GBNyz/MKzfHuJBEDv1rSR2sEtu3LYkZCNb6eGU15jdH37w5kHUjWT18w38p
-         5e+sP/oJ5Uob518MYg7T0+VHRTxiDzyPmZbGtyu8obAM8lG0BcVltPpvgkriqcEUUCU3
-         4wD8xMc6CeybjG3Ub/qOKj0CXzozys9dJv9Up1/iv7+eaVunKFNAyiNhBCCc6GEwGcxz
-         MpacsymgedCqCyzht3FN0DNEnz3GyJPeKyXtUCVzLxNJsK/OaRgpTI7mFSPcdj7sKj1N
-         lOUM8Y3z/jw21aFmU3X6vidg1dBnQoq45sMOevv0dV1+UmubRuF5kdTsN3VU1KTmOoKq
-         JEAQ==
+        d=gmail.com; s=20260707; t=1794898223; x=1795503023; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=w2ujTW8JKgVpi8GBaPpe+a6Vi5r6q/k7HuBea5FdHPY=;
+        b=P1oVbfCHWu7ZeOe6V6J+56WX4ByaVZbKr5AJjLMGW4YJg/tWNlf2I4SmHO+VyEkLQU
+         F2z0P53N4ceMfOZyOBTUrtyPBNQcUD9cVj6vJyw7db3ULaD7Nanm6zEebtphadw6l7gt
+         d79E9M+/KD6mo05ppncQAx1jqTcZmEvoZpSSxLEymXXdqv4eJn19pFv6BEDoO0sdE2YW
+         yYsdgzP1jMc/Ljm+zOqFX4iNo6iDbRvrR2n211VGZ98/c5Gtd8PQDjDe3yrepLq9ME+G
+         23la/HEWK5lovYS7EQtS8VxG7AXNELWGr6htTpKLUoWiSWBWjABsJPNrvNLPQ/uiwZ97
+         KBJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794898099; x=1795502899;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Z/dnX5/SV/KEoQ3eZLEz4TQa4serIPxwyBipxDqbnFc=;
-        b=N4aWKqirHSWWY6nhDZ0xdXBFdrQ4vF+oJGoNhI5NX/5eJzRM9NzERI47Tfqx15HVZU
-         huH84lgoMi4/Gttg/E34xOtR875s3S5QwPmMgfm8qrAZYtwscgESGaF7i4Ei3fHSoveQ
-         d6Ivsk58vChDCY8YGSgIpM65bJlXHPY9Bw+HJCaFkJNxiU34gteHLGHn1fMhYiGvBkIA
-         wW7FSFHj2qNMzAcWWx6UjcdqRXJkzyg1rS4D87UU6AjF1xpqYPO2c1rDirnlXezdlxWa
-         atdYd1Qub/E5obDc/EevILhX88FeXf3yhdD8cmGLVvxhlhRz5sgQoTbUDCaQl84B7Ebw
-         wz7g==
-X-Forwarded-Encrypted: i=1; AL+hErGk9j0UG6lqzLtFnp+yrcQL+35DZT2Fx3ZShvLTx0DzHCrM106dlOgn0iCxQDRbStKBn/QNJ7QXVi9AYaU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/2UnBR9r1ZTdhBmN0xxwtz116pIWCFWMqIW0ZMF86BctPLupnC
-	KsoGbmkHGfU4lmr5Dfn/nvjCIQ463d4W5DyGKIApAMGudcs03Wt4flh0pQzjRLTBA8FZgXRsFp5
-	Qk8K9EtU6oc2/oO4QsVtQ3QAWeCxCqUG0U1jBSBojWvthn81FTmj5/EzI7UKN8eHlJPk=
-X-Gm-Gg: AZFdTZd3Pcp5EyeIJ7RUjhgMGosHKqv0BlgS+/iP2BuOC7uMyuDoZP3TjTOhEWMsmfn
-	DfvsOhv0IyYoGxPeF4Pr+AoIUNX7iloA6Z/L+BH32QTO8vpZYCW41a6XE9z79eJSrhn/rBopqF9
-	stDdWGEC6C8LB1fvQSMU12nE5SLYEHelxL1HJTCmBKYn+2csgYii9E+rPD2Yrdhe/SSBEj+0T5T
-	TUWkQh8W9HSSwqsMUFqhBJ8yHxtdGvC/G9gTA9glh8rx3IBrnJlBXazAYdQJwvb8S3xRcxz3zSN
-	XIRKmE0nqWQwDnDqnj7VPwJRlqGSAAR+rrqxv/4EWR+Zq+0WoOUMqllrTXXD84mklzz0sr5jLEF
-	MCx/EEvsai0QEnaWRGO9aGN3gpBcRPrN5aHMlNfgE0PEwUWjzbgpobaQqifSxdh5rO2+NsVmfUJ
-	715QY8jm4=
-X-Received: by 2002:a17:90b:5845:b0:3a7:96c1:f6f6 with SMTP id 98e67ed59e1d1-3b3ac26b7cemr1409364a91.34.1794898099074;
-        Mon, 16 Nov 2026 22:48:19 -0800 (PST)
-X-Received: by 2002:a17:90b:5845:b0:3a7:96c1:f6f6 with SMTP id 98e67ed59e1d1-3b3ac26b7cemr1409351a91.34.1794898098527;
-        Mon, 16 Nov 2026 22:48:18 -0800 (PST)
-Received: from [10.218.24.187] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b3b110c0sm10212191a91.3.2026.11.16.22.48.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 22:48:18 -0800 (PST)
-Message-ID: <c0922a29-7a2c-4606-b479-5dc6e76ff2d6@oss.qualcomm.com>
-Date: Tue, 17 Nov 2026 12:18:12 +0530
+        d=1e100.net; s=20260707; t=1794898223; x=1795503023;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=w2ujTW8JKgVpi8GBaPpe+a6Vi5r6q/k7HuBea5FdHPY=;
+        b=oN2Jr9r/cfDHyasWlaek1UgC2PtIVQkjM9y+8jAj97aNhif4Bt2Zxj4OmPmsfD80NG
+         i8GiQ+/W4MPZjlmA/u430EdLeERiMpMb68kOCQW9V1f8AeosZv6W4AVBWz3Z+kDsWm0r
+         J2GkIrKSgmBJ95IH91WoOsOsVVAQ+AtS39QVZ4yGORrGejn8l6Gby08RrkdKmt9LBOe1
+         h0rODRnkGXMh6x0Oq36GYjJaULVhpeFO4YqUY1ojx0Wp2YmOTX6M5XmQUxciumagyp8O
+         pBzzKLiQgbjTRrVLyjh1nZiQQhDujZyIJqga1j56yJpJb8DIBlE0HahN1dfZ1eIO7uww
+         hQcg==
+X-Forwarded-Encrypted: i=1; AL+hErGNKsWJQEkc+dfE8FHCoBXotOrERM3W1bi3qjl2E/9zmy/a3OZclRH4VjvOFZFmW4IOvg8+Cfl/M1elLCc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+UHiA54tFsRZNlilXoQNa/FjkHpC5XjUB5hidQHEvFLi0FnZWe
+	VnQJZUSzCD+vXuhZmfEF1hgtvsWDn/r8r4lz06TI/YecFYQJk9MiGaAveUmYrWbolU10OJ6eOZr
+	2vHR1HNXCoskYmX3mjKh+MqxM18p9STM=
+X-Gm-Gg: AYBFou0XQzh8i6ht76AO888Rv7aXyZEi0eNq+Tdp3mQJobToe3RlxpAeARyMMkDGtS0
+	UYt8YQM/mpf2mbKyMl1y1scK84NHX6oOHX1C8U31nLBSfT2Wt1rk/T4tX1eXvLDB55KFzb1mjZE
+	eLBzhwQjl3wyx2VVflBfk6avYpH66mt1nqpj/G01teta5RkMeQtsefzqcj8anhuKQiO0BXhg9po
+	x+CMN3T/UzWVXSLPlmz8c3/5CB4MDtOzPT+ubSj1+EaZ9mxZT0fwBeOAs2w6tCc9MLQaN/aru3a
+	YxOVEz1aBwc88ZZqWK+WtFTEr7C6M/6WkNTqtxow8eumRWvlNM5TCDeDarusuAwc702/5eg+bvA
+	MWpombGE7QNJ0aAIsan5WR8QYAee3m+N4shQ=
+X-Received: by 2002:a17:907:868f:b0:c50:475d:980e with SMTP id
+ a640c23a62f3a-c50963ced7cmr1066601266b.38.1794898222816; Mon, 16 Nov 2026
+ 22:50:22 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,144 +104,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] perf: Reject group leaders detached by CPU hot-unplug
-To: Daniel Wade <danjwade95@gmail.com>, Peter Zijlstra
- <peterz@infradead.org>,
-        Ingo Molnar <mingo@redhat.com>,
-        Arnaldo Carvalho de Melo <acme@kernel.org>,
-        Namhyung Kim <namhyung@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>,
-        Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-        Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-        Adrian Hunter <adrian.hunter@intel.com>,
-        James Clark
- <james.clark@linaro.org>, Kyle Zeng <kylebot@openai.com>,
-        linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261116081248.21059-1-danjwade95@gmail.com>
-Content-Language: en-US
-From: Aditya Chillara <aditya.chillara@oss.qualcomm.com>
-In-Reply-To: <20261116081248.21059-1-danjwade95@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDAyNiBTYWx0ZWRfX9iT9gI+h+czz
- h2/uHLSNVpt9B0WZAuzaEqk4JM0g8lKHqgromhC1xqXfaQZjpIK9ovLDecm8jHSEa65phEgXLmT
- duE+lsQ44CI/wrOcJvCyE1Rn0tWsquH2YxVHXSsSa2gO0XtF9h0Vc7ViImNtD+4AyULhDlvdkZr
- PRnC76AtaTWkxzxKaoOcIDO5alLvuS7KXTrBAk0wzWZuVYspq67VjxytZ1iqN3QnGxx4QZ6//xv
- 57M9AyCzyNXiUlfw7qxwIQkxqC3Evgqj82byKu0Wb1QeCuYmsEsXdU8rGqgUMsInyk4/iLeFDpv
- IfMsgohtk4+DZThPS4i5Pa9laTeNvCoCU8qsaAHa9qzYMUJcTf+lvmX9nW6kLdTz8RqrrTK+ep9
- FUkYJF+nCRsy/qpRy5fdzShe4pjZtdUKSa85A6bamhOA3mU+O6SfqX2V+tOgP9mYvMlQbG3+K0b
- m04Vg1ZllTYSwVw9peA==
-X-Authority-Analysis: v=2.4 cv=TckDJhQh c=1 sm=1 tr=0 ts=6afbf8b3 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=pGLkceISAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=nm-bDwiz_l59bqb5HEoA:9
- a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-ORIG-GUID: f0flWYBwjPosN64bHNZ-pn5Y5WQmH_Rf
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDAyNiBTYWx0ZWRfXza7iy9/8JG6V
- ilhWkBzlOKrprUfPSQiSA3VgGmTqJT0+i3DFLGd/ZJ0ilBk4iDw5a0XB3dcfJYfGHRzdcd6Rsff
- c8WF7a3rV7ekreJwFC8fxp78VatBZww=
-X-Proofpoint-GUID: f0flWYBwjPosN64bHNZ-pn5Y5WQmH_Rf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-17_01,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 lowpriorityscore=0 phishscore=0
- suspectscore=0 clxscore=1015 spamscore=0 malwarescore=0 adultscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611170026
+References: <20261114172955.1598929-1-16567adigashreesh@gmail.com> <20261117000119.GH229817@google.com>
+In-Reply-To: <20261117000119.GH229817@google.com>
+From: Shreesh Adiga <16567adigashreesh@gmail.com>
+Date: Tue, 17 Nov 2026 12:20:08 +0530
+X-Gm-Features: AclHuK-4WgArdEcKAhaJtwM4CxSAsBuUG1yPsujVDm8kX8ujvzUg2VCGIExhdGw
+Message-ID: <CA+-x59b-gUddP2cfHbzDrv9jupmeM1LeHkQnNXhE8_y6B+JC1A@mail.gmail.com>
+Subject: Re: [PATCH v2] lib/crc: arm64: Add NEON PMULL+EOR3 crc64_nvme implementation
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: Ard Biesheuvel <ardb@kernel.org>, Demian Shulhan <demyansh@gmail.com>, linux-crypto@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/16/2026 1:42 PM, Daniel Wade wrote:
-> When a CPU goes offline, __perf_event_exit_context() removes every event
-> of that CPU's context with DETACH_GROUP. That clears PERF_ATTACH_GROUP and
-> PERF_ATTACH_CONTEXT and leaves the event in PERF_EVENT_STATE_OFF, or in
-> ERROR, while the file descriptor stays open and event->ctx keeps pointing
-> at the per-CPU context; nothing re-attaches it when the CPU comes back.
-> Commit fa091f46c383 ("perf: Reject exited events as group leaders")
-> fixed the same defect for remove-on-exec, by rejecting a leader in a
-> state <= PERF_EVENT_STATE_EXIT. OFF and ERROR are both above EXIT, so
-> once the CPU is online again a leader detached by hot-unplug is still
-> accepted and perf_group_attach() links the new event to it.
-> 
-> perf_group_detach() returns early when PERF_ATTACH_GROUP is already
-> clear, which is right for the double detach it was written for, where no
-> group is left to break up. With a sibling added after the hot-unplug
-> detach it skips a sibling_list which is no longer empty: the leader is
-> freed with that sibling still on it and still pointing at it through
-> ->group_leader. Closing the sibling, or a group read or ioctl on it, then
-> uses the freed event.
-> 
-> Commit 42c5ca1f0a28 ("perf/core: Fix group leader use-after-free after
-> sibling detach") fixed the mirror image, a sibling detached by hot-unplug
-> and the leader closed afterwards. It promotes the sibling from the paths
-> below that early return, so a leader detached first and given a sibling
-> afterwards still reaches the same free.
-> 
-> Reproduced on v7.4-rc2, which contains that commit, with KASAN in a
-> two-CPU guest, as root:
-> 
->   BUG: KASAN: slab-use-after-free in perf_event_update_time
->   Call Trace:
->    perf_event_update_time
->    __event_disable
->    __perf_remove_from_context
->    event_function
->   Freed by task 149 from an RCU callback queued by
->   perf_event_release_kernel(), via perf_release() and __fput().
-> 
+Hi Eric,
 
-Great find! Just for clarification and my reference:
+On Tue, Nov 17, 2026 at 5:31=E2=80=AFAM Eric Biggers <ebiggers@kernel.org> =
+wrote:
+> Was crc_kunit run?  It already has a benchmark in it.
+No, I have access to only one aarch64 device that is Android Mediatek
+Dimensity 9400 SoC without root access.
+Therefore I can't run crc_kunit on that, instead I have done userspace
+comparisons for the same kernel with libbenchmark.
+This is based on my earlier work for FFmpeg:
+https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/21651
+I also have Corporate MacOS M5 and did check inside Ubuntu VM but that
+is not accurate due to virtualization.
 
-A typical failing sequence is:
+> The commit message should also clarify that this benefits ARMv8.2 and
+> later processors with the sha3 extension, not just ARMv9.  (E.g., Apple
+> M1 is an example of an ARMv8.4 processor that benefits.)
+Sure I will take care of it, but for now I am thinking of first
+improving the existing PMULL to have 4x unrolling as per Demian's
+suggestion.
+Therefore I will revisit EOR3 addition later, will keep this in mind.
 
-  - A group contains leader L and sibling S.
+> > +#ifdef CONFIG_ARM64
+> > +#define SHA3_TARGET __attribute__((target("arch=3Darmv8.2-a+crypto+sha=
+3")))
+>
+> Doesn't this break the build with gcc 8.1?  The kernel supports gcc 8.1
+> and later, but support for the sha3 target and intrinsics were added in
+> gcc 9.1.  Either this code will need to check the gcc version, or inline
+> assembly will need to be used for eor3 like lib/raid/xor/ does.
+Yes it seems to be unsupported even on GCC 8.2 and works on GCC 8.5
+onwards, I wasn't aware of older toolchain support.
+Will keep this in mind. Unfortunately compiler explorer is missing
+ARM64 GCC 8.1, will check 8.2 support which hopefully should be
+accurate.
+Will adopt the existing code in lib/raid/xor itself which should make
+it compatible with GCC 8.1.
 
-  - CPU hot-unplug detaches S and then L with DETACH_GROUP, which
-    dismantles the group. 42c5ca1f0a28 ("perf/core: Fix group leader
-    use-after-free after sibling detach") resets S->group_leader to S
-    so that if L is freed, a PERF_IOC_FLAG_GROUP perf_ioctl() on S
-    does not dereference the then stale S->group_leader.
+> > +     v0 =3D fold_single_round(v0, v2, fold_consts_2x);
+> > +     v1 =3D fold_single_round(v1, v3, fold_consts_2x);
+> > +     v0 =3D fold_single_round(v0, v1, fold_consts);
+> > +
+> > +     while (len >=3D 16) {
+> > +             uint64x2_t t0 =3D vreinterpretq_u64_u8(vld1q_u8(p));
+> > +
+> > +             v0 =3D fold_single_round(v0, t0, fold_consts);
+> > +             p +=3D 16;
+> > +             len -=3D 16;
+> > +     }
+> > +
+> > +     /* Multiply the 128-bit value by x^64 and reduce it back to 128 b=
+its. */
+> > +     v0 =3D vextq_u64(v0, zero, 1) ^ pmull64_hi_lo(fold_consts, v0);
+> > +
+> > +     /* Final Barrett reduction */
+> > +     uint64x2_t bconsts =3D vld1q_u64(bconsts_val);
+> > +     uint64x2_t final =3D pmull64(bconsts, v0);
+> > +
+> > +     v0 =3D veor3q_u64(v0, vextq_u64(zero, final, 1),
+> > +                     pmull64_hi_lo(bconsts, final));
+> > +
+> > +     return vgetq_lane_u64(v0, 1);
+>
+> Note that this is missing several optimizations compared to the x86
+> version (lib/crc/x86/crc-pclmul-template.S), including using
+> fold_consts_2x for a tail of 'len & 32', efficiently handling lengths
+> that aren't a multiple of 16 bytes, and reducing to the final CRC in two
+> carryless multiplication instructions rather than three.
+I was looking at the crc-pclmul-template.S code and I have a few queries.
+In this aarch64 version we only dispatch to this SIMD routine only
+when len>=3D128.
+Since we have 128 bytes available, do we have to add the tail of `len
+& 32` handling?
+Handling len not a multiple of 16 bytes (partial block) I will add but
+I am assuming that the dispatch will maintain 128 minimum len.
 
-  - The CPU comes back online and sets cpuctx->online = 1, which
-    allows perf_event_open() on that CPU again.
+I was trying to understand your "reducing to the final CRC in two
+carryless multiplications rather than three" statement.
+From going through the code in crc-pclmul-template.S:
+.Lreduce_128bits_to_crc tracing the logic below this label, I see
+three clmul operations:
+_pclmulqdq CONSTS_XMM, LO64_TERMS, %xmm0, HI64_TERMS, %xmm1
 
-  - perf_event_open() with group_fd = L attaches a new sibling S' to L,
-    so S'->group_leader points to L.
+_cond_vex movdqa, OFFSETOF_BARRETT_REDUCTION_CONSTS(CONSTS_PTR), CONSTS_XMM
+_pclmulqdq CONSTS_XMM, HI64_TERMS, %xmm0, HI64_TERMS, %xmm1
 
-  - L is closed; perf_group_detach() returns early because L is
-    already detached, so the group is not dismantled, S' stays linked
-    to L, and L is freed.
+.if LSB_CRC && \n =3D=3D 64
+_cond_vex punpcklqdq, %xmm1, %xmm2, %xmm2
+_pclmulqdq CONSTS_XMM, LO64_TERMS, %xmm1, HI64_TERMS, %xmm1
 
-  - Closing S', or a PERF_IOC_FLAG_GROUP perf_ioctl() on it, follows
-    S'->group_leader and dereferences the freed L.
+I even checked the Intel Whitepaper and the reduction for 64-bit CRC
+section "Final Reduction of 128-bits" also mentions 3 clmul.
+One for using x^128 followed by xor, and then 2 more for final barrett
+reduction with mu and poly.
+Thus I am confused about accomplishing this with just 2 clmul. Could
+you provide details on this?
 
-> Opening a CPU event needs CAP_PERFMON or perf_event_paranoid below 1, so
-> an ordinary user cannot reach this on a default configuration.
-> 
-> Reject a leader that is no longer attached to its context, rather than
-> promoting siblings of a detached leader in perf_group_detach(): the early
-> return there is right, and the anomaly is a leader on no context taking
-> new siblings for a group that can never be scheduled. Test
-> PERF_ATTACH_CONTEXT, which only the __perf_remove_from_context() path
-> clears, so every detached leader is covered whatever state it is left in,
-> and test it under ctx->mutex, where the leader is already known to share
-> this context and every detach path holds that mutex across the removal.
-> 
-> One open that works today fails as well: adding a hardware event to a
-> detached, pure software leader takes the move_group path, which installs
-> the leader again before the new event is linked to it, so that group was
-> valid. Events removed by hot-unplug are not scheduled again, which the
-> commit in the Fixes tag relies on, so it now gets ENODEV like any other
-> open on a detached leader.
-> 
-> Fixes: 226424eee809 ("perf: Fix corruption of sibling list with hotplug")
-> Signed-off-by: Daniel Wade <danjwade95@gmail.com>
-> Cc: stable@vger.kernel.org
+Based on inputs I am thinking of only extending the PMULL version to
+have unrolling with inline assembly for better codegen.
+I will revisit EOR3 afterwards when the PMULL base version has
+incorporated all the optimizations.
+Mostly we can have always_inline function which can be instantiated
+with/without EOR3 I think for approach.
+Will submit new separate patch for just PMULL unrolling shortly in a
+couple of days based on Demian's inputs.
 
-Reviewed-by: Aditya Chillara <aditya.chillara@oss.qualcomm.com>
-
-Thank you,
-Aditya
-
+Thanks,
+Shreesh
