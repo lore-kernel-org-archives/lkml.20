@@ -1,89 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794892209;
-	b=b6XjzRj631kTIz8DoII22vugqqI1/QQvitlInW5V6shOzHKhwp5U3+5XmfRcgcgGbbUh
-	 +trEbqCJxhFKTwqQVyMiGAhQUp3lrUgqM/NIdxsr33roXdQWvdGgjd3jqlYMPC/hyB+NO
-	 LUfLlXShMhaDmqm9b1WFj9Wn4VjtEeMBgN+XjS9GLgJ0oM16MNEwUcfz1L+o2BGhveniH
-	 XnqcLHDeNhDLf5rue0wMYunkuPbwHC2UtkXGoa8ZGCY8TB+qiMlXYM+HaElOZSD5uL8AF
-	 CFjs+5tUML8wLF4hJJ+D7edg4qyJLdZlF5UrSSMtnZLdimq5CQ6tvYdNHhuaR/Mskaw==
+	t=1794892213;
+	b=0cDEgsRtb5DhaxmIRJ7feJaW5C/9BH++aFYzNZ+4hp4dXTA0BkISYaSIiIfWXMzwghrv
+	 X2XtY8FenooZI4bSK78E5JiM2CAg13VKnFuccdrrDAVDjjy2nPG8cZCuvENW/dxpovESN
+	 UNGjOnVgWXJhOaJ1OdWEk15fCGapLLS87ZPH/GPOqtifKR18I+Ed2D/jJnOljxAgVKvY7
+	 z9Z9BfqB2QgQxlBd2H5i4+BlKr6FT+jXHyNEDg3x0/jhfS3+6fUEpIjNS0bLpEJe0LXmn
+	 wRZZ3UNpev29z0NxQptRJEGJcIV9Wxk8vy+QQww5EXSAuV1MDbw/USW+bThmLLtIXHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794892209;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794892213;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type;
-	bh=HZcFEMqjaltoH+TCB9MrBAneKIJoaeJZiPPBvmDOU1U=;
-	b=uzsVnsZ5QdODojhDn7OGXbqWvzQ+XvZIjjTVefBUnXbznoFi42QI2jks+ehNUx91lP5L
-	 VUN9uz6Wc1osmPfon1g5aQm2fX17a3+jCg4K/nP0E/IKGkCmjN7T95JM2VK4xoWKYwYkP
-	 y7DhTwgXWA57SyfQctdFZ++PgGhIRlkkBFHEd4NadAkIxeU4NLOEhtJKSE4SNg0PnAiCT
-	 II8EZnkha7eLArHJZjJOJh+H5L9H87tiUBpS9CK3ljLp6B4Z2PG1tj71+lMWwbteQIl+l
-	 44YbDgKe/Ij3GIZxzZv6oKShoYF4kqqzFNB0ObmZwl4SENQLM2EIb8n5bcgP87xt8tw==
+	bh=LD0CvP8WVPhIkto/tNkHz4zGfzpDnUQ9xJ0Mbgz/ybg=;
+	b=TqPk3ktKDtN2W+qGih2HYjOJ3p2gy36XmBDAgt7YwNhjlJHxwSy8ZxSpIgMSUytim/dQ
+	 MwlGtcZXqVYfVyj3WzJhq/4R0tx/EqDvfhFi9m8uT3Eg+IpHTJsUN2A9zaNQiN3QXHrjH
+	 bCPkR728r576EDUf/x+pmYVeCdzOwF/XLcdYEUKbzk914eOn8Gr7nv+wC8AYbTa11y6Xh
+	 kZphoJXIsAfXdJX0UG6tHBd5NeJ8tWsM1Pab9pHWird23qSAIkAzHe06apMKXfJ90JEJk
+	 XbakbIVx2SG1RVpDHekPVtUGSGtMNJOCZfL3pYewmB0UvvhEJl0fdissMKytJmI7Ifw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="i0/+kAYn";
-	arc=none smtp.remote-ip=74.125.82.53
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wFUQ8Eed;
+	arc=none smtp.remote-ip=74.125.82.44
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C076606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:10:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C076606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B314606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:10:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B314606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=i0/+kAYn
-Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1b3b4944abeso1529417c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:10:08 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wFUQ8Eed
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1b3ada81853so3912011c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:10:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794892208; x=1795497008; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794892212; x=1795497012; darn=vger.kernel.org;
         h=content-type:mime-version:message-id:subject:cc:to:from:date:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HZcFEMqjaltoH+TCB9MrBAneKIJoaeJZiPPBvmDOU1U=;
-        b=i0/+kAYnnVfXJlU98th8f48Gutfk8oQNll7fFprWYGcbsk8XpWmPb7nPqYEyVp3KED
-         KZzlCjXwLRZfTM2kTWN/1RgtDpPTGc2e63YoSucrroFsvn39aAm3TSbEuUDLpjRLIwfL
-         IWJzA1IumEf6Lb01f0N8K9iS5CPkFQUlNhEiRR+M+ElLaSFxyxtcOwmpNBJIwHG9qN+i
-         KhVNttBs/YNrkjL3XOq9ER0UNnOZ7+p84qA3FKLydzi5EobYhTacaMdTfGq6TaCh0SSv
-         xzrgzwJ5rrIfWq5IsG/W5bQdPk9ZdbB9wg52ws4Fc6nl9WbOhQvxGMV91qfuUR8l3tc6
-         WxCQ==
+        bh=LD0CvP8WVPhIkto/tNkHz4zGfzpDnUQ9xJ0Mbgz/ybg=;
+        b=wFUQ8Eed867PYDAEWJb3odRMXdB1FUU/RIN3JDrc9/rZjoMjfhkGMNcEEavgkm+Zm8
+         I5QEScrSSVp0q6J0+Eetsl9PL+tx8sDItIVS0yfys0+Iv5hMNnv0xyl3L7sjIBGDMbtL
+         K1enD9dJtLsRSIjg7Dv2k+JM2tMr9ysKMFzH5Hp138sbZMfCle+Dv6DBwKe7/YAmY8Y5
+         vNGwtXe1Q2/e+Uuej9r5VfCLFj+i1ad5R4nceLbmBzVNXLk/a120SuLa5gQZG+28h2km
+         ElgLnoaRxZ0AK8F7C/qp7bjWIWayx0a5wpcvFE1uvzw2+ti31Oa5msunWscN5Ll+/mzV
+         zgDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794892208; x=1795497008;
+        d=1e100.net; s=20260707; t=1794892212; x=1795497012;
         h=content-type:mime-version:message-id:subject:cc:to:from:date
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=HZcFEMqjaltoH+TCB9MrBAneKIJoaeJZiPPBvmDOU1U=;
-        b=aBu53C2tb69NKdnpn1M2vxOHG2p2rG2UXjrZy9uRc/Vq12qHVy4yBLIv01IClYf1kP
-         NgBXbZi5k/Cpyqg56GzrwDqm3uc5Ohuc9+F0mvuo31v7EgAbYQ6gozrLgMATonhc1XD0
-         NbTcpMEbfWj+Nl/htansNj/I7rHqB4HNrWP/liUIlFrFlfwKvu03AnYx7qINM7z1zac2
-         wt3wogcXe+qvm6Kf/200v117789rzTh2ll3IQXJ3+xvxkGZG/m/Nqr2B1NTcKuy8vTr9
-         R4gYrs6qGJtG/xPe9NkN3BwhsPCRyubpvLHe0dipCxH2QlYS1fw5g2zuOXABCSy0k9qF
-         0Piw==
-X-Forwarded-Encrypted: i=1; AL+hErEEtXrrVhP7TUix4f3IQcKIaUKqHeVRgsVgAbkxKTzLnEVkqoaozZrmgCWVJEXfbc3hrvfz/+LTOEcY5SI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8cGA/a6Ru4fy50X+EJ7YRz2u20jW2c0nn8IaaZET1w+Y6dFpKZ
-	5y/IQc1i6Sbq+zEFyAtuxo6LxZx0ga2M5JrNSTaIzYsznLQMkkph2tIq
-X-Gm-Gg: AZFdTZe8UGF49NSA77FUBAr3mAN5u2D7QcP/OF/XVXogjSHv5c2ujfQV+2zESnqctmH
-	r8rR0QR6wuqjFZ+YdjX+l78SyKvl4K7C2gQMBseCtYt6QPCIpTah5QX6Nlh2jWC9eYDvgny9tP+
-	nYGjms0r+b0hwU01M0gehGgUD54omUvjoRfuamlKXjP9TGwBoc0X3Zu5DYcdBDbSirHTrkcmKHZ
-	YDtFu748AhJazG6j/1KwejFCu7R1U7vjOcBeD6P2JgiLmznl94okMjymDk0mdR89piABsSkGSSk
-	erfG52PSSSOJrO/woLH+13itUcTGSykS2FlKCJuhvJ8FE7I8brYGPEH+Pq5MjpJKrW+JqOMaa3R
-	ahTqfo9k6h+RLgkxZEi74bwG6DoBi+IdZ0C9JVcRcYQa8cK+48igXCpAPN7jcMVZlFsVZJWWafB
-	rqM3q/qaYHE5qSs4gvT3V/Dn8L81RJ4Pi/tXySWbmSTeF9+ZEtYErBWk9L4Ymcjlnu7BqyEfFhZ
-	Nn0RhAxCKAWkdOIvINRCdEljFh10pitqwYAx02dPBNnkY9PA2R3rVLcZlqfd5L0mZaxt3M=
-X-Received: by 2002:a05:693c:2a16:b0:369:fa21:ba0b with SMTP id 5a478bee46e88-3796721cfc1mr12004383eec.33.1794892207439;
-        Mon, 16 Nov 2026 21:10:07 -0800 (PST)
+        bh=LD0CvP8WVPhIkto/tNkHz4zGfzpDnUQ9xJ0Mbgz/ybg=;
+        b=uWPNhF80+JBCOgQKjHxv4qWdvj839ERifQxAbaw17zEvLCuU08miW8dYyYczbgC7BT
+         6WjbdH+mH94pO6qjvLQ4fcfhwQbYICKI3JsqKjr4iJNjdasAONYa5Jrmz2R7L4lRlF14
+         2g4OTzAnFRwCWK6UniVpL1fNaD9cMaTt86HjoQS0s9i0ISMxPrAhUOPM8Ws6p1kYazpY
+         Trf75IGgouEwwoJOIESM9CBEQGXENPp0rIszENAnXrLADQxAUWhnQILN4gZ8iFn+J5hf
+         LLfIjXZsZNVvOb4ok863oyW8L5yIXQCapDF9BqRC11VJ3ciL198JsSgLWJXxNBjge5sd
+         cpoQ==
+X-Forwarded-Encrypted: i=1; AL+hErFuUACNS0o2D7aUruSPuCi8qeXM7lJCOgHG9RwDkMg9hATV8O0jQ3SDg8L1cimy75I7mWBP5LeTMDQegas=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/u8vuY+c8YxIBTz+RPKOGsOSqyfPDWPLnomSm8doSWFyV//sx1
+	pewJBL3M8XBsJakN47GfAavs8m2plQGJuKtA/HABYzqgUSbX526LO6By
+X-Gm-Gg: AYBFou0CSEbN/q+L7v6mj9PeY5zkchVyRY90c/Ej4Vx2+YEg/XPpoylvzwEmWSgJpln
+	t0uFVU/IZJD/+nY4wU3KYbDYATnvZZ2oZsIVGMk0lxYBYlQFEvLZ5sfjdzC4ZBVvrYf8GFmGw2+
+	0LBX5ZkM+y6gXdouO2pZj7i2mOttoTuMTnHfwvwcrmuDanVOvFKkt60H2UKGp0YyX8OC4cvBrfu
+	xp1kmkZ57BFpRfe1hJF/7ksCpFQNm6N2O7F4EvN5w5S9L6PanVcQwI8lUp05LudawZemLbIFPeM
+	E00sqoMNb543xQrqIAzHkjzurn3GJj5Kr9GKCFCKHEegwzdG5J1rW/Ehqgzwi4uuiA+1ImOmnuk
+	/fscC3Y2czqYyvbCtJX8WC3ZKlEKZyGaEN5CyufSBp3uIW8PMB+8hMyGQLfnVnjWyv9j544m2kb
+	ILDa9frB6uLZ32nh9UfHYPOlUh9L/1DF8+4XkM2D1iJMZ9WVBCJjP5qNg9VYiIpg6mbkyqNujqI
+	fEfyEaa/tsq5UkV1g8c6XDXBhy/wUE0kz0ccvRBgaGOaxpJgSBIdT7YnWnv3GLRsWCcuPQ=
+X-Received: by 2002:a05:701b:4251:10b0:1b2:6c97:fecd with SMTP id a92af1059eb24-1b50313d90emr11227518c88.42.1794892211472;
+        Mon, 16 Nov 2026 21:10:11 -0800 (PST)
 Received: from [172.21.0.2] (vldb.skku.ac.kr. [115.145.173.180])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-380e0fdcc36sm4664955eec.25.2026.11.16.21.10.05
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795533170csm39998074eec.7.2026.11.16.21.10.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 21:10:06 -0800 (PST)
-Date: Mon, 16 Nov 2026 21:10:06 -0800 (PST)
+        Mon, 16 Nov 2026 21:10:10 -0800 (PST)
+Date: Mon, 16 Nov 2026 21:10:10 -0800 (PST)
 From: Kyuwon Cho <kyuwoncho18@gmail.com>
-To: Song Liu <song@kernel.org>, Yu Kuai <yukuai@fygo.io>
-Cc: Li Nan <magiclinan@didiglobal.com>, Xiao Ni <xiao@kernel.org>,
- Yogesh Gaur <yogeshgaur.83@gmail.com>, linux-raid@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [BUG] md: slot_store() lets raid1/raid10 index past conf->mirrors
- with a stale delta_disks from the superblock
-Message-ID: <179489219553.3099317.5403557298223708081@gmail.com>
+To:
+ Nikolay Aleksandrov <razor@blackwall.org>, Ido Schimmel <idosch@nvidia.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ bridge@lists.linux.dev, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [BUG] net: bridge: mdb: duplicate sources make the RTM_NEWMDB error
+ path delete a source twice
+Message-ID: <179489219555.3099318.10297266282803881244@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,713 +95,383 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============6581340140755427681=="
+Content-Type: multipart/mixed; boundary="===============0587000469621440978=="
 
---===============6581340140755427681==
+--===============0587000469621440978==
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi Song, Kuai,
+Hi Nikolay, Ido,
 
 While testing v7.4-rc3 with an LLM-guided test generator that we are
-developing as a research prototype, we found out-of-bounds reads in
-raid10_add_disk() and raid1_add_disk(), reached by writing a spare's
-sysfs "slot" on an array whose superblocks say that no reshape is in
-progress but still carry a positive delta_disks:
+developing as a research prototype, we found that an RTM_NEWMDB request
+with a repeated source address and a later invalid source hits the
+WARN_ON_ONCE() in br_mdb_del_group_src(). An unprivileged user can do
+this from its own user and network namespace:
 
-  BUG: KASAN: slab-out-of-bounds in raid10_add_disk+0x648/0x7b0
-  Read of size 8 at addr ff110000137f6f60 by task test/106
+  WARNING: net/bridge/br_mdb.c:901 at br_mdb_add_group_srcs+0x375/0x4a0, CPU#1: test/106
+  CPU: 1 UID: 65534 PID: 106 Comm: test Not tainted 7.4.0-rc3 #1 PREEMPT(lazy) 
+  RIP: 0010:br_mdb_add_group_srcs+0x375/0x4a0
   Call Trace:
    <TASK>
-   raid10_add_disk+0x648/0x7b0
-   slot_store+0x6f9/0xb30
-   rdev_attr_store+0x17a/0x440
-   kernfs_fop_write_iter+0x2f0/0x490
-   vfs_write+0x5f8/0x11e0
-   ksys_write+0xf4/0x1c0
-   do_syscall_64+0x116/0x630
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-   </TASK>
+   br_mdb_add+0x7e2/0x1390
+   rtnl_mdb_add+0x218/0x490
+   rtnetlink_rcv_msg+0x2f7/0xb80
+   netlink_rcv_skb+0x11f/0x350
+   netlink_unicast+0x518/0x870
 
-  BUG: KASAN: slab-out-of-bounds in raid1_add_disk+0x47b/0x560
-  Read of size 8 at addr ff11000012dadb80 by task test/108
-  Call Trace:
-   <TASK>
-   raid1_add_disk+0x47b/0x560
-   slot_store+0x6f9/0xb30
-   rdev_attr_store+0x17a/0x440
-   ...
+br_mdb_config_src_list_init() counts and parses the MDBE_ATTR_SRC_LIST
+entries but does not reject duplicates. In br_mdb_add_group_srcs() the
+second copy of a source finds the entry that the first copy created, so
+both refer to the same struct net_bridge_group_src. When a later source
+fails (here 0.0.0.0, which is_valid_mdb_source() accepts but
+br_multicast_new_group_src() rejects), the error path deletes every
+source added so far, duplicates included:
 
-This comes from the state that 0669c7dbd1d3 ("md/raid5: don't BUG() on
-an inconsistent reshape state from the superblock") made raid5_run()
-reject. super_90_validate() (minor version 91) and super_1_validate()
-(MD_FEATURE_RESHAPE_ACTIVE) copy delta_disks from disk without checking
-it against reshape_position, so a RAID1 or RAID10 array runs with
-reshape_position == MaxSector and delta_disks > 0. slot_store() then
-accepts any slot below raid_disks + delta_disks:
+	err_del_group_srcs:
+		for (i--; i >= 0; i--)
+			br_mdb_del_group_src(pg, &cfg->src_entries[i]);
 
-		if (slot >= rdev->mddev->raid_disks &&
-		    slot >= rdev->mddev->raid_disks + rdev->mddev->delta_disks)
-			return -ENOSPC;
+The first deletion frees the entry, and the second does not find it:
 
-but neither personality sized conf->mirrors for those slots: raid10's
-setup_conf() allocates raid_disks + max(0, -delta_disks) entries and
-raid1's allocates raid_disks * 2, and raid10_add_disk()/raid1_add_disk()
-use the slot as an index. With four RAID10 disks and delta_disks = 1,
-or two RAID1 disks and delta_disks = 3, writing slot=4 reads the entry
-just past the array.
+	ent = br_multicast_find_group_src(pg, &src->addr);
+	if (WARN_ON_ONCE(!ent))
+		return;
 
-Letting slot_store() go beyond raid_disks only while a reshape is in
-progress (reshape_position != MaxSector) makes both go away here: each
-reproducer ran three times without a report, and the slot write fails
-with -ENOSPC. Rejecting the inconsistent state when the superblock is
-validated, or in each personality as 0669c7dbd1d3 does for raid5, would
-be other ways.
+We have not seen memory corruption from this; the effect is the warning,
+which panics a machine with panic_on_warn.
 
-Both reproducers need root (CAP_SYS_ADMIN for the md ioctls and sysfs
-files). They write superblocks with reshape position MaxSector and a
-positive delta_disks to loop or ram devices: 0.90, minor version 91, for
-RAID10, and 1.2 with the reshape feature bit for RAID1. Each then
-assembles the array with ADD_NEW_DISK and RUN_ARRAY, adds a spare and
-writes "4" to its slot attribute; the RAID10 one also has a control case
-with delta_disks 0, where the write gets -ENOSPC. On an x86_64 QEMU guest
-with 2 vCPUs and KASAN (gcc 13.3, config attached), each triggers in
-every run (3 of 3).
+Rejecting duplicate source entries in br_mdb_config_src_list_init(), or
+making the error path delete only the sources this request created,
+should avoid it. We have not tested either change.
 
-Checked against v7.4-rc3 (aebb72744764); slot_store(), the validators
-and raid1.c/raid10.c are the same in the md tree's md-7.4 branch. We
-found no earlier report on syzbot or on linux-raid. The
-super_90_validate() desc_nr fix posted on 2026-11-16 is a different
-problem.
+The reproducer runs as an unprivileged user (uid 65534) that creates a
+user and network namespace, makes a bridge with a port, and sends
+RTM_NEWMDB with NLM_F_REPLACE and the sources 10.0.0.1, 10.0.0.1 and
+0.0.0.0. On an x86_64 QEMU guest with 2 vCPUs and KASAN (gcc 13.3,
+config attached), it warns in every run (5 of 5).
 
-The reproducers (repro-raid10.c, repro-raid1.c) and the kernel config
-are attached.
+Checked against v7.4-rc3 (aebb72744764); br_mdb.c is the same in
+net-next (6ff4c5942a30). We found no earlier report on syzbot or on the
+bridge list.
+
+The reproducer (repro.c) and the kernel config are attached.
 
 Thanks,
 Kyuwon Cho
 
---===============6581340140755427681==
+--===============0587000469621440978==
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment; filename="repro-raid10.c"
+Content-Disposition: attachment; filename="repro.c"
 MIME-Version: 1.0
 
-// Run as root. Assembles a RAID10 from four loop devices whose 0.90 superblocks
-// (minor_version 91) say "no reshape" but carry delta_disks = +1 (V6), adds a
-// spare, and writes slot=4 for it through sysfs. V7 is the same with delta_disks
-// = 0, where slot=4 is rejected.
-//
-// Reach super_90_validate() with a 0.90 superblock (minor_version 91) whose
-// reshape_position is MaxSector (no reshape) but whose delta_disks / new_level /
-// new_layout / new_chunk describe a reshape. Assembly is done through md ioctls
-// (SET_ARRAY_INFO raid_disks=0 -> ADD_NEW_DISK -> RUN_ARRAY), so the validator
-// runs from analyze_sbs() with mddev->raid_disks == 0 and copies the fields.
+// Reproducer for the is_valid_mdb_source (net/bridge/br_mdb.c) sibling of 4aa61c88b4e2.
+// Sends RTM_NEWMDB / RTM_DELMDB with all-zeros sources, which the validator accepts.
 #define _GNU_SOURCE
 #include <errno.h>
 #include <fcntl.h>
+#include <net/if.h>
+#include <arpa/inet.h>
+#include <linux/netlink.h>
+#include <linux/rtnetlink.h>
+#include <sched.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/ioctl.h>
-#include <sys/stat.h>
-#include <sys/sysmacros.h>
-#include <sys/types.h>
+#include <sys/socket.h>
 #include <unistd.h>
 
-/* ---- md uapi (include/uapi/linux/raid/md_u.h, MD_MAJOR 9) ---- */
-#define MDT 9
-#define IOC_W(nr, sz) ((1u << 30) | ((unsigned)(sz) << 16) | (MDT << 8) | (nr))
-#define IOC_N(nr)     ((MDT << 8) | (nr))
-#define ADD_NEW_DISK_CMD    IOC_W(0x21, 20)
-#define SET_ARRAY_INFO_CMD  IOC_W(0x23, 72)
-#define RUN_ARRAY_CMD       IOC_W(0x30, 12)
-#define STOP_ARRAY_CMD      IOC_N(0x32)
+#ifndef RTM_NEWMDB
+#define RTM_NEWMDB 84
+#endif
+#ifndef RTM_DELMDB
+#define RTM_DELMDB 85
+#endif
 
-typedef struct {
-	int major_version, minor_version, patch_version;
-	unsigned int ctime;
-	int level, size, nr_disks, raid_disks, md_minor, not_persistent;
-	unsigned int utime;
-	int state, active_disks, working_disks, failed_disks, spare_disks;
-	int layout, chunk_size;
-} mdu_array_info_t;
+#define AF_BRIDGE_ 7
+#define MDBA_SET_ENTRY_ 1
+#define MDBA_SET_ENTRY_ATTRS_ 2
+#define MDBE_ATTR_SOURCE_ 1
+#define MDBE_ATTR_SRC_LIST_ 2
+#define MDBE_ATTR_GROUP_MODE_ 3
+#define MDBE_SRC_LIST_ENTRY_ 1
+#define MDBE_SRCATTR_ADDRESS_ 1
+#define MCAST_INCLUDE_ 1
+#define MDB_PERMANENT_ 1
+#define VETH_INFO_PEER_ 1
+#define IFF_UP_ 1
 
-typedef struct {
-	int number, major, minor, raid_disk, state;
-} mdu_disk_info_t;
-
-typedef struct {
-	int personality, chunk_size, max_fault;
-} mdu_param_t;
-
-_Static_assert(sizeof(mdu_array_info_t) == 72, "array info size");
-_Static_assert(sizeof(mdu_disk_info_t) == 20, "disk info size");
-_Static_assert(sizeof(mdu_param_t) == 12, "param size");
-
-/* ---- loop uapi (loop.h) ---- */
-#define LOOP_SET_FD_CMD     0x4C00
-#define LOOP_CLR_FD_CMD     0x4C01
-#define LOOP_CTL_GET_FREE_CMD 0x4C82
-
-/* MD_DISK_FAULTY is bit 0, MD_DISK_ACTIVE bit 1, MD_DISK_SYNC bit 2 (md_p.h). */
-#define DISK_ACT_SYNC ((1u << 1) | (1u << 2))
-
-#define SB_WORDS   1024          /* 4096-byte mdp_super_t, in u32 words */
-#define IMG_BYTES  (64ULL << 20)
-#define MaxSectorU (~0ULL)       /* MaxSector as u64 */
-
-struct var {
-	const char *name;
-	int minor;                  /* md minor (/dev/mdN) */
-	int level, nd, delta, new_level;
-	uint32_t layout, new_layout, chunk;   /* chunk in bytes */
-	int io;                     /* do I/O through the array if it runs */
-	int spare;                  /* 1: one extra device whose sb is a spare (raid_disk -1) */
+struct mdb_entry {               // layout of struct br_mdb_entry (28 bytes)
+	uint32_t ifindex;
+	uint8_t state;
+	uint8_t flags;
+	uint16_t vid;
+	struct {
+		union {
+			uint32_t ip4;
+			uint8_t ip6[16];
+		} u;
+		uint16_t proto;
+	} addr;
 };
 
-static const struct var vars[] = {
-	/* V6: raid10 with stale delta_disks=+1 (MaxSector). A spare (raid_disk -1) is
-	 * bound to the running array; sysfs slot=4 passes slot_store's
-	 * "slot >= raid_disks + delta_disks" check and reaches raid10_add_disk. */
-	{ "V6 raid10 delta=+1 spare slot=4 (stale delta)", 16, 10, 4, 1, 10, 0x102, 0x102, 65536, 0, 1 },
-	/* V7: control, identical except delta=0 -- slot=4 must be rejected with ENOSPC */
-	{ "V7 raid10 delta=0 spare slot=4 (control)",      17, 10, 4, 0, 10, 0x102, 0x102, 65536, 0, 1 },
+struct br_port_msg_ {
+	uint8_t family;
+	uint8_t pad[3];
+	int32_t ifindex;
 };
 
-static uint32_t csum_sb(const uint32_t *w)
+static int nlfd = -1;
+static uint32_t seq;
+
+static size_t nla(char *b, size_t off, uint16_t type, const void *d, size_t len)
 {
-	uint64_t s = 0;
-	for (int i = 0; i < SB_WORDS; i++)
-		s += w[i];
-	return (uint32_t)((s & 0xffffffffULL) + (s >> 32));
+	struct nlattr *a = (void *)(b + off);
+
+	a->nla_len = NLA_HDRLEN + len;
+	a->nla_type = type;
+	if (len)
+		memcpy(b + off + NLA_HDRLEN, d, len);
+	return off + NLA_ALIGN(NLA_HDRLEN + len);
 }
 
-/* Word offsets follow mdp_super_t in include/uapi/linux/raid/md_p.h. */
-static void build_sb(uint32_t *w, const struct var *v, int idx, int spare)
+static int nl_transact(struct nlmsghdr *nh)
 {
-	memset(w, 0, 4096);
-	w[0]  = 0xa92b4efc;          /* MD_SB_MAGIC */
-	w[1]  = 0;                   /* major_version */
-	w[2]  = 91;                  /* minor_version: reshape fields valid */
-	w[3]  = 0;                   /* patch_version */
-	w[5]  = 0x1111;              /* set_uuid0..3 */
-	w[6]  = 1700000000;          /* ctime */
-	w[7]  = v->level;
-	w[8]  = 16384;               /* size, KiB per device */
-	w[9]  = v->nd;               /* nr_disks */
-	w[10] = v->nd;               /* raid_disks */
-	w[11] = v->minor;            /* md_minor */
-	w[12] = 0;                   /* not_persistent */
-	w[13] = 0x2222;
-	w[14] = 0x3333;
-	w[15] = 0x4444;
-	w[32] = 1700000000;          /* utime */
-	w[33] = 1;                   /* state: MD_SB_CLEAN */
-	w[34] = v->nd;               /* active_disks */
-	w[35] = v->nd;               /* working_disks */
-	w[39] = 1;                   /* events_lo (little endian) */
-	w[41] = 1;                   /* cp_events_lo */
-	w[43] = 0;                   /* recovery_cp */
-	w[44] = (uint32_t)(MaxSectorU & 0xffffffffu);   /* reshape_position = MaxSector */
-	w[45] = (uint32_t)(MaxSectorU >> 32);
-	w[46] = (uint32_t)v->new_level;
-	w[47] = (uint32_t)v->delta;  /* delta_disks, two's complement */
-	w[48] = v->new_layout;
-	w[49] = v->chunk;            /* new_chunk, bytes */
-	w[64] = v->layout;           /* layout */
-	w[65] = v->chunk;            /* chunk_size, bytes */
-	for (int k = 0; k < v->nd; k++) {
-		uint32_t *d = &w[128 + 32 * k];   /* disks[k], 32 words each */
-		d[0] = k; d[1] = 7; d[2] = k; d[3] = k; d[4] = DISK_ACT_SYNC;
-	}
-	uint32_t *t = &w[992];        /* this_disk */
-	if (spare) {
-		/* spare: desc state 0, raid_disk -1 (validate leaves rdev->raid_disk at -1) */
-		t[0] = idx; t[1] = 7; t[2] = idx; t[3] = 0xffffffffu; t[4] = 0;
-	} else {
-		t[0] = idx; t[1] = 7; t[2] = idx; t[3] = idx; t[4] = DISK_ACT_SYNC;
-	}
-	w[38] = 0;                    /* sb_csum must be 0 while summing */
-	w[38] = csum_sb(w);
-}
+	char rb[8192];
+	struct sockaddr_nl sa = { .nl_family = AF_NETLINK };
 
-static void dump_path(const char *path, const char *what)
-{
-	char s[64] = {0};
-	int f = open(path, O_RDONLY);
-	if (f < 0) {
-		printf("%s: open %s errno=%d (%s)\n", what, path, errno, strerror(errno));
-		return;
-	}
-	ssize_t n = read(f, s, sizeof s - 1);
-	close(f);
-	if (n > 0 && s[n - 1] == '\n')
-		s[n - 1] = 0;
-	printf("%s: %s\n", what, n > 0 ? s : "(empty)");
-}
-
-static void dump_attr(int minor, const char *attr)
-{
-	char p[96];
-	snprintf(p, sizeof p, "/sys/block/md%d/md/%s", minor, attr);
-	dump_path(p, attr);
-}
-
-static void ensure_node(const char *path, mode_t mode, unsigned maj, unsigned min)
-{
-	if (mknod(path, mode, makedev(maj, min)) < 0 && errno != EEXIST)
-		perror(path);
-}
-
-static int run_var(const struct var *v, int lc)
-{
-	uint32_t w[SB_WORDS] __attribute__((aligned(4096)));
-	int lfd[8], loopn[8];
-	char img[80], ldev[32], mdp[32], sysp[96];
-	int err_ret = 0;
-
-	printf("\n== %s\n", v->name);
-	fflush(stdout);
-
-	int ndev = v->nd + v->spare;
-
-	/* Backing files with 0.90 superblocks at MD_NEW_SIZE_SECTORS(size). */
-	for (int k = 0; k < ndev; k++) {
-		snprintf(img, sizeof img, "/tmp/mdimg-%d-%d", v->minor, k);
-		int fd = open(img, O_CREAT | O_RDWR | O_TRUNC, 0600);
-		if (fd < 0) { perror("open img"); return -1; }
-		if (ftruncate(fd, IMG_BYTES) < 0) { perror("ftruncate"); return -1; }
-		build_sb(w, v, k, k >= v->nd);
-		uint64_t sectors = IMG_BYTES >> 9;
-		uint64_t sb_sector = (sectors & ~127ULL) - 128;
-		if (pwrite(fd, w, 4096, sb_sector * 512) != 4096) { perror("pwrite sb"); return -1; }
-		close(fd);
-
-		int n = ioctl(lc, LOOP_CTL_GET_FREE_CMD);
-		if (n < 0) { perror("LOOP_CTL_GET_FREE"); return -1; }
-		loopn[k] = n;
-		snprintf(ldev, sizeof ldev, "/dev/loop%d", n);
-		ensure_node(ldev, S_IFBLK | 0600, 7, n);
-		lfd[k] = open(ldev, O_RDWR);
-		if (lfd[k] < 0) { perror("open loop"); return -1; }
-		int ffd = open(img, O_RDWR);
-		if (ffd < 0 || ioctl(lfd[k], LOOP_SET_FD_CMD, ffd) < 0) {
-			perror("LOOP_SET_FD"); return -1;
-		}
-		close(ffd);
-	}
-
-	snprintf(mdp, sizeof mdp, "/dev/md%d", v->minor);
-	ensure_node(mdp, S_IFBLK | 0600, 9, v->minor);
-	int mfd = open(mdp, O_RDWR);
-	if (mfd < 0) { perror("open md"); return -1; }
-
-	/* Set the superblock version only; raid_disks == 0 so the first
-	 * ADD_NEW_DISK imports a device and RUN_ARRAY goes through analyze_sbs(). */
-	mdu_array_info_t ai;
-	memset(&ai, 0, sizeof ai);
-	ai.major_version = 0;
-	ai.minor_version = 91;
-	ai.patch_version = 0;
-	if (ioctl(mfd, SET_ARRAY_INFO_CMD, &ai) < 0)
-		printf("SET_ARRAY_INFO: errno=%d (%s)\n", errno, strerror(errno));
-
-	for (int k = 0; k < ndev; k++) {
-		mdu_disk_info_t di;
-		memset(&di, 0, sizeof di);
-		di.number = k;
-		di.major = 7;
-		di.minor = loopn[k];
-		di.raid_disk = k;
-		di.state = 0;
-		if (ioctl(mfd, ADD_NEW_DISK_CMD, &di) < 0)
-			printf("ADD_NEW_DISK[%d]: errno=%d (%s)\n", k, errno, strerror(errno));
-	}
-
-	mdu_param_t p;
-	memset(&p, 0, sizeof p);
-	int r = ioctl(mfd, RUN_ARRAY_CMD, &p);
-	printf("RUN_ARRAY: ret=%d errno=%d (%s)\n", r, r < 0 ? errno : 0,
-	       r < 0 ? strerror(errno) : "ok");
-	err_ret = r;
-
-	if (r == 0 && v->spare) {
-		/* Let md's own spare/recovery handling settle, then show the state. */
-		sleep(3);
-		dump_attr(v->minor, "sync_action");
-		dump_attr(v->minor, "raid_disks");
-		snprintf(sysp, sizeof sysp, "/sys/block/md%d/md/dev-loop%d/slot",
-			 v->minor, loopn[v->nd]);
-		dump_path(sysp, "spare slot");
-		snprintf(sysp, sizeof sysp, "/sys/block/md%d/md/dev-loop%d/state",
-			 v->minor, loopn[v->nd]);
-		dump_path(sysp, "spare state");
-		/* Write slot=nd to the spare's sysfs slot (activates the spare at raid_disk nd). */
-		snprintf(sysp, sizeof sysp, "/sys/block/md%d/md/dev-loop%d/slot",
-			 v->minor, loopn[v->nd]);
-		int sf = open(sysp, O_WRONLY);
-		if (sf < 0) {
-			printf("open slot %s: errno=%d (%s)\n", sysp, errno, strerror(errno));
-		} else {
-			char s[16];
-			int n = snprintf(s, sizeof s, "%d\n", v->nd);
-			ssize_t w2 = write(sf, s, n);
-			printf("write slot=%d: ret=%zd errno=%d (%s)\n", v->nd, w2,
-			       w2 < 0 ? errno : 0, w2 < 0 ? strerror(errno) : "ok");
-			close(sf);
-		}
-		fflush(stdout);
-	}
-
-	if (r == 0 && v->io) {
-		static char buf[65536], rd[65536];
-		for (size_t i = 0; i < sizeof buf; i++)
-			buf[i] = (char)(i * 7 + 3);
-		ssize_t wr = pwrite(mfd, buf, sizeof buf, 0);
-		printf("pwrite md: %zd\n", wr);
-		fsync(mfd);
-		ssize_t rr = pread(mfd, rd, sizeof rd, 0);
-		printf("pread md: %zd, cmp=%d\n", rr,
-		       rr == (ssize_t)sizeof rd ? memcmp(buf, rd, sizeof rd) : -1);
-		snprintf(sysp, sizeof sysp, "/sys/block/md%d/md/new_level", v->minor);
-		int sf = open(sysp, O_RDONLY);
-		if (sf >= 0) {
-			char s[32] = {0};
-			read(sf, s, sizeof s - 1);
-			printf("sysfs new_level: %s", s);
-			close(sf);
-		}
-		snprintf(sysp, sizeof sysp, "/sys/block/md%d/md/level", v->minor);
-		sf = open(sysp, O_RDONLY);
-		if (sf >= 0) {
-			char s[32] = {0};
-			read(sf, s, sizeof s - 1);
-			printf("sysfs level: %s", s);
-			close(sf);
+	nh->nlmsg_seq = ++seq;
+	if (sendto(nlfd, nh, nh->nlmsg_len, 0, (void *)&sa, sizeof(sa)) < 0)
+		return -errno;
+	for (;;) {
+		ssize_t n = recv(nlfd, rb, sizeof(rb), 0);
+		if (n < 0)
+			return -errno;
+		for (struct nlmsghdr *r = (void *)rb; NLMSG_OK(r, n);
+		     r = NLMSG_NEXT(r, n)) {
+			if (r->nlmsg_seq != nh->nlmsg_seq)
+				continue;
+			if (r->nlmsg_type == NLMSG_ERROR) {
+				struct nlmsgerr *e = NLMSG_DATA(r);
+				return e->error;
+			}
 		}
 	}
+}
 
-	ioctl(mfd, STOP_ARRAY_CMD, 0);
-	close(mfd);
-	for (int k = 0; k < ndev; k++) {
-		ioctl(lfd[k], LOOP_CLR_FD_CMD, 0);
-		close(lfd[k]);
+static int link_new(const char *name, const char *kind, const char *peer)
+{
+	static char b[1024];
+	struct nlmsghdr *nh = (void *)b;
+	char info[512], pd[256], vd[384];
+	size_t io, po, vo, off;
+
+	memset(b, 0, sizeof(b));
+	nh->nlmsg_type = RTM_NEWLINK;
+	nh->nlmsg_flags = NLM_F_REQUEST | NLM_F_ACK | NLM_F_CREATE | NLM_F_EXCL;
+	off = NLMSG_LENGTH(sizeof(struct ifinfomsg));
+	off = nla(b, off, IFLA_IFNAME, name, strlen(name) + 1);
+
+	io = nla(info, 0, IFLA_INFO_KIND, kind, strlen(kind) + 1);
+	if (peer) {
+		memset(pd, 0, sizeof(pd));
+		po = sizeof(struct ifinfomsg);
+		po = nla(pd, po, IFLA_IFNAME, peer, strlen(peer) + 1);
+		vo = nla(vd, 0, VETH_INFO_PEER_ | NLA_F_NESTED, pd, po);
+		io = nla(info, io, IFLA_INFO_DATA | NLA_F_NESTED, vd, vo);
 	}
-	printf("== done: %s (ret=%d)\n", v->name, err_ret);
-	fflush(stdout);
-	return err_ret;
+	off = nla(b, off, IFLA_LINKINFO | NLA_F_NESTED, info, io);
+	nh->nlmsg_len = off;
+	return nl_transact(nh);
+}
+
+static int link_set(int ifindex, int up, int master)
+{
+	static char b[256];
+	struct nlmsghdr *nh = (void *)b;
+	struct ifinfomsg *ifi;
+	size_t off;
+
+	memset(b, 0, sizeof(b));
+	nh->nlmsg_type = RTM_NEWLINK;
+	nh->nlmsg_flags = NLM_F_REQUEST | NLM_F_ACK;
+	ifi = NLMSG_DATA(nh);
+	ifi->ifi_index = ifindex;
+	ifi->ifi_flags = up ? IFF_UP_ : 0;
+	ifi->ifi_change = IFF_UP_;
+	off = NLMSG_LENGTH(sizeof(struct ifinfomsg));
+	if (master) {
+		uint32_t m = master;
+
+		off = nla(b, off, IFLA_MASTER, &m, 4);
+	}
+	nh->nlmsg_len = off;
+	return nl_transact(nh);
+}
+
+// Build and send RTM_NEWMDB/RTM_DELMDB for a (*,G) on port portifx.
+//  srcattr_present: include MDBE_ATTR_SOURCE = srcattr (may be 0)
+//  mode:            MDBE_ATTR_GROUP_MODE value, or -1 for none
+//  nsrc:            MDBE_ATTR_SRC_LIST with nsrc IPv4 entries, or -1 for none
+static int mdb_op(uint16_t type, uint16_t extra_flags, int brifx, int portifx,
+		  uint32_t group, int srcattr_present, uint32_t srcattr,
+		  int mode, int nsrc, const uint32_t *srcs)
+{
+	static char b[4096], at[2048], sl[1024], ent[64];
+	struct nlmsghdr *nh = (void *)b;
+	struct br_port_msg_ *bpm;
+	struct mdb_entry e;
+	size_t off, ao = 0;
+
+	memset(b, 0, sizeof(b));
+	nh->nlmsg_type = type;
+	nh->nlmsg_flags = NLM_F_REQUEST | NLM_F_ACK | extra_flags;
+	bpm = (void *)(b + NLMSG_HDRLEN);
+	bpm->family = AF_BRIDGE_;
+	bpm->ifindex = brifx;
+	off = NLMSG_LENGTH(sizeof(*bpm));
+
+	memset(&e, 0, sizeof(e));
+	e.ifindex = portifx;
+	e.state = MDB_PERMANENT_;
+	e.addr.u.ip4 = group;
+	e.addr.proto = htons(0x0800);
+	off = nla(b, off, MDBA_SET_ENTRY_, &e, sizeof(e));
+
+	if (srcattr_present) {
+		uint32_t s = srcattr;
+
+		ao = nla(at, ao, MDBE_ATTR_SOURCE_, &s, 4);
+	}
+	if (mode >= 0) {
+		uint8_t m = mode;
+
+		ao = nla(at, ao, MDBE_ATTR_GROUP_MODE_, &m, 1);
+	}
+	if (nsrc >= 0) {
+		size_t so = 0;
+
+		for (int i = 0; i < nsrc; i++) {
+			size_t eo = nla(ent, 0, MDBE_SRCATTR_ADDRESS_, &srcs[i], 4);
+
+			so = nla(sl, so, MDBE_SRC_LIST_ENTRY_ | NLA_F_NESTED, ent, eo);
+		}
+		ao = nla(at, ao, MDBE_ATTR_SRC_LIST_ | NLA_F_NESTED, sl, so);
+	}
+	off = nla(b, off, MDBA_SET_ENTRY_ATTRS_ | NLA_F_NESTED, at, ao);
+	nh->nlmsg_len = off;
+	return nl_transact(nh);
+}
+
+static uint32_t ip(const char *s)
+{
+	struct in_addr a;
+
+	inet_pton(AF_INET, s, &a);
+	return a.s_addr;
 }
 
 int main(void)
 {
-	mkdir("/tmp", 01777);
-	ensure_node("/dev/loop-control", S_IFCHR | 0600, 10, 237);
-	int lc = open("/dev/loop-control", O_RDWR);
-	if (lc < 0) { perror("open loop-control"); return 1; }
+	int br, v0, v1, rc;
+	uint32_t srcs[3];
+	uid_t uid = getuid();
+	gid_t gid = getgid();
+	char map[64];
+	int fd;
 
-	for (size_t i = 0; i < sizeof vars / sizeof vars[0]; i++)
-		run_var(&vars[i], lc);
+	if (unshare(CLONE_NEWUSER | CLONE_NEWNET) < 0) {
+		perror("unshare");
+		return 1;
+	}
+	fd = open("/proc/self/setgroups", O_WRONLY);
+	if (fd >= 0) { write(fd, "deny", 4); close(fd); }
+	snprintf(map, sizeof(map), "0 %d 1", (int)uid);
+	fd = open("/proc/self/uid_map", O_WRONLY);
+	if (fd < 0 || write(fd, map, strlen(map)) < 0) perror("uid_map");
+	if (fd >= 0) close(fd);
+	snprintf(map, sizeof(map), "0 %d 1", (int)gid);
+	fd = open("/proc/self/gid_map", O_WRONLY);
+	if (fd < 0 || write(fd, map, strlen(map)) < 0) perror("gid_map");
+	if (fd >= 0) close(fd);
 
-	close(lc);
-	puts("silverfox-md: all variants done");
+	nlfd = socket(AF_NETLINK, SOCK_RAW | SOCK_CLOEXEC, NETLINK_ROUTE);
+	if (nlfd < 0) {
+		perror("socket");
+		return 1;
+	}
+
+	rc = link_new("br0", "bridge", NULL);
+	printf("repro: link br0 rc=%d\n", rc);
+	rc = link_new("v0", "veth", "v1");
+	printf("repro: link veth v0/v1 rc=%d\n", rc);
+	br = if_nametoindex("br0");
+	v0 = if_nametoindex("v0");
+	v1 = if_nametoindex("v1");
+	printf("repro: ifindex br=%d v0=%d v1=%d\n", br, v0, v1);
+	rc = link_set(v0, 1, br);
+	printf("repro: v0 up+master rc=%d\n", rc);
+	rc = link_set(v1, 1, 0);
+	printf("repro: v1 up rc=%d\n", rc);
+	rc = link_set(br, 1, 0);
+	printf("repro: br0 up rc=%d\n", rc);
+
+	// P1 control: one valid source, INCLUDE, new (*,G).
+	srcs[0] = ip("10.0.0.1");
+	rc = mdb_op(RTM_NEWMDB, NLM_F_CREATE, br, v0, ip("239.1.1.1"),
+		    0, 0, MCAST_INCLUDE_, 1, srcs);
+	printf("repro: P1 control add [10.0.0.1] rc=%d\n", rc);
+
+	// P2: duplicate valid source then all-zeros. The zero source is rejected in
+	// br_multicast_new_group_src -> ENOSPC, and br_mdb_add_group_srcs unwinds
+	// both earlier entries, which are the same source (second unwind finds nothing).
+	srcs[0] = ip("10.0.0.1");
+	srcs[1] = ip("10.0.0.1");
+	srcs[2] = ip("0.0.0.0");
+	rc = mdb_op(RTM_NEWMDB, NLM_F_CREATE | NLM_F_REPLACE, br, v0,
+		    ip("239.1.1.2"), 0, 0, MCAST_INCLUDE_, 3, srcs);
+	printf("repro: P2 add [10.0.0.1,10.0.0.1,0.0.0.0] rc=%d\n", rc);
+
+	// P3: single valid source then zero (single unwind, no duplicate).
+	srcs[0] = ip("10.0.0.1");
+	srcs[1] = ip("0.0.0.0");
+	rc = mdb_op(RTM_NEWMDB, NLM_F_CREATE, br, v0, ip("239.1.1.3"),
+		    0, 0, MCAST_INCLUDE_, 2, srcs);
+	printf("repro: P3 add [10.0.0.1,0.0.0.0] rc=%d\n", rc);
+
+	// P4: existing sources, then REPLACE with [10.0.0.1, 0.0.0.0]. Unwind
+	// deletes the pre-existing 10.0.0.1 source entry.
+	srcs[0] = ip("10.0.0.1");
+	srcs[1] = ip("10.0.0.2");
+	rc = mdb_op(RTM_NEWMDB, NLM_F_CREATE, br, v0, ip("239.1.1.4"),
+		    0, 0, MCAST_INCLUDE_, 2, srcs);
+	printf("repro: P4a add [10.0.0.1,10.0.0.2] rc=%d\n", rc);
+	srcs[0] = ip("10.0.0.1");
+	srcs[1] = ip("0.0.0.0");
+	rc = mdb_op(RTM_NEWMDB, NLM_F_CREATE | NLM_F_REPLACE, br, v0,
+		    ip("239.1.1.4"), 0, 0, MCAST_INCLUDE_, 2, srcs);
+	printf("repro: P4b replace [10.0.0.1,0.0.0.0] rc=%d\n", rc);
+
+	// P5: (*,G) with a zero MDBE_ATTR_SOURCE is the star-g key; delete it, then
+	// delete again.
+	srcs[0] = ip("10.0.0.9");
+	rc = mdb_op(RTM_NEWMDB, NLM_F_CREATE, br, v0, ip("239.1.1.5"),
+		    0, 0, MCAST_INCLUDE_, 1, srcs);
+	printf("repro: P5a add star-g [10.0.0.9] rc=%d\n", rc);
+	rc = mdb_op(RTM_DELMDB, 0, br, v0, ip("239.1.1.5"), 1, 0, -1, -1, NULL);
+	printf("repro: P5b del with SOURCE=0 rc=%d\n", rc);
+	rc = mdb_op(RTM_DELMDB, 0, br, v0, ip("239.1.1.5"), 1, 0, -1, -1, NULL);
+	printf("repro: P5c del again rc=%d\n", rc);
+
+	// Let deferred GC / RCU callbacks run and surface any use-after-free.
+	sleep(3);
+	printf("repro: done\n");
 	return 0;
 }
 
---===============6581340140755427681==
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment; filename="repro-raid1.c"
-MIME-Version: 1.0
-
-// Stale delta_disks > 0 with reshape_position == MaxSector in a v1.2 superblock,
-// then a spare is hot-added through md sysfs 'slot' at slot == raid_disks.
-// Syscalls only: /dev/ram0..2 as members, ioctl assembly, sysfs writes, I/O.
-#define _GNU_SOURCE
-#define MD_MAJOR 9
-#include <errno.h>
-#include <fcntl.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/ioctl.h>
-#include <sys/stat.h>
-#include <sys/sysmacros.h>
-#include <sys/types.h>
-#include <time.h>
-#include <unistd.h>
-#include <linux/raid/md_u.h>
-
-#define MD_DISK_ACTIVE 1
-#define MD_DISK_SYNC 2
-#define SB_MAGIC 0xa92b4efcu
-#define FEAT_RESHAPE_ACTIVE 4u
-#define MAXS 0xffffffffffffffffULL
-// Stale delta_disks in the sb: slot_store allows slots < raid_disks + delta = 5.
-// conf->mirrors is raid_disks * 2 = 4 entries, so slot 4 is one past the end.
-#define DELTA 3
-#define SLOT "4"
-
-static void p16(uint8_t *b, int off, uint16_t v) { memcpy(b + off, &v, 2); }
-static void p32(uint8_t *b, int off, uint32_t v) { memcpy(b + off, &v, 4); }
-static void p64(uint8_t *b, int off, uint64_t v) { memcpy(b + off, &v, 8); }
-
-// calc_sb_1_csum(): sum of 32-bit words over 256 + 2*max_dev bytes, sb_csum zeroed.
-static uint32_t sb_csum(uint8_t *sb, int max_dev) {
-	int size = 256 + max_dev * 2;
-	uint8_t *p = sb;
-	uint64_t s = 0;
-	uint32_t w;
-	uint16_t h;
-
-	p32(sb, 216, 0);
-	for (; size >= 4; size -= 4, p += 4) {
-		memcpy(&w, p, 4);
-		s += w;
-	}
-	if (size > 0) {
-		memcpy(&h, p, 2);
-		s += h;
-	}
-	return (uint32_t)((s & 0xffffffffULL) + (s >> 32));
-}
-
-// v1.2 superblock at byte 4096 (sb_start = 8 sectors). Role table: ram0=0, ram1=1, ram2=spare.
-static void make_sb(uint8_t *sb, uint32_t dev_number, int32_t delta_disks) {
-	memset(sb, 0, 512);
-	p32(sb, 0, SB_MAGIC);
-	p32(sb, 4, 1);				// major_version
-	p32(sb, 8, FEAT_RESHAPE_ACTIVE);	// feature_map: reshape fields claimed valid
-	memset(sb + 16, 0x5a, 16);		// set_uuid
-	memcpy(sb + 32, "rca-stale-delta", 15);
-	p64(sb, 64, 1700000000ULL);		// ctime
-	p32(sb, 72, 1);				// level raid1
-	p32(sb, 76, 0);				// layout
-	p64(sb, 80, 4096);			// size (sectors)
-	p32(sb, 88, 128);			// chunksize
-	p32(sb, 92, 2);				// raid_disks
-	p32(sb, 96, 0);				// bitmap_offset
-	p32(sb, 100, 1);			// new_level
-	p64(sb, 104, MAXS);			// reshape_position = MaxSector (no reshape)
-	p32(sb, 112, (uint32_t)delta_disks);	// delta_disks: stale, not checked
-	p32(sb, 116, 0);			// new_layout
-	p32(sb, 120, 128);			// new_chunk
-	p32(sb, 124, 0);			// new_offset
-	p64(sb, 128, 2048);			// data_offset
-	p64(sb, 136, 4096);			// data_size
-	p64(sb, 144, 8);			// super_offset
-	p64(sb, 152, 0);			// recovery_offset
-	p32(sb, 160, dev_number);
-	p32(sb, 164, 0);
-	memset(sb + 168, 0xa0 + (int)dev_number, 16);
-	p64(sb, 192, 1700000000ULL);		// utime
-	p64(sb, 200, 1);			// events
-	p64(sb, 208, MAXS);			// resync_offset
-	p32(sb, 220, 3);			// max_dev
-	p32(sb, 224, 512);			// logical_block_size
-	p16(sb, 256, 0);			// dev_roles[0] = active 0
-	p16(sb, 258, 1);			// dev_roles[1] = active 1
-	p16(sb, 260, 0xffff);			// dev_roles[2] = spare
-	p32(sb, 216, sb_csum(sb, 3));
-}
-
-static void step(const char *name, int rc) {
-	printf("STEP %s: %s\n", name, rc < 0 ? strerror(-rc) : "ok");
-	fflush(stdout);
-}
-
-static int wr_file(const char *path, const char *val) {
-	int fd = open(path, O_WRONLY);
-	if (fd < 0)
-		return -errno;
-	ssize_t n = write(fd, val, strlen(val));
-	int e = n < 0 ? errno : 0;
-	close(fd);
-	return n < 0 ? -e : 0;
-}
-
-static void show(const char *label, const char *path) {
-	char buf[128] = "";
-	int fd = open(path, O_RDONLY);
-	if (fd >= 0) {
-		ssize_t n = read(fd, buf, sizeof(buf) - 1);
-		if (n > 0) {
-			buf[n] = 0;
-			for (ssize_t i = n - 1; i >= 0 && (buf[i] == '\n'); i--)
-				buf[i] = 0;
-		}
-		close(fd);
-	}
-	printf("STATE %s = [%s]\n", label, buf);
-	fflush(stdout);
-}
-
-static void wait_idle(const char *sync_path) {
-	for (int i = 0; i < 300; i++) {
-		char buf[32] = "";
-		int fd = open(sync_path, O_RDONLY);
-		if (fd < 0)
-			return;
-		ssize_t n = read(fd, buf, sizeof(buf) - 1);
-		close(fd);
-		if (n > 0 && !strncmp(buf, "idle", 4))
-			return;
-		struct timespec ts = { 0, 200 * 1000 * 1000 };
-		nanosleep(&ts, NULL);
-	}
-	printf("STATE wait_idle timed out\n");
-}
-
-int main(void) {
-	const char *rams[3] = { "/dev/ram0", "/dev/ram1", "/dev/ram2" };
-	const char *md = "/sys/block/md0/md";
-	char p[256];
-	uint8_t sb[512];
-	int i, fd, mdfd, rc;
-
-	for (i = 0; i < 3; i++) {
-		mknod(rams[i], S_IFBLK | 0600, makedev(1, i));
-		fd = open(rams[i], O_RDWR);
-		if (fd < 0) {
-			printf("STEP open %s: %s\n", rams[i], strerror(errno));
-			return 0;
-		}
-		make_sb(sb, i, DELTA);
-		if (pwrite(fd, sb, 512, 4096) != 512)
-			printf("STEP pwrite %s failed\n", rams[i]);
-		close(fd);
-	}
-	step("sb written (delta_disks=3, reshape_position=MaxSector)", 0);
-
-	mknod("/dev/md0", S_IFBLK | 0600, makedev(MD_MAJOR, 0));
-	mdfd = open("/dev/md0", O_RDWR);
-	if (mdfd < 0) {
-		step("open /dev/md0", -errno);
-		return 0;
-	}
-
-	mdu_array_info_t ai;
-	memset(&ai, 0, sizeof(ai));
-	ai.major_version = 1;
-	ai.minor_version = 2;
-	ai.ctime = 1700000000;
-	ai.level = 1;
-	// raid_disks = 0: super_1_validate() only copies the sb reshape fields
-	// (delta_disks, reshape_position) into mddev when mddev->raid_disks == 0.
-	ai.nr_disks = 0;
-	ai.raid_disks = 0;
-	ai.utime = 1700000000;
-	ai.chunk_size = 65536;
-	rc = ioctl(mdfd, SET_ARRAY_INFO, &ai);
-	step("SET_ARRAY_INFO", rc < 0 ? -errno : 0);
-
-	for (i = 0; i < 3; i++) {
-		mdu_disk_info_t di;
-		memset(&di, 0, sizeof(di));
-		di.number = i;
-		di.major = 1;
-		di.minor = i;
-		di.raid_disk = i < 2 ? i : -1;
-		di.state = i < 2 ? ((1 << MD_DISK_ACTIVE) | (1 << MD_DISK_SYNC)) : 0;
-		rc = ioctl(mdfd, ADD_NEW_DISK, &di);
-		snprintf(p, sizeof(p), "ADD_NEW_DISK ram%d", i);
-		step(p, rc < 0 ? -errno : 0);
-	}
-
-	mdu_param_t prm;
-	memset(&prm, 0, sizeof(prm));
-	rc = ioctl(mdfd, RUN_ARRAY, &prm);
-	step("RUN_ARRAY", rc < 0 ? -errno : 0);
-	if (rc < 0)
-		goto out;
-
-	show("raid_disks", "/sys/block/md0/md/raid_disks");
-	show("level", "/sys/block/md0/md/level");
-	show("reshape_position", "/sys/block/md0/md/reshape_position");
-	show("array_state", "/sys/block/md0/md/array_state");
-	show("sync_action", "/sys/block/md0/md/sync_action");
-	show("degraded", "/sys/block/md0/md/degraded");
-	show("dev-ram2/slot", "/sys/block/md0/md/dev-ram2/slot");
-	// RUN starts a resync because the sb is not clean; slot store returns EBUSY until it ends.
-	wait_idle("/sys/block/md0/md/sync_action");
-	show("sync_action after wait", "/sys/block/md0/md/sync_action");
-
-	// Hot-add the spare at slot == raid_disks (2). Allowed because 2 < raid_disks + delta_disks = 3.
-	rc = wr_file("/sys/block/md0/md/dev-ram2/slot", SLOT);
-	step("slot store dev-ram2 = " SLOT, rc);
-	show("dev-ram2/slot after", "/sys/block/md0/md/dev-ram2/slot");
-	wait_idle("/sys/block/md0/md/sync_action");
-	show("degraded after add", "/sys/block/md0/md/degraded");
-	show("dev-ram2/recovery_start", "/sys/block/md0/md/dev-ram2/recovery_start");
-
-	// Drive recovery onto the slot-2 member (mirrors[2], not In_sync), then wait.
-	rc = wr_file("/sys/block/md0/md/sync_action", "recover");
-	step("sync_action recover", rc);
-	wait_idle("/sys/block/md0/md/sync_action");
-	show("sync_action after recover", "/sys/block/md0/md/sync_action");
-	show("degraded after recover", "/sys/block/md0/md/degraded");
-	show("dev-ram2/recovery_start after", "/sys/block/md0/md/dev-ram2/recovery_start");
-
-	// Fail a normal member so reads and writes depend on the slot-2 device.
-	rc = wr_file("/sys/block/md0/md/dev-ram0/state", "faulty");
-	step("dev-ram0 faulty", rc);
-	wait_idle("/sys/block/md0/md/sync_action");
-	{
-		static uint8_t back2[1 << 20];
-		int io2 = open("/dev/md0", O_RDONLY);
-		if (io2 >= 0) {
-			ssize_t r2 = pread(io2, back2, sizeof(back2), 0);
-			printf("STATE io2 read=%zd first=%02x\n", r2, back2[0]);
-			fflush(stdout);
-			close(io2);
-		}
-	}
-
-	// Exercise the new member: write data through the array, read it back.
-	{
-		static uint8_t pat[1 << 20], back[1 << 20];
-		int io = open("/dev/md0", O_RDWR);
-		memset(pat, 0x3c, sizeof(pat));
-		if (io < 0) {
-			step("open md0 io", -errno);
-		} else {
-			ssize_t w = pwrite(io, pat, sizeof(pat), 0);
-			fsync(io);
-			ssize_t r = pread(io, back, sizeof(back), 0);
-			printf("STATE io write=%zd read=%zd cmp=%d\n", w, r, memcmp(pat, back, sizeof(pat)));
-			fflush(stdout);
-			close(io);
-		}
-	}
-
-	rc = wr_file("/sys/block/md0/md/sync_action", "check");
-	step("sync_action check", rc);
-	wait_idle("/sys/block/md0/md/sync_action");
-	show("mismatch_cnt", "/sys/block/md0/md/mismatch_cnt");
-
-	rc = wr_file("/sys/block/md0/md/dev-ram2/state", "faulty");
-	step("dev-ram2 faulty", rc);
-	wait_idle("/sys/block/md0/md/sync_action");
-	show("dev-ram2/slot after faulty", "/sys/block/md0/md/dev-ram2/slot");
-
-	rc = wr_file("/sys/block/md0/md/dev-ram2/state", "remove");
-	step("dev-ram2 remove", rc);
-	show("dev-ram2/slot after remove", "/sys/block/md0/md/dev-ram2/slot");
-
-	rc = wr_file("/sys/block/md0/md/dev-ram2/slot", "2");
-	step("slot store dev-ram2 = 2 again", rc);
-	wait_idle("/sys/block/md0/md/sync_action");
-	show("array_state end", "/sys/block/md0/md/array_state");
-
-out:
-	rc = ioctl(mdfd, STOP_ARRAY, NULL);
-	step("STOP_ARRAY", rc < 0 ? -errno : 0);
-	close(mdfd);
-	return 0;
-}
-
---===============6581340140755427681==
+--===============0587000469621440978==
 Content-Type: application/gzip
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="config.gz"
@@ -857,4 +529,4 @@ We9GaslRah+5VOHbJHJvkx0Ct52lT5A3sMS6am+JxRUMuw+YBxGNGFUlqGYxlIhWxUa5MGogssBSq/FZ
 RKnnZ2qw/chunTYL5cW/j6xPB4CPHYeQR9wptUdjfQjAoxkTfu6tvigxHgJcTcbrjrfmL3llUWHgcrF6kagqUyOvjGwauplcWUClRc6FrOxB4mSSBLFwgucJiRSPQbhR+m+Bf9ZXiOxNbMW6xQGTeZe04K6YFFbQG/wMrnAQTPAVGrXm9kLpeTJ8piXHxClPPZraBfWExIOotfrEz5mMlCEiT8NOglaggagZQAHYbTEufcm0/au5AfwvbyEC6DwILbMQST9MwWoErxwgWKzhRAkRlHVRpjULkQht0Z5i8jwtBZoesf4okhvBF1cLC+/qIqrqRUndF1MeFbCa+iTqzruWgveGmBh/Rnzg8ZseyGFnUoSq0kzEwcZ4ZVSsrCnrEyOLrAWwkfGg4JQ6aqlTazp6Gsxo8LSaOTB1CNlwqwTNnLmAY0rCPSkIYR4C+AXaQDc8nc99nIucbnk4yOxFfjKx+X2hENyzZw+lqjnKhIUKznBwRTYRcDJVgJHRav4l4sFKQhwnCcsaT8JH/SMtQF1g2LTjUzyk+xukrzk8RANNXwWGUyao9rFxyEimCVxJizgdnVycCvMgW8tYRxis2auTl2g1K/Kut29RgsQxENupSkW2yLR/OmSJbheCD249hZnF28Q5wsKP8wnFSLOIZ1fKsqGtdZvB80mnTAnwZmn1iOnaVzS0S6ZzQ6y0K+o2icdbmc1SVCg7mVQsPhJzhKB9jm9WhkOdikiNnUOLvwR3BiGR7kZVLtLjzfmxNdwK4YlLMVC0fnuRgcbzONybdAjbE1SjmX4GVbTn9UDxZbbclqehPsuhEW/XlSFeVS2GvEK1gbfetlhjOivelTw2I2n2cGk9IU5N+y7uZRZzneqWR8329Q0FeVTHxU//2b7cfN3q+tclto9+Ru0l1U6YNOxLSacYpADxkHfJyHCn53ZKszoz7foQJt8JnRdQjcYo0BOKSy8wj5ZMBQ/1U+H9L6VPP80M1TP7O6nb
 QZgF1MspWrgc3DmVEecgYk0mhGuRfnwbDtClDKC1Wxnwm5KqgZUW7LLUWHY5K4wFL3TFycKT+jtbJp7cvPK7dOXLj8SkR46fYrqTf2Gf+u89URJqKkKWAVzm8fRfnsKMtsxAtAhcsYapc+ARWz6QevFS6Tg5DasB9Who4c4v2MZ7TUi3QbgVG0+KYkEgDSn9eGnMHZhIj4bLmCLU5jovpCYN8FuBB4tlHuyB9eBk4vvXNz8BvjIKVbLHYbJIsI59XK4wpu3tBvawuVipMjz1U8iUaQELH//FKr+XwWz9sZDF+sjLJIBFgc9nzSenn+Ugh3dVkCL1XUxyJHBH4cUQqGbm0c8JpNB1yMiO4YcyQV1Ov6AJte/8RI9AaDKS6mdhDyKv7ND9LJW4769vmuHwTj9pwJ2ojKa/qcrY2V3HXHvFHsAgXQL0fwF/qeo1L5ACAA==
 
---===============6581340140755427681==--
+--===============0587000469621440978==--
