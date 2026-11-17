@@ -1,58 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.226
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794918089;
-	b=EuKjcWvEo9PF/yWHtkH8czDYntviTTZsTZM6yg/e0wLKDox9TIItMuCpkvytHlL4yqaP
-	 NZ2uTP8cLZ8lecmbLoaHr3HMcQyMkaSzto2iAz32p9Fp3R0FpfsfXBeiJc/ZXZ0DZl/X7
-	 0LkklsMO+WBJnsZIk6C1JjsCEUaMdNc1E6ldgx6vRqp7I06R0TBDM9dWPyTwwEN9csBjz
-	 RpvrV5YxudLlm4CH2kY0fb3KG5aXzQKWueVkN4WlMPHjkQ7FokNBGiZhw8ux7+wowfxDK
-	 LggWy+nYyAF6jr84+7AV7rq4UAZNwJlMVZjfIx3iV/MJJbxjaz+ka4/psMVJJNzb0yg==
+	t=1794918106;
+	b=ceV0KWrS+OMmFoD3soPAYdltwRw25o7BFUiuzFDnsGPfkIFr6ZPIyyiNxmrLya9XPPhq
+	 5MNJyfV33REJlFI61Pood7hu9uuxECugp7lbz9LJH0SVZgScXRNg651iXNcEhpggmEG6r
+	 Njr8ARiESibZmM4JpxK/7ZMwwrLlN5dcf7yPmrrvSiHdGIcixboNozQZgqbrU9SgIL8xS
+	 KYgwOh8unVedIe6YATktYjHDstZfWk1hEdVWxwhQqDb4WrRMsLEPQEexB94Xg2humXdnE
+	 nQBG6NWEvblRvln57YOOXGLbjX3TL/BT6ijY6Bpkl3wwY4qU5nU5KL+FdI2FAEiT8JA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794918089;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=h8pgwT7/LO23i619Y0UAnqja3IksVLcqKsSokGT7RtI=;
-	b=TiwRUwXhfGROLp41j1WCKvfX7oKQm1kX0AsNkfCwFf1oyJoCzN38SdryFW7t+xV961xE
-	 IhL0rKhcmzTI8EavKW0xRbyag9eBCWTfIZSuOyqivOpA2yuRsszcsldNirz2Tx2lpEp97
-	 4DGDrEjHsDcwWk6ZrP+U65OoUqSdGPfiUoG/bH1EKIUaxOZPs84PcqB06lPtGmP+YMPkL
-	 4HzNtrIUL0pDTVfaweu1Od4dxaxZss63l00CA9QkZ+9ODXH19MEkOsLwCXZNmWgY6qSw6
-	 FhW9iSx0yP1P3ewxzZnHuTEPxrFcIu3s8uIiydVcLvU68zCLPyK5xuw0YozeO1JeFQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794918106;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=GttENf4AQLKGgaT2xtnMonfh7k3XNqVVFPtXzQMChjU=;
+	b=zBE8wifi8n5zIWcipjjvGOZtocXnOCb2Bi1g99ZyjMJl1YQRLviSTlIvY8cvBKMoHvJo
+	 bCxmWDLVYv5+Ht2+E7FNde/0hQRnFSCS6sA39rVjFSgXn/t1FXfuZcXijeKL97CAhjLh8
+	 JoSUelX5XJSpkQ6Wa53tLsojrCsF5PqqaFrVoPtr48ljTgpoqR7XccI9FZ2YDJxuBwg37
+	 dKZ/JMUBb28itFCVAn55TPR/CAzh6nexI3vfF7jq5vVrfFnS9PmLLCX+VHoRwCz50U2nh
+	 VrYqp0gXgTr3PD9uUDvcuLEiB6UZoHdP8zHaSZIV5aHFq5iI3vCpoV5tTw6UlA4Jr6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=w3AiHftS;
-	arc=none smtp.remote-ip=113.46.200.226
-Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C8lhV+Z6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4602C606A31C;
-	Tue, 17 Nov 2026 12:21:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4602C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 455F8606A31C;
+	Tue, 17 Nov 2026 12:21:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=w3AiHftS
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=h8pgwT7/LO23i619Y0UAnqja3IksVLcqKsSokGT7RtI=;
-	b=w3AiHftS3/udF+xmmZ1FLvfES3xWYex2cK4+fWFMZcl29zgDh7nEqTkI+0Fg0B7PEJUxtbg5B
-	XULBwWWQSGPncSPhprBeKXNRmnSrD8vxUJq64j374OIYCo8Vx+23pWWh9omL4ES5VtcLEjWTbAl
-	0EzY4eIOd6aw5zqtJxk9Etc=
-Received: from mail.maildlp.com (unknown [172.19.163.163])
-	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4jTP393njBzKm5K;
-	Tue, 17 Nov 2026 20:21:09 +0800 (CST)
-Received: from kwepemr200004.china.huawei.com (unknown [7.202.195.241])
-	by mail.maildlp.com (Postfix) with ESMTPS id 571B64057A;
-	Tue, 17 Nov 2026 20:21:23 +0800 (CST)
-Received: from [10.67.121.62] (10.67.121.62) by kwepemr200004.china.huawei.com
- (7.202.195.241) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 17 Nov
- 2026 20:21:22 +0800
-Message-ID: <eb615885-2756-4750-9e8f-411308c77a42@huawei.com>
-Date: Tue, 17 Nov 2026 20:21:22 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C8lhV+Z6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 023021F000C9;
+	Tue, 17 Nov 2026 12:21:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794918105;
+	bh=GttENf4AQLKGgaT2xtnMonfh7k3XNqVVFPtXzQMChjU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=C8lhV+Z6SJ8XgHd/J2EKI1U6pcb4wnoZF8dID2gB43wsYDa8pyqcBqXoFMBN0xEPN
+	 iDxWYqie8JE0pWF2f1kyXnCQ6L5jOHuyZy6Tob4n2/xEewU+wXTHgFe8AXq06KvIs5
+	 DaKLlL4gqZ6+qRwK1mKZ/oot5DCjLn7s3MFzjm1k/2LnjoEDqxFy9MeMqgtd9sG1U4
+	 fQ+kCnZ+V0Jbj9XU6dxdgPvt0chSQtjPt0YC28YBiFO312AJ3WmUWkDdu9jidpWQkp
+	 kL1OZE7zrbXx1g+ZVCa5SBXHy/BmdjHWUII37KVWw/6mK+HD8vNfHhCkVxfVbbv1A4
+	 ZC6mh0URIBSIg==
+Date: Tue, 17 Nov 2026 12:21:28 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Jeff Xu <jeffxu@chromium.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Andrey Ryabinin <ryabinin.a.a@gmail.com>, 
+	"Liam R . Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>, Alexander Potapenko <glider@google.com>, 
+	Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
+	Vincenzo Frascino <vincenzo.frascino@arm.com>, Marco Elver <elver@google.com>, 
+	Boris Brezillon <boris.brezillon@collabora.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Chia-I Wu <olvaffe@gmail.com>, Dev Jain <dev.jain@arm.com>, 
+	Evgenii Stepanov <eugenis@google.com>, Ian Rickards <ian.rickards@arm.com>, 
+	Jann Horn <jannh@google.com>, Jeff Vander Stoep <jeffv@google.com>, 
+	Jeff Xu <jeffxu@google.com>, Kees Cook <kees@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Peter Collingbourne <peter@pcc.me.uk>, =?utf-8?Q?Pierre-Cl=C3=A9ment?= Tosi <ptosi@google.com>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Tomasz Figa <tfiga@chromium.org>, Will Deacon <will@kernel.org>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	Miklos Szeredi <miklos@szeredi.hu>, Baoquan He <baoquan.he@linux.dev>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, 
+	Allison Henderson <achender@kernel.org>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, linux-mm@kvack.org, 
+	kasan-dev@googlegroups.com, linux-arm-kernel@lists.infradead.org, 
+	linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev, kexec@lists.infradead.org, 
+	netdev@vger.kernel.org, linux-rdma@vger.kernel.org, rds-devel@oss.oracle.com, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 5/7] mm: kasan: skip KASAN for GFP_HIGHUSER
+Message-ID: <avxFYRBid_VUp6vo@gremlin>
+References: <20261116230627.3537051-1-jeffxu@chromium.org>
+ <20261116230627.3537051-6-jeffxu@chromium.org>
+ <avwp1ZpVudiT1Gux@gremlin>
+ <85ce1f24-8b49-4cd3-a9f7-02d1be69708e@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,66 +82,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] cpufreq: CPPC: Enable boost by default
-To: Christian Loehle <christian.loehle@arm.com>, <rafael@kernel.org>,
-	<viresh.kumar@linaro.org>
-CC: <linuxarm@huawei.com>, <zhanjie9@hisilicon.com>,
-	<prime.zeng@hisilicon.com>, <wanghuiqiang@huawei.com>, <xuwei5@huawei.com>,
-	<zhenglifeng1@huawei.com>, <yubowen8@huawei.com>, <pierre.gondois@arm.com>,
-	<sumitg@nvidia.com>, <linux-pm@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <mojunjun4@huawei.com>
-References: <20261117105240.1113405-1-zhangpengjie2@huawei.com>
- <47ef2005-97ff-4841-8a87-5093323e1914@arm.com>
-From: Pengjie Zhang <zhangpengjie2@huawei.com>
-In-Reply-To: <47ef2005-97ff-4841-8a87-5093323e1914@arm.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- kwepemr200004.china.huawei.com (7.202.195.241)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <85ce1f24-8b49-4cd3-a9f7-02d1be69708e@kernel.org>
 
+On Tue, Nov 17, 2026 at 01:06:54PM +0100, David Hildenbrand (Arm) wrote:
+> On 11/17/26 11:21, Lorenzo Stoakes (ARM) wrote:
+> > This commit message is just inscrutable. It's like reading Finnegan's Wake :)
+> > LLMs are obscenely terrible at this stuff unfortunately.
+>
+> I truly wonder how some can decide to submit something like that with their name
+> under it :)
 
-On 11/17/2026 7:06 PM, Christian Loehle wrote:
-> On 11/17/26 10:52, Pengjie Zhang wrote:
->> The CPPC driver leaves boost disabled by default when Highest Performance
->> exceeds Nominal Performance. Userspace must explicitly enable boost
->> before governors can use the full advertised performance range.
->>
->> For user convenience, set .boost_enabled = true in cppc_cpufreq_driver.
->> Since cppc_cpufreq_cpu_init() sets policy->boost_supported when
->> highest_perf > nominal_perf, the cpufreq core will enable boost by
->> default only for policies that support it.
->>
->> Signed-off-by: Pengjie Zhang <zhangpengjie2@huawei.com>
-> Reviewed-by: Christian Loehle <christian.loehle@arm.com>
->
-> That being said it doesn't apply cleanly on bleeding-edge, so you might
-> wanna rebase to make Rafael's life a little easier.
-Yes, cppc_cpufreq seems to have merged a lot of content into linux-next.
->> ---
->> Changes in v3:
->> - Drop cppc_cpufreq_default_boost_init() and set .boost_enabled = true
->>    statically in cppc_cpufreq_driver (Christian).
->> - Link to v2: https://lore.kernel.org/all/20261022075901.3436021-1-zhangpengjie2@huawei.com/
->>
->> Changes in v2:
->> - Drop "even" from the commit message (Christian).
->> - Link to v1: https://lore.kernel.org/all/20261015015812.867988-1-zhangpengjie2@huawei.com/
->> ---
->>   drivers/cpufreq/cppc_cpufreq.c | 1 +
->>   1 file changed, 1 insertion(+)
->>
->> diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
->> index 957fa7775260..1ea16e95c0e9 100644
->> --- a/drivers/cpufreq/cppc_cpufreq.c
->> +++ b/drivers/cpufreq/cppc_cpufreq.c
->> @@ -1059,6 +1059,7 @@ static struct cpufreq_driver cppc_cpufreq_driver = {
->>   	.fast_switch = cppc_cpufreq_fast_switch,
->>   	.init = cppc_cpufreq_cpu_init,
->>   	.exit = cppc_cpufreq_cpu_exit,
->> +	.boost_enabled = true,
->>   	.set_boost = cppc_cpufreq_set_boost,
->>   	.attr = cppc_cpufreq_attr,
->>   	.name = "cppc_cpufreq",
->
->
+Have you seen mseal? ;)
+
+--
+Cheers, Lorenzo
