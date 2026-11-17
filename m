@@ -1,64 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.129
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794918624;
-	b=VrQAC2ISlpBb4nTF82+3+Gp2+e/XlGR+BrailC3Cn0wxpISGfZxq4bPPbLmmBnII+NZB
-	 U8f+9/gU6IGWHrUXt9WaqNmlML4LAeicH7NF5QInbLbpALPeANfrLy6N6siY5jHc0o5Fm
-	 Zg1Ste8Zb7EN7UOZgmLZkhHhStcsuObaS+YdiNVzYDLS+UwUjdg0N8ONfglBGiZUv/DTA
-	 wsCEqlSXoyRvup3JFRl/9w2WHHDJ75PGaeE4M+58/ZCJqDglBjvi3B1QvtK/KhJg3EPTo
-	 CtspTXQIrJhKDsNtErz0ncqhhNR5S17nfNNJFeXeAsIa3+mA2koXFb4w0L3JBIh7hRw==
+	t=1794918678;
+	b=0ttMdPI6rZwtXJ/qKh03zQ4f7Ev/jCYIi+v1LYW+idaGS2XzAhQ0yFyR6LtgfYrrAvIK
+	 cUXgPj28hF91EJjQqdVDWxpCreolqkdhhYUKhQI/uLyo2RDXqa54KcZh6U0f4AI7E3ryx
+	 WOIf/OcrYmvGJTa67zK4pJ/oBEowjPjdOkS8BZVO9pf4vgOYn3aj9xMnhS0hX0aNOuErb
+	 6Rjm5OOTm9/e0c36pfThgVm0nI7TBomMIXrKDlmFVyLnODujOY7Y0u68AmZJqrQzoXw9l
+	 V03f8Kbesx3uVjDcCs4UpWkslHydpS/Aqem1Kl1oTz6ohtCmYa5NGQpI1abyrF0DSuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794918624;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Ts8C8PjqK3ohgkWdudfpwxDXLz92B8zNCAL6T1JLvv8=;
-	b=khEEeLry95/CSZ4ujBWG2qYsr9/sAZZKBhaa/hv6567ImA4ZeJh6ouMd33s1D8CzIotb
-	 kEzHWwRAMqL+xBzi3nT03iuzIZHgsQNR+H+verVj0oqlCUsXOpVGkt/iZ+APVBowbcAB1
-	 tqJL36r+sskf2T7IbQcreMpY3ZRsuo6zYTjQqWIuLPswzuiGfSbu0jBdPCEIJOemS4L6D
-	 fJiTUt6dYTWBbCov6j+Ci8ruiII4wVK24rV9pb3XIqfwpYRcp5HcqE6zZMyT9BROt+hgO
-	 cSIJuV1hVlfEOdn5ihbmK04alJt5GTfOJQvoRiPIAazZC1Oz2/8nZMC7ijtVf5PpqGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794918678;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=B4BbyGDYOdxgrwH11x1TPj5dZD9FRkdewUB3279Jnp0=;
+	b=3/Dp3uSqlwAe0QK8Pap5cGWaRVHeQzQWcFkIEAyQDeAOs5yRiQXN2KAKNVHMc8JcE4EA
+	 9w7bqrcvv78IICdSvUceyG9BtG2g6hAckjN2seg2Vi7dPdQ5cqUNGkGkl8ZCe/g595xHh
+	 tXVQ2ERRrCRQJag/i6OfM9tlvQjO1BzGSHhrEBts72j/i4KHuXDMn/RbE9k7pnzwlb219
+	 +kSfVrifWHSh0JbhTYZQLfFMPR5pu/49Z1dRi4j0Ly3UTSkYTpYOzeXhwJeLtjeUj0crC
+	 bIZ70anGT80Sms6TVUd3scI0dtr7n1GXw5xbdmw1SEVN/oncLYyzR9YTUac3dD68rSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fHMxL5P4;
-	arc=none smtp.remote-ip=91.218.175.129
-Received: from mta0.migadu.com (out-129.mta0.migadu.com [91.218.175.129])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MlnMQN4o;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB3F1606A32C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:30:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB3F1606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B8C5606A31C;
+	Tue, 17 Nov 2026 12:31:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fHMxL5P4
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=9CE8kdPMbpoUdF+DUxZ871vgaHvH6qUQxvA5Xm28x4c=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794918622; v=1; x=1795523422;
- b=fHMxL5P4Yg2dBm9x0CulXyEom4uo0hAvfgueggVj9G+u0zavMvsmG8WGVGN30QXg7o0EmO9k
- jhfASvWib3eNCldbH5mNk8/pVKrdk/cTL3AV8WCclMB6TKmbB1p9yeWdQPuYcaOqVhnVDSp6LLp
- Qu4dmi4mZm8I+XfnJQIqIE00=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c487314d3f362298;
-	Tue, 17 Nov 2026 12:30:20 +0000
-X-Mizu-Trace-ID: c487314d3f362298
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 17 Nov 2026 13:30:15 +0100
-From: Luka Gejak <luka.gejak@linux.dev>
-To: Mehmet Fide <mehmet.fide@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>
-CC: Bitterblue Smith <rtl8821cerfe2@gmail.com>,
- Yan-Hsuan Chuang <yhchuang@realtek.com>, Kalle Valo <kvalo@kernel.org>,
- Stanislaw Gruszka <sgruszka@redhat.com>,
- Brian Norris <briannorris@chromium.org>, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, mehmet.fide@screeningeagle.com
-Subject: Re: [PATCH rtw-next v2] wifi: rtw88: program the beacon interval
-In-Reply-To: <20261117101419.1687892-1-mehmet.fide@gmail.com>
-References: <20261117101419.1687892-1-mehmet.fide@gmail.com>
-Message-ID: <AF1A064D-D778-4269-BE69-060FC29532F4@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MlnMQN4o
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E57EE1F000C4;
+	Tue, 17 Nov 2026 12:31:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794918678;
+	bh=B4BbyGDYOdxgrwH11x1TPj5dZD9FRkdewUB3279Jnp0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=MlnMQN4oD+wELQv465iIaWTgpdJXpYlMIzOz4lMQTZVkQjj/lbakefSLwDiWtMwai
+	 oD9kmxFh51nfrOJg1hr5hEFzPc0azk9Cj9jLXeycBdPw4ysM1AmHfF9YraqfFdxKIT
+	 hAc6DRc6B71jDjRLwrJguq+YbWhviPQJfmtXZ8aSHQ4cEQP3WomqsJp6Y+V/Aqz79Y
+	 oESNoh6ZOkQjGkeehtCSuiGr6+j/OdroHJ95D2c25Msnb7x0/rDImo6+nGWTcYcGL8
+	 lDy1wjztW0glyZZu6q3IDnT1YjvAqTmEmT6d4ay9/EeINQPK52sp/vKsi1HClcL/Z1
+	 YxkdEArmTNSlg==
+Message-ID: <f860d2c6-25e3-495f-9cb5-d91d5585d969@kernel.org>
+Date: Tue, 17 Nov 2026 13:31:14 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,76 +51,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: mediatek: mt8167: Add DRM nodes
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+ linux-mediatek@lists.infradead.org
+Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+References: <20261117122802.728987-1-l.scorcia@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261117122802.728987-1-l.scorcia@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On November 17, 2026 11:14:19 AM GMT+01:00, Mehmet Fide
-<mehmet.fide@gmail.com> wrote:
->From: Mehmet Fide <mehmet.fide@screeningeagle.com>
->
->The driver never writes the beacon interval register, so the hardware
->keeps its default of 100 TU. An AP or IBSS started with another
->interval says that interval in its beacons and sends them 100 TU apart.
->
->With beacon_int=200 in hostapd the beacons of an RTL8822CE, RTL8822CU,
->RTL8822BU and RTL8821CU are 102.4 ms apart on the air. The same holds
->for an IBSS joined with a beacon interval of 200 on an RTL8822CE and
->RTL8822BU.
->
->Write the interval when mac80211 sets it for an AP or IBSS interface.
->Both beacon from port 0: rtw_core_port_switch() moves an AP there, and
->an IBSS interface is never combined with another one.
->
->Reported-by: Luka Gejak <luka.gejak@linux.dev>
->Closes: https://lore.kernel.org/linux-wireless/1D396970-35B7-4B0B-82E9-24B523AD69C2@linux.dev/
->Fixes: e3037485c68e ("rtw88: new Realtek 802.11ac driver")
->Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
->---
->
->Notes:
->    v2:
->    - write the interval for an AP or IBSS interface only (Ping-Ke)
->    - Luka's Reviewed-by not carried, the condition changed
->    - rebased on rtw-next fb51e39dfaea
->    
->    Tested on rtw-next on an RTL8822CE, RTL8822CU, RTL8822BU and RTL8821CU
->    as AP with hostapd, the beacons sniffed from a second machine: with
->    beacon_int 50, 100 and 200 they are 51.2, 102.4 and 204.8 ms apart on
->    the air. As IBSS on the RTL8822CE and RTL8822BU, joined with a beacon
->    interval of 50 and 200, the TSF of their beacons shows them 50 and 200
->    TU apart. AP, association, power save, firmware crash and scan tests on
->    the RTL8822BU and RTL8821CU on both bands gave no new kernel report.
->    
->    v1: https://lore.kernel.org/r/20261116072022.1142783-1-mehmet.fide@gmail.com/
->
-> drivers/net/wireless/realtek/rtw88/mac80211.c | 5 +++++
-> drivers/net/wireless/realtek/rtw88/reg.h      | 1 +
-> 2 files changed, 6 insertions(+)
->
->diff --git a/drivers/net/wireless/realtek/rtw88/mac80211.c b/drivers/net/wireless/realtek/rtw88/mac80211.c
->index 5e40cf06a9e3..26bc4a9913be 100644
->--- a/drivers/net/wireless/realtek/rtw88/mac80211.c
->+++ b/drivers/net/wireless/realtek/rtw88/mac80211.c
->@@ -432,6 +432,11 @@ static void rtw_ops_bss_info_changed(struct ieee80211_hw *hw,
-> 	if (changed & BSS_CHANGED_BEACON_INT) {
-> 		if (ieee80211_vif_type_p2p(vif) == NL80211_IFTYPE_STATION)
-> 			coex_stat->wl_beacon_interval = conf->beacon_int;
->+		else if ((vif->type == NL80211_IFTYPE_AP ||
->+			  vif->type == NL80211_IFTYPE_ADHOC) &&
->+			 rtwvif->port == RTW_PORT_0)
->+			rtw_write16(rtwdev, REG_MBSSID_BCN_SPACE,
->+				    conf->beacon_int);
-> 	}
+On 17/11/2026 13:26, Luca Leonardo Scorcia wrote:
+> Add all the DRM nodes required to get DSI and DPI to work on MT8167 SoC.
 > 
-> 	if (changed & BSS_CHANGED_BEACON) {
+> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> ---
+> Since the DPI patches have been applied to CK Hu's -next branch, this
+> patch is the sole leftover of the previous mt8167 display series [1].
+> I am resending it separately as it now contains an additional fix to the
+> disp_pwm clocks that it took me months to figure out and was causing
+> random missing display output.
+> 
+>  arch/arm64/boot/dts/mediatek/mt8167.dtsi | 369 +++++++++++++++++++++++
+>  1 file changed, 369 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/mediatek/mt8167.dtsi b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
+> index 27cf32d7ae35..2bcdab2934f4 100644
+> --- a/arch/arm64/boot/dts/mediatek/mt8167.dtsi
+> +++ b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
+> @@ -16,6 +16,22 @@
+>  / {
+>  	compatible = "mediatek,mt8167";
+>  
+> +	aliases {
+> +		aal0 = &aal;
+> +		ccorr0 = &ccorr;
+> +		color0 = &color;
+> +		dither0 = &dither;
+> +		dpi0 = &dpi0;
+> +		dpi1 = &dpi1;
+> +		dsi0 = &dsi;
+> +		gamma0 = &gamma;
+> +		ovl0 = &ovl0;
+> +		pwm0 = &disp_pwm;
+> +		rdma0 = &rdma0;
+> +		rdma1 = &rdma1;
+> +		wdma0 = &wdma;
 
-[ ... ]
-
-As far as I can see this is the same as v1 just expressed explicitly.
-Either way I am fine with it.
-
-Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
+You do not get own aliases. Where are these documented (and approved)?
 
 Best regards,
-Luka Gejak
+Krzysztof
