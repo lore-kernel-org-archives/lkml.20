@@ -1,84 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794936383;
-	b=KH+C3pRPrG01ifb8UorarxaDT9RSqOx9n5yx/+Vq9jSwQRn4X42MniYJOMOv8bnOYMZ0
-	 MN9yaeAN2S1Gtf5D2LAxaw7K3OM9y3Mg23VmD2b+k2cZE6RAHe42zolA6Xd+ttQ0i1CVF
-	 6xakjN+vCCh1bXKu14VjSrf/9kykVYxPB5n7KMge+HS944KrGXEI9gDMq22CuTeZdS9MR
-	 0F7UZHb84HjDV9UIDkihP4LQ0JLT7LKQQ6yK9R2wRVV5gNI4KCtrn3KJMOBJeKWjv2NWR
-	 tFjTPBID90epXlAiTQ5SX8pqXmWIVmXiNEMrr6WucvU3EEAT0gLTp4Q+Ut1Nr1l5MIA==
+	t=1794936389;
+	b=eBKHCJgOUzYRjT2IIQFpA8JZU/GSKetI5swiAd5z6XmHdBzLWBkyhSxYLVutyfkgUNad
+	 ZhIPc2R7sJZMA1lZa+ZWzoGuqj/6VqO7wPhFZwVi0zztvAWUJO/1QtGgiOALp7L9Oc9be
+	 1cZQCvt/czZ2HM2pgJRIZsxzEHUXDxF0RVQaeuILHNqMbT8XqMHEh9/TFUeXpkO7CwTQ3
+	 o4+uVSxluAxsCKPYXFaRmNGxVfCGWyLAhiUYg8QboSjIhtyRXY++Zm38iR9p8hwSYFiIh
+	 c1fmkP02f2OIJsr1FAP3ZDHPUPRRQSl0qjctNBbS3UYF8jmFvkWdbWw6/UKpiTvoDDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794936383;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794936389;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=M+o9+9qekLBCMmwzgiZ85/sw7Z0aupiEWaDsdwZ/4vM=;
-	b=5tBFpqXncmXkfSqU5vVnJCZ7SqbxlG5y9mg6fmkgqHGGR3S6iNTSHaElRG1lgMlZ/ndU
-	 8p4z8taCLTllAeJ/63TZbHlA/Gruh6V5zl1OldSm3jfuIrsQUSQp7BimQfiKuMSU76njn
-	 1w+vOQ3RMM1dZXaUQ5n3nu0wWAGuXwF0wA6tCOHquRpXBzsX2ILEjfXNZ6QyAWcCcUPQi
-	 dw3ITJReL2gInNXGTS8CZDRaZSEqRt0iRnUDF36/0r+ontepokRaUKLDxw+5p9qcv6Pds
-	 F0xVkr6ESRImvQ0wfMkCAyrevbY9KIVyIgfn+eS9MeGdfHvCsTUarhG0dDzd+X0mZ2w==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=fzNmcmH6DQZPnhRJu7d5EWZ5XHOrbm2NPxIubtKTIT0=;
+	b=e4UAFn23ttZvy7OA0mDwAFiB3T87DJ8JJxGbN9oIRfgZNGcC8nI/G+CRFH0+NeMzQ6Zu
+	 pNM3qxXysnOIvQTuPkAgGwLPX3Uk5n3cg0NKldYojyLfIieH/DdOJOnblCXumhSxCIAGc
+	 yOtwQaemSipSgTCX+09BM0s4Tf0BQ8vCA9XODplBRX368xV+6qVRkVtaOPMphhsKRBG7n
+	 rhe5NBuBPvPBgf+bTvXJBVrpLyU6XwNMX5qLzzH0cBuwM/Y4Me57ASu77Km1wgKqilzfT
+	 1zDwBxtiHc+cJzRInmB/aOG5QmVpW/wWzFSWAUUnFUWtm1/DPNUVjKHVLzN3s50y29g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lrpOdjQX;
-	arc=none smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Aw0y2bKS;
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16DFC606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 17:26:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16DFC606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 168E4606A332
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 17:26:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 168E4606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lrpOdjQX
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1a8cc11ac42so99443c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:26:22 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Aw0y2bKS
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-14394530ec6so95470c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:26:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794936382; x=1795541182; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=M+o9+9qekLBCMmwzgiZ85/sw7Z0aupiEWaDsdwZ/4vM=;
-        b=lrpOdjQXBkqUxxULtoY/C0zWkzRPNV8v9WPWwkie6mJNfrRKPe79e6wA0+DFLUp8LZ
-         yZjaOYS1qN1PdIHncPT3qqkwux8/LI/qM8Gg6HtuASnXYKBNJW3yQ3EQmVj7iFuNDfIe
-         drj+2qZIrdViGVUXMrYdejHOi8go7g1A+ZdU0YsODa59s0SLJGRfpiPrjBuxyp34fIIL
-         bbXR1b+a6jvF9VmwEjYzEwKKI/u46m7fbo0P6KejAbPBvUv2Nnnj/6BcPsn0FR0eH4mS
-         mIxcDKI/4xQCMdje79OxI1SBfxZvY7PlLXwwjLA20wHJ2n4Ti279uOC6z86M+427Ib0e
-         MAMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794936382; x=1795541182;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794936388; x=1795541188; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=M+o9+9qekLBCMmwzgiZ85/sw7Z0aupiEWaDsdwZ/4vM=;
-        b=HQXcxgXi1GaYjxhdidurIFt7dW2ppa2RN6gRan11Xo7c8IvYV9Y999u+0IMOoSHGqP
-         cXofW8Lp2BUxGuMSW0UMfL0sON/uKUICUk4cCuBO/lqDaTTqnfcTmYkpmHMf1gh1aRAw
-         hCyNZd3DmIEbzYaKgX68Uvt9n1rU7ladWbN3m91bpyWA79SJTQWL7sQYyFRzDiVcfIR+
-         6Itz92Tr76XT+RYvHzODbNDJVUOQtVXtDB48Z5Ebd4S9eZh2yxnTTXFCI6lKpwMvLoMH
-         GFNtxF7POxeyX86HH04OlkckkJO72Bl/VSEGIRy0RXyua9Fl9och5TjH7NZ5aXR2K/lV
-         m7Gw==
-X-Forwarded-Encrypted: i=1; AL+hErE2QNnMYFNv79SoTi9WQBiwuPnHuDbHAX1h4vdHUuaOQgN1K0JtfiywlB5cjctnaBrIrWV2IZyFGW76sRg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/MuEWVCULKnRkywNDpCsPcORIhg8c5/l0IHdZwkFWvpglNmM33
-	UBcPBkHNuxg7jUUNNrNt46piLmGuaMLpYaqz1XglFXhcapaA+n/JhOHP
-X-Gm-Gg: AYBFou14mdP/r48sIzNz2gbay8OAoZgtb6qRk1yHqSMOxhZh5tmg/T1lVgd5VcCHT4k
-	cQzHc71B1dWUPM3WGN9Fiw5gMV1c3o7rUWMlPZ2phulQ7UzVgU82ZOJv7LEm4ddm0MBInlmKz9q
-	wfqNhuXs3xnayiDsHYg9C8t+WVOo59ClF/mp2B7OhxqCDVX5WChGGxO2r8ohoqy94srLOBQ5xle
-	1uK1zcB9N3klMrmzT5aEjE9MFfR1VLF9ClfNPvKqFfP4G9Z3CoweDvLpm3aDmwiKWlDCQ6NxFAb
-	XQVCYy6yt5cTf3j03R7z3iaRNH7GvmnLEmn6KFkmvx1TE0xRDU3c2uQwT1OsFKrdPMZvCqZKKvn
-	Na0er+lLJays3V0vabvYr5XmX6ui1xym7B6o85JQI71qiB47oQBqhq5wXY6e+Zy0p6RQvobxnOK
-	kHdGo4AHIop5w3SFqlXP1Z3/NN3K2lOU8yCVumKvTlv9NuDAZNmLwUuTr1cg5BUbsmXyYOpVdgw
-	bVYWLk8fp/1G18WuO7w1Ak4WdijksZDRp1DpLZ9KY26xd58zAxSczoDuXP5dbH01hk4GNIMh4X8
-	UKqujRxEvH77+m1EaTpgauH2KNFfn4km2lZzR8vxv5z5Ly8Kl4MET4XD2CH2nGXzIeOqJKGePg5
-	NrwUydiH3BnLFWh1bXzplutpLP296y1P87cd7B3Bq6M//vkfvwN5c38H1DBqkyRoVFJJdM/rSOL
-	EAacWA3p9YWGJp/XKVWQh8l5gJPfPWMvbPH2nR2WfvCcQ=
-X-Received: by 2002:a05:7022:7e82:b0:163:c5eb:d42f with SMTP id a92af1059eb24-1b543c23b8amr254647c88.5.1794936381830;
-        Tue, 17 Nov 2026 09:26:21 -0800 (PST)
+        bh=fzNmcmH6DQZPnhRJu7d5EWZ5XHOrbm2NPxIubtKTIT0=;
+        b=Aw0y2bKSmjz+HizsOZ8/Yw8i/5rgZp54UcB4X7lTBil4We0qmgDIZXhr85S/K/itdx
+         OOSqfIMfxWVQCLTM5zlXpSE2mYbwJ+lVexBTP3DtEKysNRaQCfwnQlVMmgSujP34UhtC
+         iqRBqHDgyfIsJCuX+n6Og8bl1vCdtHZX9PoUZ9gBtwOIYrIXBFNS9RbMMifZ5yaWvwdB
+         wykEpAFmPPHzNJw3TfKAwCn3ynzXo0TLrDxQAZtAg2tR2uz7iKe8hsz0VPWLN4qya/ly
+         lLvkYTLbnuu5CgNUZ/u4RoUe3Pzax/6o5FOTNou/N+sOzIliUHOk2221xP6ceKKzF1wb
+         w6/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794936388; x=1795541188;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fzNmcmH6DQZPnhRJu7d5EWZ5XHOrbm2NPxIubtKTIT0=;
+        b=0bgtic+Qvl11tL/cs5HSIqDUFMAYLBjign7rnrthpeF+Y4THx1iB1StBnvH5DIQTOC
+         T1D6RrdIgKEyaWomcx7jenI9yPEfgPciPZHMBuMLw5w7/C1VyD2kN+1wDupDK1qyTKHt
+         P4mom3nCown3i7wcn5AfGmO0fWLzCPQBVD1caMWMXm4s7YZeSKSqoW1XLSPMssFxG4bW
+         D+zRXWaO4L8n9nQgAS+Ivr9flMNyEtboNBTZiDjEWXr7Fnc1U5jPiV2Fm0V3taOJEIJI
+         letBNj673BUsxUgow/uEkIp82jJ3MZeOVeQCIt28vNjiObQgOjOtIE/CT6eyWvwIAnrW
+         sRoQ==
+X-Forwarded-Encrypted: i=1; AL+hErF9hHfcs5mFwTMjKnEySIv1HNDDPbTdMO9xairxPs1e3S6EN1luboCiGhHBDyeCK1oEce9UjQABgd78XYw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+WStqi5ya32N9qyFektYp8nhrYPaVQbDkh6KmxjY6G6pgzP5RB
+	eKFXRg/OgySxaiNiCm3T7BW0qd6ymirwJgjubzXm+hm1iBM67jt0KLK2
+X-Gm-Gg: AYBFou0FtOLMCssSjNT4OzSU/OXuHSBdJE7jLPCvHhMwE/fEYcQmfWqShW4LBfyO5b2
+	WwNtii+8yLwpdiD3UPqabTzLlV/7iYcQ2+yqdFSZr7Y5a+ciU69qfwtQlv1MJPHLqLYExqGgUbQ
+	oVTYuRK74HAItQMcGVBIQ97JizFN4zFAXdR3cOUIVfr+bIRiXIXs0tNdwcSwgFJF2YJF9sqi1C8
+	wmcoJN9ycRnvy/wbg1+be8DLr76TG8Ju963N9I6N2B+Fp5VAKwShAs92cI5hLTeQE1/Zu3CSf3R
+	Xd/1z+SOBOXj9p4ysat+PU5xqgJrlsB5t9k1XMCNFoUFIc3GPIHh4pt9gsPikL4jSgcVnDy6udW
+	fCJr7yEcQV0GqeAEnAcA4pdSufsvMDA0QrdyEZa+yCTbhJuPDiqfzd86qK82X7ZmTu+lTQ+1EPo
+	AGriTmbaLfulwNmH4uaxC45yoXKpICb6IaB5W6xcogQUHtxKFBq+WwUASI3PSZugdb6t3ismJQI
+	2wkVZMSS9wrJqynQwpqgoFIOdR8O1JotIZqyKzo9PyWUHHzoiGlULjFVUDz31P+mJsEsl6rOmR2
+	osXykIuhiTg3UabuFPWeyltxOGbz3BR9IqXLDF6XKizBgOxudgw6Vv2jbbGnHNvu2BxfRAGz7qb
+	p0TampooA0Co9i1a7Z1twEJwi9KG1zZoz4uXElOSD+Z180ADq3FPK6t0PXlbM24Axq3uJKLlhDT
+	06zk7aJM5yq73pabjD6k4hl6yY/mY+zfG2HxH0NKaACPM=
+X-Received: by 2002:a05:701b:204d:10b0:185:8c9f:de82 with SMTP id a92af1059eb24-1b543beb56dmr256212c88.33.1794936388092;
+        Tue, 17 Nov 2026 09:26:28 -0800 (PST)
 Received: from kapoor.iiserb.ac.in ([203.18.51.239])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5329ec87bsm14263079c88.0.2026.11.17.09.26.16
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5329ec87bsm14263079c88.0.2026.11.17.09.26.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 09:26:21 -0800 (PST)
+        Tue, 17 Nov 2026 09:26:27 -0800 (PST)
 From: Arnav Kapoor <kapoorarnav43@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>
 Cc: Gwendal Grignou <gwendal@chromium.org>,
@@ -94,10 +95,12 @@ Cc: Gwendal Grignou <gwendal@chromium.org>,
 	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Arnav Kapoor <kapoorarnav43@gmail.com>
-Subject: [PATCH v3 0/2] Semtech SX9xxx: add a reviewer entry and binding maintainer
-Date: Tue, 17 Nov 2026 22:56:07 +0530
-Message-ID: <20261117172612.25535-1-kapoorarnav43@gmail.com>
+Subject: [PATCH v3 1/2] dt-bindings: iio: proximity: semtech: add myself as maintainer
+Date: Tue, 17 Nov 2026 22:56:08 +0530
+Message-ID: <20261117172612.25535-2-kapoorarnav43@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261117172612.25535-1-kapoorarnav43@gmail.com>
+References: <20261117172612.25535-1-kapoorarnav43@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,38 +112,66 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a MAINTAINERS reviewer entry for the Semtech SX9310, SX9324, SX9360
-and SX9500 proximity drivers, and add myself to the maintainers of their
-DT bindings.
+I'm adding a reviewer entry for the Semtech SX9xxx proximity drivers to
+MAINTAINERS. Add myself to the maintainers of their bindings as well,
+so changes to them reach me.
 
-Jonathan agreed to a reviewer-only entry here:
-https://lore.kernel.org/all/20261117031830.69ac22f5@jic23-hlaptop/
+Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+---
+ .../devicetree/bindings/iio/proximity/semtech,sx9310.yaml        | 1 +
+ .../devicetree/bindings/iio/proximity/semtech,sx9324.yaml        | 1 +
+ .../devicetree/bindings/iio/proximity/semtech,sx9360.yaml        | 1 +
+ .../devicetree/bindings/iio/proximity/semtech,sx9500.yaml        | 1 +
+ 4 files changed, 4 insertions(+)
 
-Changes in v3:
-- Patch 2: replace the Link: tag and the reference to it with a
-  Suggested-by: tag (Andy)
-- Patch 2: drop the L: line, the IIO subsystem entry already provides
-  linux-iio for these files (Andy)
-- Patch 2: drop the DT binding F: lines, patch 1 already lists me in
-  the maintainers: field of the bindings (Andy)
-
-v2: https://lore.kernel.org/all/20261117110939.214932-1-kapoorarnav43@gmail.com/
-v1: https://lore.kernel.org/all/20261117094737.15253-1-kapoorarnav43@gmail.com/
-
-Arnav Kapoor (2):
-  dt-bindings: iio: proximity: semtech: add myself as maintainer
-  MAINTAINERS: add a reviewer entry for the Semtech SX9xxx proximity
-    drivers
-
- .../devicetree/bindings/iio/proximity/semtech,sx9310.yaml | 1 +
- .../devicetree/bindings/iio/proximity/semtech,sx9324.yaml | 1 +
- .../devicetree/bindings/iio/proximity/semtech,sx9360.yaml | 1 +
- .../devicetree/bindings/iio/proximity/semtech,sx9500.yaml | 1 +
- MAINTAINERS                                               | 8 ++++++++
- 5 files changed, 12 insertions(+)
-
-
-base-commit: 20ce8ef9c9e04cd6c5ae0422e251a9b5936c6b7c
+diff --git a/Documentation/devicetree/bindings/iio/proximity/semtech,sx9310.yaml b/Documentation/devicetree/bindings/iio/proximity/semtech,sx9310.yaml
+index 775555d147bf..39059215cdd9 100644
+--- a/Documentation/devicetree/bindings/iio/proximity/semtech,sx9310.yaml
++++ b/Documentation/devicetree/bindings/iio/proximity/semtech,sx9310.yaml
+@@ -8,6 +8,7 @@ title: Semtech's SX9310 capacitive proximity sensor
+ 
+ maintainers:
+   - Daniel Campello <campello@chromium.org>
++  - Arnav Kapoor <kapoorarnav43@gmail.com>
+ 
+ description: |
+   Semtech's SX9310/SX9311 capacitive proximity/button solution.
+diff --git a/Documentation/devicetree/bindings/iio/proximity/semtech,sx9324.yaml b/Documentation/devicetree/bindings/iio/proximity/semtech,sx9324.yaml
+index 8fed45ee557b..301d502f210e 100644
+--- a/Documentation/devicetree/bindings/iio/proximity/semtech,sx9324.yaml
++++ b/Documentation/devicetree/bindings/iio/proximity/semtech,sx9324.yaml
+@@ -9,6 +9,7 @@ title: Semtech's SX9324 capacitive proximity sensor
+ maintainers:
+   - Gwendal Grignou <gwendal@chromium.org>
+   - Daniel Campello <campello@chromium.org>
++  - Arnav Kapoor <kapoorarnav43@gmail.com>
+ 
+ description: |
+   Semtech's SX9324 proximity sensor.
+diff --git a/Documentation/devicetree/bindings/iio/proximity/semtech,sx9360.yaml b/Documentation/devicetree/bindings/iio/proximity/semtech,sx9360.yaml
+index ad0bb44f41b6..2ac8bab30cdb 100644
+--- a/Documentation/devicetree/bindings/iio/proximity/semtech,sx9360.yaml
++++ b/Documentation/devicetree/bindings/iio/proximity/semtech,sx9360.yaml
+@@ -9,6 +9,7 @@ title: Semtech's SX9360 capacitive proximity sensor
+ maintainers:
+   - Gwendal Grignou <gwendal@chromium.org>
+   - Daniel Campello <campello@chromium.org>
++  - Arnav Kapoor <kapoorarnav43@gmail.com>
+ 
+ description: |
+   Semtech's SX9360 proximity sensor.
+diff --git a/Documentation/devicetree/bindings/iio/proximity/semtech,sx9500.yaml b/Documentation/devicetree/bindings/iio/proximity/semtech,sx9500.yaml
+index 66dd01506859..cf05d1b0b1f3 100644
+--- a/Documentation/devicetree/bindings/iio/proximity/semtech,sx9500.yaml
++++ b/Documentation/devicetree/bindings/iio/proximity/semtech,sx9500.yaml
+@@ -8,6 +8,7 @@ title: Semtech's SX9500 capacitive proximity button device
+ 
+ maintainers:
+   - Jonathan Cameron <jic23@kernel.org>
++  - Arnav Kapoor <kapoorarnav43@gmail.com>
+ 
+ properties:
+   compatible:
 -- 
 2.53.0
 
