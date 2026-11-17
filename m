@@ -1,90 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.77.214
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794884360;
-	b=lYtkcANJiTicmKyNb18Xu08oIBNx6KQuuKdeH58q1QnB3/tvqyjftW6o0FpxkPicpJwk
-	 hV5k7AzQj896G/2yTbOixSCwm/YWZTsO+F3O3vxMCoN2ZF4y99a3pqbmZjWVhYUNrL//u
-	 3yfnD9MarIufvRknlrZn50dCyKf9fzhPE5TZcujxOSsofwG1hXl7UE+dfE+A5zAR29uwl
-	 k1rAnobclC2QusYC8ehROBTtCRVsjtmnAKXx8kGlI7xHAz528hgB5NZCzh+XkYuoTjm0U
-	 SaPieTd1pSIX6SHENz2xMhO7WuGfyDRQ8AsfZw6xiJP8BMCfKIGxRJahOkXGfQdxtOA==
+	t=1794884361;
+	b=RO5mSF3xOYlVWJe+aGc6rgdHHdNkOCFKJ5M1PVfHMiX8imLENsci4iNYhha9w8ycjyLy
+	 sikBKuCsdbkOBZrtAEHwP4cRMy+396ZvaP7BtcZHfqGFUoY5Aayd5mB3mdUkpN3XVNc29
+	 +nhfDWu5jCNiQ3EPtBG0lZK2SsGd2h65TpvFLs4NeXNeGBhRf3UGsGCa6Ine0jaN/IFNu
+	 chpFZpsCLelpi5VYCE9PcvpZ/agX+k8/ztfy/i5g1WxwfQ+X+0pFedQNIjm3wJoafKeHL
+	 TTTb58wiH4iGbdbRHJxuUSPBU0vePNPkcMu2cxZkqTui+1h97RRslKjJwiLxcK6PYrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794884360;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=689Tm9O+vBEQHj/FM7Y6c1v93wlxXsLmvU6MsCP0/kA=;
-	b=AxRnpezuxoiFf7mLIdlZJQYdEfZprIcFNoKSO8ZXnF2FtwoAUhaYllGXPRFYz0NOZXmC
-	 G4vskk5ERHCzcILnV939hcPKrS0NCcC+wn9XajUybzW09otu+VG+ktVQW1ocZ8qGLHmj7
-	 JkVw7HQWYi4zGn6HRzRT+Nc/NxopX+Ouyh0JH7pgpqLcZhy5b6PKrEwVFSDZOC1wD39th
-	 ntauux9NPAQCvtreBM/JR4FRT+FaKtUubcYqCs1jGVOa+JktWjRwZIkufK0vrXaakEwBc
-	 UAB6VcKubJfaJABoHIrkxl14j6hjGXl3upj4JrLxAsXjsRPuKv9pDQD0VqFeNFAWo0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794884361;
+	h=DMARC-Filter:Received:X-ICL-RepId:Dkim-Signature:Received:From:To:Cc:
+	 Subject:Date:Message-ID:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version:X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Info-Out:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-JNJ;
+	bh=tpP/9ykze2yQgtX589hLaB/y2/t7gDNGvWd4Bq6PVDQ=;
+	b=QlSMGaNAVlUWsIMcYEkbC8V4yKsmbqlX4wFGQbE1Gfj4LsyXPs0BwwRnZEEVXDEOW4WL
+	 UOGKBfttii4ANn+wNVPXn9oWHqQBf07UqYpsoNDTtnbaTbqz2Lg2zlILRLuO1XBgn5Fk1
+	 dyTHyh48LS9G97oynYeN7Uyqr1cOSUtRdtMXzd33R8SqZSt1GGGKMxdpplDZ8KGyljEon
+	 xZcnSz4gXXJdIrl8r9HHEtDfXhU/+c3IRQ2f51C2davrG8X39JZD8a8w2HnKEzdVm9Si+
+	 hm3szoXdNcCUWNlU8fciF4aSPSMBVhLSfbnQ6H6zvJeK9Wwl/V5zEnKS4eYoA2M+tyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GF3ZIRbU;
-	arc=none smtp.remote-ip=74.125.224.54
-Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=icloud.com;
+	spf=pass smtp.mailfrom=icloud.com;
+	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=kttlQ8SJ;
+	arc=none smtp.remote-ip=57.103.77.214
+Received: from outbound.st.icloud.com (st-2003a-snip4-3.eps.apple.com [57.103.77.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6008D606A89C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB559606A8A1
 	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:59:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6008D606A89C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB559606A8A1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GF3ZIRbU
-Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-67db89857abso2101420d50.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:59:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794884359; x=1795489159; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=689Tm9O+vBEQHj/FM7Y6c1v93wlxXsLmvU6MsCP0/kA=;
-        b=GF3ZIRbU7LqrXGuYUzXiVeHsCoUZGHberWUzLzJSu4GkotszijPt0mqboO5i45yf86
-         1Kpq8r8oxv/AwTrhJAaagVPXl7sUccrAFod7uS7R71tEWeAnpr8yofaRz1HBY/12skTk
-         fqi5nS24DdzW46ZgmaWeIZmF1nXJz6GUQqkn2LrrX18L/z3w6Ac4EbXY0Sgt3vBRNV22
-         C+eT8/iWoqrfdoKnEWXyWwQg/yZzPiNoWtRO9gk45o92lcABpkHG3x9FM8VpP49qIMaR
-         WDOApUvYOZtwjvHIUdKuIZtyBE6UG5y2+QW3Z/E82tIdWqaCeakF6+Ny4iN+KyOK17TJ
-         VwNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794884359; x=1795489159;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=689Tm9O+vBEQHj/FM7Y6c1v93wlxXsLmvU6MsCP0/kA=;
-        b=bHFzJfTJFlOCreyu5GpG4dgi00fHuE4BqC9PLspDHAA0pTlMj1EBuwJWxW+xsUj6KD
-         SKPsbD4Ul1r7L5WLjN+rdWSaum+v4Xc8q18tFevU1x3zI1uCZVVdjx4hZZwFWMNcXGcq
-         14kFmyUuI/+fX0QP3/Pt6JE+j6s+SlbBTPHPCdcmd3bB14QCzsH7PEJBq3S+K1fmBiJx
-         6Rq5ZnYPIlIf0+Lcb7d5T70WNIPEMkZHy0r0ky16tOwERoNGeooKIlDoxWZDq7GadT18
-         7brGoWfJB3yDGxaWzlOhDtcLWpinxI9Hll75TYAv8U174hzo8+ejmiFYbue2UHSL20IB
-         GIjw==
-X-Forwarded-Encrypted: i=1; AL+hErFLPm4xE5QeVO8314nJA0cJA2/N84Dt6AYCGp5w+M0NNjripdld82e1bhpmTFgLe6AjE3cFzhX7g4bZB7c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/i8IM8M/3sbAFTAL/uqBWfHT17WQ48GbtzAILxwYPicLTLbVO2
-	SqUEIVIw1TafJY7Ue48oForsk+zNQpOOxCxZLGgPo2uMg67tU9Y/hXJKRTM7SBOXh1g=
-X-Gm-Gg: AZFdTZdk6Iq3n+4b4v+nm6sX5Hhlyr/OO7ggWeFZQJIV/hQhbyyuxB+GXCPJiNPd9YD
-	INa05NcKZM82gHFuy9yoUMhNXxoGzDx/zflNeR0SZVQss9C3k/VzufknGNO/ScqwMUYU362ALOX
-	7TNX/ICfraQR619HPRO3wb6JYq84qv+gBoficQAW73yzNnGJL1Q6Dln0AKWu6yXZjvaJ1m/WKP1
-	grCHh7J0+Jm3kpVKwuzlF+Qf9uBHVEM9DUq8dlgRieWPjS892QTuzBh2Lj57SRWdFcQnUcI/hu6
-	GQKMoLj4PdKFBhnfT3Kt056dpbJoToE04KWQzpXtkpXuwcCohzPTraLwShGdRE+mXvxM93bMZVG
-	DNhkoetCs5aKc0C/5o3zjwyv0KAzeqEcMiPqlTk6RALS2OyxKOJIz5sY+bnOXDZqbpXlpCIdMBp
-	vA9UVdJiFlZUKW7b7Zo7ywytxXABIqRrOl2PO1z/YxotD86UtuVIGvbzFwwyPIIDcDcmVrRGlWv
-	L7wo8SB0YOTyOnsXmnqpgzP/zu2ogvegj22FPMCsVWHlHALB1I2hyf5fImkvkHPxpxdo+0twupj
-	74K3+4sd1QFBwY9Jb9hdtutHleAT5OP1fTK5B8MLekO7bz2XnEfcxivEYHIjDSGqbmGzPT7ATZs
-	cau/5F03FhsVit26W28HxKRyOJU1udqH1+r2ucNf6Utd4R+7KGtqD0B0ICjretnmH215ZfSF57i
-	0WGEHlUcrRCgeXP6c96Kw=
-X-Received: by 2002:a05:690e:1388:b0:67d:b4ba:b4cb with SMTP id 956f58d0204a3-67db4bab988mr2441881d50.27.1794884359223;
-        Mon, 16 Nov 2026 18:59:19 -0800 (PST)
-Received: from localhost (107-220-129-194.lightspeed.chrlnc.sbcglobal.net. [107.220.129.194])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67dbbdb9d0csm3768907d50.1.2026.11.16.18.59.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 18:59:17 -0800 (PST)
-From: Matt Turner <mattst88@gmail.com>
-Date: Mon, 16 Nov 2026 21:59:11 -0500
-Subject: [PATCH v2 4/7] alpha: marvel: notify environmental events
+	dkim=pass (2048-bit key, unprotected) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=kttlQ8SJ
+Received: from outbound.st.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-east-1a-100-percent-8 (Postfix) with ESMTPS id 107BC180012C;
+	Tue, 17 Nov 2026 02:59:16 +0000 (UTC)
+X-ICL-RepId: 01a1e771-cb79-750d-8e4d-6fc5792d1dc9
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1794884359; x=1826420359; bh=tpP/9ykze2yQgtX589hLaB/y2/t7gDNGvWd4Bq6PVDQ=; h=From:To:Subject:Date:Message-ID:Content-Type:MIME-Version:x-icloud-hme; b=kttlQ8SJHdu/IFhU98cq+x2zZC/Fyw4BTxbPpDUnJBESkMESAtqWoHyapLfzofrrMzCv/mO0DNa3Hz/HgC8Aq38Z3vmrVSyLO6Wwe8z3LmXnrrTjq7nxH2HongMk/MUF5oRXSSLEf8pChHfEbJRHo7cfPFywG2WoJwQtDG4w2DuTjLqN0rYFkiTjvnck9bZ2T4qSZ+kWG+6cqROdh75AsP8igVxQbybQgOEF51W3AHnJs7cdj3gXI4aphHoqLCERGX3hK+9vWKHf0qwDupQYSy/NxdO84F74MuAezd6FzgcAiyTDX0A022KN4cfnPwj/OameZ68jbNuULzeSLyb4EA==
+Received: from [100.126.217.91] (unknown [17.156.216.30])
+	by p00-icloudmta-asmtp-us-east-1a-100-percent-8 (Postfix) with ESMTPSA id 69450180012A;
+	Tue, 17 Nov 2026 02:59:11 +0000 (UTC)
+From: Muhammad Haris Awan <m.harisawan@icloud.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>,
+ Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject:
+ [PATCH] mm/vmscan: respect can_reclaim_anon_pages() in MGLRU get_swappiness()
+Date: Tue, 17 Nov 2026 07:59:02 +0500
+Message-ID: <179488434239.3564555.16227252580122398690@icloud.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,92 +67,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-marvel-env-v2-4-ef614eb2e7f1@gmail.com>
-References: <20261116-marvel-env-v2-0-ef614eb2e7f1@gmail.com>
-In-Reply-To: <20261116-marvel-env-v2-0-ef614eb2e7f1@gmail.com>
-To: Richard Henderson <richard.henderson@linaro.org>, 
- Magnus Lindholm <linmag7@gmail.com>, Guenter Roeck <linux@roeck-us.net>
-Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org, 
- Matt Turner <mattst88@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2087; i=mattst88@gmail.com;
- h=from:subject:message-id; bh=DL1ALKxKn/ychnU0MAIXks8gfYB5EJCjJIeCgE+gavc=;
- b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLJ+H/oTdbLrVEKd2SzHxK2p4Y+zItjcnJ5wi+cfEH3Ie
- ldYdcmXjo8sDGJcDDPFFFni1iuyzGrbsdTntPQvmDmsTCBDpEUaGICAhYEvNzGv1EjHSM9U21DP
- EMjQMYqHyOkxaGQWF5emFummFRQ55OWXJJZk5ucV6+UXpOYVpBfopWWmlWRk5BcVpwKN0MtLLTF
- 1dXQzMjQwsXS0MHOycDQ1cXZ2MnRyc3R0dnUysjQ3MXC2dDRxtTRn4OIUgLkmIIfhJ6OdfMbWBV
- Pm/Lue9DZq+83lhpXaC4s3sfel3V6TdlNsSg3DX7H4o4axMVKP5Q164m++1rJtef7ypVRC9/Hly
- f8VK+5ocgAA
-X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
- fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDAxMSBTYWx0ZWRfX7SaBbDbCWNER
+ 0YkbbOlt7wBXFAcURAhC/DjrpRrS7Rf+Al32qeUpDpwdjTdsI8b2xwM7bWFqRc64sP8ktOrCllT
+ gmEk80w727KGXD9+k/nvYYEOIOEB8pm8igFU1v0u03g9jMqt0gOehh4vbX64RRlLKT94sAYugeq
+ 5Zg5yvLTWFLJvCaGbgyQoF/yeLIgQKPEbThcpM1JYAuEPWGvrpPxtfdWqVyEFJwdyL+symKml0j
+ 9osHrYgiIQZS1V7URAYDfLGWaPVhMHzjoJAZaZMkycHqV9VNrtoo4nf/wiIJIc2hxVD1YjPdmkP
+ uUsorlNXwbNO+r6u9h9d2b2ihDrzBGeH0hQhbPNuWLUs6e94SGsxYfFIOpEt/0=
+X-Proofpoint-ORIG-GUID: 2kbiXhfF3ykzIRkWNzuzrHRwTotlbSw4
+X-Authority-Info-Out: v=2.4 cv=C4Z8WgP+ c=1 sm=1 tr=0 ts=6afbc306
+ cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
+ a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=x7bEGLp0ZPQA:10 a=2kFROKt5_e8A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=EYaFdmsEC1CjpenOt5ir:22 a=ieB-HjlS9-5fP-wcyLUk:22 a=v3ZZPjhaAAAA:8
+ a=pGK3NKez1_T4NQe4MgUA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDAxMSBTYWx0ZWRfXyRYQk7FP5Cxg
+ laGk+FIvKC0JA5D01fX9z09T2OSBLUbkBp23WNpr1bwDz7MMRe/qZfZdvnt3dOwX336MYkUweHB
+ PBJK2pgQv5pv3Gx0oP7LuDq6RUZZwgg=
+X-Proofpoint-GUID: 2kbiXhfF3ykzIRkWNzuzrHRwTotlbSw4
+X-JNJ: AAAAAAABKX7+l7z00Xgf6XDZJJmtdf1hXyiTKcPoZ6Pb1Ih72AiU8hINMGwHN8jiSm1SX4
+ VMB08z17KH6WVTM7E9Gq/SzNyph/yLn2hXBseGs9ZiqE05qfyI/1k2XWXdkCezxgD6vSAw
+ SqkASoQH5G6gyu65J0GMzN8N93OhhclyrincYok3b46CPSgLAJ2CetS2jja2gVt90HtTUg
+ gGowHO6yWTQc+1gtwZHcd008AG/tcRLdIZnX869YCDDOvGdIs7P29qASGdsEgCXGyyVxeP
+ XT4JCfQ1RpuRv1Oln58mf2uz8yIIMTH1sbwl7IKieJu7Qum3nbwMvWtLRaUxc/q7Z04Y7e
+ I9+14HxtksNNkDwyEm0V0dTGIDBpuxIjIbYRtZdo3FJms1z01mExV0uZJdchhcF3j/R7Le
+ FSkK1XU0rbt6Cm6NuaqKuppY57cIf/QddYkEaUlS0I2oMaZbp3JNGPJy0r81vPGw/YLwuu
+ srGA2Mk0PfDp/pmaKDoQIPyZ/mxMUWdVjsm0U1pr/V6BadgEbaAn4E898zYc5LkuUAbvre
+ rhblZn7k2GQFMwtUUsHpHvzhx7+bPnIJpBk6fB9p+jTkgm3/Bkc6MyPoSSZDgW4seawUz6
+ wj2OsHqe+LE5sWzNd6hOwQxdzEcE1Z5ooK0Vz4oS3F1SJOqVEbzRtsPTk1MyJeZ4lILCDJ
+ Hgg3heczHnc0gs5KfL7QoqkhrlP6zasA2PaPLVEsXuqrX1dyM/3uWdAqqxebauXoxT3DGu
+ pGAzqwAX1NXL+2W6XWkYGbnmyXje5Nfo2JYHxpe3qNooRnzQIfY4fsFeiK8/nQzHR4/olK
+ sRS15vH51xs2szAihEOIuWHj08bM+ZvaplrSXYsg0FCsq6FYW6z9nMNX7FJ70TPEYVlcRE
+ NSXRNbWFTnRC4Xz06vx+81BNH01iqMnayxR0IEusXYxTArekSLgPigTYHbfWvyK2cAELt5
+ k/o+JfdX3WCry0A1N8a8USHWFV5E++C5yT3HgVx5Np7/UIBt52Hd+9bmq7PZAhljH/s1Z3
+ uBG8fD7okrsCEJ6R0ZtpxWHG/kYuVZA228hHq9v2jsiq6fChAMuazevJJJQPHxNVJ6otsz
+ yw0+DFmve9ea6EHPP/tpCXRywjz7aPjnX17KWeMCPJmS0RaWoffnOW8WdnLjZJn8ZaPlb7
+ Lc8D+Ko9IodS+dzvvDZRpj4vP2fLMi/GJOflYFpMcFUUfoKFda2d3o+VRE3EEWdGYocFvt
+ tnBg5292fv/S5n+6482JP/p1fea8C1NSq6wBkfQgD+mjtsreGQyIcxvdq09jweQIBf+m0R
+ rwcu5k/PyBkxPcwjZNjOfcSnNCqVMcBh9d7F1d3u8uke/+OAnqDd1GPxh37k59xzlEPPMl
+ XjzqmG2LpVDUp5H3O4nQFrAt+AY80TG9dWAywIJWhjlERrssE8WFSUELQd5YGsslPu0T7C
+ btnmsmiFvSwzk=
 
-A change in the state of a sensor arrives as a system event logout
-frame. Call an atomic notifier chain on each one, so that a sensor
-driver can reread its sensors and tell userspace without polling.
+Under GFP_NOIO reclaim, reclaimers cannot add anonymous folios to the
+swapcache and can only reclaim anon folios that are already in the
+swapcache (or demotable). Traditional LRU avoids scanning anon when
+swapcache < (anon_pages >> 6) via reclaimable_anon_is_low(), but MGLRU
+explicitly skipped this check because get_swappiness() did not consult
+can_reclaim_anon_pages().
 
-Signed-off-by: Matt Turner <mattst88@gmail.com>
+Call can_reclaim_anon_pages() from get_swappiness() and remove the
+lru_gen_enabled() bypass from reclaimable_anon_is_low(). When anon
+pages are not reclaimable (e.g., GFP_NOIO with low swapcache and no
+demotion target), get_swappiness() now returns 0, restricting MGLRU
+eviction, aging, and fallback isolation to LRU_GEN_FILE only.
+
+Signed-off-by: Muhammad Haris Awan <m.harisawan@icloud.com>
 ---
- arch/alpha/include/asm/marvel_env.h | 5 +++++
- arch/alpha/kernel/err_marvel.c      | 9 ++++++++-
- 2 files changed, 13 insertions(+), 1 deletion(-)
+ mm/vmscan.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
 
-diff --git a/arch/alpha/include/asm/marvel_env.h b/arch/alpha/include/asm/marvel_env.h
-index 16ccd2002a11..dbbf827a18ad 100644
---- a/arch/alpha/include/asm/marvel_env.h
-+++ b/arch/alpha/include/asm/marvel_env.h
-@@ -2,6 +2,8 @@
- #ifndef __ALPHA_MARVEL_ENV_H
- #define __ALPHA_MARVEL_ENV_H
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 6a1af9b92..f5fa67985 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -379,13 +379,6 @@ static inline bool reclaimable_anon_is_low(struct mem_cgroup *memcg,
+ 	if (!sc || (sc->gfp_mask & __GFP_IO))
+ 		return false;
  
-+#include <linux/notifier.h>
+-	/*
+-	 * FIXME: MGLRU doesn't fully respect can_reclaim_anon_pages() for the
+-	 * scanning type, so only apply this to the traditional LRU for now.
+-	 */
+-	if (lru_gen_enabled())
+-		return false;
+-
+ 	if (memcg) {
+ 		struct lruvec *lruvec = mem_cgroup_lruvec(memcg, pgdat);
+ 
+@@ -2893,6 +2886,9 @@ static int get_swappiness(struct lruvec *lruvec, struct scan_control *sc)
+ 	if (!sc->may_swap)
+ 		return 0;
+ 
++	if (!can_reclaim_anon_pages(memcg, pgdat->node_id, sc))
++		return 0;
 +
- /*
-  * Ask the console to refresh the environmental readings of the GCT node at
-  * @offset from the start of the GCT. Returns the console status, which is 1
-@@ -9,4 +11,7 @@
-  */
- long marvel_cfgtree_partial_update(unsigned long offset);
- 
-+/* Called from machine check context on each environmental system event. */
-+extern struct atomic_notifier_head marvel_env_notifier;
-+
- #endif /* __ALPHA_MARVEL_ENV_H */
-diff --git a/arch/alpha/kernel/err_marvel.c b/arch/alpha/kernel/err_marvel.c
-index 46c521cea9a0..6e0b0aabdaca 100644
---- a/arch/alpha/kernel/err_marvel.c
-+++ b/arch/alpha/kernel/err_marvel.c
-@@ -17,10 +17,14 @@
- #include <asm/smp.h>
- #include <asm/err_common.h>
- #include <asm/err_ev7.h>
-+#include <asm/marvel_env.h>
- 
- #include "err_impl.h"
- #include "proto.h"
- 
-+ATOMIC_NOTIFIER_HEAD(marvel_env_notifier);
-+EXPORT_SYMBOL_GPL(marvel_env_notifier);
-+
- static const char *
- marvel_env_state(u16 state)
- {
-@@ -82,8 +86,11 @@ marvel_process_680_frame(struct ev7_lf_subpackets *lf_subpackets, int print)
- 			status = MCHK_DISPOSITION_REPORT;
- 	}
- 
--	if (print)
-+	/* The frame is processed twice; notify on the printing pass only. */
-+	if (print) {
- 		marvel_print_680_frame(lf_subpackets);
-+		atomic_notifier_call_chain(&marvel_env_notifier, 0, NULL);
-+	}
- 
- 	return status;
- }
-
+ 	if (!can_demote(pgdat->node_id, sc, memcg) &&
+ 	    mem_cgroup_get_nr_swap_pages(memcg) < MIN_LRU_BATCH)
+ 		return 0;
 -- 
-2.56.1
+2.56.0
 
