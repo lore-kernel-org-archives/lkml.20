@@ -1,96 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.81
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794922006;
-	b=f4Qx8b+AVQ/7A7QuCc+xLuVu3bPnI2orQTBfLS+1PBjOjq/gsUaU+3UEcWeHzWta07uu
-	 lbve3rKkKXwUzJc6GgFjSUm5YF5nUpfIst/eDfCZ3YtAMlE7rSDXYgs0p1eJPthUnbVxk
-	 JDxL5NBH9D6kL5p4TKH6zhWKx8zz5+UjQmcTJlsBe3gNM+l3O3IoAhEpVGrlCogBg5/Mj
-	 He8eRhpT4Sv26oStUCuzs56ANCbw7uvh6kPFWj8y5S7B0Drxr7dIm/Zr6khhekZvUDnm6
-	 5h1WAxpzezDPHmRkJpX8J9e1w1GxayrORif61g4YODFoTBpnk7m+PIZDu4GgbphbRZQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794922006;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type;
-	bh=i+REedDVBSFwJecTIqRWJ1YL7pNWyE73P76MFVGjx6g=;
-	b=ul5zbpDyJcnfoyKK/tofbiJauMaVU8hp0us+c7mw9CNUez46BSRGCrhBce8+r08D3I11
-	 x18dbkt719WHrc1AxyUcQiyC0CAkVEPnoz4l7daRhV+nAOtZvb1vOGF8lSPCsiwhoH+p+
-	 z+uKRHU1i23DEKebW698fecR9APMrw+Rhe5I67JJPuS2tTRDo7SO6JkcyYnBdZ2XyFyVQ
-	 rSBmizP1t0/m7R//79i+Jf1LAYBCjPQ577BikQFaV6/tYv96Epo1z8HND3K6YEuN9ewLl
-	 R1Oc15M88mhGaclTnQSUhO/aNvL1MkHDFdVYUp6y6AceevHGL4zwXLRg2usgIMZhdlQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ommer.net;
-	spf=fail smtp.mailfrom=ommer.net;
-	dkim=pass header.d=ommer.net header.i=@ommer.net header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=ba9t0Szw;
-	dkim=pass header.d=ommer.net header.i=@ommer.net header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=QhUjXnTY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.81
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.81])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794922037;
+	b=wzu6h3wgyJbDZQkhrN99mPm5GKH6Nv2BVXZxgEZsmM+MfSQql2zHQT3w6CgNaP8nT0HS
+	 3WlwOCOplI7OoCZ7PpFB+u6IRcByTJH4EjYusDUKK8nZP1xhbKotO4LEY/bTzb8MLghjF
+	 sl45Sfx1cAxZjiyRyNtXNM9KTVuQd3fgi73URDn2vEDCMxPYEASYJFczQJsEOpiZ0oqmm
+	 HMkY5Qmogq7vBhWB5YG9GugcmAysFe1nkWrhYe2q2ABEIe4ps9h1ig76I9DcIKgk6lodE
+	 7/3KualofSTIAFMul72dtzbBiLjpqnP5yo/P9Vm/DBDJwfF/Oz47wrkwWVL4bxu71OA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794922037;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Scanned-By;
+	bh=DhpQikh/j+IYKn/SiXHM5qk/4wFDsh9pRbRs8jpBleU=;
+	b=pzDeoqy4YmYXu+x65fNlR44a1twnSGG6SVN4OJTPxqHt2y1b9AavF0GHqcZH/Btf+Qsd
+	 CW4eQEX2ajy6vSAkAwEp3/QshQaB6oW9Df2Aglj7QQZ5od5ri/e5/l6P7PMX0Xv/DaM34
+	 xyTaJASMIx2xG0zB9WZxs4yeI8aObIsSfWlKrGymmgeFlNYPVfnlbblsee//Bs3pHTtU6
+	 88k8JxzrzDVj2gYorljk54bqqXtQwnQea2vyoZDVi1Ar2RfTgjEYJux5XvaUZaysryjgM
+	 OECUsxj1JK+ncbNDBncBS0uQo82SQ22cmc9U1DmqP8M2FM12PurV1WcKeT7eNlGoxIA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=LcOiSOKu;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6600606A334;
-	Tue, 17 Nov 2026 13:26:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6600606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ommer.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=ommer.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DE7D606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:27:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DE7D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ommer.net header.i=@ommer.net header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=ba9t0Szw;
-	dkim=pass header.d=ommer.net header.i=@ommer.net header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=QhUjXnTY
-ARC-Seal: i=1; a=rsa-sha256; t=1794921998; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=h2+8d5I5r9sSn27fsz0/v9AHMXGW6nffYkAF/Mee5MwgixKwMm6N4jBvXu0qZQj02z
-    mIvpQed42+CYQ8vBW++ZJnpylbNU0KLhogTJaEU/ZzA9x1ztqAB/+skjuL5Rv9kgZgdG
-    7z/tvLQJRPv3sm/r/ItbFywtP691EnzqNuH5FSvSkZ276TwjVOa+XvOhA0uZeFH94ZLG
-    lTaxcVi/rMCf1LhynJLF7h5pSLHCEqYVHYsusT6Ohl9vXTBO+GMr/9GZTEpvC6mGvZes
-    DA/oDphPuSAvc+Sntx7dnZCs7l76N+dtHQeOW1y2q1VP/Zpes4rnuedtnhIqqv5k7jgn
-    jHPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794921998;
-    s=strato-dkim-0002; d=strato.com;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=i+REedDVBSFwJecTIqRWJ1YL7pNWyE73P76MFVGjx6g=;
-    b=gzZ4T0C9hFcCaMi3UtAb9QgPxduJb0m96KyKo1yXDSfRTQ6Sk2/+zF4Lqmhc8pL/+J
-    wEJxJO88BML1SjjoOzg/67kHCDT1iE93DNkM/6n9TSJmvS1dB1LmCmbrWAMBBP/PSFEi
-    erpzAr/ajpheDqzQMXST/DlVHotiiOwvT5rfwH6SGPXaKgSdUSdc9qRpfBfppD/GTtdq
-    UkCT3Io6L+RelO9Fh0FBIYS96NdwQTKZY08YGbviSxn1Qfmax3ALMI5p0268YyB6sm7P
-    QDoCa88u/mwwCJHxdBBUrwalhW2HXPXmrkJxv5aisw6EG01QbI7kQsBVztIQ7crhZMd4
-    zuMw==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794921998;
-    s=strato-dkim-0002; d=ommer.net;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=i+REedDVBSFwJecTIqRWJ1YL7pNWyE73P76MFVGjx6g=;
-    b=ba9t0SzwEwrw4wvlzjtKPopXImjsf3pHLTEnVWefsxJU6Ce1j4hAOIGSbD0bV3XAAQ
-    G/USqfFY9SDkDwm5KnH1rxwc7O+cwKBex6Fe4UtSpTNlhrqwA5iQQ3QUOWHnb1mp3LCZ
-    KtMLHyupQ8B7ki2zXn75TzpQPoIsiCHZBZ+jRYGmWRcV9MAs9oE0q4IDTYZxkdgxZ8SO
-    XE/Y8Sh1ke7n94zVUgFm5m6BqRpfu2fSEI2mtkcd4xgHqrwhLXJK1PfpsuUU42aeWiuR
-    z0gOyMK3oAFBF5G3ECNKUEKMup6WSr+uTjWeK3LbDE2GAcHi9wHirOGIeq4RRWTHAyYf
-    bk+A==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794921998;
-    s=strato-dkim-0003; d=ommer.net;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=i+REedDVBSFwJecTIqRWJ1YL7pNWyE73P76MFVGjx6g=;
-    b=QhUjXnTYIoa/fr7bDkDA+NdMxvszhEY/5Q9x3PFQBbn5XArOjkIggt4yODDrrwPPm0
-    t1g3BL7tv47gMToITeCw==
-X-RZG-AUTH: ":JGkKZ0mIdPJLfj3rk5MOrv6kH/tvwFubxUqMvsWOyVXJkOABZnPqvKUstHY8FQgnq3rT6NoXCyjULwIut1Tf8meVypGj6A=="
-Received: from localhost.localdomain
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id n2f42d2AHDQcvue
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Tue, 17 Nov 2026 14:26:38 +0100 (CET)
-From: Henri Ommer <henri@ommer.net>
-To: job@noorman.info,
-	dmitry.torokhov@gmail.com
-Cc: phone-devel@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Henri Ommer <henri@ommer.net>
-Subject: [PATCH v2 3/3] dt-bindings: touchscreen: trivial-touch: Add hx83102d
-Date: Tue, 17 Nov 2026 14:26:36 +0100
-Message-ID: <20261117132636.12232-1-henri@ommer.net>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=LcOiSOKu
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794922035;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DhpQikh/j+IYKn/SiXHM5qk/4wFDsh9pRbRs8jpBleU=;
+	b=LcOiSOKusLHd8FboIu3hI6wzpEJn1UvxqP+ylDKOjsUGznep3faoD/a1gZTh8yP79MAkka
+	GIu/tY20yCMdBjzAvKhwdH0VB4LKUyyehVPzXRkUkGRloitYxYBvrWoxiYRg2aYK0H20G6
+	45K0ca+rrnisXNfc/X41JpWcLV+ZT/Y=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-70-vqidz2F6MtC3esXBLjIAAQ-1; Tue,
+ 17 Nov 2026 08:27:11 -0500
+X-MC-Unique: vqidz2F6MtC3esXBLjIAAQ-1
+X-Mimecast-MFC-AGG-ID: vqidz2F6MtC3esXBLjIAAQ_1794922029
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 107041955D88;
+	Tue, 17 Nov 2026 13:27:09 +0000 (UTC)
+Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id A1725180054B;
+	Tue, 17 Nov 2026 13:27:05 +0000 (UTC)
+Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
+	oleg@redhat.com; Tue, 17 Nov 2026 14:27:08 +0100 (CET)
+Date: Tue, 17 Nov 2026 14:27:04 +0100
+From: Oleg Nesterov <oleg@redhat.com>
+To: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>,
+	Breno Leitao <leitao@debian.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Mateusz Guzik <mjguzik@gmail.com>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	tz2294@columbia.edu, stable@vger.kernel.org,
+	Mani Tofigh <mt4022@columbia.edu>
+Subject: Re: [PATCH] pipe: keep per-write wakeups for EPOLLEXCLUSIVE consumers
+Message-ID: <avxWKI795DthE8Sb@redhat.com>
+References: <20261111-pipe-epollexclusive-wakeup-v1-1-0af6283e9fda@columbia.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,33 +84,209 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111-pipe-epollexclusive-wakeup-v1-1-0af6283e9fda@columbia.edu>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-Adds the Himax hx83102d touchscreen controller compatible string.
-The hx83102d is software-compatible with the hx83112b.
+Mani reports the case when f1cebdec9739 ("pipe: only enable the extra
+wake_up(rd_wait) for EPOLLET consumers") makes a difference, see his
+email below.
 
-Signed-off-by: Henri Ommer <henri@ommer.net>
----
- .../devicetree/bindings/input/touchscreen/trivial-touch.yaml  | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+But lets forget about that commit for the moment. With or without that
+commit this trivial test-case hangs,
 
-diff --git a/Documentation/devicetree/bindings/input/touchscreen/trivial-touch.yaml b/Documentation/devicetree/bindings/input/touchscreen/trivial-touch.yaml
-index 6316a8d32f39..d0ee79ba096d 100644
---- a/Documentation/devicetree/bindings/input/touchscreen/trivial-touch.yaml
-+++ b/Documentation/devicetree/bindings/input/touchscreen/trivial-touch.yaml
-@@ -16,9 +16,9 @@ properties:
-       - azoteq,iqs550
-       - azoteq,iqs572
-       - azoteq,iqs525
--      # Himax hx83100a touchscreen controller
-+      # The Himax hx83100a, hx83102d and hx83112b touchscreen controllers
-       - himax,hx83100a
--      # Himax hx83112b touchscreen controller
-+      - himax,hx83102d
-       - himax,hx83112b
-       # Hynitron cstxxx series touchscreen controller
-       - hynitron,cst340
--- 
-2.56.0
+	#include <unistd.h>
+	#include <sys/epoll.h>
+	#include <sys/wait.h>
+	#include <assert.h>
+	#include <stdio.h>
+
+	int main(void)
+	{
+		int pfd[2], efd;
+		struct epoll_event evt = { .events = EPOLLIN | EPOLLEXCLUSIVE };
+		char c;
+
+		pipe(pfd);
+		efd = epoll_create1(0);
+		epoll_ctl(efd, EPOLL_CTL_ADD, pfd[0], &evt);
+
+		if (!fork()) {
+			epoll_wait(efd, &evt, 1, -1);
+			read(pfd[0], &c, 1);
+			printf("1st: %c\n", c);
+			return 0;
+		}
+
+		sleep(1);
+
+		if (!fork()) {
+			read(pfd[0], &c, 1);
+			printf("2nd: %c\n", c);
+			return 0;
+		}
+
+		sleep(1);
+
+		write(pfd[1], "12", 2);
+		assert(wait(NULL) > 0);
+		assert(wait(NULL) > 0);
+
+		return 0;
+	}
+
+the 2nd non-epoll child sleeps in read(pfd[0]) even if pipe is not empty.
+
+anon_pipe_read() assumes that all exclusive waiters on pipe->rd_wait come
+from anon_pipe_read()->wait_event_interruptible_exclusive(), and the woken
+reader will set wake_next_reader = true.
+
+However, EPOLLEXCLUSIVE breaks this logic. ep_ptable_queue_proc() does
+add_wait_queue_exclusive() if EPOLLEXCLUSIVE is set. So write(pfd[1]) above
+wakes up the 1st "epoll" child, which then reads one byte from the pipe without
+sleeping, so it doesn't set wake_next_reader and thus it doesn't wakeup the
+2nd waiter.
+
+Again, this happens with or without f1cebdec9739. But that commit makes a
+difference: the 2nd child will continue to sleep even after another write
+to this pipe. So Mani suggests the trivial change which should restore the
+previous behaviour
+
+	--- a/fs/pipe.c
+	+++ b/fs/pipe.c
+	@@ -700,9 +700,13 @@ pipe_poll(struct file *filp, poll_table *wait)
+		 * and the ->pseudo_edgetrigger check in anon_pipe_write().
+		 * Currently io_uring sets EPOLLET for multishot polls, so it gets the
+		 * same behaviour.
+	+	 *
+	+	 * EPOLLEXCLUSIVE needs them too.  Its entry is an exclusive waiter on
+	+	 * ->rd_wait that can take the wakeup meant for a blocked reader, and
+	+	 * unlike a woken reader in anon_pipe_read() it doesn't pass it on.
+		 */
+		if ((filp->f_mode & FMODE_READ) &&
+	-	    wait && (wait->_key & EPOLLET) &&
+	+	    wait && (wait->_key & (EPOLLET | EPOLLEXCLUSIVE)) &&
+		    unlikely(!READ_ONCE(pipe->pseudo_edgetrigger)))
+			WRITE_ONCE(pipe->pseudo_edgetrigger, true);
+
+But I can't decide if we actually want to bless another historical
+"nonsensical" wakeup until have a user application that actually cares?
+
+Again, the test-case above will hang with or without the patch above, with
+or without f1cebdec9739. So do we really care? If yes, then perhaps we should
+also change anon_pipe_read(), something like
+
+	--- a/fs/pipe.c
+	+++ b/fs/pipe.c
+	@@ -468,6 +468,8 @@ anon_pipe_read(struct kiocb *iocb, struct iov_iter *to)
+		}
+		if (pipe_is_empty(pipe))
+			wake_next_reader = false;
+	+	else if (pipe->pseudo_edgetrigger) // for EPOLLEXCLUSIVE
+	+		wake_next_reader = true;
+		/* Consumed buffers may have refilled the pool; trim it and unlock. */
+		anon_pipe_trim_and_unlock(pipe);
+
+?
+
+(of course, this won't help if the 1st child doesn't do read() after epoll_wait()).
+
+What do you think?
+
+Oleg.
+
+On 11/11, Mani Tofigh via B4 Relay wrote:
+>
+> From: Mani Tofigh <mt4022@columbia.edu>
+>
+> A task blocked in read() on a pipe can sleep while the pipe holds data,
+> when an epoll(EPOLLEXCLUSIVE) watcher of the read end was added before
+> it.  The watcher's entry on ->rd_wait is exclusive and sits ahead of the
+> reader, so a write into an empty pipe wakes only the watcher.  The
+> watcher reads without sleeping in anon_pipe_read() and doesn't pass the
+> wakeup on.  Since commit f1cebdec9739 ("pipe: only enable the extra
+> wake_up(rd_wait) for EPOLLET consumers") the next writes into the
+> non-empty pipe don't wake anyone anymore:
+>
+>   Task E                   Task A                 Task C
+>   epoll_wait(ep, -1)
+>     /* EPOLLEXCLUSIVE */
+>                            read(p[0])
+>                                                   write(p[1], "1")
+>                                                     /* wakes E only */
+>                                                   write(p[1], "2")
+>                                                     /* no wakeup */
+>   read(p[0], 1 byte)
+>   exit()
+>                            /* still asleep, "2" is in the pipe */
+>
+> A then sleeps until the next write into an empty pipe, if ever.  Before
+> that commit any pipe_poll() enabled the per-write wakeups.  Those
+> reached A because an EPOLLEXCLUSIVE entry only takes a wakeup while a
+> task sleeps in epoll_wait().
+>
+> So EPOLLEXCLUSIVE consumers depend on the per-write wakeups too, for a
+> different reason than EPOLLET.  Enable them for EPOLLEXCLUSIVE as well
+> and say why in the comment.  With the fix, A reads the second byte.
+>
+> This bug was identified and confirmed with the help of a deterministic
+> hypervisor currently under development.  The C reproducer below however
+> hits it within about 2s.
+>
+> Fixes: f1cebdec9739 ("pipe: only enable the extra wake_up(rd_wait) for EPOLLET consumers")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+> ---
+> Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/pipeexcl.c
+>
+> There are a couple of older gaps like this (a single write, and the
+> write side with EPOLLOUT|EPOLLEXCLUSIVE).  I left both alone here though.
+> ---
+>  fs/pipe.c                 | 6 +++++-
+>  include/linux/pipe_fs_i.h | 2 +-
+>  2 files changed, 6 insertions(+), 2 deletions(-)
+>
+> diff --git a/fs/pipe.c b/fs/pipe.c
+> index 4c1122597a3c..8ad792d300c9 100644
+> --- a/fs/pipe.c
+> +++ b/fs/pipe.c
+> @@ -700,9 +700,13 @@ pipe_poll(struct file *filp, poll_table *wait)
+>  	 * and the ->pseudo_edgetrigger check in anon_pipe_write().
+>  	 * Currently io_uring sets EPOLLET for multishot polls, so it gets the
+>  	 * same behaviour.
+> +	 *
+> +	 * EPOLLEXCLUSIVE needs them too.  Its entry is an exclusive waiter on
+> +	 * ->rd_wait that can take the wakeup meant for a blocked reader, and
+> +	 * unlike a woken reader in anon_pipe_read() it doesn't pass it on.
+>  	 */
+>  	if ((filp->f_mode & FMODE_READ) &&
+> -	    wait && (wait->_key & EPOLLET) &&
+> +	    wait && (wait->_key & (EPOLLET | EPOLLEXCLUSIVE)) &&
+>  	    unlikely(!READ_ONCE(pipe->pseudo_edgetrigger)))
+>  		WRITE_ONCE(pipe->pseudo_edgetrigger, true);
+>
+> diff --git a/include/linux/pipe_fs_i.h b/include/linux/pipe_fs_i.h
+> index 95f6236c5c5b..6b2e14ec6ef8 100644
+> --- a/include/linux/pipe_fs_i.h
+> +++ b/include/linux/pipe_fs_i.h
+> @@ -90,7 +90,7 @@ struct anon_pipe_prealloc {
+>   *	@files: number of struct file referring this pipe (protected by ->i_lock)
+>   *	@r_counter: reader counter
+>   *	@w_counter: writer counter
+> - *	@pseudo_edgetrigger: has an EPOLLET consumer, enable per-write wakeups
+> + *	@pseudo_edgetrigger: enable per-write wakeups for EPOLLET/EPOLLEXCLUSIVE
+>   *	@fasync_readers: reader side fasync
+>   *	@fasync_writers: writer side fasync
+>   *	@bufs: the circular array of pipe buffers
+>
+> ---
+> base-commit: b0993210e420f2f1d61e6719fbcd3966b96ff9ed
+> change-id: 20261111-pipe-epollexclusive-wakeup-981528041b4d
+>
+> Best regards,
+> --
+> Mani Tofigh <mt4022@columbia.edu>
+>
+>
 
