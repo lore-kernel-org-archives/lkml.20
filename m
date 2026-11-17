@@ -1,69 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794899585;
-	b=5CGDAmQT/J9R3OVB/WadQ1mBHe5SLQ349+Q9cE+EW+nb/dOXoIEnHwgAQUoACUlDZJMN
-	 EW50HPafOEf4SK2pixqdzzIoFGaaMeRPetCS/zgwWyUxaMuNd+DnmL9De8BNd0P5SJoCi
-	 K26O2CLY8w3jlcf16aiMp2Q5eWLedUEJgpaQpWOBFcVPV8aJpPr3EKZLGSl8T8yXaSTE7
-	 VYnZN87pC0L0SCcdAFG1WDHCh1TtjKqed8lqjQZp+46/xj3VvNTZDjVUV4PG2sqXap13l
-	 b8/qniwHmvWvHIlOUPJ9OffPf2Xa5nRIcOB6/vyv0QJFGfDU2L4XJLb8uFTFskILHVg==
+	t=1794899613;
+	b=h02yjZ2i/u+LAM61lt1JE9sO9NUShdZNm3a6o9rPE5kIEBKq9TW+Foi8/wOLDbDGlA82
+	 jdvANjolwFvAtTUwu5E+VG9MAZCs/GsW8D3ntk5mau1uat43A+k7i7TJHEk8uVNMUAxw4
+	 WN9iwHH68orMIRwD+VpBeO29JHYbSHAPLYwcIJltyWP7XWJi+y3ZyRyPbFt6MlRZX5MSO
+	 1ZTmsrGBjYIOU9jYreKuAyrRN/JDYBC+v9CCR28qgxzWC7zhGG0fgwTydgxoHy+4gwzYD
+	 BmtzofIFoWwmO82vVIeQHwrftW41PCnV1IrX2KCySC9ugjdaPaYFgBGS3600phCOtOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794899585;
-	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
-	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=w2iYvgn6DDbcR3QUnXnHrp9nv03ht11VB7+mRxqvBGg=;
-	b=Ip5KYw7/6Fk8SUQjnH6dsTUdNzqwQlL+nTocK9MSMAo8S0tMIpZrT4jAjQQMyaSkW0qE
-	 TIgP23zC2yHtWd6kr+1zw5xMTr5xbRFDZ65pvaiP+CtJtWsHt6RjL9QuezzRKYKcJx11I
-	 eWwuiycM72aHJQfkw+pAp8hNlZt8m6rwTmuqdEovqILe5oerG1nMIfLxQAH16GY4EYjtA
-	 z0uH+iz40f/AebDXWBBfZ/3BAUIzbKjoA3OhUmWoCahY6BjLUzZzScBvIa1DkJzpyJ5l1
-	 ztMMuD3pRHRNC4vp50kPG8afDnAPYtQKb4MsM8Uuy/bom+ZZ+e2+VgPYQhLMU50m+qg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794899613;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=2ig6VaSgCXuiuyN2YfSP2KMmKdlCjFPySPXtFnYMWLs=;
+	b=nNe+IxAV/KQNTRkrYZb8XtY0LwHBkMVVHR+uXRaeCWaTVrhvIzNRssHPYu+cRh6rinZq
+	 TTF1PSyP4FSflgwdnKvGFRGTBQlY1Fmfe09GmWgZIfDyqlr2B5q+EGbDKAqC9rTb6BDLy
+	 zdpeCim1NT1WJRc7WnJBQaKPgJtgoHKTSnfA+N+eWTIUdL2y6Hah300AeBkE4W8gW1Q4R
+	 GYmz7ofasCL4yk/6DPgoX93KkH/ZHrPgSwRnpjN7oTPK0VTG4bwFET8OH9EGUGNIF5D/b
+	 LJVLkEvOwLhNia+Eq2bsC1TB5JvEBx3DTsuYYKTzs6sdwGUZOKlYuohSrbGPpXMBkHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=G1rWWMHv;
+	arc=none smtp.remote-ip=209.85.216.47
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72600606A31C;
-	Tue, 17 Nov 2026 07:13:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72600606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 4fe3ee98e25611f19a56ed5b684f684d-20261117
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:994adf11-6679-4183-a860-4a4a80d9c356,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:2a9c66e6fbf9540f5e2a88647239e607,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|83|102|850|865|898,TC:nil,Content:0|15|50|99
-	,EDM:5,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
-	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 4fe3ee98e25611f19a56ed5b684f684d-20261117
-X-User: huangwei@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <huangwei@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1729750488; Tue, 17 Nov 2026 15:12:56 +0800
-From: Huang Wei <huangwei@kylinos.cn>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Johan Hovold <johan@kernel.org>,
-	leStoppe <lestoppe@gmail.com>,
-	Craig Hesling <craig@hesling.com>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	huangwei@kylinos.cn
-Subject: Re: [PATCH v2] USB: serial: simple: narrow OWON match to avoid breaking VDS1022
-Date: Tue, 17 Nov 2026 15:12:50 +0800
-Message-Id: <20261117071250.2843769-1-huangwei@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <2026111606-penpal-reverse-14b7@gregkh>
-References: <20260810091322.2201740-1-huangwei@kylinos.cn> <20261015025456.3927808-1-huangwei@kylinos.cn> <2026111606-penpal-reverse-14b7@gregkh>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9F24606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:13:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9F24606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=G1rWWMHv
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3b3be948e60so28755a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:13:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794899612; x=1795504412; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2ig6VaSgCXuiuyN2YfSP2KMmKdlCjFPySPXtFnYMWLs=;
+        b=G1rWWMHv6VX/0UMZ88Ot2OKrwHVwh54/9gmnsJm9QoZL7188FIGTBnomhJYBi2bXWM
+         2peV4WGkUOueznXtCL82I/FPana6pobYDz/aFOqZrxDpzhiwfshQ17Gf7g8Rk6N9kIit
+         JSxOcISaJ4tPahozpRE9doXv+WP39a7XNDFfFvG6iyvs83vCUdDD4hlzbLQCPuWJjxBh
+         95KzXKRlw/wt4JYYajdYTbhjZnINaaVHEUPhvu8UozczXDJ4iQxqrKgUKY1WQPkrs308
+         Cam7Q+744i5YhslxuZXW6QlHUNbLtf53A1+WxQkZlsDCezxdkVCp08nIOXNpcvNE4eY6
+         DiIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794899612; x=1795504412;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2ig6VaSgCXuiuyN2YfSP2KMmKdlCjFPySPXtFnYMWLs=;
+        b=BZsTw0d9+v2uhcO7bqcppQ9rmwmJJ+mX/akHVzF2WU41ueD/vHfaI48aXez5ne3Dxo
+         rChe1O+X8hFE9myDlKf0CalaYs6LR5/ePH0BT3Iog7s4zLF2uUqUkFS/VZciJjTLwV99
+         NUiYps5hiPyl8UiuGMqvVOvsptu/2FpThMcCeOrS50wvma1eVBlaBHZxdI1OcJsrm9Sw
+         rJDofaUdeibGSA91Q62a3L5h4M1xaPSb/WUVOBeeR+Ys68Y+1x1+N5Y6acLj+rssKPJd
+         EZTrdNF0I91xd6qKV9L5nR2EWZlhQhaQGwEZY8Rl7cRjX0cAz9Uxw36Nk1RtMcwBGa0b
+         Dp9A==
+X-Forwarded-Encrypted: i=1; AL+hErHxoeh78IG7mAPLwVukoNk9QM2qHarDrEh2q4OK0DH0MMn0H4wVzicc15vN1EsK0R7PQRPt9dcouVxtZy4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9LXO1ZFEBbtFt843CVqavzkHsiU1sNeVIdjbQp0S7v1Odcou0M
+	GiDVWES6YuM4ExY/7tfpzgp5rRTHYae2X40zpMYPvPioz/l3+YxMvtMO
+X-Gm-Gg: AZFdTZfU7vJS/uLu9spiXqtCzxCOqTacHzUS6RMA+Is7BHMBTbzR+zQKLLJXIlKo+bx
+	V1KDv2l4QP1asgCbP74RMpXIBBxhf+uQpy5CitRxHadu20ne4cHlD3BctqVwGQEb0znrnt7Fb6K
+	nTa6R9DaO9kODusray9oL9vSoQEL/GT95edueOnNij/V/mD458WXbB/N9hGPJ48lEjfeIGphcFk
+	aFD5fuDAYysALZjSlwNOzkdaCkidUbr2Oh2qJbh3NXeIHhh26eVjoikb3T/rP+TRfmoG04/utzs
+	Qn6MhRLLxi3miPILYfJ6dYFqvtuPksYufiAfOgesjM3ZXdSQxtWhlq+fbZS/rlnn1t7kSS2d7GX
+	jl+bJzaquusGNcpMgjfZEfQw8JPH/9Z6V3H1mAcrN45saRF3E5CtgerC+5VjFbhkWX0mqXvoO+w
+	aYlK0+RrQDQY+ElAizZxmpaB9lNL8dvC/n6g1RGTY0+8BZqs+2qbvFz5AAvQkVexIPBt5tTJR7d
+	fT8xLav2Vo7CaSzdvEpoa3vWzSyG/u3rJLJQp5ahqCol+40wJukhctpj4cubLogM8Wv3kUorytc
+	s+DgAlshfFzqAjzAR3aCD2CRMMo=
+X-Received: by 2002:a17:90b:5687:b0:3b0:91ce:672e with SMTP id 98e67ed59e1d1-3b1b0a407d6mr12704650a91.17.1794899611999;
+        Mon, 16 Nov 2026 23:13:31 -0800 (PST)
+Received: from archie.me ([210.87.74.117])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3ac2550e1sm2581347a91.3.2026.11.16.23.13.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 23:13:31 -0800 (PST)
+Received: by archie.me (Postfix, from userid 1000)
+	id 8842A4240780; Tue, 17 Nov 2026 14:13:27 +0700 (WIB)
+Date: Tue, 17 Nov 2026 14:13:27 +0700
+From: Bagas Sanjaya <bagasdotme@gmail.com>
+To: Lincoln Wallace <locnnil0@gmail.com>,
+	linux-arm-kernel@lists.infradead.org
+Cc: linux@armlinux.org.uk, kees@kernel.org, will@kernel.org,
+	linusw@kernel.org, f.fainelli@gmail.com, catalin.marinas@arm.com,
+	joe@perches.com, linux-kernel@vger.kernel.org,
+	Kees Cook <keescook@chromium.org>
+Subject: Re: [PATCH] ARM: Drop outdated links in comments
+Message-ID: <avv-kYJ4PGgSnaad@archie.me>
+References: <20260718175114.1404471-1-locnnil0@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,104 +101,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="7iwgQdVqEyoHJMRV"
+Content-Disposition: inline
+In-Reply-To: <20260718175114.1404471-1-locnnil0@gmail.com>
 
-Hi Greg,
+--7iwgQdVqEyoHJMRV
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Sorry about that - here's the context.
+Hi Lincoln,
 
-The patch below adds a USB_DEVICE_AND_INTERFACE_INFO() match to the
-owon_device entry in the usb-serial-simple driver, to keep the
-owon_device driver from claiming OWON VDS1022 oscilloscopes (which
-are driven from userspace over libusb and break when a kernel driver
-binds their interface). It reworks the commit message per review
-feedback and carries the reporter's Tested-by.
+On Sat, Jul 18, 2026 at 02:51:14PM -0300, Lincoln Wallace wrote:
+> diff --git a/arch/arm/kernel/hibernate.c b/arch/arm/kernel/hibernate.c
+> index 231a76af09a0..5bec408478d2 100644
+> --- a/arch/arm/kernel/hibernate.c
+> +++ b/arch/arm/kernel/hibernate.c
+> @@ -7,10 +7,6 @@
+>   * Ubuntu project, hibernation support for mach-dove
+>   * Copyright (C) 2010 Nokia Corporation (Hiroshi Doyu)
+>   * Copyright (C) 2010 Texas Instruments, Inc. (Teerth Reddy et al.)
+> - *  https://lkml.org/lkml/2010/6/18/4
+> - *  https://lists.linux-foundation.org/pipermail/linux-pm/2010-June/0274=
+22.html
+> - *  https://patchwork.kernel.org/patch/96442/
+> - *
+>   * Copyright (C) 2006 Rafael J. Wysocki <rjw@sisk.pl>
+>   */
+> =20
 
-The complication surfaced during review: the VDS1022I variant
-reports the same interface tuple (5, 0, 0) as the HDS200 series
-that the owon entry was originally written for, so the
-interface-level narrowing may not reliably separate the device
-families. The reporter's VDS1022 reports (5, 6, 0x50), which the
-narrow match does exclude, but the VDS1022I does not.
+There are lore links for these ([1], [2], [3]). I'll send a patch shortly.
+Thanks.
 
-The open question for Johan is whether to take the v2 as-is, or
-revert to the original broad USB_DEVICE() match given that the
-narrowing cannot fully discriminate. The full discussion is here:
+[1]: https://lore.kernel.org/all/AANLkTimmvPMG0GFEXfgFlXgC7V4dIWmW8vEC5gegs=
+KSE@mail.gmail.com/
+[2]: https://lore.kernel.org/all/1277908081-17195-1-git-send-email-Hiroshi.=
+DOYU@nokia.com/
+[3]: https://lore.kernel.org/all/5A47E75E594F054BAF48C5E4FC4B92AB0322A8AACA=
+@dbde02.ent.ti.com/
 
-  https://lore.kernel.org/linux-usb/20260810091322.2201740-1-huangwei@kylinos.cn/
+--=20
+An old man doll... just what I always wanted! - Clara
 
-The v2 for reference:
+--7iwgQdVqEyoHJMRV
+Content-Type: application/pgp-signature; name=signature.asc
 
-A USB_DEVICE() match on VID:PID 0x5345:0x1234 was added to the
-owon_device entry in drivers/usb/serial/usb-serial-simple.c by
-commit 4cc01410e1c1 ("USB: serial: simple: add OWON HDS200 series
-oscilloscope support"). OWON uses this VID:PID across multiple device
-families (HDS, VDS, SDS, PDS), so the broad match makes the
-owon_device driver also claim devices such as the VDS1022.
+-----BEGIN PGP SIGNATURE-----
 
-While the owon_device entry is equivalent to the generic usbserial
-driver for kernel-space users, the VDS1022 is a headless scope that
-is driven from userspace over libusb (e.g. the florentbr/Owon-VDS1022
-tool), which can no longer claim the interface once a kernel driver
-binds to it. Prior to that commit, no in-kernel driver claimed these
-interfaces.
+iHUEABYKAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCavv+kQAKCRD2uYlJVVFO
+o7ZqAPsHovBFDs+Y2+Zr2bvgXMVig4hsWRvRoQjn21bPeJQVHAEAikX057N0YNVy
+VLGgpl32CfgV7dgSy00s6p6a0ll9kwY=
+=e3m/
+-----END PGP SIGNATURE-----
 
-The two families can be told apart by their interface descriptors
-despite sharing interface class 5 (Physical): the HDS200 series
-reports subclass 0 and protocol 0, as documented by the HDS272S dump
-(firmware V5.7.1) in that commit's message, while the VDS1022 reports
-subclass 6 and protocol 0x50. Match the full HDS200 interface
-tuple so that the VDS1022 remains unclaimed and stays accessible to
-userspace tools.
-
-Reported-by: leStoppe <lestoppe@gmail.com>
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=220193
-Tested-by: leStoppe <lestoppe@gmail.com>
-Signed-off-by: Huang Wei <huangwei@kylinos.cn>
-
----
-Changes in v2:
-- Rework the commit message per Johan Hovold's review: describe the
-  libusb-based userspace breakage instead of the incorrect claim
-  about falling back to the generic usbserial driver.
-- Match on the full HDS200 interface tuple (subclass 0, protocol 0)
-  instead of the interface class alone: both the HDS200 and the
-  VDS1022 are interface class 5, so a class-only match would still
-  claim the VDS1022. The tuple values are verified against the
-  HDS272S dump in the commit message of 4cc01410e1c1 and the VDS1022
-  dump provided by leStoppe.
-- Fix the multi-line comment style.
----
- drivers/usb/serial/usb-serial-simple.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/usb/serial/usb-serial-simple.c b/drivers/usb/serial/usb-serial-simple.c
-index a0afaf254d12..879508f54d69 100644
---- a/drivers/usb/serial/usb-serial-simple.c
-+++ b/drivers/usb/serial/usb-serial-simple.c
-@@ -100,9 +100,17 @@ DEVICE(nokia, NOKIA_IDS);
- 	{ USB_DEVICE(0x09d7, 0x0100) }	/* NovAtel FlexPack GPS */
- DEVICE_N(novatel_gps, NOVATEL_IDS, 3);
- 
--/* OWON electronic test and measurement equipment driver */
-+/*
-+ * OWON electronic test and measurement equipment driver.
-+ * OWON uses the same VID:PID (0x5345:0x1234) for multiple device
-+ * families (HDS, VDS, SDS, PDS). Match the full interface tuple
-+ * reported by the HDS200 series (class 5, subclass 0, protocol 0) so
-+ * that devices with a different interface tuple, such as the VDS1022
-+ * (class 5, subclass 6, protocol 0x50) which is driven from userspace
-+ * over libusb, remain unclaimed.
-+ */
- #define OWON_IDS()			\
--	{ USB_DEVICE(0x5345, 0x1234) } /* HDS200 oscilloscopes and others */
-+	{ USB_DEVICE_AND_INTERFACE_INFO(0x5345, 0x1234, 0x05, 0x00, 0x00) }
- DEVICE(owon, OWON_IDS);
- 
- /* Siemens USB/MPI adapter */
--- 
-2.25.1
-
-
-Thanks,
-Huang Wei
+--7iwgQdVqEyoHJMRV--
