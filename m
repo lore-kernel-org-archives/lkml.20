@@ -1,81 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794888903;
-	b=UIn+CEOY/jRZBWchsu1ie+Yd3I4+uFJZZpkCuWj+Z/mb+tleeYAiT8a3k4sEwUUD9D0x
-	 niuSTcT5o4UEe1XAimoVsuxxv9nKz/9b02nYXSUIqg0QvucelieXVDXmDQGL9eoaeyJhz
-	 LWRAMVHFC3g/C13fss6njjgaJ5ioYNSAjMALYQhHv8VjFxLOauUboW1/0ImMAeeayHMxK
-	 eb2MF9x9J0HN9I18IjaCup8LPIpx9RiRlpbkC8+yvJkclknwLoepQek73ESTMA1DjTjiO
-	 FXUOcuOZvPzawTNI8XS2IpM0NIN1LuHOoN5ALFECGxNcTc8jrfx8PheoSbBVrKvN8Ug==
+	t=1794888992;
+	b=w/PLqq6vIUyRSlZ5jXnzmK+xnV0d/RMXwbdoklirii2BFu3EkHN0KI7+jyizlQX7Nk/9
+	 SmwEsPSPaLVv2MyAWvnpUZgUbLA5U88sK4eDBjG7/kEorcq9aaCrBmrSBQIhfynJhXyr5
+	 b+uiqfNbPz9DddCFxboSFeLXhySeug7c3Fq1puysww5iJfdTGerVM6rb58OQk143+IXYh
+	 yOhL8yyKwEwGRHtimomyrrIGftcfbe+GDdihXqBveBV5QtvXivjFGs7Lp5rKiCUtx8fEU
+	 sHB6n5wfhtuu6k2K737og53l0Grp9F3MKchS+dnMh0BrEJoNYlXC599jTbnIxl57O/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794888903;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
-	 References:In-Reply-To:Accept-Language:Content-Language:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=jpEA1p737d/LV6b1EhSKDxczg7NwRl/i2PETIxXcRJM=;
-	b=W8xbuTa4DObr5/tHvDM6XFqajEDTj0auDOpL2ggb9OLG0tErkz5SUdXx5D1rV3awUnKO
-	 UmmzCEdyWnW26aB7ath9m/xwjDnqIhXqBlyPBzIaDohrlMFODc/CSi7BG7HIMt2LLZDMX
-	 5d0wwG9SfXSSWB8oIeKlGAkPzDswYOGPeU5mrfmbqWJrZw1+1tksZOCuOIpibTqOytCHq
-	 nderPYNfhwcGutWLJdA46LMj9OLnGWQ75ZD5i6uHYGqv8rMJP+6q/34ysIucz3ygYLo+3
-	 d99pfBzd++eUsGN3eHBFzuFOlzFqnWJx8mol34M1FKxl3HJdxYzmGE39TtPEkiXRkkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794888992;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
+	bh=fpQtbcaphgDHApVs2K6tLMLRq+bdGD7u6Y/f7ATRts8=;
+	b=GIq5pH1DBTQWUD9i9/RSe/gynZWgT91m/71t00Yivifp5MdWnkq+Qd5TIu0OImifJNBK
+	 7PoLI039sRqg2aCbuFBWlrmZ8epXMPpIhw4FUqpIRUmhmPNwZvFdarcIByvK3mBSxWfjy
+	 IuYVGHIHrKiZLFcgxHD5/0lVK0Kq8GqV0oYGXSTLVRs7isIELhOnc4CxxGOs4Xc46JPMu
+	 6BqcoIa9lZ7LUJWJpcKuH2vTLm7J7OiNUww/nLJsEeC1dPLGBa6jgfQwf7Go3Vcvbnd9W
+	 CiE1tWMyFO9P0/mB/FxReSZTIFnEqoHNxSfbzcPCh59JdKg3aMQredZmK+82EA2EW/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=RHi7poMd;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UDrMKPkQ;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E8C3606A329;
-	Tue, 17 Nov 2026 04:15:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E8C3606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34851606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:16:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34851606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=RHi7poMd
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AH4EkWX24070782, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1794888886; bh=jpEA1p737d/LV6b1EhSKDxczg7NwRl/i2PETIxXcRJM=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=RHi7poMdqSSknvK19taRqxFECNnhOURXLeo5+5iizIs4AFW0xcYQtjH+CZU5YdvAK
-	 geIR+3rsFxHAvhTVWQaW5faUe2UgqHHIJQeC91bngGpBwevPHAJpqzr+rbbKLlwaAO
-	 l2Kkmx42XbdU7DYuJoI2DjRCU++BemhZmuVzKciyKngSR7VTkSJ1StDuEbWTSIgX9Z
-	 XP3yw/PwWrus9Au4Uvfh4EN/JH+ZT79ibkigxklu0nM9pWk3l2BmGvOnTTS6wSWWcQ
-	 iIamuPya4d0jxGiGKyoWh0iLrvc7f+YivO5+NqPPGBj3OiKLUYuGNrZEMt7IGMz0W6
-	 9utT6W06E+zqg==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AH4EkWX24070782
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 17 Nov 2026 12:14:46 +0800
-Received: from RTKEXHMBS03.realtek.com.tw (10.21.1.53) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 17 Nov 2026 12:14:44 +0800
-Received: from RTKEXHMBS03.realtek.com.tw ([fe80::d2b4:cd25:1a3e:aca8]) by
- RTKEXHMBS03.realtek.com.tw ([fe80::d2b4:cd25:1a3e:aca8%9]) with mapi id
- 15.02.2562.056; Tue, 17 Nov 2026 12:14:44 +0800
-From: Zong-Zhe Yang <kevin_yang@realtek.com>
-To: Enver Ikromov <owner@ph4ntom-rev.uz>, Ping-Ke Shih <pkshih@realtek.com>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH rtw-next v5 10/10] wifi: rtw89: restore channel when
- leaving idle on non-chanctx devices
-Thread-Topic: [PATCH rtw-next v5 10/10] wifi: rtw89: restore channel when
- leaving idle on non-chanctx devices
-Thread-Index: AQHdc8qsP3ErQ6YwO02QgdrypGLW6bcvjAgAgADEaQCAAVitMA==
-Date: Tue, 17 Nov 2026 04:14:43 +0000
-Message-ID: <4c7cb29ef6f442e6babe7dec989cbfbd@realtek.com>
-References: <20261113235211.1911-1-owner@ph4ntom-rev.uz>
- <20261113235211.1911-11-owner@ph4ntom-rev.uz>
- <ef6d8d689d88443e993d667e7a75d538@realtek.com>
- <20261116152804.781-12-owner@ph4ntom-rev.uz>
-In-Reply-To: <20261116152804.781-12-owner@ph4ntom-rev.uz>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UDrMKPkQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794888991;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=fpQtbcaphgDHApVs2K6tLMLRq+bdGD7u6Y/f7ATRts8=;
+	b=UDrMKPkQhFB3PIb/HkJZIga5+KEfj1LUEA0AWt6EaZLkfAxFxEfQhDtii90EyvPJOdJv4x
+	s0zbBn6RQgpetqYCZP42lOhF1lmyScZbka+YthHMfFZP2aiZeJCP/zD47nXrX8RjJjVvh3
+	UlJh6xXg4D/JBSKCXIe0OoZn0iYDFmA=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-136-NLekSvFVMBW361yStebIxw-1; Mon,
+ 16 Nov 2026 23:16:27 -0500
+X-MC-Unique: NLekSvFVMBW361yStebIxw-1
+X-Mimecast-MFC-AGG-ID: NLekSvFVMBW361yStebIxw_1794888985
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C3A811956088;
+	Tue, 17 Nov 2026 04:16:24 +0000 (UTC)
+Received: from llong-thinkpadp16vgen1.rmtusnh.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id A5A911956088;
+	Tue, 17 Nov 2026 04:16:21 +0000 (UTC)
+From: Waiman Long <longman@redhat.com>
+To: Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Tejun Heo <tj@kernel.org>,
+	Frederic Weisbecker <frederic@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	Guopeng Zhang <guopeng.zhang@linux.dev>,
+	Ridong Chen <ridong.chen@linux.dev>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Waiman Long <longman@redhat.com>
+Subject: [PATCH] sched/isolation: Enable cpuset_mutex synchronization before freeing old housekeeping cpumask
+Date: Mon, 16 Nov 2026 23:15:55 -0500
+Message-ID: <20261117041555.2421505-1-longman@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,21 +88,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-RW52ZXIgSWtyb21vdiA8b3duZXJAcGg0bnRvbS1yZXYudXo+IHdyb3RlOg0KPiANCj4gT24gTW9u
-LCBOb3YgMTYsIDIwMjYgYXQgMDM6NDU6MDRBTSArMDAwMCwgUGluZy1LZSBTaGloIHdyb3RlOg0K
-PiA+IFRoZSBjb21taXQgbWVzc2FnZSBtYXkganVzdCBzYXkgdGhhdCBmaXggdGhlIGNoYW5uZWwg
-aW4gbW9uaXRvcg0KPiA+IGRvZXNuJ3QgcmVzdG9yZSBhZnRlciBtb25pdG9yIGludGVyZmFjZSBk
-b3duL3VwLg0KPiA+IFsuLi5dDQo+ID4gRGVjbGFyZSBhIGxvY2FsIHZhcmlhYmxlICdub19jaGFu
-Y3R4ID0NCj4gPiAhcnR3ZGV2LT5vcHMtPmFzc2lnbl92aWZfY2hhbmN0eCc7DQoNClBlcmhhcHMg
-YWRkIGEgc3VwcG9ydF9jaGFuY3R4IGZsYWcgaW4gcnR3ZGV2Lg0KKFlvdSBjYW4gcmVmZXIgdG8g
-dGhlIHN1cHBvcnRfbWxvIGZsYWcuKQ0KVGhlbjoNCiAgICBub19jaGFuY3R4ID0gIXJ0d2Rldi0+
-c3VwcG9ydF9jaGFuY3R4Ow0KDQo+ID4gTW92ZSB0aGlzIHVwd2FyZCBhZnRlciBydHc4OV9sZWF2
-ZV9wc19tb2RlKCksIGFuZCB1cGRhdGUgdGhlICdjaGFuZ2VkJw0KPiA+DQo+ID4gICAgY2hhbmdl
-ZCB8PSBJRUVFODAyMTFfQ09ORl9DSEFOR0VfQ0hBTk5FTDsNCj4gPg0KPiA+IHRvIHNoYXJlIGV4
-aXN0aW5nIGNvZGUuDQo+IA0KPiBUZXN0ZWQgeW91ciBleGFjdCBzbmlwcGV0IG9uIFJUTDg4NTJB
-RSBhY3Jvc3MgY29sZCBzdGFydCBhbmQgbW9uaXRvcg0KPiBkb3duL3VwIG9uIDUgR0h6ICg4MCBN
-SHopLCBhbmQgUlggYW5kIFRYIHJlc3RvcmUgY2xlYW5seS4gSSB3aWxsIHVzZSB0aGlzDQo+IGFw
-cHJvYWNoLCBzaG9ydGVuIHRoZSBjb21taXQgbWVzc2FnZSwgYW5kIHBsYWNlIHRoZSBwYXRjaCBi
-ZWZvcmUgdGhlIGZlYXR1cmUNCj4gcGF0Y2hlcyBpbiB2NiBhcyBab25nLVpoZSBzdWdnZXN0ZWQu
-DQo+IA0K
+Commit a84097e625f2 ("cgroup/cpuset: Call housekeeping_update() without
+holding cpus_read_lock") adds a new cpuset_top_mutex on top but drops
+cpus_read_lock and cpuset_mutex before calling housekeeping_update()
+which calls other functions that may acquire cpus_read_lock leading to
+to a possibility of deadlock if cpus_read_lock isn't dropped before
+calling housekeeping_update().
+
+This commit also changes lockdep_is_cpuset_held() to return true if
+either cpuset_mutex or cpuset_top_mutex is held. lockdep_is_cpuset_held()
+is used by housekeeping_dereference_check() as one of the conditions
+that rcu_read_lock() is not needed to access HK_TYPE_DOMAIN cpumask
+which can be changed by housekeeping_update() at run time. In reality,
+it isn't right to allow holding cpuset_mutex as a condition where
+rcu_read_lock isn't needed. It is certainly possible that there can be
+a parallel housekeeping_update() call going on if only cpuset_mutex is
+being held. This can lead to a potential use-after-free situation when
+HK_TYPE_DOMAIN housekeeping cpumask is being accessed.
+
+One possible solution is to hold rcu_read_lock for functions that may
+be called with only cpuset_mutex held. Beside some cpuset functions,
+several scheduler functions will also need to be changed. A far simpler
+solution is to synchronize with other cpuset_mutex critical sections
+before freeing the old housekeeping cpumask. This will ensure that code
+within cpuset_mutex critical sections will not have a UaF situation
+when accessing housekeeping cpumask. This commit implements the latter
+solution and make the conditions used by lockdep_is_cpuset_held() correct.
+
+Fixes: a84097e625f2 ("cgroup/cpuset: Call housekeeping_update() without holding cpus_read_lock")
+Signed-off-by: Waiman Long <longman@redhat.com>
+---
+ kernel/sched/isolation.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/kernel/sched/isolation.c b/kernel/sched/isolation.c
+index 156025ef81b7..eb4ceeaf0f9d 100644
+--- a/kernel/sched/isolation.c
++++ b/kernel/sched/isolation.c
+@@ -159,6 +159,13 @@ int housekeeping_update(struct cpumask *isol_mask)
+ 	err = kthreads_update_housekeeping();
+ 	WARN_ON_ONCE(err < 0);
+ 
++	/*
++	 * Synchronize with cpuset_mutex to make sure that its critical sections
++	 * afterward will not have access to the old housekeeping cpumask.
++	 */
++	cpuset_lock();
++	cpuset_unlock();
++
+ 	kfree(old);
+ 
+ 	return 0;
+-- 
+2.56.0
+
