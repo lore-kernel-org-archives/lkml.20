@@ -1,60 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794926737;
-	b=VDXhCGxtWhcKx8vcjgrg+jE6zN0zEoa5PGllj5BTCPATT+6c5z7DnhIXO9aLRtfB0oKN
-	 1mjP/Y/P7YB+eQ9uQPrVuBQe6gNbSI18XmZhoKSq8/dDamoMvnXDYixYaZCcOCdR53cu5
-	 L2yU7Ipe6YTo34ySmwsWfo67K2LshrYNTUqevGO793aGKjWkqjqLjBseW5PCQbv4LHYzO
-	 k8aGcSasCG6YfJyKsCA5vUPVteJCE58b5pBn8GGZU66SFbEIPDxYFkWvpWThy/Ro31Y9t
-	 2FCkWnhkLGkpAp2+wy+dclbzS1hPLZki2xufxUGSesGFuKHGwL9gcaVyvgzeyR22Fkg==
+	t=1794926831;
+	b=o7CY7M8pvOXz27EDxljfrXI2NBjMQOw71bBujDlWMWIO1/HzYuCBbNYwIrhn2/7VszYm
+	 xysdOY4zXXDTcsxA+0bXcQ3I4s5g4jMTXn62682tF/mr85x+8pQBKcvvpgef/cUpyxgam
+	 jcQLMPaVhEWSG7ipT+Q7cmLaABGO4icdEhaARoqwgWjawSlG/GaPETPqkC64N9s0zxQ04
+	 t0DmUcOFIKzqQKN3BEdE60O/+lp6cDbCG+6gZJmqqnT57qkCBgINNMcmikxg+B4/kEJbj
+	 UfD1WD9DVuRWae43Mm2QlsWu27i1lTFbU9SEnANGRMrB1ynb9GMa4jhFCnK3s6wC3HA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794926737;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794926831;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
-	 DKIM-Signature;
-	bh=AhzMQ2E3g/vRFX15pwJIjwTP95X1ccIWcj1om489vX4=;
-	b=dFs401V+1gjx6T86+xuvG6rXTwKTxejnRAWe4CluR/5hLk9Bn0E9Bf6Z8ojKJym14LOH
-	 RFNJJZ0BXUhWuPy7ybqqPLaHQqMtlgY/q9tEusN/+iqDnh8FJr3447DujbkhxOfh9kHiN
-	 esQ24DQkWRrBhVzJxxfhDG4/6g6Wrv2OY15zw18f+wPWRvyA74T3Nnj1wWe1Up1RvrD+j
-	 Fro+P+A6Pcrq/68yGJGSgQHAPFFFvulevaT5BsY59xa/ZdXhvlpAUKFxAOJ0efYh44jAG
-	 OAOSnA0JgWua5CnqIi/dyn9JgNEaG14niqiUZSqWRVDBZxZHMgg+YprWHbsaeeaLBzQ==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-HM-Tid:
+	 X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
+	bh=h+xz3GMcqW/m1kBN+Qe+3pRTeww9ZYGHWYtMSX9E5aY=;
+	b=FCJOu9ycayD0onN1FfDoG2aSlyUP+ef+IYEBIYmPmAs5s3BvcQ+E+R3O2dEArpALQ9+/
+	 0j0yemfXjZeuBbjuCKLPPrZN6LmAg7nhKyXk+PbxuuoN6vOhT1V7couV8vduaT2G7KnS6
+	 Ls15KtR887LhgiOmyz9JGYmv4d0+IP54mQSRXJMdUpqMd1FeUvPcVoIbSdZQzCQXjOwaU
+	 w+MAtPYmKURJR7iTF4SE0ck2dMPM6G0Rkig+/pY8lHnmz1Jz8Xdk8sC+yDreCzEc8eGsv
+	 M+6IRTY4mf1/WJJIJbFo4Q0IgPwB5fbkCccMmDG4G5QbPYSbh2xPsB7O4xdFYunwrcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.sdu.edu.cn;
 	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=eWWleW+P;
-	arc=none smtp.remote-ip=101.71.155.101
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=HXDZpyGI;
+	arc=none smtp.remote-ip=45.254.49.198
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 232BC606A330;
-	Tue, 17 Nov 2026 14:45:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 232BC606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 331DA606A31C;
+	Tue, 17 Nov 2026 14:47:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 331DA606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=eWWleW+P
+	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=HXDZpyGI
 Received: from lgs.. (unknown [101.76.249.61])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 55020e792;
-	Tue, 17 Nov 2026 22:45:20 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 55020e7b4;
+	Tue, 17 Nov 2026 22:47:06 +0800 (GMT+08:00)
 From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-To: Boon Khai Ng <boon.khai.ng@altera.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Michal Simek <michal.simek@amd.com>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	stable@vger.kernel.org
-Subject: [PATCH net 2/2] net: emaclite: Fix potential use-after-free during removal
-Date: Tue, 17 Nov 2026 22:45:18 +0800
-Message-ID: <20261117-571e631490-net-2@mail.sdu.edu.cn>
+To: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ALSA: pcm: Fix potential device leak on partial registration failure
+Date: Tue, 17 Nov 2026 22:47:05 +0800
+Message-ID: <20261117-571e631490-alsa-pcm-0@mail.sdu.edu.cn>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261117-571e631490-net-0@mail.sdu.edu.cn>
-References: <20261117-571e631490-net-0@mail.sdu.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,56 +56,70 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1e9f8329d03a1kunm6b1ed508156203
+X-HM-Tid: 0aa1e9f9d39803a1kunmdfa31a2d15633b
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZT05MVkoZT0tKSkIfHkweS1YeHw
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHUwfVk5MH01LH01OSEJJHVYeHw
 	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
 	NMVUpLS1VLWQY+
 DKIM-Signature: a=rsa-sha256;
-	b=eWWleW+Prxyyl6CPBnxsU9TR71Ot0NZcypj/qxve1DKhKKW2H/JHeYZLe7vD/CyQkXjFnOn7YAoYMQIpTpQbD7k2QrQPX5lkhA4luIo5z1ogKSC+1sDVt+fJ3cCvlsHs6n/0W7c3eEKbO0vFLJYwItp+K0Jaf4JyCxPnF4nVwTw=; c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1;
-	bh=AhzMQ2E3g/vRFX15pwJIjwTP95X1ccIWcj1om489vX4=;
+	b=HXDZpyGIIfMHy/AtezU1zXl4UBZo2IjUCr0EXgC0qS6J9ugTKc/ApBjDrCyrSVexR+KWPCvFgWu/wyBpDebov00p7k4L5lFzb0KF05yBTzHXpGFPTbDP1uAu4tJDI1jE38R8R0HS/k7jY8rF1q5Ba35D6jEqNXzz2STjkbV7HfM=; c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1;
+	bh=h+xz3GMcqW/m1kBN+Qe+3pRTeww9ZYGHWYtMSX9E5aY=;
 	h=date:mime-version:subject:message-id:from;
 
-xemaclite_of_remove() frees the MDIO bus before unregistering the
-network device. If the interface is up, unregister_netdev() calls
-xemaclite_close(), whose phy_disconnect() still accesses that bus.
-This can cause a use-after-free during PHY detachment.
+If capture registration fails after playback was registered, the PCM
+remains in the BUILD state. Card teardown therefore skips its disconnect
+callback, leaving the playback device registered and holding its parent
+card reference.
 
-Unregister the network device first so that PHY detachment finishes
-before the MDIO bus is unregistered and freed.
+Unregister previously registered streams and release their timers before
+returning the registration error.
 
 This issue was found by our static analysis tool under development.
 
-Fixes: 27cad0084066 ("net: emaclite: Fix MDIO bus unregister bug")
-Cc: stable@vger.kernel.org
+Fixes: ef46c7af93f9 ("ALSA: pcm: Embed struct device")
 Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
 ---
- drivers/net/ethernet/xilinx/xilinx_emaclite.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/core/pcm.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/ethernet/xilinx/xilinx_emaclite.c b/drivers/net/ethernet/xilinx/xilinx_emaclite.c
-index 4719d40a63ba..008e3d1e2981 100644
---- a/drivers/net/ethernet/xilinx/xilinx_emaclite.c
-+++ b/drivers/net/ethernet/xilinx/xilinx_emaclite.c
-@@ -1189,6 +1189,8 @@ static void xemaclite_of_remove(struct platform_device *of_dev)
+diff --git a/sound/core/pcm.c b/sound/core/pcm.c
+index 064df4cd3b50..7343b366986c 100644
+--- a/sound/core/pcm.c
++++ b/sound/core/pcm.c
+@@ -1080,16 +1080,26 @@ static int snd_pcm_dev_register(struct snd_device *device)
+ 		err = snd_register_device(devtype, pcm->card, pcm->device,
+ 					  &snd_pcm_f_ops[cidx], pcm,
+ 					  pcm->streams[cidx].dev);
+-		if (err < 0) {
+-			list_del_init(&pcm->list);
+-			return err;
+-		}
++		if (err < 0)
++			goto error;
  
- 	struct net_local *lp = netdev_priv(ndev);
- 
-+	unregister_netdev(ndev);
-+
- 	/* Un-register the mii_bus, if configured */
- 	if (lp->mii_bus) {
- 		mdiobus_unregister(lp->mii_bus);
-@@ -1196,8 +1198,6 @@ static void xemaclite_of_remove(struct platform_device *of_dev)
- 		lp->mii_bus = NULL;
+ 		for (substream = pcm->streams[cidx].substream; substream; substream = substream->next)
+ 			snd_pcm_timer_init(substream);
  	}
  
--	unregister_netdev(ndev);
--
- 	of_node_put(lp->phy_node);
- 	lp->phy_node = NULL;
+ 	pcm_call_notify(pcm, n_register);
++	return 0;
++
++error:
++	while (--cidx >= 0) {
++		if (!pcm->streams[cidx].substream)
++			continue;
++		snd_unregister_device(pcm->streams[cidx].dev);
++		for (substream = pcm->streams[cidx].substream; substream;
++		     substream = substream->next)
++			snd_pcm_timer_done(substream);
++	}
++	list_del_init(&pcm->list);
+ 	return err;
  }
+ 
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
 2.43.0
 
