@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794910511;
-	b=owwE7OAebF5Hf5zX1sk0OYCTZsjUtdgOJGnpfTSsJho1i4e7UaxtcUexE2U2nFPfPdoK
-	 /R96LYP5X8vDyv0rypHjyjXh5zHJJWRDHl8PmVU6Xnb2p930nGoBoFeNa/KyuQR/A35Nl
-	 A0i7MUMKlzxTkv8+X7RW4Khea9cJTMcf+5AtEjnVVDtGX5UdIJDZPwcjXGOqqx4sXPnzK
-	 x0y567LExK+6eL655nk9o87a8ycNH7Pr/iAAPJKNJJfmExvFXAD/y2m2/Ow/R9Ew4Xkw1
-	 7ATtsDa33SgG7j5MiuWGUV2mDVhUVJ3J9bxG7nW8gYfHTQj08kG49iZBC6DJ1KOpULg==
+	t=1794910513;
+	b=zI8pU97aeGxrZgTQeKqQt6rvmDVpc5wsod6gcm6zTE/zTltuFch9lLvd2jdrSGDVMyZu
+	 cwOsEBCiIRDSfLPvTjXXVOq2xYM6VFGH3OQzJshTRQBiVw27vUcXRja0V+wJXhtNersMR
+	 6/ku7XeqEyFE8UNoGaFvWNx62PajMOaWSTiLyMj9roTGum7oBgjlvgsOiv2G658+lUO+i
+	 jKpXdk13Va6hjPnbCHr/iJiSqJfOUQuMw9fp7o5ffxJjm7JRZsKlbEjPauYsQHNvVHGCD
+	 gC55lJDri2uC76HHA2cy2UJBqeKv6fLt8lBXHviZ2MIN5ZVF5cZN4zCvx7gYhO6aKiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794910511;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794910513;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=hIRaxxo4elhQ/z0xroM1fiMsS70aRe7w7f8k/jc1eTg=;
-	b=qvWD7eUUAQ36m2w6DuXKjcfY/BSKtOrfKQ+ac46fWn8rMbIoxR8buqiFaKS5itntS2s3
-	 SHL/EySTy8/LBQt58Qqoo/yhfaUIZe+GG1fG3oQqMGFPwoVGbf2g9R0gZVK6ZUdEhLk+5
-	 iKuanv2E2cEy1or4SMTZ3aOYgYqpf1bdU+ACyOgWd8XK+bDwQW5gk+btTfaFErgK+bKsb
-	 TNwccd4mgLuOQu8C+gxWEEApa7XschD7ol+dBVT1LcYr4PbZX76kvE5ozE3IMJfwDQBrA
-	 X9Gpuo8VqGBSn/UASjMWHiT3yNxQVMeETLT+UGccFS2/Hay7XfZmw4xlSX+eCyhO1zQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=U1tzq61UDhKNnud3yCxgB8FLaJ/kfOeGjKokE4MTa4U=;
+	b=S0sA10k2quOaq3auSV4rHRv4jXjmPlEM+Kt2VmLUtdWFrrKncUEp48PZUl48J+t5DHuo
+	 jswGmpMFZAxG1PQ2ZwcFyeplspLIJKsU6Jr9sBHiJB6rzWuJ1deyQzmuWeeF6mOB29fb2
+	 zI/MOsQN9oKr5sg7UDO4uwrAgarGdUNiyGEvKlYleVyYYIgna3klWv9p+qM6H2TK6RDcn
+	 /AELYigbJ0y/X3xkSUGkc0Gp77lguxjEGWTJxBiPPlKZqq0AmIaFg5Hl8tWNbFizSlCrU
+	 ZpSvuqhVfXrSTpcHXrFJjE3CfvmdLJF66pqj5g8VKg2AQp0sspR65Dffvb9CUZ+zZ2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=isslab.korea.ac.kr;
 	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=ZSRbgBbL;
-	arc=none smtp.remote-ip=74.125.82.53
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=csW0X+l5;
+	arc=none smtp.remote-ip=74.125.82.49
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A425A606A337
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:15:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A425A606A337
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C24DE606A882
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:15:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C24DE606A882
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=ZSRbgBbL
-Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1a8cc11ac42so4675349c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:15:10 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=csW0X+l5
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-15dd124bbe7so873005c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:15:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794910509; x=1795515309; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hIRaxxo4elhQ/z0xroM1fiMsS70aRe7w7f8k/jc1eTg=;
-        b=ZSRbgBbLh9xlpv74RLRKRVOgeWV6gTyyUx18BJTQuUQUfpesN6GoQmLLAGmz97x9zz
-         QXc1LAZjemPTTZauTzxRMXBE7PVe+IfBDE7zF4vzb0C/RSRIwQW21Ne0DpJp0Xs+03Ws
-         UHI/IZU62eCIpvWofst2/GDuMRbbESXE+KxXIzAAStojm1UrNmbuwFuTCq6y/ah4S/mx
-         3h/idv0+hrsqhIwRtIq5hgiDuJDiE1WrbDlbQS9Eem4YJAAG2Hxco2LPHEVH20/sPgsL
-         zWd6DiXWlpzkrDqXnZNUNwrGYfX6XAhahof6Knv0ZX5PO9Kvtj25sUcQiE3Rq0DlXTc/
-         rruw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794910509; x=1795515309;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794910512; x=1795515312; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hIRaxxo4elhQ/z0xroM1fiMsS70aRe7w7f8k/jc1eTg=;
-        b=iTqGAbJK8XMniawKiQ2cGE/Nx0hkHx55lNoCnKT1IXxr6AkKLpDRrknY1qklktLKbI
-         /saKZTDJJ0wqIzL4VGNTzBruwBZgQiGxXaitxXeND3sh8QdkZ68wcvzKFcXGwc8vAkq8
-         cTuixNYtTSbzh+EQIhlPYHBL1HodLalWQjpuXHk0IVY+W8yeC/bY9vJVUUKDSeSBA4AV
-         0QViCQK9zpQ60ypFXWb1xfnhNP8v4bEHAc/yTUONGzWvgaNpwKPFQlvGJXCg2sDXJSqP
-         Aatg/mDglmo0NDxq8Ncfk2x/HTq5oRICdUlBJwI5bnajtT4Jni+Q4d9CvvobvvQghOi/
-         WmsQ==
-X-Forwarded-Encrypted: i=1; AL+hErG1RD0miZAaJyRy+/UTRYYk+bCJDidq+gAZOhClCDRi6qIFSOCwqvPpu8R0DhK8PNUxtsVkTITgB4w8NgM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/KYMsLVoaew1svLI0HcPZ1y16xmmN10fgF1aKPVONpO/59shP8
-	AdRUudzlUhjUoMm8RHCYxbbkCcQPgVn316+m74xFVJd33SGh4A5pLNIR8ipN5n9gRxM=
-X-Gm-Gg: AYBFou3n3FvY4IXwRiCIIqKnbkjdPZoCqmOA3IU91KubxerPVzN0acRS6dZxbLlGtM6
-	jhGBk7ZY34Gf5B0tu6PcdvUx6/Uw4BxAebsVBvuRKz2bu9ctd+J5F3YVvC4rNaJnnRBowXaTHC9
-	7V5NYS6JLbtai5U8o3fvHTvptj/8e8JxoUGMADySEY55wjiM2dyTpreSl5pF0cEcwBmOadxvgXq
-	8Awu1NY4vff/nHJLgTG332YR2Zq52PR8Fkay99RADFhq62hhdfd5tE64P202jYF7525f9rck8Io
-	mgs9RghQcqAZcUCBeBA9enDuiCM1NxdFRzjcFU3emSf0ImncQ7mOOz3OpWDbVvaH+84SFj72HZs
-	LpAOQ+JaJIiCAUie5jzjz4p8hAfQuFkBjq43bhBNPVKuZqf/0eu79QLkjHqbN1uSP27uJPwIGfQ
-	x5ZgO6Y94hyQhc3yc299kLheQjlSw/DtfBDlFO2MaD2Mx6lbCUrsCuNB/Wy9/h5ddJmVFHcXCCw
-	lnjQH0K2e469kOtl7uFMP4PRVQGVVnF4HxBlprF0i48Qdz5Yd8gKguVov6cIrD0ILN5bzFndTSW
-	5gIJxROcTKlF9bMj/jDh5utLshhHdBFyksq6/nd3i2s5Hvrb3BlA7leZVFBvCllk1qHAbid6M2o
-	7MmzNuh5jx4LhsMUO42tg9IZJX18laaK916P6pg==
-X-Received: by 2002:a05:701b:4651:20b0:14c:8461:b3ef with SMTP id a92af1059eb24-1b50310039amr12607345c88.24.1794910509130;
-        Tue, 17 Nov 2026 02:15:09 -0800 (PST)
+        bh=U1tzq61UDhKNnud3yCxgB8FLaJ/kfOeGjKokE4MTa4U=;
+        b=csW0X+l5o9eDhlLH3Kweuas1mpVNmKhptYIbBunY65AYDRRqJFCkd3Us1y46+uPSTp
+         //7KhzzLkUpw1/2i+v2qwOgB678Jf1CaS+BLPVPUiey5r9WMmmLjLTPkwb4e0IwgWhOU
+         JWP0R7lLzGMtlMJjEJss/3pXhaoqFq5P+LuJObnPQZspkxBLFEE1ULeczp6Z8ypZezhB
+         1CUqQbodGE2h6fZuuPPnpOv8tAZum/wg8OW7AbVkKKc/SFaCN8T1m97qu1Fjj01/mvp9
+         bMiiDpw2N78OmtBTx4/2VE3Oqd897uETjIIlixGyUt8bRW3ueHjfnNij/DCfnPBBLBHA
+         NX7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794910512; x=1795515312;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=U1tzq61UDhKNnud3yCxgB8FLaJ/kfOeGjKokE4MTa4U=;
+        b=U5tqi6NSRD5aHd3KCRxHscrLpBSwcvR6rqu0m0ybt19iqyQG0yRDMRF4rEuPEzjkAq
+         UzwyN2VfZGGNkaYQLpkUnIo9fnzxrmDLw7UvMRO0xhjXqGtSLty2NDz3BAPmWXCeCBzH
+         89k0f9umYRyF3vqIkGYK2n03BuArYylVH7U/YtIuwW3xKf8mZ5WTiRCKutbanIz/izJN
+         1r9jyygAK5tHqlZ53YVmidielaODyNKI9SRoKCVaNffPz2m05BBjqYvtTtRKbgjf1znD
+         ytdY3jbeAVFFB0cDyQQWivD3iLRX73gkSZFGlPSJI9YfyxPgLvpjxsGxb1ofQPid+yFg
+         1bQw==
+X-Forwarded-Encrypted: i=1; AL+hErHUMvOcsEsQ87BIDgWTEJ4sWQRoAc7EOhTl2HVDb4riGbvFNnSXgBEQQG02lKLLhQjSZ3cytOI+0CkbZ48=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9oxvU+k4Q6gZM4k78dbACEu2lC3RNSI63KiMnp9XvyxK3O3Lwg
+	nsjOyIwNHxG8NzrwOqgBsJ6KJHF0HVkJjv3yuaiqbWGz7sA3phGElbZBEngc+NLsF58=
+X-Gm-Gg: AYBFou3zoB/i4jTCyeCFWfRNAXbD4+qrdWxtwv9nEX4W7kuW1O7cWrEmbw1pBfjfiWL
+	O5C36kR6bFxx1NsSA1zNTfNDsXI32s4OL3Lz6bYl9+136YBcOjFMAXC0A8hCSsJhmnWLlxxQfLA
+	sIumvh9A1iWkDSXa7kCfkLj4/OyzJVXDHZ23pvSj5D+uN8newGh3nnqY7SE+wvxRTbKuiSGRV52
+	xmg70iNzN41soUb6+Tpy9DSm0RkB+mxCW4MR8dUijK/QSCyu3RdMSHIqHGj1lLrWD2WvL2h0irF
+	5rK0clTHk31+PUM92dXUEGNXwnypuO08Q2IGAruhMqIwLLC4sEDxZDZR8/wskNxSwNv80jmUWim
+	jQyOMboU3siziWDsD8uNWBnH1FCVNtIfrDXR3zxx3JOWCOiYq3uuTaMcO+yq91xuunbFgyYQd+D
+	BnGShjfI69jBN/CdB3oEBesNRD8LycqHYrF9nl3X0UN2B/L777PL2NWYeZirsA1uZ4nP2hwyEus
+	DvV8xFcUGUy47MUZY55rzlpXrlwE5ZdhC54X/j9oPEur3c2Pfdy2eQNB0wjkMI26XjYCe3LxT8i
+	jsX0gf5aU5II7T8DSe5fhXul1pxBNQ2pAXryYANfOBYLTmO9y6LFCXA1LfKc6K4LE4DWUHynm1W
+	ylmOoBN1x9rNfkHnDUR9e8rxpvaa8m/hNRBHZYQ==
+X-Received: by 2002:a05:7022:370d:b0:1ae:e0f5:2cdd with SMTP id a92af1059eb24-1b50319196cmr12186921c88.28.1794910511686;
+        Tue, 17 Nov 2026 02:15:11 -0800 (PST)
 Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:cd44:de10:449c:756c])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50316e008sm39965539c88.6.2026.11.17.02.15.06
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50316e008sm39965539c88.6.2026.11.17.02.15.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 02:15:08 -0800 (PST)
+        Tue, 17 Nov 2026 02:15:11 -0800 (PST)
 From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 To: lduncan@suse.com,
 	cleech@redhat.com,
@@ -86,10 +87,12 @@ To: lduncan@suse.com,
 	James.Bottomley@HansenPartnership.com
 Cc: linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 0/4] scsi: libiscsi: tighten task completion
-Date: Tue, 17 Nov 2026 19:14:56 +0900
-Message-ID: <20261117101500.1894608-1-yhlee@isslab.korea.ac.kr>
+Subject: [PATCH v4 1/4] scsi: libiscsi: only complete a task that has been sent
+Date: Tue, 17 Nov 2026 19:14:57 +0900
+Message-ID: <20261117101500.1894608-2-yhlee@isslab.korea.ac.kr>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261117101500.1894608-1-yhlee@isslab.korea.ac.kr>
+References: <20261117101500.1894608-1-yhlee@isslab.korea.ac.kr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,70 +104,280 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-1/4 stops the receive path from completing a management task that is still
-queued or still being filled in, so a slot cannot be returned to the task
-pool while the transmit path still owns it.  2/4 stops it from completing a
-NOP-Out sent with RESERVED_ITT, whose single reference belongs to the
-transport, so that reference cannot be dropped twice.  3/4 makes the
-transmit path hold a reference before it publishes the state the other two
-test, and makes the SCSI command lookup honour that state at all.  4/4
-stops the receive path copying a Data-In into a command that has been
-handed back.
+The RX path looks a management response or a Reject up by ITT and
+completes the task if it is neither free nor a SCSI command.  That also
+accepts two kinds of slot that were never sent:
 
-v3 -> v4:
- - 1/4 and 2/4 are unchanged.
- - 4/4 is new.
- - 3/4 drops the two hunks that kept iscsi_xmit_task() from handing a task
-   to the transport once the receive path had completed it: the early
-   return in the conn->task branch, and the ISCSI_TASK_RUNNING test around
-   storing the task in conn->task.  Both release the last reference to a
-   task whose PDU the transport has only half sent, and for iscsi_tcp
-   tcp_sw_conn->out.segment then still points into the sg list that
-   scsi_done() has handed back, which the next task's
-   iscsi_tcp_task_xmit() flushes first.  Mainline holds the task until the
-   transport reports the PDU done, and 3/4 now leaves that alone.  The
-   second hunk also re-added the test that commit 533ac412fdb4 ("scsi:
-   iscsi: Remove unneeded task state check") removed, so that Fixes tag
-   goes with it.
- - 3/4's SCSI lookup refuses ISCSI_TASK_FREE as well as
-   ISCSI_TASK_PENDING, because iscsi_alloc_task() stores the state before
-   ->sc and under frwd_lock only, so a slot being handed out can be seen
-   with its new ->sc and the state it was freed with.
- - 3/4's changelog follows.
+- a management task still waiting on conn->mgmtqueue in
+  ISCSI_TASK_PENDING.  Completing it returns the slot to the pool while
+  it is still linked on the queue, so the xmit worker and the next
+  allocation both use it.
+- a slot that iscsi_alloc_task() is still filling in.  It stores
+  ISCSI_TASK_PENDING before task->conn and task->sc under frwd_lock,
+  while the RX check runs under back_lock, so a fresh slot is seen with
+  a NULL task->conn.
 
-One older problem is left alone, because it is not a completion condition.
-iscsi_xmit_task() still sends one Data-Out for a command the target has
-answered, from conn->task and from conn->requeue alike; nothing is freed
-there, because the reference is taken before the queue's one is dropped,
-and skipping the send is what the two dropped hunks show to be unsafe.
+The target chooses the ITT and the pool index is small, so either needs
+nothing but timing.
 
-3/4 needs 1/4 underneath, and is marked for stable for the same reason.
-4/4 is independent of the first three.
+Reproduced with test-only delays that hold each window open and a
+target that sends a Reject naming the slot.  For a queued task the
+unpatched driver freed it in 8 of 8 attempts inside the window, this
+patch in 0 of 5.  KASAN reported nothing; the xmit worker hit:
 
-v1 of 1/4:
-  https://lore.kernel.org/all/20261113145140.282504-1-yhlee@isslab.korea.ac.kr/
-v1 of 2/4:
-  https://lore.kernel.org/all/20261113232322.395246-1-yhlee@isslab.korea.ac.kr/
-v2:
-  https://lore.kernel.org/all/20261113233938.397415-1-yhlee@isslab.korea.ac.kr/
-v3:
-  https://lore.kernel.org/all/20261115122122.1446791-1-yhlee@isslab.korea.ac.kr/
+[    7.309467] ------------[ cut here ]------------
+[    7.309469] WARNING: drivers/scsi/libiscsi.c:1552 at iscsi_xmit_task+0x36c/0x470, CPU#1: kworker/u8:2/42
+[    7.311388] Modules linked in:
+[    7.311730] CPU: 1 UID: 0 PID: 42 Comm: kworker/u8:2 Not tainted 7.4.0-rc2-00471-g9ab317b63171-dirty #3 PREEMPT(lazy)
+[    7.312825] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[    7.314002] Workqueue: iscsi_q_2 iscsi_xmitworker
+[    7.314512] RIP: 0010:iscsi_xmit_task+0x36c/0x470
+[    7.315011] Code: 74 24 0c 48 8b 4c 24 10 f0 0f b1 31 0f 85 8d 00 00 00 8b 44 24 38 85 c0 78 37 89 c6 83 c6 01 78 30 85 c0 0f 85 2f fd ff ff 90 <0f> 0b 90 45 31 e4 e9 3d fe ff ff 31 f6 4c 89 f7 e8 af 2e 16 ff e9
+[    7.316897] RSP: 0018:ffffc900002c7b38 EFLAGS: 00010246
+[    7.317450] RAX: 0000000000000000 RBX: ffff88800c30a378 RCX: ffff88800c0b1878
+[    7.318192] RDX: ffffed1001816310 RSI: 0000000000000000 RDI: ffff88800c0b1878
+[    7.318928] RBP: ffff88800c0b1800 R08: 0000000000000000 R09: ffffed100181630f
+[    7.319668] R10: ffff88800c0b187b R11: 0000000000000000 R12: ffff88800c305440
+[    7.320410] R13: 1ffff92000058f6a R14: 0000000000000000 R15: ffff88800c30a400
+[    7.321146] FS:  0000000000000000(0000) GS:ffff8880e56a8000(0000) knlGS:0000000000000000
+[    7.321978] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    7.322589] CR2: 00007f1933873000 CR3: 000000000b73b004 CR4: 0000000000770ef0
+[    7.323340] PKRU: 55555554
+[    7.323633] Call Trace:
+[    7.323902]  <TASK>
+[    7.324162]  ? iscsi_sw_tcp_pdu_init+0x81e/0xb00
+[    7.324635]  ? __pfx_iscsi_xmit_task+0x10/0x10
+[    7.325088]  ? iscsi_prep_mgmt_task+0x381/0x590
+[    7.325570]  iscsi_xmitworker+0x258/0xab0
+[    7.325997]  process_one_work+0x697/0x1060
+[    7.326441]  ? __pfx___schedule+0x10/0x10
+[    7.326872]  ? __pfx_process_one_work+0x10/0x10
+[    7.327365]  ? _raw_spin_lock_irq+0x81/0xe0
+[    7.327816]  ? __pfx_iscsi_xmitworker+0x10/0x10
+[    7.328308]  ? assign_work+0x11d/0x370
+[    7.328689]  worker_thread+0x45b/0xd10
+[    7.329075]  ? __pfx_worker_thread+0x10/0x10
+[    7.329514]  kthread+0x2c8/0x3b0
+[    7.329848]  ? recalc_sigpending+0x15c/0x1e0
+[    7.330298]  ? __pfx_kthread+0x10/0x10
+[    7.330683]  ret_from_fork+0x36e/0x5a0
+[    7.331069]  ? __pfx_ret_from_fork+0x10/0x10
+[    7.331506]  ? __switch_to+0x572/0xdc0
+[    7.331889]  ? __pfx_kthread+0x10/0x10
+[    7.332278]  ret_from_fork_asm+0x1a/0x30
+[    7.332676]  </TASK>
+[    7.332909] ---[ end trace 0000000000000000 ]---
+[    7.333687] refcount_t: underflow; use-after-free.
 
-Best regards,
-Yehyeong Lee
+For the allocation window, under KASAN, 7 of 7 unpatched and 0 of 5
+patched:
 
-Yehyeong Lee (4):
-  scsi: libiscsi: only complete a task that has been sent
-  scsi: libiscsi: do not complete a task sent with a reserved ITT
-  scsi: libiscsi: take a transmit reference before a task is published
-  scsi: libiscsi_tcp: do not accept a Data-In for a finished command
+[    7.293597] Oops: general protection fault, probably for non-canonical address 0xdffffc000000000c: 0000 [#1] SMP KASAN NOPTI
+[    7.295946] KASAN: null-ptr-deref in range [0x0000000000000060-0x0000000000000067]
+[    7.296860] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.4.0-rc2-00471-g33481dfad534-dirty #1 PREEMPT(lazy)
+[    7.298097] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[    7.299457] RIP: 0010:iscsi_nop_out_rsp.constprop.0+0x4e/0x170
+[    7.300200] Code: c1 ea 03 48 83 ec 08 80 3c 02 00 0f 85 fd 00 00 00 48 b8 00 00 00 00 00 fc ff df 48 8b 6b 58 48 8d 7d 60 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 c8 00 00 00 48 8b 45 60 48 39 c3 74 55 48 b8 00
+[    7.302531] RSP: 0018:ffffc90000006b58 EFLAGS: 00010206
+[    7.303213] RAX: dffffc0000000000 RBX: ffff888009e2a000 RCX: 0000000000000000
+[    7.304126] RDX: 000000000000000c RSI: ffffc90000006c10 RDI: 0000000000000060
+[    7.305037] RBP: 0000000000000000 R08: 0000000000000080 R09: 0000000000000000
+[    7.305948] R10: ffffc9000000679f R11: 000000000000004d R12: ffff88800c70c440
+[    7.306858] R13: 0000000000000000 R14: ffffc90000006c10 R15: 0000000000000000
+[    7.307766] FS:  0000000000000000(0000) GS:ffff8880e55a8000(0000) knlGS:0000000000000000
+[    7.308794] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    7.309541] CR2: 0000559011da8ef8 CR3: 000000000be2c005 CR4: 0000000000770ef0
+[    7.310472] PKRU: 55555554
+[    7.310838] Call Trace:
+[    7.311173]  <IRQ>
+[    7.311455]  __iscsi_complete_pdu+0x1acf/0x2390
+[    7.312054]  ? iscsi_dbg_trace+0xcc/0x100
+[    7.312583]  ? iscsi_dbg_trace+0xcc/0x100
+[    7.313112]  ? __pfx___iscsi_complete_pdu+0x10/0x10
+[    7.313748]  ? __pfx__raw_spin_lock+0x10/0x10
+[    7.314327]  iscsi_complete_pdu+0x5c/0x80
+[    7.314855]  iscsi_tcp_data_recv_done+0xf4/0x250
+[    7.315459]  iscsi_tcp_recv_skb+0x31e/0xec0
+[    7.316007]  ? __tcp_transmit_skb+0x2ec9/0x4720
+[    7.316602]  ? __pfx_iscsi_tcp_recv_skb+0x10/0x10
+[    7.317217]  ? __pfx_iscsi_dbg_trace+0x10/0x10
+[    7.317800]  ? __pfx_selinux_parse_skb.constprop.0+0x10/0x10
+[    7.318539]  ? __alloc_skb+0x342/0x890
+[    7.319041]  iscsi_sw_tcp_recv+0x12f/0x390
+[    7.319576]  ? __pfx_iscsi_sw_tcp_recv+0x10/0x10
+[    7.320182]  ? __pfx_selinux_netlbl_sock_rcv_skb+0x10/0x10
+[    7.320891]  __tcp_read_sock+0x1ab/0x810
+[    7.321407]  ? __pfx_iscsi_sw_tcp_recv+0x10/0x10
+[    7.322012]  ? __pfx___tcp_read_sock+0x10/0x10
+[    7.322593]  iscsi_sw_tcp_data_ready+0x18b/0x510
+[    7.323199]  ? __pfx_iscsi_sw_tcp_data_ready+0x10/0x10
+[    7.323864]  ? tcp_try_rmem_schedule+0x17f/0x1390
+[    7.324476]  ? tcp_event_data_recv+0x36a/0x7b0
+[    7.325061]  tcp_data_queue+0x1f2d/0x4b70
+[    7.325587]  ? __pfx_tcp_data_queue+0x10/0x10
+[    7.326162]  ? tcp_try_undo_loss+0x670/0x730
+[    7.326721]  ? kvm_clock_get_cycles+0x19/0x40
+[    7.327300]  tcp_rcv_established+0x8a8/0x3990
+[    7.327876]  ? security_sock_rcv_skb+0x2b/0x40
+[    7.328460]  ? sk_filter_trim_cap+0x400/0x980
+[    7.329036]  ? __pfx_tcp_inbound_hash+0x10/0x10
+[    7.329629]  ? __pfx_tcp_rcv_established+0x10/0x10
+[    7.330255]  ? __pfx_sk_filter_trim_cap+0x10/0x10
+[    7.330869]  ? _raw_spin_lock+0x80/0xe0
+[    7.331373]  tcp_v4_do_rcv+0x45b/0x970
+[    7.331872]  ? tcp_v4_fill_cb+0x26/0x400
+[    7.332385]  tcp_v4_rcv+0x223d/0x3b90
+[    7.332874]  ? __kasan_unpoison_pages+0x2c/0x40
+[    7.333466]  ? __pfx_tcp_v4_rcv+0x10/0x10
+[    7.333996]  ? __pfx_raw_local_deliver+0x10/0x10
+[    7.334598]  ? get_stack_info_noinstr+0x16/0xe0
+[    7.335197]  ? get_stack_info+0x2a/0x90
+[    7.335703]  ip_protocol_deliver_rcu+0x61/0x2e0
+[    7.336302]  ip_local_deliver_finish+0x329/0x4b0
+[    7.336910]  ip_local_deliver+0x18f/0x2d0
+[    7.337436]  ? __pfx_ip_local_deliver+0x10/0x10
+[    7.338033]  ? ipv4_dst_check+0x10a/0x160
+[    7.338557]  ? ip_rcv_finish_core+0x1d0c/0x1dd0
+[    7.339160]  ip_sublist_rcv_finish+0x138/0x1b0
+[    7.339743]  ip_sublist_rcv+0x3ae/0x670
+[    7.340252]  ? kasan_save_stack+0x42/0x60
+[    7.340775]  ? kasan_save_track+0x14/0x30
+[    7.341301]  ? __pfx_ip_sublist_rcv+0x10/0x10
+[    7.341876]  ? __alloc_skb+0x11e/0x890
+[    7.342371]  ? net_rx_action+0x8f1/0xfb0
+[    7.342891]  ? handle_softirqs+0x1b3/0x600
+[    7.343427]  ? __irq_exit_rcu+0xfc/0x160
+[    7.343943]  ? common_interrupt+0x7f/0x90
+[    7.344467]  ? __asan_memset+0x23/0x50
+[    7.344968]  ? ip_rcv_core+0x4e9/0xce0
+[    7.345462]  ? common_startup_64+0x13e/0x158
+[    7.346028]  ip_list_rcv+0x266/0x380
+[    7.346503]  ? csum_partial+0xc/0x20
+[    7.346981]  ? __pfx_ip_list_rcv+0x10/0x10
+[    7.347517]  __netif_receive_skb_list_core+0x5c3/0x860
+[    7.348186]  ? tcp4_gro_receive+0x54a/0x15c0
+[    7.348746]  ? __pfx___netif_receive_skb_list_core+0x10/0x10
+[    7.349480]  ? inet_gro_receive+0x719/0x1190
+[    7.350049]  ? kmalloc_reserve+0x103/0x2b0
+[    7.350584]  netif_receive_skb_list_internal+0x553/0xbb0
+[    7.351271]  ? dma_map_phys+0xb0/0x290
+[    7.351768]  ? __pfx_netif_receive_skb_list_internal+0x10/0x10
+[    7.351998] TESTWIN close itt 1
+[    7.352946]  ? e1000_alloc_rx_buffers+0x32c/0xd70
+[    7.353561]  ? gro_receive_skb+0x279/0x960
+[    7.354103]  napi_complete_done+0x1ab/0x7f0
+[    7.354648]  ? __pfx_napi_complete_done+0x10/0x10
+[    7.355264]  ? __pfx_e1000_clean_rx_irq+0x10/0x10
+[    7.355880]  e1000_clean+0x816/0x25a0
+[    7.356364]  ? schedule_timeout+0x1cd/0x200
+[    7.356916]  ? tmigr_requires_handle_remote_up+0x49/0x160
+[    7.357614]  ? kvm_sched_clock_read+0x11/0x20
+[    7.358189]  ? sched_clock+0x11/0x30
+[    7.358665]  ? sched_clock_cpu+0x6c/0x4c0
+[    7.359197]  ? __walk_groups_from+0x40/0x150
+[    7.359757]  ? __pfx_e1000_clean+0x10/0x10
+[    7.360294]  ? __pfx_sched_clock_cpu+0x10/0x10
+[    7.360881]  ? sched_balance_trigger+0xc7/0xf20
+[    7.361474]  __napi_poll+0x9c/0x520
+[    7.361942]  net_rx_action+0x8f1/0xfb0
+[    7.362437]  ? kvm_clock_get_cycles+0x19/0x40
+[    7.363012]  ? ktime_get+0xe6/0x160
+[    7.363478]  ? __pfx_net_rx_action+0x10/0x10
+[    7.364043]  ? timerqueue_linked_add+0x1f4/0x3d0
+[    7.364646]  ? _raw_spin_lock+0x80/0xe0
+[    7.365156]  handle_softirqs+0x1b3/0x600
+[    7.365670]  ? __pfx_handle_softirqs+0x10/0x10
+[    7.366255]  __irq_exit_rcu+0xfc/0x160
+[    7.366748]  common_interrupt+0x7f/0x90
+[    7.367256]  </IRQ>
+[    7.367547]  <TASK>
+[    7.367840]  asm_common_interrupt+0x26/0x40
+[    7.368388] RIP: 0010:pv_native_safe_halt+0xf/0x20
+[    7.369013] Code: 04 ce 00 c3 cc cc cc cc 0f 1f 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa eb 07 0f 00 2d 93 44 18 00 fb f4 <e9> 8c 39 02 00 66 2e 0f 1f 84 00 00 00 00 00 66 90 90 90 90 90 90
+[    7.371276] RSP: 0018:ffffffff85607d10 EFLAGS: 00000216
+[    7.371952] RAX: ffff8880e55a8000 RBX: ffffffff85614700 RCX: ffffffff846d0c6b
+[    7.372863] RDX: ffffed100d8862a3 RSI: 0000000000000004 RDI: 000000000000480c
+[    7.373768] RBP: fffffbfff0ac28e0 R08: 0000000000000001 R09: ffffed100d8862a2
+[    7.374675] R10: ffff88806c431513 R11: 0000000000000002 R12: 0000000000000000
+[    7.375584] R13: 0000000000000000 R14: 1ffffffff0ac0fa6 R15: dffffc0000000000
+[    7.376474]  ? ct_kernel_exit.constprop.0+0x9b/0xc0
+[    7.377078]  default_idle+0x9/0x10
+[    7.377533]  default_idle_call+0x39/0x60
+[    7.378051]  do_idle+0x37b/0x560
+[    7.378485]  ? __pfx_do_idle+0x10/0x10
+[    7.378983]  cpu_startup_entry+0x4f/0x60
+[    7.379497]  rest_init+0x186/0x1b0
+[    7.379956]  ? __pfx_acpi_read_bit_register+0x10/0x10
+[    7.380584]  ? __pfx_rest_init+0x10/0x10
+[    7.381074]  ? __pfx_kernel_init+0x10/0x10
+[    7.381579]  ? acpi_enable_subsystem+0x24b/0x470
+[    7.382154]  start_kernel+0x354/0x3b0
+[    7.382635]  x86_64_start_reservations+0x18/0x30
+[    7.383242]  x86_64_start_kernel+0x111/0x120
+[    7.383771]  common_startup_64+0x13e/0x158
+[    7.384290]  </TASK>
+[    7.384590] Modules linked in:
+[    7.385018] ---[ end trace 0000000000000000 ]---
 
- drivers/scsi/libiscsi.c     | 56 +++++++++++++++++++++++++++++++------
- drivers/scsi/libiscsi_tcp.c |  3 +-
- 2 files changed, 50 insertions(+), 9 deletions(-)
+Mark a task ISCSI_TASK_RUNNING with a release once it is ready to go
+out, and accept a response only for a task in that state, read with an
+acquire.  A response can only follow a transmission: attempts that
+arrived after the window closed were still accepted, 24 of 24 unpatched
+and 9 of 9 patched.
 
+Fixes: 659743b02c41 ("[SCSI] libiscsi: Reduce locking contention in fast path")
+Fixes: 5923d64b7ab6 ("scsi: libiscsi: Drop taskqueuelock")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+ drivers/scsi/libiscsi.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-base-commit: 7e1392a42ea288d70a266f6553fe06f57f8647ea
+diff --git a/drivers/scsi/libiscsi.c b/drivers/scsi/libiscsi.c
+index 2d04448432a772..83d726043d3e8d 100644
+--- a/drivers/scsi/libiscsi.c
++++ b/drivers/scsi/libiscsi.c
+@@ -429,7 +429,8 @@ static int iscsi_prep_scsi_cmd_pdu(struct iscsi_task *task)
+ 	if (session->tt->init_task && session->tt->init_task(task))
+ 		return -EIO;
+ 
+-	task->state = ISCSI_TASK_RUNNING;
++	/* Pairs with the acquire in the RX task lookups. */
++	smp_store_release(&task->state, ISCSI_TASK_RUNNING);
+ 	session->cmdsn++;
+ 
+ 	conn->scsicmd_pdus_cnt++;
+@@ -702,7 +703,8 @@ static int iscsi_prep_mgmt_task(struct iscsi_conn *conn,
+ 	if ((hdr->opcode & ISCSI_OPCODE_MASK) == ISCSI_OP_LOGOUT)
+ 		session->state = ISCSI_STATE_LOGGING_OUT;
+ 
+-	task->state = ISCSI_TASK_RUNNING;
++	/* Pairs with the acquire in the RX task lookups. */
++	smp_store_release(&task->state, ISCSI_TASK_RUNNING);
+ 	ISCSI_DBG_SESSION(session, "mgmtpdu [op 0x%x hdr->itt 0x%x "
+ 			  "datalen %d]\n", hdr->opcode & ISCSI_OPCODE_MASK,
+ 			  hdr->itt, task->data_count);
+@@ -1174,7 +1176,8 @@ static int iscsi_handle_reject(struct iscsi_session *session,
+ 			if (!iscsi_verify_itt(conn, rejected_pdu.itt))
+ 				task = iscsi_itt_to_task(session, conn,
+ 							 rejected_pdu.itt);
+-			if (!task || task->state == ISCSI_TASK_FREE ||
++			/* Pairs with the release when the task is prepared. */
++			if (!task || smp_load_acquire(&task->state) != ISCSI_TASK_RUNNING ||
+ 			    task->sc) {
+ 				iscsi_conn_printk(KERN_ERR, conn,
+ 						 "Invalid pdu reject. Could "
+@@ -1314,7 +1317,9 @@ int __iscsi_complete_pdu(struct iscsi_session *session, struct iscsi_conn *conn,
+ 	case ISCSI_OP_SCSI_TMFUNC_RSP:
+ 	case ISCSI_OP_NOOP_IN:
+ 		task = iscsi_itt_to_task(session, conn, hdr->itt);
+-		if (!task || task->state == ISCSI_TASK_FREE || task->sc)
++		/* Pairs with the release when the task is prepared. */
++		if (!task || smp_load_acquire(&task->state) != ISCSI_TASK_RUNNING ||
++		    task->sc)
+ 			return ISCSI_ERR_BAD_ITT;
+ 		break;
+ 	default:
 -- 
 2.43.0
 
