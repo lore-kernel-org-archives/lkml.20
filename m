@@ -1,62 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794884022;
-	b=YvvfKWSWouEJQgYK/eGgMPrCnT2ogZRKEmakcua+vH5Nz/HtDeIeAgbhB4wRWwfKzJCa
-	 u3fIaON/+gPeTQ8a1XgD0DHUNqadI1XrzTgC7LR5nhR4AZgVxB7sjPxBxdlfaFoSG7Hoc
-	 pXjGB208wnxUeOx/GMfDC+JdC07IAC9QI04dB6TtjS6FLIOkv9kmtHiU8qbXfQL6iXs5K
-	 uzZc2HmE3jcwx1bjtqn1zSnfWhgKb6rms0pXP5Yx75hiry7tXqSZdCtACfrRrxfIhm8Wb
-	 YsBuN/PRVpzqRz/aP9tF7UE5BX83zaewNbV9/swU1hbCFOENZTbsyDCYVSnPmQTXxxw==
+	t=1794884029;
+	b=rNg+yvtGtbnj1vrOaItCz42WT9Lkx4zr6byYQDGpwk0MLatjvGQwyvlh/8baziKucxzg
+	 G08sFBpa2XlZGWviIPtld5TmTjjHkVCVlGgtG4MqpKW/eH5rHro76UHp9SGUVoa1qGgCr
+	 OywFVyS3RL1QRD+namXD4o8E/S2toqdm2cUcEOKZCBxZWhqKG8GN2ilmQwvNzANjgYBCz
+	 +C/fjCaJQoQALRHkZ8G6UIPhvkmMR7SkxbbRxRhyf8k4gp5GyvZaixQvC1lUWU7AeE42W
+	 RDyNf5uLJspDLGoQvD6bc4bmYKw858RPYO0niJcsc1RCIAuDa/CPEkWkWt/kIUtlGmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794884022;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Zv27WeyfKuHk934BOkoEy9pjYUUOCVBJyFWVBjr4R9k=;
-	b=loLL8stqayW9cbBfi4UnsbD+pcWO/xVb+z+HSi1cA8bis9hDrUASoPvro425cBANPOWt
-	 V+ayU4lGiPzW2hH1W8Nn3LvanyU/JcEJ4/XNj5ztoI7cYq8hvI6XU/CDr8seKpH6aNLvk
-	 gzqPzuTar9gQjb6hUit2skOyUjFT4NI2Ombfp1Ba4I6dQ1M+5klrPUNy/ZqkIjmMb7Hyr
-	 gdgalAbCyUmoBla5BChDtZ4juL5xvFPEBZ+OwnoO/4irgwJE1HqomK8IUpTiXtt1EoY8+
-	 wiR46SQhhxGZM5M3LHQKs1Qj2cTijyC0cXmuol3ao4sYgPPcMHjwga41Fl0OkWHeOUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794884029;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=uQmEnBy41LOTn8RxJD1AEVDSOb95B4r7foDkgo1mAGA=;
+	b=vvLgt82bQEoWjL9/omkw8ypWwHhdJh3T6ttK5AqsCrHFu76RtlRVcaT3aM4Tg/BCpu8S
+	 /l+W5j2XRY1oz8S0ENYbW32tRnS+YkqyE4PiMaFbVPk38KaKuvL6/jo/+0ZgzRCZLNl4I
+	 +w2NLfyAXjht1yVyCzhd1I05jUnhQD3j6hf7lpo/anNPC0CC4/UET49kGdbZ8MIjbRPmA
+	 /wE4wtB6IOoweQaQDzeXKjNz69Rz0P6SVqI+IZuOpRHhhFzs0ovt2ceROEOokm/o3+rX2
+	 39yT3tuKJxw67kPphQ3EcNkzJESz5JiU0u0WY8lPB22kf+QGsBL0TkXJtbLrBpq9KLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Qm/fwO52";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mGlCNLOg;
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C419E606A32A;
-	Tue, 17 Nov 2026 02:53:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CCBC606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:53:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CCBC606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qm/fwO52
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2CD01F000C4;
-	Tue, 17 Nov 2026 02:53:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794884022;
-	bh=Zv27WeyfKuHk934BOkoEy9pjYUUOCVBJyFWVBjr4R9k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Qm/fwO52SUEZ3thSnUOAaa49n8tUY5c95cAzub02zgPj6rZwI43wezdDYfiWEtaTq
-	 55GFevUfMLbtrAymslHa4f9jg6P4WPMF67QbxmjpD+UlHfqyTGbXBsQg/oZihpLHB/
-	 hX7M96M1yHKA001nvWmHG9vafhrdnI/U6ykz/KmjKGRt3slJENHhH1FweHF7uv1Mo1
-	 /57MZD2bsI1nWutkMeNF2rzEJTAZFwdFn3kpkpXM8sonBJLFm18HqAmDMtwR9SIe+N
-	 +Lkmqyxqhh6LlmscVVNeSsTqFNZMHUBLne5ePiPEXdBRlyGzLFDY29XZGr/yGzINlW
-	 FNNJYktrgrl0g==
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mGlCNLOg
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-36f8cdd30beso6893476eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:53:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794884029; x=1795488829; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uQmEnBy41LOTn8RxJD1AEVDSOb95B4r7foDkgo1mAGA=;
+        b=mGlCNLOgSxEgkGHl6RW7klQzxte23/3WOBSsw+gEXg7D7nW0JhRUyUlRX5sAD/kVvb
+         958wYPd9B2Ru0KzHvrxZAhbIcuFXsY7XSqqgHV+Cap1fWKupxlc4GDe5Dx0n8h4WhVco
+         L1TVyqYen75PGN7s3OSrUrebX5zkYwNm1EeZBcJDjQnIONIyJUhAH4J2WO4SY8q4RZt+
+         lZmzjsQYrAWBZIS5tnuMNTLcSfHE/2Iq29eh2PWVnMAEZhk12zAt+AOmHw82nSytalio
+         B+k/CPLVB5xP6duZGbLsZlzNCd7JM8RYd4gCVMGor8PJWnhTgVF0DWRcPVZSIPoAXR4l
+         S27Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794884029; x=1795488829;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uQmEnBy41LOTn8RxJD1AEVDSOb95B4r7foDkgo1mAGA=;
+        b=ZDR8hrx4GuzEzQpZo0fJ/QiKzKKXTh102fq5AIuVDgv56ZJC08wcBN7d0qM04eaIQE
+         To6OTaXZIc3dvJKerR6auzAglMqPFf4dfrwqd6KQP0AJVyoEneza/6Fa2ezVJKVQn+UI
+         IHIe+jZeNio/sf7UfPQUCMcj40kbNyH5NL6mWTf2GemtrGogC2voZR0LbWlgyE6N/G0r
+         smIgpj0/PHvh/hF+xdDngMuW7NbjZCtlWd+WHNRSsr9nwuOG9LKu2V0RoGdeC4GRD1gb
+         kX11IG/n1N9yeJo1L6ClYsZiVOBDg5nsWHUPN13v6I7FZwizuA46f+8RcNr3109/fifG
+         x7tg==
+X-Forwarded-Encrypted: i=1; AL+hErHxj/fiMs2nbq3KpW1v8Si+gb5iUR4y0RtXjYeWTRpZscveJhVbFmjOmKDqCBiEHZeVfQojCALrftdB+Hw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+qtCCQ+Je1qBcNToeOjNqPd4hNLAbfc6zK6PwJohOdHOfpGpU7
+	JJ6YLWWObz5yaDdQs4QM8dOw/cDZbD0exu1ETZnHqUace7Hxy7VWeEp1
+X-Gm-Gg: AZFdTZfrab4KPoOz0hMJiEW75H3yUWRRlQe2sRWk6xD2/F9nAZlzzBkEP7yQakfH0Qp
+	HroCXj7D/yjs4ymhsM/EROeynMyQiJCiyF8aXxNLt9D+Jgchq1TmhTEJcOJ02dIC+2tvsO1Oie/
+	YkJGzi5KDnC5ZqYk74jU3hL+ZAYGXhwECXYtw2AofyTVbI9XZvGGxEkqB9CEDUEnIO5iwdBfQWy
+	pG+Ojnl2iQWnGyITSwb/JV4ne63vJ6LMGDWHRr9UIJx7XUaTxYpZFZzsLyIY8BH1pAOVPHQhiMm
+	M8af1PhZSx7gv2id7R9EWaenzsgTqQuBPwxHMRGr7f2CoI1o2nMRyXusdp1E62N1fpVMMFoTJBp
+	s+PqS45Tc4BKJ89vCY2qD054o+YwezHBFWMFS8mUI3I9GwWYtSOj2xuVx69P8odiN3AcbLmhOFo
+	Om1h56Th36XrwY5b1mTLvPEICj/LVHYBD92fft4M4eN7Pzrhh+acxtMZZ9nlzElMKr2kz6lqlGC
+	KiB00ffFzHEPEuNWkC2zCuhGM0oqnZfi9TU8IkowEu4Aq1X5ch8Cuu/rDpCcixQ97tUlZDU7Q5x
+	EjlJ1Ghi2638z9rKpce1qqyNs77mkt1gDAlFxEWGSuh5zm50QJRLxBG8nlYgp4nRjbUHQRgsYrg
+	h1hqjgfqm7IzjmxMuSt9eeO0+zQMsgWsqwHdBVpZ8x3hX
+X-Received: by 2002:a05:7300:6148:b0:36a:7bb7:4609 with SMTP id 5a478bee46e88-37967dd7e1dmr19122519eec.34.1794884028527;
+        Mon, 16 Nov 2026 18:53:48 -0800 (PST)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955e0d966sm39357368eec.15.2026.11.16.18.53.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 18:53:47 -0800 (PST)
+From: phucduc.bui@gmail.com
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Kees Cook <kees+treewide@kernel.org>,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: [PATCH v5 10/12] perf tests: Fix the Intel PT virtual LBR check
-Date: Mon, 16 Nov 2026 23:53:02 -0300
-Message-ID: <20261117025305.3958882-11-acme@kernel.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261117025305.3958882-1-acme@kernel.org>
-References: <20261117025305.3958882-1-acme@kernel.org>
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 0/2] ASoC: adi: Use devm_clk_get_enabled()
+Date: Tue, 17 Nov 2026 09:53:33 +0700
+Message-ID: <20261117025335.7455-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,59 +102,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Arnaldo Carvalho de Melo <acme@redhat.com>
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-The record this check uses writes aux samples, and with the single data
-page the other tests ask for they are lost:
+Hi all,
 
-  Warning: Processed 29 samples and lost 100.00%
+This series uses devm_clk_get_enabled() to simplify clock management
+in the ADI AXI I2S and SPDIF drivers, removing the need for manual
+clock enable/disable handling.
 
-so no branches are decoded and the check fails with "Failed with virtual
-lbr".  Record with 4 data pages and 128 auxtrace pages: the same trace
-decodes 64 branches and still fits the mlock budget.
+Compile-tested only.
 
-Require the python perf module to provide session, not just to be
-importable: a perf whose python bindings are not found can pick up an
-unrelated module and fail with
+Best regards,
+Phuc
 
-  Error processing events: module 'perf' has no attribute 'session'
+bui duc phuc (2):
+  ASoC: adi: axi-i2s: Use devm_clk_get_enabled()
+  ASoC: adi: axi-spdif: Use devm_clk_get_enabled()
 
-instead of skipping the subtest.
+ sound/soc/adi/axi-i2s.c   | 22 +++-------------------
+ sound/soc/adi/axi-spdif.c | 22 +++-------------------
+ 2 files changed, 6 insertions(+), 38 deletions(-)
 
-Detected building perf on fedora:44 on the runner with Intel PT hardware,
-where the subtest failed with "Failed with virtual lbr" in the container,
-and with the python error when run as root on the same machine.
-
-Fixes: 915d6b14dc0c ("perf test: Migrate Intel PT virtual LBR test to Python API")
-Reviewed-by: Ian Rogers <irogers@google.com>
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
----
- tools/perf/tests/shell/test_intel_pt.sh | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
-
-diff --git a/tools/perf/tests/shell/test_intel_pt.sh b/tools/perf/tests/shell/test_intel_pt.sh
-index c0ecece0a8255124..511440b5956a6897 100755
---- a/tools/perf/tests/shell/test_intel_pt.sh
-+++ b/tools/perf/tests/shell/test_intel_pt.sh
-@@ -384,13 +384,14 @@ test_virtual_lbr()
- 	# shellcheck source=lib/setup_python.sh
- 	. "${shelldir}"/lib/setup_python.sh
- 
--	if ! "$PYTHON" -c 'import perf' > /dev/null 2>&1; then
--		echo "SKIP: Python perf module not found"
-+	if ! "$PYTHON" -c 'import perf; perf.session' > /dev/null 2>&1; then
-+		echo "SKIP: Python perf module with session support not found"
- 		return 2
- 	fi
- 
--	# Check if virtual lbr is working
--	perf_record_no_bpf -o "${tmpfile}" --aux-sample \
-+	# Check if virtual lbr is working.  This records aux samples, which a
-+	# single data page overruns, so give it more room than the other tests.
-+	perf_record_no_bpf -m 4,128 -o "${tmpfile}" --aux-sample \
- 		-e '{intel_pt//,cycles}:u' perf test -w brstack || return 1
- 	perf inject --itrace=L -i "${tmpfile}" -o "${perfdatafile}" || return 1
- 	output=$("$PYTHON" "${shelldir}/lib/perf_brstack_max.py" -i "${perfdatafile}") || return 1
 -- 
-2.56.0
+2.43.0
 
