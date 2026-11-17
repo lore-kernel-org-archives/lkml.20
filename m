@@ -1,88 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794919021;
-	b=MqNiE/h3gitRjSoD5VnrfeJ+5XFLRiyrjNHTBEWlE/p2cgNcpd7czrFoUgfh4pn7SLDK
-	 8GBa6Q9MJhREjqNwJO1sZfeiRGa9/7dWlv7ft1QHKPaZUj29DCfcGEx3MxjQrkUcRL1tW
-	 ubkaxPCcJAj/8mUjo57AiAnpmObNYuCWLRlzcb6SxdNZfhhye6q+LqxpSuR01qvdN0gP/
-	 WkbvM3w7IKdMehrF08emiwyYb6hbFula4xPyohqERVtY0PeNHOZt8Jkf7gaIMQqDhINut
-	 YcB/UZiUAb/VBf7Fmt0pc2vhhCtSraBZ161LrXJ5au1OnBwnziTctgFeqt6Y3CRqVxg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794919021;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:From:Subject:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=NXoozk8hY5S7C64sMTmSgvZ8u04sTsb6y4F9y+Imp+Y=;
-	b=dm0air7HpJ2y7Tos/bPLi4/4ziVjMBpHmgfS95s+IGIY1tW0HmHsJaESNtDSygIARoEp
-	 77X8nRhMtwhHJbmqHuUT+4TJhBlLFmO3GnBhZNfv35I3+d5VfqnrVKpZHwsDt5+MjIrEp
-	 6LvW6q1p0c7nKtYrsWWC0vy/5QzFqAILhu1RdaOof896Nu5URRSoqbF03il9HiVS9OxYu
-	 DCb7fbFXnFYUy5VfRqDwlvmWetcwAfCcpRV8StrVz4dcTxI9nDq5wFSOCgajHi4ZYwZlM
-	 yCp8Rm8Bikd1hXaRgdLiAQ8Cw/PyoZdhaDT1IHADn/W0oYksZWs1MIT9wdDsUSPclLA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=RofesBBr;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794919042;
+	b=M/p/5mEcjsxE1HcC76l1vPNn0YMzSQzXW0V+5azpcR9NDa3Q51jyrWX6gQRMxO2Zjjr4
+	 YkpqXMyLxbGZitPgo3cnPHEsOTW2LrGF9G2JPJu7HLoggCkuBX9PSx0PMrUv2SgnEqJCK
+	 vR5Eo2JqDgUZkIOyAPvkDsR9ePDgtGJaWIS0bT2v5pwwHvLth9fvdRYXZJFHBuH2xXgBC
+	 iwGHhbOptvXZfKOQRbOUGwfBHEsVz9Ef8aoLfkR+37uf2Ui67bQe09mpj6L0KQLPTslIs
+	 uo7B734U6XxE7wPZa9dY6kElE7iE7ZoekgQEii18l/dTdemavbCzpQh3iWchjFJw0nA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794919042;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=hXSEIu+BwV1S8tPxayHCJW+kRFznr7QmQ/f2L6iJRlQ=;
+	b=WS6CB5jk2uBasuNQy63N4V3S0CRdeyB83eSWFFgM4ec7ThuZsHS8FdqYJf/U189JUupN
+	 LcFA9aZEZTAjKB5wGyonk1tGkHHAfW3HXnl55JbawvRo3fCFuf0rg1xaJSghRS56HVimc
+	 NFXH3fMZ2OaLJjrNTz8OCFtOsqofSR3/ve0fmA2FE+43E3jIK4pkW8S3+0z+S2A0mIPAP
+	 dPcMFJA8Rt3hEsH+b8qdcjALK1vqj4vwZFtq6P6Blupw9jQpUxDKp08tofYAxJ5PcrMPE
+	 cRVBBvTtFeXER9MxFBE0ol2RZgNIKJXnshX8k9RTbWCf4l+d6kfhQ9lTS4CfAnbeNRA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b2Eja1XU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17723606A31C;
-	Tue, 17 Nov 2026 12:36:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17723606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BA5C606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:37:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=RofesBBr
-Received: from [127.0.0.1] (unknown [IPv6:2a02:560:5d79:c700:9ebf:dff:fe00:fdb5])
-	(Authenticated sender: sha@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 1F1AF201917;
-	Tue, 17 Nov 2026 13:36:58 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794919018;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NXoozk8hY5S7C64sMTmSgvZ8u04sTsb6y4F9y+Imp+Y=;
-	b=RofesBBrDx3ZuGMjyBJUn+hlTiGsBn4cOYS07FDLgzGPhT5TlWb70QKvYANvgAfoaIkL7O
-	XMD8BPTGzW+7ob4YNRBzx2Br8OvDRWjsY5m3fWh9992QP+nLbwFxaIoO5viPpUAyTo/pUJ
-	jh0T7wmpYm++rtq5uIpZ/D1/LGeF0GIrc/75KNymUrzNb89bBmXjYP7THU5mp5HxfkkAkm
-	O98HV1wsE03u4qMAPRsT/4KSIvMXku2CLySK6Ede9Z3o8DeQob+T5LBH+/WxIt+bUnmKVX
-	adpf47AfNu4kx/2Am1a2Fp/Cw3NM711EYHllEvRZlxNBOj/fyr9Y7HDFv8U56Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794919018;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NXoozk8hY5S7C64sMTmSgvZ8u04sTsb6y4F9y+Imp+Y=;
-	b=Ra5aNu5wXGsGFzI2wi77v2EQ9UwBQ34bypx+S+cEhAln1XMWkr5vkHCAz6Z+Adtc7pTRNI
-	Mmex2fqQ756zAWIc/7lxctWVH1v9nWCFu9u3Xz3G+Z+Ux2rNkEhl5SbQkKlMgaGd8KvoLX
-	U64jv0VYINZFspv0HtCm6jo1xiByiUdP+NisPhibOoJDKZ4pxUtcJRaQGsED8pYElBmNg7
-	gO1xMjIQ6FQOHqOvtmpeinVtjLnUz+VrwhN5ZS2jUr4rYIYgx1H+6zfyTgg7Wihfz8hL11
-	f9R99jSFBPwO4QLvAVE3xm6YtoowlhMIhbBBR7PVseIZztIltqpamEMYZuQSBA==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794919018; a=rsa-sha256;
-	cv=none;
-	b=JLcwyPFLprBIk7JcRQ3mKInKxj9NjxWIHdjekg9eWliw4wJN64/c0YwjgKHZdtn/BajVgG
-	JaA3e5ui9M+D8ir1qavYkUd8GL6GOADVj4aZZiFYhUrNlfsKv/KrrMqcE0GpojFOTqXUnu
-	DYl1BbkuTzww1gfx0lkCd6UWA8FFfv9xwhPgyNmYuKNJ4u7ufXKh0NvNfjYHGOUpaEBSTi
-	Jpwop9dC0zF03343XWELWspYGymQlwfAbq5bIR8RZVnJfWk85JWGGgXFo2YNshv+jJNyVm
-	FZtN8s8RdEIiLzg1oYlH8nxoZzHW+8d+WjbtRlmsYv928yqy5hZ+OBbR48aCYQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
-Message-ID: <d7104aac-2efc-4e82-bd12-669ed7fd47fc@pengutronix.de>
-From: "Sascha Hauer" <s.hauer@pengutronix.de>
-Subject: Re: [PATCH 1/1] Bluetooth: hci_mrvl: Leave the serdev port lifetime
- to hci_serdev
-To: "Michael McAllister" <me@michaelmcallister.org>
-Cc: markus.probst@posteo.de, luiz.dentz@gmail.com, marcel@holtmann.org, linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <179467295519.97469.5747232754111917783.marvell-serdev-v1-1@michaelmcallister.org>
-References: <341e56b1ff7d8a5b109e26e30dfed61faa54d603.camel@posteo.de>
- <179467295518.97469.12346516231160594592.marvell-serdev-v1-0@michaelmcallister.org>
- <179467295519.97469.5747232754111917783.marvell-serdev-v1-1@michaelmcallister.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 12:36:57 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b2Eja1XU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BD021F000C6;
+	Tue, 17 Nov 2026 12:37:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794919042;
+	bh=hXSEIu+BwV1S8tPxayHCJW+kRFznr7QmQ/f2L6iJRlQ=;
+	h=From:To:Cc:Subject:Date;
+	b=b2Eja1XUJTUdCidd1n03CptFLQI3lvHVjocRxQIwnkHozMgc6D/fvjlERtAHfMQRH
+	 XODOczW2lLykerwRiSiDVXMfQezSmOb1HLWOuopYuCDfdatFHK9/94p5kcgmV4wNJg
+	 qX1JKG/Qzy/ELcvHgqbRgIeL7dL09AUnsX/Y9AQLwh9Rg5kNLLYB+S9fU9l8Vl1UDU
+	 54PVq5+BXNDp4+3p2I141BJtXtqgnuXB+9+CyMlCz6OmC5pcS2bOi+rzl+rkEX8Sfw
+	 FtRio08+KyXt5MxU9lfR1dWZeOL75gomPf/bvDsXk/PExOM7WnGWN69Tg+A0oQOjjw
+	 L2mnsW1eBvyfw==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	"David Hildenbrand (Arm)" <david@kernel.org>
+Subject: [GIT PULL] Core MM fixes for 7.4-rc4
+Date: Tue, 17 Nov 2026 13:37:14 +0100
+Message-ID: <20261117123716.7567-1-david@kernel.org>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,80 +59,110 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On 2026-11-14 16:15, Michael McAllister wrote:
-> hci_uart_register_device_priv() opens the port before calling mrvl_open(),
-> so Marvell opens it twice. Likewise, mrvl_close() closes it before the
-> transport closes it again during unregister or registration error cleanup.
->=20
-> Remove the extra calls and let hci_serdev own the port lifetime. This also
-> avoids failing probe when serdev rejects a second open with -EALREADY.
->=20
-> Fixes: be70e5e774a6 ("Bluetooth: hci_mrvl: Add serdev support")
-> Reported-by: Markus Probst <markus.probst@posteo.de>
-> Closes: https://lore.kernel.org/341e56b1ff7d8a5b109e26e30dfed61faa54d603.=
-camel@posteo.de/
-> Assisted-by: LLM
-> Signed-off-by: Michael McAllister <me@michaelmcallister.org>
+Hi Linus,
 
-I don't have hardware anymore to test this on, but LGTM
+please pull these core-MM fixes for 7.4-rc4.
 
-Reviewed-by: Sascha Hauer <s.hauer@pengutronix.de>
+I wanted to have them ready for -rc3, but decided to give some of them
+a bit more soaking time in -next. These are all urgent fixes; non-urgent
+fixes are getting piled up for the next merge window.
 
-Sascha
+The biggest piece is the folio refcount overflow prevention, which you
+should be aware of and which I want to have fixed ASAP. What's missing from
+that work are the net patches.
 
-> ---
->  drivers/bluetooth/hci_mrvl.c | 14 --------------
->  1 file changed, 14 deletions(-)
->=20
-> diff --git a/drivers/bluetooth/hci_mrvl.c b/drivers/bluetooth/hci_mrvl.c
-> index 5798a8db0..def19907c 100644
-> --- a/drivers/bluetooth/hci_mrvl.c
-> +++ b/drivers/bluetooth/hci_mrvl.c
-> @@ -57,7 +57,6 @@ struct hci_mrvl_pkt {
->  static int mrvl_open(struct hci_uart *hu)
->  {
->  	struct mrvl_data *mrvl;
-> -	int ret;
-> =20
->  	BT_DBG("hu %p", hu);
-> =20
-> @@ -75,17 +74,7 @@ static int mrvl_open(struct hci_uart *hu)
-> =20
->  	hu->priv =3D mrvl;
-> =20
-> -	if (hu->serdev) {
-> -		ret =3D serdev_device_open(hu->serdev);
-> -		if (ret)
-> -			goto err;
-> -	}
-> -
->  	return 0;
-> -err:
-> -	kfree(mrvl);
-> -
-> -	return ret;
->  }
-> =20
->  static int mrvl_close(struct hci_uart *hu)
-> @@ -94,9 +83,6 @@ static int mrvl_close(struct hci_uart *hu)
-> =20
->  	BT_DBG("hu %p", hu);
-> =20
-> -	if (hu->serdev)
-> -		serdev_device_close(hu->serdev);
-> -
->  	skb_queue_purge(&mrvl->txq);
->  	skb_queue_purge(&mrvl->rawq);
->  	kfree_skb(mrvl->rx_skb);
-> --=20
-> 2.39.5
->=20
->=20
+I'll try getting more attention from net maintainers on the net changes
+next, so they can go through the net tree.
 
---=20
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+Cheers,
 
+David
+
+----------------------------------------------------------------
+
+The following changes since commit f66469d9905b39d2c260a15d7d6db450f4db67c1:
+
+  Merge tag 'net-7.4-rc2' of git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net (2026-11-05 18:00:16 -0800)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/mm/core.git tags/mm-core-7.4-rc4
+
+for you to fetch changes up to 25f5c92e1ac06496679ea229e5c825aa88968efd:
+
+  Merge patch series "mm: limit pagecache folio refcount" (2026-11-14 16:36:05 +0100)
+
+----------------------------------------------------------------
+Core memory management fixes for 7.4-rc4
+
+This includes fixes to:
+
+ - THP (Transparent Huge Pages)
+ - GUP (Get User Pages)
+ - USERFAULTFD
+ - SHARED MEMORY (memfd)
+ - Core MM
+
+The main changes are:
+
+ - Prevent folio refcount overflows with pagecache folios, mostly
+   relevant for large folios today. The networking changes for this will
+   go through the net tree.
+
+ - Fix out-of-bounds page table accesses with folded PMDs in 3
+   scenarios.
+
+ - Fix write-sealing of memfd to detect GUP pins with concurrent
+   (un)mapping more reliably, preventing writes through GUP pins after
+   write-sealing.
+
+ - Fix lost wakeups when splitting large folios.
+
+ - Fix exposing uninitialized data through MADV_COLLAPSE to user space.
+
+The refcount changes also include a related iommufd fix for properly
+cleaning up when pinning memfd folios fails, which is now easier to
+trigger.
+
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+
+----------------------------------------------------------------
+David Hildenbrand (Arm) (11):
+      mm/khugepaged: don't map folios that are not uptodate in MADV_COLLAPSE
+      mm/memfd: handle GUP pins more reliably when write-sealing
+      mm/userfaultfd: fix PTE table overruns in UFFDIO_MOVE
+      mm/rmap: fix PTE table overruns during batched unmap
+      mm/rmap: fix PTE table overruns during batched reference checks
+      mm: limit pagecache folio refcount when mapping pages
+      mm: limit pagecache folio refcount when splicing into pipes
+      mm/mmu_gather: flush pending references early before the folio limit
+      iommufd: fix cleanup when adding memfd folio pins fails
+      mm/gup: limit pagecache folio refcount when grabbing references
+      Merge patch series "mm: limit pagecache folio refcount"
+
+Zi Yan (1):
+      mm/huge_memory: prevent losing PG_waiters in __split_folio_to_order()
+
+ drivers/iommu/iommufd/pages.c | 15 ++++++--
+ fs/fuse/dev.c                 |  4 +-
+ include/asm-generic/tlb.h     |  4 +-
+ include/linux/mm.h            | 89 ++++++++++++++++++++++++++++++++++++-------
+ include/linux/pgtable.h       | 24 ++++++++++++
+ mm/filemap.c                  | 28 +++++++++-----
+ mm/folio.c                    | 26 +++++++++++++
+ mm/gup.c                      | 32 ++++++++++------
+ mm/huge_memory.c              | 64 ++++++++++++++++++++++++++++---
+ mm/internal.h                 |  6 ++-
+ mm/khugepaged.c               |  6 +++
+ mm/memfd.c                    |  7 ++++
+ mm/memory.c                   | 48 +++++++++++++++++------
+ mm/migrate.c                  | 11 ++++++
+ mm/mmu_gather.c               | 10 +++--
+ mm/page_alloc.c               | 17 ++++++++-
+ mm/rmap.c                     |  4 +-
+ mm/shmem.c                    |  7 +++-
+ mm/userfaultfd.c              |  8 +++-
+ 19 files changed, 336 insertions(+), 74 deletions(-)
