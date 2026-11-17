@@ -1,74 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794903631;
-	b=4M7jCspc0io/RgQEAIN0aKZDz8BtzXQaTF7fYLmfAOlKU+KPldRdx6BOgmCLEe3aPiAp
-	 c+mZj8kamD0y/oBXuZpoKJhf3y09ofSveSPgxFuCYYR7uLXzrJcsZ+cO/pKfhnCCrejRY
-	 /5xEAt1xcAS956I87JUqNyH22ZUH25D/F9AmrPbBuPKSXCAKYVLcWyazySdsSjPFomLes
-	 ry8DEG1Hxed1V/uZadUpS2aAmT0FdMVF9TaXJYNzyCcfh4BRwWZM9Vz+G7GimSti9H/J2
-	 E4Z4Krf13nl+FY9gHUEukFeJQhlHXrJ7FQAQoRdw7LhRIIeVpjfPH4a5o9q8QfD6ihQ==
+	t=1794903669;
+	b=3ulu/TzzPAQzMyQ/XZmlH7YSN2u9R54xN5ncpbMgrNwbz45K5WeUDPp17qYzq8L0xAen
+	 rD2tc+lvuiDAp0slmE/YYKPxqRDEuTrqVyjW0VLjL4C3aULg6qbigDtYQYOyV0JxV4rkR
+	 CDugZ0YD6EXhMwSTsdW2/7iB97/J0ovzUiw2zV5rqHQlJB2a+JjTVivDljUyQiwMP1ees
+	 3ACJ0jUChVcrJQXfEINXHMNtwdCuUWKWRAik26qWQCm+R2crFTVLXGAthDGqSDr1cbo1E
+	 wreZL1W3a9aGNiyWFiw44oKDafjkSVCDf1DLwmfCMqvvGoSiHn0RBbu1rMCbjgmDfGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794903631;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:CC:Subject:In-Reply-To:References:
-	 Message-ID:Date:MIME-Version:Content-Type;
-	bh=gsZRzUKWDe0vrUNW5WsjP6aLDOjhouIaikkLDLXVGwA=;
-	b=hBO6vgwBdUYO0amLixnAacHVmsI5B/p/guqvUpyCm0bqa/gMEanLZUumXphqfC9sXiNz
-	 qTiA/d4VfDEuO+rvHfrRrDCzNdFD7K25OqW2WSYuZw/86BQ/HiX5DyI86XSLJphY0wTve
-	 IXTGTTSXQHPN1p4ZbR+DyRdpjCUiLVrLMxV9FzOxJTEVPKZ2F5z0EetrOUSQW5HTBE8Ma
-	 kFWKvqu3H/K86/Bh6OicYLj3NtpvJRgmUEje3yxjigYTq4YIp2wQuuH9UD+c7Sn5WwhaY
-	 AMxvKph/uWQM2NUBT6OMBxqP8JMNdwZFaP8UkXhOMFONSZAxwFalVsTRhUe/oQ3e2fg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794903669;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=kgD+tUTOk9garvkXT1JZE8IpV0ytjaEat0WUrpK1KAE=;
+	b=RT7HyrzsLG09W8hb7lAhTueD3qulPxq9W/VSQd3wsSwZ3zO1OacCvkrZwIzNcCuPsBlV
+	 4MYdVfZYxKtdsPZUscqtfxgIWDKRr5Q/KTlYNkj2uGs/qb+HJENDKM6diEFCdjE8K596g
+	 2CKc4tEyOIdNy6BEiHKMz72ASpGpj1VrnfjKpPS1G4ykEJwWSa28wuRYydUZ5NsNEliP+
+	 32rVk/QSyqUcmltL7s+szB8DDGfdTxrySIlwCCMEUSEyEAMGQXxbmFd65KxnO6LCZwb5Q
+	 /e/PDwI0Vu0SMTj5MhRhD1sqQtKa9uKc55cEaTCzGaBtElh6aqHv39tSeRW4/txLziA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b="QZar/l6m";
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=telaak.dev;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.210.174
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB92B606A31C;
-	Tue, 17 Nov 2026 08:20:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB92B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=QZar/l6m
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AH8KQ3k8083065, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1794903626; bh=gsZRzUKWDe0vrUNW5WsjP6aLDOjhouIaikkLDLXVGwA=;
-	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
-	 MIME-Version:Content-Type;
-	b=QZar/l6mkWLTkyvKRFqPKJXHCZevuP1TzA8NBDQJdImBs0zMH3n/YiIYCcfDVyOp1
-	 4MMmoTzfUBUUG+IxjgJ54c7B9O/debfDWz5W0/tMLBir/hv4fxegn7dMD2fTteoE9C
-	 krEhc631fwtEtW/hB43vQMIf8Ho+ew5IXzh8GMRa3nj9wRn4n6xpytimslks4f2UHs
-	 zYL9171wFkLF36j7LoQaNvybeA85LWSpzk7Dck0UC7Y+hMxCSSgPOJjYgNj9YAa1M3
-	 9n2Ufb0azeo6zOo6AKYIxWTGSBhBDGzU5hRmJnL0NDV+XJDEZWxm3roBtuZBdkS2kG
-	 YR3sNtu6btSjg==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AH8KQ3k8083065
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 17 Nov 2026 16:20:26 +0800
-Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 17 Nov 2026 16:20:25 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 17 Nov 2026 16:20:25 +0800
-Received: from [127.0.1.1] (172.21.40.75) by RTKEXHMBS06.realtek.com.tw
- (10.21.1.56) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
- Transport; Tue, 17 Nov 2026 16:20:24 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Zhao Li <enderaoelyther@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>
-CC: Po-Hao Huang <phhuang@realtek.com>, <linux-wireless@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH rtw-next v2] wifi: rtw89: update PN state only from correctly decrypted frames
-In-Reply-To: <20261116092300.20414-1-enderaoelyther@gmail.com>
-References: <20261116092300.20414-1-enderaoelyther@gmail.com>
-Message-ID: <7fd1a2a0-8bd5-40a1-b2d5-9c250ad6c3a2@RTKEXHMBS06.realtek.com.tw>
-Date: Tue, 17 Nov 2026 16:20:24 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FFD5606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:21:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FFD5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-89d6bd67045so389557b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 00:21:09 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794903668; x=1795508468;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=kgD+tUTOk9garvkXT1JZE8IpV0ytjaEat0WUrpK1KAE=;
+        b=qwajjHRNCzKD7w+WnKvPaYbWifYDPcDp7hdy+PU+A/IgMJRA7s75LFRVBc53zvF0mn
+         neWjNxmVya3JVEcW0iO0w0TunINQbrtEvOEGK6y27fK0basZk93KWQOVJzVb44TlkMAB
+         3NrTkT9VK2nbFDguSKpazjPOfwFStn+9XuDzEA1X9LS9MEuqfucY11HD2qUs+rfUSMlN
+         t8Hy2/fctVqPL109GBoMDN88HZqKohpBM9IjHdPPvOnKPw/yJ86N7HJWfC6OhXWkCZMw
+         6euPLM6SfxGh72dCBKiznCXWBxsYeLPSWn2ia87cjDL8+z7XKHduew2wmu4GEWAuNsMA
+         jpQw==
+X-Forwarded-Encrypted: i=1; AL+hErE0PDx3Y5297MH4F2cKm19I86qyBMs1nlqwToIIOz7U54+V12rVkO1Umyahm3YsQoN288va2b1zpB3fVBk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9qbLnCKU0VuR4etjEp7kYwR2slAp9+HgrsnIJN5AlQys+Fho4p
+	y6rnbPs7ddZObrar4ckJm82JWmTfBoevvl3GI1gR4KeQCcEMieFS4QWW817y3vpE
+X-Gm-Gg: AYBFou3Loxbh8asFhVaCOmvm7F9GHWkogh5+Y4irQA52M1gFQwrT4eq6MTUuZxfOMCo
+	N3U7kZaDMl3nJkmnBUhFB3cbkXobuxU7V8Qc8MW+D5XMMjXz6WrMGzT9TJ9cJrLc3pjroibHick
+	gQO3fnT+5a4cuCiDLXEJGqrw6I9039xpqxm2wSnj0TgdqmpkJwpEHDzSSBulsd9UAHzeyMqMudN
+	fjBmgGVaYw6iZHrtSHyiIq5KsnksrPx5rB8AYa9pKOkgS/xyRuHQebaYq/BJkKZoiciKWXXpSzM
+	Sg4URWXKyX08gcGykCx6v4ee+HMBXh4GSWbzVyXZcJeo1bWkGrLFOU4tF+rmyUExBy6OZBicKag
+	CcwAKmEaOPDZkXPq+sSe7W3neRdbri22vnYSE3Jvw1EWxzjwooMNj6PCd05NHmpsrheClJqaPfE
+	LflwZi27D6daxRBqHuNNjP0zl/pzZwYzn1fxXq/zaTZ310jbQpbfHkQZh+qj2lxovF915N7tbW5
+	TVJNN7vMPgj9c75TlGZABNnyEnpk2V93UGmrbuVR0EwD2Ou5wla05Pb3bxB4oLyrSvJEMNetv6e
+	cDHAiCxWa2+ndd4Ha+Un1KIxRzHvXnYLe2UZPobHSDqMQlhVc90LkC7xYxT1WZ2t5LhBsgM8wGq
+	m+7JUEa9UQQOeLNQALGYO242bb7FKku575O/DVOGZR15hzfgyEsZFBBNwkkUfd2cClQ==
+X-Received: by 2002:a05:6a20:244f:b0:3fa:71b:173e with SMTP id adf61e73a8af0-3fd2ebbee0dmr1479808637.31.1794903668241;
+        Tue, 17 Nov 2026 00:21:08 -0800 (PST)
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com. [74.125.82.173])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdddc55efefsm4687658a12.6.2026.11.17.00.21.07
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 17 Nov 2026 00:21:07 -0800 (PST)
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-380c28f9e35so701451eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 00:21:07 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErF6TYvw9QqogBUMDr4AAc90OlLu0Uibglee5y6jUdACQxw9wE0vQ7JkVkTxaMo9yCB5E9RT5AsP6NgAuHY=@vger.kernel.org
+X-Received: by 2002:a05:7301:2ab1:b0:36a:79cd:12df with SMTP id
+ 5a478bee46e88-3810c843192mr1761148eec.9.1794903667144; Tue, 17 Nov 2026
+ 00:21:07 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,36 +81,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20261116-iio-ad5246-v1-0-ef6b7c06d4b0@telaak.dev>
+ <20261116-iio-ad5246-v1-1-ef6b7c06d4b0@telaak.dev> <avwL_iuTyEjaj0hs@ashevche-desk.local>
+In-Reply-To: <avwL_iuTyEjaj0hs@ashevche-desk.local>
+From: Joseph Telaak <joseph@telaak.dev>
+Date: Tue, 17 Nov 2026 03:20:55 -0500
+X-Gmail-Original-Message-ID: <CAPY4CJ53YA3AbkFNCw=OXDSXnPM=CF1_WV+TatUjx0Rbwff0KA@mail.gmail.com>
+X-Gm-Features: Aa3M54pifUmPegO6YEwH8eX-E140QvER9X4qv2NjEXyp1YoVc6uiJAyqJ3gFezQ
+Message-ID: <CAPY4CJ53YA3AbkFNCw=OXDSXnPM=CF1_WV+TatUjx0Rbwff0KA@mail.gmail.com>
+Subject: Re: [PATCH 1/5] iio: ABI: Move out_resistance_raw_available to sysfs-bus-iio
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Peter Rosin <peda@lysator.liu.se>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux@analog.com, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Zhao Li <enderaoelyther@gmail.com> wrote:
+On Tue, Nov 17, 2026 at 03:10, Andy Shevchenko wrote:
+> > -Date:                October 2016
+>
+> This is missing in the copied case.
 
-> rtw89_core_skb_pn_valid() records the sequence and packet numbers of
-> hardware-decrypted QoS data frames so that it can drop frames whose
-> sequence number goes backwards while the PN advances. It runs before
-> mac80211 discards frames with an ICV/MIC or FCS error and requires only
-> hw_dec, so a frame that failed decryption still updates last_sn and
-> last_pn. Such a frame need not come from the peer. One with an advanced
-> sequence number and a PN between the recorded PN and the peer's next
-> one makes the check drop the peer's following valid frames until their
-> sequence numbers catch up.
-> 
-> Skip frames that rtw89_core_update_rx_status() does not report to
-> mac80211 as decrypted, or reports with an FCS error.
-> 
-> Found by code review and not reproduced; compile-tested only.
-> 
-> AI assistance was used.
-> 
-> Fixes: bda294ed0ed0 ("wifi: rtw89: Drop malformed AMPDU frames with abnormal PN")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
-> Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+Right, v2 will keep it.
 
-1 patch(es) applied to rtw-next branch of rtw.git, thanks.
+> > -Contact:     Peter Rosin <peda@axentia.se>
+>
+> This is also, but I think Contact for generic is the IIO as a whole
+> (maintainer level).
 
-4de83750b9ac wifi: rtw89: update PN state only from correctly decrypted frames
-
----
-https://github.com/pkshih/rtw.git
-
+Agreed, so I'll leave the IIO list as the contact.
