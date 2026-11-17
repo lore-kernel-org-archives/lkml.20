@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794908288;
-	b=Kl/dUnyD6DGaJ/DvygKBNI7t6hJU50Hnq2X/7/2E10pO5gqhQ3eZjMvKctWKLn6aXB1c
-	 yhCkiIWV4UhNHqF8e0XVBpen8DifvD2X1lZLR45Q2oM7wbpRfQMdo24SDwrNEwNntScN0
-	 f6jLPDy21miNQQBuQ1uCq0ye+z0cY/CbwdLrY2jhnoktC6cqvgvDLU2t9GMs++hjE2bzC
-	 ZG0+pMMpZoDEMaMRCashUkRgqFruSFmtVYcIJSYSdoYgaLjYt2ULrtXL3CqzijPtmtoOW
-	 Mt3m7mJNLTkSjPXvipCnCloMz62+Aosf00wq1RtIuCKZfoGMssta1zTn0bKFSXfWj5g==
+	b=ACALDRHfP6VvPam9Q2EEq12BsjpCTlGN+KTnH8BxNgU0VvtfuoMw0UFaR/KB/TGcninb
+	 dO1fOGhqIdmWpDWNE8a/uDGLVUyiHwuLrQh3PTaaV9uDOiPAC1ojTK+BbCsX2U5LWDzF2
+	 zEO3p4Jmyb6++f2fFXazd7rrP9ISlrluIcQRmWrMvxrVhFsKXBjlFj8sWFcSImZ0mKhii
+	 PWIbRVIF6m/gyTNss6ajH6E4MSlJmd+qQ30utkGG+QrEv4H9AsR9tyMFf0QgJcCMpg5Dk
+	 08M5uA8ooj+sUGDLur7jU0FS4/RbY0b6fY7MT80/cIQ3sC3vUoKpvYzxx+gF/UBXP5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794908288;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=tlBoKmorBtcIb4QQ2wVoA2joobZWJYIm4KpVprAp2zE=;
-	b=s8W152YC3RV6qlxqhrvk/lneHhQWx465iFhbbqgWUHHJXc4dsm2T2xcZ1gD1yW4cRebs
-	 o1QcmE0IuSXHjXqTS/my6Srs0fq7Oze6zhP1bgp/HXPSrhsOUgGr816ePCbmv3E4QRSFR
-	 XOhhMux+VJ2i0K4+ONUROSqQzBmv07vAhk/YX5taEIoSOPuz3tNSydJqtp4bfQmYyGpkc
-	 d9K/cd/JKwoyIeqqYBJ4B85cUZ2xCdr7NxFHXkmJ2fDfqN4YBbvQ1aqGVo/WGzS0G7S1+
-	 rOtOige3VjSYy09aAZLa4MnFdB72rEv2YIN4IFFfHP7rZsSky7CVXZFazHJCGrICkIQ==
+	bh=iZd/PZUoFdKhBeyeAbEydYh49ajApffNHjJPJHfCAaM=;
+	b=Ptx5S12RgzmI/L55IueNT96aGp1u16UNguweXYWbqZewq/fBDJJ7bT9fg1jxAMwDlkVc
+	 GmswvBlpG/BYHdJ6PTPbAIn9M3lM0E5HQddEVh2u/bdTI+9IpEhnyFlosDGqbzaIZKEOW
+	 ENjpOkDKt8IdYlmpm9xZvKHnHo3Ijsg8droYRbOfHL81wyhe+rMegPnIkk1qw+qkTM1G9
+	 WTJSJkNnaVXeQS+Y7g3q/Okf+6AU454C/a5d8J7f59ud5XBOfZct65J9Ft5bnOpZKz7+e
+	 g1IH18wHTwzLT7KJBo75GuQf1naJ5VbykQ4krbcyhfHNcy5gtC8gYrYORNYNPvyqVFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="yM/x3CPs";
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=TvTdlOzJ;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8B7D606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:38:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8B7D606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA175606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:38:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA175606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=yM/x3CPs
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=TvTdlOzJ
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 83134C4EDB9;
-	Tue, 17 Nov 2026 09:38:09 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 4CEB71A159D;
+	Tue, 17 Nov 2026 09:38:06 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 25FBB5FC81;
-	Tue, 17 Nov 2026 09:38:05 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C408411BC0493;
-	Tue, 17 Nov 2026 10:37:59 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 22B4D5FC81;
+	Tue, 17 Nov 2026 09:38:06 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 78E9411BC0B8F;
+	Tue, 17 Nov 2026 10:38:04 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794908284; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=tlBoKmorBtcIb4QQ2wVoA2joobZWJYIm4KpVprAp2zE=;
-	b=yM/x3CPsv371lnsTibypMg+dMRNFgQIbfFoDeD2qBsDdboH+kKUZyk7mY5kgvDHH8C5oTI
-	n4FDAxEsuHU3so03bQpVcUf7zKewxSD8wups1A/67cAfBFJZNKXhKbeB/wHEClsHq9zDdQ
-	u2rk1fhyyoKKShNeiv7FIuwi9yqdEalIqOhHs9pdZM9c57U8AYHyUEZx3Yqu/n0ybxQ/kx
-	QxWqG/OiSKDJXe8izCYtt0EIIYhIIEJv5/8x1PfofgPPvv59fpGIWoca81f6dEXSWvLn0P
-	BZXOizTJT1HwU3zTq9Ahau3OnzWLrXfQyoJYy7nFGHRKmxM4dDYqqKEgnPxs/g==
+	t=1794908285; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=iZd/PZUoFdKhBeyeAbEydYh49ajApffNHjJPJHfCAaM=;
+	b=TvTdlOzJgF7IQydOgcx59uFP25FsZSevvWPR2gRuWD2VoWw7ey2c+KDkFLVm3We2WrXQh9
+	havnkPK02DfeDn1cO6rsVclawX2fTcBf66AWUHOQ/4k5WOTgnQWx7BG1olimeVAtj5J768
+	VKgI/s3XLXsFwmS/aqrPOaLhjUndqYxuJYvEWI1k9yRMa9oSF+V4o352uL2FqDCE0t6SR3
+	TqCTL7hstrCI9pTMfPdBmtezs7X45r15fdWaB+uqo09qDjA+p2pvidL6EaJ9svDxIGgjUp
+	/fNH6c9tNopC6nM7dvf5wmy5XZSpJ4dD8GYUu4jD+lDbnC27mMeGCuIOUvSaJQ==
 From: Paul Cercueil <paul.cercueil@bootlin.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>,
 	Richard Weinberger <richard@nod.at>,
@@ -56,17 +57,13 @@ To: Miquel Raynal <miquel.raynal@bootlin.com>,
 Cc: linux-mtd@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Paul Cercueil <paul.cercueil@bootlin.com>,
-	Stefan Agner <stefan@agner.ch>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Maxim Levitsky <maximlevitsky@gmail.com>
-Subject: [PATCH v2 00/12] mtd: Remove #ifdef guards for PM functions
-Date: Tue, 17 Nov 2026 10:37:38 +0100
-Message-ID: <20261117093751.14988-1-paul.cercueil@bootlin.com>
+	Paul Cercueil <paul.cercueil@bootlin.com>
+Subject: [PATCH v2 01/12] mtd: Remove #ifdef guards for PM related functions
+Date: Tue, 17 Nov 2026 10:37:39 +0100
+Message-ID: <20261117093751.14988-2-paul.cercueil@bootlin.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261117093751.14988-1-paul.cercueil@bootlin.com>
+References: <20261117093751.14988-1-paul.cercueil@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,67 +76,53 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
+Use the new PM macros for the suspend and resume functions to be
+automatically dropped by the compiler when CONFIG_PM or
+CONFIG_PM_SLEEP are disabled, without having to use #ifdef guards.
 
-This is the v2 of my patchset that updates the MTD core / NAND core as
-well as several drivers to get rid of the #ifdef CONFIG_PM guards.
+This has the advantage of always compiling these functions in,
+independently of any Kconfig option. Thanks to that, bugs and other
+regressions are subsequently easier to catch.
 
-Instead, the code that depends on PM or runtime PM will be
-garbage-collected by the compiler automatically if this config option is
-not set.
+Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
+---
 
-The rationale behind this change is that in general conditionally
-compiled code is a bad choice, as code behind a rarely-used config can
-get broken without anybody noticing.
+v2: No change
+---
+ drivers/mtd/mtdcore.c | 10 ++--------
+ 1 file changed, 2 insertions(+), 8 deletions(-)
 
-In this v2, I removed the pm_ptr() use on shutdown callbacks, as neither
-platform_driver.shutdown() nor the mtd_suspend() / mtd_resume() that the
-shutdown callbacks call are related to CONFIG_PM.
-
-Changelog:
-
-v2:
-- [04/12]: Don't use pm_ptr(), and rewrite commit message
-- [05/12]: Don't use pm_ptr(), and rewrite commit message
-
-Cheers,
--Paul
-
-Paul Cercueil (12):
-  mtd: Remove #ifdef guards for PM related functions
-  mtd: rawnand: vf610: Remove #ifdef guards for PM related functions
-  mtd: spear_smi: Remove #ifdef guards for PM related functions
-  mtd: physmap: Remove #ifdef guards around shutdown callback
-  mtd: maps: pxa2xx: Remove #ifdef guards around shutdown callback
-  mtd: nand: mtk: Remove #ifdef guards for PM related functions
-  mtd: rawnand: fsmc: Remove #ifdef guards for PM related functions
-  mtd: rawnand: hisi504: Remove #ifdef guards for PM related functions
-  mtd: rawnand: mtk: Remove #ifdef guards for PM related functions
-  mtd: rawnand: omap_elm: Remove #ifdef guards for PM related functions
-  mtd: rawnand: r852: Remove #ifdef guards for PM related functions
-  mtd: rawnand: txx9ndfmc: Remove #ifdef guards for PM related functions
-
- drivers/mtd/devices/spear_smi.c     |  6 ++----
- drivers/mtd/maps/physmap-core.c     |  4 ----
- drivers/mtd/maps/pxa2xx-flash.c     |  4 ----
- drivers/mtd/mtdcore.c               | 10 ++--------
- drivers/mtd/nand/ecc-mtk.c          |  8 ++------
- drivers/mtd/nand/raw/fsmc_nand.c    |  6 ++----
- drivers/mtd/nand/raw/hisi504_nand.c |  7 +++----
- drivers/mtd/nand/raw/mtk_nand.c     |  8 ++------
- drivers/mtd/nand/raw/omap_elm.c     |  6 ++----
- drivers/mtd/nand/raw/r852.c         |  6 ++----
- drivers/mtd/nand/raw/txx9ndfmc.c    |  6 +-----
- drivers/mtd/nand/raw/vf610_nfc.c    |  6 ++----
- 12 files changed, 20 insertions(+), 57 deletions(-)
-
-Cc: Stefan Agner <stefan@agner.ch>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-mediatek@lists.infradead.org
-Cc: Maxim Levitsky <maximlevitsky@gmail.com>
-
+diff --git a/drivers/mtd/mtdcore.c b/drivers/mtd/mtdcore.c
+index 82b1e6392b16..037fe292867b 100644
+--- a/drivers/mtd/mtdcore.c
++++ b/drivers/mtd/mtdcore.c
+@@ -40,8 +40,6 @@
+ 
+ struct backing_dev_info *mtd_bdi;
+ 
+-#ifdef CONFIG_PM_SLEEP
+-
+ static int mtd_cls_suspend(struct device *dev)
+ {
+ 	struct mtd_info *mtd = dev_get_drvdata(dev);
+@@ -58,15 +56,11 @@ static int mtd_cls_resume(struct device *dev)
+ 	return 0;
+ }
+ 
+-static SIMPLE_DEV_PM_OPS(mtd_cls_pm_ops, mtd_cls_suspend, mtd_cls_resume);
+-#define MTD_CLS_PM_OPS (&mtd_cls_pm_ops)
+-#else
+-#define MTD_CLS_PM_OPS NULL
+-#endif
++static DEFINE_SIMPLE_DEV_PM_OPS(mtd_cls_pm_ops, mtd_cls_suspend, mtd_cls_resume);
+ 
+ static struct class mtd_class = {
+ 	.name = "mtd",
+-	.pm = MTD_CLS_PM_OPS,
++	.pm = pm_sleep_ptr(&mtd_cls_pm_ops),
+ };
+ 
+ static DEFINE_IDR(mtd_idr);
 -- 
 2.47.3
 
