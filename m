@@ -1,49 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794923038;
-	b=RjyDCij6RQMIYtElr5Q9I3+Wcx22nk1yKTx53KyShKPRmWaqJYlji5+g2E/RIqmKpnEO
-	 AsFNlYJuXLQaKdQkSs0al2m1qeuWB6yYPQPSFx2ljdTFKaEY3r9bki7+MKW4a0RmVmuwl
-	 Gc0uLUaKWYQJ0BZfWDDUE86d+3X8IRZgkvPrQgz5jtxF+dWV/03F0Uf6RA0dIT+SvHfu2
-	 jUSG0rQbJHfqQNTjd318i5E1a9geQ1QFwW5eFWv8di8EyBwEYtBxwt22xmV+R5Kjuww8k
-	 ZAyy7/XtyrD9oYKha1RYSUmMlFR9C2uqbztyvHbsxDKXCoxB2dqzswCNG2Xzp9/49eg==
+	t=1794923087;
+	b=LR7Yxmg7VZC9B3Yox8AafP1cQAOT7MsPBIc0bIdGPGjx0tIdqJESwaU4PLBs14dwaPcn
+	 lOauUt7BW7pjqJlM+O3sZZ9+TVMVhEeYfF3aP3ORxpYUyCaoRI5ubooOq6fPhb6TURDiu
+	 +2pYr/jG8iZdHOa7CGPM4sO8/SWvjeP8ZwTr3Az7ujyLU3akUkQVS0VD/hDZfQWVSrguV
+	 GXPmsIkS2KxKiTwogeZ2Mit9KXv9/MQY7r9n3O4sn0ucM66o+RnWpwSUPbEQN5V49o+YH
+	 7X4fvrQVVURlJuDVHaENRAEFoA6rPwfy37nYfQ2yEa/cKaozTWakdTliJkIesUGRnQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794923038;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=XekK17PZVeAg1EAr0WE/yrPV7Cb/raW68qRRXtrEj8Y=;
-	b=wwqTqX8bhkW5rCx0MhHFIGiaoNlNxTaBIWlEQ6VcaH4pOAOBzhXAfbV6Yg4UKe9vmZ1R
-	 KSHCpAsFxnkOa0HeCDiBlcIKthhbIAzH961wpHDBvYe3rHgEO50FsyitM9+FRk7dNr3a1
-	 lk5JWXZzmPnO51aQEpbFRkog9zGKS5qY+8xrtxRc7sZ6uv3QNNq9AOma23d+suLlfuPk7
-	 b3CzR0DC63fR3OvVPAoWK7Ds3ldhx4nMzVwOOOfIdsaVZ6qgkAc8AWyAyTOk/wYqOYccT
-	 qloiofnv40szgqeGwD/3/F3V14KKYFMe2QsqYoiCXKPwyAmXIt/YM7pJfWo/sd341gQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794923087;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References;
+	bh=BmDrLi2pcPmmicbvGZOk7xz6dC3kD9mXgbhjrRNLcYE=;
+	b=hLLU4RJymtkO5aAGiLjUyVXBk/dnZI83GizwlKwogTgVv2p3GB7eIfhE0PXeG/RVfuCL
+	 G8SuQyNNqCGaLzjF4//Wy6FkAIdeciqJlbDTr59dS6UF0y2BHyw7i7UFjm7aqcdAcKx0M
+	 /KH2Dm4wcNZgHkfeKeEJFnzL+Am2qLiwJnMAdF8Web/o73Mir4jkc5WtLn2r6fSEUF3vy
+	 Igq/r8oMcUwQX+4lCCiMFRDsSBrGXQPnlOmLgVwqgbgT29loKY4r1vOUf0ezesizxlSct
+	 dxNQ8YCk2ezBYghXfFQOmPwGfnotrgrcIWg9rDB3gPaQKCVeYhjDIPO/mseQ+skJTdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=VFmiYNfK;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A4C4F606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:43:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4C4F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y+6SOUXD;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53927606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:44:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53927606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=VFmiYNfK
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9FF2D1476;
-	Tue, 17 Nov 2026 05:43:53 -0800 (PST)
-Received: from [10.211.55.3] (unknown [10.57.17.180])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3905F3F632;
-	Tue, 17 Nov 2026 05:43:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794923036; bh=ug4DXiwzrQJM5OXNn5R3tQTW4M8dAr6uuOFwNPex6f8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=VFmiYNfK+u/GffYcWORPBwD8cDhkiKcQT+7otu4MzQg+yyZJyCwZcosn8/oIrUHV6
-	 ZNQ60AxEnR0rJIbVaM//V4rjXoCt03OB7NEWTpobg76oWUHVVYaf8LbJ0bpQgJCV/M
-	 Kt0ysRjCnEZhKIuZLIjQUTGEermhAocggPEczfrg=
-Message-ID: <10d97df6-ccfc-4025-9773-0ebe7421cbaf@arm.com>
-Date: Tue, 17 Nov 2026 13:43:51 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y+6SOUXD
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3282db206d3so12656151eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:44:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794923086; x=1795527886; darn=vger.kernel.org;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=BmDrLi2pcPmmicbvGZOk7xz6dC3kD9mXgbhjrRNLcYE=;
+        b=y+6SOUXD+y+9U2mxjAzDJ40qtt/rQWj5B3oqwNolk9yhK8E+NHT1RalYx6mUKtbYSB
+         kxfaGtBANPTitjIBE2lhzNuUobblK0+h+qn6GmeqKN+v3x+hP9wdwoAq6+rzo7i1OnHJ
+         2TJeayEdCy5vkxO5WkjPjscRxODSW7GG5uctiq5Edz/tiX5BVZ54Y14mLYdZqkL54SzY
+         m1hnpbd7tsG2Rc7Ay3sFcY+h3eI6mJrOwbzRkNUIL41c+1KPl1FZ1vOH7aJ5btiUsaIz
+         lctCRVNDa2x4LfeBSb/25xSkEIbdN1UCX6t5/dCyO8LKtNMqSugSNcSc9SZIuGrojTDN
+         GeeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794923086; x=1795527886;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BmDrLi2pcPmmicbvGZOk7xz6dC3kD9mXgbhjrRNLcYE=;
+        b=rJ+Bn4NqrkLTBqV5TbKceZdKdFSwagJDrvW9exa5lD6tCEYmvgh+oBVxacJojpugch
+         FcGJcVgY9XhODtoGhfF4t7/Q6wATnChUFDtvSk+3Djip1tkwfm1civShnwo6kIQN1fuy
+         w/hogk5r+tNv09MUCzUZuRjBtD3eLIW5ktVGV1H/pwjORvFs5gPXvBXJflzguWesoh1v
+         wHFqgRGCQ69g90y2JzSkd1OwdITvqIi3DF8Ffn8cnHM7KRJAFoN3YWH8xoIlccNvCvt7
+         4rh7Xh661Gah/E3NEAwc2o6NFpHWvzGmT4GPFUSyDGAxpFB+atNWL3j4t/l4oBaG0Fcd
+         uSAg==
+X-Forwarded-Encrypted: i=1; AL+hErFH1SgEwvU5BrAqSektn5z11dyPex3/RExR/aDuIPoVcVHnttxox4dcETtmHnNkcEdk11DNsj7F8oODfzk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+6ZRGAf+P+z6X2VEioEa6wny+lhCqlXiafn5N1xecqJJWaIBM9
+	1r+xley9n5Z9rD4q5ZXON6HqUUl2WptOcl9maa9BuOYuWHqpXBSHCdhm
+X-Gm-Gg: AZFdTZc01xdx6Fze+YuhiUzABocdHjqd9PU9cFWyktLRG+JbdmZcz2OaSQ3OILxgclF
+	Xdwc19uRvuvPk8ZfS2jhSr2XSayhhWDQvddlmsdnjP1ObDDAEjTsQb1gwX/3TS+5bo+6Hht1qc3
+	aiBXTL2Zm+qrKE8ZaKkOxoBezKWRPepppiGvQ+kB6FXWMVQT6tw0GjMQrL125trTdRL0iQS+vrK
+	9GB+GgOdFVjKSS+eqz8OX2TjkAvPzPhiUlBqVijscGNfz386hXA/U4gKysqTS800knwJV6dUidz
+	QHWZgHVDQfx/x99EU9JYXAl3h0mjcCtadqPHhI1r1hn/q7NZbuKPOFVKfFPUseHtqgXyLgzwcOD
+	lN5kJCXUIII03eqsIgD6k+CA4e6GYkTc9jxqmFlJS+mg5zPz7VePn/4SQ8tvcUs55YiseZuuzlN
+	spVKS5/KYEjIFRhmLxIq36sZtdD+r4xyVUbCnZxNJRfDF+a2lx0YMHH0G/FeskaMKp1ddXcic6c
+	5dWV9i+KBrXDtXegY5SrkQ4+LVioGXgHOYObrvEYxT/xGlz0AONGRdAFqA3yhmc0yw2wGMf+JqH
+	7YZXhgpVu5haE/v5GypNYjEPVTjG
+X-Received: by 2002:a05:693c:65c4:b0:381:dbde:dae1 with SMTP id 5a478bee46e88-381dbdedbf5mr1079702eec.38.1794923086299;
+        Tue, 17 Nov 2026 05:44:46 -0800 (PST)
+Received: from pve-server ([49.205.216.49])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955332a77sm39085303eec.4.2026.11.17.05.44.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 05:44:45 -0800 (PST)
+From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+To: Shrikanth Hegde <sshegde@linux.ibm.com>, maddy@linux.ibm.com, linuxppc-dev@lists.ozlabs.org, chzigotzky@xenosoft.de
+Cc: sshegde@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, christophe.leroy@csgroup.eu, linux-kernel@vger.kernel.org, msuchanek@suse.de, harshpb@linux.ibm.com, gautam@linux.ibm.com, amachhiw@linux.ibm.com, venkat88@linux.ibm.com, nnmlinux@linux.ibm.com, mkchauras@gmail.com
+Subject: Re: [PATCH v4 3/3] KVM: PPC: Hard disable interrupts before guest entry
+In-Reply-To: <20261117131612.707038-4-sshegde@linux.ibm.com>
+Date: Tue, 17 Nov 2026 19:11:16 +0530
+Message-ID: <wlqb7eyr.ritesh.list@gmail.com>
+References: <20261117131612.707038-1-sshegde@linux.ibm.com> <20261117131612.707038-4-sshegde@linux.ibm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,124 +92,57 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Thunderbird Daily
-Subject: Re: [PATCH RFC v1 0/6] arm_mpam,resctrl: expose MPAM MBW_MAX hard
- limit
-To: Fenghua Yu <fenghuay@nvidia.com>,
- Reinette Chatre <reinette.chatre@intel.com>, Tony Luck
- <tony.luck@intel.com>, James Morse <james.morse@arm.com>,
- Will Deacon <will@kernel.org>, Dave Martin <Dave.Martin@arm.com>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Shaopeng Tan <tan.shaopeng@fujitsu.com>, Chen Yu <yu.c.chen@intel.com>,
- Babu Moger <babu.moger@amd.com>, Drew Fustini <fustini@kernel.org>,
- Vikram Sethi <vsethi@nvidia.com>, Shanker Donthineni
- <sdonthineni@nvidia.com>, Newton Liu <newtonl@nvidia.com>,
- Richard Cheng <icheng@nvidia.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-References: <20261109212937.1409570-1-fenghuay@nvidia.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <20261109212937.1409570-1-fenghuay@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-Hi Fenghua,
+Shrikanth Hegde <sshegde@linux.ibm.com> writes:
 
-On 09/11/2026 21:29, Fenghua Yu wrote:
-> This series exposes the ARM MPAM MBW_MAX HARDLIM bit through resctrl.
-> The MBA schemata line sets the maximum bandwidth. HARDLIM selects
-> whether that maximum is a hard limit. It is a per-domain 0/1 value, not
-> another percentage, so it is a separate control on the MBA resource
-> rather than a second bandwidth percentage.
-> 
-> MPAMF_MBW_IDR.MAX_LIM reports how the implementation encodes that limit.
-> When the probed value is 0, this kernel treats HARDLIM as read/write.
-> When MAX_LIM is nonzero, or the platform has no hard-limit control, the
-> schemata line is omitted.
-> 
-> The line follows the MSC, the same way the bandwidth line does. A cache
-> MSC uses cache ids:
-> 
-> 	       MB:1=100;2=100
-> 	MB_MAXHLM:1=0;2=0
-> 
-> A memory-level MSC uses NUMA node ids:
-> 
-> 	       MB_NODE:0=100;1=100
-> 	MB_MAXHLM_NODE:0=0;1=0
-> 
-> Please advise if "MB_MAXHLM" on cache ids and "MB_MAXHLM_NODE" on
-> NUMA ids meet the new naming conventions.
+> After applying preempt disable patch, i.e PATCH 2/3, Christian reported
+> a subsequent warning stopping his board to boot properly.
+>
+> WARNING: at .kvmppc_fix_ee_before_entry+0x10/0x28, CPU#0: qemu-system-ppc/4667
+> CPU: 0 UID: 1000 PID: 4667 Comm: qemu-system-ppc Tainted: G        W           7.3.0-rc4-2-powerpc64-smp #1 PREEMPT
+> Tainted: [W]=WARN
+> Hardware name: varisys,CYRUS5040 e5500 0x80240012 CoreNet Generic
+> NIP [c00000000005dc3c] .kvmppc_fix_ee_before_entry+0x10/0x28
+> LR [c00000000005f298] .kvmppc_handle_exit+0x5b4/0x5e8
+> Call Trace:
+> [c000000086587780] [c00000000005ee10] .kvmppc_handle_exit+0x12c/0x5e8 (unreliable)
+> [c000000086587830] [c000000000062068] .kvmppc_resume_host+0xb8/0x10c
+>
+> It triggers below warning...
+>
+> static inline void kvmppc_fix_ee_before_entry(void)
+> {
+>         trace_hardirqs_on();
+>
+>         /*
+>          * To avoid races, the caller must have gone directly from having
+>          * interrupts fully-enabled to hard-disabled.
+>          */
+>         WARN_ON(local_paca->irq_happened != PACA_IRQ_HARD_DIS);
+>
+> This happens since kvmppc_prepare_to_enter does first local_irq_disable
+> followed by hard_irq_disable. This leaves a small window where interrupt
+> may occur and it could set the irq pending bit in PACA.
+>
+> That local_irq_disable was necessary for PPC32 to track the lockdep
+> state etc. On PPC64 hard_irq_disable is good enough. There is no need to
+> do both. With now hard_irq_disable, doing local_irq_disable for PPC32,
+> just calling that is enough.
+>
+> Suggested-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+> Fixes: 12013e3d4695 ("KVM: powerpc: Use generic xfer to guest work function")
+> Reported-by: Christian Zigotzky <chzigotzky@xenosoft.de>
+> Closes: https://lore.kernel.org/all/b8f82519-9ae5-c247-e020-e79c627e57df@xenosoft.de/
+> Tested-by: Christian Zigotzky <chzigotzky@xenosoft.de>
+> Reviewed-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
+> Reviewed-by: Narayana Murty N <nnmlinux@linux.ibm.com>
+> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+> ---
+>  arch/powerpc/kvm/booke.c   | 1 -
+>  arch/powerpc/kvm/powerpc.c | 8 --------
+>  2 files changed, 9 deletions(-)
+>
 
-It doesn't look to match the naming convention to me.
-
-I was expecting: <resource_type>_<scope>_<control>_<control_param>.
-
-Reinette asked you your view on this here:
-https://lore.kernel.org/all/e13cf2e7-3956-4069-ac43-c65e874c6109@intel.com/
-
-Thanks,
-
-Ben
-
-> 
-> 0 clears HARDLIM (soft limit). 1 sets HARDLIM. New groups start with the
-> hard limit off. info/MB/schemata/MB_MAXHLM/max and
-> info/MB/schemata/MB_MAXHLM_NODE/max are 1. The bandwidth control's max
-> stays 100. The control directory under info/MB/schemata/ is MB_MAXHLM or
-> MB_MAXHLM_NODE.
-> 
-> The 6 patches are grouped as follows:
-> 
-> 1. resctrl hard-limit control (patch 1)
-> 
->    Parse MB_MAXHLM as a 0/1 value on the MBA resource, and initialize
->    new groups with HARDLIM clear.
-> 
-> 2. MPAM probe and config (patches 2-3)
-> 
->    Read MAX_LIM from MPAMF_MBW_IDR, derive HARDLIM read/write when that
->    encoding is 0, and keep the HARDLIM bit in mpam_config so later
->    MBW_MAX programming does not drop it.
-> 
-> 3. Wire the control (patch 4)
-> 
->    Create the MAXHLM control on the MBA resource when HARDLIM is
->    read/write, and read and write it through resctrl_arch_get_config()
->    and resctrl_arch_update_one().
-> 
-> 4. Node scope and documentation (patches 5-6)
-> 
->    On a memory-level MSC, name the control MB_MAXHLM_NODE, set the
->    resource scope to the NUMA node, and give the hard-limit control the
->    range 0..1. Document both schemata lines.
-> 
-> The branch is on top CPU-less RFC V3 and resource controls RFC V2:
-> https://github.com/fyu1/linux/commits/hlim.rfc.v1
-> 
-> Testing
-> 
-> Brought up on an ARM MPAM platform whose MBA resource is a memory-level
-> MSC. resctrl mounts, and schemata lists MB_NODE and MB_MAXHLM_NODE with
-> NUMA node ids. Not tested on x86 beyond compilation of the resctrl
-> changes.
-> 
-> Fenghua Yu (6):
->   resctrl: wire MB_MAXHLM schemata parsing and group setup
->   arm_mpam: resctrl: probe MPAMF_MBW_IDR MAX_LIM and hardlim_rw
->   arm_mpam: resctrl: track MBW max hard-limit in config
->   arm_mpam: resctrl: add MAXHLM control on the MBA resource
->   arm_mpam: Add MB_MAXHLM_NODE and Node scope
->   Documentation: resctrl: document MB_MAXHLM for MPAM MBA
-> 
->  Documentation/filesystems/resctrl.rst |  28 ++++
->  drivers/resctrl/mpam_devices.c        |  67 ++++++++-
->  drivers/resctrl/mpam_internal.h       |   8 ++
->  drivers/resctrl/mpam_resctrl.c        | 191 +++++++++++++++++++++-----
->  fs/resctrl/ctrlmondata.c              |  36 +++++
->  fs/resctrl/rdtgroup.c                 |  17 +++
->  include/linux/resctrl.h               |  16 ++-
->  7 files changed, 325 insertions(+), 38 deletions(-)
-> 
+LGTM. Feel free to add:
+Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
 
