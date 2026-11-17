@@ -1,50 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.26
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794894237;
-	b=XGaaxe2MDrvr1PhadbnFgJl9/bz5a2OVGIC9Qa5bpD+TPeflZD915X11zBGcEUclCL36
-	 exGgkwcVFFGdxgaaI2rWEITj/+DXdtrT+HkLdGz6F0Y3vMzX8Syg2DrIFlPCzAN+DS19c
-	 tbE9JR+3ujoLzDnum3D/8s+s06KczQnz333Gu2sxYqwAAHFE9yg+/y/hfy1jsU7NLlPAq
-	 gd+JSsXUAHT1/JyfVe6uh5KVyg1e8UVJlZJb9W1TA3n3efH/Bv6LIx5yItf/Zk9X2nrdX
-	 C2Puvv/vVUylun7M5tOK07HVAt1rnF1w9wnWuEXNhfh5bGASN7E5HWF1ALR92Yg+V4A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794894237;
-	h=DMARC-Filter:DKIM-Signature:Received:X-Lms-Return-Path:Mime-Version:
-	 From:Date:Content-Transfer-Encoding:X-Mailer:To:X-Original-From:Cc:
-	 Message-Id:Content-Type:Subject;
-	bh=DsGLFo3Ah3ZqBE0pL0mtcci+TztznhZ6bWOpznuGZd8=;
-	b=BYpVg6UFn8iPTtrMXKDJ+J7+5R/tBDHSfw8H9wV9QwrLbDKuqoS0B5ILbjR9NOsZA0bW
-	 qfRkZrrnUnR9JSfBsuKneTzbcQ4HV0qQwHC4jJUmwg/49+bb1YqEFTIuZqBKa0uZe+QQo
-	 aw13rr7r+ypqRkSVSxqCtErq0I2TDRcyU/cFOL4SZAsmFDxysqO+thk2TWVykx6LFIBit
-	 +vZG4s07W+rD7MMsBD9LySyrjY8qvS96MUGwE0jJnIjhJ1687tfjt+UI6StEXijF99g67
-	 qRMt/N/3WgK1VbpAIbcB1OzRoZ2126hBDXMWE2TabiCzGk+xibffOJEVYUnxrwp6OaQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=deepcomputing.io;
-	spf=pass smtp.mailfrom=deepcomputing.io;
-	dkim=pass header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=JDC579OF;
-	arc=none smtp.remote-ip=209.127.231.26
-Received: from va-2-26.ptr.blmpb.com (va-2-26.ptr.blmpb.com [209.127.231.26])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794894289;
+	b=K8l9R/kgxzhuYZ/LBNrbJ1PN2hNEzwLO+2obeMAldPQ0R5IYL+2KtNsDEdZLf6jvP8MA
+	 XM9GwcrW+8nt0JUvfHEGaximi/n7KhW2v7t6qx9LfHZHSNUKHBvG4T0yUXR0MHk2GqqVr
+	 qMaqFdfuAS5GACNweCf+TsbWVcm4hPI0mqcjwOe2i+7r7qNWB4XoasqR3bysvwZpqwI4K
+	 H8PRwmo4qyWJbqC26X5+INqSzmswfaZm9TVOKk278F00JDRoPkz40xjMq/pfc3RBgn2Qh
+	 FkqBoVVAf1w2PondKp13al/pWWXMv7w3U/rDCpBJtSYZVV1cwl00Grha9DbzbM/64sw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794894289;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=kNMpvUIklLoqq2U8w19NKhZcvl6ucrqllQnFyuCL2rA=;
+	b=yMWUcbXhnmAiRHN37C4+wrBpQ+U1vE0mrbqKLwNxhlD0nUuiexXq7mL6whZ7lm83P34x
+	 pyhllY96St5gWLoAAvrqp+CBF7+0mAxFK4acFe6LjAjNpwu7A1eoT+thpFvKbSggxw8kP
+	 1prtbWcwu5vImBfVgK9gCqRMq/UaLdlv6VxzoZ/TWsHUZYpKVyJsI6ASZClPc7Q6DYygj
+	 cxXVeHUDfQ7exE1s8oaOLL8+ccoU52tK4qQvzNSbyFobcefEiO9XNedfAmhSxpgQ4YJES
+	 v4qH+3sNJmUzMSvl3bdQJ6mU91BHQSj1VdDadCxR129LCr28wTyVYTWheBiP0ZgvI3Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M+tZHM5y;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F4FD606A31C;
+	Tue, 17 Nov 2026 05:44:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M+tZHM5y
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794894289;
+	b=kJcy0eRcdoib1/18coylp8GNLOg0xytDI+zByQHgTIZORs7FKzR/806CR9ACFKAJ4nhB
+	 vRkTKQyXr5Ml9ogcNaR2DVuQJhcawSYWmqHPnxDDbuIV/yBWnxyknbjYZCmt+MG2qQ8vB
+	 LXOhG+JQkpayDfP9OqB87TyaoYw7m/XV+jxA7V7OkY2QDaqRU3/g/ttsihkH1QzGGr4Ca
+	 YxbBmiwpselfBalw3LP03b2XTB5vpSsI87msOqKrCB70FLfN1s/0Pw9xnKYrq489yqdrb
+	 aU/HR3xToiwZ2/6+3u6D3vx5P/J4uQUA6tY9C1OT4576rbfUMV/xmNe4LJ39tMRn5Dg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794894289;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=kNMpvUIklLoqq2U8w19NKhZcvl6ucrqllQnFyuCL2rA=;
+	b=yCV/RAotFvpJy8gxoiunAwb2M6a5SIHm8nW2vvTLmjOOAY8fZW2dmqyhGf3Vos6sYiJR
+	 u9IQi8ZTnl4YCUD6VxnhVt36K5Ag/1TwVPbSTtELk9rOostg2JyXWR3xpRBwQJ1BUGPP3
+	 6T6eAxQyOLSyFOL1lkVzKK397FnxJAUd4sosCNYJe/rX54oxzi2WFXE5vTv7CxMR+l02C
+	 7JVcvTUUZmYiyLcZujpZi+82KjV06C2OBOdYyr+eZW/Qm08DcY3ywiCH/sWpUCm9O/DH0
+	 vNJGGc5u4EmVhrOTvAFr1dUWeETOtFrm6+rGTgoX7yvyxLa+nbnGMDKxLM1lSe88ZXA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 637BC606A335
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:43:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 637BC606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=JDC579OF
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1794894226;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=DsGLFo3Ah3ZqBE0pL0mtcci+TztznhZ6bWOpznuGZd8=;
- b=JDC579OFQHDMJLEY8/2cDuh+6kxCeH6CAuDCtZG/kNMcXsZG92uOASeqvqHvaNE0lR2ewi
- qSGfFaqDIGqA4vAioanyMjnCwyapoUDQzuJIOQU7RAtOfUrnAz2xbmCkd6/u5g6B+vfcIn
- dH9iLKb4DVF3iQmCjoBPnPSKBrgjlfSqT6NuHb2cNHmTeQEWVAvd4/zIIrT+GUun09Fte3
- dang5QLOaX8hNW+DDNYvJVhEgP8s4yF7C99+0Rm3p7sH6lDciMNg5BAtz8FM5DaY/rkw/a
- N0uNmxTGm4Qy9SU1E/M3O1tu9IoB704+dRQow/zwXLDwz7P+/qfmUGJ2nXpqAQ==
-Received: from roma-Laptop-12th-Gen-Intel-Core.. ([183.23.101.74]) by smtp.feishu.cn with ESMTPS; Tue, 17 Nov 2026 13:43:43 +0800
-X-Lms-Return-Path: <lba+26afbe990+6b1eeb+vger.kernel.org+sandie.cao@deepcomputing.io>
+	by smtp.kernel.org (Postfix) with ESMTPS id B526B1F000C4;
+	Tue, 17 Nov 2026 05:44:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794894289;
+	bh=kNMpvUIklLoqq2U8w19NKhZcvl6ucrqllQnFyuCL2rA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=M+tZHM5y7v5CGXUaf5sL0TYuqwPuJ3AtiWhEdBiXb4vQUpGep/7MRgAxTndy68EYF
+	 9xINx/+5TrFNPWRsEm6VnC6KxqhGLttV2s6rVq8I/u02TPWyWFNJ4X5JtQc3QyYnJ4
+	 CbYlUEmSW6VUxwyMghn6GZAeAp7yOIGVVz7KfaSZp0HV6Qv8TkmApn2QnktUwHbvzu
+	 P0XCp1aoVeH+Op9U9bBjcOH41gQx4x0D6U8gyXTMr4vZhAwNTxccnAO46ZII0y4zRO
+	 CrxkFs5XasuPfm+zkCHAzkeNFBMf9EFYboLOM0qoHCavM33TfczDG7oafkECOxzpqp
+	 jTYFroEXp3h6g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 336944A6CB;
+	Tue, 17 Nov 2026 05:44:48 +0000 (UTC)
+From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
+Date: Tue, 17 Nov 2026 05:44:03 +0000
+Subject: [PATCH v9 1/2] dt-bindings: i2c: add Amlogic A9 I2C controller
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,81 +81,109 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: "Sandie Cao" <sandie.cao@deepcomputing.io>
-Date: Tue, 17 Nov 2026 13:43:24 +0800
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261117-a9-i2c-v9-1-7b303c894fea@amlogic.com>
+References: <20261117-a9-i2c-v9-0-7b303c894fea@amlogic.com>
+In-Reply-To: <20261117-a9-i2c-v9-0-7b303c894fea@amlogic.com>
+To: Junyi Zhao <junyi.zhao@amlogic.com>, Andi Shyti <andi.shyti@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Xianwei Zhao <xianwei.zhaol@amlogic.com>
+Cc: Junyi Zhao <junyi.zhaol@amlogic.com>, 
+ Markus Elfring <Markus.Elfring@web.de>, linux-i2c@vger.kernel.org, 
+ linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Xianwei Zhao <xianwei.zhao@amlogic.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794894285; l=1772;
+ i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
+ bh=Sz+UB7O1ObrX0Ep7OtBMUUtSVaLagIleTbf9GlXMQy8=;
+ b=LwQtZiDefog/mW5dkWxw9MvfHKtDkGobMBdj/9z6JwJYdJ7dU7R0fwa5XQKpnakw24/v+De2E
+ Bh9fo/W5fFdAQmUQ74GatK9xlI2fp4MLlYv3DlYnRKgSdj2NY0jizp4
+X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
+ pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
+X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
+ auth_id=578
+X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Reply-To: xianwei.zhao@amlogic.com
 Content-Transfer-Encoding: 7bit
-X-Mailer: git-send-email 2.43.0
-To: "Yixun Lan" <dlan@kernel.org>, 
-	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
-	"Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
-	"Albert Ou" <aou@eecs.berkeley.edu>
-X-Original-From: Sandie Cao <sandie.cao@deepcomputing.io>
-Cc: "Alexandre Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>, 
-	<linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>, 
-	<linux-kernel@vger.kernel.org>, 
-	"Sandie Cao" <sandie.cao@deepcomputing.io>
-Message-Id: <20261117054324.1048767-1-sandie.cao@deepcomputing.io>
-Content-Type: text/plain; charset=UTF-8
-Subject: [PATCH v5 0/3] Enable USB and SD for Deepcomputing FML13V05 board
 
-This series updates Deepcomputing FML13V05 Device Tree: Add P1 PMIC 
-regulator tree, add USB controller and USB phy, Enable SD card.
+From: Xianwei Zhao <xianwei.zhao@amlogic.com>
 
-This series is rebased on next-20261116.
+Add a Device Tree binding for the I2C controller found on the
+Amlogic A9 SoC.
 
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
 ---
-Changes in v5:
-- [patch2]
-  - Correct commit message.
-- [patch3]
-  - Remove Onboard SD Card comment.
-  - Change non-removable to broken-cd.
-- Link to v4: https://lore.kernel.org/all/20261109033154.361399-1-
-sandie.cao@deepcomputing.io/
+ .../devicetree/bindings/i2c/amlogic,a9-i2c.yaml    | 56 ++++++++++++++++++++++
+ 1 file changed, 56 insertions(+)
 
-Changes in v4:
-- [patch1]
-  - Remove unused reg_aux_vcc3v3.
-  - Rename p1@41 to pmic@41.
-  - Add regulator-always-on for dldo4.
-- [patch3]
-  - Correct Onboard SD Card comment.
-- Link to v3: https://lore.kernel.org/all/20261102060012.100623-1-
-sandie.cao@deepcomputing.io/
+diff --git a/Documentation/devicetree/bindings/i2c/amlogic,a9-i2c.yaml b/Documentation/devicetree/bindings/i2c/amlogic,a9-i2c.yaml
+new file mode 100644
+index 000000000000..31ddc6d23732
+--- /dev/null
++++ b/Documentation/devicetree/bindings/i2c/amlogic,a9-i2c.yaml
+@@ -0,0 +1,56 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/i2c/amlogic,a9-i2c.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Amlogic A9 I2C Controller
++
++maintainers:
++  - Xianwei Zhao <xianwei.zhao@amlogic.com>
++  - Junyi Zhao <junyi.zhao@amlogic.com>
++
++allOf:
++  - $ref: /schemas/i2c/i2c-controller.yaml#
++
++properties:
++  compatible:
++    const: amlogic,a9-i2c
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  dmas:
++    items:
++      - description: DMA controller phandle and request line for RX
++      - description: DMA controller phandle and request line for TX
++
++  dma-names:
++    items:
++      - const: rx
++      - const: tx
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    i2c@3a4400 {
++        compatible = "amlogic,a9-i2c";
++        reg = <0x3a4400 0x3c>;
++        interrupts = <0 164 1>;
++        clocks = <&clkc_periphs 11>;
++        #address-cells = <1>;
++        #size-cells = <0>;
++    };
 
-Changes in v3:
-- Remove useless gpio header.
-- Add Onboard SD Card comment.
-- Link to v2: https://lore.kernel.org/all/20261020081633.3673704-1-
-sandie.cao@deepcomputing.io/
-
-Changes in v2:
-- Remove usb3b, usb3c node define in k3.dtsi, it's already uploaded by 
-other patch.
-- Add phys and phys-name define for usb3b, usb3c, usb3d in 
-k3-deepcomputing-fml13v05.
-- Remove cd-gpios, use non-removable for sdhci0. 
-- Remove vmmc-supply for sdhci0.
-- Link to v1: https://lore.kernel.org/all/20260922110231.3426011-1-
-sandie.cao@deepcomputing.io/
-
----
-
-Sandie Cao (3):
-  riscv: dts: spacemit: k3-deepcomputing-fml13v05: add P1 PMIC regulator
-    tree
-  riscv: dts: spacemit: k3-deepcomputing-fml13v05: add USB controller
-    and USB phy support
-  riscv: dts: spacemit: k3-deepcomputing-fml13v05: Enable SD card
-    support
-
- .../spacemit/k3-deepcomputing-fml13v05.dts    | 215 ++++++++++++++++++
- 1 file changed, 215 insertions(+)
-
-
-base-commit: 749a4de370409464cf8501ec5b2451df45c84eb4
 -- 
-2.43.0
+2.52.0
+
+
