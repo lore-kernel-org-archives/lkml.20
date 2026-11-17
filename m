@@ -1,95 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794898293;
-	b=vJb3GCJYiWwSWRnlM1u5N6NgifZ4bsRwPggR84kqSVhVKOCNAy/Q+yC8z7g4e09F9x2X
-	 dLdZNCNvTswzLqZGZaf6kreSoTCNSBnL733+ifML+ISmdwedM7RK4Tbm3k+RkfMXbtI4b
-	 ad5rHUVsbnop9We2fnEIp6fbZevLMJxaOkujRz912ZSem9Ac3pmC3Zv2Rxxa5OpCyfOeF
-	 XXEz/komDUIhDP1GPn0FEriujH0+WjuMdpxbkh/LPwQlbJLXqEhCl5wf7tH9SpwUUyVi7
-	 UIVJgCjKKUWopkQ5Eo/pW+hnl18mu0jARLvK5+9JdqTlYi3+5Vmqp8I9UQr3tIMrDRA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794898293;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.69
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794898305;
+	b=1eOQ208CQFQa0ayUT0caTIUcvQW/fxHsl2mA84Y5hmbQ+iC5uMpyOx23z43TaDaMcwh5
+	 OapIauqprZrPbdccxT3LYXsoyJqwGTBdFi0xRPDxrrQXa0ANP76CDru573/vpYTKiVgzv
+	 wCH/dwO6risHNkYz5WRj9vt6UKzOHq6B+u5RJZQtProK9zv0WdfigZN+YBughMluHcRHm
+	 JGH5pHgLxexFRjxRn1qTWi0UZDl/PFW9OSk5Jf4PPyy8vO4Q5E0g10+LoKO7axm+wRbGP
+	 NYEugzAoNG1BlkQXhbVBjM9HRqdTwH3vBClQ/WA3pFeYZ7ITZBiDn4Qq8xRPJkUagBQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794898305;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=RaW7IpysCPqlOXpmlCgnS8gUk7OicQRVwJcmgC0kHyY=;
-	b=026ewZCTrhHLvnGAXIBIVUpfyjmZn5du6qxFsyz7ASJsEhm/L+FeI3epPoZUzlR4PBtP
-	 Xh0HdBET2mQzdjb7ExmLOzfu40Okcsn4qNJ3Tom8n1JWMu/Uff48mvn1Uy+qAAuJ/pmMw
-	 s+pceD3hPx6mg5BuP86bjnCLQeByrClCesRqbSz6G3eEit1kk51i3pNziXLcIQaTwmiRP
-	 psVNo45NOHAf32nUncxBDcw0a0ySnGxx+6LfPXdFi1gyKV32jmvc+evD6y3W7n5oX86Qz
-	 ZmRZuyCuWrewbFmxddm8Y+MlBPPDMbYvix0/MOkVUvEyqgK4naVfFZnlekm6afjFBYw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=hPSUk+irIwnxGrE8T/ciuKFUm1SYddVzk8aA64/IVHM=;
+	b=4Tdc+7T519WBKOvzOd+4so3fvWhfmZ+Zpc9WMUZE2fx/nkLITf9Gvi5T5DTucO85djtN
+	 /fNeFnZ/d6vZ02R3t3yR8s3MVNtbcFizTU0XV7oyQwY/8NnMbLOFqoe12tnCwzJb1opFs
+	 gHFfvcsSPYsn2oT+gkDnr63X2cUTBZKpo42Y8Hb/99/hb34Y41E9Y9WiwLUp2tJpyQMaO
+	 WEiZU89liSFRWcZFhOx0LV8V7aedaOFD5Bu/uILg2pESOFNquSS9vHrd/dpiLEvHwLMjd
+	 Jkc5bUKmdos41sG5HbeM+zygH+zI4KaUrnjk0NJdPRHNrxKVh9H8PWIdeUDMIB0mhrw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PmHq0J5C;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nsA4o4w9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.69
+Received: from mail-lr2-f5.google.com (mail-lr2-f5.google.com [74.125.230.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AB7E606A331
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:51:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AB7E606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7258606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:51:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7258606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PmHq0J5C
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36e795af1d4so434579eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:51:33 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nsA4o4w9
+Received: by mail-lr2-f5.google.com with SMTP id 38308e7fff4ca-3ab461daab0so20718961fa.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:51:44 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794898303; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qe5jJvibScqmPLuAJEFv2EeySOxPH9WK/jFOihFKuH9h5zunQfIaEc/3ESvIlO0X6J
+         s4QRq+kz6PgxdhqU8AzMwv5LgeH/GmQLb8y300wnNIBKEWkpdagrJxgBTDhIIfISbhrc
+         RjT9k6pmhZOoaLpblKC47IZRZJQIMXMuyjcm9lHWl408o3vaObqV7pZ0JUAe4C4pdLm6
+         BzLYGjeeuIo96qyV8UvEw/uBlimUhEGEPLgf1g2P52QMcFg2CNLPYto9F5RJNhsoNMcG
+         Pd2MHEUglepUSq4yxesOdn+P1GgZ1PqhBwF3F1krEBVBUdcIkmXKE+wRYgMDxIohdYLV
+         QquQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=hPSUk+irIwnxGrE8T/ciuKFUm1SYddVzk8aA64/IVHM=;
+        fh=Fa05e9g3RGlB2IGKnkcyQhmUn87t34nNvqXCO8aJ5mo=;
+        b=Bpn1/6FgUMUTm5Z2iDQv7xGSiK7Lqh6YNG7IYLXsClwqO0esql5gPTxQl/gRK99xZz
+         czwytbQZAPlDB2+CgjluyD6owbH4CxuYBJxZAcgdAbt/E9vxsq+q4Scy5Jq7Rmjcs5We
+         50cwBHQxXom8FO0T1z+GVgauytceMKG/B8fqht8U+JFQ2r4+eLtslmjFGki49o98ypBR
+         +y6qMX6NbvC6NYiWM5bNWGlunIwk5vkFaSlYlMVPkkFHGyP4+acdmfH6+4OtWwu7ZnkN
+         ZGhDV663RGkUTeBWbIaZpyzRUJhC5QSdkeg1gYi+2ru03wtDUbJmS2/Bv9A2R6hJlx6B
+         WcCQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794898292; x=1795503092; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RaW7IpysCPqlOXpmlCgnS8gUk7OicQRVwJcmgC0kHyY=;
-        b=PmHq0J5CKu9qVwgY7FlIKVnJosfOdWuT32WTGqe+uOA9CDDwfFpGKaKKaqdoLgOqex
-         eO3HVo4IuWgq7dR/Hx4k3qlIz9e5pbtZVMJAesJXLdXHwue/mZQjvzd38IFUBbPLkFic
-         j5iamkra0jXYzKzTQpUx0MFEQzxC1+4ivJj+9XLF3sABosx2yXXTWUDeYQcG1vpVxYfg
-         injNdVq2h6fkNFyDCF98QsGp6cA+eFKJiwGmqM2yX4VRXHL1bmOyCx1AWGbc4emuP23I
-         zz8Zu52WM0QSl+9v6FKUjUysrOEUVoHCpCaj6oJeEEbi7L1ql63KEnr3dvHW0r1OfbrT
-         ECXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794898292; x=1795503092;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=gmail.com; s=20260707; t=1794898303; x=1795503103; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RaW7IpysCPqlOXpmlCgnS8gUk7OicQRVwJcmgC0kHyY=;
-        b=ZYt9yc+r3VLQ8yoEq3bbHn5Ye7UnBAzKsY39/cjybdKQzTogoSjCkbQpAc5TphZqbW
-         1yfGxcptLLuiMFKqZAtJNqzIrZJNLrnV9jnTy+IRVzecL4XYJg/MDPrTAXnevPyNrVld
-         QfAJAmKqsXWPUarYAH1QvEvNN1tSwneHptPmZQF7dKJVCdO0uzm0m8dZ55q/Pa4H/7kS
-         YIx1LRXTXkwUqUvhQXfGpfopp4ifmZmHt8r+cEhXmb1pQuty1rdLbrdy9H9h43M8dCtY
-         sjEPENL/htMkb7NMl5fTe7GwXRf9oak4CcRj6zMgDZcH5H4HGmN8oy1jCLTNkdAOENEJ
-         PgSQ==
-X-Forwarded-Encrypted: i=1; AL+hErG0UmEdHdqT7qcDYwjUQtKBvTG8DNQqBC9RuG2nE4y5hpUXGljz960LVsKvfNnAUt0s5PyrjWo3lHqlWoQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Sjw3EqiBcu1FJ3dHsywoyepdeiWxSo3yqpBnXGKE6HZqup1kg
-	rMnQQY4DREACoZpSwKP2VLA15F9VVUdKNU6t6BlUOI5Ryv1Zd0T4TQbm
-X-Gm-Gg: AZFdTZdA3KZWTzMuI7Zq1ohHHymA34cM8bvfHD5ogbaEobMjW24oG2owctQJSMWGoZN
-	5TaJvOzrSg/rlnb5dFg1RQyJu8lpkJz0ryRaqBtNO6qdkSZ07djSdjl0ZwQFxDBiGdDh4G+WV3J
-	ZbInw9FOwpFt0qOl/+OQELycDLR3bJe5mOU0yoOIesDaHpuoiV4TP3oKBCkbZDeGwBnlBAXM6vz
-	7MbbSniOVat/yovfuPRC9wV/aMhVOSSYumg3d99I4gqP8JMZTcwwtM1IUC9y+hWI9Du5Yjr85TI
-	/Mqbt/nXswyvp+8FfcBIl4OOBqFAQSBcXyUMUrdvRrDwFQ/2FuEq5OEfeplJpSaaVb9Ag8WypJ0
-	jsgmOTn/lToYhVQIoJW5iieAyXUagxaAW/3fW/wt5dCaWWdmbbfGxxQvcbuAIybN0inGTooBjlH
-	eCaUSqwDZioeLVY0zMocDa3qbckHDHOWRy8AwQ3A9oCfJmyIgAy3ErloQSTAQ+UxAW4hsi3kafy
-	zkowhKtNfQrO278tbu/azJK6zzaGDLxCII3yuqJeMxxluSMQ2ZvKxyMQmijatJVQIYwqSzSy1GC
-	HyhMg/UXB5ohyeY54oQyuC+0JmoeuFBtCMeK4ctsNaT18Rvt5vaQkoSw7K6T8T2BPrU8jsoFfhJ
-	u7is2zxOE
-X-Received: by 2002:a05:7300:7b1e:b0:36c:a3ae:936e with SMTP id 5a478bee46e88-3810e418910mr1836902eec.5.1794898292224;
-        Mon, 16 Nov 2026 22:51:32 -0800 (PST)
-Received: from carrot.home.local (madb688455.ap.nuro.jp. [219.104.132.85])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d269asm44099255eec.23.2026.11.16.22.51.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 22:51:30 -0800 (PST)
-From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-To: Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: Wang Jianjian <wangjianjian0@foxmail.com>,
-	linux-nilfs <linux-nilfs@vger.kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>
-Subject: [PATCH 2/2] nilfs2: introduce atime support
-Date: Tue, 17 Nov 2026 15:47:48 +0900
-Message-ID: <20261117065122.41553-3-konishi.ryusuke@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261117065122.41553-1-konishi.ryusuke@gmail.com>
-References: <20261117065122.41553-1-konishi.ryusuke@gmail.com>
+        bh=hPSUk+irIwnxGrE8T/ciuKFUm1SYddVzk8aA64/IVHM=;
+        b=nsA4o4w92e0aUonTEC1ZL/ygwT5O2ipxn6vw5wAfWOQg8vmfOb3XZSawHGzGejTPjc
+         al1o+ws7Vi1K1SKR2plFuEdY1VXokZB7r7CXoOunW3H2qM/ndFFeGLbubj3VV98X2jqh
+         orbcp+9yUtocQ3laHTa1B3lqjcODGDiRC4fym59zlN+7aEyea9kJTMbDzQY8kC6KseUw
+         BCKdUtCbzpV7Yua8Mmcu8xbM8b5roOyRmeSBd/vuBl5Hk4GOJ6aVDD0xC5pWQSemzxOG
+         G9Q+oCaA1EjtrYk8SGqFrL8XqVfXLvE8GWYbYi2s4eTginx1S72j3UEFweAYKI6kNdhC
+         SP4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794898303; x=1795503103;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=hPSUk+irIwnxGrE8T/ciuKFUm1SYddVzk8aA64/IVHM=;
+        b=KhfAQy0Z8jumFig96/u3Td/W9dhpawh3E6I4xtpbWaX9Xh6unxKtsiZ/s2J6K5gjDD
+         QiuGF9R9Y/2GWPTM25j9aBaWWRP07uYy3j5y/Bfj3LCDlU7wWpmdepVNy4yJJJOUJ5l7
+         lVPDxwMGF+APUt52i8mzXgGxqWNjt7xJU6EopyvUVKaNWirWMSN/fLfDxW2AhW7nRzxN
+         UfF4wZd6pkpu6E+VI0wyYpP8LayrsLLSBvUYoR/bhZI7A50tmCbYKk2pPZ6X8wVzvb2S
+         HGnna0E3nJDCN4rsdKPZLpUdZzEhMAItBjvlCw/idxIdklZRhczDXrVJaXO5F2ey8sw+
+         hylg==
+X-Forwarded-Encrypted: i=1; AL+hErGD04ixiykmSD+35RCm/VsWVQe0Cijfd0Wq16Lq8PdijvtGZ4dxM2l7qnVwyaPKH1ZoVQ7o5gDvYzvb78M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8AmUt2x2dJJhP2O6sOQj9GfWLbcIB0sQje6yZNJKwH56u/0FgU
+	dZSBVX13E1boQ4toK0mIt1W5Hd5BatLkBCVH0a5rRGSAX0HUxiMMkrnSU1VY7vMyoKpWSBfLK74
+	oKEvrFDNPAO8EfVcFt/2TulhYwZ7fLpg=
+X-Gm-Gg: AYBFou3TTZV7nrVyoGSg1sdlzcGDgLJrDWyiTyhuy955a82YMVgHrQcWNIcMp3bJgSi
+	G3o/q/lBUfkdowwXpfV4kjeFyCbNgc8+lWM36lrkNhwe+tVc2+BEwpWPFo/NXcrs/QAGnu3WTvM
+	13cC+UNRck5gOUdNKTEhZTVLW/QAn6d1N20/HDyXI4vD04k8L6hdOEzsK0P0EQtkWTuTlJgToQY
+	OvsxOL2vOT6eIXZCoAXdaewNlbWBeCerd2JG+yZVuAnpQbYG7Qaly56j9lrTmmqBigRBS+W+VPe
+	q4SAeorj9JyimWcACU77gTGcTc79PLXdHAdGzzSX+qJOM0F5UnPfIuBSnuNBFaIL46w2PbJ9vwv
+	mVBrtQzj6XpMlV2UUOSrqOyJV+yfUtYus4EABBsrLtyu64jCTBSWwbrq9ce97jzJSjGj8zQ==
+X-Received: by 2002:a05:651c:199f:b0:3ae:25fc:66ee with SMTP id
+ 38308e7fff4ca-3ae2b4bc376mr40394291fa.14.1794898302442; Mon, 16 Nov 2026
+ 22:51:42 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,202 +101,149 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Zheng Zheng <fengaojigui88@gmail.com>
+Date: Tue, 17 Nov 2026 14:51:28 +0800
+X-Gm-Features: AclHuK9-LoUVdHftMYHvIyHY9bPKBGHQL9OF4RgvrHt7I3K2GXOVwkZQ5H2k4aE
+Message-ID: <CAO-4RZ3n2NFZkVDdOW7o5WvsZ=g7b=8mPrq5jLkKL1Fw2P+cxA@mail.gmail.com>
+Subject: [BUG] WARNING: bad unlock balance in ntfs_readdir (fs/ntfs3/dir.c:625,
+ v7.4-rc3)
+To: almaz.alexandrovich@paragon-software.com
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Viacheslav Dubeyko <slava@dubeyko.com>
+Hi Konstantin,
 
-Currently, NILFS2 doesn't support atime. And it is possible
-to see the evidence of it by running generic/003 test-case of
-xfstests suite:
+We found a reproducible lockdep bad-unlock-balance in ntfs3 on v7.4-rc3
+with syzkaller.
 
-sudo ./check generic/003
-FSTYP -- nilfs2
-PLATFORM -- Linux/x86_64 hfsplus-testing-0001 6.18.0-rc1+ #10 SMP PREEMPT_DYNAMIC Fri Nov 28 20:48:25 PST 2025
-MKFS_OPTIONS -- /dev/loop51
-MOUNT_OPTIONS -- /dev/loop51 /mnt/scratch
+Warning:
 
-generic/003 35s ... - output mismatch (see xfstests-dev/results//generic/003.out.bad)
+  WARNING: bad unlock balance detected!
+  7.4.0-rc3-kernsight-kasan #1
+  -------------------------------------
+  syz-executor/10086 is trying to release lock (&ni->ni_lock) at:
+  [<ffffffff833e9657>] ni_unlock fs/ntfs3/ntfs_fs.h:1267 [inline]
+  [<ffffffff833e9657>] ntfs_readdir+0x7e7/0x1170 fs/ntfs3/dir.c:625
+  but there are no more locks to release!
 
-This patch replaces i_xattr with i_atime and i_pad with
-i_atime_nsec in struct nilfs_inode of the on-disk layout,
-and instead of unconditionally disabling filesystem-level
-atime support, makes it toggleable via the atime compat_ro
-feature flag.  Also, it modifies nilfs_read_inode_common()
-and nilfs_write_inode_common() with the goal of proper atime
-support.
+Call trace:
 
-sudo ./check generic/003
-FSTYP         -- nilfs2
-PLATFORM      -- Linux/x86_64 nilfs2-testing 6.19.0-rc1+ #8 SMP PREEMPT_DYNAMIC Tue Feb 17 16:21:59 PST 2026
-MKFS_OPTIONS  -- /dev/loop51
-MOUNT_OPTIONS -- /dev/loop51 /mnt/scratch
+  __dump_stack
+   dump_stack_lvl
+    print_unlock_imbalance_bug
+     __lock_release
+      lock_release
+       __mutex_unlock_slowpath
+        ni_unlock                 fs/ntfs3/ntfs_fs.h:1267
+         ntfs_readdir             fs/ntfs3/dir.c:625
+          iterate_dir
+           __do_sys_getdents64
+            __x64_sys_getdents64
+             do_syscall_64
 
-generic/003  30s ...  34s
-Ran: generic/003
-Passed all 1 tests
+The reproducer mounts a crafted NTFS3 image. The log also shows a sector
+size mismatch:
 
-[1] https://github.com/nilfs-dev/nilfs2/issues/7
+  ntfs3(loop4): Different NTFS sector size (4096) and media sector size (512).
 
-Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
-Co-developed-by: Wang Jianjian <wangjianjian0@foxmail.com>
-Signed-off-by: Wang Jianjian <wangjianjian0@foxmail.com>
-Signed-off-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
----
- fs/nilfs2/Kconfig                  |  2 +-
- fs/nilfs2/inode.c                  | 11 +++++++++--
- fs/nilfs2/nilfs.h                  |  4 ----
- fs/nilfs2/segment.c                |  2 --
- fs/nilfs2/super.c                  |  8 +++-----
- include/uapi/linux/nilfs2_ondisk.h |  8 ++++----
- 6 files changed, 17 insertions(+), 18 deletions(-)
+That mismatch is an observed reproduction detail; we have not established it
+as the cause of the double unlock.
 
-diff --git a/fs/nilfs2/Kconfig b/fs/nilfs2/Kconfig
-index 0a5ace60e6ab..79b99c33af06 100644
---- a/fs/nilfs2/Kconfig
-+++ b/fs/nilfs2/Kconfig
-@@ -20,7 +20,7 @@ config NILFS2_FS
- 	  snapshot is mountable as a read-only file system concurrently with
- 	  its writable mount, and this feature is convenient for online backup.
- 
--	  Some features including atime, extended attributes, and POSIX ACLs,
-+	  Some features including extended attributes, and POSIX ACLs,
- 	  are not supported yet.
- 
- 	  To compile this file system support as a module, choose M here: the
-diff --git a/fs/nilfs2/inode.c b/fs/nilfs2/inode.c
-index 6ddef3ab0c19..b217eee57c36 100644
---- a/fs/nilfs2/inode.c
-+++ b/fs/nilfs2/inode.c
-@@ -387,6 +387,7 @@ void nilfs_set_inode_flags(struct inode *inode)
- int nilfs_read_inode_common(struct inode *inode,
- 			    struct nilfs_inode *raw_inode)
- {
-+	struct the_nilfs *nilfs = inode->i_sb->s_fs_info;
- 	struct nilfs_inode_info *ii = NILFS_I(inode);
- 	int err;
- 
-@@ -395,8 +396,12 @@ int nilfs_read_inode_common(struct inode *inode,
- 	i_gid_write(inode, le32_to_cpu(raw_inode->i_gid));
- 	set_nlink(inode, le16_to_cpu(raw_inode->i_links_count));
- 	inode->i_size = le64_to_cpu(raw_inode->i_size);
--	inode_set_atime(inode, le64_to_cpu(raw_inode->i_mtime),
--			le32_to_cpu(raw_inode->i_mtime_nsec));
-+	if (nilfs->ns_feature_compat_ro & NILFS_FEATURE_COMPAT_RO_ATIME)
-+		inode_set_atime(inode, le64_to_cpu(raw_inode->i_atime),
-+				le32_to_cpu(raw_inode->i_atime_nsec));
-+	else
-+		inode_set_atime(inode, le64_to_cpu(raw_inode->i_mtime),
-+				le32_to_cpu(raw_inode->i_mtime_nsec));
- 	inode_set_ctime(inode, le64_to_cpu(raw_inode->i_ctime),
- 			le32_to_cpu(raw_inode->i_ctime_nsec));
- 	inode_set_mtime(inode, le64_to_cpu(raw_inode->i_mtime),
-@@ -702,8 +707,10 @@ void nilfs_write_inode_common(struct inode *inode,
- 	raw_inode->i_gid = cpu_to_le32(i_gid_read(inode));
- 	raw_inode->i_links_count = cpu_to_le16(inode->i_nlink);
- 	raw_inode->i_size = cpu_to_le64(inode->i_size);
-+	raw_inode->i_atime = cpu_to_le64(inode_get_atime_sec(inode));
- 	raw_inode->i_ctime = cpu_to_le64(inode_get_ctime_sec(inode));
- 	raw_inode->i_mtime = cpu_to_le64(inode_get_mtime_sec(inode));
-+	raw_inode->i_atime_nsec = cpu_to_le32(inode_get_atime_nsec(inode));
- 	raw_inode->i_ctime_nsec = cpu_to_le32(inode_get_ctime_nsec(inode));
- 	raw_inode->i_mtime_nsec = cpu_to_le32(inode_get_mtime_nsec(inode));
- 	raw_inode->i_blocks = cpu_to_le64(inode->i_blocks);
-diff --git a/fs/nilfs2/nilfs.h b/fs/nilfs2/nilfs.h
-index 40dd42133dc6..1cf9e38152a6 100644
---- a/fs/nilfs2/nilfs.h
-+++ b/fs/nilfs2/nilfs.h
-@@ -27,7 +27,6 @@
-  * @i_state: dynamic state flags
-  * @i_bmap: pointer on i_bmap_data
-  * @i_bmap_data: raw block mapping
-- * @i_xattr: <TODO>
-  * @i_dir_start_lookup: page index of last successful search
-  * @i_cno: checkpoint number for GC inode
-  * @i_assoc_inode: associated inode (B-tree node cache holder or back pointer)
-@@ -43,7 +42,6 @@ struct nilfs_inode_info {
- 	unsigned long  i_state;		/* Dynamic state flags */
- 	struct nilfs_bmap *i_bmap;
- 	struct nilfs_bmap i_bmap_data;
--	__u64 i_xattr;	/* sector_t ??? */
- 	__u32 i_dir_start_lookup;
- 	__u64 i_cno;		/* check point number for GC inode */
- 	struct inode *i_assoc_inode;
-@@ -234,8 +232,6 @@ static inline int nilfs_init_acl(struct inode *inode, struct inode *dir)
- }
- #endif
- 
--#define NILFS_ATIME_DISABLE
--
- /* Flags that should be inherited by new inodes from their parent. */
- #define NILFS_FL_INHERITED						\
- 	(FS_SECRM_FL | FS_UNRM_FL | FS_COMPR_FL | FS_SYNC_FL |		\
-diff --git a/fs/nilfs2/segment.c b/fs/nilfs2/segment.c
-index af0c3560444f..68b640a7aa5b 100644
---- a/fs/nilfs2/segment.c
-+++ b/fs/nilfs2/segment.c
-@@ -930,8 +930,6 @@ static void nilfs_write_root_mdt_inode(struct inode *inode,
- 	nilfs_write_inode_common(inode, raw_inode);
- 
- 	/* zero-fill unused portion of raw_inode */
--	raw_inode->i_xattr = 0;
--	raw_inode->i_pad = 0;
- 	memset((void *)raw_inode + sizeof(*raw_inode), 0,
- 	       nilfs->ns_inode_size - sizeof(*raw_inode));
- 
-diff --git a/fs/nilfs2/super.c b/fs/nilfs2/super.c
-index f92bcf1a9544..ddad1e4f55ce 100644
---- a/fs/nilfs2/super.c
-+++ b/fs/nilfs2/super.c
-@@ -863,11 +863,6 @@ int nilfs_store_magic(struct super_block *sb,
- 
- 	sb->s_magic = le16_to_cpu(sbp->s_magic);
- 
--	/* FS independent flags */
--#ifdef NILFS_ATIME_DISABLE
--	sb->s_flags |= SB_NOATIME;
--#endif
--
- 	nilfs->ns_resuid = le16_to_cpu(sbp->s_def_resuid);
- 	nilfs->ns_resgid = le16_to_cpu(sbp->s_def_resgid);
- 	nilfs->ns_interval = le32_to_cpu(sbp->s_c_interval);
-@@ -876,6 +871,9 @@ int nilfs_store_magic(struct super_block *sb,
- 	nilfs->ns_feature_compat_ro = le64_to_cpu(sbp->s_feature_compat_ro);
- 	nilfs->ns_feature_incompat = le64_to_cpu(sbp->s_feature_incompat);
- 
-+	if (!(nilfs->ns_feature_compat_ro & NILFS_FEATURE_COMPAT_RO_ATIME))
-+		sb->s_flags |= SB_NOATIME;
-+
- 	return 0;
- }
- 
-diff --git a/include/uapi/linux/nilfs2_ondisk.h b/include/uapi/linux/nilfs2_ondisk.h
-index 19587700c92c..e94593137adb 100644
---- a/include/uapi/linux/nilfs2_ondisk.h
-+++ b/include/uapi/linux/nilfs2_ondisk.h
-@@ -47,9 +47,9 @@
-  * @i_links_count: links count
-  * @i_flags: file flags
-  * @i_bmap: block mapping
-- * @i_xattr: extended attributes
-+ * @i_atime: access time (seconds)
-  * @i_generation: file generation (for NFS)
-- * @i_pad: padding
-+ * @i_atime_nsec: access time (nano seconds)
-  */
- struct nilfs_inode {
- 	__le64	i_blocks;
-@@ -65,9 +65,9 @@ struct nilfs_inode {
- 	__le32	i_flags;
- 	__le64	i_bmap[NILFS_INODE_BMAP_SIZE];
- #define i_device_code	i_bmap[0]
--	__le64	i_xattr;
-+	__le64	i_atime;
- 	__le32	i_generation;
--	__le32	i_pad;
-+	__le32	i_atime_nsec;
- };
- 
- #define NILFS_MIN_INODE_SIZE		128
--- 
-2.53.0
+Analysis: in ntfs_readdir(), the code drops ni->ni_lock before
+ntfs_read_hdr()/dir_emit() and reacquires it afterwards. If
+ntfs_read_hdr() returns a non-zero value, the `goto out` path skips the
+re-lock, and `out` calls ni_unlock() again. This includes negative errors
+and the `+1` "directory buffer is full" return value:
 
+  ni_unlock(ni);
+  err = ntfs_read_hdr(...);
+  if (err)
+      goto out;          /* ni_lock is not held here */
+  ni_lock(ni);
+
+  out:
+  ni_unlock(ni);         /* double unlock on this error path */
+
+A reasonable fix is to distinguish the two cleanup paths instead of
+unconditionally re-locking: after the explicit ni_unlock(), a non-zero
+return from ntfs_read_hdr() should jump to a cleanup label that does not
+call ni_unlock(); the normal out path should still unlock. A bool lock_held
+flag or a separate out_unlocked label can express this clearly.
+
+How to reproduce stably:
+
+1. Build vanilla v7.4-rc3 with:
+     CONFIG_KASAN=y
+     CONFIG_PROVE_LOCKING=y
+     CONFIG_NTFS3_FS=y
+     CONFIG_DEBUG_INFO=y
+   The bzImage used here has sha256
+   0c16409f8aec508ac44a63e631c2bd352536401f3fd0856df1d839fb953a1882.
+
+2. Boot a Debian trixie x86_64 guest (6 GiB RAM, 4 vCPU, KVM) with at least:
+     root=/dev/sda console=ttyS0 oops=panic panic_on_warn=1
+   The full QEMU command line is in environment.txt.
+
+3. Copy syz-execprog and syz-executor built from syzkaller commit
+   853b104bb454141a5b0fc0e4218ec78e9f34ffb1, plus
+   reproducer/repro.kernsight.prog, into the guest.
+
+4. In the guest, as root, run:
+
+     syz-execprog -procs=8 -threaded -repeat=1 \
+         -executor ./syz-executor repro.kernsight.prog
+
+Expected result: "bad unlock balance detected" with
+ntfs_readdir+0x7e7/0x1170 after roughly 120-145 seconds. This is a lockdep
+report, not a panic; panic_on_warn=1 did not escalate this particular
+lockdep path in our runs, so serial/dmesg is the success signal. We observed
+the hit 4/4 on fresh VMs (runs 1-2 with -repeat=0; runs 3-4 with a single
+ordered -repeat=1 pass):
+
+  Run 1: 138.18 s
+  Run 2: 144.69 s
+  Run 3: 119.98 s
+  Run 4: 141.08 s
+
+Source/line-number check: the unlock is at fs/ntfs3/dir.c:625 in the
+v7.4-rc3 tree used here. The file is identical to the torvalds v7.4-rc3 tag
+(sha256 86fa0e100b32c38980b72767cfb905acacebe8b7c7eb26c39bf13b6bde5cd768);
+addr2line maps ntfs_readdir+0x7e7 to line 627 (adjacent/inlined unlock),
+consistent with the reported line 625.
+
+The reproducer is a 177-entry state-reconstruction recipe (168 replay
+entries + 8 priming programs + the triggering testcase) and is
+self-contained. The old 1131-program external program set is not needed.
+
+Repository contents (all v7.4-rc3):
+
+  https://github.com/Zheng-zheng-codes/ntfs-readdir-bad-unlock-balance
+
+- README.md: phenomenon, root-cause analysis, stable reproduction steps
+  and verification results.
+- MINIMIZATION.md: notes on reducing the old 1131-program set to the
+  current 177-entry rc3 recipe.
+- environment.txt: rc3 kernel/guest image hashes, QEMU command line and
+  syzkaller revision.
+- kernel.config: v7.4-rc3 kernel configuration.
+- reproducer/repro.kernsight.prog: 177-entry self-contained state recipe.
+- reproducer/repro.priming.prog: state-priming portion.
+- reproducer/repro.prog: triggering testcase.
+- reproducer/repro.report, repro.stats, repro.outcomes.jsonl,
+  repro.context.json: pipeline verification evidence.
+- logs/log-0.txt, logs/report-0.txt: original rc3 syzkaller log and crash
+  report.
+- logs/machineInfo-0.txt, logs/title-stat.json: guest environment and title
+  statistics.
+- logs/external-verification/: full serial consoles and run records for
+  all four fresh-VM reproductions listed above.
+- logs/external-verification/verification-summary.txt: concise reproduction
+  summary and hashes.
+- SHA256SUMS: checksums for the inputs and logs.
+
+Is this error path the intended one to fix, or am I missing another place
+that should hold ni_lock before reaching out?
+
+Best regards,
+Zheng Zheng
