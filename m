@@ -1,97 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794920733;
-	b=dPqIX5ssAuxw02Hii6GSRqMDJrcVBhBDl9gUZGH12yiwkKdT12oJ4Ol1hTBNcowaYynY
-	 RVYCCTwzZy3SVxUbxB2wJYETy7WOi7f7OjU858YOvhe6vKVBY4cUZqXIe0KGm96ciuiAS
-	 Qf2wO/i1bXu6QWjILi+L8Vc3OmB+HH4KJyWxKQKA0yDKWjJrc+rGTdscogBXnMRvJbz0n
-	 q4SsJj+5KmGXrYlUhk6obSYuYqIEP0Hb80CQzf1n9kQth4ALjk2iEOgzD87L4ZTw6Rzzl
-	 n/qZlwQ2Impqx4vLNGXI2TWZeP+DYSeJPNB3TTKHxBUeILFZCBBRY9aLTwy5L4UV45Q==
+	t=1794920741;
+	b=FTBEv28lZ0WgQjmeKvyXo/NHwwfUkMvLHWZhJDmLFcOesaW5c1tpLEyk8+5kGwnpaYMe
+	 tOqeMqd7e1GLcumDhfYCPLCGxUuN83fAa38I+sty4XW9Zm0FspvSQE04wo1KA5NNG8cOo
+	 Mi7rL6xFRUeR0qPTncnPKJFNXlwqRyoMxM0BhMepNEiu8DmmmoGfn3Al1SRQjgpBeNN3F
+	 WuOYcYL0Zv0+FyI6nbPBY35M5fzGEr44ntkmLI2bfUqkDUrKPThofDNkF/J1ZH2ZrwO3N
+	 D6Feb+yx8033xCUxhqngW9V3PML5WWfutT2YI/UyHw4gfkgo+EeQaLPy1+lYOQlvFyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920733;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=/q1oWTkjbDNHWQAuk2EDeZ6imnt0CDYY6KeOw9zQ30c=;
-	b=o44RXaV/1yAYynbPm0tRDX5WhdL+bzUD5wNKaLO9hRe1TV4BvNM5uM7pzGw13u3vhYgr
-	 K2aMNJtMeDxm1Tzd7fYegplLbE3LnTdT5J+udRQchD1iLSivvS169HY1UkF9X9AFWNoIN
-	 j0Xy2IdnjyleII1JS/gx6VfR6ngImrak8894lEbvnLoxrFWZN56AtrrRmqirVvWv6hqEq
-	 Ml/usAe9WkcOmumTAJapi6SEcUbvWAbO6QWwBElGdRp1cVjyeHdlYpaMxw6RysDVHUike
-	 cRWuBi2gwWZxzUDOZYxj2DJ5hNi9ThugWnhdhnBNK6TH76A/gL7/lPcYAoRFkWe3UUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794920741;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-TM-AS-GCONF:X-Proofpoint-Reinject:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=eZNVDS6q0NfN6+NY2xd78fw62hbEIwwz7kQ91FTBqqM=;
+	b=2lV/im5a8fnUdAQCeDP++3RC09EP4hyWR3Du7MBfq6QpiZjWaTFtuB0ZFDA9PJNJJyX4
+	 bkNkGeesdObJ8gWKrplzMBEeyJBvFhxVHiDn6pfPoNVhZ5GCmKBb+aT3e/vZkuakrgS+S
+	 up7IiuUTsJdkHJn0VXmdBJ6LtWGZzBmwg65l0/FngdSJmhbIhoZh4pWd4+tcFdkhLuSF0
+	 pEEZ42mbmBpdXAUBV3s1WwyKtYseUxLdA6H1oHSY4n5LQHYnkGjZr8dgWilAnF5zQEoy3
+	 yNYRFqOUL97u8PG1qDL3VDFwAj5umMN4bcfzgix5RDXd+/BZPdj4gJSIQ5AtmzfbVeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tomeuvizoso.net;
-	spf=pass smtp.mailfrom=tomeuvizoso.net;
-	dkim=pass header.d=tomeuvizoso-net.20260707.gappssmtp.com header.i=@tomeuvizoso-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=NhELpC5Q;
-	arc=none smtp.remote-ip=209.85.218.45
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=XD6QQy8A;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B39E606A332
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:05:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B39E606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tomeuvizoso.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tomeuvizoso.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF200606A337
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:05:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF200606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tomeuvizoso-net.20260707.gappssmtp.com header.i=@tomeuvizoso-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=NhELpC5Q
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c50cc8e0f84so351252966b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:05:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tomeuvizoso-net.20260707.gappssmtp.com; s=20260707; t=1794920730; x=1795525530; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/q1oWTkjbDNHWQAuk2EDeZ6imnt0CDYY6KeOw9zQ30c=;
-        b=NhELpC5QMj/9n1YN8iQIwTFvZLOb017O+MvAGcZc+dKfvtTWYGtmYneosP/n8g/spB
-         i76kZPM/JywdHsEOB+kZ8Q07yvI0/3hFuJu5FcVRcDYp/rpwWJLdZ9HMw8ollzWD4fxI
-         bC/89iJgAk/A+PpkZkfWjYc81bFFX9i+b5PcdJfeCX4hu90WA5Mj1mKD4ZoPpueRjyiH
-         F6r6unAl6UyeWdSt6pTN42+kLCA0Y6kjhbSvyxRCmEM44xlTHiMBRe6G+h+g3eDhErqd
-         rOUJtfDsOxT1+oaQL36/Fz7XiDWPOEl6KyrBu85mppljzKTc9AMWAGpqjSamh2MrlaBa
-         +HZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794920730; x=1795525530;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/q1oWTkjbDNHWQAuk2EDeZ6imnt0CDYY6KeOw9zQ30c=;
-        b=uFevcMQbCJYfmFhnFHi6ltMQsyLYeC8rkEcyaZz2YVyaijAwLUGPNF0FkULQD9TmlJ
-         KHhEi7+gleQms9aXaAsApMT4EJZ+SvqzCIsRsUlhCRgCQtGw4nguD3RJLtUXLftXiCJ8
-         Sjt8Wt9OlhjUx0e8MF6AWoZa4FfReimV8FLFJwd7UG7Cbk13jc61GsYcn1mbcAGaiqJS
-         qg2tUykh1bxl9WvLg28XYtFWNLwIKpWsiTl5wwNliECg2/RwE6XdbQJYrj9RnAJxL7GI
-         BvwOu0UzlyIyPuDQ8a/C38mm62j+SwsDBaB/16hYtkVCKLKpOdeYyns3Qv24d6nmROGR
-         PCmQ==
-X-Forwarded-Encrypted: i=1; AL+hErEDQ50CHe54voNw9MBeAJFt5UW/K2C51w1I57VkQ8S8g6aJqyhHq3XUqEQhMzb+POIrf9OMO4QutUmGvQ0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9FQS4XJ57Fj19YqUI5fPYO0z7uSoqHracIUQRi/1yc+eZ5qF/i
-	LnCC56HPiu2kI8kUUcMSBUSgUp0n1dkHRbI2KQNfTbZhs6LWNigDJLjw7wI9j3DjKiU=
-X-Gm-Gg: AYBFou3feCVFZXDt1NqVff3ML7Lc3AV6FHT/6SgwzH0zaHy5fyxthFRndqClrKeyzhr
-	/RJbEmhj7UtPZbL51DppwwP4S8I6vzW9/dJaQiq2+yGQeY+AYRbiKL1AUNhXU4dT9fwwcAraQM0
-	60BTo6w0qJHjcmISOgAkP5kVf1cNDKbMmwWFpvmfMbw1uXW+ifU7bzr7QYcmrERGmv4oy5v7huX
-	lWh+8S8ylxnW9jsnlmjY0XieBzWtaXftabluSxhE4kjit3J+y2nsm6wrqHx+tWnemJyMNqKGnIq
-	6Q83c3VRxfw0MtAoKWO9+diqa6wK9W3XzpsfifTJilGK1DVg7Iumy97ciTHMNjZu4phRpKwzBHt
-	tyDfpOwImp/jjIOw7X8HSqTZ4GqKAWiM3dHKCdLAYqzkMmerwif/ZasNxGg4S2pNeJkjYSflXTg
-	gwr2bpsO2DaRCKnj3HQXQuu8mOHX51wrsEfCUW5bFB5yLM/3iitpdlsdVRsJc1GruFRPTZ6T5HH
-	+hXF6DCYNjoTSuctXQSsqzAdDi3iJ3AH51fNGtC/TLlvrJScDAblDvEUFfvRFgCX7bkHcSXPYml
-	xIRTOe18o8NVuCX5iS6/I6rr07EufgI/KqRJdJKCthj9ZiZ0Ho4pVU5NMW9aMpkPG/T/aBoHKOF
-	l+NPCWXYLTlmtjMu+pfYHgwsAwCG22cOv2iqW72pPPWkBKURhkg==
-X-Received: by 2002:a17:907:8e08:b0:c2a:ad55:b3fa with SMTP id a640c23a62f3a-c50961d1e39mr1302474166b.7.1794920730419;
-        Tue, 17 Nov 2026 05:05:30 -0800 (PST)
-Received: from alcachofa.home (cst-prg-52-235.cust.vodafone.cz. [46.135.52.235])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49d69c21a17sm22827961f8f.50.2026.11.17.05.05.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 05:05:29 -0800 (PST)
-From: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-To: Oded Gabbay <ogabbay@kernel.org>,
-	Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Guangshuo Li <lgs201920130244@gmail.com>
-Subject: Re: [PATCH] accel/rocket: put IOMMU domain on BO creation failure
-Date: Tue, 17 Nov 2026 14:04:56 +0100
-Message-ID: <179490829259.50223.3008700255330714647.b4-ty@b4>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260708114354.753817-1-lgs201920130244@gmail.com>
-References: <20260708114354.753817-1-lgs201920130244@gmail.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=XD6QQy8A
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHBwkXs1090276;
+	Tue, 17 Nov 2026 13:05:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=eZNVDS6q0NfN6+NY2xd78fw62hbEIwwz7kQ91FTBq
+	qM=; b=XD6QQy8AR4+iJ9a+hpi9aZVpXv/dK9B4ZoNyRb6K16ezzoU/5Pa2vmRl9
+	xvl5xN/kEb7O6MfX0/UBBUDAxw8yR+9q2cClExcrKTRvbjkmLQdbH9tfu/20lq3e
+	u1bVPdNumriaRLS1iYG0biXHX25BCf5sxuT059T+RcXfYjxsWDfeyu82qe8GPoqa
+	aewMmHMGcOKEQYB4tc+53bupNo6VNdwtH7jRaquddZIiSu8QgxYFfQqaX117wMJI
+	n5NBxSG8A/Qf7JL2Ois44JfskqVXZZhubczcGuUk0MbqC45Rsag+KfuhtjncpcXD
+	GEWn2WDhDM0WLGDn9ZXLP3sIaMA1g==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hxe2dapq2-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 17 Nov 2026 13:05:25 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHC5tvG3508340;
+	Tue, 17 Nov 2026 13:05:25 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4j067nbq36-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 17 Nov 2026 13:05:24 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AHD5JBM41288110
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 17 Nov 2026 13:05:19 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id BBEEB2004D;
+	Tue, 17 Nov 2026 13:05:19 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id AF53020043;
+	Tue, 17 Nov 2026 13:05:17 +0000 (GMT)
+Received: from li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.bl1-in.ibm.com (unknown [9.123.6.5])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 17 Nov 2026 13:05:17 +0000 (GMT)
+From: Gautam Menghani <gautam@linux.ibm.com>
+To: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+        chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v3] powerpc/configs: Add debug configs for debugging
+Date: Tue, 17 Nov 2026 18:35:06 +0530
+Message-ID: <20261117130508.521098-1-gautam@linux.ibm.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,27 +90,137 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA1MSBTYWx0ZWRfXzBQ2PZFsAabn
+ PNYya2AaPp/rjEN+p7L6JlPAuHvuxRWUnzIIjuJQ4RTLJWAcVmUexx09FYV+5WZuytPjuCJuLTC
+ YIOnkPOu3o9mAORfDOeSfJ1ijnmJqso=
+X-Proofpoint-GUID: ARr3seC0vuXes4kwESziE1Ag1RD6adLM
+X-Proofpoint-ORIG-GUID: NIj0rEFKGqpn0gZvp1hkGlAb46FxCDuw
+X-Authority-Analysis: v=2.4 cv=IruL47/g c=1 sm=1 tr=0 ts=6afc5116 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8 a=mCzZ1jakd0CJncQrlMgA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA1MSBTYWx0ZWRfX13ZGYetzVpc4
+ 6A5cz7mGhDtN1Z7kZIWRI3NbtqxH8+zxbAoZQrHzbZ1UiDVz4nZRV/EJGhLxtLtZh6Uxi9r+fM9
+ m3kHjkUqRja86VxKvyvsp5drQeT2w6dw5SZZ2963p7ixCn0ox7PCFI8VdbLffFSFtGwKWEundcu
+ /om1Nt2yX/M0KDpppxkRVrbpzBYcCcfcQ50CjDb4DP4jcyzEq8xTtekqh3TgYJPUxbuBLWlWuSw
+ 5I+TuKAa6GwIlHjyxTVBeBTLvFyUQxSNtOT26zaEk4jtWVy0wTGzDtoqKXbg2gtmUzIOsnjhAcu
+ kthiqSbiY4pBk9jKMIsGtjKx0uqYptd4K1LzN8DjqvhTftgLnQcuqk5M8EhdRn+EpwZOFh65CAi
+ RRGxbNyJintQEqCfueHTr4i2k/65/MiwCKMAwCmfZSl8uB/shpFWcPShc3qdX9yf2x1hbvm3lkZ
+ kJ+hZtzZC6NkjPBOVqA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_02,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ malwarescore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170051
 
+Kernel has multiple config options to run extra validation checks that
+can help catch bugs. Define new configs for major subsystems to
+make it easy to enable the debug config options for a given area. Also
+add some common debug config options to existing debug.config for use in
+CI testing.
 
-On Wed, 08 Jul 2026 19:43:54 +0800, Guangshuo Li wrote:
-> rocket_ioctl_create_bo() takes an IOMMU domain reference for each newly
-> created BO.
-> 
-> The normal GEM object release path drops that reference from
-> rocket_gem_bo_free(). However, the BO creation error paths free the
-> object with drm_gem_shmem_object_free(), which bypasses the driver's GEM
-> .free callback. Those paths therefore release the shmem object without
-> dropping the IOMMU domain reference.
-> 
-> [...]
+Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
+---
+v3:
+1. Avoid merging the debug configs with defconfig (Shrikanth)
 
-Applied, thanks!
+v2:
+1. Split the enablement of configs into pseries and powernv configs
+(self)
 
-[1/1] accel/rocket: put IOMMU domain on BO creation failure
-      commit: 90035d3f26e011e16fcf9c5071571f0d956b5219
+ arch/powerpc/configs/debug.config        | 11 +++++++++++
+ arch/powerpc/configs/locks_debug.config  | 13 +++++++++++++
+ arch/powerpc/configs/lockup_debug.config |  4 ++++
+ arch/powerpc/configs/mm_debug.config     | 24 ++++++++++++++++++++++++
+ 4 files changed, 52 insertions(+)
+ create mode 100644 arch/powerpc/configs/locks_debug.config
+ create mode 100644 arch/powerpc/configs/lockup_debug.config
+ create mode 100644 arch/powerpc/configs/mm_debug.config
 
-Best regards,
+diff --git a/arch/powerpc/configs/debug.config b/arch/powerpc/configs/debug.config
+index bcc1fcf25e10..6bbca575a27c 100644
+--- a/arch/powerpc/configs/debug.config
++++ b/arch/powerpc/configs/debug.config
+@@ -3,3 +3,14 @@ CONFIG_PPC_IRQ_SOFT_MASK_DEBUG=y
+ CONFIG_PPC_KUAP_DEBUG=y
+ CONFIG_PPC_RFI_SRR_DEBUG=y
+ CONFIG_SCOM_DEBUGFS=y
++CONFIG_EXPERT=y
++CONFIG_PROVE_LOCKING=y
++CONFIG_PROVE_RCU=y
++CONFIG_KASAN=y
++CONFIG_UBSAN=y
++CONFIG_DEBUG_PAGEALLOC=y
++CONFIG_DEBUG_VM=y
++CONFIG_DEBUG_OBJECTS=y
++CONFIG_DEBUG_KMEMLEAK=y
++CONFIG_DEBUG_STACKOVERFLOW=y
++
+diff --git a/arch/powerpc/configs/locks_debug.config b/arch/powerpc/configs/locks_debug.config
+new file mode 100644
+index 000000000000..b2cb23de75db
+--- /dev/null
++++ b/arch/powerpc/configs/locks_debug.config
+@@ -0,0 +1,13 @@
++CONFIG_EXPERT=y
++CONFIG_PROVE_LOCKING=y
++CONFIG_DEBUG_LOCK_ALLOC=y
++CONFIG_DEBUG_ATOMIC_SLEEP=y
++CONFIG_DEBUG_LOCKING_API_SELFTESTS=y
++CONFIG_DEBUG_MUTEXES=y
++CONFIG_DEBUG_SPINLOCK=y
++CONFIG_DEBUG_RT_MUTEXES=y
++CONFIG_DEBUG_RWSEMS=y
++CONFIG_PROVE_RAW_LOCK_NESTING=y
++CONFIG_RCU_EXPERT=y
++CONFIG_PROVE_RCU=y
++CONFIG_RCU_TRACE=y
+diff --git a/arch/powerpc/configs/lockup_debug.config b/arch/powerpc/configs/lockup_debug.config
+new file mode 100644
+index 000000000000..ad0a79abf60f
+--- /dev/null
++++ b/arch/powerpc/configs/lockup_debug.config
+@@ -0,0 +1,4 @@
++CONFIG_EXPERT=y
++CONFIG_WQ_WATCHDOG=y
++CONFIG_DETECT_HUNG_TASK=y
++CONFIG_PANIC_ON_OOPS=y
+diff --git a/arch/powerpc/configs/mm_debug.config b/arch/powerpc/configs/mm_debug.config
+new file mode 100644
+index 000000000000..0e88eb983536
+--- /dev/null
++++ b/arch/powerpc/configs/mm_debug.config
+@@ -0,0 +1,24 @@
++CONFIG_EXPERT=y
++CONFIG_DEBUG_PAGEALLOC=y
++CONFIG_DEBUG_SLAB=y
++CONFIG_KASAN=y
++CONFIG_KFENCE=y
++CONFIG_KMSAN=y
++CONFIG_DEBUG_KMEMLEAK=y
++CONFIG_DEBUG_VM=y
++CONFIG_DEBUG_VIRTUAL=y
++CONFIG_DEBUG_OBJECTS=y
++CONFIG_DEBUG_OBJECTS_FREE=y
++CONFIG_DEBUG_OBJECTS_TIMERS=y
++CONFIG_DEBUG_OBJECTS_WORK=y
++CONFIG_DEBUG_OBJECTS_RCU_HEAD=y
++CONFIG_DEBUG_OBJECTS_PERCPU_COUNTER=y
++CONFIG_SCHED_STACK_END_CHECK=y
++CONFIG_DEBUG_VM_MAPLE_TREE=y
++CONFIG_DEBUG_VM_RB=y
++CONFIG_DEBUG_VM_PGFLAGS=y
++CONFIG_DEBUG_MEMORY_INIT=y
++CONFIG_DEBUG_PER_CPU_MAPS=y
++CONFIG_DEBUG_KMAP_LOCAL=y
++CONFIG_DEBUG_HIGHMEM=y
++CONFIG_DEBUG_STACKOVERFLOW=y
 -- 
-Tomeu Vizoso <tomeu@tomeuvizoso.net>
+2.56.0
+
