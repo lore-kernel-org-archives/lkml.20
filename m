@@ -1,57 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794929580;
-	b=XLmzgl0QeiT6X3G9bgeoy8uJL4r9LmdhxeYkJ2xbzwdSKs989ycYIfwUeRXcWAJoDZcI
-	 IJb3pckG5+BLPpRHYSTRKN/l4hXcYcRKHxER5R+9Zw6kwwUDZfiZaLr+ZPU2iO/5VMtKK
-	 LpZ6R1J1zhBT3sUmWSlqR7ad0qMK0j6lIdI1A1EhXUdPOw/g0RlTi3r7ev+hI7x/lUxmJ
-	 dihD91E4i0de9u1wTSb4LLoLuoh20IcIfnMo6GlHl1Az0gge3cyrDttOD+vh4nJ7gyyO0
-	 8Qm6+s5tF31zMg4vwb8DQH2v79r6qABltNt8EG1WUZFhibdw67oENKocjTd7IpSvM2Q==
+	t=1794929589;
+	b=A2jKcBMTrap3pXSBZ99xVKBtP5+UbGFU4gXwJTsBFwWn3HwrOC+AMPACoHju0aOHXl9s
+	 AcK7EnzczMwdz5IXdzQiZrjuJZcZj4OVoHaF2FyDQo7U1uDNheY2YFWXXfJI1uA++Ei7f
+	 mkVamWKpK6QM0rWwKdmQGzElGSvCHucDradKAKDE6czvFTvGj7vXX+buGnTPAEG8eyJaL
+	 q2Xgci0MCEi+kld6/zNNfo+spTDSDtTIgpcpCLoyFntAliQisIwJ2wkTyHzkj/hamaYmn
+	 P1KJe3C1x7rqLiTW8EYtiAmdNO2PjgAVxEov/6EWluLXzZKIvgmNNkXb5DxTorVKSWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794929580;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=2bfoJIlIIy5iLnYZGk3og+FlJiJ+PUUh9sRXWFXZJMo=;
-	b=NmFnm62KAOVfmx4QsbUp6bW84dYCZTWu71lRez2GeotjgKOihE/c2zZX2GRzdV1gRjEw
-	 JbdNAKgtlKqdXYCExOg5Kbybnn2dlYdQsLlLZ5c6YJGjflyEf2zxxjKP7g9mP6P32dDMK
-	 M88GTMi75Oo+zYswgYGH1UzQ3OJNvVEiOlvoK1zGyTQGbwMmyVu2KWO03oN0/rEKu1ryQ
-	 a/KDQ4nToK51sKmDoxOMtynG31HFuPtLVHflkAwZYWR86txk/SqYWH7OeKmtLUDl1Upyj
-	 8PJoJ8CfvytPGA4JEy1p1Is/oX2SuIj7Bk9eXx0aaBXrxWNGP8KqkxMuf8wSVuWSykg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794929589;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ic0ZV2l8vdmrXTqu+lMUrh7Ne4ma2q8MNEr28fS3hxw=;
+	b=OOuBJkj99K/ru0jFmmFEKUyA+j5fobTU4u2e4cUT2G7zKm+lcfY4kuDoEbxjwjOKzAZ8
+	 SCe7yj8IHc/8ybIVylNXsFjJOdUoTUXCUINIuu/zQ2DLzA8kB0wMrqTA58Gr7mt+Lzddr
+	 Uc8IbAHbj3ZLE15S8Kwcp3XkmHixlHYc9knKc0PwX6Xs1qt/ZjKTL3sBowkQek5uWEi4O
+	 nBsHds5lEzH9r0K4lzu1z2/4J4HifFLugaNrQPV6BYSmKxGRQFIx9yQYLm/IAfSkA9gHY
+	 YrZXk+TeZiJkPOyo4rAxeYOhCDmXZExG7GfRHc0XXnbvFOFRZz23+WCRxZj6elwFnqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ico5QK7A;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=dama.to;
+	spf=none smtp.mailfrom=dama.to;
+	dkim=pass header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="Nq2As/OY";
+	arc=none smtp.remote-ip=209.85.210.174
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DFF1606A31C;
-	Tue, 17 Nov 2026 15:33:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53CB5606A32F
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:33:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53CB5606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ico5QK7A
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0EC51F000C5;
-	Tue, 17 Nov 2026 15:32:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794929580;
-	bh=2bfoJIlIIy5iLnYZGk3og+FlJiJ+PUUh9sRXWFXZJMo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Ico5QK7A4Y/8HHnaQqUz/7H+nVG5hyFFhJuhpxsnqAIKCKB6PFYf8CK/PAbuMUfVp
-	 1oaJGOyoo37AYKfHda7pCXUQRx8nMUg2+AESubOJvXRIyTLsqiYl5Pu3KcQbXxlqnb
-	 u/+l7Q1t4FyjwUHNmhYznsYg9il8UVcortwAoYmVE7ixX8T0EAD5WJTbH+34H5xqiF
-	 8cEnlag4WCzYIMgk6c3OBg8tKr16X0LXWKixxGITPVtLjTx8CQObRi401HANWzoks4
-	 iUG6AwWFgZCqKhNFAFA8+dJB7Ns1wbsSPV6ukNOezLHIBt7oEDJ3IVFSdhm3cxs3/q
-	 YEQ6/WHWTZQNw==
-Message-ID: <sashiko-outbox-219085@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 28/40] sched/deadline: Keep a task in the root domain
- that counts its bandwidth
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
-In-Reply-To: <2c1a48adf25ac3528a1f88632bda53826db5399e.1794922146.git.mathieu.desnoyers@efficios.com>
-References: <cover.1794922146.git.mathieu.desnoyers@efficios.com>
- <2c1a48adf25ac3528a1f88632bda53826db5399e.1794922146.git.mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 15:32:59 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Nq2As/OY
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8a05b210703so2205640b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:33:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dama-to.20260707.gappssmtp.com; s=20260707; t=1794929588; x=1795534388; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ic0ZV2l8vdmrXTqu+lMUrh7Ne4ma2q8MNEr28fS3hxw=;
+        b=Nq2As/OYS8Rk/AJs+LfYrpJSfF6Buvx+xKdbIX4flq+eZrRjURbUNWDmvARrjsOMyp
+         G4Gx7PLMS4t+lD5oQcYMVZipAItazYPQ/M4meWE5SJxFxatVGe9ROPR8uYtsVXSKDFFO
+         ktD3ViGsehj7fvmOS+rsJFzMQP/LL7SrApPeoCrIZkRytaDjhZQ0X7IYsR5XOepFhFt+
+         JKJ3eI8Od+PvKhxlcvAMz0AvFtM/rG8vP7w8MNFXVtYOsThIy0qp3z1ylgviHTV2ORwT
+         6txojRUx4fE/Wz5UNh/Mhq0JSCVkqHb7tGYrHXiJfW2XoLH9t7s6zh9hLk+TgqK7sshF
+         VhkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794929588; x=1795534388;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ic0ZV2l8vdmrXTqu+lMUrh7Ne4ma2q8MNEr28fS3hxw=;
+        b=WUH91kTzDZzPaagIVDafdUOqIvQg487gOlMs4DjE08eNODtPLX8VikscBQh6b5OwRQ
+         nS+J+KCUrVxVzyCKmoUMvYKKAlS1q+BXP2CQoE4pNJINKaTlFIEJvfYefGNWw5Gisjtl
+         Zngvl3JeVvKsSuGIEpG0R93kWnQ5C9WX4aK+XYVHy65yE7eNjUZETJa9uCi0S+5Y5orc
+         /6llJKwIelRjKqjplberXry/LCLjQGvMigk2FLuM3r+fbhVVYMX36RDc6Gx3jWHqzIoA
+         ZVG6/FBrmYoqxge+iIJj+L9mERdjFf8V3O+Eq6p9iiRyU20RlQgOzETTx+Ew1Cne6mKK
+         iKbg==
+X-Forwarded-Encrypted: i=1; AL+hErHbYK/HSh3RBzHWtfnTcoGMsUTOh1wH7PG5vX23fBqd+DqBGbXb4f7U12QL1BhnGooikDPd4EIZ/w8TUeA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9bk9Z7PAj/Qc/epkdbMq2KXDNl9rkJWJyOGwHFpSBlutBQH/Mu
+	0AppbEW+0peEcqYFPbB11yqC3y78bgwReAMCQoBk74OYpkJP1uNCRoSDsKdd0WLMSxA=
+X-Gm-Gg: AYBFou3CKVAuoECynDcsFzqJ5Hotc2ML7ae8SFGzX65hwsKK31FNpFjsNKtFRoFcfxt
+	MoqcSlNNMmrYvzotSbeDzC7kspF7jSWjySt5rIgq1pUBAmpGN8Cb8qzjG5Mv5y1NnGs1zqYQQNC
+	vb7t6s3Wo4tB5aUSVWc8dRWh//TZYP5VOXYLrVvKWDyOhBFkHWJm1tsFSxydoVaYtCZwb1wMtpU
+	ztvKUQJizAITp6nYT9NjNnYK9gfak0Wy9YGPSaASmlWUf1hx7VupW53GvsMkKFaU8uiJJ7AtqfO
+	HogrYvm0FeyfjRZv5/g7ish1qVKwQwcc3NIA2wsMjI/mf+mICpjT/Lbie6US3cao6iBpM84nizl
+	AMcnIyJGsF6nW2eiVZ3woQ0OEl9K822DRaj63NDfQi/ZogZwNHABrOKr372BpGTXlW7U9eg2i0N
+	2++F9HdcVg/WZ0QXOe/5IRGPEzuZmndJ5IzEUQ4rV3JKbA3XI/kUJEsr0I6i21VtrhsSC9lxSS1
+	hKPzu0V7qFg6AokpdqIU0HrLwn9iIEMaC0VICYhYeUbgb2blLwMy6cfCqLztFKpd0+fJJev0r0B
+	1qjgMdfkRSgN1sJj8hpxJt6cklpFm4MghPo1x6kSMA==
+X-Received: by 2002:a05:6a00:17a8:b0:8a0:70ff:ab2c with SMTP id d2e1a72fcca58-8beb7e12866mr12534223b3a.57.1794929588396;
+        Tue, 17 Nov 2026 07:33:08 -0800 (PST)
+Received: from localhost ([2a03:2880:2ff:3::])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed12a8f63sm5517226b3a.9.2026.11.17.07.33.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 07:33:07 -0800 (PST)
+Date: Tue, 17 Nov 2026 07:33:06 -0800
+From: Joe Damato <joe@dama.to>
+To: Daniel Machon <daniel.machon@microchip.com>
+Cc: netdev@vger.kernel.org, Tariq Toukan <tariqt@nvidia.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	edumazet@google.com, horms@kernel.org, linux-kernel@vger.kernel.org,
+	linux-rdma@vger.kernel.org
+Subject: Re: [PATCH net-next 5/5] net/mlx4: flush pending doorbell when
+ dropping a TX skb
+Message-ID: <avxzsj1Ro8Mzazmz@devvm20253.cco0.facebook.com>
+Mail-Followup-To: Joe Damato <joe@dama.to>,
+	Daniel Machon <daniel.machon@microchip.com>, netdev@vger.kernel.org,
+	Tariq Toukan <tariqt@nvidia.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	edumazet@google.com, horms@kernel.org, linux-kernel@vger.kernel.org,
+	linux-rdma@vger.kernel.org
+References: <20261110231304.1859217-1-joe@dama.to>
+ <20261110231304.1859217-6-joe@dama.to>
+ <20261112134346.zvctvknj4mc5s2pm@DEN-DL-M70577>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,209 +112,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112134346.zvctvknj4mc5s2pm@DEN-DL-M70577>
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [Medium] sched/deadline: missing wake_cpu update in
-  __set_cpus_allowed_ptr_locked()
-- [Medium] sched/deadline: wrong root domain in
-  dl_task_offline_migration() on rebuild
-- [Medium] sched/deadline: missing READ_ONCE() on dl_bw_cpu in
-  dl_task_rebuild_cpu()
---
+On Thu, Nov 12, 2026 at 02:43:46PM +0100, Daniel Machon wrote:
+> > If mlx4_en_xmit drops an skb (for example because DMA mapping fails) and
+> > that skb happens to be the last one in the batch, the doorbell for the
+> > WQEs posted earlier in the batch isn't written.
+> > 
+> > The queue stays awake, though, so those WQEs are eventually announced to
+> > the HW after the next TX, but that depends on traffic and could induce
+> > latency.
+> > 
+> > Avoid all of that by writing the pending doorbell in the drop path.
+> > 
+> > Signed-off-by: Joe Damato <joe@dama.to>
+> > ---
+> >  drivers/net/ethernet/mellanox/mlx4/en_tx.c | 3 +++
+> >  1 file changed, 3 insertions(+)
+> > 
+> > diff --git a/drivers/net/ethernet/mellanox/mlx4/en_tx.c b/drivers/net/ethernet/mellanox/mlx4/en_tx.c
+> > index 123071a47bed..3166837711be 100644
+> > --- a/drivers/net/ethernet/mellanox/mlx4/en_tx.c
+> > +++ b/drivers/net/ethernet/mellanox/mlx4/en_tx.c
+> > @@ -1135,6 +1135,9 @@ netdev_tx_t mlx4_en_xmit(struct sk_buff *skb, struct net_device *dev)
+> >  
+> >  tx_drop_count:
+> >  	ring->tx_dropped++;
+> > +	/* an earlier skb in this batch may have deferred the doorbell */
+> > +	if (ring->doorbell_pending)
+> 
+> I think checking !netdev_xmit_more() here would let you ditch the new ring
+> state, but it seems bnxt does it the same way, so fine by me.
 
-commit fecf231094845bbb7da45c72106b5c90fffb123d
-Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+I need the state for the SW USO followup I mentioned in the cover letter.
 
-sched/deadline: Keep a task in the root domain that counts its bandwidth
+That aside, every mlx4 doorbell site today writes it only after posting at
+least one WQE. I think replacing this with !netdev_xmit_more() might write a
+doorbell with no new WQEs and idk if that is supported by the hardware. It
+looks like the XDP path gates against that specifically.
+ 
+> > +		mlx4_en_xmit_doorbell(ring);
+> >  tx_drop:
+> >  	dev_kfree_skb_any(skb);
+> >  	return NETDEV_TX_OK;
+> > -- 
+> > 2.53.0-Meta
+> >
+> 
+> Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
 
-This commit adds dl_task_bw_span() and updates CPU selection paths for
-SCHED_DEADLINE tasks to prefer CPUs in the root domain that accounts for
-the task's bandwidth.
-
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index e9f80407f75be..dc270a23179d5 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -3264,6 +3264,23 @@ static int __set_cpus_allowed_ptr_locked(struct ta=
-sk_struct *p,
->  			dest_cpu =3D ctx->dl_bw_cpu;
->  		if (!task_on_rq_queued(p))
->  			p->wake_cpu =3D dest_cpu;
-> +	} else {
-> +		const struct cpumask *span =3D dl_task_bw_span(p);
-> +		unsigned int cpu =3D nr_cpu_ids;
-> +
-> +		/*
-> +		 * No room was made for @p in another root domain. Keep @p
-> +		 * in the root domain that counts its bandwidth, if the new
-> +		 * mask holds one of its CPUs.
-> +		 */
-> +		if (span && !cpumask_test_cpu(dest_cpu, span))
-> +			cpu =3D cpumask_first_and_and(cpu_valid_mask,
-> +						    ctx->new_mask, span);
-> +		if (cpu < nr_cpu_ids) {
-> +			dest_cpu =3D cpu;
-> +			if (!task_on_rq_queued(p))
-> +				p->wake_cpu =3D dest_cpu;
-> +		}
->  	}
-
-[Severity: Medium]
-Does this leave p->wake_cpu stale when cpumask_any_and_distribute()
-already picked a dest_cpu inside span?
-
-When cpumask_test_cpu(dest_cpu, span) is true, cpu stays at nr_cpu_ids and
-p->wake_cpu is not updated for a sleeping task.  Because affine_move_task()
-does not move sleeping tasks, p->wake_cpu remains on the old CPU (such as
-an offlining housekeeping CPU during cpuset_hotplug_update_tasks()).  If p
-then wakes up during the subsequent sched domain rebuild while
-dl_task_bw_span(p) returns NULL, select_task_rq() and select_fallback_rq()
-can place p on an isolated CPU in def_root_domain and move its bandwidth
-without admission control.
-
-Updating p->wake_cpu whenever span is non-NULL and dest_cpu is in span
-(and !task_on_rq_queued(p)) would avoid this.
-
-[ ... ]
-
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index 6c6a4d9cd0548..e5f77d3c5fa03 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
-[ ... ]
-> @@ -901,18 +903,36 @@ static struct rq *find_lock_later_rq(struct task_st=
-ruct *task, struct rq *rq);
-> =20
->  static struct rq *dl_task_offline_migration(struct rq *rq, struct task_s=
-truct *p)
->  {
-> +	const struct cpumask *span;
->  	struct rq *later_rq =3D NULL;
->  	struct dl_bw *dl_b;
-> =20
->  	later_rq =3D find_lock_later_rq(p, rq);
-> +	/*
-> +	 * find_lock_later_rq() looks in the root domain of @rq. Once @rq is
-> +	 * offline, a rebuild attaches it to def_root_domain. That root domain
-> +	 * may not count @p. Do not take @p out of the root domain that counts
-> +	 * it while @p has an active CPU there.
-> +	 */
-> +	span =3D dl_task_bw_span(p);
-> +	if (later_rq && span && !cpumask_test_cpu(later_rq->cpu, span) &&
-> +	    cpumask_first_and_and(cpu_active_mask, p->cpus_ptr, span) < nr_cpu_=
-ids) {
-> +		double_unlock_balance(rq, later_rq);
-> +		later_rq =3D NULL;
-> +	}
->  	if (!later_rq) {
->  		int cpu;
-> =20
->  		/*
->  		 * If we cannot preempt any rq, fall back to pick any
-> -		 * online CPU:
-> +		 * online CPU. Try the root domain that counts @p first.
->  		 */
-> -		cpu =3D cpumask_any_and(cpu_active_mask, p->cpus_ptr);
-> +		cpu =3D nr_cpu_ids;
-> +		if (span)
-> +			cpu =3D cpumask_first_and_and(cpu_active_mask,
-> +						    p->cpus_ptr, span);
-> +		if (cpu >=3D nr_cpu_ids)
-> +			cpu =3D cpumask_any_and(cpu_active_mask, p->cpus_ptr);
-
-[Severity: Medium]
-Can dl_task_offline_migration() still move a throttled task and its
-bandwidth into def_root_domain when dl_task_timer() fires during a sched
-domain rebuild?
-
-CPU0                                     CPU1 (<hardirq>)
-sched_cpu_deactivate(H)
-  sched_set_rq_offline(rq_H)
-  cpuset_cpu_inactive(H)
-    partition_sched_domains_locked()
-      dl_bw_rebuild_begin()
-      detach_destroy_domains()
-        cpu_attach_domain(def_rd, H)
-                                         dl_task_timer(p)
-                                           dl_task_offline_migration(rq_H, =
-p)
-                                             find_lock_later_rq() -> iso_rq
-                                             dl_task_bw_span(p) -> NULL
-                                             p->dl.dl_bw_cpu =3D iso_rq->cpu
-      dl_rebuild_rd_accounting()
-        dl_add_task_root_domain(p)
-          dl_task_rebuild_cpu(p) -> iso_rq->cpu
-
-While dl_bw_rebuild_seq is odd, rq_H is already attached to
-def_root_domain, so find_lock_later_rq() searches def_root_domain (or
-cpumask_any_and() picks the first active CPU in p->cpus_ptr, which can be
-an isolated CPU).  Because dl_task_bw_span(p) returns NULL during the
-rebuild, the check above does not reject the isolated later_rq.
-
-Unlike migrate_task_rq_dl() and task_woken_dl(), which skip moving
-bandwidth while dl_bw_rebuilding() is true, dl_task_offline_migration()
-then unconditionally subtracts p->dl.dl_bw from src_rq->rd->dl_bw (which
-can underflow total_bw before dl_clear_root_domains() runs), adds it to
-def_root_domain, and overwrites p->dl.dl_bw_cpu with the isolated CPU.
-Both the rebuild and later wakeups then treat def_root_domain as the root
-domain that counts p.
-
-[ ... ]
-
-> @@ -3987,17 +4075,37 @@ static unsigned int dl_task_rebuild_cpu(struct ta=
-sk_struct *p)
->  	 */
->  	cpumask_and(msk, &p->cpus_mask, cpu_active_mask);
->  	cpu =3D task_cpu(p);
-> -	if (cpumask_test_cpu(cpu, msk) ||
-> -	    (cpu =3D=3D recorded && cpu_active(cpu) && task_on_rq_queued(p)))
-> +	if (cpu =3D=3D recorded && cpu_active(cpu) && task_on_rq_queued(p))
->  		return cpu;
->  	if (cpumask_empty(msk)) {
->  		if (recorded >=3D 0 && cpu_active(recorded))
->  			return recorded;
->  		dl_get_task_effective_cpus(p, msk);
->  		cpumask_and(msk, msk, cpu_active_mask);
-> -	} else if (recorded >=3D 0 && cpumask_test_cpu(recorded, msk)) {
-> -		return recorded;
->  	}
-> +	/*
-> +	 * Keep the bandwidth where it was counted: with the housekeeping
-> +	 * CPUs, or with the CPUs that isolcpus=3D"domain" isolates. The root
-> +	 * domains are new, and the CPU recorded can be offline. So prefer a
-> +	 * CPU of the mask of the same kind as the CPU recorded: housekeeping
-> +	 * or not.
-> +	 */
-> +	if (recorded >=3D 0) {
-> +		const struct cpumask *hk =3D housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT);
-> +		bool rec_hk =3D cpumask_test_cpu(recorded, hk);
-> +		unsigned int same;
-> +
-> +		if (cpumask_test_cpu(cpu, msk) && cpumask_test_cpu(cpu, hk) =3D=3D rec=
-_hk)
-> +			return cpu;
-> +		if (cpumask_test_cpu(recorded, msk))
-> +			return recorded;
-> +		for_each_cpu(same, msk) {
-> +			if (cpumask_test_cpu(same, hk) =3D=3D rec_hk)
-> +				return same;
-> +		}
-> +	}
-
-[Severity: Medium]
-Should p->dl.dl_bw_cpu be read with READ_ONCE() when initializing recorded
-in dl_task_rebuild_cpu()?
-
-dl_add_task_root_domain() calls dl_task_rebuild_cpu(p) while holding only
-p->pi_lock, before acquiring dl_departed_lock.  Concurrently, a dying
-deadline task in its final __schedule() holds rq->lock and
-dl_departed_lock (not p->pi_lock) and can write p->dl.dl_bw_cpu =3D -1 via
-task_non_contending() -> dl_task_release_bw().  Because recorded is loaded
-with a plain read and used after calling housekeeping_cpumask(), the
-compiler is free to reload p->dl.dl_bw_cpu after the recorded >=3D 0 check
-and pass -1 to cpumask_test_cpu().
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794922146.gi=
-t.mathieu.desnoyers@efficios.com?part=3D28
+Thanks
