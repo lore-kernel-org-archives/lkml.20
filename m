@@ -1,49 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794936157;
-	b=hV9zDU1cw7k1gIsqeETbQnuUKTZYM7Jx34bH5ZcQR8VPu8HQ6siLds+o7BblhjLEuk9U
-	 u+WDUPheBYa9L281R0haLWi4FpWzRhGvGF5GZYNU8qutID/g5fIGtzxB6xPnedYtiuUIx
-	 5+6pk27VlYkMsiED3pqCx0Cc9BVDkpCfOyyiDip2VTkMqIV8GUiHoqRehcdLB5Ee3OiaK
-	 Lw+pgknWCnI2C5qdWFqA/rjRkbVFYiWLt/kq2J18LYYfqKZuY9IQjC9+tg9u2C8H9ttmW
-	 9iP1mbrjFQa+i24hI8xYQNcfgzQ8RN5zNc4q33yOyElB9fjEjW8M+u2N6QOdvMFBPfQ==
+	t=1794936190;
+	b=GcPu95TIlw3gJti4fyFZzAWMFbuFGVhxjtji3oNSe2EuqirDeM1WIg1MsIxOHaLtRohX
+	 v+JceXQw50coSuaQlmChxiGo+Rc6D3OCZWVIAZvSSx9UTpuITXXgsBEDytgdYRcsXMtcs
+	 nNRDU2Ivz3Hy7fKRhSkNeNgBnY1PQEZ6tTNhVRPrCEUmBzcpgEvnwF+c6TSZ5KTF0u1Jw
+	 j5uprqUibCNjWPPAiuV/QKlE4FSZ9UvL6P+RaSPlviaNb9LNNJRQeHH7DHzPlrtFd2++W
+	 EsvmJKPpC1lFcPuQvwVtHQthAZGITxhRka0RZ49klWqSgiIqZUR0YEpsEmMuWAgHvmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794936157;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=K8c9i2c9pA77ON1bwB34pN+TouNHlVdKNHMldunC6Ho=;
-	b=qVxGHWFNlDoxFl8YaQmjH3gL5GzxVEC1m3Yzbn3v0pS/09bIgNgnGY21uoySE9FXWaZ9
-	 n2yMvRg3EoEidQsEulZRsdZGZEJepk4gW/RT4Jv2BYPsoT3DJvQFDTm5O2ZEptgQdwmI0
-	 y3419aKLNz7onWXQT2ia5KgQS92EmNlzjvUjEyjg/6wM3E8Sram+RDFquJN+f0p3apP2X
-	 ced+cHl5aGQ844EtIn6xORwt3YeoFPOEx2XbpV3V3mzbg0vChYY94B98SieJMxOz+2Wu1
-	 SFQUSpufNL5Wt3aLTHhhZMbVCgstlpF2+7Ano+trOl4WFix5ZNhTdKMhl0+Nf2sGVDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794936190;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=1xPsU54hJeiHMuz5s3ANZmZSG1cvsb4sESiD5rFdM9c=;
+	b=QsXrpuXDx/pqnteD3Ug75FpQMvu5vDa4LfpZui5YzGvtT4iBdQl3XXeR3ogXgRWnziUH
+	 rDZMG/gyHkeQk0Cx6PG7wnMDDRTtMRHX1cA+ETrEoGFJVMwWGQzO5CV10TRAUZulznAau
+	 gZFqn9qjmhZAUQD+OfDINvWePajnQm3RMQpBltwg1yfN8x89Swv68P993kCWo4JyNGfkO
+	 s/ufogOUFpuxOqMuSKajvc4suRScgq/AkFshKTa5rZ4v/uLwbL7zJNIlQyBLbdMT36s/+
+	 SNC/4lHSw+TnmeAbupu0Td0fRb1+L0SQKMZQ9rqPWiZbnZ5V1y1B0MFsqhcKXe57fkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="JrhUs/dN";
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6C366606A88D;
-	Tue, 17 Nov 2026 17:22:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C366606A88D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=okOepPWP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83AEB606A31C;
+	Tue, 17 Nov 2026 17:23:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JrhUs/dN
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D7C281A00;
-	Tue, 17 Nov 2026 09:22:33 -0800 (PST)
-Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 06AAE3F632;
-	Tue, 17 Nov 2026 09:22:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794936156; bh=jCf/7a/YsnLbBlVT2TCDpR5Rx5MDswY+TpQ4UF++u2c=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=JrhUs/dNEIiQrr+/fgwKCnNl6TD35vdP16BsU/ZIFqsA/KLgpTVbHKprOfL+6wMok
-	 H/uYWKOGIDQNUILCf/caFLrLO3Q5XIqFEFcPcQyeDiMc5+uv0k4Gz2CyXPaUQtIt5Z
-	 y6oTZAuRVjiWbda/dmaY3wYF6OGb9v+JzHIhEJ90=
-Message-ID: <76d4d8ee-801d-426f-bda9-2ed8b9a074e0@arm.com>
-Date: Tue, 17 Nov 2026 18:22:37 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=okOepPWP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13C021F000C4;
+	Tue, 17 Nov 2026 17:23:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794936190;
+	bh=1xPsU54hJeiHMuz5s3ANZmZSG1cvsb4sESiD5rFdM9c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=okOepPWPDAEa/fLMSHEtq8RIGPhEkyThXI5rTj9Co98KzmksqzLsE7nq/3Pk+O0g/
+	 wyuC5nza1JoZusAMofsrgGy59SJ7C5QpjXmw6me2ekp7uMjQqs68pQ6I4JE9B1d5rI
+	 VA+j7ZKVyA6u1zNp6bEcLV7vOMV41NhtP/uBcMLCL84t+dc0YvD738YsfFAkW8/dBI
+	 eysiTjqiFdvRtThdK5ehi8MBfzGWcFg/c7YVrGRWgTvkOThoW6SOl3nI8Ow/gh6J0V
+	 SNq7UYtqnQMbde3JenA0aAwyY7s0bBqMIJLF2D7SQVN9j5WpnAiZ4F0DgrnPyjeE/o
+	 Iwc1PXn25u0Rg==
+Date: Tue, 17 Nov 2026 11:23:07 -0600
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Dinh Nguyen <dinguyen@kernel.org>
+Cc: bp@alien8.de, linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org,
+	tony.luck@intel.com, conor+dt@kernel.org,
+	devicetree@vger.kernel.org, niravkumar.l.rabara@altera.com,
+	rounakdas2025@gmail.com, krzk+dt@kernel.org
+Subject: Re: [PATCHv4 2/4] dt-bindings: edac: altera: agilex5: document new
+ edac support
+Message-ID: <179493618746.2836620.17399291348633315970.robh@kernel.org>
+References: <20261116202854.3087673-1-dinguyen@kernel.org>
+ <20261116202854.3087673-2-dinguyen@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,73 +60,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] pinctrl: sunxi: a733: do not switch the mux to read IRQ
- lines
-To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
- Linus Walleij <linusw@kernel.org>, linux-gpio@vger.kernel.org
-Cc: Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec
- <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>,
- Bartosz Golaszewski <brgl@kernel.org>,
- Enzo Adriano <enzo.adriano.code@gmail.com>,
- Pablo Mazzini <pmazzini@gmail.com>, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20261110130157.112155-1-vinicius.eduardo.pedrosa@gmail.com>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20261110130157.112155-1-vinicius.eduardo.pedrosa@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116202854.3087673-2-dinguyen@kernel.org>
 
-Hi,
 
-On 11/10/26 14:01, Vinicius Pedrosa wrote:
-> The A733 description sets irq_read_needs_mux.
-
-ouch, I missed that, sorry about that. I removed that even explicitly 
-from the A523 ...
-
-> When a GPIO used as an
-> interrupt is read, sunxi_pinctrl_gpio_get() then switches the pin to
-> input and back to SUN4I_FUNC_IRQ, which is function 6. The A733
-> interrupt function is 14, so after the first read the pin is left on
-> function 6 and its interrupt no longer fires.
+On Mon, 16 Nov 2026 14:28:52 -0600, Dinh Nguyen wrote:
+> The Agilex5 EDAC module supports ECC on a few additional peripherals. Along
+> with support for ocram, ethernet and USB, the Agilex5 EDAC adds support for
+> SDM QSPI, CRAM SEU and IO96B.
 > 
-> On my board this breaks microSD card detection: the PF6
-> card-detect line is read at probe, and after that neither removal nor
-> insertion of the card is noticed.
+> The Agilex5 EDAC also exposes up to 7 named interrupts on the manager
+> node. global_sbe and global_dbe are aggregate single/double-bit error
+> interrupts that fan-out through the manager's IRQ domain to the child
+> peripheral ECCs. The remaining named interrupts are routed directly from
+> dedicated controllers (IO96B memory controllers and Secure Device Manager)
+> to the GIC.
 > 
-> The A733 data register reports the pin level while the pin is muxed
-> to the interrupt function, so the switch is not needed. The A523 and
-> D1 descriptions do not set this flag either. Drop it.
-> 
-> Fixes: 0535bfbfa97b ("pinctrl: sunxi: add support for the Allwinner A733")
-> Signed-off-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-
-Reviewed-by: Andre Przywara <andre.przywara@arm.com>
-
-Thanks,
-Andre
-
+> Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
 > ---
-> Tested on a Cubie A7Z with the pending A733 clock, PMIC and DT series
-> applied: before this change PF6 read back function 6 and card removal
-> and insertion were not seen; with it PF6 stays on function 14 and one
-> removal/insertion cycle was detected.
+> v4: constrained interrupts and interrupt-names to 7
+> v3: Add minItems for interrupts
+>     Add constraint for interrupt-names
+>     Add interrupt-name as false for non
+>     "altr,socfpga-agilex5-ecc-manager" platforms
+> v2: add if/then to enforce maxItem of 2 interrupts for older platforms,
+>     and 7 for Agilex5
+>     add if/then to enforce interrupt-names as required property for
+>     Agilex5
+>     enum altr,socfpga-s10-ecc-manager and altr,socfpga-agilex5-ecc-manager
+> ---
+>  .../edac/altr,socfpga-ecc-manager.yaml        | 90 ++++++++++++++-----
+>  1 file changed, 66 insertions(+), 24 deletions(-)
 > 
->   drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c | 1 -
->   1 file changed, 1 deletion(-)
-> 
-> diff --git a/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c b/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
-> index ca82f08a3a65..456d9170c2a2 100644
-> --- a/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
-> +++ b/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
-> @@ -23,7 +23,6 @@ static const u8 a733_irq_bank_muxes[SUNXI_PINCTRL_MAX_BANKS] =
->   
->   static struct sunxi_pinctrl_desc a733_pinctrl_data = {
->   	.irq_banks = 10,
-> -	.irq_read_needs_mux = true,
->   	.io_bias_cfg_variant = BIAS_VOLTAGE_PIO_POW_MODE_SEL,
->   };
->   
+
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
