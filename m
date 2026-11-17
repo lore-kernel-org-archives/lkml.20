@@ -1,47 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794903943;
-	b=AbetzXgp9saUvR5epSwL+867dxBqbAR2u4tg2aNVT9wT/NGQjt3hqxQS+hBqcbuD7p2E
-	 Y0crkbROLFYBOvftcnRdqocY8iGdwTiTgYAPOhF4+DAgYDLKeF0Ob83NHoK3MYzDizjXZ
-	 rd5iO1wQjWm4dADZYt5H6FhmFuERX7Gi+2PBO2auoVxY9HVgDROU27FSXVqrRssA7xUOG
-	 ouMsGT//lAgDOSGeNRT0bMrR3CUve3G46V7jx+GhHwahOur3LJdrxt4CLICb6HPJ3T+C4
-	 iD1eReCGn+Oru4ZHQOlehs+0my8rxG9DDrVZXI+we/6StzUbo7Ayl3ha3rStiK0IsFw==
+	t=1794903967;
+	b=g0gdCrhW342tac+MPUCNwfkEZWFWeS6uRC2vGYEAedKbZuxM5ymwLChP+9Tku67tfs3b
+	 1Gq+enIPntVq1FLo2zuGGccKmK7ELbn3DWk18ctZ+Hcgx++uP3q8PTSDRAoam4kSWbFl5
+	 FiNsZ4I3WXuEJCRe4qFJ+i9Xgg8w1XFyF1B3gOPNjnEf/Zx/zDvagWCRD7Nl4E7DS5OtM
+	 zt1Z/8Tj1kYSQKAuMS0pD/bupTmqXfKKB4/lDvFEy+SAA78CJ1tYyb3eDrmxFdzQ8jMQz
+	 EFAhGB7dZzccWtSG9bPlzocszdijpnR3SY9cGxlWktOxc1R5FBMp71gFQhagTWCEXYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794903943;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=+hujyyJhAtV9+j0TPvcHHV2OIVquZfJfleCKzkG+n+Y=;
-	b=ufM7L9ychmJhvbJ3ZrzUQnjuc9rzb7ML4h6X74TZNu8CJh0qTgrp42tEL2K1DNDOlbwB
-	 YXi9sBUDbnKwE7Cw0o7BGs+Qpq2E9yGuQywkOmTkyiI2Gr3OITu7eeStGK+03BJOj/5KY
-	 A8ZVw6ih1ryT5N9q7FA21A3J6D30+6uZsA5fMvA2GWI0exIV18AYmttH42+I5xEFTnShe
-	 Zhlke9XBPLoTEM+RG8MIBdQLjBIHNtyztA+6cltLSlgsplQp878yRXXpexqZOc/stpeg9
-	 e2qrH3uzY1Uwrbflr7Q/y3EJq8WQtUsEkd2EMTZ2ROhPm40oGBeLpO4TE05QjhpMBTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794903967;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=z/NZRmC5bENRF/WsK1hUt6gARTy1xozW3x04wBCWbAk=;
+	b=cvr0xsduTH3tSxVauXmV+Vxcg44f9jmX18kFYaTv9G/VinizrucwpUyx1IhIvfr9wT89
+	 Zyqyx1JULS0/tCbPaYCiKZdEkzIj+jDq8O1eNOCIhI6zqmZVSWLHA5Liea1jEBTCnzAar
+	 V+rA2F6urNlp/Q03F+FNEAn5tVZTAEr97D3u4XpsFvpR2lUbtt9eY7y4+8qpOMau4Jhjp
+	 c8v0NP2Vz3P9DWAGIB/phMrw01jdGiPCXcbBhA3VRT4FvJB2IoC8H2vfiCYwqB8i7gr6r
+	 cBsRCfLgRy+ascF4wcVDW+h8tQJMDP6SB4eoh/OoavzoAzin9Xu29WZE4e2dyk5DQPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Ph5A7mc/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=amutable.com;
+	spf=pass smtp.mailfrom=amutable.com;
+	dkim=pass header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=cds43TFp;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3543606A880;
-	Tue, 17 Nov 2026 08:25:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05280606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:26:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05280606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ph5A7mc/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5E651F000C5;
-	Tue, 17 Nov 2026 08:25:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794903942;
-	bh=+hujyyJhAtV9+j0TPvcHHV2OIVquZfJfleCKzkG+n+Y=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Ph5A7mc/DTICXLffxM//Teh42HusVR1+ZEw2K90Oe2JJ35j0et/QAQtx13zhz5FXR
-	 jPn1TDkoxtDQat2UPHH1gn+PPTHKJAHcf04I/1TEYl68JGR3s5yoobb6KIsFknIotA
-	 YOKjf+wA8CGQlFWMcGp5biKG1WUBFsTpnP5v4vUUhhPJrwJ4n0TEaeGdLMYMMw88tP
-	 BSy2ccJivwOBwyZgEdF3nkH70HpiU/JCVtlQkwMt7wNdYIyQsBAmBw1hAC9cx5IFL8
-	 KhFsu+574EiUUQyiro0r+xrcgKopOYBdfMq+JZWJDBH511MRixEF9aGjmB+liMljx3
-	 8f6kJdO/+VsvQ==
-Message-ID: <eaabb4ff-c748-4123-93b8-f49684600c71@kernel.org>
-Date: Tue, 17 Nov 2026 09:25:36 +0100
+	dkim=pass (2048-bit key) header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=cds43TFp
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4bb55cda775so4353915e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 00:26:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amutable-com.20260707.gappssmtp.com; s=20260707; t=1794903965; x=1795508765; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=z/NZRmC5bENRF/WsK1hUt6gARTy1xozW3x04wBCWbAk=;
+        b=cds43TFp7I9j7WPcDQvYfHpQ9LovbzzVif9J1GAb84gdrUsjaaD/ks8/CxWEGRZF0/
+         68hyeBKuGnu6JbonI+DUrAk+S9ERoS7tOFFA4H5eAQDr7L4jclXV2ELfZ8mKm2Ufg0Vf
+         wmDFKHpSFXtb9q6HdOEKHOgWOeHJI7n45fohFUmuSejGQMSPwWlozLhppiRP7NP6/RTN
+         Xh3C0JkZ12tnXvLGCknth+xcOYp3m/oSfXqUlVI9cwzFe0Rue3P0S85bM03sQyFUoXwh
+         8JJkMFcg0oB6zhSAQwaixAlqp7dYBZf2pow5RK/cSK97CWugz7jqMDtCMqYWg5eRSPcE
+         y3pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794903965; x=1795508765;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=z/NZRmC5bENRF/WsK1hUt6gARTy1xozW3x04wBCWbAk=;
+        b=CYEL6AfJ8l8Fe/aUe4zKX3azR4RE1bo0Ju2fvQ7GmLr4WpX4E8Y17zmJOw0Mhfte5y
+         t0G8GkrSIzuDMFabxjFYDZMuZegjuN1YJyqZ5BCQzpo+eUQMJCBCVOqGksQ9NKD8AsbZ
+         SUrDUC7aljx3QqMbgbaNe6j0uKqOryE5Slw9FVuq/2QkjRKsUE1+LPB/OGfay7gZCIFj
+         Tk9glW4i2AgE2f9yAGVpGoSER1PWqhAgjKJpNzhkGASJNuqPrMFKm9xuP57qSMW/ro7l
+         vCAf0NKpq9Y5YiJGC5/NZa7HW9AbA1RA94S084XxcjOYN3Oe287b3wNHnVE2AyiQVz4d
+         LvYA==
+X-Forwarded-Encrypted: i=1; AL+hErFJ3BVvG3ozsoS58BEya1Jzw/MUxWja12CC2Z5OxjsQKl/Byiu+BQrjSk4L4ylJc6tvbfQWrTf+gLd3Q1k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Dc4zIVgMHzMu3k8yOShnOLYMcW21YdVuK9mViTaz1Wd6nLHGs
+	JMDlvdCW7vxtfxShK0nIpt4aCnSfDCYemoW+Hfmt5vXKqPjY+BWw68ZHl07Tcw4dxo6+
+X-Gm-Gg: AYBFou38eoTuA8Uz9mnzZfK+PZPLfcLS+RNtEvnGELLi5j0sS3V4MXamztwBm5A6xii
+	pWNmAeoBd7qGEsbdxnkM4HeHzyCMVlUiGoRIkVrUbmT6rEZi6NBzDTLUNAS95L1pIiJ0golamBk
+	hKYFQg/WhI7MpzNzbiGngEh8fiFguIHRqaYFcW8PbLVY7K68Mcbalkx1snkuzWS9pu0mrutwclN
+	BVSDEbrile0+jTKGStNF7r0GZnX8dbC+YudZHok63yyIWYGSrLAY5y5thpv3oJRan3WWEgW6Tgn
+	02D7/B2wGTLMExfHgH1Zus7JAPXvtnIe4fQCOXUtor7p58XhyXMLh0zrv3LHXquqyv6+uL2uEZL
+	aZuGAwm+N9ul4ilsGrTtV8DOQxxsXHoVKFrYVDmo9B93572dZL/bkMRwtNZEnEWLsE7BBpqgQMx
+	yJSBL9pSEMU3dpf2z59r5ZHE0W7CXTEsi4x8j1ElrHlgt9J3Qh8v0MX/WWhHMK5ZVj9juebtdCb
+	DSaLlJjxmPUBaPoXKC0iEA2QC6UICu05fjUSv3l9TKaKuEBIsqy6wsSvaUTiRuukLsfEe4sqrVk
+	ZUU9bCegKsQZopW/be14ZAYG07WTnu4J9ijdwRTN08nj7LSHcNed0gdLdppfiPEWo0jgeW7qQG8
+	XaTqmpFFXfSXV9tjW0phn7ZF60/2ckjuDFhcyiulTQw6wiV8u9LewDD6E
+X-Received: by 2002:a05:600c:5493:b0:4a1:c27d:e1a8 with SMTP id 5b1f17b1804b1-4bb783813a7mr42606245e9.10.1794903965400;
+        Tue, 17 Nov 2026 00:26:05 -0800 (PST)
+Received: from ?IPv6:2003:cf:572c:2800:de4c:6789:33ce:97c2? (p200300cf572c2800de4c678933ce97c2.dip0.t-ipconnect.de. [2003:cf:572c:2800:de4c:6789:33ce:97c2])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb7ad9430asm12629125e9.15.2026.11.17.00.26.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 00:26:05 -0800 (PST)
+Message-ID: <88041240268f70b218de7dfd58c41977d03a60d3.camel@amutable.com>
+Subject: Re: [PATCH RFC v3 03/44] target: fileio: check that the backing
+ file supports ->{read,write}_iter
+From: Alexander Mikhalitsyn <alex@amutable.com>
+To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
+Cc: Jann Horn <jannh@google.com>, Chris Mason <mason@kernel.org>, Josef
+ Bacik	 <josef@toxicpanda.com>, Christoph Hellwig <hch@lst.de>, 
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org,
+ target-devel@vger.kernel.org, 	driver-core@lists.linux.dev,
+ linux-mm@kvack.org, bpf@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
+	apparmor@lists.ubuntu.com, linux-nfs@vger.kernel.org,
+ netdev@vger.kernel.org, 	fuse-devel@lists.linux.dev,
+ linux-efi@vger.kernel.org, 	xen-devel@lists.xenproject.org,
+ ocfs2-devel@lists.linux.dev, 	linux-s390@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, 	linux-usb@vger.kernel.org, Amir Goldstein
+ <amir73il@gmail.com>, 	linux-erofs@lists.ozlabs.org,
+ linux-kselftest@vger.kernel.org, Chris Down	 <chris@chrisdown.name>
+Date: Tue, 17 Nov 2026 09:26:03 +0100
+In-Reply-To: <20261116-work-loop-pseudo-v3-3-8cbbea1cf34f@kernel.org>
+References: <20261116-work-loop-pseudo-v3-0-8cbbea1cf34f@kernel.org>
+	 <20261116-work-loop-pseudo-v3-3-8cbbea1cf34f@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,118 +116,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] arm64: dts: rockchip: Add IEP2 deinterlacer to
- RK3588
-To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Arun Iyengar <aiyengar1990@gmail.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Hans Verkuil <hverkuil@kernel.org>,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Alex Bee <knaerzche@gmail.com>
-References: <20261115-iep2-v2-0-3d8798cd9a55@gmail.com>
- <20261115-iep2-v2-3-3d8798cd9a55@gmail.com>
- <20261116-luminous-heavenly-guan-b20f2e@quoll>
- <yRxnTArhQFiS4u_tncJj-g@sntech.de>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <yRxnTArhQFiS4u_tncJj-g@sntech.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On 16/11/2026 19:32, Heiko Stübner wrote:
-> Am Montag, 16. November 2026, 13:35:28 Mitteleuropäische Normalzeit schrieb Krzysztof Kozlowski:
->> On Sun, Nov 15, 2026 at 08:47:44AM +0000, Arun Iyengar wrote:
->>> Add the IEP2 deinterlacer and its IOMMU to the RK3588 base dtsi. Both
->>> share GIC SPI 117 and sit in the VDPU power domain.
->>>
->>> Addresses, clocks, resets and the interrupt are taken from the Rockchip
->>> BSP rk3588s.dtsi (develop-6.1).
->>>
->>> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
->>> ---
->>>  arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 22 ++++++++++++++++++++++
->>>  1 file changed, 22 insertions(+)
->>>
->>> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
->>> index aa69fd3793fd..5297519bd251 100644
->>> --- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
->>> +++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
->>> @@ -1397,6 +1397,28 @@ vepu121_3_mmu: iommu@fdbac800 {
->>>  		#iommu-cells = <0>;
->>>  	};
->>>  
->>> +	iep: deinterlace@fdbb0000 {
->>
->> Why all these are outside soc node? That's more of a question to
->> existing code...
-> 
-> Many years back, during the RK3288 addition I got the comment from the
-> arm-soc maintainer to drop the soc node [0]:
-> 
-> "[...] this isn't how we tend to do it any more (unless all devices
-> are physically on a bus, but then it should probably be named something else
-> than 'soc')."
-> 
-> So since then we didn't have soc nodes. Except in time for the RK3576, the
-> tune has changed, so socs from then on have a soc node again ;-) .
-> 
+On Mon, 2026-11-16 at 12:04 +0100, Christian Brauner wrote:
+> With fd_async_io=3D1 the fileio backend calls ->read_iter() and
+> ->write_iter() of the backing file directly. The synchronous path
+> goes
+> through vfs_iter_read() and vfs_iter_write() which check for them but
+> the aio path doesn't. So a backing file without them calls a NULL
+> pointer on its first I/O.
+>=20
+> Refuse such files when configuring the device. On the synchronous
+> path
+> every read or write that needed the missing method failed with EINVAL
+> anyway.
+>=20
+> Fixes: 769031c92c8b ("scsi: target: target/file: Add support of
+> direct and async I/O")
+> Reviewed-by: Jan Kara <jack@suse.cz>
+> Reviewed-by: Christoph Hellwig <hch@lst.de>
+> Reviewed-by: Chris Down <chris@chrisdown.name>
 
-I think the comment was misplaced and misunderstood. Indeed non-MMIO
-nodes were not supposed to be in soc. But the MMIO node are under
-MMIO-bus, which usually we call soc.
+Reviewed-by: Alexander Mikhalitsyn <alex@amutable.com>
 
-It's documented also writing-bindings, since 2019, though :)
-
-Well, not a blocker for this patch and I leave it to you what to do with
-existing and new DTSI.
-
-Best regards,
-Krzysztof
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+> ---
+> =C2=A0drivers/target/target_core_file.c | 8 ++++++++
+> =C2=A01 file changed, 8 insertions(+)
+>=20
+> diff --git a/drivers/target/target_core_file.c
+> b/drivers/target/target_core_file.c
+> index ab9824a4852f1..a5391e57e9aa5 100644
+> --- a/drivers/target/target_core_file.c
+> +++ b/drivers/target/target_core_file.c
+> @@ -144,6 +144,14 @@ static int fd_configure_device(struct se_device
+> *dev)
+> =C2=A0		goto fail;
+> =C2=A0	}
+> =C2=A0	fd_dev->fd_file =3D file;
+> +
+> +	if (!file->f_op->read_iter || !file->f_op->write_iter) {
+> +		pr_err("FILEIO: %s lacks ->read_iter or -
+> >write_iter\n",
+> +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fd_dev->fd_dev_name);
+> +		ret =3D -EINVAL;
+> +		goto fail;
+> +	}
+> +
+> =C2=A0	/*
+> =C2=A0	 * If using a block backend with this struct file, we
+> extract
+> =C2=A0	 * fd_dev->fd_[block,dev]_size from struct block_device.
