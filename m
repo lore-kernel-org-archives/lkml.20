@@ -1,100 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794885328;
-	b=wRDGVrPmo7i4k3fbRo+h+IFQyheNsQjJnaW8sGktPMH/ZemJM9ygdE2wqOM75cpHmwn0
-	 ufx1nRHNOabwJx8NxPNv8QmeeGR3Dj4+/wY68e5CDgvuH4vEK+HPlT8OA5/XZ/OPjhBvo
-	 c3rxt6LSKUQrjAXShZH/l0ayQ/cJdcEzuTtqsLCwCWtjw49ADbnqRu1t2Y/heJnELCJrM
-	 NOd7ih3GlZFgSlPtqh4NrSel6YW3J1ii+zb4qI5fKv2wsh7JAdDQF6Xs/fQBhVqiMDjvN
-	 n1ipAYEcUMX33gPc9YuaiK8Ip/JQ1wuSNWIDFnW4C9Ywt7ixuUONrYzTq6wGNBM4JWQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794885328;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.179
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794885358;
+	b=xnXLztfX81RuT+kNfK+kBYJYnYY/o+b4JOtH/ZevY9sEMhn6qxf7QbmbK9BjuJBkbgv5
+	 D7t2RcMy9oZHQOWw25ezHREr6kW09FT/+aAnY5TMopqP6a4wxVGjhr3WBGazEtAfHBbuE
+	 3GmPgmXVhNeMPDUCve8OOqca/gjgguuF3tO6NRaOH6L2sUpqHUaOxrXqXfVVGxsZ/2M7v
+	 WV9FnRjE8M1qIXZo1EyHPnT8oc257Mr0Sg17AgBrcOgNGdtIy4WOKIKjK+q5L/cZZ/0/A
+	 RMgbZu/ZzXPtXH0PHIKgF2pF9lU2i0dvV8hmNTUwGWvfW/hMZPeED3kaCbtJwa31TLw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794885358;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Kkr2HKfNrXjykOWOiy6eWo0NF9gQ7pUiMwlvAPC66AU=;
-	b=P8kxOh8gWoUrZ5WGAO9kH9WxJVGRjgUkLniQw6HtBXBYDTCqSRaeBTWiPAxn6/LZL2Fw
-	 8OPd0wjgBk0NPgjKNv54jeULKbsm6VuM2fxLPZBxw43LDEk0i6Bz6Evy6QIOvn6H99CXt
-	 BofepVF13NNCVwd45rMM4SslUMm3tf/79+RCB854K3LcTYZdQN9cLyv8XS/UfNwDzyBF1
-	 Mnr30hd6Xdxy3h0VJT2yS1vIaxbyGq+/g7+yiwiHTtqjkK+GWX6faJVa/mMfAdlrUeROg
-	 MVEQINXUOmhj23r8kiSR3erkpFYqxD9bbHvhMnj1oOpFM8h5AzA2fU34fO/HB0hUl8A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UWuE0zna;
-	arc=fail smtp.remote-ip=209.85.208.51
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=hLTAdn75m/X1XOgHCTgJs4b9yJPhm3jmCX7SAzPgrq4=;
+	b=QqQDv27P292n5IpNsNdGWSIC+nuGWFQGfNr8EXJjYmj131KqwzqfpgLrjXIBtIVp9esI
+	 kMliNlbMnntcHQa/g3HFTnS9wxvhD8DkgqXnaUwCF/11OmF/UhaLoS2dwbC6MWo+foOIF
+	 ZEZQoNLZr4UnLayO886ZNmmE7p+ujRlnNxpqN5chwo6pfJvO9hUj6RkJpb6S08bjzhWDM
+	 Q6krPVnGXQG9J3oOmcagI0FjWQ9P/fMX6Igv+XpqSIUsAPgrSboXWWlYJHNDRC28C/73X
+	 C9o6cBLD9pCDfG2Y/48cSZJZDytvEV4EaKY32JFHu8+gdUcX3Wecj4Zr2A9hNrykWmA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tPTwUZ9L;
+	arc=none smtp.remote-ip=209.85.160.179
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F4AC606A329
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:15:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F4AC606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01275606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:15:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01275606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UWuE0zna
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b65d69f5c2so5837381a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:15:28 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794885327; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fRndODN+waoXXDuXAbB22qN4YW3L/TW39p0/RDt4CDy0F6Ud2i4PYL39oVbrg8aH2Y
-         L9hhDkWkHiXTX13NN20LGm2E7rc/OYaGRmV0wxTuYvABvyHTCA/ohLDr/k2EoIxW4Hof
-         l9xDwEfj1qF0Ah8TKmApF/YgYOZGit7qd0Q6OWDrG+RFsAoAyWaEbE9Z3dYbSAb034wb
-         Ye445KgV5CKFVA0f/EquFCg4ckpihqj7Ezgf0qWRkpJvTCk4g1XSjDjQHcFYWTS0kTGY
-         m6aUJt2w8dvtoOWWt5WYqg+j/NL4bAgVZVyXeAdkKsEeAlB0opThcjukoOgTKJSOVtwj
-         gb1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Kkr2HKfNrXjykOWOiy6eWo0NF9gQ7pUiMwlvAPC66AU=;
-        fh=xoXxpKfdzLOE7NU8QbDZdShTwF4pFGQNN9cHSSHYMHc=;
-        b=Vy8HXhB+9TFdxk36qQFk5r/I9l/FYI58U+bxCVGT5Xh1eb+seuaoYvaf5xvevfej01
-         emCy7iJxG9UIocp3W3BaPE5yPHjYhB1aDPkXpB4Sl56SCSX8Y5VPq74HyuZqNFDPIZ2U
-         ElHnRFSavZUEQS8huKhqqBi31zA6rxHCPSSLnu2xrhuUhYRDbxNoekSR7kU+VQNZmAIk
-         VF1U1KZ/Zfz8npubU8FgK24kU8bFPsy/Gld1VZl5kvTjgSLJz+oOYgqsa9Taphab37l0
-         2xXFTODFAjvLMKnDauibLWjESw2VmO5pbkcoaz1yRwYtfaLfKT7LuS1vg9OXmlbiQkhC
-         /qQQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tPTwUZ9L
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-536717a4d83so43576921cf.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:15:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794885327; x=1795490127; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Kkr2HKfNrXjykOWOiy6eWo0NF9gQ7pUiMwlvAPC66AU=;
-        b=UWuE0zna/Kej6vRfmnnkBRPiB7MtRAOmWnZDUwfDZnARnTtWa0lZ918fHjZc6mu5UO
-         /2+zJyxEYftdneZsscW0DL8Fvl081Y38tQO4Pv5tUIPYfcIIYe6CjwGLqcKBSst9Gk21
-         HyjrRa3A/10hlqRod0LbCztyuvg1+0RmyX0gzRFwGRR3oqb5tPu6tQU03asd4m3tC1Ly
-         2jBUNoTFraXXJMf5dSQasvoZ/LajiRGFP3fxeQbTALoTqP2ZEYO+PCEtWNT6HsCG/4y2
-         Qq35/dZdjfO2Tkf3aMOsAIjY43RWuC/9l+8ADKlIptRxOOPmsxJVEZSYuAL1Y41KbuEX
-         BlrA==
+        d=gmail.com; s=20260707; t=1794885357; x=1795490157; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hLTAdn75m/X1XOgHCTgJs4b9yJPhm3jmCX7SAzPgrq4=;
+        b=tPTwUZ9LEzc6IDdq/15oD7EzCpNa/w0dh2Ny3Vgym5tzyEIi6koNn38x0qlRyVXY2Q
+         1EBwRAZrT/WirZcTseLNVR3rNQpnkZpxSD+uNODvKKuT4qsoNfbhLO5pIa9hTgibNX5Z
+         sv0r6rMt9kfuak+mj8+j8yyajnk32UpKSfQv0HIyc+fsWN/SOwqch13m68KfJ5d07BL4
+         Dfnw/yQDy/r/9b65mUdI8dyThxbbji8PGeU2uDYKPGIU1493vluMYUi3Jhw+zvex1s2U
+         asvnCWvIdcrCsKYSyJjDp0MgjmqnElUz22IKTud8zZ7up+15UpDUuz9D7Vf/ma2zeT3U
+         PCZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794885327; x=1795490127;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Kkr2HKfNrXjykOWOiy6eWo0NF9gQ7pUiMwlvAPC66AU=;
-        b=OjRzzvqu/75igPSXKwv2ovK3M/cf4NuvAeVRcpJeae252JOsD0qGlky24stSnGY+K8
-         pfC5F6ORpnLKeJ6ds/8U7KlKrA3UZHifIvSWtnA+1K6GnKYJKHjj7Z4Yl6qM4XO6tSsF
-         O59Iw4IVP5gMtjLt85FkZZT/5znSMSTMveS5PAhKN12PZAXHN+AaAKrGZ1bHHXw+2Uxj
-         S9aSyLlpdwg9hIf7RlT3B8mVyfGh/FoUBWJVvNXRcslaGfeLpoa3GYHiQTqmldDU1XHQ
-         8x3RSNXJUrmZUq5rjL87XPrVm9s+gSxpAZXo67/f6feWTFfNz9qIKECtWqJFwnZLJti4
-         JnLw==
-X-Forwarded-Encrypted: i=1; AL+hErEL+Q8Pmxhw+fETDLNuPBtPYdocf9dSrd7+Y4kOaIEOmWLKOs089+zpYpMKWQGZoTV6oG1g7xswqLG8hAI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/vY1uWr7/6Skb566V87dGP9B3CYC0o8AxOJ+iPZBfwgy14OeqG
-	G/AvjiWnMDfrKzvK00zp5HikdxDY/07tDBZD2Pat9yA7zeCRfAbYuxZ10SjofqKWqOFz2gVuSoi
-	6hHdpzBpM+BPW0SZp/St6mGG10+dGgpCR4eA7GYEH
-X-Gm-Gg: AYBFou3PGcnnBoyYDnm+VfkxzZVCEGM9Mv4I7i/UAx6uw3P3mV5acuEm9Gbzkd1DW6y
-	0TVdHHSOqgFqjF9o7PH89UblTt/1MzI8W7EYquQx0YBeCr9depwxNnSb57pfapp2jcCO/+Ew1Tg
-	ES/eXS0U24oH0RbOQ7x5rjhme0FV4/jRmLOEHtnD9zO/4PqZQ4flnyDOEyA27Wt3Yby5rjQCvBR
-	N87foSR9qt6DMhRZtkKfyUrG9FKncep/uEGLC+jQHJnK8HabZLUDons4oOXX80QELGTGeYHxk7r
-	1/VEwHsnUwqyBT++z4+zWf6MWnVr2xWIXyX9tGiIqMvfvpGZ/sN7BVlae98ojMKXTVsgURSvMu1
-	ULUmIVEZwgO9DzNY3Wds1iJy+f8futx4ESeBzyqtZZoR/vvJkzk+ySPEws39BHZuXzzohXos=
-X-Received: by 2002:a17:907:60d3:b0:c31:8441:35ff with SMTP id
- a640c23a62f3a-c50968355eemr1101863766b.48.1794885326369; Mon, 16 Nov 2026
- 19:15:26 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794885357; x=1795490157;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hLTAdn75m/X1XOgHCTgJs4b9yJPhm3jmCX7SAzPgrq4=;
+        b=B0mg84LcO7szRT9bjZXsRug83JJvFUc9giybQ3d3lLWdX8MLe3s9EJ8eksEPFpxJSr
+         AhCvuRqP66NZtZtQMO7VDvUUIlxQ9iLrBhqKiXtJoPlNJVaZNjOY8v2jjsR0970L1mZF
+         XjYFm8B1mFEq1YG62O0N4j0h4/89pV2PFYAFqYDvU+/a42la3rmb36kWCNKoci9n3snx
+         sDSCYXmZGyonBvkV1fakCY7bg/EkKSv2vHhzGOiokWA0UY2RJKKt5zDbq6vPJUuRzUtr
+         V+xSNzwSN+B68btDRwGpva+0K0vXtVH6SZx3koBwVu/ZgJ7AjtHZhkg4UAb5lXFZumEi
+         T4xQ==
+X-Forwarded-Encrypted: i=1; AL+hErGduWiAJIS2VlHxOPnlR0EVM24X4Qyeim/rw138ccEGiwNYoZOFyhrHIu/s+NohVCRs5eNLUc8mP3OgyL4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9alZTBjQeRfHl6QQOtOKvm5CYwGaRaeJug1GyJt1zXeAnULvay
+	V2HBoEsNrfCAUTOgRb9PXAnYUKGUSRM3w7MZm0kAL8TtRYXikZBoq//o
+X-Gm-Gg: AYBFou2xYw1nK/FnqlVbsgZM2mSJFPqlKHQGh14Pswk9D0knIIbG8Jow0FiEtpudtX8
+	cNz7Qf1yCsXrkhXxYRHPkDEvP+oKToLDQZ3fLStdwruTA+EYldYLW8fdLN+7XE6/TL/Xp8JlgqH
+	fTs6I4U6tKtlyVDJPxP2wilPl4BYNoVWm/8QmaZS+5R4xkuPm6wS5wOpE8CSi5uF13ShZJveZM8
+	tsMlOQIZR5HLSzX/ViuLzceTs2qR86aYmElYtwfYGMg3Q+t9+DJ0HT6EIUZr6wcy6u04IY8qE5N
+	TvPxSFngahldW27exJ7QYRXMRlu6G1gGkcT8GX1EmnyhsVGUMWb8HAOu/S8RyS7eeGqkXW+v+rn
+	zoODW3kzR0rKw6kKQFRMjhqBcUQAz8XLb9oH+JscifThVgabwexaNFErWqMmvQynKdpyONuX3Ba
+	jDVbumOgVyQwYraCmLjZFQr3tMZ9iit2VIBu1gowj84QC5Pe0hSASIkhY1l/p5g929DyqqjQ2fN
+	Sw/Xu2T/U4MfjlArVpWZhDMYajgg980iNbihmdDmVUNK42/DCZ6FrdLNKlT9ZKm63NR94jN2AnJ
+	ASBP5TbzUJ8Zq9dOm19Lk7MppE3U6UB6SGQsIaiDymJYl/C/fXt3kHheXUWpe4avrIjCzIJ2yGV
+	uCcotairvD9ed3Ckkwyns
+X-Received: by 2002:a05:622a:14c6:b0:55c:fa5a:b232 with SMTP id d75a77b69052e-55cfa5ab3b2mr121881541cf.4.1794885356928;
+        Mon, 16 Nov 2026 19:15:56 -0800 (PST)
+Received: from linux.. ([8.34.174.240])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23da64c1sm99291826d6.37.2026.11.16.19.15.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 19:15:56 -0800 (PST)
+From: Changyul Lee <lcy8047@gmail.com>
+To: Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	intel-wired-lan@lists.osuosl.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Changyul Lee <lcy8047@gmail.com>
+Subject: [PATCH iwl-net] i40e: hold mac_filter_hash_lock while validating VF cloud filters
+Date: Mon, 16 Nov 2026 22:15:53 -0500
+Message-ID: <20261117031553.1728084-1-lcy8047@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,67 +103,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261113221248.3535369-11-wusamuel@google.com> <20261115142431.1587690a@pumpkin>
-In-Reply-To: <20261115142431.1587690a@pumpkin>
-From: Samuel Wu <wusamuel@google.com>
-Date: Mon, 16 Nov 2026 19:15:11 -0800
-X-Gm-Features: AclHuK-iBEn00_VVuz6qjGQnwYZ5FRJ6bny3VEMRskBOJf02b9BDmwbxXueDduo
-Message-ID: <CAG2KctpP7QH=tdSB=op703rA=CtjQKAXqOen8JEHg1ygy9sgyg@mail.gmail.com>
-Subject: Re: [PATCH bpf-next v3 0/9] kallsyms: Add KALLSYMS_QUERY_BY_NAME and
- KALLSYMS_QUERY_BY_ADDR ioctls
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Luis Chamberlain <mcgrof@kernel.org>, 
-	Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
-	Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
-	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>, kernel-team@android.com, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-modules@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, llvm@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 15, 2026 at 6:24=E2=80=AFAM David Laight
-<david.laight.linux@gmail.com> wrote:
->
-> On Fri, 13 Nov 2026 14:12:45 -0800
-> Samuel Wu <wusamuel@google.com> wrote:
->
-> > /proc/kallsyms is the primary interface for userspace to query the kern=
-el
-> > symbol table. However, resolving even a handful of symbols or addresses
-> > requires reading and parsing the entire text file, which is often sever=
-al
-> > megabytes and takes thousands of read() syscalls.
->
-> Separate from this, I've wondered about separating out the /proc/kallsyms
-> code from the code that actually handles the symbol table itself.
-> The two parts are pretty much separate.
-> IIRC it uses a static function to get the symbol type (which does most
-> of the work of getting the name - which it also wants) so it isn't
-> completely trivial.
->
-> I'm pretty sure all (well almost all) the changes will be lower down
-> the file than my changes and won't cause (hard) conflicts.
->
-> I've been compiling kernel/kallsyms.c and kernel_kallsyms_selftests.c
-> in userspace for testing both, but had to cut the bottom off kallsyms.c
-> to get it to compile with a sane number of definitions.
->
-> David
+i40e_validate_cloud_filter() runs in the VF message path, which holds
+neither RTNL nor vsi->mac_filter_hash_lock. It looks up the destination
+MAC with i40e_find_mac() and walks vsi->mac_filter_hash for the VLAN
+without the lock. Meanwhile the host can change the VF MAC or port VLAN
+with i40e_ndo_set_vf_mac() or i40e_ndo_set_vf_port_vlan(), which delete
+filters under the lock and free them in __i40e_del_filter() or
+i40e_sync_vsi_filters(). The lookup and the walk can then read a freed
+struct i40e_mac_filter.
 
-You mean separating the core symbol code (top of file) from the procfs
-interface (bottom of file) into two separate files, right? If so,
-seems reasonable to me, especially since the file is approaching 1000
-lines even before our changes.
+Do the lookup and the walk under mac_filter_hash_lock, as
+i40e_vc_add_mac_addr_msg() does, and do not use the filter after
+dropping the lock.
 
-And agree, even with both our patches, most functions can remain
-static in their new homes.
+Fixes: e284fc280473 ("i40e: Add and delete cloud filter")
+Signed-off-by: Changyul Lee <lcy8047@gmail.com>
+---
+Found with a static analysis tool we are developing.
+
+Compile-tested only, with x86_64_defconfig plus PCI_IOV, I40E and W=1.
+
+ drivers/net/ethernet/intel/i40e/i40e_virtchnl_pf.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/net/ethernet/intel/i40e/i40e_virtchnl_pf.c b/drivers/net/ethernet/intel/i40e/i40e_virtchnl_pf.c
+index 74b6c0ed8480..da1f1a9c4124 100644
+--- a/drivers/net/ethernet/intel/i40e/i40e_virtchnl_pf.c
++++ b/drivers/net/ethernet/intel/i40e/i40e_virtchnl_pf.c
+@@ -3624,9 +3624,11 @@ static int i40e_validate_cloud_filter(struct i40e_vf *vf,
+ 	 */
+ 	if (mask.dst_mac[0] && !mask.dst_ip[0]) {
+ 		vsi = pf->vsi[vf->lan_vsi_idx];
++		spin_lock_bh(&vsi->mac_filter_hash_lock);
+ 		f = i40e_find_mac(vsi, data.dst_mac);
+ 
+ 		if (!f) {
++			spin_unlock_bh(&vsi->mac_filter_hash_lock);
+ 			dev_info(&pf->pdev->dev,
+ 				 "Destination MAC %pM doesn't belong to VF %d\n",
+ 				 data.dst_mac, vf->vf_id);
+@@ -3641,6 +3643,10 @@ static int i40e_validate_cloud_filter(struct i40e_vf *vf,
+ 					break;
+ 				}
+ 			}
++		}
++		spin_unlock_bh(&vsi->mac_filter_hash_lock);
++
++		if (mask.vlan_id) {
+ 			if (!found) {
+ 				dev_info(&pf->pdev->dev,
+ 					 "VF %d doesn't have any VLAN id %u\n",
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+-- 
+2.43.0
+
