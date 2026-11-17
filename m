@@ -1,45 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.145.95.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794906603;
-	b=azqLmmCUqcTYEhN79jfMj1Qzhfzi6r1BZ+feWF6GbZXo64nJ+dRmrV5TkZgnx1CDOLFQ
-	 5o4my8uMan6y6QD5fXMlIQgWOWQakOpYRoKN15iAqbrVJCOMp0oGWcHB7agZNkJcYPpMp
-	 wRPcrSBTHsyXtBMwNt826s/lRaeu+J2AnAEauhSny1qfyEgRDjduSyTs5ltPHmrqReKKl
-	 JSYnGwL9Y+kR7j1HzyF2cQYSaUPlt2av13SlJeNbuo2pQBxFwzw/y+3Q/soGjUW4h679x
-	 AbGDlEJun8LLgHxygwx/Bxb3kB2hTE87G6d/sY5ZQEVe9DrMPfssB6+NH6CMde1yPVQ==
+	t=1794906628;
+	b=s8fqQWfGeQk6ufmrKiaSkQhVXVLxvrYTQoG46cTnI7JGPNFtkFyiHHNKTFIsFRcJjRoR
+	 nF0AC2yRJMeKX0kXFKhbwXjjx/DfiF/qVyoZsBirRzdvetLuNCeqY66to9jmjDCNgm4AS
+	 rVRiFiGaZEGVD736+VuOr4lH4kEXz1ZveISBs9vGuVy2MIdeXv8MXTLATa8h0mxF1Ceq8
+	 yFPMqQLf+L6Tia5Jv0/x8U2ZdOw9zojM41xGXtV0/R/WF7SeYDdr2sSrubaKvaV7nA5gZ
+	 SwjGgIZXZJ82Y/CBdwJdNCG3bw8QEeL/lhm5xidvYfh5K01bYkSPUnKtui65n4wFyFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794906603;
-	h=DMARC-Filter:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 X-Clacks-Overhead:Message-ID:MIME-Version:Content-Type;
-	bh=R+OqfM7actfzvs/UrNB/+O4Oh39TPWHg6g3B055HHec=;
-	b=oQhAAel5RJZMyWr2HAy5QAKUcalvX3bW/HhePBJp8sMrAY7VV1dxjDl5zwtbjGlMgaoT
-	 iOcHTEUf/S9K9BRbvVdsMJmswTRTQD/cNvh9hQDY6Rd2Sf3eNeqCoDjeAdxidLMwksNFG
-	 xaEn8WHA3CSGWj8P53QDuXiye7W5m/o6jET4RtVcXIMrqGX1UnGzN6Mliz82BaxptGXdW
-	 0bjlHk8MSpK6VCqzLSZRMP21dGYDLw4G00odfm4PfTgILviWyHCdlMoJhhXdwCgOTJjcH
-	 jPcXKqcJ9/ibNaLVFU23wOtn2PYRt9HmV+ee0E0+8zVS7NFAq9+VaG5EJi8a8JbseXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794906628;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=R3xjMAAodPt6ComAZI2yr4tqLZHgVn0+opeICRnPgFQ=;
+	b=zGCY1oHyiJ+M78E7PYlTDi76I2o0hRU07b20uYjwhst5YiaX6aSvF04hItLtaKp8MZdP
+	 Y8zhk6wbaSVEha+YYMssOFj6/JMOZslpLkrBTQwq+pllEEy8Q8rBsqQLp0vBSWk72ig/v
+	 8rVlshn1NFVM9zRcIi808SFA83xFuG8ZC73WVfbnSjT2cxGzm0f6Gij9rxqmJ41aZXpYG
+	 LJhXB7GzhGVIlBPCmfXyh4CwKDkb+EC8S1kLlI5EDMQQcegeOEFiIjPoMWftylDgoN1XU
+	 VymwgsR+zSQmSJ5lYIUh2MCyRtuE8SGDtiFzgbvghAX3i++WvRVQbMHa/9QQzsiSUXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=toke.dk;
-	spf=pass smtp.mailfrom=toke.dk;
-	arc=none smtp.remote-ip=45.145.95.4
-Received: from mail.toke.dk (mail.toke.dk [45.145.95.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F1+OUVYe;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3F41606A336;
-	Tue, 17 Nov 2026 09:10:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3F41606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toke.dk
-Authentication-Results: mail.toke.dk; dkim=none
-From: Toke =?utf-8?Q?H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
-To: Tomas Tonhauser <t.tonhauser@pobox.sk>
-Cc: linux-wireless@vger.kernel.org, Felix Fietkau <nbd@nbd.name>,
- linux-kernel@vger.kernel.org, Tomas Tonhauser <t.tonhauser@pobox.sk>
-Subject: Re: [PATCH v2 0/2] wifi: ath9k: fix loss of non-aggregate frames
-In-Reply-To: <20261028171652.1125692-1-t.tonhauser@pobox.sk>
-References: <20261028171652.1125692-1-t.tonhauser@pobox.sk>
-Date: Tue, 17 Nov 2026 10:09:58 +0100
-X-Clacks-Overhead: GNU Terry Pratchett
-Message-ID: <87ik1vu8m1.fsf@toke.dk>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19C03606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:10:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F1+OUVYe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 893881F000C5;
+	Tue, 17 Nov 2026 09:10:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794906627;
+	bh=R3xjMAAodPt6ComAZI2yr4tqLZHgVn0+opeICRnPgFQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=F1+OUVYeCkol6ftrcrJuGaYnKqEUJVAZwY3HVnGUBskVzs/NkRnWDCWySGL0bl+yo
+	 aM7JrMvjYhdyE4vwrAx83WgtN4P4k7vHcJ5QOoM8bz9JhhdzlS6awcU2YUCMq7K9d6
+	 5aXBlHC58z6N/DjHWJwckfiKhCvypu/oSZ9llqTKuHrwwsWLVAuHSLdzxQTEUSkpbT
+	 7OmlIeZsSHiHVnLFhe9ozqYWzkIHbDXHSWRJJ5uw7kPOD/x+S0QpSb2YXhqcy64VkI
+	 0T9PvUFb0p+yEtWQxUsEEAj8nspU1X3lrjnFU8wAuFfKleirosh1sygjWTeA98vWZ/
+	 JZ54Og9bdKNfA==
+From: David Hildenbrand <david@kernel.org>
+To: Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>, 
+ Luiz Capitulino <luizcap@redhat.com>, Shivank Garg <shivankg@amd.com>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Shao Mingyin <shao.mingyin@zte.com.cn>
+In-Reply-To: <20261116-snapshot_page_fix-v1-1-8e425984e8d1@kernel.org>
+References: <20261116-snapshot_page_fix-v1-1-8e425984e8d1@kernel.org>
+Subject: Re: [PATCH] mm/util: fix retry detection and handling in
+ snapshot_page()
+Message-Id: <179490662325.3990.242767098070074559.b4-ty@b4>
+Date: Tue, 17 Nov 2026 10:10:23 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,36 +64,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-Tomas Tonhauser <t.tonhauser@pobox.sk> writes:
+On Mon, 16 Nov 2026 15:12:13 +0100, David Hildenbrand (Arm) wrote:
+> snapshot_page() detects races with concurrent folio split+construction by
+> checking whether the given page still falls into the folio. Unfortunately,
+> we have an off-by-one error in there, and we should be checking for
+> "ps->idx >= nr_pages", because idx 0 is valid.
+> 
+> For example, we might currently report a tail page at idx 1 as faithful,
+> although the snapshotted folio is now a small folio.
+> 
+> [...]
 
-> Non-aggregate frames (stations without an A-MPDU session, e.g.
-> non-WMM ESP8266 clients) are lost on ath9k in two ways:
->
->  1. The hardware filters them (ATH9K_TXERR_FILT) while the station
->     is awake, and mac80211 retries a filtered frame only once.
->     Patch 1 sets CLRDMASK on every non-aggregate frame.
->
->  2. Frames that exhaust the hardware retry chain are dropped, as
->     there is no software retry for non-aggregate frames. Patch 2
->     re-queues failed and filtered frames on tid->retry_q, as the
->     aggregate path does.
->
-> Toke, I know you were not keen on clearing the filter
-> unconditionally, so I first tested your suggestion (patch 2) alone.
-> On a weak link it did much worse than patch 1 alone, and the two
-> together did best. If you would prefer patch 1 limited, e.g. to
-> stations that are not sleeping, I can rework it.
+Applied, thanks!
 
-So an alternative solution to what appears to be the same problem your
-patch 1 is solving appeared:
+tree: mm/core.git
+branch: core-7.5.misc
 
-https://lore.kernel.org/r/20261110170459.31857-1-dominikengelhardt@ymail.com
+Applied patches will appear soon in mm-next, followed by linux-next.
 
-Could you please check if this approach works in your tests (with or
-without patch 2)?
+Please report any outstanding bugs that were missed during review, so we
+can either drop the patch series or decide how to fix it up.
 
-Thanks!
+It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
+though the patches have already been applied. If possible, patch trailers
+will be updated.
 
--Toke
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. Further, this is not a guarantee that the
+patches will go upstream. If in doubt, please check the listed branch.
+
+[1/1] mm/util: fix retry detection and handling in snapshot_page()
+      https://git.kernel.org/mm/core/c/d172918d
+
+-- 
+Cheers,
+
+David
+
