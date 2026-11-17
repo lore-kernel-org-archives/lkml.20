@@ -1,18 +1,18 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.10
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.46
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794905886;
-	b=oEXXqb8DVSIbeONyi4bF3QoLhVKRrExVpPppGCs0cEOzYErB0rwq6VHuC16Lo7bGDuZ+
-	 yBb/HTBcHL0SPBN+yU2znIvWvPFB3KOaT75jnHMgrR3HgB2Pc6UjtGOgi+d5Ek+fcW826
-	 hzZ1pgpXXX4YW/aEjAJmGiQaumwWidT9eG5xB7TVYN6fa5Wqu/Lay6hBtV0CGSlGzQcns
-	 ryEN5G6/n9Wm2d/fVRdGN4RmdAOxyP7v26+6C4FKdNXj1oNP+llY4JyNAVyMSfjWXYqeX
-	 HFYenIXmCdm6pf90ni+NJBs06Qb2WH4kks4lK8/KWl1eL0U7qgCoA39P53LXTozhMug==
+	t=1794905883;
+	b=v132i8n0poiJHHaxKIGhs0yeRiQCAopN9/bv+eBA5V409gWHy8S+jCJaFMr08XF8n13T
+	 R9s3zMU+YqvbrJwPucTkpf99LrEsXWIv3ASSVzjEgKtKQxS+fod5hZe4kyoWImoG/oKaC
+	 BinLORJq+B9c7+32cY0KBIVJcbT5iv+1iX/vCr868FY2nyBe7rmW24lv0nGlh+SelAg23
+	 L5wAXGYVsllTtSKljloJGdRomXcNXWVaeYvp0E38vfpWZepFMy0H3D7uzyPq7NY21ALfe
+	 Rr5Sek8kSWjGcNcRnEPZderK1sf440CqEPND5LC10wl+Km74SGlWE8GXDECvOGBjFzQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794905886;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794905883;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
 	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
 	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
 	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
@@ -26,70 +26,74 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=N68KbO525tUv9R3oqNM2uG3doDDd5gv1KbV0A96De3M=;
-	b=e5NFwruttkPljT0khk+vTYUKB5MTdeDTZsnFHAzrFZ1FNASQmI/fnmwNj2vbd91VBbbe
-	 emZEuY2gp2sDW6Dut+S9PAFYzDHMB/R6thNCHUUrGNBZelqPCSTAh67zvDcMaKv8dOuY3
-	 IW+8mo1zzHYQfZRmREyIvpt1G7jniFvZNywlU7bqhXkKFqk3FvlwEzn+zrCmF9a1Qv41a
-	 u2lDqPkM5nN2kMo0s28Jy7q6V9k5R5cG0OMuUpq3WzVwa9vccmwSGoYImxrhrm2aidZtF
-	 KoGDyj28LP6asJyQUheZopSpzQsGGTHp4BUvGTCEMQJIJzA/x+4jXxOrbK+25iDiOVw==
+	bh=9GzC5lTGIvvDwOchqUuCKilrQJfLwuT71rks0jfr538=;
+	b=KJoCRFQ+r4lWh0362njcOuTDVJowzEOYQPq3utePPXn5cl904dnt7bWl0B3D8sknOKCR
+	 mbEKK1O23PB/b4k0jc0twz3PCUw66I/DZH7uWuUr7yme7SSUwDJGt63pgNcn/BHG/hgIM
+	 wioQ4Of5xMfvGpoj1Goks9c1w9R/az8QlwoBDAZzaUI2h4qexgBQvClCGGNTKrE4B1hkp
+	 NJspaJEpTFX26P9lGph93kGWU91LXQ3bI+U0G3JP0594/slcQ/Zu79T9i8Z+bOETbbvZc
+	 lA/krNEQ/2g3rwc/9dFWE8eB/kkvF4Bj3aBwXbnt33vxKS4K3QbAJPkCP0BrDGucROw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amd.com;
 	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Dzwt6YfY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.10
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010010.outbound.protection.outlook.com [52.101.46.10])
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=rdqz31Kv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.46
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010046.outbound.protection.outlook.com [52.101.46.46])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31355606A880;
-	Tue, 17 Nov 2026 08:58:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31355606A880
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF20F606A895;
+	Tue, 17 Nov 2026 08:58:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF20F606A895
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Dzwt6YfY
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=rdqz31Kv
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Oza3LD5146XXpadhrLSb8erTRktAFOCZdYbycNOdJF3g+OqKGFZsX/BI/FqzmAkSqPWlIO1fEf3jF6Zvp2TdBZ7vqYqcrXaKVSJJ/DYS1N0NSA+6WYiqZ6GDAna2dYoEskVKVuAUIQgq1FDcWFVpyzdFx4uzg2V5vvHeqFQSo+35OyOkWDSHkOOcYICkpFhu2Q14pZCykK0XLSm4P/CEfp/Th8N/CUP4keUOS3SF54vR/Zu1v2KbD0xQJDzri5Vbl1vfhW7EiOMyRUlNIYMH9oUt4PDXfjH0JDS8hDp/NGtHPrWJEe4QDC2+MIKvB/queRhO0GGLaSjgygG8dRvo/g==
+ b=nDqu9G+AtlzDpyaqf9R8UEG+P+vNm9c8DzV6zQB/ZnM75CV9dAnN45jHCH2yX5pYiAoDmkUaUvKoa3S0z+mXuH2Nj53RkKqYLICsDtbm4a43XXDGoUnjtBC/Q0KUBeYjHR4XWE4wr0vjXDM0l4Vktaa/euROcm4P8DvZ3/VIj3t23HdVVPfEugE+xR7g13osChvuEWVSuducdjV72HDvDkv0ocqU2KlQ8RxbW48Yes23PjvcuSt79k9GUgiOBv8XU2qRIvITeyovxrD57yCqZk7mt16IzeNe6iJANX0ZzQsSZ8mDFOwOvr2GKkFids8jSkAMCaL1ul2FmBpLp7zWkg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=N68KbO525tUv9R3oqNM2uG3doDDd5gv1KbV0A96De3M=;
- b=bL74mDUkEudOLTDfuBJH9dk5mpzi3Eeb4xZRmn9iXGdUrZjeSgYGaL2JjQjGMVLFHFgBd0yq2ZFQfswrgjnq0zbKF95bFwb2GAwhrnSVmgLDE2K+zLtTXrRF61s7oZ8FquoXLKlciPSd2IDHC+c4zWQ7SSLc6Jl47DAUPveZy05LgryKKQk9iEYoj+2oLW0dJxuL6yrfuMlRZDcQhP6zOjzD3xAHvCoIbw3VNTFslPPyrZNtLUMRTu0fjkQjbiCdt7+ud6Z6kbRXHCXr6Q2P1tKHMQcLNnP8WARFGLOk4XUoBY2iCdoor5wA6F4CRV4Eh58MyMgDCbDQuTw+Sbjw5g==
+ bh=9GzC5lTGIvvDwOchqUuCKilrQJfLwuT71rks0jfr538=;
+ b=Pc1JCQRHtf0bRFqnNvHyl1tmWZ1IMmjB1eZTDy1T8X9tTrYZedjyHnyF/X1IXA0lj3P0rNXrKQDgg7YK/z2dRD4+yOphiAseYbRWj1ZnmDxkUCKrnLpgZ9ZgFv3B4mwk4AHIfYDXOZhjCOXe6/5Jmd445i4H9F9KFT/OQ8o8zne4F01fPNg8bEx56gzKb4pNNa87OdVW2TDOcEwPQ9j24u5sFkN42njGdivh4koyaI/aHCJzPpLtGsLci4juvXzD4oUE4NScjtEnqkc27Lwc3r3PjVFjUORaOwXkYS2uM1+AkVnlhWesb/SEkOBwB8hCKuI23IGEIURsLNOy1/Kp4Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N68KbO525tUv9R3oqNM2uG3doDDd5gv1KbV0A96De3M=;
- b=Dzwt6YfY9TP++PHDKukPXZHfOH5lPXypNsRS90VRzW0Ve4sKW5nX19WvY7MPLlyTwpwvCYEtnAjBTeMym1zF3Rvuhb32/if+Qa1/IYoP6jNoVSg3yFGeEPaJTrg40sFnh/SKb/JjcJnrznmLhJcC3AIKW0UIk5fAgG+DnmoQ61Y=
-Received: from CH0P221CA0037.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:11d::12)
- by IA4PR12MB743615.namprd12.prod.outlook.com (2603:10b6:207:150::6) with
+ bh=9GzC5lTGIvvDwOchqUuCKilrQJfLwuT71rks0jfr538=;
+ b=rdqz31Kv1jeyYisz73kUWPutwLJ2wNb3HEEl1DLv4TFdFZIQwD9CndEQOgEhJd30fcTTVEnWe/o3ec+s3OtQtSQOV56V5exGl01vsgyUc2KRhlbOJoETIrAf1Cvf23wTMH5hcXx35BnvXbfMC8gfVn9JSkZrs0GJPhOmOj8YtUQ=
+Received: from BL1PR13CA0381.namprd13.prod.outlook.com (2603:10b6:208:2c0::26)
+ by CY8PR12MB7169.namprd12.prod.outlook.com (2603:10b6:930:5e::10) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 08:58:03 +0000
-Received: from MN1PEPF000793FD.namprd05.prod.outlook.com
- (2603:10b6:610:11d:cafe::a2) by CH0P221CA0037.outlook.office365.com
- (2603:10b6:610:11d::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.10 via Frontend Transport; Tue,
- 17 Nov 2026 08:58:02 +0000
+ 2026 08:57:58 +0000
+Received: from IA0PEPF00000039.namprd03.prod.outlook.com
+ (2603:10b6:208:2c0:cafe::7) by BL1PR13CA0381.outlook.office365.com
+ (2603:10b6:208:2c0::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.4 via Frontend Transport; Tue, 17
+ Nov 2026 08:57:57 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MN1PEPF000793FD.mail.protection.outlook.com (10.167.249.200) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ IA0PEPF00000039.mail.protection.outlook.com (10.167.249.70) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 08:58:02 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 08:57:57 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 17 Nov
- 2026 02:58:01 -0600
+ 2026 02:57:57 -0600
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 17 Nov
+ 2026 02:57:56 -0600
 Received: from xhdrdevl202.xilinx.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
- Transport; Tue, 17 Nov 2026 02:57:56 -0600
+ Transport; Tue, 17 Nov 2026 02:57:52 -0600
 From: Dhanunjanrao Katta <katta.dhanunjanrao@amd.com>
 To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
 	<linux-sound@vger.kernel.org>
@@ -100,9 +104,9 @@ CC: Vincenzo Frascino <vincenzo.frascino@arm.com>, Rob Herring
 	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
 	<linux-arm-kernel@lists.infradead.org>, <git@amd.com>, Dhanunjanrao Katta
 	<katta.dhanunjanrao@amd.com>
-Subject: [PATCH 3/3] ASoC: xlnx: spdif: get clocks through the common clock framework
-Date: Tue, 17 Nov 2026 14:27:39 +0530
-Message-ID: <20261117085739.3807943-4-katta.dhanunjanrao@amd.com>
+Subject: [PATCH 2/3] ASoC: xlnx: spdif: namespace register macros and use a divider enum
+Date: Tue, 17 Nov 2026 14:27:38 +0530
+Message-ID: <20261117085739.3807943-3-katta.dhanunjanrao@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261117085739.3807943-1-katta.dhanunjanrao@amd.com>
 References: <20261117085739.3807943-1-katta.dhanunjanrao@amd.com>
@@ -119,120 +123,235 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF000793FD:EE_|IA4PR12MB743615:EE_
-X-MS-Office365-Filtering-Correlation-Id: 81e80bdc-0818-4d0b-98c4-08df4488e33a
+X-MS-TrafficTypeDiagnostic: IA0PEPF00000039:EE_|CY8PR12MB7169:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9c28c0c9-9137-406c-207f-08df4488e025
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|82310400026|36860700016|10067099003|56012099006|11063799006|261026140227099003|261028144727099003|261021123027099003|261021121427099003|261022105027099003|261102123227099003|261009223027099003|22082099003|18002099003;
+	BCL:0;ARA:13230040|7416014|1800799024|376014|36860700016|23010399003|82310400026|261022105027099003|261021121427099003|11063799006|10067099003|56012099006|261026121527099003|261026140227099003|261028144727099003|261022075727099003|261102123227099003|261021123027099003|261009221227099003|261009223027099003|18002099003|6133799003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	e+/fU9zL8bqWGsxfg4dfUfCThwOBO5X5CwMLVXNcD1IPIaW4wiejV70EySuz7bDSwV9IBkv80UIpEd6aiwtHLETGZB3gFJtoko57Mw7xCS1OtIoa1wmvrtphTB8Zhyu1u8wlsqdb4pOa7amaoTjsAT+exqkThF7UtF3/oQ4n42vZ4KrcFO0SKFiUhtmGGl2FaYLL1uFtjCeIhgKGrgiszlXAlZmEw8dUkdXetSqYHL3FjdawEqH4rfhAFxHPozpAs/EhUEuUSUjQZ44VV4njDNytAkzdn5TxWDUa/nPNM04VkD2Y2z551cWYkyDeNd6bl5m5bo0Y7ZeRtTTbQ8C5Vpuf09pLI3+N+GPBAvjq0lx9d+291nBAx5gmoN1FjHAScfHR61oJ56XEX23RHaLIKpfr8p5uwOw5tBUYrx+r40YDuN45jqvRcPaniYVWLcPJfkfZlXuEn0szNaE7J+UpqpuORbe7N9Pf45ZIYpe4jatbmbTYS8FmjvY2EnL1XXm9UIHGVyjP+cSRtzj334SbFa1ughKJMxHPBikvDf+YerFJYChbW1KAwd9ri+2BIKs1FQZHcf2hpq80UP6+PMQyioOmq9rf8JMCctD+xSrlbJ4sV3JHtAr//dpUEa/8ATQWubuk1lvo80CNmkc+crn1O/mjSp0QHg/xojT/K0w6k/nrJagtXOVrnAYSZeO0jyVWIGm4qg9gdX0GlYMxEzRQtg==
+	NHnzdGcKsVnz/1JcxKiZ2frlbtyXG7Tlw4S3xug+egSiyWpEr0vGiJi61ZtTrU1eOigfxXMDlext/l3O3SrXj5KhzKcaNG92+cOimfiONJ+hisYkloN0GMmp2Zw8WWOrz1H9w2EB/+NfTLemoVx3L2tsAsA96nQsoXKK+LFGAgls0RRFqrXSGkCLypdcz+Jry9pqoXa0sBs5bb/lPGDFeTP73L1eecpjq39GiJ/h6gAcEwDAM6UPf0lqxScoYLEvH4pP5s4AoW6Bf+tbFZ6b1F83f/1+tQWVdmgBXoguc9+EbelbYMNgSPToBTN6LZPTxFXZ8WMWZd/UMycoJP1J5YXFiFYMUuwz8IeSvJ4sqDCY3CtiHOw5451DGtDNCoI5jzcvp2H1r57Y6+yQ0Hu2LKvhaNpuqGlsKziKNXbJBvVVRe5zpB4ubT9TZ52et6YxpS3yJO2Ow00SKhS2RwWd7lUC0aQJ2z0uRLQXV5M2RBatji5m/7LZYX/PKSYAz1949011/2JGpkJ2ynasxDti1e2MuVnfdUcqGyl5FkuC0WRgTrFcbxy69tS4D7EPcQ1TjayPQF8JaBY/yxhah9MznHW6N2Q2CVvzhm8J4uVeqqluxEamcyF93BSYux39YnP0nnuCK8+9Gk4ovts+scM4iBMXsT6iIxF9LSujfyXKE1JG2BznW2CXILnw4jbuANMx5xTKXihQPKMIRHxJYl/U+w==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(82310400026)(36860700016)(10067099003)(56012099006)(11063799006)(261026140227099003)(261028144727099003)(261021123027099003)(261021121427099003)(261022105027099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(36860700016)(23010399003)(82310400026)(261022105027099003)(261021121427099003)(11063799006)(10067099003)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261022075727099003)(261102123227099003)(261021123027099003)(261009221227099003)(261009223027099003)(18002099003)(6133799003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	XVt/RJcC/TGbMkztpkAmgoIO5cPcUo3sZAoycutekAghoXHfnLBKvkt8GCjdwcyECQcU2+bmhmD0Ev4KoPc4I//OoXG8Mt6XW8QplR3YcwSrXhrKcrPBZLXNVU5/keZPDd/j6BFFZ2O/LKovtV1xkW5j6wb7vp9vpC0BUIwLhT2agRvCixvJjG1faGGJjOIl3QKrbijXoHeFSLN3Vmqq8xVCca9suCsd/qQoUTzCqB0f+BTuzMMMnZn2PEpX9sfzFVhcPKLnZfo4TZDBJOISRQr9vI+mF0KieyIjRDJXx7Bb/mhok5dp//9q3fHYG1RWy10vUq21DJHMoSI20XP5h6dzg36dx3R49kZ9gWq/DfkwPL3TuPLsMpAyPUxEkhEiXxCtxstmCgcJmHM3RoqBea+4J9m1QF9eHfMuAYnDQneugda6RXNT1P+YsN0kqxRj
+	63QF3fvI2jVnLQDpH4OOwytgCOcv5JkIx4MPxT8ewNKUAwK5uN+g8fHd2mzk+oFVCvdHeSsLgD99ro7/yGenUaf7G9oW3e8Apea21TrhI5lUJYLktSnABJoh9HIjns2FtKjVG3/wPyg5rJYvLa/5dR9bo94oPExpuS4FvULlXe8fgP7KYgfdQ94Fh/40RmkX6ZEU/jBX3tkJ8Ezl5LvZQwxDZa1yCmx3Or+RPzdW7ZwrY1k56dA1w92y7t03UITk7zc6N+qj00/8LtBwOF/4cYvLer4Cmjp6wQUEAj1EMg565cguiRAVNDb+yRHShdrp2loeVaqHLp4XhTsNvlS1HYWVsdQkVahVPXFXgfUE1IIKR0jhD7kLEXpCuE2FJyhoplMr+mzvv5WlEKRlmyqxGfKuhfvqN7i3kuF2uBIX668g3Aap2ILcFcNeVQoHQsJx
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 08:58:02.7981
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 08:57:57.6232
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 81e80bdc-0818-4d0b-98c4-08df4488e33a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9c28c0c9-9137-406c-207f-08df4488e025
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF000793FD.namprd05.prod.outlook.com
+	IA0PEPF00000039.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB743615
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7169
 
-The driver requested only the AXI4-Lite clock and relied on the firmware
-to leave the AXI4-Stream and audio clocks enabled, and it took the audio
-clock rate from the "xlnx,aud_clk_i" device-tree property.
+The field defines were not named after the registers they belong to and
+were listed apart from them, three driver constants carried no prefix at
+all, and the clock-divider configuration values were written as bare
+numbers at the assignment sites.
 
-Request and enable the audio clock, and the AXI4-Stream clock matching
-the IP mode, through the common clock framework. The AXI4-Stream clock
-is requested with devm_clk_get_optional_enabled() because device trees
-written against the earlier binding describe only two clocks.
+Name each field define after its register and group the field defines
+under it, prefix the remaining driver constants with "XSPDIF_", and
+replace the bare clock-divider values with the "xspdif_clk_div" enum,
+giving clk_cfg that type.
 
-Read the audio rate with clk_get_rate() in hw_params so that the SPDIF
-clock divider follows the rate actually in effect, and reject a zero
-rate with a diagnostic rather than letting it reach the divider switch
-and return a bare -EINVAL.
-
-"xlnx,aud_clk_i" is no longer read and is marked deprecated in the
-binding.
+The channel-status interrupt mask is written to both the status and the
+enable register, so it is named for the field rather than for one of the
+two registers.
 
 Signed-off-by: Dhanunjanrao Katta <katta.dhanunjanrao@amd.com>
 ---
- sound/soc/xilinx/xlnx_spdif.c | 29 ++++++++++++++++++++++++-----
- 1 file changed, 24 insertions(+), 5 deletions(-)
+ sound/soc/xilinx/xlnx_spdif.c | 81 ++++++++++++++++++++---------------
+ 1 file changed, 46 insertions(+), 35 deletions(-)
 
 diff --git a/sound/soc/xilinx/xlnx_spdif.c b/sound/soc/xilinx/xlnx_spdif.c
-index a9d1fe9cc610..b233ab1a92dc 100644
+index 9fdafd45c381..a9d1fe9cc610 100644
 --- a/sound/soc/xilinx/xlnx_spdif.c
 +++ b/sound/soc/xilinx/xlnx_spdif.c
-@@ -53,10 +53,11 @@ enum xspdif_clk_div {
+@@ -22,25 +22,34 @@
+ 
+ #define XLNX_SPDIF_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE)
+ 
++#define XSPDIF_GLOBAL_IRQ_REG		0x1C
++#define XSPDIF_GLOBAL_IRQ_ENABLE_MASK	BIT(31)
+ #define XSPDIF_IRQ_STS_REG		0x20
++#define XSPDIF_IRQ_CH_STS_MASK		BIT(5)
+ #define XSPDIF_IRQ_ENABLE_REG		0x28
+ #define XSPDIF_SOFT_RESET_REG		0x40
++#define XSPDIF_SOFT_RESET_VAL		0xA
+ #define XSPDIF_CONTROL_REG		0x44
++#define XSPDIF_CONTROL_ENABLE_MASK	BIT(0)
++#define XSPDIF_CONTROL_FIFO_FLUSH_MASK	BIT(1)
++#define XSPDIF_CONTROL_CLK_CFG_MASK	GENMASK(5, 2)
++#define XSPDIF_CONTROL_CLK_CFG_SHIFT	2
+ #define XSPDIF_CHAN_0_STS_REG		0x4C
+-#define XSPDIF_GLOBAL_IRQ_ENABLE_REG	0x1C
+ #define XSPDIF_CH_A_USER_DATA_REG_0	0x64
+ 
+-#define XSPDIF_CORE_ENABLE_MASK		BIT(0)
+-#define XSPDIF_FIFO_FLUSH_MASK		BIT(1)
+-#define XSPDIF_CH_STS_MASK		BIT(5)
+-#define XSPDIF_GLOBAL_IRQ_ENABLE	BIT(31)
+-#define XSPDIF_CLOCK_CONFIG_BITS_MASK	GENMASK(5, 2)
+-#define XSPDIF_CLOCK_CONFIG_BITS_SHIFT	2
+-#define XSPDIF_SOFT_RESET_VALUE		0xA
+-
+-#define MAX_CHANNELS			2
+-#define AES_SAMPLE_WIDTH		32
+-#define CH_STATUS_UPDATE_TIMEOUT	40
++#define XSPDIF_MAX_CHANNELS		2
++#define XSPDIF_AES_SAMPLE_WIDTH		32
++#define XSPDIF_CH_STS_UPDATE_TIMEOUT	40
++
++enum xspdif_clk_div {
++	XSPDIF_CLK_DIV_BY_4,
++	XSPDIF_CLK_DIV_BY_8,
++	XSPDIF_CLK_DIV_BY_16,
++	XSPDIF_CLK_DIV_BY_24,
++	XSPDIF_CLK_DIV_BY_32,
++	XSPDIF_CLK_DIV_BY_48,
++	XSPDIF_CLK_DIV_BY_64,
++};
  
  struct spdif_dev_data {
  	u32 mode;
--	u32 aclk;
- 	bool rx_chsts_updated;
- 	void __iomem *base;
- 	struct clk *axi_clk;
-+	struct clk *axis_clk;
-+	struct clk *aud_clk;
- 	wait_queue_head_t chsts_q;
- };
+@@ -57,12 +66,12 @@ static irqreturn_t xlnx_spdifrx_irq_handler(int irq, void *arg)
+ 	struct spdif_dev_data *ctx = arg;
  
-@@ -117,8 +118,15 @@ static int xlnx_spdif_hw_params(struct snd_pcm_substream *substream,
- 	enum xspdif_clk_div clk_cfg;
- 	u32 val, clk_div;
+ 	val = readl(ctx->base + XSPDIF_IRQ_STS_REG);
+-	if (val & XSPDIF_CH_STS_MASK) {
+-		writel(val & XSPDIF_CH_STS_MASK,
++	if (val & XSPDIF_IRQ_CH_STS_MASK) {
++		writel(val & XSPDIF_IRQ_CH_STS_MASK,
+ 		       ctx->base + XSPDIF_IRQ_STS_REG);
+ 		val = readl(ctx->base +
+ 			    XSPDIF_IRQ_ENABLE_REG);
+-		writel(val & ~XSPDIF_CH_STS_MASK,
++		writel(val & ~XSPDIF_IRQ_CH_STS_MASK,
+ 		       ctx->base + XSPDIF_IRQ_ENABLE_REG);
+ 
+ 		ctx->rx_chsts_updated = true;
+@@ -80,14 +89,14 @@ static int xlnx_spdif_startup(struct snd_pcm_substream *substream,
  	struct spdif_dev_data *ctx = dev_get_drvdata(dai->dev);
-+	unsigned long rate;
  
--	clk_div = DIV_ROUND_CLOSEST(ctx->aclk, XSPDIF_MAX_CHANNELS *
-+	rate = clk_get_rate(ctx->aud_clk);
-+	if (!rate) {
-+		dev_err(dai->dev, "aud_clk_i rate is not available\n");
-+		return -EINVAL;
-+	}
-+
-+	clk_div = DIV_ROUND_CLOSEST(rate, XSPDIF_MAX_CHANNELS *
- 				    XSPDIF_AES_SAMPLE_WIDTH *
- 				    params_rate(params));
+ 	val = readl(ctx->base + XSPDIF_CONTROL_REG);
+-	val |= XSPDIF_FIFO_FLUSH_MASK;
++	val |= XSPDIF_CONTROL_FIFO_FLUSH_MASK;
+ 	writel(val, ctx->base + XSPDIF_CONTROL_REG);
  
-@@ -271,8 +279,18 @@ static int xlnx_spdif_probe(struct platform_device *pdev)
- 		return dev_err_probe(dev, ret, "cannot get SPDIF mode\n");
- 
- 	if (ctx->mode) {
-+		ctx->axis_clk = devm_clk_get_optional_enabled(dev, "s_axis_aclk");
-+		if (IS_ERR(ctx->axis_clk))
-+			return dev_err_probe(dev, PTR_ERR(ctx->axis_clk),
-+					     "failed to get s_axis_aclk\n");
-+
- 		dai_drv = &xlnx_spdif_tx_dai;
- 	} else {
-+		ctx->axis_clk = devm_clk_get_optional_enabled(dev, "m_axis_aclk");
-+		if (IS_ERR(ctx->axis_clk))
-+			return dev_err_probe(dev, PTR_ERR(ctx->axis_clk),
-+					     "failed to get m_axis_aclk\n");
-+
- 		ret = platform_get_irq(pdev, 0);
- 		if (ret < 0)
- 			return ret;
-@@ -287,9 +305,10 @@ static int xlnx_spdif_probe(struct platform_device *pdev)
- 		dai_drv = &xlnx_spdif_rx_dai;
+ 	if (substream->stream == SNDRV_PCM_STREAM_CAPTURE) {
+-		writel(XSPDIF_CH_STS_MASK,
++		writel(XSPDIF_IRQ_CH_STS_MASK,
+ 		       ctx->base + XSPDIF_IRQ_ENABLE_REG);
+-		writel(XSPDIF_GLOBAL_IRQ_ENABLE,
+-		       ctx->base + XSPDIF_GLOBAL_IRQ_ENABLE_REG);
++		writel(XSPDIF_GLOBAL_IRQ_ENABLE_MASK,
++		       ctx->base + XSPDIF_GLOBAL_IRQ_REG);
  	}
  
--	ret = device_property_read_u32(dev, "xlnx,aud_clk_i", &ctx->aclk);
--	if (ret < 0)
--		return dev_err_probe(dev, ret, "cannot get aud_clk_i value\n");
-+	ctx->aud_clk = devm_clk_get_enabled(dev, "aud_clk_i");
-+	if (IS_ERR(ctx->aud_clk))
-+		return dev_err_probe(dev, PTR_ERR(ctx->aud_clk),
-+				     "failed to get aud_clk_i\n");
+ 	return 0;
+@@ -98,48 +107,50 @@ static void xlnx_spdif_shutdown(struct snd_pcm_substream *substream,
+ {
+ 	struct spdif_dev_data *ctx = dev_get_drvdata(dai->dev);
  
- 	dev_set_drvdata(dev, ctx);
+-	writel(XSPDIF_SOFT_RESET_VALUE, ctx->base + XSPDIF_SOFT_RESET_REG);
++	writel(XSPDIF_SOFT_RESET_VAL, ctx->base + XSPDIF_SOFT_RESET_REG);
+ }
  
+ static int xlnx_spdif_hw_params(struct snd_pcm_substream *substream,
+ 				struct snd_pcm_hw_params *params,
+ 				struct snd_soc_dai *dai)
+ {
+-	u32 val, clk_div, clk_cfg;
++	enum xspdif_clk_div clk_cfg;
++	u32 val, clk_div;
+ 	struct spdif_dev_data *ctx = dev_get_drvdata(dai->dev);
+ 
+-	clk_div = DIV_ROUND_CLOSEST(ctx->aclk, MAX_CHANNELS * AES_SAMPLE_WIDTH *
++	clk_div = DIV_ROUND_CLOSEST(ctx->aclk, XSPDIF_MAX_CHANNELS *
++				    XSPDIF_AES_SAMPLE_WIDTH *
+ 				    params_rate(params));
+ 
+ 	switch (clk_div) {
+ 	case 4:
+-		clk_cfg = 0;
++		clk_cfg = XSPDIF_CLK_DIV_BY_4;
+ 		break;
+ 	case 8:
+-		clk_cfg = 1;
++		clk_cfg = XSPDIF_CLK_DIV_BY_8;
+ 		break;
+ 	case 16:
+-		clk_cfg = 2;
++		clk_cfg = XSPDIF_CLK_DIV_BY_16;
+ 		break;
+ 	case 24:
+-		clk_cfg = 3;
++		clk_cfg = XSPDIF_CLK_DIV_BY_24;
+ 		break;
+ 	case 32:
+-		clk_cfg = 4;
++		clk_cfg = XSPDIF_CLK_DIV_BY_32;
+ 		break;
+ 	case 48:
+-		clk_cfg = 5;
++		clk_cfg = XSPDIF_CLK_DIV_BY_48;
+ 		break;
+ 	case 64:
+-		clk_cfg = 6;
++		clk_cfg = XSPDIF_CLK_DIV_BY_64;
+ 		break;
+ 	default:
+ 		return -EINVAL;
+ 	}
+ 
+ 	val = readl(ctx->base + XSPDIF_CONTROL_REG);
+-	val &= ~XSPDIF_CLOCK_CONFIG_BITS_MASK;
+-	val |= clk_cfg << XSPDIF_CLOCK_CONFIG_BITS_SHIFT;
++	val &= ~XSPDIF_CONTROL_CLK_CFG_MASK;
++	val |= clk_cfg << XSPDIF_CONTROL_CLK_CFG_SHIFT;
+ 	writel(val, ctx->base + XSPDIF_CONTROL_REG);
+ 
+ 	return 0;
+@@ -149,7 +160,7 @@ static int rx_stream_detect(struct snd_soc_dai *dai)
+ {
+ 	int err;
+ 	struct spdif_dev_data *ctx = dev_get_drvdata(dai->dev);
+-	unsigned long jiffies = msecs_to_jiffies(CH_STATUS_UPDATE_TIMEOUT);
++	unsigned long jiffies = msecs_to_jiffies(XSPDIF_CH_STS_UPDATE_TIMEOUT);
+ 
+ 	/* start capture only if stream is detected within 40ms timeout */
+ 	err = wait_event_interruptible_timeout(ctx->chsts_q,
+@@ -176,7 +187,7 @@ static int xlnx_spdif_trigger(struct snd_pcm_substream *substream, int cmd,
+ 	case SNDRV_PCM_TRIGGER_START:
+ 	case SNDRV_PCM_TRIGGER_RESUME:
+ 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+-		val |= XSPDIF_CORE_ENABLE_MASK;
++		val |= XSPDIF_CONTROL_ENABLE_MASK;
+ 		writel(val, ctx->base + XSPDIF_CONTROL_REG);
+ 		if (substream->stream == SNDRV_PCM_STREAM_CAPTURE)
+ 			ret = rx_stream_detect(dai);
+@@ -184,7 +195,7 @@ static int xlnx_spdif_trigger(struct snd_pcm_substream *substream, int cmd,
+ 	case SNDRV_PCM_TRIGGER_STOP:
+ 	case SNDRV_PCM_TRIGGER_SUSPEND:
+ 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+-		val &= ~XSPDIF_CORE_ENABLE_MASK;
++		val &= ~XSPDIF_CONTROL_ENABLE_MASK;
+ 		writel(val, ctx->base + XSPDIF_CONTROL_REG);
+ 		break;
+ 	default:
+@@ -287,7 +298,7 @@ static int xlnx_spdif_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	writel(XSPDIF_SOFT_RESET_VALUE, ctx->base + XSPDIF_SOFT_RESET_REG);
++	writel(XSPDIF_SOFT_RESET_VAL, ctx->base + XSPDIF_SOFT_RESET_REG);
+ 	dev_info(dev, "%s DAI registered\n", dai_drv->name);
+ 
+ 	return 0;
 -- 
 2.34.1
 
