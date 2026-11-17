@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794914313;
-	b=dSY00H6bnL+8gd74usTi3PInAku05ju5zdH9p7UljbAmZQmJQ43fZ9ut73Fkggo/dQjx
-	 y9kSespgLv9hxXYCwDro/krSztRbu1RH5J1UaGNHlEXLKJXWRmYxmpNndZy1hWilf/rQI
-	 76T5QgzI9xzRb0paJ3JcU4RWnaxoIDWmVcSuxkC8ERml4Bpq+CqTQ4OztT2dMBl1h+OQn
-	 yaPxcPKUqhVjUc7rUQLUgo0Sxg/Rlh9yvXPeGYlUvMUUrZSC4fZEo3J35yofsxsl98aDd
-	 T64xvVz2g7QIPsv/OMq8e9QawpSS54zb3RfbJzN1vPeYLd4+1S8/5zF4MEZGMk2QBVg==
+	t=1794914314;
+	b=qmD+DxCytIXbskUYc0W9EuoGB8BVsUnd+qK1c68AXH8oRr2MkFdSuRc3neH3Hxf6IwL9
+	 OzRjE+lPdRe5jeYWD9rTvolc+Ae26Gttt6CAljLQ6lBtjzNVI/ini0QLDWlJvJDKmpJqa
+	 e4ozVM5wKPGzhRspJUFUNmqKvFTQzQqJ4JRwlNFM7gLBqmbgBD4YQlplSbic0gwiQ8jM3
+	 rf50TheG29tmljQ9YWezY7OgmGRoZukHzn0SQbr8K+sRhaIkCc/Uz2+mdVKRBdSl6lilN
+	 HyfGtR1TQvnusPwGC1B4fZ5K4TIKutWDPIyq/hhMu/Z4ILSSgIBY+TfOMaI41J3BjYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794914313;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794914314;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=k+kIo9jpV5KFdYWHjuEUw/DWKQDI9aOHBv+v3db2R3c=;
-	b=Nm3etkqxZ0L7kiH4qBTnCgNMNkbX5VOASX9Hs9jfDChsa39gn1BLygKcrLZ32wTlhypv
-	 s9QCxjGGCZfueTJDxcwa9YzGzj7hL0vdAlOaQTEZC2OUXjiue3RMULFeKJt8X30qV6mmB
-	 no3kXaN/+r4Bd53PbBE5GNd8+2ioVwIOl64cwE6pPDseNWppMorpIOVQArH+6pVu/ihL1
-	 ybJbfhqjkrqi762Ct9n3UC5p/biEHpgZsBj/7FRdoSh+65cNr7xRi5+rGFE9E6vFDryBW
-	 oIFuRSc//jbHeaMX5GBS1+vmFvYPiB8N84qShuH1yyD2LYiyr2s/56Nj8gKpwgfb4Kg==
+	bh=R7dVIQ4XDHgLNO3WaDmdHDUJK2S7GdX6/1fBTD2EHk0=;
+	b=1c6Y5AoSj4UsU+fycA3mxnVo66ihKCnfljsj2vG6yL5VmVA2JJJsCSCQrjubBMieNXXI
+	 OBzNMMAyaYWXy3bcSG0ZJyZhHe3n+BfKlkj43JHRBcivj/I45HUrKWAIpRzYWgVkAtEtG
+	 7nqjxXBIHFhM1cfHKF/KxnsIxt2BLR9Vt+j2DzpdDhKbOJpLDc1yHg3fRvVFOHPjEo6un
+	 hSSEATODoeX3R3vzuFAwHBCGvrAwIgAZ8HMNczaC3/pn3Vn7FXmNGBk/dfgTmvoocYJdd
+	 MuVDoygSUdGwsYNQJQxAjqoIl8YIU3d//rK7Pv1BGZjHEw9xh1dk3t3SEGIWH2jwRKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=odhwX6PN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EYFB0ZrL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 526FF606A336;
-	Tue, 17 Nov 2026 11:18:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41867606A323;
+	Tue, 17 Nov 2026 11:18:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=odhwX6PN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 329991F000C8;
-	Tue, 17 Nov 2026 11:18:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EYFB0ZrL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 783CA1F000C6;
+	Tue, 17 Nov 2026 11:18:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794914312;
-	bh=k+kIo9jpV5KFdYWHjuEUw/DWKQDI9aOHBv+v3db2R3c=;
+	s=k20260515; t=1794914314;
+	bh=R7dVIQ4XDHgLNO3WaDmdHDUJK2S7GdX6/1fBTD2EHk0=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=odhwX6PNDqnSOGmkajWFLLggKYsk1XXV6+pRNcyjje7CTi+d5WH1/dkHak2sQPRz8
-	 Z1cKs/ThKki9H1NyHKgq896L5QtXa5usT6J0ZlEGol0oth06EudyYAw3h5M8qcjLc4
-	 16hk4ejhvuC8sHMYO+OfRsqbrDyL3/8nyfTIuGEjHq2WhSa7J9Gr/ktRxBR6f9quW6
-	 nBl1xbeZNr0opqe1pM5Ai8pU6CWOMZ8HiMfteoQtFLaNbSL855YdnzxLjWD+Kx/Iy8
-	 03l0KGv61my8wT0O+2P7Kad7DDNBbzkgcQKtoIeQsrmT6l3mKXWCdQ1LkvmD//fCkU
-	 33PHvxZW65N1g==
-Subject: Re: [PATCH net 1/3] igb: fix RTNL assertion when resuming from
- runtime suspend
+	b=EYFB0ZrLqXIET4JkS/BVKgd6yRyKcwaD/R+wLWk80JIO7h+Efxbkdl3Yp5cqC8GG1
+	 7PL12tm0vPfLGwk3d5cQLYJnR8mwvIzW8gV3P54eH9tcSr//VkM0sp/vBQcfde9ozp
+	 KIVKtSjAl35HrzPLbYWvObkN9BqvTqqPKnDv63sweM9InhRe6Ghr0d4/Fgz1a60xyo
+	 f77DC9+MHuSmsi4hBUxfogtMZUDJ8kTsYLeCyQhxB2xXWywf9JsjWnsQz+O7EjY+GA
+	 oapVy78v/gPJLfES95xA+6CiJ5QaYtqbH/ik/Bnf/tdApTkNBAlwMr48u0XW5jXKij
+	 LP++VaSceUBsg==
+Subject:
+ Re: [PATCH net 2/3] igb: link queues to NAPIs under RTNL after runtime resume
 From: netdev-bot+sashiko@kernel.org
 To: antonio@mandelbit.com
 Cc: intel-wired-lan@lists.osuosl.org, anthony.l.nguyen@intel.com,
@@ -49,11 +49,11 @@ Cc: intel-wired-lan@lists.osuosl.org, anthony.l.nguyen@intel.com,
  edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
  zheng.z.yan@intel.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org
-Date: Tue, 17 Nov 2026 11:18:31 +0000
-Message-ID: <179491431170.3136.416423016654830307@kernel.org>
-In-Reply-To: <20261113105835.3821433-1-antonio@mandelbit.com>
-References: <20261113105835.3821433-1-antonio@mandelbit.com>
-X-sashiko-severity: High
+Date: Tue, 17 Nov 2026 11:18:33 +0000
+Message-ID: <179491431306.3136.1748912400459389536@kernel.org>
+In-Reply-To: <20261113105835.3821433-2-antonio@mandelbit.com>
+References: <20261113105835.3821433-2-antonio@mandelbit.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -66,10 +66,10 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
+Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider.
 
-Critical: 0 · High: 2 · Medium: 1 · Low: 0
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -77,167 +77,117 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] Commit "igb: fix RTNL assertion when resuming from runtime
-  suspend" moves netif_set_real_num_queues() out of __igb_open() and…
-- [High] The commit message says "The queue counts only change on paths
-  that re-open the device under RTNL (ethtool -L, SR-IOV…
-- [Medium] Concern (baseline decision: false, resolved later in the
-  series).
+- [Medium] The new comment above igb_queue_napi_task() says: "The
+  q_vectors are only freed under RTNL with __IGB_DOWN set, so checking…
 
 --
 
-igb: fix RTNL assertion when resuming from runtime suspend
+igb: link queues to NAPIs under RTNL after runtime resume
 
-This patch moves the netif_set_real_num_{tx,rx}_queues() calls out of
-__igb_open() and into igb_open(). The runtime resume path runs without
-RTNL, so it no longer triggers an RTNL assertion. igb_open() now publishes
-the queue counts with netif_set_real_num_queues() before it calls
-__igb_open().
+When __igb_open() is called on the resume path, it no longer links queues
+to NAPIs. On system resume the links are set directly with RTNL held. On
+runtime resume a new work item takes RTNL and sets them, checking
+__IGB_DOWN first so that it does not touch freed q_vectors.
 
 Closes: https://bugzilla.ipfire.org/show_bug.cgi?id=13562
 
 > diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
-> index 131df3e09ba14..028cdd90522cb 100644
+> index 028cdd90522cb..f1ce9aa696ab7 100644
 > --- a/drivers/net/ethernet/intel/igb/igb_main.c
 > +++ b/drivers/net/ethernet/intel/igb/igb_main.c
-> @@ -4178,17 +4178,6 @@ static int __igb_open(struct net_device *netdev, bool resuming)
->  	if (err)
->  		goto err_req_irq;
->  
-> -	/* Notify the stack of the actual queue counts. */
-> -	err = netif_set_real_num_tx_queues(adapter->netdev,
-> -					   adapter->num_tx_queues);
-> -	if (err)
-> -		goto err_set_queues;
-> -
-> -	err = netif_set_real_num_rx_queues(adapter->netdev,
-> -					   adapter->num_rx_queues);
-> -	if (err)
-> -		goto err_set_queues;
-> -
-
-[Severity: High]
-The commit message says:
-
-  The queue counts only change on paths that re-open the device under
-  RTNL (ethtool -L, SR-IOV reconfiguration)
-
-Does that hold for suspend and resume? Every suspend goes through
-__igb_shutdown(), which calls igb_clear_interrupt_scheme(). That frees
-the rings and sets num_tx_queues and num_rx_queues to zero in
-igb_free_q_vectors().
-
-On resume, __igb_resume() rebuilds them:
-
-__igb_resume()
-    igb_init_interrupt_scheme(adapter, true)
-        igb_set_interrupt_capability()
-            pci_enable_msix_range() fails
-            msi_only:
-                adapter->num_rx_queues = 1;
-                adapter->num_tx_queues = 1;
-                adapter->num_q_vectors = 1;
-    __igb_open(netdev, true)
-
-Before this patch, __igb_open(netdev, true) updated
-dev->real_num_{tx,rx}_queues after that. Now only igb_open() does, and the
-resume path never calls igb_open(). The same is true when the MSI-X to MSI
-fallback in igb_request_irq() runs inside __igb_open(netdev, true).
-
-In that case, can the stack keep a larger real_num_tx_queues while only
-tx_ring[0] exists? igb_tx_queue_mapping() folds the stale indices onto
-ring 0:
-
-	if (r_idx >= adapter->num_tx_queues)
-		r_idx = r_idx % adapter->num_tx_queues;
-
-Each stack txq has its own _xmit_lock. Couldn't several CPUs then run
-igb_xmit_frame_ring() on tx_ring[0] at the same time, racing on
-next_to_use, tx_buffer_info[], the tail write and the BQL state of txq 0?
-
-__igb_maybe_stop_tx() and igb_clean_tx_irq() also only stop and wake
-subqueue 0. real_num_rx_queues would likewise stay larger than the single
-configured RX ring.
-
-Runtime resume happens on every link-up after a cable unplug, and each
-cycle releases and re-acquires MSI-X, so this can happen more than once.
-
-On system resume (rpm == false), __igb_resume() already holds RTNL around
-__igb_open(). Did that path need to lose the update to fix the assertion?
+> @@ -2115,6 +2115,30 @@ void igb_set_queue_napi(struct igb_adapter *adapter, int vector,
+>  				     NETDEV_QUEUE_TYPE_TX, napi);
+>  }
+>
+> +static void igb_link_queue_napis(struct igb_adapter *adapter)
+> +{
+> +	int i;
+> +
+> +	for (i = 0; i < adapter->num_q_vectors; i++)
+> +		igb_set_queue_napi(adapter, i, &adapter->q_vector[i]->napi);
+> +}
+> +
+> +/* Linking queues to NAPIs requires RTNL, which isn't held when resuming
+> + * from runtime suspend: do it from here instead. The q_vectors are only
+> + * freed under RTNL with __IGB_DOWN set, so checking it under RTNL is safe.
+> + */
+> +static void igb_queue_napi_task(struct work_struct *work)
+> +{
+> +	struct igb_adapter *adapter = container_of(work, struct igb_adapter,
+> +						   queue_napi_task);
+> +
+> +	rtnl_lock();
+> +	if (!test_bit(__IGB_DOWN, &adapter->state) &&
+> +	    netif_running(adapter->netdev))
+> +		igb_link_queue_napis(adapter);
+> +	rtnl_unlock();
+> +}
 
 [Severity: Medium]
-Will runtime resume still hit an RTNL assertion with this patch applied?
-Later in __igb_open(), igb_set_queue_napi() is still called
-unconditionally:
+Is this statement accurate: "The q_vectors are only freed under RTNL with
+__IGB_DOWN set"? The commit message makes the same claim.
 
-	for (i = 0; i < adapter->num_q_vectors; i++) {
-		napi = &adapter->q_vector[i]->napi;
-		napi_enable(napi);
-		igb_set_queue_napi(adapter, i, napi);
-	}
+On the runtime resume path, __igb_resume(dev, rpm=true) runs without RTNL.
+It calls igb_init_interrupt_scheme(adapter, true), which sets num_q_vectors
+and allocates q_vector[]. It then calls __igb_open(netdev, true). If MSI-X
+setup fails there, igb_request_irq() frees and reallocates the q_vectors:
 
-igb_set_queue_napi() calls netif_queue_set_napi(), and that calls
-netdev_assert_locked_ops_compat_or_invisible(). For igb, that check is
-ASSERT_RTNL(). __igb_resume() only takes rtnl_lock() when !rpm, so this
-chain runs without RTNL:
-
-igb_runtime_resume()
-    __igb_resume(dev, true)
-        __igb_open(netdev, true)
-            igb_set_queue_napi()
-                netif_queue_set_napi()
-                    ASSERT_RTNL()
-
-It also updates the queue napi pointers without RTNL.
-
-The next patch in the series, "igb: link queues to NAPIs under RTNL after
-runtime resume", fixes this. It calls igb_set_queue_napi() only when
-!resuming, and links the NAPIs under RTNL from a new igb_queue_napi_task
-work item. So the problem is gone by the end of the series. With only this
-commit applied, though, the "RTNL: assertion failed" warning from the
-commit message still looks reachable on runtime resume.
-
-[ ... ]
-
-> @@ -4241,6 +4228,17 @@ static int __igb_open(struct net_device *netdev, bool resuming)
->  
->  int igb_open(struct net_device *netdev)
->  {
-> +	struct igb_adapter *adapter = netdev_priv(netdev);
-> +	int err;
-> +
-> +	/* Notify the stack of the actual queue counts. */
-> +	err = netif_set_real_num_queues(netdev, adapter->num_tx_queues,
-> +					adapter->num_rx_queues);
-
-[Severity: High]
-Can the queue counts still change after this call? __igb_open() calls
-igb_request_irq(). If igb_request_msix() fails, it falls back to MSI and
-rebuilds the interrupt scheme:
-
-drivers/net/ethernet/intel/igb/igb_main.c:igb_request_irq() {
+igb_request_irq() {
     ...
+	if (adapter->flags & IGB_FLAG_HAS_MSIX) {
+		err = igb_request_msix(adapter);
+		if (!err)
+			goto request_done;
 		/* fall back to MSI */
-		igb_free_all_tx_resources(adapter);
-		igb_free_all_rx_resources(adapter);
-
+		...
 		igb_clear_interrupt_scheme(adapter);
 		err = igb_init_interrupt_scheme(adapter, false);
     ...
 }
 
-When msix is false, igb_set_interrupt_capability() takes the msi_only path.
-That sets num_tx_queues, num_rx_queues and num_q_vectors to 1.
+igb_clear_interrupt_scheme()->igb_free_q_vectors() sets num_q_vectors to 0
+and frees each q_vector[i]. The fallback then reallocates them with
+num_q_vectors set to 1. None of this runs under RTNL.
 
-Before this patch, the netif_set_real_num_{tx,rx}_queues() calls ran after
-igb_request_irq() and saw the reduced count. Now dev->real_num_tx_queues
-keeps the value set here (for example 4 or 8), while only tx_ring[0]
-exists.
+igb_remove() also frees the q_vectors without RTNL. It is only safe because
+set_bit(__IGB_DOWN) and cancel_work_sync(&adapter->queue_napi_task) run
+before igb_clear_interrupt_scheme().
 
-Would igb_tx_queue_mapping() then fold txq 1..N-1 onto tx_ring[0]? Each of
-those stack txqs takes a different _xmit_lock, so igb_xmit_frame_ring()
-could run concurrently on the same ring. real_num_rx_queues would also
-stay larger than the single configured RX ring.
+So RTNL does not seem to serialize igb_queue_napi_task() against the
+runtime resume writer. The only handoff between them is the __IGB_DOWN bit.
+The writer uses a plain clear_bit() in __igb_open() and the reader uses a
+plain test_bit() here. Neither provides release or acquire ordering.
+
+Can the following sequence happen?
+
+  runtime resume #1 queues queue_napi_task
+
+  the work is delayed (on rtnl_lock() or in the workqueue) past the
+  5 second pm_schedule_suspend() in igb_runtime_idle()
+
+  runtime suspend #2 takes RTNL, igb_down() sets __IGB_DOWN and
+  igb_clear_interrupt_scheme() NULLs q_vector[]
+
+  the work takes RTNL while runtime resume #2, without RTNL, reallocates
+  the q_vectors (possibly through the MSI fallback) and clears __IGB_DOWN
+
+On weakly ordered CPUs such as arm64 or POWER, the work could see
+__IGB_DOWN as cleared but still load stale num_q_vectors or q_vector[i]
+values. For example, it could read num_q_vectors as N from before the
+fallback and q_vector[1] as NULL from after it.
+
+igb_set_queue_napi() would then dereference q_vector->rx.ring through a
+NULL pointer, or through a pointer that was already passed to kfree_rcu().
+The work does not hold rcu_read_lock().
+
+This looks like a flag being used as a lock. One option is to pair
+clear_bit_unlock() (or smp_mb__before_atomic() plus clear_bit()) in
+__igb_open() with test_bit_acquire() here. Another is to rebuild the
+q_vectors on the rpm resume path under the same lock the work takes.
+
+At minimum, could the comment and the commit message state the real
+invariant? That is, the q_vectors only change while __IGB_DOWN is set, and
+igb_remove() cancels the work before it frees them.
 
 [ ... ]
 
