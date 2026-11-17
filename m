@@ -1,64 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.191
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794925199;
-	b=OakOpiYScxfOkkUG9QNJQFmLH6L45Hrd7Sq6DjsQyI/jObNGKZk3qpiMV/CKdZuza+O/
-	 hI+TkgxfMMVeVG3KjsPJtK23rzyD4op/xQeo23FwHnaEZqw/oeXN+8IdqwxsTrw8brdwY
-	 Pdh0uAEDp3LOnTNz6zJuAX75SuY5oh6kaYbzlo75NYW3AV0NkbWi7kmT0mLMdCTmEh2op
-	 f53Q9qnhSajhxVoQAIn0mqQnMWvhquZXfSU2DWiyOxicroBgPipfFbZvQUL1Zz+3peUOi
-	 IewdYahMGQqmQVCwq8VEmZH1m2Wj2y8cdK6nnOi6gmDLExdMHFitOhzW8nXUNblDxoQ==
+	t=1794925258;
+	b=AHfcT8azRXBjzUhMEhZ19t9BKsTbb8ScPDbPJG60Q+IfM6MN+DAeg6x73jDGiKsy3Xdq
+	 eyvuZtIUJ60BzcMj3dyExXdbALRR74a2xKh4Dyb8mHWYq7GV5zB01hd6/M+2DJK+57DEN
+	 ZfGjWhXYqhoqOkuFPz+8rmnkqoSw0biyRYrjr4DKy8rFXVM8MoJH8QwZxBp82Yph7fQBl
+	 exLGeChZT+Rbt0qlXrLKwTGS5XMwnrK1aCllQG7n2740dx49OCciuaj5ABFHNXrcAVYNB
+	 nuKtwbSnDPkwmssu/XPEdwZjy+FSEgYwmlQoxtWMuzzbo88vK4IiqkhixPKpOILgO7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794925199;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=AXpU8ISp0jRVPb13iw0ptLUv6FobkXQ0x4wGrSGKdTY=;
-	b=A+/PVP6IFHTR0oOZa27UWsMiAEDJ0fg2tGAx2e+ElseEiwQsqan2G6gpIlI3s6t9y+Lg
-	 oa8NUDaBGM3/Elbip44txVZQwgxcYdStrLjRv4l/toMkgjTGTaav+eIe5SzvDF39t7pqA
-	 5REseMRLNO+lVQWX9ayPLOiymnuw8ZYamIcougmAmH2BrqoCCXMvzR8UcudOOyI1s9/J7
-	 hQ2XToaCFNX67A9YgrLAOibsBIvI1f8HjzARzXsXLW9ojfhuR3dI8O4L6JCEDekUISK0x
-	 4Kv2rAD6kpCQGL8L1qgy56mEAE14qAhGz1R1gdKLfGXpqDUwyzXUOKcHTo9Z0HVPbqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794925258;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=viu1yje4As6OjByhd+biKMvb1JY5yU9tAC8Wwkiiqko=;
+	b=L8SiMYrPYcWcW1nYdfwRstKV/RdWdqiC+/2uMZYqV29iNU36+0qn2lQp9KxtYZN5mrwx
+	 eB79ynIVEiYMgr4FO/wV3YdWMVKVIQFWKI1vQxBmYqpPbLLsuEdYb6DmfJn96ZbRjUdYs
+	 jI/g4htkY8uxpvRjuwwQ8W1nmp3rmcA/q2yOUNqjEWGr9YqNQl2vwAZPhcWTg3oHCPykE
+	 URqyt/4vRmr6eBe9MFEPR678XzxNmyzt68XQiHPrZhZm0cyJs0bbWu9l5fZW9yG5u28SR
+	 7lj/OkJVVHfIwVDQ8JKRL5LknI1KurxktnqPc1KYRBUcvUIhI19Ws5b80ytOeIeuGYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BTBY2ZI5;
-	arc=none smtp.remote-ip=91.218.175.191
-Received: from mta0.migadu.com (out-191.mta0.migadu.com [91.218.175.191])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ngAn6gaO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE4F606A333
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:19:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FE4F606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DBA4606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:20:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BTBY2ZI5
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=jpoUrqEhZGtO1voo/V91CLK+zaKFJAgHFOTKKalt7GE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794925195; v=1; x=1795529995;
- b=BTBY2ZI5MqtapREnrmOO9d5EU3PgXaLjvspbG3UiNjxfZ2cV2lq2qA4gofBpodRIvWh4sjpl
- 8ECTZtpZULbyIrBnRMBpyg3/wQR2apPv4kPwGmzXOVC6Py8NGvj2HpWGRcvHyTn2jvNl1P8wlz8
- oV4tUlgDr6sU9Qqkpd97AyqE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2adbb1d648220a4f;
-	Tue, 17 Nov 2026 14:19:55 +0000
-X-Mizu-Trace-ID: 2adbb1d648220a4f
-X-Migadu-Flow: FLOW_OUT
-From: Ruben Wauters <ruben.wauters@linux.dev>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>
-Cc: Ruben Wauters <ruben.wauters@linux.dev>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/gud: fix potential divide error due to optimisation
-Date: Tue, 17 Nov 2026 14:17:51 +0000
-Message-ID: <20261117141943.10540-1-ruben.wauters@linux.dev>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ngAn6gaO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DFB81F000C5;
+	Tue, 17 Nov 2026 14:20:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794925258;
+	bh=viu1yje4As6OjByhd+biKMvb1JY5yU9tAC8Wwkiiqko=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ngAn6gaOxuvKFm4o5ca0TX7e7f1Ly2G5dtLvAyv4P9a++xAkPCDa+Wuw3cJoXtRJQ
+	 KPuox3JrZXg/M1hFCBWqSwkRK7GMNR8UdPmyUePP1j2WIHAHotnl/FgFN4xGeXa/mQ
+	 Q1+aXz4c2pK2RhSJYALWw1a4DAGDcTugpdniJMKqTsFKziUniavOiOjj/t6E4ryT/v
+	 JaCF0g/UXw7nxy1NysxUlzikBUwJJH/u1JbvSX3G/YGUuw3WpuGk+a7NVJK+1lUzgT
+	 yjWXYyQ+vnmjf8xSssVUxaNfT4HxSULVJuCh6b91K+nKP1uD4bhatBA9p8P42FsJxH
+	 DY0UlueYbDlkg==
+Date: Tue, 17 Nov 2026 22:00:43 +0800
+From: Jisheng Zhang <jszhang@kernel.org>
+To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Cc: Albert Ou <aou@eecs.berkeley.edu>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Paul Walmsley <pjw@kernel.org>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org
+Subject: Re: [PATCH v2 0/2] riscv: mm: fix set_memory_x() and
+ kernel_page_present()
+Message-ID: <avxeCy_ovH1BSyOo@xhacker>
+References: <20261117-fixes-riscv-v2-0-5edc9bdc54fd@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,34 +58,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261117-fixes-riscv-v2-0-5edc9bdc54fd@kernel.org>
 
-Compilers can potentially optmise the read of gdrm->stats_actual_length
-to two separate reads. As flagged by sashiko, when the rect is flushed
-the stats_actual_length can reset to zero. If this was to occur between
-the two reads, the divide error can still be triggered (albeit rarely).
+On Tue, Nov 17, 2026 at 04:00:19PM +0200, Mike Rapoport (Microsoft) wrote:
+> These are two riscv fixes I found while working on a generic
+> implementation of the set_memory APIs.
+> 
+> The first one stops set_memory_x() from making the linear map alias of
+> module and BPF text executable.
+> 
+> The second one makes kernel_page_present() report the pages removed from
+> the linear map as not present. Today it says they are mapped, and
+> hibernation could copy them without mapping them first.
+> 
+> ---
+> Changes in v2:
+> - read the PMD entry once in kernel_page_present() (Jisheng)
+> - Link to v1: https://patch.msgid.link/20261112-fixes-riscv-v1-0-1caac19897b5@kernel.org
 
-Fix this by adding a READ_ONCE around the gdrm->stats_actual_length
+for the series:
 
-Fixes: 431c2dffd2b7 ("drm/gud: avoid divide error in gud_stats_debugfs")
-Signed-off-by: Ruben Wauters <ruben.wauters@linux.dev>
----
- drivers/gpu/drm/gud/gud_drv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Reviewed-by: Jisheng Zhang <jszhang@kernel.org>
 
-diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.c
-index cec5d64e152b..4854b30ea5ba 100644
---- a/drivers/gpu/drm/gud/gud_drv.c
-+++ b/drivers/gpu/drm/gud/gud_drv.c
-@@ -329,7 +329,7 @@ static int gud_stats_debugfs(struct seq_file *m, void *data)
- 	seq_puts(m, "\n");
- 
- 	if (gdrm->compression) {
--		u64 actual_length = gdrm->stats_actual_length;
-+		u64 actual_length = READ_ONCE(gdrm->stats_actual_length);
- 		u64 remainder;
- 		u64 ratio, ratio_frac;
- 
--- 
-2.56.1
 
+> 
+> ---
+> Mike Rapoport (Microsoft) (2):
+>       riscv: mm: do not make the linear map alias executable in set_memory_*()
+>       riscv: mm: check the valid bit in kernel_page_present()
+> 
+>  arch/riscv/mm/pageattr.c | 21 ++++++++++++++-------
+>  1 file changed, 14 insertions(+), 7 deletions(-)
+> ---
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> change-id: 20261112-fixes-riscv-3e48788f58fe
+> 
+> --
+> Sincerely yours,
+> Mike.
+> 
