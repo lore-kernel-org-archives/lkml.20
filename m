@@ -1,67 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794888402;
-	b=GCnWkzi+CEuleMva6CtZSNBgFMW/boLe+8h8kshZvYkis3awf9U5Km9zhSb/9ncvnXD/
-	 Mnd+NSLBdax7hdV0X7tRSg884SYddMeMeCds6dTTEomqkmUParX3GEbv90+xzYFHtMfkf
-	 nvGYn3ZfuV5nMFTVX1FgH0j80B6A3gkimcTEwk1QxpCjKtVhgfUhn90kZls5AJzsOfXZS
-	 ElB3XA30//I0m9+lMBPTSI/VuXeVEn2ziFUQYfMI9bKb5b6Kn19BByoJxoBbhGFRpdB7B
-	 nKuqBbuFTsIvjle34SXq3KLUU094zlmbnbUBfeE98L/52uvrLbpBqnfTtqTtWYiqLFA==
+	t=1794888472;
+	b=uH+oSR7eSLwqFijQjgrbvfXtIVD5uUW434+ZHKkoLP4mBKs2/eaPq0Tm+Ibg+8UjpLen
+	 0jonOmbgcUj0o0yYBNjCBVPiLQkeanSbVc2Bjybf9PYQtb42VjbQ9vFlBy7SV1Nnt6gST
+	 EbTzd9+TEc1G0UdTKCPPKiMPPLc3/a3LT/0kcG85Ix66zeCxY445eCnp/1ycVaEplZOnH
+	 wcVez2QmcGT/yG/wy7XBSsh65A8HCYDyNbjMJ3O5RPI8atUXsGIEdJvPMlkB+W8DwDHRk
+	 K5q3f5Kz2FxmQgzfbcdRfSNkVSoWt+oDlFlzfopCMaFxf415CSd0wgH2z3X6cK3GbNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794888402;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
-	bh=va/mnMTqx710thSJTM0Z8CocDpxShRf7Hl6EIOOUmGE=;
-	b=nPEtOWrQ1hKsOMHBluhXCvcIX+ALlZgVFv4ZrvJgUp7Byzb3kGG1ZBRZafoeY9apQS72
-	 gmiOgvoxDfozhuMZUHPKb1bajT0gVYCta/ESYHL/Ybx4/Cu7FhM1cuk17v8gUxol/Mx96
-	 UY9yFAF8M77QI9ogINcnmpW5fB9kmTFilXW4acAku4VcP6JdnyzLh2SVa2NIjULNR2Lvt
-	 DLyNazZgTuJe8MzDc+32BBQyNFHo516jVTt8QO3A6HCkB43W3FqCg06wg4bTXakjWorQy
-	 PMzXo1pgLSmbrTJKGrB7w8WRAXZCly359y2Tp0OAgcmTCvANetfh9DkHZtV7WYdQofQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794888472;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=vazntSqnmHMdNlbcyg8Tr4Nzw6bRT2l3Puo42bhlvGI=;
+	b=tYecGR+xLqxA8uH6pKaSnNMIT7q9V2Xp2efBj6TJYWLA8tX9fUwtgB8vSHH0Zsg5WQXq
+	 u5JrqiEuyYRLQ4w5iYu4DY9n9zWJCKD0wFoEoC+APXwPDT4FwSG/LZKRaFojinxMdJFoo
+	 Qvbdj51p2QnE23mx/SesqJ65lt1XeJZisxCowiH9zuKnjDfvqT2tYY05FBqeRVC8RDix5
+	 R0dYXOaQXqIESuK1cf3ZloGjPw2K8s/mgkgp2Vkr04yylc1PPhdkpLgSi2bZiCyF23PHI
+	 v+6FUB3sOcPIGFK7u2HlKDGTJkEP1Bd99z8qi/yzdSgJxpPDkO/5wnmSDBLbGmsKs8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=V3euVlpn;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=none header.from=gibson.dropbear.id.au;
+	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
+	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=VXdXWsdr;
+	arc=none smtp.remote-ip=150.107.74.76
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A656D606A333
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:06:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A656D606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A502F606A8A3;
+	Tue, 17 Nov 2026 04:07:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A502F606A8A3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=V3euVlpn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794888400;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=va/mnMTqx710thSJTM0Z8CocDpxShRf7Hl6EIOOUmGE=;
-	b=V3euVlpn6td8Nynoxddx60zh4BegjQu5NJ/dl/zoLHuQ0oUcDZZwEb941feU8OrykCiEVg
-	fV+cYb84C/iHtpl+xnWbMdIS4M/F0WPP45+cTKKf4ojvOi0gBKB+dqkWL9iYL58O9siJjo
-	4bOwTqTU5DLU2Hnag7ZtP4gmazTO8lk=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-362-CViUN3KmOXme1qAmpHQ0cQ-1; Mon,
- 16 Nov 2026 23:06:37 -0500
-X-MC-Unique: CViUN3KmOXme1qAmpHQ0cQ-1
-X-Mimecast-MFC-AGG-ID: CViUN3KmOXme1qAmpHQ0cQ_1794888395
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 12CA818001EF;
-	Tue, 17 Nov 2026 04:06:35 +0000 (UTC)
-Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 6EFCD180055C;
-	Tue, 17 Nov 2026 04:06:33 +0000 (UTC)
-Message-ID: <ec27406c-5e30-400a-bfde-f88752ec73be@redhat.com>
-Date: Mon, 16 Nov 2026 23:06:32 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=VXdXWsdr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202610; t=1794888468;
+	bh=vazntSqnmHMdNlbcyg8Tr4Nzw6bRT2l3Puo42bhlvGI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=VXdXWsdrqLTVaaxEUwgcYTPd+UgQvnBmt6a6nFyOC48XNHWvfJ6j/Sk3CDaFPEFra
+	 8Vq3UUrYuPK4FnxMU1hXJjjJ2izX87eumRdq7EYnLL1OYHx4s4ybMe0FzbwrhHc8uB
+	 k1YBASllLacyd905ECMp1wOaE5uG78uz64mkDOuQxp6PiAcv3aA6apvqUfmVWdEvQL
+	 cHesPN0CdJHxsQLHEYiSKQBwVFsXBOuhcTv0f6WFQH+wPGzUR1jVchCY+1O204T7Q2
+	 z5gE6CSg2GD0hwz80obR0hgw8do10NlqvyPbglljy06j100cM60GJNoLrTUtEHUvRD
+	 0Lzm0+HspRDPw==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4jTB5w4f91z4wT7; Tue, 17 Nov 2026 15:07:48 +1100 (AEDT)
+Date: Tue, 17 Nov 2026 15:07:45 +1100
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Douglas Anderson <dianders@chromium.org>
+Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>, Devicetree@vger.kernel.org,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
+	Simon Glass <sjg@chromium.org>, linux-kernel@vger.kernel.org,
+	Brian Norris <briannorris@chromium.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Julius Werner <jwerner@chromium.org>
+Subject: Re: [PATCH v4 08/14] libfdt: Speed up fdt_find_string_len_() with
+ memchr()
+Message-ID: <avvTEIZQZwra3Zra@gractus.seuss>
+References: <20261116205320.1621386-1-dianders@chromium.org>
+ <20261116205320.1621386-9-dianders@chromium.org>
+ <avvRY-nTstFbvTpF@gractus.seuss>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,170 +75,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next v4 6/6] cgroup/cpuset: Fix lockdep_is_cpuset_held()
-To: Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, Guopeng Zhang <guopeng.zhang@linux.dev>
-References: <20261116012330.2271010-1-longman@redhat.com>
- <20261116012330.2271010-7-longman@redhat.com>
- <f5f1ecf6-d33a-4245-a522-34b986a3d7c2@linux.dev>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <f5f1ecf6-d33a-4245-a522-34b986a3d7c2@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="cXum1XM0T00KBhSS"
+Content-Disposition: inline
+In-Reply-To: <avvRY-nTstFbvTpF@gractus.seuss>
 
-On 11/16/26 2:24 AM, Ridong Chen wrote:
->
->
-> On 11/16/2026 9:23 AM, Waiman Long wrote:
->> Commit a84097e625f2 ("cgroup/cpuset: Call housekeeping_update()
->> without holding cpus_read_lock") changes lockdep_is_cpuset_held()
->> to return true if either cpuset_mutex or cpuset_top_mutex is held.
->> lockdep_is_cpuset_held() is used by housekeeping_dereference_check()
->> as one of the conditions that rcu_read_lock() is not needed to
->> access HK_TYPE_DOMAIN cpumask that can be changed at run time.
->> In reality, it should return true only if cpuset_top_mutex is held as
->> housekeeping_update() is called with only cpuset_top_mutex held.
->>
->> If only cpuset_mutex is held, it is possible that there can be a 
->> parallel
->> housekeeping_update() call leading to a potential use-after-free 
->> situation
->> when HK_TYPE_DOMAIN housekeeping cpumask is being accessed. It also
->> means that rcu_read_lock will be required if only cpuset_mutex is being
->> held like when calling from hotplug, scheduler or cgroup.
->>
->> Fixes: a84097e625f2 ("cgroup/cpuset: Call housekeeping_update() 
->> without holding cpus_read_lock")
->> Signed-off-by: Waiman Long <longman@redhat.com>
->> ---
->>   kernel/cgroup/cpuset-v1.c | 16 ++++++++++------
->>   kernel/cgroup/cpuset.c    |  9 +++++++--
->>   2 files changed, 17 insertions(+), 8 deletions(-)
->>
->> diff --git a/kernel/cgroup/cpuset-v1.c b/kernel/cgroup/cpuset-v1.c
->> index 7c7f2887dfaf..6bf6da639fec 100644
->> --- a/kernel/cgroup/cpuset-v1.c
->> +++ b/kernel/cgroup/cpuset-v1.c
->> @@ -686,6 +686,7 @@ int cpuset1_generate_sched_domains(cpumask_var_t 
->> **domains,
->>       int csn;        /* how many cpuset ptrs in csa so far */
->>       int i, j;        /* indices for partition finding loops */
->>       cpumask_var_t *doms;    /* resulting partition; i.e. sched 
->> domains */
->> +    cpumask_var_t hk_cpus;    /* HK_TYPE_DOMAIN housekeeping CPUs */
->>       struct sched_domain_attr *dattr;  /* attributes for custom 
->> domains */
->>       int ndoms = 0;        /* number of sched domains in result */
->>       int nslot;        /* next empty doms[] struct cpumask slot */
->> @@ -698,6 +699,11 @@ int cpuset1_generate_sched_domains(cpumask_var_t 
->> **domains,
->>       dattr = NULL;
->>       csa = NULL;
->>   +    alloc_cpumask_var(&hk_cpus, GFP_KERNEL);
->> +    scoped_guard(rcu) {
->> +        cpumask_copy(hk_cpus, housekeeping_cpumask(HK_TYPE_DOMAIN));
->> +    }
->> +
->
-> The return value of alloc_cpumask_var() isn't checked. With
-> CONFIG_CPUMASK_OFFSTACK=y, hk_cpus is NULL on failure. Maybe goto done
-> like the other allocation failures here?
->
-> Also, rebuild_sched_domains() can be called from outside cpuset, e.g.
-> arch_topology and the energy model, with only cpus_read_lock and
-> cpuset_mutex held. partition_sched_domains_locked() reads
-> HK_TYPE_DOMAIN in asym_cpu_capacity_scan() and in its fallback path.
-> Will these trigger a lockdep warning after this change? If so, do they
-> need an RCU read lock as well?
->
->
-Yes, I realize that some additional scheduler functions will need to be 
-updated as well for this to work. I am planning to have an alternative 
-solution to work around this problem. I am going to drop this patch and 
-send out another patch soon.
+--cXum1XM0T00KBhSS
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Cheers,
-Longman
+On Tue, Nov 17, 2026 at 03:00:36PM +1100, David Gibson wrote:
+> On Mon, Nov 16, 2026 at 12:53:05PM -0800, Douglas Anderson wrote:
+> > `fdt_find_string_len_()` currently calls `memcmp()` at every byte offset
+> > across the string table (`for (p =3D strtab; p <=3D last; p++)`). When
+> > building or modifying trees with large string tables (such as DTBs and
+> > overlays with hundreds of `/__symbols__` or `/__fixups__` labels via
+> > `fdt_sw` or `fdt_rw`), scanning multi-kilobyte string tables byte by
+> > byte dominates serialization time.
+> >=20
+> > Advance `p` between candidate first-byte matches using `memchr()` (with
+> > an explicit `slen =3D=3D 0` check for empty property names and a `tabsi=
+ze <
+> > slen + 1` bounds check before computing `last`), preserving identical
+> > suffix-sharing behavior.
+> >=20
+> > On one stress test (running the fdtfactor tool across 438 arm64 Qualcomm
+> > DTBs) this reduced `fdt_property()` time by ~5.6x.
+>=20
+> What we really want is memmem(), which would presumably have a similar
+> optimization (and likely more) built in.  However, we avoid that to
+> make this easier to environments which lack it.
+>=20
+> Complexity isn't too great, so this looks reasonable to me
 
->>       /* Special case for the 99% of systems with one, full, sched 
->> domain */
->>       if (is_sched_load_balance(&top_cpuset)) {
->>           ndoms = 1;
->> @@ -710,9 +716,7 @@ int cpuset1_generate_sched_domains(cpumask_var_t 
->> **domains,
->>               *dattr = SD_ATTR_INIT;
->>               update_domain_attr_tree(dattr, &top_cpuset);
->>           }
->> -        cpumask_and(doms[0], top_cpuset.effective_cpus,
->> -                housekeeping_cpumask(HK_TYPE_DOMAIN));
->> -
->> +        cpumask_and(doms[0], top_cpuset.effective_cpus, hk_cpus);
->>           goto done;
->>       }
->>   @@ -736,8 +740,7 @@ int 
->> cpuset1_generate_sched_domains(cpumask_var_t **domains,
->>            */
->>           if (!cpumask_empty(cp->cpus_allowed) &&
->>               !(is_sched_load_balance(cp) &&
->> -              cpumask_intersects(cp->cpus_allowed,
->> -                     housekeeping_cpumask(HK_TYPE_DOMAIN))))
->> +              cpumask_intersects(cp->cpus_allowed, hk_cpus)))
->>               continue;
->>             if (is_sched_load_balance(cp) &&
->> @@ -794,7 +797,7 @@ int cpuset1_generate_sched_domains(cpumask_var_t 
->> **domains,
->>                           *(dattr + nslot) = SD_ATTR_INIT;
->>                   }
->>                   cpumask_or(dp, dp, csa[j]->effective_cpus);
->> -                cpumask_and(dp, dp, 
->> housekeeping_cpumask(HK_TYPE_DOMAIN));
->> +                cpumask_and(dp, dp, hk_cpus);
->>                   if (dattr)
->>                       update_domain_attr_tree(dattr + nslot, csa[j]);
->>               }
->> @@ -806,6 +809,7 @@ int cpuset1_generate_sched_domains(cpumask_var_t 
->> **domains,
->>     done:
->>       kfree(csa);
->> +    free_cpumask_var(hk_cpus);
->>         /*
->>        * Fallback to the default domain if kmalloc() failed.
->> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
->> index 64cbcbdbf6da..d18439e13bce 100644
->> --- a/kernel/cgroup/cpuset.c
->> +++ b/kernel/cgroup/cpuset.c
->> @@ -343,10 +343,13 @@ void cpuset_full_unlock(void)
->>   }
->>     #ifdef CONFIG_LOCKDEP
->> +/*
->> + * Holding cpuset_top_mutex will guarantee that a parallel
->> + * housekeeping_update() call modifying housekeeping cpumasks is not 
->> possible.
->> + */
->>   bool lockdep_is_cpuset_held(void)
->>   {
->> -    return lockdep_is_held(&cpuset_mutex) ||
->> -           lockdep_is_held(&cpuset_top_mutex);
->> +    return lockdep_is_held(&cpuset_top_mutex);
->>   }
->>   #endif
->>   @@ -1416,8 +1419,10 @@ static bool 
->> prstate_housekeeping_conflict(int new_prs, int parent_prs,
->>           }
->>       }
->>   +    rcu_read_lock();
->>       cpumask_and(full_hk_cpus, 
->> housekeeping_cpumask(HK_TYPE_KERNEL_NOISE),
->>               housekeeping_cpumask(HK_TYPE_DOMAIN));
->> +    rcu_read_unlock();
->>       cpumask_andnot(full_hk_cpus, full_hk_cpus, isolated_cpus);
->>       cpumask_and(full_hk_cpus, full_hk_cpus, cpu_active_mask);
->>       res = !cpumask_weight_andnot(full_hk_cpus, new_cpus);
->
+Hmm... actually, thinking about this again, I'm kind of baffled that
+the speedup is so large.  In the old version, if p is at a character
+that doesn't match the start of the string we're looking for, memcmp()
+should return almost immediately (after a single byte comparison), so
+I'd expect both versions to be - roughly speaking - a single scan
+through each byte of the strings block.  At least with gcc builtin and
+inlined mem*() implementations, I'd expect the performance difference
+to be pretty modest between that and the new version.
 
+What was the environment (host CPU, libc, compiler options) you used
+for the benchmark?
+
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
+
+--cXum1XM0T00KBhSS
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmr70xAACgkQzQJF27ox
+2Gc1VQ/+L2RgHkvbtZddBfGHshJn92Djad6o307+u2sikqFrETPgzchH2WfO5at3
+U+cFWUXG/pIwSmJtUzmTVwXcNEdPEthFgKStrTii6z0a4qKFhRsNVgsSmM6k/Xol
+e1Xv+Ux141/23u3leO7ngzORmoRZhTWevH5931Aw7OUnP/DCdmniM6k8MO5NQFrU
++Ize6rGRw2appWwP5Na2/EutbgUjNvRA2zCDInR3jg0gpjyBwm3/sl2nNdz6V2GB
+hHVwAZFhWnsepr8As+YItWFlaTVUUaBeRpSLtWOt2SXNEZaQRmrRbF6XxDios32Y
+ynxJyAPwwSeq7J7Yhu+2T26MRU0k8FKtu8PSEQSIqskocAtT4DWLiwRed5iCAMr1
+lZxNO8BaU2gz2RzGd1RYO+LpDTX71xKoubgmeqhpflWAZsmd7G4E3s+QNYljSIcO
+VAJP73HcbKLd1CKmCEZKpgdolQniq1Zx+B2nTMVA6si7XK0FlEIqtwN+UPCM1qyZ
+kUtX9+FK9K8GiHU0j0AhODsITwJqMLZQbgwuWD8warurDq2WJZ0+QJXBnvZ+/Ygq
+8Ucer0Y4h1cPJYhtsSsogwQtviTRLC8HqQ4Bdve6WvZpaoRkOlXg+7USsdMIUrT9
+n6bP83p1az7dxGLNbvyODf/r1rREkjv0LvHNWe3lDn7BoLROTJg=
+=LrBC
+-----END PGP SIGNATURE-----
+
+--cXum1XM0T00KBhSS--
