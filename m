@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794914173;
-	b=xT9d8KN9qci1/VDwg8FgrSBekplxuil056u4vSZ0EN7eJiGmBteKzEj6K3oQU+lBl1HK
-	 r9f+1EYdunw0iXLDWO8NmDr7kDOznyRYP8GlpOb5QozgcmRLKfhAJ/UOWVW/HfIg2p27X
-	 KaayFxC3O6m3WQVDsritWffGZ8z2Db/rJLSpJ9In6CLnYNZyLqwNJUb/oXdxTkdE0g7Ks
-	 QXnk1cNwpYDNY5eTpSj0AaHCU/dVMvPF7J6sH22vYLEiQShKmKiT4BJK3FUmwbP+0R0R1
-	 TsW1slq2uezbJSjPccXfDnkXbmyT9LYtaREl+YWOkw1WI75nzp2RU8JDEUoR6BExApQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794914173;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=KdPfRKQsITkj2xTm0Ckh0nynyb6gsVLNNS8iQhKtX9Y=;
-	b=hCrehab44xWBMxmzRdffY2uxQz9YEfUgmrRThGmsGdRqtVcgqc5UpazLB68RyaZHvhp3
-	 OPVJIeMd9rnBcsoVrGY6EPJF+w5o34dXIlJvrtGp0TU7eyaR4bI7uSBjsIOOKjbrPyH8b
-	 QT8STuZV8NPbHPk/p1vfuI9jdTaSfwPC/chtLeRqgzb19oH5+J6hGY0AbeQiO4mwYeExZ
-	 WaFB25zA76vvkdpfkohMZ6X66iXp8kvHLizCHATseYn0mW0j2ChDpDuF2GDaU4YbEFHTD
-	 J/n3D0x3eeUlpk1z38E7ROb4lCFKSAD9RMYbgr+YUWJQqZQ67GJrwEBt0opOY6TxXlA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=n+NzOeBA;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A89A8606A323;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794914174;
+	b=pWEYg/y40IvZ1L/4T70z4w9CA4h7r3lGHL+qtPuLzGIbZpWMhtbnt8ZmDm5sz7V/pzCM
+	 IbwOFm21v74P6eIczmhcszfCnjMskfTCe9thOaF9TmCMJ0xICrBq918Ox7wEIfxiiMG46
+	 e+aRS7juNtoNAykzgdNXl5RR0FWRS7qae+hlf6lWeY6qw1Wu/dl1FCLTaJUmUUZNnTTtA
+	 l4ebeMwsqWY06PhM5cxa3M+qkVr4B5VTUW59TRAFAJWvXFB0+565xkkEiIFrCO1wxVjss
+	 JmwO2Bpf3g8Ivry9JXioCtTQv8w6ssUBSV9AoF63wChTuxy08yuv9CpkXwVp5HPsxCA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794914174;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=XQnFS6mscVdKFv/wz+t4a1SX3rV0MI1PwhYts/rkw90=;
+	b=4T4ns/gf04MRHGXJOZBZDhTgLAfv2rmTdjOkob2OewagFN6N2WjS1VKRZ8M9Ow4DlySd
+	 s2F2qU/Y8LPz9CJDSSSazUUs/ZEbEBAkc2YkUgxhapOyyISRln01F1pZH67vBlfLr8jEw
+	 ssH2utc+/mm0scocAAYnXvNBcfIk+C8GIy2X398QjGaTUpmehP0eo91zXCQZf+m5D6mLC
+	 ra0W5Ta8SFks6LZbMQiW3dfzIuDQvI5Hu/aMWzrlUA1WvuUI55rsSLGkgS9KyyKIu+7vD
+	 XNY/wZ2JvhsBC7XdwIF8ipcI5Czgn3avaZrFZuhGx+vgabJRUA6HGC54YNuHa6FuEug==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=CdKUAUSm;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DE86606A329;
 	Tue, 17 Nov 2026 11:16:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A89A8606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DE86606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=n+NzOeBA
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 164BD1A00;
-	Tue, 17 Nov 2026 03:16:09 -0800 (PST)
-Received: from e135073.nice.Arm.com (e135073.arm.com [10.34.111.135])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 46A183F763;
-	Tue, 17 Nov 2026 03:16:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794914172; bh=+seG+Es6T8P/0cUkexaRG5Jcisr8c6aEc2SHs8eVSIw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=n+NzOeBAxsNGcwnMbahxLW1vlZFQM3oATmAeDVp631vAcYwtgSPnu/Tm5NR1MTRvY
-	 5VvGSJ10TUlgkE08LaxPOtttIdMeB7pXbEasWgp1oSDKNSy99Xb7h/efGIC0QZtZQY
-	 WOkvP8vP7b17X/ucRI9utTZCS6ah+ZaM2N7FSmr4=
-From: Pierre Gondois <pierre.gondois@arm.com>
-To: linux-kernel@vger.kernel.org
-Cc: Ashok Raj <ashok.raj@oss.qualcomm.com>,
-	James Morse <james.morse@arm.com>,
-	Mark Brown <broonie@kernel.org>,
-	Pierre Gondois <pierre.gondois@arm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Tony Luck <tony.luck@intel.com>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Shuai Xue <xueshuai@linux.alibaba.com>,
-	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
-	"Oliver O'Halloran" <oohall@gmail.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
-	Pawel Chmielewski <pawel.chmielewski@intel.com>,
-	Yazen Ghannam <yazen.ghannam@amd.com>,
-	Avadhut Naik <avadhut.naik@amd.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	"Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>,
-	Kai-Heng Feng <kaihengf@nvidia.com>,
-	Breno Leitao <leitao@debian.org>,
-	Dan Williams <djbw@kernel.org>,
-	Terry Bowman <terry.bowman@amd.com>,
-	linux-acpi@vger.kernel.org,
-	linux-edac@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-pci@vger.kernel.org,
-	acpica-devel@lists.linux.dev
-Subject: [PATCH v1 02/19] x86/APEI: Report Memory Error Section 2 through MCE
-Date: Tue, 17 Nov 2026 12:10:12 +0100
-Message-ID: <20261117111444.4185512-3-pierre.gondois@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261117111444.4185512-1-pierre.gondois@arm.com>
-References: <20261117111444.4185512-1-pierre.gondois@arm.com>
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=CdKUAUSm
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 5541B205A36;
+	Tue, 17 Nov 2026 12:16:11 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794914171;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XQnFS6mscVdKFv/wz+t4a1SX3rV0MI1PwhYts/rkw90=;
+	b=CdKUAUSmNxTOw1IaS8HkYsFHYApXR2MbTnN9CaWpMge98xW7Xhk4tRWUoIe809vCH8W/vA
+	lhOFxWoHaDqWxbIwyIUR9JXBZEIi6RmOyMP7GND3ri9nn3pjfZF/ExEgwTa/cUanOqofsi
+	DMSFVMJ1NsgVrk3CQdNtnuHYgzuuzBPSdiSXW7RixhEhjwYg77XHUzCLI7AuGRTqkfGBqJ
+	M3of13q14F/HsaY4dHT/CYY0l8mshMs8hhsHyfob0f9r8/EOdHwX8WyIvz51CzIKTTGRkr
+	3aUlO6V+SPzt5G1X2ibXMsDLgL8DhTz6zJ6D+uefCpa147sDfDXboYKHLW1SPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794914171;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XQnFS6mscVdKFv/wz+t4a1SX3rV0MI1PwhYts/rkw90=;
+	b=VuoCdtiWHF/TVQTK5bFCPkgt0usZdQQIy4NeWIAim68vBtdim/GftcIVzuqi0aM5G4Xne9
+	FH6F2G7PONlPSiDHwx68TSN1vhGusZ8NGWUFS1FuJmitVyhI8C2LYiqPk2+7MUlTcXwwSx
+	H8GtLV98Fz4xXwmLglatykTBdGBPzbw5PZDkAnhNf7UlkRpf8tee4RiwNLdH5xWrA0s5vz
+	gaISL1ltvnvi+bDk7LOkOiOEOd7PYsmcIB86FE0Bv44P46AZ0IIdzByx5cm0pP4v7GUc1D
+	M0rrCuJw+CGQtH+SnSz0aRfP/ihQw7NRksLL0vhE6KzTjhnhkK4cUIeZi61x7g==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794914171; a=rsa-sha256;
+	cv=none;
+	b=ShLCdOaaDAHp9Ny3fQv46zv7amkzhGI0d/7pDk+yUCi7wu1uYScHzRSO2NFhbjudbZBC9x
+	/LMRpu0moBV3OjV7WCpIsTyPsjvDFQrB6gHbASBbmVS9XxVLbZhU/EJBXX/qNL30Ua7dsm
+	IzA30O4rYMOslvgOKepb/dVHKIenRUlh93eu8uhffLR/NNKOSuQ1hQMCuInnqsxsIfsg1G
+	lfCq7Vbp0PNXBPBmUAQJm/cCnFWseJ+5Whtn8yAnaSjOMMPDOjw6gDSQY9g9aiacbu8ss0
+	WZQO6VgQgCxSukM5M2SeR6v0AWl4Tyh7w92CmCl9l1O+s8Ij5Ket9EZZs+W8+Q==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+Message-ID: <33d3c07740e4702da3a1831415de906e940a0ae6.camel@pengutronix.de>
+Subject: Re: [PATCH] reset: rzg2l-usbphy-ctrl: Permit disabling
+ POWER_SEQUENCING again
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Geert Uytterhoeven <geert+renesas@glider.be>, Arnd Bergmann
+ <arnd@arndb.de>,  Biju Das <biju.das.jz@bp.renesas.com>
+Cc: linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Tue, 17 Nov 2026 12:16:11 +0100
+In-Reply-To: <0b1c87b3173a789f6227f13658e4befdac8e47e0.1794913893.git.geert+renesas@glider.be>
+References: 
+	<0b1c87b3173a789f6227f13658e4befdac8e47e0.1794913893.git.geert+renesas@glider.be>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,123 +94,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add support for CPER Memory Error Section 2 through MCE, allowing
-to emit an mce_record trace event. The implementation follows
-the existing CPER Memory Error Section (1) implementation.
+On Di, 2026-11-17 at 12:13 +0100, Geert Uytterhoeven wrote:
+> The power sequencing part is optional, and only needed on RZ/G3L
+> (SYSC_R9A08G046 selects POWER_SEQUENCING).  Users of other members in
+> the RZ/G2L family may want to enable this driver built-in, while keeping
+> POWER_SEQUENCING disabled.
+>=20
+> Fixes: eac3b292a26e2210 ("reset: rzg2l-usbphy-ctrl: add power sequencing =
+dependency")
+> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-Fix the mismatch between the parameter definition/declaration
-of apei_mce_report_mem_error().
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
 
-Signed-off-by: Pierre Gondois <pierre.gondois@arm.com>
----
- arch/x86/include/asm/mce.h     |  5 ++++-
- arch/x86/kernel/acpi/apei.c    |  7 +++++++
- arch/x86/kernel/cpu/mce/apei.c | 12 ++++++++++++
- drivers/acpi/apei/apei-base.c  |  5 +++++
- drivers/acpi/apei/ghes.c       |  1 +
- include/acpi/apei.h            |  1 +
- 6 files changed, 30 insertions(+), 1 deletion(-)
-
-diff --git a/arch/x86/include/asm/mce.h b/arch/x86/include/asm/mce.h
-index 9995176d68790..4a590a250720d 100644
---- a/arch/x86/include/asm/mce.h
-+++ b/arch/x86/include/asm/mce.h
-@@ -336,8 +336,11 @@ extern void (*deferred_error_int_vector)(void);
-  */
- 
- struct cper_sec_mem_err;
--extern void apei_mce_report_mem_error(int corrected,
-+struct cper_sec_mem_err2;
-+extern void apei_mce_report_mem_error(int severity,
- 				      struct cper_sec_mem_err *mem_err);
-+extern void apei_mce_report_mem_error2(int severity,
-+				      struct cper_sec_mem_err2 *mem_err);
- 
- /*
-  * Enumerate new IP types and HWID values in AMD processors which support
-diff --git a/arch/x86/kernel/acpi/apei.c b/arch/x86/kernel/acpi/apei.c
-index e21419e686eb3..96eb75b570e4e 100644
---- a/arch/x86/kernel/acpi/apei.c
-+++ b/arch/x86/kernel/acpi/apei.c
-@@ -46,6 +46,13 @@ void arch_apei_report_mem_error(int sev, struct cper_sec_mem_err *mem_err)
- #endif
- }
- 
-+void arch_apei_report_mem_error2(int sev, struct cper_sec_mem_err2 *mem_err)
-+{
-+#ifdef CONFIG_X86_MCE
-+	apei_mce_report_mem_error2(sev, mem_err);
-+#endif
-+}
-+
- int arch_apei_report_x86_error(struct cper_ia_proc_ctx *ctx_info, u64 lapic_id)
- {
- 	return apei_smca_report_x86_error(ctx_info, lapic_id);
-diff --git a/arch/x86/kernel/cpu/mce/apei.c b/arch/x86/kernel/cpu/mce/apei.c
-index b993ac78a3b36..2404faa60c325 100644
---- a/arch/x86/kernel/cpu/mce/apei.c
-+++ b/arch/x86/kernel/cpu/mce/apei.c
-@@ -68,6 +68,18 @@ void apei_mce_report_mem_error(int severity, struct cper_sec_mem_err *mem_err)
- }
- EXPORT_SYMBOL_GPL(apei_mce_report_mem_error);
- 
-+void apei_mce_report_mem_error2(int severity, struct cper_sec_mem_err2 *mem_err)
-+{
-+	u64 mask = 0;
-+
-+	if (!(mem_err->validation_bits & CPER_MEM2_VALID_PA))
-+		return;
-+	if (mem_err->validation_bits & CPER_MEM2_VALID_PA_MASK)
-+		mask = mem_err->physical_addr_mask;
-+
-+	apei_mce_report_mem_error_common(severity, mem_err->physical_addr, mask);
-+}
-+
- int apei_smca_report_x86_error(struct cper_ia_proc_ctx *ctx_info, u64 lapic_id)
- {
- 	const u64 *i_mce = ((const u64 *) (ctx_info + 1));
-diff --git a/drivers/acpi/apei/apei-base.c b/drivers/acpi/apei/apei-base.c
-index 7a06d30bd40e9..a2dbdfabeb6c7 100644
---- a/drivers/acpi/apei/apei-base.c
-+++ b/drivers/acpi/apei/apei-base.c
-@@ -773,6 +773,11 @@ void __weak arch_apei_report_mem_error(int sev,
- }
- EXPORT_SYMBOL_GPL(arch_apei_report_mem_error);
- 
-+void __weak arch_apei_report_mem_error2(int sev,
-+					struct cper_sec_mem_err2 *mem_err)
-+{
-+}
-+
- int apei_osc_setup(void)
- {
- 	static u8 whea_uuid_str[] = "ed855e0c-6c90-47bf-a62a-26de0fc5ad5c";
-diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
-index 07306af5a54b9..703f3b7f700a6 100644
---- a/drivers/acpi/apei/ghes.c
-+++ b/drivers/acpi/apei/ghes.c
-@@ -1030,6 +1030,7 @@ static void ghes_do_proc(struct ghes *ghes,
- 			}
- 
- 			atomic_notifier_call_chain(&ghes_report_mem2_chain, sev, mem_err);
-+			arch_apei_report_mem_error2(sev, mem_err);
- 			queued |= ghes_handle_memory_failure2(gdata, sev, sync);
- 		} else if (guid_equal(sec_type, &CPER_SEC_PCIE)) {
- 			ghes_handle_aer(gdata);
-diff --git a/include/acpi/apei.h b/include/acpi/apei.h
-index dc60f7db5524f..a92174793d9c2 100644
---- a/include/acpi/apei.h
-+++ b/include/acpi/apei.h
-@@ -52,6 +52,7 @@ int erst_clear(u64 record_id);
- 
- int arch_apei_enable_cmcff(struct acpi_hest_header *hest_hdr, void *data);
- void arch_apei_report_mem_error(int sev, struct cper_sec_mem_err *mem_err);
-+void arch_apei_report_mem_error2(int sev, struct cper_sec_mem_err2 *mem_err);
- 
- #endif
- #endif
--- 
-2.43.0
-
+regards
+Philipp
