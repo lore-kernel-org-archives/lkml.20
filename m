@@ -1,101 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.20
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794934315;
-	b=exWaL6C/gyCXZi076A2Ton2mhMCGUMwYv+xVTgpJrBbPJlbVMQo178FcKu1HfkysXJGd
-	 LcZRSpYgJkMZcHDniz8ZfHahGgqpPV/UbrZIcJ9l8nklHXWDu/cULCiWc2sjwaJgrNRIJ
-	 STD0Nzo3OEWRLDbvEvDtxR6XJBSqwJMzgMg7A7yt4TxNST4qUqgNI18eLYRgzCmRlYrGR
-	 SQwKJLH6+THiRYKPyFMre8rNpARcWX1DPOrhCQYdnXPA5stmj3CQrnmSx8nK84sEbTNOW
-	 6eNWHysEorkp7gk4LsCah9lnEUDCL7gwmaOgXKU6U1Jc9mMS80IwflTU7jsiaEegzZg==
+	t=1794934324;
+	b=cNVBm4I0mPTdZaa6trIVxA9lngd5wndpJEw8BykznTKlm54KpI5RqCmq+h/dc/RXfCXS
+	 C68//SXR0AK44lmzTUPs/FDUBaJyzPq5mD/2dGefFfQ8d38EXz7ymvkIdfVDJVXdlMF2l
+	 bQjNkZg7zTmmb7BMWd3rztPxLxoMaVNAshbvjJq9bsgg4du8qqAlilMwpQoLQM6yDMHRH
+	 G4fWFky60v05JGCXCbm15je8Pax71E5yXBBvLg1svMvfoPoRJbc6kiPdhs3M6VmvDeGZU
+	 J9ZemETW8RSHGcX2vWCVNPUKNL4q01QCLoehj1chU3x/u29g6/8K/Ns0BmG+CsSMkzg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794934315;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=7JRaWtwwi9S7Z5KFGKcQeTS6a+RchtYr83xPGWINYgo=;
-	b=iqWN81xel+fKclv4JEE2Xv98hThR6ab3zWIsTAKmCs3JLfNQpyo1bNoMC/5/3eOcJRFB
-	 fJ0Uyc1bej/u0r5svOOiAa0l8R6SGx2KF1DjO540MIr69WeTSpm+o3R+L/3Lzn/1fSVdR
-	 VFGGJeIw1jK/j/ylkM8KP7LM6DXQGMp7FK0BTMixH8RLQL2wAkBgaNKOL+Kmh5yBWu8+E
-	 rhtmcNC4b5aphWcM8AxUg8VpmkyrQ9YuJLCUD1o1pymwC0F6mdxtAIBNzxdvXH1QwVXbK
-	 g775EBnY3rEGuDFbD/OlKKQpmJOCi8bRUKIRRv12dNZlpj9CWfUUoQfFZBao3RsumVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794934324;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=dVyO6p3THBEdpg71tAu/mvRTYtcQze6lRLEq/wqk/xE=;
+	b=mO38tqOBQAz8732UEgQavwkLRl1oH01aUyBnGQXDiaeqkiSdAP8w58fEz/aPqVam61kH
+	 sHFkmHrBZeE0CvFslnwCKdvercMxdowIUbf+zMs5XKnUwscskhv2o80MLYHzlospdcadt
+	 mCf7pizKk7cgJ2gdEPZpvXe90I4GVVLafqRZP1MvVGvamsOrkQXkuCgLR7eFAvhVByz/Q
+	 fZIe9s2ROfETH34Yty0NiR87MSr88OIBW/olRqZwip631gB5KnzZ6YK0CCAsGDuGRA/lC
+	 BG/NnUjYtqswa/eiZ5/I6BlTrZOyB6ZC3kGZxySilsv0QwVbYMb1uTqZ74/IvBtpBqw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0cG9HEID;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Z9NkscsY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.20
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011020.outbound.protection.outlook.com [52.101.65.20])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6721606A331
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:51:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6721606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE8EB606A332;
+	Tue, 17 Nov 2026 16:52:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE8EB606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0cG9HEID
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4ac95761c85so558735e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:51:54 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794934313; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BpmyFTTEl22UpNQCYBEkZoscxu/tYECeIiQt2haCFqImbK7ud5NrSPArxu/LyfzFIt
-         EfLBGq+Zu7RyU1M3Fukay/TlzYIW/zg9Eg6qgXZFq4Exqw4ettzmTtlIUQWmSLD8OG2Y
-         7YVFHWtaMdNuhgZAqmlpenW9aupaO5XrmQdifOZ6AWFrXJ47n6PSxoTdmpS4ECisispv
-         qWKSmUEAIMUcetzzc5gwnwMIAktiiE8OvuZveChJIZ5NCP5SaNf1GVUcWpvmZTsx+VdC
-         nSz8RIg3P3O0ksBgoZL45m5ctd2P18BDvgTeHwK5bStu/cixrb6+KvB+Y1LnqKt7X/mZ
-         MPKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=7JRaWtwwi9S7Z5KFGKcQeTS6a+RchtYr83xPGWINYgo=;
-        fh=KkinvIfmUIrSWtfurzrBIL+DkXiw+mCo0ngrdMF+gWw=;
-        b=ShWw4FQ5wv2jk39u/iyC3Gm0RtkWFkFLmnNDhPLCHaSO7AgIPS9fJTykmjw0HlO2E8
-         fVShMRGGLxq5XVdXJ5vFI/oDWtsl3Bw3Mee51ouXpLktWjy04RrSofGT9sxJNE00AHRk
-         tvsGPw9klaKgm0I3yU/C7Aj1J4q0Kk/zgLHhZe0nj5p7TmUBRMQ0mAjJ+EXpV2xqxcpv
-         ncQ+wIbwuMFH3LX5CZ4KEkHLUD5CM5WKiCQUKgbpmnxtRrH46OD8LxT72oyzfHT6JP/U
-         U1+VmW1k98ajgdiUyv/OmcdwOmvFsx00d6Fj8ZiAITj4Q5XD7poy8z5KArSjjWDry8Iy
-         kBQA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794934313; x=1795539113; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7JRaWtwwi9S7Z5KFGKcQeTS6a+RchtYr83xPGWINYgo=;
-        b=0cG9HEIDKPN1IRLjWvhck/vln6wEcHrnV5TJWeVj5j0UGAlYiT9dy4RQ4G83AKqrBO
-         wfsqNqc0iqHE8NzVxg0qUKPI8/LOLteUkakQPojwzPDBrP2C3rLnPG9CT6GwlMZEYofq
-         tcqpIIhzFLtMFED//3XgkKb66wWor2VcJ8LUpV75RqG0Saq1eJdRPJqb3tku52GJg+oi
-         xkk85GAhMopSY6zJmS2QPb0i9y4L/erFssmbWusTmAx2d+sIDjCFIY3R2Rxrb0aAhMkD
-         KpoRygRV23IzbzvfZBw0Gt3VetYHpCk+74d5nQybBylkvNjT5fcJqhmbGpbe2s7Tu5oK
-         7UbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794934313; x=1795539113;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7JRaWtwwi9S7Z5KFGKcQeTS6a+RchtYr83xPGWINYgo=;
-        b=X0c6MGaSqEe/kpd+6KD6WEQrr8dukxE38W7XquC8XTrbLnBJ+DZSJnuWZJRQQpLmk2
-         O7pfT4j6sPlRmQKUkmp8s9cgQzlhB+vnXV7oeQpomXyV//vjiEKSYxwdqo/Eue6ur0T9
-         skykfkPWCz0QBNJ7qUgbSHW7weRsdGNHSVs3ighnqeTZYI2Ee9icVL6UOHxNk9E8+F6T
-         kHnyRzwh2NefwRblGC8J5ukXm2w064zV4CDZxzwq7bm6xogY1tnLbF1vF01vAsRn7f47
-         RAQ7p99sz5UiFgFnMebQThRNomlHQlxP7iVmm1K4P3pySUNflNH4ES1+eTaAGmtdOqFl
-         E+Pg==
-X-Forwarded-Encrypted: i=1; AL+hErG+g79z7mOe3MjEcbpL9+GMZmA78GniSpTs3w+bk0XmVQiY4uN5tI7PWoJRxHdBE8hAunvWrVHz2mqbrwE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8SduNtmxq9F5cIzeeL4SoaPB38acx2dMxc962NyG1PXsF2UqWF
-	7Mp4ZERe0cIQa0mZeFU5N0se9F2c3H6pgIN2Na6tF62TQmV4e/EfWo9NlcnEM9yPAviKIqJYCzI
-	N9Mh/4IgsjbIzAMS/8S7b2sN238ANIau1CmWn
-X-Gm-Gg: AYBFou2HAFShilhK5ZFSaM5Z7uqOqaQWzv1GyUEX0T7cwqgEOFole658kFVK3Uayud+
-	VQdpphhBtJdHoqcg2+JhJBCH77vtmVXZXg7H2DeP8ehty3XofD4lTizs74JYa2JrDq6g4HC7Z2C
-	hLm1hieAqwyxZ0ZvMIqD6I0S+Pfg4qKKJy7u40r6TiCBTtxJS+AnaROas78sLm/qZGzZrEG5Uu4
-	QJh4tgrXXcBNVPxq2chF/sImA2pyKVQew7coTKsxc+6rk3hbTgXbscdYwZJMpTmicWNjlfUUeCU
-	kwL52Pw/h6q7pp9EoqSN38PD7zrVA3offmzYVUL0tsVZyXkL2KDF4PfmnmOJnhrPpWV+wXF2XQ2
-	s8X2/bmltZAvUpwyxc5cjjV8HHEnb97ruYqWav4vKlPiyM1snRrEHTM6Lb3DiKJAkBUWFA6oy/4
-	L8E0BK+krqzTAo5R4kTLhcO3pl2x59clYfJg==
-X-Received: by 2002:a05:600c:3e1a:b0:4a2:191f:7cbd with SMTP id
- 5b1f17b1804b1-4bb55a3e31emr267364685e9.11.1794934312966; Tue, 17 Nov 2026
- 08:51:52 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Z9NkscsY
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vVoP0Q/stD2JD5joPEj8Yxcv7z5HsriVPfZs26k/I1Q0Yx8AFp9FzDD1oY3Mf17JcEN1IWa6xGLb5HQH2N3PHVLdZKn4dml0hLUULzjmku37la63gq4J/1ENxPqSPR2HNt4kXF7Gi1kEyAkugGdO1K9NkFDMO8UYbH6zSs+/18jlldUFaxopzby9Gc5QHP1NQK63mCPdGBk+b2KmdclhvluBtjzA8tV57iYqELxejd1R8ORywcXfd6LuQspnEbuBZVkocVOazCEZQTw2KjZN4Ny7ofdTi9IccUR33sLRGghi4i0NfYDPNIqua/nHQ4k/JZE6NdvRLfPjcjzFf0UixQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dVyO6p3THBEdpg71tAu/mvRTYtcQze6lRLEq/wqk/xE=;
+ b=Eg4acNsZk1m1vNUnUMLw03bSdcwFhIRNbpH1NLllPUtM2eQbFUoflutzxETGJVr6QO1V8v33Zix27wwJXeSbDF78BzKe4WTcZRWrFUbQ++SN9vEGGjdzmVqJY/8iYyIKcfZSJEXJtkRi2UsKEKeCnM+n7bW82cGiGGdjZhk/yiTY5Ga9q9kTgf680Vo3JzVJuvoSgbDON3YWg4xGZrAxkuXMEx4Mjtz/NxnKb8nB3N/wxwhXcWOQ8H30OJpLGd38huLZ6IIvRzZLQTNJVuFVJllAa/uxvBVkTQni0bw+RncTTQNN8KPAJfz0zAi5EUj+WxzR1y2iud46LwAj7xOCgg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dVyO6p3THBEdpg71tAu/mvRTYtcQze6lRLEq/wqk/xE=;
+ b=Z9NkscsYRJVF9ug61yqXN8D3f0brAehMeFsOA9cwDU+xm56BwI2BUhlPRDXuyGQe79wGq74Wmtzd1ebCST+ghmgh6OXOCNEjwgSFOpXkuOSbQs41CU/dTa+l9n9WJDxY9Sv8FYKwfcFxuRBV5UtOaORvUAQFcMbkdhoeyMh6USOiZmRJSjxwg550zLavUCtpGiV5yonAh00FTauoWMK7IlxFTyVMUoafPpQtHCmw3GwiOjexfGBQ8Qg0lEn6HXzSkhq2hj+REgsfbHgyiEstxlx+cGViPXgp8Kr7XM0XpgKJBQyFmM9ODDRXAecviseBpw5/Peav+9eTFL4YdNwgvQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by PR3PR04MB7418.eurprd04.prod.outlook.com (2603:10a6:102:8b::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
+ 2026 16:52:00 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
+ 16:52:00 +0000
+Date: Tue, 17 Nov 2026 10:51:47 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Peng Fan <peng.fan@linux.dev>, "Peng Fan (OSS)" <peng.fan@oss.nxp.com>,
+	Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Jon Hunter <jonathanh@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@kernel.org>,
+	Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev,
+	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev, linux-tegra@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH v6 0/9] dmaengine: add DMA channel bus and fsl-edma
+ per-channel IOMMU support
+Message-ID: <avyGI6QmuZ3DUqc9@SMW015318>
+References: <20261112-edma-iommu-v3-v6-0-b038edb8ce6f@nxp.com>
+ <20261116193021.GB2452510@ziepe.ca>
+ <avwQl18smAW4R6ec@fedora>
+ <20261117130005.GC2606445@ziepe.ca>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261117130005.GC2606445@ziepe.ca>
+X-ClientProxiedBy: PH8PR02CA0033.namprd02.prod.outlook.com
+ (2603:10b6:510:2da::6) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,87 +115,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <d85ece6e-27f9-4d9f-83af-4101bc76fef6@app.fastmail.com>
- <356db94e-f5d6-4fb2-839a-b97aef72256b@app.fastmail.com> <CAHC9VhR9sjunJRnM9gy-BkBZkapQTrr8a8FtmaK7JkAmUqTrLA@mail.gmail.com>
- <CAEf4BzZKmn6g0SK8OddjKFj_vAmZFvpZv32Hs_S+GHgT7VNfrg@mail.gmail.com>
- <9d6bdc31-e57c-4187-be78-29d82471f710@app.fastmail.com> <CAEf4Bzb+oYDqO20v4YbJ45wdtcGgJT3xVse822P+=oA7fpFAOA@mail.gmail.com>
- <CAHC9VhRcT3rmdpeadwi2avhwvr7aEZYStZ3bbEEx1hm=wtBGhQ@mail.gmail.com>
-In-Reply-To: <CAHC9VhRcT3rmdpeadwi2avhwvr7aEZYStZ3bbEEx1hm=wtBGhQ@mail.gmail.com>
-From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Date: Tue, 17 Nov 2026 08:51:40 -0800
-X-Gm-Features: Aa3M54rjJelQoMCxfJbdMIri9nRD0cwaH3YE08B27J2GSDu0HswQ_b0L7fMjvps
-Message-ID: <CAEf4BzZ120age2-M-a_TJ07xohb7-s=xn3e1W_-V0kopnATq6A@mail.gmail.com>
-Subject: Re: [BUG] bpf, lsm: new first argument in 7.4 inode hooks silently
- breaks BPF LSMs
-To: Paul Moore <paul@paul-moore.com>
-Cc: roblabla <linux@roblab.la>, Daan De Meyer <daan@amutable.com>, bpf@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, paul.mabileau@harfanglab.fr, 
-	linux-kernel@vger.kernel.org, Andrii Nakryiko <andrii@kernel.org>, 
-	Christian Brauner <brauner@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PR3PR04MB7418:EE_
+X-MS-Office365-Filtering-Correlation-Id: 870379bf-55ad-4163-055d-08df44cb1921
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|19092799006|7416014|376014|1800799024|22082099003|18002099003|11063799006|4143699003|56012099006|261022075727099003|261026121527099003|261028144727099003|10067099003|261021123027099003|261026140227099003|261009223027099003|261022105027099003;
+X-Microsoft-Antispam-Message-Info:
+	SazQsnZKPFNZdqw7ek1CuWN+pYYD1Doq79Bd/iNYBym5lJAH1RHVt30CG6LGMzqtaTCrrGhnrP44yRl15x1yS+Nfqy2+Q/biVxURoNE0NatfS7b/01Wg5wvPwFeDjzWFaRFszLC8sfJBRaJyjk0hd8q15SvUYh5WLbm36ynz7khpZFcyh2J5kMnjtNSAErAXTfhpKoqzzwsQYuUhxNOM7J6fQYg04/B1Z8VSN7dSxENIj7VdOAwGlvlwNiQAzWKpEfAf/MF5QVzEeUjX5LL56SwCXKh8EhuGXSP5Ny7FGrINvw5hsls32mxFw/EFO0Q2ztGUk2xSYeyzzn83VLfl2JF9D2IeoI14nFLwUHuEtkQy2McS4j1AEKABfUu+9nxc+F4DVu7pzcjldp5PPqtzITZ7APER/6EnRVE3oFScUP27bZiUP6tUUVQzliRf4ZHVvVU40gpiJI/zG0fWBu+iGCsIxV7Ohii870e7BlhqVeri7bC9h4glpbZVPCGdhoR0PL5Po5RyYP2F22nIOzDBNiaFDSm7gI5wprtauiPX58zieYWMezYFuB7j1sCt9Gjo6M6uSdrnTh+ajsU0HRMSHg9wQle9nG3Ob6cJIpcHzLJMAf3Waqko2ZpGTTPlZjNE
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(19092799006)(7416014)(376014)(1800799024)(22082099003)(18002099003)(11063799006)(4143699003)(56012099006)(261022075727099003)(261026121527099003)(261028144727099003)(10067099003)(261021123027099003)(261026140227099003)(261009223027099003)(261022105027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?MeWH8g4nZGQLSHfaoCHVd1zh3gtQsafT313wXN2wqFivdHKSqZS/jkam4iJz?=
+ =?us-ascii?Q?Y00M0JLAQQauExAnIgzVFbvcBGYKmKpGMrMxjqkfALQ76slKFTKkhZJlBQlI?=
+ =?us-ascii?Q?ekjOmCAzpVNW3Wn0IuSpvgqeMs5Ax9zHBeBrmuif4D0QXsbYu89wURu9fTcf?=
+ =?us-ascii?Q?7BsvyuGT03r6rH+eHrN+43TIB1eUQKv4HFkunqO4P6G8XILzpgCyfIdJwEWV?=
+ =?us-ascii?Q?rsrXPkQYuWKCNbTFGIXusD9W8o0yYTFI8He7GKRP4Xp/B2cRNwpcyBh3Ek+2?=
+ =?us-ascii?Q?EOxr2DBSCqk/kmv1lJ35MRDNkyDo1HeU+0HKmhsPKroOzdi3Y7aYSD0NCY2t?=
+ =?us-ascii?Q?ZynHGvRoueIF3Zc4Bj0B2l80uzJ5RWIf7jjZlHA33I21ihKS4A9WQl/VasHX?=
+ =?us-ascii?Q?MIqc9PCX9uzPU3PePi8L2Pl8TruNzsYmOGGweYpOMxtrInunDuiaO0oaBS0n?=
+ =?us-ascii?Q?EEsdCXA7bjji/5DHLJB6ejaqhD84FMXUTbW3Hv6KhFukpTNODX5H2KmyUxxQ?=
+ =?us-ascii?Q?i+ACJ0fvIUxGHBZMgIuooZY8+2EYToXh/9iYyjDleiNe8ETA7sGjvIwFWqB6?=
+ =?us-ascii?Q?383QCWgJqgFYIAvWCn71PsRFqXmqDizAB7a7T0C6HCgkhk92KiQQsEY3ytwc?=
+ =?us-ascii?Q?fpC2DDjnsFC4LGRz7N+vqT5GRpVyAub8ZH4FM/23nO+wE0uxw/LGjpFa8OVy?=
+ =?us-ascii?Q?jskcgbSG3rNjQVM3xQM5i6g7LqrVbPqGmEfmYK2OMoaEhu/8wcPVowj1Gws3?=
+ =?us-ascii?Q?e1R4z6BiE+G0G7tsnlc89gqUt2HuzuWNq5Uj+mc5W12iEGqQ5Y7ZO9fAgbvf?=
+ =?us-ascii?Q?nJ8rMVxSHNfAb3QlFUzPkcrV0YYAJinhZ/IDsctdt/eRtmCX4mzpGW5xu2RX?=
+ =?us-ascii?Q?M5Y1hupHhI48JrLVNrqQiRfXCmX2dKsb2a2zUTO4FicWFrCnOIeazUyh4sFm?=
+ =?us-ascii?Q?Ql4sz9aCGXsLnTKF7DbxkD9rwh84oBqQihNLvivdRYZfkk41uX6o7kF8e6Fj?=
+ =?us-ascii?Q?n8dlEvh7x0uAD+1n9JHvNI+pNkkT9LvorUA5eqNyiA9pTQi4kQ2zPG35FXeT?=
+ =?us-ascii?Q?IUC5Uj6YaMA4hUx1AuSBYuDHV9J9BRX+zaQH+oS/gsKR6DgDDjIegAJAifdm?=
+ =?us-ascii?Q?rkLGL38QgcSjR1Hz9GG9psY/ZDxYCUYmWgH1R2PxRBoEG0HdQLypTypFsEDm?=
+ =?us-ascii?Q?3q7JIYw9U0SDAlz9GsEleoh0nrlMMFn5TUNqDiqIrnrhZiMlTtFHQLRdcAcD?=
+ =?us-ascii?Q?jIT+cnQl4+4gMoJKzbo6O6NBFU3QyvZfwlztjy3hTiKSpoP/cH8oi2gGbEJl?=
+ =?us-ascii?Q?330ITKeCOv6J5sSM1hEt7nYQwAi0FpN/tg3IwnAnrf6oN08gjNmp5bOcqR/4?=
+ =?us-ascii?Q?65EafpfRx+yfSlp54ILL4p3ALtjXS8jXu4sdiTDMwwgf2SE/XgB8ZdxyD6ju?=
+ =?us-ascii?Q?Pv0DH5b/x7MZdrEbWkoSdsV6yj6ItaF48GYUUoal9uJgs1LpeOG6zSDX2QAe?=
+ =?us-ascii?Q?Flp9hUopU5Wuh4D6VFU/xNYBvTEEGgdRlzESbTbw5QH2sIIOC29fRFJCSHX0?=
+ =?us-ascii?Q?0OPkAnY4e1IKu8dt4B7BhrX7Du2WfrERx3J8t+N6XfeD+q8kbdJPfGEOdqDu?=
+ =?us-ascii?Q?mLyKrX1oWchsMT6S32Ebf9jeOYqsPij3AVDWKzsotrFqamRlTFu2Z4upEH/h?=
+ =?us-ascii?Q?RcoTeGLYla7X7rHcZVLHvPtrf3pjM283Lx0iqlr1Ow+imV/nzHPr9hX0CqXe?=
+ =?us-ascii?Q?sBl9jXVpR1pfeFTgdsprJ5Gn7Zu+6n6RXehH8l7enXH1aADJU4vi?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 870379bf-55ad-4163-055d-08df44cb1921
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 16:52:00.2739
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PfEMMDNhmuDH+xggEhbSqf9/onhTgWgB261YnKlVPYC2bdB94VtD6I7a5ebTHQOym2H1qgFc++r7sSoOioBmeGJVCw1FGyle3WSHXMqvuuA34SJWbdF/5QQLSmkBQNE2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR04MB7418
 
-On Thu, Nov 12, 2026 at 6:41=E2=80=AFPM Paul Moore <paul@paul-moore.com> wr=
-ote:
+On Tue, Nov 17, 2026 at 09:00:05AM -0400, Jason Gunthorpe wrote:
+> [You don't often get email from jgg@ziepe.ca. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
 >
-> On Thu, Nov 12, 2026 at 6:00=E2=80=AFPM Andrii Nakryiko
-> <andrii.nakryiko@gmail.com> wrote:
-> > On Mon, Nov 9, 2026 at 7:08=E2=80=AFAM roblabla <linux@roblab.la> wrote=
-:
+> On Tue, Nov 17, 2026 at 04:30:15PM +0800, Peng Fan wrote:
+> > On Mon, Nov 16, 2026 at 03:30:21PM -0400, Jason Gunthorpe wrote:
+> > >On Thu, Nov 12, 2026 at 03:53:03PM +0800, Peng Fan (OSS) wrote:
+> > >> I used iommu-map for eDMA, but iommu experts rejected it:
+> > >> "Using iommu-map to describe synthetic dma_chan_dev devices that the
+> > >> kernel creates is the same kind of DT abuse from over here:"
+> > >> More info: https://lore.kernel.org/all/20260917144804.GI3196566@ziepe.ca/
+> > >>
+> > >> So I followed here [2] as Krzysztof wrote for QCOM VPU:
+> > >> "Thanks Jason for context and detailed arguments. Robin did not chime in
+> > >> yet, but from what I understood the DT-child-node approach will be the
+> > >> way we should go here.
+> > >>
+> > >> I accept above point of view and I am fine with this, thus Vishnu and
+> > >> Vikash - please go ahead with DT-child-node solution we had some time ago."
+> > >> [2] https://lore.kernel.org/linux-iommu/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org/
+> > >>
+> > >> This series adds per-channel DT child node support to fsl-edma and, as a
+> > >> prerequisite, introduces a proper bus for DMA channel devices.
 > > >
-> > > Hi,
-> > >
-> > > Thanks for the replies!
-> > >
-> > > > LSMs that need to provide a stable API must provide an abstraction
-> > > > layer between the LSM hook callbacks and their stable API.  The LSM
-> > > > framework is not responsible for the stability of individual LSM AP=
-Is.
-> > >
-> > > Understood, that lines up with my expectations. I think the biggest
-> > > thing here would not necessarily be stability guarantees, but rather =
-to
-> > > make sure that the eBPFs fail to load when the compatibility is broke=
-n.
-> > > But that's probably a problem for the eBPF side, and not LSM, I assum=
-e.
-> > >
-> > > > So, in short, would it be possible to send a follow up to Daan's
-> > > > commit and move `struct mnt_idmap *idmap` to the end of LSM argumen=
-t
-> > > > list?
-> > >
-> > > If this is possible, that'd be nice so that we avoid this breakage in
-> > > the short term, since the change isn't in a released kernel yet.
+> > >To be fair this is discouraged too, now that I've seen 3-4 people
+> > >trying to do exactly the same thing I'm not as positive about the
+> > >DT-child-node hack.
 > >
-> > can you please send a patch proposing that and we can continue
-> > discussion there? please cc me so I can follow along
+> > I may not describe it clear in cover-letter.
+> >
+> > I understand the concern. Let me explain why I believe it is justified here
+> > rather than a hack.
+> >
+> > On i.MX eDMA each channel has its own interrupt, its own register region,
+> > and on i.MX8QM even its own power domain. Each channel may also have its
+> > own Stream ID, or share one when SIDs are scarce. These are genuine
+> > per-channel hardware resources, not software fiction.
+> >
+> > In dmaengine each channel is already modeled as a channel device (see
+> > dmaengine_chan_dev()), and this series puts those devices on a real bus
+> > (dmaengine_chan_bus_type) as a prerequisite. The DT child node simply
+> > describes that existing device, so its reg/interrupts/power-domains/iommus
+> > are attached per channel instead of as index-matched flat lists on the
+> > controller.
 >
-> Considering the original patch was submitted, reviewed, and merged
-> with the BPF LSM being the only user (none of the existing in-tree
-> LSMs use the idmap parameter at present), I'm a little surprised this
-> wasn't brought up earlier.
+> If they are real devices then why can't they come out as platform
+> devices?
 
-Yeah, unfortunately this was missed. Not sure it's surprising that it
-wasn't detected immediately, though, because unlikely someone tested
-an unreleased kernel in production. Luckily, this was still detected
-early enough before the final release and this gives us a chance to
-fix a mistake.
+It cause complex when consumer to bindle channel dynmatically.
+
+for example:
+
+consumer_A
+{
+	dmas = <&dma_provider ID>;
+}
+
+if each channel is platform devices,
+
+consumer_A
+{
+        dmas = <&dma_provider_chan0 ID>;
+}
+
+Consumer_A will have to bindle to chan0. Actually, dma engine support bind
+to any free channel. It will be problem when there are not enough channels
+for all peripheral.
+
 
 >
-> Beyond that, from a style perspective, I think I prefer the idmap at
-> the front of the parameter list in most (all?) of the hooks where it
-> was added.  I'm not interested in moving it at this point in time.
+> I think you are overstating how independent they are. Many single
+> devices have per "channel" resources like MMIO and IRQs. That's
+> totally normal. It doesn't make the sub resources independent devices.
+>
+> AFAICT what you have here is some HW designer used SID where they
+> should have used SSID and you are trying to hack DT to make that
+> usable because Linux does not support a SID as SSID model today.
+>
+> Again, since this is the 3rd - 4th case like this, it seems like a
+> popular hardware choice and we should try to do better to make Linux
+> support if we can.
 
-So on one hand we have a real user pain which is easily fixable
-without burdening kernel and LSM subsystem in particular, right? On
-the other hand there is a minor issue of argument ordering with
-mnt_idmap preferably as a first argument. I get the preference, but I
-think fixing an unnecessary (but easily fixable!) user pain should
-come first, don't you agree?
+What's your prefer?
 
-Can you please reconsider?
+Frank
 
 >
-> --
-> paul-moore.com
+> Jason
