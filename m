@@ -1,49 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794899215;
-	b=whYa5aCNo4FTabet0tMRtNIJwZFepO/XfAeF2SJdTlTleP+F0WXlQY/8twxmspH854Te
-	 1Q74hlAHnsVdFamqmxKtKtbADuwWq1AcWEEUJo1YW7sxQ0gQrND358KL3TGMf0BdJXQKD
-	 a+nhCkfpfvcbfcZ35RYTBTe90rwJ9348NG1wJ1gBdVDdFE02NCMNQNZozfX5awig0UDGX
-	 s6wOFgIEkF5u5vj2QsOn58qX+dnywApwt0nH2Zkv7EUdd6wmYzchTOV0SSY+48dFz6DhF
-	 J2tBQ6u0u/PUN2j78cmcuC6YPN9QG1HlYZEx9crQa6XAKAMOqX4b+b1bbBmtwNNRvzQ==
+	t=1794899218;
+	b=gISAfz6/m2fNXNfhjQzJ3Gb+0upWDkrMOXIgjvtWqeCZPAuS+PkCUSXJVBJQwpiYmXrd
+	 nmxwVvxY9Ph0r5CGfShTWymV5JRZIEl8IKiBJpf70cvSK+lo8pO5KIGNY+gLsx3NvgCRS
+	 H0BwMGMzZ3ALbrRVsJWbzqs+6FQ2zjNyJ7w629Oz0WohqXOAeBT8EnOOd9p8De1bSvm0F
+	 yrrW11+Ce3gTXWlvBxPn1pC+EJH0+XimGSNd8/J3t4fl86nVLlc4gs8136c7A3iNH+Sgc
+	 ClX5RbfZxTgltWQd43EcWajiAJ/JRsrcgkaRbF8gqn9ZCdZ2GPmT7klAjQEfnKYq8WA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794899215;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=5lu26Bt2eDNFvp6cstc3Xl7/hEM7htfAhlohX2GmX/g=;
-	b=HWbUgRjOZWNXzL0ItC2B2cHlchHZNxGAM6B1PQHBFTxruiMHDWngIsXy1t/nnF3y2NX1
-	 Rh6uQW6sBeVAt1/Mw4v0Cez+WHosInmWfi4fOTvCputfFKfgO/0Aww0e9E5uCgIPvN2Xf
-	 q48RnnauthO33ave2+AuXxCmkKfqUoejMhB6QPs0PyMV8EsixJSLzuRvWHdQ3J5bWlzxY
-	 0ntuZn9YHuFn6ihIaSwZ0mhezMJaFjpL1JRZPHa16hUQrCfMXSz/kfOmcesVthHmXcr5n
-	 gZ+nJ8CjdAjVyiVLM0D5acovcxKDWfAO2bl5YOUMDMaQ3OnaEBTRkzZ39aSiqAkfaDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794899218;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=/GdWJ+4Id4z33+RoWCqd0KwoFHBmdUzYTQ6UQcKAIZM=;
+	b=A7t7+OoIIbo8vDTT19wsYprPd4sVx1nKvOaXgP0eH7UAGRIx/U8NQ1fpnpClTNn7PTrP
+	 hk7z1BILkRs/ek67TJGMp/efFI8V5vjXE6NRXTlPyHNdqLxgwX1cNvNwAmIi0FE3b9ie/
+	 3cjRE2bmAMzzRKnpdRTXiEtmVKYBGTvltk3CHkDDrihk00uNmlXNLQsNlMwM1Mp5DN3Kq
+	 esNcKAxotD91wGEImELQZ0NybabOGdSngeY5ZnQwYft0sTZjq5nHZRcYFl/DkYMaxFpXN
+	 wHjTGVcEhY4YIGVxW0C3SGuDgdq4aPSb6EoKeJEkxDDwf9qQ0IhQYdWKQUeKUunBDGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="CPhiYY/V";
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Kch0reNo;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E98A8606A89C;
-	Tue, 17 Nov 2026 07:06:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E98A8606A89C
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9C5A3606A891
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:06:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C5A3606A891
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=CPhiYY/V
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Kch0reNo
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 43C781682;
-	Mon, 16 Nov 2026 23:06:51 -0800 (PST)
-Received: from [10.164.19.84] (a081061.arm.com [10.164.19.84])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B6F7E3F763;
-	Mon, 16 Nov 2026 23:06:48 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 346C61688;
+	Mon, 16 Nov 2026 23:06:54 -0800 (PST)
+Received: from localhost (a085714.arm.com [10.164.19.28])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6CB013F763;
+	Mon, 16 Nov 2026 23:06:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794899214; bh=37zKrLpxA2dCRmPleyeQ7VCQicsitLgl6s35S11J8D4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=CPhiYY/VeBxfA5FgTuKfVU3lDlJHHcJNrwLU0csIRCJUyg027aZZ0ieaS7USQoPS/
-	 lQxkrCAi2Swy4jFEKg5BYpXH+U+hr7ZG7+7LG7yLhSfEnZ5COpEFM/pWVO8F7ycEaJ
-	 BSjicGNIQOpuxcgKSXPhmZ8Q/DiYOsbGFTXsurUY=
-Message-ID: <0fc496fa-8b5d-4067-a21e-c8dae707b95e@arm.com>
-Date: Tue, 17 Nov 2026 12:36:46 +0530
+	t=1794899217; bh=BcOxWukpbMeXAwuC47qEZOmWBfEKNbcmLsaev3cliIQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=Kch0reNo4Q2h3nyBQ5xywdpv0kiENciGUJ+jRq0GqOXdfGRhY50YvDZQZ1oPXlCH9
+	 67h/6nf0obemjEZz19y+lW7xMyuLLRoSBu0jHJiSeFr2Jskyadvv2ypZ+98kDrOj2B
+	 7MzaoXaES49DCijqF8ljJLGj04fguTo5GDLCHIIc=
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: linux-arm-kernel@lists.infradead.org,
+	catalin.marinas@arm.com,
+	will@kernel.org
+Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [PATCH V3 09/14] arm64/mm: Enable 128 bit translation
+Date: Tue, 17 Nov 2026 12:36:08 +0530
+Message-ID: <20261117070613.1183243-10-anshuman.khandual@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261117070613.1183243-1-anshuman.khandual@arm.com>
+References: <20261117070613.1183243-1-anshuman.khandual@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,88 +70,144 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] selftests/mm: replace transhuge-stress with a THP
- compaction selftest
-To: Dev Jain <dev.jain@arm.com>, Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Shuah Khan <shuah@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Anshuman Khandual <anshuman.khandual@arm.com>, Barry Song
- <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261112090250.334344-1-sarthak.sharma@arm.com>
- <acbbc219-0b6a-4ec5-8047-af4b4b695212@arm.com>
-Content-Language: en-US
-From: Sarthak Sharma <sarthak.sharma@arm.com>
-In-Reply-To: <acbbc219-0b6a-4ec5-8047-af4b4b695212@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Dev!
+All required changes to page table geometry and descriptor are now in place
+for D128 translation to be enabled.
 
-On 11/14/26 6:13 PM, Dev Jain wrote:
-> 
-> 
-> On 12/11/26 2:32 pm, Sarthak Sharma wrote:
->> transhuge-stress is a stressor tool that repeatedly
->> allocates and splits THPs till a specified duration. If the
->> duration elapses, the test passes and fails only if a setup or
->> system call fails.
->>
->> This is not how a test residing in selftests/mm is supposed to
->> behave. So remove it and add a new functional test called
->> thp-compaction.c, that allocates THPs as much as it can,
->> splits those THPs keeping one page retained and discarding
->> others, and then retries allocating THPs, which will test
->> if THP compaction is working fine. If we are able to recover
->> more than half of the initial THPs, the test passes. Otherwise
->> it fails.
->>
->> This was suggested by David earlier [1].
->>
-> 
-> Isn't compaction_test.c already sort-of doing what you are trying to
-> do here?
+Since FEAT_D128 exclusively supports the permission indirection style for
+page table entry permission management, given kernel compiled for FEAT_D128
+requires both FEAT_S1PIE and FEAT_D128. If these architecture features are
+not present during boot, the kernel panics just like it does when there is
+a granule size mismatch. So added a new stuck CPU debug identifier for such
+scenarios called CPU_STUCK_REASON_NO_D128.
 
-Yup, but compaction_test.c is for hugetlb pages. Maybe we can rename 
-compaction_test.c to something like hugetlb_compaction or something for 
-clarity.
+TTBR0/1_EL1 and PAR_EL1 registers become 128 bit wide when D128 is enabled,
+thus requiring MSRR/MRRS instructions for their updates. Because PA_BITS is
+still capped at 52 bits, MRS/MSR instructions are currently sufficient for
+the register accesses that basically operate on the lower 64 bits. Although
+entire 128 bits for these registers get cleared during boot via MSRR.
 
-> 
-> 
->> Patch 1 removes the current transhuge-stress. Patch 2 adds a check to see
->> if PFNs are being masked due to no CAP_SYS_ADMIN in the initial user namespace.
->> Patch 3 factors out THP split helpers from split_huge_page_test.c to vm_util.c.
->> Patch 4 adds the
->> new test.
->>
->> [1] https://lore.kernel.org/all/94ace42d-8d60-4475-953e-74fb3dc23774@kernel.org/
->>
->> Sarthak Sharma (4):
->>    selftests/mm: remove transhuge-stress
->>    selftests/mm: detect masked PFNs in allocate_transhuge()
->>    selftests/mm: factor out THP split helpers
->>    selftests/mm: add a THP compaction selftest
->>
->>   MAINTAINERS                                   |   2 +-
->>   tools/testing/selftests/mm/Makefile           |   2 +-
->>   tools/testing/selftests/mm/ksm_tests.c        |  26 ++-
->>   tools/testing/selftests/mm/run_vmtests.sh     |   2 +-
->>   .../selftests/mm/split_huge_page_test.c       |  45 +---
->>   tools/testing/selftests/mm/thp-compaction.c   | 215 ++++++++++++++++++
->>   tools/testing/selftests/mm/transhuge-stress.c | 146 ------------
->>   tools/testing/selftests/mm/vm_util.c          |  65 ++++++
->>   tools/testing/selftests/mm/vm_util.h          |   6 +
->>   9 files changed, 313 insertions(+), 196 deletions(-)
->>   create mode 100644 tools/testing/selftests/mm/thp-compaction.c
->>   delete mode 100644 tools/testing/selftests/mm/transhuge-stress.c
->>
-> 
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Will Deacon <will@kernel.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Mark Rutland <mark.rutland@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
+---
+ arch/arm64/Makefile                |  4 ++++
+ arch/arm64/include/asm/el2_setup.h |  9 +++++++++
+ arch/arm64/include/asm/smp.h       |  1 +
+ arch/arm64/kernel/head.S           | 12 ++++++++++++
+ arch/arm64/mm/proc.S               | 23 +++++++++++++++++++++++
+ 5 files changed, 49 insertions(+)
+
+diff --git a/arch/arm64/Makefile b/arch/arm64/Makefile
+index ed28f94be428e..ce4e3277bc28c 100644
+--- a/arch/arm64/Makefile
++++ b/arch/arm64/Makefile
+@@ -57,6 +57,10 @@ endif
+ KBUILD_CFLAGS	+= $(call cc-option,-mabi=lp64)
+ KBUILD_AFLAGS	+= $(call cc-option,-mabi=lp64)
+ 
++ifeq ($(CONFIG_ARM64_D128),y)
++KBUILD_AFLAGS	+= -march=armv9.3-a+d128
++endif
++
+ # Avoid generating .eh_frame* sections.
+ ifneq ($(CONFIG_UNWIND_TABLES),y)
+ KBUILD_CFLAGS	+= -fno-asynchronous-unwind-tables -fno-unwind-tables
+diff --git a/arch/arm64/include/asm/el2_setup.h b/arch/arm64/include/asm/el2_setup.h
+index 12a5001812911..127356b1fdf43 100644
+--- a/arch/arm64/include/asm/el2_setup.h
++++ b/arch/arm64/include/asm/el2_setup.h
+@@ -78,6 +78,15 @@
+ 	cbz	x0, .Lskip_hcrx_\@
+ 	mov_q	x0, (HCRX_EL2_MSCEn | HCRX_EL2_TCR2En | HCRX_EL2_EnFPM)
+ 
++#ifdef CONFIG_ARM64_D128
++	mrs_s	x1, SYS_ID_AA64MMFR3_EL1
++	ubfx	x1, x1, #ID_AA64MMFR3_EL1_D128_SHIFT, #4
++	cbz	x1, .Lskip_d128_\@
++
++	orr	x0, x0, HCRX_EL2_D128En		// Disable MRRS/MSRR traps
++.Lskip_d128_\@:
++#endif
++
+         /* Enable GCS if supported */
+ 	mrs_s	x1, SYS_ID_AA64PFR1_EL1
+ 	ubfx	x1, x1, #ID_AA64PFR1_EL1_GCS_SHIFT, #4
+diff --git a/arch/arm64/include/asm/smp.h b/arch/arm64/include/asm/smp.h
+index 10ea4f5430690..1dd675d2b84d1 100644
+--- a/arch/arm64/include/asm/smp.h
++++ b/arch/arm64/include/asm/smp.h
+@@ -22,6 +22,7 @@
+ 
+ #define CPU_STUCK_REASON_52_BIT_VA	(UL(1) << CPU_STUCK_REASON_SHIFT)
+ #define CPU_STUCK_REASON_NO_GRAN	(UL(2) << CPU_STUCK_REASON_SHIFT)
++#define CPU_STUCK_REASON_NO_D128	(UL(3) << CPU_STUCK_REASON_SHIFT)
+ 
+ #ifndef __ASSEMBLER__
+ 
+diff --git a/arch/arm64/kernel/head.S b/arch/arm64/kernel/head.S
+index d6ba3c0af8119..8eaef9f01a3c2 100644
+--- a/arch/arm64/kernel/head.S
++++ b/arch/arm64/kernel/head.S
+@@ -504,6 +504,18 @@ SYM_FUNC_START_LOCAL(__no_granule_support)
+ 	b	1b
+ SYM_FUNC_END(__no_granule_support)
+ 
++#ifdef CONFIG_ARM64_D128
++SYM_FUNC_START(__no_d128_support)
++	/* Indicate that this CPU can't boot and is stuck in the kernel */
++	update_early_cpu_boot_status \
++		CPU_STUCK_IN_KERNEL | CPU_STUCK_REASON_NO_D128, x1, x2
++1:
++	wfe
++	wfi
++	b	1b
++SYM_FUNC_END(__no_d128_support)
++#endif
++
+ SYM_FUNC_START_LOCAL(__primary_switch)
+ 	adrp	x1, reserved_pg_dir
+ 	adrp	x2, __pi_init_idmap_pg_dir
+diff --git a/arch/arm64/mm/proc.S b/arch/arm64/mm/proc.S
+index f590c81ef0c76..b93ad7a4366ba 100644
+--- a/arch/arm64/mm/proc.S
++++ b/arch/arm64/mm/proc.S
+@@ -576,7 +576,30 @@ alternative_else_nop_endif
+ 
+ 	mrs_s	x1, SYS_ID_AA64MMFR3_EL1
+ 	ubfx	x1, x1, #ID_AA64MMFR3_EL1_S1PIE_SHIFT, #4
++#ifdef CONFIG_ARM64_D128
++	cbnz	x1, .Lcheck_d128
++	bl	__no_d128_support
++.Lcheck_d128:
++	mrs_s	x1, SYS_ID_AA64MMFR3_EL1
++	ubfx	x1, x1, #ID_AA64MMFR3_EL1_D128_SHIFT, #4
++	cbnz	x1, .Linit_d128
++	bl	__no_d128_support
++.Linit_d128:
++	/*
++	* Although the lower 64 bits in TTBRx_EL1 registers are now
++	* being used it is prudent to clear out the entire 128 bits
++	* just in case the kernel receives non-zero value in higher
++	* 64 bits from the EL3 which might corrupt the page tables.
++	*/
++	mov	x4, xzr
++	mov	x5, xzr
++
++	msrr	ttbr0_el1, x4, x5
++	msrr	ttbr1_el1, x4, x5
++	orr	tcr2, tcr2, #TCR2_EL1_D128
++#else
+ 	cbz	x1, .Lskip_indirection
++#endif
+ 
+ 	mov_q	x0, PIE_E0_ASM
+ 	msr	REG_PIRE0_EL1, x0
+-- 
+2.43.0
 
