@@ -1,84 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794880286;
-	b=HNQTYESOHdWQHXNfRsvqKFl0puyDik34m7LRjzkUV9Ydi+5b82LIjRQ2fVFPTXdorZTE
-	 zxLtU3V6J1oyMwyTDh7AhHRiufhJbllZ1crTTipMzODW6SBDa981ac3o0r5t/At8i0mer
-	 BB+2sWRL0hG9vjSOXNp7YTYnLFgo/ytYhkckMH1vA2aqs4Ej+u/viallWGQAfApZlUx/7
-	 YpdDB6O6ZRuP15ii0+bU9FB6+WQ+0JRwJBQdRrdMqFDDDmPXFi5OmSOZuspa+6Z/4r0Op
-	 spQt0SIXIu4eIlBjn14QiHQL7FeKv4+XY5fMqDJRhPFGeQoXzTUD0fVxyAD1FhT88Lw==
+	t=1794880316;
+	b=UgDLGdhkJXgh3QmtLkRR/DqyRGRul8mYIssN7MuqEuAr/xnw7k8GuerF0cbik9elQL64
+	 WIFZy/mAjax2Pq+xB+Y38x6tTCUOWoZ+gSa7Uwmy6sUkrCDKYnyZESq3K73HKeHUgpKYS
+	 V5UjoA2qzssCBgHBWRufMwIczEkTvOPl56rWefX5VTn4TSCqgh2S2j79As1b3WczXW1Ds
+	 QKzUK8CVcPQJv15wTnUrWJheTmNEkl9q+Hz+XDM74cn26BI+4vKqvEKMTPeh6J+J/a+tH
+	 iztRZMbfp7XpUaRG2ZX3Kk6cw1jlnXlAiShgGnPRkmnXOZjPA+IJEaMHnzh0IziKm7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794880286;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
-	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=B/vLT+6daParNl8PihlKbTSDfRPjuN/fXdkYXtYR128=;
-	b=tX12GF65b4aAvueEdXUz+gUSWtvXYPZO6BxIwZyvVCYDtN2a776POwBM/tv5V1abLA5u
-	 +jmrktBzXFQnc5kxqUchvK7Pn+B+EndP1yeuMfAOqNYB1Zl9+Sv8iESqg5cprxulYOx8i
-	 XA2pqsB0Dj+TM394udaJxxwo65YkWSm53TT8On+FudMn4KcKJfTNwLyM49CgkmOfaKTzl
-	 gSg/ktqZUl69OEHJAZlwJpcHFqZPQk8Ys5yvoHqCNwXHDq5vfr2s8aQ07JNtMdgL9ksKm
-	 3I7k4PuerN/2igugCmtq8bjEAW0/VIjmBABSNEQIIqcW3j+RWmpMGtxCm5YqFDbxGdA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794880316;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Pt8xvDwKeZFNbSLqDy3OvpUkDSrTrAmd4jUA7dH+Zmk=;
+	b=IsjeRQqi0V3xhCJCzZmlxpJojKw3hWDxxrZC5R+JlR1JbJmZRzcr9SRWkiXagkgbe8At
+	 KYMhZdyah6ZzxpDOkFUeDg9hUHgCk6PhssroOUX8Q8TleZDxrp/IUGYpYS8rq67JJooTP
+	 WEkQ6RCAeLcek7v+4RQBtBIKDBGZv7IoIQTtOIQwi3Ge7WcMW+FYnUPVJ7P9F4JGLUz3O
+	 HemL20xVrTI8afHWKy2ELvx0PF5jzohU0rAHpd8xdMztH487KMRWH5U46udcFNmZEzMNM
+	 l5KIP0IvIbWk2j2ZL7HnL6DZMp43LYtViYSkty7Bj+to4DQRZbLW4wi0gniY48xfyyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=q7nNpyGg;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=S2Jw7Io1;
+	arc=none smtp.remote-ip=95.215.58.44
+Received: from mta1.migadu.com (out-44.mta1.migadu.com [95.215.58.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B99B0606A329;
-	Tue, 17 Nov 2026 01:51:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B99B0606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09514606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:51:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09514606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=q7nNpyGg
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AH1pLezD3954129, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1794880281; bh=B/vLT+6daParNl8PihlKbTSDfRPjuN/fXdkYXtYR128=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=q7nNpyGg1BoIaV5KYfqltIFC0HLCdM3TNaUx13N/XPeARzqCnJYbk4J2o56lS8/7c
-	 9piv3w+4eA01DDsW7GQQWh8HzthrK5Ay5j/ljsdDZdgX674ZGP9saOag8bvlgI0YEF
-	 Ed+DFBleIb2yi9iCNmDiDMmVXvy629CTvh6naiO0aTwJl9McGQAMeI3C6JC6w+Zh7N
-	 BR0Oh3WzyubaUV8jtBVL6yg5HUQuzpmC1Gr+HnKQGd5F5qY572BZ/C+nMxJe2BgXzL
-	 BTzRaKd70pOANk87LuOY/qfpGSawaT7wjL/H2j3k3IymT0pErUhKFk6sSx5HZWnF2c
-	 d37qpcMeqfuIA==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AH1pLezD3954129
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 17 Nov 2026 09:51:21 +0800
-Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 17 Nov 2026 09:51:21 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 17 Nov 2026 09:51:21 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
- 15.02.2562.056; Tue, 17 Nov 2026 09:51:21 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Ho Jie Feng <hjf3108@gmail.com>, "linux-wireless@vger.kernel.org"
-	<linux-wireless@vger.kernel.org>
-CC: Bitterblue Smith <rtl8821cerfe2@gmail.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH rtw-next v2 4/5] wifi: rtlwifi: usb: move the radiotap
- headroom size to usb.h
-Thread-Topic: [PATCH rtw-next v2 4/5] wifi: rtlwifi: usb: move the radiotap
- headroom size to usb.h
-Thread-Index: AQHdcOnJLssSHEau1UaWlbaDfqMSbLcxiaXQ
-Date: Tue, 17 Nov 2026 01:51:21 +0000
-Message-ID: <ca7a2c3c220c4d2eb1e4f57fe66450ba@realtek.com>
-References: <20261110080143.1362021-1-hjf3108@gmail.com>
- <20261110080143.1362021-5-hjf3108@gmail.com>
-In-Reply-To: <20261110080143.1362021-5-hjf3108@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=S2Jw7Io1
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=KsT5VlOouw8+wlbQGGPvciVPDA8AmFbkB9L6Bo0igYA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794880313; v=1; x=1795485113;
+ b=S2Jw7Io1U06ijobrAUij6SrLLss/9SNn2aFpyekCY3tg8xFgDm9DXGvCI8qhNsuwktEcmMo1
+ 62CJV/FjOz2vHFQubJTta1UWLRMeeRNa58UfPbzD+TasR4/c0ntTGlUbUM9P19OOWMWl52udXY7
+ XAHZZy68bLnPaYBPzsnfpfWs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id e35cf60e195adc0b;
+	Tue, 17 Nov 2026 01:51:53 +0000
+X-Mizu-Trace-ID: e35cf60e195adc0b
+X-Migadu-Flow: FLOW_OUT
+From: "Xu Xin (vivo)" <xu.xin@linux.dev>
+To: xu.xin@linux.dev
+Cc: chengming.zhou@linux.dev,
+	david@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	ljs@kernel.org
+Subject: [PATCH v4 1/2] mm/ksm: extract helper functions for scan cycle cleanup
+Date: Tue, 17 Nov 2026 09:51:38 +0800
+Message-Id: <20261117015138.612340-1-xu.xin@linux.dev>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261117015009.611551-1-xu.xin@linux.dev>
+References: <20261117015009.611551-1-xu.xin@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,40 +69,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Ho Jie Feng <hjf3108@gmail.com> wrote:
-> Let drivers use the same define to add headroom for the frames
-> split out of aggregated transfers.
->=20
-> Move __RADIO_TAP_SIZE_RSV to usb.h as RTL_RADIO_TAP_SIZE_RSV
-> so chip specific code can use it.
->=20
-> Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
+Since scan_get_next_rmap_item() is getting too large, extract two new
+helper functions, ksm_prune_migrate_nodes() and ksm_reset_unstable_trees(),
+to reduce indentation levels, isolate local variables, and improve the
+readability of the main scan loop.
 
-Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+No functional change intended.
 
-Carry my Acked-by to v3 with a nit below.
+Signed-off-by: Xu Xin (vivo) <xu.xin@linux.dev>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+ mm/ksm.c | 54 +++++++++++++++++++++++++++++++-----------------------
+ 1 file changed, 31 insertions(+), 23 deletions(-)
 
-[...]
-
-> diff --git a/drivers/net/wireless/realtek/rtlwifi/usb.h
-> b/drivers/net/wireless/realtek/rtlwifi/usb.h
-> index b873bbc9c4..329b734ca1 100644
-> --- a/drivers/net/wireless/realtek/rtlwifi/usb.h
-> +++ b/drivers/net/wireless/realtek/rtlwifi/usb.h
-> @@ -7,6 +7,7 @@
->  #include <linux/skbuff.h>
->=20
->  #define RTL_RX_DESC_SIZE               24
-> +#define RTL_RADIO_TAP_SIZE_RSV 32
-
-nit: prefer to align the column of number.=20
-Though I'm not fan of <tabs + space> alignment, it is there already.
-Just let it look comfortable.=20
-
->=20
->  #define RTL_USB_DEVICE(vend, prod, cfg) \
->         .match_flags =3D USB_DEVICE_ID_MATCH_DEVICE, \
-> --
-> 2.53.0
+diff --git a/mm/ksm.c b/mm/ksm.c
+index 5e24b5ca8dc8..8db6743ece6d 100644
+--- a/mm/ksm.c
++++ b/mm/ksm.c
+@@ -2609,6 +2609,35 @@ static struct mm_walk_ops ksm_next_page_ops = {
+ 	.walk_lock = PGWALK_RDLOCK,
+ };
+ 
++static void ksm_prune_migrate_nodes(void)
++{
++	struct ksm_stable_node *stable_node, *next;
++	struct folio *folio;
++
++	if (ksm_merge_across_nodes)
++		return;
++
++	/*
++	 * Whereas stale stable_nodes on the stable_tree itself
++	 * get pruned in the regular course of stable_tree_search(),
++	 * those moved out to the migrate_nodes list can accumulate:
++	 * so prune them once before each full scan.
++	 */
++	list_for_each_entry_safe(stable_node, next, &migrate_nodes, list) {
++		folio = ksm_get_folio(stable_node, KSM_GET_FOLIO_NOLOCK);
++
++		if (folio)
++			folio_put(folio);
++		cond_resched();
++	}
++}
++
++static void ksm_reset_unstable_trees(void)
++{
++	for (int nid = 0; nid < ksm_nr_node_ids; nid++)
++		root_unstable_tree[nid] = RB_ROOT;
++}
++
+ static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
+ {
+ 	struct mm_struct *mm;
+@@ -2617,7 +2646,6 @@ static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
+ 	struct vm_area_struct *vma;
+ 	struct ksm_rmap_item *rmap_item;
+ 	struct vma_iterator vmi;
+-	int nid;
+ 
+ 	if (list_empty(&ksm_mm_head.slot.mm_node))
+ 		return NULL;
+@@ -2639,28 +2667,8 @@ static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
+ 		 */
+ 		lru_add_drain_all();
+ 
+-		/*
+-		 * Whereas stale stable_nodes on the stable_tree itself
+-		 * get pruned in the regular course of stable_tree_search(),
+-		 * those moved out to the migrate_nodes list can accumulate:
+-		 * so prune them once before each full scan.
+-		 */
+-		if (!ksm_merge_across_nodes) {
+-			struct ksm_stable_node *stable_node, *next;
+-			struct folio *folio;
+-
+-			list_for_each_entry_safe(stable_node, next,
+-						 &migrate_nodes, list) {
+-				folio = ksm_get_folio(stable_node,
+-						      KSM_GET_FOLIO_NOLOCK);
+-				if (folio)
+-					folio_put(folio);
+-				cond_resched();
+-			}
+-		}
+-
+-		for (nid = 0; nid < ksm_nr_node_ids; nid++)
+-			root_unstable_tree[nid] = RB_ROOT;
++		ksm_prune_migrate_nodes();
++		ksm_reset_unstable_trees();
+ 
+ 		spin_lock(&ksm_mmlist_lock);
+ 		slot = list_entry(mm_slot->slot.mm_node.next,
+-- 
+2.34.1
 
