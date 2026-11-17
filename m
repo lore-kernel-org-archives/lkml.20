@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.71
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.37
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794911241;
-	b=ulmhzA5yW0uDekwF9057Fm3S0NhL58Vur32RS2oPhCyo9GxbIlWR9GlolEOMK1jB0Ndf
-	 1W8xa9IQX54aF8AYEQN9lIxYVfVolJPvEQPnUgmYBO5zO9YiN+W8PStGvGX2E5lh2mfpi
-	 yXkmG1FA9WmX8CFyBOM1QL2pwcGD0zQUtXexXe2ngGmuys0iIj6CpMHQF+//Q/PpyxXcl
-	 vO/xm7qYtMjdKXcxgWu4ySa5a1Y1oBjuXv8YQXvx9Zfg/Q5OUf0ylYYcT1qcwO2WqA2Bl
-	 52+epdiKMPCABBk8iH2o6sVl+rcL7xGvxsWW7WUU8cOiSXKPG7Kw9s2u7r7Zc1DkHbA==
+	t=1794911245;
+	b=ynHE4wNZ0vKPHu7DmKQGrJjgAcpOEcvoq0aKTnwBDYRJbDzGcPOBHLxxnqQ8146rOGMv
+	 2g/wxrBypMuzChxX1l62eq0ZFr6AkYP7JQ8zKdGiwXp1CiGBG+hB+1odA1CO8RZbSHP7Y
+	 TNGZbifvY8WTgm/spMnvUVAXjWfCLCotySkNjkWdKZltZGC0Ea4lTphpnHF0NTzOJWgRk
+	 pJPsbKEG8WpLag8lkyTUXmc9mmAfbqHsH1gLCX3Rpa7zkdK0WO/YLY8mj0vCcYqI/qGsd
+	 TwbpBGQBA+hPaMDvOYsnPsxM3eBWgl/1T6qtwj7iBOSI+budHkXVl1+6mioEJFaBBfg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794911241;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794911245;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
@@ -25,35 +25,35 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=fwBgTb9Skzdjj9HHR3s7+GWkcOFYWGpZVMfH9/wCEo8=;
-	b=Qly95d+CFBCXPNeMkPYv5yXoWbyFco+yXHIXypCIo350yfdSnJVT+s5i7kfUY3jFeVf5
-	 ujDIa71Qht+vbJwV+pHEZRjFsjye3/kOWFTGrK7OqjKNInxRpA5aB1tUwGa1Ojx0U5jKe
-	 H8KEX6aYSKfdifW+NNpsTaD+mT9TPv310gN/6pVzTcRj6Xv4boX9y66tuv1vOWlG4b5hd
-	 +zCW3oNVAR0VonA8X60boon/JmPc/wQ7L+WhEtvWAXO7ylTaaZS39F/QQijrndUk3IdB/
-	 p17RT5suPi/w7un3l4jZX2Gls2lNxK5k1oBovQq+vieOLAsFOYqGmNGYNAT6tK/iMEQ==
+	bh=24+/xVCcBuEJlsxsIDX8ofrBM1HBtvhvQYsSCbq9gCY=;
+	b=RvCHwAvKSJLToTGVWwbiGibVVJxpSJf+Njv1U92KCdddeJghcY4bKn8o6kKd6vVpL3UL
+	 Aux95OiVHURmKAzm+7REsTxM6E5WdA4tQZ2JPGRwzaXBwAmJBw2Z4sEz9QLQs3HbsNxVY
+	 3DO6etbyOJOwufUTxh5okgpG5AUPvGw+VGxaFbqKnJ+Ncdtwrsc0jBbzKOpe2iBc/gyNG
+	 ksu3plqbYU5LgXluq/wlcEyme2HLWHDKQMuGTDUv/sH0E3WFKeVT61YFaVc9nn2kmLwx8
+	 mA7NHz4kWL8AJK8eg1k+Fr7WDM306otiz/OmB9ZWSG3VUg+My+z0RpXPVQqjxKMgNhA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=renesas.com;
 	spf=pass smtp.mailfrom=renesas.com;
-	dkim=pass header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b="D3E/89Qr";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.71
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011071.outbound.protection.outlook.com [52.101.125.71])
+	dkim=pass header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=eg+uoDYS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.37
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010037.outbound.protection.outlook.com [52.101.228.37])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26599606A331;
-	Tue, 17 Nov 2026 10:27:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26599606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C739606A32A;
+	Tue, 17 Nov 2026 10:27:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C739606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=D3E/89Qr
+	dkim=pass (1024-bit key, unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=eg+uoDYS
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UOs3ayfnxgH9yhNDzsU7WRkxxNSZtZJM+6Kp0KWYlisYJO6P9P9MJWZ2UR5lWHiuaeL6w8cy1x4QXbTPWqqqqNFUuiT2srmBvQ2UZhpQ4jUMoKMQHvhQta992XvdfjADScvrNCJndxmODWvDtTTtpQ6EprLs6z88U5F7rGxNQO8tHkqNPZm2rIeXYJuD4F5NYoasy/lkjdahAm6bEI4yWE9UqAiUdwLzhLB5IKUVPpnGlYPMU73KJIpgZTgRthhzhOWYK3aT9yL7/RGw3oGX3rI3n6VkgYCtvDU0SnwJ92+JkOwBZ5JmoM1FH7tY6UPRFVWyaVCaTWy+aDCfwRWOsA==
+ b=Z3+q+Z9PYT0lvcNCDY82TFRrOQc3+9IYTXn5qyZ38a7SyVV6LoeeqG503J33z3+T8nqm4YjckZokafjKr2xiG5nek/x05aYztX4G8qB7G4HDGEehplDqA5dtYECRtKn8UJpwGPpyuXyn/9eg1Ml4pweTsv+PHx20GV7QZNc/BS/zxZMheb90G+QTdD58OY5fz3E2K1BRBbz9eyyAEVfwwH3Xpw/2BrZl4qWwC/37/Hya3ceQ5/Uf2/cJZLmKGirpPEm48ybpT02ni9a/knf/E+93/YGltq+jW4B1xfDAiBe4Zd+eTWTscEGESA5OkqD3XC70MJGee4FtmyTHhy7L6g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fwBgTb9Skzdjj9HHR3s7+GWkcOFYWGpZVMfH9/wCEo8=;
- b=UF6Gjy2MvNnuGxPO7qrXWR2W2AK1tvkxD+jOzRlPtJrhabttCdOz1tPG+a7zphm89QTjlb/1ji07FqDw7UNSfjBIRN36fhtUb/FzRd9cHmsMeEwVRKVu2evcEyQ4VXP4mgcLWhT+KkUUIdW7erglBYX6oOBLY34DLwZC63hFnrCGdK4paXnJkcnBBlS3kmVwlB4zuy3aTOx5H10T5MLGurIeIUwQjkKjtwgFT0bo/SRRe8UlD4FGUE8AYwj13trzFsfJHF8H4k7tZKBjqBOKkEZ7JCxV9HHl32yWpktFLZ2boa3Dzs7ON0b1HvsWdPqKyLeGC2dnm9s09W7l0TESqA==
+ bh=24+/xVCcBuEJlsxsIDX8ofrBM1HBtvhvQYsSCbq9gCY=;
+ b=dHikahYKNV+HDTKKR2UG3g/UUJOCko9KoVM+btw4GujV5xJ4kQ1gDpSh1g/1Nf9/rIZAF1OD08l/PjmE0zaYkfTHELspqBYk4hel20NhpytHl37YQQ6S0bpCQLvac4hXyH2rsPpFrit8JUhJhXzn1BE6oZiDHspTWT+lNALU3e1HJ72dXdCxiPMUVcIaywKHDlDMacD3TryN+FFFsR6c8KJhxqQYlNaC37/MhYGRblkus6/9FiUA0fphEAw0hX5cLRUuFLkjBtIRzh0mQmVGwctTnmYJKRMWeBZOFUB+thcTFhb8bSbMFrHRuP3AhcHFSC+bZYw4nIQXlNn3broUYQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  8.62.32.50) smtp.rcpttodomain=bp.renesas.com smtp.mailfrom=renesas.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=renesas.com;
@@ -61,18 +61,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fwBgTb9Skzdjj9HHR3s7+GWkcOFYWGpZVMfH9/wCEo8=;
- b=D3E/89QrVA2K5hDIPkRRuBCqzxR/M48irzXSWFyiN9iU+XPswt+56jZYKzTxGmSWVlIZ9dPLY5R27Mq1HfoRu6qU+JLqIhQqb5ZzgXgeyC6cZEQmoHinTGsNm3tkYPYXUs1rFHbE3H6HFoG/vCEhU/aLG3xR7sEGMhN4HzFGUeE=
-Received: from TYCP301CA0042.JPNP301.PROD.OUTLOOK.COM (2603:1096:400:380::10)
- by TY3PR01MB10485.jpnprd01.prod.outlook.com (2603:1096:400:311::9) with
+ bh=24+/xVCcBuEJlsxsIDX8ofrBM1HBtvhvQYsSCbq9gCY=;
+ b=eg+uoDYSdLz2CAOqc23MBmbM1saR+jIknpxMnxpkGJA5d3Lt/zFja895rkW93YZ3mQ8OXzSTLmX1On0qkBAyEfAXJLa03lbopm/i+t6SCS/EwEvfrO//WpnLcRypZpqghXVAcVnvQe9Vfl+Crc+3Bh7Ygx7iaLtki43h/DJsnTk=
+Received: from TYCP286CA0373.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:79::15)
+ by TYWPR01MB11399.jpnprd01.prod.outlook.com (2603:1096:400:400::8) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 10:27:15 +0000
-Received: from TYO1EPF00005022.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:380:cafe::3c) by TYCP301CA0042.outlook.office365.com
- (2603:1096:400:380::10) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 10:27:21 +0000
+Received: from TY2PEPF00005623.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:79:cafe::7) by TYCP286CA0373.outlook.office365.com
+ (2603:1096:405:79::15) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Tue,
- 17 Nov 2026 10:27:15 +0000
+ 17 Nov 2026 10:27:21 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 8.62.32.50) smtp.mailfrom=renesas.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=renesas.com;
@@ -80,12 +80,12 @@ Received-SPF: Pass (protection.outlook.com: domain of renesas.com designates
  8.62.32.50 as permitted sender) receiver=protection.outlook.com;
  client-ip=8.62.32.50; helo=ejcrelay005p.adwin.renesas.com; pr=E
 Received: from ejcrelay005p.adwin.renesas.com (8.62.32.50) by
- TYO1EPF00005022.mail.protection.outlook.com (10.167.240.7) with Microsoft
+ TY2PEPF00005623.mail.protection.outlook.com (10.167.240.54) with Microsoft
  SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
- via Frontend Transport; Tue, 17 Nov 2026 10:27:15 +0000
+ via Frontend Transport; Tue, 17 Nov 2026 10:27:21 +0000
 Received: from demon-pc.tailc3dc73.ts.net (DEU-5CG5050QD0.adwin.renesas.com [10.226.92.253])
-	by ejcrelay005p.adwin.renesas.com (Postfix) with ESMTP id A063B3000255;
-	Tue, 17 Nov 2026 19:27:13 +0900 (JST)
+	by ejcrelay005p.adwin.renesas.com (Postfix) with ESMTP id 843A43000255;
+	Tue, 17 Nov 2026 19:27:19 +0900 (JST)
 From: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
 To: Biju Das <biju.das.jz@bp.renesas.com>,
 	William Breathitt Gray <wbg@kernel.org>
@@ -93,9 +93,9 @@ Cc: linux-iio@vger.kernel.org,
 	linux-renesas-soc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-Subject: [PATCH v3 01/14] counter: rz-mtu3-cnt: do not assign struct rz_mtu3_channel::dev
-Date: Tue, 17 Nov 2026 12:25:54 +0200
-Message-ID: <20261117102607.2504551-2-cosmin-gabriel.tanislav.xa@renesas.com>
+Subject: [PATCH v3 03/14] counter: rz-mtu3-cnt: use device-managed pm_runtime_enable()
+Date: Tue, 17 Nov 2026 12:25:56 +0200
+Message-ID: <20261117102607.2504551-4-cosmin-gabriel.tanislav.xa@renesas.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261117102607.2504551-1-cosmin-gabriel.tanislav.xa@renesas.com>
 References: <20261117102607.2504551-1-cosmin-gabriel.tanislav.xa@renesas.com>
@@ -111,33 +111,33 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYO1EPF00005022:EE_|TY3PR01MB10485:EE_
+X-MS-TrafficTypeDiagnostic: TY2PEPF00005623:EE_|TYWPR01MB11399:EE_
 Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 17701114-f45f-40dc-1fb7-08df449559c4
+X-MS-Office365-Filtering-Correlation-Id: 044effda-594b-4469-5e03-08df44955d48
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|36860700016|376014|82310400026|10067099003|11063799006|56012099006|261021123027099003|261021121427099003|261102123227099003|261009223027099003|7136999003|18002099003|22082099003;
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|82310400026|36860700016|10067099003|11063799006|56012099006|261021123027099003|261021121427099003|261102123227099003|261009223027099003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	jh3uOJfreZIGMXRf+6uadVN7R1nsHZxv5G60UxEF90XFZHjpSY+WP5DOnnc/b1RNCcuUHDrpvg6nDH65aYUTQSw+lgGjQWk2R9iMMdcIwREtaVmndgXgx1jy0JJMCzmYS8edPp3wWLqpv0ecTW6Qz+hk1wvmEaiFYSJdWYPzRmebZbnni+iqi7mpGKGJ0IEfPFTXJzjtIjPdFKxUhO7EntS2JNH0J0wj3p19U9apamw7Be/jLzBA35USkEP0J+YuLrPcALbbEJburfu/SDZKNE0ZZgScJlQ7nC6RuA3HQmVRA3TfD+Dmqw6PH7CdG2D9cA4Q5DkNbmjR/JpUO8hSxKyGAtRmLRt+6HFBJk5UX7tEAFS6msIgJHUjpRCt/znebo0OEP0CWOcvsGOG1CFMatn1VQbVjx6Ie5nou+N/tdLSKnjSYFZq3BWZYhWWD9QXyR1hTO7hYTM4YEqAjYS/0biqMYUkRnp1KAF4sIBfghYtw3qNfEqz5Rsl0GN97Rg62H/XzRHV74FWlGIjDpbOT/XfyPR5nDP0pqXh0hl8OtyXymFx//Vo9YWwr9VN0i06meFMbjgmig34HQlG8JTYGZgLcfFjGhMLK6aLrpGWJvIje0SSvetcDD5r1s3JRK4uwJ73gwqso/IfqvT/WHNKcfj8hmrwHTaDI0B8m6+W/SlVm7lQ4duD3wgwqwLlYPsyCsbMCOSQGPnfC7XNcvDGZQ==
+	O7e6s1BT0Gdp4sxXelJ0yYth0cTVTTy6z5ftBNX6UZGGs//+j1e3UAoccBI+vLcTlf/JemjiSXy81z4E32O1dcxDlrWCh2bF6RAPuoSOgLncmGTQrGb5j5kKIVYGgPKzUKZvWVYFdo/x1iHt9+mriO4Q70wybrNBhbId3vuZ2HQuweVgECv41Cg6Z3wZlipGWzxGCCrDqWZyrlWIQJ+Mb2i2mags59IZdVneP6iitjkaD+TOqfgPUMRxiapMlSsNw8E+mpRONxNKcQ5vSxrjXkomEw+8HTCseA/aQRisDkVro7TXJZGdkvZzN7yvVCCvZ5JpCGtSH9pPA6yVM8KPR4YMQlnSXlMHjbsnuWixFV+vbeFsG2qrmOemFeWuEBziGRYZJGWjgB8PQsi1hUyr8ymqXXVJpi1sFckoA7jnEbJsXHVEtETs7nzZ36F8QWssUuCGD3Z6o2GGB+CgTt+S9zF5gNkQTOYC+h+xeigRghLb21FPfFJw1ZlV+0SyHbf6ZHdANAdh3mzO+f86kulxTHK/Prc/t1C9rHlu56Fa1A9iOC1PE1lVSSJdlzvTxESRgX5Xgu9CabFMz8b83nu5IIgqPzsssraJs4zNx6Y5MCjsr2lTSqjyZZ2P6YX3aD5SmVmTL8Qlx8ImNkCLfpqhhwlXEal5ac+tkO1IIjhJRnQ+Qv+p3sva1thC9kfEz3n8J8P5e6eUOYeIqp8dNfBBEg==
 X-Forefront-Antispam-Report:
-	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay005p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(36860700016)(376014)(82310400026)(10067099003)(11063799006)(56012099006)(261021123027099003)(261021121427099003)(261102123227099003)(261009223027099003)(7136999003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay005p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(82310400026)(36860700016)(10067099003)(11063799006)(56012099006)(261021123027099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	oJpsWS7TmwFUcEKLp9Dcl3kMlavVQJtxWidHRhzOMbkppKe9DDOqmEm1UB4FLU472QBpw8OvUeTo3mga9Jnmj0pRjMAat2a7BWdLS/5GyHHPrvouN7885Cwr3tLTS7to3NhKDaQ8TuG+40yZN+R0pObMH3RFuahws+8IZwnhfp2mOjSVweJ85oC8YoODMGhXWBXW0rDk88vfesXSkF/Pr1/4eS7LnEkWrLvA/MSTeE9K62BZ+J0fyCbh1iFfxkav98GY9WNmbLElP30yFiaCrtciSdCtusKytHpT9j+PbkJHuVVqZvkpfjF8eIlHvOnqn9rTY+432CmdPllvkpCXx9exXkhY3hZIHdJELvcHN92HUjdFta0rSkSDbxnrx87XgmSRYH1RF6VuFKJ0MLq3DBoj/sRvUH4YtM55fxYC/cj9/kQ+iFeoeUTN/TTtbZMg
+	91qVR3wT2Nab2S0GGUWKWnmmlx+sKX1TfGlBQ1f7tNtDpB9ykPzmRuSJv/2Rc7vn+y637BNilWSM9//s0yb45dbRaUNcJobUV1QAmETkzrCFMLe76yVppoUw5l364JojD/8oAU1mVDoVfoP91ePlhyq8u2UGkGGyCUX758c1UJBzelycRoiDIwYr4JHPb7DWUJtujL98/ZrJdtLy9nc+jq3iWUJDz1gPSEEQLn1/3YGufBv1UIgNgM9JnDyF3ZRcrRXbFl/8bXDQJh4nCbFkWopnLjL0l3fH/PdiEPSwJzIj+s6TgYG6Rgy4NM3XBI3s/nOiIm1qGq1lz3rZRyhE7+wTvXHnMxO+CM7bDPfUEafmmVIvobykmJUivWJZMEHfOisE2MAROeMlzAKFWh0qNd2U5qXZ3KD8QJj3yxsH0WWPl1Rq3n724ykvL0AJQgv8
 X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 10:27:15.6219
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 10:27:21.5241
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 17701114-f45f-40dc-1fb7-08df449559c4
+X-MS-Exchange-CrossTenant-Network-Message-Id: 044effda-594b-4469-5e03-08df44955d48
 X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay005p.adwin.renesas.com]
-X-MS-Exchange-CrossTenant-AuthSource: TYO1EPF00005022.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthSource: TY2PEPF00005623.JPNP286.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB10485
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB11399
 
-struct rz_mtu3_channel::dev is now unused. Remove the assignment to
-prepare for removing it entirely.
+devm_pm_runtime_enable() has the same semantics as the current logic,
+use it.
 
 Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
 ---
@@ -148,34 +148,39 @@ V3:
 V2:
  * no changes
 
- drivers/counter/rz-mtu3-cnt.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+ drivers/counter/rz-mtu3-cnt.c | 13 +++----------
+ 1 file changed, 3 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/counter/rz-mtu3-cnt.c b/drivers/counter/rz-mtu3-cnt.c
-index e7fe8bf45164..bafb8ef82afb 100644
+index d8f13c5ac525..b1848a0b17e5 100644
 --- a/drivers/counter/rz-mtu3-cnt.c
 +++ b/drivers/counter/rz-mtu3-cnt.c
-@@ -842,7 +842,6 @@ static int rz_mtu3_cnt_probe(struct platform_device *pdev)
+@@ -804,13 +804,6 @@ static struct counter_comp rz_mtu3_device_ext[] = {
+ 				 rz_mtu3_ext_input_phase_clock_select_enum),
+ };
+ 
+-static void rz_mtu3_cnt_pm_disable(void *data)
+-{
+-	struct device *dev = data;
+-
+-	pm_runtime_disable(dev);
+-}
+-
+ static int rz_mtu3_cnt_probe(struct platform_device *pdev)
+ {
  	struct rz_mtu3 *ddata = dev_get_drvdata(pdev->dev.parent);
- 	struct device *dev = &pdev->dev;
- 	struct counter_device *counter;
--	struct rz_mtu3_channel *ch;
- 	struct rz_mtu3_cnt *priv;
- 	unsigned int i;
- 	int ret;
-@@ -855,12 +854,8 @@ static int rz_mtu3_cnt_probe(struct platform_device *pdev)
- 	priv->clk = ddata->clk;
- 	priv->mtu_32bit_max = U32_MAX;
- 	priv->ch = &ddata->channels[RZ_MTU3_CHAN_1];
--	ch = &priv->ch[0];
--	for (i = 0; i < RZ_MTU3_MAX_HW_CNTR_CHANNELS; i++) {
--		ch->dev = dev;
-+	for (i = 0; i < RZ_MTU3_MAX_HW_CNTR_CHANNELS; i++)
+@@ -831,9 +824,9 @@ static int rz_mtu3_cnt_probe(struct platform_device *pdev)
  		priv->mtu_16bit_max[i] = U16_MAX;
--		ch++;
--	}
  
  	mutex_init(&priv->lock);
- 	platform_set_drvdata(pdev, priv->clk);
+-	pm_runtime_enable(&pdev->dev);
+-	ret = devm_add_action_or_reset(&pdev->dev, rz_mtu3_cnt_pm_disable, dev);
+-	if (ret < 0)
++
++	ret = devm_pm_runtime_enable(dev);
++	if (ret)
+ 		return ret;
+ 
+ 	counter->name = dev_name(dev);
 -- 
 2.56.0
