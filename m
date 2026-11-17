@@ -1,91 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794916947;
-	b=cuzBGowFqV2Pz+L8PE1N9qgfX9rkqUlxXRmefumGXLnFajWts4BqYtaT0+hyfRbDvv9w
-	 xrMwU8oWcKQ9fEQQ7GAzqJ8d8Ra5IwgcIXr872UkW3lYoJdiKWRCEkUMfb/N0t9Keu2t7
-	 SECZfPGLSqod46caaoRmDN7QSlwmhrm1EoXUiEspwdglDpTkgtUJT/LA3NY+ynSh+GBmh
-	 otA96kjYaYVg2csFjSC6w4RtimByPdr8LLfFLaLCfXBb4hgxCUfSsfAy7LxDYuq90WPdU
-	 bCZ71eUcZE9LKpgGt9HCtFL+vC5OynaHHZOwC60mwrc/5lJ8RirEQbMAamkRSPC7sgw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794916947;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=+sDgkDDfvdGL04ziHdSHTWy/ENbJTsOpz3QHFKDogfo=;
-	b=hTOV/n4FMij/VXAtobcx8Na5XBk5wZtffEJX09n3/FEWYvQ/5jZpEBWXFOrNTDS+R3WG
-	 UOjXoUXpYrRiPvnjjRNuedEiGjsBXGjnooTli1EtpgnVRrDtfm+Vog/VyymphaKG0bEuZ
-	 kDexZNWslFKWVse5XIShJ6UhcHH/xYruQEyW5FLRq/eIkYH4eTqmxStt2oIMMJIqMhvF6
-	 nN8O7s8LQcgqIh7cXGheOGITIVbCkXdD2UkfNZ2pfTsyZK+/nd13Vc4R2iL/hNMk3oWH2
-	 99zpfeIokiLslf/TmKgY+fkwmfrdmlUdFjJcuDow6wcCCO4Y2cSA7rLXG271+wBCBUw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ORNHkDMU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794916949;
+	b=o9ZXnUgfyDFvcHfL5UJ2gSSOUBCIHB3mNdA+CQCbO03WHruDoMbIg1pkEJJklMzCm9Ly
+	 vr1S0gqYFt48GAP6cAbfJo4vMlUvS7+4oUrytWQ9yM8qyEFGhsKHpFokLMhJqgQgkAHqw
+	 uImIkTv7zpGFR8MFAhxupZUKmvkzmkoAZb50/thMRxCjZntkgseNLOweK8OtYud61+XCf
+	 LbIGWVW9WawTDpLoHtXfMnmOAY/WzRB4+AKyjio1R3LdkTkv0kDIsSZLxid+5ZuLAWBh9
+	 WAqnQ3rfe1XDAmFC36tV1Kdl+Gt30qjxYKrmV2Xpk3gRj3cIih2w4z2w021My8MqN3A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794916949;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=K1Zvfa99sLuK1DLzK+ZnNXjcPb2OGlPh4oAuZqkwtkw=;
+	b=koxXvV03SGR7BMvDpC4Gb6bp1clblZDXVQQSf056UHmODlQmyxn8atTBWJDFyF7c/1VJ
+	 oZwW1EB4nTBnZJpJKQnm7VQBcuDOMGntS5LhTkih1BpwMMNjfInK9W8f1qrnC27XurVVo
+	 AxRnBHFH03XwUo3cy7FkE4hvjCXPyfjYmucSLLBINEN0W/NImiiAKNCU0TcTPkgFNcY47
+	 kc1Xp3s0TpNYGJNouUs4Lx/18ePjgBl4BZ1M3nyasApPHcHd74NVj6uMuk1E3HUvvlB0g
+	 7WCISUeYIvBlnjCaP90WWPYsKZu1Js4qvGCaTlmsS5WoHOzOs2N55jqrF78+SnmOfog==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=ZzqHuuPs;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DE34606A882;
-	Tue, 17 Nov 2026 12:02:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DE34606A882
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6573606A89D;
+	Tue, 17 Nov 2026 12:02:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6573606A89D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ORNHkDMU
-Received: from ptx.office.stw.pengutronix.de (ptx.office.stw.4.pengutronix.de [10.9.0.3])
-	(Authenticated sender: relay-from-ptx.office.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id B8D5620173E;
-	Tue, 17 Nov 2026 13:02:24 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794916944;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+sDgkDDfvdGL04ziHdSHTWy/ENbJTsOpz3QHFKDogfo=;
-	b=ORNHkDMUysA4UNAa9iDVT82O/IV9sAgtCGMCMwo3s0GAf3X+kpWgdyWNfLo8UYw9yTMU8q
-	HB6ZpAgRWnSi4k0zABeN9SOZ+neeKNtm5umYEjRJgT2xaNVr49WAABaT7yEhNNIfH6IsCb
-	MT7dNm2fyl2OJo/wAeV9FQyZfg3IulglskWA8W1CDcJVYU5BOBdi+D5ircO8utnP6sy+tr
-	atEYYkQSPcnrhgGmn15dN/Ngm1BMfm0A46abMaW0qkmsm+08QEpHdorDlA8HlgIrhuvtZ0
-	Jjrk9bMHEiyDEbNb+y5oYEd1FWkeQ/ri4QO3x3Xk4US4sr0dlQgFDOuLVDqrrw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794916944;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+sDgkDDfvdGL04ziHdSHTWy/ENbJTsOpz3QHFKDogfo=;
-	b=en8rZXwVcget22u7jWqOoZA5GHUO9IZpsDgpIyvLeG79XXU/rD0QchX16WIfEijQlEoVC8
-	9RBkN2twvFhLKKugOF3ML6shYfqAB5ikxHvkkft5YmBV+Gm6fGt8avJyWn/bdHJYWaQqot
-	fNNUOuEnY8Z0aFZoM4/pqek0DpNy0ElvsnQRnO/BWUBOjHF1aMHYJol0Hk19RhfDl4fS9q
-	tT3mDiRAiLi7Pa+K9js25KVFCWWyV6R8nR1RKWoeW4C27d9AOOvodKEZ+Ca46FQiwAlzOO
-	4oL2U6QyOppQQp88zPN31vs3cCgXOnSRoMVOmqY++s57WR/InPI5FLSp/MdlxA==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794916944; a=rsa-sha256;
-	cv=none;
-	b=LPj88i/xzneBN5Fl4ba9uiLVFM2oFcgnzTLUEnc3apYhrsaeCpWVYEuyyQxKwg7czjXCiT
-	Pd3oWkMUl7qXm/UrFMAz8s+4HxagZUxhmRODjlksEtnbDLC0hprBTXWjRervYkZhqHgo8A
-	MbX0+rYJTLdw4nU5gLtq4CfOThUPHZ5e/VqcY96I1ocoLPJaYiAyZ4mSqhHGJu/bHrKtq/
-	CvVT+iPbTaIkTjtLdYD+VirPB+bBiA2dd0dP579nmOMETVNfeUFMcnxKe+CMDPaqvzDnrR
-	d2sc9G67HHTOodcLVzd/PHaTS4ZtI/s3HeyPNOa3VDvlKKrLfGqPdiubjHb9Cg==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-ptx.office.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
-Received: by ptx.office.stw.pengutronix.de (Postfix, from userid 1058)
-	id 973771BFABC; Tue, 17 Nov 2026 13:02:24 +0100 (CET)
-Date: Tue, 17 Nov 2026 13:02:24 +0100
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: netdev-bot+sashiko@kernel.org
-Cc: woojung.huh@microchip.com, UNGLinuxDriver@microchip.com, andrew@lunn.ch,
-	olteanv@gmail.com, davem@davemloft.net, edumazet@kernel.org,
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
-	arun.ramadoss@microchip.com, jiri@resnulli.us, linusw@kernel.org,
-	f.fainelli@gmail.com, vivien.didelot@gmail.com,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kernel@pengutronix.de, jensemil.schulzostergaard@microchip.com
-Subject: Re: [PATCH net-next v2 3/3] net: dsa: forget the port ageing time
- when the port leaves the bridge
-Message-ID: <avxCUGkgmY9l2kho@pengutronix.de>
-References: <20261115-ksz-stp-ageing-v2-3-7af27320033e@pengutronix.de>
- <179482683686.3136.4297608809022872177@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=ZzqHuuPs
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794916946;
+	bh=Pn/vfILlPgBup/CmDpdpki2EarwYCJXJtgx9MsaRfYs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ZzqHuuPsdun6H5EzYeowjGgBvsG48E5Bx+DLK1RB6P2I/WTSewjunAKXg2InEfkoJ
+	 08F/RwnoWzx8i+NGNHI3dgpg5mDAgAhmCnEZdt8OS0GxC5AXnxXwfy5fX7PPpTfGT5
+	 d9g0yQHw3DHBmI4IAKJEAz3Td2PlizoaxiLCDbEGDekOi5C4TYKBEadkvYcVdiO0RK
+	 8ozohV/+jpWxUWTKQGlpvuGtbyzQtS+FYYqf2rnSAYSx8nJw/WdE1qLOF3EIrTJh+J
+	 ua3XZP6yIiaBRxkMqjPTpSAh2MWlpbiNcoyg7mjKUx5BOudQ+6jO4OjO0gPdpB2qjm
+	 Nxc9QIUDR2IaA==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 4B26E17E0406;
+	Tue, 17 Nov 2026 13:02:26 +0100 (CET)
+Message-ID: <fb428deb-9408-4129-89d1-1c2a3da1b75b@collabora.com>
+Date: Tue, 17 Nov 2026 13:02:25 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,17 +61,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <179482683686.3136.4297608809022872177@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/6] arm64: Initial support for MediaTek MT8163 SoC
+To: bengris32@protonmail.ch, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Sean Wang <sean.wang@mediatek.com>, Thomas Gleixner <tglx@kernel.org>,
+ Radu Rendec <radu@rendec.net>, Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ linux-serial@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20261105-arm64-initial-support-for-mediatek-mt8163-soc-v2-0-e68d7d428f99@protonmail.ch>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20261105-arm64-initial-support-for-mediatek-mt8163-soc-v2-0-e68d7d428f99@protonmail.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 16, 2026 at 11:00:36AM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Could the leave path recompute the fastest ageing time over the
-> switch's remaining bridged ports after clearing the cache, and program
-> it?
+On 11/5/26 15:28, Ben Grisdale via B4 Relay wrote:
+> This series adds basic support for the MediaTek MT8163 SoC.
+> 
+> The MT8163 is a 64-bit SoC featuring four ARM Cortex-A53 cores,
+> typically found in entry-level tablets and smart displays, such as
+> the Amazon Echo and Fire HD devices.
+> 
+> The bindings and SoC dtsi added here, together with the already applied
+> watchdog support, are enough to boot the 2016 Amazon Echo Dot (biscuit)
+> to a shell over UART0.
+> 
+> This series requires custom TF-A, U-Boot and OP-TEE ports for MT8163.
+> The stock vendor firmware does not provide a usable PSCI implementation
+> (the vendor kernel brings up secondary CPUs with a custom "mt-boot"
+> enable-method instead), and these ports also define the reserved memory
+> layout used by the board dts:
+>   - TF-A: https://github.com/iara-linux/arm-trusted-firmware
+>   - U-Boot: https://github.com/iara-linux/u-boot
+>   - OP-TEE: https://github.com/iara-linux/optee_os
+> 
+> This is the first of several series. Support for the remaining
+> peripherals will follow, starting with the clock controllers, pinctrl
+> and power domains.
+> 
+> Signed-off-by: Ben Grisdale <bengris32@protonmail.ch>
 
-Yes, I reproduced this on a KSZ9893 with two bridges. v3 adds a patch
-that programs the fastest ageing time of the remaining bridged ports
-when a port leaves its bridge.
+Whole series is
 
-pw-bot: cr
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+
