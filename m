@@ -1,69 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794877555;
-	b=l2rVuJzuwed9qq2EUEY/kJIpuU0OlLldQE+a1rfURb6MsrrliruC8ufCWDtQDY9oQyLy
-	 FpIHM59id7mtJtb4AUWUVCFODJuQfH5cY9p+rq7sTjykN1YLIYPlbK3YJ+NUSGkfZBNVf
-	 ayKT/Wp4rtENvm5+0MWvc73nWd4JKgb9C/EzWsj+rp1unyadHGLb+1XWIf/Xk5OsAZ0Pr
-	 agkzH+P6LBhLqhrgG4bjJ+zHEsphdjwRZ453WtPiAocvSiIUEa7iCjhygHua80IrZgFgM
-	 tZsqvvH4darDEafwHT7qKz91Ry0b7zbZIQUOTADgI94wto5pcGaY4PThg8ChiK8mvZw==
+	t=1794877586;
+	b=4zqYHRoNFQbRPGwDuTrTVf82JUcXa4WlX8lOIuL8FN+PUTkhW/rPH+Nks742+HJm9EI2
+	 LlAMa2eYQXijW4dgp95mykmk1H/sGKPyFTyiawzvnlZrAEP3ogVYEuYMpvfGSsmI1ymhQ
+	 RWhytzp7MlBSxigmj3bLo18aC1oblf56g0kErs/6rAu9KiVtxqFrCnMPWBPpwrF2RzSVP
+	 nXxeFr7UAFPlzoEn8puPnzi+rOFUXYPDFvUGAH3zUc5zhcux6bk408iEekakc7uHYEOVw
+	 7BBBTHtZkyNNMNbO1xWiRR8QOVUB3sUU7/VHIaAP0dxWwHV03gcAt7ndtgaK01sNCgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794877555;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
-	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
-	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
-	 X-Fangmail-MID-QID;
-	bh=67HakQsonwhSsl3u3/d1uMd+cF2cdPKxF0LdS+EmnIY=;
-	b=KgfmFjCmh5bHyYO9htA2js6Xx2FUzi/5jkY5gtqlfw7DrM/x+u74HPcQEU5fRI8gqQG4
-	 0sY8P8ALMgX1kAYYd7zd6wk97uLdxdwk1+bxosYa9gik0zqW5v18Bgitd9jEmBCY7X/LH
-	 ot6IgoB28rWa+cOBFCAGIoDz3dbHdoTZzO6LeJhLteeGUhIa+I8sqRc7+fOqhQaQJb9h/
-	 V/8KK2lHjNW0nR6rBhmFxVk+J4A0QBbQ08Mdv6IeN3/mz+jGo6MfVbv3SaTNpZtZPz7wP
-	 LJjuZtL25VrmFOlbM6RU18TDDMjMDjQ8sjxLhySdgRdI9EJIT0A5nDxiKPNLNCwCUCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794877586;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=FtCHv2hJNjrIBksgmbvYqxzyYPeLptLTLEm0XlQYrJE=;
+	b=VKemAaOeZkFSntUVNYawPs1scbM/ywABuMcCdTkoRCaD2c/8muGeAi23sCyDQmmSVEC7
+	 oXOHqOzInX3FHWhLaxnCniYKd2Wmsd4gSa8bZJfziFgGMcfraoGf7YuFtokvykwXQNMHO
+	 MyQ7O/EizXuO5IC61vkz0McnJX52YU0LXIOHgjNf5Rrwfm8qOY7pg1UY3oFm6k6at552A
+	 Pvl3LyFaNpPtu1xmK1+UGVOkzMHUqKqe0+atNDe4+H4v/9dItYkKaE9n2tQ9aL3b8q5pR
+	 Y8IYsnKz/dqCHSIvdHF8+MsWgyI7KSmzz1eIMXU8yHqxaPu90CDHJ467OuLF03z6cvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=S8beuHQ8;
-	arc=none smtp.remote-ip=183.62.165.209
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PTE+JNZE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FFE0606A32C;
-	Tue, 17 Nov 2026 01:05:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FFE0606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35031606A31C;
+	Tue, 17 Nov 2026 01:06:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=S8beuHQ8
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jT63r3q6Pz4xPS4;
-	Tue, 17 Nov 2026 09:05:44 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794877544;
-	bh=eK5E2C1gB1pbXLRVgMuMbHXe4380hqcm/+aZjqAUdl0=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=S8beuHQ8gfA3noXxzl7235RjGXG6Z/l5NAt/PMPXtDQ7aqcm8PZTrCCw7CWYto0VY
-	 1VX537IluFZEKratI/6NAPzlvxpYOzEXm1bZxKeP9VTod9FOfISfcwR/XGEkN0UACJ
-	 fXXZ7OX7VSAy7H6QDgMkCQubCIRdvOqbSlVkMnYgzxP13LAK6TMpLZXyLBSbH/W0nO
-	 Ou/KAmH2ypGFZ3MY3Hcvd7QGHS/WrAzaNFLu/lBiOHKytRd9nXJ41sus4aynNSGlCb
-	 BYFj5A1Ne63q/3PECH1UOdtCGrVvLWfVjGwQlibMOUl2qs207Wt4CabU4CHz19IoYY
-	 /lY9RSrlgD4hA==
-Received: from szxl2zmapp05.zte.com.cn ([10.1.32.37])
-	by mse-fl2.zte.com.cn with SMTP id 6AH15JQS050373;
-	Tue, 17 Nov 2026 09:05:24 +0800 (+08)
-	(envelope-from lv.yating@zte.com.cn)
-Received: from mapi (szxlzmapp03[null])
-	by mapi (Zmail) with MAPI id mid16;
-	Tue, 17 Nov 2026 09:05:25 +0800 (CST)
-X-Zmail-TransId: 2b056afba855930-0933c
-X-Mailer: Zmail v1.0
-Message-ID: <20261117090525032emq-t-XCAI7RO1PaX9577@zte.com.cn>
-In-Reply-To: <20261116160310759KXBV_Mm-mVT-XuE_01dgU@zte.com.cn>
-References: 20261116160310759KXBV_Mm-mVT-XuE_01dgU@zte.com.cn
-Date: Tue, 17 Nov 2026 09:05:25 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PTE+JNZE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4BBE1F000C4;
+	Tue, 17 Nov 2026 01:06:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794877585;
+	bh=FtCHv2hJNjrIBksgmbvYqxzyYPeLptLTLEm0XlQYrJE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=PTE+JNZEjBjJVRA530hJmDLXRIG1kp1wjjGGDbIsDzH+JavxPVvqtldEbXgOMBHYm
+	 HDBdV2y0af7sCnrsAzl5Moj64afbGw7cIDiK1TcT1ejfIC6eSpYmrgGCmjlss6FgXL
+	 xkg2vINFVhqWT6+98+6OYVPrXjUadR3WFVGmnCow0qDA1ZUxDAS+bZMafrrTZOAxzF
+	 Yy4YVd9X8pj0tZ/pz18uzvrwUxymI3KkYOy/RktGWETS3wvWpnsaUeGglr3v5QYMoP
+	 gjZaNU8fKug9rLS6tB4gQoTQmo0rW94rAXZzSmOiU+Ik/jeOdO86gIX5SlzaGuq9Yu
+	 i9aZmv3PU/HCg==
+Subject: Re: [PATCH net v6 2/3] net/smc: clear the buffer pointers before
+ registering a connection
+From: netdev-bot+sashiko@kernel.org
+To: hexlabsecurity@proton.me
+Cc: mjambigi@linux.ibm.com, kuba@kernel.org, dust.li@linux.alibaba.com,
+ davem@davemloft.net, edumazet@kernel.org, sidraya@linux.ibm.com,
+ pabeni@redhat.com, alibuda@linux.alibaba.com, hwippel@linux.ibm.com,
+ linux-kernel@vger.kernel.org, wenjia@linux.ibm.com, netdev@vger.kernel.org,
+ hidayath@linux.ibm.com, ubraun@linux.ibm.com, tonylu@linux.alibaba.com,
+ linux-rdma@vger.kernel.org, guwen@linux.alibaba.com,
+ linux-s390@vger.kernel.org, horms@kernel.org
+Date: Tue, 17 Nov 2026 01:06:24 +0000
+Message-ID: <179487758425.3136.7345936021290037161@kernel.org>
+In-Reply-To: <20261112-b4-disp-1c8d3a53-v6-2-36a38ae35021@proton.me>
+References: <20261112-b4-disp-1c8d3a53-v6-2-36a38ae35021@proton.me>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,247 +66,151 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <lv.yating@zte.com.cn>
-To: <lv.yating@zte.com.cn>
-Cc: <pjw@kernel.org>, <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>,
-        <alex@ghiti.fr>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
-        <rdunlap@infradead.org>, <linux-riscv@lists.infradead.org>,
-        <linux-kernel@vger.kernel.org>, <liu.qingtao2@zte.com.cn>,
-        <he.yilin@zte.com.cn>, <ye.zhihao1@zte.com.cn>,
-        <zhang.cheng35@zte.com.cn>, <hu.shengming@zte.com.cn>,
-        <linux-doc@vger.kernel.org>, <wang.yechao255@zte.com.cn>
-Subject: =?UTF-8?B?W1BBVENIIFJFU0VORCAyLzJdIHJpc2N2OiBod3Byb2JlOiBBZGQgTGVhcFJpc2UgdmVuZG9yIGV4dGVuc2lvbiBmcmFtZXdvcmsKIHN1cHBvcnQ=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6AH15JQS050373
-X-TLS: YES
-X-ENVELOPE-SENDER: lv.yating@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Tue, 17 Nov 2026 09:05:44 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AFBA868.002/4jT63r3q6Pz4xPS4
+MIME-Version: 1.0
 
-From: Lv Yating <lv.yating@zte.com.cn>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Add RISCV_HWPROBE_KEY_VENDOR_EXT_LEAPRISE_0 (key 17) and the
-supporting vendor extension framework entries for Beijing LeapRise
-Technology.
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-The key is recognized by riscv_hwprobe() and reports an empty
-bitmask for now: no LeapRise vendor extensions are defined yet.
-Recognizing the key allows userspace to distinguish a kernel that
-supports LeapRise vendor extension probing (empty bitmask) from an
-older kernel that does not know the key at all (key set to -1), so
-LeapRise userspace libraries can be prepared ahead of the first
-hardware shipping vendor extensions.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Follow-up patches will register extensions as they are defined.
+- [High] This patch still leaves rmb_desc and sndbuf_desc dangling while
+  the connection can be found by its token.
 
-Signed-off-by: Lv Yating <lv.yating@zte.com.cn>
----
- Documentation/arch/riscv/hwprobe.rst          |  4 ++++
- arch/riscv/Kconfig.vendor                     | 14 +++++++++++++
- arch/riscv/include/asm/hwprobe.h              |  1 +
- .../include/asm/vendor_extensions/leaprise.h  | 11 ++++++++++
- .../asm/vendor_extensions/leaprise_hwprobe.h  | 20 +++++++++++++++++++
- arch/riscv/include/uapi/asm/hwprobe.h         |  1 +
- arch/riscv/include/uapi/asm/vendor/leaprise.h |  3 +++
- arch/riscv/kernel/sys_hwprobe.c               |  4 ++++
- arch/riscv/kernel/vendor_extensions/Makefile  |  2 ++
- .../riscv/kernel/vendor_extensions/leaprise.c |  7 +++++++
- .../vendor_extensions/leaprise_hwprobe.c      | 18 +++++++++++++++++
- 11 files changed, 85 insertions(+)
- create mode 100644 arch/riscv/include/asm/vendor_extensions/leaprise.h
- create mode 100644 arch/riscv/include/asm/vendor_extensions/leaprise_hwprobe.h
- create mode 100644 arch/riscv/include/uapi/asm/vendor/leaprise.h
- create mode 100644 arch/riscv/kernel/vendor_extensions/leaprise.c
- create mode 100644 arch/riscv/kernel/vendor_extensions/leaprise_hwprobe.c
+--
 
-diff --git a/Documentation/arch/riscv/hwprobe.rst b/Documentation/arch/riscv/hwprobe.rst
-index 8454a6ae6fd1..336a2c5b05d9 100644
---- a/Documentation/arch/riscv/hwprobe.rst
-+++ b/Documentation/arch/riscv/hwprobe.rst
-@@ -431,3 +431,7 @@ The following keys are defined:
-   * :c:macro:`RISCV_HWPROBE_EXT_ZIC64B`: The Zic64b extension is supported,
-     as defined in the RISC-V Profiles specification starting from commit
-     b1d80660 ("Updated to ratified state.")
-+
-+* :c:macro:`RISCV_HWPROBE_KEY_VENDOR_EXT_LEAPRISE_0`: A bitmask containing the
-+  leaprise vendor extensions that are compatible with the
-+  :c:macro:`RISCV_HWPROBE_BASE_BEHAVIOR_IMA`: base system behavior.
-diff --git a/arch/riscv/Kconfig.vendor b/arch/riscv/Kconfig.vendor
-index 3c1f92e406c3..d8d7c4b39229 100644
---- a/arch/riscv/Kconfig.vendor
-+++ b/arch/riscv/Kconfig.vendor
-@@ -16,6 +16,20 @@ config RISCV_ISA_VENDOR_EXT_ANDES
- 	  If you don't know what to do here, say Y.
- endmenu
+net/smc: clear the buffer pointers before registering a connection
 
-+menu "LEAPRISE"
-+config RISCV_ISA_VENDOR_EXT_LEAPRISE
-+	bool "LEAPRISE vendor extension support"
-+	select RISCV_ISA_VENDOR_EXT
-+	default y
-+	help
-+	  Say N here to disable detection of and support for all LEAPRISE vendor
-+	  extensions. Without this option enabled, LEAPRISE vendor extensions
-+	  will not be detected at boot and their presence not reported to
-+	  userspace.
-+
-+	  If you don't know what to do here, say Y.
-+endmenu
-+
- menu "MIPS"
- config RISCV_ISA_VENDOR_EXT_MIPS
- 	bool "MIPS vendor extension support"
-diff --git a/arch/riscv/include/asm/hwprobe.h b/arch/riscv/include/asm/hwprobe.h
-index 9b04377c0f98..b153dedc8c10 100644
---- a/arch/riscv/include/asm/hwprobe.h
-+++ b/arch/riscv/include/asm/hwprobe.h
-@@ -25,6 +25,7 @@ static inline bool hwprobe_key_is_bitmask(__s64 key)
- 	case RISCV_HWPROBE_KEY_VENDOR_EXT_THEAD_0:
- 	case RISCV_HWPROBE_KEY_VENDOR_EXT_MIPS_0:
- 	case RISCV_HWPROBE_KEY_VENDOR_EXT_SIFIVE_0:
-+	case RISCV_HWPROBE_KEY_VENDOR_EXT_LEAPRISE_0:
- 		return true;
- 	}
+This patch clears conn->rmb_desc and conn->sndbuf_desc under the socket
+spinlock in smc_conn_create(). The goal is that a retried handshake does
+not register the connection under a new token with stale buffer pointers.
+It also makes smc_cdc_msg_recv_action() return early when rmb_desc is
+NULL.
 
-diff --git a/arch/riscv/include/asm/vendor_extensions/leaprise.h b/arch/riscv/include/asm/vendor_extensions/leaprise.h
-new file mode 100644
-index 000000000000..abac6adc240c
---- /dev/null
-+++ b/arch/riscv/include/asm/vendor_extensions/leaprise.h
-@@ -0,0 +1,11 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+
-+
-+#ifndef _ASM_RISCV_VENDOR_EXTENSIONS_LEAPRISE_H
-+#define _ASM_RISCV_VENDOR_EXTENSIONS_LEAPRISE_H
-+
-+#include <linux/types.h>
-+
-+/* LeapRise vendor extensions: none defined yet */
-+
-+#endif
-diff --git a/arch/riscv/include/asm/vendor_extensions/leaprise_hwprobe.h b/arch/riscv/include/asm/vendor_extensions/leaprise_hwprobe.h
-new file mode 100644
-index 000000000000..d98a383cfb72
---- /dev/null
-+++ b/arch/riscv/include/asm/vendor_extensions/leaprise_hwprobe.h
-@@ -0,0 +1,20 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+
-+#ifndef _ASM_RISCV_VENDOR_EXTENSIONS_LEAPRISE_HWPROBE_H
-+#define _ASM_RISCV_VENDOR_EXTENSIONS_LEAPRISE_HWPROBE_H
-+
-+#include <linux/cpumask.h>
-+
-+#include <uapi/asm/hwprobe.h>
-+
-+#ifdef CONFIG_RISCV_ISA_VENDOR_EXT_LEAPRISE
-+void hwprobe_isa_vendor_ext_leaprise_0(struct riscv_hwprobe *pair, const struct cpumask *cpus);
-+#else
-+static inline void hwprobe_isa_vendor_ext_leaprise_0(struct riscv_hwprobe *pair,
-+						 const struct cpumask *cpus)
-+{
-+	pair->value = 0;
-+}
-+#endif
-+
-+#endif
-diff --git a/arch/riscv/include/uapi/asm/hwprobe.h b/arch/riscv/include/uapi/asm/hwprobe.h
-index 9a121ee3b436..6907ca4648ef 100644
---- a/arch/riscv/include/uapi/asm/hwprobe.h
-+++ b/arch/riscv/include/uapi/asm/hwprobe.h
-@@ -124,6 +124,7 @@ struct riscv_hwprobe {
- #define		RISCV_HWPROBE_EXT_ZA64RS	_BITULL(5)
- #define		RISCV_HWPROBE_EXT_B		_BITULL(6)
- #define		RISCV_HWPROBE_EXT_ZIC64B	_BITULL(7)
-+#define RISCV_HWPROBE_KEY_VENDOR_EXT_LEAPRISE_0	17
+Closes: https://lore.kernel.org/all/179241208347.3135.18021879529736748765@kernel.org/
 
- /* Increase RISCV_HWPROBE_MAX_KEY when adding items. */
+> diff --git a/net/smc/smc_cdc.c b/net/smc/smc_cdc.c
+> index ee5ba6c7a5b4a..b3bcc206efe3e 100644
+> --- a/net/smc/smc_cdc.c
+> +++ b/net/smc/smc_cdc.c
+> @@ -334,6 +334,10 @@ static void smc_cdc_msg_recv_action(struct smc_sock *smc,
+>  	struct smc_connection *conn = &smc->conn;
+>  	int diff_cons, diff_prod, diff_tx;
+>  
+> +	/* smc_conn_create() can have cleared rmb_desc */
+> +	if (!smp_load_acquire(&conn->rmb_desc))
+> +		return;
+> +
+>  	smc_curs_copy(&prod_old, &conn->local_rx_ctrl.prod, conn);
+>  	smc_curs_copy(&cons_old, &conn->local_rx_ctrl.cons, conn);
+>  	smc_cdc_msg_to_host(&conn->local_rx_ctrl, cdc, conn);
+> @@ -484,7 +488,8 @@ static void smc_cdc_rx_handler(struct ib_wc *wc, void *buf)
+>  	read_lock_bh(&lgr->conns_lock);
+>  	conn = smc_lgr_find_conn(ntohl(cdc->token), lgr);
+>  	/* The connection is in the token tree before __smc_buf_create()
+> -	 * sets its RMB: drop a CDC that comes earlier.
+> +	 * sets its RMB: drop a CDC that comes earlier. rmb_desc is cleared
+> +	 * under the socket spinlock; smc_cdc_msg_recv_action() tests it there.
+>  	 */
+>  	if (!conn || conn->out_of_sync || !smp_load_acquire(&conn->rmb_desc)) {
+>  		read_unlock_bh(&lgr->conns_lock);
+> diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
+> index 02269cede641e..9ef9019bc4974 100644
+> --- a/net/smc/smc_core.c
+> +++ b/net/smc/smc_core.c
+> @@ -2024,6 +2024,15 @@ int smc_conn_create(struct smc_sock *smc, struct smc_init_info *ini)
+>  	spinlock_t *lgr_lock;
+>  	int rc = 0;
+>  
+> +	/* A retried handshake comes back with the buffer pointers of the
+> +	 * failed attempt still set: clear them before the connection is
+> +	 * registered. smc_cdc_msg_recv_action() tests rmb_desc under this lock.
+> +	 */
+> +	spin_lock_bh(&smc->sk.sk_lock.slock);
+> +	WRITE_ONCE(conn->rmb_desc, NULL);
+> +	WRITE_ONCE(conn->sndbuf_desc, NULL);
+> +	spin_unlock_bh(&smc->sk.sk_lock.slock);
 
-diff --git a/arch/riscv/include/uapi/asm/vendor/leaprise.h b/arch/riscv/include/uapi/asm/vendor/leaprise.h
-new file mode 100644
-index 000000000000..9ee13f1ca559
---- /dev/null
-+++ b/arch/riscv/include/uapi/asm/vendor/leaprise.h
-@@ -0,0 +1,3 @@
-+/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
-+
-+/* LeapRise vendor extensions: none defined yet */
-diff --git a/arch/riscv/kernel/sys_hwprobe.c b/arch/riscv/kernel/sys_hwprobe.c
-index cd7cf272e6e1..e60facabdd86 100644
---- a/arch/riscv/kernel/sys_hwprobe.c
-+++ b/arch/riscv/kernel/sys_hwprobe.c
-@@ -15,6 +15,7 @@
- #include <asm/uaccess.h>
- #include <asm/unistd.h>
- #include <asm/vector.h>
-+#include <asm/vendor_extensions/leaprise_hwprobe.h>
- #include <asm/vendor_extensions/mips_hwprobe.h>
- #include <asm/vendor_extensions/sifive_hwprobe.h>
- #include <asm/vendor_extensions/thead_hwprobe.h>
-@@ -364,6 +365,9 @@ static void hwprobe_one_pair(struct riscv_hwprobe *pair,
- 	case RISCV_HWPROBE_KEY_VENDOR_EXT_MIPS_0:
- 		hwprobe_isa_vendor_ext_mips_0(pair, cpus);
- 		break;
-+	case RISCV_HWPROBE_KEY_VENDOR_EXT_LEAPRISE_0:
-+		hwprobe_isa_vendor_ext_leaprise_0(pair, cpus);
-+		break;
+[Severity: High]
+Is this clear too late to close the window the commit message describes?
+smc_conn_free() releases the buffers while the connection is still in the
+token tree, and it does so without the socket spinlock:
 
- 	/*
- 	 * For forward compatibility, unknown keys don't fail the whole
-diff --git a/arch/riscv/kernel/vendor_extensions/Makefile b/arch/riscv/kernel/vendor_extensions/Makefile
-index bf116c82b6bd..1f76fd4050c7 100644
---- a/arch/riscv/kernel/vendor_extensions/Makefile
-+++ b/arch/riscv/kernel/vendor_extensions/Makefile
-@@ -1,6 +1,8 @@
- # SPDX-License-Identifier: GPL-2.0-only
+net/smc/smc_core.c:smc_conn_free() {
+    ...
+	if (!list_empty(&lgr->list))
+		smc_buf_unuse(conn, lgr); /* allow buffer reuse */
+	smc_lgr_unregister_conn(conn);
+    ...
+}
 
- obj-$(CONFIG_RISCV_ISA_VENDOR_EXT_ANDES)	+= andes.o
-+obj-$(CONFIG_RISCV_ISA_VENDOR_EXT_LEAPRISE)	+= leaprise.o
-+obj-$(CONFIG_RISCV_ISA_VENDOR_EXT_LEAPRISE)	+= leaprise_hwprobe.o
- obj-$(CONFIG_RISCV_ISA_VENDOR_EXT_MIPS)  	+= mips.o
- obj-$(CONFIG_RISCV_ISA_VENDOR_EXT_MIPS)  	+= mips_hwprobe.o
- obj-$(CONFIG_RISCV_ISA_VENDOR_EXT_SIFIVE)	+= sifive.o
-diff --git a/arch/riscv/kernel/vendor_extensions/leaprise.c b/arch/riscv/kernel/vendor_extensions/leaprise.c
-new file mode 100644
-index 000000000000..08265f147092
---- /dev/null
-+++ b/arch/riscv/kernel/vendor_extensions/leaprise.c
-@@ -0,0 +1,7 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+
-+#include <asm/cpufeature.h>
-+#include <asm/vendor_extensions.h>
-+#include <asm/vendor_extensions/leaprise.h>
-+
-+/* LeapRise vendor extensions: none defined yet */
-diff --git a/arch/riscv/kernel/vendor_extensions/leaprise_hwprobe.c b/arch/riscv/kernel/vendor_extensions/leaprise_hwprobe.c
-new file mode 100644
-index 000000000000..e7ffa57db4ab
---- /dev/null
-+++ b/arch/riscv/kernel/vendor_extensions/leaprise_hwprobe.c
-@@ -0,0 +1,18 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+
-+#include <asm/vendor_extensions.h>
-+#include <asm/vendor_extensions/leaprise.h>
-+#include <asm/vendor_extensions/leaprise_hwprobe.h>
-+#include <asm/vendor_extensions/vendor_hwprobe.h>
-+
-+#include <linux/cpumask.h>
-+#include <linux/types.h>
-+
-+#include <uapi/asm/hwprobe.h>
-+#include <uapi/asm/vendor/leaprise.h>
-+
-+void hwprobe_isa_vendor_ext_leaprise_0(struct riscv_hwprobe *pair,
-+				   const struct cpumask *cpus)
-+{
-+	pair->value = 0;
-+}
+smc_buf_unuse() leaves conn->rmb_desc and conn->sndbuf_desc set. For
+SMC-R, smcr_buf_unuse() either frees the descriptor or puts it back in
+the pool:
+
+net/smc/smc_core.c:smcr_buf_unuse() {
+    ...
+	if (buf_desc->is_reg_err) {
+		...
+		smc_lgr_buf_list_del(lgr, is_rmb, buf_desc);
+		...
+		smc_buf_free(lgr, is_rmb, buf_desc);
+	} else {
+		memzero_explicit(buf_desc->cpu_addr, buf_desc->len);
+		WRITE_ONCE(buf_desc->used, 0);
+	}
+}
+
+In the second case, smc_buf_get_slot() can give the RMB to another
+connection.
+
+Between smc_buf_unuse() and smc_lgr_unregister_conn(), smc_cdc_rx_handler()
+can still find the connection for a CDC that carries the old token. The
+CDC passes the non-NULL rmb_desc test there. The new test in
+smc_cdc_msg_recv_action() also rejects only NULL, so the handler goes on
+to:
+
+	diff_prod = smc_curs_diff(conn->rmb_desc->len, &prod_old,
+				  &conn->local_rx_ctrl.prod);
+
+It also reaches conn->rmb_desc->cpu_addr through
+smc_cdc_handle_urg_data_arrival().
+
+When is_reg_err is set, is this a use-after-free of the smc_buf_desc?
+When it is not set, isn't the CDC applied to an RMB that may now belong to
+another connection?
+
+There are two more cases. A handler that looked up the connection before
+smc_lgr_unregister_conn() and takes the slock any time before a retry
+reaches smc_conn_create() sees the same stale pointer. If no retry happens,
+nothing ever clears the pointers. SMC-R also has no RX drain on this path,
+since smc_cdc_wait_pend_tx_wr() only waits for TX completions.
+
+is_reg_err gets set when smc_wr_reg_send() fails in smcr_link_reg_buf():
+-EINTR from a signal during connect(), -EIO from a flushed REG_MR WR, or
+-EPIPE on timeout. A negative CONFIRM_RKEY response from the peer leads to
+the returned-to-pool case. The token comes from the global nexttoken
+counter in smc_lgr_register_conn(), so the peer can predict it.
+
+The patch notes say "a pointer seen set stays set", and the new comment
+in smc_cdc_rx_handler() points to the slock re-test.
+
+Does a set pointer mean the buffer still belongs to this connection,
+though?
+
+Could the pointers instead be cleared under the slock where the buffers
+are released, in smc_buf_unuse()/smc_conn_free()? Or could the token be
+unregistered before the buffers are released? Either would replace the
+clear in smc_conn_create() rather than add to it.
+
+>  	lgr_list = ini->is_smcd ? &ini->ism_dev[ini->ism_selected]->lgr_list :
+>  				  &smc_lgr_list.list;
+>  	lgr_lock = ini->is_smcd ? &ini->ism_dev[ini->ism_selected]->lgr_lock :
+
 -- 
-2.27.0
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112-b4-disp-1c8d3a53-v6-0-36a38ae35021%40proton.me
