@@ -1,143 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794936501;
-	b=AKcrmHVlrIYt1LqjbGdozp7MpuGYkkjcQ4Jt5XDWgd9k9cPN+LIj7gyK0bmbVtCfd4My
-	 M8MPNY4l+Vg6F/Q0GA3tRlwQrIUQJifbOa1XrY+fNsSYeMdvaNqokrnIBviXzmNHEygkv
-	 ZqfdVQ1vxrcOj00Gg+p5eb2nJEj5AVdkpEZD0k+fjWTC03W89gzHWFPYl/5QhLrIbJmm8
-	 JIBMWPZGb9zaM/BZiOZ193J1WJMpWEpQwvtXaw+ASVXrmndPzi03Ywb186DUHjm5wROaN
-	 m6AWA2x85pPByy64cZztv/x1kazrSMVuk+570//6uOFg1igX+jgCFrUY9UZdGSHJr9g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794936501;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:DKIM-Signature:Received:Received:Date:From:To:CC:Subject:
-	 Message-ID:References:Content-Type:Content-Disposition:In-Reply-To:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=NIi8B4QQXbsGQkVN7izrYBAyoMUOONd9JfG9j/rg4OE=;
-	b=bVDIIo4sm6Gmx1VEBgiqm75zQJb0fMVZsrDjfc+4i46kEaCZTMu1lQn2T9kPTiZUNZyb
-	 TXJ9Xod/GENpjRjz7X+oz9mK7357qGmjd15E6bCAnec3/9V1NUrcvIpAaBT4ioZEXIZ28
-	 RA+nSwux6KPyvg40iKttQx9rcWXIlQkxTwDc2rzcmbMcz8bAMRJCYV/3EMxBoeXAdqpD8
-	 aEfV2/Wzx1vTxgCwELC6zSpkaqlc0ncZJBuRJpcIrZ996XF3UdFezLy+3yD1opxop/yGf
-	 ZLme6SYgIup4GBdnuIUOKmrK+gjGe91vxzWSatX2UMy8XwaDoP69ktOXYK+Oq4mP/BQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=g+PpWeSL;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=DvHIYFuT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794936523;
+	b=vv4PsOjoUwg9tTgjG/Jp/E6oibYMj5BiXQ3+1J1jP2MwWsT4TOBO3uD1nDz9o/uD6C+s
+	 axlF1RbHfbSVmriFU3pnmYXm2faBQyPIWTuccgSEUpp5v4zu5f0PhFueDx5z9uCIC7YWH
+	 aCs70UDqrw7hDJWPiVb/qAcINZ0iwvrTz78la6hOorjDj8ZVKb1y/OnkxAJTS/ky4wgSr
+	 hY/jc4qlrzwAA3nqwhlmlq7Zyk4ZGIHKPy+wjJbE0cf/hm9a73xpKVQeB6ujDH4Mmef9b
+	 17YCEXiPmLu3V/EASs1c4Z/r5fI+K/b0BS11WQJgFiFTyXgJ07qT25jiAYlPvJ+iPYw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794936523;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=m59IIPBua2w7sRwklChTFwkcB8b0jQnLsj1mDH8BTZU=;
+	b=HD+1T5m0gvJ+Vf7CnNPN2qQ1dhOV/TGib2AH+tPJ070iwwPok2VSOTpQuz2CHlHbGONx
+	 AUUe5ylSW92VEZd9O1Qull/LyeC83FwYAhiKuFytGpBl5EXi+Bl8lyHq7rhxnc5nQyebY
+	 sahkOU9rCaV94SdYJr6hAiappPnxUfOvoi0HgeDcv960QmekeOZWFzxvDgxBA/AgZZrWA
+	 A1zPEBXhRFbg1pZeNmWG0xk+M+v9J4gRSpj1Hj6BAEIfUZAWXSiMrbDCi2zqz2lprMHw4
+	 RrVJh9/JLxyC77mtiTSvzlmAPN5PbLxMYblsazWPHt5r5qmOgcJ7pkSiF6dmOjP4N5w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HJnEhgb2;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZLWtSpQt;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C782606A31C;
-	Tue, 17 Nov 2026 17:28:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C782606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0A4E606A32F
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 17:28:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0A4E606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=g+PpWeSL;
-	dkim=pass (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=DvHIYFuT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794936500; x=1826472500;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=jONksNioDGInMBqauK5PjgET3cxsC5p1ikeha+XmSaM=;
-  b=g+PpWeSLfleKsMflhByVMldub2gDL0459S9FEKBsgSWyZImgZS/kTDaT
-   A/WRPrRM3z0lR6PiRKI/NhD2Ex2Gm54usnBbQZJqgxM99HjBqsvSFCNNP
-   /8XFTwusaBhFMj/j06nZTnCmtTo40iJn/hvyX5uJlw9nah8uad7sglfWz
-   UpAEblqCSeZEtYtPusvYX8uilt8ONxrUvZcZ+CDiFuLmE7UDQr+NDR8Ny
-   04PnXB4/kccXIPRYu7R53K9NsBbmb0q4i6cYZbIWnCs9WOzrCPsFZiEBi
-   teOW+dWdsFmC7SaaPy6RLdaiUiZpagC2f/HanHmbw6Ro04Yi+XZhqIIjZ
-   Q==;
-X-CSE-ConnectionGUID: MsztZbMIQjGLsWvVylLr5g==
-X-CSE-MsgGUID: pEIjOaT0RJqYa3pASQWlQw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3642020"
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3642020"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 09:28:19 -0800
-X-CSE-ConnectionGUID: 6Aj7WOobTXuQGGkBo+IHcA==
-X-CSE-MsgGUID: gDvFqS8IQjWa505ffSUexg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="10039949"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
-  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 09:28:17 -0800
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 17 Nov 2026 09:28:17 -0800
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Tue, 17 Nov 2026 09:28:17 -0800
-Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.51) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 17 Nov 2026 09:28:16 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c2nmzODdjgJqDPQmj8oWYGoDnVDb9RGgdS09lXjsOo7l32j75I/+bNy9Z4LtexGtKPalSPUgYKdUSPAAVI6Lh49OkmT4l0Lj121MfE3j2zmQJYxklz+a32uj1zvPpn0RUnIQ9eqLJvRUuLJzslGPCZrlXJog/t+YeN0+lMGDeOPCaWoAYctuNsMgB1GR1/ObAfUJEV+epAejtb0MTuJWRgGj0iYciYQGOfEVLKHWI46eJoLa14zxl2r2q5B0C2VMfN1fq+WSHGTqGklEngT2n/e9HRXGwlcWKKeR/IaSigLA8qcnZUNEv/nO66LgbW9+FTKD/4tUXntiSOBbAWrIXg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NIi8B4QQXbsGQkVN7izrYBAyoMUOONd9JfG9j/rg4OE=;
- b=b3SD+vXeMl9tVq/vr3c9rHJNA+fPhMTToPOnzXon6eK0EWzSP+28d8pY3Or5emefgcgtFoGRA5iACqvFxZtMcJtKVpVvT2m/J9wS9PLGC1baWiMM1bZuucjGosGcCQa5RnGAvAytspFTGjb2FNLeDqE7VvCiKHsYgMkDs32AoRfsi3yAxuTDTEksGjIk6FM8LAk7mZNAk4riPnEqVRVDmwMMzQUuLuUVRQw1FZ5Lo8pUnCy9Ug+Gfs+VFfMpwPqap9PiG/lRSNwdeQsjep3MV5X0CPGryg0bmsDcknSq0vi1tN7372SRtIL6E8WuATCLmJ7XRS7bZfaud/QmH/t1eQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NIi8B4QQXbsGQkVN7izrYBAyoMUOONd9JfG9j/rg4OE=;
- b=DvHIYFuTz+Hp+OzBinXov0dC7YKcrpBYBuwC6NzIq0IcfifjO0NnXVJFVDuoWJ0tVIq5Rn+b1vCiy02VF3Ec8XZuscAnd6Wg/cqRj/HBrtDeCbdKnl8sgX1dSPohEmDxENOhC2R7wk0Hz8RzrPEHwpCGe4dHJaJLmjrxsyX8WVo=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com (2603:10b6:f:fc02::9)
- by PH0PR11MB4776.namprd11.prod.outlook.com (2603:10b6:510:30::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Tue, 17 Nov
- 2026 17:28:13 +0000
-Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com
- ([fe80::6fbf:c112:d0a8:f1a8]) by DS4PPF0BAC23327.namprd11.prod.outlook.com
- ([fe80::6fbf:c112:d0a8:f1a8%5]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
- 17:28:13 +0000
-Date: Tue, 17 Nov 2026 09:28:01 -0800
-From: Alison Schofield <alison.schofield@intel.com>
-To: Srirangan Madhavan <smadhavan@nvidia.com>
-CC: Bjorn Helgaas <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>,
-	Davidlohr Bueso <dave@stgolabs.net>, Ira Weiny <iweiny@kernel.org>, "Jonathan
- Cameron" <jic23@kernel.org>, Vishal Verma <vishal.l.verma@intel.com>,
-	<linux-cxl@vger.kernel.org>, <linux-pci@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Li Ming <ming.li@zohomail.com>, "Joshua
- Machauer" <machaujo@amazon.de>, Alex Williamson <alex.williamson@redhat.com>,
-	<vsethi@nvidia.com>, <alwilliamson@nvidia.com>, Sai Yashwanth Reddy Kancherla
-	<skancherla@nvidia.com>, Vishal Aslot <vaslot@nvidia.com>, Manish Honap
-	<mhonap@nvidia.com>, Jiandi An <jan@nvidia.com>, Richard Cheng
-	<icheng@nvidia.com>, <linux-tegra@vger.kernel.org>
-Subject: Re: [PATCH v17 00/19] PCI/CXL: Add CXL reset support for Type 2
- devices
-Message-ID: <avyOoQjiD7Uh_3rE@aschofie-mobl2.lan>
-References: <20261105185917.2667656-1-smadhavan@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105185917.2667656-1-smadhavan@nvidia.com>
-X-ClientProxiedBy: MW4PR04CA0333.namprd04.prod.outlook.com
- (2603:10b6:303:8a::8) To DS4PPF0BAC23327.namprd11.prod.outlook.com
- (2603:10b6:f:fc02::9)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HJnEhgb2;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZLWtSpQt
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHFQbEO1916111
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 17:28:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	m59IIPBua2w7sRwklChTFwkcB8b0jQnLsj1mDH8BTZU=; b=HJnEhgb2bdQlZQjE
+	Kj3chHu8kiRM9GDtJyJ5j9eKdiU34ayyp8yocjjJ7NzMEMGXXjAHYO80adE+dv9l
+	IwJTnWmRmS3mqivaKRAv9BWXSSNRwn0Eci4Zw6+gFmIn1QNGapJWYw1ipIMM0yPw
+	5VI1WASclYFa/UEoqv/95IlFHkMNgNduE46RommRNzv++Bb0JHJm8tTK+i+5VjlG
+	l1OZ5l9tfLTzX6DMAzKpXp3SRPqmjcDZqfU7P6Fj4FAavzqznt9ERRV7m7wCH2a7
+	ZaARfp83EReIFAkOvHx9FYGgaBTdXWf/HkRLwcrdjsnoFJfmNYWzS0BTL5WYs3OK
+	EmOlfw==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0nc81t5j-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 17:28:42 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36a3451ea93so102298eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:28:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794936521; x=1795541321; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=m59IIPBua2w7sRwklChTFwkcB8b0jQnLsj1mDH8BTZU=;
+        b=ZLWtSpQt2IQaOyLYJvegt4k2ygfrcYExvUkysnEDZSeYgg56n94jPU5JiKp8OHdBcp
+         HoOh4UqxKGlQeyej1KZ6cvCp51YrbDD9RFSzPVHV7dQh9wVjO4rutRA886Tcu16Tn0Pm
+         oKBYiLkjPmorsrrwR6OdmWI+t1H8NdWF1xXCk5YL6sVaIqdgeI63ZhBnmubPsYPEL9tM
+         Rbqg8RldzvniTCug7x2r89EjfjFlla7KaxfC1N5Y2kP0Lc+NRt8Q9/S76zstVfRs6fx4
+         hnvhXcjI31fOsFtXofcl8mdVnnqakEVWnUPb/ghLU1vYLnla2JK00oBu0by8Kyn0hbWu
+         xTow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794936521; x=1795541321;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m59IIPBua2w7sRwklChTFwkcB8b0jQnLsj1mDH8BTZU=;
+        b=pJo7SHfOXgO4T3Bx3vyFq5aNNnC6+uMoPeO6EL9jAc9ILTj/+8b8A+xKnppuFBmNf+
+         KGmAzcOX2kgwgkdPKxtI1KtFGI3NRiEjxo5GqbLZ4GLkY2x7jLdQTsDxcWWC66MQgPx2
+         ZvV0FiVTiEw0/Am1ylPe+qvcOhLwxe29P3pqLUCC1rkFA5Z6IsZNf9Rksfv5h/MxiyJk
+         U3TLuHzIF+8FtPw21PlHZKbhSX/9trClmAkCY2C/WduGXuMTdGFGlMoItER/w8Gd3Uve
+         aM35x4eTutv6u9D31t8fXt3AJWX1Mx+TJl7UVorP52DGQUiY+yDcU2iosQ1G9BzU+egc
+         p0fg==
+X-Forwarded-Encrypted: i=1; AL+hErG99LQcLWTiwRld3amJxdqFreY+mWHBinZ1j+pXfqSkPy0fpZ4D7Qlpmj0u3Cxec8AvpaDizd8zhNT12LA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8cHf8jn2/21qrKmgathuhvy8sz+AkVraknr1G+3fR6Of0K/q0B
+	CLPesUMfaasrn3/lJ1kdf5NQHmluPDF86vQMe4YEjRPQQ0lI1pIS27/wpGjjLISiJRei9KJB/Jv
+	czF4GALjl1C3upnuv510KiD16ADunoIKKKAg/su0/gVwqnsRZGIxup5fYAqDw9eyPZpo=
+X-Gm-Gg: AYBFou3JInWEbCkuk94UyPdx+IHbrJvcNA8nQKVmhmzucLLRZhYZBn8c1NhPButlm5Z
+	An4tNTI4halgElr3oX+8zRbnuednr6IgHw9CLeufzrshGlT4sEkO6Na+vzjzJdT6jk4Rz7iPReS
+	B0VzBBdV2ZMSJTRewKRyt1IEXcFCpuE5V/lrOWOzzQIuigIXEI6fwavbRRX4o8obNiVXx6Njbd4
+	q8x4R6B9n5qNPRiGGAVz1EIMQI8bH0YDPfxh4G4sIsvbYA2xlyWPkKezzBVWatCFMU4U7aGYqzy
+	Osc5Vsb4guNdccVK9OCS8OyysJElu6NClBr0N1+u6RdGG22/bQUrVljKoj+EWqmit2B1QN8Y27b
+	abfhFYd9XlTQbomK9ea1qRsl91LNHWncBS70W7XnBrKulP8XUI74xLGNy6PHLa5mV5mEqtdbtif
+	+w7X3AWY1tN58jl5Hg
+X-Received: by 2002:a05:7301:188a:b0:37b:e40:397e with SMTP id 5a478bee46e88-3827ff7aef9mr93348eec.14.1794936521222;
+        Tue, 17 Nov 2026 09:28:41 -0800 (PST)
+X-Received: by 2002:a05:7301:188a:b0:37b:e40:397e with SMTP id 5a478bee46e88-3827ff7aef9mr93316eec.14.1794936520694;
+        Tue, 17 Nov 2026 09:28:40 -0800 (PST)
+Received: from [192.168.1.66] ([103.172.4.28])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d269asm48943359eec.23.2026.11.17.09.28.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 17 Nov 2026 09:28:40 -0800 (PST)
+Message-ID: <1d294300-0077-426b-9bbf-35e42861236a@oss.qualcomm.com>
+Date: Tue, 17 Nov 2026 22:58:29 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -147,266 +116,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS4PPF0BAC23327:EE_|PH0PR11MB4776:EE_
-X-MS-Office365-Filtering-Correlation-Id: dcab6507-aed8-4d28-1a40-08df44d027ae
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|376014|7416014|366016|1800799024|18002099003|22082099003|6133799003|261009223027099003|3023799007|11063799006|260925022911599003|56012099006|5023799004|260925021911599003|260925021311599003|261021121427099003|261022075727099003|261028144727099003|261102123227099003|261021123027099003|261026121527099003|261022105027099003|261026140227099003|261022113327099003|10067099003;
-X-Microsoft-Antispam-Message-Info: 4T60fZXwihmMopwUSEgr6329KLYa289TzNF8Ki+pi2EziayWvEfY+PrS/7qEpI0Y1w8+W/IopPnaJnItY5n4VrWtitNLvnaEjJW5WD4nmflfEQ3P6+9V/u1m0dU/B+GFaBzex1G92MzBHKQhBdzxdGdeISeq9KkpncFRKlm4KnN30Ozh/OIU+w+gUAXGLyAa3JjjaFPaHO7KxSkNTZsYq/uql2nb8IR4g9CNwKCF69KzaGGxNN4870dE0zfFYxadgFCFSwKC/f83KwTypPmE6idZez3spEXww7ZhgJpwr29Za9ugFNcpZMz4ZDhamUP21XGhCsv4oEawdkqWxW0H9RhD1mdC+PBsNeL7a82fuVaJhXoJjvxpWese9zlvN4jx4bPLWO+d2V7q2HEA1wYkxN/zjwZF4UYI3jtSaZFhMvr95zteN1W8H3P5QC/RwNh2mm5gFeEY3K3TCrJ0jyZ3oT04klutLZxbYB3bjkThVShoDEvqaGFbIFBTxbUHYMrnOjRhYTDzHcMKqyzgkHbCWJFyOei26YqwfT+QXUQfTMuBx+So07gV11iB9MLv0CpiVipBwx7fPFTMTu0K4HM4p0wWX0gpbg9Y2TtJFi/vo2A=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF0BAC23327.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(18002099003)(22082099003)(6133799003)(261009223027099003)(3023799007)(11063799006)(260925022911599003)(56012099006)(5023799004)(260925021911599003)(260925021311599003)(261021121427099003)(261022075727099003)(261028144727099003)(261102123227099003)(261021123027099003)(261026121527099003)(261022105027099003)(261026140227099003)(261022113327099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?6uL3AI+74j3qSx3blX46AsjvdJu2MzIVef7W3yjXvOrdmgyY0nB7JDsy6eoH?=
- =?us-ascii?Q?+hvH/bLUJ8DPF5MDNV6wh67Jjcnppxpzv7yPIv6OMKbb66ZO5CKNondOBzfN?=
- =?us-ascii?Q?SEKwSgWlMRbP48l+Y1T2biRNV1NoKvUFIWNhRPZGOI5ayV4sqQjFMpNIvTQ/?=
- =?us-ascii?Q?r34s/EzFpU99INJzieWECYeJ7OQvlp13cKvHSIs29xF6p2/+yhawD3wNMvJq?=
- =?us-ascii?Q?wrLIFH36A1zcScAdFUXHvRwzlq3AaU9rSjMOmPSxbnDy8n8FaOyTF70QKp0W?=
- =?us-ascii?Q?ejfnKgNBJEkwEX2qe9wKkb4PVYA5U97lUoxtIqL7CldZYPOSHiaHceccfRvv?=
- =?us-ascii?Q?kgK5PUAe7zrz6G83mR17dm0UQLcgcaugl8F5jhe8K8OPP0UNV+F2SBTosWNI?=
- =?us-ascii?Q?/DkvpJs5jdyYF/0fgNvYYz/oBd7u10gDl5axE/w8Iu53nvkxJ1tglUemBL1q?=
- =?us-ascii?Q?wPjEosIx+Mg7hnt5UUxbDi4sRGP842ckQp6g0F5uk7Adwg0e8uH9s8oZAH4h?=
- =?us-ascii?Q?RnKXAFRLJsD53leW6RGY4kCeTH46emv5lmFFbgpZEguIbV1zw+SsEBg0K8ls?=
- =?us-ascii?Q?vtaqQcY0SxQQw0E/NGtnXdPmowyGyRDBcGd+F3laCmecGvx3P/efvG/giDx8?=
- =?us-ascii?Q?Uqm3HPVwwuSdby6tv9oRvR4ge0rKWLa60QEw1q9/qzjgExrOs+U7714yfHyb?=
- =?us-ascii?Q?4vrmSIwwd+lzEwqWa1cEOTdaZQFVzDIvr9Q6ERq+g02CqRVK5C2KBoacA5hV?=
- =?us-ascii?Q?bCEwuJpph4XASYQz9Yv6neDdZZT8pLQOQgGxnyIJwNnuQDpxroTrjCYfJK4d?=
- =?us-ascii?Q?ujVRENQGDvmTt2F1Itj/fez8YGdDssCB+aGMNNx7fZu0UgGOR94bWgV0gl+p?=
- =?us-ascii?Q?oVMDKB0tcxr62ybtpbveP+1JIZIUjjTE3c7mvTL2Q+EzksZo9pWbBagIm51Z?=
- =?us-ascii?Q?epatECsC6eu+d52jNSBdAoeXFn/YhCS5n0oPVPEKC4/480ZhLXl5f4o0NMRM?=
- =?us-ascii?Q?yEWkDmVUEi+JG0tb2ILhwdvLP9ME1J8JSiaNTgvwJcbVOuMcqPiIUhg6EO5W?=
- =?us-ascii?Q?ca4+g//IgVsl03VrRrfcQlJR3YwPY7bmwmasd0AnvM5FCbLecM9Bac+o5v8u?=
- =?us-ascii?Q?DqYJFGph1z0k8TqUsZELgqJsKxQ7gAQwXULoBPOGdvY4wjBZyohlVFv85CC3?=
- =?us-ascii?Q?OokfNapuvDA8hA8Ybq4N690m6kwyGnJ2nfskbHnwW9jU/SKgspGSiiDgEKL3?=
- =?us-ascii?Q?ANzTpIdTHIFydIZPVvXlK+6e/1ElF3zpsJejQS4wOLfQvIejB6LTZnyH+1nw?=
- =?us-ascii?Q?xdSsYkUyLizrmn/bcNexBYvff8VR8kE3K5SFrsIppEKA1KINqfSp2pZzQEk2?=
- =?us-ascii?Q?zHJ9PvhdYEc9tK5Gt0nwuRJgQ9opA/Cqs3E6+aw829vtK4Gg6whq8SWdXkV7?=
- =?us-ascii?Q?6MQcl8bLYg0FDTS/5eWcZg7juAfqLAvlAa8wOhuhOlTQvm2eYWVqDIVyrfab?=
- =?us-ascii?Q?+xCbSYgxBoV4W4W6whrd5aNdIegK6Dctc165ObRNnSFUZ9t8hIHBw1iScGes?=
- =?us-ascii?Q?Dukxjg0x1cro3jY7Po3nBJoyJwZi5c+KdQjlM318QZJktTnsaFegucRRjF25?=
- =?us-ascii?Q?nLl+cWQ02/BjZNGsCM17WTInb5wxZiD1rm/3IvBEGyKY4GwOz+xFvIIPCj2g?=
- =?us-ascii?Q?6u/7Fq0Qr4QHttMBMgNZq3Z5sSo08lu51U+LTYmUoTAmUpA0GzMLzHY0D52L?=
- =?us-ascii?Q?nwwm5E6q9ff9wDWE58bRU9Scua08v6Y=3D?=
-X-Exchange-RoutingPolicyChecked: adAtm3cE2f9+H6DkPrlw3YXxX1kKi1TbxXuomrHVZoB3GworGjdKkLc8IaGRL1569A1Fb7kQt5IXeL3nnBiMaA7lCRPctjSeJbOxczJj2D3NbjSpJACWw2xWn9sF8gPWMxn1DoW5C78ONIy8BHi31L6GjGq7B9hVVVT3dpQcBjrJsOYamp1NVQACmH/9I2JoanPi6fkgeI4n1AVP6yjYLEayn5FyoSW6PusEl0NKBF2qgyMBZVwMU588dZnzAu+V8DM8tB7ztVDAss844oQjBEgx6JAHaK8vS5XFM8ZtLC0P7Q9od2XRzwmjjrS/PcKqh/r8cZ30ulFlW/GIG4NXbQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: dcab6507-aed8-4d28-1a40-08df44d027ae
-X-MS-Exchange-CrossTenant-AuthSource: DS4PPF0BAC23327.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 17:28:13.0399
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BVCnjobHWOY/WdUXebBWc/sIV9OcvzKP8hYLSuY/tec+wtokHd5K8H5YiFvHUHS1QO/7sShl6vfx8BdLhgvvRVCkb6iJ4tWgTWxK5PHWos4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB4776
-X-OriginatorOrg: intel.com
-
-On Thu, Nov 05, 2026 at 06:58:58PM +0000, Srirangan Madhavan wrote:
-> Hi folks,
-> 
-> This series adds CXL Reset for Type 2 devices through the existing PCI
-> reset_method and reset sysfs attributes. It disables CXL.cache, performs
-> supported cache writeback, initiates CXL Reset with Memory Clear, and
-> restores cached HDM decoder and CXL Device DVSEC state before PCI use
-> resumes. Active HDM ranges are reserved and CPU caches invalidated before
-> and after reset. The method remains limited to eligible single-function
-> devices with both CXL.cache and CXL.mem enabled. CXL bus reset restores
-> the same cached state and flushes the host and device caches around the
-> reset.
-> 
-> The reset sequence follows the CXL 4.0 specification [4], including
-> CXL.cache disable, optional cache writeback, CXL Reset Memory Clear,
-> ResetComplete polling, and ResetError reporting. Sections 9.7.2 and 9.7.3
-> define the completion timeout encodings and reset access restrictions.
-> 
-> The userspace ABI is the existing PCI reset interface:
-> 
->     /sys/bus/pci/devices/.../reset_method
->     /sys/bus/pci/devices/.../reset
-> 
-> Userspace selects "cxl_reset" in reset_method and triggers the reset
-> through reset. Following Dan's v6 feedback, this uses the PCI interface
-> instead of adding a memdev-specific sysfs ABI.
-> 
-> For sysfs reset, the generic PCI path invokes the driver's reset_prepare()
-> callback when provided and disables PCI I/O, memory decoding, and bus
-> mastering. The CXL path reserves affected HDM ranges exclusively and
-> blocks IOMMU translations where applicable. It does not offline memory
-> or revoke mappings: userspace is expected to offline CXL.mem users before
-> reset. The reservation enforces this for claimed ranges by failing the
-> reset while a conflicting resource is claimed [9].
-> 
-> The global region lock is held from snapshot through restoration. Memory
-> Clear completion is awaited for the timeout the device advertises, up to
-> 100 seconds, so the lock can be held for that long plus cache flushes.
-
-Hi Srirangan,
-
-Thanks for all the followups on review feedback. I think you answer some
-of my question above, 'For sysfs reset...' Could you explain the intended
-use cases for this reset method? Like why and when would userspace issue
-a CXL reset. In particular, is reset intended to be available before endpoint
-and region discovery have completed?
-
-I see how the series saves state for restoration after reset. I don't see
-what ensures discovery has progressed far enough for reset to be safe.
-
-I also see DaveJ's cxl_bus deadlock report. My concern is related but
-separate. Even without a deadlock, a reset could hold the global region lock
-for up to 100 seconds plus cache maintenance and restoration, blocking
-discovery and region assembly on unrelated devices. Understanding the intended
-usage would help assess whether that disruption is acceptable. Note that my
-simple concern is a user issuing those cxl_reset's on repeat and blocking CXL
-bringup. Yeah, that's a bad user, but is there any protection against that?
-
-Adding specific questions on patches 11, 13, and 16
-
--- Alison
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/6] soc: qcom: geni-se: Define the QSPI firmware protocol
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
+        dmaengine@vger.kernel.org, devicetree@vger.kernel.org
+References: <20261106-qspi_upstream_series-v1-0-21f43042dd60@oss.qualcomm.com>
+ <20261106-qspi_upstream_series-v1-4-21f43042dd60@oss.qualcomm.com>
+ <20261109-stimulating-oyster-of-respect-620b7b@quoll>
+ <61646f06-87f1-48da-9b88-8898bb488af7@oss.qualcomm.com>
+ <20261111-prudent-polite-shoebill-add35c@quoll>
+ <b1b753ac-cb74-4b9c-8fd0-31777a020878@oss.qualcomm.com>
+ <4060e67a-553b-4e1b-9e17-e6a742e62a3a@kernel.org>
+Content-Language: en-US
+From: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
+In-Reply-To: <4060e67a-553b-4e1b-9e17-e6a742e62a3a@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=LaipeTfi c=1 sm=1 tr=0 ts=6afc8eca cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=kYVgg70FI5gtGbgwxQSixA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=rBq-xhpCJJ2lye-X4V4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA2OSBTYWx0ZWRfX1S/uFWQNfFZd
+ vbkJ0uAWelZ3zNt6ix7gNLzyhj2j0Z5ZQsU11ajq9C3/m9X09VcZJcCDIukQ4uQl7sfqyt850ZG
+ Sx8QVQB21RsRyRgzWYn657zFUky/EXU=
+X-Proofpoint-GUID: neRyfir6eSYJiYg-8O37g3gDNyWF9OAO
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA2OSBTYWx0ZWRfX+a04qphAnu+a
+ 0/0VHsMkS2Jum4fQBeLi2UnJ3R7AlXBygTaiOPCy1ScY3+vhm0f4omrPD16HuvzcxQ+qfwc+2qX
+ SgKCTx8nqrejkLPIE7t1+GXA0n5qvx3MYKHK/ZyQ7foECO1qwZdQzELiPao4u9nYoajrRODwujc
+ LPhdhzFnP6iwf2KCnxLtKcRoeJFBcrcL/Drzgjqw4rkGskdKLbH48lkPMnP/tTBTIzzrtP9tAzA
+ yOIjvX8sDzDBKBvTtHeIIX2pQ6JWH+Lw8ShXr9lszK+Xicm3vVnfP1sMra2+ibuCJLHytgFC5tk
+ gao3nY9IAe0OAGXzx/yqjqjkSlQxKsxGdVwLERUXxz6QaY9l+zbr7OMIj8IAO1GyS3/segyulUK
+ 2LaWSl84hT2oywtdCZ8b3TY3w9RvdQBKmExOAH5twRLwX8fNqCCJlFBulxxGktcuMH8v8zpWKxn
+ d3ufGyKr9fyQbUMCcpQ==
+X-Proofpoint-ORIG-GUID: neRyfir6eSYJiYg-8O37g3gDNyWF9OAO
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_03,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 spamscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
+ lowpriorityscore=0 phishscore=0 clxscore=1015 malwarescore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170069
 
 
 
+On 11/12/2026 7:26 PM, Krzysztof Kozlowski wrote:
+> On 12/11/2026 14:48, Jyothi Kumar Seerapu wrote:
+>>
+>> On 11/11/2026 6:10 PM, Krzysztof Kozlowski wrote:
+>>> On Mon, Nov 09, 2026 at 08:13:33PM +0530, Jyothi Kumar Seerapu wrote:
+>>>>>> -static const char * const protocol_name[] = { "None", "SPI", "UART", "I2C", "I3C", "SPI SLAVE" };
+>>>>>> +static const char * const protocol_name[] = {
+>>>>>> +	"None", "SPI", "UART", "I2C", "I3C", "SPI SLAVE",
+>>>>>> +	[GENI_SE_QSPI] = "QSPI",
+>>>>> Why are you creating holes in this array?
+>>>> Hi Krzysztof,
+>>>> The array is indexed by the GENI protocol ID. QSPI uses ID 9, while the
+>>>> existing entries cover IDs 0–5, so the designated initializer leaves entries
+>>>> 6–8 empty.
+>>>> The added NULL check rejects these unused entries before accessing the
+>>>> protocol name. Appending "QSPI" directly would incorrectly associate it with
+>>>> ID 6.
+>>> And it should be 6. Just look at uses of this.
+>> Hi Krzysztof,
+>>
+>> The QUP Hardware Programming Guide assigns protocol ID 9 to QSPI.
+>> This enum represents the serial engine's protocol IDs,
+>> rather than consecutive indices for the name table.
+>>
+>> The SPI/QSPI driver uses this ID to request the appropriate firmware
+>> and validate the protocol read from GENI_FW_REVISION_RO. The firmware
+>> loader also matches this ID against the firmware header's protocol
+>> field. Changing QSPI to 6 would make these checks expect a different
+>> protocol ID.
+> You miss the point. This is just a table for Linux driver, not what is
+> programmed. So please explain me, if firmware comes with new protocol,
+> e.g. OSPI with id 10000000, are you going to use that as an index?
 > 
-> Changes from v16 [1]:
-> - Publish the PCI HDM cache under the PCI device lock instead of
->   cxl_rwsem.dpa, and drop the cxl_hdm_cache_present() and
->   cxl_hdm_cache_publish() helpers (Li Ming) [6][7]
-> - Wait for the reset timeout the device advertises, up to 100 seconds,
->   instead of clamping it to 20 seconds, so Control2 is not accessed while
->   the device may still be resetting (Richard) [8]
-> - State that userspace is expected to offline CXL.mem users before reset,
->   and what the HPA reservation does and does not cover (Richard) [9]
-> - Enable bus mastering after the IOMMU is restored on CXL bus reset
->   (Richard) [10]
-> - Explain why cxl_set_mem_enable() refreshes the cached DVSEC Control when
->   MEM_ENABLE already matches (Richard) [11]
-> - Initialize the zero-size HDM decoder end to base - 1 and document the
->   zero-size case (Richard) [12]
-> - Set Lock On Commit after programming the decoder registers and before
->   Commit when recommitting a locked decoder (Alison) [13]
-> - Record Normalized Addressing in the cached decoder when region discovery
->   sets it, and note the short window before that update (Sashiko) [15]
-> - Reject an all-ones DVSEC Control read in cxl_set_mem_enable() (Sashiko)
->   [15]
-> - Add the missing context-analysis annotations on the region quiesce
->   lock and unlock and on __cxl_reset_execute() (Sashiko) [15]
-> - Use an explicit pci_dev_put() in read_cdat_data() instead of mixing
->   __free() with goto cleanup (Sashiko) [15]
-> - Check for VFs and multifunction devices before the CXL DVSEC lookups in
->   the two reset methods, to avoid repeated capability walks while probing
->   VFs (Joshua) [18]
-> - Fold the CXL bus reset cache flush patch into this series (Dave); the
->   series is now 19 patches
-> - Added Richard's Reviewed-by tags to patches 6-10, 14 and 16
-> - Specified the reviewer behind each change in the changelogs, per Alison [14]
+> Really, why are we discussing this?
+
+GENI_SE_QSPI is also compared directly with the firmware header's
+protocol field and GENI_FW_REVISION_RO, where QSPI is encoded as 9.
+I therefore propose retaining 9 for those comparisons, without
+using it as an array index.
+
+Can I replace the sparse array with a switch-based helper that
+returns the name for each supported protocol and rejects unknown
+IDs. This avoids holes and remains independent of the numerical
+protocol values.
+
+
 > 
-> Earlier revision history is in the v16 [1] and v15 [2] cover letters.
-> 
-> Attribution for Dave Jiang's reference branch is still open.
-> Since I am unsure about [16] I have not yet added the right tags.
-> The patches link to his branch below the separator for now.
-> 
-> The v15 discussion on the scope check is still pending [17].
-> 
-> HDM caching requires CXL.cache, CXL.mem, CXL Reset and Reset Memory
-> Clear capabilities. CXL bus reset state restoration uses that cache.
-> 
-> CXL Reset requires a registered CPU cache clean/invalidate provider
-> and matching firmware, such as the separate SMCCC provider series [3].
-> Without that provider, cxl_reset can be advertised while execution returns
-> -ENOTTY, unless the test-only CXL_REGION_INVALIDATION_TEST bypass is
-> enabled.
-> 
-> The KUnit suite checks HDM range boundaries, zero-size and uncommitted
-> state, lock and target-type decoding, and 12-way interleave.
-> 
-> Testing: v17 was tested on an ARM64 target with v5 of the SMCCC
-> cache provider series [3] applied. Reset loops passed for both cxl_reset and
-> cxl_bus after running bidirectional host-device traffic. The
-> cxl_hdm_unpack_kunit suite passes.
-> 
-> [1] https://lore.kernel.org/linux-cxl/20261029145703.2185231-1-smadhavan@nvidia.com/
-> [2] https://lore.kernel.org/linux-cxl/20261011021422.3428136-1-smadhavan@nvidia.com/
-> [3] https://lore.kernel.org/linux-arm-kernel/20261021224557.1827361-1-smadhavan@nvidia.com/
-> [4] https://computeexpresslink.org/wp-content/uploads/2026/02/CXL-Specification_rev4p0_ver1p0_2026February26_clean_evalcopy_v2.pdf
-> [5] https://lore.kernel.org/all/cover.1791949910.git.alison.schofield@intel.com/
-> [6] https://lore.kernel.org/linux-cxl/d581f2a0-dd9e-4d0a-bd19-639c1bd9b832@zohomail.com/
-> [7] https://lore.kernel.org/linux-cxl/20261011021422.3428136-1-smadhavan@nvidia.com/T/#m7f8d0e51d4cfe09fefcebd93d49dcb916be9198a
-> [8] https://lore.kernel.org/linux-cxl/auQC2UECQ8vaelPz@MWDK4CY14F/
-> [9] https://lore.kernel.org/linux-cxl/auQRSOGWEDzB_qjF@MWDK4CY14F/
-> [10] https://lore.kernel.org/linux-cxl/auRhJa-nzR0CnKf3@MWDK4CY14F/
-> [11] https://lore.kernel.org/linux-cxl/auRQN6a3QVtqjd5a@MWDK4CY14F/
-> [12] https://lore.kernel.org/linux-cxl/auQ27s1rSCcbdRJ3@MWDK4CY14F/
-> [13] https://lore.kernel.org/linux-cxl/auAg6MFDGyVQvQxM@aschofie-mobl2.lan/
-> [14] https://lore.kernel.org/linux-cxl/auOXW3BTb8CYIh4m@aschofie-mobl2.lan/
-> [15] https://sashiko.dev/#/patchset/20261029145703.2185231-1-smadhavan@nvidia.com
-> [16] https://lore.kernel.org/linux-cxl/20261011021422.3428136-1-smadhavan@nvidia.com/T/#m2f61467417f422316cb15b976773944dcdcb48c7
-> [17] https://lore.kernel.org/linux-cxl/20261011021422.3428136-1-smadhavan@nvidia.com/T/#m4f62ed0f038f2d136158c74c1c6c338129266131
-> [18] https://lore.kernel.org/linux-cxl/20261105143611.31563-1-machaujo@amazon.de/
-> 
-> Srirangan Madhavan (19):
->   cxl: Clarify decoder interleave limit
->   cxl: Share CXL port upstream PCI device lookup
->   cxl: Move decoder declarations to shared header
->   cxl: Embed decoder configuration in a standalone structure
->   cxl: Introduce endpoint HDM decoder settings
->   cxl: Move HDM decoder helpers to built-in code
->   cxl: Share HDM decoder register unpacking
->   cxl: Move cxl_rwsem into built-in code
->   cxl: Refresh cached PCI HDM decoder settings
->   cxl: Build register block helpers into the kernel
->   PCI/CXL: Cache endpoint HDM state during PCI enumeration
->   PCI/CXL: Add CXL Device Reset sequencing
->   cxl: Validate and synchronize HDM ranges around reset
->   PCI/CXL: Reject reset with unsafe function scope
->   PCI/CXL: Restore CXL state after PCI reset
->   PCI/CXL: Expose CXL Reset as a PCI reset method
->   PCI/CXL: Restore CXL state after CXL bus reset
->   PCI/CXL: Flush host and device caches for CXL bus reset
->   cxl: Add KUnit checks for HDM decoder unpacking
-> 
->  MAINTAINERS                          |   1 +
->  drivers/cxl/.kunitconfig             |   4 +
->  drivers/cxl/Kconfig                  |  18 +-
->  drivers/cxl/Makefile                 |   1 +
->  drivers/cxl/acpi.c                   |  26 +-
->  drivers/cxl/core/Makefile            |   2 +-
->  drivers/cxl/core/atl.c               |   4 +-
->  drivers/cxl/core/core.h              |  15 +
->  drivers/cxl/core/hdm.c               | 273 +++-----
->  drivers/cxl/core/hdm_regs.c          | 437 +++++++++++++
->  drivers/cxl/core/hdm_state.c         | 402 ++++++++++++
->  drivers/cxl/core/pci.c               |  85 ++-
->  drivers/cxl/core/port.c              |  68 +-
->  drivers/cxl/core/region.c            | 116 ++--
->  drivers/cxl/core/regs.c              |   9 +
->  drivers/cxl/cxl.h                    |  46 +-
->  drivers/cxl/pci.c                    |   2 +-
->  drivers/cxl/port.c                   |   4 +-
->  drivers/cxl/tests/Makefile           |   5 +
->  drivers/cxl/tests/hdm_unpack_kunit.c |  91 +++
->  drivers/pci/Makefile                 |   1 +
->  drivers/pci/bus.c                    |   1 +
->  drivers/pci/cxl.c                    | 907 +++++++++++++++++++++++++++
->  drivers/pci/pci.c                    |  27 +-
->  drivers/pci/pci.h                    |  44 ++
->  drivers/pci/probe.c                  |   1 +
->  include/cxl/cxl.h                    |  59 +-
->  include/cxl/hdm.h                    | 109 ++++
->  include/cxl/pci.h                    |  13 +
->  include/linux/pci.h                  |   8 +-
->  include/uapi/linux/pci_regs.h        |  14 +
->  tools/testing/cxl/Kbuild             |   1 -
->  tools/testing/cxl/test/cxl.c         | 158 +++--
->  33 files changed, 2526 insertions(+), 426 deletions(-)
->  create mode 100644 drivers/cxl/.kunitconfig
->  create mode 100644 drivers/cxl/core/hdm_regs.c
->  create mode 100644 drivers/cxl/core/hdm_state.c
->  create mode 100644 drivers/cxl/tests/Makefile
->  create mode 100644 drivers/cxl/tests/hdm_unpack_kunit.c
->  create mode 100644 drivers/pci/cxl.c
->  create mode 100644 include/cxl/hdm.h
-> 
-> 
-> base-commit: fef22d37d47043b63e4007f2f5fe762fa21fae0c
-> -- 
-> 2.43.0
-> 
+> Best regards,
+> Krzysztof
+
