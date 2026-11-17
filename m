@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794927343;
-	b=h9w6RMGcCPpUMemukWhW88KJ9vE+X8IK1G0xI33Bu3IOJCuD4CGWIzgW1CW2v/9hw8Jp
-	 FmOPWMUQlulrL5oL+kC5Wr/lE9E9AV7VZHpRluZRaobyylvPZ1rpo4hkVyDMOQv1y5Ez0
-	 hL0gshbKCLz3ppx4sB5AJzRoTngLi2OW5w9c4Ayg4RI+TR1lKnveCs+zB8+D+jUqoHu27
-	 DNnjDtBmxVjrm4/G5dAAw+9+o9VE+deK6SY0Yza/VOhyW1TMyUidCgFm9VSkzPo9MU1My
-	 j1h1gpGNn8l4BmaVES/iD8Bxzflyb73YqEyY6/lK9IByoJsaUL1TmJfBA9GcoUfQ6UA==
+	t=1794927344;
+	b=CePhYdYVLc5fEdXB6ut305ZFBNFNMzW99yNY+m7bSS2sGuQGFXnRVjOndmVTx1dYfOey
+	 MzIWA9K18jXlhBIzr8DrhS3QoKa4y4zPcb9EP2wIGDDiYICgGCitS66ZKFkigNrFZ0bR0
+	 54hY2cW307QmjX3KZpT7svR27SNmGErvzzqdKLHUBgYq1L6ZYaPmV2CTDLoFdhmQdfqPS
+	 Z8JrY4raAFLxSBukPX5YTWSbP4YDuNtlRD1RTjnUN+dsjKChL/ZBdrNli2HwycaE6t4Ga
+	 PxkR3EHt/00Y5Uvndkr8Tw0uT1DDYiBHDcmIzWJLK2i5j9OsyOohEYvnuPaei7IpgLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794927343;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794927344;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=HLnUN4SFxuLePJET60hqALFh8R854ScCCjNPuZCVkMs=;
-	b=rqKhrL0G2YHS6+68+igWmTwmrnDZB2+s1tbn4aIqNd2R3jIAiWmvZFfS9hXKr1Bw9+EM
-	 Sk3WggLimKLwOESQDwhCy8rCCckoHU+djNPezBuxh1xUBkHoO56CDt5GDcZpmcOLfdogc
-	 OtTSehykPVXnS9IWs2xk1w3xeW7gNaYoX4hTpLkEHBZvjeyEo/BGXO/qQlHwZ+K5sYnPS
-	 mKaAfNckIoXhT1BY2vyXqqCUYCJl8w8vpo74xfMkfOtR1+SypL5xc64se/iSQ+Pe9PdEC
-	 hISVTJuQ3cuX7InP45hkDhkKCKQeM3lU8kDaDuyENYBdNQ5J7ckJhMDBy77Y3ylN+dQ==
+	bh=YXN/cmE2b18TH9R1wcOBPcApNcBvXcI1LLfj/l4dFc4=;
+	b=Mo5Apq7azwihVNBZnKFarQXn1aCCxXvOmGAvuRNT+YcGO99F8fWYsTnc9WGdo3O7Wf3M
+	 JP5KNXzKNe4YGa8atfHISQD/ktlIAtLGO2nbUtR/KXbSMmIkhpcYrI0wIV+c5X96v2Wl3
+	 OjGe2yWZ/WdKX1O4WtnoGRqJb/Ph1BLXkeaiXV2/L87txVzAeTZdfpcUd1WrKfYnHjQl7
+	 yvdt61yAnXnAl4G3VDASUf9mNeZcK0s5pE68EfAoPF7r+jM3yquapj3EcOU+s8TmbIxtx
+	 JhA51XujpSYK6beUbmYp1STiwchxz3+S9CTYPatdZcaxVuO+QcDWJ4fx0BeRm75IKbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--stani.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NvdE1A0h;
-	arc=none smtp.remote-ip=209.85.222.197
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="BJ7lQU/4";
+	arc=none smtp.remote-ip=74.125.224.69
+Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com [74.125.224.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC9DB606A880
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:55:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC9DB606A880
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32F7260A2601
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:55:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32F7260A2601
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stani.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NvdE1A0h
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f2c0e6653so500935785a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:55:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BJ7lQU/4
+Received: by mail-yx1-f69.google.com with SMTP id 956f58d0204a3-67c1c64551bso7718230d50.2
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:55:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794927342; x=1795532142; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794927343; x=1795532143; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=HLnUN4SFxuLePJET60hqALFh8R854ScCCjNPuZCVkMs=;
-        b=NvdE1A0hxlUkz6GJhAxddDB40AtROW+rNaSpm/1Bf+iC67LrFamdjIgMurLaP1pOLb
-         QUANGGF7o/pvk8tuIHbLsNjpP+G/aGHAWb/1bBZ/ocg+69WIP5fuIobG5Y5WChPDTmV+
-         XUXX+C9ObvQY3s9Xj+FH13NdOg+uvXpJbzLdsdVhPcHurDgZw/jsCZqAGpLUao75Dt/8
-         /EVVaO9avdpREJX7Ti4kyitwcyLe95+z4wNGyxupNPwpEIz3StA65jrBX0AbsnPlQlfc
-         maw0Gnv+ENPMzDvWUinYtG2Im2yeB2QFAE6nrc368MdGpMv+6/AYtHCa2WV31fQgzcc7
-         NDoQ==
+        bh=YXN/cmE2b18TH9R1wcOBPcApNcBvXcI1LLfj/l4dFc4=;
+        b=BJ7lQU/42BGKYGKWz8cYMbrWFwQtlAfuyegZD9xW9Xlv5gj4SEaiB+aBaK/LNyfYcX
+         Rj7UlI/lupSs0oKgeT9a9PqqNrtEMp7lMLz2NPJnEJn1X2sTQ9cEnIt3Xl+aeYm1wo/v
+         F8nfm82xEClw9Mk+gKePRIxEL80mjwLUTai5P1+E1oQ89Dk4ynnmj5i7BVxwyuQ/K8Dr
+         Dtp4V2j8rN6Z/bFHXUvxJneu1uKG9AepxqS0zUg2mRIWQzJPJrp0gt81VyS8rrQfHyqW
+         1v7etg3stuBD658I8kA6wnHSspusASTrinoKyPLsz0pKyV9ENeZILD0eBSDYy6y2Nlj0
+         feSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794927342; x=1795532142;
+        d=1e100.net; s=20260707; t=1794927343; x=1795532143;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HLnUN4SFxuLePJET60hqALFh8R854ScCCjNPuZCVkMs=;
-        b=QBgJWJS1XlcgNrlD6tOjn7TyIWeVGY2ghA6uIIxhDugqr/c6cp5SV9PE6VkICEc3x6
-         LDT83Ae8IRAY4sa1WlgaTRvrqIWuC7EA3RAtxhgQHbR3Cw8iQi02W6lv2eFjzAPC7v0z
-         dT98/257ARD16eEg7M1QKeFxJfA7tagGU22kLw28usvRcCXdQ6qCIzJ89cAhsmrGXNB5
-         L8+h3u0YV7gTPDmPk87a2Dmo1mSMrPuoiE/ihSQvAeW/+qQbC59NfYcYoD78Z9NjTYNg
-         x/FvrRrCQvfPyS/QsG1AUAmj/kI530LZcJKNH7Sr8KHHHnvaLgiUcSQveu/qZNV4LF4b
-         kjig==
-X-Forwarded-Encrypted: i=1; AL+hErHn1VgEjWp0jWKXe+n4BW/Tt2fh1ojIz3HOTTg3edriRgvrkXPvLPTaVwvpAl8tu6HwBSfWBGD9FUAeVZE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/jn83w5YbZueKqaJXHZKqCWJnUJNDRX70YJ3z/l1FA1tkCI5Et
-	A9VOnoOQ1YTd+pf5r5sJ56f+bwXFsUt39aact5MAtUIb0aqt2j+5/XAqDaCx9OrK1fPhimHHIUS
-	jkQ==
-X-Received: from qknvm11.prod.google.com ([2002:a05:620a:718b:b0:93f:43a4:a480])
- (user=stani job=prod-delivery.src-stubby-dispatcher) by 2002:a05:620a:bc7:b0:944:1291:6cd9
- with SMTP id af79cd13be357-9494bbeb488mr2333610585a.68.1794927341308; Tue, 17
- Nov 2026 06:55:41 -0800 (PST)
-Date: Tue, 17 Nov 2026 14:55:09 +0000
+        bh=YXN/cmE2b18TH9R1wcOBPcApNcBvXcI1LLfj/l4dFc4=;
+        b=XgrXBeJDXNzaKbPL7e522sTbqFwrSuMA40rH3EElRMojgU+bmdoTliV3QgemFJpjvt
+         4a/YX6RJ9lW0t1x3swKE3AuETML0d5GEe94zlQwjSJrHJBgzQSSTgZy4hl7Bvj8F6E6b
+         v62UOUhqoEA9qiM9WnB9bZrPpOGlKdJiMcA7QFSvTQB6QXcMEnXI1771jF+Zq7uF/0HL
+         eCQgJ9ms81bHvtEIGi1ASB/xaZd1WFVchVQ8giqwMP4dr4vGvrtvnTtZyWSf2JY+Dwuk
+         JH0pOCK9MpiLKYFYFlhe0xtUFt9jcTXwKXd+PIyGPllnfHfdx/r6lNS2pnGVrlESmEli
+         DzFg==
+X-Forwarded-Encrypted: i=1; AL+hErEc6dgyo/xTfcy04wxHuFZkKFwSjWZROm/6SK3Vr9SOyUBtPgEyBFXb/u6w8crS0G86X4IIIrziD0VhyU8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+uWiJFEd8OUp0IjArhEEfYPdaHdXrEhvyOmHsxrLiF6LBB/Fdq
+	Bh4pts8uVqxkmnwf1dPpQFQtH3Iz9qyRPkq6JhjdzDs3rr6rnX5IpeKb+Yq16RZ/JM4Bg8n4oKM
+	V1w==
+X-Received: from yxpq15.prod.google.com ([2002:a53:e8cf:0:b0:67d:a676:2621])
+ (user=stani job=prod-delivery.src-stubby-dispatcher) by 2002:a05:690e:168d:b0:679:c7d1:ffd6
+ with SMTP id 956f58d0204a3-67d896a36cfmr9511324d50.36.1794927343014; Tue, 17
+ Nov 2026 06:55:43 -0800 (PST)
+Date: Tue, 17 Nov 2026 14:55:11 +0000
 In-Reply-To: <20261117145522.1910636-1-stani@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261117145522.1910636-1-stani@google.com>
 X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
-Message-ID: <20261117145522.1910636-4-stani@google.com>
-Subject: [PATCH iwl-next 03/15] idpf: make the mailbox workqueue visible in sysfs
+Message-ID: <20261117145522.1910636-6-stani@google.com>
+Subject: [PATCH iwl-next 05/15] idpf: psp: add support for crypto capabilities
 From: Stan Iliev <stani@google.com>
 To: Tony Nguyen <anthony.l.nguyen@intel.com>, 
 	Przemek Kitszel <przemyslaw.kitszel@intel.com>, "David S. Miller" <davem@davemloft.net>, 
@@ -97,32 +97,297 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
 	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-hardening@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Add WQ_SYSFS to the mailbox workqueue: the workqueue attributes are then
-exported in /sys/devices/virtual/workqueue/, e.g. to inspect or change
-the CPU mask and the nice level of the mailbox workqueue while debugging
-mailbox latency. This is one of those cases where, when the need arises,
-we wish we had that flag enabled, see https://lwn.net/Articles/967016/.
-The PSP workqueue added later in this series sets it too.
+Add support for negotiating the crypto offload capabilities:
+- Introduce VIRTCHNL2_OP_CRYPTO_GET_CAPS (564),
+  enum virtchnl2_cap_crypto and struct virtchnl2_crypto_get_caps.
+- Implement idpf_send_get_crypto_caps() in the new
+  idpf_psp_virtchnl.c and call it from idpf_psp_negotiate_caps() in
+  idpf_psp_init(). PSP stays disabled, without failing probe, unless
+  PSP crypto offload and SADB entries are granted with a 21 or 26 bit
+  SA index width, and the SA indexes of all the SADB entries fit in
+  the width.
+- Store the SADB size and the SA index width of the adapter in
+  adapter->psp.sadb_entries and adapter->psp.saidx_width.
 
 Signed-off-by: Stan Iliev <stani@google.com>
 ---
- drivers/net/ethernet/intel/idpf/idpf_main.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/intel/idpf/Makefile      |  2 +-
+ drivers/net/ethernet/intel/idpf/idpf_psp.c    | 61 ++++++++++++++++
+ .../net/ethernet/intel/idpf/idpf_psp_def.h    | 10 +++
+ .../ethernet/intel/idpf/idpf_psp_virtchnl.c   | 71 +++++++++++++++++++
+ .../ethernet/intel/idpf/idpf_psp_virtchnl.h   | 13 ++++
+ include/linux/net/intel/virtchnl2.h           | 26 +++++++
+ 6 files changed, 182 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.c
+ create mode 100644 drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.h
 
-diff --git a/drivers/net/ethernet/intel/idpf/idpf_main.c b/drivers/net/ethernet/intel/idpf/idpf_main.c
-index c855572c5315..566d5804c8c1 100644
---- a/drivers/net/ethernet/intel/idpf/idpf_main.c
-+++ b/drivers/net/ethernet/intel/idpf/idpf_main.c
-@@ -319,7 +319,8 @@ static int idpf_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 		goto err_serv_wq_alloc;
+diff --git a/drivers/net/ethernet/intel/idpf/Makefile b/drivers/net/ethernet/intel/idpf/Makefile
+index 3162ea913417..8db28c228e04 100644
+--- a/drivers/net/ethernet/intel/idpf/Makefile
++++ b/drivers/net/ethernet/intel/idpf/Makefile
+@@ -21,7 +21,7 @@ idpf-$(CONFIG_IDPF_SINGLEQ)	+= idpf_singleq_txrx.o
+ idpf-$(CONFIG_PTP_1588_CLOCK)	+= idpf_ptp.o
+ idpf-$(CONFIG_PTP_1588_CLOCK)	+= idpf_virtchnl_ptp.o
+ 
+-idpf-$(CONFIG_INET_PSP)		+= idpf_psp.o
++idpf-$(CONFIG_INET_PSP)		+= idpf_psp.o idpf_psp_virtchnl.o
+ 
+ idpf-y				+= xdp.o
+ idpf-y				+= xsk.o
+diff --git a/drivers/net/ethernet/intel/idpf/idpf_psp.c b/drivers/net/ethernet/intel/idpf/idpf_psp.c
+index c1297ec59163..c4f46f7337ef 100644
+--- a/drivers/net/ethernet/intel/idpf/idpf_psp.c
++++ b/drivers/net/ethernet/intel/idpf/idpf_psp.c
+@@ -3,6 +3,59 @@
+ #include <net/psp.h>
+ 
+ #include "idpf_psp.h"
++#include "idpf_psp_virtchnl.h"
++
++/**
++ * idpf_psp_negotiate_caps - Negotiate the crypto and PSP capabilities
++ * @adapter: private data struct
++ *
++ * Query the crypto and PSP capabilities granted by the CP, check that they
++ * cover what the driver implements and apply the negotiated values. Must only
++ * be called if VIRTCHNL2_CAP_CRYPTO was negotiated.
++ *
++ * Return: 0 if PSP offload can be used, negative error code otherwise.
++ */
++static int idpf_psp_negotiate_caps(struct idpf_adapter *adapter)
++{
++	struct virtchnl2_crypto_get_caps crypto_caps = { };
++	struct device *dev = &adapter->pdev->dev;
++	u32 sadb_entries;
++	int err;
++
++	err = idpf_send_get_crypto_caps(adapter, &crypto_caps);
++	if (err)
++		return err;
++
++	if (!(le32_to_cpu(crypto_caps.crypto_caps) & VIRTCHNL2_CAP_CRYPTO_PSP)) {
++		dev_notice(dev, "PSP crypto offload not granted by CP\n");
++		return -EOPNOTSUPP;
++	}
++
++	if (crypto_caps.saidx_width != IDPF_PSP_SAIDX_WIDTH_21 &&
++	    crypto_caps.saidx_width != IDPF_PSP_SAIDX_WIDTH_26) {
++		dev_err(dev, "Unsupported PSP SA index width %u\n",
++			crypto_caps.saidx_width);
++		return -EOPNOTSUPP;
++	}
++
++	sadb_entries = le32_to_cpu(crypto_caps.num_sadb_entries);
++	if (!sadb_entries) {
++		dev_notice(dev, "No PSP SADB entries granted by CP\n");
++		return -EOPNOTSUPP;
++	}
++
++	/* The SA indexes of all the SADB entries must fit in the width */
++	if (sadb_entries > BIT(crypto_caps.saidx_width)) {
++		dev_err(dev, "%u PSP SADB entries don't fit in %u bit SA indexes\n",
++			sadb_entries, crypto_caps.saidx_width);
++		return -EOPNOTSUPP;
++	}
++
++	adapter->psp.sadb_entries = sadb_entries;
++	adapter->psp.saidx_width = crypto_caps.saidx_width;
++
++	return 0;
++}
+ 
+ /**
+  * idpf_psp_init - Initialize PSP offload
+@@ -18,6 +71,7 @@ void idpf_psp_init(struct idpf_adapter *adapter)
+ {
+ 	struct idpf_adapter_psp *psp = &adapter->psp;
+ 	struct device *dev = &adapter->pdev->dev;
++	int err;
+ 
+ 	WRITE_ONCE(psp->enabled, false);
+ 
+@@ -26,6 +80,13 @@ void idpf_psp_init(struct idpf_adapter *adapter)
+ 		return;
  	}
  
--	adapter->mbx_wq = alloc_workqueue("%s-%s-mbx", WQ_UNBOUND | WQ_HIGHPRI,
-+	adapter->mbx_wq = alloc_workqueue("%s-%s-mbx",
-+					  WQ_UNBOUND | WQ_HIGHPRI | WQ_SYSFS,
- 					  0, dev_driver_string(dev),
- 					  dev_name(dev));
- 	if (!adapter->mbx_wq) {
++	err = idpf_psp_negotiate_caps(adapter);
++	if (err) {
++		dev_warn(dev, "PSP disabled, capability negotiation failed: %d\n",
++			 err);
++		return;
++	}
++
+ 	WRITE_ONCE(psp->enabled, true);
+ }
+ 
+diff --git a/drivers/net/ethernet/intel/idpf/idpf_psp_def.h b/drivers/net/ethernet/intel/idpf/idpf_psp_def.h
+index 2edb114784c1..3a9e40284106 100644
+--- a/drivers/net/ethernet/intel/idpf/idpf_psp_def.h
++++ b/drivers/net/ethernet/intel/idpf/idpf_psp_def.h
+@@ -5,15 +5,25 @@
+ 
+ #include <net/psp.h>
+ 
++/* SA index widths supported by the driver, negotiated per adapter with
++ * VIRTCHNL2_OP_CRYPTO_GET_CAPS, see idpf_psp_negotiate_caps().
++ */
++#define IDPF_PSP_SAIDX_WIDTH_21		21
++#define IDPF_PSP_SAIDX_WIDTH_26		26
++
+ /**
+  * struct idpf_adapter_psp - PSP offload state of an adapter
+  * @enabled: PSP was negotiated with the CP in the last core init, see
+  *	     idpf_is_psp_ena()
++ * @sadb_entries: SADB size granted by VIRTCHNL2_OP_CRYPTO_GET_CAPS
++ * @saidx_width: SA index width granted by VIRTCHNL2_OP_CRYPTO_GET_CAPS
+  * @psp_dev: the PSP device, see idpf_psp_register()
+  * @caps: capabilities of @psp_dev
+  */
+ struct idpf_adapter_psp {
+ 	bool enabled;
++	u32 sadb_entries;
++	u8 saidx_width;
+ 	struct psp_dev *psp_dev;
+ 	struct psp_dev_caps caps;
+ };
+diff --git a/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.c b/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.c
+new file mode 100644
+index 000000000000..65f7a9f63f90
+--- /dev/null
++++ b/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.c
+@@ -0,0 +1,71 @@
++// SPDX-License-Identifier: GPL-2.0-only
++
++#include "idpf_psp_virtchnl.h"
++#include "idpf_virtchnl.h"
++
++/**
++ * idpf_print_crypto_caps - Print values inside virtchnl2_crypto_get_caps
++ * @adapter: Driver specific private structure
++ * @caps: Pointer to virtchnl2_crypto_get_caps structure
++ */
++static void idpf_print_crypto_caps(struct idpf_adapter *adapter,
++				   const struct virtchnl2_crypto_get_caps *caps)
++{
++	u32 num_sadb_entries = le32_to_cpu(caps->num_sadb_entries);
++	u32 crypto_caps = le32_to_cpu(caps->crypto_caps);
++
++	dev_dbg(&adapter->pdev->dev,
++		"virtchnl2_crypto_get_caps: crypto_caps=0x%08x (PSP=%u), num_sadb_entries=%u, saidx_width=%u\n",
++		crypto_caps, !!(crypto_caps & VIRTCHNL2_CAP_CRYPTO_PSP),
++		num_sadb_entries, caps->saidx_width);
++}
++
++/**
++ * idpf_send_get_crypto_caps - Send VIRTCHNL2_OP_CRYPTO_GET_CAPS request to CP
++ * @adapter: Driver specific private structure
++ * @caps: Output buffer for virtchnl2_crypto_get_caps
++ *
++ * Request the PSP crypto offload. Must only be sent if VIRTCHNL2_CAP_CRYPTO
++ * was granted.
++ *
++ * Return: 0 on success, negative on failure.
++ */
++int idpf_send_get_crypto_caps(struct idpf_adapter *adapter,
++			      struct virtchnl2_crypto_get_caps *caps)
++{
++	struct libie_ctlq_xn_send_params xn_params = {
++		.chnl_opcode	= VIRTCHNL2_OP_CRYPTO_GET_CAPS,
++		.timeout_ms	= IDPF_VC_XN_DEFAULT_TIMEOUT_MSEC,
++	};
++	struct virtchnl2_crypto_get_caps *send_caps;
++	int err;
++
++	/* Too large to be sent from the stack */
++	send_caps = kzalloc_obj(*send_caps);
++	if (!send_caps)
++		return -ENOMEM;
++
++	send_caps->crypto_caps = cpu_to_le32(VIRTCHNL2_CAP_CRYPTO_PSP);
++
++	err = idpf_send_mb_msg_kfree(adapter, &xn_params, send_caps,
++				     sizeof(*send_caps));
++	if (err) {
++		dev_err(&adapter->pdev->dev, "Failed to get crypto caps: %d\n",
++			err);
++		return err;
++	}
++
++	if (xn_params.recv_mem.iov_len < sizeof(*caps)) {
++		dev_err(&adapter->pdev->dev, "Invalid crypto caps reply size: %zu\n",
++			xn_params.recv_mem.iov_len);
++		err = -EIO;
++		goto release_rx;
++	}
++
++	memcpy(caps, xn_params.recv_mem.iov_base, sizeof(*caps));
++	idpf_print_crypto_caps(adapter, caps);
++
++release_rx:
++	libie_ctlq_release_rx_buf(&xn_params.recv_mem);
++	return err;
++}
+diff --git a/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.h b/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.h
+new file mode 100644
+index 000000000000..cf82ac9182ef
+--- /dev/null
++++ b/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.h
+@@ -0,0 +1,13 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++
++#ifndef _IDPF_PSP_VIRTCHNL_H_
++#define _IDPF_PSP_VIRTCHNL_H_
++
++#include <linux/net/intel/libie/controlq.h>
++
++#include "idpf_psp.h"
++
++int idpf_send_get_crypto_caps(struct idpf_adapter *adapter,
++			      struct virtchnl2_crypto_get_caps *caps);
++
++#endif /* !_IDPF_PSP_VIRTCHNL_H_ */
+diff --git a/include/linux/net/intel/virtchnl2.h b/include/linux/net/intel/virtchnl2.h
+index ec1a742b6557..59c379afcb71 100644
+--- a/include/linux/net/intel/virtchnl2.h
++++ b/include/linux/net/intel/virtchnl2.h
+@@ -84,6 +84,8 @@ enum virtchnl2_op {
+ 	VIRTCHNL2_OP_ADD_FLOW_RULE			= 551,
+ 	VIRTCHNL2_OP_GET_FLOW_RULE			= 552,
+ 	VIRTCHNL2_OP_DEL_FLOW_RULE			= 553,
++	/* Crypto/PSP opcodes */
++	VIRTCHNL2_OP_CRYPTO_GET_CAPS			= 564,
+ };
+ 
+ /**
+@@ -1817,4 +1819,28 @@ struct virtchnl2_flow_rule_add_del {
+ };
+ VIRTCHNL2_CHECK_STRUCT_LEN(8, virtchnl2_flow_rule_add_del);
+ 
++/* Generic crypto offload types */
++enum virtchnl2_cap_crypto {
++	VIRTCHNL2_CAP_CRYPTO_PSP			= BIT(0),
++};
++
++/**
++ * struct virtchnl2_crypto_get_caps - Crypto global capabilities
++ * @crypto_caps: See enum virtchnl2_cap_crypto
++ * @num_sadb_entries: Number of SADB entries of the function, not shared with
++ *		      the other functions of the device
++ * @saidx_width: SA index width in bits
++ * @padding: Padding to 256 bytes
++ *
++ * Request and response of VIRTCHNL2_OP_CRYPTO_GET_CAPS. On input @crypto_caps
++ * holds the requested capabilities, on output the granted ones.
++ */
++struct virtchnl2_crypto_get_caps {
++	__le32 crypto_caps;
++	__le32 num_sadb_entries;
++	u8 saidx_width;
++	u8 padding[247];
++};
++VIRTCHNL2_CHECK_STRUCT_LEN(256, virtchnl2_crypto_get_caps);
++
+ #endif /* _VIRTCHNL_2_H_ */
 -- 
 2.56.0.679.gc527c65306-goog
 
