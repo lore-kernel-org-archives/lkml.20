@@ -1,68 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794925410;
-	b=wruSRgHRlG0vEv5RsxKs4x9mv5EyV14Jw+qX960eCYf72qqp3yn/ylwOxcdDbE8UQLhN
-	 5SCZYfl9EeelgkO65nzrAKLKVOtxgx/4KdDy4GEyrRREIdpb2UVrfFldS8KF1raHyDuJY
-	 JxVjllU8n4PDGQC8YVb3sYwBUJK89fJQpkfaALpechKK98YZfdP5JVMmNUEDiMODdC/Vl
-	 +LxiriGv0E1T6C4TDhXo4OECkHUzSJ7aA70wOR6SPDGmuZvppe15UJYcYcvg4pO7gSnF7
-	 xThh4kcj6tO3r4EfhjxgyztSTIKcQ3Tn6udiEsx/087YWTc177OUDKIbtgY67jOSEgQ==
+	t=1794925415;
+	b=RqL1eYtI3o0cXc972ZUc2IWOfJfp67+4AjcfBnyLnFmsiyff4dZfLqlxaj61mOMwNreO
+	 86H9oDu2yIluPW5rPLKRsLkBzPmtUTZCYP1QG3UayVUVfYOLKyy5d8QjTX3l+yCH9H4hH
+	 mw+QD1N2EO1qxW0zooFieYQJP1FwkNZJ546lkV4RXWCHDjDLTlNDMcS6EH5a6nMSwMaBI
+	 wb17H+YcIakUSKEkQklGvD3nS0YC7TORRbgqaPvDcEG5vcRcMLXoOfncgCKK9izHAkUrD
+	 L3qxO6eaDU27mOzPN7skFb0/5wPdeUQwcR6cHN6iiKQ4FdlixfhNkAlVoufM0RttlxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794925410;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794925415;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
 	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:X-Mailer:
 	 X-Last-TLS-Session-Version;
-	bh=LFhzcWwrTklSI8rmoJqaj5WMDMpXtGy+ZT60s1LjZyY=;
-	b=AjPhuaSqRZDd3+eJR/Yfb7xl0P2Tyn6PFcUvkk7mDAovkkdxQ17xmgVfgeOQ16X8d7Nc
-	 hunbpd8Iag/uo4b7zoeTDmSiF8L+Y0lh0XYkIf1LuyCOVET1JBzUwXeH2KfSBTLGjHA1L
-	 YUnumxlnLYqYpNJy3mIRD4bbyNve5+od9qsEdlfmcGKGbbfIe4qEb5TE5eIdTZbrr9LKX
-	 lECmunwxcOVQ0dwD/qyb4hq/eJDG1A3AsvVrNcXRwFlFlFZc23C85YL4gvjumxa0ohq0T
-	 9DC4l2K5Kg23wQnn9Aj2kjeVO32N7FcczhjBBMQ+grNpvVkp96zDHmY4i9mqFfSiTwg==
+	bh=lJElfTzwAuOZ5+pRGg7Cx4QSnvdl7mrqMyhfsezJNBU=;
+	b=u3sh7aihG8ZLA/TjeRoMUOcDAIXTS4XRK9CTZYi6PCmVjJEO+4LgAeLYTfDHfx2swNbp
+	 cWvB8ygiAJHa5w+spG9DD+sgWEuWunwqSt70H/rEiAeWTdNaHoLBV+c7ywlUYFc19O/YJ
+	 5M5ASYbTOKxaNH6y2TwM+P2X0twdJMKaG3+qtvqtPgNgyVCRq71kdcFk95pMdHVRVvZy0
+	 OV3vMVGsahZ97/QE8tzKqVedn1pEveCDXttEFuK0rToMSCgissyDFwUyKugnq47B0hGlg
+	 45avLmhMysHuu3vPW8VeO1bvKPvJzCxkL41WW4c8jQRSm/LOxrQ05lXH/EqnT8FQRFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=HXx5EytN;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ToonxK7K;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B27D606A332
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:23:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B27D606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AC81606A885
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:23:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AC81606A885
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=HXx5EytN
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ToonxK7K
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 0A0B24E4158E;
-	Tue, 17 Nov 2026 14:23:29 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id BD2981A167E;
+	Tue, 17 Nov 2026 14:23:33 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D35375FD6A;
-	Tue, 17 Nov 2026 14:23:28 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1E00F11BC0041;
-	Tue, 17 Nov 2026 15:23:26 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9413B5FD6A;
+	Tue, 17 Nov 2026 14:23:33 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7E9BE11BC0036;
+	Tue, 17 Nov 2026 15:23:28 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794925408; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1794925409; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=LFhzcWwrTklSI8rmoJqaj5WMDMpXtGy+ZT60s1LjZyY=;
-	b=HXx5EytN6e3Yr2QCfvkblUYi+D8RzT2TGOvGMCoUvE7pxq2eDfNCdEPF3puWzxAzUjwBct
-	Fkz/TETgSNJbXU7ooX5ajRShwX+cpzr/vHTKJ9aDygbugpno0237Zjf0YuvzZtQalhYvQo
-	I5fDmHePQ+NWkqlTMWSNVcq5WAa/VyMqzl/EntFIifVmTP3FK/xqHb/ioEWmVKHN+Jjwad
-	VOsQRrDIMFnq8ACb4wbjPBpjoEGPkRZayfsWH5N4twBbQWjBL+8brb3yGJb8Fym/iV7cqv
-	jRZ8N42BbK9A2PECIncnc+C0jNvgvfvF4J1P76S304Aai8RrTySOoKL4SXYQ8w==
+	bh=lJElfTzwAuOZ5+pRGg7Cx4QSnvdl7mrqMyhfsezJNBU=;
+	b=ToonxK7KN9snZt9NszwLPT7+JjcVmc9Brh0eQqmZOKZmxqQ1VpC2eUyJY2l9WvTLEUqtEj
+	G2yJPcQHSt3fX+O1pTy65Ws8GHHezYQELRC4kD0eTY8oTnZjE7e98IbIk4WV7S+ogvuxpJ
+	NqtH8jdyvhl1+noDhWU78VrGRd45FJRnM3S+jJbPSPyicnO5noM981XCHT+WL99IPOMilZ
+	a7L7vjxDfANw13VYawn134NZKRCxH1WUqyR76Gj/zrVXiWshC9USg7XTcPNzKhaxO6rOFe
+	pM3SfzSplFqAGGCiGWpV+62GZsFwP/eBsdwWc95H2HjLzfzvfAJKdf54hdvE6g==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Richard Weinberger <richard@nod.at>, 
- Vignesh Raghavendra <vigneshr@ti.com>, 
- Md Sadre Alam <quic_mdalam@quicinc.com>, Felix Gu <ustc.gu@gmail.com>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Sashiko <sashiko-bot@kernel.org>
-In-Reply-To: <20261115-nandc_unalloc-v1-1-65d849fa9998@gmail.com>
-References: <20261115-nandc_unalloc-v1-1-65d849fa9998@gmail.com>
-Subject: Re: [PATCH] mtd: nand: qpic_common: fix BAM transaction memory
- leak
-Message-Id: <179492540601.2259780.2816763714967014660.b4-ty@bootlin.com>
-Date: Tue, 17 Nov 2026 15:23:26 +0100
+To: Angelo Compagnucci <angelo.compagnucci@gmail.com>
+Cc: Richard Weinberger <richard@nod.at>, 
+ Vignesh Raghavendra <vigneshr@ti.com>, linux-mtd@lists.infradead.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261116152847.3658486-1-angelo.compagnucci@gmail.com>
+References: <20261116152847.3658486-1-angelo.compagnucci@gmail.com>
+Subject: Re: [PATCH 0/2] mtd: spinand: add GD5F4GM7UExxG and XT26G04C
+Message-Id: <179492540842.2259780.12341849740874264628.b4-ty@bootlin.com>
+Date: Tue, 17 Nov 2026 15:23:28 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,20 +75,24 @@ Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-On Sun, 15 Nov 2026 15:20:01 +0800, Felix Gu wrote:
-> qcom_nandc_alloc() allocates the BAM transaction, but
-> qcom_nandc_unalloc() does not free it. This leaks the transaction on
-> controller removal and probe failures after successful allocation.
+On Mon, 16 Nov 2026 16:28:45 +0100, Angelo Compagnucci wrote:
+> This series adds two 4Gbit 3.3V SPI NAND parts:
 > 
-> Release it in qcom_nandc_unalloc().
+> - GigaDevice GD5F4GM7UExxG
+> - XTX XT26G04C
 > 
+> Both have 4096 byte pages, 256 byte OOB and 8-bit on-die ECC. The
+> GigaDevice part reuses existing code. The XTX part needs a new ECC
+> status function.
 > 
 > [...]
 
 Applied to nand/next, thanks!
 
-[1/1] mtd: nand: qpic_common: fix BAM transaction memory leak
-      commit: a53bc9468f7c4461d51c66cbe949d0fbca37f7f6
+[1/2] mtd: spinand: gigadevice: add support for GD5F4GM7UExxG
+      commit: 3c8f7e833f0c6373bee90b897ce0697e2e697dcb
+[2/2] mtd: spinand: xtx: add support for XT26G04C
+      commit: 2c6220ff6e7cbb287120a047e1da9509d66c4915
 
 Patche(s) should be available on mtd/linux.git and will be
 part of the next PR (provided that no robot complains by then).
