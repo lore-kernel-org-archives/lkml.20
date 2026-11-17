@@ -1,108 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794906642;
-	b=cb4+TUiXKeDqxFhkroZRkw8T1qjwfP2jhpzXkhUAk7OPV1nAaEvPm9gyKBaPLQB10jyz
-	 vSob695qzn/RfC+k1Lcv8cwEzAuIFT4tCAAsUahrxX578D2SdrNM35kfEs5k1MgLglpN3
-	 pRKB7sBGUqoMrlNcoF7vXBJH6x655rvCxyA4Pdvy/8d+ZAqqzpjKd9qDIZOL8vmHajf7y
-	 6h8a5pyV+jjZd6+mG6KhTPi5xRG69sDuhtfNYuSYZ2DN5QheD+veZtuIm2NeIiW9IfSsd
-	 MybPiOhZmVuVtoaZ4tl5oDcxWjOlPITmY1x/wiGTpGvMiYy1fSHvsKFkdx0d1I1mlOA==
+	t=1794906682;
+	b=JauyQd8F1OadyV+2u2ahi8fAJJgIYL5Rv5EgnKSxXtkPXIYfRXqBR+X1onZiHbqKmoMP
+	 nY2FXFxK/+FyjL+bgCmt/fkOWm1CzdacfI8TCrRFjgmLSn36rH4e6xUVCMK7HnOzHF8h7
+	 oMAvn4RuYgeZOUrtSjfInWVLzb8KqNxTcJu6TofufjveKmvkTIWuaREJk3lvlgxSdCqg5
+	 LUPbR/bXunvxMHssRsu9v2+psIOu6NLRFsZ5Z4/EXQONTGIUTMOdpMCS2WTRxmOysVkxG
+	 d+uaDGeLpn8oBdUYc7AR232KgQaXuwcUej6BY4ozuAmximEBcAwmltG21K9mNS43ASA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794906642;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=qU+9OGvRfJV1audZnO5SC1P0nvA1K8+fKrFIUfplFUM=;
-	b=5owIZeNLc9EG/ZBLQSfw6Jb3dXEjy0GOtvdvl4dASwFKsaJ6y4y+GpHxvrS7fU8n41mg
-	 Kv7O0YNUmMCCKXp8bALxOTeahedsaBRQPhBRGiXHhMr4JPLHDV5EOHS/zKXRY4RH8QeGW
-	 LKkGYnzl3txlPfSrRYtQZNYwkLqZdBSdJl9DTIwI1lABKmJK0ozilKMbUVCgwFHdjoLAP
-	 sdYmJeOys8WZQ92Ktu071H6NPtES2ZbguBesc1VMThAItfjJBCoPpFvF8l2akRGflxmjI
-	 zqH7dqzOXYvqG9fu8ur7qklqqqfh9OagoPjrLO6ZOrY4j3khpd88rRFpD5RM0kERgHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794906682;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=AfUnYvEf8apgIWNFfrYRRolIs+tMwqZGx3aRdYVjz6c=;
+	b=ZvwNnWFN5rNrITgzN5myQb8X6LRUSJo4rnzXfQY7Gn/chQKYyAFT6uBeqIJnPVvyBYIW
+	 sfv2SYgj6DOIEDAdKYbUwCWHIM+hTeftDOAOQdeORR80i2Mpw+lqPfqAtLOBPb1yXKM2M
+	 h96UueMq34C+ydzuA6g1naxd4W2DORzWHjBSJC6IkNCv00hmX5t4rlD5HdvlrBB9x+vhi
+	 /HKDekbsYEow9wAevjRze/ySqEKY6D64cchyfGVohJDIE6hX255+Knj/QCZl24+GKIcnO
+	 S4BQOw4T4dWCd+MgV6BrlIxTOHo5CwfpbWX71izI8o4v1wdcsuPkM52QOohadoG/Lsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IY7t+LAO;
-	arc=none smtp.remote-ip=209.85.214.173
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=MMjHPJxO;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1DD0606A32C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:10:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1DD0606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8556606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:11:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8556606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IY7t+LAO
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2ea7987517aso29975685ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:10:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794906641; x=1795511441; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qU+9OGvRfJV1audZnO5SC1P0nvA1K8+fKrFIUfplFUM=;
-        b=IY7t+LAOb6XWNzzWCVC75cn46512CDirFSZ595tS/vBxXvnW7VtypiCoemppHn65KE
-         r5+0Gx13IgBFWk6VdV6iXgguyZULkmTxv/+C2nu1Yy5NhSns3nkNERhjl0cAtGLXPs7q
-         brRFF+CZ5Fub+hRiQi3FtrJmKx55qqvw6sNGdqGec6MDnoAVpdtvsAeZguNFA2iXBDMP
-         00IuewHX28K7FfJEeWyncTcxAbtwbD5h/mfHKy9n7r0n2G9cRHdRn17TVLpP2kelvj/F
-         xsyWK/gxkRy0nGi/7BaPeJUhZHqRlIU3dG/tc3vR9oOVniNjB0wJWZCBSNl/Kc3l0f5H
-         IyZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794906641; x=1795511441;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qU+9OGvRfJV1audZnO5SC1P0nvA1K8+fKrFIUfplFUM=;
-        b=vjCul+5gd9sgJZdQXUYz9tXRDRJs3sAt0fTxr6Na1Pj9h4zZbMrWksAV2D9yYTBevi
-         0ll3j48w9yyhfs3IK27eLyQoD/HN/rYWgBSFMScdlZnc8jWOp/+kv1jMJTsfd/dd76Su
-         zMrKOJQpqCio+S1XjsQFGx2ONm0y1G4MpcgdiBRQDsZh+ruITFictFhFQNT9gTAF8Onx
-         2KGL26J2VQzb5lyJv1fQNOi4juWurZTmiLbQWlq2BD0xj5u1+cOk9504C8GyYLltrZlM
-         mQAz8ep0qvf5VNrzISDygFNtEnugOvAhqm6501Mn4zTi70Q9rU9QSA0Fba1C5CGcbvjh
-         5YZA==
-X-Forwarded-Encrypted: i=1; AL+hErHmtK32bK7yAUh4MEFlIuw1WAvfV7nvJLmiktJLh9kWHml564sPkkhND4wNJXZp/tF4bJPbVSV0FgmF9Kg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/o1hzvjEz9SdEd33/QdNZdD6M1bSsmpwI9dfxjT1apsorYozys
-	TuSz5YcWouaHTOCU4E5BDmQenV/+0dcitbwvm7dGEGmnVNz/rwpI7PJk
-X-Gm-Gg: AZFdTZdc3Ej2OUD3spDaULX6bisg247FfW746TJFh9IE0LOJgzpzPeZ5L2VvOm6J1GQ
-	NkK34BNxJzg+OtXexWLk/N3jYf/QIw1+L8P5ZV+laub/tHMgfL9kMG1r29oP5Ew6NMbpwtGVuYy
-	Mn3uXSjlyAoe7Eh4WsIRBS85ltm0sd7iNnInAzBMNNl1aPZrMXVvd0aFhzDE0bpjijGIWNQPEnP
-	/Fzi9/DuPRrnLB6zxQkRUXqjlbEMk8N6cSlp79XN+SesWzJefpppR2bkoZF86si8+oAp8LkgKXm
-	ZlKf0hu3nsoctnGMuBLLjmEGrAdcTMFDPxMJztDn8sS6d8mKKqBqnZ7+lRPasD6v/pQj+yRAdde
-	B3TJ+o9eTN+vrHLnvMNuu5qB4svqNfBTsCTghJxVf/gTJUSsEvtzu4NwuuDgdjKrLGi1t14H6Hh
-	56K2+La1gjdKDFjd+Ik8AsGJXchX/2IIINxjwMcOso2lRFdbXZNgNhr9LqvE9PSKA2O6o6HWtxs
-	TMijFym67TgIH9/kGZ0Sjo0JtSxoBR4ozSTYObOdh3uBna1hQfPERfDzhQ/AG8Pl7dLxOKbhSUi
-	/XyTBcmJOd43Z7YhnmWyxGRLvArKwSAbAED/lDXPY7nNIqzsieKBLSe2AVk74PieXL8elVblS8O
-	m+OlRZkwsHmbwETUG/oMHAMVSx3jftqhW9W/tleJYShdHYy9Vxz4aLNiY86hBuWPJXPirw12ACQ
-	imMuV5SYjzkF3yPox8DB68HW6XD5RDpzq70lvSH90paEDX1y14AWPD9/wEVitdCfL24FmqmxDGB
-	NGlQQUQYyIkLvRqHeWTtQ+JnPl/shJKVPK8dlzWnz3qG57fEay1QatvAXF8/wa/
-X-Received: by 2002:a17:903:390d:b0:2e9:5507:b532 with SMTP id d9443c01a7336-2ee0dc5d126mr124593155ad.43.1794906640821;
-        Tue, 17 Nov 2026 01:10:40 -0800 (PST)
-Received: from localhost.localdomain (123-243-92-89.static.tpgi.com.au. [123.243.92.89])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd7aa8049sm11241175ad.68.2026.11.17.01.10.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 01:10:40 -0800 (PST)
-From: Daniel Wade <danjwade95@gmail.com>
-To: David Hildenbrand <david@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/khugepaged: mark a collapsed mTHP dirty
-Date: Tue, 17 Nov 2026 19:40:18 +1030
-Message-Id: <20261117091018.63639-1-danjwade95@gmail.com>
-X-Mailer: git-send-email 2.39.0.windows.2
-In-Reply-To: <dfbf361e-8125-4f8e-9567-65e80996e2d4@kernel.org>
-References: <dfbf361e-8125-4f8e-9567-65e80996e2d4@kernel.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=MMjHPJxO
+Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9A3F4177;
+	Tue, 17 Nov 2026 10:08:51 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1794906531;
+	bh=KUFK5SRjTDmkX8fMf4Me0mjN4nDeO27cOzJsCIsYw84=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=MMjHPJxOkzofEgWsMCPdy/py0r8ulpcFPYc3Vf1zCCbf94cGuQ3E7X7zWdPJN+D/A
+	 xxtRpjF8XOMaDz50oyN+eqb0dVyddYDrKLByR1wSBMIxqd1zsvek/BZGwibYGcZ9kg
+	 Ytz9zPftXJccBUr6hhs+/CgwTeplKuEwVXE4F6NU=
+Date: Tue, 17 Nov 2026 11:11:17 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Kory Maincent <kory.maincent@bootlin.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Daniel Stone <daniels@collabora.com>,
+	Manasi Navare <navaremanasi@google.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Mark Yacoub <markyacoub@google.com>,
+	Sean Paul <seanpaul@google.com>,
+	Drew Davenport <ddavenport@google.com>,
+	Louis Chauvet <louis.chauvet@bootlin.com>,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH RFC v3 0/8] Add support for DisplayPort link training
+ information report
+Message-ID: <20261117091117.GA1851633@killaraus.ideasonboard.com>
+References: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
+ <51ec15feef9a88e460ab6fefc48b5b982f4857c0@intel.com>
+ <dfe3ce17-8153-4cd1-b9df-fe0d61cec9c4@bootlin.com>
+ <20261116154931.GA1763340@killaraus.ideasonboard.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,19 +91,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261116154931.GA1763340@killaraus.ideasonboard.com>
 
-On Tue, 17 Nov 2026 09:13:09 +0100
-"David Hildenbrand (Arm)" <david@kernel.org> wrote:
+On Mon, Nov 16, 2026 at 05:49:31PM +0200, Laurent Pinchart wrote:
+> On Mon, Nov 16, 2026 at 04:13:52PM +0100, Kory Maincent wrote:
+> > On 11/16/26 14:10, Jani Nikula wrote:
+> > > On Mon, 12 Oct 2026, Kory Maincent <kory.maincent@bootlin.com> wrote:
+> > >> DisplayPort link training negotiates the physical-layer parameters needed
+> > >> for a reliable connection: lane count, link rate, and optionally Display
+> > >> Stream Compression (DSC). Currently, each driver exposes this state in
+> > >> its own way, often through driver-specific debugfs entries, with no
+> > >> standard interface for userspace diagnostic and monitoring tools.
+> > >>
+> > >> This series introduces generic helpers, for exposing DP link capabilities
+> > >> and state as standard sysfs entries.
+> > > 
+> > > So how did we end up with sysfs here?
+> > 
+> > In the first RFC it was in DRM properties. I presented it in the display 
+> > hackfest in Nice last years. People suggested to use sysfs instead but 
+> > if the need appears later in the development move back to DRM 
+> > properties. I first though DRM properties seems better as it is the user 
+> > interface used by distros but I had no strong argument about the change 
+> > to sysfs, so I moved on to it.
+> > 
+> > >> The aim of such development is to guide users to select the most suitable
+> > >> DisplayPort connector for their needs. For example, if you have a USB-C
+> > >> hub with lesser capabilities than your computer’s native DisplayPort
+> > >> connector (such as HBR2 versus HBR3 support), the system could recommend
+> > >> connecting high-resolution displays directly to the computer’s port
+> > >> instead of through the hub to ensure optimal performance.
+> > > 
+> > > I do wonder how all this is supposed to work in more complex real world
+> > > scenarios, though.
+> > > 
+> > > I believe the user primarily cares about *modes*. Which display modes
+> > > can be used with each display/connector pair.
+> > > 
+> > > With the low level link information, are you proposing to compute the
+> > > required bandwidth for modes in userspace? I think it's going to be a
+> > > lot of work to compute the bandwidth requirements, taking into account
+> > > DP SST vs. MST vs. UHBR and DSC and bit depth and everything, and you'll
+> > > still miss any driver/GPU specific contraints. Or are you just proposing
+> > > to match the physical characteristics only?
+> > 
+> > This is a requirement from Google, yes they want to compute the 
+> > bandwidth for modes in the userspace side.
+> > @Manasi could describe in detail how would you implement it?
+> > 
+> > > Given all the connectors and displays and their modes on a system, you
+> > > could estimate a) for each display, what modes could be used on each
+> > > connector, and b) for each connector, what modes could be used on a
+> > > display, if connected. From the user POV, they could be shown why some
+> > > display mode is not available on the current connector, and crucially,
+> > > on which connector it could be available.
+> > > 
+> > > In general, I'm wondering if you're really after higher level
+> > > information, something like "connector max available bandwidth
+> > > with/without DSC", that would more directly map to the user needs as I
+> > > see them than low level link details.
+> > > 
+> > > Do you have the userspace somewhere? That's needed for merging UABI
+> > > anyway [1].
+> > > 
+> > > [1] https://docs.kernel.org/gpu/drm-uapi.html#open-source-userspace-requirements
+> > 
+> > I wanted to add it to IGT GPU tools, but I was hopping for community 
+> > review on this RFC before the IGT development.
+> 
+> Note the following requirement:
+> 
+>   The open-source userspace must not be a toy/test application, but the
+>   real thing. Specifically it needs to handle all the usual error and
+>   corner cases. These are often the places where new uAPI falls apart
+>   and hence essential to assess the fitness of a proposed interface.
+> 
+> I think think IGT qualifies. An implementation in a desktop environment
 
-> I have a different patch on my queue here that fixes this as well I think. Please review.
+I meant I *don't* think IGT qualifies.
 
-Yep had a look and yours does fix it.
+> would likely be needed.
+> 
+> > >> The new drm_dp_source_set_caps and drm_dp_sink_set_caps helper expose
+> > >> source and sink training capabilities to userspace via sysfs attributes
+> > >> under dp_link. Finally drm_dp_set_cur_link_params helper is provided to
+> > >> report current link information at runtime.
+> > >>
+> > >> Three drivers are updated as reference implementations: i915 (direct
+> > >> connector path), ANX7625 and MediaTek (via the bridge connector framework
+> > >> using a new DRM_BRIDGE_OP_DP flag).
+> > >>
+> > >> Here is a sysfs example:
+> > >>
+> > >> cur_link_info_dsc            sink_link_caps_nlanes
+> > >> cur_link_info_link_rate      source_link_caps_dsc
+> > >> cur_link_info_nlanes         source_link_caps_link_rates
+> > >> sink_link_caps_dsc           source_link_caps_nlanes
+> > >> sink_link_caps_link_rates
+> > >>
+> > >> 1620000 2160000 2700000 3240000 4320000 5400000
+> > >>
+> > >> 1620000 2700000 5400000 10000000 20000000
+> > >>
+> > >> 5400000
+> > >>
+> > >> This series is rebased on top of drm-misc and may conflict with the
+> > >> current state of the drm i915 tree. Which tree should pick this up,
+> > >> given that it mixes core development with driver changes?
+> > > 
+> > > For development, please just base your work on top of drm-tip, and the
+> > > tree(s) will be sorted out later.
+> > 
+> > Oh, ok, thanks you.
 
-It's more than soft-dirty though. If the folio gets dropped while
-another process still maps it that process reads zeroes, I had 64K of a
-child's memory come back wrong. So might need a stable backport.
+-- 
+Regards,
 
-Dropping mine, yours obsoletes it.
-
-Reviewed-by: Daniel Wade <danjwade95@gmail.com>
+Laurent Pinchart
