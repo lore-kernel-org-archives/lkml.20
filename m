@@ -1,80 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794878498;
-	b=JwDDfGkSdKNxO7XeZVVu98Swyb2G6lgG4Q/KGBTB1XQP0wL4dCQe1TklULQM2E2iX+4G
-	 HEeTsAk6RmjVhS6peESbNH5xP0aropMbK8B8Rp14UcTlIpkCVyBCsyWH36nlvyf6UdgLZ
-	 z9wgcoDi00ePXX7F1h1oaPMfNLn3qDHqPV3YFu5lcxdOPCcM4+ZLzDFXw0LFeB6dJmgid
-	 yzh7tzWa/ixB/J7m+C/aAJfwQi2Yi89/faV+smHGz1XmEykykKXvWueCNJPncl7fRUwOE
-	 WLLLnXk4IyFZIyO0P43v29jkNoqg+ab11eFdESGkH3+1MV5KY282d2HyE24GVCQBWDA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794878498;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=27pg7QSeKC7eNF31UfV6oNEJuE81OXkGgDiSCoSCGao=;
-	b=LfhwpATa3f1UiZYnFC0fsGVwOvPXkanVlrf0PoN6I6WeRBu1r/+HvHdgXIaaHi/fdLqk
-	 FnpDfUUuSXIafIeP2GAsnCJ0SXXv4UWhJPbxBpZf68bDT6MCoRExBpPbkW9gHf8BZEevd
-	 0Ja3Oaywq6m3SqpELQhNyp+9eUxGR399Q4MFtzFu/ezWrAgRdR4pX2Efv0xMwNr3xkHgv
-	 AsEjgynZ7zJcaAI6qI8aAzQC9JrthicEygACiH83kbFE1A/2vR7zEKCpgXKEIh3C2BFA7
-	 wd4GXfw3NtkrOF8mc7Y9kBbmaJ483sI5WZMzVu6Lx9GcFU33lwqAjaKNypi+i6E9GWA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AxuJBLAX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3276606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:21:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AxuJBLAX
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794878497;
-	b=eLfC/vGP/XSkygCC5eeFRTHWSThvGAPyL3obddO+wPsNMQFEOebuyk7wGiarwrkD+48T
-	 /9Fdcyy1BHW9AhYmLDQrrJKlZfurx4a0CNOoiorY1cVO3pOqkkENGo2g/aViF5G3uKNbm
-	 KtgL5AmAxU/tDWGeV8tMCogOYqe6DyY1YelSFlpluKVRVdhuFTASPXif8cM45ocwY6Om8
-	 ITGSS9DSAXr98MIUkvHZEq3X3fwOEc/qiW+7ol2KDEBaXu/Ze8y+zMyi4+RhRfhmOg15i
-	 aezMJXeLJn/myvX4LQ5IEzvhGZ7drcozKFTg6IsciDuudq7N4gKyHXw1EimK4hn0Rmw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794878497;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=27pg7QSeKC7eNF31UfV6oNEJuE81OXkGgDiSCoSCGao=;
-	b=AGLPYwrRyrT3r5hFRQENA/iiUumdYKj6S91yRTtBn4c7V3WkBmdNRmteELF8MmlzWSVC
-	 EqGy6BI6lKf9DM5ftu1lWmUS8f2n1ETxlt7/dVAIsXEN1Y+p0MUiFAAqtr4xxmkR72PBI
-	 RbZYr9/K57aUrQDKDvNVRMfh1dx9BRDJ2Td0hebujFHMLOw2NwxBIxTbsBZcJ3RbMEwbA
-	 xkY4FZuT/gzDSy8hOjYg2BRxV1W3gIyC1qEVIHyXZy3mpYds+3ub4lOKh+rYFroVXdlBz
-	 udMAA8Qxa8/0B4GQo2YSh+/xuT9c8TNeMQrcImr49Ik2RwX1Smm0ZmcS1cV8l0FNbBw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794878622;
+	b=JANKLik8wMNkvy+nwJE22msNe666KdvvT1oI/UfF8Rl/vwzCJWUF7ANQg+oc/HsYSu0t
+	 zZqNuy67fKYifqiVHfrYMGCrORLDDO2sZgpDb7qmRrZG8vaT4FoHvObSr+p/VAe68v6vb
+	 YeoFcngYMiPcrKsKwvhQFU6VIZ7bxf/IO6XhTL+bEaWNRz06vZczPFiPvcCupbOIOSxj2
+	 SakmiyaprnlvfwfeZeyNJefN+RpXwtiwEQfL/y427lpkHIMt9yz8OpHHzWGtvYagFiG5o
+	 ADwnAMkRtDncWfVdG2U++b2K+GQm/VU8oKCUce5XR1axwUXJlzP4tUl7xURPk2XDaLg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794878622;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
+	 CC:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Originating-IP:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version;
+	bh=6RCPXUXfIxo+y2UnkG/bhthPFYIMWnxtExJ5BNdZHk0=;
+	b=3SDSEoEG5x+LeCQmaZEQiaowtI08g3v7pTL/zchTp77Or2iTRLQKWhEbMpi2BST65tyO
+	 UCqCt8hsdJLZFH8mBVw28fzmRFb71JRlaN8XrVnI0J85LCKGg8uYdveQ+2eEnOtRx/Fci
+	 ED7HO3yx5YVleVmW4j3nj/MmB+HF/Z2xw0SuOC1qOQt+4x+giz/gDQS0cjSoyJPA1phiZ
+	 dVQ+DPdzKJxw0DXL91oHY7Ge8PUSuzKqDgXan8EanDR4fIwWXmpxcitBaHn+SD1x1JwYC
+	 OEvFQZux/hJWJGbMGh+Z1T3EjXOuYaHGnwn0c6DYnUuygGEE6Pvkomishl2+yXqui7Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=meta.com;
+	spf=pass smtp.mailfrom=meta.com;
+	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=SDswVXvu;
+	arc=none smtp.remote-ip=67.231.145.42
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 9EEFC1F000C5;
-	Tue, 17 Nov 2026 01:21:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794878497;
-	bh=27pg7QSeKC7eNF31UfV6oNEJuE81OXkGgDiSCoSCGao=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=AxuJBLAXr3vnE8vDlcHPzJlVZxj9YRKjPkKAYpRa2+yIMrVi2zmTRs/mBIfpOl/Xh
-	 4G5R+8bfvGAgDyHyV16aY8J7Y0Ms5X6pl1NkA6gnt1zWu0s0NEbj8/VXmRcuTxCE1D
-	 sfnHm761HO3dq7QBbZL5geE4CODEhv+MTeucdp4pgEK+VWVBLtoFFY8RH+LVBFsoQo
-	 SQgheGNmfn98XPLAZZt7dNVGKLs596IJ3l3KjWzW4JtntBqtLYW3lzE++gHQCHukQ0
-	 9hSd5T2Gn0dFXtHuYFr74RnIH3HPfOns/z4aa6CACi4shFvknPgsbXfI5nxGntSQZV
-	 Jls/2iheOaBHg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id F35C54A664;
-	Tue, 17 Nov 2026 01:21:35 +0000 (UTC)
-From: Sidharth Saha via B4 Relay <devnull+ssaha2000.gmail.com@kernel.org>
-Subject: [PATCH 0/5] drm/vkms: Add KUnit tests for packed RGB format
- conversions
-Date: Mon, 16 Nov 2026 18:21:31 -0700
-Message-Id: <20261116-rgb565-test-v1-0-27f49c1aa694@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8854D606A31C;
+	Tue, 17 Nov 2026 01:23:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8854D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=SDswVXvu
+Received: from pps.filterd (m0044010.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGNOqqu1978717;
+	Mon, 16 Nov 2026 17:23:12 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pps82601-s2048-2026-q3; bh=6RCPXUXfIxo
+	+y2UnkG/bhthPFYIMWnxtExJ5BNdZHk0=; b=SDswVXvuAUI8muhYNcUukufeX/8
+	D0GSKX1dQ5mDP6hG9AJk7bmtYcsUtAXz/xqd+GyP3Czju46I9wy6c81vEzz3d+nr
+	3zzWn80O8v8Z//Bt3Pq6YemXWZ0MwbwZYeU/1VhOf3fZQlUgHarY5yfEBh1btC+q
+	FAEuQzvBZTF0bygBuW5y94wMAvw4GNVIlqD8p/O8obf0jZlUjDaNT1qoH5z5NDad
+	udafcX4jcAM+RT8yaHcFlFBzwJmYcfgYnJq+YvvLZN9xNojTZL3F/iVpC9mftDU9
+	15DSOQ7bujgsnTXW9BMI8AYcDHAkQNQ/vVw+bpDl3x68XTwDzvSFxFRHscA==
+Received: from mail.thefacebook.com ([163.114.134.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hxku5xbr2-2
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+	Mon, 16 Nov 2026 17:23:12 -0800 (PST)
+Received: from localhost (2620:10d:c085:208::7cb7) by mail.thefacebook.com
+ (2620:10d:c08b:78::c78f) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Tue, 17 Nov
+ 2026 01:23:11 +0000
+Date: Mon, 16 Nov 2026 17:23:10 -0800
+From: Bobby Eshleman <bobbyeshleman@meta.com>
+To: Michal Luczaj <mhal@rbox.co>
+CC: Stefano Garzarella <sgarzare@redhat.com>,
+        "David S. Miller"
+	<davem@davemloft.net>,
+        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>,
+        Simon Horman <horms@kernel.org>, Jonathan Corbet
+	<corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Stefan Hajnoczi
+	<stefanha@redhat.com>,
+        "Michael S. Tsirkin" <mst@redhat.com>,
+        Jason Wang
+	<jasowangio@gmail.com>,
+        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+        Eugenio
+ =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+        Shuah Khan
+	<shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
+        Donald Hunter
+	<donald.hunter@gmail.com>,
+        Eric Dumazet <edumazet@kernel.org>,
+        George Zhang
+	<georgezhang@vmware.com>, Andy King <acking@vmware.com>,
+        Dmitry Torokhov
+	<dtor@vmware.com>, <virtualization@lists.linux.dev>,
+        <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <linux-doc@vger.kernel.org>, <kvm@vger.kernel.org>,
+        <linux-kselftest@vger.kernel.org>, <sargun@sargun.me>,
+        <jlinbox@meta.com>
+Subject: Re: [PATCH net-next v6 1/8] vsock: only undo SS_CONNECTING when
+ connect() fails
+Message-ID: <avusfpnZuzMV3WxB@devvm29614.prn0.facebook.com>
+References: <20261113-vsock-guest-ns-v6-0-3737ce4673c0@meta.com>
+ <20261113-vsock-guest-ns-v6-1-3737ce4673c0@meta.com>
+ <6bdfe6f7-aba8-4fb8-ac24-62fe020e1422@rbox.co>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,77 +103,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBCF4avIrJuQGIxGSuk9iouoEw1UbTOxF
- MS7N9Xl/+B9GxAGjwR1tkHAjye/zCnkJYNutPOAzPepIRe5llJqFoa20AWLSJGpvnKmU51pFUJ
- 6vAI6/z20R3N2wPea0HiOMCGRPdA6u/5NYfJKiEIJyZUuTVkyySYbR1yJW/uc0Pf27mfHVxcG4
- m24QbPvP3gk8zC3AAAA
-X-Change-ID: 20261116-rgb565-test-3d8f9c3c9b3e
-To: Louis Chauvet <louis.chauvet@bootlin.com>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Melissa Wen <melissa.srw@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Sidharth Saha <40047656+Sidharth-Saha@users.noreply.github.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794878495; l=2121;
- i=ssaha2000@gmail.com; s=20261116; h=from:subject:message-id;
- bh=4R4U0RGMTz3P5bOW6oCa+DKZ3/UIMcCejyTU2U2foww=;
- b=LO61FrvPo0vRuzmFSmVKabjZJxKkkU+DVF8WiR5UIvSO1/KF8brdQcBDPG4My8/LGs9VNR5Uw
- w1x1GBdIaHPDkFdlmKJH/vGtwIZNWfA+Yz/JTFc69uuhJ7Q7xd8FBuG
-X-Developer-Key: i=ssaha2000@gmail.com; a=ed25519;
- pk=wMWW9xOklVZkO7Yh4yIXvhVVRs/3ROsqgjTt8XBGybI=
-X-Endpoint-Received: by B4 Relay for ssaha2000@gmail.com/20261116 with
- auth_id=1541
-X-Original-From: Sidharth Saha <ssaha2000@gmail.com>
-Reply-To: ssaha2000@gmail.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <6bdfe6f7-aba8-4fb8-ac24-62fe020e1422@rbox.co>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDAwNCBTYWx0ZWRfXw+sA7WyR5fAw
+ TXovZZcIazZICOswjUfauPnRZHKFDpY4OamNG3a9JpkvewckKGNTvzKwEdnOguhJtqIYtYFUORE
+ Oaf8zJKi9lKXWEz7SKlSSR6GOGUZ/9s=
+X-Proofpoint-ORIG-GUID: KMXLMYJs4-5j-kqvUpTGAlw7R4_j3K2w
+X-Proofpoint-GUID: KMXLMYJs4-5j-kqvUpTGAlw7R4_j3K2w
+X-Authority-Analysis: v=2.4 cv=SuoFe/O0 c=1 sm=1 tr=0 ts=6afbac80 cx=c_pps
+ a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=7x6HtfJdh03M6CCDgxCd:22 a=8elwO82fXORLTBIkMd32:22 a=VwQbUJbxAAAA:8
+ a=VabnemYjAAAA:8 a=LG5T7v2SAAAA:8 a=He0p99DsmHbbqY9DTv8A:9 a=CjuIK1q_8ugA:10
+ a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDAwNCBTYWx0ZWRfX7m85Y5zQnTEb
+ cMVAlqDIp0L2XulWWy+37PM46rNDD2UY88oV3B2zR4ZtJPzZP+9UGqIVwRIIlZXTvIQx3EiZDC4
+ gnkFY9xidHqSP4RoTbA661mzuoizyd7SYwiNmLi1KDMmkzkgvlQ4Kp61rXBcobVCl/zKyBVil60
+ 7am3E8oOWIzMZlEajob5IKnlA3kjYWd5+OTUfZg7Wa/QtQBIWSXnfLK7a1ng8uVvNECyQ0aqPDD
+ UH6C+hqMkjYARmkePb09z0KEEQ85Tg1J1V/c8BTRcJnODLrf2uy/E5mHretdmt9JQuCEKwf63G+
+ 4lCbtvEVGeaZ3Bt2v1anQCC47V5lYoFsR5hPoMxkbtl86hPzsvl7VC9+9h4ir4te1TUs3X5BUNa
+ tGwOB75rcksb/sblhi6g3vr6FErZTmmr8tAv5tODQC+Gg5tnvGhAZVQDMsqHhMfWVpDYLdPgNV+
+ a7jxS+n385ic9UFqJEQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-16_07,2026-11-16_01,2025-10-01_01
 
-This series adds KUnit tests for the pixel format conversions touched
-by Matheus's series "drm/vkms: support more formats and fix RGB565
-regression" [1], which it depends on.
+On Mon, Nov 16, 2026 at 12:10:19AM +0100, Michal Luczaj wrote:
+> On 11/14/26 04:14, Bobby Eshleman wrote:
+> > vsock_connect() sleeps with the socket unlocked. Meanwhile the transport
+> > can complete the handshake, setting sock->state to SS_CONNECTED, and then
+> > reset the connection, e.g. in vhost_vsock_reset_orphans(),
+> > virtio_vsock_reset_sock() or vmci_transport_handle_detach(). When
+> > connect() gets the lock back, it finds sk_err set and moves the socket
+> > back to SS_UNCONNECTED. Userspace can then connect() the socket again,
+> > and a connect() to a CID on another transport makes
+> > vsock_assign_transport() release the transport the socket was connected
+> > on.
+> > 
+> > Only move the socket back to SS_UNCONNECTED if it is still
+> > SS_CONNECTING. A socket that got connected stays SS_CONNECTED, and
+> > another connect() fails with -EISCONN.
+> > 
+> > Fixes: d021c344051a ("VSOCK: Introduce VM Sockets")
+> > Suggested-by: Michal Luczaj <mhal@rbox.co>
+> > Link: https://lore.kernel.org/netdev/179447093204.2199510.8895677421994612994@kernel.org/
+> > Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
+> 
+> Reviewed-by: Michal Luczaj <mhal@rbox.co>
+> 
+> Thanks! To be precise, the Link: above is more of Sashiko's musings on
+> what's wrong with Jerome's (not merged) patch. The patch of yours makes it
+> moot.
+> 
+> I believe the first time lore mentions the issue at hand:
+> Link:
+> https://lore.kernel.org/netdev/20260909-vsock-connect-reset-closing-v1-1-50298b9ccfbf@rbox.co/
+> 
+> And there was at least one report off-list, so:
+> Reported-by: Kyle Zeng <kylebot@openai.com>
+> 
+> BTW, I've noticed Sashiko already commented on this patch. I feel I'm
+> responsible for that wall of text, so I took the liberty to reply. Hope
+> this will help.
+> 
 
-The RGB565 writeback rounding fix in [1] restores a fix that was lost
-once before in a refactor. These tests are meant to keep it, and the new
-RGB332, BGR233 and BGR565 conversions, from regressing.
+Got it, will address this. And I think I will actually break this out
+into a separate fix for net instead of net-next.
 
-Each test is table-driven, with expected values computed by hand. With
-[1] applied, all cases pass. Without it, the tests for the new formats
-don't build, the RGB565 writeback rounding cases fail, and the
-RGB565/BGR565 read cases pass unchanged.
+Yes, I much appreciated you responding in the Sashiko thread! Thanks!
 
-Matheus offered to include these in a v2 of [1] if one is needed;
-otherwise they can be applied on top of it.
-
-[1] https://lore.kernel.org/dri-devel/20260928005301.367977-1-matheus.aalmeida@inf.ufrgs.br/
-
-Signed-off-by: Sidharth Saha <40047656+Sidharth-Saha@users.noreply.github.com>
----
-Sidharth Saha (5):
-      drm/vkms: Add KUnit test for RGB565 writeback conversion
-      drm/vkms: Add KUnit test for BGR565 writeback conversion
-      drm/vkms: Add KUnit tests for RGB332 and BGR233 read conversion
-      drm/vkms: Add KUnit tests for RGB332 and BGR233 writeback conversion
-      drm/vkms: Add KUnit tests for RGB565 and BGR565 read conversion
-
- drivers/gpu/drm/vkms/tests/vkms_format_test.c | 202 ++++++++++++++++++++++++++
- drivers/gpu/drm/vkms/vkms_formats.c           |  24 ++-
- drivers/gpu/drm/vkms/vkms_formats.h           |  10 ++
- 3 files changed, 228 insertions(+), 8 deletions(-)
----
-base-commit: 66c571876c4634dc3258a75a6d49bd7e88ffcb35
-change-id: 20261116-rgb565-test-3d8f9c3c9b3e
-prerequisite-message-id: <20260928005301.367977-1-matheus.aalmeida@inf.ufrgs.br>
-prerequisite-patch-id: 62056d93696db239d59a0ca486a7fba3f5ee204d
-prerequisite-patch-id: a909d90a401095b0ad014f44f08b8c76563262b8
-prerequisite-patch-id: 713b5a5532b2ec31d360132496e6f9980b91a16a
-prerequisite-patch-id: fa0fda9d178c4b5a65d984a672f47ec90b86ea2a
-prerequisite-patch-id: 8e173c420969c0943d31eec819288d9df4d39b5f
-
-Best regards,
---  
-Sidharth Saha <ssaha2000@gmail.com>
-
-
+Best,
+Bobby
