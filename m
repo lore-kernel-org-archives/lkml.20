@@ -1,57 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794929025;
-	b=Nk3VMbIGnwjNLrI+Gzyva0ZwYyYkvyVZDDKDm6Y91QKp4AmlYKxPcFlpWCrNET9pWvvc
-	 pLcLT0P1SXZ/WdWxDDFzqoBoSTJ35V5om7TDaY+3LYHApAhIyOg5iRehO7xhjzZIkpJ2h
-	 XRBcVkcZWia+UvWOgTK14HBqOZtrLMmY+1RKCBN+HtaKAAwqmHScOEXMcFdgtScjYBXP1
-	 1YT6cEdi4M1qqv1D4Egx0i1tNDoP8QBA04BfPNVmMGPL1YF+vq08ec1up8rFO/7jhJzUw
-	 w+VGH8tqOaQxV72Qk7Ydo0TpJrYz/2fBbI1de7u8ovDBb7zlA3gNGjmSZ8dsI7j9bKg==
+	t=1794929060;
+	b=RWUBNoUnt8FfMTChK9NU0o3cQxAEN//zv9Z8U6s2nMpA1zqqgp8yJS1ATcqYf3yEaPqE
+	 HUx3xcE/uEXOoSsOZhY+/h9qwNH3SmosVJPbWUR2gr0/yM6v/Ha9pwJqfMf3SLyEIGayp
+	 +ercHZYGOn9HMSxlqQJz/WYZTfQ6/nlAl4HtmVYvSt8xmyh84XQhKH1MvZ6sa0GXcSUIc
+	 8fk1f4IuKIYoPJDMouwrGYXqrGr2Z1mBtOXBTD46KYVEchRASiEthDVzD3lnpHnRmQbkb
+	 0kAJqkTj90dROpAVS1YLGiQfIWgyV4IbWQHRrJ+OehAK5TMHgKr8LJs1WksXrJaWj0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794929025;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=mSX7nUXRaAIFnfD43d+7mLEk80OZ6gLg3zuHdBHTOJ0=;
-	b=HcmGm8hql8z5X8Q0voX8EnTy8OtXn1D9kT8nmNiTpZdIByTjbjLYpjGytbbdfdGIvLFH
-	 mv4oNbaSTJW5s1OXl7oSgTaY/8C5qXr7eOTy9C5zEQdYV10/lItFLTfQC9EantMbg+eT7
-	 EBQ/X+U0a+mUZBeaCSNsPzBUOsEE5s/9+OyE+361Awtve9YeqCy3zGs4lY3zbk8EjZFmK
-	 SjP+nN5uXfHNbXObNIOng0cxSuEm/nRn/dnNwOIpY5RoFFzpEcxUnkaPIXnd6SuawbqTV
-	 +Vb3Zfdq8XQGk/VSBb06+nK1T291xKucY+PUTMPTHNWfWDc3CvG7rM4RM0PTf8E+YpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794929060;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=tR40YrQMqhA3qjVXrvl2z3Xw/HP3Dpq+zbmny/i+Kxk=;
+	b=fCzPP07/Raq+28Oas5+G56/7IDkWYsadtm0OAMOr6mtbssMJxVOrD/nlZVt7FoqHKdt5
+	 kaxtfuCPxw1+gg2bisQMtgibEEXDqmGWXc9TfLEn2Lh2JGuoNKitZp1+tClMLpRA7xX/7
+	 AJMLC2l+ZoDInv05r4zRLol4hCL7ThqfoIEEcukm5ytp6L0JXWfTZAJDDbpEExebNoeGb
+	 uMylSD6mqjlWEo+J/5KMYVpoWjQbZUJT0kQWC9c9TWWUQHhZK33ZqTa2RaoGy3PMIkIst
+	 KARmpugScCJHwnLjr0sHOdX9AITrYrc8SRsVZs85b48HvWuFx1OCgKaUrfX8yQ15I7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uu0e1rS2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=hwPlZkpk;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB236606A881;
-	Tue, 17 Nov 2026 15:23:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C142B606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:24:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C142B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uu0e1rS2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34C501F000C5;
-	Tue, 17 Nov 2026 15:23:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794929025;
-	bh=mSX7nUXRaAIFnfD43d+7mLEk80OZ6gLg3zuHdBHTOJ0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Uu0e1rS274Qqeja5yvHqcX4UjyGrDcWcLKBaJgPRGwRrJZJgtwH6NCUq67GHKzHqT
-	 hbbaAoGXm3ayaJD8N/IiIatCodLgZkNEt+DQLfZ6LGi32uNZVa1047zyBTX3GZn3PB
-	 zZtxqxTDt7RY4DT5GdZWr9adac5O5z0HzQG8KWqX5suSdfdIqHqFJC6v0688eJGBQ/
-	 xArs92azFmC8YnB9F+Lr6mw/O8b3h7eJd8m8ylX/Cy9MkWb7Zsi4BQIL/BqgZhcbZ4
-	 P61iglUwiNPfkaKp5xew2wvMZjbQ2FjS+4T4/2ziWzCsc+TyfS6t5/M9lqv4/zyGKF
-	 HqgqRX6bPxlLQ==
-Message-ID: <sashiko-outbox-219058@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 38/40] selftests/sched: Add a test of SCHED_DEADLINE
- policy round trips
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
-In-Reply-To: <eb355ec19fcfcffd3e7f8dbd79dff377581a7a87.1794922146.git.mathieu.desnoyers@efficios.com>
-References: <cover.1794922146.git.mathieu.desnoyers@efficios.com>
- <eb355ec19fcfcffd3e7f8dbd79dff377581a7a87.1794922146.git.mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 15:23:44 +0000
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=hwPlZkpk
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=tR40YrQMqhA3qjVXrvl2z3Xw/HP3Dpq+zbmny/i+Kxk=; b=hwPlZkpkZ9tTbFFxWXXy2O/29c
+	l6Cl/QzRiq9ZC8CyQSFqY3tPsO4f+ha++R431B9FgPOhIncGJtG4JvZt8OwGDRF9IhElYCraD/DBu
+	u3naxqv7j5OJtCz5F4SnEDETVbmUJ/uEoODCo2MbYScsdDp6WY3ekEL6JBBg7ib1cbUZuc+KYZRQM
+	I1bEbzdclRJeI+vzAp2C/EIqHrS3B6chFhtCcNoB46X0AggxnAKaXgyx03VTvkMx/qbbuaKNavFkx
+	2ja7op/rtQ1VYzOsMFpd1yjsok2qeIjMoEIz8RC4i5OaWcnmzaKTxYSdcC7QPBZ6Pd74G8JqpaAyf
+	EeaBOdLQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xTL2d-0000000F7dg-0aNJ;
+	Tue, 17 Nov 2026 15:24:15 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 39886301185; Tue, 17 Nov 2026 16:24:14 +0100 (CET)
+Date: Tue, 17 Nov 2026 16:24:14 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Mel Gorman <mgorman@techsingularity.net>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Seiji Nishikawa <snishika@redhat.com>,
+	Mian Yousaf Kaukab <ykaukab@suse.de>,
+	LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3] sched/rt: Do not account migrate-disabled tasks as
+ pushable
+Message-ID: <20261117152414.GG1922751@noisy.programming.kicks-ass.net>
+References: <20261113160655.2909479-1-mgorman@techsingularity.net>
+ <20261117152026.GI1813469@noisy.programming.kicks-ass.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,108 +71,90 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261117152026.GI1813469@noisy.programming.kicks-ass.net>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] selftests/sched: 64 KiB FILLER_STACK fails
-  pthread_attr_setstacksize()
-- [Low] selftests/sched: missing sem_destroy() and pipe leak in
-  deadline_switch_test
---
+On Tue, Nov 17, 2026 at 04:20:26PM +0100, Peter Zijlstra wrote:
+> On Fri, Nov 13, 2026 at 04:06:55PM +0000, Mel Gorman wrote:
+> 
+> > As above, the runqueue is still marked overloaded by enqueue_task_rt()
+> > and put_prev_task_rt() even if the task is migrate-disabled. A
+> > migrate-disabled task reaches the pushable list through enqueue_task_rt()
+> > or put_prev_task_rt() when it is preempted, or when it wakes while
+> > still migrate-disabled. Either path calls enqueue_pushable_task() to set
+> > rq->rt.overloaded and rto_mask if unset. Once set, every pull from another
+> > CPU that fires an IPI may only find migrate-disabled tasks rendering the IPI
+> > useless for a condition that was detectable when placed on the pushable list.
+> > 
+> > Stop adding migrate-disabled tasks to the pushable list if RT_PUSH_IPI is
+> > enabled. This is not a heuristic as migrate-disabled tasks cannot move. Even
+> > when migration is enabled, the rq still has no pushable candidates until the
+> > task schedules. The !RT_PUSH_IPI behaviour is preserved and migrate-disabled
+> > tasks are added to the pushable list. Without IPI, the alternative path in
+> > pull_rt_task() must find runqueues with off-CPU migrate-disabled tasks. It
+> > can then push the running task away allowing the migrate-disabled task
+> > to run.
+> 
+> Last time I either didn't notice, or I've gone dumb from staring at perf
+> issues all day, but I'm not entirely sure I understand how we get here.
+> 
+> Suppose:
+> 
+>   migrate_disable();
+>   ...
+>   schedule()
+>     migrate_disable_switch()
+>       // switches p->cpus_ptr and p->nr_cpus_allowed
+>     pick_next_task()
+>       p = class->pick_task();
+>       put_prev_set_next_task(rq, rq->donor, p);
+>       return p;
+> 
+> So any task that ends up in put_prev_task_rt() wlll have passed through
+> migrate_disable_switch(), which have updated nr_cpus_allowed.
+> 
+> Or so my current thinking goes. You seeing this patch make a difference,
+> seems to suggest I'm missing something, but I couldn't spot it in that
+> wall of text.
 
-commit 84b080b4abc565be69cf0d196565fbf11ac9aa91
-Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Ah, is the sched_change pattern the clue? I'm thinking that RT might hit
+that more than usual due to the PI path.
 
-selftests/sched: Add a test of SCHED_DEADLINE policy round trips
+In that case we do indeed end up in put_prev_task() / set_next_task()
+without going through schedule(). In that case the task would be on the
+pushable list during the change, HOWEVER we should hold rq->lock (which
+implies have IRQs disabled) over the entire thing, so again, I'm not
+sure how this is then observable.
 
-This commit adds a new sched/deadline selftest covering SCHED_DEADLINE
-policy round trips to SCHED_OTHER and back, as well as sysrq-n
-normalization with deadline tasks and priority-inheritance lock owners.
-
-> diff --git a/tools/testing/selftests/sched/deadline/deadline_switch_test.=
-c b/tools/testing/selftests/sched/deadline/deadline_switch_test.c
-> new file mode 100644
-> index 0000000000000..daf10f81cb968
-> --- /dev/null
-> +++ b/tools/testing/selftests/sched/deadline/deadline_switch_test.c
-
-[ ... ]
-
-> +static int test_sysrq_boosted_owner(int normalized)
-> +{
-
-[ ... ]
-
-> +	if (sem_init(&owner_locked, 0, 0) || sem_init(&owner_go, 0, 0)) {
-> +		ksft_print_msg("sem_init: %s\n", strerror(errno));
-> +		ret =3D KSFT_FAIL;
-> +		goto out;
-> +	}
-
-[ ... ]
-
-> +out:
-> +	close(fd);
-> +	pthread_mutex_destroy(&pi_lock);
-> +	return ret;
-> +}
-> +
-> +#define FILLERS		2048
-> +#define FILLER_STACK	(64 * 1024)
-
-[ ... ]
-
-> +static int test_sysrq_running_owner(int normalized)
-> +{
-
-[ ... ]
-
-> +	fill =3D calloc(FILLERS, sizeof(*fill));
-> +	if (!fill || pipe(filler_pipe) || sem_init(&owner_locked, 0, 0) ||
-> +	    sem_init(&filler_ready, 0, 0) || sem_init(&waiter_go, 0, 0) ||
-> +	    pthread_attr_init(&fa) || pthread_attr_setstacksize(&fa, FILLER_STA=
-CK)) {
-> +		ksft_print_msg("setup: %s\n", strerror(errno));
-> +		free(fill);
-> +		close(fd);
-> +		pthread_mutex_destroy(&pi_lock);
-> +		return KSFT_FAIL;
-> +	}
-
-[Severity: Medium]
-Does pthread_attr_setstacksize(&fa, FILLER_STACK) fail with EINVAL on
-architectures where PTHREAD_STACK_MIN is larger than 64 KiB, such as arm64
-and powerpc64 (128 KiB)?  That causes test_sysrq_running_owner() to fail
-during setup on those architectures.
-
-Also, pthread_attr_init() and pthread_attr_setstacksize() return an error
-number directly without setting errno, so strerror(errno) reports a stale
-errno (typically "Success"), and this error path returns without closing
-filler_pipe or destroying fa.
-
-[ ... ]
-
-> +out:
-> +	close(filler_pipe[1]);
-> +	for (i =3D 0; i < started; i++)
-> +		if (join(fill[i]))
-> +			ret =3D KSFT_FAIL;
-> +	close(filler_pipe[0]);
-> +	sched_setaffinity(0, sizeof(old), &old);
-> +	pthread_attr_destroy(&fa);
-> +	free(fill);
-> +	close(fd);
-> +	pthread_mutex_destroy(&pi_lock);
-> +	return ret;
-> +}
-
-[Severity: Low]
-Should test_sysrq_boosted_owner() and test_sysrq_running_owner() call
-sem_destroy() on owner_locked, owner_go, filler_ready, and waiter_go during
-cleanup?  Without sem_destroy(&owner_locked) in test_sysrq_boosted_owner(),
-test_sysrq_running_owner() calls sem_init() on an already initialized
-owner_locked semaphore, which is undefined behavior in POSIX.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794922146.gi=
-t.mathieu.desnoyers@efficios.com?part=3D38
+> Anyway, I'm still not sure why we can't just write:
+> 
+> > diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
+> > index 1535046a23ff..bb640278d30e 100644
+> > --- a/kernel/sched/rt.c
+> > +++ b/kernel/sched/rt.c
+> > @@ -396,6 +396,13 @@ static inline void rt_queue_pull_task(struct rq *rq)
+> >  
+> >  static void enqueue_pushable_task(struct rq *rq, struct task_struct *p)
+> >  {
+> > +	if (p->nr_cpus_allowed <= 1)
+> > +		return;
+> > +#ifdef HAVE_RT_PUSH_IPI
+> > +	if (sched_feat(RT_PUSH_IPI) && is_migration_disabled(p))
+> > +		return;
+> > +#endif
+> > + 
+> 
+> 	if (p->nr_cpus_allowed <= 1 || is_migration_disabled(p))
+> 		return;
+> 
+> for both RT and DL. Sure, we might get an extra load, but is that really
+> going to be noticable? Lots of scheduler code already looks at the
+> migrate disable thing anyway.
+> 
+> I don't see why it should depend on RT_PUSH_IPI, it never is actually
+> migratable, and so it never makes sense to have on the pushable list.
+> 
+> But perhaps I'm missing something; the above seems to suggest that is a
+> theme today.
