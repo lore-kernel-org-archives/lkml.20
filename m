@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794908304;
-	b=j3HKxmb2NRQUHs/9dmy9rQsJXS4nmMYLdEkGWQBgngI2xtT2qDekOwcj3L3ia1YzwMsX
-	 uJ0oiBoIgVB5kHXk9lyl1VvplTH8TA+jN7EMZL4i8mAAKWXDMKCjIAHF688u3qRYciCZp
-	 aINg1xmmhs45aPM+mUQg92bbvIViPUXXtDSTt3M/mhtWmvjdgojbNr1r+7yqC0wHStF3A
-	 8ABsOAcUspGFuFm0O6/f1PgwgW+yiVYn0rw9L5gt0aU2Sd7YA+NXjbnwB2+doH6LWMbUM
-	 UdcJR3zvTW09PG1OeaT+zGvIgZojKDC7JDtxr9tsfDOorJARZ8MxtbBnrtD4/IyV1BA==
+	t=1794908306;
+	b=KOm0P+9y50Vg7DTusAF5ZkYI2eVeGkCp5Gve5MujPr66/qLaJ333Gs2Yk1J61/P0XaVv
+	 CBMoOpE5RdKnhDqUtVNPipU13F4dTdV/ttDUvJx9DuF3ZtfLhEURIMaQYKNUbdvxQRWYH
+	 f7anTm55htJsVIcfcaQQdz/KR9DYP4I7otS28kAXFvw1chNkHqZpXQnN0NvuISOTaq2Ml
+	 GN60rndsoZ06EozedpGrUIToWMvAzWRm3fCHaYcpe1OrwFE/nDLuqWP2RaVWkVcWFVWD/
+	 fHkpmjQPVltZxvXoYeinqqfEU6btksUdwgHCodgm8/IO3XUmZXUkLFu4V1d9eRM7YdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908304;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908306;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=sf9xmRkRphyVToFoOZV9OHW8g4eV4+0BZB1/eN8sGwk=;
-	b=eFtcVfL8P82VAXU5fN1zh/CraoCXlUl5HnOjuxMwtv4xPl2UxaeYnIazW5NzZ85adioa
-	 uLmAm8MhZtfZEETYwCyl3Sl6bZdgSQvFxASNIp/MFaBsbosS+TPfg8lOk37s4zGCHYV00
-	 bLVLE/4qZEgPJsdidoFIOKm+Xia6E52cKSWjfXG7kpXlcV5N8BWNIp1n0anqqvYuBpmFr
-	 5GuOSqd57Q12RQz7WuKMUAAP4U3ARJERRtINCiV8EIAib38w5dbBe57XiAJBY3NmG96Lu
-	 v5gb90g5D3Bc4CnsdOQc5hbpCayJnbMksNtwv/5BuxiB/w8eQg0K4U7VHfxuXMDqT0A==
+	bh=doiWoBjdny1ljjzKEq5yZ9l1HgmsVW3my1hbvOjJh0A=;
+	b=DKhR0WAWYznvJSKE9bhCKduDlw5mMeMxsVYgAj3inh5nPZUdt+RtuhpG8uBSes4OtfZc
+	 MYAxCUt5ujRlQJxIdh05F57bHdterjVVlFXQIChFsn1IjnrxR39ug8CWSuHnLXXoATZ9d
+	 qetzir9QOhfQaU/VXXt+QxnyO8oKppKGnFPZoBlrZ4ToziYEHHVNFrXJCMjoFl7yenlLA
+	 6VmFT+FQZqfY5gpRfoMsrgytnJvGS61UAQACSd4Y3q17YpR8BvaASDuI23ci2iTFaw57c
+	 0H+D6A7WbR/0hirrnWXYUF0gg86UH5JZJlOQJ8fH5zU+aEZ2Xj+FX/20aum27lgjTLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=BSoJTKhP;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=oshs2VVF;
 	arc=none smtp.remote-ip=185.171.202.116
 Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFD65606A888
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:38:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFD65606A888
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FC79606A339
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:38:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FC79606A339
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=BSoJTKhP
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=oshs2VVF
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id F2011C4EDB9;
-	Tue, 17 Nov 2026 09:38:26 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 7207EC4EDBC
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:38:28 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id A3B145FC81;
-	Tue, 17 Nov 2026 09:38:22 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6F04211BC1143;
-	Tue, 17 Nov 2026 10:38:20 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2365F5FC81;
+	Tue, 17 Nov 2026 09:38:24 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5206C11BC0B8F;
+	Tue, 17 Nov 2026 10:38:22 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794908301; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1794908303; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=sf9xmRkRphyVToFoOZV9OHW8g4eV4+0BZB1/eN8sGwk=;
-	b=BSoJTKhPyCewKlL26koS2r0po1IAPc+dRY83uAh5CDRJGlN4RkwnQUqglKKIV32mW48dhZ
-	hBCb/yVSzOzWbX1Vd+2iyuBDoOtvnqzpE5ojTdPdgPSfloGPcUnFM6XEka0m6obmXjpl8O
-	1bmXcVTtug61TSqqlwQTn8Rm4w6Fm8v2TbgdiN5ct9d6mb4L6vDHsv39/aPoZctiG+Ev5Z
-	DQMpqkVw3hSO7GNFoGXyYy73B2sK3tM9cxRP9knwGTL1BcbwkEaW497OtiKpPnnvmOmArg
-	3yGd2A5vFIIQGz2Ms2K2hoMdEvuD3x/d0VeCtIogKqtWU94E5Kk2GepNlJ0rBA==
+	bh=doiWoBjdny1ljjzKEq5yZ9l1HgmsVW3my1hbvOjJh0A=;
+	b=oshs2VVFbKko1cnziwCjIxtOgZGmi/40wvJzVJJkEj5I5QvMJZspa9WvlXh1lrkH5F45lF
+	UramDTADpThRZhivCv7uQrerTnoTI9nNCJVEw5LnJXwAOjs/bil8yMJZN3FgrAmtQNgU/c
+	RmVO6sRlZZu2ppPlnIOX7H/X7EpOUDV9teht2BUN1XN7SUQL3UYP4qpLalI2gYZ6Y7kb2Y
+	d/sR8CzSOrGOAnvElTa8uCtIRnZVYunSdY8fBbxXAM3qYqrsnao7CebCtooRvGnuv++pdb
+	Zj4fhQu6jMHOLnuxUZRNd9KNtNNHCCatnaLYw72KOCTF4UdUA8dHbAUZsRSwJg==
 From: Paul Cercueil <paul.cercueil@bootlin.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>,
 	Richard Weinberger <richard@nod.at>,
@@ -57,11 +57,10 @@ To: Miquel Raynal <miquel.raynal@bootlin.com>,
 Cc: linux-mtd@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Paul Cercueil <paul.cercueil@bootlin.com>,
-	Maxim Levitsky <maximlevitsky@gmail.com>
-Subject: [PATCH v2 11/12] mtd: rawnand: r852: Remove #ifdef guards for PM related functions
-Date: Tue, 17 Nov 2026 10:37:49 +0100
-Message-ID: <20261117093751.14988-12-paul.cercueil@bootlin.com>
+	Paul Cercueil <paul.cercueil@bootlin.com>
+Subject: [PATCH v2 12/12] mtd: rawnand: txx9ndfmc: Remove #ifdef guards for PM related functions
+Date: Tue, 17 Nov 2026 10:37:50 +0100
+Message-ID: <20261117093751.14988-13-paul.cercueil@bootlin.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261117093751.14988-1-paul.cercueil@bootlin.com>
 References: <20261117093751.14988-1-paul.cercueil@bootlin.com>
@@ -87,51 +86,39 @@ regressions are subsequently easier to catch.
 
 Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
 ---
-Cc: Maxim Levitsky <maximlevitsky@gmail.com>
 
 v2: No change
 ---
- drivers/mtd/nand/raw/r852.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/mtd/nand/raw/txx9ndfmc.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/r852.c b/drivers/mtd/nand/raw/r852.c
-index 92c47d351c27..c145eb8ac29d 100644
---- a/drivers/mtd/nand/raw/r852.c
-+++ b/drivers/mtd/nand/raw/r852.c
-@@ -1013,7 +1013,6 @@ static void r852_shutdown(struct pci_dev *pci_dev)
- 	pci_disable_device(pci_dev);
+diff --git a/drivers/mtd/nand/raw/txx9ndfmc.c b/drivers/mtd/nand/raw/txx9ndfmc.c
+index 4cc6e91dbc23..9dc624957a3c 100644
+--- a/drivers/mtd/nand/raw/txx9ndfmc.c
++++ b/drivers/mtd/nand/raw/txx9ndfmc.c
+@@ -391,21 +391,17 @@ static void txx9ndfmc_remove(struct platform_device *dev)
+ 	}
  }
  
--#ifdef CONFIG_PM_SLEEP
- static int r852_suspend(struct device *device)
+-#ifdef CONFIG_PM
+ static int txx9ndfmc_resume(struct platform_device *dev)
  {
- 	struct r852_device *dev = dev_get_drvdata(device);
-@@ -1066,7 +1065,6 @@ static int r852_resume(struct device *device)
- 	r852_update_card_detect(dev);
+ 	if (platform_get_drvdata(dev))
+ 		txx9ndfmc_initialize(dev);
  	return 0;
  }
+-#else
+-#define txx9ndfmc_resume NULL
 -#endif
  
- static const struct pci_device_id r852_pci_id_tbl[] = {
- 
-@@ -1076,7 +1074,7 @@ static const struct pci_device_id r852_pci_id_tbl[] = {
- 
- MODULE_DEVICE_TABLE(pci, r852_pci_id_tbl);
- 
--static SIMPLE_DEV_PM_OPS(r852_pm_ops, r852_suspend, r852_resume);
-+static DEFINE_SIMPLE_DEV_PM_OPS(r852_pm_ops, r852_suspend, r852_resume);
- 
- static struct pci_driver r852_pci_driver = {
- 	.name		= DRV_NAME,
-@@ -1084,7 +1082,7 @@ static struct pci_driver r852_pci_driver = {
- 	.probe		= r852_probe,
- 	.remove		= r852_remove,
- 	.shutdown	= r852_shutdown,
--	.driver.pm	= &r852_pm_ops,
-+	.driver.pm	= pm_sleep_ptr(&r852_pm_ops),
- };
- 
- module_pci_driver(r852_pci_driver);
+ static struct platform_driver txx9ndfmc_driver = {
+ 	.probe		= txx9ndfmc_probe,
+ 	.remove		= txx9ndfmc_remove,
+-	.resume		= txx9ndfmc_resume,
++	.resume		= pm_ptr(txx9ndfmc_resume),
+ 	.driver		= {
+ 		.name	= "txx9ndfmc",
+ 	},
 -- 
 2.47.3
 
