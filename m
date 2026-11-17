@@ -1,90 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794913707;
-	b=3Qb81qMk6MmFuIjkzMhBMIG9+0QgaVoHcFN62rtUcv4Q4ex1TgHth4Sf02s5SXrsDy2J
-	 1A4UG5mfTp8Txc6eFzdm5dlOZkF6mQrYvo46CuXCLFsHiAzzIqkwYCKZU4gv0h4uNBKTM
-	 s3ay1ViHv0nwPDMVgLSjQiW+Mmxb9zOTaxw8QB7Ygl7CK1dcwqZyh3iX4+0guLt0/vfxi
-	 t4hYJllMU0/lT59bR1ZT0+50UucuoFOlNgACQEOz8EWO6eR/1VBZIi76o+ZDy53fiwwc+
-	 9LhKwPb/V5HMOgdepxQFhpl1rLQBRC1F/lhCCqDGYeECUMcOulNVIdm9f8JAoDaHIcw==
+	t=1794913709;
+	b=mOVQf8A3Do3ILswoaCXwswJf2KYXHxZ2WdgMW9nNrQqNGcAoPJVNpRGhYeQ2vCWERHLZ
+	 9lTCTfSRBvvfvlR+4HivUp7v5CvTCGaV2Vv69qHhGLZr/xHHsJvk8PxhI46rmlfOg/6rL
+	 0+7dLavKvIb0SayMRGMEOIkbI4BCVx8gTCLJb6zVXHDT3+2/4J5GSEAtVeDK/jGxyogk4
+	 aZJpZUfeqpP/grdV/e3Rem+JXv4iVvM9nePQRr3S64ccYVF8VeY7fm7S5Rf7/lPSl6SH5
+	 B9BEcSMfsTeTQLbvtVqvey5+Gc4WFwFi1BFGaxnAbhMs1DYruiZd1f+qsEAjLE8fN0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794913707;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=YdKhAjlrPqsB5ZWJA75kjf0hOR5+o724DAc3k4bz9WM=;
-	b=T7oNxN8/5O/X2OH/NhV0LBrHmoYEq95KvQlsdpP7IOCUfWpLTRdOQvwfsqz92dzAIiKC
-	 Y3+RRSWZPnAJ7mvgDvhTkTsJObe6hsv2QBMrsoXD/ypx5zadurqofheyWeDf93IZ4t7rX
-	 HRcmGy5mcF8o8cnwVRPunYHlwiDDjbLr9s5m+mppxmUNZMiSokeE7MXbql3mBVp3orQj5
-	 bLseHNm+wQc80M90gcV3SLdhn9MQoFGGYRUjO7PhvVgTTREXMen51SSVJdFhJFuuulMkk
-	 86QzWn1GwSKxw/CFPOIhEtUM/EA6MWyOrZB5I22eMmzgvjqdpM8HZUyQL3Qo3zH+aMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794913709;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:In-Reply-To:
+	 References:Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer;
+	bh=kLI25bkyEOpFVWxpFGa0Dc97choniDCAakGqUy11xdk=;
+	b=Qm0NtL9nSD4DD0y9nXWePILPRJn6EGxFmfLj/NkDIabSjZNcZ7zgjNMCF2cT791rocdj
+	 Es3B0h3svYA5HYVgQ4VVA92OKn9M7Iil9XF2JqCYgelTuJ8FrAutK6hKo+ERiYHNYmimX
+	 EnCLvOkTsscDJYQTyBwoLuU9PPh2En4B3ubdC75KuZkdYFc3MWIxuiGIDW1NJHa2xBsr/
+	 KZtXbvAecTZiTH1egzBcbIKU4cAuYzf10UlUNwg4US+KD+0U8RNCFoUj3lSo/rgblIxhQ
+	 HUlP4WitZB6smHptfr1rtZx9PQxWBtTM7Rebhjqi0499UZR0Ksu3RWPoGAjOSiy4qDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YSm9YO4w;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=heECBdo3;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7544F606A330;
-	Tue, 17 Nov 2026 11:08:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0288606A31C;
+	Tue, 17 Nov 2026 11:08:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0288606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YSm9YO4w
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2FB01F000C4;
-	Tue, 17 Nov 2026 11:08:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794913707;
-	bh=YdKhAjlrPqsB5ZWJA75kjf0hOR5+o724DAc3k4bz9WM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YSm9YO4w2aPh+GuHQ3zlbH8kFIn6KEiPq3g/m8JTyz+sqhikPgHJlMRIkrNVxS85v
-	 9LN5ikUDGNnvQdNVD9Yx0QaHeOvcERV05t4ezT8s8ht3FUFLqOVL1h46i41S3mSg8x
-	 3CwyBjQ4Fz8wjapNG8inTytd7V5fBwQ+Qp1qk5qa/X5bQmKWSLffebuSwsl+bDekRi
-	 ZDFf/tLPcFrGXaQz6wSmRcYpNg/uY4ev21f4/ZUzUz32pl7jcVES6ZQ/4AeNuf1dca
-	 bzJwtNkH4Ux80E/wXJO2hRKSWB6MK+o/d7wI69Gx1K0PF2RktCnEsu5v+T8Jjhhzch
-	 tv912fHnJUcUw==
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 0DBE1198004A;
-	Tue, 17 Nov 2026 06:08:17 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Tue, 17 Nov 2026 06:08:23 -0500
-X-ME-Sender: <xms:oTX8au8V4nBt8GHehzG9hEqmJJ0HaqqYpvNCV17AYD01BZPOeQVoJQ>
-    <xme:oTX8albihyzYQlQnLn4T8BJ1gmqebndkTGMmqke7yUKcnK4APtbn3JWjy7RmzWS1O
-    903VKbw5yuGRiyo2tXIWrsFF59yQYsrhEMhXzqsAs4SpsOsB0bFlII8Cg>
-X-ME-Received: <xmr:oTX8aof3KijgYivzYrK9nBnwExCT8RjMBh5aunI6IasdxrPsWMBJl7d84B0>
-X-ME-Proxy-Cause: dmFkZTGX1nIRce2EM7hEBPteoZuiZssnqMFZnuwSxMXg3gdmnTZl+fiHHzX2oBNXSiJsJf
-    I/e9Vst+BHtRoyhl9WMXbh0/gwYGA9PqFYtIQKVLnyIVXb7zeXkz3N6uhReUZwYIR13hrL
-    T7ZKOtu8DTAvwxpGM2l/jnWnCIUE81n/1kRkdUv7Pbk4yGbDA5DNCGU9aTD2f87pwBPfTr
-    rivmGIjHyKUTgsoUG2wWa17dtgrQbqrrvlenEILMaH+BW9Hs46eNWXt0bxG7yreAceLvHU
-    ykd75nYuGULyxecIDhNRoWGFcA9fGbFbcVW4tk858GUqeki7QD2eIO+z0vcDAwKw/ynInP
-    sWwWo9LqVy1pNvVl7TC/bdvcrBYzidU3wgTdfM7PF/ACKjYhVqJUDR4nF2WHsgIJkAgHko
-    jQrg9+PgzOxv5SmLJg+FedzvnFL9reKS7CAIv5vLVs14Pm9QAsrvbDh5Y3ux770Ee6Lylf
-    QHJSnA23fNSUfcqNN+j5YKQFq3fQdWYKd5Abmn08WZZrlG3Oco8F0URxA+G4rAxR94RiqJ
-    2j8o0SVRMPvmI/p3bUn1elP1e6Qrm85bepxgnGGrnWYIJ8HNbKRk3RaRBGvmHndZKENqeY
-    0tjgazk8jKruqR2gzfcA0Xc7V/ggyN/xuX/0HQPJJeCbrpFjE9Us76Op37bA
-X-ME-Proxy: <xmx:oTX8akr9YirNVX1wT6I5G5ZjYWf3es2sMnWiTwbMdWr1ECImBZiNYQ>
-    <xmx:oTX8ap-CF8l49la4aQ3MiWU8vChpmqwjhx7rwe0W7ZElJcHjBI6y7g>
-    <xmx:oTX8agIyOj-Cr_Jzcwge6FSvAsEAQMzbe4chXdGLMu5ExOmtq0LsFg>
-    <xmx:oTX8anPcMSoAHG1094FhYNrpeOK_1uGbri0f_Ow_pi9ufrHjqAIjRg>
-    <xmx:oTX8ak_ghEYWw0nYrtaE_8lytzaka_ZeBAYsR3IPaoc6K0mVmgCaNdE_>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 17 Nov 2026 06:08:16 -0500 (EST)
-Date: Tue, 17 Nov 2026 11:08:15 +0000
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-To: Usama Arif <usama.arif@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, apopple@nvidia.com, 
-	byungchul@sk.com, david@kernel.org, gourry@gourry.net, jannh@google.com, 
-	joshua.hahnjy@gmail.com, liam@infradead.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org, matthew.brost@intel.com, 
-	mhocko@suse.com, pfalcato@suse.de, rppt@kernel.org, surenb@google.com, 
-	vbabka@kernel.org, ying.huang@linux.alibaba.com, ziy@nvidia.com, hannes@cmpxchg.org, 
-	riel@surriel.com, shakeel.butt@linux.dev, kernel-team@meta.com, 
-	baolin.wang@linux.alibaba.com, Nico Pache <nico.pache@linux.dev>, ryan.roberts@arm.com, 
-	dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH v2 3/4] fs/proc/task_mmu: don't read young/dirty from a
- non-present PMD in smaps
-Message-ID: <avw1Yc1W6BurgC9x@shutemov.name>
-References: <20261116063624.1382944-1-usama.arif@linux.dev>
- <20261116063624.1382944-4-usama.arif@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=heECBdo3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794913706;
+	bh=oxvQViMU6UamivpQ1Wc/wZITpefIgLczFvQSjzV78bI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=heECBdo3wDplXuRnvnV0cnRaSqjQC4O0371jNkrw0g5rtXP6vayb2jwPbg7pQdpRH
+	 3Vvw81nX9fJ6wJuaiqoeOd5P7z+W+vEbktu2seaSXFJZu9UNCocZWUCyM9lHEeQYcC
+	 Fuc8ApGGeSkVKTKP7sCG6nIATe5hy2YxvnB2d011Ra1R7JlprbB239UAOlncHQxqfi
+	 dBDOvt2u2lkX29e+3YSBozN3N4/ovp4OAr4+cbdOXoLQZGxdb6S08HrjQLi+ebc9T+
+	 oUACaS1MV6Pn5LJz9IK9jgDE5iY+wbv80Ps1aLUmG75uGKQGj5NwGEu8UM/OdbHJIO
+	 7V/XYFh3lWc4w==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 409A117E04B2;
+	Tue, 17 Nov 2026 12:08:25 +0100 (CET)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: linux-arm-kernel@lists.infradead.org, linux-acpi@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ Marc Zyngier <maz@kernel.org>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ Hanjun Guo <guohanjun@huawei.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Ge Gordon <gordon.ge@bst.ai>, 
+ BST Linux Kernel Upstream Group <bst-upstream@bstai.top>, 
+ Jesper Nilsson <jesper.nilsson@axis.com>, 
+ Lars Persson <lars.persson@axis.com>, Alim Akhtar <alim.akhtar@samsung.com>, 
+ Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Dinh Nguyen <dinguyen@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ =?utf-8?q?Andreas_F=C3=A4rber?= <afaerber@suse.de>, 
+ =?utf-8?q?Yu-Chun_Lin_=5B=E6=9E=97=E7=A5=90=E5=90=9B=5D?= <eleanor.lin@realtek.com>, 
+ Heiko Stuebner <heiko@sntech.de>, Shawn Lin <shawn.lin@rock-chips.com>, 
+ Orson Zhai <orsonzhai@gmail.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Michal Simek <michal.simek@amd.com>
+In-Reply-To: <20260523140242.586031-1-maz@kernel.org>
+References: <20260523140242.586031-1-maz@kernel.org>
+Subject: Re: (subset) [PATCH v3 00/17] arm64: Use EL2 virtual timer when
+ running VHE
+Message-Id: <179491370519.165314.8991090307928183984.b4-ty@b4>
+Date: Tue, 17 Nov 2026 12:08:25 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,40 +102,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116063624.1382944-4-usama.arif@linux.dev>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-On Sun, Nov 15, 2026 at 10:34:57PM -0800, Usama Arif wrote:
-> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-> index 164b4efc5e093..ad9fdcdaa2c40 100644
-> --- a/fs/proc/task_mmu.c
-> +++ b/fs/proc/task_mmu.c
-> @@ -1029,13 +1029,15 @@ static void smaps_pmd_entry(pmd_t *pmd, unsigned long addr,
->  	struct vm_area_struct *vma = walk->vma;
->  	bool locked = !!(vma->vm_flags & VM_LOCKED);
->  	struct page *page = NULL;
-> -	bool present = false;
-> +	bool present = false, young = false, dirty = false;
->  	struct folio *folio;
->  
->  	if (pmd_none(*pmd))
->  		return;
->  	if (pmd_present(*pmd)) {
->  		page = vm_normal_page_pmd(vma, addr, *pmd);
-> +		young = pmd_young(*pmd);
-> +		dirty = pmd_dirty(*pmd);
->  		present = true;
->  	} else if (unlikely(thp_migration_supported())) {
->  		const softleaf_t entry = softleaf_from_pmd(*pmd);
+On Sat, 23 May 2026 15:02:25 +0100, Marc Zyngier wrote:
+> This is the third version of the series initially posted at [1],
+> which
+> 
+> - updates the ACPI GTDT parsing to deal the v3 layout and the EL2
+>   virtual timer,
+> - moves the architected timer driver to use it when running VHE,
+> - fixes a number of DTs to reflect the reality of the HW.
+> 
+> [...]
 
-smaps_pmd_entry() dereferences pmd six times :/
+Applied to v7.4-next/dts64, thanks!
 
-Could you read it once with pmdp_get() in a separate patch before this
-one, the way smaps_pte_entry() does with ptep_get()?
+[11/17] arm64: dts: mediatek: Add EL2 virtual timer interrupt
+        commit: 0b3f2f7ff214827043a13549e1af6bd73f192768
 
-This patch would then only move pmd_young() and pmd_dirty() under the
-present branch.
+Cheers,
+Angelo
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+
