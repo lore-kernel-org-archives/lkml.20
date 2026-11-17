@@ -1,88 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.158
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794907004;
-	b=c8d/k/SomGddoUIUsedv53Z6H5olbWWvquOE8b4C5gZ3czsfO1Qa/+qxNdePR1ez9xvO
-	 9/vsYgYkMDaHJHTYmKMqsW5+/O/Mbg33j0IF9QjqD8eY7t7OnZ8HKR8MaOfQIki3eYsEN
-	 dLzZ61+Nv8MhilhyjSLMMX8cSlfyB49n313NLHFkHBPV7HpVLcCkC2bXd9FJwYSgAKTAx
-	 dXR4T67EiG9RGycxH8d34VCV1DWG0tR8egGjAKMBWScJUcAN0w7q6pS3FOPp3d/s08RqP
-	 SkvzSs+XT4HJ+K9r8fnZ5W7dNx5z6pr74tKukLLyB90xK9230GfcN2Dk5nIESFDRyfw==
+	t=1794907032;
+	b=FuZkeQ/WiLqOmPnxXH8R8NX1ZEkv0eThi7aGtqNLuSryKQ80NzhEa3ZJ9PhODHjRGuqm
+	 Z4dIKfi3QACGKjrdO05Vqnl7+skdMj9tYJK4kbEwATDV236trxh7MI6Huy8C6nRkPPsGN
+	 0/m3nhYkp5IX5UGKxahWpPx9NfkVQV8vFZ8TjII2RUSxVl+laQLYczCu2WamPPvV1OP38
+	 CNA14O/AGYmcYK06DTuDbk8lopMNKZ8rB8M5cXoZelipTUs7xVdMxsg9uGAFCPiXa13uZ
+	 hXt8F7FCvhCz2jkSZqh/c5V72Ls9UB86Hln7ClE0kFEZlAFDE9AgThzgCeg1C9X1+Cg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794907004;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=8XDBS8uCWUHc2ThxYCFeft+ASgCY6cyBibTVp9Hh8R8=;
-	b=13jF5kzpCfv97U8LAWi9Kd28a4KoZxZ5V/3BgBFeORfKsDb+lysrLsqiHd4SlXBHF9Dr
-	 mT2466qBhT2KezktZ5aGXbQrZh9FVhNSWMWsT3vD0Sb5nTL4Xip0ikm6w9pdCnYQ3B5XD
-	 kmr8UzULDqQ3F3645/fXWjaBnf2Z4flunXElekdfFHlkTzJvt9f+VabtmXVyFW2Svw3Z0
-	 QzoaNNm3NqUYylWHhq0sFwhA9GNICso+hUowR8VEBq4LHWJFRIqvy3BYISh0aRe5fTd+T
-	 qlcbOExGgfeHUuu6TWBngfA4kZoE104fURDGuSfPPOYAYWqWXCEV3q9Cqpc117ca1gw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794907032;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=ylxYAdRJbN2+nc71qafuBh5CUEHqWV7dF5BSNuKNgSQ=;
+	b=aHRO08CgrJo4fSGIbQhhLZblYtHYgRfIzuVph7z9hRC9TFRKfdpXO3DlvLnZdh0Horyb
+	 mFWRNTfMOep9tYoW+qmrsYbj5mwHfOEVuB8OY7yDxyxOGbWxcsXWge5/ezMygRG5kT8Z+
+	 iwEWBMQoaKymNNLOXCKMJdGZxk+ryfZCBpJkFcjVUHV+s8Nvc85rTUTP+/tcjzbcTN3Mp
+	 8TqJf5NEejeNVLbUOnVJOZ7Zdajg3FGnuiPfUprmP9r62ryztLpxc134Fkb3wza8Z+IFO
+	 pxDJaQwkXIbtJoiy8rVIYY6hxNYjMJG3rYB9EyBZuBAp8HTbYNNxOedOkOeH3FzrB5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JGnh0VQq;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=hA+RuZCt;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=tGdAx7tr;
+	arc=none smtp.remote-ip=202.12.124.158
+Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 894DB606A335;
-	Tue, 17 Nov 2026 09:16:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 894DB606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71371606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:17:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71371606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JGnh0VQq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794907004; x=1826443004;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=fh7mdEcK6SBdAh7hhUdiT8Yta+9cJ5aGG1kvmRStFBs=;
-  b=JGnh0VQqAQiH0XBT64tyUNv/RRMfIzYZ++X9aBtfxuo+QKM7MU54I7ba
-   YTZsr98wEgLLWJnM17Db86w2aEcKoaBOVonNVEkwKhm20QHCogEXwBE8K
-   4k1xQNbuXgV0L5+qb/8fMigQr2M+InuYw58+j+PdefkdIGJ7ymmvPId9H
-   JZV7YlJ/s6CUMg0ihlEgDECl3yJfvbXaOthBFkby3lZBGxMrptDxSEgkr
-   lvy3HqyAi30K8DqiV1xCNqV9f2691h71pLLL1P6zc+BwUOcNXf0amc5db
-   oXEDWNPbCq/3fLbkQ6+/G4YBwhpqfHrXn+9rsZUtVpV7ji60dX5SILk/1
-   g==;
-X-CSE-ConnectionGUID: 07sdIjJkT6+p9PVZHzwGTQ==
-X-CSE-MsgGUID: fvzspjpPQk6ctC2F64Xh7g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3568531"
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3568531"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 01:16:43 -0800
-X-CSE-ConnectionGUID: qcYFqx69QAutNA2z4LkyeQ==
-X-CSE-MsgGUID: /912d083SzqkKbthZ0zyLg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="10145329"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa001.fm.intel.com with ESMTP; 17 Nov 2026 01:16:41 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1003)
-	id 8807C9D; Tue, 17 Nov 2026 10:16:39 +0100 (CET)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
-	linux@analog.com,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Michael Hennerich <michael.hennerich@analog.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Esteban Blanc <eblanc@baylibre.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>
-Subject: [PATCH v1 2/3] iio: adc: ad4030: Switch to use mult_fract() helper
-Date: Tue, 17 Nov 2026 10:14:41 +0100
-Message-ID: <20261117091638.1463621-3-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261117091638.1463621-1-andriy.shevchenko@linux.intel.com>
-References: <20261117091638.1463621-1-andriy.shevchenko@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=hA+RuZCt;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=tGdAx7tr
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id BD03D7A0176
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:17:11 -0500 (EST)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Tue, 17 Nov 2026 04:17:11 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794907026;
+	 x=1794993426; bh=ylxYAdRJbN2+nc71qafuBh5CUEHqWV7dF5BSNuKNgSQ=; b=
+	hA+RuZCtBlroKaHaa4om9KunlkijfGP3m5Jg3UQaLOMRXDqT9Gs088GRQLPFbqAp
+	PLYGf0mgpszIM4ns3teOJrWdgFX8RKIcwRmJAYU02GLXIrIl6l26ya2PInTL7blf
+	H18Z1ZEAunH3hXdRLkKbqKKw9MQNcbtDbl0nRFjjNM7IeO/7Nxw5Oi8R8mAGsDWD
+	//zAPISaT0eUicCjkV6R6jEZ6sAby/yv4NQFIfSooUR4GbZ+RYmjo7brwSO0M05W
+	JyRdnoQpGqYp0lOe7F5mXst+BW06gHPKfdEC7HgcBZLKBQUjXaV+KOeMA38FXWAW
+	GqInLtpn37TDqL7sKdvBVw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794907026; x=
+	1794993426; bh=ylxYAdRJbN2+nc71qafuBh5CUEHqWV7dF5BSNuKNgSQ=; b=t
+	GdAx7tr9oaHRUfB2MalZ7Rcqu8PJHKMZ0TovI/NdIFtDVHadNoSkmAnv5HPpm7py
+	N+y3Jm/fHIlx1qXJXdTLQWhtTKzPt5UD+SgNPrPF/cFTAJs6WeK3+VjPmFnxQ4Xp
+	dDcVsSTe6l0+cqBdjhMu0GvucYh03pCIKPwgdntGLIZrxuh7VH+T4omYBTCPQoR1
+	q3W2+OWbD73rvSqHqKLBvENeZTVYHPlngd4VjfqTUGaIUdDtH39wvWnupnpC0JE9
+	Gj6tYCPzoZpn/Fy8ykQD+Vr18dwHuLZM0PE5R8jwtP5lMiyLKluayuT0oww8YfFT
+	uC35KTMhFTO/Nk6c98KIQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794907026; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:HAisDqoJwufxbNC741JtmRv91DarmV/bHP0QxfwD0qA2nqa
+	WDKW5rj3O7ux+SH8HURf+sJZcrYwchkMXHUFSKeekO88XapL9ttzS6fpa0T5Ujys
+	ydnzw9KTOVR35u5iydG96YZ7cnxAe2FNRyMwSNO4JVJh6pq6rQcAYSj7FF720IMu
+	/EU4GMyvqTeMCniuOMoqqgk420pNbvyNR7rc5MZUvinVuuBx7doCppMK0QtE6LIS
+	Mb9sZ9rtbfgNof0Y7Y7UPsomYeHOnwoLoH9p0hOlFRgidYk4HwqjmlkxdOdD792l
+	Sb31IDPVwEDrzVb1/jsVokfOET9a8dU4NzQ05YA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:jamKSb1Mh9FEr48BCkl4zyWu3uo82vTju/A5t7S0N3o=:Am9tGrLXliDCWvBTMVenTyCZ+J+acKj5XOpZg9kpzA0=;
+X-ME-Sender: <xms:jxv8ataRDI4zM32UHdMoX2iu9LO8TbuwtWBlTB7U9_easuRFnU66PA>
+    <xme:jxv8avMvN6f3VMD2YAbeGbnZ6_3oESrJUuctc98tRLRcVNxlZxFf7iBzJKRGJwT72
+    UeH4877VjllIHcWEnqRZYlLT4tHkbpV8VdCVj-ZbW2d4KigKX5slILy>
+X-ME-Proxy-Cause: dmFkZTGJ09n7RVGHDV+ONr1e6D6IsZ0OG2CaZWAlS0KX6cFRTpTdKWBLQznxcKq+EUmVLy
+    xTDzG57fCSXaPatrWJcBUkG+Jy+VGW/J+CB0ROjg/czGo/wyNP2F0XrHSQ4KDngDLwhKV9
+    vfX4fmjtlUIlJrfXFRaYjinenkPyGvje6EjPNpP6ZY2MeXyFc4enM4lwwnq4GuNwjf4jXv
+    YfhsclJmzs80W+OD/6MC5Nvp5Eev+p1S/y8dSaThGCIo1yYxlj1DvjtJzY0tgahVmJr8N0
+    4oorMqXlGtcf3UX3+zV/7z48yK3cg9GsOkDkSn3RA6vTqMabBbheejxq0hJPj7h3+uoGfC
+    vNLWgkMlDvHY3A6q7TFxeCYWTM9ujVa1LW4rA3nk5SU5gC37ACwmm2M8niJPb4IvTBbRwS
+    U/ISeA4SuqlTaRer0izpEesK1qCd0Bu546ul3XTLjNdsuyYYtfh8LCIrmTJILPZUbvibeB
+    m/vd3/wMd8aCRdcvWUm8xBqe2burW+f1pzW2UjNOJcfYFVJKb8OLGA7wnK7mD56ckfw/OI
+    chvVxH6pT0X/CS73c/5ixlgzzbPf/29K6w6HaPz0vKIKHvPm7QCC64vflUrWCDDe4dcuL0
+    cLewWZYgiwMzBowumquS4ecSuaHRGbhbwAQ3B2rav/FsD++5URTm+AMIBHUw
+X-ME-Proxy: <xmx:kBv8agWcQvQmiaKxfascFJyX1-YfoU-OA8gjbQaMAqtMTMtkvjKisw>
+    <xmx:kBv8apihsRAHcejL5K-uj7qrnCBP2gONMAlOkTLIvCdbsoYuxoSAcA>
+    <xmx:kBv8aoqNcPyk-E6xnAilMfOVzIkaMYIeHEaIrZW17ofJ1dsbumoEnw>
+    <xmx:kBv8avH179OmU-I7pGjIwffLIVWDEUQKrhz_o91mRaKnrU7GJc07HQ>
+    <xmx:khv8aqY258t0zwwHyVJ4WFNGcx1vfkoZvRwX0-DLqfpiqQAeZDSUopUb>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id E21D832A009C; Tue, 17 Nov 2026 04:17:02 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,47 +115,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-ThreadId: AzjZfwey9aPB
+Date: Tue, 17 Nov 2026 10:16:42 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Tzu-Ching Yang" <shingekinocore@gmail.com>,
+ "Brian Cain" <bcain@kernel.org>, linux-hexagon@vger.kernel.org
+Cc: "Yury Norov" <yury.norov@gmail.com>,
+ "Rasmus Villemoes" <linux@rasmusvillemoes.dk>,
+ Linux-Arch <linux-arch@vger.kernel.org>, llvm@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Message-Id: <e79e581e-3038-449d-a637-34389f3e9b97@app.fastmail.com>
+In-Reply-To: <20261117054939.2126980-1-shingekinocore@gmail.com>
+References: <20261117054939.2126980-1-shingekinocore@gmail.com>
+Subject: Re: [PATCH] hexagon: bitops: use the compiler builtins for ffs(), fls() and
+ ffz()
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Switch the driver to use mult_fract() helper.
+On Tue, Nov 17, 2026, at 06:49, Tzu-Ching Yang wrote:
+> The hexagon inline asm for ffs(), __ffs(), fls(), __fls() and ffz() is
+> not needed: Clang, the only compiler that builds hexagon kernels, emits
+> the same ct0, cl0 and ct1 instructions for the compiler builtins, and
+> unlike the asm, the builtins fold constant arguments. The asm dates
+> from the 2011 port (a86a7ce30ac0, "Hexagon: Add bitops support"),
+> before the builtin-based asm-generic helpers existed (048fa2df92c3,
+> "generic: Implement generic ffs/fls using __builtin_* functions").
+>
+> Replace the asm with the asm-generic builtin helpers, and ffz() with
+> the generic __ffs(~x), as arm64 does.
+>
+> ffs(0) and fls(0) still return 0. __ffs() and __fls() now return
+> unsigned int, which is as wide as unsigned long on hexagon, and ffz()
+> returns unsigned int instead of long. __ffs(0), __fls(0) and ffz(~0)
+> remain undefined.
+>
+> With Clang 17 to 23, the functions of a defconfig vmlinux shrink by 1972
+> to 6068 bytes in total (scripts/bloat-o-meter -t). One helper in
+> lib/find_bit.c gets worse: _find_last_bit() executes one instruction
+> more per call that finds a bit, because LLVM rewrites 31 - clz as 31 ^
+> clz once it knows clz < 32, and the hexagon backend keeps the xor, which
+> needs the 31 in a register, instead of sub(#31, Rs) [1]. A few 1 <<
+> ffz() sites also grow by a few instructions, as LLVM rewrites that
+> expression too [2]. __find_nth_bit() executes two fewer, and the other
+> helpers that find_bit_benchmark calls the same number.
+>
+> Suggested-by: Arnd Bergmann <arnd@arndb.de>
+> Link: 
+> https://lore.kernel.org/all/affe7da1-41aa-4710-bee0-5e3c2b8a8dfc@app.fastmail.com/
+> Link: https://github.com/llvm/llvm-project/issues/236764 [1]
+> Link: https://github.com/llvm/llvm-project/issues/236765 [2]
+> Signed-off-by: Tzu-Ching Yang <shingekinocore@gmail.com>
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
----
- drivers/iio/adc/ad4030.c | 13 ++++++-------
- 1 file changed, 6 insertions(+), 7 deletions(-)
+LGTM,
 
-diff --git a/drivers/iio/adc/ad4030.c b/drivers/iio/adc/ad4030.c
-index 877b06007396..d61950129083 100644
---- a/drivers/iio/adc/ad4030.c
-+++ b/drivers/iio/adc/ad4030.c
-@@ -161,11 +161,11 @@ static const int adaq4216_hw_gains_vpv[] = {
- 	20 * MILLI / 3,		/* 0.6666 */
- };
- 
--static const int adaq4216_hw_gains_frac[][2] = {
--	{ 1, 3 },  /* 1/3 V/V gain */
--	{ 5, 9 },  /* 5/9 V/V gain */
--	{ 20, 9 }, /* 20/9 V/V gain */
--	{ 20, 3 }, /* 20/3 V/V gain */
-+static const struct s32_fract adaq4216_hw_gains_frac[] = {
-+	{ .numerator = 3, .denominator = 1 },  /* 1/3 V/V gain */
-+	{ .numerator = 9, .denominator = 5 },  /* 5/9 V/V gain */
-+	{ .numerator = 9, .denominator = 20 }, /* 20/9 V/V gain */
-+	{ .numerator = 3, .denominator = 20 }, /* 20/3 V/V gain */
- };
- 
- struct ad4030_chip_info {
-@@ -467,8 +467,7 @@ static void ad4030_fill_scale_avail(struct ad4030_state *st)
- 	mag_bits = st->chip->precision_bits - 1;
- 
- 	for (unsigned int i = 0; i < ARRAY_SIZE(adaq4216_hw_gains_frac); i++) {
--		range = mult_frac(st->vref_uv, adaq4216_hw_gains_frac[i][1],
--				  adaq4216_hw_gains_frac[i][0]);
-+		range = mult_fract(st->vref_uv, &adaq4216_hw_gains_frac[i]);
- 		/*
- 		 * If range were in mV, we would multiply it by NANO below.
- 		 * Though, range is in µV so multiply it by MICRO only so the
--- 
-2.50.1
-
+Acked-by: Arnd Bergmann <arnd@arndb.de>
