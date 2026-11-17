@@ -1,69 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.88.38.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794933946;
-	b=eA3kavDCorSYuqN4/wWPxYNXHYhQlqg2CM9Gcrdz/pp1EcDl4e5jMLWQcVfWODCYaSNG
-	 u7i9340yZAyiOzLWEyG2Ad2VSvqeLj1kjJ/TCX48YEi9MKYPuu/hEIQc4TuTL3lWK/RBU
-	 Mvy1Rto6gvx9/dbV6H5dnohg9+cNkJpi/PePLt93uVU9T+onfCvYAUBo7H5u6qrzHLJBO
-	 kvYwjPH+hYqu+U1jpGA10iJ09z4kW91rLFPGHljdq99X1m7shBzDVr1cpy6EnzR+GuQ6h
-	 eJkFKD2PSWFa74MjHMR92jd8VvyAIoM5AHlrKl+Poj7poUHMmAv1f4uM8c7CZmtytbQ==
+	t=1794933992;
+	b=vRNTxA68csO3E9O3E8H8t1oZgqDLwXdP8vM99ilhgajZ1RPbLZjJ0wV6rNlb9+fzHcHW
+	 WLgh7UZ9NCwekDH0A7FISrxhfH0AYu3pfFB9ovC0tQqDilY5ayp0EZhIuKYmO4CyUlChz
+	 TNLCxcAuRKBfa4U3LED4VljyqKjKpygVzRiPIegTq+WxUCepmdMbCbM7le0P0hAnJgLqs
+	 3d7vUU08SeO8wSzFBop9RyPyZWFpfAX0/hY3wjeMcLF1TXFFdFlEMeDlK4LYLrNDN/pAg
+	 wt8snTljFQC7NfKJNod90XuoE54OwPNdgsHqMXtN3svN7xuybB+5qO8xSgPrsb5tyhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794933946;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type;
-	bh=b7rA3f+5kZ4ohnzATtzU3IQFFAM5nwbvX+N6Ax6dlwg=;
-	b=jlK1ge7NJY+HvdouJcmCsV84fxe9wqM28gg0YpCjBhw+hX9UawbtilEToNddHJL3B/O5
-	 n50jfOzhUbHCD9AZRYqHl/IxFWViuSDDAYRf6OpQ0B/B9Ye5BwoXZT7aVjLhDP2tCbH1z
-	 ZMYHQ0kxlFA0ep+0U9HkgJ8xgRwgjYMV1g4HKOf5eCuEdJ5Zpjfp/hCcyfpWSs5KMS8aW
-	 QKYsILh76Be92GdcSkGUFDacMF5iryX3zkBK4rQiXAXopkEoBfUFfxaODnPVCYnk1fUq/
-	 FEIozEfiBBWLF/chqWoExPWC/pTTYcHHsTiyeZ0lOH/qb6C6k46IW1e4HB1b3PfRVRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794933992;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=oKKCe8ygh7GrMUkWBfeX/37zckwQuQ0kbjpZzRD5XkA=;
+	b=3QSvBfrje6FJRZCD5Wa5XwU3cOJoGIWogTyIDDXhbbMQoOV63VGT0WD+18r8VNJIEVby
+	 skVyZy3Jr/5y8fTyBHOb1pcWnb8pWcpoPU+2gWOBxG4tH04yX4EZFdi+vJN1U8nGmHofG
+	 K5X2tbPXtaIbfmuTLqi9yKXNxmFVrvbsrKtzDV54CaYHRsxgRAPJKygcW6UgJhrLL5Ovj
+	 0tknaZl4FTuFZdTWgcDvY9mUjBLAkN6nBbKRQtJqfvYE5yFWj+Lxss/5+Z9sT8bpl21/I
+	 M02Fb+Ta74nZB4l5AupD09Hrm8cWoxnh0XFxLEPyxeZ4GzfOyau6uQeIuRnN9SPNw9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=simonwunderlich.de;
-	spf=pass smtp.mailfrom=simonwunderlich.de;
-	dkim=pass header.d=simonwunderlich.de header.i=@simonwunderlich.de header.a=rsa-sha256 header.s=09092022 header.b=Ko6SikcA;
-	arc=none smtp.remote-ip=23.88.38.48
-Received: from mail.simonwunderlich.de (mail.simonwunderlich.de [23.88.38.48])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=amutable.com;
+	spf=pass smtp.mailfrom=amutable.com;
+	dkim=pass header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=GgwgrVWk;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D529606A31C;
-	Tue, 17 Nov 2026 16:45:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D529606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=simonwunderlich.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=simonwunderlich.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76BBA606A32F
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:46:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76BBA606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.a=rsa-sha256 header.s=09092022 header.b=Ko6SikcA
-Received: by mail.simonwunderlich.de (Postfix) id 7F3C0FA039;
-	Tue, 17 Nov 2026 17:45:36 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=simonwunderlich.de;
-	s=09092022; t=1794933937;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=b7rA3f+5kZ4ohnzATtzU3IQFFAM5nwbvX+N6Ax6dlwg=;
-	b=Ko6SikcAnFscPuvoOl+h9YTtyPLrjZi7kEEQLf3A0K+Imfmwfx22QXglwfosAAXMVs2uB+
-	wATDpXH7/ggdyQl7iLTGzySpVWrVrrpEHIPzNwngA7mROUnuUHNR6TBAE2ergZLhyBnfVW
-	RUVYgW5+9rqEMt8F1MWf8qwR7UUjv4mQEdYnwQYT1gK7bv8HgC6qGoQ5UE+JSqaMnV+9u/
-	IFr7NZO8PUVfpea5ZWAqdymWRGwnyLYrrOZGIhfqvZhLgoQHt5WMGCeFgh6Ny4F+swoqAX
-	TyByTHT9kqL2KHViMHVKIOlVjIHFY9/qRhncM3rENORPktp5RHmDX+NjrIgG+w==
-From: Simon Wunderlich <sw@simonwunderlich.de>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Richard Weinberger <richard@nod.at>,
- Vignesh Raghavendra <vigneshr@ti.com>, linux-mtd@lists.infradead.org,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-mips@vger.kernel.org,
- Hauke Mehrtens <hauke@hauke-m.de>, Aleksander Jan Bajkowski <olek2@wp.pl>,
- John Crispin <john@phrozen.org>, Sebastien Decourriere <sebtx452@gmail.com>,
- Yangtao Li <frank.li@vivo.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/5] dt-bindings: mtd: Add lantiq,nor
-Date: Tue, 17 Nov 2026 17:45:36 +0100
-Message-ID: <5155531.6YUMPnJmAY@prime>
-In-Reply-To: <87fqwzn3tq.fsf@bootlin.com>
-References:
- <20261114100608.3432120-1-sw@simonwunderlich.de>
- <20261114100608.3432120-3-sw@simonwunderlich.de> <87fqwzn3tq.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=GgwgrVWk
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so626255e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:46:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amutable-com.20260707.gappssmtp.com; s=20260707; t=1794933990; x=1795538790; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=oKKCe8ygh7GrMUkWBfeX/37zckwQuQ0kbjpZzRD5XkA=;
+        b=GgwgrVWkhEfrk3N6EXagZRK+5loEKGHlA7VwYYe+uq/MeGrHeC3JmNuHlMkmAk7Aeg
+         sM0j2MXA6GjiiTUYHVM2uYdJy/cxQxCuxPmnWSGeD2ErSbMsyuAdnHtN0+FS3WBIwbNr
+         XbNP0uJPM2Vbv/jFoL5RaoZqvUsK1kmrCuzDi+7EBLOH42pHj+8VzuoqdQpZMCVnQ8Y3
+         A1dG9jSRObf7HxfX1X6SpRVFiOkBBXaHgDQsRmQBtKUJsoS7SWTyWE5jb1q/hkd7OC9g
+         kgLxLOYhXk8ZSynLQvYLLChpHtgkKdWJdB0Q5Qt2c/JRhSgsGbLDw+RJgX5z1zs0+osK
+         sbeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794933990; x=1795538790;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oKKCe8ygh7GrMUkWBfeX/37zckwQuQ0kbjpZzRD5XkA=;
+        b=Ms4sCsqwAj6vi2EBlp+dSAnH2MhdhS09EAurK3mqLdYxK2a1mf3X5sLjBBoQEo591/
+         lWC4f6DG0GbSoB7CDsoKucN4oIDpUDNFNXW9EdK6sKAcldZcwqwpG+o0kjWFbq8iFn4Q
+         6+zqbDv00giFuUwbpvPUtaxUX8jMpw2OqmyCRAyIAduImjAEF2gJLToozAyUgtguqNtb
+         9WKXlmZGLwr0AgLX56A59AyEVAlZOYQTvog9l2zcXdT6eY2wjv4NOoCU4v7FCcVC4KMV
+         mtgb6+xv7oNIUAOClkSs6f2JC0XKTmD8dRlLqC7ZxFJJmRRJCVY5zBwNZvK3nyBCX0dz
+         UlFw==
+X-Forwarded-Encrypted: i=1; AL+hErET6MmXg8giZoEqVk9D1FmvqSiJZP0hpWWT9Pd+vH9OoUAr9VO6gXyXcJNOnlRZixGP7oF5YSi/gJ2Hrvc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/UfNiRrqePE1O1n9J7hbEClN6VecQ7JHi0Zza1x66CL+BIj/L4
+	rorGRkp/y4fJiTV5IiHvkjCA2/ERo4ofk9Q+MYqB+1RXiRDY7JfPsH5cfmxX2VRlBYfK
+X-Gm-Gg: AYBFou21yOxue7eRx/OwvOK6PDd30bQ6SzD97wmt3r+khOgBTXUiaIY5kD5Hv+Ezshg
+	r5tyB2S9wJN/UWcrRLEEtI9GSX+c7K8VbShB58sScAfvwiCwuwehpBnYRW5IWLKVQkc499G551M
+	WlFPk19qzbE8vyp/67wqK0JW6mWRnymWKsBR7M607+USDi5rJS0/J455sCPW29FJCeT7xG7qqEO
+	/WHKjcfdoEjR9968EiU9HpY0mWoNhpNRf9MAeggqKKugnrAtrgDsNbt5emwJeqgNLRP+hmkrIoU
+	iwFzMrj1EdkI5eOJlbSRw0ztsXLo0Q/mcwiXh3hdPFVotn9KnOWntt8kKTSlgvPcB/0cd5tQ2y1
+	4shNQVdI7hlZZpW7FrtzXm5fO3FnZVfzl2OAv1Je7ORt3+Z421pSpldVw9wyBMf45a5Mv4q0cpE
+	HA90Ok/HGlUxsgv3EZ/kt7vO/GZnOkEukQ71fqkEd2BMnFUbVtCvEC5XWOXhF8zxowkvKL3Q1+L
+	sLXElcbw9UG+xsIOVt2Y4DLCrI9d+0MyR8+rMDwduSAL6tCJaccOm6KWSns7mkvrt86UyOYAH81
+	1emsJEH94yNFMWPmup8EyBkAdS0rwccF4RefdG9NYMh2RYxI8liq+BeSCCF3MtxP4Yvwo7SuY4a
+	cj+drP2HADJECsnhQN2JJORE4AlnsD6SftJ+JXrLG0IhKZBLgV8BvBHFs
+X-Received: by 2002:a05:600c:8b81:b0:4bb:5f45:c97f with SMTP id 5b1f17b1804b1-4bb5f4f93f3mr237361265e9.27.1794933989639;
+        Tue, 17 Nov 2026 08:46:29 -0800 (PST)
+Received: from ?IPv6:2003:cf:572c:2800:dd2a:c8cf:5d96:bf5b? (p200300cf572c2800dd2ac8cf5d96bf5b.dip0.t-ipconnect.de. [2003:cf:572c:2800:dd2a:c8cf:5d96:bf5b])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a4de4cb1c3sm3411859f8f.8.2026.11.17.08.46.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 08:46:29 -0800 (PST)
+Message-ID: <ef8fced5c2a9d60040e631cef986bafbee28c352.camel@amutable.com>
+Subject: Re: [PATCH] devpts: create pty nodes under the parent lock
+From: Alexander Mikhalitsyn <alex@amutable.com>
+To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+	linux-kernel@vger.kernel.org, Cheng Yongkang <teel4res@gmail.com>, 
+	stable@vger.kernel.org
+Date: Tue, 17 Nov 2026 17:46:28 +0100
+In-Reply-To: <20261117-work-devpts-pty_new_locking-v1-1-9ad92fc3bd93@kernel.org>
+References: 
+	<20261117-work-devpts-pty_new_locking-v1-1-9ad92fc3bd93@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,74 +103,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
 
-On Tuesday, November 17, 2026 11:35:13=E2=80=AFAM Central European Standard=
- Time=20
-Miquel Raynal wrote:
-> Hi Simon,
+On Tue, 2026-11-17 at 16:27 +0100, Christian Brauner wrote:
+> devpts_pty_new() creates /dev/pts/N with d_alloc_name() and
+> d_make_persistent() without holding the inode lock of the devpts
+> root.
+> A lookup of /dev/pts/N that misses the dcache holds that lock shared,
+> gets an in-lookup dentry from d_alloc_parallel() and calls
+> simple_lookup(), which hashes it as a negative dentry. Nothing
+> serializes the two, so the pty can be created and hashed after the
+> lookup missed it, and simple_lookup() then hashes its negative dentry
+> for the same name right in front of it:
 >=20
-> On 14/11/2026 at 11:06:04 +01, Simon Wunderlich <sw@simonwunderlich.de>=20
-wrote:
-> > The NOR flash on the External Bus Unit (EBU) of Lantiq SoCs is handled
-> > by the lantiq-flash driver and used by danube_easy50712.dts, but its
-> > binding was never documented.
-> >=20
-> > Add a schema for it, including a new optional lantiq,ebu-swap-check
-> > property. Some boot loaders, like the BOSS bootmonitor on the bintec
-> > elmeg RS123 and RS353, enable the EBU's own endianness swapping for the
-> > flash chip select (EBU_BUSCON0 bit 30), and the flash then appears at
-> > its unswapped addresses. Whether that bit can be trusted depends on the
-> > SoC: it only works on VR9 (xRX200) from revision 1.2 and on AR10
-> > (xRX300), and Falcon has no such register. A board property instead of
-> > a list of SoC revisions in the driver was requested in the review of an
-> > earlier attempt at this. The property does not state the bit's value,
-> > so a board keeps working with either boot loader setting.
-> >=20
-> > Link:
-> > https://lists.infradead.org/pipermail/linux-mtd/2017-January/071749.html
-> > Link:
-> > https://lists.infradead.org/pipermail/linux-mtd/2017-January/071818.html
-> > Signed-off-by: Simon Wunderlich <sw@simonwunderlich.de>
+> =C2=A0 lookup=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 devpts_pty_new()
+> =C2=A0 inode_lock_shared(root)
+> =C2=A0 d_alloc_parallel(root, "N")
+> =C2=A0=C2=A0=C2=A0 miss
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 d_alloc_name(root=
+, "N")
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 d_make_persistent=
+()
+> =C2=A0 simple_lookup()
+> =C2=A0=C2=A0=C2=A0 d_splice_alias(NULL)
+> =C2=A0 inode_unlock_shared(root)
 >=20
-> Let's be honest, I am not very familiar with that MTD area and all the
-> legacy content is has, but would it be a lot more work to add lantiq as
-> a physmap variant? I don't like much the fact that you describe the
-> flash without describing the EBU. Physmap versions typically are matched
-> using the more specific compatible (lantiq,ebu?) and the cfi-flash
-> fallback. All your tweaks are EBU/machine/integration details, not
-> related to the flash itself.
+> Both dentries are now hashed under the same name and the negative one
+> is found first. So stat() or open() of a freshly allocated pty fails
+> with ENOENT until the negative dentry goes away. Cheng measured about
+> 26k bogus ENOENTs in 6.5 million lookups while ptys were being
+> created
+> in a loop.
 >=20
-> One consequence of not modeling the controller is your need for
-> EXPORT_SYMBOL_GPL(ltq_ebu_membase) in patch 3/5, which is quite a hack.
+> The parent lock used to be held here but was dropped in 8ead9dd54716
+> ("devpts: more pty driver interface cleanups"). b4a76faf9d96
+> ("convert
+> devpts") then switched mknod_ptmx() over to simple_start_creating()
+> but
+> left devpts_pty_new() alone.
 >=20
-> Thanks,
-> Miqu=C3=A8l
+> Do what mknod_ptmx() does and create the pty node with
+> simple_start_creating() and simple_done_creating(). That takes the
+> parent lock exclusive, so creation waits for lookups in flight, and
+> it
+> reuses the negative dentry a finished lookup might have left behind
+> instead of hashing a second dentry next to it.
+>=20
+> devpts_pty_kill() doesn't need the same treatment. It only unhashes
+> the
+> dentry and a lookup racing with it either still finds the pty or
+> misses
+> and correctly reports ENOENT. The index of a pty is only freed in
+> ->remove() after the master was closed and devpts_pty_kill() ran, so
+> devpts_pty_new() never finds a positive dentry for the name it
+> creates.
+>=20
+> Note that ptmx_open() calls devpts_pty_new() with the tty locked. We
+> never take the tty lock under the inode lock of the devpts root:
+> lookup_open() drops the parent lock before do_open() calls ->open()
+> and
+> devpts has no ->atomic_open().
+>=20
+> Reported-by: Cheng Yongkang <teel4res@gmail.com>
+> Closes:
+> https://lore.kernel.org/20261115163620.225761-1-teel4res@gmail.com
+> Fixes: 8ead9dd54716 ("devpts: more pty driver interface cleanups")
+> Cc: stable@vger.kernel.org
 
-Hi Miqu=C3=A8l,
+Reviewed-by: Alexander Mikhalitsyn <alex@amutable.com>
 
-thank you for applying patch 1!
-
-About physmap: you were right, and this was actually a great hint. I tested=
- on=20
-the my RS123: with the EBU swap that its boot loader enables, the flash is=
-=20
-simply a plain CFI flash. With compatible =3D "cfi-flash" and the generic p=
-hysmap=20
-driver, probing, reads (identical to what lantiq-flash reads, unaligned rea=
-ds=20
-included), erase and write all work. So this board needs no lantiq-flash ch=
-ange=20
-at all, and I'm dropping patches 2 to 5. There won't be a v2.
-
-Turning lantiq-flash itself into a physmap variant for the boards with the=
-=20
-classic U-Boot setup would probably be the cleaner model, but I don't have=
-=20
-such a board to test it, so I'm leaving that alone for now.
-
-Thank you again!
-     Simon
-
-
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+> ---
+> =C2=A0fs/devpts/inode.c | 8 ++++----
+> =C2=A01 file changed, 4 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/fs/devpts/inode.c b/fs/devpts/inode.c
+> index bd1e8eb26edb7..65f6aee74fa45 100644
+> --- a/fs/devpts/inode.c
+> +++ b/fs/devpts/inode.c
+> @@ -521,15 +521,15 @@ struct dentry *devpts_pty_new(struct
+> pts_fs_info *fsi, int index, void *priv)
+> =C2=A0
+> =C2=A0	sprintf(s, "%d", index);
+> =C2=A0
+> -	dentry =3D d_alloc_name(root, s);
+> -	if (!dentry) {
+> +	dentry =3D simple_start_creating(root, s);
+> +	if (IS_ERR(dentry)) {
+> =C2=A0		iput(inode);
+> -		return ERR_PTR(-ENOMEM);
+> +		return dentry;
+> =C2=A0	}
+> =C2=A0	dentry->d_fsdata =3D priv;
+> =C2=A0	d_make_persistent(dentry, inode);
+> =C2=A0	fsnotify_create(d_inode(root), dentry);
+> -	dput(dentry);
+> +	simple_done_creating(dentry);
+> =C2=A0	return dentry; // borrowed
+> =C2=A0}
+> =C2=A0
+>=20
+> ---
+> base-commit: 666539eecdf4db623f5e3c3e55cf9f2dfad24aa4
+> change-id: 20261117-work-devpts-pty_new_locking-9b3d01e643c3
