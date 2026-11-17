@@ -1,81 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794934263;
-	b=Ed/momU7PgTIto65E6RwwqREr8ZG86ILxaeyOfHMuYK/T+A+ul3+hCU9SRJhTk74nWAS
-	 AT8P3vJhnWzBLQC+4Xvs1pj8xWCmwqaaS+q6eHIAlZKmPMuct8lLNKgXLR4mvU++UH0f8
-	 4RywKO8gLsdwOlnEMvh2Abz6DBfRME++WJyFveAB6SL3tsEPsv1GDVsKBajpRr/j1Fte+
-	 Qsv+YAtEsEyd/YAGa6kOZ25CyyeM3o5seNZpWDaX/WGUW4GA/urfI1Tg5628ScDUIp0LH
-	 7tA4hDJk0z1Zj3WpkvnDc5i6HShcdDuvtl6jtbHsfvAF3i2hUm3xUQOc+wyxjFDEUfA==
+	t=1794934279;
+	b=2GJxAFXiiOuS4Zk6pxk3W7AYDbDb4VLh1Ye5eL3HyNbEcmKEHkQvCnFqK3GGQdwpkIPw
+	 QGRTxgn3YUNGHvt94ILBGdyoxUs5Okf9+oZPYw/VnWIJkMlZ1Bt1+SE0zFcED8wyskqko
+	 ctiGD4Q1QGju8LC15DCvZ84XIH7O+5+TDFiFQbSUkxMNpJq7JD5qXbPLFdwG1YakV27wR
+	 vwAInXozfQ2zsdSklpwBa2wGrs9OKAc1anGMOappIr4LQSBR9n/y3Zb2DWFaBOJBsop2T
+	 42rmv+NdUa/N8Y0vm2i1HIeC9tpY9w44yfoM89+d/iKEuSYa7Syo+nSyBNxS6LDvvkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794934263;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794934279;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=9zOO5rAdZD5bgN+m83G9k8CmEqp9m+/UuZhzOcs9Gjc=;
-	b=WWrimjMs8FByj0dJfFeuiivVfytvs4SvBJlP6mP/XtlPbfJSCRVtVNp+FhrHdk6zu9CH
-	 eKwq+NOT2+yHWKWL3UI4ouh3VR/sl7cBDr7qStXoN7O3lwI+aXcoau/7lRG7euNYja1U4
-	 Lhij83TrVEmn2syqIS3Blw91ZVsKKhvtQ5sda6F3DCyCbVvRoV9R6iGp9TID6eEUup6Id
-	 L8m0JBQCROmuSSFKbIu1CzA/2kZfbvLUI8/RgFfA7cflNtFPqmLJSSRgOrI3zob5he7G/
-	 8vLbyFfz8k7U5L3nHpQlw2Xny3sPkormUY+cu+vvsx/4qlM4s1AiuLDMZPQpLulTpBA==
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=RT4X/T0EuH0TmEYOt+HYB/RGMpJQFe8/Bu+i4DTLK/k=;
+	b=4586PEhnzQw8FBQ8IKmOkogSk19Yc9qbyG7O69E0sNEJBwjJ536SzZqlqqQdOtcrpF5G
+	 IosVAsVOM8fNNYBPkQy8gP1gXTDSKnB14TdghKnuMN0GetVfNbfpN1iLdTbJBl4D0C4jI
+	 vzpoPkWtcdX888B7EkXeUQjcgNIKbYke+2a7RcFjXJaNakWILZmaehHgmW6Jbpro5GEos
+	 Cf++kYzMQBdYxvIRibg0qh1IPN1oKO/Pt4JR8nRgSMnIAf8bxLBnD6L3FJI72j3S9xaLL
+	 4CSSE51QCs241niJsWT6Svl80zvgcCcntB9pLUJ7pifRWEh2fdw+V7DdQQeXqCjD4Bg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LnZfU0ID;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BdqVL2gN;
+	arc=none smtp.remote-ip=192.198.163.14
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76D80606A31C;
-	Tue, 17 Nov 2026 16:51:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76D80606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5CA3606A31C;
+	Tue, 17 Nov 2026 16:51:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5CA3606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LnZfU0ID
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BdqVL2gN
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794934262; x=1826470262;
+  t=1794934279; x=1826470279;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=Oo2HLD57CgDs74O09Fghy16vcY7J9AgvHbmS51v8TSw=;
-  b=LnZfU0ID6/cLl01vSRfJvV5LuhtkvJAiYEpYQ0M2865zT48PsSdcdj9d
-   P+MsmT9/pru+1DhQ+jUXL8EKU7rZKN5HYg8jxlXT2Ltb1lpzYnQPqS2J3
-   AaTUctKbtHryS48it30pE7bAk04QHizD4VPlm8izN7mOZ/LVuQ3sI/zMu
-   0QJ5zWGEwwc7jZyZ8MNL86nztvDdyl10qJoIK7uKxFVIbvxZ+rW4DBBMc
-   8qZEe6uHMSWHWyFQ3/GPOJbLSD2TnI8/MGNki6Bpekib0dCR3rSV4sNSH
-   AUhOj51OF5M27X1ZJr9kNwshDc0NKfwyeLLpKvA4MCr7Izz27EvEBlPWG
+  bh=XgS/tf3vpO0tulClCI8eLPUH78J7AQTbpyP5VYST+vU=;
+  b=BdqVL2gNRomceLMKaZ8A7prEFqHT1Ae5Ex0herHaKl2tccJLESw84b0M
+   OWpSJbaZPyjJdtxV0mLOOZHYwiG9ga+4yi+fzNik4dQWVq6cTiqg30wpE
+   rAqeAGC2TzEgNk8Oai6w8uF+JeVPYMkI7cumUskBmU76vF0qFepdtvPes
+   S7/ZZoQpecyejlGZbbsmkRNkj8MK3HlPThNiu1znu4uCSDatI5iu7NfGc
+   CVC3NG/tHumNbVqUCJaM56DX77aMBisFk6eJk+DD/B86tspeiORUNnScC
+   irTgMbpNMUdhD6VBWLL2i2v76L7Wcu4n+0dXcB1OLpAL/sPxxWI9XfMwq
    A==;
-X-CSE-ConnectionGUID: ou6TTQC1QKGa2VddEfsO+Q==
-X-CSE-MsgGUID: 7425SbxSRM2KRFUiJZejkw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3755780"
+X-CSE-ConnectionGUID: gUDXsM4HTw+LMT8mcPuhMw==
+X-CSE-MsgGUID: WKfj5ytfSiezVGz5AHe3TQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3604023"
 X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3755780"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 08:51:01 -0800
-X-CSE-ConnectionGUID: 6tM/lD3oRAq3KwdQab2P1g==
-X-CSE-MsgGUID: 4zP3eVtsQQeWnvSFsHSBjw==
+   d="scan'208";a="3604023"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 08:51:18 -0800
+X-CSE-ConnectionGUID: O0tcxq0VQeyK+L9Lp1UEoQ==
+X-CSE-MsgGUID: uCw/BAsQQmWYgbRaBlw6SQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="9790442"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.254])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 08:50:56 -0800
-Date: Tue, 17 Nov 2026 18:50:54 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
-Cc: jic23@kernel.org, linux-iio@vger.kernel.org, dlechner@baylibre.com,
-	nuno.sa@analog.com, andy@kernel.org, nicolas.ferre@microchip.com,
-	alexandre.belloni@bootlin.com, claudiu.beznea@tuxon.dev,
-	giorgitchankvetadze1997@gmail.com, amin.gattout@gmail.com,
-	antoniu.miclaus@analog.com, gregkh@linuxfoundation.org,
-	mripard@kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/3] iio: adc: at91_adc: use local struct device
- pointer in probe
-Message-ID: <avyF7vllhuE-cJA0@ashevche-desk.local>
-References: <20261117140510.391907-1-abdelnasserhussein11@gmail.com>
- <20261117140510.391907-3-abdelnasserhussein11@gmail.com>
+   d="scan'208";a="9732926"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa005.jf.intel.com with ESMTP; 17 Nov 2026 08:51:16 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xTMOn-00000001C4R-1v7l;
+	Tue, 17 Nov 2026 16:51:13 +0000
+Date: Wed, 18 Nov 2026 00:50:17 +0800
+From: kernel test robot <lkp@intel.com>
+To: xu.xin@linux.dev, David Hildenbrand <david@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, Donet Tom <donettom@linux.ibm.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Linux Memory Management List <linux-mm@kvack.org>,
+	linux-kernel@vger.kernel.org, Xu Xin <xu.xin@linux.dev>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/ksm: do not inherit ksm_zero_pages counter or PTE
+ markers on fork
+Message-ID: <202611180030.dC8BHX2Z-lkp@intel.com>
+References: <20261117081821.7211-1-xu.xin@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,83 +89,89 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261117140510.391907-3-abdelnasserhussein11@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261117081821.7211-1-xu.xin@linux.dev>
 
-On Tue, Nov 17, 2026 at 04:05:09PM +0200, Abdelnasser Hussein wrote:
-> Introduce a local struct device pointer in at91_adc_probe() and use it
-> in place of &pdev->dev and &idev->dev throughout the function.As a
-> result, messages previously logged against the IIO device are now
-> printed using the platform device being probed.
-> 
-> switch devm_iio_device_alloc() to use sizeof(*st) instead of
-> spelling out the full private structure type.
+Hi,
 
-...
+kernel test robot noticed the following build errors:
 
-> +	struct device *dev = &pdev->dev;
-> +	struct device_node *node = dev->of_node;
+[auto build test ERROR on akpm-mm/mm-everything]
 
-Before doing this, switch to device_property_*() / fwnode_property_*() APIs
-first.
+url:    https://github.com/intel-lab-lkp/linux/commits/xu-xin-linux-dev/mm-ksm-do-not-inherit-ksm_zero_pages-counter-or-PTE-markers-on-fork/20261117-161821
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
+patch link:    https://lore.kernel.org/r/20261117081821.7211-1-xu.xin%40linux.dev
+patch subject: [PATCH] mm/ksm: do not inherit ksm_zero_pages counter or PTE markers on fork
+config: arc-allnoconfig (https://download.01.org/0day-ci/archive/20261118/202611180030.dC8BHX2Z-lkp@intel.com/config)
+compiler: arc-linux-gcc (GCC) 16.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261118/202611180030.dC8BHX2Z-lkp@intel.com/reproduce)
 
-...
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611180030.dC8BHX2Z-lkp@intel.com/
 
-> -	st->caps = of_device_get_match_data(&pdev->dev);
-> +	st->caps = of_device_get_match_data(dev);
+All errors (new ones prefixed by >>):
 
-In a separate patch (perhaps in the first one in this block, convert this
-to use device_get_match_data() and add an error check (for now until we able
-the driver_override case to address differently.
+   mm/memory.c: In function '__copy_present_ptes':
+>> mm/memory.c:1168:13: error: implicit declaration of function 'is_ksm_zero_pte' [-Wimplicit-function-declaration]
+    1168 |         if (is_ksm_zero_pte(pte))
+         |             ^~~~~~~~~~~~~~~
 
->  	st->use_external = of_property_read_bool(node, "atmel,adc-use-external-triggers");
->  
->  	if (of_property_read_u32(node, "atmel,adc-channels-used", &prop))
-> -		return dev_err_probe(&idev->dev, -EINVAL,
-> +		return dev_err_probe(dev, -EINVAL,
->  				     "Missing adc-channels-used property in the DT.\n");
->  	st->channels_mask = prop;
->  
->  	st->sleep_mode = of_property_read_bool(node, "atmel,adc-sleep-mode");
->  
->  	if (of_property_read_u32(node, "atmel,adc-startup-time", &prop))
-> -		return dev_err_probe(&idev->dev, -EINVAL,
-> +		return dev_err_probe(dev, -EINVAL,
->  				     "Missing adc-startup-time property in the DT.\n");
->  	st->startup_time = prop;
 
-...
+vim +/is_ksm_zero_pte +1168 mm/memory.c
 
->  	if (st->caps->has_tsmr)
-> -		ret = devm_request_irq(&pdev->dev, st->irq,
-> +		ret = devm_request_irq(dev, st->irq,
->  				       at91_adc_9x5_interrupt, 0,
-> -				       pdev->dev.driver->name, idev);
-> +				       dev->driver->name, idev);
->  	else
-> -		ret = devm_request_irq(&pdev->dev, st->irq,
-> +		ret = devm_request_irq(dev, st->irq,
->  				       at91_adc_rl_interrupt, 0,
-> -				       pdev->dev.driver->name, idev);
-> +				       dev->driver->name, idev);
->  	if (ret)
-
-> -		return dev_err_probe(&pdev->dev, ret,
-> +		return dev_err_probe(dev, ret,
->  				     "Failed to allocate IRQ.\n");
-
-In a separate patch, before this one drop this dup message. It's printed
-by the devm_request_irq().
-
-...
-
->  	adc_clk_khz = adc_clk / 1000;
-
-At some point better to use HZ_PER_KHZ instead of odd 1000.
+  1123	
+  1124	static __always_inline void __copy_present_ptes(struct vm_area_struct *dst_vma,
+  1125			struct vm_area_struct *src_vma, pte_t *dst_pte, pte_t *src_pte,
+  1126			pte_t pte, unsigned long addr, int nr)
+  1127	{
+  1128		struct mm_struct *src_mm = src_vma->vm_mm;
+  1129		bool writable;
+  1130	
+  1131		/*
+  1132		 * Snapshot writability before the RWP-disarm rewrite below: when the
+  1133		 * child is not RWP-armed, pte_modify(pte, dst_vma->vm_page_prot) can
+  1134		 * silently drop _PAGE_RW from a resolved (no-marker) writable PTE,
+  1135		 * so a later pte_write(pte) check would skip the COW wrprotect and
+  1136		 * leave the parent writable over a folio shared with the child.
+  1137		 */
+  1138		writable = pte_write(pte);
+  1139	
+  1140		/*
+  1141		 * Child is not RWP-armed: restore accessible protection so the
+  1142		 * inherited PAGE_NONE does not cost a fault on first read. Gate on
+  1143		 * pte_uffd(pte) so unrelated PAGE_NONE markers (e.g. NUMA balancing)
+  1144		 * are not normalised away.
+  1145		 */
+  1146		if (!userfaultfd_protected(dst_vma)) {
+  1147			if (userfaultfd_rwp(src_vma) && pte_uffd(pte))
+  1148				pte = pte_modify(pte, dst_vma->vm_page_prot);
+  1149			pte = pte_clear_uffd(pte);
+  1150		}
+  1151	
+  1152		/* If it's a COW mapping, write protect it both processes. */
+  1153		if (vma_is_cow_mapping(src_vma) && writable) {
+  1154			wrprotect_ptes(src_mm, addr, src_pte, nr);
+  1155			pte = pte_wrprotect(pte);
+  1156		}
+  1157	
+  1158		/* If it's a shared mapping, mark it clean in the child. */
+  1159		if (src_vma->vm_flags & VM_SHARED)
+  1160			pte = pte_mkclean(pte);
+  1161		pte = pte_mkold(pte);
+  1162	
+  1163		/*
+  1164		 * Clear the dirty-bit marker on KSM-placed zero-page PTEs in the
+  1165		 * child so inherited mappings are not accounted against the child or
+  1166		 * unshared by MADV_UNMERGEABLE.  Special PTEs always have nr == 1.
+  1167		 */
+> 1168		if (is_ksm_zero_pte(pte))
+  1169			pte = pte_mkclean(pte);
+  1170	
+  1171		set_ptes(dst_vma->vm_mm, addr, dst_pte, pte, nr);
+  1172	}
+  1173	
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
