@@ -1,99 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794932249;
-	b=J2G2ncLH8RiXw+Ehj7VbgEMmyzvVfo8NGNxgj8X82Cq2sTddhMCFRyy514oqfrDdziZi
-	 vUZ4PS21bnWF6niTEGWDT2blaPcRVUNsz3G7ZHyoEWtf70SNUiAXHAIaIvD95UYxF/OYr
-	 0BVylbyWAroOYCvGeggmt+zBH3KpH5Ay9uIZ1yBOjspyPQfTcd4EZKg766U4GifyCSP8D
-	 4HqbbIRuV8xcoogZc+xl3AxzrSFN0+i/KxLsfYlwcf4CTPgk2HJB1LRwnd285FwOO2F/q
-	 r3nv/Oc0SEzCQ+78himMybnO6dzKSrMhAMdmP4yxcf9F6IEz03O/2o08y2p7M3kPuEw==
+	t=1794932245;
+	b=ZTycRNKpq2iuV7u5hhv1CqYxVC42BK6Rp+14tH4iovINLNZs3WpRY71KkNtfzpBTsU75
+	 5n9VPlzJi2F6A12/8uiUMJVP9HzPoUZsuUwGoZKqFiqKJGQxHThRmrMAubZfP9xsDKqv6
+	 l1t0rsSX4Zyelj2m+o2revcpTQrOoBOElqzpYYiY5q0sadwAKyu/yqjv2XfoVwWGFNkTT
+	 iTFCU2FHtFXyI7YEgezfQBnpeXeHMp0IJVl15SaICaZwZ06zLmAih6E+fhjjlTPvERlLD
+	 kTfnLGqop8p4jeynME36QXNho+/kVhabe0dRKaffusRLioYYAf6r5TkLTcGxHqYBOVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794932249;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type;
-	bh=CtUGM4qs3NyrmXicigtcW+0ZUHZL+8lLEGt7ogClzmk=;
-	b=1Fzc/nbFJ/BxjN4seFdZzwOe5WOLptKGnpeZ1fDXn1Wip3hnZrIjElmxyI/3wLkArUHk
-	 T/WnqEaI2gHdJhEdFAH4OFBut/xHu0b2G9yWWiS2MyAXgchA8mJfM9UxnA8fmcT3rbXqY
-	 fBoKrnXwsG6crUlHKsM7ISBat7g1bdOYDvrLHWKqhCXfK1Uqh9aToHW6pyDg8/ragKw3x
-	 HuiCJ+fDdG4QOJ3YrapMBeW0GmHYI7CH9JzkIiR44Q9cWY1NpgcP6z+xFzpvK1ajYLoYV
-	 ZUD2fHuZAFhrvIhxqW7ry/+mFsUm8G6mUSToJT3ievjjJ0wHl3blcK1z/GdsvhAAFOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794932245;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=zFMHS3iTvPTL4lMx2nmha2rZYOE4qD7+sjyLqjHBK9M=;
+	b=nPhLxKkrmFAarw+CGhem+HpAa3006hf9Qmg+ENL54lUxPF0b3hCB8ey56M2IPPnnWlwr
+	 PJlx27ZHAMGKlsmOZQTBZGUPfeaWcSMB18xiXw+gjeJnny+hwM9TchuCTRMlwrYU9wqLc
+	 nX2yabCo1gQELgLE0MkJxvUyzcwMVjr/ddRjYr1WmrR3XW5mINDgeDD15mzxMVIC28vxz
+	 HEc5yWlJBalwK+5N0nflZk975lM4Sd/RKQfys2Zi/puPVmJmigEnKWcyw7rgexw8mJc0K
+	 CpgpC7Ib6X0XO87ZEi7jJ1FSs5VIODfU41DDqESDWquG8a8xnWmOWGR/AfE7cpJ2KmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YRv5z8YL;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=cBfVwpF8;
+	arc=none smtp.remote-ip=158.69.130.18
+Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B537606A8BE
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:17:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B537606A8BE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3309606A8A4;
+	Tue, 17 Nov 2026 16:17:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3309606A8A4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YRv5z8YL
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4ba013938d7so286195e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:17:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794932247; x=1795537047; darn=vger.kernel.org;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CtUGM4qs3NyrmXicigtcW+0ZUHZL+8lLEGt7ogClzmk=;
-        b=YRv5z8YLbbrtZy+LAnNNRr77AJWNhC/HoGsZBhMUc3UjigZJ4n3p23F79l+33PzxNZ
-         nJYBI6WVubKDGxbEpz8KIhV+/hYNFMojnOpbPlLaf86OJ3Z28qCXjoI2Wp0ODGNG5Flf
-         xApx7qoCcn6+Bt9oUjrdI78rH/JRqYtOYDLrNJc9XwSKlLcx7GdDCTo+OseLvoqYT3y/
-         JDCY/u2hDwQP2P4HOvnZrfroDEgQoiOmdIYH5jUhnBsXUp/wv1FYB8rMjO1AXzwbkv9l
-         r4IvKVA/rWFYf7bJPULOr9LaAVoj4auHQCpQHevRnzLaQ0Fglr6uu2NCSCpCootUd5xx
-         EMSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794932247; x=1795537047;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CtUGM4qs3NyrmXicigtcW+0ZUHZL+8lLEGt7ogClzmk=;
-        b=XvtAIkj6JEyZ8U0p1ht3I1tE367CGmdYhKIUoODIYt/9rbk3RxAKdx2Dide0pusNW0
-         QXqEJTLBIV7nZN9AQNSRWwyxUqyY33vCCe2grRbvCilIjX/MZycTuTGxbcbE2ObxyKzH
-         S+D40Iac8WM+CHZshM1zW+hBIdehobbaMS+XX4KgXnwKINE7pPLfiXHHjIkAEPNXEHH2
-         g9t5ktUBoyQQmayO3LTWr6KzHomp0o4yhoyG9e9A6weSiiH/TDgJx7ztEWGj4K8+JUZ/
-         hk6oGgMbAg3mxKlCnZhQQmjZzDAGg2EqMT9abMs03t2eDSWIAznvGGT6RQQ/HzzVbAVA
-         ELUA==
-X-Forwarded-Encrypted: i=1; AL+hErEx8Ru1EgGduSTKlXnQMVmd6IZdPt24UUtYsISd6YYWDPA4NEzShBx42TOVGf+1FfL4IwbGwFirrbFlgPk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+OhtX9bcDhF93icf4MwHF+EQjfNzI03ixHe5yuT2So+rnYTCo/
-	tNoMa3oAMLZ7nIF8BpMQlW+2Lk3jT70o8g6iuuj7OZ4OHuo8UU+svr2j
-X-Gm-Gg: AYBFou2UjKom5AsC1ZNKHfLpaB69/a2b81izK3st+JdGAED3JB0oXcwhQZ466vA7/2y
-	yQ2gxuuWWjHjjgXjnhzb+G7H46n48nkdJbUpSY0+z3sUYhCzHxOzNm0FoJ3oP5BAj+d0nSvLQVA
-	0l5wk6uiKr2DQArAqeQElMl1C1DEA88Lc4rtE9wC+ikj4jmjrYH+zH+6C1DtBQAqK65JmNHGl/b
-	8C95o9tJsuTXmiRTCDTXv0zkhHWWAdBr152O6IRFmtOF2dho1lWy2axsUqG6LQjVvsqcRkmPKJ+
-	acXbQPBmgrhR27yuWzVuVo2oUDST/8W1sV3Rvsupfztdx6Ze6VaMZpb4MYXAucGCWriZpT8f/8v
-	OMo3fxSzIp4GW693YBeOf+mnasCOAAaKsBFQVL/rOVUx1WFV9k9dT7oF9ES1ubi36/h032WCodd
-	2iA4Su4mGvEEml8fc0txzkK+6RzOCKuq+tOTcwBUTCUSNeIaM1s6whXhwdGmArnDzyTN53zYGlp
-	c/NBIAIRM4p/HRL5R3YVaZNHsOnnr1QZ9F++z1rosT6srqvEYowT14eugdD9T0SEhNNthU0r66n
-	Deo9wYSxlEngrtUqCl6FjIyV18xswJgNV6v+Ytd4dJpQqUjBdfi/jgW5fxSoobR+HSDIUl8ksg9
-	gv2VxgtfpE82mQQVpkUo0qOOKtcYiCMBEHkbaGJvBAnTeqFQRwKaMhQNEMf5s28oHsMJDZSEfgM
-	z73P5CAPLIOBEtTjxzmwLzr54zBYcroE9y9TKIrhTrAh4EaXk6cIzU4XnbWNXCeMBOubgzNImvK
-	JwQVr8JZcwG+MG2RUen18VERw5Pf3j+DNPXnYVscE1VgjuBhVkpWGm7LosY
-X-Received: by 2002:a05:600c:b50:b0:4bb:5c5c:8130 with SMTP id 5b1f17b1804b1-4bb5c5c8255mr198447365e9.5.1794932247376;
-        Tue, 17 Nov 2026 08:17:27 -0800 (PST)
-Received: from jernej-laptop.localnet (95-143-148-21.dynamic.telemach.net. [95.143.148.21])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb78344ddbsm82097905e9.0.2026.11.17.08.17.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 08:17:26 -0800 (PST)
-From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: Linus Walleij <linusw@kernel.org>, linux-sunxi@lists.linux.dev
-Cc: Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
- linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
- Yang Siyuan <hsyysy@163.com>
-Subject:
- Re: [PATCH v3 RESEND] pinctrl: sunxi: request the per-bank supply optionally
-Date: Tue, 17 Nov 2026 17:17:25 +0100
-Message-ID: <uNcaWoiORlCb9uOBOQgmvw@gmail.com>
-In-Reply-To: <20261117091944.12082-1-hsyysy@163.com>
-References: <20261117091944.12082-1-hsyysy@163.com>
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=cBfVwpF8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+	s=smtpout1; t=1794932242;
+	bh=zFMHS3iTvPTL4lMx2nmha2rZYOE4qD7+sjyLqjHBK9M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=cBfVwpF8LlRC3OTMgX6+oDFqBNpDY8KWRQ6HBfMaygd0svmS1ia7iA6eVvdLQU9ii
+	 pCs/Hgyas869jQa4aA6jCkyTzVpRL3Cn54vlo5giTk0VlLxkf2rHqmC9L+SoOUEF8W
+	 yt1V6N3MYEamoPkacy07uGkb24mooxD5PuLm4oPrM8yBkt3xQTtnVC/61u2hrJW5TZ
+	 3+BzMdkL3zk3FKmbdaUGCerP9xkMg6wToKsdHrJjQpqMF8l03JU3ay0osVecUWjLvS
+	 WMZcPbcVWj0S9JJEHVQa9ZGvPPvDuBtUsRLzDXr4lx4MX8VJ4Jbs1zXaIJ3snvhX5q
+	 oGrXNuUxNoGdA==
+Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jTVHk1ppWzRcG;
+	Tue, 17 Nov 2026 11:17:22 -0500 (EST)
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: tglx@kernel.org,
+	peterz@infradead.org
+Cc: linux-kernel@vger.kernel.org,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	mingo@redhat.com,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	paulmck@kernel.org,
+	boqun@kernel.org,
+	shuah@kernel.org,
+	kees@kernel.org,
+	viro@zeniv.linux.org.uk,
+	brauner@kernel.org,
+	jack@suse.cz,
+	oleg@redhat.com,
+	bestswngs@gmail.com,
+	xmei5@asu.edu,
+	xujiakai24@mails.ucas.ac.cn,
+	linux-mm@kvack.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 05/17] sched/mmcid: Take the allowed CPUs of the first user when it joins
+Date: Tue, 17 Nov 2026 11:17:05 -0500
+Message-Id: <df251e85248861597f9e35ec0e3edbe188993c6a.1794932121.git.mathieu.desnoyers@efficios.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <cover.1794932121.git.mathieu.desnoyers@efficios.com>
+References: <cover.1794932121.git.mathieu.desnoyers@efficios.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,148 +90,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Dne torek, 17. november 2026 ob 10:19:44 Srednjeevropski standardni =C4=8Da=
-s je Yang Siyuan napisal(a):
-> The per-bank "vcc-pX" supplies are optional in the device tree: the
-> binding documents them, but notes that many boards do not describe them.
-> sunxi_pmx_request() uses regulator_get() anyway, so the regulator core
-> falls back to a dummy regulator and warns for every bank that has no
-> supply:
->=20
->   sun50i-h616-r-pinctrl 7022000.pinctrl: supply vcc-pl not found, using
->   dummy regulator
->=20
-> The H616 R_PIO is such a controller, and its PL0/PL1 pins drive the
-> R_I2C bus, so every H616 board hits the warning during boot.
->=20
-> Use of_regulator_get_optional() instead.  A bank supply that is described
-> in the device tree is still acquired and enabled, as it powers the
-> physical VCC-Px rail, but one that is absent is skipped without a
-> warning.
->=20
-> The OF-only lookup matters here: regulator_get_optional() also falls back
-> to a global regulator-name lookup.  If a regulator with the same name as
-> an absent bank supply is registered later, a subsequent pin request in
-> that bank could acquire it and start the per-bank refcount at one, after
-> earlier pins in the bank had already been requested without a regulator.
-> Freeing any of those pins would then disable the supply while other pins
-> in the bank are still active.  Restricting the lookup to the pinctrl node
-> makes an absent supply permanent; record that state so later pin requests
-> do not retry the lookup.  The refcount therefore stays balanced.
->=20
-> Signed-off-by: Yang Siyuan <hsyysy@163.com>
-> ---
->=20
-> Changes in v3:
-> - Use of_regulator_get_optional() instead of regulator_get_optional().
->   The latter still performs a global regulator-name lookup, which can
->   bind an unrelated regulator that appears after some pins were already
->   requested and unbalance the per-bank refcount.
-> - Remember that a bank has no supply so later pin requests skip the
->   lookup, and keep the existing no-regulator check in sunxi_pmx_free().
+The CIDs of an mm are sized from the CPUs its threads are allowed on.
+mm_init_cid() copies the allowed CPUs of the task into a new mm. Later
+changes reach the mm through mm_update_cpus_allowed(). It uses the mm
+the task points to, and ignores an mm with no user.
 
-Remembering IMO isn't worth it. It complicates the code which runs only
-at probe time.
+An affinity change between mm_init_cid() and the join of the first user
+is lost. In this example, P is a task allowed on one CPU, and H is
+another task:
 
-Best regards,
-Jernej
+  P                                     H
 
-> - Link to v2: https://lore.kernel.org/linux-gpio/20261026152027.1417178-1=
-=2Dhsyysy@163.com/
-> - Link to v1: https://lore.kernel.org/linux-gpio/20261026144751.1392715-1=
-=2Dhsyysy@163.com/
-> ---
-> ---
->  drivers/pinctrl/sunxi/pinctrl-sunxi.c | 29 +++++++++++++++++++++++++--
->  drivers/pinctrl/sunxi/pinctrl-sunxi.h |  1 +
->  2 files changed, 28 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/pinctrl/sunxi/pinctrl-sunxi.c b/drivers/pinctrl/sunx=
-i/pinctrl-sunxi.c
-> index 70099052d..d2345a85a 100644
-> --- a/drivers/pinctrl/sunxi/pinctrl-sunxi.c
-> +++ b/drivers/pinctrl/sunxi/pinctrl-sunxi.c
-> @@ -913,23 +913,44 @@ static int sunxi_pmx_request(struct pinctrl_dev *pc=
-tldev, unsigned offset)
->  					    PINS_PER_BANK;
->  	struct sunxi_pinctrl_regulator *s_reg =3D &pctl->regulators[bank_offset=
-];
->  	struct regulator *reg =3D s_reg->regulator;
-> +	struct device_node *np =3D dev_of_node(pctl->dev);
->  	char supply[16];
->  	int ret;
-> =20
->  	if (WARN_ON_ONCE(bank_offset >=3D ARRAY_SIZE(pctl->regulators)))
->  		return -EINVAL;
-> =20
-> +	if (s_reg->supply_absent)
-> +		return 0;
-> +
->  	if (reg) {
->  		refcount_inc(&s_reg->refcount);
->  		return 0;
->  	}
-> =20
-> +	if (!np) {
-> +		s_reg->supply_absent =3D true;
-> +		return 0;
-> +	}
-> +
->  	snprintf(supply, sizeof(supply), "vcc-p%c", 'a' + bank);
-> -	reg =3D regulator_get(pctl->dev, supply);
-> -	if (IS_ERR(reg))
-> +	/*
-> +	 * Use the OF-only lookup: regulator_get_optional() would also match
-> +	 * a same-named regulator from another device.  Such a regulator can
-> +	 * appear after some pins in this bank have already been requested,
-> +	 * which would unbalance the per-bank refcount.
-> +	 */
-> +	reg =3D of_regulator_get_optional(pctl->dev, np, supply);
-> +	if (IS_ERR(reg)) {
-> +		if (PTR_ERR(reg) =3D=3D -ENODEV) {
-> +			s_reg->supply_absent =3D true;
-> +			return 0;
-> +		}
-> +
->  		return dev_err_probe(pctl->dev, PTR_ERR(reg),
->  				     "Couldn't get bank P%c regulator\n",
->  				     'A' + bank);
-> +	}
-> =20
->  	ret =3D regulator_enable(reg);
->  	if (ret) {
-> @@ -959,6 +980,10 @@ static int sunxi_pmx_free(struct pinctrl_dev *pctlde=
-v, unsigned offset)
->  					    PINS_PER_BANK;
->  	struct sunxi_pinctrl_regulator *s_reg =3D &pctl->regulators[bank_offset=
-];
-> =20
-> +	/* The per-bank supply is optional, so this bank may not have one. */
-> +	if (!s_reg->regulator)
-> +		return 0;
-> +
->  	if (!refcount_dec_and_test(&s_reg->refcount))
->  		return 0;
-> =20
-> diff --git a/drivers/pinctrl/sunxi/pinctrl-sunxi.h b/drivers/pinctrl/sunx=
-i/pinctrl-sunxi.h
-> index 8bd00c6ff..651249b23 100644
-> --- a/drivers/pinctrl/sunxi/pinctrl-sunxi.h
-> +++ b/drivers/pinctrl/sunxi/pinctrl-sunxi.h
-> @@ -162,6 +162,7 @@ struct sunxi_pinctrl_group {
->  struct sunxi_pinctrl_regulator {
->  	struct regulator	*regulator;
->  	refcount_t		refcount;
-> +	bool			supply_absent;
->  };
-> =20
->  struct sunxi_pinctrl {
-> base-commit: 091b06388b117fefdcb63336ac09956a4914b961
->=20
+  execve()
+    exec_mmap()
+      mm_init_cid()
+        copies the allowed CPUs of P
+                                        sched_setaffinity(P, all CPUs)
+                                          mm_update_cpus_allowed()
+                                            the new mm has no user:
+                                            ignored
+    sched_mm_cid_after_execve()
+      P joins the new mm, which
+      counts one allowed CPU
 
+From reading the code, a fork() child has the same window between
+dup_mm() and sched_mm_cid_fork().
 
+The new mm then stays sized for the CPUs allowed at that time. A
+process that starts on one CPU and is widened to 64 CPUs during its
+execve() switches to per CPU mode with its second thread. In testing,
+two threads of such a process read mm_cid 0 and 63. The IDs stay below
+the number of possible CPUs. They are no longer compact.
 
+Fix this by adding the allowed CPUs of the first user to the mm when it
+joins. Hold t->pi_lock for that, as an affinity change holds it. A
+concurrent change is then in t->cpus_mask already, or it finds the user
+and updates the mm itself.
+
+Fixes: b0c3d51b54f8 ("sched/mmcid: Provide precomputed maximal value")
+Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: stable@vger.kernel.org
+---
+ kernel/sched/core.c | 65 +++++++++++++++++++++++++++++++--------------
+ 1 file changed, 45 insertions(+), 20 deletions(-)
+
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 510cd775723b..456b76e823b3 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -10833,24 +10833,17 @@ static bool mm_update_max_cids(struct mm_struct *mm)
+ 	return true;
+ }
+ 
+-static inline void mm_update_cpus_allowed(struct mm_struct *mm, const struct cpumask *affmsk)
++static void __mm_update_cpus_allowed(struct mm_struct *mm, const struct cpumask *affmsk)
+ {
++	struct mm_mm_cid *mc = &mm->mm_cid;
+ 	struct cpumask *mm_allowed;
+-	struct mm_mm_cid *mc;
+ 	unsigned int weight;
+ 
+-	if (!mm || !READ_ONCE(mm->mm_cid.users))
+-		return;
++	lockdep_assert_held(&mc->lock);
+ 	/*
+ 	 * mm::mm_cid::mm_cpus_allowed is the superset of each threads
+ 	 * allowed CPUs mask which means it can only grow.
+ 	 */
+-	mc = &mm->mm_cid;
+-	guard(raw_spinlock)(&mc->lock);
+-	/* Might have raced with exit() */
+-	if (!mm->mm_cid.users)
+-		return;
+-
+ 	mm_allowed = mm_cpus_allowed(mm);
+ 	weight = cpumask_weighted_or(mm_allowed, mm_allowed, affmsk);
+ 	if (weight == mc->nr_cpus_allowed)
+@@ -10876,6 +10869,20 @@ static inline void mm_update_cpus_allowed(struct mm_struct *mm, const struct cpu
+ 	irq_work_queue(&mc->irq_work);
+ }
+ 
++static inline void mm_update_cpus_allowed(struct mm_struct *mm, const struct cpumask *affmsk)
++{
++	/* The first user takes the allowed CPUs of its task when it joins */
++	if (!mm || !READ_ONCE(mm->mm_cid.users))
++		return;
++
++	guard(raw_spinlock)(&mm->mm_cid.lock);
++	/* Might have raced with exit() */
++	if (!mm->mm_cid.users)
++		return;
++
++	__mm_update_cpus_allowed(mm, affmsk);
++}
++
+ static inline void mm_cid_complete_transit(struct mm_struct *mm, unsigned int mode)
+ {
+ 	/*
+@@ -11017,6 +11024,28 @@ static void sched_mm_cid_cleanup_execve(struct task_struct *t, struct mm_struct
+ 	cpumask_copy(mm_cpus_allowed(mm), &t->cpus_mask);
+ }
+ 
++/*
++ * Make @t the first user of the CIDs of its mm.
++ *
++ * mm_init_cid() copied the allowed CPUs of @t before @t was a user. An
++ * affinity change since then did not reach the mm. Add the allowed CPUs
++ * of @t again. Hold t->pi_lock, which every affinity change takes. A
++ * concurrent change is then in t->cpus_mask already, or it finds the
++ * user.
++ */
++static void sched_mm_cid_add_first_user(struct task_struct *t, struct mm_struct *mm)
++{
++	guard(raw_spinlock_irq)(&t->pi_lock);
++	guard(raw_spinlock)(&mm->mm_cid.lock);
++
++	sched_mm_cid_cleanup_execve(t, mm);
++	sched_mm_cid_add_user(t, mm);
++	__mm_update_cpus_allowed(mm, &t->cpus_mask);
++	t->mm_cid.cid = mm_get_cid(mm);
++	/* Required for execve() */
++	__this_cpu_write(mm->mm_cid.pcpu->cid, t->mm_cid.cid);
++}
++
+ /*
+  * Make @t a user of the CIDs of its mm. Called on fork(2) and on
+  * execve(2). A failed execve(2) rejoins the mm it left.
+@@ -11041,19 +11070,15 @@ static void sched_mm_cid_fork(struct task_struct *t)
+ 	WARN_ON_ONCE(t->mm_cid.cid != MM_CID_UNSET);
+ 
+ 	guard(mutex)(&mm->mm_cid.mutex);
++	/* The mutex keeps other users from joining or leaving */
++	if (!mm->mm_cid.users) {
++		sched_mm_cid_add_first_user(t, mm);
++		return;
++	}
++
+ 	scoped_guard(raw_spinlock_irq, &mm->mm_cid.lock) {
+ 		struct mm_cid_pcpu *pcp = this_cpu_ptr(mm->mm_cid.pcpu);
+ 
+-		/* First user ? */
+-		if (!mm->mm_cid.users) {
+-			sched_mm_cid_cleanup_execve(t, mm);
+-			sched_mm_cid_add_user(t, mm);
+-			t->mm_cid.cid = mm_get_cid(mm);
+-			/* Required for execve() */
+-			pcp->cid = t->mm_cid.cid;
+-			return;
+-		}
+-
+ 		flip = sched_mm_cid_add_user(t, mm);
+ 		/*
+ 		 * A running joiner takes no CID at a schedule in before the
+-- 
+2.47.3
 
