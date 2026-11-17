@@ -1,73 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794908051;
-	b=mFLKbG8raBTTg0CXBFtrxzj36mY9GTKwsPIf1LxwIj7NairhWrI7SJDgFG97aXAkB5wU
-	 nqq4a2CpZlwlrNP8S6BdeS3attGM/e8osMXv8vLK0Lx0jHaBw1I5RpUMLCMIxHRV9f7w0
-	 q3qMOu9ck1XIhy0oIuO1xe+PD0K6Pn0L6pMNAdVF1RKPIUTeXXYTuHT16Edirl7btl3JW
-	 +J2/Hi9EyUhte1xyhcAyhTEUW1+W7cD4NM2vRD8hKGv1TEk3YrbBEP9vu86GqljIutZUd
-	 D3tCHpHPzIalFkYkJm4+DU3a5eC5pKSPAa4qKaI9vWMvpejaSQbZfvLT+2Y6ZnyeWVw==
+	t=1794908052;
+	b=pdP3vujKueafQl2ONvTMjeSHvpD6KaBE4mkfJ29p6muAysRPjeWiuTLw4gsdiX/o8qwl
+	 r9ZiYyP/PNNmddLmqxezwRkuzQn/T2hZUHR6e5OTRoyCRCwicUprDR8IA8e6+/tJOObwj
+	 9ciTYSyvBRl2iZ5CCeregyrk2B6omrNVY1/w+koIqF2lHl0GwySeP7ta68NR2SASQVr9t
+	 y13Y43m8ixj4lKeOSIdkgnnVfSSIc+l9m31JyRGxKd5edf/XqshGZu0aqGxsHKyZU7ekl
+	 F80xzikvEPLz/ZL8emMxW1Y2H/pAKM8SCzovUiet2m3UFPmqQO27ziOfdsGdH1xjlhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908051;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=AuE4JfXLFzUDx+6R1OGPPSSy0rX3ecyLORLK9C1d1XU=;
-	b=OiGFHh2CBIpT6DLMqYw6+oeCnWMGH92TcQxbZoBqvLl0VRBeUPuXwd1+zi5Mu74f5FiP
-	 y2t5O9Qp4A3jpLdlPlmWp9bX1D1ucAloVAMQOCephNfeOmjnuy5HvtTDTz8YUt3lb7qfS
-	 lsok+vLNMdeiDbVcSXfBEBvhODWBjcSs7rMYk3n2LD9At4kV/Ln3CDU2/SWVc2s5cbwJ3
-	 KGB841SPVL5BxWC/9Oe9WY3h0SN2pfHlXykwtdlDo4njfsTTm75iVciJs0O97RAuooghI
-	 KmHi2c9LCAUkVNjNlqNi/DjwHsJZbEqJ2AXNGmowfobKskAPL/DZ0zTamWaYDpcQJDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908052;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=t8qxZbn32Z12Fq2RQjI4glAnxZTD45cKMGLss9aFThM=;
+	b=VoosrYm55ezGCGzqf26kC9OaiwA19DdjhJ0cuO92u0SW+84NxV9h+cNAw9rjsgc2jjG7
+	 pVHVAtoqMELu9JuNbAR/rqYvsbmmRC6MIlw2zExVxGexpZUYBroy1258A14XSFSWQANT7
+	 j7+7SJdoyFH22eXTnicproXjxvKcTK9PbxvKNEbME84p/BxER1xZzGn9KxfYhS7uDSfNr
+	 B7dYLtAxrZFdYKepRIFjEQW6IudakIQx3jBwtxEQ9V94dYVXcLg2VxU0eCkCIzzugk2+V
+	 52ZYClScAY10IaJqQJGBAmINn4ssrQPcGcLUxWCUG0n7YUF3aIgLOd46LIjFynKJO7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=TLKYfy8l;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=sB35Xv3E;
+	arc=none smtp.remote-ip=91.218.175.169
+Received: from mta0.migadu.com (out-169.mta0.migadu.com [91.218.175.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88323606A31C;
-	Tue, 17 Nov 2026 09:34:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88323606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8A61606A334
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:34:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8A61606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=TLKYfy8l
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 5090DC4EDB9;
-	Tue, 17 Nov 2026 09:34:13 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id EDDD75FC81;
-	Tue, 17 Nov 2026 09:34:08 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4C65B11BC0B8F;
-	Tue, 17 Nov 2026 10:34:05 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794908048; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=AuE4JfXLFzUDx+6R1OGPPSSy0rX3ecyLORLK9C1d1XU=;
-	b=TLKYfy8l/wEs4kMrr/zo8ahpXceqadQAJ3lSoKzU+PP3cGXWGNaobo2soYFeX/USVBUsEH
-	M/kXRlVKhdLTzVjUJ+ctKfvQqB33hTp6RWZPgF3fcfA9uD8okIs445vyjFERlUKamWHA0h
-	uXJmVU9ny/3w70n44TNL8h4d4mSIXyAP/VDUMJE6+VmOLlTZKBja+UPS2OfOFFPBEY13J+
-	2P289S2EFGjPoqg6Nm7s/E8RSJQ8mfyxQLGJiixtL6ANFHK7Un+dQIDwkGHzwDGXO4yeg+
-	YeQavABR0p0PREKt7Xd0qj7ky30Yzi9SmrEocSuSLmHiLVFv8PjOmy+gbAZpYw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Bough Chen <haibo.chen@oss.nxp.com>
-Cc: Pratyush Yadav <pratyush@kernel.org>,  Michael Walle
- <mwalle@kernel.org>,  Takahiro Kuwano <takahiro.kuwano@infineon.com>,
-  Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
- <vigneshr@ti.com>,  linux-mtd@lists.infradead.org,
-  linux-kernel@vger.kernel.org,  imx@lists.linux.dev,  michael@walle.cc,
-  Haibo Chen <haibo.chen@nxp.com>,  stable@vger.kernel.org
-Subject: Re: [PATCH v5] mtd: spi-nor: clear the default read_sr2 opcode for
- Octal DTR flashes
-In-Reply-To: <20261110081355.5d7ubrgulopr7qvm@shlinux89> (Bough Chen's message
-	of "Tue, 10 Nov 2026 16:13:55 +0800")
-References: <20261023-spi-nor-fix-v5-1-bb6e0ce21169@nxp.com>
-	<20261110081355.5d7ubrgulopr7qvm@shlinux89>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Tue, 17 Nov 2026 10:34:04 +0100
-Message-ID: <878q2rol83.fsf@bootlin.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=sB35Xv3E
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Bs39wPf+S0CB3Kx/RBYWFTHto3XWIFtM1LpZ+jEOpBw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794908049; v=1; x=1795512849;
+ b=sB35Xv3Ex56vU1lX54WsCiJP6eEKywd4dviJU/jbjQ1TBsKupp08fIXohBljSflYSkd9QiCT
+ wt+hkpT9PlA+bYTb3R8qlgtNiZa45wYv7fSB5UvKJrF8m9lEQUw+VWqK3fenWcIlfd6LlBy2qEF
+ PHWKQhhODEf659dGdDBzxbbU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 34837426e6c7ea91;
+	Tue, 17 Nov 2026 09:34:09 +0000
+X-Mizu-Trace-ID: 34837426e6c7ea91
+X-Migadu-Flow: FLOW_OUT
+From: Qi Zheng <qi.zheng@linux.dev>
+To: muchun.song@linux.dev,
+	osalvador@suse.de,
+	david@kernel.org,
+	akpm@linux-foundation.org,
+	azpijr@gmail.com,
+	lance.yang@linux.dev,
+	fvdl@google.com
+Cc: linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	Qi Zheng <zhengqi.arch@bytedance.com>
+Subject: [PATCH v5 0/3] mm: hugetlb: fix CMA-related issues
+Date: Tue, 17 Nov 2026 17:33:56 +0800
+Message-ID: <cover.1794907279.git.zhengqi.arch@bytedance.com>
+X-Mailer: git-send-email 2.48.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,21 +70,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-On 10/11/2026 at 16:13:55 +08, Bough Chen <haibo.chen@oss.nxp.com> wrote:
+From: Qi Zheng <zhengqi.arch@bytedance.com>
 
-> Hello,
->
-> Just a gentle ping to the MTD spi nor maintainers.
->
-> Please let me know if any changes are still needed. Otherwise, could
-> it be picked up?
+Hi all,
 
-Once agreed on the patch (I'll let SPI NOR people decide), I can carry
-it through mtd/fixes rather than spi-nor/next.
+This series fixes three CMA-related issues in HugeTLB reservation,
+long-term pinning and allocation:
+
+ - Avoid ineffective CMA reservations on 32-bit x86 kernels running on
+   CPUs that advertise 1 GiB page support.
+ - Allow long-term pins of explicitly CMA-allocated HugeTLB folios,
+   which already own the CMA memory.
+ - Preserve the caller's GFP mask when allocating from CMA.
+
+Changes in v5:
+ - Move the HugeTLB CMA ownership check into
+   cma_folio_is_longterm_pinnable(), keeping folio_is_longterm_pinnable()
+   inline in mm.h without a HugeTLB header dependency.
+   (suggested by David Hildenbrand)
+ - Clarify CMA ownership in the commit message for patch #2
+   (pointed by Muchun Song)
+ - Rebase onto next-20261116.
+
+Changes in v4:
+ - add comment to cma_alloc_frozen_compound().
+   (suggested by Oscar Salvador)
+ - collect Reviewed-by tag.
+ - rebase onto next-20261110.
+
+Changes in v3:
+ - Drop the cpuset fix. A more comprehensive fix across the HugeTLB
+   allocation paths will follow in a separate patchset.
+ - Check for __GFP_COMP instead of adding it in
+   cma_alloc_frozen_compound(), and leave __GFP_NOWARN to callers.
+   (suggested by Oscar Salvador)
+ - Clarify the CMA ownership comment in folio_is_longterm_pinnable().
+   (suggested by Muchun Song)
+ - Collect Reviewed-by and Acked-by tags.
+
+Changes in v2:
+ - Replace the PF_MEMALLOC_PIN allocation restriction with a GUP exception
+   for HugeTLB folios marked HPG_cma. (suggested by Muchun Song)
+ - Pass the caller's GFP mask through cma_alloc_frozen_compound() instead
+   of skipping CMA when direct reclaim is disallowed.
+   (suggested by sashiko)
+ - Remove unnecessary revalidation of successfully allocated folios after
+   cpuset changes. Retry only failed allocations.
+   (pointed by Jose A. Perez de Azpillaga)
+ - collect Reviewed-by and Acked-by.
+ - Rebase onto next-20261104.
 
 Thanks,
-Miqu=C3=A8l
+Qi
+
+
+Qi Zheng (3):
+  x86: hugetlb: disable default CMA reservations on 32-bit kernel
+  mm: gup: allow long-term pins of CMA-allocated HugeTLB folios
+  mm: hugetlb: fix GFP mask propagation to CMA
+
+ arch/x86/mm/hugetlbpage.c |  2 +-
+ include/linux/cma.h       |  5 ++++-
+ include/linux/mm.h        |  9 ++++++---
+ mm/cma.c                  | 21 +++++++++++++++++++--
+ mm/hugetlb_cma.c          |  4 ++--
+ 5 files changed, 32 insertions(+), 9 deletions(-)
+
+
+base-commit: 749a4de370409464cf8501ec5b2451df45c84eb4
+-- 
+2.54.0
+
