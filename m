@@ -1,88 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.199.235.221
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794905420;
-	b=V0pEjnUeJr7QpSRhZxtZZPmqCQUSo31aVVi+C4ETQgbWuH+uiQfZmnwaaz/ileERzyVY
-	 oj5Q8PfQ58p0P4g2LaiA8pjvtO9NLElSs5yXLd1FRISZ1VlqR02BKhw1ivpRgic3WibLP
-	 z0dac4X2JowwgcU9vuaty3GG6vxLugE8L1z9Xdn7Z2Rf656u8TkrsixDtHFrkdwpqP5CM
-	 gVz73bhffnPQl9tOMK57xUa6B+qxA70qrPV0BTB+/vhmzjozePyOz7yu6WR6mp9KZEbcN
-	 zINrUa4Ot9HAHiXKMaZiwA6/0tRZU2XUsEXC2oOtzztzU5Cx378M7mDGTEy/TaDNXCQ==
+	t=1794905441;
+	b=PpQrwxq3dPzQeNPVAC/uT+hZHuTL5WaC06CsLM5iY7eyMJTXevwjsxfZ1OC9fC8w9ijR
+	 r9uztZ3FHiLHXDNw8O5oQmmXCd/3gMR2EMdCd+dRXR67JkEwxhFqLFdrAJsvlOFoyRx+q
+	 LUWBffuPyyoPV8fSBlJPYVGTscf40ux3Q/MdAiHOnUo7d+vkYyOJJoXvp2DjpH/02Nhna
+	 JHdMbH8sShMXP6j+NEj6e9XYXTGm1lDUUPSCLaT2VQJ56HSpkp8FzUdczFkFM9/CHW+Jj
+	 bx1S3UPcLttBh6sq9tIn57VihKUPMKuxQJhf8WEmh2Mrd5vW9SKOhBouDcXoWKg6f9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794905420;
-	h=DMARC-Filter:Received:Received:DKIM-Filter:DKIM-Signature:
-	 X-Virus-Scanned:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794905441;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=cFk1IC1N2ZxUgPOBN14J0ec3RFhEdGYuQcICO+AAQGg=;
-	b=sMD0w5fo7donTVyP0QCCxN2lDyM6D7hbjCp+rEqDg6V6c8b653riNyz3VvYbg8pK6aVv
-	 k2CsDLgFgAesz3KAJ/Tdu+yorIADsTtkGsGY5xtAc9pa1mBXz5dZuOEcnUJTeb13se0kp
-	 VwDs7WQeg3JTV86I5Fn0JzBgEUJq8byqvZjWJGZA35+tOzf6euEE9/OP8ZyYkLnpCNCOw
-	 JHUmLZovmXRJINkxrrPqRlxo6n3Fh8JUxHRhly3c+5kqEgXeURkSemuQjMZZlV5fLRY0S
-	 H5eBV7rKEGPuG7bHH62qjxiKy2Z2YF40zzMNagq4pj7crRdp1DLkPVaTch6lOwEMCDQ==
+	bh=XWoaUYsNjyOS2UxKd5e2J/3hK5k97ye+XeBBqzpaDGY=;
+	b=kQbeX+qyJpLhRRpt5kyosrPqjaHDe9FGpU6tmWBzTEXpHvY4cl70WufkbE0MkJSl1Nyi
+	 h/AXY4FBPL7xv47YsmECpAOFQnUjLHj0PEC92qFxeJ+YRpNyNfnPJkD0VBHw1rEuafB+j
+	 KZDgJP7hhrDsfcC1Kg6KKVjhdAxAr20QuBUOzYVMbNsi7qUtZE5aueMABIz2EOOJVWI6F
+	 xEVnWpfwIFxBZyH2BwJK0xA7VGqk/Xh9DCw2PY7Dsjwj2S1Cp0oeEfP5UwhPaBdROf5oE
+	 xK68iomRfpwauCo3MIJb0EewAnZeMy0sdgNBFUDsuCGukSDDffp7zv6eGtIbja5NlOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cirad.fr;
-	spf=pass smtp.mailfrom=cirad.fr;
-	dkim=pass header.d=cirad.fr header.i=@cirad.fr header.a=rsa-sha256 header.s=573E3878-7916-11F1-BF4B-F68474317960 header.b="lX5Joh4/";
-	arc=none smtp.remote-ip=194.199.235.221
-Received: from retz.cirad.fr (retz.cirad.fr [194.199.235.221])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HkMxZPXo;
+	arc=none smtp.remote-ip=209.85.215.179
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBB44606A881;
-	Tue, 17 Nov 2026 08:50:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBB44606A881
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cirad.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cirad.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34EEC606A880
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:50:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34EEC606A880
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cirad.fr header.i=@cirad.fr header.a=rsa-sha256 header.s=573E3878-7916-11F1-BF4B-F68474317960 header.b=lX5Joh4/
-Received: from retz.cirad.fr (localhost [127.0.0.1])
-	by retz.cirad.fr (Postfix) with ESMTPS id 7193C20DC645;
-	Tue, 17 Nov 2026 09:50:11 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
-	by retz.cirad.fr (Postfix) with ESMTP id 4866720D7CCE;
-	Tue, 17 Nov 2026 09:50:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.10.3 retz.cirad.fr 4866720D7CCE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirad.fr;
-	s=573E3878-7916-11F1-BF4B-F68474317960; t=1794905411;
-	bh=cFk1IC1N2ZxUgPOBN14J0ec3RFhEdGYuQcICO+AAQGg=;
-	h=From:To:Date:Message-ID:MIME-Version;
-	b=lX5Joh4/2q/HFpT9S7gUsWxhLdRTkgkbSKIDtJM4vHUc6hC8xnM3LcmqYItxlmY42
-	 Bt4pkPYgO6DenbyTxcWgAc8VKn6BDyjxF0OziEuWSY/hBx3y1vldJ3X4fIIki6Edof
-	 LnMTAg46hFwU/jq7ptIj82f8Cc+L5O0Efi7urudl+VQVbsGfHZelKqrKXPLb03qINa
-	 13fwAZW5aDrGrjPB4jLzJE6jdXhUFNjhIV3dkgSolKLQSxnXWy/wEw/S4ibuGfXCp/
-	 pZAI6z4LZlwxEBlpQSfc9TbZEl5zfhjJRzLWubVCwKDA0UV2kFB9R0KBLh/MzfEvEa
-	 kaJtkayVMZmUQ==
-X-Virus-Scanned: amavis at retz.cirad.fr
-Received: from retz.cirad.fr ([127.0.0.1])
- by localhost (retz.cirad.fr [127.0.0.1]) (amavis, port 10026) with ESMTP
- id 1n70Yc3tCfZi; Tue, 17 Nov 2026 09:50:11 +0100 (CET)
-Received: from localhost.localdomain (78-196-243-100.subs.proxad.net [78.196.243.100])
-	by retz.cirad.fr (Postfix) with ESMTPSA id 35E1E20DC645;
-	Tue, 17 Nov 2026 09:50:10 +0100 (CET)
-From: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>
-To: Vlad Banea <montrealtango@gmail.com>
-Cc: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>,
-	Yixun Lan <dlan@kernel.org>,
-	troy.mitchell@linux.spacemit.com,
-	wangruikang@iscas.ac.cn,
-	guodong.xu@oss.qualcomm.com,
-	jyc0019@gmail.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HkMxZPXo
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cd61cef87f1so2023083a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 00:50:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794905438; x=1795510238; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XWoaUYsNjyOS2UxKd5e2J/3hK5k97ye+XeBBqzpaDGY=;
+        b=HkMxZPXocPS555PvR2apkhKqMCS+LMyEL93nxs7b3QXf7ijJ8QdhLwm8gElEuw/Ysf
+         qRAwArEcSKGLsqlX1ulDzkl3KpRpCVHtwh/sKxs1EBszfgA5cMn3F7sQWEt1dQxr8/1u
+         uIYTBD+GBgY94osa9y+YWNLQNFh+EKTp1szg2d8Za3ffvkBvhlpXRIreCsWHPdEn4viX
+         4F4Bq7w1BMwwwkKOYOSQyviuqaFEGWtcBizsfXtQzgAeP9R6jSMj29blEiHaDWnxjI2f
+         dnIILYkH0HHio13NIn5RAoddTQVFAam8PL7+xdALjv5lvSMTuAqGoA/JGVTcL+9GxsE5
+         ag+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794905438; x=1795510238;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XWoaUYsNjyOS2UxKd5e2J/3hK5k97ye+XeBBqzpaDGY=;
+        b=cLJotKXg1leCP7TUDL1vOtfd/bUYEGfmGI63sk8Io7xLjq+qZDcswuvNFf6ZMav9z0
+         L+76yxC/iU/tGewSBGcHh6afD4lzbvxxpGC8Jnym6zUJt3GNNbw1dQHvju/eEvJ87231
+         7XE931lgQsITHU9VtvUDd3amjusYT7ZIc+GrBwZA0INgOqdPQ5kBhGxz20gnfxgy1xea
+         a4B3Vo5Wp7M7rpWSOhU3MAjuWEsPWzA2YYrwl+IIVWEssIvc3yOZnDLbqTfD0cmVKa0z
+         lhGyFkEiMWYAr1nMgtdM2ou+RtD0PWUuGM3mSmvmk2Xy48RSziDhZrK0BkO0wxT2aL4G
+         dhrQ==
+X-Forwarded-Encrypted: i=1; AL+hErGAyMmoLIkW2SlKeW+ISVJVnv2NviW+Pgcn/BSQFsKHkHSJIjAOcxoqSFblwhoKSrlI95u+D81puiYGZ3Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+QsjMRBb+4MIulXs8RKFIWinR1ODi5ImsHyF8BQgkXhpN9vo35
+	uLBm2pN97CMileRtsN/ORzHblH3RdiyaMr+d7G6l2+6nKI8jkMAfBfFa
+X-Gm-Gg: AZFdTZf8Dx3R3FcJouOyWe59yVE7wV3YaPMs0NBTjpxZH2YFn4eytM7cAfX1WHaUF1R
+	48gEMTpXe+3kMNB9U/iJZAVPXdl5Ecq+OoyR3UdHBs9e8rcH8ylBEYYg8UqUcn+4YNkaQWSg1iA
+	t4rBCOlSHIXrzd1vd/Ipw4vf0eMQjOEPMosYbOmPv/WZKACx3+dggP16Ik4BAAnKy15u1GaslDM
+	yVhJwxfDd2WhKgSsngw04jqjDKq7u1hlNNVwKHiRQZPRvgSOjNDAw+c+CPH95V85DaggsPjPhSM
+	IfnAH2YIeqidEo6B4XPM50jLG97vcpA6aGDbcswfHJniIaFJ6Xk4jzYSLfZO7QcSiyLg4jMDFHj
+	tS+m2SRSY82bzNkHpDz6y6EOcykOaDZHdY+PoixJ9FznEsvaQWjvq6AWDJvbMuZgmMWdFSh1R72
+	X0J3nOjur5CA1wOyp1ddDZKM4bbzmnIXeXgLrC9iJ2xtN3pBjzn/KLHxeeSExCFEPAoJCLSy8Re
+	qgA6CCeAJrRpzE11QjfRVYQGBhcDrFyHHN/5x3TT6UT2WZG6VtIETiX+w+RDlJhDfVs8V+rw68O
+	J++/GUTKI4VCR85d3R8XJMT3njIc8lPAx/iFXyc3f2t+8MFJTl8jQ+SoULnCOSRNa5d854Xl5B2
+	0
+X-Received: by 2002:a17:90b:498f:b0:3b1:4018:bfdd with SMTP id 98e67ed59e1d1-3b1b07e8596mr10276263a91.7.1794905438249;
+        Tue, 17 Nov 2026 00:50:38 -0800 (PST)
+Received: from LDYT9Q2G2M ([2a09:bac1:7680:450::1c:35f])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3ac255634sm3006240a91.5.2026.11.17.00.50.35
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 17 Nov 2026 00:50:37 -0800 (PST)
+From: Zhiqi Zhang <zhiqizhangg@gmail.com>
+To: Jens Axboe <axboe@kernel.dk>,
+	io-uring@vger.kernel.org
+Cc: Pavel Begunkov <asml.silence@gmail.com>,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] riscv: dts: spacemit: k1: give each PCIe port its own DMA window
-Date: Tue, 17 Nov 2026 09:49:36 +0100
-Message-ID: <20261117084938.82968-1-frederic.mahe@cirad.fr>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261113023158.2872492-1-montrealtango@gmail.com>
-References: <20261113023158.2872492-1-montrealtango@gmail.com>
+Subject: [PATCH 0/2] io_uring: fix stuck IO_RING_F_DRAIN_ACTIVE and IO_RING_F_DRAIN_NEXT
+Date: Tue, 17 Nov 2026 16:50:31 +0800
+Message-ID: <20261117085033.98363-1-zhiqizhangg@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,29 +96,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 12, 2026 at 09:31:58PM -0500, Vlad Banea wrote:
-> The shared pcie-bus skips all three windows, bus 0x8000_0000-0xb7ff_fff=
-f,
-> which leaves CPU addresses 0x1_0000_0000-0x1_37ff_ffff unreachable from
-> every port. Give each port its own bus that skips only its own window.
+This two-patch series fixes two state-lifecycle bugs in io_uring request
+draining that can leave IO_RING_F_DRAIN_ACTIVE or IO_RING_F_DRAIN_NEXT
+permanently set on a ring, causing subsequent unrelated non-drain
+submissions to be redirected through io_drain_req() and deadlock behind
+in-flight requests.
 
-Tested on a Banana Pi BPI-F3 (16 GB) with an NVMe SSD on pcie1, on
-v7.4-rc1 plus "PCI: spacemit: Ignore PERST# input in RC mode on K1".
+Patch 1/2 stops touching IO_RING_F_DRAIN_ACTIVE and IO_RING_F_DRAIN_NEXT
+inside io_init_req() and defers drain activation until io_drain_req()
+has validated the request/link and allocated its struct io_defer_entry.
+This prevents failed SQEs (restriction, ioprio, IOPOLL, personality,
+def->prep(), BPF filters), failed links, and -ENOMEM in io_drain_req()
+from leaking active drain state.
 
-For pages at known physical addresses (from /proc/self/pagemap), I did
-one 4 KiB O_DIRECT write and read per page and counted swiotlb_bounced
-events:
+Patch 2/2 ensures IO_RING_F_DRAIN_ACTIVE is cleared in io_queue_deferred()
+when all outside requests have completed and been freed
+(ctx->nr_req_allocated == ctx->nr_drained) and ->defer_list drains
+without dispatching another REQ_F_IO_DRAIN request.  This fixes the
+permanent drain stall after linked drain requests (where ctx->drain_req
+stays NULL) or io-wq drain requests whose CQE flushed while a trailing
+non-drain request remained deferred awaiting the worker's last reference
+drop.
 
-  CPU range                    without        with this patch
-  0x1_0000_0000-0x1_0fff_ffff  1439/1439 bounced  0/864 bounced
-  0x1_1000_0000-0x1_1fff_ffff  all bounced        all bounced (pcie1's ow=
-n window)
+Base commit: 666539eecdf4 ("Merge tag 'assoc-array-fixes-v2'") (v7.4-rc3+).
+Note that linux-next converts direct req->flags updates in
+io_uring/io_uring.c to io_req_set_flags(), which touches overlapping
+lines if forward-ported.
 
-Every page read back correctly in both cases, so DMA through bus
-0x8000_0000 works. fio with crc32c verify (16 GiB direct, 8 GiB
-buffered) also passed with both DTs.
+Testing:
+- Built arm64 kernel with CONFIG_IO_URING=y, CONFIG_KASAN=y,
+  CONFIG_PROVE_LOCKING=y, CONFIG_UBSAN=y, and CONFIG_DEBUG_ATOMIC_SLEEP=y,
+  plus W=1 and alternate config (IO_URING_BPF=n, COMPAT=n, KASAN=n) with
+  zero new warnings.
+- Verified in QEMU with a standalone syscall test suite across default,
+  IORING_SETUP_SUBMIT_ALL, IORING_SETUP_SINGLE_ISSUER |
+  IORING_SETUP_DEFER_TASKRUN, and IORING_SETUP_SQPOLL rings:
+  - Unpatched 666539eecdf4: 20/32 deadlock failures (all 5 deadlock
+    reproducers across all 4 ring modes).
+  - With 1/2 only: 16/16 init/link failure cases pass; linked-drain
+    cleanup still fails (4/32 failures).
+  - With 1/2 + 2/2: 0/44 failures across all cases, including
+    restriction/personality/prep failures, post-midlink failed SQEs,
+    consecutive drain ordering, and io-wq drains, with no KASAN/UBSAN/
+    lockdep warnings.
 
-Tested-by: Fr=C3=A9d=C3=A9ric Mah=C3=A9 <frederic.mahe@cirad.fr>
+AI assistance:
+- I found the bugs, wrote the reproducer and test cases, reviewed the
+  code changes, and tested them locally.
+- An AI coding assistant wrote the fix changes in 1/2 and 2/2 and helped
+  draft the commit messages and cover letter.
+
+Zhiqi Zhang (2):
+  io_uring: avoid activating drain for failed requests or links
+  io_uring: clear IO_RING_F_DRAIN_ACTIVE when all drains have finished
+
+ io_uring/io_uring.c | 107 +++++++++++++++++++++++++-------------------
+ 1 file changed, 61 insertions(+), 46 deletions(-)
+
+
+base-commit: 666539eecdf4db623f5e3c3e55cf9f2dfad24aa4
+-- 
+2.43.0
