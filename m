@@ -1,101 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794913661;
-	b=XX6RLgDluvxicILaWevJk2QLQ7LE3OvhGP31hq58iDfnAhReDqDnNflvuqmy9AXvIWlv
-	 cq6YWUfV0bYhVoz6biA3tldojwqGb4Tqi7u/TgLYZrqmVnrd3PDxzEuNcNE4fwS/PdDu1
-	 FCv/VrJP2cIi1kDIDCLmgbWZ8zg8m3WV73qNDZWDphZS4UMnl0xUdTtbOf+e3sKEm8wk2
-	 CP/q+WX1Zft52Af6qHdml6cSVTONuQ02dhmIv/Sv6tJThhh9ghNat7MSZgzrKPSSoy4HC
-	 ZzG6QaMMy621hk7X2ejrsSrGIlJc0pVogAfLvRstwciQ5NuUWZepxXDeCK7TNCEXdAQ==
+	t=1794913685;
+	b=Yl/AgkOPORIhVW6PdDwREx8lYi5bJhedas+63f+nKB7NxWntg2FAoXNx3fJlrTptiQsm
+	 byJl1HQrt0sMOMHXkoWW5BsIt9CDzAFtPbtnh4L7wUbtREO8oIzqsmqhRunre+PacUeaD
+	 KJV9Y0HFyHGx0GapFIGVYntRr/O/83F5h88NCPT7PeUUQ9NUfFqGmlRZci6AAPayM9tJd
+	 xp+A2Lziv/LGstjnMYCk9CtpV+XivEwVjEzKcyyGCaOa1a3uZg/cul9wlla5vgZThlYFV
+	 KnTDdGg1TN8rxt5Hh0w6Vu7tTqjJ1VpTbD5eZ/iWI6rX5k9Jq9rfux78bfX/24zWZhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794913661;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=SDu+8SSFg3qgFJ8GozgNasE9VCP5i/wjR68oWFn0pao=;
-	b=HFNdbQZJwGYyc7yCaO1Q0/FKsjDF0fej2A4FkSTq8rVaFgQrNKvXXXxOJdQVrRp8E4b+
-	 Aepy0xsHAlFDB9ap1QYA/RcPecj3Y0E0tMqNcenA34SJSHJd4h7UqLUXseRTu04iv/Mdn
-	 aEXOZMrvQABgx84NXY7OPiuKmz0qQBkETBp8147rXHwlqp4Xm3vnOdcQENwaQIwMR81cH
-	 kmOwXfHuVXHgnIr5Rwu3LkIOFEr4X/vM2ftsdRIOJCEP2AMIqjvt3ITftFN/vmb7PKTJf
-	 aKJivlUw8PRoVEe4zoJNTxYj2zZTPn5SJbutV7Hiav60V2Rv7Ae4wJXrg7EPNi7tmWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794913685;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=9mJdv7IBp1vrnjWhiM2rfjqM7TJq9bWvqxtxczIfylA=;
+	b=efFuPrvyIxA/gFh8FyhLVaUVLOFUTnWLPW1H0cfn4wTdkFAG/sRGxB7u7EgBOyVZQPDa
+	 vQ5/98PPW6w/+5PHxWC3z48KoNoEVi39BDuJcewJSr5ZESUPyAoR4I2PhODPeApvK32C8
+	 tf4pWm4+2MhJQ9nYkkGAzrMdHoGHuC8f7Smt2ZksETTqFVdWnKETfXM85GRNmurOJrRNR
+	 WPsIRKSQe4Zft24M2UyJpX4pwHup7JS5E/IgdxSoHBSELKyOIhrvO+kSxbjWzN/rOoUHZ
+	 TH98+kyZkWeuf3pu28cdVA7ULnHx1PC3iLjfmE92Cbmdk6XrnXd2+sN/LV/p63+RXgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f+Z4L6xj;
-	arc=none smtp.remote-ip=209.85.167.42
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WQDj9ygf;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE7BA606A32C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:07:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE7BA606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E23B2606A31C;
+	Tue, 17 Nov 2026 11:08:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E23B2606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f+Z4L6xj
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5bcdae234ecso5421709e87.3
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:07:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794913659; x=1795518459; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SDu+8SSFg3qgFJ8GozgNasE9VCP5i/wjR68oWFn0pao=;
-        b=f+Z4L6xj/dCgh5W9WP9jwevl1qBdc/IXGonzbBcUUUwG80wyK3QSzgIFTPJa66aCZr
-         sFfdsmVLn1qq2mVmZT8He1t26FEF2/Z1+VbllkRIOssBeT09KnAaV5KnVoyL7ZhBqLYo
-         2Md6mTiOHAWoRJ7hFWzGqAdVIV9DtnOpdnmAJ+yi0/A8hfGFlVKJdTQR+Nu49YHEo3cf
-         HetZvk4LB9BB9BLLy0jThtOpZ0LlZyimUJqo0U4bnxCtkEXFiX/YoxpruM7Jpg2xGf2L
-         6d9Drcwukh/6zOs4MvoU9sBRguxXrqlMMEGJnj0jOUr6eYbUi4lYGRl24XGSnZ2wb9Jc
-         KGqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794913659; x=1795518459;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SDu+8SSFg3qgFJ8GozgNasE9VCP5i/wjR68oWFn0pao=;
-        b=gHi4/GI/Vhazmg+8mdHf/WUP8MWf5cRe1ZXWmHOFRsssuoUEB9hYHOs1eEucxY1/OJ
-         bAlVTmjUpKE28/2EWTyuGlwhvtIBYI5FSxw7WJ6xtQtKGmRKChFRlke7O17Y2Ycu5luM
-         YplNDfdC19BStjx+jwAIDy9TzkrYXANYHJpbdD0VP4zJWLzkbTEgdYamendnhLzLZmXF
-         +XOO2yj5QGC7TZ1HY2gIBlyyh5Zs2oyN9s4zaUXbrUu/o6eHY//4rqGssO7OIaQK/DzB
-         6egmmyTSkuY1vjK9LwybtWbZE/ML0Xdg4llyVFm1/VGHjlSKNGVfmssXsysEMfPt9sEM
-         I+aQ==
-X-Forwarded-Encrypted: i=1; AL+hErGG4kpifwTX8LLeJlee3l1wG/UR0B/at1kkedCmJeiTk6wwsqLJxCXJ2pXzT2TsTy539dklgSM/TaDDzwM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+2J25v3iZPAuC9yC1rMXPSS+42y/NHU16ObA1qMthguAmb22LS
-	hNdhuPEd42rsKBUtsvlaL4OvTVZtCgvRcnBEEzsmPnJbsgvbCnuRDP38
-X-Gm-Gg: AYBFou0B+WwT8VYvPI705Hr/IgPFqNUGRWVz6QQaedC3Q/gMKgSXFrulsnjP5qyYr55
-	AM9UuPOHXI3RyiRQ2kC43EeAfzgedThM374/l/48L4K1fBIsaJb2aSkFhm/eIgqvc1NvTJ584s3
-	5GMMGdwgXBj54ornMp6CZ75TSmIeIbOSID3QEbZ4EDm25wEXbWerSBgPXdFFx7/DSjY3kk5feIM
-	Xcja+cKsduF8q856wwKKqPje4skxElHO5o+8JUDv4tEUqXh4WFNHD+SCIpk8QtJNI8NfzVmyQ/6
-	utKHPZlU+2EdUA/xA+RkfaUVRn2YSkwjtHXUrOZOmzsfFTDTMmqlEe6rAZ4WM3vk6ePGdo5Zjbx
-	3afyh3vL2SuTxrz+e20pXJnmJIeFp3BA2Tmjf8gQBNR5xBF8r3uK1SxpsUwNrerM21i26YVrWK6
-	ri4Jt+12MTs/VtknUiaPtlwCDpdm9lTG1d4H3TwA4JvQqmxIw9Erp60T1xWf+W1j+Qro6xf6zs+
-	d5q280xU126sin6PF6S8ouF6owFduzZ451Sf0XB15jhygkGofh0ppbAQEsXwgA6pNOBOGykSAIl
-	CwcWUSSJMTRAROPbJoJ7SkYovnpwWChr59T6pxfrIuwVoR/ksjsaSYXnTf9exQK0s0pKHshi389
-	jri03JHq07kfoIrpNKe/Hzzk8zoNV/WW/Y++5S4eGdbEH9Ct94l1tgkDy2w==
-X-Received: by 2002:a05:6512:669c:10b0:5bf:d063:608 with SMTP id 2adb3069b0e04-5c1a132425cmr611403e87.17.1794913658742;
-        Tue, 17 Nov 2026 03:07:38 -0800 (PST)
-Received: from yantra.. (nekmmqtgno85zc1flee-1.v6.elisa-laajakaista.fi. [2001:99a:d7d:c300:5d24:e63:61b2:db16])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c17133c8f5sm3935812e87.44.2026.11.17.03.07.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 03:07:38 -0800 (PST)
-From: Rupesh Majhi <zoone.rupert@gmail.com>
-To: jic23@kernel.org
-Cc: Andy Shevchenko <andy@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Eddie James <eajames@linux.ibm.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>,
-	Arnav Kapoor <kapoorarnav43@gmail.com>
-Subject: Re: [PATCH v2] iio: pressure: dps310: don't wait for new temperature in trigger handler
-Date: Tue, 17 Nov 2026 13:07:34 +0200
-Message-ID: <20261117110735.46400-1-zoone.rupert@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261117033741.39724519@jic23-hlaptop>
-References: <20261113230241.82046-1-zoone.rupert@gmail.com> <20261114013817.476f8fb9@jic23-hlaptop> <20261114083525.11972-1-zoone.rupert@gmail.com> <20261115010203.2a939bd6@jic23-hlaptop> <20261115183949.11591-1-zoone.rupert@gmail.com> <20261115203150.7faed0b1@jic23-hlaptop> <20261115223817.10568-1-zoone.rupert@gmail.com> <20261117033153.608b124e@jic23-hlaptop> <20261117033741.39724519@jic23-hlaptop>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WQDj9ygf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794913684; x=1826449684;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=XIQlG/YLXOmj1bStuA+OXVwGx1sc0S2A+g81QmG0bUY=;
+  b=WQDj9ygfchjAuskiic2re2P157AFrd6twseYJ4IuXIJ2ENWEyfZo4VE5
+   9Leg98I7BOUipX5GsVO8rY/0WUcf/x4jhJM0GhnP5Xa7+Bj8cHUKTbCaX
+   p/SLNxgxCHbIx9vJu7u69ZQreIpg43yWMf6ljkjbsNqGD/72BtKIJ6yCO
+   6vB4mawBycu/2+1NZpM/w4nfwuolGPx5wy7kryikMMwoc23Dz2WImACMP
+   +FpBl0AHh5hFsXs3dRbdJTKp6dmVfxsqZA3meCzGKsw+Jg7AOXt5ST6ZX
+   t4oraBWyKrCPSKCRaw7enyEzyU8vr3YF/F168HLSshf03yz0R687hi3mj
+   A==;
+X-CSE-ConnectionGUID: B+vsGtbnR0CPS/pqmAb3IQ==
+X-CSE-MsgGUID: IpzIEo5BRCiOgZoxWdINbg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3670703"
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="3670703"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 03:08:02 -0800
+X-CSE-ConnectionGUID: 9ujJLLBfRGmhz7fhh6vguw==
+X-CSE-MsgGUID: jYOuMPHxSTalBIGogOP17Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="9867989"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa005.fm.intel.com with ESMTP; 17 Nov 2026 03:08:01 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 4503099; Tue, 17 Nov 2026 12:08:00 +0100 (CET)
+Date: Tue, 17 Nov 2026 12:08:00 +0100
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Jacob Procee <sn125164@gmail.com>, Sven Peter <sven@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Janne Grunau <j@jannau.net>
+Subject: Re: [PATCH] usb: typec: tipd: cd321x: replay the plug on resume
+Message-ID: <avw1kOqmrUii-msr@black.igk.intel.com>
+References: <20261112113005.16418-1-sn125164@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,55 +81,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112113005.16418-1-sn125164@gmail.com>
 
-On Tue, 17 Nov 2026 03:37:41 +0000
-Jonathan Cameron <jic23@kernel.org> wrote:
+On Thu, Nov 12, 2026 at 12:30:05PM +0100, Jacob Procee wrote:
+> On Apple Silicon the Type-C PHY and the dwc3 controller behind a CD321x
+> port lose their state during s2idle while the plug stays connected, and
+> the CD321x does not raise an interrupt on resume. xhci notices the lost
+> state and re-initializes the host controller:
+> 
+>   xhci-hcd xhci-hcd.0.auto: xHC error in resume, USBSTS 0x401, Reinit
+>   usb usb1: root hub lost power or was reset
+>   usb 1-1: USB disconnect, device number 2
+> 
+> but the PHY is only ever programmed from typec_mux_set(), so a device
+> left plugged in (here a FIDO2 security key) never comes back until it is
+> unplugged and plugged in again.
+> 
+> Re-initializing only dwc3 after resume does not work: tearing dwc3 down
+> also powers off the PHY, and nothing turns it back on, so xhci then
+> times out ("Host halt failed, -110", "can't setup: -110").
+> 
+> Instead, make cd321x replay the plug on resume when a partner was
+> connected: mark the plug as changed and queue the update work, which
+> then goes through the same sequence as a real replug (role none, mux
+> safe, mux back to the partner's mode, role back on). Queue it on
+> system_freezable_wq so it runs only after all devices have resumed.
+> 
+> Tested on a 14" MacBook Pro (M1 Pro, j314s) with a backport of this
+> change to the Asahi 7.3.3 kernel: a USB-C security key left plugged in
+> re-enumerates right after "PM: suspend exit", where it previously stayed
+> gone until replugged. Unplugging the device while the system is asleep
+> also works: after resume the role goes to none, nothing is brought back
+> up, and replugging it later enumerates normally. This mainline version
+> was build-tested only (W=1, checkpatch --strict clean).
+> 
+> Fixes: 82432bbfb9e8 ("usb: typec: tipd: Handle mode transitions for CD321x")
+> Assisted-by: LLM
+> Signed-off-by: Jacob Procee <sn125164@gmail.com>
 
-> > I actually looked at what was messing up this time.  It was just that
-> > int rc; had been dropped.  It's just used locally in this patch so I
-> > put a declaration in.
+Looks okay to me, but as this is a fix, you should CC stable:
+https://docs.kernel.org/process/submitting-patches.html#select-the-recipients-for-your-patch
 
-On testing (d922ed738439) temperature read ended up in
-dps310_fifo_interval() instead of probe. That runs with data->lock
-held, so enabling the buffer without a trigger hangs on the board.
-
-Diff below on top of testing moves it to probe, tested on the board.
+Sven, would you be interested, or would you have time, to maintain
+this driver?
 
 Thanks,
-Rupesh
 
-diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
-index 9b52cbc2372a..ebfaa67a6b91 100644
---- a/drivers/iio/pressure/dps310.c
-+++ b/drivers/iio/pressure/dps310.c
-@@ -1058,16 +1058,9 @@ static unsigned int dps310_fifo_interval(struct dps310_data *data,
- {
- 	unsigned int drain_interval_ms, fill_ms, want_ms;
- 	int scan_rate;
--	int rc;
- 
- 	fill_ms = MSEC_PER_SEC * DPS310_FIFO_DEPTH / (prs_rate + tmp_rate);
- 
--	/* Pressure compensation needs a temperature from the start */
--	scoped_guard(mutex, &data->lock)
--		rc = dps310_read_temp_raw_locked(data);
--	if (rc)
--		return rc;
--
- 	/*
- 	 * There is no hardware watermark, so take it as the number of scans
- 	 * the user will wait for and drain at that rate. Scans come from
-@@ -1478,6 +1471,12 @@ static int dps310_probe(struct i2c_client *client)
- 	if (rc)
- 		return rc;
- 
-+	/* Pressure compensation needs a temperature from the start */
-+	scoped_guard(mutex, &data->lock)
-+		rc = dps310_read_temp_raw_locked(data);
-+	if (rc)
-+		return rc;
-+
- 	/*
- 	 * The device measures continuously in background mode, so a triggered
- 	 * capture is just a read of the latest results. The setup ops run the
+> ---
+> checkpatch flags the Assisted-by tag (non-standard signature, 'LLM' is
+> not an email address); the format follows
+> Documentation/process/coding-assistants.rst.
+> 
+>  drivers/usb/typec/tipd/core.c | 20 ++++++++++++++++++++
+>  1 file changed, 20 insertions(+)
+> 
+> diff --git a/drivers/usb/typec/tipd/core.c b/drivers/usb/typec/tipd/core.c
+> index 02539378ffed..2ec380124532 100644
+> --- a/drivers/usb/typec/tipd/core.c
+> +++ b/drivers/usb/typec/tipd/core.c
+> @@ -164,6 +164,7 @@ struct tipd_data {
+>  	bool (*read_power_status)(struct tps6598x *tps);
+>  	int (*reset)(struct tps6598x *tps);
+>  	int (*connect)(struct tps6598x *tps, u32 status);
+> +	void (*resume)(struct tps6598x *tps);
+>  };
+>  
+>  struct tps6598x {
+> @@ -911,6 +912,21 @@ static int cd321x_connect(struct tps6598x *tps, u32 status)
+>  	return 0;
+>  }
+>  
+> +static void cd321x_resume(struct tps6598x *tps)
+> +{
+> +	struct cd321x *cd321x = container_of(tps, struct cd321x, tps);
+> +
+> +	guard(mutex)(&tps->lock);
+> +
+> +	if (IS_ERR_OR_NULL(tps->partner))
+> +		return;
+> +
+> +	cd321x->update_status.status_changed |= TPS_STATUS_PLUG_PRESENT;
+> +	cancel_delayed_work(&cd321x->update_work);
+> +	queue_delayed_work(system_freezable_wq, &cd321x->update_work,
+> +			   msecs_to_jiffies(CD321X_DEBOUNCE_DELAY_MS));
+> +}
+> +
+>  static irqreturn_t cd321x_interrupt(int irq, void *data)
+>  {
+>  	struct tps6598x *tps = data;
+> @@ -2014,6 +2030,9 @@ static int __maybe_unused tps6598x_resume(struct device *dev)
+>  		queue_delayed_work(system_power_efficient_wq, &tps->wq_poll,
+>  				   msecs_to_jiffies(POLL_INTERVAL));
+>  
+> +	if (tps->data->resume)
+> +		tps->data->resume(tps);
+> +
+>  	return 0;
+>  }
+>  
+> @@ -2040,6 +2059,7 @@ static const struct tipd_data cd321x_data = {
+>  	.reset = cd321x_reset,
+>  	.switch_power_state = cd321x_switch_power_state,
+>  	.connect = cd321x_connect,
+> +	.resume = cd321x_resume,
+>  };
+>  
+>  static const struct tipd_data tps6598x_data = {
+> -- 
+> 2.56.0
+
+-- 
+heikki
