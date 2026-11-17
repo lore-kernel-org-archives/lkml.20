@@ -1,82 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.88.38.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794933935;
-	b=bF/nz7pScGgKnlwGwmWVFzayeOkb/ByxI3EuNrBkwUVa4Cu8mDu5ymkSizhKv/xZjqDX
-	 V2D0WF/DsOyPR4gHF0hSbJ47KvPxYsIxSpd916nqNK9d/gZUQ3HrJdgenNejjBfwzIUCW
-	 IYOeZMxCGthqn8iLCfO3wKAOm4AVCk+bLGnAK1GXzza31aJ9e8IbHS6A0mcVm4zzY1ar8
-	 5v9iaFzq3wOT9ZHJWUlT79bGPpjB2HILZ8nxTMpYxQSKL4DIp1cErONmK3YxQzRkAo80h
-	 Uj/Zrm+F0LDfSjQtkHpHOqiy7SdcKSZKh/hm+xgeRpeSNrLQfWpTTcWFGZoMIzFONxA==
+	t=1794933946;
+	b=eA3kavDCorSYuqN4/wWPxYNXHYhQlqg2CM9Gcrdz/pp1EcDl4e5jMLWQcVfWODCYaSNG
+	 u7i9340yZAyiOzLWEyG2Ad2VSvqeLj1kjJ/TCX48YEi9MKYPuu/hEIQc4TuTL3lWK/RBU
+	 Mvy1Rto6gvx9/dbV6H5dnohg9+cNkJpi/PePLt93uVU9T+onfCvYAUBo7H5u6qrzHLJBO
+	 kvYwjPH+hYqu+U1jpGA10iJ09z4kW91rLFPGHljdq99X1m7shBzDVr1cpy6EnzR+GuQ6h
+	 eJkFKD2PSWFa74MjHMR92jd8VvyAIoM5AHlrKl+Poj7poUHMmAv1f4uM8c7CZmtytbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794933935;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=n9s+Iv6o4T44HnlSLGtNszPAgrcaF+/YdTYKaUuhfQU=;
-	b=bbDhSvs15qniDM9J/kZzj4RtjkDpzt2IPTi2qjjhSGrzuvx16LeaLgTqO8SISkMQuUsl
-	 BFf2Hzq+emgJ46RtPUCTeRIu14H7oblFC0UVzJ7A+BfimxsU3d+ilCVZUlU4kSPUTWft/
-	 uYwdj+2rXaBhs8bt0l+5K+al/8Xh5+TQSQNsqPV29+CWa5h5JM7R5zNdOJvBiZK8GB+zu
-	 L0fGcdyJZQgjoW92qrMHGIJRYsiEZyK6BwlhQu3wFzehsRcPPSvYvX5u1oAkh0mO/OyIp
-	 k4bH1pyPHwZDDoIekoyDOqw87fTlQEc8b0khcTNhqxAbpeewqNBGbx1JQCrTaOwKvLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794933946;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type;
+	bh=b7rA3f+5kZ4ohnzATtzU3IQFFAM5nwbvX+N6Ax6dlwg=;
+	b=jlK1ge7NJY+HvdouJcmCsV84fxe9wqM28gg0YpCjBhw+hX9UawbtilEToNddHJL3B/O5
+	 n50jfOzhUbHCD9AZRYqHl/IxFWViuSDDAYRf6OpQ0B/B9Ye5BwoXZT7aVjLhDP2tCbH1z
+	 ZMYHQ0kxlFA0ep+0U9HkgJ8xgRwgjYMV1g4HKOf5eCuEdJ5Zpjfp/hCcyfpWSs5KMS8aW
+	 QKYsILh76Be92GdcSkGUFDacMF5iryX3zkBK4rQiXAXopkEoBfUFfxaODnPVCYnk1fUq/
+	 FEIozEfiBBWLF/chqWoExPWC/pTTYcHHsTiyeZ0lOH/qb6C6k46IW1e4HB1b3PfRVRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Le5cC+P8;
-	arc=none smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=simonwunderlich.de;
+	spf=pass smtp.mailfrom=simonwunderlich.de;
+	dkim=pass header.d=simonwunderlich.de header.i=@simonwunderlich.de header.a=rsa-sha256 header.s=09092022 header.b=Ko6SikcA;
+	arc=none smtp.remote-ip=23.88.38.48
+Received: from mail.simonwunderlich.de (mail.simonwunderlich.de [23.88.38.48])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78356606A31C;
-	Tue, 17 Nov 2026 16:45:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78356606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D529606A31C;
+	Tue, 17 Nov 2026 16:45:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D529606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=simonwunderlich.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=simonwunderlich.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Le5cC+P8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794933936; x=1826469936;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=N+d66yr6C0e8MRXHvNBLsN+m8f+qKcd72SfnRt9GtX0=;
-  b=Le5cC+P8jMubLDGyFfSVF2mnYYoiiEKnf7S+62AcCANQIhhjU0FwfGGn
-   fqm9F5JnZynz/A/YDr8rl4k4N9Iaf3TUFj25VMIiaOTpAv3GE7U0fVgv0
-   ZisZk0iYKGftay+ibXgto/32s83DJcdlD6/2HpRYWzwBncwKTGFgdopVT
-   VMbCyYbhllkMHsH5HQOd46ncSDgjiWF+g6lqvqvakXLiXRJrQmPbuzVWv
-   nYghRv0rQMOc+JKdm2KnOlx2UNQikVyZ3YVe6DNHKXUKh37o/IrU7fWOZ
-   1FUpU6lbuiVswVp3+86F7jOPMFi62wzeg9hJ2Wnrr2TsjpFaDevoqb0Aj
-   A==;
-X-CSE-ConnectionGUID: JStyL1/3RTyqlJfXqIKfEw==
-X-CSE-MsgGUID: mR2u/2lVTqy3ee7kv5nlpA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3755259"
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3755259"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 08:45:35 -0800
-X-CSE-ConnectionGUID: BiGz+kCjTaG1Jkk1oxiCfg==
-X-CSE-MsgGUID: 3rejU2SxSEGqQl4sVSDFOg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="10412452"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.254])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 08:45:31 -0800
-Date: Tue, 17 Nov 2026 18:45:29 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
-Cc: jic23@kernel.org, linux-iio@vger.kernel.org, dlechner@baylibre.com,
-	nuno.sa@analog.com, andy@kernel.org, nicolas.ferre@microchip.com,
-	alexandre.belloni@bootlin.com, claudiu.beznea@tuxon.dev,
-	giorgitchankvetadze1997@gmail.com, amin.gattout@gmail.com,
-	antoniu.miclaus@analog.com, gregkh@linuxfoundation.org,
-	mripard@kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/3] iio: adc: at91_adc: fix NULL pointer dereference
- on trigger remove
-Message-ID: <avyEqQEL3A_YNcgg@ashevche-desk.local>
-References: <20261117140510.391907-1-abdelnasserhussein11@gmail.com>
- <20261117140510.391907-2-abdelnasserhussein11@gmail.com>
- <avyEb9La1tqS90Cp@ashevche-desk.local>
+	dkim=pass (2048-bit key, unprotected) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.a=rsa-sha256 header.s=09092022 header.b=Ko6SikcA
+Received: by mail.simonwunderlich.de (Postfix) id 7F3C0FA039;
+	Tue, 17 Nov 2026 17:45:36 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=simonwunderlich.de;
+	s=09092022; t=1794933937;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=b7rA3f+5kZ4ohnzATtzU3IQFFAM5nwbvX+N6Ax6dlwg=;
+	b=Ko6SikcAnFscPuvoOl+h9YTtyPLrjZi7kEEQLf3A0K+Imfmwfx22QXglwfosAAXMVs2uB+
+	wATDpXH7/ggdyQl7iLTGzySpVWrVrrpEHIPzNwngA7mROUnuUHNR6TBAE2ergZLhyBnfVW
+	RUVYgW5+9rqEMt8F1MWf8qwR7UUjv4mQEdYnwQYT1gK7bv8HgC6qGoQ5UE+JSqaMnV+9u/
+	IFr7NZO8PUVfpea5ZWAqdymWRGwnyLYrrOZGIhfqvZhLgoQHt5WMGCeFgh6Ny4F+swoqAX
+	TyByTHT9kqL2KHViMHVKIOlVjIHFY9/qRhncM3rENORPktp5RHmDX+NjrIgG+w==
+From: Simon Wunderlich <sw@simonwunderlich.de>
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Richard Weinberger <richard@nod.at>,
+ Vignesh Raghavendra <vigneshr@ti.com>, linux-mtd@lists.infradead.org,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-mips@vger.kernel.org,
+ Hauke Mehrtens <hauke@hauke-m.de>, Aleksander Jan Bajkowski <olek2@wp.pl>,
+ John Crispin <john@phrozen.org>, Sebastien Decourriere <sebtx452@gmail.com>,
+ Yangtao Li <frank.li@vivo.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/5] dt-bindings: mtd: Add lantiq,nor
+Date: Tue, 17 Nov 2026 17:45:36 +0100
+Message-ID: <5155531.6YUMPnJmAY@prime>
+In-Reply-To: <87fqwzn3tq.fsf@bootlin.com>
+References:
+ <20261114100608.3432120-1-sw@simonwunderlich.de>
+ <20261114100608.3432120-3-sw@simonwunderlich.de> <87fqwzn3tq.fsf@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,33 +73,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avyEb9La1tqS90Cp@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On Tue, Nov 17, 2026 at 06:44:37PM +0200, Andy Shevchenko wrote:
-> On Tue, Nov 17, 2026 at 04:05:08PM +0200, Abdelnasser Hussein wrote:
+On Tuesday, November 17, 2026 11:35:13=E2=80=AFAM Central European Standard=
+ Time=20
+Miquel Raynal wrote:
+> Hi Simon,
+>=20
+> On 14/11/2026 at 11:06:04 +01, Simon Wunderlich <sw@simonwunderlich.de>=20
+wrote:
+> > The NOR flash on the External Bus Unit (EBU) of Lantiq SoCs is handled
+> > by the lantiq-flash driver and used by danube_easy50712.dts, but its
+> > binding was never documented.
+> >=20
+> > Add a schema for it, including a new optional lantiq,ebu-swap-check
+> > property. Some boot loaders, like the BOSS bootmonitor on the bintec
+> > elmeg RS123 and RS353, enable the EBU's own endianness swapping for the
+> > flash chip select (EBU_BUSCON0 bit 30), and the flash then appears at
+> > its unswapped addresses. Whether that bit can be trusted depends on the
+> > SoC: it only works on VR9 (xRX200) from revision 1.2 and on AR10
+> > (xRX300), and Falcon has no such register. A board property instead of
+> > a list of SoC revisions in the driver was requested in the review of an
+> > earlier attempt at this. The property does not state the bit's value,
+> > so a board keeps working with either boot loader setting.
+> >=20
+> > Link:
+> > https://lists.infradead.org/pipermail/linux-mtd/2017-January/071749.html
+> > Link:
+> > https://lists.infradead.org/pipermail/linux-mtd/2017-January/071818.html
+> > Signed-off-by: Simon Wunderlich <sw@simonwunderlich.de>
+>=20
+> Let's be honest, I am not very familiar with that MTD area and all the
+> legacy content is has, but would it be a lot more work to add lantiq as
+> a physmap variant? I don't like much the fact that you describe the
+> flash without describing the EBU. Physmap versions typically are matched
+> using the more specific compatible (lantiq,ebu?) and the cfi-flash
+> fallback. All your tweaks are EBU/machine/integration details, not
+> related to the flash itself.
+>=20
+> One consequence of not modeling the controller is your need for
+> EXPORT_SYMBOL_GPL(ltq_ebu_membase) in patch 3/5, which is quite a hack.
+>=20
+> Thanks,
+> Miqu=C3=A8l
 
-...
+Hi Miqu=C3=A8l,
 
-> >  	for (i = 0; i < st->caps->trigger_number; i++) {
-> > +		if (!st->trig[i])
-> > +			continue;
-> >  		iio_trigger_unregister(st->trig[i]);
-> >  		iio_trigger_free(st->trig[i]);
-> >  	}
-> 
-> Yes, but no. Please, rather fix the above mentioned IIO trigger APIs to be
-> NULL-aware.
+thank you for applying patch 1!
 
-Actually the iio_trigger_free() is already NULL-aware, so make it only for
-iio_trigger_unregister().
+About physmap: you were right, and this was actually a great hint. I tested=
+ on=20
+the my RS123: with the EBU swap that its boot loader enables, the flash is=
+=20
+simply a plain CFI flash. With compatible =3D "cfi-flash" and the generic p=
+hysmap=20
+driver, probing, reads (identical to what lantiq-flash reads, unaligned rea=
+ds=20
+included), erase and write all work. So this board needs no lantiq-flash ch=
+ange=20
+at all, and I'm dropping patches 2 to 5. There won't be a v2.
 
+Turning lantiq-flash itself into a physmap variant for the boards with the=
+=20
+classic U-Boot setup would probably be the cleaner model, but I don't have=
+=20
+such a board to test it, so I'm leaving that alone for now.
 
--- 
-With Best Regards,
-Andy Shevchenko
+Thank you again!
+     Simon
 
 
