@@ -1,68 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.16.166
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794904825;
-	b=sS5LCILFGlQS2T036WXvlFgU4i/taOb7OtW/M9q3LQjSWuhSiSaShvqgQLzEr8g2Uc6C
-	 1cOdt2rKtS9BtTG1SORYwIFQIKkgqNvZU3f7T9r6c84fI6u3iGPwN47TpOcO/Gxcb7xES
-	 HAGC+eHTw0lxtNEEpiO3xHGYSE4A6cUswmpSxxBa8pj8YTfepcsTfpsotz9VS4yTgt0Bh
-	 /4yXmG+w/0bHwS2NMIQ5RPuFABO03CMyyskAQXZfUA9RQQfNXXAKw5SX0NtTkxSP4GUqs
-	 JuxKQsZDzTtBvofsGpSByAVQ0Erl4/xe1T5vbmqZXocSAiMy0KiwBoBrwfX7Yiv9e8g==
+	t=1794904828;
+	b=qm62L5fh3hmbTd9rVHM8Vw3AyJVwTyynllNHoN1LtVT19dz1i5Q9ynzisyK4xTvI7q3i
+	 2RS/XzSTpGjDASQ8Kh6nihMnNfYJxzc5ybv+LazDVpbg+MBky2EkTUyE9Ab9kI5Zrfecx
+	 4t3dtR8FHrCI3nRcz1mSVeHNnuDgT4gX7MhOBq8EgKvSk+VHhaHdTW6lnGj2wKg6Cglr6
+	 gwPUjYIE02blXLoDvuWb+XGJALfYbq1H+jFxKpWMCqnDb5MGgtiMc7up0j++PIR1asJ8z
+	 4tczqFiSon1cUGejW5FPIiO8ACTFiNzjK1uimv+RmNWCsalremNwU6gvM7O8fRYCo+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794904825;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=BFwuB1GrvKDcDRsKDjLKgNhQsOcb8aL9tjPBBhahvGo=;
-	b=z+y9Xns3vhd5xUR6mne53TyuhPm2M87qoAUpReNWNem3JgFM+bT+S0gxzpXyWZpjdAzc
-	 6TNRnnga00mWUm/cxb/o0rwQ8btqFuF45MSkMoNcHEbn4WMmjQgi3LYSUqYHVlUmtq4/E
-	 +ENThp4mUIhpBKn+UCMVnphCeLnzHMaX5u1QQSsO47bUD1t81reyW+Fmby20JNg85qtOF
-	 lJGvg5abRXVTrV+NoFOVFXZCnvFQIYEnQTqgWheFpsTa2WdzRCUOEW6LOZMFaJl2lq7aQ
-	 PAarcXNN6Dcr9hhkHRbU+ddAZ9nxdLoQYcqULRgMVCLF5J8VUP+R3H413EElIo0EJWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794904828;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Developer-Signature:X-Developer-Key:
+	 X-Scanned-By;
+	bh=7W5OA0Pfbz4DWlJkfLR5cfYObFa/4T5Fl7aOVgxV27Y=;
+	b=HUk4B4MsIkHiFFzhqo+zDqkxSsc37w5Tmafsxn2SSjvOPeFLCEy21txJSAYi6orYmk4O
+	 4a+4l1s4feuMvhexOjuPNOdnxUGf1Netd2jvDaWQaca11iBpiqyUontLA1YRDkK3dwYxz
+	 Rc48RAdMxtbdmzgyrSJgLBtiu9v+uZMcTASQ6hSKEdR6nZEpljH1rvuB/BA8LHlwAOPxg
+	 zojo2YxBiyXMs9w+ZMA1N4lNoOocG3+sdHZy0shtlpwpdNaj9pD4E2y7rQH6KrP+Ry4VQ
+	 K1qhtIoyJCsQ6Jaf8ndcIcVf0bNrcva+uGPn0RH0wW+H4F8f6ZJ9tiXhztjOhXqA3Mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=YhVyptiT;
-	arc=none smtp.remote-ip=54.206.16.166
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PptqSAkv;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9D2A606A89A;
-	Tue, 17 Nov 2026 08:40:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9D2A606A89A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC38A606A8AF
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:40:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC38A606A8AF
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=YhVyptiT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1794904778;
-	bh=BFwuB1GrvKDcDRsKDjLKgNhQsOcb8aL9tjPBBhahvGo=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=YhVyptiTVn9oJwU1o14brPOvhwDpWyM23LMbK61NsRiVBVIh73HEJyUbC9eDdDXqF
-	 E135itEc+DG/CdiYa7INh8M4iPF+WHKuYUfrCNJN/mp/g6XEq86dGQK8RhgsykOoKd
-	 VeCJygKl15YCq4KqGuVWoul6s5VuSjyr+lwJPsxc=
-X-QQ-mid: esmtpsz18t1794904773t426700f8
-X-QQ-Originating-IP: qHeq2V/ZLD2p2YoBBFsSIpmiLg33Ldlt4VVwdnZEFJs=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 17 Nov 2026 16:39:22 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 6951036732220354189
-EX-QQ-RecipientCnt: 8
-From: Siqi Chen <chensiqi@uniontech.com>
-To: Lukas Timmermann <linux@timmermann.space>,
-	Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>
-Cc: Griffin Kroah-Hartman <griffin@kroah.com>,
-	linux-leds@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Siqi Chen <chensiqi@uniontech.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] leds: as3668: Propagate chip ID read errors
-Date: Tue, 17 Nov 2026 16:39:17 +0800
-Message-Id: <20261117083917.3304865-1-chensiqi@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PptqSAkv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794904827;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7W5OA0Pfbz4DWlJkfLR5cfYObFa/4T5Fl7aOVgxV27Y=;
+	b=PptqSAkvTI+VoAH09OtRSM3DcBXaZSpnvzFrYClOC8aDHACJLwWZ+qxOm/Z+klrMpjWCQA
+	EpUWiG5zKIq2tKhJA9w7nbABsnHGjtG0bF4w8g/s+842qUViCCImelQMK7Ko+2eroG98AX
+	5SFMIfgsy0JneZxiUbRo4gQOWXGCDv4=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-104-MmJI-5eQP4ytDa1v37736Q-1; Tue,
+ 17 Nov 2026 03:40:23 -0500
+X-MC-Unique: MmJI-5eQP4ytDa1v37736Q-1
+X-Mimecast-MFC-AGG-ID: MmJI-5eQP4ytDa1v37736Q_1794904818
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 41F481956069;
+	Tue, 17 Nov 2026 08:40:18 +0000 (UTC)
+Received: from aesteve-thinkpadp1gen8.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 52BF31956047;
+	Tue, 17 Nov 2026 08:40:09 +0000 (UTC)
+From: Albert Esteve <aesteve@redhat.com>
+Date: Tue, 17 Nov 2026 09:39:20 +0100
+Subject: [PATCH v5 5/8] lsm: Add memcg_charge_cgroup LSM hook
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,69 +73,164 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: M+HBeokw/bUUu1ofZVCU8DkQfTPtk2ih1uRaoKsG0l0HpeXowSWaFigf
-	xtVwvrISo2ojiXM34/Ns7paoZhkKnNwWZvFvjP4orz/e0NsJSEU3PZkse29dGzwM/optoFu
-	s23oXEm1xLZ3aN/U3O7cBX5OlVRT3BdUeptHUxoB3rKokQIElOGpXVL02oKEMdy1efzCfCf
-	U5Jx0eSt5Noeo6JZ1lp8Lkyc+KOipkEoWHb8BGkDXRxm9/wxZUyp0lHNRVznNBCl+FlCclY
-	sVuX/J9/S53+vyOoveZyzt2/b9ungH89E+W/MC0DiRWnarFxWiT3tRlFN9LAV/LCVki0/Hi
-	lSMvUvf+UXhbdtSV0hj4JxL7s9/wXzOipU9+eXvYb2YkIWidIJb66Nph4u+tPJ0LWvlt0j2
-	yhByNuIYQEz+d6x62j9W25lPlSnHYOFyJAmV3USzIxs5lJe67Klv+RRVEs4C5I4tH6xrQXs
-	pzSHw89Qi6Ne1UzgRJZEnHjp5dy/2QYsuA6RlYg5//vegPu7XMfOUXXgNouQ2JHf0RpeLSP
-	DfUFH5OrlCnmZTksbOaHoo33a2TDKI7weqVGlNqS5ZCwq3c2W/YnvCDZvOL/1Wod0ZequX3
-	YBn8oW4bATPXPHtk4cSF2M10eY/HTMM1TQK7+nHuTjj4WYkdcPwTxnGjKFjOqgHo2PRjKUX
-	aAsK/XFKH1CnK1hXlUwLX7Rb6SLH+rHy1jc4yQdpOefrP8UsZ0cVnZONmYvImIsrul8l/tF
-	J7qoVJHECdXf59zpq6GTW63Z389rE8SjjtW38ZfTvtGfYHTnctYVmetmv0nOuCnDCVD6tKx
-	r/B8LWT2KiF+e4B4G8IMX/bR89OG4J/TtWHCM/EXg87a9sKn9/Le5EJ9Z6UCVTLheo9XlaB
-	HopoH6k5wo7kyPdP3ijn4/690Q/JanVmLpNgTYvEQY7z2SFdNVYZM+okSd9QkBdWoehUkSt
-	h1YOH3TUY0S4qPWUMGz1p1cdcc24A6i1TUuI4wVzcyDEMZFg4wrK3jopDRMo6GMXOlhHLSN
-	P1akYIGzXPghmqNB2yDOm996kyLgOgmzODcMIz9HVOZSft4TAV9mPd86OHKc00aFmr4SkR4
-	p0yCjSdopqcwPgfaQjTocQ=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261117-v2_20230123_tjmercier_google_com-v5-5-1ce975f2a9ad@redhat.com>
+References: <20261117-v2_20230123_tjmercier_google_com-v5-0-1ce975f2a9ad@redhat.com>
+In-Reply-To: <20261117-v2_20230123_tjmercier_google_com-v5-0-1ce975f2a9ad@redhat.com>
+To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+ =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+ "T.J. Mercier" <tjmercier@google.com>, 
+ Christian Brauner <brauner@kernel.org>, Paul Moore <paul@paul-moore.com>, 
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
+ =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>, 
+ Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>, 
+ Philipp Stanner <phasta@kernel.org>, 
+ =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>
+Cc: airlied@gmail.com, cgroups@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ linux-mm@kvack.org, linux-security-module@vger.kernel.org, 
+ selinux@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ op-tee@lists.trustedfirmware.org, Albert Esteve <aesteve@redhat.com>, 
+ echanude@redhat.com, mripard@kernel.org
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794904759; l=4811;
+ i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
+ bh=YRGBhFlRTNQesmC+53+mQbdidsg9pxvs3IaHY8atbxE=;
+ b=fR/PjTXILA5LyYPNu/ieXF3ZRz0p6iADYUtxuVFqK1tRqToEfnvX2KwPchBPH5m+5SN0ZyaDG
+ 9BKFzARlj9EAUEPaiTvCvkWTrbM5E9dAbj9bDBZOT7GuinwCoc1oqZF
+X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
+ pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-i2c_smbus_read_byte_data() returns a negative error code on failure.
-Storing the result in a u8 truncates that error and causes probe to
-report a bogus chip ID and return -ENODEV.
+Similar to how security_memcg_charge_task adds an access-control
+point for pidfd for the charge_fd of a DMA_HEAP_IOCTL_ALLOC or
+DMA_BUF_IOCTL_XFER_CHARGE ioctl, we need a new access-control point
+for the case where charge_fd represents a cgroupfd.
 
-Store the result in an int and propagate read failures before checking
-the chip ID.
+Add security_memcg_charge_cgroup(), called in get_obj_cgroup_from_fd()
+when charge_fd refers to a cgroup2. The hook receives the credentials
+of the requesting process (cred) and the open file of the cgroup
+directory to charge (file), giving security modules a controlled
+enforcement point for cross-cgroup memcg attribution policy.
 
-An AI coding assistant was used to identify the issue and help develop
-the fix.
+The file is passed instead of the cgroup so that a module can
+label-check the object the cgroupfd actually names.
+get_obj_cgroup_from_fd() resolves the memory css from that same file
+with css_tryget_online_from_dir(), so the fd cannot be swapped between
+the check and the charge.
 
-The change was compile-tested with W=1. No hardware testing was
-performed.
+When CONFIG_SECURITY is not set the hook compiles to an inline
+returning 0, adding no overhead to the fast path.
 
-Fixes: c7dd343a3756 ("leds: as3668: Driver for the ams Osram 4-channel i2c LED driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Siqi Chen <chensiqi@uniontech.com>
+Signed-off-by: Albert Esteve <aesteve@redhat.com>
 ---
- drivers/leds/leds-as3668.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ include/linux/lsm_hook_defs.h |  1 +
+ include/linux/security.h      |  8 ++++++++
+ mm/memcontrol.c               |  9 ++++++++-
+ security/security.c           | 20 ++++++++++++++++++++
+ 4 files changed, 37 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/leds/leds-as3668.c b/drivers/leds/leds-as3668.c
-index 46427fe752a8..6e4b6ad59059 100644
---- a/drivers/leds/leds-as3668.c
-+++ b/drivers/leds/leds-as3668.c
-@@ -131,10 +131,13 @@ static int as3668_dt_init(struct as3668 *as3668)
- static int as3668_probe(struct i2c_client *client)
- {
- 	struct as3668 *as3668;
--	int err;
--	u8 chip_id;
-+	int chip_id, err;
+diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
+index 93c8bb5642f5..3b254b4e60ec 100644
+--- a/include/linux/lsm_hook_defs.h
++++ b/include/linux/lsm_hook_defs.h
+@@ -44,6 +44,7 @@ LSM_HOOK(int, 0, capset, struct cred *new, const struct cred *old,
+ LSM_HOOK(int, 0, capable, const struct cred *cred, struct user_namespace *ns,
+ 	 int cap, unsigned int opts)
+ LSM_HOOK(int, 0, memcg_charge_task, const struct cred *from, const struct cred *to)
++LSM_HOOK(int, 0, memcg_charge_cgroup, const struct cred *cred, const struct file *file)
+ LSM_HOOK(int, 0, quotactl, int cmds, int type, int id, const struct super_block *sb)
+ LSM_HOOK(int, 0, quota_on, struct dentry *dentry)
+ LSM_HOOK(int, 0, syslog, int type)
+diff --git a/include/linux/security.h b/include/linux/security.h
+index b21823225ed0..d1cd6c324ffd 100644
+--- a/include/linux/security.h
++++ b/include/linux/security.h
+@@ -353,6 +353,8 @@ int security_capable(const struct cred *cred,
+ 		       int cap,
+ 		       unsigned int opts);
+ int security_memcg_charge_task(const struct cred *from, const struct cred *to);
++int security_memcg_charge_cgroup(const struct cred *cred,
++				 const struct file *file);
+ int security_quotactl(int cmds, int type, int id, const struct super_block *sb);
+ int security_quota_on(struct dentry *dentry);
+ int security_syslog(int type);
+@@ -717,6 +719,12 @@ static inline int security_memcg_charge_task(const struct cred *from,
+ 	return 0;
+ }
  
- 	chip_id = i2c_smbus_read_byte_data(client, AS3668_CHIP_ID1_REG);
-+	if (chip_id < 0)
-+		return dev_err_probe(&client->dev, chip_id,
-+				     "failed to read chip ID\n");
++static inline int security_memcg_charge_cgroup(const struct cred *cred,
++					       const struct file *file)
++{
++	return 0;
++}
 +
- 	if (chip_id != AS3668_CHIP_ID)
- 		return dev_err_probe(&client->dev, -ENODEV,
- 				     "expected chip ID 0x%02x, got 0x%02x\n",
+ static inline int security_quotactl(int cmds, int type, int id,
+ 				     const struct super_block *sb)
+ {
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index 2e6fcbe14d43..693f0b2877bf 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -3220,7 +3220,14 @@ struct obj_cgroup *get_obj_cgroup_from_fd(int fd)
+ 		css = ERR_PTR(-EBADF);
+ 	}
+ 
+-	if (IS_ERR(css)) {
++	if (!IS_ERR(css)) {
++		/* fd is a cgroupfd */
++		ret = security_memcg_charge_cgroup(current_cred(), fd_file(f));
++		if (ret) {
++			css_put(css);
++			return ERR_PTR(ret);
++		}
++	} else {
+ 		if (PTR_ERR(css) != -EBADF)
+ 			return ERR_CAST(css);
+ 
+diff --git a/security/security.c b/security/security.c
+index e198e00b6a40..925b6c003059 100644
+--- a/security/security.c
++++ b/security/security.c
+@@ -689,6 +689,26 @@ int security_memcg_charge_task(const struct cred *from, const struct cred *to)
+ 	return call_int_hook(memcg_charge_task, from, to);
+ }
+ 
++/**
++ * security_memcg_charge_cgroup() - Check if charging memory to a cgroup is allowed
++ * @cred: credentials of the process requesting the charge
++ * @file: open file of the cgroup directory to charge
++ *
++ * Check whether the process with credentials @cred is allowed to charge
++ * memory to the cgroup referenced by @file. Called when userspace passes a
++ * cgroupfd to identify the charge target instead of a pidfd. @file is the
++ * file the cgroup was resolved from, so the check applies to the object
++ * that is actually charged. It must have been already validated by the
++ * caller.
++ *
++ * Return: Returns 0 if permission is granted.
++ */
++int security_memcg_charge_cgroup(const struct cred *cred,
++				 const struct file *file)
++{
++	return call_int_hook(memcg_charge_cgroup, cred, file);
++}
++
+ /**
+  * security_quotactl() - Check if a quotactl() syscall is allowed for this fs
+  * @cmds: commands
+
 -- 
-2.20.1
+2.55.0
 
