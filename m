@@ -1,52 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.149.156.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794921699;
-	b=TNqjYHzveVFv6wJSFX812/8H2hKUrjoAw0me4BaOyH0g2o+6LuhV71wunFwFc18TkBRt
-	 mBC9yIzpHTiQAqaGlAtjhmF7qHnQ9Bb5FnSjK5wokl+tX9PJNF/t2p4hHDLIc64c9t2ZY
-	 Y91oyQqOgnM4uwp3a1HqCGHAQ3Et9MsMtiNjONc7EPOzYjw7QKAoXz9IoUGJupoAlONbe
-	 G+0gf4FkUM26+uKbSbI6qXU2HrKC70aMLCLjBpRl23eOs9BtaJPRP1qLhUAg0hBepNQwe
-	 9ZEncggyBwfA4JuS22HiJ8F6C1frLJ62IRhhqutW6hMKByrrYcJVr8djEs8b/K95rNw==
+	t=1794921709;
+	b=Y8d24kzZjJnrq7zyhYt9hYvqJHkyMbpmkTx7ygXhgzVIMgXWVVIBb9spkX0lffnk/Zbk
+	 DMmN282Nem/wo6lV42V/CiPwX3FIO3cJivQyY1T5egMpwQ0TLJhKiAqIFA4NWLKodC+RG
+	 /4fsZ5s8Ww4AEzgrBJ+D14FuC96sMRbRwbGMux//8QspwbFibfl5g/VsoynBou9vTsj9f
+	 B4XudEQkiPuPMcJ7mf/z9UN/yRXoSwOeX6h0GNuvVXN2Ne4R0kyVJv058U304pCOm99Aa
+	 5Tge1JxGV3/5aXa3jY96RcNx7iyNlw64iafY/qgkzf5rXtgU68jOUs4g3ZFy+3bveYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794921699;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:Content-Language:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CMAE-Envelope;
-	bh=CWKy/Xe5D3WLDxIMxxMZifmNFWiFuSMPKw85DviN7N8=;
-	b=VUoS1Xx+AUNrbqmkZJ7RPNDTyeIpYcX+bXjqoz0KLRkZ20h2Ba9odoamfANsC+e3mnxe
-	 ZXMdCzJHW8f4MoeLF9lp+P5PPGQVvlrPj72vbZ0yYjuWA1qDfCsLKB/xD5RQqbH0Ymt4Y
-	 m+EoNukWUe3u92YeEQXt7fWOLSbwVaZT2eF39It53FfTdcLso4xAohjFVQt9uIWra1+LO
-	 LVp9koUJD+vUbZ8M6GnqAX7hEuH24K/Qir67VDhGLbL4M4xo67r+aZRzrDKN2AENDELuj
-	 wQh5sIcJirgDf3l9Qahbjzb+LfSaHU5H8fwK3qeKDWY0qN5w7XMDJ8q1ifJfOu/CWaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794921709;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=Dwgskig9h6iqU3KR/twPrHbj/qykGXE3PcHP9fx9wKA=;
+	b=GNWdX3HDhtVtgKctmeJWdGt970rWkl800Vq2fSH2XyPmlsQ/0F7SVvyMIgnXp4AOWdVa
+	 FXIp2Kw2bkTZbOUKOpXT/7JseGJvK50WFJYXLVFXgyQpnD/XrYtF5Q0v5vxMhLG1Qyo0x
+	 uQ6xC63jvDphInnP72VraUdJX4mxNFmxm2IR6E+NPslx/eVzpVwwKdt6WfD23LR4rIKp9
+	 Sqq1d23ZajVyqeErTUVkSfqEiVnChLpIulEbK5TIt2eOAVfK/lsaxnPZiKnKu9xpaz9A7
+	 RkvufV6SHw9wlziwGO63v/zfCzVXIdjSfRSoHj83NY5sXwKiirD7uH2g6PAAiOXX3Zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=enneenne.com;
-	spf=pass smtp.mailfrom=enneenne.com;
-	dkim=pass header.d=aruba.it header.i=@aruba.it header.a=rsa-sha256 header.s=a1 header.b=D3LHUF9a;
-	arc=none smtp.remote-ip=62.149.156.72
-Received: from smtpcmd0872.aruba.it (smtpcmd0872.aruba.it [62.149.156.72])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=PvkjzJcK;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEE8D606A333
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:21:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEE8D606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90A3A606A31C;
+	Tue, 17 Nov 2026 13:21:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90A3A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=aruba.it header.i=@aruba.it header.a=rsa-sha256 header.s=a1 header.b=D3LHUF9a
-Received: from [192.168.0.186] ([101.57.122.26])
-	by Aruba SMTP with ESMTPSA
-	id TJ7nx1DnacPcsTJ7nxe0qW; Tue, 17 Nov 2026 14:21:29 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
-	t=1794921689; bh=oT2PXSW88ArmQaqNSfEwrssUL0dmXrSRZQiuFx9AOd0=;
-	h=Date:MIME-Version:Subject:To:From:Content-Type;
-	b=D3LHUF9aQVXKQ9UYUAuA7NcPsl7BxfeUkL4oPBUdEqZXYDqb3z7e6J1CpDrKNvAaW
-	 FjXwqAeTCHmUYrrMsoTo9ECEVQSofvqgnLkdS16Huf5+yxZ36R6EkrMC1lwJPKt/dP
-	 W5Yv3mmn4/UEChNu7vuU6HPWQ7WotSwx9EBRzr/ilp803lg6O9lBrSeJc4kTtuW5T9
-	 JMRv6rH/v/F9jevkqU6/KbzUxwECPrTwg3y4tU/Oqod3O6X4vdWq+sdE+zr+7lJ63R
-	 smxM4IyZIlcdPa4oVOV/2RZkjbTo4owA78Gutm179EV2aTRPTlI117fu7Jmbr/WRft
-	 V6RJOdFZJ80bA==
-Message-ID: <0e20f799-e389-40d2-aaee-2f174748faae@enneenne.com>
-Date: Tue, 17 Nov 2026 14:21:26 +0100
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=PvkjzJcK
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 18DB7C79A97;
+	Tue, 17 Nov 2026 13:21:51 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id AA6365FC81;
+	Tue, 17 Nov 2026 13:21:46 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8E12D11BC0026;
+	Tue, 17 Nov 2026 14:21:30 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794921705; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=Dwgskig9h6iqU3KR/twPrHbj/qykGXE3PcHP9fx9wKA=;
+	b=PvkjzJcKgfUAPBAW52SsDYZGyBgweWeE1bS+J5zb3I/lWnRn1latHT4KJqrp2L181qVyzI
+	gX6ltYdWoYCZ0cS1xMjwfDlQdpnT8sbc5PjjlktHojAC7O6OFdTo0r/SQWVVUNJvtRtx7D
+	9PBIddrSNLMnKvEBFdPWkhHvhVX+Kzw4I/zCJq4VBZu0SwycBj/yIqrhlLxgn/JU56qdKm
+	rGNmEYZFVGMm0UKaQi0TbX5tyLKlp/8K01l8203XhZTXjhsZK4wtpYu4JVhFPCH5aPkq9w
+	XqFoDUu/soIQL+9yMFF6xfX4lsJLrvVYlKX4C8zwX8kOrfjy+5Xin1zVWMIn0g==
+Message-ID: <73d6b341-3553-4243-83aa-ea8bb223cef9@bootlin.com>
+Date: Tue, 17 Nov 2026 14:21:29 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,120 +63,117 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] KEYS: fix signature length passed to
- KEYCTL_PKEY_VERIFY
+Subject: Re: [PATCH net v7 2/4] net: stmmac: track unfilled XSK RX descriptors
+ explicitly
+To: Ding Hui <dinghui1111@163.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ "open list:STMMAC ETHERNET DRIVER" <netdev@vger.kernel.org>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>,
+ open list <linux-kernel@vger.kernel.org>
+Cc: tommaso.merciai.xr@bp.renesas.com, dinghui@lixiang.com,
+ xiasanbo@lixiang.com, yangchen11@lixiang.com, liuxuanjun@lixiang.com
+References: <cover.1794646293.git.dinghui@lixiang.com>
+ <92136a2c509f26f7a02053380a0b3c0fa426df48.1794646293.git.dinghui@lixiang.com>
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
 Content-Language: en-US
-To: Florian Bauckholt <florian.bauckholt@cispa.de>,
- David Howells <dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>,
- Lukas Wunner <lukas@wunner.de>, Ignat Korchagin <ignat@linux.win>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>
-Cc: Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>, Hui Peng <benquike@gmail.com>,
- Stefan Berger <stefanb@linux.ibm.com>, keyrings@vger.kernel.org,
- linux-crypto@vger.kernel.org, linux-security-module@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261111-keyctl-pkey-fixes-v1-0-934ebaa267a7@cispa.de>
- <20261111-keyctl-pkey-fixes-v1-1-934ebaa267a7@cispa.de>
-From: Rodolfo Giometti <giometti@enneenne.com>
-In-Reply-To: <20261111-keyctl-pkey-fixes-v1-1-934ebaa267a7@cispa.de>
+In-Reply-To: <92136a2c509f26f7a02053380a0b3c0fa426df48.1794646293.git.dinghui@lixiang.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4xfDg+biMxW//ioyRGFd9IFIlidEW1a2KiKD2evhiscr/Ncy3LgypJUgynMd+o8RcM6m0eFTTCJ1Y8aXl826d0s2qqGHBPJuRg8drh+k/ewjJ5c2Ng73LR
- N1Sj2F7NHEHNenpSVYzQjg322kfqmTdrNt6CuKC306/WtrTJ4wHiazfLjV8+mQgXARt9KWCyR8mz5Q2XRks657UfSiRgqNd1ZYLcQs9OlasaNk6dGFhFFmoc
- Z2FUAQk5bG+wrDzFA+GhruflgGh4nb6+rZh82j3ZE2lkIL8s4ax2X0j+qB2EBx5WDzCUIs7cD//QfBopsXqJhBSSY3asWR4psvoAO2V5DCHwWR+8fqzwZVQ3
- zWxAZXS6nvWdCV8z6ZLxLGXwOheVDOkyjoT0+v3JinadqrBrK6t/n0Okxk/VuHAFPtIkkfgYq6Vy4j1IGNdU24E9idR72uM67iouzpuPw9J6Jja6IaR1wbL+
- jAB4i0/IEubK9G0Zzhd8ALVt+hyPUT9Av/tFfSpZWWpWweuUW5FLEiP95GfseydpODLCfV771PTvl/oMXt1dYSIj2lWGReGq2vVbifJoiSfW5HnLMG2dyhXC
- jiMSlAznQPDMk5GEpsO0TNidxiRm6MzTbXqm5/7lWUZAXsLBql/Qex9lAVI7JZpTq7q4veUjqLK1gtQYpyUcvHc47fqhA5ay/gp+aB5BS/wfb4HHJJChllbv
- HUgKPjrfCjq0IoHhg1AENiug5UQqKvMh
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 11/11/2026 16:56, Florian Bauckholt wrote:
-> Commit cb481e59ea6c ("KEYS: fix overflow in keyctl_pkey_params_get_2()")
-> made keyctl_pkey_params_get_2() set params->out_len to the maximum
-> output size of the operation instead of the size provided by the caller.
-> It does so for KEYCTL_PKEY_VERIFY as well, but verify has no output
-> buffer: out_len shares a union with in2_len, the length of the
-> signature.
+Hi,
+
+On 11/14/26 10:21, Ding Hui wrote:
+> From: Ding Hui <dinghui@lixiang.com>
 > 
-> As a result keyctl_pkey_verify() ignores the signature length passed by
-> the caller. It copies max_sig_size bytes from the signature pointer and
-> passes max_sig_size as the signature size to the verification.
+> An XSK fill ring may supply fewer buffers than the RX ring needs. Those
+> unfilled descriptors must remain CPU-owned, including on legacy cores
+> whose clear callback only clears the buffer address. Add an ownership
+> operation that preserves descriptor size and ring/chain control fields.
 > 
-> This makes no difference for signatures that are always max_sig_size
-> bytes long, such as RSA. A shorter signature, e.g. a DER-encoded ECDSA
-> signature, is followed by whatever is behind it in the caller's memory,
-> or the call fails with -EFAULT if that memory is not readable. The
-> x962 ECDSA template currently ignores data following the signature,
-> which hides the problem.
-
-The test suite of craf (https://github.com/giometti/crypto-afalg,
-test3008) hits this with RSA too: it cuts a genuine 256-byte RSA-2048
-PKCS#1 signature to 255 bytes and expects the verify to fail. On
-Ubuntu's 6.8.0-147 kernel, which carries the stable backport of
-cb481e59ea6c, the cut signature verifies about once in 256 runs. Over
-2000 runs per build:
-
-    plain: ok=1991 ko=9
-    asan: ok=1997 ko=3
-
-and a failing run prints (line wrapped here):
-
-    libkcrypto  [pkey-cert]: kc-check pkey-verify cert:test3008.cert
-        enc=pkcs1 hash=sha256 test3008.d256 test3008.bad: exit 0, not 1:
-    KO!
-
-To reproduce it (the count printed is the number of failures; here it
-gave 3 out of 1000 runs):
-
-    git clone https://github.com/giometti/crypto-afalg
-    cd crypto-afalg/tests
-    export TESTS_TMPDIR=$(mktemp -d)
-    for i in $(seq 1000); do ./do_test.sh 3008; done | grep -c 'KO!'
-
-I also replayed the inputs of one failing run on a UML kernel of
-current mainline (666539eecdf4, after v7.4-rc3): the 255-byte signature
-verifies 20 times out of 20, and with your patch applied it is refused
-20 times out of 20.
-
-Maybe it is worth saying so in the commit message, since this is going
-to stable?
-
-I'll send my Tested-by once test3008 has run 2000 times on a kernel
-with your patch applied.
-
+> Track the number of descriptors awaiting refill independently of the
+> ring indices, so an entirely empty ring can be distinguished from one
+> with no pending refills. Initialize the pending region after the allocated
+> prefix and stop consumption before entering it. Retry pending refills
+> on each poll, including userspace wakeups with fewer than a batch of
+> buffers, and retain batching during packet processing.
 > 
-> Use the length provided by the caller, which has already been checked
-> against max_sig_size.
+> Update the tail after successful refills and kick legacy RX DMA. Use the
+> end-of-ring tail address for a refill ending at index zero, including a
+> completely empty ring populated before DMA has advanced from the base.
+> Select the receive buffer size from the XSK pool even if no buffers were
+> available at initialization.
 > 
-> Fixes: cb481e59ea6c ("KEYS: fix overflow in keyctl_pkey_params_get_2()")
-> Cc: stable@vger.kernel.org
-> Link: https://lore.kernel.org/all/20260919221742.3709658-1-benquike@gmail.com/
-> Signed-off-by: Florian Bauckholt <florian.bauckholt@cispa.de>
+> Fixes: bba2556efad6 ("net: stmmac: Enable RX via AF_XDP zero-copy")
+> Signed-off-by: Ding Hui <dinghui@lixiang.com>
 > ---
->  security/keys/keyctl_pkey.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  .../ethernet/stmicro/stmmac/dwmac4_descs.c    |  6 +++
+>  .../ethernet/stmicro/stmmac/dwxgmac2_descs.c  |  6 +++
+>  .../net/ethernet/stmicro/stmmac/enh_desc.c    |  6 +++
+>  drivers/net/ethernet/stmicro/stmmac/hwif.h    |  3 ++
+>  .../net/ethernet/stmicro/stmmac/norm_desc.c   |  6 +++
+>  drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  2 +
+>  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 49 +++++++++++++------
+>  7 files changed, 63 insertions(+), 15 deletions(-)
 > 
-> diff --git a/security/keys/keyctl_pkey.c b/security/keys/keyctl_pkey.c
-> index 15b6bf6399b5..794fa3d01911 100644
-> --- a/security/keys/keyctl_pkey.c
-> +++ b/security/keys/keyctl_pkey.c
-> @@ -160,7 +160,7 @@ static int keyctl_pkey_params_get_2(const struct keyctl_pkey_params __user *_par
->  		    uparams.in2_len > info.max_sig_size)
->  			return -EINVAL;
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
+> index c6a8f8d73501..307bbd63dbcb 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
+> @@ -176,6 +176,11 @@ static void dwmac4_set_tx_owner(struct dma_desc *p)
+>  	p->des3 |= cpu_to_le32(TDES3_OWN);
+>  }
 >  
-> -		params->out_len = info.max_sig_size;
-> +		params->in2_len = uparams.in2_len;
->  		break;
->  	default:
->  		return -EOPNOTSUPP;
->
+> +static void dwmac4_clear_rx_owner(struct dma_desc *p)
+> +{
+> +	p->des3 &= cpu_to_le32(~RDES3_OWN);
+> +}
+> +
+>  static void dwmac4_set_rx_owner(struct dma_desc *p, int disable_rx_ic)
+>  {
+>  	u32 flags = (RDES3_OWN | RDES3_BUFFER1_VALID_ADDR);
+> @@ -539,6 +544,7 @@ const struct stmmac_desc_ops dwmac4_desc_ops = {
+>  	.rx_status = dwmac4_wrback_get_rx_status,
+>  	.set_tx_owner = dwmac4_set_tx_owner,
+>  	.set_rx_owner = dwmac4_set_rx_owner,
+> +	.clear_rx_owner = dwmac4_clear_rx_owner,
+>  	.get_rx_vlan_tci = dwmac4_wrback_get_rx_vlan_tci,
+>  	.get_rx_vlan_valid = dwmac4_wrback_get_rx_vlan_valid,
+>  	.get_rx_frame_len = dwmac4_wrback_get_rx_frame_len,
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+> index 6719ac6e395b..ad377c76ed4e 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+> @@ -51,6 +51,11 @@ static void dwxgmac2_set_tx_owner(struct dma_desc *p)
+>  	p->des3 |= cpu_to_le32(XGMAC_TDES3_OWN);
+>  }
+>  
+> +static void dwxgmac2_clear_rx_owner(struct dma_desc *p)
+> +{
+> +	p->des3 &= cpu_to_le32(~XGMAC_RDES3_OWN);
 
-Ciao,
+sparse says :
 
-Rodolfo
++../drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c:181:20: warning: cast truncates bits from constant value (ffffffff7fffffff becomes 7fffffff)
++../drivers/net/ethernet/stmicro/stmmac/norm_desc.c:146:20: warning: cast truncates bits from constant value (ffffffff7fffffff becomes 7fffffff)
++../drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c:56:20: warning: cast truncates bits from constant value (ffffffff7fffffff becomes 7fffffff)
++../drivers/net/ethernet/stmicro/stmmac/enh_desc.c:304:20: warning: cast truncates bits from constant value (ffffffff7fffffff becomes 7fffffff)
 
--- 
-GNU/Linux Solutions                  e-mail: giometti@enneenne.com
-Linux Device Driver                          giometti@linux.it
-Embedded Systems                     phone:  +39 349 2432127
-UNIX programming
+Not too big of a deal, but let's not add new sparse warnings.
+
+We've seen that before, you can maybe use some trickery like here :
+
+https://elixir.bootlin.com/linux/v7.4-rc1/source/drivers/net/ethernet/stmicro/stmmac/descs.h#L73
+
+The rests of the series starts to look fairly solid, I've quickly tested
+it and it does seem to work, I'll properly review the next iteration,
+
+Thank you,
+
+Maxime
