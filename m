@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794927342;
-	b=4n/yCv29qM6gKZd2sH028+vI8HpO/LioqaX1M64pYK6yT9zaZgDHmQiIBCV3vCrYc9iH
-	 UvPZmt4GkJsJt94BQgx5eVntYoUGqfiyTRuHACi0PCkDSQ1uuaZSZR0Fp1t9xQ6kZoKiM
-	 7Z/h5A06KrHQ0TSQRvS5imr3h8wD49dlxumRst2Ct5OdtDPLSGQnPTtB9du1u1rI5X9vu
-	 oVli9qZNS2T/smAsyh93jxNJnwcrNIGAsw6av+KfZyeYp8dUZwDa/nOgb2zYHKUZ6CNDX
-	 DFCsiPfy/ut5/sInd+PS7XLMUi8AFZczr9P0C4rFSP1/l+Dt8x3z2s8mMep0DKoHTGQ==
+	t=1794927343;
+	b=h9w6RMGcCPpUMemukWhW88KJ9vE+X8IK1G0xI33Bu3IOJCuD4CGWIzgW1CW2v/9hw8Jp
+	 FmOPWMUQlulrL5oL+kC5Wr/lE9E9AV7VZHpRluZRaobyylvPZ1rpo4hkVyDMOQv1y5Ez0
+	 hL0gshbKCLz3ppx4sB5AJzRoTngLi2OW5w9c4Ayg4RI+TR1lKnveCs+zB8+D+jUqoHu27
+	 DNnjDtBmxVjrm4/G5dAAw+9+o9VE+deK6SY0Yza/VOhyW1TMyUidCgFm9VSkzPo9MU1My
+	 j1h1gpGNn8l4BmaVES/iD8Bxzflyb73YqEyY6/lK9IByoJsaUL1TmJfBA9GcoUfQ6UA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794927342;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794927343;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=X3DwMEGrZ57pkqE3y7BJjL3MnOYoEVHYkRTWJRAevnQ=;
-	b=bZVNzKqpgbaE9Pu+Ey/kZVyHWI3LXYWCQW0rUWrlZy96P3LBkeci10fnBKtndHARk4Kq
-	 K3WPidpuoG50cRmY+E2+RcZIJIK/Yu2gPJLi6OZpfKCaEuG5Cv3VBydJkNF7ztAuy9gTX
-	 iQvXDN66a8sjgIh67g1y+oubZdJ1UyZaz5/+0bOXJ9aOMRVQ0bCFoBZdbBacuzvhGz9I6
-	 uq1RUHCa7sNhD36+m5lNe5x8l+KQXQcagRhxknRFHTvDxcKqeAJF5a/VrLvfeSmj6kABO
-	 eF3VeR52aR9LFYGfHTW17PZjgW+IX1lG3Y8C14aNhoYge0Er/ahJqTSKOfgULZDkm+w==
+	bh=HLnUN4SFxuLePJET60hqALFh8R854ScCCjNPuZCVkMs=;
+	b=rqKhrL0G2YHS6+68+igWmTwmrnDZB2+s1tbn4aIqNd2R3jIAiWmvZFfS9hXKr1Bw9+EM
+	 Sk3WggLimKLwOESQDwhCy8rCCckoHU+djNPezBuxh1xUBkHoO56CDt5GDcZpmcOLfdogc
+	 OtTSehykPVXnS9IWs2xk1w3xeW7gNaYoX4hTpLkEHBZvjeyEo/BGXO/qQlHwZ+K5sYnPS
+	 mKaAfNckIoXhT1BY2vyXqqCUYCJl8w8vpo74xfMkfOtR1+SypL5xc64se/iSQ+Pe9PdEC
+	 hISVTJuQ3cuX7InP45hkDhkKCKQeM3lU8kDaDuyENYBdNQ5J7ckJhMDBy77Y3ylN+dQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--stani.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=CGd7BfaT;
-	arc=none smtp.remote-ip=209.85.222.199
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NvdE1A0h;
+	arc=none smtp.remote-ip=209.85.222.197
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF2C9606A889
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:55:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF2C9606A889
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC9DB606A880
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:55:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC9DB606A880
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stani.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=CGd7BfaT
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f559420f3so513058885a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:55:40 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NvdE1A0h
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f2c0e6653so500935785a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:55:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794927340; x=1795532140; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794927342; x=1795532142; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=X3DwMEGrZ57pkqE3y7BJjL3MnOYoEVHYkRTWJRAevnQ=;
-        b=CGd7BfaTKcEZnmBpM3ZHO6Gng5nLM/htKmuPUXYUy2XlFK/IjORTCW5sZ6VU65q5Ju
-         9rzj7guEyL8KAEzE02TWHyPaTuH12UK5m7PSAM0vKSkR7C2AkOK52wIMZ0DlAH3uA1pN
-         7zNcbFMMwkrbNqH7J3HXBHBeMNMTBoAy1LYa+zYr5GNia5l7yjgpIthClr49LfbKL2Pb
-         opYYpEf2QxJhCEn2uJsvEqX0pvavX/+UHvkk1mIIqsASsdYPo964LdRekAO18KihJnZU
-         iuOPWTHoAZS9RfpgsAvkD4axvBHUBAdGFy1NeHZtqRM1G+S3HMEy7maZwzl8uZLpvGvR
-         1R/g==
+        bh=HLnUN4SFxuLePJET60hqALFh8R854ScCCjNPuZCVkMs=;
+        b=NvdE1A0hxlUkz6GJhAxddDB40AtROW+rNaSpm/1Bf+iC67LrFamdjIgMurLaP1pOLb
+         QUANGGF7o/pvk8tuIHbLsNjpP+G/aGHAWb/1bBZ/ocg+69WIP5fuIobG5Y5WChPDTmV+
+         XUXX+C9ObvQY3s9Xj+FH13NdOg+uvXpJbzLdsdVhPcHurDgZw/jsCZqAGpLUao75Dt/8
+         /EVVaO9avdpREJX7Ti4kyitwcyLe95+z4wNGyxupNPwpEIz3StA65jrBX0AbsnPlQlfc
+         maw0Gnv+ENPMzDvWUinYtG2Im2yeB2QFAE6nrc368MdGpMv+6/AYtHCa2WV31fQgzcc7
+         NDoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794927340; x=1795532140;
+        d=1e100.net; s=20260707; t=1794927342; x=1795532142;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=X3DwMEGrZ57pkqE3y7BJjL3MnOYoEVHYkRTWJRAevnQ=;
-        b=zow+PTIkfhPD3ONHQUDDl3dbm5ifx2Wf/q/hTdYh+63HSw/EnWuGxU5J/cWyvcTbam
-         KzfNg7+IWvP+WHTDSGMX7i5bkSSPTJKteJ2Q3652Dv/AuDpkXJew11gitLZwGWmEX23x
-         bF8IpZowvmdPjX564mekULXC7ShWzumjo1oGtNVhQSQ0uRKCMkNswFOnGz8VIdpkf3Yd
-         SqwfMnIfMXTK72Ay3Fgp5CtG6hyIjsGAE4hyOz5UvXlPoKQwVcyfjNYhOPf6SINREmJK
-         JFu4qNSA6N5fzKHGb7C4LjdlhZKH5T/qnscoLlvTEZFQM8BcrMaHodyZKa5/tgf+Scgd
-         G3Wg==
-X-Forwarded-Encrypted: i=1; AL+hErFRWA0Un14D/tf0EBVZn/cvE/5bzg7+oPXg5vju9QXfscDjltrZ2YbnbknhCXXlHFBb9PvRoqnIYFkXdys=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/MXorf2ed3dIZ9lDHWoal4H30bLN1cUTz0/WMdsT7hwVmVJz1V
-	tAAZ1vMoolP//U6mpNracV9qzBXMDfHXYWzzftXiqTXY2CyVx/npmlu6+eEyQvbOlo0Emr7/heO
-	8IA==
-X-Received: from qknrh21.prod.google.com ([2002:a05:620a:8f15:b0:945:e9b7:7c18])
- (user=stani job=prod-delivery.src-stubby-dispatcher) by 2002:a05:620a:870e:20b0:949:8a03:c35e
- with SMTP id af79cd13be357-9498a03c384mr411244985a.54.1794927339421; Tue, 17
- Nov 2026 06:55:39 -0800 (PST)
-Date: Tue, 17 Nov 2026 14:55:07 +0000
+        bh=HLnUN4SFxuLePJET60hqALFh8R854ScCCjNPuZCVkMs=;
+        b=QBgJWJS1XlcgNrlD6tOjn7TyIWeVGY2ghA6uIIxhDugqr/c6cp5SV9PE6VkICEc3x6
+         LDT83Ae8IRAY4sa1WlgaTRvrqIWuC7EA3RAtxhgQHbR3Cw8iQi02W6lv2eFjzAPC7v0z
+         dT98/257ARD16eEg7M1QKeFxJfA7tagGU22kLw28usvRcCXdQ6qCIzJ89cAhsmrGXNB5
+         L8+h3u0YV7gTPDmPk87a2Dmo1mSMrPuoiE/ihSQvAeW/+qQbC59NfYcYoD78Z9NjTYNg
+         x/FvrRrCQvfPyS/QsG1AUAmj/kI530LZcJKNH7Sr8KHHHnvaLgiUcSQveu/qZNV4LF4b
+         kjig==
+X-Forwarded-Encrypted: i=1; AL+hErHn1VgEjWp0jWKXe+n4BW/Tt2fh1ojIz3HOTTg3edriRgvrkXPvLPTaVwvpAl8tu6HwBSfWBGD9FUAeVZE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/jn83w5YbZueKqaJXHZKqCWJnUJNDRX70YJ3z/l1FA1tkCI5Et
+	A9VOnoOQ1YTd+pf5r5sJ56f+bwXFsUt39aact5MAtUIb0aqt2j+5/XAqDaCx9OrK1fPhimHHIUS
+	jkQ==
+X-Received: from qknvm11.prod.google.com ([2002:a05:620a:718b:b0:93f:43a4:a480])
+ (user=stani job=prod-delivery.src-stubby-dispatcher) by 2002:a05:620a:bc7:b0:944:1291:6cd9
+ with SMTP id af79cd13be357-9494bbeb488mr2333610585a.68.1794927341308; Tue, 17
+ Nov 2026 06:55:41 -0800 (PST)
+Date: Tue, 17 Nov 2026 14:55:09 +0000
 In-Reply-To: <20261117145522.1910636-1-stani@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261117145522.1910636-1-stani@google.com>
 X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
-Message-ID: <20261117145522.1910636-2-stani@google.com>
-Subject: [PATCH iwl-next 01/15] libie: wipe copied small send buffers on release
+Message-ID: <20261117145522.1910636-4-stani@google.com>
+Subject: [PATCH iwl-next 03/15] idpf: make the mailbox workqueue visible in sysfs
 From: Stan Iliev <stani@google.com>
 To: Tony Nguyen <anthony.l.nguyen@intel.com>, 
 	Przemek Kitszel <przemyslaw.kitszel@intel.com>, "David S. Miller" <davem@davemloft.net>, 
@@ -97,79 +97,32 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
 	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-hardening@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-libie_ctlq_xn_send() copies the messages that fit in LIBIE_CP_TX_COPYBREAK
-bytes into a DMA buffer of their transaction, which is reused for later
-messages but never cleared. The messages can hold secrets, e.g. the PSP
-TX keys that idpf inserts into the SADB of the device.
-
-Wipe the copy once the message was sent, when its send queue entry is
-cleaned, and when it couldn't be sent. The transaction can be reused as
-soon as that entry is cleared, see libie_ctlq_xn_pop_free(): order the
-wipe before it with smp_wmb(), paired with smp_acquire__after_ctrl_dep()
-after the check of the entry, so that the wipe can't overwrite the next
-message on weakly ordered architectures.
+Add WQ_SYSFS to the mailbox workqueue: the workqueue attributes are then
+exported in /sys/devices/virtual/workqueue/, e.g. to inspect or change
+the CPU mask and the nice level of the mailbox workqueue while debugging
+mailbox latency. This is one of those cases where, when the need arises,
+we wish we had that flag enabled, see https://lwn.net/Articles/967016/.
+The PSP workqueue added later in this series sets it too.
 
 Signed-off-by: Stan Iliev <stani@google.com>
 ---
- drivers/net/ethernet/intel/libie/controlq.c | 28 ++++++++++++++++++---
- 1 file changed, 24 insertions(+), 4 deletions(-)
+ drivers/net/ethernet/intel/idpf/idpf_main.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/intel/libie/controlq.c b/drivers/net/ethernet/intel/libie/controlq.c
-index 6214fc036ce5..c31d3c9e792a 100644
---- a/drivers/net/ethernet/intel/libie/controlq.c
-+++ b/drivers/net/ethernet/intel/libie/controlq.c
-@@ -694,9 +694,16 @@ libie_ctlq_xn_pop_free(struct libie_ctlq_xn_manager *xnm)
- 		 * address is dirty in any way, reuse is already safe.
- 		 */
- 		if (xn->tx_msg &&
--		    data_race(xn->tx_msg->send_mem.pa) == xn->small_dma_mem.pa)
-+		    /* READ_ONCE() for the control dependency below */
-+		    data_race(READ_ONCE(xn->tx_msg->send_mem.pa)) ==
-+		    xn->small_dma_mem.pa)
- 			continue;
- 
-+		/* The small buffer is wiped before the message is cleared,
-+		 * pairs with the smp_wmb() of libie_ctlq_xn_rel_tx_buf()
-+		 */
-+		smp_acquire__after_ctrl_dep();
-+
- 		clear_bit(free_idx, xnm->free_xns_bm);
- 
- 		return xn;
-@@ -998,6 +1005,8 @@ int libie_ctlq_xn_process_send(struct libie_ctlq_xn_send_params *params,
- 		if (!libie_ctlq_send_desc_avail(ctlq)) {
- 			if (!libie_cp_can_send_onstack(buf_len))
- 				libie_cp_unmap_dma_mem(dev, dma_mem);
-+			else
-+				memzero_explicit(dma_mem->va, buf_len);
- 
- 			return -EBUSY;
- 		}
-@@ -1132,10 +1141,21 @@ static void libie_ctlq_xn_rel_tx_buf(const void *ctx,
- {
- 	const struct libie_ctlq_xn_rel_tx_ctx *rel_ctx = ctx;
- 
--	if (!libie_cp_can_send_onstack(dma_mem->size)) {
--		libie_cp_unmap_dma_mem(rel_ctx->dev, dma_mem);
--		rel_ctx->rel_tx_buf(dma_mem->va);
-+	/* Small messages are copied into the buffer of their transaction,
-+	 * which is reused: wipe the copy, the message may hold secrets, e.g.
-+	 * crypto keys
-+	 */
-+	if (libie_cp_can_send_onstack(dma_mem->size)) {
-+		memzero_explicit(dma_mem->va, dma_mem->size);
-+		/* libie_ctlq_send_clean() clears the message next, which lets
-+		 * libie_ctlq_xn_pop_free() reuse the buffer
-+		 */
-+		smp_wmb();
-+		return;
+diff --git a/drivers/net/ethernet/intel/idpf/idpf_main.c b/drivers/net/ethernet/intel/idpf/idpf_main.c
+index c855572c5315..566d5804c8c1 100644
+--- a/drivers/net/ethernet/intel/idpf/idpf_main.c
++++ b/drivers/net/ethernet/intel/idpf/idpf_main.c
+@@ -319,7 +319,8 @@ static int idpf_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 		goto err_serv_wq_alloc;
  	}
-+
-+	libie_cp_unmap_dma_mem(rel_ctx->dev, dma_mem);
-+	rel_ctx->rel_tx_buf(dma_mem->va);
- }
  
- /**
+-	adapter->mbx_wq = alloc_workqueue("%s-%s-mbx", WQ_UNBOUND | WQ_HIGHPRI,
++	adapter->mbx_wq = alloc_workqueue("%s-%s-mbx",
++					  WQ_UNBOUND | WQ_HIGHPRI | WQ_SYSFS,
+ 					  0, dev_driver_string(dev),
+ 					  dev_name(dev));
+ 	if (!adapter->mbx_wq) {
 -- 
 2.56.0.679.gc527c65306-goog
 
