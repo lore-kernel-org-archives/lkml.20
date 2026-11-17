@@ -1,59 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.210.91.59
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794919850;
-	b=i1AOWSZWGchvCSWWV95+rDY697QmUEJlI8QFHRcu6gdCx7GDJUn57mZZOVMhAyK426n5
-	 iFTdtfEcBjjNRoy3FJqdbz/VO5E6y/ByYE7VL8NcMC1ageAEV7LPPbDfzH8YbZI2P7jwu
-	 zwTmAt1KnPOHEw8M3OXtBYGNm5Wzrhsu+z1zBDVxc4AIO/m76yF5soeGto1o5nnVZPl5K
-	 5F1X9Y8fsEpjRkREVHPJcW/Jt7F7WkCsYudXV/Vw/qYuTZsfhLW8FAAHWi8mh0zX1k+F3
-	 yGtU/3YsSe/moOLxRpOllujCrA7DmavU8P+QV3u1HqHH7Ava0j3Sm6dDil7BJVlXZ/Q==
+	t=1794919861;
+	b=HYrn5aPHRtr8XOxOOcZ2OyPWKnWy/FnNj1Hwk440aNdcnXiZb+2xgjc8GsYZKyTttNNT
+	 bFrMa5vF0dHK3MBgrvAWSSMVHjSQy9xZIh7HXjuW3AtD9bDKDjfnUaXWo1sAXSEWIVD/o
+	 +PfPyLfWr3xdSb8hLpJH4v/TBfRE8UY0Xj74Ptr5r8oufW2mcU8P7MftEs/j1ZkGOUhlG
+	 SwwtewAMOl9utFODtqCR9cfjVLw+saD901EHunHvZ1s4rJYLPdw8UkwaYlLUnV2U01jYx
+	 sQ7g3mQw8cSRgZO0M5hfnrXrKE3I74ONFSIr9RQzq0oTV5EVXyysB4CM75mWxFEsBbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794919850;
-	h=DMARC-Filter:Received:Received:Received:Received:X-OVh-ClientIp:From:
-	 Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:x-ovh-tracer-id:
-	 X-VR-SPAMSTATE:X-VR-SPAMSCORE:X-VR-SPAMCAUSE:DKIM-Signature;
-	bh=oKG8bZbPJkZqBB4dDTMC1BMdSM/9p9YYhbNghdpN2KI=;
-	b=Xw26NdqKcZrlHOXMQl5kUZhPb5nDg+GKVaUgUn8ahtf0DsIWrdpUMb7np0UVAm967k2u
-	 NumvsyOzpZxRAxjoD4vb+HpWGrE2nciTBHL1t8jccR3HCq+AM5IZ/aUp7axlmutDH+2r3
-	 56mC/6j6whqIMcFBiFxfP9iadVk5wljXEMerqSr233989OhD1TuKqlSnqZ9jRaP3nsP7I
-	 zbsCyOmyD718VtqKDD0ChFlcH8Nv59M+lFoLYKhMPEg/YDqvk825LXXBN58tifr6ng8Yx
-	 zMMur5iWew0CVPcEnp3kYiffKa19+BoMILgZriPO22AWOqZ9fj8SRrt9LyVXwITYH9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794919861;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=QtamuS0YltAetZPlLXNxUbQrgTbuGQGdLQ9mnxmiNw4=;
+	b=bKhRQzI92twUvRTUgB1etGEUzlWGvDMsJo7rvvLzTJmVjNpbxZO+ImJqDa80OWqTQWYM
+	 Ei1Z4AjeUEVwQ+HcStbRlivi7GUdVd65ULA+Whceh4Z/KlEX+SqJ/CtjtAsyvaPSBj9NQ
+	 7sbMDSEikDBKNiec+uQIRcfvSxjRTZC8Tp4RYEPsxjgdXthA6MJZHOMyVTA0+iv26qmJo
+	 yUGexhpl45ICVOBv1GK/bDeuAI7i5BmsSyOayJA9dc7zTXac5AAPS3m1XNDC7blGu+/rV
+	 WHdG0IfFTu2XZ1QmrznBIU6fQYDXsADMKw2fIFrdyNSo9jxd6LXuGL/ir/q/QmZzveA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pixelcluster.dev;
-	spf=pass smtp.mailfrom=pixelcluster.dev;
-	dkim=pass header.d=pixelcluster.dev header.i=@pixelcluster.dev header.a=rsa-sha256 header.s=ovhmo-selector-1 header.b="e/AoHiFX";
-	arc=none smtp.remote-ip=51.210.91.59
-Received: from smtpout10.mo540.mail-out.ovh.net (smtpout10.mo540.mail-out.ovh.net [51.210.91.59])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F4660A2613
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:50:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62F4660A2613
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pixelcluster.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pixelcluster.dev
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="Nh9Z/9vj";
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E9927606A8AB;
+	Tue, 17 Nov 2026 12:50:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9927606A8AB
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.a=rsa-sha256 header.s=ovhmo-selector-1 header.b=e/AoHiFX
-Received: from director1.derp.mail-out.ovh.net (director1.derp.mail-out.ovh.net [79.137.60.221])
-	by mo540.mail-out.ovh.net (Postfix) with ESMTPS id 4jTPjF642Yz458C;
-	Tue, 17 Nov 2026 12:50:41 +0000 (UTC)
-Received: from director1.derp.mail-out.ovh.net (director1.derp.mail-out.ovh.net. [127.0.0.1])
-        by director1.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
-        for <Felix.Kuehling@amd.com>; Tue, 17 Nov 2026 12:50:41 +0000 (UTC)
-Received: from mta6.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.164.208])
-	by director1.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4jTPjF5CRvz6Mcl;
-	Tue, 17 Nov 2026 12:50:41 +0000 (UTC)
-Received: from pixelcluster.dev (unknown [10.1.6.7])
-	(Authenticated sender: nat@pixelcluster.dev)
-	by mta6.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id 37F278E2104;
-	Tue, 17 Nov 2026 12:50:40 +0000 (UTC)
-Authentication-Results:garm.ovh; auth=pass (GARM-98R002e72ce295-6303-4761-9ac8-396144a4a0d9,
-                    00F4D7524EDFA56606BD67631AE7EA1B984E627F) smtp.auth=nat@pixelcluster.dev
-X-OVh-ClientIp:141.95.41.139
-From: Natalie Vock <nat@pixelcluster.dev>
-Date: Tue, 17 Nov 2026 13:50:14 +0100
-Subject: [PATCH v2 08/10] drm/amdgpu: Only reject conflicting mappings if
- they are not cleared
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Nh9Z/9vj
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=Nh9Z/9vjWw3kQcJ7AM3BknE+O3JBBnylgq5QYAjdqINCo+K73KvMWfp18yqL+tFzC6BIwBY3e1hjf
+	 OgjwpIzXC6SCxMfBpdcAwD+SxQ2emHE1SlBJDAHC1ib4sDgkiJdodVNCANQMALXLjXpQfBQAAH7vJE
+	 AqPvonveVyJIjOzs=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66afc4dac60a-d76cb;
+	Tue, 17 Nov 2026 20:50:56 +0800 (CST)
+X-RM-TRANSID:2ee66afc4dac60a-d76cb
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from utest (unknown[123.121.1.242])
+	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66afc4dad71e-b1c0c;
+	Tue, 17 Nov 2026 20:50:55 +0800 (CST)
+X-RM-TRANSID:2ee66afc4dad71e-b1c0c
+From: Shunbo Shi <shishunbo@cmss.chinamobile.com>
+To: nkapron@google.com
+Cc: gregkh@linuxfoundation.org,
+	linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org
+Subject: [PATCH v4 0/3] usb: gadget: f_hid: GET_REPORT fixes
+Date: Tue, 17 Nov 2026 12:50:48 +0000
+Message-ID: <20261117125051.5646-1-shishunbo@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <179486710796.2938203.13522037990167268712.b4-review@b4>
+References: <179486710796.2938203.13522037990167268712.b4-review@b4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,58 +70,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-prt-explicit-sync-v2-8-bb3851cb6a0c@pixelcluster.dev>
-References: <20261117-prt-explicit-sync-v2-0-bb3851cb6a0c@pixelcluster.dev>
-In-Reply-To: <20261117-prt-explicit-sync-v2-0-bb3851cb6a0c@pixelcluster.dev>
-To: Felix Kuehling <Felix.Kuehling@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- =?utf-8?q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Natalie Vock <nat@pixelcluster.dev>
-X-Mailer: b4 0.15.2
-x-ovh-tracer-id: 5593752213594399036
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTFzrqAtohLkNGuEsTTEjYMhBXNnnBHtHlXr82nHvl74y1Ds4tD6gdWQIaN6znA7Kc2nICootiOIoSAJoKcVZ8rp5U8FkQRKMJum8l1ZxWsZwER5yGYoBenENgWUQWXXug7JLluPG10KRnjqE0Kl5lyuRTL9VhZuq0e3C3svIXTECxKlIwNHUYB90fgRdOu4jmnRBd7K89RJpSkmSRbgHrKuLzypMaeM+5cWGVoEQ6oTTWmE0xsU1QcbwOiOtQDCa9y79/2I+WiEsDNrVYvE13m5UVyUDABHZc4Hc/c4Jw8MovzmfFeZ3jJoX2OJg+vRzVsjxv9Bo6Lkb7OTIXt6tahruBKSJXd1frBCMIUtoQCy+C7504Jy32p+6lzhWbfMdskv3EcOtwx7pv2ZuAbVwEKrtp3lLzlmcdfWCXL+s0Wsov8JUbBWyNFm5BENBh5zzCUCUqBMp66At9dJEPpil4+I9kr3JOlAoKavRNj/zDiny3xUiESkrZMk8ZGilLmHFXLPF9j3cVIQ6jcPJz+mfeVEiNKYhdHFYKNhnZoloCLrwzxolT1bmYc3fkUCVF+N4n3+n/ZPrF0ZYaCf4Uk8nNaUpBxxssLk7sh51aMp6kIV096rw/8hgcz3pogLUG6R74AptXZrBUDOJtkmlC8KX2HNMC8a2IA12wvOzRg0/QkA/w
-DKIM-Signature: a=rsa-sha256; bh=oKG8bZbPJkZqBB4dDTMC1BMdSM/9p9YYhbNghdpN2KI=;
- c=relaxed/relaxed; d=pixelcluster.dev; h=From; s=ovhmo-selector-1;
- t=1794919841; v=1;
- b=e/AoHiFXGZpzcdjJ76XVs4FBFFWRFEVI+sDCpAIvVgzycjmVBOR1l54f6rMRJO6CGDywUpdS
- e43l13Ahpb8iA91VYFCgOq8mJcmrJLAdqCwrSZ9Y0KCkR906JpescoTq7agESVyarJst8SGv4GF
- 0KqfzVMYSFslFnoS+IICkfjsPoqA9l9gHDyXCCZzJVvUDbH0jWOct/4c9I3FK59g5EOm+7ov8dE
- dGbSL3NW+3nC/AaUG3BY3d2jPvzW4U2Mk9DJfaOcpCLohC390H8N3UjTF0hdnU3Aiv318pThtk/
- BxSSHl0+xfYTFQOBZac5FJ1JLHRQMoQ3tHD3CQzB89lVQ==
+Content-Transfer-Encoding: 8bit
 
-Cleared mappings will not immediately disappear from the VM interval
-tree, instead they will be in a pending list. For the REPLACE_MAPPING
-op to work correctly, skip rejecting these conflicts as they will be
-properly resolved later.
+Cover-letter:
 
-Signed-off-by: Natalie Vock <nat@pixelcluster.dev>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Hi Greg, Neill,
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index ac4a1ed9b1196..491f4b50f7602 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2241,7 +2241,7 @@ int amdgpu_vm_bo_map(struct amdgpu_vm_update_ctx *ctx,
- 	eaddr = saddr + (size - 1) / AMDGPU_GPU_PAGE_SIZE;
- 
- 	tmp = amdgpu_vm_it_iter_first(&vm->va, saddr, eaddr);
--	if (tmp) {
-+	if (tmp && list_empty(&tmp->pending_list)) {
- 		/* bo and tmp overlap, invalid addr */
- 		dev_err(ctx->adev->dev,
- 			"bo %p va 0x%010Lx-0x%010Lx conflict with "
+v4 of this series.  Changes from v3, per Neill's review:
 
--- 
-2.56.1
+  - patch 1 (sleep-in-atomic-context fix) is dropped: it
+    duplicates Yu Zhang's previously reviewed patch [1].
+
+  - patch 3: Just copy req->length bytes to keep the existing
+    UAPI behavior suggested by Neill. Thanks!
+
+Remaining patches (unchanged from v3 except for the race fix):
+
+  1. memory leak: report_list entries allocated by the ioctl
+     are never freed in hidg_release().
+
+  2. data race: the GET_REPORT response is served from a
+     dedicated buffer instead of borrowing a report_list
+     entry that userspace may update concurrently.
+
+  3. memory leak: get_req is leaked when usb_gstrings_attach()
+     fails in hidg_bind().
+
+[1] https://lore.kernel.org/all/20261020051446.92179-1-yuz08559@gmail.com/
+
+Shunbo Shi (3):
+  usb: gadget: f_hid: fix report_list entries leak
+  usb: gadget: f_hid: fix race between userspace report update and
+  GET_REPORT response
+  usb: gadget: f_hid: fix get_req leak when usb_gstrings_attach() fails
+
+ drivers/usb/gadget/function/f_hid.c | 34 +++++++++++++++++-----
+ 1 file changed, 35 insertions(+), 6 deletions(-)
+
+--
+2.53.0
+
 
