@@ -1,118 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.22
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794932484;
-	b=GadBL/1yQwQ85rTZGgobZQCl6J6eYWP4t8XbHWCS3/jXymvNkBhKItuk6wJJGHiFyqan
-	 1JLmE9wcdBWMu0LHyhCj2IGW9zDKnXkeaYEeN0JW4xWg4+sYvKRkQiFuLl+3AIrLH0JW/
-	 4+DwSsUoRc3k1i1r/lIL0Uk72/q9uWDdnQCO07BeQEWGL0JYyYRo/PnqxZjUCVXd1tW3B
-	 Ve5BZaM4J7ojpXPO0gokDHJWa4X+/rGJEtn5avVEuci3m1O1Hbgf0fcteK9/lf40Q2mvx
-	 3qiZcM+gajeOYi+zPqFlKakERpZuk0AaBv3hR5yKt1Cx20uO7echCX66BBINWl7IAdw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794932484;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:Date:From:To:CC:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=BJ2HqAGTJu9w4v2O5g6PU8J8xFhc3iruXNYooPtJp6c=;
-	b=IUNzzvV+yLU+3Wd0r2wzI3Kgs7R6y56V16sox+GKFwCLLiLH6jnlR8TrKEwu7lWAjnkO
-	 CNlBZUJcr+kPhpdYkMV2Ml1goGRSKHV6eBF83OQgYBhqNUzhp0jXI1mh+AwJ6RH+EFS/6
-	 0EetPaqgtuBZlKif/r6ESKwYp3T/m87Y3w7JAEwNCsd4K+PwVjSLzCzAA3ZzhOUKkYpE/
-	 Z2Y62+PLtRkoxNeh4+lrCSQsTPFe41n5/2XVm3FfqbD+PPsfEnjgdN4Wi1usL3CfYY5wP
-	 BMqZZOs93xrG28Ng2f/QIl/axp6/AQB36yOfCtGltccyFvpgF5AcRlab/F3TWFJ3MBw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=GgA9aues;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.22
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011022.outbound.protection.outlook.com [52.101.62.22])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794932504;
+	b=tlJI0hDU/IL6sIGlKy6S68DqGtRgfM333Su7cd83l+BidA2BU17nFnkUf9YmVgrqB01y
+	 pgzcSvLz4qxm2DCCeKBgtAXepAn9DlOOXnNXwFZmR7Es2XgMhe0lD+b79QdjJNnXR/FNQ
+	 qafdcPHlJTWckOiXy86R8zuR8cGYyp+QFNh1d0PjUsuoHkW9TD2g+SFTrfWljxW1S8Mtq
+	 k7JibmjwWFY2wJEEMU2VijfXod6v7p9Zj0BvocsdyNBMRzJB9ayXosrCG7m2BrGhTnXRN
+	 4CDk2EXeTNBtiJX58kb6yW75ceZRoYYFu8JGyNVHRwiiJhUW4d+h/brgJpZWqetY/5g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794932504;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=4A3WKTqsVWE8KBkmTAQMvbvz94FbXUBofC05vB1uGNA=;
+	b=TOvvDXto2EYPHIlcY52yLaTXNoRY2NoUNatKaA+RMoJiVL3SvhWoQnG1j2bCOiDAZRPy
+	 8fN0etEFig5gqmASKyabtY+wbD1eTvohy5e+qvW6KQ2SSN5BnIaapS1mFTH9OJMVY7gTg
+	 Ns5x4JVTicVFPK4HiJG70l6J/fD7lF8f9L8U4TBXM4LjY37AvKyi2QGsJHwoOYqB8/ngO
+	 G8zWpMNstJj58NRkG2msM4z4C77xZI+O1VDa/ndGVYCl+Wwkvy9xRH5Uwka1SVJxlsqKp
+	 CxsnlV17/zP3Df7vowsITh12k/LPCRtzr81qvLM7hyTNL97tBdS4dchi5d7bmDGkHMg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=fw8mROcN;
+	arc=none smtp.remote-ip=209.85.208.42
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E7D606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:21:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5E7D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F974606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:21:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F974606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=GgA9aues
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UkLjEe1AFNo3e9B/JlgsfMwKnW8JnuSzVSfp2odvvsdGcA5uCTm6SbapElyRSWgRDGgOSGEfFhKkfLZ9SHK0pA5H6sL7sgu+PU5Ti4hDC0mtBmpfenhnufNhqixKsFUNSVm1EVXhxQ7++48bbH7dyfOSBx4B5TQ4Ne102U97DLGGFPShxjomQoaIwvtTAIOcu3L7babFIUe7OMJEO+UryZ+F4acyhmM9e/p2wSrm2Auoz2CODVwwUT+k6Z2berJzrf65/2FyZHcmUHJM/ZC9EWPuo71Dpoe6DNA2ntMV+I2mtgygB10D25Jr4+fv0ejUt/esqX5tQpS58RoApHkV/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BJ2HqAGTJu9w4v2O5g6PU8J8xFhc3iruXNYooPtJp6c=;
- b=n1+fivEG3pOPrwVTeJlQk2i7rADJEnUs2mDdin1XccukKVu3hdMOSjHt04cnr6TFjTQa8bdIAE1PQjoqZCmZXkrx7AtmDQli4X6QhZFGpBIoXYMaHZf16oEJaSe2oIz8XtNodcbZf+nfzLPqjAX2lpitHAL9RxC9C7H2SqBztArddRthgeMn9VQdlkvnbItK2lub0tt1OM9cE9mtdJKXIwMN/AqRTDNymK0mfojWkOn+Fc6rCZSoXHcnwWg/6N5QWoIhqYWJaA1ESZjCsCrmlTdaymmkePfNUThdVTICEbfwDj8Q7boiPDLBV25LZ10ZHNnfXJAdJDPk9Z68ntn3LQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=arm.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BJ2HqAGTJu9w4v2O5g6PU8J8xFhc3iruXNYooPtJp6c=;
- b=GgA9auesPnU0VhtW3rDjrQ7EGlgSWalJOww1/b3iQ/WWFdztzLl1e6/MGjnmtHHCB6Ucue0aqaX6EpahGNkAd9KzHlMJNJoEdLbMfTK9HmDGsfMQAw1npc/Tj5IdSXrXIEOUSLNBZcqFIujAzCxepwsgcSZKtXbvvve1ALvrCKPvuXCb4Zr20FAx/jO/qvyoHybm6utshn0GSHl5nmYqsuNlTFjElYugDL7uqeh1bqEgZ4YzEnI47fFgE2J8rOnJiaKfWPx8r6ypa0SaCddwhdRi2EDpy4z12vZGzsl8sDKXB5wJelB22NTLUnC33B5R9m57vZYqJ5gMpAMY5ZybSQ==
-Received: from CH5P223CA0020.NAMP223.PROD.OUTLOOK.COM (2603:10b6:610:1f3::9)
- by DS0PR12MB7582.namprd12.prod.outlook.com (2603:10b6:8:13c::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 16:21:09 +0000
-Received: from CH2PEPF000166C5.namprd04.prod.outlook.com
- (2603:10b6:610:1f3:cafe::1b) by CH5P223CA0020.outlook.office365.com
- (2603:10b6:610:1f3::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Tue, 17
- Nov 2026 16:21:09 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- CH2PEPF000166C5.mail.protection.outlook.com (10.167.244.235) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 16:21:09 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 17 Nov
- 2026 08:20:44 -0800
-Received: from rnnvmail205.nvidia.com (10.129.68.10) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 17 Nov
- 2026 08:20:43 -0800
-Received: from nvidia.com (10.127.8.14) by mail.nvidia.com (10.129.68.10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
- Transport; Tue, 17 Nov 2026 08:20:41 -0800
-Date: Tue, 17 Nov 2026 08:20:39 -0800
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: John Garry <john.garry@arm.com>
-CC: <will@kernel.org>, <jgg@nvidia.com>, <robin.murphy@arm.com>,
-	<joro@8bytes.org>, <praan@google.com>, <kevin.tian@intel.com>,
-	<smostafa@google.com>, <linux-arm-kernel@lists.infradead.org>,
-	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>, <jamien@nvidia.com>,
-	<kas@kernel.org>, Cristian Prundeanu <cpru@amazon.com>, Breno Leitao
-	<leitao@kernel.org>, <xueshuai@linux.alibaba.com>
-Subject: Re: [PATCH v12 11/12] iommu/arm-smmu-v3: Skip RMR bypass for kdump
- adoption
-Message-ID: <avx+14DDGycsF+LX@nvidia.com>
-References: <cover.1793593923.git.nicolinc@nvidia.com>
- <22a06965287dd478ee92f8028ae8ac27e054555d.1793593923.git.nicolinc@nvidia.com>
- <4cf391ff-804a-46a1-8d3e-d0ff8442841f@arm.com>
- <avtYhjyAarKdi33b@nvidia.com>
- <4154cfd8-e877-45a7-bf1a-45e2ae560e93@arm.com>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=fw8mROcN
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b571979178so7453102a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:21:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1794932502; x=1795537302; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4A3WKTqsVWE8KBkmTAQMvbvz94FbXUBofC05vB1uGNA=;
+        b=fw8mROcNJLENA2b7j5V768JdGDPzay7fZ6eGyvABxgNtL74NchZZtE6ln7r15qJ6wi
+         7XRSHiDBb5o5uPoy7uU9NLo2LkhA9NR2CvlsR9Xsuk6tEVOkJqrDAGlRDV7zUrLmfAAM
+         qzcpstPcno2dTssCz+1iTivlUN2mqL+zX/kr8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794932502; x=1795537302;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4A3WKTqsVWE8KBkmTAQMvbvz94FbXUBofC05vB1uGNA=;
+        b=gYelP9cfjcsSmShHyR8CcM+xMDPcq5InSfXGnUq1uup1KNiwezGIpGmIZBauMdGDdE
+         9ogTVmZfue20PmA8FcItoqg31yssYAwCYEpAgCZw5j85IoT9Hc/nbjKLgn42VJZAdVo0
+         fbL/y9coIbyO0/YI1XOhI6ERb8wZK1+yP5OgSElocaPvqZQZ6p9wjMirYqXQPhtXfo9g
+         w/m20xD/+I7dsQ7UyJIhTjyJIZ9b8XST2ywxwW4HQY0gbSDGWeCKOsa5mVzN6vntDRaR
+         6nGhjD0zpa3cw+7DXd6v7a5YvvZncoh8QvK0qzdQdHO7mINIJGiSl+DSOlzNLoQepgEs
+         G4pg==
+X-Forwarded-Encrypted: i=1; AL+hErEp2fW1FDmbFNYYC/BPA+H1YHn9/SxXLOENfkZYgBJU1YcLNK7O3f//XIYdbdmdwxa/zLyyzjTJuOh6kSI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Kj8tHpfnmElkYp30LoM7WrVV0MiSl4hNnz6g7Mr+WHn7upOEc
+	cxcTUuEZsPI9ON5MEVAwzlKywo7jCyrEeVpu9VLJaR3lenAk3/O58mqLTZLkAXAgRJpruefe2lW
+	dnYTKfA==
+X-Gm-Gg: AYBFou34cUDkV5BPEFYZ1MrhS9eDzOLolR0xhDuAn4lbuWM/PPm40oXpS3ikf3mZFm3
+	Ru0XPnTj3Tw4wSQhKVlVjeYqZhd65wocGDkNzYCd0IDB4CchK1gz7UiOXXeQd0X65CCrxKIa2ST
+	v2lttceRkrGw4/YsjzUgm71Tw3uadB96AQRDIq6tZa7XFvFWmmiiLyiTtnU3cRyTw/9Lra+rCrd
+	qXyoEIQIRXwMvx3jq5+Vxn8eNd8tkYtn3ze5dPpO6ADVlE6/3sUndO4jd2nesVppOCzF9SijE/M
+	aqvJZqlew1h+9//wsgpYbVuGj3p157Q/M6HHtySv1AfBy0iB+FPGjAhOKyqCxBZXnL1358wDJlu
+	pDDcQTR1nm6lcySBliNb68IQ73ZrUb6jDm+oUhr4DFj1MCPtTw3u/g7y+GMfUEt4y43IHC3PCbp
+	ZM3ItZQ2Tez4cd8rhTYU/9LNUZzmXht0bB5t1s+q6zvLUHKRiUtlfUNmF2hesyLU5THQsb99Jy4
+	+Z38Jgc2gAJU110Ev+nI0WRHp8jmGrrIwLvzTuluSRHChLgzEz94MrovQVIAB3juWPt/PFQCHB5
+	7s+NpdArgCdBRNd1Br/XfLM9u/FKv407nDmSZAiycWGbKaBI2WoDlyhZFTOyosmlwAyw
+X-Received: by 2002:a05:6402:c4d3:20b0:6b5:74dd:37ec with SMTP id 4fb4d7f45d1cf-6b7c08b09c5mr7920069a12.1.1794932502382;
+        Tue, 17 Nov 2026 08:21:42 -0800 (PST)
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com. [209.85.221.47])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b886b9359csm5364a12.19.2026.11.17.08.21.39
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 17 Nov 2026 08:21:41 -0800 (PST)
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-490c3ae81d3so2852346f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:21:39 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGJkkKdIugq++lN+d36CF46BKSx16Knu5ssEF3F275alEY6HQagFRJ8cJRRU4QcSpkbNhZw9rAI7q7Obuw=@vger.kernel.org
+X-Received: by 2002:a05:6000:2584:b0:49d:a36c:2d66 with SMTP id
+ ffacd0b85a97d-49da38ab522mr26157470f8f.27.1794932498429; Tue, 17 Nov 2026
+ 08:21:38 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -122,60 +93,201 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <4154cfd8-e877-45a7-bf1a-45e2ae560e93@arm.com>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF000166C5:EE_|DS0PR12MB7582:EE_
-X-MS-Office365-Filtering-Correlation-Id: 33728704-d37c-46a5-1853-08df44c6ca09
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|7416014|376014|1800799024|22082099003|18002099003|6133799003|11063799006|4143699003|56012099006|261022075727099003|261026121527099003|261028144727099003|261021121427099003|10067099003|261026140227099003|261009223027099003|261102123227099003|261021135927099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info:
-	wdG/gFlareFoDjtk/O4SsKje50oPJXIYCKoXaFv06dr79K9HLmCRzu87TDOha4X5WqP8Oo8pj+ORud43t4yHKBDogtftx3FFHz01+gHG4oUW2n2BdGnz0qqp2xnSCdOr0vAvP9G7H6KFMl8HEbFPMaPwO05kx6uExpAnwmI/hn7GqZqe7RUX85yGfGaGv3igSeO+Xn6ZNuqkGujkWN+qyC9EaJIf/kRG/C2tXwH3ZqiuDzpcH5K4VyQhVDT4PCt3N5Da25H12wuRI/QQ4TJnlOUaBPffCo9Tgg/KnygBgUyFMUXNy2/kT8ZL6rF6cOvxjGBtvWJv0JcUMF1ylCUwE5e/YqQ+VzQtX1CJYRD9BTL2ouLY04nxPt7RJQUvzcOr/COCPVzO1XrdiBDTE5+cyahi46MeBLc1FQoPg1ros6IJbLTTqt7pl7gx9dU3p+M4luuKfXHqXNwNZjhIHlF7YVu9/XNhc+Tm0ePxUfn9RR6QOXq3PHwfQUVhfROCaw917t+7kww/wL2REiAGHySxiKf+zAwWajbGvZn4cZpog7Fv8G72RFenDktzh0jqFYM/WEWcj+WGzPRKokYJsocT4CAYhxU6djSg0tHTRDSzskiGrrezqw/XIt+cGcqdV61n3HoTysV39De1IMjgKIXrn3Hzs8N4EI/d/tlucPt10g2HfuhoQAqxkRuCoRfeQWiFdr8/LV70XUlwqhv8+gPMaA==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(7416014)(376014)(1800799024)(22082099003)(18002099003)(6133799003)(11063799006)(4143699003)(56012099006)(261022075727099003)(261026121527099003)(261028144727099003)(261021121427099003)(10067099003)(261026140227099003)(261009223027099003)(261102123227099003)(261021135927099003)(261022105027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	eZfCUSrop1PXZ1/2WpmJhbVinj6iQOYr6gYf4rEigXH53Rez5CKMq7HSPJp/kd/hUmiiSqVFJra8jaFKkwW0WT2RuKzKPlpHU50n68412IHVb2tcXPe6uks1vmZzM3h6j3zDdkgoWu9eq2qaXGqZR4bY4SDCyGGoWMdcj6Q5F8bp0zYdfq64LTIwZssIh5AxBG2/GpOQ2cOd2xuk1D9QwQGD1kX9xQ05Y8oLFrkhPq8m+OQs6DtYo6DUpkEsr53RW2Shmej495LiJR/gdkPqGJ1egLUlH0LTXE0i6seQanvkofE4aWO4iYN+5pvU0Y8gNb3yB4z2VnikC7nBqBvx4z/5hu7wrJJ5C0sDSpir9kuYZB9jOgxQXGKFXwWpxzGDXOAmD8jpbvqrxQ2JbBZg1Vpa6C3qpGi+p5a1ahuFtK3XsFDbtufJPXAPNH6o51C8
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 16:21:09.2345
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33728704-d37c-46a5-1853-08df44c6ca09
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF000166C5.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7582
+References: <20261116205320.1621386-1-dianders@chromium.org>
+ <20261116205320.1621386-9-dianders@chromium.org> <avvRY-nTstFbvTpF@gractus.seuss>
+ <avvTEIZQZwra3Zra@gractus.seuss>
+In-Reply-To: <avvTEIZQZwra3Zra@gractus.seuss>
+From: Doug Anderson <dianders@chromium.org>
+Date: Tue, 17 Nov 2026 08:21:26 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=V+2wMhc6OALzbHgn8x9AnWUFCay6sGB7sqKqffGLb7ZQ@mail.gmail.com>
+X-Gm-Features: Aa3M54pz7DW5yM-a4JW5wjVNliWZLdPpMra5U8vPsgIIoqjo8RSA7Zhl1aOgCMU
+Message-ID: <CAD=FV=V+2wMhc6OALzbHgn8x9AnWUFCay6sGB7sqKqffGLb7ZQ@mail.gmail.com>
+Subject: Re: [PATCH v4 08/14] libfdt: Speed up fdt_find_string_len_() with memchr()
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Devicetree@vger.kernel.org, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, Chen-Yu Tsai <wenst@chromium.org>, 
+	Saravana Kannan <saravanak@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Simon Glass <sjg@chromium.org>, linux-kernel@vger.kernel.org, 
+	Brian Norris <briannorris@chromium.org>, Peter Griffin <peter.griffin@linaro.org>, 
+	Julius Werner <jwerner@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Nov 17, 2026 at 02:34:05PM +0000, John Garry wrote:
-> On 11/16/26 19:24, Nicolin Chen wrote:
-> > > > adoption keeps the crashed kernel's table live. Rewriting the
-> > > > +	 * adopted STE here could expose an in-flight fetch to a transient V=0
-> > > > +	 * entry, or change Cfg=translate to Cfg=bypass. Must skip here.
-> > > > +	 */
-> > > > +	if (smmu->options & ARM_SMMU_OPT_KDUMP_ADOPT)
-> > > > +		return;
-> > > > +
-> > > >    	INIT_LIST_HEAD(&rmr_list);
-> > > >    	iort_get_rmr_sids(dev_fwnode(smmu->dev), &rmr_list);
-> > > Did you consider if we should sanitise the adopted ste against what
-> > > iort_get_rmr_sids() returns? I suppose that would add even more complexity.
-> > It's not necessary: both crashed and kdump kernels installed them
-> > from the same IORT. If STE is translated, they are mapped as 1:1.
-> > It's certainly not worth the complexity.
-> 
-> BTW, are those regions described in a file(s) in sysfs? I thought that they
-> were, but I can't find it, so I guess that they don't (exist).
+Hi David,
 
-They would, so long as your system has an RMR in IORT.
+On Mon, Nov 16, 2026 at 8:07 PM David Gibson
+<david@gibson.dropbear.id.au> wrote:
+>
+> > > On one stress test (running the fdtfactor tool across 438 arm64 Qualcomm
+> > > DTBs) this reduced `fdt_property()` time by ~5.6x.
+> >
+> > What we really want is memmem(), which would presumably have a similar
+> > optimization (and likely more) built in.  However, we avoid that to
+> > make this easier to environments which lack it.
+> >
+> > Complexity isn't too great, so this looks reasonable to me
+>
+> Hmm... actually, thinking about this again, I'm kind of baffled that
+> the speedup is so large.  In the old version, if p is at a character
+> that doesn't match the start of the string we're looking for, memcmp()
+> should return almost immediately (after a single byte comparison), so
+> I'd expect both versions to be - roughly speaking - a single scan
+> through each byte of the strings block.  At least with gcc builtin and
+> inlined mem*() implementations, I'd expect the performance difference
+> to be pretty modest between that and the new version.
+>
+> What was the environment (host CPU, libc, compiler options) you used
+> for the benchmark?
 
-Typically, a QEMU guest enabling the nested SMMU should have one
-at least.
+Environment details:
+* CPU: AMD Ryzen Threadripper PRO 5995WX (x86_64, AVX2)
+* libc: Debian glibc 2.43
+* Compiler: gcc (Debian 15.2.0-14) 15.2.0
+* Flags: default `meson setup build` (`buildtype=debug`, so `-O0 -g
+  -fPIC`), though testing at `-Os`, `-O2`, and `-O3` gives the same
+  ~16-17x speedup on the string-table scan itself.
 
-Nicolin
+There are two things going on even at `-O2` / `-O3`:
+
+1. **GCC can't inline `memcmp(p, s, slen)` when `slen` isn't a
+   compile-time constant**: Because `slen` is a runtime variable (and
+   GCC also can't synthesize a `*p == *s` pre-check on its own since
+   `slen` could be `0`), GCC at `-O2` / `-O3` emits a full PLT call to
+   `memcmp()` on every single byte `p` of `strtab`:
+
+       .L10:
+           movq    %rbx, %rdx
+           movq    %rbp, %rsi
+           movq    %r15, %rdi
+           call    memcmp@PLT
+           ...
+           addq    $1, %r15
+           cmpq    %r15, %r12
+           jnb     .L10
+
+   Even though glibc's `__memcmp_avx2_movbe` returns quickly on a
+   first-byte mismatch, paying a PLT call/return and function prologue
+   on every byte of a ~14 KB `/__symbols__` string table (~5.8M
+   `memcmp()` calls per 800-symbol DTB) dominates runtime. Just adding a
+   scalar `*p == *s` guard ahead of `memcmp()` already speeds up the
+   test below by ~8x at `-O2`.
+
+2. **SIMD scanning inside `memchr()` (~2x faster than a scalar byte loop
+   at `-O2`)**: Instead of stepping one byte per scalar loop iteration,
+   glibc's `memchr()` (`__memchr_avx2` on x86_64) broadcasts `s[0]`
+   across a 32-byte YMM register (`vpbroadcastb` + `vpcmpeqb`) and scans
+   32 bytes per iteration inside a single call, only returning on the
+   ~4-6% of offsets where `p[0] == s[0]`.
+
+(In the commit message, overall `fdt_property()` time dropped by ~5.6x
+rather than ~16x because ordinary repeated property names like
+`compatible`, `reg`, and `phandle` hit near the beginning of `strtab`
+right away, and `fdt_property()` also includes copying the property
+value and header bookkeeping.)
+
+Here is a small standalone C program (`bench_find_string.c`) that models
+building an 800-symbol string table 200 times (~4.2s -> ~0.25s at `-O2`
+on my machine):
+
+---8<---
+// SPDX-License-Identifier: GPL-2.0-or-later OR BSD-2-Clause
+/*
+ * Build & run:
+ *   cc -O2 bench_find_string.c -o bench_find_string
+ *   ./bench_find_string
+ */
+#include <stdio.h>
+#include <string.h>
+#include <time.h>
+
+typedef const char *(*find_fn)(const char *, int, const char *, int);
+
+__attribute__((noinline))
+static const char *old_find_string_len(const char *strtab, int tabsize,
+                                       const char *s, int slen)
+{
+        const char *last = strtab + tabsize - (slen + 1);
+        const char *p;
+
+        for (p = strtab; p <= last; p++)
+                if (memcmp(p, s, slen) == 0 && p[slen] == '\0')
+                        return p;
+        return NULL;
+}
+
+__attribute__((noinline))
+static const char *new_find_string_len(const char *strtab, int tabsize,
+                                       const char *s, int slen)
+{
+        const char *last;
+        const char *p = strtab;
+
+        if (tabsize < slen + 1)
+                return NULL;
+        if (slen == 0)
+                return memchr(strtab, '\0', tabsize);
+
+        last = strtab + tabsize - (slen + 1);
+        while (p <= last && (p = memchr(p, s[0], last - p + 1)) != NULL) {
+                if (memcmp(p, s, slen) == 0 && p[slen] == '\0')
+                        return p;
+                p++;
+        }
+        return NULL;
+}
+
+static double bench(find_fn fn, char names[][32], int nsyms, int iters,
+                    int *out_tabsize)
+{
+        struct timespec t0, t1;
+        char strtab[32768];
+
+        clock_gettime(CLOCK_MONOTONIC, &t0);
+        for (int it = 0; it < iters; it++) {
+                int tabsize = 0;
+
+                for (int i = 0; i < nsyms; i++) {
+                        int slen = strlen(names[i]);
+
+                        if (fn(strtab, tabsize, names[i], slen))
+                                continue;
+                        memcpy(strtab + tabsize, names[i], slen + 1);
+                        tabsize += slen + 1;
+                }
+                *out_tabsize = tabsize;
+        }
+        clock_gettime(CLOCK_MONOTONIC, &t1);
+        return (t1.tv_sec - t0.tv_sec) + (t1.tv_nsec - t0.tv_nsec) * 1e-9;
+}
+
+int main(void)
+{
+        static const char * const prefixes[] = {
+                "clk_gcc", "reg_vdd", "pinctrl", "i2c_bus",
+                "usb_phy", "pcie_ep", "mmc_sdhc", "gpu_opp",
+        };
+        enum { NUM_SYMS = 800, ITERS = 200 };
+        char names[NUM_SYMS][32];
+        int tabsize = 0;
+        double dt_old, dt_new;
+
+        for (int i = 0; i < NUM_SYMS; i++)
+                snprintf(names[i], sizeof(names[i]), "%s_node_%04d",
+                         prefixes[i % 8], i);
+
+        dt_old = bench(old_find_string_len, names, NUM_SYMS, ITERS,
+                       &tabsize);
+        dt_new = bench(new_find_string_len, names, NUM_SYMS, ITERS,
+                       &tabsize);
+
+        printf("%d trees x %d symbols (final strtab = %d B):\n",
+               ITERS, NUM_SYMS, tabsize);
+        printf("  old (per-byte memcmp): %.4f s\n", dt_old);
+        printf("  new (memchr + memcmp): %.4f s  (%.1fx faster)\n",
+               dt_new, dt_old / dt_new);
+        return 0;
+}
+--->8---
+
+-Doug
