@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794908290;
-	b=Ogaffyqb3Nnodf29FRANxVDKliKnNIwHzbhJe852xWx+nu9VgyL+RVZlr38VAacVG9Xq
-	 1Mo1XoJszQI6ZjcX9SJICRISvaE9TJMhTFqDdVkJJZrDT5+KhhelDGzWfuiQOsruynU10
-	 QcSesIleqZXPv1du+8BKW/LTjbvAV1ybsw8HcoYWdymsLHEsyELApKUcRkU0CEmBQvDr9
-	 UT0jlIi+3ycePc8ADYK9k48CeupwW4QHu1LxWSTV+Iozem6UN4akxk5s4w8QNN+FesBhp
-	 QvSZwvu/x9LsKVME4Bbwqm93SMqG7e3ZTgnuJcdDOcVsRpEeh6P73GYZZqKRhFVxunw==
+	t=1794908292;
+	b=WE35Z11taymSEWgK5WOZsLIOnNdD44OBWVJ334Edv0FQaFhl30Cct4cZfph/InD6Kctb
+	 0vjoJYHC6AYDoIZRl5/2OfIaD/IkoB6N4VRRPy+dawU0Ix4CacX/Enmjf6esHxG/Imuci
+	 YVLlsuxMWDb0ChKfk/1mdH+GpKlCYwg9r0N6syNs5/aKuWt9CLgLgYbwvgcmPGxmjkW4q
+	 d31/M+D/3L1iVOSA9lPNScEsqlmi+NFiFP0up7DqM5MczTRN9rOhktthcU4L4lKQffSc6
+	 YB2j0G6XWGW+g81Zow7yaDqH3NyRZRbci60Vnyed22uhIAG65NyFeXGhvW21VgGcRsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908290;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908292;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=zt+L2zvrl0xsIKg55Fyi5rBt8i3afRguaaN6st9GaVQ=;
-	b=YLfXiBaUFQd6j7X/wfhaZLmD43Ny+bSdtLc/dZCNFpK45SodmedmqgcY/qpKAWZeab55
-	 X7iOrhQ7Ec3hwOybkzrHsJZxREgZ1devIhhEh93+DW8GRRb6rhVYpwDYM3uNTr8mZ093S
-	 vkQQpNBozySs4MJwT3Hlnqbb6Aom3em9upGp9tTfqgNLfZr1R8JR5/BaOXPtSK7Fq1lis
-	 FZEHaV455eDZ/qbpiuY/cMZK3+JT52JZhYPmBmvr+HoJVkgkl6WjHxlsuRZ6n8Psu87z7
-	 0NHFk9kWMpzonGsnP/Dv/Zaf7D+RNz9zdfMtrMvbaxdEKG2RppBN98t+Qjg9ReNbvrQ==
+	bh=CZ87Wox43t0Jo/dky+kjMqQf6H/f4c/RMbSUMAnICCw=;
+	b=4ycxcxWs6KXwSWAVDG3PfbWvZZl4TZfWwSdhSS7Xn3Wd353w0nO/6xKPcBanq+Touw/Z
+	 /aDbJlRbBdiRKvNjkzy8GoSPA8Tl9Eb3/Ps6TgEb/EygP1QVec4S02iEClFvrF0xsV4Ub
+	 Jd8Ef623qcQ2TESa6VCinCRFzfjVivQSO3sLQyHXTyCKtwC8fKYcxXxLM/XjBO3jOj57c
+	 8qZQPT/ka6RSA3ze4kUULEcbKuipA+v2T1atFIHRT3WSf+xGcWl/d4qBBz9g+NPcCqFK8
+	 CT3Wlqja6q9ML61ZBfOwvJMPNhHoa+4QJTYgJ4LfCFBaSBDU1neQjuCVlpC+R9RQ0kA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=kDnrmD3W;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=iSc8KB3k;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4995A606A338
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:38:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4995A606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F2F606A893
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:38:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7F2F606A893
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=kDnrmD3W
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=iSc8KB3k
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 44B6AC4EDB9;
-	Tue, 17 Nov 2026 09:38:13 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 6BCB81A158C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:38:10 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id EAB575FC81;
-	Tue, 17 Nov 2026 09:38:08 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6674C11BC0DE4;
-	Tue, 17 Nov 2026 10:38:07 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3C0965FC81;
+	Tue, 17 Nov 2026 09:38:10 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AC65F11BC0493;
+	Tue, 17 Nov 2026 10:38:08 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794908288; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1794908289; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=zt+L2zvrl0xsIKg55Fyi5rBt8i3afRguaaN6st9GaVQ=;
-	b=kDnrmD3W+x2ewQ0EuCfxmSl7xRpGAc6G1HGyGvbRVetx3Kvjr8rO1qPEbb/08NorPNFDb/
-	JemkhKkqFRxOi67XXT0C7uW1dabk0Crm3ith2qtdXt3XCBMmQUyFKskzO2R5C6gtFFUF7n
-	83G6Qeg2n4G/HISngDN+rs/H5ZTNKDhBHMUcFhv5xO6K5FMab2kPi5LE2wm+EgYEbR2Dh5
-	YLCeGpR/pnW6kf5kGvDdzN+JKPtCSL1GSqhtrTtbOSplGsKMulqjy70WG/n8545aywvrfR
-	u2a2HrTCyOp29vFJpzVpx2LxOWFX+88pXdWiKaRbcX1/7vfzh8ArSe4E2WORAg==
+	bh=CZ87Wox43t0Jo/dky+kjMqQf6H/f4c/RMbSUMAnICCw=;
+	b=iSc8KB3kQbTV/BByqc0IPv8ejI7dg0oV1b+7qodf4ShocMFu1pd2p535z93aaGnhsziu0J
+	4e8Lu5Ah33hm3y3PxKE/GS2rV1bSiMCtmRGKpu71BXpmR+5UA1f1+wn7rVCAhBq94pNEnT
+	c6Uw51Hv1ibeohFGzWQ7Od2OxHJBCsi9QyxvTYvIVQD3z7gHnl3pYFI4KoFrcbuvR9o4da
+	QBa/VKg5eNwOKGaZ3U6fl3j7S2V8SBZODzHU2FvmZY7Uwe2sKLkEN3mQU+0e4QTypSH7sJ
+	oGL3Zi/ae6UcvhAZ65SgACzbdUDU7PnI3Dt9b4AFlQ5M9WTDOLtvdpPeueWVUA==
 From: Paul Cercueil <paul.cercueil@bootlin.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>,
 	Richard Weinberger <richard@nod.at>,
@@ -58,9 +58,9 @@ Cc: linux-mtd@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
 	Paul Cercueil <paul.cercueil@bootlin.com>
-Subject: [PATCH v2 03/12] mtd: spear_smi: Remove #ifdef guards for PM related functions
-Date: Tue, 17 Nov 2026 10:37:41 +0100
-Message-ID: <20261117093751.14988-4-paul.cercueil@bootlin.com>
+Subject: [PATCH v2 04/12] mtd: physmap: Remove #ifdef guards around shutdown callback
+Date: Tue, 17 Nov 2026 10:37:42 +0100
+Message-ID: <20261117093751.14988-5-paul.cercueil@bootlin.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261117093751.14988-1-paul.cercueil@bootlin.com>
 References: <20261117093751.14988-1-paul.cercueil@bootlin.com>
@@ -76,54 +76,41 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-Use the new PM macros for the suspend and resume functions to be
-automatically dropped by the compiler when CONFIG_PM or
-CONFIG_PM_SLEEP are disabled, without having to use #ifdef guards.
+physmap_flash_shutdown() calls mtd_suspend() and mtd_resume().
 
-This has the advantage of always compiling these functions in,
-independently of any Kconfig option. Thanks to that, bugs and other
-regressions are subsequently easier to catch.
+Unlike what their names suggest, those two functions aren't related to
+CONFIG_PM, and neither is the platform_driver.shutdown() callback.
 
 Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
 ---
 
-v2: No change
+v2: Don't use pm_ptr(), and rewrite commit message
 ---
- drivers/mtd/devices/spear_smi.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/mtd/maps/physmap-core.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
-diff --git a/drivers/mtd/devices/spear_smi.c b/drivers/mtd/devices/spear_smi.c
-index f02f96bff450..689141e525c0 100644
---- a/drivers/mtd/devices/spear_smi.c
-+++ b/drivers/mtd/devices/spear_smi.c
-@@ -1050,7 +1050,6 @@ static void spear_smi_remove(struct platform_device *pdev)
- 	}
+diff --git a/drivers/mtd/maps/physmap-core.c b/drivers/mtd/maps/physmap-core.c
+index dcda7685fc99..672747890972 100644
+--- a/drivers/mtd/maps/physmap-core.c
++++ b/drivers/mtd/maps/physmap-core.c
+@@ -600,7 +600,6 @@ static int physmap_flash_probe(struct platform_device *dev)
+ 	return err;
  }
  
--#ifdef CONFIG_PM_SLEEP
- static int spear_smi_suspend(struct device *dev)
+-#ifdef CONFIG_PM
+ static void physmap_flash_shutdown(struct platform_device *dev)
  {
- 	struct spear_smi *sdev = dev_get_drvdata(dev);
-@@ -1073,9 +1072,8 @@ static int spear_smi_resume(struct device *dev)
- 		spear_smi_hw_init(sdev);
- 	return ret;
+ 	struct physmap_flash_info *info = platform_get_drvdata(dev);
+@@ -610,9 +609,6 @@ static void physmap_flash_shutdown(struct platform_device *dev)
+ 		if (mtd_suspend(info->mtds[i]) == 0)
+ 			mtd_resume(info->mtds[i]);
  }
+-#else
+-#define physmap_flash_shutdown NULL
 -#endif
  
--static SIMPLE_DEV_PM_OPS(spear_smi_pm_ops, spear_smi_suspend, spear_smi_resume);
-+static DEFINE_SIMPLE_DEV_PM_OPS(spear_smi_pm_ops, spear_smi_suspend, spear_smi_resume);
- 
- #ifdef CONFIG_OF
- static const struct of_device_id spear_smi_id_table[] = {
-@@ -1090,7 +1088,7 @@ static struct platform_driver spear_smi_driver = {
- 		.name = "smi",
- 		.bus = &platform_bus_type,
- 		.of_match_table = of_match_ptr(spear_smi_id_table),
--		.pm = &spear_smi_pm_ops,
-+		.pm = pm_sleep_ptr(&spear_smi_pm_ops),
- 	},
- 	.probe = spear_smi_probe,
- 	.remove = spear_smi_remove,
+ static struct platform_driver physmap_flash_driver = {
+ 	.probe		= physmap_flash_probe,
 -- 
 2.47.3
 
