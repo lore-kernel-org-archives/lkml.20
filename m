@@ -1,104 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.60
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794899365;
-	b=OIi8gY5CrFv32mD7aeuWy/4PkGRxY+QjKsr4mfQ88eRU5Ljf++uDtnujgfWeqmjIicd/
-	 JQUG7O40+0g5vq8spfRZC86OnPQtr9/4dIFRyfZYic/FqYlGoxJFIU3DPCYgHeaaTTw4L
-	 fA/LMhu+XWwW0HPqXllVt+HTLtJDLU9cJMsCfICYBLQLZVBQG0yOdJnZJjE6YXJqi0cPS
-	 XO211aefFh77xqBEqBvPZWDdLOlv0QGCL9A2hx1tg3kGgxIZ0hZJxV7+v9lJdwGuf9uqu
-	 cVOHNQnKuMylCIORSq1mz8rq1gtkGujAvBZQ8ra/r18zUe6xY0HGmT38NYh6erbodpg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794899365;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=24F6tuFMiPcOFy76Y/yFbwHuDW8u65Y2paniWuWNiwA=;
-	b=UxY4AYVCZcTPC7fqCgwmFXXcYoHEi7zrkDkm1TMOmcWMu8ZPtMYkwkfO9P+6QmMFGP4+
-	 mIq7xL89nO542VsNkqpSI/QYCqaNDT1V8gaO7hihGtE8Qf/ovh41MeJ+uxRCpPV0U/06v
-	 Yh7akNq40mOsl3XrkysisfUlPDKPNib1ZdvmR3Zp/ptyODXjXzbHtn/NYM670n9S41CwU
-	 Z4BkFoR/0xbezcl3l2plrTJOsbH87iGoutN6TR7/7LIYzH2PKFvZq5H+6dmohGdEJFVSt
-	 FVzONTZ8r442d9K7ykuQYBNjSRkHYkGEMsgMwMTQaaCJ7H769+984z9xIOGT/GomMVA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="mV/hVOun";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.60
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011060.outbound.protection.outlook.com [40.107.208.60])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794899371;
+	b=Inyo20NkioKFmpAzpmIqUd9ICFO2uABmJnl4Z0jFdMKBbqS7+UzozpgX8/Yx95htEet+
+	 +LrSJndWLFIjvjzeB6Hht7tHK2umEOqWEG6j6DLmSlge3cTuBFlXp79o+YpXoP4ZQkSiR
+	 5jEym3h3jLV9WYy/BCj4CaU2GsCt1RflaFkZi7K/ik9CfWmNXaDKabvkUIW1B4zA/1lch
+	 5InZMIbvar44STGQ3NRwsuKTBiSGuwfr7mjrb0bzCYsLRhtm22nHk+StTyy5HjdyJhITK
+	 QnkeWx6uRstJduhmeFHb6A2VyNI7r3w/w8RCAdAzfbsZO8E2XNBUvpfA5wc7YbL3bAA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794899371;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Spam-Flag:X-Spam-Level:
+	 X-Spamd-Result:X-Spam-Score;
+	bh=UfdGpWtgTLDzFQ8nU2mzJ6EvNoOQYOiNgDYthHagyV8=;
+	b=Wg87KlPJCTdNAJNoV0YcByW+YFAC5EinMutu5ljSkO12yRs6lbJ2kCk2i+UsAyt1ryTF
+	 3feTIW0ZdyT2YbfPAwG2i4T2xSFDWadssg3IUaFuMsMckCG6ASq9rnV8T4/z6Op6E4JBS
+	 ABgOtX5l7kPyRSCzl5Pa24l6bEDQw1S0d10Y0dLIcUtQwP9VgYbHcQaTCFw6kwhrCW7bA
+	 z3Kk8XPAudMvn98FiNJCdwvfTZgx6U9lwfAozBg35vD320w7YB91rcwICNdOXyeFbgvRr
+	 w+N4dUgyQf0hy6WNjb8HJ7NP+x2WWS4h+ssuEzJ/6g/DiwbN4sYi2NjhvhWUMW8GBMA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=sE9HnRkd;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=SHKFWJwa;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=sE9HnRkd;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=SHKFWJwa;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECDB8606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:09:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECDB8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB130606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:09:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB130606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=mV/hVOun
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=snFrZZmDC8fBWQYDb9susjX20Ow23ZAm7m84BMOAQDPSgDmvawzJRmXiR7YsBB5ClYNaDWuebre/4U7/0uMEpR0prY56/w7QY4/jFOPeyQ9neHjYx2EbSA1F+Nr4VRY+fkVxR07brc1By6eI6r5KktI4LnX+Rda1vpxkK3OKtckKlbn2nMU7Ir2nj2Evf3oGDPrM3AU3YytZ/QQ/nt97eYeHswaUe5b+X9Hnm95YF/5eRUeAWXugEGqZdw+6kyWQ2IFyXAG5XnXZQVJSvRhSsk3q6R34PV2j0jRbr4qP+GUaGFJkUmLDHp/8hguxnQPVdFlbq3DueCEwQGh25lMghw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=24F6tuFMiPcOFy76Y/yFbwHuDW8u65Y2paniWuWNiwA=;
- b=Z8htYcR/OSEkvMkBYF7F0+Bb3gnAlyv/OJMov5VBMvbe78srN43/2EWFunueKnw+pnDNdCIl2qeMFa0fWooGXg3/oEirUbSJzdgjs/BoOSMmVpTrazQ4jP4IfOsRXc7pKb1Svf8uWp2QVvSM+d1nxOAgZInBcocPtUFHkfez4N2d91tSbk5XLcMoa4lFQ4SLcTANNTWmnOzgU7fpt/Ujf792Gps8hl36FPiKCQNX6uPTlkJG+ZfOFgB3Te27iLbKz2Rfg1mec9u2iRU1V8rRHoseIcz14h2MqRdEIjXD38ATa+41vLFFTGSd5UmrJWAY+/ONNfMYK9C9lgTfwXjBBw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=8bytes.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=24F6tuFMiPcOFy76Y/yFbwHuDW8u65Y2paniWuWNiwA=;
- b=mV/hVOunZpbqSN0IcfgnQjlYnZHxM5DnIJbWywMtIYNOSeCpdH9B0/keqQCB0yo7LLLZpx9MH6rnQha09AZXkbqKk+SptGN+PG3iXq+fejXLxi30mVnBbBEG4XwE+SbzDjLzxKVYbNno4BVXz0kklbgW7KNBRW7tqDS4nLib99g=
-Received: from BN9PR03CA0568.namprd03.prod.outlook.com (2603:10b6:408:138::33)
- by IA1PR12MB6556.namprd12.prod.outlook.com (2603:10b6:208:3a0::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 07:07:14 +0000
-Received: from BL6PEPF0006C3DF.namprd02.prod.outlook.com
- (2603:10b6:408:138:cafe::a8) by BN9PR03CA0568.outlook.office365.com
- (2603:10b6:408:138::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Tue,
- 17 Nov 2026 07:07:14 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF0006C3DF.mail.protection.outlook.com (10.167.249.234) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 07:07:14 +0000
-Received: from BLR-L1-SARUNKOD.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 17 Nov
- 2026 01:07:10 -0600
-From: Sairaj Kodilkar <sarunkod@amd.com>
-To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Adrian Huang
-	<ahuang12@lenovo.com>, Joerg Roedel <jroedel@suse.de>, Robin Murphy
-	<robin.murphy@arm.com>, Suravee Suthikulpanit
-	<suravee.suthikulpanit@amd.com>, Vasant Hegde <vasant.hegde@amd.com>, "Will
- Deacon" <will@kernel.org>, <iommu@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>
-CC: Sairaj Kodilkar <sarunkod@amd.com>
-Subject: [PATCH v4 0/3] iommu/amd: IVMD handling cleanup and ivmd= boot override
-Date: Tue, 17 Nov 2026 12:36:51 +0530
-Message-ID: <20261117070654.3699-1-sarunkod@amd.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=sE9HnRkd;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=SHKFWJwa;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=sE9HnRkd;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=SHKFWJwa
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 85FA422298;
+	Tue, 17 Nov 2026 07:09:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794899368; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UfdGpWtgTLDzFQ8nU2mzJ6EvNoOQYOiNgDYthHagyV8=;
+	b=sE9HnRkdS/woZlNm9Wj+G1JECjUCb4rn0MCeryzwIxYvvriUOLX20g6qTuLwEOfayzn3FF
+	8gS9tEF/rSfUtpP91v0tnVBITpbVSzYNCSgAOtqVOd9wglnpbkcP6RdZAIcr0SEvf7jOq+
+	JD5iafcou2p8jT/S1d1cgvrBAwKpbus=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794899368;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UfdGpWtgTLDzFQ8nU2mzJ6EvNoOQYOiNgDYthHagyV8=;
+	b=SHKFWJwaSEPnXO5VkGfNu+KZPbGTrLH2h5eRX31uDGs8bcJh37gKlkI7rnjvfSQrgus75S
+	H+5dFeF6B06IL7DA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794899368; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UfdGpWtgTLDzFQ8nU2mzJ6EvNoOQYOiNgDYthHagyV8=;
+	b=sE9HnRkdS/woZlNm9Wj+G1JECjUCb4rn0MCeryzwIxYvvriUOLX20g6qTuLwEOfayzn3FF
+	8gS9tEF/rSfUtpP91v0tnVBITpbVSzYNCSgAOtqVOd9wglnpbkcP6RdZAIcr0SEvf7jOq+
+	JD5iafcou2p8jT/S1d1cgvrBAwKpbus=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794899368;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UfdGpWtgTLDzFQ8nU2mzJ6EvNoOQYOiNgDYthHagyV8=;
+	b=SHKFWJwaSEPnXO5VkGfNu+KZPbGTrLH2h5eRX31uDGs8bcJh37gKlkI7rnjvfSQrgus75S
+	H+5dFeF6B06IL7DA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A465D1334C;
+	Tue, 17 Nov 2026 07:09:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id JiZ5Gaf9+2pcbgAAD6G6ig
+	(envelope-from <hare@suse.de>); Tue, 17 Nov 2026 07:09:27 +0000
+Message-ID: <44dcc2bc-e7eb-48c6-9aa0-96f2ad5dcb0b@suse.de>
+Date: Tue, 17 Nov 2026 08:09:27 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,108 +106,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 03/17] nvmet: Implement CCR nvme command
+To: Mohamed Khalfella <mkhalfella@purestorage.com>,
+ Dmitry Bogdanov <d.bogdanov@yadro.com>
+Cc: Mohamed Khalfella <linux-nvme-bounces@lists.infradead.org>,
+ Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+ Justin Tee <justin.tee@broadcom.com>,
+ Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
+ Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
+ Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>,
+ Randy Jennings <randyj@purestorage.com>, Daniel Wagner <dwagner@suse.de>,
+ linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261114030454.2836543-1-mkhalfella@purestorage.com>
+ <20261114030454.2836543-4-mkhalfella@purestorage.com>
+ <20261116084540.GA3655@yadro.com>
+ <20261117000348.GD1670230-mkhalfella@purestorage.com>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20261117000348.GD1670230-mkhalfella@purestorage.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0006C3DF:EE_|IA1PR12MB6556:EE_
-X-MS-Office365-Filtering-Correlation-Id: aee74a87-9a45-41e3-e6bf-08df4479687b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|10067099003|56012099006|11063799006|261026121527099003|261026140227099003|261028144727099003|261022075727099003|261021123027099003|261021121427099003|261022105027099003|261102123227099003|261009223027099003|261009221227099003|18002099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	N1/RbtoQ7zlnB9oz1gme7V00Y5+5NJTtz4rWR/WH765qCv3973GFx0nhY5wCbJXE5E4c1XuqxCy41v3s6Ubv/OphamtYK5QWOy9BbozIl0SLTv4jBskXpLcy8nLEyBC1uC1vnuctwqdtd9lJpnmZibOq0zh/CoYiBwFp7P+FkYzrxfKthrDUhIwJBP8m2bmaZyLkqslSwLGFurfekiYZkoHHnZ/h32urZOxOnZR+p36yl5GKHy5/Y5GAQb1YvxP6jiIjMnYuCFXSWTd5upYK5zvyBDumLvpJ9qsTN3+2T7PbrAuxFXd5/NgZgt0L+6DO8H1jfSOFCsyWCwj7X3mEVvDhrlEo8V4cc2qdd0pj7QslHnuitEUx9d0milJ+TOZe7rreR+bkVLCV+Hd3sMqlGLrubgpf1Dr1ePWVBYZdALvsbmjFvRbZFQcbfZ9IBb7D2QH5POnujxOOeufNAOyj/ZpGhTCQopOULcE8jmZqeZlEih2roOwkKQdFAgc14GKOjZOwARh9MF1lZgjhIXGewxM4ZWZqDdxqO0LmvzTglJZRnev/5IVO4wzh3iHgCgmmjcquy4vyL2vTb+KFoQyD0wlF7QexIITt/mkgrRVgkjndeJxFuq4Bf+J15S0kEtt32ZQgtm4OEjtncxWDgLU9kA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(10067099003)(56012099006)(11063799006)(261026121527099003)(261026140227099003)(261028144727099003)(261022075727099003)(261021123027099003)(261021121427099003)(261022105027099003)(261102123227099003)(261009223027099003)(261009221227099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	L5RS77RKtv2GNymmcxCtQsImKehspESSse6ZLznasBA4k6nDHFdUCTrINGsSqkpsHwGihKMAs1Lh23vqAET3VEJnj+VDvQgedD3giTzQKi/BjbGhCGskCPzcbPSdMewhAjR01eZ69ivIjKOYgHhRFGDDGfS2yHKA8inqYGzvEWPy2I+GC1czW9pk1dWVkK+1VMDptVD+Hzfuw7+5QN5gYJET22eNWUm76jQKOySKqnvnvsq/7mGTMau4m3nH7gga8h8AdgFS0QtC4mqRyiJn2Muc8X/HOgV+H3qsmYDYGyhSvSUlLgjQkH3IZfUNI+AfnzbXRa6EpvaRYu2ntyMpjdA6ihjNESIzJsSSIf4BnhPSn19LkXdNpByKKCcNja6Sms5SXOycr8CcYpIh8p1y9FSZyduODsUEiwQWd75SGP2bh0qp17xgCRNThhXzwT/X
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 07:07:14.4148
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: aee74a87-9a45-41e3-e6bf-08df4479687b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0006C3DF.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6556
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-13.29 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	URIBL_BLOCKED(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo,grimberg.me:email];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[lists.infradead.org,kernel.org,kernel.dk,lst.de,grimberg.me,broadcom.com,gmail.com,nvidia.com,purestorage.com,suse.de,vger.kernel.org];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email]
+X-Spam-Score: -13.29
 
-This series refreshes how the AMD IOMMU driver models IVRS IVMD entries
-after the hardware exclusion range registers were repurposed.
+On 11/17/26 1:03 AM, Mohamed Khalfella wrote:
+> On Mon 2026-11-16 11:45:40 +0300, Dmitry Bogdanov wrote:
+>> On Fri, Nov 13, 2026 at 07:04:17PM -0800, Mohamed Khalfella wrote:
+>>>
+>>> Defined by TP8028 Rapid Path Failure Recovery, CCR (Cross-Controller
+>>> Reset) command is an nvme command issued to source controller by
+>>> initiator to reset impacted controller. Implement CCR command for linux
+>>> nvme target.
+>>>
+>>> Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
+>>> Reviewed-by: Hannes Reinecke <hare@suse.de>
+>>> Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
+>>> ---
+>>>   drivers/nvme/target/admin-cmd.c | 76 ++++++++++++++++++++++++++++++
+>>>   drivers/nvme/target/core.c      | 83 +++++++++++++++++++++++++++++++++
+>>>   drivers/nvme/target/nvmet.h     | 13 ++++++
+>>>   include/linux/nvme.h            | 23 +++++++++
+>>>   4 files changed, 195 insertions(+)
+>>>
+>>> diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
+>>> index 5710ae53eb83..3df9db454db9 100644
+>>> --- a/drivers/nvme/target/admin-cmd.c
+>>> +++ b/drivers/nvme/target/admin-cmd.c
+>>> @@ -378,6 +378,7 @@ static void nvmet_get_cmd_effects_admin(struct nvmet_ctrl *ctrl,
+>>>          log->acs[nvme_admin_get_features] =
+>>>          log->acs[nvme_admin_async_event] =
+>>>          log->acs[nvme_admin_keep_alive] =
+>>> +       log->acs[nvme_admin_cross_ctrl_reset] =
+>>>                  cpu_to_le32(NVME_CMD_EFFECTS_CSUPP);
+>>>   }
+>>>
+>>> @@ -1629,6 +1630,78 @@ void nvmet_execute_keep_alive(struct nvmet_req *req)
+>>>          nvmet_req_complete(req, status);
+>>>   }
+>>>
+>>> +void nvmet_execute_cross_ctrl_reset(struct nvmet_req *req)
+>>> +{
+>>> +       struct nvmet_ctrl *ictrl, *sctrl = req->sq->ctrl;
+>>> +       struct nvme_command *cmd = req->cmd;
+>>> +       struct nvmet_ccr *ccr, *new_ccr;
+>>> +       int ccr_active, ccr_total;
+>>> +       u16 cntlid, status = NVME_SC_SUCCESS;
+>>> +
+>>> +       if (!nvmet_check_transfer_len(req, 0))
+>>> +               return;
+>>> +
+>>> +       cntlid = le16_to_cpu(cmd->ccr.icid);
+>>> +       if (sctrl->cntlid == cntlid) {
+>>> +               req->error_loc =
+>>> +                       offsetof(struct nvme_cross_ctrl_reset_cmd, icid);
+>>> +               status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
+>>> +               goto out;
+>>> +       }
+>>
+>> cntlid has to be validated against the configured range of the controller
+>> ids (subsys->cntlid_min <= cntlid <= subsys->cntlid_max).
+>> That will allow CCR to work correctly on a distributed target.
+>>
+> 
+> Thanks for the review. nvmet_ctrl_find_get_ccr() below will verify
+> ictrl->dntlid == cntlid before proceeding with the reset. Is this not
+> enough?
+> 
+> Adding this check here means if either cntlid_min or cntlid_max change
+> after ictrl has been created, CCR will fail saying the controller was not
+> found. Why do we want to CCR to fail in this case when ictrl might
+> actually be there?
+> 
+The point is that in a distributed system the cntlid range is 
+distributed across all nodes in the cluster (as indicated by
+min/max_cntlid).
+While logically all cntlids belong to the same subsystem,
+technically each node can only reach (and reset!) the cntlids
+of controllers local on that node.
+With CCR each node can receive a CCR for any cntlid, but it
+can handle only those cntlids which are local on the node.
 
-The first patch renames the associated MMIO offsets to reflect completion-wait
-store base/limit.
+But as we're looking up the actual controller structures
+(which are only present if the cntlid is local to the node)
+I think we should be good here.
 
-The second patch drops the workaround that forced IVMD exclusion ranges to
-r/w unity mappings; the driver no longer programs exclusion range
-registers, so that the workaround is obsolete.
+Cheers,
 
-The third patch centralizes IVMD flag definitions, renames the unity-map
-structures to ivmd_entry, stores the raw IVMD flags byte from ACPI, and
-derives IOMMU reserved regions (including exclusion as IOMMU_RESV_RESERVED)
-from those flags.
-
-
-Changes from v3:
-https://lore.kernel.org/all/20261106041650.24076-1-sarunkod@amd.com/
-
-* Patch 2: rectify the flag checks and move it under init_unity_map_range(). [Akshay]
-
-* Patch 3: Rename ivmd_entry_map to ivmd_entry_to. [Akshay]
-
-Changes from v2:
-https://lore.kernel.org/all/20260424092213.16976-1-suravee.suthikulpanit@amd.com/#t
-
-*Patch 2: Report an IVMD exclusion range as IOMMU_RESV_RESERVED in this
-	  patch, instead of leaving that for patch 3. This patch stops
-	  forcing the exclusion to read/write unity, the range has no read
-	  or write permission. iommu_map() rejects that, so a tree checked
-	  out at patch 2 does not boot. Reserving the range in the same
-	  patch keeps the series bisectable.
-
-* Patch 4: Drop this patch, ivmd= command line does not have any real use and
-	   complicates driver.
-
-
-Change from v1:
-(https://lore.kernel.org/linux-iommu/20260420170033.6780-1-suravee.suthikulpanit@amd.com/)
-
-* Rebase on top of patch "[PATCH] iommu/amd: Remove dead code for exclusion ranges in IVMD"
-  that was submitted by Yu Zhang <zhangyu1@linux.microsoft.com>.
-  (https://lore.kernel.org/all/20260331152550.479841-1-zhangyu1@linux.microsoft.com/)
-
-* Patch 1: Modified to only rename the marco.
-
-* Patch 3: Reintroduce logic to parse IVMD exclusion flag to allow
-  reserve region of type IOMMU_RESV_RESERVED.
-
-* Patch 4: 
-  - Update the sscan function to scan start, length, flags in hex format only.
-  - Fix apply_ivmd_cmdline_entries() to not free the cmd, which points to
-    the early_ivmd_cmdline_map[]  on failure path.
-
-
-Sairaj Kodilkar (1):
-  iommu/amd: Rename unity_map_entry and unit_map to ivmd_entry and
-    ivhd_entry_list
-
-Suravee Suthikulpanit (2):
-  iommu/amd: Drop unused global exclusion range fields and init
-  iommu/amd: Do not convert IVMD exclusion range to unity range
-
- drivers/iommu/amd/amd_iommu_types.h | 22 ++++++-----
- drivers/iommu/amd/init.c            | 59 ++++++++++++++---------------
- drivers/iommu/amd/iommu.c           | 19 +++++++---
- 3 files changed, 55 insertions(+), 45 deletions(-)
-
-
-base-commit: 666539eecdf4db623f5e3c3e55cf9f2dfad24aa4
+Hannes
 -- 
-2.34.1
-
-
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
