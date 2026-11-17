@@ -1,139 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794873717;
-	b=nxgfKC346h59314NZVHcJUWRZgDK9R81Z2StBSbRji/p8tBAUwOmSmHMWrK9RyHP9bQg
-	 rakUv5rYc/k+4XxM7vZVi0K1I1U9Pf0bUSDIeZQ7r3hbh+4H+QwAqtyZ/+KqEojTr+TlA
-	 7OB0n0tTzPm55gnX66QbuaDZNAx15x0vPZGpZPO9lRnxAJmUEkblxeViOpGVNTgKg6NZq
-	 fz19KUCJEB2MTpSI8QUZYAThLjAmntBBtXDABdIJfjC0WZ9JyXnjhJhoRj4j8b2MnO7Ue
-	 GiHjODQVtKFuRJi5pwrYrlUljOvRphdRG383iX3hF6cN1dDKHYM8juGEMadUKNstx3A==
+	t=1794873718;
+	b=T5mVklD4IGrU/xx0tbuLJHp2rBwTcPX+K/ZBzn65XgKQVwZmp5lyl9gJJWQl0IBpf9bT
+	 xz98Wc6K6d4DaudHFx0FIg639B/vxN5n5bJlyBnUpzD0XOL5pnsELLTjdUr8ukih48OoM
+	 b60pGcWbEGrDA2bQCfZj6kKZWEpC/0cA33apWAsyrTfm4tYa2BIsv6e6lKycKrDgYHVJz
+	 R0WG0gqygiTcvG2raIiDllCQsVeH7zKpYYcNz1bimwBnkB3elLtPu4OuiC1iA8ViRLicN
+	 XFuYNd0Ct42k4HFVuejdaX0fChbbp1LDD7+Ce3wVDxfZCG6BJnSN8y+x8jkZhB/FEmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794873717;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:Reply-To:MIME-Version:Content-Transfer-Encoding;
-	bh=C7sWl1wG48MQ07r4zoW2vh68HNiuHxVXcgb2L1fNbYE=;
-	b=fVInHab6StaNI2E+LHuwBdjc3Bp9htdZmtR4KkEaLFkSBVrNTJiJ838aBv83IWP7UrA+
-	 r/+sd/AVaL8lXyePLLUnzP5L2ZFplNCi4ttFH2dfpvPPD8DgLT0Aac1ACP4knxvly/ui1
-	 8KZZLobYD809Gs4IOt0p7WnYuZ6QB/p/64gXZaeWtL3ggyUnnFmYLnq4RPZI7X3V1pq+F
-	 Wf3g8/foheZEVAmwDFf/IMarDEkbGvcKiYiR6xZswOshNaJ+/ngD9AhfpxkDBxppvuyNv
-	 FT+CcQevUx2McKJwO01OLWh/PsQKgQUAdhnptW5gEwpX4HXBn9jI+zS0Ri/XaYkaD3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794873718;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=+BdcjLWH3QZDU1he+b9g7/esibSDQSzqqnA6BsHQW6U=;
+	b=g1FO1gVr3RHUSplpdakeVtkpcmhAzGlVmXgnFhz1cmBENrEs3wHZkM/qGoYifSNqJaBL
+	 KAEoqnXKLvgFR3k+2XwU0P+1XNmQ6MYrR9ODfLouMESTYtutYSSgUiEXA2LGz6vmEfwmh
+	 R6D1BTc6Gxzghu1q5wmshJa5szEwIPtMMQje+CaPnQkwkYHudUZoKKwj8c248U5tF/Z5Y
+	 78eeuWfl2AZtVL1R1QF12xA6AHOFo73+ib4VTavJWdcdrm1D7Tx53ersrNUhs3iId+oyD
+	 ZnMWUnY6oVCUexvjvkxEJC8aQJircfbdePuzjJ6olsKz3AqJPCjAeWAN132zAgcgsRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ownmail.net;
-	spf=pass smtp.mailfrom=ownmail.net;
-	dkim=pass header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm3 header.b=0GAKIdqw;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=hDWO0Tpk;
-	arc=none smtp.remote-ip=103.168.172.151
-Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NfnsTb7J;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E00606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 00:01:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4E00606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A988606A33A;
+	Tue, 17 Nov 2026 00:01:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm3 header.b=0GAKIdqw;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=hDWO0Tpk
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.phl.internal (Postfix) with ESMTP id E70E7EC088A
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:01:55 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Mon, 16 Nov 2026 19:01:55 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:reply-to:subject:subject:to:to; s=fm3; t=1794873715;
-	 x=1794960115; bh=C7sWl1wG48MQ07r4zoW2vh68HNiuHxVXcgb2L1fNbYE=; b=
-	0GAKIdqwLEVc4s2GojNoid6jRJ4e9UF1YhZqqdeXkcLiCeOdQOkFEK1+1J6MiywO
-	Ctc47Sd4XX5N1RAywkHl2itA08MmiYtpqAj+4BZII0e/cECUcDT7LEM567MZxPSb
-	AV7CzOR03NLhDeRszgE8MEIKuMKeldIhBjcTTKfd3wgsHRhDw+y5SR8gika4vKiQ
-	aq03JqD0ACawK6iuwEKWkpEKmkHGSqdae95BHtW49d448zOtgOGCMxWfmzwIyhGV
-	/GIg5Y2QsHRd4qQVgJDt7kDnWE2bptPeg3Z7o0JVM8I41UgIAqdLP3BosXAMseTV
-	DV5ONpYrJ+TBTLJ1eoMp/A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1794873715; x=1794960115; bh=C
-	7sWl1wG48MQ07r4zoW2vh68HNiuHxVXcgb2L1fNbYE=; b=hDWO0Tpkh8TVL5xtZ
-	kfX755qHlI7pUIVjrsV6ptN3irpKvydI/BjoMhrIdt811u4ENuIq0R+2ULRWYb3t
-	GmSBS98/6kCPAjNVfTK4mwPW1SbzbNICVBiPfRRoaeOKxqIvGoF/c7SHNOQuGXgc
-	ZUPd5/H29vm/VF2s7BBguXzwXcvB9deD36iIQOcjgr01p8jRHvRplP6HZLU1pniG
-	WPCbe4s1yC6oQOIuFpp9YNZNF6fse5xdBYxF7vNWB4+EydAy8IaHl7hUAl5+lBhB
-	HE0G3cns3+krFT7QxgWOboCPbGxJudxmbVasRHBdK96wu4Ye5gbsc0mQxnhP7fPP
-	cfa8w==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=ownmail.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794873715; d=ownmail.net;
-	mf=PG5laWxiQG93bm1haWwubmV0Pg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:w0XCxK/HiXGMFi9OBkowu8MN0ITLM3zp/LTcpMhnh3/fXZ4
-	KI89eAABB9H+uOTB2Q2iCTB/NkLEb9s0LFj8dNMLpmh8v+upwyWCXFvvbI7sXFPw
-	q8OY3KjrSnMKIJw44ZcwD99bkGv9HjU9qpMew/+NqABgSoJMIi6oeSbjHgJOScKs
-	YPTsMq89l5UB4PaPt+94zBsT7ks4pucXFpU6DmTXlG7n0EhzZjrTIl8uUDlOMG0q
-	7VLz5K3uAHrG41P8wk57mCFviBw5/cnCjlnlLOfFLskwaLyE28FG7EkupUVAlZxl
-	0IhN9894oInTK52dESoi4l6Lb7TwfUNaf80Bocg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,reply-to,subject,
-	to;
-Message-Instance: m=1; h=sha256:oMgQUvucOl4P8cRbGNSDfSmjEMYlFoatWXuIC44BE+U=:Xd1WqezOWR4RGPff0oXZeRAR/TSzcmc9gClT/ovY9uY=;
-X-ME-Sender: <xms:c5n7auHIDLqext--NfPK41UrohZQXd0SzE6AZTWr80YVP8AoZStPnA>
-    <xme:c5n7agpfKZ_bWH9UfTqc6QV80jgqT3Cxw-8pzDT6ibfG1F5tyRHJfsNPCObMuDUUz
-    Axt3fUdqUgPVR1XIcbShEMrSsxQx1YSynW7FPX4cxcTGzOeiA>
-X-ME-Received: <xmr:c5n7asx3Z9RUj2zvBcr2ZzYcKB_mLlXQ-_z0xDfiv6lH4YgDy0VEMsJXbKTX982XKOObdKynv5fUkjnPAQ7BoXgEb94PGgc>
-X-ME-Proxy-Cause: dmFkZTEWLllwmZbCQ7cO93As6sGHtjiFdYj9k/VSqMvUwk1xfk9pKn/ZCX7mnpLkIaqMef
-    K/82szmVYemJN/I0DCAIOCHeaPZ7/Xa2GnBqk902ewdx8hjF22LzMBgW8kwMwZuhDEqmG+
-    fRzfUtzcgzHNqdnt0hptgxxppIMFQUfVlAsIvg7fvTNv54Da321pj6NeCTNh6yP98D0Rix
-    0qUujhXor+6vA1uX99KaZah7Remd9bF8xjGXqzB2MsscQiqTyvs6dLxlge9fkMF8nj1I3u
-    +RSOpU+TvlDvjmsK8NtReLJ34nN/1FLS6YOAknIb84eISWftGKSVwY1LnVjpVMr2cR7DsZ
-    w8Wb5rwjaydSGelossxx6bl1V7hOhKVIq+toFprLFYhRN/SlwVDMmaYKduO57Gh7OaGuBF
-    h0J4sIrwb2zt8R9hW4hgNqcN8fzRhYzaDBPcxdVTtNH2vUX1m4VQoIpenYJuGlyjzLN8sB
-    wi/kGQQCcooy0DrWZfM2ov3GXkEVgq5I5zBJSiuy+vPMURU0NBtPZQS/3EdbHTkVso2+v4
-    Ckv+2iECJM88DmP71AxqjfON8WBYjJIHFkY7G93aYb/jDcLJHw/cEvt0enpH8T0capz27l
-    7RHejCjOiJI++LMcjLuNNKGl98A5MSAixcFcvWSPAd1YIjZgNtMRDKNYJgpw
-X-ME-Proxy: <xmx:c5n7aqzxemjS9U4i14HWz_7__2CGVeJd1tw-oWJDEKQSsotVnV7kDg>
-    <xmx:c5n7arQLLyrbTJvbO20jPnJTo41ac5-vdVcPNcnbsMdF1dKQLTjPAQ>
-    <xmx:c5n7atN66DenQEH96djIUqJ5Zw6Bk0MjIDbmoJsZlIcD-oCpa1d04Q>
-    <xmx:c5n7amQhmLWxxD2dZ3fFuI1Epj5bjY1tlmr-dTsDkRq6C0NXp3s3nA>
-    <xmx:c5n7aosnP57ugyhY2Otjf1KpVZNHti6cwXLd9I_thE6BHShMSvWCjukE>
-Feedback-ID: i9d664b8f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 16 Nov 2026 19:01:50 -0500 (EST)
-From: NeilBrown <neilb@ownmail.net>
-To: Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>
-Cc: Jan Harkes <jaharkes@cs.cmu.edu>,
-	coda@cs.cmu.edu,
-	Jan Kara <jack@suse.cz>,
-	Richard Weinberger <richard@nod.at>,
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Hyunchul Lee <hyc.lee@gmail.com>,
-	Carlos Maiolino <cem@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	Amir Goldstein <amir73il@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	codalist@coda.cs.cmu.edu,
-	linux-fsdevel@vger.kernel.org,
-	linux-um@lists.infradead.org,
-	ntfs@lists.linux.dev,
-	linux-xfs@vger.kernel.org
-Subject: [PATCH v2 3/4] hostfs: don't d_drop() before d_splice_alias() in hostfs_mkdir()
-Date: Tue, 17 Nov 2026 10:55:00 +1100
-Message-ID: <20261117000115.1433875-4-neilb@ownmail.net>
-X-Mailer: git-send-email 2.50.0.107.gf914562f5916.dirty
-In-Reply-To: <20261117000115.1433875-1-neilb@ownmail.net>
-References: <20261117000115.1433875-1-neilb@ownmail.net>
-Reply-To: NeilBrown <neil@brown.name>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NfnsTb7J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9FED1F000CE;
+	Tue, 17 Nov 2026 00:01:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794873718;
+	bh=+BdcjLWH3QZDU1he+b9g7/esibSDQSzqqnA6BsHQW6U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NfnsTb7JHejrjiUEGAem1P4z4yV7T0Zu+HC1uQlDhcuQxosCDtzFuqgIX1dqyuj+O
+	 EDYdOj1te3JmwGaSe+fcZzerE99n6ZdCMbYKUUCTnAhCiTmVsOX5wiLlJEVuBFGq7s
+	 kTCLnOkEe+yLRbvZOBJvIKPpm86VWLb14tSy6ieOe9yzIrSBP/QzaGA0cx5eN4Fpfp
+	 MRK6hL7vZgLUjQS/SHYda30PPV19kGayhgzeTQMDOfJe+n9fnlnVj2Gtl9zNWdfsjo
+	 a2U55NtFI0w+pzoocm/5Qq1K7xTadZjq8KW8eKE497jk5vCeK2eZW9bvrQ+ivJe3iz
+	 xDs/2GVJQ3iEw==
+Date: Mon, 16 Nov 2026 18:01:55 -0600
+From: Bjorn Andersson <andersson@kernel.org>
+To: Ajit Singh <blfizzyy@gmail.com>
+Cc: konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: lemans: Add Vicharak Axon Pro
+Message-ID: <avuY1JUIN78weC-b@zenbook>
+References: <20261030074404.33517-1-blfizzyy@gmail.com>
+ <20261030074404.33517-3-blfizzyy@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -143,32 +58,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030074404.33517-3-blfizzyy@gmail.com>
 
-From: NeilBrown <neil@brown.name>
+On Fri, Oct 30, 2026 at 01:14:04PM +0530, Ajit Singh wrote:
+> Add initial device tree support for the Vicharak Axon Pro SBC based on
+> the Qualcomm QCS9075 SoC.
+> 
+> Enable the debug UART, UFS, USB 2.0 host, PCIe1 (NVMe), GPIO LEDs, GPU
+> and DSPs.
+> 
 
-hostfs_mkdir() uses d_drop() and d_splice_alias() to ensure it has the
-right dentry after a mkdir.
-d_drop() is no longer needed here and will cause problem for future
-changes to directory locking.  So remove the d_drop().
+I merged 1f90a2bab7f6 ("arm64: dts: qcom: lemans: Move platform
+resources into lemans-embedded.dtsi") recently, which moved a bunch of
+the labels you're relying on to lemans-embedded.dtsi.
 
-Signed-off-by: NeilBrown <neil@brown.name>
----
- fs/hostfs/hostfs_kern.c | 1 -
- 1 file changed, 1 deletion(-)
+Can you please rebase this patch on linux-next and resubmit it?
 
-diff --git a/fs/hostfs/hostfs_kern.c b/fs/hostfs/hostfs_kern.c
-index 613146e76dec..7cf25c29cb78 100644
---- a/fs/hostfs/hostfs_kern.c
-+++ b/fs/hostfs/hostfs_kern.c
-@@ -700,7 +700,6 @@ static struct dentry *hostfs_mkdir(const struct mnt_idmap *idmap, struct inode *
- 		dentry = ERR_PTR(err);
- 	} else {
- 		inode = hostfs_iget(dentry->d_sb, file);
--		d_drop(dentry);
- 		dentry = d_splice_alias(inode, dentry);
- 	}
- 	__putname(file);
--- 
-2.50.0.107.gf914562f5916.dirty
-
+Regards,
+Bjorn
