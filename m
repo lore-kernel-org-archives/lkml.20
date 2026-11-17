@@ -1,57 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794929398;
-	b=cmHv3WyFDX7o8uN6QVC1aCIGoyYglk/+qR82iw1vmSeY6Zca7xA5HpEPxkf4KxwPyg9J
-	 /OqgeLqQ/WFR/gmT98vA/7BWRK0ghYxfbK7Zd5cwMOU2dQfXbRauo4o0T1rhFhhIP64dA
-	 NCjw60Yaz4pMP/nmnx9vPb0NAVFnKRssk4YoSqkNt2RMCVA5+h/BkC1BjsmtWuoSrK2BZ
-	 LXil8uLizY2n6AbVXIA/rY91y04IoRQIMI4ZhyDUHKjto+M+VTuIEWOU8HqYH58zHkmQS
-	 whA2cNvlO/ILpkSz7GsTu/dIcr0pgTctYLzf466Wv/PXJ+cflAm8i58ldRDvfyl1YDA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794929398;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=3CRbfO9EemqeArOWbykc5waMc6189YzNCo9OZd3FhSQ=;
-	b=OXMhhSaB6csmTssCry0COzFKi2TwiM4a+nLdHh5DGCAF8g9j2XTkqZgciPGIxB+4t3OF
-	 8gY1kr64QZE3D0gs/7qMtdmgcbmWeMIvZKdSS+aYENQjU8n1gK0DWYDWaPZ7C6KqyzoEO
-	 uzuGe1urAbf4lUfs5KLnej2keT2TJUHg98CLDXuEd7qmO01CWTe6QkSvEih2IROhXZ+cv
-	 TENIghDUqrUsFkSmZmXNLpiLJ0KpWLkyjiwyz1qLappdUphZ4AbHYCfUtn1sIVeipoYhz
-	 9XWp0j3kd+KFm7JB45A6NJRUI+XjRRVcOFAexZiWmRSphFpMPYq1p6CJGezlyYpYDEw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RSFDykKE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.24
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794929435;
+	b=pf0meY12Zrm26EfBAIyq2lqppYaet4D5L4Y3NzoZ1hqOV311sZs65ysNnvke39skYzH4
+	 lT13X5ikK9JaR2A7TqMs45uuNQc3NqNAueiFIGkX6JfxPqzbejQj0MvRHzuZsjqu9Dks9
+	 rKcUBv/l5qXwX8bfo+5dL+1DrgtDblgJ8Oj+toBeKA4gDgqWf6rnY9Q+hikUQYsrrqD+P
+	 99KfH5iJX+8FkZDodgDb4NToJTabzpNKirof+pcXIdeEXOzsda16H0ny09aV+CIrTEBiS
+	 KDCw6Emt6tmga+rn0IseChN4fMeW3px7cmcrLX6s5KSABpGbq8cFPlckvSHeobjWJGw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794929435;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=KhN7lflLhGxca22ZCEF3Xq8k5z7jyAXRq0r1YNHqQj8=;
+	b=awiI0cFg2N5macLkt6Ka+N++8aOzVFSahdW3w/sJEc15wIaXvXBZY7leJe3xNysscg8w
+	 HB6Yx8oRr45N9giALRnVTmpOQVIokVUS8rTiLQJriG7ZbRb/TdRzeSNupqJ6t6rAYWVQE
+	 IkAlwOpu11cvhtYMF9GN4TZNy++5CJ3/UBOBeL8XJIJy7yZmxps+k0kHHqdj2wDhzsYJE
+	 ktr74S72WKI57eSwXkcZBDc206I/F7WYyQzGOtcHfseZ5oNjwonY1xOJ97rP+J/uXztbR
+	 DZPQfa85FMZknZJM/pwKOGr5ZJc90RfiG3bkZKg2YLmMf/kuMDv3kFz1qZANMy895TQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bp.renesas.com;
+	spf=pass smtp.mailfrom=bp.renesas.com;
+	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=YDhg8DBs;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.24
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011024.outbound.protection.outlook.com [40.107.74.24])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B605606A31C;
-	Tue, 17 Nov 2026 15:29:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E685A606A32A;
+	Tue, 17 Nov 2026 15:30:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E685A606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RSFDykKE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2B821F000C4;
-	Tue, 17 Nov 2026 15:29:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794929398;
-	bh=3CRbfO9EemqeArOWbykc5waMc6189YzNCo9OZd3FhSQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RSFDykKEd0flVIBjF9Iz1TokFgHlPGa83uv9tVQZjHjR0c0ksqbYyQvEChXmfMq+/
-	 DMNiB5zY3KQg/LD1h8GUo6OdI8L4XiLNfAPH3eCkPguTLe0aZZJKWO1X53uDVaoxAc
-	 p8kwWerCchvR0ZA1NODsr26FFJeEeXuIaEHaDR0rfQhNMGTJwe++lLiEccxMGfYzmo
-	 DKjU7qD4Lp7HglEL3ha8FpdbvW64DI1b1nFgm/8+RVP5xtwSeKVnIP2daP6PuVgEa8
-	 2zi7mRqNayVDxJK8qw/HhAXXrFVG9a3MhJnbrfmHEhgK98opsZT3ioKxryBOuHTAQF
-	 Oq5k8lBPL0SbQ==
-Message-ID: <sashiko-outbox-219077@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 27/40] sched/deadline: Move a task's bandwidth to the
- root domain it runs in
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
-In-Reply-To: <3292905cac4b511f515b4d353f02a41d747b8015.1794922146.git.mathieu.desnoyers@efficios.com>
-References: <cover.1794922146.git.mathieu.desnoyers@efficios.com>
- <3292905cac4b511f515b4d353f02a41d747b8015.1794922146.git.mathieu.desnoyers@efficios.com>
+	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=YDhg8DBs
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=o5c6dNNO1jA76pSRrgNJHqtN9yO2Osr+cl+t24aLoBrf3TMLemQ2v9MFCqfMCNtywZFhuvLXg59MAMO7VRZsWP1s5NsOj2BI0/pnstLXz8hvMcH6ENCUgWea5m61u810/PkTpjmruD1csOtrDIG+Z6Ni3U/FOkY2hcY5tLupQyD93Nz59RJ4zOMy6bsHVXAmje77yqJFFINYd2qn7lPnW/SvCXChn0MDQTpvOH+Mn02Tf6RapFMnFaPwRue5TQ8A0dGwpFvbCFxUaz1m2rJ23Ui/9iJvLTs8SMcuamHyw0XVJav8PGG5pxxZY85ZGxwGmA/sdxPy/cLAsgKJH49GFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KhN7lflLhGxca22ZCEF3Xq8k5z7jyAXRq0r1YNHqQj8=;
+ b=DOAhwL7Pws0/aQfKgrXCZlReFv2HJoEPsRXzhopKnSKeB3/XhmszjH36y1ywoIxoAcKprh+st3ofc+85VDemUkTPlAwEsiuNEsaOQwQT37/7izsMWG+osy5evRsUQfJ4HWAejDu0bD6GpwK5jzuKCXBvwIj3+umeEiGNaXc9NomizSIa0sEx+825g/ZxkLw2vVgf/wfx/ZSz0o9x+bs2yFHO/eHAOapIVoziKPqplfjM31jvNP/pbBhIR9FrcSg9Vpzmt74qplwMXKT1YLM56oRtFbW+A1BKNoLanfkA7snFeCvLCEaz0JN8eWD/h/b/YIH9K/tGFvPK2UDbyK3d7w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KhN7lflLhGxca22ZCEF3Xq8k5z7jyAXRq0r1YNHqQj8=;
+ b=YDhg8DBsimFiwevOlqDd68lQpq/HWoKjnppwA5SqNz6XmqZXCYN5rL0ly2cuIvNqbSDum8qnv27G6JK8aK8YSjLXjBlz3/fllDIylq3kimONGswAoxdLsJuTOFtl8zGTpTlQLYwjOiK8egmgtLtF5ajE84SbF/Dv9mpt8xFkGyM=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from OSOPR01MB295138.jpnprd01.prod.outlook.com
+ (2603:1096:604:521::15) by OS7PR01MB758680.jpnprd01.prod.outlook.com
+ (2603:1096:604:828::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
+ 2026 15:30:31 +0000
+Received: from OSOPR01MB295138.jpnprd01.prod.outlook.com
+ ([fe80::4f0e:fd0e:ff2b:b180]) by OSOPR01MB295138.jpnprd01.prod.outlook.com
+ ([fe80::4f0e:fd0e:ff2b:b180%7]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
+ 15:30:31 +0000
+Date: Tue, 17 Nov 2026 16:30:06 +0100
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, tomm.merciai@gmail.com
+Subject: Re: [PATCH] drm: renesas: rz-du: Add suspend/resume support
+Message-ID: <avxy_u864ZT7vsLx@tom-desktop>
+References: <20261112-b4-tm-pm-du-v1-1-507474331137@bp.renesas.com>
+ <CAMuHMdXQjm9rqmKn35G9-CqGSuMO9nirDw2GmFfF2PBfsCvH_Q@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 15:29:57 +0000
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAMuHMdXQjm9rqmKn35G9-CqGSuMO9nirDw2GmFfF2PBfsCvH_Q@mail.gmail.com>
+X-ClientProxiedBy: FR4P281CA0332.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ea::18) To OSOPR01MB295138.jpnprd01.prod.outlook.com
+ (2603:1096:604:521::15)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,254 +102,145 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OSOPR01MB295138:EE_|OS7PR01MB758680:EE_
+X-MS-Office365-Filtering-Correlation-Id: e52543ad-b737-4f67-9629-08df44bfb713
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|7416014|1800799024|52116014|23010399003|18002099003|261009223027099003|22082099003|261022105027099003|261022075727099003|261021135927099003|261028144727099003|261026140227099003|56012099006|11063799006|38350700014|10067099003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	gH3eulSrEx9XwrpuCr8If7/9uGuwapoVMkwJ+OKkfvZw6piNC132FdWsQI3BvUxY6jpiy4yqcU4rYX8lHK9iiDw3KmqNKjvTbeIStf3A9sMR17pFdz9nU1jbLgQw9gknRVteZ7+7fK+vk7qcZWp1JO+8O0YW7RjQC7mR6BvxP/sqt5DZ/C2JeXEIJKJW+LbROqWURrAEZKVDe5uvScm/vPB+D5HdBWhMqQQBQstjVeOkUKDvpYql3TOyA/mHy+/gFl6xPKSYyCiOmTVrc+2l53yTV8RPQhhykPlqUQ555X0zRj+zheeroP2e7VTRUX4YNT0+s64cPFFmDn5Wn5Vx3D51iCJsAzkTzD7qwpqmQCA7qUOoj9Cgict98CCMXD+qLARs6QXK3oVa2gW1dZ3y5zo3bcn5m0Fw+SXthOZAFd9QiwysIg7AETTFE2iqD404+gKQDD+tzRzohtrn+Q5AbcETXQHLdv+/NKm+CTd/9IccV+Zds/rC5Te6cQAMv3Xr1/WWk4quQuOX/jti5EDgT4tk/FaLR9IdiATVYwaADxs+BBpWZyS1dYRdBus8fRA1nZxRsWlsi8CZeHbUxrTQB6emJX/kndUoniklWxzFPVk1ywJqRBUnFx8/9qXyknayDjlW7bZ8h4ZV24kGxfOZEzsqWgB3vj6BnLkQ7tqqTziY0IaFL82J4AHZqr04sKfQPazcGR6pcCIRnSqpR8hFbA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OSOPR01MB295138.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(52116014)(23010399003)(18002099003)(261009223027099003)(22082099003)(261022105027099003)(261022075727099003)(261021135927099003)(261028144727099003)(261026140227099003)(56012099006)(11063799006)(38350700014)(10067099003)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WXo3S3BkN3pBSGRsOGtXQjd3VFZaNVN4R1hYYjU2VXZObU44WTZMSStRYnBv?=
+ =?utf-8?B?SWdpa0xSYTBrVHQ2c25tdnBVYXc0Z1pjV1Vqbm9OR2YzNkFpMlVUVTJ1R3pY?=
+ =?utf-8?B?MU1PZ2EvakVmMUwrWlNGOWtqQmlrZXRENjUrbXJWZXVudXh6RWJFRnp0Z0VP?=
+ =?utf-8?B?TkNHUzlqOTYwb3FHVkhzdlladVNReVREd1NVZ0hlTlRiN1lRSWVxUWdDZllJ?=
+ =?utf-8?B?MFFONSsyYkh6dmtPUDlWMHZ3am5uR05qamhSK3loMVQyeGRuU3RUSDZVbjlE?=
+ =?utf-8?B?S25RRHBkVUNmNlJIV3NLeFY2VlV5QktWYWlCTUtncjMvRGZ0SEJEZFpEU2g0?=
+ =?utf-8?B?NGREaHQ1UXIyeXNKK2h5ZjIwT2xFY1ByaEpIVkFPc1p0ME9LR3hSSDlKRlN4?=
+ =?utf-8?B?V05odGh5OUYwLzVIbG1VZkpWdEpxZkl3cVFlc0RJb2Z3eitSYWpUZFM5bzUr?=
+ =?utf-8?B?QVppTDlIR1B2ODQ1c0V5Mm9VVXY0KzRQOExQQzkzWnBKVnNZZVdQVTNHemZn?=
+ =?utf-8?B?ZytVSTdXdzgzUnMrN1laaytRRmhHSCs3djBoR1dBZTBLUHUya0l6Qm9vT1VR?=
+ =?utf-8?B?ZUdOY3FGcDcwY212UU9aM2d4S0s2MzZMTC9CU1JmRG9YMUcva3hrd1UvendZ?=
+ =?utf-8?B?bnViTXdsdlhDcnAwYjBpOTFFc01TV2dQZjhFTzhtMm94Nk5PYlVnMEdScGVR?=
+ =?utf-8?B?aFRBM0ZLN0RMbHhYN3VWYi83SDA2Wnl0Z0IyeHVtYTBLcmF6R09MRGk2LzNo?=
+ =?utf-8?B?eVhGTXhQUStWUkQyWkN6Y1VDOVBSM0FEZ0NQZE1xMEN6N1cyWHBTMU5INGFh?=
+ =?utf-8?B?d1hib3Mrd0E1SG5Gc0tKNG50UFdEdnUxeXNKdlNTeDdsNmQzZXRpbWJ0cmEy?=
+ =?utf-8?B?eXFrOW1UNG0zMHpFSHBJREpDa1Nhc2JINUxWZjVvMzJLenQ3TW1pRWNUMGRR?=
+ =?utf-8?B?RG9EWkZuMG9pODRwd2tRY2JJclVIN2xIUm13TTN6cjNNWG1DK3pvZm42Q2V3?=
+ =?utf-8?B?S0NwSGtIeEtWdjFCTjAybjhFeEJqU0VHK1V0OUhMNVFray9qVDhab24yeWpl?=
+ =?utf-8?B?TEg5OGZLTFpFanVzcnVzdHJXNFF1dFZUbzQrbzdwaWpWZUJSL29xWjJkbW4w?=
+ =?utf-8?B?RWJQdGFkcjduZ2ZUeWpmOWFkMzRjV3d1TmlIOHNvcksxbzRtZnZadWo1aTBN?=
+ =?utf-8?B?UW4rQ0M1OFVobXhDbGJuMUNybDlBRnVzdzFlSlAwY0hTS3dNN1RyNy9ueTFW?=
+ =?utf-8?B?ckpPRG81VGpWb1NYeVZORGRHczQ1VWJhc0RaU2luNXB1VkU5L0xPNVlMdk1o?=
+ =?utf-8?B?WTNqZHU4SnNJK29pU2pSR0hScE1JWkJzZ2c5N1FNUW5jd0RQTzZZZmovKzRW?=
+ =?utf-8?B?VEV6ejhnNEN2RmZJSE5RM1ZpZ2JmeEhpbk5seCt2RnVOZTJQYTR3TUZQMDhH?=
+ =?utf-8?B?Y05lRkxKeTUwSkRQSWJUOWx6c01uK2pSeFJlUWVjRFVnNEhOTGxmMm1BaElu?=
+ =?utf-8?B?UjI5L0o1a2IvOTJNRG0rUXBiNmtlK2JwUXdpTk5DN0dhUWVnb2ZBbUV4RXkz?=
+ =?utf-8?B?bXJQNmJaT2xza3hqU0dvNW5KUU4rcUM0M2xBQ0xBTkdSVmt5clhkajBzTHEz?=
+ =?utf-8?B?NEYxTldHWGdYamhweHJxZ2FxQ3NLUTRDL2RYY2I4NVVKT3paekFjWkZkV0NG?=
+ =?utf-8?B?SFdYZXhnVXpUbU9IdThpeU9UanU2bXlyU00yYVAyL0R3MGliU1V0cXNwN3dQ?=
+ =?utf-8?B?bW1TcWpUeE0zbHFMRS93MlhCZkVxUlBtSDdTZDVTVWxkT3o0QTJxanduREEz?=
+ =?utf-8?B?aTVuUTQ1MktDYzBqVmV6T1V4dFQwQUl3ek9oU2NQMSt5Y0h0cVNBY3VKamR0?=
+ =?utf-8?B?dVIvMjdsUjVmQ2VpVlNJK0pMUEl2SmRCSlJ0ZG1LcTgybXJtSW5sb283cldB?=
+ =?utf-8?B?RTZWSVdUczhjcHhyOFN5eXhHN0l0TWdoR0lJV1FLTTJKR3M3ZGM1MFdzYlcx?=
+ =?utf-8?B?MTBXYXFSQVMzWGk4S0JONUxqWlZ4M09BU0doYjdRc1lBTWFGZ3JJNThienRV?=
+ =?utf-8?B?VjR5N0t0WGZiRCtBY3h3OXV3YkpRanVoaEZZUkNrZTU2SllOUDlnUlBTQ0wz?=
+ =?utf-8?B?TFhTRHZVaHgwUytUQnkybitJZDU5VXFvaEZQakZ3ZnRDTmVTV2NkaHd0M25Q?=
+ =?utf-8?B?em1BMERwU2FwekEwcjA0c2JIM3J2dXhIdnNxL2pROEdjb0FEQVpBZk1pRGla?=
+ =?utf-8?B?ZnZ3czRkamwydDJXN1hKNDVSV0lBRWV5amJ6RHV3UmJMY0p4RkZDZDRsb1Bp?=
+ =?utf-8?B?aXErTC80TEQzakhORk1DcnRDRnZyQXR4cUdjWkdLRW5LNS9WV3lzQXd6K0d3?=
+ =?utf-8?Q?FRmSYYHVqVQBD24yTHm9/b9MsYYR/QcttMbGq?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e52543ad-b737-4f67-9629-08df44bfb713
+X-MS-Exchange-CrossTenant-AuthSource: OSOPR01MB295138.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 15:30:31.3866
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mkw0EfT3+cyHpNy1H1HtEAq9cZiGsVAI2b1p8bNNdxCPNqynPr9iLurGfk+8tKfjj+fuoSEcl+8e8CNYamXszvHGaZC1ptiHmtAs2+ux/wfFib3snExgbFFHsqS+RUL4
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS7PR01MB758680
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [Medium] sched/deadline: dl_bw_rebuilding() drops bw moves during
-  rebuild task walk
-- [Medium] sched/deadline: migrate_task_rq_dl() drops bw move for
-  mutex-blocked tasks
-- [Medium] sched/deadline: dl_task_move_bw() moves departed bw of
-  PI-boosted tasks
---
+Hi Geert,
+Thanks for your review.
 
-commit 00a2592b3e4a7ff7a78ebc503a680dacf59e846b
-Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+On Tue, Nov 17, 2026 at 04:12:43PM +0100, Geert Uytterhoeven wrote:
+> Hi Tommaso,
+> 
+> On Thu, 12 Nov 2026 at 09:31, Tommaso Merciai
+> <tommaso.merciai.xr@bp.renesas.com> wrote:
+> > Add suspend/resume support to the RZ/G2L DU driver.
+> >
+> > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> 
+> Thanks for your patch!
+> 
+> > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
+> > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
+> > @@ -140,6 +140,27 @@ static const struct drm_driver rzg2l_du_driver = {
+> >         .minor                  = 0,
+> >  };
+> >
+> > +/* -----------------------------------------------------------------------------
+> > + * Power management
+> > + */
+> > +
+> > +static int rzg2l_du_pm_suspend(struct device *dev)
+> > +{
+> > +       struct rzg2l_du_device *rcdu = dev_get_drvdata(dev);
+> > +
+> > +       return drm_mode_config_helper_suspend(&rcdu->ddev);
+> 
+> error: passing argument 1 of ‘drm_mode_config_helper_suspend’ from
+> incompatible pointer type [-Werror=incompatible-pointer-types]
+> 
+> The "&" should be dropped...
 
-sched/deadline: Move a task's bandwidth to the root domain it runs in
+Sorry are you apply this patch on top of some other series?
+On top of next-20261116 I'm not seeing this issue.
 
-This commit moves a deadline task's bandwidth to the root domain of its
-new CPU in migrate_task_rq_dl() and task_woken_dl() when it differs from
-the root domain that currently counts it, while suppressing moves during
-sched domain rebuilds and proxy execution migrations.
+Maybe I'm missing somenthing?
+Thanks in advance.
 
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index 9ff79141c6306..6c6a4d9cd0548 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
+Kind regards,
+Tommaso
 
-[ ... ]
 
-> @@ -2930,11 +2968,86 @@ select_task_rq_dl(struct task_struct *p, int cpu,=
- int flags)
->  	return cpu;
->  }
-> =20
-> -static void migrate_task_rq_dl(struct task_struct *p, int new_cpu __mayb=
-e_unused)
-> +/*
-> + * Return true if the root domain of @cpu may not count the bandwidth of
-> + * @p. Either another root domain counts it, or a rebuild left @p out.
-> + * Test without dl_departed_lock, so that a move inside a root domain
-> + * takes no lock. dl_task_move_bw() tests again under it.
-> + *
-> + * Return false if @cpu is not active. A migration-disabled task can wake
-> + * up on a CPU that goes offline, after it joined the default root domai=
-n.
-> + * Keep the bandwidth where it is counted. balance_push() moves the task
-> + * off that CPU once it enables migration, or its next wakeup does once
-> + * the CPU is offline. That migration moves the bandwidth if needed.
-> + *
-> + * Return false while the sched domains are rebuilt. The CPUs then move
-> + * to their new root domains one by one. That alone can make the two root
-> + * domains differ. The rebuild of the accounting
-> + * that follows counts @p.
-> + */
-> +static bool dl_task_bw_elsewhere(struct task_struct *p, int cpu)
-> +{
-> +	int bw_cpu =3D READ_ONCE(p->dl.dl_bw_cpu);
-> +
-> +	if (bw_cpu < 0 || !p->dl.dl_bw || !cpu_active(cpu) || dl_bw_rebuilding(=
-))
-> +		return false;
-> +	return READ_ONCE(p->dl.dl_bw_gen) !=3D READ_ONCE(dl_bw_gen) ||
-> +	       cpu_rq(bw_cpu)->rd !=3D cpu_rq(cpu)->rd;
-> +}
-> +
-> +/*
-> + * Move the bandwidth of @p to the root domain of @new_cpu. Count it the=
-re
-> + * also if a rebuild left @p out. Add it even without room, since @p runs
-> + * there. The caller holds the rq lock of @p, or its pi_lock for a wakeu=
-p.
-> + */
-> +static void dl_task_move_bw(struct task_struct *p, int new_cpu)
-> +{
-> +	struct dl_bw *dl_b;
-> +	int cpu;
-> +
-> +	if (dl_entity_is_special(&p->dl) || !p->dl.dl_bw)
-> +		return;
-> +
-> +	guard(raw_spinlock)(&dl_departed_lock);
-> +	cpu =3D p->dl.dl_bw_cpu;
-> +	if (cpu < 0 || dl_bw_rebuilding())
-> +		return;
-> +	if (p->dl.dl_bw_gen =3D=3D dl_bw_gen) {
-> +		if (cpu_rq(cpu)->rd =3D=3D cpu_rq(new_cpu)->rd)
-> +			return;
-> +		dl_b =3D dl_bw_of(cpu);
-> +		raw_spin_lock(&dl_b->lock);
-> +		__dl_sub(dl_b, p->dl.dl_bw, dl_bw_cpus(cpu));
-> +		raw_spin_unlock(&dl_b->lock);
-> +	}
-> +	dl_b =3D dl_bw_of(new_cpu);
-> +	raw_spin_lock(&dl_b->lock);
-> +	__dl_add(dl_b, p->dl.dl_bw, dl_bw_cpus(new_cpu));
-> +	raw_spin_unlock(&dl_b->lock);
-> +	p->dl.dl_bw_cpu =3D new_cpu;
-> +	p->dl.dl_bw_gen =3D dl_bw_gen;
-> +}
-
-[Severity: Medium]
-Can dl_task_move_bw() move the departing bandwidth of a non-deadline task
-that was PI-boosted back into the deadline class?
-
-When a task leaves SCHED_DEADLINE before its 0-lag time, switched_from_dl()
-arms inactive_timer and leaves p->dl.dl_bw and p->dl.dl_bw_cpu set in the
-original root domain.  As a non-deadline task (!task_has_dl_policy(p)), it
-can move to another root domain without admission control, and if it is
-then PI-boosted by a deadline waiter before its 0-lag time,
-switched_to_dl() cancels the inactive timer and takes it off
-dl_departed_list while keeping the original dl_bw_cpu recorded.
-
-Because neither dl_task_bw_elsewhere() nor dl_task_move_bw() checks
-task_has_dl_policy(p), waking or migrating the boosted task in the new root
-domain subtracts p->dl.dl_bw from the original root domain before its
-0-lag time and adds that unreserved bandwidth to the new root domain.
-
-> +
-> +static void migrate_task_rq_dl(struct task_struct *p, int new_cpu)
->  {
->  	struct rq_flags rf;
->  	struct rq *rq;
-> =20
-> +	/*
-> +	 * The new CPU can be in another root domain than the one that counts
-> +	 * the bandwidth. A mask can hold CPUs of two root domains, and
-> +	 * select_fallback_rq() can widen it. Move the bandwidth there, as
-> +	 * dl_task_offline_migration() does for a throttled task.
-> +	 *
-> +	 * Not for a task that is blocked on a mutex and only queued for
-> +	 * proxy execution. It does not run on the new CPU, so its bandwidth
-> +	 * stays in its root domain. If its wake-up then picks a CPU of another
-> +	 * root domain, the bandwidth moves at that time.
-> +	 */
-> +	if (unlikely(dl_task_bw_elsewhere(p, new_cpu)) &&
-> +	    !(p->is_blocked && task_on_rq_migrating(p)))
-> +		dl_task_move_bw(p, new_cpu);
-
-[Severity: Medium]
-Does skipping dl_task_move_bw() when p->is_blocked && task_on_rq_migrating(=
-p)
-also drop the bandwidth move for normal queued migrations of mutex-blocked
-tasks under CONFIG_SCHED_PROXY_EXEC?
-
-When a mutex-blocked task (p->is_blocked =3D=3D 1) is migrated across root
-domains by move_queued_task() or move_queued_task_locked() (for example
-from __balance_push_cpu_stop() during CPU hotplug or push_dl_task()),
-deactivate_task() sets p->on_rq =3D TASK_ON_RQ_MIGRATING and set_task_cpu()
-updates both p->cpu and p->wake_cpu to new_cpu:
-
-kernel/sched/core.c:move_queued_task() {
-	...
-	deactivate_task(rq, p, DEQUEUE_NOCLOCK);
-	set_task_cpu(p, new_cpu);
-	...
-	activate_task(rq, p, 0);
-}
-
-When the mutex is unlocked, try_to_wake_up() sees p->on_rq =3D=3D TASK_ON_R=
-Q_QUEUED
-and takes ttwu_runnable():
-
-kernel/sched/core.c:ttwu_runnable() {
-	...
-	if (p->is_blocked) {
-		if (p->se.sched_delayed)
-			enqueue_task(rq, p, ENQUEUE_NOCLOCK | ENQUEUE_DELAYED);
-		if (proxy_needs_return(rq, p))
-			return 0;
-	}
-	...
-	ttwu_do_wakeup(p);
-	return 1;
-}
-
-Because task_cpu(p) =3D=3D p->wake_cpu, proxy_needs_return() returns false =
-and
-ttwu_runnable() finishes the wakeup in place without calling
-migrate_task_rq_dl() or task_woken_dl(), leaving p's bandwidth counted in
-the old root domain.
-
-[ ... ]
-
-> @@ -4068,8 +4192,10 @@ void dl_rebuild_rd_accounting(void)
->  	 * a resume run one for each CPU. A task gets a bandwidth under the
->  	 * locks this rebuild holds, so the count cannot leave 0 meanwhile.
->  	 */
-> -	if (!atomic_read(&dl_nr_bw_tasks))
-> +	if (!atomic_read(&dl_nr_bw_tasks)) {
-> +		dl_bw_rebuild_end();
->  		return;
-> +	}
-> =20
->  	read_lock(&tasklist_lock);
->  	for_each_process_thread(g, p) {
-> @@ -4083,6 +4209,7 @@ void dl_rebuild_rd_accounting(void)
->  			dl_add_task_root_domain(p);
->  	}
->  	read_unlock(&tasklist_lock);
-> +	dl_bw_rebuild_end();
->  }
-
-[Severity: Medium]
-Can keeping dl_bw_rebuilding() true until the end of the tasklist walk
-drop bandwidth moves for tasks that dl_add_task_root_domain() has already
-visited?
-
-During CPU deactivation, tasks are woken via select_fallback_rq() or pushed
-by __balance_push_cpu_stop() while dl_rebuild_rd_accounting() walks
-for_each_process_thread() under read_lock(&tasklist_lock):
-
-CPU0                                    CPU1
-partition_sched_domains_locked()
-  dl_bw_rebuild_begin()
-  ...
-  dl_rebuild_rd_accounting()
-    dl_clear_root_domains()
-    read_lock(&tasklist_lock)
-    for_each_process_thread(g, p)
-      dl_add_task_root_domain(p)
-        /* counts p in RD_A (or skips
-         * p if cpu >=3D nr_cpu_ids) */
-                                        try_to_wake_up(p)
-                                          select_fallback_rq() -> cpu in RD=
-_B
-                                          set_task_cpu(p, new_cpu)
-                                            migrate_task_rq_dl(p, new_cpu)
-                                              dl_task_bw_elsewhere()
-                                                dl_bw_rebuilding() =3D=3D t=
-rue
-                                                --> returns false (bw not m=
-oved)
-      /* still visiting later tasks */
-    read_unlock(&tasklist_lock)
-    dl_bw_rebuild_end()
-
-Once dl_add_task_root_domain(p) releases p->pi_lock, p can wake up or
-migrate to an active CPU in another root domain before the walk finishes.
-Because dl_bw_rebuilding() is still true, migrate_task_rq_dl() and
-task_woken_dl() ignore the move, leaving p's bandwidth counted in RD_A (or
-uncounted if dl_task_rebuild_cpu(p) returned nr_cpu_ids).
-
-In addition, when dl_task_bw_elsewhere() runs under rq->__lock without
-p->pi_lock, it reads bw_cpu =3D READ_ONCE(p->dl.dl_bw_cpu) before checking
-dl_bw_rebuilding() and READ_ONCE(dl_bw_gen), whereas
-dl_add_task_root_domain() updates p->dl.dl_bw_cpu and p->dl.dl_bw_gen under
-p->pi_lock and dl_departed_lock, so dl_task_bw_elsewhere() can compare
-cpu_rq(bw_cpu)->rd using a stale bw_cpu read from before the rebuild ended.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794922146.gi=
-t.mathieu.desnoyers@efficios.com?part=3D27
+> 
+> > +}
+> > +
+> > +static int rzg2l_du_pm_resume(struct device *dev)
+> > +{
+> > +       struct rzg2l_du_device *rcdu = dev_get_drvdata(dev);
+> > +
+> > +       return drm_mode_config_helper_resume(&rcdu->ddev);
+> 
+> ... likewise.
+> 
+> > +}
+> > +
+> > +static DEFINE_SIMPLE_DEV_PM_OPS(rzg2l_du_pm_ops,
+> > +                               rzg2l_du_pm_suspend, rzg2l_du_pm_resume);
+> > +
+> >  /* -----------------------------------------------------------------------------
+> >   * Platform driver
+> >   */
+> 
+> Gr{oetje,eeting}s,
+> 
+>                         Geert
+> 
+> -- 
+> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+> 
+> In personal conversations with technical people, I call myself a hacker. But
+> when I'm talking to journalists I just say "programmer" or something like that.
+>                                 -- Linus Torvalds
