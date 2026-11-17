@@ -1,62 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.143
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794932281;
-	b=T8WkC6x+IDIExxE/aq+zumAzoyoXVa0FlWUwoJ/xaLHt1ZGec2meFS1i+bExh0Azo6ed
-	 czNBKXdq5KHHIIZUBW099tLKyKAcrY20JBuU71Qd3/qtKsE7uT5FbGWaYi9RmuRHSLnrF
-	 gKc68OLw/6JDILy+omBgbeQYbS06Be79IOQ48yVkmBDeRklIWUIi4+9iXLp3AkVjycaaV
-	 CIXz5M9/BcvFjqGuOVTttqmscHVa3wZFlEvSJ+0ce61R5XjajqVQUoLdQuFoDORVrmzvj
-	 +LNzKVtuP8+RJtFNWxMG3uAIdL5Nsp0PoZkMqEbPrgXZ3QH4fB1YuNUX822evoDhlNQ==
+	t=1794932321;
+	b=rEFYfk7BA9L6Y+vCostua1nxg0n8deB/fO8N3SZJHpS3jx3DS2k9yA8KAkLa61kT07bk
+	 OYHUBHTZZRJWNvxCjT0xGP3fIGQT81QALaKAPNZ0AnjGx5ih4Y4y1rphv9n23A6p/9+su
+	 mgBpWQzJUjldzAA/XFzrge/rYoR5V8z2X9FCQIlGG+1Gj7hEbKplZ54rG4PteaomRwQnj
+	 fEXhPu2WIEhlDWQY+oAnqJk3bXtf7waTw2DFB3LKvernpttRd9ueWSlYUYXz64xyG+ZFN
+	 IzL7S6wqvU/2u5mJ7cwIiCp+HS+jMyAQStsbZOJ632Y6M+l5yMn0gV2PwVOzKJ31S+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794932281;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=nVQSkvxSA2D4E7wBBlcWxeerY52SIX8ZzPPc0+UbW0Q=;
-	b=2uw73lJr/u1D9xXDaU6jYjZlHQKnranmLmu/MRSkGvc28CYEsl4gvEzEPBZbkFm8neez
-	 NIg+NUH4wKZ+c+G5dnX5vymEzb0H4QE1hAaEVFDGb07ma0VaNv58918ij7hvFipv80JhM
-	 cN1v9Q2JJEgqLS778KBmztyYGROdD9bJx8RdVSizwCod0aDCp3I/tn2dszBSpp/+uIje4
-	 k9MtnCKvMG1plgQmEwk2roRSoW3hgiecCcaQ1ERB6rsd9yrJoe7KtRB2L8LAfteOQNoZN
-	 2oVli+RP+B3QIX3EnVrM3iRQcm7KJ3E+xXPcIvpEtN2+8asenWKJ791U246qAzIirHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794932321;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=CKc2uY9tw++qJSeO11LOOO9i6cJhH/YZkvglgrwUC60=;
+	b=ixAoBVFJzfbTMgCAt3WSjSRxFn+GSlHnIbM+q8nZCU0uCU+/t2welmdiISj7WzfMXmc6
+	 3djQ1UksCSuWGd5rPzjP++726TTlkNpSfgHJQV7ThAs1syyYbj7UTi65NLFRccoCgZPTO
+	 PfHqK58T3bJKYSBF1dor6JbLsYg6XQSF9gx0cnTFGOcAHGRm4F1RbAuyi3bRW6oz0R5Fe
+	 OPW76aQ9PPz2oWVGICUTjJ0FlyMj5kORLEsyYjR6vfdv/lagiphXD70hmuZ+FAl8fT0Ab
+	 Uiw9BZhjarRVmOj6/Aqk+S31aGRAIYoKNTeB4G/RQEMKTNRfxjOzn6SeKpZeRfrBZjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KzcDaEH5;
-	arc=none smtp.remote-ip=95.215.58.143
-Received: from mta1.migadu.com (out-143.mta1.migadu.com [95.215.58.143])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hc5qOege;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6603E606A884
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:18:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6603E606A884
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4C2E606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:18:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4C2E606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KzcDaEH5
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=6gwDumgKWifTcW7wg2iaB3gIO2cxXQFF5pgKIzED2/A=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794932278; v=1; x=1795537078;
- b=KzcDaEH5+3flrPIm5k64eLblgsuju5oiRzzuZqGcQUqXAv1oHmbgaRnnBri2U84f1lC3407V
- tGIDfUWnZcLAtpjHm5Zjz9nWyIprL7koaVEVTZTVaAo4VZN5LA61mtBrfSlTsgZxYBKLf7sgKJs
- WtSvVqmqFNvhg0T9IR8gZCvc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8ffd60ef7972a29b;
-	Tue, 17 Nov 2026 16:17:58 +0000
-X-Mizu-Trace-ID: 8ffd60ef7972a29b
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5c144eb2f43so7783e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:17:58 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHV7ZvCX9OKEitF5rnGdQ4hgzGWtMFHziLa8mhKW3L+Lk7NC1ibs7bc3q5Wxxo8w4iIBuMn7S5lf4K0rOY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9uUrSZ394X6qb86hhyXsfSnRnM9r5ninfBsTEly4U9UEQqavBR
-	9engAlGD7XTrAIHibe5Shw7sgxBsrTnAm9T4FVmawz6agThW1iByIu0aHNNDVwp5VCVpYnrU7nf
-	MgHSuk59yu7qoHDDodJ+i9pOyVbDOSoR8SaF5IvFV
-X-Received: by 2002:a05:6512:3b93:b0:5c1:5bc5:f373 with SMTP id
- 2adb3069b0e04-5c1a21bcf91mr172153e87.15.1794932276673; Tue, 17 Nov 2026
- 08:17:56 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hc5qOege
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4bb55cda775so8459805e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:18:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794932319; x=1795537119; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CKc2uY9tw++qJSeO11LOOO9i6cJhH/YZkvglgrwUC60=;
+        b=hc5qOegerv2o8KlICWX6A38HpbNiLJJmdh7MXa9vEcvnWyZ00qDPp8ZBEC8r1V88IC
+         qEL5LcZ3Fli/vxd7avP8IDiDk/VuaE5vWkpS0l6RQGrk5ldelRhRBBc8te03/PWPOW79
+         Bw0RCBaF5WV0SAvhSLPtoB4TXLzbB+9rddMRjOLA0Eip9cEw8vioOp/s9wn0mhsHQ9VD
+         h6eth8dOD1aju7bRuYZnoYjNV6G1dCn+CX5sAr1OzNu42JEdvoA9/6istVc0ENgumRJS
+         D+wjV7P31qyjM0NONaovMmU/ojDLBbyd0rC7Y6u/b/Y2QnG2kq/W78ANALIOj9WBqtsK
+         tQAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794932319; x=1795537119;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CKc2uY9tw++qJSeO11LOOO9i6cJhH/YZkvglgrwUC60=;
+        b=Wu2iAFoTOZzk5I4WT88FO1y9e0TkCdayaGk/MS/QkJUP5Qbeqc6dX+s1TVy7rmWw0Q
+         h32vu5qLzrD3S2dUZWTMAjNxr1er1HmmYHDl8isbPeuphFK3u1GXlE18XPsyHgziunxn
+         yS5f38m6TOxY3JQKZzuWYAdeu9HMMeG/NJOVwZMZgjBnaxZNPiJR82hi+y7eN+Ghvcvd
+         vwPsDnO4CaGRxtDHM4qw3k4jQdedze5Z4nUnKTt8tez6EOG71eJLwlBqgtpJkv9BCSXM
+         vdj202yUhym9UkjYEpmvOCkXt6iIH51mQrd4KqrIvpCiY4uNkkkzyz6AtjnIH+iKkwRX
+         tmDA==
+X-Forwarded-Encrypted: i=1; AL+hErHZOCZ8dVdKxM+gRc8zyZHDKebTJyFjA9aZtpiYMDCJhfvyh+sa1YbSE/3wO1kJccI3ZU9hLKSlJcvktNM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+U3Du2EZQcNLSndscubArrzd72g3u4IOqVEwKfSTBtO8EjpxUD
+	axnsdF0Gqi0vIlqOaVe0FKttSUo1gPyk2o7xxgtVtv5yqxn6cPVYg9rHXoX8KhK0hQ==
+X-Gm-Gg: AYBFou3MvqbfSNj2UO45EedkwN2pO4tH5YYN9diiwe1c/l+KHyEV4PqiJakWgxEZBTF
+	FlENmC8gE5wMImOxBDWhGWRN18rIw2z5ichB/fYo7pwh8refrl93r4CxIx4/wMFDiFbiJd2igU8
+	OzQW0ns6xi6S95J01QzeR+awoXQM+ap4oPBPQZ6I1m/1mNP7cN5m5F4U6YrcZCGgJQSVXv3EQ02
+	jefjRPv/r3BWYSML49xeT2MTjph+Q+JyM/4qSXc23HKtKODwA1NhnsNSWjTkUaq0jzhKqyBrFyM
+	FPZ1Py6hF01ghGhIYRWgr3RHJDWzwgTrJQxfiftTj41+Ep8Yv/3Zcqwy5VhRtUV44HtW9Ft0+TQ
+	M5tC25IjkP3NF8euV4U22gjS1umzEyjFKfDrm/LNkWJYFOVaOuP5VB3FD9uTLmvSyui5X2eoC0m
+	O3CV/j6uuxs9c7v6HrdUQN6Ly7Jozv55fh3206XLr0YTFnCqh6bbqoE+syyxlyTlqpXefhF0M9x
+	bqFpAEkHDeXnX1/S7rp+rhDsIzCT2+ZsW3F1jMi53Gb/sOwBWbrHCGij3G+xOqw3eJGs/KDlsAy
+	ZK0/P5zBfVIB05dpmiLvpI9GvlRFBeBBm1xSrt7NYx7utCnrWhfBV2IN9MBu21oU2g==
+X-Received: by 2002:a05:600c:c103:b0:4a1:88df:8a2a with SMTP id 5b1f17b1804b1-4bb7838be00mr52317225e9.13.1794932318543;
+        Tue, 17 Nov 2026 08:18:38 -0800 (PST)
+Received: from google.com (0.182.34.34.bc.googleusercontent.com. [34.34.182.0])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb734b9f44sm105265185e9.1.2026.11.17.08.18.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 08:18:37 -0800 (PST)
+Date: Tue, 17 Nov 2026 16:18:32 +0000
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Haseeb Ashraf <haseebashraf091@gmail.com>
+Cc: maz@kernel.org, Oliver Upton <oupton@kernel.org>,
+	Haseeb Ashraf <haseeb.ashraf@siemens.com>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Wei-Lin Chang <weilin.chang@arm.com>,
+	Joey Gouly <joey.gouly@arm.com>, fahad.arslan@siemens.com,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Quentin Perret <qperret@google.com>,
+	Raghavendra Rao Ananta <rananta@google.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] KVM: arm64: Resume stage-2 range walks where they
+ stopped
+Message-ID: <avx-WAgBpyjJlwhg@google.com>
+References: <20261113080233.640539-1-haseebashraf091@gmail.com>
+ <20261113080233.640539-2-haseebashraf091@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,88 +110,229 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111145758.217946-1-steven.price@arm.com> <20261111145758.217946-12-steven.price@arm.com>
- <c5ebf936-fbc6-4910-be59-9e89ff3a625e@arm.com>
-In-Reply-To: <c5ebf936-fbc6-4910-be59-9e89ff3a625e@arm.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Tue, 17 Nov 2026 16:17:20 +0000
-X-Gmail-Original-Message-ID: <CA+EHjTxz18a-8YcJPu7Vdib5xo4bLV-2CedLJxzh+76KuWG0YQ@mail.gmail.com>
-X-Gm-Features: AclHuK9hGzky46Uw9aIIH7RYxIzDHZDA5jw0n1Qmc2z6Ij7OwGUMvY7c8hZrsUo
-Message-ID: <CA+EHjTxz18a-8YcJPu7Vdib5xo4bLV-2CedLJxzh+76KuWG0YQ@mail.gmail.com>
-Subject: Re: [PATCH v2 11/12] KVM: arm64: CCA: Support runtime faulting of memory
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: Steven Price <steven.price@arm.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev, 
-	Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>, Will Deacon <will@kernel.org>, 
-	James Morse <james.morse@arm.com>, Oliver Upton <oliver.upton@linux.dev>, 
-	Zenghui Yu <yuzenghui@huawei.com>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Joey Gouly <joey.gouly@arm.com>, 
-	Alexandru Elisei <alexandru.elisei@arm.com>, Christoffer Dall <christoffer.dall@arm.com>, 
-	linux-coco@lists.linux.dev, 
-	Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>, Gavin Shan <gshan@redhat.com>, 
-	Shanker Donthineni <sdonthineni@nvidia.com>, Alper Gun <alpergun@google.com>, 
-	"Aneesh Kumar K . V" <aneesh.kumar@kernel.org>, Emi Kisanuki <fj0570is@fujitsu.com>, 
-	Vishal Annapurve <vannapurve@google.com>, WeiLin.Chang@arm.com, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Kohei Enju <enju.kohei@fujitsu.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261113080233.640539-2-haseebashraf091@gmail.com>
 
-Hi Suzuki,
-
-(sorry for the resend, my email client mangled the first one)
-
-On Mon, 16 Nov 2026 18:36:29 +0000, Suzuki K Poulose
-<suzuki.poulose@arm.com> wrote:
-> On 11/11/2026 14:57, Steven Price wrote:
-[...]
-> > diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-[...]
-> > @@ -1791,12 +1799,18 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd,
-> >           void *memcache = NULL;
-> >           gfn_t canonical_gfn;
-> >           int ret;
-> > +        bool is_private = false;
-> >
-> > -        if (!perm_fault) {
-> > +        if (KVM_BUG_ON(!kvm_slot_has_gmem(s2fd->memslot), kvm))
-> > +                return -EINVAL;
-> > +
-> > +        if (!perm_fault || kvm_arch_has_private_mem(kvm)) {
->
-> should this be s/kvm_arch_has_private_mem/kvm_vm_is_realm ? I dont think
-> this would be required for pKVM yet ?
->
-> Also, I wonder why pKVM doesnt need mmu cache pages with permission
-> faults with gmem. They do for user_mem_abort().
-> (may be because they assume Gmem is always single page ? in which case
-> we could also have the same behavior)
-
-gmem_abort() only maps single pages, so a permission fault there just
-relaxes permissions and doesn't use the memcache. In user_mem_abort(),
-a pKVM permission fault can map a block, and that uses the memcache.
-So yes, the top-up on a permission fault here is only for Realms.
+On Fri, Nov 13, 2026 at 01:02:33PM +0500, Haseeb Ashraf wrote:
+> From: Haseeb Ashraf <haseeb.ashraf@siemens.com>
+> 
+> stage2_apply_range() walks a range one block-sized chunk at a time.
+> The walker steps over an invalid entry in one go, but the next walk
+> starts at the following chunk, so an invalid entry larger than a chunk
+> is visited once for every chunk it covers. Unmapping the whole IPA
+> space of a shadow stage-2, as emulating TLBI VMALLS12E1IS and TLBI
+> ALLE1IS does, takes 2^18 walks with 4K pages and a 48-bit IPA space,
+> however little it maps. Each walk also ends with a range TLBI when
+> FEAT_TLBIRANGE and FWB are available.
+> 
+> On an AmpereOne A192-32X (192 CPUs, Xen on KVM, 4K pages, 48-bit IPA),
+> a full-range unmap of one shadow stage-2 took 0.84-0.94 s (mean 0.91 s
+> over 226 unmaps) on 6.18.29. With this change and the mainline commits
+> it builds on backported, it took 2.1-45 ms (mean 4.1 ms over 672
+> unmaps), with 512 to 1023 walks instead of 262144. The slowest TLBI
+> VMALLS12E1IS trap took 0.94 s before and 46 ms after.
+> 
+> Have the walk report the address it reached, and have
+> stage2_apply_range() resume from there. Unmap, write-protect and flush
+> all go through it, so all three get this. kvm_pgtable_stage2_unmap(),
+> kvm_pgtable_stage2_wrprotect() and kvm_pgtable_stage2_flush() now
+> return the address, or a negative error code, and so do their pKVM
+> counterparts, which do not walk page tables and return the end of the
+> range. The other callers, in nested.c and at EL2, only looked for an
+> error: they now check for a negative value, and those that pass the
+> result on turn it back into 0. The walk handles every entry it steps
+> over, including invalid entries that carry state, so nothing has to be
+> looked up beforehand.
+> 
+> The unmap of a shadow stage-2 also drops the guest stage-2 records of
+> the whole span the walk covered: nothing is mapped in the part it
+> stepped over, so any record there is stale. Each walk that remains
+> ends with the same deferred TLB invalidation as before. The spans that
+> were skipped have no valid entry, so there is nothing to invalidate.
+> 
+> Suggested-by: Oliver Upton <oupton@kernel.org>
+> Signed-off-by: Haseeb Ashraf <haseeb.ashraf@siemens.com>
+> ---
+>  arch/arm64/include/asm/kvm_pgtable.h  | 25 ++++++++++-----
+>  arch/arm64/include/asm/kvm_pkvm.h     |  6 +--
+>  arch/arm64/kvm/hyp/nvhe/mem_protect.c | 24 ++++++++----
+>  arch/arm64/kvm/hyp/pgtable.c          | 55 +++++++++++++++++----------
+>  arch/arm64/kvm/mmu.c                  | 32 ++++++++++------
+>  arch/arm64/kvm/nested.c               |  2 +-
+>  arch/arm64/kvm/pkvm.c                 | 22 +++++++----
+>  7 files changed, 108 insertions(+), 58 deletions(-)
+> 
 
 [...]
-> > @@ -1817,13 +1831,35 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd,
-> >           /* Pairs with the smp_wmb() in kvm_mmu_invalidate_end(). */
-> >           smp_rmb();
-> >
-> > +        if (kvm_arch_has_private_mem(kvm)) {
->
-> --8>--
->
-> > +                switch (kvm->arch.vm_flavor) {
-> > +                case VM_REALM:
-> > +                        is_private = kvm_realm_is_private_address(&kvm->arch.realm,
-> > +                                                                  s2fd->fault_ipa);
->
-> Could we for now use
->                 is_private = private_ipa_fault(kvm, s2fd->fault_ipa);
->
-> In other words use a wrapper for detecting if a given ipa is private or
-> not ? May be something like:        kvm_ipa_is_private(kvm, ipa)? (choose ipa
-> to make it explicit, it is arm64 thing).
->
-> Where, pKVM could hook in its own check.
-I'd keep the switch. pKVM can add its own case when it uses this path.
 
-Cheers,
-/fuad
+> --- a/arch/arm64/kvm/hyp/nvhe/mem_protect.c
+> +++ b/arch/arm64/kvm/hyp/nvhe/mem_protect.c
+> @@ -383,16 +383,20 @@ static int host_stage2_unmap_dev_all(void)
+>  	struct kvm_pgtable *pgt = &host_mmu.pgt;
+>  	struct memblock_region *reg;
+>  	u64 addr = 0;
+> -	int i, ret;
+> +	int i;
+> +	s64 ret;
+>  
+>  	/* Unmap all non-memory regions to recycle the pages */
+>  	for (i = 0; i < hyp_memblock_nr; i++, addr = reg->base + reg->size) {
+>  		reg = &hyp_memory[i];
+>  		ret = kvm_pgtable_stage2_unmap(pgt, addr, reg->base - addr);
+> -		if (ret)
+> +		if (ret < 0)
+>  			return ret;
+>  	}
+> -	return kvm_pgtable_stage2_unmap(pgt, addr, BIT(pgt->ia_bits) - addr);
+> +
+> +	ret = kvm_pgtable_stage2_unmap(pgt, addr, BIT(pgt->ia_bits) - addr);
+> +
+> +	return ret < 0 ? ret : 0;
+>  }
+>  
+>  /*
+> @@ -1418,7 +1422,7 @@ int __pkvm_host_reclaim_page_guest(u64 gfn, struct pkvm_hyp_vm *vm)
+>  		goto unlock;
+>  	}
+>  
+> -	WARN_ON(kvm_pgtable_stage2_unmap(&vm->pgt, ipa, PAGE_SIZE));
+> +	WARN_ON(kvm_pgtable_stage2_unmap(&vm->pgt, ipa, PAGE_SIZE) < 0);
+>  	WARN_ON(host_stage2_set_owner_locked(phys, PAGE_SIZE, PKVM_ID_HOST));
+>  
+>  unlock:
+> @@ -1601,6 +1605,7 @@ int __pkvm_host_unshare_guest(u64 gfn, u64 nr_pages, struct pkvm_hyp_vm *vm)
+>  	u64 ipa = hyp_pfn_to_phys(gfn);
+>  	u64 size, phys;
+>  	int ret;
+> +	s64 reached;
+>  
+>  	ret = __guest_check_transition_size(0, ipa, nr_pages, &size);
+>  	if (ret)
+> @@ -1613,9 +1618,11 @@ int __pkvm_host_unshare_guest(u64 gfn, u64 nr_pages, struct pkvm_hyp_vm *vm)
+>  	if (ret)
+>  		goto unlock;
+>  
+> -	ret = kvm_pgtable_stage2_unmap(&vm->pgt, ipa, size);
+> -	if (ret)
+> +	reached = kvm_pgtable_stage2_unmap(&vm->pgt, ipa, size);
+> +	if (reached < 0) {
+> +		ret = reached;
+>  		goto unlock;
+> +	}
+
+Could we just make ret s64 to avoid adding another variable?
+
+  ret = kvm_pgtable_stage2_unmap();
+  if (ret < 0)
+     goto unlock;
+
+  ret = 0;
+	
+>  
+>  	for_each_hyp_page(page, phys, size) {
+>  		/* __check_host_shared_guest() protects against underflow */
+> @@ -1674,6 +1681,7 @@ int __pkvm_host_wrprotect_guest(u64 gfn, u64 nr_pages, struct pkvm_hyp_vm *vm)
+>  {
+>  	u64 size, ipa = hyp_pfn_to_phys(gfn);
+>  	int ret;
+> +	s64 reached;
+>  
+>  	if (pkvm_hyp_vm_is_protected(vm))
+>  		return -EPERM;
+> @@ -1684,10 +1692,10 @@ int __pkvm_host_wrprotect_guest(u64 gfn, u64 nr_pages, struct pkvm_hyp_vm *vm)
+>  
+>  	assert_host_shared_guest(vm, ipa, size);
+>  	guest_lock_component(vm);
+> -	ret = kvm_pgtable_stage2_wrprotect(&vm->pgt, ipa, size);
+> +	reached = kvm_pgtable_stage2_wrprotect(&vm->pgt, ipa, size);
+>  	guest_unlock_component(vm);
+>  
+> -	return ret;
+> +	return reached < 0 ? reached : 0;
+>  }
+>  
+>  int __pkvm_host_test_clear_young_guest(u64 gfn, u64 nr_pages, bool mkold, struct pkvm_hyp_vm *vm)
+
+[...]
+
+> diff --git a/arch/arm64/kvm/pkvm.c b/arch/arm64/kvm/pkvm.c
+> index 0169972..73aad80 100644
+> --- a/arch/arm64/kvm/pkvm.c
+> +++ b/arch/arm64/kvm/pkvm.c
+> @@ -602,19 +602,24 @@ int pkvm_pgtable_stage2_map(struct kvm_pgtable *pgt, u64 addr, u64 size,
+>  	return ret;
+>  }
+>  
+> -int pkvm_pgtable_stage2_unmap(struct kvm_pgtable *pgt, u64 addr, u64 size)
+> +s64 pkvm_pgtable_stage2_unmap(struct kvm_pgtable *pgt, u64 addr, u64 size)
+>  {
+>  	struct kvm *kvm = kvm_s2_mmu_to_kvm(pgt->mmu);
+> +	int ret;
+>  
+>  	if (WARN_ON(kvm_vm_is_protected(kvm)))
+>  		return -EPERM;
+>  
+>  	lockdep_assert_held_write(&kvm->mmu_lock);
+>  
+> -	return __pkvm_pgtable_stage2_unshare(pgt, addr, addr + size);
+> +	ret = __pkvm_pgtable_stage2_unshare(pgt, addr, addr + size);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return addr + size;
+
+Could we make this shorter?
+
+return __pkvm_pgtable_stage2_unshare(...) ?: addr + size;
+
+ditto pkvm_pgtable_stage2_wrprotect().
+
+-- 
+Vincent
+
+
+>  }
+>  
+> -int pkvm_pgtable_stage2_wrprotect(struct kvm_pgtable *pgt, u64 addr, u64 size)
+> +s64 pkvm_pgtable_stage2_wrprotect(struct kvm_pgtable *pgt, u64 addr, u64 size)
+>  {
+>  	struct kvm *kvm = kvm_s2_mmu_to_kvm(pgt->mmu);
+>  	pkvm_handle_t handle = kvm->arch.pkvm.handle;
+> @@ -632,10 +637,13 @@ int pkvm_pgtable_stage2_wrprotect(struct kvm_pgtable *pgt, u64 addr, u64 size)
+>  			break;
+>  	}
+>  
+> -	return ret;
+> +	if (ret)
+> +		return ret;
+> +
+> +	return addr + size;
+>  }
+>  
+> -int pkvm_pgtable_stage2_flush(struct kvm_pgtable *pgt, u64 addr, u64 size)
+> +s64 pkvm_pgtable_stage2_flush(struct kvm_pgtable *pgt, u64 addr, u64 size)
+>  {
+>  	struct kvm *kvm = kvm_s2_mmu_to_kvm(pgt->mmu);
+>  	struct pkvm_mapping *mapping;
+> @@ -643,7 +651,7 @@ int pkvm_pgtable_stage2_flush(struct kvm_pgtable *pgt, u64 addr, u64 size)
+>  	lockdep_assert_held(&kvm->mmu_lock);
+>  
+>  	if (cpus_have_final_cap(ARM64_HAS_STAGE2_FWB))
+> -		return 0;
+> +		return addr + size;
+>  
+>  	for_each_mapping_in_range_safe(pgt, addr, addr + size, mapping) {
+>  		if (!mapping->nc)
+> @@ -651,7 +659,7 @@ int pkvm_pgtable_stage2_flush(struct kvm_pgtable *pgt, u64 addr, u64 size)
+>  						  PAGE_SIZE * mapping->nr_pages);
+>  	}
+>  
+> -	return 0;
+> +	return addr + size;
+>  }
+>  
+>  bool pkvm_pgtable_stage2_test_clear_young(struct kvm_pgtable *pgt, u64 addr, u64 size, bool mkold)
+> -- 
+> 2.43.0
+> 
