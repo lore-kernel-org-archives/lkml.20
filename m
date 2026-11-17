@@ -1,96 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794924980;
-	b=mRWXgGV+kimee4wQVlJt32bTnfFnJSyj7RVIBgwfvOyRSCjce2egqC5NvAW2LeiGDSD/
-	 WPegn/LpOsnsBXUjZO1XNncNQKkobdM0nihVy+FNhG5+1br7n2dm6IplZdwc4CXSes+Jb
-	 VkpC31rJwnwhC/igXK4pavSmu/z1jg6W4QBq7+GGOP36FB7RkXu14YGgsPiGBhK2EGJOM
-	 5mHDCLXz8+urVM65kOPu9qIT9yqFTFTDEJ7FT7SK0R1MSvE9cVw1NUUgP7XtL+zcorDHm
-	 +PoLOwJxP2RN6Fs9uubM8Ob/k1yyVF89zELLKSpTsoc02o1l17DaYMxMxRhxZ3rh4rA==
+	t=1794924981;
+	b=Q4chtcV+ITSeodZ9BP4Rn4973kZeuyNMDrpWEcGvT0sUdYzrY3/+znhB/ohhOuTeukEK
+	 OnIjz0mddfE0xxv7t4QJKMypXXUuNiJW2KA3HRsmf1+9HZVyuTT2bbx3bRLrpU4ZsWZ6g
+	 twupyCzgtkE2rAxGfPMyusjkhyKmR9joZlYWHSWNf7BMbSKK61WaZyhLi34X67AB8YvCX
+	 3KiBzwoesKVBORJPPTgZyzDovP1nTM7SBem0zu8fWPxuapTeitwEklWWpN5VltRqNW31F
+	 I5BeSUUY5NRjto0akAjjiniWvNyjLEoMo3930GBHdlF3ZxPU8kCrv4/AdQUXrfuv1ZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794924980;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=tG6neAVh4oCzGf1sct8/MQCA9dZCIT+3BlbcZwi3Bb4=;
-	b=ZELAnKGkcNeowL00ao2eGOFnhvHyaxyanAxrEFl129uAmFpMFjIhK5QgiUmips4wqiQa
-	 m64uKR1trsFU3uu4dnelst0nVidaoFyOrRxktod+AT9BTazfUnrnba9AGUfUqiwc2VpM2
-	 7BqZBCB5+IuUWs3r7SdCoohJ6K4buTy/gnWaNWrb/X4Uj0y3gdk5/KyCg2gCgj1j3kTsp
-	 uaEqDlMxEz65z7V/4hetmcmQ82hEgHWmSixcSMo0ekTvCjjpCPrlgKP8CDbIixsg5UHim
-	 Rf5WionlbbTNdQfC2nRA2wzGJovEgxc+YRgaY8FGBu2UQi4QiNqz5EuQJaYflR7RdzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794924981;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=cM69XD6jCQAyvU5JbNH+E2DCO/IIg1MBUqnf3B97zP4=;
+	b=XLGunEDz0JJgW1lnPYPS2PzOGENOjuOU/L9syio4qHnK40JAHyRMPWid15UHf7iuaHGc
+	 UIM8FfTRd5sftUepWBBL3OtoJR8wG3NEOfO2xCrHGfmwIT90rdjc7IxVsAfhTSboRnLQ+
+	 lLeYUaLPuVxYpzhvV2tQzZQnNSZCO1v6EhGo0crsu/u5EmLDiX2kGa6vct4tOHnwQXRfu
+	 l4w7yhp3MkkSeAh4NQSrxchEWEjjstRbIoFoeIqHLNuzhGgbmc2RtkImxti38gL7wIrvr
+	 eF6VlDLukDoyMf69wIu86jA29egsvnb41v0bzAUWu9AHE5pAmrCwv/fPkjslxDHVutQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t69rdOlt;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OCaH7VEe;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60929606A333
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:16:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60929606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FC9E606A334;
+	Tue, 17 Nov 2026 14:16:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t69rdOlt
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-36dbde64409so6966011eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:16:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794924979; x=1795529779; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tG6neAVh4oCzGf1sct8/MQCA9dZCIT+3BlbcZwi3Bb4=;
-        b=t69rdOltjvx5qXxGRNojKyKeaNC41rfaJiKtcaRrmPQP/lk9UeeAKX5TuvNwLG2YTU
-         lj/fqP9kUHml24YBOioaHKTh020Sg5vswBz8kqxg7nudfckKKA2UFvCQvsZGITFUVs1z
-         DXGsW7vyUUGTxlT7UeSiuAf3amRRojLwhECb7bDQiFd4SAcoCrtGubN/qFzKNcT1EH9p
-         QyzhXWzp1qNtziBNqehGz+Oege5nZMaaKax3h/vTbbW2DpHQXgvV+6pSoIgEUH10Ns42
-         Hqi21CmbJkXxW+Te2TIwkJjjF+B/Z/7j8nGU61tVjnLu6x4oCulqQASJg+bcHQarHXrq
-         f4iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794924979; x=1795529779;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tG6neAVh4oCzGf1sct8/MQCA9dZCIT+3BlbcZwi3Bb4=;
-        b=M4siKaa3/2QWFjvKwsbLXjBcf0fcgoyOb9EBauQFAgAkJuK0RpfjrM2+3YbVom7i92
-         U5iqIyXKpHCLpEOkfCXx1cahq0u/7IRw2lrjVgzkpOoc3I8slP+TxuZTowig4d97XIc1
-         XwpcugtjYCP7Wj9tuHYstWPUAAMGqwaXS7CzNUp6PIOOioUSRXg6GiIzChBmDDZ9nXHs
-         ak9Jm8hnHpTZ+qkhqvkkVyrw9FrFi5ta9KIJIIkNoEaK1adCBo57h+YvZG9lq+5gB2ip
-         Jx7u5PhfyrnP7cOUntZ+IHdhGv1+/ZpSfw3fGlWP3MvaHH/zdIuwpIrfUIQvmndKOmuQ
-         +Nmw==
-X-Forwarded-Encrypted: i=1; AL+hErEOce9WiN3GwM8xr7V+580uT4pRjx3GNdPq3N2lqBSU4kbMN/MnlROE29eoreWFtmJx61wjXhqRv8ujQNk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z87cTenLvluODYuwnFkSHc8K//s9voWdUP3eBT7qX5V9/tPLdik
-	z5Ho/0gxGKY6ADuDK7k+7IPUDuXz5buJoQvm9S9x5Qsiyd4I/G2TW+qRync4Itlh
-X-Gm-Gg: AZFdTZcFMe1VdmM+reTajcwCkKeLaFspLi+NDhGEKeEwLrPR+RyYzKRqA8e5qEejqo6
-	2UDjEiHgDbdQ9ZPmngvIcyakQ/l5MPuM0XAmuq3z4uS56oCtTvBU8WBH19ToFXdriwUYN/gU6Ti
-	KVpi44NJxKOe1zf/HUoeFpS0P2z1+Kz9KNZythgColNllCXIEOy2Y2CjaglqIiVYf1BmeSiA4Ef
-	9ZW2RaofDgejq6CGwGoUCfVsIF6N3eDqJg68mDuAnalWFR3uGalix1Hw9HkqR0R+B15oLSLkHt8
-	YuW2kKbNNaAEFha1A1mCSlWnBBHnual7prhhlDU0176HXhum6J6+mUZDR3n+XzTWXAdDC9ma3Zx
-	BqiHtGe5PY/XptYYeObO2DXGm4UjDmYcb2nCQoZjmA7SUOhqbzffcQpjF/hdBTTjJalXfVaKwDJ
-	Exivss+zV+7XeTbgbdoKxYRHUqSln1Nn0X0vxhfTmKsxXy0qKJ2YaAlcwhuNk2tiCoaLe24yShx
-	eWRSpPoi6lTAdOB1IK3IOg2arRJmH/VyHzBVwEQSCY9k0oL31jJEDTMGBrejsF/ShWDcqWnDOzW
-	7juaYMfLJW7W3opU6A==
-X-Received: by 2002:a05:7300:c88:b0:36d:7f5f:7e97 with SMTP id 5a478bee46e88-37967dd734emr19474818eec.40.1794924979189;
-        Tue, 17 Nov 2026 06:16:19 -0800 (PST)
-Received: from buffalo-ssd ([2a09:bac1:3b00:a18::2ff:99])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-380d5135221sm9540594eec.24.2026.11.17.06.16.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 06:16:18 -0800 (PST)
-Date: Tue, 17 Nov 2026 23:16:25 +0900
-From: Akari Tsuyukusa <akkun11.open@gmail.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH] arm64: dts: mediatek: Remove undocumented, unapproved
- aliases
-Message-ID: <avxXNp5xEbczbb1y@buffalo-ssd>
-References: <20261117130556.234785-2-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OCaH7VEe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2F4F1F000C8;
+	Tue, 17 Nov 2026 14:16:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794924981;
+	bh=cM69XD6jCQAyvU5JbNH+E2DCO/IIg1MBUqnf3B97zP4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OCaH7VEeTQRdiRW56c7+s5byHdlpeJIDJ73r90cB5ISn2fCL0UXy/EZR2jw79lmay
+	 PwYZLyV8DM6vGH7lgoJn3lGb4cLqAOhoYf0cNZ1GuD3e9i9fcWZa8fIYrR6y6eOi6n
+	 vqh2QRDfhgTCRWYsUUJAgSWRtzmjiS6+mXo6uKNGJr2RNf6Gpt4HXnTPU9OBU37OzV
+	 uBIdjNdZqhZzF2je1wv3lJoZhlfyOJH9OYvPblEyY3ZGLEHgzT6kea2sMukYqlhgHY
+	 EQoYn4Kcl8zGr0I1DjSVXHQ+2IudrewbpuxH6ivzH0ylH7DLGncqoYbtAxkE6KoKdp
+	 8HV9RkmjiW7mg==
+From: SJ Park <sj@kernel.org>
+To: Aveline Noir <jm5905938@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	mattathias.pinchover@uber.com,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	damon@lists.linux.dev,
+	Mattathias Pinchover via B4 Relay <devnull+mattathias.pinchover.uber.com@kernel.org>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	Randy Dunlap <rdunlap@infradead.org>,
+	sashiko-bot@kernel.org,
+	sashiko-reviews@lists.linux.dev,
+	Shuah Khan <skhan@linuxfoundation.org>
+Subject: Re: [PATCH 3/6] mm/damon/tests/core-kunit: test sz_ops_filter_passed_last
+Date: Tue, 17 Nov 2026 06:16:12 -0800
+Message-ID: <20261117141613.121192-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <179488734513.2.6285120857568566018.b4-reply@b4>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,29 +69,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261117130556.234785-2-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Krzysztof,
+On Tue, 17 Nov 2026 14:49:05 +1100 Aveline Noir <jm5905938@gmail.com> wrote:
 
-On Tue, Nov 17, 2026 at 02:05:57PM +0100, Krzysztof Kozlowski wrote:
-> The ovl, aal, color, dsi, gce, rdma, split and other aliases were never
-> approved by Devicetree maintainers, because they were never documented
-> as actual ABI.  Drop them, because no new custom aliases are allowed for
-> years now.
+> Hi Mattathias,
 > 
-> This might break users of this undocumented ABI, so these should be
-> updated to use only documented and approved ABI.
+> On Mon, 16 Nov 2026 19:10:06 +0000 Mattathias Pinchover via B4 Relay wrote:
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> > Add a kunit test for the sz_ops_filter_passed_last DAMOS stat.
+> 
+> Since the motivation mentions contexts with multiple targets, maybe we
+> could also cover two targets in the same context, with the stub returning
+> different sizes for each? Checking their sum, then changing the sizes for
+> the next interval, would verify both aggregation across targets and that
+> the value only includes the latest interval.
 
-You mentioned 64-bit MediaTek SoCs, but the same class of issues also
-exists in 32-bit MediaTek SoCs under arch/arm/boot/dts/mediatek/.
-For example, mt7623n.dtsi has rdma0/rdma1 aliases, while mt6589.dtsi,
-mt8127.dtsi and mt8135.dtsi misuse "simple-bus" for the "clocks" node.
+I concern if that will make this test too complicated.  Testing those would be
+good, but not necessarily for sz_ops_filter_passed_last, in my opinion.  Those
+may deserve a separate test, if there is no test covering that.
 
-I hope this push for correctness doesn't lead to any regressions.
 
-Best regards,
-Akari
+Thanks,
+SJ
+
+[...]
