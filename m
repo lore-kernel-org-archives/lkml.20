@@ -1,48 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794874078;
-	b=pZOxKrhcaYysajvNDGTslmiKaAvRdAgk7+CO7H2GIYgTvYjA5S/T7PeIJoyIrTfQwiQW
-	 WfN80kQ4byAOxmKHT7Wh+ZjDAJ3tiD1a+utjCvY8VtuqHNAlIltT3M6hASWSJEFwnONAh
-	 rjeaomQb5CfnWYbscfqMyz0+uwiCO5+ECCajeK4Ir/NyjpQ1q+JmzgzFhJZC0880NX02J
-	 fPCmbGDzeRCS0jhDrJqyaZttoh+7ldC3ojthLLV8bNzq+OqtoewJsUJyku3ZvXdIKrFC8
-	 b2TPwtiCW3Vt57cSfAJWGn+eCqs01NO6xUuisa6HdRrgTVtf6XcVDyyvqQmpYoAIeKA==
+	t=1794874121;
+	b=kKgZSY5H2Bvjz+rJ/opI738hOr1hXTJOvukV/pFI5hoGkZ5ZOqmfFCEYRfuKYsXBHxAe
+	 /5ZacbtaXm8n9+Drpa5Nd1COGFa4SDorp9QnTHPpbUUTd1clRo1Gs3tgekeJNZHJon9w6
+	 NeBeCIQ/JTSQX8C2IchBjMjoc3jm4wyNkiqunIRjWkbcK78Z0sHFD6zDeHEjPYpzWz2hz
+	 teNRGF5jR6Tc/NBjg3+BGeTUwL8nlKBxq0z74l0YR+GVq7WARffCcw2vyUQYEvwIRx8g3
+	 8/TYPrQgO7n0gK98vwpAmFrm8ywv5IN5Ti9WpSdQWuAyBKSfb90uETHp84O6ATD4x2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794874078;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer;
-	bh=4vXmR0iRJiG7E8im3JcTb6JVxOpKMALSsdkAo4Dw988=;
-	b=Hd5JhEpHhGk4AKktSsAEbjpnBU5rZsgkULc5iM0mZnNccVOX6KL92dOmgy9XaILgRu4Q
-	 CBqnJBfqTe4bpLt1n6PIykWmevg82xw3qetR3JXZeYUp8nYOP4/0eCBkSTe2lKtnzuj2P
-	 Is5J/DjXFuatstDWBQqF8vQ6dO+x4L8oNNiYrBr40iAL1uh5hqjZyiFzAkR4B642EeWbY
-	 FqeIFjbZuC5i/RBeCdw2luFt6Ry1kpMBeclr09xeupnymqFjirIo2gBiF8O43Tfoz3Spk
-	 a3lhnOni5J3r/9OPskhFywo1YRncQUMJw6GJ7MtiqjmCAZ+GiQiHrMISkot+StFMTwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794874121;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=83Vz1ahixu5Z9IjP6rpbf1tvQV6iBDeIZHTmQxEZ/5Y=;
+	b=Z26Yr+zYTGJFnnl6CtEqhLRqHq3MqPV0PAaW3gGOeOopUxr2JSlr8A9iIuk+Z+ciyqr+
+	 F0olL8YHwRNAsL9yAU1jnzCmCYAgQmvmj3bh+Lnpn3NprieiAH3djakf7R3nxkQN5dq50
+	 o9tbotjcD3hAa36zsyYtLTPxxgPAccxzeCK47KeW0qrV0JlC1sjp6PlKY39CuVZrLyAJ9
+	 kvsdUp8Fn1oD4O427AbB9fQ4afsNsR7YH3zgtpHMFVk1aOXqglS6njciZeT8tIvWU89LF
+	 IHPh4Ar4qJjnLkaWk+AzrHI6crgDt5aCU5zmk/6lhEdu3ekPAmbpOnKvCFum8PoC5xg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TAS69EtV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--wfelipe.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OfBSudXa;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7963A606A31C;
-	Tue, 17 Nov 2026 00:07:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2856F606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 00:08:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2856F606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wfelipe.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TAS69EtV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BCE31F000C4;
-	Tue, 17 Nov 2026 00:07:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794874078;
-	bh=4vXmR0iRJiG7E8im3JcTb6JVxOpKMALSsdkAo4Dw988=;
-	h=From:Date:Subject:To:Cc;
-	b=TAS69EtVs8dGL3xFkUKstXKQ8GO6Nn1jUEijop60uPzkKojv/HFOfi6kgTP6lBQW3
-	 Z2LPsEckLUGoRPGjYopWZl9r6HdEHqacD6ehu+YUQlBa38vC66Xhn6IZgk/to0Njni
-	 4qJtSvJY1pBXfwus1/cqMlDQ/Do5oN2+u5blNMs9Xe483/Ekb4hzS+GaquddC3AImu
-	 IvQyRIJeX8+a4QtzQvI1w0Ii7aP7x+eAAgAs62OXqUqjGxVeL/0a2TToSNeZAq8nZF
-	 picF4qXId4oDk3nGrWp93iaEWYCDT9xsL88kLj/s7aZ66RP8hKEsL4LCvnvQX9zm4C
-	 M19OHRMTzwdGw==
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 17 Nov 2026 01:07:53 +0100
-Subject: [PATCH v2] alpha: Use symbol assignment in SYM_END
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OfBSudXa
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4dc57e2a3f2so5197841b6e.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:08:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794874120; x=1795478920; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=83Vz1ahixu5Z9IjP6rpbf1tvQV6iBDeIZHTmQxEZ/5Y=;
+        b=OfBSudXaVpo7BHAU3Rq/WU7dcl8lWnpg35292KaDw7ILg9qLlHUxa2729iWP1Pdqhp
+         5Xhsv0CWHbSWDILr4IEzxzSfTQ/q1QqggpvRuyGvorgl/omCpG/JovvjAQ+pe6x1OsMQ
+         UCjrGC7J73KUmQm/ukTipMNynv1fnsUJxO+ZGSJTFgZ2FlQ4YsxFN8LX64Bp1gnxtrDx
+         IX4XWnxQNwasxtSXO9DHbjj78E91/+PGvXGoyozzCVrnKOj8oTx4QVgFaFlvn4jmojdG
+         /dyoiDj5HN/6r1T2M6J11WhPgceQ4eAj6qCikvwrmqeAU5GZ2QTqPSshlaLhep+Hqw5e
+         RkzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794874120; x=1795478920;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=83Vz1ahixu5Z9IjP6rpbf1tvQV6iBDeIZHTmQxEZ/5Y=;
+        b=E/U+E9q7cywi9bGKuqmpl8+Llcbe8Lqh9PPZMPPsuHbGd+rsc+UJsRPkX+pvDb4AaC
+         jHyOUCxXWNHJXHRfBzgth/HQA0URnBdAAo7elPyNUIdZipQfb7YK8n08iCiZOTuvikwf
+         B1VeI412A2ApqXa1HYw5EmiFPQzkcY9jpA3ayWGrhYcy+sZMwHQKtOHs7MuPrDYnSarH
+         lIEvkqGqFgP5K6nE4lu86bYFqKQsVYh6F7BdC/mmtGkHwU3wDA2IfLCtJburqanaomUj
+         SJFRi2tAGLvX45xz0c42IIgCWWrZToGh1QLMdsFX5dGSQDfolYLbp7oLZRtRyMSnFope
+         k2iA==
+X-Forwarded-Encrypted: i=1; AL+hErFgKXhCtXyoyxdF7Ei8EG1I15KLFNpl5Fj49pnDUCBIBfToSnaUnvpVLmsxfxAX0hsCRJ/XRDoWgngoGiY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+eYt9Z9M+jJ9f+dDX5V6LmlfphBE0AWGmwXlcw3wxoCtAny1sE
+	Dhf/J93skwlObb5wxq+rYVNtcc2BWqpy7PJryKebbyrVzm7kOJRrnMV++keqsaoTCs3FM5pAJKt
+	KHEVrm9cTGA==
+X-Received: from ilbeu22-n2.prod.google.com ([2002:a05:6e02:2f16:20b0:516:ba98:55b6])
+ (user=wfelipe job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6808:4f25:b0:573:fc:19af
+ with SMTP id 5614622812f47-57300fc1cc2mr6842310b6e.14.1794874119661; Mon, 16
+ Nov 2026 16:08:39 -0800 (PST)
+Date: Tue, 17 Nov 2026 00:08:30 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,76 +75,47 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-alpha-compile-v2-1-846bb099b319@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/3XMsQ6DIBAA0F8hN0vjYbTVyf9oHAgccqkVAg1pY
- /j3pu5d3/AOyJSYMkzigESFM4cdJqEaAcbrfSXJFiYBqlUDYttJvUWvpQnPyBtJctZSf7si9gY
- aATGR4/f53ZdGgOf8Culz9gV/+m8qKFGONHak1NDq0c0PSjttl5BWWGqtXzcHn5KrAAAA
-X-Change-ID: 20261103-alpha-compile-efdde587115c
-To: Richard Henderson <richard.henderson@linaro.org>, 
- Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>
-Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
- kernel test robot <lkp@intel.com>, Linus Walleij <linusw@kernel.org>
-X-Mailer: b4 0.16.0
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
+Message-ID: <20261117000835.1992893-1-wfelipe@google.com>
+Subject: [PATCH 0/2] objtool/klp: Fix sympos for global/local symbol collisions
+From: Wilson Felipe Pereira <wfelipe@google.com>
+To: Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Miroslav Benes <mbenes@suse.cz>, Petr Mladek <pmladek@suse.com>, 
+	Joe Lawrence <joe.lawrence@redhat.com>, Song Liu <song@kernel.org>
+Cc: live-patching@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Dylan Hatch <dylanbhatch@google.com>, Yi Zhu <chuyee@google.com>, 
+	Wilson Felipe Pereira <wfelipe@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Alpha uses the .set directive to select assembler options, so the
-symbol assignment emitted by the generic SYM_END macro fails to assemble.
-This breaks COMPILE_TEST builds left and right, e.g.:
+When a defined STB_GLOBAL symbol in one translation unit shares its name
+with a static (STB_LOCAL) symbol in another translation unit (for
+example, cgroup_storage_lookup in kernel/bpf/local_storage.c vs
+kernel/bpf/bpf_cgrp_storage.c), runtime kallsyms lookup counts both
+symbols together. Emitting sympos 0 for the global symbol causes module
+load to fail in klp_find_object_symbol() with "unresolvable ambiguity
+for symbol".
 
-  Error: junk at end of line, first unrecognized character is `,'
-  Error: .size expression for bcm6846_runner_start does not evaluate to a constant
+Patch 1 disambiguates defined non-local symbols across .klp.symid
+generation, klp_find_sympos(), and clone_reloc_klp() (while preserving
+sympos 0 when unique). Patch 2 adds tests covering both module (.symtab
+order) and vmlinux (.klp.symid address order) paths, including
+EXPORT_SYMBOL_FOR_MODULES() exports.
 
-Override SYM_END to use an ordinary symbol assignment for the calculated
-size. Preserve the symbol type, size and local size symbol while leaving
-other architectures unchanged.
+Wilson Felipe Pereira (2):
+  objtool/klp: Disambiguate global symbols colliding with local symbols
+  objtool/klp: Add test for global/local symbol name collisions
 
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202611031620.n4ptlpo7-lkp@intel.com/
-Signed-off-by: Linus Walleij <linusw@kernel.org>
----
-The generic SYM_END uses .set for symbol assignment, but Alpha interprets
-.set as an assembler mode directive. Provide an Alpha override using
-ordinary assignment.
+ tools/objtool/klp-diff.c                      | 11 +++
+ tools/objtool/klp-symid.c                     |  2 +-
+ tools/objtool/klp-sympos.c                    |  9 +-
+ .../tests/generic/fixtures/sympos_vmlinux.c   |  6 ++
+ .../tests/generic/test-sympos-global-dup.sh   | 99 +++++++++++++++++++
+ 5 files changed, 123 insertions(+), 4 deletions(-)
+ create mode 100755 tools/objtool/tests/generic/test-sympos-global-dup.sh
 
-Tested the unchanged Runner wrapper with an Alpha-targeted GNU assembler
-2.46.1: the original header reproduces the reported errors, while the
-fixed header assembles without warnings. Symbol sizes and the embedded
-Runner bytes were checked. A full Alpha allyesconfig build was not run.
 
-This patch was prepared with LLM assistance.
----
-Changes in v2:
-- Use __ASSEMBLER__ instead of __ASSEMBLY__, as requested by Thomas Huth.
-- Link to v1: https://patch.msgid.link/20261103-alpha-compile-v1-1-9e93e2260a9f@kernel.org
----
- arch/alpha/include/asm/linkage.h | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/arch/alpha/include/asm/linkage.h b/arch/alpha/include/asm/linkage.h
-index aa8661fa60dc..275de8ac693b 100644
---- a/arch/alpha/include/asm/linkage.h
-+++ b/arch/alpha/include/asm/linkage.h
-@@ -6,4 +6,12 @@
- #define SYSCALL_ALIAS(alias, name)					\
- 	asm ( #alias " = " #name "\n\t.globl " #alias)
- 
-+#ifdef __ASSEMBLER__
-+/* Alpha uses .set for assembler options, not symbol assignments. */
-+#define SYM_END(name, sym_type)				\
-+	.type name sym_type ASM_NL			\
-+	.L__sym_size_##name = . - name ASM_NL		\
-+	.size name, .L__sym_size_##name
-+#endif
-+
- #endif
-
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261103-alpha-compile-efdde587115c
-
-Best regards,
---  
-Linus Walleij <linusw@kernel.org>
+base-commit: 141b164bbe186423e295b139e40e8e2d11cf1341
+-- 
+2.56.1.703.gf848ed807c-goog
 
