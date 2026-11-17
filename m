@@ -1,95 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.26
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794898472;
-	b=u9F5YP5HlDwuTiQ2Jt8UFWWa5kHf2KF4QvIsGJkT2abGDJQs9RiEAK+57jTAfp6/2UCm
-	 wjq4omA9m2toCJFsAnUqEaxbrv1MwXl7C6DndkyPkcEnIIGw+svf3Vq4qojfFyNuLmfQY
-	 ToL4G8Eyq/CWYYJPxwHFaEIFYZpg5pB0DaLNi3jwZHgs30241MlAo1RMuS9q7/WReoZ6k
-	 RJbtJASKU78FmZ1C5G6wWHn0QRuPa++OjFBkUPZN4ozMDQuEr57R9fJpvqVI7Ddm2Ddzd
-	 zhgwWceaEQyr84TQDORVGOfEY+ewpuGuEfA5g7MXHpJuxRxHkntgbPCFvbX8slnxsAg==
+	t=1794898546;
+	b=wsskBaSKrAD5hb0eWiJ2RkLZPaxmoWF/UN7oHYv8g+VtYhn8ykrpr3h6tV+xRWejn9LG
+	 1l5ZYS3sdfCZRoHR7k8rIeL7j/tN2m9kehpiIicsQEVzRstcYg8ArBTtfY3sSOMLfVrVZ
+	 dKsQPpxrH4e+47Tgm4BCyReuwMr98dWQHtRsXUyeZt3qXaqs6L/wIu0591xBHW++fKv3U
+	 alEp8PDVmgmG37lrsvxmjhVXOv2Win0lmFj71rJbAqYAdgKtzUNdbIVKTO9ZG9b2nzlps
+	 eOe6DEF1QwDD4Ol+A/ADrXPcTH0w12JKrtW7X2G3cdfptxGj7RxKHAqy0kxGP7HSmug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794898472;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=KRxl9/6qde53Vk7mriBy0p9OdUsOse+58tmRT8HCG6E=;
-	b=4fyKFibOriZMVY7t/3BO8H94wRK8Zn+aP4XFRp752jqCLYDDkHcp5Bs2R3NE3ft+GmnY
-	 B8zA136nyiUvJk9z2VuG1Dx3Z5QX3dOx2aP+uFIAda5vG1LEukCOWQNwYHxhXi8I73E+/
-	 2URkwO/HmkYS7ouNnYiMCgJpGHNUC7leWil33Sm0F7Z4Jip70QgPqzfrWyP9yAdPQcwPD
-	 nlrZUSmBOqrb840Jo+iKJY5T9eCBRISjZQPuu++zpHox4T7wEVRmYsaRya7/0D40hHkd/
-	 e4nKI+vLnP+fQb0uiBewKRQowKkUeZ+ffTuma3SCvPQfV4I2Pb3/JJRblDPVg7h29qA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794898546;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=2oPYcBnyfKFBVmYGFPt3g8Jq1FN6zDjS6/VkvCawi+A=;
+	b=BJtUZ4aK7tHCBH8hiq2dPhv+UyNzEgqJn+8VeokDyrXiGyhkUuwT2Kyz36NrPEMwmGvf
+	 13csZjaJSXTgYfkc8qVQWzPKDodIc9OU4NUvZOx6bIeOBp3AgGw8ecXwo+9npbO+UeNIv
+	 OHYFR46ScAoscdHdvF69GdTjKNvN0UY/dG2nw74btMzKwZMjESGcOcYf7PrDe+BUwu+ab
+	 dWyWBTkdZ6ZBXLYxcp9hcDI0vQ8GKLOYDkaFrpV7ZtjgRgD4HxjhHA9NiYTPNfzoXU2Bo
+	 6fghCcu96jNzDfccPfE1PuTm8EX1dQIr4DnNVO5PLcBXqHJ/Bl6UMlsYo53LVtjBtWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P2B1NFj7;
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lXgRurMK;
+	arc=none smtp.remote-ip=95.215.58.26
+Received: from mta1.migadu.com (out-26.mta1.migadu.com [95.215.58.26])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C9BF606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:54:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C9BF606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12BD5606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:55:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12BD5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P2B1NFj7
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-491846221ffso3882744f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:54:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794898471; x=1795503271; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KRxl9/6qde53Vk7mriBy0p9OdUsOse+58tmRT8HCG6E=;
-        b=P2B1NFj7KNHU19gS1NmV6YI4nISKC1xWASjZy8+/Tvs00DBVTznQCZ+4AKBy70wrwM
-         4O890lLR0brRlPIDPGkAIX1ff4G7KiJ/SL1aShPo2WNIgZbYesMR6S4oX9kT3tqwXQ1+
-         eG3g4BqxCOA5xqT+T9/+N5B4EvGiicjmILIn1+LXYhb4MO3qqOTTPXmNJg//7k5jFi5o
-         O5G/EZBCCDEO2sZRRNd+mqiBJVqPFGgsncsxWVYJvgBKjBQWJ3aeHHH305+d+X0EYZzg
-         ynluDjBT/PQVezE91CZ1PTI0K0ZINApE+QJUwV7cVBvbW799lM0ua9mNxmAYvNJqhDLl
-         Lx2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794898471; x=1795503271;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KRxl9/6qde53Vk7mriBy0p9OdUsOse+58tmRT8HCG6E=;
-        b=XxnWw4Kmq300IXzyUC/vzOWkCsySJsjRVcXKyVKPpq3mHQlTUyzXMySgKOB3+3RfNN
-         7r+CSQYLDlToFJEwomni/SpmDtcynJyxaCYmFJZ8oxd1SscFbZYvq2iOJSJyxtAElp9m
-         wOOvkxPvYfZDu05vFOpnR5zQe7ac7hK7mc6Uo42xh3lOPvbnZqKRmzgVIeAJwWm5Zbuu
-         TJi2ZPF0efBL7BTFcVgDm0Ischt/atwKxuSd1/uuIRpNkNZe9ajCPtHCwMuf2IanqyCC
-         gzb047c1u1UEV/GT1jpR5nLR/bOffGXmKjRzPs+5YfQnAHA4hJvy5Op38XV1BJoF+7zK
-         nlyg==
-X-Forwarded-Encrypted: i=1; AL+hErHJTm/nrKbQNJnP5ksY1Sjd68BSpCpBugBNUGuRSNPN5F4MRsitQE4OLrm2nTzb9BJf5D0YpbpfAB8pzrg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8egrxWne556F1gxSOLM/MNP34MJk3KYYq6Wjo6zb5HHMc9TqUb
-	m4QuCM6hbvWf2G3yTVbJqWppv58egzfQWCG2JVb/lQ9dWXkkLBPuC3Pk
-X-Gm-Gg: AZFdTZcXWZsoP9YtrbV5Sl3Er32ZI7FGG/9FnXRCqSmuOjMX3NN4nUEae4oaNfb3sZC
-	RhRBiN0kLHvwCTqluAVbOtOoShs++Dvhgwwe9N7ANoxUZkdXe9zPozNzpKHMGsMtoEf4jXa2fMs
-	nk83+co7WN/4L6KG41b9dIQjSq/eMvNcV0wBqeBI5KqONp3jqXoDLVYl+Tr/yfw5MqKZlC6ZX2A
-	07hHh4D3KI+Bb0tSP1P6MMLWsZtyhWjLNzz54qfQPqkKJ3o+4znjrkDH5Y3nB4LFvqQIHzJApua
-	CpoEb/ZYOTKUzvLfzQg+HiVb/ZvOcy/4nprbvtD+WPVDB7q0Ts4pdv6hZMstIqNehtcQwiPBJfi
-	HDvwkTqGjH+RWrQvvJkJduNcpAktQdkuzQBX5FapIq1BGSvoFd5q9s+sZaGT50vXfBRxS6Bk2o9
-	bdhaPOmyk4FEBiV1OoB2+XMopKafahD4mk8YtL0Ekh4PneEPGy3qeVWFa58xe7zj30y5yufKdus
-	FDlPSa0seQncC0cWXvshtFy4S+BfLqVNkApRKCLI3O9Jb2k9p61fMPSTW8JxXGR2O76UWVfzcfa
-	BHAXhpUAaUzqzAWdH3POBZ9wmRhsgjx20KXp5Jc795TuhxYEnl+ViNI/FvJqhNzcDUhMlebmpOT
-	Tk13ddG/L1h0jHADVIU+th+elk9U6FlUSO0g=
-X-Received: by 2002:a5d:5e88:0:b0:48e:679a:4aeb with SMTP id ffacd0b85a97d-49c6d63fbe1mr26407389f8f.3.1794898470695;
-        Mon, 16 Nov 2026 22:54:30 -0800 (PST)
-Received: from localhost ([46.36.23.99])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c60d9fff8sm27710685f8f.52.2026.11.16.22.54.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 22:54:30 -0800 (PST)
-Date: Tue, 17 Nov 2026 11:54:28 +0500
-From: Mark Korenberg <socketpair@gmail.com>
-To: Johannes Thumshirn <johannes.thumshirn@wdc.com>
-Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>,
- Naohiro Aota <naohiro.aota@wdc.com>, linux-btrfs@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] btrfs: zoned: reset leaked zones on read-write mount
-In-Reply-To: <20261102-b4-btrfs-zoned-reset-leaked-zones-v3-1-7979bda654ff@gmail.com>
-References: <20261102-b4-btrfs-zoned-reset-leaked-zones-v3-1-7979bda654ff@gmail.com>
-Message-ID: <81f8a131f512f715c71947046ddc87a9@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lXgRurMK
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=SU0b3f1zTiBLHbxV73c/5LDRiiQt2cN7KkcKdsVywD0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794898543; v=1; x=1795503343;
+ b=lXgRurMK73j3nPHPEDrTPBOxyd8BD2/bhOZcU3E6iNtYJ8OIS3qBwRq8/vLYoj/f1d17VABg
+ I6O9Um6r8E5j877oq1AFPW558zMJO9Bwyi2jF2lcE1g/H7Oy8y0hmLjPYr1Ew/dHp7SqifEUfes
+ pqkfq9BAQZ+vFtjsHFT4EQXs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6d3558f114912485;
+	Tue, 17 Nov 2026 06:55:42 +0000
+X-Mizu-Trace-ID: 6d3558f114912485
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <c3906ff3-c5ee-4672-8bab-2318185268c8@linux.dev>
+Date: Tue, 17 Nov 2026 14:55:36 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,22 +58,184 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/3] mm: hugetlb: fix CMA-related issues
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, muchun.song@linux.dev,
+ akpm@linux-foundation.org, osalvador@suse.de, azpijr@gmail.com,
+ lance.yang@linux.dev, Qi Zheng <zhengqi.arch@bytedance.com>
+References: <cover.1794046188.git.zhengqi.arch@bytedance.com>
+ <b1c1c835-180a-49e2-86c0-bc3f65981728@kernel.org>
+ <7e733c3b-2aa2-406e-a5ca-cd9a2c872f9f@bytedance.com>
+ <bc6ffcff-3aaa-43da-91b4-82f27513c761@linux.dev>
+ <1e0aa28d-f81b-411f-92a3-6038c3961443@kernel.org>
+From: Qi Zheng <qi.zheng@linux.dev>
+In-Reply-To: <1e0aa28d-f81b-411f-92a3-6038c3961443@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, 02 Nov 2026 20:35:04 +0500, Mark Korenberg wrote:
-> If a transaction commit is aborted after the zones of a new block group
-> were written but before the superblock was, the chunk item and the dev
-> extent are never persisted and the zones leak.
+Hi David,
 
-Hi Johannes,
+On 11/16/26 8:07 PM, David Hildenbrand (Arm) wrote:
+> 
+> Hi,
+> 
+> sorry somehow I missed your mail.
+> 
+> 
+>>>
+>>>>
+>>>> Likely cma_reserve_early() must be taught to align (and maybe consume an order
+>>>> instead of a size), similar to how the dynamic cma allocations work.
+>>>
+>>> However, simply adding alignment would leave gaps that the
+>>> current activation code cannot distinguish from actual reservations.
+>>>
+>>> The early allocation path would become:
+>>>
+>>> hugetlb_cma_alloc_bootmem()
+>>>      -> cma_reserve_early()
+>>>           pfn = ALIGN(cmr->early_pfn, nr_pages);
+>>>           cmr->early_pfn = pfn + nr_pages;
+>>>           cma->available_count -= nr_pages;
+>>>
+>>> For a CMA range starting at 4 GiB, reserving 32 MiB followed by 1 GiB
+>>> would produce:
+>>>
+>>> 4 GiB       4 GiB + 32 MiB             5 GiB             6 GiB
+>>> | 32 MiB used |------ 992 MiB gap ------| 1 GiB used       |
+>>>                                                            ^
+>>>                                                        early_pfn
+>>>
+>>> Later, cma_activate_area() marks the entire prefix below early_pfn as
+>>> allocated, including the gap:
+>>>
+>>> count = early_pfn[r] - cmr->base_pfn;
+>>> bitmap_count = cma_bitmap_pages_to_bits(cma, count);
+>>> bitmap_set(cmr->bitmap, 0, bitmap_count);
+>>>
+>>> It only initializes and frees pageblocks after that cursor:
+>>>
+>>> for (pfn = early_pfn[r]; pfn < cmr->base_pfn + cmr->count;
+>>>         pfn += pageblock_nr_pages)
+>>> 	init_cma_reserved_pageblock(pfn_to_page(pfn));
+>>>
+>>> The gap therefore remains reserved and marked allocated. Releasing the
+>>> two HugeTLB folios only clears their own ranges through
+>>> cma_release_frozen(); neither release covers the gap. Those 992 MiB
+>>> would be permanently lost from usable CMA capacity.
+>>>
+>>> So we would also need to track the gaps, clear their bitmap bits during
+>>> activation, and initialize them as free CMA pageblocks.
+> 
+> Ugh, what a hacky mess people created.
+> 
+>>>
+>>>>
+>>>
+>>> Another possibility would be to give 32 MiB pages their own pool,
+>>> similar to the separate PMD-sized pool proposed in the other series. On
+>>> arm64 with 4 KiB base pages, 2 MiB, 32 MiB and 1 GiB allocations would
+>>> then use separate pools.
+> 
+> That would be cleanest. Would it break existing setups?
 
-a gentle ping on this one. It is the patch you handed over to me in the
-RFC thread, could you have a look when you have time?
+Yes, this requires an existing user to explicitly configure a 32M memory
+pool.
 
-It still applies cleanly on top of today's for-next (146946479b45) and
-builds there, no changes since v3. I can resend it rebased if that is
-more convenient.
+But in practice there shouldn't be such a user today, otherwise the
+misalignment issue would have surfaced long ago, wouldn't it?
+
+> 
+> 
+> Another quick-fix idea could be to always allocate larger folios first.
+> 
+> That way we should avoid any holes, right>
+
+Ah, this looks feasible. How about the following?
+
+(If that looks good, this could go as a stable-first fix.)
+
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 6fba92b0f6749..32e65ce347c90 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -4556,6 +4556,22 @@ void __init hugetlb_bootmem_set_nodes(void)
+  		node_set(nid, hugetlb_bootmem_nodes);
+  }
+
++/* Return the largest early-CMA hstate below the given order. */
++static struct hstate * __init
++hugetlb_next_early_cma_hstate(unsigned int order)
++{
++	struct hstate *h, *next = NULL;
++
++	for_each_hstate(h) {
++		if (!hugetlb_early_cma(h) || huge_page_order(h) >= order)
++			continue;
++		if (!next || huge_page_order(h) > huge_page_order(next))
++			next = h;
++	}
++
++	return next;
++}
++
+  void __init hugetlb_bootmem_alloc(void)
+  {
+  	struct hstate *h;
+@@ -4571,9 +4587,19 @@ void __init hugetlb_bootmem_alloc(void)
+  	for_each_hstate(h) {
+  		h->next_nid_to_alloc = first_online_node;
+
+-		if (hstate_is_gigantic(h))
++		if (hstate_is_gigantic(h) && !hugetlb_early_cma(h))
+  			hugetlb_hstate_alloc_pages(h);
+  	}
++
++	/*
++	 * CMA ranges are aligned to the largest supported size. Allocate larger
++	 * sizes first to keep the early reservation cursor aligned without gaps.
++	 */
++	h = hugetlb_next_early_cma_hstate(UINT_MAX);
++	while (h) {
++		hugetlb_hstate_alloc_pages(h);
++		h = hugetlb_next_early_cma_hstate(huge_page_order(h));
++	}
+  }
+
+  /*
+
+> 
+>>>
+>>> This could work during early boot too: hugetlb_cma_reserve() establishes
+>>> the CMA areas and their ranges before hugetlb_bootmem_alloc() runs.
+>>> Although the bitmaps are allocated later, each range already has its
+>>> own early_pfn. With naturally aligned ranges and one allocation size
+>>> per pool, the cursors would stay aligned without creating gaps.
+>>>
+>>> What do you think?
+>>
+>> Hi David, gentle ping
+>>
+>> I’d like to update to v5 so that I can continue advancing the support
+> 
+> Feel free to fix this issue here independently from the current series.
+
+OK. I'll go ahead and post the v5.
+
+> 
+>> for 2M hugetlb CMA. Regarding this issue, would you like me to include a
+>> fix in v5? If you agree with the "split pool" approach, we can handle it
+>> as part of the patch set for 2M hugetlb CMA support.
+> 
+> 
+> I think we want a stable-first fix for that.
+
+Got it.
 
 Thanks,
-Mark
+Qi
+
+> 
+> 
+
