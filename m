@@ -1,42 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794914001;
-	b=O80kyqG1bWNJlbklWNsjYbawKRy0IZZO4rFsL3IVgIHMkTGgpayg/zSKlbHXs7xXGRRD
-	 DKbLGSNHSx5lBqfQjzATq3Kk3ozHBf82D2HysTvr+uFcfCshAtMOJuEDukaGIGzCNtse3
-	 5DA8LGHQDlbpt3xWmP7+5Y0rHQuEh/B81JcXDOtexMBr5jP9ZeHtg1RFHy2jz/wjOWtaq
-	 MHS8xgI7F2B6wmjLUhb8O0V/7/+kA9XSk7uiM/4E+K1vtARxfPqu69i9YMUnacQFKrbXf
-	 /6PU5uJo252m1j2YdkDISghsNAIwWOnzyHOdxeDk9qIYknrA4ZB2htgtIIRzb0DS5ZA==
+	t=1794914005;
+	b=KQaicEG9dxFU/4S9Re6cuf6cQsAM77C8wRNz2Cd2xin65Q0HbT5wj+iY+6OeVdEA+2T1
+	 aSo1a/A96GLawhdtcoqQMh1ri8NU35lcKyUym2R5CHOeRN6vHUpjOHSbBAUdKTezNqaPO
+	 W+c3WDEry5eQRIJij0/taw7PMeQHiRyo3PaGwj/wpMzD+Js8JZxj2hgUViNpb4zRV7C/S
+	 7fLaFpSReoqEOc7j0wpjWayKAKpjq37WgXqvANZf9CjaiSRwOGEaLGqonzlJ2iHH4KT9z
+	 a0glGeAjgwn566drXfQuwfR+V9ISJY1mMGzGkdGwOWntdchvXByyqcPmIUIGEJh1Dvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794914001;
-	h=Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=QTEZW2nWC55UuE9DW+9e1IUg9ORKcAYM0UMArIkFnKs=;
-	b=gbYXwv57vg/0lKUFMxodIL1lNFXEQbiwYSdeRCgTAxiQAYNRuepSUC8+/TuNF4iiJcmj
-	 GYstX9k3JYmZlpMkYSic2h14SITJuXpXkcbu85Y/9wQkrP/7pZ4KRpsLOruU7BuQYZllc
-	 uX9c/97woP05RwsaTa6LZeEUagnrImFzi2VeX8GRVlPjdYx6gkhImrrlNJMAKqQTUQTeG
-	 4/412fAWAZ3fWGW/z2vcTs3f3idejNUJtZF4ad5YDUHC9GNrz5QcYXhAEStn314WBRtWj
-	 0qvWOTfM566ne3womzO/2L9o1E9ief4qV4aRm0oXcL5k7LrG6BwlfjLhVOZ2XQ3gUZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794914005;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:In-Reply-To:
+	 References:Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer;
+	bh=s7AVPmufHz96+sRIu+b8P8lL6WMxsrhav/dLCJI1TTM=;
+	b=WhL+3T1NDfQqODujXroCMPD8XBggSUP5tT3BF2PLwC1aYQtGr1Wd/zfMVAS5EsKF3HWB
+	 cvA9xLtukFogzDyi7YSACljxLfR0OaGebbDU39aB+VC4OJ9QA7kblMNpSzRhY2464gHvZ
+	 oJtahH9FOE+1vy6+97czshCR+sBadO+QMeJDAZdK/uKiWKUzgJ4fDOfaASg5+Sxb3fTME
+	 cjm/Jh0nlVYoQPHAM0/OV047W6GrqFYjnnYULXE3VUO0898Q9KEx0LuFXAHfuKpChZQSN
+	 EXh76v15vPjbBR1Mvh6QKsE7ZoXs81BOPU2yDBs0/D/x/XbMcCdJNrPpFYuFFWBghWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=HOdXKRQR;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE751606A31C;
-	Tue, 17 Nov 2026 11:13:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14B301F000C4;
-	Tue, 17 Nov 2026 11:13:19 +0000 (UTC)
-From: Geert Uytterhoeven <geert+renesas@glider.be>
-To: Arnd Bergmann <arnd@arndb.de>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Biju Das <biju.das.jz@bp.renesas.com>
-Cc: linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Geert Uytterhoeven <geert+renesas@glider.be>
-Subject: [PATCH] reset: rzg2l-usbphy-ctrl: Permit disabling POWER_SEQUENCING again
-Date: Tue, 17 Nov 2026 12:13:14 +0100
-Message-ID: <0b1c87b3173a789f6227f13658e4befdac8e47e0.1794913893.git.geert+renesas@glider.be>
-X-Mailer: git-send-email 2.43.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32F07606A31C;
+	Tue, 17 Nov 2026 11:13:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32F07606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=HOdXKRQR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794914003;
+	bh=/W4zx8LndX+Y2boNw4PDCj2CCOdKiJ6ihYmq0R+CnYk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=HOdXKRQRGz3e2Bp/j10K/jECI6tKqoNCEap8PFSYNR9s4DowtlClVF0F4uddFo0Ld
+	 koDNjvGVa0sRI7ygVw3zhcEczIkNAe5Sj+cfN12CRnuBrEF5Ixm9+HG3x/J0WuPmKX
+	 dpqVoyWl6ekwG61xkP/1o0DNLlsElyxRcymVFjx7bcSPLwsm41kvOelNN7AcdgxggE
+	 vEC5qpdEbYLvwyBqlDKzy4ZiczpJszspA3xKlhtRpQg8O5KofLa19FxwdCI69bvjt+
+	 06B7itnxcQkzUhDDCeT55QF25Jy5OhT7khc1Ua0tGecJI7IA//AO7+ZuMfIEEtxqBg
+	 AbxdlB4S9k+wg==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id EE29117E0060;
+	Tue, 17 Nov 2026 12:13:22 +0100 (CET)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: linux-mediatek@lists.infradead.org, 
+ Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ Fabien Parent <fparent@baylibre.com>, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20260909072051.4627-1-l.scorcia@gmail.com>
+References: <20260909072051.4627-1-l.scorcia@gmail.com>
+Subject: Re: [PATCH RESEND] arm64: dts: mediatek: mt8516: remove cpu3
+ armpll clock-name
+Message-Id: <179491400290.166415.7117847128055406868.b4-ty@b4>
+Date: Tue, 17 Nov 2026 12:13:22 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -46,32 +73,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-The power sequencing part is optional, and only needed on RZ/G3L
-(SYSC_R9A08G046 selects POWER_SEQUENCING).  Users of other members in
-the RZ/G2L family may want to enable this driver built-in, while keeping
-POWER_SEQUENCING disabled.
+On Wed, 09 Sep 2026 09:20:14 +0200, Luca Leonardo Scorcia wrote:
+> The armpll clock in cpu3 clock-names property comes from MediaTek sources,
+> but it's unused in the kernel and not populated in the clocks property.
+> Let's remove it and align the node with other cpu nodes of the same SoC.
 
-Fixes: eac3b292a26e2210 ("reset: rzg2l-usbphy-ctrl: add power sequencing dependency")
-Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
----
- drivers/reset/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Applied to v7.4-next/dts64, thanks!
 
-diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
-index 60fa039cdbb7f92b..673bca1e594e041f 100644
---- a/drivers/reset/Kconfig
-+++ b/drivers/reset/Kconfig
-@@ -280,7 +280,7 @@ config RESET_RASPBERRYPI
- config RESET_RZG2L_USBPHY_CTRL
- 	tristate "Renesas RZ/G2L USBPHY control driver"
- 	depends on ARCH_RZG2L || COMPILE_TEST
--	depends on POWER_SEQUENCING
-+	depends on POWER_SEQUENCING || !POWER_SEQUENCING
- 	select MFD_SYSCON
- 	help
- 	  Support for USBPHY Control found on RZ/G2L family. It mainly
--- 
-2.43.0
+[1/1] arm64: dts: mediatek: mt8516: remove cpu3 armpll clock-name
+      commit: 0ed020eaeea1bf0854005eb9b72126ca340b8e4b
+
+Cheers,
+Angelo
+
 
