@@ -1,54 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794878799;
-	b=kXDB4w9ticgZ1bfmtJnv2GzO87rlE77Lq6WU0Nvv2pndsu97W/MuuKB2wtPylT+F1hAv
-	 Xhj1tKNN12zeYCqd22r2AO28OvEZSW10uFcAVQiJOjEbSZzVg1wVZiJPJQOegZkhqkNGH
-	 8RBhDPu5ZBl5Uns5jJWDG2B3iZNLMW6XFyJi59+WgJJrPo5FjJU6RbCojjeaJMuMnwS7r
-	 XUSvxgZiVVFQBtV7CEDsIboH8GJnL5ZR283oYqCgp+3TXRtgfXMgY5DqYl5SO7KdIQJ7m
-	 t7Xn5qD0Pi8pz7oDzJ4k95NDhC5rrRIYEIh1FwKYDZNLhgfk7svhrKAeyZ6Kv+0AlbQ==
+	t=1794878845;
+	b=wUvLETVk+p816cdIAS62YoiTsgQrGC9mJBnYIphY3mQvix8zks6KwZTcu7eE8kHZIQQo
+	 KRKHtDzF8jYTAj5mQ/7zeulhpQObpZcKaOaevwneYPFCdwoG/NFiyP8GQ9t3MpLZhrfC2
+	 0M6yL3m8xtgR3U0ugNf1+XRD1/4OcsFHO8wi14jLsDQyYyvnRb4HGX1rl+AgcL1jqnmG6
+	 96Ih2ciA792ASyKl9pTCTbP2d2ym8yuTXJmkuA1z1DxI8yE3KBkV3ukuahxOcjp8blpmF
+	 8YYQ+acT7YUdHjDNDwvMgdK1f65pDYf+gYMgViEv3rnBEeMMcO5ilk67qzX/9AWvdOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794878799;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=epcchHzIS3VqSI98VVvI5q5YGH3heghlEsMhhskGTmw=;
-	b=h9fhfOCRJlYHP9J5xUJ0726qp3xXlM6Eanpj18wXkm3dKE2wKVUIiiqMifzhbLzAWpaA
-	 VVTZq95ZKp8y0aiQx9iBBKs0I7xUk3HgyLn1hVbdTsLOV5eHUJ+BxQp89mrlAbPCBisnI
-	 45UryFoF8GSHMYZciJFjbxQ2ndrFIswjHE/7MCesHbLyrRa0az0oRTK7+lv+vSxR34Ga0
-	 B6Mo1VBkzW5RAFkx/IryIVkvZIIw75nmzH2h/1+LfYs8HQMDuug1q1FabKtF9eGc4IiIu
-	 Uliywx6xfBSvHhpeeIhOi04qXzYf4SRtbFepRFhvAzFLeUZ/Y/HA0Cn+aWJTS2nMctA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794878845;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=Nx8k3CosD3afLDEMEHpVofmAOoOTqUyUTfQqddef4Z8=;
+	b=Een8OjT/CVxOEWkj8lXDlO6MakKayStudWbgb9FNEZ9lB8tt9iMuCeUQsoq9h2224qZb
+	 KMw5IaMR36wdy7ZKb6F7m0aBZwak4RU6epDJLpre7QDJLs6pKPTMhdQ34BvHQur656Ey1
+	 o3zkPmDcjjFQdpMkCTePLL4+TaBRBxEpzVsng4xogi1JkHnEGQavdv3MoQ/OlDV1FZXHL
+	 ZwUVmzO6R26CKMutCm9iqbHfZ7pGmybimlnJCaGmhdEqWmHtf7RNS8J8dMmqp3YaIGiaR
+	 9qWB6+c2aDUoZPwesixePFISCdbWVO/m19af2Zz/asL6K4QyFAjtBJZXgsXK+AaAmLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.161.71
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03CEB606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:26:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03CEB606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-704a881f959so1627791eaf.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:26:38 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794878798; x=1795483598;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=epcchHzIS3VqSI98VVvI5q5YGH3heghlEsMhhskGTmw=;
-        b=bGmQNlLFFzoVuIW86ef/MXg5EFuSGhzEESlJSAWooCLohBsULpuPSOmz213ATcj14+
-         urTNYiCuEVsrUl9D5n+UBhlKPMexCBhPL/6CDWL+wDkae4CWNadH2E0YAKkWe6ErgBpI
-         OmAL4ejjk3c8YidYUVqF2RjHuKycZZx+NQ5oqx8GZfs+5NLAIF1Kv3PLHzDIN9WsYjL+
-         ev8pj08aes6swMygzd2OJjhJk9zS9ocIvgVZ01huLpaHESo1BURBMQe/IJzN25Ot2h0Q
-         k5HDqFaIGNO8izSQhDjeev7iZj97DJL4Fs/U+zKTALA5bZRAWDW874vXUrpliALTF4NV
-         tfZQ==
-X-Forwarded-Encrypted: i=1; AL+hErGNDB8nnXwVNtAJp+l4MnZlL+uCaLET669nDjY4kxsiiKpMDG6C89u20GGdMorb0cQbbepDre7e3FvUlnk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8XqG6JE8A8zvxgmEsiTt12CharFDaSTIrT25ejh6JKFSc7Jl4/
-	vU7I0gGOV8mPQ4eWruGhCGLkTQIpgPGVIXtUqU9ItO5eOhtcO+2GOMiSDc8L0386vzHcfILv9S3
-	g4P07y6CqMPuRCbKG6NmuDitg8/Mgz/nfJ8DsEmgczieQe2x4ABrffNGquAI=
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 18A0E606A31C;
+	Tue, 17 Nov 2026 01:27:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18A0E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=Nx8k3CosD3afLDEMEHpVofmAOoOTqUyUTf
+	Qqddef4Z8=; b=Co5hPoaQKrTG+o5hc/JeXYmMattduFCjFY0THsuBfcJ7ZycyRS
+	519Ncte916woiBuoALjkrv+D6KM+UvR8phzT0zWCU6QzSYwYWsYuxXYWgxvh1VU+
+	+HTDpPkHQE/K+9yKhPFNzvB2MX7v711TbMWObZopRIoqeLFNNvWcE+wSE=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.41])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkCGx_xrrftqGJy_AQ--.16012S2;
+	Tue, 17 Nov 2026 09:27:09 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Alan Stern <stern@rowland.harvard.edu>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
+	usb-storage@lists.one-eyed-alien.net,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH v2] usb: storage: shuttle_usbat: set the ATA sector size at device init
+Date: Tue, 17 Nov 2026 09:27:07 +0800
+Message-Id: <20261117012707.5858-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261116093452.15286-1-25031212351@stu.xidian.edu.cn>
+References: <20261116093452.15286-1-25031212351@stu.xidian.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,135 +62,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4d06:b0:572:86c8:6b4c with SMTP id
- 5614622812f47-57286c86d22mr7066572b6e.6.1794878798015; Mon, 16 Nov 2026
- 17:26:38 -0800 (PST)
-Date: Mon, 16 Nov 2026 17:26:37 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6afbad4d.f3cfa7c9.844a4.0002.GAE@google.com>
-Subject: [syzbot] [kvm?] WARNING in kvm_dirty_ring_push (2)
-From: syzbot <syzbot+55eaa971f4924b62c9a5@syzkaller.appspotmail.com>
-To: kvm@vger.kernel.org, lei.cao@stratus.com, linux-kernel@vger.kernel.org, 
-	pbonzini@redhat.com, peterx@redhat.com, seanjc@google.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BLQMCkCGx_xrrftqGJy_AQ--.16012S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxuryxAry8Cw17Wr18GrWfKrg_yoW5XryDpF
+	ZrCFWYyrWDta1Skw1UJwsrWa4rAayfJFW3Kry0g34ruws8K3W5CrWxK34F9Fy7JryFyF1x
+	Ka1vqFnxCa1DCF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_Cr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26r4j6r4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x0
+	82IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGw
+	Av7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48J
+	MxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
+	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
+	67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
+	x0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
+	z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
+	UI43ZEXa7IU8-yCJUUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUTD2r7HshEXgABsH
 
-Hello,
+usbat_flash_read_data() and usbat_flash_write_data() divide the transfer
+length by info->ssize to turn it into an ATA sector count.  info->ssize is
+only assigned in the READ CAPACITY handler, so it is still zero when a
+read request arrives earlier.
 
-syzbot found the following issue on:
+Such a request is sent during device scan: sd_probe() starts with
+media_present set and usb-storage sets read_before_ms for every device, so
+sd_revalidate_disk() calls sd_read_block_zero() right after
+sd_read_capacity(), even when READ CAPACITY failed, because
+read_capacity_error() deliberately keeps media_present set for drives that
+fail it with media loaded.  A CompactFlash reader that does not complete
+the READ CAPACITY sequence, for example because a register access is
+stalled, therefore reaches usbat_flash_read_data() with info->ssize == 0:
 
-HEAD commit:    84abb955b101 Add linux-next specific files for 20261113
-git tree:       linux-next
-console output: https://syzkaller.appspot.com/x/log.txt?x=15b438bc580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=1f3ae09c7e4ef77b
-dashboard link: https://syzkaller.appspot.com/bug?extid=55eaa971f4924b62c9a5
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+  Oops: divide error
+  RIP: 0010:usbat_flash_read_data+0x2a4/0x5c0
 
-Unfortunately, I don't have any reproducer for this issue yet.
+The ATA sector size of these readers is fixed at 512 bytes, so record it
+when the USBAT flash transport is selected, instead of waiting for a READ
+CAPACITY command to succeed.  The datafab and jumpshot drivers, which
+share this code, already set it during device identification for the same
+reason.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/62605aef5c3b/disk-84abb955.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/00d7d82886e8/vmlinux-84abb955.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/c8a7705e14db/bzImage-84abb955.xz
-
-The issue was bisected by AI to:
-
-commit fb04a1eddb1a65b6588a021bdc132270d5ae48bb
-Author: Peter Xu <peterx@redhat.com>
-Date:   Thu Oct 1 01:22:22 2020 +0000
-
-    KVM: X86: Implement ring-based dirty memory tracking
-
-AI reasoning:   https://syzkaller.appspot.com/ai_job?id=8ec79404-c0f6-4141-a152-96124787ad82
-
-AI-generated root cause summary:
-The KVM dirty ring implementation maps the per-vCPU dirty ring buffer
-(ring->dirty_gfns) writable into userspace. In kvm_dirty_ring_reset(), KVM
-iterates over entries marked with KVM_DIRTY_GFN_F_RESET and increments
-ring->reset_index without verifying that reset_index has not advanced past
-ring->dirty_index. When userspace sets KVM_DIRTY_GFN_F_RESET on un-dirtied
-entries, reset_index surpasses dirty_index, causing kvm_dirty_ring_used()
-(dirty_index - reset_index) to underflow to a large 32-bit unsigned integer
-(~UINT_MAX). On subsequent guest memory writes, kvm_dirty_ring_push() checks
-kvm_dirty_ring_full(), observes that the used entry count exceeds ring->size,
-and triggers the WARN_ON_ONCE(kvm_dirty_ring_full(ring)) assertion.
-
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=55eaa971f4924b62c9a5
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+55eaa971f4924b62c9a5@syzkaller.appspotmail.com
-
-The cause commit was identified by AI and may be wrong.
-If you agree with it, please also add:
-Fixes: fb04a1eddb1a ("KVM: X86: Implement ring-based dirty memory tracking")
-
-------------[ cut here ]------------
-kvm_dirty_ring_full(ring)
-WARNING: arch/x86/kvm/../../../virt/kvm/dirty_ring.c:225 at kvm_dirty_ring_push+0x2b2/0x5e0 virt/kvm/dirty_ring.c:225, CPU#0: syz.3.4/5803
-Modules linked in:
-CPU: 0 UID: 0 PID: 5803 Comm: syz.3.4 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-RIP: 0010:kvm_dirty_ring_push+0x2b2/0x5e0 virt/kvm/dirty_ring.c:225
-Code: 38 be 08 00 00 00 e8 8d 7e 08 01 f0 80 4b 38 08 48 83 c4 18 5b 41 5c 41 5d 41 5e 41 5f 5d c3 cc cc cc cc cc e8 af 87 88 00 90 <0f> 0b 90 e9 f8 fd ff ff e8 a1 87 88 00 90 0f 0b 90 e9 00 ff ff ff
-RSP: 0018:ffffc90004c472e0 EFLAGS: 00010283
-RAX: ffffffff81411e81 RBX: ffff88802dc68000 RCX: 0000000000080000
-RDX: ffffc90005cc2000 RSI: 0000000000015a79 RDI: 0000000000015a7a
-RBP: 1ffff11005b8d3a9 R08: 0000000000000000 R09: 1ffff1100aed72c6
-R10: dffffc0000000000 R11: ffffed100aed72c7 R12: ffff88802dc69d50
-R13: 1ffff11005b8d3aa R14: 0000000000000400 R15: 00000000fffffffe
-FS:  00007f8bbd1ba6c0(0000) GS:ffff888123136000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000000000000000 CR3: 0000000077000000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- make_spte+0x71a/0xc80 arch/x86/kvm/mmu/spte.c:296
- tdp_mmu_map_handle_target_level arch/x86/kvm/mmu/tdp_mmu.c:1144 [inline]
- kvm_tdp_mmu_map+0x140e/0x1f40 arch/x86/kvm/mmu/tdp_mmu.c:1300
- kvm_tdp_mmu_page_fault arch/x86/kvm/mmu/mmu.c:5029 [inline]
- kvm_tdp_page_fault+0x2f7/0x3a0 arch/x86/kvm/mmu/mmu.c:5042
- kvm_mmu_do_page_fault+0x31d/0x640 arch/x86/kvm/mmu/mmu.c:5089
- kvm_mmu_page_fault+0x1f8/0xc00 arch/x86/kvm/mmu/mmu.c:6698
- vt_handle_exit+0x28/0x160 arch/x86/kvm/vmx/main.c:974
- vcpu_enter_guest arch/x86/kvm/x86.c:8540 [inline]
- vcpu_run+0x4da1/0x7890 arch/x86/kvm/x86.c:8695
- kvm_arch_vcpu_ioctl_run+0xe83/0x18b0 arch/x86/kvm/x86.c:9035
- kvm_vcpu_ioctl+0xa61/0xfd0 virt/kvm/kvm_main.c:4595
- vfs_ioctl fs/ioctl.c:52 [inline]
- __do_sys_ioctl fs/ioctl.c:604 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:590
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x00007f8bbc3a94d9
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f8bbd1ba028 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00007f8bbc625fa0 RCX: 00007f8bbc3a94d9
-RDX: 0000000000000000 RSI: 000000000000ae80 RDI: 0000000000000007
-RBP: 00007f8bbc438136 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f8bbc626038 R14: 00007f8bbc625fa0 R15: 00007ffc1b4cf008
- </TASK>
-
-
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+Changes in v2:
+ - Set info->ssize when the flash transport is selected, as suggested by
+   Alan Stern, so the value is always available.
+ - Drop the assignment from the READ CAPACITY handler, now redundant.
+---
+ drivers/usb/storage/shuttle_usbat.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-For information about AI bisection see: https://goo.gl/tpsmEJ#ai-bisection
+diff --git a/drivers/usb/storage/shuttle_usbat.c b/drivers/usb/storage/shuttle_usbat.c
+index 7e5424268c73..267c82381465 100644
+--- a/drivers/usb/storage/shuttle_usbat.c
++++ b/drivers/usb/storage/shuttle_usbat.c
+@@ -1038,6 +1038,8 @@ static int usbat_set_transport(struct us_data *us,
+ 		break;
+ 
+ 	case USBAT_DEV_FLASH:
++		/* The ATA sector size of these readers is fixed at 512 bytes */
++		info->ssize = 0x200;
+ 		us->transport = usbat_flash_transport;
+ 		break;
+ 	}
+@@ -1703,8 +1705,6 @@ static int usbat_flash_transport(struct scsi_cmnd * srb, struct us_data *us)
+ 		if (rc != USB_STOR_TRANSPORT_GOOD)
+ 			return rc;
+ 
+-		/* hard coded 512 byte sectors as per ATA spec */
+-		info->ssize = 0x200;
+ 		usb_stor_dbg(us, "READ_CAPACITY: %ld sectors, %ld bytes per sector\n",
+ 			     info->sectors, info->ssize);
+ 
+-- 
+2.34.1
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
