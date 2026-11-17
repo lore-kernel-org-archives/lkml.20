@@ -1,61 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794896148;
-	b=ZiqHHSrd2720aZUz7coG+mDmiOsHJ8tTY1G93dN6uxMcOfQwrRFxozSpp0KKKbXWgx7f
-	 M/wZc6iFGuYliAE61mtai0IKbj1ZUbP9iD2d00Y/AsrvoIHiyZleBBfGYV1/HPRmsdOaj
-	 iudVj+E6bUXQXDOtKY17ZFXHpEX279aVEw8i52nnq9lO9LtJDC5x6nbEdD9TQs0NNboGW
-	 HqQv84vlDzVwPBcHgQlmwjWXnL+5ScYImcGsnmRbLIQly+V56OwAwe4onQuuxfo7LBv8o
-	 7JwxgSCFwDA5JRvI6IwhFDXNvr0wgFHGddgPaXs8U+XXO3xtkNpz67PDcbfhjgp3UPQ==
+	t=1794896144;
+	b=yhNKX/YsB9fhbYrm1TzQGfUGCm3BmOhcTu6C5iI2q/mO8ioG0HTkkZo8f0YXL9YFFvSP
+	 0iCG8Sy3Ng4Hrpj7JegK959AbmoBGJad2szVuZsNs+1Wx3Wyceym7UC6PdaHfe5DDMIdn
+	 /+icJippBFFgsNTICSB8L8H/VqE35rXH8ezwoY6Abi8tNrH+wRVdaOaZuJLTNDdjwcKCF
+	 NdB/txZp/k5jZd6UPibaVq5Jk/ay8lBoZ0aOLbVPv5RYWXVQMKK8oiCZ1C07xR5sLLGSX
+	 ad+DrM5dtsggYvWi/+rhAZ6conm1vLzutD8ICWJynzfwrEnBBHoaFkqeynZYd5vaFlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794896148;
-	h=Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=77exyfdtiO92nBdMS15TrDt356pTZ+Pg32vOrZO0z0Q=;
-	b=hOx7N6V+oCRKLXAjrV5Gze4+O6Mqer69pC8aImgk2VTp9Rs21rQFX1PAKgel7kVYPBZ3
-	 Q8AcaxAJzk+LXT3oMuAi/TRntASwk9YSw/iV4oW8yJEWgybTjJj35dsBmzPHKJDYb/XjY
-	 upTUtb0gqrukJSaz+SFRZDaMVL7Co7uwJRkvUEteMagAf8K/+hXmimqbr0JopniCPvcOJ
-	 jR2Hh946m6sZYXU4gxhT94PSA43h+tC6mxs1S6ascrGM4vLpbVXSraZCXrybwfcMKBOOL
-	 H3GTMSvBoPSYows7fvfp0NzPEecd18MrHQlX8O0OFjaHC7wL++jZnt2DokPNZ4VTaXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794896144;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
+	 References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=vWoDjOBeo1hAWyxzYdw2qtx/GzU6IPF2wlEpRRXvwRY=;
+	b=sds+ZVuT8lFZob+/uGnBZ0VilwWZ9YdyriuK5es6LH2HIxGDatHWeB/Ao3WNmxh6pGfq
+	 mkIdFwbTxQVYG1QaRPNOWfxmvlSeGpYm20tce7Q/udDsBxX6TFYNq+Ek0fs6gtsEHKZJK
+	 cFNKCBRsCuhAZPTdXFTxJExTPeaq1WIvsKOF1vryS6jkSAhQ93HJ6spwAY0bnsiG8kkJJ
+	 F/CvR2C21GD1ygHFx8MszgwmFo664HTuQ6H+eZnDtd0uNa9wfZ5uMm8jk+rPrWckEDE/s
+	 Weg/qlhOiunvdet4qQz6lKxCHh8tWmdP0PtKuuaqsVggXuPkXXyAGOnAOSNXsAp8LGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kLIJvECu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=rx4JcEvb;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F713606A329;
-	Tue, 17 Nov 2026 06:15:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21721606A31C;
+	Tue, 17 Nov 2026 06:15:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21721606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kLIJvECu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7E751F000C4;
-	Tue, 17 Nov 2026 06:15:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794896148;
-	bh=77exyfdtiO92nBdMS15TrDt356pTZ+Pg32vOrZO0z0Q=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=kLIJvECuQQoZoW6ujqEW2ygTN456z2D797kWRlr4xc9nmluypmCUCF0GERs42MiWZ
-	 h7u2nonnD9CQrQKVR3fVFix4qQkkuZ22NOcsb9xXl6m6CQr+pmCjJVoJCUiPYrhlWF
-	 dri2fOjcj89I3qq/RiYB63GRx+dDh9lVj7giwrz59nsI3ubuPnC0JoBFeuyRkM+Mgv
-	 2nJ2F74NeIJk4koN5onTp7JZsRuqQckp4loi2bPkLL33cEWteMFP4Gin0l4z9nfDuI
-	 v4Z8reYuO2r5l8qeZ/EhbML8njpgirjiv53XkQGZLI7aMC4LS0uZusse4oGHl1w/VV
-	 O1yXiTOV8HsiQ==
-Message-ID: <6f4cebe1dae4c25d7618f0a08c1412cd0c68faeb.camel@kernel.org>
-Subject: Re: [PATCH net v2] net/rds: defer CM id destruction to a workqueue
-From: Allison Henderson <achender@kernel.org>
-To: Aibing Chen <chenaibing@cmss.chinamobile.com>
-Cc: "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@kernel.org>,  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- netdev@vger.kernel.org, linux-rdma@vger.kernel.org, 
- rds-devel@oss.oracle.com, linux-kernel@vger.kernel.org
-Date: Mon, 16 Nov 2026 23:15:46 -0700
-In-Reply-To: <20261116075423.782-1-chenaibing@cmss.chinamobile.com>
-References: <20261114150541.1908-1-chenaibing@cmss.chinamobile.com>
-	 <20261116075423.782-1-chenaibing@cmss.chinamobile.com>
-Content-Type: text/plain; charset="UTF-8"
+	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=rx4JcEvb
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AH6FDGV04175949, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1794896113; bh=vWoDjOBeo1hAWyxzYdw2qtx/GzU6IPF2wlEpRRXvwRY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=rx4JcEvbTzz1+caKLOAoxA7HkTAjyDgPMiTiqjJYO02YW+KtPfyQLKz0yIg5SJv6e
+	 tbIUjTb6SOXyT6dyTJukQvVxMNtzgZ5iSqdstzpH9FcIOcNFmvOxd7wbqx78qWgdAz
+	 8inVeUXcVxZDY0ixClkKrfaE2z1eoCi4XSX02UMLXley8CYkLXDeUI2+FLNevJX1fD
+	 Zxm+E6NZpkTDZbMXcuQcxR6KDIRI6upAuBdDCJFLS8toFsA0Pj6k5mcwJzH/wUwuZl
+	 w9BB+iA9RJf9J0kIZ3GCSvkXnwTSJUcx9Ne5iSV9mErxQTkNgHuIp3Ok+iYlvqBjhh
+	 A1v5aFNL6qdOA==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AH6FDGV04175949
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 17 Nov 2026 14:15:13 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 17 Nov 2026 14:15:13 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
+ 15.02.2562.056; Tue, 17 Nov 2026 14:15:13 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Alastair D'Silva <alastair@d-silva.org>, "linux-wireless@vger.kernel.org"
+	<linux-wireless@vger.kernel.org>, Kalle Valo <kvalo@kernel.org>
+CC: Luka Gejak <luka.gejak@linux.dev>, Martin Blumenstingl
+	<martin.blumenstingl@googlemail.com>, Jernej Skrabec
+	<jernej.skrabec@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [PATCH rtw-next v10 2/4] wifi: rtw88: sdio: Track running state
+ and cancel TX worker on stop
+Thread-Topic: [PATCH rtw-next v10 2/4] wifi: rtw88: sdio: Track running state
+ and cancel TX worker on stop
+Thread-Index: AQHdc0hRmL5VjdzwlUqF6WpiTM7N/7cxzhuw
+Date: Tue, 17 Nov 2026 06:15:13 +0000
+Message-ID: <74ed5d7ad4b04a2591ae0071cc8280ab@realtek.com>
+References: <20261113082242.2773369-1-alastair@d-silva.org>
+ <20261113082242.2773369-3-alastair@d-silva.org>
+In-Reply-To: <20261113082242.2773369-3-alastair@d-silva.org>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,141 +88,77 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-On Mon, 2026-11-16 at 15:54 +0800, Aibing Chen wrote:
-> rds_ib_laddr_check_cm() destroys the RDMA CM id it created while
-> rds_trans_get_preferred() holds rds_trans_sem for reading.  The bind
-> path then takes rds_trans_sem and afterwards handler_mutex in
-> rdma_destroy_id(), while the CM callback path takes handler_mutex in
-> cma_ib_req_handler() and afterwards rds_trans_sem through
-> rds_conn_create().  lockdep reports the resulting cycle.
+Alastair D'Silva <alastair@d-silva.org> wrote:
+> When rtw_sdio_stop() disables interrupts, in-flight interrupt handlers or
+> delayed TX work may still run against a powered-down device.
 >=20
-> Queue the destruction on rds_wq instead, so that rds_trans_sem is
-> released before handler_mutex is taken.  The work item allocated here
-> owns the cm_id until rdma_destroy_id() has run; if the allocation fails,
-> the id is destroyed synchronously as before.
+> Track the operational state in rtwsdio->running with an irq_lock mutex
+> (similar to PCI), check it at the entry of rtw_sdio_handle_interrupt()
+> and rtw_sdio_tx_handler(), serialize state transitions in rtw_sdio_start(=
+)
+> and rtw_sdio_stop() under sdio_claim_host() and irq_lock, and cancel the
+> TX worker synchronously in rtw_sdio_stop().
 >=20
-> rds_ib_exit() flushes rds_wq after rds_trans_unregister() so that no
-> queued destroy runs after the module text is gone.
+> Drain rtwsdio->tx_queue[] with locked skb_dequeue() and
+> ieee80211_free_txskb() in rtw_sdio_stop() and again in rtw_sdio_start() t=
+o
+> catch any frames queued by an in-flight rtwdev->tx_work after
+> rtw_sdio_stop() completes, and reset rtwsdio->tx_queue_stopped[] while
+> waking stopped AC queues under tx_queue[].lock in rtw_sdio_start().
 >=20
-> Reported-by: syzbot+ccdb5058c3df2d94811c@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3Dccdb5058c3df2d94811c
-> Suggested-by: Hillf Danton <hdanton@sina.com>
-> Suggested-by: Jason Gunthorpe <jgg@ziepe.ca>
-> Suggested-by: Allison Henderson <achender@kernel.org>
-> Fixes: ec16227e1414 ("RDS/IB: Infiniband transport")
+> Fixes: 28eaf7971a20 ("wifi: rtw88: sdio: add TX back-pressure and retry o=
+n page starvation")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Aibing Chen <chenaibing@cmss.chinamobile.com>
-> ---
-> v2:
-> - move the workqueue from RDMA core into RDS, as suggested in review.
-> - flush rds_wq in rds_ib_exit() so a queued destroy cannot run after
->   the module text is freed.
-> - add the Fixes tag, drop the Tested-by tags.
+> Assisted-by: LLM
+
+No need Assisted-by tag now.
+
+> Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
+> Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
+
+Take my acked-by to v11 with small nit below.
+
+Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+
+[...]
+
+>  static int rtw_sdio_start(struct rtw_dev *rtwdev)
+>  {
+> +       struct rtw_sdio *rtwsdio =3D (struct rtw_sdio *)rtwdev->priv;
+> +       enum rtw_tx_queue_type queue;
+>         u32 clear;
+> +       int i;
 >=20
->  net/rds/ib.c | 37 ++++++++++++++++++++++++++++++++++++-
->  1 file changed, 36 insertions(+), 1 deletion(-)
+>         if (rtw_is_8723bs(rtwdev)) {
+>                 int ret =3D rtw_sdio_8723bs_check_rqpn(rtwdev);
+> @@ -1069,20 +1086,49 @@ static int rtw_sdio_start(struct rtw_dev *rtwdev)
 >=20
-> diff --git a/net/rds/ib.c b/net/rds/ib.c
-> index 4ea9838d0..66af4a72a 100644
-> --- a/net/rds/ib.c
-> +++ b/net/rds/ib.c
-> @@ -391,6 +391,20 @@ static void rds6_ib_ic_info(struct socket *sock, uns=
-igned int len,
->  }
->  #endif
-> =20
-> +struct rds_ib_destroy_work {
-> +	struct work_struct work;
-> +	struct rdma_cm_id *cm_id;
-> +};
+>         rtw_sdio_enable_rx_aggregation(rtwdev);
+>=20
+> +       rtw_sdio_purge_tx_queues(rtwdev);
 > +
-> +static void rds_ib_destroy_id_work(struct work_struct *work)
-> +{
-> +	struct rds_ib_destroy_work *w =3D
-> +		container_of(work, struct rds_ib_destroy_work, work);
+> +       for (i =3D 0; i < IEEE80211_NUM_ACS; i++) {
+> +               queue =3D rtw_tx_ac_to_hwq(i);
+> +               scoped_guard(spinlock_irqsave, &rtwsdio->tx_queue[queue].=
+lock) {
+> +                       if (rtwsdio->tx_queue_stopped[queue]) {
+> +                               rtwsdio->tx_queue_stopped[queue] =3D fals=
+e;
+> +                               ieee80211_wake_queue(rtwdev->hw, i);
+> +                       }
+> +               }
+> +       }
+
+Create a function to reset TX queues state.=20
+
+In rtw_sdio_start(), this is a cleanup operation, but it takes up too much =
+space
+(blurring the focus).
+
 > +
-> +	rdma_destroy_id(w->cm_id);
-> +	kfree(w);
-> +}
+> +       sdio_claim_host(rtwsdio->sdio_func);
 > +
->  /*
->   * Early RDS/IB was built to only bind to an address if there is an IPoI=
-B
->   * device with that address set.
-> @@ -411,6 +425,7 @@ static int rds_ib_laddr_check_cm(struct net *net, con=
-st struct in6_addr *addr,
->  #endif
->  	struct sockaddr_in sin;
->  	struct sockaddr *sa;
-> +	struct rds_ib_destroy_work *w;
->  	bool isv4;
-> =20
-Hi Aibing,
 
-Thanks for the quick turn around, this is looking much better.  Just a few =
-things to get this
-through: we cant fall back to the synchronous destroy if alloc fails, or th=
-e same bug
-will come back under memory pressure.  Lets hoist the alloc up here before =
-the
-rdma_create_id().  If alloc fails, just return -ENOMEM right away.
+[...]
 
->  	isv4 =3D ipv6_addr_v4mapped(addr);
-> @@ -419,6 +434,15 @@ static int rds_ib_laddr_check_cm(struct net *net, co=
-nst struct in6_addr *addr,
->  			       NULL, RDMA_PS_TCP, IB_QPT_RC);
->  	if (IS_ERR(cm_id))
-Then add a kfree(w) here before returning on this error case
-
->  		return PTR_ERR(cm_id);
-> +
-> +	/*
-> +	 * The id is destroyed from rds_wq: rds_trans_get_preferred() calls thi=
-s
-> +	 * function with rds_trans_sem held for reading, and rdma_destroy_id()
-> +	 * takes handler_mutex, which the CM callback path acquires before
-> +	 * taking rds_trans_sem.  If the allocation fails, fall back to the
-> +	 * synchronous destroy.
-> +	 */
-> +	w =3D kzalloc_obj(*w, GFP_KERNEL);
->  	ret =3D rdma_restrict_node_type(cm_id, RDMA_NODE_IB_CA);
->  	if (ret)
->  		goto out;
-> @@ -484,7 +508,13 @@ static int rds_ib_laddr_check_cm(struct net *net, co=
-nst struct in6_addr *addr,
->  		 cm_id->device ? cm_id->device->node_type : -1);
-> =20
->  out:
-> -	rdma_destroy_id(cm_id);
-> +	if (w) {
-> +		INIT_WORK(&w->work, rds_ib_destroy_id_work);
-> +		w->cm_id =3D cm_id;
-> +		queue_work(rds_wq, &w->work);
-> +	} else {
-> +		rdma_destroy_id(cm_id);
-> +	}
-And then this else part can be removed since w is guaranteed here
-
-Other than that, this looking really good.
-Thanks for working on this!
-Allison
-
-> =20
->  	return ret;
->  }
-> @@ -542,6 +572,11 @@ void rds_ib_exit(void)
->  	rds_ib_sysctl_exit();
->  	rds_ib_recv_exit();
->  	rds_trans_unregister(&rds_ib_transport);
-> +	/*
-> +	 * rds_ib_laddr_check_cm() may have queued rdma_destroy_id() on rds_wq;
-> +	 * wait for it before the module text goes away.
-> +	 */
-> +	flush_workqueue(rds_wq);
->  	rds_ib_mr_exit();
->  }
-> =20
->=20
->=20
->=20
 
