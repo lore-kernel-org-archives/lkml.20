@@ -1,52 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794920496;
-	b=VmdC3cnCF6JbBMGLycaTJlvZpi2qHCElKVct85Lkimv5KFFAXjJFbBnSnppcWvcgwHEc
-	 jklFQIwp/W3Ddlww+lTuvnKUgVxDZyu/WI2nw2Iq/vdmhpGpfmxlwZRFe9BKzQl1Jt7ad
-	 RmeZiBV+sjup94VWBMarUsNpSfsbruiVK+KnNHx3xtOEykgJqUsEmQJUCnJhwaX9bpRfP
-	 gtK1hZu+yh4AM8Zc4eeHVeyJC3dxwQNPvWdVQabUY0iXXBwjgFmMFdOFELkSTzmHkMfVG
-	 +eM4zJ33vbZtVtN0NkuOj/ii4TiAZjSDhx1kQe2q3Bv8RwU5ouQJkNDl6M5Vg+8ckXg==
+	t=1794920498;
+	b=U0X5VVU4TZCwSJ0L9vl37WkiqZJCUKGblul2l8HKCPMvQO//6pStJegZGJ7GjhyEO2pl
+	 hE92ccDga4j2ELG8p4dieSiTpyaexfQKeGMn6SJ2KjII6G5OPzBfCByrfQS46hlePMhkm
+	 Cm0+pchdYRnDT8fPkukmXT2GlWX6dC8/4s+4UDWVfEXugrzS69fwicw+7d0tBCpiLfNrH
+	 6GylI35PEi6hxiFQRUsR0b/NbNTXarpi1DnWvAn3//2nAsn+fHqRjyyt0K6rUxpmrePpm
+	 Niku2QeBGcuieA7si1g/dA7sNzaU3ui0bmsy/L8N1S7m5hGVfjnFvhGcmEVw4CI8S3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920496;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=+eR9Gpe6KlxQLeknLXAzXGqSX8WKsEweVXsfgaLVexg=;
-	b=Xt/yecmjRDwsH4rccxRO7IvICHPUJxMtDy195mkV7fwYKNzNYoFatbUwljyaoh7L65a2
-	 uGPsss3NzDcw26KmmutryTl/n255AczyfzGxa13eNurgDeUKYjNxVr8Cm1eImDVaIL/BN
-	 ptURkkFrPbwm/oSAoPRw+okYewECCCtrcRcRNaeUY32Z9tl/kBUDw96pNch3n2qT3IDfv
-	 7zmK9dNoPT3a8PC0tLRiRld3RhaUmmmOJio2xTrGFCFucradW5TFePMPY7apHr/8tEI1R
-	 PPa8WeImRAcVNSbwpaSKu52lsFiBuUt6UTvgLLzcFj0DAFKdhvhfehAE1uGOm3G0vVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794920498;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=C1KvfIlmYLhRC6mILExamhcqe0Ob4HfESY9lTwphRSs=;
+	b=T9+ebrupneYnG+oAwRsDVTL8x8S5hKQEhSP6H+PUS7R8ELgHKhxQqMMA1BZa86W+zedW
+	 q6uunfPBbqhQ+Z2dI00ZGzHlTEXe0Vrdv4COydB2gVZUkG1F9l2qrSEZZaQrDuu1V8zsX
+	 b3E51qLFf0Qw97SKcbYAU1uqo907RQU0r+fqEKzVxmFnC2vXLh7X7IrNY+rUNdow0kxUU
+	 UWvemSoZ+ML/KwD0cl/jt06szayd4zdONX3S9p3Lc6ShrB9H94Qy8VYKXvPqVb2oEEYNJ
+	 HK35K5GKzw9ARAEwJ5HL7sLwstCgH4CtMUgnhosV+vA3vUFhjXBgoEFPlhaKkej+6SQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G2y0S0gW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.197
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C78AE606A335;
-	Tue, 17 Nov 2026 13:01:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G2y0S0gW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60CC61F000C8;
-	Tue, 17 Nov 2026 13:01:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794920496;
-	bh=+eR9Gpe6KlxQLeknLXAzXGqSX8WKsEweVXsfgaLVexg=;
-	h=Date:From:To:Cc:Subject;
-	b=G2y0S0gWw43WcNiqDW/WnbF+6tfUC3FqtY21Iv3WVSfgeH0KPkro2uhIuWZYOmL6X
-	 exsOuFh0PKRiDspyh38n7dhTyoJPx1FWkTR1mJizI4f/aZoIyPj4xGWRYKFMkBE1xp
-	 BVGYA+dYLn1BNp1L51ora06shidQM4qMumeBQYTGt3iMb5p8h1e9t74GkXFMv3CnmN
-	 vk6mDXaQf+P1+Dq6PwLDrMW/hrxCYNGIky0jJJaSp1csk/0sqAaonrGHRuu2s1z+cf
-	 //XdzJCElhwFx9kJg4q7WSHSot8I3ErjjdgKKTzNBPHU1+iTovO9fWXNX4x5/NFX/+
-	 p1x3BWTqEfvCA==
-Date: Tue, 17 Nov 2026 13:01:32 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Subject: linux-next: manual merge of the vfs-brauner tree with the origin tree
-Message-ID: <avxQLGt-FR3f7pEW@sirena.org.uk>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73945606A334
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:01:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73945606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4e937c5bd4fso3351282b6e.2
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:01:38 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794920497; x=1795525297;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=C1KvfIlmYLhRC6mILExamhcqe0Ob4HfESY9lTwphRSs=;
+        b=HXrWIJUZ9IEGm014uYuYIoLn7xH2oZkTfslNloogGaRa82/KjMbvOssVFTLjh0cK8V
+         kGMB/azSaSbJC38+ppvihRKcBts1A3kKklhSb6dnE2YcqEI4iOy8RJvNSYrsxKuaHtCE
+         AHnUfktNsxO8+6F4gCgl/19cgCEC5YGDgrYPsOYQ9cHQmfSp++fW4k2z1GGOn/5ntdNN
+         c2Kjv9l0gf10pUAZ3SWISA5gdEtj4V+anauntQSYYo0paXV4HdZ14mfyN4JjVoTmt/+Z
+         2JXH9tex0NMuJRSEtXJ45R26Ht/iMHi0m83he3j8AX6ooWzju4gdQ3Yb9sgA85AI96E1
+         /T5w==
+X-Forwarded-Encrypted: i=1; AL+hErH7FG4jaytZYvuD680ed+pMFES6Jy4ByD81+zkGEx00sx28YLyDHK2uF15O4VpiZtJ5ugh45qDIO1gpExQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+sDksJgqJ5a9dt4F9mJxwVK3WsGjV8AH9g7bYkh7GKuuMnJRxW
+	SERtOdSzNu+HKCYm7fXfYIFwja171fK/higT1RWhseYfgTgy/ek6QOKmORjMzB+hLT9UQ9768jD
+	qMCck0fBxkWJNm9JD77znwMa8V2GsYq6reDU+tWkUr8avL7QoB/z0TqVg5MM=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,102 +58,265 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="7dva2iJBWEU9JtZv"
-Content-Disposition: inline
+X-Received: by 2002:a05:6808:14d2:b0:568:39f2:1254 with SMTP id
+ 5614622812f47-56e64dfaba9mr11653354b6e.47.1794920497369; Tue, 17 Nov 2026
+ 05:01:37 -0800 (PST)
+Date: Tue, 17 Nov 2026 05:01:37 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6afc5031.8f566acc.2517be.0001.GAE@google.com>
+Subject: [syzbot] [netfs?] possible deadlock in vfs_iocb_iter_write
+From: syzbot <syzbot+deb8af81d91415fabac1@syzkaller.appspotmail.com>
+To: dhowells@redhat.com, linux-kernel@vger.kernel.org, netfs@lists.linux.dev, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+
+Hello,
+
+syzbot found the following issue on:
+
+HEAD commit:    aebb72744764 Linux 7.4-rc3
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=14046dad580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=3cc6a7ee2d24d208
+dashboard link: https://syzkaller.appspot.com/bug?extid=deb8af81d91415fabac1
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-aebb7274.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/89dc91c65baa/vmlinux-aebb7274.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/ada32ef78ae3/bzImage-aebb7274.xz
+
+The issue was bisected by AI to candidate commits (most relevant first):
+
+e044374a8a0a ima: annotate iint mutex to avoid lockdep false positive warnings
+80105ed2fd27 9p: Use netfslib read/write_iter
+0d73a55208e9 ima: re-introduce own integrity cache lock
+46ed60dcd4f2 netfs: Implement unbuffered/DIO vs buffered I/O locking
+047487c947e8 cachefiles: Implement the I/O routines
+
+AI reasoning:   https://syzkaller.appspot.com/ai_job?id=e6954bda-cd55-46d8-bb68-67259c9bb743
+
+AI-generated root cause summary:
+In `security/integrity/ima/ima_iint.c`, `ima_iint_lockdep_annotate()` assigns
+`iint->mutex` to a static lockdep class array
+`ima_iint_mutex_key[IMA_MAX_NESTING]` indexed solely by
+`inode->i_sb->s_stack_depth`. When a network filesystem using netfs/fscache
+(such as 9p) caches data on a local backing filesystem (such as XFS via
+cachefiles), both filesystems have `s_stack_depth == 0`, causing their
+`iint->mutex` instances to share the same lockdep key `ima_iint_mutex_key[0]`.
+This collapses distinct locking tiers into one class, causing lockdep to flag a
+false circular locking dependency among `sb_writers` (acquired during
+`do_open(O_TRUNC)`), `ima_iint_mutex_key[0]`, and `inode->i_rwsem` (acquired
+during `netfs_buffered_read_iter()` when IMA measures a file).
+
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=deb8af81d91415fabac1
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+deb8af81d91415fabac1@syzkaller.appspotmail.com
+
+loop0: detected capacity change from 0 to 32768
+=======================================================
+WARNING: The mand mount option has been deprecated and
+         and is ignored by this kernel. Remove the mand
+         option from the mount to silence this warning.
+=======================================================
+XFS (loop0): Mounting V5 Filesystem bfdc47fc-10d8-4eed-a562-11a831b3f791
+XFS (loop0): Ending clean mount
+XFS (loop0): Quotacheck needed: Please wait.
+XFS (loop0): Quotacheck: Done.
+
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Not tainted
+------------------------------------------------------
+syz.0.0/5351 is trying to acquire lock:
+ffff88804421c478 (sb_writers#12){.+.+}-{0:0}, at: kiocb_start_write include/linux/fs.h:2799 [inline]
+ffff88804421c478 (sb_writers#12){.+.+}-{0:0}, at: vfs_iocb_iter_write+0x1cb/0x5e0 fs/read_write.c:929
+
+but task is already holding lock:
+ffff888047183c00 (&sb->s_type->i_mutex_key#25){++++}-{4:4}, at: inode_lock_killable include/linux/fs.h:1032 [inline]
+ffff888047183c00 (&sb->s_type->i_mutex_key#25){++++}-{4:4}, at: do_truncate+0x18f/0x250 fs/open.c:63
+
+which lock already depends on the new lock.
 
 
---7dva2iJBWEU9JtZv
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+the existing dependency chain (in reverse order) is:
 
-Hi all,
+-> #2 (&sb->s_type->i_mutex_key#25){++++}-{4:4}:
+       down_read_interruptible+0x4b/0x3b0 kernel/locking/rwsem.c:1584
+       netfs_start_io_read+0x25/0x180 fs/netfs/locking.c:67
+       netfs_buffered_read_iter+0xd6/0x160 fs/netfs/buffered_read.c:940
+       __kernel_read+0x4ca/0x960 fs/read_write.c:512
+       integrity_kernel_read+0x89/0xd0 security/integrity/iint.c:28
+       ima_calc_file_hash_tfm security/integrity/ima/ima_crypto.c:222 [inline]
+       ima_calc_file_hash+0x451/0x890 security/integrity/ima/ima_crypto.c:280
+       ima_collect_measurement+0x51b/0xa00 security/integrity/ima/ima_api.c:300
+       process_measurement+0x1272/0x1c10 security/integrity/ima/ima_main.c:425
+       ima_file_check+0xdc/0x130 security/integrity/ima/ima_main.c:686
+       security_file_post_open+0xb3/0x260 security/security.c:2777
+       do_open fs/namei.c:4853 [inline]
+       path_openat+0x1748/0x20f0 fs/namei.c:5016
+       do_file_open+0x23e/0x4a0 fs/namei.c:5045
+       do_sys_openat2+0x115/0x200 fs/open.c:1443
+       do_sys_open fs/open.c:1449 [inline]
+       __do_sys_openat fs/open.c:1465 [inline]
+       __se_sys_openat fs/open.c:1460 [inline]
+       __x64_sys_openat+0x138/0x170 fs/open.c:1460
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Today's linux-next merge of the vfs-brauner tree got a conflict in:
+-> #1 (&ima_iint_mutex_key[depth]){+.+.}-{4:4}:
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
+       process_measurement+0x7d0/0x1c10 security/integrity/ima/ima_main.c:319
+       ima_file_check+0xdc/0x130 security/integrity/ima/ima_main.c:686
+       security_file_post_open+0xb3/0x260 security/security.c:2777
+       do_open fs/namei.c:4853 [inline]
+       path_openat+0x1748/0x20f0 fs/namei.c:5016
+       do_file_open+0x23e/0x4a0 fs/namei.c:5045
+       do_sys_openat2+0x115/0x200 fs/open.c:1443
+       do_sys_open fs/open.c:1449 [inline]
+       __do_sys_openat fs/open.c:1465 [inline]
+       __se_sys_openat fs/open.c:1460 [inline]
+       __x64_sys_openat+0x138/0x170 fs/open.c:1460
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-  kernel/trace/trace_uprobe.c
+-> #0 (sb_writers#12){.+.+}-{0:0}:
+       check_prev_add kernel/locking/lockdep.c:3209 [inline]
+       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+       validate_chain kernel/locking/lockdep.c:3952 [inline]
+       __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
+       lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
+       percpu_down_read_internal include/linux/percpu-rwsem.h:53 [inline]
+       percpu_down_read_freezable include/linux/percpu-rwsem.h:83 [inline]
+       __sb_start_write include/linux/fs/super.h:19 [inline]
+       sb_start_write+0x48/0x1c0 include/linux/fs/super.h:125
+       kiocb_start_write include/linux/fs.h:2799 [inline]
+       vfs_iocb_iter_write+0x1cb/0x5e0 fs/read_write.c:929
+       __cachefiles_write+0x6c9/0xbd0 fs/cachefiles/io.c:355
+       netfs_issue_write fs/netfs/write_issue.c:290 [inline]
+       netfs_advance_write+0x328/0x4b0 fs/netfs/write_issue.c:331
+       netfs_write_folio fs/netfs/write_issue.c:510 [inline]
+       netfs_writepages+0x12d3/0x22b0 fs/netfs/write_issue.c:600
+       do_writepages+0x338/0x560 mm/page-writeback.c:2562
+       filemap_writeback mm/filemap.c:386 [inline]
+       filemap_fdatawrite_range mm/filemap.c:411 [inline]
+       filemap_fdatawrite+0x1e9/0x2f0 mm/filemap.c:417
+       v9fs_vfs_setattr_dotl+0x4dc/0xab0 fs/9p/vfs_inode_dotl.c:585
+       notify_change+0xbba/0xea0 fs/attr.c:556
+       do_truncate+0x1c2/0x250 fs/open.c:68
+       handle_truncate fs/namei.c:4306 [inline]
+       do_open fs/namei.c:4855 [inline]
+       path_openat+0x18a6/0x20f0 fs/namei.c:5016
+       do_file_open+0x23e/0x4a0 fs/namei.c:5045
+       do_sys_openat2+0x115/0x200 fs/open.c:1443
+       do_sys_open fs/open.c:1449 [inline]
+       __do_sys_openat fs/open.c:1465 [inline]
+       __se_sys_openat fs/open.c:1460 [inline]
+       __x64_sys_openat+0x138/0x170 fs/open.c:1460
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-between commit:
+other info that might help us debug this:
 
-  72d3a5cb0cd73 ("tracing/probes: Enable newly appended probe when target e=
-vent is enabled")
+Chain exists of:
+  sb_writers#12 --> &ima_iint_mutex_key[depth] --> &sb->s_type->i_mutex_key#25
 
-=66rom the origin tree and commit:
+ Possible unsafe locking scenario:
 
-  44e16d22295bd ("tracing/uprobes: handle errors from resolving the real in=
-ode")
+       CPU0                    CPU1
+       ----                    ----
+  lock(&sb->s_type->i_mutex_key#25);
+                               lock(&ima_iint_mutex_key[depth]);
+                               lock(&sb->s_type->i_mutex_key#25);
+  rlock(sb_writers#12);
 
-=66rom the vfs-brauner tree.
+ *** DEADLOCK ***
 
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
+locks held by syz.0.0/5351: 2, on CPU#0:
+ #0: ffff888042230478 (sb_writers#13){.+.+}-{0:0}, at: mnt_want_write+0x41/0x90 fs/namespace.c:531
+ #1: ffff888047183c00 (&sb->s_type->i_mutex_key#25){++++}-{4:4}, at: inode_lock_killable include/linux/fs.h:1032 [inline]
+ #1: ffff888047183c00 (&sb->s_type->i_mutex_key#25){++++}-{4:4}, at: do_truncate+0x18f/0x250 fs/open.c:63
 
-diff --cc kernel/trace/trace_uprobe.c
-index fb7991543db7d,34cd4392decfd..0000000000000
---- a/kernel/trace/trace_uprobe.c
-+++ b/kernel/trace/trace_uprobe.c
-@@@ -447,29 -444,8 +448,34 @@@ static bool trace_uprobe_has_same_uprob
-  	return false;
-  }
- =20
- +typedef bool (*filter_func_t)(struct uprobe_consumer *self, struct mm_str=
-uct *mm);
- +
- +#ifdef CONFIG_PERF_EVENTS
- +static bool uprobe_perf_filter(struct uprobe_consumer *uc, struct mm_stru=
-ct *mm);
- +#else
- +#define uprobe_perf_filter NULL
- +#endif
- +
- +static int trace_uprobe_enable(struct trace_uprobe *tu, filter_func_t fil=
-ter)
- +{
-- 	struct inode *inode =3D d_real_inode(tu->path.dentry);
-++	struct inode *inode;
- +	struct uprobe *uprobe;
- +
-++	inode =3D d_real_data_inode(tu->path.dentry);
-++	if (IS_ERR(inode))
-++		return PTR_ERR(inode);
-++
- +	tu->consumer.filter =3D filter;
- +	uprobe =3D uprobe_register(inode, tu->offset, tu->ref_ctr_offset, &tu->c=
-onsumer);
- +	if (IS_ERR(uprobe))
- +		return PTR_ERR(uprobe);
- +
- +	tu->uprobe =3D uprobe;
- +	return 0;
- +}
- +
-- static int append_trace_uprobe(struct trace_uprobe *tu, struct trace_upro=
-be *to)
-+ static int append_trace_uprobe(struct trace_uprobe *tu, struct trace_upro=
-be *to,
-+ 			       struct inode *inode)
-  {
-  	int ret;
- =20
+stack backtrace:
+CPU: 0 UID: 0 PID: 5351 Comm: syz.0.0 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_circular_bug+0x2e2/0x300 kernel/locking/lockdep.c:2087
+ check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2219
+ check_prev_add kernel/locking/lockdep.c:3209 [inline]
+ check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+ validate_chain kernel/locking/lockdep.c:3952 [inline]
+ __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
+ lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
+ percpu_down_read_internal include/linux/percpu-rwsem.h:53 [inline]
+ percpu_down_read_freezable include/linux/percpu-rwsem.h:83 [inline]
+ __sb_start_write include/linux/fs/super.h:19 [inline]
+ sb_start_write+0x48/0x1c0 include/linux/fs/super.h:125
+ kiocb_start_write include/linux/fs.h:2799 [inline]
+ vfs_iocb_iter_write+0x1cb/0x5e0 fs/read_write.c:929
+ __cachefiles_write+0x6c9/0xbd0 fs/cachefiles/io.c:355
+ netfs_issue_write fs/netfs/write_issue.c:290 [inline]
+ netfs_advance_write+0x328/0x4b0 fs/netfs/write_issue.c:331
+ netfs_write_folio fs/netfs/write_issue.c:510 [inline]
+ netfs_writepages+0x12d3/0x22b0 fs/netfs/write_issue.c:600
+ do_writepages+0x338/0x560 mm/page-writeback.c:2562
+ filemap_writeback mm/filemap.c:386 [inline]
+ filemap_fdatawrite_range mm/filemap.c:411 [inline]
+ filemap_fdatawrite+0x1e9/0x2f0 mm/filemap.c:417
+ v9fs_vfs_setattr_dotl+0x4dc/0xab0 fs/9p/vfs_inode_dotl.c:585
+ notify_change+0xbba/0xea0 fs/attr.c:556
+ do_truncate+0x1c2/0x250 fs/open.c:68
+ handle_truncate fs/namei.c:4306 [inline]
+ do_open fs/namei.c:4855 [inline]
+ path_openat+0x18a6/0x20f0 fs/namei.c:5016
+ do_file_open+0x23e/0x4a0 fs/namei.c:5045
+ do_sys_openat2+0x115/0x200 fs/open.c:1443
+ do_sys_open fs/open.c:1449 [inline]
+ __do_sys_openat fs/open.c:1465 [inline]
+ __se_sys_openat fs/open.c:1460 [inline]
+ __x64_sys_openat+0x138/0x170 fs/open.c:1460
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fae7e7a94d9
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fae7f5b4fe8 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
+RAX: ffffffffffffffda RBX: 00007fae7ea25fa0 RCX: 00007fae7e7a94d9
+RDX: 0000000000000300 RSI: 000020000001cac0 RDI: 0000000000000009
+RBP: 00007fae7e83804e R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fae7ea26038 R14: 00007fae7ea25fa0 R15: 00007ffedf7b33b8
+ </TASK>
 
---7dva2iJBWEU9JtZv
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr8UCsACgkQJNaLcl1U
-h9BVCgf/dLQdDiwBID6uDLPVwmz7DY2T7pSrRtUwwvzNhpq2vV1XAaktpayyoa0g
-Ba44snhkI52gS2c1bdUsr74YuWdXd2H3R4HrrmNRUBcDjvFwpT0rN8iumJNWV0n4
-YSB0UvrQnxEfkGbmqctlv1ee8u6hBjhSt9Ev+kC2iWtpU+yxilzMIuXW8ud9m78E
-IBeqlx5H9ab0RvzptAzP0cuWMTvjKDajjxk/fGnl1Kg8DNifX5pPKDX+Ii+8Uu9Z
-moqiqjGtfDOdO71ankq8bLmU4ed5qhYg9y6QrJiknbPGz2e3wncOsLPuoaBGRDW/
-bJzShtT+l2nKsAVkPmQPLSYhNvJ3Tg==
-=Pr35
------END PGP SIGNATURE-----
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+For information about AI bisection see: https://goo.gl/tpsmEJ#ai-bisection
 
---7dva2iJBWEU9JtZv--
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
