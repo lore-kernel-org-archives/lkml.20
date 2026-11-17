@@ -1,50 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.16.66.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.157.188.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794910342;
-	b=I36Z++3e56AkpIfbikL3fS88uHu8upJkrDky23V5A9UmHv8PK5DXoiYdQRl05khTRoG8
-	 twKa/g6G3VMuGs+rCieKTPu3WzpV/nGqGRnFOlMzTv8VIKq6hqOwkJr1IOLoZAy0mr2tE
-	 yf7NK4F5fvwApHhvA++/7r+AzgYXQe9wEjMQ9Sl8rh3u7d01BWj58Lzddo3sifcKTWJer
-	 P1s6+R4v53NIEvf8k1VsqGdIq5X78ENIgKQQgqCA62hPRX5N2quIFecznecbFh2krBA11
-	 F4+Z8eeeoSjqNVBe6cilFftpJBAwBOZrz6xMHAk93tIaLqAT7/dU6RMupWvF6zJNhRA==
+	t=1794910337;
+	b=MRz8Kr7Q2vxHKHZO3D6NGhQTN1TJhIeDlmCXYQUkzXxliqHlW9usSFikpCyWYP+jhQ57
+	 kJBWkYS3CcdpZMQA3yXYPIAoJ+fnez4SnJuD/YD4mtCNjYA1IlBK8EA6JJqc3i1uNdYvY
+	 b1lyEFFVObRLDhjdxRXz8i9MQtXlBb087DbFqdD6uPMpbf/MmqKX5bTYgvRYD6h7thqmI
+	 jJwSeCDFL9LK1OLQbAwegJh6ntVjSSJYlv54CCQiWLh7HCOTCpLHY3WGkVS4mQEGUUOJd
+	 YkjRB038DYUyBU1hy0v41hurg1Y4fgGPgGcg1AcI3SupiG7Apnm2zOdXHyEvMwMcMPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794910342;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794910337;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
-	 Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Infomaniak-Routing;
-	bh=ALO2l5L3dmnzQe5I0HdYprJvsVUJ+NBqFA+9TSbMvPg=;
-	b=Vr2Wpc+oi0MGtE5HTX9pwjNR5tKl9hmjZnWvAuu4kD/+y4wXG+s/uGC+DzgRufLqwXc1
-	 efOFG0Ki69zi069od1Oa3EaD+ce14Kgl+33U6sWFwTpv87TsMM2oPeboX3RUUe9d4AaH9
-	 m2ocXmf1vKXVgGGXk8rnpIr/PwLPduaF6MBdvial2EAcyGSQf1BYJdFwxD1+2GdefcNMW
-	 O0cqmpv5CWD1G6I8R/+n1myERUhMu9YdvuS8nm4Ytnr+G8EgiayLLVgYO+G+32yPIv1/P
-	 MYCffIeuNm6zq3PZQai0/Y1olaMSvH+hZ/89XoLhLJ5/v9bhqQjjihBnWpWcaSTXPKw==
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Infomaniak-Routing;
+	bh=gyRxjx+N08McOgkiPKprbmzlzILJehlh93QhGWzUcJ0=;
+	b=u2pk/dA/g/KdxReslngTU7DNcPgcSTNhUWdoMkr6Hh94wwymjWGzJlCGTXc+vwScTCRw
+	 rOCu4A7EC6its08CC/w1KGkgv7eqdT/7nFWJ3a8fpQveeaS3jc1jiMJOzvbQesgQ7/1ti
+	 x4NQLu15ICIWL1NH2dgarc1mRz8AeGGxpmWYDzmfd/z8yeYQWgg+Kg16ydFVmWKTwFZmV
+	 GahE748uUA/jJrzHi2lgPy3TmviBKmZN0MrZml81JJ78MllyAl7NavPKLfTGN5hQGNR2i
+	 G1BIOkaipZxBP489HRTWjZHwh/p0hxLz5EMFAyoidDssmhNS3W4ADESyXkeSzaZmqIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=digikod.net;
 	spf=pass smtp.mailfrom=digikod.net;
-	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=coh21boW;
-	arc=none smtp.remote-ip=84.16.66.172
-Received: from smtp-42ac.mail.infomaniak.ch (smtp-42ac.mail.infomaniak.ch [84.16.66.172])
+	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=nHhOxJr+;
+	arc=none smtp.remote-ip=45.157.188.8
+Received: from smtp-bc08.mail.infomaniak.ch (smtp-bc08.mail.infomaniak.ch [45.157.188.8])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD1EE606A897
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:12:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD1EE606A897
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD837606A32C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:12:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD837606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=coh21boW
-Received: from smtp-3-0000.mail.infomaniak.ch (smtp-3-0000.mail.infomaniak.ch [10.4.36.107])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jTLBP4pqjzv1h;
-	Tue, 17 Nov 2026 11:12:13 +0100 (CET)
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=nHhOxJr+
+Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch [10.4.36.108])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jTLBG5hrfzw1s;
+	Tue, 17 Nov 2026 11:12:06 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1794910333;
-	bh=ALO2l5L3dmnzQe5I0HdYprJvsVUJ+NBqFA+9TSbMvPg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=coh21boWp9x87MrGcAo5rmkIJU/P8hEyjlwz7ZBI6etDOmj0aZUIHcNp/e3N+PU6D
-	 zaA/s/Z9lGko13ASYK8dL0TDI8ZCNzWDI29JUwHHAFpGR7kHbSMdayBS6Bf0T+SRmW
-	 SAxOboBqdor/6BAVY+yVFUwbGaI0KMxTbok50M3Y=
-Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jTLBN17c7zCHv;
-	Tue, 17 Nov 2026 11:12:12 +0100 (CET)
+	s=20191114; t=1794910326;
+	bh=gyRxjx+N08McOgkiPKprbmzlzILJehlh93QhGWzUcJ0=;
+	h=From:To:Cc:Subject:Date:From;
+	b=nHhOxJr+GK/f4yDEX29tGjMPr8epPdaAJcBdA0eBWY8l6HqTeVxNg536PZQNw+tqT
+	 cxZ64jOrhq2RI5RKKqaSoeNTpcX9bw7JvOnsnXP+Y5Itu6V8/f+egqCFI50qk5btHp
+	 RG3GAU7M2M6nknjCtYHdm5BFUmxDEprBZDRFJbvk=
+Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4jTLBD5vtcz999;
+	Tue, 17 Nov 2026 11:12:04 +0100 (CET)
 From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
 To: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>
 Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
@@ -58,11 +58,9 @@ Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
 	kernel-team@cloudflare.com,
 	linux-kernel@vger.kernel.org,
 	linux-security-module@vger.kernel.org
-Subject: [PATCH v2 4/6] landlock: Mediate CAP_SYS_ADMIN for the admin memory reserve
-Date: Tue, 17 Nov 2026 11:11:54 +0100
-Message-ID: <20261117101157.2520463-5-mic@digikod.net>
-In-Reply-To: <20261117101157.2520463-1-mic@digikod.net>
-References: <20261117101157.2520463-1-mic@digikod.net>
+Subject: [PATCH v2 0/6] Fix Landlock mediation of commoncap's capability checks
+Date: Tue, 17 Nov 2026 11:11:50 +0100
+Message-ID: <20261117101157.2520463-1-mic@digikod.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,74 +74,70 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Infomaniak-Routing: alpha
 
-With vm.overcommit_memory set to 2, __vm_enough_memory() keeps the
-vm.admin_reserve_kbytes reserve for callers whose LSMs all agree that
-they hold CAP_SYS_ADMIN.  cap_vm_enough_memory() checks it with
-cap_capable(), so a process in a domain that denies CAP_SYS_ADMIN could
-still use this reserve, which is meant to let an administrator recover
-from memory exhaustion.
+Hi,
 
-Add a Landlock vm_enough_memory hook that withholds the reserve when the
-domain denies CAP_SYS_ADMIN.  Like commoncap and SELinux, do not audit
-this check: it only selects a limit, it runs for every accounted
-mapping, and withholding the reserve can only make an allocation fail
-with -ENOMEM.  As with the previous hooks, LSMs implement their own
-policy in this hook: SELinux already checks CAP_SYS_ADMIN in its own
-vm_enough_memory hook, so making commoncap call security_capable() would
-make SELinux check it twice.
+This is series 1 of 3:
 
-Cc: Günther Noack <gnoack@google.com>
-Cc: Paul Moore <paul@paul-moore.com>
-Cc: Serge Hallyn <serge@hallyn.com>
-Acked-by: Serge Hallyn (AMD) <sergeh@kernel.org>
-Fixes: 97c8386f1d74 ("landlock: Enforce capability restrictions")
-Signed-off-by: Mickaël Salaün <mic@digikod.net>
----
+* 1. fix Landlock mediation of commoncap's capability checks;
+  2. fix PR_SET_SECUREBITS mediation and add focused Landlock tests;
+  3. fix Landlock mediation of capabilities guarding LSM policies.
+
+LANDLOCK_PERMISSION_CAPABILITY_USE, merged for v7.4, denies capabilities
+through the LSM capable hook, but commoncap's mmap_addr, capset and
+vm_enough_memory hooks call cap_capable() directly.  A domain that
+denies a capability can therefore still:
+
+- map memory below vm.mmap_min_addr (CAP_SYS_RAWIO), which defeats a
+  mitigation for kernel NULL pointer dereferences;
+- add inheritable capabilities outside of its permitted set
+  (CAP_SETPCAP), which lets a privileged sandbox without no_new_privs
+  gain capabilities through execve(), although the domain still
+  restricts their use;
+- use the admin memory reserve with vm.overcommit_memory=2
+  (CAP_SYS_ADMIN).
+
+As SELinux does, patches 2 to 4 add Landlock's own check to these hooks,
+with commoncap's conditions, so they only deny what commoncap granted
+because of the capability.  Patch 1 factors out the shared check.  Patch
+5 adds tests, including audit tests, that fail without the mmap_addr and
+capset fixes; testing the admin reserve would require changing
+system-wide overcommit settings.  Patch 6 fixes the documentation, which
+overstated what the permission restricts and how its denials show.
+
+Two other direct capability-set checks are fixed separately:
+
+- PSI triggers (CAP_SYS_RESOURCE):
+  https://patch.msgid.link/20261106120004.90041-1-dennylin0707@gmail.com
+- user namespace uid 0 mapping (CAP_SETFCAP):
+  https://patch.msgid.link/20261110144205.2404088-1-mic@digikod.net
 
 Changes since v1:
-https://patch.msgid.link/20261110202436.2408244-5-mic@digikod.net
+https://patch.msgid.link/20261110202436.2408244-1-mic@digikod.net
+- Replace the admin reserve test, which changed system-wide overcommit
+  settings and was racy, with a comment, and fix the mmap_addr tests on
+  32-bit ARM (reported by Sashiko).
 - Add Serge Hallyn's Acked-by.
----
- security/landlock/cap.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
 
-diff --git a/security/landlock/cap.c b/security/landlock/cap.c
-index c89e8d76db8c..c9a900888f3b 100644
---- a/security/landlock/cap.c
-+++ b/security/landlock/cap.c
-@@ -140,10 +140,32 @@ static int hook_mmap_addr(unsigned long addr)
- 	return check_cap(current_cred(), CAP_SYS_RAWIO, CAP_OPT_NONE);
- }
- 
-+/**
-+ * hook_vm_enough_memory - Restrict the admin memory reserve
-+ *
-+ * @mm: Address space being charged (unused).
-+ * @pages: Number of pages being charged (unused).
-+ *
-+ * cap_vm_enough_memory() lets CAP_SYS_ADMIN use the vm.admin_reserve_kbytes
-+ * reserve, but calls cap_capable() directly, which skips hook_capable().  Check
-+ * the same capability against the domain.  commoncap runs first, so this only
-+ * sees tasks that commoncap let use the reserve.  Like commoncap, do not log
-+ * denials: this only selects a memory limit.
-+ *
-+ * Return: 0 if the domain does not withhold the reserve, -EPERM if
-+ * CAP_SYS_ADMIN use is denied.  An error does not fail the allocation by
-+ * itself, but without the reserve, the allocation may fail with -ENOMEM.
-+ */
-+static int hook_vm_enough_memory(struct mm_struct *mm, long pages)
-+{
-+	return check_cap(current_cred(), CAP_SYS_ADMIN, CAP_OPT_NOAUDIT);
-+}
-+
- static struct security_hook_list landlock_hooks[] __ro_after_init = {
- 	LSM_HOOK_INIT(capable, hook_capable),
- 	LSM_HOOK_INIT(capset, hook_capset),
- 	LSM_HOOK_INIT(mmap_addr, hook_mmap_addr),
-+	LSM_HOOK_INIT(vm_enough_memory, hook_vm_enough_memory),
- };
- 
- __init void landlock_add_cap_hooks(void)
+Regards,
+
+Mickaël Salaün (6):
+  landlock: Factor out capability denial checks
+  landlock: Mediate CAP_SYS_RAWIO for mappings below mmap_min_addr
+  landlock: Mediate CAP_SETPCAP for inheritable capabilities
+  landlock: Mediate CAP_SYS_ADMIN for the admin memory reserve
+  selftests/landlock: Test capability checks outside the capable hook
+  landlock: Fix capability restriction documentation
+
+ Documentation/security/landlock.rst         |   8 +-
+ Documentation/userspace-api/landlock.rst    |   8 +-
+ include/uapi/linux/landlock.h               |   6 +-
+ security/landlock/cap.c                     | 110 ++++++-
+ tools/testing/selftests/landlock/cap_test.c | 336 ++++++++++++++++++++
+ tools/testing/selftests/landlock/common.h   |   4 +-
+ 6 files changed, 451 insertions(+), 21 deletions(-)
+
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
 -- 
 2.56.0
 
