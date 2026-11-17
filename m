@@ -1,116 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794920784;
-	b=I0zgWKMo1QaxzYI/t+7L6RC1sxD3h3NUQxad7nAcWM9T0nsy8FgVsg9xDMsQQWisHPEX
-	 yQBQF9dP8evfLx4agK5nuLowoPzLkBco4DpSNpme5P62oTVjNhk0VbItVn1+6B/mvardg
-	 /uaenk3RMR5lyks5fX3KAFbjBi28iHCEjkyWZteNzIT9GJ0PTMNtBYNkRqCjTFbDvgtKq
-	 tYVWwPrKDwdv6mrd2mBaDxF0r+/C/jkiobW80dqgBKp4RI8n5X2bS9BuLbjhGUIp5nCf8
-	 n4uXcUioyD2ZXeC/d85MgA3mLlBcyGprPSlcyvqNBLkfjWWkUNPUsw+je4ZKhkDdRwA==
+	t=1794920807;
+	b=2+RJfdUvPvwoy6T/pXRRfvXgnvcWtXCJgcCO7OdfCBYRQhUNGdGyduymCjwEHeDoBQ0x
+	 azpgx3FcSAOSseOiElx+l4wNWoTDMNHrrzRlzOME75Z/0IDU0VVZXQXVIyFE50lekadrf
+	 vOYmweyl7wP6oRD0ZPtrKW8R6OsKtW+JGQ4eCLbFv4fahgyyDc4NmFD2IGLTekHQEyIQK
+	 54p8Ph0B05h9wuLSOsU60QPVyTZk6lXiDoEQtbdDT1JlXfQn6Mc8WdpMtJ+c0J6GpL+Zm
+	 fWEU+vizcgtCbOPfKAV15QTTz/GDVQGZtTbAsadwFdw+dOa8EzP7/PvPGKfTjXYOKPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920784;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:X-Developer-Signature:
-	 X-Developer-Key:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=CQNCc886Hmd2ERLzq4jw1PUvCGY+4w5fk+7KZKnHLwk=;
-	b=FabpBxA5t/xBA0C164dHNgQyzrpWh66oOJ/VSE2/VvUgrZcG3tsZDEZ1JUM4k2ElIa52
-	 o/57QTGguDiz/mZ1Yvp0st6aipAQRwqSqjL25HgUyEczXvKOndXYdTAreIHs2TYJpmajC
-	 8iykr4mx1nP89uC7HzUFoNGxXxx12YUB0zAfcN/Jvy3r5lF9gXWvp/TQ1HYEAuD0Y6a0k
-	 QHi4DHVXpqpo51KeJq5H6MRC2FhjviLkSnTjjK/UANCxzsOUL0CKEAiUTOjSVaLXZuLRU
-	 S3atw00dxULiy8Ah6LazJO6tHOD2njRYoaWnfAPh9HCtuP9LMxQ2I7pUQqxmh3/veMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794920807;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spamd-Result:
+	 X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=7irJd6uHN/H2TpC4FSVWo8zHdZF2tLYaoAHf1ts7pqo=;
+	b=KI5fLpvEunMDIUusT+a81oXS11IhA2pFtvRX3k9d4tLG7uYLHuT32uvWSDTioECB0ZAs
+	 oMrMLSeWvpfROJdwlrs6HbOuZmf534iWpQoXtWyGJIponTK28QjASBaxfIo6YokxMEhFf
+	 s1XGGi+510x0MQR1JyViACFrfbjNLgdCChaZHfmXXcwniMedW5DERRMfbriFVuD1GEGHL
+	 9YgyARi57zBzkGMc8yxQR2zF+rbf6zy3TOh4GmIukrsfalbTwodAlxOK1CCScwEiI0tlQ
+	 W5UabgfHR/lHemqiPMnQaZvMk/qTt3LEtqiewOUBDxtftDrYUhS70eBrNLsHVTQlVnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GubjcS3W;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MY6jS2DG;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=AMHzP9Ek;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=YKWB32qW;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=SkeVBx7n;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=mDPkmrpF;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1193E606A329
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:06:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1193E606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14B40606A33F
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:06:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14B40606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GubjcS3W;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MY6jS2DG
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHC1L2x466627
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:06:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=CQNCc886Hmd2ERLzq4jw1PUvCGY+4w5fk+7
-	KZKnHLwk=; b=GubjcS3WWE//GTAtNVooXD6Dfo7xWxMD0xQSB3+z4b/XkFtE2Vf
-	E5oEAbrcgvPs6Hg2rFUlGD60XPEVEPezlRL5Go1CnsIKU1IQu1oBqb9gbtRWB26y
-	/rmZOsQew60thQTNvoPXehcYgbmq2Ufxh7M1hs9LjHvrkRT21sVSdmBLv6YSLAIY
-	w4JgPgVwvDwSkZXL/g75UBPuJDh5mbUl2jKnxBpHXpRoUsPE3JuSVsVR0XL552vf
-	UEnIg2N7dWfx/FyMMkZauIDFsAjANGjP87iNJM4+M2RPvNmiREP5hvoKZv6G6fAl
-	C3l5emmzK/xAYe4hSaQelPUoxAceqpcUfYg==
-Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j09htk7ny-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:06:22 +0000 (GMT)
-Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-990c957f129so584580241.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:06:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794920782; x=1795525582; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CQNCc886Hmd2ERLzq4jw1PUvCGY+4w5fk+7KZKnHLwk=;
-        b=MY6jS2DGf7bBCYaUMV58mWVRaw7N0QsxvvJTtb/mwGEbJTlyKJCHFBcnpuIMd6qy7N
-         y459ewUh0gbgI2Sf8lbZPtT5dhGbWnrqGdTvbAOE5hviUYRZAoU9q3PFniYNwS04sexp
-         CtkVPR31oYctXCLO39WL4pcI57/DM3p9bb4jNyTxcNBVSRb4STTEtmMq7N1yg0E0Vsg+
-         7zILKEdHszbX5jp1JFIfPBYc+GpN4EbDOsER4fto0GDuGetxr2L02V8W/LlIO/a22f/z
-         oiBdYl763XjFXafYYuBxAlUUrye9OjAPRHhu77elawxUk1Y29j9PZb4S55JZvFGxsGHm
-         A+8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794920782; x=1795525582;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CQNCc886Hmd2ERLzq4jw1PUvCGY+4w5fk+7KZKnHLwk=;
-        b=WyRWl0sr9MnURfhaHkT8H6qfnVC4vs/2vnP4MYd9hjbs28ng1SQbzRGjcI97SIlUGX
-         Ubd96JDj9iMufr+H5NpOekVZGAz2PZ78miiFAUkFhOYQiB8NLKikU98rPEqnWBc7iqRO
-         a4jaRfrAmx3H8D8bo5i3kTvuwaONN3GpZ6JGPi4nOh7JvEbLxKDWkYk/ZJCb6QIl9xJw
-         RVITEVUlhBno7K1sKMvFt9mCTBL2km3yooLXTZZRYVmKDAf2igq33yl7T6yUFYVfsQl5
-         feGCwQ/aGovOXb3s6qrldIpyiaOxQxNzw82sAJtwYN9brU7w580k74TJmBFVMok4j+h3
-         +W0w==
-X-Forwarded-Encrypted: i=1; AL+hErGE3JT3FgQZIRZambHCHw6fWe6N4MFbEDPef1DzAjo2GLD6XUaYTmn73AfzkzfwYz5xBYo225LCyTDLsVY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8GNTLjOT16lIimI5FWrHPWyGOVG9AVRipnNozPMidmE2+t9iji
-	He2XuKZZR3c5qYA7R1DgVyOHObE1DQRCPYHfF3i6dGdcwQAJ1pyHRQBFA40/dDLEw2l2cMyePBY
-	xhfxqoKDFjX+9QwZOBEnqMfAD7Xpw4yqjN1bCqeYviDLErY2DkQmNTo73Y5BZVKADBko=
-X-Gm-Gg: AYBFou1nudQk1zXjqFPzLia6sdw8xpasv6UP6mNVSiMsN2vMoLPBul+ICwW/HaSQmR9
-	nLEBOomf5LBVvECAPWtz9nvRvdFXYJdWB5zmOdMGW95LUAi76UICK6YA0mzovB9zNzGU0o5VDho
-	/kHVoy6WRgaTnADUaGWTvKRkURMqBDNxUUcfb+ylmaIbdtBpsFbWOfdmv3ub3ecbXGs3mjj+P6l
-	TSGYqRz1e4rXrWmrnCx1ohrFu9VjcTFO6i6vhzRZiq4bF7p4tqZ8kx5G9nbaF6lmacJWsNtPGr2
-	MaRQdFJQSd1J8nRipOwi3KCFKri16yitkfBTgZ/GUI1WrRV8AjaD11cu5fCxjZGybbZ1RnSqMLa
-	YYXdXDvHpr9HoBrOkCm0ilUcXFjltLD0XZCHPwVeeYJdM7aoBXjaHHh2TyzfHww==
-X-Received: by 2002:a05:6102:2920:b0:7d2:fdb9:b189 with SMTP id ada2fe7eead31-7d69f850c5emr659921137.34.1794920781665;
-        Tue, 17 Nov 2026 05:06:21 -0800 (PST)
-X-Received: by 2002:a05:6102:2920:b0:7d2:fdb9:b189 with SMTP id ada2fe7eead31-7d69f850c5emr659906137.34.1794920781161;
-        Tue, 17 Nov 2026 05:06:21 -0800 (PST)
-Received: from quoll ([195.50.164.66])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c23611casm5835117a12.9.2026.11.17.05.06.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 05:06:20 -0800 (PST)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
-        Neal Gompa <neal@gompa.dev>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, asahi@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH] arm64: dts: apple: Remove undocumented, unapproved aliases
-Date: Tue, 17 Nov 2026 14:06:17 +0100
-Message-ID: <20261117130616.234953-2-krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=AMHzP9Ek;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=YKWB32qW;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=SkeVBx7n;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=mDPkmrpF
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 4191E1F747;
+	Tue, 17 Nov 2026 13:06:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794920804; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=7irJd6uHN/H2TpC4FSVWo8zHdZF2tLYaoAHf1ts7pqo=;
+	b=AMHzP9EkKzp02qKx84PIJC1WFjFuHv4klcHrIYgjxcs76zSAuRWMknh1QtjcjGO4KhEA6H
+	a91Hz7ixDgCOds47BP/MVL2GSZSWjlzdtg+hFhgNHz0esnGNPeT3bqglPrFMV2c/WDbw+9
+	DFX9zJD9iEFbZyMMRadHdwjZRMJFXn4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794920804;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=7irJd6uHN/H2TpC4FSVWo8zHdZF2tLYaoAHf1ts7pqo=;
+	b=YKWB32qWJVToX7DEL4kQFfWKcYTYa9wtVXkMfFwxvOqJTObBpiN9tT0rFU0AY0KjQnd7t+
+	og6w673nU9na4YBQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794920803; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=7irJd6uHN/H2TpC4FSVWo8zHdZF2tLYaoAHf1ts7pqo=;
+	b=SkeVBx7nTdA7rQtMb6IUIhl5PuyY62TkpHKyM2RpCJXWj/gfasqx3Rlz1y9Ghi2yJVbnvT
+	ToeGwsjVWa8LcpYaCa8CIpoHxRlEHmKDfg1FI+vlr04GuAXcCHh6jjE+tQ+LNp6XwrK2wx
+	TuJ+u88F2dtmLs4ekf3J5au3sbI0LLc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794920803;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=7irJd6uHN/H2TpC4FSVWo8zHdZF2tLYaoAHf1ts7pqo=;
+	b=mDPkmrpF60O6KeR/YU26ZLRT1uuY3sXS/BKPZVYqyT+Kzfuyj1z0J7AuF7esPGwgKU+5Ml
+	k083zInL/P7AAlAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D3DAC1334C;
+	Tue, 17 Nov 2026 13:06:42 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id Mbp1IWJR/Gq2ZQAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Tue, 17 Nov 2026 13:06:42 +0000
+Message-ID: <065124a2-d042-4b50-b9f1-3f6c648937b5@suse.de>
+Date: Tue, 17 Nov 2026 14:06:42 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,204 +106,157 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5232; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=clfI8+19pJhAA+hV4S1Z6XrUeG5urAAHKTU1TXEfHlo=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq/FFJYgi+OqbMxgoQ89jlVKosb2EARn5KZIaER
- f9mvb0IWpyJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCavxRSQAKCRDBN2bmhouD
- 15HhD/9oH1BS9LqVZQUmtukQ4pBKCTUnveLA8banunKm54eECmroM6X+THHC/UIfkgTIp9t3WUn
- FSAhCkt01Vr+dQbCnSu8lY0JPjnuMK2wOaKZZZPHzbmUchlIfqpOjq4pwoom4AkX4Es+RmEXl+j
- 3LJQNF3/DGw6d+YsEHxGCl0WNBqqCrIdTR5USi8kFXSbmIh8uFOo8iSvTcpZEXHhsw4o/m29O6g
- 5fyalqopdTAJslaGkcPPy9E3NeMmGWWz52a+CAvcw+p111gRGN1W+j9JWpsEiJ09ukzCofT+zQ+
- 5b4BmJXEOPUs2GkA1d5TTbF6w96/IsN0DNRdqHHOTj8EztnF+k2+Jvx4GFFruuDI9nCvIh0snBD
- x9PQTybp61IT07uCgumlUt4Hjfsl86eagESaE5Jo6xdDPPG38hvO4f60NY2r/sbayH6VETvYHD9
- Iz+2mdtArDeIRmNrl3G7LtqmzAj8T9IZ1yJq8r9zPsHiD5zemQ5gPtSBOK+k/7Z3qtjpmJiMJC3
- IGSdHVCHvrBRzXMFBS+bmH3TXODB+w588WrxwZ0Nr+3RMdUyb8lkWdsnwm6swZutHZsdrHl1+0A
- OtNrIpUmuNoRSr0v7+QrE+J+kaaXEV01l7HPe+6ltJVVgj/OfTs2Tfw1F3DcQNEtxEbl8i9dG/k 34eoEYM979TDAuw==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/simpledrm: Use vblank timer
+To: Christian <servidorjarvis1@gmail.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, =?UTF-8?Q?Michel_D=C3=A4nzer?=
+ <michel@daenzer.net>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <CAMas6S3zMKwb5KZ-UNnTd92hZNN0CONY28bROWbojYHBNFCRgg@mail.gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <CAMas6S3zMKwb5KZ-UNnTd92hZNN0CONY28bROWbojYHBNFCRgg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA1MiBTYWx0ZWRfX2ydSQbHSUEe3
- UyBi6YE3IeX0Ua50juzsHQWPf8OR9KMKK6B8wezD1YzNG2VoI7+KjdNVdcQoN6df9kdPGgPk4U5
- ctXxopPQTnb/PYtxk+sVCXjpSpvo5E0=
-X-Proofpoint-ORIG-GUID: ivBORqsEf46AadG_ZyD0oQjW_PwI4jDk
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA1MiBTYWx0ZWRfX76xsVo0Pp0KD
- 0G0IQyM4svSXKqHSePYe/Prz3HJuS8V2iz0ZAV00O6Fz6BHQR72nZqMlHnfvLbzP5e7hnhdzavf
- XeeiRE42Wr5GTYiaGzoAU/ILmZQrQzy2m6fBlGh1XcLw8EiZzYR+mvCs1rsAbJLjhBnuKeCTjxa
- sZTLGBrlt3DAnWYANUxIMsrqAtFwpJHRUfmGDJqkn/rNZfmNTVRjiUt15KIyjvPU3unNwuv0WE2
- CKx7I5kd7U/jzz89kvfjFn9x5PIoGXNcLO/qiIXsFG00Qrf4kSleTH5vJ/nLjsSa70SlKnGP7mT
- ZUHG0OIvcdZnBBPvmAC2hmdzaArO9Vm7DNlpGdIyTyJCN47YWW4uOSul7h/gtgi+/YGb66GzDGm
- OtIEML9fnzzY9Ei5rBQLEW7BQlRG3s8giKT9Jua6406g7ww9igpTvABn53kkuuPZtS15IF0T93I
- PjvzDWnY5TT7ICX2hfw==
-X-Authority-Analysis: v=2.4 cv=K963jCWI c=1 sm=1 tr=0 ts=6afc514e cx=c_pps
- a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=Jk2/TV77q6/E6wQq2oQJxQ==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=Zz3YpKYli0cBJYq3SAkA:9 a=TOPH6uDL9cOC6tEoww4z:22
-X-Proofpoint-GUID: ivBORqsEf46AadG_ZyD0oQjW_PwI4jDk
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-17_02,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 phishscore=0
- lowpriorityscore=0 bulkscore=0 spamscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170052
+X-Spamd-Result: default: False [-13.29 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	FREEMAIL_TO(0.00)[gmail.com,redhat.com,linux.intel.com,kernel.org,daenzer.net];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	URIBL_BLOCKED(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -13.29
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-The atcphy and touchbar aliases were never approved by Devicetree
-maintainers, because they were never documented as actual ABI.  Drop
-them, because no new custom aliases are allowed for years now.
+(cc Michel)
 
-This might break users of this undocumented ABI, so these should be
-updated to use only documented and approved ABI.
+Hi
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
- arch/arm64/boot/dts/apple/t6002-j375d.dts      | 4 ----
- arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi | 4 ----
- arch/arm64/boot/dts/apple/t600x-j375.dtsi      | 4 ----
- arch/arm64/boot/dts/apple/t6022-j180d.dts      | 8 --------
- arch/arm64/boot/dts/apple/t6022-j475d.dts      | 4 ----
- arch/arm64/boot/dts/apple/t8103-j293.dts       | 8 --------
- arch/arm64/boot/dts/apple/t8103-jxxx.dtsi      | 2 --
- arch/arm64/boot/dts/apple/t8112-j493.dts       | 1 -
- arch/arm64/boot/dts/apple/t8112-jxxx.dtsi      | 2 --
- 9 files changed, 37 deletions(-)
+Am 17.11.26 um 10:49 schrieb Christian:
+> simpledrm has no vblank interrupt, so DRM_IOCTL_WAIT_VBLANK fails and
+> Xorg's modesetting driver falls back to a fake vblank of about 1 Hz for
+> Present. Every client that syncs to vblank on top of it (glxgears, mpv,
+> Chromium with its default GPU vsync) is paced at roughly one frame a
+> second.
+>
+> Use the DRM vblank timer, as bochs and cirrus-qemu do, so vblank events
+> come at the rate of the display mode (60 Hz for sysfb modes).
 
-diff --git a/arch/arm64/boot/dts/apple/t6002-j375d.dts b/arch/arm64/boot/dts/apple/t6002-j375d.dts
-index e6eb6b6c386d..9f0476e1ae2f 100644
---- a/arch/arm64/boot/dts/apple/t6002-j375d.dts
-+++ b/arch/arm64/boot/dts/apple/t6002-j375d.dts
-@@ -15,10 +15,6 @@
- / {
- 	compatible = "apple,j375d", "apple,t6002", "apple,arm-platform";
- 	model = "Apple Mac Studio (M1 Ultra, 2022)";
--	aliases {
--		atcphy4 = &atcphy0_die1;
--		atcphy5 = &atcphy1_die1;
--	};
- };
- 
- /* USB Type C */
-diff --git a/arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi b/arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi
-index caded1636f3d..1a745c6593fa 100644
---- a/arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi
-+++ b/arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi
-@@ -15,10 +15,6 @@ / {
- 	chassis-type = "laptop";
- 
- 	aliases {
--		atcphy0 = &atcphy0;
--		atcphy1 = &atcphy1;
--		atcphy2 = &atcphy2;
--		atcphy3 = &atcphy3;
- 		bluetooth0 = &bluetooth0;
- 		serial0 = &serial0;
- 		wifi0 = &wifi0;
-diff --git a/arch/arm64/boot/dts/apple/t600x-j375.dtsi b/arch/arm64/boot/dts/apple/t600x-j375.dtsi
-index 8a1494949e4c..3540edc56b0d 100644
---- a/arch/arm64/boot/dts/apple/t600x-j375.dtsi
-+++ b/arch/arm64/boot/dts/apple/t600x-j375.dtsi
-@@ -13,10 +13,6 @@ / {
- 	chassis-type = "desktop";
- 
- 	aliases {
--		atcphy0 = &atcphy0;
--		atcphy1 = &atcphy1;
--		atcphy2 = &atcphy2;
--		atcphy3 = &atcphy3;
- 		bluetooth0 = &bluetooth0;
- 		ethernet0 = &ethernet0;
- 		serial0 = &serial0;
-diff --git a/arch/arm64/boot/dts/apple/t6022-j180d.dts b/arch/arm64/boot/dts/apple/t6022-j180d.dts
-index f76b887429dd..0b1f1bc46270 100644
---- a/arch/arm64/boot/dts/apple/t6022-j180d.dts
-+++ b/arch/arm64/boot/dts/apple/t6022-j180d.dts
-@@ -18,14 +18,6 @@ / {
- 	chassis-type = "server";
- 
- 	aliases {
--		atcphy0 = &atcphy0;
--		atcphy1 = &atcphy1;
--		atcphy2 = &atcphy2;
--		atcphy3 = &atcphy3;
--		atcphy4 = &atcphy0_die1;
--		atcphy5 = &atcphy1_die1;
--		atcphy6 = &atcphy2_die1;
--		atcphy7 = &atcphy3_die1;
- 		nvram = &nvram;
- 		serial0 = &serial0;
- 	};
-diff --git a/arch/arm64/boot/dts/apple/t6022-j475d.dts b/arch/arm64/boot/dts/apple/t6022-j475d.dts
-index 32938a3bf96a..4fc9a42160ea 100644
---- a/arch/arm64/boot/dts/apple/t6022-j475d.dts
-+++ b/arch/arm64/boot/dts/apple/t6022-j475d.dts
-@@ -17,10 +17,6 @@ / {
- 	compatible = "apple,j475d", "apple,t6022", "apple,arm-platform";
- 	model = "Apple Mac Studio (M2 Ultra, 2023)";
- 
--	aliases {
--		atcphy4 = &atcphy0_die1;
--		atcphy5 = &atcphy1_die1;
--	};
- };
- 
- &framebuffer0 {
-diff --git a/arch/arm64/boot/dts/apple/t8103-j293.dts b/arch/arm64/boot/dts/apple/t8103-j293.dts
-index 1d074b9e6018..779da65a66e3 100644
---- a/arch/arm64/boot/dts/apple/t8103-j293.dts
-+++ b/arch/arm64/boot/dts/apple/t8103-j293.dts
-@@ -18,14 +18,6 @@ / {
- 	model = "Apple MacBook Pro (13-inch, M1, 2020)";
- 	chassis-type = "laptop";
- 
--	/*
--	 * All of those are used by the bootloader to pass calibration
--	 * blobs and other device-specific properties
--	 */
--	aliases {
--		touchbar0 = &touchbar0;
--	};
--
- 	led-controller {
- 		compatible = "pwm-leds";
- 		led-0 {
-diff --git a/arch/arm64/boot/dts/apple/t8103-jxxx.dtsi b/arch/arm64/boot/dts/apple/t8103-jxxx.dtsi
-index 686fb1dd215d..5304a5591984 100644
---- a/arch/arm64/boot/dts/apple/t8103-jxxx.dtsi
-+++ b/arch/arm64/boot/dts/apple/t8103-jxxx.dtsi
-@@ -15,8 +15,6 @@ aliases {
- 		serial0 = &serial0;
- 		serial2 = &serial2;
- 		wifi0 = &wifi0;
--		atcphy0 = &atcphy0;
--		atcphy1 = &atcphy1;
- 	};
- 
- 	chosen {
-diff --git a/arch/arm64/boot/dts/apple/t8112-j493.dts b/arch/arm64/boot/dts/apple/t8112-j493.dts
-index 7cea5c594810..b0c93788c72a 100644
---- a/arch/arm64/boot/dts/apple/t8112-j493.dts
-+++ b/arch/arm64/boot/dts/apple/t8112-j493.dts
-@@ -24,7 +24,6 @@ / {
- 	 */
- 	aliases {
- 		bluetooth0 = &bluetooth0;
--		touchbar0 = &touchbar0;
- 		wifi0 = &wifi0;
- 	};
- 
-diff --git a/arch/arm64/boot/dts/apple/t8112-jxxx.dtsi b/arch/arm64/boot/dts/apple/t8112-jxxx.dtsi
-index 562e7a25a1e8..31d8d2aaf30b 100644
---- a/arch/arm64/boot/dts/apple/t8112-jxxx.dtsi
-+++ b/arch/arm64/boot/dts/apple/t8112-jxxx.dtsi
-@@ -11,8 +11,6 @@
- 
- / {
- 	aliases {
--		atcphy0 = &atcphy0;
--		atcphy1 = &atcphy1;
- 		serial0 = &serial0;
- 		serial2 = &serial2;
- 	};
+We have been discussing general vblank support before; so far with no 
+clear results. Originally the WAIT_VBLANK ioctl and similar 
+functionality is meant to return real hardware values. Using vblank 
+timers for virtual hardware is already a huge exception.  That is still 
+the status quo AFAIU.
+
+Why can this problem not be fixed in Xorg?
+
+Best regards
+Thomas
+
+>
+> Measured on an HP ElitePad 900 G1 (Atom Z2760, simpledrm on the EFI
+> framebuffer, Xorg modesetting + glamor, kernel 7.3.4): glxgears with
+> vsync went from 1.4 FPS to 24 FPS; Chromium 150 (ANGLE on GLES)
+> animating CSS from 1.9 to 13.8 FPS, with the GPU process no longer
+> idling between frames.
+>
+> Signed-off-by: Christian <servidorjarvis1@gmail.com>
+> ---
+>   drivers/gpu/drm/sysfb/simpledrm.c | 8 ++++++++
+>   1 file changed, 8 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/sysfb/simpledrm.c
+> b/drivers/gpu/drm/sysfb/simpledrm.c
+> index deaeb7d1f..3461a0f98 100644
+> --- a/drivers/gpu/drm/sysfb/simpledrm.c
+> +++ b/drivers/gpu/drm/sysfb/simpledrm.c
+> @@ -31,6 +31,8 @@
+>   #include <drm/drm_of.h>
+>   #include <drm/drm_print.h>
+>   #include <drm/drm_probe_helper.h>
+> +#include <drm/drm_vblank.h>
+> +#include <drm/drm_vblank_helper.h>
+>
+>   #include "drm_sysfb_helper.h"
+>
+> @@ -583,10 +585,12 @@ static const struct drm_plane_funcs
+> simpledrm_primary_plane_funcs = {
+>
+>   static const struct drm_crtc_helper_funcs simpledrm_crtc_helper_funcs = {
+>   	DRM_SYSFB_CRTC_HELPER_FUNCS,
+> +	DRM_CRTC_HELPER_VBLANK_FUNCS,
+>   };
+>
+>   static const struct drm_crtc_funcs simpledrm_crtc_funcs = {
+>   	DRM_SYSFB_CRTC_FUNCS,
+> +	DRM_CRTC_VBLANK_TIMER_FUNCS,
+>   	.destroy = drm_crtc_cleanup,
+>   };
+>
+> @@ -874,6 +878,10 @@ static struct simpledrm_device
+> *simpledrm_device_create(struct drm_driver *drv,
+>   	if (ret)
+>   		return ERR_PTR(ret);
+>
+> +	ret = drm_vblank_init(dev, 1);
+> +	if (ret)
+> +		return ERR_PTR(ret);
+> +
+>   	drm_mode_config_reset(dev);
+>
+>   	return sdev;
+
 -- 
-2.53.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
 
