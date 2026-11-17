@@ -1,90 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794933315;
-	b=ZGa4g8Npp6dF6A33he6B/FNxxT1MMlr9cJMENyN38HrmdHoBZXbU0sl+M2oeB5pq0nmZ
-	 Ws/O/rqq2sK/ubLdG6lcSlgcshn1gpylRE1RLf1k/xbjzxNwVxqpaxvhS4CjVvXFAaeij
-	 RoG0zI5YQ4twG2GizrxThzZ8s3yOr8AC10h6BQAaY4UycNVhkQ2ENR57JC6vSyNnEaGwt
-	 Bxkp5V7vICCcMvYfuD43XJvfQfo38/Is+z8y4QC3SQYto6xDnyjy+HtVkRZ/o7RxF7opM
-	 HCh66za89TQx3UXSGvk0EagFeolUMsmnssTUg6TejT37ufiV0FHK6o7d3p63yxWbYEA==
+	t=1794933344;
+	b=cl83e0TMzRObumKskIrn4okL2V0Zh5VuwarUc21PB87+BNDrrWHOLuJ1PpiU00DEV/eT
+	 +IljuiAnj6RuAb65WX0+6uJXfDYuyH3mzVhEQSolEB/6Khkpy7pqZjzdV7pevZusZ7d6O
+	 JXbk9onp6AU+WtamT5GVqZsxqLRRR1GxbpxetKhyd8DB2NN7TeMOPUEGsGzwIh5P0N3zM
+	 qw/+OBCojH6R4ZfLaZ+2yIbvkMljVBqCWvfu/CLH/p5iArMVaQi2grSBY55UXw/mX7OEg
+	 1rn/FOnlJwWwjyYxM/yzjTeT8YMmtW7n6hoOVgDm1hbEHP5/tt6bM28/VpAXt2YXE5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794933315;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794933344;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Z8CIfRuBE0dh3C1ZRhqXdDSEMv+0cdiVuIl1a6bMpog=;
-	b=HCq+kkdEkg73KMzjdM4mATnuDhe2Bl7+ZfbwHwXnnLDTPgCYNqEIGPDnaqhlOrsW8zoH
-	 Cl1wkfTxfeZxvdEywIWgA3DLzg5hIW3jwnNaBcOxg9HwJzWaPketssqZC8eKZJwRaE7KD
-	 wAE4fqzRUnp480fe0uuswcA2PITMbaavBdgDXq/s3nH85Tx5PjUrmN3zRu8+8RflivtYh
-	 QU9qQX9R9wd96z4gtZxH1oF37Ui8DyuWrZbz5HJleebYWl3Y6Ph5WumnOU59JNQirO5BP
-	 9dUXB1RuFDUGZElRycdT+8t9omEsmrAZ/9PGFyH3XHnJqKEtNb51f+N24xeQ0CQWeaA==
+	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type;
+	bh=XOOROMKIPXr3CQSNIxjA9uq5C/f3wnb7r92RzJgi0oU=;
+	b=cmiV89CBUNpYFytg1ZHHGu6lbfXTgsV3/zlhAA5riHJETWEnyPAKUKWg3cEVIWkS6CKw
+	 RtLoIX1Lr13gw5rXBq0hoUDn/jbU8JVuHXz4M1vCZZJVYVr98G1nWJasAO2VX1r0JPT1B
+	 Rky/Ow5VZwrndfIh7f8nHHstH9t4gkeAtqSm4RJ+MPM9w79vvoSfOmfEHcoWd2aBQOIgg
+	 Y+hUtzvJ58l0bBcvswyjd+EfBgWmk20NYSxBgTVgIKTmUd2F14Qy87k5sP2XuY4ZF+bg2
+	 SYvoOK6MStyBk5FatA2NOnw/q19l46pKZL20ABHUVuMBVWgSZfq+U571gHFC6GwyHeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=NL1f+LKN;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pyE2NEWb;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 277AC606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:35:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 277AC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFB02606A32C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:35:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFB02606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=NL1f+LKN
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-49d64a88222so739889f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:35:13 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pyE2NEWb
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so404815e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:35:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794933312; x=1795538112; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Z8CIfRuBE0dh3C1ZRhqXdDSEMv+0cdiVuIl1a6bMpog=;
-        b=NL1f+LKNf7qtHZyu4eLYWe6ZW5SZ4j6EgiP1yDXe6LcPxfPvdXW35MhjKw5RvZyEVQ
-         eGdkFzsBHyGkg5qsCDdP5ebgiy0Y68tQQgmQBlCKX3E2j/hh66S5I2f3V+Cx9hUnE16F
-         afyiNglZB2jTv4pTR5wcCwLmJZOsiCRfcPb5ERdxOWE7X1gMRjGiOk4sCSY0DZSws0si
-         qKPfgYJrEC9KT1CJJatuh1RqkeD2d9rwEMBIkS5lJ+KqrkBMC8Eoa69dZEPOfB5iC1Qg
-         /Zwhm0KTA5CZsO1dmGlE7GcKBpBevILCxwvyR1jd3BR/GlUjW2qqdnYEcOD9CG/exJgH
-         hcFg==
+        d=gmail.com; s=20260707; t=1794933342; x=1795538142; darn=vger.kernel.org;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XOOROMKIPXr3CQSNIxjA9uq5C/f3wnb7r92RzJgi0oU=;
+        b=pyE2NEWbgjgnRxtgeP8OZzqnjZI0vTosGSDhziGibQl9wqRWYYG+B6fE1fCra0Ta2W
+         SJ9w0OkJjdVbt4LPYFO5ANpp1nIvROLiH2YWHFvINYAewueB+LAP9UDempZVvxFPdeCO
+         n6EN6zuQO/tiHNNadCcCF//1v0WIBNXhm618Gbpev4tjM05vw9o2xfWQYXAbrQtuNfVv
+         g8htTpo0dCMUhIcKYhOEC/1IUWCFIzv8HRMnniRtodST/hN2VLWTsyxaYT/YqFIz4CQG
+         20+IJbzgQisouSSacl3m0D9DQruurBaXzbd91L1VDrb5/7shtZRXeMKFA3kytpMJsWQv
+         muUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794933312; x=1795538112;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Z8CIfRuBE0dh3C1ZRhqXdDSEMv+0cdiVuIl1a6bMpog=;
-        b=B0HGpg7An9OKJHrpqn7JZXCYBE9Ct1FNDFKaTkUXLqhQRHeN+0d7ziFFZwMyTtnFaw
-         jCgR0zspcEq1/n/8HMj8IqK6iod5iL0CjJJ8FKfcleukhrxdcGEoGD28sGwK7QMFiXfP
-         /hvtX9EgTqX0hnCwmqWR0WIRVpLtCH2yqXxGZRStxHOdUVa1YCk91MnPwtm1TfHRWS/+
-         AdcT9IYiRQv5CZfQ0Sa/8sgVUxTs/TUVYFKEPi+jfS4lyOWtWRHIROZMDyHJbF1s/oJ0
-         Gao7tkd9JihARxkfJucO1pH1uh872Tk5FKnrs0hVgmGpl1rz42/3gp5m8CShePs1+T//
-         kUNw==
-X-Forwarded-Encrypted: i=1; AL+hErGEF9kKdD8vJZYTAW3oUVjl54gp9nAagaCST4c1Vv/KhYk6mUPQ+PXMZIqgNIQIyhL5FplN8S6y0scOZ2M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Nx6L557mKljGbRJHzlKJkQnR2sQMIdsJfgbVjaus15COb4s/j
-	9x4AphONfMRY+KGYrOqSU1u5vnO59th3aFQiHMGAEgX2Yf/EiQ5f8iNEeO0mrWCsgi3h6QQY4qp
-	UyX0vw18=
-X-Gm-Gg: AYBFou0E+48ENEx2zx5ltdYM3Tbt+EongHMZ5N3wEatgcfOgboHX5Wr/KnxVzYJFwZX
-	cA53a4prTjj4wLkHnwuLfMjlBlZfFNrbYlMd8i7zmYKEcVvwKTJKu0jV9/qzvQeIzFQxgtDK6xt
-	I7Izw4F3cGS9kBs3J0uuIM1MOKM9aOZ+bto6M1v9lBJNGXTBch7+HQt/djXv7zP43v6WiRRlEO9
-	UM7M0xHSTyE47gbVzMXRluzP8olkAzOIf1kS7wu6ggOwPA7mdVlovMT8Z5IEM6cLk97Ptu95tt/
-	CFkBzo77otBGWkAje9W4mOkeMwh7JVRFojhIJBUsez5j/+jRRqvgPYX+0E/M1M1+MCh5kFgDq9R
-	nREN5JP8YZq1AjOtiETaANzTNPqYUIuYvsJTaqJEwWOZMgpO/Lkn+/uAEUuI/QBVjeEsYlsw9fX
-	6vX4IeiNyU1FCCernIxzz0wvLSKbFfM5qbcKUQsV92Gzn/HKdDZt3TDUu5kRbT59vj+570UOi7d
-	1EEU7V7NrFZhAh0tl05itmjn6Txi8b2PqhAL9st6Jz254IZcWlTYTT/hG1FNze7W23YfVPh7uIt
-	7mVB4wNeIlOJclHf5Uw5Y9ECNdXdnT1Xw4rDy6G5AChPu3/ipwMVHXKkKp2HrNIBwMQZSLNMaMK
-	pdw==
-X-Received: by 2002:a05:600c:4513:b0:4bb:687c:4fbe with SMTP id 5b1f17b1804b1-4bb7837c4e5mr72201605e9.8.1794933312192;
-        Tue, 17 Nov 2026 08:35:12 -0800 (PST)
-Received: from ?IPV6:2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183? ([2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb7838c6a7sm71536475e9.5.2026.11.17.08.35.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2026 08:35:11 -0800 (PST)
-Message-ID: <9429350a-4c59-419c-80da-7f6d3768cfce@baylibre.com>
-Date: Tue, 17 Nov 2026 16:35:10 +0000
+        d=1e100.net; s=20260707; t=1794933342; x=1795538142;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XOOROMKIPXr3CQSNIxjA9uq5C/f3wnb7r92RzJgi0oU=;
+        b=DN5st2mQKkuYJkDkevrAhTdiM9ISnnw/TdcYJbVYk/14OyczSkoctpuYrenlN5lhmG
+         XDsyn/nz/IAhyWDC+Emn2NHUQHl+5JWUFPhm6wib5m+TWeK5aE6tPO6ix/BmxQhPGC1X
+         63QPqJZ64lSANzREPkPbvIW/nvlzHAb53YxE9+KYdxJzQjJnYsX+3yNVROpr4Sx1eerd
+         62R6CRwr9rvb+rIk2/UTsRyUQjSijrH3TeS3RgRDXa2WQR6VT8G5bOhNlsgaWgOXwuhq
+         ylH/At7r2cdJkb36/1hQDEGYjxyvSsN0Atl1oxCFwj8AbpRhhyfWSDCh/j4/hhOXZ2+f
+         VHVA==
+X-Forwarded-Encrypted: i=1; AL+hErH2nnj3ao+MgZH3JfSNKjgezeKWRQHzUUjh3flNvrj4KWZ5r21DyLW2qI9YGaDR1EOWR1Kwwj+OYo6YsA0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+BXrBAfWxMuGFzzEl/PLdz2jhb7RCz62XWPNuJ5B180QcHIgwa
+	nKar+eh4FK3OZ6B7/8bLhWnTatv0hs+PciVCLIz8jnTEXn1gpsNguCpe
+X-Gm-Gg: AYBFou3kJqveyeFW3j3YDVEqyiodFaYksXmfxn/UQ2LXtS+cVmHxTC+61LP8yMz9Ien
+	DGpDUEhR79xKcFO+mR6nV/wBj/yWtGO39Nnp1dSBF4eG8qvvk9l6WjiN5N+zdztGKe0AOPq/oFs
+	66HUE4+JtuDhe9A+FSWIGY1yQc/TMzgbs+mz6CLJ7p/yw4xLkzgYB/gW+X3k0It//WSPJuFcIRz
+	OZuA4j7Vx0zKB9qmktteFx0yFYGZxLkzzzm/KwgfObfmQUT0RWSobo2PEs9hlZveuXVSBYb0yI0
+	+OZ4kzghFC327AY3in80Ftag7mAZzD8z46doJDOy/XoD6K9MieneOq4Uv2iAsjPQ0hmk2jqfaAq
+	z/h+H/Q58+GPBE0YsJ+eG/Pf4M0OIcfh34BT4avBeNEw1zkO56VVGLmextAd/M1gHEbzbxaxX0T
+	/WrJYoieHCuhSaUJ2D4oWjYACvZhWSYTPM+D/5eQQnFXaLDfzl8ZI6eRcT+ADf8vpEg06LPThE7
+	Pj48FBoD5ACm2I+WxljcWaOEXtERm4APD/CYGQLtfnDtuQQBQVsZcPzmJT95F14WefHmBtcbw1n
+	y3ZtxaXBnEy/T5C8Ct+F7EtEaMKwJeqSvNGattVBKmEKRaDCP10bxuSHj9sUHeuWsk0ywLTBQ9c
+	lPtmy5mQYGo7wJOkxaCilkzIg7O2DzdUciFfQA8QYeqgne6+7HqsSGqpn1zLr1lEx1fHO5gVdeG
+	nBwbVIs7gLRvfJpKyRq2nDe5NPpAkPbDs+xJd5kYeXU+7G9g11nnClYf8p8ROIIlwPHGE7buNVw
+	lww+M4veW+MqXUplObAm71L8Wc/eulTMAr9GZrMN9BHW0oa5UxCxdWzKjs=
+X-Received: by 2002:a05:600c:620a:b0:4bb:6991:2330 with SMTP id 5b1f17b1804b1-4bb69912526mr176343095e9.22.1794933342249;
+        Tue, 17 Nov 2026 08:35:42 -0800 (PST)
+Received: from jernej-laptop.localnet (95-143-148-21.dynamic.telemach.net. [95.143.148.21])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c69406640sm28919970f8f.12.2026.11.17.08.35.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 08:35:41 -0800 (PST)
+From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: Chen-Yu Tsai <wens@kernel.org>, linux-sunxi@lists.linux.dev
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Simona Vetter <simona@ffwll.ch>, Samuel Holland <samuel@sholland.org>,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Yang Siyuan <hsyysy@163.com>
+Subject:
+ Re: [PATCH RESEND] drm/sun4i: report coverage pixel blending for
+ alpha-capable planes
+Date: Tue, 17 Nov 2026 17:35:40 +0100
+Message-ID: <VyjYt3XHQ3e42-zx5UUDfg@gmail.com>
+In-Reply-To: <20261117091932.12063-1-hsyysy@163.com>
+References: <20261117091932.12063-1-hsyysy@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,43 +106,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] accel/rocket: Fix NULL deref and double-free in job
- submit error path
-To: D D <dhabal123@gmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>
-Cc: simona@ffwll.ch, airlied@gmail.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <CA+g3TbucTCsgvGaywNqyZdh5g-889zK06WZ57Mpxm1qOpgYTfA@mail.gmail.com>
-Content-Language: en-US
-From: Daniel Drake <ddrake@baylibre.com>
-In-Reply-To: <CA+g3TbucTCsgvGaywNqyZdh5g-889zK06WZ57Mpxm1qOpgYTfA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-Hi,
+Dne torek, 17. november 2026 ob 10:19:32 Srednjeevropski standardni =C4=8Da=
+s je Yang Siyuan napisal(a):
+> Linux 7.3 added validate_blend_mode_for_alpha_formats(), which warns once
+> per plane that exposes a pixel format with an alpha channel but has no
+> blend mode property:
+>=20
+>   sun4i-drm display-engine: [drm] [PLANE:35:plane-0] pixel format with
+>   alpha exposed but blend mode not setup. Please fix.
+>=20
+> The mixer blends a layer using its own alpha channel: ALPHA_MODE is set
+> to PIXEL when plane alpha is opaque and to COMBINED otherwise, while
+> BLEND_PREMULTIPLY keeps its reset value. That is straight alpha, i.e. the
+> DRM "coverage" blending equation.
+>=20
+> Advertise exactly DRM_MODE_BLEND_COVERAGE on every layer that can expose
+> an alpha format (UI always, VI on DE3 and later). This matches the
+> existing register programming, keeps userspace behaviour unchanged and
+> satisfies the new validation. Premultiplied blending would require
+> driving BLEND_PREMULTIPLY and is left as a follow-up.
 
-On 27/05/2026 15:33, D D wrote:
-> Hi Tomeu,
-> 
-> Two bugs in the job submission error path in rocket_job.c:
-> 
-> 1) rocket_job_cleanup() unconditionally calls
->     rocket_iommu_domain_put(job->domain), but job->domain is only
->     assigned after all fallible operations in
->     rocket_ioctl_submit_job(). On early failure, job->domain is NULL,
->     causing a NULL pointer dereference.
-> 
-> 2) rocket_copy_tasks() frees rjob->tasks on its error path but does
->     not NULL the pointer. rocket_job_cleanup() frees it again,
->     resulting in a double-free.
-Please read the kernel docs on submitting patches, you cannot submit 
-them as attachments.
+The subject says drm/sun4i, but the DE1 backend planes (sun4i_layer.c)
+also expose ARGB8888/ARGB4444/ARGB1555 without a blend mode property, so
+A10/A20/A31/A33 still trigger the warning. Either handle them in a separate
+patch or say in the commit message that this one only covers the DE2+
+mixer.
 
-You also need to rewrite the commit messages to be easily readable by 
-overloaded kernel maintainers. If you are including 10+ 
-function/variable names in a single paragraph, or translating C code 
-into English, it is a sign the commit message is not useful.
+>=20
+> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format wi=
+th alpha exposed")
 
-Thanks
-Daniel
+This is incorrect. That patch only added general check. Drop the tag.
+
+> Signed-off-by: Yang Siyuan <hsyysy@163.com>
+> ---
+>  drivers/gpu/drm/sun4i/sun8i_ui_layer.c | 13 +++++++++++++
+>  drivers/gpu/drm/sun4i/sun8i_vi_layer.c | 14 ++++++++++++++
+>  2 files changed, 27 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/sun4i/sun8i_ui_layer.c b/drivers/gpu/drm/sun=
+4i/sun8i_ui_layer.c
+> index 7d894e1eb..ef059ac47 100644
+> --- a/drivers/gpu/drm/sun4i/sun8i_ui_layer.c
+> +++ b/drivers/gpu/drm/sun4i/sun8i_ui_layer.c
+> @@ -283,6 +283,19 @@ struct sun8i_layer *sun8i_ui_layer_init_one(struct d=
+rm_device *drm,
+>  		return ERR_PTR(ret);
+>  	}
+> =20
+> +	/*
+> +	 * The mixer blends the layer using its own alpha channel with the
+> +	 * pixels not premultiplied (BLEND_PREMULTIPLY keeps its reset value),
+> +	 * which is the DRM "coverage" equation. Report it so that the blend
+> +	 * mode validation in drm_mode_config_validate() is satisfied.
+> +	 */
+
+Above comment doesn't add much value.
+
+> +	ret =3D drm_plane_create_blend_mode_property(&layer->plane,
+> +						   BIT(DRM_MODE_BLEND_COVERAGE));
+> +	if (ret) {
+> +		dev_err(drm->dev, "Couldn't add blend mode property\n");
+> +		return ERR_PTR(ret);
+> +	}
+> +
+>  	ret =3D drm_plane_create_zpos_property(&layer->plane, index,
+>  					     0, plane_cnt - 1);
+>  	if (ret) {
+> diff --git a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c b/drivers/gpu/drm/sun=
+4i/sun8i_vi_layer.c
+> index 92dd5a97f..b6771576b 100644
+> --- a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
+> +++ b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
+> @@ -470,6 +470,20 @@ struct sun8i_layer *sun8i_vi_layer_init_one(struct d=
+rm_device *drm,
+>  		}
+>  	}
+> =20
+> +	/*
+> +	 * Only DE3 and later expose pixel formats with an alpha channel, and
+> +	 * the mixer blends them with straight alpha (coverage), same as the UI
+> +	 * layer.
+> +	 */
+
+And neither this.
+
+Best regards,
+Jernej
+
+> +	if (layer->cfg->de_type >=3D SUN8I_MIXER_DE3) {
+> +		ret =3D drm_plane_create_blend_mode_property(&layer->plane,
+> +							   BIT(DRM_MODE_BLEND_COVERAGE));
+> +		if (ret) {
+> +			dev_err(drm->dev, "Couldn't add blend mode property\n");
+> +			return ERR_PTR(ret);
+> +		}
+> +	}
+> +
+>  	ret =3D drm_plane_create_zpos_property(&layer->plane, index,
+>  					     0, plane_cnt - 1);
+>  	if (ret) {
+> base-commit: 091b06388b117fefdcb63336ac09956a4914b961
+>=20
+
+
+
 
