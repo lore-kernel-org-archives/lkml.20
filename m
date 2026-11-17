@@ -1,100 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.214.175
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794916343;
-	b=ujJB/OuWGlfk7CPdF5ohu4teEyqmfU2O0YMYfgG19AljSPFWTjVTR3ZF31TkugmXEoMo
-	 9FAQd0zF+/ds4iOOD0ql41onkEaTlErPeOW6H0nJtN2YopsGohncBh9iHPw+npEqY/uVP
-	 eAefW/uNx1Qv0hSiKUK1rg28QCNMvrhq+Qxd1XW4j2Ipa7lzNg7o78E18UF7jiMLXXHds
-	 6aVjQavpYK9Ejeyj/9T27ZNQehena5+6xZuxQhzsK3omacHOLrgEMni7kSCEPdh6q5jZ8
-	 eHOuIJ15bQ8z77gUT7+MQjcJ513vdU9twNi4phH5j0DP96ESx1upuvGANyrnFpo8Xbw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794916343;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=0r/m1mAfbKgiD7yOB9oy7sj80T9BKokzsNI3WwDEi/8=;
-	b=JpbWVB0leplvOPlMCr2jO4Mz8zkPKyFGfGUJufxIZUpJiinebkt6CQqp5RVkS0Y1oVeV
-	 lIjBH9nEph/m5JbVwPTiUnqrtt39vqfMyNXGv5LvfvvAUpWY0kDxEA6b4O2UoOz2TQrJ0
-	 kv+Y3nwZ2aBHQcbhui5KP29IyjWlv7EoJkpLF3nmkZkHKmLfe2s+kPPMaHGPNEKAO69J9
-	 ISkOQSzx3LFBazk22zFed2aGolkJFAHOONN5/OcCi32TkDNlR58ih42oK8XlvKugK/byA
-	 9nail56LdZI2dA+rYajJH/7CyEeRnQ4Jq5iyTjfW884UdzBRN78FhRtB0NExGeVY3lw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="JM/ndeT6";
-	arc=fail smtp.remote-ip=209.85.214.175
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.64.143
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794916427;
+	b=4DI7AkiFUwCYENKqKAjul6rRie2wMqXRax9vIGW15qXwORIEzmABeeCrcZwMQOGF6YN4
+	 Y/4M3hAlhO7uBo5b+zIyomq8sddTNR2tNeTGuLwaxjFCUF9qwiDrzLS02z1rcPztpZaxP
+	 GCBuopjAz53kLrzCHfrRsDc3NqEellKdRUm92uQW8akKeIfj4RddwoftUo3+6NrK55bVP
+	 ojV6nPA2YQlOfRTn16V/2J5OSL2N9MYHLJ5vwtw4hmKkYMatFmjKDLV1/FaLPpj1XFvoV
+	 vTQRZo0ckRZ0p3yrigxqbFxdn9kA3cF41T/VDBe5HLCL+Jqx7aNnLfewV81K1drxCqA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794916427;
+	h=DMARC-Filter:Received:X-ICL-RepId:Dkim-Signature:
+	 mail-alias-created-date:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Info-Out:X-Proofpoint-GUID:
+	 X-JNJ;
+	bh=ns7yWOxeWCLlUtscnHrHlNmxNz7q83rrXK4tG+VKh8Q=;
+	b=ChAvkjDqw244iczPczZCqkC7b8Jkfg3/R1OIWD+uK+qPBUnhDQA3z7Grtp4YVzEbyFoj
+	 LTs4PnzesN+AQA7hXqAg0Vy33yikmooxkx+SZh+yjFDzme4ViKggnt7Cer6EOn7p8hqLg
+	 yvCaGIOrgJgBfNCLiOGgwzzG2sHc9LjppSNzwdY7InAZbCXRG+UMTeZLE3SH814JZ0SEe
+	 EDpGW98Lo01YOT8iU3wW01lJZDACXzZqfAGKiPI48r6RwEfggjllTpFrg3//PZjqZCfkk
+	 lYeURy3kK8XNgIbWlwOYYj7EG/9NClSoA4Kw0VKnqbCoClHnghMCiQS8a5I4n0IEnig==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=verdict.gg;
+	spf=pass smtp.mailfrom=verdict.gg;
+	dkim=pass header.d=verdict.gg header.i=@verdict.gg header.a=rsa-sha256 header.s=sig1 header.b=CeOBFq9W;
+	arc=none smtp.remote-ip=57.103.64.143
+Received: from outbound.pv.icloud.com (pv-2002j-snip4-2.eps.apple.com [57.103.64.143])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B7ED606A329
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:52:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B7ED606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92674606A33A
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:53:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92674606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=verdict.gg
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=verdict.gg
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JM/ndeT6
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e9d7791b00so45438025ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:52:23 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794916342; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Onvp7AeHwMX45Q5OC7JkwrMg0v6lksag0y66HPf6opcXljeuGeuYRYAbASPYMvNQrF
-         YzwZiH6oJdpClOfAhnDDCqE8Y9KV6Tlxp8n8fEM7xU80t2BGgCcwkRgmlZQ4VdX63wLk
-         IKue6NNxauZfbqScKc8PxuKZC4BqcMB6F/b0QA98spwsZIxN+ss/d8tCIfK/NLSncXN9
-         lTmsngx1mvboieDv0CEDPGyAMqop3R4rOY0Scb/acOqSCTmChIhI3IwgRpuRXOIy2lc8
-         DdAqKy4jyY81zQtmvGVsw98+d+SWsJDTCVpE73Pm9cD62mK3oD0vhE1p6QTYHcYiEm+x
-         H7gg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=0r/m1mAfbKgiD7yOB9oy7sj80T9BKokzsNI3WwDEi/8=;
-        fh=IN7FTxVMsIJo4DCTjnsZUVddsC3R9fus9iOn1Yw6/wU=;
-        b=jwO5InPEV8HoRNqddWSIM2Apl4AKmje02Druyr9wrwIo97DinIDIr7ncdIBgejYCgV
-         OpAPzLrx+WtaQdA/Ghi0j66OP/2jjtgdcvxN2ob6FSKRlVAwXLxQsvnyQ3N4hTqdfS3Y
-         2s6rdBAN+EonkWctjRnq8GEy6LUqFnqIHIiL/3PZYnukrBvo1cQahHOAmLNy/PHaCuSQ
-         EPDgXbXOe4qup/GiFHBo0jeTbhjQG5Pa/CeTNWmkbFuG5BynNYnHvuNxARoHvVQzN+L1
-         MAp/JNf/TrkkpYwP2SPzkyTB9lGb9oiIdVyXh3RKTVNcklSy9XSeitKAyEdN+eYwm9o1
-         12Vw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794916342; x=1795521142; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0r/m1mAfbKgiD7yOB9oy7sj80T9BKokzsNI3WwDEi/8=;
-        b=JM/ndeT6tufj/RSHKfG4OpDX8e7AIeExc1cVqzayA5ozUtzHsxHJt0K+5HaA7+UvRb
-         Tmf2c2uv92V4BLS6mm3vWtQs+ol7CzFWT4ILmbVLw/OBylUR7R2HYVxNHsJU6vv1Ez/v
-         UOPUNf+PSdMFeMouDMhcRg8T7+kJJ3JdevvTdx2EtxWMt2jkbNtAuIT0umlo2dJ239W3
-         6HrTUZpaGXBx7d3HXxjBbYRWaVo5G6mzQU4Aswdspn/dY4tODJvuc/1mye30C3MZS/RS
-         +Zxhrb1Uv+OHNp7vw6acsMdlGqoGdXuZJZV3w7/iBTeBTIJKvLt2IPefIqC5SNtjSNAZ
-         Zfcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794916342; x=1795521142;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0r/m1mAfbKgiD7yOB9oy7sj80T9BKokzsNI3WwDEi/8=;
-        b=oSTJjjVfQdH9ed2IS9XmFjiF6Gmvasp844YOSTl5RLnQy4LBywRWzy0tH6ded2dSil
-         W7HncIjb0dMq6x6gUwpmHgwIJ+xKxbjACJxcOpCOERtIyKg4HoAJDRzcJdZdgksAL1t6
-         dz4qhqp0cB7HTiSa2giQ3hKbrsrHIRUPCMKnS/jebCaXpMIDDcD7lChOBR6bCgk/vOik
-         G9yRZuCVgM3kk3ULheNC7YnZxn+B4Q0HiayOZiTNtL0uy11+7GyH/yNnCVmQhpv98eci
-         q8teQpR0XLStFFAN6kPZwXIG8Ty1/6NDjV9Xcu10DPk9yaiZsZuZfW+Cgvb/RQAlSfUy
-         5rlQ==
-X-Forwarded-Encrypted: i=1; AL+hErEJ2E9Ly6klwgsyKZMPe5yaFIGgETsKk3pg/F6JoMBv4bI8mPuaB5mQux0i4ot7O+4nJQGpgWhS96E37x4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9rzV5UxqLk0EMH6hR7JHV2HmnBvM+3CJVHt9twwW4aaLn2kxHM
-	4N2uiWtlhKYtJviIYy6T158TEZNTUCDgwC1P3E4qhFptfK5uPJiiBN/ny9wgNVZ5fiq8njqJBfo
-	rdmAKqZSe181wBRsiX7Y2WdmAR6xFzo4=
-X-Gm-Gg: AZFdTZe5BjNMrOwDI0BBGmZmp+rV0sHy/qByFuHYm86zjibfZsxm4Eufo5TRGAndZpz
-	LAeucBJliqIr8cM/jf7Kdi/+x5n5VGDM5ZlyMqehFBem7gQ4APRBtBMyJuiwoTFfchN3u9ZuN1s
-	0VvAa5AcIUQIeYdbT0f+gRtSQBcZ2oSplIiaCYatLtBnSKxDMFteULcjkj/hpKfyXSG5NI0cdkf
-	ZY66NSQl0Hxr2PQ93zPwQb8fydbMS2/BcaHx26xwl60erDnNHx9PhBWMcfPwcff4KoHHanPIJ0s
-	5I/8jTpMyadcQKisJQvS8UkkMOPt0eAyc4DFO3S2dBcznp/EOFbOtEZ3vK6Co7xli4U5lIc8bx1
-	iu7ZFaMwVaGlbaT860YHPorBvplXKHa6JmgGz0UiGbxdo6nXvavcjfQlU+c8YiaWy2w==
-X-Received: by 2002:a17:903:4b28:b0:2ef:da34:7575 with SMTP id
- d9443c01a7336-2efda3478f8mr25625925ad.69.1794916342499; Tue, 17 Nov 2026
- 03:52:22 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=verdict.gg header.i=@verdict.gg header.a=rsa-sha256 header.s=sig1 header.b=CeOBFq9W
+Received: from outbound.pv.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-1a-20-percent-1 (Postfix) with ESMTPS id B31C0180021F;
+	Tue, 17 Nov 2026 11:53:42 +0000 (UTC)
+X-ICL-RepId: 01a1e95b-134a-7881-8211-7e3aa6e1aea3
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=verdict.gg; s=sig1; t=1794916424; x=1826452424; bh=ns7yWOxeWCLlUtscnHrHlNmxNz7q83rrXK4tG+VKh8Q=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=CeOBFq9Wq6SF12AI3PIzC+yhacxQt06xNouKJjDYd/qlyO54ahFa5blSVQqEIW8aBrn0DFA/uxXTz61OcMdOHpxWquuFr/humHVgOfb+KCc6v7ayUySzfKoV0Js+0hG6eaM0BL8OJdYUmtse09rKsObZ3Feq5ZHn1ly7uXiVC8zPV+nGBkHhVfGkTWa+QjC/aIwb4CfPxh2uzCXKQ84uh6wofzK/2/7ODq+K3Khk0x7jc30H//h2h8iFpd2dpla2lZixugv0DmKIMqYjlfJNjgHeb3b1goy2Y5qS+GlOAo3Cphw3bGa4uNy6K4A8AR/8TBAb4XWQjfgQZJMBCil+gA==
+mail-alias-created-date: 1621344842221
+Received: from DelNac.mail.msk (unknown [17.156.192.29])
+	by p00-icloudmta-asmtp-us-west-1a-20-percent-1 (Postfix) with ESMTPSA id D715218001BF;
+	Tue, 17 Nov 2026 11:53:37 +0000 (UTC)
+From: Vladimir Vdovin <deliran@verdict.gg>
+To: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Aaron Conole <aconole@redhat.com>,
+	Eelco Chaudron <echaudro@redhat.com>,
+	Ilya Maximets <i.maximets@ovn.org>
+Cc: Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	dev@openvswitch.org,
+	linux-hardening@vger.kernel.org,
+	Fernando Fernandez Mancera <fmancera@suse.de>,
+	Vladimir Vdovin <deliran@verdict.gg>
+Subject: [PATCH nf-next v1 0/5] netfilter: nf_conncount: reduce list_lock contention at the limit
+Date: Tue, 17 Nov 2026 14:53:03 +0300
+Message-ID: <20261117115308.95134-1-deliran@verdict.gg>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,91 +80,150 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112140101.647-1-adrianhuang0701@gmail.com> <avsQKLgi9bqD51W8@gremlin>
-In-Reply-To: <avsQKLgi9bqD51W8@gremlin>
-From: Huang Adrian <adrianhuang0701@gmail.com>
-Date: Tue, 17 Nov 2026 19:52:11 +0800
-X-Gm-Features: AclHuK_YP7jGU0mfHFtcV45lYkePktMNfOxs8gWCYOKlclcpX8iMtc-uS_KjPxk
-Message-ID: <CAHKZfL2UmshKugf9uPBHK2xZnNNifRfXdT686-cj3SvN0PzkTg@mail.gmail.com>
-Subject: Re: [PATCH mm-unstable 1/1] fs/proc/task_mmu: advance seq_file
- position on interrupted VMA lookup
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, 
-	Pedro Falcato <pfalcato@suse.de>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, ahuang12@lenovo.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: gEgYC-vKQFDSq_RvjCOrLk78npJMFyKi
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA0NyBTYWx0ZWRfX5PyWIkEjCkfp
+ UVH0iuk1ep33Ra8VI5YwxsacQFIG2OLtr85rLHrCgMggSnsssrCSnTdCqlU3vmLIsQ13RtJvm5c
+ i3QCpr+zKIdlJ05RuRQZrd7inXU3H7k=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA0NyBTYWx0ZWRfX+266nEAjpd+A
+ ZlpjiECXwQSLGExP/07Il/YeSYfZzFeK9iVxRdVG7/1NJrM7q29LS/hrjjUUeNlUHpC8D40UQq4
+ XV/OT9MK3x84ZK8fMeIzC6WIhcO/uLkxx6bynHzXFaiXutwnZoY/Gv4uQ8D/W6eeVB8YhIw4jM8
+ nxSJxkhk1sq8C0yxnXwHfty0fXywKSjf0xkEJeDF9dZFoz27yMetHtCrE9lFhVA/d+LS8Pg54ca
+ TPRGWNWMCpeE6q2t0Ugs+LR7ydbeyiNtBf+TdDV0jLCWm6xsgCHlJ/Sr1PNs9DY0nGRcS64nYxf
+ sORcIXaXKqht2bfbKOH+E5i8HUpIygof/C5lrvllmQm/BRy/rCEnmItUlh5j9o=
+X-Authority-Info-Out: v=2.4 cv=INaXmQvG c=1 sm=1 tr=0 ts=6afc4048
+ cx=c_apl:c_pps:t_out a=aW9mcIavGNWWFvFFKOxBSA==:117
+ a=aW9mcIavGNWWFvFFKOxBSA==:17 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=51JdnUhQRHFq8RItG6ly:22 a=fpMW3eChgMEhEGMGJwAh:22 a=VwQbUJbxAAAA:8
+ a=gNQ-XgrdbNVyKNSONi8A:9
+X-Proofpoint-GUID: gEgYC-vKQFDSq_RvjCOrLk78npJMFyKi
+X-JNJ: AAAAAAAB2ZSvn9er+OVtv4+IN7hZNp8adE7ID9HES50oPVljIASVO1/9qXGk/kl/jZf/OW
+ AUNCFd9hm1k5trrijJTAzELliLWlBVqwEwS5PRDwTCLVOnoQo61AexRBfwNO52YoAnlIdk
+ 4V7KPRZ6qjv8A/KDx1awDHaMrL3O5ONEEJ8lk2o84l44SeozKP5f3BQ6YO81PoiYbKpH3T
+ rl0D9rofM3eiXShp1WxJFliV7nOtwRc3GOPYZuq5NEsNOx5EA3+K3k1rYNJKD0EEQRbC0D
+ hWc/JqN48XBivY5J4JmC8i6Y8DLhgH/bFeOZMZpuIWZlHKkzdAPNVJ9llIqT56MJK/t58m
+ DQBrOzslF4mbH+Vj0IpH7FOyUmjzXBMHsHLYS/06xkTsk97crQo5b2NKdHeCADawn+X4hc
+ /0/RmekxVFvqsC4GEK8r2tRLdabZq69ILntLNIotlbPhuNDswursJV8Uvambj5hEzqGWaX
+ ZPR7GAOouw3Xyltc/PDQI38AiPHHZiW/L4RXIaAtvC4XpQqX34BZ84e1W25p9Fhjvj6L26
+ oXWKMuJfIJqshiHRihMDY0or2BiKUBX+WGCGsWS61faWFJUZKxx/2TiQaDACTqcVRitJ8P
+ qFW/D1x7FeKaqufZ4FGfy6AVsZXf73fSKNIGXOA5OW9AQ2BC3xujuImig82HrfYIn5i9sJ
+ QBUVP2Xk6qTrtF2FkzmID84jRUTvbvMRaOko4s20dUEqMdH+QRtHo6EgLBmcBkqzEdoB10
+ 2JnpMPqsOPrZH0jPRlY6JmHB6eh1b3vPRKUn0yVSTozJ98os0XCXtHz54Q5MFlPEV+nklM
+ E3qzqs2yoFHiTG8bphsvsmS3epSddwtq2x02VzZARQUvIVHOWYYBlfZHUoqTMY63Z1WgWv
+ VqBkgWjDL9vGJ/gFyj2Pcqt75vB6+tYqcpMZu6u23k3F+CDxhOG02mpgwbhLqCS0DAvOHV
+ rvzKy5z/dkeia9rEDbeKn5Z2BM2MBwcWJYjYltsQTrTi7Ss6+3FagVIWP7voHLfPwtCesD
+ wU3ts0p9fcNa5RcYExxat+lbE3lTlb2JZO9pAPW1A4vtqfXZqszuGgrmhF6oGKJYYOzr9I
+ CXKuNwkpOkTd6R4EXXF/esmWbXhAGGNCyTM3DVA53gw0TKW7UeSquvsmVXp+qGmQ4zT/ZQ
+ 9A9WA/j7EEiiMS1kz4D9Xco9enqvrzE7ANb0aUeLhKZuAApJz3ZoJ4UjqZyphhl3PkOFoZ
+ /guLMvpZueJ/5bir5xkRmczLMZzLOTFyAJz21rIAR5aV8XrMFSHAMCc5aW2EIE7C4Q7Qev
+ HJG5DREYdE4fdQozRFNEB9cStHQUQvozDSlyp6BVC3RjhnfJR/8IDk/2NBv0bx1u5cVWsq
+ jG/mxnlBL7qAxPMEeXsYjJqVeEv2SVCms4JaH/OCR5fDnbWHPDTkrArr
 
-On Mon, Nov 16, 2026 at 10:37=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kernel.=
-org> wrote:
->
-> On Thu, Nov 12, 2026 at 10:01:01PM +0800, Adrian Huang (Lenovo) wrote:
-> > Commit 5631da56c9a8 ("fs/proc/task_mmu: read proc/pid/maps under
-> > per-vma lock") introduced the possibility of returning -EINTR
-> > from proc_get_vma() when the VMA lookup is interrupted.
-> >
-> > When this happens in m_next(), proc_get_vma() returns an error
-> > pointer without updating the position index. Consequently,
-> > seq_read_iter() reports:
-> >
-> >   seq_file: buggy .next function m_next did not update position index
->
-> What does seq_read_iter() 'reporting' something mean? It feels like you'r=
-e
-> trying to make this into something bigger than it is.
->
-> What you mean to say is a rate-limited pr_info() output occurs, and when =
-a
-> process that _has received a fatal signal_ (!!) somehow continues long
-> enough to try to output more data, you get an pr_info().
->
-> The relevant code from seq_read_iter():
->
->                 if (pos =3D=3D m->index) {
->                         pr_info_ratelimited("buggy .next function %ps did=
- not update position index\n",
->                                             m->op->next);
->                         m->index++;
->                 }
->
-> Anyway you should mention the fatal signal requirement clearly.
->
-> >
-> > The above buggy message is reproduced by the following command:
-> >
-> >   # stress-ng --vma 0 -t 60
->
-> OK I could reproduce the output locally. It seems that this run results i=
-n
-> fatal signals being sent to the processes triggering this output.
->
-> > Update the position index when VMA lookup fails, as required by
-> > the seq_file interface. Also save the original position in
-> > priv->last_pos so that subsequent iteration can restart from
-> > the correct address without skipping or repeating a VMA.
->
-> We don't really care about skipping or repeating a VMA for a process that=
-'s
-> about to die :)
->
-> We may as well do this but better to just hoist that to share code.
->
-> >
-> > Fixes: 5631da56c9a8 ("fs/proc/task_mmu: read proc/pid/maps under per-vm=
-a lock")
->
-> This isn't really a bug, it's really cosmetic to be honest. So not sure i=
-f
-> we need a cc: stable hmm.
->
-> > Signed-off-by: Adrian Huang (Lenovo) <adrianhuang0701@gmail.com>
->
-> See attached suggested patch that makes the comment sane + hoists the sha=
-red
-> bit (dropping a silly existing comment).
+Follow-up to [1]: Florian asked for the slot count to come from the
+cpu count, Fernando for a way to see the contention. Additional
+profiling showed the slot locks were not the main problem, the
+per-key list is.
 
-Your suggested patch is better. I verified it on my side and it works
-as expected. Thanks.
+The setup is a 128-cpu hypervisor (64 rx queues) running openvswitch
+with per-zone conntrack limits under a 2 Mpps SYN flood against one
+VM. OVS keys nf_conncount by zone id, so the whole zone shares one
+nf_conncount_list and its list_lock. Once the zone is at its limit
+(500k), 96.8% of all cycles are in native_queued_spin_lock_slowpath
+behind the spin_lock_bh() in count_tree(), and the host is
+unreachable.
 
--- Adrian
+Two things add up to that:
+
+ * openvswitch has no way to ask whether the zone has room without
+   recording the connection, so above the limit every packet still
+   takes list_lock, records an entry that ovs_ct_commit() rejects at
+   once, and leaves it for gc to evict;
+
+ * the gc walk stops after 64 *evicted* entries, but live entries and
+   -EAGAIN entries do not count, so under flood every walk covers the
+   whole list: 500k nf_conntrack_find_get() under list_lock with BH
+   off. And nf_conncount_gc_list() takes the trylock before it checks
+   whether gc already ran this jiffy, so the count-only lookup is not
+   lockless either.
+
+Patch 1, nf_conncount: bound the gc walk by examined entries.
+  A pass stops after 128 examined entries and the list is rotated so
+  successive passes still cover all of it.
+
+Patch 2, nf_conncount: check last_gc before taking list_lock.
+  The count-only lookup stays lockless when gc already ran this
+  jiffy; one cpu per jiffy touches the lock, the rest read the count.
+
+Patch 3, nf_conncount: size the number of slots from the cpu count.
+  Florian's suggestion from [1].
+
+Patch 4, openvswitch: do not record connections above the zone limit.
+  Look the count up first with the existing count-only mode of
+  nf_conncount_count_skb() and record only below the limit.
+
+Patch 5, openvswitch: warn about a zone above its limit without a lock.
+  The shared state of net_warn_ratelimited() was 2.7% of all cycles.
+
+Each half was also tried alone: patches 1-3 without 4 leave the host
+as it was (94% in the slowpath, recording path), patches 4-5 without
+1-3 too (97%: the check and the recording are not atomic, every gc
+pass that dips the count below the limit lets a burst of cpus record
+past it, and the first of them walks the whole list under list_lock).
+
+Numbers, two separate before/after measurements on the same machine.
+
+1. The production case, before and after the whole series:
+   openvswitch, zone at its limit, 2 Mpps SYN flood.
+
+                      spinlock slowpath   softirq   host
+    unpatched         96%                 100%      unreachable
+    patches 1-5       0%                  40%       responsive
+
+2. The nf_conncount part alone, without openvswitch, before and after
+   patches 1-3: two netns over a veth pair, iptables "-m connlimit
+   --connlimit-above 10000 --connlimit-mask 0" in the receiving one
+   (one list, the same shape as a zone), trafgen in the other with 64
+   threads sending SYNs from random sources to random ports. veth
+   delivers on the sending cpu, so that is 64 cpus on one list_lock.
+   Measured with the list full:
+
+                      nf_conncount_count_skb()   calls/s
+    unpatched         0.5 - 4 ms                 40k
+    patches 1-3       16 - 64 us                 340k
+
+   The lock stays contended here, over 90% of all cycles in the
+   slowpath both before and after, because connlimit records every
+   connection, see below. What changes is how long the lock is held
+   per acquisition, and with it how many packets get through.
+
+The connlimit matches record before they compare, as openvswitch did,
+and unlike openvswitch they cannot stop: a match does not know whether
+the connection will be dropped, and a softlimit setup needs the
+connections above the limit counted. So they keep the convoy, and
+patches 1-3 are what helps them.
+
+Tested on the nft side with a ct count test between two netns (limit
+enforced, closed and dropped connections reclaimed, list recovers
+after being full) under DEBUG_LIST and lockdep.
+
+[1] https://lore.kernel.org/all/20260413123712.42993-1-deliran@verdict.gg/
+
+Vladimir Vdovin (5):
+  netfilter: nf_conncount: bound the gc walk by examined entries
+  netfilter: nf_conncount: check last_gc before taking list_lock in
+    gc_list
+  netfilter: nf_conncount: size the number of slots from the cpu count
+  openvswitch: conntrack: do not record connections above the zone limit
+  openvswitch: conntrack: warn about a zone above its limit without a
+    lock
+
+ net/netfilter/nf_conncount.c | 86 +++++++++++++++++++++++++++++-------
+ net/openvswitch/conntrack.c  | 31 +++++++++++--
+ net/openvswitch/datapath.h   |  1 +
+ 3 files changed, 99 insertions(+), 19 deletions(-)
+
+
+base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
+-- 
+2.56.0
+
