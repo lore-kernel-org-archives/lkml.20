@@ -1,75 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794927347;
-	b=MHx7piMKU3rgPzhvH5z/1ldfZr6n0BPBnhftjU+ISYf/VvlekdHlmwBAzI3RUchVuNcl
-	 QwJxCMjzAbvlwB21CNbQ8sfRDqicLDEQEM9pfV0YF7nO/S3B1FbKLG/q7FSkcKodx8d9/
-	 /N9slFJ4BxoR1sF94RDwdLNFJoN6wWciEAjEyXoi2TLJhPJBqE3c59fExfZ6OfNixwzuQ
-	 9tU5YShx6ge6T8A4GlNvdNyhF+8cRwGT11pNG/ZitWcAbYk/52jGlnr2D+sui+guum9zt
-	 MkwE0uOydMPnSPTAdoboKHL9ZkDieQL7tHVwGs80SxSZgNP2QxgebWZfFql3X+r45hQ==
+	t=1794927348;
+	b=uKnBknsufZQzWnnMYcK0WfYiyx3aRJw8AYa8h+7rlbMz7YbE6bqh+/j1OvpvcYDX68PT
+	 tEqc3xAP5YktPtfA3oT/U7EnbrqQ0lpfHf666ff9HuGa4+3wB/bJoOKpsT+vxNKhjqAqn
+	 8nbIzZ+o2B0kNV+GYTc4GMam97OmyQZ515guCenQ0W9ujLOHws+LjGIUX/nLDDQQ3WFmF
+	 j8JGhTiNpvHELN4NNmYd9HAs0+RdZWjsMMcdv8Q2x8W6YSIzJUF43J0HswcDq8bB5o6ww
+	 jIRLzFr1FSrTmKGz53xCmLYf1V1EXRNRdI6R2EkInzzo/2qkfqO0fLr+fQDbCSTcVsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794927347;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794927348;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=Yrk3C/Qn8YI7zDrjT4eCPCundwlQjbduafoUtLob2BE=;
-	b=Zf15sxXGpTpAKaSzssCPg6QX6+QRxLhY0rZ42qT7wpUtE6rDOoj/ORE9SmIKsSQ+0qZQ
-	 KokjfotL5ObSDDLvAWW/HH2vS1aiGBgzpeiT8K0ueD5WVCJ8dy8tNJoUs4hLa7AUKUA5M
-	 lqpCsMmOod0XwRCVpOpWkAGdUij0QdrHkpbgNYxiZ/mwIkRcl2CY9XkiOE57b1/M9jMKM
-	 L5mTWPocW7bvTxq27U5ozK8myFqCNGJKf2SW4Uwj9RjCfRD6aVBBWYAmQ9DeNtqAEHDqo
-	 xgHyZXrf0CM6V+RjE+vwbNp3jitAWS5TZC1D+/oLbXg+ZwLtCH9VEg6S6SLUQiu3e+w==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=4bmBEUjCAH97zZ5eFmCOxc2ZpUnaRfqp6CNkOUudcic=;
+	b=xCNsd3TUqlziZ4spQCrirsOOcyy3YzJnYOF8CU2OvgVthD7TpTwwd+qn55OaLH7iP42u
+	 8dcO7+PfN81AtYBgD215EAMDlpsZN8KA/Y3jHRAN1i9afD48faXspPEiAg0YgqUopFN+k
+	 wpZo3m+hbiLcCx4F2fK9QcNdtFYi+FH59tlMr3cEktT0q+jtOwRazN1fmXUDqirFHQTBn
+	 MXGPnZ6PMKjM2/IuHJxANv6xdhfNKvsEc39IBm2gXwgMOJHZXFnasyeXCs7BAZD9MjQ0N
+	 VkigmjdRGdc8swiIOtFg4LxL5zQUcLrgHRfvZLLxmuMVvIXokeoIS33/czC8Wpxsa7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--stani.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=pZABDHHR;
-	arc=none smtp.remote-ip=209.85.222.198
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hns6Y2T3;
+	arc=none smtp.remote-ip=209.85.215.173
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F01D160A381C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:55:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F01D160A381C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stani.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F47260A3826
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:55:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F47260A3826
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=pZABDHHR
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-9493e89d4f9so859194785a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:55:46 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hns6Y2T3
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cdb684859cbso3307971a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:55:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794927346; x=1795532146; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Yrk3C/Qn8YI7zDrjT4eCPCundwlQjbduafoUtLob2BE=;
-        b=pZABDHHRbIJZWYhxsKHo85i9SDPuDUjIyNBXQtYHao0piwT5yTH5QfXsfIpbG70Yv+
-         jQ9FbO/sd5D4aK+8/V2WFBIjw6ryTNeuBPTzlXOIkfGTWRd4oyCsdYOsDksnCzoeKMm3
-         3mzf9udvp5iDdWvJ9gwueI/z+XyuOHZ1bdgk6trvHWvX1QwE2sinVUL17Srqo5tdDSO5
-         BLO/mrCL5pwcLgsISfrLhPsUc/e2mDbY6EiuIpRjtygMQDF1q2YmJjkO8iDvrYFU/nN5
-         SMwThSJZzP0y/yjx6ccHIugn2H2PPUl3e/42ClqN6iemROxrc7G79eLY2Cv/WD1KzF97
-         3o6A==
+        d=gmail.com; s=20260707; t=1794927346; x=1795532146; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4bmBEUjCAH97zZ5eFmCOxc2ZpUnaRfqp6CNkOUudcic=;
+        b=hns6Y2T3Gzz7D9tz3SxJFcPjAq11f5XQpUY04kWWVULL2becN13eC6jPxheo1WvHDk
+         rqdXYtl10p6n+CpxL7cbLZsiZm6G+FSXIxSrTnLNCVJ2otTOPOmRi10NJkbXX33TXLSz
+         +2FjRT6U1uGrGMv8c0BvyiXE1fE6YwbKdAdv/qb81tBKBeIBxOkOf/lmo+7B7nHo1br2
+         k6H4cd8xH1niSpXsf3COVLhg5rYPgaOEa21pmcPMR1wUlF5acNv7TjT9xyyVjGPI+4Ub
+         +2hfxD67eXfWgCIFzcd+vF9i08bOFpk8BymoHi8gz/ZwYdSfluVLiZRfXyLwvdwPnn8C
+         19uw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1794927346; x=1795532146;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Yrk3C/Qn8YI7zDrjT4eCPCundwlQjbduafoUtLob2BE=;
-        b=cFiOy/9QPbc+vmWHIZQKnejQVLHChFUPhRwTy1QgsmP9kpcmmOv9rS7qYxyrg1sgBz
-         geC1yQWZlgcCdd1nUN+4fcOBUDUfTqfglbRJqD0foNnLJAtDEXGxOhpd9p/XJutw6in9
-         VhgoUiTGG94xdBEoKV7M2qWJ+qx1FH/uWOUUD726PVHxQacUatdkL/X4WFeGbAd/dFwb
-         LF0xyyz3kBdQIeCEjV8Sy43hb00kc3iNoQ0Wia/bPz0u2XkUiCl0dLtOJmfbIdeVg+yJ
-         2XTVWTJ3tg5lj5pIYXoOcCxM4NuRrnLyyJ9QZQdZ1gLQjErzbdkozEwwkltF4zENQ9E8
-         6TDA==
-X-Forwarded-Encrypted: i=1; AL+hErEAmwsZsmolv+J2F7//+tsMYcoGypW9ti1QVfg7gvfkpnxeNxx9kc/A/hQuTwqlkmsLtgIAe53OmFRAO6Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+rZZbxPNO4zhtTXXRyulzAmsQLDPAd/rV78/CqYZF1kDk3x0HZ
-	xe4ad3AuRPx5QSOq1ERm39tl0metfVnKgoqJ7jFheVT6z8MB9JYSMuslJwYLnBpNhg7RugOUKui
-	Kgw==
-X-Received: from qkhx17.prod.google.com ([2002:ae9:f811:0:b0:93f:18ba:bf7a])
- (user=stani job=prod-delivery.src-stubby-dispatcher) by 2002:a05:620a:6497:b0:947:7857:bb7c
- with SMTP id af79cd13be357-9494bc3834fmr2027349985a.33.1794927345501; Tue, 17
- Nov 2026 06:55:45 -0800 (PST)
-Date: Tue, 17 Nov 2026 14:55:14 +0000
-In-Reply-To: <20261117145522.1910636-1-stani@google.com>
+        bh=4bmBEUjCAH97zZ5eFmCOxc2ZpUnaRfqp6CNkOUudcic=;
+        b=VW/I3aOdRyTRfJIgij1el6lg+Y4+4EPgYaO1m8whJxCmLlUT+X5XRFkJDTWU5wNniJ
+         sa0u2isSDHLyNshY7hRW86clED/7dGoAjuh/q8pGDoPGrnAqzJmg24AyqEg24Zb0fYBO
+         ak2vvoYVXfIECYbIq7cq0XlN02uiE1zc3r68vJ5lXw2d6CHpumCx/Zd5pOyJ/t0xkeur
+         We2oOkdg/60Sy0oYf4K6jrCW+EHdISI+RD/AABkI5OeKjXXYCuvuLb4OBK4O6NdVgVDp
+         L+jXNSZ+9KXTiuM1GqT3NP8w1JaZeCxd6PRKb8qAlVCKCagw6WEDeFp4loLDIKBiSDua
+         BtXA==
+X-Forwarded-Encrypted: i=1; AL+hErE6bCAJPbItvmlBbFg2zpmYQtOLLb8lNpIHzoKAwFlDxAmIYX/4ilZPMwhW1XK12+RN7rHMNWrXyZQ5fHo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Tqj96hlNEPkxT2dqJ1XPtXmn/+F9/ZROQu6z6wHAbosGpcDzu
+	zf2CPldyiFGOC2xrKfqtO1azbg4QCx8tPZbiP/Q0L1+WmS1yVGMUT87a
+X-Gm-Gg: AZFdTZfRw/WLR8R2Vg739XcEdnOTV7CP/x62AQusasQuFzLZcrkCu/JDxYAy+M1vWDs
+	uOtaLYc2GyRfylmp6hHb8S3USnvrVTPIsQo6M8d0J5EMe8DLHlzQY8uDf36O0nlrWDctpQHwf/b
+	RgNcZc97QjjmgO/bG14U6syjK2N+165dYNFeMJaKY7HiOYkb3+hZ6z6dZ5j+gyxuhzlg77EkKh4
+	nJmCfDwNNXC99thEJMHqtOdiz6tAj9Pwb8iAEd6XsWJrvZolwmKanEHgDoxSO6/K5rWoXwmgSji
+	YeGBYhy+St+mslWofRGtR8BCZh04zB4JHtBGXYiZCPNFOd7kfN5wMIhWaclqbLbF3Vib53RlO6p
+	vuGbgVacL15i4zBXt7SquKuThy6r0PPgp5exoxOZ8odM2i1raRiO+i0gFjEKSIxMd4+x11aluNT
+	e37Ydt+bJ2MG3F6bmTR5PqMZ6Yb2sotezR5Y7App+LsocEznBPd7T4f14MCNPwgyHFYNt9rW6E+
+	FVjvgyw0uQxyDbEFXadetHqV048F+PfVD+zuLBntavtpLhl8Fh6k4aKHUHAfvxdutHZW7d1Xgy5
+	m5OSmNsslb0UYnFwEbQm/5WbXmvGmfua2eUT3NzkREZn8qfw2X+wcg==
+X-Received: by 2002:a17:90a:c88b:b0:3ac:3588:b548 with SMTP id 98e67ed59e1d1-3b1b09e69c6mr14655656a91.13.1794927346406;
+        Tue, 17 Nov 2026 06:55:46 -0800 (PST)
+Received: from csl-conti-dell7858.ntu.edu.sg ([155.69.195.57])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd7a11c4asm17186465ad.22.2026.11.17.06.55.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 06:55:45 -0800 (PST)
+From: Maoyi Xie <maoyixie.tju@gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Christian Vogel <vogelchr@vogel.cx>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] w1: ds2490: bound the search results to the found_ids array
+Date: Tue, 17 Nov 2026 22:55:34 +0800
+Message-Id: <20261117145534.755665-1-maoyixie.tju@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,434 +94,92 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261117145522.1910636-1-stani@google.com>
-X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
-Message-ID: <20261117145522.1910636-9-stani@google.com>
-Subject: [PATCH iwl-next 08/15] idpf: psp: add support for psp rx key allocation
-From: Stan Iliev <stani@google.com>
-To: Tony Nguyen <anthony.l.nguyen@intel.com>, 
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, intel-wired-lan@lists.osuosl.org
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	David Decotigny <decot@google.com>, Madhu Chittim <madhu.chittim@intel.com>, 
-	Emil Tantilov <emil.s.tantilov@intel.com>, Sridhar Samudrala <sridhar.samudrala@intel.com>, 
-	Brian Vazquez <brianvv@google.com>, Li Li <boolli@google.com>, 
-	Alexander Lobakin <aleksander.lobakin@intel.com>, Daniel Zahka <daniel.zahka@gmail.com>, 
-	Willem de Bruijn <willemdebruijn.kernel@gmail.com>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-hardening@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Add support for allocating PSP RX keys on demand:
-- Introduce VIRTCHNL2_OP_PSP_ALLOCATE_KEYS (560),
-  enum virtchnl2_psp_allocate_response_flags,
-  struct virtchnl2_psp_allocate_keys_request/_response and
-  struct virtchnl2_allocate_psp_key_v0/_v1.
-- Implement idpf_send_allocate_psp_key(), which allocates one V0 RX
-  key with a synchronous request, validates the reply (key type,
-  keys_size_bytes, length, and an SPI with a key ID, which the PSP core
-  requires) and wipes the key from the mailbox buffer. The key, its SPI
-  and its master key generation are returned in struct idpf_psp_rx_key.
-- Implement the rx_spi_alloc PSP device op. It gets the adapter from
-  the netdev of the PSP device, as the vports can be freed while the
-  PSP device is registered.
-- Keep a copy of the vport ID in adapter->psp.vport_id, for the same
-  reason.
-- Wipe the RX keys of late replies, which libie passes to
-  idpf_recv_event_msg() after the request timed out.
+ds9490r_search() queues the ids from the DS2490 in found_ids, which has
+max_slave_count entries. max_slave_count is also the search limit. With
+more devices than that on the bus, the DS2490 sends that many ids and
+then a discrepancy value, as the comment in the function says.
 
-Signed-off-by: Stan Iliev <stani@google.com>
+The break at the limit leaves the loop over the current bulk read, but
+the outer loop keeps reading until the device is idle. A discrepancy
+value in a later bulk read is then stored in found_ids[max_slave_count],
+one past the end, and the callback loop reads it back as an id. If the
+device sends more values, they are written past the array too.
+
+Store an id only if it fits and pass at most max_slave_count ids to the
+callback. found can still reach max_slave_count + 1, so the check after
+the loop sees that more devices remain. Use one local copy of
+max_slave_count for the allocation and the bound.
+
+I found this with a static analysis tool that we are developing. A
+userspace harness runs an unmodified copy of ds9490r_search() from
+v7.4-rc3 against a fake DS2490. With the default max_slave_count of 64,
+AddressSanitizer reports an 8-byte write past the 512-byte array. I do
+not have the hardware, so the fix is only compile-tested with W=1 and
+checked with the harness.
+
+Fixes: e3fe0e89fec6 ("w1/masters/ds2490: queue up found IDs during scan")
+Cc: stable@vger.kernel.org
+Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
 ---
- drivers/net/ethernet/intel/idpf/idpf_lib.c    |  3 +
- drivers/net/ethernet/intel/idpf/idpf_psp.c    | 43 +++++++++
- drivers/net/ethernet/intel/idpf/idpf_psp.h    |  6 ++
- .../net/ethernet/intel/idpf/idpf_psp_def.h    | 19 ++++
- .../ethernet/intel/idpf/idpf_psp_virtchnl.c   | 89 +++++++++++++++++++
- .../ethernet/intel/idpf/idpf_psp_virtchnl.h   |  2 +
- .../net/ethernet/intel/idpf/idpf_virtchnl.c   |  3 +
- include/linux/net/intel/virtchnl2.h           | 78 ++++++++++++++++
- 8 files changed, 243 insertions(+)
+ drivers/w1/masters/ds2490.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/ethernet/intel/idpf/idpf_lib.c b/drivers/net/ethernet/intel/idpf/idpf_lib.c
-index 1385209519b2..062753a62f59 100644
---- a/drivers/net/ethernet/intel/idpf/idpf_lib.c
-+++ b/drivers/net/ethernet/intel/idpf/idpf_lib.c
-@@ -1144,6 +1144,9 @@ static struct idpf_vport *idpf_vport_alloc(struct idpf_adapter *adapter,
- 	/* fill vport slot in the adapter struct */
- 	adapter->vports[idx] = vport;
- 	adapter->vport_ids[idx] = idpf_get_vport_id(vport);
-+	/* Copy for the PSP requests that can run while the vports are freed */
-+	if (IS_ENABLED(CONFIG_INET_PSP) && !idx)
-+		WRITE_ONCE(adapter->psp.vport_id, adapter->vport_ids[idx]);
+diff --git a/drivers/w1/masters/ds2490.c b/drivers/w1/masters/ds2490.c
+index 3cbff88c339e96..0c792714add874 100644
+--- a/drivers/w1/masters/ds2490.c
++++ b/drivers/w1/masters/ds2490.c
+@@ -697,6 +697,7 @@ static void ds9490r_search(void *data, struct w1_master *master,
+ 	u16 value, index;
+ 	struct ds_status st;
+ 	int search_limit;
++	int max_slaves;
+ 	int found = 0;
+ 	int i;
  
- 	adapter->num_alloc_vports++;
- 	/* prepare adapter->next_vport for next use */
-diff --git a/drivers/net/ethernet/intel/idpf/idpf_psp.c b/drivers/net/ethernet/intel/idpf/idpf_psp.c
-index 67f1f1d7508c..8ce390bcd617 100644
---- a/drivers/net/ethernet/intel/idpf/idpf_psp.c
-+++ b/drivers/net/ethernet/intel/idpf/idpf_psp.c
-@@ -106,6 +106,9 @@ void idpf_psp_init(struct idpf_adapter *adapter)
- 		dev_warn(dev, "Failed to get PSP FIPS compliance status: %d\n",
- 			 err);
+@@ -718,7 +719,8 @@ static void ds9490r_search(void *data, struct w1_master *master,
+ 	 * We are holding the bus mutex during the scan, but adding devices via the
+ 	 * callback needs the bus to be unlocked. So we queue up found ids here.
+ 	 */
+-	found_ids = kmalloc_array(master->max_slave_count, sizeof(u64), GFP_KERNEL);
++	max_slaves = master->max_slave_count;
++	found_ids = kmalloc_array(max_slaves, sizeof(u64), GFP_KERNEL);
+ 	if (!found_ids) {
+ 		kfree(buf);
+ 		return;
+@@ -733,7 +735,7 @@ static void ds9490r_search(void *data, struct w1_master *master,
  
-+	/* The counters cover the time since the core init */
-+	atomic_set(&psp->keys_allocated, 0);
-+
- 	WRITE_ONCE(psp->enabled, true);
- }
+ 	value = COMM_SEARCH_ACCESS | COMM_IM | COMM_RST | COMM_SM | COMM_F |
+ 		COMM_RTS;
+-	search_limit = master->max_slave_count;
++	search_limit = max_slaves;
+ 	if (search_limit > 255)
+ 		search_limit = 0;
+ 	index = search_type | (search_limit << 8);
+@@ -760,7 +762,10 @@ static void ds9490r_search(void *data, struct w1_master *master,
+ 			if (err < 0)
+ 				break;
+ 			for (i = 0; i < err/8; ++i) {
+-				found_ids[found++] = buf[i];
++				if (found < max_slaves)
++					found_ids[found] = buf[i];
++				if (found <= max_slaves)
++					found++;
+ 				/*
+ 				 * can't know if there will be a discrepancy
+ 				 * value after until the next id
+@@ -798,6 +803,7 @@ static void ds9490r_search(void *data, struct w1_master *master,
+ 	mutex_unlock(&master->bus_mutex);
+ 	kfree(buf);
  
-@@ -136,9 +139,49 @@ static int idpf_psp_set_config(struct psp_dev *psd, struct psp_dev_config *conf,
- 	return 0;
- }
- 
-+/**
-+ * idpf_psp_rx_spi_alloc - Allocate a PSP RX SPI and key
-+ * @psd: PSP device
-+ * @version: PSP version
-+ * @key: filled with the allocated SPI and key
-+ * @extack: netlink extended ack for error reporting
-+ *
-+ * Allocate one RX key with a synchronous VIRTCHNL2_OP_PSP_ALLOCATE_KEYS
-+ * request.
-+ *
-+ * Return: 0 on success, negative error code on failure.
-+ */
-+static int idpf_psp_rx_spi_alloc(struct psp_dev *psd, u32 version,
-+				 struct psp_key_parsed *key,
-+				 struct netlink_ext_ack *extack)
-+{
-+	struct idpf_adapter *adapter = idpf_netdev_to_adapter(psd->main_netdev);
-+	struct idpf_psp_rx_key rx_key;
-+	int err;
-+
-+	/* Only version 0 keys are allocated, see idpf_psp_register() */
-+	if (psp_key_size(version) != sizeof(rx_key.key)) {
-+		NL_SET_ERR_MSG_MOD(extack, "Unsupported PSP version");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	err = idpf_send_allocate_psp_key(adapter, &rx_key);
-+	if (err) {
-+		NL_SET_ERR_MSG_MOD(extack, "Failed to allocate RX SPI and key");
-+		return err;
-+	}
-+
-+	key->spi = rx_key.spi;
-+	memcpy(key->key, rx_key.key, sizeof(rx_key.key));
-+	memzero_explicit(&rx_key, sizeof(rx_key));
-+
-+	return 0;
-+}
-+
- /* PSP device operations, see idpf_psp_register() */
- static struct psp_dev_ops idpf_psp_ops = {
- 	.set_config	= idpf_psp_set_config,
-+	.rx_spi_alloc	= idpf_psp_rx_spi_alloc,
- };
- 
- /**
-diff --git a/drivers/net/ethernet/intel/idpf/idpf_psp.h b/drivers/net/ethernet/intel/idpf/idpf_psp.h
-index 0f89dcc3b398..fcafe71d3d00 100644
---- a/drivers/net/ethernet/intel/idpf/idpf_psp.h
-+++ b/drivers/net/ethernet/intel/idpf/idpf_psp.h
-@@ -11,6 +11,8 @@ void idpf_psp_init(struct idpf_adapter *adapter);
- void idpf_psp_free(struct idpf_adapter *adapter);
- void idpf_psp_register(struct idpf_adapter *adapter);
- void idpf_psp_unregister(struct idpf_adapter *adapter);
-+void idpf_psp_recv_late_reply(struct idpf_adapter *adapter,
-+			      const struct libie_ctlq_msg *ctlq_msg);
- 
- #else /* !CONFIG_INET_PSP */
- 
-@@ -19,6 +21,10 @@ static inline void idpf_psp_free(struct idpf_adapter *adapter) { }
- static inline void idpf_psp_register(struct idpf_adapter *adapter) { }
- static inline void idpf_psp_unregister(struct idpf_adapter *adapter) { }
- 
-+static inline void
-+idpf_psp_recv_late_reply(struct idpf_adapter *adapter,
-+			 const struct libie_ctlq_msg *ctlq_msg) { }
-+
- #endif /* CONFIG_INET_PSP */
- 
- #endif /* !_IDPF_PSP_H_ */
-diff --git a/drivers/net/ethernet/intel/idpf/idpf_psp_def.h b/drivers/net/ethernet/intel/idpf/idpf_psp_def.h
-index 0829d0bbd92b..f21bd7de5ae8 100644
---- a/drivers/net/ethernet/intel/idpf/idpf_psp_def.h
-+++ b/drivers/net/ethernet/intel/idpf/idpf_psp_def.h
-@@ -3,6 +3,7 @@
- #ifndef _IDPF_PSP_DEF_H_
- #define _IDPF_PSP_DEF_H_
- 
-+#include <linux/net/intel/virtchnl2.h>
- #include <net/psp.h>
- 
- /* SA index widths supported by the driver, negotiated per adapter with
-@@ -11,6 +12,18 @@
- #define IDPF_PSP_SAIDX_WIDTH_21		21
- #define IDPF_PSP_SAIDX_WIDTH_26		26
- 
-+/**
-+ * struct idpf_psp_rx_key - PSP RX key allocated by the CP
-+ * @spi: SPI of the key
-+ * @generation: CP master key generation of the key
-+ * @key: the key
-+ */
-+struct idpf_psp_rx_key {
-+	__be32 spi;
-+	u32 generation;
-+	u8 key[VIRTCHNL2_PSP_KEY_SIZE_V0];
-+};
-+
- /**
-  * struct idpf_adapter_psp - PSP offload state of an adapter
-  * @enabled: PSP was negotiated with the CP in the last core init, see
-@@ -19,6 +32,10 @@
-  * @saidx_width: SA index width granted by VIRTCHNL2_OP_CRYPTO_GET_CAPS
-  * @psp_caps: PSP capabilities granted by VIRTCHNL2_OP_PSP_GET_CAPS, see
-  *	      enum virtchnl2_psp_caps
-+ * @vport_id: ID of adapter->vports[0] for the PSP requests. A copy, as the
-+ *	      PSP device stays registered while the vports are freed and
-+ *	      allocated again during a soft reset. Set in idpf_vport_alloc().
-+ * @keys_allocated: RX keys allocated
-  * @psp_dev: the PSP device, see idpf_psp_register()
-  * @caps: capabilities of @psp_dev
-  */
-@@ -27,6 +44,8 @@ struct idpf_adapter_psp {
- 	u32 sadb_entries;
- 	u8 saidx_width;
- 	u32 psp_caps;
-+	u32 vport_id;
-+	atomic_t keys_allocated;
- 	struct psp_dev *psp_dev;
- 	struct psp_dev_caps caps;
- };
-diff --git a/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.c b/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.c
-index 0502ce0b7abe..aa50948873a7 100644
---- a/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.c
-+++ b/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.c
-@@ -194,3 +194,92 @@ int idpf_send_get_fips_compliance_status(struct idpf_adapter *adapter)
- 	libie_ctlq_release_rx_buf(&xn_params.recv_mem);
- 	return err;
- }
-+
-+/**
-+ * idpf_send_allocate_psp_key - Allocate a PSP RX key
-+ * @adapter: Driver specific private structure
-+ * @key: filled with the allocated SPI and key and their master key generation
-+ *
-+ * Allocate one RX key with a synchronous VIRTCHNL2_OP_PSP_ALLOCATE_KEYS
-+ * request. The caller must be allowed to sleep.
-+ *
-+ * Return: 0 on success, negative error code on failure.
-+ */
-+int idpf_send_allocate_psp_key(struct idpf_adapter *adapter,
-+			       struct idpf_psp_rx_key *key)
-+{
-+	struct libie_ctlq_xn_send_params xn_params = {
-+		.chnl_opcode	= VIRTCHNL2_OP_PSP_ALLOCATE_KEYS,
-+		.timeout_ms	= IDPF_VC_XN_DEFAULT_TIMEOUT_MSEC,
-+	};
-+	const struct virtchnl2_psp_allocate_keys_response *vc_reply;
-+	struct virtchnl2_psp_allocate_keys_request key_req = { };
-+	const struct virtchnl2_allocate_psp_key_v0 *v0_key;
-+	size_t reply_sz;
-+	u32 spi;
-+	int err;
-+
-+	BUILD_BUG_ON(sizeof(key->key) != sizeof(v0_key->v0_key));
-+
-+	key_req.vport_id = cpu_to_le32(READ_ONCE(adapter->psp.vport_id));
-+	key_req.num_keys = cpu_to_le32(1);
-+	key_req.key_type = VIRTCHNL2_PSP_KEY_TYPE_V0;
-+	/* key_req.domain stays zeroed: VIRTCHNL2_PSP_DOMAIN_NONE */
-+
-+	err = idpf_send_mb_msg_stack(adapter, &xn_params, &key_req);
-+	if (err)
-+		return err;
-+
-+	reply_sz = xn_params.recv_mem.iov_len;
-+	vc_reply = xn_params.recv_mem.iov_base;
-+	if (reply_sz < sizeof(*vc_reply) + sizeof(*v0_key) ||
-+	    vc_reply->key_type != VIRTCHNL2_PSP_KEY_TYPE_V0 ||
-+	    le32_to_cpu(vc_reply->keys_size_bytes) != sizeof(*v0_key)) {
-+		net_warn_ratelimited("%s: invalid reply of %zu bytes\n",
-+				     __func__, reply_sz);
-+		err = -EIO;
-+		goto release_rx;
-+	}
-+
-+	v0_key = (const struct virtchnl2_allocate_psp_key_v0 *)vc_reply->keys;
-+	spi = le32_to_cpu(v0_key->spi);
-+	if (!(spi & PSP_SPI_KEY_ID)) {
-+		net_warn_ratelimited("%s: invalid SPI %#x\n", __func__, spi);
-+		err = -EIO;
-+		goto release_rx;
-+	}
-+
-+	key->spi = cpu_to_be32(spi);
-+	key->generation = le32_to_cpu(vc_reply->master_key_generation);
-+	memcpy(key->key, v0_key->v0_key, sizeof(key->key));
-+	atomic_inc(&adapter->psp.keys_allocated);
-+
-+release_rx:
-+	/* Don't leave the RX key in the recycled mailbox buffer */
-+	memzero_explicit(xn_params.recv_mem.iov_base, reply_sz);
-+	libie_ctlq_release_rx_buf(&xn_params.recv_mem);
-+	return err;
-+}
-+
-+/**
-+ * idpf_psp_recv_late_reply - Handle a late reply to a PSP request
-+ * @adapter: Driver specific private structure
-+ * @ctlq_msg: reply, its receive buffer is released by the caller
-+ *
-+ * libie passes the replies to requests that timed out to idpf_recv_event_msg().
-+ * The RX key of an allocation reply is wiped.
-+ */
-+void idpf_psp_recv_late_reply(struct idpf_adapter *adapter,
-+			      const struct libie_ctlq_msg *ctlq_msg)
-+{
-+	const struct kvec *buff = &ctlq_msg->recv_mem;
-+
-+	switch (ctlq_msg->chnl_opcode) {
-+	case VIRTCHNL2_OP_PSP_ALLOCATE_KEYS:
-+		if (buff->iov_base)
-+			memzero_explicit(buff->iov_base, buff->iov_len);
-+		break;
-+	default:
-+		break;
-+	}
-+}
-diff --git a/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.h b/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.h
-index 2ade2df2e34e..7ba86b540f2b 100644
---- a/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.h
-+++ b/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.h
-@@ -12,5 +12,7 @@ int idpf_send_get_crypto_caps(struct idpf_adapter *adapter,
- int idpf_send_get_psp_caps(struct idpf_adapter *adapter,
- 			   struct virtchnl2_psp_get_caps *caps);
- int idpf_send_get_fips_compliance_status(struct idpf_adapter *adapter);
-+int idpf_send_allocate_psp_key(struct idpf_adapter *adapter,
-+			       struct idpf_psp_rx_key *key);
- 
- #endif /* !_IDPF_PSP_VIRTCHNL_H_ */
-diff --git a/drivers/net/ethernet/intel/idpf/idpf_virtchnl.c b/drivers/net/ethernet/intel/idpf/idpf_virtchnl.c
-index 3f669683c8c0..056fd82b3162 100644
---- a/drivers/net/ethernet/intel/idpf/idpf_virtchnl.c
-+++ b/drivers/net/ethernet/intel/idpf/idpf_virtchnl.c
-@@ -91,6 +91,9 @@ void idpf_recv_event_msg(struct libie_ctlq_ctx *ctx,
- 
- 	adapter = container_of(ctx, struct idpf_adapter, ctlq_ctx);
- 	if (ctlq_msg->chnl_opcode != VIRTCHNL2_OP_EVENT) {
-+		/* Late reply to a PSP request that timed out */
-+		idpf_psp_recv_late_reply(adapter, ctlq_msg);
-+
- 		dev_dbg(&adapter->pdev->dev,
- 			"Unhandled message with opcode %u from CP\n",
- 			ctlq_msg->chnl_opcode);
-diff --git a/include/linux/net/intel/virtchnl2.h b/include/linux/net/intel/virtchnl2.h
-index c3a0e7b1b8e2..0ae439009f44 100644
---- a/include/linux/net/intel/virtchnl2.h
-+++ b/include/linux/net/intel/virtchnl2.h
-@@ -85,6 +85,7 @@ enum virtchnl2_op {
- 	VIRTCHNL2_OP_GET_FLOW_RULE			= 552,
- 	VIRTCHNL2_OP_DEL_FLOW_RULE			= 553,
- 	/* Crypto/PSP opcodes */
-+	VIRTCHNL2_OP_PSP_ALLOCATE_KEYS			= 560,
- 	VIRTCHNL2_OP_CRYPTO_GET_CAPS			= 564,
- 	VIRTCHNL2_OP_PSP_GET_CAPS			= 565,
- 	VIRTCHNL2_OP_GET_FIPS_COMPLIANCE_STATUS		= 567,
-@@ -1891,6 +1892,15 @@ enum virtchnl2_psp_domain_type {
- 	VIRTCHNL2_PSP_DOMAIN_OEM_END			= 0xffff,
- };
- 
-+/* VIRTCHNL2_PSP_ALLOC_KEY_EXHAUSTED: the keys derived from the current master
-+ * key are exhausted and a master key rotation will be performed
-+ * automatically. Only set on partial success, i.e. if fewer keys than
-+ * requested, but at least one, were allocated.
-+ */
-+enum virtchnl2_psp_allocate_response_flags {
-+	VIRTCHNL2_PSP_ALLOC_KEY_EXHAUSTED		= BIT(0),
-+};
-+
- /**
-  * struct virtchnl2_psp_key_domain - PSP key domain
-  * @type: See enum virtchnl2_psp_domain_type
-@@ -1909,6 +1919,74 @@ struct virtchnl2_psp_key_domain {
- };
- VIRTCHNL2_CHECK_STRUCT_LEN(16, virtchnl2_psp_key_domain);
- 
-+/**
-+ * struct virtchnl2_psp_allocate_keys_request - Allocate PSP RX keys request
-+ * @vport_id: Virtual port ID
-+ * @num_keys: Number of keys requested, 0 only reads the active master key
-+ *	      generation
-+ * @key_type: See enum virtchnl2_psp_key_type
-+ * @pad: Reserved/padding
-+ * @domain: Key domain, must be zero-filled if VIRTCHNL2_CAP_PSP_DOMAIN was
-+ *	    not granted
-+ */
-+struct virtchnl2_psp_allocate_keys_request {
-+	__le32 vport_id;
-+	__le32 num_keys;
-+	u8 key_type;
-+	u8 pad[7];
-+	struct virtchnl2_psp_key_domain domain;
-+};
-+VIRTCHNL2_CHECK_STRUCT_LEN(32, virtchnl2_psp_allocate_keys_request);
-+
-+/**
-+ * struct virtchnl2_allocate_psp_key_v0 - Allocated PSP V0 key entry
-+ * @spi: Security parameter index
-+ * @pad: Reserved/padding
-+ * @v0_key: 128-bit key
-+ */
-+struct virtchnl2_allocate_psp_key_v0 {
-+	__le32 spi;
-+	u8 pad[4];
-+	u8 v0_key[VIRTCHNL2_PSP_KEY_SIZE_V0];
-+};
-+VIRTCHNL2_CHECK_STRUCT_LEN(24, virtchnl2_allocate_psp_key_v0);
-+
-+/**
-+ * struct virtchnl2_allocate_psp_key_v1 - Allocated PSP V1 key entry
-+ * @spi: Security parameter index
-+ * @pad: Reserved/padding
-+ * @v1_key: 256-bit key
-+ */
-+struct virtchnl2_allocate_psp_key_v1 {
-+	__le32 spi;
-+	u8 pad[4];
-+	u8 v1_key[VIRTCHNL2_PSP_KEY_SIZE_V1];
-+};
-+VIRTCHNL2_CHECK_STRUCT_LEN(40, virtchnl2_allocate_psp_key_v1);
-+
-+/**
-+ * struct virtchnl2_psp_allocate_keys_response - Allocate PSP RX keys response
-+ * @vport_id: Virtual port ID
-+ * @key_type: See enum virtchnl2_psp_key_type
-+ * @allocate_response_flags: See enum virtchnl2_psp_allocate_response_flags
-+ * @pad1: Reserved/padding
-+ * @master_key_generation: Master key generation, increased by 1 every time
-+ *			   the set of active master keys changes
-+ * @keys_size_bytes: Total size of keys payload in bytes
-+ * @keys: Flexible array of struct virtchnl2_allocate_psp_key_v0 or
-+ *	  struct virtchnl2_allocate_psp_key_v1 entries
-+ */
-+struct virtchnl2_psp_allocate_keys_response {
-+	__le32 vport_id;
-+	u8 key_type;
-+	u8 allocate_response_flags;
-+	u8 pad1[2];
-+	__le32 master_key_generation;
-+	__le32 keys_size_bytes;
-+	u8 keys[] __counted_by_le(keys_size_bytes);
-+};
-+VIRTCHNL2_CHECK_STRUCT_LEN(16, virtchnl2_psp_allocate_keys_response);
-+
- /**
-  * struct virtchnl2_get_fips_compliance_status_resp - FIPS compliance response
-  * @num_certs: Number of certificates, 0 if not FIPS compliant
++	found = min(found, max_slaves);
+ 	for (i = 0; i < found; i++) /* run callback for all queued up IDs */
+ 		callback(master, found_ids[i]);
+ 	kfree(found_ids);
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.56.0.679.gc527c65306-goog
+2.34.1
 
