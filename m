@@ -1,95 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.89
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794917983;
-	b=gTvQjD+wWBn96LPgf2ZBCQ0bbZ/qsMVCy/f8Jcol5x33fC1sjphIssnLNFh+Lhc6WqGf
-	 3zTTT0vz4wCTcrGbpNz5dTTeJqzF9EmUs5XCv7vXypxMb9T1YEUsBsutOL6f4s15Ynl1j
-	 a2auEcjb2lBHtDVBODZf8ka21l3/QJrD6ErAX/OmR8x6jmrtn5itoSAU03gC9ovNC7n+V
-	 noFiI2JB/aLP7tKsYuADY994UhibeSIPm+PFxVpH+yK+0xfY57ID5HhOaBNJ8rIf6nZE/
-	 U4OHRP9ZLL5gNjgEZmUO1vdbqNO47Xj2NqIA4pc+YCZgI3xEk7JKmD/p9j+GH0i1N9Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794917983;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=kr69d65c6Rj/Z6BWCpKpUcKYO8nWiagPFI029c4s8h8=;
-	b=eif1PW6PLmkaaHXSvf/6bDNtfSxTZL3Ht4VV7zLLd84YzT3rSdL1ilq9e3Udew2U8Sv7
-	 1w7dUcQmVipJ7WOYiH6/9xqBgt5cMYZ+gEozMNhaJYtuiLkWVxxzpVLVHVFqAYQF0ekwW
-	 UqfT2cLGRG/vkwxDHIg0XEExQq2/ekfexTNDlyM4komOE/tyRMVV2Ag/cny9+GLAcNlaQ
-	 KjWcU6xTrig0Yk4IEGk8XrLz0daES6NYgSTHJVhdlwsS2knIMCfHY+Mbc6nJXpdUibNwQ
-	 QV87i7+/RfS3i/coQkkM11oyynrigOyRtPaU18JDKUI/HBDkNWUA1aJkTw5Rn3sFA2w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=pCtHdhMr;
-	arc=none smtp.remote-ip=95.215.58.89
-Received: from mta1.migadu.com (out-89.mta1.migadu.com [95.215.58.89])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794917999;
+	b=24BAzoT7P/lbuG8B3iZOkcH8m28QtbPz+i9akRmX0FSJc8XZ0hzuv/IkLvl6RgXkRpuF
+	 rrYZuslre5PCIjQr56KQRKOWJ+BWDSzcpaVX7zpUDA/V8u6k66E+GyN+yd8eIK1fytusM
+	 avJ9W9UrMbrs8k0DqMRUI0z8dUPmj4YeANKJA4OsGAolCLmz4k82QHmO8DoIdekjf8/Qx
+	 RG4Ev1TU68Hs/SLZY6I/zwSLGnwbGwkAiy2RZaSPAR0xv79gm25ckPuAA4ILrcuCwrSHx
+	 9eLLY4a0FKGp6Xfcz27RD+81q5z/bAAI+XpLaS2HnUrFBkFvSQUFhNxmi58fNXU68BA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794917999;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=ZFVJi+i+sc9nYgluytKQGXSriWb6Sc1xPMl64Y6JsfM=;
+	b=KhMVPZ12Tz+fGEM2iajAcE7pb5nrRcKzYEpjLEcqng9hpQ76K3HxnHUiUvBXOAVyd6tM
+	 XTrHQBaD1B5Cd/6CAWoWucSQFCrpgjTKMUY+TxENOrAOmGvU/B/6I7jBOewgyZrv8qE0T
+	 +RuinskjNxuKngLbZS3k4YvvAc1IsIXnpfKOddfdpBdMalhkKNimu+v98+rlHPFfJ8SOk
+	 4ocFgc8ibor+p/y83WnK4F2Uyyo3X9yHG603GI9DrjLE/ki6zvLR5dh76q/6bTrcoaLEf
+	 9ExE2Zsyp7WaDlpTp9OmH6XfzS+fA196shNZQSK2zk7SxYuMFhqTI5eFlzTQKT8SL2g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=oz3feJS1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71B07606A8A5
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:19:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71B07606A8A5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0D61606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:19:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0D61606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=pCtHdhMr
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=aYHlZGaTyhmputaahKiWpOi8WQ5Y9Cn60xhnkDJGIZ4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794917979; v=1; x=1795522779;
- b=pCtHdhMr4yTk87YwbMVqWADuiTr0suTvGC80w3cdHYWZ1DUC7I1UIIGMYr5C+TsFnSMlhgqD
- RBCavWBD9md5upoHfnEakAI0p3FSppJWmw7epi6MyyKNnvzbfuawro0uRcRvjkAr4j6Oo5idU7G
- sya/2eWE/JAcwUiUsir0HD8s=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1a49188846ff3403;
-	Tue, 17 Nov 2026 12:19:38 +0000
-X-Mizu-Trace-ID: 1a49188846ff3403
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 17 Nov 2026 20:20:48 +0800
-From: Chen Yu <chen.yu@linux.dev>
-To: Tim Chen <tim.c.chen@linux.intel.com>,
-	Jirka Hladky <jhladky@redhat.com>
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	"Chen, Yu C" <yu.c.chen@intel.com>, Ingo Molnar <mingo@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	"Gautham R . Shenoy" <gautham.shenoy@amd.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Madadi Vineeth Reddy <vineethr@linux.ibm.com>,
-	Hillf Danton <hdanton@sina.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Jianyong Wu <jianyong.wu@outlook.com>,
-	Yangyu Chen <cyy@cyyself.name>,
-	Tingyin Duan <tingyin.duan@gmail.com>,
-	Vern Hao <vernhao@tencent.com>, Vern Hao <haoxing990@gmail.com>,
-	Len Brown <len.brown@intel.com>, Aubrey Li <aubrey.li@intel.com>,
-	Zhao Liu <zhao1.liu@intel.com>, Chen Yu <yu.chen.surf@gmail.com>,
-	Adam Li <adamli@os.amperecomputing.com>,
-	Aaron Lu <ziqianlu@bytedance.com>, Tim Chen <tim.c.chen@intel.com>,
-	Josh Don <joshdon@google.com>, Gavin Guo <gavinguo@igalia.com>,
-	Qais Yousef <qyousef@layalina.io>,
-	Libo Chen <libchen@purestorage.com>, linux-kernel@vger.kernel.org,
-	"Luck, Tony" <tony.luck@intel.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Philip Auld <pauld@redhat.com>, Joe Mario <jmario@redhat.com>
-Subject: Re: [Patch v4 17/22] sched/cache: Avoid cache-aware scheduling for
- memory-heavy processes
-Message-ID: <avxGoEVvohbK0nUS@three-body>
-References: <339bb2636c7306e17540268a9295a8e673b92804.1775065312.git.tim.c.chen@linux.intel.com>
- <20260409124642.GC3126523@noisy.programming.kicks-ass.net>
- <a2d7e7b2-5a4c-48bc-b567-61e3cbd17786@intel.com>
- <20260410092057.GG3126523@noisy.programming.kicks-ass.net>
- <CAE4VaGAZavgRWDf=ukaj_EJvOO52hTpAYKPe1JEtUE3E2q0y0w@mail.gmail.com>
- <13d982ce42116f876f01a77bae7f02d3800f08fc.camel@linux.intel.com>
- <avqYbuJPHo4zLDOd@three-body>
- <CAE4VaGAL5FPGUrG76pzf=9pJTaMWa60pbkLv-ZXCFjr5H2JpDg@mail.gmail.com>
- <879c23213859f24b12a23530d6ae849bbe504b6b.camel@linux.intel.com>
- <avxDmPs4rs39NC9O@three-body>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=oz3feJS1
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b8627e0eb2so851450a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:19:58 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794917997; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bmhw+HhbYqJ32Gv78uqhoehNFTmaQ6fhTKNrHmfriyy7f+PZLLbiSVYAXwPNXY6JiO
+         R2+Rub9d7mCrl5kggH1Sg6i2r5NMtwL3qi1Qh/BX5dkKQn7RKL6DtHdg0/4u5L+Ziy6P
+         fq7KNxEjkos25GjQE35INmNZLvJGp/y/IscQ3rARGT4YPJGvglRgh5eRo4VeqWN0iDRl
+         doob6qlAzKlHytDyDmKSE8ersz4YNlBtQlAZRa2AHNOWjb/EvTTeU6zZHw1dpfpfXJLh
+         AnMRH/mA+yS6M7nCfIyHt2Ht/m3J9wJItviadyG986r3WTMScRmq0pRJfAzpUfXj7WgN
+         Jzng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=ZFVJi+i+sc9nYgluytKQGXSriWb6Sc1xPMl64Y6JsfM=;
+        fh=EMq5y/TMRtsVvAJb4CcXijJ6l2Cpkj6jdvDywfO8Zek=;
+        b=MK5bd7U6Kwg687A2YSqc04ciHmCN3W3sJ/2+p4DrA0Zr+U56yfo3B5bbLSlXPUA6uh
+         3XrhneEyjJcFH9ESo5SDTu2the1KV/GcwGxzRADUnaK8MS6CTSwlHH51vOTRo3XAGfb/
+         2/Vz9aPXa6PRMX6P0w5bJ9ty8cNQXiDI7JIKYQmJdU8Psh56TE1nRoUS6Ra67p/HhQrv
+         pdtPdh8fTLK7jnAnHm5CYu+f0Gn1c6iWduCKzoMkOg0JgQanCeG2hpEkpRlhpOif27ZM
+         gES4McY+qfhar9MJ3Q5Dy1CuNM0SlKNCg4sLsWM4yPZ1b9Z0Dk3Ge/urDCWe7b/o6yoB
+         MGmw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1794917997; x=1795522797; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZFVJi+i+sc9nYgluytKQGXSriWb6Sc1xPMl64Y6JsfM=;
+        b=oz3feJS1iAIJQC7p7Mwm1JmwyC1qiU6R72jdHYTvotIELPBf9qMxlog1xtibjUkxgU
+         3zG+MEu723WNTYbZ5YYZ8Df56Vtx50NLmAXa5i++s8nTZ2uAI4gVwwNpLP/o2CMOe4eg
+         lF9+9E/74uoDjUdpcR1MCP2KgEwHgeOmiBdyGWB0q2UqyXLTtn4QTeLYg3nPdTtix8Qh
+         DRZkorWs7NAj+2mcAE1YNat0DZsk868MZmh+EYRECG3mmX9gLw65JkdgO2RlO30SdaLL
+         0D5aKyBpnYENo+0zdqGX4kjkEDJ3fKeUAVtbkK/FnkbcHPAiBvFkvzVrHIIKxVHXw2aq
+         sd8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794917997; x=1795522797;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ZFVJi+i+sc9nYgluytKQGXSriWb6Sc1xPMl64Y6JsfM=;
+        b=HW4QJ+OqN8mX4AR9EgjXVt3W4ADwOX41XDklQb6Vq6jBbIk8tnhsHCXCYrdwlDJJqA
+         qJtJnQAG1iOHna3PfoYV+SpSZMf3fVfEJas6fKCTjZr8rJNRLCM2+S0WEVqVvvvFMkif
+         Fw1wpPLaE79AQGvexLMRqw0T8ku53+LK9ivjl/Wrel4lFfUv/6D0jbktbkVnPVTz58TM
+         fUoeCzH0FO+5utLlxvQ11C9nWOIr2V0iH+9dtlsrBZvNjl/1OmiubIN03F8FBsGW8y0h
+         czkyM1IrOgfuSZHv2lM+323vGvjyfW84d/ZOMrAs2LdpoRtEAJRvPqTopapZnqojMf3m
+         PzGw==
+X-Forwarded-Encrypted: i=1; AL+hErHVbhx6X4c2tdJkhhG7Il6vgbxwy2eCXviJnXvB3O/JO/f1IZtJvTUxu9sX1CbhBkkCIz0O158Q2+AhSw0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ULMzd4ujL+BcH3z/ncq8k6OFC9veUfAERfr/gbyw32p/DL1t6
+	FXtsd4OJfqxmrw3sskvnNwuc+ZBl6aBtMZVdkjgPafCUHkNCWFSIfeiQgkTk9uCvrRgUfOzfzJj
+	Ocx+SE2lf9w36xAIiR5Ov+IkuucMkjW3PYBn96IeaiQ==
+X-Gm-Gg: AYBFou3T8vReGiNWlxD9mE1PBC8QItqhUdrCwm0N5iiz6vvG8AgMtZLkHRuz/rFZ3ll
+	2LSl14imf9IWpWhOYk8XL4OGssmpD4ofF1RxwM9zcELCAdS7Ffgfle4QvLnt1oy9GrUBIB/Nxdp
+	9O8GNiu/B+g7T1xnx8lTN0lwizg+zD95hvhh9Rjoev9ta4ONZHCyx9qCNnp3LWfRt3YLXh+Twp1
+	DmD8eRpwzNFPllAWBqFxE5rwlIsmFR3YfwjOK8S+3z0iGa0WcOJFY7YqQFas8wh3/cdYmp3CovF
+	V0yrWk5i5YaILPflb0C7T4nWIZIhSmjPGGJKSUcq3WahGrust7WRPQ7p/yfXM5cbmbSQSGjd4/s
+	svDUuVFe+gqZjTZZnDJmLNl2vXI/qOymHiiDE7J+ctQkGqYODMLg6iwfV5OO9wliR0e9VHC28L3
+	xPIOjqBOr4sfRIS9H9
+X-Received: by 2002:a05:6402:1ed5:b0:6b7:e861:8f50 with SMTP id
+ 4fb4d7f45d1cf-6b7e8619543mr6865668a12.37.1794917996838; Tue, 17 Nov 2026
+ 04:19:56 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,39 +104,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avxDmPs4rs39NC9O@three-body>
+References: <20261116-b4-iommu-passthrough-devs-v1-1-dc5b493f7551@linaro.org> <20261116174238.GC2299285@ziepe.ca>
+In-Reply-To: <20261116174238.GC2299285@ziepe.ca>
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Tue, 17 Nov 2026 12:19:45 +0000
+X-Gm-Features: AclHuK_ulY4P51VnkuhR_K0XogE5A7oe02gNjInWa6kLbfDjJ1Wh2QAX_5471Bc
+Message-ID: <CADrjBPpyhKcvdH=jxiGSN46SZoFahaBdH4fAQ5KEzRvH_C3AJA@mail.gmail.com>
+Subject: Re: [PATCH] iommu: Add iommu.passthrough_devs early command line parameter
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+	Robin Murphy <robin.murphy@arm.com>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, Mostafa Saleh <smostafa@google.com>, 
+	Daniel Mentz <danielmentz@google.com>, Juan Yescas <jyescas@google.com>, kernel-team@android.com, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-samsung-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Nov 17, 2026 at 08:07:52PM +0800, Chen Yu wrote:
->  
->  		if (!ng) {
-> @@ -4210,6 +4178,15 @@ void task_numa_fault(int last_cpupid, int mem_node, int pages, int flags)
->  	p->numa_faults[task_faults_idx(NUMA_MEMBUF, mem_node, priv)] += pages;
->  	p->numa_faults[task_faults_idx(NUMA_CPUBUF, cpu_node, priv)] += pages;
->  	p->numa_faults_locality[local] += pages;
-> +
-> +#ifdef CONFIG_SCHED_CACHE
-> +	scoped_guard(rcu) {
-> +		struct sched_cache_group *grp = rcu_dereference(p->sched_cache_grp);
-> +
-> +		if (grp)
-> +			atomic_long_add(pages, &grp->footprint_cur);
-> +	}
-> +#endif
+Hi Jason,
 
-I forgot the code from Tim that firstly add the footprint into per task buffer total_footprint,
-we should add back the following:
+Thanks for the review feedback.
 
-+static void sched_cache_footprint_accum(struct task_struct *p, int pages)
-+{
-+	p->total_footprint += pages;
-+
-+	if (p->total_footprint >= SCHED_CACHE_FP_THRESHOLD)
-+		sched_cache_footprint_flush(p);
-+}
-...
+On Mon, 16 Nov 2026 at 17:42, Jason Gunthorpe <jgg@ziepe.ca> wrote:
+>
+> On Mon, Nov 16, 2026 at 05:37:45PM +0000, Peter Griffin wrote:
+>
+> > Instead, I propose handling this in the generic IOMMU core via a
+> > kernel command-line parameter. This makes it available uniformly
+> > across both Device Tree and ACPI systems and across all IOMMU drivers.
+>
+> Something like this could be useful, but also Leon's series will allow
+> userspace to do it from the initrd too. IDK if that is more/less
+> interesting to Android.
 
+Could you point me to the series you are referring to? I want to be
+sure I'm looking at the right patches :)
 
-thanks,
-Chenyu
+>
+> >  static unsigned int iommu_def_domain_type __read_mostly;
+> >  static bool iommu_dma_strict __read_mostly = IS_ENABLED(CONFIG_IOMMU_DEFAULT_DMA_STRICT);
+> >  static u32 iommu_cmd_line __read_mostly;
+> > +static char iommu_passthrough_devs[IOMMU_PASSTHROUGH_DEVS_MAX_LEN] __read_mostly;
+>
+> We can allocate memory at this point.. No need for a fixed array.
+
+Will fix.
+
+Thanks,
+
+Peter
