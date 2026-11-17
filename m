@@ -1,70 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794925409;
-	b=DCzV3Gg2gt6D08VnHQIQX0VPIB/TqWxbr5c9A2NzwhKY4txgjM5P4/EPwr7AV96G4Hhs
-	 22VRjgfDqKOPg5VKC1vbFyGUfuRkaKnGafO75kwOCoAh2z6uPlCLjpvgpOFNw+Goeac8a
-	 FTgyaMGuusjo0N/C54uffNljQ+LrqeBx7ou6wQNfRybhJmo0WHUt/puRN/kozz2PA7ZbD
-	 VbwFnr/WywyG4TtnwZaOJVeTw77lw3fHZr/5wdqe8JUEbT3evWZidMhIPcURGe+dlr+Vy
-	 be7Qy2cAcjbBSUBTtrjdIDQnytAitgE/vD+ngInDr6Ml3kTmU78To4guu3AlF4FoiWA==
+	t=1794925410;
+	b=wruSRgHRlG0vEv5RsxKs4x9mv5EyV14Jw+qX960eCYf72qqp3yn/ylwOxcdDbE8UQLhN
+	 5SCZYfl9EeelgkO65nzrAKLKVOtxgx/4KdDy4GEyrRREIdpb2UVrfFldS8KF1raHyDuJY
+	 JxVjllU8n4PDGQC8YVb3sYwBUJK89fJQpkfaALpechKK98YZfdP5JVMmNUEDiMODdC/Vl
+	 +LxiriGv0E1T6C4TDhXo4OECkHUzSJ7aA70wOR6SPDGmuZvppe15UJYcYcvg4pO7gSnF7
+	 xThh4kcj6tO3r4EfhjxgyztSTIKcQ3Tn6udiEsx/087YWTc177OUDKIbtgY67jOSEgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794925409;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794925410;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
 	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:X-Mailer:
 	 X-Last-TLS-Session-Version;
-	bh=XtFQDcwceQa3Sr+OhE1k+wWRHerfk4qk4lkJyg2kfJo=;
-	b=Cqz345uwk65gNtEq3f0XO76jKq+V0sPxW3UefstdMTvldw4Bp2A2qJFmohVETvcfxhsz
-	 9BVmCCV6pVi5/w56QBxv8LUhfj9D3OqpDbtc+Rn6Kgb6ya781VRA20C6zDOdqWl5OcNhN
-	 uIn+u5iBiRlodH0el5OK/YfI5bunBgLIHDX1RcZybfgOpSe53LJMMlK7B09myWFDWobxS
-	 XRQPcDZ/W15+bDm1o4t2HR/fO6tH8nIqkB6DbPP6YEAvs1xj60d3/6jd8K+6SQ2H0t7ux
-	 oi45z2cUmUlOS8lw/ly85cgDSVSgXXPUoM1IV/5gfeXExe1kjV4d2aAaHJYWrHsC76Q==
+	bh=LFhzcWwrTklSI8rmoJqaj5WMDMpXtGy+ZT60s1LjZyY=;
+	b=AjPhuaSqRZDd3+eJR/Yfb7xl0P2Tyn6PFcUvkk7mDAovkkdxQ17xmgVfgeOQ16X8d7Nc
+	 hunbpd8Iag/uo4b7zoeTDmSiF8L+Y0lh0XYkIf1LuyCOVET1JBzUwXeH2KfSBTLGjHA1L
+	 YUnumxlnLYqYpNJy3mIRD4bbyNve5+od9qsEdlfmcGKGbbfIe4qEb5TE5eIdTZbrr9LKX
+	 lECmunwxcOVQ0dwD/qyb4hq/eJDG1A3AsvVrNcXRwFlFlFZc23C85YL4gvjumxa0ohq0T
+	 9DC4l2K5Kg23wQnn9Aj2kjeVO32N7FcczhjBBMQ+grNpvVkp96zDHmY4i9mqFfSiTwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=1q1S9Pd7;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=HXx5EytN;
 	arc=none smtp.remote-ip=185.246.85.4
 Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7291B606A8B8
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:23:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7291B606A8B8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B27D606A332
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:23:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B27D606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=1q1S9Pd7
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=HXx5EytN
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 3E62A4E4157D;
-	Tue, 17 Nov 2026 14:23:27 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 0A0B24E4158E;
+	Tue, 17 Nov 2026 14:23:29 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 120E55FD6A;
-	Tue, 17 Nov 2026 14:23:27 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1B0D011BC0039;
-	Tue, 17 Nov 2026 15:23:23 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D35375FD6A;
+	Tue, 17 Nov 2026 14:23:28 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1E00F11BC0041;
+	Tue, 17 Nov 2026 15:23:26 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794925405; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1794925408; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=XtFQDcwceQa3Sr+OhE1k+wWRHerfk4qk4lkJyg2kfJo=;
-	b=1q1S9Pd77qyl4ks/rAZs4tWBzzKJxwbhs+GjdlKzNE8v8VfwmKF1gAM4tm+wT0HKqXcAI8
-	V85azkHVlxyod7PF09JjNMsoOJcva5H4RmM0O9j269IgEIWVqqsjN9q2t52UD2l+Pt+Rba
-	fGgerv2m2bVMgqfC3zwj7QEe38Clb9aL0GNUHpXkOwI/CzSrkE28jExKHZM51eC/e9M3I5
-	XVTsoW4/jxNOIsB0teTHQ++StlGA6+fp+3tSLe+8N9qIiCkIiblYqh6LUj/14ctV8D/8lZ
-	olnCiWeeX8ixtcvqSdcQJW7OSR/fmDNkexg9nNNHhdgJGQMCsn2h7SfendL1Aw==
+	bh=LFhzcWwrTklSI8rmoJqaj5WMDMpXtGy+ZT60s1LjZyY=;
+	b=HXx5EytN6e3Yr2QCfvkblUYi+D8RzT2TGOvGMCoUvE7pxq2eDfNCdEPF3puWzxAzUjwBct
+	Fkz/TETgSNJbXU7ooX5ajRShwX+cpzr/vHTKJ9aDygbugpno0237Zjf0YuvzZtQalhYvQo
+	I5fDmHePQ+NWkqlTMWSNVcq5WAa/VyMqzl/EntFIifVmTP3FK/xqHb/ioEWmVKHN+Jjwad
+	VOsQRrDIMFnq8ACb4wbjPBpjoEGPkRZayfsWH5N4twBbQWjBL+8brb3yGJb8Fym/iV7cqv
+	jRZ8N42BbK9A2PECIncnc+C0jNvgvfvF4J1P76S304Aai8RrTySOoKL4SXYQ8w==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
 To: Richard Weinberger <richard@nod.at>, 
- Vignesh Raghavendra <vigneshr@ti.com>, Frank Li <Frank.Li@nxp.com>, 
- Alok Tiwari <alok.a.tiwari@oracle.com>, Runyu Xiao <runyu.xiao@seu.edu.cn>, 
- Chen Ni <nichen@iscas.ac.cn>, Kees Cook <kees+treewide@kernel.org>, 
- Hemanth Selam <hemanth.selam@gmail.com>, linux-mtd@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Frank.Li@oss.nxp.com
-Cc: imx@lists.linux.dev
-In-Reply-To: <20261111202502.3860647-1-Frank.Li@oss.nxp.com>
-References: <20261111202502.3860647-1-Frank.Li@oss.nxp.com>
-Subject: Re: [PATCH 1/1] mtd: nand: raw: use dmaengine accessor API
- functions
-Message-Id: <179492540302.2259780.2818998667835752553.b4-ty@bootlin.com>
-Date: Tue, 17 Nov 2026 15:23:23 +0100
+ Vignesh Raghavendra <vigneshr@ti.com>, 
+ Md Sadre Alam <quic_mdalam@quicinc.com>, Felix Gu <ustc.gu@gmail.com>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Sashiko <sashiko-bot@kernel.org>
+In-Reply-To: <20261115-nandc_unalloc-v1-1-65d849fa9998@gmail.com>
+References: <20261115-nandc_unalloc-v1-1-65d849fa9998@gmail.com>
+Subject: Re: [PATCH] mtd: nand: qpic_common: fix BAM transaction memory
+ leak
+Message-Id: <179492540601.2259780.2816763714967014660.b4-ty@bootlin.com>
+Date: Tue, 17 Nov 2026 15:23:26 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,20 +77,20 @@ Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, 11 Nov 2026 15:24:45 -0500, Frank.Li@oss.nxp.com wrote:
-> Use dmaengine_get_dma_device() instead of directly accessing chan->device
-> and use dmaengine_prep_dma_memcpy() instead of calling the function pointer
-> directly. This follows the dmaengine API convention of using accessor
-> helpers to decouple drivers from internal dmaengine structures.
+On Sun, 15 Nov 2026 15:20:01 +0800, Felix Gu wrote:
+> qcom_nandc_alloc() allocates the BAM transaction, but
+> qcom_nandc_unalloc() does not free it. This leaks the transaction on
+> controller removal and probe failures after successful allocation.
 > 
-> Affects cadence-nand-controller and fsmc_nand drivers.
+> Release it in qcom_nandc_unalloc().
+> 
 > 
 > [...]
 
 Applied to nand/next, thanks!
 
-[1/1] mtd: nand: raw: use dmaengine accessor API functions
-      (no commit info)
+[1/1] mtd: nand: qpic_common: fix BAM transaction memory leak
+      commit: a53bc9468f7c4461d51c66cbe949d0fbca37f7f6
 
 Patche(s) should be available on mtd/linux.git and will be
 part of the next PR (provided that no robot complains by then).
