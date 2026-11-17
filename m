@@ -1,112 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794926351;
-	b=URyu+N/rOIzVw9TfEGiMGVOCXJYdwKScRunGYG3GaYldUBpzTSEOpD49CWFhHdiOO+0x
-	 6FvuLprMXc9bZhwu1IF0eaoXXu3+PjN+CMcPe5TcvEa/cXxZ+sdOvTF9dp3YQh6xZmhIv
-	 tILMV9J0rzFLveBaZJawey7Oy42OMHQYVkJo7y4F1R33Efv733DScxxPs+davZnp9r8lk
-	 TckSL69aHHOJ6R4U/s4vyR+e2FBgYKtlqBgEaKxSAnhsMLuNiDozO7IAdf0wLLx9CfMDG
-	 X/Sq89amkQN0dcqpgHJfD1VQA1X5l889a27O8tv87bkABFJ4fsZeIk7aK0sqqLbRwjA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794926351;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=J/4vLvyNqeORXrBPoXGUzzn2IETQe9KRQ40Tt84ca5g=;
-	b=1vVQXlpT6lztNiSAaUDxmtrco9WzIlKpaHtSb3WdWFDqeopP6vw2g3wGf6BNRn0KAPge
-	 uFEYUHGdMcNpKYLwNz9rlZE20cwbaC8ZNJpfKONS8om/YC3nGZafHyUjhYj6t0I/lHPfb
-	 dUHzFl6InCh2FcBZBVpIIr/QvwSTb7nLW4teojaenKpdgknWwqRf5XecXczOXXitx6VEL
-	 um+77LtPGeOqwWNTLjZ0R/4JnkYsQQGM4gbYWjgh4ISsLJbPuVPv/V9OUXs1cL1bl5ICB
-	 b9YeK6yx/X2PBFAHB8mAvYzZXHjI+d+cUDFzBC2oO1Zpu0vTO+Y1QM8CLRuyziQQ5CQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RaZdnNrX;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=I2eYdPIa;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794926376;
+	b=jM2E6+dYWeeWFQ0qkidD48XPbIeZTmspz8UFmMnyUb6FrfIjeTNVxY4ScEEoWsgSU82e
+	 nyC1n+OYfLjncTKs6b5gdT4uVDMWgJJNCntZy+NJLiAsO4Yf5yfLRprI6fN7h6KzwpBHp
+	 i48fS4fHHmCpR+kB/J5ofo7Zueu6sg5w3WYA09vWY1G1esjjxLhF2mHbsI4dfJd2usgIg
+	 4kmS4QcgTcEgZ4Pq4T4uBiUjMskk6jgfVbLX7ioewXBVsq4QjUf94MpKj+8vAgP8kBgVi
+	 kWPNuJYbRtJZVWw06watfiWWujWeyx9AyipF8Owha06vXwzA97LIWOr9IwKHlevK8BQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794926376;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=P0olrsHIDvlSNbwag3VVPNk9dsjV/Xue4p9PcZmWx0M=;
+	b=qpxqdwT9d3yOPoprD8QwNJJQZn1n61SCMvlBkASuRYXLM1cu7MJWzOlfQ6uoXtdkEskl
+	 1AK6nytgZFcEX0P8dGEeI3SZ9iVItWFnc9trsQnL6eXaO5F8mljVejYj0XtxwDrMXuxbO
+	 MVxGoKigv2r6FJWUvHpH/2GBfSoe3/Hx+9ZoMa4r8RHsloAvw6cNeeVPbN49b2aGVPagg
+	 PMSc9geALRjVHeS/72AD02fmB/pseoWGRuVC+gtVqu/SVUR7/NMZpYI9ul47DktNP001J
+	 WmzQF35pxlVJHhPVTWj0Zf1NG9RMpbXm2PR3eri6a58KLHsK4cL+vw5OC71Wti0m0uw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=iiitd.ac.in;
+	spf=pass smtp.mailfrom=iiitd.ac.in;
+	dkim=pass header.d=iiitd.ac.in header.i=@iiitd.ac.in header.a=rsa-sha256 header.s=google header.b=ahyCFgha;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F18A606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:39:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F18A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D09606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:39:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1D09606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iiitd.ac.in
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iiitd.ac.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RaZdnNrX;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=I2eYdPIa
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHDEIbl626672
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:39:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	J/4vLvyNqeORXrBPoXGUzzn2IETQe9KRQ40Tt84ca5g=; b=RaZdnNrXIXuujHIL
-	b9gDY6DkKpfcXz3+RtJMNcSG2CBbjvyZvwfuE3SPA1MzNtWuWLPkv0xOk3corQGb
-	9hnsSeU//oJ8Xfddv4H2/ry7020h+5yagaaVpQpSz7oxja90XPUrw1XDo/8PBigI
-	CALjD9jco/hHbq+V9D9XRgpEh5T2P6iWO+x71wV/QuYtotFLUcispWkEaAg0pAqU
-	7hmUtvgFJJtB/jnoLUIArmuG01TjjmN1fdT2x3Ak/n/0OvWhffI4K5jOktBNlKu8
-	PPDe1XT16GpXB9ydVlfUIORhu1hKDnkSYLosgk+VlfZG4A3AUDfcz0iY11Kt/oO+
-	py7HgA==
-Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0qms0c24-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:39:04 +0000 (GMT)
-Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-7d2c7428eb2so677114137.2
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:39:04 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=iiitd.ac.in header.i=@iiitd.ac.in header.a=rsa-sha256 header.s=google header.b=ahyCFgha
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b547d6c07bso6286201a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:39:32 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794926371; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rTX4TusoeGDCy64n8bnREaGJDm9f/Dgg4VcB5W5e25yPv739R/dFuq1p9rtQxw7uof
+         sfRNC9Bi1XICrDO+AAfCsRUWJCFhMkDiBNOgAXPj+FSD3dQSC2nfk7+qHAteY0QXKzKP
+         VVGW73wRnNPvSrLFJBFtDl12L7m3ZKUXH+HbebEWfmwbSSwwtTe8nLRkw0M/cbVt6LLw
+         tBxWLZzdoJ5eJA2CaP5AxWFy3CVxgnRzzpOO6m+GvfWzUw2REYGTPq1jwUkJ+rLMVqSN
+         y1McLSnSKc7v8gwKWgXdVk5yAFacp+LrYVoIRuIkW8FhEnQzgDWWRwFgzjYkJt9w/bF/
+         xOoQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=P0olrsHIDvlSNbwag3VVPNk9dsjV/Xue4p9PcZmWx0M=;
+        fh=yE84uinqcB+79ooEmocZjJlGOokhW1M2hMjcevoPk9I=;
+        b=EiN/LlDBJ3TI50Sl/5t1SsPdjODGVyFgqltxEAKwV5Y/GRG8ml3mjNiasetz3F0ZEH
+         EZ+ssDKd3mBMWkau2a8yHV5/D8pEshJJAA+eMTVXVVMVCif08OVRCmsEG0mQpJRcC/Cw
+         Oyy/V40YI+dzOGyGvVjVmBgOSDQGfhln++v1IS4ntpOA/S/70P+4+UTSQNhWc9+ex7qy
+         bVLi7EfgBz594kJV4n7cuYOvtQQ0+BVQd+rRpHebdTbEoCbJ8WchyTwwHPAopopkmO36
+         /bQ1kbMES2K8oMXq9uRL09b1wyHQZyZdRw1sR8EKOy2CZveIUX3PquG3Sv/bIAFkbFnX
+         ur2Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794926344; x=1795531144; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=J/4vLvyNqeORXrBPoXGUzzn2IETQe9KRQ40Tt84ca5g=;
-        b=I2eYdPIawMDuzDv8t8nyVyMKHJBCpnsseE6P92OcAlApTbDGO86XNhM4CJib78ZQ3/
-         0zxxPDDwVxubVpkREA2V/q8Ao/QicgYvYiqfNYFJalPfdhNPQHNYw4e/dvX6XiiqSdJv
-         I37jEB4waTNWfvOm9n2pWgbVNgd9jsVqap+c59iizmhMpSq/ta5Jtdz4FiNX3a876ODU
-         S9FyZHrmLeUZBUDlJCe3JgTXRzQyVwnTx1Ykcjcy2jdE1pwqWuNsIRCYzdgqob2UqKBM
-         IEZSuPbXFX4czfGlTagrAvAbQgn/t6nNEQpSGIqTPu89+ZxXXHLfkVCijoDPu97MH3dI
-         FINA==
+        d=iiitd.ac.in; s=google; t=1794926371; x=1795531171; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=P0olrsHIDvlSNbwag3VVPNk9dsjV/Xue4p9PcZmWx0M=;
+        b=ahyCFghaXuEhaXgFyVP9RDu5fehkDQbPmcmZJkrhaedokFXiJrx/aKuvRAeqgLmiH9
+         djlDIjrjUAmgLZxfCLxVUjEKNVCSty2E9U7zI40EChAqidbJl2c5cPyxmnyMlp49Whwd
+         CybT8jPljM0fA5otepH0cTTKZTEJ59U2FIi2I=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794926344; x=1795531144;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=J/4vLvyNqeORXrBPoXGUzzn2IETQe9KRQ40Tt84ca5g=;
-        b=Qtl+skNhGbariySYqRhUrRxKrEEmFOgjnvy0l9KAzjrWn2BmyR8IMQxw8fcMbhqILl
-         4kGYYGty6WgSOcdw+oHxOx0ulUuUYwrDswn/PXl6trOKq3uLcqp7hvUwS3DuxTrqVEw4
-         GY67lG5Tjoz+1s9JZDRAcZw1vtmM+DKGQbB8qOiwTRlrqK7YzlOVcUiisQatWyn+teXm
-         OTw2SGdsjigY8Vjy5GnRV5F73icIjGmSSmV8cXQy3PHOr3U07t8NbftvBYhjzzjgUavA
-         t3SyCJCRg5wvSS16DtZCRkinN/h0IqGsOOPRbvEifLwFFjwUl5r2/Hz+E4rwAwGHlAq+
-         XkMw==
-X-Forwarded-Encrypted: i=1; AL+hErHlHDLtFK2nNkT22XTYcJgq6gQeNe6Z4oxdEkEmMcsr+cK8C9nhVLc7ICQEBJGBR+C5V9MKNi+WR3/Jgg4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/zpU8jWb0SIpJaeQuz89LHT9vCd1kC4Tr/io0tO5weIX8OTJOR
-	vbuDZhenJTvfDEKNbT/xFUttuUbmVSyhJUMmjQDgI0IFUntsizP3faNmkJkaPD6tpKsLksvIX92
-	TRLfundF6glGToU2i5TqNos3yy3arppwgy5J4DcVvQlZNiq1cV4HJibeKmBEXD40rWTI=
-X-Gm-Gg: AYBFou1a0FmwuMnj71onegjMsdkBRoGcJ1g5P7fGm70LB6DMsrax5lblFDHoxuoVsqL
-	3/SPxDE0BlL+9C5QA7/cICb/5Y1OybeHowKNEvejPu770Cl6nj7Cx7MkEWWeqkTVcPyGmqRmh3D
-	mCLCuGDC/uS4TeWkgg1udqKFYOaogYAg/WFKSGmb+2eXK/Gd+ZXzZrA+BjivaNUIuUu3+s2ICzp
-	6mfwKK6Ffijjf8tzQ8g1XdbUqn2w+CeZCbRBEI1bhMuWA0mLHW563H7psHjRt0tPvE+URNe1lU7
-	pS51hJzGhny0hBIJNlZIprg4yMJchOdrUAp7q9HQcjzCCPe/s1xzCtSFXSa7IDvOwdRKkQav/++
-	Rso8dzxDZhLX5u39uSQioOcZKt88vsJ0aKvAAil8H+UwO+qu88YtkiWYkmfORLjclBuKFbW7x0j
-	VItywB
-X-Received: by 2002:a05:6102:6050:b0:7d6:48c4:ed56 with SMTP id ada2fe7eead31-7d64d69dbf2mr3523234137.6.1794926343472;
-        Tue, 17 Nov 2026 06:39:03 -0800 (PST)
-X-Received: by 2002:a05:6102:6050:b0:7d6:48c4:ed56 with SMTP id ada2fe7eead31-7d64d69dbf2mr3523224137.6.1794926342900;
-        Tue, 17 Nov 2026 06:39:02 -0800 (PST)
-Received: from [10.218.50.86] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d69e02d340sm2636416137.8.2026.11.17.06.38.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2026 06:39:02 -0800 (PST)
-Message-ID: <d55bbf0a-3556-420f-852d-7a15ed8d5aac@oss.qualcomm.com>
-Date: Tue, 17 Nov 2026 20:08:54 +0530
+        d=1e100.net; s=20260707; t=1794926371; x=1795531171;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P0olrsHIDvlSNbwag3VVPNk9dsjV/Xue4p9PcZmWx0M=;
+        b=icH/p+nN3E1s8v4HiaRtrF+ax5wOGvOLpmJS0dmPkLeZILbTab6qr6simOStz252aV
+         jCfxj3tyc7gdKXIhvqTcPbJxIuPGtfy6rdoHGzmbXAtuzy4MO3emP1geoYl+llZtpnFf
+         w5zFLRrp/3U6r7x9N7rtVtZZfQQNk4F+4wRzwcofHYrStwucuimLIEfaURHocCYwlGU+
+         jJtazf0VT8ngdiACZF3/hLRLybKD1Y7PnN3ZYLsXMylmIZPbnhm4FhSW/EN8MaAAsxpv
+         LeAm1dmXWJpcXTtFpmZbSoJm0pkTNmZxTJaYvwgiZ+ItLwGOYcXp23DixQOL3Rf4q2aJ
+         EhnQ==
+X-Forwarded-Encrypted: i=1; AL+hErHHdZfkzRqJoyzS5g0KEWO0WNfI6EwUXBt3/FvdoPr2yfHZEXZU64UMNQgULiKmNz7XrfpxtdPY7sNDJ30=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/DswHTIMZokDDrzKAz71z2v2+KufJQJ6oyLaL5lS/6UfZ0nbyT
+	xgO/CAJmiEuWo8gJ3qX2oLgOUOAS8k8gZFDDX7y3z1Ft5XRZ4W93bQ4t9M1skN9IJqGR1Q7yntP
+	GSjQv3zo8oKmhEuc+fvwZJ/XhWRp4cHrdEvLiiN0+BA==
+X-Gm-Gg: AYBFou2zID+JRmr5lb2U+4IK0YyWMRTsq9PI/IU/o/PCUhJOX4wUen6SIvReyL1yZNb
+	NAtTZnqfN2L3PkHeeXmKz+nrG8gCt9U8UCAR1izIwAQ7SkBTuUhoOYedi3XykLYgpBTTiXug2xW
+	jgPbfh2kW3nRqszh3CqYdIZtEWah7kuIdnqISV9lzqHRLvGSgYMJA+Sg/JKYTPA3bmPgykiWJaH
+	Fzqx2Q8sSkFGhfaCFMbAtT8QMm/mMlJiPGZ2n6FHmRYjJIybKXib9yhFROGBO0Ihk2o0rl42/qu
+	Z2ek0nVge5IHsBmB6EfWQ9vaMVu8Zk+nEyLLn5idX3FcTe99Gh9cBsbwEXSnjvpWzOdA4W/te3q
+	JtPi+kB7fWoz/2erUdjJUrwGqPODppDIE6KGaftsKhR4+hTWVIZLHMEQnd4mdrV+tXwOYkLQjYD
+	m6gGIf55MqFwwM47dluI6p9hpTNYYbS2YkHcuatJlEpaDfBZOOkR3SisM+VriReuu7tQp5pVtlB
+	FPqYw==
+X-Received: by 2002:aa7:cf97:0:b0:6b7:df0c:18c2 with SMTP id
+ 4fb4d7f45d1cf-6b7df0c1c80mr7160252a12.12.1794926370896; Tue, 17 Nov 2026
+ 06:39:30 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,141 +103,328 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] dt-bindings: dma: qcom-gpi: Add QSPI protocol
- identifier
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
-        dmaengine@vger.kernel.org, devicetree@vger.kernel.org
-References: <20261106-qspi_upstream_series-v1-0-21f43042dd60@oss.qualcomm.com>
- <20261106-qspi_upstream_series-v1-2-21f43042dd60@oss.qualcomm.com>
- <20261109-wandering-miraculous-mamba-0cf21a@quoll>
- <2fc8f7ea-651e-466e-9346-c47e0a38c5bb@oss.qualcomm.com>
- <20261111-daring-salamander-from-tartarus-4c72bd@quoll>
- <c9427a03-8b45-4e35-a29d-7ebe30f07ed7@oss.qualcomm.com>
- <5b6e4031-4c52-4b67-82c2-0033d13b15d6@kernel.org>
- <0d4fa5af-e406-4761-aa58-534c3c6a043a@oss.qualcomm.com>
- <4c3bf92c-2434-46e8-8a3a-ab34cc50c72d@kernel.org>
-Content-Language: en-US
-From: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
-In-Reply-To: <4c3bf92c-2434-46e8-8a3a-ab34cc50c72d@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA1OCBTYWx0ZWRfXzDUumZ9esj9l
- 7WBwfoBfhew79vftE1BGJinYFNGkgD1Iokyk9eXAtuvGMBwV7/j0WxQ+J+Rs/rGzq52Qbn+BCdP
- 2EnBz4HorlFYEhfvDWxxl7WW+GjFvN0=
-X-Proofpoint-ORIG-GUID: YiF_INZt9uFhFdo7qmKrv0XCbVpX1Hoh
-X-Proofpoint-GUID: YiF_INZt9uFhFdo7qmKrv0XCbVpX1Hoh
-X-Authority-Analysis: v=2.4 cv=BIEmP1QG c=1 sm=1 tr=0 ts=6afc6708 cx=c_pps
- a=P2rfLEam3zuxRRdjJWA2cw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=fQRhRBuJyxsiCmdI730A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=ODZdjJIeia2B_SHc_B0f:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA1OCBTYWx0ZWRfXzKtqtZA++QX8
- R8/0G9ZE9CujbdAivBkokrXp0jkWrhXT5POk0UdETvgrLTTyQPyshzDMl03Cr5peszKC38bH1KP
- +8h0wH7mpPoECilbXu9lYjrdijeUOoNUkm4gtZouSyxXzctj9kp78RLC1IlfszdEjK7SAGVa9IV
- YyxVx5XTz4RhQD0qa+SXJcnKwaBVNFy+eoWeK1ZKza799sxcF/dt+PVqD2EJrLFjO4NfB4Ay/vL
- PtXBQbJG+jt1X68UXbdeDoRRCVQ4CONp0zpPPHYynd1gkwQY1DhpUev/tiw5+5SqwuwjT6fnfhI
- ot5dKYknVT3hzoTN7EuJot8uaKK/SzU/SpwbtRUvXVZFd+JRa9kGAundpTqo9jJcHoaTKYPU0YR
- KCvcU1GWqOYyxg7+0aHwp3GAD3h9Bhm7HGtPAs2s93I6x5Ivz1nRTSXHMXaZD169MiLdogPLrNT
- LO15ML9PfjYhyXeJZfQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-17_02,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 bulkscore=0 clxscore=1015 malwarescore=0
- phishscore=0 spamscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170058
+References: <20261117062046.3286096-1-piyus@iiitd.ac.in> <CAL4Wiipye9XojWhp2-XqPC0kABk3LsTmE8Z0D779+GJT_A7N8g@mail.gmail.com>
+In-Reply-To: <CAL4Wiipye9XojWhp2-XqPC0kABk3LsTmE8Z0D779+GJT_A7N8g@mail.gmail.com>
+From: Piyus Kedia <piyus@iiitd.ac.in>
+Date: Tue, 17 Nov 2026 20:09:19 +0530
+X-Gm-Features: AclHuK8etuqyiEgjTDf-ydiBAGJEz77A5x1U4gnTFtk-tCGeeoPrSbeiq3QmSew
+Message-ID: <CADq=QSx0zmA5Ks7-aZYai-t7buC7hP5Xj9d6p4Rgkx0ixE_Uaw@mail.gmail.com>
+Subject: Re: [PATCH net v2] xfrm: do not write the ethernet header when the
+ mac header is unset
+To: Eric Dumazet <edumazet@kernel.org>
+Cc: Steffen Klassert <steffen.klassert@secunet.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
+	"David S . Miller" <davem@davemloft.net>, Andrea Mayer <andrea.mayer@uniroma2.it>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	netdev@vger.kernel.org, ipsec@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Kapil Vaswani <kapil@presceralabs.ai>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi Eric,
 
+Thanks for the suggestion! We have submitted a new patch:
+https://lore.kernel.org/all/20261117143612.95112-1-piyus@iiitd.ac.in/
 
-On 11/16/2026 6:56 PM, Krzysztof Kozlowski wrote:
-> On 16/11/2026 11:36, Jyothi Kumar Seerapu wrote:
->>
->>
->> On 11/12/2026 7:27 PM, Krzysztof Kozlowski wrote:
->>> On 12/11/2026 14:47, Jyothi Kumar Seerapu wrote:
->>>>
->>>>
->>>> On 11/11/2026 6:07 PM, Krzysztof Kozlowski wrote:
->>>>> On Mon, Nov 09, 2026 at 08:03:29PM +0530, Jyothi Kumar Seerapu wrote:
->>>>>>
->>>>>>
->>>>>> On 11/9/2026 7:12 PM, Krzysztof Kozlowski wrote:
->>>>>>> On Fri, Nov 06, 2026 at 08:31:20PM +0530, Jyothi Kumar Seerapu wrote:
->>>>>>>> Add QCOM_GPI_QSPI to identify QSPI (Quad SPI) channels in GPI DMA
->>>>>>>> specifiers. Its value, 9, matches the GENI serial engine firmware
->>>>>>>> protocol ID for QSPI.
->>>>>>>
->>>>>>> What is GENI serial engine firmware? How does the Linux rely on it that
->>>>>>> we add bindings for it?
->>>>>>
->>>>>> Hi Krzysztof,
->>>>>> GENI firmware runs on the serial engine’s programmable sequencers and
->>>>>> implements protocols such as SPI and QSPI. Linux configures the engine and
->>>>>> submits transfers to it.
->>>>>> The existing GPI DMA specifier includes a client protocol ID. Linux programs
->>>>>> this ID into the DMA channel and selects the corresponding descriptor
->>>>>> format. QCOM_GPI_QSPI adds the QSPI protocol encoding 9 to that interface.
->>>>>> I will clarify this in the commit description in V2.
->>>>>
->>>>> Does not really answer. I see no reason why GENI firmware needs ABI for
->>>>> Linux.
->>>>>
->>>> This extends the existing GPI DMA binding, not a GENI firmware ABI.
->>>
->>> OK, so it is not ABI for the firmware. Period. Let's stop discussing this.
->>>
->>>>
->>>> The third argument of the DMA specifier in the dmas property selects
->>>> the peripheral protocol. The GPI driver programs this value into the
->>>
->>> Yes, so the third argument can be value of 6 because it has no meaning
->>> for the firmware.
->>>
->>> Again, follow standard DT bindings ABI rules, you don't get an exception.
->>
->> The existing GPI DMA driver and binding uses its third cell to identify
->> the client protocol. The driver takes that value from DT and programs it
->> directly into the channel's SCRATCH_0 protocol field.
-> 
-> So register value? Not a binding...
-> 
->> Its mandatory to maintain protocol ID-9 for QSPI.
-> 
-> How can it be mandatory if we did not define in the bindings so far...
-> 
-Hi Krzysztof,
+We also tested it on our platform and the KASAN bugs are gone after this pa=
+tch.
 
-Existing SPI, UART and I2C use the same number for the DT identifier
-and hardware encoding. gpi_of_dma_xlate() stores the third DMA
-argument in gchan->protocol, and gpi_alloc_chan() writes it directly
-into SCRATCH_0 without translation.
+Thanks and regards,
+Piyus Kedia
+Kapil Vaswani
 
-Neither 6 nor 9 has been defined in the upstream binding yet.
-Would it be acceptable to follow the existing SPI, UART and I2C
-approach and use 9 for both the DT identifier and hardware encoding?
-Or should I use 6 for QCOM_GPI_QSPI and explicitly translate it to
-hardware protocol ID 9 when programming SCRATCH_0?
-
-Regards,
-JyothiKumar
-
->>
->> Other protocol IDs which are not part of upstream are for AFC (6), SPMI
->> (7), HID_QSPI (8).
-> 
-> 
-> 
-> Best regards,
-> Krzysztof
-
+On Tue, Nov 17, 2026 at 1:43=E2=80=AFPM Eric Dumazet <edumazet@kernel.org> =
+wrote:
+>
+> Le mar. 17 nov. 2026 =C3=A0 07:21, Piyus Kedia <piyus@iiitd.ac.in> a =C3=
+=A9crit :
+> >
+> > xfrm4_remove_tunnel_encap() and xfrm6_remove_tunnel_encap() restore the
+> > mac header after removing the tunnel header and then stamp the protocol
+> > into it:
+> >
+> >         skb_reset_network_header(skb);
+> >         skb_mac_header_rebuild(skb);
+> >         if (skb->mac_len)
+> >                 eth_hdr(skb)->h_proto =3D skb->protocol;
+> >
+> > skb_mac_header_rebuild() does nothing at all when the mac header was
+> > never set:
+> >
+> >         static inline void skb_mac_header_rebuild(struct sk_buff *skb)
+> >         {
+> >                 if (skb_mac_header_was_set(skb)) {
+> >                         ...
+> >                 }
+> >         }
+> >
+> > and it does not clear skb->mac_len either, so on an skb whose mac heade=
+r
+> > has been unset while mac_len stayed behind, the guard is true and the
+> > store goes through an unset header.  skb_mac_header() is
+> > skb->head + skb->mac_header and the unset value of that u16 is 0xffff,
+> > so eth_hdr(skb)->h_proto is 65535 + offsetof(struct ethhdr, h_proto)
+> > bytes past skb->head: a two-byte out-of-bounds write landing far outsid=
+e
+> > the skb, in whatever object happens to be there.
+> >
+> > skb_unset_mac_header() leaves skb->mac_len alone, and of its callers on=
+ly
+> > skb_carve_reset_headers() clears mac_len by hand.  end_dt_vrf_rcv()
+> > (SRv6 End.DT4/End.DT6) unsets the mac header on the receive path so the
+> > VRF device can rebuild it, and leaves mac_len at the value the original
+> > ethernet frame had, which is how an skb in this state reaches xfrm inpu=
+t:
+> >
+> >   tun_get_user -> netif_receive_skb -> lwtunnel_input
+> >     -> seg6_local_input_core -> End.DT4 -> end_dt_vrf_rcv
+> >     -> skb_unset_mac_header (mac_len stays 14)
+> >     -> VRF l3_rcv -> ip_local_deliver_finish -> xfrm4_esp_rcv
+> >     -> xfrm_input -> xfrm4_remove_tunnel_encap
+> >
+> >   BUG: KASAN: slab-out-of-bounds in xfrm4_remove_tunnel_encap+0x17d/0x2=
+20
+> >        net/xfrm/xfrm_input.c:258
+> >   Write of size 2 at addr ffff88805f85800b by task syz-executor/10831
+> >   ...
+> >   The buggy address belongs to the object at ffff88805f858000
+> >    which belongs to the cache zswap_entry of size 56
+> >
+> > The address does not depend on mac_len - it is always
+> > skb->head + 0xffff + offsetof(struct ethhdr, h_proto), since the unset
+> > sentinel is what mac_header holds - and mac_len only decides whether th=
+e
+> > write happens.  The value is skb->protocol.  It is two bytes at a fixed
+> > 64KB offset, crossing into an unrelated slab cache.
+> >
+> > A THIRD SITE HAS THE SAME THREE LINES, in __input_process_payload()
+> > (net/xfrm/xfrm_iptfs.c), reached when an IPTFS payload is decapsulated:
+> >
+> >         skb->protocol =3D protocol;
+> >         skb_mac_header_rebuild(skb);
+> >         if (skb->mac_len)
+> >                 eth_hdr(skb)->h_proto =3D skb->protocol;
+> >
+> > and it has its own KASAN report, a use-after-free rather than an
+> > out-of-bounds, for the reason given below.
+> >
+> > That function already knows the test is needed.  Its other mac-header p=
+ath
+> > is guarded by old_mac, which it computes at the top as
+> >
+> >         old_mac =3D skb_mac_header_was_set(skb) ? skb_mac_header(skb) :=
+ NULL;
+> >
+> > and only rebuilds the header when that is non-NULL.  The site above omi=
+ts
+> > the same check.
+> >
+> > WHY THE THREE REPORTS CARRY DIFFERENT TITLES, which is worth stating so
+> > they are not read as three defects.  The address written is a fixed
+> > skb->head + 0xffff + offsetof(struct ethhdr, h_proto), so what it lands=
+ in
+> > is whatever the allocator placed 16 pages past the skb: a live object g=
+ives
+> > slab-out-of-bounds, a freed one or a page back on the buddy free list g=
+ives
+> > use-after-free, and a different LIVE object gives nothing at all, since
+> > generic KASAN only tests whether the target address is poisoned.  Acros=
+s
+> > six boots of one reproducer the write executed in five and KASAN report=
+ed
+> > it in one.  On a kernel without KASAN it is always silent.
+> >
+> > Only write the ethernet header when there is one.  This mirrors what
+> > xfrm4_transport_input() already does, where the header length is taken =
+as
+> > skb_mac_header_was_set(skb) ? skb_mac_header_len(skb) : 0, and what
+> > __input_process_payload() already does for old_mac, and it leaves the
+> > behaviour of every well-formed skb unchanged.
+> >
+> > Link: https://lore.kernel.org/r/20261116174531.2540348-2-piyus@iiitd.ac=
+.in
+> > Signed-off-by: Kapil Vaswani <kapil@presceralabs.ai>
+> > Signed-off-by: Piyus Kedia <piyus@iiitd.ac.in>
+> > ---
+> >
+> > v2:
+> >   - guard the third site, net/xfrm/xfrm_iptfs.c in __input_process_payl=
+oad().
+> >     It has the same three lines and its own KASAN report, a use-after-f=
+ree,
+> >     and v1 left it alone - which would have closed two write sites of t=
+he
+> >     three while leaving a confirmed one live.
+> >   - say why the three reports carry different titles (slab-out-of-bound=
+s,
+> >     use-after-free, use-after-free): the address is fixed relative to
+> >     skb->head, so the verdict is decided by whatever the allocator put =
+16
+> >     pages later, and a live neighbour gives no report at all.
+> >   - cite __input_process_payload()'s own old_mac computation as the in-=
+tree
+> >     precedent alongside xfrm4_transport_input()'s.
+> >
+> >   No change to the two hunks v1 carried.
+> >
+> > Tested at runtime on mainline before and after: both kernels built from
+> > aebb72744764 ("Linux 7.4-rc3") in one scripted run, x86_64 with
+> > CONFIG_KASAN_GENERIC, CONFIG_DEBUG_NET, CONFIG_IPV6_SEG6_LWTUNNEL and
+> > CONFIG_NET_VRF. Six boots each, injecting after the uptime passed 130s.=
+ The
+> > skb_reset_mac_len() warnings at include/linux/skbuff.h:2995 are the con=
+trol:
+> > they fire when the unset-header skb reaches the receive path and this p=
+atch
+> > does not touch that site.
+> >
+> >                   skb came through   reached the write   KASAN
+> >   unpatched         5 of 6 boots       5 of 5             1
+> >   patched           2 of 6 boots       0 of 2             0
+> >
+> > Every unpatched boot in which the skb arrived reached the write; no pat=
+ched
+> > boot did, including the two in which the control shows the same skb arr=
+iving.
+> > The one-in-five KASAN rate is the point made in the changelog about the
+> > verdict depending on the neighbour.
+> >
+> > checkpatch reports one thing, the missing Fixes: tag. Neither tree we
+> > reproduced on carries history for these files, so we could not determin=
+e the
+> > introducing commit; we will add it if you can name it.
+> >
+> >  net/xfrm/xfrm_input.c | 4 ++--
+> >  net/xfrm/xfrm_iptfs.c | 2 +-
+> >  2 files changed, 3 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/net/xfrm/xfrm_input.c b/net/xfrm/xfrm_input.c
+> > index 5ed87d513..624ff8055 100644
+> > --- a/net/xfrm/xfrm_input.c
+> > +++ b/net/xfrm/xfrm_input.c
+> > @@ -254,7 +254,7 @@ static int xfrm4_remove_tunnel_encap(struct xfrm_st=
+ate *x, struct sk_buff *skb)
+> >
+> >         skb_reset_network_header(skb);
+> >         skb_mac_header_rebuild(skb);
+> > -       if (skb->mac_len)
+> > +       if (skb_mac_header_was_set(skb) && skb->mac_len)
+> >                 eth_hdr(skb)->h_proto =3D skb->protocol;
+> >
+> >         err =3D 0;
+> > @@ -291,7 +291,7 @@ static int xfrm6_remove_tunnel_encap(struct xfrm_st=
+ate *x, struct sk_buff *skb)
+> >
+> >         skb_reset_network_header(skb);
+> >         skb_mac_header_rebuild(skb);
+> > -       if (skb->mac_len)
+> > +       if (skb_mac_header_was_set(skb) && skb->mac_len)
+> >                 eth_hdr(skb)->h_proto =3D skb->protocol;
+> >
+> >         err =3D 0;
+> > diff --git a/net/xfrm/xfrm_iptfs.c b/net/xfrm/xfrm_iptfs.c
+> > index 0313a43aa..41af72a92 100644
+> > --- a/net/xfrm/xfrm_iptfs.c
+> > +++ b/net/xfrm/xfrm_iptfs.c
+> > @@ -1099,7 +1099,7 @@ static bool __input_process_payload(struct xfrm_s=
+tate *x, u32 data,
+> >
+> >                                 skb->protocol =3D protocol;
+> >                                 skb_mac_header_rebuild(skb);
+> > -                               if (skb->mac_len)
+> > +                               if (skb_mac_header_was_set(skb) && skb-=
+>mac_len)
+> >                                         eth_hdr(skb)->h_proto =3D skb->=
+protocol;
+> >
+> >                                 /* all pointers could be changed now re=
+set walk */
+> > --
+> > 2.34.1
+>
+> I think you are fixing the wrong layer.
+>
+> I would have used something more generic.
+>
+> net: clear skb->mac_len in skb_unset_mac_header()
+>
+> skb_unset_mac_header() marks the mac header as unset but leaves
+> skb->mac_len alone, so an skb can end up with no mac header and a
+> non-zero mac_len. Code that uses mac_len to decide whether a mac
+> header is present is then misled.
+>
+> end_dt_vrf_rcv() (SRv6 End.DT4/End.DT6) unsets the mac header of the
+> decapsulated packet so that the VRF device can rebuild it. The VRF
+> device only does so when a packet sniffer is attached, so without one
+> the skb continues up the stack with mac_len =3D=3D 14. In
+> xfrm4_remove_tunnel_encap() and xfrm6_remove_tunnel_encap(),
+> skb_mac_header_rebuild() is a no-op for such an skb, and the following
+>
+>         if (skb->mac_len)
+>                 eth_hdr(skb)->h_proto =3D skb->protocol;
+>
+> writes two bytes at skb->head + 0xffff + offsetof(struct ethhdr, h_proto)=
+:
+>
+>   BUG: KASAN: slab-out-of-bounds in xfrm4_remove_tunnel_encap+0x17d/0x220
+>   Write of size 2 at addr ffff88805f85800b by task syz-executor/10831
+>    xfrm4_remove_tunnel_encap
+>    xfrm_input
+>    xfrm4_esp_rcv
+>    ip_protocol_deliver_rcu
+>    ip_local_deliver_finish
+>    seg6_local_input_core
+>    lwtunnel_input
+>    __netif_receive_skb
+>    netif_receive_skb
+>    tun_rx_batched
+>    tun_get_user
+>
+> Clear mac_len in skb_unset_mac_header() so that all callers leave the
+> skb in a consistent state, and remove the now redundant assignment in
+> skb_carve_reset_headers(). The other callers are on egress paths
+> (__bpf_redirect_neigh(), bpf_lwt_push_ip_encap()) or only reach the
+> helper when the mac header was already unset (bpf_update_srh_state()),
+> and do not read mac_len afterwards.
+>
+> The issue was reported on the list by Piyus Kedia and Kapil Vaswani,
+> who found it by fuzzing with AI assistance and reproduced the KASAN
+> splat on v7.4-rc3. Their reproducer was not published, so this patch
+> is build tested only.
+>
+> Fixes: 664d6f86868b ("seg6: add support for the SRv6 End.DT4 behavior")
+> Reported-by: Piyus Kedia <piyus@iiitd.ac.in>
+> Reported-by: Kapil Vaswani <kapil@presceralabs.ai>
+> Closes: https://lore.kernel.org/netdev/20261116174531.2540348-2-piyus@iii=
+td.ac.in/
+> Signed-off-by: Eric Dumazet <edumazet@kernel.org>
+>
+> diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
+> index 6787fcf6ac3e43fe87fa5f9007b6d99f7aea0b44..9cd8eff0309cc3a646dc49e83=
+a0cea79512cf8f5
+> 100644
+> --- a/include/linux/skbuff.h
+> +++ b/include/linux/skbuff.h
+> @@ -3186,6 +3186,7 @@ static inline u32 skb_mac_header_len(const
+> struct sk_buff *skb)
+>  static inline void skb_unset_mac_header(struct sk_buff *skb)
+>  {
+>         skb->mac_header =3D (typeof(skb->mac_header))~0U;
+> +       skb->mac_len =3D 0;
+>  }
+>
+>  static inline void skb_reset_mac_header(struct sk_buff *skb)
+> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+> index 1ac1e327ac4c6258726efaba346297ccbec7eef4..8fe0938d6131031a33b535fdf=
+60d9eec50041ea4
+> 100644
+> --- a/net/core/skbuff.c
+> +++ b/net/core/skbuff.c
+> @@ -6984,7 +6984,6 @@ static void skb_carve_reset_headers(struct sk_buff =
+*skb)
+>         skb_unset_mac_header(skb);
+>         skb_unset_transport_header(skb);
+>         skb_reset_network_header(skb);
+> -       skb->mac_len =3D 0;
+>
+>         /* Inner offsets have no "unset" marker, zero them so that
+>          * skb_inner_network_header_was_set() becomes false and no
