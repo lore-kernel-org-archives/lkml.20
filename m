@@ -1,112 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794897430;
-	b=a2MhJo+/e+1Ffggnehw5dwAfg7X+S0tKCwv8nsEngA1mnMRenoKVtdYqOOdMSeDcROUB
-	 fNWQL8QjAqN00V/H+WEBUuJtAaKMJE5d1Lypo04ZsxnD0eKGYaX9FOYINVLRGrifpc8DI
-	 6Fz0KmRIZfRpzRXrrUu5q/HilK0rO3risQrhF8SmYrd566o2knOgYlqOMVaf1jYq0Hrz7
-	 HpgSlaCvQsrp4bLH24K7T5MBjZh2NXUjr3Uzvh3LUm3ON9ZwncK4JUY4IGeap6QllrRc6
-	 O0Qe2+wIK2I9FM2SGSUt3kQxhUFveC4QxHSTtoycQ1rsIp5sSE3qO24JyS0wptyIk/w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794897430;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=DOsBTsM8HzI17SPUr1ak/9a9bMUvOh6RzD9t7xsTYQU=;
-	b=DrWFiwwQsq/la5CF9QkFj32JRMID0HNPG63BNyKIXZhUg9yRBeuDuPt1mjAN6Itj6QSq
-	 ubUGLn3wtH9TGvPeUEoWw4i+ohtn+n7AgSoupxI6e2aQekfcFi6tliwDVYqnO4Xr6EiHY
-	 yuP48SD1D7ztceLXBnwd3tahFV/UXv++b0vcCufUXoqcO1F8A7188dnK7YsPsirTSzAex
-	 J5EyCWxDTRADfZwsDcFFvj11Ot+S5AarH2We8TaBh3ZJDS0ysgHDjZ8ySR/LzEan6ndr7
-	 SaR4LYKMBDaecsl/1lA6pOvrzkJOmUJInDJy++H/pLgutUZmvSA/kLWN2M9o5yLMtmw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=columbia.edu;
-	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=MauZHBO0;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=NAacnamq;
-	arc=none smtp.remote-ip=148.163.135.74
-Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.171
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794897477;
+	b=Uy7Gqze0VIDLWHwpiVjyRXPMjTiugaPZK6jrF35XHfyaDLUnlvJQVDA1695xhZB0Z4ZZ
+	 8f0d+0vLpSNaH3k2H/wFEPveB25VyP/fFnUt9x96Vr3iJ0eyKjkcubAlUnaaqzTJmrfST
+	 3xC6QtzEUjWQwBXWfEzw7QeawqvFr7mFlDlIETl/MGX1MnpHCUeuX4pQXJdebSqWufHQM
+	 x+NZ65j6gKTbXPXT9g6JGpK4Y41KMN7LF/2MckSEgcesi8iE1lVcdda2HL5tbfBMoSTaQ
+	 4DJ1yRoOWRonJwPx2kUeYemrmXQZr93shvEFd2MEUq0/Ilm1BkGBrmEqgGgWVujlkcg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794897477;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=8/vn2gJipiD85BsJ1Ku8SNmRl9thwiwlJMFECHzYcD0=;
+	b=CD07zpw10mLktck6jVZheFhW4LgXbDjPE8VyVmQMSFI2jCkcokMojYsLt9H/dHoDwQxo
+	 oCsCs2rtOij9OlLzo6TQdg9aIiZ/eCir/ufwjz010PziNeBuX/70MpfHN1AsjdLJ9y0gp
+	 ZFHgZrCyeGAqaa0euDKiOlQSUE/noZa6mtwyzdW41fZeg3lh1ZMiDS1fjpVD4hKuyU8UA
+	 ut5hgTS+fBN4IPYRnEa6X0LHhso8vra3Nb2rf+RUozIWGKuo2ACto5jD/5t4D1Rjug7Rh
+	 V1WJzU8LtBZTGJaRrdlMTkWmPODCB6WDdrERTsE8m4q2cpNETfObria+9FugLG31hcQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fZw3HLQ0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.171
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 209AA606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:37:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 209AA606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19E59606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:37:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19E59606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=MauZHBO0;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=NAacnamq
-Received: from pps.filterd (m0167069.ppops.net [127.0.0.1])
-	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH6XfNK787742
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:37:09 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=DOsB
-	TsM8HzI17SPUr1ak/9a9bMUvOh6RzD9t7xsTYQU=; b=MauZHBO0QHOwDKA+XX+b
-	5NPgYZ4th7Jzs/pn2qwSByCnGvBsaSJc5coSVdGgWEdboi7jundzHOOM5HiM42WB
-	w0OyBmo17RGT7CtiNHkic9OwrbhIuAIOKMz1xyVIP0oacCdQoPCmhkkn2AmamZC7
-	mBeSrbxoXB6igxp5uzLLa4D2IFme7QvqvquEjuxdUxnBQA6/IHFDWpw05cjVR1nA
-	6pqKykASzKK8FkuSYbOtbsrqtnG1wjANodQW1tQeKxZrnFbvlYJ/Evk7urX0feCD
-	FDfewHX0Jj2Ys1Zg/kZOA96usAUZAlS01YBpxaYovi/Ep2sJWUyQKe5egD9ZDAKN
-	/g==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4j0djq8u7v-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:37:08 -0500 (EST)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-94970ad532bso377595785a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:37:08 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fZw3HLQ0
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3adfb0c9e3cso6093001fa.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:37:56 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794897475; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MeEF7Hvs+HN557ahT/6/cOxnBl+IXPK+GDU76zsn08G88f0sQSdD1dsCObNS1G5bl1
+         KIdpFSBBCxt9x+MMHYt3trM14XLnjD9YOJDCGDTc/jE79D89knX6DyRpziiT5RcrUwi+
+         ZCpW77kOPbQGlbdtCdaLBJj5T6rRc+J//VkHuPZKnh9hE55X1TlCN8bLJvGQEBBnCVg6
+         cRC1MvvGSOwuLL3K30FBWwpt9z4Tb5pjP7wvDdPK8F2Bz3fmfTBeEk9d6+ePqd7kH+Ef
+         s4vD8oXgFJw3L+J/ztl7dSLG0wL+maV4/IHZg9R8S47y68bHRXn1C+tncbzn65VclqzO
+         j8ww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=8/vn2gJipiD85BsJ1Ku8SNmRl9thwiwlJMFECHzYcD0=;
+        fh=0jptgYaCijy/tR4Nbbvmtslb0CRV6wCOS9DOx+9db5I=;
+        b=FYSJLd0VVULiOuONeYNCXktK+yKMhJtMTMg+Yt3UMl+kfqCXHDbEMJym2QVTjup0dV
+         odfeGVLvctapl1nK21E8F0IhDup9RoTlsibhmOfhmgJoT6KBuiyS7tbkiJ9NTw0AqwNQ
+         R/hSLw6aoDjYBYvhDMF9IW3n4rRNOAK9LrS1wm+OiW4eGKFFVPwSvpJD/fZYu4ZJKsZ1
+         ECDQhHmJA7E9nxPaPFecYwmifu2YKlYxeZ4tTvMl/dTa9PQ9HvqrFSocLS9+hwOQNHBh
+         IMT8+jrsuHiksUwD/fat6djFBmQSGEMArblhtH7cyBPxGNxGeH+uPC/KdChhSniaBhYQ
+         mqpA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1794897428; x=1795502228; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DOsBTsM8HzI17SPUr1ak/9a9bMUvOh6RzD9t7xsTYQU=;
-        b=NAacnamqM/fJxKIaGIq/+aJuJkRwcvSvNe3PsFCVhJHtQPEw3GkpqTnt/Zu7OcjRdT
-         UYcULCikl0UsUFK7F/oizAEr6LQbCZxFxLsrE3/+DL+AZabmY1fPMMPxnaXOARdgk/kS
-         7FtXohksQSwnIhBJD5Q8vUjq+2XaUxgZRXz6ABlYlAtyOqPqJ+qXEiV/mxrLFh7IL+BW
-         E66PCqzKKXM39dzvJG/5vQAY4Q6GKslyig7ktMrD2pnKs4TlqnVcjZCIBAfXpjDDi9UA
-         M9ZTTlfkok64SL9B1bjUUd1NbcwDazSidl81OPTvoUZ6uQZ8PhzakvysmIFfAwRy8gLV
-         KMug==
+        d=gmail.com; s=20260707; t=1794897475; x=1795502275; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8/vn2gJipiD85BsJ1Ku8SNmRl9thwiwlJMFECHzYcD0=;
+        b=fZw3HLQ0nzuknu6xZZPoDZvl/L7k7TrZwsx5O6x0BB261gDfe1j2et0Foeg5z5mrdz
+         pdov38qEG4e1cj1Xgv+BF7QG8EpS3uTPToJ/cPxM2P3pBo1pKt88mp1j6l8Lr9opRwrT
+         UQol3T/ikaaqCg/kx4o+Pd7HKYdjzlhzq7ad2AaU1FYx4ATArJAAzvoJ61gTlvmuHGY0
+         O6JvkVZ1OeI8Wuw/z/I9wPty9+oUFsd5ZIVwdZbnK2TVy5pfasGtQ3u+l7nglYvngY15
+         oFQLd6ZP6sSDU4BH7A31BLLxMC5vw8UQ7K+BTZZJadCh3+IJ+RKhSEbeZVDIcTdJoU7H
+         innQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794897428; x=1795502228;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DOsBTsM8HzI17SPUr1ak/9a9bMUvOh6RzD9t7xsTYQU=;
-        b=eAwlcMUF5FTiQfofD2axi9FmToF98Z9ddl1hKnBDi88VTrT/mpKadIadnRNc27jfpz
-         cpN7qE8bg5gQ5XHRxeFV3/N6hhEF1hRiQ5G5cXNvRegvByxIFzWmV4Q2P6pbZNNJUmvn
-         TWctkBrV4E98mCDz9yw/2UD2a8CNcIlgaPdpDWvzLm3fUaQE93JW9NOM0NpVPjI+glF9
-         YZzR5HZ6gsjsuVAt5A7H861T8sH20rR/g0aq8pY9sDs7NfSdkDz6nUzSIv9dPZMZ9403
-         vXVp6Y4NguMV2lHDv3PcIXVoWNpk8bsYhRjqI4Ejzl28oqO20EZ2Kkq1jrTGQuYcjxIM
-         Tzhg==
-X-Forwarded-Encrypted: i=1; AL+hErHbYtgVHUuz4RxkpQywRs0ixTJH+kZfEI2PqT35r1fBq7qAR+6VJwOlsyeKz9vihj2Wlymg4jEXRuUqCzg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9dS3ggYzl5MKHBzUzBFwwQkfWrFYZIbdGs/mR7Oty6lzmNV7pM
-	Ey1lRftpNkAO4HyHfaAPPGHL2GAkqT5CNTuWIKdLQzaL9f5WP5DdONyPIdtgXWrTn879CZh0Oki
-	ahC6WMmEGZxGnU5/4v2URYB5XsJaV/AJnmxDrtQpsMb1uDqST+mMoGjnX0rpPeA==
-X-Gm-Gg: AYBFou3zVNxzx9i7akzmJZ20arCNnIcGs5gMCxy0YvS82DJSVxhjSRlknKLnvzYrROl
-	opXCLFt/8+tPfEMmNRBeRGqZZPI0V4amHI7BApH0nZ9R+658xgV4NHgUgq5Q5oaXsJP/SZovbzU
-	60WFYNXKUsbfmJD1aViYqHfgAVAwuiLHvVtCut0Efz1+5S+5+7JAREfNfpsteIkribNg0VldfTK
-	KN+kai/KwdLWjyVHZX8j5NLb3KdhEUlX0zCKzXBfIMEPVcHMd193a+wnyQ6kBsKnDrZXLO2bM/h
-	oAJjbMnVxdt8dfjVSw9nGf1kpnL4pOsVhkE5w3CrmYNvbxUigCo2xLMoaaePQbXMN7QZuDmaI+J
-	c6sYXjG9BCbwX+dQXINBN2SNjyQWHCqt42ExP7Nb+5xh5kKtV3NVgRZ/AxnJUIGUiw8pK69QSLq
-	SfEcSM9pAeWCnoyDxXmIUMjw==
-X-Received: by 2002:a05:620a:2b46:b0:949:6898:2e4b with SMTP id af79cd13be357-94968982e92mr1269465085a.66.1794897427876;
-        Mon, 16 Nov 2026 22:37:07 -0800 (PST)
-X-Received: by 2002:a05:620a:2b46:b0:949:6898:2e4b with SMTP id af79cd13be357-94968982e92mr1269462185a.66.1794897427441;
-        Mon, 16 Nov 2026 22:37:07 -0800 (PST)
-Received: from [192.168.1.62] (dyn-160-39-33-242.dyn.columbia.edu. [160.39.33.242])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d614b4sm104980356d6.18.2026.11.16.22.37.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 22:37:06 -0800 (PST)
-Message-ID: <8092de9e-3146-4fe7-a235-01ea8efab08c@columbia.edu>
-Date: Tue, 17 Nov 2026 01:37:06 -0500
+        d=1e100.net; s=20260707; t=1794897475; x=1795502275;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8/vn2gJipiD85BsJ1Ku8SNmRl9thwiwlJMFECHzYcD0=;
+        b=t/392g9xGPxDKSTknHpDfNvooAt3WDMsWkQyuU0GczxBuQKo5LgxNDx77qGmvkvXUK
+         jSxHvVFg55Lx4iP1PnuWinkHUhQqFQ6II+6+/++3bCORYk4b9NzfgjGug+Qy3HVlI6NM
+         XSOTJcw//z8a+THdiBw88Au/6xlwbvGrR8MqBuvcPlSWH9i8D7P2zhxL35rv4q93F44L
+         SJ6Hi8ujIXRW2eXlLNEQ7eAKf4sGx5u8uUbW315gAeCjXxRf+Y9CuHtBtf8Cc6/UwJpW
+         b7pRG5XQGBd8OYJM5ENjHMDl9W3yKHdMEIF8IfL9tEDukHT672PI1HrxxjG9tBuwwvgK
+         ffxg==
+X-Forwarded-Encrypted: i=1; AL+hErHzNOwBVVGy9B+2iwJTW4edzgRncLQS8i6Po4NzjodP6+3cpkKBeP+Wpdmvv3egkf6AVBmN5BCFHLivV2I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9uoOVXrcgan3hLWV3YlJdX0SNSz9uag3BB8fbCcHahWTgeb5Ws
+	pxIZgYB9SPGin/KqMgUaVyJQwhXdK/DrdMmzwG0Z7xEfnqEWJBd4X8OSy0odVDyXXEAlwcmkf2/
+	sZzDL+VgHZKiCsOOBG1qC07xuBK69pyc=
+X-Gm-Gg: AYBFou2zeJXVgwGHe1Inq2E8RWQrJTQsuI/st+vyj/kqpJoCz2suR/cx1LryALGS9zG
+	Dwxgy7WZ51XL7ooQQlbTzsbXAVLwK8IybGaNH6a1PnDG274svCPnHMMUY8WXJWG2pTlp4yNarv/
+	06v6gNP4DZ/4fN1n6GrUgHQcNKeU4igTMpm57VGEHzHIcP9a7bAnOOnj5mLJQOZpxPXq1JiZSA/
+	H/8UDIjhml7XXnPRMATTfJXyLTdrJOrhCzasYQyuPkbKNXfjBwUgydvoOpOkcfuy2Swb4YOQKM+
+	2GFYIEXY+N/IzXQKX646Sd/r/6Z19TgG3uYzOtXxGzxM79nPpuzU/dIxm0pQFn+PbOxHCKUjmE9
+	Q6Tup1Re5qqC7pziGFeECThfUkA2uGZS1RO6VMCABm/hPwXjkgf5nWPxQ2L3hP8PiDUI62Q8gd2
+	OQhDeVNVdCvPbr9ld/8lLSOvQ2RBINcfIb2enjqhCRDDP3gLcTGkq4cnDSoG++bLjG2PQ+LXvPT
+	PqNqztXyQRyE1tZAWwwAKxO4jvCofbEE4EuhzKA6hE3CyeD/zz31AgchBIf/wjPfsz/EROySw==
+X-Received: by 2002:a05:6512:3e0d:b0:5bf:a66f:e5e with SMTP id
+ 2adb3069b0e04-5c17058b108mr5667796e87.0.1794897475024; Mon, 16 Nov 2026
+ 22:37:55 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,105 +106,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/madvise: zap markers from guard regions
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        "Liam R. Howlett" <liam@infradead.org>,
-        David Hildenbrand
- <david@kernel.org>,
-        Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
-        Mike Rapoport <rppt@kernel.org>,
-        Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
-        Shuah Khan <shuah@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-        linux-kselftest@vger.kernel.org, stable@vger.kernel.org
-References: <20261113-disallow-uffd-guard-install-v2-1-9d0063c70542@kernel.org>
-Content-Language: en-US
-From: Tal Zussman <tz2294@columbia.edu>
-In-Reply-To: <20261113-disallow-uffd-guard-install-v2-1-9d0063c70542@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: JQko_-sOS7ScmE-eoKeIgzyrkLinYDvK
-X-Proofpoint-ORIG-GUID: JQko_-sOS7ScmE-eoKeIgzyrkLinYDvK
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDAyNSBTYWx0ZWRfX6uJaCLq85sDx
- 4o7F2YMngD6NN5Jqn1JOZHkvKDPyRNob8KyRz66yfNyKdIcbgqyf1Kd7VcJl3AmtcpgnMnWBJP8
- oYjpr30WZvRwPpKrMrwT+OnT5GNuaEtF3R+zIjalOQmoOlSCOAp5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDAyNSBTYWx0ZWRfX0nXDeBN2rysJ
- r097lTJ5sac4f+16sDnhJRKUWZOghzXaC4oqMZkBhLr0HnWoD/A6XfuyRqQND8064KIIkQ8aQwz
- tp54dxhjRiijfl03WRILUvKiXN9jVVvMpijUrOYRnYgmO3H+vlT/9jBeAEWH0vr7FQMBMGkT9mC
- UpBzNniUr0TMu1cueb7FEHWXy3xp3bL88msDlXp3++q3Bm7GML/r3hTE9Qjwvq/3VlfC0GtvXyQ
- 3TRP2gWJ/Wh045TaRRgMruOTjx/oEyRRVeHAkm9C1EMCD0S4fWC+SODu6cUFTGwdk16giDT8MTF
- 3PvCLslHjzMReNa+g/pNfdiCfCwSVl9T8LI7oGcjO+hVrCvVzMLOmhumSxuWPPgY3D8gKeld/Hs
- ipOctsNt3eqCjfBaNOu1aDEugvvG+Ywysja8R/PBa86LvPrgnlZzhnPoD7E48mzFMajGZwMUJCz
- 39AauuWenkQlUj2+c8A==
-X-Authority-Analysis: v=2.4 cv=YaoodARf c=1 sm=1 tr=0 ts=6afbf615 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=GaPK54s0Se3oFqK5NkZy0g==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=JR4YdQiviy7OQf72WyZ1:22
- a=nc3XcxN3xHuRbhElZrYA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11968
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 suspectscore=0 clxscore=1015 spamscore=0
- priorityscore=1501 impostorscore=10 bulkscore=10 lowpriorityscore=10
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611170025
+References: <20261018175457.87803-1-ojeda@kernel.org>
+In-Reply-To: <20261018175457.87803-1-ojeda@kernel.org>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Tue, 17 Nov 2026 07:37:43 +0100
+X-Gm-Features: Aa3M54p7eBlg9yL8nKjCRYF_cKn6fvAcKLXbakSS16n9mf6XS8H5ekFNr6S-Wr4
+Message-ID: <CANiq72mrpgxyb4d9C5p1KS0n87GmYTXcyUX+dhZ39T2vRtOQwA@mail.gmail.com>
+Subject: Re: [PATCH] x86/rust: use `-Zindirect-branch-cs-prefix` for RETPOLINE builds
+To: Miguel Ojeda <ojeda@kernel.org>
+Cc: Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, Peter Zijlstra <peterz@infradead.org>, 
+	Josh Poimboeuf <jpoimboe@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	Sami Tolvanen <samitolvanen@google.com>, Kees Cook <kees@kernel.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, 
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	rust-for-linux@vger.kernel.org, linux-kbuild@vger.kernel.org, 
+	stable@vger.kernel.org, Kent Overstreet <kent.overstreet@linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/13/26 4:04 PM, Lorenzo Stoakes (ARM) wrote:
-> In order to establish guard regions, guard markers are installed in the
-> page tables of a mapped VMA.
-> 
-> However, problems arise when one tries to combine this with registering a
-> VMA for userfaultfd, as such operations may themselves need to install page
-> table markers such as uffd-wp.
-> 
-> When the installation is attempted the guard marker prevents these markers
-> being applied, which can lead to unexpected results (especially if the
-> guard regions are later removed.)
-> 
-> This is especially problematic because guard region installation causes the
-> regions to be zapped first, meaning that the removal of userfaultfd-tracked
-> ranges will not be logged in this case.
-> 
-> Additionally, the uffd-wp page table marker will be propagated regardless
-> for file-backed mappings as the zap being performed does not clear these
-> markers.
-> 
-> This is problematic, as it can cause repeated failure to install guard
-> markers resulting in an infinite loop.
-> 
-> Therefore, update guard region installation to invoke the zap with the
-> ZAP_FLAG_DROP_MARKER flag applied.
-> 
-> Both before and after this change, uffd remove events will not trigger on
-> guard region installation, nor will write protect state be propagated after
-> guard region removal.
-> 
-> This makes sense as conceptually, guard regions mark a part of a VMA as
-> effectively unmapped at the page table level, and removing the markers is
-> like mapping the VMA again, over which operation uffd markers would in any
-> case be lost.
-> 
-> A survey of open source users indicates nobody is relying on installing
-> guard regions in uffd-armed VMAs. Software including glibc, android,
-> tcmalloc and CRIU were checked.
-> 
-> This change means that any already established guard regions are removed on
-> zap. These will be overwritten with the newly installed guard markers on
-> success.
-> 
-> However, if this fails for some reason (fatal signal likely the only
-> reasonable cause), guard regions may remain removed, and concurrent faults
-> may succeed in the interim in the range.
-> 
-> Since the installation failing guarantees nothing about the range being
-> installed into, and since success overwrites with guard markers, this isn't
-> an issue.
-> 
-> Since MADV_DONTNEED does something similar, abstract the zapping to
-> zap_range() and call it from both places.
-> 
-Reviewed-by: Tal Zussman <tz2294@columbia.edu>
-Tested-by: Tal Zussman <tz2294@columbia.edu>
+On Sun, Oct 18, 2026 at 7:55=E2=80=AFPM Miguel Ojeda <ojeda@kernel.org> wro=
+te:
+>
+> The C compiler is asked to add a `cs` prefix to the `call` and `jmp`
+> instructions that go through the indirect thunks for the `r8`-`r15`
+> registers, which makes them 6 bytes long instead of 5. That gives
+> `patch_retpoline()` enough room to inline them, e.g. as `lfence; call
+> *%r11` for `spectre_v2=3Dretpoline,lfence`.
+>
+> However, Rust code does not get the prefix, e.g. for a
+> `CONFIG_MITIGATION_RETPOLINE=3Dy` build:
+>
+>     $ objdump -dr rust/kernel.o
+>     ...
+>       e2b: e8 00 00 00 00        call   e30 <...>
+>                 e2c: R_X86_64_PLT32  __x86_indirect_thunk_r11-0x4
+>
+> Moreover, since commit 4a1e02b15ac1 ("x86,retpoline: Optimize
+> patch_retpoline()"), `emit_indirect()` assumes there is enough room
+> for the inlined sequence -- e.g. with `spectre_v2=3Dretpoline,lfence`,
+> the kernel warns and dies while patching a site inside `core`:
+>
+>     WARNING: arch/x86/kernel/alternative.c:736 at apply_retpolines+0x2ee/=
+0x400, CPU#0: swapper/0/0
+>     ...
+>     Call Trace:
+>      <TASK>
+>      ? _RNvMs6_NtNtCshS2CUL9MEDn_4core3fmt8buildersNtB5_9DebugList21finis=
+h_non_exhaustive+0x5b/0xd0
+>      ...
+>      alternative_instructions+0x1d/0x60
+>      arch_cpu_finalize_init+0x5a/0xb0
+>      start_kernel+0x1f4/0x280
+>
+> Similarly, paranoid FineIBT rewrites each kCFI call site into a fixed
+> 20-byte sequence, i.e. the 14 bytes of the kCFI check plus a 6-byte
+> call. For a 5-byte call, that overwrites the first byte of the next
+> instruction, corrupting Rust code:
+>
+>     SMP alternatives: Using paranoid FineIBT CFI
+>     ...
+>     Oops: double fault: 0000 [#1]
+>     ...
+>     RIP: 0010:_RNvNtCsdVypMZsLRAh_4core3fmt5write+0x1e9/0x210
+>     Code: ... b8 68 81 16 9f 41 3b 43 f5 2e 4d 8d 5b f0 75 fd 41 ff e3 <c=
+c> c0 eb 02 b0 01 ...
+>     ...
+>     Kernel panic - not syncing: Fatal exception in interrupt
+>
+> Non-paranoid FineIBT is not affected, since it only rewrites the kCFI
+> check and leaves the call itself to `apply_retpolines()`.
+>
+> We added support for `-Zindirect-branch-cs-prefix` [1][2] in Rust 1.91.0
+> [3]. Thus pass it for `RETPOLINE` builds when possible, which makes all
+> sites indeed get the prefix:
+>
+>       e3c: 2e e8 00 00 00 00     cs call e42 <...>
+>                 e3e: R_X86_64_PLT32  __x86_indirect_thunk_r11-0x4
+>
+> The kernel above boots fine with `spectre_v2=3Dretpoline,lfence`, inlinin=
+g
+> the Rust sites as well.
+>
+> For older Rust compilers, set the LLVM module flag instead, which
+> has the same code-generation effect. This means that every Rust version
+> that the kernel supports gets the prefix, that the kernel boots fine with
+> `spectre_v2=3Dretpoline,lfence`, and that paranoid FineIBT no longer
+> corrupts.
+>
+> In addition, add it to our target modifier workaround for `rustdoc`.
+>
+> Cc: stable@vger.kernel.org # 6.18.y+
+> Link: https://github.com/rust-lang/rust/issues/116852 [1]
+> Link: https://github.com/rust-lang/compiler-team/issues/899 [2]
+> Link: https://github.com/rust-lang/rust/pull/140740 [3]
+> Reported-by: Kent Overstreet <kent.overstreet@linux.dev>
+> Assisted-by: LLM
+> Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+
+Applied to `rust-fixes` -- thanks everyone!
+
+Cheers,
+Miguel
