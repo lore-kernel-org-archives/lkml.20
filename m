@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794924672;
-	b=4paqDdW9uqxVzd/6QcaBeR/w1OGPYCLAu7TOQ3zxJivcZch2N8ncKz/HSuTlpJqGsbUl
-	 IvdOpJQfBNDaeB2i5JUPHmKUkvdU/W+/Ww213hyYvf118xxLEcCyNFlD3HW7KOiuo+Niy
-	 UcAvg/GWKfkHTA6Mtoi0yXCsWqbBAdm6NFKnPk6f7naCQZ5IahagXyJiqvMYAqGtulhF2
-	 VR+S7t41zXVZhwgRXhpnyB01yEFppxMHw33KlTuwiCrsdKES54iINXVQEfn4AdShDF4Lo
-	 CRy85XhAiVObSVpBW3otHrKSpMvbrr77wxS8DPT+BJSH2c7MO9kR6kSST97fBGfDeHQ==
+	t=1794924678;
+	b=5KCJ9n9ghf3MAHQzKLU4vbtuHwCfvVS7XRvXc9cRet5bnews2H2nTmi0jMLR9aQgQOAI
+	 AHE56AUDDJc3WIdy5KA8Ahhbz71mxCfk1R9FYmVpMJReQsEM7pDbFPsfX4I0ZLK42wCxD
+	 nag9e8rYzI0JlUyJLMbYY+PP59Rv9b/cKgW0JMwfv7JCxsL+/OGpAybDGCD2Eh4MkulN1
+	 lgq3q16qn1BkIuQtl3yM9s0LlQAmEQvZjv4MJ2is2i9ljAfmowJfPL77Hg1O+pERETRer
+	 v8HbzQa7VHvxmqGroM/d/WbUFkvO02FBWBmo30gjHlhZna6I5VXCs3hdy38H+NSt9YQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794924672;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794924678;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=lFP7Jb5QnBavccKZP1TiZmt+Fu/KItkai8FCKofUJpE=;
-	b=HNUVSLKPtFNh7cA9RkU8DucmGrXDyGu6/5LHYk4f0OXeENe1cXLLy3I3QTv5SDHr1psz
-	 1IxRDdal5KkVFcJs84lmQkzbuRO91HZl6f3IAiFDG1fS4jx7oJ8S6iKmTkHiTRN0S6qNZ
-	 w6fhOsYKGlUQPHaP19akWLv6wBdSgYnNUehLsWefsD9UsGMsi7kDJn0k4plBS20DmEwQf
-	 kCSMtEDDa/i0u5vrEXCrJcRbuCb4O0pxiD2qCKGrXZNfEBA6r57lr8jUUXADJa/BWMJ9x
-	 POW5mpr8PXdvHBWHG3E0SqlCvF8/bk9u4H9fFYlFsLv76v8fpzPRcSndxEoDU/KmHiA==
+	bh=jJ4TJgnTADdTkzPG1Tf8obqekT6REPhvch3DXj7ESUY=;
+	b=SkC5LMquIYi2+xTMgZ1luFT9hoPJgeyXlQzpkh3RptU9eGUPubPV5X+r6CxjP1JIeCu7
+	 sK8x1xeB7XXH8GgFCwdqf8hq4kwEb2L88yddTykhEocTSACZ2BroUhTm/IPUlW0k/OGwH
+	 9qAnwNgGKIdwnPnsOtxjb8qK+kRbXfgxNfvjYivpDUvsGObdkhJieTu/iS1esAjgn+iBB
+	 QHRe0psT2SQfnn7fId7HIPw2WIHKPFebxbZ57SVmHQC2dbXj6IFtdMJnucMkpOMshE/k1
+	 3bNwMkBs8nGa7hAGvPJO9RdtWpMt9AECBe5PNLKclGUs6mO6obrZLymu69LWPnnMv1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=gogpd7mf;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=Ts2s9X7F;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31480606A89B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A609F60A5BC0;
 	Tue, 17 Nov 2026 14:11:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31480606A89B
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A609F60A5BC0
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=gogpd7mf
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=Ts2s9X7F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1794924667;
-	bh=lFP7Jb5QnBavccKZP1TiZmt+Fu/KItkai8FCKofUJpE=;
+	s=smtpout1; t=1794924668;
+	bh=jJ4TJgnTADdTkzPG1Tf8obqekT6REPhvch3DXj7ESUY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=gogpd7mf04Jgr7IlyWrr0imevP79mmfNZw/KWYtHGE1dAdz8RkHw2SODVHzWpUPgc
-	 MBLwmSAVCT1XVtfVCMittQftpuLkrTfZyNAmJEb7hPhECj3QaDcyFzqIBTs6DAicR4
-	 NVJbGl74liPtVmO7Q4t2Js4RcISXBeghAbQcH/hRRjfUZ+I94Nh58VDnB6FjlpdPWB
-	 rnoWQZ0ICOyEDGTs8ib0cUNPVZOa8alMeAL2MA3OOWnKR4qu+/iZZL5SgNMQIeBz7t
-	 uy2UqE2UuLN+EXfDFAOWp4cqRUfLpsQwY1AJAkGA4HfDZKYFMC5jwzvhRscqp+NS+6
-	 pJ/Ik3fM0z6Cg==
+	b=Ts2s9X7FglglUtELmuqM8shPRoRql3ds0JRj69XsnlJrCSQgwpeBBws44H6Kvk776
+	 R+D8N9Jj3O5YkQeyKliD65Vy17hN3QU2I/7ZhPZEB8tMyrF7LS5DVx+I0FFm0QpGol
+	 l7yPW+fEMVyq02Xy/oq8ahT83jdelrUCe+xwLyPNTlwssOUZ9FAWWm8/sCoUu/mugl
+	 1s+6Uhh9rrDMrAgWsqBYXZo63YRAPL2fkiZ+LppVk9biokoLFWYXcvb9v3MkwZuYsS
+	 2VbeaxpM0kb1Faqw9VpY86knuKHmSkEOABEhLDhnsbHKwftENenvHUlnnFwD+A8+Y3
+	 ptdVPxCsXW3ew==
 Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jTRV35pdZzRTN;
-	Tue, 17 Nov 2026 09:11:07 -0500 (EST)
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jTRV4021vzRTP;
+	Tue, 17 Nov 2026 09:11:08 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: juri.lelli@redhat.com,
 	peterz@infradead.org,
@@ -80,9 +80,9 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-rt-devel@lists.linux.dev,
 	stable@vger.kernel.org
-Subject: [PATCH v7 19/40] sched/deadline: Leave a dying task out of a rebuild of the accounting
-Date: Tue, 17 Nov 2026 09:10:40 -0500
-Message-Id: <f9efeeae47bd95ba9f775750b1ac399e71d1e17f.1794922146.git.mathieu.desnoyers@efficios.com>
+Subject: [PATCH v7 20/40] sched/deadline: Check SCHED_DEADLINE affinity under the rq lock
+Date: Tue, 17 Nov 2026 09:10:41 -0500
+Message-Id: <188f014132c93ce3527652e2df7f77ffdfa55f36.1794922146.git.mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1794922146.git.mathieu.desnoyers@efficios.com>
 References: <cover.1794922146.git.mathieu.desnoyers@efficios.com>
@@ -97,88 +97,138 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A rebuild of the root domains' accounting takes the pi_lock of each
-deadline task, not its rq lock. A dying task past its 0-lag time
-releases its bandwidth at its last schedule. It holds its rq lock there,
-not its pi_lock. Then it clears dl_bw. The rebuild can find the task
-between the two steps.
+From: Andrea Parri <parri.andrea@gmail.com>
 
-In this diagram, T is a deadline task that exits on CPU 0 past its 0-lag
-time. bw is its dl_bw. CPU 1 rebuilds the accounting:
+A task can end up SCHED_DEADLINE with an affinity narrower than its root
+domain when sched_setaffinity() and sched_setattr() race on it. Both
+calls succeed, although each fails when made after the other:
+sched_setattr() with -EPERM, sched_setaffinity() with -EBUSY.
 
-  CPU 0 (T)                                  CPU 1 (rebuild)
+__sched_setaffinity() calls dl_task_check_affinity() before
+__set_cpus_allowed_ptr() takes task_rq_lock(), whereas
+__sched_setscheduler() runs its admission test and switches the policy
+under a single task_rq_lock(). So both calls can pass their checks:
 
-  do_task_dead(): TASK_DEAD, under pi_lock
-  __schedule(): T's rq lock taken
-    task_non_contending(T)
-      dl_task_release_bw(T)
-        total_bw -= bw
-        dl_bw_gen recorded
-        record cleared
-                                             dl_rebuild_rd_accounting()
-                                               dl_clear_root_domains()
-                                                 dl_bw_gen++
-                                                 total_bw reset
-                                               dl_add_task_root_domain(T)
-                                                 T's pi_lock taken
-                                                 dl_bw != 0, dl_bw_gen old
-                                                 total_bw += bw
-      __dl_clear_params(T): dl_bw = 0
+  CPU 1: sched_setaffinity(p, cpu0)    CPU 2: sched_setattr(p, DEADLINE)
 
-dl_bw_gen does not help, since the release came before the rebuild. The
-rebuild would count a bandwidth that nothing releases again. The root
-domain would then refuse deadline tasks it has room for, until the next
-rebuild.
+  dl_task_check_affinity()
+    !task_has_dl_policy(p): return 0
+                                       task_rq_lock()
+                                       admission test passes
+                                       p->policy = SCHED_DEADLINE
+                                       task_rq_unlock()
+  __set_cpus_allowed_ptr()
+    task_rq_lock()
+    p->cpus_mask = cpu0
 
-Fix this with the record of the bandwidth, dl_bw_cpu. The release
-clears it under dl_departed_lock, which the walk holds. So leave out a
-dead task with no record. A dead task with a record has not reached its
-last schedule. The walk counts it as a live task. That schedule then
-releases the bandwidth, or puts the task on the departed list. A dead
-task on the departed list keeps its bandwidth until its timer, and the
-rebuild counts it as before.
+The window includes CPU 1 spinning on task_rq_lock() while CPU 2 holds
+it. With one thread narrowing a sleeping task to CPU 0 while another
+makes it SCHED_DEADLINE, 923514, 959547 and 983997 of 1000000 rounds
+ended with both calls succeeding on three boots of a 4-CPU guest.
 
-The Sashiko AI review of v2 of this series found this window. Its review
-of v4 found a gap in the first version of this fix. That version also
-left out a task between TASK_DEAD and its last schedule, with its 0-lag
-time ahead.
+Move the check into __set_cpus_allowed_ptr_locked(), next to the
+PF_NO_SETAFFINITY re-check, under the same lock as the admission test.
+Whichever call takes task_rq_lock() second then sees the other's
+result: sched_setaffinity() fails with -EBUSY if p is already
+SCHED_DEADLINE, and sched_setattr() fails with -EPERM if p's affinity
+is already cpu0.
 
-This patch completes "sched/deadline: Rebuild the root domains'
-accounting from the task list". The walk of that patch finds exiting
-tasks, which the cpuset iterator skipped. The fix needs the record
-that "sched/deadline: Record the root domain holding a task's
-bandwidth" adds. The three go to stable together.
+A new SCA_DL_CHECK flag selects the check, and only
+__sched_setaffinity() sets it, so sched_setaffinity() and
+relax_compatible_cpus_allowed_ptr() keep the check and other callers
+stay unchecked. restrict_cpus_allowed_ptr() already does its deadline
+check this way.
 
-Fixes: f9a25f776d78 ("cpusets: Rebuild root domain deadline accounting information")
-Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
+__sched_setaffinity() clears SCA_DL_CHECK before the second
+__set_cpus_allowed_ptr() call it makes after racing with a cpuset
+update, so the cpuset mask still wins there, as it does when
+cpuset_update_tasks_cpumask() narrows a deadline task. SCA_CHECK stays
+set for the PF_NO_SETAFFINITY re-check.
+
+With this applied, the same test ends with both calls succeeding in 0
+of 1000000 rounds on each of three boots, and sched_setaffinity()
+fails with -EBUSY whenever it loses.
+
+The race was reported by Sebastian. The fix was written with the help
+of an LLM.
+
+Fixes: 332ac17ef5bf ("sched/deadline: Add bandwidth management for SCHED_DEADLINE tasks")
+Reported-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Closes: https://lore.kernel.org/20261103081149.DuyWNhVe@linutronix.de
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
 Cc: stable@vger.kernel.org
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 ---
- kernel/sched/deadline.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ kernel/sched/core.c     | 11 +++++++++++
+ kernel/sched/sched.h    |  1 +
+ kernel/sched/syscalls.c | 12 +++++++-----
+ 3 files changed, 19 insertions(+), 5 deletions(-)
 
-diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index 01fbbd02cf8d..779acb9836dc 100644
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -3787,6 +3787,17 @@ void dl_add_task_root_domain(struct task_struct *p)
- 		if (recorded < 0 || !cpu_active(recorded))
- 			goto unlock;
- 		cpu = recorded;
-+	} else if (READ_ONCE(p->__state) == TASK_DEAD && p->dl.dl_bw_cpu < 0) {
-+		/*
-+		 * Count nothing for a dead task with no record. Its last
-+		 * schedule released the bandwidth under its rq lock, and has
-+		 * not cleared dl_bw yet. The release clears the record under
-+		 * dl_departed_lock, which this walk holds. A dead task with a
-+		 * record has not reached its last schedule. Count it as a
-+		 * live task. That schedule then releases what the walk
-+		 * counted, or puts the task on the departed list.
-+		 */
-+		goto unlock;
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index a22df8b43a1a..c77cae5d1be1 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -3195,6 +3195,17 @@ static int __set_cpus_allowed_ptr_locked(struct task_struct *p,
+ 		goto out;
  	}
- 	rq = cpu_rq(cpu);
- 	dl_b = &rq->rd->dl_bw;
+ 
++	/*
++	 * Check under the same lock that __sched_setscheduler() holds for
++	 * its admission test, so that p cannot become SCHED_DEADLINE
++	 * between this check and the mask update below.
++	 */
++	if (ctx->flags & SCA_DL_CHECK) {
++		ret = dl_task_check_affinity(p, ctx->new_mask);
++		if (ret)
++			goto out;
++	}
++
+ 	if (!(ctx->flags & SCA_MIGRATE_ENABLE)) {
+ 		if (cpumask_equal(&p->cpus_mask, ctx->new_mask)) {
+ 			if (ctx->flags & SCA_USER)
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index d87296abec4c..fd6d36b6b1e2 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -2982,6 +2982,7 @@ extern struct task_struct *pick_task_idle(struct rq *rq, struct rq_flags *rf);
+ #define SCA_MIGRATE_DISABLE	0x02
+ #define SCA_MIGRATE_ENABLE	0x04
+ #define SCA_USER		0x08
++#define SCA_DL_CHECK		0x10
+ 
+ extern void update_group_capacity(struct sched_domain *sd, int cpu);
+ 
+diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
+index 306cd8d32173..4f47b17151ed 100644
+--- a/kernel/sched/syscalls.c
++++ b/kernel/sched/syscalls.c
+@@ -1238,11 +1238,7 @@ int __sched_setaffinity(struct task_struct *p, struct affinity_context *ctx)
+ 	cpumask_and(new_mask, ctx->new_mask, cpus_allowed);
+ 
+ 	ctx->new_mask = new_mask;
+-	ctx->flags |= SCA_CHECK;
+-
+-	retval = dl_task_check_affinity(p, new_mask);
+-	if (retval)
+-		goto out_free_new_mask;
++	ctx->flags |= SCA_CHECK | SCA_DL_CHECK;
+ 
+ 	retval = __set_cpus_allowed_ptr(p, ctx);
+ 	if (retval)
+@@ -1271,6 +1267,12 @@ int __sched_setaffinity(struct task_struct *p, struct affinity_context *ctx)
+ 			if (empty)
+ 				cpumask_copy(new_mask, cpus_allowed);
+ 		}
++
++		/*
++		 * The cpuset mask must win here, as it does when
++		 * cpuset_update_tasks_cpumask() sets it on a deadline task.
++		 */
++		ctx->flags &= ~SCA_DL_CHECK;
+ 		__set_cpus_allowed_ptr(p, ctx);
+ 		retval = -EINVAL;
+ 	}
 -- 
 2.47.3
 
