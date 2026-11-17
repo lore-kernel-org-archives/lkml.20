@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794936528;
-	b=z/U8Y/976cDweYLS4YpoNp/J29/q8GD7+850zboYD72lOvcK0I+NJUzEIeweTZPdzBSF
-	 +9V29Al1NLlg+g8f8dAXfHp0hLpPOrKPDU/cMwQLf8und3FgmXsV4a9V/MXHtTWv5QHb+
-	 JkRoPDKRK4+iynyBO1JqYqK3JKQYQoNfQ/0gt4MH0lJ1f+3RsADsA7I/3+RqleWGo5oJA
-	 qd87MFB2MoJb4X5ocjVXDs6V5rGO1MhRyEYKodG+zb8RO6aool3cmzpetFIg8MVN1HykF
-	 1je0aDU90N/52/oO8eBB7DJDGFnDY/8ZfbAh1gYZ+3dnvLgM/93GqfYIuSGrO5rtrmQ==
+	t=1794936529;
+	b=OpvdE3cf7w3G0K/qYtJoRf8MN3NCy7YL3BHMLirD+m9uPlZXRxALiNiaZBx2xvmeh2Pv
+	 dGCIEWIIIM2e2AHQ/oZTPbM+l7K+QEeL6bBLc9Br0kGNrhmJ+DSuq7wKYFW+7IAO3ZJUf
+	 xn5fYIR/Hn5IRBeQWRhxdzcr4BrH1W7pE2SeroiAQzcLOi6j232UylSl2wMhT2uytUMDK
+	 7VTTUdZ9K3ikAoEw35IjQFi8XYAsM1b1GSZgUWnkLZRVTHy7Rz0fuzYbWvDqMHN2FXnRd
+	 O46cUVVWXqX9ewrlXnvu6QyP8D1oIwKlS/uDuMW8Liz7rDlRrpSi/cpvtgdq4rprqqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794936528;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794936529;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Ka7y97kjrP1N5aLm53cFojAaC0fJOtAirjVuWEljQwo=;
-	b=Yd8ZfDEzlo++d0mcSrf9zRAtQeUaZxtPoLrAIIhv+xz5TMrLKiAwn2V598zVUC5+BRle
-	 875S1B171CbGMNWPCD7iKthTbDkv1bwhditZ5CaZmEq3q9kBf4ihmWdrjEJRlr4tfq4pj
-	 ceGvpnh+kmW4xIhtWuBZx6smmevwSzQPgtOtVdXLjEnpfnwDkIZH2v5J1xXWkSjevp/RF
-	 jUzkrBZzaAR+QOIpV1NK03GD1eAiLFS5PNCwfj9U2qTvSEHoXHEgWoctIWAZR0Uyxf3Ns
-	 xvYhzZAln+G8a/vzEXhdVWJR0YYtFCU/plvnjkiiYawKDNpYvYhMOq2op0CE0afgLbQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=W7aGstgLUF6fF7qIgrzP8vyvffLZGpRnglxzQ7CGySs=;
+	b=kAZ+ssI9NSnnBME2rpS1MF1/k2Oa6muB4eFLn+XlbsPsGmUrsJWhpdKB+xE0SMJz9DIf
+	 PR5TzBanHkZzn0deQ6kJUNJLomCqz5Fp++MQHbHVaWP1Zhdm5PFP5HVza7kTX90yc5xU8
+	 CBlm3DIz64aJM6B2RDR7zyKqOHPQHONcrigfu4pbBdYWovYFEmWVfF9k9ZreQcRJfAGXv
+	 A/FyKFQlVFlqjaIapn1rk5M/5qXNUCMCrwp7w0dlquzLFKuVOAWcAoZ5RRXb09cJRpL8H
+	 P4Z8BfxHOGIB/+i2L6uOcpjdii60jn6VoTwwW14TWsRTdGzi9Oq/0/EMdpP4VIYWjAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O7NPkbc8;
-	arc=none smtp.remote-ip=209.85.160.53
-Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com [209.85.160.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oIr3nYAh;
+	arc=none smtp.remote-ip=209.85.160.41
+Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com [209.85.160.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB686606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 17:28:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB686606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C34E6606A330
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 17:28:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C34E6606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O7NPkbc8
-Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-46556b9e02cso885010fac.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:28:47 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oIr3nYAh
+Received: by mail-oa1-f41.google.com with SMTP id 586e51a60fabf-4ad4072943dso21871fac.3
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:28:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794936527; x=1795541327; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ka7y97kjrP1N5aLm53cFojAaC0fJOtAirjVuWEljQwo=;
-        b=O7NPkbc8YXE6vipiT2iOvKlBCkHb4wi3Xj0BESPetKwjukqy89o7UXLSQtZ9pFlV/H
-         1MxZMAgA9VyYFZpiwT5QtSkGW1CZK/8o+qbmsLYWWyq80ewCVvGvZ316r0nmvRV+UPvC
-         LyIIi9xNgi7jK42Jx/ENd03IVIVsgdxti1+fJQxl3H+f1U6NPMy2FGEJqFi4cyp5wT7t
-         2/LGLH20SbGsw5KjhIpvTPs+GDiHfLkmHy5IVCKw8IArz6Gv7TLMrA/hKMLg6GyQVaZl
-         Bl8UPr0QN6l7pGaHqQEJ8ajRAL6GncdDXfpO80oqAHrfJ5U2zbKOA25QkZwXLSdPA92L
-         XGfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794936527; x=1795541327;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794936528; x=1795541328; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Ka7y97kjrP1N5aLm53cFojAaC0fJOtAirjVuWEljQwo=;
-        b=ohu2pZk1lKVpP/rdtrU3f2XbA6OdhCeQ0ulI6jgHVkbCemkGZVgXVJab+RPCvd333x
-         jxC37kIOw1SG2x0MtmjgJn8EH4FvO0qredBzX9j3JtcKCjq6BEjsaGRW8xaUngAMe2NL
-         3QpmypmWN3d6UNvuu2Jzy7uuhMBfELuQie2KL1qDOA5idzQrTPmHYeiTGO5d1MphbuuA
-         AlXrbBpDSw6vWK+TulhVACRoKux0L5915JJEnlOZOLWm1Mjtbh9zK8MbDFTJfI421wi1
-         7uKO4Oqj3VtKbZzKzO1M9X4FGgK8r5O+vAPJ/7gYbHVqi5qoXx2RnvL3McjOTSdf6wTZ
-         xUEw==
-X-Forwarded-Encrypted: i=1; AL+hErGAeIqhxO+KIbMGboYlNR1futxqDY40hzcH0XxCHKQHPpLiBqLqhj8Ym3RInolfUQzqcYcqjG5XTndAk58=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/LWAeFaIPEYM/DCg1x5P8SRkKhbgtm9wTbYdqzhnr+S6HnKnbv
-	ffOgyWDwGRunnlwt4b1h+z9TJtz70eJ7MNeHEXKUO5ykDEpUCGz+kxuc
-X-Gm-Gg: AYBFou1IutQhVmS8mICdrfIbPG19MG99BdZ5GatZrvH0idgBBA1CA9Rpk1Inhtlkvcz
-	qD7F0NBfTqGvKP0glWvTht5OvZN16GIBAmtJbDm3HoG5KDZbmjVKLJot9LERULV9Ahwv65jLyRI
-	AEF9Cvnm5lGirzk02fkZbxcwWz1VNyvzdZL8Em2iSDSU46Q7Cmhmp74+HuXzTXnYHXQTbKLxwA/
-	t7Oqz1lnNo4gTZlOn6bG4ch3dZKP1+i7qDeK41ZvmpKxjNwg9gzz/qLmWoHwr6AIxDA6ehV0sWd
-	YQOVp5l1oENPNTlIDg/JB5wvcJmhTGAFX1ao7Yrq5ROJL7XdIDmxbvJ/Qaami2VpvqCkQqrGxnx
-	ho+KHUnxoQh1r+H1ZcuF9KRbFxQIU2prhja65KXzPnNTGqIk/VtaTWeShypQ7eIf6Gh/kbJE9r3
-	y83GpuOGFAmzMquoUinBy3NhtAoqQjPQqEdZyvDcjPWGEm9Xron0KsN3OWOttbe6EEPhj4AACmM
-	dVHdrpdd2Ig2QT6qXmuO8T38jNKaSV8FniEH9My1zrXHk857rwQ0NTZU96ULuZ3BNTetszI32M1
-	39DbPF0dqXe/wUd0seuF/mErODzGbQ==
-X-Received: by 2002:a05:6870:32ce:b0:4a7:1d64:2695 with SMTP id 586e51a60fabf-4b415e97967mr2027034fac.43.1794936526492;
-        Tue, 17 Nov 2026 09:28:46 -0800 (PST)
+        bh=W7aGstgLUF6fF7qIgrzP8vyvffLZGpRnglxzQ7CGySs=;
+        b=oIr3nYAhAtqtoBHgFOIIoMNOSQ7p/KonG00DDzGT0LCsb1NqhyqEVe7c9J1q1do7gy
+         GmmRkXB98CR9gY81LBP7V9e+gVAil48OJbe4kDrFOKOM0BXt0V/7o7KFWTKI54NX0SKw
+         gUYroQqOt3bBQhCEIWy8CdhAEOlYGkyx7BUTxtanwuxZi1LlX5v0HQtM4Wg51ayXIwG2
+         /XbZxpAoaNmGi/7UvR42Dh9ZXXBZeVfhndlfexdpAw65RYVpbW47kPAVe6pheTdncvoO
+         7rkUwOtshkcbBVxRpLXmdHjHTjYO78iyzwI2wdEfN6X5XzxvHMbRq+o5NU6dF1/FKIDp
+         dk/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794936528; x=1795541328;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=W7aGstgLUF6fF7qIgrzP8vyvffLZGpRnglxzQ7CGySs=;
+        b=HzxOKwfUuRefLMwzW17dKNUfzg9ptAmcwjGGO197Drhtfw24SwwvlC8r1r/XMsGybF
+         vZUJbbes1RoikZPDFNHbK/lNPg9V+DtViLBpjrOLsiCGjqj0+CpnhqR4Mf1SIa0LVRfU
+         Jy3Mc0VJ9azkAzuSkqT28wP3s54MhstZjb+/854rtAeMLqAjqap9ypGlGsfN1iAdalGU
+         R9MWfSp63R8CwfX2ALHN/eLPmMGyy05CkMm2ZQFuE/AtmR/BOAySyaVSb5dgNw8mW1K5
+         aNRo0UF8sWbieC/AfvmlP+76jtNGDwMhhzwOkFQ2DBFnGHgLL5T4x6j3bbL22GFAfYE2
+         eHyg==
+X-Forwarded-Encrypted: i=1; AL+hErFk76ufnuStzEk9VRU9ebaKKTF+RI4XnM9qRFyDnwdu19rDii/MrBMV5T8ogK1o8IPJm4fbN7LdeBVc+qM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+zgdqXA+Xjw9fhPYqwO2y2N3EGdn2gPNN09Z+6oXG1ZHzqeWet
+	FgFa2c9ujvo7+slaoJ/tKi4qkpuZI365tz6YAkgzqRGRksaR3U0flhXa
+X-Gm-Gg: AYBFou11mVPKb0Q5hrBXwvwUKvF0bF8PDnrBdUsO58X50derg5rut1xFjWIdAYZ5UhV
+	XpirVQ8xeFkz+qjft9qpsXzg9oNkpO9yiJUyhxj8kxPn9/5qXJffJwhGHy1rGe2ZeTXoQhmWEvw
+	rV1yXqmo9LtCO2/MzHYUnch4ztr9zbds0seFDqbNaYJV3Er3jq9Kd1G2tGNDStrZB8sAA5clXzZ
+	Y76jf85DoHa2jkb9r7aHuABRt+Cv9uKAFb0sRMwb0PDppJtH6rzhkKPXniAbOmnCD3GyQRvKfkx
+	b6lWhGKctH0uydNSNi5H/gB83QoWbXFNP2HAKVm43z1v8VPnCl8AgKUlnGsSGRlazjtMgNniBUQ
+	rI4MpP30t0NO0ZMc2c7cZfN8U7k4zTqev9iJGnOytKNRY9DnVfZ/8rL8ob1cqR/68e19M4nXEkT
+	5uRq1csoIzoMLAKvVf4/q+eYfCSydPbOtP7xQxFOO3e93QXZCmhgP6s+l/jwQDQuOXnZpZbZ1p4
+	EPjrjKwb3D1pp4MuM1gzQM5xAFgn3sBWKCrMTdrNjP76fsMfgsFPxvSOdQm03i/KQw7AqoDeXpE
+	hpjBdf8CZhm3QddZBA5GGwGRenWoFQ==
+X-Received: by 2002:a05:6871:2e87:b0:491:88f1:f3aa with SMTP id 586e51a60fabf-4afdf3ea53dmr11909331fac.26.1794936527583;
+        Tue, 17 Nov 2026 09:28:47 -0800 (PST)
 Received: from neuromancer ([75.28.21.198])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4b70d5b1c64sm148358fac.14.2026.11.17.09.28.44
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4b70d5b1c64sm148358fac.14.2026.11.17.09.28.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 09:28:45 -0800 (PST)
+        Tue, 17 Nov 2026 09:28:47 -0800 (PST)
 From: Chris Morgan <macroalpha82@gmail.com>
 To: linux-rockchip@lists.infradead.org
 Cc: devicetree@vger.kernel.org,
@@ -94,11 +95,14 @@ Cc: devicetree@vger.kernel.org,
 	detlev.casanova@collabora.com,
 	maz@kernel.org,
 	david@ixit.cz,
-	Chris Morgan <macromorgan@hotmail.com>
-Subject: [PATCH V2 0/2] Add rockchip-timer for RK356X
-Date: Tue, 17 Nov 2026 11:28:40 -0600
-Message-ID: <20261117172842.65346-1-macroalpha82@gmail.com>
+	Chris Morgan <macromorgan@hotmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH V2 1/2] dt-bindings: timer: rockchip: Add rk3568 compatible
+Date: Tue, 17 Nov 2026 11:28:41 -0600
+Message-ID: <20261117172842.65346-2-macroalpha82@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261117172842.65346-1-macroalpha82@gmail.com>
+References: <20261117172842.65346-1-macroalpha82@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,22 +116,26 @@ Content-Transfer-Encoding: 8bit
 
 From: Chris Morgan <macromorgan@hotmail.com>
 
-Add the rockchip-timer to the RK356x SoC. The timer for the RK356x is
-register compatible with the rk3288. Address range taken from BSP
-device tree and confirmed with rk3568 technical reference manual.
+Add compatible string for Rockchip RK3568 timer.
 
-Changes Since V1:
- - Added additional missing maintainers that I forgot to send to for
-   V1.
+Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ Documentation/devicetree/bindings/timer/rockchip,rk-timer.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Chris Morgan (2):
-  dt-bindings: timer: rockchip: Add rk3568 compatible
-  arm64: dts: rockchip: Add timer node for rk356x
-
- .../devicetree/bindings/timer/rockchip,rk-timer.yaml      | 1 +
- arch/arm64/boot/dts/rockchip/rk356x-base.dtsi             | 8 ++++++++
- 2 files changed, 9 insertions(+)
-
+diff --git a/Documentation/devicetree/bindings/timer/rockchip,rk-timer.yaml b/Documentation/devicetree/bindings/timer/rockchip,rk-timer.yaml
+index 6d0eb0014eee..b245a3051d66 100644
+--- a/Documentation/devicetree/bindings/timer/rockchip,rk-timer.yaml
++++ b/Documentation/devicetree/bindings/timer/rockchip,rk-timer.yaml
+@@ -24,6 +24,7 @@ properties:
+               - rockchip,rk3228-timer
+               - rockchip,rk3229-timer
+               - rockchip,rk3368-timer
++              - rockchip,rk3568-timer
+               - rockchip,rk3576-timer
+               - rockchip,rk3588-timer
+               - rockchip,px30-timer
 -- 
 2.53.0
 
