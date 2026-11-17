@@ -1,45 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794923411;
-	b=MXpZcdZ4hyXXF3LbRgZbU7q+QKBh0wqZrdA0A3IgJh/raBCjSulzDI5vIXHKerg0h4+U
-	 Hh5sUFQiXEP4QvE7O2dLV3hNiHItLPhJ+o9Tw6rCoS5MavogRyc3m6g/+LuqNsZJzCcI7
-	 qIEjIbqpg8lHnMPs4HghHg0oj3rSuJzRxLm8EOaRakyolouRJNvy2Ecif/Kng02j0TBnR
-	 N+pCCgCUo/Q3LMZTAtUAlROcgJez4nBKB9Y+vyDDb/a76vtDknSFATTGJ51Z3blfawmDk
-	 xQm9Wf/w5ks3YmifFTHou+J8gA3/23uboxhIWPgUDyEkR8BasaZaob0egVc/tsnzXIA==
+	t=1794923419;
+	b=UE5QPvfRpQ4BZFqFQ+pf9FcQjVsnfI1VX5uEpVydEfqMJLEZVjoGD1jtuNG1qWQukqA3
+	 JvAqYw98httIfLQoAyfs55zD1COidgocSpQSRn9SPUuQNCqXs5ESYZmuRKhLzHPLNWEQp
+	 5iOCOqRmRyYra1PB8J7mydGJSCx1Z5Zo3Iaq8+sJ2npS6ndL3wTb186TbRppXT++hYQFg
+	 n9iukj1/sKY1JFk5yS+CLzAi5nfG9NkmkAPgalGFbNdxR2+aA2gGzLj8GB+X9tvbm3+7R
+	 Isx831iFXkC7KS/+9XtSoZzznHKR9fWGDEu2ixrUgu9MinNW7W8W8pgWdE4GnqwejOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794923411;
-	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:Cc:To:From:Subject:References:
-	 In-Reply-To;
-	bh=1o4o8OU/LTUKe0c4Pab57k6q3vQbpxxV5mCVPeRuL3o=;
-	b=17c4Dr0xCVoC0AkH05BLirbBGGbC7EkX3+8yTt6Ge3MTp2WJGmzEmHGbwi7N1P5y5tUA
-	 9JlFb5IxFNRKb9GBL6kPvDTuD++GY15jyg+uBL5Y9Tsef8TzrPKzULTZ662zCP6/juP6e
-	 0ktlWAFByEPCu/a/k7ClZ4lppQApE6gDzokk/Wi3XbTaymxDEp0YivJTpY8AW0l2jirUh
-	 flv6dY3Sg+jRKYDWr0FzFPHD67f7SbafncNl7OvLQvzNo7Gy7opeJXLy5EsQo6g2lXNbS
-	 roYyzpuwpgEKQS/CpAxUuH9/Q5HPNTLVX4Ejbjt4ygtfoLcBFeFhrSQ4gSOQufuSwEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794923419;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Y1d7KOMyGONR7Xcyuz0lyWSIJyuszQNhjyeb7j3Wj7Y=;
+	b=3pdVumwAiQGqK3Kawvmgkzhng0ePg5U6w5PAlEvKpPIqa+dIlXD+jhk8xE51rDX8Qoca
+	 fMsJpieXhgZaUT4mAhnPgQara09DKhzdp5HSZERcSFp8mKoUeKWdWnRAcK4blfengaOj1
+	 lI0Ly/H5L3v67UeuJ8HKShFrYW+WzbIe0foCpFkRE6fvkK17NbbY/1FHnsLNTUEEGmZD0
+	 MhFpDGprjtYIEpUbX24UB468HXKJ0joBlIGX+jl1MGoGKmWLXPUPBM0CNOwy/8dJ8iG/M
+	 4yMFqJ8qNTAROiQ/SFFjdRWm8aePgRdzmYEUGmLftwYtASjdSRFTp9v8HrPBDgKb/bg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mwj+1W86;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nqWF+wT4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16AB0606A323;
-	Tue, 17 Nov 2026 13:50:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4A8B606A323;
+	Tue, 17 Nov 2026 13:50:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mwj+1W86
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 711D01F000CA;
-	Tue, 17 Nov 2026 13:50:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nqWF+wT4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 012581F000C7;
+	Tue, 17 Nov 2026 13:50:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794923410;
-	bh=1o4o8OU/LTUKe0c4Pab57k6q3vQbpxxV5mCVPeRuL3o=;
-	h=Date:Cc:To:From:Subject:References:In-Reply-To;
-	b=Mwj+1W86/Y/8v2cZtnYY838nYHLxs7WiSVqv6DjPWOE1U6N0KqyaklL1htWHwywyM
-	 PZcfIRPuvPLY7+G+fxikiJAKqliw18DXBdIYcweVwkE0Y05KCwnKqUBtWjnsG0Sdk6
-	 DXAGcG5mlbwK6JGHoWVR8y4ELSRQwIJkNDLxk8BpzjVh9YC74Z7x3llK9tV694CwMw
-	 xXLUdjoQyBmqxtSBbGeOm+jZD1NQI2vOrr0DSBy+cVCNCnbOXoZJsngbITcbYWKP41
-	 s0dEbuoU4VpRXfs7JGgyAc2e6aIxckWRpElB3t4Y1ZmWShAs4c+yq8ZL4V93tjKubX
-	 z2A71PEF4BpfA==
+	s=k20260515; t=1794923419;
+	bh=Y1d7KOMyGONR7Xcyuz0lyWSIJyuszQNhjyeb7j3Wj7Y=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nqWF+wT4R4hfuiF8A9ImCmFWHEfRjHWx9g+kG6QFzkzwMsXewn5LadOnkvaLBR9EU
+	 3CwyCeD0Cd0a7kkX1E9KIe0hS/RfJYDOIdBZoYbHghS4F1jdHnBe7DK5WHAiPqAPFf
+	 OUrky8ZYq5j2sDa6+Y0KNy7BNoMYMwQ5IuDq7+wTLtv6WWBCP/4RDPANS5bKYTrR6k
+	 ThOu3l8qasba7f5tEXzeD/6SYaOZa0eZ6OlofSnCSC71Pu9t0AFpD9VoERZUOwuikq
+	 AAGxBtSShf7HScnd6+W0Nm+qj1c7GaPQPZrJ2x4hZfshzqHIbPr1a1l8V5M1w+mnOp
+	 srJsP0UrSw4tQ==
+From: Sasha Levin <sashal@kernel.org>
+To: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>
+Cc: Tom Lendacky <thomas.lendacky@amd.com>,
+	Kyle Zeng <kylebot@openai.com>,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] KVM: x86: Don't reuse the GPA of a fault on the guest's page tables
+Date: Tue, 17 Nov 2026 08:50:17 -0500
+Message-ID: <20261117135017.1506973-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261027191914.2341911-1-sashal@kernel.org>
+References: <20261027191914.2341911-1-sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,88 +60,18 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 17 Nov 2026 14:50:06 +0100
-Message-Id: <DMXJ8TBSZJJ4.3HG0OJDI9URTT@kernel.org>
-Cc: <phasta@kernel.org>, "Sumit Semwal" <sumit.semwal@linaro.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
- Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, <linux-media@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH] rust: DamFence: Remove warning about unsignaled drop
-References: <20261112101015.528127-2-phasta@kernel.org>
- <5d466f7c-2e70-4011-be04-9ffdf877b915@amd.com>
- <49298d3a328c1695ea27993f714c20b8a1c05f32.camel@mailbox.org>
- <e2ec8a39-56c3-4274-91ce-60c273904877@amd.com>
- <ab99758408df682c68a3792cc3014b77d6e1c8ab.camel@mailbox.org>
- <c2dd46ea-94d8-4720-af37-897c91809338@amd.com>
-In-Reply-To: <c2dd46ea-94d8-4720-af37-897c91809338@amd.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue Nov 17, 2026 at 2:40 PM CET, Christian K=C3=B6nig wrote:
-> On 11/17/26 11:54, Philipp Stanner wrote:
->> On Tue, 2026-11-17 at 10:51 +0100, Christian K=C3=B6nig wrote:
->>> On 11/17/26 09:24, Philipp Stanner wrote:
->>>> struct DriverFoo {
->>>> 	f: DriverFence<()>,
->>>> }
->>>>
->>>> impl Drop for Driver Foo {
->>>> 	pub fn drop(&mut self) {
->>>> 		// Signals fence implicitly & automatically.
->>>> 		self.f.signal(ECANCELED);
->>>> 	}
->>>> }
->>>
->>> Yeah, exactly that is still a bad idea :) See the HW eventually
->>> doesn't necessarily stop doing DMA if you unload the driver.
->>=20
->> I know.
->>=20
->>> So just signaling all fences with ECANCELED is not enough.
->>=20
->>=20
->> Yes. What I was trying to tell you as that you have no way to enforce
->> this in Rust or C.
->>=20
->> dma_fence_signal(f);
->> free_driver_resources();
->> // Driver forgets to stop the hardware. Memory corruption occurs.
->>=20
->> You see? Neither your BUG_ON() or WARN_ON() saves you if the driver
->> does it like that, no matter the programming language. You cannot
->> prevent it.
->>=20
->> The only one who understands how the hardware works is the driver. The
->> only one who can stop it is the driver.
->>=20
->> In Rust, the place where a driver drops its JobQueue is the same place
->> where it has to halt its GPU ring correctly. Enforcing this cannot be
->> done by dma_fence code.
->
-> I completely agree that we can't fix things from the dma_fence code, but =
-it is our obligation to tell the user that something very very bad happened=
-.
+Hi Sean, Paolo,
 
-That's the point, we can't infer that "something very bad happened" from
-dma::DriverFence being dropped unsignaled.
+Ping. Did you get a chance to look at this?
 
-In Rust we use the RAII pattern, and drivers structurally embed a
-dma::DriverFence within the struct that represents the corresponding hardwa=
-re /
-firmware queue (e.g. through Jobqueue).
+It still applies to kvm-x86/next and to mainline, and the bug still reproduces
+:)
 
-Consequently, if dma::DriverFence drops unsignaled it means that the destru=
-ctor
-of the structure that embeds it (which does the required HW teardown) did r=
-un
-already.
+If you'd rather fix it some other way, let me know.
+
+-- 
+Thanks,
+Sasha
