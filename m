@@ -1,68 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.70.190.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794920219;
-	b=hoiBfhDT4jm19agBCyjnbfcVXan6uFFWC5wYteQ2kiuzd6jXTaTaFYTvNySWMDowm/xM
-	 tuDIHWe+HY4yOru+W/vJtRnUIW6FardUvUzqIJ5S1PiFeh4NcrNLD5qr7uAZ/ZWClne6g
-	 pHUrc7n4Jj2E5cK17HrSv+xRWG4qp29YdfM+x0bS+qHrnDDVAB59daOwjHufyB7CfOfSo
-	 Jufv5r9OwPNjg9Id6uVL0dcbY1BAGBrE7o0JYeP/Dh1ecYhOx5Q9Whqq1J6SoDkwxeB0H
-	 bj0g7ZulJeyXAx1R9wVt+gEKQXax4mjedpbl3Nk4S3b9yRtobqchyLzYY8ErsRfgxYA==
+	t=1794920257;
+	b=sXJtvRIJx/oa6pz/zYlyMNsJyZ/qm6Kc2JjL9pI5v97uC7R1IKCqMb2WCH9HjoisEP43
+	 3ENBVbQ0ePbbnxsMwnwTVI66U8VSZecxd3zqr3Pk0NpU2ZKfhQoT4DvdykXxRRkQYnTiB
+	 RPjoshVZkp8jfAT4CmpkS/YuKR7/RCgmsk18b9ydWN4IRxcSzHe5igzI1KqyS+LPYSWf3
+	 jqYRDd4FZWUHeTx8tkEGDqnlZmmqimYvh973S9meWefuleSQqo60/EcWKrALQiKk4I1/5
+	 I6+qmjlRUsJcHVzPBS3tfJpHjLYebFJ2lgmslubIVy//kguNXJ+yrGkIhrW09tHJg1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920219;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Status:X-Spam-Checker-Version;
-	bh=OTVVvYxat9orkcdedi+eKMTu2VNYh4nZrH1KaOtguVU=;
-	b=jXrM9Y2qbFjAwLRC+i4qYVLgmeAqsAM5mwGaffwNes5pKPh2gXRJuBmrh9VYk0NVJBQj
-	 WaJt/JKFXGIsutcwmEcDB6kSDHQP3pen0dtKArT2vDstZKqdvDOwqcXc/U2w6aRHk9Dpz
-	 V3SYNgXkCJPI7hWT9uJY8lsE7Ql+U2cet7BY9ww9MmXM1em1NF+mGDI9riXbi8m2sHjy4
-	 8v8jy6dc/qbCwx+Uz9fUULHLZGDSutUTT00wW+mNejcDfLygjTY86OPmCJJXgd30qXjwB
-	 MXdnNmkjqOHW4qiQZS/auM/zJ0h61KbueIQ2iZoA2ouL84KjhwxxUJdTC7sEqamO0hw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794920257;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=cwQPpTaL2c/wj1OEDa9qNdi880oheLkZqVlpuujln18=;
+	b=ktpAyZU7a83tOv416vblFWWXoYVfnY2Ym+LLP5pyhxl43JTctAoRXbMVxkPW26ZXXerl
+	 38Dnx/OAeYHrgRLVX/9+0za9kXQd6b6tOnmUFQ9mMekNGIuOs53wMd7fXAtv13dxyzW0d
+	 HvD9V7u3WSQxQLGXNuJIi7a7VnN6IVNyUyGoazh4L+rq0brDKyJ2PDBjS052dzA+TF7gQ
+	 XklngL9h7gFiRI8xPW8qWVcQ+aGuQ+MR4/IIosQehs/ivjQoJ0ZyZxDpC4BUN4wDOI6JW
+	 MLCprsiHhbe+xYhNiYHb9BqgG6siHaYIxFxsGP0gDExu3JTkHo+cIF7pnFdg8AQqcKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=netfilter.org;
-	spf=pass smtp.mailfrom=netfilter.org;
-	dkim=pass header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=bnAuemer;
-	arc=none smtp.remote-ip=217.70.190.124
-Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b="he9Xj1/t";
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 4A589606A31C;
-	Tue, 17 Nov 2026 12:56:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A589606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7093F606A333
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:57:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7093F606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=bnAuemer
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
-	s=2025; t=1794920217;
-	bh=OTVVvYxat9orkcdedi+eKMTu2VNYh4nZrH1KaOtguVU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bnAuemerWRXRXSGbr01HnF1Pqn4KLiRbAMCVJJEkHBCt+43PNXE2ZPv0HBvIK+c4w
-	 T3uLMWBm5o/b01JCcjJOoJEhIVVauEd2Irkc8p1OAYasU4Ir+O+ZlCVJJqLiXHV0aG
-	 WTA5SwbHuDxQ8ntTpUt2TuzsgHUHGrryekdJx3gZQCEA+fTZJ1TunXXhyJYNI3XoD3
-	 XtnW/hZ3dP88eTKLO6PUmoIZr8F2GycEkLhIH/oLFXVZPPQzWT/Vd+4qZ9cGwqBmZc
-	 pLFb+igoik9pR9b/cyL8enJ6eGBogvsI0JVH1Zw6O3urpT0y1v8fKKj8QTtBNEzfZx
-	 JMFCHzQe0nBMg==
-Received: from netfilter.org (mail-agni [217.70.190.124])
-	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 0386260057;
-	Tue, 17 Nov 2026 13:56:57 +0100 (CET)
-Date: Tue, 17 Nov 2026 13:56:53 +0100
-From: Pablo Neira Ayuso <pablo@netfilter.org>
-To: Leonard Lausen <leonard@lausen.nl>
-Cc: netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>, Shuah Khan <shuah@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v4 0/2] ipv6: Honor suppress_prefixlength in
- fib6_lookup()
-Message-ID: <avxPFYfEirXzTup8@chamomile>
-References: <20261117110813.9894-2-leonard@lausen.nl>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=he9Xj1/t
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-36dbde64409so6800379eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:57:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1794920255; x=1795525055; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=cwQPpTaL2c/wj1OEDa9qNdi880oheLkZqVlpuujln18=;
+        b=he9Xj1/t6jD+zpDhkV5lhMnEd+n3snktDIJnyh+tRUhWMvREqTYyVLf0gmxsMaXNF+
+         wqyv4RZKSq9w2j+Gwn2lk1ZgYxKM30QcFXzjYZH/09XDe16NW0P+gzhcII9w5cpfFaq5
+         KahHYFUfKpTpUqjQx9i/QXbC17f/gCVr9GGFE1UH1dGVvXV7B41XPoEw+QFfAIUeG5AQ
+         f+m8Waf8SaBB1e+sYlWeHsaun7WqHfs8z/41Nd4FIqZ9A9SNZgMY9fAyKpeRi2ZKUQ//
+         47bz+DVNViFUgn71bXz8mgXEK98KfIDriwAhGY18QAhOBjwoxgC3BzmbPkb6jc530t4B
+         1j2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794920255; x=1795525055;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=cwQPpTaL2c/wj1OEDa9qNdi880oheLkZqVlpuujln18=;
+        b=UrKThm3tuWBsx/T2pu6T+RBYYcrTfIUZbFDiuR71DuroK6YZ66ThG1lgsN7BWN6gEx
+         jzbCySHWbv01OEGMiXiPOQy2K0xVoulNLb2VTzqUD68axRkA59eY52NYa2AoWPyB5m3+
+         8PXx9Sgz80p6JZzmDsZak9cq+Lpe/LXc3a2sk/krhw2Kqe1aud8GZWmavg9xR2GbFAF2
+         aPUteDgB/ZTJk2C9qHtTxPzC+lMwt3aAEO49mAq1oyVCHbfGBXWCTdTynm2BCKs4UYLf
+         aoADd8LBOuGVuyhrb3x/PpyO/lu+dC8pYtuZr4YnqmIyS6Os6dfU/HAqU/dtq6vfbE/6
+         P5Fg==
+X-Forwarded-Encrypted: i=1; AL+hErGs5iLLZjPtk4MaZlsn7mcvzPjWVtjVGZRnYe4GCyhuHiAXZRKQnua6PZ7fUMsbh8+xqXzwBW7OvL5brEU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/dTx4TkMD/6YH5V36p67XtvkR4D+3Hl3xKBYnyWnVgFyUSBwyw
+	BzHeU6dExjvvuL2NflfpItCu48f8s8nXRZ10ECQrTAYOvRVlGAkCXTeaNvRZHBEkNOQ=
+X-Gm-Gg: AZFdTZdDfGTm6gXiub2LUdXceHg3g1dc/GwAf8FfhyDt+XTsnVyWrtR4fMmsj+1itpi
+	XecP835mDy/Qvr47qL2+LeVTOI7Oh/POZBpBfidC1y/kylrCmLTfK8wDfdFCQabKHHPJLV4oKgc
+	OYGHQsx5eC1AMv/+Jbsmo99TUe9uHnXcCFLBn3fgVhpogPl4oWFJB7GVTyakPwt4Oa4eAViraoV
+	XxjUZacwslWMEIqBL6GcaGbutXgTSeDHT3TPYuM5ItHp0tDTZTBRzXKhxwYPFbtB6f9lWzlSmCa
+	MnPylBSefsXIicWFbQzAi75Ap9oZjSUXZNQIFwxYKhqnlKbPs03Ji+YTMvwgRTclsXCbMgrMJD1
+	0i9B4pjMBnOLDMXaSzk3jIDOq73snT0nXLPvv+c5Qqkl0MJr3znmK/bjsVh+0cfHGi4UJLyWY46
+	CS3B9kpHVODH4496nPQQun9XyESCX/7J4O98ZdtRrhB6qPS/TWcLifbZS91I1eL2+DuHVqfnQud
+	eco/mlTKKeDSqj6kyJG4gBYbA420WJL4z2K2oa89rr9fYtXabe3NbRxSZ5JUvt4GeEG5x5a+Nzh
+	rNQ61zBnWZBt+aNQ0X5sTkNSIZrR1g4upHF6vkum/zC2CZXtcywe09bQYsJCbLkFWzRP
+X-Received: by 2002:a05:693c:83cb:20b0:375:388:a6d5 with SMTP id 5a478bee46e88-379675fc8fbmr12249938eec.32.1794920255453;
+        Tue, 17 Nov 2026 04:57:35 -0800 (PST)
+Received: from [127.0.1.1] ([2804:14c:4c5:8bf0::a1aa])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379559189e8sm44767034eec.11.2026.11.17.04.57.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 04:57:34 -0800 (PST)
+From: Hiago De Franco <hfranco@baylibre.com>
+Subject: [PATCH 0/3] Add PWM support for the Sophgo CV1800B
+Date: Tue, 17 Nov 2026 09:57:12 -0300
+Message-Id: <20261117-milkv-duo-pwm-v1-0-3f1786ea57b7@baylibre.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,55 +91,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261117110813.9894-2-leonard@lausen.nl>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQwMT3dzMnOwy3ZTSfN2C8lxdE6O0pGQjiyQDM0tjJaCegqLUtMwKsHn
+ RsRB+cWlSVmpyCcgQpdpaAKwV+flxAAAA
+X-Change-ID: 20261104-milkv-duo-pwm-42fbc28b0693
+To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen Wang <chen.wang@linux.dev>, 
+ Inochi Amaoto <inochiama@gmail.com>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>
+Cc: Chen Wang <unicorn_wang@outlook.com>, linux-pwm@vger.kernel.org, 
+ devicetree@vger.kernel.org, sophgo@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org
+X-Mailer: b4 0.16.0
 
-On Tue, Nov 17, 2026 at 11:08:10AM +0000, Leonard Lausen wrote:
-> This revision removes the cached-exception patch and its PMTU test, as
-> requested. The series fixes the nftables regression introduced by
-> 1c32b24c234b and leaves dst-based prefix suppression unchanged.
+This series adds support for the PWM controller of the Sophgo CV1800B,
+the SoC used on the Milk-V Duo. The same block is also found on the
+CV181x and SG200x, which share cv180x.dtsi.
 
-Is this a LLM finding? Or a real issue in production?
+The CV1800B has four PWM controller instances at 0x03060000, 0x03061000,
+0x03062000 and 0x03063000, each with four channels, for 16 outputs in
+total. The register layout is derived from the controller already
+supported by drivers/pwm/pwm-sophgo-sg2042.c, so instead of adding a
+separate driver the new SoC is handled by a new chip_data variant in that
+driver, as suggested during the review of the previous submissions [1].
 
-> The cached-exception work is deferred to net-next after the
-> fib6_lookup() fix is present there. Interface-group suppression also
-> remains deferred.
-> 
-> Patch 1 makes fib6_lookup() honor suppress_prefixlength while preserving
-> terminal reject results, including blackhole nexthop objects. Patch 2
-> adds six checks to nft_fib.sh using its existing fixture.
-> 
-> Changes since v3:
-> - Drop the cached-exception fix and its PMTU regression case.
-> - Remove the PMTU-only gateway and peer setup from the test fixture.
-> - Renumber the remaining fix and test patches as a two-patch series.
-> 
-> V3 review:
-> https://lore.kernel.org/netdev/20261117091340.GA581197@shredder/T/#t
-> 
-> The rebuilt v7.4-rc2-based laptop kernel now contains the v4 series,
-> without the deferred cached-exception fix. All six added selftest checks
-> pass in normal and eight-second-delayed runs; both full runs exit 0.
-> Twelve separate reject-route controls also pass. The changed source
-> compiles without warnings and passes 17 focused ASan/UBSan callback
-> checks. Automated kernel-log checks were unavailable. Target-net runtime
-> and full W=1 config builds remain unchecked.
-> 
-> OpenAI Codex assisted with investigation, reproduction, implementation,
-> tests and descriptions. Prompts asked it to investigate VPN failures,
-> simplify the series and address review feedback.
-> 
-> Leonard Lausen (2):
->   ipv6: Honor suppress_prefixlength in fib6_lookup()
->   selftests: netfilter: cover IPv6 FIB prefix suppression
-> 
->  net/ipv6/fib6_rules.c                         |  6 ++
->  .../selftests/net/netfilter/nft_fib.sh        | 90 +++++++++++++++++++
->  2 files changed, 96 insertions(+)
-> 
-> 
-> base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-> -- 
-> 2.55.0
-> 
+Compared to the SG2044, the CV1800B differs in these points:
+
+ - PERIOD and HLPERIOD are 30 bits wide and PERIOD must be strictly
+   greater than HLPERIOD. A 100% duty cycle is therefore not
+   representable, and the period must be at least two input clock cycles.
+ - POLARITY has the opposite meaning: with bit 0, HLPERIOD counts the low
+   part of the period and the pin idles low; with bit 1, HLPERIOD counts
+   the high part and the pin idles high.
+ - A POLARITY change takes effect immediately, even while the channel is
+   running, and does not need PWMUPDATE.
+ - HLPERIOD/PERIOD written while the channel is running are only latched
+   on a 0 -> 1 transition of PWMUPDATE. Toggling PWMSTART must not be used
+   for that, as it restarts the counter.
+ - When the counter is stopped the pin is parked at the level selected by
+   POLARITY; emitting the inactive level would require changing POLARITY, so
+   the driver switches the pin to input mode while the channel is disabled.
+
+Patch 1 extends the DT binding, patch 2 adds the CV1800B variant to the
+driver and updates the Kconfig help text, and patch 3 adds the
+controller nodes to the shared cv180x.dtsi.
+
+The hardware behaviour described above was verified on a Milk-V Duo with
+a logic analyzer (GP4 routed to PWM, i.e. pwm1 channel 1), at 1 kHz/25%
+and at 0.5 Hz: polarity mapping, PWMUPDATE latching with a running
+channel, and the pin state of a disabled channel.
+
+This follows the earlier CV1800B PWM submissions by Jingbao Qiu (v1-v7)
+and Thomas Bonnefille (v8).
+
+[1] https://lore.kernel.org/lkml/20250509-pwm_sophgo-v8-0-cfaebeb8ee17@bootlin.com/
+
+Signed-off-by: Hiago De Franco <hfranco@baylibre.com>
+---
+Hiago De Franco (3):
+      dt-bindings: pwm: sophgo: add PWM controller for CV1800B
+      pwm: sophgo-sg2042: add support for CV1800B
+      riscv: dts: sophgo: cv180x: add PWM controller nodes
+
+ .../devicetree/bindings/pwm/sophgo,sg2042-pwm.yaml |   3 +-
+ arch/riscv/boot/dts/sophgo/cv180x.dtsi             |  40 ++++
+ drivers/pwm/Kconfig                                |   7 +-
+ drivers/pwm/pwm-sophgo-sg2042.c                    | 201 ++++++++++++++++++++-
+ 4 files changed, 241 insertions(+), 10 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261104-milkv-duo-pwm-42fbc28b0693
+
+Best regards,
+--  
+Hiago
+
