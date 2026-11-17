@@ -1,57 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=219.143.121.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794880995;
-	b=wroKT5Lsb5ZEKxIrNEDKnTZqHwWlj9IRU3JsneU8FGyQI7sDWKCTblJiOKZTyqb1fvW3
-	 1gupur+IATGV2JxLweLiUfYuZuV2d4BhYGXvECpZw9rg7pW/UH9y7mHzDQ2sKQ6/e3wve
-	 NqVJaN7MU8tkcinadh/5XgeV+00OqjePY46y1OKoFVdggEV/enEhXqXdvbkyiU3HmN66E
-	 7fopT7J0DnAU9etwu8QyaCCc3EYAM32Rif/hJfcjWMlmmV9uH+FvBhUYrYjS5nglvquG2
-	 Zjsrcf+y+U15rad2u7jmWw0vrM5KqTsNlUuPO/UlF6/qnf07lyzUSElvhWkkQaP31Cg==
+	t=1794881069;
+	b=pKho6NkZM4ogUNSepzlZWSfWqXecWA3MBkTJJZILOpk+ewoF75IYqpM4/6LFvNYIrP9/
+	 eC0z45ElUDcPYj1jcpSwAJ4PUzx/bC4B70bs7XCutxn4WyviilPjUvtaXh/XeYMF3xku0
+	 Vc2Oiza7WnFfNBQiDt9O1XUHKM1oCptelZ1Lb0AIsCO9JU+SS6kmHGiNHyz8JFJyGEXSh
+	 ssW4f0ztn9qxSr9T92EKq5jjisnB/2yFTaxuprfZBAmci2JKzqsPIkMR/tV4uFrBh0d5y
+	 oH27i7vJP607LbwnJzA0IrVbHu5j8MHvpgJMhdEUNIrGphlEtPvljlqqublpBW/CyIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794880995;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-FangMail-Miltered:X-FangMail-Envelope:X-FangMail-Bounce-Flag:
-	 X-FangMail-Outinfo:X-CLEAN:Message-Id:X-Fangmail-Anti-Spam-Filtered:
-	 X-Fangmail-MID-QID;
-	bh=KcvrewBhOXlM8MEBGzrRCZe7QXU+yH/iDXAzLiw8UXY=;
-	b=eeXCLpEVRal4SfPmbbOL3ojxjUwpeQ7CTxqzsAM8+L5RR1SRt0OHsM4qwKtNQmuRkST5
-	 rJmi0Y11ih3nL5IhdPy54MRpSeH/8Dklqm+G763s6v2nT2RiuOehATd5dzKvUJNRG4IkZ
-	 PINzAR9RcKKPWLDR6fDBaX6K+hXNLgyp+HH24jH6BfxAtRj2BelmLvuhaWr3/K78t3xqO
-	 +3ai1+a+dkioCM5vC+GoumWkb7NQxPGcWpCgpBcClXtvlgVeXtxLXeljDi13Vf9tEfZR8
-	 MnMQr/Hl4eLoWbiFmLK12HOpMuKK2cx7RP1xCceZ76jUIBxeJARiOuMeO3OOW6tPQEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794881069;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=yYS6INKBjNAqptOhWHzAGeyvA75hMOTGPLHZknZUCPI=;
+	b=Mr6QLpz7UipZDxdRiV8NQtupBPTf8hJBQ2lKXenP1Xd6LNOy8lNuzSyykJnbuRMgsEVN
+	 pcqh2rY5JEj7oze+E4N5ALR8lZ/Ikc/nnaCyhDdwwrU1lgk8HqLWFPYmj/dltIZOj6NSp
+	 jqsxuO9yrvdKeAnPY6vMSJEz2UI86o/LuYc2xOeJFzrVA23VaG0l83X6ChhrHuTukuAAM
+	 xBRXt7tjSy3Thkc+5NsF93nenp0ghH3Ft3JDCZPCfd9mMSSoYFDDxP0NRTnWe1JO98zIG
+	 7HRAUJ741dd82CuYBfP5NrTrkSyZQkZdzyaTrXk14LN7j2F0+grA04d+S1MV7ZWgV/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=isoftstone.com;
-	spf=pass smtp.mailfrom=isoftstone.com;
-	arc=none smtp.remote-ip=219.143.121.9
-Received: from spam.isoftstone.com (smg.isoftstone.com [219.143.121.9])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=SZWmavT7;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F191606A31C;
-	Tue, 17 Nov 2026 02:03:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F191606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=isoftstone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=isoftstone.com
-Received: from ldzh.. (unknown [221.226.109.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: dlzhangak@isoftstone.com)
-	by spam.isoftstone.com (FangMail) with ESMTPSA id 4jT7L63YwBz23sl;
-	Tue, 17 Nov 2026 10:03:10 +0800 (CST)
-From: Daolong Zhang <dlzhangak@isoftstone.com>
-To: Tianrui Zhao <zhaotianrui@loongson.cn>,
-	Bibo Mao <maobibo@loongson.cn>,
-	Huacai Chen <chenhuacai@kernel.org>
-Cc: WANG Xuerui <kernel@xen0n.name>,
-	Song Gao <gaosong@loongson.cn>,
-	kvm@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Daolong Zhang <dlzhangak@isoftstone.com>
-Subject: [PATCH] LoongArch: KVM: Fix uninitialized stack read in dmsintc_inject_irq()
-Date: Tue, 17 Nov 2026 10:03:10 +0800
-X-Mailer: git-send-email 2.48.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2453606A31C;
+	Tue, 17 Nov 2026 02:04:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2453606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=SZWmavT7
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=yYS6INKBjNAqptOhWHzAGeyvA75hMOTGPLHZknZUCPI=; b=SZWmavT7ekj5NRY8lnc0jlTNag
+	GbNvD0FEpGOGL26XTTSrwoMLRk7Fgx1S5cCbO+h/5+tNvbhFu6pSFnmUxTqE0QgsUrYF0gXGGygue
+	MxS15SUEVJnKuNpTshuJSGu2Xmfwje2cIAM/FSWWR+cU6Rt8ckdCMJ/ywzCawKYTSt30=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xT8YZ-00H3BF-7H; Tue, 17 Nov 2026 03:04:23 +0100
+Date: Tue, 17 Nov 2026 03:04:23 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Paul Louvel <paul.louvel@bootlin.com>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Herve Codina <herve.codina@bootlin.com>
+Subject: Re: [PATCH net-next v2 3/4] net: phy: marvell: factor out EEE errata
+ initialization
+Message-ID: <40aa39c5-8132-4616-98fc-163be816020a@lunn.ch>
+References: <20261116-marvell-phy-rgmii-v2-0-e04dca67e89a@bootlin.com>
+ <20261116-marvell-phy-rgmii-v2-3-e04dca67e89a@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,54 +71,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TLS: YES
-X-ENVELOPE-SENDER: dlzhangak@isoftstone.com
-X-SOURCE-IP: 221.226.109.28 unknown Tue, 17 Nov 2026 10:03:10 +0800
-X-FangMail-Miltered: at fangwg01 with ID 6AFBB5DE.001 by FangMail milter!
-X-FangMail-Envelope: 1794880990/4jT7L63YwBz23sl/6AFBB5DE.001/221.226.109.28/[221.226.109.28]/ldzh../<dlzhangak@isoftstone.com>
-X-FangMail-Bounce-Flag: 1794880990.6AFBB5DE.001
-X-FangMail-Outinfo: 1794880990/6AFBB5DE.001/4jT7L63YwBz23sl/dlzhangak@isoftstone.com/1
-X-CLEAN: YES
-Message-Id: <1794880990.6AFBB5DE.001.4jT7L63YwBz23sl@fangwg01>
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AFBB5DE.001/4jT7L63YwBz23sl
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116-marvell-phy-rgmii-v2-3-e04dca67e89a@bootlin.com>
 
-In dmsintc_inject_irq(), the local array 'vector[4]' is declared on the
-stack without initialization, and each element 'vector[i]' is only
-assigned when atomic64_read(&ds->vector_map[i]) is non-zero.
+On Mon, Nov 16, 2026 at 04:27:03PM +0100, Paul Louvel wrote:
+> The 88E151x EEE errata sequence writes four register pairs on page 0xFF.
+> Using phy_write() for each access takes and releases the MDIO bus lock
+> every time, and returning early on error leaves the PHY on the errata
+> page.
+> 
+> Move the sequence into m88e1510_eee_errata() and use phy_select_page()
+> and phy_restore_page().
+> This reduces the number of bus lock/unlock cycles and restores the
+> previous page if one of the errata writes fails.
+> 
+> Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com>
 
-Whenever any of the four 64-bit words in ds->vector_map[] is zero (for
-example, when an MSI interrupt targets a single word, or when INT_AVEC
-is injected via KVM_INTERRUPT with an empty vector_map), the remaining
-elements of 'vector[]' retain uninitialized kernel stack contents. The
-subsequent checks on vector[0..3] then OR those uninitialized stack
-values into the guest's hardware LOONGARCH_CSR_ISR0..3 registers,
-injecting spurious interrupt vectors into the guest and leaking host
-kernel stack data into guest-visible CSRs.
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-Zero-initialize 'vector[4]' on declaration to prevent reading
-uninitialized stack memory.
-
-Fixes: 03de5eecb0f0 ("LoongArch: KVM: Add DMSINTC inject msi to vCPU")
-Signed-off-by: Daolong Zhang <dlzhangak@isoftstone.com>
----
- arch/loongarch/kvm/intc/dmsintc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/loongarch/kvm/intc/dmsintc.c b/arch/loongarch/kvm/intc/dmsintc.c
-index de25735ce039..ef6c064e52f1 100644
---- a/arch/loongarch/kvm/intc/dmsintc.c
-+++ b/arch/loongarch/kvm/intc/dmsintc.c
-@@ -11,7 +11,7 @@
- void dmsintc_inject_irq(struct kvm_vcpu *vcpu)
- {
- 	unsigned int i;
--	unsigned long vector[4], old;
-+	unsigned long vector[4] = {}, old;
- 	struct dmsintc_state *ds = &vcpu->arch.dmsintc_state;
- 
- 	if (!ds)
--- 
-2.48.1
-
+    Andrew
