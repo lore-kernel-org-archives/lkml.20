@@ -1,57 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794928498;
-	b=476YBB16E9Q5FudrYEqrO/9Qtl/5LLlYo4tZ8mGfioj1rXJNCpMqMGpd23odV7H2QhI+
-	 /L6SblSI/fTDCdlUbEM6kZOiQhqdL1Mp1z9pY5mXpJ/+ON6YJFv4H3+RUwhjKWhOpk3xd
-	 JOnaNSFrbBMUGHJo8MVh7GZ12p0P6kkg2CRJKcfOKsG0nfWlBE7mlpUWp8pH6utPBqDVg
-	 O/aReghDbMPDDkzyDKSlsC7XwFC06nNkOCVZUA+q/XT1PQ+KBOvZGeaiJf1odu/MLsh3E
-	 /K/jMSAlhj2KCMDJAx4S9yBFVH9Of3+4qZEkz28AyiV6SAfFqvhzVxDyU/sfWvrJyHQ==
+	t=1794928539;
+	b=ZisuDlV9pvdUdlCKJ/Nv2FhIMjgF7khHolDZLGWj+6qXgnsTGLpUpfLtFYizGqokgZu5
+	 8+IBuzX+zPXTziBjBP/9El89V6HjYHbF4Hj/iFHHBYceZxBTzmTbevOr34PEH0nJyb5zV
+	 AuH205GjZOrQWRYY3zINks03PLuA8U5/beLROS8GWQjynMbrUjJ9Fnm/xraAN1o4Tgbep
+	 kM5A8ogmUeLOGr7LmbNJF7VSIs+2B6/tGe9mlhgX0FmALY3p9dAsRGGgusOUFg3zOjcL3
+	 cn/NqImmr03AYXiuYrXzrhF9ggTna1Eb4wqDn8N1VIPyVM9e8x+hSqlFlAQAjddkyaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794928498;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=O9xAKWwBB7u9FKZ3TGuNVV0f8tMOj2I6ZH8LKxjW0FY=;
-	b=r5NEGhUinG73ySvslntloTpdKC/v00En6Hhn1lY71DLeWUvqxd5ZoeG6pRxn5xosupbY
-	 iC6GNaWrWNxk57whh/iHWCeROLKZFotte5X2POEihG3YLcLSgKXiETZEEk5XZqFrCq6i1
-	 u8m43Uwy1FKUBK/fADDhCLvs5h0yH2gQyqvOjK+uTboowvP6NpadUNDPQsMa2S5SaD0NT
-	 EQ1aG3Vkhqpa9UqcBW5pLUMfZufUyGiL3ah3jvNHW+BxGUehp8hdezNNnR/GjnyBQly+4
-	 tHkh0x14pngTlUqobWUPZCxmOsJsIo3Q9aQzvGS+2SHQodqGQapwDrNCBHyvv0ffU0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794928539;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=Dvb/uhBRLlieD3DxnBsDgJCSszczVxiDnHK5Gq+WxBM=;
+	b=wXCbyRuZDB11d8VJehFTlIxQDbPLqT5pY0xXTIuqtVKhLRs0otv4XD/qQE1jdzLPNuEy
+	 AAEp61SPwsaPpZAuqiDG4+Z+McIdb+AxHd0BW2gdswJjbvz+do6IXfpWbknLjGyW8eGR+
+	 NIWjltBsYvhtU5dEl0LJosRTUBTxBB5F86DkcwTL6MuCSedbjgC4LX9G/0PAljjG6q1p/
+	 2n4CvGyWqmKKPDK2OGPwCtpOug0zXHWp7OBKawzXsJ7rbT8Cifb3OSvxCM9mFVjkHfS9i
+	 HPqpCegsT/59AjILuCbb4CdpVD+jMCsG3UjER6K86teFqhEc7KCEamtG3i+WEHOxsbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b9Shf1KY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gZ7LyHkW;
+	arc=none smtp.remote-ip=209.85.128.69
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DCC5606A31C;
-	Tue, 17 Nov 2026 15:14:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2AE0606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:15:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2AE0606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b9Shf1KY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C9DE1F000C5;
-	Tue, 17 Nov 2026 15:14:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794928498;
-	bh=O9xAKWwBB7u9FKZ3TGuNVV0f8tMOj2I6ZH8LKxjW0FY=;
-	h=Date:From:To:Cc:Subject;
-	b=b9Shf1KY/a3fy+Jqg/5hTSPi5h3cjvmI+TiUWZF5zxzV6N+GW9t4yHO3hlaF9pnS4
-	 GJTngcyjdzLwyXy7EjMEYGW+g9NErsM0/KTKwkdRn22xEkv2OU3eZ/ZlhHAly8Q6Zz
-	 Q92suuQZOHu3FiKx6T4zH+0bMBB3pAemRMb2+sc/WM1dWRLuUX2i3i+2Po/A5z1NSt
-	 94/4ny2QJdlEhrLbZeQf0fKARqwqGo3M7NHh0B1FR4G0oGw2vkmpKt5ZZuf95pWp5m
-	 lo8tuH5FU4t4emLw0LQSagbgPqI+XDO5+TrLiXbVzwCcdXnP8SuBpb8Jli2gboLnfI
-	 KTgSasnWHJY8w==
-Date: Tue, 17 Nov 2026 15:14:53 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Simona Vetter <simona.vetter@ffwll.ch>,
-	Intel Graphics <intel-gfx@lists.freedesktop.org>,
-	DRI <dri-devel@lists.freedesktop.org>
-Cc: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Fei Yu <fei.yu@intel.com>, Kees Cook <kees@kernel.org>,
-	Kees Cook <kees+treewide@kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: manual merge of the drm-misc-fixes tree with the origin
- tree
-Message-ID: <avxvbWBvcToSp_t4@sirena.org.uk>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gZ7LyHkW
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4ba078abd70so33219555e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:15:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794928537; x=1795533337; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Dvb/uhBRLlieD3DxnBsDgJCSszczVxiDnHK5Gq+WxBM=;
+        b=gZ7LyHkWCMegg4n/ftFMALR0gv4RAhOwmXgxUt9tftmwLqxIQnVGempw5bAeO3tUbg
+         N/ZhvYb6ZjqUSHeM7Vo42L/ICA+zZ7b8DN1K/JdykT+0CajA9cTkavV6jl5HGXREjMZ7
+         kLyf9h/Kw2JfKUTkmk0GUM0oaXLY+GjoFrDq9ovSpufU9dnCp0kxjNKM9UcL8ZdLWgYb
+         ZDjcVczOeDwTV629wZgZanG1LoEJBdWFgkDIOBTp0qI58SKETNz5DP+3bqnXek6hgFgK
+         yCr8DNDln17CfQ+AIqa09HS0BhRPtIuXniEtRbcfnL3KJ1+BxtJUgjYThmnQBzNywpQk
+         Opmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794928537; x=1795533337;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Dvb/uhBRLlieD3DxnBsDgJCSszczVxiDnHK5Gq+WxBM=;
+        b=MJvyIUAmiQyst2PIX1FyXKqQsr+8cC7iwcm/sob4UCmCc0EQMD1AaXuVUyFTtGWVy1
+         R5wlrR8sdsM4Tho6zUjBEcqtPGUzSWhFiqpLuyNbBXDP7ilsTYkqfwfk3PVyZ98Lx0Xa
+         lmJrZdbGI7g4j5QMGl0XhsZRaE69OZzOqJKGBYC54AXJX1zY4GJc+ZYUSoHFqJRB65Gs
+         IbCOdwwTYlfeHOcf8cEfsy0lcE0K0IvO9DPDED0/Fmzcv45LwtDRFurMWd0W9uUnT0ch
+         ozBpOfbOe9XP43kDHm+Dh+0QnQlLHUIAmKgsFdpwrLqly9S1eiuemleIQ4xtsX3AqdU+
+         yXhA==
+X-Forwarded-Encrypted: i=1; AL+hErFUH7Vzs2XhtZe+g1EOmCVxBfC6/UnDs8BfALnDvWGMYWxEiCzq00Uj45lTJdB6gXIYKVS9jRgmYqUoD14=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9eVTUTkDK5jOl6PB0rIFd37cFtwNJl8SFL4ZGMxb2tFWr1Jugu
+	+/hS/baY2NNSVtQtOTYH3ds0ylE4ucGzoGXbwwCM9Munlfn5F82n3+CKs9xjqsDwSPtoiMerV7h
+	0F/ZBCP/YAVK8bY9oNZg0rA==
+X-Received: from wmox16.prod.google.com ([2002:a05:600c:1790:b0:4a2:11fa:1981])
+ (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:6097:b0:4bb:6626:5a25 with SMTP id 5b1f17b1804b1-4bb66265d0bmr200655825e9.20.1794928536708;
+ Tue, 17 Nov 2026 07:15:36 -0800 (PST)
+Date: Tue, 17 Nov 2026 15:15:20 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,93 +75,48 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="/t8F7wjVNMCsMgCV"
-Content-Disposition: inline
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
+Message-ID: <20261117151520.3972146-1-vdonnefort@google.com>
+Subject: [PATCH] ring-buffer: Add missing cnt increment for remote ring buffers
+From: Vincent Donnefort <vdonnefort@google.com>
+To: rostedt@goodmis.org, mhiramat@kernel.org, 
+	linux-trace-kernel@vger.kernel.org
+Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com, 
+	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>, 
+	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+The ring_buffer_per_cpu::cnt member tracks modifications to the ring
+buffer links. It was introduced for rb_check_pages() to avoid locking
+the ring buffer for the entire duration of the check. The reader page
+swap function for remote ring buffers does not update it. If a
+concurrent rb_check_pages() recorded a page as head before dropping the
+reader lock, it misses the list update and loops indefinitely. Add the
+missing increment.
 
---/t8F7wjVNMCsMgCV
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Fixes: fbd1743ecba1 ("ring-buffer: Add non-consuming read for ring-buffer remotes")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+---
+ kernel/trace/ring_buffer.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Hi all,
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index 1fd28a72e6ee..d386da1414ed 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -5878,6 +5878,7 @@ __rb_get_reader_page_from_remote(struct ring_buffer_per_cpu *cpu_buffer)
+ 	cpu_buffer->pages = &new_head->list;
+ 	cpu_buffer->read_stamp = new_reader->page->time_stamp;
+ 	cpu_buffer->lost_events = cpu_buffer->meta_page->reader.lost_events;
++	cpu_buffer->cnt++;
+ 
+ 	return rb_page_size(cpu_buffer->reader_page) ? cpu_buffer->reader_page : NULL;
+ }
 
-Today's linux-next merge of the drm-misc-fixes tree got a conflict in:
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.56.1.703.gf848ed807c-goog
 
-  drivers/gpu/drm/drm_syncobj.c
-
-between commit:
-
-  0af298e62e5cf ("treewide: refresh kmalloc_obj() conversions")
-
-=66rom the origin tree and commit:
-
-  6ca87397aeebc ("drm/syncobj: Limit the number of handles and use kvmalloc=
- for user-sized arrays")
-
-=66rom the drm-misc-fixes tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --cc drivers/gpu/drm/drm_syncobj.c
-index 137397972a98a,c8a8c49d12fb2..0000000000000
---- a/drivers/gpu/drm/drm_syncobj.c
-+++ b/drivers/gpu/drm/drm_syncobj.c
-@@@ -1051,7 -1062,7 +1062,7 @@@ static signed long drm_syncobj_array_wa
-  		lockdep_assert_none_held_once();
-  	}
- =20
-- 	points =3D kmalloc_objs(*points, count);
- -	points =3D kvmalloc_array(count, sizeof(*points), GFP_KERNEL);
-++	points =3D kvmalloc_objs(*points, count);
-  	if (points =3D=3D NULL)
-  		return -ENOMEM;
- =20
-@@@ -1238,7 -1249,10 +1249,10 @@@ static int drm_syncobj_array_find(struc
-  	struct drm_syncobj **syncobjs;
-  	int ret;
- =20
-- 	handles =3D kmalloc_objs(*handles, count_handles);
-+ 	if (count_handles > DRM_SYNCOBJ_MAX_HANDLES)
-+ 		return -EINVAL;
-+=20
- -	handles =3D kvmalloc_array(count_handles, sizeof(*handles), GFP_KERNEL);
-++	handles =3D kvmalloc_objs(*handles, count_handles);
-  	if (handles =3D=3D NULL)
-  		return -ENOMEM;
- =20
-@@@ -1572,7 -1586,8 +1586,7 @@@ drm_syncobj_timeline_signal_ioctl(struc
-  	if (ret < 0)
-  		return ret;
- =20
-- 	points =3D kmalloc_objs(*points, args->count_handles);
- -	points =3D kvmalloc_array(args->count_handles, sizeof(*points),
- -				GFP_KERNEL);
-++	points =3D kvmalloc_objs(*points, args->count_handles);
-  	if (!points) {
-  		ret =3D -ENOMEM;
-  		goto out;
-
---/t8F7wjVNMCsMgCV
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr8b20ACgkQJNaLcl1U
-h9BEMQf/UETYc/GVfeKWjN70UYgneG1M5PaaR5xgxRmr1Igtg1qSNC5wTqsDsWNq
-KaxZ97lg1C8Ji9qUrNHyAphP2gu6jekd82ULMaPQ/WvIbRFs/v6P6yJN3ztdN/SV
-VnL6Q+oAdntNFALJEJvcYPtpcQenF5NkTH/j7BjEzfYT6L5a3DTrCtVgTzRw55li
-BnLhGlVAeWrzGkrHKl7J5A7ImWKEzzTO4ljzcFCOQb5WK5XJgOXva7ed8c94cgvT
-+fvch0krinQf5BNljg5yUnsSMxCnJP1cXCbFSBiZkjIxHJs583ubmO1BZ7y1ymur
-Kxc+1LqzXjn5w+cSYRTawVs+GlyG9A==
-=LSLI
------END PGP SIGNATURE-----
-
---/t8F7wjVNMCsMgCV--
