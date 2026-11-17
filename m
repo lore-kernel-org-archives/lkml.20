@@ -1,50 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=12.32.117.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794924647;
-	b=VnsJ7mhApFmUlRiH81hXtWTmk7N199DpFcgUqHUqILC2wX3RcZ14FaS8XR0g7s7gEdae
-	 f6awnb6qlTKag0PbdZn2A8e4i+sN/Y50myfz47lLm/2IS7CC1TutYx1m7GnlctJxWPK5H
-	 P/BO+aRvgw/WLA4J59d+pHexHaXnrk5j2Xt5k0BjF7MIHinEGNHQNiPMjOTYP7FlDfdNC
-	 76mYWosWOFWegDjNkowQP9bWfF/aC4LTbTryuZlWekDsilfA+FfGeGcmOdFu1aPtQh09+
-	 1n4sr9vhYTmKQEdVlbC2r+rhwbpCWld5ZJXOiE0e5EnjnvarjXDoBz2Fb2ZAfgSdyvg==
+	t=1794924649;
+	b=lOhjjwgU0n1hwHwv0P0NppIZZrFIDriSs43WPy8VqkmQ/IfTuG/J6QsEmYhJ/Oh63HSa
+	 PxI4FIExcJyEaNxRkfnNR9LK+OvswtPlLnPOjtocTBE/Ws9tbWmaN8pEUEURHw1QxnCmZ
+	 JrSDHOGrduszJczEvmFYA7XRvMLfacGOwQDpAvpEQWnXZ2cd6lhDgBlNDMrMOR1ipqTiR
+	 JlDbrzyAqfJpud2fyJpe9zxxRxElEZZkDbT4p3vCVJoa9DnXsgEZ/sFXefem8SUekIBpH
+	 ngmgOFlCraLqchHjA3vr+WxihV52BLFK8fqVsSL28dXE6vBtDc+LbYNoPACBZr0atJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794924647;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=sbCeEi/zdy+UVGUuW0RVFLXiGPzDGrZ8Z79PUhXSy3Y=;
-	b=h3DWKpa/IyJqDImaGI+uMpd6KZGXSasadxBJ4aosYdRBFfMwTL8rRY1rp+50oXGpjj/K
-	 mMwipZcp9V+jNv2VbHNUaioQ68DsZG/vHylHcYW02Wa+F2A70ZSVwrpDugd/SfkmtxegN
-	 HOb3vtLkakOofblOJcQYECcXAoqRIGbyiWscgf9MXI3czrn1jmh8Bz6fiY7Ym2ejeHXjz
-	 l+xV8nYEfvQlVdMWffhSfe64YZo4DoKT0q+n/2ZItWjRQ/iPUuiCU7jBgSmB/iIJlkwyh
-	 3QeBw23nZiiZe/g/xuGNh9uKxnw3fWRnHqWIKmiewZoS5qyCYC64p8S6fm+yH2n2FUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794924649;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=bhkBJVV/V+DBHT1yIijq1czdpbPTri8L52Bz1PJ+2gE=;
+	b=HQE+2SR9iiJs4F1mcTUiEVKe2I3+PXRwpp3TkJVNUAw3HvjwQRVTRC78gmRtalJwPP7v
+	 YkACi4mG1H4PgvwPElbR/2xCaoHfBv2XElagDji+YLt4sSVXnqdSW5GrqTLoJX1kCwmvY
+	 L+tmAxAy9VFqeTApVTE0WyAx20fJncEtihj3yrrwFS6wWxXTcT65LLP9g2P8eyi99/Tj7
+	 3nj81goquR+pzW2e9nrc0yXVZAljK4c0B5Tmc1GnDQSnOWCGQZ11Y4Z1ZyzNkEnQtPQO4
+	 oIB8+ulgV1nNNDDHrd6uNl5b2PARXFoNKV8XlLuRh5H9pmwIFSob1Xmd94exCmBOLcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chelsio.com;
-	spf=pass smtp.mailfrom=chelsio.com;
-	arc=none smtp.remote-ip=12.32.117.8
-Received: from stargate.chelsio.com (unknown [12.32.117.8])
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="O0l/fWBX";
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 249C9606A31C;
-	Tue, 17 Nov 2026 14:10:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 249C9606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chelsio.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chelsio.com
-Received: from localhost ([10.193.191.19])
-	by stargate.chelsio.com (8.14.7/8.14.7) with ESMTP id 6AHEAcQg013376;
-	Tue, 17 Nov 2026 06:10:39 -0800
-Date: Tue, 17 Nov 2026 19:40:17 +0530
-From: Potnuri Bharat Teja <bharat@chelsio.com>
-To: Artemii Mashanov <ralerrdirsardx@gmail.com>
-Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-        "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
-        "davem@davemloft.net" <davem@davemloft.net>,
-        "edumazet@kernel.org" <edumazet@kernel.org>,
-        "kuba@kernel.org" <kuba@kernel.org>,
-        "pabeni@redhat.com" <pabeni@redhat.com>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net] cxgb4: allocate the full ethtool filter location
- array
-Message-ID: <avxgSZdRIe07WZfT@chelsio.com>
-References: <20261117090608.33178-1-ralerrdirsardx@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C242606A335;
+	Tue, 17 Nov 2026 14:10:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C242606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O0l/fWBX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794924649; x=1826460649;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=FXGK11SIYFfOo1yONwc92MaXuLcG7KkvTsiZAw9rAQQ=;
+  b=O0l/fWBXuBjgoEHPNfbYir91ckaNlmLOoVhXDVaMZvYa9HuQH4oimMWp
+   iRG90Qs8Ty02CF03+OaCGCG3OmINnjm+eRwZJ8+0yjWb++1ocxC+HpSfq
+   FZViCxXw35+Q3HWkzFylZMqRuVLMzWaU4eCDAc8Ayno8EmBUj+aTMF8mC
+   LXLAQVxhM45KW4OZmfffTHYYOxDqXXnv2xYksikOP7LAf44WmNkZKyngV
+   xpL4owEoeGDezcTsn2g+efuZ59UDVT0ViOT7UehsX+E9ly13zSpYOsDCP
+   umk4l8nfs98KclGfZdJkpOYATPwfB421vA8j/qdmnzCwqikisVG/mtWtp
+   g==;
+X-CSE-ConnectionGUID: sLyK120PRoiLubX46F5vig==
+X-CSE-MsgGUID: ZTgIDolAQc+3IQmHh4JnVw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3712546"
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="3712546"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 06:10:48 -0800
+X-CSE-ConnectionGUID: /LACLHe9RpuYhWLHYPCOUw==
+X-CSE-MsgGUID: wIWOBnrhTV2W6va3YGSndA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="9986272"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.254])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 06:10:44 -0800
+Date: Tue, 17 Nov 2026 16:10:42 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Arnav Kapoor <kapoorarnav43@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Gwendal Grignou <gwendal@chromium.org>,
+	Daniel Campello <campello@chromium.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] MAINTAINERS: add a reviewer entry for the Semtech
+ SX9xxx proximity drivers
+Message-ID: <avxgYjixZ2eB5bt_@ashevche-desk.local>
+References: <20261117110939.214932-1-kapoorarnav43@gmail.com>
+ <20261117110939.214932-3-kapoorarnav43@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,48 +89,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261117090608.33178-1-ralerrdirsardx@gmail.com>
+In-Reply-To: <20261117110939.214932-3-kapoorarnav43@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tuesday, November 11/17/26, 2026 at 14:36:08 +0530, Artemii Mashanov wrote:
-> The ethtool filter location array stores nentries u32 values, but
-> cxgb4_init_ethtool_filters() passes nentries to kvzalloc() as a byte
-> count. The insertion and lookup paths allow indices below nentries,
-> which can address memory beyond the requested allocation.
+On Tue, Nov 17, 2026 at 04:39:35PM +0530, Arnav Kapoor wrote:
+> The Semtech SX9310, SX9324, SX9360 and SX9500 proximity sensor drivers
+> and the shared sx_common code have no MAINTAINERS entry, so
+> get_maintainer.pl only lists the IIO maintainers and reviewers for them.
 > 
-> Allocate nentries elements with kvcalloc() and the element size.
-> The array remains compatible with the existing kvfree() calls.
+> Add an entry with me as reviewer. There is no M: line, so maintenance
+> falls back to the IIO subsystem entry, as Jonathan suggested [1].
 > 
-> The size mismatch was found by reviewing the allocation, the array
-> declaration and the indexed accesses in the filter handlers.
-> 
-> Fixes: d915c299f1da ("cxgb4: add skeleton for ethtool n-tuple filters")
-> Signed-off-by: Artemii Mashanov <ralerrdirsardx@gmail.com>
-> ---
-> Compile-tested cxgb4_ethtool.o with GCC 14.2 on x86-64 net/main
-> aa40afa831eb using W=1 and KCFLAGS=-Wno-error=format-truncation.
-> Both baseline and patched builds reported the same get_drvinfo()
-> format-truncation warning. Hardware validation is pending.
-> 
->  drivers/net/ethernet/chelsio/cxgb4/cxgb4_ethtool.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/ethernet/chelsio/cxgb4/cxgb4_ethtool.c b/drivers/net/ethernet/chelsio/cxgb4/cxgb4_ethtool.c
-> index 0092bc16f887..c72c0bcd45c8 100644
-> --- a/drivers/net/ethernet/chelsio/cxgb4/cxgb4_ethtool.c
-> +++ b/drivers/net/ethernet/chelsio/cxgb4/cxgb4_ethtool.c
-> @@ -2269,7 +2269,9 @@ int cxgb4_init_ethtool_filters(struct adapter *adap)
->  	eth_filter->nentries = nentries;
->  
->  	for (i = 0; i < adap->params.nports; i++) {
-> -		eth_filter->port[i].loc_array = kvzalloc(nentries, GFP_KERNEL);
-> +		eth_filter->port[i].loc_array =
-> +			kvcalloc(nentries, sizeof(*eth_filter->port[i].loc_array),
-> +				 GFP_KERNEL);
+> Link: https://lore.kernel.org/all/20261117031830.69ac22f5@jic23-hlaptop/ [1]
 
-Thanks, Tested on T6, ethtool -N filters at high locations now insert and delete cleanly with KASAN enabled.
+So, the Link here and part ', as Jonathan suggested' are custom replacement of
+the Suggested-by: tag, right?
 
-Reviewed-by: Potnuri Bharat Teja <bharat@chelsio.com>
-Tested-by: Potnuri Bharat Teja <bharat@chelsio.com>
->  		if (!eth_filter->port[i].loc_array) {
->  			ret = -ENOMEM;
->  			goto free_eth_finfo;
+...
+
+> +L:	linux-iio@vger.kernel.org
+
+Isn't this a default for the whole IIO?
+
+...
+
+> +F:	Documentation/devicetree/bindings/iio/proximity/semtech,sx9310.yaml
+> +F:	Documentation/devicetree/bindings/iio/proximity/semtech,sx9324.yaml
+> +F:	Documentation/devicetree/bindings/iio/proximity/semtech,sx9360.yaml
+> +F:	Documentation/devicetree/bindings/iio/proximity/semtech,sx9500.yaml
+
+I'm still in doubt you need them here, but it's not a big deal either.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
