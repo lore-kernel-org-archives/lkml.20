@@ -1,47 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794917846;
-	b=Fjpp11Us/Hx+u6WFq6Ez+kd6ewcF65fclEl/58S55xVkeyi3feFFpAOcA0ofpg1ertyJ
-	 pz3tiGNPtG6SZ2FRzXFdl/oHwouci49MaDB80v4QD7qAwN3ih6ZF3xW2S1OZEteamUmxO
-	 GsNxjvtAzMX529klCwa+fqAiG5ilSAH/YU97ontIhpH2KAmCMpzEUvkcw2QQemJlKdFQd
-	 NM6QovuCGoGXcKTICQ5Tu8gmZc4nS0S0r5QyCPf10Rv7sjJf964er20lyHHm5NTAYFG5s
-	 sN+3vRagK6/hD11YnnWPdsiZFVx27mD6UiLwcOBJLkrIxrI7dcWdCSTQys/te0489sA==
+	t=1794917848;
+	b=Quvx8dfj+rwuDo1ehhy9Ug11QRfxj8Vk2yZUZceAKch2xCZOMIrU7epprdTDRQUhIDdK
+	 U273Fv9LLX1KlPxQiV8KOq5Z097TBr0kPUK7DoyB5kYnf4fxucu9004NCIttUfh0keP9/
+	 C/hZss5mMVnvcxyirZcyIGePrBT4oUNPVNHvJTS8moC9D/m+Hwm3lXUroeCEYwuX49Kk4
+	 bUblWkXA/YxBN7HT/24JPtXw3F2bpEIMPlX5Zr4Ir42AGdIJCOjltnoIkD6N7qIvf9oss
+	 CdtW5Pviq2e23jkDND1SFDKksoxaNOvpas5YrSg36uBVfPyMLPdwnnIxaMz+pXUTJ0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794917846;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=FUvVAIYQ/KJjpiS9WJl1elr+LTBGSeYEuw9rsBBwZ7E=;
-	b=JodgNPFcIbKnGDe60r52G+GZiWKumj7I/XZhatUQ2pcBtOusszfKDEJ+sGxuqHS05f34
-	 zX+kvlLS4x+EJkWq9XCb4nrzJ+wc+6FY0zLqY74CIG1iZXKjlXcjHi2uqBaXtU+6DZC7M
-	 CkHEhqcUiChdYml6lTeAXy8ac0JbKr8HSUnV/GfXT5l46MxuNHW6PsO3ToHgBn9FghrTY
-	 dAq5yPQSKlD2TJHZhR8ndaqpSo9Qi7BTTzWBvkag2b29pHUdQfA88mn0YYuCVVeHS/PiI
-	 vrnMHxrf5dyMewpr5zqHH0qWJQMfDHkrgO+fBiOuryFjcB/f79tkKlK4dpkephaKKsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794917848;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=jNT+l6BO0P+Rjx7Z6tCld6ldi+lTIwnNQobYF9qXSic=;
+	b=4abL+8MmsyLDzqRa85C6Z5O3foXVsx5L0a9/cHJfbAhWE8C+w2c+Z9N1tGZvLpj39jy7
+	 NINOp4iNTCFgGWvQm0snzIXAzk6njJaNl530Dx0UvrWk2zAbglgePwYAqyz+cQ2GqDGkL
+	 a+/X9GMPb39JKSZE+I9pNbxENtjwPr0nfDze5CxjxE3uyzD2Sp72iVCD9G7nmIveZ9B3L
+	 XSFJp7yvVe1Q6KiiheF1BZ1yTytVca+qNPjv+jrEg2nK2UL4pLepMCQYtxCWiVTwkGoiv
+	 54oIU8G8yiehLIosHIv/jY/M8K2YahW+tFsuiIz6K6rP4YKNqzcEYxAbOSVKbcIwMHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zis+QZZw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hfa3r9c5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE959606A31C;
-	Tue, 17 Nov 2026 12:17:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D27C2606A33F;
+	Tue, 17 Nov 2026 12:17:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zis+QZZw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B54A71F000C7;
-	Tue, 17 Nov 2026 12:17:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hfa3r9c5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D99431F000CA;
+	Tue, 17 Nov 2026 12:17:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794917846;
-	bh=FUvVAIYQ/KJjpiS9WJl1elr+LTBGSeYEuw9rsBBwZ7E=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Zis+QZZwj8GI0jzlMdjMmRhaOGgNp5Hr/MYwDJ4aF3koaJaW2gXLjuAdYcqUjvydc
-	 xm/L/rrlqX7J2HVhGbrdWPVtPRbLu3hzZyyAScG3k9/Y5BmgeZOpHNb2J1uInMkCdo
-	 762j73l/BArmRnPfSRvTsEjwyAiUe1Nyw+XpIbtilzlp7+AHrjeOcf9ZT2zGIv0OBD
-	 cbkXkLXgdXNz1G6CcHLGThCagkZJ/JMtl2gTRE5vqWTnRpgOQLISFKo5li8Q1hdCCT
-	 ZAeDDOFaMtTO8dtQzc51X4vQ6qCp+EIrm/iVw/AzdswKZsPxRrj8S5ZoWsRBTQ6BEY
-	 4U36Xuj66MamA==
-Message-ID: <f21c77ee-44da-4a1a-a289-d4ea9cbe158f@kernel.org>
-Date: Tue, 17 Nov 2026 13:17:21 +0100
+	s=k20260515; t=1794917848;
+	bh=jNT+l6BO0P+Rjx7Z6tCld6ldi+lTIwnNQobYF9qXSic=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hfa3r9c5j2esRkqiN9wTo1ASYUJcd4lQRrLzXuUgcpQ29+BpAFDi609CQXVmux5H5
+	 lRHvc97eMFBhPkUoZZAEX7o7iR6lSyJgytpQqfTRkkR4WTx4H4L12VuVXVY0A+Vk/z
+	 kg2lk8Z7OqOguGKRg2QtOxkAWn05TW8NDb78Yz0eB1p92bXkh11kUj6lO00J4IElsK
+	 pJMMxu1tgbjtMdNIHxLUS6Z2jx1Pk/7TV95dBsRDfZgDl1v4BDv8ovNx9jk1UJuRW3
+	 +zC399Cr6wD/HHgGv6D84FczMP7AOtiFWtsBqm9vwwsrmc7lDy+zl0UnkE65S0Wpjo
+	 UD68dsWKtMUcg==
+Date: Tue, 17 Nov 2026 13:17:25 +0100
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 5/6] arm64: tegra: Add node for the GB10B GPU on Tegra264
+Message-ID: <avxBUt6Yo3oKbEZI@orome>
+References: <20261029-b4-t264-igpu-pci-v1-0-4d843dda0b02@nvidia.com>
+ <20261029-b4-t264-igpu-pci-v1-5-4d843dda0b02@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,80 +61,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] arm64: dts: qcom: talos: Add graph port
- placeholders for USB Type-C muxing
-To: Akash Kumar <akash.kumar@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Rob Herring <robh@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20261116114411.1700153-1-akash.kumar@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261116114411.1700153-1-akash.kumar@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="stybnbzoyez3jyff"
+Content-Disposition: inline
+In-Reply-To: <20261029-b4-t264-igpu-pci-v1-5-4d843dda0b02@nvidia.com>
 
-On 16/11/2026 12:43, Akash Kumar wrote:
-> Add empty port/endpoint nodes on the primary USB QMP PHY (usb_qmpphy)
-> and the usb_1/usb_2 dwc3 controllers, along with orientation-switch on
-> the PHY. These placeholders let board files wire up a USB-C PD
-> controller's HS/SS endpoints directly via
-> &label { remote-endpoint = <...>; }; instead of redeclaring the
-> port/ports structure on the shared nodes.
-> 
-> Signed-off-by: Akash Kumar <akakum@qti.qualcomm.com>
 
-Why isn't this part of proper patchset using it? Why Talos Lyra has 5
-independent patches, all built on top of each other or cross-depending
-while nothing is merged?
+--stybnbzoyez3jyff
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 5/6] arm64: tegra: Add node for the GB10B GPU on Tegra264
+MIME-Version: 1.0
 
-Best regards,
-Krzysztof
+On Thu, Oct 29, 2026 at 12:32:07PM +0900, Mikko Perttunen wrote:
+> While the integrated GB10B GPU on Tegra264 is on the PCI bus, it
+> requires a BPMP power domain to be enabled or it won't enumerate on the
+> bus. Therefore, describe it and the power domain in the device tree to
+> allow the power domain to be enabled prior to enumeration.
+>=20
+> Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
+> ---
+>  arch/arm64/boot/dts/nvidia/tegra264.dtsi | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>=20
+> diff --git a/arch/arm64/boot/dts/nvidia/tegra264.dtsi b/arch/arm64/boot/d=
+ts/nvidia/tegra264.dtsi
+> index 5ab34cd09a3d..4c8b320ecc40 100644
+> --- a/arch/arm64/boot/dts/nvidia/tegra264.dtsi
+> +++ b/arch/arm64/boot/dts/nvidia/tegra264.dtsi
+> @@ -3597,6 +3597,12 @@ pcie@0 {
+>  				#address-cells =3D <3>;
+>  				#size-cells =3D <2>;
+>  				ranges;
+> +
+> +				gpu@0 {
+> +					compatible =3D "pci10de,2b00";
+> +					reg =3D <0x00010000 0x0 0x0 0x0 0x0>;
+> +					power-domains =3D <&bpmp TEGRA264_POWER_DOMAIN_GPU>;
+> +				};
+
+My understanding is that the GPU is the only device on this PCI bus, so
+wouldn't it be simpler to add the power-domains property to the bus' DT
+node? I guess that's just another interpretation of how this hardware
+works, and I like how this power control for PCI devices allows
+individual devices to be turned on before the bus probes (there's a case
+like this on Jetson Nano where Ethernet needs a GPIO pin to be pulled up
+in order to start enumerating on the PCI bus, though I don't remember
+how we ended up solving that, sources don't have any indication of that
+GPIO being permanently set high or something).
+
+Thierry
+
+--stybnbzoyez3jyff
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmr8RdIACgkQ3SOs138+
+s6GMShAArcrx6nhaieugr5wJethsjuUbTSbYRpsOgOzwxZ5OYxgBA7fVwgTlx4AP
+Rcvd+tEvW90FBxl7Ngm1M3/TJpSyydRF31CWUMFGIzMXvsiFJHkFhCt5R+TtQKCN
+lg7WW7vkq5ElEdxc8w2qSLBV1idfcLSPYuznmRnn0lMsZbWXBDRcEXBS9zfFn//E
+NZmOX3J1GGj29deR18rC3C1QcLYQnj68tBKQTXrePARhuelB5Ir2N95Eg3ah+yjW
+LrGGSsdmTJ4OPeSI5RNdaM9r+1v6E7bUQUVnnTv+cAFJq+y3lllduzXXynaPH1kV
+sZi41EKUlmL116fQShE54WDyOCq9nNdoNP2C5bsx6dJzeOIHSsg0UytwAYAPDUhB
+e01jIJ6w8hAg9BFx8ChZuOrFRkn3J73a4gFXFe3Uci/+tzaGcjJ0F4E1rF0EOgkd
+6WBPFXrxDjzfFTAu9/AeBWi5dJXiSf8G6ieJgkXcwQ74QJC/5vPMMudYTcKhi+eW
+3UE2gRgSapL0QDlEp6EANfa8huV7s1+PII9xymHqFzdQhjbDW/6rFeVJH91BRlV0
+Ai68z3yOmDYKtEP5nqxTO1cfKMivXcM69q1vxmcYgSVlRqaf3vJBwMzUBZ264mUC
+iIA37350bQBA0Y0Og11yeT9aZ1oMwDpcgO1SMjGKLbOMUqNbBDg=
+=BBt3
+-----END PGP SIGNATURE-----
+
+--stybnbzoyez3jyff--
