@@ -1,61 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.202
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794932328;
-	b=vL3Lk85rFDJ6uiQBRi3vvT2jR78LBNUpI+n/gNXlqQJJ5zFu6vYvOaUz80vVAOyiLpSC
-	 x/VHptySsmY3CSKJNY9oBypjWrnTG86lDd87t/ojGPaBBPg2A0OhGH11OlSCTTMxBib6q
-	 3z172PxrNgknzvJuZUzSSeGvX93QHASApL2Xzmg/FCejH6sGBOkW3DDSLFguhThza2A+8
-	 qvFkvlNnKxBImUwSW6rUjb9ecnIQgBvXE0+d/Ohw4ifhVVqA0RR9PgDkYs9/B5tCHScP3
-	 uKfaMwgXqTzHWaI2aMvq4AIjnNKlzr2TB1NuYVEpECMHXw2Ajru2AXtiESaAqoVHafQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794932328;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=3A0NUBGw7hohi3d+XmCUqawXBiw6IIJ0lPqUY++p0+I=;
-	b=h++YemOqQGCXEcI3dXIP/PbIHko405OPC1sNeXv7z5BT99JL5lsp3FAeZqbA0lzOUOwT
-	 VYeb98kbngRx7Pm/GkAkRfVF94RtNpu+6bZgZFSh8/oVXkKmcmJHnAMkwuBPplOO2Cm2Z
-	 oqVAY94pS0b3mSMNy+OWUsc4gofmOYxeDTkB3arbDZKxsYGYgL343Dh500rWtvW/yTGKo
-	 fLK969+ihMGmyVD2CuGumW8UXm1c66htjY6S8dMIaohlSm1+crIU0F98v4tc2Wrvz/xyL
-	 sd3V0Cf6dVKFHo2ZevDImxlTfWSQj1qG2HVlpn0Hi9MIvH+gCzJ2LyHNnvmPf5yoCjQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OOI+2EWK;
-	arc=none smtp.remote-ip=95.215.58.202
-Received: from mta1.migadu.com (out-202.mta1.migadu.com [95.215.58.202])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.38
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794932349;
+	b=ENIlxYMHgLB+/qrXVRFYr4v1oZeZDfDpmcWEMVoJ2EmCkH8xYj6KeJnpiG9/x6ZLRlxT
+	 XNtmDqK9rA+CA8kxE52VXYt7JSvw9W/8M74bAeiZ+t5Awd9t/Zpg6psoId+bKGmVs+iyv
+	 VMb5jedFiX78wRZR0XbtAdlSXJfk1uKdVE+XeZfaHH4rHZVEBKSZtdCvISEoX79fQVYzY
+	 hvgRx0FwfppXD4p6ozlvCWObk20h54QvYkYX8eqrKDld8xTvhMWL6XzoKV39FSkaoXaos
+	 0Fvmidn5dCUeLJLMBL/atx/fmMu45jbkKQhOls0WfgcfVyEUxy3Ew8LuzW/VUIv9ZUQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794932349;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:Date:From:To:CC:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Vfefdmi5LHLQg3QcoRZyzJa/lentw8FxH+B9x/6gbK0=;
+	b=vyhawElJGNa5jGWZAe2rwah+e+32vCloWacStdSOPBqB8X/DH/w2N/xHAmZIDiDNR1eT
+	 pW2sQmUsPgp1E9bHNudxpHdCuNz26nst4YHkjd8GVJQsSIVj1yMLyur3mPYKdePPy64lQ
+	 H5p0D3jsISsZkd+8Zxj6WjY278AVrWQEBYh5UBegmUCGnM8vIiQOuxmJ3NSjYmQzoiCe0
+	 waUbT1Q22/YD8leRGpBI/GXJSkUaoxbC8Jk3Tp24WNohq4bJ7uUAySSEwtyic0IptfULo
+	 tgz4TtooP+j0004smaR0mOhiCRhzZaRylpdUsZfjeiReCZUuzHhw4GsCUL8Kn1dD/CA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="VTM/hrwe";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.38
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012038.outbound.protection.outlook.com [40.93.195.38])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29687606A32F
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:18:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29687606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03C48606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:19:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03C48606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OOI+2EWK
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=gCLLdRe+FkKRAkuLVQBRU3B7vt5eEHfwO4DkA22HIfs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794932326; v=1; x=1795537126;
- b=OOI+2EWKim8AbWMZboQLxvF90sW4R9i9QQWG+wG61svuA+0uqRpinMtRoVQpHd0YOJCwjVC9
- O+VyK4GkvlU+0E7cXdXFC1wH7wKGIrdd/6PS/JDY3x1zcTqV1ttGkF16KYhNhGMXhgdlmEo6rFv
- Q8617wogRM7JqI4QgsSbnIio=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e2c3b1bd99078875;
-	Tue, 17 Nov 2026 16:18:46 +0000
-X-Mizu-Trace-ID: e2c3b1bd99078875
-X-Migadu-Flow: FLOW_OUT
-From: Peng Fan <peng.fan@linux.dev>
-To: broonie@kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	peng.fan@nxp.com,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH] regmap: fix reinit cache failure handling
-Date: Wed, 18 Nov 2026 00:18:15 +0800
-Message-ID: <20261117161815.1576684-1-peng.fan@linux.dev>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=VTM/hrwe
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qDrVsK6jNbOwOYiiajivTIYvel7VxHPM3VxeepdwpPexzIXUxeSMZWJ7stBVGNBTbB6gCIXCG4Lcd0mam4TrZGsr2EllmwMH3blfpctRmvVmBEsneobHSwPZWXD8qYT8bDOmNh6TgnReVBGA4zb7G7t8fQE/AsYynfJUVvt8/L6p2cB/8dpao44OEgiT1/3fV1tW/1geGHLdf0d1GicWDgbJFcCm/N3BQFW+5FGLN2TGyMAQTYZT/tSsHPhrCQ32QHxRgaOMlMAF9TNn21jMhsqaPIdAsZ354a30m624/1r6qDGRifTf9W1WNikrymgPDN92SEabgjsH15UO/QcJSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Vfefdmi5LHLQg3QcoRZyzJa/lentw8FxH+B9x/6gbK0=;
+ b=Av3gfNBPRdNNKv4teicMiPll3PHVBiyho5/mVxUugj03Ae2FwM9acBXIvpoN+k7zR7vrWRIxcIh6wKPp9gv8AeuL82CBpMgj6oJ32E0PEcjvniIHc3dYyAc3UniEOqU7rOpuX0rPUm0BH4Onpvp0BDitZcYt3U1J9izmAGrJkIZ6MMKVomzYPYezsbsHuCMlfGhYMTd5OW9WZN2h6LvDgC0+rL0V4QQmFFRf0Q2lIh33bzcVwaJ2bmLtGbuPD++nxRsV9rl7BV1DXKJtSj7WZNpue850+f29w/zmFPjswsCv5D7DgpYFR03m1UlZIUrkdGMR4W5Jck9M9Eq0yAHBBQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.232) smtp.rcpttodomain=arm.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Vfefdmi5LHLQg3QcoRZyzJa/lentw8FxH+B9x/6gbK0=;
+ b=VTM/hrweUpaB1M2HB7MGz7fPsC0ydz3CnF5J//Nq63YaBnxHUOxDQcTiPa6UkQXMqV5j+mH4gzcA4u0p7+6Tah5LFUREYgmoirLjb40jxzwoGT2dnj8ak50YUN2ib3Oa/raKOtanXcVixMPqTNJFDbZZAbf0ZFgcPCBj9/e5XFgq/cTx8+6W5A35XV7Pr9lhtPvPOVdEGQrqKiaFmupDSdQk4nsXl1iXnheL/U8Nx42JT52boUP0cxty4e9u4Kr9pYRTJm62bCUuwK5Z+I9Qkc5llvrrcQxedKNMG9CNZLavpFD3XgBTFSqmxYxIvT3b7TL4jGL+ije7j+qGEGXgSg==
+Received: from CY8PR12CA0003.namprd12.prod.outlook.com (2603:10b6:930:4e::8)
+ by CY1PR12MB9604.namprd12.prod.outlook.com (2603:10b6:930:108::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Tue, 17 Nov
+ 2026 16:18:55 +0000
+Received: from DM3PEPF000265C5.namprd03.prod.outlook.com
+ (2603:10b6:930:4e:cafe::2a) by CY8PR12CA0003.outlook.office365.com
+ (2603:10b6:930:4e::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Tue,
+ 17 Nov 2026 16:18:55 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.118.232) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.232) by
+ DM3PEPF000265C5.mail.protection.outlook.com (10.167.23.186) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 16:18:55 +0000
+Received: from drhqmail202.nvidia.com (10.126.190.181) by mail.nvidia.com
+ (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 17 Nov
+ 2026 08:18:25 -0800
+Received: from drhqmail202.nvidia.com (10.126.190.181) by
+ drhqmail202.nvidia.com (10.126.190.181) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.57; Tue, 17 Nov 2026 08:18:25 -0800
+Received: from nvidia.com (10.127.8.14) by mail.nvidia.com (10.126.190.181)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57 via Frontend
+ Transport; Tue, 17 Nov 2026 08:18:24 -0800
+Date: Tue, 17 Nov 2026 08:18:21 -0800
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: John Garry <john.garry@arm.com>
+CC: <will@kernel.org>, <jgg@nvidia.com>, <robin.murphy@arm.com>,
+	<joro@8bytes.org>, <praan@google.com>, <kevin.tian@intel.com>,
+	<smostafa@google.com>, <linux-arm-kernel@lists.infradead.org>,
+	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>, <jamien@nvidia.com>,
+	<kas@kernel.org>, Cristian Prundeanu <cpru@amazon.com>, Breno Leitao
+	<leitao@kernel.org>, <xueshuai@linux.alibaba.com>
+Subject: Re: [PATCH v12 04/12] iommu/arm-smmu-v3: Pack the MSI vectors of the
+ used sources
+Message-ID: <avx+TaUG+bcPz3/o@nvidia.com>
+References: <cover.1793593923.git.nicolinc@nvidia.com>
+ <0d28afd67694fc6882e0ff5f054027488b1cf816.1793593923.git.nicolinc@nvidia.com>
+ <db4f83f3-d35b-49b7-8570-04e158125b53@arm.com>
+ <avtSD34Rj5+XAz3t@nvidia.com>
+ <cef6ee03-7b2a-41a2-b7bf-b321ad6a03b9@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,131 +122,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <cef6ee03-7b2a-41a2-b7bf-b321ad6a03b9@arm.com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PEPF000265C5:EE_|CY1PR12MB9604:EE_
+X-MS-Office365-Filtering-Correlation-Id: cabed2b1-e738-4646-5c86-08df44c67a49
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|7416014|376014|1800799024|22082099003|18002099003|11063799006|4143699003|56012099006|261026121527099003|261021121427099003|10067099003|261009223027099003|261102123227099003|261021135927099003;
+X-Microsoft-Antispam-Message-Info:
+	+rXxMTHsQJ7BXpkIfxotWR3dKe8knM3VqsOLjHmjDWmuwUE8iptU6u58d+cw8eRocs4VHfTjVRj0MJq4qAE7zYXmPNsUV3bJW/OiEcQYnaSdwFiT+lrq3grjyVoJJ+5O2qknzT/hxHwHkPwSg3LOT2VSwHInzNJHwS9RhefFUv6BJuvZRMjvovyeV4hn+plnFlWWlNUvnEtLzR3fuF0vv+kLja7v+32BsiWByqhUiMfymNbHb0vq4WOby1afpxx30NsX0ym9vVT2hZOf2pRJLwHKo1mf+nFri62STWTdf7iXVcqBDtmnWuTrgsVhbe0pa0d89ogi/qEHaWOhHVHEfIq8e0IDY1ojKlLIWogcWf7hi/OcfZUAYAyGFSvdXEkk7Q/AWOFFUxty7N+n0mkHv39RV7j6ZLKxE3AWkHQrKfxrJUQQuvSsSgf70gzI5y3LhavQTpAkKEaXiOfREgsINE7wJ87mZ0x1gIIDfKZzYIq4+WgQEPSHEwE+NRkAQlivhYPgcz5HIjPxQ3GQugaL9nNCojcwCdAFcam/fJEAm0hGwJslECgX4zfSTPN2KlBDQuULSRSv3FHynAaMtXNk9V3Oy+asLqnPAoalYsVuESabu8jL9MvfNh8JtzGElbZpWdZmMiAtQ2DtYWsfGmnCmewgWL6JIC8lxxMpPBWpyf8pWpx3mxlyvEcTW94M/jWKx0iJHVRQmudZXFI6O7oAuQ==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(7416014)(376014)(1800799024)(22082099003)(18002099003)(11063799006)(4143699003)(56012099006)(261026121527099003)(261021121427099003)(10067099003)(261009223027099003)(261102123227099003)(261021135927099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	FS2/0gvFdOapSrg8XxzLUxieW+D0yansqSSKJsq97f1anq1VG7g47mCvmSXUKPpSlAXbZS8s5AOpjTCTif9gTJB1o++0mMKdMNjNyuAGwYmh6YIfI+ba+a46I66GlY1O/xu+aEL7EPWP/EB7LH+HwDLHNdvAoqKxnCh5OuOZSQ2IEto9BFlieO+3h/w6tAfvO4XBroJRM8kPgMYtfIqbWvXuwl95oNyXLNo09PF96LUUj8bDyyqNatkZD2K7vbcq5Sdy0vE3DjaZisCpOBe2HTir8+5B3b5nLiwG1Th+pIC4bGOeh0wftRhZSGHs1H25+fmT973wNVqHGGucV5Y7uOev/Zk3yvCpjV8lQ+9yDZiQKBLzcuN+uRWTi3pbU+VenRcY7GOqQCoqwilQubblKZeilcUImfWGq6ErgPm8iYvVmDF+RrOLN21m5FnmAYHW
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 16:18:55.4533
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cabed2b1-e738-4646-5c86-08df44c67a49
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DM3PEPF000265C5.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9604
 
-From: Peng Fan <peng.fan@nxp.com>
+On Tue, Nov 17, 2026 at 02:30:20PM +0000, John Garry wrote:
+> On 11/16/26 18:57, Nicolin Chen wrote:
+> > > > @@ -993,6 +1000,8 @@ struct arm_smmu_device {
+> > > >    	int				gerr_irq;
+> > > >    	int				combined_irq;
+> > > > +	/* MSI vector index to enum arm_smmu_msi_index */
+> > > > +	u8				msi_map[ARM_SMMU_MAX_MSIS];
+> > > should this be an array of enum arm_smmu_msi_index, as in
+> > > arm_smmu_setup_msi_vector() we write a enum arm_smmu_msi_index? I am
+> > > assuming that is why enum arm_smmu_msi_index was relocated.
+> > u8 is optimal in cost of memory; ARM_SMMU_MAX_MSIS is needed here.
+> 
+> Since ARM_SMMU_MAX_MSIS would be 3, I don't think that the memory saving
+> would be so large. And since the next member in arm_smmu_device - oas - is
+> unsigned long, I'm guessing that a gap is formed anyway.
 
-regmap_reinit_cache() tears down the existing cache and then updates the
-map configuration. regcache_exit() frees reg_defaults_raw when cache_free
-is set but does not clear cache_free or the pointer, and neither
-regmap_set_name() nor regcache_init() resets map->cache_type on failure.
+The comment above the u8 is already quite clear. Not sure about
+the point of pushing here. Fine. I'll change it in v13.
 
-If the reinitialisation then fails, a later regmap_exit() calls
-regcache_exit() again. It frees reg_defaults_raw a second time and runs
-cache_ops->exit() on the already torn-down cache. A stale cache_ops can
-also make regmap_volatile() treat registers as cacheable on a map that
-has no cache.
-
-Clear cache_free and reg_defaults_raw in regcache_hw_exit(), and mark the
-map as having no cache when regmap_reinit_cache() fails after tearing down
-the old one. Assign the new cache type only after regmap_set_name() has
-succeeded so the failure paths cannot leave a type without cache ops.
-
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-5693609c-7965-4f36-ae8f-30c610e10a33
-Fixes: bf315173359b ("regmap: Allow drivers to reinitialise the register cache at runtime")
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
----
-
-V1:
- Separate from https://lore.kernel.org/all/20261113-regmap-improve-v2-1-5dfd6a89078f@nxp.com/
-
- drivers/base/regmap/regcache.c | 10 ++++++++--
- drivers/base/regmap/regmap.c   | 14 +++++++++++---
- 2 files changed, 19 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/base/regmap/regcache.c b/drivers/base/regmap/regcache.c
-index 1447967ff00b..5b36ac48e394 100644
---- a/drivers/base/regmap/regcache.c
-+++ b/drivers/base/regmap/regcache.c
-@@ -122,8 +122,11 @@ static int regcache_hw_init(struct regmap *map, int count)
- 
- static void regcache_hw_exit(struct regmap *map)
- {
--	if (map->cache_free)
-+	if (map->cache_free) {
- 		kfree(map->reg_defaults_raw);
-+		map->reg_defaults_raw = NULL;
-+		map->cache_free = false;
-+	}
- }
- 
- static int regcache_locked_op(struct regmap *map,
-@@ -276,18 +279,20 @@ int regcache_init(struct regmap *map, const struct regmap_config *config)
- 	}
- err_free_reg_defaults:
- 	kfree(map->reg_defaults);
-+	map->reg_defaults = NULL;
- 
- 	return ret;
- }
- 
- void regcache_exit(struct regmap *map)
- {
-+	regcache_hw_exit(map);
-+
- 	if (map->cache_type == REGCACHE_NONE)
- 		return;
- 
- 	BUG_ON(!map->cache_ops);
- 
--	regcache_hw_exit(map);
- 	if (map->cache_ops->exit) {
- 		dev_dbg(map->dev, "Destroying %s cache\n",
- 			map->cache_ops->name);
-@@ -296,6 +301,7 @@ void regcache_exit(struct regmap *map)
- 
- 	kfree(map->reg_defaults);
- 	map->reg_defaults = NULL;
-+	map->cache_dirty = false;
- }
- 
- /**
-diff --git a/drivers/base/regmap/regmap.c b/drivers/base/regmap/regmap.c
-index 7bb90d8aed3d..57de64241eb7 100644
---- a/drivers/base/regmap/regmap.c
-+++ b/drivers/base/regmap/regmap.c
-@@ -1452,6 +1452,7 @@ int regmap_reinit_cache(struct regmap *map, const struct regmap_config *config)
- 
- 	regmap_debugfs_exit(map);
- 	regcache_exit(map);
-+	map->cache_ops = NULL;
- 
- 	map->max_register = config->max_register;
- 	map->max_register_is_set = map->max_register ?: config->max_register_is_0;
-@@ -1462,22 +1463,29 @@ int regmap_reinit_cache(struct regmap *map, const struct regmap_config *config)
- 	map->writeable_noinc_reg = config->writeable_noinc_reg;
- 	map->readable_noinc_reg = config->readable_noinc_reg;
- 	map->reg_default_cb = config->reg_default_cb;
--	map->cache_type = config->cache_type;
- 
- 	ret = regmap_set_name(map, config);
- 	if (ret)
--		return ret;
-+		goto err_none;
- 
- 	map->cache_bypass = false;
- 	map->cache_only = false;
- 
-+	map->cache_type = config->cache_type;
- 	ret = regcache_init(map, config);
- 	if (ret)
--		return ret;
-+		goto err_none;
- 
- 	regmap_debugfs_init(map);
- 
- 	return 0;
-+
-+err_none:
-+	map->cache_ops = NULL;
-+	map->cache_type = REGCACHE_NONE;
-+	map->cache_bypass = true;
-+	map->cache_only = false;
-+	return ret;
- }
- EXPORT_SYMBOL_GPL(regmap_reinit_cache);
- 
--- 
-2.56.0
-
+Nicolin
