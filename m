@@ -1,72 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794920701;
-	b=gwsBVwKyO0TVKMnPuLubjOkUSEhEc0IBbrM285OpXAv3bNwP7PGjx6bU4jUMybiAItjU
-	 1yZIBUKE1PT+rNPyIbtp4PoHUpL456lhTFaRrkDimU5JDtYMs1lWoSRf17NV0aTW98MhY
-	 JcYQ0bXjjMC0hwTLaCuPn+TeQ6Ve6V9KqEtV3uFRfQ/v64Dj5k2fwcVBz5eMuozPlnvgX
-	 GLzspBKcA/oXfaTX3nX6eEOcdEgH2OQ4X3IqHfljs8RV4Rm4eN85/c0RjOiAG8mEqL/tQ
-	 iAxrl59tPlYvD8ogmoldSdpFTs3L47RzwaPLTR/djPWPXn7fmKxkMl6enaNUb1cn1LA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920701;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=9LFSH3S79yMExFk+1qBwbTLcoT6gqxw3yAePeaVU2no=;
-	b=c/tcsMnH1Wn74mxW5Q5i6KTKZwZIiI6lVOpN+i2nSOMSJtGdElFq0IHafGj2k/7zcAh9
-	 SZMuSOOZ98je6EtMAf5AhLfoeGMFQ4XNmVK05uFuPdOhQ2p6q/vMyy0++Spb98bBKVeTz
-	 lTd+/GjYxcspQv4f+w737qurPR46rvwnKIC+iIoJRzKPVANJmTeMoyDMfc+X/FWSxINuP
-	 iw5P5iplnpVQ4D1w0/OnAuHZMAgyD++tDk0wcDaX20xReehGk6oXtTkve43SJpdQUobbA
-	 XNyefa7yYf2V9ETXF8ABAop8HhSB5v+9fCs+2E98sE2t1e/KsQd3FHb0m0VXxL3pAhA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IH33jRbk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794920710;
+	b=GEk8QuQ5IPegAsf4Nt+aFO9W2lZbnM+AR17A/NQyTbhhp67OM+1dtuRsnI5j3gIdT6So
+	 Mnl52cQKekJVohcKQCDW/mF6f1H9kSB/QA0YpHKNv0Kmo5qlIjpoMp6Yw3xwa7CECPBfX
+	 u6o1BktbkRB4Y42yhdjuCGB9s9K4sXpRLmk+Ws02WQhYhfdZY5GnBF6sYDx6E76rVcvwp
+	 5k0RJnOa1IQxuXqLghN7Bj93CYYz9oayKf+A8Dtj22gWcXI1U5xPfPfK5vQqH3P4CKV3K
+	 IQwAFlNsEK1+I1cMDwOd7/QoOGNycQ7aaFXKn6S9NdB1jiNyAg2LYLQlY/BoeJzC4Vg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794920710;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=aFq54pY4EowgW1OTnF49eoGgH8cs593NTtkoAWkYhtw=;
+	b=l33ILN6hr/odpRpw36BcUO9jFoNIkA/kEGJvrnKHpIJkCQpDuuZPKC/7/0Wg0PEdhTRS
+	 hYJ8HrIXxbL3MnkOV0bHhgkg8HKXAZ52xHwW7t8Wdyq1uCdWUBotpGQgNtgA/Fx9aBsVK
+	 6TPazxmXgBD/WtPYLVe5a96yzFbvT0v1PxBi5k0tO7FRSMo9YcFjwzZXNjElrIana1VGg
+	 kh7myolg1felSiIGddZVbTY3kXWFItEorF/yHxgVdbuusHxjz6bVi5mwXje/rJNvrQU0J
+	 iWNKNXTMP32vSvZS1rhDPP6oBjw6+YpuQ0ABa4MvBDq2oI5D2KZ9avMJQmqDF6IT44w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=EuR34IKS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 074D8606A335;
-	Tue, 17 Nov 2026 13:05:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4631606A332;
+	Tue, 17 Nov 2026 13:05:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4631606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IH33jRbk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D37DB1F000C4;
-	Tue, 17 Nov 2026 13:05:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794920700;
-	bh=9LFSH3S79yMExFk+1qBwbTLcoT6gqxw3yAePeaVU2no=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=IH33jRbkgbCTnzClh4uPWtcVmy8d8zo2+fod1PZlqY0625ITG/aRoJpveNziUuuxH
-	 UQtu4t55Bz3GjSHxQOWQkXhNus369KTv+DyjyOsyDdIkxyu0I43oWSW0ltMnbmHvWa
-	 3dE+XyNsKpOCu6KEm6efZWDoJftV4wyFxVx5TuGKl1YSuh1vnVDF47ImdtJZZuxbxD
-	 HGmZDw/98qeLffrdLnXvVoa65jiSX3JhasDQz4EMEN4TAfjUv1EJRZlVJ6fUqiieuC
-	 i5BSfByiTU/l6iSy4WgsEIDby6zvI+ByJR1hmU+tjlkAbAb1xBuJfskTYvY/YP60d1
-	 I96E6nU1W9hZA==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xTIrq-0000000H0kI-1LWK;
-	Tue, 17 Nov 2026 13:04:58 +0000
-Date: Tue, 17 Nov 2026 13:04:57 +0000
-Message-ID: <86fqwz1udi.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Colton Lewis <coltonlewis@google.com>
-Cc: Oliver Upton <oupton@kernel.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 2/2] KVM: arm64: selftests: Verify HCR_EL2.NV1 is RES0 when E2H0 is NI_NV1
-In-Reply-To: <20261116200418.3535619-3-coltonlewis@google.com>
-References: <20261116200418.3535619-1-coltonlewis@google.com>
-	<20261116200418.3535619-3-coltonlewis@google.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=EuR34IKS
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 149DD205A39;
+	Tue, 17 Nov 2026 14:05:08 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794920708;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aFq54pY4EowgW1OTnF49eoGgH8cs593NTtkoAWkYhtw=;
+	b=EuR34IKS78/70jA0BYwlFltzbYpToNVtlCkJSn1sEeFSYBVUk5alXzemWRufKyGF7WARYs
+	kCCGDrWfE8Xf3rGpOk5h/oTKtrRndgcwnBwGTXdKLsVUjgkSypD0gavWNddYjkBCeoH28R
+	7aswVtDmVCtPcAw3S84/hmvrNlozkQ1E+rVQA2ds14xORdsf80h7spAObHIvqyFf7rnmQt
+	KNuogkpKmrGlupLgiZI8HYnB6yBE1bz5LWepbX/Pq+eB8uKzmCfBWCh8kLCe2yqnSofmcy
+	c4JMC9SxQsmz6bq+VXTrW+o8Bf/TbvJ4RYOj+7brZyfcQy7LR6yOPv8td0qelQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794920708;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aFq54pY4EowgW1OTnF49eoGgH8cs593NTtkoAWkYhtw=;
+	b=b4CuNcaW53D0Yi3pjeP3TOFrZ2sR2Qv5jjxxnHWmQ8auf8Zv070xzx26OaFl7uW5d//eOY
+	oE9RFhJvty+d+cuKB04ZvKwcoPoq2tgCxEHsgii/Ua8k9G2BGcIrb5lMex4LQ2Sl9uUInA
+	F5dUHpAda+vDbPW+TGFUS5jU+VJZkGPgotaDpawUB69z5YOnASJDjERnkdMSTU9gNYt9o5
+	VLDmjUhAFtS8fMwKF49CN9my4qJhWte1NHLaKWCfSULgCr+oiVZDlzVMNFfSsVwC2uxrvp
+	z3uSSwJN/NNIomeVY7B+qHNp5Ub+3oYe1c257D1ntah9f6Ax9cwsEwC2KzW4eQ==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794920708; a=rsa-sha256;
+	cv=none;
+	b=KkiV7OtFgI2w9GfXbA/k6E6DSPnj3I63JajbRZ8SMZVNpC0BKRWL/QSKj/gFRD4iZ0JB+9
+	d71rvk8aa8bykkh5kDDTritaZQqRUFRGnGSvCEz7M+Yc5eL4PSGTTq+p+2SUavsMQkuQ/N
+	Us66u6dsgWd+5sPrrNmXlb6/QKPkI/LcZVN66qxJOpr+TLKpA6P9WotEqZdzB4BP6sNbnt
+	ctxWOda4P4RMwiz5GbSoDM2jvzq4yfSPFuggaZg9kUxg+0azuK7tO/1DfHIcuzZskuUMuz
+	jHXjsg92CW+JVTsCvVf7K1i6zm+xlGu66NUSAWQJyxwZO3KcLBa+yl5XTKvmWQ==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+Message-ID: <974d629b23d38d46a033513db9b4e783b9c11cda.camel@pengutronix.de>
+Subject: Re: [PATCH 1/2] usb: musb: sunxi: Assert reset before deasserting
+ on init
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: admin@roadbobek.com, Bin Liu <b-liu@ti.com>, Greg Kroah-Hartman	
+ <gregkh@linuxfoundation.org>, Chen-Yu Tsai <wens@kernel.org>, Jernej
+ Skrabec	 <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>,
+ Vinod Koul	 <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-phy@lists.infradead.org
+Date: Tue, 17 Nov 2026 14:05:07 +0100
+In-Reply-To: <20261117-usb-sunxi-reset-fix-v1-1-c2b76e0e84e1@roadbobek.com>
+References: <20261117-usb-sunxi-reset-fix-v1-0-c2b76e0e84e1@roadbobek.com>
+	 <20261117-usb-sunxi-reset-fix-v1-1-c2b76e0e84e1@roadbobek.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,107 +98,55 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: coltonlewis@google.com, oupton@kernel.org, joey.gouly@arm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, fuad.tabba@linux.dev, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
 
-On Mon, 16 Nov 2026 20:04:18 +0000,
-Colton Lewis <coltonlewis@google.com> wrote:
-> 
-> In a VHE-only EL2 guest (KVM_ARM_VCPU_HAS_EL2 without
-> KVM_ARM_VCPU_HAS_EL2_E2H0), KVM advertises ID_AA64MMFR4_EL1.E2H0 as
-> NI_NV1, making HCR_EL2.E2H RES1 and HCR_EL2.NV1 RES0.
-> 
-> Extend hello_el2 to attempt clearing HCR_EL2.E2H and setting HCR_EL2.NV1
-> both from guest EL2 (across a trapped ID register exit) and from
-> userspace via KVM_SET_ONE_REG, verifying that HCR_EL2.E2H remains RES1
-> and HCR_EL2.NV1 is masked to RES0.
->
-> Signed-off-by: Colton Lewis <coltonlewis@google.com>
+On Di, 2026-11-17 at 13:00 +0000, Roadbobek via B4 Relay wrote:
+> From: Roadbobek <admin@roadbobek.com>
+>=20
+> When a bootloader such as U-Boot (for example with
+> CONFIG_USB_MUSB_HOST=3Dy) initializes MUSB and boots Linux
+> without stopping USB first, the controller reset line is
+> already deasserted at probe time.
+>=20
+> In that case reset_control_deassert() in sunxi_musb_init()
+> is a no-op and stale MUSB register state persists across boot.
+> On Allwinner A33, MUSB stays wedged in a_wait_bcon with
+> DevCtl=3D0x99, Power=3D0xf0, and a frozen Frame counter even
+> across hot-unplug and replug.
+>=20
+> Assert glue->rst briefly before deasserting it when
+> SUNXI_MUSB_FL_HAS_RESET is set so MUSB starts cleanly.
+> Tested on an Allwinner A33 Q8 tablet (Laser MID-786).
+>=20
+> Signed-off-by: Roadbobek <admin@roadbobek.com>
 > ---
->  tools/testing/selftests/kvm/arm64/hello_el2.c | 34 ++++++++++++++++---
->  1 file changed, 29 insertions(+), 5 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/kvm/arm64/hello_el2.c b/tools/testing/selftests/kvm/arm64/hello_el2.c
-> index bbe6862c6ab16..46b0f63e199f0 100644
-> --- a/tools/testing/selftests/kvm/arm64/hello_el2.c
-> +++ b/tools/testing/selftests/kvm/arm64/hello_el2.c
-> @@ -13,13 +13,29 @@
->  
->  static void guest_code(void)
->  {
-> -	u64 mmfr0 = read_sysreg_s(SYS_ID_AA64MMFR0_EL1);
-> -	u64 mmfr1 = read_sysreg_s(SYS_ID_AA64MMFR1_EL1);
-> -	u64 mmfr4 = read_sysreg_s(SYS_ID_AA64MMFR4_EL1);
-> -	u8 e2h0 = SYS_FIELD_GET(ID_AA64MMFR4_EL1, E2H0, mmfr4);
-> +	u64 mmfr0, mmfr1, mmfr4, hcr;
-> +	u8 e2h0;
->  
->  	GUEST_ASSERT_EQ(get_current_el(), 2);
-> -	GUEST_ASSERT(read_sysreg(hcr_el2) & HCR_EL2_E2H);
-> +
-> +	hcr = read_sysreg(hcr_el2);
-> +	GUEST_ASSERT(hcr & HCR_EL2_E2H);
-> +
-> +	/*
-> +	 * Attempt to clear HCR_EL2.E2H (RES1) and set HCR_EL2.NV1 (RES0).
-> +	 * KVM sanitises VNCR-backed HCR_EL2 across exits such as the
-> +	 * trapped ID register reads below.
-> +	 */
-> +	write_sysreg((hcr & ~HCR_EL2_E2H) | HCR_EL2_NV1, hcr_el2);
-> +
-> +	mmfr0 = read_sysreg_s(SYS_ID_AA64MMFR0_EL1);
-> +	mmfr1 = read_sysreg_s(SYS_ID_AA64MMFR1_EL1);
-> +	mmfr4 = read_sysreg_s(SYS_ID_AA64MMFR4_EL1);
-> +	e2h0 = SYS_FIELD_GET(ID_AA64MMFR4_EL1, E2H0, mmfr4);
-> +
-> +	hcr = read_sysreg(hcr_el2);
-> +	GUEST_ASSERT(hcr & HCR_EL2_E2H);
-> +	GUEST_ASSERT(!(hcr & HCR_EL2_NV1));
+>  drivers/usb/musb/sunxi.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>=20
+> diff --git a/drivers/usb/musb/sunxi.c b/drivers/usb/musb/sunxi.c
+> index a17b1c150626..3d16049e53b5 100644
+> --- a/drivers/usb/musb/sunxi.c
+> +++ b/drivers/usb/musb/sunxi.c
+> @@ -9,6 +9,7 @@
+>   */
+> =20
+>  #include <linux/clk.h>
+> +#include <linux/delay.h>
+>  #include <linux/err.h>
+>  #include <linux/extcon.h>
+>  #include <linux/io.h>
+> @@ -239,6 +240,8 @@ static int sunxi_musb_init(struct musb *musb)
+>  		goto error_sram_release;
+> =20
+>  	if (test_bit(SUNXI_MUSB_FL_HAS_RESET, &glue->flags)) {
+> +		reset_control_assert(glue->rst);
 
-That's relying on a KVM-specific behaviour, and not something the
-architecture guarantees. You should test that you either get the
-original written value, or the effective value.
+No error handling?
 
-Also, ID_AA64MMFR4_EL1 doesn't necessarily trap, since this relies on
-FGT being implemented. So on an older code (Neoverse V2, for example),
-this is unlikely to give you the correct results.
+> +		usleep_range(10, 20);
+>  		ret =3D reset_control_deassert(glue->rst);
+>  		if (ret)
+>  			goto error_clk_disable;
 
->  	GUEST_ASSERT_EQ(SYS_FIELD_GET(ID_AA64MMFR1_EL1, VH, mmfr1),
->  			ID_AA64MMFR1_EL1_VH_IMP);
->  
-> @@ -45,6 +61,7 @@ int main(void)
->  	struct kvm_vcpu *vcpu;
->  	struct kvm_vm *vm;
->  	struct ucall uc;
-> +	u64 hcr;
->  
->  	TEST_REQUIRE(kvm_check_cap(KVM_CAP_ARM_EL2));
->  
-> @@ -66,6 +83,13 @@ int main(void)
->  		TEST_FAIL("Unhandled ucall: %ld\n", uc.cmd);
->  	}
->  
-> +	hcr = vcpu_get_reg(vcpu, KVM_ARM64_SYS_REG(SYS_HCR_EL2));
-> +	vcpu_set_reg(vcpu, KVM_ARM64_SYS_REG(SYS_HCR_EL2),
-> +		     (hcr & ~HCR_EL2_E2H) | HCR_EL2_NV1);
-> +	hcr = vcpu_get_reg(vcpu, KVM_ARM64_SYS_REG(SYS_HCR_EL2));
-> +	TEST_ASSERT(hcr & HCR_EL2_E2H, "HCR_EL2.E2H should be RES1");
-> +	TEST_ASSERT(!(hcr & HCR_EL2_NV1), "HCR_EL2.NV1 should be RES0");
-> +
-
-I think this is the only reliable test you can implement.
-
->  	kvm_vm_free(vm);
->  	return 0;
->  }
-
-Thanks,
-
-	M.
-
--- 
-Without deviation from the norm, progress is not possible.
+regards
+Philipp
