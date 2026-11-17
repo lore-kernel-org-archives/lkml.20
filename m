@@ -1,79 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794876855;
-	b=hetYojggvYnM5m/0aJziq7q7vXOiUHcDHCB3Fm0Y6pBFt9IArkJmy4G+Uoqk9rKz7BJQ
-	 DpYejTg147f4dylug0Wymx8Q688ONqyo8I+FMZBVP4qJNlb2eLqCS09Hco/ka8e6I+Gw5
-	 +qkOI8bNYpBIyuFbqP9FsRWwJiRAHZ+XKS5IEKguGiFqXb9ZjF/ZEH2fCQlIyLkuAvoQ1
-	 aLZyAhlTbS09KV2V1xQJDagLaZrEebMvUB2trQL4KYRh6oya0ihZAasOIw6RLuHX+8ROf
-	 FXyoNlfErxAH9/yaLTicquuPOYSI5czYakcnB6+xPCV0Mau3VgdsmHHAykQJAxZX4YA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794876855;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=dbiC7zpOEBQ0UbasPePQNA0/AZ6p919eqPCqdLiBoME=;
-	b=gVrtL+k0YFazdWeGtHOfsHgRMmerSdjpjqv7aV32j29koXZS4EQs+w/qWN92iVtygaeq
-	 2Gi5EOfLeDUwEt+4GRB1d/sxWkSaiOMSu8RaUOe4UU53KX0W+RtAvDleNWWffIllR427z
-	 23qWwE/X/d9uYNeL2crGTo+75Yei5AjRZXPW9qssjAlbGqx6lZSCmQs+nZ2sdgPJfMO50
-	 chg5kniNaoK3m1rrUiENx9Jy1ZBCS5XUZ9OfoTpnRJvWRjMcWZeuIOpcPTrsKH9eUJOzQ
-	 TVz5wNp7fq+c2jaP98+KNPeT2RVgaMRK1YMPofQuY/TJ5TbWOBCclTozzXVcgSGOcFA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cv7oZbB2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82845606A330;
-	Tue, 17 Nov 2026 00:54:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cv7oZbB2
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794876855;
-	b=CrLUme1iEj4POlCOhQxR7lk5KeaMn1RSyuA3dMY8ZB+qxY3Y/ZQSYDci6Mr5ChRzD0MC
-	 z1KOW81Ctrz0FOapyog+WiEMJJvXLX62+tuAwS02cXmxXxODeCgtCfPGIiCyYmSgbiGjt
-	 q4kND2A5nkimJ3W8FKVn3NXV0yljCH4ACg+xOVBAF3tZThhtKh55FmO0FYv14m75udva7
-	 CydmkRXHJNyZ/tqQ49sTKua42vAtdHaoDR5XBrWpKhqATegcGv0ITJ8y5Ktsp0tM9zZ6n
-	 1fwLbXGWadZGh69ZdkCoLuU0/BJFpvZWGp3MW81c5Xw1Te0YeaSe9DIzNUmxrj2fU9Q==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794876855;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=dbiC7zpOEBQ0UbasPePQNA0/AZ6p919eqPCqdLiBoME=;
-	b=qNfLHbuVIlLztafFxF9tMTK9VfiNrz8TS1uRVDnrlI8BuGGKbq0zQt5TQAY9HbwYM4/C
-	 L9R6tKj8cXBknsqMbkH40eRBKeyJzDh0dq86HPx90dgAxGTPOvFOX4YsaZsMNMP/ZNAJ5
-	 sGtcAghsbfa03wwsuiojMBZOgfOTjsgywDq+vOrjG2MPXi/b6YhNYIgKAcSHrU0g8LEFt
-	 9VQo2VraXTmt0y1fpBy64WYXV0FwB18j89znH33JoS8RtFBx6VErV6RcQT/ICkWwO26X4
-	 ifa0Ri+YmF9BcDzr/JN49TuD0lAc+PekmqNKTds72Nd/HoQijKhppA8mr7ej1uL0bxg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794877028;
+	b=gX14UNeEorzhgQQw7qSqZ1aGe//ZXAynXkmBQ8kIKF71CLefvH1z4JK0aOH7S0cMiO3V
+	 dN6TsxnruVxOBh6myrgj4tmigZKR04XXlo/sTR8qpPNkwQeFwNc+YloUVbrcjtHSTHRJ3
+	 RZiGS0RPSK3gxhQuRPYk0x+q+ntAGHaO0fiCPWWFYM5IRYOHqeLTAOX5sfZSVQnY+B7Vl
+	 4RpSQ7CQRepEwD/bAqw6yiLBch2+m8CaZJrvODtb+MD6wAEOHJdlkMwV278fn4PfGNNmU
+	 /maVWh/xOm36phUd8LgxiMN09Y/rBUlanG0t+r0fRvfSlh0zBhpX2s8jajTsmiNnrcg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794877028;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
+	 References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=KkSocnQnBgp0BjKmXIH5z0p/YimYzgerqDGPhJWVJlI=;
+	b=kdMQGh3rJo9g7qSb5FNNM6lx2/Q7914CARwWHqplVQG9uJCd4WP7X85amQw8h7OFB4fG
+	 AVWBldQax1lM1xUtwEttIrk8L5Wie0xoQ9W5bMVLZQ5fx7dOv/8AYSIXh5+nwbx5PiZt7
+	 Pyg7hUUDENc6Ra6mxYux7HS3ACLKehcj1tAcFVGy3TG38R8lvAPB9M099YAe7wcx7Zilf
+	 DUYowoEu5z2UOtVC7Q3YtxA9dODAFImmDJWEqmGBC5wBLzo4WF9+EfxStFAANwpKo/j1f
+	 UlvNUWzPda+67WV1E2PBLseQoGU6IIiTcrqH49T+28HtVqRPO62wSlJFyBqyDqeX8QQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=oL1e9aht;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 6B27B1F000CC;
-	Tue, 17 Nov 2026 00:54:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794876855;
-	bh=dbiC7zpOEBQ0UbasPePQNA0/AZ6p919eqPCqdLiBoME=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=cv7oZbB2SYxCaLT3rV3TbMtYQvvHyvAyPRxJnR6yFCKKtLhF9bYaZSbjQyZ2dnAT3
-	 Pf+KE5Of9dkevIwZJeGg+4d17tKBm1WwEUuK+QXae59rNULf0mfZ33A+J6WbCZw3O2
-	 bNjIkvA4Sy5HKQ/LBHDrgOGCbV1lZ5Sf0tFL9kHlc0xlvF6JeGnTMzDKslPbnTZ4Xz
-	 RsjkisBxg4V/7LUNrosh6rWFlMYr2Zk/NDaQixnVeNv5Py5UhZyDYk8CHTqvzGjQSn
-	 WZLevzThq148EueRWKnmnLrg50VywnJuEoi8r+QGDPiKEx1IAVX+1kV88XmcRO0wIB
-	 z1fy4V2eyHEnw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C0AAC4A656;
-	Tue, 17 Nov 2026 00:54:13 +0000 (UTC)
-From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
-Date: Tue, 17 Nov 2026 00:54:06 +0000
-Subject: [PATCH net v2] net: mdio: mux-meson-g12a: keep the MAC data path
- when switching MDIO
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1BF2606A31C;
+	Tue, 17 Nov 2026 00:57:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1BF2606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=oL1e9aht
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AH0sStqD3918343, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1794876868; bh=KkSocnQnBgp0BjKmXIH5z0p/YimYzgerqDGPhJWVJlI=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=oL1e9aht0xw+xPgT6bG4mzsI3sCTBce+3uXc0QQvc6nWXtKdHJkbtoRD2SHLS4f+O
+	 59wO1VVpl2gWqkNx49vn/PhesL6QYAVtyDdrpkM2O0U6CfmhuN9xWFMmEfB0YAdKgG
+	 BwXzwkxn7ka6sQNREGqhApoYsaByzsHStT9mPMhLT4pOTyx0s3iv29OCYT0lUbFvLk
+	 8FrdasxT/sLVpdZa/bEgTJnJrhO3eA2OkpwOjB47pkWhmjGhtx1kaJ1gNn3DXWF8mf
+	 CLgY1fyNXR7VhDMcfwi7gWrMeH1swAgP9xTIg3nk5FiFDKPxHBnSnG7ZwB/1CEi9Vt
+	 BSCqGVow1eapA==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AH0sStqD3918343
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 17 Nov 2026 08:54:28 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 17 Nov 2026 08:54:28 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
+ 15.02.2562.056; Tue, 17 Nov 2026 08:54:28 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Luka Gejak <luka.gejak@linux.dev>, Leonard Lausen <leonard@lausen.nl>
+CC: "leonard@lausen.nl" <leonard@lausen.nl>, =?utf-8?B?RGF2aWQgSMOkcmRlbWFu?=
+	<david@hardeman.nu>, Shawn Lin <shawn.lin@rock-chips.com>, Heiko Stuebner
+	<heiko@sntech.de>, "linux-wireless@vger.kernel.org"
+	<linux-wireless@vger.kernel.org>, "linux-rockchip@lists.infradead.org"
+	<linux-rockchip@lists.infradead.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH rtw-next v3 0/2] wifi: rtw88: reduce RTL8822CS SDIO
+ request overhead
+Thread-Topic: [PATCH rtw-next v3 0/2] wifi: rtw88: reduce RTL8822CS SDIO
+ request overhead
+Thread-Index: AQHddg2EVbbHh10fu0+8z00k0SLpZrcwtZYAgAC6T7A=
+Date: Tue, 17 Nov 2026 00:54:28 +0000
+Message-ID: <b2ccb54c9b264722b2fac5ddbf854379@realtek.com>
+References: <20261116205739.462458-2-leonard@lausen.nl>
+ <0867C5E9-DDCC-448A-A22A-9AEEFE009358@linux.dev>
+In-Reply-To: <0867C5E9-DDCC-448A-A22A-9AEEFE009358@linux.dev>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,178 +87,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261117-g12a-mux-data-path-v2-1-fc56db5973af@iav.lv>
-X-B4-Tracking: v=1; b=H4sIAK6l+2oC/32NTQ6CMBCFr0Jm7RimKn8r72FYDLTCJFpIWxsM4
- e42PYDL77287+3gjRPjoSt2cCaKl8UmUKcCxpntZFB0YlClqojohhMpxvdnQ82BceUwY3VVPOh
- hrAfVQhquzjxly9IHWBOgT+EsPizum48i5eqfMxISlkSadX1pqra5C8fzK0J/HMcPQbjRyLYAA
- AA=
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Igor Velkov <iav@iav.lv>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4841; i=iav@iav.lv;
- h=from:subject:message-id;
- bh=Oka1iBI9vfxsi4AhO3yJ38sooyDgeJia2wLavleLy1U=;
- b=owGbwMvMwCVmNH1q96v4SmbG02pJDFm/l25o1Wb33sA1P7/WYGdUtIT4ga9nZLmeb3rAPiUoe
- Y5Php1fRykLgxgXg6yYIsuEQxq3MpZc/evvYf4AZg4rE8gQBi5OAZhIqwfD/zTzR62Lp0xv87za
- +3b5mhr/Lh7x6js/L78psNGzrHt0SZHhf8WnScJL1tlOCwqYu2ZTdyFjV/f7kOyeUxZaop5nV6S
- HMwIA
-X-Developer-Key: i=iav@iav.lv; a=openpgp;
- fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
-X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
-X-Original-From: Igor Velkov <iav@iav.lv>
-Reply-To: iav@iav.lv
-Content-Transfer-Encoding: 7bit
 
-From: Igor Velkov <iav@iav.lv>
-
-Switching the mux to the internal MDIO bus writes SMI_SRC_MAC together
-with USE_INTERNAL and RX_CLK_EPHY to ETH_PHY_CNTL2. The last two move the
-MAC data path and RX clock to the internal PHY. On boards whose MAC uses
-an external PHY, any access to the internal PHY stops reception until an
-access to the external bus switches the mux back.
-
-phylib suspends and resumes the unattached internal PHY across system
-sleep. stmmac sets mac_managed_pm, and with Wake-on-LAN in the MAC
-phylink_resume() does not start the external PHY, so nothing switches
-the mux back. On ODROID-HC4 (RTL8211F), after suspend-to-RAM with WoL in
-the MAC and an RTC wakeup, ETH_PHY_CNTL2 stays at 0x260 and the MAC
-receives nothing while TX works.
-
-With the MAC on the external PHY, SMI_SRC_MAC alone is enough to read
-the internal PHY ID (0x0180/0x3301) while RX keeps running; adding
-USE_INTERNAL or RX_CLK_EPHY stops RX.
-
-Set the data path bits only when the PHY the MAC attaches sits on the
-internal bus. Look the PHY up with fwnode_get_phy_node(), as stmmac
-does, so phy-handle and the deprecated phy and phy-device all count.
-
-Fixes: 7090425104db ("net: phy: add amlogic g12a mdio mux support")
-Signed-off-by: Igor Velkov <iav@iav.lv>
----
-Tested on ODROID-HC4: three RTC wakeups from suspend-to-RAM with WoL in
-the MAC (ETH_PHY_CNTL2 0x40, RX working), one without WoL.
----
-Changes in v2:
-- Find the PHY with fwnode_get_phy_node(), as stmmac does, so the
-  deprecated phy and phy-device references count too (Sashiko).
-- Drop the dwmac-rk comparison from the comment and commit message.
-- Link to v1: https://lore.kernel.org/r/20261115-g12a-mux-data-path-v1-1-011dad738698@iav.lv
----
- drivers/net/mdio/mdio-mux-meson-g12a.c | 50 ++++++++++++++++++++++++++++++----
- 1 file changed, 45 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/net/mdio/mdio-mux-meson-g12a.c b/drivers/net/mdio/mdio-mux-meson-g12a.c
-index 71c44385489d..e0acbd3ed383 100644
---- a/drivers/net/mdio/mdio-mux-meson-g12a.c
-+++ b/drivers/net/mdio/mdio-mux-meson-g12a.c
-@@ -12,6 +12,7 @@
- #include <linux/iopoll.h>
- #include <linux/mdio-mux.h>
- #include <linux/module.h>
-+#include <linux/of.h>
- #include <linux/phy.h>
- #include <linux/platform_device.h>
- 
-@@ -56,6 +57,7 @@ struct g12a_mdio_mux {
- 	void __iomem *regs;
- 	void *mux_handle;
- 	struct clk *pll;
-+	bool mac_uses_internal_phy;
- };
- 
- struct g12a_ephy_pll {
-@@ -149,7 +151,7 @@ static const struct clk_ops g12a_ephy_pll_ops = {
- 
- static int g12a_enable_internal_mdio(struct g12a_mdio_mux *priv)
- {
--	u32 value;
-+	u32 value, cntl2;
- 	int ret;
- 
- 	/* Enable the phy clock */
-@@ -169,10 +171,11 @@ static int g12a_enable_internal_mdio(struct g12a_mdio_mux *priv)
- 		PHY_CNTL1_CLK_EN |
- 		PHY_CNTL1_CLKFREQ;
- 	writel(value, priv->regs + ETH_PHY_CNTL1);
--	writel(PHY_CNTL2_USE_INTERNAL |
--	       PHY_CNTL2_SMI_SRC_MAC |
--	       PHY_CNTL2_RX_CLK_EPHY,
--	       priv->regs + ETH_PHY_CNTL2);
-+
-+	cntl2 = PHY_CNTL2_SMI_SRC_MAC;
-+	if (priv->mac_uses_internal_phy)
-+		cntl2 |= PHY_CNTL2_USE_INTERNAL | PHY_CNTL2_RX_CLK_EPHY;
-+	writel(cntl2, priv->regs + ETH_PHY_CNTL2);
- 
- 	value |= PHY_CNTL1_PHY_ENB;
- 	writel(value, priv->regs + ETH_PHY_CNTL1);
-@@ -301,6 +304,42 @@ static int g12a_ephy_glue_clk_register(struct device *dev)
- 	return 0;
- }
- 
-+/* The data path follows the PHY the MAC attaches, looked up as stmmac does */
-+static bool g12a_mac_uses_internal_phy(struct device_node *mux_np)
-+{
-+	struct device_node *parent_bus, *mac, *phy_bus, *mux;
-+	struct fwnode_handle *phy;
-+	bool internal = false;
-+	u32 reg;
-+
-+	parent_bus = of_parse_phandle(mux_np, "mdio-parent-bus", 0);
-+	if (!parent_bus)
-+		return false;
-+
-+	mac = of_get_parent(parent_bus);
-+	of_node_put(parent_bus);
-+	if (!mac)
-+		return false;
-+
-+	phy = fwnode_get_phy_node(of_fwnode_handle(mac));
-+	of_node_put(mac);
-+	if (IS_ERR(phy))
-+		return false;
-+
-+	phy_bus = of_get_parent(to_of_node(phy));
-+	fwnode_handle_put(phy);
-+	if (!phy_bus)
-+		return false;
-+
-+	mux = of_get_parent(phy_bus);
-+	if (mux == mux_np && !of_property_read_u32(phy_bus, "reg", &reg))
-+		internal = (reg == MESON_G12A_MDIO_INTERNAL_ID);
-+	of_node_put(mux);
-+	of_node_put(phy_bus);
-+
-+	return internal;
-+}
-+
- static int g12a_mdio_mux_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-@@ -313,6 +352,7 @@ static int g12a_mdio_mux_probe(struct platform_device *pdev)
- 		return -ENOMEM;
- 
- 	platform_set_drvdata(pdev, priv);
-+	priv->mac_uses_internal_phy = g12a_mac_uses_internal_phy(dev->of_node);
- 
- 	priv->regs = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(priv->regs))
-
----
-base-commit: aa40afa831ebfe45e40a23721711059f2ac584d4
-change-id: 20261115-g12a-mux-data-path-642abdbc7b29
-
-Best regards,
--- 
-Igor Velkov <iav@iav.lv>
-
-
+SGkgTHVrYSwNCg0KTHVrYSBHZWphayA8bHVrYS5nZWpha0BsaW51eC5kZXY+IHdyb3RlOg0KPiBI
+aSBMZW9uYXJkLA0KPiANCj4gT24gTm92ZW1iZXIgMTYsIDIwMjYgOTo1NzozNiBQTSBHTVQrMDE6
+MDAsIExlb25hcmQgTGF1c2VuDQo+IDxsZW9uYXJkQGxhdXNlbi5ubD4gd3JvdGU6DQo+ID5SZWR1
+Y2UgUlRMODgyMkNTIFNESU8gcmVxdWVzdCBvdmVyaGVhZCBieSBmaWx0ZXJpbmcgaGFyZHdhcmUt
+aGFuZGxlZA0KPiA+Y29udHJvbCBmcmFtZXMgYW5kIGNvbWJpbmluZyBhZGphY2VudCBUWC1jYXBh
+Y2l0eSByZWFkcy4NCj4gPg0KPiA+Q2hhbmdlcyBpbiB2MzoNCj4gPi0gSW5jbHVkZSBtb25pdG9y
+LWZpbHRlciBjb3JyZWN0aW9uIGluIHBhdGNoIDEgYXMgc3VnZ2VzdGVkIGJ5IEx1a2EgR2VqYWsu
+DQo+ID4tIENhY2hlIHRoZSBjdXJyZW50IEZJRl9DT05UUk9MIHJlcXVlc3QgZXZlbiB3aGVuIGNo
+YW5nZWRfZmxhZ3Mgb21pdHMgaXQuDQo+ID4tIFVzZSBhIHNoYXJlZCBmaWx0ZXIgd3JpdGVyIGlu
+IGV2ZXJ5IGNoaXAgaW5pdGlhbGl6ZXIgYW5kIGJvdGgNCj4gPiAgYmVhbWZvcm1pbmcgcGF0aHMs
+IHByZXNlcnZpbmcgdGhlIG1vbml0b3Igb3ZlcnJpZGUgYW5kIG5vcm1hbCBkZWZhdWx0Lg0KPiA+
+LSBLZWVwIHRoZSBUWC1jYXBhY2l0eSByZWFkIG9wdGltaXphdGlvbiB1bmNoYW5nZWQgZnJvbSB2
+Mi4NCj4gPg0KPiANCj4gVGhhbmtzIGZvciB2My4gSXQgbG9va3MgZ29vZCB0byBtZSwgc28gZm9y
+IHRoZSBzZXJpZXMsDQo+IA0KPiBSZXZpZXdlZC1ieTogTHVrYSBHZWphayA8bHVrYS5nZWpha0Bs
+aW51eC5kZXY+DQoNClNpbmNlIEknbSBub3QgdXNpbmcgYjQgdG8gYXBwbHkgcGF0Y2hlcywgY291
+bGQgeW91IHBsZWFzZSBhZGQgeW91ciB0YWcNCnRvIGVhY2ggcGF0Y2g/IFRoYW5rcy4gDQoNCg0K
