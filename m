@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794936190;
-	b=GcPu95TIlw3gJti4fyFZzAWMFbuFGVhxjtji3oNSe2EuqirDeM1WIg1MsIxOHaLtRohX
-	 v+JceXQw50coSuaQlmChxiGo+Rc6D3OCZWVIAZvSSx9UTpuITXXgsBEDytgdYRcsXMtcs
-	 nNRDU2Ivz3Hy7fKRhSkNeNgBnY1PQEZ6tTNhVRPrCEUmBzcpgEvnwF+c6TSZ5KTF0u1Jw
-	 j5uprqUibCNjWPPAiuV/QKlE4FSZ9UvL6P+RaSPlviaNb9LNNJRQeHH7DHzPlrtFd2++W
-	 EsvmJKPpC1lFcPuQvwVtHQthAZGITxhRka0RZ49klWqSgiIqZUR0YEpsEmMuWAgHvmw==
+	t=1794936204;
+	b=sEOdELuUPO2wrMlLkStynR1ZKE9vjGqWq/OxUgv6ecndWYb74YiasAWzdGdvwaH9QVl0
+	 hiP42Lo5OcVEt8Vi03d6z9WnbkQJ2sNqQ440M1BibR9g65ZAkxzb+KgCciNoiTlJ3lqUN
+	 CNuGbPRLayUpTyjXZihkL/QDRvTgNeuWoA7ZEtxl2fOjDXE2uLWajInuU1WvCSoPEXxyk
+	 Hvy0YLztKj1lsEq9odqIew7hBZwdvziIS8tf1N2qi8ZYvQwsFUz6xq2hPZ1YVpRTOtjDe
+	 4lcm/0C4yZzp6iMFHSbYs4Mv1PpkHPBy5CGrwn8QWrAxCaNvOyZ03e90V74lhkTBLEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794936190;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=1xPsU54hJeiHMuz5s3ANZmZSG1cvsb4sESiD5rFdM9c=;
-	b=QsXrpuXDx/pqnteD3Ug75FpQMvu5vDa4LfpZui5YzGvtT4iBdQl3XXeR3ogXgRWnziUH
-	 rDZMG/gyHkeQk0Cx6PG7wnMDDRTtMRHX1cA+ETrEoGFJVMwWGQzO5CV10TRAUZulznAau
-	 gZFqn9qjmhZAUQD+OfDINvWePajnQm3RMQpBltwg1yfN8x89Swv68P993kCWo4JyNGfkO
-	 s/ufogOUFpuxOqMuSKajvc4suRScgq/AkFshKTa5rZ4v/uLwbL7zJNIlQyBLbdMT36s/+
-	 SNC/4lHSw+TnmeAbupu0Td0fRb1+L0SQKMZQ9rqPWiZbnZ5V1y1B0MFsqhcKXe57fkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794936204;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=qPbuxogoqNwU/qyRYw+LGXjvF5P4V0NFNB4XBiaBpkA=;
+	b=ePhDbGUgVCya8oJTLV4Dw+3jLVoTyvwgOEheJ1D2d4IqIwHpoobpkyiAd8W14czYBpEI
+	 Xak7TorzVLM3Qlt6nyXzOgZbdCQTw/wE5Tcw6rnLSyU5h7Ljlz3W8uON2YnY9PODCbt6p
+	 VDG+rUy4OnktZMPlUS37JORHu9Obr5hAXS2XuiZqYXN9Q27Wcgrxndsxv7e85VvQZANWN
+	 aVSVnrz2mEGrDkIyokg2Yx7D54HfgJSMAtN5IwMfxYeNBZRFD8xOaaZ59A1VWmN65bkIJ
+	 GXubRToIyrW/qRMxFshKGBPaPxdhml5AlIslnb3vg/tvKG/C8fTbrVdjfUdkm3oRlkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=okOepPWP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oPj6c6a0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83AEB606A31C;
-	Tue, 17 Nov 2026 17:23:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2FBE606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 17:23:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=okOepPWP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13C021F000C4;
-	Tue, 17 Nov 2026 17:23:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oPj6c6a0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF30A1F000C8
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 17:23:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794936190;
-	bh=1xPsU54hJeiHMuz5s3ANZmZSG1cvsb4sESiD5rFdM9c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=okOepPWPDAEa/fLMSHEtq8RIGPhEkyThXI5rTj9Co98KzmksqzLsE7nq/3Pk+O0g/
-	 wyuC5nza1JoZusAMofsrgGy59SJ7C5QpjXmw6me2ekp7uMjQqs68pQ6I4JE9B1d5rI
-	 VA+j7ZKVyA6u1zNp6bEcLV7vOMV41NhtP/uBcMLCL84t+dc0YvD738YsfFAkW8/dBI
-	 eysiTjqiFdvRtThdK5ehi8MBfzGWcFg/c7YVrGRWgTvkOThoW6SOl3nI8Ow/gh6J0V
-	 SNq7UYtqnQMbde3JenA0aAwyY7s0bBqMIJLF2D7SQVN9j5WpnAiZ4F0DgrnPyjeE/o
-	 Iwc1PXn25u0Rg==
-Date: Tue, 17 Nov 2026 11:23:07 -0600
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Dinh Nguyen <dinguyen@kernel.org>
-Cc: bp@alien8.de, linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org,
-	tony.luck@intel.com, conor+dt@kernel.org,
-	devicetree@vger.kernel.org, niravkumar.l.rabara@altera.com,
-	rounakdas2025@gmail.com, krzk+dt@kernel.org
-Subject: Re: [PATCHv4 2/4] dt-bindings: edac: altera: agilex5: document new
- edac support
-Message-ID: <179493618746.2836620.17399291348633315970.robh@kernel.org>
-References: <20261116202854.3087673-1-dinguyen@kernel.org>
- <20261116202854.3087673-2-dinguyen@kernel.org>
+	s=k20260515; t=1794936204;
+	bh=qPbuxogoqNwU/qyRYw+LGXjvF5P4V0NFNB4XBiaBpkA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=oPj6c6a0mIS9sdaEIQG36xIG1NhQ77AlC9xRI/0B3iw4C1VzrPoad7mLHqSYr0NQS
+	 QjKmf+7wI7X9H2SfF8j9IptaYl6ExlXoX5J+epfggrerRPl3jadIPph3gPQd4Mikwm
+	 ncG7jgPzELSQe0GbUG7860qCFsANtxIWH1fSj4cjCvETYHxIO44cbMsnM1+gLmpxxS
+	 UP3qsWIJVyLAnhTiM470e0pq8lGtmbn7cCJvY5DpKeqQPhnccM+PRO0EkoKYuUd2MB
+	 4VNdrZhDFIE/aP/8DqdnWPJ1iZ0SR4I+fVInBZes+O9xkCkNSgfCZaY6ztmKpNfHPT
+	 oLTVrxnkZ/Ltw==
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c468bd799ecso742879466b.1
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:23:24 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEFZ5dl4+wDSu2r1sMR3Sj105X7i6gpDFxg0DhkEaTQf0/WLJ24OSylTeensh6arcYIi3ATLTNlkHJqvww=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+rWde61H5UAnR06LBHOk51gF/+ryBP9+akwf3nzjdcpi+T+PlR
+	VQlH02Jc8rM4cxXek/s7Yd+oBPNMJJjs6LDQ+2VVAgl++fzWPYKRbNvKpNg5HW9XAkpJtxmEiUH
+	YrCTa/cp9CwKbX/P2quolKJNLtCk1smk=
+X-Received: by 2002:a17:907:d27:b0:c41:1e13:8891 with SMTP id
+ a640c23a62f3a-c50963d46ecmr1184846866b.9.1794936203620; Tue, 17 Nov 2026
+ 09:23:23 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,39 +59,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116202854.3087673-2-dinguyen@kernel.org>
+References: <20261112203227.289379-1-zide.chen@intel.com> <20261112203227.289379-7-zide.chen@intel.com>
+In-Reply-To: <20261112203227.289379-7-zide.chen@intel.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Tue, 17 Nov 2026 09:23:11 -0800
+X-Gmail-Original-Message-ID: <CAO9r8zPD_i2aWc3jaKRr-=1Pz0td=6nqBpgBfVVaV3jfzVTAjw@mail.gmail.com>
+X-Gm-Features: AclHuK-xecCpEbInyvGGF_p4kfoSNSZz851mSQupLC1L4HsXX_kRXqRMGPskwh8
+Message-ID: <CAO9r8zPD_i2aWc3jaKRr-=1Pz0td=6nqBpgBfVVaV3jfzVTAjw@mail.gmail.com>
+Subject: Re: [PATCH v4 06/21] KVM: x86/pmu: Drop nr_arch_{gp,fixed}_counters
+ from kvm_pmu
+To: Zide Chen <zide.chen@intel.com>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, 
+	Jim Mattson <jmattson@google.com>, Andi Kleen <ak@linux.intel.com>, 
+	Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, 
+	Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>, 
+	Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
+	Xudong Hao <xudong.hao@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 
+>  static void amd_pmu_init(struct kvm_vcpu *vcpu)
+> diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+> index 136069dfcd44..e21abcedea70 100644
+> --- a/arch/x86/kvm/svm/svm.c
+> +++ b/arch/x86/kvm/svm/svm.c
+> @@ -761,24 +761,21 @@ static void svm_recalc_pmu_msr_intercepts(struct kvm_vcpu *vcpu)
+>  {
+>         bool intercept = !kvm_vcpu_has_mediated_pmu(vcpu);
+>         struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
+> +       unsigned long gp_mask = kvm_gp_pmc_mask(pmu);
+>         int i;
+>
+>         if (!enable_mediated_pmu)
+>                 return;
+>
+>         /* Legacy counters are always available for AMD CPUs with a PMU. */
+> -       for (i = 0; i < min(pmu->nr_arch_gp_counters, AMD64_NUM_COUNTERS); i++)
+> +       for (i = 0; i < AMD64_NUM_COUNTERS; i++)
+>                 svm_set_intercept_for_msr(vcpu, MSR_K7_PERFCTR0 + i,
+> -                                         MSR_TYPE_RW, intercept);
+> +                                         MSR_TYPE_RW, intercept || !test_bit(i, &gp_mask));
 
-On Mon, 16 Nov 2026 14:28:52 -0600, Dinh Nguyen wrote:
-> The Agilex5 EDAC module supports ECC on a few additional peripherals. Along
-> with support for ocram, ethernet and USB, the Agilex5 EDAC adds support for
-> SDM QSPI, CRAM SEU and IO96B.
-> 
-> The Agilex5 EDAC also exposes up to 7 named interrupts on the manager
-> node. global_sbe and global_dbe are aggregate single/double-bit error
-> interrupts that fan-out through the manager's IRQ domain to the child
-> peripheral ECCs. The remaining named interrupts are routed directly from
-> dedicated controllers (IO96B memory controllers and Secure Device Manager)
-> to the GIC.
-> 
-> Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
-> ---
-> v4: constrained interrupts and interrupt-names to 7
-> v3: Add minItems for interrupts
->     Add constraint for interrupt-names
->     Add interrupt-name as false for non
->     "altr,socfpga-agilex5-ecc-manager" platforms
-> v2: add if/then to enforce maxItem of 2 interrupts for older platforms,
->     and 7 for Agilex5
->     add if/then to enforce interrupt-names as required property for
->     Agilex5
->     enum altr,socfpga-s10-ecc-manager and altr,socfpga-agilex5-ecc-manager
-> ---
->  .../edac/altr,socfpga-ecc-manager.yaml        | 90 ++++++++++++++-----
->  1 file changed, 66 insertions(+), 24 deletions(-)
-> 
+This fixes a pre-existing bug that was reported internally, that can
+happen if a malicious VMM reduces the number of counters after
+initiating KVM_RUN but before VM-entry. The current code would fail to
+re-enable the intercept on the counters that become unsupported.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-
+Might be worth splitting this out into a standalone fix.
