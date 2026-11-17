@@ -1,73 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794874635;
-	b=lRi0BFJMluIOTfBE2m5aInBcjENqrtvGBSvRxR7y/MCogOrrHIK0MJi5aBvVNSeOV7ga
-	 Ia+M0pzt/T7tqZRdRDk6y6Zp0EUnczBzW+eNkxuCeK4jt9plPfyqf7HCNPbLpX5ZElv4P
-	 9L8/0UWSslS+mp81n1SSrtLRfL7jVItB0k8L1RrHPcmJG0j8gSH0UH0T27UY6U5fMGiKX
-	 ucJsfqJ1g2p+Zc9bK4HdS2bk4JUkDssyfCoEdhdYMsV0jiCEqv0DfbjEXdF6yYjHlfeIb
-	 Bv8jOGC3T7XljQ+xbScch2bdoa6ChnANLUMkQr70zglPu3AA3x2p2Qr1sDCN0VUazlw==
+	t=1794874650;
+	b=vqZl8ISN7H5F9DepvnZ/uwx+WURcxYFiBsuE0QaojmGO33NjvN4SOnNSSVQiwYRl/l9+
+	 4OyJNcocAPrgCnObLCtDH5QtMmC1wVsuJGWlNBU61N5uA6EQcR8rryBvw7r/j1AIazBSO
+	 Z9LfvrxtJPYgl2Xl+GXwInLo9/Xvp1jE4gd6oohS7F13L+xMK9IjVl0l9GlZQ1D1hCIgt
+	 fIk48P8bE/5HIxoPvuSfpko5+lxTL1P35GLSg5QDVtLe0q8dHDMQksGvYLtrbx/b+yHvc
+	 uEIWItxLCN1AK+2MwRgpn8wxAWE0HEizRfKbrDsmWdolcNJHSLPWXhd7DaPwd8aUFaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794874635;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=CVYsmp0KczWzE0joivXQDORwssfDFQQlsu469l4XFpg=;
-	b=0jFygmK0Ktkyn/4GgVsZvZlrxKkwNMaKU7Cb6XAUlYMrDs+vGKgEwY3cL1ufgNqPvNVi
-	 fan1NO1N50AuJXEkN2v/YwU30AQdu6mA945azbBnr+NEBOdPrsj2zAfL4edmITu3b05sJ
-	 +6msoMXKLB8PFRVr6hjxcQ9WCIoyxv2gqRZAZR8AKxXWQY0CIxH81HeY5BpyB9EXgtq7S
-	 qOjXCrfo8IRdvmahmp82S/7WYs/tDDvBP3+6pyTlLh0vbmqnXI82kKKEZpIfdgpJOWuSA
-	 kgUVDTlVn+9f8YXrAfxdo9UlxjAVpdIGgLKHznSrbxACPrD54rVNMib0AJ40GXYjugA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794874650;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=h/aLbf58NzkkZARWQ3SiH5sZH0IamrMPQWthui0CRLA=;
+	b=vXzhds3izvr026KpRLiXr3c1XNxLerZf7i+hwki4BvIC4eO9sRBhfhJc+NwnrO0GuTPz
+	 DRAMmXAUHnib247duj86ngzoB7Jj3w+MGdXFvYvL5/rrd/rxK01/V2mCyIxeTn5BrxFvY
+	 wfANxpR5Btmdwvc2+RpeUZbVtYbTXN7PbeEkJe15v+i5ejJ0Y04XsaC2IyDXpl6iZ4dZ2
+	 TcaDiBA65EDga4IBcbWnFQAYjX0ZBTZBKCAR8s45jjiuZ/no2pBgc/O6E/tPaPK48aPa8
+	 tIfqBkK7jeniZ+V4gebPujP5yQS8MLWM7X8fY1L6p73jD9XbXJqWFBvdJffagVyEMOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=telaak.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.178
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=logarcheon.com;
+	spf=pass smtp.mailfrom=logarcheon.com;
+	dkim=pass header.d=logarcheon.com header.i=@logarcheon.com header.a=rsa-sha256 header.s=protonmail3 header.b=LQrt+a5L;
+	arc=none smtp.remote-ip=185.70.43.20
+Received: from mail-4320.protonmail.ch (mail-4320.protonmail.ch [185.70.43.20])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9599F606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 00:17:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9599F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8b0d126f631so37662287b3.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:17:14 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794874633; x=1795479433;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=CVYsmp0KczWzE0joivXQDORwssfDFQQlsu469l4XFpg=;
-        b=NcLLXvwscG4J1b8IWOQ9/TdoAjXqblwCCRqa1mLUXtMz7znQ0Z9SDuHp2V1epPmDeM
-         DP6HLFKJaxqSwM6XOktrAtkNYddi2HEp0aWbiiGwKYt/rga2qziRDrMNttdYWdmVVUHV
-         ChZYJXX0kNhAbuK+pa0ETzTK0XZUPkvX8/137DvvN60yTyDflB26YeK9KkqClGMHJ7xr
-         Tdh5oWo74ABBEXfKKwOO+4+Tl9OWnOdEWjjY/z9cVsvteNPlcYH1uwBdza6k7M27zg85
-         8JqBx5ggt+6ykeKtjFeBLQLrrczlyVCzL60rpFhFXUNUAo3STmD6avyhDJgRgOLSUBdK
-         GNHQ==
-X-Forwarded-Encrypted: i=1; AL+hErGcP/l7WXqOU8jO2wsYgGKk6AnxZZdbWA9GWgr8tyUj5AcGNU3MTwLCQBNDCTEnVyycg8zFMRiuhvZLeUw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+mI0iGv1zwFMcXXTQXC6IChEMXOCz74wewX4Y3qjKwiYkY2PFt
-	SFKUiJV0IRU+p8bFgvKBNHPapGSRcV/VYYl0oZfacXV81Nz4iiz0KXynmojVNYKTAKA=
-X-Gm-Gg: AZFdTZcSPdBFellSVceVDNO73TQzL1kC6/TYh4SmkM3N4bhgf3XPlF3jPjzxb86pz1i
-	q6pGfycCkklXUamhovE2eDF1jjiWv8ArOJLXGX/zkHgpFjfavUNhNfD60uWPv+9kyMKf/JUX9Yu
-	R5Ke9FLlSxq0AADLwGxNLwyYDC9cpV7ZW7uBvm1aW6QmUeAURLEEFZzkhjVpu825laTEyXqsh3e
-	z6Oij/ILDU0RsC705gIz+xGsVcpRaOg2oJcusuVTjDw+DFbBL7L+xzpLOMLNoPeHtldsS+gaJE0
-	1dzORYVcY0oEYBR/AQEnD8QiXPO3EYhrWHcuKuFJ81Fkg1wP8B38imCTo9hICu1wG5EKUdLEeBW
-	g6lbreQzIVeboziuXYpdClB+us9TTN4HEbbRhZiWfZrRCsCH7RIFKUekpP3AANlJNssSA3j1z99
-	EtZNA5Fg4MyflEPZRmfNFCzap8aOC6MXK4iEpnBlLh13MSOKucVk3fbx+nGbldUOrDgc13ZVwqh
-	d1hyXhRhZY0csLRyqNQTXgkUWhptX9QRG5mdG99KJynmn4mszkKRir8R6NZjgr/KHuWbbGLQJ8A
-	SUzGJOz8jS117Yvstb/UlRdGAGDgzkfcJ5c92d5U/HfoaX2C/yGHY66gwVnOy5OWRFIAmuQ4cj+
-	w92godoeyzFP4CFrpQCav/NNjuRNtLDqEdw==
-X-Received: by 2002:a05:690c:dc9:b0:8b3:1c7c:1b70 with SMTP id 00721157ae682-8b4aa3c727fmr79090967b3.53.1794874633458;
-        Mon, 16 Nov 2026 16:17:13 -0800 (PST)
-Received: from 1.0.0.127.in-addr.arpa ([71.68.170.161])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4ec065d13sm11873787b3.25.2026.11.16.16.17.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 16:17:13 -0800 (PST)
-From: Joseph Telaak <joseph@telaak.dev>
-Date: Mon, 16 Nov 2026 19:16:58 -0500
-Subject: [PATCH net-next v2] net: dsa: b53: mirror CPU-bound frames to port
- 5 when port 8 is unused
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4A2C606A88D;
+	Tue, 17 Nov 2026 00:17:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4A2C606A88D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=logarcheon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=logarcheon.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=logarcheon.com header.i=@logarcheon.com header.a=rsa-sha256 header.s=protonmail3 header.b=LQrt+a5L
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=logarcheon.com;
+	s=protonmail3; t=1794874641; x=1795133841;
+	bh=h/aLbf58NzkkZARWQ3SiH5sZH0IamrMPQWthui0CRLA=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=LQrt+a5LbmdsYlJSkMFtK1yNMdjs/rN1rm+xikCtvVVYyMQs9tQESuvQEbmMoEEFC
+	 sQ/C0RnUH0PW9KW+PQjx/UE//UvpAw4ro0XJJ47aTx7YlMxFJDF8kCDzc9C2zGuCsR
+	 eULl/qv6Q791bhQXX9PMADjv/0k7QHzH6KUNHRG4/QfEi6ucR112cliFD8hmHFXq7X
+	 GJxHsE0eyf0y04pWbq3ViipPFShKyGfVDCIfvwGa/UMuIOMlFfjwuJx2aX7KBIjAfG
+	 6PsoLCNFa79MQ5kfDlzhvMZ3Ow0Vl1+9fy+Jg/MiN6sgxu/9YSNZTirR3VxKq6+iJI
+	 0GbdWfuCjgyow==
+Date: Tue, 17 Nov 2026 00:17:17 +0000
+To: Andrew Morton <akpm@linux-foundation.org>
+From: William Chuang <founder@logarcheon.com>
+Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org, kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org, William Chuang <founder@logarcheon.com>
+Subject: [RFC PATCH] lib/asn1_decoder: add KUnit test suite
+Message-ID: <20261117001711.47722-1-founder@logarcheon.com>
+Feedback-ID: 145408520:user:proton
+X-Pm-Message-ID: 86b6426ac1a80daf24011e276c1e9a93c93eefe9
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,165 +61,504 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-b53-bpdu-mirror-v2-1-c39ab745730f@telaak.dev>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/2WNOw6DMBBErxJtnY1YI0Ckyj0iChuvg/MxyDYWE
- eLu4VOmHM28eTME9pYDXE8zeE422N6tQZxP0HbSPRitXjOITJREWY2qyFENesSP9b73qHNTlm0
- lK6MFrNTg2dhpf7yD44iOpwjN0YRRPbmN2+G27WyIvf/u8kQ7cXiI/jyJkNDUJhdca1FodYv8l
- vJ10ZygWZblB580LFfLAAAA
-X-Change-ID: 20261109-b53-bpdu-mirror-d3f66c7a7fd2
-To: Florian Fainelli <florian.fainelli@broadcom.com>, 
- Jonas Gorski <jonas.gorski@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
- Vladimir Oltean <olteanv@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: Florian Fainelli <f.fainelli@gmail.com>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Joseph Telaak <joseph@telaak.dev>
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-With port 5 as the CPU port, b53_brcm_hdr_setup() puts the switch in
-dual-IMP mode, in which frames for the CPU from the user ports still go
-to port 8: BPDUs, the IGMP/MLD copies b53_enable_mcast_snooping()
-enables, and most traffic of standalone ports. On boards that leave
-port 8 unconnected these are lost, so STP never sees its peers and a
-loop between two user ports takes the host off the network.
+Add a KUnit test suite for the ASN.1 BER/DER decoder in
+lib/asn1_decoder.c.  A tiny two-field grammar (SEQUENCE { INTEGER,
+OCTET STRING }) drives asn1_ber_decoder() with well-formed and
+malformed byte strings and checks that valid input is parsed and each
+class of malformed input is rejected with the documented error code
+rather than over-read.
 
-Mirror them to port 5: frames to the bridge group address as they enter
-a user port, everything else as it leaves port 8, which is enabled with
-its link forced up and in the disabled STP state so that only frames for
-the CPU leave it. The switch has one mirror, so tc mirroring is refused.
-Frames to 01:80:c2:00:00:02, 03 and 0d still do not reach the CPU from a
-bridged port.
+The suite has 13 cases: one well-formed decode; eight malformed-input
+rejections (truncation, length overrun, long tag, wrong tag, oversize,
+short header, missing and malformed end-of-contents); three
+success-path cases (indefinite length with end-of-contents, long-form
+length, zero-length string); and one bounded deterministic
+random-stress case whose callbacks assert that every slice handed back
+lies within the input buffer (KASAN additionally catches any
+over-read).
 
-Observed on a BCM53125 board in real use, with both user ports cabled
-into the same LAN. Tested there with a host sending test frames into a
-user port: bridged, BPDUs reached the CPU and forwarding kept working;
-standalone, all but EAPOL to 01:80:c2:00:00:03 did, once each. No
-selftests were run.
+Tested with KUnit on UML:
 
-Fixes: 8fab459e69ab ("net: dsa: b53: Enable Broadcom tags for 531x5/539x families")
-Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+  $ ./tools/testing/kunit/kunit.py run asn1_decoder
+  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D asn1_decoder (13 subtest=
+s) =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+  [PASSED] asn1_test_decode_valid
+  ...
+  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D [PASSED] asn1_deco=
+der =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+  Testing complete. Ran 13 tests: passed: 13
+
+This suite was developed with the assistance of an AI coding assistant
+(Claude Opus 4.8): the test vectors and C were drafted with the
+assistant and reviewed by hand, and this changelog was written with its
+help.  Beyond the KUnit run above, the decoder was checked against the
+suite with an independent verification kit -- exhaustive enumeration and
+randomized, grammar-biased and coverage-guided (libFuzzer) fuzzing under
+a guard page and KASAN/UBSan, CBMC bounded model checking of the real
+decoder, and Coq and Lean models of the no-over-read invariant; no
+over-read was found.  That kit is maintained separately and is not part
+of this patch.  I understand the code and take responsibility for it.
+
+Signed-off-by: William Chuang <founder@logarcheon.com>
 ---
-Tested on a BCM53125 with this patch on a 7.3-based kernel, which only
-lacks b53_enable_mcast_snooping(). Still net-next despite Fixes:, as it
-enables port 8 and takes the mirror on every dual-IMP board; I can
-resend to net if preferred. Boards that can wire port 8 (5301x, 58xx)
-are better off using it.
----
-Changes in v2:
-- Also mirror what the switch sends to port 8 to port 5 (Jonas's egress
-  mirror), with port 8 enabled, its link forced and in the disabled STP
-  state, on all dual-IMP chips
-- tc mirroring refused with -EOPNOTSUPP (not run on hardware: no clsact
-  in the test image)
-- Check that port 8 exists and is unused; add Fixes:
-- A CFP redirect to port 8, where the chip has a CFP, is left for a
-  follow-up
-- Link to v1: https://patch.msgid.link/20261111-b53-bpdu-mirror-v1-1-f9f32e9d25db@telaak.dev
----
- drivers/net/dsa/b53/b53_common.c | 48 ++++++++++++++++++++++++++++++++++++++++
- drivers/net/dsa/b53/b53_priv.h   |  1 +
- 2 files changed, 49 insertions(+)
+ lib/Kconfig.debug              |  17 ++
+ lib/tests/Makefile             |   4 +
+ lib/tests/asn1_decoder_kunit.c | 360 +++++++++++++++++++++++++++++++++
+ lib/tests/asn1_test.asn1       |  11 +
+ 4 files changed, 392 insertions(+)
+ create mode 100644 lib/tests/asn1_decoder_kunit.c
+ create mode 100644 lib/tests/asn1_test.asn1
 
-diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
-index b7aff5e238e8..f82139b0c501 100644
---- a/drivers/net/dsa/b53/b53_common.c
-+++ b/drivers/net/dsa/b53/b53_common.c
-@@ -745,6 +745,10 @@ void b53_disable_port(struct dsa_switch *ds, int port)
- 	struct b53_device *dev = ds->priv;
- 	u8 reg;
- 
-+	/* Port 8 carries frames for the CPU to the mirror */
-+	if (port == B53_CPU_PORT && dev->cpu_mirror)
-+		return;
+diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
+index 2d22638ec13a6..f69025ae3cb9d 100644
+--- a/lib/Kconfig.debug
++++ b/lib/Kconfig.debug
+@@ -2998,6 +2998,23 @@ config BASE64_KUNIT
+=20
+ =09  If unsure, say N.
+=20
++config ASN1_DECODER_KUNIT_TEST
++=09tristate "KUnit tests for the ASN.1 BER/DER decoder" if !KUNIT_ALL_TEST=
+S
++=09depends on KUNIT
++=09default KUNIT_ALL_TESTS
++=09select ASN1
++=09help
++=09  This builds the KUnit tests for the ASN.1 BER/DER decoder in
++=09  lib/asn1_decoder.c.  A tiny grammar drives asn1_ber_decoder() with
++=09  well-formed and malformed input and checks that valid input is
++=09  parsed and each class of malformed input is rejected rather than
++=09  over-read.
 +
- 	/* Disable Tx/Rx for the port */
- 	b53_read8(dev, B53_CTRL_PAGE, B53_PORT_CTRL(port), &reg);
- 	reg |= PORT_CTRL_RX_DISABLE | PORT_CTRL_TX_DISABLE;
-@@ -1326,6 +1330,42 @@ int b53_setup_devlink_resources(struct dsa_switch *ds)
- }
- EXPORT_SYMBOL(b53_setup_devlink_resources);
- 
-+/* With port 5 as the CPU port and port 8 unused, the switch runs in dual-IMP
-+ * mode and still traps frames for the CPU from the user ports to port 8.
-+ * Mirror them to port 5: frames to the bridge group address as they enter a
-+ * user port, everything else as it leaves port 8, which needs Rx/Tx enabled
-+ * and its link forced up for that, so b53_disable_port() leaves it alone.
-+ * This takes the switch's only mirror.
++=09  For more information on KUnit and unit tests in general please refer
++=09  to the KUnit documentation in Documentation/dev-tools/kunit/.
++
++=09  If unsure, say N.
++
+ config BITS_TEST
+ =09tristate "KUnit test for bit functions and macros" if !KUNIT_ALL_TESTS
+ =09depends on KUNIT
+diff --git a/lib/tests/Makefile b/lib/tests/Makefile
+index df0537e1b91fa..4e5b6016c4e4c 100644
+--- a/lib/tests/Makefile
++++ b/lib/tests/Makefile
+@@ -60,3 +60,7 @@ obj-$(CONFIG_RATELIMIT_KUNIT_TEST) +=3D test_ratelimit.o
+ obj-$(CONFIG_UUID_KUNIT_TEST) +=3D uuid_kunit.o
+=20
+ obj-$(CONFIG_TEST_RUNTIME_MODULE)=09=09+=3D module/
++
++obj-$(CONFIG_ASN1_DECODER_KUNIT_TEST) +=3D asn1_decoder_kunit_test.o
++asn1_decoder_kunit_test-y :=3D asn1_decoder_kunit.o asn1_test.asn1.o
++$(obj)/asn1_decoder_kunit.o: $(obj)/asn1_test.asn1.h
+diff --git a/lib/tests/asn1_decoder_kunit.c b/lib/tests/asn1_decoder_kunit.=
+c
+new file mode 100644
+index 0000000000000..5196df7b281a3
+--- /dev/null
++++ b/lib/tests/asn1_decoder_kunit.c
+@@ -0,0 +1,360 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * KUnit tests for the ASN.1 BER/DER decoder in lib/asn1_decoder.c.
++ *
++ * A tiny grammar (asn1_test.asn1: SEQUENCE { INTEGER, OCTET STRING }) dri=
+ves
++ * the decoder.  The cases feed well-formed and malformed DER byte strings=
+ to
++ * asn1_ber_decoder() and check that valid input is parsed and the action
++ * callbacks fire with the expected values, while each class of malformed =
+input
++ * is rejected (rather than over-read) with the documented error code.
++ *
++ * Copyright (C) 2026 Logarcheon Inc.
 + */
-+static void b53_setup_cpu_mirror(struct dsa_switch *ds)
++#include <kunit/test.h>
++#include <linux/asn1_decoder.h>
++#include <linux/errno.h>
++#include <linux/slab.h>
++#include <linux/string.h>
++
++#include "asn1_test.asn1.h"
++
++struct asn1_test_ctx {
++=09unsigned int=09int_calls;
++=09unsigned int=09str_calls;
++=09u8=09=09int_first;
++=09size_t=09=09str_len;
++=09u8=09=09str_buf[8];
++=09/*
++=09 * Optional slice oracle.  When @buf is set, every callback checks that
++=09 * the (value, vlen) slice it is handed lies inside [buf, buf + buflen)=
+;
++=09 * the stress case uses this to catch a bad slice directly, without
++=09 * waiting for KASAN.  Tests that leave @buf NULL skip the check.
++=09 */
++=09const u8=09*buf;
++=09size_t=09=09buflen;
++=09bool=09=09slice_oob;
++};
++
++static void asn1_test_check_slice(struct asn1_test_ctx *ctx,
++=09=09=09=09  const void *value, size_t vlen)
 +{
-+	struct b53_device *dev = ds->priv;
-+	int cpu_port = 5;
++=09const u8 *v =3D value;
 +
-+	dev->cpu_mirror = false;
-+	if (dev->tag_protocol == DSA_TAG_PROTO_NONE ||
-+	    dev->imp_port != B53_CPU_PORT || B53_CPU_PORT >= ds->num_ports ||
-+	    !dsa_is_cpu_port(ds, cpu_port) ||
-+	    !dsa_is_unused_port(ds, B53_CPU_PORT))
-+		return;
-+
-+	/* Rx/Tx on, STP disabled: only trapped frames leave port 8 */
-+	b53_write8(dev, B53_CTRL_PAGE, B53_PORT_CTRL(B53_CPU_PORT),
-+		   PORT_CTRL_DIS_STATE);
-+	b53_write8(dev, B53_CTRL_PAGE, B53_PORT_OVERRIDE_CTRL,
-+		   PORT_OVERRIDE_EN | PORT_OVERRIDE_SPEED_1000M |
-+		   PORT_OVERRIDE_FULL_DUPLEX | PORT_OVERRIDE_LINK);
-+
-+	b53_write48(dev, B53_MGMT_PAGE, B53_IG_MIR_MAC,
-+		    ether_addr_to_u64(eth_stp_addr));
-+	b53_write16(dev, B53_MGMT_PAGE, B53_IG_MIR_CTL,
-+		    (MIRROR_DA << MIRROR_FILTER_SHIFT) |
-+		    (dsa_user_ports(ds) & MIRROR_MASK));
-+	b53_write16(dev, B53_MGMT_PAGE, B53_EG_MIR_CTL, BIT(B53_CPU_PORT));
-+	b53_write16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, MIRROR_EN | cpu_port);
-+	dev->cpu_mirror = true;
++=09if (!ctx->buf || vlen =3D=3D 0)
++=09=09return;
++=09if (v < ctx->buf || v + vlen > ctx->buf + ctx->buflen)
++=09=09ctx->slice_oob =3D true;
 +}
 +
- static int b53_setup(struct dsa_switch *ds)
- {
- 	struct b53_device *dev = ds->priv;
-@@ -1387,6 +1427,8 @@ static int b53_setup(struct dsa_switch *ds)
- 			b53_disable_port(ds, port);
- 	}
- 
-+	b53_setup_cpu_mirror(ds);
++/*
++ * Action callbacks referenced by asn1_test.asn1.  They must be non-static=
+ and
++ * match the names used in the grammar; asn1_test.asn1.h declares them.
++ */
++int asn1_test_note_int(void *context, size_t hdrlen, unsigned char tag,
++=09=09       const void *value, size_t vlen)
++{
++=09struct asn1_test_ctx *ctx =3D context;
 +
- 	ret = b53_enable_mcast_snooping(dev);
- 	if (ret)
- 		return ret;
-@@ -2604,6 +2646,12 @@ int b53_mirror_add(struct dsa_switch *ds, int port,
- 	struct b53_device *dev = ds->priv;
- 	u16 reg, loc;
- 
-+	if (dev->cpu_mirror) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "The mirror carries CPU traffic to port 5");
-+		return -EOPNOTSUPP;
-+	}
++=09ctx->int_calls++;
++=09asn1_test_check_slice(ctx, value, vlen);
++=09if (vlen >=3D 1)
++=09=09ctx->int_first =3D ((const u8 *)value)[0];
++=09return 0;
++}
 +
- 	if (ingress)
- 		loc = B53_IG_MIR_CTL;
- 	else
-diff --git a/drivers/net/dsa/b53/b53_priv.h b/drivers/net/dsa/b53/b53_priv.h
-index c4d2a41c714f..15f745d79bf4 100644
---- a/drivers/net/dsa/b53/b53_priv.h
-+++ b/drivers/net/dsa/b53/b53_priv.h
-@@ -170,6 +170,7 @@ struct b53_device {
- 
- 	/* run time configuration */
- 	bool enable_jumbo;
-+	bool cpu_mirror;
- 
- 	unsigned int num_vlans;
- 	struct b53_vlan *vlans;
++int asn1_test_note_str(void *context, size_t hdrlen, unsigned char tag,
++=09=09       const void *value, size_t vlen)
++{
++=09struct asn1_test_ctx *ctx =3D context;
++
++=09ctx->str_calls++;
++=09asn1_test_check_slice(ctx, value, vlen);
++=09ctx->str_len =3D vlen;
++=09if (vlen <=3D sizeof(ctx->str_buf))
++=09=09memcpy(ctx->str_buf, value, vlen);
++=09return 0;
++}
++
++/* SEQUENCE { INTEGER 0x2a, OCTET STRING "hi" } */
++static const u8 asn1_test_der_valid[] =3D {
++=090x30, 0x07,
++=09=090x02, 0x01, 0x2a,
++=09=090x04, 0x02, 0x68, 0x69,
++};
++
++/* A well-formed message is decoded and both actions fire with the right d=
+ata. */
++static void asn1_test_decode_valid(struct kunit *test)
++{
++=09struct asn1_test_ctx ctx =3D {};
++=09int ret;
++
++=09ret =3D asn1_ber_decoder(&asn1_test_decoder, &ctx,
++=09=09=09       asn1_test_der_valid,
++=09=09=09       sizeof(asn1_test_der_valid));
++=09KUNIT_EXPECT_EQ(test, ret, 0);
++=09KUNIT_EXPECT_EQ(test, ctx.int_calls, 1u);
++=09KUNIT_EXPECT_EQ(test, ctx.int_first, (u8)0x2a);
++=09KUNIT_EXPECT_EQ(test, ctx.str_calls, 1u);
++=09KUNIT_EXPECT_EQ(test, ctx.str_len, (size_t)2);
++=09KUNIT_EXPECT_MEMEQ(test, ctx.str_buf, "hi", 2);
++}
++
++/* The SEQUENCE header claims 7 content octets but only 6 are present. */
++static void asn1_test_truncated_content(struct kunit *test)
++{
++=09struct asn1_test_ctx ctx =3D {};
++=09static const u8 der[] =3D {
++=09=090x30, 0x07,
++=09=09=090x02, 0x01, 0x2a,
++=09=09=090x04, 0x02, 0x68,=09/* final octet missing */
++=09};
++
++=09KUNIT_EXPECT_EQ(test,
++=09=09=09asn1_ber_decoder(&asn1_test_decoder, &ctx,
++=09=09=09=09=09 der, sizeof(der)),
++=09=09=09-EBADMSG);
++}
++
++/* The INTEGER length (0x7f) runs past the end of the containing SEQUENCE.=
+ */
++static void asn1_test_length_overrun(struct kunit *test)
++{
++=09struct asn1_test_ctx ctx =3D {};
++=09static const u8 der[] =3D {
++=09=090x30, 0x03,
++=09=09=090x02, 0x7f, 0x00,
++=09};
++
++=09KUNIT_EXPECT_EQ(test,
++=09=09=09asn1_ber_decoder(&asn1_test_decoder, &ctx,
++=09=09=09=09=09 der, sizeof(der)),
++=09=09=09-EBADMSG);
++}
++
++/* A high-tag-number (long) tag form is not supported and must be rejected=
+. */
++static void asn1_test_long_tag(struct kunit *test)
++{
++=09struct asn1_test_ctx ctx =3D {};
++=09static const u8 der[] =3D {
++=09=090x30, 0x03,
++=09=09=090x1f, 0x01, 0x00,=09/* tag low 5 bits =3D=3D 0x1f */
++=09};
++
++=09KUNIT_EXPECT_EQ(test,
++=09=09=09asn1_ber_decoder(&asn1_test_decoder, &ctx,
++=09=09=09=09=09 der, sizeof(der)),
++=09=09=09-EBADMSG);
++}
++
++/* A top-level tag that is not the expected SEQUENCE is rejected. */
++static void asn1_test_wrong_tag(struct kunit *test)
++{
++=09struct asn1_test_ctx ctx =3D {};
++=09static const u8 der[] =3D {
++=09=090x31, 0x07,=09=09=09/* SET instead of SEQUENCE */
++=09=09=090x02, 0x01, 0x2a,
++=09=09=090x04, 0x02, 0x68, 0x69,
++=09};
++
++=09KUNIT_EXPECT_EQ(test,
++=09=09=09asn1_ber_decoder(&asn1_test_decoder, &ctx,
++=09=09=09=09=09 der, sizeof(der)),
++=09=09=09-EBADMSG);
++}
++
++/* datalen above the decoder's 65535-octet ceiling returns -EMSGSIZE. */
++static void asn1_test_too_large(struct kunit *test)
++{
++=09struct asn1_test_ctx ctx =3D {};
++=09size_t len =3D 0x10000;=09=09/* 65536 > 65535 */
++=09u8 *buf;
++
++=09buf =3D kzalloc(len, GFP_KERNEL);
++=09KUNIT_ASSERT_NOT_NULL(test, buf);
++=09KUNIT_EXPECT_EQ(test,
++=09=09=09asn1_ber_decoder(&asn1_test_decoder, &ctx, buf, len),
++=09=09=09-EMSGSIZE);
++=09kfree(buf);
++}
++
++/* A buffer too short to hold even one tag+length header is rejected. */
++static void asn1_test_short_header(struct kunit *test)
++{
++=09struct asn1_test_ctx ctx =3D {};
++=09static const u8 der[] =3D { 0x30 };
++
++=09KUNIT_EXPECT_EQ(test,
++=09=09=09asn1_ber_decoder(&asn1_test_decoder, &ctx,
++=09=09=09=09=09 der, sizeof(der)),
++=09=09=09-EBADMSG);
++}
++
++/* Indefinite-length constructed form with no terminating EOC is rejected.=
+ */
++static void asn1_test_missing_eoc(struct kunit *test)
++{
++=09struct asn1_test_ctx ctx =3D {};
++=09static const u8 der[] =3D {
++=09=090x30, 0x80,=09=09=09/* indefinite length */
++=09=09=090x02, 0x01, 0x2a,
++=09=09=090x04, 0x02, 0x68, 0x69,
++=09=09=09=09=09=09/* no 0x00 0x00 EOC */
++=09};
++
++=09KUNIT_EXPECT_EQ(test,
++=09=09=09asn1_ber_decoder(&asn1_test_decoder, &ctx,
++=09=09=09=09=09 der, sizeof(der)),
++=09=09=09-EBADMSG);
++}
++
++/* An EOC marker with a non-zero length octet is rejected. */
++static void asn1_test_invalid_eoc(struct kunit *test)
++{
++=09struct asn1_test_ctx ctx =3D {};
++=09static const u8 der[] =3D {
++=09=090x30, 0x80,=09=09=09/* indefinite length */
++=09=09=090x02, 0x01, 0x2a,
++=09=09=090x04, 0x02, 0x68, 0x69,
++=09=09=090x00, 0x01,=09=09/* EOC with bad length */
++=09};
++
++=09KUNIT_EXPECT_EQ(test,
++=09=09=09asn1_ber_decoder(&asn1_test_decoder, &ctx,
++=09=09=09=09=09 der, sizeof(der)),
++=09=09=09-EBADMSG);
++}
++
++/*
++ * Indefinite-length constructed form terminated by a proper end-of-conten=
+ts
++ * marker is accepted, and both actions fire.  This exercises the success =
+path
++ * of the indefinite-length branch (the failure paths are covered above).
++ */
++static void asn1_test_indefinite_ok(struct kunit *test)
++{
++=09struct asn1_test_ctx ctx =3D {};
++=09static const u8 der[] =3D {
++=09=090x30, 0x80,=09=09=09/* SEQUENCE, indefinite length */
++=09=09=090x02, 0x01, 0x2a,
++=09=09=090x04, 0x02, 0x68, 0x69,
++=09=09=090x00, 0x00,=09=09/* end-of-contents */
++=09};
++
++=09KUNIT_EXPECT_EQ(test,
++=09=09=09asn1_ber_decoder(&asn1_test_decoder, &ctx,
++=09=09=09=09=09 der, sizeof(der)),
++=09=09=090);
++=09KUNIT_EXPECT_EQ(test, ctx.int_calls, 1u);
++=09KUNIT_EXPECT_EQ(test, ctx.str_calls, 1u);
++=09KUNIT_EXPECT_EQ(test, ctx.str_len, (size_t)2);
++}
++
++/* A two-octet (0x81) long-form length is parsed the same as the short for=
+m. */
++static void asn1_test_long_form_length(struct kunit *test)
++{
++=09struct asn1_test_ctx ctx =3D {};
++=09static const u8 der[] =3D {
++=09=090x30, 0x81, 0x07,=09=09/* long-form length: 1 octet, 0x07 */
++=09=09=090x02, 0x01, 0x2a,
++=09=09=090x04, 0x02, 0x68, 0x69,
++=09};
++
++=09KUNIT_EXPECT_EQ(test,
++=09=09=09asn1_ber_decoder(&asn1_test_decoder, &ctx,
++=09=09=09=09=09 der, sizeof(der)),
++=09=09=090);
++=09KUNIT_EXPECT_EQ(test, ctx.int_first, (u8)0x2a);
++=09KUNIT_EXPECT_EQ(test, ctx.str_len, (size_t)2);
++}
++
++/* A zero-length OCTET STRING is valid; the action fires with vlen =3D=3D =
+0. */
++static void asn1_test_zero_length_string(struct kunit *test)
++{
++=09struct asn1_test_ctx ctx =3D {};
++=09static const u8 der[] =3D {
++=09=090x30, 0x05,
++=09=09=090x02, 0x01, 0x2a,
++=09=09=090x04, 0x00,=09=09/* OCTET STRING of length 0 */
++=09};
++
++=09KUNIT_EXPECT_EQ(test,
++=09=09=09asn1_ber_decoder(&asn1_test_decoder, &ctx,
++=09=09=09=09=09 der, sizeof(der)),
++=09=09=090);
++=09KUNIT_EXPECT_EQ(test, ctx.str_calls, 1u);
++=09KUNIT_EXPECT_EQ(test, ctx.str_len, (size_t)0);
++}
++
++/*
++ * Bounded deterministic stress.  A fixed-seed xorshift PRNG drives a few
++ * thousand pseudo-random byte strings (lengths 0..255) through the decode=
+r.
++ * The decoder must never crash, and whenever it reports success the slice
++ * oracle in the callbacks must not have seen an out-of-range (value, vlen=
+).
++ * On a KASAN build any over-read is caught in addition to the oracle.  Th=
+e
++ * seed and iteration count are fixed so the case is reproducible and runs=
+ in
++ * bounded time.
++ */
++static void asn1_test_random_stress(struct kunit *test)
++{
++=09static const unsigned int iterations =3D 4096;
++=09u32 state =3D 0x1a2b3c4du;=09=09/* fixed seed: reproducible */
++=09u8 *buf;
++=09unsigned int i;
++
++=09buf =3D kmalloc(256, GFP_KERNEL);
++=09KUNIT_ASSERT_NOT_NULL(test, buf);
++
++=09for (i =3D 0; i < iterations; i++) {
++=09=09struct asn1_test_ctx ctx =3D {};
++=09=09size_t len, j;
++=09=09int ret;
++
++=09=09state ^=3D state << 13;
++=09=09state ^=3D state >> 17;
++=09=09state ^=3D state << 5;
++=09=09len =3D state % 256;
++
++=09=09for (j =3D 0; j < len; j++) {
++=09=09=09state ^=3D state << 13;
++=09=09=09state ^=3D state >> 17;
++=09=09=09state ^=3D state << 5;
++=09=09=09buf[j] =3D state & 0xff;
++=09=09}
++
++=09=09ctx.buf =3D buf;
++=09=09ctx.buflen =3D len;
++=09=09ret =3D asn1_ber_decoder(&asn1_test_decoder, &ctx, buf, len);
++
++=09=09/* Any return is acceptable; a bad slice on success is not. */
++=09=09if (ret =3D=3D 0)
++=09=09=09KUNIT_EXPECT_FALSE(test, ctx.slice_oob);
++=09=09else
++=09=09=09KUNIT_EXPECT_LT(test, ret, 0);
++=09}
++
++=09kfree(buf);
++}
++
++static struct kunit_case asn1_decoder_test_cases[] =3D {
++=09KUNIT_CASE(asn1_test_decode_valid),
++=09KUNIT_CASE(asn1_test_truncated_content),
++=09KUNIT_CASE(asn1_test_length_overrun),
++=09KUNIT_CASE(asn1_test_long_tag),
++=09KUNIT_CASE(asn1_test_wrong_tag),
++=09KUNIT_CASE(asn1_test_too_large),
++=09KUNIT_CASE(asn1_test_short_header),
++=09KUNIT_CASE(asn1_test_missing_eoc),
++=09KUNIT_CASE(asn1_test_invalid_eoc),
++=09KUNIT_CASE(asn1_test_indefinite_ok),
++=09KUNIT_CASE(asn1_test_long_form_length),
++=09KUNIT_CASE(asn1_test_zero_length_string),
++=09KUNIT_CASE(asn1_test_random_stress),
++=09{}
++};
++
++static struct kunit_suite asn1_decoder_test_suite =3D {
++=09.name =3D "asn1_decoder",
++=09.test_cases =3D asn1_decoder_test_cases,
++};
++
++kunit_test_suite(asn1_decoder_test_suite);
++
++MODULE_DESCRIPTION("KUnit tests for the ASN.1 BER/DER decoder");
++MODULE_LICENSE("GPL");
+diff --git a/lib/tests/asn1_test.asn1 b/lib/tests/asn1_test.asn1
+new file mode 100644
+index 0000000000000..b3da8041a5b2a
+--- /dev/null
++++ b/lib/tests/asn1_test.asn1
+@@ -0,0 +1,11 @@
++-- SPDX-License-Identifier: GPL-2.0-or-later
++--
++-- Minimal grammar used only by the ASN.1 decoder KUnit tests
++-- (lib/tests/asn1_decoder_kunit.c).  It exercises a constructed type, a
++-- primitive INTEGER and a primitive OCTET STRING, each with an action, wh=
+ich
++-- is enough to drive the decoder's tag/length handling and action dispatc=
+h.
++
++TestData ::=3D SEQUENCE {
++=09num=09INTEGER ({ asn1_test_note_int }),
++=09str=09OCTET STRING ({ asn1_test_note_str })
++=09}
 
----
-base-commit: 7ccc5e05043b1bb84326b19a2b05938d8f7a2ae6
-change-id: 20261109-b53-bpdu-mirror-d3f66c7a7fd2
+base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+--=20
+2.43.0
 
-Best regards,
---  
-Joseph Telaak <joseph@telaak.dev>
 
