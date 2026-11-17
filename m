@@ -1,99 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.176
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794906273;
-	b=wsVz/mzpjRUpek8ddyFn2eZO0d5uOZCuzHSQZIRADQZm3U6K3evxPHDuFcvDa8dDtznS
-	 vJBUvjtdwcSbh4FV1Osay+qjbECoJlBII1wDrS2hW/c0PYWbgE+1MtiQtEZKd4t2LgKnq
-	 tSbjOO7qW2VzwKKZCuyFe+B2uG5lBP9ElQ4FR9NxvpbLVZYBqdQ62O+dJFJoF3mYmEDzf
-	 W2NsH6OlSRwfIBEbs+fuOJlINp7oAoBs3bhsai0JqEzF6NtxGt/lvi5j+XRxBRIcme2C1
-	 0/wixp2OQyLHbrbRnxHmMpMTs75TzVsyqBQkE1GuDy/BP5tn0hmIleNfi8unoYR2O1Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794906273;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Disposition:Message-ID:User-Agent;
-	bh=NFfn01r/I2+FlzODQuMnSDaVkhXc6007Ui5uRs6gM1U=;
-	b=3DSBsgeJKBqvrUMPBYaLFhpz5GahMSBo3SRGVgtWo4TXn1ukSuNiAEZzp0bmvpgd70ec
-	 Vu4YhuyivLpJnHaKKCxYQr0rnHzvjeLMJ6CrZ4/P/MJFtRvsbKGZnDEr3sjIA9AmdFQwp
-	 RhUMp9nFvXwbfEN3q/so+tI5HzX6gRC7dU8NkoMO+Lw0KbOH4NUNaz9uoaA3iErGmlMiz
-	 kYler5tQBugXC24B9Wn2BKa8ummCHCqc0yAysytvG02UGYm1SzuLQfTbnrRVMwOsRfJHq
-	 uVUFtZShx0cHZUdk6POKkr9xOrId7rw8hiRThXtJCMU5jV2FsghLHWYzNx0XyNvRUPw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrisdown.name;
-	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=QR2IjSll;
-	arc=none smtp.remote-ip=209.85.210.176
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794906285;
+	b=Cb5ixiqHAfL8ZJ09OxFsysCAULXBT80GA6m8ZZoXRTeEVDiI8e7ddfnJOi+4B8JMMTW6
+	 Zn787LoH2er2tB7gCciKEeqe9FEoD3/WrBLBAzsb0LykHsKXFlC5vR63dH5hK0U/PvlWY
+	 K0zS+6Duv0hzU39jOAe+mYMc+xfY7g3SIn5DwJir3Uc8B9o2vwYf2yJjYjUmnqHQBc622
+	 Ok/XxJ9AFa6P7tMRa64YCvL+as2Qdf10L7kHw3zutmC/8GZMVBMKpw4tCiCWGMfucM6Cm
+	 mtFH1DzXXCSYU8bJNqPQJvbgTHXOH1oICkIgCKx7FSpguc4Veqcb+jUVuebEx+FyjuA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794906285;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=/KOAVv6apLichQ/OSMK32xkM/AZHKlMXP5BUywmr1vA=;
+	b=ylBFteKZ7NshvYHZ3BUQGs8JQuXVByEe2YnJeWncP6KPqnkvQLFHZglvX15mpju49AzS
+	 OcNpI0Z+NP0VJppZn77AntkCT+vBH1WbnVjm2SdTAn6XibgSroM+jbwyuEsLfLlMBLYix
+	 Hm6Dj0YHTI62z6HQjWvCrdvuYYY42OqL2iuJ3bo95hy84l+YvWwYzrSG34d7OGu3xsTGd
+	 qikufPfXFNOQhFcAvToTTl24A4B2rGQ120p1aswXzylNsvZspTzMSo1MESJ+jrHIYC/up
+	 784dC4LMLBb1x43OuL+R9KYIwACRI4ZhYkHXjKF1eXPHmsSt/eaUwkG8auWb3tYbYow==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AMBDjDnm;
+	arc=fail smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0BE6606A329;
+	Tue, 17 Nov 2026 09:04:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AMBDjDnm
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794906285;
+	b=K5aG3FPo4svlZZxwC3BHNUorlQ/CdodVEFGQMUdxy3h9R3I32DhSC2OiqpjaEdzq5Prz
+	 AOejLnA2seTqF2n0xnWwyNhlR9PGADGxMSlVfo1GSo9mNb71Em95XCUSqi3iW9ApeKKG6
+	 lm2HW02mRhYilFroIViwKui0JktB9fI1ZhejL4bFgnfKS8JeVCYWPzUjtI0Vzt+ROm1Tf
+	 cHWKece80qWVxyGFQpygtId+xGEaxfBHptZ1TJWt2uPWPDBLVkvSj2dB1faxwCEOmlcdm
+	 haqQKUkpPBHIx6gAQcnw3rFt5Po/Mkr1axi9Z8C2VqTJv5stlBn1PbfqLICZLVfcIVQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794906285;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=/KOAVv6apLichQ/OSMK32xkM/AZHKlMXP5BUywmr1vA=;
+	b=NsNYaV6vSHvrkA7KL47EkwgPRppy8jHHyTaz/9pPtWxkpVs6Q4TrpUrvd3MHU6nmB+8u
+	 zuLTd7xN54TXnPPo5iDql/T79q+XTcp3q7ov4GPJ0JeKj++fhVShoUS6h0SWn1s05zKEH
+	 QZ51J11BjlrPTVeyZqWFLlmvGR7OQQCySqak1vSbJ/pe7OG2Q/RXnaNCID1MJdt1+V5/C
+	 QhsilGgJgdlqIXTm29Q8sjYLKf6VEfKk+xymx5HxwvBszS5/qmI0mEIo+rUJ+0wa1b6Ra
+	 QJD2yT4nL8b2g7NGBrAvIk0s6+q3ehZ9gQTMnhsGJhojxvCVmCDzaGOfR4i4/JLZK3g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51BAF606A329
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:04:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51BAF606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=QR2IjSll
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8a39e5161c1so4491158b3a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:04:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1794906273; x=1795511073; darn=vger.kernel.org;
-        h=user-agent:message-id:content-disposition:content-type:mime-version
-         :references:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=NFfn01r/I2+FlzODQuMnSDaVkhXc6007Ui5uRs6gM1U=;
-        b=QR2IjSllwZCap7dIGsWvdGybMobHzhdf0K6ybXEmYE5E44+iEXK7q1GYERnNlXkhKY
-         GC2wvGo73nc1+dmssWwyPDR4NH+7UtaHFaDiGWU2HvBNZCH0755DyexnRvKOm5LXrV3E
-         Lf3PKTlI8WrlDJQEfJrk4qRjoMmsKTYJFbpbg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794906273; x=1795511073;
-        h=user-agent:message-id:content-disposition:content-type:mime-version
-         :references:in-reply-to:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NFfn01r/I2+FlzODQuMnSDaVkhXc6007Ui5uRs6gM1U=;
-        b=eXVISsNQsNRfb17W+vX8UTZuhwEuzBW8FH2WUPpL/U/klpuXJm936K90odbhp9PUH/
-         8KlDEZnaERpCZ08fxYzGpQ/baLIi8UuyTBAmdDE/spCYYSxYXJd9WQZ7QWdUwFIOL5vi
-         Z4LbRQ/XcehJBi32Ii/YNJcqQURSp8U3qxudAb26tpUqhBIbs5Wx89FZn+U5jGnTw1HI
-         MogEz9gj2u83fVHqtkzLb73o92r0qNJ3jcV7X821CtyHNRgA3+fdSlusLa4evmsaexRV
-         YAtcLOGx0wjJjtVMLwe0bRfHatb4FtrHHWyck3tafuJd75P3yAgEhsW2z0L2fGlvtTI5
-         rYjQ==
-X-Forwarded-Encrypted: i=1; AL+hErHzPrhb7akB8ht+YjRvko8RHl6+xbfuyZvs9xAYNP57jkcry00BrrangOtdqirouR7B7K7yAbyw+QKVM0Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z92QxPVXi1HJ4MQj8VOuYUnMmENr99eLFZL2cmVkOm90UQbNWaV
-	Q1vLs7OXNWsepEJKceIbbGWnwFDqVetGpxQamlBBxAthcNsAC7CbTeYtVEmqVAYGGJ8DCXHZXIN
-	swKDUzynX0qh5
-X-Gm-Gg: AYBFou3Pz6zxSV/laSCxfSicNjhK+KBrrNPyhP7MO7fWNgc4wsmXkedh7ksqO/IJ+Vi
-	sMvwiGMo+w53rBt/r/ENyPeTn/pUOqdaJZitWzmWy3UqWb1l4SZ9GncWv/tFCXdH2yX89xIzScG
-	znGLGKs+7ulEmajh5A+ycplV7B0Gf7Kbsfwe1+dmc/OG4UEkQBPZkESZC6HiPUh8tivdCjSlJ7r
-	5s3eCxA+hJ0bEHZZECF1NfQ6c9jkllnB6rmPNzGvOF/PIHdN1IpaF3WVsECshihQYvkCPjsoIDO
-	ZlphOSDr3pBGHNzgWGORlS18GaO7gMTtLV5yI6+sCry7OU+zA0nxRAxf6zooCm6rQeP9TPE7UhV
-	x++dDBGzklHhQ0ZgkZ+/2azmjLa8YnqfS9w4rF2CSRmAlKgyMXbjs7TG13HpNeuo8iMkTn/NXve
-	21Bo+M9wk5nOiBJQ0qzahX+oD7d9QioXrVrb28WjhxYMdvwpqeWe7EcESDjQF04Y47IIFYrwpfw
-	X8AqKHxpTrRQn1taTFCmG7kr4iZNd+4VhT6mT4mFTJcvF0X/oKwikDJ55CB66hpqOhvrDPjWsW5
-	d7cHHsA/i8VKP+w+70Vs9Jf60JXY/dmXB6HC2Nk9pJgaboOjmENBXVu/Sx6YSNAMQ8j4kLKsDHQ
-	F/AAWbLqUZmCEeColWowxl02OBd7Ymq2c1y3InvKiPOyo6ff9O6kB9k2LscAWqM3xN2bcJKWC9o
-	nea7pwY3wAvoviKUN1JwVBSwAYEXWTcDpH/dT+CO5eo4hkdExlxQ39Zx7Szp0jUd8D
-X-Received: by 2002:a05:6a00:4518:b0:8b4:b88a:c2d6 with SMTP id d2e1a72fcca58-8beb6d604a3mr11459421b3a.39.1794906272633;
-        Tue, 17 Nov 2026 01:04:32 -0800 (PST)
-Received: from [172.20.0.3] ([172.56.235.113])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed20548fbsm5091791b3a.37.2026.11.17.01.04.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 01:04:31 -0800 (PST)
-Date: Tue, 17 Nov 2026 01:04:28 -0800
-From: Chris Down <chris@chrisdown.name>
-To: Breno Leitao <leitao@debian.org>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
-	Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, linux-block@vger.kernel.org,
-	kernel-team@meta.com, Mateusz Guzik <mjguzik@gmail.com>
-Subject: Re: [PATCH RFC 0/3] fs/pipe: copy a run of pipe buffers in one user
-	access section
-In-Reply-To: <20261113-pipe-pool-regression-smap-v1-0-b0dc69558ab3@debian.org>
-References: <20261113-pipe-pool-regression-smap-v1-0-b0dc69558ab3@debian.org>
+	by smtp.kernel.org (Postfix) with ESMTPS id DF77C1F000C5;
+	Tue, 17 Nov 2026 09:04:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794906285;
+	bh=/KOAVv6apLichQ/OSMK32xkM/AZHKlMXP5BUywmr1vA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=AMBDjDnmGFoKp+zjMyV1W6EV12YThZjexefuc2+ebAbaZSkLG0CTZGgvLDB0xpRp4
+	 XeBEq3toa9Tp/Jhdma7AkX/gPNXDxWzbyUM3sRQ32bhtuBOlAg2dMz0vx5iuCswYRw
+	 lM5OgKr6NcUMfCt5lYss3qy+VL1hZRcLYIfE01Crn6+ldEYf5ghhYZaTBC0tX7trA4
+	 InlOu1Nhc2ywucRgLt8yCXv888XtLQU08QWuN+BnemQ3ObR/e1HIHQf4y5n976i2Pj
+	 C2LNnu73j5wnQtiVZjwb6wzjwiQctA4LOPQTLeJSIEHA6iNJnNo9gvWmRR7zLT1oNd
+	 Y0x7LtEn7er7w==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 6F6DF4A75E;
+	Tue, 17 Nov 2026 09:04:44 +0000 (UTC)
+From: Cunhao Lu via B4 Relay <devnull+1579567540.qq.com@kernel.org>
+Date: Tue, 17 Nov 2026 17:04:35 +0800
+Subject: [PATCH net-next v4 1/2] dt-bindings: net: rockchip-dwmac: Add
+ RK3572
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,37 +83,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
-Message-ID: <avwYnDc2Au4mnHTd@chrisdown.name>
-User-Agent: Mutt/2.4.3 (cc9e3943) (2026-10-09)
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261117-add-board-ok3572-c-net-v4-1-4e9da569395a@qq.com>
+References: <20261117-add-board-ok3572-c-net-v4-0-4e9da569395a@qq.com>
+In-Reply-To: <20261117-add-board-ok3572-c-net-v4-0-4e9da569395a@qq.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ David Wu <david.wu@rock-chips.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
+ Jose Abreu <joabreu@synopsys.com>, 
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Cunhao Lu <1579567540@qq.com>, netdev@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew@lunn.ch>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794906282; l=2963;
+ i=1579567540@qq.com; s=20261015; h=from:subject:message-id;
+ bh=nFnIN3lO+XTZBGs+5YkcYP0f6N9wWK6y8Seywzr6SIY=;
+ b=9SYat9LnbqGPUNHGpDhwc31lg+NnzZ77J6S1DEukr/EOu1//Vw0YmjkuSvvCcmc8QipZbYxnI
+ nPcSmU3Ut6dB42rJvdSt77yYeE3veNyUVKM/ntNNFBiimWPApyTMexl
+X-Developer-Key: i=1579567540@qq.com; a=ed25519;
+ pk=sUTWrzlIwT4C7ctjNfVZAzzg0G7QUn2XxRGpYsw4RtM=
+X-Endpoint-Received: by B4 Relay for 1579567540@qq.com/20261015 with
+ auth_id=1177
+X-Original-From: Cunhao Lu <1579567540@qq.com>
+Reply-To: 1579567540@qq.com
+Content-Transfer-Encoding: 7bit
 
-Hi Breno,
+From: Cunhao Lu <1579567540@qq.com>
 
-Breno Leitao writes:
->fs/pipe.c into lib/iov_iter.c. The main question is whether that helper
->is welcome there, or, make the party a bit uglier.
+Add the rockchip,rk3572-gmac compatible with the snps,dwmac-4.20a
+fallback and require rockchip,php-grf.
 
-Hmm, I think the part more likely to get pushback is patch 1, rather
-than where the helper lives. :-) It adds an x86-only user copy primitive,
-and then lib/iov_iter.c has to look for it with an #ifdef on its name,
-which the patch (rightly) acknowledges as a bit of a Macgyver.
+Mark tx_delay and rx_delay as deprecated and disallow them for RK3572
+so new designs do not use the legacy delay properties.
 
-When Christophe proposed another user copy variant in April, Linus asked
-for the existing unsafe_copy_*() helpers to be extended instead of
-growing a new interface [1]. And in a related thread he called x86's
-unsafe_copy_to_user() "almost entirely unoptimized" [2], which is the
-same reason patch 1 gives for not using it.
+Signed-off-by: Cunhao Lu <1579567540@qq.com>
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+---
+Changes in v3:
+- Deprecate tx_delay and rx_delay and disallow them for RK3572.
 
-Based on that discussion, I'd think that the better way would be to make
-x86's unsafe_copy_to_user() use the rep movs body from patch 1 for
-larger copies. Then copy_bvecs_to_iter_full() can be written with
-scoped_user_write_access_size() and unsafe_copy_to_user() for every
-architecture, without the #ifdef.
+Changes in v2:
+- Add RK3572 to the shared Synopsys compatible list for consistency.
+---
+ Documentation/devicetree/bindings/net/rockchip-dwmac.yaml | 15 +++++++++++++++
+ Documentation/devicetree/bindings/net/snps,dwmac.yaml     |  1 +
+ 2 files changed, 16 insertions(+)
 
-[1] https://lore.kernel.org/all/CAHk-=whC1DZojwdMB1=sJWG2=dsCdfyU8N6tDE1qx50HRZ-WJQ@mail.gmail.com/
-[2] https://lore.kernel.org/all/CAHk-=wi1rrcijcD0i7V7JD6bLL-yKHUX-hcxtLx=BUd34phdug@mail.gmail.com/
+diff --git a/Documentation/devicetree/bindings/net/rockchip-dwmac.yaml b/Documentation/devicetree/bindings/net/rockchip-dwmac.yaml
+index e8dda1961ab3..d7b7bb008235 100644
+--- a/Documentation/devicetree/bindings/net/rockchip-dwmac.yaml
++++ b/Documentation/devicetree/bindings/net/rockchip-dwmac.yaml
+@@ -27,6 +27,7 @@ select:
+           - rockchip,rk3506-gmac
+           - rockchip,rk3528-gmac
+           - rockchip,rk3568-gmac
++          - rockchip,rk3572-gmac
+           - rockchip,rk3576-gmac
+           - rockchip,rk3588-gmac
+           - rockchip,rv1108-gmac
+@@ -54,6 +55,7 @@ properties:
+               - rockchip,rk3506-gmac
+               - rockchip,rk3528-gmac
+               - rockchip,rk3568-gmac
++              - rockchip,rk3572-gmac
+               - rockchip,rk3576-gmac
+               - rockchip,rk3588-gmac
+               - rockchip,rv1126-gmac
+@@ -112,6 +114,7 @@ properties:
+     minimum: 0
+     maximum: 0x7F
+     default: 0x30
++    deprecated: true
+ 
+   rx_delay:
+     description: Delay value for RXD timing.
+@@ -119,6 +122,7 @@ properties:
+     minimum: 0
+     maximum: 0x7F
+     default: 0x10
++    deprecated: true
+ 
+   pcs-handle:
+     description:
+@@ -141,11 +145,22 @@ required:
+ allOf:
+   - $ref: snps,dwmac.yaml#
+ 
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: rockchip,rk3572-gmac
++    then:
++      properties:
++        rx_delay: false
++        tx_delay: false
++
+   - if:
+       properties:
+         compatible:
+           contains:
+             enum:
++              - rockchip,rk3572-gmac
+               - rockchip,rk3576-gmac
+               - rockchip,rk3588-gmac
+     then:
+diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+index 2c4842404bf6..80d3b43e2889 100644
+--- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
++++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+@@ -94,6 +94,7 @@ properties:
+         - rockchip,rk3506-gmac
+         - rockchip,rk3528-gmac
+         - rockchip,rk3568-gmac
++        - rockchip,rk3572-gmac
+         - rockchip,rk3576-gmac
+         - rockchip,rk3588-gmac
+         - rockchip,rv1108-gmac
 
-Thanks!
+-- 
+2.34.1
 
-Chris
+
