@@ -1,65 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794875578;
-	b=KZqwTNOhxM0vLH6fr9JcLHfJsMhiqksqUBjzY64CBBaHxxJK3PrIVad0GvSqsnp1i9gT
-	 F2w1+4TFyUw1/rrYXlR2OLwtxTps0tG3MWrhgbPrqvGLJn3rUApWuTv+tE5xgq/Xk+99O
-	 lKnyxbj4a0lhYomIT0vl4WVOHjgWu06JFq8IqZZh3WZDUH1Y7JEMCeXSjnxKOXzVR+UpN
-	 TouJqJBO/lWYdGXK4r5IFWP/t3WCCLm7NftqIk4gjhyp83pAjqOu5TO7tj3wQlroYZoW1
-	 VY5HkzWzekuKRaTm6LsRnlDv38Cx6unD7mvPSIxPWWVJ9Uz9DjjL24K99tLPFTD9ATw==
+	t=1794875668;
+	b=OGBGW7MY2xF1WrBnGymwzhLsnJHPEGQoGMObP4wIPVxQ+KKL3DfA+yXF4NOn5N69fH6l
+	 fiLAQ9PnhLoNsUXcfbe3Wo9EjH9uyjkoXI6WpaZAdWYNOlHUIFXxopWeA1gdAJvyWbddN
+	 BZfsx2JmtlKZQq9LIF4SJDXft83xs8LvevG/IlbASDMEJptHJaPkyK8DGXh/zlsFnQI9z
+	 OIE9bIhW7hZOlkuk/ynWQJFFBP8V8B1BLmb1pOK95VR1L11121/UBm+NzBa8Ttu0XElg0
+	 RcwKdu+TmA7SZ7TF0+pL3/a1mYhaHpIo1UTdp/a1e6qkzARJtiTvbIVthFsT3dCbOEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794875578;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Debian-User;
-	bh=ZJaGE4hmAwAu3ci11rwBq8atZ3mF8O9TjUp2VfkCbf4=;
-	b=gK+yZko0gjBz8Klr7AA8HNa9Xi1eI9jmejU/BGgfQi8piq9x9PmuvW1LIGiYJDamOGxN
-	 cbdH7o38luO9MDzeOY7+yWKwxlX85rQTRVYgmNC01yTYzjAxpa7cYTOJbjQXW4aToJUL+
-	 hU8wzKICf4VsMQQYrDyO+SVwvFYdfPJCIlcZTleah1sxgqIJoNkvrrGqZHoipVG0H02Rk
-	 pIvdd5M5m6PVk/5cdj3i+xcSiKFhRT80IgUtyAHHH+WQ/VdO1OTfrWzmrfTcHTmlDhAif
-	 xFM1Vfj10HUC/kgy42L6VfLUa8+ZqnWMx6wO3HSgOjgSepmleaiwdTn9xBtzG7G7ziQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794875668;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=zOWSa27u3Ave0V9vTT3pFsTcgdu8IRVtcAyDkVZ91z8=;
+	b=xgb4jZtuceRIrgL0MkKVOqIj6A1OeZocZoGV3W3dsr5vp4HE+cRV4HtCzLToTyc9otjq
+	 IqJ69vpEckgCXhm4sQ3KZsCPlEbQazgnKeFkUKbjeUojK3SpndLBoTNBSFvZ6VR8lEi+7
+	 QLe5TUoN9m2EYJKPKb8Lo26FwJndsG1Z/F5ZReketM2Un3WM7eFRqO1DIULb2ABDR+wNn
+	 DjKbDVhHxIMUOmhnpA3hcSeKMy1WuDaazhX3mhgLirFHtOs4v0jllM0offE0WfsRWNepi
+	 qM1Tp3AQ5HlY/FccsBdJusq2UGuONDi1h/7zGsAYhaG0TTWDWLUsJS8/pSkkQqdi9nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b="tI/ce3g4";
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=justthetip.ca;
+	spf=pass smtp.mailfrom=justthetip.ca;
+	dkim=pass header.d=justthetip.ca header.i=@justthetip.ca header.a=rsa-sha256 header.s=key1 header.b=Ot4oqxy3;
+	arc=none smtp.remote-ip=91.218.175.21
+Received: from mta0.migadu.com (out-21.mta0.migadu.com [91.218.175.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70FD4606A323;
-	Tue, 17 Nov 2026 00:32:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70FD4606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4ADE606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 00:34:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4ADE606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=justthetip.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=tI/ce3g4
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Content-Transfer-Encoding:MIME-Version
-	:Message-ID:Date:Subject:Cc:To:From:Reply-To:Content-Type:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=ZJaGE4hmAwAu3ci11rwBq8atZ3mF8O9TjUp2VfkCbf4=; b=tI/ce3g44ASlkorJjwjSc9Pr4z
-	BDE3oljIP+EozzaBr7sS66Z0mHUe7x8rDA5re6DVDBmndW5TMVcRuYltb5PNlgqpQLUZqUoJHP0w3
-	e0yFl9urGAdoqae2PKxLRrQNRb9bSaUiJpWIkFzUJy9FdbFzMVVhiFxYaTgVhqvTQsPOJtx3glbvx
-	YsW8x3N98XBJlfNyChIkvZojhw5XbPDTKGE1GawUgGd6ISJok1X13CTVLo77TAriXA3lpvE7NTOWH
-	gdR9IWpDCKo+WW9snVx11TC11POPq+k3M5ZKU2YTDN7crtSkJ0AMrCSbySOFm55pDoUKrXF2QwD53
-	Cku2xvRg==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <emfox@debian.org>)
-	id 1xT781-0009Ez-0N;
-	Tue, 17 Nov 2026 00:32:53 +0000
-From: Emfox Zhou <emfox@debian.org>
-To: Even Xu <even.xu@intel.com>,
-	Xinpeng Sun <xinpeng.sun@intel.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4] HID: intel-thc-hid: intel-thc: restore PRD table capacity
-Date: Tue, 17 Nov 2026 08:32:47 +0800
-Message-ID: <20261117003247.940876-1-emfox@debian.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=justthetip.ca header.i=@justthetip.ca header.a=rsa-sha256 header.s=key1 header.b=Ot4oqxy3
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=yvvOOXaMMgB1nSlfT2xaMn+eYtcmhlEfU9FHzAzuR3E=;
+ c=simple/simple; d=justthetip.ca;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794875665; v=1; x=1795480465;
+ b=Ot4oqxy3U3AK6oPbJVVqi5gnOh/xIuw6x23rbLp5RjGURpfcmIEw0c7hlJVYaUquOv1+61fe
+ prX8S1gnX+IKlM06brMGbFcVhRnOx/JELdEBxTFsRw/LeJM53AnxBM8ddwQJSxBUQuwNYNgWSHp
+ FsJ8o6eWiljsMFBNrz50c2vAY+nE7cxmuCy4y6XXga+Zfh2Mh5KzFYLLl2xbMZeGXSfgsjlEvoG
+ 27jKQ4KWrBUjRfK9rvAx9A0ersSCrrtBMeEqFgeyhkZzCFVkd35hcOnfv+hwIhBmLSCFAwGOIGA
+ JW70B1Rv8SIzu0uy1io2hNbq5Wl4HXont6tpwVaGIImNg==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id eece0ddd6e15d8e7;
+	Tue, 17 Nov 2026 00:34:25 +0000
+X-Mizu-Trace-ID: eece0ddd6e15d8e7
+X-Migadu-Flow: FLOW_OUT
+From: Devin Wittmayer <lucid_duck@justthetip.ca>
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: Ilan Peer <ilan.peer@intel.com>,
+	Martin Moosbauer <martinmoosbauer@vivaldi.net>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH wireless] wifi: cfg80211: keep the user's setting when another hint times out
+Date: Mon, 16 Nov 2026 17:34:16 -0700
+Message-ID: <20261117003416.22375-1-lucid_duck@justthetip.ca>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,166 +68,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Debian-User: emfox
 
-The controller writes the frame length into the PRD entry it filled and
-marks the end of the frame there; only a read puts the capacity back.
-thc_reset_dma_settings() rewinds the read pointers but not those lengths:
-a frame still queued when it runs is dropped, and the next frame that does
-not fit runs past the end of its entry. The controller reports a buffer
-overrun, which is a transfer error and leads back into the same reset,
-with the table still short.
+Connecting to an AP that advertises a country regulatory.db doesn't
+have, like the "EU" some Vodafone routers send, makes cfg80211 ask
+CRDA. Nothing answers, and the timeout restores the world domain and
+forgets the country the user set.
 
-Rebuild a table before the engine that reads it is started:
-thc_dma_configure() for probe, resume and the RxDMA reset, the SWDMA start
-for its own table once that engine reports idle (a transfer that timed out
-leaves it running), and the end of an SWDMA round trip for the receive
-tables that the same reset rewound.
+Forgetting it made sense when only user requests had a timeout. Do it
+only when the request that went unanswered came from the user.
 
-A drain in the threaded handler reads a table without the bus lock, so a
-rebuild can land in the middle of it, and a reset does not rule the
-handler out either. Give the tables a mutex taken by both, inside the bus
-lock where the caller holds it, and no path takes the two in the other
-order.
-
-thc_copy_sgls_to_prd() returns early for a channel whose tables are gone.
-
-Fixes: a688404b2e20 ("HID: intel-thc-hid: intel-thc: Add THC DMA interfaces")
-Signed-off-by: Emfox Zhou <emfox@debian.org>
+Fixes: eeca9fce1d71 ("cfg80211: Schedule timeout for all CRDA calls")
+Reported-by: Martin Moosbauer <martinmoosbauer@vivaldi.net>
+Link: https://lore.kernel.org/linux-wireless/8db36875c56cd9703dee42c7a00b81c9@vivaldi.net/
+Cc: stable@vger.kernel.org
+Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
 ---
-Changes in v4:
-  - The tables are rebuilt under a mutex that the receive path takes as
-    well: the threaded handler drains the ring outside the bus lock, so a
-    rebuild could land in the middle of a read.
-  - The SWDMA table is rebuilt after its engine is waited for, and the
-    receive tables are rebuilt where an SWDMA round trip restarts the
-    receive engine.
+Connecting to an AP whose beacons carry Country "EU", with a user
+country set:
 
-Link: https://lore.kernel.org/r/20261115040756.602092-1-emfox@debian.org
----
- .../intel-thc-hid/intel-thc/intel-thc-dma.c   | 31 ++++++++++++++++++-
- .../intel-thc-hid/intel-thc/intel-thc-dma.h   |  7 +++++
- 2 files changed, 37 insertions(+), 1 deletion(-)
+  kernel                       card          without          with
+  7.4-rc1, wireless/main       MT7612, USB   world, US lost   back <1 s
+  7.3.4 (Fedora)               MT7927, PCIe  world, CA lost   back <1 s
+  6.18.63 (Arch)               MT7612, USB   world, US lost   back <1 s
+  6.18.52 (Arch)               MT7925, USB   world, US lost   back <1 s
+  6.12 6.6 6.1 5.15 5.10 Arch  MT7612, USB   world, US lost   back <1 s
 
-diff --git a/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c b/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c
-index c80ef8c20..413f264e3 100644
---- a/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c
-+++ b/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c
-@@ -211,12 +211,27 @@ static void thc_copy_sgls_to_prd(struct thc_device *dev,
+On stock, a 5 GHz AP running at the time is shut down a minute later.
+With the change it stays up, and a transfer running across the reset
+keeps its rate. A CA element still applies, and the user's own
+unanswered request still resets everything. With no regulatory.db at
+all, CRDA is asked as often as before.
+
+This replaces [1], which tied the two lookups together. Below 7.4 the
+timeout takes the RTNL instead, and that version is what ran on 7.3
+and older above.
+
+[1] https://lore.kernel.org/all/20261116060723.37130-1-lucid_duck@justthetip.ca/
+
+ net/wireless/reg.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/net/wireless/reg.c b/net/wireless/reg.c
+index 5cd3880ee384..1dde03ce16a5 100644
+--- a/net/wireless/reg.c
++++ b/net/wireless/reg.c
+@@ -526,10 +526,14 @@ static DECLARE_DELAYED_WORK(crda_timeout, crda_timeout_work);
+ 
+ static void crda_timeout_work(struct work_struct *work)
  {
- 	unsigned int i;
- 
-+	guard(mutex)(&dev->dma_ctx->prd_lock);
++	struct regulatory_request *lr;
 +
-+	if (!config->is_enabled || !config->prd_tbls)
-+		return;
-+
- 	memset(config->prd_tbls, 0, array_size(PRD_TABLE_SIZE, config->prd_tbl_num));
- 
- 	for (i = 0; i < config->prd_tbl_num; i++)
- 		thc_copy_one_sgl_to_prd(dev, config, i);
+ 	pr_debug("Timeout while waiting for CRDA to reply, restoring regulatory settings\n");
+ 	mutex_lock(&cfg80211_mutex);
+ 	reg_crda_timeouts++;
+-	restore_regulatory_settings(true, false);
++	lr = get_last_request();
++	restore_regulatory_settings(lr->initiator == NL80211_REGDOM_SET_BY_USER,
++				    false);
+ 	mutex_unlock(&cfg80211_mutex);
  }
  
-+/*
-+ * A frame that is never read leaves its entry short, and the engine reads
-+ * the table again on every start: put the capacity back.
-+ */
-+static void thc_rebuild_rx_prd(struct thc_device *dev)
-+{
-+	thc_copy_sgls_to_prd(dev, &dev->dma_ctx->dma_config[THC_RXDMA1]);
-+	thc_copy_sgls_to_prd(dev, &dev->dma_ctx->dma_config[THC_RXDMA2]);
-+}
-+
- static int setup_dma_buffers(struct thc_device *dev,
- 			     struct thc_dma_configuration *config,
- 			     enum dma_data_direction dir)
-@@ -327,6 +342,7 @@ struct thc_dma_context *thc_dma_init(struct thc_device *dev)
- 		return NULL;
- 
- 	dev->dma_ctx = dma_ctx;
-+	mutex_init(&dma_ctx->prd_lock);
- 
- 	dma_ctx->dma_config[THC_RXDMA1].dma_channel = THC_RXDMA1;
- 	dma_ctx->dma_config[THC_RXDMA2].dma_channel = THC_RXDMA2;
-@@ -491,6 +507,9 @@ int thc_dma_configure(struct thc_device *dev)
- 		return -EINVAL;
- 	}
- 
-+	/* An entry may still be short from a frame nobody read. */
-+	thc_rebuild_rx_prd(dev);
-+
- 	for (chan = 0; chan < MAX_THC_DMA_CHANNEL; chan++) {
- 		dma_set_prd_base_addr(dev,
- 				      dma_ctx->dma_config[chan].prd_tbls_dma_handle,
-@@ -685,6 +704,8 @@ static int thc_dma_read(struct thc_device *dev,
- 	u8 read_ptr, write_ptr, prd_table_index;
- 	int status;
- 
-+	guard(mutex)(&dev->dma_ctx->prd_lock);
-+
- 	if (!is_dma_buf_empty(dev, read_config, &read_ptr, &write_ptr)) {
- 		prd_table_index = write_ptr & THC_POINTER_MASK;
- 
-@@ -765,11 +786,16 @@ static int thc_swdma_read_start(struct thc_device *dev, void *write_buff,
- 	if (ret)
- 		return ret;
- 
--	if (thc_wait_for_dma_pause(dev, THC_RXDMA1) || thc_wait_for_dma_pause(dev, THC_RXDMA2))
-+	if (thc_wait_for_dma_pause(dev, THC_RXDMA1) ||
-+	    thc_wait_for_dma_pause(dev, THC_RXDMA2) ||
-+	    thc_wait_for_dma_pause(dev, THC_SWDMA))
- 		return -EIO;
- 
- 	thc_reset_dma_settings(dev);
- 
-+	/* A transfer that timed out left its frame length in the entry. */
-+	thc_copy_sgls_to_prd(dev, &dev->dma_ctx->dma_config[THC_SWDMA]);
-+
- 	/*
- 	 * Max input size control feature is only available for RxDMA, it must keep disabled
- 	 * during SWDMA operation, and restore to previous state after SWDMA is done.
-@@ -854,6 +880,9 @@ static int thc_swdma_read_completion(struct thc_device *dev)
- 
- 	thc_reset_dma_settings(dev);
- 
-+	/* The receive engine starts again just below. */
-+	thc_rebuild_rx_prd(dev);
-+
- 	dma_set_start_bit(dev, &dev->dma_ctx->dma_config[THC_RXDMA2]);
- 
- 	ret = thc_interrupt_quiesce(dev, false);
-diff --git a/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.h b/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.h
-index 715423453..264cd26b7 100644
---- a/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.h
-+++ b/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.h
-@@ -6,6 +6,7 @@
- 
- #include <linux/bits.h>
- #include <linux/dma-mapping.h>
-+#include <linux/mutex.h>
- #include <linux/sizes.h>
- #include <linux/time64.h>
- #include <linux/types.h>
-@@ -123,6 +124,9 @@ struct thc_dma_configuration {
-  * struct thc_dma_context - THC DMA context
-  * @thc_dma_configuration: Array of all THC Channel configures
-  * @use_write_interrupts: Indicate TxDMA using interrupt or polling
-+ * @prd_lock: Keeps a table from being rebuilt while the DMA read path is
-+ *            using it; a sleeping lock, taken inside the bus lock where the
-+ *            caller holds that one.
-  * @rx_max_size_en: Temp flag to indicate THC I2C Rx max input size control feature
-  *                  enabled or not, only be used during SWDMA operation.
-  * @rx_int_delay_en: Temp flag to indicate THC I2C Rx interrupt delay feature
-@@ -132,6 +136,9 @@ struct thc_dma_context {
- 	struct thc_dma_configuration dma_config[MAX_THC_DMA_CHANNEL];
- 	u8 use_write_interrupts;
- 
-+	/* Serialises a rebuild of the tables with the DMA read path. */
-+	struct mutex prd_lock;
-+
- 	bool rx_max_size_en;
- 	bool rx_int_delay_en;
- };
 
-base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+base-commit: 763b13f622e2758726e8e3ecaef819db8fa0430a
+-- 
+2.56.1
+
