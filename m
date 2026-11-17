@@ -1,57 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794929478;
-	b=Hsuxprcwjs+pHiC7kXetkKaKEjKl3BU1nIhS0fhS90E6WoY9rmhluQZHyll2Mo/Io+Ox
-	 M9TBdxNZDuc3fkxUjdKbHus7HUUVNXW1FKJCCu28HxsqWXC50lsnzxGvlxO4HWk+6Dzr/
-	 OMsPMe8Avxo+e8/xhmlMT9t6i8hBjyY4cDSrInQpxct+MM1YspqelB6N17OTRhlNGeTTW
-	 HQza/+t2NkuHXzFK/wNkIfAZGe2u6UhZZotv7sQqJUhASA3DejQKD/qr3t/XSZFbfKbj1
-	 aMSkRlBWkZT+onRYrFokO7No/Oz8sekTW5PIeOCnM1Inch/HyVXPmU9vW/DhjngOV5Q==
+	t=1794929495;
+	b=aHN0nUOP7hH4AJDpicjYzO34RG03z4ojntdr5CojZdt+wAFaVn/oGo6zQ0DsKJfVDIC/
+	 xIb1aP6ni2uF/vbI880oRUU5E/gfyt6i+hvg6JI2SH6jpamuh18B47o4ZMUTtjC4FtA7I
+	 eahU8vXhRMHNd0hIRkOcEg3cVXYiCGGwOo6QPGLNs+STGrSDeySaOxUEWdNbPHgNuFgWU
+	 5ylZPniBg9imrI0EO6cboucGAHRCj6L6WvamdS5chSPVLt2CFVPIPDY7yhqV5o5MiVlYv
+	 OazbUSjKunf+NS8II3sO8ObX7DNokuqOojt9/WWem6DXEcW7w3l8UIMJO6Dtr8S4hng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794929478;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=PKL4BRMLIT1oHfd2ndtnhBtH2V+B8G3agIEqqwCdQbs=;
-	b=mqPIShAwK15eQif3lhzv9/RnPHGA/v8LBCvEzZLf7GFL3GtCbDVsrS2Y2qDhTyheGI/9
-	 qEuWH9KnA7cX+f9LUL4pO+Ta/0VM+rUFNN/FH3EPsSiq8vTMcvtC8zIna0FZPpGSmTlJt
-	 55oEJuJNJyqeAvEG/WbVS+7p+K94A2F9kuWygCMeLPrwEtU9s+CLjySHliy2gPap6gLC3
-	 be5kgo5B9YQAfES10nzlfyZawHJEFhL7dgpZhnLAkZ2OzeyJkNw93vPTxqOUiZmWQH9uF
-	 SK4udhDDh2KK1bkBYJm9mVF0tESiHWKdwKJc4YkkJtQyJMEzpU/w0oB8tILzLcCOEaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794929495;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=GHUcsXv4NJ/0OfEH/BuftLRK3qu5u4G9nPmPrh98Nh4=;
+	b=t9qXO3tPEOtQw0T8/aF5qeQVBSyBClbgyqbUgUwOgM652i594/mWWXNg3+urDeV/D+nX
+	 oj+TTs3jWAvsEQ0wR8S8X3ReN9lNhOeGarvubYQgTiRWweuvNMnf6QRcOASV2UuY8duH9
+	 WRYzVh9MzAVZpA25t7j+kkGZJhxgeM37PVaSviBJZSbeLkdH2fpkwGkb+U/aJPLQQVxa4
+	 Dg+CLx1J4X3jmxtidkoCTlIy0OPfj1eF+FJf4ceJhy129GnH4uAsH95Kwi0tNocJxc9c/
+	 OTLGNf2U/C+GrIMh9QJIyH28lOu9HvKkqEXR0T+8usks958X8VZpRjqaUepZJkxNT3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lb4Zqmun;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Dwa2kPeD;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C321606A31C;
-	Tue, 17 Nov 2026 15:31:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79D9D606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:31:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79D9D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lb4Zqmun
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D48B91F000C4;
-	Tue, 17 Nov 2026 15:31:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794929478;
-	bh=PKL4BRMLIT1oHfd2ndtnhBtH2V+B8G3agIEqqwCdQbs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lb4ZqmunJK2+v72NmsYfb5eNrDr7boYx136hYrQMwuaNlgfQx8wdH2uVxbEzS5h1/
-	 6rbawUxjgWpugFRHXYmAl7clPGzwj/alPa6dX559vxS7jylz/6NKP8A9oVgpDH+rxr
-	 EDuAokXAe1VuSKM8id7c8DmKCUSapEV8SIyCiPS6JCvcZwIc8l4uVrU+GFzKuUKSOc
-	 17Ug/yyzD0X+vmYXWlP2H9vBi9Pz1mqgR+gYuUkrvaTGHkOY0n0DPqPi34S31lF2Ov
-	 uOK642REd+CL4pvuM5zYme4DxwLAdp7XP+6RQ8+1MSD50vyQ2YUiZAM5zPmAHqSOoR
-	 q3KaErre1RU6Q==
-Message-ID: <sashiko-outbox-219082@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 26/40] sched/deadline: Make a rebuild count a task in
- the root domain it runs in
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
-In-Reply-To: <d956394fd7c5d85d9cd92489b0abf5c709c4545d.1794922146.git.mathieu.desnoyers@efficios.com>
-References: <cover.1794922146.git.mathieu.desnoyers@efficios.com>
- <d956394fd7c5d85d9cd92489b0abf5c709c4545d.1794922146.git.mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 15:31:17 +0000
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Dwa2kPeD
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHFQWlO1096810;
+	Tue, 17 Nov 2026 15:31:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=GHUcsX
+	v4NJ/0OfEH/BuftLRK3qu5u4G9nPmPrh98Nh4=; b=Dwa2kPeDbjkpKq5du1gEf6
+	2nLm22yeL6XT/+TJsUJZZ9bV4luL9p0a18XIL9j1U624fbfqTKlJQyDyD7X0Fuww
+	Zh5o3p/vFDhPg487mzXIYhlvA0AgNpFLTH/ZKnBzn86elLhNKHBKFscqm96h9Rao
+	EIEuF9b8b0MLcwjY7awgJm4/F68qddrKFq7rVjI/YGs9c5pfsjhYyMuseYKtI78+
+	Ntpelg14HqYm4haMb1nzWwTs41LcmpaRhxLVvGKSWGtiQ7D7mNa9KLCTfFdZxTSZ
+	xKq2HkjT5roFCmbn0tppue0Bl8tGf484RCl3DeZIuF3HjIKKvalxbuhVc6UvV7uA
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hxfat41g5-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 17 Nov 2026 15:31:15 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHC4sR5471690;
+	Tue, 17 Nov 2026 15:31:14 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4j02dfdhmq-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 17 Nov 2026 15:31:14 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AHFV7kW51839444
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 17 Nov 2026 15:31:07 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 89AB92004B;
+	Tue, 17 Nov 2026 15:31:07 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2C23720043;
+	Tue, 17 Nov 2026 15:31:04 +0000 (GMT)
+Received: from [9.124.217.181] (unknown [9.124.217.181])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 17 Nov 2026 15:31:03 +0000 (GMT)
+Message-ID: <55cd8963-eddf-4178-8498-cee671c9dbe3@linux.ibm.com>
+Date: Tue, 17 Nov 2026 21:01:03 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,144 +84,114 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/3] PPC32: Fix hard_irq_disable to follow tracing and
+ lockdep state
+To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, maddy@linux.ibm.com,
+        linuxppc-dev@lists.ozlabs.org, chzigotzky@xenosoft.de
+Cc: mpe@ellerman.id.au, npiggin@gmail.com, christophe.leroy@csgroup.eu,
+        linux-kernel@vger.kernel.org, msuchanek@suse.de, harshpb@linux.ibm.com,
+        gautam@linux.ibm.com, amachhiw@linux.ibm.com, venkat88@linux.ibm.com,
+        nnmlinux@linux.ibm.com, mkchauras@gmail.com
+References: <20261117131612.707038-1-sshegde@linux.ibm.com>
+ <20261117131612.707038-2-sshegde@linux.ibm.com>
+ <y0ar7fjq.ritesh.list@gmail.com>
+From: Shrikanth Hegde <sshegde@linux.ibm.com>
+Content-Language: en-US
+In-Reply-To: <y0ar7fjq.ritesh.list@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA2MSBTYWx0ZWRfX7yMp/lhxQ8Pb
+ tLxZfA/4nGhmkkYtdLF+sg2rhBkXaD5nrO8mlR6HEqj3xeWga3taSiHkoJDN8lhh5YATCld+geR
+ 0X1Q2svsCVlwhJBbLzAgLv6zodr8btw=
+X-Proofpoint-ORIG-GUID: DjUu5_H3lzpJSAmN6myhsEt5T4u_zfLQ
+X-Proofpoint-GUID: aH_pkPDs35fD-Re-rBezI6xD1i6UMOoI
+X-Authority-Analysis: v=2.4 cv=IaESymqa c=1 sm=1 tr=0 ts=6afc7343 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8
+ a=pGLkceISAAAA:8 a=DUkjywZXT_fQBTiHWmYA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA2MSBTYWx0ZWRfX7Z/BcK9g6G2I
+ hYCux9duOBIxNBHq5gl9KySBeQXQfERgDVwo6rN0McWFkNviGPKml/NknZjrwZYeuLUyxsNAyX+
+ Zzeckwx+/Itoqj6xQ6guzvWfCaaIE/I4+QdXmHBA9v6irMRpGoqAimnjAxIMRcIvc8lnDYYy/1o
+ xYui696OC0Se/wGHbumI+NONwJ3fQV8YeRuozHMlvNRNj0Oq+mSduKOMwVv1QX84C3AgEJS9d2Y
+ 65RbCBWFyV1o1PSljriQbsNf/hzWy67tVKluRv+QHWM3H1j4SQo0fJC4ZSzWVYVcCwYU3m66K6s
+ fziY5ooMDS06HmZ5TyT/US2d0DHnKomGPA2KKaYQG98hh2FS7/VcKs2j9NmFCRxSCzJu05UYhpw
+ NwrtSu94r10AiIta9gSqZ/MVfK11L/2+kIy358ERgSJmH6mxM8YdBCjA4u3WKMHY7niozND5S1+
+ OIO2mCFwAJRbMKhev+A==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_03,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 phishscore=0 adultscore=0
+ lowpriorityscore=0 clxscore=1015 impostorscore=0 malwarescore=0 bulkscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611170061
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] sched/deadline: dl_task_rebuild_cpu() uses recorded CPU
-  outside task cpuset
-- [Medium] sched/deadline: dl_task_rebuild_cpu() fallback reads stale
-  HK_TYPE_DOMAIN
---
+Hi Ritesh, thanks for taking a look.
 
-commit 5f53c9545c6d42e90c32f229213e080ced9acb3f
-Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+On 11/17/26 6:58 PM, Ritesh Harjani (IBM) wrote:
+> Shrikanth Hegde <sshegde@linux.ibm.com> writes:
+> 
+>> On PPC32, the code for hard_irq_disable has diverged and it doesn't
+>> do lockdep/tracing anymore, leading to use of both local_irq_disable
+>> and hard_irq_disable on PPC32 to overcome those.
+>>
+>> That is un-necessary, instead simply calling local_irq_disable is
+>> enough. It disables EE bit and does lockdep tracking.
+>>
+>> Subsequent patch uses this API in KVM code to avoid the warnings.
+>> Wider use of it is possible, but it will be taken subsequently.
+>>
+>> Fixes: 5d38902c4838 ("powerpc: Add irqtrace support for 32-bit powerpc")
+>> Suggested-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+>> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+>> ---
+>> PS: Fixes tag is based on the historical analysis done by Ritesh.
+>> I haven't got a chance to delve deep into it. Note that it is old
+>> commit and lot of code interleave would have happened since
+>> including local_irq_disable at some would have added proper
+>> lockdep support.
+>>
+> 
+> Yes, not sure whether we really want this this fix to go back to that
+> old change?
+> 
+> Maybe we can add CC: stable and keep the minimum kernel version to it,
+> so that it gets applied >= vX.Y+ sort of. Instead of stable backports
+> picking this change and taking it all the way to a very a old kernel
+> release - which in my opinion is not worth it. Thoughts?
+> 
+> Do we know from when we started hitting this problem? Should this be
+> after we merge generic entry/exit? Or was there any previous kernel
+> version too, where we were hitting this?
+> 
 
-sched/deadline: Make a rebuild count a task in the root domain it runs in
+I think we could keep below one. Bulk of the KVM specific problem
+would have started from there.
 
-This commit introduces dl_task_rebuild_cpu() to select an active CPU in
-the root domain where a deadline task runs during root domain bandwidth
-rebuilds, and leaves out tasks with no active CPU until offline migration
-or a later rebuild places them.
+Fixes: 12013e3d4695 ("KVM: powerpc: Use generic xfer to guest work function")
 
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index a9b8bd019d4ba..9ff79141c6306 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
+We do have the other callsites still, maybe they need earlier ones.
+But yes, keeping very old is probably not going to be complicated backports.
 
-[ ... ]
+@maddy, can you take care of the correct fixes tag in the changelog?
+or you want to send v5?
 
-> @@ -3820,6 +3826,60 @@ static void dl_get_task_effective_cpus(struct task=
-_struct *p, struct cpumask *cp
->  	cpuset_cpus_allowed_locked(p, cpus);
->  }
-> =20
-> +/*
-> + * Return a CPU of the root domain where a rebuild of the accounting sho=
-uld
-> + * count the bandwidth of @p, or nr_cpu_ids if there is none.
-> + *
-> + * Prefer the CPU @p is on, if it is active and in the mask of @p. The
-> + * task runs, or wakes up, in the root domain of that CPU. A mask can ho=
-ld
-> + * CPUs of two root domains: housekeeping CPUs and CPUs isolated by
-> + * isolcpus=3D"domain". When every CPU of a mask goes offline,
-> + * select_fallback_rq() can widen it to both. It moves no bandwidth.
-> + * Prefer that CPU also if @p is queued there, out of its mask, and the
-> + * CPU is the one recorded. Without admission control,
-> + * dl_task_offline_migration() can put a throttled task and its bandwidth
-> + * on any active CPU. The task runs there until it blocks.
-> + *
-> + * Else prefer the CPU recorded with the bandwidth, if it is active and =
-in
-> + * the mask. It is in the root domain that admitted the bandwidth, or th=
-at
-> + * its last move put it in. A task moved asleep is still on a CPU of the
-> + * root domain it left, out of its mask. Else take the first active CPU =
-of
-> + * the mask, a housekeeping one if there is one. A task on isolated CPUs
-> + * that all went offline can have no active CPU at all.
-> + */
-> +static unsigned int dl_task_rebuild_cpu(struct task_struct *p)
-> +{
-> +	struct cpumask *msk =3D this_cpu_cpumask_var_ptr(local_cpu_mask_dl);
-> +	int recorded =3D p->dl.dl_bw_cpu;
-> +	unsigned int cpu;
-> +
-> +	/*
-> +	 * Look at the mask of the task first. A change of the cpusets sets
-> +	 * the mask of each task before its rebuild. The housekeeping mask
-> +	 * that dl_get_task_effective_cpus() reads is updated after it. If no
-> +	 * CPU of the mask is active, take the CPU recorded if it is active.
-> +	 * dl_task_offline_migration() moved the task there, or an earlier
-> +	 * rebuild counted it there. Else ask the cpuset.
-> +	 */
-> +	cpumask_and(msk, &p->cpus_mask, cpu_active_mask);
-> +	cpu =3D task_cpu(p);
-> +	if (cpumask_test_cpu(cpu, msk) ||
-> +	    (cpu =3D=3D recorded && cpu_active(cpu) && task_on_rq_queued(p)))
-> +		return cpu;
-> +	if (cpumask_empty(msk)) {
-> +		if (recorded >=3D 0 && cpu_active(recorded))
-> +			return recorded;
+>>   arch/powerpc/include/asm/hw_irq.h | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+> 
+> BTW, thanks for taking it forward.
+> 
+> The change looks good to me. So, please Feel free to add:
+> Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+> 
+> However, note that we should still get the stable tag / fixes thing
+> sorted, for stable backports to do it's right thing.
+> 
 
-[Severity: Medium]
-Can returning recorded here without checking the task's cpuset charge the
-bandwidth to a newly created partition that no longer contains the task?
-
-Suppose a sleeping task in top_cpuset has user_cpus_ptr restricted via
-sched_setaffinity() to CPUs 0 and 1, and both go offline while CPUs 2 and
-3 remain online.  The hotplug rebuild sees an empty msk, falls back to
-dl_get_task_effective_cpus(), and records CPU 2 in p->dl.dl_bw_cpu.
-
-If CPU 2 is then moved into a new cpuset partition root,
-cpuset_update_tasks_cpumask() updates top_cpuset tasks with
-possible_mask & ~subpartitions_cpus.  Because __set_cpus_allowed_ptr()
-intersects that mask with p->user_cpus_ptr ({0, 1}), p->cpus_mask stays
-{0, 1} and msk remains empty.  This check then sees CPU 2 is still active
-and returns it, counting the top_cpuset task's bandwidth in the new
-partition on CPU 2 instead of top_cpuset on CPU 3.
-
-> +		dl_get_task_effective_cpus(p, msk);
-> +		cpumask_and(msk, msk, cpu_active_mask);
-> +	} else if (recorded >=3D 0 && cpumask_test_cpu(recorded, msk)) {
-> +		return recorded;
-> +	}
-> +	cpu =3D cpumask_first_and(msk, housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT=
-));
-> +	if (cpu < nr_cpu_ids)
-> +		return cpu;
-> +	return cpumask_first(msk);
-> +}
-
-[Severity: Medium]
-Does calling dl_get_task_effective_cpus() here read a stale
-HK_TYPE_DOMAIN mask during cpuset partition transitions?
-
-dl_get_task_effective_cpus() checks housekeeping_cpumask(HK_TYPE_DOMAIN):
-
-kernel/sched/deadline.c:dl_get_task_effective_cpus() {
-	hk_msk =3D housekeeping_cpumask(HK_TYPE_DOMAIN);
-	if (housekeeping_enabled(HK_TYPE_DOMAIN)) {
-		if (!cpumask_intersects(p->cpus_ptr, hk_msk)) {
-			cpumask_andnot(cpus, cpu_active_mask, hk_msk);
-			return;
-		}
-	}
-}
-
-HK_TYPE_DOMAIN excludes both boot-time isolcpus=3Ddomain CPUs and runtime
-isolated cpuset partitions, and cpuset_update_sd_hk_unlock() rebuilds
-root domain accounting before housekeeping_update() refreshes
-HK_TYPE_DOMAIN.  If a task is confined to an offline isolcpus=3Ddomain CPU
-(so msk is empty and recorded is inactive) when a runtime isolated
-partition on another CPU transitions to root or member,
-cpu_active_mask & ~hk_msk still includes that partition's CPU.
-dl_add_task_root_domain() will then charge the task's bandwidth to that
-root domain and record the CPU in p->dl.dl_bw_cpu.
-
-Should dl_get_task_effective_cpus() use HK_TYPE_DOMAIN_BOOT to match
-dl_task_rebuild_cpu()?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794922146.gi=
-t.mathieu.desnoyers@efficios.com?part=3D26
