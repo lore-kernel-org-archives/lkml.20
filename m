@@ -1,80 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794883273;
-	b=omLUJWAV+cPTyd8aabiDpJO9QYTekfEnDeERqv9kP1BM+kRKfuunSz0+/JHoUvputv1d
-	 daLIFBPHXiovAi+RsLwslJtqQbLsPCdsGSISLvXcXT804f07Z6ZAHLvk36NjGJysPKgP8
-	 DigXA/JQkS8azOrXFpeYMMZuJ6OfTZrKioMf4Xrv9yPR6XB610XQGyDLSth9PM302bPOf
-	 Hmf97vONEXWvE1HiVVMdUzjXYwGWqI8EyjY8by2HybwXArMFdkRVYpicHO0ZD7lmINXVH
-	 BwQu3ncbL0jltnzf/wfTls4Q4RilvFsWBXxbOB9y193W9KGrXG3pX+iN57hJUR6VqJw==
+	t=1794883277;
+	b=aCkGlSPxgcATAnkWthliUSN+aE+40r9zPAOr14sgBZWnnfdFzWawwy6J0TSZSmjv+Vaw
+	 vuuGzqKVHTmw4oITC4gPC1eUXxUUBCcBSWsoSMPx7IphBoNjUqrTi9KZZIBams8r+Kk3m
+	 4BKrRWqOgfTTtKLxp68yUftp1gwDoIHJORS3H39Etq9YvsMej3SvyHcnirEwJ3qlDdsPD
+	 7he57Kn2AgFI3wXGjO/MuRuUQ3LP+fehf7LAAJIUhB7RhunSp9TtsJaZIRaeJhE/AoW93
+	 1wdpDKrN81NmzFWB01i0Q2tqCXHqEkVod0/mzniVvZ2xbNN05GVVFfO8mNWB/FY99pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794883273;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
-	 References:In-Reply-To:Accept-Language:Content-Language:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=ytDTUkiUwrOfBSNk17TqtXGuaMsqxDXcepGOwi0TLRc=;
-	b=nzaklWlX9GgKeHGMtf9Ipo4afHSiivnAigTeRFSs8G8hqfEsRtv4EFjFa2moLbKp/Pwm
-	 DfXh7MVe1jeNdXIUaTqaRP24yiK2zhX3Nz485Lk5zb+f2LlYU2br1YkFjcfwT6JFl6UeZ
-	 Zo3NKRR7j3qjAX90A3qq4qcw882VTOenAQjiE3X+QiSxmCBwjJ5VlGLsLV0c0+IfdmzLZ
-	 fNyQjkLBQY6RD0aoeDCA6KZPgs/vzjAlGFj5cYa8hsdqkLJtsZChu+9vOw9bIsyeckO8k
-	 y5SCaGbtmUEHDA2dFdIDdF9aLFtdXQiH7dGs0AoHA2iUafbuppVWlq/zj3mPBPXskvQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794883277;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=1Q04N6U4B5Q631xjtJZ+YPrWXutbUwLW0YUT+T/yxok=;
+	b=01Iz/YUIXBYBRONxoQ0N93xQR2hKMQtw+qGoSxrTR+rj5o1/ciyoO7AGD9ZTcaaDuCfG
+	 Ho+ls25KE8wLCHS8O95rsTUxBzvNKpqYt91NP0Fnk6RLRcfq79HOgrdW4XhygjLbPLINy
+	 NQ66J9Ux+dbJiYy/TjNajGZAAxprOUE2ZnI6R/dkmxtJ+xBjgzxjs3WN2mghtzBQIHl9P
+	 Q/nLmeZovwy7tO3Ch4cmSE2eqJ5e9FTNzmKU3N9KheKEzcpqizDXOIvtEQw/XzPtpichF
+	 uInWRo9e5ithyZ2/cAKn3c/dY1eA/pUM30lbHlbSpXJ/hvtb5B3vB4lfo8Q9+AaFABg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=iFSv5s7N;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=kernel.dk;
+	spf=pass smtp.mailfrom=kernel.dk;
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=qpv7yFj3;
+	arc=none smtp.remote-ip=74.125.82.46
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5D9B606A330;
-	Tue, 17 Nov 2026 02:41:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5D9B606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0491606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:41:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0491606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=iFSv5s7N
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AH2f8sA53993578, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1794883269; bh=ytDTUkiUwrOfBSNk17TqtXGuaMsqxDXcepGOwi0TLRc=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=iFSv5s7Nq3KgdS+trBgIzGma46kn6ywmRMkDnBksC+KHIWgB7uewJyJTVIooI0mde
-	 FX7Ur5PQo36AnOrbqtfReGkHQPwcO92/xOnW2rJ+c14qYQeJvuSBKzvEtacNvmNQVk
-	 l59CRblvj1bMQ/OVaSCJVvk042JklQnT2lP16hvSSvUv6QbviSGSq1jLa8ChTGMpK2
-	 yhDpZ659KOkSAN6LLCjw1ldMlblUnvtuPDNIjRvj87oZ/VYpZdh4LAdhYWWa4j7n/f
-	 7sjCrGU5xzP9izwHpmNUEfr4yCxX00OCS4ou9khx9JwK8uF2bgP1qboiHf/k+F04so
-	 bNePg/26FYd9A==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AH2f8sA53993578
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 17 Nov 2026 10:41:08 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 17 Nov 2026 10:41:09 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
- 15.02.2562.056; Tue, 17 Nov 2026 10:41:08 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Rishik Yechuri <epicrishik@gmail.com>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Rishik Yechuri
-	<rishik.yechuri.code@gmail.com>
-Subject: RE: [PATCH rtw-next 4/6] wifi: rtlwifi: rtl8192se: use ALIGN() for
- the H2C command length
-Thread-Topic: [PATCH rtw-next 4/6] wifi: rtlwifi: rtl8192se: use ALIGN() for
- the H2C command length
-Thread-Index: AQHdcUN/nKj5Y1zQLUeHbHCCUhGobbcxlj+g
-Date: Tue, 17 Nov 2026 02:41:08 +0000
-Message-ID: <9020f387fe56447d9255a1c6db0a9a1a@realtek.com>
-References: <20261110184409.42205-1-rishik.yechuri.code@gmail.com>
- <20261110184409.42205-5-rishik.yechuri.code@gmail.com>
-In-Reply-To: <20261110184409.42205-5-rishik.yechuri.code@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=qpv7yFj3
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1a2761c69fbso317026c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:41:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1794883276; x=1795488076; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1Q04N6U4B5Q631xjtJZ+YPrWXutbUwLW0YUT+T/yxok=;
+        b=qpv7yFj3Q2nPcAN7KHsRHLBqCNYBADkrVnYKuUVtR6MFdoG3PyldCv+tn8xynudmqf
+         5WBOo/d4tQR7jwng0FNFzJVW8QHMJMJEg/rXm9Rd1Z999K6acAViLSKcBHyZFcpC9T7p
+         eTQg4p0CT8t0fTUgNHgSOvUC5vNrcrM9aOCWvORmSkEwHVXJGFf5NC/WJaUtesFB1RLc
+         3plkN4f4XYdRCTU55lOuY0cKX6RUz85BN0bs1FoFkHNETxr8uOfqgv7uAV72v24kYZ/u
+         gU3sLxI7YDGQmj0JlKG0/ralskhVX4GRtdhP+A3NFPlgFrISqqiDUZ+YmCx4TBfAKDhS
+         gTlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794883276; x=1795488076;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1Q04N6U4B5Q631xjtJZ+YPrWXutbUwLW0YUT+T/yxok=;
+        b=f+7MymZ4jL8wHGniOXhXR3VOSxRF9LAtThv1gbtsw7zqzmuUf12fQ9lFzgFiBuO+yK
+         Cs03oIn0NBwE+BLexm9LaZ1igZ9fixSDMMRhvsdckyZVI3yitB4Hz3dpWWQH9NoSmr3I
+         q+NXqJNRGhj4ZptrR5xJArUVc0A/YEOZdH8D+8MQXj2dnuPGnOhvCEj8RnqH6oIcbKbd
+         +YncKBSYU4QlksUz9DxWv3W9sP712OH4jpw6G+TjZcCqDLopYIhMZ6+BRD4bpSrvOj1l
+         2ErF2i4Rhz3WI+UgzjxhAcW2Rkxg4r3BCSKXPpVZlaZAzDftH4xwJaklVmF3NjGfIYtW
+         3qOg==
+X-Forwarded-Encrypted: i=1; AL+hErHoI2+EIXDXoX8q1wcsCCNDjLZ2p59SCOLSrbgOQ95WJZuO54V4FI8t0WMDtr8gfC2Ocrdrae8QCmARZRU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8d0lOqzoUJ+UyofXtM2a4L8p9VoBqhby53GKsLLyAb5k+9UUPo
+	pmMKd6XHVxZ7tRJHaRgFqDse44qwCUZfdKU0l9zJEa62m468zsvS79r2Sz09mXVybUA=
+X-Gm-Gg: AYBFou1/AglepVON22VWA7182lLwXQqIlPgFeisQQW1H2XOImQ7WHiz17hz/+L3hPQk
+	JHoLH2fjuIHGOjQryn3Vt/0bRM2NPeqLiqjRGULfQ7YLLRLyCP2hnuPFHRt3pjVCKQGqj504vwh
+	VRpYtYiovwt69KtdziDy5FWeAq04110Na6KRgVGc15pLmezkawjBRGVcR0VfQVKXN4f/+5At4Oc
+	ie1poHy8IekwAw/z7EaO0BdLWY4+vdEmUQTAeCpIc73uPASSiZI9ysYTCWtZ910mTEINbiuq7T3
+	tdC1l1kkx1oOBArgZ+8BflE11vcqJPBHy5xIo334ZS9Z7Dx4/2sFxIkyFapN1dU7LC0O1J3ABMQ
+	c3ycXA6zuOa11Hr+ZnbrVUgPl/gESpyfW0wDJbjLeFrBY9BqH16YnGdIc4eIWA5MtIqLAbzaxKH
+	86BFf9+neUuWCeDCpDlxtOA3astDjCjRH9+9zLDQJDnsjUk6afxoUQyGzjeg5eAgfLZUW3bY64P
+	XOSijMTx51IQxhBse6wLKiZ/ixAYLR7VC3q1M9h9tq24UkYI6qE3gCljJY4s6IPBPyvq08Atx0w
+	zNr5P84MdBdf+kEVT/q9EuDupsY8t4Dpm7hUnsGAX1fJ+pRsXaZkFLhkJJOH/91dKx38iw0ETKT
+	VEgcWvz006DmWlsuPkGgWdWhD756PemiY3g==
+X-Received: by 2002:a05:7022:4392:b0:144:c112:5f24 with SMTP id a92af1059eb24-1b503175a36mr18573024c88.25.1794883275826;
+        Mon, 16 Nov 2026 18:41:15 -0800 (PST)
+Received: from [192.168.1.142] ([198.8.77.135])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50309b27dsm35592113c88.2.2026.11.16.18.41.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 16 Nov 2026 18:41:15 -0800 (PST)
+Message-ID: <71233dfb-bcac-42df-afd4-45b65dabbc09@kernel.dk>
+Date: Mon, 16 Nov 2026 19:41:14 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,13 +93,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] io_uring/timeout: don't rearm a multishot timeout on
+ cancel
+To: Cheng Yongkang <teel4res@gmail.com>
+Cc: David Wei <davidhwei@meta.com>, io-uring@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261116044519.281756-1-teel4res@gmail.com>
+Content-Language: en-US
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <20261116044519.281756-1-teel4res@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Rishik Yechuri <epicrishik@gmail.com> wrote:
-> _rtl92s_fill_h2c_cmd() and _rtl92s_get_h2c_cmdlen() round each command
-> length up to a multiple of 8 with N_BYTE_ALIGMENT() from wifi.h. The
-> macro spells out the rounding by hand and special cases an alignment
-> of 1. ALIGN() from <linux/align.h> gives the same result for a power
-> of two.
+On 11/15/26 9:45 PM, Cheng Yongkang wrote:
+> io_timeout_complete() does not check tw.cancel. When it runs from
+> io_cancel_local_task_work(), a multishot timeout that has not reached
+> its count still posts an IORING_CQE_F_MORE completion and rearms its
+> timer. With a zero interval the timer expires again right away and
+> queues new task work, so the drain keeps running it until posting a
+> CQE fails.
+> 
+> Normally the CQ fills up quickly and the request then completes. But
+> if userspace moves the CQ head far ahead of the tail, for example to
+> cq.tail + 0x7fffffff, posting keeps succeeding and ring teardown is
+> delayed for a long time.
 
-Just say N_BYTE_ALIGMENT() is identical to ALIGN()...
+But why would the app do that, to shoot itself in the foot?
+
+I think the fix is fine, but the premise of it is very odd.
+
+-- 
+Jens Axboe
 
