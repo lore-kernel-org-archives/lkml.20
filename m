@@ -1,92 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.92.39.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794897984;
-	b=TmAEGrbJ4hLhH3p9dUb4IP0gMfmuchaodR6deYGgkdlLUk1wZX3z4NQOzvadhrK7tYkT
-	 U4M2Ms15no6wSA7VvnXkA286foOK4H+egApkZjFxgaTe+/Fa4kstPSmM82NPD45BxY5Qq
-	 T+4ub50lhRlcWDR744nhj9kzfLB2JVLomI9hm2RzgoyhvVdIqraCE+8U9zTz8N1lXY7Wq
-	 NE8MI049NUt8Ajfg7gyrjB8XodYaAMzyTiGPE2VaVvSdFA1LtqjoG0c/74J1g64gAnC0P
-	 oly6NEKm1EcdhHUepdvB4hKGbsPPiDIBJ8xxcHquqJ2UmN9KxlKZl7Y2kVnNgfgMacw==
+	t=1794898009;
+	b=zJd4KQ8sq3hdls/bcPM/a0EApfITX3qA74f9kdSCxYTcWuInBksS3fyt8peM85Lp3mqv
+	 cOE6siceAAb/6DrwdedtnFpK3oPQo979H8D4QvNIRauDesNzbBrjEeNvT4VctVW/yWOIq
+	 Fr1xqT+E+0S2FBTfzY/hxRy7hv7b00Y/VVW/dnbNGQ9twBdK7xUV2fXpi8eb/xNhI0MOd
+	 PTv+wmZMJKDsuEcTVvczAdSYs9SKKPKc3TDFZ9fQ5LuQBxOcmt1i41jLEgNsgZr7SwpQ1
+	 /j5oi3JZQvh9TFZ0FV58GF1G88VZsntiCob3qQCgOrGKlBJTLFiK6UDnH34cTspQefg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794897984;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=k5c7pJ1Iixuk0U4yRF+KLqpvtirGvPa8Ng7t1nZh858=;
-	b=UVvNzbslKVW+ON4uuH9ugyk2+dR9ALh2h3EFUEl2+mwiy38D3UYiM6Z9Y5qIgimll0F4
-	 e1eqgRzv8reHXqo0lryn+vJHYZA9ir5PKzCcS8Yi0QrC74FD7TJNCaSBP3seHMO5WaA4p
-	 O8aiVjxM5pNOa5U1pf/NQrxQy39S/Fr7HUjC4fsYFBSJUBtIcbErWzimJnPIjcb+rr72s
-	 o/koylHU3X38qKyMwj2YiOi5yVr/3v/Hci9vP9SRkZVjlcvgTaT9G38A+LLEljcgB1ofE
-	 1TGulVQRqi+s4hn+DsrtEcC3MyqD3xYTS5gnUTWcMLfjxyDTwp6iS+RP7ALe1MqlqmQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794898009;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
+	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=Q+gF1IpQxY3Ah+YgluhpyTuzIbzQciSEK4mZyW1nqNs=;
+	b=MUyTq1L+2f8rgXJes1qrM03S00j3cecmp57vHe6jkKNCLQBUaGsRPl+SBSkFhRNE5zWw
+	 BKlKcRvTtrtqW6m0gEmAeoCjiIZWwqoQkbO7rD2+57LSbczUQR8ttueUcEJtz8Li5jMYB
+	 JGcsNYmt5LnhL9jgPgag5Flqn/YGRUs96fH3b3U/+oVtHIt9wo7bMHti8GMUjVwD5veT2
+	 /j7Aznfc+79Bcd4NZLmmkqYpNV1zUt4bR1wMBEUysMVKKuQIdkjNpqZEMIcAmB47V3G6k
+	 Mvbt8azQufUyoQKAyIAdqX+HBiBHLaLoFnl4wIAwcO+UIME2OAWRJEo26eETWmsQZPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mm6oD0nS;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=izwbJya4;
+	arc=none smtp.remote-ip=54.92.39.34
+Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15DC8606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:46:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15DC8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB9B606A323;
+	Tue, 17 Nov 2026 06:46:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDB9B606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mm6oD0nS
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-36a315ed211so560025eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:46:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794897983; x=1795502783; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=k5c7pJ1Iixuk0U4yRF+KLqpvtirGvPa8Ng7t1nZh858=;
-        b=mm6oD0nS4LYLj+mfDtByMe2mNTXLMyjx9sDc5kJzv1E3R//3GyR1A97SsNWjOTcxp0
-         icNsLHtdrPpCuvxef4sZWX16J52Zz3v/jsvROv2aZm+3pnJgdhieTtgVvv8SCfeWcHIg
-         mIrXDcmB5QEWXPO6MHt0RmNgypMZrKO8NCrJ2mNXqx5pv30DNsZO+fH9nODIH7dkxF2x
-         B0oyf/Qv7rDIi5QAZwaQ6GaIf15RmVfJCqzeMRBlmipSpdIQDIIFD9zxxvwD3sY0P6am
-         MT8qmV8NIcwHwG8K36IqEKGrtrvhE/Vzh4s67mxuK72TKQMkI8iWzTTVfUdUddrIe+7j
-         OFSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794897983; x=1795502783;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=k5c7pJ1Iixuk0U4yRF+KLqpvtirGvPa8Ng7t1nZh858=;
-        b=Zap4TVFZAhquhy2dH+/MbT+L8A/hhALb8xBFFfxzDnKuMi0lwlPtiigfxO5OA3z3O+
-         NoSCIyQLf91TqQt2VRNcRRCZ/GCfglWNL3NeDP35Tfxtv9oylHIw5bLzCHrnvjQRsagQ
-         HaUGMCYxQoyPgyyPxLfxeN0KThjbzjeCUw3h7br5rg1te+k4gu0GEcxOUDwaCpvwCqxw
-         fZY+32jrPCcKUhRvn82wWQ5pt8GmYrueAB+8KhioPThhbUEmbXRXg97egTtozGlgjG7q
-         m0ksgg2yFlrA6rHkAKfK5qe1MwXDkdVgqj/8FgZCg3XbfiDM7s2/gX/Db1LOlPNA/K4d
-         zH4A==
-X-Forwarded-Encrypted: i=1; AL+hErFXNbJF3fIvLnKJIt1GQf+FLop1ah6/IjituGlXhC1RXCpOVkCu8mPC5GefFehMf4Ao7F25sjFjh5GMfjw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8jYg0CVVbEBbWgnFKLITYbGF5FnoTVkcEDaBO3AwE/V6ZkbKwX
-	luB1BUuxDWZime0QVp8emy4F7wvsdrGxGxNcUbyp57Q8ExVGfx7m+hfeP87l97dX
-X-Gm-Gg: AZFdTZdJSBF/pGCa+Ps/l9SbtGA2BnF0fBCYRqE61vnzIrZwkjP2TIWFffA1chzTPPj
-	Oy6Mda7F/tdYGdHdgww3it2bH7T1JoWsvyIbKktK2SwvGVpHsC4iBrYrDgee9MhHyLwSFG2R358
-	L9eZ7s3oxfbBWkvCdugl99Log5t6cnUfbzUXO6n81VtD/Vvr9H5I8rQThe5X3oJxIWwIKfSBxNW
-	44NRNLdpFxF/GsiJsVxtdtZDMrN1lOzmRH2CkbnEbAhbBUdCujc7bEzaYqLGSx4kWhfaS+lwrM3
-	f/fvB5qKskfm2HirA3GUU7q08GwuhSwwRclegkjL4ItCE26xUMYS/6ZTEbpAyVwhpaQDCGKb6ht
-	DIg+6kMJlZphgC3qq7P/bcqNGJahQdmzM+TQB4bksx6NoVPdi8ynk/vwYPwfCJ1AhbxQ4olq6/9
-	YMQVuMON4BGjBbPyB4m7BPfYq1YgxeIwDBfIAolSIIdC6YiIjC9oWQrt2HtzapQcCD/EG6NO7Gx
-	h3FWwZOpXa4nws6lm+TMrhqslqO33l4tRs6dXGWrgPyI3RBuRH2STLTAqyAuDxspSztbOVu//10
-	Zmv4XNGPP7h+HfnrWuZo/CyIIUUaggw82LuTIMcQbFlCEjshbw4RLQPlX2aU9JADw3DB
-X-Received: by 2002:a05:7301:162b:b0:36a:647b:2d7a with SMTP id 5a478bee46e88-381088b4313mr1778261eec.0.1794897982949;
-        Mon, 16 Nov 2026 22:46:22 -0800 (PST)
-Received: from youngkk-vm.localdomain (67.216.200.102.16clouds.com. [67.216.200.102])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-38116afd7f7sm4712013eec.17.2026.11.16.22.46.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 22:46:22 -0800 (PST)
-From: Cheng Yongkang <teel4res@gmail.com>
-To: David Sterba <dsterba@suse.com>
-Cc: Chris Mason <mason@kernel.org>,
-	Qu Wenruo <wqu@suse.com>,
-	linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4] btrfs: tree-checker: reject file extents with oversized disk_num_bytes
-Date: Mon, 16 Nov 2026 22:46:13 -0800
-Message-Id: <20261117064613.771336-1-teel4res@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=izwbJya4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1794897969;
+	bh=Q+gF1IpQxY3Ah+YgluhpyTuzIbzQciSEK4mZyW1nqNs=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=izwbJya4Pxyd3RK3GSchVQ9kH6RHkXfc/xKaVRxklhelB363uhnKDHzgoxPW9th4r
+	 UgCFxTCvcsfff4tCipY/+pTeUDf6waKV7F/nYCBRNY0BU8SXAWphj/Zl4SBhL96VQN
+	 4k7V42p0wiwxumILpguiN09ILkeYSJVQbjevkraY=
+X-QQ-mid: esmtpgz13t1794897968t2ce933a8
+X-QQ-Originating-IP: xAtSpxecaocUxTGnDA10G8x8aHp91+CaQjY0yRXZ998=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 17 Nov 2026 14:46:05 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 10056131255817741553
+EX-QQ-RecipientCnt: 16
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,153 +58,90 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=7b521a11c60c864c881ef5d8eb32564a68a084993eb79986689971bdd4fd;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Tue, 17 Nov 2026 06:46:04 +0000
+Message-Id: <DMXA85POOYLH.3L9L2Q53OUJ1T@linux.spacemit.com>
+Cc: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>, "Sarah Emery"
+ <sarah.emery@canonical.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>,
+ "Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>,
+ "Guodong Xu" <docular.xu@gmail.com>, "Yangyu Chen" <cyy@cyyself.name>,
+ <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/2] riscv: dts: spacemit: Add K3 CoM260 IFX TQ support
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Yixun Lan" <dlan@kernel.org>
+In-Reply-To: <20261114082802-GKC100523@kernel.org>
+References: <20261105-k3-tq-dts-based-on-com260-v1-0-aa0b7714aed0@linux.spacemit.com>
+ <20261105-k3-tq-dts-based-on-com260-v1-2-aa0b7714aed0@linux.spacemit.com>
+ <fcd2fc41-5af8-4256-8296-a5435fdf41db@canonical.com>
+ <DMTY56PU7CP2.JGIZ9XDXII9E@linux.spacemit.com>
+ <20261114082802-GKC100523@kernel.org>
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: M49ymMyQ5YfuZg6AHji/LxP0UDNTO7r2jo98+M0qvUX4dif67OklTrti
+	6woR+EJMu/y5pS6acK8mM6gXVqd6TEVKgyiGUEzYSV6397JK+J3EtEAyZOGiInLruUkmviS
+	sVjVrcNqvU1DlJxspttEshw62Iuv6HJN6DJ3iMwHeXwvqcTcEvHwcrPi3gOfya7x//uJTcz
+	xLJNBDpM9Q2SbwQrYfar5BwWsquhJUIqtLFtK1co7fK7hx0RnaWpGEKETDY2HDIG4KaaoqB
+	Za9tJrDpxzdGHsHiJgXlJWBbsjybGyku6fE9zTdAtn6CXriUReGAgjav1TXE1tfeJGZ+2MO
+	7DMXvphl6+nWBITujelevxOLpRYXdpUOjzkGfbM7xTgp/va9EUmVdREED5vrpLrZ96Z9xl6
+	J3fp477KVkKq1ukC+Y25FpkfHJ3jWeUZ32g7aVperHtcvYOu/yijnFtChQY2tj6Ykb6Xbqn
+	98xtt0E4ADM2CQ0ZvO5Rd69BF7q/kVOz+GRkwMJ7u5JnJmFOAa+NkOq7Ko4DymuVrhNQ0/x
+	HzmoZ5U7rRlmx85VWQqaeBr4Bi+7QqIdZt/+AHDR1VZ9Q5aHbAyVQcGXTahmleaRhy2WI7R
+	Ha8TxNhMibgihLs8DIbGotj+f34/VYR32C4EEs0dsK6PSyj9vbiChQSADJx5asY3w8yFWbb
+	VT7Rr/QLjjRIOWSHX/Rb6kFCn+nsRdCjnENV3saFnYgo3pdyY3PGFiLz59nw5BaKJD4Lawg
+	+IApcur6J/oCW1bKIcrFy8bYiwKr/YII2Xy1vrKuPiuAbJty3+vsQCnNZ14DSF/JGgBz+v6
+	mHTLcFVKkjz1zYhhNIS1vuWwPPGQKLwgxjg3X56S9EmpjILCYPTtScgGjx5GJjfWPJzBzuE
+	6np4hkGGQpi+1MNt8K5VsLgUtEzJjxZ/yjIBSRBP0CnXnht1JwMI2cLGRodXw1/Qh++2uaX
+	wuVstoJ42krnZFBYFsYnCgAvL0hsD/KVwsteeJg9c6R/GAKkF8bbbTcIZc+W4PdEYDsA8pm
+	C526P5oG8r22tVTq+AhryMMdbEoGqtB+dZIbGI6XPdhwoRs5gVznhpguflHUhZzEPN1Tcgr
+	yF8ORU5FLmn
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
-check_extent_data_item() only checks that disk_num_bytes of a regular or
-preallocated file extent is sector aligned. A crafted image can have a
-compressed extent far larger than anything btrfs writes, and reading it
-goes wrong in different ways:
+--7b521a11c60c864c881ef5d8eb32564a68a084993eb79986689971bdd4fd
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-- With disk_num_bytes == 4GiB, btrfs_submit_compressed_read() truncates
-  it to a zero compressed_len and submits an empty bio:
+On Sat, Nov 14, 2026 at 08:28:02AM +0000, Yixun Lan wrote:
+> On 08:39 Fri 13 Nov     , Troy Mitchell wrote:
+> > They are the same carrier board. The only difference is the power schem=
+e
+> > of the CPU clusters. The bootloader programs those regulators at boot,
+>
+> If they are physically same carrier board with same CoM260 module, but on=
+ly
+> the power setup configuration is different? then no reason to introduce t=
+wo
+> different compatible strings, if still need to differentiant, please find
+> other way out?
 
-    assertion failed: IS_ALIGNED(logical, blocksize) &&
-    IS_ALIGNED(length, blocksize) && length != 0, in fs/btrfs/bio.c:895
+Agreed. v2 will only add spacemit,k3-com260-tq and k3-com260-tq.dts.
 
-- With a 4MiB zlib extent whose num_bytes and ram_bytes are above 4GiB,
-  bvec_offset + bv_len wraps in btrfs_decompress_buf2page() and memcpy()
-  reads past the zlib workspace buffer:
+Once the regulators are supported, I plan to describe each power scheme
+as an overlay and build the other variant as a composite DTB, i.e.
+k3-com260-tq.dtb plus its power overlay, so it keeps the same
+compatible.
 
-    BUG: KASAN: slab-out-of-bounds in btrfs_decompress_buf2page+0x3e0/0x650
 
-Compression and encoded writes never create a compressed extent larger
-than BTRFS_MAX_COMPRESSED on disk or BTRFS_MAX_UNCOMPRESSED in memory,
-and its offset + num_bytes always fits in ram_bytes. Uncompressed
-extents can be larger than 256MiB, for example preallocated extents
-from kernels before v3.9 or extents from direct I/O writes, but they
-should never get close to U32_MAX.
+--=20
+Troy Mitchell
 
-Reject a file extent whose disk_num_bytes is above BTRFS_MAX_COMPRESSED
-if it is compressed, or above U32_MAX otherwise. For an extent with data
-on disk, also reject:
+--7b521a11c60c864c881ef5d8eb32564a68a084993eb79986689971bdd4fd
+Content-Type: application/pgp-signature; name="signature.asc"
 
-- a zero disk_num_bytes, which makes btrfs_submit_compressed_read()
-  submit an empty bio the same way;
-- a ram_bytes above BTRFS_MAX_UNCOMPRESSED if it is compressed, or above
-  U32_MAX otherwise;
-- an offset + num_bytes beyond ram_bytes if it is compressed, as the
-  compressed read path takes the decompressed range from offset and
-  num_bytes.
+-----BEGIN PGP SIGNATURE-----
 
-Holes are skipped, since without NO_HOLES a hole extent has ram_bytes
-set to the size of the hole.
+iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCavv4LCEcdHJveS5taXRj
+aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC+fyAEA32fW5Y/DoYv2
+3Cu2McB1vRv5wspPyKSABjOcL99SY0cA/1W5fQ8Axd/DB/a+Y7vunNMxiHzELf2l
+tN8+CTlqC5QL
+=RSI3
+-----END PGP SIGNATURE-----
 
-Suggested-by: Qu Wenruo <wqu@suse.com>
-Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
----
-Changes in v4:
-- Also check ram_bytes of uncompressed extents against U32_MAX, with
-  max_ram_bytes picked the same way as max_disk_num_bytes.
-- Reject a zero disk_num_bytes for extents with data on disk, and an
-  offset + num_bytes beyond ram_bytes for compressed extents, as
-  Sashiko pointed out on v2 and v3.
-- Skip holes for the new checks, as their ram_bytes is the hole size
-  without NO_HOLES.
-- Correct the commit message: direct I/O writes can also create
-  uncompressed extents larger than 256MiB.
-- Rebase onto misc-next.
-
-Changes in v3:
-- Relax the uncompressed disk_num_bytes limit from 256MiB to U32_MAX,
-  as preallocated extents created before v3.9 can be larger.
-- Also check ram_bytes of compressed extents against
-  BTRFS_MAX_UNCOMPRESSED.
-
-Changes in v2:
-- Use SZ_256M directly instead of adding a new macro, and leave
-  inode.c alone.
-- Shorten the comment.
-
- fs/btrfs/tree-checker.c | 55 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 55 insertions(+)
-
-diff --git a/fs/btrfs/tree-checker.c b/fs/btrfs/tree-checker.c
-index f021ac14babf..e7e0bb6be76f 100644
---- a/fs/btrfs/tree-checker.c
-+++ b/fs/btrfs/tree-checker.c
-@@ -244,7 +244,10 @@ static int check_extent_data_item(struct extent_buffer *leaf,
- 	struct btrfs_file_extent_item *fi;
- 	u32 sectorsize = fs_info->sectorsize;
- 	u32 item_size = btrfs_item_size(leaf, slot);
-+	u32 max_disk_num_bytes;
-+	u32 max_ram_bytes;
- 	u64 extent_end;
-+	u64 ram_end;
- 	u8 fi_type;
- 
- 	if (unlikely(!IS_ALIGNED(key->offset, sectorsize))) {
-@@ -377,6 +380,58 @@ static int check_extent_data_item(struct extent_buffer *leaf,
- 		     CHECK_FE_ALIGNED(leaf, slot, fi, num_bytes, sectorsize)))
- 		return -EUCLEAN;
- 
-+	/*
-+	 * Compressed extents are at most 128K both on disk and uncompressed.
-+	 * Uncompressed extents should never get close to U32_MAX.
-+	 */
-+	if (btrfs_file_extent_compression(leaf, fi) != BTRFS_COMPRESS_NONE) {
-+		max_disk_num_bytes = BTRFS_MAX_COMPRESSED;
-+		max_ram_bytes = BTRFS_MAX_UNCOMPRESSED;
-+	} else {
-+		max_disk_num_bytes = U32_MAX;
-+		max_ram_bytes = U32_MAX;
-+	}
-+	if (unlikely(btrfs_file_extent_disk_num_bytes(leaf, fi) > max_disk_num_bytes)) {
-+		file_extent_err(leaf, slot,
-+		"invalid disk_num_bytes for file extent, have %llu expect <= %u",
-+				btrfs_file_extent_disk_num_bytes(leaf, fi),
-+				max_disk_num_bytes);
-+		return -EUCLEAN;
-+	}
-+
-+	/*
-+	 * The remaining checks only apply to extents with data on disk. Holes
-+	 * are skipped, as without NO_HOLES their ram_bytes is the hole size.
-+	 */
-+	if (btrfs_file_extent_disk_bytenr(leaf, fi)) {
-+		if (unlikely(btrfs_file_extent_disk_num_bytes(leaf, fi) == 0)) {
-+			file_extent_err(leaf, slot,
-+		"invalid zero disk_num_bytes for file extent with disk_bytenr %llu",
-+					btrfs_file_extent_disk_bytenr(leaf, fi));
-+			return -EUCLEAN;
-+		}
-+		if (unlikely(btrfs_file_extent_ram_bytes(leaf, fi) > max_ram_bytes)) {
-+			file_extent_err(leaf, slot,
-+		"invalid ram_bytes for file extent, have %llu expect <= %u",
-+					btrfs_file_extent_ram_bytes(leaf, fi),
-+					max_ram_bytes);
-+			return -EUCLEAN;
-+		}
-+		/* Reads of compressed extents use offset and num_bytes in ram_bytes. */
-+		if (btrfs_file_extent_compression(leaf, fi) != BTRFS_COMPRESS_NONE &&
-+		    unlikely(check_add_overflow(btrfs_file_extent_offset(leaf, fi),
-+						btrfs_file_extent_num_bytes(leaf, fi),
-+						&ram_end) ||
-+			     ram_end > btrfs_file_extent_ram_bytes(leaf, fi))) {
-+			file_extent_err(leaf, slot,
-+	"invalid offset + num_bytes for compressed file extent, have %llu + %llu expect <= %llu",
-+					btrfs_file_extent_offset(leaf, fi),
-+					btrfs_file_extent_num_bytes(leaf, fi),
-+					btrfs_file_extent_ram_bytes(leaf, fi));
-+			return -EUCLEAN;
-+		}
-+	}
-+
- 	/* Catch extent end overflow */
- 	if (unlikely(check_add_overflow(btrfs_file_extent_num_bytes(leaf, fi),
- 					key->offset, &extent_end))) {
-
-base-commit: d45cbbab23d3ca231771e4bff996a6a8118162cf
--- 
-2.34.1
-
+--7b521a11c60c864c881ef5d8eb32564a68a084993eb79986689971bdd4fd--
