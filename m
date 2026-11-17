@@ -1,97 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794922978;
-	b=W3Rk09MqUxh8VV4crS5mzse4NxIxdGbE9GOioSnZMop9E7CCi2vzLSi79enP4ocMZ8HZ
-	 wq6LUxq1yrCdSWsaoc7+NchN2RFcHqvmmOng+dv1cnfNh2mIjTVJTepKeYWg/+tHM6i2h
-	 NsVKJ8oyyoG3JpNXjQxO65ZYIa0PKx+fWDDUupJJXgHxqEHvNUxW/lGk6Vx3jbeowgCMC
-	 4MrqWb4abKPrIUnlBzeqd019NcfZklFYXexT+JWWivkPDNk37TtSdBZu//3iT/h9ZuA2S
-	 O1Xq4ajV632Y6yCJBxD0l37ypG0jPWnP1AIJJ1Rkh4ueL2AyfeQrICU2eQyCDKw/ZKQ==
+	t=1794922988;
+	b=zbrJUcebHW414TvmQiXqMUL4zIc5FIulo+SiCypV/DKwSbWD37G4j5uuYOP8y9d8cFml
+	 q1jbLcIFGLUR0JAPr3g9ef2alk9ZHJBX2i0/bFa7HjcwHaT7XHZC3s/fdMbNjZIE8Aa2R
+	 WXfnO2Sr2Rhi2cbmn0WvFzdeUiNsbEA2R1ehKePbtRCyRusSvbyn/XCKAp99JRowbxPYZ
+	 dWmAEK1iFwP02TmE1AE8cIlWwQu9yudovosL2QYBvVK4Q/fkFGkV6PsSyP68SvKnC0tw+
+	 xYi6UAFGCjh+ArGLxby6VbEAv5X3BDt6vKH9/exBbTJMvbd5tEz/XKtOSv6TTOIK6Qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794922978;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=wu8+kFcsb4sAmE39UqIaqxXHcduGAo9od3bMzZjIHWY=;
-	b=PXMVjnoED0plyRzA8sP2rw33qHI2yHgM0jJ9+G7+ZmhwW4XzWTsPeTfUZsuD1fjFcpT1
-	 CmNX59AZM7veuZxxfUGrXTwIzBt8gB9uzjfYBo6TqsHHGea0rG+bhp7d1bM/ii+lAHP/z
-	 VbGfJKQJ8X+eLYPIa+XVfcgmgkeWWn8EzIwcmatcwuk5wC0dzCz5ii3zm2c5AFLY/m+gj
-	 f2O4f9O85lAB+ffF+HtN/CiUGFSJrncjNGyFzdcLc49CehLjBFVxeUnlEDOD184pjLVxQ
-	 7wxJQBDA94mW1/uPmpEGkNBuioTHiSkueDM3vYO6GhxIM2Y1i7HNv4yZcrTLMMvCEzg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794922988;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=sHQ6ietn6+j1gEyL6k+OIghfZBL1Rw76ypQ5bVWORHk=;
+	b=avMv8ekaYcxma5FfOqydku7AlRKyCJPyZf01odQwN9CBF73SgFXwrRX1LPM4pWlLj2M2
+	 SU9rpomj3FHQo4RWS8S2OpwkpsAC+XfmNJS5U+5BQv8+EqtzZFh37POYen7jo4/0w5tFK
+	 jHjxYdKDHw0jwrXMMBwDJuTNUB2n5ydm7tsPSxLHY8R3ppDlB3LLvzcKwh0pOhUZZWAcM
+	 42bSL3KGuv8jiAQn3WkWxMMIxOUMwKfRnLjgAfTK5YOPDISmmGpJQZz9UoabR0c3i4JXb
+	 sDi+ELBfNFiHhSporHX/GkM0kGQ5latP/gJJjIKt5/q/mE2UCIagoiIY/uOOV51OjWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=isslab.korea.ac.kr;
-	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=RE2+kfRo;
-	arc=none smtp.remote-ip=209.85.210.169
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EiZ9xHp1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF15A606A88A
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:42:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF15A606A88A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90614606A31C;
+	Tue, 17 Nov 2026 13:43:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=RE2+kfRo
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8a070781f63so1775137b3a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:42:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794922977; x=1795527777; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wu8+kFcsb4sAmE39UqIaqxXHcduGAo9od3bMzZjIHWY=;
-        b=RE2+kfRoVYnHaac858u71bMgFZKdGJ9vr/53YzIUJ1/PyR6rpplzGk1Z1wVdrfXjrz
-         q1mTVuTswi7nEUWlP8JezhKeK8L4gRKwWhKI/hZMUMHg8vg7rYv6ns0JedK6fSPF8Buu
-         qbNcg8gPl0gZFfqrOfrYlw40ELHxEkhClvvfs1tS7qFEWzBLZPmrleAkK0PfB0o6bqEm
-         KUZEgTvVyRRU4n2O/9CvyMUMOpzKRsikii4KpyZYJ80p4SkpcJZNHmAqdHMO0qZus21b
-         sL23PGXbZBYMqZTAOodCmKUf8K5QhJrrOsHzwLr6MXT4HeJqOhXLIw5SHfqltluAWyVa
-         w5yA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794922977; x=1795527777;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wu8+kFcsb4sAmE39UqIaqxXHcduGAo9od3bMzZjIHWY=;
-        b=L9j9Iv+UeAsQpa17ibIOr+OKPD7WNPGeCN8D9FAu4PjNnciDCo0v7bOwBwF+rbJrZA
-         UwGjkLap8KlCav9YL+ijw3wtPOaRq8JPXV+pUbgrHK9NItPYMtrXwTR4IoGR4ARa16fc
-         oJypjgYuXuzkWGlGoruenhScdoNb4Ndx5mFTqCo+6p93UmZjHKNZOrVHEi+ZyEMeyMNf
-         Z1ic9i9Lt8DcUk/XGcdOdEqj+A92tlgg02lGG0x7PMspQ3NQZYwQmhNBV3W1tOkJtFfm
-         wiW7DSZYWft2XhuViZ7RcTfNemg0INcX4BsG6lHM0PbRcAf2NHkpIxblN/Xzdnm+0U/j
-         Qx8A==
-X-Forwarded-Encrypted: i=1; AL+hErFRvufD7hK4subTQZFl4/cGFm6Al8pLD6t6EbWZTsCMLnUAlBZvg3B/6w0V124/+be6RpvuNRDrT/Tn2ko=@vger.kernel.org
-X-Gm-Message-State: APuU4Z94bBg2HTjpdQ1WyQ81XEPfBe00P5683PMTSQRjgiwoskSKU+YW
-	7u8e34LsnUcV3LfjvOhNluxpuf3dUxQnls1zcPcy+pdBy73T7QutmG9lHRcgou3++XSxf1ruSuY
-	vSpWrRKU=
-X-Gm-Gg: AYBFou1qpNPRo6aGM6IadqVyplFR5jLs/ZrcQ3jT1HeURCsDYgijkoCNefemZITCvzo
-	mXSfw7PBkSZaGj7kkXLUGPeT/yyE9rgKMjd0+oMXDTex3bv23DX8YoymoFvLP4ng0QY3rw8QDtr
-	Go9nhNWKW2yVCoB/MlJzzqV50/oc1SxrNglgjdhaWJn1ztpFEq6iesDNYpzAQDQhVCV5Xa7MnOj
-	ZcqMwdY6CjfRBK9t/TjPxaql+UFkXIbLIqd3AgKE9Lv5THQRQGqmkoQJnak2CJfe0ukuiDEFmGw
-	gymK8Te/gPH4ApmsJf+y/fmsG29AP0mKKJI7yfpXWJQNmnJ1cSccpg3oSNOMlnx/C/ncniKsm3F
-	/a9xadSww/uj2bk9SW8TM5MGl6smyNl2LWP68iIhs+/be6aXWjV9G1bO8pstpVZRTGttdlXhfcE
-	fkBxdAyijisjiR6zzLlHLZYQFpRcxBEeMIAUuiOmiAP2Z9enSV0rMs+o7P/uxVcbj9RaM9cmMZO
-	J1RpUqWNb0Q9sU24FBs7OYXC5/tAd9iqczmxLfzip8IjiVTHb7Iae0XyH9vXdOv1tCTXEejm2Da
-	MCArbBjozmrlYBEHqSANDBGkQkLJuj5VoeImtrWn7mZtxTYAzh7AAM0DK/v2EMG5vDXFIZT+/3r
-	uCV1TeX2cMQU3LvSuMAfxx9uGs2n1+onXs1AvjQ==
-X-Received: by 2002:a05:6a00:94ed:b0:89e:43ee:654d with SMTP id d2e1a72fcca58-8beb2e7e0f8mr12824032b3a.5.1794922977062;
-        Tue, 17 Nov 2026 05:42:57 -0800 (PST)
-Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:73df:c7da:8e76:82c5])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed12a8024sm5040714b3a.11.2026.11.17.05.42.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 05:42:56 -0800 (PST)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: mkp@kernel.org,
-	James.Bottomley@HansenPartnership.com
-Cc: linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	zilin@seu.edu.cn
-Subject: [PATCH v3 3/3] scsi: mvumi: flush the event work before the host is freed
-Date: Tue, 17 Nov 2026 22:42:27 +0900
-Message-ID: <20261117134227.2077013-4-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261117134227.2077013-1-yhlee@isslab.korea.ac.kr>
-References: <20261117134227.2077013-1-yhlee@isslab.korea.ac.kr>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EiZ9xHp1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C90251F000C4;
+	Tue, 17 Nov 2026 13:43:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794922988;
+	bh=sHQ6ietn6+j1gEyL6k+OIghfZBL1Rw76ypQ5bVWORHk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=EiZ9xHp1jTJ64xUFy5wObWcLzGGeU3u1g2uPSemC3QkIBhwVn8xXo4wcAyCjYORYw
+	 d1xMqLkehBRfaLjqa8h9jRDUYPVLIuWzf9xcW/XyinfKzDGjuvSclPxE4NKjGZv6xz
+	 sYP3lXq7SYKuCRRVyEr3BG3qpWHIjJofImSqSidiU+fAtjPUvKZk3+mqMn7KY1IeoV
+	 U/e3uqlpjdfMIAzlqiVFwJQIN3MHgVg+gU6TaUsgGZdsgSVVvtXxoWhCnKgqEXlDY6
+	 28Z4tRYbNtKaIve3QQIYfQUCPiAKwfhjsjsnV+a2C4GKMXqGZMRrmPuQD90HBUPuKi
+	 TbBEVsP+hzhFw==
+Subject: Re: [PATCH] bonding: unbind 802.3ad slaves on enslave failure
+From: netdev-bot+sashiko@kernel.org
+To: ljp1205831794@gmail.com
+Cc: jv@jvosburgh.net, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ sfeldma@cumulusnetworks.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, jiapenglin@tencent.com, corvus@tencent.com
+Date: Tue, 17 Nov 2026 13:43:07 +0000
+Message-ID: <179492298736.3136.7707420195276794847@kernel.org>
+In-Reply-To: <20261113130454.63032-1-ljp1205831794@gmail.com>
+References: <20261113130454.63032-1-ljp1205831794@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,187 +63,219 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-mvumi_launch_events() queues mvumi_scan_events() on the system workqueue
-from the interrupt handler.  The work dereferences the mvumi_hba and can
-wait up to 45 seconds for an internal command, but mvumi_detach_one()
-frees the interrupt and calls scsi_host_put(), which frees the
-mvumi_hba, without waiting for it.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Give the driver its own workqueue and destroy it in mvumi_detach_one()
-after free_irq(), so the work has finished before the host is freed.
-mvumi_probe_one() can fail in mvumi_io_attach() with the interrupt
-already enabled, so flush the queue there as well after free_irq().
-Also clear bus-mastering before mvumi_release_fw() on that path, because
-pci_disable_device() runs further down and must not be called twice.
+Critical: 0 · High: 2 (1) · Medium: 1 · Low: 0
 
-In a KUnit model where the event command is left unanswered and the host
-is put during the wait, the work reads the freed host in 5 of 5 runs
-without this patch and in none of 5 with it:
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-[  107.519931] BUG: KASAN: slab-use-after-free in mvumi_scan_events+0xc83/0xd10
-[  107.519976] Read of size 8 at addr ffff88800a0d8908 by task kworker/0:0/10
-[  107.520007]
-[  107.520033] CPU: 0 UID: 0 PID: 10 Comm: kworker/0:0 Tainted: G    B            N  7.4.0-rc2-00716-g23c62304dde2-dirty #1 PREEMPT(lazy)
-[  107.520086] Tainted: [B]=BAD_PAGE, [N]=TEST
-[  107.520103] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[  107.520128] Workqueue: events mvumi_scan_events
-[  107.520173] Call Trace:
-[  107.520200]  <TASK>
-[  107.520220]  dump_stack_lvl+0x53/0x70
-[  107.520290]  print_report+0xd0/0x630
-[  107.520356]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
-[  107.520400]  ? mvumi_issue_blocked_cmd.isra.0+0x62b/0x940
-[  107.520493]  ? mvumi_scan_events+0xc83/0xd10
-[  107.520569]  kasan_report+0xe5/0x120
-[  107.520650]  ? mvumi_scan_events+0xc83/0xd10
-[  107.520730]  mvumi_scan_events+0xc83/0xd10
-[  107.520800]  process_one_work+0x697/0x1060
-[  107.520920]  ? __pfx___schedule+0x10/0x10
-[  107.520976]  ? __pfx_process_one_work+0x10/0x10
-[  107.521032]  ? _raw_spin_lock_irq+0x81/0xe0
-[  107.521111]  ? __pfx_mvumi_scan_events+0x10/0x10
-[  107.521159]  ? assign_work+0x11d/0x370
-[  107.521222]  worker_thread+0x45b/0xd10
-[  107.521304]  ? __pfx_worker_thread+0x10/0x10
-[  107.521357]  kthread+0x2c8/0x3b0
-[  107.521435]  ? recalc_sigpending+0x15c/0x1e0
-[  107.521515]  ? __pfx_kthread+0x10/0x10
-[  107.521564]  ret_from_fork+0x36e/0x5a0
-[  107.521612]  ? __pfx_ret_from_fork+0x10/0x10
-[  107.521672]  ? __switch_to+0xac3/0xdc0
-[  107.521738]  ? __switch_to_asm+0x33/0x70
-[  107.521793]  ? __pfx_kthread+0x10/0x10
-[  107.521860]  ret_from_fork_asm+0x1a/0x30
-[  107.521922]  </TASK>
-[  107.521951]
-[  107.521987] Allocated by task 84:
-[  107.522047]  kasan_save_stack+0x33/0x60
-[  107.522101]  kasan_save_track+0x14/0x30
-[  107.522179]  __kasan_kmalloc+0x8f/0xa0
-[  107.522259]  __kmalloc_noprof+0x193/0x450
-[  107.522291]  scsi_host_alloc+0x29/0x1290
-[  107.522374]  mvt_setup+0x14e/0xa50
-[  107.522441]  mvt_event_work_after_put+0x93/0x3f0
-[  107.522475]  kunit_try_run_case+0x1ad/0x490
-[  107.522544]  kunit_generic_run_threadfn_adapter+0x7b/0xe0
-[  107.522643]  kthread+0x2c8/0x3b0
-[  107.522704]  ret_from_fork+0x36e/0x5a0
-[  107.522787]  ret_from_fork_asm+0x1a/0x30
-[  107.522855]
-[  107.522880] Freed by task 84:
-[  107.522898]  kasan_save_stack+0x33/0x60
-[  107.522974]  kasan_save_track+0x14/0x30
-[  107.523086]  kasan_save_free_info+0x3b/0x60
-[  107.523140]  __kasan_slab_free+0x43/0x70
-[  107.523198]  kfree+0x121/0x390
-[  107.523275]  device_release+0xc8/0x240
-[  107.523349]  kobject_put+0x14d/0x280
-[  107.523383]  mvt_event_work_after_put+0x22f/0x3f0
-[  107.523459]  kunit_try_run_case+0x1ad/0x490
-[  107.523523]  kunit_generic_run_threadfn_adapter+0x7b/0xe0
-[  107.523576]  kthread+0x2c8/0x3b0
-[  107.523638]  ret_from_fork+0x36e/0x5a0
-[  107.523724]  ret_from_fork_asm+0x1a/0x30
-[  107.523762]
-[  107.523803] The buggy address belongs to the object at ffff88800a0d8000
-[  107.523803]  which belongs to the cache kmalloc-4k of size 4096
-[  107.523833] The buggy address is located 2312 bytes inside of
-[  107.523833]  freed 4096-byte region [ffff88800a0d8000, ffff88800a0d9000)
-[  107.523880]
-[  107.523929] The buggy address belongs to the physical page:
-[  107.523978] page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0xa0d8
-[  107.524037] head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-[  107.524111] flags: 0x100000000000040(head|node=0|zone=1)
-[  107.524155] page_type: f5(slab)
-[  107.524248] raw: 0100000000000040 ffff888007042140 dead000000000122 0000000000000000
-[  107.524319] raw: 0000000000000000 0000000000040004 00000000f5000000 0000000000000000
-[  107.524422] head: 0100000000000040 ffff888007042140 dead000000000122 0000000000000000
-[  107.524457] head: 0000000000000000 0000000000040004 00000000f5000000 0000000000000000
-[  107.524543] head: 0100000000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
-[  107.524592] head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
-[  107.524625] page dumped because: kasan: bad access detected
-[  107.524660]
-[  107.524681] Memory state around the buggy address:
-[  107.524725]  ffff88800a0d8800: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-[  107.524772]  ffff88800a0d8880: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-[  107.524817] >ffff88800a0d8900: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-[  107.524862]                       ^
-[  107.524927]  ffff88800a0d8980: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-[  107.525003]  ffff88800a0d8a00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-[  107.525025] ==================================================================
+- [High] The fix is incomplete: a failed bond_master_upper_dev_link()
+  skips the new unbind and leaves the same use-after-free reachable.
+- [High] The new bond_3ad_unbind_slave() call can cause a NULL pointer
+  dereference in the RX softirq path.
+- [Medium] The new caller breaks bond_3ad_unbind_slave()'s 'caller
+  updates array' contract.
 
-Fixes: f0c568a478f0 ("[SCSI] mvumi: Add Marvell UMI driver")
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
- drivers/scsi/mvumi.c | 15 ++++++++++++++-
- drivers/scsi/mvumi.h |  2 ++
- 2 files changed, 16 insertions(+), 1 deletion(-)
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the same
+  publish-then-fail window leaves TLB/ALB hash entries pointing at the…
 
-diff --git a/drivers/scsi/mvumi.c b/drivers/scsi/mvumi.c
-index fe3f63a1088dc1..79086e2dd22e39 100644
---- a/drivers/scsi/mvumi.c
-+++ b/drivers/scsi/mvumi.c
-@@ -1807,7 +1807,7 @@ static void mvumi_launch_events(struct mvumi_hba *mhba, u32 isr_status)
- 			mu_ev->event = APICDB1_EVENT_GETEVENT;
- 			isr_status &= ~(DRBL_EVENT_NOTIFY);
- 			mu_ev->param = NULL;
--			schedule_work(&mu_ev->work_q);
-+			queue_work(mhba->work_q, &mu_ev->work_q);
- 		}
- 	}
- }
-@@ -2544,6 +2544,13 @@ static int mvumi_probe_one(struct pci_dev *pdev, const struct pci_device_id *id)
- 	mhba->shost = host;
- 	mhba->unique_id = pci_dev_id(pdev);
- 
-+	mhba->work_q = alloc_workqueue("mvumi_wq_%d", WQ_PERCPU, 0,
-+				       host->host_no);
-+	if (!mhba->work_q) {
-+		ret = -ENOMEM;
-+		goto fail_alloc_workqueue;
-+	}
-+
- 	ret = mvumi_init_fw(mhba);
- 	if (ret)
- 		goto fail_init_fw;
-@@ -2570,9 +2577,14 @@ static int mvumi_probe_one(struct pci_dev *pdev, const struct pci_device_id *id)
- fail_io_attach:
- 	mhba->instancet->disable_intr(mhba);
- 	free_irq(mhba->pdev->irq, mhba);
-+	flush_workqueue(mhba->work_q);
- fail_init_irq:
-+	/* mvumi_release_fw() frees buffers the controller was given */
-+	pci_clear_master(pdev);
- 	mvumi_release_fw(mhba);
- fail_init_fw:
-+	destroy_workqueue(mhba->work_q);
-+fail_alloc_workqueue:
- 	scsi_host_put(host);
- 
- fail_alloc_instance:
-@@ -2600,6 +2612,7 @@ static void mvumi_detach_one(struct pci_dev *pdev)
- 
- 	mhba->instancet->disable_intr(mhba);
- 	free_irq(mhba->pdev->irq, mhba);
-+	destroy_workqueue(mhba->work_q);
- 	pci_disable_device(pdev);
- 	mvumi_release_fw(mhba);
- 	scsi_host_put(host);
-diff --git a/drivers/scsi/mvumi.h b/drivers/scsi/mvumi.h
-index e248dfc1dd1bb7..04cd844851423e 100644
---- a/drivers/scsi/mvumi.h
-+++ b/drivers/scsi/mvumi.h
-@@ -493,6 +493,8 @@ struct mvumi_hba {
- 	atomic_t fw_outstanding;
- 	struct mvumi_instance_template *instancet;
- 
-+	struct workqueue_struct *work_q;
-+
- 	void *ib_list;
- 	dma_addr_t ib_list_phys;
- 
+--
+
+bonding: unbind 802.3ad slaves on enslave failure
+
+This commit adds a bond_3ad_unbind_slave() call at the err_upper_unlink
+label of bond_enslave() in 802.3ad mode. If the state machine attached the
+new slave's port to a LAG during enslavement, the port is now detached
+before the slave is freed. This addresses a KASAN slab-use-after-free in
+ad_agg_selection_logic() seen when bond_sysfs_slave_add() fails.
+
+> diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
+> index e9f5e753f6770..60cc9a6a4fc7d 100644
+> --- a/drivers/net/bonding/bond_main.c
+> +++ b/drivers/net/bonding/bond_main.c
+> @@ -2355,6 +2355,8 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
+>  	bond_sysfs_slave_del(new_slave);
+>  
+>  err_upper_unlink:
+> +	if (BOND_MODE(bond) == BOND_MODE_8023AD)
+> +		bond_3ad_unbind_slave(new_slave);
+
+[Severity: High]
+Can this unbind race with the 802.3ad receive path and cause a NULL pointer
+dereference in softirq context?
+
+At err_upper_unlink, bond_handle_frame() is still registered as the
+rx_handler for slave_dev. netdev_rx_handler_unregister() drains in-flight
+handlers through synchronize_net(), but it only runs later, at
+err_unregister.
+
+bond_3ad_rx_indication() checks port->slave without holding mode_lock:
+
+drivers/net/bonding/bond_3ad.c:bond_3ad_rx_indication() {
+    ...
+	port = &(SLAVE_AD_INFO(slave)->port);
+	if (!port->slave) {
+		...
+		return ret;
+	}
+    ...
+		spin_lock(&slave->bond->mode_lock);
+		ad_rx_machine(lacpdu, port);
+    ...
+			ad_marker_info_received(marker, port);
+    ...
+}
+
+Both callees dereference port->slave right away:
+
+drivers/net/bonding/bond_3ad.c:ad_rx_machine() {
+    ...
+	if (lacpdu) {
+		atomic64_inc(&SLAVE_AD_INFO(port->slave)->stats.lacpdu_rx);
+    ...
+}
+
+drivers/net/bonding/bond_3ad.c:ad_marker_info_received() {
+    ...
+	atomic64_inc(&SLAVE_AD_INFO(port->slave)->stats.marker_rx);
+    ...
+}
+
+bond_3ad_unbind_slave() sets port->slave = NULL under mode_lock. For a
+LACPDU, the RX CPU can pass the check, spin on mode_lock while the unbind
+runs, and then call ad_rx_machine() after port->slave is already NULL. The
+marker handlers don't take mode_lock at all.
+
+__bond_release_one() avoids this by draining RX first:
+
+	/* unregister rx_handler early so bond_handle_frame wouldn't be called
+	 * for this slave anymore.
+	 */
+	netdev_rx_handler_unregister(slave_dev);
+
+	if (BOND_MODE(bond) == BOND_MODE_8023AD)
+		bond_3ad_unbind_slave(slave);
+
+The commit message says this "preserves the invalidate-drain-free ordering
+used by normal release". Here, though, port->slave is cleared before the
+drain. Should the unbind come after netdev_rx_handler_unregister()?
+
+One deterministic way to reach this rollback is the XDP check in
+bond_enslave(). With an XDP program on the bond and one already loaded on
+the slave, the code jumps to err_dec_slave_cnt and falls through to
+err_upper_unlink.
+
+[Severity: Medium]
+Does this rollback leave bond->usable_slaves stale?
+
+bond_3ad_unbind_slave() discards the update_slave_arr result from
+ad_agg_selection_logic() and expects the caller to rebuild the array:
+
+	bool dummy_slave_update; /* Ignore this value as caller updates array */
+
+__bond_release_one() does this by calling bond_update_slave_arr() after the
+unbind and unlink. In bond_enslave(), bond_update_slave_arr() is only called
+on the success path, so nothing in the rollback rebuilds the array.
+
+The unbind can reselect the active aggregator, for example when the new
+port was already in the active aggregator. In that case
+ad_agg_selection_logic() can disable the old aggregator's ports and enable
+the new one's.
+
+Wouldn't bond_3ad_xor_xmit() then keep using the old usable_slaves until
+some other event forces a rebuild?
+
+>  	bond_upper_dev_unlink(bond, new_slave);
+>  
+>  err_unregister:
+
+[Severity: High]
+Should the bond_master_upper_dev_link() failure path also unbind the port?
+
+bond_3ad_bind_slave() runs well before the upper link, but a failure in the
+upper link jumps past the new unbind:
+
+	res = bond_master_upper_dev_link(bond, new_slave, extack);
+	if (res) {
+		slave_dbg(bond_dev, slave_dev, "Error %d calling bond_master_upper_dev_link\n", res);
+		goto err_unregister;
+	}
+
+The slave can be visible to the 3ad state machine during that failed call.
+__netdev_upper_dev_link() first calls
+__netdev_adjacent_dev_link_neighbour(), which adds slave_dev to the list
+walked by bond_for_each_slave_rcu(). Only after that does it send
+NETDEV_CHANGEUPPER, and if a notifier fails it rolls the adjacency back.
+
+CHANGEUPPER handlers can fail, and they can sleep. For example,
+dsa_user_changeupper() -> dsa_port_lag_join() can return -ENOMEM from
+dsa_port_lag_create(), a driver error from DSA_NOTIFIER_LAG_JOIN, or an
+error from dsa_port_bridge_join().
+
+bond_3ad_state_machine_handler() only takes mode_lock and RCU. During that
+window it can run ad_port_selection_logic() on the new port and link it into
+another live slave's aggregator. The rollback then reaches
+kobject_put(&new_slave->kobj) and frees ad_info while lag_ports or
+port->aggregator still point into it.
+
+Isn't that the same use-after-free in ad_agg_selection_logic() that this
+commit fixes for the sysfs failure?
+
+The commit message says "earlier unpublished failures are unchanged", but
+this failure publishes the slave and then rolls it back. Could the unbind
+cover every failure after bond_3ad_bind_slave(), placed after the
+rx_handler drain?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but can the same
+publish-then-fail window leave TLB/ALB hash entries pointing at the freed
+slave?
+
+In balance-tlb/alb mode, bond_enslave() calls bond_alb_init_slave() and
+bond_set_active_slave(new_slave). Once the upper link publishes the slave,
+bond_slave_can_tx(new_slave) can be true, and a concurrent transmit can
+store the slave in the TX hash table:
+
+bond_xmit_tlb_slave_get()
+  tlb_choose_channel()
+    __tlb_choose_channel()
+      tlb_get_least_loaded_slave()
+
+drivers/net/bonding/bond_alb.c:__tlb_choose_channel() {
+    ...
+	assigned_slave = hash_table[hash_index].tx_slave;
+	if (!assigned_slave) {
+		assigned_slave = tlb_get_least_loaded_slave(bond);
+
+		if (assigned_slave) {
+			...
+			hash_table[hash_index].tx_slave = assigned_slave;
+    ...
+}
+
+Normal release clears these references in bond_alb_deinit_slave(), through
+tlb_clear_slave() and rlb_clear_slave(). The enslave rollback does nothing
+equivalent before kobject_put(&new_slave->kobj) frees the slave.
+bond_alb_monitor() only rebalances slaves that are still on the list.
+
+A later packet with the same hash would get the freed slave back from
+__tlb_choose_channel(). bond_do_alb_xmit() would then use it:
+
+	if (tx_slave && bond_slave_can_tx(tx_slave)) {
+		...
+		return bond_dev_queue_xmit(bond, skb, tx_slave->dev);
+
+In TLB/ALB, two failures can happen after the slave is published:
+bond_sysfs_slave_add() failing (goto err_upper_unlink) and a failing
+NETDEV_CHANGEUPPER notifier (goto err_unregister). Should the rollback also
+call bond_alb_deinit_slave() for these modes?
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261113130454.63032-1-ljp1205831794%40gmail.com
