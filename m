@@ -1,54 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794933274;
-	b=j0HptvTPcNvRqen7p0yATImaV/ahmwdj35vwz82IAQBXq8a1umc+YKpkfufAgeS0NxRr
-	 WA+exWinrHwiItkiMTn2Rwp9ZqFCelPXh2f+tyEIqYeWGmcjGB4gNL/pi+5saS08NSTVq
-	 lrSR8zPENCvj8uUDhVg4zgwXdYQOnCN+fJmoi9R3nYVNdgsQzkIpV1Fm8bx9Cr7voWdPs
-	 zD8wdXmAHS7iq1VobwoNV56PPUvnlA384y7KpdutEsXDP+NGyD8HHk/L/GxuwBKIRDjgp
-	 suRJy6SZ/qVJfSYk0IcPXZoXtGXNR9HClIYiulO+U6V347LkVBDqY5LB7I31AWc1DGg==
+	t=1794933290;
+	b=hOzJBwo55s2JqwE5Fy0j7W3BRAyLWqRI2EWpiin/SQXgF2zxhdN1RJ88i7TU/fqvou3r
+	 +QDcBsVMDTwQvC/wW2J0EC++W/Lo1MLqRnD3jFjkAZf//9ubLErfUNOcFYwGlLLE3OtmF
+	 LmP8aixFRGzAKGIxVSQmZ2X40Tm6xhZHrtVZsP0osYUOiQcdtjzhbuHFbX79wf6fAfyaY
+	 kYfuudspba5zq6N6pqSaqZV/fNKVkdyAjJSg81n5yCP1grzpBDhmrfPYvi9iiWqsmKOm1
+	 M4i/mk03Orqz1gSZyZbnn3hc3KHgqUMg6p19xa/lmTiXZoKhoddTQ2lflODx0D4k1qA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794933274;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=JEEmq1dY81wdbCeTX7SttAeKu8NSqyPmmLobfOaFWuo=;
-	b=kveL9AobFN2AqOeZZhx8KtjtSphctlDymT2vgcpVvHVui6gi8iAlyPhceDVhM1EkLzn4
-	 zIMybDgts1AfU1vl5umrSrtykc4IU3w8AqzQpg/Prdy01NzvEVFDzBxDaBb4nQEQ9BnOZ
-	 GxFnHctsUtHY6lzU9HOgiWf736OrgGOdqxGoC4I9Ww2lEDtiUKcTrhq8jczzy5d1fQ4tF
-	 cqhTbKSP9UwovLg+fuGoWHdEre0Nhg6FTwQ8o52ysevhQ0ysdiT1fzMFrgcgTmR0JLkkA
-	 Id2UWFqwraO9Pm6TW5XshFNBMxp9nFmQWYCJck2W2MkjEY3nsGLuGEBIhCJFb5a7jfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794933290;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=0nLr92kUcJStZC2BCr+sdHppUBlRwS9fPEEDDTJn8Q8=;
+	b=EDmXwVZx3t3FNsKYluylnaEXQEIcP9zkpytcHlmKepBiZDQYVRlG9K8JZqISssSKSA2q
+	 KscazNVuylw6Jcy5DXKP1dcmSK/3AeiER1js/Jj7lCiuw3WSGqEfRZVB9tbGiepKQH5fM
+	 xiKOcA2deGNd6AikqArvJGGbUsMsjUiWqwAoi1OirbLnhyiF+J4wlWtPWlsc0uYdY1hCi
+	 y70vJL6CppfsmqVWOd9H5k9gkIWu3B3DbaCv/cN4ftnzwB5LS6OIXFMlvITxbjDbrRlQN
+	 G+06zuvrbrQ3+8kgehAlVC1s+dUAusbItNlHrBF7Rtu2ZL5dtJNyipmrokOMkxQJl/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IfpL3SzR;
-	arc=none smtp.remote-ip=91.218.175.174
-Received: from mta0.migadu.com (out-174.mta0.migadu.com [91.218.175.174])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=C4q3T7wT;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5857F606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:34:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5857F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8530E606A32C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:34:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8530E606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IfpL3SzR
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=RJgmEkz4jSKky+L1Q1MlhqmjHI4xCv6x+BFHapl0q5g=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794933271; v=1; x=1795538071;
- b=IfpL3SzR7Nvihq9US39Oqm3zkEnRicLRID6CM6pD9965dMcj8R+v8Pg6U6oppvPgNyt/bCoO
- 4ao82qHM39cCYvBWukc+QdjG4GgGFyXkLMMzDeysMwKkJyNztktyJfXVGjV+hiqRWDIN/3rlE59
- dUdRes882EQpHe6tLSNPhUH0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 60d8652a3546647f;
-	Tue, 17 Nov 2026 16:34:31 +0000
-X-Mizu-Trace-ID: 60d8652a3546647f
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <a852dce9-4ece-4508-8e07-89768cf6713e@linux.dev>
-Date: Tue, 17 Nov 2026 09:34:23 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=C4q3T7wT
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso5126591f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:34:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794933289; x=1795538089; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=0nLr92kUcJStZC2BCr+sdHppUBlRwS9fPEEDDTJn8Q8=;
+        b=C4q3T7wToBWaEWAHAaUkEgc7IXBfUPR9NnEL98/CNVERz5kG9TGeFB4fZqLgIAD70n
+         JMRkTC3c7PdNLL2uD9l1LY3pZ1E1rCpTpHmq9HDCylbBUNSVqnoTOlHrwUUzYMPS94rZ
+         uyCvWY8DWOancmBiHuWEanvDTdxe/lKOGFOTewYj2LNJPh9mggqU4h6LfuJc30qv2bjJ
+         yudF6uYvmMaXLRPDXnIgAV0qDlcimx8Chb+Co+hViyJxovQQM6v1ciJDL98tcOJ/abKB
+         OcnapyrtMkAWiSkbcXTzjiQCPc1F4J75s8j/feT9hdhyfLtx66BnrIMsTBet3DkogyC3
+         2z3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794933289; x=1795538089;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0nLr92kUcJStZC2BCr+sdHppUBlRwS9fPEEDDTJn8Q8=;
+        b=xW80C0RfUpE7w+UIYulA1UFYGHdkSv9EKHXEqNcze24COupLHgwwXKnZabTGUd7XhE
+         Yf1ZB8BPo9+tThEQZIlCJb1OKKSNzvu6bql/RFVcxbHIQRymUBjUG5LlCKairXPIKBAI
+         40npNj5teVCl3BNYHPJ+Api4bd3RgjxuPEmMfY2wimzFYNZ4uhUW4jnNsCfWeOPSPLCv
+         m/y6LwAWtuHu2S0Jeq1f8sWiKfVEoQeC47VAsEpD//1gS+SqEEdlKTXMuoLFjiCjgrPV
+         /Y/XkOLFwWT44LlB8cvA+nKavJcapIfmgbIHt2qIwRxinEqQR7wUqvuTnrYsNujYGKgt
+         0bSg==
+X-Forwarded-Encrypted: i=1; AL+hErFarIDrTpyzWp6c62k4GjfYNZwK/aCwtp7rR8QEt6hNJbNVHpH8WQyf8ZxgduHorq8NiNZE/CUSO/r9+tM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/vyhkodu/HKyilTV7N4pr8lJhggsAs65U7kEO9GD5V+ZrJ5bDq
+	ffcO4j9lTtCJcNXuHHC14aw9tNeyvhu/bUtaA2yrqXvscvEIn/3GBZJj
+X-Gm-Gg: AZFdTZf3CQ3HLk8bR36SX4Dt729rqYzuP1qTMSibrK7g3RvZOMt9vqBjd/NWaAATDn8
+	sGboK+roxIlE+A5W/qJ4dhlu/tQ7oJiLiWDJkotpndinVWrSrsjvre/pfoGH+FpCF8fLtWUVDlm
+	2/1pTo4ToVkFFZgBYk/qmll1tTWG7bi6T2F1GBwsjZP6vHqTvhdxailiPMYd6tV7QbJ3zKpuCpN
+	1PSArygyPfay5Zw3os+/TE+x1PKUSYwiWCbZV4bU5WckYXl/Xl3g0xNl71zB8YHGE7q39aRuBB2
+	Tgo9jpXCnWXFz6wsjpePks19efckmiWxFzAzDWU+54jsZun6iotXjP7C3MKV9JvWS3SxuyYtwjv
+	qPtkw5ov7Rw2F4dGvmWrMfSedcSOvQoxyTYZKGAL9GX2dFbjYdhjoFPd5Sn7JBP+mHrmQb9ijM6
+	l6ahXuGo2Lk3ESzEyu91VilqbtO0adXwjtQ/s5vQWxqkFrLiRImi0yjG2yjOzisgl/DWJYGv5mU
+	xXvj+9CR7dH66vdo8RE2N2zp4pqnWCyIRBZtkZUnG6xZgMY1zcCrAu5NDGZjB6OR95zPdr7Mj0r
+	59letsQXuOeOaGTwrXv6RWpDn488NkST5kaMo+ujkgWGJ0T+eFpsnn+vbSLVzMIAquwed/p9zit
+	XqKynvswneYc=
+X-Received: by 2002:a05:6000:24c6:b0:491:273c:9649 with SMTP id ffacd0b85a97d-49c70b051dcmr32305652f8f.15.1794933288673;
+        Tue, 17 Nov 2026 08:34:48 -0800 (PST)
+Received: from [127.0.1.1] ([2a00:23c4:a702:d301:9260:9c28:f0f5:e091])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c6d079a2asm26672248f8f.16.2026.11.17.08.34.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 08:34:48 -0800 (PST)
+From: Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH v3 0/3] Add RZ/G3L HS400 support
+Date: Tue, 17 Nov 2026 16:34:45 +0000
+Message-Id: <20261117-sdhi_hs400-v3-0-b4659189db69@bp.renesas.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,103 +93,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/khugepaged: mark ptes dirty and soft-dirty on mTHP
- collapse
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Andrew Morton <akpm@linux-foundation.org>, Lance Yang <lance.yang@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Chris Mason <mason@kernel.org>, Daniel Wade <danjwade95@gmail.com>
-References: <20261117-khugepaged_mthp_dirty-v1-1-024e4a12c2fa@kernel.org>
-Content-Language: en-US
-From: Nico Pache <nico.pache@linux.dev>
-In-Reply-To: <20261117-khugepaged_mthp_dirty-v1-1-024e4a12c2fa@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACWC/GoC/3XMywrCMBCF4VcpWZuSmfRmV76HiLTNxGRhWzISl
+ NJ3Ny0Igrg8B/5vEUzBE4s2W0Sg6NlPYxr6kInBdeONpDdpC1RYAYCWbJy/Oi6UkqVVDZWoazy
+ CSMEcyPrnjp0vaTvPjym8djvC9n6Y6puJIJUcyp6M0YCFak79nAcaiTvOh+kuNivi/x5Tb6gAW
+ 3e11Vr99Ou6vgGElEJJ6QAAAA==
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+ Ulf Hansson <ulfh@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-mmc@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794933288; l=2081;
+ i=biju.das.jz@bp.renesas.com; s=20261020; h=from:subject:message-id;
+ bh=CBpGJ3J11Ge4CceUmYpikw5K8cAJ7APFU5cYhMUuhMo=;
+ b=f1Ib0zXkvJbVhSIRi0rJXpTosKpULS2jRkUem/AewnONbvsTd9To1UD27al99sVL0I+cpOg/M
+ 8av6eBULDyADkZjoSUf7RzLMME6/kIjvommvFAoXxgYjxWu0Fa2VppO
+X-Developer-Key: i=biju.das.jz@bp.renesas.com; a=ed25519;
+ pk=yzD2T1OLS3lEYflbk64xhLlxhk75lZ+NoOtkTOqrlVw=
 
+RZ/G3L SDHI IP support HS400 and HS400 ES mode. This patch
+series aims to add support for HS400 mode. HS400 ES mode
+support will be added later.
 
+Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+---
+Changes in v3:
+- Clear hs400_active/hs400_clk in renesas_sdhi_reset() after a HW reset.
+- Disable SCLKEN before leaving HS400 in renesas_sdhi_set_clock() to
+  avoid transiently enabling the clock with stale divider settings.
+- Drop the ios.timing check, which bypassed the divider before HS400
+  was enabled in hardware and halved the clock; hs400_clk now follows
+  hs400_active and the clock is reprogrammed in hs400_complete().
+- Link to v2: https://lore.kernel.org/r/20261116-sdhi_hs400-v2-0-de41f7a7f330@bp.renesas.com
 
-On 11/17/26 2:28 AM, David Hildenbrand (Arm) wrote:
-> An mTHP collapse can lose soft-dirty PTE bits if pages were written and
-> the VMA was then made read-only, and not setting the PTE dirty in
-> VMAs without VM_WRITE can interact with a later MADV_FREE on a COW-shared
-> page such that all processes lose the data even though a single process
-> MADV_FREE'ed it.
-> 
-> Collapse does not preserve the soft-dirty bits of the old PTEs, so the
-> new entries must be marked soft-dirty. map_anon_folio_pte_nopf() relies
-> on pte_mkdirty() to do that, but only calls it if the VMA has VM_WRITE.
-> 
-> Further, after CoW-sharing such collapsed folios later, all PTEs will be
-> clean and the folios will be clean. One process doing a MADV_FREE can mark
-> the folios as lazyfree and result in all processes sharing it losing the
-> data once memory reclaim zaps it.
-> 
-> In map_anon_folio_pte_nopf(), call pte_mkdirty() unconditionally, just
-> like map_anon_folio_pmd_nopf() already does with pmd_mkdirty().
-> 
-> Consequently, we always mark these PTEs dirty (including soft-dirty) but
-> only set them writable if the VMA has VM_WRITE.
-> 
-> This essentially reverts Hugh's commit 1ac0cb5d0e22 ("mm: fix anonymous
-> dirtying") that back then touched do_anonymous_page() to avoid forcing
-> clean anonymous pages through swap instead of discarding them. This no
-> longer applies as shrink_folio_list() allocates swap for ordinary
-> anonymous folios and unconditionally marks them dirty before unmapping,
-> regardless of PTE dirty state. Keeping their PTEs clean does not make
-> them discardable.
-> 
-> This now also marks fresh anonymous PTEs dirty and soft-dirty in read-only
-> VMAs when page faults allocate real pages.
-> 
-> This has low urgency.
-> 
-> Fixes: e22f2fe72c74 ("mm/khugepaged: generalize collapse_huge_page for mTHP collapse")
+Changes in v2:
+- Added fixes tag for patch 1
+- Using ios.timing to decide whether the HS400 divider restriction applies
+  is wrong: mmc_hs400_to_hs200() lowers the clock while ios.timing is still
+  HS400 and then walks through DDR52/HS/HS200 before prepare_hs400_tuning()
+  clears the HS400 bits, so the divider could stay at 200 MHz or prohibited
+  non-zero dividers could be programmed while HS400 is still enabled. So
+  tracking HS400 hardware state for RZ/G3L clock programming using 2
+  variables hs400_active and hs400_clk in struct renesas_sdhi.
+- Link to v1: https://lore.kernel.org/r/20261116-sdhi_hs400-v1-0-c5bedd312408@bp.renesas.com
 
-I was just thinking yesterday: "Im happy the mTHP collapse stuff 
-survived this AI wave". I guess I spoke a day too soon ;P
+---
+Biju Das (3):
+      mmc: renesas_sdhi: Save and restore IOVS across suspend/resume
+      mmc: renesas_sdhi: Make HS400 OSEL bit configurable per SoC
+      mmc: renesas_sdhi: Add RZ/G3L HS400 support
 
-LGTM!
+ drivers/mmc/host/renesas_sdhi.h               |   5 ++
+ drivers/mmc/host/renesas_sdhi_core.c          | 111 +++++++++++++++++++++++---
+ drivers/mmc/host/renesas_sdhi_internal_dmac.c |   5 +-
+ include/linux/platform_data/tmio.h            |   4 +
+ 4 files changed, 113 insertions(+), 12 deletions(-)
+---
+base-commit: 522b5bdb42c730db0269a384bf5a2501ecb21e8d
+change-id: 20261113-sdhi_hs400-5f08e5237291
 
-Reviewed-by: Nico Pache <nico.pache@linux.dev>
-
-> Cc: stable@vger.kernel.org
-> Reported-by: Chris Mason <mason@kernel.org>
-> Reported-by: Daniel Wade <danjwade95@gmail.com>
-> Closes: https://lore.kernel.org/all/20261117075246.61336-1-danjwade95@gmail.com/
-> Reviewed-by: Daniel Wade <danjwade95@gmail.com>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
->   mm/memory.c | 3 +--
->   1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/mm/memory.c b/mm/memory.c
-> index d2f48d78b0d7b..45875d1d3b3df 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -5522,8 +5522,7 @@ void map_anon_folio_pte_nopf(struct folio *folio, pte_t *pte,
->   
->   	entry = pte_sw_mkyoung(entry);
->   
-> -	if (vma->vm_flags & VM_WRITE)
-> -		entry = pte_mkwrite(pte_mkdirty(entry), vma);
-> +	entry = maybe_mkwrite(pte_mkdirty(entry), vma);
->   	if (uffd_wp)
->   		entry = pte_mkuffd(entry);
->   
-> 
-> ---
-> 
-> base-commit: 1c2962a57377c9878cbefb747488324d4e678982
-> 
-> change-id: 20261117-khugepaged_mthp_dirty-067f734d38aa
-> 
-> --
-> 
-> Cheers,
-> 
-> David
+Best regards,
+-- 
+Biju Das <biju.das.jz@bp.renesas.com>
 
