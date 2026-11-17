@@ -1,54 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794931174;
-	b=vq+HS+QflXGCZucq31BmaPoBprsyowiIJjTfMMGC4J3sqtpXdPYMqATM0bfSjWgb15cC
-	 LPwCS+w8PCx6XDM4a2hUAHLmejyI+r/JL9BMzehwzPTMPwtEMO+uVv8tTPscU1PjUClXt
-	 I78yKvnXrwy+KVPmPWQxfTWp1mMM1LskjTeEplnEtGF+mTA8zYchNnHzOtbActQzZsGqa
-	 nXhDrSJKuQ5sE27PwQ5awcKgHyYRKIUj6+UQGP/zlLjHdi8c83NKoUKXzb3Odj7s/eeFC
-	 1rXWptqqv5P3X/2nbjEVwrXMW+U7jqD/nfAMKTA9S0c79WmbjFOAQD7v794aCWlL3+g==
+	t=1794931233;
+	b=eUCYjTArzsDTRYCL3ZLkJQatLHYsNHKDSqgXE2qqQkgqWvrES8hnvK4IOhIp/bDbnrDo
+	 /VNJpBeKOIX5zZmjCtmlzBnlBMDHtWK0QhP/vguSBSbgskZs/gBl4/lCVDq0Z2mLkFH+R
+	 tCtVctCSxCkNuSA2Cyf0sjMDs/fwQi2Zj0CkWyi1fYMVHBw3FmUhW0fxlFUd9eUx6Ts+P
+	 KnFbkeOXkCp4Y9eMSXiRq1X6+4X4g/pbuNPXFBHTD8hoWiDf+9iCLnr4c7tNsC2MV6kOZ
+	 oxmwwg7EpuipgfSv7mVOBSQziSeqjadNi2RKtVbFj+zEmZ72azL9FDXUU3ixwUpVpAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794931174;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=0gD1zlvN4eThyjE43uOUbJ+uBXXfuLOk6FwIxVnKewg=;
-	b=QLiyUfvsEx4w+shoyGzDyd+cvzOV7WCeqEMXszt7qo3wdJsN+kX8AsfTgcLW5LQ8N2sW
-	 3cIuHey1UQY0QcVjb0rnKTMDxub1XvSZ6ofKif5xyYA3XxtWvaQOx6U07ZvtEKjX90tjM
-	 B7/cRtCF6fgCnQVMkbBHh1p3oH7FUEpb6O6RM6XfDSAhynNfVDiK0KuFZ0Q4fGeMyPu7X
-	 Ktz9aIxPrf0XXR+nrUQzIFELlQGpHk5UYgx0/ZyTdldGOiXxBHi04gmjmuEW0iAXy4Hi4
-	 /CrIfNplHVJPUv+2agacU75m+NDpd1WcVr/yLOiIidL+2Yow/p/EsqWfuiPbNcQ+XwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794931233;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=/x+1/YRqE8Zusxp33H94lPbXoArQ2s0dgh4gGGEjxCA=;
+	b=Yaixq4ZInwPSqyI6S0/D5ZsxudvCv+LVojWrLcv+R/n2avRNb4dbfbtVTDfyTlyIHgcV
+	 Cq1yuAtQytmbjxLxEsvcjG7f011jwgRxeSbAmy8ao03Ro7UmVSa+deFIL/7Ohy3bdL/wL
+	 vSLCR4Cba2ueXcnodSwwpZ6zRy2IhMexSFqegwQucWaiHwJVoWnrcavmxoofW0r1ZiKuy
+	 X5gIKqOk1yEeDbG4xlZeltBXKEPfMnhLkDAKtkD1mSTEci5O8Nzz+qv3WQZUBOoM5kUPC
+	 z8magk8NzHquVqtph6SkwECLNGKaV0Nf3KXUTslAaqbbfEUOQizKbhvz2j/0EMT/9YQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PGeSPAbD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EWjSB+JD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BDEC606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:59:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCB4D606A31C;
+	Tue, 17 Nov 2026 16:00:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PGeSPAbD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5CCD1F000C4;
-	Tue, 17 Nov 2026 15:59:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EWjSB+JD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F6DA1F000C5;
+	Tue, 17 Nov 2026 16:00:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794931174;
-	bh=0gD1zlvN4eThyjE43uOUbJ+uBXXfuLOk6FwIxVnKewg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PGeSPAbDVQPtvdjyu1lyqjB7y3/sUtiyI1TwQSO+Jg20CM9l+zZ891VOYeqcE3xgx
-	 kH1IOiBKH/UPt4nrMnV4shrc47KIjspcmEcqfp3lsaU0lEilmMPoDHlDduJNjJQBAG
-	 tcEOP5yLZVJzmJZnpwMJjeA+CuKeIa5jfqj2eolwmP9X1p/N3oPwZ862WW5ai2rkyF
-	 uXef5MdeFN+zT0VFl9vw7/E3xbmJIXyrwb2VOgk/WehF72XLXhJlsxG9i9nvmq4R9V
-	 8PJWE6VhhRjxNFbp6C1keb4NwPYR1lXsrzzIjq53flbyIh2IoSQMMsXJOTZlyPFpNo
-	 +v7iQ7nSnY6Aw==
-Date: Tue, 17 Nov 2026 16:59:31 +0100
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Eryepa Yerepilov <yerepilov@gmail.com>
-Cc: linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
-	Anna-Maria Behnsen <anna-maria@linutronix.de>
-Subject: Re: [BUG] timers/nohz: Oops in wake_up_nohz_cpu+0xb with cpumask
- index -1
-Message-ID: <avx548RXzTkrVRp1@localhost.localdomain>
-References: <179491250540.103352.8910296528541632789@gmail.com>
+	s=k20260515; t=1794931233;
+	bh=/x+1/YRqE8Zusxp33H94lPbXoArQ2s0dgh4gGGEjxCA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=EWjSB+JDp+qP5V7KsT50JdtiayD/niRQQs4Kfv0MNgY+vFhOcYiYIVdyaaTsJgoUR
+	 cYT+mElpY+qy0gO8aKDAp/Dp7zX7qZTMJ4V8BI/p96hZkwlo+vHCC7A2hNuGlP4oA8
+	 CzF2kZyuv1Ybf27EKEYCompQacfC1Xo7BxWE/4tvHB1EVt7an6EYFnivRGwkYNSfDy
+	 eEj2TEUxIPbTY06bgW1f3obd4XMnL5bQDp+vN025kIg5Ry/ZG5FtpTkuIfFP9I1FFo
+	 ILwbMJYG/AawWOZbN3Vwo8FUnnIj1c8XOUdY1ivHdkpO+GAdp8G+08R//14sOMt3Vn
+	 Mz9JMddBrVfSA==
+Message-ID: <94ed1340-94bd-49ee-ba31-9bb63164c89a@kernel.org>
+Date: Tue, 17 Nov 2026 17:00:26 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,90 +51,147 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <179491250540.103352.8910296528541632789@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/4] arm64: dts: mediatek: mt8167: Add DRM nodes
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+ linux-mediatek@lists.infradead.org
+Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, CK Hu <ck.hu@mediatek.com>,
+ Jitao shi <jitao.shi@mediatek.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260921113914.779393-1-l.scorcia@gmail.com>
+ <20260921113914.779393-5-l.scorcia@gmail.com>
+ <bbefcf0b-b31e-4f74-bf79-b0ccc983f62b@kernel.org>
+ <200ef6c1-eced-4c36-832d-3fb409aac866@collabora.com>
+ <5715e9e5-857d-4104-aedd-9662da0fc0ab@kernel.org>
+ <911e4163-8a2c-4ca2-8903-8d3ddb7266e8@collabora.com>
+ <600165c4-eaa7-4b1e-806c-63d3b97d5064@kernel.org>
+ <63da5790-984b-4760-8e92-85b5d2269b30@collabora.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <63da5790-984b-4760-8e92-85b5d2269b30@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Le Tue, Nov 17, 2026 at 01:48:25PM +0300, Eryepa Yerepilov a écrit :
-> Hi,
+On 17/11/2026 15:21, AngeloGioacchino Del Regno wrote:
 > 
-> Summary: 7.3.4-arch1-1 panicked in idle on CPU 0 inside
-> wake_up_nohz_cpu(), reached from __mod_timer() by the clocksource
-> watchdog timer. The faulting instruction is a bit test against a static
-> cpumask, with the index in RAX = 0xffffffff, i.e. -1.
+>>>
+>>> Any advice on how to possibly resolve this without rewriting the entire thing?
+>>>
+>>> Mapping that by mmio address in the driver seems too stupid/dirty/bad/etc.
+>>
+>> Driver needs that, so why exactly stupid?
 > 
-> Full trace, copied from pstore (efi_pstore backend; the journal did not
-> survive the panic, the machine rebooted ~10 s later because of
-> panic_on_oops=1). Timestamps are seconds since boot, uptime 43040 s:
-> 
->  [43040.869305] BUG: unable to handle page fault for address: ffffffffadef72d8
->  [43040.869312] #PF: supervisor read access in kernel mode
->  [43040.869315] #PF: error_code(0x0000) - not-present page
->  [43040.869318] PGD 47ac25067 P4D 47ac25067 PUD 47ac26063 PMD 0
->  [43040.869324] Oops: Oops: 0000 [#1] SMP NOPTI
->  [43040.869329] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Tainted: G           OE       7.3.4-arch1-1 #1 PREEMPT(full)  6c50e2b86768c03b0a904a1018778cfad2de7f30
->  [43040.869339] RIP: 0010:wake_up_nohz_cpu+0xb/0x160
->  [43040.869346] Code: 07 ff ff ff 66 66 2e 0f 1f 84 00 00 00 00 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 0f 1f 40 d6 0f 1f 44 00 00 89 f8 <48> 0f a3 05 3d ed 72 02 0f 83 da 00 00 00 48 83 ec 10 89 fe 66 90
->  [43040.869349] RSP: 0018:ffffcff5c0003dd0 EFLAGS: 00010082
->  [43040.869352] RAX: 00000000ffffffff RBX: ffff8d0c0ea1dfc0 RCX: 0000000000000000
->  [43040.869355] RDX: 000000001b000000 RSI: ffffffff8e9b66e0 RDI: 00000000ffffffff
->  [43040.869357] RBP: ffff8d0c0ea1dfc0 R08: ffff8d0c0ea1dfc0 R09: 00000001028c3160
->  [43040.869359] R10: 00001e45a76494c8 R11: 0000000000000009 R12: 0000000000000000
->  [43040.869362] R13: 00000001028c315c R14: ffffffff8e9b66e0 R15: 00000000ffffffff
->  [43040.869364] FS:  0000000000000000(0000) GS:ffff8d0c80110000(0000) knlGS:0000000000000000
->  [43040.869367] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->  [43040.869369] CR2: ffffffffadef72d8 CR3: 000000019bf59000 CR4: 0000000000f50ef0
->  [43040.869372] PKRU: 55555554
->  [43040.869374] Call Trace:
->  [43040.869376]  <IRQ>
->  [43040.869378]  __mod_timer+0x2b4/0x3a0
->  [43040.869384]  ? __pfx_clocksource_watchdog+0x10/0x10
->  [43040.869389]  clocksource_watchdog+0x559/0x590
->  [43040.869393]  ? __pfx_clocksource_watchdog+0x10/0x10
->  [43040.869398]  call_timer_fn+0x2a/0x140
->  [43040.869402]  ? __pfx_clocksource_watchdog+0x10/0x10
->  [43040.869405]  __run_timers+0x27c/0x330
->  [43040.869412]  run_timer_softirq+0x46/0xf0
->  [43040.869415]  ? irqtime_account_irq+0x33/0xd0
->  [43040.869419]  handle_softirqs+0xde/0x290
->  [43040.869429]  __irq_exit_rcu+0xb9/0x110
->  [43040.869433]  sysvec_apic_timer_interrupt+0x71/0x90
->  [43040.869438]  </IRQ>
->  [43040.869440]  <TASK>
->  [43040.869442]  asm_sysvec_apic_timer_interrupt+0x1a/0x20
->  [43040.869446] RIP: 0010:cpuidle_enter_state+0xbb/0x400
->  [43040.869473]  cpuidle_enter+0x31/0x50
->  [43040.869477]  do_idle+0x1d3/0x2f0
->  [43040.869483]  cpu_startup_entry+0x29/0x30
->  [43040.869487]  rest_init+0xf7/0x100
->  [43040.869497]  start_kernel+0xa0e/0xa20
->  [43040.869502]  x86_64_start_reservations+0x24/0x30
->  [43040.869507]  x86_64_start_kernel+0xda/0xe0
->  [43040.869511]  common_startup_64+0x13e/0x151
->  [43040.869519]  </TASK>
->  [43040.912025] Kernel panic - not syncing: Fatal exception in interrupt
-> 
-> What the registers say
-> 
-> The faulting instruction at wake_up_nohz_cpu+0xb is
-> 
->   48 0f a3 05 3d ed 72 02    bt %rax,0x272ed3d(%rip)
-> 
-> i.e. a bit test on a static cpumask with the bit index in RAX. RAX and
-> RDI both hold 0xffffffff, so the index is -1 and the effective address is
-> the mask minus one 8-byte word: the faulting address 0xffffffffadef72d8
-> is exactly 8 bytes below the tested mask at 0xffffffffadef72e0. That
-> address is above the end of the image (link base 0xffffffff81000000,
-> boot offset 0xac00000) and unmapped - hence error_code 0 with PMD 0.
+> Really feels like going back to the days when devicetree was not a thing and all of
+> the MMIOs (on ARM at least) were added into a mach file.
 
-Weird, I scratched my head a lot but I couldn't find what can trigger that,
-aside your memory corruption. I could be missing something of course.
+Well, adding an alias just to tell that device node with MMIO address
+0xdeadbeef is ID 0 is very similar, just placed differently. The
+"aliases" are the mapping between MMIO and ID. Driver code also can do
+the mapping between MMIO and ID.
 
-Maybe Thomas has an idea.
+> 
+>  >
+>> You do not represent any
+>> actual hardware information in DT with these aliases.
+> 
+> That depends on how you see it (as in, on the point of view), really, because well
+> technically the second ReadDMA IP is ... not the ... primary, as it's the secondary
+> one - as much as the third DPI is not the primary one (even though DRM can make it
+> so that it can be used as a primary output, but that's a software thing, not HW).
+> 
+> So... well, with that point of view... those aliases *are* representing information
+> about the hardware.
+> 
+> But I know that you're not complaining just about this, and this reply is not a way
+> to argue all that much, just a bit of thinking out loud.
 
-Thanks.
+Being simply "second" is not alone useful information. It's pointless,
+it does not matter neither to hardware nor to drivers. If it matters,
+then probably that "second" has some other meaning and it maps to an
+actual hardware topology difference, then often it deserves its own
+compatible or property, depending on the difference.
 
--- 
-Frederic Weisbecker
-SUSE Labs
+> 
+>  >
+>> You want to tell
+>> drivers how drivers should behave - that's not a job for DT,
+> 
+> I want to tell drivers what is the first or the second or the third hardware
+> instance of the same IP, I don't want to tell drivers how drivers should behave
+> from devicetree.
+> The drivers are behaving differently with different hardware (read as: hardware
+> that is *physically* located in front of something else, or somewhere else anyway)
+> as in with different hardware instances.
+
+Then alias is not the way to represent these differences.
+
+> 
+>> that's job
+>> for driver data. Of course if there is smarter way than MMIO->ID, I am
+>> all in.
+> 
+> You can't imagine how much I was hoping for you to say something about an
+> alternative solution to that.
+> 
+> As I said, it feels a bit like pre-DT times, but what I get from you is that this
+> is cleaner than just adding information about the real hardware instance number in
+> devicetree (no that's not just MediaTek, qcom also had similar issues as you said).
+
+Sure, I understand. This is an workaround and might be less applicable
+here. It might be possible that your hardware needs a dedicated
+property. Unfortunately, this cannot be a custom per-device alias.
+
+Best regards,
+Krzysztof
