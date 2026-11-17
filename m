@@ -1,94 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794908246;
-	b=TWROUIiGkOGe/E+QCd8cKFcQzxMDTlBDCC5zwR/yhsTC6eSY1xIIQnvdm39ar+yBpHsU
-	 9h5LSNqOYYqlwHD6G/TS0MyXjJP3g4PcpY8yrdBaS0vt4kOrDGc0Puoim4x61onBJyfRY
-	 5GnCYEFYv5DYl6jJ7qak2uAvMr7iqM+7D7/JuXvh+w64TILRQUlGxx15WWlibYfESCXeY
-	 KQjm0SioTYK/0SKSx8T+7ZbJUUsU/PmGTFuET8CATiuGELz2NYqvAZ//WFJh0rdwPKtTT
-	 SeONHONz7C2D8xwVjZkJIrRSYcs785pA5fD2SmyKoXg2CClGYP8oYeCvunI/QhFni4Q==
+	t=1794908260;
+	b=r+28T/IjHJ+Q4+PR1qbp6ioszoSCRvw8iRy6Wh2BxCYE93jAYw/5C2PuAPMKdEbiZkMs
+	 BNHWWQKwEXuxxNkHgGd/ohvOk9R39K5Adc2ag3hxtAWOeWU4yBsXxRf2yWbVRlPke81ne
+	 UyS21FxqpR5oF8RYsEtv0F45anooVBMYZgEY/a9EAdOeqGVqGIvoiXOpXfUVwp8ew8q7X
+	 pdMtHbbj+PTg0XozX+s7SIRXDPrn7Uj6Ebbk4hzf6VmZKdK+TJqxCDIcuVAXttgl18dAh
+	 p63E4vK4OybWOAROGvAEfI/+SQqIg8fTnXaZepshA4NMtSThUpeLjtMeQvg6M1jQIuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908246;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=OFzWKIpfqvHsogWlMHgoDk6JLusnQb0ygt1RW9vKSgw=;
-	b=McCtXgTLeU/1BkMDqsbAxjirOu9HQs0YOXSCxd8k3ckUxVTrPe/WvZbZUqfv4Ya+BCqX
-	 ZAkyw8lqLZbaflpcHHGUFkO81RhaLRjj7IAxRJI+FJHdfaTtnkvbc2bTIJPrLlA/91b2L
-	 +1T89zx9Tb/Exxsxewls0/nwAZ7k3LMKEvSfzQ80syZMYV2fwYaynGxBqR/M24/Kc9Pof
-	 OuOVtVj8tUmZpjX9yrsm3lGAWHGIFT4VYwidtPUbXlzmpqYrqisqk6yAqFpY65RQLXx1X
-	 KKhHeJ09X/jHDLyCUoBTNoAN3/QL6O01fTIcXF1Ovfzh/cwaW5oScLRr6EGPKzbxxsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908260;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=sYsejNEMULh2lKIx2yILKbg2OeJOUfENCYPm27432Lc=;
+	b=a75brt9ZnWsz/S+cGheL3rKHDU6ZVfnqMHQqIjHGZshbAe3spNEXvAMyw4ex94H9t7hE
+	 e9NImTAdSp+6knbNFHVTROMJ5azJq+UyM76Y6oIEqpfeHJbyaNAnB5DWvXFPMHd6MjJ8z
+	 JjmO0RhBu3f7nNAT3x00vjNL2swF2zP6T6orsFBuEdV6Bki9wbQCvgiWicjpKYU8UJVvz
+	 lo44Ey10LoZuAPrrG0AKvr6iNhgvd5J9gNgsluEbFKuAtWBW9ce+GS46uW+Wia4HXmxRu
+	 5mn6LCZkxQ1161YCjAPAVmltAcBie7ssHt0ALxkO81p3bGAO19AslAvqEluUgA7Pl+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ket+7AUd;
-	arc=none smtp.remote-ip=209.85.210.179
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UoDIexIJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1A40606A329
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:37:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1A40606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E400606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:37:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ket+7AUd
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8b58d6f67a5so2109366b3a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:37:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794908245; x=1795513045; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OFzWKIpfqvHsogWlMHgoDk6JLusnQb0ygt1RW9vKSgw=;
-        b=Ket+7AUdfnXGpxqEyOMcN0ibsbMUl850mzNv13fsw9jkNT0qV7qFKg6L+QznPksHGO
-         EgzcFuXKWMQcE0zBKXbpjyYBZ/uNetOVouaWgJQdv610bFV2MWf1Yj0+sYdjY/FkvRZo
-         D/jOQLl69uvTKIJtD4Sha4Rqv2yYrRo6oK9BOUXC9weEShuQqYGO7JveBntb5vd55VTF
-         dFhh53mkuhhktS0ax9hMNl/Dr8kgOWm1SFGkOXBmbdtG/n4pxVyvIgI+maFQhTlclUq/
-         rGDyc6SRSeLRc2082Hvgr2b8z3ix1qcKjdkARPKHfTzr2B6U67r1KY8cX504LQVo7EkL
-         CoNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794908245; x=1795513045;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OFzWKIpfqvHsogWlMHgoDk6JLusnQb0ygt1RW9vKSgw=;
-        b=1PGDg9D7WRv8bUceWf37l/hempyKJlJqhnNADn6cEDdh9BsKAqaJbzE2R3qGV0YS9D
-         Nn29vvU2eTp0ExDALZjFPXR2N7p7cp6JbizKBMl9dlGFjQbP8KOHcmgtNRCWGo7OYhcN
-         vBAeQ012cXrHrL6cOcmw3x65eWXGBpM7oezcXVoe9ErOB9bqsiWbEQ1deEpHn/sZ6jC7
-         Jm4sxiwqojCPcHYTyafnxjMrsqGlLfuSe6t/02qBCwqOEvwv6APfmmoQwCBmxT6XJPxz
-         KhN7RUK+ZOBuaVhueWsJ1OEm0VuxQrcY2d9YkcKDVrRaa6sv3gTwaBKj9uufe/Mz2PyF
-         Y0bg==
-X-Forwarded-Encrypted: i=1; AL+hErF3eQOnUTBShs6/XJIlM5XAdH8DwmlVg2cZAY+HHU3H2Fq4cdWr9qaLfVS9jmT5/nBK2KYDvNHpEfDd0+g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Cv17E/5/ezzcKwTINKJBILDJxQSq8vM60Y97u+1SSoJtlSZjq
-	FswQbBYc1+8ijccXhMMFy8V+YJYnyEMj1W6D6xNO4QNvkzpjLt7+ZfP70hlg1TAX
-X-Gm-Gg: AYBFou3zzxiC22H8arZ/v5NVN6etg8D2G7zUcaSYAx3Z64evexAz8UJGQazI/b58ypx
-	M/3VXb7z7vpphp/19DfRoQTZp/yftY8siqE/KGLjgob7+83wdcqLv6mL0Vsxs6ElIDd5WVJh0P7
-	l0rWE+csdIrGsKBBZE9939O17hNPYZsxZ6yzZDycIcPimejlyHrJkZfYSQgx9B5i7SGtjvOJHiE
-	7sCEsfueiN2jjWkGh1EmgLomZzstRch2XMejFgO4SpgoN+w7+xqxQab53953JzeQ4N1M3G/EvyS
-	zbOiS0zEDVnVONAtRvOUjyGHPEr9r3a38Xb7sDRwkrljqjwTSRe49FAZQ2M1XmjyAB0fd8MOfQS
-	t6os4gLMQLsMxOee1WZI0qTGhdzjAg+vJ+1X7h7LIp/HRTx3EOYkPWGfCBVUg5zrqIKh1rJeRAp
-	uNJIyP04Q7+4CLQaxI7mDj+kIQHtrCSqIL3vgkW8oK3dqSrvuQH7IaPkdHiChIo2c4RhlKNg+EJ
-	VJp0o2fArY9MQ/gBLDyOyTmGPWeCmRCi9/+8H2WNB2t0ywTJX3maj/NHiMgY7R+QCgrJVzwQIvi
-	S7oevenZJa3kOp5BBjH2CORIZ+g6xHBTNOpWf1DSirT8xAb5
-X-Received: by 2002:a05:6a00:1995:b0:89d:29fb:b5e7 with SMTP id d2e1a72fcca58-8beb5da5bf5mr12558126b3a.24.1794908244905;
-        Tue, 17 Nov 2026 01:37:24 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed2b190bfsm4804882b3a.50.2026.11.17.01.37.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 01:37:24 -0800 (PST)
-From: Hyunjung Ko <hj351016@gmail.com>
-To: Scott Branden <scott.branden@broadcom.com>
-Cc: bcm-kernel-feedback-list@broadcom.com,
-	Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH] misc: bcm-vk: bound plane descriptors against the message buffer
-Date: Tue, 17 Nov 2026 18:37:12 +0900
-Message-ID: <20261117093712.185359-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UoDIexIJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BF501F000C6;
+	Tue, 17 Nov 2026 09:37:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794908259;
+	bh=sYsejNEMULh2lKIx2yILKbg2OeJOUfENCYPm27432Lc=;
+	h=From:To:Cc:Subject:Date;
+	b=UoDIexIJG7Z2g8JHrBHM+uRE8Gf/5jJcgqP38JNGPYK29sH3Hjg2iKmhucMs3l/uu
+	 /d5wYg0Uz3lP6hz+hajg2qDPFXiinsuMha+dUwyEu1Hr7BUOdla1a/RhzlZTQ+SAEw
+	 Ol6Mkm03OIC//7RYZBZtExrp40PPt5L62Hlpw1lG4Y3Kb18+G9ChdiwN2GoXek9xza
+	 vdZLbxVwOHMV0Q4vQNIOA5SzMX9Zd9/L6WnO3JHykfYpoDtAv/jK04hiSFxTSrpQp3
+	 fl07tz3V2adVX/sIE0tKwCbDJI+rTT5jyTC8d5OLFFOGu7YkqMZdxpWAQJvWwRPWRL
+	 j4ED0Y7MOraaw==
+From: Philipp Stanner <phasta@kernel.org>
+To: Matthew Brost <matthew.brost@intel.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Philipp Stanner <phasta@kernel.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/sched: Extend locking in drm_sched_entity_select_rq()
+Date: Tue, 17 Nov 2026 10:37:09 +0100
+Message-ID: <20261117093708.647488-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,56 +67,60 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In bcm_vk_write(), a VK_FID_TRANS_BUF message embeds an array of
-num_planes struct _vk_data descriptors at the end of the message.  Their
-start is computed as:
+drm_sched_entity_select_rq() evaluates entity->sched_list locklessly,
+which is elsewhere always lock-protected. Another lockless check regards
+spsc_queue_count(). spsc_queue is evaluated under lock protection at
+many places already and the plan is to replace it with fully locked
+infrastructure anyways.
 
-	data = (struct _vk_data *)&entry->to_v_msg[msg_size + 1];
-	data -= num_planes;
+Move the spin_lock() in drm_sched_entity_select_rq() upwards.
 
-num_planes (0..15) comes from the message cmd field and msg_size (a u8)
-from the size field; both are fully controlled by user space and are only
-checked with 'msg_size > to_v_blks'.  Nothing verifies that the plane
-count is consistent with the message size, so a crafted message (for
-example size 0 with a non-zero plane count) makes 'data' underflow below
-the copied buffer.  bcm_vk_sg_alloc() then reads num_planes descriptors
-from out-of-bounds memory and interprets them as DMA addresses/sizes.
-
-Reject any message whose descriptor range does not fall entirely within
-the buffer copied from user space.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
 ---
- drivers/misc/bcm-vk/bcm_vk_msg.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ drivers/gpu/drm/scheduler/sched_entity.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/misc/bcm-vk/bcm_vk_msg.c b/drivers/misc/bcm-vk/bcm_vk_msg.c
-index 17114092a284..e0d57f99a569 100644
---- a/drivers/misc/bcm-vk/bcm_vk_msg.c
-+++ b/drivers/misc/bcm-vk/bcm_vk_msg.c
-@@ -1192,6 +1192,21 @@ ssize_t bcm_vk_write(struct file *p_file,
- 		/* Now back up to the start of the pointers */
- 		data -= num_planes;
+diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+index 03e68b4102d5..3856d5e507d7 100644
+--- a/drivers/gpu/drm/scheduler/sched_entity.c
++++ b/drivers/gpu/drm/scheduler/sched_entity.c
+@@ -577,22 +577,21 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
+ 	struct drm_gpu_scheduler *sched;
+ 	struct drm_sched_rq *rq;
  
-+		/*
-+		 * 'data' and the num_planes descriptors that follow must lie
-+		 * within the message buffer copied from user space.  A crafted
-+		 * message with a plane count inconsistent with its size (e.g.
-+		 * size 0 with a non-zero plane count) makes 'data' underflow
-+		 * below the buffer (or run past its end), leading to an
-+		 * out-of-bounds read in bcm_vk_sg_alloc().
-+		 */
-+		if ((void *)data < (void *)&entry->to_v_msg[0] ||
-+		    (void *)(data + num_planes) >
-+		    (void *)&entry->to_v_msg[entry->to_v_blks]) {
-+			rc = -EINVAL;
-+			goto write_free_msgid;
-+		}
++	spin_lock(&entity->lock);
 +
- 		/* Convert user addresses to DMA SG List */
- 		rc = bcm_vk_sg_alloc(dev, entry->dma, dir, data, num_planes);
- 		if (rc)
+ 	/* single possible engine and already selected */
+ 	if (!entity->sched_list)
+-		return;
++		goto unlock;
+ 
+ 	/* queue non-empty, stay on the same engine */
+ 	if (spsc_queue_count(&entity->job_queue))
+-		return;
++		goto unlock;
+ 
+-	spin_lock(&entity->lock);
+ 	fence = entity->last_scheduled;
+ 
+ 	/* stay on the same engine if the previous job hasn't finished */
+-	if (fence && !dma_fence_is_signaled(fence)) {
+-		spin_unlock(&entity->lock);
+-		return;
+-	}
++	if (fence && !dma_fence_is_signaled(fence))
++		goto unlock;
+ 
+ 	sched = drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
+ 	rq = sched ? sched->sched_rq[entity->rq_priority] : NULL;
+@@ -604,6 +603,7 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
+ 	if (entity->num_sched_list == 1)
+ 		entity->sched_list = NULL;
+ 
++unlock:
+ 	spin_unlock(&entity->lock);
+ }
+ 
 -- 
-2.43.0
+2.56.0
 
