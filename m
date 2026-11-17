@@ -1,47 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794929138;
-	b=ts8dxujUQ8I6JWEfgHTrSUI20+j6gmG3HAFUOjAUwoVAUZ18ce4xsWaOppycT/b3S2jI
-	 SbtSnA4hd1gkoRiqzqkYMYHwkDLNIxknIR5XpHaVgqa29EVb9mKt3zETuaUG6h3cF+N5m
-	 TENpxM+EmBVlWU3DVLJFqd2UKnqPxjaZ0olryEtGQBvZx4XcelBPnOrQNuRyLpBajtZtX
-	 11iHfOiq0ImvJtfgLrLgGOM+Z2XSw8zYHUImw4KDvpebtaaBTtPh2T6I4sadvZgQw3EjH
-	 ge5Tw9rcv6+q/Wl9Hm2moGVUu/C2ra44yTLp/EMKSCfT5ZvPSAypmpSpt/eQWX4wK0Q==
+	t=1794929146;
+	b=hUmZWFVy/YLvTWDdKmnGqTHyNx6QHc8pr96Y0zRtZiCgM8eqJ5fSsH4nEX2D8EUGH642
+	 X1nEMhKDY4PKGtBTNVKStJNqAA0i86u64D141+HX94xLC5yhZFyCShABz4Ifc8jT63TPf
+	 HHK+rFs07UwtieP9MQRzQqSym7XZMah2R82n23scW5Xbuv782lNQi6baREIVD5CQs0wcy
+	 16VlX4APWxuda7WvV9fSyDhQg5js0NFn7Ysd1k7RvX+P0xkyaZQW0oLorIJ3qxBYTHP3R
+	 +9XZv3CybM97xQBwlqidlEVaVOm77xpT0q7QIUQmSVyCNMdEjOOeOpvrMGPLCMRqBZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794929138;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=mLpPRRwJinjCyS610srEJx7KpX4KJuB1wBOk4FmMCNg=;
-	b=Ljxr3+VpmINI15YXYkIS40EW1FRhTj0hEGWism8bLzOkZoegS5W+WVKkqNpJU363ZkbT
-	 /rIkwXQVqMhksWph0GDhdvbBVZQoacrxNdn4igm+wj0eqYHkl4Bo0DjRqsn/+6b6Woyas
-	 eSDAijDarI/9RTwa5M/zmxN56t6ZjTRo7yhQQ/IecU3xg6f/vEXanZTz7kUdpmQNxdpBW
-	 wt9CNGEamEunq4aAzFHLAf3ASF7RN3DheEniTpUQOnuTSAA/dNfLnX/QZZuRyVnPIgrds
-	 mvuqOB/2o+mtGATv9b+ui1whmYTlbiqNpmRfy1WGqxJyWYSVUU124Ni0h0Zx1Ke0wUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794929146;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=5gp1408bxxK/xuLwuHlpqzE34hm/cbySRiY0hc0hxic=;
+	b=fH+pcT3DYlbOLLpDhMsxi8WgefKVKiIjkMUfCyzwFG4gcoXjLqHbV7qcwF/3kPhTWfP2
+	 32JDJ1fMiA8ZCvSorU3Uy7JxHB3mw7h00eJZUcLNU9hszZKeM4TKpHrAerDoi5g3pBfb3
+	 mehsKw43ng8U3s5GWfPY1kuxtMHhv4AwNvAE3YNKhUG3RKKA3nGtW8BrruouDOcoC831f
+	 o0ZVszo+0EOEABlRDB1jjZHEOuspe5bZtgUcZxTnimOAyCnUOUOqXVmbaazN7jW4SiwsI
+	 VD9s8LX7qmRXgTnUEDtcb5qh8CwJTZOGECc+jjF6NJSkPZ6tmvgjaw+Rez8XZGM79xg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iNxzJ0p6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=GcgbybeZ;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26503606A32C;
-	Tue, 17 Nov 2026 15:25:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B33F1606A882
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:25:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B33F1606A882
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iNxzJ0p6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E2F71F000C4;
-	Tue, 17 Nov 2026 15:25:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794929138;
-	bh=mLpPRRwJinjCyS610srEJx7KpX4KJuB1wBOk4FmMCNg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=iNxzJ0p6q33rtHMw07jyxEgdwHPdz5eejr1sEWqi9xCD2Bc4mQVnJoYzm1WGPOJoZ
-	 DRL6HpDx1vpbiNEWrl2AhexzG1dNH2Q6KkDTlfAvBa5CyPAcvDTr/WD99mr40wkf8t
-	 KIlpI6W/Yib6/Z9UGdn9DLJd20z9B91KOeLM3B0CtnKeGnvaMQKchT3zLCwLtQJOQ7
-	 PYaIeM0AKmDZolC/t+aj6GZO0IrC4WNs902Ngh+FbYm+spAoOAbywGGBTPAjqegfGu
-	 Npb3+1axe7tYaxOAZgrTTJ3i5KmiwKXXl0PyL5ELQiKXoCZaWXc1Y7+uQ4Mzi5O7j3
-	 ozPtISvowmFDw==
-Message-ID: <ef76e141-491d-44a9-90a6-e9cd54526012@kernel.org>
-Date: Tue, 17 Nov 2026 16:25:32 +0100
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=GcgbybeZ
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHBw2a71088622;
+	Tue, 17 Nov 2026 15:25:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=5gp140
+	8bxxK/xuLwuHlpqzE34hm/cbySRiY0hc0hxic=; b=GcgbybeZ8UtMbm4goyodQS
+	h530RGo8q80drnk86UkRHUJWrlHn12WIOJhBrrbuTkmg7/3QfPTr52SVge/f3Qjb
+	BTX6De5tuiHQ3vDBhViTxkAPnOwhCuIaQ8sYI8vwXokFnep8s1dyFhnteeqRiYaT
+	lCQ5QmtfRW01e+xS74XQPON1bYbFV+OM0RSQpZnQ/UmJGLgJHLvISjRSW80qdI9j
+	YbJiR4NWgwV0Q7BF8SRi/zqSMl9zBz5L9ycnX5g9lcYRlZ0tv/0cWmve3NtTgIrK
+	yuT1sMzaz0i35LWFNoem6zoYQLVcfEpeH1oUcLQKeNR1Uf3PFmBumx3VLNbDQouQ
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hxe2dbcbm-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 17 Nov 2026 15:25:24 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHC4sp81803097;
+	Tue, 17 Nov 2026 15:25:24 GMT
+Received: from smtprelay05.dal12v.mail.ibm.com ([172.16.1.7])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hyxwt4u51-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 17 Nov 2026 15:25:24 +0000 (GMT)
+Received: from smtpav06.wdc07v.mail.ibm.com (smtpav06.wdc07v.mail.ibm.com [10.39.53.233])
+	by smtprelay05.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AHFPMnP28508806
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 17 Nov 2026 15:25:23 GMT
+Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id AA8935806A;
+	Tue, 17 Nov 2026 15:25:22 +0000 (GMT)
+Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id CEFD658060;
+	Tue, 17 Nov 2026 15:25:18 +0000 (GMT)
+Received: from [9.39.20.228] (unknown [9.39.20.228])
+	by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 17 Nov 2026 15:25:18 +0000 (GMT)
+Message-ID: <0cba99b3-a70e-47d4-8907-a2766e96e5e9@linux.ibm.com>
+Date: Tue, 17 Nov 2026 20:55:16 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,144 +87,107 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 0/6] PSCI-via-EFI to support firmware and kernel
- sharing EL2 for Apple Silicon
-To: Will Deacon <will@kernel.org>
-Cc: Ard Biesheuvel <ardb@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Sudeep Holla <sudeep.holla@kernel.org>, Janne Grunau <j@jannau.net>,
- Neal Gompa <neal@gompa.dev>, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-efi@vger.kernel.org, asahi@lists.linux.dev
-References: <20260708-efi-psci-v1-0-9efb3abf0e4c@kernel.org>
- <9c53cfd7-e193-4441-83ca-7710060225b7@app.fastmail.com>
- <apldL6Ml91GW-tE9@J2N7QTR9R3.cambridge.arm.com>
- <aplk2hHRB7Yw9FWW@willie-the-truck>
- <eb75b82a-8910-4198-b89a-5c8b487c0fd5@app.fastmail.com>
- <cadadedb-1de1-46f0-9bfd-35eb8bdfa85b@kernel.org>
- <avxETlOGyr_WQ2zp@willie-the-truck>
+Subject: Re: [PATCH 2/8] powerpc/perf: mpc7450: Event 0x634 counts L2
+ prefetches, not L1I
+To: Matt Turner <mattst88@gmail.com>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        Shrikanth Hegde <sshegde@linux.ibm.com>,
+        Paul Mackerras <paulus@ozlabs.org>
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+References: <20261109-ppc32-perf-v1-0-a6e8a55b3b48@gmail.com>
+ <20261109-ppc32-perf-v1-2-a6e8a55b3b48@gmail.com>
 Content-Language: en-US
-From: Sven Peter <sven@kernel.org>
-In-Reply-To: <avxETlOGyr_WQ2zp@willie-the-truck>
+From: Tanushree Shah <tshah@linux.ibm.com>
+In-Reply-To: <20261109-ppc32-perf-v1-2-a6e8a55b3b48@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA1OSBTYWx0ZWRfX7STq22HhTX7m
+ wu9gRBeAh04r5LBSfO4FQoRfPOwL1STvQs7L5FURTAF1bnuYdkOxzJpIq6HXrZ6+PifXG9hTFg4
+ VkOZ9J+VbfTJQ3bgVyf71iAfwFWoB04=
+X-Proofpoint-GUID: C-Q5H_-RlKY4yPUfHKw0A1yl9h-uw0E8
+X-Proofpoint-ORIG-GUID: QgTXJS450rqw20sJOYYgvFBHDbNR4S2h
+X-Authority-Analysis: v=2.4 cv=IruL47/g c=1 sm=1 tr=0 ts=6afc71e5 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=pGLkceISAAAA:8
+ a=VnNF1IyMAAAA:8 a=-9cAmcrYhhUisKysBq8A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA1OSBTYWx0ZWRfX4F2AXKs8zf/u
+ FQcOpgrd3ctCCF1/XFc+qKMFvgevJchoscN4/VxC6w+xSEyCy2Mg+Au/WJwlRom02bQELfGBnQ9
+ xLQNel3uxQt77KNw4HljTfqkjAs703ksSktYI4LR41iTXqDFJNXb6dCTdC6w6aV2sVC6PWi15kr
+ gEN1wNSRtwt6zH0ICccBVwo9TS9Bu6atQ0osWrZXsrDSwpD8MAfL3WdTxq7cf6NdX8HRN7UL4c+
+ BMGKEugtH4hD25WvFafkJwX48O7xL54M9rFiDpj3undnPi/xVPubhRAsT+rbOgnga5wBN0TSqJS
+ MrLB+X28NMGXJTGlw8m0aoZC4vbzeZSKut1FEboMoKzQJiqaU4ZHLT5DFw7Uw5bOT5enmlzLXiF
+ o/HLnjM0hCoB4wjPckZnMTeiBeOZ7v/ylD4ionOXBv29KK2t9AoMhK4xKC0ldf1R4af2ays81oX
+ Rq4dEOkbKiKNVlJOPmQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_02,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ malwarescore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170059
 
 
+On 11/10/26 7:17 AM, Matt Turner wrote:
+> The cache event table maps L1-icache-prefetches to 0x634, PMC6 select
+> 52.  The manual (MPC7450UM Rev. 5, Table 11-14) calls that event
+> "Prefetch engine request" and says it "counts new prefetches allocated
+> in the prefetch unit".  It is the first of six events about the L2
+> prefetch engine (selects 52-57), and the MPC7450 has no instruction
+> cache prefetch event.
+>
+> On a 7448, a pointer chase over 64-byte nodes counts r634 at 0.00 per
+> load when the working set fits in the 1 MB L2, and at 1.00 per load,
+> one per L2 demand miss, at 4 MB.
+>
+> The engine starts a prefetch only when an access misses in every cache,
+> fetches from the bus, and also fills the L3 if there is one (section
+> 3.6.3.2), so it is a last-level prefetch with or without an L3.  Report
+> it as LL-prefetches, and L1-icache-prefetches as not supported.
+>
+> Fixes: 7325927e5a20 ("perf_counter: powerpc: Add processor back-end for MPC7450 family")
+> Signed-off-by: Matt Turner <mattst88@gmail.com>
+Hi Matt,
 
-On 17.11.26 13:10, Will Deacon wrote:
-> On Sun, Nov 15, 2026 at 07:38:35PM +0100, Sven Peter wrote:
->>
->>
->> On 03.09.26 15:25, Ard Biesheuvel wrote:
->>> On Thu, 3 Sep 2026, at 14:15, Will Deacon wrote:
->>>> On Thu, Sep 03, 2026 at 12:42:39PM +0100, Mark Rutland wrote:
->>>>> On Thu, Sep 03, 2026 at 01:34:56PM +0200, Ard Biesheuvel wrote:
->>>>>> On Wed, 8 Jul 2026, at 09:15, Sven Peter wrote:
->>>>>>> This series adds a custom EFI table that points to a PSCI entry point
->>>>>>> (plus some other stuff that has to be available before EFI runtime
->>>>>>> services are set up) and adds support for this new conduit to the psci
->>>>>>> code. We can't directly use the normal EFI runtime path because that one
->>>>>>> takes a sleeping lock and we need to be able to call into PSCI from
->>>>>>> atomic context during e.g. cpu bringup or during idle.
->>>>>>> It also adds support for specifying the specific MAIR attributes for EFI
->>>>>>> runtime mappings as defined in the latest UEFI spec since Apple Silicon
->>>>>>> is rather allergic to using Device-nGnRnE vs. Device-nGnRE for its MMIO.
->>>>>
->>>>>>>         dt-bindings: arm: psci: Add EFI conduit
->>>>>>>         arm64/efi: Add and parse custom PSCI EFI configuration table
->>>>>>>         efi: Add EFI_MEMORY_ISA_{MASK,VALID}
->>>>>>>         arm64/efi: Honor EFI_MEMORY_ISA_MASK for Device-nGnRnE vs -nGnRE
->>>>>>>         firmware/psci: Add EFI runtime conduit
->>>>>>>         arm64: dts: apple: t8103: Add PSCI and CPU idle states
->>>>>>>
->>>>>>
->>>>>> I've picked up patches #3 and #4, which are useful in their own right.
->>>>>>
->>>>>> I'm not sure if the arm64 maintainers will want to consider this, but
->>>>>> I think it's a reasonable compromise, as it puts the abstraction in
->>>>>> the right place.
->>>>>
->>>>> Sorry for the late reply; I've been away almost all of August and I'm
->>>>> slowly catching up on things.
->>>>>
->>>>> As with last time this was proposed (in abstract), I am not happy about
->>>>> bodging an EFI conduit into PSCI, given that the manner in which state
->>>>> is managed is completely different from SMCCC.
->>>>>
->>>>> If we need a mechanism for doing hotplug and/or idle without HVC/SMC,
->>>>> that's one thing we can consider. I don't think we should pretend that
->>>>> it is PSCI.
->>>>
->>>> What do you have in mind for an alternative mechanism? I understand your
->>>> objection to this proposal, but at least it keeps the interface fairly
->>>> high-level and avoids opening the flood gates for a bunch of SoC-specific
->>>> idle routines. Are you thinking of extensions to the PSCI spec or
->>>> something else?
->>>>
->>>
->>> I can't speak for Mark, of course, but I could imagine EFI being used as a
->>> conduit to provide a callable set of interfaces (with a rigorously defined
->>> set of constraints such as the ones in this patch, i.e., reentrancy, no FP
->>> or SIMD, not relying on ISA features that the OS needs to know about and
->>> enable, etc).
->>>
->>> There is prior art here in ACPI PRM, which does something similar, and this
->>> also relies on EFI runtime services.
->>>
->>> You'd still need to implement the CPU ops and a cpuidle driver afaict (no
->>> expert here), but at least those would be coded against an interface that
->>> the kernel itself specified, and can be made as generic as we choose to.
->>>
->>> Not saying this is all great, but it might be a worthwhile compromise to
->>> consider.
->>
->> Finally getting back to this series...
->>
->>
->> I'd definitely like to keep mapping the resident firmware using EFI runtime
->> services because otherwise I'd have to duplicate a whole lot of tricky code
->> to do the same thing via some other means (e.g. a device tree nodes that
->> contains all mappings + callbacks) and I just don't see much value in that.
->>
->> I'm happy to just drop the PSCI part though and replace that with a simple
->> and somewhat generic "efi-rt" (or similar) cpuidle driver and make that one
->> have similar requirements like I added for this RFC series and expose bunch
->> of generic callbacks (that will just happen to resemble PSCI functions very
->> much ;)) via a custom EFI table. That would keep PSCI out of all of this but
->> come at the cost of an additional cpuidle driver.
->>
->> I don't think that would open any flood gates for SoC-specific drivers since
->> we could just point them to the generic one and tell them to use that one if
->> they can't do PSCI for some reason.
->>
->>
->> Now before I go off and prototype this: Would this approach be fine in
->> general with you, Mark and Will?
-> 
-> tbh, if the "efi-rt" thing is just PSCI with a different conduit and that
-> conduit is properly documented, then I really don't see the point in keeping
-> it separate. However. I suspect that we probably all have slightly different
-> opinions here which isn't going to help you very much :(
+I have checked Table 11-14 in the manual: PMC6 select 52 (0x634) is
+"Prefetch engine request", the first of the prefetch engine events,
+and there is no instruction cache prefetch event in the tables. Moving
+0x634 from L1-icache-prefetches to LL-prefetches matches that.
 
-Yeah, well, I agree but I really don't have a strong opinion or any good 
-argument if either "efi-rt" vs "psci-via-efi" is better or worse. I only 
-think both are better than SoC-specific cpuidle and cpu_ops drivers and 
-I have no idea how else we could do this. (We could drop the kernel to 
-EL1 and do "normal" PSCI in EL2 then but that would be much worse than 
-either of those options imho)
-
-And especially with M4+ I'd like to have something that can go upstream 
-because normal wfi loses most general purpose regs there and has to be 
-disabled which is not great.
-
-I can also just prototype the efi-rt cpuidle+cpu_ops thing and then we 
-can take a look at it as well and see if that's better than what I have 
-in this series if that helps but I'd rather not spend that time if that 
-has no chance of being accepted either.
+Reviewed-by: Tanushree Shah <tshah@linux.ibm.com>
 
 
-Sven
+Thanks
+Tanushree Shah
 
+> ---
+>   arch/powerpc/perf/mpc7450-pmu.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/arch/powerpc/perf/mpc7450-pmu.c b/arch/powerpc/perf/mpc7450-pmu.c
+> index 564f6dac3a00..5a882d934645 100644
+> --- a/arch/powerpc/perf/mpc7450-pmu.c
+> +++ b/arch/powerpc/perf/mpc7450-pmu.c
+> @@ -370,12 +370,12 @@ static u64 mpc7450_cache_events[C(MAX)][C(OP_MAX)][C(RESULT_MAX)] = {
+>   	[C(L1I)] = {		/* 	RESULT_ACCESS	RESULT_MISS */
+>   		[C(OP_READ)] = {	0x129,		0x115	},
+>   		[C(OP_WRITE)] = {	-1,		-1	},
+> -		[C(OP_PREFETCH)] = {	0x634,		0	},
+> +		[C(OP_PREFETCH)] = {	0,		0	},
+>   	},
+>   	[C(LL)] = {		/* 	RESULT_ACCESS	RESULT_MISS */
+>   		[C(OP_READ)] = {	0,		0	},
+>   		[C(OP_WRITE)] = {	0,		0	},
+> -		[C(OP_PREFETCH)] = {	0,		0	},
+> +		[C(OP_PREFETCH)] = {	0x634,		0	},
+>   	},
+>   	[C(DTLB)] = {		/* 	RESULT_ACCESS	RESULT_MISS */
+>   		[C(OP_READ)] = {	0,		0x312	},
+>
