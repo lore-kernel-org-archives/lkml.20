@@ -1,63 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794922261;
-	b=5mn3UfdH9sT0GOMxfXzyo/z3Z0Qz7BJL4B5gtjAENosqYkzOTh58Iptu7pKWIzpv3oI2
-	 zUYApmSRFDPb9ddpk6zkvduvrY1ramOQq0CORSRciDmgQo7mUcvfl0k1B5+DcK3+V4c2y
-	 CsW8i3nTkRjnkBPTanew4VeM3jWuMcxNo+StWnQeAlDoKMzmAPI/bcXEV6EP5Bb+fO851
-	 IsTb5CBpQQGF9j1sGFGa1VukGB2r8QKAezhfZR2IUfe2QuooZn+YslZvPWroqoOKWKKNN
-	 KOEuQ/qDMqJBhVYVb6LZvSkAivqBTpqzw1gHjz3ph3n5gCJHB/THcoCQy70uDZLlhXA==
+	t=1794922264;
+	b=qx3fvVBwLFLR61EbXsc+cB5qyTkrHJ9TO2b3PSnkJ62rfzMxMX7q6McV9I10mrT7mf7A
+	 W38gNNSMb8N45RTSRpRnQeXBPnl8U60vqFQgmzmVIMtnZm412JdbY05XRcbmBNlQFw0FE
+	 1VbLfusqYkfXTrnwUMUXI1TQRyRgLmJHIav+hjXW7RHUQjzFz5zSQL9DOxekPiu55JjJd
+	 5okWaJRdeQi5+TNc68AVQh7vzm3mXN3XwtwbC5E4UlJK77MI6sFnqGwkjgK2Oa3T8AdNk
+	 UY5mFxb/c4ePXaAi/3DgbdHqHS+TWAA2/xoCf0Oxlp+iyo6tPo3KKPZ/NsmcpoNCgGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794922261;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=ErYW4Dk/37MEk57TzgZwTxy2KohUx+8OW0jZ5/gYDhc=;
-	b=NMayMO+tfd8B8a6SMBlrMQ+Cs6nvBdrBz4AcOy0YkimJdxFb57dha3ZQeQFzjR5FS8o/
-	 UwzCrKxvo/ViW5a3AI0KYQxccmXgyUxnWIFi8fMuxhdVubqNQkRTxkEmJGQQ+JaTlxZo9
-	 cJVufcsoiWbMaSu1TYs9LUcSsu+P2xxcZzpVQjL9qB9ApPKtnmDwOWNR2HmYhBlfTYBrN
-	 no51fy6ocvRrkt9xrU1+m7SvSNZ88Z4rV7ozat8wlOst4hYax2RR25rbpjzcJf12zpZV3
-	 7kPKTk9YW8fPVyvPLiI/m+hMcQhIAb0zesnXColgumK2H4WgPU7sbpIXIBjDMvTbrcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794922264;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=LbIEKVK3wtMckNJgD329X9n3dQQ2GgjJnxeeqAkeQkE=;
+	b=LEZp7UvBgLI5uAwSSSkLdNE7ZTW9MpSV5uNcy5vl0MGSPcDY+KLk/5jCXofOBiOzGzO9
+	 h4FyvNVYBERvsM61nTS8XwE64ZdobZZirIrrShJVHYrjd+aKcYoDAxmO8ljL9CnE6cm0Y
+	 qKkSYWXNwZy7gAHqHDj6wXpakesv0U9N57YEGoNCqGr+V4tbsz9Atw8xkvuMSZqbuNCEJ
+	 TzL7iXz4OwH9SfEnEkw/2G75bz7LTpV+fe6v9EgliwSB8Krw3+K6z6igzq0luSXPasrhI
+	 xzKcdMRUflBJILn/mbVXch7VaJfoiXlYkS1H1aJAKga2hGJ8kyD/jpjYBPGJtRGDtgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=mZG9r5NP;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l8U7GqET;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E03C0606A31C;
-	Tue, 17 Nov 2026 13:31:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E03C0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0232C606A335
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:31:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=mZG9r5NP
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=ErYW4Dk/37MEk57TzgZwTxy2KohUx+8OW0jZ5/gYDhc=; b=mZG9r5NPQWzrZ7TjWceOm00GAh
-	nxIW1D435wlUR8+jmUyhU6Bt6QU9MC+txzCa9X8f29h4EvDblC3tFLOirgFQy6ln4VKTulm4Ne3Lq
-	9vNDrBGxVnpjzVgM6ywH1MmOCiBn6Xfrecbjao9yfuC9tIFGNAEh8rl2o9lcJshsOWTQ=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xTJGv-00H9v9-Gk; Tue, 17 Nov 2026 14:30:53 +0100
-Date: Tue, 17 Nov 2026 14:30:53 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Artem Shimko <a.shimko.dev@gmail.com>
-Cc: hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	maxime.chevallier@bootlin.com, pavel@ucw.cz,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-leds@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH net-next v2 3/4] net: phy: dap8211r: add extended
- register write helper
-Message-ID: <c4df1d96-c946-41cd-ac69-07bb3970da7b@lunn.ch>
-References: <20261117114432.2794961-1-a.shimko.dev@gmail.com>
- <20261117114432.2794961-4-a.shimko.dev@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l8U7GqET
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FED21F000C4;
+	Tue, 17 Nov 2026 13:31:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794922263;
+	bh=LbIEKVK3wtMckNJgD329X9n3dQQ2GgjJnxeeqAkeQkE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=l8U7GqETRL3AIroPoYVEwG1Zqs2ydfYeVWZ0AHd/YTG9+hmsOL6kg+s4y8FVsG9VA
+	 0j0vYOygo3p8xkye+gtyOuHycs2BTfqUWA6hbuskk3EADC9KLuLlqUH0oZSx9WIDt5
+	 XALPoHwqcZ8Vgb15Q7OA4WmxhfuhMHPxZYPDn6ec8tqOqS6zK7YwKoeyau24M9GhoA
+	 yVP/kdoruOfJ2gjktLSzzSIY+FugzYKiOjN2tOTIUVp9TEueBKZld+wC5QwbRUSkA9
+	 oBtr/kvXMUMTrksntIW+V5vGdDfeFhWcChrxuK3Y0+41x4xQ5WPWHDKpA2yyf3IUbq
+	 0jhhza+q1EIHQ==
+Date: Tue, 17 Nov 2026 13:30:56 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Rik van Riel <riel@surriel.com>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	David Hildenbrand <david@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Christoph Hellwig <hch@infradead.org>, 
+	Yuan-Hao Hsu <aa9736195201@gmail.com>, John Hubbard <jhubbard@nvidia.com>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, Peter Xu <peterx@redhat.com>
+Subject: Re: [PATCH v5 0/8] mm/gup: walk and batch whole PTE tables in slow
+ GUP
+Message-ID: <avxWSJNLL6znDOEg@gremlin>
+References: <20261116210127.3837898-1-riel@surriel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,16 +62,22 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261117114432.2794961-4-a.shimko.dev@gmail.com>
+In-Reply-To: <20261116210127.3837898-1-riel@surriel.com>
 
-On Tue, Nov 17, 2026 at 02:44:29PM +0300, Artem Shimko wrote:
-> Add dap8211r_write_ext() to write extended registers via the indirect
-> access registers of the PHY.
-> 
-> This will be used to write extended registers of the DAP8211R.
-> 
-> Signed-off-by: Artem Shimko <a.shimko.dev@gmail.com>
+On Mon, Nov 16, 2026 at 04:01:19PM -0500, Rik van Riel wrote:
+> mm/gup.c only: 347 insertions, 226 deletions.
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+I'm glad you describe it here, but could we please just have a normal diffstat
+like every other series? I feel like I've asked you this before :)
 
-    Andrew
+I really hate a missing diffstat in the _usual_ form because it makes it hard to
+glance at it and know what's touched (and pretty much 100% of the time it turns
+out the diffstat is v. large when this happens...)
+
+Here it is for this one:
+
+ mm/gup.c | 573 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-----------------------------------------------------------------------------------------------------------------------
+ 1 file changed, 347 insertions(+), 226 deletions(-)
+
+--
+Cheers, Lorenzo
