@@ -1,55 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794930910;
-	b=imszlhoDj/KothxeCgadM1zgSjj9grO+2qDcMd2Dg0u756aHWtKmTaJKDSnkUMYBQK2g
-	 JaWd3mPQoUdAXHnrxAaFWazNkUDVpyswxSUtvOgyE4B1vIOpC6IqXhNTmi3i/3SIRxb1w
-	 1KtME+xspXOdy8fvXxGuoDAhlmpSbkEoGi+L+wn6Jq9cwNJm2djgiTN0R6BvWusoz5cQF
-	 /dzhdzTcLmmpB0XtwzujbsSlM2XoQi+RaEzHDAp9GIdEaHRzMAS9bqbkl3g/2lq/D5Rj1
-	 DVzGwEAjbdaoSU1QEzZYXUQBJELeKZD+J58CIriiB2TnEXBO355nZlh2QdeBkFbltKg==
+	t=1794930912;
+	b=H4GkQd8ajP9ZIHzAGFS0TtJlaxpy6UGPDl9lYHFEP13Pzh5i83gvpTBHt++iBndVB6wn
+	 WfUt7Y1DJbd2J6qmOxwvO3kzbkzHcg+Fm+n36fKfeeet+j9lvmrR8zrnCHYz21QHpEfkq
+	 ihabdICc7BhVMf8TVBtQFM9zR14gKQ8StWcmrBgSmZ5iIbMr3oWnsjaiHodlq7Z/TKwt/
+	 fidY/71A93E7tbRmk6RFaNEDc0j8XB32cfJLzYphZjiJMt98Y/ZZV1NmIiZPRSkNF52gY
+	 htgNO4YRaPrpk73RSys36xOOk/Nfm1Q/tdh6CajmRVgigVg+Su+yQPxOlRG4DTuZvcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794930910;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794930912;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=NSDZg4lKM868mCut1hwt7C3QqlV1RrLkhZMnguyo28U=;
-	b=0PS3n44rohu7SceaRiFDZXsYNxbIuYUU5GYh2FbVntgF3XoqAd8Vtyzn6WLVlwK+iwpH
-	 DK9DKizFOungeD+JQSxpqDN1rGdeuWgDNr3dvLgk+LFy7verJQ+M8qyL2SEvVwTJPLBQQ
-	 LuFVcZZJ/3mSuPhSd3HUd+xE5QWhulc6qbGRnFKnFhkJrJKjzGS3kqDOuk+MG00YlWwwX
-	 b3zUlFuJ4akciGzn8J4JuCMLXKnVFxA+TpbK+6yz8jgdSvYOUHiSPCxDWdkupVm6gnfBm
-	 7uXQd9KZGaVKRqdQgDnqHqJSTb0bYuV4rLevPVab/pFxWBEOrewRxELrb57LaOuFe+g==
+	bh=XgxlZZNQSDhCeE3vldSU17DsBsAk8DRist2NVpPCFhI=;
+	b=aMvh50t0dl/RHyyqvxwbkJKJKe//M3YXuKJbolOtiX/uPS8P65pw+LYFNfMwUlXZ0Bmm
+	 W61dneFIP4m5MfrhXJ+xHBWdDRQXKv53tOjhA66XzrATOOS9M0QYWSQp7BIuLXdbLJoJi
+	 kgPXxKF0UfHX57EPy6LxZRL2G7EkFSdRqmJSDXhSLXZ8Fw1alN42eDTezCG2RNrZtd1WJ
+	 e/KwIbqiQHGNuuZl0ptOQNS5GH+fWgqr3oh9+NttS569Ratr3NYus30arLqvd01bpQuUw
+	 PVUp8BJt8uynQuvUkczsnGeI849QDSxwKPd63na7b69XkE9ndyCdpcoH/dClELt8Ong==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D9KBOrt9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oJVbuSX0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5ECC606A32A;
-	Tue, 17 Nov 2026 15:55:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B04CE606A885;
+	Tue, 17 Nov 2026 15:55:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D9KBOrt9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 357A31F000C4;
-	Tue, 17 Nov 2026 15:55:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oJVbuSX0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31C6E1F000CA;
+	Tue, 17 Nov 2026 15:55:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794930910;
-	bh=NSDZg4lKM868mCut1hwt7C3QqlV1RrLkhZMnguyo28U=;
+	s=k20260515; t=1794930912;
+	bh=XgxlZZNQSDhCeE3vldSU17DsBsAk8DRist2NVpPCFhI=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=D9KBOrt9FdSPa1Ftoriduv0s4TgMLwyPNGunXkoILi6TBoRlQqcW0Ta4lMr7ZCCUg
-	 qqvsWgr24YKRJnrQ1k+M5IT6kaAz2oeACYSbQnZKLDUcrSxA0ERfynQ/i6XX7JIO4C
-	 Ox1SBS4HCYglJte94wlb8Ntt/4g+WHu2afr513Fd8Ui7m3X2T4hL2n6wO4iQoyt5Xf
-	 ErU1oI+pzQ8QTkqOGUemF+aWLpAbItAfzBmv+5580O26Wfbv/9A/ipvdkWFRRfId1N
-	 eNr6VbptqtVQ+BSGYDIlB0XpElQUBmmRkKAl4eh2dkJPbkD8Dm1QQGuKQ5jcqCcpr7
-	 9cp5wVQMbXS1A==
-Subject: Re: [PATCH net-next v4 1/6] net: enetc: Add pseudo-MAC support for
- ENETCv4 Ports via a fixed-link node
+	b=oJVbuSX0KcGKZbYsciDFVrqFxcf2xwHherbHdjA31t/XqIwGeTwvavTzoeYd4Ctz8
+	 JaLz5GzMyZfmOlGW/yiCHU6TdClzdJo4w2XSLu7iF1YP7iWuJHD7f0aLytJwERjsh9
+	 YsyJUHON8R/ha0y6u2j9AW6pKrEpkZwVsqdKWN0yfem1thFfd1V2e1b/3Te+x0FKoH
+	 R3MTHRWJjXXwrzQ996H+Ttk1vVHzDGqUZmyrD3gbgHIgxeldf7qCPrLIuDsMDB0Srv
+	 KvfpjrAP7P/i/Q3gCyL+Tn99fZ9b9kIggvaL/lhlhs9L7hYxq1FisRFCPsd+pa5sVX
+	 cUZtasDRfqhGw==
+Subject: Re: [PATCH net-next v4 5/6] arm64: dts: s32n79-rdb: enable NETC IEP18
 From: netdev-bot+sashiko@kernel.org
 To: claudiu.manoil@nxp.com
 Cc: netdev@vger.kernel.org, s32@nxp.com, bhelgaas@google.com,
  linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, kuba@kernel.org
-Date: Tue, 17 Nov 2026 15:55:09 +0000
-Message-ID: <179493090971.3136.9721533094333369940@kernel.org>
-In-Reply-To: <4f51bfd237fa584c7d9187d7b82f36e261853ea3.1794581338.git.claudiu.manoil@nxp.com>
-References: <4f51bfd237fa584c7d9187d7b82f36e261853ea3.1794581338.git.claudiu.manoil@nxp.com>
+Date: Tue, 17 Nov 2026 15:55:11 +0000
+Message-ID: <179493091171.3136.308017869378286942@kernel.org>
+In-Reply-To: <6f1ea6caef6ca01c9a6384cd1024384d31848c53.1794581338.git.claudiu.manoil@nxp.com>
+References: <6f1ea6caef6ca01c9a6384cd1024384d31848c53.1794581338.git.claudiu.manoil@nxp.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -66,7 +65,7 @@ MIME-Version: 1.0
 Thank you for your contribution! Sashiko AI review found 3 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 2
+Critical: 0 · High: 0 · Medium: 2 · Low: 1
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -74,168 +73,124 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] In enetc4_link_init()
-  (drivers/net/ethernet/freescale/enetc/enetc4_pf.c:1025-1047), the…
-- [Low] In drivers/net/ethernet/freescale/enetc/enetc4_pf.c,
-  enetc4_link_init() (lines 1035-1047) only builds the pseudo-MAC fixed-…
-- [Low] enetc4_add_ppm_fixed_link()
-  (drivers/net/ethernet/freescale/enetc/enetc4_pf.c:996) writes a…
+- [Medium] This patch turns on `&netc_iep18` in
+  arch/arm64/boot/dts/freescale/s32n79-rdb.dts so that, per the commit…
+- [Medium] Setting `&netc_iep18` to okay makes the ENETC v4 PPM PF and
+  VFs live DMA masters.
+- [Low] The new `&netc_iep18` override in
+  arch/arm64/boot/dts/freescale/s32n79-rdb.dts is added after `&usdhc0`.
 
 --
 
-net: enetc: Add pseudo-MAC support for ENETCv4 Ports via a fixed-link node
+arm64: dts: s32n79-rdb: enable NETC IEP18
 
-This lets ENETCv4 pseudo-MAC ports probe without a static DT "ethernet"
-node. At probe time an of_changeset adds a "fixed-link" child node whose
-speed is read from PCR[PSPEED]. The pseudo-MAC path runs when the port has
-no OF node or only an OF_DYNAMIC node, and the changeset is reverted on
-teardown and on the probe error unwind.
+This commit enables the NETC v4 ECAM bus #18 on the S32N79-RDB board. The
+goal is for the ENETC v4 Pseudo-MAC port (PPM) PF and VF instances to be
+probed.
 
-> diff --git a/drivers/net/ethernet/freescale/enetc/enetc4_pf.c b/drivers/net/ethernet/freescale/enetc/enetc4_pf.c
-> index 71c971618388b..b7e7201e6a71a 100644
-> --- a/drivers/net/ethernet/freescale/enetc/enetc4_pf.c
-> +++ b/drivers/net/ethernet/freescale/enetc/enetc4_pf.c
-
-[ ... ]
-
-> +static int enetc4_add_ppm_fixed_link(struct enetc_pf *pf,
-> +				     struct device_node *np)
-> +{
-> +	struct device_node *fixed_link;
-> +	struct of_changeset *ocs;
-> +	int speed, err;
+> diff --git a/arch/arm64/boot/dts/freescale/s32n79-rdb.dts b/arch/arm64/boot/dts/freescale/s32n79-rdb.dts
+> index 1feccd61258ef..897ba24ac03ae 100644
+> --- a/arch/arm64/boot/dts/freescale/s32n79-rdb.dts
+> +++ b/arch/arm64/boot/dts/freescale/s32n79-rdb.dts
+> @@ -68,3 +68,7 @@ &usdhc0 {
+>  	no-sdio;
+>  	status = "okay";
+>  };
 > +
-> +	enetc4_get_pcr_speed(&pf->si->hw, &speed);
-> +	speed = enetc_phylink_match_pseudo_mac_speed(speed);
-> +
-
-[ ... ]
-
-> +	fixed_link = of_changeset_create_node(ocs, np, "fixed-link");
-> +	if (!fixed_link) {
-> +		err = -ENOMEM;
-> +		goto err_destroy;
-> +	}
-> +
-> +	err = of_changeset_add_prop_u32(ocs, fixed_link, "speed", speed);
+> +&netc_iep18 {
 
 [Severity: Low]
-This isn't a bug, but can this write a speed value that the fixed-link
-binding doesn't allow?
+This isn't a bug, but Documentation/devicetree/bindings/dts-coding-style.rst
+says:
 
-enetc_phylink_pseudo_mac_caps[] in enetc_pf_common.c includes SPEED_25000
-and SPEED_20000. When PCR[PSPEED] maps to 20000 Mbps or more,
-enetc_phylink_match_pseudo_mac_speed() returns 20000 or 25000.
+  When extending nodes in the board DTS via &label, the entries shall be
+  ordered either alpha-numerically or by keeping the order from DTSI,
 
-In Documentation/devicetree/bindings/net/ethernet-controller.yaml, the
-fixed-link speed property only allows:
+The existing overrides in this file are in alphabetical order (irqsteer_coss,
+uart0, uart5, uart6, uart7, usdhc0). Should &netc_iep18 go between
+&irqsteer_coss and &uart0? Keeping the DTSI order would also put it before
+&usdhc0.
 
-    enum: [10, 100, 1000, 2500, 5000, 10000]
-
-phylink still accepts these values. But the node is built at runtime, so
-dt-schema never checks it.
-
-Should the binding be extended (as was done for 5000)? Or should the
-driver stick to the speeds the binding lists?
-
-> +	if (err)
-> +		goto err_put_node;
-
-[ ... ]
-
->  static int enetc4_link_init(struct enetc_ndev_priv *priv,
->  			    struct device_node *node)
->  {
-> +	bool dynamic = node && of_node_check_flag(node, OF_DYNAMIC);
->  	struct enetc_pf *pf = enetc_si_priv(priv->si);
->  	struct device *dev = priv->dev;
->  	int err;
->  
-> -	err = of_get_phy_mode(node, &pf->if_mode);
-> -	if (err) {
-> -		dev_err(dev, "Failed to get PHY mode\n");
-> -		return err;
-> +	/* Pseudo-MAC ENETCs are described by a runtime-synthesized fixed-link
-> +	 * node rather than static DT. This covers both a missing OF node and a
-> +	 * PCI-synthesized (OF_DYNAMIC) node, which is an empty node created
-> +	 * by the PCI core and thus carries no fixed-link description.
-> +	 */
-
-[Severity: Low]
-Is this comment accurate?
-
-The PCI-synthesized node isn't empty. of_pci_make_dev_node() fills it in
-through of_pci_add_properties() (compatible, reg, ...) before it applies
-the changeset. The only accurate part is that it has no fixed-link child.
-
-The branch also doesn't really cover a missing OF node. That case just
-returns -ENODEV below.
-
-Related to this: at this commit, the PCI core doesn't create a node for an
-ENETC endpoint function. pci_bus_add_device() only does it for bridges:
-
-    if (pci_is_bridge(dev))
-        of_pci_make_dev_node(dev);
-
-drivers/pci/quirks.c has no ENETC entries either. So a pseudo-MAC port
-without a node always hits the "Missing of_node for Pseudo-MAC port" error
-here.
-
-A later patch in the series, "PCI: Create OF node for NXP ENETC pseudo-MAC
-functions", fixes that. It adds DECLARE_PCI_FIXUP_FINAL() entries for
-PCI_VENDOR_ID_PHILIPS device IDs 0xe101 and 0xe110 that call
-of_pci_make_dev_node(). With the whole series applied, only the comment
-wording is left.
-
-> +	if (enetc_is_pseudo_mac(priv->si) && (!node || dynamic)) {
-> +		pf->if_mode = PHY_INTERFACE_MODE_INTERNAL;
+> +	status = "okay";
+> +};
 
 [Severity: Medium]
-Is the OF_DYNAMIC flag enough to show that the node has no link
-description?
+The commit message says the bus is enabled "so that the ENETC v4 Pseudo-MAC
+port (PPM) PF and VF instances are probed". Does the PF actually probe when
+the kernel is built from the in-tree arm64 defconfig?
 
-__of_node_dup() sets OF_DYNAMIC, and DT overlays create their nodes with
-it in add_changeset_node(). An overlay can also be applied on top of the
-node from of_pci_make_dev_node() to add phy-mode or fixed-link.
+The netc_iep18 host bridge node in s32n79.dtsi has no child nodes, so the
+ENETC PF function does not get a static of_node. For a pseudo-MAC port,
+enetc4_link_init() in drivers/net/ethernet/freescale/enetc/enetc4_pf.c then
+fails here:
 
-In either case, this branch:
+	if (!node) {
+		dev_err(dev, "Missing of_node for Pseudo-MAC port\n");
+		return -ENODEV;
+	}
 
-- skips of_get_phy_mode()
-- forces PHY_INTERFACE_MODE_INTERNAL
-- calls enetc4_add_ppm_fixed_link(), which calls
-  of_changeset_create_node(ocs, np, "fixed-link") without checking for an
-  existing fixed-link child
+The only other way to get an of_node is of_pci_make_dev_node(). The last
+patch in the series, "PCI: Create OF node for NXP ENETC pseudo-MAC
+functions", adds it as a final fixup for 0xe101/0xe110:
 
-__of_attach_node() puts the new node at the head of the child list:
+	DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_PHILIPS, 0xe101, of_pci_make_dev_node);
 
-    np->sibling = np->parent->child;
-    np->parent->child = np;
+However, of_pci_make_dev_node() is only built with
+CONFIG_PCI_DYNAMIC_OF_NODES. Without it, drivers/pci/pci.h provides an empty
+inline stub.
 
-phylink_parse_fixedlink() looks the node up with
-fwnode_get_named_child_node(), so it would find the driver-synthesized
-fixed-link before the DT one.
+PCI_DYNAMIC_OF_NODES is a plain bool with no default, and NXP_ENETC4 only
+selects OF_DYNAMIC. arch/arm64/configs/defconfig sets
+CONFIG_PCI_HOST_GENERIC=y, CONFIG_NXP_ENETC4=m and CONFIG_FSL_ENETC_VF=m, but
+it does not set CONFIG_PCI_DYNAMIC_OF_NODES.
 
-Would that leave two fixed-link children and replace the DT-provided speed
-with the PCR[PSPEED] value?
+So on a default arm64 build, won't the only device behind the newly enabled
+bus fail with -ENODEV? The PF creates the VFs through SR-IOV, so the VFs
+would not appear either. This is still the case at the end of the series.
 
-The commit message says:
+Would one of these work: giving the PF a static child node in DT, adding
+CONFIG_PCI_DYNAMIC_OF_NODES=y to the arm64 defconfig, or having NXP_ENETC4
+imply or select it?
 
-    The pseudo-MAC path is selected when the port has no OF node, or when it
-    only has the empty PCI-synthesized node (OF_DYNAMIC), which carries no
-    fixed-link description.
+[Severity: Medium]
+With this bus enabled, the PPM PF and VFs become live DMA masters. The
+netc_iep18 node in s32n79.dtsi has:
 
-Nothing in the code checks that, though. Would a check such as
-of_get_child_by_name(node, "fixed-link") or
-of_property_present(node, "phy-mode") make the code match the
-description?
+	iommu-map = <0x0 &smmu 0xc0000 0x100>;
+	msi-map = <0x0 &its 0xc0000 0x100>;
+	dma-coherent;
 
-> +
-> +		if (!node) {
-> +			dev_err(dev, "Missing of_node for Pseudo-MAC port\n");
-> +			return -ENODEV;
-> +		}
+The smmu node it points to is disabled at the SoC level:
 
-[ ... ]
+	smmu: iommu@4fc00000 {
+		compatible = "arm,smmu-v3";
+		...
+		status = "disabled";
+
+No board DTS under arch/arm64/boot/dts/freescale/ enables it.
+of_iommu_xlate() in drivers/iommu/of_iommu.c then ignores the mapping without
+any message:
+
+	if (!of_device_is_available(iommu_spec->np))
+		return -ENODEV;
+
+As a result, the PF and VFs fall back to dma-direct and use raw physical
+addresses for the BD rings and buffers.
+
+The SoC dtsi commit in this series says "DMA is translated by the SMMUv3
+(iommu-map)". That does not seem to hold on this board.
+
+Doesn't DMA now depend entirely on the SMMU state left by boot firmware?
+Suppose firmware left the SMMU enabled with its own stream table, or set it
+to abort unmatched streams. NETC DMA would then fault or be blocked, even
+though the netdev probes.
+
+The dma-coherent property makes Linux skip cache maintenance. That too relies
+on stream attributes configured outside of Linux.
+
+Should &smmu be enabled along with this bus? Alternatively, could the
+firmware requirement be documented (SMMU in bypass with coherent attributes
+for StreamIDs 0xc0000 and up) and the dtsi commit message corrected?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1794581338.git.claudiu.manoil%40nxp.com
