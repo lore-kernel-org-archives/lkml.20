@@ -1,79 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794935709;
-	b=GMh2gPGL4GY5UgojUKaKOquRO/BTc3N4KxIeJH64lLS4vkqfGqzUhvvZb5A1FwVyvyAA
-	 25wkqeHtjJOk8ZgHxjPWwhndEjvGuveJA3i3P8uw7mqofVCpKJ+qibyDcTOyh/H2rH4u0
-	 wjJsio42u8CHUiIcu7iFoezcvsY4t4igNCOt2ahmhAmpswMgynEQ+nVr2y5aJ/eA0AHEV
-	 LJQHFDfTeeKoFT4wvCDQKv5q3f4j3oiovktJBs7HkdqcVM7KI3FwkqvgzVSJjAuk7jBvB
-	 S4B1C5imJo1XUErTbItqqRph8jagMyBHXOwGUEy8YLs/s0HLrgvB7Q8LHQpdoJaRuZA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794935709;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=K+VTICfGPfWmno915+gEOYcZG0bzY28xKQVSO7l1ZyM=;
-	b=AWNKVVMFEghspF4w8etZVKSS1Iu1NyGdv/4717k+shtEcycYy4w2/sCWq7pQXOMXLPMA
-	 CQC703q0w30HRvY67TB+kgMa7VIMTOTLq1C6Gh9862kwXqNd2zp0f4re6gESjVcPPLiwK
-	 JGXo+r2zN5oRGSH9nv+09VSzYLA5wCrhd2QUNLNO3YU5V713k0reMb62rxJw6qHGThXLV
-	 C34YKaKePaYsuNiEIXzBP3Df3xJTciOTIJStJdYZrjNVlghu1wOaNGBsF17+gsyl0pRYx
-	 8yqp8iS9H5ZWaZP4ycXpDuyigIVkiGPG8YpDOegsbS6kTpH9iSr8iGi9kUsmkTgPbog==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hSBiVHnb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794935740;
+	b=HH5krszq8aARsT4qjt83kmZR4V2bkXnVcu6y/BAbxk3USfL1Oe+lUdcQ/XQuuh45ibW4
+	 b6xi/32JVmkI/KqQPVNNcDnPAHlpxUm6rlPdbGkBQ5lsVw5PMhvVzIsrs5kVB/SmAOrWL
+	 bzj1Oxrh+EueYni/PDK7wHjw7sA/hWyOQ8jy5Om8PM81nCallR8h4NwHQBAgx7RKZrb0e
+	 p0gDUpM7oA0/WEFFxYnIrm4m+tw2titsGk9xtd5TOXzptnlLMXl8+fPk92wJ+LhBhz/oc
+	 GLeaphEyMWihNSOU26hAFTirIDdPbrs7yL6bn3pNUnB8JtKPeTie63GL9bFUfnT0NgQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794935740;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ycZWOvsMh7FrRoAyBZL4w1avdQvDxeeSgNXhZZJtJFc=;
+	b=03GtILExINDlVbI51zcyTSTX1kWsBe+oI8PEl990cN1G33xHVOHTUBa7kSBi/iaWm+PX
+	 nAhl09psdXoybchVN2S5Mcag8YjLfQ3+GZhCbKVbljhhKFEZz9KtkImZjbmAtXitVdATw
+	 /L6hybaYRgKz27Owc5rkX3UAtBZzcYIqFBbrOWaxoODOHayl4y49cYSwqp+ARCoifpsRq
+	 NGzJiT4lxu2utm9Ir2IrwwfmEhrNmHgLHpJEs2AcGkI3PVAYvmCd2hPSixDt0Xkwup+5l
+	 u2WS5iZugcE1eS4nCe8MVz6+J0Tae8I6VE/g7xxvO8f1CO5yyYq5BoDDMUPcdDA2YFA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0Y76Ifj8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70D62606A32F;
-	Tue, 17 Nov 2026 17:15:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 772B5606A32C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 17:15:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 772B5606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hSBiVHnb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E8CD1F000C5;
-	Tue, 17 Nov 2026 17:15:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794935709;
-	bh=K+VTICfGPfWmno915+gEOYcZG0bzY28xKQVSO7l1ZyM=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=hSBiVHnbkID07Y7JhjxruFvVfkmcj+WfMKTIBi7VnehjQb89y9O+MhoUzHRiw5UxF
-	 KuFPUXuh3uSNLAm0FYYgr8Gh8fI72EtGz8Mr5JYs4+bM5b4mUwLtqHbou2vUDITNUJ
-	 GJG94VnwOUcS4fjd2StOdMThiff3SkLQRU0xFo4YuIpD0/j/cfJLMrtG2u7tw8FTvs
-	 sGIFp9lY6TgCOh3SoCds9sJf+yLLCQuka3iRACu7rpD2gTS58XeQB52bHbWyfR9niJ
-	 qlxPaiIyjwProxljp1x5Zba/Evs5yHMEyGUEBos3j4g1EQupBBAWAC1LEXItH2IQ5m
-	 2MVMUr/7D4FkA==
-From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
-To: Mina Almasry <almasrymina@google.com>
-Cc: Magnus Karlsson <magnus.karlsson@intel.com>, Maciej Fijalkowski
- <maciej.fijalkowski@intel.com>, Stanislav Fomichev <sdf@fomichev.me>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Jonathan Corbet
- <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Alexander Duyck <alexanderduyck@fb.com>,
- kernel-team@meta.com, Andrew Lunn <andrew+netdev@lunn.ch>, Jesper Dangaard
- Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
- <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, Pavel
- Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>, Andrii
- Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar
- Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau
- <martin.lau@linux.dev>, Song Liu <song@kernel.org>, Yonghong Song
- <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis
- <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>,
- netdev@vger.kernel.org, bpf@vger.kernel.org, io-uring@vger.kernel.org,
- "Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>, Weiming Shi
- <bestswngs@gmail.com>, Nikolay Aleksandrov <razor@blackwall.org>, David
- Wei <dw@davidwei.uk>, Alexander Lobakin <aleksander.lobakin@intel.com>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, Stuart Clark
- <stuclar@meta.com>
-Subject: Re: [PATCH net-next v1 04/11] xsk: Allocate UMEM chunks through
- page_pool
-In-Reply-To: <CAHS8izMxaRKkSKqp3x4dLgTrzuzz5=8WMbEvq5W-oiqoL5vckg@mail.gmail.com>
-References: <20261110102039.1002605-1-bjorn@kernel.org>
- <20261110102039.1002605-5-bjorn@kernel.org>
- <CAHS8izNC9APadHg9yPtROkii1H7TPMAB7Xhxo+y9Cx-XCw9C1Q@mail.gmail.com>
- <87v75xj550.fsf@all.your.base.are.belong.to.us>
- <CAHS8izMxaRKkSKqp3x4dLgTrzuzz5=8WMbEvq5W-oiqoL5vckg@mail.gmail.com>
-Date: Tue, 17 Nov 2026 18:15:06 +0100
-Message-ID: <87o6bn1isl.fsf@all.your.base.are.belong.to.us>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0Y76Ifj8
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b86bbce3d1so116123a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:15:40 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794935739; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Bfp7gy0TK/FrHDD7BQtnG3EH5uPN1AqUgmwCTvcqOSMxHl/0owpk7Ng1se6I7LGYTl
+         yyGNyJHdPQsH7bj60P+nZD9okhULi4YsVO7q6cnN8Ng168/S+0rvLoo7AeucLwdxPWBO
+         Wc6HemME3BLYCskAGTE0dhCCKy3+SVsdcUgD1zWfC3uTAG/Z2YMyiJhl8aWuDHF3KESh
+         /GK49i11D/YN2mHT2XKntjGvrjuPSA/VbX/NhNjaokcFZhtgZFUy2Ez/MBXie3gppSRw
+         rQe2nxyCh2DccYOQzI/6wTMMpz+Yc3VWyvpXmon+gt3XA2+Vehtmk2iQ6j37YCwx27EQ
+         3slA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ycZWOvsMh7FrRoAyBZL4w1avdQvDxeeSgNXhZZJtJFc=;
+        fh=BbstfhKKxNA0Qskqh/XHQV9cKp7FPOHpb3gadm6qbPc=;
+        b=odnU9pFjfbMas/pxaKia7NEQmMB1SCrt7K2apbwgnzc1ic2Xkj0MtN8R0ENaBSINEG
+         jLuCGFevJFPQkavdhThnpk3CSMo0IdSclt/tWcmHZznFJDoN/VU2MD91v3l5IA2/e/+u
+         jjW/LfXfRpa0QYV+UO632utW8iQniPV3vJ6vjcwAaKTo24SheZZRNSVUMF5atakVo58C
+         aY9q30QQjFbNCPqVx/1HjYJ1Y4golRDgjBc0J2dQlVeU0G/zkXzfaY+arVFiiUmM//sA
+         aaLaXMofaL7MedtXb83HiCVP03pxlPH590q561LPYlYAM85w8dUG/5MvwL7ju8mDHMWA
+         O/nQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794935739; x=1795540539; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ycZWOvsMh7FrRoAyBZL4w1avdQvDxeeSgNXhZZJtJFc=;
+        b=0Y76Ifj8d0i/HievOD+S/vLbshO8yiCsFsY1cg0g2oVP0cooU21euS6mvQFEHc3qd3
+         Iapj8n4Yx7i/NWXzCUxZcq2lrb5Vev4VOMQtniN6TxwVp8WPYgW0yNp3l7kedussZYzF
+         qcXmHM+4/yDOcZtzBg8zXkDF4HCm8Jtc6s6CS+p57usGGBT4CVCDcoYX0D5/LDlEQ6Q8
+         lRF+jjb3HMeHLmvNLtxoKK1f5X8bvTsFKAYwH5+vZ7nftrzqoOMKRObc+uPnHmouEHEh
+         KwFhXMQ95I6R2na1XzIfN4mrBJi67rUeDzPwcUuBFu9FU5VtcUrK9V3cijnCkydyduXE
+         8Igg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794935739; x=1795540539;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ycZWOvsMh7FrRoAyBZL4w1avdQvDxeeSgNXhZZJtJFc=;
+        b=FkCf3uIqsOKwolPE/CaEbubifDoFjejkN2FY3wZ4AED/WID+Kokvb7AXaZNDSHJqF0
+         5a1YLyWU1vEFlF9iyWZ2q8howftoiwqgnQvR0n4F7nwrvnv267b7FXEtwxHrvkRSUDyO
+         1D5xBMEmPfGpLCGLNTnkDLqJ8xk5ja+kBdgKg5VS5qyo3zI/thaVzpoj4xe+ZX/2JBTV
+         9pRB+uH+ctDPy3vF4Lay6ko3tgjCDhuggW7MVaY1aJCpYyS784udlRwQ/Kb7GazuuJk1
+         u86l4apGZAbAD+dwRqQ1k+TBUyYu3qmhciq1/YskyHbglbMRM7Zh3dPnWaIp5nqYqUw7
+         fs2Q==
+X-Forwarded-Encrypted: i=1; AL+hErHmW51KY4OGxr2d+feDThr9pgfIJQhm03lty2l9u1Mb/2qCdbMTDXFleVQs0Q93ud++8zEmsvstEW+kyBo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+araGXKgGY6sAa6nKXoEShAGlcG9IqnU/cHn5RGayXEAmgzxmU
+	Hgl3grQTRKbfkKinj6M7UdeL5gsXx8RLSCHzAn4U6wNTyjnFEqCgD4kuZKxwd+OgrxYoHtVi8/Y
+	tE3DYz5WpSO3EZqH9f09raCtW45IiwSs=
+X-Gm-Gg: AYBFou0Z8IMPQheN7fhrD97BmBU1MZpVq/kmg7ZklWO781z4mXWZ47n5yHmt+jBSOzl
+	ba08pd2rWy8vzUOTKrMvcChWShf8NSslQTw6L0HZMgx+kADNGQOXaOqBmPGDsVIICqbfepH4zDb
+	KaEI3gSudrnb31ZT1ysfrvfQfTptMcPJGF2qFvWSqYt5fkc8wHlunsJJJ2J7oimCA/JmunH4gFy
+	JQVxMz9avsfKnyzF5rRhyXj2Jyo2AqtIGo0Nz5jVXu0KEBPSNss5mYu13qQh/WWr3GI08zACOaN
+	gA0VHBhUWVX7NqPLOQnCY1EX9272nK8+QhqqidbwdlwS2T8GEDb+D0oNU1nlR8PCas6F9KeQne6
+	uoncjTBZ5EY4Xudp8qw5ZmFViJQhU+lh2wg6HKQIDIAIjatWgNtMZeEzlnK1c9H1IdFLgKXdjXv
+	X6wQPZXf06/ztqHXCMKSQ75uuNGYz1X5gFfwLfC9nkbQ+s6/ovl9g8mt3YRRHYPhTCBbDW+LbTX
+	ortQEMdpc6OmPl4j5imhwSihgVWhw==
+X-Received: by 2002:a05:6402:42cb:b0:6b1:d439:5c5 with SMTP id
+ 4fb4d7f45d1cf-6b7c088fadfmr11109937a12.3.1794935738608; Tue, 17 Nov 2026
+ 09:15:38 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,114 +106,221 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20261113-submit-rawnand-retained-handle-lifetime-v1-v4-0-556b1d7c6221@gmail.com>
+ <20261113-submit-rawnand-retained-handle-lifetime-v1-v4-50-556b1d7c6221@gmail.com>
+ <edb4f1ae93fff1bea9380dc7fb1d2c8f2570bb67.camel@crapouillou.net>
+In-Reply-To: <edb4f1ae93fff1bea9380dc7fb1d2c8f2570bb67.camel@crapouillou.net>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Tue, 17 Nov 2026 10:15:24 -0700
+X-Gm-Features: AclHuK9KT8grAZrRLLebF-am9hX1f-i-TowuArJi-sKzS1G3iCSB2RVcRvk6uKs
+Message-ID: <CADvTj4qJXb5sUQbDrAj5uY+VDYcP9HOGHuy4j3iA0dQEDF3amw@mail.gmail.com>
+Subject: Re: [PATCH v4 50/58] mtd: rawnand: ingenic: retain chip state across removal
+To: Paul Cercueil <paul@crapouillou.net>
+Cc: Miquel Raynal <miquel.raynal@bootlin.com>, Richard Weinberger <richard@nod.at>, 
+	Vignesh Raghavendra <vigneshr@ti.com>, linux-mtd@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Harvey Hunt <harveyhuntnexus@gmail.com>, linux-mips@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Mina Almasry <almasrymina@google.com> writes:
-
-> On Sun, Nov 15, 2026 at 10:55=E2=80=AFAM Bj=C3=B6rn T=C3=B6pel <bjorn@ker=
-nel.org> wrote:
->>
->> Mina Almasry <almasrymina@google.com> writes:
->>
->> > On Tue, Nov 10, 2026 at 2:21=E2=80=AFAM Bj=C3=B6rn T=C3=B6pel <bjorn@k=
-ernel.org> wrote:
->>
->> >> diff --git a/include/net/xdp.h b/include/net/xdp.h
->> >> index 1105bb9e3292..5ab7802ac4e1 100644
->> >> --- a/include/net/xdp.h
->> >> +++ b/include/net/xdp.h
->> >> @@ -368,7 +368,7 @@ static inline bool xdp_buff_add_frag(struct xdp_b=
-uff *xdp, netmem_ref netmem,
->> >>
->> >>         if (unlikely(netmem_is_pfmemalloc(netmem)))
->> >>                 xdp_buff_set_frag_pfmemalloc(xdp);
->> >> -       if (unlikely(netmem_is_net_iov(netmem)))
->> >> +       if (unlikely(netmem_is_net_iov(netmem) && !netmem_address(net=
-mem)))
->> >>                 xdp_buff_set_frag_unreadable(xdp);
->> >>
->> >
->> >
->> > netmem_is_net_iov() check became redundant.
->>
->> Hmm, not quite... netmem_address() is also NULL for a highmem page
->> without a mapping, and the stack reads those through kmap, so they
->> aren't unreadable. The net_iov test keeps them out. I'll add a comment.
->>
+On Tue, Nov 17, 2026 at 3:29=E2=80=AFAM Paul Cercueil <paul@crapouillou.net=
+> wrote:
 >
+> Hi James,
 >
-> Oh. I missed that. There are a bunch of docs actually that explicitly
-> wrongly say to use netmem_address to tell if the memory si readable.
+> I tried to apply on top of mtd/next but it does not apply cleanly.
+> So what base are you using?
+
+For v4, I used NAND next at
+30daaf3e7897b4a8d9b72e5b0c86dd6e2a4d7d85, plus the separately posted
+fixes listed as prerequisite-patch-id entries in the cover letter.
+The Ingenic patch also depends on the earlier core changes in the
+series.
+
+With released b4, shazam -H uses the declared base and retrieves those
+prerequisites before applying the series. Provided that base commit is
+available locally, this reconstructs the tree for review:
+
+b4 shazam -H -v 4 \
+  20261113-submit-rawnand-retained-handle-lifetime-v1-v4-0-556b1d7c6221@gma=
+il.com
+git switch -c nand-lifetime-v4-review FETCH_HEAD
+
+For b4 0.17-dev, add --merge-base _specified, since its default base
+selection changed.
+
+I verified that all 16 prerequisites and 58 patches apply cleanly on
+that base, and the resulting tree matches the sent v4.
+
 >
-> Can you, in a separate patch, add a netmem_readable() helper and
-> update the docs (and if possible code places) that checked net-iov
-> when they were really checks for readability? Now that you're adding
-> readable net-iovs, all that assumption break right?
-
-Uhm, yes. I'll cook a separate patch that adds netmem_readable().
-
->> >> diff --git a/net/xdp/xsk_pp.c b/net/xdp/xsk_pp.c
->> >> new file mode 100644
->> >> index 000000000000..fdd55265a6cd
->> >> --- /dev/null
->> >> +++ b/net/xdp/xsk_pp.c
->> >> @@ -0,0 +1,246 @@
->> >> +// SPDX-License-Identifier: GPL-2.0
->> >> +/* AF_XDP UMEM as a page pool memory provider
->> >> + *
->> >> + * Each aligned UMEM chunk is a readable net_iov with one owner at a=
- time:
->> >> + *
->> >> + *   userspace --FILL--> page pool --release--> reuse --alloc--> pag=
-e pool
->> >> + *       ^                   |
->> >> + *       +-----RX ring-------+
->> >> + */
->> >> +
->> >> +#include <net/page_pool/helpers.h>
->> >> +#include <net/page_pool/memory_provider.h>
->> >> +#include <net/xdp_sock_drv.h>
->> >> +
->> >> +#include "xsk.h"
->> >> +#include "xsk_queue.h"
->> >> +
->> >> +enum xsk_pp_chunk {
->> >> +       XSK_PP_USER,    /* owned by userspace */
->> >> +       XSK_PP_POOL,    /* owned by a page pool */
->> >> +       XSK_PP_REUSE,   /* on the reuse stack */
->> >> +};
->> >
->> > maybe should be xsk_mp_chunk.
->> >
->> > But also, why is this 3? Usually the mp's track allocated and free. I
->> > assume PP_REUSE is actually free, but I'm curious why it matters to
->> > your mp whether the pool or the userspace holds the memory (or whether
->> > the net stack holds it. Can't it hold it?)
->>
->> REUSE is free, yes. USER and POOL are both allocated, but userspace
->> gives chunks back by writing addresses to FILL, and it can write any
->> address, also one of a chunk the kernel still owns. Taking that entry
->> would hand the device the same chunk twice. So the provider only takes
->> FILL entries for chunks in USER, and drops the rest. io_uring zcrx
->> checks the same with user_refs, and devmem with the socket's token
->> xarray.
->>
+> Le vendredi 13 novembre 2026 =C3=A0 11:15 -0700, James Hilliard a =C3=A9c=
+rit :
+> > Unregister and disconnect all chips before releasing the ECC provider.
+> > Retain each chip and its shared controller until the final MTD put,
+> > while releasing hardware resources during device removal.
+> >
+> > Run NAND cleanup during disconnection; the final core-owned put only
+> > releases retained allocation and layout data.
+> >
+> > Cc: Harvey Hunt <harveyhuntnexus@gmail.com>
+> > Cc: linux-mips@vger.kernel.org
+> > Cc: Paul Cercueil <paul@crapouillou.net>
+> > Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> > ---
+> >  drivers/mtd/nand/raw/ingenic/ingenic_nand_drv.c | 39 +++++++++++++++++=
+-------
+> > -
+> >  1 file changed, 27 insertions(+), 12 deletions(-)
+> >
+> > diff --git a/drivers/mtd/nand/raw/ingenic/ingenic_nand_drv.c
+> > b/drivers/mtd/nand/raw/ingenic/ingenic_nand_drv.c
+> > index bdda06ae0d72..2818ffe76796 100644
+> > --- a/drivers/mtd/nand/raw/ingenic/ingenic_nand_drv.c
+> > +++ b/drivers/mtd/nand/raw/ingenic/ingenic_nand_drv.c
+> > @@ -368,7 +368,7 @@ static int ingenic_nand_init_chip(struct platform_d=
+evice
+> > *pdev,
+> >       if (IS_ERR(cs->base))
+> >               return PTR_ERR(cs->base);
+> >
+> > -     nand =3D devm_kzalloc(dev, sizeof(*nand), GFP_KERNEL);
+> > +     nand =3D kzalloc_obj(*nand);
+> >       if (!nand)
+> >               return -ENOMEM;
+> >
+> > @@ -377,7 +377,7 @@ static int ingenic_nand_init_chip(struct platform_d=
+evice
+> > *pdev,
+> >       if (IS_ERR(nand->busy_gpio)) {
+> >               ret =3D PTR_ERR(nand->busy_gpio);
+> >               dev_err(dev, "failed to request busy GPIO: %d\n", ret);
+> > -             return ret;
+> > +             goto free_chip;
+> >       }
+> >
+> >       nand->wp_gpio =3D devm_gpiod_get_optional(dev, "wp", GPIOD_OUT_LO=
+W);
+> > @@ -385,15 +385,17 @@ static int ingenic_nand_init_chip(struct platform=
+_device
+> > *pdev,
+> >       if (IS_ERR(nand->wp_gpio)) {
+> >               ret =3D PTR_ERR(nand->wp_gpio);
+> >               dev_err(dev, "failed to request WP GPIO: %d\n", ret);
+> > -             return ret;
+> > +             goto free_chip;
+> >       }
+> >
+> >       chip =3D &nand->chip;
+> >       mtd =3D nand_to_mtd(chip);
+> >       mtd->name =3D devm_kasprintf(dev, GFP_KERNEL, "%s.%d", dev_name(d=
+ev),
+> >                                  cs->bank);
+> > -     if (!mtd->name)
+> > -             return -ENOMEM;
+> > +     if (!mtd->name) {
+> > +             ret =3D -ENOMEM;
+> > +             goto free_chip;
+> > +     }
+> >       mtd->parent_dev =3D dev;
+> >
+> >       chip->options =3D NAND_NO_SUBPAGE_WRITE;
+> > @@ -404,17 +406,27 @@ static int ingenic_nand_init_chip(struct platform=
+_device
+> > *pdev,
+> >       chip->controller->ops =3D &ingenic_nand_controller_ops;
+> >       ret =3D nand_scan(chip, 1);
+> >       if (ret)
+> > -             return ret;
+> > +             goto free_chip;
 >
-> Sounds like devmem choose to do extra-pp-refs on netmems given to
-> userspace, io-uring choose to give extra user_refs for netmems given
-> to userspace, and you have choosen to do something new? I need to read
-> the patches more thoroughly to understand.
-
-It is close to io_uring's scheme, but simpler. io_uring counts user refs
-per buffer, because one buffer can reach userspace in several pieces,
-each returned on its own, and it keeps a page pool ref while userspace
-holds it. A UMEM chunk is never split, so userspace holds it at most
-once, and one state per chunk replaces the counter: USER means userspace
-has it, REUSE is the free list. The chunk also leaves its page pool
-before userspace gets it, so no page pool ref is held meanwhile. When
-userspace returns a chunk on the FILL ring, we take it only if it is in
-USER state, so userspace cannot return a chunk the kernel still uses.
-
-
-Bj=C3=B6rn
+> Blank line here
+>
+> > +     ret =3D nand_set_lifetime(chip, to_ingenic_nand(nand_to_mtd(chip)=
+));
+>
+> This is quite convoluted, just do nand_set_lifetime(chip, nand);
+>
+> > +     if (ret) {
+> > +             nand_cleanup(chip);
+> > +             goto free_chip;
+> > +     }
+> >
+> >       ret =3D mtd_device_register(mtd, NULL, 0);
+> >       if (ret) {
+> > -             nand_cleanup(chip);
+> > +             nand_disconnect(chip);
+> > +             mtd_put_master(mtd);
+> >               return ret;
+> >       }
+> >
+> >       list_add_tail(&nand->chip_list, &nfc->chips);
+> >
+> >       return 0;
+> > +
+> > +free_chip:
+> > +     kfree(nand);
+> > +     return ret;
+> >  }
+> >
+> >  static void ingenic_nand_cleanup_chips(struct ingenic_nfc *nfc)
+> > @@ -429,8 +441,9 @@ static void ingenic_nand_cleanup_chips(struct ingen=
+ic_nfc
+> > *nfc)
+> >               chip =3D &ingenic_chip->chip;
+> >               ret =3D mtd_device_unregister(nand_to_mtd(chip));
+> >               WARN_ON(ret);
+> > -             nand_cleanup(chip);
+> > +             nand_disconnect(chip);
+> >               list_del(&ingenic_chip->chip_list);
+> > +             mtd_put_master(nand_to_mtd(chip));
+> >       }
+> >  }
+> >
+> > @@ -474,9 +487,12 @@ static int ingenic_nand_probe(struct platform_devi=
+ce
+> > *pdev)
+> >               return -ENODEV;
+> >       }
+> >
+> > -     nfc =3D devm_kzalloc(dev, struct_size(nfc, cs, num_banks), GFP_KE=
+RNEL);
+> > +     nfc =3D kzalloc(struct_size(nfc, cs, num_banks), GFP_KERNEL);
+> >       if (!nfc)
+> >               return -ENOMEM;
+>
+> Blank line here.
+>
+> Cheers,
+> -Paul
+>
+> > +     ret =3D devm_nand_controller_init(dev, &nfc->controller, nfc);
+> > +     if (ret)
+> > +             return ret;
+> >
+> >       nfc->soc_info =3D device_get_match_data(dev);
+> >       if (!nfc->soc_info)
+> > @@ -493,7 +509,6 @@ static int ingenic_nand_probe(struct platform_devic=
+e
+> > *pdev)
+> >       nfc->dev =3D dev;
+> >       nfc->num_banks =3D num_banks;
+> >
+> > -     nand_controller_init(&nfc->controller);
+> >       INIT_LIST_HEAD(&nfc->chips);
+> >
+> >       ret =3D ingenic_nand_init_chips(nfc, pdev);
+> > @@ -511,10 +526,10 @@ static void ingenic_nand_remove(struct platform_d=
+evice
+> > *pdev)
+> >  {
+> >       struct ingenic_nfc *nfc =3D platform_get_drvdata(pdev);
+> >
+> > +     ingenic_nand_cleanup_chips(nfc);
+> > +
+> >       if (nfc->ecc)
+> >               ingenic_ecc_release(nfc->ecc);
+> > -
+> > -     ingenic_nand_cleanup_chips(nfc);
+> >  }
+> >
+> >  static const struct jz_soc_info jz4740_soc_info =3D {
