@@ -1,83 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.135.140.105
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794913751;
-	b=El/95CclmsE3aEi7XH6Apxhp/b1fkS/+qBhKDgCBFk+jO43ZB2KQ3ZiNBPXRXYXg6KTZ
-	 BhMmZuYEhBJcOB/wXhkvb2Hs4ybA0E7bkJR7uSSjtcGbxOzZ9eA3j2zsSGm3vC4EnNF2o
-	 Un/eeIkXt7LJkhbqOinoImfe9OvCs6WW0L6vdQwqkRHM9vlkT3vZmvxpI1JmgatA5TGil
-	 PVYXSz7ELH1PQKoelogGftLkGqZb/xP+Z7uS679A89BLnv4npV4eurFsmBiZZqokcyhmI
-	 8eREWM4orbnrZ98UBRzv1NjiFvp5Jbb8nJqp/noND37dZBqgIEeMk6ITRFn5dVo7wzA==
+	t=1794913760;
+	b=0M77zxeyywfZydOzaaz5phwU+Of39CgASk7OL96UAg9QJgNzQp9PqqLfwX8+zcoGpS0w
+	 eeWRMZfwd5komJZ3TqwxYjD+yQKgL5q6aZTSDmX3drU6SuLWy5HPiFTaVTVPOoFEa88ME
+	 9FTmumJi0YsOFKqnA/c5flT7b8EqEW2M+yqvzoBw3Y14gXj5P8VmdesaXAxvhR8iKeVd6
+	 nFTaBKO8v7hcHCcPyO+lJYRiSOlj8ZnAOgr08z4awu5YRXFb/GykoCFJWysxIbyu35oID
+	 3d+ClY/I2r9Ergr6/1HEUcvXZyVGj5u1S6kwi6NlFjCGE59lKdc6y+hRebQQs14Bc5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794913751;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Reinject:X-QCInternal:
-	 X-QCInternal:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=WWvwVYKenG+kHA4rdPTTYPgchSKfSupK1RMORGGWU9c=;
-	b=tsD/gHCd/xhxZHlfLdSrR6pLr+1WyIT8BL9/s5bSkevdNUS6+ikyctVEi9ukvkVBKeSt
-	 gFHL/2kNfziYPc99VLPBvJbWmJumxpPyQve8+FqLJW7kv4h1rz/0w+Zgyt1bW1JTQN0ar
-	 LwW/IlwABQeMeeEEY+6NkH5bF9DAHQuPrfdRGRnDe5D0gAoOXfZ96UtaIdo4QEewtm/gY
-	 fQlI6KmCJOwI7+gyRmBoKJ1KCdPU0kafBjJp7fbzUoqPW2wXXWLIErqEVgdk4dYUdcV/6
-	 qw+iM8VhIkyf6dOaXyVTj1v5qGvS1doYZU09XWze8JUZ8inoh0v6glcaEZrFv0zhPpw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794913760;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=GzIg+n+GrebkL3m4Ih6AgxOrmeWJM+7Ee6vjWj2bVJc=;
+	b=XKSu9LJCoE2L0uPb/grRo4UO6aZwHtQj+TXiGRWHzoaC5v2JDd5Yfjn6UMVICsz+CVgc
+	 kvr8k448r2IRbZPJnY1VkyLElvx/afzaFW7W5I3ITBOgz3xFYqLAQ3JCdA4EyQloWB1IT
+	 L2TfuuogB4+9uOQqN2XfAJ18gBY+nsEFXWnf7rodIB9M0KACkJHxQJWLE1EJ06ef2/neV
+	 C7ceqKn5P5nfLdKUYn8+6jUDd1wlQNEp8zqkN7FDlvNiK0Y7gwDcTkc/G90RxkXP1zQEm
+	 aUB14WZj6QWUZEdM1VOdtO1klPMhsMlby5F5sdLbi9JfWNH6Z3knS80xQ55zZknKsFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pBwsMGgO;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=cjdns.fr;
+	spf=pass smtp.mailfrom=cjdns.fr;
+	dkim=pass header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=FnugIG8Z;
+	arc=none smtp.remote-ip=5.135.140.105
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A3B5606A32A;
-	Tue, 17 Nov 2026 11:09:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A3B5606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E27B606A331;
+	Tue, 17 Nov 2026 11:09:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E27B606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pBwsMGgO
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH6f0Zs2998606;
-	Tue, 17 Nov 2026 11:08:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=WWvwVYKenG+kHA4rdPTTYPgchSKfSupK1RM
-	ORGGWU9c=; b=pBwsMGgONKWwUHN201IzvJXOZqisqdDJyB9on5cbxiQ1ReGg0lC
-	zgLar/ga6SjzeuwU+5bd3QjtEk5JmPDvTpD5o+xVQIYxy1Xu4nRi1VltoME8lq+9
-	cQX4BJaYcHKzRSickYHcb7I7y8FPXIUFclCGuIIymZrIZkTqWCLFnazNzj+7Y8cx
-	exSNxPkhF29D89xD5rR2ru3C1QX1AOP1Hw0XmHReIQ0CadskjZ/BcupNQOZGDvYk
-	htNp2pup87Gsu4T/24Mb4MsUqmtQ370vaGYJf1qNvWrbekKQNdshYr4E3peMPaCW
-	8CTYAldboQAKqQVcF9HBo3q66Sfzoc3pHSA==
-Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0hve12w5-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 17 Nov 2026 11:08:54 +0000 (GMT)
-Received: from pps.filterd (apblrppmta02.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHB8p7X2620849;
-	Tue, 17 Nov 2026 11:08:51 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-ks5-hyd.qualcomm.com [10.147.255.18])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 6AHB8pAs2620842
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 17 Nov 2026 11:08:51 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4763723)
-	id 9536967A; Tue, 17 Nov 2026 16:38:50 +0530 (+0530)
-From: Karthik S <karthik.s@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Karthik S <karthik.s@oss.qualcomm.com>
-Subject: [PATCH v1 0/3] ASoC: qcom: Add talos-lyra-evk audio support
-Date: Tue, 17 Nov 2026 16:38:45 +0530
-Message-Id: <20261117110848.465407-1-karthik.s@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=FnugIG8Z
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BF62D51BCA8;
+	Tue, 17 Nov 2026 12:09:12 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1794913756; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=GzIg+n+GrebkL3m4Ih6AgxOrmeWJM+7Ee6vjWj2bVJc=;
+	b=FnugIG8ZXaFyjQBa6vwvEEnJMkQVmLKWSNZqov39LraN4HbwkXbDx62a+qk9GJa2ZO8O3a
+	a81bFNRtNnzDQSukV1a2rIGTiGH5MDM4Y8iRFPXiY+JoJ6TyVmLVl0si3d24X/bjyJ1OKk
+	aMh5947IKOjJWtDVT1vPx//KESpcVrgPA7lqVZvCl5yTNUThPHcGrnPbXHtOtd7Y+ZLEco
+	JzWSCAGc7NrSyjCNDTOa/Y0u/MW/A+2Mpq4ov0qO/v7q+krzERWLdgsglYpxB86qqUjBZW
+	BLRnoa3w8UL6vAPcXqOAv22DYYGgLD8oPW3dEJwx8KbAX0eCbkPgBCAt1S/Otw==
+Message-ID: <dcf40947-942a-4bf3-823c-5e1613f46d76@cjdns.fr>
+Date: Tue, 17 Nov 2026 12:09:11 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,76 +55,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA0NCBTYWx0ZWRfX1EYbmVPbZ8LM
- DTufC3xejx1HZEbdBO18IyNQp6lJNqcJOrEc2L0Wz5BNeHHzqLbA62U2LsZtWnUx6vcAjvPTU6/
- tTycfLpk06lDZqp30+j0KhIGtlvZo+A=
-X-Proofpoint-GUID: GAw0rHDrewp-IYzf5zIApUY5xowuZq7j
-X-Proofpoint-ORIG-GUID: GAw0rHDrewp-IYzf5zIApUY5xowuZq7j
-X-Authority-Analysis: v=2.4 cv=dqhOmFg4 c=1 sm=1 tr=0 ts=6afc35c6 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=Fnp2pXIAsWV7alZBeiUA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA0NCBTYWx0ZWRfXxu5WEMUHol49
- K3zxh5ydt/NG+tXk3DEiIF0zpyNGZemPjeWeBLxYl7UKpjk1Skwz/C5rGpZgxl5TCDTAlIDpi0m
- 5M125pfwhCxAHlkSZDIBAlemcNehOCaHIeq4cvtTNBwQWHZ5N6wrjqlgqUEu2S287P1FjanxC8c
- q4wOL4/MHEEqZ94JvsyQAkqjFyelYOBItWuPI2TpYTY4quUZHBVZ+2M+w0ybCtAplN1GoNYEQt0
- qyq5Zw2xyJPjIT7Ue9APoijFc+LZlfENOdL4YMEKjkt8WA/v5Qc28bVDYJPYIaIatlD5ZMTIWNb
- twYDhSGmYOjjlr/CeFVFh3JuX2IjEyKFKg1KGBjemic78WImBBjRRSdXb4+u7Fd1LMl5nz98QUE
- 9X/zt/SxUep05ufefp9sIB0u3R5GDZrfpx8EUt6eAEiLCtjs6yzXyyW0MklubuWFHYHTcmFn9JZ
- 6xdR1HGYhRZzUBgLnaA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-17_01,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 lowpriorityscore=0 clxscore=1015 phishscore=0
- bulkscore=0 malwarescore=0 adultscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170044
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH 2/3] irqchip/econet-en751221: Chain the handler to all
+ parent interrupts
+To: automobilehacks@gmail.com, Thomas Gleixner <tglx@kernel.org>,
+ Radu Rendec <radu@rendec.net>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20261115-en751221-intc-all-lines-v1-0-dc03a40f47f0@gmail.com>
+ <20261115-en751221-intc-all-lines-v1-2-dc03a40f47f0@gmail.com>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <20261115-en751221-intc-all-lines-v1-2-dc03a40f47f0@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-This series adds audio support for the talos-lyra-evk platform, which
-uses the MAX98091 codec over the Secondary MI2S interface for both
-playback and capture.
 
-The talos-lyra-evk is based on the QCS615 SoC and uses the LPASS audio
-subsystem with APM-based routing. This series adds the necessary DT
-nodes for the LPASS LPI pinctrl, I2S pin states, MAX98091 codec, and
-sound card, along with the machine driver and DT binding updates.
+On 15/11/2026 20:26, Akshat Singh via B4 Relay wrote:
+> From: Akshat Singh <automobilehacks@gmail.com>
+>
+> The EN751221 interrupt controller does not drive one CPU interrupt line
+> per source. It presents the number of the pending interrupt plus one, in
+> binary, on the CPU interrupt lines IP2-IP7. In VEIC mode the CPU takes
+> that number as the vector, but without VEIC the driver chains its handler
+> to the first parent interrupt only, IP2 in the existing device trees. An
+> odd-numbered interrupt then never interrupts the CPU by itself: it is
+> handled only when an even-numbered one happens to run the handler, which
+> on an idle system is the next timer interrupt. That covers the frame
+> engine's QDMA (21), xHCI (17) and the first PCIe port (23).
+>
+> On a Nokia G-140W-C, whose 34Kc does not report VEIC, this delayed
+> received packets by up to 10 ms, and ping round-trip times to the device
+> cycled through 1-11 ms.
+>
+> Without VEIC, chain the handler to every parent interrupt listed in the
+> device tree. One interrupt usually raises several lines, so the later
+> runs of the handler find nothing pending; don't count those as spurious.
+>
+> VEIC mode is unchanged.
+>
+> Signed-off-by: Akshat Singh <automobilehacks@gmail.com>
 
-Changes included in this series:
-- Patch 1/3: Enable audio support in the talos-lyra-evk DTS, adding
-  the sound card node with Secondary MI2S playback and capture DAI
-  links, the max98091 codec node, lpass_tlmm pinctrl node, and LPI
-  I2S pin states
-- Patch 2/3: Add the talos-lyra-sndcard compatible to the sc8280xp
-  machine driver with DAPM routes, widgets, kcontrols, and codec
-  configuration for the MAX98091
-- Patch 3/3: Add the qcom,talos-lyra-sndcard compatible string to the
-  qcom,sm8250 DT binding
 
-Dependencies:
-- https://lore.kernel.org/all/20261027-talos-lyra-evk-v2-v3-2-658fd5a7ec99@oss.qualcomm.com/
-  talos-lyra-evk board support (precon)
-- https://lore.kernel.org/all/20261117075100.272535-1-karthik.s@oss.qualcomm.com/#t
-  pinctrl: qcom: add QCS615 LPASS LPI pinctrl driver
+I tested and confirm that hardware indeed behaves as described.
 
-Signed-off-by: Karthik S <karthik.s@oss.qualcomm.com>
----
-Karthik S (3):
-  arm64: dts: qcom: talos-lyra-evk: enable audio support
-  ASoC: qcom: sc8280xp: enable support for talos-lyra
-  dt-bindings: sound: qcom,sm8250: add talos-lyra-sndcard compatible
 
- .../bindings/sound/qcom,sm8250.yaml           |   1 +
- .../boot/dts/qcom/talos-lyra-evk-som.dtsi     |   1 +
- arch/arm64/boot/dts/qcom/talos-lyra-evk.dts   | 271 +++++++++++++-----
- sound/soc/qcom/sc8280xp.c                     |  32 ++-
- 4 files changed, 234 insertions(+), 71 deletions(-)
+Tested-by: Caleb James DeLisle <cjd@cjdns.fr>
 
--- 
-2.34.1
 
+> ---
+>   drivers/irqchip/irq-econet-en751221.c | 33 ++++++++++++++++++++++++++++++---
+>   1 file changed, 30 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/irqchip/irq-econet-en751221.c b/drivers/irqchip/irq-econet-en751221.c
+> index 2ca5d9018..5930c67c3 100644
+> --- a/drivers/irqchip/irq-econet-en751221.c
+> +++ b/drivers/irqchip/irq-econet-en751221.c
+> @@ -18,6 +18,15 @@
+>    * When VPE#1 requests IRQ 30, the driver manipulates the mask bit for IRQ 29,
+>    * telling the hardware to mask VPE#1's view of IRQ 30.
+>    *
+> + * The controller does not give each source its own CPU interrupt line. It
+> + * presents the number of the pending interrupt plus one, in binary, on the
+> + * CPU interrupt lines IP2-IP7, which a CPU in VEIC mode takes as the vector.
+> + * Without VEIC, IRQ 21, for example, shows up as 22 = 0b010110 on IP3, IP4
+> + * and IP6, so the controller is chained to every CPU line listed in its
+> + * "interrupts" property. Chained to IP2 alone, it would see the odd-numbered
+> + * IRQs only when an even-numbered one, such as the timer, happened to run
+> + * the handler.
+> + *
+>    * Copyright (C) 2025 Caleb James DeLisle <cjd@cjdns.fr>
+>    */
+>   
+> @@ -145,9 +154,12 @@ static void econet_intc_from_parent(struct irq_desc *desc)
+>   	pending0 = ioread32(econet_intc.membase + REG_PENDING0);
+>   	pending1 = ioread32(econet_intc.membase + REG_PENDING1);
+>   
+> -	if (unlikely(!(pending0 | pending1))) {
+> -		spurious_interrupt();
+> -	} else {
+> +	/*
+> +	 * An interrupt usually raises several CPU lines. It is handled when
+> +	 * the first of them runs this function, and the others find nothing
+> +	 * pending.
+> +	 */
+> +	if (pending0 | pending1) {
+>   		domain = irq_desc_get_handler_data(desc);
+>   		econet_intc_handle_pending(domain, pending0, 0);
+>   		econet_intc_handle_pending(domain, pending1, 32);
+> @@ -461,7 +473,22 @@ static int __init econet_intc_of_init(struct device_node *node, struct device_no
+>   		if (ret)
+>   			return ret;
+>   	} else {
+> +		int nr_parents = of_irq_count(node);
+> +
+>   		irq_set_chained_handler_and_data(irq, econet_intc_from_parent, domain);
+> +
+> +		for (int i = 1; i < nr_parents; i++) {
+> +			int parent = irq_of_parse_and_map(node, i);
+> +
+> +			if (!parent) {
+> +				pr_warn("%pOF: DT: Failed to get IRQ %d from 'interrupts'\n",
+> +					node, i);
+> +				continue;
+> +			}
+> +
+> +			irq_set_chained_handler_and_data(parent, econet_intc_from_parent,
+> +							 domain);
+> +		}
+>   	}
+>   
+>   	econet_intc.domain = domain;
+>
