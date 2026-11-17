@@ -1,59 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794922772;
-	b=EyWErOsSgJ3JQKChFJXz79aL8z3QbzwEFfiuxd8VvSkguEublWW+Elt6RlSpRtDuW9Nq
-	 7NPpu/9eYnWedLmRlAYbm/jNmev/Fo5f2Rro4PobTNzZ2DZDrEhCUe6bUbuCtwJzHrSPz
-	 Ttr5hIkhSDCNQFLHOgqJ3r0FPPM//i+LUkEaHgOOWP/vLsbxnMfppKHNkPVrwoKjYgzO9
-	 VQnsbpLNxJ12GqcfS+TKAZ/QS918+fkRzvoXK4wFwaIti+82f36XEmKLTWs7gw02UPULb
-	 g9ndmoOST4IGH9HVUzAdFGuQrMGk6QxKJWJoJJs+sd9ZLrOGzyO9mAuVZHG84iurgSA==
+	t=1794922775;
+	b=w77oUJrffE0kW9keli3JfjkVg3b+UxUb2XipwwfCa5GEk9XTWfKZCzkXyes69XLbMGl8
+	 SdxIay0NVAgdsvgg1kAJY4nMRJP9sn8cUouAkWJ0VI/5onxEPVVfRNzbI5CEXP7TDyu7V
+	 cnsKcfV+tPxiv+umsgP8XNQeNhij1skOn69mYKWJEjXKA5wx+WtunShG6U0E1FPOFxx53
+	 Y35/zjoTKjslC2SLAko7aFv9nbu7WoeF5eFKWgXCEPHomGYC+fWLt9Caze6Rjb/m1pM69
+	 matsaJo73TDNj6Sa3J7jd/s3bgg0Jt+LeBYxUwU5xxJ/IijSPjv7CRu2U0hUBnfxmiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794922772;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=+vj5WHBOpvfWIdOOU2vveRF7fJbLzDa1R2TQY8Zim/M=;
-	b=jSHRAOSqIiAtvUD5XQC/h5jEdp0COveFlyRde52/ikWWb9WbcSIJLazZR0UGKyzzq01d
-	 rYT5NhtWYTygBFUZdTbEGzvsdEbPhYWpf2t/ZcH7iXXCMMmrCdrrZzjKI9fYCQWv/CW8i
-	 L73I8EFQAHi4WA6aPc4SKYolsN23gTrdDINOPJf2xs70x+gVHWose7GcrQtUl+3+NWM8h
-	 Jx09KLybOI27g7T8vQRcmRcR+kE2UNLUUJoZKJp9qBj3CltP8hDxbAdCp40wgtyMSzW3W
-	 gghuKUzeIIn5kGqxIrpR1ijgXVlRl3r4oXEHHGYLv5w2h+en3jaBDd0uxCq+PaPB4Kg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794922775;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=qLTpOuSUgJgyz5rC4zL16SxOL/r7JctEcaWYeU1vdrc=;
+	b=rJ7laS6hV+UDDG8UupnfNO1060Wcz8ORiPv2LRL8TB8ATd8Z33Uwcr5dvev25H5msFA+
+	 w8fPBbI7tUiM6du/bcmuZXhHVmeuWfu/f8PN2hdIGm9BmttNKNPQZB8/gDLy1tLJn9dR5
+	 PptCy4FHAciWqncnV1RzJAF8lKNqwOOsnxXQ8aU8QyM5pddqqbO9rRx4HBGmFQlF0IenF
+	 ktFmAQEr88qMWkS2uIQ/veIKGR0t2hL4fOHzSoA1DrktUS0d5sKAiOe4wj1ORtGNO8jEi
+	 /VQZO46xrTii/XLwalEqJ69waev/9EbAsj1O+ud3ndTlXnNqGE9ar8kJ96vJYRA6q8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E73qLr6x;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=dC+ilGlb;
+	arc=none smtp.remote-ip=117.135.210.3
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 6A815606A323;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78B43606A32A;
 	Tue, 17 Nov 2026 13:39:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78B43606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E73qLr6x
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 80F1C1F000C6;
-	Tue, 17 Nov 2026 13:39:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794922772;
-	bh=+vj5WHBOpvfWIdOOU2vveRF7fJbLzDa1R2TQY8Zim/M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=E73qLr6x4QJlH+ZxnhmrkQJto+Ns5sNs9PEbdG8bFdZQRtJZ1mLnMOwFlchXSD706
-	 J35gWl4S5vLgMs8JVTtEXrOndY+iUIwdNoRawFbdvxNcSDZw8KJ2qmURrd6UcQGli7
-	 r93/AUDBq8DsAP84kQh9zIv6u2chrFfY3/RP3krXtq4zUjQj+Xu8iLm2ZUxG7iN32h
-	 QLpevIgpU6+0AXJu/aq5cia+zeAwLfzYkDNAYsXbXNcN9XzRLKbeM8UFVEJ7jNmP/I
-	 r4uhNbxnvfEMZlAFgP2YWjX0TT1vrUO2CU++gRvgo29TywvOEjxaPy60dZafPbo/pL
-	 HT9qt2O9bD5hw==
-Date: Tue, 17 Nov 2026 14:39:27 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Johan Hovold <johan@kernel.org>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Daniel Scally <djrscally@gmail.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Linus Walleij <linusw@kernel.org>, 
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] software node: make swnodes hold their own references on
- parents
-Message-ID: <k3yo7tpvb33prcuuw2a2qthvuww2edb7tsszj5hxlkcfaurt7k@m2czeig46clb>
-References: <20261106-swnode-kobject-parent-ref-v1-1-77dbd7213dd0@oss.qualcomm.com>
- <avxEGiacULc2eciv@hovoldconsulting.com>
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=dC+ilGlb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=qL
+	TpOuSUgJgyz5rC4zL16SxOL/r7JctEcaWYeU1vdrc=; b=dC+ilGlb5kyHCSba7t
+	m2EWHs1KXzds0YNiMeAGGQrrtk+kfxreF3veEm2MZh+u+/qq02m4pqIUQNLuIHZ/
+	dD+a7IpnWurWe52cIx3r4dMfr2/5NArztGQ2b3fbmBMDyuMP91YZuWY+IJsl+P9v
+	QfkVJuaFEbzjhW1Qo240cFAHE=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3H5vmWPxqUY4XIQ--.65082S2;
+	Tue, 17 Nov 2026 21:38:47 +0800 (CST)
+From: Haoxiang Li <haoxiang_li2024@163.com>
+To: olivia@selenic.com,
+	herbert@gondor.apana.org.au,
+	kees+treewide@kernel.org,
+	sgoutham@marvell.com
+Cc: linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Haoxiang Li <haoxiang_li2024@163.com>
+Subject: [PATCH] hwrng: cavium - Fix PF register mapping leak on probe failure
+Date: Tue, 17 Nov 2026 21:38:44 +0800
+Message-Id: <20261117133844.1410587-1-haoxiang_li2024@163.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,62 +63,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avxEGiacULc2eciv@hovoldconsulting.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3H5vmWPxqUY4XIQ--.65082S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7Gr4rZrWkuF4UKFWDZF1kZrb_yoWfuwcEvr
+	4j9FyxuFn5Gr17Gw15CrWFv3y0grn8ur4Sgrn2qa4fZ34fZr4UKr1kZrn5X34UWrWDGF98
+	KryDKr42kr9rCjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRA73kUUUUUU==
+X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbC7Qcpl2r8WOcqWAAA3P
 
-On Tue, Nov 17, 2026 at 01:10:02PM +0100, Johan Hovold wrote:
-> On Fri, Nov 06, 2026 at 12:13:28PM +0100, Bartosz Golaszewski wrote:
-> > In swnode_register(), swnode->parent is assigned before calling
-> > kobject_init_and_add(), which normally acquires a reference on
-> > parent->kobj via kobject_add_internal() that is held until after
-> > software_node_release() completes. However, if kobject_init_and_add()
-> > fails before acquiring the parent reference or drops it on error in
-> > kobject_add_internal(), swnode->kobj holds no reference on parent->kobj
-> > while swnode->parent remains set.
-> > 
-> > With CONFIG_DEBUG_KOBJECT_RELEASE enabled, the random delay in
-> > kobject_delayed_cleanup() may create a situation where - when
-> > unregistering the child node and then the parent - the parent object
-> > gets released before the child who's left with a dangling pointer.
-> > 
-> > Acquire a refernce to the parent swnode when registering the child and
-> > drop it on child's release.
-> > 
-> > Cc: stable@vger.kernel.org
-> > Fixes: 59abd83672f7 ("drivers: base: Introducing software nodes to the firmware node framework")
-> > Closes: https://sashiko.dev/#/bug/linux-82933c14-d212-49f1-bd2f-d4ab1e16fed7
-> > Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> > ---
-> >  drivers/base/swnode.c | 10 +++++++---
-> >  1 file changed, 7 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/drivers/base/swnode.c b/drivers/base/swnode.c
-> > index 84a77ffa3dc4bbcca62bbe67c3390693500b01ea..986dcb933d2c9274e9000968f115d7fccc2d103f 100644
-> > --- a/drivers/base/swnode.c
-> > +++ b/drivers/base/swnode.c
-> > @@ -843,11 +843,12 @@ static void software_node_free(const struct software_node *node)
-> >  static void software_node_release(struct kobject *kobj)
-> >  {
-> >  	struct swnode *swnode = kobj_to_swnode(kobj);
-> > +	struct swnode *parent = swnode->parent;
-> >  
-> >  	fwnode_links_purge(&swnode->fwnode);
-> >  
-> > -	if (swnode->parent) {
-> > -		ida_free(&swnode->parent->child_ids, swnode->id);
-> > +	if (parent) {
-> > +		ida_free(&parent->child_ids, swnode->id);
-> >  		list_del(&swnode->entry);
-> 
-> Why not simply
-> 
-> 		swnode_put(swnode->parent);
-> 
-> here?
->
+cavium_map_pf_regs() maps the PF registers with ioremap(), but the
+mapping is not released if devm_hwrng_register() fails. Call iounmap()
+before returning the registration error.
 
-Because swnode_put() doesn't accept NULL. I have it on my TODO list to
-add it but this is a fix, so I want to keep it minimal.
+Fixes: 680efb33546b ("hwrng: cavium - Check health status while reading random data")
+Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+---
+ drivers/char/hw_random/cavium-rng-vf.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Bart
+diff --git a/drivers/char/hw_random/cavium-rng-vf.c b/drivers/char/hw_random/cavium-rng-vf.c
+index 14eb74a70f89..e0f9ce01a896 100644
+--- a/drivers/char/hw_random/cavium-rng-vf.c
++++ b/drivers/char/hw_random/cavium-rng-vf.c
+@@ -236,6 +236,7 @@ static int cavium_rng_probe_vf(struct	pci_dev		*pdev,
+ 	ret = devm_hwrng_register(&pdev->dev, &rng->ops);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "Error registering device as HWRNG.\n");
++		iounmap(rng->pf_regbase);
+ 		return ret;
+ 	}
+ 
+-- 
+2.25.1
+
