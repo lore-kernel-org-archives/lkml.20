@@ -1,99 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794875832;
-	b=NBBJ6DWl0pqurduJ8pfWOeSz5aRMNh2287UChIJ+aM6aTlndWrkqXv/btlswmkrMuS+8
-	 D7TWaBAaKebvJyK4uPPnaANo5zAp4tKLxuzx+1sscsrYeJCKOmYmw8Pp45gM0rBlXCaIi
-	 z1vHGym3faMZv7mKFSJF6d0Rzv8mYOBoYLOM2MXhWt6WZew5YFwH8G8FIjT88EEPnTiVe
-	 L3Bh09vS9Gy8uW2XU5PxmDY9Nh8JoVAgJq0qTy+mcQQGnE0sOyRrUWAP/3lSywijG6xeu
-	 MUEfaPy4Q9Z+HofIW8qZGx+YVtfJdoO8vznFcG/YN8WDSqcM4fwbO+FZ097Dx56GzUw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794875832;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794875962;
+	b=EMSK3xUw5U0xrb3QCjrvs+gbA9H6vDQzm9yiPGNLVI0wLacoZXADgyevaIAGn33oAdep
+	 bOvkR7xdlkxVh/nMBafxXFPNjzVVEMgMEkCHlio6pkvu6rV+PuhkTFGdIwm8nwzouIyZm
+	 K7V8X8xH79W5M0BadWvfQtsOg8a6iWj6wTPwWBQL9bbnd9vPfQwPlYC8AtEIx05RNBCrJ
+	 t3Ix6/wcNXKnC5QDi+3EjNoozVyfPYhCZWNerv0swp8wZYTqFaBxkCVd3zAIsIcf7/9OC
+	 9r9142M8qPAYfPzW3+6EKVfexNIVpi+IRPuv7kAZRuBwl9L/5DiEe4VTeAqie4td9MQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794875962;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=BvA8A5YtY5vJyCFzt8yEZytKRl69fmGmQbkWHGd1V/0=;
-	b=CVXN6r7s2UJmfxGCdmabhJiKVcS5i4lx6wfOI2otPonPaTpXyszh6Q5pygkFza9PdE1a
-	 UpTJxL4j5MtFDTf6CvBlaPBJ0GP5FOvyLeQKrJdhwjqmk6UrZjnnCX4dAE6fJki0UBQLF
-	 Bz9rXwOKnbpKaAYY7ZUve3EQw7M9D0schm4r56qII6zMFlzHy4PhN1k7lZhK7BcI6DmsJ
-	 OLKO+P81LQphBCg923L/4GGwcHajK5TLMGog8gjD7jbQEia+50SmMJIr0/Lo+HQa7pzJi
-	 BmQsJD0R0fHVotQskqS3SfclYiXKJMotMfTonfFy3Ga8BL8NUGLTmgspd5/D0bJ99MA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fY9kdE6q;
-	arc=none smtp.remote-ip=209.85.221.46
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=yvgrNno9d5FQQl29xM4deIUmhIQOCFM5isagb92yiBg=;
+	b=D6+ngohYzQZs4RzEg0kLs4xFdrg9b/Vg5MRPAYzPod64k3abn2R6DjpsjEq1UR0Da/AU
+	 gphFh07Mly1RSas0vSA0e4q9OK+IDS7gVekWTGS8pZRWggLSUPE2bT86NPszPcqp1BodU
+	 A4R4WZM7bh6SqHr67M3l3gqg4SLipCNhYN1tyHLU5h0UFqcO5+ooKTtEctN4EtNZl4KVr
+	 W5JVMlrGqA7f6QmnriPC7oPRZfVMNpks/ZSXYRyGLPJAUq697xVGon9kaLAqt+Kbi+kFO
+	 r0B7NwCw5ejWd49b+qd7ffy9Bp5BqKrjyaD1wjTDK0ertRwnBs3i9J4IRffNlXLCm+Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UxjOoZWP;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3EC9606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 00:37:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3EC9606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3D9C606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 00:39:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3D9C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fY9kdE6q
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso4340846f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:37:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UxjOoZWP
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4bb666304fdso2996465e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:39:21 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794875960; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OVSj93dCY3pBVhj+y41TEPJNba2Yk0qon5RNMkM+0QQT5XmQDmFcgtymlLGxl0p2pd
+         QoIReLe5XriXgsObvg+PLL5z3rSbfZHlA4GdVhvwAYV9BhWsRKkbZTIYOSl9BFk7uQBd
+         pg4FB4zM02q7lk1v+Y/kRkYxeawPHjTlaSddn50nOaaF+RKvhQYUD0zmIuQqlTVKf3w/
+         H0P4U4KMKUUVUrDpvLbxA6/ZUqxJeM3Jjsp/bKlRt12efAnyhZvRDOIbKIWDKzopnHh3
+         paSgxjq1pGeqs3/+Sabh6/R+LUqsWSO0Y7v9VKw+bhhc9it90/y/qWTdi/0LdrPM0aXs
+         nU8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=yvgrNno9d5FQQl29xM4deIUmhIQOCFM5isagb92yiBg=;
+        fh=rf+kILwkF/QYdckBpVo6QxsI5yboe5fz3d8k5jmcjRs=;
+        b=jDUNjwViPR0q/TWj5PUME/6FAXLC0VO8kp6MtEifdqHzGHpYQZx6eMMnqxXAarnIFC
+         h4GT9RUeVGTbr52Tn8SCeOHFnscD0/8gcFSbg61xG23X2ZNqM6jTv2WB24Xuh8wZux1h
+         0502+R4dqVKjN5Qd1sZvOZnLV34dbHelBtMkTy87aRrUOrXw2FE9ehtR9bkNrPzvs+Xq
+         ywVNiEVvKGCnuw11e4GEMND3/7qGiYKkPeXOBLzai/VvxvXpDjl44XlSDjgsb3CHlT8n
+         sG4TualunqLgPrcqSQhhS3VTVL72LTBm4k3AxaToAKV+o8u8HA12qAmyiGU9YPJ71jZ0
+         jlrw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794875830; x=1795480630; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BvA8A5YtY5vJyCFzt8yEZytKRl69fmGmQbkWHGd1V/0=;
-        b=fY9kdE6qFdlgspkO6DbKLiT6D/oNllBCGkM/Sjf5aX+Gd+rTsKXcM4FV8dDlwVs4GE
-         qaGZO2MOe18oD1QAcvBJuHpbLKMoh1VgtD3fcSAetaz0KnlI3B5CL4pfiKg1FJYKmgjw
-         gdAVfCZ/iqeS463Eru8+jvmOVoBgqTy/+k6jkChpeELzBjylkq7XvO/oO3oFHg3WV2J4
-         BOjUOFarq6IV+gfbfbwsmCdH0C9SNmDmUCP6j2cQ1cyKw3SJD5FlAXmfayMMJimNWLfV
-         zbS3OAbvHKbiTETVQThNWYDzx4Z22bHZccXrCQdpc3MJA2M70lbVWHcuDVOQnL5jgjOP
-         HT+w==
+        d=google.com; s=20260707; t=1794875960; x=1795480760; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yvgrNno9d5FQQl29xM4deIUmhIQOCFM5isagb92yiBg=;
+        b=UxjOoZWPK3gElO2xI8h3eyeToRm3WQAYI2yCvgWBfAC3i18Y2DixhLZCbw2DYBXwmd
+         KxvEaeuqC/pVb2O0hjaRK2b8NNzr73CGoAWXoKScfn2eGxJpvGlNp6AeG43JIcPUgQz/
+         YxyS3rh4/od0j8osjXeuKW/23khVHst4qkvv7SZ80Y+xGLWZuYfh2MOjj8NP7rqMnrny
+         O5LdpZm7z2V3nOXrd5L+x4QoXIE4WzyA1VGF9BcMMNKc+qbZinE9LBEx0TOk77x9z7tS
+         ojmjiqOOKFvyFlaiayZuCsg1wIr0QGDurAtWMNwbOJMatgUAIsNtkvn6hgj0qIEEdaAl
+         OyKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794875830; x=1795480630;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BvA8A5YtY5vJyCFzt8yEZytKRl69fmGmQbkWHGd1V/0=;
-        b=i2C3X9lwUweKZEKQ3SJyQLvLhOHUJ/10K4f/WjV4reFdQxM8XnAgYj+EuuCohJ/8du
-         cgiiPwNNQlcUPTQXSaBoZGYRbLBfn+pvgzRNConX8qvVZ0vts59ZrNxc01JHXnvFSz1L
-         i/SBV8PQf3YBvBLrhABmCbAF0i4MXS1HxLU8GmkUeIvWnmXD4nrO6spbFlr3isRBro26
-         fueE2soWpjxOAj/H+0Q9D/onmPuAsCXKyeADtrCOabbMDAWJr7R95Tr7MJQodu9qbNTa
-         5Y+qneHR9+ntR9tpWquZVuhBzFr68CuOx2bgZGUmPihY/aHNTm1L6yCYJMOIZR+gvAJ1
-         kQpg==
-X-Forwarded-Encrypted: i=1; AL+hErHLTY/a1Tuc14pHaEJkf27EI0/c1STghtSQvF3/+5UTJ0DXLqcf5F8Lj5FRqU861F5lz0ZaiEolN+9U0As=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+M3LHMgJpB3MyflHRjUeMUTTOpc1scNWqWMYV03eTPvgspgEDD
-	qzmAYA8IGSgnYekxZJ/SlfxUugfSFnqXO8w+wCwCtEEt5xuCkk14n08OiGU2em+8
-X-Gm-Gg: AZFdTZepVNcMc4Hx6gdwyUZMNbl6vQ6jfKi00pUV2VV/4VSoq3Jo7go7PvO8ymWIbFV
-	4jekchDKtr9uFPWt6+23cJz6JHsOavPfYEKYV4sBU7DL5BBTu0rYvF0J/9kY0/JP6e8u+ojc1fL
-	u05zQjX3FQkKQxiFW6AEN/T2Sqi0nOocf2Fx6FVRED6M+Q6ONqFF9GXkaiYABHzRpjPhQcpAgbW
-	0D/pN6WV1RsuVQ75H3CtdfP4bjCP0vq9JUxzZIUwMIOXzd2xuvlhnfIJhAO8MTGTAbJ9G+9McO+
-	fN0KDE7I/GNkp0SDVkKn6Acl+QMm0Fx+HIhzQsQb+7eu8MVpKFA8nCky0eoLKpCK6aIEiRddYRO
-	Mc5NMRzAHTtv42t4Q1VYCuGjjm7y/1UL+TxEnedtpIoOHvrZKVhWh/pZePdOXgp2ihKz0ELoxEL
-	bTzffcEFFBoW/3cQl0y2D7z8ECp572nhGC+gxhLDxYAlMLElRpM66yr/r4AKE6APl3fR6VVIA1n
-	nsNr/zC/+faJd/GIUCASdrBVmhn6cNlQRhVOZfpHTA5EZq0lUzQ8ppH+4igNe5pXHP7+6/J42wP
-	Xji/k1DSA7/AQDm004mxMI/GV5LvhmL87bG8Cg+l6bbL1DfpwnqETAePp2hGMjBF/ndCTtytVJg
-	23XWX9w==
-X-Received: by 2002:a05:6000:2006:b0:490:6e0f:a024 with SMTP id ffacd0b85a97d-49c70b051bbmr27957716f8f.13.1794875829680;
-        Mon, 16 Nov 2026 16:37:09 -0800 (PST)
-Received: from gandalf.magpie-herring.ts.net ([87.74.56.184])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c609c651esm25475233f8f.47.2026.11.16.16.37.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 16:37:09 -0800 (PST)
-From: Zak Brighton Knight <zakbrightonknight@gmail.com>
-To: Tony Luck <tony.luck@intel.com>,
-	Borislav Petkov <bp@alien8.de>,
-	linux-edac@vger.kernel.org
-Cc: Yazen Ghannam <yazen.ghannam@amd.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	linux-kernel@vger.kernel.org,
-	Zak Brighton Knight <zakbrightonknight@gmail.com>
-Subject: [PATCH v2] x86/mce/amd: Don't poll unpopulated SMCA banks
-Date: Tue, 17 Nov 2026 00:37:00 +0000
-Message-ID: <20261117003700.4155635-1-zakbrightonknight@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1794875960; x=1795480760;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yvgrNno9d5FQQl29xM4deIUmhIQOCFM5isagb92yiBg=;
+        b=2S8XV8E3610fwACl8lzUEhamChb9QLMu4EqY/HWEpWnEmb5+VPn35Bbj37DQJwPQ2E
+         ql4+XXm/xUio4IukLkR5CM6Ps7oQ0zpDU5jfBApGL87P2rpGzU/fPsmGOB9MS3ORDrDp
+         mheQzI8q0939TSLcda/jtYb8+uNRYtBqDDxiRB9iSt4A9dcDhzO2d1uU205FORCGN9ZC
+         6u2EgFivphoyGnpWtI/7lFramAZBVVgybAyFQ/w3UVwDhpv94iiSkgytX5cBQZiPRIzq
+         SSJiuqa/jWKPd8Zp65X32rp0ylZBq8wZL8ErkOEQRgaI5fl4ON5Rp+VLBRd2wng14Zuj
+         DwAg==
+X-Forwarded-Encrypted: i=1; AL+hErFyZmkWKTHDOZLvBXeUL+CrzcrkKa/eNVezcq45CClcyUROkxhuh0KEXwCWRvnlnb3k4npVn3Rb+Va/Zs4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+FzOj1La9CWYd301ct4GYz7rQn4qCUZQ6Sdx7pvOWXlA2oVM4z
+	ABpc79oHvIQO3jnRrNo33GDUkrW3YWHTdG6SlvABIWHUEs5kIk7S8590YwZXQcdXp2PVTiEn278
+	B5xhDR70ml5aYbdK4zw4goKrEOUa8HZJUiD7ymGX0
+X-Gm-Gg: AYBFou0EHgOXCGR6aOkleEMssfWdH7hLGYyxP4cB/Tg3DMZCAfyEO31dxph11+VuSLr
+	UDrZzG8QnNRUc5KHCAtaqcrSgFvNZcnk59r69sbxW8x2BPzvIeNiCIlT0WklOeiAXb7yy5FZ97F
+	mG5cZ0HVOVArafOlyapMtzO4tgOZOtYAwcRsSEvCxSME2eJWjfitXsig79UB6KBi4TLWxR5JZmU
+	Ay7PIxSfUMwxGcrNiiDU//bZOAC1kC6C/34KZuEikwIkHxHrXG11FNQ8OGRc0rgKm5lMoOImdN8
+	vx/Z+lgm95AoHcb6ZgErZIgn46gUN/5/L+dkEi66vHxZgxZGAxfX2VHtGX+AVHxqh/lX9aJGePm
+	zEQLuUqtQINXx1INghLaguN3E3Py25DKTLQKlyxVt9wKpq3wwKUTvE99Ioorqgkv08zDlEj5l44
+	juwbqdPk1wK7TdKvbP/Ya1GcJFHeYvUXiNhSmZOE+Nx/V0z4Ey9FONUsBxPOi4++my5B9NqAfas
+	qWlRRMYIg5C4XHxZtYGBmQ8mOwRZQ7tepCnM9w=
+X-Received: by 2002:a05:600c:4f4f:b0:4a0:20b4:ba93 with SMTP id
+ 5b1f17b1804b1-4bb7839996emr21077405e9.16.1794875959604; Mon, 16 Nov 2026
+ 16:39:19 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,123 +106,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261116-topology-wunsequenced-v2-1-54611119172b@kernel.org>
+In-Reply-To: <20261116-topology-wunsequenced-v2-1-54611119172b@kernel.org>
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Mon, 16 Nov 2026 16:39:08 -0800
+X-Gm-Features: Aa3M54rJVfSiPNSBUbY2jPJp90xuwKIoyFDAlZrLrZLvvd_WyhIWPKbXZui3s68
+Message-ID: <CAKwvOdkJzq8V1hO9SCDcANha5Tofk7EKao=c7pMv_LUji9vTJw@mail.gmail.com>
+Subject: Re: [PATCH v2] sched/topology: Avoid unsequenced accesses to jiffies
+ in sd_init()
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
+	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-By default, the MCE init code will attempt to set MCi_CTL for all MCA
-banks on a CPU. This includes unused MCA banks which are read-as-zero
-(RAZ) and writes-ignored (WI). The init code will check for this by
-reading back the MCi_CTL register. If no bits are set, then the bank is
-marked as "not initialized".
+On Mon, Nov 16, 2026 at 12:55=E2=80=AFPM Nathan Chancellor <nathan@kernel.o=
+rg> wrote:
+>
+> After a recent improvement in clang to warn on unsequenced accesses to
+> volatile variables [1], an instance appears in sd_init(), which can
+> break the build with CONFIG_WERROR=3Dy / W=3De:
+>
+>   In file included from kernel/sched/build_utility.c:86:
+>   kernel/sched/topology.c:2008:29: error: unsequenced accesses to volatil=
+e qualified 'jiffies' [-Werror,-Wunsequenced]
+>    1998 |                 .last_balance           =3D jiffies,
+>         |                                           ~~~~~~~
+>    1999 |                 .balance_interval       =3D sd_weight,
+>    2000 |
+>    2001 |                 /* 50% success rate */
+>    2002 |                 .newidle_call           =3D 512,
+>    2003 |                 .newidle_success        =3D 256,
+>    2004 |                 .newidle_ratio          =3D 512,
+>    2005 |                 .newidle_stamp          =3D now,
+>    2006 |
+>    2007 |                 .max_newidle_lb_cost    =3D 0,
+>    2008 |                 .last_decay_max_lb_cost =3D jiffies,
+>         |                                           ^
+>
+> Per C11 5.1.2.3.2, accessing a volatile object is a side effect. Per C11
+> 6.5.2, unsequenced side effects on the same scalar object are undefined
+> behavior. Per C11 6.7.9.23, the evaluation of the initialization list
+> expressions in a designated initializer is indeterminately sequenced
+> relative to each other, meaning any side effects in the initialization
+> list are unsequenced.
+>
+> Add a local variable to hold the value of jiffies before the designated
+> initializer so that there are no unsequenced side effects while using a
+> consistent value, clearing up the warning.
+>
+> Cc: stable@vger.kernel.org
+> Closes: https://github.com/ClangBuiltLinux/linux/issues/2190
+> Fixes: 2b4cfe64dee0 ("sched/numa: Initialize newidle balance stats in sd_=
+numa_init()")
+> Link: https://github.com/llvm/llvm-project/commit/955715460eaf9188c241c74=
+750637fc82dfcc423 [1]
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 
-However, "not initialized" only affects the MCE sysfs interface and
-later writes to MCi_CTL. The bank's "ctl" value is still set, and this
-is checked in the MCE polling functions.
+Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
 
-Normally this is benign, since an unused bank would return '0' for
-MCi_STATUS. But in some cases, the MCi_STATUS register will have a value
-with the "Valid" bit set. And this results in logging bogus errors.
-They're determined to be bogus based on the combination of status bits
-set. Also, they are logged from MCA banks that have an MCA_IPID value of
-'0', i.e. reserved/unused.
+> ---
+> Changes in v2:
+> - Use a local variable with one access to jiffies before designated
+>   initializer (Nick)
+> - Link to v1: https://patch.msgid.link/20261114-topology-wunsequenced-v1-=
+1-686a36fe61f5@kernel.org
+> ---
+>  kernel/sched/topology.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+>
+> diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
+> index 99878da03bce..60fad1690894 100644
+> --- a/kernel/sched/topology.c
+> +++ b/kernel/sched/topology.c
+> @@ -1956,6 +1956,7 @@ sd_init(struct sched_domain_topology_level *tl,
+>         int sd_id, sd_weight, sd_flags =3D 0;
+>         struct cpumask *sd_span;
+>         u64 now =3D sched_clock();
+> +       unsigned long j;
+>
+>         sd_span =3D sched_domain_span(sd);
+>         cpumask_and(sd_span, cpu_map, tl->mask(tl, cpu));
+> @@ -1973,6 +1974,7 @@ sd_init(struct sched_domain_topology_level *tl,
+>  #endif
+>         sd_flags |=3D asym_cpu_capacity_classify(sd_span, cpu_map);
+>
+> +       j =3D jiffies;
+>         *sd =3D (struct sched_domain){
+>                 .min_interval           =3D sd_weight,
+>                 .max_interval           =3D 2*sd_weight,
+> @@ -1994,7 +1996,7 @@ sd_init(struct sched_domain_topology_level *tl,
+>                                         | sd_flags
+>                                         ,
+>
+> -               .last_balance           =3D jiffies,
+> +               .last_balance           =3D j,
+>                 .balance_interval       =3D sd_weight,
+>
+>                 /* 50% success rate */
+> @@ -2004,7 +2006,7 @@ sd_init(struct sched_domain_topology_level *tl,
+>                 .newidle_stamp          =3D now,
+>
+>                 .max_newidle_lb_cost    =3D 0,
+> -               .last_decay_max_lb_cost =3D jiffies,
+> +               .last_decay_max_lb_cost =3D j,
+>                 .child                  =3D child,
+>                 .name                   =3D tl->name,
+>         };
+>
+> ---
+> base-commit: d7e670601af6c564ccf6d3b2ddf70ee4f41a6d1c
+> base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.=
+git master
+> change-id: 20261114-topology-wunsequenced-18f1d3b9167c
+>
+> Best regards,
+> --
+> Cheers,
+> Nathan
+>
 
-Clear a bank's "ctl" value during SMCA init for unused banks. This will
-save an unnecessary MSR read during normal operation, and it will avoid
-logging bogus error values that may be present on some systems.
 
-Signed-off-by: Zak Brighton Knight <zakbrightonknight@gmail.com>
-Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
-Cc: stable@vger.kernel.org
----
-v2:
-- Changed commit message based on feedback
-- Shorten the code comment to Yazen's wording.
-- Move the background and the test results below the cut.
-- Add Yazen's Reviewed-by.
-- Rebase on today's tip master. The code itself is the same as in v1.
-
-v1: https://lore.kernel.org/all/20261107111211.578991-1-zakbrightonknight@gmail.com/
-
-Thanks to Yazen for the review and the new commit message.
-
-The background from v1. On a Ryzen 9 5900X (family 19h model 21h) the
-kernel logs a bogus "System Fatal error" every week or two. It always
-comes from CPU 1 and from a bank that CPU doesn't have.
-
-  mce: [Hardware Error]: Machine check events logged
-  [Hardware Error]: System Fatal error.
-  [Hardware Error]: CPU:1 (19:21:2) MC14_STATUS[Over|UE|MiscV|AddrV|PCC|SyndV|UECC|Deferred|Poison|Scrub]: 0xffffffff8b416928
-  [Hardware Error]: Error Addr: 0x0000000000000000
-  [Hardware Error]: IPID: 0x0000000000000000, Syndrome: 0x0000000000000000
-  [Hardware Error]: Bank 14 is reserved.
-  [Hardware Error]: cache level: RESV, tx: GEN
-
-Only CPU 0 has the shared banks like L3, UMC and PSP. On the other CPUs
-banks 4 and 7-27 are unused. On CPU 1 their MCA_STATUS and MCA_DESTAT
-now and then return a non-zero value. The values look like memory
-contents rather than error status. They include page table entries,
-instruction bytes and kernel pointers. If bit 63 happens to be set the
-value gets logged. This machine logged 39 of them between July 2025 and
-October 2026. Owners of other Zen3 desktop parts (5800X, 5800X3D and
-5950X) report the same thing, also always from CPU 1. Commit
-0422b07bc4c2 ("x86/mce/amd: Filter bogus hardware errors on Zen3
-clients") filters a related signature but only on Cezanne A0.
-
-The junk can reach more than the log. On 24 Oct 2025 one of these
-records came out as a deferred error with AddrV set. The kernel then
-tried to take page 0 out of use.
-
-  Memory failure: 0x0: unhandlable page.
-  Memory failure: 0x0: recovery action for get hwpoison page: Ignored
-  [Hardware Error]: Deferred error, no action required.
-  [Hardware Error]: CPU:1 (19:21:2) MC9_STATUS[-|-|-|AddrV|-|-|UECC|Deferred|Poison|-]: 0x84453c75c085c589
-  [Hardware Error]: Error Addr: 0x0000000000000000
-  [Hardware Error]: IPID: 0x0000000000000000
-  [Hardware Error]: Bank 9 is reserved.
-
-It did no harm only because the address read as zero.
-
-The testing is the same as for v1 because the code hasn't changed. With
-check_interval set to 1 second, stock 7.2.11 logged 34 bogus records in
-22 hours. The same change on 7.2.13 logged none in 8 hours 10 minutes,
-where about 12.5 were expected. Reading the unused banks directly
-through /dev/cpu/*/msr shows that CPU 1 still returns junk under the
-patch. So the clean run is down to the patch. Updating the BIOS to 1.D3
-doesn't fix it. The full test notes and links to the other reports are
-in v1. This version builds without warnings with W=1 on tip master.
-
-There is no Fixes: tag. Every bank up to MCG_CAP[Count] has been
-polled since long before SMCA. The v1 notes list the two closest
-commits.
-
-mce_no_way_out() reads every bank whatever its ctl. So junk there
-during a real #MC on CPU 1 could turn it into a panic. CPU 1 here still
-returns junk from these banks about once every few million reads. I can
-test a change there if that helps.
-
-Claude Code (Anthropic) did the log analysis and wrote the code change,
-the v1 changelog and the test scripts. I ran the test kernels and the
-probe on this machine.
-
- arch/x86/kernel/cpu/mce/amd.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/arch/x86/kernel/cpu/mce/amd.c b/arch/x86/kernel/cpu/mce/amd.c
-index 1cc20b855b7e..9e6fe5798181 100644
---- a/arch/x86/kernel/cpu/mce/amd.c
-+++ b/arch/x86/kernel/cpu/mce/amd.c
-@@ -345,6 +345,10 @@ static void smca_configure(unsigned int bank, unsigned int cpu)
- 	hwid_mcatype = HWID_MCATYPE(val.h & MCI_IPID_HWID,
- 				    (val.h & MCI_IPID_MCATYPE) >> 16);
- 
-+	/* Skip init for unused banks */
-+	if (!hwid_mcatype)
-+		this_cpu_ptr(mce_banks_array)[bank].ctl = 0;
-+
- 	for (i = 0; i < ARRAY_SIZE(smca_hwid_mcatypes); i++) {
- 		s_hwid = &smca_hwid_mcatypes[i];
- 
-
-base-commit: be3c65835ade4d487ccbeb08c827662db09ee7e2
--- 
-2.56.0
-
+--=20
+Thanks,
+~Nick Desaulniers
