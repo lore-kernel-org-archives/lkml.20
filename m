@@ -1,113 +1,113 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794912424;
-	b=2issphDVqI6kCFdmG3WdN7KgpXadkLqjrO7ZtAh+dAQdWyDIXy69VCMd2Y4yqOMXe4If
-	 Kzlm6CTIctFeMsEDZfBfHeAHpykZmYtNLcicQAHfrFOzGy+kWVilaxUzBrx7+s6E/8gJN
-	 X6UZaLa6l3Nng8elZsrn7WCLAlrmL6FpcZRV1pw+nx26cbQP1kBIb8hFnxIjwaKSkFcSA
-	 8Y3Z8V4LGcoUIQFmZRH8D/8YjTvCUeWSDFQRaDJRyM/e2/cxnzMxDvCGoNvg0yRqA2oIW
-	 2Ff/iSIg+7nI2taP3ZCS5JEN4wtDjupcxBo6nJTLmw3Yz74Cn5QMg2Dow3oZ/n6R25A==
+	t=1794912425;
+	b=1XhA3HMbUHKXeWvZMhnf5x51T1qodOEEVuFbvMNtgtgor0CWPTHR2V/11yoL0m0dhqdJ
+	 O2hS6r757LrqXXA6yFtLFXOctySBhmuDXVGs6yD1W1upM7wbMdA7h86UKLsmBRZRKa6U3
+	 G02R/rW2IQdBUOOb9lPlYAjCw8GpUAaFv4JznW0kKvUk+n9uCcAlAu+umo20GF0Z7yEAC
+	 qanuTnr26YmUB4hGbaQGxFcIuB/8+yGj6Yc+o6Ho7Yq1K3dn4CVnVi+1O5ici1Ns1eTk7
+	 b7kA49jDWF4Ni4zgjcYuhk8Gj/wi73fpgjbBnN6F/orBvR62Ms5/cb6VvozKgx4SdSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794912424;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794912425;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=L7AzRK9KzJUJTomE2MyJghN0nH1RobHygXHPHQ+1KK0=;
-	b=dkv63/cld1gUHyejHSRRSa7DI9UH60bDkPV/CTlYre3BjNHoJFK51KLMKvvBurWxyBXA
-	 i1XFaUP5ffn2DN6bzWbyOU8xtYwUTyeseF7YV8TMWMckf5vg3o3ZYHz5gjzNCjvHaYXy9
-	 3Ea+cXEz1HgBJfUP53WN8CSgqL5zDub7PRqe0IwbZtF8oO5P1owHRDNrJ/T1JWl0I17j1
-	 m1ND3nz2NomXnlUq08ywHqEDiFEKR9gubNAPJxKULRNBbcWA0eUKNESw8XwPMy6a8ntit
-	 Y9vM89gmclxqYk51qRjQzrzfj2zSv9n13/A6EhzQ1esmuUPBsYXOlPGu/UUFy7sFKkQ==
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=FQUQ/jOJq8X0ZQRpWWjLXu7soSdrNQcMZ36bXI8ovyw=;
+	b=QHFmHyLv3qGazdzl060daBXbkLOt43aQJCIcT2cIgZDDz4tlVFGZy4tSwVuBvzWwhMdv
+	 brUl5jPJ7XCG0Y36j8MszxmcFCee+4CE7paz0XyZhkvFc6LwHsY3lQKMunPqbj3ixRz1O
+	 hlG+ElQPwW3jqjwR/EGRYibQLwOZvvUVIoiQug0vVqd4JZAYgWcljHqyjwcwge1dEUOoU
+	 VLOvIr0iRbpUZkYo7DLi92Gjz79Z85fYDr+t65b+ELg23VaUm492OE09vjbnWTKwIkZOw
+	 NLlxh/SJhw7Z4NeRA+uyRsOgPe8udosNfBbi5P3gXB+gC0EawYUyBxbkrXO9HEG1lVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=BG7faaCp;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JAUwo6gP;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=O+ROPzlc;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VEuUlNbJ;
 	arc=none smtp.remote-ip=205.220.168.131
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DDDD606A336
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:47:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DDDD606A336
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 743FA606A88A
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:47:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 743FA606A88A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=BG7faaCp;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JAUwo6gP
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH8P0UA3407582
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:47:03 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=O+ROPzlc;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VEuUlNbJ
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHA4xfO2790622
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:47:05 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	L7AzRK9KzJUJTomE2MyJghN0nH1RobHygXHPHQ+1KK0=; b=BG7faaCpNM49oeVZ
-	98k+QTU6JqdwQDU/yQ9DzR/9PmK3ci/tDVOtfKExdnjJ9Lweqcf3bjXI5lyFQ6Rn
-	h2tOe2VXIdJ8mkaLLNmwvU5QA3dM624m4V8w8mc+eXKEpUMW8SonPCfftic+1V4U
-	eiWpGi7CJzPozK0jFNQMbrt0Z4mgfUV3ElTsy8aHiyRit2t5ZsK2pGRfqopnOsgQ
-	Q+sBa5siuP6ZlrlR2ZzWoC5Vkzz0DoeP2oCrBXOjiITPCIfB1K/vrjheUbkGkjfh
-	YkAkxMeaZrugoTj8cIrpupd1uJJ8u9CPiWqOvN/7CShW3Y/QgUigpTyyWQDln3iE
-	CN/AfA==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j09htjpjm-1
+	FQUQ/jOJq8X0ZQRpWWjLXu7soSdrNQcMZ36bXI8ovyw=; b=O+ROPzlcOMj2mgr3
+	1VsDNsZlAT6WiXJTYMdgnyuzxuTUUbMwjb81PmZ2UjhDRqUhw+6GLvLKbBZcIxp5
+	YLjMJrE4GI7wseLDWWUt7mAnHZa/VwVkr3zj8zQHc9Unyb3grf2rGN25qm+9Ws3j
+	amznl0owijfOd/Q+N4FM1zCc7K7ohLMwfZp1j2hjo1g/0J2y9Am8VSUuSktp1vsc
+	wCSmlDpmsDoR/g+uwy+aM6HDbyUV3ghU8OVNXcJJsEqfkiafxN5PXBc/zqUuwmGz
+	btQH584uOo4Lpnwtf5ISdRfL48JXVqLptZXswHXukW6PHCvJfTAB/1OEM+rKrF8e
+	xDNDAA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0mv105ae-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:47:03 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f33438950so418930785a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:47:03 -0800 (PST)
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:47:04 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-9308eafb465so1123925985a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:47:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794912422; x=1795517222; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1794912424; x=1795517224; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=L7AzRK9KzJUJTomE2MyJghN0nH1RobHygXHPHQ+1KK0=;
-        b=JAUwo6gP25hRSI8Oy4GhKhX6JfOi7IRgA9Dj28wlW6qQSNn7XhqdxdLV9op7JvY2cW
-         XbpaFlQthQr10Rh+d4ZaPTKFwY0Qoq/PSVRhaVckkqxNiVG1zaUQdxMJffqVk9FALWF7
-         jr2t8170TvMH1+pnyBOFkrbELeSFpxpunniXTJRfZ41jXmbSGtKBBDkY/2jshE4uJX+Q
-         V5NAeJOdyLToAh9jDQBllzpNCD8ARt878B2dXReAat6d5Hwo04X58m5ItDmfwTNprP+c
-         0q/gyZ+9oLlSZ3RRMwwf0pjjmvmlIaZsgIEAMsd4MSQVDyWoWOSxE0Zop55kw+dzs+Tv
-         GoHw==
+        bh=FQUQ/jOJq8X0ZQRpWWjLXu7soSdrNQcMZ36bXI8ovyw=;
+        b=VEuUlNbJoWmCbqaHAinowMUl34/DVih/siaS3O4iHA2bb5HmCgkcBH/SHqMWZF3jeG
+         7zUKeFnHmStPVaDgczJLNHAWzxtLpyPFA6s4kceK+LYL1e2YW2TnL+jFHx0WK1VLsdSe
+         ftr4EBvDFbbyjV8OsLqJsng9frrL0pSu6nGEs6nxo3dba439qlqOmb13nvOR/wL75t/l
+         WZfA4z86fyieqEESKR5nwFOfNkjkIoBnIW2fryd6nwG4A3yGgOydWGRBdykSW9Q8CqOq
+         2ZVuzujiOW4aViKVITiVJXsSlVownYl3zKUa+UR2Bu6t9dZ81fvqQKMfRTaivbVfkR0U
+         kytQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794912422; x=1795517222;
+        d=1e100.net; s=20260707; t=1794912424; x=1795517224;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=L7AzRK9KzJUJTomE2MyJghN0nH1RobHygXHPHQ+1KK0=;
-        b=PumhxBh02YbcNy2HQ3Y5OPlgktvHzuOJybRbtvZzJbMvfReupCDyMG4gKUfWxrcj54
-         jTJLpYFgrCW8hW58Y4M9Cd7hrOFMOU1gYml2bitxJgBlt6CGDFY347vpEixdOK6nHEhU
-         Zfx/FxnKUECeVpRwe1GKM9eJmVZ/X9Lvj7Xkyo3PKbYtu5Rsx7ThR23AMUKsHKVRwNK4
-         Y7Yggl9F3OTs/RpO+VkdMAyKXSiYo/pEkiwHnRceRdnrhz5OYimNmh2yxIFhWifoFlPZ
-         8dNISIMfb2MuahTx+pwcITa8UxHDrr/WtkZPA7p7dfm8E9JbJ9Fhi5sKpXy2ViUoBa5r
-         mqYw==
-X-Forwarded-Encrypted: i=1; AL+hErHTDc8Z7ozA4nLuZzThB2X/OffIH9f0ikiHffeDxzRCy9+bfwOLDaEx3T/ytlfZ1uixFADzdzkS1tg2pns=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8VA3eF/4GA3t9zyMOq4ExTzyx0lpUyFqvPw4LjVcFMXBZJNw7q
-	0bZhaemHCj11DS3aYhcjtDtUif4P59FXhCT4r0l7jrsxmA3bS9/kbOW/uovFT07CSFkrBJyyiMC
-	WeMLtqPdcQ7dixRrQM2E8XSwzKx0s4HRI+E4h4vUygIit2Qhe81sfAH0RVMmaVAD/UGA=
-X-Gm-Gg: AYBFou33GVwxirkk8YodgBbGNtnuOOULY+DrIiAN9DvFS+hzRkt4YIS8cDMfd+Wl0Y9
-	8Vl1Axgsf7mIQbA8FAUVNnVkbNk1m7Nc9rxRYyLI0XLAL8/CXQirhU6VTFbb+3CD5ahPxms21my
-	juxgblW2dXeCprxz1d2/RHWZboCxUt9YlzRRop62s53anpb03Q3vi583S1lzbHDV7GFklDGhmlC
-	WgSBklJojGAPWRyr+baSZqB5rPU11W6zZYnnp77eSljQ3q3qyZG3BMawpZW0huBNvr7X9KUTSA4
-	VZ6qZqVm81i601nPPsajThlLGukTwDszdp0qFXGXvoT5Jf1mAaHkyC9uQGlKwRqJu4p9rgy3xSd
-	z9WS+xYRCD4cjXHEqdtP9KC5G5OzKfe7o4HmP1vtjXq0e04bK+4rZJs/99c0YCY64tmue9DS5p6
-	Z2LhUkvrnSJVW3CTO3MdCdJVbdo/bkRzJdwTZvWPZdmf9IPLOGJDMKU+Sl3YWPtbUNQpcSsKJIs
-	a455DmzdnTz/+vf0X1T+JxYRzI=
-X-Received: by 2002:a05:620a:44ca:b0:949:730b:53e9 with SMTP id af79cd13be357-949730b61c5mr1289416385a.31.1794912422424;
-        Tue, 17 Nov 2026 02:47:02 -0800 (PST)
-X-Received: by 2002:a05:620a:44ca:b0:949:730b:53e9 with SMTP id af79cd13be357-949730b61c5mr1289413485a.31.1794912421916;
-        Tue, 17 Nov 2026 02:47:01 -0800 (PST)
+        bh=FQUQ/jOJq8X0ZQRpWWjLXu7soSdrNQcMZ36bXI8ovyw=;
+        b=njmHypE6jeqTCUl4Ma1SbvcYvunnpzrMetY1ujSTkygWRV4CSm34KRmQjOdWOZVFMS
+         tli8z5RXF0AnEbIUsfHwloXVR+o2IuzoBdnpU92Oh9eYqAikopzj5galYyEWcHLE1uKL
+         EfuJSQn6TcKgF0pNUFC/pAwvvaoSBoDqTQbHKsP/bZ04wVinAddVJNLL/E7JKxFWfb/t
+         Wa2LgD163oLkPD05a+HBzAq2ju1jw/RIdsdQFUuKBV1bpxXadlKDzGpdSKH6QnScXls+
+         5gYjZkkuz0um4FxKdjXRPIdKy/6HwIbgo6QaqYxSZ+3qnsEYdkBgiDU+mwQJyrHO478q
+         THlA==
+X-Forwarded-Encrypted: i=1; AL+hErHa48bTGXIQNKyiSViRTMHIsNnwD/qVBhu18oJDtkwCKFwKRISYIe5qY8HDEnPsvhjt2WujLRRTwSkJDio=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Ta6k62CF1TX8Ti/MByRoF/NQIbdRi3O+zwDYySDcm+iTtgO7M
+	/hVSXYgM+Bz+XUG7KhxQU6cyHJa5bSb9ANkLFWbSJlTtjD7UDd8kXH2wBdHQkxOb5EmRJJnWUYW
+	rbTc/UOznC9fKeXQNMIDsitBkv6fzrJnFXfMkzbc4+DxceWq5enkqcwrJ/VTbm1LAlY4=
+X-Gm-Gg: AYBFou2+4K1Z6jZttnnf2yz/O3DZ4fxY8uSt09WGb3OdUN/xNSB8dlf8EgO7n+TLfeO
+	A/ZPRLG60MZpzcc4RVHIMsRrPuYrjDbFTH6oKMyA65fwENFWOOq0TWCTB/QSfufGo83G12k7+6+
+	JPoeY9eTy6Am7+Hd5vYYypWJncFCDgOYR4MhdjAnw6OTxuFXpKHf4YfiTz6CW89Gvs9Tzyr/Kso
+	JvQl+LkatqIpD0KDtcDtRmrIE7XhmRKysm8ui1ITeU+uuG649OJH9CCW7tgwMFK0o6kD1nUh4j6
+	fQx155aaMctV+NeTeRoXaQaEqtpdwnIqw6Mu11Od5YRslIK36T1qVrk7FiLbFGJgExkuCixpFYV
+	fGS5txr3R5nJALS1s0C7N7gTqzXd6IyuIdd2RsoS/Ip40TNnJm+TEGabSJyYj7+3BJdC/mEvmIV
+	RTpJyJ3ZaJxVt+2QcyiqsSxaMLIQgvnv5v3dFZTKc6jRJZQetvHShAQEmxfQuP5G/H7dicfWpkj
+	FQ7Du11VL4nmz1kpu9FYLoy7fc=
+X-Received: by 2002:a05:620a:25c6:b0:93e:bdeb:f067 with SMTP id af79cd13be357-9494bc0cdcbmr2164049985a.48.1794912423809;
+        Tue, 17 Nov 2026 02:47:03 -0800 (PST)
+X-Received: by 2002:a05:620a:25c6:b0:93e:bdeb:f067 with SMTP id af79cd13be357-9494bc0cdcbmr2164048385a.48.1794912423355;
+        Tue, 17 Nov 2026 02:47:03 -0800 (PST)
 Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([195.50.164.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb70105a98sm119178335e9.5.2026.11.17.02.47.00
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb70105a98sm119178335e9.5.2026.11.17.02.47.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 02:47:01 -0800 (PST)
+        Tue, 17 Nov 2026 02:47:02 -0800 (PST)
 From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Tue, 17 Nov 2026 11:46:53 +0100
-Subject: [PATCH v2 1/3] media: qcom: iris: venc: keep the crop rectangle in
- visible resolution space
+Date: Tue, 17 Nov 2026 11:46:54 +0100
+Subject: [PATCH v2 2/3] media: qcom: iris: venc: detect scaling against the
+ visible resolution
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,7 +119,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-iris-fixes-v2-1-0b21201ab137@oss.qualcomm.com>
+Message-Id: <20261117-iris-fixes-v2-2-0b21201ab137@oss.qualcomm.com>
 References: <20261117-iris-fixes-v2-0-0b21201ab137@oss.qualcomm.com>
 In-Reply-To: <20261117-iris-fixes-v2-0-0b21201ab137@oss.qualcomm.com>
 To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
@@ -133,104 +133,94 @@ Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-media@vger.kernel.org,
         linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
         Loic Poulain <loic.poulain@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA0MiBTYWx0ZWRfX5OdeR8MrbIFj
- 9CBSBLWrFkjnD0kiyo1vDHFHfEW8iDqV7ahVIVyYQhjlJhmsQn9UzlObk6SZNUtbNbXvA6S7PK7
- hBeJZqQhkIgb+DxvL2+YSbrffiA3IoQ=
-X-Proofpoint-ORIG-GUID: FOm0zY_fctuWBBQhAZr2TEiGGRemPKLk
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA0MiBTYWx0ZWRfXyKfqaThAU8Vt
- Lak3fs1QBoEwcOC2+NqsK7Ev8AIQPZyUcqCkQGjxQZEj6WHGB1cRCDGpuvfnJD+l9r00yIgzoqm
- U+CsXuQZVTFAQnLfaTEMKobxYm7KHI02A6hblFTYNUmfhGMbCnH1wlHh0MQOcQTykXq/uTvp4eR
- Ct5p/2W5+TgnuLzRcabNQJzmBFEE3MwYWvUv4qnW5JB48ZeCTPxcd5CyJ8SsLTh5qYgBMyD100F
- NlTVu20ZATePw9y5wjRQV+5rlPnwGVpU1QVLH646G+sog6kVkzZCSvR3vKBX6uFMzHszZIQAthe
- QlEdWsiFUUg2/d7Gm/gMAToVGhB9gXmalxEhg9mG7w/Qfc0vFNC0P1JgO7b1bxNf1PFXQJvuhVQ
- DjFqO09aIL7mO8aZd0ol3bYMb4JeehKWZ/TVgf65texn1l1d1Hfn6qVW4JqIC07pxAsgdoO57i6
- HHuOvVq3q8qP//Ak/sw==
-X-Authority-Analysis: v=2.4 cv=K963jCWI c=1 sm=1 tr=0 ts=6afc30a7 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=Jk2/TV77q6/E6wQq2oQJxQ==:17
+X-Proofpoint-GUID: kglZset6f5u_fhwxbdLodCwlytR9P1gX
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA0MiBTYWx0ZWRfX640DwmJ+LhuR
+ o9JrqXZliDeeN6vF8auRskG905GBLBF8Gb6RIN67odfDIr59mCmORyHBMqznzyUN0jzm3dnDkps
+ 7v6I4+JiI7KRNJ5dxRIYufru1hw4zas=
+X-Proofpoint-ORIG-GUID: kglZset6f5u_fhwxbdLodCwlytR9P1gX
+X-Authority-Analysis: v=2.4 cv=Cuwq4X4D c=1 sm=1 tr=0 ts=6afc30a8 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=Jk2/TV77q6/E6wQq2oQJxQ==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
  a=EUspDBNiAAAA:8 a=WErB8th0LOlg1rsA1XYA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-GUID: FOm0zY_fctuWBBQhAZr2TEiGGRemPKLk
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA0MiBTYWx0ZWRfX1nYNCmPdwz0A
+ 6Qa4oJTWbnt/yMfMe8VJZwKl3lbhl77LS0SNuutDapRNSV4OC2dTc7mWf5aLfMPfGsMgIjS3LSa
+ wjKxOYXObZyy1Ih1y9ahzTKp+mfm3YxCGTbuhp5AdaKSZnn2lQ9f/5iJ8MLZszSOsihuFAWP8CQ
+ xsiCgjQ6kHrWoaAK5tIPfAaZysditqqZHS662GqUiaaVLa8aIy13H2So7U6dvAJBjHLjrPFRMlN
+ 8D39/xfw99DqjILrHv7aifgwodj2d9XTuPkyw5zkQS6h0CefMSlnOXNj8XGc3BXXxglDa+HpMdr
+ 3QA0LsuPWHdlCG3ceW8pp1grEqTOjPsFQ00wdibHLGF15+IQ9AnmP+982zSJhvRucXSPinEO65n
+ gIhUWsGPrGnDrrrOKezDWlAFQ1pCbkTcZ02zF/2rt4wy399F6sM+j6MpluPEZMpklepcp6CBgGf
+ b2R7JRdlWJZGKIqFY7A==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-17_01,2026-11-16_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 phishscore=0
- lowpriorityscore=0 bulkscore=0 spamscore=0 malwarescore=0 adultscore=0
+ phishscore=0 bulkscore=0 adultscore=0 clxscore=1015 priorityscore=1501
+ spamscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170042
 
-The encoder keeps two source resolutions. inst->fmt_src holds the padded
-buffer geometry handed to userspace, with width aligned to 128 and height
-to 32. enc_raw_width and enc_raw_height hold the visible resolution sent
-to the firmware as HFI_PROP_RAW_RESOLUTION.
+iris_venc_s_fmt_output() decides whether the session scales by comparing
+the requested coded size against inst->fmt_src, the padded buffer
+geometry, while enc_scale_* is relative to the visible resolution in
+enc_raw_*. A 1280x720 session that sets the same 1280x720 on the CAPTURE
+queue is therefore taken for a 736 -> 720 downscale.
 
-inst->crop must use the visible resolution, because
-iris_hfi_gen2_set_crop_offsets() computes
+Compare against enc_raw_* instead. iris_venc_s_fmt_input() has to seed
+fmt_dst from the visible size too, otherwise the internal S_FMT it issues
+on the CAPTURE queue hits the same mismatch. The encoder does not use
+fmt_dst for stride programming.
 
-	bottom_offset = inst->enc_raw_height - inst->crop.height;
-
-iris_venc_s_fmt_input() seeded inst->crop from the padded fmt_src instead,
-so any height that is not a multiple of 32 underflows. Both offsets share
-one payload word, so the right offset is corrupted too.
-
-Seed inst->crop from the requested visible size, and report CROP_BOUNDS
-and CROP_DEFAULT from enc_raw_*, so the bounds match the real source frame.
-
-G_FMT is left as is. For contiguous NV12 pix_mp.height is the only way to
-report the vertical luma padding, and the hardware is programmed with
-scanline_y = ALIGN(h, 32).
-
-  v4l2-ctl -d /dev/video1 \
-      --set-fmt-video-out=width=1280,height=720,pixelformat=NV12 \
-      --get-selection-output=target=crop
-
-Before:
-
-  Selection Video Output: crop, Left 0, Top 0, Width 1280, Height 736
-
-After:
-
-  Selection Video Output: crop, Left 0, Top 0, Width 1280, Height 720
+Seeding fmt_dst from the visible size also means the codec alignment has
+to be applied on every path and not only when scaling, so that the
+CAPTURE queue keeps reporting the coded size. For 1920x1080 that is 1088,
+and the firmware signals the visible 1080 with SPS frame cropping.
 
 Fixes: d9967fa37ca9 ("media: qcom: iris: Improve format alignment for encoder")
 Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 ---
- drivers/media/platform/qcom/iris/iris_venc.c | 4 ++--
- drivers/media/platform/qcom/iris/iris_vidc.c | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/media/platform/qcom/iris/iris_venc.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/media/platform/qcom/iris/iris_venc.c b/drivers/media/platform/qcom/iris/iris_venc.c
-index 2f2c56bf9122c73e10e86815b1aa5fad99b0fb42..c55d2d905c0064c6d292158ac741571a1471dc82 100644
+index c55d2d905c0064c6d292158ac741571a1471dc82..b367367ac2ccf874a00606b8b1352fed37b37a57 100644
 --- a/drivers/media/platform/qcom/iris/iris_venc.c
 +++ b/drivers/media/platform/qcom/iris/iris_venc.c
-@@ -312,8 +312,8 @@ static int iris_venc_s_fmt_input(struct iris_inst *inst, struct v4l2_format *f)
- 	    f->fmt.pix_mp.height != inst->crop.height) {
- 		inst->crop.top = 0;
- 		inst->crop.left = 0;
--		inst->crop.width = fmt->fmt.pix_mp.width;
--		inst->crop.height = fmt->fmt.pix_mp.height;
-+		inst->crop.width = f->fmt.pix_mp.width;
-+		inst->crop.height = f->fmt.pix_mp.height;
- 
- 		iris_venc_s_fmt_output(inst, output_fmt);
+@@ -240,14 +240,18 @@ static int iris_venc_s_fmt_output(struct iris_inst *inst, struct v4l2_format *f)
+ 	 * If output format size != input format size,
+ 	 * it is considered a scaling case,
+ 	 * and the scaled size needs to be saved.
++	 * Compare against the visible source resolution.
+ 	 */
+-	if (f->fmt.pix_mp.width != inst->fmt_src->fmt.pix_mp.width ||
+-	    f->fmt.pix_mp.height != inst->fmt_src->fmt.pix_mp.height) {
++	if (f->fmt.pix_mp.width != inst->enc_raw_width ||
++	    f->fmt.pix_mp.height != inst->enc_raw_height) {
+ 		inst->enc_scale_width = f->fmt.pix_mp.width;
+ 		inst->enc_scale_height = f->fmt.pix_mp.height;
+-		fmt->fmt.pix_mp.width = ALIGN(f->fmt.pix_mp.width, codec_align);
+-		fmt->fmt.pix_mp.height = ALIGN(f->fmt.pix_mp.height, codec_align);
  	}
-diff --git a/drivers/media/platform/qcom/iris/iris_vidc.c b/drivers/media/platform/qcom/iris/iris_vidc.c
-index 05aab6e3005d5c3788f5dfe5857f2d6b782e7a83..e3eaec1b7c2e30c065d8419ac3278756f70a8a97 100644
---- a/drivers/media/platform/qcom/iris/iris_vidc.c
-+++ b/drivers/media/platform/qcom/iris/iris_vidc.c
-@@ -522,8 +522,8 @@ static int iris_g_selection(struct file *filp, void *fh, struct v4l2_selection *
- 		switch (s->target) {
- 		case V4L2_SEL_TGT_CROP_BOUNDS:
- 		case V4L2_SEL_TGT_CROP_DEFAULT:
--			s->r.width = inst->fmt_src->fmt.pix_mp.width;
--			s->r.height = inst->fmt_src->fmt.pix_mp.height;
-+			s->r.width = inst->enc_raw_width;
-+			s->r.height = inst->enc_raw_height;
- 			break;
- 		case V4L2_SEL_TGT_CROP:
- 			s->r.width = inst->crop.width;
++
++	/* The CAPTURE queue reports the coded size, in whole macroblocks. */
++	fmt->fmt.pix_mp.width = ALIGN(f->fmt.pix_mp.width, codec_align);
++	fmt->fmt.pix_mp.height = ALIGN(f->fmt.pix_mp.height, codec_align);
++
+ 	fmt->fmt.pix_mp.num_planes = 1;
+ 	fmt->fmt.pix_mp.plane_fmt[0].bytesperline = 0;
+ 	fmt->fmt.pix_mp.plane_fmt[0].sizeimage = iris_get_buffer_size(inst, BUF_OUTPUT);
+@@ -293,8 +297,8 @@ static int iris_venc_s_fmt_input(struct iris_inst *inst, struct v4l2_format *f)
+ 	fmt->fmt.pix_mp.quantization = f->fmt.pix_mp.quantization;
+ 
+ 	output_fmt = inst->fmt_dst;
+-	output_fmt->fmt.pix_mp.width = fmt->fmt.pix_mp.width;
+-	output_fmt->fmt.pix_mp.height = fmt->fmt.pix_mp.height;
++	output_fmt->fmt.pix_mp.width = f->fmt.pix_mp.width;
++	output_fmt->fmt.pix_mp.height = f->fmt.pix_mp.height;
+ 	output_fmt->fmt.pix_mp.colorspace = fmt->fmt.pix_mp.colorspace;
+ 	output_fmt->fmt.pix_mp.xfer_func = fmt->fmt.pix_mp.xfer_func;
+ 	output_fmt->fmt.pix_mp.ycbcr_enc = fmt->fmt.pix_mp.ycbcr_enc;
 
 -- 
 2.34.1
