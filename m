@@ -1,55 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794914678;
-	b=MOd9G5TtONHbbEHja8YBfFeefMO2TdRVXZK/BmR+sXmuz6E4hAj9mz4cMh1N2qSDtftD
-	 +pOsxrL97QGx41/hv5Gb1w2sJOQ9VjptVP6aT7pXDUBTR3xtAbBow+ZD7/Xx80ws77i5k
-	 re+88vha/QcD724m9JPfKNaHTrd1ejd79jb4tEbc7xnegLnbDZ8GdT6CRfBNFEnYWYHcQ
-	 qE6l2/JY55uMP6eAVRwUUZd9TbjS0C2get9s+YOzECYmagfxufVtLSdmPEHtQjt/m91jm
-	 VJPFiHIATuCiu9rKxtBZuL1Nm3Pbux8QdR64FRDi6A8GY2JNoOKrHVWKplChjf565Wg==
+	t=1794914718;
+	b=QLSmF2fVDanzt1UGBG8bEJYE41+VvGUd2ToEX04XJ6jOqrhliDeaiOHISGEdA5QKmSBe
+	 v/67jqQhCSNPeiJqBFAFhcNgSMRIxkAoUoH3wa9eCNGok3HPLEXGwAP+v9CTYBN3+OV3S
+	 tK/ek7Hf4CTO4hm7pRpillx2TWVDxbN1/0Dh5u0gHYve/BGkux1xFVWirVrPu7NQY7bBa
+	 4Ql4E8zG6zxv66Fjaa4GbAmHBw6ny/NAx4FOfdCmBkNWyFHD7JuaeX3EuuQ1yWrQjuwEW
+	 raQAkaW8MTGNAu98Hrre63MCJtx7u9JNCSokV1FUewygam4t6MbwHxn0IDZdEG/uNUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794914678;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=b9cQAk9LDyNmw6FOHcs3iHeEXGZIuOld4ACCEb7cKIA=;
-	b=ASozWbu8BL8uyBEnx7SnzymHyAC/BArB/JffpUXj1f4/uWl8w60hlaaXnP820Eh6WgGp
-	 /LvUhFgxRYBnM0Tyu/ciJBYOzISPT4RDhXe2/ZFGK770BraKytEUXFmZIaEbO7kIQMClF
-	 n2TEidM3tr9Zu0MVTZhBu3zPzZuBT+VFzyPrj9IODgLWwVKGmvGAxPwXNbBY6KHVx2CrE
-	 RpaAC0W6gdv1ZVrsJZdHrvVWVcYimPoxTErJeSC8Dkg/dI4DBbV1O9V5oi13uBrzTCTRs
-	 5CStL6IERgVvyl+Trg5HZBbiO+fZ8SjefFXy2RfnBrC9nw/TV2TDQxMaiQEmBMafwFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794914718;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=yl5icuEXIda7IxOjFmHbe1+uqtm5Dj+XPSKgMl8VH9c=;
+	b=U40Z9bNAEgDsg8Qd7+yhnKNoCkzGaSb9sVRBohfi9Yi4fSFPxsct4t6NwarbQ1bDskag
+	 c301zzNYKs3qLwvYtMjh5tyrMuK6FYYpQ1Dn8fdpSndVt6/8SNd7U+/B+i7keHDjUZFI2
+	 hlCG5/Cz6tyvcZpikW/RCNn0F1MgQEA2guhohcqqriH30FRJIKOsG2DRA4I6LiTSBIneR
+	 gxrLtPF9XVSSt5WD4bm1rOi4S8yF0i3ACQgafJrP/q7rsie9PbjBvQY+xAapJJUQZ1paN
+	 6y4PnqTQjYPIIZd++OY8g0BbEKiAYv8Rf6cb3sgmeCrsrQjKWDUoMcrEuDtMuvYfP7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gImLORue;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iZ96EuAd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E90C4606A31C;
-	Tue, 17 Nov 2026 11:24:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2783E606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:25:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gImLORue
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC4D71F000C4;
-	Tue, 17 Nov 2026 11:24:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iZ96EuAd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BDD81F000C4;
+	Tue, 17 Nov 2026 11:25:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794914677;
-	bh=b9cQAk9LDyNmw6FOHcs3iHeEXGZIuOld4ACCEb7cKIA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gImLORue2nhvJWpnv0UdiQWj3YvAR9u2Q/mlXde2c7onCKCeYJ1AhTaGkefDZpKHf
-	 2GnotiJQA53sfRymHQ4+KOR01IWVNAkWB6RQq0AwLZBl0PYJiApifULDY4FIU+mvjH
-	 tB8bWUCEspF8L689u6Q+0V+CPqkBInSk9x6z1inkitXPjTUpuZ/aLMHeHeYdbP03xw
-	 iEXUmYIRQDS/xIQs2dz4+dUQy5vX8+XFigeeppsWJPggF0ryVZjyZwCmZ4EvTJ5zA0
-	 I6QikSyWvOW+rnq490i1uzpeG88UeAJ0nzrwmSrlGwaqq1G8bS4LCnnojgeKG0Z7/J
-	 GjeK/Y8CH1Wsw==
-Date: Tue, 17 Nov 2026 11:24:34 +0000
-From: Lee Jones <lee@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Kees Cook <kees@kernel.org>, Kees Cook <kees+treewide@kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: Re: linux-next: manual merge of the mfd tree with the origin tree
-Message-ID: <20261117112434.GA84168@joneslee-macbookpro.roam.internal>
-References: <avtYstt11GO7g85R@sirena.org.uk>
- <20261117104722.GB64850@joneslee-macbookpro.roam.internal>
- <56691895-b885-4c63-a929-c4cfdd7a2dde@sirena.org.uk>
+	s=k20260515; t=1794914718;
+	bh=yl5icuEXIda7IxOjFmHbe1+uqtm5Dj+XPSKgMl8VH9c=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=iZ96EuAdmCsE/PAZ7iW0KBrDhbSoCXQPCV4mWWIOrYU7LizxIKieHeOKfnNo6nyB4
+	 S7JDi2Svx35NAfydILBEArJMOkonFq8hJGr+ppYAMZ6wF1iV6YbhHOf5njBBHQAvyH
+	 lLJHDOSNcDt1yrdbMrdi1GvC+ggtAxRaaAVaWL1mwYn4ERRW31pXhuBgNSixlgBc9z
+	 2/fOOcVm3Xmxg9uxKlgxRSWV6xi5tXbSCzzrmxk51X53JwdrrqnUxk0A9eUSdqliTG
+	 pDihVFSADSE+pDuv8iaqKxFJea9bBLV3e8jPm+G+ezUy47Ze24zvi5SDUSF3k4EFu1
+	 g2VfKxXIg2M8g==
+Message-ID: <31d5625e-226d-4524-b4f5-67c2d11b3882@kernel.org>
+Date: Tue, 17 Nov 2026 19:25:14 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,28 +51,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <56691895-b885-4c63-a929-c4cfdd7a2dde@sirena.org.uk>
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, Daeho Jeong <daehojeong@google.com>
+Subject: Re: [f2fs-dev] [PATCH v2 12/20] f2fs: support subpage blocks in
+ defragmentation
+To: Daeho Jeong <daeho43@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, kernel-team@android.com
+References: <20261116040851.2849696-1-daeho43@gmail.com>
+ <20261116040851.2849696-13-daeho43@gmail.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20261116040851.2849696-13-daeho43@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, 17 Nov 2026, Mark Brown wrote:
-
-> On Tue, Nov 17, 2026 at 10:47:22AM +0000, Lee Jones wrote:
-> > Kees, et al.,
-> > 
-> > > Today's linux-next merge of the mfd tree got a conflict in:
-> > > 
-> > >   drivers/mfd/nct6694.c
-> > > 
-> > > between commit:
-> > > 
-> > >   4dd10fbbeb9c3 ("treewide: Convert devm_kmalloc() family to the devm_kmalloc_obj() family")
-> > 
-> > Is there a branch / tag that I can pull this in from?
+On 11/16/26 12:08, Daeho Jeong wrote:
+> From: Daeho Jeong <daehojeong@google.com>
 > 
-> It's been in mainline since -rc2.
+> Mark only the target block, not its whole page, dirty when redirtying
+> data for defragmentation. Remove the -EOPNOTSUPP check.
+> 
+> Read a multi-block folio once through ->read_folio() instead of each
+> block synchronously, and redirty the folio that was read after locking
+> it. This also applies to large folios when the block size equals
+> PAGE_SIZE.
+> 
+> Read compressed files through ->read_folio() as well, with any block
+> size. f2fs_get_lock_data_folio() reads the mapped block as it is, so a
+> block of a compressed cluster that was not in the page cache was read
+> without decompression, and defragmentation wrote the compressed data
+> back as file data.
+> 
+> Signed-off-by: Daeho Jeong <daehojeong@google.com>
 
-Okay, I'll rebase.  Thanks.
+Reviewed-by: Chao Yu <chao@kernel.org>
 
--- 
-Lee Jones
+Thanks,
+
