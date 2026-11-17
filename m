@@ -1,101 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.228.71
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794936362;
-	b=K9xNFU9mGVCYKX2QU8IpcdbPJewMWGgW010/92101YGn1L5/7tm2U03Kz8yh0k/xUP2c
-	 KmGsUNMnUpGd+lrt9HHQUa00YflkJG6uOOTnfMPyTD+ULUpiI+o06Y5w1q4sy/By4DkDP
-	 nQazklNACNf0K2uo0VS+YE6qY63fSaYklxnG8RX0A0kWojAt86s4xxqRE2sq7ESYagg8z
-	 RpgFIeMZx+c3svAF+EheBt/nzTeOifbrltsllnm6LMMA7WJptNHxALWHGFc80s0Eee/R8
-	 /akj07zy0jxACZL7N0bmSydhNABHrz/ozneid05eexDRCxV5saeQy7yH+D8YzUPxZlw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794936362;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794936383;
+	b=KH+C3pRPrG01ifb8UorarxaDT9RSqOx9n5yx/+Vq9jSwQRn4X42MniYJOMOv8bnOYMZ0
+	 MN9yaeAN2S1Gtf5D2LAxaw7K3OM9y3Mg23VmD2b+k2cZE6RAHe42zolA6Xd+ttQ0i1CVF
+	 6xakjN+vCCh1bXKu14VjSrf/9kykVYxPB5n7KMge+HS944KrGXEI9gDMq22CuTeZdS9MR
+	 0F7UZHb84HjDV9UIDkihP4LQ0JLT7LKQQ6yK9R2wRVV5gNI4KCtrn3KJMOBJeKWjv2NWR
+	 tFjTPBID90epXlAiTQ5SX8pqXmWIVmXiNEMrr6WucvU3EEAT0gLTp4Q+Ut1Nr1l5MIA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794936383;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=373Q6XKV7D4BGtZOuwgJiXk7Z3A+A6WU4sQOoM0c/Xg=;
-	b=KX8pzjtJAsUS5y+ayc4qwQIPIq5y5M7jmyXUmaoF9VPJ6pryZVr+cS7jvUJR/YU/SDzU
-	 GUOMhSfnu3PNVL4dD5bP2EnwwW8OeobzGYMiaWXyXaO+BALFEiVtyLUDEYl91MNeR6iBQ
-	 gsBEIO22E4m/pWAI8Wy5tG+tPopF+WfKqH9Rsw7z9gH/GaKzLNAOauyCMLX7HwqeOro47
-	 q4c0iQaWcbqjkOWXoPYyt68XuCUBR1r9spX/Tbxja/ibrJlziZ//O2reHdphepm25O2SM
-	 k6E9a0Spkq6S7kE0FwwULyULWebMzsjZ+zlpouCnuDPc+oNltkKFyNoLkODU1Y0YHZQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=M+o9+9qekLBCMmwzgiZ85/sw7Z0aupiEWaDsdwZ/4vM=;
+	b=5tBFpqXncmXkfSqU5vVnJCZ7SqbxlG5y9mg6fmkgqHGGR3S6iNTSHaElRG1lgMlZ/ndU
+	 8p4z8taCLTllAeJ/63TZbHlA/Gruh6V5zl1OldSm3jfuIrsQUSQp7BimQfiKuMSU76njn
+	 1w+vOQ3RMM1dZXaUQ5n3nu0wWAGuXwF0wA6tCOHquRpXBzsX2ILEjfXNZ6QyAWcCcUPQi
+	 dw3ITJReL2gInNXGTS8CZDRaZSEqRt0iRnUDF36/0r+ontepokRaUKLDxw+5p9qcv6Pds
+	 F0xVkr6ESRImvQ0wfMkCAyrevbY9KIVyIgfn+eS9MeGdfHvCsTUarhG0dDzd+X0mZ2w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="e/3ahPEi";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.228.71
-Received: from mail-ed2-f7.google.com (mail-ed2-f7.google.com [74.125.228.71])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lrpOdjQX;
+	arc=none smtp.remote-ip=74.125.82.44
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BF7A606A32C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 17:26:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BF7A606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16DFC606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 17:26:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16DFC606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e/3ahPEi
-Received: by mail-ed2-f7.google.com with SMTP id 4fb4d7f45d1cf-6aa912db07bso48019a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:26:02 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794936360; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eAvVzPcN70/6xlj//2YnESpajYO09gOqx2gGvxMBUUkK+DRVBa4+Fro8Iu3ZlclvIx
-         u/SJWH9iG77cxsQIRG2lxgnFmUks984CFU7vRIgPqc0lntTu8xbgHF1/VsIzXCgJ4XKH
-         5X0jF+8vSFWIAtz8yo6Czn78+sxjC9O1EJn/yd6216W+iNOsU26wJnuO3SdA9V3kuizJ
-         ZOHcK4c9LphjLbKO8RQcLuZvtno236rHr3YUKQK1AAQFFgcgfG36lXbhhAIhUdTk8ytE
-         m4NXZkz+CHvnyc7WW+Yf6lQ2QixiuavXHufsWfG+UCA762xRy95KMgogF5Cw6XYOXnyA
-         oSDg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=373Q6XKV7D4BGtZOuwgJiXk7Z3A+A6WU4sQOoM0c/Xg=;
-        fh=nWZUhKN+17FdpxB1WqDjgSzPlJUqkEYz1ant/AAgvoc=;
-        b=skJ4u0FcN5fYYaBV30uUp2j5Vvhm7dQdJyi3f4eJiXnEx/P6NvoGremrFxsgf50Nb/
-         HWvcfgI75DPegk6S+/C4nCJBx5I4wnRyaNSWe3K+cuSCAeqzd4/GK8kg5B42XokvtWtM
-         tltlBE8G4rTMASRN3vtqLDsNxkW5ADJxN30KW0OMfQYhLJ8Rd6S9C+P6Pj4MUCcB2s2g
-         z4iGi6JAFpYHTmBf9YUt1a35xM6Ak8pHWQGpP8aFF3ogjTC89K+mQcs47HiCtUyS6iBv
-         LEc4GAbOKEcXXBNPHkUGM6/WI2//nZR1aN2AtNXyarHCoq9W7W49hpuUJYen8pmJTp8M
-         MUCA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lrpOdjQX
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1a8cc11ac42so99443c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:26:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794936360; x=1795541160; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=373Q6XKV7D4BGtZOuwgJiXk7Z3A+A6WU4sQOoM0c/Xg=;
-        b=e/3ahPEi2N7JscSx7JIYQiT+8cj5RAH7fGllIp1T2Wr65wtMRkvaK66n/hFmq64URL
-         ux2bNsR+X5gCZwCJpx9GcinbzAMhS4OgumXFCmkWEsYcLQC5FpFrqFwZu12Y0XhmCwrk
-         /yVrqGxdQ9y+wIlV1Ib9/SXF/3g2rQIr1R5IueIPnw3bu5jitZq1QYwYIrspvLmYIFcL
-         AhiV/octTxWJsSioLWxgsK/023TPSedYZvE7jBUYJbz3wVfCdwNLX6Bqd8El6H1FqWXw
-         n55APV8IRc7J9ISdj3Oc7u5ujYoc+jVDlXIPqb5gR07zADC96z35PoldZygSzpKPn9OW
-         3ICw==
+        d=gmail.com; s=20260707; t=1794936382; x=1795541182; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=M+o9+9qekLBCMmwzgiZ85/sw7Z0aupiEWaDsdwZ/4vM=;
+        b=lrpOdjQXBkqUxxULtoY/C0zWkzRPNV8v9WPWwkie6mJNfrRKPe79e6wA0+DFLUp8LZ
+         yZjaOYS1qN1PdIHncPT3qqkwux8/LI/qM8Gg6HtuASnXYKBNJW3yQ3EQmVj7iFuNDfIe
+         drj+2qZIrdViGVUXMrYdejHOi8go7g1A+ZdU0YsODa59s0SLJGRfpiPrjBuxyp34fIIL
+         bbXR1b+a6jvF9VmwEjYzEwKKI/u46m7fbo0P6KejAbPBvUv2Nnnj/6BcPsn0FR0eH4mS
+         mIxcDKI/4xQCMdje79OxI1SBfxZvY7PlLXwwjLA20wHJ2n4Ti279uOC6z86M+427Ib0e
+         MAMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794936360; x=1795541160;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=373Q6XKV7D4BGtZOuwgJiXk7Z3A+A6WU4sQOoM0c/Xg=;
-        b=2MQTZLx13f3nRybx8Vqe5pgtEnqrCVuZwau1MzfDgHnFGNFJFjwenZa5vk4cHxovdV
-         t8KpEKPe8BjKOJ8/np4oiDMD+wIEJfcFYwCja5oXpi9/H/hj7OfbOyFvm74MnWGIa/od
-         Uuuh311yQdgSt+88zVXUo4e9L3Fekm48uOy8EXJUg6uHR6qyb1aIEw2xtjP75C8Q+sWh
-         RUggwx5GDH5lo73oOIOckSdhfPGOFzTuKGvihQEFZcj3ofyYRp0ae9BB65uPSPeW2SKC
-         4iyW3IHkz1AnPL9snZ/1kEkNJ02jtjtm4vVjFcbMNdTbHzNXAoaY1vvdFlfZZgLdje43
-         1S1g==
-X-Forwarded-Encrypted: i=1; AL+hErHUubiYU0FfyPduWb0+87+t0ry9w0uwcGTnsq6tBfdOibr1sacVLKN4xf87iKPSxd1mCcBpwwqrf54iNYk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+waI3iW71CXYX++DI1eHPutPKQWtrEg9EyU36yLklMJbFB8PAj
-	lqUSz/tHxGrhILyKenpWEety5E/sezH+ufAn8yXkbQDoFt9C0K99uw2g5neynOAFS4yIf6rEcFM
-	5dgk+qDgkbVIfxcqN7WDwZUPvuyQdKHw=
-X-Gm-Gg: AYBFou2/VdJyKpo+d8GWi7OtB0341CBU/lFN0JyHxbf7m03pY4p9ahaUMESSp8zryZ2
-	xyJeZznJmy53Cvbl/asKSc1Pu+C5Pve+q61DtGZ/cUSC61CpeOGmAvDyYa3m7aCFVt0qxo/8zE3
-	DKOxzmEnhNCzwGrM8FYhpH8M5VTxzOyDzVJcSTBFmQgbLIAhXSaRZtpVS8eoaz7SVjLNegOMMHF
-	EU8RUMAGHFleomg6IVPbW5fB4pCDmesw4ZWzMYKcp7KPYsHuaViQ2n9U2jXjTQNWWyBRxS6DyPR
-	rY4h8rJWv9wQeSCqD9zyc3UVUpApEiXPYTM3+Hu71gdWiMhsnb83ulYq6dRSeZX/AZcDinGLiT+
-	xDFWxuol9gD/X28zcEtEJo5x7hYv6LTtcEelS3ZfTkVpFvECnbEHMiZa98nv3vuynZDxsi2ZvMp
-	y0hyXSU/wEcFI=
-X-Received: by 2002:a17:907:3e9e:b0:c40:4848:f7fa with SMTP id
- a640c23a62f3a-c50965421ebmr1292812966b.44.1794936360337; Tue, 17 Nov 2026
- 09:26:00 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794936382; x=1795541182;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=M+o9+9qekLBCMmwzgiZ85/sw7Z0aupiEWaDsdwZ/4vM=;
+        b=HQXcxgXi1GaYjxhdidurIFt7dW2ppa2RN6gRan11Xo7c8IvYV9Y999u+0IMOoSHGqP
+         cXofW8Lp2BUxGuMSW0UMfL0sON/uKUICUk4cCuBO/lqDaTTqnfcTmYkpmHMf1gh1aRAw
+         hCyNZd3DmIEbzYaKgX68Uvt9n1rU7ladWbN3m91bpyWA79SJTQWL7sQYyFRzDiVcfIR+
+         6Itz92Tr76XT+RYvHzODbNDJVUOQtVXtDB48Z5Ebd4S9eZh2yxnTTXFCI6lKpwMvLoMH
+         GFNtxF7POxeyX86HH04OlkckkJO72Bl/VSEGIRy0RXyua9Fl9och5TjH7NZ5aXR2K/lV
+         m7Gw==
+X-Forwarded-Encrypted: i=1; AL+hErE2QNnMYFNv79SoTi9WQBiwuPnHuDbHAX1h4vdHUuaOQgN1K0JtfiywlB5cjctnaBrIrWV2IZyFGW76sRg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/MuEWVCULKnRkywNDpCsPcORIhg8c5/l0IHdZwkFWvpglNmM33
+	UBcPBkHNuxg7jUUNNrNt46piLmGuaMLpYaqz1XglFXhcapaA+n/JhOHP
+X-Gm-Gg: AYBFou14mdP/r48sIzNz2gbay8OAoZgtb6qRk1yHqSMOxhZh5tmg/T1lVgd5VcCHT4k
+	cQzHc71B1dWUPM3WGN9Fiw5gMV1c3o7rUWMlPZ2phulQ7UzVgU82ZOJv7LEm4ddm0MBInlmKz9q
+	wfqNhuXs3xnayiDsHYg9C8t+WVOo59ClF/mp2B7OhxqCDVX5WChGGxO2r8ohoqy94srLOBQ5xle
+	1uK1zcB9N3klMrmzT5aEjE9MFfR1VLF9ClfNPvKqFfP4G9Z3CoweDvLpm3aDmwiKWlDCQ6NxFAb
+	XQVCYy6yt5cTf3j03R7z3iaRNH7GvmnLEmn6KFkmvx1TE0xRDU3c2uQwT1OsFKrdPMZvCqZKKvn
+	Na0er+lLJays3V0vabvYr5XmX6ui1xym7B6o85JQI71qiB47oQBqhq5wXY6e+Zy0p6RQvobxnOK
+	kHdGo4AHIop5w3SFqlXP1Z3/NN3K2lOU8yCVumKvTlv9NuDAZNmLwUuTr1cg5BUbsmXyYOpVdgw
+	bVYWLk8fp/1G18WuO7w1Ak4WdijksZDRp1DpLZ9KY26xd58zAxSczoDuXP5dbH01hk4GNIMh4X8
+	UKqujRxEvH77+m1EaTpgauH2KNFfn4km2lZzR8vxv5z5Ly8Kl4MET4XD2CH2nGXzIeOqJKGePg5
+	NrwUydiH3BnLFWh1bXzplutpLP296y1P87cd7B3Bq6M//vkfvwN5c38H1DBqkyRoVFJJdM/rSOL
+	EAacWA3p9YWGJp/XKVWQh8l5gJPfPWMvbPH2nR2WfvCcQ=
+X-Received: by 2002:a05:7022:7e82:b0:163:c5eb:d42f with SMTP id a92af1059eb24-1b543c23b8amr254647c88.5.1794936381830;
+        Tue, 17 Nov 2026 09:26:21 -0800 (PST)
+Received: from kapoor.iiserb.ac.in ([203.18.51.239])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5329ec87bsm14263079c88.0.2026.11.17.09.26.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 09:26:21 -0800 (PST)
+From: Arnav Kapoor <kapoorarnav43@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Gwendal Grignou <gwendal@chromium.org>,
+	Daniel Campello <campello@chromium.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Arnav Kapoor <kapoorarnav43@gmail.com>
+Subject: [PATCH v3 0/2] Semtech SX9xxx: add a reviewer entry and binding maintainer
+Date: Tue, 17 Nov 2026 22:56:07 +0530
+Message-ID: <20261117172612.25535-1-kapoorarnav43@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,63 +107,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110160554.918652-1-coiaprant@gmail.com> <20261110160554.918652-2-coiaprant@gmail.com>
- <20261116183012.11a7ba72@kernel.org> <CALj3r0gTuJEDd==WzAQ+cK3Og-2zMqvmBrhrd2ARbKJctG5ZAQ@mail.gmail.com>
- <e3c5f034-1b05-4fcf-bbe1-8b473a8d2a0f@lunn.ch>
-In-Reply-To: <e3c5f034-1b05-4fcf-bbe1-8b473a8d2a0f@lunn.ch>
-From: Coia Prant <coiaprant@gmail.com>
-Date: Wed, 18 Nov 2026 01:25:47 +0800
-X-Gm-Features: AclHuK_-ty3BkaDRY6TNyMVy_fEf9UBHYFECA18oX_curJlczmmtv3pUHIwGjA8
-Message-ID: <CALj3r0iwtmfZAN9iS8yN9fic0Q9jVnbYP_Hz1VDheVvmh2GcrA@mail.gmail.com>
-Subject: Re: [PATCH net-next v4 1/2] net: phy: move DECLARE_PHY_INTERFACE_MASK_ZERO
- to core
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	Paolo Abeni <pabeni@redhat.com>, Jiawen Wu <jiawenwu@trustnetic.com>, 
-	Mengyuan Lou <mengyuanlou@net-swift.com>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, 
-	Russell King <linux@armlinux.org.uk>, Heiko Stuebner <heiko@sntech.de>, 
-	Aleksandr Loktionov <aleksandr.loktionov@intel.com>, Fabio Baltieri <fabio.baltieri@gmail.com>, 
-	netdev@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Andrew Lunn <andrew@lunn.ch> =E4=BA=8E2026=E5=B9=B411=E6=9C=8817=E6=97=A5=
-=E5=91=A8=E4=BA=8C 22:04=E5=86=99=E9=81=93=EF=BC=9A
->
-> > I understand your concern that hiding the init inside the macro seems
-> > subjective. Since you mentioned an Andrew ack is needed, and he is the
-> > net PHY maintainer (who also looks after the WX driver),
->
-> I don't look after the WX driver. I comment on it, as i comment on
-> lots of drivers.
->
-> > If Andrew also feels this doesn't belong in the core, I will drop the
-> > macro entirely and switch to explicit manual initialization using
-> > phy_interface_zero() in both drivers.
->
-> Using phy_interface_zero() is what current code does. I would also say
-> using explicate =3D {0, } is O.K, but i would not hide it in the macro.
->
->       Andrew
+Add a MAINTAINERS reviewer entry for the Semtech SX9310, SX9324, SX9360
+and SX9500 proximity drivers, and add myself to the maintainers of their
+DT bindings.
 
-Hi Andrew,
+Jonathan agreed to a reviewer-only entry here:
+https://lore.kernel.org/all/20261117031830.69ac22f5@jic23-hlaptop/
 
-Sorry for the misunderstanding, I won't make assumptions about the
-maintainership next time.
+Changes in v3:
+- Patch 2: replace the Link: tag and the reference to it with a
+  Suggested-by: tag (Andy)
+- Patch 2: drop the L: line, the IIO subsystem entry already provides
+  linux-iio for these files (Andy)
+- Patch 2: drop the DT binding F: lines, patch 1 already lists me in
+  the maintainers: field of the bindings (Andy)
 
-Thanks for the clear guidance on the macro. I'll drop
-DECLARE_PHY_INTERFACE_MASK_ZERO() entirely.
+v2: https://lore.kernel.org/all/20261117110939.214932-1-kapoorarnav43@gmail.com/
+v1: https://lore.kernel.org/all/20261117094737.15253-1-kapoorarnav43@gmail.com/
 
-In v5, I will use the explicit initialization directly at the
-declaration site in both txgbe and the XPCS driver:
+Arnav Kapoor (2):
+  dt-bindings: iio: proximity: semtech: add myself as maintainer
+  MAINTAINERS: add a reviewer entry for the Semtech SX9xxx proximity
+    drivers
 
-    DECLARE_PHY_INTERFACE_MASK(supported_interfaces) =3D { 0 };
+ .../devicetree/bindings/iio/proximity/semtech,sx9310.yaml | 1 +
+ .../devicetree/bindings/iio/proximity/semtech,sx9324.yaml | 1 +
+ .../devicetree/bindings/iio/proximity/semtech,sx9360.yaml | 1 +
+ .../devicetree/bindings/iio/proximity/semtech,sx9500.yaml | 1 +
+ MAINTAINERS                                               | 8 ++++++++
+ 5 files changed, 12 insertions(+)
 
-This removes the buggy macro from the WX driver while keeping the
-initialization completely explicit and visible.
 
-I'll send out v5 with this fix and the lore links in the cover letter.
+base-commit: 20ce8ef9c9e04cd6c5ae0422e251a9b5936c6b7c
+-- 
+2.53.0
 
-Coia
