@@ -1,108 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794933035;
-	b=cTPRBJz67Hj1q2mVqGSur8HPqIu8eyRxA41ttZRlVyJBHZ2VBj34Ew/pC0XxqUI0T3Y8
-	 eXMtKNA4+p1gzoN1jPsZvPm4VmceL40MwXENzpe9dSOSX8lIRhcL6APaI5eYLFw0ClD+K
-	 aLVd8P1zFhXgIL/LCzEoixj3sxDp1nNg1a7XLRTIjTbaPSTS+kX3PPx6aM9qgVsPBZz7i
-	 /pjP1lJ+7eWtYjENjOZ4KCULdiZRmlC/Q+rMlYKFouasacdb+jvj/JZvaRe58DGSRraor
-	 0pBheCwGCos0oPW1SpYI2hpx5PYUWlfGBDQW4xzq87Gn5wvcTckoMM7pknEs95zABGw==
+	t=1794933062;
+	b=XpevQd60sBzmvIxSqrkg80DLpnTUyccKPZrUaMxNdIBwY22tZBOkdjGnyFZlg/Ui/cRE
+	 1xdICbt5sDCXVPg1PHSvXmbnx7/+AZGdcmxqgHMN1YUx2hAxLhOR1hRDQzoYoaJFuggGv
+	 SixOw4h/7m1qTegk6q/gN3+yQg5nq2ZyY0WriE+6p7SRmkIXk6TnzyOBtEJMkbZmPTPzH
+	 qxj1c/u8jssaKEf0fU/TODgbmb3ZBXJnUrQReHjnSEu44tXr17vzDefFimtji7hDPdkkf
+	 Y4lqBmkKuhPrTzKSmiZyxg1bJBqOgf5vkudSPVpzX7guMtwodJJGmREgThlYW/W6xNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794933035;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794933062;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
+	 References:Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=gzNj9YY/nz5fvfy6gpTsHNPiMT4iZgLl23IUytoqvOw=;
-	b=0KsZZeuWejXlNgYzmW+Tj55tjatS1lgkuV7iOh3F+A3OReSmDL3KuI0mKvvaMP+tHbK6
-	 S987IuhQe2wT6LCBWA0fwviYQiRgrbJnICCHffVwvFZo/PHrRzHaistUS9uw8O5j6dD7N
-	 1WwfSbEVRTVb2Fvj5vhamYVqEilQVwyg6Zn3oc6NlNQSkQMcBTlRKhkhHNKAuJtOnTuxz
-	 +nk5CA1Vk7sF89oQtktkpKh+MKJfE8fpGcw5+dO4sJHVexYo7kcT3zx7wy77qU3KKAP0S
-	 6Vm5yVqPtCYqd7PDv1Kd08q2j63dIpDK66RRBmAAr4WDI07J6dFDbwL/M1FHYeOVahg==
+	bh=HlPsciMakqHxogcwZn6G56EduTgwLmVnkkwhdl+HHIw=;
+	b=pw4nlSMzleVN3eZ1aYw0xaRa9MkCDqQauo0IaU3IBJlw9J2WIfYi/5E3lYgs6tRgknVv
+	 EOfTVjeY1nvCNhhq8vW3HqjHYVoqtQwCnxNub2ZX3Kn531T6IWfGBpvxvyFB462202Up9
+	 y5GMEeP0MQ7hN/GwcRUrp+f69xup6Pu2EhbHdGvbpPVdvAzk+uL/csLT9VcGA9qcgIQ7H
+	 1PalguiidaYjLiRIxFE0so8RMNH7uiQGVP7Q3bDeXO2GIhcHjLgnm7c0FkFUaJLdb5ssM
+	 o8kN56acn0T8hX4gnSx7BsHxBsRe+FaRIqYSpExFv9BUvJRkPSUHgCmbSHgQTovmuJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="OjeS/k9K";
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=qf60IkSA;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="E8/sdJLC";
+	arc=none smtp.remote-ip=91.218.175.131
+Received: from mta0.migadu.com (out-131.mta0.migadu.com [91.218.175.131])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78C09606A32F
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:30:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78C09606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D06C4606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:31:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D06C4606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=OjeS/k9K;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=qf60IkSA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794933033;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gzNj9YY/nz5fvfy6gpTsHNPiMT4iZgLl23IUytoqvOw=;
-	b=OjeS/k9K+ZEeJGwLjA+B4pQfgrs1555WZIrBCTYjIeeL16SHOsepI0Aju6DM5iZAJ2b/89
-	MRO096o+Xu99Xq2wDVa5yt94APWLvRM1BCnC02dStx2qio7fLMCpux57uOdERer5G6qMJq
-	hRPN1F55iY9cTZ/z9zYcrHJeDn3nfuM=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-116-cHkP5UswPRiAFot75w1o0w-1; Tue, 17 Nov 2026 11:30:32 -0500
-X-MC-Unique: cHkP5UswPRiAFot75w1o0w-1
-X-Mimecast-MFC-AGG-ID: cHkP5UswPRiAFot75w1o0w_1794933031
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-49166c8a60dso3754414f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:30:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794933031; x=1795537831; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gzNj9YY/nz5fvfy6gpTsHNPiMT4iZgLl23IUytoqvOw=;
-        b=qf60IkSAFxTD8xr8bOjsd/byszjQSqPLfjok2uQ+ANozpf+0gR9NTS8yPJ7RUtY0eA
-         IKfVZEz+ooTfmV3fZJ0ZPon3xFvNtD5Qvmc59ZPJCk5/1J+xOLhIq1v9zlJomaZAW2H4
-         aUpvwfLGlWZ8xdmIH1uQwJfzN33jnBbmgxGNoj6XQRm6sNK/Gyq9QSz43sCTQa6Kjnfl
-         6cDq4OXrIKMWWsaSc1ryv6UsrZeF3f4vIogqHWTxd6IFuqA7Tp+7HLuhJ+4JbxnWVjXe
-         7eXmtj7+9avNVfGIN/HUPG3A48fEIcZx46uDs3vt9/5EDAh+btcari2jaZKPIQ9zA4Mx
-         Zcig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794933031; x=1795537831;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gzNj9YY/nz5fvfy6gpTsHNPiMT4iZgLl23IUytoqvOw=;
-        b=18dZIQreI14+KR2sm9hB10FCmGXQvxDbRkqn2Js2KCkXvgvzEtOmS58bKKg//QJWOM
-         BzAWt5o0cxpdgPuGg+pHshk3y2rOuV0FhhEp5ABbMGLPW6EAGYn9JQcLGYNzAxxI90Pf
-         JVwjGaM0lDGTgqHLb5y+kQLOnDvQ+gsdnT/iH0hikoJ9qMGci4pmllX/oLkFC0AB2OLI
-         oomA2lI3MMGzbTLKzg62J7Mvc74bPi3pkja/DqXIyTnDzRwmy5ewhYt4p2LPzPQaTShq
-         nourCsAq9/3cU2EDNjNWKIBnbkEHgi1iEmku/3EPkkh8zD9+aiJdzMQ/ug2l474mV8EU
-         zcZg==
-X-Forwarded-Encrypted: i=1; AL+hErHHo8PfHApYoFRA3H4WvkqPmnDOFdlh8LWjrqbKWsThgQtbaty0ARgHYGoxYD28cexFatv3/zEexh7QrG8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/IyXML7fuTKfZ0Tqt+TNuYjCUwgvVB5EzMo1KgmbQ0fEWMsbzq
-	qAFVXqW9w4tN/1x53SM0jR4tjSPTf2uyGDbH2LPDIlQiUpeS5E/KMrI9GHtOcf6eqlVOB3gi1sH
-	mpQUpCVrYmEBnTYN6fzwTJcSUipJ7H0cSCEKo8NwrvfmDQki+VYd7Q1rbMRr9rXVojw==
-X-Gm-Gg: AZFdTZc6NpFjMbY69C+kg/a+2pyWtEftmvDIi7YFhdDjKkutnESffmeChKxWVwWkzdv
-	2xBcReI6yyIqJwhWoLadNwWvm5qn1EuFBOLPX+ZUPv/ne/rdAJIArO39tHdemhCUsQFNqHqmmE6
-	nIrCT4UA5BYUBGh2VX/Vu9Q8LZvwvVYcPBk0NubGQhh8IgaWR/UAsWslUIgwCxqUMnJCwGb5/Vk
-	0ln1PYcCuMTdnyOIfv9hChQ47afHYDGTrIr3uqBFg4MCOgf/P8fnB5DA8opAtf/LRUq1DciJZ+N
-	u3xvh6dWTutbkjB3PLi2gFN6TMDchFgToiJnDaMHB6QjttXxBvw5l1Uog4OLy0c5tg9hc6/KMlH
-	/SZnfsblbOd0X5K2pSMfN6NU3M/dYr5lLQ4XtSbs3lIvEcKxb7/wI6X7jFVFNSwCD05aSM3SIx4
-	6BE+hySKY8rSN7Nc4ZOJZYrubI1OwNREKeo9eHNb0sWrjl
-X-Received: by 2002:a05:6000:1a8a:b0:48b:f93:3b87 with SMTP id ffacd0b85a97d-49c726da6e1mr33405913f8f.30.1794933030658;
-        Tue, 17 Nov 2026 08:30:30 -0800 (PST)
-X-Received: by 2002:a05:6000:1a8a:b0:48b:f93:3b87 with SMTP id ffacd0b85a97d-49c726da6e1mr33405842f8f.30.1794933030089;
-        Tue, 17 Nov 2026 08:30:30 -0800 (PST)
-Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c888b90d4sm29021988f8f.9.2026.11.17.08.30.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2026 08:30:29 -0800 (PST)
-Message-ID: <09765df8-89a7-4b7e-b889-5bafd7622c20@redhat.com>
-Date: Tue, 17 Nov 2026 17:30:27 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=E8/sdJLC
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=1CJxAMst/a0YkFBUufJxsVituEPUQaeTbx1GNn2J5Zk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794933060; v=1; x=1795537860;
+ b=E8/sdJLC83hWL0W0GpKAmpCm1zYSbTCaBMpaterKlRrleBcwUXPXpNzF5ZY3es7pyzz2GZwt
+ F6fdEjiZPx2eys9xGfrz6dIAXNPtpMUQiGkY1/9WhlbIzcdvXcV8RiTBYnmxD3xSCutTHAqAiCQ
+ zgGXudsqtYoNHtIoJfps+hBo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4cdd130d40791c1a;
+	Tue, 17 Nov 2026 16:30:59 +0000
+X-Mizu-Trace-ID: 4cdd130d40791c1a
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 17 Nov 2026 16:31:00 +0000
+From: Bradley Morgan <bradley.morgan@linux.dev>
+To: "Serge E. Hallyn" <serge@hallyn.com>
+CC: Christian Brauner <brauner@kernel.org>,
+ =?ISO-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ Josef Bacik <josef@toxicpanda.com>, linux-security-module@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_userns=3A_security=3A_Inform_LSMs_?=
+ =?US-ASCII?Q?of_capability_check_during_userns_creation?=
+In-Reply-To: <avxvkuC5SP/0c+wr@hallyn.com>
+References: <20261111205814.3282968-1-bradley.morgan@linux.dev> <aveDlb6PlPSVoLD9@hallyn.com> <4A0D804A-1199-4402-91EE-E37E8D6EA9E7@linux.dev> <0c403a09-38cf-4953-a73a-ee57837b3799@hallyn.com> <5862E641-C0F8-45B2-B340-DF4506AC9FAF@linux.dev> <avxvkuC5SP/0c+wr@hallyn.com>
+Message-ID: <665E8F15-963D-4D0A-8297-ED140B70A89D@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,41 +69,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v4 0/2] ipv6: Honor suppress_prefixlength in
- fib6_lookup()
-To: Ido Schimmel <idosch@nvidia.com>, Pablo Neira Ayuso <pablo@netfilter.org>
-Cc: Leonard Lausen <leonard@lausen.nl>, netdev@vger.kernel.org,
- David Ahern <dsahern@kernel.org>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Simon Horman <horms@kernel.org>, Florian Westphal <fw@strlen.de>,
- Phil Sutter <phil@nwl.cc>, Shuah Khan <shuah@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, netfilter-devel@vger.kernel.org,
- coreteam@netfilter.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261117110813.9894-2-leonard@lausen.nl>
- <avxPFYfEirXzTup8@chamomile> <94f4ea0e-c1bf-467c-94be-b65963410d30@lausen.nl>
- <avxRfzsnke7VJq_w@chamomile> <20261117152414.GA824125@shredder>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20261117152414.GA824125@shredder>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On 11/17/26 16:24, Ido Schimmel wrote:
-> On Tue, Nov 17, 2026 at 02:07:11PM +0100, Pablo Neira Ayuso wrote:
->> As Paolo suggests you explore fixing this from nft_fib itself,
-> 
-> Why?
-> 
-> fib6_lookup() is the IPv6 counterpart of fib_lookup() which is used by
-> nft_fib_ipv4. The fact that it's not working with
-> 'suppress_prefixlength' is an oversight, which is being fixed here.
+On 17 November 2026 15:15:30 GMT, "Serge E. Hallyn" <serge@hallyn.com>
+wrote:
+>On Sat, Nov 14, 2026 at 02:44:24PM +0000, Bradley Morgan wrote:
+>> On 14 November 2026 14:34:07 GMT, Serge Hallyn <serge@hallyn.com> wrote:
+>> >Nov 13, 2026 15:54:37 Bradley Morgan <bradley.morgan@linux.dev>:
+>> >
+>> >> On 13 November 2026 21:39:33 GMT, "Serge E. Hallyn"
+><serge@hallyn.com>
+>> >> wrote:
+>> >>> On Wed, Nov 11, 2026 at 08:58:14PM +0000, Bradley Morgan wrote:
+>> >>>> Right now security_capable() gets called in create_user_ns() to
+>> >snapshot
+>> >>>> whether the parent could setfcap, but the LSM gets zero context on
+>> >where
+>> >>>> the check actually came from. It is the same story as setid:
+>without a
+>> >>>> dedicated flag, security modules cannot tell this apart from
+>regular
+>> >>>> capability checks.
+>> >>>>
+>> >>>> Add CAP_OPT_USERNS_CREATE and pass it along from create_user_ns().
+>> >>>
+>> >>> This should be patch 1/N in a set that introduces a user of it
+>> >>> in some lsm.
+>> >>
+>> >> hmm. Did you read Christians suggestion?
+>> >
+>> >I did, when he first sent it. Actually it seems to me that what the lsm
+>> >would really like to know is that this is not for an immediate use of
+>> >setfcap, but possible future use. But that doesn't really matter. I
+>wasn't
+>> >judging the patch. I was just going by what i believe is general lsm
+>> >subsystem policy.
+>> 
+>> ( my word wrapping client did not like that message :( )
+>
+>Hm. yeah.  (Do you mean word-wrapping or non-word-wrapping?)  I see my
+>phone mailer made it all one line.  I'll see if there's a setting for
+>that.
 
-I must admit I read the previous version as the issue was caused by an
-API misuse by nft.
+like I had to scroll right in order to read all of your text.
 
-It looks like I misread it, I'm fine with this fix.
+>
+>> hmm, it's pre-reqed over the patch as on the lore link, so Christian may
+>> want to have a look at this obe
+>
+>Did this line get cut off?
 
-/P
+s/obe/one , typo.
 
+
+>
+>> >> Let's see if Christian or anyone
+>> >> else could suggest a nice little lsm user for this.
+>>
+>> >> If nobody responds, in coming days, I'll go and find and do a user
+>for
+>> >it.
+>> >>
+>> >>>
+>> >>>> Suggested-by: Christian Brauner <brauner@kernel.org>
+>> >>>> Link:
+>> >>>
+>>
+>>https://lore.kernel.org/all/20261111-kommt-gischt-ohnedies-469998d2f219@brauner/
+>> >>>> Signed-off-by: Bradley Morgan <bradley.morgan@linux.dev>
+>> >>>> ---
+>> >>>> Thanks Christian for the suggestion :).
+>> >>>> ---
+>> >>>> include/linux/security.h | 2 ++
+>> >>>> kernel/user_namespace.c  | 3 ++-
+>> >>>> 2 files changed, 4 insertions(+), 1 deletion(-)
+>> >>>>
+>> >>>> diff --git a/include/linux/security.h b/include/linux/security.h
+>> >>>> index 40831fab54709..d24666a0b4833 100644
+>> >>>> --- a/include/linux/security.h
+>> >>>> +++ b/include/linux/security.h
+>> >>>> @@ -75,6 +75,8 @@ struct nsset;
+>> >>>> #define CAP_OPT_NOAUDIT BIT(1)
+>> >>>> /* If capable is being called by a setid function */
+>> >>>> #define CAP_OPT_INSETID BIT(2)
+>> >>>> +/* Is capable being called from the user namespace creation path?
+>*/
+>> >>>> +#define CAP_OPT_USERNS_CREATE BIT(3)
+>> >>>>
+>> >>>> /* LSM Agnostic defines for security_sb_set_mnt_opts() flags */
+>> >>>> #define SECURITY_LSM_NATIVE_LABELS 1
+>> >>>> diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
+>> >>>> index 57b7f10be74e1..37480f6d8369f 100644
+>> >>>> --- a/kernel/user_namespace.c
+>> >>>> +++ b/kernel/user_namespace.c
+>> >>>> @@ -134,7 +134,8 @@ int create_user_ns(struct cred *new)
+>> >>>>      * audit: the creator may never map uid 0.
+>> >>>>      */
+>> >>>>     ns->parent_could_setfcap =
+>> >>>> -       !security_capable(new, parent_ns, CAP_SETFCAP,
+>> >CAP_OPT_NOAUDIT);
+>> >>>> +       !security_capable(new, parent_ns, CAP_SETFCAP,
+>> >>>> +                 CAP_OPT_NOAUDIT | CAP_OPT_USERNS_CREATE);
+>> >>>>
+>> >>>>     ret = ns_common_init(ns);
+>> >>>>     if (ret)
+>> >>>> --
+>> >>>> 2.53.0
+>> >>>
+>> >>
+>> >> --- Thanks!
+>> >
+>> >
+>> 
+>> --- Thanks!
+>
+
+--- Thanks!
