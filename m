@@ -1,55 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794929158;
-	b=NGopyOaLK0Itu1Fsyq4doPKtvbp62YvPEzQbuEzLFB0y5tiGm2VMzQDLfcjsay/VByc7
-	 /BwtLhQnMZ/XfP4508MqFjygkq62+k4ez64OWU/lFegURq9boE4LQxQh5Mse+xm8kRuOU
-	 wWN1xQ2hITydTAvZx2EKOnrfpalFSoE/tbOhuBAY9DGAuyeZvLRMTbwOjdxV87DJ7HzkK
-	 R6Jq5IH+opcNdSuA476nMnD1+yAqzKBg+EromPxwQrFcJGfwgd6mMyPAQEYC/0CBsViiU
-	 K9doEjBQtNnMieGgFGAc/6GEBhnnbQ85f3fcbDywSfvSxGWkkqstA2+fYyeTUrVk65Q==
+	t=1794929161;
+	b=0Jl9lCYYcPAAwoATTqhnik/gjhGrh/QpXA9CQNdqOHtrgHGyBLdQ9EKu8ITxyodi/Zys
+	 e/8ejPBGOBq4Ecw/Krz5Rg6AXM0JEF4DiQuNNoivn8u5Y1797roZz2ectp+G1rrAjG2EB
+	 qRVDDGHKdtWOltayJqHUX0ntBuqkVubfpkNtk9/WS/O/5z3K+SAnb7DQOLnaLZ6sPgDNE
+	 NrWaII60DArlfCn2ouWWJWfDcHNvZtf6ctYO3N0rXy/8qvU4EUgB5Z5l3S/EHfH8X6sKi
+	 aRxokk0dA5dqXTpY/95LmlBVZkJO7PoVIvjKMv1O35EGyZyfF1MfrL0KMliKk1kYlAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794929158;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=KBdVW29HVJ4wR0PbCoFLY5q8sXCExkR+hunNaQ0mJo8=;
-	b=h7XnIBZW/hogJxubXT3s9UWSQ3oYAM39diu+fU+wJtgkAKj4UTGrZx7cC3xEfog2USBi
-	 UMZyoGosVs1sW5zcup8HKCF3rECRF59/SIzG9feLyDiXJTTtUVjzI2D0zqc5zO1BpMpfm
-	 iggiBwf3XpelTA7owRpgt1uvmhoLNqOq6MnJ7YjzfpBEukZSO6Jg+4xh6cwlh76tlpoQu
-	 I13RJJE7CHkOqa6COvsajHjUno5Dr6Agg6IRPesd6h9JP8LpREC7aOU0tmiZt7+Q3K/bv
-	 jz5NvuajxNRLkM44zmFggdXIWaBTN0OUE4dtcGiBH0dJuXKkla4UK/JPhMGIQ+BqNDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794929161;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=EXE55mQKN3BnJtD+/KvGpW7W4kWqKlltOiM44HMRDro=;
+	b=O4xtpx+um/EJDI5DZa9sLGkZZBxl2B3967BaA3l4YGdun0qE9oOcoMI8aRx6FQJNbeto
+	 XcdS3X0GyAkSFdQXr+ki1NuGXCDcuEGLH4GvQUcZcKrjpLnfFZXZs5CMUkheqf1Few8+p
+	 gh+HX/4MSNrz/df7wH9OyBgxYOEypdOiEL87nJTwu8iA8ltcepXy3HyK63OW4tYk6iP36
+	 NN2GxhigGUKclbj2zDJaR4aBTdLh4MnjvxYErEwjaepwDGDTqGtBjQANSOlYdk/JrKWT3
+	 qXjZYkiVVKrFPNakROAVQZWyCy7hsgQ44xz/M9GMWiQr29YSf7CWoeigwQerGsqx34g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CnIRjXwR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=B3qmSKvY;
+	arc=none smtp.remote-ip=216.40.44.11
+Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA642606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:25:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 472F4606A885
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:25:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 472F4606A885
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CnIRjXwR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C70A51F000C6
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:25:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794929157;
-	bh=KBdVW29HVJ4wR0PbCoFLY5q8sXCExkR+hunNaQ0mJo8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=CnIRjXwRpNVUgqYvQWE4WOgRijmCokWzHFBLSjBGVSNTb8cHLqhJGaC8kBn8ZRi7A
-	 6cXpGyWmj2XAp0X/TQi1kD2I1ZHD8R1y5slWiBHHHLk/iqBzmZedeXzjKPuTsYikWt
-	 /9PaMJGaJhRf3y9xLHljY7HtWOOu1/T/xuvn6/Q+sWpu9ORWo4ncMpsl69W9HNloAV
-	 XUe2L6gt4MR/hgoMamFRE8FEJ+SshFmoi3dnkuTE9wAXTjKDNe/WF5x8dc4RZAR8OW
-	 0TvSt473tr+zU0I2BCYNcfkNbaMPkGq9KC7zrb4IM2uaXQ2erNsn8G0F2oZYU0TjOj
-	 ZGPCzjAqwnpcg==
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5c14470729eso4014204e87.2
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:25:57 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFOmb8ei9MZ2Iw2r18+nQKrdRY63u3WdTXqnW93ygj2nsGwivol9AKJNK2SJTG3lJzRIo73zaU3sHRe3gk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+uhZZRgEXF4srXfLnw46KYrs+Vza9GBPzIuiynHoWsk2alfUud
-	vmD39nBmWV3Ae1dwUVDv+rqLnGiOkhF40WDZNJPn/KarFq6vlDJUrmNXwFF2fkRtsyEq1QhJl5/
-	x4zHaJnxJKRnLm7RPAICHJzFW0RcBBP4=
-X-Received: by 2002:a05:6512:3c9b:b0:5bf:d54c:1fb6 with SMTP id
- 2adb3069b0e04-5c170b669a5mr5364150e87.44.1794929156283; Tue, 17 Nov 2026
- 07:25:56 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=B3qmSKvY
+Received: from omf12.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay07.hostedemail.com (Postfix) with ESMTP id 6EBA4160478;
+	Tue, 17 Nov 2026 15:25:58 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf12.hostedemail.com (Postfix) with ESMTPA id 5ACC117;
+	Tue, 17 Nov 2026 15:25:56 +0000 (UTC)
+Date: Tue, 17 Nov 2026 10:25:54 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Mel Gorman <mgorman@techsingularity.net>, Ingo Molnar
+ <mingo@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, Seiji
+ Nishikawa <snishika@redhat.com>, Mian Yousaf Kaukab <ykaukab@suse.de>, LKML
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3] sched/rt: Do not account migrate-disabled tasks as
+ pushable
+Message-ID: <20261117102554.402cbab8@gandalf.local.home>
+In-Reply-To: <20261117152026.GI1813469@noisy.programming.kicks-ass.net>
+References: <20261113160655.2909479-1-mgorman@techsingularity.net>
+	<20261117152026.GI1813469@noisy.programming.kicks-ass.net>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,87 +63,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261117101336.980216-1-johan@kernel.org> <20261117101336.980216-8-johan@kernel.org>
-In-Reply-To: <20261117101336.980216-8-johan@kernel.org>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 17 Nov 2026 16:25:44 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0j2DAPFBPA206VmWEiyUub7yuXFQeAvUtg95J=DwmKTDw@mail.gmail.com>
-X-Gm-Features: AclHuK-hF4u064HXJHyD_Ul8WiKkjgi6nackBFOWJTHQRR2q8VH5bYUJg9XjRV0
-Message-ID: <CAJZ5v0j2DAPFBPA206VmWEiyUub7yuXFQeAvUtg95J=DwmKTDw@mail.gmail.com>
-Subject: Re: [PATCH v3 7/8] software node: fix software_node_notify() primary
- node comment
-To: Johan Hovold <johan@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Daniel Scally <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Andi Shyti <andi.shyti@kernel.org>, Wolfram Sang <wsa+renesas@sang-engineering.com>, 
-	driver-core@lists.linux.dev, linux-acpi@vger.kernel.org, 
-	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout07
+X-Rspamd-Queue-Id: 5ACC117
+X-Stat-Signature: brc91q7h4tbsbic6bmax4haftzouyqhb
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18nClPDu39F/0kPj3QX1FT55S7p6+iR8/8=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=EXE55mQKN3BnJtD+/KvGpW7W4kWqKlltOiM44HMRDro=; b=B3qmSKvY9QmXX5GZySjKSqhGGLZmdGrDK35vSE16BT1uDGRsMqh3/RFYFwnIXPJVNXC6YSCPl7LVcFkqjSHR46ODDxsoNCH9j81ZANekGdxJ5cXnBcDOSXx7ZQatJfjZ52HgplvYUSakVhPn4x4eTTwG9O9vQ1qhsTRXhFYCi60=
+X-HE-Tag: 1794929156-594778
+X-HE-Meta: U2FsdGVkX1+PKOEYOXPHYBCN29Sic4/YsX0FyR3qxh8nCQMQcry0fZLQUDj++Fy2k3DUMa7hVkPlVaPmrcHvui11CYv13uCKm8MN3yz3QKvNZP0uRtU/hSjSWNJsnriQN1/b3kkERbFrZW3i9hP/DgU3BJBZnBK2sHhQov3coYCsjqkxIbwHssHH4xEazgpA2NRf+GKhPYnfhzni8M1l31qqgJ0X+EefvmR1VQcDt4FL38ldegRmt0VF2EunHWpWEsmneB+MGs6a6czKPxqeP0EaALuyg3tCweacVmfrdx6Vtb8KF7SNX+cV9JJyYatVntWZWmxmjmFKOXJF+gT94Igg0triFjLx/FIqqqwV0PqO/8PTM134OyKrOF/q84q0
 
-On Tue, Nov 17, 2026 at 11:13=E2=80=AFAM Johan Hovold <johan@kernel.org> wr=
-ote:
->
-> The firmware node pointer in struct device may point to either a primary
-> or a secondary firmware node and driver core sets the dev pointer of
-> that node when registering devices.
->
-> Fix the comments in software_node_notify() and
-> software_node_notify_remove() which incorrectly suggest that driver
-> core only sets the dev pointer of primary firmware nodes.
->
-> Fixes: 37e586675993 ("software node: add fw_devlink support")
-> Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Signed-off-by: Johan Hovold <johan@kernel.org>
+On Tue, 17 Nov 2026 16:20:26 +0100
+Peter Zijlstra <peterz@infradead.org> wrote:
 
-LGTM
+> >  
+> >  static void enqueue_pushable_task(struct rq *rq, struct task_struct *p)
+> >  {
+> > +	if (p->nr_cpus_allowed <= 1)
+> > +		return;
+> > +#ifdef HAVE_RT_PUSH_IPI
+> > +	if (sched_feat(RT_PUSH_IPI) && is_migration_disabled(p))
+> > +		return;
+> > +#endif
+> > +   
+> 
+> 	if (p->nr_cpus_allowed <= 1 || is_migration_disabled(p))
+> 		return;
+> 
+> for both RT and DL. Sure, we might get an extra load, but is that really
+> going to be noticable? Lots of scheduler code already looks at the
+> migrate disable thing anyway.
+> 
+> I don't see why it should depend on RT_PUSH_IPI, it never is actually
+> migratable, and so it never makes sense to have on the pushable list.
 
-Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
+When I took a look at this, I was thinking the same thing. That there's no
+need to have the HAVE_RT_PUSH_IPI check here and always do the test.
 
-> ---
->  drivers/base/swnode.c | 9 ++++-----
->  1 file changed, 4 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/base/swnode.c b/drivers/base/swnode.c
-> index 95283d8bda26..78e224539b02 100644
-> --- a/drivers/base/swnode.c
-> +++ b/drivers/base/swnode.c
-> @@ -1162,8 +1162,8 @@ void software_node_notify(struct device *dev)
->                 return;
->
->         /*
-> -        * When the software node is the device's secondary firmware node=
-,
-> -        * the core only records the owning device on the primary fwnode
-> +        * When a device has both a primary and a secondary firmware node=
- the
-> +        * core only records the owning device in the primary node
->          * (see device_add()). fw_devlink resolves a supplier device thro=
-ugh
->          * fwnode->dev, so without this a consumer referencing the softwa=
-re
->          * node could never find the supplier device and would defer fore=
-ver.
-> @@ -1198,9 +1198,8 @@ void software_node_notify_remove(struct device *dev=
-)
->         sysfs_remove_link(&dev->kobj, "software_node");
->
->         /*
-> -        * Drop the device pointer mirrored onto a secondary software nod=
-e in
-> -        * software_node_notify(). For a primary software node the core o=
-wns
-> -        * fwnode->dev and clears it in device_del().
-> +        * Clear any device pointer set in a secondary software node in
-> +        * software_node_notify().
->          */
->         if (!device_match_fwnode(dev, &swnode->fwnode) && swnode->fwnode.=
-dev =3D=3D dev)
->                 swnode->fwnode.dev =3D NULL;
-> --
-> 2.56.1
->
->
+> 
+> But perhaps I'm missing something; the above seems to suggest that is a
+> theme today.
+
+I'm still trying to dig myself out of the tracing patches backlog to spend
+time on looking at this :-p
+
+-- Steve
