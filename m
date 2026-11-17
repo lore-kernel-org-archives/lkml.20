@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794908300;
-	b=JKp6+QC3dYi5Fti21syW/fq1FjFikG0vCXKqQGr8ZoJ68Pp8WGa1tf/3G47ULp87tY4I
-	 zmTKMlh/TRiQ+qkvWZTGww8/7wAgG0Hg/tSqDIA7bX5FDpCzucqN2EqHzLX8uevvOIOus
-	 E91R1KlUsjG46/8Hqb+cpEludEEqNNN/LKzmaYWJ8DnUFdKS5BdYMNzDT1Btn8n79CNB6
-	 Apbv2nYanCl/bTeb+aLKEd1SCVaY8wfCVGBNRx6DOvYpLpKxAgo5m0ors3QlMpgSIuhz+
-	 wGHZgh4IyvNF2mEsexcRePz7Aft2l5Lh8cl0wXa5GgB3rDRlCLdmgMZnzqiH01y5j8w==
+	t=1794908302;
+	b=W00A9CqVnVXJosBfJ37kfJZSWS1Cm6CTKiMOupH3Oyue3MocjjrJdMKw6kfghCBFDYoe
+	 nzi3efDb7l1yIhKtspasWwIIx3hollaXQG3RnM+YL4TRyK+DRE9mXKOuD5tprHdTkUrW8
+	 G/64AbEF1qZ1vvhCrb7Py4ov1MnngW4jpaVK5Qa2iqeY0ocjnNPFN5JmTQCBiK1VjCLlV
+	 HyzVTx30TDVxqQKUf4y3hzhQJu14P/FhmoL44nzqAHewjbSP7hGvoLA0aq0QJCBYwFwd4
+	 t3NH6aUEo/hract6ctOXkhozecI8yaL8GbcMBh88AwWq3bYOBtVuQkb6Sfa6749b0lQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908300;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908302;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=niJD0njQ1UDwvr3T+XYsWPwrBy0c6qlXpaKDdhLmAMk=;
-	b=p/RuHhOUa0UmrRkraEldZXYSnAJek289RMmslhch3N2QffeeYpA5a6v+n7jvfZap9joo
-	 bvrtmoejCAU2V4TsznXHJSjHt6erF/nBYUf6Htj/3htcB9Yi45UWHeLOGDP3UwC/7FJtM
-	 W7Ix6WA+TuB5hNWMChHWCbeb+1UPShvGERyyRi0IT0uIYWadK51IMyRI91iwla5qSrBaD
-	 u2WZmG69l86X4gCN9k2erw779lUnkb20QkqjTA3LOcPmHhWv+TaNlsug7D8+xK8vhSuts
-	 xcXZWef3QFmCbJrUQoW6UCq2tPo9JpKOocARyC16tEJ0dkbToWuGYsyB0LxpqPKSI1w==
+	bh=mkZMJlvFsdTPHRfq55Zs9n/rcb6WsZ4+FI+m4sk8u6c=;
+	b=RhA5Wk85osZ3qHwOVjLjhLA2kwMZ4JVkQwE7kSEfWSZJuW+6TJEY2glY4fJAbDEr7oYu
+	 UBJuCh99qcMUyRlMO4NCoOSqq7Gct8GgdLAU7PgNTMDP7mAiHsPX+3Z1QUhrkGE54Dnq3
+	 9HRelGaEOtR8bYQPNiYIxw2R2Pa27xI/Hnhz84VV8gxRi60HuAFvx7AE+OlzNp/m7OWrK
+	 lVVj1uUFhxEZEvPusKIThnP19Now/HNowkQRIP4MisfsKDCzwiWC8mWx7E7T8bS33cdwY
+	 mvory6Cb2lc4LJO1uUHoNeaC5uz4Aqt4X4mtjE5ZNVvTrjrGB06wNxOElsgjNQiOKJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=gV4ssBiq;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=lNz1zWnR;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 663C5606A888
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:38:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 663C5606A888
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E212606A338
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:38:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E212606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=gV4ssBiq
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=lNz1zWnR
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 21F001A158C;
-	Tue, 17 Nov 2026 09:38:19 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 2C8014E41146;
+	Tue, 17 Nov 2026 09:38:21 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id E52805FC81;
-	Tue, 17 Nov 2026 09:38:18 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2BAA811BC1129;
-	Tue, 17 Nov 2026 10:38:16 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id F0B2B5FC81;
+	Tue, 17 Nov 2026 09:38:20 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A94BF11BC0493;
+	Tue, 17 Nov 2026 10:38:18 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794908298; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1794908299; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=niJD0njQ1UDwvr3T+XYsWPwrBy0c6qlXpaKDdhLmAMk=;
-	b=gV4ssBiqLDmoCoXe4SIe/bAL9n9hYqos8FqYkltwMlaPBbOoBoKvKweKGq4kJIk2LPrHoS
-	QxTq4Tr7BQxbOt+1EWq72l/wdppm1KPu5tcgsipDdfYBTrTRt/cWPVs1JBYqon11EreHAa
-	s6CcWSvxAbB80MaBHKcXOEqQUJTZYrD40/070WgMNEPIpE+D/ktouXwY0HpeDpBe3VhedC
-	/eewolPwxLk6j840izkWrephiqyu6o/5Wx5yCm5B6fYW4WjGW8unTw3xY44q4GiAPbCEHO
-	5VfYMCgAtietMz0v1JSIdMLNdukBXq67F1BpOR2aN8OWIUzDVot+m+IERxcX6Q==
+	bh=mkZMJlvFsdTPHRfq55Zs9n/rcb6WsZ4+FI+m4sk8u6c=;
+	b=lNz1zWnRE4JSNSZLC26MP50YP+jWpa1WLSxjtb0fqA3RPZvECe35jhudwj70niVx9ySB8A
+	I26rIhF56dORH1f+mQkvQq+2iXY90gHh57PlT7uwySLwXkTMCloraE2Mp1EZdUqkwsevrk
+	m6Yjd7uJi3aeu1F9Ftk2SVCWWEBv5Pr8rR1/iEdcaKqU5ELRPQSDmCYG37mOe+t5hpiNXW
+	Q/VtRIrpc06Ctcrw9qU3/1O6A7v7RxABiCvLPMJA8oL+tZFViSQfEDJiVa+ANSgPWEtNLq
+	Ykswoj/OWcgM9UhPK+6pJ40ZMm/gW3yCRm9+Mccflpufa8KFCdJuCkHSedTFNA==
 From: Paul Cercueil <paul.cercueil@bootlin.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>,
 	Richard Weinberger <richard@nod.at>,
@@ -57,14 +57,10 @@ To: Miquel Raynal <miquel.raynal@bootlin.com>,
 Cc: linux-mtd@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Paul Cercueil <paul.cercueil@bootlin.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: [PATCH v2 09/12] mtd: rawnand: mtk: Remove #ifdef guards for PM related functions
-Date: Tue, 17 Nov 2026 10:37:47 +0100
-Message-ID: <20261117093751.14988-10-paul.cercueil@bootlin.com>
+	Paul Cercueil <paul.cercueil@bootlin.com>
+Subject: [PATCH v2 10/12] mtd: rawnand: omap_elm: Remove #ifdef guards for PM related functions
+Date: Tue, 17 Nov 2026 10:37:48 +0100
+Message-ID: <20261117093751.14988-11-paul.cercueil@bootlin.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261117093751.14988-1-paul.cercueil@bootlin.com>
 References: <20261117093751.14988-1-paul.cercueil@bootlin.com>
@@ -90,49 +86,44 @@ regressions are subsequently easier to catch.
 
 Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
 ---
-Cc: Matthias Brugger <matthias.bgg@gmail.com>
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-mediatek@lists.infradead.org
 
 v2: No change
 ---
- drivers/mtd/nand/raw/mtk_nand.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+ drivers/mtd/nand/raw/omap_elm.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/mtk_nand.c b/drivers/mtd/nand/raw/mtk_nand.c
-index c439b7814ebb..4b8451772f9b 100644
---- a/drivers/mtd/nand/raw/mtk_nand.c
-+++ b/drivers/mtd/nand/raw/mtk_nand.c
-@@ -1591,7 +1591,6 @@ static void mtk_nfc_remove(struct platform_device *pdev)
- 	mtk_ecc_release(nfc->ecc);
+diff --git a/drivers/mtd/nand/raw/omap_elm.c b/drivers/mtd/nand/raw/omap_elm.c
+index c1d19b8e6715..2e8ab20d8edb 100644
+--- a/drivers/mtd/nand/raw/omap_elm.c
++++ b/drivers/mtd/nand/raw/omap_elm.c
+@@ -428,7 +428,6 @@ static void elm_remove(struct platform_device *pdev)
+ 	pm_runtime_disable(&pdev->dev);
  }
  
 -#ifdef CONFIG_PM_SLEEP
- static int mtk_nfc_suspend(struct device *dev)
- {
- 	struct mtk_nfc *nfc = dev_get_drvdata(dev);
-@@ -1635,8 +1634,7 @@ static int mtk_nfc_resume(struct device *dev)
+ /*
+  * elm_context_save
+  * saves ELM configurations to preserve them across Hardware powered-down
+@@ -540,9 +539,8 @@ static int elm_resume(struct device *dev)
+ 	elm_context_restore(info);
  	return 0;
  }
- 
--static SIMPLE_DEV_PM_OPS(mtk_nfc_pm_ops, mtk_nfc_suspend, mtk_nfc_resume);
 -#endif
-+static DEFINE_SIMPLE_DEV_PM_OPS(mtk_nfc_pm_ops, mtk_nfc_suspend, mtk_nfc_resume);
  
- static struct platform_driver mtk_nfc_driver = {
- 	.probe  = mtk_nfc_probe,
-@@ -1644,9 +1642,7 @@ static struct platform_driver mtk_nfc_driver = {
- 	.driver = {
- 		.name  = MTK_NAME,
- 		.of_match_table = mtk_nfc_id_table,
--#ifdef CONFIG_PM_SLEEP
--		.pm = &mtk_nfc_pm_ops,
--#endif
-+		.pm = pm_sleep_ptr(&mtk_nfc_pm_ops),
+-static SIMPLE_DEV_PM_OPS(elm_pm_ops, elm_suspend, elm_resume);
++static DEFINE_SIMPLE_DEV_PM_OPS(elm_pm_ops, elm_suspend, elm_resume);
+ 
+ #ifdef CONFIG_OF
+ static const struct of_device_id elm_of_match[] = {
+@@ -557,7 +555,7 @@ static struct platform_driver elm_driver = {
+ 	.driver	= {
+ 		.name	= DRIVER_NAME,
+ 		.of_match_table = of_match_ptr(elm_of_match),
+-		.pm	= &elm_pm_ops,
++		.pm	= pm_sleep_ptr(&elm_pm_ops),
  	},
- };
- 
+ 	.probe	= elm_probe,
+ 	.remove = elm_remove,
 -- 
 2.47.3
 
