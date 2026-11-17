@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794899191;
-	b=0gjWXHkJSdS0piDp/VlrqD6HsACDu7Juv9oMm9nahuO18WGlZu9AEv/0AKI6IcAM6nLc
-	 7G+DYWEZXQsIc0C4wiFptvBLJ24p4iVp4oBJJtf6OMQyplSdvt6fDO5cdXBG1mWl+2a2x
-	 hrrkWjkUFH0Ig1yKt9Tv0A5S21WBreYq20BCwkWtR1jLvdIxzU/5Y+TeIvi59cc3RvwYy
-	 5GXIlPK2nhLMmeru2Um+CWnrlcKDxMbubwnCs23E+v6BTeOagn5uIEEOwdOnlUdizmnCc
-	 02HfQpSLpg2Ec4iM8dxcjoYYRh3g8QPB9NxLsu++7CnOSYQvda8wrvlH2JyaM0TFqSA==
+	t=1794899195;
+	b=MSlXZ5rKhnSKeoYLGc1rl3FIch7sOnuHzZsi2K9pDucjceLgONL+pY8Srd3euRNZTUFb
+	 /k3UWotXlHzjkJqFnNOS5ULPm1hx+FC3G/jZXzbqvZlLdxHlxEp8zatvE9X23FdMxjp1F
+	 pwu6MSncd1bt413tHyyX3sr5dKqst2QaDDPi8rhZEcQJiaciK77kWFg0zy+7GUCuowbSq
+	 K09Jab4r1QkYGkDIvAQweb9wW76vHKSEn7AVsB0v3O+cfcRlC/Ps2ishWudP1f40a3eRc
+	 iIGhJL6GztGtw5WfaF/qAlzL2FDdcg/04FjJkj5iddKXzGeYe8PCq4PKXLtd1v6ZCpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794899191;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794899195;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=3NItBReUtOBWpHO0nf0rUAjTdM1Dh5h3BZRHNSIgwrA=;
-	b=Cd+yFvJf9rWhuxI94NPlc3X+sNcRCYTAwSciaR9tOrmEaBLYsgKw3mnn1A97b86wLcv7
-	 AjE6+91A7UOfX8Y5qZvPmczUCc2vOhlydqwP3u5D5zbuAcEiYtDT5Txxz4UIcEdKDRaLD
-	 Sj39TFSMo21xPYQ4Q7VsohlRYeobGZIA6tnXYLzDYh0fvVwVImU/ODOdgbBvVmm4vZv5B
-	 IOwunPV51fiTTM9TkqJxrwEGa1ecjuP4m03U54EcBcYqKrcpytZuLAOuEEp3sSdssDgUi
-	 i8fvjW62f7qSvEOXRip5BzExwA4DDmQ936pTZr/nHrrQZ1QDxPJUXbPCwTXz4X3e5YQ==
+	bh=RImp/fV3D3InxuUTVuaSs0rWb42FA9SO6Wnjy1jVERc=;
+	b=tf9eGq6FqFvAoTtvnJYYVHqEFJvMorcA0iXvpVrQz88iOUEKaRZzTOiC9yrIYgZLqoCX
+	 HTRKhltz2x144tLz2dBz3ITZGzo1fbNxN8gh/m4Xx1BHh7IvJFXroz+W8K0WZupnp0C9K
+	 wicWpPzc3usE4xIPmlLhe74bixV3gXqgshnVRqv6W6pvK71S06FyrzZhppNZ3xakRz7bz
+	 9tX6Mn7/r5Qs6EYhcunPPJupCdZ9LSrSEfU6TEDEyT6ZCTbO3FVoopDkVgkzJIWRHiCLc
+	 dNQasRkHApHR712YxXVPw4ohiA/r5WHVyoPy89/pJmvG0oHT+ffviFtnsPsgIuJwKGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=D0K5hEkf;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=QtAAKAKJ;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2A840606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:06:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A840606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EF149606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:06:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF149606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=D0K5hEkf
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=QtAAKAKJ
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 985761682;
-	Mon, 16 Nov 2026 23:06:27 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 68A041476;
+	Mon, 16 Nov 2026 23:06:31 -0800 (PST)
 Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CDF1E3FB7F;
-	Mon, 16 Nov 2026 23:06:29 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9F28E3F763;
+	Mon, 16 Nov 2026 23:06:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794899190; bh=QAGXNbzD0g0sHHdjDN/4c/Sx+cC3l60UDdZ0bXS07ns=;
+	t=1794899194; bh=DlYI5zPVBJe6EC0DN2RG1Fj9YuDqCOwNKOBIujdfKiw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=D0K5hEkfCw9m9shseCLzkHCVRdi1eAy7puGMYpkj4yj2DQMdwmMeOxPNOdJW0aDB6
-	 APo5YxDzM3z1YOuhWdAOf/Ep7TwFuoMvRYhoyIK59POQa2foDTv3dXMI0YYGUujhVd
-	 4qGB7+5QaQgdd5g6+fmGLhnJ3hQ9M7fcwd6uoVsE=
+	b=QtAAKAKJrk1BBv8Kv36+Hc9xlP7OjDbU9LJUZh89SIlom0HQ7BYjyTQUeHt2gOV6d
+	 Pj3X+i8Bqc/q6SAE5tdkM+ASpfQxoMNDcPUktMfey+zOgzlDgF/4C/GkC3WO0l99y/
+	 VcdEv3jZhSZIMTXJ6U3iaWhtZvXqNLZZ8E+gWvb8=
 From: Anshuman Khandual <anshuman.khandual@arm.com>
 To: linux-arm-kernel@lists.infradead.org,
 	catalin.marinas@arm.com,
@@ -55,9 +55,9 @@ Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
 	Mike Rapoport <rppt@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH V3 02/14] arm64/mm: Route all pgtable reads via ptval_get()
-Date: Tue, 17 Nov 2026 12:36:01 +0530
-Message-ID: <20261117070613.1183243-3-anshuman.khandual@arm.com>
+Subject: [PATCH V3 03/14] arm64/mm: Route all pgtable writes via ptval_set()
+Date: Tue, 17 Nov 2026 12:36:02 +0530
+Message-ID: <20261117070613.1183243-4-anshuman.khandual@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261117070613.1183243-1-anshuman.khandual@arm.com>
 References: <20261117070613.1183243-1-anshuman.khandual@arm.com>
@@ -72,9 +72,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Define arm64 platform specific implementations for new pxdp_get() helpers.
-These resolve into READ_ONCE(), thus ensuring required single copy atomic
-semantics for the page table entry reads.
+Currently ptval_set() is defined as WRITE_ONCE() but this will change for
+D128 pgtable builds, for which WRITE_ONCE() is not sufficient for single
+copy atomicity.
 
 In future this infrastructure can be used for D128 to maintain single copy
 atomicity semantics with inline asm blocks.
@@ -88,57 +88,89 @@ Cc: linux-kernel@vger.kernel.org
 Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
 ---
- arch/arm64/include/asm/pgtable.h | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ arch/arm64/include/asm/pgtable.h | 11 ++++++-----
+ arch/arm64/mm/mmu.c              |  4 ++--
+ 2 files changed, 8 insertions(+), 7 deletions(-)
 
 diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
-index a760c65de5cbe..1c982ccc1e5e3 100644
+index 1c982ccc1e5e3..0ce2e59e09198 100644
 --- a/arch/arm64/include/asm/pgtable.h
 +++ b/arch/arm64/include/asm/pgtable.h
-@@ -84,28 +84,30 @@ static inline void arch_leave_lazy_mmu_mode(void)
- 	arch_flush_lazy_mmu_mode();
+@@ -85,6 +85,7 @@ static inline void arch_leave_lazy_mmu_mode(void)
  }
  
-+#define ptval_get(x)		READ_ONCE(x)
-+
+ #define ptval_get(x)		READ_ONCE(x)
++#define ptval_set(x, val)	WRITE_ONCE(x, val)
+ 
  #define pmdp_get pmdp_get
  static inline pmd_t pmdp_get(const pmd_t *pmdp)
+@@ -386,7 +387,7 @@ static inline pte_t pte_clear_uffd(pte_t pte)
+ 
+ static inline void __set_pte_nosync(pte_t *ptep, pte_t pte)
  {
--	return READ_ONCE(*pmdp);
-+	return ptval_get(*pmdp);
+-	WRITE_ONCE(*ptep, pte);
++	ptval_set(*ptep, pte);
  }
  
- #define pudp_get pudp_get
- static inline pud_t pudp_get(const pud_t *pudp)
- {
--	return READ_ONCE(*pudp);
-+	return ptval_get(*pudp);
+ static inline void __set_pte_complete(pte_t pte)
+@@ -815,7 +816,7 @@ static inline void set_pmd(pmd_t *pmdp, pmd_t pmd)
+ 	}
+ #endif /* __PAGETABLE_PMD_FOLDED */
+ 
+-	WRITE_ONCE(*pmdp, pmd);
++	ptval_set(*pmdp, pmd);
+ 
+ 	if (pmd_valid(pmd))
+ 		queue_pte_barriers();
+@@ -877,7 +878,7 @@ static inline void set_pud(pud_t *pudp, pud_t pud)
+ 		return;
+ 	}
+ 
+-	WRITE_ONCE(*pudp, pud);
++	ptval_set(*pudp, pud);
+ 
+ 	if (pud_valid(pud))
+ 		queue_pte_barriers();
+@@ -956,7 +957,7 @@ static inline void set_p4d(p4d_t *p4dp, p4d_t p4d)
+ 		return;
+ 	}
+ 
+-	WRITE_ONCE(*p4dp, p4d);
++	ptval_set(*p4dp, p4d);
+ 	queue_pte_barriers();
  }
  
- #define p4dp_get p4dp_get
- static inline p4d_t p4dp_get(const p4d_t *p4dp)
- {
--	return READ_ONCE(*p4dp);
-+	return ptval_get(*p4dp);
+@@ -1081,7 +1082,7 @@ static inline void set_pgd(pgd_t *pgdp, pgd_t pgd)
+ 		return;
+ 	}
+ 
+-	WRITE_ONCE(*pgdp, pgd);
++	ptval_set(*pgdp, pgd);
+ 	queue_pte_barriers();
  }
  
- #define pgdp_get pgdp_get
- static inline pgd_t pgdp_get(const pgd_t *pgdp)
- {
--	return READ_ONCE(*pgdp);
-+	return ptval_get(*pgdp);
- }
+diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
+index d0a4b8961c7d1..b5bff68dff764 100644
+--- a/arch/arm64/mm/mmu.c
++++ b/arch/arm64/mm/mmu.c
+@@ -75,7 +75,7 @@ void noinstr set_swapper_pgd(pgd_t *pgdp, pgd_t pgd)
+ 	 * writable in the kernel mapping.
+ 	 */
+ 	if (rodata_is_rw) {
+-		WRITE_ONCE(*pgdp, pgd);
++		ptval_set(*pgdp, pgd);
+ 		dsb(ishst);
+ 		isb();
+ 		return;
+@@ -83,7 +83,7 @@ void noinstr set_swapper_pgd(pgd_t *pgdp, pgd_t pgd)
  
- #ifdef CONFIG_TRANSPARENT_HUGEPAGE
-@@ -405,7 +407,7 @@ static inline void __set_pte(pte_t *ptep, pte_t pte)
- 
- static inline pte_t __ptep_get(pte_t *ptep)
- {
--	return READ_ONCE(*ptep);
-+	return ptval_get(*ptep);
- }
- 
- extern void __sync_icache_dcache(pte_t pteval);
+ 	spin_lock(&swapper_pgdir_lock);
+ 	fixmap_pgdp = pgd_set_fixmap(__pa_symbol(pgdp));
+-	WRITE_ONCE(*fixmap_pgdp, pgd);
++	ptval_set(*fixmap_pgdp, pgd);
+ 	/*
+ 	 * We need dsb(ishst) here to ensure the page-table-walker sees
+ 	 * our new entry before set_p?d() returns. The fixmap's
 -- 
 2.43.0
 
