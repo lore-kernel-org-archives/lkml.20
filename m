@@ -1,47 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794909985;
-	b=NbxAQrryzvzJVKjAQXSVFLFxDN+mAW6EzO6sKUUoWCFYuO8TlHwzH8/yq3yLw1BLzMKf
-	 wXVT42XmO/YA13PsrekYmV+ObqeJK3waZWFskwWOvpVB+VJ0FJzjGBUKwo9Eg1CQSynrE
-	 omHjo1/hqCuBXE9Wdgokxl8Sh6pniUHLle8Yzag1PgoAOgw2wdjto0W4ZZPWm0DpSDDes
-	 JN/2ODgOd3UyjwYIgv4/dUo0MXHqJYXHEUg6oriWp+AlB1LQ8J6sQsm4we1DJKPPb7xKM
-	 PEueLBKbnP8rdwV4XaUrbYatiiDxoKJ8Gc+BDQlugIwvJfHrgD7UFPtETozaY7R3bow==
+	t=1794910003;
+	b=lBjNQG8cdNj1JxRxyZfRedMjuVffpjaWM7NkjenRnPE1r8ODcIvb6eGC7KsT0NM0UUUA
+	 U1+IUZBqW2cTUIfC59I6/xiAEe4tY9VyLwaI391aot5mG4A7kPfZo4wVkb08XZ5h4WGLY
+	 Pg/QU7nMxUjmfvwmUS2aOBZwNPSAeoHft7l+EeNJz5WF2OOOTzFGovE8ZkaINbgG3DWV9
+	 6DU3F4dKbpqPyVRHIl05hBb6K17x3Aq4bsj3zFQB3Am8Q3p2FX6t5hQ1BAdloNEIUKZp4
+	 zTupdk371bO3Vqi8wAYencK5/OVPqkUX3opM5TTAjFxCWIxslAMhC/SF6LmXOwTNO7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794909985;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=s8ovy2ctIYpvpl8sbX75T7jexueFzluuIUa2B2ordO4=;
-	b=k44sjrs5RApr2Mbk4Ys6oLpB1JNNod7Okt2aGHfeqUrV05H2sQYLBSlSR4QNSFJBYn78
-	 KK57vWJGAUvOgT3MW084HF11SLJAG2kzI7R2KD6hbr3F7qDxlzSraDMl9vzwXfm0/WydK
-	 l7NUA7gtVvnWQwCPp8Ncchssfno5L9iDSpRGROAOc+FwTjAU9M9fyv+s6J1DnEYWcidNu
-	 aONgm6sjMaEItpyTUEWfzTTWWkONwNbxfGUO9g/+GVDa6O618v8ygQjQ2Q03nh0TNIYHW
-	 o48s3jG+8JPd/+8H2Tq2F3SudmbS2sfOnTXFnw/3yrr+skFEvVHSud02nEr258GPcgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794910003;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=3ahOovwjDlDqMNZ2Yyn08XyrzZ+sm+Yb+nsv1sSKI48=;
+	b=XZUCoGZYf3Ly+oFLTZntKEwUE9yGLZ2pBiLFNNv+oMBz1jsta5V9UJ9GK4QSZZNmtEP9
+	 KHNkX97DE4UgBUe86Ch58G4EXuuaKEWq1sLD6QhSBjJprgXQheV+4cRkAbwZA4hyoJGSm
+	 uVUhTCoL9m3nfEfCBgNv3EKdFurkFV/1c4c9XWSYq43xsfq22Cctm8KK+uVmvtuCcEISS
+	 bqfwLlw1r7ABwCkINEJBFsjIDPn+z2ssKxeATxo8SMaNSZC4xnWapbPCJ3V8mkOCYd2Gj
+	 xWFXTBR2Oja/ddvKzAKQGqIeaWQZdqA5S4WKjtU8lbfC9i4ithEaOzrw2rfIp58EZ4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YHfLTTEk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="A/oX0UGA";
+	arc=none smtp.remote-ip=209.85.210.179
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1904606A323;
-	Tue, 17 Nov 2026 10:06:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 056CF606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:06:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 056CF606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YHfLTTEk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33A8E1F000C4;
-	Tue, 17 Nov 2026 10:06:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794909985;
-	bh=s8ovy2ctIYpvpl8sbX75T7jexueFzluuIUa2B2ordO4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=YHfLTTEkDydHFHaWcIeVqdA79txK629SbKLIPwQaO51Cd6VWQD1MCEFrqW0YOre3y
-	 DEhlC4RPeI8kKdBOkW44U6eif4m2IjXiAeCq56CYu01HP6H3lO+8ZKjLP7Ji1YLBkA
-	 /ziLgp/EdWtq6ATjQjpjfMxwpfQ9iEEyPdmnHL93QPdn87cU+0+LsezhL7RwoemaDn
-	 T0ZM4kxypu0aLQj7Gjpm7lcinLk4QWDmDzu+shRnLyB71wlUb8SSGf/MTlVZauvRZn
-	 z19Rv796c9zYtM4sINmunBK+itcvF5QNGJyLH77bPfJUSXIucEQCKjmCwSwTV5xbZ1
-	 DS5EWN5GsvWqQ==
-Message-ID: <5be284b8-f321-4a9f-be59-7c85f5805fe9@kernel.org>
-Date: Tue, 17 Nov 2026 11:06:19 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A/oX0UGA
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8b2382bf051so2508661b3a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:06:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794910002; x=1795514802; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3ahOovwjDlDqMNZ2Yyn08XyrzZ+sm+Yb+nsv1sSKI48=;
+        b=A/oX0UGAjiQUMW/uHe4FAKYp/rapBHq8Tyxdw6UZ+gBxrxtAI3PfS7VDGLBkS6lAYQ
+         D5CPvf+FkTgRQAS8ykBj0Vugq0WHVlvkPSN9mf2Sezh0Sspcf9Ci8IagyeqRVo3qgCqg
+         oRKUia+PhUgTH6cetMzY1GGYcAkmx7cFvobW6z35XjmGohNhnwHG3XEvuOW8klc33110
+         BbAVizGupRMtP99zsyUFXFIs8XGHjIXClm2axID+4jREMsJPtGSqbGB2BR7bi4C8akrD
+         UMxk3NBU/XHMloUaiehf6ru3kkPjBppTOpjNpflrvgZpY1usm9St8qgEYhHNNQ/cirdf
+         1Fww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794910002; x=1795514802;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3ahOovwjDlDqMNZ2Yyn08XyrzZ+sm+Yb+nsv1sSKI48=;
+        b=dXI7WPem9rFY7ejq75XWOV/dFFDyKf2PaJQd1QzI/vM/UyFFM4aawAhzRvNM7KKTuA
+         gAm1b3mCnyvoSDUxdQDA+MFLTnFGQulBOpiCcMmqHbPWomeYv+BNWM6e9J7a77kR4awV
+         552yAOS4jDgUqUKKy0rOZGhDfav0CvPqIcY38zieyWpeejt4dkJCQLfVsCqjzbz650dm
+         /9gFVz/a6obOSTN3JiJrpshMZySe553VyRHgXcRPHdeNC2V9QzJDgbYwvATE0p18lNfW
+         M+iwz0xdWFAPN75aSH2d/F2eFyVRv6dc487WD+LUHY0i+biUFxEujZTqcblm2MCRSmqH
+         4AmQ==
+X-Forwarded-Encrypted: i=1; AL+hErGU26/H2pT25yuMWgvFnoF+TrICVKuJwwSn1QKe7tmM+Kz9VSupxS148C1sAkgI6GGUh5SsIjcyTvt16Io=@vger.kernel.org
+X-Gm-Message-State: APuU4Z95RjpeG+rMWdNivhFmMWRES3qTwCuCeUksRYB4Z7EeLWUDkQpG
+	hLRr4TxdT4MC6ZKQya9XEGjzDyAzwoGj5cDW+F1XSr172kQGc9BsiyXD
+X-Gm-Gg: AYBFou2NgySbYt5+xUrAfgw0SI40PXt3M69j8EWuO8LZrqhZra5+w8ngCWmZg+7FnxK
+	ZoJTsCOAmwhmuaBxyrNudRsftKSrH5ub9u/odbBq9uPqc1WxsNzjQT1/qv9mvPFcoStReOnGxE8
+	zk/tw4ZS6RtkwL4h5rwmFhDt36JKSE0ACODlG7kv2Neo1I+4UKJQJAVEoweyl9ifWzFQla4orcD
+	4GWCC4aROK4qUcQ2C9dXRoBPeg3JvnVbTHOUfA+BcnOMI7wKKQqzfsFyRrHRzrdSdMOSxQcmFqr
+	OmWU+SpoTPxTzVg5I3+fCAGhzpieiLWE9InRvGfwC4KT+03Hg1GcJdEahSKnuXQJjUhO+KUHUzt
+	51awe7RW7rlYcq863vt6jP/Pz58GMWVgThJdEYF6RWvvxydBHCx06Nfb/lf5i2AAFbPpO5VvsLy
+	ZpdfkHfDAxG+7PNK9UPtUUTju8ZRV1xjvntqU5+6j/62xR2lTj3r11JX4QCKBOy8B3tu0xgIZ+l
+	BZv5amT9nqeqUEM++9jz1AcHu2netIcpcGFGC/qllKDZuaLU5bq9WtFnhBSr/e48BWTa+Wq51e9
+	L0ly71dLRzCITAiqsB94yD5yl5p2UjvzTUn1yiLbq1v37TeGxqHIgJl0fVgoo//n/xuKM6W2PBc
+	5uRr377erfAtuo2EjQJDZnwjcwYh7XSfKc7cVEsuHgGiHwCr9v7UZVwHovC/ZVsJ3eWQWSf9grP
+	2/4klIGqygPW4xPId+UYwUYxP3voF1364DEjkRY8HtihAbp4Seh12BVUCBqWZqJTgJovLXpXyD2
+	B7X7gezjPXCIpoKMxkbfXtSstJ6z0o3Xm5EMP/59pAa5p+/DvA/gyxeKOp08o8r
+X-Received: by 2002:a05:6a00:13aa:b0:897:d037:f3ef with SMTP id d2e1a72fcca58-8beb7d1cd51mr11380228b3a.30.1794910002249;
+        Tue, 17 Nov 2026 02:06:42 -0800 (PST)
+Received: from localhost.localdomain (123-243-92-89.static.tpgi.com.au. [123.243.92.89])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed1d6207fsm5213337b3a.32.2026.11.17.02.06.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 02:06:41 -0800 (PST)
+From: Daniel Wade <danjwade95@gmail.com>
+To: David Hildenbrand <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	stable@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] mm/memory: mark unshare copies dirty to fix MADV_FREE data loss
+Date: Tue, 17 Nov 2026 20:36:22 +1030
+Message-Id: <20261117100622.807-1-danjwade95@gmail.com>
+X-Mailer: git-send-email 2.39.0.windows.2
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,193 +105,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] ASoC: dt-bindings: xlnx,spdif: describe AXI4-Stream
- and audio clocks
-To: Dhanunjanrao Katta <katta.dhanunjanrao@amd.com>,
- Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-sound@vger.kernel.org
-Cc: Vincenzo Frascino <vincenzo.frascino@arm.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Michal Simek <michal.simek@amd.com>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, git@amd.com
-References: <20261117085739.3807943-1-katta.dhanunjanrao@amd.com>
- <20261117085739.3807943-2-katta.dhanunjanrao@amd.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261117085739.3807943-2-katta.dhanunjanrao@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 17/11/2026 09:57, Dhanunjanrao Katta wrote:
-> The SPDIF IP is fed by three clocks: the audio clock used at the
-> SPDIF/AES3 interface, the AXI4-Lite control clock and the AXI4-Stream
-> data clock. So far the binding described only two of them and carried
-> the audio clock frequency in the custom "xlnx,aud_clk_i" property.
-> 
-> Describe the AXI4-Stream clock and pick its name from the IP mode,
-> s_axis_aclk for the transmitter and m_axis_aclk for the receiver. The
-> minimum clock count stays at two, so that device trees written against
-> the earlier binding keep validating and the third clock is effectively
-> optional.
-> 
-> Mark "xlnx,aud_clk_i" deprecated instead of removing it. The frequency
-> it carries is available from the rate of the audio clock, but the
-> property is part of the published binding and device trees in the field
-> still pass it. As the binding sets "additionalProperties: false",
-> removing the property outright would make those device trees fail
-> validation.
-> 
-> Make "xlnx,spdif-mode" required. The conditional that selects the
+wp_page_copy() only calls pte_mkdirty() for write faults, so the copy it
+makes for FAULT_FLAG_UNSHARE comes out clean. Nothing marks the folio
+dirty either and there is no swap entry.
 
-That's ABI break.
+Unshare faults come from R/O GUP pins, like process_vm_readv() on a page
+shared with a child. If the process forks after the pin is gone,
+MADV_FREE in one of them marks the folio lazyfree and reclaim frees it.
+The other process then reads zeroes.
 
-> AXI4-Stream clock name keys on that property, and a conditional with no
-> "required" entry of its own also matches when the property is absent.
-> A device tree omitting the mode would therefore have been held to the
-> transmitter clock name by default. Requiring the property turns the
-> omission into a clear validation failure instead.
+Mark the copy's PTE dirty. pte_mkdirty() also sets soft-dirty on x86, so
+take soft-dirty from the old PTE in both directions.
 
-You need to explain why, not what. Entire commit msg looks LLM written,
-honestly difficult to parse. LLM is not supposed to be used to write
-commit msg, because it means you did not understand what you did here.
+Side effect: smaps and numa_maps count an unshare copy as Private_Dirty
+or Shared_Dirty rather than _Clean.
 
-> 
-> Signed-off-by: Dhanunjanrao Katta <katta.dhanunjanrao@amd.com>
-> ---
->  .../devicetree/bindings/sound/xlnx,spdif.yaml | 54 +++++++++++++++----
->  1 file changed, 44 insertions(+), 10 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/xlnx,spdif.yaml b/Documentation/devicetree/bindings/sound/xlnx,spdif.yaml
-> index a45d8a0755fe..a4abca2027d3 100644
-> --- a/Documentation/devicetree/bindings/sound/xlnx,spdif.yaml
-> +++ b/Documentation/devicetree/bindings/sound/xlnx,spdif.yaml
-> @@ -14,6 +14,28 @@ maintainers:
->  
->  allOf:
->    - $ref: dai-common.yaml#
-> +  - if:
+Fixes: c89357e27f20 ("mm: support GUP-triggered unsharing of anonymous pages")
+Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Daniel Wade <danjwade95@gmail.com>
+---
+v2: set the PTE dirty instead of the folio, as David suggested. No atomic,
+and the dirty bit then also survives in the other mappings.
+v1: https://lore.kernel.org/all/20261116111245.28871-1-danjwade95@gmail.com/
 
-Move allOf to the bottom, before additional/unevaluatedProps
+Tested on mainline b3dfbde62cf1, x86-64 with KASAN and PROVE_LOCKING, as
+uid 65534. The test gives an unshare copy to a child, has the parent
+MADV_FREE it and a control page it alone maps, then waits for reclaim.
+Without the patch all 4096 bytes come back wrong in the child; with it the
+child's page is intact and the control page is still discarded. Same on
+v6.12.117.
 
-> +      properties:
-> +        xlnx,spdif-mode:
-> +          const: 1
-> +      required:
-> +        - xlnx,spdif-mode
-> +    then:
-> +      properties:
-> +        clock-names:
-> +          minItems: 2
-> +          items:
-> +            - const: aud_clk_i
-> +            - const: s_axi_aclk
-> +            - const: s_axis_aclk
-> +    else:
-> +      properties:
-> +        clock-names:
-> +          minItems: 2
-> +          items:
-> +            - const: aud_clk_i
-> +            - const: s_axi_aclk
-> +            - const: m_axis_aclk
+ mm/memory.c |    3 +++
+ 1 file changed, 3 insertions(+)
 
-That's the same clock. Just call it "axis"
-
-
->  
->  properties:
->    compatible:
-> @@ -28,15 +50,15 @@ properties:
->        - description: SPDIF audio interrupt
->  
->    clock-names:
-> -    items:
-> -      - const: aud_clk_i
-> -      - const: s_axi_aclk
-> +    minItems: 2
-> +    maxItems: 3
-
-List stays here with minItems
-
->  
->    clocks:
-> -    minItems: 1
-> +    minItems: 2
->      items:
-> -      - description: input audio clock
-> -      - description: clock for the AXI data stream
-> +      - description: Audio clock input used at the SPDIF/AES3 interface
-> +      - description: AXI4-Lite clock
-> +      - description: AXI4-Stream clock
->  
->    xlnx,spdif-mode:
->      $ref: /schemas/types.yaml#/definitions/uint32
-> @@ -49,8 +71,10 @@ properties:
->  
->    xlnx,aud_clk_i:
->      $ref: /schemas/types.yaml#/definitions/uint32
-> +    deprecated: true
->      description:
-> -      Input audio clock frequency. It affects the sampling rate.
-> +      Frequency of the audio clock input. Superseded by the rate of the
-> +      clock named aud_clk_i.
->  
->  required:
->    - compatible
-> @@ -58,6 +82,7 @@ required:
->    - interrupts
->    - clock-names
->    - clocks
-> +  - xlnx,spdif-mode
-
-ABI break
-
-
-Best regards,
-Krzysztof
+diff --git a/mm/memory.c b/mm/memory.c
+index ec3d9d99ccee..113b305854d5 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -4130,8 +4130,11 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
+ 		entry = folio_mk_pte(new_folio, vma->vm_page_prot);
+ 		entry = pte_sw_mkyoung(entry);
+ 		if (unlikely(unshare)) {
++			entry = pte_mkdirty(entry);
+ 			if (pte_soft_dirty(vmf->orig_pte))
+ 				entry = pte_mksoft_dirty(entry);
++			else
++				entry = pte_clear_soft_dirty(entry);
+ 			if (pte_uffd(vmf->orig_pte)) {
+ 				entry = pte_mkuffd(entry);
+ 				if (userfaultfd_rwp(vma))
