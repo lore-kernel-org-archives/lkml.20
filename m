@@ -1,111 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794913306;
-	b=Qin9cRkbaFWvdyEkI8OutnAdSsFWH5rT0zMgS3L93bBBKyDnXd/Gof74uZ2U+bNWEs5L
-	 9BnkVAFSveVC+pdCSYikYNoj+EUL2rueXH7SaaDJkF+m7b4HL8ocf8qJjRAWishITnNfZ
-	 S8i04bXpr8LioIeAGB0k0GCBx9U5pmczAvzQIgnT0fwC4qfUcJJo5FgwpFTK7yM7fU7Ur
-	 X/LZjfJyZqDroecSg5ZfpXhxYiKdILXae2x7J6miJunocXJBa6YhVcCRD0RreDVillrLT
-	 fGQuSCa2MLKyjFN62MhQKE+w2PiRKIQfWB72WImSLkrz6d5Mtb4XoIAkxFMLzEuJxSw==
+	t=1794913348;
+	b=Sbca9pmDprwKbhcxwEG7YQvxc2lxnjhHB1IrnT5pORFcftuQuJTiO5weY6ysU5wbN4+1
+	 zIgkMIIEVLpCY9IDdWGbKho3ttd8GOwsJSMWcubvYBtNeku40eSje48ggEqt8UahvoD+L
+	 Jn7dcQ4PzjXgE07WYwmvvvPW6OzelBOPLlqiGCGpMJoPGmtSZv/QH9bYau65Ogb0hWZOq
+	 qWJTrvAOHlVGqXArXNyBt47rUDn1Zzzix/jaecAmcpUBuwAssiGLYYjSaU2HEGHkGUg2L
+	 n/2mHXPTLMxcqr12/XGMfLwYG554qcxnspSS6TVN6kT7Pd5VrNKmj00nBU2cLxQ7DNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794913306;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=yaIk7uMdjTpmz4jKxLGJh5b8yUAGglTN9V8Z/YtcjGo=;
-	b=u0c+l0+SxTBc2PqoypaUw27OXVfvEal2yMFh5OVlDA2O+vfriGEZh9narlqka5IfzMLj
-	 t9Ae2mkj7ZUl2BAWIpTNY8Nap8BBSylCdvKo4nQmxe4NtQtBvZsI3uJPB0MHM9zuE8hix
-	 jRbnKh+4vAkQvm5NxmDCfk1R6qh/G9yaxeoDhJTsb1o94n0z63kM9wlJLjkAFt+3gxbDS
-	 SYxe89jifV5gxabeY6lFHA0/O4aYHGfwLzUmZVW0D7qJNv1CwLzDZUlxd3r28OI6NqTHk
-	 xvFievVIuCdhj8pVxo0hNhAQTZV4/oCR2Iaf2LeskziwIwOQXzQABWu5vqQ0Ge2FJFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794913348;
+	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
+	 In-Reply-To:References:Subject:From:To:Cc:Date;
+	bh=N5sxGVFeVAGuxm/pXRnwfOqfgMH816WuDeBFHMyVy4A=;
+	b=GehBUMKepTKVw9E3slv9tLm0MORGWL/6h9KcGtue3FwP9A5IR3PWfppokN+z0BkSWGg+
+	 oFR9yZBVKF5rH16d0wfmpbImsgz/suGnFqrSQTq85aWh7AH7QktjNvRnqC70sQeRVGDOS
+	 n8Sz8wfnqdTc48tbmRFycw56F0kUyvHEma3U/9wIHch0SD0HL2gUZZ8J7YgSLKkU9KYMJ
+	 kwPrvsa3SSk32WAtHo8WE79KJVanp/Y2YQNpKh3sEtjy9J0X7GgON8ymCxLZJQFJxpANF
+	 z1SlzYP+FMFfJhQVc7NnurkuL57YwdoEvR8+TGCxiDtJ5UAn2x1xwobeL+mm4zqMqdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=muo0knjk;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QqorPMdx;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VXviWfPs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69354606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:01:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69354606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3260606A31C;
+	Tue, 17 Nov 2026 11:02:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=muo0knjk;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QqorPMdx
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH8m4b92934254
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:01:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	yaIk7uMdjTpmz4jKxLGJh5b8yUAGglTN9V8Z/YtcjGo=; b=muo0knjkPJLHmOJ+
-	SeIMK/MkrZFvRSOzz9zyW7mOiP7Aeux59PJGrr2af/T8TJNfWp6wS3vQwgJXcXNN
-	X5KtFXC2c/g/N9JMosketbN5Gs5gjhboYbfe2ZwTcxnTEMeWPxKecaH9rEQIRgpS
-	+SSCs0MMEOwVkjhBAEpcb0sZwt3WlKRZ7b+Ef3kFUB+xNV2JqYiGIYLGeTPFItYT
-	aPNQK0Z4C62hgoMi0sWVHbEuCu7SHu2bnaH8bu6+iHjElppP7JY6JFANxsoeqlAu
-	q82163jaV1Yzn/+tnx/BpA5f4xhhLW95lGhlXjgxcmQsTjxUq36QVyA2qfzg1KOf
-	zF1sFw==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j09m0arbe-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:01:45 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8a01e2962a1so4808188b3a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:01:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794913305; x=1795518105; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yaIk7uMdjTpmz4jKxLGJh5b8yUAGglTN9V8Z/YtcjGo=;
-        b=QqorPMdxDJBjgM3kLGv6MngQ7XcgrH4+AItij+9Tun8q9J1OI8MMUSjjprv8jMCPPy
-         XMKMkoTzdlGUSZcBnqHnE5FFQl1rxCKMmxgo6Zk4hZwktvi8Jv+zhFenzFMA56xjodrw
-         TLq2H3yt+d6DhAmG4yjKVPkjHpP6gAyRopUf9dq0CH+mxEX2Ojk8h4kFdz7B9KyNSFYc
-         sShLXObyQ3MrQGWQXBK5qK23oP9qxY24wiAt8ffVlTEHF564g1N7FvZPY2BfNED1VDHk
-         mfeDbNL1ZMSqAcdZNpiiB5/GCd71SJhCYAuIHZ5YQj+8F1K1GpjWpDhq7uIFyXQKoVRz
-         mtyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794913305; x=1795518105;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yaIk7uMdjTpmz4jKxLGJh5b8yUAGglTN9V8Z/YtcjGo=;
-        b=J87qHKLZHqMCzm3oM5EoTQe3WvE8jqtaZTxIra+LGtivcx25CXEgaO5uuXpsdLxdL5
-         DfIOdeOE9W7kB8fUAn8b6VSoNR4jlt5nFcJC6zBvsxkOEDJNGLkZt5HsUaxwNboajMc0
-         hCcAwKAUecXGkTSWdPI9XFjgNoz+QajFys4V3Q0XCGoGRc2y7cvsdW0A0llXdc2Let+b
-         jYNMaqVUktQoSasrw5bsvqcWp6ZhObRBOguqjQF+puZvmW6dM3hawSKhJSW7aLgH5VPR
-         oSkaOhJJblc2byE2JMITf2Q19fkUUu3J7dwjQ9P58qwyfIy3bmF0f3JlgqGkP8FKhi/y
-         i+Vw==
-X-Forwarded-Encrypted: i=1; AL+hErGMdf2L0ocNY6yqAZZb1hxH/lVDr0S43/YDWfZC+0jQClh7ZOiyCrKGmYneo37EKsEIetFQ71mRDaMM6zg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/QNeuOCyk3oEAUoID+Ed6G0ozJypnmBNlnLnTv+Chwi6E9wFYQ
-	T7U202wfPC7ese4BfUGLSiGt7rU4YQ2PZh6g7mxglcfXPIUAi8y2d1H+UIfzKEfZFiRBeCQl1cb
-	OS1Wc+voENjnzWW0jX3FKS5Ue2HOQyLbB3zHdb0NJkv/ufonRChExkJOU6snfrm/PWr0=
-X-Gm-Gg: AYBFou1vR6nLgMdsqtsqYH9/xd1RUTyl1QYr34n4Foi9cUAkVR/JX3d1BYAENHLYR+K
-	LdXdwRLrRgtuUQNZq1CpAXz3VM1udYHFENcKN5XYdggtvoS+ngN+Tu+vzy3TLVO46T+4BQYYGmc
-	cvMwXTCJjJZ+gtBi7cjlF2BTGEICwMCmcF9AjXjmdzWC4hsUgvuKwTV7udAswMI+HRNwSwpW7RP
-	1lvoQoHj114+CfnBVH/Mw5umpCWJ1RYvUwvHzXQfJg8y1Sa9VNjQpukCMSCiWAmdhsg1gntJ5EG
-	iT7H29avPF5miZ9ZREGcAWQInithYkLmBWNkUB+hfAFNW6YE6F4496Cu2imD5cGs3DcJz3sAUFh
-	OhsmascwdKcW64vnQtkOPLYHAZhEEqqcWNesldMH8EnZemK3rm3WVUK31K4XqEIZvkNkmCXlm
-X-Received: by 2002:a05:6a00:3773:b0:89e:8915:24a2 with SMTP id d2e1a72fcca58-8c42858750fmr1991741b3a.29.1794913305037;
-        Tue, 17 Nov 2026 03:01:45 -0800 (PST)
-X-Received: by 2002:a05:6a00:3773:b0:89e:8915:24a2 with SMTP id d2e1a72fcca58-8c42858750fmr1991679b3a.29.1794913303862;
-        Tue, 17 Nov 2026 03:01:43 -0800 (PST)
-Received: from [10.219.2.72] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed263b648sm4805369b3a.46.2026.11.17.03.01.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2026 03:01:43 -0800 (PST)
-Message-ID: <2e247391-ab5b-477b-933e-0e396e0920d2@oss.qualcomm.com>
-Date: Tue, 17 Nov 2026 16:31:37 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VXviWfPs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 923AD1F000C4;
+	Tue, 17 Nov 2026 11:02:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794913348;
+	bh=N5sxGVFeVAGuxm/pXRnwfOqfgMH816WuDeBFHMyVy4A=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=VXviWfPsapXpHiX51cNBX0pMOtZm2H9VfY0Pf6fl6lQOWwi8M6w8S1L0FuAZpz1YP
+	 R9HmiVW1ehQdR9VqLaJxvW41LhePNgDXvUlKk3dlFb4sz+a1JUGqMM2+DYdmx25lOp
+	 qNtxfSqzLUp7geoPJv0nXheT3C9Co18bYivTWVekN5+5up0HNVFPwTrggzM6MESfVq
+	 I5wKDyNGM9HXWRCGbh8p5b+dwrpjVd3Gj7bL2vAkiG9zFkDGwMjh5VBgZ1j6ePLOs1
+	 RZemf5d009JbYcKgcaN6mGXFS/wsDe+Jnfn+hNFlZpVV2qwv36XgYk6ol2N6VZLS5z
+	 AX65fgVZpu5nQ==
+Content-Type: multipart/mixed; boundary="===============1861414329617790077=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,68 +49,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/3] arm64: dts: qcom: talos-lyra-evk: enable audio
- support
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: Abel Vesa <abelvesa@kernel.org>, linux-sound@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261117104303.435294-1-karthik.s@oss.qualcomm.com>
- <20261117104303.435294-2-karthik.s@oss.qualcomm.com>
- <2e7767be-ed88-41fc-962b-7c4bd728e856@kernel.org>
-Content-Language: en-US
-From: Karthik S <karthik.s@oss.qualcomm.com>
-In-Reply-To: <2e7767be-ed88-41fc-962b-7c4bd728e856@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Message-Id: <0e602faa04ade005445a5dba3c1cebb690e5daefa30f24b07a12a3bbcff6ab61@mail.kernel.org>
+In-Reply-To: <20261117103028.4105609-3-arighi@nvidia.com>
+References: <20261117103028.4105609-3-arighi@nvidia.com>
+Subject: Re: [PATCH 2/3] bpf: Allow importing device-dax pages into an arena
+From: bot+bpf-ci@kernel.org
+To: arighi@nvidia.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
+Cc: martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,john.fastabend@gmail.com,tj@kernel.org,void@manifault.com,changwoo@igalia.com,joshdon@google.com,vineethrp@google.com,yepeilin@google.com,zhiw@nvidia.com,ltrager@nvidia.com,balbirs@nvidia.com,skolothumtho@nvidia.com,himadrics@protonmail.com,royfru44@gmail.com,bpf@vger.kernel.org,sched-ext@lists.linux.dev,linux-kernel@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue, 17 Nov 2026 11:02:25 +0000 (UTC)
+
+--===============1861414329617790077==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA0MyBTYWx0ZWRfX9d0EVC4Q6WoK
- qn6vhQvzwJhmLSApMaHUFpZlh+aJud/3dtfRKdFQ/Q1UeHeRyCb13LYYoHAjU0RlKEql5uwzrzD
- 4xG/2iy7OLSkFhgpx+sKHqEuexImeA0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA0MyBTYWx0ZWRfXw8sbWA3ktMOp
- fFkZOuJ1zKWxm/GMNkI7pC77QT+KptChlWNxeF6lhCkQnqFBUBi3lvamVoge3ZPbO4vkkx12j4/
- Bq276knEa306zkSPzo9bRfdX8gArmh+2JCAynXUxC69Fln+W8njjp5MuQJ+/FSiQosG+afX0WAY
- oADfqJzGhe7XwzHiS2bgSbBuRnZe9kij0w8UYcSebuARlANqrcAegi5VtizfT3veCfnYLYrg9ei
- l5XKoC6I8jZ84C0AudfAhlg/1+kcUYSDEe3vr5J7Pgz44FgNb4HoFHrgeuePG9GLpW1JVJMuY5y
- GKkKkH91BE9KM+Xg4pKa29GI0fdD896rnaQw9uCv7ihQa0Usz5dSGvVsiTr4pkLLkSQ+bfXZinO
- VNzZW39bUbytfSQHhtKXD42jyOaKTunRzgX/yfdtLoliHYzc+WSOHAAc8dfcA0U8ncOHBlLcsqZ
- UIxymeKFnPu18UJ+A+g==
-X-Proofpoint-GUID: Rrc_mTECYyLx2XqzKoGOiLt0mPVs5vBg
-X-Proofpoint-ORIG-GUID: Rrc_mTECYyLx2XqzKoGOiLt0mPVs5vBg
-X-Authority-Analysis: v=2.4 cv=F7rC5ahN c=1 sm=1 tr=0 ts=6afc3419 cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=HA4giugNgv4V6a54TBAA:9 a=QEXdDO2ut3YA:10 a=QYH75iMubAgA:10
- a=IoOABgeZipijB_acs4fv:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-17_01,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 priorityscore=1501 clxscore=1015
- suspectscore=0 bulkscore=0 malwarescore=0 spamscore=0 phishscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611170043
+
+> bpf: Allow importing device-dax pages into an arena
+
+TL;DR:
+- Possible ABBA deadlock: get_online_mems() then mmap_read_lock() inverts the
+  order nouveau/dmirror use, so a hang looks possible
+- Minor: tagged user pointers are not untagged before vma_lookup()
+
+> diff --git a/kernel/bpf/arena.c b/kernel/bpf/arena.c
+> --- a/kernel/bpf/arena.c
+> +++ b/kernel/bpf/arena.c
+
+[ ... ]
+
+> +static int arena_import_dax(struct bpf_arena *arena, long uaddr, u32 page_cnt, u64 src)
+> +{
+
+[ ... ]
+
+> +	/* A sleepable callback, like a bpf_wq one, may run without an address space */
+> +	if (!mm || (src & ~PAGE_MASK))
+> +		return -EINVAL;
+
+[ ... ]
+
+> +	/*
+> +	 * A pin doesn't keep the memmap of device pages: an unbind can free it
+> +	 * until a dev_pagemap reference is held, but only under mem_hotplug_lock,
+> +	 * which nests outside of mmap_lock
+> +	 */
+> +	get_online_mems();
+> +	mmap_read_lock(mm);
+
+Is the lock order stated in this comment correct?  The tree also has paths
+that take mem_hotplug_lock for write while holding a user mmap_read_lock:
+
+  nouveau_svmm_bind()            mmap_read_lock(mm)
+    nouveau_dmem_migrate_vma() -> nouveau_dmem_migrate_chunk() ->
+    nouveau_dmem_migrate_copy_one() -> nouveau_dmem_page_alloc_locked() ->
+    nouveau_dmem_chunk_alloc() -> memremap_pages() -> pagemap_range() ->
+    mem_hotplug_begin() -> percpu_down_write(&mem_hotplug_lock)
+
+  dmirror_migrate_to_device()    mmap_read_lock(mm)
+    dmirror_migrate_alloc_and_copy() -> dmirror_devmem_alloc_page() ->
+    dmirror_allocate_chunk() -> memremap_pages()
+
+That is the opposite order from get_online_mems() followed by
+mmap_read_lock(mm) here, so lockdep should report an ABBA cycle once both
+chains are seen.
+
+A hang with a single mm looks possible with three threads.  T1 holds
+mmap_read_lock and waits in percpu_down_write() for T2.  T2, in this kfunc,
+holds mem_hotplug_lock for read and calls mmap_read_lock(mm).  T3 waits in
+mmap_write_lock() on T1's read hold, and once it sets the rwsem handoff flag
+T2 can no longer take the read lock and queues behind T3.  No thread can
+make progress.
+
+The x86 ptdump debugfs path already uses the same order as this patch, so
+the inversion is not new, but this kfunc makes it reachable from a much more
+common path.
+
+Could the dev_pagemap reference be taken without holding mem_hotplug_lock
+across mmap_lock, for example by taking the dev_dax pgmap from the VMA's
+file before pinning?
+
+> +	vma = vma_lookup(mm, src);
+
+A subsystem pattern flags this as potentially concerning: src is a
+user-supplied u64 that goes to vma_lookup() and to the vma->vm_end - src
+range check without untagged_addr(), and the only earlier test is
+(src & ~PAGE_MASK).  A tagged pointer (arm64 TBI/MTE, x86 LAM) is above every
+VMA, so vma_lookup() returns NULL and the import fails with -EINVAL, while
+pin_user_pages() would have accepted the same address because
+__get_user_pages() untags it.
+
+This fails closed, so the checked VMA and the pinned range cannot diverge,
+and addresses returned by mmap() of /dev/daxX.Y are untagged.  Should this
+use untagged_addr(src) on a copy before vma_lookup() and the range check, or
+should the kdoc say that @src must be untagged?
+
+> +	if (!vma || !vma_is_devdax(vma) ||
+> +	    ((unsigned long)page_cnt << PAGE_SHIFT) > vma->vm_end - src)
+> +		goto out_unlock;
+
+[ ... ]
 
 
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-On 11/17/2026 4:20 PM, Krzysztof Kozlowski wrote:
-> What is happening here?
-
-hi krszyztof,
-
-git send-email seems to have picked the wrong patchsets, i will resend 
-V1, sorry for the confusion
-
-Thanks and regards,
-karthik
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/44067070819
+--===============1861414329617790077==--
