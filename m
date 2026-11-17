@@ -1,61 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.76.5.236
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794881931;
-	b=O9SeWAGWsAqe3tNPurxKgKHen+A3i/sqh7Sur0pZm7zi1G+upwLKOiLyiY3H1pgo47IV
-	 xb674J35364qg3Tjbbg/UxY8Uy4MSTZgfjxVhi/Mxs2Axk69ND1ffvoFK347vILuPZk2M
-	 jtDIZPxXajXlbUrODNGhSc8O0Fy3wnI85Zko7iPUPdb/UE88UGuTWtb9oOCBs7/ulGhgr
-	 bqGVCdA0mJQ+mOZ3WUWN/KTWt9V7Zai9x1diHqa78e2lNzkj4O+BLPCyhYC+JFZKtWdXm
-	 gs2el+DyBbgUVIqoF2U0nYHFncqRArI3Z9xGD7gVhYB+VBrtz6mWPMiDhVrg9cU43dQ==
+	t=1794882157;
+	b=34Su7qSLqsFrgWOm9AVwr50cy3G9Yx2+/8WoRwpi7wzDJp9tqfEJoQijT4qkH7b3ShPI
+	 rRJRd/g06c33GEQ5xYA7dW4P4lDqhWAPO2C8l/jZbFWvpj/BVZxHqigfxvy26DWtJvJyi
+	 vQLlCaqjbu4phUNkSOCjvCaql/6JA4ZRmbpmiUCLXjw8J0WUsQs0E9v/EjtVYoqyFG29M
+	 CXkPrffjpL8f7ZeHHcZfkac5DMn6OTxSFRhK2oMS1/LEjdY3m6y37hXDuppJMTH5gMyla
+	 bKyJthQaSHoQ2suo1OwkU92635F0UmF7EklupSHt+TJRNcVeOqC49UedzzIS4E1Y/ow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794881931;
-	h=DMARC-Filter:X-MD-Sfrom:X-MD-SrcIP:From:To:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version:
-	 DKIM-Signature;
-	bh=KxA1gat61zqasH5kjJPMHKq4Wocgk1fldQZmos+bezg=;
-	b=F0w769ySD9Ga//eShR0zW1qRorVuIeQz6sGTsowegsPlsc0DPac6dc6K8TWqjoZd7f4I
-	 EGu/hLXd1xMb0TJqIAh8qiZAVMPzeh4y3DUeI5etyF1M9q6GNS4YzCHR04X0Z7/5W1Khu
-	 8aczgl6qKSRPQ2PWII04j/wdWNOLSGEJxVE5HoJTiIjFghFkYLpfWkm+5al8sCjGdakAt
-	 2EC/PvoWwM+G9UCdxdecXdZkkQE13Oh0GELWKMnntGaJAwyWwRD5wZPjQhE0gZdjV72OA
-	 HpOyUjLyvo/PWMJ16mojwBJ9zI/Inbi6unHdMi8N9Juz2v2sc1mBYcGJ2S5O8rnJZoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794882157;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=vhQMbf/9QOBK7STkWUtf7NSQ2paMplC/n0grkTn19So=;
+	b=qnZAo24GI78WrCeVdoWXyhqmhsrd6uZ98+ox5VUNLWtOUi6Z17m6EQdrIcz4eWzZ4Ml0
+	 NLRlfMVK+LFOiPz2pzmWze7VbONUIJyjckLOoVW3hWKL5Wwu1o6axRBYtN0+KXTavPsqI
+	 VprmzW3y8twS1LuBC3RXIBpdvcvMrnLUZ//LnSeCf+VR0Wi0DsHIpKhmR34cVvX9oZRgU
+	 kb+FSzUkTuDnEuXjqu+vI0Yz7H4qmbjEGUXEbgbNdLUkx0/bxWD5509qKwb0k9w09ekIf
+	 5Lg7i9TwAyLdroAaVUsCvZTmDQXLinS8SGZGdS4yIv8DOqsgDHx5yKPD8nVYPQui8mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baidu.com;
-	spf=pass smtp.mailfrom=baidu.com;
-	dkim=pass header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=W5kQloRF;
-	arc=none smtp.remote-ip=180.76.5.236
-Received: from outbound.baidu.com (outbound.baidu.com [180.76.5.236])
-	by smtp.subspace.kernel.org (Postfix) with SMTP id CCF1D606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:18:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCF1D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d7AN4EeH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3D06606A31C;
+	Tue, 17 Nov 2026 02:22:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=W5kQloRF
-X-MD-Sfrom: lirongqing@baidu.com
-X-MD-SrcIP: 172.31.50.46
-From: "Li,Rongqing" <lirongqing@baidu.com>
-To: Vasant Hegde <vasant.hegde@amd.com>, Joerg Roedel <joro@8bytes.org>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>, Will Deacon
-	<will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	"iommu@lists.linux.dev" <iommu@lists.linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: =?utf-8?B?562U5aSNOiBb5aSW6YOo6YKu5Lu2XSBSZTogW1BBVENIXSBpb21tdS9hbWQ6?=
- =?utf-8?B?IFJDVS1wcm90ZWN0IGlvbW11X2dhX2xvZ19ub3RpZmllcg==?=
-Thread-Topic: =?utf-8?B?W+WklumDqOmCruS7tl0gUmU6IFtQQVRDSF0gaW9tbXUvYW1kOiBSQ1UtcHJv?=
- =?utf-8?B?dGVjdCBpb21tdV9nYV9sb2dfbm90aWZpZXI=?=
-Thread-Index: AQHdS/CJ6R9FuVCvj06ptfGQFjiYz7cwlTgAgAFGkLA=
-Date: Tue, 17 Nov 2026 02:18:43 +0000
-Message-ID: <ea2a95095eba47a99df64adde16fd71a@baidu.com>
-References: <20260924064709.2194-1-lirongqing@baidu.com>
- <301430f5-c96a-42e2-bd81-de564650f9a9@amd.com>
-In-Reply-To: <301430f5-c96a-42e2-bd81-de564650f9a9@amd.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d7AN4EeH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DF201F000C4;
+	Tue, 17 Nov 2026 02:22:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794882156;
+	bh=vhQMbf/9QOBK7STkWUtf7NSQ2paMplC/n0grkTn19So=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=d7AN4EeHmlvOJjRV45jWR6YuUi6Il8n0G0jWiAGdvtH1QKSQJPbn/BusqHeV9B+he
+	 ANmXvXUmIi/KNWK32/shUijmrtiBZSHWfqH1hKDU8ROOuPwJkCDchf56VjhomFDNYe
+	 KasJfOrV+UgOIXGJwCrQq3Vtk5U2XvllCNhLsi7F/mGrUIKaSfWdIx5RSrh3hfxiN4
+	 4mMJ9ZGzTi5maOLVLkk20n+eXu8CpB2ze9u87CkAjI+0iBfPs7yejzMUw7Aobp10QR
+	 odHjwgtpTw60yNa3XCuE9QC6NoYuJWYU1wLcnozGOQrxd6XXeBSkEq/3mZoL1ghl4Q
+	 o/PupYQE2Z+jQ==
+Date: Tue, 17 Nov 2026 02:22:28 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Anisa Su <anisa.su887@gmail.com>
+Cc: linux-cxl@vger.kernel.org, nvdimm@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Dave Jiang <dave.jiang@intel.com>, Alison
+ Schofield <alison.schofield@intel.com>, Davidlohr Bueso
+ <dave@stgolabs.net>, Ira Weiny <iweiny@kernel.org>, Vishal Verma
+ <vishal.l.verma@intel.com>, Fan Ni <nifan.cxl@gmail.com>, Li Ming
+ <ming.li@zohomail.com>, Benjamin Cheatham <benjamin.cheatham@amd.com>,
+ Gregory Price <gourry@gourry.net>, Richard Cheng <icheng@nvidia.com>, Anisa
+ Su <anisa.su@samsung.com>
+Subject: Re: [PATCH v1 02/14] cxl/port: Add dynamic capacity options to
+ endpoint decoder mode
+Message-ID: <20261117022228.43725ce7@jic23-hlaptop>
+In-Reply-To: <20261104230445.66625-3-anisa.su@samsung.com>
+References: <20261104230445.66625-1-anisa.su@samsung.com>
+	<20261104230445.66625-3-anisa.su@samsung.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,30 +67,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
-	s=selector1; t=1794881926;
-	bh=KxA1gat61zqasH5kjJPMHKq4Wocgk1fldQZmos+bezg=;
-	h=From:To:Subject:Date:Message-ID:Content-Type;
-	b=W5kQloRFr8oumZdm0r03hS3Ak+o/rpdafkuIAyCPNwkWY1m+gM9PYDF16mQuo5SSw
-	 6wWput2nApuBsKsN2nfq/LUBTTDsq4fVzpVCIVakIkIIQq6++JC3s+lmmdyiz4DDOJ
-	 4RvBMunbdqjpDcIv1vASVpZ8AOCwdbnLg/QTIJTN5b1GGWLh0/ZwOeursLCJAbtOB5
-	 Sd4Xz4QSttJwMcPbezT0wkz4YWIudB6vbb3aUe7v8PrcHUI8z5dp0GocQfqouoaT+7
-	 Dsf6VrDtIQOPl6dXbUJYBEZskEB2dnQ08Rmjzq53ffXMZ2gMiAq1OQum8Vo6PNkz14
-	 u1TslrMMzsFvQ==
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-PiA+ICAJICogRW5zdXJlIGFsbCBpbi1mbGlnaHQgSVJRIGhhbmRsZXJzIHJ1biB0byBjb21wbGV0
-aW9uIGJlZm9yZQ0KPiA+IHJldHVybmluZyBAQCAtMTA5NCwxNyArMTA5NCwyNSBAQCBzdGF0aWMg
-dm9pZCBpb21tdV9wb2xsX2dhX2xvZyhzdHJ1Y3QNCj4gPiBhbWRfaW9tbXUgKmlvbW11KQ0KPiA+
-DQo+ID4gIAkJLyogSGFuZGxlIEdBIGVudHJ5ICovDQo+ID4gIAkJc3dpdGNoIChHQV9SRVFfVFlQ
-RShsb2dfZW50cnkpKSB7DQo+ID4gLQkJY2FzZSBHQV9HVUVTVF9OUjoNCj4gPiAtCQkJaWYgKCFp
-b21tdV9nYV9sb2dfbm90aWZpZXIpDQo+ID4gLQkJCQlicmVhazsNCj4gPiAtDQo+ID4gLQkJCXBy
-X2RlYnVnKCIlczogZGV2aWQ9JSN4LCBnYV90YWc9JSN4XG4iLA0KPiA+IC0JCQkJIF9fZnVuY19f
-LCBHQV9ERVZJRChsb2dfZW50cnkpLA0KPiA+IC0JCQkJIEdBX1RBRyhsb2dfZW50cnkpKTsNCj4g
-PiArCQljYXNlIEdBX0dVRVNUX05SOiB7DQo+ID4gKwkJCWludCAoKm5vdGlmaWVyKSh1MzIgZ2Ff
-dGFnKTsNCj4gPiArCQkJaW50IHJldCA9IDA7DQo+ID4gKw0KPiA+ICsJCQlzY29wZWRfZ3VhcmQo
-cmN1KSB7DQo+IA0KPiBXaHkgd2UgbmVlZCBzY29wZWRfZ3VhcmQoKT8gd2UgZG9uJ3QgaGF2ZSBt
-dWx0aXBsZSBlcnJvciBjb25kaXRpb24gdG8gaGFuZGxlLg0KPiBJIHRoaW5rICBzaW1wbGUgcmN1
-X3JlYWRfbG9jaygpIC0+IGNhbGwgbm90aWZpZXIgc3R1ZmYgLT4gcmN1X3JlYWRfdW5sb2NrKCkg
-aXMgZ29vZA0KPiBlbm91Z2guIFRoYXQgd2F5IHdlIGNhbiBhdm9pZCBtdWx0aXBsZSBpZihub3Rp
-ZmllcikgY2hlY2sgYXMgd2VsbC4NCj4gDQo+DQoNClJlYXNvbmFibGUsIEkgd2lsbCBzZW5kIHYy
-LCB0aGFua3MNCg0KW0xpLFJvbmdxaW5nXSANCg0KDQo=
+On Thu,  5 Nov 2026 08:02:26 +0900
+Anisa Su <anisa.su887@gmail.com> wrote:
+
+> Endpoints can now carry a dynamic ram partition following the
+> persistent memory partition. A DC partition is further described by
+> two properties reported in its CDAT DSMAS entry: shareable and
+> read-only.
+> 
+> Expand the decoder mode to accept 'dynamic_ram', 'dynamic_ram_shared',
+Time to argue about bikeshed colors.
+
+So we want the subtle distinction between shared and shareable?
+Shared implies it is happening, shareable that it might.
+
+I don't really care either way.
+
+> 'dynamic_ram_ro' and 'dynamic_ram_shared_ro'. cxl_dpa_set_part()
+> selects the first dynamic ram partition whose properties match exactly.
+> 
+> DCD may be disabled during validation after the DC partition(s) were
+> added to the DPA layout, so a decoder may only be assigned to a DC
+> partition while DCD is enabled for its memdev. Add a helper,
+> cxled_dcd_enabled(), to check cxl_dcd_supported().
+> 
+> Signed-off-by: Anisa Su <anisa.su@samsung.com>
+> Tested-by: Wonjae Lee <wj28.lee@samsung.com>
+> Tested-by: Junhee Park <jh9934.park@samsung.com>
+> Tested-by: Heesoo Kim <habil.kim@samsung.com>
+> ---
+>  Documentation/ABI/testing/sysfs-bus-cxl | 25 +++++++----
+>  drivers/cxl/core/core.h                 | 23 ++++++++++-
+>  drivers/cxl/core/hdm.c                  | 21 ++++++++--
+>  drivers/cxl/core/port.c                 | 55 ++++++++++++++++++++++---
+>  4 files changed, 105 insertions(+), 19 deletions(-)
+> 
+> diff --git a/Documentation/ABI/testing/sysfs-bus-cxl b/Documentation/ABI/testing/sysfs-bus-cxl
+> index 7352dbd70bc7..bcbc44fea6db 100644
+> --- a/Documentation/ABI/testing/sysfs-bus-cxl
+> +++ b/Documentation/ABI/testing/sysfs-bus-cxl
+> @@ -339,22 +339,29 @@ Description:
+>  
+>  
+>  What:		/sys/bus/cxl/devices/decoderX.Y/mode
+> -Date:		May, 2022
+> -KernelVersion:	v6.0
+> +Date:		May, 2022, November, 2026
+> +KernelVersion:	v6.0, v7.5 (dynamic_ram)
+>  Contact:	linux-cxl@vger.kernel.org
+>  Description:
+>  		(RW) When a CXL decoder is of devtype "cxl_decoder_endpoint" it
+>  		translates from a host physical address range, to a device
+>  		local address range. Device-local address ranges are further
+> -		split into a 'ram' (volatile memory) range and 'pmem'
+> -		(persistent memory) range. The 'mode' attribute emits one of
+> -		'ram', 'pmem', or 'none'. The 'none' indicates the decoder is
+> -		not actively decoding, or no DPA allocation policy has been
+> -		set.
+> +		split into a 'ram' (volatile memory) range, 'pmem' (persistent
+> +		memory) range, and dynamic capacity ranges. The 'mode'
+> +		attribute emits one of 'ram', 'pmem', 'none', or a dynamic
+> +		capacity selector: 'dynamic_ram', 'dynamic_ram_shared',
+> +		'dynamic_ram_ro' or 'dynamic_ram_shared_ro', composed from the
+> +		shareable and read-only properties of the partition the decoder
+> +		points at. The 'none' indicates the decoder is not actively
+> +		decoding, or no DPA allocation policy has been set.
+>  
+>  		'mode' can be written, when the decoder is in the 'disabled'
+> -		state, with either 'ram' or 'pmem' to set the boundaries for the
+> -		next allocation.
+> +		state, with 'ram', 'pmem', or one of the dynamic capacity
+> +		selectors to set the boundaries for the next allocation. A
+> +		selector picks the first dynamic capacity partition whose
+> +		shareable and read-only properties match it exactly, and is
+> +		accepted only while the driver has dynamic capacity enabled
+> +		for the device.
+>  
+>  
+>  What:		/sys/bus/cxl/devices/decoderX.Y/dpa_resource
+> diff --git a/drivers/cxl/core/core.h b/drivers/cxl/core/core.h
+> index 8a81be004d00..24fbb5718abc 100644
+> --- a/drivers/cxl/core/core.h
+> +++ b/drivers/cxl/core/core.h
+> @@ -6,6 +6,7 @@
+>  
+>  #include <cxl/mailbox.h>
+>  #include <linux/rwsem.h>
+> +#include <cxlmem.h>
+>  
+>  extern const struct device_type cxl_nvdimm_bridge_type;
+>  extern const struct device_type cxl_nvdimm_type;
+> @@ -18,6 +19,25 @@ enum cxl_detach_mode {
+>  	DETACH_INVALIDATE,
+>  };
+>  
+> +static inline struct cxl_memdev_state *
+> +cxled_to_mds(struct cxl_endpoint_decoder *cxled)
+> +{
+> +	struct cxl_memdev *cxlmd = cxled_to_memdev(cxled);
+> +
+> +	return to_cxl_memdev_state(cxlmd->cxlds);
+> +}
+> +
+> +/* Type-2 devices have no memdev state; nothing else leaves @cxlds NULL here */
+
+Seems like an odd comment given cxlds isn't visibly used in here.
+Perhaps needs to refer to it via a specific path?
+
+> +static inline bool cxled_dcd_enabled(struct cxl_endpoint_decoder *cxled)
+> +{
+> +	struct cxl_memdev_state *mds = cxled_to_mds(cxled);
+> +
+> +	return mds && cxl_dcd_supported(mds);
+> +}
+
+
+> diff --git a/drivers/cxl/core/port.c b/drivers/cxl/core/port.c
+> index f3705ea44db7..9b71b58d4e36 100644
+> --- a/drivers/cxl/core/port.c
+> +++ b/drivers/cxl/core/port.c
+> @@ -203,6 +203,40 @@ static ssize_t target_list_show(struct device *dev,
+>  }
+>  static DEVICE_ATTR_RO(target_list);
+>  
+> +/* Dynamic capacity selectors: the flags name one kind of DC partition */
+> +static const struct {
+> +	const char *name;
+> +	bool shareable;
+> +	bool read_only;
+> +} cxl_dc_modes[] = {
+> +	{ "dynamic_ram",		false,	false },
+> +	{ "dynamic_ram_shared",		true,	false },
+
+This rather highlights the disconnect in naming. 
+
+> +	{ "dynamic_ram_ro",		false,	true },
+> +	{ "dynamic_ram_shared_ro",	true,	true },
+> +};
+> +
+
+
