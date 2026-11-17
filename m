@@ -1,59 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.210.91.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=94.130.186.121
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794919846;
-	b=xyyTo9o+7Id8c7NpQLXCHrlqw/ZifvmIoZHycrpKQDLfpSiWiFHlnMOF74rS2/PG6L2Y
-	 KU8558R7SDFi95ui1lsyBHymPxa9pBtgmciS5ZLOQvJDffHVpB8RO4WjukRHuq74M1w10
-	 R7czoJYJQMC9OhQF+YnmDuACxJo3ru+fI51YaaQS5E8/ANMcxbmM66/f+TNUd65Qm1C0r
-	 9B8Er8oBZOGmZl1Mnd97ftSuGFUqw+klyMfjPJLFcNmslKJRh1cIV+UQXJXWrIG993Oqj
-	 o7m9PZVReGQqYvi5TnyD4SsVIQp90h8cyu/6I8YlALiV/KBIPn0pcxwEz1N5nzV5gXw==
+	t=1794919847;
+	b=sqnEdHfdrIDP3TYJcdsmMjMrHpf88x++1pvjD0Yfo6CFcaHcyfl3uFBZHuVWlvimJq7F
+	 zWOyZTtytrag5aB8wZ8mkEsuxUR/J9CnCqouGxwMkwqNWkZOYgO7nYf0TWg2AhXEo4b4y
+	 JtFCGMDSMnydsMCiiTlacd1fMJwuKIF8qZCFTwNGvio7+H3PWxBUWmE3UCwrb9JgIBBMO
+	 2/s7goMsN6WoLWxtNr0/cUyzldx6PCj4RKzZSXBNBcXUakICk+D9co8lajM+l7zuk+uMX
+	 a5UtlMDyu6zI1tUJPc9Of64gl2WuxwReNo6ySOgyvskoy6YggJ27/qYDdX1g64WAxMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794919846;
-	h=DMARC-Filter:Received:Received:Received:Received:X-OVh-ClientIp:From:
-	 Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:x-ovh-tracer-id:
-	 X-VR-SPAMSTATE:X-VR-SPAMSCORE:X-VR-SPAMCAUSE:DKIM-Signature;
-	bh=2FuHkhres7c1a9hvpm6PvrBxWYxoOoyw665OrYuvrvk=;
-	b=Po4tLZTexMCJ40cY7OIZGEhcq/+0JfrNZOTVJct4m6NawxDK0IUr1Sn+B9RJL+BwO0PE
-	 v5eaxHJI+OpoQc6XOUt0sUmK9LCgJJCbxXX1PTAuIsH366jwKFDMogsPubR9J1xa4TREq
-	 Y1VVFEXvZTZRLR3lc4qMrWeNVHQxkHHZWlBmM+SUxpq1eqN33Hh6vpBGEauiDxzVa5ECO
-	 6p7b9gdFepAnWH+xX1SLikzRyK0Gh5gyxU9XeHcXJTYHQz4xWF6/JQNRg6l24lTyromcR
-	 9zhcfCWWdJ2gxSEy/AujQ/ApHIPFfBslhwTMmX8bG9NmnXbLaZG9Ttuii6U8SxQE20g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794919847;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=TBqtCx9X2cV6qUHx1FLONx/l/x4FumUzVEsD1J6HJkw=;
+	b=onRj9aLFeWgFUVCurwU1g7x2kZ1IMno6P3Ghh5Ej6UvvsRY273QXuvNsZuPVf8tCilpH
+	 ITZAwKpEahhYU+Yvi1os3gON639tIC+qCmocHWnc5oWAqXyZlrpBfcrKcxhPGhzUnbu3z
+	 EcB4w9aw0+xTx3KJstiS8EwE3a6YHFzgiMAXzQd2U8N5AEPimE72aqMbfUUqt6igfc4p3
+	 gYmYGPFyOHFtsQhftoAiiXNtgBuMYiWqXHMxmAzWTr5CJBxWgqcseL715Ykozn3bGng6E
+	 wqdwTKTAKbPMfbxRcijBS0VD+fcwiQbrWjhOs+wloisIpEJhj34Pqq3g/LAu6p2bjfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pixelcluster.dev;
-	spf=pass smtp.mailfrom=pixelcluster.dev;
-	dkim=pass header.d=pixelcluster.dev header.i=@pixelcluster.dev header.a=rsa-sha256 header.s=ovhmo-selector-1 header.b=XyN2K4Fc;
-	arc=none smtp.remote-ip=51.210.91.22
-Received: from smtpout3.mo537.mail-out.ovh.net (smtpout3.mo537.mail-out.ovh.net [51.210.91.22])
+	dmarc=none header.from=hardeman.nu;
+	spf=pass smtp.mailfrom=hardeman.nu;
+	arc=none smtp.remote-ip=94.130.186.121
+Received: from thor.hardeman.nu (thor.hardeman.nu [94.130.186.121])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83E9C606A32C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:50:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83E9C606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pixelcluster.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pixelcluster.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.a=rsa-sha256 header.s=ovhmo-selector-1 header.b=XyN2K4Fc
-Received: from director4.derp.mail-out.ovh.net (director4.derp.mail-out.ovh.net [79.137.60.37])
-	by mo537.mail-out.ovh.net (Postfix) with ESMTPS id 4jTPjB27wKz3yrK;
-	Tue, 17 Nov 2026 12:50:38 +0000 (UTC)
-Received: from director4.derp.mail-out.ovh.net (director4.derp.mail-out.ovh.net. [127.0.0.1])
-        by director4.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
-        for <Felix.Kuehling@amd.com>; Tue, 17 Nov 2026 12:50:38 +0000 (UTC)
-Received: from mta6.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.113.67])
-	by director4.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4jTPjB0qHXz21XL;
-	Tue, 17 Nov 2026 12:50:38 +0000 (UTC)
-Received: from pixelcluster.dev (unknown [10.1.6.7])
-	(Authenticated sender: nat@pixelcluster.dev)
-	by mta6.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id B53F58E2108;
-	Tue, 17 Nov 2026 12:50:36 +0000 (UTC)
-Authentication-Results:garm.ovh; auth=pass (GARM-98R0021dca712b-964f-4d8e-89a5-f62a52a32730,
-                    00F4D7524EDFA56606BD67631AE7EA1B984E627F) smtp.auth=nat@pixelcluster.dev
-X-OVh-ClientIp:141.95.41.139
-From: Natalie Vock <nat@pixelcluster.dev>
-Date: Tue, 17 Nov 2026 13:50:11 +0100
-Subject: [PATCH v2 05/10] drm/amdgpu: Track dirty bo_va structures in
- update ctx
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C848606A883;
+	Tue, 17 Nov 2026 12:50:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C848606A883
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hardeman.nu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hardeman.nu
+Received: from thor.hardeman.nu (thor.hardeman.nu [IPv6:fd27:2a41:8fcb:2::a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
+	 client-signature ECDSA (secp384r1) client-digest SHA384)
+	(Client CN "thor.hardeman.nu", Issuer "Hardeman Internal Mail Relay CA" (verified OK))
+	(Authenticated sender: nullmailer@odin.hardeman.nu)
+	by thor.hardeman.nu (Postfix) with ESMTPSA id 4jTPjF0JNtzFpfj;
+	Tue, 17 Nov 2026 13:50:40 +0100 (CET)
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=hardeman.nu;
+	s=202608-ed25519; t=1794919841;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TBqtCx9X2cV6qUHx1FLONx/l/x4FumUzVEsD1J6HJkw=;
+	b=xa6ct3fb8hTN0mkqDPmr0clA1z2AGwUlAIzM54kBLTu6lZ4Mi2KK4gUIucfYjJrzoX9krr
+	7q6J3pq9cHP70YBg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hardeman.nu; s=202608-rsa;
+	t=1794919841;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TBqtCx9X2cV6qUHx1FLONx/l/x4FumUzVEsD1J6HJkw=;
+	b=TH99CY7hHyH8LjWZHhDXnHFXGvlKBLQDr1/0y//CKcsCszHDZQdx77nGXqB3rX9Y4OlOoy
+	aoVrB489uM14XFlDQMCm/udsan7V45k4AuNEaNqV5DvFRYjVK40as4qHKRsT9VWANg1YNe
+	SBBVOZe2YR9S4UHLDdXQiVCbudRDDN9W7tPLM9JikPKDW2V1n7N3LLQDkN89iJOBrbFacv
+	2fHLadrFk9xBUjWd/ZKTK2ogCfu0miYnULue5M0ShHODykHfz5KFL1Wv+ClqGOmMsfsKx+
+	ZmXMJuAjUiNG3X29RpmoJLi1Owvy7tb3X/YAn6fWNRIy3kvr/8NsmQnypFIW3A==
+Received: from odin.hardeman.nu ([fd27:2a41:8fcb:2::a])
+	by thor.hardeman.nu with ESMTPSA
+	id gYo5MqBN/GqqEikAWTs42w
+	(envelope-from <david@odin.hardeman.nu>); Tue, 17 Nov 2026 13:50:40 +0100
+Received: (nullmailer pid 3641473 invoked by uid 2002000001);
+	Tue, 17 Nov 2026 12:50:40 -0000
+Date: Tue, 17 Nov 2026 13:50:40 +0100
+From: David =?iso-8859-1?Q?H=E4rdeman?= <david@hardeman.nu>
+To: Luka Gejak <luka.gejak@linux.dev>
+Cc: Ping-Ke Shih <pkshih@realtek.com>, linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, Leonard Lausen <leonard@lausen.nl>, Alastair D'Silva <alastair@d-silva.org>, Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Jernej Skrabec <jernej.skrabec@gmail.com>, Bitterblue Smith <rtl8821cerfe2@gmail.com>
+Subject: Re: [PATCH rtw-next 1/5] wifi: rtw88: sdio: cache the free TX page
+ counts of the 88xx chips
+Message-ID: <avxNoFNmFRT8Rnmm@hardeman.nu>
+Mail-Followup-To: Luka Gejak <luka.gejak@linux.dev>,
+	Ping-Ke Shih <pkshih@realtek.com>, linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Leonard Lausen <leonard@lausen.nl>,
+	Alastair D'Silva <alastair@d-silva.org>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>
+References: <20261116190145.2736364-1-david@hardeman.nu>
+ <20261116190145.2736364-2-david@hardeman.nu>
+ <83F543B9-2066-493F-8372-0E36779C1B04@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,133 +92,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-prt-explicit-sync-v2-5-bb3851cb6a0c@pixelcluster.dev>
-References: <20261117-prt-explicit-sync-v2-0-bb3851cb6a0c@pixelcluster.dev>
-In-Reply-To: <20261117-prt-explicit-sync-v2-0-bb3851cb6a0c@pixelcluster.dev>
-To: Felix Kuehling <Felix.Kuehling@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- =?utf-8?q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Natalie Vock <nat@pixelcluster.dev>
-X-Mailer: b4 0.15.2
-x-ovh-tracer-id: 5592907789732897084
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTG3XxnRytCov7xMKw+EhD98gb8ynfBocRBYNMsMgfPlDCFR+1JbYh20mEpTDvjc/OAMpizSJmEixbfqrNq6ZfHkRWKptz1ZjiYoBZsqT6YZLIvgh+Bm38hXZALZdYWPJpTzsNiquE5gMrFM5vk+50Sz2v82HxhHf4bgwj5FLKNjn7JuOY8PgAFDqVFMGCsQSmj3ope/vcyiDW42MIHCTXPl/I3uc30uPcByhhQr7oMpAWQoN0SsCTukQSkZK0F7RMNjulDncxLtK/gvhgh+PRBanr/0zJ2EwH5rhrNCu4u91/aWpb6Qffv1J03F4bNMm3mlEiWWwTQ9/HtaoJACI/G0gtourMpSITVctJpjsuKIJcYW7xIzeS9m0TUqk9oB9XJD+Ib/tnZgpaxtLXS3Sro+z1tcGdWQeGv3lP8KzBeXlYMuUPNFZFd4OwU4KYvIwlm6aY4JSEbhh0x1/yEExNdCjXR+8uNSncl75bgnWVadgTYbwjpYfztM0rRgwLD+VJGqD+Hp+Jk6FwvzJGcbjYVJdytnaZU64qjC3nRcHGCyVF4LZGjaMGeFeefhd/6NfXxxwUMmSpQRbFPfyJMhS4Pzgdk84W+3GAW2vw556ekMU67y4C/JjCJX12abC9jrjlMqaGGcvtCd7DAIuDMnCYQQZ7O3z0apy7vN3Tb07joVlQ
-DKIM-Signature: a=rsa-sha256; bh=2FuHkhres7c1a9hvpm6PvrBxWYxoOoyw665OrYuvrvk=;
- c=relaxed/relaxed; d=pixelcluster.dev; h=From; s=ovhmo-selector-1;
- t=1794919838; v=1;
- b=XyN2K4FcizzRItPAWDOdQGuUcMco7E0t7S2Hggm0ZdFS9yDLhs5/k70gn+fc5NlXkGgtMUeh
- +7qKm6QfHiNai12UUhuL+nGUwdb6JjISDE6ziQO522Jo4GdamnAUiQ+zYsBoIE1+wdiHhDmdYPg
- 8KoKF+4eadjVyV8jMj5qM2MfiFIJ7aZOl36p7xdMf3ZPijTx0KDtR/HCYmydAa3HY5gLqyLowZ8
- rCh24i8X76SWgyggtepsD57S227fj1AxxM4VF2R7UvR+PRyHjj8vIxv2/2qMwEJ6jeZer/TVZPs
- ONR9JnCUVH40NV4y1SkCHcnIeQJhBaqI5aS/OhYAHtVmg==
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <83F543B9-2066-493F-8372-0E36779C1B04@linux.dev>
 
-So we can later update all changed BOs without needing to do tracking
-separately.
+On Tue, Nov 17, 2026 at 08:20:16AM +0100, Luka Gejak wrote:
+>On November 16, 2026 8:01:41 PM GMT+01:00, "David Härdeman"
+><david@hardeman.nu> wrote:
+>
+>> +     free_txpg[0] = rtw_sdio_read32(rtwdev, REG_SDIO_FREE_TXPG);
+>> +     free_txpg[1] = rtw_sdio_read32(rtwdev, REG_SDIO_FREE_TXPG + 4);
+>> +     free_txpg[2] = rtw_sdio_read32(rtwdev, REG_SDIO_FREE_TXPG + 8);
+>
+>[ ... ]
+>
+>> +     rtwsdio->free_txpg_valid = true;
+>
+>As far as I can see, a failed read can leave bogus credits cached here.
+>While the chip is powered on, sdio_readl() returns 0xffffffff on an I/O
+>error, and rtw_sdio_read32() only logs the error. That becomes 4095 pages
+>in each affected page count.
+>
+>The first frame can still fit the real page pool and be sent
+>successfully. The cache then stays valid, so the next frame can be
+>admitted using credits from the failed read even after the real pages
+>have been consumed. Previously, the next transfer would read the
+>registers again.
+>
+>Could the sync return an error and leave the cache invalid unless all
+>three reads succeed? The individual reads used as a fallback in patch 5
+>would need to preserve their errors too.
 
-Signed-off-by: Natalie Vock <nat@pixelcluster.dev>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c     | 16 ++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h     |  5 +++++
- 3 files changed, 21 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-index e0090dc10682f..068c57ed537fd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-@@ -80,6 +80,8 @@ struct amdgpu_bo_va {
- 	/* protected by bo being reserved */
- 	unsigned			ref_count;
- 
-+	struct list_head		update_link;
-+
- 	/* all other members protected by the VM PD being reserved */
- 	struct dma_fence	        *last_pt_update;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 1e2d45979efdb..330c288053352 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -1718,6 +1718,8 @@ amdgpu_vm_update_ctx_add_new_mapping(struct amdgpu_vm_update_ctx *ctx,
- 	mapping->bo_va = bo_va;
- 	WARN_ON(!list_empty(&mapping->pending_list));
- 	list_add(&mapping->pending_list, &ctx->new);
-+	if (list_empty(&mapping->bo_va->update_link))
-+		list_add(&mapping->bo_va->update_link, &ctx->dirty_bo_vas);
- 	return 0;
- }
- 
-@@ -1733,8 +1735,10 @@ static void
- amdgpu_vm_update_ctx_add_freed_mapping(struct amdgpu_vm_update_ctx *ctx,
- 				       struct amdgpu_bo_va_mapping *mapping)
- {
--	WARN_ON(!list_empty(&mapping->pending_list));
--	list_add(&mapping->pending_list, &ctx->deleted);
-+	if (list_empty(&mapping->bo_va->update_link))
-+		list_add(&mapping->bo_va->update_link, &ctx->dirty_bo_vas);
-+	if (list_empty(&mapping->pending_list))
-+		list_add(&mapping->pending_list, &ctx->deleted);
- }
- 
- int amdgpu_vm_update_ctx_execute_replace(struct amdgpu_vm_update_ctx *ctx)
-@@ -1861,6 +1865,7 @@ void amdgpu_vm_update_ctx_init(struct amdgpu_vm_update_ctx *ctx,
- 
- 	ctx->pending_maps = RB_ROOT_CACHED;
- 	ctx->cleared_ranges = RB_ROOT_CACHED;
-+	INIT_LIST_HEAD(&ctx->dirty_bo_vas);
- 	INIT_LIST_HEAD(&ctx->new);
- 	INIT_LIST_HEAD(&ctx->deleted);
- 	INIT_LIST_HEAD(&ctx->freed);
-@@ -1878,10 +1883,16 @@ void amdgpu_vm_update_ctx_init(struct amdgpu_vm_update_ctx *ctx,
- void amdgpu_vm_update_ctx_fini(struct amdgpu_vm_update_ctx *ctx)
- {
- 	struct interval_tree_node *node, *next_node;
-+	struct amdgpu_bo_va *bo_va, *next_bo_va;
- 
- 	list_splice(&ctx->freed, &ctx->vm->delayed_freed);
- 	amdgpu_sync_free(&ctx->sync);
- 
-+	list_for_each_entry_safe(bo_va, next_bo_va, &ctx->dirty_bo_vas,
-+				 update_link) {
-+		list_del_init(&bo_va->update_link);
-+	}
-+
- 	rbtree_postorder_for_each_entry_safe(node, next_node, &ctx->pending_maps.rb_root, rb) {
- 		kfree(node);
- 	}
-@@ -2135,6 +2146,7 @@ struct amdgpu_bo_va *amdgpu_vm_bo_add(struct amdgpu_device *adev,
- 
- 	bo_va->ref_count = 1;
- 	bo_va->last_pt_update = dma_fence_get_stub();
-+	INIT_LIST_HEAD(&bo_va->update_link);
- 	INIT_LIST_HEAD(&bo_va->valids);
- 	INIT_LIST_HEAD(&bo_va->invalids);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index 5657aa63e9491..7a5f558970b5c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -305,6 +305,11 @@ struct amdgpu_vm_update_ctx {
- 	 */
- 	struct list_head cleared;
- 
-+	/**
-+	 * @dirty_bo_vas: amdgpu_bo_va structures touched by current pending mapping changes.
-+	 */
-+	struct list_head dirty_bo_vas;
-+
- 	/**
- 	 * @freed: A list of mappings that are freed and pending PT/PD updates during
- 	 * this update operation.
+Yes, I assume Leonard's patches will go in first, and there's already a
+read helper there, so when I rebase the patch set, this will be
+fixed.
 
 -- 
-2.56.1
-
+David Härdeman
