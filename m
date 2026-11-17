@@ -1,47 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.99
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794919894;
-	b=2cdMAazJs1gbEhxEfTo8QygBh546qBbdGdBxuY8fwR54nGcnNOBs+f7EPhv2txXerxU5
-	 SYi0PAsxydk3fcQryGWtiV9wmbUFRT4xHXcBB+D+LbkZjRenJ5cZPfs9iQgXTZ6K/EFDO
-	 5V1JuJwcEuZJ1/FSlLnmPenwHlCtlj+T7xFxhk9tZWZVxkIAMeJIVjbWjRFuoGqVXEVid
-	 dl6k4aedogWMlTXrNvgvy6QiAKfi+FRO/BSujkYJAHYkpYtUAfpESKQY14M5XGZvSkVEI
-	 EZpbALczyNMAPPCucGJ2b6+1u0G405i19S/SlB64SfVr3qwnASSsrMiMZW4qkNE4BUQ==
+	t=1794919931;
+	b=wRsylfgYfpWWO956/lP9CmGS+rVjidI1GL6CtSJXX1U6J9br91xeIYJQYA3as4U/O9kD
+	 Z1OHdbQEAobtk0XkRJX5TT7ay8xPCCMln/HFbK8t0JhSmRIkGQsluT7TsCAKB8Y2eF4td
+	 Dp59o5zJQs2+wjAaFJxaRup6eTSxb7qnhH4AeCEoX8+or5KyQDu0LhoxifxDqHzR/O93h
+	 atCT0I3wPeghREq1LTNmhST8HUaUOapAUf12nOWJuANrmTzHTgHvNW951YBBuZHeKLwZq
+	 QMDUI5nV9QGxCkwJaAK6+PoZGCmhIt7ptEjMGvRmFpPvEtYyGKE3LBYc74uhtyChc3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794919894;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=QKQS51dIpH/VoOQQlRFKsGbh0oMpDgEFKZcLUp0HWNw=;
-	b=iv+x+WGgX9rOD/FOcRaTNeQhLJamkY5LBMlTsAV4nZ2wtKIQPVbOckPA05uq15E+7ZsB
-	 NBVdkOE8pSDlHjQ0+Qxf14zKMlsJkcNCTIIxBx/bxssJuXHCKV6vHqW28FArfze7joAr2
-	 LWC50NdDnK2a4CGCaWsP+WsPmhNC9l5b9t79YjOe4UA9pikt02962qgHaBnEttlIwZJqy
-	 ncCYgbo6ORvlX1Bq+1+NukNCo4WjQMtWnzgx5h+XVRNlwZHwfJLjyLCH0i3MDK1v/1RRH
-	 jU2Wrj1Tpt2U5UM9VV9yMM1Td5j8x8pocfzZu1CPcOM7Q44Jn0kqinYrLzCi5aCJhEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794919931;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-DetectorID-Processed;
+	bh=qF5pRgK1fLCyx67ZJUqqMabNrPbzcG9t+q8YanBUEjo=;
+	b=X1dz/4R0RyTV1qif0NMHunCzYuwcHHGY+f4O4TUyJm1uoxC6EeZ1uMdHsAjHGv7RT3L8
+	 gHv7NvrKxRxZm/sG4dF4AqW/4QxpNQaduYmOtrBZtx9RrKr82ONVPbx8ul7Gc8fFmzS2K
+	 k7Oo+zp/gx3V4Bs+JVUjz+YSLdFFBx01FeN4quOj2VrcP+3bHw4/wwLhicb7kkAIdIT/z
+	 bajPXNnpzM7L0ujA5Cpf0lzv/ykMwMAA4opEVVdB8kvlcz+OqN3DWkBywcbZuPcT/EOxE
+	 0JvVba5JN+AwpeBPimgDLOPZGyIGtLxxYk/++6K0lX5lY1Fu/julVsTqg8l8w4M5mLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dYPBkrSg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b="RJv/+K/J";
+	arc=none smtp.remote-ip=209.85.216.99
+Received: from mail-pj1-f99.google.com (mail-pj1-f99.google.com [209.85.216.99])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F4E606A889;
-	Tue, 17 Nov 2026 12:51:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A44AC606A890
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:52:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A44AC606A890
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dYPBkrSg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E2201F000C5;
-	Tue, 17 Nov 2026 12:51:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794919894;
-	bh=QKQS51dIpH/VoOQQlRFKsGbh0oMpDgEFKZcLUp0HWNw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=dYPBkrSg9vCQo0FBjn7Bfu0zE66ZW8+wELQoGVPQcLuyGxZio5sadA+SaKSRlrm+/
-	 fEiDYSM+zbqRxSIU5EsIlAwt/gUfUh8BYlEQ27D8C0dqPPVqwj/GccXq+oPT8ZQdqL
-	 rMdw4y6TtWBxZEYnPMCsydrDEKvmFhUMf1r6Cq/JZzIVeTymbHWWyUhcqWSaQwtsuQ
-	 Lua9b8KxzPNRcvVdJn6fWynl/JwfdZssI9+mfrxK1R6ATWK5LXzHNE2knLfU3irGKh
-	 V5oQE/P6uJyIPGokBTJPW1deGlKLYaMyC0dW5YzdJdE0FMFi7oxythn3WyaRpKJszd
-	 dwFcH9w9xuu1Q==
-Message-ID: <52b56201-b347-4053-8713-01cae87c4266@kernel.org>
-Date: Tue, 17 Nov 2026 13:51:28 +0100
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=RJv/+K/J
+Received: by mail-pj1-f99.google.com with SMTP id 98e67ed59e1d1-3b0ae87069dso2600307a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:52:10 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794919930; x=1795524730;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qF5pRgK1fLCyx67ZJUqqMabNrPbzcG9t+q8YanBUEjo=;
+        b=qduuO8QcF3+NriwXeSnmar/qjxlLKLY9Seha8Bu+Tz4DCNg58y+4RD8jaYb/d8Zvd/
+         jHiw0UXZpZo72n8xJZ8s7q9WIb6JcUkki/qQljM+GdEq7cHzAaZks2pZO+f49U5yKQ/X
+         WPHTjGqmIIc5UQAc8RHLXuxYWXcO2vhVTL1Tek4YWJU28mEMzMqOXXYSeQLpt2ihOMFe
+         pPPi8JC7LBuB3OjjJr9HLSvekL4vEMbBw4VHZZRwCQ4xMBtMCyPUVHZMYnBXqACjtum9
+         TPxhDIIYrJqyQopFouKWGiH2+92Kq5puAskuCtX/5s/Qgd5e/YSiFqiFls4NVc+5oWX2
+         2J3Q==
+X-Forwarded-Encrypted: i=1; AL+hErGgBicnTh1+AOTjVNSi6MyxuOSE2I3z+OWs6BzJWiZ/VJdW1De0I+73V3mCheujdJVkxyInBrVhvPzsnZA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Ko26u6i6zr1XQylFMqcp0Cp3IqDFhOR9CCaaKPqzF4nOvoEH4
+	15soWqEoxgCkiEwmee4NE51grd8+PZ2tnnERLmZESPOhXjKsEtV0A6dPi5O3sQDEQLFhlvtw00x
+	wclelrgW4eHkJrlsTvytCHlC8kzFKSV09fg+FnPHYmsJIqZjCpOr07W4wc9zDtroy8rRFvVp3sE
+	KJVv0ZGkPMZ9xVEdl/t/+SzvMMgAYefMt+g99zOU25cgq4u917UUWbZNwkpXiWLt1uVpL0DnS+J
+	OcJRVXAgvZt0JO4k+OEymA=
+X-Gm-Gg: AZFdTZeyCtoGZqdB9Q40rLnpxkx8V7JDv4nVWDCd5zEeetiEOUChXvRa7WrOJXsGsQ/
+	eQre79E977Ju6LC10w4gY5xGW43Y+wwcmC7vYt10RP7XvG7g17D8rbhsOpCRQnezU9mfACycSOa
+	rQIEaQ6TebtArS2oudOXMr/NimjwzzFT4NwsIbZcdDpgNT0bAuGg1Rqmd1X6VhXr2TJ/nAQ1+Kv
+	P0WNE6dc++BQn8Q4oTykUxhQ3192p0kwnObM34NqncDOBDNRKDslYjroTB5nfkOevag3HYob+ej
+	PvddGw7ataPJS5W9u76p2qPkPn+WpdDN5byS5aYcFgt9YjlULrNU+2yt7FPIWzC0o7LkqNEbQI+
+	IutcTzHS9a4iTXHSbhxBC7PiXi5fC4JdAqoQ52ol3ZPxxkGfMOm/ZuMHQ7Bux8zcB/jD970GAnQ
+	lZ36mzalXNNudst2OvZMVfqyKmO8Y16cplUwuy0I1FbA==
+X-Received: by 2002:a17:90b:3d87:b0:3b0:a831:5acc with SMTP id 98e67ed59e1d1-3b1b0a3a056mr12488765a91.42.1794919929925;
+        Tue, 17 Nov 2026 04:52:09 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-123.dlp.protect.broadcom.com. [144.49.247.123])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b3ab9f198fsm1950705a91.0.2026.11.17.04.52.09
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 17 Nov 2026 04:52:09 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-94960bd17b5so358966285a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:52:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1794919928; x=1795524728; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qF5pRgK1fLCyx67ZJUqqMabNrPbzcG9t+q8YanBUEjo=;
+        b=RJv/+K/JOChBh65radfIAqU761KlZATNikfKaMpad8eoA+xHnnqoQ/gZTI90KeYE0Q
+         eELV45rfBlq8n/TbV57ZNxw6iRyfLH1KYSVYhmtTjhN1p6e4PXEQtAZ5zG8VEFkV+JU8
+         jaFSrkm32X7IoVPCXgi87BzUwN6CE48T53yLQ=
+X-Forwarded-Encrypted: i=1; AL+hErHfvW97a9FXx3rEpAFoTcRfca4g5fmO8bqIBNT1uRfhtPu9SxwgTBTYJHt03yfc7/r7ucBZ0avfF5+PxCw=@vger.kernel.org
+X-Received: by 2002:a05:620a:8908:b0:93f:735:6c83 with SMTP id af79cd13be357-9494bb3caaemr2034707785a.56.1794919928608;
+        Tue, 17 Nov 2026 04:52:08 -0800 (PST)
+X-Received: by 2002:a05:620a:8908:b0:93f:735:6c83 with SMTP id af79cd13be357-9494bb3caaemr2034705085a.56.1794919928133;
+        Tue, 17 Nov 2026 04:52:08 -0800 (PST)
+Received: from bld-bun-02.bun.broadcom.net ([192.19.176.227])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c870f31sm1089421185a.27.2026.11.17.04.52.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 04:52:07 -0800 (PST)
+From: Arend van Spriel <arend.vanspriel@broadcom.com>
+To: Ragul Balaji <ragulbaby@gmail.com>
+Cc: Ho Jie Feng <hjf3108@gmail.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com
+Subject: Re: [PATCH] wifi: brcm80211: move the USB bootloader definitions to a shared header
+Date: Tue, 17 Nov 2026 13:52:04 +0100
+Message-ID: <20261117125204.3992696-1-arend.vanspriel@broadcom.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261112050816.2795512-1-ragulbaby@gmail.com>
+References: <20261112050816.2795512-1-ragulbaby@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,88 +115,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/22] dt-bindings: thunderbolt: Add Apple
- USB4/Thunderbolt ACIO block
-To: Sven Peter <sven@kernel.org>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Janne Grunau <j@jannau.net>,
- Neal Gompa <neal@gompa.dev>, Andreas Noever <andreas.noever@gmail.com>,
- Mika Westerberg <westeri@kernel.org>, Yehezkel Bernat
- <YehezkelShB@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
- <20260906-b4-apple-soc-tbt-v2-6-1f80085f93fb@kernel.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260906-b4-apple-soc-tbt-v2-6-1f80085f93fb@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On 06/09/2026 20:36, Sven Peter wrote:
-> Each Type-C port with USB4/Thunderbolt support on Apple Silicon SoCs
-> comes with block called ACIO ("Apple Converged I/O"). It contains a
-> Cortex-M3 co-processor, the hardware blocks implementing the USB4 host
-> router, the Native Host Interface (NHI) and a DART IOMMU. The
-> co-processor exposes the NHI and its DART to the main SoC bus while it
-> is running.
-> 
-> ACIO can only be powered on after the Type-C PHY has been switched to
-> USB4/Thunderbolt mode. The Type-C PD controller publishes the negotiated
-> mode and cable information through the Type-C class. ACIO finds the
-> corresponding Type-C port through the OF graph connection.
-> 
+On Thu, 12 Nov 2026 13:08:15 +0800, Ragul Balaji wrote:
+> The Broadcom USB bootloader downloads firmware the same way for other
+> USB chips than the FullMAC ones of brcmfmac.  Move its commands, states,
+> firmware header and response layouts from brcmfmac's usb.c to a header
+> in the shared include directory, so that other drivers can use them.
+>
+> Signed-off-by: Ragul Balaji <ragulbaby@gmail.com>
+> Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
+> ---
+>  .../net/wireless/broadcom/brcm80211/brcmfmac/usb.c | 68 +---------------
+>  .../broadcom/brcm80211/include/brcm_usb_rdl.h      | 78 ++++++++++++++++++++++
+>  2 files changed, 79 insertions(+), 67 deletions(-)
 
+[...]
 
-We might need to revoke the reviews. The implementation here adds
-undocumented and unapproved ABI - aliases.
+> +#ifndef	_BRCM_USB_RDL_H_
+> +#define	_BRCM_USB_RDL_H_
+> +
+> +#include <linux/types.h>
+> +
+> +#define BRCMF_POSTBOOT_ID		0xA123  /* ID to detect if dongle
+> +						   has boot up */
+> +
+> +#define TRX_MAGIC		0x30524448	/* "HDR0" */
 
-Best regards,
-Krzysztof
+[...]
+
+The move itself looks fine. Like the series "Move brcmsmac code into
+brcmutil in preparation for brcmbmac" (posted a few minutes later), it is
+part of the reorganization that has to go in before the brcmbmac driver
+is sent again, and nothing else in the tree uses this header yet. Keeping
+the brcmfmac and the brcmsmac parts as separate patches is fine, but
+please send them as one series with a common cover letter, so the shared
+pieces are reviewed together. Since the series then touches more than
+brcmsmac, rename it to something like "Reorganize brcm80211 code into
+shared directories in preparation for brcmbmac". Can you clarify the
+additional sign-off from Ho Jie Feng? Did he co-author the patch or did
+you use his (earlier) work?
+
+Regards,
+Arend
