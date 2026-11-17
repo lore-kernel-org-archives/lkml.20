@@ -1,49 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794935461;
-	b=bRleyEb8aWRERiJmWW3KgQrdJxc5dh44G2EdRDrX92sg2StZ5d4NodRmwRMicvxvH4pg
-	 RWgEadCsJ6JFXPntMBg3Tmn0eGnWS/6ZcvTuaI0s8ghW9A9/96ZAhzyqmPrLhfxZ5k6nZ
-	 CoT34Q8fenyntELQawa7iMQ7kWrVWUhwVSXrKJSRr0KZbTXuIlJVymmqdbXD6UOup+Irj
-	 vkHZFlTLhzKfC13hexipoEQS4YdeBXHiocyEoFkAYgJyF91b6l+GvFVawDHWsf85NPnTo
-	 xIMww3PYzyg0eC6s78aZgJbjT+ynqL9Fwcp8FB2vMJPiQV7qbKzu1Mp4500arDirbgw==
+	t=1794935647;
+	b=heMBlxDOUa+Xv6b5dIR8ZXUL34Hq5hZvzRZEzcugHzyB1zWSs0RT+Nk3k62/1hb6NhNq
+	 Seu0S+3mf1U2yXG9/3P0tTDUC6z6j+Lzl13+SIUTLX7OQlU1/90UpZ3PttduiycrFtkuJ
+	 VRxlI1ptXE0EuvEUz6ev0GUqmZCAbM8RKhuxOsVneRhutBEAUdE2gmp1LzqKKjTjlNsfM
+	 fIHAVQHfORd7JJosWrXr5UC+iMNmSjqKgY3eMP5S9y3gy9/QNsouqHwtKjgwbX7bDuwtn
+	 Lba0W8q9NYZ/98P9JUUk9ezS1WuYu64i4MwIeqaLgBRLKofutS2MSJ6AkESPt/FowMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794935461;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer;
-	bh=eI2wUSUodDzxO+Et7HJfnYDoyJyME+AVvchb7DzTbeM=;
-	b=EzjuglfORmQnkNigWgzXMLyMxpETTCDvUU8Ja81agNimv7B6RfmNYk1Lik9spAcuCQiG
-	 B/YwPEMrn1faXQOkyExod2U07u8IxsQHT84jXNDdoWAzM1VREv3gMRgZ8FLLwPxtx5C3g
-	 f18LyykCiFT//sDHna0u930nOlc7PSaVI19Rz1kgU6OW0/j6KEgi1zwyhvcvpviwo2T8/
-	 KsKPp+uvV4/vwyEJ5iPfMrZUEWbTbuXo2sx3oFCU9yr3XmuQfA12qj1aftk1A0NTEKHuE
-	 hCpZCsqkKbTPJ/zZ6AqdX8HLxg+/hd6bMk0kHpDP998Mxpoh+eqKK3qoHkcIgkqAmQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794935647;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=NRyU0VXlTkdP1/qvlbXfSzmeB6PM6cbuXEo4V1pctGY=;
+	b=4o0M1A629nW4WQ2646DyW7W/Q7mgkWZRFblBxRmcjlw6D7wvhQLOVKSsHCPln8jmcrj7
+	 Pwzo2K8Cn6IBulPYvG6rXTexlFCZPZzdMgEB6I8KxT6mbtSAqJ+RIp6I9ECVmaRhdP5Eh
+	 j7Iy9+1Wso4zXkPVLPKZmKH0ARlT4sV3k/8zi1ng1ucN1PerYYS11SgKQ6nNUXuIbvw8N
+	 WSDj1FxA0gew55UThnK6chOb2d3ODj8WgH69PTb2VD7/HERN9DNEVh14XN2LviYnQIxed
+	 5TqXaMgPG5vI70zyyEzenzi0EBtnwUKUi/lIurSb12KQ+GI4lQEhnxLDX+E4AXKgmvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XJV4YJiP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="TNwd9t9/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B38B60A2609;
-	Tue, 17 Nov 2026 17:11:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85ECB606A31C;
+	Tue, 17 Nov 2026 17:14:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XJV4YJiP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7438A1F000C6;
-	Tue, 17 Nov 2026 17:11:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TNwd9t9/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4F061F000C5;
+	Tue, 17 Nov 2026 17:14:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794935460;
-	bh=eI2wUSUodDzxO+Et7HJfnYDoyJyME+AVvchb7DzTbeM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=XJV4YJiP0W9dFkKLCkrcC21O8sBLDcLEdwLvZZyMI568EUUUM3ZPMNw/2urNlZO3+
-	 zXgV65VtNDllucAmuhzfAZgtIHIpIzJmLwOixWYbwXrcObYJuQzGXvlUi78Ql1UQgb
-	 AlTTHWyP5rzolKy/E7alXLhTDQBEJH71jW/GozT0qAAJBs85+rv1uE2wYgH1+KiwRC
-	 Jv71WZi+TC/vuL/IGBBsVvOCrfD/5f7+RwXzG2030gwo6ka7Uv980nf1SgNq90BrDP
-	 UUFb5O/ezO4c2ualp9aHBvrziY6LNw+n9UZccutmkPeOQpZWss/x01zrE4aDcNdAuN
-	 q8rSNj9aeguvg==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Tue, 17 Nov 2026 11:10:43 -0600
-Subject: [PATCH v2 2/2] arm64: dts: qcom: Add MSM8996 SAW3 syscon
- compatible
+	s=k20260515; t=1794935647;
+	bh=NRyU0VXlTkdP1/qvlbXfSzmeB6PM6cbuXEo4V1pctGY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=TNwd9t9/XGKlncwoxJPsyje6+O4dpP5ku58Mpp7QpykW21hRU24e7OyhFQOFLciD3
+	 29wDKM5s9fQuNCM01MGCMTwcBZHTKwQdsNtqa7KbaUKomgmrOjw4ONVzwknMHgSKWG
+	 1/ngYLQ7fkk6zwnEFmvEkhsBFU0rrWBDVK01KIhZAY8wwmSD8BfUnHzr3O6ECtL3IE
+	 u1gWEaoZknei2o6RPefiK6Y9Pv118lQd9Tbgj+OxIU/l4ZeNMJUeOk7Seiwb4Z23fa
+	 avUcbgeGAljAO6nP3GxtzkHh3NhCflawy+bc6tSkh2Am7hoM2GVwuD99dWB//R/78k
+	 9Tnxc6+M677Ag==
+From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
+To: Dimitri Daskalakis <dimitri.daskalakis1@gmail.com>, Magnus Karlsson
+ <magnus.karlsson@intel.com>, Maciej Fijalkowski
+ <maciej.fijalkowski@intel.com>, Stanislav Fomichev <sdf@fomichev.me>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Alexander Duyck <alexanderduyck@fb.com>,
+ kernel-team@meta.com, Andrew Lunn <andrew+netdev@lunn.ch>, Jesper Dangaard
+ Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
+ <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, Pavel
+ Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>, Andrii
+ Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar
+ Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau
+ <martin.lau@linux.dev>, Song Liu <song@kernel.org>, Yonghong Song
+ <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis
+ <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>,
+ netdev@vger.kernel.org, bpf@vger.kernel.org, io-uring@vger.kernel.org,
+ Mina Almasry <almasrymina@google.com>
+Cc: "Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>, Weiming Shi
+ <bestswngs@gmail.com>, Nikolay Aleksandrov <razor@blackwall.org>, David
+ Wei <dw@davidwei.uk>, Alexander Lobakin <aleksander.lobakin@intel.com>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, Stuart Clark
+ <stuclar@meta.com>
+Subject: Re: [PATCH net-next v1 11/11] eth: fbnic: Support AF_XDP page pool
+ zero copy
+In-Reply-To: <6303b161-0f35-47ee-ab70-ebd4e802ae09@gmail.com>
+References: <20261110102039.1002605-1-bjorn@kernel.org>
+ <20261110102039.1002605-12-bjorn@kernel.org>
+ <6303b161-0f35-47ee-ab70-ebd4e802ae09@gmail.com>
+Date: Tue, 17 Nov 2026 18:14:04 +0100
+Message-ID: <87se0z1iub.fsf@all.your.base.are.belong.to.us>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,45 +82,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-dtbs-qcom-v2-2-c0697a0bf016@kernel.org>
-References: <20261117-dtbs-qcom-v2-0-c0697a0bf016@kernel.org>
-In-Reply-To: <20261117-dtbs-qcom-v2-0-c0697a0bf016@kernel.org>
-To: Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.16-dev
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-'syscon' nodes are required to have specific compatibles. Add
-"qcom,msm8996-saw3-cbf" compatible to the MSM8996 SAW3 syscon block.
+Dimitri Daskalakis <dimitri.daskalakis1@gmail.com> writes:
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
----
-v2:
- - Change compatible to "qcom,msm8996-saw3-cbf"
----
- arch/arm64/boot/dts/qcom/msm8996.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> On 11/10/26 2:20 AM, Bj=C3=B6rn T=C3=B6pel wrote:
+>> Header and payload rings share one provider page pool, so refills even
+>> them out, and a short pool does not starve one of them. Payload
+>> buffers start at chunk offset 0, and the UMEM headroom rules require
+>> headroom only in the first buffer. A chunk is one 4 KiB device page,
+>> also with larger kernel pages, so rings fed by the provider post one
+>> descriptor per chunk.
+>>=20
+> [...]
+>>  	qt->sub0.page_pool =3D pp;
+>> +	fbnic_bdq_set_page_size(&qt->sub0, xsk ? rx_page_size : PAGE_SIZE);
+>>  	qt->hdr_max =3D 0;
+>>  	if (!page_pool_supports_frag(pp))
+>> -		qt->hdr_max =3D fbnic_whole_hdr_max(FBNIC_RX_HROOM);
+>> +		qt->hdr_max =3D fbnic_whole_hdr_max(qt->rx_hroom);
+>>  	if (netif_rxq_has_unreadable_mp(fbn->netdev, rxq_idx)) {
+>>  		pp_params.order =3D get_order(rx_page_size);
+>>  		pp_params.max_len =3D rx_page_size;
+>>  		pp_params.flags |=3D PP_FLAG_ALLOW_UNREADABLE_NETMEM;
+>>  		pp_params.dma_dir =3D DMA_FROM_DEVICE;
+>>=20=20
+>> +		pp =3D page_pool_create(&pp_params);
+>> +		if (IS_ERR(pp))
+>> +			goto err_destroy_sub0;
+>> +	} else if (xsk && !xsk_pool_uses_sg(xsk)) {
+>> +		pp_params.flags &=3D ~PP_FLAG_MEM_PROVIDER;
+>> +		pp_params.rx_roles =3D 0;
+>> +		pp_params.max_len =3D PAGE_SIZE;
+>> +		rx_page_size =3D PAGE_SIZE;
+>> +
+>>  		pp =3D page_pool_create(&pp_params);
+>>  		if (IS_ERR(pp))
+>>  			goto err_destroy_sub0;
+>
+> Maybe I'm misunderstanding, but why is it necessary to create a new page =
+pool for
+> sub1 if !sg? All frames should be sent to sub0, and the buffers in sub1 s=
+hould sit idle.
 
-diff --git a/arch/arm64/boot/dts/qcom/msm8996.dtsi b/arch/arm64/boot/dts/qcom/msm8996.dtsi
-index 8873ad68e557..a75347a2d4f8 100644
---- a/arch/arm64/boot/dts/qcom/msm8996.dtsi
-+++ b/arch/arm64/boot/dts/qcom/msm8996.dtsi
-@@ -3803,7 +3803,7 @@ frame@98c0000 {
- 		};
- 
- 		saw3: syscon@9a10000 {
--			compatible = "syscon";
-+			compatible = "qcom,msm8996-saw3-cbf", "syscon";
- 			reg = <0x09a10000 0x1000>;
- 		};
- 
+(BTW, the reply to your other mail didn't show up on lore for some
+reason, but I hope you got it! If not, holler!)
 
--- 
-2.53.0
+You're right, it is not needed. I'll fix this in the next version. Every
+frame fits in one chunk on the header ring, and the device drops bigger
+frames. With SG, both rings share one pool.
 
+I first tried sharing the pool for non-SG too. But then up to 255 chunks
+sit unused in the payload ring :P
+
+
+Bj=C3=B6rn
