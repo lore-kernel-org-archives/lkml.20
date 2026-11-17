@@ -1,92 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794890948;
-	b=qAfA77s+v/uEhRvP/Pd659OYSyK3OCeT/oFzf+TuV3EVop//tWH3Sl2fMKOuZu+SrYWx
-	 QfzRcvhDmMmHVkISSXDFdbn8hyzKK0qeYg6sQ3JZ4dvlhYJ6xiWe/DE+ypILQxatuNqdA
-	 UcnHN4iaSW8rZ+9DmZuLhSApjyMeblHxwJfpQLgxGpHTLKNkl32J8Tj6W+f2GG8niVTYT
-	 OkUcSp43edY37iDuaPhyjGsmFj+q6CtaFyChb7elDNCjFDPrBA6UirVOtqyWqWlBK8+P1
-	 YrK9QZtamCjRJRmTRklbLamrdN/vZF0Dzz+2AqRdo9QVN9ol17Z3SBz16ClqYlfIvYw==
+	t=1794891034;
+	b=LbmAGHNbOkkahMv3GNR3o0Z6lNYMNUTGGS7DioU0sB3uG2ypPxPunnthEcv38/IZXzIA
+	 5v2dNHvWRkfFl4WXPdmODtWnt+WRLrkqREhvtLb7VWBNtW4LPgwW/ifx+mqRkJxm0jEB2
+	 M2X4gxS+wCZ2s9fUn4WbyNwbagPRCFK8QqTpRK2rZicnhK9X71ALYGVftHmhjZCstvQ8f
+	 68z37OCUAnsiWL1V+aEQCqaLm+75cg8g1b9XBOlo0PzbsTlmZ2krLDrDcUNJkzIgUQQcG
+	 oqtCuICSTYWW/d3VZKVxvta1k224VT9yNpXbPoWE82NZJkb8tDCeQiQt8KdSUkIfqXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794890948;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794891034;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:From:To:Cc:Subject:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=86CkpXuwpEyCMVvw149Ca3RuC1QKVovO1J/0AhH0nrA=;
-	b=apzBSLukEv1/6jnLKaFegh6xAyuTmLXgNTpo9WS08e9YQiGGdhH2MurzQkgefqtY2ZTe
-	 8dUl2ROP1Mij4dc5MLTVLvh7oNAK6kPIrHXAslH1cN1O2J2GvXfYaCfHEXbprOw3kPPmo
-	 j25NRCiNnHWLgmCWYFJYCEEFLMyOzd2OIb9meOZ9baGAeGEu/5FqStodNSnvIt7E5xmH8
-	 tQawBYSpqeUL87vRPI293SK9cafJAUItgPoAZfHkwC7pK7n34gpm8rCe8LymoP+fpt7Dj
-	 QmdiiZuUqffpy6cw5z9LuDsFV/FGNCAJjhMlIUeJQDAO2hPUP7cT3bSHh2uxFCob7xA==
+	 Date:From:To:Cc:Subject:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Disposition:Message-ID:User-Agent;
+	bh=yUYUZ2LlOsiIpdrbhk1wJZRY3ayR3Noi9TQPGtDKtP8=;
+	b=a5pAmRNmzxQlUPjGWfj29xD4BvzmNloLlf089duYnJJqS0jB8cgYZslBkzNUbMpL4J87
+	 ogmTkzA8X35nz6JPTDH/HNQ9S+IHJF8dWR7LK/3DZCMFxFxCWUnZZWjnkuZgm2O6Vx5WT
+	 xiLm0U1S9VOJW4tK+3hmB3Kwc2SX7mWsaBO/ehOnxNaduNF8KvzSkKxV9kUQZuq1FChHz
+	 4pyrnvOFsWx+NOfxF2C0QYHtRpOdSc3inBb6i4A/SGHCZOyUYmhNv7kHNuKX8FTkNr7sa
+	 lL+rsuw7gocEi3XkU0mDtV/m59Y65Gs4m/L+Zfq3t9GVRZ4p2DxceRWJm/4Wkbw6Dng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S3HpShUJ;
-	arc=none smtp.remote-ip=209.85.214.169
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	dmarc=pass header.from=chrisdown.name;
+	spf=pass smtp.mailfrom=chrisdown.name;
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=xGusYjGi;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB5A606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:49:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDB5A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4345C606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:50:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4345C606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S3HpShUJ
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e977109392so24977875ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:49:06 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=xGusYjGi
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso2200376eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:50:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794890946; x=1795495746; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:subject:cc:to
-         :from:date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=86CkpXuwpEyCMVvw149Ca3RuC1QKVovO1J/0AhH0nrA=;
-        b=S3HpShUJlch1Aw312O3ajiilNLZWKgLtK5r+0I+2k1y6nOKzfWft4gD+sHcSXTb4WZ
-         ngLfADY1inopAwaSdp6UrhqlgOjyLKPrhIPPti1WoGgBogeVmyv+YOf30f96eNqN7s5o
-         d0Z5/e0/RBFNYq5TLtj8UN1cHJR/q5jPPkDhRvwh6FDZdBe7cnXboaLFv+HZXfuP14DE
-         6zlcVVqllJIAIHVTUkasz+Am8hKYYU6nnxJKflAS3f+Hu8Td9taDl6j2zEuMHHZF59IB
-         tLWOvVlad8yGECxt28hrGX9wawMJUidT4DG2jZaGfkJMrS1P8mc6ToxdcNTo4zD4tlwq
-         HKjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794890946; x=1795495746;
-        h=mime-version:content-transfer-encoding:content-type:subject:cc:to
-         :from:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=chrisdown.name; s=google; t=1794891033; x=1795495833; darn=vger.kernel.org;
+        h=user-agent:message-id:content-disposition:content-type:mime-version
+         :references:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=86CkpXuwpEyCMVvw149Ca3RuC1QKVovO1J/0AhH0nrA=;
-        b=dAwC4U05xWrFEViXLHjmo7YyHgIMW08GYTkEBAWpAgZ0sTyErVs3UyGIF8ydDyzHCS
-         JG6S7MEWG7CkG9w2xldvPdEtDS+tMblVPl8xfSj+dq56GecU6nvj4rEkmBY4WHiBxReq
-         6jsVG4IBJ7M2U3D7CtReIWi9At4uwtKQhq9S/wioxk6NYSV6L6eQHpXSM5VgJwvkMOg4
-         Ohy62pEEJRfV3/AhDLdK1CPE8i10Y/6s7OLNigTkI8R13eOT5MP4BWOEFum2w6JBOPgy
-         AQJVWjKAxjWMgdiOodajwVy1pLeTyUzo+MFOqsBAsiA4Z8oc1tbM1zTv/ly8ohxI6tIb
-         xCyA==
-X-Forwarded-Encrypted: i=1; AL+hErETdvKLEuaMZhgas+tGQNFmijc670q0N3bASCT7WIXfGyAabVzbLWednzmr2eiOuGPk/m7fxk90fdJcqWs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+a7099lwoZvto2pn0bH6NKniJTOW8KHHJx3eC42w1sCehMLw8J
-	IpOR1gLjG3grKBtM5CJUdl6DMRcyRSQtqcyKU9kfChaWNOuE74q5z3Il
-X-Gm-Gg: AZFdTZfQkzmOBF7KraywkHFMQcjQyBZ2uSNaDT3svQ/yVYle+CvC5EmJaQ+xB7uhvPS
-	rqLQCcEeXuXYWWjm6Bzo2vOdxikk6uvjtky/k6Qts4ppr5r0pZlajIrydRfESw0/K3MLGnImouS
-	rsBzyAINtRLKzWzpKvIQGc3JPt0leFM8TIKecvkWmSY6UwBmg998c8l2jsolu0s8AkRjjBOnCjo
-	mQJ7OPdQ199cWFEU1OlgXnrHjviC1EnOobCacCttZH0MaFXAtA8iljnLW1Pio0ek0PMNMUvGhO1
-	O2ddFxaUhQgdbmyKQ9GpFad8x+2ANpMv1mI5lEilJGfWbMpCd9xBU23CUwLHUC3i5zH8a37ju0N
-	3L8iVo1aJ9CliVUYre2HFe+eIZEQPG4cHwEbLrkGcyE3X7lAqYl+c38VGTF4X7lOdlZC8rKVmwK
-	+esB7Od8xxTKGXvMynfvyj8PLb6Ml5wvquW/W6x85Z0oYYL1TrSKlkkk1EEKMnMWpy9lml5/sM4
-	qlrJJ6jEs1Un2UhAffD81ziKJ6o4O5qApP4WezEHAco/HcMOrEn+89Fjp6WDBAytUDIfKExyw==
-X-Received: by 2002:a17:902:ccca:b0:2e9:5714:6087 with SMTP id d9443c01a7336-2ee0d65ffb2mr120597685ad.5.1794890946089;
-        Mon, 16 Nov 2026 20:49:06 -0800 (PST)
-Received: from [169.254.42.106] ([113.200.174.22])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd7a88a55sm7491235ad.65.2026.11.16.20.49.02
+        bh=yUYUZ2LlOsiIpdrbhk1wJZRY3ayR3Noi9TQPGtDKtP8=;
+        b=xGusYjGiAdnGxncVaBVneIpjK1Ph9eHqEeeWt7lnJOkMFdfkTt1BtipRJ++rtd7axm
+         TNY7mXokRzpdPDScm4nkTWyZVHSDCLj45TjHq4Sbviprep7R07QzTsdMPDa4KrXp2Rvn
+         8lsnvqGG1oEchDAwidDM03GPkgBCly20w/qqQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794891033; x=1795495833;
+        h=user-agent:message-id:content-disposition:content-type:mime-version
+         :references:in-reply-to:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yUYUZ2LlOsiIpdrbhk1wJZRY3ayR3Noi9TQPGtDKtP8=;
+        b=QkuOBZUHD1pvpBEkv6SRxz6ErpyW503ho/uNDyexVWTaNBCrUNT2HstgxGonwUiMAE
+         fo4p0kchq7T16wGIkLzTStMB9oB9J7ndj6pRM9ak+tjdE05wtNKNi0bUuxhR80JuhVNI
+         6YUjaqfwF9LIqAwTNfG2lQRYeWDEVPYX+m/9dwV6pKrchj7kf5v75ehi3oo19oWWOvX0
+         89GLFqTsdbG+Kkus1U6e92ADZN91FCvY0PSfBMCuGc1p2cpK3DFbfXvkVOg6HrzI4HhJ
+         QPJT75SQ2S6unQmVWFJ4JuMNe+cmVesSl/VolhPLu1R/BW+Eys45cz1uAfMfZ1x0cNYa
+         mIgQ==
+X-Forwarded-Encrypted: i=1; AL+hErHtrHTReDYNqgdAW5fqoEmM0E8VQYm/IeFwZpZ53m7ZAVOG7iyh4g9XSClOgzNnfXTWd/c/eX/nn7UP6m4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+NcpkiZpwmqY21huMu28TvzWLxweSI9y7rWiyNTsfDbgBrzWNw
+	RBhQPxSOSiWthLk9fvK4eFotx+qPsR3iVhlqOsv1saYg6hinaRCwXooJ1wxJxs9KSlY=
+X-Gm-Gg: AYBFou3sGB2nJNThRGgx2qA8DCWD2Cur3KTe8OhKJw05HaHLbYSW0gL1aXeCsUfxtI7
+	gHXj4SUq9/Y+8pKxIkBqXBcZOtmF9KP8D7v/nBQZkV8uTSQveqI3mQTNXJFQiOaBZTIs9ip9yW7
+	SOaABqcNrU7aJfd8vnIUPcPyU3vkLBcIJBneZISNmM49+Ohtc7JUmJ8wsR9SZcDAnrPDgjMX5Ef
+	oc7JsrPib37CR0N/zeRl4jni2JkCt0v8vjkNTAKtww8YdFXpNKmDjWwe/H5SbG7hsVY/uMx6rsA
+	xWWJxgTw+El96+WHSJZGWDc/9GwdpSF29dmvZ/U4o7EwhfpFtqaAlDgDNoiO/D3QTzr1IgN/iUA
+	zNDhEsQc28ETGHkgPToSt6VzgFpDP8O/P2hAsfwdAjiInNEp7IZu86wdcwmTez4cmH1bBsdsxY1
+	4kVMFqQCbgWiJ5tMTSwWuOozgwQo37mwK6/1b32VM81z0t+dWz1GYzk0ZpUEjsOPAPPC68SVyPd
+	ouGJvKZgYvWMyHHFaNFl9C1JD8xsLBNCTPWyoTm7YC/muMMXx7XNkqR5xfQb97M23Fdm8yf06r8
+	MGAD7dyjd4pbGoG4pE2gLWMWRKyXLC/1ffGj3iDh1NHpLXnAIJJ2MYUVJ09uzYYI3a70UbB6FbJ
+	XDv9lUdWl0z2exm6Jw6c+domfvC1PLEyRULZmYbobrU6rCWUpC4jcg7a4vAEU5I7UY0l/plG3iT
+	U2sxVEymHlpR1N6RHHIWOA/FK9u1bP133R3eX7DVkOPEq0h/DBQhjuaHnXgKG9xJWQ
+X-Received: by 2002:a05:7022:1583:b0:1ac:1343:fa54 with SMTP id a92af1059eb24-1b503112a8cmr13989391c88.14.1794891033256;
+        Mon, 16 Nov 2026 20:50:33 -0800 (PST)
+Received: from [172.20.0.3] ([172.56.235.113])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031468b7sm43375533c88.5.2026.11.16.20.50.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 20:49:05 -0800 (PST)
-Message-ID: <6afbdcc1.e6d8240f.129280.2aea@mx.google.com>
-Date: Mon, 16 Nov 2026 20:49:05 -0800 (PST)
-From: Zheng Shuhao <viennaoffh@gmail.com>
-To: linux-raid@vger.kernel.org
-Cc: Song Liu <song@kernel.org>, Yu Kuai <yukuai@fygo.io>,
- Li Nan <magiclinan@didiglobal.com>, Xiao Ni <xiao@kernel.org>,
- NeilBrown <neilb@suse.com>, linux-kernel@vger.kernel.org
-Subject: [PATCH] md: skip superblock validation for nonpersistent arrays
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+        Mon, 16 Nov 2026 20:50:32 -0800 (PST)
+Date: Mon, 16 Nov 2026 20:50:28 -0800
+From: Chris Down <chris@chrisdown.name>
+To: Jiaqi Yan <jiaqiyan@google.com>
+Cc: linmiaohe@huawei.com, muchun.song@linux.dev, nao.horiguchi@gmail.com,
+	william.roche@oracle.com, ljs@kernel.org, vbabka@kernel.org,
+	tony.luck@intel.com, wangkefeng.wang@huawei.com, willy@infradead.org,
+	akpm@linux-foundation.org, osalvador@suse.de, rientjes@google.com,
+	duenwen@google.com, jthoughton@google.com, jgg@nvidia.com, ankita@nvidia.com,
+	peterx@redhat.com, sidhartha.kumar@oracle.com, ziy@nvidia.com,
+	skhan@linuxfoundation.org, corbet@lwn.net, david@kernel.org,
+	dave.hansen@linux.intel.com, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	linux-api@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v4 1/3] mm: memfd/hugetlb: memfd-based userspace HugeTLB
+	MFR policy
+In-Reply-To: <20261115160105.2507650-2-jiaqiyan@google.com>
+References: <20261115160105.2507650-1-jiaqiyan@google.com>
+	<20261115160105.2507650-2-jiaqiyan@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,70 +106,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+Message-ID: <avvdFHtnw2BlE5Vq@chrisdown.name>
+User-Agent: Mutt/2.4.3 (cc9e3943) (2026-10-09)
 
-Hi,
+Hi Jiaqi,
 
-syzbot reported a KASAN slab-out-of-bounds read in
-super_90_validate() when adding a journal device to a nonpersistent
-0.90-style RAID1 array.
+This generally looks reasonable in principle, but some comments.
 
-The reproducer creates a nonpersistent RAID1 array with 35 raid slots
-and then hot-adds a journal device. Nonpersistent arrays do not load an
-on-disk superblock for the new device, but add_bound_rdev() still calls
-validate_super() in the journal path.
+Jiaqi Yan writes:
+>+			if (!mapping_mf_keep_ue_mapped(mapping)) {
+>+				ret = VM_FAULT_HWPOISON_LARGE |
+>+				      VM_FAULT_SET_HINDEX(hstate_index(h));
+>+				goto backout_unlocked;
+>+			}
 
-For 0.90 metadata, super_90_validate() indexes sb->disks using
-rdev->desc_nr. With 35 raid slots, this index can exceed the 27
-descriptors available in the 0.90 superblock, resulting in an
-out-of-bounds read even though there is no persistent superblock to
-validate.
+This doesn't look right to me. For example, hugetlb_mfill_atomic_pte() also
+checks folio_test_hwpoison(), so UFFDIO_CONTINUE on such a folio still fails
+with -EIO. Also, do_migrate_range() calls unmap_poisoned_folio() on any
+mapped folio with HWPoison set, so offlining the memory block unmaps the
+hugepage after all.
 
-Skip validate_super() for nonpersistent arrays, while retaining
-hot_add_disk() for both persistent and nonpersistent arrays.
+>+	folio_put(folio);
+>+
+>+	/* Refcount now should be zero and ready to dissolve folio. */
+>+	ret = dissolve_free_hugetlb_folio(folio);
+>+	if (ret)
+>+		pr_err("failed to dissolve hugetlb folio: %d\n", ret);
 
-Testing:
+This isn't a good idea when somebody else still holds a reference, such as
+a long term pin from io_uring or iommufd (Jason was asking about the latter
+in [1]). dissolve_free_hugetlb_folio() returns -EBUSY, and when that last
+reference goes away later, free_huge_folio() puts the folio on the free list
+with HWPoison still set. Now, while this sketchy page may well never be
+handed out again, it is nevertheless counted in free_huge_pages, so a later
+mmap() can end up getting its reservation against it, and as a result, a
+SIGBUS when it faults. That seems like a real problem for a VMM with
+passthrough devices.
 
-- The original syzbot C reproducer triggered KASAN in the baseline
-  kernel in 4 of 5 clean runs.
-- The patched kernel completed the same reproducer successfully in 3 of
-  3 runs without KASAN, BUG, Oops, or kernel panic.
-- Both baseline and patched kernels were built with KASAN,
-  CONFIG_MD_RAID0, CONFIG_MD_RAID1, CONFIG_MD_RAID10,
-  CONFIG_MD_RAID456, CONFIG_MD_LINEAR, and DEBUG_LIST enabled.
-- mdadm tests 00raid1, 02r1add, 20raid5journal, and
-  24raid456deadlock passed with the patched kernel.
-- A baseline-versus-patched run of the remaining targeted mdadm tests
-  produced identical results: 4 passed, 10 failed, and 1 skipped on
-  each kernel. The common failures are in persistent 0.90 byte-order
-  handling and external DDF tests; no KASAN, Oops, BUG, or panic was
-  observed.
-- 24raid10deadlock passed with CONFIG_FAULT_INJECTION,
-  CONFIG_FAIL_MAKE_REQUEST, and CONFIG_FAULT_INJECTION_DEBUG_FS enabled.
+I didn't check in detail, but since the folio has to be dissolved when its
+last reference goes, wherever that happens, perhaps one way to fix this
+would be to do it from free_huge_folio() instead, and treat a HWPoison folio
+there much like a surplus one? That would cover the pinned case, and I think
+it would also let you drop filemap_offline_hwpoison_folio() and the
+folio_batch changes in remove_inode_hugepages() entirely.
 
-Reported-by: syzbot+c5969d7e0a934b384fd6@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=c5969d7e0a934b384fd6
-Fixes: 87d4d91616e4 ("MD: add journal with array suspended")
-Signed-off-by: Zheng Shuhao <viennaoffh@gmail.com>
+>+		if (hugetlb_should_keep_hwpoison_mapped(folio, mapping))
+>+			/* A new raw HWPoison page in a still mapped hugepage. */
+>+			ret = MF_HUGETLB_IN_USED;
 
----
- drivers/md/md.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+This also looks a little wrong, because a 2nd error now gets past here and
+reaches the hwpoison_filter() check in try_memory_failure_hugetlb(), which
+calls folio_clear_hugetlb_hwpoison() when the page is filtered. That clears
+HWPoison for the whole folio, earlier errors included. I'd suggest instead
+that it only undoes what this call added.
 
-diff --git a/drivers/md/md.c b/drivers/md/md.c
-index 680b34a63cb3d..308cc146b0b6c 100644
---- a/drivers/md/md.c
-+++ b/drivers/md/md.c
-@@ -2992,8 +2992,9 @@ static int add_bound_rdev(struct md_rdev *rdev)
- 		 * then added disks for geometry changes,
- 		 * and should be added immediately.
- 		 */
--		super_types[mddev->major_version].
--			validate_super(mddev, NULL/*freshest*/, rdev);
-+		/* Nonpersistent arrays have no on-disk superblock to validate. */
-+		if (mddev->persistent)
-+			super_types[mddev->major_version].validate_super(mddev, NULL, rdev);
- 		err = mddev->pers->hot_add_disk(mddev, rdev);
- 		if (err) {
- 			md_kick_rdev_from_array(rdev);
--- 
-2.43.0
+Thanks!
+
+Chris
+
+[1] https://lore.kernel.org/r/20250120172626.GO5556@nvidia.com
