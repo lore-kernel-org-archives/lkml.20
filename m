@@ -1,88 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=94.130.186.121
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794920284;
-	b=3YwUSX48ZWEGcCnlEkyhurz4ifowuhG1OYjN5SrKngcGZBFAZlfgbPbcssXOCI/v/vFe
-	 sPVjGZ03Z/HBMkSaE0M3PWZMhlx1sMPQ/7kgsB9kDaObm2EJc0pvk45NcAzCIs2+XHG5J
-	 sw29igH05BSoYNJdWLQHnut4AG2krx/fwfEtOfpktybHj0M3MwWOOfzUOSiXuL/ONsxO0
-	 B83q/45lxv7aJYN+Mx3goxyDIwKQkb7HRE6ZSaynLNBpCyDcQ5sZLPNILQy+VRYeSFDm7
-	 r1xS14gheHZ4Yt7OjELGjy0uTLUKHW5YBEVz9nGRYd9+f0dSfv7RcDhRTysWrRYUdkQ==
+	t=1794920287;
+	b=p9SDIBykItWe5HH04/J3euKJtot+1H9PRvAcKVGCmRmhJ7ezVP4kSVscqitq2aQ5momC
+	 ko7LKL9+MU7ADiAEk0P22nCbVJ5zvEtxAf2mfkn+bXG6P6LIVo3RUnHiXjtwDewMbhOyq
+	 Zbiug7OVYp+bEMbwHmoKuR5WY2iw7nIJhSs303uwR3A55bwxwjPQQV2fJVCySTWlQSuUi
+	 DaibadI9bLkDgkiKpwZDs6rIjusZc3q1CTtuwAjXASZOwzaEjjCa0K/H2dgPh9mjyrVLE
+	 SskKgCRsEWfXqj68nv7nsuvOEycCjs1tmFXzNLJd41EAQmsW9FyHMLgto/6FFItDs1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920284;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=X++P4NBnyiIYn2JLERFI0cj+8rSyEarq+FNZBQ2tPFY=;
-	b=NzHZObHNKK520mIo4mOaXjOyraOJMKDQ2JtgLuyYtdiXH06yx6PE7JdF2t7tFPXBIGbw
-	 8/a35c3UB6qqUFpScoerxx6oD5LClgUx+JqL4l5Nw4/zgx+Alplu/8J4UU39SnD3EjQ6f
-	 NipNCHh7vmEd/+jxpqHgaUQvNMl3Gyo8qpG2HprwzcNmp8ZqQZF7BiczjG/+6qNt0iCMK
-	 ouGqbQKBS58FmCBNUOfHD0r1RTYqeWJ6AbfKzvbiFK0wO2bk08hqTIWGEz7ihLCTX7Sfy
-	 vMvv19Quwn/qwansHB+KoIZBGHGDPRC433ieC01YERA6t39/trqBU1mEYb9dTXFBpsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794920287;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=sfv/f/vchDZjJlFU/9RbAGG/Cj5/tePf3TPbDwMuMhU=;
+	b=baBHsAsy//yOe4JG6jZZOpaDENAVOAZxfvI2P6rOoMMDFntek/LLP9+tVSBTUc66XYzL
+	 1YmFNliSgu6B0PVbINtiz2OOW651oGHms/+CSiRh5MO+CQT9nruUlY+hnAYoihck72mFd
+	 B+GOxB+DDj7OPimHqOxNupcTd7XzrzeDIpXAzUf3YYN5aFIUpgQVUQypgzidQeoxcZ20q
+	 mO/GCIgDkTrhvlYyme5jx/LmklMFWbM85k5em0z/yi3Pb8vokzKS1PDPAzUoAEOpA9Kzo
+	 W6sbgI21pPCTHyu6pMS/l4f9s29hbggocGm1MwUVQlCvL4UTQ4p5ctj2MFD4AUYt6eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=hardeman.nu;
-	spf=pass smtp.mailfrom=hardeman.nu;
-	arc=none smtp.remote-ip=94.130.186.121
-Received: from thor.hardeman.nu (thor.hardeman.nu [94.130.186.121])
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=hXnyKZ14;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B47AA606A323;
-	Tue, 17 Nov 2026 12:58:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B47AA606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hardeman.nu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hardeman.nu
-Received: from thor.hardeman.nu (thor.hardeman.nu [IPv6:fd27:2a41:8fcb:2::a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
-	 client-signature ECDSA (secp384r1) client-digest SHA384)
-	(Client CN "thor.hardeman.nu", Issuer "Hardeman Internal Mail Relay CA" (verified OK))
-	(Authenticated sender: nullmailer@odin.hardeman.nu)
-	by thor.hardeman.nu (Postfix) with ESMTPSA id 4jTPsg5znGzFpfn;
-	Tue, 17 Nov 2026 13:57:59 +0100 (CET)
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=hardeman.nu;
-	s=202608-ed25519; t=1794920280;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=X++P4NBnyiIYn2JLERFI0cj+8rSyEarq+FNZBQ2tPFY=;
-	b=bCzpYInK2f5Wlir0Q00F3d4KD9pfY68ZPgu3TDJ3t6/NtfX/e5i26M+ScyDnLJYV/N2c/u
-	s9qtROvxqGbUI/Cg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hardeman.nu; s=202608-rsa;
-	t=1794920280;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=X++P4NBnyiIYn2JLERFI0cj+8rSyEarq+FNZBQ2tPFY=;
-	b=Zw9+WiEaB3knnwLaTligp3LnQliz04VukIptSbZdStTdtGJRwPVaAO4YwLdTFzO9ub1ari
-	cRTx1wuzasvvTFLu9Y75jxJyFwY1g1OP/74dblYmAcH16xZjO4t5bJId68L8j5tcxpzauj
-	jRO1xggtNd4qD9o5v3M1e+cPde721z3iKE9NRo42ZUb2qQH47XIetIawJeT99L+vXzkVbY
-	WokDM31dkpOjPnZiw7TLao3nUBArzTCaisD6qAIr3bbQfKi7sJJcEZ28+9TsHuD7WIwdAm
-	SZTazUkNRzTCNOn30w60rwjLS43mQsjSJW/E9hSLLtqxaf2OwPTdlA8oQLk5mQ==
-Received: from odin.hardeman.nu ([fd27:2a41:8fcb:2::a])
-	by thor.hardeman.nu with ESMTPSA
-	id erW8IFdP/GreEikAWTs42w
-	(envelope-from <david@odin.hardeman.nu>); Tue, 17 Nov 2026 13:57:59 +0100
-Received: (nullmailer pid 3647654 invoked by uid 2002000001);
-	Tue, 17 Nov 2026 12:57:59 -0000
-Date: Tue, 17 Nov 2026 13:57:59 +0100
-From: David =?iso-8859-1?Q?H=E4rdeman?= <david@hardeman.nu>
-To: Luka Gejak <luka.gejak@linux.dev>
-Cc: Ping-Ke Shih <pkshih@realtek.com>, linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, Leonard Lausen <leonard@lausen.nl>, Alastair D'Silva <alastair@d-silva.org>, Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Jernej Skrabec <jernej.skrabec@gmail.com>, Bitterblue Smith <rtl8821cerfe2@gmail.com>
-Subject: Re: [PATCH rtw-next 3/5] wifi: rtw88: sdio: limit the TX queue
- length of the 88xx chips
-Message-ID: <avxPV6EFa6PrHG6S@hardeman.nu>
-Mail-Followup-To: Luka Gejak <luka.gejak@linux.dev>,
-	Ping-Ke Shih <pkshih@realtek.com>, linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Leonard Lausen <leonard@lausen.nl>,
-	Alastair D'Silva <alastair@d-silva.org>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>
-References: <20261116190145.2736364-1-david@hardeman.nu>
- <20261116190145.2736364-4-david@hardeman.nu>
- <B58755EF-D7EC-47C5-8DED-EB19A880CE26@linux.dev>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75196606A88F;
+	Tue, 17 Nov 2026 12:58:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75196606A88F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=hXnyKZ14
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 42ACD10F66A;
+	Tue, 17 Nov 2026 13:57:51 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1794920274;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=sfv/f/vchDZjJlFU/9RbAGG/Cj5/tePf3TPbDwMuMhU=;
+	b=hXnyKZ14J+nWW0YrbDpIWs9jqXVTavLp1/qK2ylamt/dv7WMrB1ssnEBxTsjCdRu7guSR5
+	jUbygR+P9J8dhDVV+vuFXGv7g+goRBxe57omA7T88FLkAJ4pu/br/iglvuR6yTgosnVJfU
+	Dt8+NtxYPWL0HlKWljl64ewtV1Kd2A0Tbbtu2XVB2lBz3jvX2BAXfCIZuodu2OXWcSx0xK
+	nDjoWZVhs0JLaL01YDuYFJBnsaf3aBEDlO8jbLEwPO4t8IJxr1FdUih6aN0CqUWbTnILaz
+	/atKxrJVQ1nvovHN2wV6c8RGwhMwSBjGlNPphlCMLrjFiiQJAdEf5fSi9ScPsQ==
+Message-ID: <2814f5f9-8f66-4fe3-9e31-a397bc39b004@nabladev.com>
+Date: Tue, 17 Nov 2026 13:57:49 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,49 +56,171 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <B58755EF-D7EC-47C5-8DED-EB19A880CE26@linux.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/mxsfb: Complete page flips only once the new buffer
+ is latched
+To: Christian Gmeiner <christian.gmeiner@gmail.com>,
+ Liu Ying <victor.liu@nxp.com>
+Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Christian Gmeiner <cgmeiner@igalia.com>, stable@vger.kernel.org,
+ Stefan Agner <stefan@agner.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Emil Velikov <emil.l.velikov@gmail.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+References: <20261108-mxsfb-flip-latch-v1-1-ad816b23b646@igalia.com>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <20261108-mxsfb-flip-latch-v1-1-ad816b23b646@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Nov 17, 2026 at 08:21:50AM +0100, Luka Gejak wrote:
->On November 16, 2026 8:01:43 PM GMT+01:00, "David Härdeman"
-><david@hardeman.nu> wrote:
->
->> +             if (ret == -EBUSY && !rtw_chip_wcpu_8051(rtwdev))
->> +                     resched = true;
->
->I think -ENOMEM needs a retry here too. mmc_io_rw_extended() allocates a
->scatterlist when a transfer needs more than one segment. For example,
->dw_mmc with IDMAC sets max_seg_size to 4096, so an aggregate larger than
->that can fail this allocation and return -ENOMEM.
+On 11/8/26 1:12 PM, Christian Gmeiner wrote:
+> From: Christian Gmeiner <cgmeiner@igalia.com>
+> 
+> The controller copies NEXT_BUF to CUR_BUF at the end of each frame. When
+> a commit writes NEXT_BUF just after that point, the new buffer is only
+> scanned out one frame later, but the event armed in atomic_flush is
+> still sent at the next frame done interrupt. Userspace then renders into
+> a buffer that is still on screen, which shows up as half drawn frames
+> when a compositor renders directly into its scanout buffers.
+> 
+> Keep the event in the driver and send it from the interrupt handler once
+> CUR_BUF matches NEXT_BUF, and AS_BUF matches AS_NEXT_BUF for an enabled
+> overlay. On i.MX8MQ about 2% of the flips completed one frame early
+> before this change, for both planes.
+> 
+> Fixes: b9f5937680a8 ("drm: mxsfb: Enable vblank handling")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
+> ---
+>   drivers/gpu/drm/mxsfb/mxsfb_drv.c |  2 +-
+>   drivers/gpu/drm/mxsfb/mxsfb_drv.h |  3 +++
+>   drivers/gpu/drm/mxsfb/mxsfb_kms.c | 47 ++++++++++++++++++++++++++++++++++++++-
+>   3 files changed, 50 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.c b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+> index 641691fc92c8..d21f12074a81 100644
+> --- a/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+> +++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+> @@ -166,7 +166,7 @@ static irqreturn_t mxsfb_irq_handler(int irq, void *data)
+>   	reg = readl(mxsfb->base + LCDC_CTRL1);
+>   
+>   	if (reg & CTRL1_CUR_FRAME_DONE_IRQ) {
+> -		drm_crtc_handle_vblank(&mxsfb->crtc);
+> +		mxsfb_crtc_handle_vblank(mxsfb);
+>   		if (mxsfb->crc_active) {
+>   			crc = readl(mxsfb->base + LCDC_V4_CRC_STAT);
+>   			vbc = drm_crtc_accurate_vblank_count(&mxsfb->crtc);
+> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.h b/drivers/gpu/drm/mxsfb/mxsfb_drv.h
+> index bdc47ce5be79..9264ca53999d 100644
+> --- a/drivers/gpu/drm/mxsfb/mxsfb_drv.h
+> +++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.h
+> @@ -49,6 +49,8 @@ struct mxsfb_drm_private {
+>   	u32				bus_format;
+>   
+>   	bool				crc_active;
+> +
+> +	struct drm_pending_vblank_event	*event;
+>   };
+>   
+>   static inline struct mxsfb_drm_private *
+> @@ -61,5 +63,6 @@ void mxsfb_enable_axi_clk(struct mxsfb_drm_private *mxsfb);
+>   void mxsfb_disable_axi_clk(struct mxsfb_drm_private *mxsfb);
+>   
+>   int mxsfb_kms_init(struct mxsfb_drm_private *mxsfb);
+> +void mxsfb_crtc_handle_vblank(struct mxsfb_drm_private *mxsfb);
+>   
+>   #endif /* __MXSFB_DRV_H__ */
+> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_kms.c b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+> index bbc2a2df9f16..c7e516758a1a 100644
+> --- a/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+> +++ b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+> @@ -328,6 +328,7 @@ static int mxsfb_crtc_atomic_check(struct drm_crtc *crtc,
+>   static void mxsfb_crtc_atomic_flush(struct drm_crtc *crtc,
+>   				    struct drm_atomic_commit *state)
+>   {
+> +	struct mxsfb_drm_private *mxsfb = to_mxsfb_drm_private(crtc->dev);
+>   	struct drm_pending_vblank_event *event;
+>   
+>   	event = crtc->state->event;
+> @@ -338,12 +339,54 @@ static void mxsfb_crtc_atomic_flush(struct drm_crtc *crtc,
+>   
+>   	spin_lock_irq(&crtc->dev->event_lock);
+>   	if (drm_crtc_vblank_get(crtc) == 0)
+> -		drm_crtc_arm_vblank_event(crtc, event);
+> +		mxsfb->event = event;
+>   	else
+>   		drm_crtc_send_vblank_event(crtc, event);
+>   	spin_unlock_irq(&crtc->dev->event_lock);
+>   }
+>   
+> +static bool mxsfb_crtc_buffers_latched(struct mxsfb_drm_private *mxsfb)
+> +{
+> +	if (readl(mxsfb->base + mxsfb->devdata->cur_buf) !=
+> +	    readl(mxsfb->base + mxsfb->devdata->next_buf))
+> +		return false;
+> +
+> +	if (mxsfb->devdata->has_overlay &&
+> +	    (readl(mxsfb->base + LCDC_AS_CTRL) & AS_CTRL_AS_ENABLE) &&
+> +	    readl(mxsfb->base + LCDC_AS_BUF) != readl(mxsfb->base + LCDC_AS_NEXT_BUF))
+> +		return false;
+> +
+> +	return true;
+> +}
+> +
+> +static void mxsfb_crtc_finish_page_flip(struct mxsfb_drm_private *mxsfb)
+> +{
+> +	struct drm_crtc *crtc = &mxsfb->crtc;
+> +
+> +	drm_crtc_send_vblank_event(crtc, mxsfb->event);
+> +	drm_crtc_vblank_put(crtc);
+> +	mxsfb->event = NULL;
+> +}
+> +
+> +void mxsfb_crtc_handle_vblank(struct mxsfb_drm_private *mxsfb)
+> +{
+> +	struct drm_crtc *crtc = &mxsfb->crtc;
+> +
+> +	drm_crtc_handle_vblank(crtc);
+> +
+> +	/*
+> +	 * The controller copies NEXT_BUF to CUR_BUF at the end of a frame. If
+> +	 * the commit wrote NEXT_BUF after that point, the new buffer is only
+> +	 * scanned out from the next frame on. Complete the flip only once the
+> +	 * hardware has latched it, otherwise userspace gets back a buffer that
+> +	 * is still being scanned out.
+> +	 */
+> +	spin_lock(&crtc->dev->event_lock);
+> +	if (mxsfb->event && mxsfb_crtc_buffers_latched(mxsfb))
+> +		mxsfb_crtc_finish_page_flip(mxsfb);
+> +	spin_unlock(&crtc->dev->event_lock);
+> +}
+> +
+>   static void mxsfb_crtc_atomic_enable(struct drm_crtc *crtc,
+>   				     struct drm_atomic_commit *state)
+>   {
+> @@ -425,6 +468,8 @@ static void mxsfb_crtc_atomic_disable(struct drm_crtc *crtc,
+>   		crtc->state->event = NULL;
+>   		drm_crtc_send_vblank_event(crtc, event);
+>   	}
+> +	if (mxsfb->event)
+> +		mxsfb_crtc_finish_page_flip(mxsfb);
+>   	spin_unlock_irq(&drm->event_lock);
+>   
+>   	drm_crtc_vblank_off(crtc);
+> 
+> ---
+> base-commit: 19e67d977d3d4d0c54f03906ef578578190db9e1
+> change-id: 20261108-mxsfb-flip-latch-ef53c4526ba6
+> 
+> Best regards,
 
-You're right, I'll fix that in v2.
++CC Liu
 
->> +     if (resched)
->> +             queue_delayed_work(rtwsdio->txwq, &work_data->work,
->> +                                RTW_SDIO_TX_RETRY_DELAY);
->
->So if I read it right, this also needs the work to be cancelled when the
->SDIO interface stops. The power off path is:
->
->        rtw_power_off()
->                rtw_hci_stop()
->                        rtw_sdio_stop()
->                rtw_mac_power_off()
->
->rtw_sdio_stop() only disables interrupts and invalidates the credits.
->The cancellation is in rtw_sdio_deinit_tx(), which closing the interface
->does not call. The flush callback does not drain the SDIO software queues
->either, since the SDIO operations have no flush_queues callback.
->
->A pending retry can therefore run after power off and keep rearming
->while credits are unavailable. The RTL8723BS retry helper seems to have
->the same lifetime gap already, so maybe the shared stop path is the right
->place to fix this before extending the retries to the other chips?
-
-Good catch, and I think this is fixed by Alastair's series, which I'll
-base the v2 on (+ Leonard's series).
-
--- 
-David Härdeman
+It looks good to me, thanks !
