@@ -1,55 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794903827;
-	b=ITrI0mHOyP4+CWTB82ea45EuHvAbwvsRd6tp8tARG6AZxNDncoBt/0h7IYVWNieMJMWH
-	 biC88c3SE/VFLXga0f9DfEhRlGeCamNNmAJRSgLY7ieMcrKhhZFmGJDd7okDHQlDjcSoI
-	 fmDLIupygjezU8oClWG5bProlMbhvQXUMKJP7uoLLjYTJYPu76tHnEk9cMK8tYAj/tO0J
-	 4MDhbi2bwtcBDYSl1RbIKilCTvJeRkfg8DYnxvEk5Tcsn0HJgoogQSpUsnvlbIUBfUDeG
-	 vL685illd2ID+WQQGiJapRtlgSsJ+m8uVTpTNj1dAXv7Qs/Kkc5L0A06YR4LcxScUkQ==
+	t=1794903867;
+	b=3GLktPK1Xeu4ynaA1BC6TfXMAsg9VVIKmm+c4rbVUUlzHvXUlqDSStgDgKoVFTjqDzXq
+	 5bNC3LxVOM5KrLcSqGTXuG/J7rjCyx4SKAebfCszDu52tTwVbmF3At0OG1xs4l/eBCSXl
+	 H+u69vH4VUhIRDtYFhhHrGHRWb61KcXzW+iop1eLBrjGU4W7ZHEs0aprHk4/ya8o0cyp6
+	 fxi+6+cRB9+UPKJ+Wf4JdGpNFYeRCWdhAyG3l8fsYYN9V2cDd1YzW9+hzunluSgdLknct
+	 +CCynVgLfqFksvbheST3gTyZbmNKnqalbh5qgMqHJS3RsPhVEUdCYrZ122G7da9lAcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794903827;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=JufBFXEppaAHOVRYjKH4bmMIJfDMkrcteD8947cV7oA=;
-	b=uSao3I2f+oiA9qNL7Q9Gre53ANwa0W/JdPb0qWVWX/TGAKtgA8OVojob1K6IKksWS8s/
-	 kUh04NeK/ZSXRns0otd5Jo34AojbbKFDbmqIBYQP1nftar1TDFVsiC+kOpP2TCXySAIpH
-	 j0Hvh1ccTEYOmWC2OIzMbgEJp28ffSW0rLwt34R/7JXe5Ydza5Et4mIp3f/+8j4PC+WYJ
-	 u/g2/Ms5OFN4N5vrBbae3HMw5J4z+3K7MYM3xBgPV7hBBAp+rRbemuVM+Mb5DntUDM/Ez
-	 db/zG6OMEDT/daxM5dcsEWeLQQa9PMt//9Hd9HDgGYBOgkUrEgm2LgIehEQvhuRJ7Hw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794903867;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=LxaI5uY4Qt4PnmH4r73IhaYkI9KKxux57STKlfaXPiI=;
+	b=w+RqIkSwo4bRpSJBK0CmvRtxjWEgOKybkHm27sLfYwrWpX+KUHgCAr/oGenBmGgBsrh8
+	 x706cFHtYwKsa26KMBSX79zm7zGOrfqpCqOekPYGbe6QH4vzfkdTkfgWLX+8w7VxSoOZn
+	 uWwm4LkK7TfVs0BYJqEohguDayHsvY7+1dquAxY4dcCQ0ytB+Yl62SSA3YBmgIMiJ2Skb
+	 hLldL8FgbvMKXO77GGXipDytJP7TjHfoqnQkZXyQoTggbZOSQQtLmvx9Tig0ajAJ8TdEK
+	 BNYzOJ+joCnTu9/e5yjePqG2rauJBiBLOQ0HPwylqtcn2erLzBdzhb3p/U+WqnNffcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c5YgioSY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=fairphone.com;
+	spf=pass smtp.mailfrom=fairphone.com;
+	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=nTBhyNmU;
+	arc=none smtp.remote-ip=209.85.208.50
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEF8D606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:23:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E034606A330
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:24:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E034606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c5YgioSY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB0B81F000D2
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:23:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794903827;
-	bh=JufBFXEppaAHOVRYjKH4bmMIJfDMkrcteD8947cV7oA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=c5YgioSY+ksnhJMdq0LObak4F30DHkk+sQGNoaip+dj7IAMnMaVjaA5SUAY17RSZL
-	 Gp1buxyWU70zUaxoWBLhS6t7YCMKFJ8kzt4gt6+UP4pi5Tq7o5ZkMcPzj3IeUkzYPy
-	 SZ1WB1Y/WrmpFPUWlozcnHINHo9Iunmg16TetT35fcZJ2Mi8xW/CcERzvfSX/uQRwN
-	 cRS5heaCFhOz5Jw+zGot3lhTnBJCiDAikEmPOXMZkzL7XrqI/IaEyHVyYRxffOKjDi
-	 W3jrV3T8h8cx80ZdTJURiJqdNQJA7riw/4PzrPXui7pRFp3+MPwTGBFoEGEUP2FN6x
-	 t4Yk4/FvquQZQ==
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5be4fea434bso569671e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 00:23:47 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErH+KugCbmlcRz6432wEttxYg9hiK9TaEfK0RrB7INn33bfK8ypcFxph7ry++gBd7R8a587amg8au7fzYPA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Ka38b2v9TMhA7yB+Wh58XbxBYGxtCKT0jKv6Ot3XbultfGNsx
-	ADhfz8MwkLeS4Gjf1deL1tlTGMlKX3AiLzSF+L94X1+sMv4uGqG+mWdFbMbyc8ptxWMipqemEYP
-	vvhjmKxSbxDz84dA/ZQLLnj0u2J4pGmM=
-X-Received: by 2002:ac2:4e05:0:b0:5c1:4b7a:958a with SMTP id
- 2adb3069b0e04-5c1a0deb485mr655915e87.7.1794903826445; Tue, 17 Nov 2026
- 00:23:46 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=nTBhyNmU
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b7ddb99db4so3358203a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 00:24:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1794903865; x=1795508665; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LxaI5uY4Qt4PnmH4r73IhaYkI9KKxux57STKlfaXPiI=;
+        b=nTBhyNmUa5BEoqc2nlcEE2caCO8zzZlWsMqiZhg+CUPKF2pNcTuJj70fg6gcEg+AlC
+         PELJ/MDs4dOrr5Rb9zR5Vw0PgdK9Hz0L9CVyPvrVrFu77DUyWnUR/NokQ7Vo429i0rFv
+         oYozS2QZ6o8VOzua9RXwMdqSWyevTL7WuaJkv50LmViR7OeqmvSx3qLB016DVs+HlFso
+         Lcn+NF9hGra5dyi+IYksIN9NSJzTOoOyZEo/zYUYQBnPC9ySV+5YhTMC1YhQj5c6A1F8
+         wae8WVTYK3inJ7MCl8ZJFvWc7h69CHsCMCjInfzyd41DJex/QkT8+2Nhq0TUfBsrOAqZ
+         A/TA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794903865; x=1795508665;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LxaI5uY4Qt4PnmH4r73IhaYkI9KKxux57STKlfaXPiI=;
+        b=2eH0QK4aWPl+Yg3Wa1TcWvx/SJqi/KTLtaMEdMK07OIaY1Si03kek+6BIa/BVXa1rR
+         b9uouE6a12c35nLsaaB0ht1EjnRs/4+cdRZA2luE12R4kd3mSfUvUPZpLBYGDnMYy4If
+         P+qxw5Hmn0mAj087Nm1YHkxfo5+2CEUfg/GI+7Sm3oXytl/vRUBIs+nrfHXWbUZOkX9K
+         mk31ZZ9F0tSnQ5m4KDuvS2d4mWLbNgoBTYzLPAUdybSyV8i/GdBXA6SXHRGdKKOSz11u
+         vRrKojHQimI13cs61o0I+fnqIjszdtx5h5TijM72vbTAgzsswqAN3zc43eLm/gd9r5HO
+         Fiig==
+X-Forwarded-Encrypted: i=1; AL+hErEmphViziUyewyr8egTJvod7nk098D8FzGw1xE8/TETtIKOHp8PZakK2WvzMBAzu9rARDU80WratIFI2YM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/BhluvHzTZOEyvs19Qk9JylYJUD773FP77GjNuf7sg1dP92Jsq
+	91NwTX+XzbhX6vN5AYH08pBd/997nOKy8V9CQlclbuqK+FsAboNiEH6HJ91Ud1mous4=
+X-Gm-Gg: AYBFou2+qR2ldeLOT8CCF4BugSEE203XvAE0p7i8aTXKwUqPmfsT9fnXICkX6VM3xxu
+	cWts+gbKsfzxKVMJXeuCUMK2Vl1AoaLqMl9iUpUFpwNpMp0N9cITan2Rc+Vt9pxBaMINMG51a7p
+	mBXMlvKSbSswzPNMAeUfrCr/CdH/ePVOuWh4hAKqvChdp/MjT3D4lFhKvYTZJdgIf0jMHEji/fX
+	L4EXsAa8E4Cye9RDH5/VgPiLq/Pk/r8cSiIx8aJm7HzeMZYVIu/aX61gxj+NzB4ahy+3C1x8DSb
+	r3pv80uaKamvprsJ0slJQpftuefHCk3btoSNf0+HmpReMw/L6w5kkiGAZfqZ32LfM+eH5b/PFr5
+	z0AdPfJS5aRppGW8jS1cAYC72rMeRCl1AsW4b6+KprYhqQbgL0kHdTeIm/znBATybjgyXxFOuD/
+	6KkrNR2Ny1ib+a+39GruY9eeLFSgQMI8WW3faQiPzHqyWMiCFYzCyza8jVTg9vf3fHx3CklsR1O
+	gOx27HYQ+cuAUKW+Bt4AMhXqpcz1mupqFMb/giAy9etW/GLeL0IuBLW4of3Y9ijsCi1cpAbRs57
+	1k8pQ5AEl97niYOrFMUa1bkq269HaWjCyrawdQFtsb7hblPmN8DZSBzb5JriJyzsnKBMYkfQ7Dl
+	TlXUhDRNSqv8Gt+whEwR/WN5h1CSGHSKDfq80H0fasCEgeDu6
+X-Received: by 2002:a05:6402:a6d0:20b0:6b7:7785:e390 with SMTP id 4fb4d7f45d1cf-6b7c0c53c03mr6564860a12.39.1794903865178;
+        Tue, 17 Nov 2026 00:24:25 -0800 (PST)
+Received: from [192.168.101.179] (2001-1c04-0504-7401-4b2e-1820-6d24-b264.cable.dynamic.v6.ziggo.nl. [2001:1c04:504:7401:4b2e:1820:6d24:b264])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c23611casm5616953a12.9.2026.11.17.00.24.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 00:24:24 -0800 (PST)
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Tue, 17 Nov 2026 09:23:11 +0100
+Subject: [PATCH v4 1/5] iio: adc: qcom-spmi-adc5: Add battery thermal
+ channels
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,69 +94,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cf3fd237-2290-4002-8de0-ea4100ef0f85@yahoo.com> <7edbdf93-91e1-4dd1-9ecf-35863cecc277@yahoo.com>
-In-Reply-To: <7edbdf93-91e1-4dd1-9ecf-35863cecc277@yahoo.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 17 Nov 2026 09:23:33 +0100
-X-Gmail-Original-Message-ID: <CAD++jLmDszU-XBV9bVDH39cYLSKMDOAHEMdu7s8mxYjfhEvuNA@mail.gmail.com>
-X-Gm-Features: Aa3M54oLsBDhpgIbksBhOqzS7n8BEIKk1IqnF7iLZrxpvCBuVRvBTCudDX16xgM
-Message-ID: <CAD++jLmDszU-XBV9bVDH39cYLSKMDOAHEMdu7s8mxYjfhEvuNA@mail.gmail.com>
-Subject: Re: [PATCH net-next v11 07/13] net: dsa: realtek: rtl8365mb: set and
- get vlan 4k for family D
-To: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-Cc: andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org, davem@davemloft.net, 
-	edumazet@google.com, pabeni@redhat.com, linux@armlinux.org.uk, 
-	luizluca@gmail.com, maxime.chevallier@bootlin.com, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, alvin.sipraga@analog.com, gusfmora@gmail.com, 
-	kuncy7@gmail.com, fabianotassotti@gmail.com, gabonpivovich@gmail.com, 
-	contact@c127.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261117-bat-temp-adc-v4-1-14d5d309ebfa@fairphone.com>
+References: <20261117-bat-temp-adc-v4-0-14d5d309ebfa@fairphone.com>
+In-Reply-To: <20261117-bat-temp-adc-v4-0-14d5d309ebfa@fairphone.com>
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Laxman Dewangan <ldewangan@nvidia.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+ Jens Reidel <adrian@mainlining.org>, 
+ Casey Connolly <casey.connolly@linaro.org>, Val Packett <val@packett.cool>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-iio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+ devicetree@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794903862; l=4313;
+ i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
+ bh=iidYg1ApengXgpBRX/y8L8A1Ccs7ge5DzCxZFBc4ifo=;
+ b=OXqeH5UusaY7rzg6vlI0anOhN1stHwSh6BCMbSMu0R8cuLLxS4RgGW7U9l8YXlIbAQAThR9WZ
+ HLFmZmTZ/JyDa1Jo56d996TCbjpNtysUUaEQGqlHPSh/dYU8cM/Q/fN
+X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
+ pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
 
-On Tue, Nov 17, 2026 at 8:39=E2=80=AFAM Mieczyslaw Nalewaj <namiltd@yahoo.c=
-om> wrote:
+Add the BAT_THERM channels with millivolt as output, which can then be
+used along with information regarding the NTC in the battery, to get the
+actual battery temperature.
 
-> The hardware structure of 4K VLAN table entries has changed between
-> silicon families. Family D's CVLAN entry is two 16-bit words rather
-> than three: there is no third word extending member/untag past bit 7,
-> and no priority/meter fields at all. The FID field is restricted to a
-> narrower 2-bit width. The chip itself supports both IVL and SVL.
->
-> IVL_EN (bit 3, versus bit 14 on family C) follows vlan4k->ivl_en. On
-> family D, rtl8365mb_vlan_4k_port_set() enables it while any user port
-> has VLAN filtering enabled (dsa_port_is_vlan_filtering()), so that
-> static and learned FDB/MDB entries use the same key. Family C keeps IVL
-> always enabled, as before.
->
-> When a vlan_filtering change flips this switch-wide state,
-> rtl8365mb_d_vlan_4k_refresh_ivl() updates IVL_EN across the active 4K
-> entries, so existing VLANs, including those programmed before filtering
-> was enabled, switch between SVL and IVL immediately. Changes that leave
-> the state as it is do not touch the table, as the update reads every
-> entry.
->
-> Reusing the three-word family C layout on family D would read a third
-> word that does not exist as a distinct table word on family D's die.
-> Whatever data happens to be in that register would be folded into
-> member/untag bits [10:8] on read, and written back on every
-> read-modify-write cycle in rtl8365mb_vlan_4k_port_set(). Give family D
-> its own two-word pack/unpack instead: add rtl8365mb_d_vlan_4k_read() and
-> rtl8365mb_d_vlan_4k_write(). The shared code reaches them through the
-> vlan_4k_read and vlan_4k_write pointers in struct rtl8365mb_family_info,
-> so the pack/unpack code needs no is_d() check.
->
-> The two-word layout matches the vendor switch API for this chip
-> family, which writes only 0x0510/0x0511 for a CVLAN entry.
->
-> Nothing points to them until the family D info is added together with
-> the chip table entry in the last patch. Until then they are not static
-> and are declared in rtl8365mb_vlan.h, so that the build does not warn
-> about unused functions.
->
-> Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+A static lookup table in the ADC driver won't work since different
+devices have different Ohm and Beta values in their battery NTCs, for
+example a NTC can be 10kOhm & B=3435K.
 
-Looks Good To Me (TM)
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ drivers/iio/adc/qcom-spmi-adc5.c         |  6 ++++++
+ drivers/iio/adc/qcom-vadc-common.c       | 16 ++++++++++++++++
+ include/linux/iio/adc/qcom-vadc-common.h |  3 +++
+ 3 files changed, 25 insertions(+)
 
-Yours,
-Linus Walleij
+diff --git a/drivers/iio/adc/qcom-spmi-adc5.c b/drivers/iio/adc/qcom-spmi-adc5.c
+index d57ba8526e0c..24ac84580570 100644
+--- a/drivers/iio/adc/qcom-spmi-adc5.c
++++ b/drivers/iio/adc/qcom-spmi-adc5.c
+@@ -542,6 +542,12 @@ static const struct adc5_channels adc5_chans_pmic[ADC5_MAX_CHANNEL] = {
+ 					SCALE_HW_CALIB_DEFAULT)
+ 	[ADC5_XO_THERM_100K_PU]	= ADC5_CHAN_TEMP("xo_therm", 0,
+ 					SCALE_HW_CALIB_XOTHERM)
++	[ADC5_BAT_THERM_30K_PU]	= ADC5_CHAN_VOLT("bat_therm_30k_pu", 0,
++					SCALE_HW_CALIB_THERM_VOLT)
++	[ADC5_BAT_THERM_100K_PU] = ADC5_CHAN_VOLT("bat_therm_100k_pu", 0,
++					SCALE_HW_CALIB_THERM_VOLT)
++	[ADC5_BAT_THERM_400K_PU] = ADC5_CHAN_VOLT("bat_therm_400k_pu", 0,
++					SCALE_HW_CALIB_THERM_VOLT)
+ 	[ADC5_BAT_ID_100K_PU]	= ADC5_CHAN_TEMP("bat_id", 0,
+ 					SCALE_HW_CALIB_DEFAULT)
+ 	[ADC5_AMUX_THM1_100K_PU] = ADC5_CHAN_TEMP("amux_thm1_100k_pu", 0,
+diff --git a/drivers/iio/adc/qcom-vadc-common.c b/drivers/iio/adc/qcom-vadc-common.c
+index b03cf584b165..101b3c724f8d 100644
+--- a/drivers/iio/adc/qcom-vadc-common.c
++++ b/drivers/iio/adc/qcom-vadc-common.c
+@@ -309,6 +309,10 @@ static int qcom_vadc_scale_hw_calib_therm(
+ 				const struct u32_fract *prescale,
+ 				const struct adc5_data *data,
+ 				u16 adc_code, int *result_mdec);
++static int qcom_vadc_scale_hw_calib_therm_volt(
++				const struct u32_fract *prescale,
++				const struct adc5_data *data,
++				u16 adc_code, int *result_mV);
+ static int qcom_vadc7_scale_hw_calib_therm(
+ 				const struct u32_fract *prescale,
+ 				const struct adc5_data *data,
+@@ -333,6 +337,7 @@ static int qcom_vadc7_scale_hw_calib_die_temp(
+ static const struct qcom_adc5_scale_type scale_adc5_fn[] = {
+ 	[SCALE_HW_CALIB_DEFAULT] = {qcom_vadc_scale_hw_calib_volt},
+ 	[SCALE_HW_CALIB_THERM_100K_PULLUP] = {qcom_vadc_scale_hw_calib_therm},
++	[SCALE_HW_CALIB_THERM_VOLT] = {qcom_vadc_scale_hw_calib_therm_volt},
+ 	[SCALE_HW_CALIB_XOTHERM] = {qcom_vadc_scale_hw_calib_therm},
+ 	[SCALE_HW_CALIB_THERM_100K_PU_PM7] = {
+ 					qcom_vadc7_scale_hw_calib_therm},
+@@ -583,6 +588,17 @@ static int qcom_vadc_scale_hw_calib_therm(
+ 				 voltage, result_mdec);
+ }
+ 
++static int qcom_vadc_scale_hw_calib_therm_volt(
++				const struct u32_fract *prescale,
++				const struct adc5_data *data,
++				u16 adc_code, int *result_mV)
++{
++	*result_mV = qcom_vadc_scale_code_voltage_factor(adc_code,
++				prescale, data, MICRO / MILLI);
++
++	return 0;
++}
++
+ static int qcom_vadc_scale_hw_calib_die_temp(
+ 				const struct u32_fract *prescale,
+ 				const struct adc5_data *data,
+diff --git a/include/linux/iio/adc/qcom-vadc-common.h b/include/linux/iio/adc/qcom-vadc-common.h
+index 3bf4c49726a7..7586016ff14d 100644
+--- a/include/linux/iio/adc/qcom-vadc-common.h
++++ b/include/linux/iio/adc/qcom-vadc-common.h
+@@ -93,6 +93,8 @@ struct vadc_linear_graph {
+  *	voltage (uV) with hardware applied offset/slope values to adc code.
+  * @SCALE_HW_CALIB_THERM_100K_PULLUP: Returns temperature in millidegC using
+  *	lookup table. The hardware applies offset/slope to adc code.
++ * @SCALE_HW_CALIB_THERM_VOLT: Returns voltage in mV of a temperature channel.
++ *	The hardware applies offset/slope to adc code.
+  * @SCALE_HW_CALIB_XOTHERM: Returns XO thermistor voltage in millidegC using
+  *	100k pullup. The hardware applies offset/slope to adc code.
+  * @SCALE_HW_CALIB_THERM_100K_PU_PM7: Returns temperature in millidegC using
+@@ -114,6 +116,7 @@ enum vadc_scale_fn_type {
+ 	SCALE_PMI_CHG_TEMP,
+ 	SCALE_HW_CALIB_DEFAULT,
+ 	SCALE_HW_CALIB_THERM_100K_PULLUP,
++	SCALE_HW_CALIB_THERM_VOLT,
+ 	SCALE_HW_CALIB_XOTHERM,
+ 	SCALE_HW_CALIB_THERM_100K_PU_PM7,
+ 	SCALE_HW_CALIB_PMIC_THERM,
+
+-- 
+2.56.1
+
