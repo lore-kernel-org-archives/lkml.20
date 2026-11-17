@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794920881;
-	b=kJyefVV+odqHxluhaxdqE0skTs2Jz4TeTzGOsh1nkdHqz5JxrSO/5aWlPJP7P00FSlGa
-	 EA3RWJvZcxSx3dVjD93iYTpn66Egr/t9UN35BQobaPkb5VxC5zMzHIT6l4Z5C95QRc74P
-	 iQEWFRJxWBsi4RVErY6MGYkh2QDYLNSNgq8SVD5XtQ834k0iBezgKL0YbNOM+wzbO9qmB
-	 TWxc49MvMtDoGzbDSFuTWjY+gEzUmkr0OMkxDeM1aUbNdhNnHo0nsC2siQVtW3en6AvbJ
-	 3HTSmLTnWAaSEXdkhj8pXyNZZAs15yNukY95+2Tz2D6B+hNkqbLN/t2y3u+enF2/2/g==
+	t=1794920878;
+	b=BRHsaoO/4n12gfJebjqlA1nNpWkctIrmimayGdyciv+f3t6Ag0tqJOls60N3Xzh7Nn5H
+	 WTWIMNrLk3rGrcQ6MYdySbxyeHP5lqNRUVSmzzhnVAdXmzbMNhd4F7j0eSyz9QDdg8lFi
+	 LrYWDvYXaim1VksTaeZuwkRQh0+whMlD6EOCtMqQ6poVNONeaq2PuMvXFazkmYoJHI/E6
+	 gL8er0TQ7p/VTBGEWr7gu0+yIACx86X2PZ2u6iB6+b7elRXuFEqFwBh+0GYOW9YbeQJjk
+	 jOsH3fpivIl2FFt7ZtgrBk9lJc1cq1s4iB+wnXFecMlN6ky5Bb+Fb2xgZ2W1mq+37eQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920881;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794920878;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=O3FlsByaFaxp+/zhfhE9AvQlMkAjbHT2mmcY3mRyRnk=;
-	b=HRljXvSx2E8LNRv2Jjzcv0NQYWYehWrCQeEqM5iOX7gMB/umG7wqWiFpG6HTzsM89Zk5
-	 bBsx+ZRLBlTXWc5I9nJW/JfFNygHjlnREyz0MbuG0K8hudNPRFYfg+Ib1h17HvOOA2QeX
-	 DSs93oAVs/fN7nQun2Lp9u+tfvwAEkv/oY4AEvOmXr5iQkqlmwFjsNHbCEqfpLrQAdgaI
-	 lWHxR868b3hp9IgPP0BCUHZBMqS/mrDvG5vQeLXulbpaxcLfMYrBOe2FdR3wyd+a/cv70
-	 Napmv2cRS1ooTx0IYOPfByywGM8+xyryGmMY7A/DTor6KIOn/iBz3Xb9qsVA4Mm9WgQ==
+	bh=fEXjbUD3amkNKeHH7e/GPwXDSWv2ghLrxMI2EJ9KtIY=;
+	b=QSl4wZnqvR3xa7UNkVnP7q8sI0ShnpBYwjGZDrXC3twnZ5Lg6Ty4accZ69s0teqYq4bn
+	 Oqyr9rGcVt8Tce1Yv8UeWNbUWF96PxG51oFDw3LVuVrqi7Gi0ZG+vWX4BhIloQ3axziFc
+	 BnVLlPRg/iNhALPJqRXxgxzGZSn+uWjMQA1SAMRyp9tC9RYNXqAu1uthyiWkKA1v1eSu2
+	 9/5X+oukUyDkWfUrBjK6W4XGwWHJcxNhYZLhCuaWpqXKNGBv74CbmNurhfiAgmEx/TkIv
+	 702ONKMXXpw2zQpC1h5j1jl+4okZsYGVhhgUTXcURMmplAfgdDPPvxWHWHrAWmLzREg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=w6BieCWK;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=KOnDB1Gg;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E2B360A3831
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:08:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E2B360A3831
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98E9B606AF76;
+	Tue, 17 Nov 2026 13:07:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98E9B606AF76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=w6BieCWK
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=KOnDB1Gg
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 61804C4CBCD;
-	Tue, 17 Nov 2026 13:07:58 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 6E33D4E41570;
+	Tue, 17 Nov 2026 13:07:56 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 034AC5FC81;
-	Tue, 17 Nov 2026 13:07:54 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 40B7E11BC0035;
-	Tue, 17 Nov 2026 14:07:51 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3CFB65FC81;
+	Tue, 17 Nov 2026 13:07:56 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 19FA011BC0008;
+	Tue, 17 Nov 2026 14:07:52 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794920872; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1794920874; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=O3FlsByaFaxp+/zhfhE9AvQlMkAjbHT2mmcY3mRyRnk=;
-	b=w6BieCWKAZYDm1VFVB+14gYHziDY1jrdhfbgyVSIJS1kShIuV2epq1Wrajx68AP9cCDfHq
-	0ZtESK7UcngAdJx5YZUkQMduOOXa72+flOFKXB+QvxO8Rk50XgM1/e9x6nxk3wINR0ctlo
-	zLkP/k8MuUsIaDpHYwKdEkQJacq1xKGMLTMMhQjJQCz+yxPUeTYK7K84ydSK3RVvE/7Sf8
-	sdEMJ/4Wj+fHXf+R2R1jWPwI2cC9mSHeX9uVnjx7Uvn6z0p02frke2DRVttCeAobA4ybLC
-	WfYymvqub0tCed2R5woNmvxTMPg0KYoFsIkXkbBreMYDsKOL8SsNDjWqucZ1Ew==
+	bh=fEXjbUD3amkNKeHH7e/GPwXDSWv2ghLrxMI2EJ9KtIY=;
+	b=KOnDB1GgE7MLArtta/b25Xnbi3iTBg3GvvDpSueA7h+TE1sz1Kdwcd0zkTF2fNMWqv0fXd
+	S25TzKR6jvBsiRyxapr/xrymMXPUOlj/dv354Q9Bd2zM6BWyaITdtwOiy39opJ4lPy4Ymv
+	zHxS3pitBs126PvEnuYKtqNZK5yYwwL/2J21pI8hP8w1Ht0Yo7oEBrxhGQiviAMjSA0gJS
+	pxGggCqVlH7UOor/N0211lHzK+vJRUKRBoVn3qIlkntYUZRSNX5+qQ6z2nMtKlYCYDE7ie
+	jdWEkGO04F3wNZvks/Mtg+m2v18IRIX9zEfGWkksTOjh8zOFSaO4HSEKUm4BqA==
 From: "Richard Genoud (TI)" <richard.genoud@bootlin.com>
 To: Nishanth Menon <nm@ti.com>,
 	Vignesh Raghavendra <vigneshr@ti.com>
@@ -67,9 +67,9 @@ Cc: Tero Kristo <kristo@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Richard Genoud <richard.genoud@bootlin.com>
-Subject: [PATCH v6 2/6] remoteproc: k3: skip mapping firewalled lpm-metadata memory region
-Date: Tue, 17 Nov 2026 14:07:33 +0100
-Message-ID: <20261117130737.141993-3-richard.genoud@bootlin.com>
+Subject: [PATCH v6 3/6] arm64: dts: ti: k3-j7200-ti-ipc-firmware: Reserve memory for LPM metadata
+Date: Tue, 17 Nov 2026 14:07:34 +0100
+Message-ID: <20261117130737.141993-4-richard.genoud@bootlin.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261117130737.141993-1-richard.genoud@bootlin.com>
 References: <20261117130737.141993-1-richard.genoud@bootlin.com>
@@ -85,81 +85,68 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-The region lpm-metadata is firewalled by TIFS on Jacinto devices, so it
-should not be mapped to prevent speculative access crashes
+Declare a carveout memory region to store LPM metadata on J7200.
 
-Just skip this memory region during initialization.
+For Jacinto devices, this memory region is needed for saving ATF context
+and the certificate information of ATF and OPTEE and DM image. This LPM
+metadata area is firewalled to be accessed only by TIFS.
 
+U-Boot R5 SPL/TIFS will use this area to save and restore:
+- ATF context
+- ATF certificate information
+- OPTEE certificate information
+- DM image (which has been copied in memory at boot time by U-Boot
+  R5-SPL)
+
+At resume, U-Boot R5 SPL is executed and detects that the board is
+resuming (with a flag set in the PMIC), then it:
+- brings out of retention the DDR
+- retrieves the LPM memory region from DTS
+- authenticates certificates from LPM memory region and applies firewalls
+- asks TIFS to restore TFA and its own minimal context
+- starts TFA on remote proc
+- loads back DM image from memory and jumps to DM
+
+https://software-dl.ti.com/tisci/esd/latest/2_tisci_msgs/pm/lpm.html#lpm-msg-lpm-save-addr
+
+As this is used by U-Boot SPL, bootph-pre-ram is added.
+
+NB: This memory region is not part of DM memory (which is not retained
+at suspend)
+
+Signed-off-by: Prasanth Babu Mantena <p-mantena@ti.com>
 Signed-off-by: Richard Genoud (TI) <richard.genoud@bootlin.com>
 ---
- drivers/remoteproc/ti_k3_common.c | 36 +++++++++++++++++++++----------
- 1 file changed, 25 insertions(+), 11 deletions(-)
+ arch/arm64/boot/dts/ti/k3-j7200-ti-ipc-firmware.dtsi | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/remoteproc/ti_k3_common.c b/drivers/remoteproc/ti_k3_common.c
-index f79ccb57a372..5b7881263b8c 100644
---- a/drivers/remoteproc/ti_k3_common.c
-+++ b/drivers/remoteproc/ti_k3_common.c
-@@ -464,7 +464,7 @@ int k3_reserved_mem_init(struct k3_rproc *kproc)
- 	struct device *dev = kproc->dev;
- 	struct device_node *np = dev->of_node;
- 	int num_rmems;
--	int ret, i;
-+	int ret, i, j;
- 
- 	num_rmems = of_reserved_mem_region_count(np);
- 	if (num_rmems < 0) {
-@@ -494,30 +494,44 @@ int k3_reserved_mem_init(struct k3_rproc *kproc)
- 		return -ENOMEM;
- 
- 	/* use remaining reserved memory regions for static carveouts */
--	for (i = 0; i < num_rmems; i++) {
-+	for (j = 0, i = 0; i < num_rmems; i++) {
- 		struct resource res;
-+		const char *region_name;
- 
- 		ret = of_reserved_mem_region_to_resource(np, i + 1, &res);
- 		if (ret)
- 			return ret;
- 
--		kproc->rmem[i].bus_addr = res.start;
-+		ret = of_property_read_string_index(np, "memory-region-names",
-+						    i + 1, &region_name);
-+		/*
-+		 * lpm-metadata is a firewalled region accessible only by TIFS.
-+		 * Skip mapping it to avoid speculative access crashes.
-+		 */
-+		if (!ret && !strcmp(region_name, "lpm-metadata")) {
-+			dev_dbg(dev, "Skipping firewalled memory region %s %pR\n",
-+				region_name, &res);
-+			continue;
-+		}
+diff --git a/arch/arm64/boot/dts/ti/k3-j7200-ti-ipc-firmware.dtsi b/arch/arm64/boot/dts/ti/k3-j7200-ti-ipc-firmware.dtsi
+index d65f68c7d432..a6043970715a 100644
+--- a/arch/arm64/boot/dts/ti/k3-j7200-ti-ipc-firmware.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-j7200-ti-ipc-firmware.dtsi
+@@ -47,6 +47,12 @@ rtos_ipc_memory_region: memory@a4000000 {
+ 		alignment = <0x1000>;
+ 		no-map;
+ 	};
 +
-+		kproc->rmem[j].bus_addr = res.start;
- 		/* 64-bit address regions currently not supported */
--		kproc->rmem[i].dev_addr = (u32)res.start;
--		kproc->rmem[i].size = resource_size(&res);
--		kproc->rmem[i].cpu_addr = devm_ioremap_resource_wc(dev, &res);
--		if (IS_ERR(kproc->rmem[i].cpu_addr)) {
-+		kproc->rmem[j].dev_addr = (u32)res.start;
-+		kproc->rmem[j].size = resource_size(&res);
-+		kproc->rmem[j].cpu_addr = devm_ioremap_resource_wc(dev, &res);
-+		if (IS_ERR(kproc->rmem[j].cpu_addr)) {
- 			dev_err(dev, "failed to map reserved memory#%d at %pR\n",
- 				i + 1, &res);
- 			return -ENOMEM;
- 		}
++	lpm_memory_region: memory@a4800000 {
++		reg = <0x00 0xa4800000 0x00 0x00300000>;
++		no-map;
++		bootph-pre-ram;
++	};
+ };
  
- 		dev_dbg(dev, "reserved memory%d: bus addr %pa size 0x%zx va %p da 0x%x\n",
--			i + 1, &kproc->rmem[i].bus_addr,
--			kproc->rmem[i].size, kproc->rmem[i].cpu_addr,
--			kproc->rmem[i].dev_addr);
-+			j + 1, &kproc->rmem[j].bus_addr,
-+			kproc->rmem[j].size, kproc->rmem[j].cpu_addr,
-+			kproc->rmem[j].dev_addr);
-+		j++;
- 	}
--	kproc->num_rmems = num_rmems;
-+	kproc->num_rmems = j;
+ &mailbox0_cluster0 {
+@@ -99,8 +105,10 @@ &mcu_r5fss0 {
+ &mcu_r5fss0_core0 {
+ 	mboxes = <&mailbox0_cluster0 &mbox_mcu_r5fss0_core0>;
+ 	memory-region = <&mcu_r5fss0_core0_dma_memory_region>,
+-			<&mcu_r5fss0_core0_memory_region>;
+-	memory-region-names = "dma", "firmware";
++			<&mcu_r5fss0_core0_memory_region>,
++			<&lpm_memory_region>;
++	memory-region-names = "dma", "firmware", "lpm-metadata";
++	bootph-pre-ram;
+ 	status = "okay";
+ };
  
- 	return 0;
- }
