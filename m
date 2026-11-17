@@ -1,110 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794928424;
-	b=PmWvK0c5aggBABEjooyO9OLgwGmbG2AWiDAHucp3As4eGBRRw4EvMqSj+ELPNZOoClY7
-	 8XpTRAvSioECQkVzVcj+z7Suy8ESqs0BR4PZFYX2BSoajCohHynsDbBP7bCGSriT8wsgj
-	 T0JvBryfPj1W5ZSw3pPhc3J6EFbcKihG+oXfx1K/VRH4pnIpFDWbnS4nfsk4i7qOItv76
-	 Qt3njSAJ1iDs6fNvSKJvtfI/0vhGx1kcpp9MiFPlNyL2cc4WI/LbkyDjdQBxecv89nCgh
-	 LOcDY7CzbT2KNeRFLQDX7GSOvYcW12Ux4uGd2gmhOPqL+H2JFBSH1TVnKyyBBbDotBQ==
+	t=1794928487;
+	b=WkSdmKerecQHFe2b3f8mkx4kf5bKi5Ov3Nt4saGLJFz9J97IIeyh7AuxcxSrUvPWa5UI
+	 gJ0Ltn5H+u8w9BMp88+sWjWagL1OTafVTxsLaj9vT1Q78xZkYHcQx/WYdG+B2VHcqF1Gl
+	 M2ZWoPJYK1mFsVWuejujXlmO/mUXWSBIBCjeHSvlHh00Ke6JeXjTNpg7czJcplJv9AU8S
+	 N9HaY0x8hsFLGqwSFqo5DNvkPsmpCoXA9UPuvz5wUiy00vSXjjcdzJs/tW26WS+0cB6Nb
+	 uciDOxVeXbhBubsRNXXxlSXh2SIu+NdA5LLI8oA86/pOv04OcK2mtL5XERqBg1GMmJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794928424;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=5bywH9Z+lJsAxzSeeoFsm7ea77DXoKZ0Ta2n8SrOMJ8=;
-	b=l2Nh6ckWjMfn4/MS6INrXG7EBnlEvMTy/M7wQuS00UQIJ6pVPBSGN7UEoHneWHqr5lAq
-	 8SKFr5CZV5V8ge0U3ks0brMC/7/spm2Vxt4nLL3G8fmAnbhjtv9Q0eYbPrevAbPsKqH6J
-	 CDlnvt/FTQyzCHmEZ+X1Vh0fORWcfZEGibuAjlYWGxbn619TNs/mFCCQNaDK4wfbuMsPI
-	 0EQ+7l8S1LkfFg3Y9/Nk5OZ7jKnRypd3Q5JjHRQ/pQdRAAABzXw4NRSd0mFsHKL1f9acB
-	 J1g0VnsZbqrqQ6qyqq5tz6pF77dWEGD8ktMTSFL70l55wdZ/P/pVUVW0rU2QL7CUuLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794928487;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=FlqNaTQ1KSYXtEicQmukvAIbCh1ZGMk91UvUei3msgo=;
+	b=lzdHms/w+9UxvEFYwv2jq0WCgsgPpwpUObxh4s687FA+YzmqJjO7Y5nIMh/aZdUQucGU
+	 BH8er6IUThNsDZP1mRKfFMSJXAOm01HjfhaTxeiFSL0IYNfOtRxJdgQfjIfrku4UgnVGM
+	 zep768uxOBmBQ6DRM0QWzqIKJ/kx9Bv8CSURRMEN7Pd41gRxh01y7E59kzG05BDR9GsBw
+	 X/FtuHnKcSiU0NfymMjsTsEAUyUhYcb7l/z1MmV28nbyrsow6hsw67r7VByfp9aEErAot
+	 udGYoilNffjyeCuGFcSY7wZfwUhRopFvJ8kK2GQNbaX8Z2794gS2MsrMdJ8Kws8QNyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=oQ1I10S7;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=bQ2MhsfT;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=oQ1I10S7;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=bQ2MhsfT;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XfgVPEJY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FEBF606A31C;
-	Tue, 17 Nov 2026 15:13:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FEBF606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1E2B606A31C;
+	Tue, 17 Nov 2026 15:14:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=oQ1I10S7;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=bQ2MhsfT;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=oQ1I10S7;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=bQ2MhsfT
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 1D17721FA3;
-	Tue, 17 Nov 2026 15:13:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794928422; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5bywH9Z+lJsAxzSeeoFsm7ea77DXoKZ0Ta2n8SrOMJ8=;
-	b=oQ1I10S7AcCaFbtDw43HzI7zRshQsWqFOHL0ZNxFUJdRUM1ZFm4us5FC5GQNnzwqy+TYch
-	8KSQQXSi+Mk+mte5Rtmn0quo5bNQTTC+n8HunlgiJ5sENnvHImVkM6jSm+eCoCVX9Jky/w
-	Xz7a/UI1PpPUIArcwgl33V2ynBVNN9E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794928422;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5bywH9Z+lJsAxzSeeoFsm7ea77DXoKZ0Ta2n8SrOMJ8=;
-	b=bQ2MhsfTJmfobONknq/DzZ9vMV5Ppi3R4XaESqROjgzzmg13x1hgHjXLTRUXCQMuV0+xDM
-	PAZhaKm3mf26JeBw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=oQ1I10S7;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=bQ2MhsfT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794928422; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5bywH9Z+lJsAxzSeeoFsm7ea77DXoKZ0Ta2n8SrOMJ8=;
-	b=oQ1I10S7AcCaFbtDw43HzI7zRshQsWqFOHL0ZNxFUJdRUM1ZFm4us5FC5GQNnzwqy+TYch
-	8KSQQXSi+Mk+mte5Rtmn0quo5bNQTTC+n8HunlgiJ5sENnvHImVkM6jSm+eCoCVX9Jky/w
-	Xz7a/UI1PpPUIArcwgl33V2ynBVNN9E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794928422;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5bywH9Z+lJsAxzSeeoFsm7ea77DXoKZ0Ta2n8SrOMJ8=;
-	b=bQ2MhsfTJmfobONknq/DzZ9vMV5Ppi3R4XaESqROjgzzmg13x1hgHjXLTRUXCQMuV0+xDM
-	PAZhaKm3mf26JeBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DB9161334C;
-	Tue, 17 Nov 2026 15:13:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id ByQ+GiRv/GoLawAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 17 Nov 2026 15:13:40 +0000
-Date: Tue, 17 Nov 2026 16:13:40 +0100
-Message-ID: <87qzgjxzh7.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Cc: tiwai@suse.de,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz
-Subject: Re: [PATCH v2] ALSA: compress: Fix task resource leak on copy_to_user() failure
-In-Reply-To: <20261117062808.2807-1-sreekuttan2156239@gmail.com>
-References: <20261113110427.4256-1-sreekuttan2156239@gmail.com>
-	<20261117062808.2807-1-sreekuttan2156239@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XfgVPEJY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77E071F000C5;
+	Tue, 17 Nov 2026 15:14:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794928486;
+	bh=FlqNaTQ1KSYXtEicQmukvAIbCh1ZGMk91UvUei3msgo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XfgVPEJY04fEMFmXFk+QMQel56ssvYReJAs0ShT5v7Jq5IWhFLJKSKDQAxUn1CVIW
+	 URxH4sY7Pq4RECmhKwXOlbUuulbUbLgeMl0PZOgonmVhpWSV8RZINs9PAo2mT51Zrz
+	 pnz2yjlRUNHBaEYo4fK/oOowpw0+3ih/s2TJtlClTTGZpWD/9BWgyN+g6MSzuy+gvE
+	 q8TfIeaicDFLB4GAN6KsX2YsvBym/BkzG96zsSrJVyYP3bvagoGh/YZbPwOBgysoaT
+	 NFa2jZiZk06j/f+FLWEUzojSCsix/Fe3cJ5W/IPqW1HmLfzDmjXK8FiY05YjXPF5oF
+	 GpnblAUE1uVPg==
+Message-ID: <sashiko-outbox-219040@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 18/40] sched/deadline: Record the root domain holding
+ a task's bandwidth
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
+Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
+In-Reply-To: <81044090393551a0c264a8f3a7d1c3c22321c395.1794922146.git.mathieu.desnoyers@efficios.com>
+References: <cover.1794922146.git.mathieu.desnoyers@efficios.com>
+ <81044090393551a0c264a8f3a7d1c3c22321c395.1794922146.git.mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 15:14:46 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,63 +60,117 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Queue-Id: 1D17721FA3
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-12.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCPT_COUNT_FIVE(0.00)[5];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim]
-X-Spam-Score: -12.51
 
-On Tue, 17 Nov 2026 07:28:08 +0100,
-Sreeraj S Kurup wrote:
-> 
-> Hi Takashi,
-> 
-> Thanks for reviewing my other patches.
-> 
-> I noticed that this patch is still pending review. 
-> Could you please take a look when you get a chance?
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] sched/deadline: __sched_setscheduler() checks task_rq(p) root
+  domain
+--
 
-I'm still considering whether it's safe.  The open code in the error
-path looks a bit scary.
+commit 889f3e0f3403117f479bd558c00411593ac35a7e
+Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 
-Aren't dma_buf_put() called already in snd_compr_task_free() that is
-called from snd_compr_task_free_one()?
+sched/deadline: Record the root domain holding a task's bandwidth
 
-Also, a bit concern is that we expose to user-space before actually
-installing the file descriptor.  I don't think there will be so much
-race here, but just need to be sure...
+This commit replaces dl_departed_cpu with dl_bw_cpu in struct sched_dl_enti=
+ty
+to record a CPU of the root domain that accounts for a deadline task's
+bandwidth across admissions, moves, rebuilds, and releases.
 
+Link: https://lore.kernel.org/all/20261103-b4-sched-dl-bw-fixes-v1-1-dd761f=
+e005b4@redhat.com/
 
-thanks,
+> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+> index 8e8c62c574d55..01fbbd02cf8d0 100644
+> --- a/kernel/sched/deadline.c
+> +++ b/kernel/sched/deadline.c
+[ ... ]
+> @@ -4213,6 +4280,23 @@ int sched_dl_overflow(struct task_struct *p, int p=
+olicy,
+>  	if (new_bw =3D=3D p->dl.dl_bw && task_has_dl_policy(p))
+>  		return 0;
+> =20
+> +	/*
+> +	 * Change the bandwidth of a deadline task where it is counted: in
+> +	 * the root domain of the CPU recorded with it. A task moved asleep
+> +	 * has not run there yet, so the CPU it is on can be elsewhere. No
+> +	 * bandwidth is counted if a rebuild dropped it, or if the task
+> +	 * enters the class. A runtime below about a millionth of the period
+> +	 * gives a bandwidth of 0. It counts for nothing, and no move updates
+> +	 * its record. In these three cases, the root domain of the CPU the
+> +	 * task is on takes the new bandwidth. The caller holds cpuset_mutex,
+> +	 * or dl_accounting_mutex without cpusets, so no rebuild runs
+> +	 * meanwhile.
+> +	 */
+> +	counted =3D task_has_dl_policy(p) && p->dl.dl_bw_cpu >=3D 0 &&
+> +		  p->dl.dl_bw_gen =3D=3D dl_bw_gen;
+> +	cpu =3D counted && p->dl.dl_bw ? p->dl.dl_bw_cpu : task_cpu(p);
+> +	dl_b =3D dl_bw_of(cpu);
+[ ... ]
+> diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
+> index 4c013caa24713..306cd8d32173b 100644
+> --- a/kernel/sched/syscalls.c
+> +++ b/kernel/sched/syscalls.c
+> @@ -1185,6 +1185,8 @@ SYSCALL_DEFINE4(sched_getattr, pid_t, pid, struct s=
+ched_attr __user *, uattr,
+> =20
+>  int dl_task_check_affinity(struct task_struct *p, const struct cpumask *=
+mask)
+>  {
+> +	unsigned int cpu;
+> +
+>  	/*
+>  	 * If the task isn't a deadline task or admission control is
+>  	 * disabled then we don't care about affinity changes.
+> @@ -1204,9 +1206,16 @@ int dl_task_check_affinity(struct task_struct *p, =
+const struct cpumask *mask)
+>  	 * if admission test is enabled, we only admit -deadline
+>  	 * tasks allowed to run on all the CPUs in the task's
+>  	 * root_domain.
+> +	 *
+> +	 * That is the root domain that counts the bandwidth of the task:
+> +	 * the one of the CPU recorded with it. A task moved asleep to
+> +	 * another cpuset is still on a CPU of the root domain it left. A
+> +	 * bandwidth of 0 is counted nowhere, and no move updates its
+> +	 * record: use the CPU the task is on.
+>  	 */
+> +	cpu =3D READ_ONCE(p->dl.dl_bw) ? dl_task_root_domain_cpu(p) : task_cpu(=
+p);
+>  	guard(rcu)();
+> -	if (!cpumask_subset(task_rq(p)->rd->span, mask))
+> +	if (!cpumask_subset(cpu_rq(cpu)->rd->span, mask))
+>  		return -EBUSY;
+> =20
+>  	return 0;
 
-Takashi
+[Severity: Medium]
+Should __sched_setscheduler() also use the root domain recorded in
+p->dl.dl_bw_cpu rather than rq->rd when validating a deadline task's
+root domain span and dl_bw.bw?
+
+kernel/sched/syscalls.c:__sched_setscheduler() {
+	...
+		if (dl_bandwidth_enabled() && dl_policy(policy) &&
+				!(attr->sched_flags & SCHED_FLAG_SUGOV)) {
+			cpumask_t *span =3D rq->rd->span;
+
+			if (!cpumask_subset(span, &p->cpus_mask) ||
+			    rq->rd->dl_bw.bw =3D=3D 0) {
+				retval =3D -EPERM;
+				goto unlock;
+			}
+		}
+	...
+}
+
+When a sleeping SCHED_DEADLINE task is moved to another exclusive cpuset
+partition (or its CPU goes offline into the default root domain),
+p->cpus_mask and p->dl.dl_bw_cpu reflect the root domain holding its
+bandwidth, while rq (task_rq(p)) remains in the old root domain. Because
+rq->rd->span is not a subset of p->cpus_mask, __sched_setscheduler()
+rejects sched_setattr() parameter updates on that task with -EPERM before
+reaching the moved-sleeper handling in sched_dl_overflow().
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794922146.gi=
+t.mathieu.desnoyers@efficios.com?part=3D18
