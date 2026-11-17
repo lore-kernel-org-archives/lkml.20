@@ -1,68 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794878901;
-	b=nxT0O+J+1i1CNUJA4isB5+MVyAgrPQM24lXgQDSpeYTohYV9zuLWGtd2Bc2XYzVEmwyn
-	 CrXxi+hVImkWK+x+z0zZ5igw1Lb2xFK0iTpG+20aWo32ITqE0eEH90xYo2aWkAfFyyYsI
-	 c8GQyVV0xsBbyP5vhhWdkP/eaSByZKW3yzANLTkXCoBnHF0w6DHKTkRnznbYZyb4fJpJ6
-	 yYv38lXeWMxjryGBqWv5zKyBGVVUxdnvBpL68NhbOtdY5zFYTr8kKW0JVzz7OPinyq/g0
-	 VitmG8bsg0cI6hWOWXLjgXraFZ4skZDChM3fioFoYnYxzBs45ZpCK/9ZApPeGpUkLZA==
+	t=1794878956;
+	b=wytM5YXUMrkWqJgvjipq9aPTHdu8QVXSJo83NVEE4fsWq/z3gc5Ga/NaNNtVrVL2iaXI
+	 0ujrwqGGoCCbQcPPZtC/W102l6NNjeYEijSPQPAKx7+g+UuwHyLFPjvg4W65ikd7RmvsF
+	 WZCVDwSb4X2Zr7sa9XMNLsV+tk0NS0MX1QHFII/EV5qeqk9s1f/BlFJzox7IEsfunGJVP
+	 bZnR5R8ShmYv2GGaznaYoV2l0JWcXNfqKNcCRHC6ydB2OED0zvtsasYKXfS/WDMwOylvv
+	 przs6Jdy4k3kOCDn1/MuzK82gCVc3ih8WgdRIMyrugaMsYoUXJYpGkMVyZ2W0wG9XDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794878901;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794878956;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=xlQ8X6WzNhcNIgXSPIWirhAlwHa7mSr0UHoc8/wb7r0=;
-	b=ylAwULri/zeN/UttcZvMNc61rJKgRSnjPjiSmKT6dUO2dXl2vmJ6urE4Kbj1xXmC0FtM
-	 EfId+XgKeogWboyEFPeQeBaLMJa6V/H4pVRSJ+sD0cuy9hOIassaWMlKC4EFJ2x1BnSWs
-	 PBjMJ/sDiY0/8DzlV+g4zBAG9Jvw8YLktMcrnVKkGD6635UdNj5SLLCp9NaOt3rD45x6Q
-	 SvqzC4gFJIhOyUz6Wj73nMJaATNajE7282zCEctdTYHV+d6+NmYpdUDI1KmPPa1Qgzxlz
-	 eBjH062QIpsxux8pl+bj3vW9viS9Y0MTHy/uLrB+KFwFcek9WiteBnCRpyJIYwRxFtQ==
+	bh=kp61jxlZatnRJkTd/YA+OCxJsPI04f0YpnzoYpRMZK0=;
+	b=bjerIXO8Ke6O5YEmN4PLKp6QQFw817ZvvZAy0o3oalalFnFRz9nNKx/7YVNkEeviV+3x
+	 +YZ7xSW9gPiD9g3BQAUByd3/XynBHsa/FAYTZLGX/CR9vVdl0k8Je9F1LEKOUNrNvo1Ee
+	 t7c/n7ShBiahsh+4/J/UtJipkxmP7+yqmoWm8CT1AtF5Z/qEsXk5QPMc3BG6VuXDOfQf4
+	 8pZOirmIG4ifu9+wvKzpDwCdPdpWn3MQbhvrP3kGJ0aYb+r3uch4VBFxv7eV8Iwq++LMw
+	 GFlHvcniiXBg/tx7HCymRLypJSzjp1gexcrBDQkycbrHNpsAhpn7WZhPujp46xByYrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="j/Y5K/W1";
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 56541606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:28:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56541606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="R11VVz/+";
+	arc=none smtp.remote-ip=209.85.216.44
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F9CA606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:29:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F9CA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=j/Y5K/W1
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D651B1764;
-	Mon, 16 Nov 2026 17:28:17 -0800 (PST)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 198043F673;
-	Mon, 16 Nov 2026 17:28:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794878900; bh=LnEejaEQMb/GDrHjcskRfEjL7Sp1VSfP7vv9MQxjRyg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=j/Y5K/W1Fc9vHYcFlBQ285gLu2ZZHi5OJ9a8Dm4WVZU16NSyCgLbBqpayjL+i24Tq
-	 5RZT5c6511SxgAznUBEDh/KCj/RNl9qN/qBXvUYZQ0NJ8wgnerddSqtmwUdQd50LGL
-	 YfLAjBoIikh8CYtLxUexe2r4+wZVyf9fcpgTurP4=
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: linux-arm-kernel@lists.infradead.org,
-	catalin.marinas@arm.com,
-	will@kernel.org
-Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Linu Cherian <linu.cherian@arm.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R11VVz/+
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3adac5b29ebso3316203a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:29:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794878955; x=1795483755; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kp61jxlZatnRJkTd/YA+OCxJsPI04f0YpnzoYpRMZK0=;
+        b=R11VVz/+BfO5SsSP7YmDXU6wn/ClnqwDfEpRu+28xtrVbDH+zwV2ArpTKssKJzaHjE
+         mq5aI6KdD6qR5ud0KqpeYmpXUY+vmbVxNv0B/kMCLtReJlkYYBhG0UFQ/gq58dHhgMFw
+         tRpSYU9vU+QlozUcwjvkHTitG2fBNQOmGLgyVro+o84BME0P1zwNpsptYY5ccGUHvgoV
+         mOC1fo8WlB3l3fRzX5skS52VwO5eGdS8YHewFSWEbSfYbtWt+QqzBgydMLPUlEomuXkH
+         A3n1sWK6xdSUhGHl6pkU0Qqk1+76vJmPw0F51PGeszOsCnrZu1p2744Lh/kpQsVQVJwi
+         34fQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794878955; x=1795483755;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kp61jxlZatnRJkTd/YA+OCxJsPI04f0YpnzoYpRMZK0=;
+        b=gp3RVGYXIBh8fnTMwLF5EJ7LWAZbP2V3sAuwcSR3pruzbojrCdaJn/GDcS6N2EXqdN
+         e2c8yR+/I3VL/8NaoUFVcwDzmnoeDIiQFCbzpODMKdfHCgHfA5Dq9usuS3q+o+F50Rx9
+         ZEfRsCTRFINBe8z0boi8FfyQc06VnMuddil7xIKtqt9TeGsX+urKsQmA/iRmACfZqDjQ
+         rfzCzcvUSqsXkF5MMIOLuoclfqsyRA/OCdv2a8omMblAYVVOB91p/AfWXYhyzf4fQDn6
+         Q7W70OK2E54LyeLJl30HOfe6A/kbEu9bo3dfnXo65Flo1cHWk5aQs4KNWQKEximvbwLG
+         WciQ==
+X-Forwarded-Encrypted: i=1; AL+hErEg93KrqMdz4G2KEzvXWiu4suf8kAYh6N0a75RrKzyWBYenKTZqfOMqxngqVV5Nbxuf1UTwfJW93/VpWFQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9W7L9mefC0VVcO0dX0oUu6TJX2QyJAlRDoRC6A2NDY7SyuG+Zi
+	VlwZuPew1Q0VoiJ42DzvgOaOLyHhAx1v9n/F2N3DO7GcmeDL7wgz5acH
+X-Gm-Gg: AZFdTZeIXgp6qe//JBkBaxDwVpkgrfBifJ6xvw6KWrJXuQjkUugTmXuAKOOOhitd2BA
+	5svqVjHOH6FMkWjh9ZqFIh273E5/tnCIE1JFgWehcdmyPnkVPe3qpc1jhmk6LKPIlCLA6iNpluy
+	LqabMylHmahrVQYVNgxFpAt665NooEaFpyAlBKJfitE+I16wcjtfkx0BXsvCEOth5MHM/uUyGoy
+	kzkmk+jk8XzYk45r3KLcN/Sudy/GppJpga5KOzDf40BAHVGsu2uagFv9LasbZsaA56J38+RGHZc
+	y2umPvoUR9aXYAJhYIYYq2KE8DX/Vl+7FDczKxQxmGdosAUsYjtyZmDSN1ZjyVZex77qDL/oomZ
+	9tgzBtrlxkoq3wcLPnn7igBfOZssQ/2GlSO6R7dcKZ3ygReJ3HrcKVpBFjQ2OkzVyI+AeGwJD+X
+	Wn4RgJtyKNGP+znqQjDTHsiOg00ixN/rRC8MASCPv3b9JOreFUiARJDuqYGXfu9sGXb8fjdALMw
+	uwNFZs6fkqT3yakA21pyzYbsqWw2HB1m5slGIW6d2NXIw9N9o3tWcgkJH1g87+YuBxX3ZxduSEH
+	RlUi8rhUAYNSpC46eNopaKe7otizNyNdqyPvqzuJbAd/uZidrnk5aZBiAC30RU0AXNeMuEUkc68
+	vftoejJk/28fJ5B59pZ5KFtW4wIvR5Jle5eOLUXci
+X-Received: by 2002:a17:90b:380f:b0:3ab:e588:c29b with SMTP id 98e67ed59e1d1-3b1b0816e0dmr12462179a91.5.1794878955294;
+        Mon, 16 Nov 2026 17:29:15 -0800 (PST)
+Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b3a21769sm10295178a91.4.2026.11.16.17.29.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 17:29:14 -0800 (PST)
+From: HyeongJun An <sammiee5311@gmail.com>
+To: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
+	"David E . Box" <david.e.box@linux.intel.com>,
+	Xi Pardee <xi.pardee@linux.intel.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	kasan-dev@googlegroups.com
-Subject: [PATCH V5 4/4] arm64/mm: Use pgdp_get() for PGD accesses
-Date: Tue, 17 Nov 2026 06:57:58 +0530
-Message-ID: <20261117012758.3814093-5-anshuman.khandual@arm.com>
+	HyeongJun An <sammiee5311@gmail.com>
+Subject: [PATCH] platform/x86/intel/pmc: Don't truncate HW sleep time to 32 bits
+Date: Tue, 17 Nov 2026 10:29:06 +0900
+Message-ID: <20261117012906.1637402-1-sammiee5311@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261117012758.3814093-1-anshuman.khandual@arm.com>
-References: <20261117012758.3814093-1-anshuman.khandual@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,209 +103,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Replace READ_ONCE() with pgdp_get() for PGD accesses in preparation for
-supporting both D64 and D128 translation table formats.
+The pmc_core_is_s0ix_failed() casts the S0ix residency delta to u32
+before it calls pm_report_hw_sleep_time(). The delta is already in
+microseconds, so any suspend longer than 71.6 minutes is reported
+modulo 2^32 us. But the limit set by pm_report_max_hw_sleep() is 2^32
+counter ticks, which is 145.6 hours with the 122 us step.
 
-READ_ONCE() cannot currently be used for 128-bit page table entries on
-arm64 because it does not provide the required 128-bit single-copy
-atomicity, causing builds to fail for accesses wider than 64 bits.
+On a Tiger Lake laptop, one suspend raised the LPIT S0ix residency by
+22559 s, but last_hw_sleep reads 1085 s. The LPIT value modulo 2^32 us
+is 1084 s.
 
-Although LDP/STP provide the required atomicity when FEAT_LSE is
-available (as required by FEAT_D128), extending READ_ONCE() to support
-128-bit accesses is undesirable. READ_ONCE() is a general-purpose API,
-so doing so could encourage other 128-bit users that would either fail
-to build in configurations without D128 support or, if D128 becomes a
-runtime option, silently permit tearing on systems without the required
-hardware support.
+The cast also hid a wrap of the 32-bit counter during a suspend.
+Without it, the u64 difference of the scaled values becomes huge.
 
-Instead, standardize PGD accesses on the existing page-table helpers.
-These can be overridden on arm64 to provide 128-bit single-copy
-atomicity when required.
+To fix this, drop the cast and add one counter period when the
+counter wrapped.
 
-Override pgdp_get() on arm64 platform. Although the same as the generic MM
-default fallback for pgdp_get(), it does help avoid build problems while
-converting READ_ONCE() in p4d_offset_phys() and p4d_offset() because of a
-cyclic dependency between <linux/pgtable.h> and <asm/pgtable.h>.
-
-No functional change intended.
-
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Will Deacon <will@kernel.org>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Mark Rutland <mark.rutland@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: kasan-dev@googlegroups.com
-Reviewed-by: Ryan Roberts <ryan.roberts@arm.com>
-Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
+Fixes: ddd66d634735 ("platform/x86/intel/pmc: core: Report duration of time in HW sleep state")
+Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
 ---
- arch/arm64/include/asm/pgtable.h | 10 ++++++++--
- arch/arm64/mm/fault.c            |  2 +-
- arch/arm64/mm/hugetlbpage.c      |  2 +-
- arch/arm64/mm/kasan_init.c       |  6 +++---
- arch/arm64/mm/mmu.c              |  6 +++---
- arch/arm64/mm/pageattr.c         |  2 +-
- arch/arm64/mm/trans_pgd.c        |  4 ++--
- 7 files changed, 19 insertions(+), 13 deletions(-)
+Prepared with Claude Code (Claude Opus 5.5). Tested on x86_64 (Dell
+Latitude 9420, Tiger Lake). After a 13.1 h suspend, last_hw_sleep reads
+47063.5 s and the LPIT S0ix residency 47061.9 s. The counter wrap path
+was only checked in a simulation.
 
-diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
-index 7b3463ff2014..a760c65de5cb 100644
---- a/arch/arm64/include/asm/pgtable.h
-+++ b/arch/arm64/include/asm/pgtable.h
-@@ -102,6 +102,12 @@ static inline p4d_t p4dp_get(const p4d_t *p4dp)
- 	return READ_ONCE(*p4dp);
- }
+ drivers/platform/x86/intel/pmc/core.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/platform/x86/intel/pmc/core.c b/drivers/platform/x86/intel/pmc/core.c
+index 71be313bdf0e..0190160a4c0b 100644
+--- a/drivers/platform/x86/intel/pmc/core.c
++++ b/drivers/platform/x86/intel/pmc/core.c
+@@ -2052,12 +2052,17 @@ static inline bool pmc_core_is_deepest_pkgc_failed(struct pmc_dev *pmcdev)
  
-+#define pgdp_get pgdp_get
-+static inline pgd_t pgdp_get(const pgd_t *pgdp)
-+{
-+	return READ_ONCE(*pgdp);
-+}
-+
- #ifdef CONFIG_TRANSPARENT_HUGEPAGE
- #define __HAVE_ARCH_FLUSH_PMD_TLB_RANGE
- 
-@@ -1102,7 +1108,7 @@ static inline phys_addr_t p4d_offset_phys(pgd_t *pgdp, unsigned long addr)
+ static inline bool pmc_core_is_s0ix_failed(struct pmc_dev *pmcdev)
  {
- 	VM_WARN_ON_ONCE(!pgtable_l5_enabled());
+-	u64 s0ix_counter;
++	struct pmc *pmc = pmcdev->pmcs[PMC_IDX_MAIN];
++	u64 s0ix_counter, hw_sleep;
  
--	return pgd_page_paddr(READ_ONCE(*pgdp)) + p4d_index(addr) * sizeof(p4d_t);
-+	return pgd_page_paddr(pgdp_get(pgdp)) + p4d_index(addr) * sizeof(p4d_t);
- }
- 
- static inline
-@@ -1116,7 +1122,7 @@ p4d_t *p4d_offset_lockless(pgd_t *pgdp, pgd_t pgd, unsigned long addr)
- 
- static inline p4d_t *p4d_offset(pgd_t *pgdp, unsigned long addr)
- {
--	return p4d_offset_lockless(pgdp, READ_ONCE(*pgdp), addr);
-+	return p4d_offset_lockless(pgdp, pgdp_get(pgdp), addr);
- }
- 
- static inline p4d_t *p4d_set_fixmap(unsigned long addr)
-diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
-index 934b534c5b89..0b489fbeeb07 100644
---- a/arch/arm64/mm/fault.c
-+++ b/arch/arm64/mm/fault.c
-@@ -160,7 +160,7 @@ static void show_pte(unsigned long addr)
- 	guard(irqsave)();
- 
- 	pgdp = pgd_offset(mm, addr);
--	pgd = READ_ONCE(*pgdp);
-+	pgd = pgdp_get(pgdp);
- 	ptval_to_str(pxd_str, pgd_val(pgd));
- 	pr_alert("[%016lx] pgd=%s", addr, pxd_str);
- 
-diff --git a/arch/arm64/mm/hugetlbpage.c b/arch/arm64/mm/hugetlbpage.c
-index 2620223d9218..26efacc6c8b5 100644
---- a/arch/arm64/mm/hugetlbpage.c
-+++ b/arch/arm64/mm/hugetlbpage.c
-@@ -284,7 +284,7 @@ pte_t *huge_pte_offset(struct mm_struct *mm,
- 	pmd_t *pmdp, pmd;
- 
- 	pgdp = pgd_offset(mm, addr);
--	if (!pgd_present(READ_ONCE(*pgdp)))
-+	if (!pgd_present(pgdp_get(pgdp)))
- 		return NULL;
- 
- 	p4dp = p4d_offset(pgdp, addr);
-diff --git a/arch/arm64/mm/kasan_init.c b/arch/arm64/mm/kasan_init.c
-index 4dd8c1186471..f61f5bc09467 100644
---- a/arch/arm64/mm/kasan_init.c
-+++ b/arch/arm64/mm/kasan_init.c
-@@ -102,7 +102,7 @@ static pud_t *__init kasan_pud_offset(p4d_t *p4dp, unsigned long addr, int node,
- static p4d_t *__init kasan_p4d_offset(pgd_t *pgdp, unsigned long addr, int node,
- 				      bool early)
- {
--	if (pgd_none(READ_ONCE(*pgdp))) {
-+	if (pgd_none(pgdp_get(pgdp))) {
- 		phys_addr_t p4d_phys = early ?
- 				__pa_symbol(kasan_early_shadow_p4d)
- 					: kasan_alloc_zeroed_page(node);
-@@ -256,7 +256,7 @@ static int __init root_level_idx(u64 addr)
- static void __init clone_next_level(u64 addr, pgd_t *tmp_pg_dir, pud_t *pud)
- {
- 	int idx = root_level_idx(addr);
--	pgd_t pgd = READ_ONCE(swapper_pg_dir[idx]);
-+	pgd_t pgd = pgdp_get(swapper_pg_dir + idx);
- 	pud_t *pudp = (pud_t *)__phys_to_kimg(__pgd_to_phys(pgd));
- 
- 	memcpy(pud, pudp, PAGE_SIZE);
-@@ -280,7 +280,7 @@ static int __init next_level_idx(u64 addr)
-  */
- static void __init clear_next_level(int pgd_idx, int start, int end)
- {
--	pgd_t pgd = READ_ONCE(swapper_pg_dir[pgd_idx]);
-+	pgd_t pgd = pgdp_get(swapper_pg_dir + pgd_idx);
- 	pud_t *pudp = (pud_t *)__phys_to_kimg(__pgd_to_phys(pgd));
- 
- 	memset(&pudp[start], 0, (end - start) * sizeof(pud_t));
-diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
-index a11c1949561f..d0a4b8961c7d 100644
---- a/arch/arm64/mm/mmu.c
-+++ b/arch/arm64/mm/mmu.c
-@@ -434,7 +434,7 @@ static int alloc_init_p4d(pgd_t *pgdp, unsigned long addr, unsigned long end,
- {
- 	int ret;
- 	unsigned long next;
--	pgd_t pgd = READ_ONCE(*pgdp);
-+	pgd_t pgd = pgdp_get(pgdp);
- 	p4d_t *p4dp;
- 
- 	if (pgd_none(pgd)) {
-@@ -1649,7 +1649,7 @@ static void unmap_hotplug_range(unsigned long addr, unsigned long end,
- 	do {
- 		next = pgd_addr_end(addr, end);
- 		pgdp = pgd_offset_k(addr);
--		pgd = READ_ONCE(*pgdp);
-+		pgd = pgdp_get(pgdp);
- 		if (pgd_none(pgd))
- 			continue;
- 
-@@ -1827,7 +1827,7 @@ static void free_empty_tables(unsigned long addr, unsigned long end,
- 	do {
- 		next = pgd_addr_end(addr, end);
- 		pgdp = pgd_offset_k(addr);
--		pgd = READ_ONCE(*pgdp);
-+		pgd = pgdp_get(pgdp);
- 		if (pgd_none(pgd))
- 			continue;
- 
-diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
-index 172bc516164c..b3b7c508564f 100644
---- a/arch/arm64/mm/pageattr.c
-+++ b/arch/arm64/mm/pageattr.c
-@@ -347,7 +347,7 @@ bool kernel_page_present(struct page *page)
- 	unsigned long addr = (unsigned long)page_address(page);
- 
- 	pgdp = pgd_offset_k(addr);
--	if (pgd_none(READ_ONCE(*pgdp)))
-+	if (pgd_none(pgdp_get(pgdp)))
+-	if (pmc_core_dev_state_get(pmcdev->pmcs[PMC_IDX_MAIN], &s0ix_counter))
++	if (pmc_core_dev_state_get(pmc, &s0ix_counter))
  		return false;
  
- 	p4dp = p4d_offset(pgdp, addr);
-diff --git a/arch/arm64/mm/trans_pgd.c b/arch/arm64/mm/trans_pgd.c
-index 7afe2beca4ba..06470d690f9f 100644
---- a/arch/arm64/mm/trans_pgd.c
-+++ b/arch/arm64/mm/trans_pgd.c
-@@ -134,7 +134,7 @@ static int copy_p4d(struct trans_pgd_info *info, pgd_t *dst_pgdp,
- 	unsigned long next;
- 	unsigned long addr = start;
+-	pm_report_hw_sleep_time((u32)(s0ix_counter - pmcdev->s0ix_counter));
++	/* The 32-bit residency counter can wrap during a long suspend */
++	hw_sleep = s0ix_counter - pmcdev->s0ix_counter;
++	if (s0ix_counter < pmcdev->s0ix_counter)
++		hw_sleep += pmc_core_adjust_slp_s0_step(pmc, 1) << 32;
++	pm_report_hw_sleep_time(hw_sleep);
  
--	if (pgd_none(READ_ONCE(*dst_pgdp))) {
-+	if (pgd_none(pgdp_get(dst_pgdp))) {
- 		dst_p4dp = trans_alloc(info);
- 		if (!dst_p4dp)
- 			return -ENOMEM;
-@@ -164,7 +164,7 @@ static int copy_page_tables(struct trans_pgd_info *info, pgd_t *dst_pgdp,
- 	dst_pgdp = pgd_offset_pgd(dst_pgdp, start);
- 	do {
- 		next = pgd_addr_end(addr, end);
--		if (pgd_none(READ_ONCE(*src_pgdp)))
-+		if (pgd_none(pgdp_get(src_pgdp)))
- 			continue;
- 		if (copy_p4d(info, dst_pgdp, src_pgdp, addr, next))
- 			return -ENOMEM;
+ 	if (s0ix_counter == pmcdev->s0ix_counter)
+ 		return true;
 -- 
 2.43.0
 
