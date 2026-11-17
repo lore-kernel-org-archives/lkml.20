@@ -1,61 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794879024;
-	b=QmM9SpV9sF+G02CAzsPba55Vu6MuUr7V0NaFl3CelhKsJyl9ikNSymlzacOykL8Xk8mX
-	 BcQyY8SB6w9Q7vd04aKu4fO0s8WmcEvShtyQDEwGKphAmi6DJCDU1HkYLEFMYfqh0iTUi
-	 xElLz7sTNr0N/23J22pdmcUKsFP1qbWOQeg6qFh07juG+L7z2XqdgLs2C3oW+jkyGyrj4
-	 aLwIl0ttdNRMm4ZJWXjWytMEUK12Vpm/Uhi9yADu6dwTay6wvAQFzbrYxwn7Bre4hK0Tg
-	 qxU9t/mm7RVjQ6MNhUSBekbQKCI5L8whwxd8CVs1PZp3p4w7XBwTScRBUfd+17+3Dug==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794879024;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=WfYij0hVeVgEYI/cvStrgYo7p6IrJGKSJkR5sb941Rw=;
-	b=wiS1fFYlVzUHEOw1aRy1FcRdTy2BJYS1Qx6QAsrgcf78ZSF8jxx5j8Ecilxkb9QXdspd
-	 h0FQInUeodHpYNSNY2VDoCxzktd6nLx88865S1PvY0Niae0Xj4hxmZkOZGetALdAKjEf+
-	 XJPULf8FDLmRH+b/k3MdrPXoy6sMSGSQFKq8PC6x0GekUQCEAnL0IE0yLexx5UzS70QOY
-	 f2jtr9HAzpJfhHi1zohmser+CsFsoCZGYgOhKNTS2QXxw9KaLbWkKiXqARlRGiXAfYA3G
-	 /b2JCUk/Tf6qzq6w4Odru0l14C8jnHSGBcsJv0kICZ8B7EX9Tx23WqZXSIwPQ9gILFA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YqT1dZvP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.221.182
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794879042;
+	b=RRQdAjqjtJM/8G3sxj4HguX9bHWVnD8UR7EFvt7KlCKf/0w2rnJBxMJTKB5FfYrpzm+2
+	 nILQKTF1rs8MQzIRZ6zyJaMdNReprQWHivPY9GP9ZaygTTQMZEU5LqH8E2VM9N+22Z5WE
+	 kaSuZ567oFR0ieoI/kLftr8ZjRSeYOAsS2OH/ptVvWqstn8D/eReziyl8d+dBfxD6OvvO
+	 vyrYzYThqkseZc4R969R3zIYcX5RnYzK0d8VlKCGanvHuGyyqjRLTrQH7XppnaB7IMQ3C
+	 ALBGPoTol9wCtKR95orYawRQeTy3eP+eOV3BnX4PomrwjW0aM88gvIgU1vfQZeQ99Rw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794879042;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=0foDh9lhfm067jv5RbQ/CuCGBEs3f2iWSqlNDstz5V0=;
+	b=hAGdFM32YvE/X/uov1l0xBL0cmv8XjpMwzs4ZELPLbu9WA5Ck56KaKG50/cxUNcVVe9e
+	 vGNzmPxPlUQVgQTwUdiHCEqvOQ/k3UespO+bMaJG8UNBz5oaw9vaiorTpKEd1LmTfzg9/
+	 YKlDBZX4wkLOdx/6CYQaZ7MqbdY4gBgDxOeDxJOlW/ORMWA00j/PkBMS7Hd9Dko4haePb
+	 sLVgjNSA2oj2FgOyCDKoOytjHSbwakoXzUc2uyOJPwffKsrTTm4UpLPk4PMcYU4XwnM4Q
+	 XjgL9nktj452hP/ZR9dRFrjeDsQV78pxu1y8IZQIRw8itp2lIpqzq6Uaspp7B+85Piw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=G4sYMCym;
+	arc=fail smtp.remote-ip=209.85.221.182
+Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD214606A31C;
-	Tue, 17 Nov 2026 01:30:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8281E606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:30:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8281E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YqT1dZvP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1A581F000C4;
-	Tue, 17 Nov 2026 01:30:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794879024;
-	bh=WfYij0hVeVgEYI/cvStrgYo7p6IrJGKSJkR5sb941Rw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=YqT1dZvPUTgc3AOTAYLVuQthDbKePul9AjuuIAlxg57WDmz89cKTLAciYWVWobPEl
-	 8FVkr0fvFnDBiiTJddpJEDRLfJ/Css/kNocqBK0pmxYtCjYGGaG6M2Wq/CpOzYZHcn
-	 IEW8mJsr1+q/agQro/dclwtgGftoIBxeQ73OuF5TLlB3+lLsohsjIUsTxkYhJx0ptU
-	 f9/qENwCwik1mZWD/7zrVuarHDkYtzWos+Cf65pn3WFiIOoG4rRZZgcbuemFcjhJ2B
-	 2xPneme4zGQAhvL4lhrRaQ0GNAfjI6rbNCunbt0PxZK3Ef7KgHQPaP8LQWs1hWLWI3
-	 qUhJyAGL8s+Ng==
-Date: Tue, 17 Nov 2026 01:30:17 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Jongwon Lee <ai@linux.com>
-Cc: Davidlohr Bueso <dave@stgolabs.net>, Dave Jiang <dave.jiang@intel.com>,
- Alison Schofield <alison.schofield@intel.com>, Vishal Verma
- <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>, Ira Weiny
- <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>, Richard Cheng
- <icheng@nvidia.com>, linux-cxl@vger.kernel.org,
- linux-kernel@vger.kernel.org, Michal Schmidt <mschmidt@redhat.com>
-Subject: Re: [PATCH v5 2/3] cxl/edac: Skip event records marked
- NOT_REPAIRABLE
-Message-ID: <20261117013017.3e16c98a@jic23-hlaptop>
-In-Reply-To: <20261108022022.3352-3-ai@linux.com>
-References: <20261108022022.3352-1-ai@linux.com>
-	<20261108022022.3352-3-ai@linux.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=G4sYMCym
+Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5ee2ad94713so3593405e0c.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:30:42 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794879041; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UsSVs/pMhvouEIFLC+ZL9JUc93QqLhMEAX77iT075fXjJzTGc7+j0A2tyQJg1KP2k3
+         JB9vNlCMAa/ITXw1P0ajF9FfSDeSIzwCyHoKZS+PQPOpZoCt67nRrSWThD5XnSJfwi1q
+         3JzwS3UUtMU5rLBdPiLbFz47RCVFu7T2etnBhFRC2GAkd1CnMULY2iQPDsPS2DvvZ7/u
+         9lEDMjypdOq53pOkSuA5u69A/OFeUqLDTIyJ/NpaLOk/ByzhyDYvo+/eWNIyCy3dO3sQ
+         4KozdFYfNgollb2Nte4RjEFl93eygi5IZ4uonjAawxZp5V1GgcnUS+XuZB/r63ivDXf9
+         SGIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0foDh9lhfm067jv5RbQ/CuCGBEs3f2iWSqlNDstz5V0=;
+        fh=E7zssqsw1ETPdDWyyhGxbDDNBaFyztE4Z2qzV/tFFGo=;
+        b=sO9ESY2+Z9SC5LyvaTfHCTOKy3X5f2ZzAdNeyeMvFcDXiy54w7+TRVPxDWRgsDIK8m
+         ILdSO7OR9Qaq2nW+WgJjGuYEPVVHMmWC4Bm2KVyPy+qeThFK8qlfT4f1tROpJiKcaPhb
+         0rCFBr4cnSqdNC62+qj6iUmhK64CTuPWC+RIf8jeADRu+rHq/jq1IAROC1peQcW+2LxW
+         Mv+vcwkoBNrC6j8SZV8LXYVVwJ6YPH0gSRyBL3dOy2L/TF7OfC4HL0kirVmMLYhODcgc
+         83Es2s5OfzWpRquSw14rc6bzsUpFlJVOpIeaaLEEUXtck9dOxcXK6bKqGk/zh9oplsHV
+         kLNg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794879041; x=1795483841; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0foDh9lhfm067jv5RbQ/CuCGBEs3f2iWSqlNDstz5V0=;
+        b=G4sYMCymILpacviV7mjCOULNLDF3rKitytNMchDzU/yEFfaNdgaoTdJvm9yPP2LP0S
+         Xh4bw+3IZR6wZDfD8uagDzYrh2q3JsGJw4ULl1l7gYqQblNn+2A2hQhLxT/TnWnvWFF+
+         8lWCNnxcNTcCFWSTVsWEe7MohD2/jrgTeNizfAZyJwWNYfR1cEOYcr7zTcZaNbK3t32p
+         YA5tdoLasMWMi5DMuHyy0tTcS+i+F7zvxLjbiCRyEFeKfMHb4luMG0cunaEbKKX7h5Vc
+         k+sSZr56on6kqxWzPzvxazbeHu1jrsL6giLqWzinjnJ7F+68d4CIHK42jG19QVxAasX+
+         whFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794879041; x=1795483841;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0foDh9lhfm067jv5RbQ/CuCGBEs3f2iWSqlNDstz5V0=;
+        b=bFYV1K33CiGbGM1Ys9OVN05zAl36lH+gZW/xDw8BJKyGCmVavMhJ8oqMekr7dSwGXY
+         B9/TKEuwNrGinnCsBCL4HWbPbgHnIqJPlcQGZpzaLT5MqfmQbOXpuFdaO+IBUbMQfmq6
+         NcNprLK7DI3AuedeiYWAe65AOJT7yiIu2deszSfj9j/8UWumR0nO8UDECK3fmUt3FTBP
+         zVzJrARDk8eXAPxzTLLhXEXRYVUnTDdASjlbI+GoSapJJFGk7maHXzMn+Z2PR5sq18p/
+         7odqjv/7LK2saRTcPJLeaO7ShlMIBx/aM9hViAlBG9eNgUVeReajy1WvTGcla2g+3NDJ
+         Gx1Q==
+X-Forwarded-Encrypted: i=1; AL+hErG4Ks7/MtNSXT7DNeIdkiYVhRzqhYh+e8FXjOhbQpSL1j5fnBODKVbh/LX/IFIlAkObIr11Q4IWiXznkBo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Q/iDyoYUq94rQ5lp1G6t7phB3S/4QTOmem7dIsEzVh7oHJslA
+	DbFqMhLAkypOrQt4Ky7dfoLQJiQJ55TtFh+un5I0QUcM2AuR2iQtuhc5Rxo7J+O8tqKDkGE4C0x
+	T3ctNvXPiYRCRr/SGc4Win5NIelAptVL1NpbhMbhJ
+X-Gm-Gg: AYBFou1rY5+XC48dl45QhW8+mrC1Z64/0xl7oOgQlqi2tF642xBIYzR2iIbVxc6A1Le
+	oUBuN3B/cJTKfT0/pn3aPfrJmbUZvt66JHZrlrLgQpCVmkQydbUDvtWOPdOxtuw9P/DeSxeEU7X
+	vVyuIJ0U+nSuePf6VnBlmkVNBvwVYQ/g2TE6i8MS6xQJqxrkX69CRdyG034ZQbTU4cBwp/sfIaT
+	v1E0TAFAlmK23D7R0ZpqQOZzUqwOC50J99lCb+1TN7sQrhvPHcKtU+qSOrqZ2oN/2CGpkaazaSp
+	Dq/eK+DoopWPxUMgr9saqXEz63FWI7UmCUoSF+rMJ95/EjjdbMnhiKBqQeWfifPep6rQbRAvieP
+	Pdv1Z4CFBa79l29QgZAGJEGhLF8Iw6fsTKFhZqkSg7k/lYT9l7egKR5qqunNAqeSFMgSqBT4=
+X-Received: by 2002:a05:6122:29c5:b0:5ea:cd69:7cda with SMTP id
+ 71dfb90a1353d-5ee34a4a22fmr4937364e0c.7.1794879040840; Mon, 16 Nov 2026
+ 17:30:40 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,97 +104,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20261112014942.2946303-1-treapking@google.com>
+ <avaewOJD7tX1UYfE@fedora> <avanVkILHDYdpond@fedora>
+In-Reply-To: <avanVkILHDYdpond@fedora>
+From: Pin-yen Lin <treapking@google.com>
+Date: Mon, 16 Nov 2026 17:30:28 -0800
+X-Gm-Features: AclHuK-byOO9ApLlxanSDYI9Lfieig8sHZUQyc_p9n6pRaoz5hWdciXbyY9EdzA
+Message-ID: <CAHwYsio=qtCY10EPnh+qvWpdgtQUG5mw1b3WKMt9_Kytcc7h9A@mail.gmail.com>
+Subject: Re: [PATCH net] selftests: bonding: fix failover race in
+ bond_options.sh prio test
+To: Hangbin Liu <hangbin.liu@linux.dev>
+Cc: Jay Vosburgh <jv@jvosburgh.net>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Bjoern Doebel <doebel@amazon.de>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org, 
+	Matthieu Baerts <matttbe@kernel.org>, linux-kernel@vger.kernel.org, 
+	Jonathan Toppins <jon.toppins+linux@gmail.com>, linux-kselftest@vger.kernel.org, 
+	Hangbin Liu <liuhangbin@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, 08 Nov 2026 11:20:24 +0900
-Jongwon Lee <ai@linux.com> wrote:
+Hi Hangbin,
 
-> Bit 1 of the DPA field in General Media and DRAM event records is the
-> NOT_REPAIRABLE flag. The device sets it when the memory at that DPA
-> cannot be repaired.
-> 
-> cxl_find_rec_gen_media() and cxl_find_rec_dram() do not check this flag.
-> A repair request that matches such a record passes the lookup and is
-> sent to the device. Since the records are keyed by the raw DPA, this
-> happens today when user space writes the DPA with bit 1 set.
-> 
-> Skip these records in both lookups, so the repair request fails with
-> -EINVAL. The trace events already show dpa_flags='NOT_REPAIRABLE' for
-> them, so user space can tell before it asks for a repair.
-> 
-> cxl_find_rec_gen_media() now reads the record, so take the xarray lock
-> there too, as cxl_find_rec_dram() does. Also make it return bool, since
-> its only caller just checks the result.
-> 
-> Fixes: 0b5ccb0de1e2 ("cxl/edac: Support for finding memory operation attributes from the current boot")
+On Thu, Nov 12, 2026 at 10:00=E2=80=AFPM Hangbin Liu <hangbin.liu@linux.dev=
+> wrote:
+>
+> On Fri, Nov 13, 2026 at 01:23:40PM +0800, Hangbin Liu wrote:
+> > Hi Pin-yen,
+> > On Wed, Nov 11, 2026 at 05:46:18PM -0800, Pin-yen Lin wrote:
+> > > The prio test intermittently fails in the arp_ip_target and
+> > > ns_ip6_target variants:
+> > >
+> > >   TEST: prio (active-backup ns_ip6_target primary_reselect 1)   [FAIL=
+]
+> > >     Current active slave is eth0 but not eth2
+> > >
+> > > The ARP/NS monitor marks a slave down when it has received nothing fo=
+r
+> > > too long. With arp_interval 100 and the default arp_missed_max, that =
+is
+> > > about 250ms for the active slave (eth1) and 350ms for a backup slave
+> > > (eth0, eth2). Every 100ms, eth1 sends a probe: eth1 receives the repl=
+y,
+> > > and eth0/eth2 receive a copy forwarded by the gateway bridge. Once et=
+h1
+> > > is down, its probes reach no one and no slave receives anything, so
+> > > eth1 normally times out first and the new active slave is picked by
+> > > prio:
+> > >
+> > >   t=3D0    probe: eth1 gets the reply, eth0/eth2 get a copy
+> > >   t=3D10   test sets eth1 down
+> > >   t=3D300  monitor: eth1 idle 300ms -> down
+> > >                   eth0/eth2 idle 300ms -> up, eth2 picked by prio
+> > >
+> > > But the test takes eth1 down right after bond_check_connection(), who=
+se
+> > > ping replies only arrive on eth1:
+> > >
+> > >   t=3D0    probe: eth1 gets the reply, eth0/eth2 get a copy
+> > >   t=3D70   ping reply on eth1 only
+> > >   t=3D85   test sets eth1 down
+> > >   t=3D300  monitor: eth1 idle 230ms -> still up
+> > >   t=3D400  monitor: eth1 idle 330ms -> down
+> > >                   eth2 idle 400ms -> down too
+> > >
+> > > eth2 can then no longer be picked. eth0 becomes the active slave if i=
+t
+> > > happened to receive some other packet (e.g. an MLD report), otherwise
+> > > whichever slave comes back first does. With primary_reselect 1 or 2,
+> > > the bond keeps eth0 even after eth2 comes back.
+> > >
+> > > Before taking the active slave down, wait two monitor intervals
+> > > (200ms), so that at least one more probe is sent after the last ping
+> > > reply and all slaves last received that probe. The miimon variants do
+> > > not need the wait, but the extra delay is negligible.
+> >
+> > I'm afraid the waiting time is too strict, especially with a debug kern=
+el
+> > since delays can happen.
+> >
+> > Bjoern is also fixing[1] this issue by pinging a non-existent neighbor =
+to
+> > keep traffic flowing. Would you like to test whether that works for you=
+?
+> >
+> > [1] https://lore.kernel.org/netdev/20261104142018.552135-1-doebel@amazo=
+n.de/
+>
+> BTW, using ping may not able to triger the arp request in time. You can t=
+ry
+> arping instead.
 
-It's silly but broken?  I'd argue no. This feels like a useability improvement
-to me rather than something we want to call a fix which suggests backports
-make sense.
+Thanks for the pointer, but I believe Bjoern's patch addresses a
+different problem.
 
-> Signed-off-by: Jongwon Lee <ai@linux.com>
-> ---
->  drivers/cxl/core/edac.c | 27 +++++++++++++++------------
->  1 file changed, 15 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/cxl/core/edac.c b/drivers/cxl/core/edac.c
-> index 4624ab4644..42683b7c54 100644
-> --- a/drivers/cxl/core/edac.c
-> +++ b/drivers/cxl/core/edac.c
-> @@ -918,24 +918,27 @@ struct cxl_mem_repair_attrbs {
->  	enum cxl_mem_repair_type repair_type;
->  };
->  
-> -static struct cxl_event_gen_media *
-> -cxl_find_rec_gen_media(struct cxl_memdev *cxlmd,
-> -		       struct cxl_mem_repair_attrbs *attrbs)
-> +static inline bool cxl_rec_not_repairable(const struct cxl_event_media_hdr *hdr)
-> +{
-> +	return le64_to_cpu(hdr->phys_addr) & CXL_DPA_NOT_REPAIRABLE;
-> +}
-> +
-> +static bool cxl_find_rec_gen_media(struct cxl_memdev *cxlmd,
-> +				   struct cxl_mem_repair_attrbs *attrbs)
+Bjoern's patch keeps the traffic flowing so that idle slaves are kept
+alive between the test steps. This patch fixes the case where the ping
+replies from bond_check_connection() only arrive on the active slave
+right before it is set down. The active slave's failure is then
+detected one monitor interval late, when the backups have also timed
+out.
 
-A find routine that doesn't return the thing requested seems misnamed.
+The ARP requests triggered by Bjoern's ping are sent only about once
+per second, which isn't frequent enough for this failure. I tested
+Bjoern's patch and confirmed that it didn't fix the issue in our
+testing environment. We also can't simply use arping instead because
+iputils arping doesn't support sub-second intervals.
 
-cxl_check_for_rec_gen_media() or something like that is probably clearer.
+If you're worried that the 200ms sleep is too short, would increasing
+it to 0.5s or 1s work for you?
+>
+>
+> Thanks
+> Hangbin
 
->  {
->  	struct cxl_mem_err_rec *array_rec = cxlmd->err_rec_array;
->  	struct cxl_event_gen_media *rec;
-> +	bool found;
->  
-> -	if (!array_rec)
-> -		return NULL;
-> +	if (!array_rec || attrbs->repair_type != CXL_PPR)
-> +		return false;
-
-I'd split those two conditions as they are completely unrelated.
-
-
->  
-> +	xa_lock(&array_rec->rec_gen_media);
-
-Hmm. Was assuming there would be guard() available but nope.
-Was proposed but nothing happened with it.
-https://lore.kernel.org/all/20240228135352.14444-1-mschmidt@redhat.com/#r
-
-Maybe worth resurrecting that. +CC Michal.
-
-
->  	rec = xa_load(&array_rec->rec_gen_media, attrbs->dpa);
-> -	if (!rec)
-> -		return NULL;
-> -
-> -	if (attrbs->repair_type == CXL_PPR)
-> -		return rec;
-> +	found = rec && !cxl_rec_not_repairable(&rec->media_hdr);
-> +	xa_unlock(&array_rec->rec_gen_media);
->  
-> -	return NULL;
-> +	return found;
->  }
-
-
+Regards,
+Pin-yen
