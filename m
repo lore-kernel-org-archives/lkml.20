@@ -1,86 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794930104;
-	b=iNmD5zM5yDHKUq+H9QoSwCAsYtDL2k+VnEw2FjIIW0PxTBQ4qPthqCSk9EPuYRl7NixJ
-	 Elr/Vh4zMnkdjL0ePV/mFXhm9cXLTdcBevotaKSn2n50/h1oVqBc8dPcQnOgQvsZSNyG9
-	 2T3i8F2zJ41W4sUYYU0MEB+Tg3HY4Ascu4DRo5uW9Y9it7lT/v5jxnlbnJS0qwqowM6de
-	 bHj4V4Om1WI4l/7dQndMo6DTc8jCZThHfKdbytFYs1eY5jVQXUv9BbAHt0rjKDronq1u+
-	 r6xjvS7MjZ9baUT9HlfeGxeK7QPL/wmZsYeHNA1A9e0IIAY9PRVHwUjrWZBfsSiOKAw==
+	t=1794930232;
+	b=lzSDPu0Jtl8xJ3wXEqyLY2pkX89Vpga+iI6te0SGrug9hiXeHVPjqRcgEbvavl85dxpt
+	 Bp976QbffqV8m+iPPZpC55/uBO1LG+IBnUkxHCZTvuR8jZ68YtLUTrrHYhfA/YeFkZY/4
+	 T8lOQz/kyLXs3+1zLj78vHWHbr5BfQ0dHHANupCcWUVW/1iWe3SlBeYFuFkLIHz1MS7B9
+	 F2xmgL5vUe0dkflb93g7ZDqZa6WLp0mm90EmZA6/t/3SjZKTy6/I58vzDllltGoKD6AkL
+	 MPEB1md/raO6hDOYht10K9ERXI19xxfqEaW3PeOG/uUiJZT/e5jO7pELGtGTTQ4PBZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794930104;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794930232;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
 	 In-Reply-To;
-	bh=ynmtGThVfV9scNtYae6gYp9hmDX80T21RdywDg1Mt7U=;
-	b=Lq1LqWS3QJzA+ohyNI9bTHFPM568NM83nul9ZAgyKSbNci0hlP+WKjiF8BfUrMj/ifYY
-	 DYe+WatoWFqn5z7+Ps4P4ESTos2DxIeucKSdFXrCalQscVlxZhY4UPtPs2qVO07SVct2X
-	 aRIYQAfYC2tZoc/Gg1hjjUxBgdnrndmK/F8L5LcuG01trLj0BHWwLUJWj+OvgV9NJCNHW
-	 UwJqaPJ7vLLHePOYPU6ZuX9OJuHIUEvEoEchgvzwSL2zuB1OH/9Hl3BVJdHdLuG+w4YMs
-	 NmLcZG3PVQem9XSewDKxR1kLW+wWk1Uyv6Z5mkxZqLWSWt+0PpoggQ+eVbFTh7ojVbA==
+	bh=Wd1stQW0PnAi11G70cjVexCVdL0BocGOfoLmEtZFQiM=;
+	b=YdWIqVEdSjFupGF5Q1xgAQGhbvf0fuw5ktK+Dciwb8uwPGN6pUExS4gPEbQpij4EZch7
+	 /lmXlIGkN7chpZG8zXdvcc18ImeWtqRZxA1D4EHJZI6ZvBj4lCx8R2zjy8pZO4DM7Ej/O
+	 DpuyMLsh215ftysHnkD27g2R/dQk3k3nyP0OUtYNnjShEjBB6I+xU9rqj3uQY9SehU/WL
+	 rzk7feo/LTRCk2KxoJeUoYjbRk65m1sQlK9H0XIUo9wkzV0Htgo99dBHVWMLldVr/1lN3
+	 K22xX9SOY2ipbYwgZ2Y93k1uMjJsg8+zrd8I4BzkixZY7hldv35aAYKrWNw8uGOlPFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=aaCtm8ia;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ODHK5hx+;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D226F606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:41:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D226F606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2001D606A32C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:43:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2001D606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=aaCtm8ia
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a2d6d01ecbso41375e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:41:43 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ODHK5hx+
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4bb68c197c7so31915e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:43:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794930102; x=1795534902; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794930230; x=1795535030; darn=vger.kernel.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :content-type:mime-version:references:message-id:subject:cc:to:from
          :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ynmtGThVfV9scNtYae6gYp9hmDX80T21RdywDg1Mt7U=;
-        b=aaCtm8ia+vd7c0FVYlhQx82mtgp3Hnah+Qlm/51wHfJaqZeaLCO6yRn5d3tS3Odnpl
-         dru0X3i5WADXm9cp1dVN4yzqaHNTAEGLY+0DEGf58Xhs+agh81pYOIcSJKda3d+NAT6Q
-         OAarUle2akT2RBwVLnb18ibddaonrWd3TCkctbcQaSBIpbFTJKBgdJVYdUqKfuCWyHSh
-         5Vpl163Jq3IyIMa3qQunmkyZmt/WGye+nTN5FxcYGC+k0OPgXxlWLHWctNOtD4c9jjhg
-         N0rjsJYkYbniKEpCuTeygv5wTjh0vM+kG2Pb+9HSf3GbcQ0M+x/5FPnUEyT/e4IXoXCu
-         pE4g==
+        bh=Wd1stQW0PnAi11G70cjVexCVdL0BocGOfoLmEtZFQiM=;
+        b=ODHK5hx+CJtmtLLRX9383lNNMFawi9iv9cvkjFR+rdOwyyvJedpqLeXMOxleYJuw3q
+         gu/tHsFeimW6HYfsF9dmqVesit7SL+ADMo/MQDoHeL2NjKYV0WJLXuDbEPgop54jTwF0
+         jmOJTMC+mx8xLm7u8uNmUv9rwf9jlV9hgpCgq5J7BJMpQzKtaJhTqyS1RGxYXRJikPiH
+         MbrHJxHBHda9Z+92/MZwgR2HIB6vK7Mmnr6BAOH4xwhjDPdbO09n/gx7vzHKBYZbeSvW
+         H9MLH7n7C0A+6kjnPtGh1HVgt9UOayqImdWlqsaxzpAfjnwUJ8mt0jbQdalCSgKSj7m3
+         oWeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794930102; x=1795534902;
+        d=1e100.net; s=20260707; t=1794930230; x=1795535030;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :content-type:mime-version:references:message-id:subject:cc:to:from
          :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=ynmtGThVfV9scNtYae6gYp9hmDX80T21RdywDg1Mt7U=;
-        b=HVwkSQa1u0WS7Y6PG2elYpPxVm+jzc0pr4AH5i5nbYffEnWUhDNaJLrw9S9EYaEoh/
-         BURC7wCc4xzjtQSJ8fqCaLQe6E1jml7+VmvSv1q90fNLgyW7uNDPYQDImqVaQS5q5nkv
-         A0HqjQPetv75pFkbk3XcQzVkGlNEoOZ0Swn5narl4ps0ykqi5dR/E6cENMJEyVi23Ctp
-         GtMwnZ4CzCDVC06pyspwFpZBZlRYFPcYnXM+SpiKwBqHLAfC0W/DfLOp6K7btmYWgq8z
-         MTY4y36uWJty73VpxjL7dDJrS9NJYwdXRwk9X5DsWSdWvxsVn0mTYaAbSejo1NB7nidT
-         FFEg==
-X-Forwarded-Encrypted: i=1; AL+hErE2GIaEEmuc0ahrac1mkiR5M1UZLBMrp5dDLRaquyDGkoD3vVcmTbG9z7knAEq8CtzE6gZw6qxyLCBs0cg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8FX/AE9YJCqzTm2djhXfzt8Gf/bnmV7mMv4KtgSBJZMmqGsDpC
-	EYe42W8YeAIl8pNJnPGqodEvGiN0Q0z7XfeWeDMjJ8RDOHZsL+l7W6TJ/yqeyrHqDg==
-X-Gm-Gg: AYBFou1xFcn5vlyVd5IP2FpRIBCAFIJFh1nLulD6/04VR62d9btGnw6f4A+rG1GN8lr
-	U4u5LHj/3qAS5fKE/7ek6Hv9K+4+3CqfoYokdiI8P7s0jAV8Ry4Kb1k1gqXIDqAqrMhXaep6SjB
-	07sp9KC666Zyawp/L82M/wOBRd1dfp2HeFIo6WE/w9CHjkSIXNGNf1IR4og/0PYcqIPC8e9IT8z
-	gZXaS/Yaf2R5etNQLjJjr6/lPcv6xaVqvRaPrmafgro1EaeTzpaqD5/LgdT/262AUd3i9wTnvVt
-	VD4reofj305shJUVX5rHCqFdyP87hItOHvJIA2KH7jN4krfhatgXwkFLUIgQ5MIZv+5CwrD3zGV
-	aW+uYdYQyPFSLiCdKlhBtEBm6gQpqDPBO0Gn3V30yAHp3LK/cXfLm/Omgw9CjDwq0Vcyp/jpngA
-	megbjVVr/gpEZwW9Vbl1cik07uVBFgGsuypVe+UkFz1sCw1DqIfudi8k6XExSzQjPc4CgNsS6wa
-	u5gUIfqLGeA99r3JkonmBdu1PlO6Tb9si3gOY1ZXepBbNPp6RgfzAwoVJXEAdu5K9riOKRJwa8q
-	n+DVCQdSIRhlyRGtnv8dkS5578kCNkqerI+MvvlejmSv2iMomH/r2C0SnqMr
-X-Received: by 2002:a05:600c:1d0e:b0:49f:e772:6ddf with SMTP id 5b1f17b1804b1-4bb55a7f5f3mr304992945e9.32.1794930101543;
-        Tue, 17 Nov 2026 07:41:41 -0800 (PST)
+        bh=Wd1stQW0PnAi11G70cjVexCVdL0BocGOfoLmEtZFQiM=;
+        b=p1RmZB/ymu2lHPxfpMRCJ8rgsQ+SmJ5N5v9rwhuBSvRhRQZaKu+znCFowhMwBCYBrF
+         BMHL2o1vlwLY3gg4NRGjWB/jqCk9EsC+AXHHtsqeEUWWyUfCm14KoNAnRM90Bmg+ULJR
+         z4neVHKoRumyeCple7GzldpiC5LKL9luPN2v17yNLo9mgK/WgfbtZ5UEnTsCSoPEyQh6
+         m1w8RbJwIF/wqtW7bA01Wvf7d8PXF12F6P01GnqmSDfy07QNwwSePHxq+CLqRr6p6CMO
+         mA9Lfe59ajFBUg/ZzbgMrC+wBDNqFKSu6AiXdbflUpeyVtOZAH1bxHummIUeA8pacuwT
+         gEXQ==
+X-Forwarded-Encrypted: i=1; AL+hErE+UXEcTtjZ98HiIvu7QwV7CkLgHX/tLexaYOYGOK8mk9b8NS1EqYb/CYgrNDjkGPA3AhWcqG1LolzrJPc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+U3xnWcbZFstwozsejXa9RrH8JrHrPGLQ1/IfrMSzPDlUhq1YS
+	hHF6LZs1l4+7shiokRvVg8pKm9YroUiGOLiGxw0h97JrSNymEYPPnNdXefH31NjlSA==
+X-Gm-Gg: AYBFou2/LGeZM2hAgOCSn3QvOjuyIP4vbcwIUXADk4bFQ+8mrTECTX+7uPJGeu/9lBF
+	vNFtFtiRSfVvn8sPuVyDQFK1fbYbUmdrs69z0GNSsWb1GHaRBbmQ34ctS3LnoMdmeUlNQZWynMy
+	N2TjdBpq3W02YMS4pyCpJaTL2CZ0ufwXOjFYPtLsviEJSxfPN0U6c5+RTEDOBSHCMBRVO+wazM9
+	QHe72XLpNvXVWrK3ILDNDlNuWfBkh9bN/Dk7oyQQKFcF7cdyNqUq0yed5KlUsM+kBE1J3qppJux
+	zBrkxUpTtZISaWKsJqM8BNDKQ/Hz9ausTgW9m2r0cXANuYzYeKY0Gx3QloKmVXXloXFvPWUnzRe
+	rXxAv9CCGjN8N6sTwtQ4aOCFH09PvQfNukd4Gdz5kdZaNhxSTNC8FEwpGDTsxYIKDYtBVjv0S4Q
+	Di/8fF5FdMPtCU1sysvuQGkINfXp3olI/YZ86cYGhO7jd8dIhT/DCrbzwXBMt0cFFHkbi02uc/e
+	jfkvG9JAalWpsPUL1ylQ1zbyAP0ht5dCe+rfAP1XqipVQXAMAryPUO5Y3FFcPjYbPqAfFrwjpLa
+	yxWRaqVgte3jETzKoMSN6PXobSKzqjUEW+qD1GEQwW0A2r4liHsLa3COAqTx
+X-Received: by 2002:a05:600c:c166:b0:4ba:6d8:df8f with SMTP id 5b1f17b1804b1-4bb55a832c0mr330308195e9.15.1794930229860;
+        Tue, 17 Nov 2026 07:43:49 -0800 (PST)
 Received: from google.com ([2a00:79e0:288a:8:12e4:4602:d8d8:3043])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb7ad9430asm46423145e9.15.2026.11.17.07.41.40
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb571d7e87sm265535875e9.3.2026.11.17.07.43.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 07:41:41 -0800 (PST)
-Date: Tue, 17 Nov 2026 16:41:35 +0100
+        Tue, 17 Nov 2026 07:43:49 -0800 (PST)
+Date: Tue, 17 Nov 2026 16:43:43 +0100
 From: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
 To: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
 Cc: Ada Smith <adasmithgt@gmail.com>, Hungyu Lin <dennylin0707@gmail.com>,
@@ -89,11 +89,11 @@ Cc: Ada Smith <adasmithgt@gmail.com>, Hungyu Lin <dennylin0707@gmail.com>,
 	Paul Moore <paul@paul-moore.com>, Serge Hallyn <serge@hallyn.com>,
 	Serge Hallyn <sergeh@kernel.org>, kernel-team@cloudflare.com,
 	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org
-Subject: Re: [PATCH v2 3/6] landlock: Mediate CAP_SETPCAP for inheritable
- capabilities
-Message-ID: <avx1r36MHsxhAzSf@google.com>
+Subject: Re: [PATCH v2 4/6] landlock: Mediate CAP_SYS_ADMIN for the admin
+ memory reserve
+Message-ID: <avx2Lzzv-i9KrKFO@google.com>
 References: <20261117101157.2520463-1-mic@digikod.net>
- <20261117101157.2520463-4-mic@digikod.net>
+ <20261117101157.2520463-5-mic@digikod.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,22 +106,24 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261117101157.2520463-4-mic@digikod.net>
+In-Reply-To: <20261117101157.2520463-5-mic@digikod.net>
 
-On Tue, Nov 17, 2026 at 11:11:53AM +0100, Mickaël Salaün wrote:
-> A process in a domain that denies CAP_SETPCAP could still add
-> capabilities outside of its permitted set to its inheritable set with
-> capset(2), if it held CAP_SETPCAP.  cap_capset() checks CAP_SETPCAP with
-> cap_capable() in cap_inh_is_capped(), so the check never reaches
-> hook_capable().  Through file inheritable capabilities, such a set can
-> grant new permitted capabilities on execve() when no_new_privs is not
-> set, which is possible for a domain enforced by a task holding
-> CAP_SYS_ADMIN.
+On Tue, Nov 17, 2026 at 11:11:54AM +0100, Mickaël Salaün wrote:
+> With vm.overcommit_memory set to 2, __vm_enough_memory() keeps the
+> vm.admin_reserve_kbytes reserve for callers whose LSMs all agree that
+> they hold CAP_SYS_ADMIN.  cap_vm_enough_memory() checks it with
+> cap_capable(), so a process in a domain that denies CAP_SYS_ADMIN could
+> still use this reserve, which is meant to let an administrator recover
+> from memory exhaustion.
 > 
-> Add a Landlock capset hook that checks CAP_SETPCAP against the domain
-> under the same condition as cap_capset().  As with the mmap_addr hook,
-> LSMs implement their own policy in this hook: SELinux checks capset with
-> its own permission.
+> Add a Landlock vm_enough_memory hook that withholds the reserve when the
+> domain denies CAP_SYS_ADMIN.  Like commoncap and SELinux, do not audit
+> this check: it only selects a limit, it runs for every accounted
+> mapping, and withholding the reserve can only make an allocation fail
+> with -ENOMEM.  As with the previous hooks, LSMs implement their own
+> policy in this hook: SELinux already checks CAP_SYS_ADMIN in its own
+> vm_enough_memory hook, so making commoncap call security_capable() would
+> make SELinux check it twice.
 > 
 > Cc: Günther Noack <gnoack@google.com>
 > Cc: Paul Moore <paul@paul-moore.com>
@@ -132,97 +134,51 @@ On Tue, Nov 17, 2026 at 11:11:53AM +0100, Mickaël Salaün wrote:
 > ---
 > 
 > Changes since v1:
-> https://patch.msgid.link/20261110202436.2408244-4-mic@digikod.net
+> https://patch.msgid.link/20261110202436.2408244-5-mic@digikod.net
 > - Add Serge Hallyn's Acked-by.
 > ---
->  security/landlock/cap.c | 30 ++++++++++++++++++++++++++++++
->  1 file changed, 30 insertions(+)
+>  security/landlock/cap.c | 22 ++++++++++++++++++++++
+>  1 file changed, 22 insertions(+)
 > 
 > diff --git a/security/landlock/cap.c b/security/landlock/cap.c
-> index 10e1ca772b9c..c89e8d76db8c 100644
+> index c89e8d76db8c..c9a900888f3b 100644
 > --- a/security/landlock/cap.c
 > +++ b/security/landlock/cap.c
-> @@ -91,6 +91,35 @@ static int hook_capable(const struct cred *cred, struct user_namespace *ns,
->  	return check_cap(cred, cap, opts);
+> @@ -140,10 +140,32 @@ static int hook_mmap_addr(unsigned long addr)
+>  	return check_cap(current_cred(), CAP_SYS_RAWIO, CAP_OPT_NONE);
 >  }
 >  
 > +/**
-> + * hook_capset - Restrict inheritable capability changes
+> + * hook_vm_enough_memory - Restrict the admin memory reserve
 > + *
-> + * @new: New credentials (unused).
-> + * @old: Current credentials.
-> + * @effective: New effective set (unused).
-> + * @inheritable: New inheritable set.
-> + * @permitted: New permitted set (unused).
+> + * @mm: Address space being charged (unused).
+> + * @pages: Number of pages being charged (unused).
 > + *
-> + * cap_capset() requires CAP_SETPCAP to add inheritable capabilities that are
-> + * not in the old permitted set, but calls cap_capable() directly, which skips
-> + * hook_capable().
-
-It has taken me a bit of time to wrap my head around this one.
-
-cap_capset() starts with:
-
-	if (cap_inh_is_capped() &&
-	    !cap_issubset(*inheritable,
-			  cap_combine(old->cap_inheritable,
-				      old->cap_permitted)))
-		/* incapable of using this inheritable set */
-		return -EPERM;
-
-where cap_inh_is_capped() returns true if it does *not* have CAP_SETPCAP.
-
-So when this Landlock hooks gets called, cap_capset() has already
-checked that we either have CAP_SETPCAP or inheritable ⊆
-(old->inheritable ⋃ old->permitted).  So the Landlock hook can check
-for the cap_issubset(...) condition to see whether CAP_SETPCAP had to
-be "used".
-
-Maybe it would be easier to phrase it like that?
-
-
-(A more specific nit about this comment, "calls cap_capable()
-*directly*" has confused me a bit, since cap_capset() calls
-cap_capable() only *indirectly* through cap_inh_is_capped().  Maybe
-"promptly", or "immediately" would be better?)
-
-> Check the same condition against the domain.  commoncap runs
-> + * first, so this only sees requests that commoncap allowed.  capset(2) discards
-> + * @new if this hook fails, so nothing is committed.
+> + * cap_vm_enough_memory() lets CAP_SYS_ADMIN use the vm.admin_reserve_kbytes
+> + * reserve, but calls cap_capable() directly, which skips hook_capable().  Check
+> + * the same capability against the domain.  commoncap runs first, so this only
+> + * sees tasks that commoncap let use the reserve.  Like commoncap, do not log
+> + * denials: this only selects a memory limit.
 > + *
-> + * Return: 0 if allowed, -EPERM if CAP_SETPCAP use is denied.
+> + * Return: 0 if the domain does not withhold the reserve, -EPERM if
+> + * CAP_SYS_ADMIN use is denied.  An error does not fail the allocation by
+> + * itself, but without the reserve, the allocation may fail with -ENOMEM.
 > + */
-> +static int hook_capset(struct cred *new, const struct cred *old,
-> +		       const kernel_cap_t *effective,
-> +		       const kernel_cap_t *inheritable,
-> +		       const kernel_cap_t *permitted)
+> +static int hook_vm_enough_memory(struct mm_struct *mm, long pages)
 > +{
-> +	if (cap_issubset(*inheritable,
-> +			 cap_combine(old->cap_inheritable, old->cap_permitted)))
-> +		return 0;
-> +
-> +	return check_cap(old, CAP_SETPCAP, CAP_OPT_NONE);
+> +	return check_cap(current_cred(), CAP_SYS_ADMIN, CAP_OPT_NOAUDIT);
 > +}
 > +
->  /**
->   * hook_mmap_addr - Restrict mappings below dac_mmap_min_addr
->   *
-> @@ -113,6 +142,7 @@ static int hook_mmap_addr(unsigned long addr)
->  
 >  static struct security_hook_list landlock_hooks[] __ro_after_init = {
 >  	LSM_HOOK_INIT(capable, hook_capable),
-> +	LSM_HOOK_INIT(capset, hook_capset),
+>  	LSM_HOOK_INIT(capset, hook_capset),
 >  	LSM_HOOK_INIT(mmap_addr, hook_mmap_addr),
+> +	LSM_HOOK_INIT(vm_enough_memory, hook_vm_enough_memory),
 >  };
 >  
+>  __init void landlock_add_cap_hooks(void)
 > -- 
 > 2.56.0
 > 
 
 Reviewed-by: Günther Noack <gnoack@google.com>
-
-Code checks out, only minor comments about the documentation.  It has
-taken me a bit to understand how the Landlock hook's logic matches the
-one in cap_capset().
-
-—Günther
