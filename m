@@ -1,66 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794885489;
-	b=n3RT/8PShNP+8drx/REZaId5iCz0dZriuQPkooEIDBsW8e9rTNF5YQljtZHw2SQYlcyl
-	 BYESuX1gyygiW+5AGvedyL5lzpTYuzSZr/AHoqbVTlqrLmsypwd3VTkLm+kFckV8lY2xu
-	 fgqKrJkqpEuyjKQjKg616lsPmmzK4Jgt4jZmU0S8zh5HINOt9wucmbucvM+J9CaFuDujB
-	 IfyYnv7yodbQET5e+hCR0p7TSKjk10nEw1aCh8tbR82Tscr27NsHik7JzXPsTkCRsj1N0
-	 WYqzVDejxlpi4gI5WoYJxqPQBvYkBL4yiwJeMmvdEfMPxqqGrP4BllJlt3G+Bt4a9QA==
+	t=1794885518;
+	b=A8tGvJuEm8He6fN2pDnhy6t+RDsgVynTaOP/UOfSH5AVGGA1xe4iDBBxyW1Xuuf8L7pS
+	 6lZv3ltkRbIVCtvtUFfYIXf2BUcbiDCMfbdFHQognd1HorJdmwFiyUre0QaHINiItTfsx
+	 FoXvukNKMov69hcO5UKastuMzif2DRri7vyRgoUXAJrnUXfxdFI25+XWruTGyJIZ60JQd
+	 +vp4392X3zp6tmNEc8oDZ7B5aDVlvknri/aytJhzt2lErCF0ESAdXbpp0e4qKWn/Ba+JK
+	 fTSdsqVtrq5cks6w3wHOa2PCctAg3+3iSgFQsXp7UJeTGmkCWNzS6MKJjOXO9zFVidQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794885489;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=XEX/B5fm61cWurYTFjfzhFA0YSoedPa2iWt3d/nCGIw=;
-	b=GMZHzQV8ZXUBmQQCFZxWWdPJxFvyNUeddjPJL2ve71T+Z2+A7wWac466IBtaAEpWjKc4
-	 Q6/kysCG5Q5RgS5TQYhf70Gf49twRmTvl8qnfJpjvrxF/1rgKID6FT9F5PcIEhR2myKHn
-	 nBzO3QGzbR21lJhgIZsA+pPFSWjc2YS5F/cHuErP3YZvj3V5Fl9n8GlKrZSw7rGOe0ti/
-	 95A1Vf/c7mx3Iup8S9p5oyfvlklHTEJfqMtXEEC9/aA9AqlzetGrqaIcORHzw8ahMKqoA
-	 ytzl47ZQrPCks4AILF2+R1MXkS7q4hpzxdSjC1NOGtlZEZJ+pwnaGS2/COMYLnrMBog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794885518;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=xHXm3AH57pto0E0Q37QvGKX77fTXzoDTB0OzTQzuZlE=;
+	b=UBmMXTk2vh2nnFa+SYXlNa85Dg+hg+lwHHbad+iyioPJSTtG4m0eEYdopdUtojlRN+1l
+	 Qt9iZkWR2k7ppArRdefAwpHjb4JcGowrO3vMea/hSTjPQzGtLcA+BfNZr3MKSSGGFrM62
+	 rSBFUER7YJ5VlLxwwaEx4Vzd9MaLY4YDhIJG1HkDhjyguUOVR55oQOZbc0ZAIOqNlcFrJ
+	 ryGNLe8XmSaCLIHp+J/Gxvn1Mk9Pl1w1/ROT5zI2L38leSNZAcvjJdusK11tOQUc4viTA
+	 1gOuNPeeNPI+jkP1WXJrJR9DxcvX7lLUouyxW0b1bBMS7rRwLkKXTbwCpKWQ2IJzCLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b="S/6DBJIQ";
-	arc=none smtp.remote-ip=54.206.34.216
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cX59Ab9r;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CA09606A31C;
-	Tue, 17 Nov 2026 03:18:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CA09606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F84606A31C;
+	Tue, 17 Nov 2026 03:18:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=S/6DBJIQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1794885457;
-	bh=XEX/B5fm61cWurYTFjfzhFA0YSoedPa2iWt3d/nCGIw=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=S/6DBJIQH+3DNa+hl5t3xxhlx0Jdf4a18F9ouPJpD6AsGVWppLRx3SCLQfl9KWXu0
-	 3aQ38NcT+hgXHrF02hCdUva1j/4xkcRZ0hdqnF4cE2LeY9KVDAezkVxWkjERLBwtKu
-	 IU0UG/h0mawXl97RctjQ4yLqKa7JJTRduLoO625I=
-X-QQ-mid: esmtpsz10t1794885451t44789937
-X-QQ-Originating-IP: yzdTpx+SJXNUOYYrApmlvTnIUsqXyeyb1ObAEMRP0rY=
-Received: from localhost.localdomain ( [1.202.39.170])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 17 Nov 2026 11:17:23 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 18232043476698029590
-From: Xue Haolin <xuehaolin@uniontech.com>
-To: deller@gmx.de
-Cc: linux-fbdev@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] fbdev: sstfb: Error out if pixclock equals zero
-Date: Tue, 17 Nov 2026 11:17:14 +0800
-Message-Id: <20261117031714.259053-1-xuehaolin@uniontech.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20261117022031.252357-1-xuehaolin@uniontech.com>
-References: <20261117022031.252357-1-xuehaolin@uniontech.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cX59Ab9r
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A2701F000C5;
+	Tue, 17 Nov 2026 03:18:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794885518;
+	bh=xHXm3AH57pto0E0Q37QvGKX77fTXzoDTB0OzTQzuZlE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=cX59Ab9rzqgwGwcbLF4QUiRsjurAmILsn5njupNcCivQjmf5pwFWO2q++7TP+jOQd
+	 7fpBpOVAw8Zype91fB5tWCxEf2zAutlZN9ORnkEbLZmq7uzTqUAb73jxCkwuEt0siV
+	 XXA5Eb96TtuqBLwqkkk505S5LuwHOlAgBTBKKbezTdoac4UtNMxKfvVBopDYRLz74m
+	 hjQfhs81KK2DOfjx+WRL8OcHmDG0ZQHX10prUlcfk7QGoAPBLSucXS//yPLM+3RQr8
+	 kuBeHM/Z65Vdt92fCq4W+QKAmtbuSnHHHh6X9wTU6nzBetrfKIS9RB15GBiga+mbAI
+	 TGrSMVlm2a1Yg==
+Date: Tue, 17 Nov 2026 03:18:30 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Arnav Kapoor <kapoorarnav43@gmail.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Gwendal Grignou <gwendal@chromium.org>,
+ Stephen Boyd <swboyd@chromium.org>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/2] iio: proximity: sx9310/sx9360: reject
+ out-of-range hardware gain values
+Message-ID: <20261117031830.69ac22f5@jic23-hlaptop>
+In-Reply-To: <avrEmbZJSX5qtGS2@ashevche-desk.local>
+References: <20261111164041.341776-1-kapoorarnav43@gmail.com>
+	<avXeSbAEGhkMjMJa@ashevche-desk.local>
+	<20261115014333.120063-1-kapoorarnav43@gmail.com>
+	<avrEmbZJSX5qtGS2@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,68 +66,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: M6x2tnEVru4e7GBRUJQEC7FKeapgacBqX6rElXPVDGi2MWqDBI+0Sbdt
-	1abI+CFtrobSXlj6X529C80d26SKma1p7SUs/ePSfVxkRJRMuyz7uHQa5gu1mQs+vWcq2MC
-	aPDPF0Qm7smp5jfO1/33K5HleQ4dElzcyOHlEamMQdKNig8Xc01zAZbzb+LdaIaJXfhUfKU
-	084BxXj9k6X40tCxxBDjOhSFEgWsiweqCP2qevBMSB0/+jaRLTzWpIzrUgotEgSNltxoqIT
-	YC085xYb63Qnrs9BzVT4cQ1Ew7RscFI9bZ6hzzSRE6AvbM5M0W9M/dBHkBcpcm8NnPwxjpN
-	8r2BNdQSwau0o2jjulsvYbPoI5M59MztiloVl+yDdMNy5vYnzq7f7pwfoaG4sXAQgKCRzvx
-	JbRxz+6c2dindBKG8RgfeBbbW6aCDw5iBOM3RfPzZYM23m2pNlzAqN2umNmUlhMadc2FP14
-	f6Q6qCNEH5cCLDbOmsapk+RNwwtLdpdHY36qOyfsqcpPCH/JhirlN4mSEJmbIayZF2a3Y88
-	9Pjw+P1jXa3VezUK1bgStmaFIUxN26WvhjVFM1JvEfgiYqPF2mADA3tBpoR69OzEjuRNCp/
-	vkbN9etDVuuR2ny57eYEvoKDbmaFz9BtgQYVof54mBn2+5289x0H2yJXMIAj4/tF7x7izmo
-	K0MPP4gjgmp0ldGsSxAzlinQ0sJujGkbarjpRkAMBro1Zv9FumQhp6fO7I9PO2NBJwUc4Kv
-	0zM9TdAndC4CQW76AFEiCqXvVlxP8bV4RivoR6rwM+TXPTRn4RS920eh/OItPqIMgODrDpC
-	YUovNyYp1LKPmsb5S67VRhrbsExFr9QguTYZVAQSXt55aQ6L7tE/FN8MFAdOASRh7vr/bEI
-	ZYqtSilG8EMqSgQG/9aSV7ppMHnEJGOgGIL7OYCdG/tWiD8l2a2yZQj0I40DHTPl4FGQJyx
-	IICfUBuk1b5BI1HJkED6hAKNKPovTPs/nIUdCa/bzmy7yJ/qcjn1g7sLuP3jisdGkxMrosC
-	EDgZt4UZPPZ+OPyof7Pf0bRQfrrwdqzbuka4C21aSd944rSSHQCBW7Eqhub72VZnBC7LPKc
-	w==
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The userspace program could pass any values to the driver through
-ioctl() interface. If the driver doesn't check the value of pixclock,
-it may cause divide-by-zero error.
+On Mon, 16 Nov 2026 10:53:45 +0200
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-sstfb_check_var() calls PICOS2KHZ(var->pixclock) which expands to
-1000000000UL / var->pixclock. If var->pixclock is zero, this causes
-a divide-by-zero exception.
+> On Sun, Nov 15, 2026 at 07:13:32AM +0530, Arnav Kapoor wrote:
+> > On Thu, Nov 12, 2026 at 05:42:01PM +0200, Andy Shevchenko wrote:  
+> > > Now it looks better.
+> > > Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>  
+> > 
+> > Thanks, Andy.  
+> 
+> You're welcome!
+> 
+> > Jonathan, a related question while this thread has the right people
+> > on it: the Semtech SX9xxx proximity drivers (sx9310, sx9324, sx9360,
+> > sx9500 and sx_common) have no MAINTAINERS entry, so get_maintainer.pl
+> > only finds the IIO maintainers and reviewers for them.
+> > 
+> > I've been working through bugs in these drivers for the last few weeks
+> > and would like to keep doing that. Would you be OK with a patch that
+> > adds a "SEMTECH SX9XXX PROXIMITY SENSOR DRIVERS" entry with me as R:,
+> > or M: if you'd prefer the drivers to have a maintainer?
+> > Gwendal, as the author of most of this code, you'd be very welcome on
+> > the entry too, if you want to be listed.
+> > 
+> > I don't have the hardware, so anything that needs a real device would
+> > still need someone who has one.  
+> 
+> I believe for an M entry it's kinda implied that you get an HW to play with
+> (at least one of the supported sensors by the driver in question).
+Agreed that I'd assume that.
 
-Fix this by checking whether pixclock is zero at the beginning of
-sstfb_check_var(), before it is used as a divisor.
+R is fine though without hardware.  You are just expressing knowledge
+of the driver and a willingness to review changes.
 
-This is similar to CVE-2022-3061 in i740fb which was fixed by
-commit 15cf0b82271b ("video: fbdev: i740fb: Error out if
-'pixclock' equals zero"), and the fix in savagefb by
-commit 04e5eac8f3ab ("fbdev: savage: Error out if pixclock equals zero").
+Maintainer can fallback to the catch all.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xue Haolin <xuehaolin@uniontech.com>
----
-Changes in v2:
-- Fix sign-off to use real name "Xue Haolin" to satisfy DCO.
+Jonathan
 
- drivers/video/fbdev/sstfb.c | 3 +++
- 1 file changed, 3 insertions(+)
+> 
 
-diff --git a/drivers/video/fbdev/sstfb.c b/drivers/video/fbdev/sstfb.c
-index 8e2c2421028d..de0769eb4a2f 100644
---- a/drivers/video/fbdev/sstfb.c
-+++ b/drivers/video/fbdev/sstfb.c
-@@ -359,6 +359,9 @@ static int sstfb_check_var(struct fb_var_screeninfo *var,
- 	int tiles_in_X, real_length;
- 	unsigned int freq;
- 
-+	if (!var->pixclock)
-+		return -EINVAL;
-+
- 	if (sst_calc_pll(PICOS2KHZ(var->pixclock), &freq, &par->pll)) {
- 		printk(KERN_ERR "sstfb: Pixclock at %ld KHZ out of range\n",
- 				PICOS2KHZ(var->pixclock));
--- 
-2.43.0
