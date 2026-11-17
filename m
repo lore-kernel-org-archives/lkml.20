@@ -1,100 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.195.115
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794914850;
-	b=0OVT2y7wgC6N3aI8stJY/mHy1nlWI2Gv9UxlY40PpCLBppJgQg8OmDzEUFZ6XmwKOxJ/
-	 7WmR/T9vP7EJKBtpSSR+ZTtMhr1ABajTb+Z/3LBzYKgkdCDw+2kmp+E5R90Zq4qysR03d
-	 9ePnSWhyYw3KQbZsqOQf7WRzxsIykoB38cxMRUVz2rbwZCsWAkTT4RAxFIuBWhINGeTT/
-	 2VrPj7F6VLVRJaoFCc5VZsFuyLaK6tB74ETEse9EMnm83R6YL57B6PUs6vr4ELA1eEnJe
-	 lp+ZZr3AZ7eNv9+kUN4akyu0ZaGUy6HKh+4juC4NNswygN7srLH4gt23CVEBdgCjL/A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794914850;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:To:Cc:Subject:
-	 From:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Wqxu/HsWobdFl32BaPJZM1XnlJpY9KZSoiXKb13je6g=;
-	b=ksQeGiEF8YQhDKZLuoQtqp3Jp78yvDdfsfPNRXMw2ZfYjZiJ+oOWwJbgP5cGhd0zH1nl
-	 D8WIps/IbogiMXUOxLqP7hsPVCN62ejavWlmAB++jSrMZG9n0bblx2LNXxvRlFYR6f2po
-	 EeJL1DvpNw5kvOfjVxpjWPRF5zNiE0Fh3qB806iWPUkkcbvth80+m+LUdiONvqd/KkzcA
-	 BUwBcX210qvNbUId+r9TVsBsKGiU0xlu2IKAZCSbiMseNImSHtou7tNtuvQZA212HzNU6
-	 wbKm5ceuAMocU/7j1GU9zZ1K+sTk85C/mdJR+DdYgj3h2UuJgRsxUj6TfFqsIETCw+w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=garyguo.net;
-	spf=pass smtp.mailfrom=garyguo.net;
-	dkim=pass header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=UtOltTdz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.195.115
-Received: from CWXP265CU008.outbound.protection.outlook.com (mail-ukwestazon11020115.outbound.protection.outlook.com [52.101.195.115])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E496606A31C;
-	Tue, 17 Nov 2026 11:27:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E496606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794914865;
+	b=YEMoFzLDs4X1SdlpeoKdjxGyhDL8MIwTjkGFTX2sc7m5yDj58VidaojjIRXetURT6Ctl
+	 sWz3qhaYazjfLVkCXnddAoc9RqwJP7a8jnu9vjRthMOQDfB59oXhMLMhxVwSd+YMjaCUA
+	 ECXL9sIrbpmUXxc8sGXqAxXVXTVimIcagn1uxPoGkgHASZ8S0oyO3LBHsJpcxduniGUBu
+	 A6OZbn2NHtIRJ7U27tBhBnzlJxmDutTzu8rl/dGds5mpaNOxSutLXmakfeQGilCsBtolS
+	 HYcmmkxq5kqQ8uKaWN7TI1cN8xFpPhq2V5Ias2xdhgvEMuGfsLReZIb4+J9hHJ8dRvA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794914865;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:References:Content-Language:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=fe/3p//Y8prPyRD5F1rxL+NnMb7IMk8fsgr6xz+sbag=;
+	b=wxXKMiOUWU6+URvXCjomExsncXA8/+UqhxW2ox07uyzjZKKdUF0lyP4ZsYWJpV0+7/+H
+	 38ukz6MmArArVGVzWBXJGNc72Owau3baCSqw2Ka1CT4ESZUQ+B3jJaWmG2MLvT9XbHx+S
+	 NAvt+nvaWLYpa8JwtQoISK32JKj1PWpVHjRdJr0Iy0mR1DfVH4jIDlkZ5znfGE28NqE4v
+	 naLj2Q+kauuFN9FUMZAORInsygUZ8fgqRkz/ufFVkgCrngKFFFgzgJwXwpV1QuJlMqov1
+	 lsoxjZfFyb9dcrWsZTyi5lH5kbfawj2zD75eivpMRIECB/WVsSR+EyXhQiP4i29B7PQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=jKpgPEMO;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E3A7B606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:27:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3A7B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=UtOltTdz
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JuroqnnUoyBcKswXpeOoVdk9WufzcRuX6Qec0W4mnIb959hsy7dBW6irXUGGeMWRx18vYSr6HdQamHqF8RZVwP2KBsZ5oBtoykduQFAYg+ZP0MegaXnNGo9sUTCojhGUkEqpkjDcStkPjWs6txEiI+OnhsSMfIKqqUOxIX/5GA9CMiTU1DcNG1IYecTMy4TOHT5I6anWFblBUODjaq8X6I3n//ZEgx/hBKop4g1JaAJyDzauUaOnEDx78z9cgszE5ztyMeSuUwpelSdmU2dHwdFVGOREmMQgWRy3hvh2rf7Uu9gbqNEzC1snaRSO/S8DdeZIbvijkSAMyNiazcbpSA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Wqxu/HsWobdFl32BaPJZM1XnlJpY9KZSoiXKb13je6g=;
- b=fRcXEVClaL2FmTE23KgL+4UW9Skkw7HTWLHiOnmrJ7z6wAeBKWjA4NUuw7tOGmPHaggyujHfP/T0mLn5eRpKpNc1eiPnHtOtxhS3gyNOOq3rhuOUdsL0YyqNeTWBc/A/mDoFELRy8K3Wny+E7Wxm2hEEm7mwqsonwsOal77fVfQ7xwST70q6IMScZC0ICssSj2pKoTfpcpvf0oXk4wUp4+KNKX5ejumoR2iByh/hsq4d2Wei9P7WIzj00UOlljN9BK9y8eX/k3cEYKbZXhLJXAUhLM5A8hBKq4FRUiIghjj301/qICS4G618oFOvUz6OVfmuolH76l1zrJFLxvBI0A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Wqxu/HsWobdFl32BaPJZM1XnlJpY9KZSoiXKb13je6g=;
- b=UtOltTdz8MCrQ8CLh+ye8zOfRsHk4dUkp3ri+XgHe6F0nESeIlACNO/n8LxvejEr2n8KdSL8lvdZdjZ2tSs0ERuFXHXsBDkRQneT+YFS6Uwp1SsNbU5RXJHFAjGKT4WlR6Sr5t/9YHd7tm789ZRWT3Ql8QK45usg8tdC8E2TFmk=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1cb::9)
- by LO2P265MB5398.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:259::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 11:27:26 +0000
-Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- ([fe80::55f6:f98b:7fad:c6e3]) by CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- ([fe80::55f6:f98b:7fad:c6e3%2]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
- 11:27:25 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 17 Nov 2026 11:27:24 +0000
-Message-Id: <DMXG7K9AMK2E.1QL8P4O7L8RFX@garyguo.net>
-To: <peder.bergan@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>
-Cc: "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
- Krummrich" <dakr@kernel.org>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, "Georgios
- Androutsopoulos" <georgeandrout13@gmail.com>
-Subject: Re: [PATCH] rust: str: tie Formatter to its backing buffer
-From: "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.22.0
-References: <20261117-formatter-lifetime-v1-1-9d7f38686552@gmail.com>
-In-Reply-To: <20261117-formatter-lifetime-v1-1-9d7f38686552@gmail.com>
-X-ClientProxiedBy: LO2P265CA0501.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:13b::8) To CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:400:1cb::9)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=jKpgPEMO
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4DAF51476;
+	Tue, 17 Nov 2026 03:27:41 -0800 (PST)
+Received: from [10.211.55.3] (unknown [10.57.17.180])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3C58E3F763;
+	Tue, 17 Nov 2026 03:27:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794914864; bh=wxm/pQ0TSfOIpKm/JkaGWTEZFuZFN7dePl8WMJMCSlo=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=jKpgPEMOTXZuOWIKE+2wS8YuMBB5DffMJ+fpzA2tTs1RApaXEjTKDHlfy7+BtRsCg
+	 E0IPEjakKpBx3digU2vtbndzCPRG53ShrY0+k4DKoUgt1mWMm1jKGWZi7KqBzRvkou
+	 vEO7foeQpHnDm0qSip1l7a8JBDHoCOzi+TxFfblg=
+Message-ID: <a7dc44ee-cf2c-4e2a-9953-4f8ffeffda60@arm.com>
+Date: Tue, 17 Nov 2026 11:27:39 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,152 +53,463 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP265MB6051:EE_|LO2P265MB5398:EE_
-X-MS-Office365-Filtering-Correlation-Id: 33c471ba-ad06-4034-6283-08df449dc13a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|10070799003|1800799024|366016|376014|7416014|6133799003|22082099003|18002099003|261009223027099003|56012099006|261102123227099003|261028144727099003|261026140227099003|261021121427099003|261022105027099003|261026121527099003|261021123027099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	wdTIk00QNd+5VYTyH39tztjkSZ1z3e47kS8fewXe2rmw1xXJmIBlr9u6x/o8PK4MQ3uocPyieUGGNa4YM2DAFjoQ/j2NZCQwK8j/qBVpgfFoAURXAL6l9PJK7yNIOxgDhLrhrLweNirPa5qykS9nj8/5i1gFq9MQlewdNV9QkEYI836AomWrSn9j11y2K4QbaG1AJpIRUefn/U1jn3PJhxgbWjrXcjv6d+7KppVJnBpRfmb6aCsvKFIs7st+GUYF68sFu4NXUwz6c3atrWBmOhpyXRlZ4hZCK785uYEmMSE2NrsYzPHaxFPU795QiGMydMufSq/FK4fTf/3b2X4niHKLf99QZ5ZZpdwGk4RUiS2nWGzZUxr5kxWcnJMpfA7JIugi3rcm9RNkythpqNW5nv6scNTwuq9W8WK+ciWC7Ae2j4xjAaGgDootdPFeT8KEgOHibEwSEYQP7Z+bGID7p+/cjilyxyaPvErJM8EnYaMG+6WT3/QPOxfMOj8mE+wTfHyuRkCMv/b2YJsWYNhEqPaG3gaZaKjzerOUqiD6btCEDM3DSqopgjtJiMVeQAzEfFHIKNBMhbNiKkPT4Ip36xgANyvDjnKwxf8l5jdyNPcbvDY7zRXXy7cTPFQyrSVytMuxUD9iof5jd1dZ83VarrV+Pt/9AOm8C39qKIjJkfU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(1800799024)(366016)(376014)(7416014)(6133799003)(22082099003)(18002099003)(261009223027099003)(56012099006)(261102123227099003)(261028144727099003)(261026140227099003)(261021121427099003)(261022105027099003)(261026121527099003)(261021123027099003)(10067099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UElrVmxRNlg3SUYwLzR2TWY2ZzhFa3pRU0EyWDI1TGFVS2ZyamdSQ210aGpE?=
- =?utf-8?B?TUtHUWU3ZGFrK1krZS9DVW90ZjFwQTByUWRyTU9UVmpKbkw0aEFuRmJFZTJX?=
- =?utf-8?B?cFNJQ2FmNG9LQWtYcU1lV0MzYlBGUnQyL1ZUZmtyTElFNS9oc1pORlZXNmho?=
- =?utf-8?B?MXpwaUw1SnpuQlpKemI0eUdaczhoR2VIUUh3ek00VzBIVHRZTnFyeVdEcmJG?=
- =?utf-8?B?RCt2QmtDVXUrbUlHQlpqOGJLYVpFYWxQeDJsaEtnNHovYTNJMkhsRHNoblNU?=
- =?utf-8?B?NjVUTHAxVmltTERRQVVJWWplL1EzdkdVWUk0NFY2WlF1Q0NBVGdwUklyTUFs?=
- =?utf-8?B?R003TnhIeUVQQXdpRzNHc0F1YzB2dTFrdHhVSnhDNkk4ZHpuOERVNnlKMTNp?=
- =?utf-8?B?MlFmZW5FWXliUk9lRDNGWnBCb1JKQVEzaTVDckYrRVQrSVdkOVRXbUo4aGxD?=
- =?utf-8?B?S2Qrc3lJRmpKTjRnV3JQeVRjdXN2aVJvR3BraGZTRVlaaHRnR0tsa2NINjIz?=
- =?utf-8?B?OXlaWWhtT21iOGM4MXNJU21qRlN3cEwrcFlBVlpvWFJhdC95TWgyaHk0eDVX?=
- =?utf-8?B?bVB1SnFSK3k5emZUaUFBMU0rKzFrUDBkcUtmUS9MUEJ0QjZwVEMxdG9vQ2dV?=
- =?utf-8?B?Mk8rcU1QbXBkVXVVUGdSZ3JXbFhqd25rbDJnYTlIK3R6MHYwUkE3TTZBOEdQ?=
- =?utf-8?B?YXJBYVVKK2RPaXVnamQyeWN6Q25CZkN3OEdYK2VmWWMrRTU2Z05OWDhvSW5q?=
- =?utf-8?B?VGFDMTFqcmRneUpKWC9sa2E3TVFQOUlvWUVPdkM1WXUzMnJkMVhJeUdpVmQw?=
- =?utf-8?B?dTk0bEZRZkRyMjBiZHdtSGZmQ0wwOUZPMUdNOUJmcFBPZWMyM0QrenpWbWww?=
- =?utf-8?B?dUZFcUswckYvZjBkbjZWMzlMOHIxNFdYQ295a0t4M281MERrZlVtNGdRdHY0?=
- =?utf-8?B?WXdTbE5YMVdPYUJXbi9EazFTSjliZ0pVM1hGbi83cjk2NnlXNlVyRWgycFIv?=
- =?utf-8?B?Yi9jMStLYmU4d04rRXJ2VGRpeUdXcUZlQjVodGpWaThtdXVHTC9ZUnV6dmI4?=
- =?utf-8?B?ZytVc1BxM1VkdU9sTlpkVG9YVXUvUXlDaWpXSEJEdDZXc2RkWW5Kd0pRbzhJ?=
- =?utf-8?B?VHRuWlE5N3RUWFJzY0VnU3g4WEtISklLeU9VOUI4RG5VWVgzZVJnK0U5RkxV?=
- =?utf-8?B?RUhTdFlLcXd6N3VKNmxPempZRURwUGdpRkZ3WURrSGt0TTZ0U3FmcVJHdTJU?=
- =?utf-8?B?clFsTFZhWkErbUhJaVExQ0lJVGxMOHhabHQrRmVLYkpEeHhJTEJvWjY0YWRT?=
- =?utf-8?B?Z1Bna0Y3WVl0UnlTeWpodGxROTUxSHhLNFNkWjd5c1VRSGk4MWhqT3loSUds?=
- =?utf-8?B?UEFva1pGU0dXcEU1Rlk3dFZ1SzZINWtBT2sxaW55M3M4czBzRXJTTThkcXVU?=
- =?utf-8?B?UThKU2p0U3dzMGFVNDJYSUhjQnlnb2J6d1JOQ0R5UG9WYXVZYVB6cldRNUVh?=
- =?utf-8?B?YTZQVzZwSmlEU0R3NXBFSGJ1TFpuQjJ6SzUxdW03MEdTQ2JlNEo5MkxqaExM?=
- =?utf-8?B?eElGNEtnSHFZVktNVTF1WVdJcmZsMndLQ3RJYVpVcEQyY2R2LzlrRWd4Wm1o?=
- =?utf-8?B?LzJsN0hDNWdtVGRISXk0azY2cUxNUUpkMlZTY0NXVFkzME54R0lBanFLVmJm?=
- =?utf-8?B?R1A1YVhFTVdjN3FrZ3FlSUcrN0EvbE1MNzJVbEd4ZHZsaXREVm1hdmtjQTRB?=
- =?utf-8?B?Yi9FZ21IcHJXWHBJdmZQdlJJOHJ3V29yR2xZZFB6eGZWSDgwOVdLTXN5ZWZt?=
- =?utf-8?B?Szd6UkdYUFg3Q2JIUG9CbUZDWURURW5BZFRncFl3ZEFrVTkrQ0h5NW9nQ1lR?=
- =?utf-8?B?SFpoV2NJbTMvbFRicGlCRDNsblNpaTZvTHVVVHZOYlphWmFVRDNPeWZpTEtz?=
- =?utf-8?B?THlYanBxMEkwTGFSa1NDcHdjZTdCSmxXbzJEb1AvaXJRMjlvSGVDcFJCRHpO?=
- =?utf-8?B?TkNNUDBCUUtIZHVaSGVMYU9yQlBBUGsvQVQyVWlGcE5zYk9RVWdlYk9zQU4r?=
- =?utf-8?B?YXNIam9sblZsYUVESFVxTHdpZDVRdnRwR2w5amRUNGd6ZUxGSGFsZmcxSmts?=
- =?utf-8?B?OW9NUWxPUVVjN2RrMVdzNFZrSVBxZ1ZVZXpHb2E4NVZwV3ppa1RhWlhNT2dt?=
- =?utf-8?B?eDVBZkQ5SkJmL0R2ZGgyOUpHYlJVNXdpRWhQNkdQWDJZaWxzZVJBaVRVelVy?=
- =?utf-8?B?V2N2bVY4THIrenU1bEFBZUhTOENFc1hnZStPMFE2M2dtZXVhRllueG1YZ3RP?=
- =?utf-8?B?Yi9TYm1EaHdjQXVSamNGN2RUNE94dE55NldjVW9sZ2QxTHdzWGVOQT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33c471ba-ad06-4034-6283-08df449dc13a
-X-MS-Exchange-CrossTenant-AuthSource: CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 11:27:25.4017
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: O/vGon87mDkK0cB1/FFymHlWo24fSIr+qla8UiH1M/vV3mRKsNA/zvQkHoNCrce+1VfCKeanmTEHKoucsWGicw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB5398
+User-Agent: Thunderbird Daily
+Subject: Re: [PATCH v2 1/2] arm_mpam: resctrl: Use the domain's counter ID
+To: tizi4590 <ruanjinjie@huawei.com>, james.morse@arm.com,
+ reinette.chatre@intel.com, fenghuay@nvidia.com, tony.luck@intel.com,
+ Dave.Martin@arm.com, babu.moger@amd.com, will@kernel.org, jic23@kernel.org,
+ gshan@redhat.com, bp@alien8.de, x86@kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261113083506.4129060-1-ruanjinjie@huawei.com>
+ <20261113083506.4129060-2-ruanjinjie@huawei.com>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <20261113083506.4129060-2-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue Nov 17, 2026 at 9:47 AM GMT, Peder Bergan via B4 Relay wrote:
-> From: Peder Bergan <peder.bergan@gmail.com>
->
-> Formatter::new() returns a Formatter whose lifetime is independent of the
-> borrow of its backing buffer. Safe code can therefore drop the buffer and
-> then write through the formatter, causing a use-after-free.
->
-> Tie the buffer borrow to the formatter's lifetime so that the borrow
-> checker rejects such callers and prevents overlapping mutable access.
-> Add a doctest showing formatting into a borrowed buffer.
->
-> Fixes: 87482d6d9104 ("rust: str: allow `str::Formatter` to format into `&=
-mut [u8]`.")
-> Cc: stable@vger.kernel.org
-> Reported-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
-> Closes: https://github.com/Rust-for-Linux/linux/issues/1261
-> Signed-off-by: Peder Bergan <peder.bergan@gmail.com>
+Hi Jinjie,
+
+On 13/11/2026 08:35, tizi4590 wrote:
+> From: Jinjie Ruan <ruanjinjie@huawei.com>
+> 
+> resctrl assigns MBM counters per domain: mbm_L3_assignments takes a
+> domain ID, a group can have a counter in one domain and none in
+> another, and resctrl_arch_cntr_read() and resctrl_arch_reset_cntr()
+> are given the counter to use.
+> 
+> The driver ignores that counter and looks the monitor up in
+> mbwu_idx_to_mon[], indexed by CLOSID and RMID.
+> resctrl_arch_config_cntr() fills that array without looking at the
+> domain, so each group has one monitor for the whole resource.
+> Whichever assignment is written last selects the monitor the group
+> reads in every domain.
+
+For me, this scenario where we read the wrong counter to be the most
+serious bug in the MPAM driver I currently know about. Thanks for
+addressing it.
+
+> 
+> For example, with the counter ID each group uses for mbm_total_bytes
+> on each domain and "_" for none:
+> 
+>                                 domain 0         domain 1
+>   mount, mkdir g1               default=0 g1=1   default=0 g1=1
+>   unassign both on domain 1     default=0 g1=1   default=_ g1=_
+>   assign g1 on domain 1         default=0 g1=1   default=_ g1=0
+> 
+> g1 is assigned the lowest free counter on domain 1, counter 0. That
+> assignment is the last one written for g1, so it selects the monitor
+> g1 reads in every domain. On domain 0, g1 uses counter 1, but reads
+> the monitor of counter 0:
+> 
+>                       counter whose monitor is read on domain 0
+>                       default      g1
+>   expected            0            1
+>   actual              0            0
+> 
+> That is the default group's monitor.
+> 
+> Translate the counter ID with assigned_counters[], which maps a counter
+> ID to a monitor of the class and is valid in every domain, 
+
+Ok, sounds reasonable.
+
+and drop
+> mbwu_idx_to_mon[] with the lookups in __read_mon() and __reset_mon().
+
+mbwu_idx_to_mon[] does become unused but if we want to ever support the
+default mbm_assign_mode then it may become used. A little more on this
+below but this can be considered separately from the bug fix.
+
+> With nothing left to record, resctrl_arch_config_cntr() only resets the
+> monitors of a counter when it is assigned.
+
+Isn't this a separate optimization?
+
+> 
+> Nothing consumes USE_PRE_ALLOCATED, the marker that triggered those
+> lookups, once they are gone. resctrl only allocates a monitor context
+> for an MBM event when resctrl_arch_mbm_cntr_assign_enabled() reports
+> false, and this driver always reports true for the L3, so the MBM
+> events are always read as assigned counters. Remove the marker, and
+> the MBM cases of resctrl_arch_mon_ctx_alloc_no_wait() that returned it.
+
+True but this is a separate, benign, issue with the code.
+resctrl_arch_mon_ctx_alloc() is only called for mbm counters when
+mbm_assign_mode is default rather than mbm_event. In MPAM, we currently
+only support the mbm_event mode, assigning counters. Crossing threads,
+but you had an rfc for supporting the software controller on MPAM wher
+using the default mbm_assign_mode can be considered. Regardless, please
+can you keep the changes in this patch only to those addressing the
+particular bug and other changes can be considered as separate patches.
+
+> 
+> Fixes: a5ff6ef2d73e ("arm_mpam: resctrl: Add resctrl_arch_cntr_read() & resctrl_arch_reset_cntr()")
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> Cc: <stable@vger.kernel.org>
 > ---
-> I compiled the in-tree callers with Clippy and ran the string tests and
-> kernel doctests under x86_64 QEMU. Three borrowing probes compiled before
-> the fix and failed with the expected borrow-checker errors after it.
-> Rust documentation and formatting checks passed.
->
-> OpenAI Codex assisted with coding and testing.
-> ---
->  rust/kernel/str.rs | 20 ++++++++++++++++++--
->  1 file changed, 18 insertions(+), 2 deletions(-)
->
-> diff --git a/rust/kernel/str.rs b/rust/kernel/str.rs
-> index 644b4279a..6222faacf 100644
-> --- a/rust/kernel/str.rs
-> +++ b/rust/kernel/str.rs
-> @@ -645,7 +645,7 @@ impl fmt::Write for RawFormatter {
->  /// Fails if callers attempt to write more than will fit in the buffer.
->  pub struct Formatter<'a>(RawFormatter, PhantomData<&'a mut ()>);
-> =20
-> -impl Formatter<'_> {
-> +impl<'a> Formatter<'a> {
->      /// Creates a new instance of [`Formatter`] with the given buffer.
->      ///
->      /// # Safety
-> @@ -658,7 +658,23 @@ impl Formatter<'_> {
->      }
-> =20
->      /// Create a new [`Self`] instance.
-> -    pub fn new(buffer: &mut [u8]) -> Self {
-> +    ///
-> +    /// The formatter exclusively borrows `buffer` for its lifetime.
-> +    ///
-> +    /// # Examples
-> +    ///
-> +    /// ```
-> +    /// use kernel::fmt::Write as _;
-> +    /// use kernel::str::Formatter;
-> +    ///
-> +    /// let mut buffer =3D [0; 4];
-> +    /// let mut formatter =3D Formatter::new(&mut buffer);
-> +    /// formatter.write_str("test")?;
-> +    /// assert_eq!(formatter.bytes_written(), 4);
-> +    /// assert_eq!(&buffer, b"test");
-> +    /// # Ok::<(), kernel::error::Error>(())
-> +    /// ```
+>  drivers/resctrl/mpam_internal.h |  15 ---
+>  drivers/resctrl/mpam_resctrl.c  | 195 ++++++++++++--------------------
+>  2 files changed, 71 insertions(+), 139 deletions(-)
+> 
+> diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
+> index 1f86cc158100..e1348d958d05 100644
+> --- a/drivers/resctrl/mpam_internal.h
+> +++ b/drivers/resctrl/mpam_internal.h
+> @@ -30,14 +30,6 @@ struct platform_device;
+>  #define PACKED_FOR_KUNIT
+>  #endif
+>  
+> -/*
+> - * This 'mon' values must not alias an actual monitor, so must be larger than
+> - * U16_MAX, but not be confused with an errno value, so smaller than
+> - * (u32)-SZ_4K.
+> - * USE_PRE_ALLOCATED is used to avoid confusion with an actual monitor.
+> - */
+> -#define USE_PRE_ALLOCATED	(U16_MAX + 1)
+> -
+>  static inline bool mpam_is_enabled(void)
+>  {
+>  	return static_branch_likely(&mpam_enabled);
+> @@ -309,10 +301,6 @@ enum mon_filter_options {
+>  };
+>  
+>  struct mon_cfg {
+> -	/*
+> -	 * mon must be large enough to hold out of range values like
+> -	 * USE_PRE_ALLOCATED
+> -	 */
+>  	u32			mon;
+>  	u8			pmg;
+>  	bool			match_pmg;
+> @@ -455,9 +443,6 @@ struct mpam_resctrl_res {
+>  struct mpam_resctrl_mon {
+>  	struct mpam_class	*class;
+>  
+> -	/* Array of allocated MBWU monitors, indexed by (closid, rmid). */
+> -	int			*mbwu_idx_to_mon;
+> -
+>  	/* Array of assigned MBWU monitors, indexed by resctrl's cntr_id. */
+>  	int			*assigned_counters;
+>  };
+> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+> index b28c5c04a87c..05c1bf97c43d 100644
+> --- a/drivers/resctrl/mpam_resctrl.c
+> +++ b/drivers/resctrl/mpam_resctrl.c
+> @@ -397,20 +397,13 @@ static int resctrl_arch_mon_ctx_alloc_no_wait(enum resctrl_event_id evtid)
+>  {
+>  	struct mpam_resctrl_mon *mon = &mpam_resctrl_counters[evtid];
+>  
+> -	if (!mpam_is_enabled())
+> -		return -EINVAL;
+> -
+> -	if (!mon->class)
+> +	if (!mpam_is_enabled() || !mon->class)
+>  		return -EINVAL;
 
-Please split the doc change to a separate commit and leave fix as a fix onl=
-y.
+I don't see any reason for this refactoring.
 
-Best,
-Gary
+>  
+> -	switch (evtid) {
+> -	case QOS_L3_OCCUP_EVENT_ID:
+> +	if (evtid == QOS_L3_OCCUP_EVENT_ID) {
+>  		/* With CDP, one monitor gets used for both code/data reads */
+>  		return mpam_alloc_csu_mon(mon->class);
+> -	case QOS_L3_MBM_LOCAL_EVENT_ID:
+> -	case QOS_L3_MBM_TOTAL_EVENT_ID:
+> -		return USE_PRE_ALLOCATED;
+> -	default:
+> +	} else {
+>  		return -EOPNOTSUPP;
+>  	}
+>  }
+> @@ -464,9 +457,15 @@ void resctrl_arch_mon_ctx_free(struct rdt_resource *r,
+>  	resctrl_arch_mon_ctx_free_no_wait(evtid, mon_idx);
+>  }
+>  
+> -static int __read_mon(struct mpam_resctrl_mon *mon, struct mpam_component *mon_comp,
+> -		      enum mpam_device_features mon_type,
+> -		      int mon_idx,
+> +/* The monitor resctrl's counter @cntr_id uses for @cdp_type. */
+> +static int mon_for_cntr(struct mpam_resctrl_mon *mon, int cntr_id,
+> +			enum resctrl_conf_type cdp_type)
+> +{
+> +	return mon->assigned_counters[resctrl_get_config_index(cntr_id, cdp_type)];
+> +}
+> +
+> +static int __read_mon(struct mpam_component *mon_comp,
+> +		      enum mpam_device_features mon_type, int mon_idx,
+>  		      enum resctrl_conf_type cdp_type, u32 closid, u32 rmid, u64 *val)
+>  {
+>  	struct mon_cfg cfg;
+> @@ -477,14 +476,6 @@ static int __read_mon(struct mpam_resctrl_mon *mon, struct mpam_component *mon_c
+>  	/* Shift closid to account for CDP */
+>  	closid = resctrl_get_config_index(closid, cdp_type);
+>  
+> -	if (mon_idx == USE_PRE_ALLOCATED) {
+> -		int mbwu_idx = resctrl_arch_rmid_idx_encode(closid, rmid);
+> -
+> -		mon_idx = mon->mbwu_idx_to_mon[mbwu_idx];
+> -		if (mon_idx == -1)
+> -			return -ENOENT;
+> -	}
+> -
+>  	if (irqs_disabled()) {
+>  		/* Check if we can access this domain without an IPI */
+>  		return -EIO;
+> @@ -500,32 +491,6 @@ static int __read_mon(struct mpam_resctrl_mon *mon, struct mpam_component *mon_c
+>  	return mpam_msmon_read(mon_comp, &cfg, mon_type, val);
+>  }
+>  
+> -static int read_mon_cdp_safe(struct mpam_resctrl_mon *mon, struct mpam_component *mon_comp,
+> -			     enum mpam_device_features mon_type,
+> -			     int mon_idx, u32 closid, u32 rmid, u64 *val)
+> -{
+> -	if (cdp_enabled) {
+> -		u64 code_val = 0, data_val = 0;
+> -		int err;
+> -
+> -		err = __read_mon(mon, mon_comp, mon_type, mon_idx,
+> -				 CDP_CODE, closid, rmid, &code_val);
+> -		if (err)
+> -			return err;
+> -
+> -		err = __read_mon(mon, mon_comp, mon_type, mon_idx,
+> -				 CDP_DATA, closid, rmid, &data_val);
+> -		if (err)
+> -			return err;
+> -
+> -		*val = code_val + data_val;
+> -		return 0;
+> -	}
+> -
+> -	return __read_mon(mon, mon_comp, mon_type, mon_idx,
+> -			  CDP_NONE, closid, rmid, val);
+> -}
+> -
+>  /* MBWU when not in ABMC mode (not supported), and CSU counters. */
+>  int resctrl_arch_rmid_read(struct rdt_resource *r, struct rdt_domain_hdr *hdr,
+>  			   u32 closid, u32 rmid, enum resctrl_event_id eventid,
+> @@ -553,13 +518,31 @@ int resctrl_arch_rmid_read(struct rdt_resource *r, struct rdt_domain_hdr *hdr,
+>  
+>  	mon_type = mpam_feat_msmon_csu;
+>  
+> -	return read_mon_cdp_safe(mon, mon_comp, mon_type, mon_idx,
+> -				 closid, rmid, val);
+> +	if (cdp_enabled) {
+> +		u64 code_val = 0, data_val = 0;
+> +		int err;
+> +
+> +		err = __read_mon(mon_comp, mon_type, mon_idx,
+> +				 CDP_CODE, closid, rmid, &code_val);
+> +		if (err)
+> +			return err;
+> +
+> +		err = __read_mon(mon_comp, mon_type, mon_idx,
+> +				 CDP_DATA, closid, rmid, &data_val);
+> +		if (err)
+> +			return err;
+> +
+> +		*val = code_val + data_val;
+> +		return 0;
+> +	}
+> +
+> +	return __read_mon(mon_comp, mon_type, mon_idx,
+> +			  CDP_NONE, closid, rmid, val);
 
-> +    pub fn new(buffer: &'a mut [u8]) -> Self {
->          // SAFETY: `buffer` is valid for writes for the entire length fo=
-r
->          // the lifetime of `Self`.
->          unsafe { Formatter::from_buffer(buffer.as_mut_ptr(), buffer.len(=
-)) }
->
-> ---
-> base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
-> change-id: 20261117-formatter-lifetime-48391ed7affd
->
-> Best regards,
-> -- =20
-> Peder Bergan <peder.bergan@gmail.com>
 
+What am I missing? Aren't you just copying the contents of
+read_mon_cdp_safe()?
+
+Thanks,
+
+Ben
+
+>  }
+>  
+>  /* MBWU counters when in ABMC mode */
+>  int resctrl_arch_cntr_read(struct rdt_resource *r, struct rdt_l3_mon_domain *d,
+> -			   u32 closid, u32 rmid, int mon_idx,
+> +			   u32 closid, u32 rmid, int cntr_id,
+>  			   enum resctrl_event_id eventid, u64 *val)
+>  {
+>  	struct mpam_resctrl_mon *mon = &mpam_resctrl_counters[eventid];
+> @@ -575,43 +558,38 @@ int resctrl_arch_cntr_read(struct rdt_resource *r, struct rdt_l3_mon_domain *d,
+>  	l3_dom = container_of(d, struct mpam_resctrl_dom, resctrl_mon_dom);
+>  	mon_comp = l3_dom->mon_comp[eventid];
+>  
+> -	return read_mon_cdp_safe(mon, mon_comp, mpam_feat_msmon_mbwu,
+> -				 USE_PRE_ALLOCATED, closid, rmid, val);
+> -}
+> -
+> -static void __reset_mon(struct mpam_resctrl_mon *mon, struct mpam_component *mon_comp,
+> -			int mon_idx,
+> -			enum resctrl_conf_type cdp_type, u32 closid, u32 rmid)
+> -{
+> -	struct mon_cfg cfg = { };
+> -
+> -	if (!mpam_is_enabled())
+> -		return;
+> +	if (cdp_enabled) {
+> +		u64 code_val = 0, data_val = 0;
+> +		int err;
+>  
+> -	/* Shift closid to account for CDP */
+> -	closid = resctrl_get_config_index(closid, cdp_type);
+> +		err = __read_mon(mon_comp, mpam_feat_msmon_mbwu,
+> +				 mon_for_cntr(mon, cntr_id, CDP_CODE),
+> +				 CDP_CODE, closid, rmid, &code_val);
+> +		if (err)
+> +			return err;
+>  
+> -	if (mon_idx == USE_PRE_ALLOCATED) {
+> -		int mbwu_idx = resctrl_arch_rmid_idx_encode(closid, rmid);
+> +		err = __read_mon(mon_comp, mpam_feat_msmon_mbwu,
+> +				 mon_for_cntr(mon, cntr_id, CDP_DATA),
+> +				 CDP_DATA, closid, rmid, &data_val);
+> +		if (err)
+> +			return err;
+>  
+> -		mon_idx = mon->mbwu_idx_to_mon[mbwu_idx];
+> +		*val = code_val + data_val;
+> +		return 0;
+>  	}
+>  
+> -	if (mon_idx == -1)
+> -		return;
+> -	cfg.mon = mon_idx;
+> -	mpam_msmon_reset_mbwu(mon_comp, &cfg);
+> +	return __read_mon(mon_comp, mpam_feat_msmon_mbwu,
+> +			  mon_for_cntr(mon, cntr_id, CDP_NONE),
+> +			  CDP_NONE, closid, rmid, val);
+>  }
+>  
+> -static void reset_mon_cdp_safe(struct mpam_resctrl_mon *mon, struct mpam_component *mon_comp,
+> -			       int mon_idx, u32 closid, u32 rmid)
+> +/* Reset the monitor resctrl's counter @cntr_id uses for @cdp_type. */
+> +static void __reset_mon(struct mpam_resctrl_mon *mon, struct mpam_component *mon_comp,
+> +			int cntr_id, enum resctrl_conf_type cdp_type)
+>  {
+> -	if (cdp_enabled) {
+> -		__reset_mon(mon, mon_comp, mon_idx, CDP_CODE, closid, rmid);
+> -		__reset_mon(mon, mon_comp, mon_idx, CDP_DATA, closid, rmid);
+> -	} else {
+> -		__reset_mon(mon, mon_comp, mon_idx, CDP_NONE, closid, rmid);
+> -	}
+> +	struct mon_cfg cfg = { .mon = mon_for_cntr(mon, cntr_id, cdp_type) };
+> +
+> +	mpam_msmon_reset_mbwu(mon_comp, &cfg);
+>  }
+>  
+>  /* Reset an assigned counter */
+> @@ -632,7 +610,12 @@ void resctrl_arch_reset_cntr(struct rdt_resource *r, struct rdt_l3_mon_domain *d
+>  	l3_dom = container_of(d, struct mpam_resctrl_dom, resctrl_mon_dom);
+>  	mon_comp = l3_dom->mon_comp[eventid];
+>  
+> -	reset_mon_cdp_safe(mon, mon_comp, USE_PRE_ALLOCATED, closid, rmid);
+> +	if (cdp_enabled) {
+> +		__reset_mon(mon, mon_comp, cntr_id, CDP_CODE);
+> +		__reset_mon(mon, mon_comp, cntr_id, CDP_DATA);
+> +	} else {
+> +		__reset_mon(mon, mon_comp, cntr_id, CDP_NONE);
+> +	}
+>  }
+>  
+>  /*
+> @@ -1170,22 +1153,6 @@ static void mpam_resctrl_pick_counters(void)
+>  	}
+>  }
+>  
+> -static void __config_cntr(struct mpam_resctrl_mon *mon, u32 cntr_id,
+> -			  enum resctrl_conf_type cdp_type, u32 closid, u32 rmid,
+> -			  bool assign)
+> -{
+> -	/* Same CDP index remap as closid; maps cntr_id to assigned_counters[]. */
+> -	u32 mbwu_idx, mon_idx = resctrl_get_config_index(cntr_id, cdp_type);
+> -
+> -	closid = resctrl_get_config_index(closid, cdp_type);
+> -	mbwu_idx = resctrl_arch_rmid_idx_encode(closid, rmid);
+> -
+> -	if (assign)
+> -		mon->mbwu_idx_to_mon[mbwu_idx] = mon->assigned_counters[mon_idx];
+> -	else
+> -		mon->mbwu_idx_to_mon[mbwu_idx] = -1;
+> -}
+> -
+>  void resctrl_arch_config_cntr(struct rdt_resource *r, struct rdt_l3_mon_domain *d,
+>  			      enum resctrl_event_id evtid, u32 rmid, u32 closid,
+>  			      u32 cntr_id, bool assign)
+> @@ -1197,19 +1164,13 @@ void resctrl_arch_config_cntr(struct rdt_resource *r, struct rdt_l3_mon_domain *
+>  		return;
+>  	}
+>  
+> -	if (!mon->mbwu_idx_to_mon || !mon->assigned_counters) {
+> -		pr_debug("monitor arrays not allocated\n");
+> +	if (!mon->assigned_counters) {
+> +		pr_debug("monitor array not allocated\n");
+>  		return;
+>  	}
+>  
+> -	if (cdp_enabled) {
+> -		__config_cntr(mon, cntr_id, CDP_CODE, closid, rmid, assign);
+> -		__config_cntr(mon, cntr_id, CDP_DATA, closid, rmid, assign);
+> -	} else {
+> -		__config_cntr(mon, cntr_id, CDP_NONE, closid, rmid, assign);
+> -	}
+> -
+> -	resctrl_arch_reset_cntr(r, d, closid, rmid, cntr_id, QOS_L3_MBM_TOTAL_EVENT_ID);
+> +	if (assign)
+> +		resctrl_arch_reset_cntr(r, d, closid, rmid, cntr_id, evtid);
+>  }
+>  
+>  static int mpam_resctrl_control_init(struct mpam_resctrl_res *res)
+> @@ -1296,25 +1257,16 @@ static int mpam_resctrl_pick_domain_id(int cpu, struct mpam_component *comp)
+>  static int mpam_resctrl_monitor_init_abmc(struct mpam_resctrl_mon *mon)
+>  {
+>  	struct mpam_resctrl_res *res = &mpam_resctrl_controls[RDT_RESOURCE_L3];
+> -	size_t num_rmid = resctrl_arch_system_num_rmid_idx();
+>  	struct rdt_resource *l3 = &res->resctrl_res;
+>  	struct mpam_class *class = mon->class;
+>  	u16 num_mbwu_mon;
+>  	int *cntrs;
+>  
+> -	int *rmid_array __free(kvfree) = kvmalloc_objs(*rmid_array, num_rmid);
+> -	if (!rmid_array) {
+> -		pr_debug("Failed to allocate RMID array\n");
+> -		return -ENOMEM;
+> -	}
+> -	memset(rmid_array, -1, num_rmid * sizeof(*rmid_array));
+> -
+>  	num_mbwu_mon = class->props.num_mbwu_mon;
+>  	cntrs = __alloc_mbwu_array(mon->class, num_mbwu_mon);
+>  	if (IS_ERR(cntrs))
+>  		return PTR_ERR(cntrs);
+>  	mon->assigned_counters = cntrs;
+> -	mon->mbwu_idx_to_mon = no_free_ptr(rmid_array);
+>  
+>  	l3->mon.mbm_cntr_assignable = true;
+>  	l3->mon.mbm_assign_on_mkdir = true;
+> @@ -1943,17 +1895,12 @@ static void mpam_resctrl_teardown_mon(struct mpam_resctrl_mon *mon, struct mpam_
+>  {
+>  	u32 num_mbwu_mon = class->props.num_mbwu_mon;
+>  
+> -	if (!mon->mbwu_idx_to_mon)
+> +	if (!mon->assigned_counters)
+>  		return;
+>  
+> -	if (mon->assigned_counters) {
+> -		__free_mbwu_mon(class, mon->assigned_counters, num_mbwu_mon);
+> -		kvfree(mon->assigned_counters);
+> -		mon->assigned_counters = NULL;
+> -	}
+> -
+> -	kvfree(mon->mbwu_idx_to_mon);
+> -	mon->mbwu_idx_to_mon = NULL;
+> +	__free_mbwu_mon(class, mon->assigned_counters, num_mbwu_mon);
+> +	kvfree(mon->assigned_counters);
+> +	mon->assigned_counters = NULL;
+>  }
+>  
+>  void mpam_resctrl_teardown_class(struct mpam_class *class)
 
