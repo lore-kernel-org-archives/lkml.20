@@ -1,68 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794882586;
-	b=e8GpGujI+ps4dpUHsEb6OXLYFQf9mYS5G221PHkaMqdjv+YrWKORftj/EV23cHjF0xMY
-	 Bp8UEUhYamOmjdlQZD7A0LB8cVGJsnzSqSYbIX5AhlTh46JEA91JwEJNnq/pRR6l3hD5W
-	 37t5RRKouHm3zNUrOt4GDuXp8Ukh6G0liMgvND3No9S2poJbs6ez3DaGEJ46nBCphZ84Q
-	 ZDq6zFpjhIOKhrHUqUNi/8zGpnTFmEYKuxKIneVA3HIFlav6bKhB4jcNyaMIi6cWEKkiq
-	 jbDxOCAMx6jpFOOPos53Hkh1le3RUWkH5vsgO8tbpRr1+Imr38OwxzhlKjPMsgdXJPQ==
+	t=1794882592;
+	b=PWLERvVOmoP+q7uKCYIt4pEkeaLd+3f2RA0b9gMTEOtXEaFagA/1V/Bc9IFUeDkuBnLU
+	 POUMfClA0CZWDghMI0uJXeN3trxN9wBftEHghDceF/Ktkjwgudii9QQpxWOBcjQMO8QMZ
+	 YRksbDW2y7YEMrIw1hmCnChvYJgcU+PmU0xmFVfCGiV3yxQXI/Y9ReolWnlDaA1V7YBVz
+	 /vPYugHNoQ9jhDowvW7Hp9aREfwPc02f/rzBC+65qaAeEvFLBNX4oUF+p4cf4XaTAmAla
+	 BrrkCJ4TXFt3Sxm2UaKQpYwRYf5Q/oUnFiVxbkD9dVmrqjEsEdq8HQe2/WCKp1KIzig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794882586;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Cc:Subject:To:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=4aa33zmn0/LsYRR3Lwsj0J+lh7ZAiwzA90QRHu2kPf4=;
-	b=QwSNPNd4tSJ+qtyGuFbcqMdNFeRXbo7NXXgpYKM5GOlDjuAp4NafqexLrdznzCf4zfKz
-	 hKC2AqbwAXa5Qn7frtTHJ/Io0mmaq6ZfyvWx6BXw+eCFNuiBULjVvLmCef/lAV9cSRIH8
-	 VHeCBxKsuMwmOan1MBDpQ7p5eDBwQ9vLQrM0zMTsFmMwkaPzNI6wAP0feyGTLWkn0tQIP
-	 qhTrsc0V6Ile5T8vDsmkBJuNj/Lw3ArG1U2w/sNWaJyLFTrinxJKu8CPOmrvPdm21fi9s
-	 NQTjYVWp6b2PboOj4c2WxB2tqqY0fJe9428va3zrthsyNCeh+++7vG6jpso2Ml1MLjg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794882592;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=I1NnY1aUEnyj0N2YV2VpV/7pu0yFFtNIfVI4q/uNQmk=;
+	b=ZRw2flp0b9pC2nFDFY23BLVslxxHIELklCydHKrMWUkjvW9ZBjVY3wRJ0RcwzBd2g26B
+	 OV8LqA0GkA2x6tZhqYQyMf0IJKC86jGuYYWey/e4LkD1WMVujuAaB8DJTFylx37sLH2AK
+	 aW2wzNCELst/pAg72Rrp8khA22rwSxHPcyneBrFH+mhDSBCDu0o5EabIh1u1KrogSJIdo
+	 LaL3I/fk/uZsFCWwU8dNoz6W6O3j+tTKWo753Sg0Lp07twbXLZgJbaqZx1C/1P/MhEb/G
+	 7OxShrwzi7AgNSQmWYNnHwvZb2Q9KL2P86fXb7HiV0+5qVToS7eLx2N/dBB5Q//zPKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XeZGaBVT;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TvGEZzEH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E562B606A31C;
-	Tue, 17 Nov 2026 02:29:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E562B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FC06606A330;
+	Tue, 17 Nov 2026 02:29:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XeZGaBVT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794882585; x=1826418585;
-  h=message-id:date:mime-version:cc:subject:to:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=2ZW1fo/wT9YBn3H0pQjxLNsIi0ZgOfFQrdKWxULCaVE=;
-  b=XeZGaBVTXS63jxO0IiFmPXVW009kDvXmj4JPVtTkANxkuzkAvRX1QlSI
-   uJzrp6NcFVjhVZh2B65OpNZpqEzH2asjIdXUPld+OWxgOmIx2LE1M2Fo/
-   o5EED/yuodcf9woQBzK4xn8Oj/DPJID1KqA8BZ03sz4aEJaTxFPyBOPjR
-   r6fhBYWKRALEksYI90iLW7h1Bzlx6kLmb+cqwjsYlIzmmp62lsoHcj5eN
-   Ul675QVj2tVUgxCyhHxPWbZcPQfn1RtOHePaiLl2J/MmbVRWL/qCEf4AC
-   F7myyP0f96C/QEnbcRlePi61HCU+5YaW+o9eqigIehs8JCe1lVpqRjeOr
-   g==;
-X-CSE-ConnectionGUID: uydo5k2mTwuDlZfLp+t8CQ==
-X-CSE-MsgGUID: mYZOw5guT3Cfxt3zVMHjsg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3718656"
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="3718656"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 18:29:45 -0800
-X-CSE-ConnectionGUID: 4wxTypuSToG5eKpXyEilvg==
-X-CSE-MsgGUID: 0VVikp2gQcG2tO5Xky8qrg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="9747442"
-Received: from blu2-mobl.ccr.corp.intel.com (HELO [10.124.249.52]) ([10.124.249.52])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 18:29:40 -0800
-Message-ID: <0a38ae25-3eac-42f6-862e-3dc1d644ab97@linux.intel.com>
-Date: Tue, 17 Nov 2026 10:29:37 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TvGEZzEH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD4771F000C4;
+	Tue, 17 Nov 2026 02:29:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794882592;
+	bh=I1NnY1aUEnyj0N2YV2VpV/7pu0yFFtNIfVI4q/uNQmk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=TvGEZzEHU+YK7myU8eG1QIV0P3CPEqijBPwbgCoeq+/r77R9DFec4r9ST/FRdfWlv
+	 YR50U7jG2ZOfEnrjP/ZJLCxAn7LevmeUv4oDlhu7ULa5GdRl1KrQ1ZQhZNXuPl8oDQ
+	 LbJD9tX2nTmkRwP8PKKth6dC9/X+oFsaoH+R6qNm6UlYxWp5Ejk7OQiOAGDwGiddi3
+	 PP49WS4fIBgufNuEXlrgQjZ62TL/kZNZwEWxovVvquKTaN8IrNtWkTvZD9V9OiXbrU
+	 UKcHw9pzKHCDWwpjnhuxhJdP42rv+j48F2eHTBIJs9r04Z09tIB2pRUIbSIIQQFPyj
+	 nDbp5EpwAm8RA==
+From: SJ Park <sj@kernel.org>
+To: Mattathias Pinchover via B4 Relay <devnull+mattathias.pinchover.uber.com@kernel.org>
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	Mattathias Pinchover <mattathias.pinchover@uber.com>
+Subject: Re: [PATCH 5/6] Docs/admin-guide/mm/damon/usage: update for sz_ops_filter_passed_last
+Date: Mon, 16 Nov 2026 18:29:43 -0800
+Message-ID: <20261117022945.110648-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261116-damon-sz-ops-b4-v1-5-1cffe7227e6d@uber.com>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,127 +67,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: baolu.lu@linux.intel.com, Robin Murphy <robin.murphy@arm.com>,
- Kevin Tian <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>,
- Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
- Pratyush Yadav <pratyush@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- David Matlack <dmatlack@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Pranjal Shrivastava <praan@google.com>, Vipin Sharma <vipinsh@google.com>,
- Ankit Soni <Ankit.Soni@amd.com>, Nicolin Chen <nicolinc@nvidia.com>,
- John Starks <dev@jstarks.net>
-Subject: Re: [PATCH v7 12/18] iommu: Restore and reattach preserved domains to
- devices
-To: Samiullah Khawaja <skhawaja@google.com>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- David Woodhouse <dwmw2@infradead.org>
-References: <20261110040828.1774343-1-skhawaja@google.com>
- <20261110040828.1774343-13-skhawaja@google.com>
-Content-Language: en-US
-From: Baolu Lu <baolu.lu@linux.intel.com>
-In-Reply-To: <20261110040828.1774343-13-skhawaja@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 11/10/2026 12:08 PM, Samiullah Khawaja wrote:
-> During default domain setup, restore the preserved domains by restoring
-> the page tables using restore() iommupt op. Associated the restored
-> domain with the iommu group of the preserved device, and reattach the
-> domain to the device.
+On Mon, 16 Nov 2026 19:10:08 +0000 Mattathias Pinchover via B4 Relay <devnull+mattathias.pinchover.uber.com@kernel.org> wrote:
+
+> From: Mattathias Pinchover <mattathias.pinchover@uber.com>
 > 
-> Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+> Update DAMON usage document for the newly added DAMOS stat file,
+> sz_ops_filter_passed_last.
+> 
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Mattathias Pinchover <mattathias.pinchover@uber.com>
 > ---
->   drivers/iommu/iommu.c            | 115 +++++++++++++++++++++++++++++--
->   drivers/iommu/liveupdate.c       | 106 ++++++++++++++++++++++++++++
->   include/linux/iommu-liveupdate.h |  39 +++++++++++
->   3 files changed, 253 insertions(+), 7 deletions(-)
+>  Documentation/admin-guide/mm/damon/usage.rst | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/Documentation/admin-guide/mm/damon/usage.rst b/Documentation/admin-guide/mm/damon/usage.rst
+> index 6093b1c8fbfd..c0101a68a033 100644
+> --- a/Documentation/admin-guide/mm/damon/usage.rst
+> +++ b/Documentation/admin-guide/mm/damon/usage.rst
+> @@ -105,7 +105,7 @@ comma (",").
+>      │ │ │ │ │ │ │ │ 0/type,matching,allow,memcg_path,addr_start,addr_end,damon_target_idx,min,max
+>      │ │ │ │ │ │ │ :ref:`dests <damon_sysfs_dests>`/nr_dests
+>      │ │ │ │ │ │ │ │ 0/id,weight
+> -    │ │ │ │ │ │ │ :ref:`stats <sysfs_schemes_stats>`/nr_tried,sz_tried,nr_applied,sz_applied,sz_ops_filter_passed,qt_exceeds,nr_snapshots,max_nr_snapshots
+> +    │ │ │ │ │ │ │ :ref:`stats <sysfs_schemes_stats>`/nr_tried,sz_tried,nr_applied,sz_applied,sz_ops_filter_passed,sz_ops_filter_passed_last,qt_exceeds,nr_snapshots,max_nr_snapshots
+
+Too long line.  Could we wrap the line together?  E.g.,
+
+'''
+--- a/Documentation/admin-guide/mm/damon/usage.rst
++++ b/Documentation/admin-guide/mm/damon/usage.rst
+@@ -108,7 +108,10 @@ comma (",").
+     │ │ │ │ │ │ │ │ 0/type,matching,allow,memcg_path,addr_start,addr_end,damon_target_idx,min,max
+     │ │ │ │ │ │ │ :ref:`dests <damon_sysfs_dests>`/nr_dests
+     │ │ │ │ │ │ │ │ 0/id,weight
+-    │ │ │ │ │ │ │ :ref:`stats <sysfs_schemes_stats>`/nr_tried,sz_tried,nr_applied,sz_applied,sz_ops_filter_passed,sz_ops_filter_passed_last,qt_exceeds,nr_snapshots,max_nr_snapshots
++    │ │ │ │ │ │ │ :ref:`stats <sysfs_schemes_stats>`/nr_tried,sz_tried,
++    │ │ │ │ │ │ │     nr_applied,sz_applied,sz_ops_filter_passed,
++    │ │ │ │ │ │ │     sz_ops_filter_passed_last,qt_exceeds,nr_snapshots,
++    │ │ │ │ │ │ │     max_nr_snapshots
+     │ │ │ │ │ │ │ :ref:`tried_regions <sysfs_schemes_tried_regions>`/total_bytes
+     │ │ │ │ │ │ │ │ 0/start,end,nr_accesses,age,sz_filter_passed
+     │ │ │ │ │ │ │ │ │ probes
+'''
+
+Other than this,
+
+Reviewed-by: SJ Park <sj@kernel.org>
+
+
+Thanks,
+SJ
 
 [...]
-
-> +
-> +/**
-> + * iommu_restore_domain() - Restore a preserved domain for a device
-> + * @dev: Target device
-> + * @ser: Serialized device state
-> + *
-> + * Restores or reuses a restored preserved domain for @dev from serialized state
-> + * @ser.
-> + *
-> + * Return: Restored iommu_domain pointer, or ERR_PTR.
-> + */
-> +struct iommu_domain *iommu_restore_domain(struct device *dev,
-> +					  struct iommu_device_ser *ser)
-> +{
-> +	struct iommu_domain_ser *domain_ser;
-> +	struct iommu_flb_obj *flb_obj;
-> +	struct iommu_domain *domain;
-> +	struct pt_iommu *pt;
-> +	int ret;
-> +
-> +	ret = iommu_liveupdate_flb_get_incoming(&flb_obj);
-> +	if (ret)
-> +		return ERR_PTR(ret);
-> +
-> +	mutex_lock(&flb_obj->lock);
-> +
-> +	/* Preserved device should have a preserved domain */
-> +	if (!ser->attachment.domain_phys) {
-> +		domain = ERR_PTR(-EINVAL);
-> +		goto out;
-> +	}
-> +
-> +	domain_ser = phys_to_virt(ser->attachment.domain_phys);
-> +	if (domain_ser->restored_domain) {
-> +		domain = domain_ser->restored_domain;
-> +		goto out;
-> +	}
-> +
-> +	domain_ser->hdr.flags |= IOMMU_SER_FLAG_INCOMING;
-> +	domain = iommu_paging_domain_alloc(dev);
-
-Ah, here it is.
-
-This allocation uses the driver's default. For VT-d, it prefers first-
-stage translation when supported. But the preserved domain may be
-second-stage, for example if it was allocated for dirty tracking or
-nested parent. Would the restore callback then walk the preserved page
-table using the wrong format-specific operations?
-
-> +	if (IS_ERR(domain))
-> +		goto out;
-> +
-> +	pt = iommupt_from_domain(domain);
-> +	if (!pt) {
-> +		iommu_domain_free(domain);
-> +		domain = ERR_PTR(-EOPNOTSUPP);
-> +		goto out;
-> +	}
-> +
-> +	ret = pt->ops->restore(pt, domain_ser);
-> +	if (ret) {
-> +		iommu_domain_free(domain);
-> +		domain = ERR_PTR(ret);
-> +		goto out;
-> +	}
-> +
-> +	domain->domain_ser = domain_ser;
-> +	domain_ser->restored_domain = domain;
-> +
-> +out:
-> +	mutex_unlock(&flb_obj->lock);
-> +	liveupdate_flb_put_incoming(&iommu_flb);
-> +	return domain;
-> +}
-> diff --git a/include/linux/iommu-liveupdate.h b/include/linux/iommu-liveupdate.h
-> index fb1e8efac8ec..68c7ebca25f6 100644
-> --- a/include/linux/iommu-liveupdate.h
-> +++ b/include/linux/iommu-liveupdate.h
-> @@ -99,8 +99,31 @@ static inline void *dev_iommu_restored_state(struct device *dev)
->   	return NULL;
->   }
->   
-Thanks,
-baolu
