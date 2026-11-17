@@ -1,80 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=66.163.186.146
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=66.163.187.148
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794901239;
-	b=VMDgUaNrybaVBtfY83wpZABzDESWkHqPVupqWUCXTPnBZFVbZSx4IVDBzU5W7TEE5Gs4
-	 V7iPaZIzpdc0m5DOhohdERael333NlXVcFg0nUGuCQRO0Ggf+AKbr5UkN49iNnBfdcO6g
-	 6IelhBnU/PSbA6TAPuW6T9MIm1f1480BYkeDmPo+IeO99Pzw157F+2EecbSuQ4X6IrYP6
-	 6dN/OW9yvqpSErCZf9uPNFtBLu0hanKnfnCVt/FmF7BbEFa3ZZew1gM88xJcRnt9vut5M
-	 bQ57rP8C0/EJCT2y9wWi6Ou+Wz2ASUYxK0OF03kjo09+vus4WJV1pThqQ5AA3GuXYyQ==
+	t=1794901278;
+	b=OP7oe+QCegCXhxNlnAR31dWw4ev7SNYSoTCKuWUsyfa2yHHp4K/bSbbvMsvpXrYUtkC0
+	 gc/i5cME6bVXNGno7uKc0ZMvt2YH1DMNdd6HQ0dL/NbCw2ufILVzA11rLrXM9F4BjOZAF
+	 S8adHjvM3gPrq6cE9edWVJTMA1+z2OuaN0mIGs/O3XDil/9Pa6eKzf/1BlOhguKhbnLNT
+	 JhkiV8h1pKs692BLUTiCJEfwX3Om57ov3CK43HDFaXitUuep3sMwscQNR/Gy9y7FcDQ1n
+	 qEuMwAPGJp4jCps/whNuY8EcAP9Cae/FDiDMQp1TwBIliHWULchuk2lK/csin1DnPcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794901239;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794901278;
 	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
 	 X-Sonic-ID:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:From:To:References:Content-Language:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding:X-Mailer;
-	bh=7QTZZxJ6oBMJjqpQPRp+Py0w2EH0x9xs7/5Y92TjoqE=;
-	b=vrL8mh5+UojKcUxZqVuXigmqgbBAme+4M7VIB8Cu4Sjl7wr+Xr2/5rMUYtNVabER1DJY
-	 oljKiZ5EViGX5k/owYlNPiCLXs9BECtsZPzyBzb8O1KqZQ/PWXVaW940Diab5E6Wz/cmT
-	 RSaP2TFl+Z52FqZx9ufq0OnF9h/M2AvpsJwIpr3GPV63p+vfELmBlgMC8FoAhmnsYCSFj
-	 U59o780wOyPaG6DiSQcD0tx69SJDLjgd8dzF//mw0TuslxHAg6eFAnITu3quAMozPzDPn
-	 Etkyg4b7ijofuTJ+KTP0PzTt2R1sAtut4q7oABN28E9qIYMM5FcqDbOcGdjshjRvgiQ==
+	bh=Qhe4FN1GVRRy5hUGDaVSMPIBv2q9WPlzH4LVdF3sItk=;
+	b=X7LkgQSOKaAzGUaMCT4gP57nVey00cV1qTzML6XRXgFgtL5icYFy0aAQ6Cu1OGwcp2ql
+	 j5nbSGd4cmhRc983yLo6La58fybklMsUNbIv5GKlrwNaKtcwwRZ1mwvILHGe5kbXNd+Ag
+	 dwKETrANK5TU86o51Gn7lpA5ouoR2XxoQT1E1tGdW4E3uwPVWt5ExEOUHz5LBFTuCUb43
+	 MxnsBMQGQqgHKI6btTfyGBDTYczQ0MOyrtGyIzXPnLxDT9B1t5oHQ6Oi/xSXg19LYB0EH
+	 vraM41LekVlD6FY3FpzQAKZXhRoeD3dn/Ntv1fHbtuoWAF6M3gepMb1TNp2B2y28x/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=yahoo.com;
 	spf=pass smtp.mailfrom=yahoo.com;
-	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b="K/5yJ8D1";
-	arc=none smtp.remote-ip=66.163.186.146
-Received: from sonic302-20.consmr.mail.ne1.yahoo.com (sonic302-20.consmr.mail.ne1.yahoo.com [66.163.186.146])
+	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=jMZ6HXCP;
+	arc=none smtp.remote-ip=66.163.187.148
+Received: from sonic316-22.consmr.mail.ne1.yahoo.com (sonic316-22.consmr.mail.ne1.yahoo.com [66.163.187.148])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E024606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:40:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E024606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0525606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:41:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0525606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=K/5yJ8D1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794901238; bh=7QTZZxJ6oBMJjqpQPRp+Py0w2EH0x9xs7/5Y92TjoqE=; h=Date:Subject:From:To:References:In-Reply-To:Content-Type:From:Subject:Reply-To:Content-Type; b=K/5yJ8D1TA7Lu0djclkFU9OfXkLd4soLhW7PbizmpWKMwO1Ues+DgSi5h09jlgoozYmFNXnns65gMaVvs4O3mnss/JLZ+MoMAMzWWonlX12aRc0KSlKhP2C/bQuUNCJbeuh+Nv245JnKjNR0U8x3xtoo7943h1ZUY+gcAGooirMToh7epnxxZ5lgzWANvIiiTG/btNiTsRnOopdBCBg97Sgkw7oogSPk8KHebRDx3ZRgT8rBXTYRVEhMx2Ckcyo3pkz2sw8gnwuhAyj++ulSfow7mRPrkfnRTuZApsifPgt0HAEY6YUkUSID465cY7/53zwZHpUT/ack1rd2dG9LNw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794901238; bh=jcPHSMUBEz2QoRD6tFMOSyHC6CpG6HAUXqmAIke2P3G=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=g0qj4CqXftJb1525k70sbhR3sBL8r0i21EqeLZBKtSpcJ76ef8uEwXii8gT8ICcqu2eJ0fL5H4HG2tA1ToMVochuZEgpNxJOJ79IOgRy7dPjsishV+Ft3oKLfB+eD8kId5Nx50KJWLbVURDRtgBOwXdvkVr8DEvyNE7uR6KpULnRUC7bT7yb3px2vERPVTftVtdo+i3Gld0eUm/ATYCK/SRkseAooHSVX7aPfPPQuuR/CGTJmRVwRBh4w/0BxbgjoLGgIVltVQiDI0wtns+6mHsgU4fL0epuGuBsjk4io12W/OqUXb3fdAjre5XELzLSyEVnUIgqEly9duc8bE54RQ==
-X-YMail-OSG: pa9EuVMVM1lNIm9aM8Ncx9eTEFAdWJIyWB.LprcmIKEldvcERW6K84OyG_BIUxO
- BZjmH8c19IP0iRZy.ytJXo8bylUIaDnHptOKvMefhbAihky4q.l2fGaFBH2A04If45yWPgGh.wQc
- AXKUt2zq31xdYtqySNcShf8swUs1HdmRXQ7ZmIikUxcoV5txA.vza5UgiWZ9TSVPfjBGxHr8SRXM
- MsMNjqvqoyPox6HuxCWUHG.VkwQGdVS65YVMfRaVxgQ3bL1PWrruVJjvbQ14MTV6ry4UFRuHMlRz
- lfVvHe5jATkHDnU3Zcevat5LNDlG7m42eha1UnmQi1JBcVtUgHmoifTDYmL2YDozSwVoG4dbgzNO
- tpXAPCRRoqPND_NmJ1Iyg4.VPEmOpodPcV3j1H9VrntgyyHWLj0cDIYdmRqPLsUzTK9WeH31rSZH
- B44xDYSxmAl0kylBotp8G9yYG5iG0g9w2beRy2u9zqjxmGe1fWmi4Ra8cPP80ClFFwXqXIaDaaSF
- YcY18edj2vgwSaa6SFGEeOPs7qto2KjGVDYdK2FXs2n9zhnlT2IhP1eTpeHFr9De4G37OJl59w3e
- the_DhnrLtkB8JiORiLjzHm5iTEiIGf2.Q28P5udZSyE7EFYqqvoKgAWC9AQ0vjbstj9aNv8J76Q
- JyKSoAPV_4xS8oX8sCgzWzShKwVNIJgU.Ru0r4Pbru_8ll_dzQ4zhNtctwH61I0nZY98nOlprtuV
- y6HZKSpLkaS.zCKU9NQb8mnfvypF5KH1HtaLlpONjwo1o5Zc.Zt44Kn9HbYjKNLopX_pdWzdw.9C
- 29XVMiT2S9yHNbbbyDqScnhztT.nNjEgLS9NN.NGvuxPT.9nccaL6SG6Qq2PcNga5jR_WBnPMIyY
- yxdh0WOTw5F.oEZ_189NOaFKB3wUUa49oaPYxwyGIx9bN9IG9ydaic.lqoC3pPWHez_y.EtS75Xy
- ykLeBvjwUHP1KAssqPGjC5IoKezvZBcyEQ9sEXo2zOPfcIYiiDvpL1OgDGrDOs1iHK3fg1aLAqf0
- rbC3wUcCnSESQm6hMppzH2Jxo.WIRRoljeNVbfw97mvnsNjP8ElnXEq3RpGN_OQmSUPAqWFq7fpI
- kr9vXTz8gQHnce_M69XUXHnEg5_pJVFlY3GKn0E2c6iQy2p93ot31Acy3N4J75fY23bsJOx0G4yK
- uG4qyvu8Fir8VB5Hnkwr8Kn9nieI5D6OlgfRHg9TqQxC4JVZ_06qDr0xJfLCTGJxaSyVBsxYHp5D
- gtsvzmTeNHJPXiJMEFKI.3.qdLjdF5iJGxa0H7jI07HZOmmBwN1HNSuE7WkMmcD82kzcMprhGN73
- e.iqgyKzkjnGOrK4WQs9tv9.IDyR7Sm2ptaKjyALlPsaFa3h1asRxrJ8QvxXKeIUf0eus5F90Cdj
- agojNZjUSOGc74rW71ydxIWmm29P8hReL5UBDr_FGdq51KmVyYXgFHGRVBWXqxtAfGCioyGSg_G0
- OOkwWUnk0Oied34fP6LgR_K62ZWkx1sfRM5jPxRQ9oG_VJDicGUu1Hcea5f8rrIgmhI5t7ekOoIk
- c29eY4CXJvs_PUnkWBYJWcwJlZGOzgZzQTOxtKaBeRn5XC0y1pl8dMjAhNduo1U.GkEBGPj44e0Q
- mUpjSTpmirm3OgpofkxPdnTs3OGSCcyE_rkNHWC1Pfw67.bS5H3ImsbMZTNjOcLtZBRyQYQIJ0VP
- w.6kc4zoRk02yKNo6ms1G6yX.E4wUH8wkyMtE_VP0y3RnGaf0mMGDX8uYwNQO.2lcsmxqM3T8.ov
- 4sJ2UV79zWQBVoikgpmRa81Q6qx_9MzDBBEGRLIKjzKqCtlNm5_tZI84ubIXvS3rOEsjHXtot5tw
- YxSKEqVjzpWV552FkyhCvMLX2wNwtsa1KGGENAXMMkaml5YreNjlU4yZOQQnlLcJP5UBdK0ETiQF
- .IajPkseHZRp1xnyPSKaNsT.uMVSYgs5ZujPfCJ5RZVdrC5UkmKuz3k3b6Nnzs5URNlDXI4Cap3j
- EVGTNgcdQo8bx2_iNjTQijac6en1_7Qs.1ZRF1gYL8Hnk3UbBIs094tlbOuZAVpEP66Ma3soEsAR
- AuxnWZMiSl3Swam61NvQEO425icMgh7n57s5r2i77oSuT_by9ievEiTWAj2mPyKYfGJMAPfsZiTm
- 0ui4z4iqTHS8dU2rwbhpfLApyj1anu9vS.IjSr4WuOrdo0R3Dvjm0vJ7JG9n1Yw2K.JDmMAku_XA
- PF7yAl8etLP65s0kq.78e2DTaBkE4YQqIDPUSUsd3SUCIntRTAxN4xy6LWZ1e1FYukmQECRq1T3B
- eskw0SITMz3lKRCN_y14-
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=jMZ6HXCP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794901277; bh=Qhe4FN1GVRRy5hUGDaVSMPIBv2q9WPlzH4LVdF3sItk=; h=Date:Subject:From:To:References:In-Reply-To:Content-Type:From:Subject:Reply-To:Content-Type; b=jMZ6HXCP9J/0t4SoCs8hBeO920Q9d2INGtzNU65+inDX7Z2+zXn2XofksJ47AA1i1vzOcy8I4xyZNQY69RSpt2M2IO7GgSTlLYKQcmnNvNBMEH5KCHf2izrxsD6cLDGpF+tKqz1p1xzRWTCNt+EYv12xlkUTBHh5m00LrVDgQWF1alOtKydloDyiiVn0s8S+RpRW/0mH0nRIskzWwlzi0CnCbm1QLg6TOt5Wvs+MYtaFrNuFpydvrI0RxoBzhBWHggejm7vpN8BEpHF6zb43OltrzKGNPe6QURHVAvFNyqDBbQ0hHWmHm1CecL7FJSRG9r+In2C7EcDKt0LYwocaug==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794901277; bh=/A2zv3yAF23KlDwTzW5NmJERem1aZrXktRRwpLkd1yB=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=ocSxIiqePw7Qo8/WAXAACWedzfarL6ppiRzR02fXdrfFjr9mXU8rMwAU789WN56188mLFeBzCi2XfHn0AM3ZmEdycTjf8ZGhzd7Qqy2NHpmsWu00dFPc3Gj4rBMX87BePRrznDLZ0orfJPyGa85jrk3CQIkyf04aiuYASVDT6Vy538cToEYVvS1L6bb5uCIEbmFr8eN9E/hsUk/xNU1P7qNXh52ZqnLjNDguvXxkYPs3W60KPde7j3TbjVv4d9h9Tekja1Xh1Td/jPScDoupDADZ9vSCaE62pmVPZcfP3meQmJ80Yv4myeg770+752T3mdhxd6QSiurmLmRaw6v+FQ==
+X-YMail-OSG: 7SSCTS0VM1k4.LcjMkakfR_2mHBsvGB5wQUZEyJBD27xAy9V2puYbNbd_BUvXFI
+ zR0BCekuQxPBbg6VCi5RMdpePd9pibbt8YsWOmdc6oWbrZ9YItz3hwoHKP9ihWEUOLe_LXNiLbtY
+ 9UpQCv8.lol3lPnNfk1gJB97O46NcGuqPq1oYefZkXm4Xs.KSJ4b.cVnT4UTTTu.AHMncj2VJ43p
+ y7CuZ.H7z5YRSzKF_1Jme0u1BLMUUyofFFK.L.v9ooLOnBz0hqa_8UX151Vak5iTeunGH0hhX.tl
+ YUBjEBD.nqjo2T5.vcWYJ7P5N17rU4uN0o27I2RlzNBsDnxlKV6xP0D7JA_3s3gPOlOg8f.StaKF
+ KoHwIFszI11DezIJgoknzNysoO4qSM7wCs4wxri9RkERn_aIRirlLDNBwuAuWzUnK40ZyFeWCNlD
+ sRjWJX4LUTC5d928oh.dz0P3_IjaRpeCcRO68gl1M3nK6NHVDl6p0nRFiGvvLMD8YbJ6Ulptwp7n
+ mpC84GN0jFySyr3AOiZbAAEmBPY14JY462UCjVZNLxJcYUHifBfV23BG_fynumV2xswTXWTgPAu3
+ B1Bvd2sna9RVy1FEt48tHSTX4YcFUseVMni5A89vUVoSpubaTDs9Wk9vcQ90oHx7BXy3of2tWiso
+ UzADsPppWGOyImfWaDoJQEPAUXlwoSBRqoIpteKDEWgVcVUCRQQgQTHZeRWEkJte_yqUC_bEgYTd
+ XBYie8ZRaQBjRv.GOZ0ddZwI_vJk9dUsF0QxL3cecCbjjSvsi1pafQnUt_BMQD3F1SLfMLLnfWao
+ rgUS9GheBzrSdUsuDWOhwPkJfImYhlhjFYxiU4gikNl3jycr4.sJWNF9FWhrZzJ8LnoLepwZR2dB
+ aZd00C1BEDCQeTaTP4VGl4kplufcUZyz4v6kLC0c4hxVjc.d9haTa4a1H8_sEH6xUYGB.SzpsoZK
+ ULOoMYr1.gwNQP8bM.Vx59qYLibPGj4vid6qJWBYh34M7BRIxR9u5GCmY8hqaVlC.m2ys4mv4dDY
+ fzR0YSjgP3l58eEHui8QT7QxZqiYUMHiXcrXOAxhZbFEPRajd10u8jDaWzFYGfkvQs9MZKuNwRtA
+ f6ZISfYe9YJdVCVZll9vV6I.uqUO9GtRefFg.GQD3egbf0NHhPL7BcrChVPRB6.Fkyb_0_y73Rb7
+ mRpBsPAY7E5Zmyg8ACKEAH6_Td2QKGYZUH2FNFjDkrBuCY2uxs95XA9YCAM.MaaN7LCHRvEuLzVs
+ 39bjzI43acpxgLxP.v4pwM2x7H5uUle5UT.OYTQxbZF6cbL36lw.vSMrJcuOm2_IlcjH7a2XNJjr
+ tSQg15YYwCCsEBbEoA9_qOKS7QNMK5.UtZ6zkpGQyy7V3pqhmVZr2AdAim73BCDeMAI7q9aflDnC
+ vZtHkLgwXXpdwwpatFjkE2ix5UfNvejBHRiZDwBOUDSxDmfqnl.NNSN0K.u3WpmZCGEy0HFL2Vap
+ dO8OiFrvrLORfAsnjQQ.oj9ffWW5vSFR6W9a.DgvTsxq8zHm9lu6JxU29iuy1PW8PZjidy6SAfR_
+ D4y8y38q0x_XgtvYYyausECz4usRRnhUtvbaCN_g64mvXXTIMdX_pzIE.39dE2wixbK9MO9oVYUF
+ P5E7a0UeD1xLa3lWeHUYgVUoXJw8mQs6xJs1srYUQdNvbXYeTa_ztyoe.nzLrOJBKqNLCBYLJ.qn
+ yGiKotplkaG4DJ2I3QkNMjPnriOEpcZRHyV539Z9XjRPHjrdYFdsHTgjO7kjpugFFoKCCjzDixdW
+ SwHoqMb9HgzsKV.0X84mWG.UW.wTSu8NoF1AhvQZPtoN24wBl3lFEJoctgq87GvWqrXRehXDTYzi
+ Tv0syZMkugQW0gMUEOK4siI_enoPGiQV0HfFDkZCTrVdI1jsth3XYM2cLFD0DzHMmUIpaTWnYI_I
+ LZS6wqQJ2uCTQHQD.49uqET3eWXohB231yMFE0ds5Ezg12Pz3jEWkzJ7ID4YwiHIWOMUUj7RsvI3
+ VeuTinNzB3D07vXx325h0xKTxaOixWL.zilB3x2aHgqjH0I5vyjozQgEUIV_mwWgC3OR0kL8TO4v
+ aqVzLRXKB.GUbQDKJKNl2D.zPjWu1iyQfSgK9S3iC.HfyXjxbjdrRQsIbpS3oGOLnYtdnSydhyvv
+ PjsBO54yArRMBQ0Yozc2O7pu7luji_lppi038ekxGlzG.Cu2Ukxts4RydZyBoPoeBVHKmup9gdcA
+ QsN4sHuf5lK5lTRSh_3h26rsNftx70GaMiPQuFT4kraJiTsiyvLKHYGG1Hs1hkxkvdDqMP9AaD0j
+ gmQhkRoROXLAVwDIOetl_cg--
 X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: 9e8bf8d6-f6d7-41c2-ba82-b55d9b04c7ea
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic302.consmr.mail.ne1.yahoo.com with HTTP; Tue, 17 Nov 2026 07:40:38 +0000
-Received: by hermes--production-ir2-5dd9bf4598-p4sz7 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 9aacdc0928108e45940ad344d4be53a5;
-          Tue, 17 Nov 2026 07:40:33 +0000 (UTC)
-Message-ID: <62c7fce5-0296-4e66-92c9-fdb501ef592a@yahoo.com>
-Date: Tue, 17 Nov 2026 08:40:32 +0100
+X-Sonic-ID: 8c903e31-cc55-4a7b-863f-409c21c31fdc
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic316.consmr.mail.ne1.yahoo.com with HTTP; Tue, 17 Nov 2026 07:41:17 +0000
+Received: by hermes--production-ir2-5dd9bf4598-czvl7 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID e43ffa34b340360808a854fa6491be2f;
+          Tue, 17 Nov 2026 07:41:12 +0000 (UTC)
+Message-ID: <cdf74b4b-77e7-4b06-9947-8b70afd63117@yahoo.com>
+Date: Tue, 17 Nov 2026 08:41:10 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,8 +85,8 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH net-next v11 09/13] net: dsa: realtek: rtl8365mb: use raw VID
- for PVID on family D
+Subject: [PATCH net-next v11 10/13] net: dsa: realtek: rtl8365mb: add family D
+ SDS13 PCS support
 From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
 To: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
  davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
@@ -101,309 +101,506 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Mailer: WebService/1.1.27017 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-Family D has no working VLAN member config (MC) table. Its PVID is a raw
-12-bit VID in a per-port register at 0x0700 + port, whereas family C
-stores a 5-bit MC table index, two ports per register, at
-0x0700 + (port >> 1).
+Extend the existing RTL8367S SGMII/HSGMII PCS implementation in this
+driver for family D switches, whose CPU SerDes is reached through the
+indexed SDS13 window and whose SDS_MISC fields differ from family C.
 
-Running the family C code on family D therefore reads an MC table that
-does not exist, and writes an MC index into the VID register of port
-(port >> 1) instead of the one of the port being configured.
+The register sequence and tuning tables are derived from the GPL-licensed
+Realtek RTL8367D port API distributed in the Mercusys MR80X GPL release.
+Keep the existing family C path unchanged and select the new behavior from
+the driver's chip-family metadata, making the implementation reusable by
+other family D boards.
 
-Add the family D implementations of the PVID helpers,
-rtl8365mb_d_vlan_port_get_pvid(), rtl8365mb_d_vlan_pvid_port_set() and
-rtl8365mb_d_vlan_pvid_port_clear(), which skip the MC table. They keep the
-family C frame filter handling and rollback on error. The shared code
-reaches them through the vlan_port_get_pvid, vlan_pvid_port_set and
-vlan_pvid_port_clear pointers in struct rtl8365mb_family_info, so it
-needs no is_d() check.
+This patch only prepares the family D paths; they become reachable
+when the RTL8367S-VB chip entry is added in the last patch.
 
-Also clear the family D PVID registers when the VLAN support is set up.
-Unlike on family C, where VLANMC index 0 is the neutral PVID, the
-register holds a raw VID, and after a reset it keeps its hardware (or
-EEPROM) default. Without clearing it an unconfigured port could report
-a stale PVID from rtl8365mb_vlan_port_get_pvid(), and
-rtl8365mb_port_vlan_filtering() would accept untagged frames into it.
-rtl8365mb_c_vlan_port_reset_pvid() does nothing on family C.
+On family D rtl8365mb_sds_probe_option() does not read the family C
+option register and always sets sds_supported, so the port 6 rate limits
+are raised for every family D chip. The only family D chip in this
+series, the RTL8367S-VB, has a SerDes interface on port 6.
 
-No functional change for family C.
+Nothing on family D programs a SerDes rate for 10 and 100 Mbit/s:
+pcs_link_up() does nothing and the MAC force register only sets the MAC
+side. It is not known whether the SerDes follows that register, and only
+1G SGMII and 2500base-x were tested, so do not advertise 10 and 100 Mbit/s
+on the SerDes port of family D.
 
-Nothing points to the new functions until the family D info is added
-together with the chip table entry in the last patch. Until then they are
-not static and are declared in rtl8365mb_vlan.h, so that the build does
-not warn about unused functions.
-
+Tested-by: Gustavo Foletto Mora <gusfmora@gmail.com>
+Tested-by: Stanislaw Pal <kuncy7@gmail.com>
+Tested-by: Oleg Gavrilov <gabonpivovich@gmail.com>
+Co-developed-by: Fabiano Tassotti <fabianotassotti@gmail.com>
+Signed-off-by: Fabiano Tassotti <fabianotassotti@gmail.com>
 Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 ---
- drivers/net/dsa/realtek/rtl8365mb_main.c |  11 ++
- drivers/net/dsa/realtek/rtl8365mb_vlan.c | 191 ++++++++++++++++++++++-
- drivers/net/dsa/realtek/rtl8365mb_vlan.h |   6 +
- 3 files changed, 207 insertions(+), 1 deletion(-)
+ drivers/net/dsa/realtek/rtl8365mb_main.c | 261 ++++++++++++++++++-----
+ 1 file changed, 203 insertions(+), 58 deletions(-)
 
 diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
-index 77ad84e..9832572 100644
+index 9832572..6f80b17 100644
 --- a/drivers/net/dsa/realtek/rtl8365mb_main.c
 +++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
-@@ -2432,11 +2432,22 @@ out_unlock:
+@@ -264,7 +264,8 @@
+  * interface, indexed by the external port number with port 5 (the first
+  * external port) as the base. Other RTL8367 families index this register
+  * differently (e.g. the RTL8367R uses (id + 1) % 2), so this mapping only
+- * holds for the RTL8367C-style parts this driver supports.
++ * holds for the RTL8367C-style parts and for family D, where it is the same
++ * (one bit per external port, base port 5), as in the vendor RTL8367D API.
   */
- static int rtl8365mb_vlan_setup(struct dsa_switch *ds)
+ #define RTL8365MB_BYPASS_LINE_RATE_REG		0x03F7
+ #define RTL8365MB_BYPASS_LINE_RATE_MASK(_port)	BIT((_port) - 5)
+@@ -286,6 +287,7 @@
+ #define   RTL8365MB_SDS_INDACS_CMD_BUSY_MASK	BIT(8)
+ #define   RTL8365MB_SDS_INDACS_CMD_RUN_MASK	BIT(7)
+ #define   RTL8365MB_SDS_INDACS_CMD_WR_MASK	BIT(6)
++#define   RTL8365MB_SDS_INDACS_CMD_INDEX_MASK	GENMASK(5, 0)
+ #define RTL8365MB_SDS_INDACS_ADR_REG		0x6601
+ #define RTL8365MB_SDS_INDACS_DATA_REG		0x6602
+ 
+@@ -315,8 +317,10 @@
+ #define RTL8365MB_SDS_REG_LINK_STATUS		0x003d
+ #define   RTL8365MB_SDS_LINK_STATUS_LINK_MASK	BIT(4)
+ 
+-/* The embedded SerDes can only be muxed to external interface 1 (MAC8),
+- * which is port 6.
++/* On family C the embedded SerDes can only be muxed to external interface
++ * 1 (MAC8), which is port 6. Family D has it on external interface 0
++ * (MAC6), see RTL8365MB_D_SDS_EXT0_INDEX. RTL8365MB_SDS_EXT_INTERFACE_ID
++ * below is the family C id; the SerDes port is 6 on both families.
+  */
+ #define RTL8365MB_SDS_EXT_INTERFACE_ID		1
+ #define RTL8365MB_SDS_EXT_INTERFACE_PORT	6
+@@ -334,7 +338,22 @@
+ #define   RTL8365MB_SDS_OPTION_ARM_KEY		0x0249
+ #define RTL8365MB_SDS_OPTION_REG		0x13C1
+ 
++/* Family D uses the SDS13 indirect window for its MAC6 SerDes. */
++#define RTL8365MB_D_SDS_EXT0_INDEX			13
++#define RTL8365MB_D_FIBER_CFG2_REG			0x13E8
++#define   RTL8365MB_D_FIBER_CFG2_RX_DISABLE_MASK	GENMASK(7, 6)
++#define   RTL8365MB_D_FIBER_CFG2_RX_DISABLE_SDS0	BIT(6)
++#define RTL8365MB_D_SDS_MISC_PA33PC_EN			BIT(11)
++#define RTL8365MB_D_SDS_MISC_PA12PC_EN			BIT(10)
++#define RTL8365MB_D_SDS_MISC_MAC6_SEL_SDS0		BIT(9)
+ #define RTL8365MB_D_SDS_MISC_MODE_FIELD_MASK		GENMASK(4, 0)
++#define RTL8365MB_D_SDS_MISC_MODE_SGMII			0x02
++#define RTL8365MB_D_SDS_MISC_MODE_HSGMII		0x12
++#define RTL8365MB_D_SDS_MISC_CFG_MASK			\
++	(RTL8365MB_D_SDS_MISC_PA33PC_EN |		\
++	 RTL8365MB_D_SDS_MISC_PA12PC_EN |		\
++	 RTL8365MB_D_SDS_MISC_MAC6_SEL_SDS0 |		\
++	 RTL8365MB_D_SDS_MISC_MODE_FIELD_MASK)
+ /* Shared "disable" encoding for both SDS_MISC's and SDS1_MISC0's
+  * 5-bit mode fields.
+  */
+@@ -721,6 +740,21 @@ static const struct rtl8365mb_jam_tbl_entry rtl8365mb_sds_jam_hsgmii[] = {
+ 	{ 0x0424, 0xD810 }, { 0x0001, 0x0F80 }, { 0x002E, 0x83F2 },
+ };
+ 
++/* Family D tuning tables from the Realtek vendor port API. */
++static const struct rtl8365mb_jam_tbl_entry rtl8365mb_d_sds_jam_sgmii[] = {
++	{ 0x0427, 0x4E0C }, { 0x0428, 0xAA00 }, { 0x0425, 0x5189 },
++	{ 0x0424, 0x8414 }, { 0x0423, 0x1020 }, { 0x0410, 0x0002 },
++	{ 0x0484, 0x011B }, { 0x0421, 0x8E13 }, { 0x0422, 0x1140 },
++	{ 0x0004, 0x074F },
++};
++
++static const struct rtl8365mb_jam_tbl_entry rtl8365mb_d_sds_jam_hsgmii[] = {
++	{ 0x0427, 0x4E0C }, { 0x0428, 0xAA00 }, { 0x0425, 0x5189 },
++	{ 0x0424, 0x8414 }, { 0x0423, 0x1020 }, { 0x0410, 0x0002 },
++	{ 0x0504, 0x051B }, { 0x0421, 0x8E13 }, { 0x0422, 0x1140 },
++	{ 0x0004, 0x074F },
++};
++
+ enum rtl8365mb_phy_interface_mode {
+ 	RTL8365MB_PHY_INTERFACE_MODE_INVAL = 0,
+ 	RTL8365MB_PHY_INTERFACE_MODE_INTERNAL = BIT(0),
+@@ -913,8 +947,9 @@ struct rtl8365mb_port {
+  * @mib_lock: prevent concurrent reads of MIB counters
+  * @ports: per-port data
+  * @pcs: PCS for the SerDes external interface
+- * @sds_supported: SerDes tuning parameters match the chip option, so the
+- *                 SerDes interface modes can be advertised
++ * @sds_supported: SerDes interface modes can be advertised: the tuning
++ *                 parameters match the chip option (family C), or the chip
++ *                 is family D, which does not use the option
+  *
+  * Private data for this driver.
+  */
+@@ -1327,7 +1362,8 @@ static int rtl8365mb_ext_config_rgmii(struct realtek_priv *priv, int port,
+ 	return 0;
+ }
+ 
+-static int rtl8365mb_sds_write(struct realtek_priv *priv, u16 addr, u16 data)
++static int rtl8365mb_sds_write(struct realtek_priv *priv, u8 index,
++			       u16 addr, u16 data)
  {
-+	const struct rtl8365mb_family_info *fi;
- 	struct realtek_priv *priv = ds->priv;
- 	struct dsa_port *dp;
  	int ret;
  
-+	fi = rtl8365mb_get_family_info(priv);
- 	dsa_switch_for_each_available_port(dp, ds) {
-+		/* Start every port with the neutral PVID */
-+		ret = fi->vlan_port_reset_pvid(priv, dp->index);
-+		if (ret) {
-+			dev_err(priv->dev,
-+				"Failed to reset PVID on port %d\n",
-+				dp->index);
-+			return ret;
-+		}
-+
- 		/* Disable vlan-filtering for all ports */
- 		ret = rtl8365mb_port_vlan_filtering(ds, dp->index, false, NULL);
- 		if (ret) {
-diff --git a/drivers/net/dsa/realtek/rtl8365mb_vlan.c b/drivers/net/dsa/realtek/rtl8365mb_vlan.c
-index 85880c3..afe894f 100644
---- a/drivers/net/dsa/realtek/rtl8365mb_vlan.c
-+++ b/drivers/net/dsa/realtek/rtl8365mb_vlan.c
-@@ -44,6 +44,10 @@
-  *
-  * VLANMC index 0 is reserved as a neutral PVID, used for standalone ports.
-  *
-+ * Everything above describes chips that have a VLAN membership configuration
-+ * table. RTL8365MB_FAMILY_D chips do not have one: their PVID is a raw 12-bit
-+ * VID in a per-port register, and no VLANMC entries are allocated.
-+ *
-  */
- 
- #include "rtl8365mb_vlan.h"
-@@ -121,6 +125,12 @@
- #define   RTL8365MB_VLAN_PVID_CTRL_PORT_MCIDX_MASK(_p) \
- 		(0x1F << RTL8365MB_VLAN_PVID_CTRL_PORT_MCIDX_OFFSET(_p))
- 
-+/* Family D: the PVID is a raw VID, one register per port */
-+#define RTL8365MB_D_VLAN_PVID_CTRL_BASE			0x0700
-+#define RTL8365MB_D_VLAN_PVID_CTRL_REG(port) \
-+	(RTL8365MB_D_VLAN_PVID_CTRL_BASE + (port))
-+#define RTL8365MB_D_VLAN_PVID_CTRL_MASK			GENMASK(11, 0)
-+
- /* Frame type filtering registers */
- #define RTL8365MB_VLAN_ACCEPT_FRAME_TYPE_BASE	0x07aa
- #define RTL8365MB_VLAN_ACCEPT_FRAME_TYPE_REG(port) \
-@@ -172,7 +182,7 @@ struct rtl8365mb_vlan4k {
-  * This structure is used to get/set entries in the VLAN membership
-  * configuration database. This feature is largely vestigial, but
-  * still needed for at least the following features:
-- *   - PVID configuration
-+ *   - PVID configuration (family C only, family D has no VLAN MC table)
-  *   - ACL configuration
-  *   - selection of VLAN by the CPU tag when VSEL=1, although the switch
-  *     can also select VLAN based on the VLAN tag if VSEL=0
-@@ -1171,3 +1181,182 @@ int rtl8365mb_vlan_pvid_port_clear(struct dsa_switch *ds, int port, u16 vid)
- 
- 	return fi->vlan_pvid_port_clear(ds, port, vid);
+@@ -1345,10 +1381,13 @@ static int rtl8365mb_sds_write(struct realtek_priv *priv, u16 addr, u16 data)
+ 	 */
+ 	return regmap_write(priv->map, RTL8365MB_SDS_INDACS_CMD_REG,
+ 			    RTL8365MB_SDS_INDACS_CMD_RUN_MASK |
+-			    RTL8365MB_SDS_INDACS_CMD_WR_MASK);
++			    RTL8365MB_SDS_INDACS_CMD_WR_MASK |
++			    FIELD_PREP(RTL8365MB_SDS_INDACS_CMD_INDEX_MASK,
++				       index));
  }
-+
-+/**
-+ * rtl8365mb_d_vlan_port_reset_pvid() - Put a port's PVID in its neutral state
-+ * (family D)
-+ * @priv: realtek_priv pointer
-+ * @port: the port number
-+ *
-+ * On family D the PVID is a raw VID in a per-port register whose value after
-+ * reset is not defined by the driver (it may come from the hardware default or
-+ * from an EEPROM), so clear it to 0.
-+ *
-+ * Context: Can sleep. Takes and releases &priv->map_lock.
-+ * Return: 0 on success, or a negative error code on failure.
-+ */
-+int rtl8365mb_d_vlan_port_reset_pvid(struct realtek_priv *priv, int port)
-+{
-+	return regmap_update_bits(priv->map,
-+				  RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
-+				  RTL8365MB_D_VLAN_PVID_CTRL_MASK, 0);
-+}
-+
-+/*
-+ * rtl8365mb_d_vlan_port_get_pvid() - Retrieve the port PVID (family D)
-+ *
-+ * Family D has no VLAN MC table: the PVID is read straight from the per-port
-+ * register.
-+ *
-+ * Context: Can sleep. Takes and releases &priv->map_lock.
-+ * Return: 0 on success or a negative error code on failure.
-+ */
-+int rtl8365mb_d_vlan_port_get_pvid(struct realtek_priv *priv, int port,
-+				   u16 *pvid)
-+{
-+	u32 data;
-+	int ret;
-+
-+	ret = regmap_read(priv->map, RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
-+			  &data);
-+	if (ret)
-+		return ret;
-+
-+	*pvid = data & RTL8365MB_D_VLAN_PVID_CTRL_MASK;
-+	return 0;
-+}
-+
-+/*
-+ * rtl8365mb_d_vlan_pvid_port_set() - Configure a port's PVID as a raw VID
-+ * written to its dedicated register (family D)
-+ *
-+ * Reads back the previous PVID and frame filter first so both can be
-+ * restored if enabling the new PVID fails partway through, matching the
-+ * rollback behavior of the family C implementation.
-+ *
-+ * Context: Can sleep. Must be called with &priv->vlan_lock held.
-+ * Return: 0 on success, or a negative error code on failure.
-+ */
-+int rtl8365mb_d_vlan_pvid_port_set(struct dsa_switch *ds, int port, u16 vid,
-+				   struct netlink_ext_ack *extack)
-+{
-+	enum rtl8365mb_frame_ingress prev_accepted_frame;
-+	struct realtek_priv *priv = ds->priv;
-+	u32 prev_pvid;
-+	int ret;
-+
-+	lockdep_assert_held(&priv->vlan_lock);
-+
-+	ret = regmap_read(priv->map, RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
-+			  &prev_pvid);
-+	if (ret) {
-+		dev_err(priv->dev, "Failed to read current PVID\n");
-+		return ret;
-+	}
-+	prev_pvid &= RTL8365MB_D_VLAN_PVID_CTRL_MASK;
-+
-+	ret = rtl8365mb_vlan_port_get_framefilter(priv, port,
-+						  &prev_accepted_frame);
-+	if (ret) {
-+		dev_err(priv->dev, "Failed to get current framefilter\n");
-+		return ret;
-+	}
-+
-+	ret = regmap_update_bits(priv->map,
-+				 RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
-+				 RTL8365MB_D_VLAN_PVID_CTRL_MASK,
-+				 vid & RTL8365MB_D_VLAN_PVID_CTRL_MASK);
-+	if (ret) {
-+		dev_err(priv->dev, "Failed to set port PVID\n");
-+		return ret;
-+	}
-+
-+	/* Changing accept frame is what enables PVID (if not enabled before) */
-+	ret = rtl8365mb_vlan_port_set_framefilter(priv, port,
-+						  RTL8365MB_FRAME_TYPE_ANY_FRAME);
-+	if (ret) {
-+		dev_err(priv->dev, "Failed to set port frame filter\n");
-+		goto undo_pvid_write;
-+	}
-+
-+	return 0;
-+
-+undo_pvid_write:
-+	(void)regmap_update_bits(priv->map,
-+				 RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
-+				 RTL8365MB_D_VLAN_PVID_CTRL_MASK, prev_pvid);
-+	(void)rtl8365mb_vlan_port_set_framefilter(priv, port,
-+						  prev_accepted_frame);
-+	return ret;
-+}
-+
-+/*
-+ * rtl8365mb_d_vlan_pvid_port_clear() - Remove a port's raw-VID PVID
-+ * configuration (family D)
-+ *
-+ * Reads back the previous frame filter first so it can be restored if
-+ * clearing the PVID register fails.
-+ *
-+ * Context: Can sleep. Must be called with &priv->vlan_lock held.
-+ * Return: 0 on success, or a negative error code on failure.
-+ */
-+int rtl8365mb_d_vlan_pvid_port_clear(struct dsa_switch *ds, int port, u16 vid)
-+{
-+	enum rtl8365mb_frame_ingress prev_accepted_frame =
-+		RTL8365MB_FRAME_TYPE_ANY_FRAME;
-+	struct realtek_priv *priv = ds->priv;
-+	bool filtering;
-+	u32 cur_pvid;
-+	int ret;
-+
-+	lockdep_assert_held(&priv->vlan_lock);
-+
-+	ret = regmap_read(priv->map, RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
-+			  &cur_pvid);
-+	if (ret) {
-+		dev_err(priv->dev, "Failed to read current PVID\n");
-+		return ret;
-+	}
-+
-+	/* Port is not using this VID as PVID. Nothing to remove. */
-+	if ((cur_pvid & RTL8365MB_D_VLAN_PVID_CTRL_MASK) != vid)
-+		return 0;
-+
-+	filtering = dsa_port_is_vlan_filtering(dsa_to_port(ds, port));
-+
-+	/* Changing accept frame is what really removes PVID. But only do
-+	 * that if VLAN filtering is enabled.
-+	 */
-+	if (filtering) {
-+		ret = rtl8365mb_vlan_port_get_framefilter(priv, port,
-+							  &prev_accepted_frame);
-+		if (ret) {
-+			dev_err(priv->dev,
-+				"Failed to get current framefilter\n");
-+			return ret;
-+		}
-+
-+		ret = rtl8365mb_vlan_port_set_framefilter(
-+			priv, port, RTL8365MB_FRAME_TYPE_TAGGED_ONLY);
-+		if (ret) {
-+			dev_err(priv->dev, "Failed to set port frame filter\n");
-+			return ret;
-+		}
-+	}
-+
-+	ret = regmap_update_bits(priv->map,
-+				 RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
-+				 RTL8365MB_D_VLAN_PVID_CTRL_MASK, 0);
-+	if (ret) {
-+		dev_err(priv->dev, "Failed to set port PVID to 0\n");
-+		goto undo_set_framefilter;
-+	}
-+
-+	return 0;
-+
-+undo_set_framefilter:
-+	if (filtering)
-+		(void)rtl8365mb_vlan_port_set_framefilter(priv, port,
-+							  prev_accepted_frame);
-+	return ret;
-+}
-diff --git a/drivers/net/dsa/realtek/rtl8365mb_vlan.h b/drivers/net/dsa/realtek/rtl8365mb_vlan.h
-index 62ee59c..d8187bc 100644
---- a/drivers/net/dsa/realtek/rtl8365mb_vlan.h
-+++ b/drivers/net/dsa/realtek/rtl8365mb_vlan.h
-@@ -34,6 +34,12 @@ int rtl8365mb_c_vlan_port_reset_pvid(struct realtek_priv *priv, int port);
- int rtl8365mb_c_vlan_pvid_port_set(struct dsa_switch *ds, int port, u16 vid,
- 				   struct netlink_ext_ack *extack);
- int rtl8365mb_c_vlan_pvid_port_clear(struct dsa_switch *ds, int port, u16 vid);
-+int rtl8365mb_d_vlan_port_get_pvid(struct realtek_priv *priv, int port,
-+				   u16 *pvid);
-+int rtl8365mb_d_vlan_port_reset_pvid(struct realtek_priv *priv, int port);
-+int rtl8365mb_d_vlan_pvid_port_set(struct dsa_switch *ds, int port, u16 vid,
-+				   struct netlink_ext_ack *extack);
-+int rtl8365mb_d_vlan_pvid_port_clear(struct dsa_switch *ds, int port, u16 vid);
  
- int rtl8365mb_vlan_port_get_pvid(struct realtek_priv *priv, int port,
- 				 u16 *pvid);
+-static int rtl8365mb_sds_read(struct realtek_priv *priv, u16 addr, u16 *data)
++static int rtl8365mb_sds_read(struct realtek_priv *priv, u8 index,
++			      u16 addr, u16 *data)
+ {
+ 	u32 val;
+ 	int ret;
+@@ -1358,7 +1397,9 @@ static int rtl8365mb_sds_read(struct realtek_priv *priv, u16 addr, u16 *data)
+ 		return ret;
+ 
+ 	ret = regmap_write(priv->map, RTL8365MB_SDS_INDACS_CMD_REG,
+-			   RTL8365MB_SDS_INDACS_CMD_RUN_MASK);
++			   RTL8365MB_SDS_INDACS_CMD_RUN_MASK |
++			   FIELD_PREP(RTL8365MB_SDS_INDACS_CMD_INDEX_MASK,
++				      index));
+ 	if (ret)
+ 		return ret;
+ 
+@@ -1398,6 +1439,14 @@ static int rtl8365mb_sds_probe_option(struct realtek_priv *priv)
+ 	int ret;
+ 	int i;
+ 
++	/* Family D has a fixed SDS13 programming model and does not use the
++	 * family C option register to select its tuning table.
++	 */
++	if (rtl8365mb_is_d(priv)) {
++		mb->sds_supported = true;
++		return 0;
++	}
++
+ 	/* Nothing to probe if no external interface is wired to the SerDes */
+ 	for (i = 0; i < RTL8365MB_MAX_NUM_EXTINTS; i++) {
+ 		extint = &mb->chip_info->extints[i];
+@@ -1479,31 +1528,54 @@ static int rtl8365mb_pcs_config(struct phylink_pcs *pcs, unsigned int neg_mode,
+ 	const struct rtl8365mb_jam_tbl_entry *sds_jam;
+ 	const int id = RTL8365MB_SDS_EXT_INTERFACE_ID;
+ 	struct rtl8365mb *mb = pcs_to_rtl8365mb(pcs);
+-	struct realtek_priv *priv;
++	struct realtek_priv *priv = mb->priv;
+ 	size_t sds_jam_size;
+-	u32 mode;
++	u32 misc_mask;
++	u32 misc_val;
++	u32 sds_mode;
++	u8 sds_index;
++	bool is_d;
+ 	u16 val;
+ 	int ret;
+ 	int i;
+ 
+-	priv = mb->priv;
++	is_d = rtl8365mb_is_d(priv);
+ 
++	/* Select the appropriate tuning table and SDS mode */
+ 	if (interface == PHY_INTERFACE_MODE_2500BASEX) {
+-		sds_jam = rtl8365mb_sds_jam_hsgmii;
+-		sds_jam_size = ARRAY_SIZE(rtl8365mb_sds_jam_hsgmii);
+-		mode = RTL8365MB_EXT_PORT_MODE_HSGMII;
++		if (is_d) {
++			sds_jam = rtl8365mb_d_sds_jam_hsgmii;
++			sds_jam_size = ARRAY_SIZE(rtl8365mb_d_sds_jam_hsgmii);
++			sds_mode = RTL8365MB_D_SDS_MISC_MODE_HSGMII;
++		} else {
++			sds_jam = rtl8365mb_sds_jam_hsgmii;
++			sds_jam_size = ARRAY_SIZE(rtl8365mb_sds_jam_hsgmii);
++			sds_mode = RTL8365MB_EXT_PORT_MODE_HSGMII;
++		}
+ 	} else {
+-		sds_jam = rtl8365mb_sds_jam_sgmii;
+-		sds_jam_size = ARRAY_SIZE(rtl8365mb_sds_jam_sgmii);
+-		mode = RTL8365MB_EXT_PORT_MODE_SGMII;
++		if (is_d) {
++			sds_jam = rtl8365mb_d_sds_jam_sgmii;
++			sds_jam_size = ARRAY_SIZE(rtl8365mb_d_sds_jam_sgmii);
++			sds_mode = RTL8365MB_D_SDS_MISC_MODE_SGMII;
++		} else {
++			sds_jam = rtl8365mb_sds_jam_sgmii;
++			sds_jam_size = ARRAY_SIZE(rtl8365mb_sds_jam_sgmii);
++			sds_mode = RTL8365MB_EXT_PORT_MODE_SGMII;
++		}
+ 	}
+ 
++	sds_index = is_d ? RTL8365MB_D_SDS_EXT0_INDEX : 0;
++
+ 	/* Hold the embedded DW8051 microcontroller in reset and keep it
+ 	 * disabled. The vendor driver loads firmware into it to manage the
+ 	 * SerDes link, but the firmware only duplicates work that phylink
+ 	 * already does: it polls the port status and forces the external
+ 	 * interface configuration in the very registers this driver manages.
+ 	 * Letting it run would race with phylink.
++	 *
++	 * The CHIP_RESET (bit 4) and MISC_CFG0 (bit 5) bit definitions
++	 * for the DW8051 reset and enable controls are identical on both
++	 * family C and family D switches in the vendor SDK.
+ 	 */
+ 	ret = regmap_update_bits(priv->map, RTL8365MB_CHIP_RESET_REG,
+ 				 RTL8365MB_CHIP_RESET_DW8051_MASK,
+@@ -1526,34 +1598,58 @@ static int rtl8365mb_pcs_config(struct phylink_pcs *pcs, unsigned int neg_mode,
+ 
+ 	/* Tune the SerDes with vendor-prescribed parameters */
+ 	for (i = 0; i < sds_jam_size; i++) {
+-		ret = rtl8365mb_sds_write(priv, sds_jam[i].reg,
+-					  sds_jam[i].val);
++		ret = rtl8365mb_sds_write(priv, sds_index,
++					  sds_jam[i].reg, sds_jam[i].val);
+ 		if (ret)
+ 			return ret;
+ 	}
+ 
+-	/* Mux the SerDes to MAC8 in the requested mode */
++	/* Family-specific post-tuning configuration */
++	if (is_d) {
++		/* The register and field names follow the vendor RTL8367D API,
++		 * whose SDS numbering differs from the SDS13 window used
++		 * here. As in the vendor sequence the whole 2-bit field
++		 * (bits 7:6) is written, so bit 7 is cleared as well.
++		 */
++		ret = regmap_update_bits(priv->map, RTL8365MB_D_FIBER_CFG2_REG,
++					 RTL8365MB_D_FIBER_CFG2_RX_DISABLE_MASK,
++					 RTL8365MB_D_FIBER_CFG2_RX_DISABLE_SDS0);
++		if (ret)
++			return ret;
++
++		misc_mask = RTL8365MB_D_SDS_MISC_CFG_MASK;
++		misc_val  = RTL8365MB_D_SDS_MISC_PA33PC_EN |
++			    RTL8365MB_D_SDS_MISC_PA12PC_EN |
++			    RTL8365MB_D_SDS_MISC_MAC6_SEL_SDS0 | sds_mode;
++	} else {
++		/* Mux the SerDes to MAC8 in the requested mode */
++		misc_mask = RTL8365MB_SDS_MISC_MAC8_SEL_SGMII_MASK |
++			    RTL8365MB_SDS_MISC_MAC8_SEL_HSGMII_MASK;
++		misc_val  = (sds_mode == RTL8365MB_EXT_PORT_MODE_SGMII) ?
++			    RTL8365MB_SDS_MISC_MAC8_SEL_SGMII_MASK :
++			    RTL8365MB_SDS_MISC_MAC8_SEL_HSGMII_MASK;
++	}
++
+ 	ret = regmap_update_bits(priv->map, RTL8365MB_SDS_MISC_REG,
+-				 RTL8365MB_SDS_MISC_MAC8_SEL_SGMII_MASK |
+-					 RTL8365MB_SDS_MISC_MAC8_SEL_HSGMII_MASK,
+-				 mode == RTL8365MB_EXT_PORT_MODE_SGMII ?
+-					 RTL8365MB_SDS_MISC_MAC8_SEL_SGMII_MASK :
+-					 RTL8365MB_SDS_MISC_MAC8_SEL_HSGMII_MASK);
++				 misc_mask, misc_val);
+ 	if (ret)
+ 		return ret;
+ 
+-	val = mode << RTL8365MB_DIGITAL_INTERFACE_SELECT_MODE_OFFSET(id);
+-	ret = regmap_update_bits(priv->map,
+-				 RTL8365MB_DIGITAL_INTERFACE_SELECT_REG(id),
+-				 RTL8365MB_DIGITAL_INTERFACE_SELECT_MODE_MASK(id),
+-				 val);
+-	if (ret)
+-		return ret;
++	if (!is_d) {
++		val = sds_mode << RTL8365MB_DIGITAL_INTERFACE_SELECT_MODE_OFFSET(id);
++		ret = regmap_update_bits(priv->map,
++					 RTL8365MB_DIGITAL_INTERFACE_SELECT_REG(id),
++					 RTL8365MB_DIGITAL_INTERFACE_SELECT_MODE_MASK(id),
++					 val);
++		if (ret)
++			return ret;
++	}
+ 
+ 	/* Take the SerDes out of reset. The vendor driver does this only
+ 	 * after the SerDes mux and the interface mode are configured.
+ 	 */
+-	ret = rtl8365mb_sds_write(priv, RTL8365MB_SDS_REG_RESET,
++	ret = rtl8365mb_sds_write(priv, sds_index,
++				  RTL8365MB_SDS_REG_RESET,
+ 				  RTL8365MB_SDS_RESET_DEASSERT);
+ 	if (ret)
+ 		return ret;
+@@ -1563,27 +1659,32 @@ static int rtl8365mb_pcs_config(struct phylink_pcs *pcs, unsigned int neg_mode,
+ 	 * This flushes the FIFOs and ensures a clean state for the link,
+ 	 * preventing silent drops and CRC errors.
+ 	 */
+-	ret = rtl8365mb_sds_write(priv, RTL8365MB_SDS_REG_BMCR,
++	ret = rtl8365mb_sds_write(priv, sds_index,
++				  RTL8365MB_SDS_REG_BMCR,
+ 				  RTL8365MB_SDS_BMCR_DPRST_PHASE1);
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = rtl8365mb_sds_write(priv, RTL8365MB_SDS_REG_BMCR,
++	ret = rtl8365mb_sds_write(priv, sds_index,
++				  RTL8365MB_SDS_REG_BMCR,
+ 				  RTL8365MB_SDS_BMCR_DPRST_PHASE2);
+ 	if (ret)
+ 		return ret;
+ 
+ 	/* Keep SGMII in-band autonegotiation disabled: the link parameters are
+-	 * forced from rtl8365mb_pcs_link_up() instead.
++	 * forced from rtl8365mb_pcs_link_up() instead (family C), or from
++	 * mac_link_up() (family D).
+ 	 */
+-	ret = rtl8365mb_sds_read(priv, RTL8365MB_SDS_REG_NWAY, &val);
++	ret = rtl8365mb_sds_read(priv, sds_index,
++				 RTL8365MB_SDS_REG_NWAY, &val);
+ 	if (ret)
+ 		return ret;
+ 
+ 	val &= ~RTL8365MB_SDS_NWAY_EN_MASK;
+ 	val |= RTL8365MB_SDS_NWAY_RESTART_MASK;
+ 
+-	return rtl8365mb_sds_write(priv, RTL8365MB_SDS_REG_NWAY, val);
++	return rtl8365mb_sds_write(priv, sds_index,
++				   RTL8365MB_SDS_REG_NWAY, val);
+ }
+ 
+ static bool rtl8365mb_interface_is_serdes(phy_interface_t interface)
+@@ -1608,18 +1709,27 @@ static void rtl8365mb_pcs_get_state(struct phylink_pcs *pcs,
+ {
+ 	struct rtl8365mb *mb = pcs_to_rtl8365mb(pcs);
+ 	struct realtek_priv *priv = mb->priv;
++	u8 sds_index = 0;
+ 	u16 status;
++	bool is_d;
+ 	u32 val;
+ 	int ret;
+ 
+-	/* In-band autonegotiation is not implemented, so the link parameters are
+-	 * forced from rtl8365mb_pcs_link_up(). The real link state must still be
+-	 * read from the SerDes itself: the embedded DW8051 microcontroller that
++	is_d = rtl8365mb_is_d(priv);
++
++	/* In-band autonegotiation is not implemented, so the link parameters
++	 * are forced from rtl8365mb_pcs_link_up() on family C, and from
++	 * mac_link_up() on family D. The real link state must still be read
++	 * from the SerDes itself: the embedded DW8051 microcontroller that
+ 	 * the vendor firmware uses to poll the SerDes is kept disabled (see
+ 	 * rtl8365mb_pcs_config()), so the link status register can be read
+ 	 * directly through the SDS_INDACS window without racing the auto-poll.
+ 	 */
+-	ret = rtl8365mb_sds_read(priv, RTL8365MB_SDS_REG_LINK_STATUS, &status);
++	if (is_d)
++		sds_index = RTL8365MB_D_SDS_EXT0_INDEX;
++
++	ret = rtl8365mb_sds_read(priv, sds_index,
++				 RTL8365MB_SDS_REG_LINK_STATUS, &status);
+ 	if (ret) {
+ 		state->link = false;
+ 		return;
+@@ -1630,6 +1740,23 @@ static void rtl8365mb_pcs_get_state(struct phylink_pcs *pcs,
+ 	if (!state->link)
+ 		return;
+ 
++	if (is_d) {
++		if (state->interface == PHY_INTERFACE_MODE_2500BASEX) {
++			state->duplex = DUPLEX_FULL;
++			state->speed = SPEED_2500;
++		} else {
++			/* Keep what phylink passed in, but never report the
++			 * link up with an unknown speed: mac_link_up() cannot
++			 * force the port with it.
++			 */
++			if (state->speed == SPEED_UNKNOWN)
++				state->speed = SPEED_1000;
++			if (state->duplex == DUPLEX_UNKNOWN)
++				state->duplex = DUPLEX_FULL;
++		}
++		return;
++	}
++
+ 	/* The speed and duplex are forced; read them back from the values
+ 	 * programmed into the SerDes MISC register.
+ 	 */
+@@ -1671,6 +1798,12 @@ static void rtl8365mb_pcs_link_up(struct phylink_pcs *pcs,
+ 	u32 r_speed;
+ 	int ret;
+ 
++	/* Family D forces the external MAC ability from mac_link_up(); its
++	 * SDS_MISC fields do not share the family C link-force layout.
++	 */
++	if (rtl8365mb_is_d(priv))
++		return;
++
+ 	/* The speed field has no value for 2.5 Gbps: the rate is determined by
+ 	 * the HSGMII SerDes configuration, and the vendor driver programs the
+ 	 * 1 Gbps value here.
+@@ -1935,10 +2068,17 @@ static void rtl8365mb_phylink_get_caps(struct dsa_switch *ds, int port,
+ 	}
+ 
+ 	if (extint->supported_interfaces & RTL8365MB_PHY_INTERFACE_MODE_SGMII &&
+-	    mb->sds_supported)
++	    mb->sds_supported) {
+ 		__set_bit(PHY_INTERFACE_MODE_SGMII,
+ 			  config->supported_interfaces);
+ 
++		/* The SerDes rate is not programmed for 10 and 100 Mbit/s on
++		 * family D, see rtl8365mb_pcs_link_up().
++		 */
++		if (rtl8365mb_is_d(priv))
++			config->mac_capabilities &= ~(MAC_10 | MAC_100);
++	}
++
+ 	if (extint->supported_interfaces & RTL8365MB_PHY_INTERFACE_MODE_HSGMII &&
+ 	    mb->sds_supported) {
+ 		__set_bit(PHY_INTERFACE_MODE_2500BASEX,
+@@ -2017,7 +2157,7 @@ static void rtl8365mb_phylink_mac_link_down(struct phylink_config *config,
+ 	/* phylink has no pcs_link_down callback, so on the SerDes path only the
+ 	 * MAC external interface force is reset here. Clearing the MAC force is
+ 	 * enough to bring the link down; the SerDes keeps presenting its last
+-	 * forced state until the next pcs_link_up() reprograms it.
++	 * forced state (family C) until the next pcs_link_up() reprograms it.
+ 	 */
+ 	if (phy_interface_mode_is_rgmii(interface) ||
+ 	    rtl8365mb_interface_is_serdes(interface)) {
+@@ -2052,9 +2192,11 @@ static void rtl8365mb_phylink_mac_link_up(struct phylink_config *config,
+ 	p = &mb->ports[port];
+ 	schedule_delayed_work(&p->mib_work, 0);
+ 
+-	/* The SerDes forced link state is programmed by the PCS in
++	/* On family C the SerDes forced link state is programmed by the PCS in
+ 	 * rtl8365mb_pcs_link_up(); here only the MAC external interface force
+-	 * is configured, for both RGMII and SerDes.
++	 * is configured. On family D pcs_link_up() does nothing, and the MAC
++	 * external interface force is the only forced link state, for both
++	 * RGMII and SerDes.
+ 	 */
+ 	if (phy_interface_mode_is_rgmii(interface) ||
+ 	    rtl8365mb_interface_is_serdes(interface)) {
+@@ -2067,18 +2209,21 @@ static void rtl8365mb_phylink_mac_link_up(struct phylink_config *config,
+ 			return;
+ 		}
+ 
+-		/* The SerDes has its own pause enables; program them from
+-		 * the resolved pause modes, as the vendor driver does when
+-		 * forcing the link on a SerDes external interface. These
+-		 * bits, not the MAC force pause bits, gate pause on the
+-		 * SerDes external interface: flow control testing shows
+-		 * that pause frames are only emitted with the SerDes TXFC
+-		 * bit set, while the MAC force pause bits alone have no
+-		 * effect on this port. This is done here rather than in
+-		 * rtl8365mb_pcs_link_up() because pcs_link_up() carries no
+-		 * pause information.
++		/* Family C: the SerDes has its own pause enables; program
++		 * them from the resolved pause modes, as the vendor driver
++		 * does when forcing the link on a SerDes external
++		 * interface. These bits, not the MAC force pause bits, gate
++		 * pause on the SerDes external interface: flow control
++		 * testing shows that pause frames are only emitted with the
++		 * SerDes TXFC bit set, while the MAC force pause bits alone
++		 * have no effect on this port. This is done here rather
++		 * than in rtl8365mb_pcs_link_up() because pcs_link_up()
++		 * carries no pause information. Family D does not use this
++		 * path: its pause bits are set in the forced-mode register
++		 * by rtl8365mb_d_ext_config_forcemode().
+ 		 */
+-		if (rtl8365mb_interface_is_serdes(interface)) {
++		if (rtl8365mb_interface_is_serdes(interface) &&
++		    !rtl8365mb_is_d(priv)) {
+ 			u32 val = 0;
+ 
+ 			if (tx_pause)
 -- 
 2.53.0
 
