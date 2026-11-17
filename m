@@ -1,72 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794936241;
-	b=Ekm8piA58GkRkBv/gFdAav1SjC9HOqKwDw/lh2SHACY1noT4LnKozC+7QMyKSLwNh3cD
-	 fw+g/fOmhXatAt7osGmHcYZoFN4WvseQVV0i45BVcjvMAElATpnL4i1sELCwZPiulrM+d
-	 p4Hzjl1qF8Yk4EXZef+hT+kJIVO2iosPTHc8uJQiFN2rsC1VMJkDPbMfLiUmsOCftWWt0
-	 ITo9H/rnrDodUGdgi7yrR5QdywZm6jtSBTx8QmtPz9iJs6VpfWsL9yOgKnqttKu/hXu9W
-	 +SbZc5VCwAdJSexA7ga1ad5XDMMM6x5dP2JK2kA/PLOQkW66EcYqVrtkixemuNKlYJA==
+	t=1794936348;
+	b=lwv7ZQabGx7RmF8hE9fnCsxXui9cxmcmg9U5qFPBpgJjua92G+u+VG6Lh7mmQqQwaN3d
+	 FYCAuAnzox3ffKZxkyuCEdK+cPwdWSl5J9olkEsf03h1GfykAHam94akc3HRjzPQXKPUg
+	 hs/8plUFpa9+ymIqI6uHstHyiVDfxEhiXaOz5jnCIHZOFEQ9yoYNsy+neIc5oIAhds23Q
+	 RtEjldeW25+jfHHcuRhZ51/css7mBmOM2VGzWvCODr4hy/nAqmoKIYZmQQpzBTevpQSM4
+	 DQQSR1HQd+jJimTQM5dbjbzUA1blPrS9BygiBqMIoawnkNhoJNvBcudxYWGTGhd+zHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794936241;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=gpbTjTJOw7ujZ3rRhUXfRGBVxlexIhsMVokvC2lfJKg=;
-	b=yBvPp+kr4d0kB0tsHGVntgATWVAyzzgZm3H9phqcoo/GVpEmMlNAiwKgiISF3IhSpQbC
-	 w/eN1DpaHT4euQXFLxLlEvdA0QCF2E8/1P4nDAJHL8rgIs7aahtX9l8G/u5w2R+5UmSEK
-	 0hFR+cmnM1PVUfGHhO52yht9P0WZPcXczf+KtKDoKtN5iLIuJvk+1UxvNsgmIQWCntM+F
-	 UH82sI6l0mTlBGYf2FeT3hvlEK4HBoIZEvqALizGlTYRdJ0c/DyQOjfAuxEKC4tqB8g/O
-	 gHc+HdPx0Zm2bAcjm7QsFuW/Q0lJfdSY3xfj9wMmqQGO1Lk0jA4okpHySg6R841XH1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794936348;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Scanned-By;
+	bh=5HpZNf1p6vQ+Z15EuGtPfQXOlxM7vON26KjcgJWrLvY=;
+	b=VMcsUIr8EMlC8BZCsQYiBGWeF+VqsSJqeq5cJqLKwJwDUe1BhPHkKBrVjgYQG9Bomf16
+	 feuwrk5lLzq2LGcNyqXgC4YWuOY38UUFLMibrz2MdrdlDAfWArUqwPJso9iE4dWXe7bOt
+	 jNevFx9YqCNjiSAYS4GABhYv8lhH//pFEuGcFr3L488Ijq54cqhZWZzuX4yU9i0lz/ldK
+	 Kj9vm3oeENCr9LGUfbQC951GIzDXAt8vJ7r/hNXP7AdJdGON51QAjliU/NIqFD/hxqAxd
+	 U8k5ucmlbQjsY8XTo1KXMq9pTExeOA10MpT6wUzDzVkNj67sEKL1+PgzWKcWK68SNIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KWYKJv3M;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Y0cAOkcf;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92661606A31C;
-	Tue, 17 Nov 2026 17:24:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD936606A32C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 17:25:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD936606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KWYKJv3M
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFF851F000C5;
-	Tue, 17 Nov 2026 17:23:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794936241;
-	bh=gpbTjTJOw7ujZ3rRhUXfRGBVxlexIhsMVokvC2lfJKg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KWYKJv3MANrtT/7P6e2gCVNbNEBoBXQUtlZh8Mf56ybtul7cxMz8VaDdEbm9pi5Nc
-	 BfHrYzv2HEsWoBITaTkD1dwNc0IZP5t+AHr9r5/pBJgvAMxy/5TEQFqF6ZHsPHxNVG
-	 op9u27T4ICZalOyLu9Upd4tTFtitwI9B5xybTTBPKgeb74//jEypg5eyVy2IUWUzxl
-	 s229NTvD3oSDsgBOL25txWM/8lNYPn1n+FsYdI1WRVctaUXJvaHOOoTs1qIZvUTpJO
-	 PpN5jioXs+0HCutxntAveukt2INCYHu0rhNmEEJXl9l4H7rBz8E1vGRdNfnwx2Jetg
-	 t/uiur4VkyuEQ==
-Date: Tue, 17 Nov 2026 17:23:54 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: yogo.0917.sabu@gmail.com, linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Drew Fustini <fustini@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	"linux-mmc @ vger . kernel . org" <linux-mmc@vger.kernel.org>,
-	linux-doc@vger.kernel.org, soc@lists.linux.dev
-Subject: Re: [PATCH RFC 6/6] ARM: add the SiRF AT550 platform and YPL514si
- board
-Message-ID: <20261117-umpire-agency-f82c1415c09c@spud>
-References: <20261117-at550-rfc-v1-v1-0-5879573cb825@gmail.com>
- <20261117-at550-rfc-v1-v1-6-5879573cb825@gmail.com>
- <c3832ce3-4605-4810-9348-c6fee394fe04@app.fastmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Y0cAOkcf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794936347;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5HpZNf1p6vQ+Z15EuGtPfQXOlxM7vON26KjcgJWrLvY=;
+	b=Y0cAOkcfxmvbVcUy2Mymrlgs35i1jUf7NE83emRI/hA1hsWrUYxY8HlAV7xOA5QNog+QBl
+	+M0hp8O/CBYsmeoJvD66wKoKuWcZ33NPsFEij9YbtR3FgG8zVIvqcrq6yEvy4a75TrsWTu
+	ftoHUqsFTxzRimLV//JwDTiEVK0u/HY=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-467-OB_fdnBjM0yJlldqNbt59Q-1; Tue,
+ 17 Nov 2026 12:25:41 -0500
+X-MC-Unique: OB_fdnBjM0yJlldqNbt59Q-1
+X-Mimecast-MFC-AGG-ID: OB_fdnBjM0yJlldqNbt59Q_1794936339
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6CB201956051;
+	Tue, 17 Nov 2026 17:25:39 +0000 (UTC)
+Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id F27F53001DAD;
+	Tue, 17 Nov 2026 17:25:35 +0000 (UTC)
+Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
+	oleg@redhat.com; Tue, 17 Nov 2026 18:25:39 +0100 (CET)
+Date: Tue, 17 Nov 2026 18:25:34 +0100
+From: Oleg Nesterov <oleg@redhat.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>,
+	Breno Leitao <leitao@debian.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Mateusz Guzik <mjguzik@gmail.com>,
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	tz2294@columbia.edu, stable@vger.kernel.org,
+	Mani Tofigh <mt4022@columbia.edu>
+Subject: Re: [PATCH] pipe: keep per-write wakeups for EPOLLEXCLUSIVE consumers
+Message-ID: <avyODoFhZ_M7YDU5@redhat.com>
+References: <20261111-pipe-epollexclusive-wakeup-v1-1-0af6283e9fda@columbia.edu>
+ <avxWKI795DthE8Sb@redhat.com>
+ <CAHk-=wjOq+G=6gte4vX_YxOD_VfE1uZh7=+KHs8N0wU75xyHEg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,60 +86,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="V8Ki5c7P5QvUwrPE"
-Content-Disposition: inline
-In-Reply-To: <c3832ce3-4605-4810-9348-c6fee394fe04@app.fastmail.com>
-
---V8Ki5c7P5QvUwrPE
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <CAHk-=wjOq+G=6gte4vX_YxOD_VfE1uZh7=+KHs8N0wU75xyHEg@mail.gmail.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-On Tue, Nov 17, 2026 at 02:17:58PM +0100, Arnd Bergmann wrote:
-> On Tue, Nov 17, 2026, at 14:06, yy-Local-LLM via B4 Relay wrote:
-> > From: yy-Local-LLM <yogo.0917.sabu@gmail.com>
+On 11/17, Linus Torvalds wrote:
+>
+> On Tue, 17 Nov 2026 at 05:27, Oleg Nesterov <oleg@redhat.com> wrote:
 > >
-> > Add a minimal DT machine using standard IRQ, timer and simplefb paths.
-> > Describe the SoC and the firmware-configured YPL514si display. Leave
-> > usable memory and the divided counter rate for the bootloader to
-> > populate. Keep optional peripheral nodes disabled until firmware hands
-> > them over. Disable unvalidated board suspend; limit this board to SD PIO
-> > at 25 MHz. Document the RAM-boot contract and the missing
-> > cold-boot/clock-tree support.
-> >
-> > Signed-off-by: yy-Local-LLM <yogo.0917.sabu@gmail.com>
->=20
-> Please use a real name for signoff and make sure you understand
-> the legal meaning of this.
+> > However, EPOLLEXCLUSIVE breaks this logic. ep_ptable_queue_proc() does
+> > add_wait_queue_exclusive() if EPOLLEXCLUSIVE is set.
+>
+> Christ, how I hate epoll. It's a pile of stinking shit.
+>
+> This literally violates THE WHOLE AND ONLY POINT of exclusive waits.
+>
+> The rule for an exclusive wait is that it *will* act on the wakeup -
+> either by consuming the data, or - if it can't consume it all - by
+> waking up the next waiter itself.
+>
+> So it's not that "EPOLLEXCLUSIVE breaks this logic".
+>
+> The logic is fine. EPOLLEXCLUSIVE is broken beyond words.
 
-Given the wording in the cover letter, I have my suspicions the person
-behind this has had no interaction with the code at all.
+Well, I thought so too. That is why initially I replied "we don't care"
+to Mani. But then I decided to summarize and add CC's.
 
->=20
-> > +config ARCH_AT550
-> > +	bool "SiRF AT550 platforms"
-> > +	depends on ARCH_MULTI_V6
-> > +	select ARM_ERRATA_411920
-> > +	select AT550_IRQ
-> > +	select CLKSRC_AT550
-> > +	select CPU_V6
->=20
-> Which CPU is this specifically? You need to select CPU_ARM1136R0,
-> CPU_ARM1136R1 or CPU_ARM1176 instead CPU_V6 since b5fdfa208175
-> ("ARM: deprecate support for ARM1136r0").
->=20
->      Arnd
+So. Do you agree that we can "ignore" this report from Mani for now?
+Until we find a user application that already depends on the behaviour
+before f1cebdec9739 (the next write() wakes up a reader which sleeps on
+->rd_wait for no reason).
 
---V8Ki5c7P5QvUwrPE
-Content-Type: application/pgp-signature; name=signature.asc
+Just in case... io_uring/poll.c:__io_queue_proc does the same:
 
------BEGIN PGP SIGNATURE-----
+	if (poll->events & EPOLLEXCLUSIVE) {
+		add_wait_queue_exclusive(head, &poll->wait);
+	} else {
+		add_wait_queue(head, &poll->wait);
+	}
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavyNpwAKCRB4tDGHoIJi
-0tg7AQDFyQE1l10KohugmjgKBSh/b/m8rMXAhDjSMG83Tw2ulgEAjZiuwL+/+iBt
-58axZW3SM/hB34QmaPbBaBb9n1xGzQE=
-=msXp
------END PGP SIGNATURE-----
+Oleg.
 
---V8Ki5c7P5QvUwrPE--
