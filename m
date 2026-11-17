@@ -1,89 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794919490;
-	b=2ZWmysV9DeODK9hBN4HJHJVNxcxup+XzVcbPYFbu1Y+auHvmo+jnLBg5nH2hSqpPlxIe
-	 vXmThwMcARsqVTkm+X+VUzMqgrhBzpXTUlRi0sQK7FABu+59O5E4KhU6nAmHkEwNarAvk
-	 opitBfNvL2uACh/TqCLoT5J8vLKP22bKbxPH7NNhv/0I8jJwBoU/COkyqtCl3lHxQX1+g
-	 3VYPUpx34DcEnkjfXIZbh1yZ9MJAKssWFLkfAdK04DcqlIWVd8AZM+xQmkX26BukUr0OX
-	 rD521o/z9/t11aJlS6HizjfWgg41o6fB93QqaK3q7EZCPHmAxsLaMi2cNFs+J+EtDJw==
+	t=1794919491;
+	b=GNC9VNGvphLxvvUTQqJKpaWy8fPYjrVv1VAmuDa0chlfAW1qyQMpYQlNEeLku9Csmj/Q
+	 uoHobUw6Ty9zYbPguUPgtE9RUhau5Qftfd+85DQNqo7ZIA7S0n4T1MmNm+/cEcrUgO6EX
+	 1+WXotWrjjKKV9cT95CNzp/0H5/EQr9Si0yL7dOsup3D9LD3kJpleJ8Q6XT1cEtscIsey
+	 z7xEDx/n0Fxb7PK4RaHyAtddCBggu+VHl/goOpeXtXiztCAXuteZKLtNe1KKAwFUzuWQN
+	 PTRJkX/1YxyK6pthscZwbILMLMRwSPVbN6mFqgPp1/uyRaB+xDAsDBQGwWzwgujQ3xA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794919490;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=65x/rmOi9eSRyE50YMLG+5ikwTFST6PY1hiF0uL56W0=;
-	b=NCNJJwEGCELKKZvMHExCcsBOAesIWFygvf40cUhV+P7viicuIdtLLz0PooaYqZNQCSjf
-	 kpkYwilsNNGj3/jY+JPV67ZZNZZSmwEqRh6QjMxPXBhBDQORTxZ+ycxFEpzvtz+1KWgxc
-	 QCK5NvH0nIdDdGLopo8TzqULZVTIwYwgaCUEHvn3FeSB4DLxvoHuvBU+5HFP4TkH9JD3X
-	 2Sz9TLidmr6koDEjpHz+RMeUKdHU4Zx02JzBu0XlOugCuvENtG4vSMg1/IgpSEwu4741K
-	 mGjCBuQh06ZqlLwH8NQL/zM7WETtBQ9FCJIZYcrVrjSXiRWPSRJ5ucpVN0p1LigS2BA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794919491;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=w951ovg3w2Vsfylh3ccdzN6FDyrcXZTYdvPxHdlj9QY=;
+	b=cTLC89k6GmjUQ8UofEwe8MkbBpPJunWgH6ot6ckaD5/apvqAjY+YKLbR3WwBH6kvrNNt
+	 KeAzv1iDu8hGyCo49nx9GO/MVW7k39E7cLK86IWOOc0GOPx2eSGYmtvjskO6o8Io25iV8
+	 EaRHBP4LSkBWjqOSu+O0nIirIw4qbczIo+LQD0/GeFcGkHCWaQ0WsLtxa4rJVJLxxz4UI
+	 PCue/MtOWmQEWBSS6nQSEvT9csEmQgi9Wh4iA9hgu/8wpOlW6O5k2U32+cujgQ4waNtyo
+	 gZ+zw0CXIQtrefUXjsBv6Czt7HG37fb9XNrA/xH7NnRtXZDByQj/knHJu2IfpT4CQFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L9P3tklZ;
-	arc=none smtp.remote-ip=209.85.214.182
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YBwzihIj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C98D5606A334
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:44:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C98D5606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79095606A335;
+	Tue, 17 Nov 2026 12:44:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L9P3tklZ
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e9d7791b00so46086005ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:44:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794919489; x=1795524289; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=65x/rmOi9eSRyE50YMLG+5ikwTFST6PY1hiF0uL56W0=;
-        b=L9P3tklZNkzH8WQmEiIFtR6X2/A76g64iLk8HOx0sMAsSIVH7+tCWASqDM7ub5RiFV
-         FX7Phj2xZJeomtBsuenxvU8A+MfXZxsvaF57BYv98+StouewMDLrKvYa6d8yhBrrft6M
-         buuXXM0bddo5UsaD73t8avekelxnYy2LO0lD+7geTpEGnmve3/7X9pq1K7txuYWn+xHS
-         AHHv3EnOOwVzh3M3Dw0gkJFxjWpYI29J3453viVBeHK1Y1Y+LLuCNOlmqB6tcmLBxXQv
-         ovV806HhgOzCLl/NgleFL0TYdGPra1N2Ua5wD+mcssBZgS1B5U1H83NstNr/Ll2tZUs/
-         RYQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794919489; x=1795524289;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=65x/rmOi9eSRyE50YMLG+5ikwTFST6PY1hiF0uL56W0=;
-        b=UTbkIgphsMqhKlv1JQAWcH4fxFYv5jTPmNgsc7H6Qj1rT+xz5Elh149aEw6AjcihRK
-         41Q5gEpD3RR2csNj2Emt2gBcNnwx4nDaGTsBh8F7GZhn2foP8ciYmo+xQX+q004K38yA
-         OgPafbIsrS5C1pwoveaJrFb3AnjSydDezWr1B14jE/d2or7VDQsxL+aT3PJ/3cUHnnKt
-         HTOGQqdOqG0MZnY7bpYneLGhbRB3fSZByYyzFP7Tjm4kzkhnqhs3KhvJ6e3tmB0LFoHY
-         7hOCPBnCXhMCn7y/hnNhENMG3nVzGYRIPc7rM9uIjfOhnPFNtSrBljk6E4PYgJt2IR+w
-         ONCA==
-X-Forwarded-Encrypted: i=1; AL+hErGENpItGb6sf+pNWmztqkvWeuQcotNU0tFrcRjCzBFKFHBBdn5Rn6EKLAAfEhwGj2bSQI9W+nR/X/VKylQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/shz/Q2tz7H7BYy+uFbjqupVtOV3Kh5OvdMH5BUJjNFuO750do
-	GKnBL1ZODVwEvjKBT8uMQ2jEuR2fGXWXE5uCf8VFhDCgb/UqR6vs0wrY
-X-Gm-Gg: AZFdTZe0xkyt1t6RWXWj81Ha6+A0+FQ6420h8j7z6KudyNV1qeqHCEvDlUFHzWxsydS
-	hdMs0MCG6YfZ/yC4dAiWan1hVWAL3S+35p9ETyyCTYn1a9myhyf6o52qRCk6N01MbLeC0A+LK3a
-	v2MUB9eI2jKRjeItGBQkf982OPFnKg3yQrCj54Qjckkj3SmZewJP+7y/8vieij9Lv9j/RCkGISK
-	EC2qIrRxYj3jil4YLTuv4s7lABLZOQBSzjvxebTs025mExQzU5PW3zjavZC+aF7xqTvzjH4xv81
-	l/2H1JjPGJav0wUcG6WnJ/E3KesPM7dMOE5Judf34T8w0p/NMAu8klbxt752jPSWUNOqAcBiojM
-	a8kE50zNBPZc4jNfZrAnGJc2+5mXFzrZ0skL4NwdlI/TRwUy85xwXC7wWb0SrnyClTmpYpGcV2b
-	Y+Qt6r+Um9PK4qlwFA+wQ1IJmuCkcw0Z88zDTVAkWszCCMwXhqqSNxRO5qBIRO90yy0CySo9zNX
-	wKJtuRI98p1Jk+sYCn8R+sI067MrtPSlgxnJK+WXEHUk3ZG1g+ljUI8/NEJ8mRIRF95JvaIhBIy
-	YQ00TgT9ue2wH1glThQNRnanBKntu+ALTQ==
-X-Received: by 2002:a17:903:19c8:b0:2df:9655:fe24 with SMTP id d9443c01a7336-2ee0dcd06d5mr119181965ad.30.1794919488900;
-        Tue, 17 Nov 2026 04:44:48 -0800 (PST)
-Received: from [127.0.1.1] ([67.159.246.222])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd7a85f1dsm14585725ad.59.2026.11.17.04.44.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 04:44:47 -0800 (PST)
-From: Leonardo Costa <leoreis.costa@gmail.com>
-Subject: [PATCH v2 0/2] Add Toradex DSI to LVDS adapter with the 10.1" V2
- display
-Date: Tue, 17 Nov 2026 09:44:12 -0300
-Message-Id: <20261117-v2-imx8mm-verdin-add-lvds-v2-v2-0-ecfd237cf7ee@toradex.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YBwzihIj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB9431F000C4;
+	Tue, 17 Nov 2026 12:44:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794919491;
+	bh=w951ovg3w2Vsfylh3ccdzN6FDyrcXZTYdvPxHdlj9QY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YBwzihIj9Shh17NXGQFTAEvDovM8+5df3UglwbIP4LhlDO72jMNqyPF0WYqaMxoE5
+	 l5OzmmQDWs6bndpK3tF6rQ3lBt1zG/W2Vr4hLKm0xMK5Q3tuGJG1nrSyzrUsBppXaW
+	 SGkiwCNY7E+RlbeAppGntzan52lAp84hU06UHxtci+ahGbgAeTdRtu45d26OC8ja6O
+	 3fEkU5hLUtqSGA/TZDUwg1RsB15zGb0qJLGToS4ZL8Ufc4PY4HfNys3VnAcnlDfQwK
+	 nJPevvKsk4LSoOAzEx/JixDM6Bfp0Lr62Bqpj8jf8A4v/ui+HRG2kw8vE7zZM/LEt8
+	 9JwP4xNMylkVQ==
+Date: Tue, 17 Nov 2026 14:44:42 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Heiko Carstens <hca@linux.ibm.com>
+Cc: Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Janosch Frank <frankja@linux.ibm.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	David Hildenbrand <david@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>, linux-s390@vger.kernel.org,
+	linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH 5/5] s390/hmcdrv: Replace page allocator calls with
+ k[mz]alloc()
+Message-ID: <avxMOsbgkaC_kQA_@kernel.org>
+References: <20261108-s390-char-ready-v1-0-3db507722530@kernel.org>
+ <20261108-s390-char-ready-v1-5-3db507722530@kernel.org>
+ <20261116134656.125125Fdc-hca@linux.ibm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,61 +67,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIABxM/GoC/x3MQQqEMAxA0atI1gbaLmLxKuKiTqIGbGdooQji3
- ae6fHz4FxTJKgXG7oIsVYt+U4PrO/jsIW2Cys3gjCNrLWF1qPH0MWKVzJowMONRuTwlkCe/UBA
- zGGiLX5ZVz3c/zff9B0l3gv5uAAAA
-To: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Leonardo Costa <leonardo.costa@toradex.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794919484; l=1590;
- i=leonardo.costa@toradex.com; s=20261001; h=from:subject:message-id;
- bh=Fj2m0UsmYRbogE2wB5gnwQa+eW5qWmp45T7j+6XBwIM=;
- b=l2PR4FEDB+ESaSkJf52gV0k6GKWc9FUD8b8QzlURaMMAOj6dohZg5elkpgnWtzvKi+8fj40LO
- n7rxq6nv+elD/Y1f1gYBh68+aCmZ0Hq64vyvicESYUrrZ+YW5RC4fxy
-X-Developer-Key: i=leonardo.costa@toradex.com; a=ed25519;
- pk=4xvoVLDt+NxIz9D8BJHhT0fD43Ig6XgSDw4jRN/gHzk=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116134656.125125Fdc-hca@linux.ibm.com>
 
-This patch series adds the device tree overlay for the Toradex
-Capacitive Touch Display 10.1" LVDS V2 through the DSI to LVDS bridge on
-the Verdin iMX8M Mini.
+On Mon, Nov 16, 2026 at 02:46:56PM +0100, Heiko Carstens wrote:
+> On Sun, Nov 08, 2026 at 10:49:02AM +0200, Mike Rapoport (Microsoft) wrote:
+> > diag_ftp_cmd() allocates the DIAGNOSE 0x2C4 parameter list used for HMC
+> > file transfers under z/VM, hmcdrv_ftp_probe() and hmcdrv_ftp_cmd()
+> > allocate the data buffers used for the transfers and
+> > hmcdrv_cache_startup() allocates the buffer that caches the contents of
+> > the last file read from the HMC drive.
+> > 
+> > These buffers can be allocated with kmalloc() as there's nothing special
+> > about them to go directly to the page allocator.
+> > 
+> > kmalloc() provides a better API that does not require ugly casts and
+> > kfree() does not need to know the size of the freed object.
+> > 
+> > Performance difference between kmalloc() and __get_free_pages() is not
+> > measurable as both allocators take an object/page from a per-CPU list for
+> > fast path allocations.
+> > 
+> > For the slow path the performance is anyway determined by the amount of
+> > reclaim involved rather than by what allocator is used.
+> > 
+> > Replace use of get_zeroed_page() and __get_free_pages() with kzalloc()
+> > and kmalloc() and free_page[s]() with kfree().
+> > 
+> > Round transfer and cache buffers up to a page for the required 4K
+> > alignment, without rounding to a power-of-two number of pages. Reject
+> > unsupported sizes before rounding.
+> > 
+> > Link: https://lore.kernel.org/all/635405e4-9423-4a25-a6e7-e03c8ea0bcbe@redhat.com
+> > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> > ---
+> >  drivers/s390/char/diag_ftp.c     |  5 +++--
+> >  drivers/s390/char/hmcdrv_cache.c | 18 +++++++++---------
+> >  drivers/s390/char/hmcdrv_ftp.c   | 14 +++++++-------
+> >  3 files changed, 19 insertions(+), 18 deletions(-)
+> 
+> ...
+> 
+> >  int hmcdrv_cache_startup(size_t cachesize)
+> >  {
+> > +	if (cachesize > KMALLOC_MAX_SIZE)
+> > +		return -ENOMEM;
+> 
+> What is the reason for this check? I can see that this seems to be a
+> common pattern, however the buddy allocator would warn as well for
+> allocations larger than MAX_PAGE_ORDER if I'm not mistaken.
 
-It also renames the existing DSI to LVDS adapter with the 10.1" V1 display
-overlay, to keep a consistent naming scheme with the V2 and with the other
-Toradex Displays being introduced.
+Since cachesize is a module parameter there's a very corner case when it
+could have value within a page of ULONG_MAX. Then round_up() wraps to 0 and
+kmalloc(0) returns ZERO_SIZE_PTR rather than NULL and does not warn.
 
-Changes from v1:
-- Rename the V1 display overlay to include the 'tdx-' prefix and the
-  '-v1' suffix, to make it clear that this is a Toradex product, and to
-  make the major version explicit.
-- Use the new naming convention for the LVDS V2 display overlay.
-- Add comment explaining the usage of rising edge for TOUCH_INT# in the
-  DSI to LVDS bridge with the 10.1" LVDS V2 display overlay.
+The module would load with a bogus cache instead of failing as it does now.
 
-Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
----
-Leonardo Costa (2):
-      arm64: dts: freescale: imx8mm-verdin: Rename Toradex display overlays
-      arm64: dts: freescale: imx8mm-verdin: Add Toradex DSI to LVDS adapter with the 10.1" V2 display
+While it's really unlikely to happen in practice I'm sure Sashiko will be
+unhappy without this check :)
 
- arch/arm64/boot/dts/freescale/Makefile             |  34 +++---
- ...dsi-to-lvds-tdx-panel-cap-touch-10inch-v1.dtso} |   0
- ...-dsi-to-lvds-tdx-panel-cap-touch-10inch-v2.dtso | 134 +++++++++++++++++++++
- ...8mm-verdin-tdx-panel-cap-touch-10inch-dsi.dtso} |   0
- ...x8mm-verdin-tdx-panel-cap-touch-7inch-dsi.dtso} |   0
- 5 files changed, 153 insertions(+), 15 deletions(-)
----
-base-commit: 33adc96ac217d6e95b7c44ac383c19ca4ae2ff52
-change-id: 20261116-v2-imx8mm-verdin-add-lvds-v2-a6868b6ae070
+> > +
+> >  	if (cachesize > 0) { /* perform caching ? */
+> > -		hmcdrv_cache_order = get_order(cachesize);
+> > +		/* the buffer must be 4k aligned, hence round up to page size */
+> >  		hmcdrv_cache_file.content =
+> > -			(void *) __get_free_pages(GFP_KERNEL | GFP_DMA,
+> > -						  hmcdrv_cache_order);
+> > +			kmalloc(round_up(cachesize, PAGE_SIZE),
+> > +				GFP_KERNEL | GFP_DMA);
+> 
+> ...and that check wasn't here before.
+> 
+> > diff --git a/drivers/s390/char/hmcdrv_ftp.c b/drivers/s390/char/hmcdrv_ftp.c
+> > index 3312b2ac00a9d..e22789b532de2 100644
+> > --- a/drivers/s390/char/hmcdrv_ftp.c
+> > +++ b/drivers/s390/char/hmcdrv_ftp.c
+> > @@ -238,16 +238,16 @@ EXPORT_SYMBOL(hmcdrv_ftp_probe);
+> >  ssize_t hmcdrv_ftp_cmd(char __kernel *cmd, loff_t offset,
+> >  		       char __user *buf, size_t len)
+> >  {
+> > -	int order;
+> > -
+> >  	struct hmcdrv_ftp_cmdspec ftp = {.len = len, .ofs = offset};
+> >  	ssize_t retlen = hmcdrv_ftp_parse(cmd, &ftp);
+> >  
+> >  	if (retlen)
+> >  		return retlen;
+> >  
+> > -	order = get_order(ftp.len);
+> > -	ftp.buf = (void *) __get_free_pages(GFP_KERNEL | GFP_DMA, order);
+> > +	if (!ftp.len || ftp.len > KMALLOC_MAX_SIZE)
+> > +		return -ENOMEM;
+> 
+> Same here, and as far as I can tell the Sashiko finding seems to be
+> valid as well, even though it looks to me as if this worked only by
+> accident. Also, as far as I can see, the reported "delete" command is
+> currently not used at all from the only existing user space
+> application that I'm aware of. But let's not change this, please.
 
-Best regards,
+Sashiko is wrong about get_order(0) returning 0, it actually returns 52, so
+__get_free_pages() returns NULL and we end up with -ENOMEM anyway :)
+
+So it's either keep if (!ftp.len) and let it fail for "delete" like it does
+today or have
+
+	size = round_up(ftp.len, PAGE_SIZE) ? : PAGE_SIZE;
+
+and allocate at least a page for ftp.len == 0.
+
+What's your preference?
+
+The ftp.len > KMALLOC_MAX_SIZE check seems bogus indeed.
+
 -- 
-Leonardo Costa <leonardo.costa@toradex.com>
-
+Sincerely yours,
+Mike.
