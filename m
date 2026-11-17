@@ -1,59 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794919086;
-	b=hJlWAgZwnhNmTweGUksVyezP7CM0CGqLCmSkzUIZsYp7LjNUjX1UPbCVk0JwVu4RltQA
-	 hzbyakM/8TqUfBDHxWfr+VpXY/NMCrDjGendbAvWdt/I+J285e6pV3oF6fwe7h2nxpPLh
-	 VZ7BypzcBQHtrysvmL5v3spxusZ/GonHxxrb5UgEbPJ313Fkmn53oVgYcW4YQ+VzdGjua
-	 NiOjxqAQOEAALB/l/e2CCQDgrZgtMxyayeKs1EmGiOF7VSCoJEau8aQXTWAo/o/gVE9PB
-	 cMPjRjqGiq5TzN2+pafm86JqgAALBJLiLlFu2em17qIZXgb74eC1n5lCCkLmvl6CltQ==
+	t=1794919094;
+	b=otWwiM1mBhVSXVPznScmKldF46f2CbsGwiXTpNEPfRoRuVrXXibqHZOHYqxzVNDwMGA8
+	 aGvUJldZbyr5E4c41JyMMx15MGH/muuhuamNqmE26GYvZym1s4jWL8V5cuwtFc6GG68OC
+	 vZkn7H8SDC9ipQwq7/Ca19WuJn0O4cTMMEMzV3kUA3iO++RNSGAX+gCMz12TSO5H8jcvX
+	 YUCPkSO3aiNJvIrRkL3MkdmL/WSyMHx5J20x+MCDFWZU1sn3YCxuxU4nl1vTzRdagzdup
+	 3Oc09brSw4giK3fNRYgWWvKjH9buAXnXmBU7y84n0Y8/EqlTA7OwM0M8h/qIPNQL3Rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794919086;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=O3Eobrwyq5oOakeAIYkUyc+GNwviFP9RCRghw5eCfbo=;
-	b=Iw5c6kELl+ACMUHsHSIIPturJsqMqAUuqP9xjPeh6iQjVjuaojX/euDeoFLmfMAU1QHJ
-	 yMyvI4I8VhUbxg0yl53zy+Uk2UvGxiFXC+yD2Jf9njCXqIGIgxr8oUnMM88xMlIKLgv7k
-	 GV/ldEykTKrL1epNkNa7jeb4FjttLJa7R/xmaACEPZT0h9kTwG3gC5R/Dc9UYbXJK0MI4
-	 8boYO46F6Fb9/AL/nBfKA7yOjFuNG+89UClfhxKrXlSlrMaY0sLjgojfhiOYTzNEnZS6X
-	 jSugzMm8p6d2UbzXkUkY7i/zuAP9aiSZZme8zQwNQuZd/wPyTgfQbIsf6L0FrwxpaUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794919094;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=BfKTHlC3+Xbx5OHdr09scBdcIJUWSjUyLGqVWeWli9g=;
+	b=SfqdaIN6/eFoeEho/CkWhxDMBwM9A+d89PqspXsCkG6Df1LD7xkIqXkR2FPCeW4MJakS
+	 6eNc4wxJrwkpf2Nco1QkAagAVzvQJFEs4Jx2UrX0jz0rN+WDeMaupmF5Mv2N7PTow4Raq
+	 17xAM2o6GWFlfpTvv2aTb2h3du/S/Bc9N+tJVDMKUYVMymkHnXsdQwRlYmnbZo7LaYCtW
+	 1lGAbWDi7BbI3Vh4hiUGAom2gzybd9N3NZakktfMTBC+IZz3h/zNocDPeZYRXKSBoDqyI
+	 2Ia2NEVFYUaZuMHO/uqjhLJfFdFfli97FjGm1KQLUXrDFearDLWUxRQcOQMpiQuqAwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R7fOeIOI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KT1H6zLb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 69551606A31C;
-	Tue, 17 Nov 2026 12:38:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AD96606A330;
+	Tue, 17 Nov 2026 12:38:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R7fOeIOI
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id B754D1F000C4;
-	Tue, 17 Nov 2026 12:38:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KT1H6zLb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB8C91F000C4;
+	Tue, 17 Nov 2026 12:38:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794919086;
-	bh=O3Eobrwyq5oOakeAIYkUyc+GNwviFP9RCRghw5eCfbo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=R7fOeIOIRPoY8+oP7zpF/On0647DP/j0922IzQS0EGdYL7zviM3kw2GpZmpgSM4MH
-	 xqMr4EnOqxDCoVs7I5IpabgXmVCB593y4wvmknU6ssJc5hMgA8pHdxhnTgyhrU4A+5
-	 JFs3VjlHQ9F5qxJoW2/sFS1KlV2d91w9yfbTBx88kZo+4Oi3RFs3zDFkBN5OzjT6D2
-	 Vp3WEA+o5Ce3NmNgpGkgg4Ao1lSVo3wDQRhpYtzjmVqWMX+nK62RMuy50NbWYpaQs3
-	 Nm++vzc+Q4THgxLWfn5GOSxG7FoEVBaE3yFe1Ez4kgz5c/KBZKxUgo8fI8/sHRkK9V
-	 GGLaP1WTFQrkg==
-Date: Tue, 17 Nov 2026 14:38:02 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Rustam Mustafin <rmustafin@cloudlinux.com>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Jaewon Yang <yong010301@gmail.com>,
-	Tadeusz Struk <tadeusz.struk@intel.com>,
-	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] tpm: track the response read position internally, not
- via the file offset
-Message-ID: <avxKqn-PlzJyxVdK@kernel.org>
-References: <alvD5nOP15O5B8Ai@kernel.org>
- <20261117104838.2650999-1-rmustafin@cloudlinux.com>
- <avwzid1Ovl4ACkaQ@kernel.org>
- <avxJ9MxZ0PoWbQTc@kernel.org>
+	s=k20260515; t=1794919094;
+	bh=BfKTHlC3+Xbx5OHdr09scBdcIJUWSjUyLGqVWeWli9g=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=KT1H6zLbTn/m6Jw8ozxk159/tT/nB808lvspGjSH1JPeQwWMOtiwYOWq+LeOUqzlc
+	 YA7hZqAgTIyNepMFGiKyvOhySX3VpvshQbyVmtDG4b8ZmO57Rt4Ga0sMclvhaRai7m
+	 iTder9kKRH70LsNOTVBlgzhOUwI8ENddgu56NuW5hppI8YXMOM5z05DzJzwWZbiELV
+	 xId6uSeyjexcfuQG4bI4zLACrZEx0g7vviz301oRT4V18vzNMY+PFXS7BAztfO6Nx6
+	 eX7aA6frTUQ009aFXNPE/qXp+Q4FwtS8iyfbiAr3e9DItM+esKcnbmaFAyLQN4dh6Y
+	 VEVU1r1kpX87g==
+From: Niklas Cassel <cassel@kernel.org>
+To: dlemoal@kernel.org, mans@mansr.com, tj@kernel.org, 
+ Haoxiang Li <haoxiang_li2024@163.com>
+Cc: linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261117094903.1282096-1-haoxiang_li2024@163.com>
+References: <20261117094903.1282096-1-haoxiang_li2024@163.com>
+Subject: Re: [PATCH] ata: sata_dwc_460ex: Fix DMA channel leak in
+ sata_dwc_port_start()
+Message-Id: <179491909249.3460736.3681110965514683610.b4-ty@kernel.org>
+Date: Tue, 17 Nov 2026 13:38:12 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,29 +59,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avxJ9MxZ0PoWbQTc@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
 
-On Tue, Nov 17, 2026 at 02:35:04PM +0200, Jarkko Sakkinen wrote:
-> On Tue, Nov 17, 2026 at 12:59:25PM +0200, Jarkko Sakkinen wrote:
-> >  ...
+On Tue, 17 Nov 2026 17:49:03 +0800, Haoxiang Li wrote:
+> If phy_power_on() fails in sata_dwc_port_start(), the error path
+> frees hsdevp without releasing the DMA channel acquired earlier.
+> Add a cleanup label to release the DMA channel before freeing
+> hsdevp on this failure path.
 > 
-> I think this would be more feasible:
 > 
->         if (current->flags & PF_IO_WORKER)
->                 return -EIO;
-> 
->         if ((current->flags & PF_KTHREAD) && current->io_uring)
->                 return -EIO;
-> 
-> I.e., block io_uring entirely.
 
-And kselftest can then be extended to address this case (as a
-separate patch) making this two-patch patch set.
+Applied to libata/linux.git (for-7.5), thanks!
 
-Short summary would be e.g. (or use your imagination):
+[1/1] ata: sata_dwc_460ex: Fix DMA channel leak in sata_dwc_port_start()
+      https://git.kernel.org/libata/linux/c/9397e8e9
 
-"tpm: Do not allow io_uring for /dev/tpm{,rm0}"
+Kind regards,
+Niklas
 
-Br, Jarkko
