@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794889287;
-	b=qUSLlVI2Xszs3THWM/GdcpxcemgwIAM0IomgTePia79qmpiTbWkJA2B6jgGcS0Oxncv7
-	 NAjEXEP5CEfWLQSXD0MgeQjv/sENz0JI+MQnY8UxUUsmPfQZ7weYd75uBY6RLocDqEa8E
-	 brDz5hlk91R4GDCvuRw8/huRD15oDkvOTt1vUlLttcabvfgGm1qlCCg9aqAcLcmLiQaiL
-	 YzTtXCpjktsga2sMPGPfd9M+7gIqcNtKIolgaSZblDHUUB5kXzDOEz4DbH/MfeCwZY8qD
-	 0OoJayY3WskCv8sqVj1x+y5D9WW/N6TzCrQgeGwwl70c4Ps8jfJdVfW4viNGpw/OXTw==
+	t=1794889291;
+	b=3w37a4udKQW83vufJ6nbEMAtshjTGPZQ45dCQ9/praGcieLxFvpk0vjcGIK77igcA3gA
+	 po38AadZ5jsl2/Z2xGmSLSouzI1CEcFn3n0KzVGV0944QDp53Je7xb38i1NOr++utBGls
+	 sutxfHlsLmP9wnpTkCqOiD/Mv1dlSOCvxvsqxoQENPJt2P/W3ZE5mRKPsNdJPLOA1y8hx
+	 /QD5qo4h3STbI0NEEN2KWhQ+HJxd7nMMPh6NXAXdbBwwoW0gA4LoWWF7VmG7mXWd3x6cy
+	 OYLL/mO2rELJZLZNqlLV99wJdgKEXFv4vQAMyoag/zQFNAh884lAVJ+aNYvYH0WAJfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794889287;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794889291;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=XIcutFxtKY5e7a2xv9fceQp19paF2ilpk4Nu1u5fqLw=;
-	b=gws9pWskWgo5/Aay/YClMD6S7K5rmcMw/UD4/ePOQuCV+wp34ZggTXVPcbS7rBwy8tPM
-	 tXxaJH3eUBtSA929rYrG7NMIDp+oeZdRoWzFjzhMpPjmaJbYVVNa3zjl1+Kz63GOCE2KX
-	 mL+xxdaXDEVtxcCA0gxl0KApRmONIT9Fe8QN/9FfHdN5MjEGWgNjkOkY2GTPhxU8tdMQO
-	 vEre5mFKXJUfY9W66QoPbmP3SWasp9tD5Zpllc9Qx0B9r1ezi9B+FXMNrOmtP7TyUg0TV
-	 /83KaA2HmUjb3AAr6L1WQ8kia4Ks64DgI9E32HBAJWWWDBUXy7FJChnP4SInHtqAsHg==
+	bh=1355GaRprf5af481svTnlH2umLDzsTzd+KGfE9XZpIs=;
+	b=h/fZGw8A+zPVFoZMhl95uzTP9/MXowauu80o8qXhubjNg8aOnbi0uq8MB0Sxb/JvTOTm
+	 LTKdfIH5601bqhmjbsqlEEEBpFld4lo6HobMNC+feVJ4Z3CKxdci4S41+TI2kCQuvZOU9
+	 U8J9q6rhGw8kZyh4ol2rq4b8Mqfd5zw5O5xsYyH3rRZEkigSIMc4zBZyK/WJtYzfgoqPx
+	 Dm3sNVebDY71l9rx7OKJXLWeoFBrmBQk663MNWkcBpJCqNj6QaVWEZcAPJvNKUMZUOwhG
+	 JhaPauWNkCXD3kYqh9qN8rmA01B1SO9e0rIKfG8m6MLJIIbY1HMk85ci3wLi8lba8Tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YKexKFum;
-	arc=none smtp.remote-ip=209.85.214.169
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EyrEDHfB;
+	arc=none smtp.remote-ip=209.85.214.182
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8478C606A329
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:21:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8478C606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 645F3606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:21:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 645F3606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YKexKFum
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2ea7190aea1so15171145ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:21:27 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EyrEDHfB
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2efd993e9d6so2577495ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:21:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794889287; x=1795494087; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794889291; x=1795494091; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XIcutFxtKY5e7a2xv9fceQp19paF2ilpk4Nu1u5fqLw=;
-        b=YKexKFumA62r4NnViuW+Eh4RHHPmwOrbBMKrA0CidZyGbvIZG5PUNSXtcECwcgSUyg
-         iHB+6fwivzQUaWAeZSMBIpbpW2xWXB5YSqLH+IU2K4IZ5CcDDXXqt8ZGBd7RctjH7tJc
-         QUOMUWRc4xjA7OP4rT8KqjnodT2Awm0dUcGwAiMh2kJUXEunvC2BQHG1Qpv29/WEvkq3
-         +segr2JrHcO9AwIDEV/TYk0qrQ5z6c+4Wy9oZNQ9m3PhuwDwTL0vNLMqlSrhTRNVXOKO
-         wRNzK5oIDfbc4MtpfOgEyc8QThM7zv7fj5l4ssEOgcZrwPSKKPvawW4kVqyQ2NhBJx30
-         y6Ig==
+        bh=1355GaRprf5af481svTnlH2umLDzsTzd+KGfE9XZpIs=;
+        b=EyrEDHfBd4YXBzIi4U3mV6VVjiFuf5p57wUhGUjLYjqXtPe7saanA9UCu0dAUXTCjx
+         t//VGPpePsMN1M67t7JDCaQUIKevIadMpCtoOQcvgkGQ2tnqmWkt0BpNKhBJncq5Vz4H
+         LZIp5FVP8CPjcDQ6vsIRDAoCF4pPT9DPwiVuZZnZzRG/OPXAjaoU62kxfcsP3P0IHJAD
+         12VYxcHCAApmRv9u9sEiszfW4ycflDlkycI/uyD1RwDXvMS5rCAWdUIZuzffo2JAYt+Z
+         lB30DmJShkkkiHGKxqbPeDC5g6yiUN2NWKxLwxWF8qOH2zF0EL6HFdCRQBf8L4daYAOh
+         c5Aw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794889287; x=1795494087;
+        d=1e100.net; s=20260707; t=1794889291; x=1795494091;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XIcutFxtKY5e7a2xv9fceQp19paF2ilpk4Nu1u5fqLw=;
-        b=VgfZrLHFAF5qkzxra+5B+Hq2sFWJhg2jD1BLXz58ZR97q8y5PKBwPfdv+5bHyl0buH
-         F+3Mxe6WoaCUkUbfyggreXArWE20vJwctotyxgH4A08O+TE3RzqGRP1WNkdrq1WnuQwK
-         jfvZP2njb0CUWPhU/Zf3Szgj40K208/UyiPgSBJTeWgrGaOJK7TzdJl00rSfAJOwHs+k
-         L6XCjsV5cnWY1QJYHmrczlL55vLN5/vDLpxuTBtFKkSQ6y3Wj4NcaQ1N3v6rqZCXtyGr
-         GYS4vvhfqwhBtLO9dFgyJYomkEDw8QWftMudwY4WXUyuvkGcbUPCW9NhUXVdPBl6Oa+6
-         7ETw==
-X-Forwarded-Encrypted: i=1; AL+hErHnBXWBG3cthhQsB48j8mGuVCb0Nrrams8l68UZQadWjq0JYUoaUN593OH7+nkHYMl2T7J+Jb/aTN22kq0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z84y/Eohi8LlaUPY4H+dtgg6H94KJRN/bpz7GPtJFze6Y760YBA
-	0ffRSdV/lPRiNh/GNu9vTGgRMNJZjgjAJXVxHSajESYX/F+rfLW/nrhG
-X-Gm-Gg: AZFdTZflQIFON0016Ge5pQw5XvgcLzuqfZDIdbg1f/svqB5bizJwSEZzlANzN0Sg54G
-	p9IDQEhpliz/2f/TnyALMSaOoZkkGn3ubLGOwZcWPkj00PNS4tGwZZ5qYrZ0b1J3BflrIZ8GsO9
-	fGOCptAGwLMs1A+Q6fktvOjr0IsGnmTrstHXMM8YV9QVPtrQV5agXIkI7mBnDEHYgsP77CJngcE
-	i+g/nPu8C/UouesDvmuQvDKbtjKHtoLVK2w+qqWJFR6TT9NM5D38sJZls8lO0hUg82xF0QCiAT8
-	rFO3H6SP/3YqczqTXszco3ROgSwLK/q2ukpbIBpzY/RUMVaxg+oCP2UUK5eJQ+lkcu5YI5/kE8a
-	aYbwv+cG26mzlz5bijb2Co+gRvBZ3lJlCRv7cnqWf2BhoicT36rjy28Xk7uoJC+DS/0oSwbeefo
-	LiTizytPdo7qwFxmUsc7ZEsG8/dRg8WZPRie0D2co02zW++5bFZnoKLn7uDkBTZywUNaOjLsnHB
-	1y/enHMPa451DkERrxWwUzF73ZLs9yinCyste9z7H+/SZbPl+0nDHuslzeiJUYXu3OV6KQrRtBQ
-	+QQ4UhK914mUzfMLhtRpr93sYNykHCNrcsK2P0cJN/opoB8A+Wgc4Kj6j+/i0sNr+n0pUjZynay
-	x+MXs9fHAPnXh94W3KQ924ZQzYzieVt68ua5eZHDn2A0L
-X-Received: by 2002:a17:903:244d:b0:2ef:e465:5047 with SMTP id d9443c01a7336-2efe465548cmr442305ad.33.1794889286773;
-        Mon, 16 Nov 2026 20:21:26 -0800 (PST)
+        bh=1355GaRprf5af481svTnlH2umLDzsTzd+KGfE9XZpIs=;
+        b=0yKIx9WDZov83I+Mz2zGfR/xA5pQZfk2i4/RMNJPr3NiPvYDO1Bj+r4bnft8j4wQAT
+         tabdN92cxeSX0WTlKLQUvyOM4WzlINBDhExrnjDJ/1v8OWpbEUvEP9JobeESbt8iyQ4S
+         fnljgQmEp8H+Cx1KJd5wCKLY6VMbmtilS3M40Mvrih5rf0JIJ6HlmBPTZC8Q+unD/Oid
+         e19ebN1v6BymV09ehULoGvZU9qxry46u19sRx7E6HD0EKfYcYhveSpOre0VozBo5pnKt
+         UnYQvkC13Kt437nWLytGjEJ8373eU9msVxPbmZT8KOOrtVfBp1EHcN5yhwgltCwSU4k3
+         X9VQ==
+X-Forwarded-Encrypted: i=1; AL+hErFkiSvagxi/CRoI9i7kSNf9mSwKVZGEvHZwPYW7nMRnXfGEHWA3SQhvfmeiQTOkZv5JFAqpeRVadSJ/M2U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/noG/NfwSU6Gk0swWJvJQeXS8tyFpnnFaeEw4DmVtjb4jJuZsi
+	RPEUhm1b0OFR4NDuU91am6knScuOkGBM5l9lVq/0E7QniniVZYWhO9qO
+X-Gm-Gg: AZFdTZdH6VTrqszC+++l/tRDt1xnE1mbdCkTtv5bLnDyVGQISRJq9Mv1uQRJVTMuNzk
+	b1I7eCJktBeqWjT9ybc8HtCsnxPcLH29zrz+H9GZfy04cdf4srKfDHuskKpOd+waYCiZV0hnf54
+	6nwM+T3FriLeFaUZkFv8fXO+wf+yJNUgaZ6G3mS+in/dZ83f0AKW0E1yTpG3+xhki3YFv3DHaSX
+	+2B4xg+94p+exymRzMvTpVKYsP+Nh+4MJ7BF48cCPWd2zF5PcxIV7f4TDMIFWdYyD6S3C0neiVG
+	5fJy9T91gfJN9svq/ekGdPAb2htxTzuzs+aMhch2EJO+CVOmTSuYP+5GcdX5JPndj+H3o85wSf+
+	AzwAds1CwPhytL8reeSA/VW/vDkET9B6pb6nhrI3FI+Ahyia3B68+cnULKupsZzKCYMtx+id5oa
+	CmyOPodkT98ICAh5T3d0utDvGc8SrhxXStKQQiJwJQ7T0GL1cYLuVFwvG0dDKUzYEDIsQU+7u6G
+	awhWHUgaNDUO+phm/MidBrP0iWdWevXTZuykAf9EdXAmCo4i5qM6uJKhRJvxghdVbFZcQx0YaCz
+	Kxqbl0xiP3VlquJW+d7RLFuLgkgWj5cYvgQkYpMR3SSiwP2HUhFo3ASXm9ZwybbcZ/IB+Yj19Qe
+	ZGnr5HiIxwjwEkMh7dIAv04B2XONuILArNSypSdXSaqib
+X-Received: by 2002:a17:903:4584:b0:2ed:1cb7:79a2 with SMTP id d9443c01a7336-2efd9a87525mr10469925ad.25.1794889290610;
+        Mon, 16 Nov 2026 20:21:30 -0800 (PST)
 Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efe41c8df5sm412385ad.70.2026.11.16.20.21.23
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efe41c8df5sm412385ad.70.2026.11.16.20.21.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 20:21:26 -0800 (PST)
+        Mon, 16 Nov 2026 20:21:30 -0800 (PST)
 From: phucduc.bui@gmail.com
 To: Mark Brown <broonie@kernel.org>
 Cc: Liam Girdwood <lgirdwood@gmail.com>,
@@ -90,9 +90,9 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH 1/2] ASoC: cirrus: ep93xx-i2s: Simplify platform_get_irq() error check
-Date: Tue, 17 Nov 2026 11:21:01 +0700
-Message-ID: <20261117042102.12442-2-phucduc.bui@gmail.com>
+Subject: [PATCH 2/2] ASoC: cirrus: ep93xx-i2s: Use devm_clk_get()
+Date: Tue, 17 Nov 2026 11:21:02 +0700
+Message-ID: <20261117042102.12442-3-phucduc.bui@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261117042102.12442-1-phucduc.bui@gmail.com>
 References: <20261117042102.12442-1-phucduc.bui@gmail.com>
@@ -109,30 +109,93 @@ Content-Transfer-Encoding: 8bit
 
 From: bui duc phuc <phucduc.bui@gmail.com>
 
-platform_get_irq() is documented to return a non-zero IRQ number on
-success and a negative error number on failure. Drop the special
-handling of a zero return value and check only for irq < 0.
+Use devm_clk_get() to manage clock references automatically,
+simplifying the error path in probe() and allowing the remove()
+callback to be dropped.
 
 Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 ---
- sound/soc/cirrus/ep93xx-i2s.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/cirrus/ep93xx-i2s.c | 47 ++++++++---------------------------
+ 1 file changed, 11 insertions(+), 36 deletions(-)
 
 diff --git a/sound/soc/cirrus/ep93xx-i2s.c b/sound/soc/cirrus/ep93xx-i2s.c
-index 97816fb75368..8dcfc6717e19 100644
+index 8dcfc6717e19..f2d55763a02d 100644
 --- a/sound/soc/cirrus/ep93xx-i2s.c
 +++ b/sound/soc/cirrus/ep93xx-i2s.c
-@@ -462,8 +462,8 @@ static int ep93xx_i2s_probe(struct platform_device *pdev)
+@@ -471,54 +471,30 @@ static int ep93xx_i2s_probe(struct platform_device *pdev)
+ 			return err;
+ 	}
  
- 	if (IS_ENABLED(CONFIG_SND_EP93XX_SOC_I2S_WATCHDOG)) {
- 		int irq = platform_get_irq(pdev, 0);
--		if (irq <= 0)
--			return irq < 0 ? irq : -ENODEV;
-+		if (irq < 0)
-+			return irq;
+-	info->mclk = clk_get(&pdev->dev, "mclk");
+-	if (IS_ERR(info->mclk)) {
+-		err = PTR_ERR(info->mclk);
+-		goto fail;
+-	}
++	info->mclk = devm_clk_get(&pdev->dev, "mclk");
++	if (IS_ERR(info->mclk))
++		return PTR_ERR(info->mclk);
  
- 		err = devm_request_irq(&pdev->dev, irq, ep93xx_i2s_interrupt, 0,
- 				       pdev->name, info);
+-	info->sclk = clk_get(&pdev->dev, "sclk");
+-	if (IS_ERR(info->sclk)) {
+-		err = PTR_ERR(info->sclk);
+-		goto fail_put_mclk;
+-	}
++	info->sclk = devm_clk_get(&pdev->dev, "sclk");
++	if (IS_ERR(info->sclk))
++		return PTR_ERR(info->sclk);
+ 
+-	info->lrclk = clk_get(&pdev->dev, "lrclk");
+-	if (IS_ERR(info->lrclk)) {
+-		err = PTR_ERR(info->lrclk);
+-		goto fail_put_sclk;
+-	}
++	info->lrclk = devm_clk_get(&pdev->dev, "lrclk");
++	if (IS_ERR(info->lrclk))
++		return PTR_ERR(info->lrclk);
+ 
+ 	dev_set_drvdata(&pdev->dev, info);
+ 
+ 	err = devm_snd_soc_register_component(&pdev->dev, &ep93xx_i2s_component,
+ 					 &ep93xx_i2s_dai, 1);
+ 	if (err)
+-		goto fail_put_lrclk;
++		return err;
+ 
+ 	err = devm_ep93xx_pcm_platform_register(&pdev->dev);
+ 	if (err)
+-		goto fail_put_lrclk;
++		return err;
+ 
+ 	return 0;
+-
+-fail_put_lrclk:
+-	clk_put(info->lrclk);
+-fail_put_sclk:
+-	clk_put(info->sclk);
+-fail_put_mclk:
+-	clk_put(info->mclk);
+-fail:
+-	return err;
+-}
+-
+-static void ep93xx_i2s_remove(struct platform_device *pdev)
+-{
+-	struct ep93xx_i2s_info *info = dev_get_drvdata(&pdev->dev);
+-
+-	clk_put(info->lrclk);
+-	clk_put(info->sclk);
+-	clk_put(info->mclk);
+ }
+ 
+ static const struct of_device_id ep93xx_i2s_of_ids[] = {
+@@ -529,7 +505,6 @@ MODULE_DEVICE_TABLE(of, ep93xx_i2s_of_ids);
+ 
+ static struct platform_driver ep93xx_i2s_driver = {
+ 	.probe	= ep93xx_i2s_probe,
+-	.remove = ep93xx_i2s_remove,
+ 	.driver	= {
+ 		.name	= "ep93xx-i2s",
+ 		.of_match_table = ep93xx_i2s_of_ids,
 -- 
 2.43.0
 
