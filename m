@@ -1,101 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794914880;
-	b=rcsrRssS2xp0pGbFb/v7W6B6cZ8OSJ5wTKFaQLlvDPF4kjGwqE9a3nBUXop8Cd/vozjq
-	 GUNEp2R2et4I2zmy2M5aJ+6UAxxt0PamPccHUcRfpmNev5ZaxtnFBtMUDqOb2q6RemAbV
-	 V3KytJBdP0x/f9hOzM9+qBsn1BbWHDPKYlszvjrFZNsqsCk+y71mtLyfjomjyKMlmNOyL
-	 9SdaoCsPZXz2lCyIgb0OG68egLkU9ApjTImolyrtF2KOSWWJ5oDhwkfUCJkrdZmHPVo1W
-	 D38bPuoMujltrmIGkTyaHz5nnVdVguEjgQSmS7B4E9Oesa4E0oIbrQzSNeiaNjq4TZg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794914880;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=96pswqJ5qTbntrCOwepGnE2YJy9r1prVrxEWrzWWlW0=;
-	b=ht/pIcXHrFxBTSqFSYx2URmV3Y7XpWdZ9gTEPgj2etEdILB9RfsuQptcs8Ws1YGTui1r
-	 kqHW+1GsN+PtHd1tvzCZ6knPQ4wZuNQh8jpUd5D9oWjh3RL17Y90Ut+xj0fjmt7Nx3c0N
-	 egycFtMaCzHnry0LULo0jo9mFbDGUJdrXaPJJXqfjYmcbPlTbL1rTn6lOUfHeBmYDhNCk
-	 EwP1WfHMUNKuvgRsVxN4MRalGQ7riBixSZTd9tm8SdE7ylyscuFiwEgTmfslfN6je7OHw
-	 t4Wxrx1+ZQypsEkMYy8BOECvZiOPNzO5usiAE0eR5v+CILvSthJDl7Q6OQOPrnUvjcw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="sR/N0i1+";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.94.104
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794914912;
+	b=pwSCxFsB+5S7BVtTKGXyOTsczUxJcRTj9ZqAOcVhXonf5lT7rVP3UEJhtwfVFUVfGynZ
+	 byZQf+rvotjUH1dmH/cU92ufWk9jGA6vtbhSpAIhiFa06SHtSZSbUGr8Hey7CdmyiofnS
+	 QndWPxk6vxqITs42m6RppSztdv/ecIiMJGrDQF3l0LU3m8GAI4527LD0Q5b8v8jf1kOvg
+	 qiBYnmLCwAezeHjkmkJcGTWFLHGg79M+fnmHfy+Un6DRuRgGoXR7FVl84otC1grPOMb6P
+	 gvqvpIMiAbyJ4sKj3C0/bICUNAO8oYLQFoB3jH2B1Ad9wNy8fLajM5OR/5wyjZ0jGOA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794914912;
+	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=sho7OgTSoXjz4p4YzuZnxDnQQ0PZiwR2aECIt2D/jmw=;
+	b=k0r7Xh8W+lPmJNHyGs71yYFEghSFTC2P9tXj0l+yVSzBWVxVVWsX2Or/XReaeI4v9HHo
+	 daJtGCIlzsWpg20+YKM6f0Yh1EHfPg2HS4kyyiVS0hpLehlzsEHMFToovVJm8AQz/73cq
+	 1j9huE5yV1AYdStUIS3G7QXynp13dv8M9A2w8wJ6pMl/+8ZmcXYted7AKWLofupI0bKlS
+	 BaZQG/2m/ltIMXR6lmExZkktXeupYtsfQ0+r4TPXIBNDFM4uBxRVPHbxdXu1SjzSC2vky
+	 naG2X/Kaow8AAPlTsPWTBgwu+jp0m07vmbqsKG4xmuA+WifPon+8XPFtpKqrpdubHvw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=huaweicloud.com;
+	spf=pass smtp.mailfrom=huaweicloud.com;
+	arc=none smtp.remote-ip=124.71.94.104
+Received: from dggmsgout13.his.huawei.com (dggmsgout13.his.huawei.com [124.71.94.104])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F7AB606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:27:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F7AB606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sR/N0i1+
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b5973a4b4cso5950045a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:27:59 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794914878; cv=none;
-        d=google.com; s=arc-20260327;
-        b=okAqCu+djhaRcI+Kg0hPlXv2Xz2DtQLyu+g0DWzsETUDFdCqnhGX2Q5kaYJ8Jk+PK0
-         cgGYEbDXkQ97cRIRZ8ZmV7AV3+wZab0gRWg9Hg7N1jSt7kxFneqpYhfT+z59gu2BIiC9
-         jj7Ajhd5JJojmdpqBVgtMCfxI/IxJNyPIINP3WJJm52GVF+Urg0tkUA1qO7cmtEm5CaP
-         LXZFd6CRSwOKmlO3Hn7/jLbz/rHp9BvBM7370042PfgSBVYMzJpa/LAYsbLWqnAtQqlr
-         Nfc178OCf/GwRQN1Gpdam+3QTLg7ZKQIeVaT0fcotozuNx+7GhYxbztBVR0n9vifmwAQ
-         1A6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=96pswqJ5qTbntrCOwepGnE2YJy9r1prVrxEWrzWWlW0=;
-        fh=LaL/iTkH5lgtwXneu3C1599iDla/B8eOkMES/9ypEwo=;
-        b=ryJnpicZN1eMBKc3NKl5hyeha7lPNweXJu5dOu1iD1Wxs7XyMEwOw85J+zhYA1C81y
-         u+p6/vncLGUGFo64W71hbQt2jj0ea0cq3/9qnL0YL7swb5uzHvqpWRagQBN+T3/kpZbp
-         bpAbh2kCsG7IoVULTrNJNPHTJQ+FKdQ/jOR6+pbtEf3pAfv/gZNltmyjwoBNrXaG/7cD
-         rM4FtBfvCE4FiUZqXLJ1uEyVcTMkb83KzUDAUgTwxKcWuL+b5P80zssK1n90ZBTY7VBo
-         HjxLrgT5Ds8C3XGN5X2we1vpqDUX69nrhFtb/WZ2hMydyVV4LbmK6socmgaAyuVeb+tK
-         zwig==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794914878; x=1795519678; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=96pswqJ5qTbntrCOwepGnE2YJy9r1prVrxEWrzWWlW0=;
-        b=sR/N0i1+UjU2WkuETkMc44pHi2ZIAuZlHcG+A7Oh0J0ZQw9Gm9vnK/z8bqSAIud29P
-         zakNbH4k3TzaWepbIQForDoMHu2aN5gDhx8C19CLzb2KSY5Mz80xkdSVA6jdsyA9grKs
-         d+CX8g5WuS3ekeiBlre33VePm8JjrhYyv04hEJHtkePVboZCyrSUMkk9u2DsukMmpCM7
-         UfgYNlIaA5ZdQmctH1as+h+H33aN/oWzcz7eTAyI331jqBzVBexYhXx9cyKso3mX8DAB
-         jVdTognkfHtpDRJYwIDhIP6hIW8O1kTXQS+bpIHfTA/3Zf7SskS9KQlmpjITUpscWPC6
-         xLVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794914878; x=1795519678;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=96pswqJ5qTbntrCOwepGnE2YJy9r1prVrxEWrzWWlW0=;
-        b=PmzgDpvkhfq2yiQf0dK0eRYKEAp90gtl3XiXIfgMENrK7fVS2NDHlz6j01g3aOf6ig
-         ZFTcV5cn84k7nVhbSUUBR0lC1iw9vMF2qIE5rsjqRiUdRIhFWy1VfOS20TOacQV0+gLt
-         1a4ZTJg1TKWF65ksZ8Ftran98UmcvIhmKQyC48EWQ48EEoUn3EovJUdBt2zGAsVThHlB
-         DBMeA9hZz4wgbMndfDhllvN/02VafU2LCfi8oXT/vRBD5cGdCVcDgVyz+ConmM/EdC8b
-         OkuW/zkrvtJMs+qtnZap9iUJkGGpoVfRMuy+7kRvIfg5fn8akxoQH4lebUoTB+bn4Qkv
-         WCcg==
-X-Forwarded-Encrypted: i=1; AL+hErF6iaHXgMjeY3GzwFhIc24aE3x6j5Cw7H+1acFzDZmXwJWesbKzrujhUxuMZ4gNnOrWZZhGLmeCUR6JX7E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8AMWiVsHr7t7jSwbUPEmYII/f2IRqPdGq1dZaLGL/Tv53MRt/7
-	Sj1xgnLhLCA35N2UegZOeh4K4i3fB1KUKhMcIMwBYVEs2mQtYfzNgBx1FWCkb4qoiL7xFg+v5bR
-	CMzGYchWDf2sECWvX3EYNWu+XwUeBwTU=
-X-Gm-Gg: AYBFou0d4M6WiUr3xh+cnWzLVdTE/Bt2wsAsSOTjqD1oGCoR3bI17rnTwz30wNk4bxj
-	MwTnxTHV6bJOiwZ7GAeIFaUx1qsOMVhnC+DvVRM0v8zZzi28WxDxgZ6NhDM+LARIxxvd+TrFOJF
-	6+9Ref+Pel6Kfrgh8rkLh1DCzJ1Iy+5MHNtf6G1k9qDOKkIvA2lfqHYQ1AqllkFO0Svz+11K7Wu
-	5xbTo97UahXZmufIuo5+bWSmbaRKh5nMJmub7suaBkzNoSY3sEZrAL8wzk3sNjK0cNxnsodhJrh
-	oiR5DPhPBSAwkqqbtZ9+jC1S5WVVK838VoFfyU+Zz3I30yTYWhESe/o2wSBNM+4gT1ifUGvDlbC
-	n71YVBarTjabGYsVVBYVrR7z3ttiFj/g/+Jfm6eYIOHoC15gFJbh3tahiAR87VlSmxvF0LmB1nc
-	DREBjH8Tl9SjAXheKhPLZvgQ8=
-X-Received: by 2002:a05:6402:1d4c:b0:6b7:e12e:7f1f with SMTP id
- 4fb4d7f45d1cf-6b7e12e824fmr8480026a12.10.1794914877296; Tue, 17 Nov 2026
- 03:27:57 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94D47606A31C;
+	Tue, 17 Nov 2026 11:28:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94D47606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.198])
+	by dggmsgout13.his.huawei.com (SkyGuard) with ESMTP id 4jTMsP0Hhlz1rrfr;
+	Tue, 17 Nov 2026 19:27:37 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.252])
+	by mail.maildlp.com (Postfix) with ESMTP id 861C840574;
+	Tue, 17 Nov 2026 19:28:27 +0800 (CST)
+Received: from huawei.com (unknown [10.67.174.45])
+	by APP3 (Coremail) with UTF8SMTPA id _Ch0CgBHS_5QOvxq4EOQEg--.20741S2;
+	Tue, 17 Nov 2026 19:28:27 +0800 (CST)
+From: Tengda Wu <wutengda@huaweicloud.com>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tengda Wu <wutengda@huaweicloud.com>
+Subject: [PATCH v4 0/2] perf/core: Fix sigtrap task_work races
+Date: Tue, 17 Nov 2026 11:28:06 +0000
+Message-Id: <cover.1794914794.git.wutengda@huaweicloud.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,950 +67,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116-marvel-env-v2-0-ef614eb2e7f1@gmail.com> <20261116-marvel-env-v2-6-ef614eb2e7f1@gmail.com>
-In-Reply-To: <20261116-marvel-env-v2-6-ef614eb2e7f1@gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Tue, 17 Nov 2026 12:27:45 +0100
-X-Gm-Features: AclHuK-0FMELmrbeSIJ6lqsgvU6_EHHBYLUy6hN4f2Saz_XYO2VMTL7Kx9k-SXw
-Message-ID: <CA+=Fv5Rq0wWrEVoUwrMfM4Zs5X+giJh5ku_ARYDYkofnR2PwoQ@mail.gmail.com>
-Subject: Re: [PATCH v2 6/7] hwmon: Add driver for Marvel AlphaServer
- environmental sensors
-To: Matt Turner <mattst88@gmail.com>
-Cc: Richard Henderson <richard.henderson@linaro.org>, Guenter Roeck <linux@roeck-us.net>, 
-	linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_Ch0CgBHS_5QOvxq4EOQEg--.20741S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Ary5Kw1xZr45ur47XrykuFg_yoW8ZF4rpF
+	s3Zr1Skw1jgr1Ivw43Aw18ua4Fgw4rXF43Grs7tw1fAF4YvF15ZFWxWr4YvFy7Ar97tFyF
+	yws2qF4kuryj9FDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUB214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY1x0264kExVAvwVAq07x20xyl42xK82IYc2
+	Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s02
+	6x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0x
+	vE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE
+	42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6x
+	kF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUnLvKUUUUU
+X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
 
-Hi Matt,
+Two fixes for sigtrap task_work handling since the switch to always
+enqueue SIGTRAP via task_work.
 
+The warning splats and PoCs for both patches are too long to inline
+in the commit messages, so they are provided as separate replies at
+the following links:
 
-On Tue, Nov 17, 2026 at 3:59=E2=80=AFAM Matt Turner <mattst88@gmail.com> wr=
-ote:
->
-> The management firmware of the Marvel (EV7) AlphaServers, the GS1280,
-> ES80 and ES47, monitors temperatures, fans, voltages and power supplies.
-> The SRM console describes each sensor as a packet in a power and
-> environment node of its config tree (GCT), and fills in the readings
-> when asked to refresh the node. The packet layout was taken from Tru64
-> UNIX.
->
-> The firmware gives each temperature, fan and voltage sensor a warning
-> limit and a failure limit, and reports the sensor in the warning or
-> failure state once its reading reaches one. Neither state means that the
-> sensor is broken: a temperature past its failure limit is too high, not
-> faulty. Power supplies are either working or failed, with the cause
-> (AC, POK, overtemperature, fan) logged by the firmware.
->
-> Export the sensors through hwmon. A temperature's warning and failure
-> limits become max and crit, with max_alarm set in either state and
-> crit_alarm in the failure state. A fan's warning limit becomes min, with
-> min_alarm set in either state and fault in the failure state, which is
-> when the firmware counts the fan as failed. A voltage exports its
-> reading, with min_alarm or max_alarm set in either state and lcrit_alarm
-> or crit_alarm in the failure state, depending on which side of its
-> nominal voltage it reads. The console gives the nominal voltage and only
-> one other limit, so the voltage limits are not exported. A power supply
-> is a voltage channel with only a fault attribute.
->
-> A refresh keeps the boot CPU in the console with interrupts disabled for
-> up to 300 ms per node, so refresh a node at most once per
-> update_interval. The hwmon core serializes the callbacks, which also
-> serializes the refreshes.
->
-> The console callback lives in core_marvel.o, which generic kernels
-> built with ALPHA_LEGACY_START_ADDRESS leave out.
->
-> Signed-off-by: Matt Turner <mattst88@gmail.com>
-> ---
->  Documentation/hwmon/index.rst      |   1 +
->  Documentation/hwmon/marvel-env.rst |  72 +++++
->  MAINTAINERS                        |   8 +
->  arch/alpha/include/asm/gct.h       |   2 +
->  drivers/hwmon/Kconfig              |  11 +
->  drivers/hwmon/Makefile             |   1 +
->  drivers/hwmon/marvel-env.c         | 609 +++++++++++++++++++++++++++++++=
-++++++
->  7 files changed, 704 insertions(+)
->
-> diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rs=
-t
-> index 199ca79621e9..b062ad1ff53f 100644
-> --- a/Documentation/hwmon/index.rst
-> +++ b/Documentation/hwmon/index.rst
-> @@ -157,6 +157,7 @@ Hardware Monitoring Kernel Drivers
->     ltc4286
->     lx1308
->     macsmc-hwmon
-> +   marvel-env
->     max127
->     max15301
->     max16064
-> diff --git a/Documentation/hwmon/marvel-env.rst b/Documentation/hwmon/mar=
-vel-env.rst
-> new file mode 100644
-> index 000000000000..7e0457a60094
-> --- /dev/null
-> +++ b/Documentation/hwmon/marvel-env.rst
-> @@ -0,0 +1,72 @@
-> +.. SPDX-License-Identifier: GPL-2.0
-> +
-> +Kernel driver marvel-env
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +Supported systems:
-> +
-> +  * Marvel (EV7) AlphaServers: the GS1280, ES80 and ES47 families,
-> +    booted from the SRM console
-> +
-> +Author: Matt Turner <mattst88@gmail.com>
-> +
-> +Description
-> +-----------
-> +
-> +The management firmware of these machines monitors temperatures, fans,
-> +voltages and power supplies, and the SRM console describes each sensor i=
-n
-> +its configuration tree (GCT). This driver asks the console to refresh th=
-e
-> +readings and exports them.
-> +
-> +The console has no sensor names, so the labels are built from the report=
-ing
-> +unit (such as ``CMM0`` or ``MBM/PBM``) and the sensor's position in that
-> +unit. On systems with more than one drawer the label starts with the
-> +cabinet and drawer numbers.
-> +
-> +A refresh keeps the boot CPU in the console with interrupts disabled for=
- up
-> +to 300 ms per unit, so a unit is refreshed at most once every
-> +``update_interval`` milliseconds (10000 by default).
-> +
-> +Sysfs entries
-> +-------------
-> +
-> +The management firmware gives each temperature, fan and voltage sensor a
-> +warning limit and a failure limit, and reports the sensor in the warning=
- or
-> +failure state when its reading reaches the limit. Neither state means th=
-at
-> +the sensor is broken. Power supplies have no warning state and are repor=
-ted
-> +as voltage channels that only have a fault attribute.
-> +
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D
-> +``update_interval``         Minimum time between refreshes of a unit, in=
- ms
-> +
-> +``temp[1-*]_input``         Temperature
-> +``temp[1-*]_max``           Warning limit
-> +``temp[1-*]_crit``          Failure limit
-> +``temp[1-*]_max_alarm``     Temperature reached the warning limit
-> +``temp[1-*]_crit_alarm``    Temperature reached the failure limit
-> +``temp[1-*]_label``         Sensor label
-> +
-> +``fan[1-*]_input``          Fan speed
-> +``fan[1-*]_min``            Warning limit
-> +``fan[1-*]_min_alarm``      Fan speed dropped to the warning limit
-> +``fan[1-*]_fault``          Fan speed dropped to the failure limit, and =
-the
-> +                            firmware counts the fan as failed
-> +``fan[1-*]_label``          Fan label
-> +
-> +``in[0-*]_input``           Voltage
-> +``in[0-*]_min_alarm``       Voltage is below the warning limit
-> +``in[0-*]_max_alarm``       Voltage is above the warning limit
-> +``in[0-*]_lcrit_alarm``     Voltage is below the failure limit
-> +``in[0-*]_crit_alarm``      Voltage is above the failure limit
-> +``in[0-*]_fault``           Power supply has failed
-> +``in[0-*]_label``           Sensor or power supply label
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D
-> +
-> +The firmware checks a voltage against limits on both sides of the nomina=
-l
-> +voltage, but the console only describes the nominal voltage and one othe=
-r
-> +limit, so the voltage limits are not exported. Whether a voltage is too =
-low
-> +or too high comes from comparing it with the nominal voltage.
-> +
-> +Sensors that the console reports as unknown or not present when the driv=
-er
-> +loads are not exported. If a sensor becomes unknown later, reading its i=
-nput,
-> +alarm or fault attribute fails with ``-ENODATA``.
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 93abbb315065..09dee8fab9ec 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -16100,6 +16100,14 @@ L:     linux-mips@vger.kernel.org
->  S:     Maintained
->  F:     arch/mips/boot/dts/img/pistachio*
->
-> +MARVEL ALPHASERVER ENVIRONMENTAL SENSOR DRIVER
-> +M:     Matt Turner <mattst88@gmail.com>
-> +L:     linux-hwmon@vger.kernel.org
-> +L:     linux-alpha@vger.kernel.org
-> +S:     Maintained
-> +F:     Documentation/hwmon/marvel-env.rst
-> +F:     drivers/hwmon/marvel-env.c
-> +
->  MARVELL 88E6XXX ETHERNET SWITCH FABRIC DRIVER
->  M:     Andrew Lunn <andrew@lunn.ch>
->  L:     netdev@vger.kernel.org
-> diff --git a/arch/alpha/include/asm/gct.h b/arch/alpha/include/asm/gct.h
-> index 2847449fb168..afa7ed870bd1 100644
-> --- a/arch/alpha/include/asm/gct.h
-> +++ b/arch/alpha/include/asm/gct.h
-> @@ -43,11 +43,13 @@ typedef struct {
->   * node types
->   */
->  #define GCT_TYPE_HOSE                  0x0E
-> +#define GCT_TYPE_PE                    0x13    /* power and environment =
-*/
->
->  /*
->   * node subtypes
->   */
->  #define GCT_SUBTYPE_IO_PORT_MODULE     0x2C
-> +#define GCT_SUBTYPE_PE_CABINET         0x3D    /* id holds an 8-bit cabi=
-net */
->
->  #define GCT_NODE_PTR(off) ((gct6_node *)((char *)hwrpb +               \
->                                          hwrpb->frut_offset +           \
-> diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
-> index 18c682e1a475..c0ce5591c82d 100644
-> --- a/drivers/hwmon/Kconfig
-> +++ b/drivers/hwmon/Kconfig
-> @@ -1255,6 +1255,17 @@ config SENSORS_MACSMC_HWMON
->           This driver can also be built as a module. If so, the module wi=
-ll
->           be called macsmc-hwmon.
->
-> +config SENSORS_MARVEL_ENV
-> +       tristate "Marvel (EV7) AlphaServer environmental sensors"
-> +       depends on ALPHA_MARVEL || (ALPHA_GENERIC && !ALPHA_LEGACY_START_=
-ADDRESS)
-> +       help
-> +         If you say yes here you get support for the temperature, fan,
-> +         voltage and power supply sensors of Marvel AlphaServers (the
-> +         GS1280, ES80 and ES47), as described by the SRM console.
-> +
-> +         This driver can also be built as a module. If so, the module
-> +         will be called marvel-env.
-> +
->  config SENSORS_MAX1111
->         tristate "Maxim MAX1111 Serial 8-bit ADC chip and compatibles"
->         depends on SPI_MASTER
-> diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
-> index d4c345ed7261..2b1b1850d641 100644
-> --- a/drivers/hwmon/Makefile
-> +++ b/drivers/hwmon/Makefile
-> @@ -157,6 +157,7 @@ obj-$(CONFIG_SENSORS_LTC4282)       +=3D ltc4282.o
->  obj-$(CONFIG_SENSORS_LTC4283)  +=3D ltc4283.o
->  obj-$(CONFIG_SENSORS_LTQ_CPUTEMP) +=3D ltq-cputemp.o
->  obj-$(CONFIG_SENSORS_MACSMC_HWMON)     +=3D macsmc-hwmon.o
-> +obj-$(CONFIG_SENSORS_MARVEL_ENV)       +=3D marvel-env.o
->  obj-$(CONFIG_SENSORS_MAX1111)  +=3D max1111.o
->  obj-$(CONFIG_SENSORS_MAX127)   +=3D max127.o
->  obj-$(CONFIG_SENSORS_MAX16065) +=3D max16065.o
-> diff --git a/drivers/hwmon/marvel-env.c b/drivers/hwmon/marvel-env.c
-> new file mode 100644
-> index 000000000000..e501e049d702
-> --- /dev/null
-> +++ b/drivers/hwmon/marvel-env.c
-> @@ -0,0 +1,609 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Environmental sensors of Marvel (EV7) AlphaServers: the GS1280, ES80 =
-and
-> + * ES47 families.
-> + *
-> + * The SRM console describes every sensor in the config tree (GCT). Each=
- power
-> + * and environment (P&E) node may carry a list of environmental packets:
-> + * temperature and voltage sensors, fans and power supplies. The console=
- fills
-> + * in the readings when asked to refresh the node. The packet layout was
-> + * taken from Tru64 UNIX.
-> + *
-> + * The management firmware gives each temperature, voltage and fan senso=
-r a
-> + * warning limit and a failure limit, and puts the sensor in the warning=
- or
-> + * failure state when its reading reaches the limit. Neither state means=
- that
-> + * the sensor itself is broken. A power supply has no warning state; it =
-is
-> + * either working or failed.
-> + */
-> +
-> +#include <linux/hwmon.h>
-> +#include <linux/jiffies.h>
-> +#include <linux/kernel.h>
-> +#include <linux/module.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/slab.h>
-> +#include <linux/string.h>
-> +
-> +#include <asm/gct.h>
-> +#include <asm/marvel_env.h>
-> +
-> +#define DRVNAME "marvel_env"
-> +
-> +#define GCT_FLAGS_REQUIRED     BIT(9)
-> +#define GCT_FLAGS_EXCLUDED     (BIT(2) | BIT(7) | BIT(12) | BIT(14))
-> +
-> +/* Header of a P&E node's packet list, at hd_extension. */
-> +#define ENV_HDR_COUNT          0x10
-> +#define ENV_HDR_FIRST          0x14
-> +#define ENV_HDR_SIZE           0x18
-> +
-> +/* Packet types. */
-> +#define ENV_PKT_POWER_SUPPLY   0x08
-> +#define ENV_PKT_FAN            0x09
-> +#define ENV_PKT_SENSOR         0x2a
-> +
-> +/*
-> + * Sensor packet: kind, status, reading, and two limits. Temperatures ar=
-e in
-> + * tenths of a degree Celsius, voltages in millivolts. For a temperature=
- the
-> + * two values are the warning and failure limits. For a voltage they are=
- the
-> + * nominal voltage and an upper limit; the firmware checks a voltage aga=
-inst
-> + * a window on both sides of the nominal voltage, so neither is exported=
-.
-> + */
-> +#define SENSOR_KIND            0x28
-> +#define SENSOR_STATUS          0x2c
-> +#define SENSOR_VALUE           0x30
-> +#define SENSOR_WARN            0x34
-> +#define SENSOR_FAIL            0x38
-> +#define SENSOR_NOMINAL         SENSOR_WARN     /* of a voltage */
-> +#define SENSOR_SIZE            0x3c
-> +
-> +#define SENSOR_KIND_THERMAL    2
-> +#define SENSOR_KIND_VOLT_FIRST 3
-> +#define SENSOR_KIND_VOLT_LAST  5
-> +
-> +/* Fan packet: status, rpm, low warning limit, low failure limit. */
-> +#define FAN_STATUS             0x24
-> +#define FAN_VALUE              0x28
-> +#define FAN_WARN               0x2c
-> +#define FAN_SIZE               0x34
-> +
-> +/* Power supply packet: status. */
-> +#define PS_STATUS              0x24
-> +#define PS_SIZE                        0x28
-> +
-> +/* Status values, in the low byte of the status word. */
-> +#define ENV_OK                 0
-> +#define ENV_WARNING            1       /* reading reached the warning li=
-mit */
-> +#define ENV_FAILURE            2       /* reading reached the failure li=
-mit */
-> +#define ENV_UNKNOWN            0xfe
-> +#define ENV_NOT_PRESENT                0xff
-> +
-> +/* Console status of a refresh that Tru64 also treats as success. */
-> +#define CFGTREE_STATUS_OK2     (-0x4a)
-> +
-> +struct marvel_env_node {
-> +       gct6_node *node;
-> +       unsigned long offset;           /* from the start of the GCT */
-> +       unsigned long last_refresh;
-> +       bool valid;
-> +       unsigned int cabinet, drawer, pe;
-> +};
-> +
-> +struct marvel_env_chan {
-> +       struct marvel_env_node *node;
-> +       unsigned int pkt;               /* packet offset in the node */
-> +       bool ps;                        /* power supply, as an in channel=
- */
-> +       bool present;                   /* known when the driver loaded *=
-/
-> +       char label[32];
-> +};
-> +
-> +struct marvel_env_data {
-> +       struct device *dev;
-> +       unsigned int update_interval;   /* ms */
-> +       struct marvel_env_node *nodes;
-> +       unsigned int nr_nodes;
-> +       struct marvel_env_chan *chans[hwmon_max];
-> +       unsigned int nr_chans[hwmon_max];
-> +};
-> +
-> +static const char * const pe_names[] =3D {
-> +       [0x09] =3D "MBM",
-> +       [0x0a] =3D "MBM/PBM",
-> +       [0x0c] =3D "PS",
-> +       [0x0d] =3D "FAN",
-> +       [0x0f] =3D "CMM0", [0x10] =3D "CMM1", [0x11] =3D "CMM2", [0x12] =
-=3D "CMM3",
-> +       [0x14] =3D "VRM0", [0x15] =3D "VRM1", [0x16] =3D "VRM2", [0x17] =
-=3D "VRM3",
-> +       [0x19] =3D "PBM",
-> +       [0x1a] =3D "XSHELF",
-> +       [0x1b] =3D "PCIPS",
-> +       [0x1c] =3D "PCIFANS",
-> +};
-> +
-> +/* The sensor types the driver exports. */
-> +static const enum hwmon_sensor_types marvel_env_types[] =3D {
-> +       hwmon_temp, hwmon_fan, hwmon_in,
-> +};
-> +
-> +/* The attributes that report the state of a channel. */
-> +static const u32 marvel_env_alarm_attrs[hwmon_max] =3D {
-> +       [hwmon_temp] =3D HWMON_T_MAX_ALARM | HWMON_T_CRIT_ALARM,
-> +       [hwmon_fan] =3D HWMON_F_MIN_ALARM | HWMON_F_FAULT,
-> +       [hwmon_in] =3D HWMON_I_MIN_ALARM | HWMON_I_MAX_ALARM |
-> +                    HWMON_I_LCRIT_ALARM | HWMON_I_CRIT_ALARM | HWMON_I_F=
-AULT,
-> +};
-> +
-> +static inline u32 env_rd(struct marvel_env_node *n, unsigned int off)
-> +{
-> +       return *(u32 *)((char *)n->node + off);
-> +}
-> +
-> +static bool env_status_valid(u8 status)
-> +{
-> +       return status !=3D ENV_UNKNOWN && status !=3D ENV_NOT_PRESENT;
-> +}
-> +
-> +static u8 marvel_env_status(enum hwmon_sensor_types type,
-> +                           const struct marvel_env_chan *c)
-> +{
-> +       unsigned int off;
-> +
-> +       if (type =3D=3D hwmon_fan)
-> +               off =3D FAN_STATUS;
-> +       else if (c->ps)
-> +               off =3D PS_STATUS;
-> +       else
-> +               off =3D SENSOR_STATUS;
-> +       return env_rd(c->node, c->pkt + off) & 0xff;
-> +}
-> +
-> +/*
-> + * The alarm attributes that are set in @status. A reading past the fail=
-ure
-> + * limit is also past the warning limit, so it sets both alarms. A fan b=
-elow
-> + * its failure limit is one the firmware counts as failed. A voltage out=
-side
-> + * its limits is too low or too high depending on which side of the nomi=
-nal
-> + * voltage it reads.
-> + */
-> +static u32 marvel_env_alarms(enum hwmon_sensor_types type,
-> +                            const struct marvel_env_chan *c, u8 status)
-> +{
-> +       switch (type) {
-> +       case hwmon_temp:
-> +               if (status =3D=3D ENV_FAILURE)
-> +                       return HWMON_T_MAX_ALARM | HWMON_T_CRIT_ALARM;
-> +               if (status =3D=3D ENV_WARNING)
-> +                       return HWMON_T_MAX_ALARM;
-> +               break;
-> +       case hwmon_fan:
-> +               if (status =3D=3D ENV_FAILURE)
-> +                       return HWMON_F_MIN_ALARM | HWMON_F_FAULT;
-> +               if (status =3D=3D ENV_WARNING)
-> +                       return HWMON_F_MIN_ALARM;
-> +               break;
-> +       case hwmon_in:
-> +               if (c->ps)
-> +                       return status =3D=3D ENV_FAILURE ? HWMON_I_FAULT =
-: 0;
-> +               if (status !=3D ENV_WARNING && status !=3D ENV_FAILURE)
-> +                       break;
-> +               if ((s32)env_rd(c->node, c->pkt + SENSOR_VALUE) <
-> +                   (s32)env_rd(c->node, c->pkt + SENSOR_NOMINAL)) {
-> +                       if (status =3D=3D ENV_FAILURE)
-> +                               return HWMON_I_MIN_ALARM | HWMON_I_LCRIT_=
-ALARM;
-> +                       return HWMON_I_MIN_ALARM;
-> +               }
-> +               if (status =3D=3D ENV_FAILURE)
-> +                       return HWMON_I_MAX_ALARM | HWMON_I_CRIT_ALARM;
-> +               return HWMON_I_MAX_ALARM;
-> +       default:
-> +               break;
-> +       }
-> +       return 0;
-> +}
-> +
-> +static inline gct6_node *gct_node(gct6_handle h)
-> +{
-> +       return GCT_NODE_PTR(h);
-> +}
-> +
-> +/* Cabinet and drawer come from the P&E node's parent. */
-> +static void marvel_env_keys(struct marvel_env_node *n)
-> +{
-> +       gct6_node *parent =3D n->node->parent ? gct_node(n->node->parent)=
- : NULL;
-> +
-> +       n->pe =3D n->node->id & 0xff;
-> +       if (!parent)
-> +               return;
-> +       if (parent->type =3D=3D GCT_TYPE_PE && parent->subtype =3D=3D GCT=
-_SUBTYPE_PE_CABINET)
-> +               n->cabinet =3D (parent->id >> 48) & 0xff;
-> +       else
-> +               n->cabinet =3D (parent->id >> 48) & 0x3f;
-> +       n->drawer =3D (parent->id >> 32) & 0xff;
-> +}
-> +
-> +static int marvel_env_refresh(struct marvel_env_data *data,
-> +                             struct marvel_env_node *n)
-> +{
-> +       long status;
-> +
-> +       if (n->valid && time_before(jiffies, n->last_refresh +
-> +                                   msecs_to_jiffies(data->update_interva=
-l)))
-> +               return 0;
-> +
-> +       status =3D marvel_cfgtree_partial_update(n->offset);
-> +       if (status !=3D 1 && status !=3D CFGTREE_STATUS_OK2) {
-> +               dev_warn_ratelimited(data->dev,
-> +                                    "refresh of GCT node %#lx failed: %l=
-d\n",
-> +                                    n->offset, status);
-> +               return -EIO;
-> +       }
-> +       n->last_refresh =3D jiffies;
-> +       n->valid =3D true;
-> +       return 0;
-> +}
-> +
-> +/* The hwmon type of a packet, or hwmon_max to skip it. */
-> +static enum hwmon_sensor_types marvel_env_pkt_type(struct marvel_env_nod=
-e *n,
-> +                                                  unsigned int pkt,
-> +                                                  unsigned int type)
-> +{
-> +       unsigned int len =3D env_rd(n, pkt) & 0xffff;
-> +       u32 kind;
-> +
-> +       switch (type) {
-> +       case ENV_PKT_SENSOR:
-> +               if (len < SENSOR_SIZE)
-> +                       break;
-> +               kind =3D env_rd(n, pkt + SENSOR_KIND);
-> +               if (kind =3D=3D SENSOR_KIND_THERMAL)
-> +                       return hwmon_temp;
-> +               if (kind >=3D SENSOR_KIND_VOLT_FIRST && kind <=3D SENSOR_=
-KIND_VOLT_LAST)
-> +                       return hwmon_in;
-> +               break;
-> +       case ENV_PKT_FAN:
-> +               if (len >=3D FAN_SIZE)
-> +                       return hwmon_fan;
-> +               break;
-> +       case ENV_PKT_POWER_SUPPLY:
-> +               if (len >=3D PS_SIZE)
-> +                       return hwmon_in;
-> +               break;
-> +       }
-> +       return hwmon_max;
-> +}
-> +
-> +static void marvel_env_add_chan(struct marvel_env_data *data,
-> +                               struct marvel_env_node *n, unsigned int p=
-kt,
-> +                               enum hwmon_sensor_types type, bool ps,
-> +                               unsigned int index)
-> +{
-> +       static const char * const names[hwmon_max] =3D {
-> +               [hwmon_temp] =3D "Temp", [hwmon_fan] =3D "Fan", [hwmon_in=
-] =3D "Volt",
-> +       };
-> +       const char *what =3D ps ? "PS" : names[type];
-> +       struct marvel_env_chan *c;
-> +       const char *pe =3D NULL;
-> +       size_t len =3D 0;
-> +       u8 status;
-> +
-> +       c =3D &data->chans[type][data->nr_chans[type]++];
+Patch 1: https://lore.kernel.org/all/29aa123c-36a2-460f-b76b-a8dfe1eb542f@huaweicloud.com/
+Patch 2: https://lore.kernel.org/all/d1b24bbf-9111-4766-87c8-ff97adcac727@huaweicloud.com/
 
-Minor: nothing checks this against the first pass's count. Both walks
-read the same GCT, but a bounds check is cheap.
+Patch 1 fixes a re-entrancy race in __perf_event_overflow(): pending_work
+was set only after task_work_add(), so an NMI could re-enter and enqueue
+the same pending_task twice, creating a cycle in the task work list and
+unbalancing the event refcount. Claim pending_work before enqueuing, and
+clear it if the enqueue fails.
 
-> +       c->node =3D n;
-> +       c->pkt =3D pkt;
-> +       c->ps =3D ps;
-> +       status =3D marvel_env_status(type, c);
-> +       c->present =3D env_status_valid(status);
-> +
-> +       if (n->cabinet || n->drawer)
+Patch 2 fixes a WARN_ON_ONCE() in perf_sigtrap() triggered by the context
+fast-swap path swapping ctx->task while a sigtrap event has pending task
+work. SIGTRAP is targeted at ctx->task, so exclude sigtrap events from
+fast-swap alongside inherit+sample-read events.
 
-This tests the node's own position, so on a multi-drawer system the
-cabinet 0, drawer 0 units get no prefix. Either decide once in probe
-whether any node is outside cabinet 0, drawer 0, or reword the doc.
+Changelog
+=========
+v3 -> v4:
+  - v3: https://lore.kernel.org/all/cover.1793870900.git.wutengda@huaweicloud.com/
+  - Patch 1: Use acquire/release pairs for pending_work updates (Sebastian)
+  - Patch 2: Remove redundant nr_no_switch_fast updates (Sebastian)
+v2 -> v3:
+  - v2: https://lore.kernel.org/all/20261102021355.650671-1-wutengda@huaweicloud.com/
+  - Added Patch 2 to fix WARN_ON_ONCE() in perf_sigtrap()
+v1 -> v2:
+  - v1: https://lore.kernel.org/all/20261031114520.642476-1-wutengda@huaweicloud.com/
+  - Drop the redundant event->pending_work assignment. (Sashiko)
 
-> +               len =3D scnprintf(c->label, sizeof(c->label), "Cab%u Dra%=
-u ",
-> +                               n->cabinet, n->drawer);
-> +
-> +       if (n->pe < ARRAY_SIZE(pe_names))
-> +               pe =3D pe_names[n->pe];
-> +       if (pe && !strncasecmp(pe, what, strlen(what)))
-> +               scnprintf(c->label + len, sizeof(c->label) - len, "%s %u"=
-,
-> +                         pe, index);
-> +       else if (pe)
-> +               scnprintf(c->label + len, sizeof(c->label) - len, "%s %s =
-%u",
-> +                         pe, what, index);
-> +       else
-> +               scnprintf(c->label + len, sizeof(c->label) - len, "PE%u %=
-s %u",
-> +                         n->pe, what, index);
-> +}
-> +
-> +/*
-> + * Walk a P&E node's packets, counting them, or adding them when @add. A=
-s
-> + * Tru64 does, visit count + 1 packets and number sensors from their
-> + * position minus one.
-> + */
-> +static void marvel_env_walk(struct marvel_env_data *data,
-> +                           struct marvel_env_node *n, bool add)
-> +{
-> +       unsigned int size =3D n->node->size;
-> +       unsigned int hdr =3D n->node->hd_extension;
-> +       unsigned int count, pkt, i;
-> +
-> +       if (!hdr || hdr + ENV_HDR_SIZE > size)
-> +               return;
-> +       count =3D env_rd(n, hdr + ENV_HDR_COUNT);
-> +       pkt =3D env_rd(n, hdr + ENV_HDR_FIRST);
-> +
-> +       for (i =3D 0; i <=3D count; i++) {
-> +               enum hwmon_sensor_types type;
-> +               unsigned int len, pkt_type;
-> +
-> +               if (pkt < 8 || pkt + 8 > size)
-> +                       break;
-> +               len =3D env_rd(n, pkt) & 0xffff;
-> +               pkt_type =3D env_rd(n, pkt + 4) & 0xffff;
-> +               if (len < 8 || pkt + len > size)
-> +                       break;
-> +
-> +               type =3D marvel_env_pkt_type(n, pkt, pkt_type);
-> +               if (type !=3D hwmon_max && add)
-> +                       marvel_env_add_chan(data, n, pkt, type,
-> +                                           pkt_type =3D=3D ENV_PKT_POWER=
-_SUPPLY,
-> +                                           pkt_type =3D=3D ENV_PKT_SENSO=
-R && i ?
-> +                                           i - 1 : i);
-> +               else if (type !=3D hwmon_max)
-> +                       data->nr_chans[type]++;
-> +               pkt +=3D len;
-> +       }
-> +}
-> +
-> +/* Collect the P&E nodes with an environmental packet list. */
-> +static void marvel_env_find_nodes(struct marvel_env_data *data,
-> +                                 gct6_node *node, bool record)
-> +{
-> +       for (; node; node =3D node->next ? gct_node(node->next) : NULL) {
-> +               if (node->magic !=3D GCT_NODE_MAGIC)
-> +                       return;
-> +               if (node->type =3D=3D GCT_TYPE_PE && node->hd_extension &=
-&
-> +                   (node->flags & GCT_FLAGS_REQUIRED) &&
-> +                   !(node->flags & GCT_FLAGS_EXCLUDED)) {
-> +                       if (record) {
-> +                               struct marvel_env_node *n =3D
-> +                                       &data->nodes[data->nr_nodes];
-> +
-> +                               n->node =3D node;
-> +                               n->offset =3D (char *)node - (char *)gct_=
-node(0);
-> +                               marvel_env_keys(n);
-> +                       }
-> +                       data->nr_nodes++;
-> +               }
-> +               if (node->child)
-> +                       marvel_env_find_nodes(data, gct_node(node->child)=
-,
-> +                                             record);
-> +       }
-> +}
-> +
-> +static umode_t marvel_env_is_visible(const void *drvdata,
-> +                                    enum hwmon_sensor_types type,
-> +                                    u32 attr, int channel)
-> +{
-> +       const struct marvel_env_data *data =3D drvdata;
-> +
-> +       if (type =3D=3D hwmon_chip)
-> +               return 0644;
-> +
-> +       /* Hide sensors that are absent when the driver loads. */
-> +       return data->chans[type][channel].present ? 0444 : 0;
-> +}
-> +
-> +/* Called with the hwmon device lock held, which serializes refreshes. *=
-/
-> +static int marvel_env_read(struct device *dev, enum hwmon_sensor_types t=
-ype,
-> +                          u32 attr, int channel, long *val)
-> +{
-> +       struct marvel_env_data *data =3D dev_get_drvdata(dev);
-> +       struct marvel_env_chan *c;
-> +       struct marvel_env_node *n;
-> +       unsigned int pkt;
-> +       u8 status;
-> +       int ret;
-> +
-> +       if (type =3D=3D hwmon_chip) {
-> +               *val =3D data->update_interval;
-> +               return 0;
-> +       }
-> +
-> +       c =3D &data->chans[type][channel];
-> +       n =3D c->node;
-> +       pkt =3D c->pkt;
-> +
-> +       ret =3D marvel_env_refresh(data, n);
-> +       if (ret)
-> +               return ret;
-> +       status =3D marvel_env_status(type, c);
-> +
-> +       switch (type) {
-> +       case hwmon_temp:
-> +               switch (attr) {
-> +               case hwmon_temp_max:
-> +                       *val =3D (s32)env_rd(n, pkt + SENSOR_WARN) * 100L=
-;
-> +                       return 0;
-> +               case hwmon_temp_crit:
-> +                       *val =3D (s32)env_rd(n, pkt + SENSOR_FAIL) * 100L=
-;
-> +                       return 0;
-> +               }
-> +               break;
-> +       case hwmon_fan:
-> +               if (attr =3D=3D hwmon_fan_min) {
-> +                       *val =3D env_rd(n, pkt + FAN_WARN);
-> +                       return 0;
-> +               }
-> +               break;
-> +       default:
-> +               break;
-> +       }
-> +
-> +       if (!env_status_valid(status))
-> +               return -ENODATA;
-> +
-> +       if (marvel_env_alarm_attrs[type] & BIT(attr)) {
-> +               *val =3D !!(marvel_env_alarms(type, c, status) & BIT(attr=
-));
-> +               return 0;
-> +       }
-> +
-> +       switch (type) {
-> +       case hwmon_temp:
-> +               if (attr !=3D hwmon_temp_input)
-> +                       break;
-> +               *val =3D (s32)env_rd(n, pkt + SENSOR_VALUE) * 100L;
-> +               return 0;
-> +       case hwmon_fan:
-> +               if (attr !=3D hwmon_fan_input)
-> +                       break;
-> +               *val =3D env_rd(n, pkt + FAN_VALUE);
-> +               return 0;
-> +       case hwmon_in:
-> +               if (attr !=3D hwmon_in_input)
-> +                       break;
-> +               *val =3D (s32)env_rd(n, pkt + SENSOR_VALUE);
-> +               return 0;
-> +       default:
-> +               break;
-> +       }
-> +       return -EOPNOTSUPP;
-> +}
-> +
-> +static int marvel_env_write(struct device *dev, enum hwmon_sensor_types =
-type,
-> +                           u32 attr, int channel, long val)
-> +{
-> +       struct marvel_env_data *data =3D dev_get_drvdata(dev);
-> +
-> +       if (type !=3D hwmon_chip || attr !=3D hwmon_chip_update_interval)
-> +               return -EOPNOTSUPP;
-> +
-> +       data->update_interval =3D clamp_val(val, 0, 3600 * MSEC_PER_SEC);
-> +       return 0;
-> +}
+Tengda Wu (2):
+  perf/core: Prevent duplicate sigtrap task work enqueue
+  perf/core: Disable context fast-swap for sigtrap events
 
-At 0 every attribute read refreshes its node, which is up to 300 ms
-with interrupts off on the boot CPU, so a single "sensors" run can take
-seconds. A floor of, say, 1000 ms would prevent that.
+ include/linux/perf_event.h |  8 +++----
+ kernel/events/core.c       | 48 +++++++++++++++++++++++++-------------
+ 2 files changed, 35 insertions(+), 21 deletions(-)
 
-> +
-> +static int marvel_env_read_string(struct device *dev,
-> +                                 enum hwmon_sensor_types type, u32 attr,
-> +                                 int channel, const char **str)
-> +{
-> +       struct marvel_env_data *data =3D dev_get_drvdata(dev);
-> +
-> +       *str =3D data->chans[type][channel].label;
-> +       return 0;
-> +}
-> +
-> +static const struct hwmon_ops marvel_env_ops =3D {
-> +       .is_visible =3D marvel_env_is_visible,
-> +       .read =3D marvel_env_read,
-> +       .write =3D marvel_env_write,
-> +       .read_string =3D marvel_env_read_string,
-> +};
-> +
-> +static u32 marvel_env_config(enum hwmon_sensor_types type,
-> +                            const struct marvel_env_chan *c)
-> +{
-> +       switch (type) {
-> +       case hwmon_temp:
-> +               return HWMON_T_INPUT | HWMON_T_MAX | HWMON_T_CRIT |
-> +                      HWMON_T_MAX_ALARM | HWMON_T_CRIT_ALARM | HWMON_T_L=
-ABEL;
-> +       case hwmon_fan:
-> +               return HWMON_F_INPUT | HWMON_F_MIN | HWMON_F_MIN_ALARM |
-> +                      HWMON_F_FAULT | HWMON_F_LABEL;
-> +       case hwmon_in:
-> +               if (c->ps)
-> +                       return HWMON_I_FAULT | HWMON_I_LABEL;
-> +               return HWMON_I_INPUT | HWMON_I_MIN_ALARM | HWMON_I_MAX_AL=
-ARM |
-> +                      HWMON_I_LCRIT_ALARM | HWMON_I_CRIT_ALARM | HWMON_I=
-_LABEL;
-> +       default:
-> +               return 0;
-> +       }
-> +}
-> +
-> +static const struct hwmon_channel_info * const marvel_env_chip_info =3D
-> +       HWMON_CHANNEL_INFO(chip, HWMON_C_UPDATE_INTERVAL);
-> +
-> +static int marvel_env_probe(struct platform_device *pdev)
-> +{
-> +       u32 *config[hwmon_max] =3D { };
-> +       struct device *dev =3D &pdev->dev;
-> +       const struct hwmon_channel_info **info;
-> +       struct marvel_env_data *data;
-> +       struct hwmon_chip_info *chip;
-> +       struct device *hwmon;
-> +       unsigned int i, k, nr_info =3D 0;
-> +
-> +       data =3D devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-> +       if (!data)
-> +               return -ENOMEM;
-> +       data->dev =3D dev;
-> +       data->update_interval =3D 10 * MSEC_PER_SEC;
-> +
-> +       marvel_env_find_nodes(data, gct_node(0), false);
-> +       if (!data->nr_nodes)
-> +               return -ENODEV;
-> +       data->nodes =3D devm_kcalloc(dev, data->nr_nodes, sizeof(*data->n=
-odes),
-> +                                  GFP_KERNEL);
-> +       if (!data->nodes)
-> +               return -ENOMEM;
-> +       data->nr_nodes =3D 0;
-> +       marvel_env_find_nodes(data, gct_node(0), true);
-> +
-> +       for (i =3D 0; i < data->nr_nodes; i++) {
-> +               marvel_env_refresh(data, &data->nodes[i]);
-> +               marvel_env_walk(data, &data->nodes[i], false);
-> +       }
-> +
-> +       info =3D devm_kcalloc(dev, ARRAY_SIZE(marvel_env_types) + 2,
-> +                           sizeof(*info), GFP_KERNEL);
-> +       if (!info)
-> +               return -ENOMEM;
-> +       info[nr_info++] =3D marvel_env_chip_info;
-> +
-> +       for (k =3D 0; k < ARRAY_SIZE(marvel_env_types); k++) {
-> +               enum hwmon_sensor_types type =3D marvel_env_types[k];
-> +               struct hwmon_channel_info *ci;
-> +
-> +               if (!data->nr_chans[type])
-> +                       continue;
-> +               data->chans[type] =3D devm_kcalloc(dev, data->nr_chans[ty=
-pe],
-> +                                                sizeof(*data->chans[type=
-]),
-> +                                                GFP_KERNEL);
-> +               ci =3D devm_kzalloc(dev, sizeof(*ci), GFP_KERNEL);
-> +               config[type] =3D devm_kcalloc(dev, data->nr_chans[type] +=
- 1,
-> +                                           sizeof(*config[type]), GFP_KE=
-RNEL);
-> +               if (!data->chans[type] || !ci || !config[type])
-> +                       return -ENOMEM;
-> +               ci->type =3D type;
-> +               ci->config =3D config[type];
-> +               info[nr_info++] =3D ci;
-> +               data->nr_chans[type] =3D 0;
-> +       }
-> +       if (nr_info =3D=3D 1)
-> +               return -ENODEV;
-> +
-> +       for (i =3D 0; i < data->nr_nodes; i++)
-> +               marvel_env_walk(data, &data->nodes[i], true);
-> +
-> +       for (k =3D 0; k < ARRAY_SIZE(marvel_env_types); k++) {
-> +               enum hwmon_sensor_types type =3D marvel_env_types[k];
-> +
-> +               for (i =3D 0; i < data->nr_chans[type]; i++)
-> +                       config[type][i] =3D marvel_env_config(type,
-> +                                                           &data->chans[=
-type][i]);
-> +       }
-> +
-> +       chip =3D devm_kzalloc(dev, sizeof(*chip), GFP_KERNEL);
-> +       if (!chip)
-> +               return -ENOMEM;
-> +       chip->ops =3D &marvel_env_ops;
-> +       chip->info =3D info;
-> +
-> +       hwmon =3D devm_hwmon_device_register_with_info(dev, DRVNAME, data=
-, chip,
-> +                                                    NULL);
-> +       return PTR_ERR_OR_ZERO(hwmon);
-> +}
-> +
-> +static struct platform_driver marvel_env_driver =3D {
-> +       .driver =3D {
-> +               .name =3D DRVNAME,
-> +       },
-> +       .probe =3D marvel_env_probe,
-> +};
-> +module_platform_driver(marvel_env_driver);
-> +
-> +MODULE_ALIAS("platform:" DRVNAME);
-> +MODULE_DESCRIPTION("Marvel (EV7) AlphaServer environmental sensors");
-> +MODULE_LICENSE("GPL");
->
-> --
-> 2.56.1
->
+-- 
+2.34.1
 
-Magnus
