@@ -1,99 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.55
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794909251;
-	b=cPKhgLVljiOU3gtkar47UdX2UNEMq7hlJp5f4Bdh92O3p66iVxFozm5kEOujTkmPeQ3l
-	 KXZjIsyit84h7INjqgOx5hQtPuol1CVkrZ2rmbdXg2LhxJpsIYsuZN2/xu9fe+3KPs0jh
-	 Gzi1J5h7xdaCAfmU1zqgSHW5Z3vI1MdQhfaAAz8lISA8x4P424p5pNEDBA3Gl9pmKw3od
-	 ZrlB+4RiJYiMbQ2ZQ5qtGZGEL1L2hOcFol/PalIHlCbE5/s9gnEW12PKfF6f2VBFoVxLy
-	 SKCIlAPliWMTdRtaxXb6yaAtwquMURJH9t1ikQFqX2IgLBkedvtj25x3TKLMML8Jo6g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794909251;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=mYM5Sg+NYFAqJmyUyoJVrtE2SIeQ3yKJ4yO6kvBsCe4=;
-	b=lRdJ6gYcWD8OePSRB8XPTxuDG6uMNEKxxRLnZnhTWzdVdTGztKmSeg7pqfDhH7JUpwzi
-	 SZl4ZSnHa9tArT5y6r6Vj3twmeX9CLKvI/RzDJmMX77j54WjqDIZm7ggskD3s0xMgJZqV
-	 EhdkpP+uuZP0naYA0h0WrMQBOeAg8J9xUQhR6Qqy69glZvYn9E7JrxUHm3hj5TRLurior
-	 lpwo3Bxws2bFZVueTK1aNig3Mo2Tft/8NKVYPEGGYmlm4dul8BpbMeCmEDdKb9RRAwmLq
-	 ainl3dsu8Fl7Wm6RvyJkNLiwkubVHLwzav26V03KJvizdzAovg//3c1BVPdwuL3XQVw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="VwUl/DhU";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.55
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010055.outbound.protection.outlook.com [52.101.46.55])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794909318;
+	b=c/lT4Zgj4VVtIlrc8K7teLVbVvfqe3u1oHSLfHyknzaYtG8qi/GC0811RTKROClr9Uaa
+	 jKJqo17usF/r44JYQe9TNVE/uVA3hBhHKA/hdNBJsM7egRZ5t/aBPv8ZKQvtvLVrIPD3i
+	 3o6Z3oGtlbnrA8rCr5RhxJFcap0HOAoMLMwtUr0CLK3EaOFn4zjV/M+S37Lv9Vf7tizxP
+	 6hxdGQOo09VpibSQpuPchPiLohVpZh0LG4njqZQnxfSSABDzsLqlqNNOBVqmFUtQvqrdk
+	 aw1GYygCkuQ7aerlgY/HQ+RNqdFeS0X5B740YMXecegVYDYwn7mcQcl1uBMkzNnOH8Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794909318;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=DMyC1okRsySQAgoBesJDfyI8sBJ6WUZdUoOx84UiPvI=;
+	b=zt64L42RdF0KTLYCCH7g5RxGSgovAjoLpuiSb8aNhek786huf50gUKk6kNtgvW8WaWT9
+	 HWWd72ZwIX9I2S5KKmRYWCnH434TxCOWwlnZZY11m6jFiEscR18GZv9IaLPT1r+leWiez
+	 3tjblyaV9dpIP+9QOeHjwRh46uBu8rZKfSlrG46VGXCaqkHi+s2zStOsgkESEsToSg50q
+	 D755+xwQDwCPhGEuP8bie5FiPZ8stdVjVIRl/woeg2BE5w7ydN2N4tWzsGicxNNv3vQQz
+	 k/8IAF1y5P6CYt2N8qpgPiUhuDx/LPOZ+HpZk6jtVCWJtTZiO9UpLAZArG1ctKRW7KQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kSS+QgSD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E208F606A31C;
-	Tue, 17 Nov 2026 09:54:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E208F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A966B606A329;
+	Tue, 17 Nov 2026 09:55:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=VwUl/DhU
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LeSO3Gk01jUNtegK4WoqO6VY0OBYkbW7UerXybBCuiYXEkqzchSia0kyIB67jnUhEi6du7qTk3mgrtV1JrDSLhA/6hKkZHJdTvLRGIH+hpW4sXHOerXLSpsXldC7tyG0GVsnnnPAgSgYfrWy1GbEhMl6qUzo1EDrt377ukDVkFLwJUU1YcH4mI9LJfw34GDJgsNVpUKphJZ8NIfHCrKNmm+hSa1T4kSc1AHljM4+7zf43akj1A1RYdLJ0x/PaOrV/QMu7nXdZXDZ6wh2PZd4KZLazR29kVlRaQ/s6/nIplG+Lw3XJfsOC+PmRPI0hEYr91FSeYTysItFKyMqs8wPbA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mYM5Sg+NYFAqJmyUyoJVrtE2SIeQ3yKJ4yO6kvBsCe4=;
- b=WfA+b5SSqH7i+l5KHC5rJU+q38CT85xrp9GZ1ponDDuhrNxLdWrFfISO/GyppZFEC4BvNBedEp2uPZ1/ayPrWc4uElh8IB2sgEVXwI3Lv+gL9EZjLstFZRlexIVZrumVZ8wbbdY+mpfZsUgD4dN2TPxAOIgmj5hxArHeflIUWC6ERSqjdssT6vs3GUMvsLGdBP1Q5morhB2GWzGMMr+EdJm4eiVIbSmEw35r+ICpgs60lXE9cFTxV5zn7U76G4ow5zCL0KjMsCE5Cv0BAeh2mn0qseazbFnYpu4awQ0YrRIjrZPX/0s6KJr8XvbQskM+tny3RQxyI2jPUG0upzgj0w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mYM5Sg+NYFAqJmyUyoJVrtE2SIeQ3yKJ4yO6kvBsCe4=;
- b=VwUl/DhUFdfGdDJk8mKCYy+kjQE6Naoks3E5d2hLFMfxezbsFt3sm6bKaBSlLQWZkfn16lbxYFR85+MSyOSIsGj/9xtcdGmtEfS0pr1EvhH+K0UucV2h6r6i977ATlbIg62kNnOH+AXe3axK2bCHVv7Q3aKmw2kCoW7sXkONvgl1UASAKo9jtNvEE0lH9iTxwfuahxsDFyrM6tAC7cGGoaVuDzaNoPISxIjUNj/Akr4p4eE9eZWIuDfihluycxGn9tAJLjIyvUlhQHan69Nyb75wg3p7DK8t16p6KOxHono1uT71EWhAn6MuPqurBUg56k2Kkv/g/73iGm54rUjfWw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA1PR12MB5637.namprd12.prod.outlook.com (2603:10b6:806:228::13)
- by LV3PR12MB9188.namprd12.prod.outlook.com (2603:10b6:408:19b::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Tue, 17 Nov
- 2026 09:54:07 +0000
-Received: from SA1PR12MB5637.namprd12.prod.outlook.com
- ([fe80::29a8:4659:6935:73f7]) by SA1PR12MB5637.namprd12.prod.outlook.com
- ([fe80::29a8:4659:6935:73f7%3]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
- 09:54:07 +0000
-Message-ID: <7c763c61-3516-4485-af19-f8a1af0a25dc@nvidia.com>
-Date: Tue, 17 Nov 2026 15:23:57 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/9] cpufreq: tegra194: move MPIDR read to CPU hotplug
- callback
-To: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>, rafael@kernel.org,
- viresh.kumar@linaro.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, treding@nvidia.com, jonathanh@nvidia.com,
- linux-pm@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Cc: bbasu@nvidia.com
-References: <20261104181521.3003578-1-sumitg@nvidia.com>
- <20261104181521.3003578-2-sumitg@nvidia.com>
- <b3125fa1-6a7a-4f87-a7fa-64c42f6b98e2@oss.qualcomm.com>
-Content-Language: en-US
-From: Sumit Gupta <sumitg@nvidia.com>
-In-Reply-To: <b3125fa1-6a7a-4f87-a7fa-64c42f6b98e2@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN3PR01CA0091.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:9b::20) To SA1PR12MB5637.namprd12.prod.outlook.com
- (2603:10b6:806:228::13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kSS+QgSD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 363781F000C4;
+	Tue, 17 Nov 2026 09:55:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794909318;
+	bh=DMyC1okRsySQAgoBesJDfyI8sBJ6WUZdUoOx84UiPvI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=kSS+QgSDcTUl16LXaAccAGAtSJWS8GLOIOkgE2Y0+d6R9641Soo6Xl21m9f/jCW1k
+	 3LYpbiG0JVOPzz4VL3kFi12qz0OwAzqZSmiycveqnqcJaMVafYVzaTeaC/B6nIIenm
+	 yE9lS9dgTHpwbWMBXNQHYFBh/c9LLc9DOU+dzjHqZb8pN9wFJkTQg6/AMNFzfqZ8k1
+	 k2M+f93TRRuhjI1IeVSqi0f6Sd3sGHcWUhCkK06wXQ2J5/vFLDlNihYvvcEedrKyJC
+	 3ZK1uBspRA1nP76uzjEdkH0gZbch/6zJkQC6PaqtirJqnWjiMQ9pyZtJ4l9DKLJuvl
+	 ygHXpMG83BV3Q==
+Message-ID: <91aadb5b-53a7-41eb-a0fa-4fce804a35e6@kernel.org>
+Date: Tue, 17 Nov 2026 10:55:05 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,226 +51,179 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA1PR12MB5637:EE_|LV3PR12MB9188:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1274599d-df1f-40c6-da3d-08df4490b830
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|921020|261102123227099003|10067099003|11063799006|4143699003|56012099006|261021123027099003|261021121427099003|261026140227099003|261026121527099003|261022105027099003|261022075727099003|261028144727099003|261009223027099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	T5hu/y3GTnkWy828zcnTujBG8oxBKbHdxhSrI7YPRhIycRv7xdMJ5Um/K3H7oOYcDtWmgX19YzJygBaemOlEz5f1CVD0AgznePOCNa/7FqeAkErha6xhQQKZ5YBDJQs04WhZtngI4TF/ZpLOoKY4e3f9ny0rlctM7GgQxSuA0ijuasU2aLgGizn5mTG69ycZ+FuoNk597+gfOSUtITeI+gAAYwTdXvAJK2QhFkXCKqAyGQrXStrnGKBh7YiTr2f4yTkj2z4+ewTkNOjWhX9r1h7ihc4imk9sheh8UeApgZakJoUrBKJcjjMqrDr7IWXGJut+zt2GXY7HeKoMVUhrZfyLiQUpyrmFv/DXpK8qx2OXe32gJWSNg9Vlu6xnwaWIhZurM2Q4hdEb7JojUTagxscEhxaC67AhQYDJsXgzNkb7bhCY4LZX8Pl77lcEUhHJAo7y2mi8t/lyFBoDXMTH0WDZiRSaVUXSmPoyxqXgA07APsrkwg72xF+dzW9qUg49f3I8HjUKQFo0h7KsAO1QT6uc8SpTW7SD+a6Re8gzguVtKm8AmzJGW0tkkmWklIn0a1tKt1J3CIbf8fFXfWVAJTIhG0CAZxFf2paBDiY9+KLLWGhHkaIFy5oLhJHK4cWX+SnKiovVX+ztYhMADIEA4NzMoX7dsjl102XH1ePzThWOzPx3vVawhQOW6Sl2xeRuz4Fv1MMwKQ1eyme2iRdx3Q==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR12MB5637.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(921020)(261102123227099003)(10067099003)(11063799006)(4143699003)(56012099006)(261021123027099003)(261021121427099003)(261026140227099003)(261026121527099003)(261022105027099003)(261022075727099003)(261028144727099003)(261009223027099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bUVZejdsNGoyb0FVbTNiZkQwcncxSlhIQ212QzloMnYvV2VySHIzbWRkTzFC?=
- =?utf-8?B?N1liMGtPcjdNcmx2SzdpTGFkcVRXenFmUk0wcHh4aExUNXpYdjF3Kzk1d3Vx?=
- =?utf-8?B?UHFKZkN0Z2dVYTZoMTZkT0NMY0ZkUDZJMFc4KzJtNHhrZkVHWGRBc3YrMzU3?=
- =?utf-8?B?cUJyajFzZVFCUmQ4a09ma293SUpEZitJTVc2WVUvTjJRN1hlLzJMSlJDbGRM?=
- =?utf-8?B?bjVhNHBvVTBjalljWWw3QWplUWd1VGp4QWpaV2J1dVVRbEQ5eTZwdHJYeXV4?=
- =?utf-8?B?c1dlN2FjY05aUW90elZtbTZBNjY3SWFEVGg1K1h4c2VrWFNONTcybDhDampk?=
- =?utf-8?B?R1JzNUNwSXorSXFsS05vRmFDbmlheG5XL3cwUlJGVkxaYkpLYTRzTmk5a29G?=
- =?utf-8?B?Y1Bobk8wc1lRRHRqMUF6SjhtT0RRZS9CZnRHREM0azVjeHV5clFmbGhIYW5s?=
- =?utf-8?B?ZXBJSlFGSEs2b3p0UXc5OUxzMTlFOU9wUkNiVlJGSGxqNjJ0K1JZdWRQMDBD?=
- =?utf-8?B?WG9vL3pHMXhncmhyRnE1QXZ5a1NDQit6OTYraVlZUUJoQzFMU1U2ME9iR0ZO?=
- =?utf-8?B?SDJham5HdnBORGp4T2YySlFkOUJKRVgrRFI1ZUZZcTBTMFBjR1U3TFd6K1Ew?=
- =?utf-8?B?VDMzRVdYSGdjUHZXZXpvQ1JMNEZ2OThXWFRYNStDRnpZYU0wMXgzSzNuWDJM?=
- =?utf-8?B?VDBvTmRyUENmQVRpM3Q5V0w3YXhNK1Q4UjhFd2psTDhtMnRiVERtTGZmYzFr?=
- =?utf-8?B?QVFDWG1EenhjL3lweFdaakJrY2hnVC8vY1phR29CWEgvK1dsRTYweVNDYnNT?=
- =?utf-8?B?YVdZUVYxZEZNNWZCV1I0MGNQMWd5b3pNMWp1TzNwdDY3ZzdocWQ5b3RvazBV?=
- =?utf-8?B?VW16c2Y5TS9zYkd1N29RbG8xKzlZZnhiQUVxSDQ2T1JvT2xZaVFweWM3NnlV?=
- =?utf-8?B?ZnpoczVud0JLRGdzYzIvTlNsQWZqMU8wVExaUVdNZlAyb1FycjlZY3Q1WU9V?=
- =?utf-8?B?OW81Wm1ZZldIbFcxWFlZd0xZWHRFNUF2R3hhOThwZWZXWDFKMnZIWmlHRDht?=
- =?utf-8?B?dldLcDVZL2pkV1NOSkkxR25KdVlmaFM1bkhPNHRkWElKc2tOK0R2S2Z5azlY?=
- =?utf-8?B?akRaMEsvdms0UWw3L3hndzYvTnFqd3ZIaHZaSXpKWmN1ck5OdzVWVkNrMWlX?=
- =?utf-8?B?b0ZzRFRQelZTUUdSbXIydFZEdlJWcy9ubG1EUC9IME1FWVV2ODhmS0ZkRkNl?=
- =?utf-8?B?ZklEaC9zeWREUmM4RWM3aTFKd1NYdWxsUnZZVWVJQjBpK1BHNnNxRU1qeWt4?=
- =?utf-8?B?bTJVUnM2em5BSW9xbDQyOFV5YzU5ekc2NnY0TEtJbzI3aS9aY1pkcEk2dnd4?=
- =?utf-8?B?dG5mK0pyUUFiTjRjcURjTlg4M2c0cDlCTzQ3a0cyWlF0MW5TL0lIT00wK0h6?=
- =?utf-8?B?WnQxRUhZRG1WME43dWE0aEIrekVTWEoyRzY5V1VoQ1JhdXdsT1pzbE1OQTFM?=
- =?utf-8?B?YkdUTWgwWXhPdlpJN0RjSjVzVDJqanR2cXhoZXlVTkszdmpCallMK3BIK3Bk?=
- =?utf-8?B?c3JxcEg4bXBZN3R3dnhDeU5aYWdJdE1pVEN5RkNaS3MzV0ZwWkREazZGaTR5?=
- =?utf-8?B?d3MxNHhvMGRRa09pWnlCZ2VSc29XN3g1NmRFRzJMSlZVMUp2NlZXM0JrYTRS?=
- =?utf-8?B?Ym1PL3JaMlYwZ01XUnVxTG9VdkR4MC82T1hkZ2JtOFBsWThVRnhWc3FNRGdD?=
- =?utf-8?B?dWMwS3VkU2tGQWVVV0NqSVBKTXFvZ2hUZlVwaHR0MkhpelZ0VmJhMlZmRzNQ?=
- =?utf-8?B?RFlnZTRBMFVobFM4a3NLUzhOUGhBWUM0ck50SXNiVVIyTlFVeXc1Vi9TQm5D?=
- =?utf-8?B?YkdkOEtlcldPT0U0bU91MG9xRnJ5NnNheEVhVFpLYVcydVBXWGxoNmV4QzFl?=
- =?utf-8?B?aHhqWkttTXZXcllUd0p2ZVcxOXp3SkhadnFiam1COVhlcnZKY2FlRUNBbS9m?=
- =?utf-8?B?ZDJ3cUJ2OW1kczJSYkNBTmxrNFV1UFpNYlVKOG82ZGVmQjdRVW1zWkpTWFpj?=
- =?utf-8?B?V2RlZmMzZllhcUlDTzBUUHZ0VjA2T1ZXYmJqRFdQVWJqZmx4dm4xNWlHYlQr?=
- =?utf-8?B?Vmk4Vy9vc3hMMm4yaEppQnU1SEZZMlhSUFRMd1paZ3VTUmwwNlVVMkV1VDU4?=
- =?utf-8?B?WXRDeWhwbFpVQk0zQUV3OHEyU045dFY0aTQwNGI0ZGtnSWMvaFlzK2ttTHlp?=
- =?utf-8?B?a3p1ZzY0KzVFazBFU1JuMThnQU5ZNkFyYjhUKzJHOHBMZHYrU3JrODY2NHhj?=
- =?utf-8?Q?3Q2sAWV5Hxm3B5hfQO?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1274599d-df1f-40c6-da3d-08df4490b830
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB5637.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 09:54:06.9249
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TYc4HJcQ5W3QRrYTKDW2tAtzZSkJXYYTrlA9fvGNnO4gfIh3hp7ZdvHJQ4kESiPIRDNDvc88qSZjKrFpOdDuPQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9188
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/9] userfaultfd: use anonymous memory for
+ UFFDIO_ZEROPAGE on private file mappings
+To: Tal Zussman <tz2294@columbia.edu>,
+ Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
+ Peter Xu <peterx@redhat.com>, James Houghton <jthoughton@google.com>,
+ Andrea Arcangeli <aarcange@redhat.com>,
+ Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, Michal Hocko <mhocko@suse.com>,
+ =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
+ Andrei Vagin <avagin@gmail.com>, Muhammad Usama Anjum <usama.anjum@arm.com>,
+ Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>,
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>,
+ =?UTF-8?Q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
+References: <20261116-uffd-state-fixes-v2-0-4397a0196479@columbia.edu>
+ <20261116-uffd-state-fixes-v2-1-4397a0196479@columbia.edu>
+ <cc865bc8-b96f-4385-97b1-976de4465ca1@kernel.org>
+ <eba4fb71-6baa-455f-8899-87567af898aa@columbia.edu>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <eba4fb71-6baa-455f-8899-87567af898aa@columbia.edu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
-
-On 13/11/26 11:57, Zhongqiu Han wrote:
-> External email: Use caution opening links or attachments
+On 11/16/26 23:27, Tal Zussman wrote:
+> On 11/16/26 3:16 PM, David Hildenbrand (Arm) wrote:
+>> On 11/16/26 21:02, Tal Zussman wrote:
+>>> If the mm cannot map the shared zero page, UFFDIO_ZEROPAGE falls back to
+>>> mfill_atomic_pte_zeroed_folio(), which allocates a zeroed folio and
+>>> installs it through vma_uffd_ops(), no matter what kind of mapping it
+>>> is. An s390 KVM guest with storage keys or protected virtualization is
+>>> such an mm.
+>>>
+>>> For a MAP_PRIVATE shmem mapping, that adds the zeroed folio to the page
+>>> cache of the file. That is wrong: a private mapping must never modify
+>>> the file it maps, and the file might even be mapped from a read-only fd.
+>>>
+>>> The ioctl can also fail where it should succeed. A missing fault is only
+>>> delivered for a hole in the file, but UFFDIO_ZEROPAGE can be called on
+>>> an address that did not fault, or can race with a write to the file. If
+>>> the file has a page at that offset by then, inserting the zeroed folio
+>>> fails and the ioctl returns -EEXIST although nothing is mapped at the
+>>> destination address.
+>>>
+>>> What we want is what UFFDIO_ZEROPAGE does on a private mapping when the
+>>> shared zero page can be used, and what UFFDIO_COPY does: only check that
+>>> nothing is mapped at the destination address, map zeroed memory there,
+>>> and leave the page cache alone. The zeroed folio path did that before it
+>>> was moved to vm_uffd_ops.
+>>>
+>>> To fix it, pick the ops in the common folio path, as
+>>> mfill_atomic_pte_copy() did for UFFDIO_COPY: anon_uffd_ops for a private
+>>> mapping, the ops of the VMA otherwise. That makes
+>>> mfill_atomic_pte_copy() and mfill_atomic_pte_zeroed_folio() redundant,
+>>> so remove them and rename __mfill_atomic_pte() to
+>>> mfill_atomic_pte_folio().
+>>>
+>>> UFFDIO_ZEROPAGE no longer modifies the file, and only fails with -EEXIST
+>>> if something is already mapped at the destination address.
+>>>
+>>> Fixes: f74991b4e383 ("shmem, userfaultfd: implement shmem uffd operations using vm_uffd_ops")
+>>> Cc: stable@vger.kernel.org
+>>> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>>> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+>>> ---
+>>>  mm/userfaultfd.c | 46 ++++++++++++++++------------------------------
+>>>  1 file changed, 16 insertions(+), 30 deletions(-)
+>>>
+>>> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+>>> index d65184d9a480..61a712e1f9f5 100644
+>>> --- a/mm/userfaultfd.c
+>>> +++ b/mm/userfaultfd.c
+>>> @@ -531,15 +531,27 @@ static int mfill_copy_folio_retry(struct mfill_state *mfill_state,
+>>>  	return 0;
+>>>  }
+>>>  
+>>> -static int __mfill_atomic_pte(struct mfill_state *state,
+>>> -			      const struct vm_uffd_ops *ops)
+>>> +static int mfill_atomic_pte_folio(struct mfill_state *state)
+>>>  {
+>>> +	const struct vm_uffd_ops *ops = vma_uffd_ops(state->vma);
+>>>  	unsigned long dst_addr = state->dst_addr;
+>>>  	unsigned long src_addr = state->src_addr;
+>>>  	uffd_flags_t flags = state->flags;
+>>>  	struct folio *folio;
+>>>  	int ret;
+>>>  
+>>> +	/*
+>>> +	 * The normal page fault path for a MAP_PRIVATE mapping in a
+>>> +	 * file-backed VMA will invoke the fault, fill the hole in the file and
+>>> +	 * COW it right away. The result generates plain anonymous memory.
+>>> +	 * So when we are asked to fill a hole in a MAP_PRIVATE mapping, we'll
+>>> +	 * generate anonymous memory directly without actually filling the
+>>> +	 * hole. For the MAP_PRIVATE case the robustness check only happens in
+>>> +	 * the pagetable (to verify it's still none) and not in the page cache.
+>>> +	 */
+>>> +	if (!(state->vma->vm_flags & VM_SHARED))
+>>> +		ops = &anon_uffd_ops;
+>>
+>> Oh, but one comment: why not check for actual cow mappings?
+>>
+>> 	vma_is_cow_mapping()
+>>
+>> is your friend :)
+>>
 > 
+> Probably because I didn't know about it :)
 > 
-> On 11/5/2026 2:15 AM, Sumit Gupta wrote:
->> At probe the driver reads the MPIDR of every possible CPU with
->> smp_call_function_single(). For a CPU that is offline at boot, the call
->> fails and the error is ignored, so the CPU's core and cluster IDs come
->> from an uninitialised variable.
->>
->> Read MPIDR from a CPU-hotplug online callback instead, which runs on the
->> target CPU and caches its core and cluster IDs and MMIO scratch address.
->> This covers CPUs online at probe and CPUs onlined later.
->>
->> The check that the SoC data covers all CPUs moves to probe, against
->> nr_cpu_ids. A CPU whose MPIDR does not fit the SoC data gets no scratch
->> address, and its NDIV access is skipped.
->>
->> Fixes: 6b121b4cf7e1 ("cpufreq: tegra194: save CPU data to avoid 
->> repeated SMP calls")
->> Signed-off-by: Sumit Gupta <sumitg@nvidia.com>
->> ---
->>   drivers/cpufreq/tegra194-cpufreq.c | 114 ++++++++++++++++++++---------
->>   1 file changed, 79 insertions(+), 35 deletions(-)
->>
->> diff --git a/drivers/cpufreq/tegra194-cpufreq.c b/drivers/cpufreq/ 
->> tegra194-cpufreq.c
->> index 1eb96e9f3310..be81ffd23edd 100644
->> --- a/drivers/cpufreq/tegra194-cpufreq.c
->> +++ b/drivers/cpufreq/tegra194-cpufreq.c
->> @@ -5,6 +5,7 @@
->>
->>   #include <linux/cpu.h>
->>   #include <linux/cpufreq.h>
->> +#include <linux/cpuhotplug.h>
->>   #include <linux/dma-mapping.h>
->>   #include <linux/module.h>
->>   #include <linux/of.h>
->> @@ -13,7 +14,7 @@
->>   #include <linux/slab.h>
->>   #include <linux/units.h>
->>
->> -#include <asm/smp_plat.h>
->> +#include <asm/cputype.h>
->>
->>   #include <soc/tegra/bpmp.h>
->>   #include <soc/tegra/bpmp-abi.h>
->> @@ -77,6 +78,8 @@ struct tegra194_cpufreq_data {
->>       const struct tegra_cpufreq_soc *soc;
->>       bool icc_dram_bw_scaling;
->>       struct tegra_cpu_data *cpu_data;
->> +     enum cpuhp_state cpuhp_state;
->> +     struct hlist_node cpuhp_node;
->>   };
->>
->>   static struct workqueue_struct *read_counters_wq;
->> @@ -113,7 +116,7 @@ static void tegra234_get_cpu_cluster_id(u32 cpu, 
->> u32 *cpuid, u32 *clusterid)
->>   {
->>       u64 mpidr;
->>
->> -     smp_call_function_single(cpu, tegra_get_cpu_mpidr, &mpidr, true);
->> +     tegra_get_cpu_mpidr(&mpidr);
->>
->>       if (cpuid)
->>               *cpuid = MPIDR_AFFINITY_LEVEL(mpidr, 1);
->> @@ -121,11 +124,44 @@ static void tegra234_get_cpu_cluster_id(u32 cpu, 
->> u32 *cpuid, u32 *clusterid)
->>               *clusterid = MPIDR_AFFINITY_LEVEL(mpidr, 2);
->>   }
->>
->> +static int tegra_cpufreq_cpu_online(unsigned int cpu, struct 
->> hlist_node *node)
->> +{
->> +     struct tegra194_cpufreq_data *data;
->> +     u32 cpuid, clusterid;
->> +
->> +     data = hlist_entry(node, struct tegra194_cpufreq_data, cpuhp_node);
->> +
->> +     data->soc->ops->get_cpu_cluster_id(cpu, &cpuid, &clusterid);
->> +
->> +     data->cpu_data[cpu].cpuid = cpuid;
->> +     data->cpu_data[cpu].clusterid = clusterid;
->> +
->> +     /* Derive per-core register address only when ccplex MMIO is 
->> mapped. */
->> +     if (data->regs) {
->> +             if (clusterid >= data->soc->num_clusters ||
->> +                 cpuid >= data->soc->maxcpus_per_cluster) {
->> +                     pr_warn_once("cpufreq: cpu%u: bad MPIDR (cluster 
->> %u, core %u)\n",
->> +                                  cpu, clusterid, cpuid);
->> +             } else {
->> +                     u32 index = clusterid * data->soc- 
->> >maxcpus_per_cluster + cpuid;
->> +
->> +                     data->cpu_data[cpu].freq_core_reg =
->> +                             SCRATCH_FREQ_CORE_REG(data, index);
->> +             }
->> +     }
->> +
->> +     return 0;
->> +}
->> +
->>   static int tegra234_get_cpu_ndiv(u32 cpu, u32 cpuid, u32 clusterid, 
->> u64 *ndiv)
->>   {
->>       struct tegra194_cpufreq_data *data = cpufreq_get_driver_data();
->> +     void __iomem *reg = data->cpu_data[cpu].freq_core_reg;
->> +
->> +     if (!reg)
->> +             return -EINVAL;
->>
->> -     *ndiv = readl(data->cpu_data[cpu].freq_core_reg) & NDIV_MASK;
->> +     *ndiv = readl(reg) & NDIV_MASK;
->>
->>       return 0;
->>   }
->> @@ -135,8 +171,12 @@ static void tegra234_set_cpu_ndiv(struct 
->> cpufreq_policy *policy, u64 ndiv)
->>       struct tegra194_cpufreq_data *data = cpufreq_get_driver_data();
->>       u32 cpu;
->>
->> -     for_each_cpu(cpu, policy->cpus)
->> -             writel(ndiv, data->cpu_data[cpu].freq_core_reg);
->> +     for_each_cpu(cpu, policy->cpus) {
->> +             void __iomem *reg = data->cpu_data[cpu].freq_core_reg;
->> +
->> +             if (reg)
->> +                     writel(ndiv, reg);
->> +     }
->>   }
->>
->>   /*
->> @@ -208,7 +248,7 @@ static void tegra194_get_cpu_cluster_id(u32 cpu, 
->> u32 *cpuid, u32 *clusterid)
->>   {
->>       u64 mpidr;
->>
->> -     smp_call_function_single(cpu, tegra_get_cpu_mpidr, &mpidr, true);
->> +     tegra_get_cpu_mpidr(&mpidr);
-> 
-> .get_cpu_cluster_id() now reads the local MPIDR, so the cpu argument is
-> ignored. Could it be dropped?
-> 
-> 
-> 
-> -- 
-> Thx and BRs,
-> Zhongqiu Han
+> This is already equivalent since uffd registration rejects VMAs without
+> VM_MAYWRITE, but I can switch it over for consistency.
 
-Yes, will drop it in v2.
+Yes please. We need to convert all of that code to not check fiddly VMA flags.
 
-Thanks,
-Sumit
+Cow mapping in uffd -> anon folios only.
 
+-- 
+Cheers,
 
+David
