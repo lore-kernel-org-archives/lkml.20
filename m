@@ -1,58 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794908133;
-	b=jF4G70PlHBxk7RM0weNE/QIxuRBucAdzIsa3eXGAprbwQu3JvolAvuQYJuj3CBybopxa
-	 6vSL/SCdjRx2rTGGQwPE2yY3LD1K54N+hBx4hJI9xU9IkBx5owO6FmisU4g4ZWjqgmIdX
-	 p6lJhSaQy5RceiFrlDDzLMazXboMkowHypa7UzuRDc/8QMAvmQZad171zQGMqVV9CkcB/
-	 bgCdj8jvYzXecKzbwQx1jiNuGlljujNBkGSd5+VqMo2MXbSwzH3E6DOKaM0Pkn0lNQftc
-	 By6K4xSgS5aATwulmQi9CIilkTfbHarchxUBwQaqqdUzIMjDwFjwGb0oy5kPi2DutYw==
+	t=1794908140;
+	b=crwUK2DQD7cbL8nYzy0ZahbyEjhrdS7FtxbTL2cO0ndbvdAJZE4cBmsqFe2gYP9KKu9S
+	 7dC7HsU99KKwL+qi1ZnIx2swiDfhlvlqhEVvGVA+BfLrY8eC4gkEff9zAk3VvCCUm0NpC
+	 IvknMHXTOhNZXz7i9pHZDLa6eKsoYHoQudKbu9o7OsHa1U7GJXYVQjT4M4ouDMiA9CWmi
+	 10dMv+2VeQN+su3uCeM564PmROPDAfzhZBS1OJ20mBJOCAjFFfvpPyhovrB8Jadeh5XXS
+	 Kd38DlHN/Q0b/1CyUA/ZBXW+Dd1X697ySLANNV794S2h7MkvYfEOiP8w1g42NP/b1Tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908133;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=WwhwaYFJNMtPhT56t3rNjNOo+MK4UinclZfxdqo22ag=;
-	b=Nkup/T7Dk9lHdEMqXjruuunroew9A5946+lejmkG04JCYrjFKl1PeQYcKorkc5grFwGJ
-	 NARBoqUAlgRiGhA5KvkT1Mvpc1F+XfgWxC0EtcESXDQs5SLWnpny4qFKP3shtbzsZ0bAp
-	 csNFgVsc6502YEwE1vZbKmSDgBY3Q6yhIJncTC0lsH34wOglcPkFGotwHGSB5GBQ+kjis
-	 o2PmXGkNqM/qFX9xTqebZWYeh0g3xwr+jdkgI+eGp0UQC8ShKIlmH+CTy223SzjSSTRXA
-	 C7b3/7A/VFOa4CK6vWtH1Cgx/IjbMw7HeznnY8UVZFKGOi7J4Q1IS8SeFeV5xTsokkA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908140;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=OhiR+JSPx8omGjT6b8YvAiFiu4YN/j7mPCjJR2bPM4M=;
+	b=0JVvMRMQOK9NO1Xp9k50FbW9440v7lPlfGg9rI8IXr5lM95+ur28zeG3Dd7XiADjPW4+
+	 YhCkh+9X7NPVHlTKeDKcGRr4f3F8YaNJDVB0WuJ4bSIDXYlb/Vd2zRAeWA7Hoh8hKD0b/
+	 2qvuHtDN5iSNx9BeKt2PJtO/BONyzQYuhHIUqNEaJ6N/OMuZqlTnuastUuZ1YVupPzVhK
+	 OM9KTW7LTlwfYnAyTL6aiHFs95VlcyZITTwB2cR/k95GuoJIBc2o5NcTvEzWJEXqOKUBc
+	 stNzgQobF8M2o7jWxXQO6pEj4SKZleJBWQzrLblUZf4qiBabAZJiqjz7FcH3PCptojA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=vI11SneC;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DeiMapPB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 908B4606A32F
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:35:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 908B4606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B8DB606A31C;
+	Tue, 17 Nov 2026 09:35:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=vI11SneC
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 93C50C4EDBC;
-	Tue, 17 Nov 2026 09:35:35 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 410EE5FC81;
-	Tue, 17 Nov 2026 09:35:31 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 18CF011BC0B8F;
-	Tue, 17 Nov 2026 10:35:23 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794908130; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=WwhwaYFJNMtPhT56t3rNjNOo+MK4UinclZfxdqo22ag=;
-	b=vI11SneCI57vK3QInTMJGFmCHhAx0leLQ4YOKCpOSQITmvWd+ijDWcMsdWsjwe4olDvKXG
-	lJp6vHcNgfsAYJxHFIKAjUyZJopqKXIdt9Yko+ilDnz//erJz52amc8o9TGyqanFZ0/rdE
-	d1WeNt4Uog1Cwm5T8A7opkjYz+Tus1i0LdB7ADk2ztleDz9d7yG20dJAt2gukKMI8LpKNU
-	V/+umM5GnXCckLLfBcPOxL3AwE6Xz8+81LvUTp65dgQhOavHiH90OqrA9+m3E6q6WAlj61
-	vs6Gh+caEYLNzCDzVE5RMMdEGKLg5on2sgGZgCyR9NVksik888lc7sYrsO4CuA==
-Message-ID: <7b9a4fe1-a885-4ace-bad0-b819ac8b11b4@bootlin.com>
-Date: Tue, 17 Nov 2026 10:35:23 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DeiMapPB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F4831F000C7;
+	Tue, 17 Nov 2026 09:35:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794908139;
+	bh=OhiR+JSPx8omGjT6b8YvAiFiu4YN/j7mPCjJR2bPM4M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DeiMapPBv1qnuZUks3+vkS9vQKhSFANKRAJ00GG+00KAmW2BdHrdtW8WHT3e7iLFT
+	 nFsxfKcIH+zwLmNxDc5T82lDHypUqr4zvbMzkDiBdX2xlVsMRMDXlYIUMN86mqKymX
+	 LPDm1tMHkzqr+5j3EGKoPojPubh99V3FTvO4EHnXyOT6BZr6aCr784DVkDXJ09lGLZ
+	 1VMTbY4l0g4skbmWuvlOozXZGbmB3QTOv8+K+o3njnYzVx5p4wxsAAor6jUfgfr3aR
+	 Yqx/cKJrh+//dpjUnqtVm56/u+soAo0+ZDo/oDtwLoIAOUEg9Q6UoAbP+CbK3yiizj
+	 QvU61S7rOaqjw==
+Date: Tue, 17 Nov 2026 09:35:30 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Alex Williamson <alex@shazbot.org>, Peter Xu <peterx@redhat.com>, 
+	Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Wei Liu <wei.liu@kernel.org>, 
+	Roman Kisel <romank@linux.microsoft.com>, Saurabh Sengar <ssengar@linux.microsoft.com>, 
+	Naman Jain <namjain@linux.microsoft.com>, Michael Kelley <mhklinux@outlook.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Eliav Farber <farbere@amazon.com>, stable@vger.kernel.org
+Subject: Re: [PATCH 1/3] mm/memory: remove racy huge PMD assertion from
+ walk_to_pmd()
+Message-ID: <avwbrON3_cCtaR20@gremlin>
+References: <20261115-huge-pfnmap-fault-races-v1-0-537605643f6f@kernel.org>
+ <20261115-huge-pfnmap-fault-races-v1-1-537605643f6f@kernel.org>
+ <dccf94b3-b901-4311-a233-488c87195dc5@kernel.org>
+ <avs1rOJQ1gV33z8w@gremlin>
+ <61d4f3ee-7a0b-4a8b-b5a2-35380dd46b4c@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,84 +70,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next] net: stmmac: dwmac-sun8i: Defer probe when the
- EPHY clock is not ready
-To: netdev-bot+sashiko@kernel.org, aiyengar1990@gmail.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, wens@kernel.org, jernej.skrabec@gmail.com,
- samuel@sholland.org, clabbe.montjoie@gmail.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20261113-b4-sun8i-emac-ephy-defer-v1-1-12a8591702fe@gmail.com>
- <179490321548.3136.12535368591168637116@kernel.org>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <179490321548.3136.12535368591168637116@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <61d4f3ee-7a0b-4a8b-b5a2-35380dd46b4c@kernel.org>
 
-Hi,
+On Mon, Nov 16, 2026 at 09:06:21PM +0100, David Hildenbrand (Arm) wrote:
+> On 11/16/26 18:10, Lorenzo Stoakes (ARM) wrote:
+> > On Mon, Nov 16, 2026 at 04:56:25PM +0100, David Hildenbrand (Arm) wrote:
+> >> On 11/15/26 21:58, Lorenzo Stoakes (ARM) wrote:
+> >>> From: Eliav Farber <farbere@amazon.com>
+> >>>
+> >>> walk_to_pmd() asserts that the PMD entry it returns is not huge, but does
+> >>> so without holding the PMD lock, so the assertion is only valid if nothing
+> >>> can concurrently install a huge PMD entry in the range.
+> >>>
+> >>> This is not the case for a VMA whose driver implements both ->fault and
+> >>> ->huge_fault and which invokes vmf_insert_pfn() from the former.
+> >>>
+> >>> The existence of prctl(PR_SET_THP_DISABLE) is problematic here, as it only
+> >>> takes the mmap write lock and faults taken under the VMA lock are
+> >>> unaffected by this.
+> >>>
+> >>> This can result in two concurrent threads faulting the same thing
+> >>> disagreeing as to whether to attempt a huge fault and thus ->fault and
+> >>> ->huge_fault running at the same time and triggering this assertion.
+> >>>
+> >>> So just remove the assert.
+> >>>
+> >>> Target the commit which introduced the first driver able to do this for the
+> >>> fix - vfio-pci. DAX also mixes fault orders within a VMA, but serialises
+> >>> them using its own mapping entry lock.
+> >>>
+> >>> Link: https://lore.kernel.org/all/20261112051440.16140-2-farbere@amazon.com/
+> >>> Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
+> >>> Cc: stable@vger.kernel.org
+> >>> Signed-off-by: Eliav Farber <farbere@amazon.com>
+> >>> [ ljs: rewrote commit message ]
+> >>> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> >>> ---
+> >>>  mm/memory.c | 1 -
+> >>>  1 file changed, 1 deletion(-)
+> >>>
+> >>> diff --git a/mm/memory.c b/mm/memory.c
+> >>> index 3a20d64fd276..e03110906aa8 100644
+> >>> --- a/mm/memory.c
+> >>> +++ b/mm/memory.c
+> >>> @@ -2384,7 +2384,6 @@ static pmd_t *walk_to_pmd(struct mm_struct *mm, unsigned long addr)
+> >>>  	if (!pmd)
+> >>>  		return NULL;
+> >>>
+> >>> -	VM_BUG_ON(pmd_trans_huge(*pmd));
+> >>>  	return pmd;
+> >>>  }
+> >>>
+> >>>
+> >>
+> >> Could this also stumble over a huge PUD somehow? Should we just prepare it for
+> >> any leaves and bail out if we find some?
+> >
+> > No, walk_to_pmd() can only come from the order-0 path right now and
+> > __handle_mm_fault() makes sure that can't happen in the fault path:
+>
+> That implies that get_locked_pte() and all insert_pages interfaces can only be
+> called from that path in __handle_mm_fault().
+>
+> x86 an s390x use get_locked_pte() for some other paths, so I wouldn't want to
+> trust on that :)
 
-On 11/17/26 09:13, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 1 · Medium: 0 · Low: 0
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [High] The patch makes get_ephy_nodes() in
->   drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c return -EPROBE_DEFER…
-> 
+Well, I had claude go look through everything and there are no paths which are
+problematic _now_ :) but future-proofing is a good idea because assumptions like
+this bite you in the... assembly *ahem*
+
+>
+> (did I say that I hate walk_to_pmd and get_locked_pte? But you likely guessed it
+> at this point lol)
+
+Yeah they're bloody awful aren't they? :)
+
+>
+> >
+> > 	vmf.pmd = pmd_alloc(mm, vmf.pud, address);
+> > 	if (!vmf.pmd)
+> > 		return VM_FAULT_OOM;
+> >
+> > 	/* Huge pud page fault raced with pmd_alloc? */
+> > 	if (pud_trans_unstable(vmf.pud))
+> > 		goto retry_pud;
+> >
+> > So by the time any ->fault path runs, the PUD is stable.
+> >
+> > We don't have to worry about the mmap paths as at that point nothing has
+> > faulted in and it's all fresh.
+> >
+> > So it's all safe as things stand.
+> >
+> > But could update for future-proofing like:
+> >
+> > 	/* PUD leaf might have been installed. */
+> > 	if (pud_trans_unstable(pud))
+> > 		return NULL;
+>
+> Yeah, that makes sense. I was just wondering whether we'd actually want to
+> return a proper error then instead, because this would not be an -ENOMEM case.
+
+Let me have a fiddle and see what I can come up with, maybe we can use this as
+an excuse to improve things a bit... :)
+
+>
 > --
-> 
-> net: stmmac: dwmac-sun8i: Defer probe when the EPHY clock is not ready
-> 
-> With this patch, get_ephy_nodes() returns -EPROBE_DEFER when of_clk_get()
-> on the internal PHY node returns -EPROBE_DEFER. Before, it skipped the
-> node and the probe ended with -ENODEV. Other clock errors still skip the
-> node.
-> 
->> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
->> index 2ece7ba9dd73b..8163e49fa7ad0 100644
->> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
->> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
->> @@ -801,8 +801,13 @@ static int get_ephy_nodes(struct stmmac_priv *priv)
->>  		struct clk *ephy_clk;
->>  
->>  		ephy_clk = of_clk_get(iphynode, 0);
->> -		if (IS_ERR(ephy_clk))
->> +		if (IS_ERR(ephy_clk)) {
->> +			if (PTR_ERR(ephy_clk) == -EPROBE_DEFER) {
->> +				of_node_put(mdio_internal);
->> +				return -EPROBE_DEFER;
->> +			}
->>  			continue;
->> +		}
->>  		gmac->rst_ephy = of_reset_control_get_exclusive(iphynode, NULL);
->>  		if (IS_ERR(gmac->rst_ephy)) {
->>  			ret = PTR_ERR(gmac->rst_ephy);
-> 
-> [Severity: High]
-> Does this deferral come too late in the probe?
-I agree with the bot here, this defer happens after the netdev is registered,
-which isn't great... And it's likely the PHY is on that mux'd bus, no ?
+> Cheers,
+>
+> David
 
-Was this tested ? Doesn't it really work to return a probedefer so late ?
-
-This mdio mux logic should likely be reworked so that we register the mux in due
-time (i.e during the mdio init sequence, may be by hooking into stmmac_mdio_setup
-or something like that ?)
-
-Maxime
-
-
-
+--
+Cheers, Lorenzo
