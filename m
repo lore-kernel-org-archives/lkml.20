@@ -1,148 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=2 smtp.remote-ip=40.107.159.45
-ARC-Seal: i=3; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794926096;
-	b=hatCqZBYUfrrC3/51eFOcHCF8/YMwdPjnpQWqJu3Q6LDY5q+z8A/u7LsjKVfucUk8Kw2
-	 GK/rOsiWmQLYHJhd5qPF/+vYGBxEQ0KLpnXc1y0Bjrjqcr6hBTInidr0D4QZ8sITS+UWg
-	 331SjZHb+h5siuz4WX76IuTcoTR1PEKeNGbEsYDzkoYfzT7E4fKqzOmhCGO1sEZZRpqSj
-	 Fvetagl02xEEDoG0i6rjYGFRjV9/OFs4ok/nREwBCsDp2eBdfo2F4FdDS9Yw8pT4QP7/Z
-	 ew7lp8yPiw+jqzm9CFvdtWV7nGCRqWF3xGWNppXR+rK1BGtqMjlLDHSFQGiDzMXSuyQ==
-ARC-Message-Signature: i=3; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794926096;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:
-	 DKIM-Signature:Authentication-Results-Original:Received:Received:
-	 Message-ID:Date:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-ClientProxiedBy:MIME-Version:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:x-checkrecipientrouted:
-	 NoDisclaimer:X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam-Untrusted:
-	 X-Microsoft-Antispam-Message-Info-Original:
-	 X-Forefront-Antispam-Report-Untrusted:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-EOPAttributedMessage:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
-	 X-MS-PublicTrafficType:X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=DYKoFwWK9isrmNevCYir5sjZ9MpPzTzZAiqQptwh3Aw=;
-	b=07FjZo8p8393J/8r8Y8N7xdC6UPT2ZmTCa8BXx8l49aOMTZTVV+2zXi2QVwdPK3PmKyq
-	 fCq1mKnopdHJNWJY7liFEFfx6nl50lKAnoDB3qw4hAJ9Ae27AlXYFD25SSH36K8wprAkA
-	 R2u8+UnE8r6l2o8guy+//tU/2LdOHZTgRZi5FUGOHGKeEC3f00/NRq+RP/LapkC1kZs5t
-	 ffPA4xi3erU2AsB5ab98lLzbKQ3ljSzB/I9HXO7IAO7DAvU/xPf3CE4unXLSKSeg3Lemx
-	 9iraxSAS8jW80AcvwCefrArmU2VQd9HOZWBhOmCEXVgk+U0EffTxVDtTsbIcbxOuJvw==
-ARC-Authentication-Results: i=3; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=NiH1yyYe;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=NiH1yyYe;
-	arc=pass header.oldest-pass=2 smtp.remote-ip=40.107.159.45
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013045.outbound.protection.outlook.com [40.107.159.45])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.226
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794926093;
+	b=jmsUiCbMEdOjoMMQGd4xFI9EDYmRvzTqXP88WKw4QX+AJrwUum1EaldkiVauGU3FXQzv
+	 wCQ4gHFUmiJRAmC5P4X2LrjV6ohd/8jLRRwhda/TaBy7bmU1G24CWOFFxYYtKzxmATLzL
+	 djas7/+d03iGGCJ3cd5fxGTqo+Yqh+oySP4Rj1GCU9AJL1duMQBiN8DnQq4GDW1HOx0hj
+	 W3NMvdM1bkzyTjYaqh/Xc8gs7HF9cxeezglGJshWYbuPCfiJaDwmSTlmjYbBitkqqAJHo
+	 qKLYWMh3nPtmWf9cXPAwqD8kQ1IQoctInG4W22qpPJhOmFuyTx6CJTeCMaVDov7qHIg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794926093;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:X-Originating-IP:X-ClientProxiedBy;
+	bh=pJZ4NzOAvolg7d9pXS4YjOfsPEAMwi10SQnhEe1l3Co=;
+	b=q+uwUlXVlb6alyiBneyT3o7XeSK1RMOjdzvEdXQDiJH3fis/j9oCrPOZHa/QxTd7Wv7a
+	 Y1DZ0Vac9Q0P45HMSkZGAVWD5oh30Fnk2eBq+b0M9rhNYEr0WMcchJcnt+Tn3sniQ56M6
+	 mzwSeiPQKQAMmpAHWwn4Zs+EF9PWhzhe32h7OY00jwRr1F6gYOnwld5wfHy/PXcvxZrMk
+	 eGTPVWSwY4KKvglTA+5eL7iC+ue/pvZxjlukiTX1KJgQeYGyHyDvr8POqKmlM4TMxkyf5
+	 ffF1q0Zfy69aW5olye0xaHgPWE0iKXKdq9B7qT0Vx7MjFh+squvR9Y1c+ZCg9HHqjoA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=RYnbgzOa;
+	arc=none smtp.remote-ip=113.46.200.226
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 297696077F80
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:34:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 297696077F80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D0A6606A897;
+	Tue, 17 Nov 2026 14:34:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D0A6606A897
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=NiH1yyYe;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=NiH1yyYe
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=ci/uXi8sPMdjlNU0ybFkLP+PXeFJel/PsLPs8FxtiAfw7mOv6PcTCdmIR0HkX+OwBgapSWIQGEZwCnfy/XkEdezwXNELVc6A3sYd/M5YYYeMro7z+IacVd5ZMG/aoHi4Z8YsSI+P5jJbD3a5lN4d1xBQsko2f4iffhqpQPZK3iB+KJChnUtFYCRYy2/+OSPPDhmcYmAa5JGzPvcVvXwoUXKxa8ka2X8w72UW+sZQBI9M/hsIfUW7KUgfEw+OD5UqZV9V5JFiD2lywk0Cw2+l9XIv56l3h7L42F5lWCGEueJ2z/ShS24aMhpeO9z/tL/CaMCMq4ZogTgK4Nrj+E5Trg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DYKoFwWK9isrmNevCYir5sjZ9MpPzTzZAiqQptwh3Aw=;
- b=lSa2OX7rK8wi+Hm+li8rErV0QKu9qkfNoqBIbK8xfl1mEl2tVaaqU4l1EG8H67o7fIf1Jd0MfjFI2MVQx4TbYOy4CdVkHAwl1UsDdhqH349xd6IvXB6WyCUPbmLhC87igGKQOI1Aogd4op73/Rnlc3fL1lwuIWCerK8KrKH9JuY110QF13KtBPxerAcTkcmiDqj945YqYqC9YEhgVTwL8XmTKttUaUwVCs51PIR2D51yqXbXt6zQl9qn0WOAW3ACtUYfLD468a7hYh8Lkysqfbkd9vHHNE9mFn+hQEEdtXjrgJaknvowQMjCPAwKxeID3TUzmGnGycmVhpz9puisUg==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=nvidia.com smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DYKoFwWK9isrmNevCYir5sjZ9MpPzTzZAiqQptwh3Aw=;
- b=NiH1yyYeGHAIDHhKTuJpNu9Qr1ZGI5rhOqL3WBPlSuhUEokWZq+1qahox5cH50dexec9l+Scz7cr96d5l9/4jFWATVutmXJQNf4WszI2sOpnn90CLVvYOHoWzZUkmQ7t6wRLmtiW3qUv1QkThhEJr2RLsWhc8Ly08CjvoarGs6Q=
-Received: from AM6P191CA0051.EURP191.PROD.OUTLOOK.COM (2603:10a6:209:7f::43)
- by PA6PR08MB11287.eurprd08.prod.outlook.com (2603:10a6:102:514::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Tue, 17 Nov
- 2026 14:34:47 +0000
-Received: from AM7PEPF00000055.EURPRD83.prod.outlook.com
- (2603:10a6:209:7f:cafe::3c) by AM6P191CA0051.outlook.office365.com
- (2603:10a6:209:7f::43) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.10 via Frontend Transport; Tue,
- 17 Nov 2026 14:34:47 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 4.158.2.129) smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- AM7PEPF00000055.mail.protection.outlook.com (10.167.242.41) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.0
- via Frontend Transport; Tue, 17 Nov 2026 14:34:46 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=G4Cwow4hekg9+8PurSHvokcowN0KKxXqJv39kYthQPRChL7Xy63+jr2IrOEaHzM2P8QdnqWZPIRyoex2uAGya2bJy63F8BzGlgJdeL5uKZK4A6LG8nusvbMm01eUWkTXldUuAhNTGo6xTYTcLxyzO0i7Ssspq3CEwz/2H4eLnKE1t5uIKlWg1163DZj7DUt+L04pAlC4R5WiUan1HdVKt8GDG61696a246wL0ONUGlrPdpsBxGDwDQ3i9WmPhUqf7+AY9N9qWYW8QY0mMZb/wc+rVRsxfyX8yQWsX6XRF12tJuMkIPespRcrxLK5jg0CPFfOprQ/6uekcYw52zN+Dw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DYKoFwWK9isrmNevCYir5sjZ9MpPzTzZAiqQptwh3Aw=;
- b=BdmdRMpxoO+LlXbMxXXN723pZ4w3ZLapFKcHx2WHeS471JEmfOc/iMcEJP69RYIXxo1nE+tb+NBbS2jJr+XlEMTTa3Kqn3q2YUv5iAkTpBYDd2fXTTzYyurIZ9YIuu+yPKQmEKop8XH+k+PUPnFJTWd1LcQl/lRpaTyFH9GHVXR9nS96HMkjVYNZszRCxBa0ltom/4pv9+dfcnHEAL2FTKAhvJ4IyNBdM+cFS0wEGJDZg6XTeyB/KpYaBTJmsKI6jpTNIDX1k5aol88fmJL7hwi7fwwC87Huqkma3R60xFfx41vhPSaLZiw83OTrBbNSKX/QntijhOl6dNV0k5Bivg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DYKoFwWK9isrmNevCYir5sjZ9MpPzTzZAiqQptwh3Aw=;
- b=NiH1yyYeGHAIDHhKTuJpNu9Qr1ZGI5rhOqL3WBPlSuhUEokWZq+1qahox5cH50dexec9l+Scz7cr96d5l9/4jFWATVutmXJQNf4WszI2sOpnn90CLVvYOHoWzZUkmQ7t6wRLmtiW3qUv1QkThhEJr2RLsWhc8Ly08CjvoarGs6Q=
-Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
- signed) header.d=none;dmarc=none action=none header.from=arm.com;
-Received: from PAWPR08MB8959.eurprd08.prod.outlook.com (2603:10a6:102:33f::15)
- by PAVPR08MB8941.eurprd08.prod.outlook.com (2603:10a6:102:328::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 14:34:06 +0000
-Received: from PAWPR08MB8959.eurprd08.prod.outlook.com
- ([fe80::71d3:7b21:3594:e33f]) by PAWPR08MB8959.eurprd08.prod.outlook.com
- ([fe80::71d3:7b21:3594:e33f%7]) with mapi id 15.21.0615.012; Tue, 17 Nov 2026
- 14:34:06 +0000
-Message-ID: <4154cfd8-e877-45a7-bf1a-45e2ae560e93@arm.com>
-Date: Tue, 17 Nov 2026 14:34:05 +0000
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 11/12] iommu/arm-smmu-v3: Skip RMR bypass for kdump
- adoption
-To: Nicolin Chen <nicolinc@nvidia.com>
-Cc: will@kernel.org, jgg@nvidia.com, robin.murphy@arm.com, joro@8bytes.org,
- praan@google.com, kevin.tian@intel.com, smostafa@google.com,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, jamien@nvidia.com, kas@kernel.org,
- Cristian Prundeanu <cpru@amazon.com>, Breno Leitao <leitao@kernel.org>,
- xueshuai@linux.alibaba.com
-References: <cover.1793593923.git.nicolinc@nvidia.com>
- <22a06965287dd478ee92f8028ae8ac27e054555d.1793593923.git.nicolinc@nvidia.com>
- <4cf391ff-804a-46a1-8d3e-d0ff8442841f@arm.com> <avtYhjyAarKdi33b@nvidia.com>
-Content-Language: en-US
-From: John Garry <john.garry@arm.com>
-In-Reply-To: <avtYhjyAarKdi33b@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P265CA0238.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:350::11) To PAWPR08MB8959.eurprd08.prod.outlook.com
- (2603:10a6:102:33f::15)
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=RYnbgzOa
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=pJZ4NzOAvolg7d9pXS4YjOfsPEAMwi10SQnhEe1l3Co=;
+	b=RYnbgzOaUYlJRHl0tyH761o1t8bfyI4441/5hkH25zYsOxtP6WW33AwlarsUyeeKWCQ3he8wu
+	8TET6Hi/vmrjF4zwOYMCo0jJuQLezZ3GzN7MuELUqKOEHqZsCq5ANC6X5M/zNVHs600/I4hYHk0
+	bkG0RPDXSVddPWmayxs9s24=
+Received: from mail.maildlp.com (unknown [172.19.162.92])
+	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4jTS0z4pcDzKm8l;
+	Tue, 17 Nov 2026 22:34:27 +0800 (CST)
+Received: from whupemk100010.china.huawei.com (unknown [7.152.184.41])
+	by mail.maildlp.com (Postfix) with ESMTPS id 713C440586;
+	Tue, 17 Nov 2026 22:34:41 +0800 (CST)
+Received: from octopus.huawei.com (10.67.174.191) by
+ whupemk100010.china.huawei.com (7.152.184.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 17 Nov 2026 22:34:35 +0800
+From: Cai Xinchen <caixinchen1@huawei.com>
+To: <mic@digikod.net>, <gnoack@google.com>, <paul@paul-moore.com>,
+	<brauner@kernel.org>, <jack@suse.cz>, <caixinchen1@huawei.com>
+CC: <amir73il@gmail.com>, <andrii@kernel.org>, <apparmor@lists.ubuntu.com>,
+	<ast@kernel.org>, <axboe@kernel.dk>, <bpf@vger.kernel.org>,
+	<casey@schaufler-ca.com>, <cel@kernel.org>, <cem@kernel.org>,
+	<chenxiaosong@chenxiaosong.com>, <code@tyhicks.com>, <corbet@lwn.net>,
+	<Dai.Ngo@oracle.com>, <dakr@kernel.org>, <daniel@iogearbox.net>,
+	<dhowells@redhat.com>, <dlemoal@kernel.org>, <dmitry.kasatkin@gmail.com>,
+	<driver-core@lists.linux.dev>, <dsterba@suse.com>,
+	<ecryptfs@vger.kernel.org>, <eddyz87@gmail.com>, <emil@etsalapatis.com>,
+	<eric.snowberg@oracle.com>, <exfat@lists.linux.dev>,
+	<georgia.garcia@canonical.com>, <gregkh@linuxfoundation.org>, <hch@lst.de>,
+	<hirofumi@mail.parknet.co.jp>, <hyc.lee@gmail.com>,
+	<ihor.solodrai@linux.dev>, <jlayton@kernel.org>, <jmorris@namei.org>,
+	<johan@kernel.org>, <john.fastabend@gmail.com>,
+	<john.johansen@canonical.com>, <jolsa@kernel.org>, <kpsingh@kernel.org>,
+	<linkinjeon@kernel.org>, <linux-api@vger.kernel.org>,
+	<linux-block@vger.kernel.org>, <linux-btrfs@vger.kernel.org>,
+	<linux-cifs@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+	<linux-fsdevel@vger.kernel.org>, <linux-integrity@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+	<linux-nfs@vger.kernel.org>, <linux-security-module@vger.kernel.org>,
+	<linux-trace-kernel@vger.kernel.org>, <linux-unionfs@vger.kernel.org>,
+	<linux-xfs@vger.kernel.org>, <liubaolin12138@163.com>,
+	<martin.lau@linux.dev>, <mason@kernel.org>, <mathieu.desnoyers@efficios.com>,
+	<matt@bobrowski.net>, <memxor@gmail.com>, <mhiramat@kernel.org>,
+	<miklos@szeredi.hu>, <neil@brown.name>, <netfs@lists.linux.dev>,
+	<ntfs@lists.linux.dev>, <okorniev@redhat.com>, <omosnacek@gmail.com>,
+	<penguin-kernel@I-love.SAKURA.ne.jp>, <rafael@kernel.org>,
+	<rdunlap@infradead.org>, <roberto.sassu@huawei.com>, <rostedt@goodmis.org>,
+	<selinux@vger.kernel.org>, <senozhatsky@chromium.org>, <serge@hallyn.com>,
+	<sj1557.seo@samsung.com>, <skhan@linuxfoundation.org>, <song@kernel.org>,
+	<stephen.smalley.work@gmail.com>, <takedakn@nttdata.co.jp>, <tom@talpey.com>,
+	<viro@zeniv.linux.org.uk>, <yonghong.song@linux.dev>, <yuezhang.mo@sony.com>,
+	<zohar@linux.ibm.com>, <utilityemal77@gmail.com>, <lujialin4@huawei.com>
+Subject: [PATCH -next -v4 14/17] landlock: Add READ_METADATA and WRITE_METADATA access rights
+Date: Tue, 17 Nov 2026 23:05:39 +0800
+Message-ID: <20261117150542.1169451-15-caixinchen1@huawei.com>
+X-Mailer: git-send-email 2.18.0.huawei.25
+In-Reply-To: <20261117150542.1169451-1-caixinchen1@huawei.com>
+References: <20261117150542.1169451-1-caixinchen1@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -152,67 +101,562 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic:
-	PAWPR08MB8959:EE_|PAVPR08MB8941:EE_|AM7PEPF00000055:EE_|PA6PR08MB11287:EE_
-X-MS-Office365-Filtering-Correlation-Id: 507a96ef-c956-4362-a844-08df44b7edd7
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|366016|18002099003|22082099003|6133799003|261009223027099003|11063799006|4143699003|56012099006|261102123227099003|261028144727099003|261026140227099003|261026121527099003|261021121427099003|261022075727099003|261022105027099003|261021135927099003|10067099003;
-X-Microsoft-Antispam-Message-Info-Original:
- ocvHrtV4VL2UL6mREvH/rALvFTvqaw//Z2eY99/GEkJHCoT4RSJpCxQh+oI7GujWqekqN+YMUlblxGs4QRkiuvgsCqlnoqT46ymzuHt9iYaw+O4dR3lPmYEqcuEcYSfO13xoK8YIWirIrNhMuWn5RnXYfQTUFmHHTwC56qzeDykGsrhlDIcvplMb1WftTBfcrfsm7wZ18pNYl/mU99tgjjurJ+KK2LuYlcFAtUxJjRgVuUrQPVFVpoc6WkINmEdvIsKVtYM73EIYWLJNQm6ov3yJuT7Ky4IoKyCaAzTVfgLiryh/ZNtjSAhkSalZgL/hBr/xhGWn4kMMj/aTEZ9yV56IHVyWLhI4lJjEOtHhwdvTzvih1TwfNdtCWg9KZgntEYbdxB/5DzpO6dTJsiUas9iVOYE29JElF+87lxID/2GkCUv08uZ3j9N37qADkpGhh1tYkA1mUKwISwNokzQfqXfCMVdoC/ExzjWD84ELWvRDv2TE7Rm/PWapDVx/HLxoXXH9EZSmVBgdQ2uKgTSK1aIMupnrOkjkmWzoqZHAiwqi1iuRhG4/o4sva6DevCDm6F3APHC1mYxoOWlMqRBKOAcyCLPJtMlks/dQ1X46dkULzGhpQoa7+ZkflaTKeP7M7lNVX30Pvw43YKZvo3vtHf8GT7TKlYxt8hJ1G+wnsqE=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAWPR08MB8959.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(366016)(18002099003)(22082099003)(6133799003)(261009223027099003)(11063799006)(4143699003)(56012099006)(261102123227099003)(261028144727099003)(261026140227099003)(261026121527099003)(261021121427099003)(261022075727099003)(261022105027099003)(261021135927099003)(10067099003);DIR:OUT;SFP:1101;
-X-Exchange-RoutingPolicyChecked:
- yBv3IfjjaemvFCnxLRoN3ge/zm34zrk6jPI/SZDnqcOVeuWetAYmiG5qrkdT7faq7F7N1igrGI99DrYiQNaRbY+uGTetI/nrgTI/WiQYkqQMOvy1ZBjQpRR2LP7UYeE8kzO0dMoRMdESyb0AN0uWu2VD6x9n3i3wVXt6IzchwymEderaa40jIqAuhJoOngzEystTNmcWFMQx+sho+ajEocRzzYzcGt910T30cLy4iRfT3klRB6rglfUQE/j9nZqwRaISJpZ+BU85wUW0e7PDr9HnHZ+rp9r+ZujeDdNYlgMeo771TqlN7dZG4AgC5f7xLn2DnO7ZwI8TQL4ZRnjzFA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAVPR08MB8941
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM7PEPF00000055.EURPRD83.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	8808d374-5e06-4e0c-2769-08df44b7d5c5
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|376014|7416014|14060799003|36860700016|23010399003|35042699022|261026121527099003|22082099003|18002099003|6133799003|4143699003|11063799006|10067099003|56012099006|261026140227099003|261028144727099003|261021135927099003|261102123227099003|261022105027099003|261022075727099003|261021121427099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	IhHxR4z2gH96UA9gPUhaLGpPtwYYgWyTZay/di3fFaSk/7jGOOqBEGY4z0Q/s/ggOjApZqYd6KJO7XqfWEAxArdFNBuuAfX990zrcsY70fs4Zj/BDA8wtwcvSuTqA4sqZBD1+RaWha1fx0rNvFrGLxU05rsd7B2eiEsHssxaQsf0SozwpaYd8NDzTe8vDbe5HVHtzujYma0VpjYr2eQSvWE7OvkZAGNIR1y7nNE2fICkou9sa4p/Opd/QXVZqq4CXq4ACdMGln/fqPwspOmS222Kl6gdhKl8KMHLi23/JG6eeFryfGTz9yN3z31Rk7uwydfpbAb2b86uMJ6G+C6ltn59ZEV9LBh/D7PZpSBGJQ8V0z5u3pIotIV3+lc8ysr6HBm8UxIKdr9zRY+YIHTeUo6TTop69a8/hGYIcog5A7ubfDrYRYP/3lEUQ2uiP/uSulGtQFYeaenHpg4yEa/O0+5TWuVVOWISFDOh2TuvuTmTCJoDsRfmw0l4Ph+f7wM9s7PHW+UL2W3+33X1PiYYud2VQMVPIomV4sYkR8KL6XTzZa5LR1zi68OaIXroEob+3Cv/QV/YGlA1KhdUdf05360lbqqIQ39FU+Y0j1nNYod4qVbq02RZ+DxkGEOOjp0E6cj3BQFqMniNTR1Rj8Q17RtEqMrPijVqfJ6EHyQo/w3j5Uoim0SCDL1JaQantPeUC9DMpUdbQF6OFobgVDH9Cw==
-X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(7416014)(14060799003)(36860700016)(23010399003)(35042699022)(261026121527099003)(22082099003)(18002099003)(6133799003)(4143699003)(11063799006)(10067099003)(56012099006)(261026140227099003)(261028144727099003)(261021135927099003)(261102123227099003)(261022105027099003)(261022075727099003)(261021121427099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	fkKKDjTyysuwfVXwAWLSeQBRBc3KeFiDG0F59BYDLMQt5PTghPwJz41aQiD/EINYQA9898tpTvXAdJWzZHU5U83FuKf6BCUzT2WrDmJGZJOexTMPWNFRDVO8lZOeZUDQ6VjXgOysv+lrWCZYCA0bs0aTqHguwg9jqi7XPdoN8VKAGM6R8/gxQc6Ng7d4beLY8Dar3FoqBZvmsPufEoe9ONfB745h8D5xxSxOWjAkyAZhk1iO5/oYMiK8Q/0P5kXVsxEbg40dh4gsAWb0JfKtRSoUuaw5j2IuyyXpqcqAaKgS6VGnpgjHKhf7ygeaVXqF3LuvxkTs75c0Rvv9gra+GKVRTi7Zl8nLv4xZIhpbNVhbFKgen+oLAgx8lzBEo0ormgTqRLyfSbCaUKWFBXqf2NV3hTpMFueEieWRf2gIfe6WCnu96OzMy3mUrrU6pi9Z
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 14:34:46.8995
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 507a96ef-c956-4362-a844-08df44b7edd7
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM7PEPF00000055.EURPRD83.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA6PR08MB11287
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ whupemk100010.china.huawei.com (7.152.184.41)
 
-On 11/16/26 19:24, Nicolin Chen wrote:
->>> adoption keeps the crashed kernel's table live. Rewriting the
->>> +	 * adopted STE here could expose an in-flight fetch to a transient V=0
->>> +	 * entry, or change Cfg=translate to Cfg=bypass. Must skip here.
->>> +	 */
->>> +	if (smmu->options & ARM_SMMU_OPT_KDUMP_ADOPT)
->>> +		return;
->>> +
->>>    	INIT_LIST_HEAD(&rmr_list);
->>>    	iort_get_rmr_sids(dev_fwnode(smmu->dev), &rmr_list);
->> Did you consider if we should sanitise the adopted ste against what
->> iort_get_rmr_sids() returns? I suppose that would add even more complexity.
-> It's not necessary: both crashed and kdump kernels installed them
-> from the same IORT. If STE is translated, they are mapped as 1:1.
-> It's certainly not worth the complexity.
+Add LANDLOCK_ACCESS_FS_READ_METADATA and
+LANDLOCK_ACCESS_FS_WRITE_METADATA, which group metadata operations by
+security relevance instead of by syscall [1].  They cover the metadata
+system calls, the FS_IOC_* flag ioctls and the file_getattr(2) and
+file_setattr(2) interfaces, and are implemented by hooking path_getattr,
+path_file_getattr, path_setattr, path_file_setattr, path_setxattr,
+path_getxattr, path_listxattr, path_removexattr, path_set_acl,
+path_get_acl and path_remove_acl.
 
-BTW, are those regions described in a file(s) in sysfs? I thought that 
-they were, but I can't find it, so I guess that they don't (exist).
+Like for LANDLOCK_ACCESS_FS_TRUNCATE, the rights available at open(2)
+time decide for operations on an already opened file, whereas path-based
+accesses and O_PATH descriptors are checked against the current domain.
+Both rights are added to _LANDLOCK_ACCESS_FS_OPTIONAL and their names to
+_LANDLOCK_ACCESS_FS_NAMES, and deny_masks_t is widened to u16.
 
-Thanks,
-John
+hook_path_setattr only restricts explicit changes.  The setuid/setgid bit
+and capability clearing that the kernel performs implicitly arrives with
+ATTR_FORCE set and is ignored, while the same clearing requested by
+chown(2) is checked; a chown(2) that changes nothing is not restricted.
+Kernel-internal accesses made under the current credentials are checked
+because they cannot be told apart from a user request, but kernel threads
+and override_creds() users are not.
+
+Bump the ABI version to 13, and keep the in-tree selftests valid by
+updating the shared masks, the expected ABI version and the expected
+trace suffix.
+
+[1]
+https://lore.kernel.org/all/abc960a1-e66e-792e-6869-cfd201c29dbe@digikod.net/
+
+Signed-off-by: Cai Xinchen <caixinchen1@huawei.com>
+---
+ fs/stat.c                                     |  14 ++
+ include/linux/landlock.h                      |   4 +-
+ include/uapi/linux/landlock.h                 |  47 +++-
+ security/landlock/access.h                    |  13 +-
+ security/landlock/fs.c                        | 235 ++++++++++++++++--
+ security/landlock/limits.h                    |   2 +-
+ security/landlock/syscalls.c                  |   2 +-
+ tools/testing/selftests/landlock/base_test.c  |   2 +-
+ tools/testing/selftests/landlock/fs_test.c    |   4 +-
+ .../selftests/landlock/trace_fs_test.c        |   3 +-
+ 10 files changed, 285 insertions(+), 41 deletions(-)
+
+diff --git a/fs/stat.c b/fs/stat.c
+index e68dc17f23c4..a1a5bd83b507 100644
+--- a/fs/stat.c
++++ b/fs/stat.c
+@@ -19,6 +19,7 @@
+ #include <linux/pagemap.h>
+ #include <linux/compat.h>
+ #include <linux/iversion.h>
++#include <linux/audit.h>
+ 
+ #include <linux/uaccess.h>
+ #include <asm/unistd.h>
+@@ -361,6 +362,7 @@ static int vfs_statx_fd(int fd, int flags, struct kstat *stat,
+ 	CLASS(fd_raw, f)(fd);
+ 	if (fd_empty(f))
+ 		return -EBADF;
++	audit_file(fd_file(f));
+ 	return vfs_statx_path(&fd_file(f)->f_path, flags, stat, request_mask,
+ 			      fd_file(f));
+ }
+@@ -391,6 +393,18 @@ static int vfs_statx(int dfd, struct filename *filename, int flags,
+ 		      AT_STATX_SYNC_TYPE))
+ 		return -EINVAL;
+ 
++	/*
++	 * An empty pathname with AT_EMPTY_PATH refers to the file descriptor
++	 * itself.  Resolve it as such so that the struct file is passed down
++	 * to the LSM hooks, like sys_statx() does for a NULL pathname and
++	 * unlike a plain path lookup from the file descriptor.  This branch
++	 * replaces a path lookup, so vfs_statx_fd() keeps auditing the file
++	 * descriptor as that lookup would have.
++	 */
++	if ((flags & AT_EMPTY_PATH) && dfd >= 0 && !IS_ERR_OR_NULL(filename) &&
++	    !filename->name[0])
++		return vfs_statx_fd(dfd, flags, stat, request_mask);
++
+ retry:
+ 	error = filename_lookup(dfd, filename, lookup_flags, &path, NULL);
+ 	if (error)
+diff --git a/include/linux/landlock.h b/include/linux/landlock.h
+index 0ee4880988ba..ee1234fbc9f0 100644
+--- a/include/linux/landlock.h
++++ b/include/linux/landlock.h
+@@ -41,7 +41,9 @@
+ 	_LANDLOCK_NAME_ENTRY(LANDLOCK_ACCESS_FS_REFER, "refer"), \
+ 	_LANDLOCK_NAME_ENTRY(LANDLOCK_ACCESS_FS_TRUNCATE, "truncate"), \
+ 	_LANDLOCK_NAME_ENTRY(LANDLOCK_ACCESS_FS_IOCTL_DEV, "ioctl_dev"), \
+-	_LANDLOCK_NAME_ENTRY(LANDLOCK_ACCESS_FS_RESOLVE_UNIX, "resolve_unix")
++	_LANDLOCK_NAME_ENTRY(LANDLOCK_ACCESS_FS_RESOLVE_UNIX, "resolve_unix"), \
++	_LANDLOCK_NAME_ENTRY(LANDLOCK_ACCESS_FS_READ_METADATA, "read_metadata"), \
++	_LANDLOCK_NAME_ENTRY(LANDLOCK_ACCESS_FS_WRITE_METADATA, "write_metadata")
+ 
+ #define _LANDLOCK_ACCESS_NET_NAMES \
+ 	_LANDLOCK_NAME_ENTRY(LANDLOCK_ACCESS_NET_BIND_TCP, "bind_tcp"), \
+diff --git a/include/uapi/linux/landlock.h b/include/uapi/linux/landlock.h
+index 7e38b9d1bf12..59838325c2af 100644
+--- a/include/uapi/linux/landlock.h
++++ b/include/uapi/linux/landlock.h
+@@ -430,10 +430,49 @@ struct landlock_capability_attr {
+  *   The rationale for this design is described in
+  *   :ref:`Documentation/security/landlock.rst <scoped-flags-interaction>`.
+  *
++ * The following access rights apply to both files and directories:
++ *
++ * - %LANDLOCK_ACCESS_FS_READ_METADATA: Read file or directory metadata (e.g.
++ *   inode attributes, extended attributes, and POSIX ACLs) through
++ *   :manpage:`stat(2)`, :manpage:`fstat(2)`, :manpage:`lstat(2)`,
++ *   :manpage:`newfstatat(2)`, :manpage:`statx(2)`, :manpage:`getxattr(2)`,
++ *   and :manpage:`listxattr(2)`.
++ *
++ *   This access right is available since the thirteenth version of the
++ *   Landlock ABI.
++ * - %LANDLOCK_ACCESS_FS_WRITE_METADATA: Change file or directory metadata
++ *   (e.g. inode attributes, extended attributes, and POSIX ACLs) through
++ *   :manpage:`chmod(2)`, :manpage:`chown(2)`, :manpage:`utimensat(2)`,
++ *   :manpage:`setxattr(2)`, and :manpage:`removexattr(2)`, as well as related
++ *   system calls.  Metadata changes that the kernel performs implicitly on
++ *   behalf of another operation (e.g. timestamp updates with
++ *   :manpage:`write(2)`, or set-user-ID and set-group-ID bit clearing with
++ *   :manpage:`write(2)` or :manpage:`truncate(2)`) are not restricted by
++ *   this access right.
++ *
++ *   This access right is available since the thirteenth version of the
++ *   Landlock ABI.
++ *
+  * Whether an opened file can be truncated with :manpage:`ftruncate(2)` or used
+  * with `ioctl(2)` is determined during :manpage:`open(2)`, in the same way as
+  * read and write permissions are checked during :manpage:`open(2)` using
+- * %LANDLOCK_ACCESS_FS_READ_FILE and %LANDLOCK_ACCESS_FS_WRITE_FILE.
++ * %LANDLOCK_ACCESS_FS_READ_FILE and %LANDLOCK_ACCESS_FS_WRITE_FILE.  The same
++ * applies to metadata operations performed on an already opened file through
++ * its file descriptor (e.g. :manpage:`fstat(2)`, :manpage:`fchmod(2)`,
++ * :manpage:`fchown(2)`, :manpage:`futimens(2)`, :manpage:`fgetxattr(2)`,
++ * :manpage:`fsetxattr(2)`, the ``FS_IOC_GETFLAGS`` and ``FS_IOC_SETFLAGS``
++ * ioctls, and :manpage:`file_getattr(2)` and :manpage:`file_setattr(2)` with
++ * ``AT_EMPTY_PATH``): these are authorized with
++ * %LANDLOCK_ACCESS_FS_READ_METADATA and %LANDLOCK_ACCESS_FS_WRITE_METADATA at
++ * :manpage:`open(2)` time.  O_PATH file descriptors are an exception: they do
++ * not record any access right at :manpage:`open(2)` time, so metadata
++ * operations performed through them are checked against the Landlock domain
++ * of the calling thread instead.  Only the metadata system calls that accept
++ * O_PATH file descriptors behave that way, e.g. fstat(2), and statx(2),
++ * fchmodat(2), fchownat(2) or utimensat(2) with an empty path; the other
++ * file descriptor based metadata system calls and the
++ * FS_IOC_GETFLAGS and FS_IOC_SETFLAGS ioctls reject O_PATH file descriptors
++ * with EBADF.
+  *
+  * A directory can receive access rights related to files or directories.  The
+  * following access right is applied to the directory itself, and the
+@@ -494,9 +533,7 @@ struct landlock_capability_attr {
+  *
+  *   It is currently not possible to restrict some file-related actions
+  *   accessible through these syscall families: :manpage:`chdir(2)`,
+- *   :manpage:`stat(2)`, :manpage:`flock(2)`, :manpage:`chmod(2)`,
+- *   :manpage:`chown(2)`, :manpage:`setxattr(2)`, :manpage:`utime(2)`,
+- *   :manpage:`fcntl(2)`, :manpage:`access(2)`.
++ *   :manpage:`flock(2)`, :manpage:`fcntl(2)`, :manpage:`access(2)`.
+  *   Future Landlock evolutions will enable to restrict them.
+  */
+ /* clang-format off */
+@@ -517,6 +554,8 @@ struct landlock_capability_attr {
+ #define LANDLOCK_ACCESS_FS_TRUNCATE			(1ULL << 14)
+ #define LANDLOCK_ACCESS_FS_IOCTL_DEV			(1ULL << 15)
+ #define LANDLOCK_ACCESS_FS_RESOLVE_UNIX			(1ULL << 16)
++#define LANDLOCK_ACCESS_FS_READ_METADATA		(1ULL << 17)
++#define LANDLOCK_ACCESS_FS_WRITE_METADATA		(1ULL << 18)
+ /* clang-format on */
+ 
+ /**
+diff --git a/security/landlock/access.h b/security/landlock/access.h
+index 72afd236f883..10e7b6d35545 100644
+--- a/security/landlock/access.h
++++ b/security/landlock/access.h
+@@ -30,7 +30,9 @@
+ /* clang-format off */
+ #define _LANDLOCK_ACCESS_FS_OPTIONAL ( \
+ 	LANDLOCK_ACCESS_FS_TRUNCATE | \
+-	LANDLOCK_ACCESS_FS_IOCTL_DEV)
++	LANDLOCK_ACCESS_FS_IOCTL_DEV | \
++	LANDLOCK_ACCESS_FS_READ_METADATA | \
++	LANDLOCK_ACCESS_FS_WRITE_METADATA)
+ /* clang-format on */
+ 
+ typedef u32 access_mask_t;
+@@ -155,11 +157,12 @@ struct layer_masks {
+  * required by update_request().
+  *
+  * Each nibble represents the layer index of the newest layer which denied a
+- * certain access right.  For file system access rights, the upper four bits are
+- * the index of the layer which denies LANDLOCK_ACCESS_FS_IOCTL_DEV and the
+- * lower nibble represents LANDLOCK_ACCESS_FS_TRUNCATE.
++ * certain access right.  For file system access rights, the nibbles from the
++ * least to the most significant one represent the layers which deny
++ * LANDLOCK_ACCESS_FS_TRUNCATE, LANDLOCK_ACCESS_FS_IOCTL_DEV,
++ * LANDLOCK_ACCESS_FS_READ_METADATA and LANDLOCK_ACCESS_FS_WRITE_METADATA.
+  */
+-typedef u8 deny_masks_t;
++typedef u16 deny_masks_t;
+ 
+ /*
+  * Makes sure all optional access rights can be tied to a layer index (cf.
+diff --git a/security/landlock/fs.c b/security/landlock/fs.c
+index 2ab67bcad198..7d0e539b4cda 100644
+--- a/security/landlock/fs.c
++++ b/security/landlock/fs.c
+@@ -318,6 +318,8 @@ static struct landlock_object *get_inode_object(struct inode *const inode)
+ 	LANDLOCK_ACCESS_FS_EXECUTE | \
+ 	LANDLOCK_ACCESS_FS_WRITE_FILE | \
+ 	LANDLOCK_ACCESS_FS_READ_FILE | \
++	LANDLOCK_ACCESS_FS_READ_METADATA | \
++	LANDLOCK_ACCESS_FS_WRITE_METADATA | \
+ 	LANDLOCK_ACCESS_FS_TRUNCATE | \
+ 	LANDLOCK_ACCESS_FS_IOCTL_DEV | \
+ 	LANDLOCK_ACCESS_FS_RESOLVE_UNIX)
+@@ -1676,6 +1678,195 @@ static int hook_path_truncate(const struct path *const path)
+ 	return current_check_access_path(path, LANDLOCK_ACCESS_FS_TRUNCATE);
+ }
+ 
++static int check_access_file(const struct file *const file,
++			     const access_mask_t access)
++{
++	/*
++	 * O_PATH file descriptors do not go through the open permission
++	 * checks (cf. do_dentry_open()) and therefore do not carry the
++	 * access rights stashed at open time: they are checked against the
++	 * current domain, like path-based accesses.
++	 */
++	if (unlikely(file->f_mode & FMODE_PATH))
++		return current_check_access_path(&file->f_path, access);
++
++	/*
++	 * Allows accesses if the requested access right was available at the
++	 * time of opening the file, to get a consistent access check as for
++	 * read, write and execute operations.
++	 *
++	 * Note: For checks done based on the file's Landlock allowed access,
++	 * we enforce them independently of whether the current thread is in
++	 * a Landlock domain, so that open files passed between independent
++	 * processes retain their behaviour.
++	 */
++	if (landlock_file(file)->allowed_access & access)
++		return 0;
++
++	landlock_log_denial(landlock_cred(file->f_cred), &(struct landlock_request) {
++		.type = LANDLOCK_REQUEST_FS_ACCESS,
++		.audit = {
++			.type = LSM_AUDIT_DATA_FILE,
++			.u.file = file,
++		},
++		.all_existing_optional_access = _LANDLOCK_ACCESS_FS_OPTIONAL,
++		.access = access,
++#ifdef CONFIG_SECURITY_LANDLOCK_LOG
++		.deny_masks = landlock_file(file)->deny_masks,
++		.quiet_optional_accesses = landlock_file(file)->quiet_optional_accesses,
++#endif /* CONFIG_SECURITY_LANDLOCK_LOG */
++	});
++	return -EACCES;
++}
++
++static int check_access_path_or_file(const struct path *const path,
++				     const struct file *const file,
++				     const access_mask_t access)
++{
++	if (file)
++		return check_access_file(file, access);
++
++	return current_check_access_path(path, access);
++}
++
++static int hook_path_getattr(const struct path *const path,
++			     struct file *const file)
++{
++	return check_access_path_or_file(path, file,
++					 LANDLOCK_ACCESS_FS_READ_METADATA);
++}
++
++static int hook_path_file_getattr(const struct path *const path,
++				  struct file_kattr *const fa,
++				  struct file *const file)
++{
++	return check_access_path_or_file(path, file,
++					 LANDLOCK_ACCESS_FS_READ_METADATA);
++}
++
++static int hook_path_setattr(const struct mnt_idmap *const idmap,
++			     const struct path *const path,
++			     struct dentry *const dentry,
++			     struct iattr *const attr,
++			     struct file *const file)
++{
++	unsigned int ia_valid = attr->ia_valid;
++
++	/*
++	 * Only explicit metadata changes are checked: implicit
++	 * timestamp updates never go through notify_change(), and size
++	 * changes (ATTR_SIZE) are governed by the truncate hooks
++	 * instead.
++	 *
++	 * The setuid/setgid bit and file capability clearing that the
++	 * kernel performs after write(2) or truncate(2) is an implicit
++	 * change as well: it comes through __remove_privs() and
++	 * do_truncate() with ATTR_FORCE set, and do_notify_change() then
++	 * adds a synthesized ATTR_MODE (with these bits removed) before
++	 * calling this hook.  As do_notify_change() makes it a bug for
++	 * callers to pass ATTR_MODE together with a kill flag, an
++	 * ATTR_MODE seen along with ATTR_FORCE is always
++	 * kernel-synthesized and must not be checked.  An explicit
++	 * chown(2) does not set ATTR_FORCE, so the same clearing
++	 * requested through chown(2), including chown(2) with
++	 * (-1, -1) on a privileged file, is still checked through the
++	 * synthesized ATTR_MODE or the remaining ATTR_KILL_PRIV.  A
++	 * chown(2) that changes nothing (e.g. with (-1, -1) on a file
++	 * without privilege bits or file capabilities) sets neither a
++	 * changed attribute nor a kill flag, and is not checked.
++	 */
++	if (ia_valid & ATTR_FORCE)
++		ia_valid &= ~(ATTR_KILL_SUID | ATTR_KILL_SGID |
++			      ATTR_KILL_PRIV | ATTR_MODE);
++
++	if (!(ia_valid & (ATTR_MODE | ATTR_UID | ATTR_GID |
++			  ATTR_TIMES_SET | ATTR_TOUCH | ATTR_KILL_PRIV)))
++		return 0;
++
++	return check_access_path_or_file(path, file,
++					 LANDLOCK_ACCESS_FS_WRITE_METADATA);
++}
++
++static int hook_path_file_setattr(const struct path *const path,
++				  struct file_kattr *const fa,
++				  struct file *const file)
++{
++	/*
++	 * The chattr(2) style flags (e.g. FS_IMMUTABLE_FL) and fsxattr
++	 * fields are metadata: writing them requires WRITE_METADATA.  The
++	 * user-facing path is checked here.  Stacking filesystems that
++	 * forward the operation with their own credentials (e.g. overlayfs)
++	 * are not restricted again, unlike the ones that use the caller's
++	 * credentials (e.g. eCryptfs), which are checked on the lower path
++	 * as well.
++	 */
++	return check_access_path_or_file(path, file,
++					 LANDLOCK_ACCESS_FS_WRITE_METADATA);
++}
++
++static int hook_path_setxattr(const struct mnt_idmap *const idmap,
++			       const struct path *const path,
++			       const char *const name,
++			       const void *const value, const size_t size,
++			       const int flags,
++			       struct file *const file)
++{
++	return check_access_path_or_file(path, file,
++					 LANDLOCK_ACCESS_FS_WRITE_METADATA);
++}
++
++static int hook_path_getxattr(const struct path *const path,
++			      const char *const name,
++			      struct file *const file)
++{
++	return check_access_path_or_file(path, file,
++					 LANDLOCK_ACCESS_FS_READ_METADATA);
++}
++
++static int hook_path_listxattr(const struct path *const path,
++			       struct file *const file)
++{
++	return check_access_path_or_file(path, file,
++					 LANDLOCK_ACCESS_FS_READ_METADATA);
++}
++
++static int hook_path_removexattr(const struct mnt_idmap *const idmap,
++				  const struct path *const path,
++				  const char *const name,
++				  struct file *const file)
++{
++	return check_access_path_or_file(path, file,
++					 LANDLOCK_ACCESS_FS_WRITE_METADATA);
++}
++
++static int hook_path_set_acl(const struct mnt_idmap *const idmap,
++			      const struct path *const path,
++			      const char *const acl_name,
++			      struct posix_acl *const kacl,
++			      struct file *const file)
++{
++	return check_access_path_or_file(path, file,
++					 LANDLOCK_ACCESS_FS_WRITE_METADATA);
++}
++
++static int hook_path_get_acl(const struct mnt_idmap *const idmap,
++			      const struct path *const path,
++			      const char *const acl_name,
++			      struct file *const file)
++{
++	return check_access_path_or_file(path, file,
++					 LANDLOCK_ACCESS_FS_READ_METADATA);
++}
++
++static int hook_path_remove_acl(const struct mnt_idmap *const idmap,
++				const struct path *const path,
++				const char *const acl_name,
++				struct file *const file)
++{
++	return check_access_path_or_file(path, file,
++					 LANDLOCK_ACCESS_FS_WRITE_METADATA);
++}
++
+ /**
+  * unmask_scoped_access - Remove access right bits in @masks in all layers
+  *                        where @client and @server have the same domain
+@@ -1876,7 +2067,9 @@ static int hook_file_open(struct file *const file)
+ 	 * We look up more access than what we immediately need for open(), so
+ 	 * that we can later authorize operations on opened files.
+ 	 */
+-	optional_access = LANDLOCK_ACCESS_FS_TRUNCATE;
++	optional_access = LANDLOCK_ACCESS_FS_TRUNCATE |
++			  LANDLOCK_ACCESS_FS_READ_METADATA |
++			  LANDLOCK_ACCESS_FS_WRITE_METADATA;
+ 	if (is_device(file))
+ 		optional_access |= LANDLOCK_ACCESS_FS_IOCTL_DEV;
+ 
+@@ -1928,32 +2121,11 @@ static int hook_file_open(struct file *const file)
+ static int hook_file_truncate(struct file *const file)
+ {
+ 	/*
+-	 * Allows truncation if the truncate right was available at the time of
+-	 * opening the file, to get a consistent access check as for read, write
+-	 * and execute operations.
+-	 *
+-	 * Note: For checks done based on the file's Landlock allowed access, we
+-	 * enforce them independently of whether the current thread is in a
+-	 * Landlock domain, so that open files passed between independent
+-	 * processes retain their behaviour.
++	 * Allows truncation if the truncate right was available at the time
++	 * of opening the file, to get a consistent access check as for read,
++	 * write and execute operations.
+ 	 */
+-	if (landlock_file(file)->allowed_access & LANDLOCK_ACCESS_FS_TRUNCATE)
+-		return 0;
+-
+-	landlock_log_denial(landlock_cred(file->f_cred), &(struct landlock_request) {
+-		.type = LANDLOCK_REQUEST_FS_ACCESS,
+-		.audit = {
+-			.type = LSM_AUDIT_DATA_FILE,
+-			.u.file = file,
+-		},
+-		.all_existing_optional_access = _LANDLOCK_ACCESS_FS_OPTIONAL,
+-		.access = LANDLOCK_ACCESS_FS_TRUNCATE,
+-#ifdef CONFIG_SECURITY_LANDLOCK_LOG
+-		.deny_masks = landlock_file(file)->deny_masks,
+-		.quiet_optional_accesses = landlock_file(file)->quiet_optional_accesses,
+-#endif /* CONFIG_SECURITY_LANDLOCK_LOG */
+-	});
+-	return -EACCES;
++	return check_access_file(file, LANDLOCK_ACCESS_FS_TRUNCATE);
+ }
+ 
+ static int hook_file_ioctl_common(const struct file *const file,
+@@ -2100,6 +2272,17 @@ static struct security_hook_list landlock_hooks[] __ro_after_init = {
+ 	LSM_HOOK_INIT(path_unlink, hook_path_unlink),
+ 	LSM_HOOK_INIT(path_rmdir, hook_path_rmdir),
+ 	LSM_HOOK_INIT(path_truncate, hook_path_truncate),
++	LSM_HOOK_INIT(path_getattr, hook_path_getattr),
++	LSM_HOOK_INIT(path_file_getattr, hook_path_file_getattr),
++	LSM_HOOK_INIT(path_setattr, hook_path_setattr),
++	LSM_HOOK_INIT(path_file_setattr, hook_path_file_setattr),
++	LSM_HOOK_INIT(path_setxattr, hook_path_setxattr),
++	LSM_HOOK_INIT(path_getxattr, hook_path_getxattr),
++	LSM_HOOK_INIT(path_listxattr, hook_path_listxattr),
++	LSM_HOOK_INIT(path_removexattr, hook_path_removexattr),
++	LSM_HOOK_INIT(path_set_acl, hook_path_set_acl),
++	LSM_HOOK_INIT(path_get_acl, hook_path_get_acl),
++	LSM_HOOK_INIT(path_remove_acl, hook_path_remove_acl),
+ 	LSM_HOOK_INIT(unix_find, hook_unix_find),
+ 
+ 	LSM_HOOK_INIT(file_alloc_security, hook_file_alloc_security),
+diff --git a/security/landlock/limits.h b/security/landlock/limits.h
+index ddd300e10689..ed606ee3102f 100644
+--- a/security/landlock/limits.h
++++ b/security/landlock/limits.h
+@@ -21,7 +21,7 @@
+ #define LANDLOCK_MAX_NUM_LAYERS		16
+ #define LANDLOCK_MAX_NUM_RULES		U32_MAX
+ 
+-#define LANDLOCK_LAST_ACCESS_FS		LANDLOCK_ACCESS_FS_RESOLVE_UNIX
++#define LANDLOCK_LAST_ACCESS_FS		LANDLOCK_ACCESS_FS_WRITE_METADATA
+ #define LANDLOCK_MASK_ACCESS_FS		((LANDLOCK_LAST_ACCESS_FS << 1) - 1)
+ #define LANDLOCK_NUM_ACCESS_FS		__const_hweight64(LANDLOCK_MASK_ACCESS_FS)
+ 
+diff --git a/security/landlock/syscalls.c b/security/landlock/syscalls.c
+index fb5af318b69b..11d3a2abcec1 100644
+--- a/security/landlock/syscalls.c
++++ b/security/landlock/syscalls.c
+@@ -191,7 +191,7 @@ static const struct file_operations ruleset_fops = {
+  * If the change involves a fix that requires userspace awareness, also update
+  * the errata documentation in Documentation/userspace-api/landlock.rst .
+  */
+-const int landlock_abi_version = 12;
++const int landlock_abi_version = 13;
+ 
+ /**
+  * sys_landlock_create_ruleset - Create a new ruleset
+diff --git a/tools/testing/selftests/landlock/base_test.c b/tools/testing/selftests/landlock/base_test.c
+index 89c0d96607de..14078ad203d8 100644
+--- a/tools/testing/selftests/landlock/base_test.c
++++ b/tools/testing/selftests/landlock/base_test.c
+@@ -76,7 +76,7 @@ TEST(abi_version)
+ 	const struct landlock_ruleset_attr ruleset_attr = {
+ 		.handled_access_fs = LANDLOCK_ACCESS_FS_READ_FILE,
+ 	};
+-	ASSERT_EQ(12, landlock_create_ruleset(NULL, 0,
++	ASSERT_EQ(13, landlock_create_ruleset(NULL, 0,
+ 					      LANDLOCK_CREATE_RULESET_VERSION));
+ 
+ 	ASSERT_EQ(-1, landlock_create_ruleset(&ruleset_attr, 0,
+diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
+index 48c1f896dc9a..2593db7ef25c 100644
+--- a/tools/testing/selftests/landlock/fs_test.c
++++ b/tools/testing/selftests/landlock/fs_test.c
+@@ -571,11 +571,13 @@ TEST_F_FORK(layout1, inval)
+ 	LANDLOCK_ACCESS_FS_EXECUTE | \
+ 	LANDLOCK_ACCESS_FS_WRITE_FILE | \
+ 	LANDLOCK_ACCESS_FS_READ_FILE | \
++	LANDLOCK_ACCESS_FS_READ_METADATA | \
++	LANDLOCK_ACCESS_FS_WRITE_METADATA | \
+ 	LANDLOCK_ACCESS_FS_TRUNCATE | \
+ 	LANDLOCK_ACCESS_FS_IOCTL_DEV | \
+ 	LANDLOCK_ACCESS_FS_RESOLVE_UNIX)
+ 
+-#define ACCESS_LAST LANDLOCK_ACCESS_FS_RESOLVE_UNIX
++#define ACCESS_LAST LANDLOCK_ACCESS_FS_WRITE_METADATA
+ 
+ #define ACCESS_ALL ( \
+ 	ACCESS_FILE | \
+diff --git a/tools/testing/selftests/landlock/trace_fs_test.c b/tools/testing/selftests/landlock/trace_fs_test.c
+index 64014ade3a0e..97506d249c4f 100644
+--- a/tools/testing/selftests/landlock/trace_fs_test.c
++++ b/tools/testing/selftests/landlock/trace_fs_test.c
+@@ -252,7 +252,8 @@ TEST_F(trace_fs, add_rule_path_beneath)
+ TEST_F(trace_fs, add_rule_path_beneath_escaped_path_overflow)
+ {
+ 	static const char access_prefix[] = "execute|write_file|read_file|";
+-	static const char access_suffix[] = "|ioctl_dev|resolve_unix";
++	static const char access_suffix[] =
++		"|ioctl_dev|resolve_unix|read_metadata|write_metadata";
+ 	struct landlock_ruleset_attr ruleset_attr = {
+ 		.handled_access_fs = LANDLOCK_ACCESS_FS_READ_FILE,
+ 	};
+-- 
+2.18.0.huawei.25
+
