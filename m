@@ -1,96 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794906396;
-	b=RIEd1JZNSXd8VBDXhKDLtbQXJECg8HWUjlznU+vlHBBN/kcA4i9Ln7RW1eagW8XFWhXZ
-	 fA0XIeeJjVtjxZWespUXqwfTJBPScv/XXS2R4aUoc3R4GXYHxlkqSuFrflbUB47CY+DY6
-	 rQ72X9ZhKVZzVtLU6rdltESBX2Wy8/RvR3LCDOOXW9hCFqtuaXTWwQWlu0N7H4aK+TuJ8
-	 Use9wbnfrhAcRcarbpfCDQiHyeplfdjjT/hNTfwl+iApD0DSGKLrRnzEGbRM8KRclhh5G
-	 UIdzZKYFDKK2ik4/hn95gbHoKBEqzU+GdQGO/DF+jOsGMtw+Qg+hQ4F3pIkdnoIBAHA==
+	t=1794906484;
+	b=Hqmd7nJiEaLJZp6nZScgq2ASdlSd4+q1EcTeGQUkgP2tMeq9Kypg9zSzX7H5EfSALxZM
+	 jkirMZyuB6PlmVUjBQkOHykC63viCtkD6yD5WamfWe5lRuRiBcvwBDFeZciKIz3gsfdpe
+	 fqzUPOx7cQ1jcacW4u2DSvGx8CJWs7vGBdOSWYTIPRhNCYUlahOI/QAYf/NxExAQFG0oD
+	 mkVUppXf9/StwuNcY8XXVoCTmhf8tiiog1CpjkTsXEXxYyUbexU9jROleBBY3GgqXTWF0
+	 b5VyHiJ/daHdZg3V38WJAgs/RQu2n1uknF2YY4kuV2Lqi8TPzOElcSH1kjaztW/Qyhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794906396;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=gLQ5AUW4d2+qMZuC/oCY4fCyjAhl4GpJFl1CEuDTSqc=;
-	b=bLjFwJtbpM+LzBgAqYShJ5zTo/htL/smMi49oBwNLOKJMLhyjUpqpgkkM7f4QHWxKwRu
-	 aUmm1UX1VnufdyDVaRU5V4qL+GW5Pbn6NoicgFSfkPOJ869eXnocKfU5EI2Kz9oZ1F8R2
-	 indDudA8lyLY5oloTbuIYDgiEFMEZmqEEqRmbasu2kVQdc3NDtf2YWLXlnWXTQT2ix3w8
-	 ERuH4hnzbqBdUW5n+FCx0mnu5r7BBp886gEIt5U1rJSYsxMhErSgCJ3inBZwLUqTSILlh
-	 obq63UrD5SCdJ0Duqkcuz2BBG0jjCUhIZTyfTLntP0Hyttv9Avfl7LILrxaaWjt/raw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794906484;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=qnWHBF7/CrL3v/UaPQ3D9TUr4mSedb6GT4QDxJOnqGU=;
+	b=jol/QuLV+AUGiqmNEI4yYR59MUsOELp9h9coJH+/uuzfxxIkI/gVnEiu1ioYQ3xWd4xj
+	 rGIRL81l8sPgLwQr8gMq4TKunEUphSRjBfH0HWOqBJXOiSbLVEhHcSH5BjnjoWFRmKdAB
+	 Mpyc/NJmCKrl1XIKyfFgpy6DSNQM3dFkziQDipfDBdRwbFaEzMaKBANBVkUhyceJCriP+
+	 bvPXv8kYhwpPLsROXwShilR9gbpOCuCP+oO9XbifRq5QkGPi5aUBBNVT0JqRMm9kwKPeN
+	 Yp/fUy4dfX5YWiWUZmOgM9twgpqwg4b1LI1ODB2sQc1UmND4RlnglfjJB3mjYFO/xFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gpou3kHx;
-	arc=none smtp.remote-ip=209.85.167.49
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=LCs1f+RU;
+	arc=none smtp.remote-ip=220.197.31.3
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 792E4606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:06:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 792E4606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D4F3606A31C;
+	Tue, 17 Nov 2026 09:08:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D4F3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gpou3kHx
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5c17ef1e18cso346921e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:06:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794906395; x=1795511195; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gLQ5AUW4d2+qMZuC/oCY4fCyjAhl4GpJFl1CEuDTSqc=;
-        b=gpou3kHx8sl52PrRVh6G70qelRKOciw83vO6keQtXSY5YGcWyqkFlKdM+X8YRaNlrm
-         isYb64ZeexlQHKMakQUOPrJnHI+3tF1i72m2GgFscgrddcHh1HmmAZyX3569K5hMqKjs
-         b/SMuvXMNvON3YVUoVjHzI9kp1ZeCCRQeYJU4vT3F7msiWgcV4+Z4SOkM0HlpDkOxdUA
-         fyLljN5cFdMoZajNazuoBDzMTR17q0dIgpe71YYsLCejd+JzPLX5NLO5YAx7xjfCDM2c
-         bW8KUqBe3UAoQqwy9k+jfZ2vNeWnZoH9J/6YBfRWuzs6eqaNVo5FPAt6YyS5s3kcMu3X
-         zvNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794906395; x=1795511195;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gLQ5AUW4d2+qMZuC/oCY4fCyjAhl4GpJFl1CEuDTSqc=;
-        b=uiAUNpihmg5BarrTGdsfKVvdpby7fYM8xdSIgyjHbHsqTygtXK3VrsCdUhh5FOuzr/
-         NPUwdKn8+/5MGeUjQYzNuxKkgnhx+0aYnkiFS2lnS+50wdIhFkJ11LYCAqti8QhEoc9W
-         dqq2JVWkj89LIfn9rJtaPWGrG2FJYKGyhQ7A5yITwjOdiBfu3Nbb4Xp//JpbHhg/M24r
-         DYkLl9rsA5Eiyenn7vZAiXn5HoTmSCgGo+A3JVmeoHfh/mJ4ygbJKbLa82tuwGjkHvtA
-         +i0sShhIFh+uamX2CGIaKwbOEzOMSGvhSbDGIdHH1tnWT8hCYctLQNpANLWadESEIDb2
-         SqTw==
-X-Forwarded-Encrypted: i=1; AL+hErGTjFprOQIddSlbLiOrm9Uy40SpjDBSsGyV3rH3nnXFGBoiBwAyfedhMr8+26gSWVn2PFxvWd49nnJGU48=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+1qN1VPK6enZCj5Irs/1crb+/h6B1LBj+udA9n6UMkFduC27GW
-	Am4CakZQCE+zGRxMfycpq16GiMtpV6R0PrPj5tbCwZhdU4fbEW47MiDp
-X-Gm-Gg: AYBFou04fBAuVr2UTUszSvuOwNvH6z0KV7tEtA50IU7FbF7SoAPijvIOt5LXadIbn0v
-	VVW4ib3H7NpRILbcb0ZfolyNyvBBieAUaQaCvQP85Mv5DLNh8xZuUDoLRTFPVT2dwG8YZQIIXam
-	BIpjA/OGn3h9mQ7Yq+NCf3/h01B/l0BoSGnLD/7qhs3ff499EUwfwQn62IHJovvGOq1FWTs1MKn
-	X4GfL5kbHK777+WpyTyILmwUDiaWLvetk12xbU/BUWFJTkjBsyClfS+b2GxIq+v/Be20XEZHttT
-	GrATU4Re5s4oos5nmN9qZ1mfzLCKZbNHS776uCXXJi9u12ekJjIeFtVF3jQAtRT+KrhtRZPU4q1
-	+DkLKXjRmdj2z4TjfjHTGjM3ceM0Ctk8wZiTdpYaF7AE1/m+umKz/N80baHfDyzfgNs5W7yIEai
-	2y3BqrY0iWXfzEsFykelpFMYO4GIhwYAgesYj/bWx+W27wC5gb9SjFz6noIFxw20I3ay882IFOa
-	dsEQvlwPD11GWZCeaUQGxSuDCGEXNLpfGpByqTsZhhV6O97y9vQ3vGx22bVBdx/NTnQoVoZX8tD
-	GyZbuUIVKlew5QOuJ4R6MWu3375mg1Gm5IpnWIiGT/g6cnJyvJh6xMX8lTAckVbt0ecWRVkacVo
-	hhFtfZEjqUw3cDLW2DsGYXRBzZxjfa71faE8MQWAfA4xW5C8dzYSv/wGbOag=
-X-Received: by 2002:a05:6512:31c9:b0:5c0:d102:8374 with SMTP id 2adb3069b0e04-5c1707804d6mr5128839e87.17.1794906394286;
-        Tue, 17 Nov 2026 01:06:34 -0800 (PST)
-Received: from qblck ([188.130.155.185])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1713509f0sm3805043e87.63.2026.11.17.01.06.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 01:06:33 -0800 (PST)
-From: Artemii Mashanov <ralerrdirsardx@gmail.com>
-To: netdev@vger.kernel.org
-Cc: bharat@chelsio.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] cxgb4: allocate the full ethtool filter location array
-Date: Tue, 17 Nov 2026 12:06:08 +0300
-Message-ID: <20261117090608.33178-1-ralerrdirsardx@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=LCs1f+RU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=qnWHBF7/CrL3v/UaPQ3D9TUr4mSedb6GT4QDxJOnqGU=;
+	b=LCs1f+RUGsbrP4WTmPM9ppp0r1+F7AbvUWTQDhEkkpV3pwk4HCXey30Ilgl0pa
+	dA3ss9N1EpbnYptkAxZNewxxSYDMxvQcsFKAToHSpYtNlTsXGV6x8e0Th6GTGn5R
+	CGoce3EripQzp08kRk1Z4e/U1VKRTcxbagKK3k8dkhF1w=
+Received: from [IPV6:2409:8900:1fc4:b5fb:f427:8008:88bf:afb9] (unknown [])
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3P2NXGfxqLzsVHw--.54292S2;
+	Tue, 17 Nov 2026 17:07:37 +0800 (CST)
+Message-ID: <f35ed0ad-aece-4d8a-b6f3-5ad8c4f1a13f@163.com>
+Date: Tue, 17 Nov 2026 17:07:35 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,42 +54,216 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6] ntfs: trim the sizes after a short write
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>, linkinjeon@kernel.org,
+ hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, zhanxusheng@xiaomi.com
+References: <20261117082021.2947603-1-zhanxusheng1024@gmail.com>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <20261117082021.2947603-1-zhanxusheng1024@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3P2NXGfxqLzsVHw--.54292S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxuw45Wry3GFWxWF4rWw45ZFb_yoW3ur45pr
+	Wa9r13KrWIvryxCrnxGa4UXF4Yg395Cr4UC343GF9xCr93Crn7WFyUtrW0gayvyrZ2yw1F
+	vF4vvrWkWwn8Zw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Uf8nrUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6Ro2AWr8GVqCMQAA3i
 
-The ethtool filter location array stores nentries u32 values, but
-cxgb4_init_ethtool_filters() passes nentries to kvzalloc() as a byte
-count. The insertion and lookup paths allow indices below nentries,
-which can address memory beyond the requested allocation.
 
-Allocate nentries elements with kvcalloc() and the element size.
-The array remains compatible with the existing kvfree() calls.
 
-The size mismatch was found by reviewing the allocation, the array
-declaration and the indexed accesses in the filter handlers.
+在 2026/11/17 16:20, Zhan Xusheng 写道:
+> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> 
+> ntfs_file_write_iter() moves the data size and, for a non-resident
+> uncompressed file, the initialized size to pos + count before the copy.
+> __ntfs_extend_initialized_size() only zeroes [old initialized size, pos),
+> so the range [pos, pos + count) is initialized only by the copy itself.
+> When iomap_file_buffered_write() copies less than count, it returns a
+> positive short count and the error rollback at out: does not run.  The
+> file keeps the size pos + count, and [pos + ret, pos + count) reads back
+> whatever the freed clusters held before, also after a remount.  A local
+> user can read the old contents of freed clusters this way.
+> 
+> Run the existing rollback for a short write as well, and roll the data
+> size back to the end of what was written.  Keep the initialized size,
+> as a page fault through a shared mapping may rely on it while the write
+> is stalled on its source, and zero what the write did not reach, up to
+> the end of the block holding pos + count.  Only if that fails, take the
+> initialized size back to where the zeroing started, if it is above that.
+> 
+> Fixes: b041ca562526 ("ntfs: update iomap and address space operations")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> ---
+> v6: cap that fallback at the current initialized size, which a failed
+> extension before the write can leave below pos (Baolin).
+> v5 (Baolin):
+> - start the zeroing at pos, not at the old initialized size, which
+>    overwrote data stored through a shared mapping below pos
+> - do the same for a direct write, instead of truncating the page cache
+>    and taking the initialized size back
+> - if the zeroing fails, take the initialized size back to where it
+>    started, instead of skipping both rollbacks
+> v4: for a buffered write, zero the unwritten range instead of
+> truncating the page cache and taking the initialized size back, which
+> dropped data stored through a shared mapping during the copy (Baolin).
+> v3: clear the cache up to EOF, not up to the extended initialized
+> size, which left the rest of the block holding pos + count (Baolin).
+> v2: also clear the cached tail of the last block, which v1 left in
+> place when the write stayed inside the old data size (Baolin).
+> 
+> v5: https://lore.kernel.org/all/20261116091121.2547497-1-zhanxusheng1024@gmail.com/
+> v4: https://lore.kernel.org/all/20261113050148.1466682-1-zhanxusheng1024@gmail.com/
+> v3: https://lore.kernel.org/all/20261112093233.1118469-1-zhanxusheng1024@gmail.com/
+> v2: https://lore.kernel.org/all/20261112030815.982026-1-zhanxusheng1024@gmail.com/
+> v1: https://lore.kernel.org/all/20261111093459.660484-1-zhanxusheng1024@gmail.com/
+> 
+> Tested in a VM on ntfs-next b025f526c5d0, with all free space filled
+> with a known pattern first.  Short buffered writes of 4M, old data
+> readable after drop_caches and after remount, 3 runs each:
+> 
+>                                      unfixed    v5     v6
+>    fallocated, ends block-aligned    3137536    0      0
+>    fallocated, ends inside a block   3141332    0      0
+>    fallocated, unaligned start       3137536    0      0
+>    same, pos + count in that page    -          0      0
+>    append                            3137536    0      0
+> 
+> Marker stored through a shared mapping at 64K while pwritev() is
+> stalled on a userfaultfd source page, state after remount, with and
+> without fallocate():
+> 
+>                                            unfixed  v5     v6
+>    buffered 4K at 128K, EFAULT             lost     lost   kept
+>    O_DIRECT 12K at 0, EFAULT               lost     lost   kept
+>    buffered 12K at 0, short 8192 (v3)      kept     kept   kept
+> 
+> A store into [pos + ret, pos + count) itself during the write is
+> zeroed, as that range belongs to the write.  With iomap_zero_range()
+> failing (injected -ENOMEM), a 32K write to a 16K file that returns
+> 12288 leaves the size at 28K with no old data, also after remount.
+> fsx (buffered, no-mmap, O_DIRECT and mixed), compressed files,
+> fallocate, insert/collapse range and punch hole give the same results
+> with v6 as with v5.
+> ---
+>   fs/ntfs/file.c | 70 +++++++++++++++++++++++++++++++++++++++++++++-----
+>   1 file changed, 63 insertions(+), 7 deletions(-)
+> 
+> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+> index 3213a0c9f96b..866aaca1887e 100644
+> --- a/fs/ntfs/file.c
+> +++ b/fs/ntfs/file.c
+> @@ -928,10 +928,21 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+>   		ret = iomap_file_buffered_write(iocb, from, &ntfs_write_iomap_ops,
+>   				&ntfs_iomap_folio_ops, NULL);
+>   out:
+> -	if (ret < 0 && ret != -EIOCBQUEUED) {
+> +	/*
+> +	 * Both sizes were moved to end before the copy, so a short write,
+> +	 * like a failed one, must take back what it did not write.
+> +	 */
+> +	if (ret < count && ret != -EIOCBQUEUED) {
+> +		loff_t new_init_size = old_init_size;
+> +		loff_t new_data_size = old_data_size;
+>   		int init_err = 0;
+>   		int data_err = 0;
+>   
+> +		if (ret > 0) {
+> +			new_init_size = max(old_init_size, pos + ret);
+> +			new_data_size = max(old_data_size, pos + ret);
+> +		}
+> +
+>   		/*
+>   		 * Like ntfs_setattr_size(): __ntfs_attr_truncate_vfs()
+>   		 * expects the invalidate lock held across the size
+> @@ -939,14 +950,59 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+>   		 */
+>   		filemap_invalidate_lock(vi->i_mapping);
+>   
+> +		/*
+> +		 * A page fault through a shared mapping may have used the
+> +		 * extended initialized size while the write was stalled on
+> +		 * its source, so keep that size and zero what the write did
+> +		 * not reach instead.  [old_init_size, pos) was zeroed before
+> +		 * the write.  Past end, zero the rest of the block that a
+> +		 * buffered copy may have read from disk, unless such a fault
+> +		 * already moved the initialized size past end and zeroed it.
+> +		 */
+> +		if (NInoNonResident(ni) && !NInoCompressed(ni) &&
+> +		    ni->initialized_size > new_init_size) {
+> +			loff_t zstart = max(pos, new_init_size);
+> +			loff_t zend = ni->initialized_size > end ? end :
+> +				      round_up(end, i_blocksize(vi));
+> +			int err = 0;
+> +
+> +			zend = min(zend, new_data_size);
+> +			if (zend > zstart) {
+> +				err = iomap_zero_range(vi, zstart,
+> +						zend - zstart, NULL,
+> +						&ntfs_seek_iomap_ops,
+> +						&ntfs_iomap_folio_ops, NULL);
+> +				/* A direct read must not see the old blocks. */
+> +				if (!err && iocb->ki_flags & IOCB_DIRECT)
+> +					err = filemap_write_and_wait_range(
+> +						vi->i_mapping, zstart, zend - 1);
+> +			}
+> +			if (!err)
+> +				new_init_size = min(ni->initialized_size,
+> +						    new_data_size);
+> +			else
+> +				new_init_size = min3(ni->initialized_size,
+> +						     zstart, new_data_size);
+> +		}
+> +
+>   		/* ntfs_attr_set_initialized_size() rejects a resident one. */
+> -		if (ni->initialized_size != old_init_size &&
+> +		if (ni->initialized_size != new_init_size &&
+>   		    NInoNonResident(ni)) {
+>   			struct ntfs_inode *mrec_ni = ntfs_base_inode(ni);
+>   
+> +			/*
+> +			 * Only reached when the zeroing above failed or did
+> +			 * not apply.  Drop what was cached past the new
+> +			 * initialized size, as __ntfs_extend_initialized_size()
+> +			 * does.
+> +			 */
+> +			if (ni->initialized_size > new_init_size)
+> +				truncate_pagecache_range(vi, new_init_size,
+> +						max_t(loff_t, i_size_read(vi),
+> +						      ni->initialized_size) - 1);
+>   			mutex_lock(&mrec_ni->mrec_lock);
+>   			init_err = ntfs_attr_set_initialized_size(ni,
+> -					old_init_size);
+> +					new_init_size);
+>   			mutex_unlock(&mrec_ni->mrec_lock);
+>   		}
+>   		/*
+> @@ -955,13 +1011,13 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+>   		 * the uninitialized tail, so skip it unless the rollback
+>   		 * above restored that size.
+>   		 */
+> -		if (ni->data_size != old_data_size && !init_err) {
+> +		if (ni->data_size != new_data_size && !init_err) {
+>   			struct ntfs_inode *mrec_ni = ntfs_base_inode(ni);
+>   
+> -			truncate_setsize(vi, old_data_size);
+> +			truncate_setsize(vi, new_data_size);
+>   			mutex_lock(&mrec_ni->mrec_lock);
+> -			data_err = __ntfs_attr_truncate_vfs(ni, old_data_size,
+> -					old_data_size);
+> +			data_err = __ntfs_attr_truncate_vfs(ni, new_data_size,
+> +					new_data_size);
+>   			mutex_unlock(&mrec_ni->mrec_lock);
+>   			/* Like ntfs_setattr_size(): stay on the durable size. */
+>   			if (data_err)
+> 
+> base-commit: b025f526c5d04929212c9d5fb7ffc96608f3eacc
 
-Fixes: d915c299f1da ("cxgb4: add skeleton for ethtool n-tuple filters")
-Signed-off-by: Artemii Mashanov <ralerrdirsardx@gmail.com>
----
-Compile-tested cxgb4_ethtool.o with GCC 14.2 on x86-64 net/main
-aa40afa831eb using W=1 and KCFLAGS=-Wno-error=format-truncation.
-Both baseline and patched builds reported the same get_drvinfo()
-format-truncation warning. Hardware validation is pending.
+Looks good to me.
 
- drivers/net/ethernet/chelsio/cxgb4/cxgb4_ethtool.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
 
-diff --git a/drivers/net/ethernet/chelsio/cxgb4/cxgb4_ethtool.c b/drivers/net/ethernet/chelsio/cxgb4/cxgb4_ethtool.c
-index 0092bc16f887..c72c0bcd45c8 100644
---- a/drivers/net/ethernet/chelsio/cxgb4/cxgb4_ethtool.c
-+++ b/drivers/net/ethernet/chelsio/cxgb4/cxgb4_ethtool.c
-@@ -2269,7 +2269,9 @@ int cxgb4_init_ethtool_filters(struct adapter *adap)
- 	eth_filter->nentries = nentries;
- 
- 	for (i = 0; i < adap->params.nports; i++) {
--		eth_filter->port[i].loc_array = kvzalloc(nentries, GFP_KERNEL);
-+		eth_filter->port[i].loc_array =
-+			kvcalloc(nentries, sizeof(*eth_filter->port[i].loc_array),
-+				 GFP_KERNEL);
- 		if (!eth_filter->port[i].loc_array) {
- 			ret = -ENOMEM;
- 			goto free_eth_finfo;
