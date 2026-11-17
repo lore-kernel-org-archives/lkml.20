@@ -1,66 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.94.104
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.189.121.228
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794914912;
-	b=LGdTbtzbeBAvbInFMnw48qKRAz81EJVjaEN5gBPATfD7O/zpc3ewZfJqsEVm4dXdEN3n
-	 s74AgAP33LUEyFTbe6eFt5KRqyTGV7TIs1tCZMBeprOKgM/zeqzj44EDFQwGdaPa8PHiv
-	 mpfc6jKHrmk/2DCBrtFPPNs6zE6f/m1qL2rytMN/WxA+owNWkhd4HjaSo8F1nPYmiUgDA
-	 3FSKxODEX3+FkzpiEu1o1+n89v/fL9PnUJiRmn021usPgeVSH5VWby2pjLo3MyyR9Rnye
-	 jIPXa9chzw+57VoPtJnsmjOMn8egdsuybCVaIGtVoC7Ct8ZDsBQ183G1C/U3ErcqiYw==
+	t=1794914967;
+	b=AYjBhUNR7dLUSRVe/E5GvqUvBuPFbHe6c0aLYO5HwOMfHpWLPnsHC/cxFBYJj+3roKeE
+	 Ls+xdF5dmC4Gpk64DK1eUK71aPrQeUVoCgcEP7EnElFIaq8GrOsgvx50mqtACV+uD6jgS
+	 /AXizrw2gLK1nUQ0LGPKUmSjaYuV6weHXzodXsT4m8GxVV+Gq/t3ctkHHrUhKkFUgix1v
+	 mU1kDTZ+7OfE8rrrgck+s5mFWpRuTphZvqVLUbbfkC26Z7OrYKuGx0hpKk6jF9EkeKXBT
+	 /KuIOIgCMIZG04Wh0zqRTuRSbwjaennOh80YN/Sr7l+TS135zFEWGRWi7M2x4e2WPvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794914912;
-	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=MXOCB2uKjKaor2OrklW8VqDy4yR8s1PFFph39t/ACkc=;
-	b=zm/Ygsxd/9di1e4uWdInMFMV7FJ213hcDF6Aq/h0XSInD7rnSJ8bQ8p88OQQbCB0gxeI
-	 +xqd6I5aRVK1rDdJ6Yen0AJPRzg0GZ95gI/WYxurl93uSX5uCrWk5PMvbYgrom84DK4do
-	 sZyMbvNLI5WIQtuilXsa+94ru9Zol/Y5ANCVg8SwwLN5IfbG8cYW3gUVSdLkg8Eat1C4V
-	 kvLnXNWhJyak01e9NCWcCXa+6HON4IQdK6moFLxchN23eg/soZ9BNsf9ZpmhG7IGVpKMR
-	 3Z0B3ucvdhnBJHaZQFy/pKmfGgB9XUkKrUO83iP5yVmluEH4LnFjuyx5vmojhZAdchw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794914967;
+	h=DMARC-Filter:From:DKIM-Signature:To:Cc:Subject:Date:Message-ID:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=6BSwXqXB8V5vJSPL84hJk1Siibr7tgNkR0HK7gH+6kg=;
+	b=nFoqi6xI3wyW7xJ3SmsV1NUwKmVP2IIu5TuGpyb41ASgvLWgZI2G+XSQLNSX+GTNNvhS
+	 OrAIlPr67oGkfK/D3MRYCW/YWaWLfXPYDkJY/6VaQ8V0KyL3zfcWLTE1HmlfDVecdpAdH
+	 rRfanBlfKkfVxKCPlAIiOnrPM7PemjeEDm2eZeY7PrlG8p1cN5wdUzdyPe3s90nbrbCoK
+	 dBktwZN0vRqJLGMveH4/TqgV2r+ENUPrFq8kwyEVz2ys9gvc395zPs3ppcHbaZfMlEmRO
+	 nnfiBNkFve7Dt0AtI8sw01dFYAclttEmwbT55W77z8rQTvxpGraov6fPwy37lhPGaAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=huaweicloud.com;
-	spf=pass smtp.mailfrom=huaweicloud.com;
-	arc=none smtp.remote-ip=124.71.94.104
-Received: from dggmsgout13.his.huawei.com (dggmsgout13.his.huawei.com [124.71.94.104])
+	dmarc=pass header.from=itx.no;
+	spf=pass smtp.mailfrom=itx.no;
+	dkim=pass header.d=itx.no header.i=@itx.no header.a=rsa-sha256 header.s=mx.itx.no header.b="ib8qK2//";
+	arc=none smtp.remote-ip=91.189.121.228
+Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4679606A323;
-	Tue, 17 Nov 2026 11:28:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4679606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.198])
-	by dggmsgout13.his.huawei.com (SkyGuard) with ESMTP id 4jTMsP0zctz1rrSl;
-	Tue, 17 Nov 2026 19:27:37 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.252])
-	by mail.maildlp.com (Postfix) with ESMTP id 9D9B040574;
-	Tue, 17 Nov 2026 19:28:27 +0800 (CST)
-Received: from huawei.com (unknown [10.67.174.45])
-	by APP3 (Coremail) with UTF8SMTPA id _Ch0CgBHS_5QOvxq4EOQEg--.20741S3;
-	Tue, 17 Nov 2026 19:28:27 +0800 (CST)
-From: Tengda Wu <wutengda@huaweicloud.com>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	linux-perf-users@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44B30606A31C;
+	Tue, 17 Nov 2026 11:29:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44B30606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=itx.no header.i=@itx.no header.a=rsa-sha256 header.s=mx.itx.no header.b=ib8qK2//
+From: Stian Halseth <stian@itx.no>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
+	t=1794914958;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=6BSwXqXB8V5vJSPL84hJk1Siibr7tgNkR0HK7gH+6kg=;
+	b=ib8qK2//wJFgMSymeLybqRfm6ds2hqP5UhTWoeDk71IZ1W41QlVOcxfAsZIxRABvkFNwZk
+	RjqhKrGbrfq1iVJnCPpimLAoZJq59OfgJSgjsEo7kdlRQp+zzAK5Uze1tFzje10b/osYqG
+	apJAzGZ3/QSo2V+te1whIIM7IY3vKxM=
+To: sparclinux@vger.kernel.org
+Cc: Andreas Larsson <andreas@gaisler.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
 	linux-kernel@vger.kernel.org,
-	Tengda Wu <wutengda@huaweicloud.com>
-Subject: [PATCH v4 1/2] perf/core: Prevent duplicate sigtrap task work enqueue
-Date: Tue, 17 Nov 2026 11:28:07 +0000
-Message-Id: <45bd71c976aea1a0e8bf5762dd6b6552e6009439.1794914794.git.wutengda@huaweicloud.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1794914794.git.wutengda@huaweicloud.com>
-References: <cover.1794914794.git.wutengda@huaweicloud.com>
+	Stian Halseth <stian@itx.no>
+Subject: [PATCH] sparc64: Read qemu,hwcap-list from the OF cpu node on sun4u
+Date: Tue, 17 Nov 2026 12:29:14 +0100
+Message-ID: <20261117112914.2300417-1-stian@itx.no>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,141 +62,156 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_Ch0CgBHS_5QOvxq4EOQEg--.20741S3
-X-Coremail-Antispam: 1UD129KBjvJXoWxWr15JFy8AF48GF18GFyUKFg_yoWrCF15pr
-	43tws0ya1UXFnFqry5tw1kAr1rWw4FqFZ8ArWvk34fAF1YqF17Xay7G3WYvFWrArn7Aa43
-	Xw40kFW7C34UXFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUQF14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jr4l82xGYIkIc2
-	x26xkF7I0E14v26r4j6ryUM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
-	Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UM2
-	8EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0DM2AI
-	xVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20x
-	vE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xv
-	r2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04
-	v7MxkF7I0En4kS14v26r1q6r43MxkF7I0Ew4C26cxK6c8Ij28IcwCF04k20xvY0x0EwIxG
-	rwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4
-	vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IY
-	x2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26c
-	xKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAF
-	wI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUjQ6XUUUUU=
-X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
 
-The sigtrap handling in __perf_event_overflow() checks
-event->pending_work before calling task_work_add(), but only sets
-pending_work after the task work has been queued.
+The SPARC crypto opcodes are used only when hwcap-list names them.
+Only the sun4v machine description carries a hwcap-list. QEMU's
+default sparc64 machine is sun4u and has no machine description. The
+kernel then never uses QEMU's crypto instructions, and the crypto
+KUnit tests only exercise the generic code.
 
-This leaves a window where an NMI can interrupt task_work_add()
-and re-enter __perf_event_overflow() for the same event. Since
-pending_work is still zero, the nested invocation can enqueue
-the same pending_task again.
+For CPUs with the crypto feature, QEMU passes a hwcap-list to the
+firmware. OpenBIOS puts it on the cpu node as qemu,hwcap-list. Real
+sun4u firmware has no such property.
 
-The re-entrant call path looks like this:
+Factor out the hwcap-list parser. When there is no machine
+description, read the list from that property.
 
-  __perf_event_overflow()
-    task_work_add()
-      kasan_record_aux_stack()
-        <NMI>
-          __perf_event_overflow()
-            task_work_add()
-
-The nested invocation may enqueue pending_task before the
-outer invocation does. When the outer invocation resumes, it
-inserts the same task work entry again, potentially creating
-a cycle in the task work list.
-
-As a result, perf_pending_task() may be executed repeatedly,
-leading to unbalanced event reference counting.
-
-Fix this by atomically claiming pending_work with
-cmpxchg_acquire() before calling task_work_add(). This ensures
-that only one invocation can enqueue the task work, even when
-another overflow occurs re-entrantly from an NMI.
-
-If task_work_add() fails, clear the claim with
-smp_store_release() to allow a subsequent overflow to retry.
-
-In perf_pending_task(), defer clearing pending_work until
-after perf_sigtrap() has completed. Use smp_store_release()
-to ensure that a subsequent overflow cannot re-queue the task
-work before the previous invocation has finished handling it.
-
-Also use smp_load_acquire() when checking pending_work in
-the exclude_kernel warning path to ensure the read is properly
-ordered.
-
-Fixes: c5d93d23a260 ("perf: Enqueue SIGTRAP always via task_work.")
-Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
+Signed-off-by: Stian Halseth <stian@itx.no>
 ---
- kernel/events/core.c | 39 ++++++++++++++++++++++++++-------------
- 1 file changed, 26 insertions(+), 13 deletions(-)
+The QEMU side is in master for 11.2: commit a1eb9a1720 ("hw/sparc64:
+Pass hwcap-list to OpenBIOS via fw_cfg"). The OpenBIOS side is on the
+OpenBIOS list:
+https://mail.coreboot.org/archives/list/openbios@openbios.org/thread/3XVXVLHWT2T63IYWR67WPOHFSJGLP3NP/
+Until QEMU ships an OpenBIOS with it, nvramrc can set the property.
+This runs the crypto KUnit tests on the sparc64 code with QEMU master:
 
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 614f9f0e6500..857230b023ae 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -7775,10 +7775,14 @@ static void perf_pending_task(struct callback_head *head)
- 	 */
- 	rctx = perf_swevent_get_recursion_context();
+NV='" /SUNW,UltraSPARC-IIi" find-device " vis" encode-string " vis2" encode-string encode+ " vis3" encode-string encode+ " aes" encode-string encode+ " sha1" encode-string encode+ " sha256" encode-string encode+ " sha512" encode-string encode+ " crc32c" encode-string encode+ " qemu,hwcap-list" property device-end'
+./tools/testing/kunit/kunit.py run --arch=sparc64 \
+	--kunitconfig=lib/crypto/.kunitconfig \
+	--kunitconfig=lib/crc/.kunitconfig \
+	--qemu_args='-cpu TI-UltraSparc-IIi,+vis3,+crypto' \
+	--qemu_args='-prom-env use-nvramrc?=true' \
+	--qemu_args="-prom-env 'nvramrc=$NV'"
+
+The sparc64 crypto drivers load and the KUnit suites pass. Without
++crypto the CPU caps are unchanged. Once a QEMU release has the
+OpenBIOS side, kunit's sparc64 config could pass +crypto. Older QEMU
+rejects that flag.
+
+With +crypto, the self-tests of ecb-, cbc- and ctr-aes-sparc64 fail.
+The glue keeps the AES round keys in FP registers across
+skcipher_walk_done(). On sun4u, the memcpy there uses VIS and
+overwrites them. No real sun4u CPU has the crypto opcodes, so this
+only shows up under QEMU.
+
+Moving sparc's ECB, CBC and CTR into lib/crypto, as for riscv and x86,
+would fix it. Eric, is that something you plan to do?
+
+ arch/sparc/kernel/setup_64.c | 63 ++++++++++++++++++++++++++----------
+ 1 file changed, 46 insertions(+), 17 deletions(-)
+
+diff --git a/arch/sparc/kernel/setup_64.c b/arch/sparc/kernel/setup_64.c
+index 63615f5c99b47..87e7b1bf4aeca 100644
+--- a/arch/sparc/kernel/setup_64.c
++++ b/arch/sparc/kernel/setup_64.c
+@@ -32,6 +32,7 @@
+ #include <linux/module.h>
+ #include <linux/start_kernel.h>
+ #include <linux/memblock.h>
++#include <linux/of.h>
+ #include <uapi/linux/mount.h>
  
--	if (event->pending_work) {
--		event->pending_work = 0;
-+	if (smp_load_acquire(&event->pending_work)) {
- 		perf_sigtrap(event);
- 		local_dec(&event->ctx->nr_no_switch_fast);
-+		/*
-+		 * Ensure the pending work is fully handled before allowing
-+		 * another overflow to queue it. See __perf_event_overflow().
-+		 */
-+		smp_store_release(&event->pending_work, 0);
+ #include <asm/io.h>
+@@ -466,25 +467,9 @@ static void __init report_hwcaps(unsigned long caps)
+ 		printk(KERN_CONT "]\n");
+ }
+ 
+-static unsigned long __init mdesc_cpu_hwcap_list(void)
++static unsigned long __init hwcap_list_caps(const char *prop, int len)
+ {
+-	struct mdesc_handle *hp;
+ 	unsigned long caps = 0;
+-	const char *prop;
+-	int len;
+-	u64 pn;
+-
+-	hp = mdesc_grab();
+-	if (!hp)
+-		return 0;
+-
+-	pn = mdesc_node_by_name(hp, MDESC_NODE_NULL, "cpu");
+-	if (pn == MDESC_NODE_NULL)
+-		goto out;
+-
+-	prop = mdesc_get_property(hp, pn, "hwcap-list", &len);
+-	if (!prop)
+-		goto out;
+ 
+ 	while (len) {
+ 		int i, plen;
+@@ -507,11 +492,53 @@ static unsigned long __init mdesc_cpu_hwcap_list(void)
+ 		len -= plen;
  	}
- 	put_event(event);
  
-@@ -10950,16 +10954,25 @@ static int __perf_event_overflow(struct perf_event *event,
- 
- 		notify_mode = in_nmi() ? TWA_NMI_CURRENT : TWA_RESUME;
- 
--		if (!event->pending_work &&
--		    !task_work_add(current, &event->pending_task, notify_mode)) {
--			event->pending_work = pending_id;
--			local_inc(&event->ctx->nr_no_switch_fast);
--			WARN_ON_ONCE(!atomic_long_inc_not_zero(&event->refcount));
--
--			event->pending_addr = 0;
--			if (valid_sample && (data->sample_flags & PERF_SAMPLE_ADDR))
--				event->pending_addr = data->addr;
--
-+		/*
-+		 * Claim pending_work before queueing the task work to prevent
-+		 * another overflow from queueing it concurrently.
-+		 */
-+		if (cmpxchg_acquire(&event->pending_work, 0, pending_id) == 0) {
-+			if (!task_work_add(current, &event->pending_task, notify_mode)) {
-+				local_inc(&event->ctx->nr_no_switch_fast);
-+				WARN_ON_ONCE(!atomic_long_inc_not_zero(&event->refcount));
++	return caps;
++}
 +
-+				event->pending_addr = 0;
-+				if (valid_sample && (data->sample_flags & PERF_SAMPLE_ADDR))
-+					event->pending_addr = data->addr;
-+			} else {
-+				/*
-+				 * Publish the failed queueing attempt so
-+				 * a subsequent overflow can retry.
-+				 */
-+				smp_store_release(&event->pending_work, 0);
-+			}
- 		} else if (event->attr.exclude_kernel && valid_sample) {
- 			/*
- 			 * Should not be able to return to user space without
-@@ -10973,7 +10986,7 @@ static int __perf_event_overflow(struct perf_event *event,
- 			 *     To approximate progress (with false negatives),
- 			 *     check 32-bit hash of the current IP.
- 			 */
--			WARN_ON_ONCE(event->pending_work != pending_id);
-+			WARN_ON_ONCE(smp_load_acquire(&event->pending_work) != pending_id);
- 		}
- 	}
++static unsigned long __init mdesc_cpu_hwcap_list(void)
++{
++	struct mdesc_handle *hp;
++	unsigned long caps = 0;
++	const char *prop;
++	int len;
++	u64 pn;
++
++	hp = mdesc_grab();
++	if (!hp)
++		return 0;
++
++	pn = mdesc_node_by_name(hp, MDESC_NODE_NULL, "cpu");
++	if (pn == MDESC_NODE_NULL)
++		goto out;
++
++	prop = mdesc_get_property(hp, pn, "hwcap-list", &len);
++	if (prop)
++		caps = hwcap_list_caps(prop, len);
++
+ out:
+ 	mdesc_release(hp);
+ 	return caps;
+ }
  
++/* sun4u has no machine description; QEMU lists the caps here. */
++static unsigned long __init of_cpu_hwcap_list(void)
++{
++	struct device_node *dp;
++	unsigned long caps = 0;
++	const char *prop;
++	int len;
++
++	dp = of_find_node_by_type(NULL, "cpu");
++	if (!dp)
++		return 0;
++
++	prop = of_get_property(dp, "qemu,hwcap-list", &len);
++	if (prop)
++		caps = hwcap_list_caps(prop, len);
++	of_node_put(dp);
++	return caps;
++}
++
+ /* This yields a mask that user programs can use to figure out what
+  * instruction set this cpu supports.
+  */
+@@ -549,6 +576,8 @@ static void __init init_sparc64_elf_hwcap(void)
+ 	cap |= (AV_SPARC_MUL32 | AV_SPARC_DIV32 | AV_SPARC_V8PLUS);
+ 
+ 	mdesc_caps = mdesc_cpu_hwcap_list();
++	if (!mdesc_caps)
++		mdesc_caps = of_cpu_hwcap_list();
+ 	if (!mdesc_caps) {
+ 		if (tlb_type == spitfire)
+ 			cap |= AV_SPARC_VIS;
 -- 
-2.34.1
+2.43.0
 
