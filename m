@@ -1,47 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794916986;
-	b=SZSoIloYoWorXh65Ul4SdOOQaacNwucvN0PuoB/XBMEWjtW0989sX9iL1DBmDCEwx8kh
-	 lraQQnvs6QEWqRgEsErOZf1jrG0roILbQPvQa7pnH30LZp8wI41HIz6MlrvRxnqmm9Ti5
-	 hAO5/wc+a40Azitt97RZvAFLHPLn3YLJwr384RAxbEca7BMSn69A9rviSGiVp3EzE3WBs
-	 PxEM6Kcts3T0KzpfpwGVF5T98E2EJuEW2bP8t5alv0imVEt+gGtdiCdRmpkVPCnh1ZG//
-	 3NdBJM7ZdWXgIMdUc0xj9rFX5pU0eLk2vxARCjL33OJsomgBsI9tcOXZE7HQFT8rO5Q==
+	t=1794917089;
+	b=aurGByHw5wblnzSUVbYRRqIGVIk/9brjQOUsf0710X/6S1pfyU/BaB5K086BAssQqgg9
+	 wSPrfnAe3S4HardEwrAixeCe+qs0cZkaDEb6ogz8B194JyHKijxQKHE5GL7IsrehFWvYa
+	 E+l1dRNjYMmKJKyMdkgQDKiQVX32tCcdrAODomOWvKXSHSPIR4eUSdFT8Dqehufg1Dh1c
+	 Ri3gMS1dzSoRBbP3cMTpMg/qE/lnJY4iliYec7uH0N/VcGHVPr4cggWp3ofWeZ4mbP/qD
+	 zWD02WgtdYS68VGIK70c3zMmLn7WXKl8GuE0lfdzufhg1MzX1hv2TcjHRhpRjmZl3gQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794916986;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=glwmp6Wt0ZywbdvqLSKD8OeatctRSa5oSVbjqeZCrk8=;
-	b=qSvE0BOI+qHZXxhygEuJ/WL71Kp9Ryn2xR1GiRWBhZ8tx/hE6F6OUgkPIL9pmnWaCeTg
-	 PdTSfTVlDxVdlZY9KH5Iv2ivEGYd/rKCMCZRUgNupCQcZro2mAXvUmZ05yPE+WsnC5Ste
-	 7PwWHzoggW0a0nhWIC2kD/5dVepTaULzBT+n+ahxaDgg+NMLw+ECddLoCFvO6KwSqTp2Y
-	 dGncIyzW8i/dJbtSux2bBht3vEQV/dXfRJJ39BMTOe824U2SABgYy33fVoXvNpHLfkfP1
-	 1rFV4hFZBPwkaDd3RxfduKpr9mb4jTTn+DOgf0EpD/0e1CfrCIQEXIJ7MBXAixfuvEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794917089;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=4vnrUH1GRjckPRWmrfIxNgnhEnk8Xa/wgumm0ceW7tI=;
+	b=NlQfSLFDZJ0lAEgzmYvqdPRgCHVYliwG6bAobkcmcuNce7LmvqFEyaDOspZD4VlT3O8D
+	 sG+64cBmU0xauD1qTrVnsMI3gJ5g6FW2grIc9nYunodStYNKsY6zh6k708qTKbx8AuPuQ
+	 632eOa4eRtc+SBDTuJ9C4uXkye07tyc69uoGduvGuhkkvZzBDtbGb/4iYOaD30lb7e0nl
+	 G5/E2JHlJqDEfDiVwpsV727B/H1r94IshHlxfrRpwlhcRYRljL74loHWSeZ91JAVfTdo6
+	 uC7gUSVa1Ne+nc/zn5LHmR2Uoss+PXjd70eLhiZacTqsK7yjvjEcf1wf3wJ0oc1vOwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ha62NL8J;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BartBUr6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB1A1606A32F;
-	Tue, 17 Nov 2026 12:03:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01858606A323;
+	Tue, 17 Nov 2026 12:04:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ha62NL8J
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65D1D1F000C6;
-	Tue, 17 Nov 2026 12:03:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BartBUr6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BB411F000C4;
+	Tue, 17 Nov 2026 12:04:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794916986;
-	bh=glwmp6Wt0ZywbdvqLSKD8OeatctRSa5oSVbjqeZCrk8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ha62NL8JC/zw7Rgv/M2nrASWphQ15y6DFDbiOWoit9rey3hJe4MJfoJM81Amj8v3n
-	 6V2cAD/qD0QqQfQTh1KLK6O2iN8QmhqcRtfcHHzB0ZrleFSP3oAisd+KEpnKnA8KzG
-	 4dB8DfZEBr3ev3+adGArKli8H9cG6v0qghNIQBBdCwwtuFzWZZW6lYahvaXVnywvq6
-	 RTimmCu40wEw/LFEEiPEEj3I2dgfAd8yOOnJqJJ19ySHT7NXE2VnCDV31ZRqw/XZ9m
-	 crivrWu82PO1Ox4N9ByfuT1mEunPl5IP8iJU2sW3FIwdHQKPKeviGUV4+vhobhWNMW
-	 x5S1rlcxCoVZA==
-Message-ID: <3bc5a31a-ab2b-40cd-a030-d0498002776a@kernel.org>
-Date: Tue, 17 Nov 2026 13:03:03 +0100
+	s=k20260515; t=1794917088;
+	bh=4vnrUH1GRjckPRWmrfIxNgnhEnk8Xa/wgumm0ceW7tI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BartBUr6Stg07pLC0D2AtcCX9IUPXwbzyytX0DYnqSpCOIimST8hmkphcHHeU++bK
+	 e6RwwUKsimCxqecV5NShikpsua8dkusxR3mHxnGNLECUkgGoflFMpcn8adtk+Wdrpl
+	 YUcIM4BT10M+MxCdR+91P2cpf6D/ohd6a2PYX3ATaxLrkvnBN6xiynSOnCa0gJKDlC
+	 IWyCDVw0VYOVuODbLLtpbTUmj7b8F/RETtDDrALEuv4Rgz68xTpNRr8RKnPpP4aVnL
+	 4kKCgr4dHpYa4N5I2Q8enqkpioWyMRwdq6I4atxUCoO27dYl6mtCDM6uaIUaDPTp5N
+	 +aIN4HNBU72NQ==
+Date: Tue, 17 Nov 2026 12:04:40 +0000
+From: Will Deacon <will@kernel.org>
+To: matt@boondocker.io
+Cc: Shawn Lin <shawn.lin@rock-chips.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Rob Herring <robh@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	linux-pci@vger.kernel.org, linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Igor Velkov <iav@iav.lv>, maz@kernel.org, arnd@arndb.de
+Subject: Re: [PATCH RFC v3 2/6] arm64: Allow synchronous abort fixups for
+ guarded MMIO reads
+Message-ID: <avxC2NbBCa3Ilowr@willie-the-truck>
+References: <20261116-rfc-b4-v3-0-0bf052b68f2a@boondocker.io>
+ <20261116-rfc-b4-v3-2-0bf052b68f2a@boondocker.io>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,91 +67,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usb: typec: tipd: cd321x: replay the plug on resume
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Jacob Procee <sn125164@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- Janne Grunau <j@jannau.net>
-References: <20261112113005.16418-1-sn125164@gmail.com>
- <avw1kOqmrUii-msr@black.igk.intel.com>
-Content-Language: en-US
-From: Sven Peter <sven@kernel.org>
-In-Reply-To: <avw1kOqmrUii-msr@black.igk.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116-rfc-b4-v3-2-0bf052b68f2a@boondocker.io>
 
+Hi Matt,
 
-
-On 17.11.26 12:08, Heikki Krogerus wrote:
-> On Thu, Nov 12, 2026 at 12:30:05PM +0100, Jacob Procee wrote:
->> On Apple Silicon the Type-C PHY and the dwc3 controller behind a CD321x
->> port lose their state during s2idle while the plug stays connected, and
->> the CD321x does not raise an interrupt on resume. xhci notices the lost
->> state and re-initializes the host controller:
->>
->>    xhci-hcd xhci-hcd.0.auto: xHC error in resume, USBSTS 0x401, Reinit
->>    usb usb1: root hub lost power or was reset
->>    usb 1-1: USB disconnect, device number 2
->>
->> but the PHY is only ever programmed from typec_mux_set(), so a device
->> left plugged in (here a FIDO2 security key) never comes back until it is
->> unplugged and plugged in again.
->>
->> Re-initializing only dwc3 after resume does not work: tearing dwc3 down
->> also powers off the PHY, and nothing turns it back on, so xhci then
->> times out ("Host halt failed, -110", "can't setup: -110").
->>
->> Instead, make cd321x replay the plug on resume when a partner was
->> connected: mark the plug as changed and queue the update work, which
->> then goes through the same sequence as a real replug (role none, mux
->> safe, mux back to the partner's mode, role back on). Queue it on
->> system_freezable_wq so it runs only after all devices have resumed.
->>
->> Tested on a 14" MacBook Pro (M1 Pro, j314s) with a backport of this
->> change to the Asahi 7.3.3 kernel: a USB-C security key left plugged in
->> re-enumerates right after "PM: suspend exit", where it previously stayed
->> gone until replugged. Unplugging the device while the system is asleep
->> also works: after resume the role goes to none, nothing is brought back
->> up, and replugging it later enumerates normally. This mainline version
->> was build-tested only (W=1, checkpatch --strict clean).
->>
->> Fixes: 82432bbfb9e8 ("usb: typec: tipd: Handle mode transitions for CD321x")
->> Assisted-by: LLM
->> Signed-off-by: Jacob Procee <sn125164@gmail.com>
+On Mon, Nov 16, 2026 at 02:35:44AM -0700, Matt Thompson via B4 Relay wrote:
+> From: Matt Thompson <matt@boondocker.io>
 > 
-> Looks okay to me, but as this is a fix, you should CC stable:
-> https://docs.kernel.org/process/submitting-patches.html#select-the-recipients-for-your-patch
-
-So I really don't think it's a good idea to work around a symptom here 
-and effectively fake a unplug/plug on each suspend.
-
-XHCI is already capable of putting individual ports into a low power 
-state and it should already try to do that during suspend. Resume just 
-doesn't seem to work correctly for some reason on this platform.
-I suspect we're just missing the proper suspend/resume work in the PHY 
-itself to put it into a low power state. Or maybe we need to keep an 
-additional power domain enabled so that the PHY doesn't lose all state 
-and keeps working in a lower power mode.
-
-When using XNU it's possible to wake the machine with e.g. a usb 
-keyboard and it doesn't re-enumerate everything on resume and that 
-should be possible here on Linux as well. And I really don't think 
-that's going to be more complex than this patch here.
-
-
+> An RK3399 PCI configuration read can raise a synchronous external data
+> abort if it does not get a usable response. Allow an explicitly annotated
+> MMIO load to return an error in this case.
 > 
-> Sven, would you be interested, or would you have time, to maintain
-> this driver?
+> Match only a current-EL synchronous external abort on a read instruction
+> with the new exception table type. Keep existing handling for other
+> faults, including asynchronous SError and translation table walk aborts.
+> 
+> Signed-off-by: Matt Thompson <matt@boondocker.io>
+> ---
+>  arch/arm64/include/asm/asm-extable.h | 15 +++++++++++++++
+>  arch/arm64/mm/extable.c              | 20 ++++++++++++++++++++
+>  arch/arm64/mm/fault.c                |  4 ++++
+>  3 files changed, 39 insertions(+)
 
-Sure, I can help.
+[...]
 
+> diff --git a/arch/arm64/mm/extable.c b/arch/arm64/mm/extable.c
+> index 299a244..dcb84d8 100644
+> --- a/arch/arm64/mm/extable.c
+> +++ b/arch/arm64/mm/extable.c
+> @@ -28,6 +28,8 @@ bool insn_may_access_user(unsigned long addr, unsigned long esr)
+>  		return false;
+>  
+>  	switch (ex->type) {
+> +	case EX_TYPE_MMIO_READ_ERR_ZERO:
+> +		return false;
+>  	case EX_TYPE_UACCESS_CPY:
+>  		return cpy_faulted_on_uaccess(ex, esr);
+>  	default:
+> @@ -101,6 +103,8 @@ bool fixup_exception(struct pt_regs *regs, unsigned long esr)
+>  	case EX_TYPE_UACCESS_ERR_ZERO:
+>  	case EX_TYPE_KACCESS_ERR_ZERO:
+>  		return ex_handler_uaccess_err_zero(ex, regs);
+> +	case EX_TYPE_MMIO_READ_ERR_ZERO:
+> +		return false;
+>  	case EX_TYPE_UACCESS_CPY:
+>  		return ex_handler_uaccess_cpy(ex, regs, esr);
+>  	case EX_TYPE_LOAD_UNALIGNED_ZEROPAD:
+> @@ -109,3 +113,19 @@ bool fixup_exception(struct pt_regs *regs, unsigned long esr)
+>  
+>  	BUG();
+>  }
+> +
+> +bool fixup_sea_exception(struct pt_regs *regs, unsigned long esr)
+> +{
+> +	const struct exception_table_entry *ex;
+> +
+> +	if (ESR_ELx_EC(esr) != ESR_ELx_EC_DABT_CUR ||
+> +	    (esr & ESR_ELx_FSC) != ESR_ELx_FSC_EXTABT ||
+> +	    (esr & ESR_ELx_WNR))
+> +		return false;
+> +
+> +	ex = search_exception_tables(instruction_pointer(regs));
+> +	if (!ex || ex->type != EX_TYPE_MMIO_READ_ERR_ZERO)
+> +		return false;
+> +
+> +	return ex_handler_uaccess_err_zero(ex, regs);
+> +}
+> diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
+> index b227368..ebe8054 100644
+> --- a/arch/arm64/mm/fault.c
+> +++ b/arch/arm64/mm/fault.c
+> @@ -30,6 +30,7 @@
+>  #include <linux/hugetlb.h>
+>  
+>  #include <asm/acpi.h>
+> +#include <asm/asm-extable.h>
+>  #include <asm/bug.h>
+>  #include <asm/cmpxchg.h>
+>  #include <asm/cpufeature.h>
+> @@ -879,6 +880,9 @@ static int do_sea(unsigned long far, unsigned long esr, struct pt_regs *regs)
+>  	const struct fault_info *inf;
+>  	unsigned long siaddr;
+>  
+> +	if (fixup_sea_exception(regs, esr))
+> +		return 0;
+> +
 
-Thanks,
+We've deliberately avoided exposing an interface such as this from the
+architecture code for a variety of reasons, including:
 
+- If you can trigger one of these, you can probably also trigger
+  asynchronous exceptions (i.e. SError) which we cannot handle using
+  fixups
 
-Sven
+- External aborts are usually a sign that something has gone horribly
+  wrong
 
+- In the general case of MMIO, it's not at all clear what state the
+  endpoint is left in and so swallowing the abort is likely masking the
+  issue
 
+- It's not a portable interface for drivers
 
+So rather than trying to fix the symptoms, it would be much better if
+you could fix your driver so that the hardware doesn't generate these
+things in the first place.
+
+Will
