@@ -1,82 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794912865;
-	b=PBm31ydVL+4vw6+yNVa9tSOSoa8/WWl/0hRQBARI6b7GM3ZyNHiyETtDxwc9afggZkXN
-	 PhiAnSrrRSoqRZ2a4dqx5l9zBuU92m7VR3Dt1KGapVv08z3+jRDmNiC/MwxOf4+xU0ta1
-	 Uei1WvclkaWDGwFSP4RytLvYxlOcfOnymZNVdtcuSKE8uYKq4WjINuY2cGzzGnjMdt4XW
-	 CajanKJM8MEaEYvwcB7hStE3jjKicJfliwWWdwu/FxmV4yATcx80nXOKNGjxEWeYvmW3t
-	 uBvyslH+vVevg5KqGbDa+EgqJdcELqgRVQmc3c9BbnXLwqqK71GI4eIVDePIOixmDEA==
+	t=1794912877;
+	b=WDUndoqgu2eK9+G03SxjDokFfjLHJNpbG8bbaCxY2tXvMCzjZoiSvlh0SroiKy7zCxVT
+	 PmGVYF0Ud7Q763FB5RFpOdyIkKShOJhdmiHYaiSKaXRKI8xtGVP5G+Cr3MKfF05EfrvG4
+	 UoQxRlyastt0j7R5XcMIkUoHdsHjOnh+wTepwbA70K1tIepZUkG1KUiwuvKMNfzF4w7Sy
+	 KFuxNf6DdGQ/vrRkK0VDzzE+k38ta769hgVbLY1lCaAnzc6JXvEhTeqXMwcJU9UxebR7+
+	 Rn7hEa1d4p4PrQSNWsDUYOtSlH+hL+MA3bkYAuThj/t7hZDRhzt5Enn1qg14nilKjgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794912865;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
-	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
-	 X-MBO-RS-META;
-	bh=jAWEsctWy9OQpEjem1+XN21g7NWWHbm0GcJRZLH8b4Q=;
-	b=E4JOWgNFTjED4vG1CMDfslwMM2pUfYxZ4g+xwiXMFhjbHIDNVuOjYgnCd8HWEWd3/KKz
-	 yI1O9jQC9giMXEOtXZe1wz3NJkNV3vo6VUMRBOgcf9SmX4dFygcnGs8S5ladMqP0+gp/S
-	 rG/2fEtDiRE9lxONy/4jUCiuUFa3RdX04ElU6oaqQvtTQzuaz75egnStgJYVvtHnEyqpT
-	 1AnBEnGuEnKCwSxKIEtAOqh+9C6Zp+5vFrA3ia2FJ1U6eShZqe4KaFnth9MPVprwLvaEq
-	 Ql0LCF7a2pV1dzhAiOTtgYoBI88o4FYPgaVZgMJIhaPBA3z6RlDZQgOsAQaaJC2VVRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794912877;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=+Tfg1ibNVybgEeeF48UPE9BTEozdfEvCnWQy9W1oTw4=;
+	b=e/ka6u6ExpSe/wGUPnGrrxHDiqqx3YuR3o5OiLBg8gw1W3fmLwqSocVHS5+gOMFkBNjX
+	 +L1aYyjzLZKRo5D4ITIsbnSIHiwCHhCToKZ2gsgROixFWc2uRE+DQeXvLMNkBKETpu3lu
+	 M1cB2avyKvEH/Y4gT5ODep6poUjACTunLAHSs2ZTWX/dfHoyMOTPPOYPzPiO5ssUihe3E
+	 nUPjpyziR13rw8SZ2cPiRl9p4zLw0EFyis4KTpJVAc8CeZR/7pbYCRshrztGsRk2m9KoG
+	 AFxfmRYR7fes1O9LMWTDpv7djuAJ13LLpm3X6Fl5Oh/xhTrWQ4T+pRP3lWyN7ji+IWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=IHsf19vV;
-	arc=none smtp.remote-ip=80.241.56.161
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aZP1KsOo;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9F5A606A31C;
-	Tue, 17 Nov 2026 10:54:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9F5A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF88B606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:54:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=IHsf19vV
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jTM6v51ZFzKn83;
-	Tue, 17 Nov 2026 11:54:15 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1794912855; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jAWEsctWy9OQpEjem1+XN21g7NWWHbm0GcJRZLH8b4Q=;
-	b=IHsf19vVA+64iwhz2z3appSHfEG3PeqVweLbhPmuQeWF05sVXfG7RXhEkhsGcOkEaVY8gk
-	4hq3tFoGpjGKY4YIQcztVAZcWxcl7/VnJzJ6Vlp7wK/c4DWp60ka4paPimUe9ADkg5jaxu
-	OTPRfodsYI3fLMYTkwGy57CTFB4fyUJ+uwm4kZN1S3o1RR2DaID+QH9NgTwAbdxdAtScb8
-	Q4TxVMYGRoxtjfdSelh5ltFF8yZjtqX5bo95dQfOQH4NdnE29ekyOfAeAIerThu3l/YO9x
-	bTtC+Odrx8/SeHfIulhU5bNMG5cbQsHDjp1aj5R2W9gSem6XMDp/9PBTAygC0A==
-Message-ID: <ab99758408df682c68a3792cc3014b77d6e1c8ab.camel@mailbox.org>
-Subject: Re: [PATCH] rust: DamFence: Remove warning about unsignaled drop
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
-	phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, Danilo Krummrich
-	 <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda	
- <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
- <gary@garyguo.net>,  =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
- Hindborg	 <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, Daniel
- Almeida	 <daniel.almeida@collabora.com>, Tamir Duberstein
- <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>, Onur
- =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 17 Nov 2026 11:54:12 +0100
-In-Reply-To: <e2ec8a39-56c3-4274-91ce-60c273904877@amd.com>
-References: <20261112101015.528127-2-phasta@kernel.org>
-	 <5d466f7c-2e70-4011-be04-9ffdf877b915@amd.com>
-	 <49298d3a328c1695ea27993f714c20b8a1c05f32.camel@mailbox.org>
-	 <e2ec8a39-56c3-4274-91ce-60c273904877@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aZP1KsOo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13C6E1F000C8;
+	Tue, 17 Nov 2026 10:54:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794912876;
+	bh=+Tfg1ibNVybgEeeF48UPE9BTEozdfEvCnWQy9W1oTw4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=aZP1KsOofZXA08D4wdLGepi9PdvJLppDJzJsU6p+skQN1H20zQrbdw43C8f6G8S8i
+	 AibDf1dGAP/t2RPsnkYz9X4moOWgFDXV2/6th8B41ZkkvJklEDopaBUXqD6KY1AaeA
+	 OvPQNq3RzuMOVkUgdlRBlbIOTtl6FUTtLyfVlWJzsUtR6dYLO2tBdqdijCchh3+h6g
+	 moj0KiL7FFnR+o760bFIRNDHGLRXhhnaFq0FhXidI8tEcDswkKnAtnKlvvXmdSes24
+	 tYkGi2wjsWCa5ep+HjhgGKItZB/zBQ9SNKN2BUjF88bHay7fAMWDevuxIR7IugmdL0
+	 FqrEZOV5Hpv2g==
+Message-ID: <f75945f7-82bc-4ff2-92ac-9ec057347a41@kernel.org>
+Date: Tue, 17 Nov 2026 11:54:28 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,47 +51,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MBO-RS-ID: 3fc69f010e82e9128db
-X-MBO-RS-META: 1jz3zz7cp1nntsqnyo4n5fdt6zbaxuir
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fork: mark memcpy() in dup_mm() with data_race()
+To: Muhammad Haris Awan <m.harisawan@icloud.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Ingo Molnar
+ <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Kees Cook <kees@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+References: <179489519663.1444496.15875846661591982934@icloud.com>
+ <0b565b9c-1462-4fed-8836-9a7d08e4b861@kernel.org>
+ <179491109101.4015489.11185824873441987133@icloud.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <179491109101.4015489.11185824873441987133@icloud.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, 2026-11-17 at 10:51 +0100, Christian K=C3=B6nig wrote:
-> On 11/17/26 09:24, Philipp Stanner wrote:
-> > struct DriverFoo {
-> > 	f: DriverFence<()>,
-> > }
-> >=20
-> > impl Drop for Driver Foo {
-> > 	pub fn drop(&mut self) {
-> > 		// Signals fence implicitly & automatically.
-> > 		self.f.signal(ECANCELED);
-> > 	}
-> > }
->=20
-> Yeah, exactly that is still a bad idea :) See the HW eventually
-> doesn't necessarily stop doing DMA if you unload the driver.
+On 11/17/26 11:24, Muhammad Haris Awan wrote:
+> Hi David,
+> 
+> Reclaim isn't touching the new mm being initialized (which isn't added to
+> mm_list->fifo until lru_gen_add_mm() at the end of copy_process()).
 
-I know.
+Oh, that makes sense.
 
-> So just signaling all fences with ECANCELED is not enough.
+> 
+> The KCSAN read is on oldmm inside dup_mm()'s memcpy(mm, oldmm, sizeof(*mm)):
+> oldmm is an already-live mm sitting on mm_list->fifo, so when an adjacent
+> exiting mm calls lru_gen_del_mm(), list_del_init() updates
+> oldmm->lru_gen.list.next/.prev under mm_list->lock.
+> > Since oldmm is live, lru_gen_del_mm() has to update those list pointers.
+> The alternatives in dup_mm() would be taking mm_list->lock (plus
+> mmlist_lock) during fork, or avoiding copying oldmm->lru_gen / oldmm->mmlist
+> (awkward because struct mm_struct uses __randomize_layout). Wrapping the
+> memcpy() in data_race() avoids locking on fork and matches dup_vma() in
+> mm/vma_init.c.
 
+Yeah, the only concern I have is that this is the big hammer for any members,
+not just the ones where we expect races.
 
-Yes. What I was trying to tell you as that you have no way to enforce
-this in Rust or C.
+We hold the mmap lock in write mode, so one would assume that nothing can rally
+modify it. Well, besides these list exceptions.
 
-dma_fence_signal(f);
-free_driver_resources();
-// Driver forgets to stop the hardware. Memory corruption occurs.
+Let's see what others have to say, but I guess this is fine then, although a bit
+suboptimal.
 
-You see? Neither your BUG_ON() or WARN_ON() saves you if the driver
-does it like that, no matter the programming language. You cannot
-prevent it.
+-- 
+Cheers,
 
-The only one who understands how the hardware works is the driver. The
-only one who can stop it is the driver.
-
-In Rust, the place where a driver drops its JobQueue is the same place
-where it has to halt its GPU ring correctly. Enforcing this cannot be
-done by dma_fence code.
-
-
-P.
+David
