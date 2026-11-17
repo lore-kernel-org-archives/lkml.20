@@ -1,89 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794922849;
-	b=rjRAIeZLsx+im6AO5p5xECXWK/J7YeYIG2cQHEwfFye4kcysKlurO+STojnRd/Fp7+5x
-	 m5oVI92/qa9GBXX7pvx7eUNcIpLJQyVpPQdBSBE29wauOynHfe2/5f4qLR6VVPZMSuiXu
-	 ved7Dd1LY9/rbGUBxDx/GU8+08KaYjfkjTs4MYHowBaxucmnDvhsy4nFpVhx29LbIZCpf
-	 es0Ey3sTxst56id3KR+OFaX7tq7g0C1JWESNU+fycbEfMt7K+Y/BpqQZbEEkF8RmfBxMd
-	 OEwFkF3zwXQJzJVleK9ZRNPHkJI9MZXNIj0biARe0Eq6aTwLsFQVNwCwV53NV83wvtg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794922849;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References;
-	bh=2onvA3w1AX2T652rmvjKcErttBTJ29lM7H+Z12l/3jk=;
-	b=Y9iC2AHkd8B+y8QFlm8mVQnstAFFJqXBcS06REsOqP1jy8W0KfzzY0t7/rsqSlHJfDq/
-	 8YnLwUPWvDMyPNassiURFbNCY5iBM5ZTQH+dPZuU3/l0n6Fq40zjXmZgywrhFCVfWk+Fy
-	 JxkHHPlE0rW3dyoBvWdtlxKsHACN4CRx7kNeO6b7nL/9T0lbDGIXNLH6CsyyanEAmMz2c
-	 Gu1YN7rtfOc/LmXIDCoQc+5m/uVKBhxDk3jKiA6JmXGLXJ6/QDDIDECMaARTXXAxCC9GQ
-	 yB1UIO3TJm52pb6MCLBetSpg4XeTZTwV5YWfkMIRfyOqKJP4z+cL9QAowncuApxp1Hw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DGbWyZtJ;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.34
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794922868;
+	b=0CPACAicxLxYUbCIfdkGXdTHz/5tMu9K9ULoVqHCF0UliTZw1CxcVGYq8PrPTCmPmifW
+	 cD9xiJkqmSVDUoYzQuELoaUR3jdMclPjZ8giqpH5tBqc5IowtVr5p7+q2X2yX2S7Vu6YL
+	 1tAWtw4MpKFnwzSC51qEABMvAfUUzZ9ISF1KxNhAF61nOKZH97+ODKeX6fNjg4e7hyAHf
+	 Csi1XksaihKtbGxbj5dRM3loQ8aBGGkdMpE9hT1NiEOwo+SnQ2Q051F6vpx7EWTVvDrJE
+	 ofTF390NdSwJxFuS3bmR7HE7MmSKYYfIXbmPAWBmvodWZF7ZZxHn29wVlOaZwkJqmuw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794922868;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=034xZ/R3Rbx6TAQYtSn2V1M4t7pkq7VAG2DeR9T79A8=;
+	b=lEBKFIMurUgxDcp4mxd4QJm+SaAOETTTjVtfnL7Tq7nAdAX0i3eQzs5unKV6E/oQh/N4
+	 53V+CQPDeYB/dleKD90Rs7MbkskjITsB3n5dlaZTTLm2tdWQJL/wLaOhu0Wmfd+rwsBnn
+	 TrdvBem6iuHbtS2mq1vueiYQ9Y53LNE/8vv/RubSyWpleQ8SZlk4GKSKdDDxrqsZIMfng
+	 +B5W6JS61TcEm8TMvPPxrYw/BS0Gh2K7In+j9vbSlXrAmfvoVsTg6nxkoWia2uCoVFbkF
+	 Jv202WnltwzevRK2YvYlWSVLwyrOJGaaajLmALiWGNcaHkunpvW75Q/O+92t0fUT6Iw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=qyVMq5QR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.34
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011034.outbound.protection.outlook.com [40.107.208.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E3B5606A329
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:40:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E3B5606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF82606A31C;
+	Tue, 17 Nov 2026 13:41:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACF82606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DGbWyZtJ
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-36dbde64409so6885657eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:40:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794922848; x=1795527648; darn=vger.kernel.org;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=2onvA3w1AX2T652rmvjKcErttBTJ29lM7H+Z12l/3jk=;
-        b=DGbWyZtJbhqEwRIAHmzYMFxe1csMND28ldH5bojZRrhsbMW2C3JsjxfWcew6ou3dAS
-         PZ3IosuOzq+L5DzoRmVyqWCeh9OD39BZk/2hz22F2XtQpIR4KcOnKPYITTeXzRRM8+hJ
-         ZjR0/gaY3uHEfGMpZiGicO4TXqvt0EDo+9Dv4FfkMoYpclMM7ROstUcHN/N1sMtMavzh
-         GwpfX1PQw4Q0bXmdnavwlNicLbHpjozLBgJUCfzHHmYWCF5x659l0nnco0HQ9eMFXWoc
-         C6PS5Zgx8UKAsTklR9xKTgQ6t7Ig1S5M44my1N/nCQ4j8h6ZGnVKI1lEmTJJHWgcT7WJ
-         bgyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794922848; x=1795527648;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2onvA3w1AX2T652rmvjKcErttBTJ29lM7H+Z12l/3jk=;
-        b=IEr1ufsUVB8qsJMeJ6xWRvwsY9mY/oEY1YYrkHbihdF2b19Wz8tZRjOU1UJSGuofRB
-         AZBzCdkYz/Ba00jalRmmbhEgX5ajbU67GLbMY7SV36hn5H8nNKHOZYNQ5V7qnlCviIey
-         opco0S7Cj7iJXly+yJCh5Aa7KdU8wv82YLYFvBot1FP5pw5sT5kMjPe0WDhrCaA4lSra
-         zoIMejJng3mcHLIIfPHi3YN1M6nsenZUfUNDWTTooU7ifgKwh1OeOUZg+Ib985AmRYBa
-         /yf7I2Sh2iFG5iWuYFfJIVrN/nCz2+pV76NN6yH0N/AOn1gvvASSJlxD3zh/IYUXNh5Q
-         rIlA==
-X-Forwarded-Encrypted: i=1; AL+hErE7bTHdAooeRgxZa9IBea6+NwHYnh8Hu4WBUqh3YkXF3kUFsP10h+nC/bn5iwe7TMSrNaKlLMA18Dklp/E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Mjly+Y4SXfjIUlamfeDgUhp04mC+ZKCkPehRNueC7p9LzZm0T
-	OBgI+/qTXDq4zPnlHQAaa9Qlh/qkuEQRPM2XAcId/lOLHKJNvkZpWSX2u98apFyi
-X-Gm-Gg: AZFdTZfix4GtVD6yraaaotbHOUrlHN/N17ix8lkGktFe4ilAkGxBK/EcZWLQuejjYgd
-	BaF4bUSSqh5SDeBGYX0q91Yn+wWeFbA9NNlzhuWJO3gkCRWlgE6t3PlVBesEcgs2Y9td71qR6zE
-	LkR7cg7B26RDMMDWDYSJs1c13RPlYHpIVkcGEvwDNG4HwbLADf1v5CFxjtK97hgEIOEEaRrihvX
-	DYO3XWRaFvbZ4XVarcoSLRMPm0ZF1c3sVIFTFENcYw771pX0Y9Nhi3dFa/nMTMbio2uNK/fQSUc
-	7uML3UApKsTlVhiiemcsLBP73fBBXtefFq29uNaHIBoOGrxxWASPbN36Lva+3rtvMxM5/BOXDS8
-	giUPH0M6Vi+IV1YhhA1DAysOiwlXtJDtkzRMNf+fxmBLg4QqAENnKCCRS4n7ZCFZnP2jYGfq/FO
-	r8opeDpvmRhkHwYnUJ7nY84O58Jz1cnDdhuqd5D3dsX/ms51uirT32lZG3TRyrAD5z4NnB0kU3m
-	T9DtrUyoSgnjOrp0NcMr68fDFm98Dv9lw7Uv/D3EpPuEP+ziEEI9c+MMSygYtvqaVfYMpIf0yHU
-	Tq7d9jHiyOI+dZQ3Zy4f7BSJOgs=
-X-Received: by 2002:a05:7300:e9cb:10b0:369:f9da:a70f with SMTP id 5a478bee46e88-3796676acefmr15663596eec.17.1794922848321;
-        Tue, 17 Nov 2026 05:40:48 -0800 (PST)
-Received: from pve-server ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3815045b90esm6193856eec.13.2026.11.17.05.40.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 05:40:47 -0800 (PST)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: Shrikanth Hegde <sshegde@linux.ibm.com>, maddy@linux.ibm.com, linuxppc-dev@lists.ozlabs.org, chzigotzky@xenosoft.de
-Cc: sshegde@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, christophe.leroy@csgroup.eu, linux-kernel@vger.kernel.org, msuchanek@suse.de, harshpb@linux.ibm.com, gautam@linux.ibm.com, amachhiw@linux.ibm.com, venkat88@linux.ibm.com, nnmlinux@linux.ibm.com, mkchauras@gmail.com
-Subject: Re: [PATCH v4 1/3] PPC32: Fix hard_irq_disable to follow tracing and lockdep state
-In-Reply-To: <20261117131612.707038-2-sshegde@linux.ibm.com>
-Date: Tue, 17 Nov 2026 18:58:41 +0530
-Message-ID: <y0ar7fjq.ritesh.list@gmail.com>
-References: <20261117131612.707038-1-sshegde@linux.ibm.com> <20261117131612.707038-2-sshegde@linux.ibm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=qyVMq5QR
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ErmldmCBZ0BgFQJsqbYs/FGKBHDxQAK5oC21xqQ9PADFQLAmAgKVqRqpitLWcnKXZ2JBoGSmZ+nNF2aT9xhqOamxXp3tlIFEyU56OFwsN0k9gRBPRNZynXwsOpfz6AMHWwPRM5bZq0sICcwL2SQE4uKW2LnBCOTdqafp42uM9HU/miAnQ3Fb5RGeOHTtNBqciQU/fjQA12/vzVA4qHloEVY+5s9s/jWKhNbmefuxCrgl0VKKRjBb/PdBRwOaBHAx4X59/NB2Oi4f0g4L+P1/u57M/PT6uLwIFs/yhZm4+sgnwpC8FSN1f3KKg/YRP0xg9Spq6EEDh5MWvYvs21MJpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=034xZ/R3Rbx6TAQYtSn2V1M4t7pkq7VAG2DeR9T79A8=;
+ b=qJYRYSzWgeEiAcqIdNpvb+i69bo/HAWTX9U4l6L06X7loTNVUA/L/pXWnGzENxGNA8qY8tcmtl/Fz1IQZb9PXUhU5ap1pOXr+lDhnAENs6j4guFbfADl6YLJzGie7elJoOXJ37cU7DHgMk3sgKk1vZUBxoaqd3VIB56s3zFdUe04agsM4OS8UUHlzcxqhdJLqpG+gGh+K/OtPFb37lwqNvUh0KNMe2Ylc1kW8c5a0SJM4CHVQC22zK6z2oiLXxnR14nnPx7P3Zb6b6EIiVmweN45bLm3zdH+ko1J04TZRGVA9fEDza45s7QE/owqdU1KmiRqSvOlrkl+c4iQyYy9wQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=034xZ/R3Rbx6TAQYtSn2V1M4t7pkq7VAG2DeR9T79A8=;
+ b=qyVMq5QRh69SIKNQYKAnYo9cHabuDoFVkfWnbP3ToRfxeF7px931Kk1xyBvN51z7xWbyYSx60ZehVtKOLpdob9kCJWbDaOOqP4G8TQpJWU4yw1PBXuRl4PrTfufmNzCMYPs3L8ysaQwpUcVXuwbrU4VamcipIpoBeMLwNM71+4E=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS6PR12MB317717.namprd12.prod.outlook.com (2603:10b6:8:414::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
+ 2026 13:41:05 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
+ 13:41:04 +0000
+Message-ID: <c2dd46ea-94d8-4720-af37-897c91809338@amd.com>
+Date: Tue, 17 Nov 2026 14:40:55 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] rust: DamFence: Remove warning about unsignaled drop
+To: phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>,
+ Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
+ <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261112101015.528127-2-phasta@kernel.org>
+ <5d466f7c-2e70-4011-be04-9ffdf877b915@amd.com>
+ <49298d3a328c1695ea27993f714c20b8a1c05f32.camel@mailbox.org>
+ <e2ec8a39-56c3-4274-91ce-60c273904877@amd.com>
+ <ab99758408df682c68a3792cc3014b77d6e1c8ab.camel@mailbox.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <ab99758408df682c68a3792cc3014b77d6e1c8ab.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0185.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ab::10) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,51 +107,119 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS6PR12MB317717:EE_
+X-MS-Office365-Filtering-Correlation-Id: ffafbc56-686e-4c52-f273-08df44b06d0e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|366016|18002099003|22082099003|921020|11063799006|4143699003|56012099006|261102123227099003|261026121527099003|261021121427099003|261021135927099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	ZoSbGaTVmKFEGYYqNCWH9Y1IY3qnZJQ1uPwQkeRjFv5UeKQRIEG521WaKfhdnU4PuwdsZ6en2fnr+8nEf2Br4VqUMz8fOSd+e8SaJOXVpfhe7NlCbqCMWzAafhIlORUTNzL4Nqo3RRQw7AOL6LqT4QOlaAvteE4KRBhhcR24Bzs3LF4OeSbLKY/hbQlpgMfYwChG0TuV1iNGJhm/SmQWiWjTO5UCmITFDsEp0H29JtTrw+s7728Sf4PrbnwtZcaxU3jlHsBgFTU8KMEKln1d6+YNnfAjbTltl5chKEe67SYETkbWqfWwq8U9OoUQfakHgzyJqDtSF8OPdECtnkNWK/c9dmpnzwAHN5rAHyiUwCSkV7xif+thdYMr2PT1AUMOrv1MVC6qsenFc/vraIY6KtfFakrBglVtjtbT8msyJWjiapKHNDjr/x+cBbBjBxL8bJMMPcv3r3KGIpYwxu9ftfGxHpHq39vEs89QFz/PFTVPOaZLfnaHj6TPopKDOhjs5wHdNGHB1q5ftRKOoIrtuLGMLDNNEn6ThRBuO9gyR2C29Rakr2qbzW0bcPaRcI/Xv3tvMe0tuV/7fZVKHq2hvyFlFbv+oqycKfnBkAlQlOFiov8rOibfOYLhEyXxHYS0pwsu1AH1nJaPuHHF0mqP4mk69o5XsTyPC4JZFhS7jv5mHdNCEzyuJlnS7M6tZpGg31oAysl0hWcEFkSvsnt3bQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(366016)(18002099003)(22082099003)(921020)(11063799006)(4143699003)(56012099006)(261102123227099003)(261026121527099003)(261021121427099003)(261021135927099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VmhyUlpydXFIODA1Nm9ETVdxaUlkYnYvK1B0R3RaNXh5amhqY2RYbEIxYkEy?=
+ =?utf-8?B?Z250cVRpR3Z5QmJpbGxXL25zQmVVR05zM3VLUlFZUWx0a3dQejFhaEpiOFY0?=
+ =?utf-8?B?T0NJRTc4SkR3Szc5THgyS1JoWXRRTWJTK0prR1Jna0tvN2tKeEZydUhkN1pi?=
+ =?utf-8?B?RkJseXU5MXpOQzQyNklQZytoSXYwa1pzR3NNOEVFQVBIWlRYY0diVXJDRDRl?=
+ =?utf-8?B?VWQvK0kxK1NZdnJwdGZ5S01MelZKWk5SSzNKdm0wUFhoSnZGWHVybWd6eHdm?=
+ =?utf-8?B?eThMOUtYUGttdWpvWjhIQ3NyMVI3VjJOMCt4UjlXQzVKUkU2T1QycjRlZWhl?=
+ =?utf-8?B?VFB2dW5pNWZxK1VFazVWQUtjZXBqNHA0b2M5UEwyYVY5U1Z2d01QRzkrbmlC?=
+ =?utf-8?B?cktaSXNucnNiVTFQNEROSklBc0l5bHRxdkt5enJxaW1HNkMxTEg2Mk9SWEMv?=
+ =?utf-8?B?Ulo5N3pCaFJteXBXSTNkbGQxVjZHbHkxYzZkeGF2azVGMVVva2MxUGNmSkxI?=
+ =?utf-8?B?SE81alEzRG9lSTlkZjhmc1c1NHVONlVGdWRNVVlkeVJTRUlGN2M0dUFybVR3?=
+ =?utf-8?B?ajAvdVZKdXNCYkNLR0cwN0VNZFAvMEdIQ2IxOTZwOW9BYmR1M3RaZm1SNnlz?=
+ =?utf-8?B?SUdvK2FmdFlHV3JZSUhTTFNadHBLblBLUXYxZ2tGVVpCcy8vNGg2Z3l2QlZI?=
+ =?utf-8?B?VHJiQjgzSDN3TnVoc3d5K1dSVW9DRWcxRUViQklSaHdZMU9zSVdwaHBPK2Qz?=
+ =?utf-8?B?UWw2N21qVjJSVkJ6ZTdkZWM4OFVIRnI3dmgrb1J4NW5SQVB6NmRJZ2xTVFdX?=
+ =?utf-8?B?WGRQRmFkQnVBdW40SUZJRDVYYW03dkRDcXplaTQvdXBkRnAvd3g5KzVXdDNE?=
+ =?utf-8?B?ZlZNOXZPVHE5b2d3T29tQmtnZmFKYlhkTjU3WG83ZlR5d2EwaDBWRE5jYWdE?=
+ =?utf-8?B?WmVtUXV1ZTVzY3BidXhMQVhFSTdpSUxoaHIrazgrS0VHWG9TWUFrTXFJZGlK?=
+ =?utf-8?B?djNiUmtlZHk2czY0TmZzMENQWXlLTVJLWW00SWYwTzFlVllZLzRwM0Mrd2pv?=
+ =?utf-8?B?N2NkdWNlQmZXS3M0eVB3dGpkTW9LNGtiSitNUE82VGxjY29wNTlFUjNJLy9m?=
+ =?utf-8?B?MVB2N3RraWYvL0kxREJ2OHdNMFhydzFqTGtHUFVQMzZKbmo5ejhQai9Gd0FN?=
+ =?utf-8?B?TU5reVE5Mnp6UFdtejlCamgxYVg5TkhsNElNdTQrWDN3VUYwRlU3ZGs5cHhL?=
+ =?utf-8?B?Unk0L3AyazJtaEhxMEoxUWxqVHFxSldlWEcxQWY1TnZRbEJ3U1V1V3BJZFBX?=
+ =?utf-8?B?Sy9tWjd5S1RxUmVjZ2VmOTVMTG9kUXQ4RFlBOXU5ajRRTXUyUmxjSmxlZSt2?=
+ =?utf-8?B?WjJET21Pc3NRSWU5eFRIL0tHREZUMERwNEl3azZSbmQyQ00yZURHUXJpZGRL?=
+ =?utf-8?B?ZE54UEJTOVV4VlZjbEU3WmJjbFlVSWx2ZzdWdWlSanVxVUxUWi9rbE1SVDVC?=
+ =?utf-8?B?eFBSN1gzZVZnMVBxaEgzVW9DNE4ydDZFRnJoZStneERZb25CRWc2N1NpWDNt?=
+ =?utf-8?B?czhCaTJpZTJUaW1Pc1dzWStlVjlSNnhzQ0tkYmZJb0E5QVlQYnNNdVl5RHQv?=
+ =?utf-8?B?c3dMaFBFZUFYQ0ZXS0VuRkFKVGF4NHRHdUZGcFlsTHdIRUFKUUY2S2VnUEQ2?=
+ =?utf-8?B?WUVTM1FxdTRUS2dMWmFpeGNVRnl2TVFBd05vcUNQZ3NiTjc2bkphYUd3TUx1?=
+ =?utf-8?B?cHA2TUd4ZEV3ZFlpZ2prVTB5ZEJPU3ByNU5oY2pSemt3d1ptZWxCTDlXME5Q?=
+ =?utf-8?B?SkVZK042NHVMdXJkUjVIRDRicHl0R1BrYXZWYkJzcHFQckNDaVhQcEluNGJn?=
+ =?utf-8?B?QWhQQ01SUUdxSDlya2hlUnQrN2lJWW5WeTk0ZDJIUHcxZ2FyQWtvZTBWOGZ5?=
+ =?utf-8?B?UnkrYXJheHZlNzFTN3NVcGNFdVVBRDV1VzJhbkxreUE0S2MyY1BHMnZvcjZr?=
+ =?utf-8?B?OW4yTEhSVUtIWXkwZFlyZGlCV1lYejYwRENFdHRXVkVwbUZsT2M5dHhZL2dx?=
+ =?utf-8?B?TkNtYzR0dmJtZjl1R0dTZXdSOUpBdjl4ZHo2KzVBSVVUTUZBYUVDbnFIZm1N?=
+ =?utf-8?B?MG4vaWt0Y0d5dFo5L05xQ3F4Um9BRStiVU5hMnpZeUxhNFhvQkZxMHNKc2hx?=
+ =?utf-8?B?RFRDb0t1UkRYRGVhVS81UnFqT3hEYjZGUkhTYVlHd1gzMmFiV3NmSG1MZnN3?=
+ =?utf-8?B?dStvNGJZbkVKNXFBTk1BN1BqeHBzSk1tQ2RYa3ZRVmlnc3IxdDJZT1ZXbjgr?=
+ =?utf-8?Q?/NlBj9vqeDfBMTL3H1?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ffafbc56-686e-4c52-f273-08df44b06d0e
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 13:41:04.7177
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8WKbs4wJUmXvH9X7PyiL278kF6/Xjps/RZJufE56wJPUnVxXbdfQe1QBqthmdrAH
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB317717
 
-Shrikanth Hegde <sshegde@linux.ibm.com> writes:
+On 11/17/26 11:54, Philipp Stanner wrote:
+> On Tue, 2026-11-17 at 10:51 +0100, Christian König wrote:
+>> On 11/17/26 09:24, Philipp Stanner wrote:
+>>> struct DriverFoo {
+>>> 	f: DriverFence<()>,
+>>> }
+>>>
+>>> impl Drop for Driver Foo {
+>>> 	pub fn drop(&mut self) {
+>>> 		// Signals fence implicitly & automatically.
+>>> 		self.f.signal(ECANCELED);
+>>> 	}
+>>> }
+>>
+>> Yeah, exactly that is still a bad idea :) See the HW eventually
+>> doesn't necessarily stop doing DMA if you unload the driver.
+> 
+> I know.
+> 
+>> So just signaling all fences with ECANCELED is not enough.
+> 
+> 
+> Yes. What I was trying to tell you as that you have no way to enforce
+> this in Rust or C.
+> 
+> dma_fence_signal(f);
+> free_driver_resources();
+> // Driver forgets to stop the hardware. Memory corruption occurs.
+> 
+> You see? Neither your BUG_ON() or WARN_ON() saves you if the driver
+> does it like that, no matter the programming language. You cannot
+> prevent it.
+> 
+> The only one who understands how the hardware works is the driver. The
+> only one who can stop it is the driver.
+> 
+> In Rust, the place where a driver drops its JobQueue is the same place
+> where it has to halt its GPU ring correctly. Enforcing this cannot be
+> done by dma_fence code.
 
-> On PPC32, the code for hard_irq_disable has diverged and it doesn't
-> do lockdep/tracing anymore, leading to use of both local_irq_disable
-> and hard_irq_disable on PPC32 to overcome those.
->
-> That is un-necessary, instead simply calling local_irq_disable is
-> enough. It disables EE bit and does lockdep tracking.
->
-> Subsequent patch uses this API in KVM code to avoid the warnings.
-> Wider use of it is possible, but it will be taken subsequently.
->
-> Fixes: 5d38902c4838 ("powerpc: Add irqtrace support for 32-bit powerpc")
-> Suggested-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
-> ---
-> PS: Fixes tag is based on the historical analysis done by Ritesh.
-> I haven't got a chance to delve deep into it. Note that it is old
-> commit and lot of code interleave would have happened since 
-> including local_irq_disable at some would have added proper
-> lockdep support.
->
+I completely agree that we can't fix things from the dma_fence code, but it is our obligation to tell the user that something very very bad happened.
 
-Yes, not sure whether we really want this this fix to go back to that
-old change?
+I mean that is what WARN_ON(), BUG_ON() and panic() are essentially good for, they never fix anything but just point out that the system should probably be rebooted and driver developers informed.
 
-Maybe we can add CC: stable and keep the minimum kernel version to it,
-so that it gets applied >= vX.Y+ sort of. Instead of stable backports
-picking this change and taking it all the way to a very a old kernel
-release - which in my opinion is not worth it. Thoughts?
+Regards,
+Christian.
 
-Do we know from when we started hitting this problem? Should this be
-after we merge generic entry/exit? Or was there any previous kernel
-version too, where we were hitting this?
-
->  arch/powerpc/include/asm/hw_irq.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-
-BTW, thanks for taking it forward.
-
-The change looks good to me. So, please Feel free to add:
-Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-
-However, note that we should still get the stable tag / fixes thing
-sorted, for stable backports to do it's right thing.
+> 
+> 
+> P.
 
