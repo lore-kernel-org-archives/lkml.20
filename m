@@ -1,101 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.229.7
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794930248;
-	b=P3CNDRpceOC+GSWDf2os8AJzEk0EBmK7/9WT5dQZoaNW3ppjUxtZPhdlVfsUw7SKUw/o
-	 FAnZxYtTepGOoDcCxqd8GnvRY5cKY/Y8eEGhBKvO9nQp89/F2mrK0oFEiouZpeAp6VglA
-	 rBNt5vcoOGldH8YU9hOxoWh3ui+PVn1o4jYEox8RXsqzyZyAVYsclOkjreKXKFp7yAGv3
-	 5fxFg6HDnWMiOPjz7k84idHAGDIlM52KEsEj2ZcnIrum780zG9q9p6USgb4P59QNFZq0T
-	 qUgQ/In2S3AXL2ucJHfoMJHo4Fw1s/TT039/MbJ3sSIFmZtKVBZjaZwf+LCmgGspLlw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794930248;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=HYeSJ94KZonv4FSrskKFWYXKdu1uRN5+F2cYORjRoMs=;
-	b=yeUMeGsan2utRM0MFoLr+WmOQSlYuPo55S4afbgweTxmn2UNaKG7WNC3xNJy9NLeQsE6
-	 Is9PR5lAO+Yl1/uLnbQo3hBPDHaCuk4iYu9A0lukR1OLUDGXuwv17ZOj96dYBYAHrKTdC
-	 CWBWp6RMud7vUd4+cSYqdcX0uoAB+9ni06wKtvUJ1NuCnoh0TaTk325WY9KB1A+Gf2ngT
-	 h0UntwqQZjdSWx4JXLodhvcu5Sa/Dye2YP+7DZ9We1i/rQyTj7w/TmVuETF5iohhEvqqS
-	 J0sh18sdEA4H61bBHFHfcyKOVfRyjPVLI6Rf50vL+oWmPAgmmaCz5pSnpZkArLJmfAA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bp.renesas.com;
-	spf=pass smtp.mailfrom=bp.renesas.com;
-	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=PSp5EgU2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.229.7
-Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010007.outbound.protection.outlook.com [52.101.229.7])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794930303;
+	b=PQ+VtzG8lNj7PqIgZoUMFKO5tES6hZYS+Td27nQ+i+CBFX/3iMwAaNGM0Wd+ZXmnl1Sv
+	 IgttzsZ3cjn2yi0oTWbBqBqjPhUIpf0OtMw1hzMyLtgk0nmJrvNWvYWIW1o9cjzH1KeLC
+	 XlkYYbQzeGvZ0k2Cb4rrMJyN180kpoevGmDR6+d3CJXLriu1hO/ozCnYeB3HD7z8m0eD0
+	 QCPB6F3EghGBP3KZfFx2ssH++1Fgr3OrIp/mpIjhhXV0XjDbsdhUUCAZm/UANDxoJtLzA
+	 8MftD/8YqugBT07EzVCpSNohuN3e3DUHzd/mEMVEHEDV1IIVwuQKkNs4A45GlZovUcA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794930303;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=LD1nG13DDJvwSRgDgWdYj3ZDMv2tVel7Etfk2lB4uV4=;
+	b=lBPLBv19gTwFqMrT8tfqPjaI6ozCbN4TTmQznWMHt39XpZnjTAUHeei6Ek6wOzFBrfRV
+	 sUtgkhAUyGwOibubX4rQZAwaPgKGd324ArtWwZoyK4CrROjmS+uEZ+mCP0qtW27SI0iJ3
+	 Id32ZMeDoEz5r/tn4LcyUVqsYHPnKy/g3K/HmoMhKFiV4b5JD2VD4B+HhMdTC8/IMDkIF
+	 v7ZvyQBEn1norZR6FKK/VPPbv9B/idmOIJi+kqhZzbPmcbh01SwsLrmOhIK3+JamGW6AB
+	 h9Xo1TANbZgHLg1wDNag7cegfdRf3IKXqZGA4D1ju49Avo0tPUFagV3X42x4sIMrsxw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U3jLobrz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A510606A31C;
-	Tue, 17 Nov 2026 15:44:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A510606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B81A0606A330;
+	Tue, 17 Nov 2026 15:45:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=PSp5EgU2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=en0pMwL4jOSyK1LEDWqn92fXjOIbAubs5XRanYF2JDU2I9iWON5/I24pjIVSWetjVI9JeGuLGBtB4Hfs2FmnoaPDcAVNH6/ud6Khoy9yrmopiWUHGq8pMpZKfi1VnAMCb+TxgC33OS2QOydiRZdx0NooQOZ75d2wruYZep1QLqgxOsNXWI6EtIOjjS6oNeEjupL7daX4uOiuBYHn2bRBvJz6QZx6WemdvI36HVCIEkEf4gpd1dAQPRstB0rdLFIrm0DgsnoKWJ/WN0di5dCpOtujJ+5REGU2VPk/LW9MVKcSfUkoCUDNl48NAo5iiuT1MD4SLgE7BACEuwPFs115BQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HYeSJ94KZonv4FSrskKFWYXKdu1uRN5+F2cYORjRoMs=;
- b=hA0nVa0X7hBtlBdB8AJ4JXLbBp1QmXpckkuRbJQIDKcWoBQrdAGIeJT6M7goYWxo6hvUoilHtS+69D/f4dQIJi0q2HVEAPjG3BxMoCp+D53QmcUjtb2B8T1QwEjuSzzUxgei49K/Yhku7oSXHzP9ArjUlRVkwSHmMrI8+7M0Oq39TgB/rKOo0bXxbMgVElAPs9ePy0Lz+xyZEZpT0ympxsNCgCWtbMfd+aiSZDhcmJfa8cXDOWa/Mc+DTWTE0p7ZT3cfXimpl1MP8CAPKRSvdhXCq4fgn7gNYS+l8tw0KKlOzw+VudCOJNXCwLyysHBsIkyKkzZU58fd9wMXyeNOLg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HYeSJ94KZonv4FSrskKFWYXKdu1uRN5+F2cYORjRoMs=;
- b=PSp5EgU2Zu5GHP2P50UyeE3cNsqCk+CL26cIczh5D2SgJO5s5aK+vKbW+zsH+cc7fLQ0wHqYsCpO158DibnPOoLXPFnwqYIx7eSeta0kw2f/neg5bXLoXdqN3i3aQeK+VSNoEKaxem14GTD+5fVWnhXO7UjI5TwzWATdJLn0wck=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from OSOPR01MB295138.jpnprd01.prod.outlook.com
- (2603:1096:604:521::15) by OSCPR01MB14437.jpnprd01.prod.outlook.com
- (2603:1096:604:3a6::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 15:44:05 +0000
-Received: from OSOPR01MB295138.jpnprd01.prod.outlook.com
- ([fe80::4f0e:fd0e:ff2b:b180]) by OSOPR01MB295138.jpnprd01.prod.outlook.com
- ([fe80::4f0e:fd0e:ff2b:b180%7]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
- 15:44:04 +0000
-Date: Tue, 17 Nov 2026 16:43:42 +0100
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, tomm.merciai@gmail.com
-Subject: Re: [PATCH] drm: renesas: rz-du: Add suspend/resume support
-Message-ID: <avx2LlqTDpI7ZjRV@tom-desktop>
-References: <20261112-b4-tm-pm-du-v1-1-507474331137@bp.renesas.com>
- <CAMuHMdXQjm9rqmKn35G9-CqGSuMO9nirDw2GmFfF2PBfsCvH_Q@mail.gmail.com>
- <avxy_u864ZT7vsLx@tom-desktop>
- <CAMuHMdWLw4zYGCg5isy8Mdxfgub39CXbCNgFmNsv3XMj40U7dg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U3jLobrz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AC391F000C4;
+	Tue, 17 Nov 2026 15:45:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794930303;
+	bh=LD1nG13DDJvwSRgDgWdYj3ZDMv2tVel7Etfk2lB4uV4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=U3jLobrzjX4hepsYTUdMuQ5C2G7Q58YX2XTWtLICrHS0o1FyFybJL2u6jw39Y7+cl
+	 JdCjLvxpe1xD/LoTfqdBacN7kYD6rdb5Z087h04Q8nI3ZqDjnOWbP9aFftiYOeG/Gb
+	 En9LpmNurb0MyHUWKDVvckL7t9z+NSEqHV0DS8YDSOqmsz0VKp38U+OD02gUMdG82q
+	 UeeE5MGX2FyX48v1O/9j/cBWe/clXeayb7VqZiVEPuYkkaDXeAI3diJfM7bcSmNc7R
+	 V87ouWLekDLZaAvSB5HDCYcbFyBdnWZ64ZpvY5J8MIu7RWP+sl5qD3OQdsY/hXHPAM
+	 liVni5I2tysFw==
+Message-ID: <sashiko-outbox-219102@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 36/40] sched/deadline: Check the runtime of a task
+ whose parameters change
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
+Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
+In-Reply-To: <a7e0d6e42bb46c9304699dbfc63dd24efe842ead.1794922146.git.mathieu.desnoyers@efficios.com>
+References: <cover.1794922146.git.mathieu.desnoyers@efficios.com>
+ <a7e0d6e42bb46c9304699dbfc63dd24efe842ead.1794922146.git.mathieu.desnoyers@efficios.com>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAMuHMdWLw4zYGCg5isy8Mdxfgub39CXbCNgFmNsv3XMj40U7dg@mail.gmail.com>
-X-ClientProxiedBy: FR3P281CA0022.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1c::10) To OSOPR01MB295138.jpnprd01.prod.outlook.com
- (2603:1096:604:521::15)
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 15:45:02 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,135 +60,164 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OSOPR01MB295138:EE_|OSCPR01MB14437:EE_
-X-MS-Office365-Filtering-Correlation-Id: cbb5beab-e19a-4695-3035-08df44c19bf4
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|7416014|52116014|376014|1800799024|18002099003|22082099003|261009223027099003|38350700014|11063799006|260925021311599003|260925021911599003|56012099006|260925022911599003|10067099003|4143699003|261028144727099003|261026140227099003|261021135927099003|261022075727099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info:
-	gzF172emfqMYu7YaQjBnWH8c8ENqRdtr4GeLFjXpCu7iYkb4VOuCRhbSxhjcELu/HmXzGouW2ywM/M/ZPfkDXj5xa5vL4lLQSLkn0vxtwjNJdmtecjhQ3xETmGHemazpgicfGtWrb1jj9zEequUkQAj1nbQZwHeBAP7dy5ubPyvIqyMTFLts0yJOhvavAlLq4co9vjpJdECtBPllG/PHNrnBHM6b+aTqZO1EPKsLCpdP3pyedCCfFLXk12zWgOSByknKRckOwgW7p7qYMofPB20tXx/bHmHPN5nDM6EumJr0SO7AboRw5E+nqK5LQWuLiD4rWXy/bSwnaJH0/AQsAfFgtnEF6VkoFamh2CJsI/0y9U5DJNPzZnfQHlOV1Z9Cl7nbttJdz04x1nw7FShWjuQOsaO9iEHeOZ/xIG04r5IrVYa1+wzyuuMw0FLyo9N+pT4VCXNI2L6F2BuxSRD/G1O+oeJcfPGMpGfrxoR01xEVD0K0OA0hgVl/dAmrv0U1MqOIoV/+bzbQaGkoDz5dWZOrBRrYF1v2WiEgwRyU3vs6w+ZYkfK3+6kdAZ4A5WCgSpjPbjLiCA0OoSC/YfBI6ewjaf/MYeSo84qt8AQI2hHmv7gczeZ9NkfcU7Gm6Q2/Nlfiwlig0LJx9xL4gYXYhL4wXckoKbdLE7XlqDQQsOo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OSOPR01MB295138.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(52116014)(376014)(1800799024)(18002099003)(22082099003)(261009223027099003)(38350700014)(11063799006)(260925021311599003)(260925021911599003)(56012099006)(260925022911599003)(10067099003)(4143699003)(261028144727099003)(261026140227099003)(261021135927099003)(261022075727099003)(261022105027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UWFaLzVQOGFaNzVMYjhybkJXQU5EMnZIUTZVSVc4TXFDMVFkZ1RhQTR5eGtm?=
- =?utf-8?B?WkJVR3dhcEFuQjRZUXUwU0Y4SUVjTHVLeW5KREptK2E5TWdValpTRU9ESmV5?=
- =?utf-8?B?SDZDYWdvZjU0cW1GR1pJaG1KeHdON1A4ZWNjcURyeWtKM0JlMThsUHd1VFdJ?=
- =?utf-8?B?YmcxLzF6dE14N0ZmUFh1bWRxWWJDRFF5L3A1MS9CMTR1b2RYWXVmMGo5Qm5L?=
- =?utf-8?B?cGVISklXMmZzdWtlaWRvYmt6T2szejZqYmNHbUtYTndEWHFHR2tzMzUydHlj?=
- =?utf-8?B?M0ZteTJ4THNZS0V5MHU4SVFpSUVraHV0L0pVRnR5WUo3aVpxalFMZWp2cjRh?=
- =?utf-8?B?d0N6RnpaZE55VS9KNGNQUXhDMCs5VUpsOEhRSThwRFFkbFlBUWVNUXNkdTJu?=
- =?utf-8?B?aWZxdm1hbzIyUHM2WUl6cUVNdmxvTFJ0TDBMc1dhelZQSmdvRFV6Wm1QOUhR?=
- =?utf-8?B?aU5FV1NPNHJBTEMrWVZSYy9pMUlJdWJJQ1ZzKzZlZHV3NjBnbjhwekQyOW9u?=
- =?utf-8?B?emxwUnd5S09MM09BSFNBdktlc0VGeWc1TXRtcS81RHZyYUQwOU1BajlrU1ov?=
- =?utf-8?B?dVdreWUwWWY2MERUR0J1T2lrSWYrb2xZT0prZmRNWC85QjUxZWczV3pDdCtv?=
- =?utf-8?B?RWNGUFpLdVRpUzNrSVllcmMwN2k0ZXBCWWR4TC8xdWh4STFCTnlKTGVUZXJ5?=
- =?utf-8?B?Z1F6TGRQZ3NSQjE0NEt4VkI3NUhpWWUrQ05pV3pNUklMLzdvSXdUWkJvSDhS?=
- =?utf-8?B?TzFleHhsS29ESlc4VytmOXdBdG9UcENITG4zeVJ4aUQ0TG9mUlFCVEY0T3RG?=
- =?utf-8?B?UkhyV1FGNUFkNzhsV3d1ZGNhSm9NaEtjWjRJNzdGQytuSzRHNU85akZQSVcw?=
- =?utf-8?B?UUJZNUFFVlJXTGFDSldYelBFRVBkaThwMFZTdWZzNDdXdjZFWkd0bEVTMG5i?=
- =?utf-8?B?U01rdWZZYkczMkI1czZPL3hKM2cwS0I3WmU1QUxRQ0xzc1dkWVBCNVU5elZ5?=
- =?utf-8?B?N1pHaWhjQjJZR1c5OEtlZ004ZGRjY1RZZFRwb0hVWHB1U0V4bWphQ2ZUTHpW?=
- =?utf-8?B?Tk9XSE9za3ZWWHdXQUZETWh1dDZQczZmdC8zNEVPcUIrZXZOT01hbHZOcDR4?=
- =?utf-8?B?ZCtUQ1BVVktIMGZGVWxSOGxvdmtjOU9KQnc4RldRZEc1cEFiV0NFRE1OZFht?=
- =?utf-8?B?WnFJS0JXL1duTTJuZXlEVG1RTzA1TWppT0hrOVl3TCtqL0hsd2JrMzlkbWF5?=
- =?utf-8?B?STJ3RUdHdzUzWmd2STUzNEt0OEVjOWVFMXVYQUdWSzZteGV5UGZlTUd5RFYv?=
- =?utf-8?B?dzRkdnU5VTZLQ3R2eDIzcGtqUGtqempMM2JpVnBWVVovamtNREZsbUJtVkNw?=
- =?utf-8?B?YkJPY0lnbThicWcwNjdQSkxZQkZlTy9NQ3RJNk9qVUFQOU12QVQrTWJvbFox?=
- =?utf-8?B?OXlSR0QxL1VCWElDK093MzBHdHhLelJuYmo2ZkJzSVVTd1A1V1JJdVBiOWZZ?=
- =?utf-8?B?L2dkcjRKTWhYWm1LSk5ZTHRZdkxkYUhob2lsbVVMQ29oWHNra1Bnb1hNdDV6?=
- =?utf-8?B?TmV1UE1CMzZHTVZPZHhOU0kzeHllSW14Q3Q3NGFHQ3VPMHRaQkNyM1IxSzVJ?=
- =?utf-8?B?bTVmTEMzNnFBem15M0JKSTNOYkFDU3ovU21Vci9VQzJtcUMvMndCL0NFU3A1?=
- =?utf-8?B?c3lsK0hGb1NNOXhaMXZIWFM0L2FyNE90bWFCenRuY2NuZ0U5aXBaZVpHYlNR?=
- =?utf-8?B?Nk9ScDIxTFhseEswYlhCRklwcFliYUV3RG5IKzJkUTlmd1k1MWVQaWZZS09X?=
- =?utf-8?B?TXBEdzE0TVorUGxGN0dNazE3WkxJbllBK1VDVHBtNkVvcTJ3NWNMRWwxdXgy?=
- =?utf-8?B?bDcyNGhWM2h1a1VucTEzMElvQjRJSExGVXZoRy9WTXhpUjliWDhIdG81MkU1?=
- =?utf-8?B?WVQyZ0VsYzFiWmNubW1ZRTZtOWEyZUMwWkY2SVBndjZJbnV3VnVJV3NsNmZF?=
- =?utf-8?B?ZTkvUERHNkZ0aDRBNGJGMEdCTjRhVGpQOG1QeWJBOUQ1SkZYZlZpR000b0p4?=
- =?utf-8?B?L2UxMWlLbUt6VWhLSkVJYTZQT1RmQ0VVbW1WcXM1dmcvU0NPcnBEVDdVc2Ft?=
- =?utf-8?B?REZnRjA5bmdvSVcyTURXYXNzcmJSeFNjb1BGQit3M0toa2pSUU5oY04xbXF4?=
- =?utf-8?B?WHZYRjlkQk9hS3JIMENzVWlCMzJiYkYxVWRzNmhlWDd5RlpRWmVmM3V5RmdS?=
- =?utf-8?B?d09zcDVxaUd5ZWYzTWJVRnpoeURyR1BpMjZSSi9BaHJROGswd2o0N1hSVTc1?=
- =?utf-8?B?QVpHSDErZVNvZlZCQlZlSE5ianV4M1BaUUFqWUVJR1NvVEtUM1pFcktjcmZy?=
- =?utf-8?Q?Qv+W7fvQ8NJz/UW1MuHv/fnHlMXbFchYNDem2?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cbb5beab-e19a-4695-3035-08df44c19bf4
-X-MS-Exchange-CrossTenant-AuthSource: OSOPR01MB295138.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 15:44:04.6437
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VZ6c1uzm+elMqeOCsTeAjr1TO1ZCMryIUrYHj0/ayEBOC1XXWZhBQRI+an7E5whh+Br5A8J2A1n3OK3y6d+83i/HVpp6qk48+7CFoCyB8OhWdS8Q9l/ZK7JhSK8r6eeO
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCPR01MB14437
 
-Hi Geert,
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [Medium] sched/deadline: boosted task with !dl_donor_refill runs on
+  old runtime
+- [Medium] sched/deadline: dl_new_params deferred past dl_deboost()
+  breaks PI re-boost
+- [Medium] sched/deadline: update_dl_entity() on dl_new_params mixes old
+  and new params
+--
 
-On Tue, Nov 17, 2026 at 04:37:34PM +0100, Geert Uytterhoeven wrote:
-> Hi Tommaso,
-> 
-> On Tue, 17 Nov 2026 at 16:30, Tommaso Merciai
-> <tommaso.merciai.xr@bp.renesas.com> wrote:
-> > On Tue, Nov 17, 2026 at 04:12:43PM +0100, Geert Uytterhoeven wrote:
-> > > On Thu, 12 Nov 2026 at 09:31, Tommaso Merciai
-> > > <tommaso.merciai.xr@bp.renesas.com> wrote:
-> > > > Add suspend/resume support to the RZ/G2L DU driver.
-> > > >
-> > > > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> > >
-> > > Thanks for your patch!
-> > >
-> > > > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> > > > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> > > > @@ -140,6 +140,27 @@ static const struct drm_driver rzg2l_du_driver = {
-> > > >         .minor                  = 0,
-> > > >  };
-> > > >
-> > > > +/* -----------------------------------------------------------------------------
-> > > > + * Power management
-> > > > + */
-> > > > +
-> > > > +static int rzg2l_du_pm_suspend(struct device *dev)
-> > > > +{
-> > > > +       struct rzg2l_du_device *rcdu = dev_get_drvdata(dev);
-> > > > +
-> > > > +       return drm_mode_config_helper_suspend(&rcdu->ddev);
-> > >
-> > > error: passing argument 1 of ‘drm_mode_config_helper_suspend’ from
-> > > incompatible pointer type [-Werror=incompatible-pointer-types]
-> > >
-> > > The "&" should be dropped...
-> >
-> > Sorry are you apply this patch on top of some other series?
-> > On top of next-20261116 I'm not seeing this issue.
-> >
-> > Maybe I'm missing somenthing?
-> 
-> Ah, I have your "[PATCH v9 04/10] drm: renesas: rz-du: Reference the
-> DRM device by pointer" applied, too...
-> https://patch.msgid.link/d5a97ddb346c5cb959b39fda45277afb1fa2ae16.1792770965.git.tommaso.merciai.xr@bp.renesas.com
+commit 707d1303811b0425863d63e123b53368955b72a6
+Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 
-Ah, thanks for sharing.
-Just FYI I posted v10 [1] this apply on top of this patch.
+sched/deadline: Check the runtime of a task whose parameters change
 
-[1] https://lore.kernel.org/all/cover.1794502191.git.tommaso.merciai.xr@bp.renesas.com/
+This commit adds a dl_new_params flag to struct sched_dl_entity so that
+when sched_setattr() modifies a deadline task's runtime, deadline, or
+period, the next non-boosted enqueue calls update_dl_entity() to check the
+remaining runtime against the new parameters.
 
-Kind regards,
-Tommaso
+> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+> index b650c37ae5615..f1d259df8f2a0 100644
+> --- a/kernel/sched/deadline.c
+> +++ b/kernel/sched/deadline.c
+> @@ -2785,7 +2785,16 @@ static void __dequeue_dl_entity(struct sched_dl_en=
+tity *dl_se)
+>  static void
+>  enqueue_dl_entity(struct sched_dl_entity *dl_se, int flags)
+>  {
+> +	bool new_params =3D dl_se->dl_new_params;
+> +
+>  	WARN_ON_ONCE(on_dl_rq(dl_se));
+> +	/*
+> +	 * A boosted task runs on the parameters of its donor. Keep the mark
+> +	 * until an enqueue checks the runtime against its own: the one at
+> +	 * the deboost, or at a wakeup.
+> +	 */
+> +	if (!is_dl_boosted(dl_se))
+> +		dl_se->dl_new_params =3D 0;
 
-> 
-> Gr{oetje,eeting}s,
-> 
->                         Geert
-> 
-> -- 
-> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-> 
-> In personal conversations with technical people, I call myself a hacker. But
-> when I'm talking to journalists I just say "programmer" or something like that.
->                                 -- Linus Torvalds
+[Severity: Medium]
+Can a boosted SCHED_DEADLINE task with !dl_se->dl_donor_refill keep
+running on its old reservation's remaining runtime after sched_setattr()
+shrinks its parameters?
+
+When a SCHED_DEADLINE task with dl_se->runtime > 0 is boosted by an
+earlier-deadline waiter, replenish_dl_entity() does not refill it from the
+donor and leaves dl_se->dl_donor_refill at 0:
+
+kernel/sched/deadline.c:replenish_dl_entity() {
+    ...
+	if (dl_se->runtime <=3D 0)
+		dl_note_donor_refill(dl_se);
+
+	while (dl_se->runtime <=3D 0) {
+		dl_se->deadline +=3D period;
+		dl_se->runtime +=3D runtime;
+	}
+    ...
+}
+
+Because the task is still consuming its own remaining runtime rather than
+the donor's, deferring dl_new_params whenever is_dl_boosted(dl_se) is true
+lets the task consume the old larger runtime while holding the lock, even
+though sched_dl_overflow() has already released the old bandwidth in the
+root domain for other deadline tasks to use.
+
+> @@ -2834,12 +2843,13 @@ enqueue_dl_entity(struct sched_dl_entity *dl_se, =
+int flags)
+>  		update_dl_entity(dl_se);
+>  	} else if (flags & ENQUEUE_REPLENISH) {
+>  		replenish_dl_entity(dl_se);
+> -	} else if ((flags & ENQUEUE_CLASS) && !is_dl_boosted(dl_se)) {
+> +	} else if (((flags & ENQUEUE_CLASS) || new_params) &&
+> +		   !is_dl_boosted(dl_se)) {
+>  		/*
+> -		 * The task enters the class runnable. It may come back before
+> -		 * its deadline, with the runtime left from older parameters.
+> -		 * Check that runtime against the new parameters, as a wakeup
+> -		 * does.
+> +		 * The task enters the class, or its parameters change, while
+> +		 * it is runnable. It may have runtime left from older
+> +		 * parameters. Check that runtime against the new parameters,
+> +		 * as a wakeup does.
+>  		 */
+>  		update_dl_entity(dl_se);
+>  	} else if ((flags & ENQUEUE_MOVE) &&
+
+[Severity: Medium]
+When a boosted task with dl_new_params set and !dl_se->dl_donor_refill is
+deboosted in rt_mutex_setprio(), does deferring update_dl_entity() until
+enqueue_dl_entity() miss the post-deboost re-boost check?
+
+In rt_mutex_setprio(), dl_deboost(&p->dl) only updates p->dl.deadline when
+dl_se->dl_donor_refill is set, and immediately checks whether the task
+must be boosted again by the remaining top waiter:
+
+kernel/sched/core.c:rt_mutex_setprio() {
+    ...
+				dl_deboost(&p->dl);
+				/*
+				 * dl_deboost() can start a new period. Its
+				 * deadline can then be after the top waiter's.
+				 * Boost the task again then.
+				 */
+				if (pi_task && dl_prio(pi_task->prio) &&
+				    dl_entity_preempt(&pi_task->dl, &p->dl)) {
+					p->dl.pi_se =3D pi_task->dl.pi_se;
+					scope->flags |=3D ENQUEUE_REPLENISH;
+				}
+    ...
+}
+
+Because update_dl_entity() only runs later in sched_change_end() ->
+enqueue_task_dl() -> enqueue_dl_entity(), dl_entity_preempt() compares
+pi_task->dl against p->dl.deadline before update_dl_entity() advances
+p->dl.deadline to a new period, leaving p unboosted with a deadline later
+than its top waiter.  If p is blocked on another rt_mutex (!scope->queued)
+when deboosted, enqueue_dl_entity() does not run at all, so the priority
+inheritance chain walk propagates p's stale deadline.
+
+[Severity: Medium]
+Can calling update_dl_entity() on dl_new_params mix the previous period's
+dynamic state with the newly written static parameters when switching
+between constrained and implicit deadlines?
+
+If a running task started its current period with a constrained deadline
+(dl_deadline < dl_period) and calls sched_setattr() to switch to an
+implicit deadline (dl_deadline =3D=3D dl_period), __setparam_dl() overwrites
+dl_se->dl_deadline and dl_se->dl_period before enqueue_dl_entity() runs.
+When dl_entity_overflow() then triggers in update_dl_entity(),
+!dl_is_implicit(dl_se) is now false:
+
+kernel/sched/deadline.c:update_dl_entity() {
+    ...
+		if (unlikely((!dl_is_implicit(dl_se) ||
+			      (dl_se->dl_defer && dl_se->dl_defer_running)) &&
+			     !dl_time_before(dl_se->deadline, rq_clock(rq)) &&
+			     !is_dl_boosted(dl_se))) {
+			update_dl_revised_wakeup(dl_se, rq);
+			return;
+		}
+
+		dl_se->dl_defer_running =3D 0;
+		replenish_dl_new_period(dl_se, rq);
+    ...
+}
+
+Instead of capping the runtime via update_dl_revised_wakeup(),
+update_dl_entity() calls replenish_dl_new_period() and grants a full fresh
+runtime before the constrained reservation's period or 0-lag time has
+elapsed.  Conversely, if a runnable task whose old deadline has already
+passed switches to a constrained deadline, dl_check_constrained_dl() at
+the top of enqueue_dl_entity() computes dl_next_period() from the old
+dl_se->deadline and the new dl_deadline/dl_period, throttles the task, and
+returns before update_dl_entity() can start a new period.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794922146.gi=
+t.mathieu.desnoyers@efficios.com?part=3D36
