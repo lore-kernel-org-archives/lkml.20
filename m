@@ -1,81 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.213
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794908742;
-	b=3roEDiwktp7go51m4nB3eD86mMTGDDGoQ/1VGPs5e7b5PhCXxWAKAAW9clqBXgw46dRo
-	 J7bjjI/M6ileC4553qISBaqRhu1g28YfeawVOFihyzN16AM1unBza7iiqi+t/HXYgO6Vr
-	 OL9k3IoQfU0iXzMHzSCNUwWrr6SwBU1Qhd0LShhhN89X0XnOVrT+gb7NeXlqpnJSJRIAM
-	 fWod4D0Qa5wu91WjCsM+XiSXsQmL5DnYthrHJoRb1Rsnzgm5T20kwV67c7/Mu6Ju/Dkko
-	 2iWB4M+5kqS+WmV2H7SHm2dwRWSdPdUUBcrsBX9vZpyIYpLKa0yOHwYoB/bYAwcL+5w==
+	t=1794908760;
+	b=HftyB8r3weuwl+EgSQ/hK6TC4i8NtVHZK/k+OzZSwBQlYW7dEmQO4q4EzeD8hNZdgcfV
+	 pBXRPg5sVy6JZot7MqaRT3JhiuUTYbqHC1KXevKsIHzMf/bqagHVm2Jg39pyDjcr0aUYJ
+	 soWb+/G5jFQA0cg23EU229jC091e7I/j2sGz8qepdwDvPkSl5Fjk58V9drsCr0Pptulef
+	 Ga/QppCyf9OHmIb6OeKqLup0KXP3PDfsv45h6tbAg17EtwTlHZOwHiaGeL7U+PltUUytM
+	 OlSDNymE7JcDGeV54mp35x2ejFeUJtfy0zAtXRTtvocN/W3fo4BVfqUYyo513T46yew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908742;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:Organization:MIME-Version:
-	 Content-Type:Content-ID;
-	bh=XVOLc8lsb6qY90foRQo1hmcRdepqZtalNBhvqMfPf7o=;
-	b=277cVmNUzmKl6EFchN2yb08A5HdIoicpvbE9H96B8wP+c8nX5WYDiuv256auVL2wwalp
-	 rL9P113SRWuRkrat3gTCoSJk5jDbCM5Mql2BivjsMXbG3zt5mzdUHVCFcKGC7bjqHXF6K
-	 PYtdHKdbgitOXzdiZAnlBYbY161BuIdieGau0COf4u1VuEs/bp3bGQHTiJkMgzdCuRXuh
-	 cDLOGZHn+oVOxA9gNDlPlFcHM9HqdWtOz3zW9gwktaYV4w7e2gKYytN4VHM/dgJ3obF0s
-	 RNXj6V9HebHTH4PvwpHdHc/uqZAhYy0AqhnunMIaVDhBu9qXOeWOT4xp0AJ07jbLfvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908760;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=AQAqYl2tn6009DL8HqBJOMfPKmQERaYIFx8LZttnag8=;
+	b=xJ8uUul2YZ1t8M3tamvHAA1pGT+2gp1yxNHXiZBWIoGcEB7Fg0rQwU09sjkGWS2N+cCf
+	 IQy0D5QoTnw1CtFWkzF10KwPdTZeuCT2MqhURQVzzpPFS9bKS/KIgOdWwbe7Kla5jrYFj
+	 vU7rdKcBPD5Dinh9xiJWLHZPQ6uq3sbfJkrCfGdQStB5HlhV77x/7Byb6xwZGxvi1eGNC
+	 evJTPqis7bnqfsaEfY+ks39LdMNM6kyO3bN5r5yPXx4hzYmOjZfbHLrLcZa36+Sz7acut
+	 0ZNnYNFPBJbGVKp/pmX9t5xcnUbtTJbf8WwCyU23Hx/B+ouIlImytGKy33atVhwsliQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BL4Ax1IY;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=sK++JJdW;
+	arc=none smtp.remote-ip=95.215.58.213
+Received: from mta1.migadu.com (out-213.mta1.migadu.com [95.215.58.213])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3836606A330;
-	Tue, 17 Nov 2026 09:45:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3836606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC4AF606A32F
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:45:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC4AF606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BL4Ax1IY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794908742; x=1826444742;
-  h=date:from:to:cc:subject:in-reply-to:message-id:
-   references:mime-version:content-id;
-  bh=jXY1nxpVykfYhsV5vIMVxF0y5E9OhVFRg6ErvosjZCE=;
-  b=BL4Ax1IYZhShmDOrsfioBUhQ65SHBVQKOqLW9ajzLKdluqAhHzyrVQrb
-   mEpRM0QydH8TaalMpEwnHDzxSzJTbZ6ypKKbkg2NCAmAOF9W4LiZlAeM9
-   36UhaASA67VQ2O4ZfOC294IZ3CoE+9ud9Rp+IoAPqjSxu1o++h+iWGxF9
-   h+4h4bmoLBTNu656NnikHdjBjuuOhIg5hMgkbEBriBIGHoS5NvFjPQizi
-   e7jxU8i+z/hkU9Vcy55q3w2EWTXQExk1SRXqujb1khtsVpvqK5OClo450
-   yJePHXJCJzH21bWmkcuz8sNS4sqUs8hizJbZRSFuA3c/UFnfelbHnLJVy
-   A==;
-X-CSE-ConnectionGUID: I02DMf+DS1WcGq1R62p6pw==
-X-CSE-MsgGUID: WG7ZvXo/QLC0P+vKZzJvDA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3525623"
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3525623"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 01:45:41 -0800
-X-CSE-ConnectionGUID: 5jpc0Bh6SlGssZEjq6hxDw==
-X-CSE-MsgGUID: MMfgBkhiRYK7LwCUEdkpNw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="9926805"
-Received: from conormcd-mobl2.ger.corp.intel.com ([10.245.244.15])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 01:45:38 -0800
-Date: Tue, 17 Nov 2026 11:45:28 +0200 (EET)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: =?ISO-8859-15?Q?Germ=E1n_Poo-Caama=F1o?= <gpoo@igalia.com>
-cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
-    linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
-    Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-    Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
-    Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
-    =?ISO-8859-15?Q?Germ=E1n_Poo-Caama=F1o?= <gpoo@igalia.com>
-Subject: Re: [PATCH 0/3] ASoC: hdac_hda/soc-pcm: fix NULL ops.open() call
- and failed BE open cleanup
-In-Reply-To: <20261114024706.2659774-1-gpoo@igalia.com>
-Message-ID: <e98302a0-faf1-7912-47b6-f8d9c0637716@linux.intel.com>
-References: <20261114024706.2659774-1-gpoo@igalia.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=sK++JJdW
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=eNKitI6OumQU1ILYmuf2OVKQGpBdNX+qex8fxTVDt9Y=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794908758; v=1; x=1795513558;
+ b=sK++JJdWVLVl0CCpvK0ISou9FM6hepE/mJvPI1cJ0sZhOfrLeOEwH7mqYVDW1w4oevDhrxNe
+ E31HXe1kSDO5PtBNsO6aW1okDo/009j7UnzjMM6wT1D+u3+m0MUTtph+ZIFLDZuHLJToIbvgtzT
+ lDtVeq/ezpYzoBFYU9cmRV4I=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id dac5996b5fb42819;
+	Tue, 17 Nov 2026 09:45:57 +0000
+X-Mizu-Trace-ID: dac5996b5fb42819
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: bpf@vger.kernel.org,
+	ast@kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Shuah Khan <shuah@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Michal Luczaj <mhal@rbox.co>,
+	Sechang Lim <rhkrqnwk98@gmail.com>,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH bpf v1] selftests/bpf: Fix CO-RE relocation of anonymous unions for bpf-gcc
+Date: Tue, 17 Nov 2026 17:45:38 +0800
+Message-ID: <20261117094544.148437-1-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,38 +79,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1499736629-1794908640=:4809"
-Content-ID: <420ae183-b66b-139f-ee15-3fe906b8fb4d@linux.intel.com>
+Content-Transfer-Encoding: 8bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+bpf-gcc fails to load test_trace_iter_unix:
 
---8323329-1499736629-1794908640=:4809
-Content-Type: text/plain; CHARSET=ISO-8859-15
-Content-Transfer-Encoding: 8BIT
-Content-ID: <6ff3272f-569e-45cb-a07b-857b9f6b7ee1@linux.intel.com>
+  Error: #766/6 verifier_sockmap_mutate/test_trace_iter_unix
+  libbpf: elf: skipping section(3) .data (size 0)
+  libbpf: elf: skipping unrecognized data section(18) .comment
+  run_subtest:PASS:obj_open_mem 0 nsec
+  libbpf: prog 'test_trace_iter_unix': relo #0: insn #0 (LDX/ST/STX) accesses field incorrectly. ...
+  libbpf: prog 'test_trace_iter_unix': BPF program load failed: -EINVAL
+  libbpf: prog 'test_trace_iter_unix': failed to load: -EINVAL
+  libbpf: failed to load object 'verifier_sockmap_mutate'
+  run_subtest:PASS:unexpected_load_success 0 nsec
+  validate_msgs:FAIL:1014 expect_msg
+  VERIFIER LOG:
+  =============
+  0: R1=ctx() R10=fp0
+  ;  @ verifier_sockmap_mutate.c:124
+  0: <invalid CO-RE relocation>
+  failed to resolve CO-RE relocation <byte_off> [4] struct bpf_iter__unix (0:0 @ offset 0)
+  processed 1 insns (limit 1000000) max_states_per_insn 0 total_states 0 peak_states 0 mark_read 0
+  =============
+  EXPECTED   SUBSTR: 'cannot update sockmap in this context'
 
-Hello,
+GCC only applies preserve_access_index to types that carry the attribute
+themselves. The anonymous union holding the sock pointer doesn't, so the
+CO-RE access stops at the union ("0:0") instead of reaching the pointer
+("0:0:0"), and libbpf rejects the relocation. Mark the unions too.
 
-On Fri, 13 Nov 2026, Germán Poo-Caamaño wrote:
+Fixes: e16c83fa764f ("selftests/bpf: Add negative test for sockmap update from non-sockmap iter")
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+---
+ tools/testing/selftests/bpf/progs/verifier_sockmap_mutate.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-> From: Germán Poo-Caamaño <gpoo@igalia.com>
-> 
-> On a ThinkPad X1 Carbon Gen 10 (ALC287, SOF with skl_hda_dsp_generic),
-> the codec sometimes comes up without pin configuration and the
-> analog PCM has no playback stream. Opening the SOF analog playback
-> PCM then calls a NULL ops.open() in hdac_hda_dai_open(). The task
-> dies holding the card's DPCM mutex and system suspend can no longer
-> freeze tasks.
+diff --git a/tools/testing/selftests/bpf/progs/verifier_sockmap_mutate.c b/tools/testing/selftests/bpf/progs/verifier_sockmap_mutate.c
+index 1516fe1524bb..68b1a5323470 100644
+--- a/tools/testing/selftests/bpf/progs/verifier_sockmap_mutate.c
++++ b/tools/testing/selftests/bpf/progs/verifier_sockmap_mutate.c
+@@ -16,13 +16,13 @@ struct sock {
+ struct bpf_iter__sockmap {
+ 	union {
+ 		struct sock *sk;
+-	};
++	} __attribute__((preserve_access_index));
+ } __attribute__((preserve_access_index));
+ 
+ struct bpf_iter__unix {
+ 	union {
+ 		struct sock *unix_sk;
+-	};
++	} __attribute__((preserve_access_index));
+ } __attribute__((preserve_access_index));
+ 
+ struct {
+-- 
+2.43.0
 
-thank you, for the series:
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-
-Covering the history with commit 06f07e236537 ("ASoC: hdac_hda: fix
-deadlock after PCM open error") and commit 00a0b46c99e2 ("ASoC: soc-dai: 
-add mark for snd_soc_dai_startup/shutdown()") in third patch is very 
-helpful. And looks good.
-
-Br, Kai
-
---8323329-1499736629-1794908640=:4809--
