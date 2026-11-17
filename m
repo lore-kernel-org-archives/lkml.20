@@ -1,86 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.156.173
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794904667;
-	b=ro+VDGx2V4FYZw2l/5xM/ILPGc4BRDPo4bHHVurD+l1fuQsgP+B1f2skVpVjA4mSUxMe
-	 RY2M1opz681L+nC6v2UUsABIh7oeh0XPlP/7K3alkhCMcebHfN41SRdt0fSk02ubIK2m+
-	 fLuLbyqx1nJ/gJdIz4UHDQjHQVlDSIAAcIjG/XSilO2ydaHhCytKLYNdUWdSlmXUsDw5X
-	 g0qYkLVMAOE8JK/4FC9r3mJIk2fs9nQC3FxilgKaBToqSya1NA/TIwk0+2P3Ce0OMti1b
-	 nW5dj5hLTOs9FQLZGLovjz/UoYUoS91UBpHxDUHFlQgIMbex2Y2DwMQ+rPTGzcJCWFQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794904667;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version;
-	bh=0NyQ3KOq2IPC0mUMVnsSxP/V4cdHHSPZ09DQRrw1hbA=;
-	b=VIn0BDjEi5PS0XB7Rb8qUW+X97fXU1oZnwP/FbAI1Z/bH37d12XMlcZ3GX1TqdZIpsQO
-	 N8Ec9uRdCZarRWx0hz4a+yDz7qGpaQV9xVblS+K8E6cdfdODCLSvLXW93uUMaoXzUSf6M
-	 vkNJR/eYGPUq40heXu71OK4GnR6leLEez+9bvk7A73KO8LwaGBmuJ9HTt5LkLqb6ShTVE
-	 Oc95ujq1jTZILbygJQgHT7x1znyHoY8qhx71kwGmLw5WXYdSHayB/UPrE5ZE1uHWomJWX
-	 /zqW6dgnSqnYKigSH2rbG/STFID+RG5QUB25f/gSIqzvJ9zYA9t4aEv9GAsOpmiHgUA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=marvell.com;
-	spf=pass smtp.mailfrom=marvell.com;
-	dkim=pass header.d=marvell.com header.i=@marvell.com header.a=rsa-sha256 header.s=pfpt0220 header.b="SGLwG/ed";
-	arc=none smtp.remote-ip=67.231.156.173
-Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794904680;
+	b=ROeI4s1qKE+TLUj+dSdam1hILatvRDzW9kWAoQDS+R/a697kuRJSiHGEfk7DyE9wFZNr
+	 /x9LXGIias1F9HuQMBTT6Gbo6K5Do3JntDCAYAtu+IulSbk2IV8fjqSf0+97YElsnooyX
+	 dhKSOEqRqpbgs+f52Eg+iU+Kz5LupGENqleJpv0jCJ2r15DVBGMzF+b8F0rZnkLemJ2Vq
+	 2sY6f6xJlmtYZIfuGfsIg4Fnny+hV0QQvYjaCg82G8KzuouZ5zBUniDqAW1tWaUSB8O12
+	 +jXEjRy7W7hEtKBQvds++ysX5oScVDhTqkMyg7qRzj48dUJxG1Ydcvb5WVGHUd9kYVQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794904680;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=c3VIxYS06Q6WVtsY3UAWo6bC5E0VPya2kMhXSYyIKVA=;
+	b=0tvVsUuJBVrFUiR26H7xGIDu6G+mzfX1NemqfylTcvgKPwW5ScvxsLJhXX7pGT6MQtTT
+	 jrpXcyhgctb8SP/58FZ0wDNG4JYaEYGjOTaYvVvVb8kpU2tBCQsUSOGUNWakA8rdHfNF1
+	 BAV6Pyk0zbVhcrHBlkhxFjwtqzn1bF97kF/GXLZXAUxR8Rc5QEFdxCTj6bQyqhZmQ/R0x
+	 pTRGTUGiTY7thSJkXPd0aIAbKuYlMjYSIaK8HJC3h1GrlGH93C1QLvNanmyOLQALNmqjR
+	 ZKbfIuXMV0wo/f1Bmqciy2i/krfiUBtLfppnyu2/aOsEMXbdG4HvNrK8IJIL/CmVBnA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Zd8uIDsx;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.53
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012053.outbound.protection.outlook.com [52.101.66.53])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67C12606A896;
-	Tue, 17 Nov 2026 08:37:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67C12606A896
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2872606A893;
+	Tue, 17 Nov 2026 08:37:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2872606A893
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=marvell.com header.i=@marvell.com header.a=rsa-sha256 header.s=pfpt0220 header.b=SGLwG/ed
-Received: from pps.filterd (m0045851.ppops.net [127.0.0.1])
-	by mx0b-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH2cfUl379231;
-	Tue, 17 Nov 2026 00:37:23 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pfpt0220; bh=0NyQ3KOq2IPC0mUMVnsSxP/V4
-	cdHHSPZ09DQRrw1hbA=; b=SGLwG/ed2nRy0FHgJD9B3d0RPtj5u2eGBKEP1ayhG
-	XCYKKUJv+LvL10FmXkLM77lTRGj43u90FMuhBHGRHJ8UC7jrhLBGxOlPVaQC8Bsz
-	EzjNOwewTR28BVUTPXHOgVF0PW3r5giFBmh775izlWNwQcK8A9ikp3l89hVZfASH
-	xGBTjGz7itK9wuId6CUy0D9LOmMkQZYAiDBsEiS/dM3orPCMlG3XVMuSb4tX0Lnf
-	aKHNWAiWegCf2TNyLvC8SzpMRF+U3I4obVGRQw9YVvdJT0hgSSVsnuTjZ9/gpk+7
-	qEeSiSF83Yh72XaAnb8lPnylaVsdSxtGJ0ZVl4jkf1QnQ==
-Received: from dc5-exch05.marvell.com ([199.233.59.128])
-	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4hxr1k9nyj-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 17 Nov 2026 00:37:23 -0800 (PST)
-Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
- DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Tue, 17 Nov 2026 00:37:11 -0800
-Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
- (10.69.176.209) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Tue, 17 Nov 2026 00:37:11 -0800
-Received: from rkannoth-OptiPlex-7090 (unknown [10.28.36.165])
-	by maili.marvell.com (Postfix) with SMTP id CC03F3F7072;
-	Tue, 17 Nov 2026 00:37:17 -0800 (PST)
-Date: Tue, 17 Nov 2026 14:07:16 +0530
-From: Ratheesh Kannoth <rkannoth@marvell.com>
-To: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-CC: Sunil Goutham <sgoutham@marvell.com>,
-        Geetha sowjanya
-	<gakula@marvell.com>,
-        Subbaraya Sundeep <sbhatta@marvell.com>,
-        Bharat Bhushan
-	<bbhushan2@marvell.com>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S.
- Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@kernel.org>,
-        "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-        <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net] octeontx2-pf: Fix potential use-after-free in
- representor teardown
-Message-ID: <avwSPI9boSsUEtCr@rkannoth-OptiPlex-7090>
-References: <20261116-c29ba55625-net-otx2-representor@mail.sdu.edu.cn>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Zd8uIDsx
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fFLaFVrrSjtvrfCssYJ6KJKXQrhuMH2ICN9Pu3hgekhZCgZi7ZL2cKwx8GiXZHgf2FzNbU78j4ht7hHOXdYpvbOROeh/qWfmYkoyP2ntA4FnQqyWaJ3gITgPPT/pYIUWCRPWExGu7H+ZQOkogrSWfOu0Y3NFOOgvEGfVu8FpA5GzF6ZFubCOhMq6NT8XOs+gp185dT3Dt3vxse70BY9o0UnnZGaVt+qeYTA0G3YE7ro32kur1wph9+xkwk6AoWi8bYCO0BbZgIxx0+OJrCzbO1OFwdGpt9m+FidCsA0jD6CHfPG+ZQc9B58Y0GGRPRFOwRZNl9JHEEKcZ0pp9nApkg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=c3VIxYS06Q6WVtsY3UAWo6bC5E0VPya2kMhXSYyIKVA=;
+ b=wLuCNb68LebDHaHX/fEq8i7MeE4YcYkBtwUS949/yKe7egGbqqWuI2tGXIXBPj1mWh2fHDjA9zG9V0klMxmyp5VRqUxDGAvR6BpcUrLCk3YBlX0lNQYAS2P9hrJm9pyS90zJYy1wdvX2EqoVakdRuAosLNZPMcetZ5p4n1dhTUqiPePz5ta5N12t7NJT9QhUkhoQ7orR2Oe7m1XHiNbX7/tmgsooewg2PbvH66NJ5UlnxsJ98OCG4V3V5cIbPaYFwMJP4Fu/25zq8E/hrScJHnPJthDrGIYV08gKdUOyTy3nffBLo4pUD3c8Gn83rjfmAC88K+zQTBEbnPgms8gU5w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=c3VIxYS06Q6WVtsY3UAWo6bC5E0VPya2kMhXSYyIKVA=;
+ b=Zd8uIDsx6j99EYFw6qSwQhjl+JEmYp1GknobLZERO0PKUkfCu9soT1n+/SQCgUgJMBau4QwoAMlwaw5pwyzrNeaYGSM5jhtJc8E79Rzl+hl2YDfU+0dNrKxvhzTwFGSrknx0fRDIMYQBzt9fke6pSAXDB87cKsxN5OgtNZe44Te50PcqmUICUB0J7Mohksr6fbEp8Tuv9B5LQFJ/j9LB1Ir8Gm65iaofwCPRxV52YqZNPab/SnvOvgeA2OGuTrQeIB78I6MTUlmpBNyXp4ZhBdsPv6hs0cdmS9nuAu3pQDIor0Vx25q6OKhLFF7tnx++OmDlV4zLLd11gOEg0OvSaw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from VI2PR04MB11276.eurprd04.prod.outlook.com (2603:10a6:800:296::7)
+ by PA4PR04MB7613.eurprd04.prod.outlook.com (2603:10a6:102:eb::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
+ 2026 08:37:54 +0000
+Received: from VI2PR04MB11276.eurprd04.prod.outlook.com
+ ([fe80::60d7:a8e5:eb88:9be]) by VI2PR04MB11276.eurprd04.prod.outlook.com
+ ([fe80::60d7:a8e5:eb88:9be%6]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
+ 08:37:53 +0000
+From: "Sherry Sun (OSS)" <sherry.sun@oss.nxp.com>
+Date: Tue, 17 Nov 2026 16:40:32 +0800
+Subject: [PATCH] tty: serial: fsl_lpuart: fix the RTSWATER field mask
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261117-lpuart_rtswater-v1-1-c2a95ae804f5@nxp.com>
+X-B4-Tracking: v=1; b=H4sIAP8S/GoC/x3M2wpAQBRG4VfRvjZlKKdXkTTGj11Ce8ah5N1NL
+ r+LtR5yEIajOnpIcLLjbQ3QcUR2NusExUMwpUmaa60LteyHEd+Jd5fxEAVjgaws+r6sKFS7YOT
+ 7Pzbt+34fFwV1YQAAAA==
+X-Change-ID: 20261117-lpuart_rtswater-eacee387bb89
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ imx@lists.linux.dev, sherry.sun@nxp.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794904847; l=2684;
+ i=sherry.sun@nxp.com; s=20260723; h=from:subject:message-id;
+ bh=M8EIQJomX+x/ECvkGNK5bCVYocZT+OGwXmzn2JIkoUc=;
+ b=FR1ljmH7QdeI+A/AoWJnsm/eHH2mHDmXo4vtcFa4TgEb73KOhQ0rIUUOkRYwXwKP4tqV8ORrT
+ qk1x6zyzkc+Cl+V1kLDUZxK5zWndrS0dFFkw3kPFGkme8kc7MM9dAge
+X-Developer-Key: i=sherry.sun@nxp.com; a=ed25519;
+ pk=YnYnIFJ2l+5v951x9shBVfHhminNi+3LTfFa3PxSdnI=
+X-ClientProxiedBy: SG2P153CA0049.APCP153.PROD.OUTLOOK.COM (2603:1096:4:c6::18)
+ To VI2PR04MB11276.eurprd04.prod.outlook.com (2603:10a6:800:296::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,62 +106,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261116-c29ba55625-net-otx2-representor@mail.sdu.edu.cn>
-X-Proofpoint-GUID: phVpIgttI2A_VWfw3tIMwlMORsTXlcz1
-X-Proofpoint-ORIG-GUID: phVpIgttI2A_VWfw3tIMwlMORsTXlcz1
-X-Authority-Analysis: v=2.4 cv=DKAacCNb c=1 sm=1 tr=0 ts=6afc1243 cx=c_pps
- a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=l0iWHRpgs5sLHlkKQ1IR:22 a=QXcCYyLzdtTjyudCfB6f:22 a=M5GUcnROAAAA:8
- a=XehZxDDCrJQRP7pbnkQA:9 a=CjuIK1q_8ugA:10 a=OBjm3rFKGHvpk9ecZwUJ:22
- a=wU6CqTgRoXS9cGK_lSIY:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDAzMyBTYWx0ZWRfX0lGNNn8yVGFQ
- wTJ2od9g8YJsmBhFbKBD5aYVjuQ5jlt1GpqoSfAh+SrDt2YD+0s8T+PeTXGNL6rp7De7KaSre9a
- DLgNBGNmoFgjgD1dE6zj1Nfx2Xjs+jk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDAzMyBTYWx0ZWRfX5XLTLHPuPOre
- UJCy80eBzuEq0SLtowTFBGBSh9Bt1/0SG0UUujixc9e3M9JIT4v4957Uw1sr0BxUqTyPOkMsSU/
- fYLfCJreIyr2KYGxwqywqyZ/meTPcK5oEy3PJ1oN58C2l4fkXiVjzyRsm+z3CLC/oKweE+kU0Lh
- 6IDu9rWWikVRzfonis0BW+mtq4r15AdDjsVW38Y2OG51dJ8+0x/DT6VtJoHKgON/5TMx4K+Iqzy
- UJJh3FsPl5gPItwA3MMcSHkOm5UQNB65NU2Gd/T2iotRpw48tPArm3BvM+hhjI13Bm25zLhRtFI
- OcJZaSgVQW0w1d6PJr5MKkhs2yanLbS750OU81njbehGpDF9mCeSbRj8HwFNd1EH6axLSSqdRWJ
- ZamFkHnvoOm2xuxs66xCAEf3KJpGA7aFMFczRnfYJdi+/fNlIwS+KLPe2SvT/zX83TrSjiMGjYH
- TAeLiVfNvP0/rQGglNw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-17_01,2026-11-16_01,2025-10-01_01
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VI2PR04MB11276:EE_|PA4PR04MB7613:EE_
+X-MS-Office365-Filtering-Correlation-Id: cb371e87-e7c6-47ae-f444-08df44861285
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|19092799006|11063799006|56012099006|261026140227099003|261028144727099003|10067099003|261022075727099003|261021123027099003|261021121427099003|261022105027099003|261102123227099003|261009223027099003|261009221227099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	lvqEEVO8OQ5zONzq9gDPes5+MlItJHU6stDv4vl+tn9d92eZT53E6E0l2uP7BKUjAMcNoDh0fXs0nMX/1XNvGPb0t5ZdadelNKU/J6HgRcD62mz+pp+k7iuw0URVOh8DTFfRwksSTgV3eaLYw5/APevrC3W3WfcEKT9M5JZ5QnMNCGcolU1+sVFAwGPR1AVxohuHt9j1rqIVE2Z13kq4uVaSnKi7UX9NlNMI/NQ0RuILxBkupeNw8EMQjxtzkC0fmFGmKOw0dALSPbEIhG+Xhoob3k14VnPtFYVEZyKz49yN89VRUPoneFedRADUoesIOyyX1z08e7YvscJUn48Uy1EgXGuiX6pJLPdYF8Dfe3zODo/tAcbzHhNOR3+RM4pqU/kKtHYUfKg18aGcr4T9YZLk8hX4a+h7F3WqpXT7DA9QuJNQzIjeuHn4iKNm95V5/duNIOcsaut1beUjrm/ASZ7Q6PLg+MYtaSLsNBith2dwCzagzbsxK2ozeqKHyOO8jTJuB63ytgJ6gWkZZotmlbJ8EELK/kFfO9c1+hL1MGNTH0U8eDRxiZJxmKsC/VZKxbgkBHzu84R1kKdzbQyfB1z9hs18WfpxGKh8KlIBMtbTx8ZwHW8Yx6uhiDQ/bThov6fM6g4bmndfy4qFFkKYVQaiUjs03WaKJp3piWDtiVc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI2PR04MB11276.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(19092799006)(11063799006)(56012099006)(261026140227099003)(261028144727099003)(10067099003)(261022075727099003)(261021123027099003)(261021121427099003)(261022105027099003)(261102123227099003)(261009223027099003)(261009221227099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?N0xyQWt5ZS9uWnc5MFQyNnpkOVRuZmdGc1pCMmR5OGdVRWN5MVNPQ3RvbzZQ?=
+ =?utf-8?B?YkJ4ZExBWlo1VGFTZWdEVzFTd3JKOW5mazFrRXl2dHg2bjQybjZBVTVqQXpO?=
+ =?utf-8?B?WUNJVTJjT0htdEU5dmRVSFlPcmk4d2ZWTVZWVnBQR0t3eTlHbnk4SHYzQ0M4?=
+ =?utf-8?B?MFFuLzNkRTZqdVcwVWRESkVtMkdYSWNYdUlIOThlVFZSeGVBYlozbWk3TElU?=
+ =?utf-8?B?VC9FblhZdTZFRG44OFg2Lytva2xJeWI3NkdZR0Y3L3Juais0MWFWZHdzclpz?=
+ =?utf-8?B?UE5DVHZ4bDkraSs5eWEvb2lybW9rTk1IVUtCYUR1eEZaK1FBY3AxM2hDdEtY?=
+ =?utf-8?B?RWdBNTRCTzk0bEErSXVoV1l5QzhLQTJYdWFER1J3cURaMHBZaTdzZWZ1bGVn?=
+ =?utf-8?B?SUdhSnFIUVFEU1pZSlF6M1M0dndLelJ0dTg4aFJrOHY0SXUrV3FKR2MrdjVF?=
+ =?utf-8?B?aFRtWEJ4QXZBaVY3WjRZeC9oZzY5UjQ2YUJ6YmxhYnNMRnplMTUzMk5BQlZT?=
+ =?utf-8?B?Z0c5SndoeFBYUmpVUldYR1NKclZOUEE3YUkrVDNZOEdybS9HNlFsaWlYcFRB?=
+ =?utf-8?B?R2dKNHJrMUlLV21DMUt2eXRJclFxL1hRMUVrTUpwazhnNmRQRUFFK2dXL2tl?=
+ =?utf-8?B?cm41cWlxcDRObkJOVTBnUXltTnhzZ3VMblQxUGhmeXFDUkJmMWFoMGY3OVZw?=
+ =?utf-8?B?K0NRMjRLbkpyQ0tBNDh0eng1L3M3OENHOVF6TzlpNU9IUS9qMzdLakVRaXBF?=
+ =?utf-8?B?UzhIMWFCTlQ4S2dvdE9COWNXZ0FhRVhScENDSUVvY3lSQmozbk40VVJUN0xm?=
+ =?utf-8?B?Q2I1T1dTbjlaOThmekVYN0V4WkFITlk3bU1Dd3JVVmN5ck1oakJockZ2T2Fi?=
+ =?utf-8?B?UHRhSmFReGNBdnQrQ2hWR2ZFNjNndy9rYm03OGFOUzJoLzBMN1llZHFkQVJn?=
+ =?utf-8?B?TkdQSW51enovWW5wclZRM2hqODIyQUVTRmloOU5WdXFxamhpdTdvL1d6ZmIy?=
+ =?utf-8?B?b0U1azlJV240R3V6U2h6VXNEcUR1dFRGUFJEeUZsRVpxcVFVQTNySXV5c3RH?=
+ =?utf-8?B?UmlnSnpudGtSSEg1MTRiNlE1Y1pIY0RORU1sZVZTRFVVdVFrWmtDT1p2R3VH?=
+ =?utf-8?B?Qm5uck45MjBBSTVXVjhyYzBJOVZFNGcreERuMjdrSU13MUZ3ZXNScmJhRjEy?=
+ =?utf-8?B?WG9oNTZBcFBiYzF2SXF4VkU0L29XWFN4ZGpTS1M4bXlmYzZVWTJmWEEyOTcw?=
+ =?utf-8?B?U2UxUEhzVUFSZGxCdDVXeEZ2S0doS1UwSnFCb01obmxsclErYi9yOExMVm1F?=
+ =?utf-8?B?bmZQZitTWUhKLzhPZVgrWnFkVXY0cVZXejRYTk5uRjJWS1NIRXF6Q3dPYUdS?=
+ =?utf-8?B?RG5FVmxiRXZWSFRjUHJ2RTZjWFNuMjh3UVQvMDUzTzJacDdSUHYvbDNJajBS?=
+ =?utf-8?B?cytMbU4wVWZ5eEpyUWpHQWRGNnpjNGZNcWdxUnREaVVKaktkSHl0Q0JDT1pv?=
+ =?utf-8?B?M0piazFiL1I3dmZZOStIMjV6aHh0TFFVTGIzTEJsNUFDUTJ1VWFSVG5IY05i?=
+ =?utf-8?B?dFBGRndFNldrY3RUZEtQSDF4Ukt3UTUycS92U29zMjdyaTVuNnVjdmdLNVEz?=
+ =?utf-8?B?QzVxTU9LclEyZnFDNStnZ0hlRVFEMGRMNCtDWHR4aldKTFFiMFhKdWI1eVBv?=
+ =?utf-8?B?VTMvS1JjQXNpajF2RW5iN1R2eTlOMmdKUVVlZ3h2WkJZK0FMRElnYkNsaWdR?=
+ =?utf-8?B?bk90dkhqK2d0SkpzWEtKRjNSOVVnSWlqV0pYTUc0b0JZMW45MVlMYWVGQ3I2?=
+ =?utf-8?B?aEpKSWU1OW9DQnZtMHZHcWVNTlZlbzA4SE9KTmUvY0VGdG1rNnV4MVRnTVFH?=
+ =?utf-8?B?NEtadGZZTmVTZitmS2hxS2J3dnIzNzc0ZmV5MUpxQUNWN1E4cEV5Nlo4cXc0?=
+ =?utf-8?B?MmhqOTVDaWd2eWd3TlkvMVJuMzZYZHVxN2lDM1ZneGdmM3pqSmluQ3FuWWcr?=
+ =?utf-8?B?NVgzYkNHWGRxcDZDbE5NZFBlN3h6TW5DSnhNb05aWmhycWJxOWJzcG1rMnND?=
+ =?utf-8?B?UmdDRmtqNkhzeGltYWtnbDhwQWh2eGoyYVdKK29GV25meWpnRFpFb2dpNHNB?=
+ =?utf-8?B?V1BDbjNuaFFpKzBOSjUyeG8zNnJrc2Joa2gwaE1HTG1nbHlQckR1dFp6aXZl?=
+ =?utf-8?B?UVFBS3pQZUxwQ2UxbjJXSjA4bjFzY05pak9vWmtHSW1FSEw0SUlxSHUvbFRN?=
+ =?utf-8?B?MFNFYmU5Q1Ivc0hBT21IdGxtVHhLTVcyOXd3amZ3Y0pBdnIxNXBGVzhoWE4x?=
+ =?utf-8?B?c0l1Q3pYcnJaTmRyUHlrTW9yM3RaMUxzMXFRU09scnZ5Wno5U2FlNkpIbmJw?=
+ =?utf-8?Q?RLSw5Z6xfockELrVbZowyVn3hzIuaX9XsEjoi?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb371e87-e7c6-47ae-f444-08df44861285
+X-MS-Exchange-CrossTenant-AuthSource: VI2PR04MB11276.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 08:37:53.8720
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LnJB9s7sts0aDGwcj4MfFMh8J8Nfb84I22beRHSQFMwX87lw891eGdIMyZCjYQVVA8HxImmjoGbTaHMEQV0QjY00tcXUqLxxA5V4SBHQO+0+9OCqt60SLCxc65KQFnkc
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7613
 
-On 2026-11-16 at 19:42:10, Guangshuo Li (liguangshuo@mail.sdu.edu.cn) wrote:
-> The representor private data resides in its netdev allocation.
-> rvu_rep_destroy() frees that allocation before reading rep->flow_cfg to
-> release the flow configuration.
->
-> Release the configuration while the representor is still alive.
->
-> This issue was found by our static analysis tool under development.
->
-> Fixes: 6c40ca957fe5 ("octeontx2-pf: Adds TC offload support")
-> Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-> ---
->  drivers/net/ethernet/marvell/octeontx2/nic/rep.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/rep.c b/drivers/net/ethernet/marvell/octeontx2/nic/rep.c
-> index 0f5d5642d3f7..662da7fc3953 100644
-> --- a/drivers/net/ethernet/marvell/octeontx2/nic/rep.c
-> +++ b/drivers/net/ethernet/marvell/octeontx2/nic/rep.c
-> @@ -638,8 +638,8 @@ void rvu_rep_destroy(struct otx2_nic *priv)
->  		rep = priv->reps[rep_id];
->  		unregister_netdev(rep->netdev);
->  		rvu_rep_devlink_port_unregister(rep);
-> -		free_netdev(rep->netdev);
->  		kfree(rep->flow_cfg);
-> +		free_netdev(rep->netdev);
->  	}
->  	kfree(priv->reps);
->  	rvu_rep_rsrc_free(priv);
->
-> base-commit: 2e54b3e187300893688c2c7517894f5d96732e05
+From: Sherry Sun <sherry.sun@nxp.com>
 
-Reviewed-by: Ratheesh Kannoth <rkannoth@marvell.com>
+UARTMODIR_RTSWATER is currently defined as GENMASK(10, 8), which
+matches older i.MX implementations where the RTSWATER field occupies
+MODIR[10:8].
+
+However, newer i.MX SoCs extend the RTSWATER field width, for example:
+  i.MX8ULP       MODIR[10:8]
+  i.MX93/95      MODIR[11:8]
+  i.MX8QM/8DXL   MODIR[12:8]
+  i.MX8QXP       MODIR[13:8]
+
+The driver programs the RTS watermark using:
+  FIELD_PREP(UARTMODIR_RTSWATER, sport->rxfifo_size >> 1)
+
+When half the rxfifo_size exceeds the 3-bit range allowed by
+GENMASK(10, 8), FIELD_PREP() truncates the value before it is written
+to the register.
+
+For example, on i.MX93/i.MX95 with a 16-byte RX FIFO, the driver
+attempts to program RTSWATER to half of the FIFO depth (8). With
+GENMASK(10, 8), FIELD_PREP() produces 0 instead of the expected
+encoding for 8, resulting in an RTS watermark value of 0 being
+programmed.
+
+All currently supported LPUART implementations define MODIR[13:8] as
+either RTSWATER bits or reserved bits. No other functionality is
+assigned to these bits, and writes to unimplemented bits are ignored
+by hardware. So define UARTMODIR_RTSWATER as GENMASK(13, 8), which covers
+the superset of all currently supported i.MX implementations. This
+restores the correct RTS watermark on SoCs with extended RTSWATER field
+widths while remaining compatible with older devices.
+Also clear the existing watermark field before inserting the intended
+value.
+
+Fixes: ecba98f9ddf4 ("tty: serial: fsl_lpuart: set RTS watermark for lpuart")
+Signed-off-by: Sherry Sun <sherry.sun@nxp.com>
+---
+ drivers/tty/serial/fsl_lpuart.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/tty/serial/fsl_lpuart.c b/drivers/tty/serial/fsl_lpuart.c
+index cd2575a3aef7..97201414ced6 100644
+--- a/drivers/tty/serial/fsl_lpuart.c
++++ b/drivers/tty/serial/fsl_lpuart.c
+@@ -203,7 +203,7 @@
+ #define UARTDATA_MASK		0x3ff
+ 
+ #define UARTMODIR_IREN		0x00020000
+-#define UARTMODIR_RTSWATER	GENMASK(10, 8)
++#define UARTMODIR_RTSWATER	GENMASK(13, 8)
+ #define UARTMODIR_TXCTSSRC	0x00000020
+ #define UARTMODIR_TXCTSC	0x00000010
+ #define UARTMODIR_RXRTSE	0x00000008
+@@ -1695,6 +1695,7 @@ static void lpuart32_setup_watermark(struct lpuart_port *sport)
+ 	/* set RTS watermark */
+ 	if (!uart_console(&sport->port)) {
+ 		val = lpuart32_read(&sport->port, UARTMODIR);
++		val &= ~UARTMODIR_RTSWATER;
+ 		val |= FIELD_PREP(UARTMODIR_RTSWATER, sport->rxfifo_size >> 1);
+ 		lpuart32_write(&sport->port, val, UARTMODIR);
+ 	}
+
+---
+base-commit: 749a4de370409464cf8501ec5b2451df45c84eb4
+change-id: 20261117-lpuart_rtswater-eacee387bb89
+
+Best regards,
+-- 
+Sherry Sun <sherry.sun@nxp.com>
+
