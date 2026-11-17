@@ -1,62 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794918417;
-	b=0lATm1Q7osGanTp73eHHWQ+FHdkq+P34dYf7EjBzL2NHODgq0h1lJEs7b32sxjyyzaIa
-	 0bbg3qa+59OLnFd6jXCTxF76FzkXXL3EBKZS6jxt5ykndsehxhE5SChQWlIqM6t8dgkUO
-	 IFSIqRElO42CCcQVYPECiCO9sNb8gohQSzsaSo8g+fTYVRnkh5e66a/5UjJb7O6EtRFOT
-	 h3YaPwFv/FGEImZ4HXUwDvVPYDtCAR0NJSQ3xuVqH8rhTGa7Wiqq+3WIIZCOXeE83hSCL
-	 yiYl1eOkVyZqMJAcpgdM/lm6AkCDZSihW760CQ1CSlOB5ONjM0RHXeFA3K8a+US0FnA==
+	t=1794918481;
+	b=q7yGZcM6oIFf/nrLNw7dg+gxpkBvDM1RQLocMqOt9/2EMJpaIvuOWdoUSn/pDPEj0YIN
+	 5rewXUs9obHVJNZ7qeOxOMv4oqI1WMjxtycTSWWuyNOOKzfrhFwnWk1czdHlp8E5No4JZ
+	 b8LoPUA95IR4qpxkMvh7PtnwEzNZ1h+7TAUBIcD4Az9Nepngh+sTVzXv7pQ1REWeAsQIB
+	 LNrSyBRPyV/d0ZFlIN+Sl2crj3+9JOIoT3I/VP1qOnSX1SotQxS+Q3rr9OQsZ3tZvyj8W
+	 fhFw2IF0eeYEbCXFnbMxtr2cSEm9a0Qu5b87NrSm4qfgjDtIlm+HJJyEHh8TYIkm+zQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794918417;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:User-Agent:MIME-Version:Content-Type;
-	bh=a0Hhh6EB7u7ze6tHi/AqmllD56uVT+yPDQDWEyuvBtQ=;
-	b=fSqNQlGzTRS7XysedJqhEfM2oBUoM7Mdaohabm2XGlukU95qrRiPcQk8+GprV0q0ix4E
-	 /mSLuO29EtGKSDF/ZXgOpEQg+sBKKIbbbLMRbNYIvb/WynbpLr+2MUmYuw77GaLXuBGI8
-	 dLHD+lz9HzQBIb7UcU+aGK3MWZF9yIvElGBM9KTraom7ab0XKOb00qRT4L3Isri80uF0Y
-	 tro+3+vZmZ2xBztxUenEDkO8Ntr9JMh8aN80Q9Vjm8s3VYfefe6lvqAOeCRItQawKnAFe
-	 Pgk5HXMd6jjGmDoigJcKbv2YvrZFFzvR/u0nj/0dyjfzGSVxXNUGTUXrb+5qsecjeWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794918481;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=KM2AxC661JUFDMgbgS/j/UEBdUL+WXU1AFM74ye9SbA=;
+	b=jYLjuhRRBZubGKgkyxh28KOeKFggxZlBEObVOsv/3DO/oiLacnMnXOE596QqQsckEd26
+	 52IcrmhyZ/MOaVXkBdxyOeK/7loqjR8RQKcPqEkxrH4Nb8xXACbXhu3YJfRovHQJg2JGE
+	 d+ZOTnlfzMgMPRpgvHMC9ovsQIYpwA3VI4WHkJhGFRL7DaZsdRCo7jew2Pe8dhAa1s/mD
+	 1uH58ChE2jtgFskbdpKc89C4SwgVe2bGbqzYiOpBNFe75fU4u1IP8+aUpIp4UA1bN1+uC
+	 Ev/zWFHIRL3Mgn/j0C6g8D9VfZaqlVO5gacep7GVQ4W8pqjtZHZCgRjaSV84WOx3FJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L3B8zwEX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZML8WhTO;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67A60606A88F;
-	Tue, 17 Nov 2026 12:26:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BB84606A31C;
+	Tue, 17 Nov 2026 12:28:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BB84606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L3B8zwEX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5012B1F000C5;
-	Tue, 17 Nov 2026 12:26:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794918417;
-	bh=a0Hhh6EB7u7ze6tHi/AqmllD56uVT+yPDQDWEyuvBtQ=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=L3B8zwEX1FTal6O2Eoy7mwJOAUsJyaL07I0n5sa7jQbOMTnV8LSBRDO5mhrYj7xBL
-	 qmncfH3N68+9Ld2c0KC+cQh6tJUWmGDp1uhXgdNRYi8YXggB1uVr9+U1iIv1kvgzbW
-	 0IVV0KaOH9/vIMOAgAWPCHZIQ20rMwcSflm4Df6WkAaoyvPN2hkGeoFF9Av7FPArqt
-	 Ck+nzUb0sMblXMJymF8IVhrsfMjRGfRucr1V0Yz2luxdfACZ5ItBcsXcWnDnhOhmmr
-	 iL6Yt7QGzH43LPppRMilN3ujiwNT/FkKpnMOGp3f4T2kI0geMpS0HYN5Y+jxz75X6i
-	 suriT9i4Gl5GA==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: Pasha Tatashin <pasha.tatashin@soleen.com>
-Cc: Pratyush Yadav <pratyush@kernel.org>,  Mike Rapoport <rppt@kernel.org>,
-  Alexander Graf <graf@amazon.com>,  Jonathan Corbet <corbet@lwn.net>,
-  Shuah Khan <skhan@linuxfoundation.org>,  Randy Dunlap
- <rdunlap@infradead.org>,  Andrew Morton <akpm@linux-foundation.org>,
-  Tarun Sahu <tarunsahu@google.com>,  David Matlack <dmatlack@google.com>,
-  Samiullah Khawaja <skhawaja@google.com>,  kexec@lists.infradead.org,
-  linux-mm@kvack.org,  linux-doc@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  linux-kselftest@vger.kernel.org
-Subject: Re: [RFC PATCH 0/5] KHO map
-In-Reply-To: <179486913878.127049.11178890384802388709.b4-review@b4> (Pasha
-	Tatashin's message of "Mon, 16 Nov 2026 17:45:38 -0500")
-References: <20261116134013.1636689-1-pratyush@kernel.org>
-	<179486913878.127049.11178890384802388709.b4-review@b4>
-Date: Tue, 17 Nov 2026 13:26:52 +0100
-Message-ID: <2vxzwlqbfxtf.fsf@kernel.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZML8WhTO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794918481; x=1826454481;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ndTg7sq8BTwzV5ZIdQVv8vLbR7ewI5Azcqn8dK7UYzM=;
+  b=ZML8WhTOAU/dlBE/sCKro4TTQb/f/u4BOolO4Kwj3zNZXuA/OKhosCwb
+   U0shKDV6YPQZLMcvrFX4PVXAIbpr8u4g4KfuAlK+XGOzGxdMOWIfuR/rd
+   9f15GtY7Cy2A5B5A3uzvikqk2XYuuUGvI1LEUxDN/dzHCfanlKq5RAtBk
+   IhbaiZU5BihXT735u1NaBZVCqhDIPREuKY6BTbJTOdrVBXtAjtSB5rH00
+   DD1hVbWh9vDgEW30CiIUreRw1mwwukj8G5vPoyjxJrFDZPLj9s16a2DBr
+   jM1jxGZVTV1P55RM/X2gJrkBNqfha1JtDam+IFSn8571o2xwPWG9aG12K
+   g==;
+X-CSE-ConnectionGUID: WMyT5GfXTaeh4d4yXLBbhQ==
+X-CSE-MsgGUID: IvKS52KsQwqp0x5ZdHOywA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3708464"
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="3708464"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 04:28:00 -0800
+X-CSE-ConnectionGUID: NXh2zuLfQMCZt8jrPFWneA==
+X-CSE-MsgGUID: hloi4fbTT666ZNmxD62qgQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="10225051"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa007.fm.intel.com with ESMTP; 17 Nov 2026 04:27:57 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xTIHy-00000001BTZ-3Fww;
+	Tue, 17 Nov 2026 12:27:54 +0000
+Date: Tue, 17 Nov 2026 20:27:32 +0800
+From: kernel test robot <lkp@intel.com>
+To: xu.xin@linux.dev, David Hildenbrand <david@kernel.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Donet Tom <donettom@linux.ibm.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Linux Memory Management List <linux-mm@kvack.org>,
+	linux-kernel@vger.kernel.org, Xu Xin <xu.xin@linux.dev>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/ksm: do not inherit ksm_zero_pages counter or PTE
+ markers on fork
+Message-ID: <202611172040.LO8S0kBo-lkp@intel.com>
+References: <20261117081821.7211-1-xu.xin@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,96 +88,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261117081821.7211-1-xu.xin@linux.dev>
 
-On Mon, Nov 16 2026, Pasha Tatashin wrote:
+Hi,
 
->> From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
->> 
->> Hi,
->> 
->> This series introduces the KHO map. It is a sparse map from integer keys
->> to u64 values. It is implemented as a radix tree of fixed depth.
->> Currently the tree depth is 6, so it can support keys up to 54 bits
->> wide.
->> 
->> The main user of the map is memfd. Currently memfd uses a vmalloc buffer
->> that has a pair of {index,pfn} to track the folios in the file. That
->> uses 16 bytes per page. The KHO map uses only 8 bytes per page with some
->> overhead. So for a 1 GiB memfd, it uses roughly half the memory.
->> 
->> In addition, it is a more versatile data structure. For example, it
->> allows for adding or removing pages from a memfd after preserve more
->> efficiently than the vmalloc array.
->> 
->> Post-LPC 2026, the plan is for KHO to maintain backwards compatibility
->> as much as possible. So this data structure allows the serialization
->> format to be more flexible to future changes. It can also be used by the
->> upcoming HugeTLB and guest_memfd preservation.
->> 
->> I have talked about this as "KHO xarray" before, but I think using
->> "xarray" is just going to confuse everyone since it isn't really a
->> xarray, and the API works a fair bit differently. So I renamed it to
->> "KHO map".
->> 
->> This series isn't complete yet, but it is in fairly good shape so I want
->> to share it to get some early feedback.
->> 
->> Things that are missing and planned in the future:
->> 
->> - Multi-index entry support: currently, while the map is very efficient
->>   with 4k folios, it is horribly inefficient with 2M folios. Each folio
->>   in the memfd takes up a full page to track. Multi-index entry support
->>   can fix this by tracking entries that cover a whole page in the
->>   previous level, similar to page tables.
->
-> Let's fix it, see below.
->
->> 
->> - LUO versioning support: LUO versioning headers are still in
->>   discussion. This data structure should use them for future
->>   extensibility. I am mainly waiting for things to settle down there.
->
-> I would not worry about this. If versioning lands first, this series can 
-> be updated then; if this series lands first, Tarun will update his 
-> series.
+kernel test robot noticed the following build errors:
 
-Sure, fair enough.
+[auto build test ERROR on akpm-mm/mm-everything]
 
->
->> 
->> - Dynamic depth support: Currently the depth is static, so it can only
->>   support keys up to 54 bits wide. Adding support for multiple depth
->
-> Let's allow keys to cover the full 64-bit space from day 1, and make 
-> values 63-bit (like XArray), using bit 0 to distinguish a child node 
-> pointer from a leaf value.
->
-> By making it generic from the beginning, we won't need to worry about 
-> ABI churn for these features later.
+url:    https://github.com/intel-lab-lkp/linux/commits/xu-xin-linux-dev/mm-ksm-do-not-inherit-ksm_zero_pages-counter-or-PTE-markers-on-fork/20261117-161821
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
+patch link:    https://lore.kernel.org/r/20261117081821.7211-1-xu.xin%40linux.dev
+patch subject: [PATCH] mm/ksm: do not inherit ksm_zero_pages counter or PTE markers on fork
+config: hexagon-allnoconfig (https://download.01.org/0day-ci/archive/20261117/202611172040.LO8S0kBo-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project a69be15ed58ed48738a69ec4c7d0f3e8c7dbe4ce)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261117/202611172040.LO8S0kBo-lkp@intel.com/reproduce)
 
-Right, that makes sense. I didn't want to over-complicate things, but
-you have a point. Taking the ABI complexity up-front is better than the
-churn later down the line.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611172040.LO8S0kBo-lkp@intel.com/
 
-> Instead of caller-chosen depth, the tree should grow (and shrink?)
-> dynamically bottom-up based on the widest key.
->
-> Plus, with bit 0 tagging leaf values, 2M entries can be stored directly 
-> at L1 and 1G at L2 (on 4K pages). Even for huge memfds, the pgoff space 
-> is much smaller than 64 bits, so in practice the tree stays tiny in 
-> depth.
+All errors (new ones prefixed by >>):
 
-I think it is a good idea to allow dynamic depth in the ABI, but I am
-not sure if we should deal with the automatic resizing just yet. How
-about we start with making callers specify the depth (max index/pgoff)
-up-front for now? The ABI stays the same, so we can add support for
-dynamic resizing later if needed.
+>> mm/memory.c:1168:6: error: call to undeclared function 'is_ksm_zero_pte'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+    1168 |         if (is_ksm_zero_pte(pte))
+         |             ^
+   1 error generated.
 
-The reason for this is to keep things simpler to begin with. That said,
-I don't have a _strong_ opinion about this, so if you insist, I can add
-dynamic resizing from the get go.
+
+vim +/is_ksm_zero_pte +1168 mm/memory.c
+
+  1123	
+  1124	static __always_inline void __copy_present_ptes(struct vm_area_struct *dst_vma,
+  1125			struct vm_area_struct *src_vma, pte_t *dst_pte, pte_t *src_pte,
+  1126			pte_t pte, unsigned long addr, int nr)
+  1127	{
+  1128		struct mm_struct *src_mm = src_vma->vm_mm;
+  1129		bool writable;
+  1130	
+  1131		/*
+  1132		 * Snapshot writability before the RWP-disarm rewrite below: when the
+  1133		 * child is not RWP-armed, pte_modify(pte, dst_vma->vm_page_prot) can
+  1134		 * silently drop _PAGE_RW from a resolved (no-marker) writable PTE,
+  1135		 * so a later pte_write(pte) check would skip the COW wrprotect and
+  1136		 * leave the parent writable over a folio shared with the child.
+  1137		 */
+  1138		writable = pte_write(pte);
+  1139	
+  1140		/*
+  1141		 * Child is not RWP-armed: restore accessible protection so the
+  1142		 * inherited PAGE_NONE does not cost a fault on first read. Gate on
+  1143		 * pte_uffd(pte) so unrelated PAGE_NONE markers (e.g. NUMA balancing)
+  1144		 * are not normalised away.
+  1145		 */
+  1146		if (!userfaultfd_protected(dst_vma)) {
+  1147			if (userfaultfd_rwp(src_vma) && pte_uffd(pte))
+  1148				pte = pte_modify(pte, dst_vma->vm_page_prot);
+  1149			pte = pte_clear_uffd(pte);
+  1150		}
+  1151	
+  1152		/* If it's a COW mapping, write protect it both processes. */
+  1153		if (vma_is_cow_mapping(src_vma) && writable) {
+  1154			wrprotect_ptes(src_mm, addr, src_pte, nr);
+  1155			pte = pte_wrprotect(pte);
+  1156		}
+  1157	
+  1158		/* If it's a shared mapping, mark it clean in the child. */
+  1159		if (src_vma->vm_flags & VM_SHARED)
+  1160			pte = pte_mkclean(pte);
+  1161		pte = pte_mkold(pte);
+  1162	
+  1163		/*
+  1164		 * Clear the dirty-bit marker on KSM-placed zero-page PTEs in the
+  1165		 * child so inherited mappings are not accounted against the child or
+  1166		 * unshared by MADV_UNMERGEABLE.  Special PTEs always have nr == 1.
+  1167		 */
+> 1168		if (is_ksm_zero_pte(pte))
+  1169			pte = pte_mkclean(pte);
+  1170	
+  1171		set_ptes(dst_vma->vm_mm, addr, dst_pte, pte, nr);
+  1172	}
+  1173	
 
 -- 
-Regards,
-Pratyush Yadav
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
