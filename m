@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794883806;
-	b=WaMsTWEkzwCRV/zYvq/v6SA9CdKmSXCM7ORH1JqkPNqcg/lgb9iIeqNhW4+sA0F1XOr/
-	 6xsQM3bi3a8vMTf9/2shPP19jqChP/ER68HyD+JM+L/EdQGslupLo6ghnIXhYWeMuXneG
-	 g33BGn8DGZnxjbw5G9dZx7z7ifahKOgXL6qvjH4syBebeUKdvFknBq9WDiJH8THB34Yrg
-	 SjiZD3AA0tfTDopjYXmGVG/KJBviKMqGelHKTwN5mi25KA7Go6uErP7JMe522klek6HcA
-	 ETEV3ildm70YveZPQcpxctROB0ItDSc9wFCrIvC67CGu2zjgo/wadsGBnc3noqBRdzA==
+	t=1794883810;
+	b=bXfgsXiU4K6wZkBFdw//NWjuhTH2M7qcYn4qPB49jQ1ApW0GwvvhZ8U2SWFdL4SoMIAw
+	 HZ6DwSHru7/2yPjFSERNUlbrxcGq2AC8uusj1+C5obk9sFqaee5lomTHN6RTgjGcPm3Ey
+	 JzTkJGJ/g6vwMjlL7Hmrhbe7S1dtCEyyR4W9Z9VY/vmcmxv67QyE2m+xRoh5SYtEDzf/3
+	 myTIqi4OSn/ccDp4ELDD8Q9Te7bbQpwoebXEyl6pHU/9yqBeUT5qcyLjMorHY/aoVDgnD
+	 n51K3sJaCQuGFb8bDKlspZ2UIyjRAbCS+v7VLnsb3r/bJ6CLWHNX/dOdXzCwB9jRwDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794883806;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794883810;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=BL7jfL5RepDVHTpf571CMSvkP8AAhB1asrmNRQjeQpw=;
-	b=Gz76EYJRTj78gO3WnqGbrUGtLMfMRyOPGF8kDRsRSjY9ptdhFcvzlci+hV+PrU6TEJPS
-	 9suKnD5WqFBhsVH/1MqtSuTNLb5bkruThSmGfYes6zpiIG3HYDETFpn+KOPnACElJj8rn
-	 G8xwQ/z5PBqOKfK/QHU0m4sU0KFWv7UuLCYsxRTJHQI5kYFprtPwHGnppmmQ4dCZOXWr2
-	 MaSDxOwgg7crJmc6laBprbZuGKaJ5+suFxB7yV0ZWEJ4AtpL06QoSFHVl8pbhLuCdPele
-	 3u/kytSrqIwjw7T9VESTJMdLv3FAwIbsM37To4Kbz6REFuOE9Nxj1JwcSA+0zGVsoZg==
+	bh=WyecgbeBs166spSfCyzCfTX6lVhKElsoYgGJBq1WKyM=;
+	b=l1A3zvjThb6zjdogybFa1fBUTHuhrNYjXwCoLdpjrIYoiReiz9tlvlwKmTYkma5VnFQu
+	 GcDdAgrfBzk1y5XTDaDFc1wXIGbgeU9cIlPcOjmWY9DHufhyPxXT297vGwRP/p+bv57Q8
+	 D8/tPLO/xB8fnhRSEWrtvLaUhKi650ydfU3p+vO1pBomZAZMN9R0ln0ymrcGKx2WCd2JW
+	 G0p7mdy3trU6G55XCfcMeUkwTXGEDZaqThdyXQbLPwnC/XScLHj7lBDYWJbbvfKFF5+Pc
+	 2qllPy6/vymfOvXkmoAWoyXtY2FX0W2SFZFg5mCPLEatiNnrYgJXhM8hbrx+TzD0HFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DKQL61tv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CJ2bvX7J;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B95CA606A31C;
-	Tue, 17 Nov 2026 02:50:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92409606A323;
+	Tue, 17 Nov 2026 02:50:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DKQL61tv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82E481F000C4;
-	Tue, 17 Nov 2026 02:50:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CJ2bvX7J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE0391F000C4;
+	Tue, 17 Nov 2026 02:50:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794883806;
-	bh=BL7jfL5RepDVHTpf571CMSvkP8AAhB1asrmNRQjeQpw=;
+	s=k20260515; t=1794883809;
+	bh=WyecgbeBs166spSfCyzCfTX6lVhKElsoYgGJBq1WKyM=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=DKQL61tve8PT9P9rXUR2i9O4iq9u5aphdt2xxWVTKpGJWj6bIwjtJ6SuDijXsvTdA
-	 XH10lPmrY+dhQk5tQUOqSwyzIPiVcMOoZ74PMGSiLKM0FwtxPztrqaNezJ5iGY3pvu
-	 fcjbABlaeIa+rZIZqddY+Kax/rTsofLR/I8OZ9YhGEdAEpjyAXNQ+CdlWJrfV9gTHq
-	 zRlOGPOSWmpW3ZA7h4IGHIyBayE2a4LFL4JtDiYh1sicGLPCc/uBOSgfut81tP72VL
-	 rQXazmDB+i+DQM+mDoDPexFIhYIWHBr+4nRdnZa0NAbeOirQwN+XGFbv6DD2SqFF7z
-	 TmHvJdKevj4Aw==
+	b=CJ2bvX7JgcN/MBJLhYWGlN9xnEwvrPcMMFYXSRFSyv6wZmeq0agesMH5F4IR6QbvS
+	 +bEzhP049C4L/42MXWRh3UUILOVO+8reeu92bRR7I0FW0Pje8EVuIfa2KlPaon9qUi
+	 y/ScD8g5MkYlJ3Zu45WDV6kcHN66PrOL17xzCKyTk3gN2wGBxOhO5JRtan5kgO6x+2
+	 vAtZonvHDMU7j5oEyopmoZaHwWEm2XtLQLPCZu1RoNySz3LnI/7IrXLFtMsA4b/Rfk
+	 Q1mbb7Rw3SylUUU4K6HoUSwVUdsVh+98qAA529wCdlnhZZTYByIoWngzpwgo1YO/RG
+	 PuyE9B92oDR/w==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 773F8391B088;
-	Tue, 17 Nov 2026 02:50:06 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B4348391B088;
+	Tue, 17 Nov 2026 02:50:09 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,39 +54,42 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] net/mlx5: IFC,
- enlarge active_port field to support 8 port LAG
+Subject: Re: [PATCH net-next] dt-bindings: net: airoha: add AN7589 MDIO
+ controller
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <179488380528.305876.11658073225104873930.git-patchwork-notify@kernel.org>
-Date: Tue, 17 Nov 2026 02:50:05 +0000
-References: <20261112182940.3655773-1-tariqt@nvidia.com>
-In-Reply-To: <20261112182940.3655773-1-tariqt@nvidia.com>
-To: Tariq Toukan <tariqt@nvidia.com>
+ <179488380827.305876.10550611081255055586.git-patchwork-notify@kernel.org>
+Date: Tue, 17 Nov 2026 02:50:08 +0000
+References: <20261112190928.1318743-1-john@phrozen.org>
+In-Reply-To: <20261112190928.1318743-1-john@phrozen.org>
+To: John Crispin <john@phrozen.org>
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com,
- agoldberger@nvidia.com, gal@nvidia.com, leon@kernel.org,
- linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, mbloch@nvidia.com,
- saeedm@nvidia.com, shayd@nvidia.com, horms@kernel.org
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, ansuelsmth@gmail.com, devicetree@vger.kernel.org,
+ lei.dong@airoha.com, Linqi.zhang@airoha.com, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, Rajeev.kumar@airoha.com, upstream@airoha.com,
+ Weifeng.xu@airoha.com, zhengping.zhang@airoha.com
 
 Hello:
 
-This patch was applied to netdev/net.git (main)
+This patch was applied to netdev/net-next.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Thu, 12 Nov 2026 20:29:40 +0200 you wrote:
-> From: Shay Drory <shayd@nvidia.com>
+On Thu, 12 Nov 2026 20:09:28 +0100 you wrote:
+> The AN7589 carries the AN7583 SCU MDIO controller three times, the
+> third one at offset 0xd8. Document it as a fallback pair on the AN7583
+> compatible. Allow the new offset for the AN7589 only.
 > 
-> active_port is a bitmask with a bit per LAG port. The cited commit
-> enabled 8 port LAG, but active_port remained 4 bits wide.
-> 
-> Enlarge active_port to 8 bits, as defined in the PRM.
+> Signed-off-by: John Crispin <john@phrozen.org>
+> ---
+>  .../bindings/net/airoha,an7583-mdio.yaml      | 25 +++++++++++++++++--
+>  1 file changed, 23 insertions(+), 2 deletions(-)
 > 
 > [...]
 
 Here is the summary with links:
-  - [net] net/mlx5: IFC, enlarge active_port field to support 8 port LAG
-    https://git.kernel.org/netdev/net/c/a2239d5dbbda
+  - [net-next] dt-bindings: net: airoha: add AN7589 MDIO controller
+    https://git.kernel.org/netdev/net-next/c/7f2ae640555a
 
 You are awesome, thank you!
 -- 
