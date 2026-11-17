@@ -1,65 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.222
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794879798;
-	b=MdQDnKEHjjeoFpdx8p0G1jIEmEWqK2cGANIWn6+Z/eOJdQxjEXtgAfcQbrr28h5lupMk
-	 yjNPh71hWq42ZZtRLo/fqnATrTaNiGl8nVTfMXajVh7V9YOaxha9lcUiCvl5lEHwzHz5a
-	 ZZM3tPjh0Y/WGlge148NoPSBSet5hlW1ea6NJdKv8o5Gb2wc1EDumaTD9CM2odRE71UBz
-	 CXSPpFTgALPTZ1TO0Es7gD4o/Q194TDEaeycHm8XD9VEpAvmX5tEMEoSpqTVGc5ZUmiTU
-	 aOU8zQ728I3jZaVDv4TVIVFasFmli9t2BzcKy0/HlN3HUut7+Pmz4LGjsYvP+c0MWSA==
+	t=1794879806;
+	b=hDgG0SFErzLrnM3HX7oybg+9LT4k4mmMcSdSEQfAjTs8tf6IZeeJNoHJLlq61ryua6mG
+	 OuphZIyKw3J+XSV20+FuWjfaqRctFV+5ikTlFWadUWljVXBiYyyxQx5Dl3rl4Cv9APdqy
+	 9tfQrCj5XTQqRIJecIhO9MSWODvfKjuDjaqMz0nNjnuW9aGb3TpBotKTwZo6FW39y5SrD
+	 jgQln6eIEeZyzuSqPZ4zSp/ts4Ca6sayAgvg4aC1TM8XtIla5OoOzzsS84EgEwWTNB95i
+	 7qzDST1O2mtZaDAprrK8CC6DJBhus0BFKbtXTeBoA+zLI9KAua3tuFcLA3xeVRR95ZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794879798;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=wICdQTS/j653JNeSpq5WDtpcanKknMisPljCXOeLMss=;
-	b=LtFKseQs3NmVKFFZv2e3v9FOspDKlFER8bFEJnaKU6QeA77LhB0c8U6ZsrjoCcY73XsQ
-	 3aVkTm2X6fD1mMQ8/vVVNCDAajTAYNRu38qV8wGnOg4C/9y5Lx92nAHqJww6IKOnftG97
-	 tFaHja/lQ7b5ClhUk50W5SHXzybr3Fs8ZrPSy4xkyd2sIXFS+R7L5x6NibXKbrvZWHSz6
-	 /19YkZe+oHeubOKmIZBkk+dc7TSu5sgWKdK/Fp+mGTMFUkbK+O+8Jct9UZiUEeOsS6gE5
-	 b2V7rDINtkYsi4nkLT3Y5NUBVLk8K1BBnvZ/Dy1Br+PI378PtoBJJV8/8GG3J8CKKcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794879806;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=erNoA3lOUo0ZYtOb9qkmx1CJe4mtUfobD6S4pgfjrbM=;
+	b=fFwiGEP38oqLYd1QzBXgORqAUm9RJAeJRNENUZguqLgrCkKBaI2g5mSQV6eTJCIhVm3s
+	 vWyDEue4w75MhEYhuu47/YUoP4hrxjuLr++DKdkFi5d2tI5YfyTA/2vPVxAs5xes6W9PP
+	 HVzu0a/KbNOYuxGWE6lTOnPgbITlu7Lnu5uw3ys+Fj+ZBRADA+iwYM5oy6RpPt/gkE1ef
+	 CK8L0YBJNsmdfwwniXaLzpnvPmjqV2vAMFAKMeR9y47+X04VhMO4v7I3xHczb3bts0arB
+	 lTH/DJ/fvsd78zgd7ted3/ebhHwQj53s6QvF5nvX/TLCWHaQKsBuZ2Pj7aMHDiG1aMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=frpS6OPX;
-	arc=none smtp.remote-ip=113.46.200.222
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7447A606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:43:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7447A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="V2tx/T3w";
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2B509606A31C;
+	Tue, 17 Nov 2026 01:43:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B509606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=frpS6OPX
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=wICdQTS/j653JNeSpq5WDtpcanKknMisPljCXOeLMss=;
-	b=frpS6OPXRpqmmhNNflCDPRrZ+OrimVw2l/RYtkrUAZlNSbLWnQs/7BEcx1Yxb2dLhNlHhAfbq
-	yi10NqiOnLyxchiHsPNhASIINfoC+5fFp6PRPkmtbslZu4Y8KjaAZksvQ15iu5yYmSFhTyqEGa4
-	VubTdFdWssd9ixX7E8x1Bls=
-Received: from mail.maildlp.com (unknown [172.19.163.163])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4jT6tk52mpzLlXR;
-	Tue, 17 Nov 2026 09:42:54 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 71FD04048B;
-	Tue, 17 Nov 2026 09:43:13 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 17 Nov
- 2026 09:43:12 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <james.morse@arm.com>, <ben.horgan@arm.com>, <reinette.chatre@intel.com>,
-	<fenghuay@nvidia.com>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <ruanjinjie@huawei.com>
-Subject: [PATCH RESEND] arm_mpam: resctrl: Annotate domain list walks as RCU under cpus lock
-Date: Tue, 17 Nov 2026 09:42:46 +0800
-Message-ID: <20261117014246.530431-1-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=V2tx/T3w
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=V2tx/T3wnghATcjH2lGigflaRwhcNVL1iiDyEYzjX4GUyl7Hu8HKD9TNzu7LOxRIoHfXxIUkXkobn
+	 JgPxZNFHw/EJvPhSG/cUYgocTiPRuejf5ZirzqNecaPW48p87bYS08srJrXQjqjiC7LUSZUujEqspU
+	 6HzbWlV8c7MbIMoY=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76afbb12ca52-04812;
+	Tue, 17 Nov 2026 09:43:08 +0800 (CST)
+X-RM-TRANSID:2ee76afbb12ca52-04812
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from localhost.localdomain.localdomain (unknown[10.55.1.72])
+	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96afbb12ab7a-9e119;
+	Tue, 17 Nov 2026 09:43:08 +0800 (CST)
+X-RM-TRANSID:2ee96afbb12ab7a-9e119
+From: luoyifan <luoyifan@cmss.chinamobile.com>
+To: Jeff Chen <jeff.chen_1@nxp.com>,
+	Francesco Dolcini <francesco@dolcini.it>,
+	linux-wireless@vger.kernel.org
+Cc: Johannes Berg <johannes@sipsolutions.net>,
+	linux-kernel@vger.kernel.org,
+	Luo Yifan <luoyifan@cmss.chinamobile.com>
+Subject: [PATCH] wifi: nxpwifi: validate TID in ADDBA and DELBA command responses
+Date: Tue, 17 Nov 2026 09:43:10 +0800
+Message-Id: <20261117014311.19627-1-luoyifan@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.24.4
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,75 +71,76 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemk200008.china.huawei.com (7.202.194.74)
 
-The resctrl domain lists are RCU lists which are only modified while the
-CPU hotplug write lock is held, so traversing them is protected by
-cpus_read_lock().  That is the convention the generic resctrl code
-follows.
+From: Luo Yifan <luoyifan@cmss.chinamobile.com>
 
-The MPAM implementation omits the condition at three places, so lockdep
-reports a spurious violation with CONFIG_PROVE_RCU_LIST on whenever
-they run:
+The TID field in ADDBA and DELBA management frames is four bits wide, so a
+peer can put any value in the range 0-15 in it.  The firmware forwards the
+parsed frames to the driver as command responses and events, and
+nxpwifi_ret_11n_delba(), nxpwifi_ret_11n_addba_req() and
+nxpwifi_11n_delete_ba_stream() use that TID without validating it.
 
-  WARNING: suspicious RCU usage
-  drivers/resctrl/mpam_resctrl.c:1762 RCU-list traversed in non-reader section!!
-   mpam_resctrl_get_domain_from_cpu+0x200/0x298
-   mpam_resctrl_online_cpu+0xa4/0x160
-   mpam_cpu_online+0x2b4/0x300
-   cpuhp_invoke_callback+0x304/0x700
+The TID is then used to index arrays that only have MAX_NUM_TID (8)
+entries: rx_reorder_tbl_ptr[], rx_reorder_tbl_lock[],
+tx_ba_stream_tbl_ptr[], tx_ba_stream_tbl_lock[] and aggr_prio_tbl[].  A
+TID in the range 8-15 therefore reads or writes past the end of these
+arrays.  In particular, nxpwifi_del_ba_tbl() takes a spinlock at
+priv->tx_ba_stream_tbl_lock[tid] and nxpwifi_get_ba_tbl() walks a list at
+priv->tx_ba_stream_tbl_ptr[tid], so a peer can make the driver operate on
+unrelated memory.
 
-Likewise for mpam_resctrl_get_mon_domain_from_cpu() and
-resctrl_arch_update_domains().
+Reject out-of-range TIDs at the entry of the three handlers.  This covers
+the DELBA response, the ADDBA response and the DELBA event paths; the RX
+reorder data path has its own checks.
 
-The lock really is held: lockdep_assert_cpus_held() is the first thing
-each of these functions does, and the warning's own lock list shows
-cpu_hotplug_lock and cpuhp_state-up taken.  Only the annotation is
-missing, so add lockdep_is_cpus_held() to all three walks.
-
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Signed-off-by: Luo Yifan <luoyifan@cmss.chinamobile.com>
 ---
-v1 -> RESEND:
-- Drop fix tag and not cc stable (Ben).
----
- drivers/resctrl/mpam_resctrl.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/net/wireless/nxp/nxpwifi/11n.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-index 5468367776e2..d25c2bac9678 100644
---- a/drivers/resctrl/mpam_resctrl.c
-+++ b/drivers/resctrl/mpam_resctrl.c
-@@ -1516,7 +1516,7 @@ int resctrl_arch_update_domains(struct rdt_resource *r, u32 closid)
- 	if (!mpam_is_enabled())
- 		return -EINVAL;
+diff --git a/drivers/net/wireless/nxp/nxpwifi/11n.c b/drivers/net/wireless/nxp/nxpwifi/11n.c
+index 9eae93c3b8..56aadbb540 100644
+--- a/drivers/net/wireless/nxp/nxpwifi/11n.c
++++ b/drivers/net/wireless/nxp/nxpwifi/11n.c
+@@ -99,6 +99,12 @@ int nxpwifi_ret_11n_delba(struct nxpwifi_private *priv,
+ 	u16 del_ba_param_set = le16_to_cpu(del_ba->del_ba_param_set);
  
--	list_for_each_entry_rcu(d, &r->ctrl_domains, hdr.list) {
-+	list_for_each_entry_rcu(d, &r->ctrl_domains, hdr.list, lockdep_is_cpus_held()) {
- 		for (enum resctrl_conf_type t = 0; t < CDP_NUM_TYPES; t++) {
- 			struct resctrl_staged_config *cfg = &d->staged_config[t];
+ 	tid = del_ba_param_set >> DELBA_TID_POS;
++	if (tid >= MAX_NUM_TID) {
++		nxpwifi_dbg(priv->adapter, ERROR,
++			    "DELBA: invalid tid %d\n", tid);
++		return -EINVAL;
++	}
++
+ 	if (del_ba->del_result == BA_RESULT_SUCCESS) {
+ 		nxpwifi_del_ba_tbl(priv, tid, del_ba->peer_mac_addr,
+ 				   TYPE_DELBA_SENT,
+@@ -143,6 +149,11 @@ int nxpwifi_ret_11n_addba_req(struct nxpwifi_private *priv,
+ 			& SSN_MASK);
  
-@@ -1743,7 +1743,8 @@ static struct mpam_resctrl_dom *mpam_resctrl_get_mon_domain_from_cpu(int cpu)
- 	if (cache_id < 0)
- 		return NULL;
+ 	tid = u16_get_bits(block_ack_param_set, IEEE80211_ADDBA_PARAM_TID_MASK);
++	if (tid >= MAX_NUM_TID) {
++		nxpwifi_dbg(priv->adapter, ERROR,
++			    "ADDBA RSP: invalid tid %d\n", tid);
++		return -EINVAL;
++	}
  
--	list_for_each_entry_rcu(dom, &l3->resctrl_res.mon_domains, resctrl_mon_dom.hdr.list) {
-+	list_for_each_entry_rcu(dom, &l3->resctrl_res.mon_domains, resctrl_mon_dom.hdr.list,
-+				lockdep_is_cpus_held()) {
- 		if (dom->resctrl_mon_dom.hdr.id == cache_id)
- 			return dom;
- 	}
-@@ -1759,7 +1760,8 @@ mpam_resctrl_get_domain_from_cpu(int cpu, struct mpam_resctrl_res *res)
+ 	tid_down = nxpwifi_wmm_downgrade_tid(priv, tid);
+ 	ra_list = nxpwifi_wmm_get_ralist_node(priv, tid_down,
+@@ -626,6 +637,11 @@ void nxpwifi_11n_delete_ba_stream(struct nxpwifi_private *priv, u8 *del_ba)
+ 	int tid;
  
- 	lockdep_assert_cpus_held();
+ 	tid = del_ba_param_set >> DELBA_TID_POS;
++	if (tid >= MAX_NUM_TID) {
++		nxpwifi_dbg(priv->adapter, ERROR,
++			    "DELBA event: invalid tid %d\n", tid);
++		return;
++	}
  
--	list_for_each_entry_rcu(dom, &r->ctrl_domains, resctrl_ctrl_dom.hdr.list) {
-+	list_for_each_entry_rcu(dom, &r->ctrl_domains, resctrl_ctrl_dom.hdr.list,
-+				lockdep_is_cpus_held()) {
- 		if (cpumask_test_cpu(cpu, &dom->ctrl_comp->affinity))
- 			return dom;
- 	}
+ 	nxpwifi_del_ba_tbl(priv, tid, cmd_del_ba->peer_mac_addr,
+ 			   TYPE_DELBA_RECEIVE, INITIATOR_BIT(del_ba_param_set));
 -- 
-2.34.1
+2.24.4
+
+
 
