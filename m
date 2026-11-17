@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794932245;
-	b=4HEJyUuxfKyx9bVulAwjbwwce3P7kBZwbu4W4btp4gwOx0n7ZIiSgPgsBV5HuY5x2utb
-	 Spgdz+OIxjWZH/M0QuZlst9HU0jKKFzgPwFwrkD2DIEr/TioUQjev0AA5vK46CK4LB53H
-	 IHBJhi3q79IBKsLqXTO74hlqPFFrhpS/Ij72q1uC70OZXfDcH6q5HqCyxm+2HvbZeYJKh
-	 X09l5BvSuVmtM3CKG7FBNZHWnQie7tVeyVMGxM93nXDJ0wZR/18viXHhg8JtruDlsy3b+
-	 mCXBAVdwaqzsBjQqX1I8fXBKBP+5C9DNqXePaaOvoJ5AJyAcWQWVuOCgJiFFbWGCFtg==
+	t=1794932243;
+	b=Krd+sV6RCEsMCMKsUVrJXWzbBmbuntbyYhPKFtEE2Qrn+j2DdPd3RL1hZMw7symW8NmH
+	 0hrOBs/cXFqYkkbgToM4VoHmYAyFS5XCaXIcbFXNyRY6UdRI4XOxI6b1g2cshOyFeSMuV
+	 bhRA1q+yz0wXuWKvG5//BqEuL3QghYRyVUKHDFI1MtqTqHu3XlppKrprfs8bHBBdw9skG
+	 +S5gGckhF/fPWNNv29eCwLrE35jVdP+XrUPtFf+zFiTiwepa9EZEYLnAYH2CrRl62alw0
+	 iVPcnjhTNy67u1izRKUid2Kq0pzDNf7DiousLt3UuVFYeRCWFLDCOgAta8sn6HapjyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794932245;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794932243;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=GxH5z0G5yROybZJpqVlzWquPDPjWyRyfwbPD4i1MLtc=;
-	b=pE+s1yg4qhvXrYxrrMsSNvk5oD9EETxd0DsHz2Ruvz68wmCTJEat011L6Q/A8jPJYZqU
-	 +jb63jany/XF2HeY/1MTREqCa3FrFJZbUqcf/qfNrwT23hAYL7uGwt1bWt4Eh6ga/X3OY
-	 NdRtlM4UK15WFnfTDtzdQAg+0udnvlc7C16rtW8WiCFQ1/8FrhhI0ZjlgB4sL8uoO1Ydc
-	 5vh6eOLTUgpny9ZVCsvO0AlNpZ9ZOZP99U9GNezO/T8DqBf4iq/+qjuZkTIuGC1CWgFTT
-	 Kdn7NMwS5XntZ8ukYgOE0iX78TQby58LPrpl3M+Mo5v2Zh+s3ktpYl/AnZfdPsxTkgA==
+	bh=J5ObJtDP34I/BMfHer6YxrOqpSiQsGpA7S8X4Rx45Ro=;
+	b=UlKP2rh4dVRccEGxrfILTb/52BsnmILSYENKcYkSGMiZk/IX1L9SHSoN14BrzG8SyERd
+	 n3GEHYozLYxRMHtc+oEaZ1lMJiWYpkH3ZyL7D6dlOFCSvnnwdAXpxW5qkIBUD6lDWIP5W
+	 UCbE+3KORw81J0LENnl6KGDYaFZpQ+UPYInP+m55ZzEs1UHNwmEwk1p1lH7pWsqnjT6f5
+	 jelfgw79LxBaAAEyC8pbsp7WyO6PwT3RDsYG+1d3OLMiT0gT2VJR9kn2HAs0T+3XvmgfI
+	 Pw65zZ49w87h3aOmoCg7D9rdPG+b5066ybxfihj9meYBP307qqWXrIJQFN7X6e2K9ew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=PzkrUsoz;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=dAHGJJBy;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A67E606A8AD;
-	Tue, 17 Nov 2026 16:17:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A67E606A8AD
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CCC6606A32A;
+	Tue, 17 Nov 2026 16:17:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CCC6606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=PzkrUsoz
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=dAHGJJBy
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1794932242;
-	bh=GxH5z0G5yROybZJpqVlzWquPDPjWyRyfwbPD4i1MLtc=;
+	s=smtpout1; t=1794932241;
+	bh=J5ObJtDP34I/BMfHer6YxrOqpSiQsGpA7S8X4Rx45Ro=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=PzkrUsozHGIwgODINxTGvh5HExn119z9otQOfZ98T5Wh0WL1L4eXM8IJCciwBZYdh
-	 YnUjjF5gWrHYaQhVfulaSsd+AsTXgrbj+il7wuLFzG4U5LuWhciIEpFknYTkOPdkKV
-	 BC2U7UnNDO/fb5rxRtplDY3k+iwX2dh4rHligGqhLWpnrdqr/LfGDcl9YtiMFXVBgM
-	 fIfAKqKFK2U/B5kF5nQP7gSM/BcfvpM79uf8oYWJKoedDkI8TECXTbaYqYkxIiftab
-	 TCXYF/F7QcyBPYvGWK9Hwkl8m4WKpeqxCl1FRuS37+C2L5tsBkCEd9tscaQIV5qliu
-	 z2K+Ng7eCyj/g==
+	b=dAHGJJByTy4EHpW5ej+bdYloHhOBu2GBE4ssFO3r+UHxSeQ4MY4O7+YwycJk/tEps
+	 OrX88u+pLS4veb+ki3/QKoXO4/bR2rsV6lppLyZ/xB281s2DfSuTv1e+2BMWh7X2Mi
+	 61QAnCNi9mENrqE42GFxcjILKfrEUy3NfLv0ftdbqmnYsn3htVIaIIaOqH6PHOXFxh
+	 DpzsXi3FN1R0vgqDDw7s68uwUNlqZq51AJceX6vUmHy4LP9w6nYBPTT1mevY58eCKS
+	 3V1i53pVcZ14nG6DI+4ziIomLJT6dRAG8PjWo6b4RE+JVTSyewWk4XU+0Rk9ELWVJ1
+	 3pG4Z3U5neg8Q==
 Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jTVHk4QMzzRms;
-	Tue, 17 Nov 2026 11:17:22 -0500 (EST)
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jTVHj3vvxzRWZ;
+	Tue, 17 Nov 2026 11:17:21 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: tglx@kernel.org,
 	peterz@infradead.org
@@ -73,10 +73,11 @@ Cc: linux-kernel@vger.kernel.org,
 	xujiakai24@mails.ucas.ac.cn,
 	linux-mm@kvack.org,
 	linux-fsdevel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH 07/17] selftests/rseq: Test the concurrency ID after a failed execve
-Date: Tue, 17 Nov 2026 11:17:07 -0500
-Message-Id: <f40b86d70fc4537592a71be725ad03aa3dae7b4e.1794932121.git.mathieu.desnoyers@efficios.com>
+	linux-kselftest@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 01/17] sched/mmcid: Give a CID to a task that joins its mm while running
+Date: Tue, 17 Nov 2026 11:17:01 -0500
+Message-Id: <87f01a2eacf8aeea751d8f48b3aab752d825a4bf.1794932121.git.mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1794932121.git.mathieu.desnoyers@efficios.com>
 References: <cover.1794932121.git.mathieu.desnoyers@efficios.com>
@@ -91,350 +92,128 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A failed execve() leaves its mm and rejoins it while the task is
-running. If the other threads are still alive, the mm can be in per CPU
-mode. There a new user gets no CID at the join, so the task would
-return to user space with MM_CID_UNSET.
+sched_mm_cid_fork() makes a task a user of the CIDs of its mm. In per
+CPU mode the new user gets no CID there. It takes the CID of its CPU
+when it is scheduled in.
 
-Add mm_cid_execve_test. A process with more threads than CIDs calls
-execve() on a file that no binfmt handler recognises. That fails with
-ENOEXEC before the other threads are killed. The process reads its
-mm_cid after each call. The value must stay below the number of CPUs
-the process is allowed on.
+This relies on the new user not running yet. That holds for a fork()
+child. A successful execve() joins a new mm as its first user, and the
+first user gets a CID directly.
 
-Per CPU mode needs more threads than the mm has CIDs. The number of
-CIDs follows the union of the allowed CPUs of the threads, which only
-grows. The test therefore narrows its affinity before the fork() that
-creates the process under test. Five threads on two CPUs are then
-enough on any machine.
+A failed execve() is missed. bprm_execve() leaves the mm in
+sched_mm_cid_before_execve(). Its error path rejoins the same mm in
+sched_mm_cid_after_execve(). If the execve() fails before
+begin_new_exec() kills the other threads, they are still users of the
+mm. The mm can then be in per CPU mode. The task is running, so it
+returns to user space with no schedule in. Its CID is still
+MM_CID_UNSET, and rseq_force_update() makes the kernel write it to the
+rseq area. User space reads an mm_cid of 0x80000000 until its next
+context switch. A program that indexes per-CID data with it would read
+out of bounds.
 
-Without "sched/mmcid: Give a CID to a task that joins its mm while
-running", on a kernel with 8 possible CPUs:
+An execve() of a file that no binfmt handler recognises fails in that
+window. In testing, with 20 threads on a machine with 8 CPUs:
 
-  mm_cid 2147483648 (0x80000000) after a failed execve, round 0 of 100
-  not ok 1 mm_cid after a failed execve
+  mm_cid 2147483648 (0x80000000) after a failed execve, round 0
 
-With it:
+Fix this by giving a running joiner its CID in sched_mm_cid_fork(). It
+takes the CID a schedule in would give it, under the runqueue lock.
 
-  5 threads, 100 failed execve, largest mm_cid 0, below 2
-  ok 1 mm_cid after a failed execve
+The switch back to per task mode has the same problem. Since
+commit 7dbc307b6c72 ("sched/mmcid: Fix affinity-triggered switch back to
+per-task mode"), a join can do the switch that an affinity change
+queued. For a running joiner:
 
+ 1. sched_mm_cid_fork() runs mm_cid_fixup_cpus_to_tasks().
+ 2. The joiner is preempted. It takes a CID at its schedule in.
+ 3. sched_mm_cid_fork() allocates a CID for the new user. That
+    overwrites the CID of step 2.
+
+The bit of the first CID stays set in the bitmap, with no owner. In
+testing, three threads on two CPUs then read an mm_cid of 3 or more.
+Leave that allocation to a joiner that is not running. A running joiner
+takes its CID as above if it has none.
+
+Fixes: 653fda7ae73d ("sched/mmcid: Switch over to the new mechanism")
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: stable@vger.kernel.org
 ---
- tools/testing/selftests/rseq/.gitignore       |   1 +
- tools/testing/selftests/rseq/Makefile         |   3 +-
- .../selftests/rseq/mm_cid_execve_test.c       | 276 ++++++++++++++++++
- 3 files changed, 279 insertions(+), 1 deletion(-)
- create mode 100644 tools/testing/selftests/rseq/mm_cid_execve_test.c
+ kernel/sched/core.c | 43 +++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 35 insertions(+), 8 deletions(-)
 
-diff --git a/tools/testing/selftests/rseq/.gitignore b/tools/testing/selftests/rseq/.gitignore
-index 9b6eb6c3922f..1d94aaf15f4e 100644
---- a/tools/testing/selftests/rseq/.gitignore
-+++ b/tools/testing/selftests/rseq/.gitignore
-@@ -9,6 +9,7 @@ param_test_compare_twice
- param_test_mm_cid
- param_test_mm_cid_benchmark
- param_test_mm_cid_compare_twice
-+mm_cid_execve_test
- syscall_errors_test
- slice_test
- legacy_check
-diff --git a/tools/testing/selftests/rseq/Makefile b/tools/testing/selftests/rseq/Makefile
-index aba6317f6cb8..ee40f80c079c 100644
---- a/tools/testing/selftests/rseq/Makefile
-+++ b/tools/testing/selftests/rseq/Makefile
-@@ -19,7 +19,8 @@ LDLIBS += -lpthread -ldl
- OVERRIDE_TARGETS = 1
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 1a088d4576f5..f2a981d418eb 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -10986,10 +10986,19 @@ static bool sched_mm_cid_add_user(struct task_struct *t, struct mm_struct *mm)
+ 	return mm_update_max_cids(mm);
+ }
  
- TEST_GEN_PROGS = basic_test basic_percpu_ops_test basic_percpu_ops_mm_cid_test \
--		 param_test_benchmark param_test_mm_cid_benchmark
-+		 param_test_benchmark param_test_mm_cid_benchmark \
-+		 mm_cid_execve_test
++/*
++ * Make @t a user of the CIDs of its mm. Called on fork(2) and on
++ * execve(2). A failed execve(2) rejoins the mm it left.
++ *
++ * In per CPU mode a new user gets no CID here. It takes the CID of its
++ * CPU when it is scheduled in. A task that joins while it is running
++ * returns to user space before that, so it takes its CID here. This is
++ * the case of a failed execve(2) when the mm has other users.
++ */
+ static void sched_mm_cid_fork(struct task_struct *t)
+ {
+ 	struct mm_struct *mm = t->mm;
+-	bool percpu;
++	bool percpu = false, flip = false;
  
- TEST_GEN_PROGS_EXTENDED = librseq.so \
- 	param_test \
-diff --git a/tools/testing/selftests/rseq/mm_cid_execve_test.c b/tools/testing/selftests/rseq/mm_cid_execve_test.c
-new file mode 100644
-index 000000000000..3d8b9365ce91
---- /dev/null
-+++ b/tools/testing/selftests/rseq/mm_cid_execve_test.c
-@@ -0,0 +1,276 @@
-+// SPDX-License-Identifier: LGPL-2.1
-+/*
-+ * The concurrency ID a thread reports after a failed execve(2).
-+ *
-+ * sched_mm_cid_fork() makes a task a user of the CIDs of its mm. In per
-+ * CPU mode a new user gets no CID there. It takes the CID of its CPU when
-+ * it is scheduled in. A failed execve(2) rejoins its mm while the task is
-+ * running and the other threads are still users. The task returns to user
-+ * space before any schedule in, so the join has to give it a CID.
-+ *
-+ * Per CPU mode needs more threads than the mm has CIDs. The number of CIDs
-+ * follows the union of the allowed CPUs of the threads, which only grows.
-+ * The affinity is therefore narrowed before the fork(2) that creates the
-+ * process under test. A few threads are then enough on any machine.
-+ */
-+
-+#define _GNU_SOURCE
-+#include <errno.h>
-+#include <limits.h>
-+#include <pthread.h>
-+#include <sched.h>
-+#include <stdbool.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <sys/stat.h>
-+#include <sys/wait.h>
-+#include <unistd.h>
-+
-+#include "rseq.h"
-+#include "kselftest.h"
-+
-+#define NARROW_CPUS	2
-+#define THREADS		4
-+#define ROUNDS		100
-+
-+/* Exit status of the process under test. */
-+#define CHILD_PASS	0
-+#define CHILD_FAIL	1
-+#define CHILD_SKIP	2
-+#define CHILD_ERROR	3
-+
-+static int stop;
-+
-+/*
-+ * Stay alive as a user of the CIDs of the mm while the execve(2) below
-+ * leaves the mm and rejoins it. A thread needs no rseq area for that.
-+ */
-+static void *waiter(void *arg)
-+{
-+	while (!RSEQ_READ_ONCE(stop))
-+		(void)sched_yield();
-+	return NULL;
-+}
-+
-+/* Join @t. Return 0, or the error number after reporting it. */
-+static int join_thread(pthread_t t)
-+{
-+	int err = pthread_join(t, NULL);
-+
-+	if (err)
-+		fprintf(stderr, "pthread_join: %s\n", strerror(err));
-+	return err;
-+}
-+
-+/* Remove @path. Return 0, or -1 after reporting the error. */
-+static int remove_file(const char *path)
-+{
-+	if (unlink(path)) {
-+		fprintf(stderr, "unlink %s: %s\n", path, strerror(errno));
-+		return -1;
-+	}
-+	return 0;
-+}
-+
-+/* The directory of the test's executable, "." when it cannot be read. */
-+static const char *test_dir(char *buf, size_t len)
-+{
-+	ssize_t n = readlink("/proc/self/exe", buf, len - 1);
-+	char *slash;
-+
-+	if (n <= 0)
-+		return ".";
-+	buf[n] = '\0';
-+	slash = strrchr(buf, '/');
-+	if (!slash)
-+		return ".";
-+	*slash = '\0';
-+	return slash == buf ? "/" : buf;
-+}
-+
-+/*
-+ * Create a file that no binfmt handler recognises and leave its path in
-+ * @path. execve(2) on it reaches sched_mm_cid_before_execve(). It then
-+ * fails with ENOEXEC before begin_new_exec() kills the other threads. A
-+ * path that does not exist would fail before bprm_execve().
-+ *
-+ * The directory must allow execution. Try the directory of the test first,
-+ * then /tmp. Return 0 on success. One execve(2) is done as a check.
-+ */
-+static int make_unknown_format_file(char *path, size_t len)
-+{
-+	char self[PATH_MAX];
-+	const char *const dirs[] = { test_dir(self, sizeof(self)), "/tmp" };
-+	static const char junk[] = "not a binary of any known format\n";
-+	unsigned int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(dirs); i++) {
-+		char *const av[] = { path, NULL };
-+		bool written;
-+		int fd;
-+
-+		snprintf(path, len, "%s/mm_cid_execve_test.XXXXXX", dirs[i]);
-+		fd = mkstemp(path);
-+		if (fd < 0)
-+			continue;
-+		written = write(fd, junk, sizeof(junk) - 1) == (ssize_t)sizeof(junk) - 1 &&
-+			  !fchmod(fd, 0755);
-+		/* An open file would make execve(2) fail with ETXTBSY. */
-+		if (close(fd) || !written) {
-+			remove_file(path);
-+			continue;
-+		}
-+		if (execve(path, av, NULL) == -1 && errno == ENOEXEC)
-+			return 0;
-+		remove_file(path);
-+	}
-+	return -1;
-+}
-+
-+/*
-+ * The process under test. Start THREADS threads on a narrow set of CPUs.
-+ * Then fail execve(2) in a loop and read the mm_cid after each call.
-+ * Return a CHILD_* status.
-+ */
-+static int run_child(void)
-+{
-+	pthread_t thread[THREADS];
-+	char path[PATH_MAX];
-+	unsigned int nr_cids, worst = 0;
-+	cpu_set_t mask;
-+	int i, err = 0, started = 0, ret = CHILD_PASS;
-+
-+	/* The mm has no more IDs than CPUs its threads may run on. */
-+	if (sched_getaffinity(0, sizeof(mask), &mask)) {
-+		fprintf(stderr, "sched_getaffinity: %s\n", strerror(errno));
-+		return CHILD_ERROR;
-+	}
-+	nr_cids = CPU_COUNT(&mask);
-+
-+	if (make_unknown_format_file(path, sizeof(path))) {
-+		fprintf(stderr, "no directory to run an unknown format file from: %s\n",
-+			strerror(errno));
-+		return CHILD_SKIP;
-+	}
-+
-+	for (i = 0; i < THREADS; i++) {
-+		err = pthread_create(&thread[i], NULL, waiter, NULL);
-+		if (err)
+ 	if (!mm)
+ 		return;
+@@ -11012,10 +11021,14 @@ static void sched_mm_cid_fork(struct task_struct *t)
+ 		if (!sched_mm_cid_add_user(t, mm)) {
+ 			if (!cid_on_cpu(mm->mm_cid.mode))
+ 				t->mm_cid.cid = mm_get_cid(mm);
+-			return;
 +			break;
-+		started++;
-+	}
-+	if (started < THREADS) {
-+		fprintf(stderr, "pthread_create: %s\n", strerror(err));
-+		ret = CHILD_ERROR;
-+		goto out;
-+	}
-+
-+	for (i = 0; i < ROUNDS; i++) {
-+		char *const av[] = { path, NULL };
-+		unsigned int cid;
-+
-+		if (!execve(path, av, NULL)) {
-+			fprintf(stderr, "execve(%s) succeeded, expected ENOEXEC\n", path);
-+			ret = CHILD_ERROR;
-+			goto out;
+ 		}
+ 
+-		/* Handle the mode change and transfer current's CID */
++		/*
++		 * Handle the mode change and transfer current's CID. A
++		 * running joiner has no CID yet. It takes one below.
++		 */
++		flip = true;
+ 		percpu = cid_on_cpu(mm->mm_cid.mode);
+ 		if (!percpu)
+ 			mm_cid_transit_to_task(current, pcp);
+@@ -11023,11 +11036,25 @@ static void sched_mm_cid_fork(struct task_struct *t)
+ 			mm_cid_transit_to_cpu(current, pcp);
+ 	}
+ 
+-	if (percpu) {
+-		mm_cid_fixup_tasks_to_cpus();
+-	} else {
+-		mm_cid_fixup_cpus_to_tasks(mm);
+-		t->mm_cid.cid = mm_get_cid(mm);
++	if (flip) {
++		if (percpu) {
++			mm_cid_fixup_tasks_to_cpus();
++		} else {
++			mm_cid_fixup_cpus_to_tasks(mm);
++			/*
++			 * A running joiner may have taken a CID at a
++			 * schedule in. If not, it takes one below.
++			 */
++			if (t != current)
++				t->mm_cid.cid = mm_get_cid(mm);
 +		}
-+		if (errno != ENOEXEC) {
-+			fprintf(stderr, "execve(%s): %s, expected ENOEXEC\n",
-+				path, strerror(errno));
-+			ret = CHILD_ERROR;
-+			goto out;
-+		}
-+		cid = rseq_current_mm_cid();
-+		if (cid > worst)
-+			worst = cid;
-+		if (cid >= nr_cids) {
-+			fprintf(stderr, "mm_cid %u (0x%x) after a failed execve, round %d of %d\n",
-+				cid, cid, i, ROUNDS);
-+			ret = CHILD_FAIL;
-+			goto out;
-+		}
 +	}
-+	fprintf(stderr, "%d threads, %d failed execve, largest mm_cid %u, below %u\n",
-+		started + 1, ROUNDS, worst, nr_cids);
-+out:
-+	RSEQ_WRITE_ONCE(stop, 1);
-+	for (i = 0; i < started; i++) {
-+		if (join_thread(thread[i]) && ret == CHILD_PASS)
-+			ret = CHILD_ERROR;
-+	}
-+	if (remove_file(path) && ret == CHILD_PASS)
-+		ret = CHILD_ERROR;
-+	return ret;
-+}
 +
-+/* Keep the first @nr CPUs of @src in @dst. */
-+static int narrow_cpus(cpu_set_t *dst, const cpu_set_t *src, int nr)
-+{
-+	int cpu, taken = 0;
-+
-+	CPU_ZERO(dst);
-+	for (cpu = 0; cpu < CPU_SETSIZE && taken < nr; cpu++) {
-+		if (!CPU_ISSET(cpu, src))
-+			continue;
-+		CPU_SET(cpu, dst);
-+		taken++;
-+	}
-+	return taken;
-+}
-+
-+int main(void)
-+{
-+	cpu_set_t allowed, narrow;
-+	int status = 0;
-+	pid_t child;
-+
-+	ksft_print_header();
-+	ksft_set_plan(1);
-+
-+	if (!rseq_available())
-+		ksft_exit_skip("rseq is unavailable\n");
-+	/* glibc before 2.35 registers no rseq area. */
-+	if (rseq_register_current_thread())
-+		ksft_exit_fail_msg("rseq_register_current_thread: %s\n", strerror(errno));
-+	if (!rseq_mm_cid_available())
-+		ksft_exit_skip("the rseq mm_cid field is unavailable\n");
-+	if (sched_getaffinity(0, sizeof(allowed), &allowed))
-+		ksft_exit_fail_msg("sched_getaffinity: %s\n", strerror(errno));
-+	if (!narrow_cpus(&narrow, &allowed, NARROW_CPUS))
-+		ksft_exit_skip("no CPU to run on\n");
-+
-+	/*
-+	 * Narrow before the fork(2). The mm of the child starts with these
-+	 * allowed CPUs, and a later narrowing does not shrink them.
-+	 */
-+	if (sched_setaffinity(0, sizeof(narrow), &narrow))
-+		ksft_exit_skip("sched_setaffinity: %s\n", strerror(errno));
-+	child = fork();
-+	if (!child)
-+		_exit(run_child());
-+	if (child < 0)
-+		ksft_exit_fail_msg("fork: %s\n", strerror(errno));
-+	if (sched_setaffinity(0, sizeof(allowed), &allowed))
-+		ksft_exit_fail_msg("sched_setaffinity: %s\n", strerror(errno));
-+	if (waitpid(child, &status, 0) != child)
-+		ksft_exit_fail_msg("waitpid: %s\n", strerror(errno));
-+	if (!WIFEXITED(status))
-+		ksft_exit_fail_msg("the process under test was killed by signal %d\n",
-+				   WTERMSIG(status));
-+
-+	switch (WEXITSTATUS(status)) {
-+	case CHILD_PASS:
-+		ksft_test_result_pass("mm_cid after a failed execve\n");
-+		break;
-+	case CHILD_SKIP:
-+		ksft_test_result_skip("mm_cid after a failed execve\n");
-+		break;
-+	case CHILD_FAIL:
-+		ksft_test_result_fail("mm_cid after a failed execve\n");
-+		break;
-+	default:
-+		ksft_exit_fail_msg("the process under test failed to run\n");
-+	}
-+	ksft_finished();
-+}
++	/* A running joiner with no CID takes one now, see above. */
++	if (t == current) {
++		guard(task_rq_lock)(t);
++		if (t->mm_cid.cid == MM_CID_UNSET)
++			mm_cid_schedin(t);
+ 	}
+ }
+ 
 -- 
 2.47.3
 
