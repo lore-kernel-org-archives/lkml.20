@@ -1,103 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794913935;
-	b=MlaoS8ymjD55bt226KHKhtZDwWdrTMqGAUYI4+w+3+P67f6rjVcP+bXIG3DjQTFsJjpL
-	 ZW1HKfTCmzJFTA7lT2aN2BT+Vtwg9pcB/AbEkxH02EyXFs4G2S4aKwvmVfJOSIM51ik0M
-	 icpEx7NnnqMwitmFO2CCJdu0slTKXcUcqKpogKg+WPlWWivQR9j3asVD367Rn362KbsyS
-	 YDvvv4pjTBq9ZHeObwTDkifPD4FhDjUZ0xMAGjVUcKX1i4Q/ouUPwEwg9oSaUVLqNd6mw
-	 VRZU7zGbe6ScPXspYCMssaxxgcj9E/K1+w73IOok7VBAWhZyFq1NPjP4haubl7toHtQ==
+	t=1794913981;
+	b=VJHXaoOzMxNPPTJ0QSNdQbTjenDRG5FVxGPQpVEP3TdTbw08i63lmNAPqYEsZclwnci2
+	 3F5OhY6HdJD0bC6wHrgCSSoRxa9LS6TvRlnzyyonpmxF6LwvhN2Q4l9SdNV+26AUkNnaF
+	 T5T1ugBMUEZ6M+HWVMUgS/GIeyKyfGqaEBeOfY+aHlOW5amDlc+DezqTdoBaKQl+7j5B+
+	 7Seu7X1/K+v9ZsYCJ1nys+M8RQfSQ3X+wb4Y/cN6HznJZudoUwzRBhDaQGVnXkewT/exk
+	 kgg3+1XLgNwL4bgpEsB2/bEiaQCZo/kAZY8kMHw+GYR9czpgd03ImpeD4tMBw31DuZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794913935;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=YpT6onB1YW1VQSPE7BNmbI9BqwBaWK5/0IYsluHOeG0=;
-	b=Z7p+rOsIqKrNmybOfRtg4DWAmFE0x7bV2PIZuZCozU3nnVS7l2Wc9HYO+ZBUQxW9CnhO
-	 El9qkPl+t6XAviakFHTHqXNuTPU20HJI+uQrtvVeZGiL+ytko7uSHksrtOrdQrpwPitJ6
-	 GygtUOIleTcgP3oOX08jNbqtm3+VMK2kmqe+/G8Xj+rdYOBoIqR1jTLR9WX/KTqdEj3ms
-	 a5pWVhR99Q8dsLw30teX4LhUNPWV7YmGkunw3TtBGRFgfO1dYespFhEr55aiuD2vTyC0e
-	 cve+d+ufUB/Ifgl90lcGp0cTVrvEXEXeFnJX/Yz1l7/r7dOGi0G0i08swq9X5CZ4SyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794913981;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=eWt+U3bOol/6ze2kO8eME6d8eHhq2RawjExMTho077A=;
+	b=L+faAwK6ASW8KaQ4/60WDShuUGiOso7AUGDk+jUESmaM7IyHDw8DXvt34EDCT/YKicHr
+	 mcJhyprw1BJ+oW6UogxL8Pyi99YVkZ8C3zCybXfWi/hlBvGkXrsO+oifPfOc1awd6i77s
+	 iKxs8Dka9xLqEs5LBYNd4st2iz4ylHvg1fa9bGyMj1ZpBnGFT5uyjudCUrj3p4XHWI/T9
+	 dwTzmm9HSCyqdZnEGa6o2K/UXME33rpOoaqICtaFx537gQ0d2mgR9d8pB4/MQOQepvWmY
+	 S7PaMwI1Wn+5ZCooiphltrVxpSbSLmTTLrn9UU20AZ4a1FBpsqkBF3u+1Esij2O4M5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g4LDFMlr;
-	arc=none smtp.remote-ip=74.125.227.137
-Received: from mail-pj2-f9.google.com (mail-pj2-f9.google.com [74.125.227.137])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wsrzuh4q;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF51606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:12:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DF51606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F920606A329;
+	Tue, 17 Nov 2026 11:13:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g4LDFMlr
-Received: by mail-pj2-f9.google.com with SMTP id 98e67ed59e1d1-3b18c01238eso1418251a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:12:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794913934; x=1795518734; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YpT6onB1YW1VQSPE7BNmbI9BqwBaWK5/0IYsluHOeG0=;
-        b=g4LDFMlrT5xVMlwDAzPW6YO9fwosGC32nZ8FGPwgQ929gmyDlQJBvF7cdWdtE5cxbq
-         AA6oag+4HbkPqb5A/aS7cQ4Bypozy14dRYwQxivHjjckNYbKALh6Ybs1Z7iDxwNl/Dyj
-         3bNGFHApW4Gms7Rlml3EwnhUunTz07O8k7AdJCwqgbdkhFFsGB/mBlvAAuaBXhQp5F5B
-         yP9ah/qyo7/dBzUkKidSA7HDL2e4UIAXIOEctXKSFChg7Nvlmj4R7zRQChhww6K0a8v4
-         CcWf9ImLVQjogHY99Igr9wpp0wJo0BAmtRM0xDYMWq5PSOmIaoOWCfzdrtwx+F869Rw0
-         qcGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794913934; x=1795518734;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YpT6onB1YW1VQSPE7BNmbI9BqwBaWK5/0IYsluHOeG0=;
-        b=P8mIcBo1Qp6J578Xj+TzuirtYYMZmwG2fBZncMfqG2lQqNbdwU9vJklA7A8yngrWNN
-         rnckYgK0y1ySZ602xTXIE/pOM6Kjeib6xTp8KE9gyYIiPHiwqCV/jemxsmczPlc0ifRP
-         VmvisYcEL3GSv0daMjZwtDtYyCDN1yRz0PtTXKcecufaZJjMfJDUx1gYI5m54CONyZTO
-         ohwsVxXeW57ABf4F3NO561xzQeE3CZFs1AkkXZBw318q5N6FYapQ07x1vBSuxvQXM4hB
-         PlgpMH8UVJYBamSEzB1u26jX0mR3KDSNUupW6MDPzAS5HV1dQiNrnOqnnFhTcM5G5TMd
-         VXxw==
-X-Forwarded-Encrypted: i=1; AL+hErElU9NnCtB81cDaZFHsPgwpgfyHFK5FxOfKqM5TtPWLUFjZYJJIHYrLXi7uSrqqgPnXvCbEFmOHYZGuVfQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9HoZG1JQOzrydjqdlvlGdv53/VPNbCb7U9+ceMYAaZ/qBWgidM
-	LAt5yvjz7FABGdmVntKAjPePy8kM5iIiZT+DvFcf+I63m210jaGov9Gm
-X-Gm-Gg: AZFdTZfrCvxQsXntRXDhpSSrZKSbN+RL1mbTnyj9G/SkiaKs8d+EYGTzks8S3S6D/50
-	lhbXWqv3PTNHw0rr5yJRBLP7jGTddgK5Llf6Z9lsfKfOofPRLrUbIKVC+gLtSes0iwnYAx7iBa4
-	wbepLQR+WnPg4oyqhKYAQeIy5q8JEUN00aocE/FoLm210iSmiYVCjqJH1/Riu4vBHnyUnMbx6J+
-	JsOanPcrSdz67AWpunjFPdcdAU1w9duDWXPPdtaa+OMt+Su422Z39eN3heRpwBCULLO1CsshFBZ
-	mV1Moz2g0sLdbchvzQbgSSTnyTnE+DQKvTEJ4fWF0fM0lGcMbRTnM/D7N0yPX6a23Lzyz6BoKma
-	48XM+RVxfYN0KibVck4upf1pEADA7xfjevTcnWmHwtSmt/ghdu3+5X3UV48pJGKPO2CXYZDBHiu
-	wRsOmMgThyVv3lewV1jIOgVkRw5j6KkGgcNGxs3IojnIQSogxkvXcP9xmcYEQWsmoQjITPM19qm
-	et4D2C8Xb3Km5UxyYxNvhpOpI+FPBZVr+NNg6rbQVv8fZ5M3BlnM3VQqxQhJ8CVhtM6ImkkkY9u
-	bqdEQlcnCidX/IPY4NcX/2XIbbdxEp+i8ibLDVBY7WdmU2MUnRtFKC0odPQBAPIpR4k/qLU2OzM
-	Ab02mWVqNhbZI9hUWluiZqg4Ayg9oEt9hT6+rDw==
-X-Received: by 2002:a17:90b:3b8a:b0:3b0:9f53:e8a8 with SMTP id 98e67ed59e1d1-3b1b0b5f2c1mr13037200a91.52.1794913933750;
-        Tue, 17 Nov 2026 03:12:13 -0800 (PST)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3b6da0fa8sm2752958a91.9.2026.11.17.03.12.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 03:12:13 -0800 (PST)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: axboe@kernel.dk
-Cc: tj@kernel.org,
-	hannes@cmpxchg.org,
-	mkoutny@suse.com,
-	josef@toxicpanda.com,
-	bvanassche@acm.org,
-	cuitao@kylinos.cn,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	cgroups@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	dennylin0707@gmail.com
-Subject: [PATCH v2] blk-ioprio: check capabilities before promoting a cgroup to RT
-Date: Tue, 17 Nov 2026 11:11:57 +0000
-Message-ID: <20261117111157.2968-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wsrzuh4q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 835BD1F000C4;
+	Tue, 17 Nov 2026 11:12:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794913980;
+	bh=eWt+U3bOol/6ze2kO8eME6d8eHhq2RawjExMTho077A=;
+	h=Date:From:To:Cc:Subject;
+	b=Wsrzuh4qGYC/kbO9x4ykF06ww1BA0+D5iRr+j4aoxg8yWfOio39+AE5Nir9YomGeH
+	 jyE2/1XtlgYOlyHBcIf10aFkX4rYFjt6W6lzngjw4R7RiVt1dbUF1s4+zNarLI9ljF
+	 8tdJJ93r68Q9arO6KEvfO8v0xfKEpu3jfhbITEEqYIzvyCgyGFMJz3EertUnyGXjQc
+	 Sxd7TboZEYfwaFac20bULtzHMkD5H7/tvhazj5X2JOztdwE3pEflfbGtC3EGp6pzjf
+	 SaEViOftYA9DfW5H680tU+cPDPYpfFCUePxSCm+pZnK2Bdw/95vzoVPB+KnCKXf45x
+	 ag077S/sPhQ2A==
+Date: Tue, 17 Nov 2026 11:12:55 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Andreas Gruenbacher <agruenba@redhat.com>,
+	Steven Whitehouse <swhiteho@redhat.com>
+Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
+Subject: Missing signoff in the gfs2 tree
+Message-ID: <avw2twIL0G1OlaYD@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,87 +55,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="UoQZWeBcllLWLjpF"
+Content-Disposition: inline
 
-ioprio_set() and the per-request I/O priority of aio and io_uring only
-hand out IOPRIO_CLASS_RT to tasks that have CAP_SYS_ADMIN or
-CAP_SYS_NICE. The io.prio.class cgroup attribute has no such check.
-Writing "promote-to-rt", or its alias "none-to-rt", to it changes the
-requests of the cgroup to the RT class.
 
-The attribute exists in every cgroup that has the io controller enabled
-and it is not hierarchical. A user that got a cgroup delegated owns the
-files of the child cgroups it creates there, so it can create a child
-cgroup, move into it and write "promote-to-rt" to its io.prio.class.
-Its requests are then issued with IOPRIO_CLASS_RT although ioprio_set()
-fails with -EPERM for the same task, and mq-deadline dispatches them
-before the best-effort requests of everybody else.
+--UoQZWeBcllLWLjpF
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-The delegation model in Documentation/admin-guide/cgroup-v2.rst expects
-the settings of all resource controllers to be hierarchical, so that a
-delegatee can only distribute further what it received from its parent.
-This attribute lets it raise the priority class of its own requests
-instead.
+Commit
 
-Require CAP_SYS_ADMIN or CAP_SYS_NICE for the two policies that raise
-the priority class, like ioprio_check_cap() does. Check the credentials
-of the task that opened the file, like cgroup_release_agent_write()
-does, so that the check cannot be bypassed by passing the file
-descriptor to a privileged program. The other policies are left alone.
+  e3280ea8b7396 ("gfs2: Fix NULL pointer dereference in gfs2_seek_data/gfs2_seek_hole")
 
-Fixes: 556910e39249 ("block: Introduce the ioprio rq-qos policy")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
-Changes in v2:
-- Check the credentials of the task that opened the file with
-  file_ns_capable() instead of the credentials of the writer (Bart).
-- Document the requirement in cgroup-v2.rst (Bart).
+is missing a Signed-off-by from its committer
 
-v1: https://lore.kernel.org/all/20261116090529.69650-1-dennylin0707@gmail.com/
+--UoQZWeBcllLWLjpF
+Content-Type: application/pgp-signature; name="signature.asc"
 
- Documentation/admin-guide/cgroup-v2.rst | 3 +++
- block/blk-ioprio.c                      | 6 ++++++
- 2 files changed, 9 insertions(+)
+-----BEGIN PGP SIGNATURE-----
 
-diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
-index 9e3c67b02ae2..4424f9cf583e 100644
---- a/Documentation/admin-guide/cgroup-v2.rst
-+++ b/Documentation/admin-guide/cgroup-v2.rst
-@@ -2409,6 +2409,9 @@ that attribute:
-   none-to-rt
- 	Deprecated. Just an alias for promote-to-rt.
- 
-+Selecting promote-to-rt or none-to-rt requires CAP_SYS_ADMIN or CAP_SYS_NICE
-+in the initial user namespace.
-+
- The following numerical values are associated with the I/O priority policies:
- 
- +----------------+---+
-diff --git a/block/blk-ioprio.c b/block/blk-ioprio.c
-index 8fa8bca35062..acec62ee94bd 100644
---- a/block/blk-ioprio.c
-+++ b/block/blk-ioprio.c
-@@ -14,6 +14,8 @@
- 
- #include <linux/blk-mq.h>
- #include <linux/blk_types.h>
-+#include <linux/capability.h>
-+#include <linux/cred.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include "blk-cgroup.h"
-@@ -91,6 +93,10 @@ static ssize_t ioprio_set_prio_policy(struct kernfs_open_file *of, char *buf,
- 	ret = sysfs_match_string(policy_name, buf);
- 	if (ret < 0)
- 		return ret;
-+	if ((ret == POLICY_PROMOTE_TO_RT || ret == POLICY_NONE_TO_RT) &&
-+	    !file_ns_capable(of->file, &init_user_ns, CAP_SYS_ADMIN) &&
-+	    !file_ns_capable(of->file, &init_user_ns, CAP_SYS_NICE))
-+		return -EPERM;
- 	blkcg->prio_policy = ret;
- 	return nbytes;
- }
--- 
-2.43.0
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr8NrcACgkQJNaLcl1U
+h9A7ZQf/ah8oSH6Qn1Pg8nFDZyCNp4H8RgnJDCpb5NqYKpaM0klgRwisWSMPwWZB
+CNZAlIohNndyc1+f2NI9vXMGuiBgBi4anOGeguTlQMKKToR8WyuMOl9nY5U2yfFV
+mEP0HfpNN6S8A717nICUvwVXIyDRrXuvGhENJ6ThXJRcF+xTbN+nAIL4s7SNtWTC
+K5s6DZt9pCn7OVKkpqdm0c3EjTap4aZSGL4K+k+eW3f0UwAgjF5QpaIw6kdWTbAo
+EF3gdDUfZvG6XCyK7nPHIkYjYWTRAtEXEZg1Q50Kh898oixDjUCiDtNBgOgUBgRc
+TpXS4UwFqFQQEeH+XvmteX86QwUJzw==
+=wm/e
+-----END PGP SIGNATURE-----
 
+--UoQZWeBcllLWLjpF--
