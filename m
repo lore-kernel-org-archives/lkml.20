@@ -1,62 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794929790;
-	b=aX9wztkgJ4QcLXYaUYj0OGN4te0yovjBBIJzzdYAUreY9L/W0NsAi7PJyuZu6yIdEdAM
-	 rKBg3fFX2sanIsjMC4P1q8bAjnJCzvf9zw2Hiv70BDzJhrbZm7jgzVAg0mWGFtik9r0nH
-	 FlHeGXGaDC4l22UYFivCBa8Ts5CpQwawPU/W4Mo3KLMx/NZlijGuK+72mgGUaeLPHEE05
-	 MWjtK+//5WxHEr3clv00RaeFUYJyrBREc1pNpZqH+o2/oQPi4q2IqaojiuHDXMBB63MkO
-	 RnFUbQc1CABUw4tANWnc1BiiXsqcbHyZJj76Q2bxIPFwVXQRdYR+7BljPDunwbKBi6Q==
+	t=1794929795;
+	b=JpdjwdaL3+GKJm79RAwu79YxrdjJRAs/LpxcjRCTCF50FTgK9RG/5pB+cWopLu3Y8hJ2
+	 bx7V8I9pzD7bqQvk1wjgOJ5hi6f6kDYiBFgw6MlmoD2EW3N0L297XNwPXAYs01z0jascH
+	 0meduVJ8qRlDS9V3PbgdjhJho3Re8C44OIn6DoBS37dJ9VWARBr3d3wIpx6AY3lmm7P+I
+	 o2Hf4Xp22/7HLPlKEWgoBIaPpZlwPApiHyZq5rCLKBFnDJfk8bcSmVTS8Wyxv/JfNmPG/
+	 Vopy9utFF6AzuG5jVIlOU13OwFtilznXMPJAjZRMunHCCB1+eMYGfVh2FbAiQhywlLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794929790;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=WFJgYNeA/aloy8pF2X21+EgWkKhCq+a9N4WCABzbaOQ=;
-	b=RUVFp7cW+v/4/MO0J+mutFxgxl/cwrRRmyd4eLRvkUqaCXwwxhv48j82g8SW9RH6JiTB
-	 V8EM+tOo1rpicig1BAn9+wE9LQjzbb93dqm2kt4PmxErPJKxN9c4gsqwhM50TkrTaG2ig
-	 mKZo0UXT5RC5fgVSo/aPpEAzyQzw44UMrZIosHnKfcsdFQfSVTHdMTG0zDxmP6DYKV9UX
-	 coJyto+jnYR4U+oOOWHtEUYpqpAwBbXDta3hUkux1FkvrESbvALHJFqoL7WB5vA+b52xt
-	 292Cf6t8wtiEUlJbQ2y+XdV90i5tUot3u2pwPfjdOgh2CwaZZ3DB9Sspbc0PKCeAx0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794929795;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=Iu0dxZTO8PcDzOB+6qCjf2Tg6FKjgEK34SzfNcCThyQ=;
+	b=4mFpwPo+8nJZCQZPNgkO9i/REbY2jkcRZ17PBIQ00boL0JLZ5oMCgp/xOkKIttfHkvJ2
+	 laZ75lTqXRgSs0nPWrkSjN3V+YqhW3C3EOd+pShqEQo7yZ8w+DNgAYpELLlV51jnq0r2g
+	 k8f6bnVCzMhxIIQ18/m3h0R0yx3a28+ctRyaG0MrYz4MJPP01OMQwyBLtA3s8k3KpO2PG
+	 VMQ7BmqMhKfUewdxHRHbYs38ZdILoyEVXLT06N4o2dagLN6Yl8mnEmOZZtJF/6oDEiMWT
+	 r36BWn8gqZFLEdG9z+GPXe+A4BldJEUrsoJRRIdm+MN4IUCkpmQHn9AS39gYBKjUvGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b="e6mdzX1/";
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=anHTQfGT;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="eWbrFrw/";
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43559606A8B1;
-	Tue, 17 Nov 2026 15:36:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43559606A8B1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8C55606A8A2
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:36:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8C55606A8A2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=e6mdzX1/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794929785;
-	bh=ATt9sQf4jrUWMWeCujd6AgupNJwciBcASnX+xPBVNtI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=e6mdzX1/v/Q1mjqNNfeoqEt4qHHiOMfF6dvDMtaLbG+enhDu26tmV0RDfYdM4qimF
-	 eEtuFjrlIPAnFFIFDv6oK3fGc3d/ft/FHWJQTFMw8QoJaTxJuYf9zRM1zbipp38MNe
-	 mS5F+fGqsqVA1erpOEaO6CcXwlfK7KFcEzJGFNCq66sfdZ6Ah3Foi6ugX8kAsMmwky
-	 DNQjq9zarllb5pz9te1xS4OzmF2zuY+8/K7TZ6cXNPtKPAtshJkNL1KCL/lLGBsfqg
-	 p5sZXOnLJmuStYhYOQ7ZkdV5ChcsXb1fbjikE4hhxHVcqa56dNNx2xUiYYdx1sulZn
-	 uDUVF6frTDQZg==
-Received: from jupiter.universe (unknown [100.64.1.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 42F9517E35C9;
-	Tue, 17 Nov 2026 16:36:25 +0100 (CET)
-Received: by jupiter.universe (Postfix, from userid 1000)
-	id A5CA148003D; Tue, 17 Nov 2026 16:36:24 +0100 (CET)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Tue, 17 Nov 2026 16:35:43 +0100
-Subject: [PATCH v3 7/9] PM / devfreq: rockchip-dfi: move register offsets
- to variant struct
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=anHTQfGT;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eWbrFrw/
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHFR4gj3503943
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:36:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Iu0dxZTO8PcDzOB+6qCjf2Tg6FKjgEK34SzfNcCThyQ=; b=anHTQfGTNUfJhltw
+	JdjFJIw1vlt50liTTE6kzzm3wE6ww8FHTIic2iGqzuK2CJF+04/IfTPElzGT8eFl
+	VRYt3GnTMHEp76+IUMgYCm4WYQzpVg98IBG47F+YX6rU7oegkq3PtMcfjEPaq+NP
+	9+D/cpze7el9fxHT2uvvJW63o4Qk7oNw++enZEBVhIAXrNWjLPcXLNW0cI9PvBYJ
+	n54o+5JrwwuwCgtGFQNLPf66HgIcGHDmqpdtuvFecu3V+rO9r8bSz4SMRxj/QWpS
+	XjusrJWKWjcukmSJ2wcp3TAK8zYwTeBEZw0sVECBXdspfF73GPFWqrGtG3+29olq
+	xUi1bQ==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0mv11bj1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:36:33 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7cc4149b885so3588758137.2
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:36:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794929793; x=1795534593; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Iu0dxZTO8PcDzOB+6qCjf2Tg6FKjgEK34SzfNcCThyQ=;
+        b=eWbrFrw/UCkHtywquS+wnebU/CS265/ydsXk/BYIHDL1Qhlj4tS2l8dCror1TltJUX
+         BBC36q+p69urs6rGkdp7mw6XxfoJsNt3agrQJG2u9+lmG+LlOtlA3jcyp/24Du/KZ+RD
+         cIKfh0i4sUH8hiK0u5UMa9KqCzyK7ahuc1O5I7PyP6eCRAC8jIa2AzXriFXgBq9SFSmd
+         0CePOkKV8smYrXe0TeXjKklcV1TL8sdDdJDbp+xBhVoisJ0HxsVhDlmI6QFeS8NQIIvi
+         gHV4t4wv02/qTsdCM55nwx6oo8RFGK3ZPLf8y7bcXBxbWTYeDVwlY/CyY0FOgF70JFjL
+         K3qQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794929793; x=1795534593;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Iu0dxZTO8PcDzOB+6qCjf2Tg6FKjgEK34SzfNcCThyQ=;
+        b=egeNR8a2MuZq//25c86HcC4cfkes+/EfgeN2A/xqG0aN4rQfdKFzwoVUpKxSkjz2rF
+         VnDfMDo7QcueuMltClq1fAHWrHEmzbETBDdRBRZdFjnCu+zazLvnWgCDO5clfEyOPNaU
+         0EJXzijGzblzD3ASRGiB/2LsEjedQ78N0fn8gQNR5whNqG9ox0oo6opnxvoZV/6/p3cB
+         aTn0ckDTuu8vz38BD6RJ5ydcO69D31imHB98/jkIAwROFvRewjcqyjntOLxHBk4A2Qtf
+         yreQWz8xkCraLoGa4Pe5ebtEyhX0tRnzEUIoHkbXsH8tXQRZbxLeGVoyr9DiSCWOOruq
+         bxIw==
+X-Forwarded-Encrypted: i=1; AL+hErG62Y/LNTSQk72uW7VMHJHCc4XgLnIs/ORgy/F2cuwTN+gFz9JGxjMzZ/0JKKiVnkmc3IIYvsh5KvNPJsQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8G9YVpTfEY/oMhmqIGs6RbTkcqkuKCN0OfxDdTamOpA1Ruviji
+	FkJrrAq2DYD974/WtaArESDycetjujh8N1qp5vsSU38G8W2J5esvTu6ZCFShpRODbO0FfybOZ1s
+	NPPvb4qA/iZZHw0P4RSm07RxYWhxVXB1rsFlfTHypFQMbDo9Z80SqJb4ZMtOa0wrqwiI=
+X-Gm-Gg: AYBFou1Lr2lKWEdjAK1ED3gZzPCruIMFJ9Xb1ej8h0SOiGIlXuqYKmsGV7AHbo8zqhu
+	d9fpTc8fffR21kXUXarsay/8Yt1pQNDSOLK3KlnIU+MYYsAXvoo4ZWZIq2H57CZnwRmIR2ZAiLS
+	Ka6y/I65ycXs+q7wjOU0IgUgGddqthiJ7mWwArOUP458XImf0OsroBgCQjA/fiFX+dvN2LlxEk3
+	3BWQv+/Mjjo/yTkN6dAMvGa64TWpg6pgoptfsKvif7OLUnRl1F+cjjVf0+QvVVOVWUUqJydyvNr
+	OE7Il4cWyeJKQ7cumZ7xaOZtuvbM95dpDS1EvT0qaKc47ctlj1uexfTehKaDCNm57kRPPotU+wt
+	aS2+MH3ECbkskbDrRQOx6i/cotbXyEPqRcPi2OldJg59B5nt/f5bI9oKz8pNSpNc3lStkDZROZy
+	I=
+X-Received: by 2002:a05:6102:5815:b0:7d2:7be1:271f with SMTP id ada2fe7eead31-7d64d8228camr6206098137.31.1794929792728;
+        Tue, 17 Nov 2026 07:36:32 -0800 (PST)
+X-Received: by 2002:a05:6102:5815:b0:7d2:7be1:271f with SMTP id ada2fe7eead31-7d64d8228camr6206081137.31.1794929792052;
+        Tue, 17 Nov 2026 07:36:32 -0800 (PST)
+Received: from [172.20.2.50] ([195.50.164.66])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4bb7839cad7sm80688825e9.10.2026.11.17.07.36.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 17 Nov 2026 07:36:31 -0800 (PST)
+Message-ID: <65e501e0-b6d5-4204-ba6a-2d35091e2ae6@oss.qualcomm.com>
+Date: Tue, 17 Nov 2026 15:36:29 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,142 +114,170 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ASoC: qcom: q6dsp-lpass-clocks: Set driver data before
+ registering clocks
+To: yzddmr6@gmail.com, Srinivas Kandagatla <srini@kernel.org>,
+        Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+References: <20261115-upstream-q6dsp-clk-drvdata-v1-1-4d7dbea52e52@gmail.com>
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20261115-upstream-q6dsp-clk-drvdata-v1-1-4d7dbea52e52@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v3-7-32ff1546b0e4@collabora.com>
-References: <20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v3-0-32ff1546b0e4@collabora.com>
-In-Reply-To: <20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v3-0-32ff1546b0e4@collabora.com>
-To: Chanwoo Choi <cw00.choi@samsung.com>, 
- MyungJoo Ham <myungjoo.ham@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, kernel@collabora.com, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3935;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=ATt9sQf4jrUWMWeCujd6AgupNJwciBcASnX+xPBVNtI=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr8dHjVE3B7Vav1LrESj/TZCFyTgaIov7Af8
- IlKk7ohwzSQMokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq/HR4AAoJENju1/PI
- O/qaxjsP/3uatGCNW/fdpZG5jUrO0X5u/lGCsTXKeI2c494/1e+lKtuyOyFeVJVQa7nkkB5LS4u
- kQOCu/S+Q7vjkiidg5js/UqQKXLZGy56iMVjiyP3y/YR4HjT7KVcF7+ZVwxmOkoid10+RzWmXSQ
- bdH/hT0PFXzF7GsjY4obcjEfgZ+P4V3X7d9pmYtWHtzNpJ2xq6vqhms4shDg0/GfXSDVLiEGOyQ
- CXh48e1k9uMohzMnjNZICeEyDRscI7S94lURugAkcRWalrAzmFkl8xg/S6SHNSE99Iy7iXasu7l
- dmPIZ5qERkhavZGDmN6EW+QEZrVs9sBWl8k/4bPnLrsSSwcEXk7ibzIT8LWr+wfWV4RZ1VvipXS
- E3f80bm8CTEb8ecXVU2nq4x/fB4AJf0hOpAo6katZl5BJ6PAqDYZJJfNHMlcC12aGNgIpUFm0Kj
- /3yyPPw69avR3haIZoyNV5Yq2JgD60k9IyQCZ/uMvL4WqzXCkXAVp8UHjxYOMOgIAFKus4WtCqj
- Gs2Br6i2zXibCElJR3OfG1cqh7nR3ZcRfQTdwtRfiS4Q2HD0UgbVLAytqsLR5aOSOoPG+q4D8g1
- Ft+RCCQa0GjLqbpDiMmCjV78fEDJ1uOK2fuwRiKOzKdkGtsuO3va6ZMsTiVLucWuqQvv9kcz2K2
- 9TulwLvfWHAnA9GOBIp83ng==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
+X-Proofpoint-GUID: qTCHbj7q-RhrSNbmcn0_MYL0mm_yk6Wp
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA2MiBTYWx0ZWRfX987n/OiEdavM
+ OjrmGsjEVgQZwhqcgxqhx4hy7WKiYkt1NuZQCeaXOPrGoTQGztoG5fpbVw4YhHCTNtp9+VOhdvY
+ D2JyeeWFuyyDfUhT8okvroew6UcQ0UM=
+X-Proofpoint-ORIG-GUID: qTCHbj7q-RhrSNbmcn0_MYL0mm_yk6Wp
+X-Authority-Analysis: v=2.4 cv=Cuwq4X4D c=1 sm=1 tr=0 ts=6afc7481 cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=Jk2/TV77q6/E6wQq2oQJxQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=pGLkceISAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=mFCCqUHryluRUJtW3YUA:9
+ a=QEXdDO2ut3YA:10 a=crWF4MFLhNY0qMRaF8an:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA2MiBTYWx0ZWRfXwM7yWSjdFm26
+ M0C11ZZJylssgz81xDOr50uzOoP0Rd2P0ijKCFXLDsaYqA6glJgm0SO7DLgVMxw941Ij6CKwj4Y
+ OVlEm8cK88h3kwfAKf/oKOnJfEWN1yQkxBXGMZ1KpBRQFKqho8GBBDewZaOBrsG0ogEYDUhirgp
+ /9P4Ecc4XLj2uEw+Kbq0mPk2Rt3ykFc+BgEPQhThW1BFTnMKT1Qw9kqsbEVyjY/YhI9dIPV1W0l
+ 7uL5ajIaxbwCLLVh9N9nl3ST3HSmmjyVUEuwKG5aYd3rJUtjXQp9CYMNTBeks2C27h6d7vvC0WJ
+ 7KK2DtvEeR/XTY+2GVi0eepR7rgErRScqHBjm4Qq4RyKt1LLC1IKO49eNwtsXgo8KigxpwmuoBT
+ LauqDpkn2LgVU+p+mKOQUHuYshbz8QaJ4dag5gUG07ddT8/ITZT7c2Q4+OXo0yfHUNzX25hzq4G
+ oSp7MG+BKeRseWTeY2A==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_03,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0 adultscore=0 clxscore=1015 priorityscore=1501
+ spamscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170062
 
-DDRMON in version 0x40 (found in RK3576) has two control registers,
-which moves the register addresses. Move the register offsets from the
-defines to the varaint struct to ease supporting the newer version.
 
-Acked-by: Chanwoo Choi <cw00.choi@samsung.com>
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
----
- drivers/devfreq/event/rockchip-dfi.c | 34 ++++++++++++++++++++++++----------
- 1 file changed, 24 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/devfreq/event/rockchip-dfi.c b/drivers/devfreq/event/rockchip-dfi.c
-index a97c63cdab57..33a379618eb5 100644
---- a/drivers/devfreq/event/rockchip-dfi.c
-+++ b/drivers/devfreq/event/rockchip-dfi.c
-@@ -42,12 +42,6 @@
- #define DDRMON_CTRL_TIMER_CNT_EN	BIT(0)
- #define DDRMON_CTRL_LP5_BANK_MODE_MASK	GENMASK(8, 7)
- 
--#define DDRMON_CH0_WR_NUM		0x20
--#define DDRMON_CH0_RD_NUM		0x24
--#define DDRMON_CH0_COUNT_NUM		0x28
--#define DDRMON_CH0_DFI_ACCESS_NUM	0x2c
--#define DDRMON_CH1_COUNT_NUM		0x3c
--#define DDRMON_CH1_DFI_ACCESS_NUM	0x40
- 
- #define PERF_EVENT_CYCLES		0x0
- #define PERF_EVENT_READ_BYTES		0x1
-@@ -128,6 +122,10 @@ struct rockchip_dfi {
-  * @clocks_optional: whether not finding the clocks is non-fatal. Set if the
-  *                   DT binding for this variant didn't require clocks in the
-  *                   past, so that the driver remains compatible with old DTs.
-+ * @reg_write_access: register offset for writes access
-+ * @reg_read_access: register offset for read access
-+ * @reg_access: register offset for read/write access
-+ * @reg_clock_cycles: register offset for clock cycles
-  */
- struct rockchip_dfi_variant {
- 	int (*init)(struct rockchip_dfi *dfi);
-@@ -137,6 +135,10 @@ struct rockchip_dfi_variant {
- 	const char * const *clk_names;
- 	unsigned int num_clks;
- 	bool clocks_optional;
-+	u8 reg_write_access;
-+	u8 reg_read_access;
-+	u8 reg_access;
-+	u8 reg_clock_cycles;
- };
- 
- static int rockchip_dfi_ddrtype_to_ctrl(struct rockchip_dfi *dfi, u32 *ctrl)
-@@ -277,13 +279,13 @@ static void rockchip_dfi_read_counters(struct rockchip_dfi *dfi, struct dmc_coun
- 		if (!(dfi->channel_mask & BIT(i)))
- 			continue;
- 		res->c[i].read_access = readl_relaxed(dfi_regs +
--				DDRMON_CH0_RD_NUM + i * dfi->variant->stride);
-+				dfi->variant->reg_read_access + i * dfi->variant->stride);
- 		res->c[i].write_access = readl_relaxed(dfi_regs +
--				DDRMON_CH0_WR_NUM + i * dfi->variant->stride);
-+				dfi->variant->reg_write_access + i * dfi->variant->stride);
- 		res->c[i].access = readl_relaxed(dfi_regs +
--				DDRMON_CH0_DFI_ACCESS_NUM + i * dfi->variant->stride);
-+				dfi->variant->reg_access + i * dfi->variant->stride);
- 		res->c[i].clock_cycles = readl_relaxed(dfi_regs +
--				DDRMON_CH0_COUNT_NUM + i * dfi->variant->stride);
-+				dfi->variant->reg_clock_cycles + i * dfi->variant->stride);
- 	}
- }
- 
-@@ -831,6 +833,10 @@ static const struct rockchip_dfi_variant rk3399_variant = {
- 	.max_channels = 2,
- 	.clk_names = rk3399_clk_names,
- 	.num_clks = ARRAY_SIZE(rk3399_clk_names),
-+	.reg_write_access = 0x20,
-+	.reg_read_access = 0x24,
-+	.reg_clock_cycles = 0x28,
-+	.reg_access = 0x2c,
- };
- 
- static const struct rockchip_dfi_variant rk3568_variant = {
-@@ -838,6 +844,10 @@ static const struct rockchip_dfi_variant rk3568_variant = {
- 	.stride = 0x0,
- 	.ctrl_single = true,
- 	.max_channels = 1,
-+	.reg_write_access = 0x20,
-+	.reg_read_access = 0x24,
-+	.reg_clock_cycles = 0x28,
-+	.reg_access = 0x2c,
- };
- 
- static const struct rockchip_dfi_variant rk3588_variant = {
-@@ -847,6 +857,10 @@ static const struct rockchip_dfi_variant rk3588_variant = {
- 	.clk_names = rk3588_clk_names,
- 	.num_clks = ARRAY_SIZE(rk3588_clk_names),
- 	.clocks_optional = true,
-+	.reg_write_access = 0x20,
-+	.reg_read_access = 0x24,
-+	.reg_clock_cycles = 0x28,
-+	.reg_access = 0x2c,
- };
- 
- static const struct of_device_id rockchip_dfi_id_match[] = {
+On 11/15/26 1:12 PM, yzddMr6 via B4 Relay wrote:
+> From: yzddMr6 <yzddmr6@gmail.com>
+> 
+> The clk ops of the q6dsp clock controller look up struct q6dsp_cc with
+> dev_get_drvdata(), but q6dsp_clock_dev_probe() sets the driver data only
+> after it has registered the clocks and added the OF clock provider. A
+> consumer that gets and prepares one of the clocks in between
+> dereferences a NULL pointer.
+> 
+> fw_devlink does not keep consumers out of that window. The q6prm and
+> q6afe clock controllers are described below the ADSP remoteproc node,
+> and their devices are only created once the ADSP has booted and its
+> GPR/APR services have come up, long after the remoteproc device has
+> bound. fw_devlink therefore makes the remoteproc device the supplier of
+> their consumers. A consumer such as the LPASS LPI pinctrl then just
+> defers until of_clk_get() succeeds, and its retry from the deferred
+> probe worker can run while the clock controller is still in its probe.
+> 
+> That happened once on a Xiaomi Pad 8 Pro (SM8750). While the LPI pinctrl
+> probe registered its GPIO chip, gpiolib read a GPIO direction, which
+> runtime resumed the device and prepared its q6prm vote clocks through
+> pm_clk. The prepare op then faulted with a NULL pointer dereference at
+> virtual address 0x350 (trimmed):
+> 
+>   pc : clk_vote_q6dsp_block+0x24/0x58 [snd_q6dsp_common]
+>   lr : clk_core_prepare+0x7c/0x298
+>   Call trace:
+>    clk_vote_q6dsp_block+0x24/0x58 [snd_q6dsp_common] (P)
+>    clk_core_prepare+0x7c/0x298
+>    clk_prepare+0x28/0x44
+>    pm_clk_resume+0x10c/0x188
+>    pm_generic_runtime_resume+0x2c/0x44
+>    ...
+>    __pm_runtime_resume+0x50/0x94
+>    ...
+>    lpi_gpio_get_direction+0x4c/0x8c [pinctrl_lpass_lpi]
+>    gpiochip_add_data_with_key+0x7b0/0x10dc
+>    devm_gpiochip_add_data_with_key+0x38/0x8c
+>    lpi_pinctrl_probe+0x2b8/0x320 [pinctrl_lpass_lpi]
+>    ...
+>    deferred_probe_work_func+0x88/0xc0
+> 
+> 0x350 is the offset of desc in struct q6dsp_cc; the driver data pointer
+> it was loaded from was NULL. The oops left the clk prepare_lock held,
+> which blocks every later clk_prepare(), and the system did not finish
+> booting.
+> 
+> On mainline the window is short, but it includes a wait for prepare_lock
+> in clk_core_reparent_orphans(), which of_clk_add_hw_provider() calls
+> right after listing the provider. The kernel that hit this had
+> out-of-tree changes to drivers/clk/clk.c that do more work at that
+> point, which makes the window wider.
+> 
+> Both q6afe-clocks and q6prm-clocks use q6dsp_clock_dev_probe(). Set the
+> driver data before the first clock is registered.
+> 
+> The oops was analysed and the fix written with the help of an AI coding
+> assistant.
+> 
+> Fixes: 9ab71ac37240 ("ASoC: qdsp6: q6afe-clocks: move audio-clocks to common file")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: yzddMr6 <yzddmr6@gmail.com>
 
--- 
-2.53.0
+Reviewed-by: Srinivas Kandagatla<srinivas.kandagatla@oss.qualcomm.com>
+
+--Srini
+> ---
+> The kernel that hit this was v7.4-rc2 with out-of-tree board support and
+> other changes, including the clk.c changes mentioned above. The oops
+> showed up once in the 23 boots of that kernel I have logs for, and I
+> have not been able to reproduce it on demand. The patch is build-tested
+> (arm64 defconfig, W=1) on the base commit below.
+> 
+> I used an AI coding assistant for this work. It analysed the oops,
+> traced the probe ordering and drafted this patch and changelog. I have
+> reviewed the change.
+> ---
+>  sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c | 14 +++++++-------
+>  1 file changed, 7 insertions(+), 7 deletions(-)
+> 
+> diff --git a/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c b/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c
+> index 94d96130245e..c3628f90fdb2 100644
+> --- a/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c
+> +++ b/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c
+> @@ -146,6 +146,12 @@ int q6dsp_clock_dev_probe(struct platform_device *pdev)
+>  	cc->dev = dev;
+>  	q6dsp_clks = desc->clks;
+>  
+> +	/*
+> +	 * The clk ops look up cc through the driver data, so set it before
+> +	 * any of the clocks can be prepared.
+> +	 */
+> +	dev_set_drvdata(dev, cc);
+> +
+>  	for (i = 0; i < desc->num_clks; i++) {
+>  		unsigned int id = q6dsp_clks[i].clk_id;
+>  		struct clk_init_data init = {
+> @@ -174,12 +180,6 @@ int q6dsp_clock_dev_probe(struct platform_device *pdev)
+>  			return ret;
+>  	}
+>  
+> -	ret = devm_of_clk_add_hw_provider(dev, q6dsp_of_clk_hw_get, cc);
+> -	if (ret)
+> -		return ret;
+> -
+> -	dev_set_drvdata(dev, cc);
+> -
+> -	return 0;
+> +	return devm_of_clk_add_hw_provider(dev, q6dsp_of_clk_hw_get, cc);
+>  }
+>  EXPORT_SYMBOL_GPL(q6dsp_clock_dev_probe);
+> 
+> ---
+> base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+> change-id: 20261114-upstream-q6dsp-clk-drvdata-e09d27f289b3
+> 
+> Best regards,
+> --  
+> yzddMr6 <yzddmr6@gmail.com>
+> 
+> 
 
