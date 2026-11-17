@@ -1,68 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794933079;
-	b=Uq8cF7tyl2kfEl9Vs1BgArwJfBDxo+9N1xF7XFi2PMSkRpCNf4BFLMoDFAdDoM7luIBu
-	 AMUVOuW/PM8vahUYdAn/L/jGT5VfGNWuvskHMW56xEbMPZM7KXovSYfOgmWnKZLIzhP4Q
-	 8pD36kdn2Y78RnjGNIajcPWtN/NPl8il1+AnBMy7sOQcY5NmNZ9SP5wniBd+ivmHfWjHw
-	 4VIjVbxQcq3glSNJXPcb1ZRdzMC229gZxq2Lwq6eY2Oc5NNBTv30HHrjWNTyERKo9aJwr
-	 1GSKIM9eST7rwdyiU0Ij3R8QUDgkGmHWMLjgL7lNa9oYqvXs+2WRq+XGZUyNy+iC2mg==
+	t=1794933081;
+	b=NOWfGnDdxgF3JE2h+x5rKwZ/YhQ6cSauc54oZMWPEPWuN6BGpKIfLx9u8w4afSHlKtAA
+	 CElUUjXIwTW23nTY05vIM1enojSDpDYBbQq5G+/oh0ItkbDvc3cj89xPSumkip+Nbvw6m
+	 HVamt/I6YjOMldhf3U2USautboNIXPA6R62mxwBLmUn45j+mBXUyfZppLu7RTnckAOhuP
+	 98V+5mDwYyLu7TILgEzx8fyG/UdUnOnJJg9+ZteFfKZgTwMm0/0upsFB0PM/hsltQ1Rn0
+	 BeuXV+R7ug+UPrptOvUn+9p9q5b6Jb04ZZ5oQxBZCZlgCyZsYziqN6ST2c1DtAQM2gQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794933079;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=+VXloAoiQ0gKVmlWB5TAUVUEMHWEDvblznNl0gTNGCs=;
-	b=zlPGYjVyBuW4zH+laMqyJgNDQ4Hw0eO+BAiyP1HFjgFQQlhS/6269ngP5TTAOPxrJDzn
-	 OQsNdKRx1eeEJTfwQf3m6i+EcRSksDHEdJ6gXGvXhoyI9UtF5amVLfOZdR3lsvXX24iDa
-	 3AYY6GSJDjN4z4IsrEXM39tno3DWYVpiZfo2xiy2TqZwhixL6zELHegbYS4770pXp4CaN
-	 Oj1OHh/UiPS9erHplY+z4ZnarBrvb/6OR40rH5ECLw1q73HqSD2tXMCBJKOQ3rtwdePsP
-	 RS0gIMU9QMKl6s7fVMvd2XuBvlmlg3+/kBV5x3uNtnmqq2ZK1+w55cuPKS12gXqWRKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794933081;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=FBpqPZK5ApZJywy86jfnlfsnrvgnjO7xAJFJKAKJr0M=;
+	b=rIuYP57VTp7JqWdCoyobN3KfscZDsNRPGA/z7iMmAZJzZOgygMYV9NKf4I26ErIdweqo
+	 86cv1EChSh/Stea25rm44xO1zk9jT1BdwrbVes91k5heQWDkXAAbBRurvEN38BhpAibKl
+	 MtAJn2bQIy49u97cmhN/KGT4bsuVV8u1KO6vylwKmTefhWo56VEYruS0Zgu7HnMyXmx3/
+	 vsEevu2kygXFHQ2kNe8vPyM5LDabXpYDbHOoOX8k1rtnBZ4PixIHpf0ZVQxjnd0/HZUYg
+	 Wzzi8mYMZMtVP9/SA5G86kNwC1ctwRUSiA8FGZdKIwShbVIcsCNjB7k6ZrxvhtQAilQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gJcGmrO9;
-	arc=none smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cbvd210F;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01B92606A31C;
-	Tue, 17 Nov 2026 16:31:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01B92606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 026D4606A33A;
+	Tue, 17 Nov 2026 16:31:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gJcGmrO9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794933079; x=1826469079;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=khxvaBeBVsEG9PmKiSGHgC+2HMBmBWS4n5T88RawKqQ=;
-  b=gJcGmrO9FRzHhw+KCj1470FYvm37SNvC3IibjV8DDdACqw4FWdRCIVzx
-   +xQq/dagRtoT6RQSjpx3nKKoUsOPpl/UxENt5pwfwT41cQXnGEr/jvsrE
-   qySPDhnmQf0Z3DlbBcu5qf8o2UFiQeWf9IWxc9blCWMdxcJwd5EBfytBm
-   xMUhlTwwZAvSC/JZMUyG5Kie3vnXOwtrzlyk2pv5eYpCsmNI0wxz+/1jS
-   RGkGUuHUJUrZLOIph6p9/5M9TdmyiV/fvKROfEy53cuIrskCacKR4lQvs
-   BCM4x09G+jgL3qWOgA3V9GyNP3HbBAEtn6XusB+qG2S0Ahxh8/f6G/9+Z
-   w==;
-X-CSE-ConnectionGUID: 1/1Q73UDRQ+QfGgDQfTgHg==
-X-CSE-MsgGUID: TUT8xpqiS461xh1jqee8JA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3753577"
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3753577"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 08:31:18 -0800
-X-CSE-ConnectionGUID: YG8HmDygTtygH122z1YjJA==
-X-CSE-MsgGUID: Vh+xLxQMS/yWY7bhBPBPgg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="9739547"
-Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.108.197]) ([10.125.108.197])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 08:31:18 -0800
-Message-ID: <17dbc525-b3b0-4285-8062-fecf70658e0d@intel.com>
-Date: Tue, 17 Nov 2026 09:31:17 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cbvd210F
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5AD01F000C4;
+	Tue, 17 Nov 2026 16:31:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794933080;
+	bh=FBpqPZK5ApZJywy86jfnlfsnrvgnjO7xAJFJKAKJr0M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cbvd210FQstWSpHd11grqvdOWT7zHb4lr+1AkKIO9WEvT7tOwMAP+6EcM9jxuDwvP
+	 Wx4z+ieHQvNOhWaYvOap9W3mv5nu27CRw3EUeOqOMGVvZP02pqOWUd4e0MZ8omS+XE
+	 zquZ7oomRrIpXDmqxTrnL9Mw/mJ6aHOk20H0qnaN/YtDF0aE/+D3Wax0Bz9+20FDIN
+	 F5RUh0iqXnkDReYsy8NXNOZm09UMdf79l+6Q2Dzxz0iQghAVTsc8EpacBm5Ik4c/HD
+	 R1zXuV3DDMV2MnNWG8pJBV0w7s3Pc/ew3r8Kt+wqdA+AcPUC6LW60xu95DQPSR4xDT
+	 jdT849HTFCjJw==
+Date: Tue, 17 Nov 2026 17:31:16 +0100
+From: Christian Brauner <brauner@kernel.org>
+To: Serge Hallyn <serge@hallyn.com>
+Cc: Bradley Morgan <bradley.morgan@linux.dev>, 
+	=?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, Paul Moore <paul@paul-moore.com>, 
+	James Morris <jmorris@namei.org>, Josef Bacik <josef@toxicpanda.com>, 
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] userns: security: Inform LSMs of capability check during
+ userns creation
+Message-ID: <20261117-brennen-tastatur-ekelhaft-22ee93d5200a@brauner>
+References: <20261111205814.3282968-1-bradley.morgan@linux.dev>
+ <aveDlb6PlPSVoLD9@hallyn.com>
+ <4A0D804A-1199-4402-91EE-E37E8D6EA9E7@linux.dev>
+ <0c403a09-38cf-4953-a73a-ee57837b3799@hallyn.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,63 +62,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] cxl/mbox: Return success for
- CXL_MBOX_CMD_RC_BACKGROUND
-To: Li Ming <ming.li@zohomail.com>, dave@stgolabs.net, jic23@kernel.org,
- alison.schofield@intel.com, vishal.l.verma@intel.com, djbw@kernel.org,
- iweiny@kernel.org, icheng@nvidia.com
-Cc: linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261116070938.3675205-1-ming.li@zohomail.com>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <20261116070938.3675205-1-ming.li@zohomail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <0c403a09-38cf-4953-a73a-ee57837b3799@hallyn.com>
 
-
-
-On 11/16/26 12:09 AM, Li Ming wrote:
-> In CXL subsystem, each mbox command hw return code is mapped to a
-> corresponding errno value. Currently, CXL_MBOX_CMD_RC_BACKGROUND is
-> mapped to -ENXIO.
+On Sat, Nov 14, 2026 at 08:34:07AM -0600, Serge Hallyn wrote:
+> Nov 13, 2026 15:54:37 Bradley Morgan <bradley.morgan@linux.dev>:
 > 
-> However, per Table-8-208 in CXL r4.0 section 8.2.9.4.5.1, a BACKGROUND
-> HW return code indicates that the command has been accepted by the
-> device and continues execution asynchronously. It does not indicate a
-> command failure.
+> > On 13 November 2026 21:39:33 GMT, "Serge E. Hallyn" <serge@hallyn.com>
+> > wrote:
+> >> On Wed, Nov 11, 2026 at 08:58:14PM +0000, Bradley Morgan wrote:
+> >>> Right now security_capable() gets called in create_user_ns() to snapshot
+> >>> whether the parent could setfcap, but the LSM gets zero context on where
+> >>> the check actually came from. It is the same story as setid: without a
+> >>> dedicated flag, security modules cannot tell this apart from regular
+> >>> capability checks.
+> >>>
+> >>> Add CAP_OPT_USERNS_CREATE and pass it along from create_user_ns().
+> >>
+> >> This should be patch 1/N in a set that introduces a user of it
+> >> in some lsm.
+> >
+> > hmm. Did you read Christians suggestion?
 > 
-> Return 0 instead of -ENXIO for CXL_MBOX_CMD_RC_BACKGROUND so that
-> callers do not treat a successfully started background operation as an
-> error.
-> 
-> Signed-off-by: Li Ming <ming.li@zohomail.com>
-> Reviewed-by: Davidlohr Bueso <dave@stgolabs.net>
+> I did, when he first sent it. Actually it seems to me that what the
+> lsm would really like to know is that this is not for an immediate use
+> of setfcap, but possible future use. But that doesn't really matter. I
+> wasn't judging the patch. I was just going by what i believe is
+> general lsm subsystem policy.
 
-Applied to cxl/next:
-d9b7b42f7bb8
-
-> ---
-> v3:
-> - Drop fixes tag.
-> - Collect review tag.
-> v2:
-> - Add a reference to the relevant spec section in the commit log.
-> ---
->  drivers/cxl/cxlmem.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/cxl/cxlmem.h b/drivers/cxl/cxlmem.h
-> index c401e3a1af06..cc71d7a84cdc 100644
-> --- a/drivers/cxl/cxlmem.h
-> +++ b/drivers/cxl/cxlmem.h
-> @@ -160,7 +160,7 @@ static inline struct cxl_ep *cxl_ep_load(struct cxl_port *port,
->   */
->  #define CMD_CMD_RC_TABLE							\
->  	C(SUCCESS, 0, NULL),							\
-> -	C(BACKGROUND, -ENXIO, "background cmd started successfully"),           \
-> +	C(BACKGROUND, 0, "background cmd started successfully"),		\
->  	C(INPUT, -ENXIO, "cmd input was invalid"),				\
->  	C(UNSUPPORTED, -ENXIO, "cmd is not supported"),				\
->  	C(INTERNAL, -ENXIO, "internal device error"),				\
-
+My main point is this: right now security_capable() doesn't actually
+specify what specific action it denies. I think we would be much better
+served if we had an enum that would allow us to annotate places where it
+matters what specific action is checked. I would make use of this in bpf
+lsms.
