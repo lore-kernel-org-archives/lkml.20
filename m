@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794888816;
-	b=nJ5OOAERu3D64t03QIEk3LEhnxiGHE8/SMNaszZKd3b7Zm1px8ctnEOuD3Ryd0adhYou
-	 T9WaavHQVHdDmYJXIb6tch3utB+0HTNO9RrTvukUkt7p1aH7JsN+4z8JbQM0f+dV2Ib6l
-	 m8eOTKSqz9jJNGdV3zKzo92qt9gBzPptlM55ALbNQEZGqyNipLIPMXRGEQoOqsaUVIlzY
-	 NsJ0k1WGlKNGJl3yw2fejXsLZOk/pas2oY+mz21eoJHfF82F94/liMTU8zA08L8OS+g39
-	 YA9qi4PzKyLc6xt8QJ7TiS+7RW9Ax6dN0KlYlY6QFoPNZydPter7D3VmK+jDcGww2jw==
+	t=1794888813;
+	b=5WpARQF3CVIn7ZFJGcJLPF7UOYJpz4ueZCcuuCzcVGTbeUi9sKktg8Eig34fDnCiU0EK
+	 /SuZ+GOmIWgNegxsbNIU+ndm17mqVwLI4X6Pdmt5VK+rH0DW9B3UEEQBUrQ4XJSiyKjrh
+	 GBszY+++ISWucKKe8XvquqQCmVtUdfzhK1R+iegs7uL6N1EHJXE9oSJNvUIa8En5j5w4i
+	 1LewTMU8kv/dwG03GIwKiSvGFR+8yD/Z2FJjBoU3R+WuOkir/nXGW4S3FBUxhJc/O55BE
+	 aofwOKFVF11CaC6dQr/l9RYvbHYnrSaFXsJZ0B+IcBMoyGvKswrhQe4vLUiMhkwR56A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794888816;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794888813;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=D2NcTC6IhhXI+R5MoMuSGa9Fx9HFLbnNfCZJcZcVW44=;
-	b=hIuF/1vtjWfMsCvlUMyMI6qmIHBya8okdVv6N3zShWhUE/i6sWp1E4IMz6+rr50+7oFv
-	 lVQ20NSZWoUA158uYnB+8+dnV1raSAuJx0x/Sx35hvXPczJ49fJbwZr2uJd1IV/2GZHIK
-	 O9sTw1wkFAIUWdCxivmqzwZp5+SdFrX12bTbbbxgNfKtQ0q8rTAfWrBAarthF7mCX2dWi
-	 +8dWkOH+hdE0DJWFHfCcDNawaPOj7p02X9/hFmWgePFYPai4eK2yxotziWZT6qJjh0886
-	 dmjd2pNf2b4nlAClEQGGEa2HPaLAhzfVoPifcdboJMz9M47UuvfYH/rcP8/VMy82X8w==
+	bh=qwTaxhhy8rcwybJtjSGgH9NPf1UmCFM/LYMRCH45yBM=;
+	b=i3Aeb7oSOcmbDSY6sz9vl752K6akUxQA8mkWD/s6NdcNVfpx5psIMycUARrIIwaKZ4fe
+	 uN88qo0pHKNFK2SK3WcK6F4FibcBsOQMQmnp08BnJF9Opc4mCB8aHR95Dx516yo7HC76M
+	 I6SMR//3cU3tsWpoPM2qRUqg1r4TG28osqz6YCdpO7Kl8HhuqTyDAll9L2X0ljQg99TRE
+	 e77ueCbcb0AC6gQEUSRmvkst1G7ave1JQnqLYJGZxNUbKKnn78uBgJRjk7yuFgPzYQaW1
+	 u7FuZSJ1XKfKhiAMTUblX8Imo5HvgVKDyiRcl9Kse2mRdlH2kw/JbqQjsRAMRQ31nPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="Lq2WP/3C";
-	arc=none smtp.remote-ip=220.197.31.5
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=DONOgjAt;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C16D7606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:13:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C16D7606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 497CA606A323;
+	Tue, 17 Nov 2026 04:13:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 497CA606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Lq2WP/3C
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=DONOgjAt
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
 	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
-	Content-Type; bh=D2NcTC6IhhXI+R5MoMuSGa9Fx9HFLbnNfCZJcZcVW44=;
-	b=Lq2WP/3Cwjt/TVO9PaffWjoUsCMnSPXBrq/NhcNfkOd7TJBkn5NFYAMUDRGZY7
-	PwCvDWyF0SxzD0rJhAf9ug1yA0gAmsrlDz75hFVGUR+zYPl0GUVSAfQOjctlyypd
-	soJ+r7zX2/Bp8mtieTOea073XT96hfEQiJat90jldqWwE=
+	Content-Type; bh=qwTaxhhy8rcwybJtjSGgH9NPf1UmCFM/LYMRCH45yBM=;
+	b=DONOgjAtiUQELL42UXvBE3URTJyYGPyJ2QvJYtwvfXtm51/vbBRDlRInxyemeM
+	8kGf8SAkoCGOPkOVTOz5UWmVcNnEx7PQkxcMJtOBX9vTn262MHXH8HOVj86D/fyy
+	jMe1x9FH42/ETyZUG3NAEagi0rkSHqr65paVAfkCUfj0I=
 Received: from WIN-TOG0NDEIICD.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3HxVZ1PtqHveJIA--.26682S4;
-	Tue, 17 Nov 2026 12:13:17 +0800 (CST)
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3HxVZ1PtqHveJIA--.26682S3;
+	Tue, 17 Nov 2026 12:13:16 +0800 (CST)
 From: Shirong Zhao <shxzhaosr@163.com>
-To: Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH] misc: hi6421v600-irq: dispose the IRQ domain on remove and
- probe failure
-Date: Tue, 17 Nov 2026 12:13:16 +0800
-Message-ID: <20261117121316.528922-1-shxzhaosr@163.com>
+To: linux-input@vger.kernel.org
+Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] HID: gembird: bound the report descriptor check by the
+ pattern size
+Date: Tue, 17 Nov 2026 12:13:15 +0800
+Message-ID: <20261117121315.827019-1-shxzhaosr@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,90 +62,50 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 8bit
 X-Mailer: git-send-email 2.53.0
-X-CM-TRANSID:_____wD3HxVZ1PtqHveJIA--.26682S4
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ZFWDCr43ur4rZw1UAFyUtrb_yoW5JF45pF
-	WrWFWrCrW8Ja42qrW3Jw1UZFn8Jw4xXay29ry3Kwn3A3W5ZrWvqa93KFyYyFW3uFy0qay3
-	ArW8Ja97CFZ8XFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j45lbUUUUU=
-X-CM-SenderInfo: hvk06xhdrv2qqrwthudrp/xtbC7h3lJGr71F1grAAA3m
+X-CM-TRANSID:_____wD3HxVZ1PtqHveJIA--.26682S3
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJr1fCw1kJF15Gw1fAF1xuFg_yoW8AFW5pa
+	n5ta1UKrsrtrn2qF1jkw4kGayFva97Xa4DurWUC3429a1Yyr95Ja1Ut3yUWFZYgrWkCrsx
+	Gr1kta17uas8JaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jcsqJUUUUU=
+X-CM-SenderInfo: hvk06xhdrv2qqrwthudrp/xtbC7hzlJGr71FxgbQAA3n
 
-hi6421v600_irq_probe() creates a non-managed IRQ domain with
-irq_domain_create_simple() and populates it with irq_create_mapping(),
-but the driver has no .remove callback, so unbinding leaks the domain
-and its mappings.
+gembird_report_fixup() compares the report descriptor against the
+26-byte faulty pattern starting at offset GEMBIRD_START_FAULTY_RDESC
+(8), so memcmp() reads rdesc[8,34).  The guard only requires
+*rsize >= 31, so a device reporting a 31-33 byte descriptor triggers a
+1-3 byte heap out-of-bounds read.
 
-The same leak happens when irq_create_mapping() or
-devm_request_threaded_irq() fails, because driver remove does not run
-after a failed probe.
+If the adjacent heap bytes happen to match the tail of the pattern,
+the fixup body then runs and memcpy()s the fixed pattern at offset 8
+into a buffer sized *rsize + delta_size, overflowing it as well.
 
-Share one disposal helper between a new remove callback and the probe
-error path.  The remaining resources are devm managed and are freed
-automatically.
+Any descriptor that really contains the faulty pattern is at least 34
+bytes long, so requiring GEMBIRD_START_FAULTY_RDESC +
+sizeof(faulty pattern) does not change behaviour for real hardware.
 
-Fixes: bb3b6552a5b0 ("staging: hikey9xx: split hi6421v600 irq into a separate driver")
+Fixes: 931830aa5c25 ("HID: gembird: add new driver to fix Gembird JPD-DualForce 2")
 Signed-off-by: Shirong Zhao <shxzhaosr@163.com>
 ---
- drivers/misc/hi6421v600-irq.c | 26 ++++++++++++++++++++++++--
- 1 file changed, 24 insertions(+), 2 deletions(-)
+ drivers/hid/hid-gembird.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/misc/hi6421v600-irq.c b/drivers/misc/hi6421v600-irq.c
-index 7d2eb7e..e44141d 100644
---- a/drivers/misc/hi6421v600-irq.c
-+++ b/drivers/misc/hi6421v600-irq.c
-@@ -211,6 +211,17 @@ static void hi6421v600_irq_init(struct hi6421v600_irq *priv)
- 	}
- }
+diff --git a/drivers/hid/hid-gembird.c b/drivers/hid/hid-gembird.c
+index 20a8de7..ae56ba9 100644
+--- a/drivers/hid/hid-gembird.c
++++ b/drivers/hid/hid-gembird.c
+@@ -66,9 +66,11 @@ static const __u8 *gembird_report_fixup(struct hid_device *hdev, __u8 *rdesc,
+ 			    sizeof(gembird_jpd_faulty_rdesc);
+ 	size_t new_size = *rsize + delta_size;
  
-+static void hi6421v600_irq_dispose_domain(struct hi6421v600_irq *priv)
-+{
-+	int i;
-+
-+	for (i = 0; i < PMIC_IRQ_LIST_MAX; i++) {
-+		if (priv->irqs[i])
-+			irq_dispose_mapping(priv->irqs[i]);
-+	}
-+	irq_domain_remove(priv->domain);
-+}
-+
- static int hi6421v600_irq_probe(struct platform_device *pdev)
- {
- 	struct device *pmic_dev = pdev->dev.parent;
-@@ -264,7 +275,8 @@ static int hi6421v600_irq_probe(struct platform_device *pdev)
- 		virq = irq_create_mapping(priv->domain, i);
- 		if (!virq) {
- 			dev_err(dev, "Failed to map H/W IRQ\n");
--			return -ENODEV;
-+			ret = -ENODEV;
-+			goto err_dispose;
- 		}
- 		priv->irqs[i] = virq;
- 	}
-@@ -275,9 +287,18 @@ static int hi6421v600_irq_probe(struct platform_device *pdev)
- 					IRQF_TRIGGER_LOW | IRQF_SHARED | IRQF_NO_SUSPEND,
- 					"pmic", priv);
- 	if (ret < 0)
--		return ret;
-+		goto err_dispose;
- 
- 	return 0;
-+
-+err_dispose:
-+	hi6421v600_irq_dispose_domain(priv);
-+	return ret;
-+}
-+
-+static void hi6421v600_irq_remove(struct platform_device *pdev)
-+{
-+	hi6421v600_irq_dispose_domain(platform_get_drvdata(pdev));
- }
- 
- static const struct platform_device_id hi6421v600_irq_table[] = {
-@@ -292,6 +313,7 @@ static struct platform_driver hi6421v600_irq_driver = {
- 		.name = "hi6421v600-irq",
- 	},
- 	.probe	= hi6421v600_irq_probe,
-+	.remove	= hi6421v600_irq_remove,
- };
- module_platform_driver(hi6421v600_irq_driver);
- 
+-	if (*rsize >= 31 && !memcmp(&rdesc[GEMBIRD_START_FAULTY_RDESC],
+-				    gembird_jpd_faulty_rdesc,
+-				    sizeof(gembird_jpd_faulty_rdesc))) {
++	if (*rsize >= GEMBIRD_START_FAULTY_RDESC +
++		    sizeof(gembird_jpd_faulty_rdesc) &&
++	    !memcmp(&rdesc[GEMBIRD_START_FAULTY_RDESC],
++		    gembird_jpd_faulty_rdesc,
++		    sizeof(gembird_jpd_faulty_rdesc))) {
+ 		new_rdesc = devm_kzalloc(&hdev->dev, new_size, GFP_KERNEL);
+ 		if (new_rdesc == NULL)
+ 			return rdesc;
 
