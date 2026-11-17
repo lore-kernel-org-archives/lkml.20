@@ -1,57 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794895171;
-	b=LyJiLwP8UnUhBU0LvOO9YThKqI8hxynxUqrxJUQRppMdnLyNgCa0V/q6pG0SKCvpFJiW
-	 ebcYcexCG3axQs5ODcRxYkFl4NGZ8VwMq5uUVY6MHwL0AqpYCwYGueXPq4QEEgvqWN6Lt
-	 m1q6IPTfE8IhLNwhTwGrZ4O60dICbQUVuDIdQ1kEGaaEXZwPRQv4t1kQ3iw1mgEytYAKY
-	 DlNpDqBuFhJ+h0D/cNxUSkNPotZlC2Pix1u2ZXZRsxH7UEA0Q8+q1WR76MPaV9UHilO/y
-	 tkOQGP26CudRT8SpymsRLlok3J6ZuMjxL/O9CvtwKZ6g3Kw+W3Qag6w7THPV4O01mQg==
+	t=1794895205;
+	b=YruDsHhdBSsC9sTp4EOh1QVcAUNJLjF2td+5S2yaUP5+fuNIWpp6XgfrG05USpoH7mG0
+	 jCwmgbwNFjq34LrZDuNNIIQcZ0r+cv285hLkqjQQyro0qStduMi0AgFXx+zHnUU9kp2/k
+	 r8N5CGCsQwA6vX6sxE5RipQn6Fs9KjZc/viLhLmMlu6f7ouIrAub45tVWQObb94rM/IBi
+	 MjcAcf+52l8b0ZMO1t08vjJ5L0DFJUD7PkqQuJiLaYpnB+E7xCTGGxYGFiTvAyXFG41aR
+	 NcAjVqpcfmK2sMAaM6dsNwz9uzti/JhuvqMS5y200MY8t1l1Yw1SU975feXh2dzSHvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794895171;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=P5ds16V7HJoVCC6BTho835T+M7m7js7wzvD07D0ZXls=;
-	b=RwW85h0XJ0opEU5U85xi6JRFtcMxkj/bNNHOVJh7AxSkOmlk3aTj6+5iQY8admxVNEX4
-	 v4Fa7fWuGDuMe5sI14I5Zi1crh36NnVk12t4dE8mdVjhmuHZAUmZVfpQj62th+3mOvw8L
-	 btajqGaCLc+W0naaVC6+irnX1e0ScdOKZPyxJLil+EyQlR36iqGiSCASw2IJmeiAc75L/
-	 EfZ+7U+6i/EPzRuAx4DuORk2TuwCqexfn9aIIx5u5xPXcCatOrsqCyRk9/sScN5kDNeL2
-	 3v3NV7AWZj1ztd9ESncI4oXkFEu9cW7pnRm38oDK6MKeNFuAkh3Z6qq7Y2auRDCYOEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794895205;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=lkS32XPAkky3Y3UuvpRMfImoXnZGvPVVobvUu9A3i6o=;
+	b=mlBqwieTZqCdXqL9+oU+Bta6ttBax96n2Ixu41tCQblqFLikoOdmBlBs0l4ACUNi/4jI
+	 fIe49f01Q2qc8z0GKk58qZP+kzKcjDjxvzouKR2XSca0TDplKQBd5piAad0RLZuIpmqk+
+	 IG53Iq64On7wgSgs+w8Ei1FQroVrAfgp6HZwlDjrTY+cZVsVi+fmaugj9bJegagqyGUVY
+	 G2iPLsclXsB+d6DGkCsUfuZIDdUzwTEOQ1TXK3buoPtdHEJ1/g1TiIQecDbANdw0vmGj8
+	 mmbArVSfyMxBRiP3+fKWUMRM40FpSg0g1t4g9F08MjZQOtBp9JYxw+CMlqj5PQgfdbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=XXI+cwHr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gSW6fmSK;
+	arc=none smtp.remote-ip=209.85.214.182
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 193FF606A31C;
-	Tue, 17 Nov 2026 05:59:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07D9D606A331
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:00:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07D9D606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=XXI+cwHr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94E161F000C4;
-	Tue, 17 Nov 2026 05:59:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gSW6fmSK
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e9e53d011eso38039155ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:00:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794895170;
-	bh=P5ds16V7HJoVCC6BTho835T+M7m7js7wzvD07D0ZXls=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=XXI+cwHram8ZPzedqsb/euzHsl5kiqz+fssZSraePwGYIRAA/D1nWXwlXhCgVDRwH
-	 Bqpl/3jkaXKh48w27I0moNPJDykWuWTRS5IApq0ghJoKTcl6/YOKSiU3FEld91TeZf
-	 EaJFNROcTljpKL7ptXpCd/u6yw/vsGkDaRIMFzH4=
-Date: Mon, 16 Nov 2026 21:59:30 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: cxg <evers_chen@163.com>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, Shuah Khan
- <shuah@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- chenxionggui@lanxincomputing.com
-Subject: Re: [PATCH] selftests/mm: Handle implicit read permissions in
- madv_populate
-Message-Id: <20261116215930.f257ed2f010b4a4e9fdca410@linux-foundation.org>
-In-Reply-To: <206b5151-c527-4b7b-8694-dd9c6cfd916f@163.com>
-References: <20261112031811.56500-1-evers_chen@163.com>
-	<64e1c24f-08fb-437e-80c1-e5b486d15200@kernel.org>
-	<206b5151-c527-4b7b-8694-dd9c6cfd916f@163.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=gmail.com; s=20260707; t=1794895204; x=1795500004; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=lkS32XPAkky3Y3UuvpRMfImoXnZGvPVVobvUu9A3i6o=;
+        b=gSW6fmSKs8az8HHSrcImPPlh8twk0+ePtltPv5E9/XKh6yQ60ea+87EWBeYgXYakDp
+         cl4pL0mAZ4S2Mw3OXFkqXlGJLzUamT3IaMxRfUGZB3IpAfIBF8B9LjRuhbp2bGLIV/P5
+         tJlGG6gKf02e95BnNtwnWabddrCmPJ1gEUNSBjaJpTKo4KKd1TsWge1CU7DdCmrOU6WP
+         fs257DMVTNXpHyWjQABQaMwvEK80XDuSLtwKdtl9IDYJfWkMzB6YmLWv3WZf0+sFeGii
+         J8OR3b0nJY8CVpaVT/VcqhU8kYjYG9XkG7F0p26X/SmQwehaMnIrlqzIndR3GPu3xqJU
+         pSdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794895204; x=1795500004;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=lkS32XPAkky3Y3UuvpRMfImoXnZGvPVVobvUu9A3i6o=;
+        b=bdDjfW/1A27kY+pVbAZvxGS6qvciVHXLolAGDFve7ZQpptQeaY6oYq+1vVNWkG8AVS
+         Kh7UESomAG6qVW89HnCI7MZL04ZhqzqQ6PUSMnQ+ta2whn1B4i/+c5XZle3KoseUy6RV
+         tUtAhniLRKC46Dv7AjGiT45hE09wSnTvyq+mxQwgossEWFGNyGjivaAMRBFfLoIlNs5k
+         wXDyCBGODtyCerZY/b/cPZK5T4R/vgTKXDVmfOvNxnmcM7+/TSQTrecuuIHttH8GY6Rg
+         n7STOxSgzPRQVnGBKeclrpKL2Xx21c0jZbCmH1iuJHvRoQq5XfioELSamyrUwdlQp8vr
+         fFww==
+X-Forwarded-Encrypted: i=1; AL+hErFfAu5aT4jN7bClzDulLg8VwSDwXcsUwTQqm+BKx2oSOuzdSPnHKwLFVQkDKLGpvYmo/QIBto1MGaoOOcc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9vKb33sp0yrUTZAbUSiBI49AImP90yKijYjdEU83mAAxiO5tog
+	G9qw2Y3XBXaTj2/ss7Bwq77ykn253buJfY6v4pzVO/v5+nNmI8fHIvLV
+X-Gm-Gg: AZFdTZcQ8LzS1dBJfIPHWwqphCWqZLI8AYGstWyB95b21sndKdFbzX5p2WUa+C2Nz5y
+	5mXejfVQdvv9Eix1lUJtq2iuPEkR2mQ8rMrKHc4Z5U3n5Abjeh/RLMIyNuDJ7SxkBh+MuXaf5p7
+	jRrO72TAluYLie4ryC7nVydRaqQ2nk2E9BV8mOyYJ1J0OYBA36GQP5XNNzDU2rZ30WB95uCrSbP
+	XfgtOFmhIw800oWL8fsbJPnNaz0A0Ztq9fRguaESqK7nJHoFctVCovDTqrhCN6ZGo6+4pvM5yLQ
+	S3hm/1vz7Y/JIAFRnNDEnsT9zBPzteLeA1ayZE52fnUqWxekltUtNhsNTjxy9zzrSCKletr0WQp
+	pLo6i5821Ajd9o5AK5qwiuydGIZFbT1Uc9ie/B1v+mK7a4Q55sj4aKWJv7Awz/RiKat1iJkTqVd
+	neXyEn7vEEyocr7GNy635BNYbVkVcaO7GQ/7mNrwjdgg3CyQG4FOhAJvlg3+3yiv/xvjZfpn7ZJ
+	Y3ptTwrRBqb5yQk0rx7KP0S4FmKceqhKjhzoXZzrLGpmASkcPap9C//HeIARwKFAEhbhm3LkzDh
+	XYSx7GzP+RD23EkGl2xz5rjTnT6MVRIVDobdF0ab/IfFwsJd1hR/Fi0SA4YAzEFbQqaK
+X-Received: by 2002:a17:903:1846:b0:2d9:599e:df95 with SMTP id d9443c01a7336-2ee0d6600acmr126536685ad.3.1794895204164;
+        Mon, 16 Nov 2026 22:00:04 -0800 (PST)
+Received: from [127.0.1.1] (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd7a173fasm8264435ad.14.2026.11.16.22.00.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 22:00:03 -0800 (PST)
+From: Kyle Hsieh <kylehsieh1995@gmail.com>
+Date: Tue, 17 Nov 2026 14:04:38 +0800
+Subject: [PATCH v2] dt-bindings: iio: adc: lltc,ltc2497: Make vref-supply
+ optional for LTC2305/LTC2309
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,23 +91,108 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261117-ltc2497-vref-optional-v2-1-62e9d1ac7400@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAHXu+2oC/4WNSw6DIBCGr2Jm3Wl4ibGr3qNxoQg6CYoBQ9oY7
+ 17qBbr8/ucByUayCR7VAdFmShTWAuJWgZn7dbJIY2EQTGjOOUO/G6HaBnO0DsO2l3zvUQ1OqlE
+ PUjIFpbsVl97X7qsrPFPaQ/xcN5n/1H+LmSNHWZtW142ThrnntPTk7yYs0J3n+QVtfMUyugAAA
+ A==
+X-Change-ID: 20261110-ltc2497-vref-optional-4bf34d6b3304
+To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Michael Hennerich <Michael.Hennerich@analog.com>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Liam Beguin <liambeguin@gmail.com>
+Cc: Michael Hennerich <michael.hennerich@analog.com>, linux@analog.com, 
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Kyle Hsieh <kylehsieh1995@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2317;
+ i=kylehsieh1995@gmail.com; h=from:subject:message-id;
+ bh=Wrcor3O6J2UjW7XHhJfIbkXTOnZk7CENzM1MR5U2g1M=;
+ b=owEBbQGS/pANAwAKAaWDQrcJVsSBAcsmYgBq++54Vs8iILbLbQM6li8beTDhF8wDz/11oiHts
+ 1xfJ8LNU+mJATMEAAEKAB0WIQTJHsaNZOdY+THGqJelg0K3CVbEgQUCavvueAAKCRClg0K3CVbE
+ gSrAB/99AyqPTsJgRsc3MtdvJ16FxWGikkgo8KkE4A7okDvCiAnQd2QYvvw4J7TVVqHtbJLqRPq
+ oTkV0QXJ45MYQ+CzjmvDORGPvbuKg9D1xLnft35neBjUgMFR3cl9u2snKFocW3vAOsKADfKugYW
+ to625O7j7Sz+Ppyobz7JMo9iTSkZRUeV3hQqoehJIDAiitr70x9HcwL1eerU5sFPoWdQ60JH2Z6
+ hxKY1+TtSDb2m0Mks9yaNn50puIfVloc+0FE3k+2IRTiDOwYfeq0wkezQbDFYHjywQSUKt0y3yF
+ nYv/aZP5LiYhgI984COjA0ZHdb06CmJG+quqdG01VKvdanMt
+X-Developer-Key: i=kylehsieh1995@gmail.com; a=openpgp;
+ fpr=C91EC68D64E758F931C6A897A58342B70956C481
 
-On Mon, 16 Nov 2026 15:00:56 +0800 cxg <evers_chen@163.com> wrote:
+The LTC2305 and LTC2309 have an internal 4.096V reference, so their REF
+pin does not need to be driven by an external supply. The LTC2493,
+LTC2497 and LTC2499 have no internal reference and require one.
 
-> Thanks for the suggestion.
-> 
-> Agreed. Since this behavior is specific to RISC-V, a simple 
-> architecture-specific check is sufficient.
-> 
-> I've simplified the patch to use |#ifdef __riscv|in |test_prot_write()|, 
-> removing the |/proc/self/maps|parsing and the additional PROT_NONE test.
-> 
-> The updated test passes all 16 tests on RISC-V with Linux 7.2.0.
-> 
-> Since the original patch is already in Andrew's mm tree, would you 
-> prefer a v2 or an incremental fix?
+Only require vref-supply for the LTC2493, LTC2497 and LTC2499, so boards
+using the internal reference can be described without a dummy regulator.
 
-A v2, please.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
+---
+The ltc2309 driver already uses the internal reference when vref-supply
+is absent. This is needed by the Meta Ventura2 BMC devicetree, which
+describes LTC2305 ADCs that use their internal reference:
+https://lore.kernel.org/all/20261106-ventura2-dts-update-v1-0-b085ece9bf57@gmail.com/
+---
+Changes in v2:
+- Also require vref-supply for the LTC2493, which has no internal
+  reference.
+- Add blank lines around vref-supply.
+- Link to v1: https://lore.kernel.org/r/20261110-ltc2497-vref-optional-v1-1-35c9657f3c0f@gmail.com
+---
+ .../devicetree/bindings/iio/adc/lltc,ltc2497.yaml   | 21 +++++++++++++++++++--
+ 1 file changed, 19 insertions(+), 2 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml b/Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml
+index 4df5aadd1e1d..93cc163b73c2 100644
+--- a/Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml
++++ b/Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml
+@@ -47,14 +47,31 @@ properties:
+       - lltc,ltc2499
+ 
+   reg: true
+-  vref-supply: true
++
++  vref-supply:
++    description:
++      Reference voltage supply. The LTC2305 and LTC2309 have an internal
++      4.096V reference which is used when this property is absent.
++
+   "#io-channel-cells":
+     const: 1
+ 
+ required:
+   - compatible
+   - reg
+-  - vref-supply
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - lltc,ltc2493
++              - lltc,ltc2497
++              - lltc,ltc2499
++    then:
++      required:
++        - vref-supply
+ 
+ additionalProperties: false
+ 
+
+---
+base-commit: 1390ca4953a7400ca932cb49635f02c727f885a6
+change-id: 20261110-ltc2497-vref-optional-4bf34d6b3304
+
+Best regards,
+-- 
+Kyle Hsieh <kylehsieh1995@gmail.com>
+
