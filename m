@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.113
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.126
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794899707;
-	b=xXAI5+orqWeVpF1rbVVotgflve+jZL6IrdFrC4+pNsGukZxom7Mx88jnPNSRN6B/CoH4
-	 ZhFZT33JmPundzn4n3CSUQFjHgyVvQrlnjjI0WQtx3IHfhQxGHgdWqDtbte2ScjOo3VPn
-	 Xqbli33d0KbsvaqMy01bKZNLqSopaKynJzE2Jpw2YTF27DY1IE1w4fnmorhL502C33BGt
-	 emr4WhZsMgMT0t7c3lP0smDMP+vnwoE5KmBZeixUkfuDUzrgZ+ssG1cDFeDDCtSCzT1Vb
-	 OwH6fUwhr6DL0DD2mmVv/xQns6p7hI827VrfXq9fbJpejRR7teBOVO7jyHLlHKTRoEQ==
+	t=1794899717;
+	b=yvq9WOyaRkm4A3MyaaGe2YFrt3/6E8JGHPvHaawajT9M9iQm8L7z98wz2MyszrdYbMTr
+	 ymRVEvyjU2RK2arwvmtVHFBLF1CiTyFNb6emijYsG0U8jC0aRHYIVtIfGP2xGpj3YoCu+
+	 mTScqOC1Pay87iD95yFSBFXXU7qwVz9gj1yzTuRaXmmTG7Vg79rAq1AcsIrT7KIJUip83
+	 dlYOZdenkPII7kn9LETE2qCIV9Lq/AkUAZzCywcmrnlJ6c0e0WefPxut7bfpQ32FkF0Tm
+	 LotUKCPcH/XlZq0zdasAsoLoeZMxf1LX6xViu1FcKvjm6VnZkcA+xFt/LTs4iAarTeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794899707;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794899717;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer;
-	bh=wKJtGPqUh8xd1e5gRSCSrRuD1kv5RiOZcl5rDs0i/H0=;
-	b=5M7Hmn9jZTPhIV1G2Re2YWU3TYBOqwbrWH8UQV4VWt2kvHsSLPomya752WUTdmuep7QT
-	 k6vKg96UGdPMp4ViqNJOfy4XqonBxIE/jGBKzWt9xKqhN+WLwbzNSlP2/6QnajCQ9DUpM
-	 aWbTeS5nBVpzCVs1V6EyA1H7Zs1OllltayAP9IM5RGgpdz/mIYkXL95gWq3BG3m1dwkTJ
-	 GFUfs+UWqc0ceS7emUSPls8RT4fxE9+aUkZslSMbSHiNLLTm9WJvnhJ66yYlCk87pcrfG
-	 hT6iAGmL00uq8W9OL1/Thk4GnVBHQ+XGm/ZW9OKKw9YFYR+OCgsJAFh9QS5MEnrM42A==
+	bh=BlXwq6e5uLfBG6i7v3zQQBNsfUZ7M/ptQpeTZ0epfD8=;
+	b=FjPaCIrZz4uTfGL8kVJNOcGu6kXmhcwY8NsvSAMYauoWeGF1NNfQ8q4l4Rlm4cBu+iub
+	 Rf4ighqR+ROuxcBzLFCwtT92T/WuDwhEtb75U0dNsTrLGNvfkma83sE20H5wTz0l20npq
+	 ncoZ5+xSNYqw3dUfaPHbow928P6riJbPzt1x/RXWj4YhMQ7C0H/rMGuiX7p16YejJpvsd
+	 m+bEln4sacnkoW9iwTUi2Lk9dIyaOMFZdIZBOUNRoBBjBSRsiTG0HksEkTp7uZ0e/DWka
+	 rlGcY/wlZ4hD4Jg3vFvB3cMXAnouzQD70exeaboL/e47rqX7WWod2qiBhqS1W32bJ+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZHecvaiQ;
-	arc=none smtp.remote-ip=95.215.58.113
-Received: from mta1.migadu.com (out-113.mta1.migadu.com [95.215.58.113])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="l0BKcpU/";
+	arc=none smtp.remote-ip=95.215.58.126
+Received: from mta1.migadu.com (out-126.mta1.migadu.com [95.215.58.126])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66830606A32F
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:15:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66830606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27795606A337
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:15:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27795606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZHecvaiQ
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=l0BKcpU/
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=egOOHYWo88XqIsFmRrJ9jNqDbHUnSeRXeEa+bS/h07s=;
+DKIM-Signature: a=rsa-sha256; bh=c6YRxFHQ4d67zvszv7CQoix0mMpRpP6JHVOJd5jF0pU=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794899704; v=1; x=1795504504;
- b=ZHecvaiQA5gt/14YhiLhtDW/Br2QboeyBwUzeh38lXl3TSXoLDwP5SdhgIOU3L4yToezvy4p
- grE4/YG+TqFO/Cx5/qKk+KcwkSOdGnU6nH/l/bODrWHQqB9WdHA2UB+gQ/66zR6YGq7h6/dnUqI
- mUzVHiKPq+zdug9XSdwzsPaQ=
+ t=1794899715; v=1; x=1795504515;
+ b=l0BKcpU/WDYWQfs435gNcQpxBkzIoQUDUqv+y9CWhwx3Ck8CGEaKlwNaMdfDS7Btq+3bUqfA
+ A/XpF4quha3gylK7onRayOIQEGW3QOsiJt8gcV2JybGc64uo/zeHUshQJq+SwgKlbKfTi/dBW0P
+ y7KfSgI5lo20xf5WTmFReqBM=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d5b6e237ac341039;
-	Tue, 17 Nov 2026 07:15:04 +0000
-X-Mizu-Trace-ID: d5b6e237ac341039
+Received: by smtp.migadu.com with ESMTPS id a6958a8986243bd0;
+	Tue, 17 Nov 2026 07:15:13 +0000
+X-Mizu-Trace-ID: a6958a8986243bd0
 X-Migadu-Flow: FLOW_OUT
 From: Peng Fan <peng.fan@linux.dev>
-Date: Tue, 17 Nov 2026 15:14:11 +0800
-Subject: [PATCH 7/8] irqchip/imx-intmux: Use
- devm_irq_domain_create_linear()
+Date: Tue, 17 Nov 2026 15:14:12 +0800
+Subject: [PATCH 8/8] irqchip/imx-intmux: Use
+ devm_pm_runtime_set_active_enabled()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,7 +62,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-imx-intmux-v1-7-189e7e0ad98d@nxp.com>
+Message-Id: <20261117-imx-intmux-v1-8-189e7e0ad98d@nxp.com>
 References: <20261117-imx-intmux-v1-0-189e7e0ad98d@nxp.com>
 In-Reply-To: <20261117-imx-intmux-v1-0-189e7e0ad98d@nxp.com>
 To: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
@@ -76,55 +76,64 @@ X-Mailer: b4 0.14.3
 
 From: Peng Fan <peng.fan@nxp.com>
 
-Manage the per-channel IRQ domains with devres so that they are removed
-automatically when probe fails or the driver is unbound, instead of
-calling irq_domain_remove() explicitly in the probe error path and in
-imx_intmux_remove().
+Use devm_pm_runtime_set_active_enabled() to manage the runtime PM
+enablement instead of calling pm_runtime_set_active() and
+pm_runtime_enable() manually. The devres actions then disable runtime PM
+and mark the device suspended when probe fails or the driver is unbound.
 
-The child mappings are still disposed explicitly before the domains go
-away. devres runs after imx_intmux_remove(), so each domain is removed
-with an empty reverse map, and the domains are torn down before the IPG
-clock devres action disables the clock.
+Keep the explicit pm_runtime_get_noresume()/pm_runtime_put() pair so the
+device is still suspended immediately after a successful probe, and keep
+pm_runtime_put_noidle() in remove() to drop the reference acquired by
+pm_runtime_resume_and_get().
 
-No functional change.
+The devres teardown runs after imx_intmux_remove() and disables runtime
+PM before marking the device suspended, which is the order required by
+the PM core. The IPG clock devres action still disables the clock last.
 
 Signed-off-by: Peng Fan <peng.fan@nxp.com>
 ---
- drivers/irqchip/irq-imx-intmux.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ drivers/irqchip/irq-imx-intmux.c | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/irqchip/irq-imx-intmux.c b/drivers/irqchip/irq-imx-intmux.c
-index 755c07007390..1f6e5d9c797a 100644
+index 1f6e5d9c797a..770656ef10ec 100644
 --- a/drivers/irqchip/irq-imx-intmux.c
 +++ b/drivers/irqchip/irq-imx-intmux.c
-@@ -248,8 +248,9 @@ static int imx_intmux_probe(struct platform_device *pdev)
- 			goto out;
- 		}
+@@ -234,9 +234,11 @@ static int imx_intmux_probe(struct platform_device *pdev)
+ 	data->channum = channum;
+ 	raw_spin_lock_init(&data->lock);
  
--		domain = irq_domain_create_linear(of_fwnode_handle(np), 32, &imx_intmux_domain_ops,
--					       &data->irqchip_data[i]);
-+		domain = devm_irq_domain_create_linear(&pdev->dev, dev_fwnode(&pdev->dev), 32,
-+						       &imx_intmux_domain_ops,
-+						       &data->irqchip_data[i]);
- 		if (!domain) {
- 			ret = -ENOMEM;
- 			dev_err(&pdev->dev, "failed to create IRQ domain\n");
-@@ -283,7 +284,6 @@ static int imx_intmux_probe(struct platform_device *pdev)
- 		for (unsigned int hwirq = 0; hwirq < 32; hwirq++)
- 			irq_dispose_mapping(irq_find_mapping(data->irqchip_data[i].domain,
++	ret = devm_pm_runtime_set_active_enabled(&pdev->dev);
++	if (ret)
++		return ret;
++
+ 	pm_runtime_get_noresume(&pdev->dev);
+-	pm_runtime_set_active(&pdev->dev);
+-	pm_runtime_enable(&pdev->dev);
+ 
+ 	for (i = 0; i < channum; i++) {
+ 		data->irqchip_data[i].chanidx = i;
+@@ -286,7 +288,6 @@ static int imx_intmux_probe(struct platform_device *pdev)
  							     hwirq));
--		irq_domain_remove(data->irqchip_data[i].domain);
  		irq_dispose_mapping(data->irqchip_data[i].irq);
  	}
- 	pm_runtime_disable(&pdev->dev);
-@@ -309,7 +309,6 @@ static void imx_intmux_remove(struct platform_device *pdev)
- 		for (unsigned int hwirq = 0; hwirq < 32; hwirq++)
- 			irq_dispose_mapping(irq_find_mapping(data->irqchip_data[i].domain,
- 							     hwirq));
--		irq_domain_remove(data->irqchip_data[i].domain);
+-	pm_runtime_disable(&pdev->dev);
+ 	pm_runtime_put_noidle(&pdev->dev);
+ 	return ret;
+ }
+@@ -312,11 +313,8 @@ static void imx_intmux_remove(struct platform_device *pdev)
  		irq_dispose_mapping(data->irqchip_data[i].irq);
  	}
  
+-	pm_runtime_disable(&pdev->dev);
+-	if (ret >= 0) {
++	if (ret >= 0)
+ 		pm_runtime_put_noidle(&pdev->dev);
+-		pm_runtime_set_suspended(&pdev->dev);
+-	}
+ }
+ 
+ #ifdef CONFIG_PM
 
 -- 
 2.56.0
