@@ -1,121 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794919232;
-	b=tNK2PEAhM4OshlOh+oKzd8zJ9mDYbUnAFWT6UfABKPOFwS0I3K4BiEkHa/jEUi5Wj4+f
-	 HZbnSrgLEoF/gp/kqUN5t2khAyfn/BLzAcswhji3m2yByUQeJjXFnFZ0OdDvoXpuqD90q
-	 xeABGzqY+MY6AFb5S7yVHDky/R2O1QNAQz/d40OY5ndrpyYy+Y1vDMoY43Use0tsMFkHT
-	 CCIvpmdXqhgW2qAvwLTRqcy67teusQQ1PtYQH96dDT9tenaQRGGouAhdIj5DlJCtG9HRf
-	 efMd0xJeB3C/c5K/yVhhcG50CF8UBlhEXdSdZuGmrhfDAErm01uGYC7S8lTMfoQJQ5g==
+	t=1794919235;
+	b=mKCsO47mTk8nEEXvVNZuDK6hINxLu52NDc6mcypX2K4zhq2YNoHEV6FDHlldNaAXGsHu
+	 cILEfYqDZsF6fL7wi7zZwj+TT0DAX6QN527FO1kHL7INttZmd96D6N5gne0ILt8xDqhVs
+	 nlM1JRIb3C30OVeFjSUjOUvMDpI9IHzrDrLy3HiUOxLQ56/mtvzMIclDiDXan1/gsoHVF
+	 WqHrFBkE0sMR592xvqSXcB/hiI9cTlsqc0JCGdtgKKkLtJ2WdjAdOkF7waKUKev6miXTS
+	 sJSsDvSeuWSkcN4XarvTOP1Hc3XKkFFh/oENQi7YMDAiDhTvCLcDFQ4XQbELt5YNamA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794919232;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=T78nEvmP8RTyHYN9q4ooPSC+f+0+Xl/WE0BGeWSTHkM=;
-	b=5CqWHKsNSbwtaaEoYqefoIMv6JdYOMpx2IHD2GVn+3GwUCnsSiQNroslwFZ7okjOFsv4
-	 DgeXqxmVYARrn8GLP2sI/s/o5RCyT0SwddW+cMGkT3etP6P/d9EoERwHn1SPbATFoIW48
-	 jSezAe5xy7IdM8OqD3lpFppNa7GCU503Fghyawt8A8kFQZNJ+mEdvtS7Ynz/Z2qY9C6Ek
-	 VaSeCl5OtWZoLTe+DhP5WmQsqGoy6o+d0zMCVVT0e5awFlrIj2VAW4W2smXCQEzqm5PM3
-	 qOqdW1PqMc0zGt+2JYm/JAanrEL2JLdwST4Ty8GPMYFx5/5fLiSqIcQQYZXWWkWx4cw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794919235;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=PpZGP+PvnlnE+Ru0bvBoaiq99U2o1zAEk1IJID0atSs=;
+	b=S/gD0cJKAo+ObYbexEgNng3Naj0QenvVye4Lgkbxe3YPQPYbYuYaD1BxQKURnKWrHssg
+	 7WRYHONvrz3Xv7YsKyiZsvVzWAK2sDaAN2NLwmx+QT5RCZ83xt3LWAZqOVwY/0pPj7hcx
+	 CtFtO3qCBuYuoLYA4TwVTrgNV4gRnAr/ceQbhbU9HRaPWIrn7ZPKmdP4sCTrxeXqUumG8
+	 QbCMpBLFqdzvTrEN7rQseyawgle0D91+fkgZWR1Qj+pwzwuQnHZkbkkWBvNWTwflQScNW
+	 zdwR1CJ41NN5lmGEhRWpAUElzkmsZlSGSDHBtpzDvejqoA6CyCCr4/p1No4+gcE4xyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Mcxx8hub;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kiNDRQHs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 284A760A2623
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:40:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 284A760A2623
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44C69606A323;
+	Tue, 17 Nov 2026 12:40:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Mcxx8hub
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so35628015e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:40:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794919231; x=1795524031; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=T78nEvmP8RTyHYN9q4ooPSC+f+0+Xl/WE0BGeWSTHkM=;
-        b=Mcxx8hubRiGTRxjKYFnIkSuk8Qjz/YepIITSFGaoBDnrueKoUwvb8bdQqSsWdDqO3h
-         BYpDduC83/yUmYurELWKjjcNFuGygXph2KnOvlDVfsBYn1M3MY9XvMwrK9t0VODnpKFD
-         XDW8keofNMMQTFt7ouJLEpcVUo/Dekwl1zqziqcTClZx7PQfmee5tqf6qT/FYkes8AkR
-         l9U4HJTr1EhobnWrmYO3tR3sX1/DUDOn4GQFU0iywt+BSGJHutOaPMFVu4lwRCJeSSnE
-         OkurMitNrpvSdhNi0YbJzKCgPeRB7OcsWb2WHPrQxoZdJc2NM6T8aLWi879t8sFhFl/M
-         Sx4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794919231; x=1795524031;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=T78nEvmP8RTyHYN9q4ooPSC+f+0+Xl/WE0BGeWSTHkM=;
-        b=CVsr9Mx/Yho4Gfzqozou2GafGkVdyKkaMhWVbX/4VwKTOlTCyt4ENqZMym5EUPL0Hb
-         tZVak/DotNW1yLjMdOKGATYJDgXIhtzkDaBqJ+ZjC0QIvIMqd1F+hRJRqC6cA9FwsJLN
-         KsC4Lflo7vAyuiwkerceVq3wYOm71dma9+Rfjz/jdr87sqmETGHGGoP1LxwkiqXIPefu
-         +zrTfy2zt6/TIvAzGtSN+JDpLBdFFZ9YcjkVB4nB0RvCqByUMIqynzKLTIoGMYA1Q6Js
-         Rwj9he37VShwD08sxxCkb+WwLTrgg8WOIUpaqtvJ6cTl2QtIUjRwNPe88o/ez1x8RQCD
-         fPeA==
-X-Forwarded-Encrypted: i=1; AL+hErGJsZ9RsLtVjNMc2yXZ88cFn+qBJMsHVoFLVG7dU7fOUc3+30tVjtsPxL4pgXOR2tkHAPvFC6A45LARHRI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+xMjHYM5L5XSi5UjypCbL8fiSUk4O5sksi1tPGxjr52zJIxHBI
-	HlYsmbYTSS7Qcip1c2FlZ1hqOlFLKWBxtpwaDvGhU251Y8Py4akzFmYD
-X-Gm-Gg: AYBFou0Kl6RCvSF7AI2pI33iwPzvYNkBqgAJYT9Yhr4bptBpthorCd+ms6fJtj88EiM
-	I5z/IJ2IxsgXTQJWASj/3QeK8RBX+KoV8sNjHZ3PPyu2P4n97HM14pPK1r3dMs+zU45zsT+FUba
-	gzGVOHy49PmiHpRX3wCVvJhmLXeV5AwG6BU1zs0gvymMfS2OJcXdFeooc0Pb9qJcgSw2bUqSRBX
-	kWzyHfH7sma8EFAyMghULCHqakPO0dsuuQED5SAdr8HYAwGF5odt+nUjXhZJfZZcMEmg/7sGsdq
-	jTkT+xBH2g4k7Zov7GZ0904r6Wozac5OzpFY5PRbkWR7+MgNxZVZ2QlUhBm3Ta27F4R9hbxaQny
-	e2+fZovX0iynPfTStfqrFFtS/qOEjdSlxde7miHcjn/1CsI+6Z4bm18fDdHC4arkWgzRSBLWVYk
-	+aTjAiI+ldDBkkISWuTcBRBEVSQ1LUaOQxibPVSZiJt2hzwrWzSV5INOGB8j9PRV7YAaQyTw+u4
-	67LioXrdHknPm32/vrJgbkVPoys8uqa6B8kYIROJDjALR5Kv8BJph7ZN0AbOceMnOeGby7fRiMQ
-	lU/EzCtINfd+hz49VeVCJDN80Ds74LPHxraUfd7jkCO+fWMO9wXbXUYTc7AAv/j/hRcAQFST30/
-	8BSbZZ0wAbcSua67E26ahgqlT29U5dns6NA==
-X-Received: by 2002:a05:600c:c4a2:b0:4bb:7581:2bb9 with SMTP id 5b1f17b1804b1-4bb75812c05mr102919215e9.22.1794919230626;
-        Tue, 17 Nov 2026 04:40:30 -0800 (PST)
-Received: from Ansuel-XPS24.localdomain (93-34-92-103.ip49.fastwebnet.it. [93.34.92.103])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4bb78386902sm73367065e9.1.2026.11.17.04.40.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 04:40:30 -0800 (PST)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	llvm@lists.linux.dev
-Subject: [PATCH net-next v22 11/15] MAINTAINERS: add myself as PCS subsystem maintainer
-Date: Tue, 17 Nov 2026 13:39:51 +0100
-Message-ID: <20261117123956.11981-12-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261117123956.11981-1-ansuelsmth@gmail.com>
-References: <20261117123956.11981-1-ansuelsmth@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kiNDRQHs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53CFA1F0034C;
+	Tue, 17 Nov 2026 12:40:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794919234;
+	bh=PpZGP+PvnlnE+Ru0bvBoaiq99U2o1zAEk1IJID0atSs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kiNDRQHs2N82WZA4WJqrgAs5Syi1bAJxsxR++ZWl/fOOMauVcvy5bIGSPAbkLg//t
+	 47htGszwuCHckq72O+Jau+C6bWRi2r92L0uzQbQ4oQECauSFY6bwgDuog70J5pkeIt
+	 YR5HLTH6ZXIUBRIWuk8h65TUW/eC59jE+oxpowOgayoNcjYSB2eQnBuAEpuxaWVucH
+	 +mQFrucdbvencXYvD+EOkLDpeuCHwP7N+Nb0oGfkwx/CiG45vttsBxC6uvE1dO8Rf6
+	 EEvZXmpv5mXffCkCr7ejVMXcM9xiK7O2EWs8KX8NFlTKr20z4tuITlSs8HKxIjBMUG
+	 mEMxngTerw/cA==
+Date: Tue, 17 Nov 2026 13:40:32 +0100
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Mikko Perttunen <mperttunen@nvidia.com>, Jordan Viknar <jordanviknar@gmail.com>, 
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] dt-bindings: usb: Move Tegra-specific Chipidea
+ USB properties into a dedicated schema
+Message-ID: <avxHzF-uiOAhwXIW@orome>
+References: <20261004165204.205660-1-clamor95@gmail.com>
+ <20261004165204.205660-2-clamor95@gmail.com>
+ <20261026222928.GA15139-robh@kernel.org>
+ <CAPVz0n2rkWikz1CZhkKiZnX5P+NdDH0RfJi69AyVTEV7qw_VXg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,36 +64,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="46d2lau2pfpmds64"
+Content-Disposition: inline
+In-Reply-To: <CAPVz0n2rkWikz1CZhkKiZnX5P+NdDH0RfJi69AyVTEV7qw_VXg@mail.gmail.com>
 
-List all the files of the Ethernet PCS subsystem and add myself as
-maintainer.
 
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
----
- MAINTAINERS | 9 +++++++++
- 1 file changed, 9 insertions(+)
+--46d2lau2pfpmds64
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v1 1/2] dt-bindings: usb: Move Tegra-specific Chipidea
+ USB properties into a dedicated schema
+MIME-Version: 1.0
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 32e218c0fe68..ccd2d04c5a07 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -10034,6 +10034,15 @@ F:	include/uapi/linux/if_bridge.h
- F:	include/linux/netfilter_bridge/
- F:	net/bridge/
- 
-+ETHERNET PCS SUBSYSTEM
-+M:	Christian Marangi <ansuelsmth@gmail.com>
-+L:	netdev@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/networking/pcs.rst
-+F:	drivers/net/pcs/pcs.c
-+F:	include/linux/pcs/pcs-provider.h
-+F:	include/linux/pcs/pcs.h
-+
- ETHERNET PHY LIBRARY
- M:	Andrew Lunn <andrew@lunn.ch>
- M:	Heiner Kallweit <hkallweit1@gmail.com>
--- 
-2.55.0
+On Tue, Oct 27, 2026 at 10:51:52AM +0200, Svyatoslav Ryhel wrote:
+> =D0=B2=D1=82, 27 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 00=
+:29 Rob Herring <robh@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> >
+> > On Sun, Oct 04, 2026 at 07:52:03PM +0300, Svyatoslav Ryhel wrote:
+> > > Move all Tegra-specific Chipidea devices and their properties into a
+> > > dedicated schema file, by analogy with i.MX.
+> >
+> > I don't really see the point given it is only 2 deprecated properties.
+> > Maybe those can be removed? Depends if they are deprecated and still
+> > used or deprecated and removed from .dts files years ago.
+> >
+>=20
+> The ci-hdrc-usb2.yaml schema contains properties that are not
+> applicable to Tegra, and conversely, Tegra-specific properties are not
+> applicable to qcom, nxp, nuvoton, etc.
+>=20
+> The 'nvidia,needs-double-reset' property is required for Tegra20 and
+> Tegra30, and it is still actively in use, as you can see here [1]. Its
+> marked deprecated state appears to be incorrect, as it should simply
+> be restricted to Tegra20 and Tegra30.
 
+For what it's worth, I looked into this a little bit to find out why
+this is only needed on USB1, whereas USB2 and USB3 don't seem to be
+affected. Turns out that USB1 is a different controller than USB2 and
+USB3 and it has this errata. In retrospect it would've been more correct
+to assign a different compatible string for it and derive the quirks
+=66rom that, but given the ABI stability it's probably not worth
+correcting it at this point.
+
+Thierry
+
+--46d2lau2pfpmds64
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmr8Sz0ACgkQ3SOs138+
+s6H2JxAAqetcrbKWLmI72r57SUOoEE1aRxGYZ3oG0t7oJ3lG2vYEuRqDddePjWG2
+VWJ441BBY4at5Ib0utYLB5zK+3yVJecPCxv1FwxBf8hyGMzlAgeWQkUXze0OkcSF
+c6Z+wVO3arETFnincediCilM8XsvNcMM/T/vDO7dFb6qigOG5qnsOAFQeNLRBA1p
+aygcSyTnR5CEzwly48u97Xlqjizur1QSYUxyNzPCenote01yFb9/yhw8QKK7IRIu
+jLVF+lKN9HqkAOLTzLiZ6SgC14cUwgG3abyVAmbbXu6KaMRNagEy29UYcFr47vhI
+ffIN5ZcM5SHmM2jIT0CZU6JF5GopNoByUYVWwYZvBM9Mq3qbYcDPmCwOSmSuVhed
+NyEdaGIGBIjw6LKzHZhfc/kjwNCJNkHWFEBHrtsf2A5aKbeogDVHGThSZx8/1/Yy
+1Dz6LF18AyzdyZdwyw2tDgEBGhHBEdcO9X+lhTmybZeqtzqZ8T+BnYui8UdvaUVN
+UaYdFyDn72Scni7Ybtv/2wIqeLmYTu1Nez6ypznJf/8h6VX+CDvEtvRhpqGPMx42
+CSjmuWJ+0/aJ5LRT2k1ndGbjWiLodnfFHBUdgGhFclyb1xqrMec70IXBOZy/Y0xZ
+DyL4KhBQrL0AK+hHLEpasWdWNU+boFRwyTOvC4zRG9a9s/Cyz18=
+=TFe/
+-----END PGP SIGNATURE-----
+
+--46d2lau2pfpmds64--
