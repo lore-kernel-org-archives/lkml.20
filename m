@@ -1,57 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794917285;
-	b=HiDtmuqBz/vQqiabxeuXm0C6GJnnCGGsXsuLlRyZne+kFXBI43SED8V2WluimI9OZtgC
-	 jnwyqHHxzYga6aY+ar+LH8L6qH1TZIpfMsypOpYRrICAfuVXC8LpApwKFk2CAw8E1dcG3
-	 RsBZ2NJS+MfIoI4zzcSL0iM3v6pc8/XyTQz+O16Y1/xkDlSPDbTFV6jxRRaXCB9T4bDwn
-	 qyvcQ7SL+NuqyTVjaVZDJUH3OxQFafqLlPCB/QuXLmy6bmmpbhHdDnZFtsVpTWNedJX2W
-	 wqWWTvoR7sg3itNHA+jix/4C2KICZwk8uo2CrH69vzkfJif5z40VS8bz1yPBrPFoe3w==
+	t=1794917307;
+	b=hlYpvvGePL0072OHyV2p0Jq147XyIpVZeKsljrVQXGiUhJl0Au++ePZpMgXUOe1SlOFg
+	 SmDZc76a1CL/ktol46djTLRFSI8dFAEeyVJ2nYCtJpvc3X3OWz2JWdzKmuEIzlugvtTxR
+	 8LSGUvHaY+Y8mHObKMnLMycqITZYm8qw8Ho6ASBdW+4OHsdWwIQH5oQoYxbnvtZ6OxZOV
+	 WUV6Mz9O2hBTD2AmlqoRQOOFTo2U8qm6WBijMJDnKV77/QUDFj6ecV7Y8PeR2EKjuS7+7
+	 Y50hHEyGiOMFNiBVCLPojTM30oaCpKo2j3Vrk4pva9FY1wk5BdvHJWp+AlECQQbVAQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794917285;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=LFj3lXy8NNHrgy9P4EuYba2xkoAH+TOYY0+5Iczv/q8=;
-	b=ENj1Zuhm96Q7qT/N2OxtxiSSxZGzgdaB1/rRQSTFlwKN7Oh7vl1LtQBp2g14JBg6wEMo
-	 T7JcAvL3PrlzblrlSNDf7NDzUNpKml3dCTkD+ddQYTL98LoNiffSvFEp4wFQhXJse5vJx
-	 YEEBGiOdSlmVPSLDOByf9Lh0IWNGQs4E2GX0S1qGGICEfJtAvuoHGycQw17xlSS4cA61J
-	 ue1agxXC/LjKNK//lOHOdfC754aG6D+y5CVNsYugWUmmMLdOIVB+CjehWhKnkS+rqVOGI
-	 +10/Y8hO043zoWVWyPCbdKXmvUgT/nE7QjDNmFt25VF6tEzB1VO6hg8CCka+SNjhpDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794917307;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=56OkhrGtrgZLgIxtH1MefuUDKlgxUJ+RKCBMt2Ztnt4=;
+	b=O+2y1iCIHih+/K7uMMcewRT2qzKM5p3CQnFn7DwmHQLCY9Xb8yFfLu1bOVLmhKzI496O
+	 uG5g4KVZSEyQN7obX+CjwVwUWKHGHbdTZcBYFBABkUXMGkqJpFCrQ4/GUf4PzwOtqjj1C
+	 cYSQJejq5kD9Xgr6o2EP60IzWeGGAmAHkR92Y1HSShmVtQtpDi5MxL8Ml0nE3CiUJ4Vjb
+	 8AVUY3rt+1S5wCOGigEL9gdV2lBNwdU2g6h7ZA9DNj+CJUrafFM3/YIB+TMu0yGZnqKuh
+	 tQA+PRhzprXgm9Ifhh+xxxMi2WZZAHaUElXrHl2XHojHebQJvFg5e/LOkzUrADkzR3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b="g5Zst9//";
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F8H75bw2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3628606A339;
-	Tue, 17 Nov 2026 12:08:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3628606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31223606A33A;
+	Tue, 17 Nov 2026 12:08:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=g5Zst9//
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794917283;
-	bh=qGJ17IHmxkOflCOJsC/QkOY+G2dnIFle6zJPxp+P/7I=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=g5Zst9//jEGwPRI2YVRn13Ge4CrvbaNDygbVKekV3LEcFCHtNupowTPbIecPAePKM
-	 zhNFpAjFJOOOCUoFV5dvjgYDgOmbcSrLROXZdi/gcOgujS3XxFXoC7YwkqP+IKXdqx
-	 1R9e6RQCGFonunfgM/RicojeTaKvGIkScD4cBgcW9CgghkiILWL89MzeFBvQi1Ihxp
-	 I9Gn1MRFjOSqS/hTCpoJLSlv3OY2wGeCBACLVD/llWvGnulPUZm0FCupxM3sz3EQwe
-	 K0rLoXI+2M312jQ6LP2d2zStRgnbsL1GxW9HzjQjR+kO4Nz+jNmXL6IJo/gDPErav0
-	 gBB8gzRb00kRg==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 9365A17E00E8;
-	Tue, 17 Nov 2026 13:08:02 +0100 (CET)
-Message-ID: <6935d7a4-2f91-4abf-81e9-f77c2b6c80d2@collabora.com>
-Date: Tue, 17 Nov 2026 13:08:02 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F8H75bw2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F7F61F000C4;
+	Tue, 17 Nov 2026 12:08:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794917306;
+	bh=56OkhrGtrgZLgIxtH1MefuUDKlgxUJ+RKCBMt2Ztnt4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=F8H75bw2K23ed5fTh2YEovfZCCoE4Bwb3o10F2V8Lkznkbkz4kgHIqT9BNxdJPmpN
+	 gUHPsfe7ktO3deEyB2AndUcFsN3Bz381m95/n0Wlsa86O/GWUhnQ19m0MztvkpBlnC
+	 sLvki6RVtq9NbmGNUT8ZYv6sBGUWwcacWGuQX3j+vYcZIEw1Y8pKaWcfadEvXf9vCk
+	 TUDVU+4uEgVMC+6nwJWpyheorFKIGoYcjCxjv5YqCs1suxQbD7xuAt8T89yn17o/ni
+	 bIQJfgV//tk3VQ9I1fNqmZ6gb9dS9XxiniEoyYPTR8A6XfgTqds09TqqfGqMXu9pY6
+	 RQx9UoiISPZIA==
+Subject: Re: [PATCH net v6 2/4] net: phy: keep the line of a postponed PHY
+ interrupt balanced
+From: netdev-bot+sashiko@kernel.org
+To: iav@iav.lv
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ maxime.chevallier@bootlin.com, lukas@wunner.de, rafael.j.wysocki@intel.com,
+ wei.fang@nxp.com, niklas.soderlund@ragnatech.se, paul@pbarker.dev,
+ florian.fainelli@broadcom.com, opendmb@gmail.com, Thangaraj.S@microchip.com,
+ shenwei.wang@nxp.com, Haoning.CHENG@cn.bosch.com, netdev@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Date: Tue, 17 Nov 2026 12:08:24 +0000
+Message-ID: <179491730493.3136.3230057770418919660@kernel.org>
+In-Reply-To: <20261113-b4-phylib-mac-pm-irq-v3-v6-2-05af2503cb23@iav.lv>
+References: <20261113-b4-phylib-mac-pm-irq-v3-v6-2-05af2503cb23@iav.lv>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,114 +68,194 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND v5 3/4] nvmem: mtk-efuse: add CPU speedbin
- post-processing
-To: Roman Vivchar <rva333@protonmail.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
- Lala Lin <lala.lin@mediatek.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org
-References: <20261117-6572-nvmem-v5-0-9b561a8a83e1@protonmail.com>
- <20261117-6572-nvmem-v5-3-9b561a8a83e1@protonmail.com>
- <b0fa129a-e9ad-4a7b-a2aa-2202bfa23232@collabora.com>
- <k8LLawty9o68P00hLr5LO1163o_m16f_vf8fBZvdD18nOatszy1i4Dp7DeC8Hv2--Q08YyZfhCRnQbVDps0lqB2zZrx-k_GxKUaqj6eT6r4=@protonmail.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <k8LLawty9o68P00hLr5LO1163o_m16f_vf8fBZvdD18nOatszy1i4Dp7DeC8Hv2--Q08YyZfhCRnQbVDps0lqB2zZrx-k_GxKUaqj6eT6r4=@protonmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 11/17/26 13:02, Roman Vivchar wrote:
-> Hi Angelo,
-> 
-> On Tuesday, November 17th, 2026 at 1:56 PM, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com> wrote:
-> 
->> On 11/17/26 12:33, Roman Vivchar via B4 Relay wrote:
->>> From: Roman Vivchar <rva333@protonmail.com>
->>>
->>> MediaTek SoCs are often released under the same marketing name, but with
->>> different suffix for the speedbin. For example, mt6572m has 1 GHz limit,
->>> mt6572a - 1.2 GHz, mt6572w - 1.4 GHz.
->>>
->>> Since the speedbin is stored as a number in the efuse, add support for
->>> converting it to the bitmask for opp-supported-hw usage in the DT.
->>>
->>> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
->>> ---
->>>    drivers/nvmem/mtk-efuse.c | 19 +++++++++++++++++++
->>>    1 file changed, 19 insertions(+)
->>>
->>> diff --git a/drivers/nvmem/mtk-efuse.c b/drivers/nvmem/mtk-efuse.c
->>> index 980c29d01337..d2e5c69c580e 100644
->>> --- a/drivers/nvmem/mtk-efuse.c
->>> +++ b/drivers/nvmem/mtk-efuse.c
->>> @@ -70,6 +70,18 @@ static int mtk_efuse_gpu_speedbin_pp(void *context, const char *id, int index,
->>>    	return 0;
->>>    }
->>>
->>> +static int mtk_efuse_cpu_speedbin_pp(void *context, const char *id, int index,
->>> +				     unsigned int offset, void *data, size_t bytes)
->>
->> You can *literally* reuse mtk_efuse_gpu_speedbin_pp....
-> 
-> No, I can't. On later SoCs CPU speedbin has different encoding.
-> For example, on mt6768 it can be stored in either low or high 4 bits.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-That's the part where you pass the right nbits in devicetree for the speedbin cell,
-being it still 4 bits, that statement doesn't change the outcome.
+Critical: 0 · High: 1 · Medium: 1 · Low: 0
 
-> This is out of scope for this series, but I'd like if we kept this
-> callback for the future SoCs.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-All that the logic of your mtk_efuse_cpu_speedbin_pp is doing is assigning
+- [High] phy_free_interrupt() decides once, from irq_has_action() right
+  after this PHY's free_irq(), whether irq_rerun still owns a unit of…
+- [Medium] On a shared line, phy_free_interrupt() (drivers/net/phy/phy.c)
+  keeps irq_rerun set and leaves the rebalance to resume.
 
-BIT(val[0])
+--
 
-to val[0].
+net: phy: keep the line of a postponed PHY interrupt balanced
 
-All that the logic of mtk_efuse_gpu_speedbin_pp is doing is assigning
+With this change, only the first postponed run of phy_interrupt() disables
+the PHY interrupt line. phy_free_interrupt() now clears irq_rerun when
+free_irq() leaves the line without users. It also adds irq_pm_lock to
+serialize phy_free_interrupt() against the rerun after resume, and moves
+the postpone/rerun logic into mdio_bus_phy_suspend_irq() and
+mdio_bus_phy_resume_irq().
 
-BIT(val[0])
+> diff --git a/drivers/net/phy/phy.c b/drivers/net/phy/phy.c
+> index 9af303d60bd6b..8e03c99fce8f5 100644
+> --- a/drivers/net/phy/phy.c
+> +++ b/drivers/net/phy/phy.c
 
-to val[0].
+[ ... ]
 
-To me, that looks code duplication, and duplication is bad.
+> @@ -1430,8 +1430,11 @@ static irqreturn_t phy_interrupt(int irq, void *phy_dat)
+>  				pm_wakeup_dev_event(parent, 0, true);
+>  		}
+>  
+> -		phydev->irq_rerun = true;
+> -		disable_irq_nosync(irq);
+> +		/* Disable the line only once: an edge can rerun the thread. */
+> +		if (!phydev->irq_rerun) {
+> +			phydev->irq_rerun = true;
+> +			disable_irq_nosync(irq);
+> +		}
+>  		return IRQ_HANDLED;
+>  	}
+>  
+> @@ -1507,7 +1510,15 @@ EXPORT_SYMBOL(phy_request_interrupt);
+>  void phy_free_interrupt(struct phy_device *phydev)
+>  {
+>  	phy_disable_interrupts(phydev);
+> +
+> +	mutex_lock(&phydev->irq_pm_lock);
+>  	free_irq(phydev->irq, phydev);
+> +	/* free_irq() shuts down a line left without users and the next request
+> +	 * resets its depth; mdio_bus_phy_resume_irq() enables a shared line.
+> +	 */
+> +	if (!irq_has_action(phydev->irq))
+> +		phydev->irq_rerun = false;
+> +	mutex_unlock(&phydev->irq_pm_lock);
+>  }
 
-> 
->>
->>> +{
->>> +	u8 *val = data;
->>> +
->>> +	if (val[0] >= 8)
->>> +		return -EINVAL;
->>> +
->>> +	val[0] = BIT(val[0]);
->>> +	return 0;
->>> +}
->>> +
->>>    static void mtk_efuse_fixup_dt_cell_info(struct nvmem_device *nvmem,
->>>    					 struct nvmem_cell_info *cell)
->>>    {
->>> @@ -83,6 +95,13 @@ static void mtk_efuse_fixup_dt_cell_info(struct nvmem_device *nvmem,
->>>    	if (cell->nbits <= 3 &&
->>>    	    strncmp(cell->name, "gpu-speedbin", min(sz, strlen("gpu-speedbin"))) == 0)
->>>    		cell->read_post_process = mtk_efuse_gpu_speedbin_pp;
->>> +
->>> +	/*
->>> +	 * On mobile SoCs, the CPU speedbin is a number. Convert it to
->>
->> Other SoCs have got the same efuse style as mobile SoCs: anyway, all MediaTek
->> SoCs (apart from networking ones) are (in a way or another) variants of the
->> mobile ones.
-> 
-> They're not really variants, some of them have no direct mt81xx/83xx sibling.
-> 
-Noone looked hard to find the siblings for some of them - though there might be
-one (and just one) that has no sibling :-)
+[Severity: High]
 
-Regards,
-Angelo
+Can irq_rerun go stale on a shared line here?
+
+Whether to keep irq_rerun is decided once, by irq_has_action() right after
+this PHY's free_irq(). If another user is still on the line, irq_rerun
+stays true.
+
+When that remaining user frees the line later, __free_irq() shuts the line
+down. The next request then goes through irq_startup(), which resets
+desc->depth to 0. Nothing clears the first PHY's irq_rerun at that point.
+
+Take two PHYs sharing one IRQF_SHARED line behind cpsw, which sets
+mac_managed_pm. A later patch in this series brings those PHYs under
+postponing:
+
+  wakeup interrupt
+    phy_interrupt(PHY0): irq_rerun0 = true, disable_irq_nosync()  depth 1
+    phy_interrupt(PHY1): irq_rerun1 = true, disable_irq_nosync()  depth 2
+
+  cpsw_suspend()->cpsw_ndo_stop()->phy_disconnect()
+    phy_free_interrupt(PHY0): PHY1 still on line, irq_rerun0 stays true
+    phy_free_interrupt(PHY1): line empty, shut down, irq_rerun1 = false
+
+  cpsw_resume()->cpsw_ndo_open()->phy_request_interrupt()
+    irq_startup() resets depth to 0, irq_rerun0 still true
+
+  mdio_bus_phy_resume_irq(PHY0)
+    enable_irq() at depth 0
+
+Wouldn't this hit the "Unbalanced enable for IRQ" warning in
+__enable_irq()? That is the symptom the commit message says is fixed.
+
+The new guard in phy_interrupt() also seems to make a stale irq_rerun
+worse. Between the line restart and the PHY's resume, a postponed
+level-triggered interrupt now returns IRQ_HANDLED without being serviced
+or masked:
+
+		if (!phydev->irq_rerun) {
+			phydev->irq_rerun = true;
+			disable_irq_nosync(irq);
+		}
+		return IRQ_HANDLED;
+
+The ONESHOT unmask would then keep firing it until that PHY resumes.
+Before this patch, such an interrupt disabled the line again, and resume
+balanced it.
+
+There is also a race. irq_has_action() runs after free_irq() has dropped
+desc->request_mutex, and irq_pm_lock is per phydev. So a request_irq() or
+free_irq() by another driver on the same line can change the answer
+between the two calls.
+
+Would it be possible to tie irq_rerun to the lifetime of the line, rather
+than to a snapshot taken at free time?
+
+>  EXPORT_SYMBOL(phy_free_interrupt);
+>  
+> diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
+> index 1791d578f4dde..573eb234dc799 100644
+> --- a/drivers/net/phy/phy_device.c
+> +++ b/drivers/net/phy/phy_device.c
+> @@ -332,6 +332,38 @@ static bool mdio_bus_phy_may_suspend(struct phy_device *phydev)
+
+[ ... ]
+
+> +/* Rerun interrupts which were postponed by phy_interrupt()
+> + * because they occurred during the system sleep transition.
+> + */
+> +static __maybe_unused void mdio_bus_phy_resume_irq(struct phy_device *phydev)
+> +{
+> +	WRITE_ONCE(phydev->irq_suspended, false);
+> +	if (!phy_interrupt_is_valid(phydev))
+> +		return;
+
+[Severity: Medium]
+
+The new comment in phy_free_interrupt() says "mdio_bus_phy_resume_irq()
+enables a shared line". Is that always true?
+
+This early return comes before irq_rerun is checked.
+phy_request_interrupt() sets phydev->irq to PHY_POLL in two failure cases:
+
+drivers/net/phy/phy.c:phy_request_interrupt() {
+	...
+	if (err) {
+		...
+		phydev->irq = PHY_POLL;
+	} else {
+		if (phy_enable_interrupts(phydev)) {
+			...
+			phy_free_interrupt(phydev);
+			phydev->irq = PHY_POLL;
+		}
+	}
+}
+
+Suppose a postponed interrupt took a disable on a shared line. Then
+phy_free_interrupt() runs during the sleep window while another user stays
+on the line, for example from cpsw_suspend() or stmmac_reset_subtask()
+through phy_disconnect(). irq_rerun is still true at that point.
+
+If the reopen then fails in one of these two ways, for instance because of
+an MDIO error while the bus is down, phydev->irq becomes PHY_POLL. In the
+second case, phy_free_interrupt() again keeps irq_rerun, because the other
+user is still on the line.
+
+mdio_bus_phy_resume_irq() then returns here without calling enable_irq().
+Since phydev->irq is never set back to the old number, can anything ever
+balance that disable? It looks like the other users of the shared line
+would stay masked for good.
+
+> +
+> +	mutex_lock(&phydev->irq_pm_lock);
+> +	synchronize_irq(phydev->irq);
+> +	if (phydev->irq_rerun) {
+> +		phydev->irq_rerun = false;
+> +		enable_irq(phydev->irq);
+> +		irq_wake_thread(phydev->irq, phydev);
+> +	}
+> +	mutex_unlock(&phydev->irq_pm_lock);
+> +}
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261113-b4-phylib-mac-pm-irq-v3-v6-0-05af2503cb23%40iav.lv
