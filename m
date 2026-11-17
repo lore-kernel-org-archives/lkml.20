@@ -1,64 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.221
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794918689;
-	b=rLObBxSUrx9VQdSrzaaDLnPGrhnyH397WYsuXu8SCi4wJyz5f2o/NpQB4OT58faWD00F
-	 4ZRRUhp9WBeFhwlTZQVK8qkcQflQ67JE8Q+lco8ZcHnK9nWI6bF1d9sunJYFXi+5vxYJu
-	 zsIRLUHTWmZcg9PXfuiPGIXZQuBng7iNe87sxTobeZso0t56hxs1pg103BRR6yjQJb/cH
-	 LbknUxVpuk6lIRfNh32WjckdWC5SPfxucECcOwEci65d1wqz1Uwv4F9WEJw7JVHqRWWTE
-	 cKeMn+kg8kNPEmELMFTW0CODeAhH4dfIBmyUr0hUxYAl/zMCH4cN4bShCGXiH4R1OgA==
+	t=1794918697;
+	b=xPhkiKk9a7C6b7urN3BhuCLRdBaDeHMSIsaA7oLGnxK1hlv8413OZry5doMMWYisRRT5
+	 dZmr5H3idhYVD9y+6qJXOnnNg95pgpaKGdLSXk4a2VIIWslugXUE/jEBvlPVC/MzKDBsJ
+	 kxCRXocCuFz6PcuFUs86rDctZ47QpJBcIze+NdilayeELtq/hcHYgcSqglO3roVaQMAzm
+	 etXLX5yAssR4m+tSvmc67VAV/+z/kr+OIaHY3+nCqcswpUsNU9ax/v9D80eIRSNl8w6Gy
+	 y01NiBkM6B5mEed8DfWFSgIGXQKHMOipFwWVWsJQrgaeGc8VixANPKYz4j8kKzB6+rA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794918689;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=2YE/RceU1BDrUGj03KVYMBZ/+cla8lPDeG78rZvZ+NI=;
-	b=EkCKTlhDsCjWEP11TfoK4kwq6hi8MKqcXMss1S1TWV2tzkHjlfc6dVS2XXsaR4VBzzjR
-	 y9fW76OdJMrn9iSnJQH91zc9VlQgaPt/K/iX68ZuU3+T8ZfCc/Ryywzx/ngZ3S14qPseO
-	 oJYIHJ2h65mQKWdNl17MtdyhslI6CP20O3Cc8p3BqlD6Z5fODoLERF6bUQF6OWt6lmkr9
-	 HWeLlXNhfstnaVwf2IVZk2M2MjtnyuuQrBZqqEUMyGyK5AWoSdtKNyTxeZ53vBLuJ6Ga1
-	 fIdVjJfEalaIqgiTCwS+O6Vgq0WmMK3DszLsWpJHtcO+rgXVJ9PnSUc7ErwSXlYw+pQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794918697;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=l0r+PNrqFBNtuM7tcgiDOPoaHoxY6H4NbwLfENsaXyc=;
+	b=Hto+g+O/zRZfaPQGpgATc1NOFKGu1NUnxvdFoce6HHND8K1wPTlFZa5wzzP8dg7B7IcF
+	 bnEzllB6KUaIfXRVQuh8WDFBPGEVnjutBBDNYw3hTF7YxBBlSccn/zyBg1Z4dEpEMIUnz
+	 abhZrrh91mZIUj3HJGBUE1+3OhTP8WrgyL7yudm8XRDppPkp0EyJ+MS7uJApLQc/jyfvB
+	 8eb9UZ1ULS7YZB6hXO8eLNBg83l6BkRUbKLd3+96S5pM2PgbaF5Eut4jphr/VQ46HIUsb
+	 dDSgL07dWXsVPCwfLAYorDLpgoNeVYrkUHcGnadhIfLhXE7yWmcFc0/J+qyFATQzuaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=6OI71rL0;
-	arc=none smtp.remote-ip=113.46.200.221
-Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=GgI3DPnu;
+	arc=none smtp.remote-ip=109.224.244.17
+Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 802F1606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:31:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 802F1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07FAE606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:31:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07FAE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=6OI71rL0
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=2YE/RceU1BDrUGj03KVYMBZ/+cla8lPDeG78rZvZ+NI=;
-	b=6OI71rL0RN45D+2CBfhLv98JGQUKCc2nx0isLeQRxf8r6ERJPK+ReoiY+L05GjMXiuloDCk8r
-	ea+ImJUJDiRuvvdQKO1ukQWNPFOShOGOdRnPQ1xlSOTdyUkDS/TtYYFusHwWf2pGqYA81+sFbZx
-	kt70sEGchJoGC8EoaCPVq3U=
-Received: from mail.maildlp.com (unknown [172.19.162.140])
-	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4jTPGk56JZzRhXK;
-	Tue, 17 Nov 2026 20:31:10 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id BD320203AB;
-	Tue, 17 Nov 2026 20:31:24 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 17 Nov
- 2026 20:31:24 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <maz@kernel.org>, <tglx@kernel.org>, <radu@rendec.net>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-CC: <ruanjinjie@huawei.com>
-Subject: [PATCH v2] irqchip/gic-v3-its: Size the collection table for all possible CPUs
-Date: Tue, 17 Nov 2026 20:31:16 +0800
-Message-ID: <20261117123116.591621-1-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=GgI3DPnu
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1794918694; x=1795177894;
+	bh=l0r+PNrqFBNtuM7tcgiDOPoaHoxY6H4NbwLfENsaXyc=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=GgI3DPnu3/lS00sVNW9WIiLjM5kP93ZlxXOSeF3NFV5d15rWtjYbI9BGuq+PZ+iHh
+	 K52gHANR9Oj0cK3Oi3iMoxi2RwM7T5RZ8iMxHMT1GxzlaZSo6TaRrpug0+rdPpebYu
+	 AvUEdVhqrFIge0aQ+O8XQAiFvMfXxc54XHPWGI3Qmv8Hk/Wq+G2gSY74gWpp34zUdx
+	 S+P0SzyrhWFIO/CA7GLyApNy/rj3bEpT6uJw6w0Mrrl/GhK2uKt6zipE4mw9faDKJL
+	 VXLboNhTbT7tkJP3IwrGDwT1n1IJkyR0u4ODjKPcZG/uMMi0jHYkE1t58T8HE9K9w+
+	 nLl2a8zq1l1yg==
+Date: Tue, 17 Nov 2026 12:31:30 +0000
+To: Jarkko Sakkinen <jarkko@kernel.org>
+From: Sinan Turunc <enscrpt@pm.me>
+Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, keyrings@vger.kernel.org, linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] keys: serialise instantiation against keyctl_chown_key
+Message-ID: <20261117123056.1797-1-enscrpt@pm.me>
+In-Reply-To: <avmoe41hNwe5GryN@kernel.org>
+References: <20261115121722.206-1-enscrpt@pm.me> <avml2-lpRCJYlHOp@kernel.org> <avmmnHsz2vDUk8HO@kernel.org> <avmnRbuvbSg2fCVg@kernel.org> <avmoe41hNwe5GryN@kernel.org>
+Feedback-ID: 48393780:user:proton
+X-Pm-Message-ID: f3dc833893944b86caf72da5a4897f1391cf4944
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,76 +64,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-The collection table is currently sized at a single ITS page size,
-and the driver's allocation policy is to allocate a single collection
-per CPU. On systems with more CPUs that the ITS can fit in a single
-page, no LPI can be routed to the CPUs that don't have an allocated
-collection, and the system grinds to a halt.
+Hi Jarkko,
 
-Change the allocation policy to allow two-level tables, similarly to
-the other tables.
+Sorry for the sloppy v1 patch and for over-relying on an LLM to write
+the commit message. That will not happen again. I have removed the
+inline comments and rewritten the commit message in my own words.
+Please let me know if any part of it is unclear, as I have tried to
+describe it as clearly as I can.
 
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
----
-v1 -> v2:
-- Cleanup the similar calls of its_parse_indirect_baser() (Marc).
-- Simplfy the commit message (Marc).
-- Drop fix tag and comment (Marc).
-- Give nr_ids a default for unrecognised BASER types.
----
- drivers/irqchip/irq-gic-v3-its.c | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
+The race happens because keyctl_chown_key() looks up the target key by
+calling lookup_user_key() with KEY_LOOKUP_PARTIAL. That flag lets a
+caller with CAP_SYS_ADMIN change the UID of an uninstantiated key during
+construction. When the UID changes, keyctl_chown_key() swaps key->user
+under key->sem and drops the old reference with key_user_put().
+__key_instantiate_and_link() and key_reject_and_link() only hold
+key_construction_mutex when they increment key->user->nikeys during
+construction. __key_instantiate_and_link() also calls the key type
+instantiate callback without holding key->sem on the key.
 
-diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
-index c952c069f937..41cd359e52a7 100644
---- a/drivers/irqchip/irq-gic-v3-its.c
-+++ b/drivers/irqchip/irq-gic-v3-its.c
-@@ -2682,7 +2682,7 @@ static int its_alloc_tables(struct its_node *its)
- 		u64 val = its_read_baser(its, baser);
- 		u64 type = GITS_BASER_TYPE(val);
- 		bool indirect = false;
--		u32 order;
-+		u32 order, nr_ids;
- 
- 		if (type == GITS_BASER_TYPE_NONE)
- 			continue;
-@@ -2696,8 +2696,7 @@ static int its_alloc_tables(struct its_node *its)
- 
- 		switch (type) {
- 		case GITS_BASER_TYPE_DEVICE:
--			indirect = its_parse_indirect_baser(its, baser, &order,
--							    device_ids(its));
-+			nr_ids = device_ids(its);
- 			break;
- 
- 		case GITS_BASER_TYPE_VCPU:
-@@ -2713,11 +2712,19 @@ static int its_alloc_tables(struct its_node *its)
- 				}
- 			}
- 
--			indirect = its_parse_indirect_baser(its, baser, &order,
--							    ITS_MAX_VPEID_BITS);
-+			nr_ids = ITS_MAX_VPEID_BITS;
-+			break;
-+
-+		case GITS_BASER_TYPE_COLLECTION:
-+			nr_ids = order_base_2(num_possible_cpus());
-+			break;
-+
-+		default:
-+			nr_ids = 0;
- 			break;
- 		}
- 
-+		indirect = its_parse_indirect_baser(its, baser, &order, nr_ids);
- 		err = its_setup_baser(its, baser, cache, shr, order, indirect);
- 		if (err < 0) {
- 			its_free_tables(its);
--- 
-2.34.1
+In key_payload_reserve(), when the key is in quota and its size changes,
+key->user is read without key->sem. It reads key->user once for
+spin_lock_irqsave(&key->user->lock, flags) and reads it again for
+spin_unlock_irqrestore(&key->user->lock, flags). If keyctl_chown_key()
+replaces key->user between those two reads, key_payload_reserve()
+unlocks the new spinlock and leaves the old spinlock held.
+
+As the Sashiko review noted on v1, taking down_write_nested(&key->sem,
+1) also causes a lockdep cycle against __key_move_lock(). A lockdep test
+on v1 triggered that warning on the first KEYCTL_MOVE call against the
+keyring instantiation order. __key_move_lock() takes subclass 1 before
+keyring_serialise_link_lock, while __key_link_lock() takes
+keyring_serialise_link_lock before __key_instantiate_and_link() takes
+key_construction_mutex. In v2 I switched down_write_nested() to subclass
+2, which is an unused subclass taken only inside key_construction_mutex.
+That change ran clean under lockdep on both 7.4-rc2 and your
+for-next-keys branch across our test workloads.
+
+I will send the v2 patch out to the list right after this message.
+
+Thanks,
+Sinan
 
