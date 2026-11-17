@@ -1,54 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.224
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794897825;
-	b=IA+BBcm/EWmbpVQ8u9WeESDWFSJ7lSLeULFQfwIeneLAHWf/uDV9NbXZuvMY1XRnUO9w
-	 aOS0T17atov2yKFpA2dLuwvIv1GG5hrlQwpJBML6756Y9BkwpWW90T79UHCAMDpCb0ckT
-	 7y3SGskyrrejAtL8ag9NaRlVnMfIuW8qCj3ye4+RFtJbnEKsrvBZHNZefHKNz6m7ughrl
-	 rnrqcJ2UTaInWb2wqrbfs2AZvNInFQLqi+1E+DM0/npuJvH1t1RTTUgc3poOhNcsEYBE9
-	 EmpNtHe7UqEMPzMxwkuytJC64uZH6xvNzEd8LxrnguI9dm5DZMG4u2f+lfzd/zycttQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794897825;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ThhUyn0lQK0bHkHO1Fc6tijF95IxJDbZSzjBU4QD+wk=;
-	b=W60mytCF0GCXUSWs3FATolV0KsImJFSkTOON+ejNOS59b32GwiEn/OBQdyuHfq0KFGKW
-	 wRMNsNU1L8EmbtRI1a0Bz/uVTh64T2EG8UKOLmjgu0VPkJ3VszXQirlUhvkgPKVcg21eS
-	 VI4Ns1ecoMtf1wVA7+9HuWgoRlUGBNLtrHk5Qe5xMZRUoJ5NrcvNUxsWriH8/u1F57XmL
-	 mWIO4wyA0SZZJxOEa0CFb5eXD+um4iBOmr/NA3IZRk4MBq9XbL4CK8cmstcP4D1hnkB3Q
-	 pAiqZRL65VYBFaL1vXIKP9jmYpInqMNZVAG5+ZFXkxAlayvoD3h4noGxM1hPh0u3MAQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NjOhazoH;
-	arc=none smtp.remote-ip=91.218.175.224
-Received: from mta0.migadu.com (out-224.mta0.migadu.com [91.218.175.224])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.30
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794897838;
+	b=dA5tb9QBMVOMuMNyITc24rKH90oaiEY5LcvuKIs90KUiIR7E/F+L/hOE0OLm20TxxXRd
+	 nYwc5ut+c+pJa1JPOKjCQ4y/QcxHi2rfTWmaMQEcHHk5K2kmHbLo0hloXSE64I31ZuGOs
+	 AsEY27cP7hCjHA20dxaOyGq7/dZMrz1exJ62cAmmeOyCOUulg1BUCFMXuFszJ4khRmvYh
+	 ytzs/xoNWBe/iUrOjQ1Idgnazu0LIdFCdkBovXv19RHGG1R9gJNR21a511wAZif7hejtU
+	 82BRfUtUy0CaVFQxr0tOD9bUeQwRKuoF5+pKiKzYlFkxMcZJ2CAVSyv6Y15SzvmnOvA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794897838;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-OriginalArrivalTime:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-MS-Office365-Filtering-Correlation-Id:X-SET-LOWER-SCL-SCANNER:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=l4/dlPiTz8BLzXev5kDWrp6baoq9f7QtbpIfZP1zIbY=;
+	b=egIKiodMD8JetGG/c9PNxgta7mXYtYKcA+CHEvrKHqgRCwp4FwQjKw54zdZ+6w1uete1
+	 9bpycrdLGs/iEMqT7nSV9/ro9SXOUTEF9+cj0rnMaamjh+kDCET+H6jntjEmbY6Jhzd6G
+	 P6SURJ5NXe6rnYECaPFYCR1qJcQ2bES4kYf4zNDan3KRd98AOsdWv0ugpQLWTeYP19Wew
+	 CiJI/2L3pRlW5pj46e7Usm7CGy3leMqDeZvt8TLD+3LQYo3hAdpqgy8PkttQnbrnNB+Wo
+	 Roy2Z0e6Tnxg0funisyL6PV8+fDp3YqBIxrcuB1Psy8SApFA3S+l7W5hlCYYcHJ1lXw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=leica-geosystems.com;
+	spf=fail smtp.mailfrom=leica-geosystems.com;
+	dkim=pass header.d=leica-geosystems.com header.i=@leica-geosystems.com header.a=rsa-sha256 header.s=selector1 header.b=boTeV999;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.30
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011030.outbound.protection.outlook.com [40.107.130.30])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45BD6606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:43:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45BD6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 539A1606A31C;
+	Tue, 17 Nov 2026 06:43:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 539A1606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=leica-geosystems.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=leica-geosystems.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NjOhazoH
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=59cywDmz4bjbV7FM9qeVrxYwleUR667XbYlZ1k8/lZI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794897822; v=1; x=1795502622;
- b=NjOhazoHv1AkCqxpj8XSMmLfAuf8HRe9sp1MXs9hRelWPXVMjhYSEInWmT8QazzZo6vrmUrb
- CYDJxEgikldE0Y29JpFjacO3y6zTub5NgKzMsudNJHQ4mYQKMnAR64hv3XW5c7R8RvT02AoD2AW
- ErlnZx4sg/PW2umyfjTt6tpo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id bfbf2bb25fcd2b23;
-	Tue, 17 Nov 2026 06:43:41 +0000
-X-Mizu-Trace-ID: bfbf2bb25fcd2b23
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <b26fa408-eee0-4728-849a-21ff2a4a560f@linux.dev>
-Date: Tue, 17 Nov 2026 14:43:34 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=leica-geosystems.com header.i=@leica-geosystems.com header.a=rsa-sha256 header.s=selector1 header.b=boTeV999
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XpCceWxHpBk/ZSBM+2KxcSz8BZJ3yWhoV22XSINOrssT1DlE9tsrxXVujwMFS7dQd7v8UDvfcfY5BDa38QzHRzopXKBxLpWmYkFvKRmgxiAbYE57gyj0qu0K/uDHP4GIzAxaNJcukyT45x2wwuhxuBb/Z/gTSpfHUW0FcGdJd4L3O9byguHGdzWomp4JWj/YWer+8G9ND1EKO0k63uOyfauCzhBP3J93EcDZwfmIe58M2pZ12nB8EWyAdfm2tE+hgzYbUlCmo9zhTk9gljSBgqlkyHqosfGyIfgxgTA3OjBJ6pWTmZ/pCPBgyzetsGVftGKdE/MBOlxEpa82XBR03g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=l4/dlPiTz8BLzXev5kDWrp6baoq9f7QtbpIfZP1zIbY=;
+ b=mq7/SSLdlYtwpZTF4x7bykXGFg64XIvNs0EtTykt8BR1YtjH5b0cOxzX6bFoCIX1knAhrRPW6hPxc4iTjRQJBOj5/KeBLK1Fh6c/BdxAa1y4FuNSkqnkbPW1RRFdqqscPnWi7HBkA8Egx3OBdCHPC4s7mVKAe8GH1llsJmjxE68ydEf14ASwpReqUaB3H+Xib2KwQUtXNUOAuv7CXCPTUFP0lj3aDCuCtNLnhvn223Qe/e6c9xEgZWvCSc3UA5mwfLLaHhm7nth4WePRP2QnpSdNeAgKYEeh8sQDTKNhbMKicCWB2unVtyFiVcNdnd23iNhx718miZyfMlH2Z3pr9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 193.8.40.99) smtp.rcpttodomain=vger.kernel.org
+ smtp.mailfrom=leica-geosystems.com; dmarc=pass (p=reject sp=reject pct=100)
+ action=none header.from=leica-geosystems.com; dkim=none (message not signed);
+ arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=leica-geosystems.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=l4/dlPiTz8BLzXev5kDWrp6baoq9f7QtbpIfZP1zIbY=;
+ b=boTeV999j86775iB051kU3FrWiFLpPVvKWX2Nn0TYPB/9+v5vEwOUaZi9hDiN9capoOsezgqn/U+M3vO7MMe3TiefWBDEOr+dWSrHlrbK5/QwIuU5t7/T20DwckHk309lNRqpW193ucd4e5IKZaEB7BYEDb6ugo57V4KgiHCnoM=
+Received: from AM0PR02CA0160.eurprd02.prod.outlook.com (2603:10a6:20b:28d::27)
+ by AS5PR06MB8702.eurprd06.prod.outlook.com (2603:10a6:20b:652::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
+ 2026 06:43:51 +0000
+Received: from AMS1EPF00000091.eurprd05.prod.outlook.com
+ (2603:10a6:20b:28d:cafe::7a) by AM0PR02CA0160.outlook.office365.com
+ (2603:10a6:20b:28d::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Tue,
+ 17 Nov 2026 06:43:51 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 193.8.40.99) smtp.mailfrom=leica-geosystems.com; dkim=none (message not
+ signed) header.d=none;dmarc=pass action=none
+ header.from=leica-geosystems.com;
+Received-SPF: Pass (protection.outlook.com: domain of leica-geosystems.com
+ designates 193.8.40.99 as permitted sender) receiver=protection.outlook.com;
+ client-ip=193.8.40.99; helo=hexagon.com; pr=C
+Received: from hexagon.com (193.8.40.99) by
+ AMS1EPF00000091.mail.protection.outlook.com (10.167.242.88) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 06:43:50 +0000
+Received: from aherlnxbspsrv01.lgs-net.com ([10.61.228.61]) by hexagon.com with Microsoft SMTPSVC(10.0.17763.1697);
+	 Tue, 17 Nov 2026 07:43:50 +0100
+From: jiegu <jie.gu@leica-geosystems.com>
+To: Matthias Fend <matthias.fend@emfend.at>,
+	Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>
+Cc: linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	jiegu <jie.gu@leica-geosystems.com>
+Subject: [PATCH 0/2] leds: tps6131x: Fix torch-to-flash transitions
+Date: Tue, 17 Nov 2026 06:43:26 +0000
+Message-ID: <20261117064328.4096518-1-jie.gu@leica-geosystems.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,98 +109,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] sched/isolation: Enable cpuset_mutex/cpus_read_lock
- synchronization before freeing old housekeeping cpumask
-To: Waiman Long <longman@redhat.com>, Ingo Molnar <mingo@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>, Tejun Heo <tj@kernel.org>,
- Frederic Weisbecker <frederic@kernel.org>
-Cc: linux-kernel@vger.kernel.org, Ridong Chen <ridong.chen@linux.dev>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-References: <20261117051853.2429410-1-longman@redhat.com>
-Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <20261117051853.2429410-1-longman@redhat.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-OriginalArrivalTime: 17 Nov 2026 06:43:50.0521 (UTC) FILETIME=[01351690:01DD765F]
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AMS1EPF00000091:EE_|AS5PR06MB8702:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 0ce52259-ff15-400b-0892-08df447623bf
+X-SET-LOWER-SCL-SCANNER: YES
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|61400799027|376014|82310400026|23010399003|36860700016|261102123227099003|10067099003|11063799006|56012099006|261021123027099003|261021121427099003|261026121527099003|261022075727099003|261009223027099003|18002099003|16102099003|3023799007|43062017;
+X-Microsoft-Antispam-Message-Info:
+	Lcdl1OduyadIkG8fR8fA7r6dCVFuhuCI1NRBJhfya7iMHgAV0Xe+cCzT9NjFMszMCisaTobiK1/7zC4y2lpMl3ZsxzbF9RKsFLif0c5otMVlI/xAAqCDfTUtQf1bdvB9ksgj9aMnh5yQRoX/zBlRmMI5DfG47mw1wz1B/1K7NZKozoyMja+cn/4bggDVyfgun0vOYk4ugQrusGxT1gXcf5fDgy6GOg7IUAkuUHdicy2L//k34AEVsvXGrqKWpVRPI23nI15lW2ejFa56R0skaiVN2y4IV20rc3eP9rkeCaS9IfPS63nq7S6oGzclj+v1kc0v3A8AQT+J4Xu1FdtXj1M/Vkyk4ULyw+1uvKykoV52TtfOuYrbWBKXUQdxQ1m3HxZi7eBn1R3uGP60+EsW4vbkm3Q6SwWKzddGWiyGAk/+GkwGPEScORRk+erCcPyRTpgTdnyrkC8cGxEMomuoJGhsjOSxy3UNigEnB7MrUUtZcwNu5iu2h4V4104Dr1bYEHgiSAwbv99odSk6vfpyLp9zw7FJkugedL0qanVy4J4+PAWVGWYG/ZXAp8vM3iKcGHgdQZHC6XnJH6wfIvaQNVTL4xHVW1LxHlRDO71GglLDuoRstbROgxjLNgdRdz6e9qMBx/sFk3Pb1akSLv6xJ6DuoJMYWPm7ur7u+mBwry9GeAO2mV/LZg0UbwEYxS03zdp2STG/LNsgSOz/yt2xekWT76j73eTe2CCNZCdvAoIAf5TDdILMml4C7ZT32Jn2
+X-Forefront-Antispam-Report:
+	CIP:193.8.40.99;CTRY:CH;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:hexagon.com;PTR:ahersrvdom51.leica-geosystems.com;CAT:NONE;SFS:(13230040)(61400799027)(376014)(82310400026)(23010399003)(36860700016)(261102123227099003)(10067099003)(11063799006)(56012099006)(261021123027099003)(261021121427099003)(261026121527099003)(261022075727099003)(261009223027099003)(18002099003)(16102099003)(3023799007)(43062017);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	00TjRGqgYMHVqlD4aJTeD9x1DFY6NJSUfGjw54aSp06mAjUdV3vMg6cS8EodYU91s6M2mlyB5Jjdl4cOoHvhwA7megc+v6sZcOC89E15jSuxK4d3WhXUkeGnUDm2HOZIqAnAAMTWokpz4EOv3C0v4UYAcnWN4WVS0JB1CTUkabKakwfAng8mytdxmQJuOQePahhcAV6rcHNYBG1UG0ZI/1/Jz5TU+FXN3eTOynTx6weyK1QwruLl9xHSN0fRa7DQd+Yd4dwxa5az9Ln0s/wkhwZ88s67rMcrXZy7XVcWtLkjpyfV+p73NGujNQ0WwUwqgCnOQcafayYEvmhAluBi4shjpj7GyfWuuUrwYzhdudVSQTLrPVL2bJAGismbKxOGBmq4f7ScYCJvADPjiEdYryoV4d+iQ9iF6iB/izK1QQcIwFXydIimjj4Y7wsVUhMv
+X-OriginatorOrg: leica-geosystems.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 06:43:50.5444
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ce52259-ff15-400b-0892-08df447623bf
+X-MS-Exchange-CrossTenant-Id: 1b16ab3e-b8f6-4fe3-9f3e-2db7fe549f6a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=1b16ab3e-b8f6-4fe3-9f3e-2db7fe549f6a;Ip=[193.8.40.99];Helo=[hexagon.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AMS1EPF00000091.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS5PR06MB8702
 
+Our product uses the TI TPS61311 white flash LED controller.
+The flashlight can be controlled in two modes: flash and torch.
+Currently, there is a conflict when the torch is enabled and the
+camera is opened. The torch is turned off while the camera is
+active, but it is automatically re-enabled after the watchdog
+timeout expires.
+Also, When the device switches from torch mode to flash or
+external strobe mode, the hardware torch output is disabled,
+but the LED class brightness cache may still keep the previous
+non-zero torch value.
 
+This series fixes both issues by cancelling the pending torch refresh
+work before switching modes and clearing the cached torch brightness
+after a successful mode change.
 
-在 2026/11/17 13:18, Waiman Long 写道:
-> Commit a84097e625f2 ("cgroup/cpuset: Call housekeeping_update() without
-> holding cpus_read_lock") adds a new cpuset_top_mutex on top but drops
-> cpus_read_lock and cpuset_mutex before calling housekeeping_update()
-> which calls other functions that may acquire cpus_read_lock leading
-> to a possibility of deadlock if cpus_read_lock isn't dropped before
-> calling housekeeping_update().
-> 
-> This commit also changes lockdep_is_cpuset_held() to return true if
-> either cpuset_mutex or cpuset_top_mutex is held. lockdep_is_cpuset_held()
-> is used by housekeeping_dereference_check() as one of the conditions
-> that rcu_read_lock() is not needed to access HK_TYPE_DOMAIN
-> cpumask which can be changed by housekeeping_update() at run
-> time. The housekeeping_dereference_check() function also uses
-> lockdep_is_cpus_write_held() as another condition that can skip the
-> use of rcu_read_lock().
-> 
-> In reality, both cpuset_mutex and cpus_write_lock are now no longer
-> valid conditions to skip rcu_read_lock(). It is certainly possible
-> that there can be a parallel housekeeping_update() call going on if
-> only cpuset_mutex or cpus_write_lock is held. This can lead to a
-> potential use-after-free situation when HK_TYPE_DOMAIN housekeeping
-> cpumask is being accessed.
-> 
-> One possible solution is to hold rcu_read_lock for functions that may
-> be called with only cpuset_mutex or cpus_write_lock is held. Quite a
-> large number of functions will need to be modified if rcu_read_lock()
-> has to be added. A far simpler solution is to synchronize with other
-> cpuset_mutex and cpus_write_lock critical sections before freeing the old
-> housekeeping cpumask. This will ensure that code within those critical
-> sections will not have a UaF situation when accessing housekeeping
-> cpumask. This commit implements the latter solution and make the code
-> in lockdep_is_cpuset_held() and housekeeping_dereference_check() correct.
-> 
-> Fixes: a84097e625f2 ("cgroup/cpuset: Call housekeeping_update() without holding cpus_read_lock")
-> Signed-off-by: Waiman Long <longman@redhat.com>
-> ---
->  kernel/sched/isolation.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/kernel/sched/isolation.c b/kernel/sched/isolation.c
-> index 156025ef81b7..5634d6a597bd 100644
-> --- a/kernel/sched/isolation.c
-> +++ b/kernel/sched/isolation.c
-> @@ -159,6 +159,16 @@ int housekeeping_update(struct cpumask *isol_mask)
->  	err = kthreads_update_housekeeping();
->  	WARN_ON_ONCE(err < 0);
->  
-> +	/*
-> +	 * Synchronize with cpuset_mutex and cpus_read_lock to make sure that
-> +	 * cpuset_mutex and cpus_write_lock critical sections afterward will
-> +	 * not have access to the old housekeeping cpumask.
-> +	 */
-> +	cpus_read_lock();
-> +	cpuset_lock();
-> +	cpuset_unlock();
-> +	cpus_read_unlock();
-> +
->  	kfree(old);
->  
->  	return 0;
+Tested on a custom product board using the TI TPS61311.
 
-Hi Waiman,
+gujie (2):
+  leds: tps6131x: cancel torch refresh on flash mode switch
+  leds: tps6131x: clear torch brightness cache on flash takeover
 
-This looks good to me.
+ drivers/leds/flash/leds-tps6131x.c | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
 
-Nit: Could the comments in housekeeping_dereference_check() be updated
-as well? They seem to be outdated after the locking changes.
+-- 
+2.43.0
 
-Acked-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
-
-Thanks,
-Guopeng
