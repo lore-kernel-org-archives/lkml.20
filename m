@@ -1,103 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794895691;
-	b=truhoclhqJh+THkHV5zlYCIPw+buB/SYCeAwn3owhkZyun5+HScTqcttb7+b7yzzJq9u
-	 GMWM8C5F/a3aaHSLNHTnTdRAsWCyJfGNsLWThCtJ6pV2QzGCIiJXDyGfXI6IH/5F9IGkN
-	 43478Dk/XCgk8wQwc8Fx9LjJzJA4ZpoeVJfIgKhWqmDyN05dytdAndoHmRVdHzm4rvdqF
-	 X62hip5kswERSuWEnVxmVbwmN7wdjLdQzHMZr1mOll6O5wKeeCU03F8Y8d9Z0lBUk5XdU
-	 3W8ALik4LC7OuI5SI5vGtbgQSjYTgPAssFtL7GV6QHH69HZPV4wOMBcLS3LzaOMbr+A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794895691;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=JArB0TCLvqTQwIZiFlW3YcOZsEHdtxAA3sZK2WkEo00=;
-	b=YSUA7sYjRmosfbomd4ku9/JA/wVFELk65d5aRrym5WmVr0f9y9qb7wZw6lyhRZ+L2mYJ
-	 0HaYo37WbfYHE5XhKKWycFr9VI/1jvFyfjuAkYWcODtddt/fFLDDWAFBHn4etu1HErM9s
-	 aaApICOVX3FnKipP02f1d/pNz7nDWqnCTYXE+L4x1NFuUTHwkFCy26gCbi+7nFwIo7aOK
-	 jgDyKF30K8dAxc5SADg0n2E7nufmaTL4nfSgv9nbIDYsTNJBefknTnZ0yG6GuyQsZnTlM
-	 yyxh4toWvUDM9FpBJ///nDxnyQ/+D5mrxTXpa9ypTWWvtPEUSBxcaOoQFHDrRtJTaIg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ouQxdoCf;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.49
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011049.outbound.protection.outlook.com [40.107.208.49])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.58.216
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794895729;
+	b=lGlUsQlenqy3bVXli3kmU/9aImnq3GSKaeX0I5/8lkCxePq59gL5XU4dydTNrmsSSlrp
+	 XR8aDXTXJOONecIVxhOGeY6W9iqAV74BDEFxTHWtw6EdTYVjejVRAIvfZ7/Wt+3pHgeGR
+	 sQzAYUMnTWFC7r0IAjAFXDzhTiqhl2N2ePDpIoG0m6XZLBwiGAh0Q+OAZvNjuN8pQMJYP
+	 digTii1Zs/vJm8MUD6Agxf0qAmZgV8O8gWBbsKVxzrNa3gWxJmsoxSDPwR7NfmxAmApUA
+	 nG7p6JE44JNe6SvW9rUOZbbmvrfrGhKhzPH71IeLNIBXYHPY88TmVVG6Xn4K9j67OBQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794895729;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=MDJECPrb826/6xAxoygTt3Udx1+QzGisBpJ6SVP0Utw=;
+	b=ZfEQjnSNkfoJQwvlE+pgYtSY1BiWo8yE1m3e2b/feNnFVb3tFeIALOPzwKzRH7zDZbyd
+	 FJ+N++cyLaQrmcImM7iO6iUxcuRlu5+xUiJY7YVlldZvv3O/e6ipJnWbNYXyEy0Pmc2h6
+	 mlcER7hwHJvPd1iZSdr8yPy/BbgI3I+l+u8Bg+FffTCZDnFjba0IlIqN/piIe1rx93uwn
+	 T/BivBE6OCMct6YsD6RKJd+YpRwIWE0Ud+tJJ6kliiHrJGJfhPeCTkQENRBWIbLHKG5Ea
+	 w/PqqwVMCsHpLNK9OGtR78KiY99ENlFIJtFVJCzUldghn4pKnrQlLUV2di/ygV9Rujg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Xgdafn92;
+	arc=none smtp.remote-ip=162.62.58.216
+Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com [162.62.58.216])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF99606A31C;
-	Tue, 17 Nov 2026 06:08:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AF99606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A250F606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:08:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A250F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ouQxdoCf
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sBLT+HU5RnQC0CzoaCfNGmGHtyLwKlRomDbnBM3t/5ThvJnj6rwyfuYVY/t0wUKxKRDp6SEZ+vvUlBx4rfm+WpylCIFJRezXtImASANe/K8OnPV1kna5JtbVVST+AgRD/7I1OB0HoRWF63pCQZh0HNrDh/31S1khhapU/Hk0PBG7nhgmPVcq9IGKC/xv07yNmoSC5sGsyNrjy/DofN76WwTbp+l2m3cYhOSbLmsARugKmXcnAiMzpLtLg4ID2LQsBgXIZ9e0urCXjqYA4u6fM24Jtph10GYQJizwqtvxEq+zKmdzm6mVufoIkMr09ymNmAgWQr23KDfBDgP/zTZXDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JArB0TCLvqTQwIZiFlW3YcOZsEHdtxAA3sZK2WkEo00=;
- b=sS8DzTStvbRKY1Cyv/zR+9X5ELLeOQLCGHq/Cthi1F4sFK9vs9zGDSs7hOTT1Jb6O1CgDMj2u+I+sHkdP4eWfhClsu4VReDGSvaUGhU5Mbc3wHW/adBXvUZC0swsswVx0X7Tu6Ko0yGy76/ceGrrRPAN53xAPCR1Yw4bxlMlEmfu3ktMm4YJ3RCa7v9bYf6ScckOtAGDXrLmT1bSUjpirRauxtJb3pxmPpbzW/sQmWQAKZ5xZU3AZ/2FZRYU1dcwUpeSb4XuRgKsy31AEKH8daOnjT9MwP5OmQxuCj+MpZgxvTksQBzoqk+DCxIR3zJfxBL7C+6s6Ttbm2Zo8XSIKA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lunn.ch smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JArB0TCLvqTQwIZiFlW3YcOZsEHdtxAA3sZK2WkEo00=;
- b=ouQxdoCf+EKbDSxpHAiPLLZdUL5CSG9l3Fc9x6CjfLPBjlQyWQhBMLeozGvtJ3Amb0hVtxVrECordo5FoZeG52mM8HXFGgShJkw5L+hKsJuGCxrUIZUSh0YJj/majqkZ/THc/0CKkwaglNEUABdLlXfBD9H8wZ9As8eZE24MYSc=
-Received: from BL1P222CA0005.NAMP222.PROD.OUTLOOK.COM (2603:10b6:208:2c7::10)
- by SJ0PR12MB6854.namprd12.prod.outlook.com (2603:10b6:a03:47c::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 06:08:02 +0000
-Received: from BN3PEPF0000B36D.namprd21.prod.outlook.com
- (2603:10b6:208:2c7:cafe::68) by BL1P222CA0005.outlook.office365.com
- (2603:10b6:208:2c7::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.10 via Frontend Transport; Tue,
- 17 Nov 2026 06:08:02 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN3PEPF0000B36D.mail.protection.outlook.com (10.167.243.164) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.662.0 via Frontend Transport; Tue, 17 Nov 2026 06:08:01 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 17 Nov
- 2026 00:08:01 -0600
-Received: from xhdsneeli40.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
- Transport; Tue, 17 Nov 2026 00:07:58 -0600
-From: Srinivas Neeli <srinivas.neeli@amd.com>
-To: <radhey.shyam.pandey@amd.com>, <andrew+netdev@lunn.ch>,
-	<davem@davemloft.net>, <edumazet@kernel.org>, <kuba@kernel.org>,
-	<pabeni@redhat.com>, <michal.simek@amd.com>, <netdev@vger.kernel.org>
-CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH RESEND net-next] net: xilinx: axienet: Derive RX frame length from residue in dmaengine path
-Date: Tue, 17 Nov 2026 11:37:57 +0530
-Message-ID: <20261117060757.1767493-1-srinivas.neeli@amd.com>
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Xgdafn92
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794895723; bh=MDJECPrb826/6xAxoygTt3Udx1+QzGisBpJ6SVP0Utw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Xgdafn92FDtoY3Tj4Cdn0Xck2lmiLcSHvkz4m4hFoRiQHyhaYun58L8PDK5YuZgN0
+	 7Zv6wr2HsFdyDa6LCyeI6ZzuL/FvZqhUWa7tqk8LjoJ9eyMwj7qAzU4hDPytpWj2XZ
+	 CtXqiyAy+STwzQAj+C3cNsxEyG3U9vyco+qIGIf0=
+Received: from shuai-VMware-Virtual-Platform.. ([117.158.156.199])
+	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
+	id 2271163B; Tue, 17 Nov 2026 14:08:39 +0800
+X-QQ-mid: xmsmtpt1794895719tqdrgppmn
+Message-ID: <tencent_9B9358CCE5C39B1E7017C4B42600DC95A409@qq.com>
+X-QQ-XMAILINFO: MYj4oRzRRyycxhvlKZDxFhfr7inOMQUNTAB/9vulSPLRxB3M41nGRFNiiabTeA
+	 rk0iStyxyiVDRNjxHxafpBVaXedWkXfe4R7lOHTml7+x3EyCkA16pAtOHIKVoKp/WbhkmqsjlpYX
+	 IhBhmgeG0v56pHcQxX3o6Zhht9m0xAv791SYo2SKRcqBZZJPdcIhYVmHGd6fEgSBmrDD9wEZDdh7
+	 wbWMZBLzlwQtnEBfTu66qJ63UcFeoS24/mneBCJn/wVOZqtSwBEOhWSgiWJagjrwZh4Jmb+sZHZQ
+	 5EmqHz4fMGleeI9U8ddyhYaxoMzyjum995GR66GT/Nc1kGMDXmBqUklNvlyJa+Llr52oGBXCrb3d
+	 OY3Eo2U27t+aikbfN3s1yE06F2Z6mv/IbdZ1OGeK5qL5Y2Yai0O3QROogPtLgLyyOIdmjCv4dQ/w
+	 CxlKtrrmn7I2avGuXFJmSNgqMfOjeu3Igm+lJ53oLHsgeXL8HK4PRA873vd6x3CHx/NDgM9E+AmC
+	 nJVPl9wrzkPx4qmC0bkUqlnYyCXihBpLlGGrrB/6EaV5rqDCRI+0qIPnW67I1w3InqYY4VMEyKxg
+	 dfj7la5rv6H7CVs6bHtHiwaNloSxXng+w1+5eJTwB7TpKLauBvHXHHtTliTB6Ln3ZlBO/SMF27S8
+	 WNy8aMJ5g1VywEGfswLMIbLszWBt07WgernJ+82DxPLHEkwWQdJZ/4qCCRqa1jqtaXxCEBF11tfy
+	 t9LKcozXFl6aouHSx2h7Q1aq14KFqG5oqZPt6KjylpMRsn0SdJ7PiFkwOloczRWIaOpJL2Vf/yaJ
+	 i1EMxpzh6YNCwJ9sQ6taSmokBS0mSjo23loGBg1dYGlHKiSGm5pm2Q477hs/xK0ndKxQcNYRtHCS
+	 YHWFeGmkO1T13siDzdm2yXQCegby5+b5u6goYAQ9NVurv8cU8o65/N7q+9G5ssWOrGCE1Yi6TRRf
+	 b1mvtkGsIsL1AsEAikbIc7tFyyAb4ZcB6k6GsQRR3ESaFwaODUv2fDiX7UDcKmh3mhPmwwtzHIr1
+	 ow4+f3Sr37tUz2XIHxI6KY+ws3oO28nPNUeNNDd8tdcI6PjdExrOv4N3IhjX8GekdiWxnbEU+ZDv
+	 gMaJ3ZavlArnnfQ3FGcBLh7/ao52hGz/QEqNRzpke81r1rTpE=
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+From: Shuai Liu <847807867@qq.com>
+To: linux-mtd@lists.infradead.org
+Cc: miquel.raynal@bootlin.com,
+	richard@nod.at,
+	vigneshr@ti.com,
+	syzbot+c66e7044aa73c620d862@syzkaller.appspotmail.com,
+	sashiko-bot@kernel.org,
+	linux-kernel@vger.kernel.org,
+	847807867@qq.com
+Subject: [PATCH v2] mtd: blktrans: keep reclaim out of the ->release paths
+Date: Tue, 17 Nov 2026 14:08:38 +0800
+X-OQ-MSGID: <20261117060838.186252-1-847807867@qq.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <sashiko-outbox-218218@kernel.org>
+References: <sashiko-outbox-218218@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,123 +86,111 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36D:EE_|SJ0PR12MB6854:EE_
-X-MS-Office365-Filtering-Correlation-Id: 88d9e906-2848-4a2a-95e1-08df44712304
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|23010399003|36860700016|1800799024|376014|18002099003|6133799003|261009223027099003|3023799007|13003099007|260925021311599003|260925021911599003|260925022911599003|56012099006|11063799006|261102123227099003|261026121527099003|261021121427099003|261028144727099003|261026140227099003|261022075727099003|261022113327099003|261022105027099003|261021123027099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	xiGnKlUCq59qk8JronjL3qgC7SIlosn71Bgo/xKb/vALOZGSVfBPuCbTu6+TYEW5qKOd4hcUL+gd6xBXargZwDK0741CgD5To32LfKEFfe258MNk0LeQic7l0+VZ6Ud94Mfd9SxWjDTTX085EaPE9ihA0mVurHhZWa93OiQZ6Z/TLvbvi/wVgK0oQmYzQctfsRT7v2z7NzlwKJ+lIH6AId2Xg2YnblQwAN2WaIPwVRaYsqqu90vU1mrNen2QxOHWKV7pqBV1xK1SXeDSYp/n770+WfWbfkJ0Sr50K9YsZccRHdV31vQ1n4FJxPYzU408zw6Pn0IHKvLPxyINoME6ND4ttk1KJFPpZbsYKf2MPJ15NK9zyjyQ9R2Uhbpd2POLwJXycc7GiRUklkNPvQAks56kNQw/XoXi+Yhlwq6Rr6ZAMeEfna7qy51gIxeeS30gpq2NN2zKPkwTeH/yI9WW/WlwhScihSCxyjAKt8hzr+mdzj9emRMgHybEnfkybnLms8oqV3atVqYTujq+B5rEkey9INwKUMm1CtRJpBX47b8qMp/e7WZqA0shMhfW/RjLPXFN7zFLh1fpd7SxiHvlpUu3PP95pQV1dfBQQpLqJM/RimiSTyqsq8cvb0cU5R2LQ9fKXuqCPV5fT7cLgni8Nw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(36860700016)(1800799024)(376014)(18002099003)(6133799003)(261009223027099003)(3023799007)(13003099007)(260925021311599003)(260925021911599003)(260925022911599003)(56012099006)(11063799006)(261102123227099003)(261026121527099003)(261021121427099003)(261028144727099003)(261026140227099003)(261022075727099003)(261022113327099003)(261022105027099003)(261021123027099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	xvA6ofmo0yiIzM11tQL8tpRxqDHHPQPdn39Ywc20BdRtCh77cEaN6LcVgyOAuU2AQrp/F1IRNDJAkIXWvOqK5J6eXCJywf1QCMGyN0GDKP6+nFyUu/mbF4r8TKdOSMYF62AGbev9l4GVb5lH8+QhNX1FpXEQ1hVtE0j6kXSrqMgJOgfu5xdFn1fuKe3D1fkTyuxJ4FjEgi/HfcbPJu8hQhr8fANs/fgMHtR0qJSyNx/nnNF8eIeo02hSE/oMdtk8mqNASBwvgYH7cvKWaZ76rFRJqZZcmJRf3b/zC3638lBcg9HrjVnvdGVvqYzT/PKo45OcfdnrjNTnfpI8qebB1BnvMvvCnf2Rzgd3B1xmMOaKeByIBl3mM852Aa0Ewy0czfYUnMcRZ6Cr+33Oe4gAM2n3kXdMAU12X8cJ0Gqoqe0OwLbTjbv1Ud0lLe+I4UNK
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 06:08:01.8986
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88d9e906-2848-4a2a-95e1-08df44712304
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF0000B36D.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6854
 
-The dmaengine RX path derived the received frame length from the descriptor
-APP metadata. That only works when the optional AXI4-Stream status/control
-interface is present, because the hardware populates the APP fields solely
-when that interface is enabled. On designs without it the length read back
-is invalid.
+blktrans_release() invokes tr->release() while holding dev->lock, and
+translators can walk down into the flash driver from there:
+mtdblock_release() flushes its write cache via write_cached_data() ->
+erase_write() -> mtd_erase(), and concat_erase() allocates a struct
+erase_info with GFP_KERNEL. del_mtd_blktrans_dev() calls ->release()
+under the same lock on the device removal path.
 
-The AXI DMA engine already reports how many bytes it wrote into the buffer
-through the standard dmaengine residue mechanism. Compute the RX frame
-length as the posted buffer length minus result->residue, which is
-independent of the status/control interface and correct across all designs,
-including multi-descriptor frames where the residue is summed over the
-chain.
+Reclaim from those allocations can recurse back into the same block
+queue and deadlock. lockdep reports the full cycle when a write to the
+concat device is flushed at last close:
 
-Drop the descriptor metadata lookup, which was only used for this purpose.
-Detect a failed transfer from dmaengine_result.result instead of the
-metadata pointer return value, and remove the now unused LEN_APP macro.
+    init/1 is trying to acquire lock:
+      fs_reclaim, at: __kmalloc_cache_noprof
+    but task is already holding lock:
+      &mtdblk->cache_mutex, at: mtdblock_release
 
-The transmit path is unaffected. It still passes APP metadata for checksum
-offload and derives its length from the skb.
+    Chain exists of:
+      fs_reclaim --> &new->lock --> &mtdblk->cache_mutex
 
-Reviewed-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-Signed-off-by: Srinivas Neeli <srinivas.neeli@amd.com>
+    the existing dependency chain (in reverse order) is:
+      fs_reclaim -> q_usage_counter(io) -> elevator_lock
+        -> set->srcu -> new->lock -> mtdblk->cache_mutex
+
+    Call Trace:
+       concat_erase
+       mtd_erase
+       erase_write
+       write_cached_data
+       mtdblock_release
+       blktrans_release
+       bdev_release
+
+The io path is already protected: mtd_queue_rq() disables reclaim
+across dispatch with memalloc_noio_save(), because translators may
+allocate while processing requests under dev->lock and the srcu read
+side. ->release() runs under the same locks, so give it the same
+treatment in blktrans_release() and del_mtd_blktrans_dev().
+
+Verified with mtdram + block2mtd + concat + mtdblock on QEMU
+(CONFIG_PROVE_LOCKING): writing through /dev/mtdblockN and closing
+the fd produces the warning above on the unpatched kernel and stays
+silent with this patch, with the readback still succeeding.
+
+Reported-by: syzbot+c66e7044aa73c620d862@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=c66e7044aa73c620d862
+Fixes: 048d87199566 ("mtd: blktrans: Hotplug fixes")
+Signed-off-by: Shuai Liu <847807867@qq.com>
 ---
-This patch was originally posted as part of the MCDMA series:
-https://lore.kernel.org/lkml/20260818174151.1608971-4-srinivas.neeli@amd.com
 
-It is independent of the other patches in that series and uses
-existing AXI DMA residue reporting to calculate the RX frame length.
-Since it only modifies the AXI Ethernet driver, it is being submitted
-separately to net-next.
+Changes in v2:
+  - Add Fixes tag pointing to 048d87199566 ("mtd: blktrans: Hotplug fixes"),
+    which made ->release() run under dev->lock and added the ->release()
+    call to del_mtd_blktrans_dev() (Sashiko)
 
-The previous standalone submission is available at:
-https://lore.kernel.org/lkml/20260929081316.803997-1-srinivas.neeli@amd.com/
+ drivers/mtd/mtd_blkdevs.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-I responded to the netdev bot feedback, but accidentally included
-the "pw-bot: cr" tag in my reply, marking the patch as Changes
-Requested. I am resending the patch for maintainer review.
-No code changes since the previous submission.
----
- drivers/net/ethernet/xilinx/xilinx_axienet_main.c | 14 +++++---------
- 1 file changed, 5 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-index 782f903d318f..e7490650482b 100644
---- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-+++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-@@ -53,7 +53,6 @@
- #define TX_BD_NUM_MAX			4096
- #define RX_BD_NUM_MAX			4096
- #define DMA_NUM_APP_WORDS		5
--#define LEN_APP				4
- #define RX_BUF_NUM_DEFAULT		128
- 
- /* Must be shorter than length of ethtool_drvinfo.driver field to fit */
-@@ -1159,29 +1158,26 @@ axienet_start_xmit(struct sk_buff *skb, struct net_device *ndev)
- static void axienet_dma_rx_cb(void *data, const struct dmaengine_result *result)
+diff --git a/drivers/mtd/mtd_blkdevs.c b/drivers/mtd/mtd_blkdevs.c
+index 42f250344f0cd..be4ead01f5210 100644
+--- a/drivers/mtd/mtd_blkdevs.c
++++ b/drivers/mtd/mtd_blkdevs.c
+@@ -233,6 +233,7 @@ static int blktrans_open(struct gendisk *disk, blk_mode_t mode)
+ static void blktrans_release(struct gendisk *disk)
  {
- 	struct skbuf_dma_descriptor *skbuf_dma;
--	size_t meta_len, meta_max_len, rx_len;
- 	struct axienet_local *lp = data;
- 	struct sk_buff *skb;
--	u32 *app_metadata;
-+	size_t rx_len;
- 	int i;
+ 	struct mtd_blktrans_dev *dev = disk->private_data;
++	unsigned int noio_flags;
  
- 	skbuf_dma = axienet_get_rx_desc(lp, lp->rx_ring_tail++);
- 	skb = skbuf_dma->skb;
--	app_metadata = dmaengine_desc_get_metadata_ptr(skbuf_dma->desc, &meta_len,
--						       &meta_max_len);
- 	dma_unmap_single(lp->dev, skbuf_dma->dma_address, lp->max_frm_size,
- 			 DMA_FROM_DEVICE);
+ 	mutex_lock(&dev->lock);
  
--	if (IS_ERR(app_metadata)) {
-+	if (result->result != DMA_TRANS_NOERROR) {
- 		if (net_ratelimit())
--			netdev_err(lp->ndev, "Failed to get RX metadata pointer\n");
-+			netdev_err(lp->ndev, "RX DMA transfer failed\n");
- 		dev_kfree_skb_any(skb);
- 		lp->ndev->stats.rx_dropped++;
- 		goto rx_submit;
+@@ -242,8 +243,12 @@ static void blktrans_release(struct gendisk *disk)
+ 	module_put(dev->tr->owner);
+ 
+ 	if (dev->mtd) {
+-		if (dev->tr->release)
++		if (dev->tr->release) {
++			/* Reclaim must not recurse into I/O while releasing the device. */
++			noio_flags = memalloc_noio_save();
+ 			dev->tr->release(dev);
++			memalloc_noio_restore(noio_flags);
++		}
+ 		__put_mtd_device(dev->mtd);
+ 	}
+ unlock:
+@@ -410,6 +415,7 @@ int del_mtd_blktrans_dev(struct mtd_blktrans_dev *old)
+ {
+ 	unsigned long flags;
+ 	unsigned int memflags;
++	unsigned int noio_flags;
+ 
+ 	lockdep_assert_held(&mtd_table_mutex);
+ 
+@@ -435,8 +441,11 @@ int del_mtd_blktrans_dev(struct mtd_blktrans_dev *old)
+ 		then put mtd device, and don't touch it again */
+ 	mutex_lock(&old->lock);
+ 	if (old->open) {
+-		if (old->tr->release)
++		if (old->tr->release) {
++			noio_flags = memalloc_noio_save();
+ 			old->tr->release(old);
++			memalloc_noio_restore(noio_flags);
++		}
+ 		__put_mtd_device(old->mtd);
  	}
  
--	/* TODO: Derive app word index programmatically */
--	rx_len = (app_metadata[LEN_APP] & 0xFFFF);
-+	/* Actual length = posted buffer length - residue. */
-+	rx_len = lp->max_frm_size - result->residue;
- 	skb_put(skb, rx_len);
- 	skb->protocol = eth_type_trans(skb, lp->ndev);
- 	skb->ip_summed = CHECKSUM_NONE;
 -- 
 2.43.0
 
