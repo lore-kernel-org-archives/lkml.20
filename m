@@ -1,103 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794930856;
-	b=TU6yfsZkbqeL9rzbMnpPRtlQapUmx2FweV93yylBwQ/OaPjE88usRKqGc89Xs4Fab2rv
-	 VsmzUX1M38ykXPNdrj5ucCLv0oMbBwuCwSHT6DA1Zf9vSbfUJarOIWlf5TdliSgHPCcCh
-	 XhNdtO+ksEvgRq8qhCKG8asA6U9XpMSOdA3yq9KgN+WLb8RZLYtT2Tglg8Vo0evyFE6MR
-	 R6Xvskw0LlYuR0ftW6EXxxxwe+MMUShSA9xTMvXdpLqf7yG+Gjk0EgV6uOsn3dx0L1gl2
-	 Xr0agR/HwfC1kfrRVPQXvLsmbNBXyCiPhDD+9qMkk/XMcwzp+e3G4zwedvpgKDQJPYw==
+	t=1794930873;
+	b=mPkqY5H6NMupOUsKamiy94iiNNBQUCtVhYmKhSzQ0d0ZqEiC1wmc6kBk0ZJX37EF7iph
+	 o5UFUrktBJGCuyA+lD2DwoyckEr9tPHJg/5EpuklZj3AnqmoaZB4ukF6ufjFi6i+QniCF
+	 noOKHNs/hqDPNJ/i6fcG7+j6xU4/QrWySKa5wou5wi3Sp9wNoVcjk82/leB0TuAZmD0pg
+	 SIHLM+Wzri1nBcm3bRlAguJjs0LMwyL335RApGgSgdGqnKC3+gUZ8WYW0ztkSYGrFE5GN
+	 AZb5vIijtWHaXVrT1Cy5m31Wg/LAKvG9LkYy/ZjaqAlgdgO+qPPvOGJhDflNP5WqcZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794930856;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794930873;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=+5dvy/hAScMAJsju1oorwW3+RHfVmuWNsVasJTGPYS8=;
-	b=QOYXDFxcacX4AyAZPRquvm7UwqnkiFvy05bxpEWuM2OMO125lUPg5C9oIt7diP2FboEd
-	 CYMJ3F3i0mhFdJDifE0gd2L5v0ENf2oopino9CxCESyWA2jeV4Wf1nB0sIi/QvO678qRp
-	 eGB1sD7sBNPiwm84GYjOKisStWlMnlg65UKDSLR3jJSmMv/qHeyd5HWiD7TOVHOceoTSE
-	 FXtlZN1DlcAguKVASKaOEZ5O8+CJCMGIieg/t2Rkf18QXK3pCoES+UIFmbDNUf8NXG1cH
-	 3FpgHR2U6RfIMqUbF7C2puZn9PRvfzeCbNYJLOxKQYs/Rg9PAdyV0Qkr2BVIIdKaV5w==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=+exUxtgPdVBwoKR5r/DiwCvHxmnKqLuiNXXsjqjObOo=;
+	b=uATvde2sAo+xEfk7ixkGk4ZwHiQAFkUnfuYtmpgWVx9vJeFRieKCT97qSgCD8BQCFcgM
+	 4uZ49Pt5cVD5Lx3OIMLzeH5pRemt4CnfgfEILhCEYUjFY8Et/ghYnusd7eX2X4/lSOQk6
+	 T4hlgS155pGs6TlhfBgR9ko7kU50wSJPPimtdurx+0XPdNZa5DUQpOGuM0qN14/w9EQqn
+	 YkuC29FWB1PE6PBV6sL9RaaeGJ9uTKUIpX9wYUtDsOHmZyZWlli4V1dSV8v8W5vm/QZS8
+	 5f8KQE7xlVLwZMPiHUjvgfs53MnKZ4ss+xVgONsKKtbA5mF4I6+yWAa96QyXOJI0v0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=dama.to;
-	spf=none smtp.mailfrom=dama.to;
-	dkim=pass header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=pmrIdfuj;
-	arc=none smtp.remote-ip=209.85.214.173
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--eagleshaw.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Kw232SXE;
+	arc=none smtp.remote-ip=209.85.219.71
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1A19606A89F
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:54:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1A19606A89F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56166606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:54:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56166606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--eagleshaw.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=pmrIdfuj
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e987a2ba0cso30222055ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:54:15 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Kw232SXE
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-9210a12765eso13019836d6.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:54:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20260707.gappssmtp.com; s=20260707; t=1794930855; x=1795535655; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+5dvy/hAScMAJsju1oorwW3+RHfVmuWNsVasJTGPYS8=;
-        b=pmrIdfujPycQm+s7tQOqOFxlhHo+pwbKAtJ5JxxY2qRS+4l7e/cZ4QOcCIZXos85IV
-         Y8ws+IrsuDgvjQeTct4VzZs49xxqyyAzumSE3x0RQAQi7UbRAQpIQv4f/Ij8+v+C5vk3
-         lp5aMveOZudQunCgabz1/n9rEMI7OMy+75cya5hWWYmSkRBRu701yqtR2qbhsa+9BSov
-         B7p7WTeMXrA1la4e/jxbsGjo2YpSydYedd0fnzhxF002FK0QYyPF3QQFRP9jTfsvH6vf
-         T6MHOG+Slkq/2jZZH/9MrGP/aRdfrVddpi49BPd+UXYyQwW0pEP/U+bpuPXB3GePq49e
-         w4dw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794930855; x=1795535655;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=google.com; s=20260707; t=1794930872; x=1795535672; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+5dvy/hAScMAJsju1oorwW3+RHfVmuWNsVasJTGPYS8=;
-        b=ehbR4YFWW4qHjBwN6oq6QxBx7YczLwBJR7Xq7PXVghtPWVy3ARoZJwnb/UXKjWiIWG
-         QP1UXDC2//kmpi5PmEHn1Gns8B2Po7dljELOj244bZjcOhFjtCSmH8LfcXB7krg/wyTg
-         WGOQxZsTGSLRtXdTa1fwPXo6wBSD1gT4hZ9Y7BgHqbc1rVLlpIFqnVKGURV4AvI0jzIk
-         5EONkvFZNCeyR0tizm41Jy8mq71JWn5wY39/DPAmCQh/xmFMDuDe9u3Y3hyiZUimp0gj
-         HIEsYSJKsgNqeQpiXWd1tOvmjXZTilaaE/y2vOiZPLHshOFfv3vKXK7M+bvsAixTojOL
-         Ri8w==
-X-Forwarded-Encrypted: i=1; AL+hErEpLGRe9C4Q97hDPEzQoHwaRhomaJM8xDZ81xllcieS3xtVlUTVMnfHwv5qqDLUbQwv86M5+OzcWIaD+ws=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+CFnxMb+iejDCSQxukOcSzuaML6foz/Ci48Zozhy4Hra0VrSbI
-	J1V4uCZnGakCEKzcS9uQDVlIC2vktoJvGLxkRbryibXd2M2cuIrWHwkqfkheqfRpd68=
-X-Gm-Gg: AZFdTZc2LkgDc1XHHmsN0+RMj4ntCL+wzYPUtveqLMuMzgejGzt6H+AJt7r90IOd32Q
-	ZfzlSDpJqh4pD5Dl8OgR3dpxAXqD/z/0oi/xgnee5lvlabp08Ed03BifF8o1Uxzdt6j8DY5QBCx
-	xDFlBQ1amA8uIiSz5Mx3MBYtxX1qZ4POKzFbPbrFjdHivjfUgD/ZRrMCtatn5xlJzY2WZ/gLKym
-	IzxBvBLZw3m2yNiD9iVWbEhGib3qQVAr92YWzwetdi7jV6AT68neK7K1QFqjz66wzgdWVCd5IZO
-	SKiWjxSakiOyEUD5NnFSf5I1lONEumrnZN/2GJwy84O6teLJsPdl0rZvEqjeyYEFT8BamiWdWsT
-	uAdc2kBLs7LorDWcO8wgMfTZoVTCL2miCcC9X+yLRUbFfXIHEjHVWSk6F51qvthvPb2RDu6072D
-	fAsUx5xPIDHnLCRJooKCeB+BHkUM3ijo7ZZwXl7Rld+SK4CfhuYjlfIFanv+xf3AjoHEuit4Kdj
-	rBbepDda1iGz83KM7d97IXD5/fXPniYFhPyDdDK5+74Z99OSZnnJLOMnT4mj5zIoyyplfZa1wh3
-	HTz5pk87ll3sVYtVmImFh9VY/bgMBxsep4MEaLI6XLQ=
-X-Received: by 2002:a17:903:1109:b0:2ef:dff3:47e7 with SMTP id d9443c01a7336-2efdff349edmr23311925ad.33.1794930855228;
-        Tue, 17 Nov 2026 07:54:15 -0800 (PST)
-Received: from localhost ([2a03:2880:2ff:74::])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd7a54576sm18951695ad.40.2026.11.17.07.54.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 07:54:14 -0800 (PST)
-From: Joe Damato <joe@dama.to>
-To: netdev@vger.kernel.org,
-	Tariq Toukan <tariqt@nvidia.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: edumazet@google.com,
-	horms@kernel.org,
-	linux-kernel@vger.kernel.org,
-	daniel.machon@microchip.com,
-	Joe Damato <joe@dama.to>,
-	linux-rdma@vger.kernel.org
-Subject: [PATCH net-next v2 5/5] net/mlx4: flush pending doorbell when dropping a TX skb
-Date: Tue, 17 Nov 2026 07:53:50 -0800
-Message-ID: <20261117155353.2250540-6-joe@dama.to>
-X-Mailer: git-send-email 2.53.1
-In-Reply-To: <20261117155353.2250540-1-joe@dama.to>
-References: <20261117155353.2250540-1-joe@dama.to>
+        bh=+exUxtgPdVBwoKR5r/DiwCvHxmnKqLuiNXXsjqjObOo=;
+        b=Kw232SXEqQB/sRXu4G798/Ok4AHHylVlXdQ8W3R7eXXCzcexSel+ae5s/iW+fOcpYU
+         Ncgi9Pw0b4rtqhulcadpOfz3RT0ECGQfW7lfE1RJiQ3w9ujU9y+0KdoHOOfLKI9ecR7o
+         yCwzZsOGpG04AX7/HSOZYeVT8HUD7aI/Xm6jhak/He6AwIMR2qZcYup6xBbTevEFmCxo
+         YOYZvgcFbu7JXUdM483nOp9FBGnIjuJrf8EyRTE5Vqr/B2g9Q63z6GG7rZQQ3ALmO0Ga
+         koa9EKamvpTef7pKzb3bVc1PHOgsyh0EGGAl2HLKZZ9gTNrTqTWKYqTfpV4AcQBwO0If
+         U/Ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794930872; x=1795535672;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+exUxtgPdVBwoKR5r/DiwCvHxmnKqLuiNXXsjqjObOo=;
+        b=UXiNOClEk4KybNypOaezQmBZkqNa5SEXoiHYCDaijtS0vU0hoJYdzsal7voQ8VIaz5
+         oMp/Nnmt7jJyDtQDNFjTLQJW2p/t8WvJW5bWaZs8TGst7yEnoja/4ODAank22owSfuFy
+         ouNGLRaiIxFxRqUqRXLgrnD1QQAuFKA23masVqxTB7L4Z/UFOyaMhEEW4/iitrVIBpWx
+         uovVhz0oCn1x1PWoKo9gb03qMUopvuA2kJ2bQfK+/N+uk6t8Wrfh9I3QhlOLpt4rtpBK
+         QrRsLB3AuxltgGrV1uIFYvLWYR2OgbsMr4lqfYqjPfRrq4Odyc53O9k2tWrr/n6fC8rG
+         NjLg==
+X-Forwarded-Encrypted: i=1; AL+hErEQS8E/vIPkYNkjxeaaPBlbGowkc/EijocOh/BZvqtHRpeRpKGSmRlzentBSpSSlRvhtAm5dZ+oqkIB0FE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+VOiACEY2s57Xs0vG0izVz9T1lL7pdiOXNG4dQuwYn1YNZbFmO
+	ckn5hvrz+g+nQwe1egFFA7gLck1n2264IbpdLp/lPbkGCC8Qld4mxxm+QAUyRlRpJFb4BHQWuOD
+	YwtNiK5twIXWghMslfg==
+X-Received: from qvbpe4.prod.google.com ([2002:a05:6214:4944:b0:91f:2759:c36b])
+ (user=eagleshaw job=prod-delivery.src-stubby-dispatcher) by
+ 2002:ad4:5cec:0:b0:91f:2abb:a791 with SMTP id 6a1803df08f44-91f2abbad25mr212446406d6.20.1794930871987;
+ Tue, 17 Nov 2026 07:54:31 -0800 (PST)
+Date: Tue, 17 Nov 2026 15:54:31 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,39 +75,99 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
+Message-ID: <20261117155431.1654298-1-eagleshaw@google.com>
+Subject: [PATCH] dma-buf: heaps: system: zero pages after set_memory_decrypted()
+From: Ying Xiao <eagleshaw@google.com>
+To: Sumit Semwal <sumit.semwal@linaro.org>, "T . J . Mercier" <tjmercier@google.com>, 
+	Jiri Pirko <jiri@nvidia.com>
+Cc: Jason Gunthorpe <jgg@nvidia.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>, 
+	John Stultz <jstultz@google.com>, 
+	"=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>, Philipp Stanner <phasta@kernel.org>, 
+	Jacob Moroni <jmoroni@google.com>, Xuehao Hu <xuehaohu@google.com>, 
+	dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
+	Ying Xiao <eagleshaw@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-If mlx4_en_xmit drops an skb (for example because DMA mapping fails) and
-that skb happens to be the last one in the batch, the doorbell for the
-WQEs posted earlier in the batch isn't written.
+system_heap_allocate() allocates pages via order_flags[] with __GFP_ZERO
+while the direct map still has the memory encryption bit set. For the
+system_cc_shared heap, set_memory_decrypted() subsequently clears the
+encryption bit without re-zeroing, leaving ciphertext in DRAM on
+confidential computing (CoCo) guests instead of plaintext zeros.
 
-The queue stays awake, though, so those WQEs are eventually announced to
-the HW after the next TX, but that depends on traffic and could induce
-latency.
+Skip __GFP_ZERO during alloc_pages() for cc_shared allocations, and zero
+the pages once in system_heap_set_page_decrypted() after
+set_memory_decrypted() succeeds.
 
-Avoid all of that by writing the pending doorbell in the drop path.
-
-Signed-off-by: Joe Damato <joe@dama.to>
-Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
+Fixes: 78b30c50a7ac ("dma-buf: heaps: system: add system_cc_shared heap for explicitly shared memory")
+Reviewed-by: Jacob Moroni <jmoroni@google.com>
+Signed-off-by: Ying Xiao <eagleshaw@google.com>
 ---
- drivers/net/ethernet/mellanox/mlx4/en_tx.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/dma-buf/heaps/system_heap.c | 24 ++++++++++++++++++++----
+ 1 file changed, 20 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/ethernet/mellanox/mlx4/en_tx.c b/drivers/net/ethernet/mellanox/mlx4/en_tx.c
-index 123071a47bed..3166837711be 100644
---- a/drivers/net/ethernet/mellanox/mlx4/en_tx.c
-+++ b/drivers/net/ethernet/mellanox/mlx4/en_tx.c
-@@ -1135,6 +1135,9 @@ netdev_tx_t mlx4_en_xmit(struct sk_buff *skb, struct net_device *dev)
+diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
+index c8959eadc71d..5f98d0df11e7 100644
+--- a/drivers/dma-buf/heaps/system_heap.c
++++ b/drivers/dma-buf/heaps/system_heap.c
+@@ -72,11 +72,19 @@ static int system_heap_set_page_decrypted(struct page *page)
+ 	int ret;
  
- tx_drop_count:
- 	ring->tx_dropped++;
-+	/* an earlier skb in this batch may have deferred the doorbell */
-+	if (ring->doorbell_pending)
-+		mlx4_en_xmit_doorbell(ring);
- tx_drop:
- 	dev_kfree_skb_any(skb);
- 	return NETDEV_TX_OK;
+ 	ret = set_memory_decrypted(addr, nr_pages);
+-	if (ret)
++	if (ret) {
+ 		pr_warn_ratelimited("dma-buf system heap: failed to decrypt page at %p\n",
+ 				    page_address(page));
++		return ret;
++	}
+ 
+-	return ret;
++	/*
++	 * Clearing the encryption bit does not clear DRAM, leaving ciphertext
++	 * from when the page was encrypted. Zero it now that it is decrypted.
++	 */
++	memset((void *)addr, 0, (size_t)nr_pages << PAGE_SHIFT);
++
++	return 0;
+ }
+ 
+ static int system_heap_set_page_encrypted(struct page *page)
+@@ -376,7 +384,8 @@ static const struct dma_buf_ops system_heap_buf_ops = {
+ };
+ 
+ static struct page *alloc_largest_available(unsigned long size,
+-					    unsigned int max_order)
++					    unsigned int max_order,
++					    bool cc_shared)
+ {
+ 	struct page *page;
+ 	int i;
+@@ -388,6 +397,12 @@ static struct page *alloc_largest_available(unsigned long size,
+ 		if (max_order < orders[i])
+ 			continue;
+ 		flags = order_flags[i];
++		/*
++		 * Zeroing while encrypted is wasted since decryption leaves
++		 * ciphertext; system_heap_set_page_decrypted() zeroes instead.
++		 */
++		if (cc_shared)
++			flags &= ~__GFP_ZERO;
+ 		if (mem_accounting)
+ 			flags |= __GFP_ACCOUNT;
+ 		page = alloc_pages(flags, orders[i]);
+@@ -438,7 +453,8 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
+ 			goto free_buffer;
+ 		}
+ 
+-		page = alloc_largest_available(size_remaining, max_order);
++		page = alloc_largest_available(size_remaining, max_order,
++					       cc_shared_buffer(buffer));
+ 		if (!page)
+ 			goto free_buffer;
+ 
 -- 
-2.53.1-Meta
+2.56.0.679.gc527c65306-goog
 
