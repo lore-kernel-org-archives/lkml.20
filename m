@@ -1,93 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794893406;
-	b=sPPGZF2HGXeeupqFQYg8oMcKN3DrvKEv/5thNleV5mliB7852JguGN5+h3sm/B08k3e2
-	 08niATMsWXA/d83YMwF3OlejBmVMrHPQH0HGFba78Wx91LH18kosa0vksmp79qcVSKWyx
-	 9LDtkINo0Mx8psh4/xDpnMNbKU7RgFi/b8snNCA/mF/5IgamwUPxkqiPPAT+tKNFaZU6T
-	 pMlzm+g2J0hyj7zsd44wPDa3D2V8maWzLQZo1CB/RqykA+1FgpjwpagTIiya7BrKx8plz
-	 l9OgN2Wz1gV7M3rb7fgBUg9gIhfslOHh1ys9BxpdVUO07dwhlDrHHtZIeYIkr/kaBDg==
+	t=1794893444;
+	b=4lnYt52XCsMYPU3ZhZCcp9MAg3RSVgNzWSlgXJAjFtVBMUuy9Nd+pJMuZnR8qPyAeKnh
+	 kheQ7gefYpDBC5xNU201DzISL+UFzUCCiA1H06jsyQErGl8K3Wo572+BEhC25mrkRX2Q9
+	 AO/K48LZ4ZDMokuwI9WngTuQ8DidWnGJzGZv0ZjQzhZrSFvJJNCe6ocEL7ta6x5HajO23
+	 w3e2UksuziMUZwbExlI0xlEZZEgZK/ytG3YJi6xYdWHlus6mG1DEb6o7snBpJJgojWuXX
+	 lXhpTpz4O3eimB8GriEQJlwDMtiYssTKK4vyfx+6EC0NE0S73DCjThSQ+h7eeXo/KxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794893406;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794893444;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=ftrMizvuhIHObTCvAdpIahRgmk2EwZxg4CfQaHM/YjU=;
-	b=ezWxdjRCV8XvvNwa3P6ehqhvL6THkAZArJhkKriEXkYCt71O2M+XGiE4jfG9lH3Kt3Ln
-	 bAD35cy9ptLPwQgizd/vB7K59QmwbLHNDaQBJucAINYpuArKmnreBZ6qHey5mqd3FM89a
-	 v7oUsDueqFLkBjmJYDMi5d3mNgRKWNNcB1Tm5aOkqbn8Um0gbgbKpBdyRPC2WsMGwq/q5
-	 iuUzCJrGLWRoezChyZ5Bg+s38WK/13HLh2x1KMqZG6ZhlHY0r6eKtp8JcDKqvaTblOTT4
-	 AvU16OyuqFMGQZ4nsIS0KIkdykTTUXrtZ2e+sOfvYqKl3NIVsiI7gFR+wjJWb7UPhuA==
+	bh=kIAvslGIGz26KiTObfr5XZM247DFbxXRTcH4PvS8dNM=;
+	b=MAR4fvxmRW0zs4zn+o63rNnHd4AXenREQMPmb8AHhhC57vrHR1whPAKKI6Qbn5kIPnge
+	 rdQbSZt36J1vdoXprducF/a5/R9DIMMkQpo58Lk5dOaq+X6RayrwhK8Ix0THE35ldxuRe
+	 jnAv9LvGG7UEyI7mXni10iKsf+4rDOUeK3Yz3lfqPkesznx2XgokdliU4OQjtfTRtgaQ8
+	 cxHR9VHj/s5TngfNjiUaS4OdjWf0VZQQmV98zqLlD9jggsmyQsWbaYFU6ZfPLZ4PVjHtG
+	 5cL503o45aI7iuv5eGgpze6Cs4WPGb1kNrF5H8F2vQ9B4pWo/TAznAgn4pisjjdXmmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Xlka4J0T;
-	arc=none smtp.remote-ip=74.125.82.43
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=zf4QXcp8;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0842606A337
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:30:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0842606A337
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED5E5606A330
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:30:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED5E5606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Xlka4J0T
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1a3c08d6928so5929389c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:30:05 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=zf4QXcp8
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36e795af1d4so401190eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:30:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794893405; x=1795498205; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1794893443; x=1795498243; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ftrMizvuhIHObTCvAdpIahRgmk2EwZxg4CfQaHM/YjU=;
-        b=Xlka4J0TE/yLeF+c3TqpBEinxWaelRjQzvdvPTOgvM3kdl0NusN0YmmFNCzR9E60Pz
-         K4AqtRAUQhQJVZQJ17sInykC5kyw9AMvgLlMhdr+8eoxYO/vV6InpzNseDR1aZuez+Y2
-         O6Gnni3viKM1L5pZkuNWNa9yikouclaNWsfOoMajv0G0R1CGu6GpQDHX0E/m9KOlVWOR
-         +r7R4/K+lWfem/06cnJA/suhg+A1KUgydlgk+qzkWIZ0TSjGeu7Zk0qElfN6K93XOaKP
-         TzFiV/sC5SNfza7HArQ3lTxJ3Is0PmKgapOleTYB5LGDNwHN2Omt74M13jcrW2l6bQR/
-         J/JQ==
+        bh=kIAvslGIGz26KiTObfr5XZM247DFbxXRTcH4PvS8dNM=;
+        b=zf4QXcp8BIXJgVQ932XNIbJBipZ7OOoNr+x0JQwatdUhWjptVB1cVAQ0I4et3Y0vLk
+         Kc5yATO8atKFXpKmIe4fY5otpiE5bqcdClrDQWlHVlVda9SUDWarzKu87gUOjbat0Li9
+         WxQtTjeTyS+x2LvSFJqGQIpR56cZIlPEO0QOTBQyaJvjDAzOudqDA/LidrE18foibQG6
+         wpZO5e8Euu7p4lT/S270Os2CbQ9LyPAVZTkasmQAo+YAC045V1r+v6F8x+uZcLD/4kPT
+         /4RKjLFxYSj53EqbIDhapPSb08DghVty5keXFjLHVWPUEoeKTZH3qwCoRpdiArHiY79w
+         Plbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794893405; x=1795498205;
+        d=1e100.net; s=20260707; t=1794893443; x=1795498243;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ftrMizvuhIHObTCvAdpIahRgmk2EwZxg4CfQaHM/YjU=;
-        b=q6uxo17CV+wb/+UOwamuopJHREWlb1nIK0sq1BUICgWXjVSMAlVd5K5iprkCdu+0Fd
-         3pCcN3356D6YfFlW2NfQVQX47RI/1cahXRzXMRDPX5AkaXUV0T+L2fct3OQF+WdSlfHX
-         vi2K5kvAg+x58H2cQ4U5gHO1cxR3n0AKZjbaeu3SNioQFbCOQhqadLKhJNfFkSAjSqBf
-         iCmhK4o4poLEMDAPksY08c6Dj+7lRd6bqXN7YAavxbvi1tf7BEwB0JvljW2prgg5eRRd
-         VYkxKMwceCEr2vVtY6npDYhTRMrlRmu93yqyDXdybHgYITjml4OMNlHA7c+9GODH422O
-         sE1Q==
-X-Forwarded-Encrypted: i=1; AL+hErEdSKf0WJbv5zjxpHyfbKvbZfQ20w+FuIpKWyV/TJof9ERu2IY3+Co78GSEUWko4wefQ6DPTfBjO/Mm0/w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ldFj/zng9dNLuGeo+yQfAsUR+YpNGQT+9KZaEUbPDA1ZyKFNR
-	pUa8WoD6c2Fnai2sHi0HueeikiOnP3J88GDbfvYwp4gbEY977jCVsFgA8vH1U+U2jqo=
-X-Gm-Gg: AYBFou0DqKfhNmAJ+TXGA0k2EpdOHPUtHTgCATDbNezPCNEQp/fwCF55uF9pQzS0yNw
-	wNv6CzxjfYy8HcZJxeaYA9wf5z34R3NgqSKLU3+ZMt/LNGxRnDhdsG38WI6Ai5yOF6GEUwEI73V
-	xVLzN6oTNvR2hfsij2TGJ4NGRM6nfEJxZojeSXGTx4xdj8PyvUZfg6sQVbkAL1J+TBrugihcclj
-	pebWhNy0aJHYjamqpEetje9DNJbjEr4MwzCG2EkbgspiGRuQVY+4wmyl/2EjCwBOgWUUN84uKvv
-	raied+Kf0Wob102QuH980asJOuTNm70cElhjo0M8KbEUVY7J8gMwL5yZ1mP2zjM7XEfrvAn71kz
-	YgdcZARhfOzUdED/0A0pagcjWyP93PWzqJtG43dluaB0ROqfYqj6U9tkMbXGj05TZI5aLGIuYsV
-	8Q55l2qjAb3R3X5bDjqfsr2c0DcQ3O5cfIKvXbxjwHkDAuFtbVge4rJhFIFFXUIqWLnPdDM2pj8
-	oFEXdVveIYEzFR01NM2iklkmG9ynZHmul/PJDie00mBMsJcfCZwfnpg8KkCwhLDzOVOv2rznxVy
-	7v0FmOUy7UiUCahRxoEVhN+QYwFsiQ==
-X-Received: by 2002:a05:7300:e9ce:10b0:368:7c2d:a612 with SMTP id 5a478bee46e88-37966c4738fmr12899653eec.10.1794893403702;
-        Mon, 16 Nov 2026 21:30:03 -0800 (PST)
+        bh=kIAvslGIGz26KiTObfr5XZM247DFbxXRTcH4PvS8dNM=;
+        b=xkNeSFx7HDzmZLYbHo6dK+sScfHyNK1go6ebVNGk/ktaVRaAWBaKBR63E2hemg8wFG
+         j77GxXvsKMEOmub8MK/ZhgwlAq8Hi3SZyt2UApDDRp8iu61OzKDtIPd5buw6GLTMFl2L
+         hYeBaQT0BN9+rWOetRyBKoMf3rM9804He8Nfgu9WxBK5X8XRuRyBNSHC3JXmkqIWnMfX
+         XJgRs88v9deqE0ehLe9V6OHnjErrC0y5KytxuBWDWyLoZQoY8ctfZqXYOGPzs9NzbUg1
+         rR1dOZuXACV/CzHgABrJWHN6R03RZVIFuSAYmcmUp6ebKybAg47j9YeeRv3zMbULHX4q
+         82Hg==
+X-Forwarded-Encrypted: i=1; AL+hErGRsiqGCBWN08TyD42wujDJwL3r0pozn/C12E90Dt1eqNdVjfdm8O6uuQYpRFpJ8BddBLRo5E18ewPvZLk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9utm2kmYPGpl+0t6sWwVKbAiFvPo+DKm2g2gs+rqD3yrXke30R
+	wlNnqVKyPUbwonJrktTmpm7z6W5FxXj5fIWkpW58ElEaU8PnidYZIKGybyYW5OWUu5w=
+X-Gm-Gg: AZFdTZfW2G7hi8Dt+HgenOx4DtKFH/NpRw9k4XWjTwUdMSaeVl+GHgUx2hi61UZTzpo
+	T+KRl5BZaSuLvAA5w3G8UOSwNGG6h3fJ97TCYhGHP9kJlsaSnZyE/0BaB22CMa08ZiQiceNdFRi
+	2++ZVH3WNHsOWDZxIJh98GNT7SAZo1+SlBiOmrUiCpdzjEUcc2sJIi/auK82I8ClKJnWJb/aliG
+	Lq401YW5sAjeSuFnj1VVVMCa5/pPVTt/IjxdyTz45xR3fKfi/qyD83+H1DfEjSuG9+1k+hQYh5N
+	RIBsqveabDPqMbRlfFvWzHQjp095PsC5eEX1YAIk7m+mXu88ezxZ6tfMGncSOUEIXvn3+JGgK/5
+	dNdY/1O4HSsnUdf1ba0UY9hH/cjR6omq/Lh8vw0wTJMSGtFxvN9iiKFO1Z+Zn3StLD3f2G4l6eg
+	ju7LNB5/ZzI03nNJysP0+uSAdJQQe8D1RSAmvtdpEDt1ktFh/dIDNVdmP9LbSN50lHPDaYBHEzo
+	oIM+ot9kDTIaRjpR8wjWxCNp56sS4bWoMjh3ATFgPaWaZzitbnqUF9h0oYyIBkBM9k7r+kwp0ez
+	36UeTbV+7Z+uGeyT7C18+waPOnKBKA==
+X-Received: by 2002:a05:693c:83db:10b0:381:761b:f335 with SMTP id 5a478bee46e88-381761c0832mr629547eec.6.1794893442481;
+        Mon, 16 Nov 2026 21:30:42 -0800 (PST)
 Received: from localhost ([122.172.83.36])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563df84fsm77630203eec.20.2026.11.16.21.30.02
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795533170csm40154597eec.7.2026.11.16.21.30.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 21:30:02 -0800 (PST)
-Date: Tue, 17 Nov 2026 11:00:00 +0530
+        Mon, 16 Nov 2026 21:30:41 -0800 (PST)
+Date: Tue, 17 Nov 2026 11:00:39 +0530
 From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Gyokhan Kochmarla <gyokhan@amazon.de>
-Cc: Shuah Khan <shuah@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
-	linux-kselftest@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] selftests: cpufreq: Disable the runner timeout
-Message-ID: <avvmWA6YX2I-ovJy@vireshk-B250M-D3H>
-References: <20261113163951.1510082-1-gyokhan@amazon.de>
+To: David Yang <mmyangfl@gmail.com>
+Cc: linux-watchdog@vger.kernel.org,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Viresh Kumar <vireshk@kernel.org>,
+	Andre Przywara <andre.przywara@arm.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: watchdog: arm,sp805: reference the
+ PrimeCell binding
+Message-ID: <avvmf71B4E2mKrgN@vireshk-B250M-D3H>
+References: <20261114184257.535546-1-mmyangfl@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,47 +105,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261113163951.1510082-1-gyokhan@amazon.de>
+In-Reply-To: <20261114184257.535546-1-mmyangfl@gmail.com>
 
-On 13-11-26, 16:39, Gyokhan Kochmarla wrote:
-> cpufreq_basic_tests() reads and writes every policy file, offlines and
-> onlines every non-boot CPU five times, and then shuffles all
-> frequencies and governors of every policy. The amount of work scales
-> with the number of CPUs, but the test runs under the default 45 second
-> kselftest timeout.
+On 15-11-26, 02:42, David Yang wrote:
+> Unlike the other PrimeCell bindings, the binding ends in
+> unevaluatedProperties: false without referencing
+> /schemas/arm/primecell.yaml#, so arm,primecell-periphid is not an
+> evaluated property on an arm,sp805 node. Two nodes in the tree carry
+> that property regardless -- watchdog@a2c000 in hisi-x5hd2.dtsi and
+> watchdog@8000 in mps2.dtsi.
 > 
-> On large systems the hotplug loop alone does not fit. On a 256 CPU x86
-> machine each offline/online pair takes about 0.5 seconds, so the
-> reboot_cpus 5 step needs more than 10 minutes. Even with the timeout
-> raised to 180 seconds it is killed in the second of the five loops,
-> and the frequency and governor tests never run:
+> `make CHECK_DTBS=y`:
 > 
->   not ok 1 selftests: cpufreq: main.sh # TIMEOUT 180 seconds
+>   watchdog@a2c000 (arm,sp805): Unevaluated properties are not allowed
+>   ('arm,primecell-periphid' was unexpected)
 > 
-> A larger fixed value would only move the problem to the next bigger
-> machine. The basic test has a fixed number of iterations and does not
-> wait on external events, so disable the timeout with timeout=0, as
-> ftrace, timers and net/forwarding already do.
+> Add the reference so the property becomes evaluable; both nodes then
+> validate.
 > 
-> Fixes: 852c8cbf34d3 ("selftests/kselftest/runner.sh: Add 45 second timeout per test")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Gyokhan Kochmarla <gyokhan@amazon.de>
+> Fixes: 73d3e43f9813 ("dt-bindings: watchdog: sp-805: Convert to Json-schema")
+> Signed-off-by: David Yang <mmyangfl@gmail.com>
 > ---
->  tools/testing/selftests/cpufreq/settings | 5 +++++
->  1 file changed, 5 insertions(+)
->  create mode 100644 tools/testing/selftests/cpufreq/settings
+>  Documentation/devicetree/bindings/watchdog/arm,sp805.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> diff --git a/tools/testing/selftests/cpufreq/settings b/tools/testing/selftests/cpufreq/settings
-> new file mode 100644
-> index 000000000000..d3e07370a7e4
-> --- /dev/null
-> +++ b/tools/testing/selftests/cpufreq/settings
-> @@ -0,0 +1,5 @@
-> +# The basic test hotplugs every non-boot CPU five times and then walks
-> +# all frequencies and governors of every policy, so its runtime grows
-> +# with the number of CPUs. No fixed timeout fits every machine, and the
-> +# test always terminates on its own, so disable the runner timeout.
-> +timeout=0
+> diff --git a/Documentation/devicetree/bindings/watchdog/arm,sp805.yaml b/Documentation/devicetree/bindings/watchdog/arm,sp805.yaml
+> index bd7c09ed1938..690456839fcc 100644
+> --- a/Documentation/devicetree/bindings/watchdog/arm,sp805.yaml
+> +++ b/Documentation/devicetree/bindings/watchdog/arm,sp805.yaml
+> @@ -16,6 +16,7 @@ description: |+
+>  
+>  allOf:
+>    - $ref: /schemas/watchdog/watchdog.yaml#
+> +  - $ref: /schemas/arm/primecell.yaml#
+>  
+>  # Need a custom select here or 'arm,primecell' will match on lots of nodes
+>  select:
 
 Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
 
