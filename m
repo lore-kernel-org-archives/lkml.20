@@ -1,96 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794929023;
-	b=TV0IfgUiO4AQX5q3wxyyDOxQAwWWp/eMJQRFg7weRhel3sTGb1PrMgpvDJ3TuSif3Xs6
-	 dQ48Rd1FuScJ/3UjUq1ywL183jyfU3XKHZ8b1dXajFeQiOwsY4+YbFCZ3EAD096UTCx0a
-	 AOGTmIFu7tbBxvLpQ9iLH3i4tMRnJekMIdrX0ewLLJ7y6yyKAybhoU2sFVBrxFZcwNWh5
-	 9MxvgIROIfjaTcLCOXRkaIP6uabZw8tDH8ar+7iVcPnwA7KgXVTPn3FzFQ+kfDSWtRL9L
-	 yEgfj93E5dWQSvkNN5VJZv9L/zoA8TIc9PErw7INGa9jR66jyPdFVB1fiB8RMOl+B6g==
+	t=1794929025;
+	b=Nk3VMbIGnwjNLrI+Gzyva0ZwYyYkvyVZDDKDm6Y91QKp4AmlYKxPcFlpWCrNET9pWvvc
+	 pLcLT0P1SXZ/WdWxDDFzqoBoSTJ35V5om7TDaY+3LYHApAhIyOg5iRehO7xhjzZIkpJ2h
+	 XRBcVkcZWia+UvWOgTK14HBqOZtrLMmY+1RKCBN+HtaKAAwqmHScOEXMcFdgtScjYBXP1
+	 1YT6cEdi4M1qqv1D4Egx0i1tNDoP8QBA04BfPNVmMGPL1YF+vq08ec1up8rFO/7jhJzUw
+	 w+VGH8tqOaQxV72Qk7Ydo0TpJrYz/2fBbI1de7u8ovDBb7zlA3gNGjmSZ8dsI7j9bKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794929023;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Ofm5M00KSieqbiSYXgLgnUfya5lLhDxnmUYEkWnouA8=;
-	b=vOlb+iZWCchI1JghhWziv2lNn0X6l8yMy1Y5kiXyNxiaSsZU+k4q4ZcCPGCRzcBRWSST
-	 Ul9ZLe9Ada/xdzZOgwySEDE6iPbHa+UUcGewGqPmWYTtFvFbXWCJK+THjUcuuFt27Wg7D
-	 xCpHfOkAsglbVLt3uDcXaplMmY1p+mcHmuKKItOZYdbXITGfhcBvU7fzWv9yOdxUH+LTm
-	 dkR8vOBi53VvVxhrY6qbIwxYMz21Qe8ITuUosAE7T38+dYcmB2yXcfIETC1Md76HiJJm8
-	 rs/QlTTmrTtxroZN0x8q43dmebJlA66SmNwCRIdxlh9QFT6AnI3sS/rMnsI/XrAUN9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794929025;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=mSX7nUXRaAIFnfD43d+7mLEk80OZ6gLg3zuHdBHTOJ0=;
+	b=HcmGm8hql8z5X8Q0voX8EnTy8OtXn1D9kT8nmNiTpZdIByTjbjLYpjGytbbdfdGIvLFH
+	 mv4oNbaSTJW5s1OXl7oSgTaY/8C5qXr7eOTy9C5zEQdYV10/lItFLTfQC9EantMbg+eT7
+	 EBQ/X+U0a+mUZBeaCSNsPzBUOsEE5s/9+OyE+361Awtve9YeqCy3zGs4lY3zbk8EjZFmK
+	 SjP+nN5uXfHNbXObNIOng0cxSuEm/nRn/dnNwOIpY5RoFFzpEcxUnkaPIXnd6SuawbqTV
+	 +Vb3Zfdq8XQGk/VSBb06+nK1T291xKucY+PUTMPTHNWfWDc3CvG7rM4RM0PTf8E+YpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XV3bc96W;
-	arc=none smtp.remote-ip=209.85.214.175
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uu0e1rS2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66906606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:23:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66906606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB236606A881;
+	Tue, 17 Nov 2026 15:23:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XV3bc96W
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2eac75d4143so2483145ad.2
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:23:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794929023; x=1795533823; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ofm5M00KSieqbiSYXgLgnUfya5lLhDxnmUYEkWnouA8=;
-        b=XV3bc96Wca2hr4zPcYBq+6ILfG4SItRkT9ixosvgf8aLWT7sp4FRkWmuU5PygrAEGV
-         Qcf0/PL4h/BapNu+C0n2NNeojaM6oeFadF7xNy303yiNtETTiWoLLuFlgELIniFSgdJK
-         EmeUAMDRzabdoJbDza9DfpcqRaaTxdt5ftTzc0SQ471H38RStbjozBTtkuV5VXuVuj1L
-         sUSku5rS+DdSqCPy4nwYQ5bciIETSOsxlJpzlZb9oqVjx0YFvgtFvlcUutP+2imTHHi5
-         02aa1GWK+DapP4yFjaDL4i19YYOeDix1ZfFMG/aU2qsCLPxsvPLFIEjI6NTDcPXlw4FO
-         +wow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794929023; x=1795533823;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ofm5M00KSieqbiSYXgLgnUfya5lLhDxnmUYEkWnouA8=;
-        b=YzUS3s3tgWGEZ8KIpPX5g4viIOL5qw7t+cp6N7bGceLwjKIeOqURi05fz6OOm42C32
-         F448/VBQlH70isaJZJuJn+t2qk12iosaYIzuPhQXOwylx0F47/Aes+dHWWFitrAa8IoV
-         hUuBmUfO1uPDjAIOMfWITWkqiDAf8rQVrWS5plQk9K+P5kMkWPRQKVHFGLjzoN2Fsv0f
-         MuXq8oI65cdvdfNnAjAjk8dIpdJYLCcbmYeL/p011attV++nC/SqE4mqDC5WRCsUDWm/
-         TSTI3hGS0pxdoNKUyg2KjH5iFMO7IcvmmiCo6aX8EPdEIg527j2jgTN7R9d/WiEdwDIu
-         MvVw==
-X-Forwarded-Encrypted: i=1; AL+hErEQxzXcTOwyACmN3OKmdOEw8xBy7Oin93YwovJ6Orwf9+SvLs3k/E4iT0zMs0E2LLPSPzfwR4cWe/BYcJM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/FpwO8U56nC/RmL1ZDrUVAekpIjHeoSdh9KOg+fBv9UnYDT6DC
-	+CJFYm/zDBM0qTTRKduvvup9zg/inKsJonj8DpaZ071YEjG6qwRiN91D
-X-Gm-Gg: AZFdTZen19C6btHgvXEXL3FuYBFQoXP+6L2tApGM3HSVvO+aqaYpS5Y9NA+96dRS9dP
-	C22Nw/guW8MIu0XYlCDuQsYYe6ZluFMULEsTYFhTBimp49hJ3BJ7LwyxIyY0BN+o1Cb4NYbyklj
-	T7BxScEwQuiMs8qloM2lmDgIgXtD8TIIP3qyBcPuMlDbGQ4xBE49Mcdg/oUgW7EFSwoJUlVg3Ua
-	8MK/2wc0OtKqWXKTZ5WaRc26zFIHawA/QCuQ+68XhSf6E8/wcQXaBw6Z+DXdJJk6qvVDzdq+ijZ
-	9+uh0jiIBKcibZ61kMaJYz3eaUcHViNBXX48ZyoIAXe74yBPgCPuIphpw02BtcHd81m0oNFvSMf
-	rLcSuRm6l3Zrm7c+Vuc8hl8Qgy0XTK23iUZ/EHXTNjtwJHIFTvAgvb9IHQ78nn1OarVo5EnrbFX
-	DcFlSuNzHQspxcByi8dph+G0oMrjxPFBOW51E1N+GzohSepzTlxfxl8pYuivy/qnCezMjxdmHUr
-	no/9WIK+qGm0jMFHahfVgta8jfyZ0vrd6EpowIID5G7CW3PFxtvpdQWxXSlbs/TZ96Bxt3ylvRp
-	jAdzaJbgraf5lzcGbyeQHNJnkBa8Z9XqxaYK0jVooWZ4VINRcmWHxqWBbM5/0Tz1bvdoOQgMjYT
-	5Ozg=
-X-Received: by 2002:a17:902:e852:b0:2ed:29a5:782d with SMTP id d9443c01a7336-2ee0dd0f21amr218160435ad.2.1794929022438;
-        Tue, 17 Nov 2026 07:23:42 -0800 (PST)
-Received: from DESKTOP-CJ1L666.localdomain ([211.198.99.62])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd7a11da1sm17810695ad.16.2026.11.17.07.23.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 07:23:42 -0800 (PST)
-From: Jiwoo Kim <arpe1618@gmail.com>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Sargun Dhillon <sargun@sargun.me>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Jann Horn <jannh@google.com>,
-	Chen Linxuan <me@black-desk.cn>,
-	linux-fsdevel@vger.kernel.org,
-	linux-api@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] pidfd: restrict pidfd_getfd() to the caller's pid namespace
-Date: Wed, 18 Nov 2026 00:23:32 +0900
-Message-ID: <20261117152332.1221-1-arpe1618@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uu0e1rS2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34C501F000C5;
+	Tue, 17 Nov 2026 15:23:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794929025;
+	bh=mSX7nUXRaAIFnfD43d+7mLEk80OZ6gLg3zuHdBHTOJ0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Uu0e1rS274Qqeja5yvHqcX4UjyGrDcWcLKBaJgPRGwRrJZJgtwH6NCUq67GHKzHqT
+	 hbbaAoGXm3ayaJD8N/IiIatCodLgZkNEt+DQLfZ6LGi32uNZVa1047zyBTX3GZn3PB
+	 zZtxqxTDt7RY4DT5GdZWr9adac5O5z0HzQG8KWqX5suSdfdIqHqFJC6v0688eJGBQ/
+	 xArs92azFmC8YnB9F+Lr6mw/O8b3h7eJd8m8ylX/Cy9MkWb7Zsi4BQIL/BqgZhcbZ4
+	 P61iglUwiNPfkaKp5xew2wvMZjbQ2FjS+4T4/2ziWzCsc+TyfS6t5/M9lqv4/zyGKF
+	 HqgqRX6bPxlLQ==
+Message-ID: <sashiko-outbox-219058@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 38/40] selftests/sched: Add a test of SCHED_DEADLINE
+ policy round trips
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
+Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
+In-Reply-To: <eb355ec19fcfcffd3e7f8dbd79dff377581a7a87.1794922146.git.mathieu.desnoyers@efficios.com>
+References: <cover.1794922146.git.mathieu.desnoyers@efficios.com>
+ <eb355ec19fcfcffd3e7f8dbd79dff377581a7a87.1794922146.git.mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 15:23:44 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,89 +60,108 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-pidfds can cross pid namespace boundaries: a task can obtain one for a
-process outside of its own pid namespace hierarchy through SO_PASSPIDFD
-or SO_PEERPIDFD, via SCM_RIGHTS, or through file descriptor
-inheritance.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] selftests/sched: 64 KiB FILLER_STACK fails
+  pthread_attr_setstacksize()
+- [Low] selftests/sched: missing sem_destroy() and pipe leak in
+  deadline_switch_test
+--
 
-Commit ee8323fdc827 ("pidfd: restrict task access ioctls to the caller's
-pid namespace") made the pidfs namespace ioctls fail with -EREMOTE
-unless the target is visible in the caller's active pid namespace, as
-PIDFD_GET_INFO already does, following the rule that operations which
-grant access to additional resources of the target require this [1].
+commit 84b080b4abc565be69cf0d196565fbf11ac9aa91
+Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 
-pidfd_getfd() grants access to the target's open files, but it only
-performs the ptrace access check, which does not take the pid namespace
-relationship between the caller and the target into account. With the
-caller in a child pid namespace and in the same user namespace as the
-target, PIDFD_GET_INFO and PIDFD_GET_UTS_NAMESPACE fail with -EREMOTE
-for such a pidfd, while pidfd_getfd() on the same pidfd returns a
-duplicate of the target's file descriptor.
+selftests/sched: Add a test of SCHED_DEADLINE policy round trips
 
-Apply the same rule to pidfd_getfd() and fail with -EREMOTE unless the
-target is visible in the caller's active pid namespace. Callers in
-ancestor pid namespaces are unaffected.
+This commit adds a new sched/deadline selftest covering SCHED_DEADLINE
+policy round trips to SCHED_OTHER and back, as well as sysrq-n
+normalization with deadline tasks and priority-inheritance lock owners.
 
-This was found with an AI coding assistant, which also drafted this
-patch and its changelog. The problem was reproduced in a QEMU guest,
-and the fix was tested there.
+> diff --git a/tools/testing/selftests/sched/deadline/deadline_switch_test.=
+c b/tools/testing/selftests/sched/deadline/deadline_switch_test.c
+> new file mode 100644
+> index 0000000000000..daf10f81cb968
+> --- /dev/null
+> +++ b/tools/testing/selftests/sched/deadline/deadline_switch_test.c
 
-Link: https://lore.kernel.org/all/20260925-gewischt-auftrag-tierzucht-c153cb3f9f74@brauner/ [1]
-Fixes: 8649c322f75c ("pid: Implement pidfd_getfd syscall")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
----
--EREMOTE is a new error for pidfd_getfd(). The check is done before the
-task lookup, so, as with PIDFD_GET_INFO, a reaped target outside of the
-caller's pid namespace hierarchy gives -EREMOTE rather than -ESRCH, and
-the check comes before the ptrace access check.
+[ ... ]
 
-setns() also accepts such pidfds without this check, but it requires
-CAP_SYS_ADMIN over the namespaces being joined, so it is left alone
-here.
+> +static int test_sysrq_boosted_owner(int normalized)
+> +{
 
-A reproducer is available on request.
+[ ... ]
 
- kernel/pid.c | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
+> +	if (sem_init(&owner_locked, 0, 0) || sem_init(&owner_go, 0, 0)) {
+> +		ksft_print_msg("sem_init: %s\n", strerror(errno));
+> +		ret =3D KSFT_FAIL;
+> +		goto out;
+> +	}
 
-diff --git a/kernel/pid.c b/kernel/pid.c
-index adf721606768..4f9a29eb29de 100644
---- a/kernel/pid.c
-+++ b/kernel/pid.c
-@@ -893,6 +893,13 @@ static int pidfd_getfd(struct pid *pid, int fd)
- 	struct file *file;
- 	int ret;
- 
-+	/*
-+	 * Require the target to be visible in the caller's pid namespace,
-+	 * like the pidfs ioctls that grant access to its resources.
-+	 */
-+	if (!pid_vnr(pid))
-+		return -EREMOTE;
-+
- 	task = get_pid_task(pid, PIDTYPE_PID);
- 	if (!task)
- 		return -ESRCH;
-@@ -917,9 +924,10 @@ static int pidfd_getfd(struct pid *pid, int fd)
-  *
-  * This syscall gets a copy of a file descriptor from another process
-  * based on the pidfd, and file descriptor number. It requires that
-- * the calling process has the ability to ptrace the process represented
-- * by the pidfd. The process which is having its file descriptor copied
-- * is otherwise unaffected.
-+ * the process represented by the pidfd is visible in the caller's pid
-+ * namespace and that the calling process has the ability to ptrace it.
-+ * The process which is having its file descriptor copied is otherwise
-+ * unaffected.
-  *
-  * Return: On success, a cloexec file descriptor is returned.
-  *         On error, a negative errno number will be returned.
+[ ... ]
 
-base-commit: 44cc27050381e92de64cc3d7836376eda4d92a5f
--- 
-2.43.0
+> +out:
+> +	close(fd);
+> +	pthread_mutex_destroy(&pi_lock);
+> +	return ret;
+> +}
+> +
+> +#define FILLERS		2048
+> +#define FILLER_STACK	(64 * 1024)
 
+[ ... ]
+
+> +static int test_sysrq_running_owner(int normalized)
+> +{
+
+[ ... ]
+
+> +	fill =3D calloc(FILLERS, sizeof(*fill));
+> +	if (!fill || pipe(filler_pipe) || sem_init(&owner_locked, 0, 0) ||
+> +	    sem_init(&filler_ready, 0, 0) || sem_init(&waiter_go, 0, 0) ||
+> +	    pthread_attr_init(&fa) || pthread_attr_setstacksize(&fa, FILLER_STA=
+CK)) {
+> +		ksft_print_msg("setup: %s\n", strerror(errno));
+> +		free(fill);
+> +		close(fd);
+> +		pthread_mutex_destroy(&pi_lock);
+> +		return KSFT_FAIL;
+> +	}
+
+[Severity: Medium]
+Does pthread_attr_setstacksize(&fa, FILLER_STACK) fail with EINVAL on
+architectures where PTHREAD_STACK_MIN is larger than 64 KiB, such as arm64
+and powerpc64 (128 KiB)?  That causes test_sysrq_running_owner() to fail
+during setup on those architectures.
+
+Also, pthread_attr_init() and pthread_attr_setstacksize() return an error
+number directly without setting errno, so strerror(errno) reports a stale
+errno (typically "Success"), and this error path returns without closing
+filler_pipe or destroying fa.
+
+[ ... ]
+
+> +out:
+> +	close(filler_pipe[1]);
+> +	for (i =3D 0; i < started; i++)
+> +		if (join(fill[i]))
+> +			ret =3D KSFT_FAIL;
+> +	close(filler_pipe[0]);
+> +	sched_setaffinity(0, sizeof(old), &old);
+> +	pthread_attr_destroy(&fa);
+> +	free(fill);
+> +	close(fd);
+> +	pthread_mutex_destroy(&pi_lock);
+> +	return ret;
+> +}
+
+[Severity: Low]
+Should test_sysrq_boosted_owner() and test_sysrq_running_owner() call
+sem_destroy() on owner_locked, owner_go, filler_ready, and waiter_go during
+cleanup?  Without sem_destroy(&owner_locked) in test_sysrq_boosted_owner(),
+test_sysrq_running_owner() calls sem_init() on an already initialized
+owner_locked semaphore, which is undefined behavior in POSIX.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794922146.gi=
+t.mathieu.desnoyers@efficios.com?part=3D38
