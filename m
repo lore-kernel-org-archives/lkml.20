@@ -1,56 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794934296;
-	b=lJ8lyrKGUtRXtOAd4LjZSulbazSqakXxhRMEJYfSWQ6Nio+dLBfetk0ryB1JpJk9WFFT
-	 oH7BOtC5VUxizwvQ/q9cLtQrGmnuEaR1+L+At0F/zUn5p4VQw5vb9kWVNjVJuiJoFs2ph
-	 WHPsNQ2VS/HoqpjcBtWwedbVl4aX9i+msPRSxG/Xm6IVgJ2wifw4HRghmI4k1Qwm5L7+H
-	 DbuKOnzvW+HKj6y1D//2O1UBV22jPJTdWtSJMhu/38/9PE6Dyf/A3hOL84FYVemX95ViE
-	 SyRvC9K3gSpxq/bITa26Fsu63qi7MtX1NJEdaXiVTkWWhOcxt2NfVAJYLkvPMP655LQ==
+	t=1794934316;
+	b=MXUWQY3u1lsvmPg1OSFRyShD+7z9Pl1HnYqP9BrfR6a8hu0croVtIBEDm7GKforYBXjR
+	 U3x7R2ypwyEoOdpg3i1PEXOIRQhS1+uEZRCr1E+L/9oAd4fKY/ffrZhs2XgnZC/3PFlTY
+	 ysdmM/B5W/Kom5PuBzB8aKP20sag+Rl73VVB16UCVbJ7R45FgbidNXG1rbILZA2xOUhz6
+	 mXOLi+dxBVIjAgfU25gKkTLYeGwctBqdAnUdnbqJbogql4TG1btaXv3LLEE8SmaVpA/92
+	 k7h9RCfGYXdtAO0myKClaQAJ6vs6WEaWkFFxy2lhu0Hx4gMB92VkVF6LuhXf3ygnE+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794934296;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794934316;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:X-Google-Original-Message-ID:Date:From:To:Cc:Subject:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=3KbnbVGo+5jELz4RnHBN3fdcKesRiud/qwVfWP3x9go=;
-	b=gepyNMSbGtftvGiYkp778R/HPO1a94K+WaDB1YgbEyAHA/cuDzGd/c0QRsJLzuHWRBvg
-	 jM6GMUaYXIDSMtctctnFHyUa/sJUfYSP700w18KdqZwCRMVCsMSRGR5VIdZ4dOXNIF4Cr
-	 hoHRzSW/8KL31Hcfq47rhJZRR1fB947+ZBrQV7WTsGRd8Uto8SdHuOa8+m9BFCpMVL/vH
-	 eKUXX5TN9fftqLL3iWGmV+usn9jGFjZtO70A8Hj7mAEOeTQ1imvCFhJiiznDGnWywaIJ6
-	 UnOw5+xv/VZJx2AllxSKQ8n84UzdUyy+cZgIa6A52A1XIYLi9l9IAUmkF7D0HklgSUA==
+	bh=UQhNopprSz0AVSKjleR7Xe3nJdZYPpFFlx8w8ov+7HM=;
+	b=1YTnza1JmT9XLFQpWqq1zMAopKBmLGQilEJtxj+EgILhUEfFhENl3I9qSdNCZb1hndK+
+	 2LjIKe/4/iTy0Nmw6W9OoQRH/I1W+AOfqOwNcPmb37P39BkXwmLY2QR6rUPRV6zIX2fpF
+	 7nUEi290IfpjQJ5yvP3rgNacP/uD1lT+s8S8nBDOfJkzKELR1rZvw4Q8QNueltxl1no/4
+	 XKPGQrRQqtfA3cGUW4jLnXxVrk+FSxBoxF49G7IGLg9tov1FEC+z9z+xsaP5EsfqfxUuC
+	 oDoMZc5k7tt8VtrxCfm1OBtvP46ZOHcY8BRzRArNLAmkiv47PT/WEFbvTARsgB0iZow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bs39lSpJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m3lm6A1h;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A08EC606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:51:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06D1A606A338
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:51:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06D1A606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bs39lSpJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 435451F000C5;
-	Tue, 17 Nov 2026 16:51:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794934296;
-	bh=3KbnbVGo+5jELz4RnHBN3fdcKesRiud/qwVfWP3x9go=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Bs39lSpJ8Ea1a1aFOtpNMLgHW61y0xwvtNlSYF3bC+BTgb1noJ+2Jfum2pFYXILpj
-	 FozARdl12izT3TaQL+2B+6zupswnN+HU3UbxE4mpupqR47t8QtoW0TBI6a2PMpIimG
-	 qgfJ7y/yqV9Ay8u8iRUHoXLSj13q/nJhLB0hzgXrTcYUhEZcPi++TkDeIpNqwN9H+p
-	 wOExdBu45ED25QoN3lHWPFrxSJuQxSLZsfM7Ab6qvNttKjbyeUHvlR+RQpyn2H7h0d
-	 34//Wb9H42xny4iQvMsr55xclqYqL65CVA/ubKzbUStB8vMDHVQ5Nmw30ycYLoSY36
-	 swHjvOGGB5VuQ==
-Date: Tue, 17 Nov 2026 16:51:34 +0000
-From: Jaegeuk Kim <jaegeuk@kernel.org>
-To: Chao Yu <chao@kernel.org>
-Cc: Daeho Jeong <daeho43@gmail.com>, linux-kernel@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net, kernel-team@android.com,
-	Daeho Jeong <daehojeong@google.com>
-Subject: Re: [f2fs-dev] [PATCH v2 06/20] f2fs: support subpage blocks in data
- read path and GC
-Message-ID: <avyGFkZdLhKIC9Rs@google.com>
-References: <20261116040851.2849696-1-daeho43@gmail.com>
- <20261116040851.2849696-7-daeho43@gmail.com>
- <22a8264a-0538-458d-a20e-f1d732aa69ac@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m3lm6A1h
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso5144931f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:51:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794934314; x=1795539114; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:subject:cc:to:from:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UQhNopprSz0AVSKjleR7Xe3nJdZYPpFFlx8w8ov+7HM=;
+        b=m3lm6A1h/g3+iQL8eExyC3I2hvkQjMSCtoivGEv+A9rz1CMkEeXo11qkgi9C56129d
+         ZStkj+u9+4oTRYLOAA8H7gU2VpyjrTPUY8HcH1+n+EBixlFu7+OKzuA8dfuUBNiJIp7b
+         3wnhZtAT54lSxLGIn7U1R6tfV/yy9tgRv67KljQsVJZ+QCPBw8rhAx8xIFenF68UTLKz
+         sGRlQfnKcOiP0p9ndB+7ZGpmwOK/EUyfrI5hs5ahw0EGcMWju81ysSZqNtxncPnQ0giY
+         WjfamWL6wndgQq8BMtYB385J0v5z+5NVWwNaEa4R6E/QvoatGc8X0NUKxrdVvA0HW/wB
+         fwMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794934314; x=1795539114;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:subject:cc:to:from:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UQhNopprSz0AVSKjleR7Xe3nJdZYPpFFlx8w8ov+7HM=;
+        b=z3BS5iprA/8DmUrYiRRWwHlZFrwNdHzx6DMdWXeEeN4vw4ps+ek2Ur8sw5R4HSm4eZ
+         ZA/U9g3dJLwPs2zK8k+YMKRaWmBzCLG7NNpq5EngSCUFD1yD5iqs2w8v9mqiPQzzJvYK
+         YNZMVtOdxmHFYBfTzGj5hQLPWN2U04vGzlJQv6hTccx71eOwoilMMbik5rmfu4znhWtz
+         T3nXYBC3m/TS59whjA0qB1lLYDHZTPtn9RV8f/bfIrgNA2jNSuPlI/+PU6l0ikX3edTW
+         UPldWt7GbQ+9VbXrwvPUBkilha19THiciv2lo4eL3m9UaiM106Z7krJ2QhthnCYBLcpz
+         hYDg==
+X-Forwarded-Encrypted: i=1; AL+hErE5AVGu/iSx9lvFZ731vOt/aZo8ju0s9vpcEh2ipXG60iE9EPkUCj+nSPG5OVGJcPmYaNCqb2RcSINRSSk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/kc/kaMeHCWwAG0+AW6cSOzLzF8cQcld3O7foBKBnSdecSv7Nk
+	TnCLSpd2NXxLobWHRRfLClf56jbo+dMDNocGjgOBR2Ec4pJ17ixal2+r
+X-Gm-Gg: AZFdTZeANbofgyQBMyHZiT6JJKNTKHVbnLLMDz4UedukojcFaTJ6iZGm/3Pjq4Xmgno
+	AfANsYopxe6QPTbsuUGVWbwZzjD0eK7Zp+p8Djn3D02AGfZEJqYo2LKgDEeiHK5HGEdBBgOevKs
+	LapbC4FtXE9+RdQ7CrtLxdRKaUoLkmnH9swaMJZjtw/VXQXln5/DRlVstfvB1rX2JLM3yJL17V6
+	ASijA2VxE1KmUEX8B8cN6pe1drB4mrSa5u8IkUFSn2FKPVnjv3zvls4keRTuMSh5trflh+H252k
+	zxwz/zh7HWSxAKUstVdINjAb1gOaKuYJI3vbMeKDsI6SAJedWduqfAvz2nq2FKPQRetPDUbAiAK
+	lj0C/oyTwszdUYdc8f5243PeGOiFbVqStyOM4Z/P5txS8xQlAcpoWMQTgRIfvLkGB1wETM6Hcsj
+	uNRcN8cBJmzc4SWs3KdQUbE3Ix932yg+niY4wrzufDLqxzXpU0jNUo+jn5ZsTjOlkG6z8gkgiXt
+	X1bbXq6dVlIoWNEKH0Mc+hUAcdVgwKa0jFo/NNhOPOxxDCXn5BR8yO+fhjuuh2TccNX7CKMAyII
+	jFlW5/1mc/6woQv1mWDwLLTEuDXI3HKTClXyIMn3P80Bb7H0ho3eqH8nKUreg98zT+sFexh5v8z
+	TvuWPc3q1csOzzBOT
+X-Received: by 2002:a5d:5888:0:b0:48f:f26d:c5c with SMTP id ffacd0b85a97d-4a638058303mr43112f8f.9.1794934314251;
+        Tue, 17 Nov 2026 08:51:54 -0800 (PST)
+Received: from Ansuel-XPS. (93-34-92-103.ip49.fastwebnet.it. [93.34.92.103])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c605e5b2fsm30846431f8f.40.2026.11.17.08.51.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 08:51:53 -0800 (PST)
+Message-ID: <6afc8629.c6df0648.3437b8.c961@mx.google.com>
+X-Google-Original-Message-ID: <avyGJqEgNXfFXb8s@Ansuel-XPS.>
+Date: Tue, 17 Nov 2026 17:51:50 +0100
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Brian Masney <masneyb@kernel.org>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 1/2] clk: en7523: convert to full clk_hw
+ implementation for en7581
+References: <20261110001128.1041-1-ansuelsmth@gmail.com>
+ <20261110001128.1041-2-ansuelsmth@gmail.com>
+ <179444135864.1126566.17591616173966524369.b4-review@b4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,86 +104,104 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <22a8264a-0538-458d-a20e-f1d732aa69ac@kernel.org>
+In-Reply-To: <179444135864.1126566.17591616173966524369.b4-review@b4>
 
-On 11/17, Chao Yu wrote:
-> On 11/16/26 12:08, Daeho Jeong wrote:
-> > From: Daeho Jeong <daehojeong@google.com>
-> > 
-> > With subpage blocks, a folio can be partially uptodate, so reads and GC
-> > have to work per block.
-> > 
-> > - Read only the non-uptodate blocks of a multi-block folio, and send
-> >   every inode to this path in subpage mode.
-> > - Do not use the folio state when a single bio reads the whole folio.
-> > - Implement ->is_partially_uptodate.
-> > - Convert block indices to folio indices in the data folio getters and
-> >   GC, and prefetch the whole folio in GC so that its blocks are read
-> >   together.
-> > - Fix error handling in f2fs_read_data_large_folio().
-> > - Zero the blocks past EOF in f2fs_read_data_large_folio() instead of
-> >   reading them, as f2fs_read_single_page() does. With subpage blocks,
-> >   they share a page with the last block of the file and can be seen
-> >   through mmap.
-> > - Test the per-block uptodate state in f2fs_find_data_folio() under the
-> >   folio lock, as ->release_folio can free the folio state otherwise. A
-> >   fully uptodate folio is still returned without the lock.
-> > - Keep the folio state of a folio that is not fully uptodate in
-> >   ->release_folio while the folio has other users. Otherwise a block
-> >   that a lockless reader, e.g. a dentry lookup, is using can be read
-> >   from disk again.
-> > - Get sbi from the folio in f2fs_finish_read_bio() only after the
-> >   compressed page check, as nothing pins the inode of a compressed page
-> >   once its cluster is unlocked.
-> > - Rename helpers that now take block indices, e.g.
-> >   f2fs_submit_page_read() to f2fs_submit_block_read().
-> > 
-> > The read changes also apply to large folios when the block size equals
-> > PAGE_SIZE.
-> > 
-> > Signed-off-by: Daeho Jeong <daehojeong@google.com>
+On Wed, Nov 11, 2026 at 06:55:58PM -0500, Brian Masney wrote:
+> Hi Christian,
 > 
-> Reviewed-by: Chao Yu <chao@kernel.org>
-> 
-> > @@ -5636,6 +5684,16 @@ bool f2fs_release_folio(struct folio *folio, gfp_t wait)
-> >  	if (folio_test_dirty(folio))
-> >  		return false;
+> > In preparation for support of .set_rate, convert the clock register
+> > logic from fixed clock implementation to full clk_hw implementation with
+> > dedicated OPs for Airoha EN7581 SoC.
+> > 
+> > This is just a rework and no behaviour change is expected.
+> > 
+> > Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> > ---
+> >  drivers/clk/clk-en7523.c | 75 +++++++++++++++++++++++++++++-----------
+> >  1 file changed, 55 insertions(+), 20 deletions(-)
+> >
+> > diff --git a/drivers/clk/clk-en7523.c b/drivers/clk/clk-en7523.c
+> > index 24fdec2e6198..6640e814d36a 100644
+> > --- a/drivers/clk/clk-en7523.c
+> > +++ b/drivers/clk/clk-en7523.c
+> > @@ -126,6 +126,12 @@ struct en_clk_gate {
+> >  	struct clk_hw hw;
+> >  };
 > >  
-> > +	/*
-> > +	 * The folio state holds the uptodate state of the blocks of a folio
-> > +	 * that is not fully uptodate. Keep it while the folio has users other
-> > +	 * than the caller, e.g. a dentry lookup that parses a block without
-> > +	 * the folio lock, so that the block is not read again under them.
-> > +	 */
-> > +	if (f2fs_folio_has_ffs(folio) && !folio_test_uptodate(folio) &&
-> > +	    folio_ref_count(folio) > folio_expected_ref_count(folio) + 1)
-> > +		return false;
+> > +struct en_clk {
+> > +	struct regmap *map;
+> > +	const struct en_clk_desc *desc;
+> > +	struct clk_hw hw;
+> > +};
 > > +
-> >  	ffs_detach_free(folio);
-> >  	return true;
+> >  struct en_rst_data {
+> >  	const u16 *bank_ofs;
+> >  	const u16 *idx_map;
+> > @@ -742,42 +748,71 @@ static int en7523_clk_hw_init(struct platform_device *pdev,
+> >  				     en7581_rst_ofs);
 > >  }
-> 
-> BTW, we should notice this side effect, dio may be blocked due to it can not
-> invalidate folios which is referenced by other buffered reader.
+> >  
+> > +static unsigned long en7581_recalc_rate(struct clk_hw *hw,
+> > +					unsigned long parent_rate)
+> > +{
+> > +	struct en_clk *c = container_of(hw, struct en_clk, hw);
+> > +	const struct en_clk_desc *desc = c->desc;
+> > +	struct device *dev = clk_hw_get_dev(hw);
+> > +	struct regmap *map = c->map;
+> > +	u32 val, reg;
+> > +	u32 rate;
+> > +	int err;
+> > +
+> > +	err = regmap_read(map, desc->base_reg, &val);
+> > +	if (err) {
+> > +		dev_err(dev, "Failed reading fixed clk rate %s: %d\n",
+> > +			desc->name, err);
+> > +		return 0;
+> > +	}
+> > +	rate = en7523_get_base_rate(desc, val);
+> > +
+> > +	reg = desc->div_reg ? desc->div_reg : desc->base_reg;
+> > +	err = regmap_read(map, reg, &val);
+> > +	if (err) {
+> > +		dev_err(dev, "Failed reading fixed clk div %s: %d\n",
+> > +			desc->name, err);
+> > +		return 0;
+> > +	}
+> > +
+> > +	return rate / en7523_get_div(desc, val);
+> > +}
+> > +
+> > +static const struct clk_ops en7581_clk_ops = {
+> > +	.recalc_rate = en7581_recalc_rate,
+> > +};
+> > +
+> >  static void en7581_register_clocks(struct device *dev, struct clk_hw_onecell_data *clk_data,
+> >  				   struct regmap *map, void __iomem *base)
+> >  {
+> >  	struct clk_hw *hw;
+> > -	u32 rate;
+> >  	int i;
+> >  
+> >  	for (i = 0; i < ARRAY_SIZE(en7581_base_clks); i++) {
+> >  		const struct en_clk_desc *desc = &en7581_base_clks[i];
+> > -		u32 val, reg = desc->div_reg ? desc->div_reg : desc->base_reg;
+> > +		struct clk_init_data init = {
+> > +			.ops = &en7581_clk_ops,
+> > +		};
+> > +		struct en_clk *en_clk;
+> >  		int err;
+> >  
+> > -		err = regmap_read(map, desc->base_reg, &val);
+> > +		en_clk = devm_kzalloc_obj(dev, *en_clk);
+> > +		if (!en_clk)
+> > +			continue;
+>
+> return -ENOMEM;
 
-Not from my end. Can we add a bug_on to detect this first with a reproducer?
+Hi Brain,
 
-> 
->     Thread A (buffered read)                Thread B (DIO write, same range)
->     - filemap_read
->      - filemap_get_pages
->      : folio ref taken (batch), folio
->        partially uptodate, ffs present
->      - copy_folio_to_iter
->                                             - iomap_dio_complete
->                                              - kiocb_invalidate_post_direct_write
->                                               - invalidate_inode_pages2_range
->                                                - folio_unmap_invalidate
->                                                 - f2fs_release_folio
->                                                 : !uptodate && ref > expected + 1
->                                                   -> false
->                                                : -EBUSY
->                                               - dio_warn_stale_pagecache
->                                               : pr_crit, wb_err = -EIO
-> 
-> Thanks,
+as you pointed out in the previous revision, returning would change the
+behaviour so I currently skip the clock in such case...
+ 
+-- 
+	Ansuel
