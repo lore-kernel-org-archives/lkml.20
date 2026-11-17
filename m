@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794908295;
-	b=DJsSbEugr96KMkmhnzgh8K+RfdyD7UEVNtB9dN9TqBh7kIGUzi8MTuNm2GarezbiTbbZ
-	 mIczB82jvrAQvdUqoNP2QYqEVHu1cjysv0eq2sfRJfIB7fBBTFPgsaWbeGmpYuvHvYrUT
-	 MsRzrDD2i7MaMVWJBFjxOOollt08k5Vm6tGEOAsoR6cMjj2aoeI0MB0PflSSlix02ivRf
-	 rLWIwTcVatcSOMq5vC3im3G2h24jVoaV5MOHTHfXDpWkJUYi9KjfPmMDHY8FyH8S17VZm
-	 MXFLsr51J7PYfBqq5tRcNqIYFRWlqi/xoyadw4PcwLFc26ZRAwy7y56EAjNaK0O5Ilw==
+	t=1794908296;
+	b=eXyzb7uR2BeQi6tEQFHClINyVTvM0DnY0Ys843/2GkwVU7fdACKHKb4kSTeZSTAQykE4
+	 jUAl0/QAtRjpq3GKPMW6eIhOawTV+PHiuzQRdO0NoX90rDxltd0KoNAg1dr4/MUkhSOcr
+	 I/5iR3uVKpI21ByvdHhg0+PurdM/UhqWl8E+ZkjAxZBAg0x1H/X3voJwzR6KmMhI72m5d
+	 jv7oeNke7VPuHg8CvHUKsb0CWrH5TGon5Qor+zixAeTwarbld5onuXlJCbNzWO39DEOLY
+	 ftae3s2XUkMPF47nO8MvkBah+3n3IiRmOwYIWEaejqJ5QYjV3QSTc7fRTwW3hNEhxKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908295;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908296;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=/RD6QcqfT8lVqNV9ZoXFSMLkdbPS8XDfq1YdC5eCrLI=;
-	b=ccGxHgk/jZHVAJh/CT8YTk2osRSJCV1Z+Vy9SXff2f4W5KFe/dzoTuFEPHQaeGzLyNoA
-	 uHfnWVzjWqpEi5MRE4lk/gPRhbkVFEYdQ6cXQf6V8L7TCZtpVVyTEjz1wnPCbfWT3KCgo
-	 kfDq+GuMI6+uV1DyxBaNBrC0I6x2GIyofXd0eUUEwgJNFDqUD7wRaw8sihIOUGhMLDs/w
-	 Nw8KgyMdaJ9BPvWH+eQcNTBomsYpw6sibg36UoZh6KMyo9QQ5vXaQpyYd4sNvz4U1NS0O
-	 Fyk8n9RaAZL4mfHvQ35eG+cWSb7LEllw7gsmldJwSH7PWJ3XlRG1Gasxn+ZAEBEFXOQ==
+	bh=apAmpkE0yUB9HriZqVB6582NZhDT2GNuBD9sC7CKYDY=;
+	b=In7LsJ6HXe75q+8LSlvsERAnkYZiN2vETR5zL1pPYitDls0DqxhCgnPNkmrcu2xmDZDr
+	 2GPz/15KnEWuI5ZSu7jVt17h0zrDQl3r6Jf4/827c5o8UK/G1ej5FoN4ld3kZxz3IUO/B
+	 7HHK5n0JI2YtenKya02CNjYc2mvFx8Qdqj3lhQnta9Pxjt5NtbLXyhz4DzOItJMRxZdnJ
+	 7QmZw2vnEl7Qs2TLdi84ZJYIABe+YvLTZhHmqhvWgfOHU1bYzHaHY3Fqq8nBudP/2HlJz
+	 bVKKuhWB0RRxxY56DeMPhlNrzcZDKUfhfxXOSWkr+RML4u5aa29TpjM165aa2E4m+Dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="I4Nk4L/h";
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=dm8csNeb;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B5F7606A8A1
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:38:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B5F7606A8A1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A943606A88A
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:38:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A943606A88A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=I4Nk4L/h
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=dm8csNeb
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 185661A158C;
-	Tue, 17 Nov 2026 09:38:14 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 6AC2BC4EDB9;
+	Tue, 17 Nov 2026 09:38:19 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D93D15FC81;
-	Tue, 17 Nov 2026 09:38:13 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5B5CC11BC0C04;
-	Tue, 17 Nov 2026 10:38:11 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1BBE45FC81;
+	Tue, 17 Nov 2026 09:38:15 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 51D1211BC112B;
+	Tue, 17 Nov 2026 10:38:13 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794908292; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1794908294; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=/RD6QcqfT8lVqNV9ZoXFSMLkdbPS8XDfq1YdC5eCrLI=;
-	b=I4Nk4L/h2QpDBJLYY5gLsTTTDYv8Ivf8x6rjV60TsXh7rfHxs3zA7ug4gmIjNLdvE+JEKA
-	aSRecseI3/KOo1rgfOKTno22PqQh0ez73DNgz4ClEnRjil5Ijj+fqnB4y8yIlFHcZctn2y
-	SF8SR6sgV5Nr4cKNJ7xEJGEIVv3LbVAv/iEYcc+WjOR/nL025qEotPChW2HzTl/P5YVFuz
-	bAdvDU9oGaMSyWU7uTa25E8YIY6z29HjgMGeH2/vZ0BJDY4Jy638rg6tWjcHPEArqLS8Gf
-	OKdChEujc8+zzrKtjVDcHt2xGJkWuOYVpADTs2tsyHln7gcNtmpHi1ZYfSClXQ==
+	bh=apAmpkE0yUB9HriZqVB6582NZhDT2GNuBD9sC7CKYDY=;
+	b=dm8csNebFJOd9Vy0aaq5g2ibRA41Au40Uy/n6aKWvAtDssTcccvAtNYGjIcDATI8R9e3q2
+	E7x1kfAs1Q4z+XncYvhJduXnR4bNRAjlQAuJJPn1lD4YbGoI50kcZRWTT1QMwo4FcVRBhm
+	cbti09cZsxIwsFnvtl2taX1jo0InUVmNzd822m5ajvLS/t6wBXor+MpjSlO1DD+fSmLI/0
+	6jd7niRNfkUA5tqkZ7AfTlyriBTde9SKfmHxiVPWmuflybC1uOY4kEW494Hj+JfxRQVVLT
+	HOTLds8xCTOCyA75S2qE7Gm7u2dySXh71XVx8/Fm8Vbe7QVCheKbR6jJF5IS/A==
 From: Paul Cercueil <paul.cercueil@bootlin.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>,
 	Richard Weinberger <richard@nod.at>,
@@ -57,14 +57,10 @@ To: Miquel Raynal <miquel.raynal@bootlin.com>,
 Cc: linux-mtd@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Paul Cercueil <paul.cercueil@bootlin.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: [PATCH v2 06/12] mtd: nand: mtk: Remove #ifdef guards for PM related functions
-Date: Tue, 17 Nov 2026 10:37:44 +0100
-Message-ID: <20261117093751.14988-7-paul.cercueil@bootlin.com>
+	Paul Cercueil <paul.cercueil@bootlin.com>
+Subject: [PATCH v2 07/12] mtd: rawnand: fsmc: Remove #ifdef guards for PM related functions
+Date: Tue, 17 Nov 2026 10:37:45 +0100
+Message-ID: <20261117093751.14988-8-paul.cercueil@bootlin.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261117093751.14988-1-paul.cercueil@bootlin.com>
 References: <20261117093751.14988-1-paul.cercueil@bootlin.com>
@@ -90,46 +86,41 @@ regressions are subsequently easier to catch.
 
 Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
 ---
-Cc: Matthias Brugger <matthias.bgg@gmail.com>
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-mediatek@lists.infradead.org
 
 v2: No change
 ---
- drivers/mtd/nand/ecc-mtk.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+ drivers/mtd/nand/raw/fsmc_nand.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/mtd/nand/ecc-mtk.c b/drivers/mtd/nand/ecc-mtk.c
-index 66f0985ef7cd..6f210ba935ad 100644
---- a/drivers/mtd/nand/ecc-mtk.c
-+++ b/drivers/mtd/nand/ecc-mtk.c
-@@ -588,7 +588,6 @@ static int mtk_ecc_probe(struct platform_device *pdev)
- 	return 0;
+diff --git a/drivers/mtd/nand/raw/fsmc_nand.c b/drivers/mtd/nand/raw/fsmc_nand.c
+index 837c23c63aeb..56ab42ee9e7d 100644
+--- a/drivers/mtd/nand/raw/fsmc_nand.c
++++ b/drivers/mtd/nand/raw/fsmc_nand.c
+@@ -1186,7 +1186,6 @@ static void fsmc_nand_remove(struct platform_device *pdev)
+ 	}
  }
  
 -#ifdef CONFIG_PM_SLEEP
- static int mtk_ecc_suspend(struct device *dev)
+ static int fsmc_nand_suspend(struct device *dev)
  {
- 	struct mtk_ecc *ecc = dev_get_drvdata(dev);
-@@ -612,8 +611,7 @@ static int mtk_ecc_resume(struct device *dev)
+ 	struct fsmc_nand_data *host = dev_get_drvdata(dev);
+@@ -1215,9 +1214,8 @@ static int fsmc_nand_resume(struct device *dev)
+ 
  	return 0;
  }
- 
--static SIMPLE_DEV_PM_OPS(mtk_ecc_pm_ops, mtk_ecc_suspend, mtk_ecc_resume);
 -#endif
-+static DEFINE_SIMPLE_DEV_PM_OPS(mtk_ecc_pm_ops, mtk_ecc_suspend, mtk_ecc_resume);
  
- MODULE_DEVICE_TABLE(of, mtk_ecc_dt_match);
+-static SIMPLE_DEV_PM_OPS(fsmc_nand_pm_ops, fsmc_nand_suspend, fsmc_nand_resume);
++static DEFINE_SIMPLE_DEV_PM_OPS(fsmc_nand_pm_ops, fsmc_nand_suspend, fsmc_nand_resume);
  
-@@ -622,9 +620,7 @@ static struct platform_driver mtk_ecc_driver = {
+ static const struct of_device_id fsmc_nand_id_table[] = {
+ 	{ .compatible = "st,spear600-fsmc-nand" },
+@@ -1231,7 +1229,7 @@ static struct platform_driver fsmc_nand_driver = {
  	.driver = {
- 		.name  = "mtk-ecc",
- 		.of_match_table = mtk_ecc_dt_match,
--#ifdef CONFIG_PM_SLEEP
--		.pm = &mtk_ecc_pm_ops,
--#endif
-+		.pm = pm_sleep_ptr(&mtk_ecc_pm_ops),
+ 		.name = "fsmc-nand",
+ 		.of_match_table = fsmc_nand_id_table,
+-		.pm = &fsmc_nand_pm_ops,
++		.pm = pm_sleep_ptr(&fsmc_nand_pm_ops),
  	},
  };
  
