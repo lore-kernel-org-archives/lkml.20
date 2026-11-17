@@ -1,58 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794918904;
-	b=gVGVg6hMynZ2OkIBULuGLIHuNQyRO2mUnHTdv0VG9GJF6XUMyiFwG1lgZWL9kdjTVcyk
-	 JZE3sG+E+lWZAGmLrOdJ1X8Abv78mqka6rwSX+Uj79pYFeapw/br3xZyKQ3sMYS8TylGr
-	 CJ3VYR7o2XbSqDw3cNV4KlcsztA3vcE3KhmNoHcRc+CUjsUxSuAq2fuLbmPnj1wQJC7L5
-	 8819d2Js0DP5o6nDDf2O0UbcqdUeZdUNpO3xs/KElqzCMD8O26XlmdZx/nFL8u+DGdcnT
-	 PfEuSRj1OiwIeCcxizcr/eLKi8IwhiUWa3Adw4wJ7+CcMzADZGRl8QyVJsAIiACbBJg==
+	t=1794918913;
+	b=crYBB2qp7GJISf4prQHQEQ0brtZM7XiF53j2g5twgXlTkABQuUC6nSYRZr37BuBeaFlQ
+	 SntEyD1pG8+CUxYk0tt9Lt4Qjk3Wb3lJ2KUWGwVSnolvHnwzXNBD0pVwMzzFWIXsvM28p
+	 bSi7GiDl6RrpgZjcAOWapwyleJGtHm1YZMNZ9xOZDPFIGqmlJ7ayiL8e9VL1kA6BsBjBI
+	 uCypELp+P++tdAtiaHISBY+MVAFXg1tZ7mxVGng1PbKSuxQdnTvzEFg10+SQb5MB6eLME
+	 AkV731/bJRXXkwmskh58waamYs8OuhZcx6fD4nLOj9/uMmgdiCTdRI3tlpm+q0hJwrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794918904;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=DwNMiD1mt8wNJhdYDB5v0+WOkSAHN5ASRcYPM0VYogQ=;
-	b=cpKfEcalhMuxjJajph7KoXkbVo6u/lCTidaKRUZlVZT23USu5zk91sdHAG4Zxtq7rz2+
-	 +fWnTsirxax3CxATRREOj/JyPGoCVEJ0LNEDvs5JS9cmZtRDa1BHH5TMAyNLNWG6mBT4K
-	 EZE57JpHnyu6HhJvJMjSXtfBNQkVQQgApCVtpy4xqVfmYs91nEec7qAFKion3IAY4cF4B
-	 tRpAUAKK5UVyJEKRWGyqKql3rtWnQ9j1TISm43SWt2fuD1tu+6Rzoq/W99Pi6F9T6sQug
-	 m5E2LPPDQZM7bmWzg5s9H2dZCxcDz3ZV0DNoN3DoSkMrFaDVJRweyvSqjgmt0ybZWzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794918913;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=FTSv6ihte4nmTksdoeFy+3LI3u1ABgbMWkzngS5Y3BU=;
+	b=j/Spoa4GpOzF/zrt8ura5VewEgT/9byMZKsTQiGgjfIR/DAmMcztb5XVlYCeFfjCEhnr
+	 OnMh8Ujsy44oTzPsdy/MkEFNFgOz8vD1rIe/AzxJQz2UTc1OqoLypBnr3l1az3ijDdLos
+	 hpj4tny1wu6HqCDUwmi0lRWImZsCqkHJ0Eok5SDKcZaYl++7UwTVQ59ObYjwpwkuMR4uq
+	 B0LXPRrwjfgXPH6Z5sECpWKtqxyHoJqRPdXqmjY9bFtGNWUYdodrIfZUD4cQ6mtuQ0+0Y
+	 gA1XzcbjL31P6zcGhG2SdXabMYPsVa5k7i68ZkL+ZxfRq3wC3l+V5thI9rG0NHM6UyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="aV/RjyD3";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JQNZIf2I;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 9BBB8606A31C;
-	Tue, 17 Nov 2026 12:35:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F91B606A31C;
+	Tue, 17 Nov 2026 12:35:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aV/RjyD3
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id A7B3F1F000C4;
-	Tue, 17 Nov 2026 12:35:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JQNZIf2I
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75AFD1F000C9;
+	Tue, 17 Nov 2026 12:35:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794918904;
-	bh=DwNMiD1mt8wNJhdYDB5v0+WOkSAHN5ASRcYPM0VYogQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aV/RjyD3docplm2Ps767K6vpqBSGwAouRbESZWLZ32z2I6dBCiYF2KaCxPUMTbCif
-	 0aY6yyEXISOTVV/VZFhCrPoRPjeiE9o/8bIJOPSPQZEQUqo1WX2BPiYLkBt8KSTtMH
-	 24Bhv+HAYi9/U2QznKnP00m+qY8BGHTaitzHigUJQRfoqLOwE4UIfLNJaI5kKEYWlW
-	 bHwXs+bCl3PW9TUE8KdQq8GeqkDUvfojckr4gvyzOXIWr0oZ090wySSH9zQdOJKEJh
-	 UFrclnPOSzV2Heb3NGOR8iKkIZJCsGWzdVA67yh2FS74WBmurdS7arZGPGMUtWQFox
-	 tiRtQ/4WhD1pg==
-Date: Tue, 17 Nov 2026 14:35:00 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Rustam Mustafin <rmustafin@cloudlinux.com>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Jaewon Yang <yong010301@gmail.com>,
-	Tadeusz Struk <tadeusz.struk@intel.com>,
-	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] tpm: track the response read position internally, not
- via the file offset
-Message-ID: <avxJ9MxZ0PoWbQTc@kernel.org>
-References: <alvD5nOP15O5B8Ai@kernel.org>
- <20261117104838.2650999-1-rmustafin@cloudlinux.com>
- <avwzid1Ovl4ACkaQ@kernel.org>
+	s=k20260515; t=1794918912;
+	bh=FTSv6ihte4nmTksdoeFy+3LI3u1ABgbMWkzngS5Y3BU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=JQNZIf2IbBsGUpKxUwUAcUCUxQVjWtwoWj0mJ4JjI4DYkjwVhxDpvQVDbRQeRB27w
+	 nJMI4zwPQEAceaO16Bqy/qTL2txb1WD9G+4/rl7kkjo2HbApPCm5vh9gK+Rtnd3MlA
+	 NDfFO4fL8EW3lz6pxI6ZbVsKq7Hii95cnd5pgpMpdqjcMgkcPbWCSbk+x+5EtbvdUk
+	 GTQXqKs/byesNrEzbq6MIqinphBvDajiI8f5wIFBNQyqGPNd7PxXE+7q+HEsyri3VG
+	 MxGclWeovo4ZNDS4Sq59m8PTZV9ViR8QPt980suOySFAjBemp6liDub42ik0FgLX5Z
+	 h9zZVzxV2jh5w==
+Message-ID: <bbefcf0b-b31e-4f74-bf79-b0ccc983f62b@kernel.org>
+Date: Tue, 17 Nov 2026 13:35:06 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,23 +51,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avwzid1Ovl4ACkaQ@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/4] arm64: dts: mediatek: mt8167: Add DRM nodes
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+ linux-mediatek@lists.infradead.org
+Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, CK Hu <ck.hu@mediatek.com>,
+ Jitao shi <jitao.shi@mediatek.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260921113914.779393-1-l.scorcia@gmail.com>
+ <20260921113914.779393-5-l.scorcia@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260921113914.779393-5-l.scorcia@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 17, 2026 at 12:59:25PM +0200, Jarkko Sakkinen wrote:
->  ...
+On 21/09/2026 13:38, Luca Leonardo Scorcia wrote:
+> Add all the DRM nodes required to get DSI and DPI to work on MT8167 SoC.
+> 
+> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> ---
+>  arch/arm64/boot/dts/mediatek/mt8167.dtsi | 369 +++++++++++++++++++++++
+>  1 file changed, 369 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/mediatek/mt8167.dtsi b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
+> index 27cf32d7ae35..a50bae4307c1 100644
+> --- a/arch/arm64/boot/dts/mediatek/mt8167.dtsi
+> +++ b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
+> @@ -16,6 +16,22 @@
+>  / {
+>  	compatible = "mediatek,mt8167";
+>  
+> +	aliases {
+> +		aal0 = &aal;
+> +		ccorr0 = &ccorr;
+> +		color0 = &color;
+> +		dither0 = &dither;
+> +		dpi0 = &dpi0;
+> +		dpi1 = &dpi1;
+> +		dsi0 = &dsi;
+> +		gamma0 = &gamma;
+> +		ovl0 = &ovl0;
+> +		pwm0 = &disp_pwm;
+> +		rdma0 = &rdma0;
+> +		rdma1 = &rdma1;
+> +		wdma0 = &wdma;
 
-I think this would be more feasible:
+Folks, what is happening here? Why Mediatek is adding bunch of
+undocumented aliases? This should have never been accepted to Mediatek SoC.
 
-        if (current->flags & PF_IO_WORKER)
-                return -EIO;
-
-        if ((current->flags & PF_KTHREAD) && current->io_uring)
-                return -EIO;
-
-I.e., block io_uring entirely.
-
-Br, Jarkko
-
-
+Best regards,
+Krzysztof
