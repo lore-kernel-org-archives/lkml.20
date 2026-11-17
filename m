@@ -1,57 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.96
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794896316;
-	b=GSNLUOmg6MY4NkVpT/1bsX/QzwqDHSrcxhXil02zz2Kj2m+40KnTZ5LN7Aq7V9ww9OrY
-	 U8kfVhihJu3Gl/89lhVtilPkur+dLttkkxnfdRK+pcTNsKBTddUhdIxoJyJcsLfLIDRzb
-	 yZy8399jvxxToPsU4/sIQlHrUhpfzLdfbagg2FL4zCdfFt/eGKMHM929aWQY/SkpvQ53J
-	 hCKi1Ufe+fGSbuJ9OnWK3mGY4OvcB3fTCYvAd7V/abZCUiDRTsWMx5qzyU5Z/2pIqYFtw
-	 q6bjTorTiMCXhbuyToLVUyIx+1A7ECrBRG/y3TbMHjsDX8oWmQUl2oiTp/kccTeiTqA==
+	t=1794896325;
+	b=DY3oMQ27NmTdIamT1nKrprN8AN9BPvGi+D4D8iz25wPQJEyE2Dy/phANdDGLwkuu1ez2
+	 AUPkH93QL1T/jH7I+ey6JxzAeyv/p/PdYN08HsLMqNvNUBErIu6fbyypH3NUlrJn+v8bL
+	 X9TPsnRkAfhPITmZ7VOBG0Wftj3681VIpYNpiqr4CKdEFXDqfzGzVx9KJiFQw5g/kDZFo
+	 S4d8ND5N6qlY8Tp9yL46X8yQAOExqnfROot1MrKxeq0B/jUbH6V6KL5gF5vks4MOutFN4
+	 BzDsgIwdwBKbXl7dTWyUdQk4Y0BJ1f5kprK5Zjq6SW2v1kDV0rtLsEv/7W3SRM/KpeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794896316;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=g9WpbvpWayMQty3L13Bl45/w53/aszcbD+lahmZQyRM=;
-	b=d3A+4cBLzh7+qXbnqVqweIxKZwOgLrZqw2wHbCXSKfka7aSR0HUyLbxAIevdPi8s3RmB
-	 yHJjs1n9XSNWJC9kcYH6Dqch8ShlmuAreFP9mj8bjzIRU3DdPDLq3dAt4xLuJhN2CC6cH
-	 FinEiaN0G7KO/vF2Cv0nG6lVaPoWUj9zneuZdrDHCkgUXLH6fwt/OPjB9zO8iIGagiSK9
-	 fdBFUi5xX5LfgtlQl97jq6VVM1+TIjBjTr7mG5ObL0dgqBz5QzLcV9w+3pUbTZE7Tj71v
-	 3of7m4hZ0RBGeQxaGft2l71ioKDU+IQ4obBVCmxS8lT46Ww76+UWmD3tzcfzeIO55bw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794896325;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-DetectorID-Processed;
+	bh=ZvSvLnicjKBpFuI464ZexGGWbzTJ/XXBoXu7p2ye4nY=;
+	b=RHmaIERIVI0oxRqe6CCCkiNO7owgVkoF4FM2MOhic59rB4eQchfE/+Wq/WfwH1chNZaS
+	 Pzw1NxVEiV248NDNmakfOUSH7TshcWNsggAE77ZjXD2wTrXQj+r6O9VrY3THHnPJqcS10
+	 iWl0JJqJpCmpssafuMPbuOPw+zlB6ZFTA2BMxtADHCUp7KNTRw3U+FkE/cCt0phtLqGJ+
+	 37xAKxIsMBAZhyZDoRrUTP5JpE+sDzXI8/G/HoZ1kX48nFtcjNeacILcHT7KC1y6+AgL8
+	 79b+hweG9Mz2cvdSJzcaIs8SaIc1wjRJVyToSVx40sl1hfr5FvtHGowl2u3Z1LMP8PQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=logarcheon.com;
-	spf=pass smtp.mailfrom=logarcheon.com;
-	dkim=pass header.d=logarcheon.com header.i=@logarcheon.com header.a=rsa-sha256 header.s=protonmail3 header.b=aMkJ5Ohz;
-	arc=none smtp.remote-ip=185.70.43.96
-Received: from mail-4396.protonmail.ch (mail-4396.protonmail.ch [185.70.43.96])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=UIDTyAHI;
+	arc=none smtp.remote-ip=209.85.217.100
+Received: from mail-vs1-f100.google.com (mail-vs1-f100.google.com [209.85.217.100])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C993E606A32F;
-	Tue, 17 Nov 2026 06:18:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C993E606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=logarcheon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=logarcheon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D70F606A335
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:18:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D70F606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=logarcheon.com header.i=@logarcheon.com header.a=rsa-sha256 header.s=protonmail3 header.b=aMkJ5Ohz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=logarcheon.com;
-	s=protonmail3; t=1794896312; x=1795155512;
-	bh=g9WpbvpWayMQty3L13Bl45/w53/aszcbD+lahmZQyRM=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=aMkJ5Ohze3Y+7hsinO4MXCkJXPdIKh45KSb55ZUDw3FWXosvQfupgdTYdCXGYwxGY
-	 QdgthtugQINRkI8mj8sQDNHfu8B5/oNGkPw0oHSeQoElN1+s2adPcexRDbWEBMwWVf
-	 da6lBC0Doe48/TlERkZZtQDuwO5f1SRofB0rg8BqE8CKCQvsvMPu3CeU3gvddMawAJ
-	 K7dlr2X5WrllzNjZ90vOk9wmbTj/BBLxKxtMOdUR2+497y2F4cpdR6TJjjz/SvmzdY
-	 tUG+0ZCz3FzW2WtwfIubSbq9SF46R3jZhTGEad7u1zVtei+kSDup6hhf4Mg2hwW4JP
-	 Xi5P5bwp/o1Rw==
-Date: Tue, 17 Nov 2026 06:18:28 +0000
-To: Theodore Ts'o <tytso@mit.edu>
-From: William Chuang <founder@logarcheon.com>
-Cc: Andreas Dilger <adilger.kernel@dilger.ca>, Jan Kara <jack@suse.cz>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, Ritesh Harjani <ritesh.list@gmail.com>, linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] ext4: reject a non-regular boot loader inode in EXT4_IOC_SWAP_BOOT
-Message-ID: <20261117061822.3826-1-founder@logarcheon.com>
-Feedback-ID: 145408520:user:proton
-X-Pm-Message-ID: ca8656d4290b5230c64af18a94219f857e1b015d
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=UIDTyAHI
+Received: by mail-vs1-f100.google.com with SMTP id ada2fe7eead31-7d2bf046d7fso3489462137.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:18:44 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794896323; x=1795501123;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZvSvLnicjKBpFuI464ZexGGWbzTJ/XXBoXu7p2ye4nY=;
+        b=LsPu0/uv4X/KVE898XTWmDGkZtVDmNcKKAimR2lsA/3BlWSo9JnyxD+Rz4DLKg/MID
+         hzV2lawsXMW2crsQRQlnnO0Mrj7kc0Z6+oi4UvgqXAcwjMwL1VOiM61jfUAZaoA3wb2G
+         DjWJXWcSE5H4l4y+tHI4ORz2cdvlVR5p8qYOFt50dCRIfSzk5JJK9ukfMHJ9pvG/O0Jm
+         e5Q2PKSyGjCJV/baOKTrk05wJLLiZQZBAXJ+W64xeIpDAZN76COFmQvRcoHefI58zR8v
+         IXAKQ9y4N7yM0PkIqJJoxpeUIaFZn6oXf22F+2Ohj+V5BCOCOBpEpOaHmbmBFsoJZ+SH
+         2uKw==
+X-Forwarded-Encrypted: i=1; AL+hErGRSqSk18o25gtJOzH+zh6ZElfzogJK+c8pf4UTdy33F3i5Qnoez26ytQgbA6l/dcHqciGTxIT6gxC8fvk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8LehBEiUMOu3Ln0k2dTIufVKc62aWmKjpfsVdiGbRVk8td4rZD
+	jTDiUdxzEYXINQVYJzRjUhRhSdH0xVnWV1IaBXcbGT0GqhpG++42OS8gdJebzqw1+Te9vDrWlvh
+	FUAmG7kctGhxVr9kfc+mXPG2hUqxQOrEyo6UUaC72MLoTdpKuFxatWM6Tx/WIZyBr2DtuAs+9LN
+	c7wvMrCI8uKiK/POLLBYxRPG2aEJ5UvLOprC2Ev/gboT+csiltk0mpjf1ipkfLzUwQ1wZv+CSNC
+	cYpmaDfiN7VLoyphdlEqHNgPTYK
+X-Gm-Gg: AYBFou2dG340YiPtLYxWgJMCqMNElaRt2uAFyotndk8QztLuSAHpq1CuRDFuyyfozgW
+	09zFTIRjlSQE6lOm5ZwDeAEvZWmlvRnXK2NscABcIyOwdG0DmcmvX+hJwlf8TQDE4MECZro6Hmo
+	x6I9TPUPLHn6ZY3gYAVhDsxXWinpA5p+Mcj34BHga8cefJcW7X1rCD60sOZXnAvelJukXq/aSJg
+	lqFkocnZqXLoqXt/3dSEvD8MRm2lQZbLE+HZ8ZFuFdvw7PjswxFx/VvtifuLJzRfTCbr+M1HUBP
+	BDXa7yyb5eFft27i0KmK+F++RCaupxsIn3hAODLr/yeZYbcUDd/kXaCRqgyQP61i/xkr3hB1YaD
+	VaRSB/Fgu4ZKTIShg3mhoIatlh8XmZSGwbQOr9KZLfrClXWQ8IZjLF+IOC/DcjrJ9wIQUYreTHv
+	qu/SPvaOT79nGSNio953bWcDWHDc4rsooSPzeO9fH2Y0jP
+X-Received: by 2002:a67:e111:0:b0:7d2:da60:d0f7 with SMTP id ada2fe7eead31-7d64d7d3570mr4132229137.28.1794896323467;
+        Mon, 16 Nov 2026 22:18:43 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-123.dlp.protect.broadcom.com. [144.49.247.123])
+        by smtp-relay.gmail.com with ESMTPS id a1e0cc1a2514c-99e338490a1sm245871241.10.2026.11.16.22.18.42
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 16 Nov 2026 22:18:43 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ed02a00b24so38383255ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:18:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1794896322; x=1795501122; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZvSvLnicjKBpFuI464ZexGGWbzTJ/XXBoXu7p2ye4nY=;
+        b=UIDTyAHIBvkUU13CQsg66C05rJTd2YYm6xckgwb8JisbktUq2WbgvA0zs1Ih8JKyCL
+         9a3kP59DsbWWcGpFWqc3U0T+/oUble1vr8WCyP0w1maBYMQjcD+6PRrDvf4lXmSxnQkk
+         e2FS3z0RFc3nx9tDYGhmjdtjSFNSujQGOw+eg=
+X-Forwarded-Encrypted: i=1; AL+hErHLYDRezY2jdoWV0zBxVLlmbdfskzvPCHqEIXP5Z+kJHN5caZrhievKN4pBGZLg0ExjZozStzFukAXUBF8=@vger.kernel.org
+X-Received: by 2002:a17:903:988:b0:2ed:12a1:c4a9 with SMTP id d9443c01a7336-2ee0da968bemr123076435ad.11.1794896321830;
+        Mon, 16 Nov 2026 22:18:41 -0800 (PST)
+X-Received: by 2002:a17:903:988:b0:2ed:12a1:c4a9 with SMTP id d9443c01a7336-2ee0da968bemr123076235ad.11.1794896321400;
+        Mon, 16 Nov 2026 22:18:41 -0800 (PST)
+Received: from localhost.localdomain ([192.19.203.250])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd76d8668sm8669335ad.6.2026.11.16.22.18.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 22:18:40 -0800 (PST)
+From: Bhargava Marreddy <bhargava.marreddy@broadcom.com>
+To: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	andrew+netdev@lunn.ch,
+	horms@kernel.org
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	michael.chan@broadcom.com,
+	pavan.chebbi@broadcom.com,
+	vsrama-krishna.nemani@broadcom.com,
+	vikas.gupta@broadcom.com,
+	Bhargava Marreddy <bhargava.marreddy@broadcom.com>,
+	Dharmender Garg <dharmender.garg@broadcom.com>,
+	Rajashekar Hudumula <rajashekar.hudumula@broadcom.com>,
+	Ramakrishna Koduri <ramakrishna.koduri@broadcom.com>,
+	Rahul Gupta <rahul-rg.gupta@broadcom.com>
+Subject: [PATCH net-next v5 4/5] bnge: make irq_tbl layout depend on BNGE_FIRST_OPEN_NQ
+Date: Tue, 17 Nov 2026 06:16:40 +0000
+Message-ID: <20261117061641.122942-5-bhargava.marreddy@broadcom.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261117061641.122942-1-bhargava.marreddy@broadcom.com>
+References: <20261117061641.122942-1-bhargava.marreddy@broadcom.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,79 +126,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-swap_inode_boot_loader() gets the boot loader inode (inode 5) with
-EXT4_IGET_BAD.  On a new filesystem that inode is unused, its mode is
-0, and ext4_iget() returns it as a bad inode, which make_bad_inode()
-sets to S_IFREG.  On a corrupted or crafted filesystem, ext4_iget()
-can instead return inode 5 as a directory or another non-regular type,
-fully set up with that type's inode and file operations.
+NQ0 will be created at probe, before the aux (RoCE) device has been
+given its MSI-X vectors, and must keep its vector for the lifetime of
+the driver. So the probe NQs must come first in irq_tbl, followed by the
+aux vectors and then the open NQs, instead of putting all NQs after the
+aux vectors.
 
-Such an inode is first passed to lock_two_nondirectories(), which
-warns if it is a directory:
+Describe the irq_tbl layout once, next to BNGE_FIRST_OPEN_NQ, and add
+bnge_nq_irq_idx() and bnge_aux_irq_idx() to compute the irq_tbl index of
+an NQ and of an aux vector from it. bnge_fill_msix_vecs() uses the
+latter to hand the aux device the vectors that follow the probe NQs.
 
-  WARNING: fs/inode.c:1271 at lock_two_nondirectories
-   swap_inode_boot_loader
-   __ext4_ioctl
+The ring_idx passed to the aux device changes meaning accordingly: it is
+the irq_tbl index of the vector, not an index within the aux range. This
+matches how NQ rings are created, where the ring index is used as the
+logical ID that ties the ring to its doorbell and MSI-X vector. The aux
+driver uses the values it is given, so it needs no change. The total
+number of vectors is unchanged.
 
-The "never used as a boot loader" branch then sets inode_bl->i_mode
-to S_IFREG, changing the type of a live in-core inode while it keeps
-the operations of its old type.
+BNGE_FIRST_OPEN_NQ is 0 for now, so the layout is unchanged. No
+functional change.
 
-Check the type right after ext4_iget(): report the corruption and
-return -EFSCORRUPTED unless the inode is a regular file.  The unused
-case is unaffected, since make_bad_inode() has already made it
-S_IFREG.  This is the check Ted Ts'o suggested when the warning was
-first reported.
-
-Tested on UML at 666539eec: inode 5 set to a directory or a character
-device with debugfs, then EXT4_IOC_SWAP_BOOT issued twice.  Before
-this patch, the directory case warns, and both cases succeed and
-leave inode 5 as a regular file on disk.  After it, both return
-EFSCORRUPTED, the error is logged, and inode 5 is unchanged.  On a
-new filesystem the ioctl still succeeds, twice.  Not tested: KASAN
-builds and syzbot's 2023 reproducer.
-
-Fixes: 991ed014de08 ("ext4: fix bug_on in __es_tree_search caused by bad bo=
-ot loader inode")
-Suggested-by: Theodore Ts'o <tytso@mit.edu>
-Link: https://lore.kernel.org/all/tencent_DABB2333139E8D1BCF4B5D1B2725FABA9=
-108@qq.com/T/
-Link: https://sashiko.dev/#/bug/linux-8cfc8e22-8259-4c89-8a8b-64c16e4481a5
-Signed-off-by: William Chuang <founder@logarcheon.com>
+Signed-off-by: Bhargava Marreddy <bhargava.marreddy@broadcom.com>
+Reviewed-by: Dharmender Garg <dharmender.garg@broadcom.com>
+Reviewed-by: Rajashekar Hudumula <rajashekar.hudumula@broadcom.com>
+Reviewed-by: Ramakrishna Koduri <ramakrishna.koduri@broadcom.com>
+Reviewed-by: Rahul Gupta <rahul-rg.gupta@broadcom.com>
 ---
- fs/ext4/ioctl.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ drivers/net/ethernet/broadcom/bnge/bnge.h     | 19 +++++++++++++++++++
+ .../net/ethernet/broadcom/bnge/bnge_auxr.c    |  4 ++--
+ .../net/ethernet/broadcom/bnge/bnge_netdev.c  |  2 +-
+ 3 files changed, 22 insertions(+), 3 deletions(-)
 
-diff --git a/fs/ext4/ioctl.c b/fs/ext4/ioctl.c
-index e8e579498..cf005fe2d 100644
---- a/fs/ext4/ioctl.c
-+++ b/fs/ext4/ioctl.c
-@@ -390,6 +390,20 @@ static long swap_inode_boot_loader(struct super_block =
-*sb,
- =09=09return PTR_ERR(inode_bl);
- =09ei_bl =3D EXT4_I(inode_bl);
-=20
-+=09/*
-+=09 * An unused boot loader inode comes back from ext4_iget() as a bad
-+=09 * inode, which make_bad_inode() leaves as S_IFREG.  Any other type
-+=09 * means the on-disk inode is corrupted; its type cannot be changed
-+=09 * in place below.
-+=09 */
-+=09if (!S_ISREG(inode_bl->i_mode)) {
-+=09=09EXT4_ERROR_INODE(inode_bl,
-+=09=09=09=09 "boot loader inode is not a regular file (mode 0%o)",
-+=09=09=09=09 inode_bl->i_mode);
-+=09=09iput(inode_bl);
-+=09=09return -EFSCORRUPTED;
-+=09}
+diff --git a/drivers/net/ethernet/broadcom/bnge/bnge.h b/drivers/net/ethernet/broadcom/bnge/bnge.h
+index 5cc08177ff86..5f7147baaf83 100644
+--- a/drivers/net/ethernet/broadcom/bnge/bnge.h
++++ b/drivers/net/ethernet/broadcom/bnge/bnge.h
+@@ -240,6 +240,8 @@ struct bnge_dev {
+ 
+ /* Index of the first NQ created in ndo_open() and destroyed in ndo_stop();
+  * lower NQs live from probe to remove.
++ *
++ * irq_tbl order: probe-time NQs, aux (RoCE) vectors, open-time NQs.
+  */
+ #define BNGE_FIRST_OPEN_NQ	0
+ 
+@@ -289,4 +291,21 @@ static inline void bnge_db_write(struct bnge_dev *bd, struct bnge_db_info *db,
+ bool bnge_aux_registered(struct bnge_dev *bd);
+ u16 bnge_aux_get_msix(struct bnge_dev *bd);
+ 
++/* irq_tbl index of the i-th aux vector, also used as its ring_idx */
++static inline int bnge_aux_irq_idx(int i)
++{
++	return BNGE_FIRST_OPEN_NQ + i;
++}
 +
- =09/* Protect orig inodes against a truncate and make sure,
- =09 * that only 1 swap_inode_boot_loader is running. */
- =09lock_two_nondirectories(inode, inode_bl);
---=20
-2.43.0
-
++/* irq_tbl index of NQ nq_idx. @aux_msix is a single bnge_aux_get_msix()
++ * sample shared by all NQs of one allocation.
++ */
++static inline int bnge_nq_irq_idx(u16 aux_msix, int nq_idx)
++{
++	if (nq_idx < BNGE_FIRST_OPEN_NQ)
++		return nq_idx;
++
++	return aux_msix + nq_idx;
++}
++
+ #endif /* _BNGE_H_ */
+diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_auxr.c b/drivers/net/ethernet/broadcom/bnge/bnge_auxr.c
+index 87ae40eab592..d1cc2e8b6e9b 100644
+--- a/drivers/net/ethernet/broadcom/bnge/bnge_auxr.c
++++ b/drivers/net/ethernet/broadcom/bnge/bnge_auxr.c
+@@ -34,9 +34,9 @@ static void bnge_fill_msix_vecs(struct bnge_dev *bd,
+ 	}
+ 	num_msix = auxr_dev->auxr_info->msix_requested;
+ 	for (i = 0; i < num_msix; i++) {
+-		info[i].vector = bd->irq_tbl[i].vector;
++		info[i].vector = bd->irq_tbl[bnge_aux_irq_idx(i)].vector;
+ 		info[i].db_offset = bd->db_offset;
+-		info[i].ring_idx = i;
++		info[i].ring_idx = bnge_aux_irq_idx(i);
+ 	}
+ }
+ 
+diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
+index c2f1f517348e..a9cae94c2a62 100644
+--- a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
++++ b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
+@@ -540,7 +540,7 @@ static int bnge_alloc_nq(struct bnge_net *bn, struct bnge_napi *bnapi,
+ 	}
+ 
+ 	ring->fw_ring_id = INVALID_HW_RING_ID_32BIT;
+-	ring->map_idx = aux_msix + bnapi->index;
++	ring->map_idx = bnge_nq_irq_idx(aux_msix, bnapi->index);
+ 	return 0;
+ }
+ 
+-- 
+2.47.3
 
