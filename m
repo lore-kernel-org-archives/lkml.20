@@ -1,49 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794915985;
-	b=KzZOy4ysGyHNqsYhA8ptqlYK/FhxLasoYFLCIjGjBdPDCb8Mmj+Qfzk++2G42wuh9EbH
-	 GKbrF4Fg20UkwhwEeeJQI4c2azISj8JEOXYir84CGp3xhrZuCSISz9/8TNKR07mhPDjEH
-	 QjaaDpbtxwLrFsbXVNfGREKf/BEKtsJ1r9VH5IpAzRqMsoaJrtjGpnS7KqqXgGcq/XOrb
-	 I9hPiEtAyaR5vOIUE2halqqMfSQmN9xNORPcRFIfF7OVw7S1L43V50qccLLIJr2q/YEyb
-	 kQ4s/mE031UqnaKAuTXKCXPAxdzZMZjYJE5PJjcdz0DuGCVKiLZ2fW938BZLpQmOSlg==
+	t=1794915984;
+	b=AW6+PssM2avczHbzG8O6DmpLyWJXQHQO+DSA3+eVK4p+QFL+Ju2CRACi0hDbbs7UziUJ
+	 pzvUAdgy4L16QSnX1RHiQ0WH1/rr25llBUMwX33mcTULT1X/FgjQETux3vp0hYGqyKiiu
+	 gCMWQ+6GS0KOPBk7L5jIgKL46g/GKVvIy9yBdIbyh26yv2rt9d0kD+DVuSZRiNvDTsqkC
+	 SG6bHVnSXabWNtYFkGUsaij/zbsdmOx29Qg5NJq7m/Xxd6tu+GpcBQwNEQjdpth1re9yK
+	 UqB4O82X7U4iQzlenKSs04ZKveACaESv5CAkWAZoVfEKcgc/UdawWiNiCWMn+jJibBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794915985;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:References:Content-Language:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=OXJNha1bJGx3PGZn1ib0OfACTrDka5jhorLYCQ6nPY4=;
-	b=wN+fs+3YIBJO2j5xHCNjshc35WecKMDrMBi8P59pM4v7WZydJProfn4ng+NRASkscQp7
-	 NB1qAY7f0TBLldmXd2AQuGO9Mm4I+BcwViG8Mbb88iG9vw/oCagfjmyXu3kuTYLSsWAkX
-	 /G2cbo7BFHp/FPmYSwxhaOrpSwPYI4YyQZViq7nQ92QAR/q56FxIv3tJxrXmzVjlHH8bd
-	 wOfiAi0UvtS06E177JVy24oNmCu3Xavg9wp1DG6kYikFwKdzyv0/osM1mo9/DnhO/a1HZ
-	 h4JeFbTfwJoEXoK41qXLKDM35CVoiFahwEQubm5vpRv6Ma9HKJzOIMvixFtYc55rzfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794915984;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=HQTopMIqCY4zPfhDGuHy1seuNrCTYX4bZ5zOK/2bo2Y=;
+	b=g1BRZv403KP0tZjFvIF3xkBAKQC1CEknJlNec0qYnK0OIRunpBzC8UwbEJeaarCQjQWR
+	 4/A4jWxcl5Jp69SeGRMeIKtDqmU0Fgdr9pWkcHjriLRHp4K1okTTQWlngxVg2F41V94Gh
+	 HvxoYBzyK3w6aii8BuCj2nDjc8xVvEW2ZJVQMTZgygbalvHFge4C6+YF9JmcY4yFlmEWh
+	 uF2Ny/SEKDQMv0Vn+yL9BhSu3QlqP+CVZ+z9dH5iNMwnC0hmx7OExw3UgFq0GV0Zjm9tC
+	 1mZwPiFcbNKbohaDxNRwVK2+m/ir25ABIQSQ5u2wgs28V3tT6ZsMN+exfS+fn+Yqcqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=TZNn+gei;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E1A83606A330
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:46:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1A83606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=djNmh7oW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D2D9606A323;
+	Tue, 17 Nov 2026 11:46:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=TZNn+gei
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2A1DF1476;
-	Tue, 17 Nov 2026 03:46:21 -0800 (PST)
-Received: from [10.211.55.3] (unknown [10.57.17.180])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 444723F763;
-	Tue, 17 Nov 2026 03:46:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794915984; bh=DZVhaNUhaosLlDsHwEQdfcVRe6A1IplZ/CstRw26ggg=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=TZNn+gei2avJAJl9ZjB8q0V4knYH1OvYVvh3+mFDatHhB38iHF34JIh9mZVg6Avmp
-	 C7lQy7eTz/CwH6gsp0hxQfOnO5t20BQeo4Lp5XaImpNk43fFwiYFGEmlWAUKMsi7Qb
-	 4ulRE5SZ7yM16gOj1Eyi9y7tIvhmOVdOzn+SnB5E=
-Message-ID: <552e2119-f08c-4ec9-8c90-4be012a2d690@arm.com>
-Date: Tue, 17 Nov 2026 11:46:20 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=djNmh7oW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3ABE41F000C6;
+	Tue, 17 Nov 2026 11:46:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794915983;
+	bh=HQTopMIqCY4zPfhDGuHy1seuNrCTYX4bZ5zOK/2bo2Y=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=djNmh7oWaxGzZVHGeZYxIIyMfqlhZ3PZOdsThjCapg1qskB1qmc5uvQ2xEAjnlLg1
+	 I2QTTqW+hwgA5XTeWC0AqZqJ8tunSQGT/vtV/WfyS95SXYaaM65PgoBCqJnF5vMAgb
+	 5fObF3SBP1YiM8fZ+WvHvCM8m/9QWkjUviX+7vsERtiHWHqWfF0YHVCCN4g0pS3nmU
+	 g/Liy39LTsDkcfQkzzzjhoiqAxTn7pFeiPQp0SLg5TX6ZOxA6AIFn9AB8oHfmG+TYQ
+	 n3+Y6Ot5QlHCbGJZw9h6BpkG7v/GWpJBwDe1q6XhLwLQSuS+wEjgoRyjNlgC4BxARd
+	 2kQph7krvKCag==
+Message-ID: <366e3a1e-91c1-41c1-8a1f-f94124cd29e1@kernel.org>
+Date: Tue, 17 Nov 2026 12:10:57 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,180 +51,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Thunderbird Daily
-Subject: Re: [PATCH v4 2/3] arm_mpam: resctrl: Only enable CDP on a resource
- that supports it
-To: Jinjie Ruan <ruanjinjie@huawei.com>, Gavin Shan <gshan@redhat.com>,
- james.morse@arm.com, reinette.chatre@intel.com, fenghuay@nvidia.com,
- zengheng4@huawei.com, tan.shaopeng@jp.fujitsu.com, jic23@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261111081316.3828283-1-ruanjinjie@huawei.com>
- <20261111081316.3828283-3-ruanjinjie@huawei.com>
- <a783b375-7c27-4c91-b40e-7e615d33bc5b@redhat.com>
- <b1fd5fa8-bf03-4575-bc05-540a288b609d@huawei.com>
- <ce03205e-6405-4269-a061-266ef6d67e1d@arm.com>
- <f26828e6-e640-498f-81dc-d568f7cc50c7@huawei.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/mempolicy: limit compat bitmap reads to the source
+ nodemask
+To: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, ziy@nvidia.com,
+ joshua.hahnjy@gmail.com, rakie.kim@sk.com, ying.huang@linux.alibaba.com,
+ akpm@linux-foundation.org, arnd@arndb.de, larips <larips950@gmail.com>,
+ stable@vger.kernel.org
+References: <20261117101910.1820066-1-gourry@gourry.net>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <f26828e6-e640-498f-81dc-d568f7cc50c7@huawei.com>
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261117101910.1820066-1-gourry@gourry.net>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Hi Jinjie,
+On 11/17/26 11:19, Gregory Price (Meta) wrote:
+> A 32-bit get_mempolicy() call can read past the kernel's stack nodemask.
+> With 64 possible nodes and maxnode=65, copy_nodes_to_user() computes an
+> eight-byte copy, but compat_put_bitmap() reads two native words.
+> 
+> A kernel built with CONFIG_NODES_SHIFT=6 reports:
+> 
+>     BUG: KASAN: stack-out-of-bounds in compat_put_bitmap+0x113/0x120
+>     Read of size 8 at addr ff110000099afeb0 by task mpol32/246
+>     Call Trace:
+>      compat_put_bitmap+0x113/0x120
+>      copy_nodes_to_user+0x137/0x200
+>      __ia32_sys_get_mempolicy+0x1a6/0x280
+> 
+> Bound the compat bitmap read by MAX_NUMNODES.
+> 
+> Clamping every call to nr_node_ids would remove the extra userspace
+> word when the kernel nodemask is large enough to contain it, but this
+> keep that existing compat behavior while preventing reads beyond the
+> source allocation.
+> 
+> Reported-by: larips <larips950@gmail.com>
+> Fixes: e130242dc351 ("mm: simplify compat numa syscalls")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+> ---
+>  mm/mempolicy.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+> index 79053ece02cd4..d9177c5504879 100644
+> --- a/mm/mempolicy.c
+> +++ b/mm/mempolicy.c
+> @@ -1715,7 +1715,8 @@ static int copy_nodes_to_user(unsigned long __user *mask, unsigned long maxnode,
+>  
+>  	if (compat)
+>  		return compat_put_bitmap((compat_ulong_t __user *)mask,
+> -					 nodes_addr(*nodes), maxnode);
+> +					 nodes_addr(*nodes),
+> +					 min(maxnode, MAX_NUMNODES));
+>  
+>  	return copy_to_user(mask, nodes_addr(*nodes), copy) ? -EFAULT : 0;
+>  }
 
-On 17/11/2026 11:41, Jinjie Ruan wrote:
-> 
-> 
-> 在 2026/11/17 18:35, Ben Horgan 写道:
->> Hi Gavin, Jinjie,
-> 
-> Hi Ben,
-> 
->>
->> On 17/11/2026 03:31, Jinjie Ruan wrote:
->>> Hi Gavin,
->>>
->>> 在 2026/11/13 7:42, Gavin Shan 写道:
->>>> On 11/11/26 6:13 PM, Jinjie Ruan wrote:
->>>>> resctrl_arch_set_cdp_enabled() enables CDP for any cache level that is
->>>>> requested, even one that has no MPAM cache controls. Mounting resctrl
->>>>> with -o cdpl2 when only L3 can allocate still turns CDP emulation on for
->>>>> the whole system, so every CLOSID takes two PARTIDs while resctrl keeps
->>>>> its CLOSID count at the number of PARTIDs. Control groups in the upper
->>>>> half then map to PARTIDs beyond mpam_partid_max, which index past the
->>>>> configuration and monitor arrays and program out of range PARTIDs into
->>>>> the MSCs. On QEMU with 5 PARTIDs the first monitor read after creating
->>>>> 2 control groups raises MSMONCFG_ID_RANGE for PARTID 5, and MPAM is
->>>>> disabled.
->>>>>
->>>>> Do not enable CDP when a resource cannot allocate or is not CDP capable,
->>>>> as x86 does, so the mount fails instead. Only the enable path is checked,
->>>>> since unmount disables CDP on both cache levels to restore the MBA
->>>>> control.
->>>>>
->>>>> A system where only MBA can allocate, or that only has monitors, now
->>>>> fails a mount with CDP as well: CDP hides the MBA control because
->>>>> mbw_max is a per-PARTID maximum, leaving nothing for CDP to apply to.
->>>>>
->>>>> Fixes: 6789fb99282c ("arm_mpam: resctrl: Add CDP emulation")
->>>>> Link: https://sashiko.dev/#/bug/linux-05c19551-0bba-4a06-
->>>>> aa2c-3c90fab5853d
->>>>> Suggested-by: Ben Horgan <ben.horgan@arm.com>
->>>>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
->>>>> Cc: <stable@vger.kernel.org> # 7.1+
->>>>> ---
->>>>>   drivers/resctrl/mpam_resctrl.c | 4 ++++
->>>>>   1 file changed, 4 insertions(+)
->>>>>
->>>>> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/
->>>>> mpam_resctrl.c
->>>>> index 573617ba09df..afa3c084c475 100644
->>>>> --- a/drivers/resctrl/mpam_resctrl.c
->>>>> +++ b/drivers/resctrl/mpam_resctrl.c
->>>>> @@ -222,6 +222,10 @@ int resctrl_arch_set_cdp_enabled(enum
->>>>> resctrl_res_level rid, bool enable)
->>>>>       if (enable && mpam_partid_max < 1)
->>>>>           return -EINVAL;
->>>>>   +    if (enable && (!
->>>>> mpam_resctrl_controls[rid].resctrl_res.alloc_capable ||
->>>>> +               !mpam_resctrl_controls[rid].resctrl_res.cdp_capable))
->>>>> +        return -EINVAL;
->>>>> +
->>>>
->>>> x86 only checks 'cdp_capable', so this check isn't exactly same as to
->>>> what's
->>>> done on x86, as claimed in the commit log?
->>>
->>> Sorry, the commit message is somewhat misleading and need updated.
->>>
->>> In my opinion, CDP is a feature related to resource allocation, and it
->>> is always reasonable to check alloc_capable.
->>
->> Hmm, I know the patch came from my suggestion but I think the reason
->> that x86 only checks cdp_capable is that alloc_capable is that the
->> alloc_capable flag is also used to indicate that the resource is fully
->> setup and can be used.
-> 
-> Thank you for your explanation.
-> 
->>
->> In resctrl_arch_set_cdp_enabled() we manipulate alloc_capable for
->> re-enabling the MBA resource and the added !alloc_capable check would
-> 
-> I think you mean the following code:
-> 
->         if (cdp_enabled &&
-> !mpam_resctrl_controls[RDT_RESOURCE_MBA].cdp_enabled)
-> 
-> mpam_resctrl_controls[RDT_RESOURCE_MBA].resctrl_res.alloc_capable = false;
-> 
->         if (mpam_resctrl_controls[RDT_RESOURCE_MBA].cdp_enabled &&
->             mpam_resctrl_controls[RDT_RESOURCE_MBA].class)
-> 
-> mpam_resctrl_controls[RDT_RESOURCE_MBA].resctrl_res.alloc_capable = true;
-> 
-> 
->> mean that we'd never be able to do that manipulation. resctrl doesn't
-> 
-> Does you mean that we enable CDP for L2 or L3, but not for MBA, which
-> causes aclloc_capable to be cleared to hide MBA. Then, when we try to
-> enable CDP for MBA, it gets intercepted by this newly added
-> alloc_capable() check, resulting in the enabling process failing?
+LGTM
 
-Yes
+Staring at this once more, I think it's all confusing how we handle
+compat_put_bitmap() vs. copy_to_user(). with "copy" and "nbytes".
 
-> 
-> Sounds we should remove the alloc_capable().
 
-If you mean the check for !alloc_capable, that this patch adds, then I
-agree.
+Likely we really should be working on bits, to then only align it up for the
+copy_to_user() case.
 
-Thanks,
+I'll wait a bit for more review before picking this,
 
-Ben
 
-> 
->> call resctrl_arch_set_cdp_enabled() for the MBA resource but to be more
->> resilient the MPAM interface allows it.
-> 
-> Yes.
-> 
->>
->> In the future, once we start adding more controls for resources we'll
->> have to be careful to do the cdp enabling and hiding of features at the
->> control level rather than the feature level.
-> 
-> I agree, in the future there will more control such as
-> MBW_MAX、MBW_MIN、INTPRI、CMAX etc.
-> 
->>
->> Thanks,
->>
->> Ben
->>
->>>
->>> Best regards,
->>> Jinjie
->>>
->>>>
->>>> int resctrl_arch_set_cdp_enabled(enum resctrl_res_level l, bool enable)
->>>> {
->>>>         struct rdt_hw_resource *hw_res = &rdt_resources_all[l];
->>>>
->>>>         if (!hw_res->r_resctrl.cdp_capable)
->>>>                 return -EINVAL;
->>>>
->>>>         :
->>>> }
->>>>
->>>>
->>>>>       /*
->>>>>        * resctrl_arch_set_cdp_enabled() is only called with enable set to
->>>>>        * false on error and unmount.
->>>>
->>>> Thanks,
->>>> Gavin
->>>
->>
-> 
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
 
+
+-- 
+Cheers,
+
+David
