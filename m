@@ -1,51 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.245.251.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794913142;
-	b=cfbfi5TdM3WaVb//i++xjVxMSUR5YVtU75U/yM4AegcZ73u3Z1emYI19L2Va+YljtEoc
-	 rffmXISElIE0BHc86EByy3i6TKRfwD5lId4tFWhZcErv+j5iVdoxl2oCbu83t9wAi9JkY
-	 lR0BusppT+sUGQnb3507RnVR04bJ74cQFqfmLzI90bcx8kHXL+fZxIFF8qTvfADD2dpCT
-	 VWqh8NnQO3TW2sEVkClitQ2OusQalWSnn9AUa7GvQv4RJV3jJBqz/DH73ODahk+BiVNCN
-	 UxVPcMKM/ivWjkaRNQzKJbrx/aeISyyCG4h0/ga/rLejN98B6HTxLbsqSbFGwuPdyuA==
+	t=1794913165;
+	b=4nJs583MZrMpi+6vHADto+cJNRXfW71XPBt7rVHSufLLHsjpSVFfjmgUvN9DcmFFKhL7
+	 oqmv9XOjMwW41ObiP2DHcM2X3cHack9NfoxhyPnAdo9+Gr9JUdQwNYN9AoUw7xcDr4HV2
+	 2mzBaveWhPcn0WMLYLfNYH3sgTt1M0byoK1tvk+2oEiJgO3HA2Iag2tZJ9xDv66Bw2NRf
+	 efsL2UIpYbaSNgOJ1kGPKiJQhlFViOepNYdFwf5AkijVHTxJ14LnHwhb34hFHrTGtx0mk
+	 EoA+O+CC4azA4oIDVcpzRAaIbjhOXOJ6Hkr2b8krGBsOWZzT403UL450u4Po6IkOaNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794913142;
-	h=DMARC-Filter:From:DKIM-Signature:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Developer-Signature:X-Developer-Key;
-	bh=xZThqH5yGnE67LeQxZCZQtNa5kPBo7Zpp3PzeQ8uS3A=;
-	b=aIBS2qSDpeaoEQMNzMzxtdblOUSXIpyXcRJJcuCBTpGKTdQYcJ9XWi/lJfY5EGTDj2Uw
-	 s23pmrbn3SCbdUr/Ns7qbG3zFKwa7ramFd3uiVhx84SocVouTEUNBpjuFGDGrlwI7u4Gq
-	 UzLcAGkUDlki9M0IjDdCzYUnmfZOILPzxoeBRoDCRpWffLJSzNiS0EAemldF6EeD1Sd0Y
-	 D4LMWzYwz5oOD4Y+PSePgSvrKtjqzv8YPnRWELrShq29thnulZqnWvVtAE+H2EEhbmnKi
-	 xUZ3TkCNMKhx+v+4nXM3MmljFmheZpsvp9vaIgLywNo9G/8H0I/Mw7vXISez8dd2OJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794913165;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=8eW6/+VtufNXs6nUVXwIqQ9eydkypxI9gUCA9iysrS0=;
+	b=E7OX1514SEfrlN+9rXi0kKJiav3sFQW95Eb5kVuppGeLqN8KRxuz2R09M3ltqHevDsTf
+	 OxPpBjVzsYyhtlonlv0ALKAtal2aVDm7RFop1H4omQreXnHpAa0AMdKt1JB41S+kX0OfG
+	 mZtI+gTGCcyRj/1O2W8Rr2ApVxK+eGiGdc4CK34jcUWzQ8tT7V2kbIQ05Bo2ArWaaadIl
+	 oVl9jGsjHqYHYd7GYSVMgj+ijJxMhfjHn8TEJ2xf5hBqYQGbx+IElkxIOQNa1LTmbxwck
+	 M/RBueMwI8jFSzelNYv36ee4TbIlPZY9PtSHMNMKNJo1W68ohbzQTlvpkujvfN8+fKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fhannenheim.net;
-	spf=pass smtp.mailfrom=fhannenheim.net;
-	dkim=pass header.d=fhannenheim.net header.i=@fhannenheim.net header.a=rsa-sha256 header.s=mail header.b=PZzWA4WO;
-	arc=none smtp.remote-ip=188.245.251.181
-Received: from mail.fhannenheim.net (mail.fhannenheim.net [188.245.251.181])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ajlkMD/k";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8C75606A332;
-	Tue, 17 Nov 2026 10:59:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8C75606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fhannenheim.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fhannenheim.net
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 779BB606A323;
+	Tue, 17 Nov 2026 10:59:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=fhannenheim.net header.i=@fhannenheim.net header.a=rsa-sha256 header.s=mail header.b=PZzWA4WO
-From: Frieder Hannenheim <git@fhannenheim.net>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fhannenheim.net;
-	s=mail; t=1794913140;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xZThqH5yGnE67LeQxZCZQtNa5kPBo7Zpp3PzeQ8uS3A=;
-	b=PZzWA4WOEDS2w+zMo/NVrv6zmCqwKncl969dYqyQEOKWoHsWXcIS2mVNOkhKOlRoH2SK0l
-	XPtZL/xcKe2mq1bWalsK4k1LmveGyLAynRxKe/RWzddlCjwCxhah5BSOKy2UAuMBgMEbxZ
-	i2H0DlA9HtYtQ6w4HGxxMGUDhmReCsY=
-Date: Tue, 17 Nov 2026 11:57:58 +0100
-Subject: [PATCH v5 3/3] arm64: dts: qcom: oneplus-kebab: new device
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ajlkMD/k
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 8D7021F000CC;
+	Tue, 17 Nov 2026 10:59:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794913165;
+	bh=8eW6/+VtufNXs6nUVXwIqQ9eydkypxI9gUCA9iysrS0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ajlkMD/krL+lSXAegaa8+3mjbypBV2BigEGUHlJ+srJYfsgtSK9F0itQ6RAl+NV8/
+	 EppBum2pVYRHAY6vqVila4McXYDCWzTJaHVA0pqJLaNMyOBf6WmoWYtNP64soRYbS0
+	 gCERj1LJsWT8Pml+zI7RmDlz7mOD113Md95RH5w5gBt30kkkMkqDSZEvFNceSVVav+
+	 nVDVvjzL6jHPeW0uyE+/wp6wbEBsAfMcgv9Mc8GFGMaDW7ZcPq1EFKNBpIYpLfa4ww
+	 hxeKPQGtJMBVKEyKHHjeqD2H7folUTauZJksxEPlkzQcN/P8RTVZ7uqjAoGlqen9TE
+	 2vJtDdQPzxoRA==
+Date: Tue, 17 Nov 2026 12:59:21 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Rustam Mustafin <rmustafin@cloudlinux.com>
+Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Jaewon Yang <yong010301@gmail.com>,
+	Tadeusz Struk <tadeusz.struk@intel.com>,
+	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] tpm: track the response read position internally, not
+ via the file offset
+Message-ID: <avwzid1Ovl4ACkaQ@kernel.org>
+References: <alvD5nOP15O5B8Ai@kernel.org>
+ <20261117104838.2650999-1-rmustafin@cloudlinux.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,185 +61,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-kebab_dts-v5-3-bdee1c9fe351@fhannenheim.net>
-References: <20261117-kebab_dts-v5-0-bdee1c9fe351@fhannenheim.net>
-In-Reply-To: <20261117-kebab_dts-v5-0-bdee1c9fe351@fhannenheim.net>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Robert Oscilowski <drgitx@gmail.com>, 
- =?utf-8?q?Jean-Fran=C3=A7ois_Bobier?= <jf.bobier@gmail.com>, 
- phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Frieder Hannenheim <git@fhannenheim.net>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4096; i=git@fhannenheim.net;
- h=from:subject:message-id; bh=/p+T5v14wIpnsIotb27Nnm1ONSoKRB7LRji/yRU26PY=;
- b=owGbwMvMwCWWw1h8YvtkuWDG02pJDFl/jP1nHJ/jam67VHbLuvj5534Wb/NL2M8+0/6uR3bRw
- f5Ik/ApHaUsDGJcDLJiiizO0yV/2FcK6+iH/1OEmcPKBDKEgYtTACbS+Yvhn/VCVr+l9Rofnkgl
- JmzwzmEIurG5+8mLBJ6P0VK6v/VCZRgZjs70f/0+03TPVs3lJ0sTwsQUfumXyQm9rRRa0OGxpyG
- OAwA=
-X-Developer-Key: i=git@fhannenheim.net; a=openpgp;
- fpr=439719F83F79132C2F57FE216C0173C8B7931E53
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261117104838.2650999-1-rmustafin@cloudlinux.com>
 
-Add initial device-tree for the OnePlus 8T. Downstream reference is [1].
 
-[1] https://github.com/LineageOS/android_kernel_oneplus_sm8250/blob/lineage-23.2/arch/arm64/boot/dts/vendor/oplus/kona-kebab-overlay.dts
+Please remove that claude'ism from short summary (, not.. uaargh).
 
-Co-developed-by: Robert Oscilowski <drgitx@gmail.com>
-Signed-off-by: Robert Oscilowski <drgitx@gmail.com>
-Signed-off-by: Frieder Hannenheim <git@fhannenheim.net>
----
- arch/arm64/boot/dts/qcom/Makefile                 |   1 +
- arch/arm64/boot/dts/qcom/sm8250-oneplus-kebab.dts | 125 ++++++++++++++++++++++
- 2 files changed, 126 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 6f33c4e2f09c..d8292f681e71 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -356,6 +356,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm8150-sony-xperia-kumano-bahamut.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8150-sony-xperia-kumano-griffin.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8250-hdk.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8250-mtp.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= sm8250-oneplus-kebab.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8250-samsung-r8q.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8250-samsung-x1q.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8250-sony-xperia-edo-pdx203.dtb
-diff --git a/arch/arm64/boot/dts/qcom/sm8250-oneplus-kebab.dts b/arch/arm64/boot/dts/qcom/sm8250-oneplus-kebab.dts
-new file mode 100644
-index 000000000000..72ee7b545230
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/sm8250-oneplus-kebab.dts
-@@ -0,0 +1,125 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+
-+/dts-v1/;
-+
-+#include "sm8250-oneplus-common.dtsi"
-+
-+/ {
-+	model = "OnePlus 8T";
-+	compatible = "oneplus,kebab", "qcom,sm8250";
-+};
-+
-+&battery {
-+	charge-full-design-microamp-hours = <4500000>;
-+	energy-full-design-microwatt-hours = <19575000>;
-+	voltage-max-design-microvolt = <4350000>;
-+};
-+
-+&framebuffer {
-+	width = <1080>;
-+	height = <2400>;
-+	stride = <(1080 * 4)>;
-+};
-+
-+&i2c2 {
-+	status = "okay";
-+
-+	pm8008: pmic@8 {
-+		compatible = "qcom,pm8008";
-+		reg = <0x8>;
-+
-+		interrupts-extended = <&tlmm 112 IRQ_TYPE_EDGE_RISING>;
-+
-+		reset-gpios = <&tlmm 93 GPIO_ACTIVE_LOW>;
-+
-+		vdd-l1-l2-supply = <&vreg_s8c_1p3>;
-+		vdd-l3-l4-supply = <&vreg_bob>;
-+		vdd-l5-supply = <&vreg_bob>;
-+		vdd-l6-supply = <&vreg_bob>;
-+		vdd-l7-supply = <&vreg_bob>;
-+
-+		pinctrl-0 = <&pm8008_default>;
-+		pinctrl-names = "default";
-+
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+		gpio-ranges = <&pm8008 0 0 2>;
-+
-+		interrupt-controller;
-+		#interrupt-cells = <2>;
-+
-+		#thermal-sensor-cells = <0>;
-+
-+		regulators {
-+			ldo1 {
-+				regulator-name = "vreg_l1p";
-+				regulator-min-microvolt = <528000>;
-+				regulator-max-microvolt = <1504000>;
-+			};
-+
-+			ldo2 {
-+				regulator-name = "vreg_l2p";
-+				regulator-min-microvolt = <528000>;
-+				regulator-max-microvolt = <1300000>;
-+			};
-+
-+			ldo3 {
-+				regulator-name = "vreg_l3p";
-+				regulator-min-microvolt = <1500000>;
-+				regulator-max-microvolt = <3400000>;
-+			};
-+
-+			ldo4 {
-+				regulator-name = "vreg_l4p";
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+			};
-+
-+			ldo5 {
-+				regulator-name = "vreg_l5p";
-+				regulator-min-microvolt = <1500000>;
-+				regulator-max-microvolt = <3400000>;
-+			};
-+
-+			ldo6 {
-+				regulator-name = "vreg_l6p";
-+				regulator-min-microvolt = <1500000>;
-+				regulator-max-microvolt = <3400000>;
-+			};
-+
-+			ldo7 {
-+				regulator-name = "vreg_l7p";
-+				regulator-min-microvolt = <1500000>;
-+				regulator-max-microvolt = <3400000>;
-+			};
-+		};
-+	};
-+};
-+
-+&i2c16 {
-+	status = "okay";
-+
-+	fuel-gauge@55 {
-+		compatible = "ti,bq28z610";
-+		reg = <0x55>;
-+		monitored-battery = <&battery>;
-+	};
-+};
-+
-+&tlmm {
-+	pm8008_default: pm8008-default-state {
-+		int-pins {
-+			pins = "gpio112";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-pull-down;
-+		};
-+
-+		reset-n-pins {
-+			pins = "gpio93";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-disable;
-+		};
-+	};
-+};
+On Tue, Nov 17, 2026 at 05:48:38PM +0700, Rustam Mustafin wrote:
+> Commit f20d61c22bca ("tpm: Make the TPM character devices non-seekable")
 
--- 
-2.54.0
+Duplicate information to fixes tag.
 
+> made pread() fail with -ESPIPE, but tpm_common_read() still indexes
+> data_buffer with *off, and io_uring can still set it: IORING_OP_READ
+
+io_uring is a data structure, not an active actor and IORING_OP_READ
+is a constant.
+
+> copies sqe->off into ki_pos without checking FMODE_PREAD, and
+> loop_rw_iter() passes it to ->read(). With sqe->off = 0x1400 the read
+> copies heap memory past data_buffer to user space and then zeroes it:
+> 
+>   BUG: KASAN: slab-out-of-bounds in _copy_to_user+0x4b/0x70
+>   Read of size 16 by task iou-wrk-148/149
+>   Call Trace:
+>    _copy_to_user+0x4b/0x70
+>    tpm_common_read+0x16e/0x2c0
+>    loop_rw_iter+0x235/0x5a0
+>    __io_read+0xc6e/0x11a0
+>    io_read+0x8a/0x180
+> 
+> Keep the read position in file_priv, protected by buffer_mutex, and
+
+Why open code variable names in English?
+
+> ignore *off. This also closes a race where read() samples f_pos before
+> taking buffer_mutex and a concurrent write() replaces the response in
+> between.
+> 
+> Fixes: 9488585b21be ("tpm: add support for partial reads")
+> Cc: stable@vger.kernel.org
+> Link: https://lore.kernel.org/r/CAHk-=wi8aXM9=Y8othMb1oxTv-PDw4isj-FPbXu0MXsm_EPE1g@mail.gmail.com/
+> Signed-off-by: Rustam Mustafin <rmustafin@cloudlinux.com>
+> ---
+> - A C reproducer for the io_uring path is available on request.
+> - nonseekable_open() only closes the VFS doors (lseek(), pread()); io_uring
+>   bypasses both, so with this patch an IORING_OP_READ that passes an
+>   explicit sqe->off ignores the offset and reads sequentially.
+
+Why weren't you able to realize this in the kselftest?
+
+> 
+>  drivers/char/tpm/tpm-dev-common.c | 11 ++++++-----
+>  drivers/char/tpm/tpm-dev.h        |  1 +
+>  2 files changed, 7 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/char/tpm/tpm-dev-common.c b/drivers/char/tpm/tpm-dev-common.c
+> index ee91f456f975..553fc6aca94d 100644
+> --- a/drivers/char/tpm/tpm-dev-common.c
+> +++ b/drivers/char/tpm/tpm-dev-common.c
+> @@ -107,6 +107,7 @@ static void tpm_timeout_work(struct work_struct *work)
+>  	mutex_lock(&priv->buffer_mutex);
+>  	priv->response_read = true;
+>  	priv->response_length = 0;
+> +	priv->read_pos = 0;
+
+I did search read_pos but it had zero hits in the commit message.
+
+
+>  	memset(priv->data_buffer, 0, sizeof(priv->data_buffer));
+>  	mutex_unlock(&priv->buffer_mutex);
+>  	wake_up_interruptible(&priv->async_wait);
+> @@ -149,21 +150,21 @@ ssize_t tpm_common_read(struct file *file, char __user *buf,
+>  			goto out;
+>  		}
+>  
+> -		rc = copy_to_user(buf, priv->data_buffer + *off, ret_size);
+> +		rc = copy_to_user(buf, priv->data_buffer + priv->read_pos, ret_size);
+>  		if (rc) {
+>  			memset(priv->data_buffer, 0, TPM_BUFSIZE);
+>  			priv->response_length = 0;
+>  			ret_size = -EFAULT;
+>  		} else {
+> -			memset(priv->data_buffer + *off, 0, ret_size);
+> +			memset(priv->data_buffer + priv->read_pos, 0, ret_size);
+>  			priv->response_length -= ret_size;
+> -			*off += ret_size;
+> +			priv->read_pos += ret_size;
+>  		}
+>  	}
+>  
+>  out:
+>  	if (!priv->response_length) {
+> -		*off = 0;
+> +		priv->read_pos = 0;
+>  		timer_delete_sync(&priv->user_read_timer);
+>  		flush = true;
+>  	}
+> @@ -214,7 +215,7 @@ ssize_t tpm_common_write(struct file *file, const char __user *buf,
+>  
+>  	priv->response_length = 0;
+>  	priv->response_read = false;
+> -	*off = 0;
+> +	priv->read_pos = 0;
+>  
+>  	/*
+>  	 * If in nonblocking mode schedule an async job to send
+> diff --git a/drivers/char/tpm/tpm-dev.h b/drivers/char/tpm/tpm-dev.h
+> index f3742bcc73e3..34efb1ffa491 100644
+> --- a/drivers/char/tpm/tpm-dev.h
+> +++ b/drivers/char/tpm/tpm-dev.h
+> @@ -15,6 +15,7 @@ struct file_priv {
+>  	struct work_struct async_work;
+>  	wait_queue_head_t async_wait;
+>  	ssize_t response_length;
+> +	size_t read_pos;
+>  	bool response_read;
+>  	bool command_enqueued;
+>  
+> -- 
+> 2.52.0
+> 
+
+Br, Jarkko
