@@ -1,88 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794874068;
-	b=W0tPA1JobZXvarK+WmHp631d4mje7wb8TFC7jajd6p5FSoZVc1pq10vgfXV1QOUCMp8S
-	 CFfaJRubFQTPShCCbjWmXUf6fcIygT02Hl1VYRxWcaJyZk/bJaLIjCDzlb4vVGN87Vg4Z
-	 voLYW8KctQGgAJw0/Lfma/Tv4C0sRq2fP5ZlOwVOs0ZnkANDFujOO3O723JU5al75jg3I
-	 y14rUUCx8VM/T/ug7ev/2etTlwnUiz6JhfPP5zuUUPr9lHQK87ZS8FarjYxu5A4CueH7E
-	 Gtpz2glhZg3g/ujmkZZZy9WKYtL+tmQ0Jqf4FmwI1R3wbSGhpR6qYfC5cbxjncIvFsQ==
+	t=1794874078;
+	b=pZOxKrhcaYysajvNDGTslmiKaAvRdAgk7+CO7H2GIYgTvYjA5S/T7PeIJoyIrTfQwiQW
+	 WfN80kQ4byAOxmKHT7Wh+ZjDAJ3tiD1a+utjCvY8VtuqHNAlIltT3M6hASWSJEFwnONAh
+	 rjeaomQb5CfnWYbscfqMyz0+uwiCO5+ECCajeK4Ir/NyjpQ1q+JmzgzFhJZC0880NX02J
+	 fPCmbGDzeRCS0jhDrJqyaZttoh+7ldC3ojthLLV8bNzq+OqtoewJsUJyku3ZvXdIKrFC8
+	 b2TPwtiCW3Vt57cSfAJWGn+eCqs01NO6xUuisa6HdRrgTVtf6XcVDyyvqQmpYoAIeKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794874068;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=A+yWjVg/RgP8llwsT9E3rZE971DL0mW9b4bpk6DiidE=;
-	b=Zh7bHSHCkFtW2CCP2oLlIaieGTmNgnpQXRdv7u8EMIqtH4IdkFcmpWJu1ORcqaRbzsbx
-	 weVpbsHKUnollwTWzNBp8tMi+QhEJffSEbiOMmOkfClOk3X/L/QnEyeqqmydZ4r9wP/Qr
-	 eyc1S/5dwEnqwcZ4AhN5XDm+v2+vB0tFokqeutDMG6OJgnLodxaZ7coERjMfohy2+tvcR
-	 iTwdHBtKiyhT1hvn/lAn7mK4cgarPphTGebWntXmoKMdsGksD77QLZeyink3Ab9GklW2v
-	 GfCiHFwZeghc5MqeaEYfFKZL2/W212oCzAydnxHosbH1ox82MxVJjif5D7yNZh0Auzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794874078;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer;
+	bh=4vXmR0iRJiG7E8im3JcTb6JVxOpKMALSsdkAo4Dw988=;
+	b=Hd5JhEpHhGk4AKktSsAEbjpnBU5rZsgkULc5iM0mZnNccVOX6KL92dOmgy9XaILgRu4Q
+	 CBqnJBfqTe4bpLt1n6PIykWmevg82xw3qetR3JXZeYUp8nYOP4/0eCBkSTe2lKtnzuj2P
+	 Is5J/DjXFuatstDWBQqF8vQ6dO+x4L8oNNiYrBr40iAL1uh5hqjZyiFzAkR4B642EeWbY
+	 FqeIFjbZuC5i/RBeCdw2luFt6Ry1kpMBeclr09xeupnymqFjirIo2gBiF8O43Tfoz3Spk
+	 a3lhnOni5J3r/9OPskhFywo1YRncQUMJw6GJ7MtiqjmCAZ+GiQiHrMISkot+StFMTwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L5AeQR09;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TAS69EtV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E403606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 00:07:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E403606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7963A606A31C;
+	Tue, 17 Nov 2026 00:07:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L5AeQR09
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so42317075e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:07:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794874066; x=1795478866; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=A+yWjVg/RgP8llwsT9E3rZE971DL0mW9b4bpk6DiidE=;
-        b=L5AeQR09zRlNinlR0coJoNG6PEssD7POoJ42cgTVSFxn9Vi/t6WT6kwKcKfeVmKN16
-         6ol17jStcLbBpf4sSJzL0nDihWHydZD7q/4IbWDEZKo1N12fY0szn5QkYYQxLUWbaGmE
-         iD1VXlDrNNyH3lmKRthWt4F0n/v/jU3eN5bcmKYTNEGla/0+oI+ui95tpmSlOSIoQS88
-         TJ2YBZ9vgQyP3b3bkiyZZrZmw65dmmNzqsbgj202oUodkbjPegYYQU8jNwGWaq9M1tpP
-         8h7mW1wWiZT1GKDJZBwitNaSgGscNiQCuzRXifgyd+J9NNgRFxJa4n9XWjKKyYeablv9
-         fYdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794874066; x=1795478866;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=A+yWjVg/RgP8llwsT9E3rZE971DL0mW9b4bpk6DiidE=;
-        b=Q+V+/PwqfQTyr6b4XnzaEf1wYOAb4tGGFewFq9dgugJHPSfcKxHvn7bf/QOgdWBoKK
-         2BtoKqrMlyTqLM1ARPGJbCTESjrlZLteN+DDBz5QfIcbLjMrmZ9vXCiPO76ETNPvkkAu
-         ZMzvaIcKWioXPSMHFjylgT/q7uuwvjGOgAN60jEbftuUOqoR+4HQR4gWTtLp03ZxDyln
-         i9AvwFvFYVOVXH6oHKlftz1lb1PQN7GlVXmojRfwi4QIYDa31Orq/wxyXjeRnMH4fiXg
-         hiRoisUa/e8+dv4gB2v4pa14dN9eU/RTuOH0XOJglLERM0NmG1uSHR730RAzk4jwH25p
-         3iuA==
-X-Forwarded-Encrypted: i=1; AL+hErEpcSP5QyQLdU+o/35pNNZRvMEw9pzVUHSJtr9SN41/0abuZPoQPWeezpc+4MFlQk1xseiiyUqNM/H8S1Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9libCZrk7qpmNhiQBf0y36mql5I7ag1fGTaF9e0FVRriejsOPC
-	dPaKY3lAO4pjAXu4s9sXapIycnfyuaXRFLRiMK4yhQ+S/LdvcPMc+ILS
-X-Gm-Gg: AYBFou2QaZL/FZ7RvHXey0jjMhVqHWmrt5/T3ZQk8uxOqZucnBr83WeVZiSjNtULRQP
-	ftelKL9Cqrxme7Dy1AlUSH8eNQgEU48zI1swcr7VshF0rPHJ49puEcbQcDqI4mQ4rw/0pD6oeSy
-	r4HkE1bOpYOm3iI7dHEmzi5BCqUt7PV3LFMrU+4i72telfA+IE0voedw8mbsNlccL0Obal6ifVP
-	z3V5nd/S4gmxSCoUi4/iJ4IOJa+qujpLJQcHogYpdewkplc5BgYoLF47sCuRBwAkR6PYaQlBNjo
-	2sYkjXKH5BrUwtQ1JYlGwGZFJuX/opVxUkJz/tDu+v3cDV1KB4lvKRp1emRa6swq3WxidS1t7gH
-	rIadYh2jU1QLHnPLFszQ3kU3mqN1Y/4s5UknevcpxOKeVXKpei5NmJSSg68/LCKdwjd9BlNgd3E
-	4Z+fjNGJKw9YM4cCCpgf+i63/My2AkjC9bgtPYZ/hgDJb9vIsPo9aAl39n2LY6v0NHcJwoGmiNL
-	wlEzyKeOfi8OX7ssRyqHx5PrW1AaqkZryRLZE+/t8VullZS9BCaSwog0zH09TQDmly9Q+suMAOR
-	WTwNaayZEH2Gz3j0kA0YDUuGw4Hz
-X-Received: by 2002:a05:600c:b86:b0:4b5:d95c:2378 with SMTP id 5b1f17b1804b1-4bb55ac4030mr261294925e9.34.1794874066208;
-        Mon, 16 Nov 2026 16:07:46 -0800 (PST)
-Received: from [10.10.0.26] ([85.105.252.11])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb7839cad7sm26779855e9.10.2026.11.16.16.07.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 16:07:45 -0800 (PST)
-Message-ID: <068991e6-ca31-41b5-b9ed-f0902eae8368@gmail.com>
-Date: Tue, 17 Nov 2026 03:07:41 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TAS69EtV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BCE31F000C4;
+	Tue, 17 Nov 2026 00:07:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794874078;
+	bh=4vXmR0iRJiG7E8im3JcTb6JVxOpKMALSsdkAo4Dw988=;
+	h=From:Date:Subject:To:Cc;
+	b=TAS69EtVs8dGL3xFkUKstXKQ8GO6Nn1jUEijop60uPzkKojv/HFOfi6kgTP6lBQW3
+	 Z2LPsEckLUGoRPGjYopWZl9r6HdEHqacD6ehu+YUQlBa38vC66Xhn6IZgk/to0Njni
+	 4qJtSvJY1pBXfwus1/cqMlDQ/Do5oN2+u5blNMs9Xe483/Ekb4hzS+GaquddC3AImu
+	 IvQyRIJeX8+a4QtzQvI1w0Ii7aP7x+eAAgAs62OXqUqjGxVeL/0a2TToSNeZAq8nZF
+	 picF4qXId4oDk3nGrWp93iaEWYCDT9xsL88kLj/s7aZ66RP8hKEsL4LCvnvQX9zm4C
+	 M19OHRMTzwdGw==
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 17 Nov 2026 01:07:53 +0100
+Subject: [PATCH v2] alpha: Use symbol assignment in SYM_END
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,52 +52,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] platform/x86: asus-wmi: add TUF keyboard RGB
- readback support
-To: Denis Benato <denis.benato@linux.dev>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Corentin Chary <corentin.chary@gmail.com>, "Luke D. Jones"
- <luke@ljones.dev>, Hans de Goede <hansg@kernel.org>,
- platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
- linux-api@vger.kernel.org, Denis Benato <benato.denis96@gmail.com>
-References: <20261029-asus-tuf-rgb-v4-v4-0-0d3b877d2c30@gmail.com>
- <20261029-asus-tuf-rgb-v4-v4-1-0d3b877d2c30@gmail.com>
- <cc9c8655-6f7c-05f9-ad09-4ea30f1dda95@linux.intel.com>
- <228df241-da5e-49cb-b29f-6b9158557f55@gmail.com>
- <def9fb29-3212-4d1f-8041-4bbb1c18e89e@linux.dev>
-Content-Language: en-US
-From: bartu alev <bartualev@gmail.com>
-In-Reply-To: <def9fb29-3212-4d1f-8041-4bbb1c18e89e@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261117-alpha-compile-v2-1-846bb099b319@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/3XMsQ6DIBAA0F8hN0vjYbTVyf9oHAgccqkVAg1pY
+ /j3pu5d3/AOyJSYMkzigESFM4cdJqEaAcbrfSXJFiYBqlUDYttJvUWvpQnPyBtJctZSf7si9gY
+ aATGR4/f53ZdGgOf8Culz9gV/+m8qKFGONHak1NDq0c0PSjttl5BWWGqtXzcHn5KrAAAA
+X-Change-ID: 20261103-alpha-compile-efdde587115c
+To: Richard Henderson <richard.henderson@linaro.org>, 
+ Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>
+Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ kernel test robot <lkp@intel.com>, Linus Walleij <linusw@kernel.org>
+X-Mailer: b4 0.16.0
 
-On 11/17/26 2:53 AM, Denis Benato wrote:
+Alpha uses the .set directive to select assembler options, so the
+symbol assignment emitted by the generic SYM_END macro fails to assemble.
+This breaks COMPILE_TEST builds left and right, e.g.:
 
-> Yes, it's absolutely reasonable. If the return either doesn't have the
-> presence bit set or is 0xFFF..... it is to be counted as "not implemented".
->
-> And also yes, we should respect ABIs whenever possible...
->
-> However... now that I think about it asus_wmi_evaluate_method_buf() can
-> be used on setters and those don't have the presence bit, do we have that
-> covered?
-yes that wont break setters:
+  Error: junk at end of line, first unrecognized character is `,'
+  Error: .size expression for bcm6846_runner_start does not evaluate to a constant
 
-1. asus_wmi_evaluate_method_buf() is strictly a buffer-getter helper (its
-   comment states it returns an error whenever the ACPI output is not a
-   buffer).  Integer-returning DEVS setters use
-asus_wmi_evaluate_method*() /
-   asus_wmi_set_devstate() instead; even today, passing an integer `1`
-   from DEVS through _buf() returns 1 as an error.
+Override SYM_END to use an ordinary symbol assignment for the calculated
+size. Preserve the symbol type, size and local size symbol while leaving
+other architectures unchanged.
 
-2. We wouldn't check ASUS_WMI_DSTS_PRESENCE_BIT in _buf() at all.  A
-   buffer-returning call (getter or setter) still hits `case
-   ACPI_TYPE_BUFFER` and returns 0 unchanged.  Only `case ACPI_TYPE_INTEGER`
-   changes to decode via `u32 retval`:
-   - 0xfffffffe or (u32)~0 (0xffffffff) -> -ENODEV
-   - 0 or any other integer               -> -ENODATA (matching `default:`)
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202611031620.n4ptlpo7-lkp@intel.com/
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+The generic SYM_END uses .set for symbol assignment, but Alpha interprets
+.set as an assembler mode directive. Provide an Alpha override using
+ordinary assignment.
 
-Then only kbd_rgb_read_status() maps -ENODATA -> -ENODEV so FX505DT /
-0-returning firmware matches the ABI without altering setter or legacy
-buffer semantics.
+Tested the unchanged Runner wrapper with an Alpha-targeted GNU assembler
+2.46.1: the original header reproduces the reported errors, while the
+fixed header assembles without warnings. Symbol sizes and the embedded
+Runner bytes were checked. A full Alpha allyesconfig build was not run.
+
+This patch was prepared with LLM assistance.
+---
+Changes in v2:
+- Use __ASSEMBLER__ instead of __ASSEMBLY__, as requested by Thomas Huth.
+- Link to v1: https://patch.msgid.link/20261103-alpha-compile-v1-1-9e93e2260a9f@kernel.org
+---
+ arch/alpha/include/asm/linkage.h | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/arch/alpha/include/asm/linkage.h b/arch/alpha/include/asm/linkage.h
+index aa8661fa60dc..275de8ac693b 100644
+--- a/arch/alpha/include/asm/linkage.h
++++ b/arch/alpha/include/asm/linkage.h
+@@ -6,4 +6,12 @@
+ #define SYSCALL_ALIAS(alias, name)					\
+ 	asm ( #alias " = " #name "\n\t.globl " #alias)
+ 
++#ifdef __ASSEMBLER__
++/* Alpha uses .set for assembler options, not symbol assignments. */
++#define SYM_END(name, sym_type)				\
++	.type name sym_type ASM_NL			\
++	.L__sym_size_##name = . - name ASM_NL		\
++	.size name, .L__sym_size_##name
++#endif
++
+ #endif
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261103-alpha-compile-efdde587115c
+
+Best regards,
+--  
+Linus Walleij <linusw@kernel.org>
+
