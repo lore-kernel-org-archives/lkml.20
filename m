@@ -1,91 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794914310;
-	b=HAjvtdEk2oyuKHTFmt9PX02bMc/w6O+v88jr+4+4awAyReaPlm8UobXKDYOCHq1dzRhC
-	 8eYSLH741I8hpi9EZ8Mi4mCebg8MBY/YD5EO4fNtr+NG/4WRitQHUCS2HN3k6VJ+wdjQz
-	 GFsFcEcrioJxSQj++c7NKJBWanRnlwNTiPbz1owyqasWLx0svKr+rR4dG/RnuqjbEo7Vl
-	 HKiV+mfs9t05cQRVZml/Hp1RHMAPPItxJk0cGYUsguPUxllM7V+/R5qjbIGf55j87fcaY
-	 HA5/Rbye0qe1GgMw3UvWRwinTzK0EpApXCAMBr8K6e/XcFF69WnchkBJZae2UHo5WdA==
+	t=1794914315;
+	b=v1V5MJvrrCXDg0Z39tSsj5Lr90m2dIub8GLgrBtby0h6ydvcfUaT6Pa0gSVyxCvanMZE
+	 Ct1APSsGNI/1LR6sMh4ST3jpCRGuRiiWz4zSKtMnMYlAEY4Av15WiCcA71cvu3qc28KTC
+	 5mSrSr6TWgexePgwmAlSlFltfDm296u9n7WpT4CDOnEid7GC1gli5NXGnK8OawlFD8CYk
+	 SHsSip7fviIdYjFQywscJNh/btc6Y8hiQw/qnF2ifrrXGStqzQVEbmdRdQRLLPk0bpHvb
+	 SW3rE4V2EBkYVm1RetJgZF4oJyD29xRPcWX8auszmVkJvKwQhfpxAW9lgZGgsczk+mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794914310;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=JBdBGYVRxNYOJdT2394qct33hCcjoUXwpWM/aTSPVhs=;
-	b=xrTS/ArbZbHvawQRZuLoAQN/9Ac97Zo17w9Akp+E3WapaLLf27B2VRimL3Aqd5hRp1H3
-	 ZRACn/MaOJ4Y96zV1RgWCDmvWOagnrbOc18QKphFRstsRMbvS4VQ3Rc4B9nz7XCBfEhDg
-	 lOmdHc+kRQRFTejyOcYgg8Kx4+wD5cX40PpAJbtK941/MDYhcFjwZa8edYkPBz/O+pRHu
-	 4wDMFOe9a/LwNWhO55BwO0q/Ssh13nAs3l4KG9o14IbKJN/O6ZmYvEwmwNYTJMVXCZPGH
-	 jh3sEChtK6xoKEPUX2krJnVknYThu890IjXDPowJWtelkL5y3489Vk3YtZ3Gr//cV2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794914315;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=IqLBpYE7h7awA0TG7t8nA0duIGgbrcEUjs5NwXMZs9w=;
+	b=xud7HHSwwToHSw5i+9qhC/rkQOiwdy9qRaE8QASpRahF2DqRFYc/0W//y/uslZkXcaVr
+	 LVA2X9R7w2kQKyiUURRylJuViUZnlVh0hjUOpfTWdUieyJ3X2jMhNEwJwozw3NGFMGPhR
+	 Ck6SseP7l4ts/Btoed8UsrDHIUlraN0uWkd/94yGcN5f0Wuf02/Us74nohGozHLhWhjQN
+	 A0yEDlCIBH7L2BwIB6cIwFRVtKSKaQJNNknHePT47pEaazun106eaKs8tbKzK4pvUtR0x
+	 W6CrJ5NxZ4NtP9iIYc1ytE9zfBoPxCS8qqnSKCDYs1ktx+IKxc+DvkSbrsqty0pgO/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=R1St63Gq;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E64D3606A323;
-	Tue, 17 Nov 2026 11:18:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E64D3606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mCaFIUZH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80FFD606A883;
+	Tue, 17 Nov 2026 11:18:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=R1St63Gq
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4AFD41BD0;
-	Tue, 17 Nov 2026 03:18:26 -0800 (PST)
-Received: from e135073.nice.Arm.com (e135073.arm.com [10.34.111.135])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 5F6413F763;
-	Tue, 17 Nov 2026 03:18:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794914309; bh=Pk6YrAE/nTxDcvg8Hm+R5p8sZab+WMj8uqsEYyAJctY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=R1St63GqI5kTgA9jTyvQVN61vkTHDA+4ypR44INnVvGa7bkEC1LsO5i/DFwnOHLwr
-	 hxTscmTwbf9li29BlibU0B5NIYF/tH73sL3pv5tdT8MCK0ksLYcYlMnWppK/NBW6hH
-	 z7I7rbwM8EN022PRX03/5Vg8Q80KI4fBgqMgg4Wc=
-From: Pierre Gondois <pierre.gondois@arm.com>
-To: linux-kernel@vger.kernel.org
-Cc: Ashok Raj <ashok.raj@oss.qualcomm.com>,
-	James Morse <james.morse@arm.com>,
-	Mark Brown <broonie@kernel.org>,
-	Pierre Gondois <pierre.gondois@arm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Tony Luck <tony.luck@intel.com>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Shuai Xue <xueshuai@linux.alibaba.com>,
-	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
-	"Oliver O'Halloran" <oohall@gmail.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
-	Pawel Chmielewski <pawel.chmielewski@intel.com>,
-	Yazen Ghannam <yazen.ghannam@amd.com>,
-	Avadhut Naik <avadhut.naik@amd.com>,
-	Qiuxu Zhuo <qiuxu.zhuo@intel.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	"Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Kai-Heng Feng <kaihengf@nvidia.com>,
-	Breno Leitao <leitao@debian.org>,
-	Terry Bowman <terry.bowman@amd.com>,
-	Dan Williams <djbw@kernel.org>,
-	linux-acpi@vger.kernel.org,
-	linux-edac@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-pci@vger.kernel.org,
-	acpica-devel@lists.linux.dev
-Subject: [PATCH v1 09/19] ACPI: extlog: Report errors independently of RAS consumers
-Date: Tue, 17 Nov 2026 12:10:19 +0100
-Message-ID: <20261117111444.4185512-10-pierre.gondois@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261117111444.4185512-1-pierre.gondois@arm.com>
-References: <20261117111444.4185512-1-pierre.gondois@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mCaFIUZH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB7801F000C8;
+	Tue, 17 Nov 2026 11:18:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794914315;
+	bh=IqLBpYE7h7awA0TG7t8nA0duIGgbrcEUjs5NwXMZs9w=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=mCaFIUZHgw8kLUr6stTj4HbPc4TcRO5utbPuxEnmgAh2uyLh1xZi8xwK8jP3U2fmD
+	 smuWD0opczWQVBhCsXOtMOQyIebNiRDs+4AnLZMwvi4II0g2YITzYMsEpw7AoLNnNt
+	 V78ked96eUSWdEvNqFUAjqjOzse+If31UgybNkxZrn7MVJzDNCRHzo321wLlyzJgZY
+	 LSFaVSe4HyqMqI5d/YpqstPM5cx9PgX9n/P+rEzrOmZLvdl1SZkk1+OpBl/nT6X/6d
+	 DSTysjKCUqcJ9LGqiYJvmnaqVLAEWWhLnuJkDp14qoFFqRh3x1nc3BOKr5e1JevbB9
+	 6nKQLbxB1TvwQ==
+Subject:
+ Re: [PATCH net 3/3] igb: only allow runtime PM if the device can wake up
+From: netdev-bot+sashiko@kernel.org
+To: antonio@mandelbit.com
+Cc: intel-wired-lan@lists.osuosl.org, anthony.l.nguyen@intel.com,
+ przemyslaw.kitszel@intel.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ zheng.z.yan@intel.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Date: Tue, 17 Nov 2026 11:18:34 +0000
+Message-ID: <179491431428.3136.15501039766024079493@kernel.org>
+In-Reply-To: <20261113105835.3821433-3-antonio@mandelbit.com>
+References: <20261113105835.3821433-3-antonio@mandelbit.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,55 +65,167 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The RAS consumer check removes:
-- trace events when no daemon is registered
-- CPER console report when one is registered
-This ties tracing, PCIe recovery and CXL protocol delivery to daemon
-registration, and can hide a fatal record when userspace cannot process
-its trace event before a reset.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Remove the RAS consumer registration condition and:
-- always emit trace events
-- print the CPER record only for CPER_SEV_FATAL
+Critical: 0 · High: 0 · Medium: 2 · Low: 0
 
-[1] additionally suggested to have a cmdline parameter to dynamically
-update the above policy. Keep a simple hard coded policy for now.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-[1]
-https://lore.kernel.org/lkml/20240521183913.GGZkzqUSN1hdE-_OEY@fat_crate.local/
+- [Medium] Probe and remove can disagree about the runtime PM usage
+  count.
+- [Medium] The patch decides whether igb may runtime-suspend from one
+  pci_dev_run_wake() check in igb_probe().
 
-Signed-off-by: Pierre Gondois <pierre.gondois@arm.com>
----
- drivers/acpi/acpi_extlog.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+--
 
-diff --git a/drivers/acpi/acpi_extlog.c b/drivers/acpi/acpi_extlog.c
-index e09ea571c32f5..16a16b12d8ccf 100644
---- a/drivers/acpi/acpi_extlog.c
-+++ b/drivers/acpi/acpi_extlog.c
-@@ -208,10 +208,9 @@ static int extlog_print(struct notifier_block *nb, unsigned long val,
- 	if (cper_estatus_len(tmp) > ELOG_ENTRY_LEN || cper_estatus_check(tmp))
- 		return NOTIFY_DONE;
- 
--	if (!ras_userspace_consumers()) {
-+	/* Print fatal records regardless of RAS consumer registration. */
-+	if (tmp->error_severity == CPER_SEV_FATAL)
- 		print_extlog_rcd(NULL, tmp, cpu);
--		goto out;
--	}
- 
- 	/* log event via trace */
- 	err_seq++;
-@@ -255,7 +254,6 @@ static int extlog_print(struct notifier_block *nb, unsigned long val,
- 		}
- 	}
- 
--out:
- 	mce->kflags |= MCE_HANDLED_EXTLOG;
- 	return NOTIFY_OK;
- }
+igb: only allow runtime PM if the device can wake up
+
+This patch changes igb_probe() so it drops the probe-time runtime PM
+usage reference only when pci_dev_run_wake() is true. Devices that can't
+signal a wake-up from D3 therefore no longer runtime suspend.
+igb_remove() takes the reference back under the same condition.
+
+> diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
+> index f1ce9aa696ab7..145daee832640 100644
+> --- a/drivers/net/ethernet/intel/igb/igb_main.c
+> +++ b/drivers/net/ethernet/intel/igb/igb_main.c
+> @@ -3677,7 +3677,11 @@ static int igb_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+>  
+>  	dev_pm_set_driver_flags(&pdev->dev, DPM_FLAG_NO_DIRECT_COMPLETE);
+>  
+> -	pm_runtime_put_noidle(&pdev->dev);
+> +	/* A device that can't wake up wouldn't notice the link coming back
+> +	 * while runtime suspended
+> +	 */
+> +	if (pci_dev_run_wake(pdev))
+> +		pm_runtime_put_noidle(&pdev->dev);
+
+[Severity: Medium]
+Is one check at probe time enough to close the bug described in the
+commit message?
+
+pci_dev_run_wake() depends on pci_target_state(), and that can change
+after probe. On ACPI platforms, acpi_pci_choose_state() limits the
+target to D3hot only when d3cold_allowed is clear:
+
+drivers/pci/pci-acpi.c:acpi_pci_choose_state() {
+    ...
+	if (pdev->no_d3cold || !pdev->d3cold_allowed)
+		d_max = ACPI_STATE_D3_HOT;
+	else
+		d_max = ACPI_STATE_D3_COLD;
+    ...
+}
+
+Root can change d3cold_allowed through sysfs while igb is bound.
+
+Here is one sequence:
+
+1. igb binds with d3cold_allowed=0. The target is D3hot and PME is
+   supported from D3hot, so the probe check passes and the reference is
+   dropped.
+2. Root writes d3cold_allowed=1, so the target becomes D3cold.
+3. The part doesn't support PME from D3cold.
+
+On the next link-down, igb_runtime_idle() or the watchdog schedules a
+suspend. igb_runtime_suspend()->__igb_shutdown() arms the WUFC
+link-change filter without any PCI-level check. Then
+pci_finish_runtime_suspend() runs:
+
+drivers/pci/pci.c:pci_finish_runtime_suspend() {
+    ...
+	__pci_enable_wake(dev, target_state, pci_dev_run_wake(dev));
+
+	error = pci_set_power_state(dev, target_state);
+    ...
+}
+
+pci_dev_run_wake() is now false. Wouldn't the device then go into D3cold
+with PME disarmed? The port would stay down after the cable is plugged
+back in, until user space resumes it.
+
+Could igb_runtime_idle() or igb_runtime_suspend() return -EBUSY when
+pci_dev_run_wake() is false? That would cover this case and also remove
+the need for the separate probe and remove accounting below.
+
+>  	return 0;
+>  
+>  err_register:
+> @@ -3899,7 +3903,8 @@ static void igb_remove(struct pci_dev *pdev)
+>  	struct igb_adapter *adapter = netdev_priv(netdev);
+>  	struct e1000_hw *hw = &adapter->hw;
+>  
+> -	pm_runtime_get_noresume(&pdev->dev);
+> +	if (pci_dev_run_wake(pdev))
+> +		pm_runtime_get_noresume(&pdev->dev);
+
+[Severity: Medium]
+Can igb_probe() and igb_remove() disagree about the runtime PM usage
+count here?
+
+igb_remove() calls pci_dev_run_wake() again instead of reusing the
+decision made in igb_probe(). The result comes from
+pci_pme_capable(dev, pci_target_state(dev, true)), and the target state
+can change while the driver is bound.
+
+One way it can change is a write to d3cold_allowed through
+d3cold_allowed_store(). That changes what acpi_pci_choose_state()
+returns, as described above.
+
+Another way is surprise removal of a runtime-suspended igb that the
+platform does not manage. pci_device_remove() calls
+pm_runtime_get_sync() before drv->remove(), and during that resume
+pci_power_up() does:
+
+drivers/pci/pci.c:pci_power_up() {
+    ...
+	if (pci_dev_is_disconnected(dev)) {
+		dev->current_state = PCI_D3cold;
+		return -EIO;
+	}
+    ...
+}
+
+pci_target_state() then returns PCI_D3cold when igb_remove() runs. On a
+part with PME from D3hot but not from D3cold, pci_dev_run_wake()
+changes from true to false.
+
+After that, pci_device_remove() runs the same sequence regardless:
+
+drivers/pci/pci-driver.c:pci_device_remove() {
+    ...
+		pm_runtime_get_sync(dev);
+		pm_runtime_barrier(dev);
+		drv->remove(pci_dev);
+		pm_runtime_put_noidle(dev);
+	}
+    ...
+	pm_runtime_put_sync(dev);
+    ...
+}
+
+If the check was false at probe and true at remove, doesn't the usage
+count stay one too high for good? The device could then never runtime
+suspend again, even after rebinding.
+
+If the check was true at probe and false at remove, doesn't this drop
+one reference too many?
+
+With power/control=auto, rpm_drop_usage_count() would warn "Runtime PM
+usage count underflow!". With power/control=on, the extra put would
+silently cancel the pm_runtime_forbid() reference.
+
+Would it help to save the probe-time decision in struct igb_adapter and
+test that flag in igb_remove()?
+
+e1000e and r8169 also re-check pci_dev_run_wake() in their remove paths.
+Following them doesn't by itself show that the pattern stays balanced.
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261113105835.3821433-1-antonio%40mandelbit.com
