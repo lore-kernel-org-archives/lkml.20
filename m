@@ -1,61 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.33.109.247
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794919842;
-	b=S3mZhNfqx9fFkoXSR+SVmZaDT1MAuciXmNGLwtoNmkpvGo4aKBBDcJMp86XpLHNS7XFZ
-	 kPWpikJe1YNOxiSOZiZC74BnIINSOFlWwPmp82AVvZacUXJqIcEZWXJQUB3PzcnOTRefp
-	 zSgfZLpnhAqVqt1O5W1xOHT/2yUnOxXnT0bXJAVwJ/qF+Af17K0GflVbHIKZzDh0C+CzQ
-	 KtJw8DpgJnxJziV4lX9lJ5Qn1Z72TIIyd7I0zMn8jdx/Mwah3UqU0Uoe3G6TfN9mzac14
-	 6eHTT9r1s5wrof2QFHwb8L8hxD/AW5LM3XwmMrGHTJf8or9Ek4x3nL74L4AHhABTHXg==
+	t=1794919853;
+	b=MYFfgZmBE5DraID0thUhSXHzyR4WVTMj+uOjoePzHqZUKwnl3wwH19RqGm1yvcEqxwO6
+	 Z+YUQfm8kmczCTttKsJt9BGYlzRKpLBTSYMD7+/qRiMi1Paqckuq+Yrj5mjysQkR4tU9Q
+	 vXr7dbZlOPvIlNXTAC7tpY4iwait2ah1617B89O7aIWgMxbOA2hCLbc6MU8vd30CLzhym
+	 10ykAugLiIz7ttGng8zO29V0JVYUSPXq7E7CC73wgNWJ30SkE7+4R4dfCrLMD9G1/ICkd
+	 7LCqM9j/MZbUYYtkO63mt6+mRqQLe/3p8GPObM3P9n+4SNoNGM9B6GZcpRII5rpdFeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794919842;
-	h=DMARC-Filter:Received:Received:Received:Received:X-OVh-ClientIp:From:
-	 Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 x-ovh-tracer-id:X-VR-SPAMSTATE:X-VR-SPAMSCORE:X-VR-SPAMCAUSE:
-	 DKIM-Signature;
-	bh=T1fo11ryOcvRUuQCrIAoWwsH3IF4QmN8ZLQhyisTeEU=;
-	b=IogczopijueNx8dPKLoQ8KF84jAj788tYXfDxwNXM/4ZuVV1RXtshenT87Z7ngbmwK21
-	 XkAeHWYcvh3qmhZ1qmkk2XIXbggnYHJm6WUBKXqcFz40Kb3H8BdZOWf7aNs5hNElrB1QQ
-	 nvDh/DtTf7MgfmrGLeynK7WxP73DrWRrCyitCyt7zuWS7jfyq2idaeknYYs4YQhLvizz4
-	 4VRbaxWjou3YCUYeWdslYpjbM0FsTkESq09DqxQNrz2pRaoDpwBIitj2AGCXyov2+fsVu
-	 yt1YBnAkUgVpkECWpES+ohUdkTG/Shx6iAgYVNXkZ3DnKdDIDjQJnYoEb+t081/yGug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794919853;
+	h=Received:From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=Zf3MsUipeIoo9Uty4dGky+vBJxZHkD7wRzAVDmgbAyE=;
+	b=oItz3DJo9jrILkXce2CqMQJ8U65MS4ACecTTym16PoWgpyCgcO0KJs2NNJWdqrG91+Kg
+	 iuYBLC0zGqj/02SpzvoQhF1BrcATkwIZhYdJKMfQpEi2Fa5eBjUAIXVJIi/+XmUzNSUIW
+	 jOaHMtiM3xfbc5Jw6SbmrSeEYKjSB4FkugO4sE6FDmFT19M1Jx4OyNm0UoHnJtuJj9JAB
+	 tw6CeD4vJAVsUG3Y+iAB2BIfrteSWGYWK6TIAzmh1gX0PYprNeXolTQuVQXJZmLaXHmFD
+	 RGGLVShrg+ON06N4bh4GPcBLLQGPOs2tjCbVVwgdWyFXdeJZw3VS+MXKwgCHHAlPQlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pixelcluster.dev;
-	spf=pass smtp.mailfrom=pixelcluster.dev;
-	dkim=pass header.d=pixelcluster.dev header.i=@pixelcluster.dev header.a=rsa-sha256 header.s=ovhmo-selector-1 header.b=IQwBHvJ+;
-	arc=none smtp.remote-ip=178.33.109.247
-Received: from 5.mo528.mail-out.ovh.net (5.mo528.mail-out.ovh.net [178.33.109.247])
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F2D5606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:50:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F2D5606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pixelcluster.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pixelcluster.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.a=rsa-sha256 header.s=ovhmo-selector-1 header.b=IQwBHvJ+
-Received: from director3.derp.mail-out.ovh.net (director3.derp.mail-out.ovh.net [79.137.60.223])
-	by mo528.mail-out.ovh.net (Postfix) with ESMTPS id 4jTPj36sYjz67FT;
-	Tue, 17 Nov 2026 12:50:31 +0000 (UTC)
-Received: from director3.derp.mail-out.ovh.net (director3.derp.mail-out.ovh.net. [127.0.0.1])
-        by director3.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
-        for <Felix.Kuehling@amd.com>; Tue, 17 Nov 2026 12:50:31 +0000 (UTC)
-Received: from mta6.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.188.184])
-	by director3.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4jTPj33vhCz1xqd;
-	Tue, 17 Nov 2026 12:50:31 +0000 (UTC)
-Received: from pixelcluster.dev (unknown [10.1.6.7])
-	(Authenticated sender: nat@pixelcluster.dev)
-	by mta6.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id AD7368E2103;
-	Tue, 17 Nov 2026 12:50:29 +0000 (UTC)
-Authentication-Results:garm.ovh; auth=pass (GARM-98R00261387e59-c792-4975-b455-eba492b4718e,
-                    00F4D7524EDFA56606BD67631AE7EA1B984E627F) smtp.auth=nat@pixelcluster.dev
-X-OVh-ClientIp:141.95.41.139
-From: Natalie Vock <nat@pixelcluster.dev>
-Subject: [PATCH v2 00/10] drm/amdgpu: Rework VM update ops for batching and
- explicit sync
-Date: Tue, 17 Nov 2026 13:50:06 +0100
-Message-Id: <20261117-prt-explicit-sync-v2-0-bb3851cb6a0c@pixelcluster.dev>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF05606A89E;
+	Tue, 17 Nov 2026 12:50:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFF501F00933;
+	Tue, 17 Nov 2026 12:50:52 +0000 (UTC)
+From: Thierry Reding <treding@nvidia.com>
+To: Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Aaron Kling <webgeek1234@gmail.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>
+Cc: linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20261015-b4-t210-pd_nvdec-nesting-v1-0-39a36b622eac@nvidia.com>
+References: <20261015-b4-t210-pd_nvdec-nesting-v1-0-39a36b622eac@nvidia.com>
+Subject: Re: [PATCH 0/2] Fix NVDEC boot on Tegra210
+Message-Id: <179491984070.1887007.9922722264589294895.b4-ty@b4>
+Date: Tue, 17 Nov 2026 13:50:40 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,106 +51,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NQQ6CMBBFr0Jm7ZhSAVNX3sOwgOkAYxSathII4
- e4C7l2+5P33FwjshQPckgU8jxJk6DfQpwSoq/qWUezGoJUuVK4NOh+RJ/cSkohh7gkv9prVxtp
- MK4Jt5zw3Mh3NR/nj8KmfTHEP7UYnIQ5+Pk7HdPf+9ccUFZompUKZPKeqvrfv6WwZynVdv7CNT
- MvBAAAA
-X-Change-ID: 20260529-prt-explicit-sync-3d74b9dd420c
-To: Felix Kuehling <Felix.Kuehling@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- =?utf-8?q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Natalie Vock <nat@pixelcluster.dev>
 X-Mailer: b4 0.15.2
-x-ovh-tracer-id: 5590937466612572476
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTE9CL42WbiiNjq62Y3EgWHYd+nZJRL04fx2AcfGf8qEm7aLcS9VU3O+ooLpNIw7Vb9knZJb7z+RhMav0r2PLmN/1VB/wTyayn4tlK8dlv4kFOSNbudmd5vque5m1zJKlBx1VFGXZMS4qRBIByhJdUO5Y6waDHDKA/dAZfjhh+GoySOrnD36KzYgb4tqQm9t82pxc6ZV2EVYAeIZhfOiSJxv/7AANKUhfiI12lmsSQCbkY6v4XiOIkdW7gpDalpttV+Ye1MGrXgd8xK2XXRHGiqyMVOMqejbLLJ9lR2DYjVwoSDSYwLiftbY9LNIrax1xpXvL4Pt/MY2Aoqh4AuIqPcTfT2UFYDqyn/i3n3fcnqslCw4DZhcyUtBnau9Zb47RCvm8m0QMEwBmztRJA54TZQlhnUHRESQ5Cjw5+dbjtVyCx9eNcVrq0QW16k5jkKDlPKhrXC9g+IzZx3G818dlynO2gHb0kEPXwlJGiV10xrDoOBnSZl5rZggP46kGYG4IxkycIo2Y2323CzBTYPfHSO1741SNKOw6gNAEZZOtDX91YxP8mj4DloB3OiMbAWbEO/vOFNJ7Z6HlSQb2R+5DlfWuWvZdJzyEvUBtiKJlo1uxt3cTBxXCzjEMeh1sllCLV453ivT2XIbCN0MHkMlq9TcEJDD0uKCOuA5PYxbcxAp/g
-DKIM-Signature: a=rsa-sha256; bh=T1fo11ryOcvRUuQCrIAoWwsH3IF4QmN8ZLQhyisTeEU=;
- c=relaxed/relaxed; d=pixelcluster.dev; h=From; s=ovhmo-selector-1;
- t=1794919832; v=1;
- b=IQwBHvJ+TsAmk4IsmcI9Pk1zw8RN3GCTMDbm4LCiOr7gZsogXyrgzx8kIwUmFuCCWzSU9J+v
- WhJsuw05ER5jttuRKDufsONN7UncO0Y5Qa2vN68oV0aWHGlugjXod3cSpDVMQQG8m7rcK8TvRTU
- cPWIirLuWMO/gDG7m9BMCNewU3jBPaWWAA0X9hQvAtuxfkggU6KBO7HMa6fE6aL2eJn+uRBXr1B
- De/LIhdrAZ+XZWVlgyLOwbs0ZFIu5GJUU5YqBAA153JIDJrtLPdNd5Zl3783ll3BPXLobRzP60A
- +HVwNT9DT3vuqT1H417w6QF+7HJwBSHP+Kd5IScfnNeXQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=674; i=treding@nvidia.com;
+ h=from:subject:message-id; bh=Xs++ydyvFmALhs3iMzQiWYDo+bq5LKMLDLtvJYzWnTc=;
+ b=owEBbQKS/ZANAwAKAd0jrNd/PrOhAcsmYgBq/E2qY0svl5l3VmkOwUR0Oy9YiATSgZD2sr234
+ TFdBZ4vWnmJAjMEAAEKAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCavxNqgAKCRDdI6zXfz6z
+ obrbD/0US+rXfMPpd+ydrKWerCxMSEIrUL3hF8pXAReMKKiJXNV7J7kqejcBET6235rGdaUYhVu
+ lpY1GJ3XH4j9xm8BIsPk/DbOl0mufeHKqYbf81VruIDbdljwtIGbyHLN11iteuqih++oA1l4DUY
+ W8DgPYbxSkNcR0Vi/74SU2CO7c17jnWB6A6c7HQU2Xxo20bdKKtfClMoVhu1QaILI6T6gYrlHMp
+ SJm3GY/68y76Sn0v0f2wBaFGpperPrNwrxnkannzCyHimvO8maHEEzZgeE1ZtXcSmsFXuZ3EJHo
+ bAXnWpZdzLKLwIhs5nhAkpyLrkLaPCxzMN5ZfLNsHp3Dr2uqJGs1qYXm90H6i6IdW54qJvWYtzr
+ dA0VeaLxUc9qQDzOsQJoYgiG1iGHWnWURFASQcbofGRrtvLwJ9COJTelvzcrhoDfIfY4QHiSZaW
+ 7bYs+Gv/gMup0LF2PM5qEV43sv1F3t25MnyYByFmipMZopmUw0ST31Uro77BRkTKI+asDPu/abZ
+ ipZeL8MwOf29xlqBI0hbBHrlGH7ulzafYc0sk/vnHkF8g1AfxI2vdRJxS5Qx+VpnqM8IIELQ98k
+ J6kzK90rnT/EupspuPHAXywEyrxOTekbKv+b46rlbOSc8lncjQDvT8XEnBQWQKj+EbmLR4p0Tg/
+ TYf5jr9qgAKgZaA==
+X-Developer-Key: i=treding@nvidia.com; a=openpgp;
+ fpr=88EAC3080149CCF7C08DC89FDD23ACD77F3EB3A1
 
-Hi,
 
-this is v2 of my attempt at improving sparse binding perf.
+On Thu, 15 Oct 2026 18:58:01 +0900, Mikko Perttunen wrote:
+> Fix NVDEC boot on Tegra210
+> 
+> On Tegra210, parts of the NVDEC hardware unit are in the NVJPG power
+> domain. According to the TRM, the NVJPG power domains must always be
+> ungated while the NVDEC power domain is ungated. Model the dependency in
+> device tree.
+> 
+> [...]
 
-The motivator is that many games have come to heavily use sparse
-bindings, and they often rely on being able to overlap frame work on
-gfx/compute queues with sparse binding work on sdma. If PRT mappings
-are synced to every other submissions like they are right now, heavy
-sparse binding load can stall the gfx/compute submissions for quite a
-long while, leading to very noticeable stutters and hitches.
+Applied, thanks!
 
-Another problem is that each sparse binding update requires a separate
-ioctl, so the CPU will also spend significant time constantly switching
-between user and kernel mode to execute the binding changes one at a
-time.
-
-To remedy this, this patchset introduces a "VM update context" structure.
-This context encapsulates some state that is carried around different VM
-update functions, in patch 1 this is the mappings that were freed along
-the way. amdgpu_vm_clear_freed then only clears the mappings that were
-actually freed in the update operation, which is a requirement for being
-able to explicitly sync that unmap.
-
-In later patches, the update context is expanded to hold a set of
-pending mapping changes, so that a future ioctl that changes many
-mappings at a time has a place to keep pending changes while every
-change is validated, before applying everything atomically if things
-look okay.
-
-Best,
-Natalie
-
-Signed-off-by: Natalie Vock <nat@pixelcluster.dev>
----
-Changes in v2:
-- Added pending change structures to update context in order to batch changes
-- Link to v1: https://patch.msgid.link/20260529-prt-explicit-sync-v1-0-9f1c60955cab@gmx.de
-
----
-Natalie Vock (10):
-      drm/amdgpu: Remove unused parameter from amdgpu_vm_pte_fragment
-      drm/amdgpu: Add and use vm_update_ctx struct
-      drm/amdgpu: Make VM maps pending per update context
-      drm/amdgpu: Make removed/cleared mappings pending per update context
-      drm/amdgpu: Track dirty bo_va structures in update ctx
-      drm/amdgpu: Add function to roll back a VM update ctx
-      drm/amdgpu: Move some VA op validation to a helper
-      drm/amdgpu: Only reject conflicting mappings if they are not cleared
-      drm/amdgpu: Add new AMDGPU_GEM_VA2 ioctl
-      drm/amdgpu: Bump minor version
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c |  33 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c           |  31 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c          |  21 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c      |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c          |   6 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c          | 477 ++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h          |   2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.h       |   3 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c        |   9 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c       |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c        |  10 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c           | 660 +++++++++++++++--------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h           | 100 +++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c        |   8 +-
- include/uapi/drm/amdgpu_drm.h                    |  46 ++
- 15 files changed, 1099 insertions(+), 311 deletions(-)
----
-base-commit: 65b7b0d2cf8c3cba99d599493ac96f3ab32c0a06
-change-id: 20260529-prt-explicit-sync-3d74b9dd420c
+[1/2] soc/tegra: pmc: Support nested PMC power domains
+      commit: c6935858d13498f24b305aff53bd1123da6a8671
+[2/2] arm64: tegra: Make the NVDEC power domain a subdomain of NVJPG on Tegra210
+      commit: d4e7a00646df735b915273cca544db11f6dc8854
 
 Best regards,
---  
-Natalie Vock <nat@pixelcluster.dev>
+-- 
+Thierry Reding <treding@nvidia.com>
 
