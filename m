@@ -1,90 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794883691;
-	b=C+jWY3UtaDGtlJjLuzS5VZH1kJGmxVAg0meimCFQSxP2JO9o46HBEa7qq32cSR9qrobN
-	 zqqCYE7eDOuVBpaSOf9yDhOS2C/oBfo7E84iXAYiW2Df3w78yncTbaYfC2JQY2H7IFu/t
-	 4YCXITkmISq0rEJ9EnnjI30ZXAEtx23a+a2BIZLk6F/FhMjmVowcrYhMxFXqiZ/zbmP7h
-	 gwmEdIQDxL0xOaRc6gZigUAirfEaGDtSVgN7wrAaMo705xIhPiqxFQSb+U6XD1YPhm5ZY
-	 eh1PhH5Mbl8/+jcaYPviznPPJ/jesAI9+tMFzwbL9rnZl2Kdi2KUobdBa/jKgIcYDww==
+	t=1794883693;
+	b=Lg/ZKgS1XMZmb/pjibmvbpb8fV7m2Wxyqe5kiqv+5nPl1Bjw5uUpmyvzOW7VYCznXFS1
+	 8aTnbJq0i91guP0J7ph/K8xHWVbCuYZD09h1abL+PaIyynEsUnEIHeJJs7r5EUqoICHNV
+	 Mg6p/xKr3LoMSlBGQV7NNNaxK8OnX77zMx8ppFPh+4Xdw3DMeltqnytvcIRFgtXo586+B
+	 mfSnEuED7zp6aW9BuRzzj1LWgroY8aSIsI7eYsyaekLcETc3dPhx79XLyPHhiVtw1x5yI
+	 Jk2t4MXUje1PHUCGKE9ElMfQq3n+8jIPdXvt0xynaHWPRRC/7TjNzKIc1caDbpSnuJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794883691;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=4t8Dxk7ZnBbbKz64urGxkXljcZQSrvG7czYCvU+jEOc=;
-	b=ormDZsPACzIctlQtetlTaOwFh8k26HzxktU+HtKDHShe0wCunjsatjGix4fgtE/rJIZ4
-	 DjckoIOvydSoLBx7gjBzeXFo69KbCWeb3VssHBoTUSvL7XakbmEXTP6AHHAC/F0QjTL48
-	 rg5k72+CDJuk1dKfcbE+j/+BScg1ShiphXNjQp6hltJeKJM2q0YPjNdRzmPjdQW3eUmBn
-	 9bQTTToet1N95gNb4gUCUJ+omCv1QgDJBPqE9VxuApXfHZ1fQDFIkZhzOSPvwcEeiFkRO
-	 nuT0MyTfvSq/qyH1InyqSz0DVG+ZLS0vPRoCCttjNNWmodBnRyLijjtaIHMIkmOMb+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794883693;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
+	 References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=lBHRRIQHItCJ5eDiP+vp+1pnFfdohjlT2X89EaTQEeo=;
+	b=P9qP23VqDnLoanxV1bfmtWzwIkEm55SRhibk9njdkY9LHTOmVV8O2FX2iFwLJuloU/bk
+	 CmY1aqy6P3aNEimRuvIu8WuGDhCa1gyL8zGGe0JH7hXeIcQcMP8df7orVbTIZhlh2akhV
+	 osaz0ffPoQMyhQYlX65Sr14zjFZIEWEPq1PgmMsYBghM1GFch+St4ifAEPpcMoQ+LgALY
+	 DM3ZyA3p6XFi06lTx4EOgJt++cygzOqakpG64j6Gt76jq9PrmwDuwohxelVahKFAkSYsz
+	 JWaUuc3H9q0ZQCPLilPr9E0cnU1gK35PveNHcHuOC8T6acCAiyJlsBS4/pLorSwfNHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kernel.dk;
-	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=kApX0D8O;
-	arc=none smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=lJyFFhkO;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1843606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:48:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1843606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33EFC606A32A;
+	Tue, 17 Nov 2026 02:48:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33EFC606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=kApX0D8O
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-36e99cf7bb3so5403532eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:48:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1794883690; x=1795488490; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4t8Dxk7ZnBbbKz64urGxkXljcZQSrvG7czYCvU+jEOc=;
-        b=kApX0D8OJDwZh/CtQPB38h2IwjXuQ3A0/kcVqfYMpIUcGirtA45wcQomHDuVC7Nq0l
-         35ndnHMyRIhpG9v2Dxeooy7igVSycYuJIOvLY6oXLwog6Gon6AQokrUufEzg7cVCZAM7
-         5G6jAWB/W/kkdw93e2YvN1wW8wxbhWaLydxZKwhZXeV1ZO993Gd3kfF7T+z3/WRYDcXe
-         enJkXQFpZyNjwb1yFezsveUX9kE+vJMpIPjzJTeSkLDwlVui+Z6Xmp1gc/oos2bmR+Sq
-         YUrtdPQPc2uaHkElmt2bl9e1XVws4EzsQU95L61mw+tKTLZv9GvE2FSmRfLEbGWXYY52
-         2x7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794883690; x=1795488490;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4t8Dxk7ZnBbbKz64urGxkXljcZQSrvG7czYCvU+jEOc=;
-        b=sN+OtEWCt9BGC8rRdtUiEbYEvzYDrsNOEr+FYEQmWHxwwD3nRkQgrjuIF/Eo7yLSC5
-         LVGe0aIJwSZXFjfMxR/LCDIHNWxRMkYKWclTJk5ME/P311j87lu3Avfd5XJzdhMIm305
-         uMPrAP5eRuUSIXPnooI62XT0Cjfw1y/nvbnLZ9sIWYvJM2mDLm7xy2OqPI9+hBRhpDUd
-         sd8Zc5tMRUjNe6lA5vTxywTVVsibdJvJft+EK/19N23UePOKYu7PHDUkpDA85yHeFXdC
-         nvi/Yq6Wr86uoChTk33rQmfhb0PchomoFJ61/L3nUJUH0PFQ7eK7AVp8EaFWrDviKxwB
-         wcCg==
-X-Forwarded-Encrypted: i=1; AL+hErFt55ZeX4/Z3ELFnAJhDiZFyJJKgbR5wtd32e8XK88FRld1wMqeeaOvajTV6IHSp+WCaVIy/8jwnJ4Ohuk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+3WF457OGhLmDYYfkaHv3OYiSniXJXjJqeUJ7wL7iX5AWztY+6
-	Xo4YL0sFuTiKoRvyuZu5wrtXkHRkwqV6w50Grpn3MXkmu79+WR6TwXQLtgBjeRqkwx7kDq/L67E
-	g9pl/tPE=
-X-Gm-Gg: AZFdTZf7Ug0bA9+5Btb8xgCy1ZG9j9frd3qtAtr/wU+tJPVL4bjaLeY1biWjQmhqP6m
-	5EQp6JfNvv/eFMG4p0zCu1XBcIMrzigFgV0QAxAwOY86U0RBl/f6hqpyWmOZYpn1tc/18c5CRug
-	OP5kjFy43wS5lyM3HTefFSkv7B+Swq70e4Zc2bOyvuz05O40mCviXyMqJn4QHWCUNmgydjd/FcF
-	c6u80QlFONWACoAs6Mw8Wd8UuN6JMnCxuy3DksiMI9YEb4NuAdNbnwMslBdl7drGb5oK1Xj1Zc2
-	sUMtXceGDXcEQ1WqMirk36BBpxBn5irAYQHW6EsSpEvFLXk7NZXBwlyLTQLlgFBTosI8iK00qHq
-	k6Gx4mq47bOf6ofh1tdszKcyxPojvCtDljfiLzjwJ4Uo3R02lwO/G5lBp25/EvuRGAzsmUyb/d/
-	IEjfLXkxIM2p4vNDrG3ia1aIgrKgzanm3sSRQ531vidww7HxEt5ecVpiCdXdy+manf8AgsL4VhI
-	zvogcY7KqUa8o7JhoX1BgSIsuJJ3OOHYgxNY7GyEYtFTkRIdBECFiMZaRdxGKwvlPv+ycxQSPYV
-	t5WFFHzDj26SxFlLPtA19tzYQr2CFm4Grrkq3BZVvDhme5Q2Z41ZDZubRxKIw7dNZPx+bfBWisn
-	q00Nwn72qrOOU
-X-Received: by 2002:a05:7300:b284:b0:35e:2c6:d46c with SMTP id 5a478bee46e88-37966e3abf5mr13168307eec.10.1794883689835;
-        Mon, 16 Nov 2026 18:48:09 -0800 (PST)
-Received: from [192.168.1.142] ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955332a77sm34396443eec.4.2026.11.16.18.48.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 18:48:09 -0800 (PST)
-Message-ID: <903b7861-a0f0-4b56-8e6e-3c7ec915c686@kernel.dk>
-Date: Mon, 16 Nov 2026 19:48:07 -0700
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=lJyFFhkO
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AH2m8YJ13999345, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1794883689; bh=lBHRRIQHItCJ5eDiP+vp+1pnFfdohjlT2X89EaTQEeo=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=lJyFFhkOuFuSpyq+2ZU1X/gJGv/JOKXiQiEIlNz+7WEyXwfkS618tNGaYB0xVJvF9
+	 YbjZKKapgaZaHoyEXfjKygrKl2veY9dldPJFokJ02pF+kDL0+kC435jtIkRmZijGTL
+	 /jFRMniQqfFemjK107tc/sC+aCyXDFo5ogEWgvVEDzhP1QV27l5KRgCgoIFpySEVWa
+	 tAtJ8qjTsDMZQH+t9NVw47SoJnpwtj7qpvdTyyyq+6gAJ8YmdQVAkt3xi/rq6mcOY3
+	 X0qYRIn0Mows+OEi+XRSaVXFtY8CVuRvVrcjOtuGC1Z0mcFLIPak0AhKh4iIqh7BXU
+	 umakNiBU2HU7w==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AH2m8YJ13999345
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 17 Nov 2026 10:48:08 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 17 Nov 2026 10:48:07 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
+ 15.02.2562.056; Tue, 17 Nov 2026 10:48:07 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Rishik Yechuri <epicrishik@gmail.com>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Rishik Yechuri
+	<rishik.yechuri.code@gmail.com>
+Subject: RE: [PATCH rtw-next 6/6] wifi: rtlwifi: remove byte(),
+ packet_get_type() and FILL_OCTET_STRING()
+Thread-Topic: [PATCH rtw-next 6/6] wifi: rtlwifi: remove byte(),
+ packet_get_type() and FILL_OCTET_STRING()
+Thread-Index: AQHdcUOAzgF+4zxatkKkUjy78NWQfbcxmPpg
+Date: Tue, 17 Nov 2026 02:48:06 +0000
+Message-ID: <90543fc698df445ab5a11052fe74fc2c@realtek.com>
+References: <20261110184409.42205-1-rishik.yechuri.code@gmail.com>
+ <20261110184409.42205-7-rishik.yechuri.code@gmail.com>
+In-Reply-To: <20261110184409.42205-7-rishik.yechuri.code@gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,44 +84,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] io_uring/timeout: don't rearm a multishot timeout on
- cancel
-To: Cheng Yongkang <teel4res@gmail.com>
-Cc: David Wei <davidhwei@meta.com>, io-uring@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261116044519.281756-1-teel4res@gmail.com>
- <71233dfb-bcac-42df-afd4-45b65dabbc09@kernel.dk>
- <20261117024643.478059-1-teel4res@gmail.com>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <20261117024643.478059-1-teel4res@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 11/16/26 7:46 PM, Cheng Yongkang wrote:
-> On 11/16/26 7:41 PM, Jens Axboe wrote:
->> But why would the app do that, to shoot itself in the foot?
->>
->> I think the fix is fine, but the premise of it is very odd.
-> 
-> Agreed, no sane app would do that. The only thing that made it look
-> worth fixing to me is where the cost lands. The drain runs from
-> io_ring_exit_work() after the task has closed the ring, so the time is
-> spent in a kworker holding uring_lock, and the app can no longer stop
-> it by being killed.
-> 
-> Without the bogus CQ head the timeout is still rearmed during cancel,
-> it just stops once the CQ is full, so the change mostly makes the
-> timeout handler skip the rearm like the other cancel paths do.
-> 
-> I can reword the commit message to lead with that instead, if you
-> prefer.
+Rishik Yechuri <epicrishik@gmail.com> wrote:
+> byte() in wifi.h=20
 
-No it's fine, I already queued it up. But it really reeks of odd
-and bogus syzbot test case, it's most certainly not something
-that any normal application would see.
+No "in wifi.h".=20
 
--- 
-Jens Axboe
+Please write the commit messages yourself.=20
+
+> has a single user. rtl8192se takes the low byte of the
+> firmware header version with it, which is just a mask. Open code that
+> as & 0xff.
+>=20
+> packet_get_type() and FILL_OCTET_STRING() have no users at all.
+> packet_get_type() also refers to EF1BYTE(), which no longer exists in
+> the driver, so it could not be used even if someone wanted to.
+>=20
+> Remove the three macros.
+>=20
+> No functional change intended.
+>=20
+> Signed-off-by: Rishik Yechuri <rishik.yechuri.code@gmail.com>
+> Assisted-by: Claude:claude-fable-5-1
+
 
