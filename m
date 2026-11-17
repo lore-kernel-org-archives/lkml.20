@@ -1,71 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.84
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794924450;
-	b=i4Dnbk8NbB4XR6LLj1/tSPzIQnyNCIpWGehvR116RQNfBBcqmoLRon9s4NUh7nYrc0jK
-	 fZcZ0naH5D+Pm94AQqA+pfQEYSJtSd2frdrZPCFeuEhq9mw1LreuG+r5+rf9bKutpPXI2
-	 5twEoPQj3DXulULrJBD0ywqH7tSat7WynUbR85E/b0KR+uNCqbxY4xiPygkQ1D+OKaiVj
-	 kMNYNtq1CfC9L5hsZiMRdHwgGOCWL5GiNx/XPL+KNpyWK9o9gg+Z0T5oaomj2aeE3hqwx
-	 MsbIF5CdF/U+iefE+bx7rAhJYuLh5qgNomLorxEq5fBwP553oFZmmBR0UnylzbwGihg==
+	t=1794924471;
+	b=aywOxgJPii7QJnciQqTwr+qTh/nGuf1rKHErJW86X1FylS/hK0IWjzy901C4+dsKlXdn
+	 sQXshKCtdsgPPgWfJQtkDep6pF588X7GrwoWvqpQ0YAAmmTYqrS8zHxcl+umtcMQ75BZC
+	 vBsVIYh6yVo8yT3ntx+e/fnsfmGPr864UoqIENo0uCDJHfwRsmBQEqnI5CeMqrI8VJkC4
+	 OsUxENVsqMyThYfERtrl24yntqrC/R6KgyIcgEKQaSgebFEAWlTLIZ1o2u88yrms3LsGc
+	 7dIiHl6zKswk963oDXQjOOkkqLCg5xbJJYibHl3mCmd+TCNhEv/uAVeyi438MAhPkPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794924450;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=iJaEvWg9OTe150EoeiisC+aMq2Yvr+r+9zDhXa6Y07Y=;
-	b=3I+/WLvH0g1YMtZB+98UGjGfuQHxNXlHFa+ZRh73zjqOOydCZq0gEt2+stXFHMsE3UD0
-	 qefec1gr5SNK+N/cy8cagovBgB2iRgG1QGGr5go8kog8q1MWcq4Ak9GrAhsHs2wu3I2o9
-	 NLt42QeCV9qrMiU2FQqjrk5UIuTCIJO/V+XZqDwMau4X5RpJWvt2Rib5E2vLNISR9WMdr
-	 iglQSWdJm876NZ7MrZ0cdor+HQbgGj2oXzgEAbfr0Oc29kZ2nFt5EqMgFMOxUQN4n3Brr
-	 0Ty5dCzdHiy3ax35ZzpFRCOox5R/7iIq6bvFUivH9C97OGMtMmOyaDfK5PobPYyiUUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794924471;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=qj8Sw9mUchR7OX+IPNi68Wrx7ZpfMOXDyUtg//GhS7c=;
+	b=jzk1tjX77XDMicQ3Wi7/5pmujFjSV9N0RBue3+Wj81hvdUzR6y0LaN0lljexO859n5JM
+	 KI2DOLneiPxP4dXPujVWKsqUus2fwOuwJHhRBnPk3b7Bi4XghQzgLxbfzbf/hngrplg6r
+	 clIobhJAfTvHRMDdTecoHq5wrrXMyNE8eLtTcxZvngF0zx8uvObYS8OnRIl4RKipblIhc
+	 0B1om8eZB1G7mvV3EpFxmtra2A+Yfusw2qO7ElJW23awQCKdmliI59KP9Nduie8QGzxuK
+	 BsD7HN/kOCJXPWG+etC/sPuhqEAb4M2t66eIbiFsiJ8EYraUB6Ft6pw3Z6AFno0N2mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MYANFeEf;
-	arc=none smtp.remote-ip=95.215.58.84
-Received: from mta1.migadu.com (out-84.mta1.migadu.com [95.215.58.84])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=fFx+rwFP;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60731606A329
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:07:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60731606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C5D4606A329;
+	Tue, 17 Nov 2026 14:07:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C5D4606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MYANFeEf
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=RtbqUEc0su7Puf8hCD/i/LQztiNRX0a2j2imIdT0dUc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794924447; v=1; x=1795529247;
- b=MYANFeEfvWOZoglkBKsSFhUP/qr3jEAqkGvFlCHnXTexwF6gOlXA/dMwGRvHYZk10D9UUrqd
- S+peDi8RmHwpOYQ7LCgFRPunBFf+FqetwgRMQ+EAZMIj+wXWbw+UtUk/pzemVyzt3inKTDoxMC8
- B4eYnX7A+B1Fvpe9UhekrPjs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 237cc9b92867efc5;
-	Tue, 17 Nov 2026 14:07:27 +0000
-X-Mizu-Trace-ID: 237cc9b92867efc5
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: netdev@vger.kernel.org,
-	kuba@kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Sabrina Dubroca <sd@queasysnail.net>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH net-next v2 2/2] selftests: drv-net: run tls_hw_offload on netdevsim
-Date: Tue, 17 Nov 2026 22:06:31 +0800
-Message-ID: <20261117140642.4008-3-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261117140642.4008-1-jiayuan.chen@linux.dev>
-References: <20261117140642.4008-1-jiayuan.chen@linux.dev>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=fFx+rwFP
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=qj8Sw9mUchR7OX+IPNi68Wrx7ZpfMOXDyUtg//GhS7c=; b=fFx+rwFPGvChncBV1ubXAccELF
+	MD+nxzDXj3ghNhVhBzswcODzeg9tgxD5hFwZ3eq16BpD4A4s2pgbfFpCyga0Zobxc4HiQfv+ueUpl
+	gfIfo2arI4whpwW0E+PfjNEsjTosAVjmOoOf3NOPvlJeNfZQU5JREbls7t+Iz2pekrJQ=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xTJqb-00HALL-SF; Tue, 17 Nov 2026 15:07:45 +0100
+Date: Tue, 17 Nov 2026 15:07:45 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Shirong Zhao <shxzhaosr@163.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: wan: farsync: reuse card slots after hot-unplug
+Message-ID: <6a161933-357c-49d0-9901-9398ff23b71e@lunn.ch>
+References: <20261117121314.811514-1-shxzhaosr@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,62 +60,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261117121314.811514-1-shxzhaosr@163.com>
 
-Now that netdevsim offers kTLS device offload, let the test run on it
-too: drop nsim_test=False so the default netdevsim pair is used when no
-NETIF is set.  Everything the test checks on the DUT, device MIB counters,
-echo data and record types, works there as is.
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 
-The only thing netdevsim can't give is ethtool -S: nsim_ethtool_ops in
-drivers/net/netdevsim/ethtool.c has no get_sset_count or get_strings,
-so the command fails and every case died taking the NIC counter
-snapshot.  That is a gap in netdevsim itself, not in the TLS emulation,
-and the NIC counters are optional in this test anyway, so skip the
-snapshot on netdevsim instead of adding ethtool stats to the driver.
+What does this tell you?
 
-  # ./tls_hw_offload.py
-  # Interface: eth1, driver: netdevsim
-  TAP version 13
-  1..8
-  ok 1 tls_hw_offload.test_tls_offload.tls12_aes128
-  ok 2 tls_hw_offload.test_tls_offload.tls12_aes256
-  ok 3 tls_hw_offload.test_tls_offload.tls12_aes128_ip6
-  ok 4 tls_hw_offload.test_tls_offload_sizes.small_buf
-  ok 5 tls_hw_offload.test_tls_offload_sizes.large_buf
-  ok 6 tls_hw_offload.test_tls_offload_sizes.random_buf
-  ok 7 tls_hw_offload.test_tls_offload_record_type.handshake
-  ok 8 tls_hw_offload.test_tls_offload_record_type.alert
-  # Totals: pass:8 fail:0 xfail:0 xpass:0 skip:0 error:0
+That nobody cares. Why change this?
 
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+    Andrew
+
 ---
- tools/testing/selftests/drivers/net/hw/tls_hw_offload.py | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/tools/testing/selftests/drivers/net/hw/tls_hw_offload.py b/tools/testing/selftests/drivers/net/hw/tls_hw_offload.py
-index e720ce6547610..1197f17caa13c 100755
---- a/tools/testing/selftests/drivers/net/hw/tls_hw_offload.py
-+++ b/tools/testing/selftests/drivers/net/hw/tls_hw_offload.py
-@@ -125,6 +125,9 @@ def read_nic_stats(cfg):
-     # before/after-delta caveat as read_tls_stats(): these are device-wide,
-     # so concurrent kTLS traffic on this NIC would perturb the deltas.
-     stats = defaultdict(int)
-+    # netdevsim has no ethtool -S, and the NIC counters below are optional
-+    if cfg.get_local_nsim_dev():
-+        return stats
-     output = cmd(f"ethtool -S {cfg.ifname}").stdout
-     for line in output.strip().split('\n'):
-         key, sep, val = line.partition(':')
-@@ -307,7 +310,7 @@ def test_tls_offload_record_type(cfg, record_type):
- 
- def main() -> None:
-     """Set up the DUT/peer environment and run the offload test suites."""
--    with NetDrvEpEnv(__file__, nsim_test=False) as cfg:
-+    with NetDrvEpEnv(__file__) as cfg:
-         cfg.bin_local = cfg.test_dir / "tls_hw_offload"
-         cfg.bin_remote = None
-         cfg.tls_skip_reason = None
--- 
-2.43.0
-
+pw-bot: cr
