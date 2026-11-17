@@ -1,54 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794930048;
-	b=zFqDo5WzZdS8fTsr/AsVY+YEXPRNYPTrvZ6yCDU7mRs2/7Y3I9w+c94TNYDkUmIrNoW8
-	 tBkosH++CVIJuoDjwKVfEW/GXbiAAzRAXjy3PbkThU+eWMxT/tQ16K8gdTVEr8mOY8W1b
-	 ZI76dW96Zl3DU4AAU7+PMURsb/LSixNXpE5yAz0L7CLX6jBocu2QQy4BHPTvqWlXOZk/5
-	 t5Q8p+KW0N8RsSnzenkdNvI8wMVbsKJJIBDzldkMl/crVFyaCvPY4fSAuTxIENxTqndOz
-	 b29u0/y/m6zM2d0EGeaLuYDXc6wTie4SCYoRb27Y5pyyQkSdy0q1EJSbelt9GhtYRRw==
+	t=1794930062;
+	b=wHhGesdofnyu68YE79fpRUfnYQ+5RgZryXwjgE2YHEF1JR+Z3j913AKnsbtEdwjFXeSe
+	 IUbl215XWZFKUiOO8pO464F8iUfO7+VBgRAaJR26/zyBpspw8CVZ1nnUJgPKpm5EfxZAR
+	 5527qf8ydgzqy+rZ10uGTG2Z/tqhfeInQbge1CO/98wtOYhh+0FlSJpHGZ7FBJceD6yBb
+	 sJc2K9yZWgJ78Zokcg/Fas0UJ+wukAm4hhOrPdvqZGFhNBSuSVgchvc1mauiArrwwW1b8
+	 LSzKPrTi9e1ti6dInbr5rDmUM3On0g1k8+ixaGGdrEGK1vZQoFr6YuWi5uVX7LiLIsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794930048;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=2uRobH7cB+V+f7/Yy8ygzoo6bmhP7SFuLxqTJKOlnTU=;
-	b=huM2NXogitoe0IdiyLLX2MqXOGCcHMX9rD0YBPQ6zrsdvd/7JHuAofH7OiVEb7aicUC2
-	 fJn1JYV9AI8Mxv4/Rv8b4LV1OZfH+Grwkc52/ipop0B2d7dK63kV8AnIUP5PS8SoRIbqX
-	 mde9IZj4GnjFUL6My6cicI3D5RXvgOwlCMdjPsI3eiiB7jo+9+dEer5XHfJ30T1ipciei
-	 +kmoHZmESNSjYaOE3p0sEff4QKdXRgPuOuQW9wz9W+80cSXeapMw6LkzEkTIKzqdxUaVt
-	 qZ8EVlqJ2N33L1l0ZxuCIS7jk+MVSBtjtSLRoz2LLTZ94xsY0/ot93eV64RfhsIqJag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794930062;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=wlJNvrjZWiuaRuGyrOQWgPk5txP+yFZUmFtsnOTUjgQ=;
+	b=my3ICv4cnUSzK8zWPANr6fEPuBrc8gl4EtWbagmbZVDcs4Bovf2EQ/elyPYh9c97ZYJW
+	 /nboCPw7+h8rh5qzzQ9u4zEoOZ+ePXtUrGk0LbC76WuQvhzLwNG1e1P2SNp6GQV1z/7Rq
+	 qP109WXaNBpy+8YQIvzlZ5EPZeqoVEXtsx69zOqwsjR7+w+kZe9u5o43itNajLUK8B4R6
+	 cQHVp3cAlA4xO2Pz3U7f2Kxi0UUCbXzaVu2OeddHWbEWe1xqHMS0ZKJOi8vYXewxGYK+z
+	 H2dT9JbUIl1wiiaCQ83g96zsqry4d0eRkZGp97rrdgMxA5JcwMlu5TJyAwzA4RtDAEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.210.72
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZgLpbGp+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51177606A32C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:40:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51177606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-85c1135c289so3331980a34.3
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:40:48 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794930047; x=1795534847;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=2uRobH7cB+V+f7/Yy8ygzoo6bmhP7SFuLxqTJKOlnTU=;
-        b=uqEllUbjjKxpP9lCaH23eA4le6IriEcQLPfI39WraTKOX4jT1FVlrKrqKd4WU4cVoo
-         iHmjhs4P0fgIxrmGrIEovhs8G1YAB0cqhKn8EV/KaMU+JQ08c1nkbmTUTcp2JSTCIT9m
-         j0idMK3eYUSr9itMvqogxoI5bdugl323FqdNkHsl/gmsbOjn+lAiviPm+KGAe9gYn7Ja
-         nA9ALjheGlCWtKK53BzUB4yUg97Gxttsujm6bsOdKEOYqnf02KX1GUudjMye/PyvfQ5w
-         w7Pze0U24dXto3QkyEvoaxQYUlpDYNI31syWebJlXlb56edgGONpJ+Jbs/1u8Mp5ARxN
-         F81g==
-X-Forwarded-Encrypted: i=1; AL+hErEo+CqJNaXrWf1jebcwHaA3i9V0uVSrrGMyt48RmSuO049i651nCXcOuJ8A5HaBuSE3QAA1ndvracdoFhI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8OnTFrc6ni3/Yt110MHWquVsDtdlVgIGObUu6XPj+s8elFpOw6
-	o/FHLaYK9NoUBvEePAdRIXGQBL9Lo7/dTUNBEL+ogWAh3FQTGMwx7lghh1WL2l8/YFOie64PtDR
-	34Y5+TjOqGdag/AUHw7sXB0RNUe/nEl0fMLCl9y6Bh6cqH9qs6Fu7zb3XAMk=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5268F606A31C;
+	Tue, 17 Nov 2026 15:41:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZgLpbGp+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF4AC1F000C4;
+	Tue, 17 Nov 2026 15:41:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794930062;
+	bh=wlJNvrjZWiuaRuGyrOQWgPk5txP+yFZUmFtsnOTUjgQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZgLpbGp+c5WVEELtIYUoS+tOid1hUm4YRBQhPZvUm1yf8AA2/EzhXvZr4SjgvJ5t3
+	 +3IlHb757hBp4BZRk0ZxOMN0yGIwFyLmf8cmlqdCepnwRbVPxVIXLCSPVCmv9OreIj
+	 KcyzU6p/jwUGy4SpOckZKp2o0wJ/5Cr1G23oOsqfhr2Hwgoy7nQcTGbY/bZz7h5W/l
+	 9BVmTcUuwbgeutwlOeohk7ySkS5euHKsUG7YtICXxeF9KPv9Q1IYyn+zRKfTQVwZzY
+	 f3YMk8bON4uORYo1OvrncG4BH7QivcWQ9hIriKBQDjyBLnD+b6SqRrNLnTlLf6WEnw
+	 FVV6XYW2dtcsg==
+Message-ID: <sashiko-outbox-219096@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 29/40] sched/deadline: Keep the last CPU a task has
+ in its root domain
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
+Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
+In-Reply-To: <a075dad17300a5b31dc3d99bef81fb9dadd6cbcd.1794922146.git.mathieu.desnoyers@efficios.com>
+References: <cover.1794922146.git.mathieu.desnoyers@efficios.com>
+ <a075dad17300a5b31dc3d99bef81fb9dadd6cbcd.1794922146.git.mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 15:41:01 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,112 +60,102 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-Received: by 2002:a05:6808:8419:b0:571:a186:d6b9 with SMTP id
- 5614622812f47-571a186df41mr10001430b6e.13.1794930047213; Tue, 17 Nov 2026
- 07:40:47 -0800 (PST)
-Date: Tue, 17 Nov 2026 07:40:47 -0800
-In-Reply-To: <6afbad4d.f3cfa7c9.844a4.0002.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6afc757f.6a9a30c8.1f5211.0003.GAE@google.com>
-Subject: Re: [syzbot] [kvm?] WARNING in kvm_dirty_ring_push (2)
-From: syzbot <syzbot+55eaa971f4924b62c9a5@syzkaller.appspotmail.com>
-To: kvm@vger.kernel.org, lei.cao@stratus.com, linux-kernel@vger.kernel.org, 
-	pbonzini@redhat.com, peterx@redhat.com, seanjc@google.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
 
-syzbot has found a reproducer for the following issue on:
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] cgroup/cpuset: missing descendant cpus_allowed filter in
+  cpuset_cpus_allowed_without()
+- [Medium] cgroup/cpuset: filter by task_cpu_possible_mask() in
+  cpuset_cpus_allowed_without()
+--
 
-HEAD commit:    749a4de37040 Add linux-next specific files for 20261116
-git tree:       linux-next
-console output: https://syzkaller.appspot.com/x/log.txt?x=1341e5c3580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=fedda7175e1c0b47
-dashboard link: https://syzkaller.appspot.com/bug?extid=55eaa971f4924b62c9a5
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=139fd73d580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=10c1e5c3580000
+commit 119af82ab355761f9fade868df0ef32c60b9344b
+Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/9bd53057353b/disk-749a4de3.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/a0d84c6a978c/vmlinux-749a4de3.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/7e9b601ca025/bzImage-749a4de3.xz
+sched/deadline: Keep the last CPU a task has in its root domain
 
-The issue was bisected by AI to:
+This commit refuses to take a CPU offline with -EBUSY when doing so would
+leave a SCHED_DEADLINE task with runnable CPUs only outside the root
+domain that accounts for its bandwidth.
 
-commit fb04a1eddb1a65b6588a021bdc132270d5ae48bb
-Author: Peter Xu <peterx@redhat.com>
-Date:   Thu Oct 1 01:22:22 2020 +0000
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 7bdb9e21a7edb..3ccd61a37d302 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -4312,6 +4312,32 @@ void cpuset_cpus_allowed(struct task_struct *tsk, =
+struct cpumask *pmask)
+>  	spin_unlock_irqrestore(&callback_lock, flags);
+>  }
+> =20
+> +/*
+> + * Set @pmask to the active CPUs that the cpuset of @tsk gives it once @=
+cpu
+> + * is offline: those of the nearest ancestor that keeps one. Leave it em=
+pty
+> + * if there is none. As cpuset_update_tasks_cpumask() does, keep the CPUs
+> + * possible for @tsk. As __set_cpus_allowed_ptr() does, keep those of the
+> + * affinity the user set, if one is left. The caller holds the CPU hotpl=
+ug
+> + * lock for writing, which keeps the cpusets and their tasks as they are.
+> + * It holds the pi_lock of @tsk, which keeps its user affinity.
+> + */
+> +void cpuset_cpus_allowed_without(struct task_struct *tsk, int cpu,
+> +				 struct cpumask *pmask)
+> +{
+> +	struct cpuset *cs;
+> +
+> +	guard(rcu)();
+> +	for (cs =3D task_cs(tsk); cs; cs =3D parent_cs(cs)) {
+> +		cpumask_and(pmask, cs->effective_cpus, cpu_active_mask);
+> +		cpumask_clear_cpu(cpu, pmask);
+> +		if (!cpumask_empty(pmask))
+> +			break;
+> +	}
 
-    KVM: X86: Implement ring-based dirty memory tracking
+[Severity: Medium]
+Does cpuset_cpus_allowed_without() return an overly wide mask when it
+walks past an intermediate ancestor to find remaining active CPUs?
 
-AI reasoning:   https://syzkaller.appspot.com/ai_job?id=8ec79404-c0f6-4141-a152-96124787ad82
+During cgroup v2 hotplug, compute_effective_cpumask() propagates
+effective_cpus top-down, intersecting each descendant's configured
+cpus_allowed with its parent's new effective_cpus and only inheriting the
+parent's mask when that intersection is empty:
 
-AI-generated root cause summary:
-The KVM dirty ring implementation maps the per-vCPU dirty ring buffer
-(ring->dirty_gfns) writable into userspace. In kvm_dirty_ring_reset(), KVM
-iterates over entries marked with KVM_DIRTY_GFN_F_RESET and increments
-ring->reset_index without verifying that reset_index has not advanced past
-ring->dirty_index. When userspace sets KVM_DIRTY_GFN_F_RESET on un-dirtied
-entries, reset_index surpasses dirty_index, causing kvm_dirty_ring_used()
-(dirty_index - reset_index) to underflow to a large 32-bit unsigned integer
-(~UINT_MAX). On subsequent guest memory writes, kvm_dirty_ring_push() checks
-kvm_dirty_ring_full(), observes that the used entry count exceeds ring->size,
-and triggers the WARN_ON_ONCE(kvm_dirty_ring_full(ring)) assertion.
+kernel/cgroup/cpuset.c:compute_effective_cpumask() {
+	has_cpus =3D cpumask_and(new_cpus, cs->cpus_allowed, parent->effective_cpu=
+s);
+	if (!has_cpus && is_in_v2_mode())
+		cpumask_copy(new_cpus, parent->effective_cpus);
+}
 
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=55eaa971f4924b62c9a5
+Consider a system with isolcpus=3Ddomain,0 and housekeeping CPUs 1-2, where
+parent P has cpus_allowed =3D {1} and child C has cpus_allowed =3D {0, 1}
+(giving C effective_cpus =3D {1}).  When CPU 1 is taken offline, walking up
+from C skips P (which becomes empty) and returns top_cpuset's remaining
+active CPUs {0, 2}.  dl_task_leaves_span() sees CPU 2 in the housekeeping
+root domain span {1, 2} and allows the offline.  However, once P inherits
+{0, 2} from top_cpuset, C computes cpus_allowed & P->effective_cpus =3D
+{0, 1} & {0, 2} =3D {0}, moving the deadline task and its bandwidth onto
+isolated CPU 0 in def_root_domain without admission control.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+55eaa971f4924b62c9a5@syzkaller.appspotmail.com
+> +	cpumask_and(pmask, pmask, task_cpu_possible_mask(tsk));
 
-The cause commit was identified by AI and may be wrong.
-If you agree with it, please also add:
-Fixes: fb04a1eddb1a ("KVM: X86: Implement ring-based dirty memory tracking")
+[Severity: Medium]
+Can intersecting pmask with task_cpu_possible_mask(tsk) after the
+ancestor loop leave pmask empty when an ancestor has possible CPUs for
+tsk?
 
-------------[ cut here ]------------
-kvm_dirty_ring_full(ring)
-WARNING: arch/x86/kvm/../../../virt/kvm/dirty_ring.c:225 at kvm_dirty_ring_push+0x2b2/0x5e0 virt/kvm/dirty_ring.c:225, CPU#0: syz.0.2477/13660
-Modules linked in:
-CPU: 0 UID: 0 PID: 13660 Comm: syz.0.2477 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-RIP: 0010:kvm_dirty_ring_push+0x2b2/0x5e0 virt/kvm/dirty_ring.c:225
-Code: 38 be 08 00 00 00 e8 8d 10 08 01 f0 80 4b 38 08 48 83 c4 18 5b 41 5c 41 5d 41 5e 41 5f 5d c3 cc cc cc cc cc e8 cf 84 88 00 90 <0f> 0b 90 e9 f8 fd ff ff e8 c1 84 88 00 90 0f 0b 90 e9 00 ff ff ff
-RSP: 0018:ffffc900065872e0 EFLAGS: 00010293
-RAX: ffffffff81412d31 RBX: ffff888059575100 RCX: ffff88802a9b0000
-RDX: 0000000000000000 RSI: 0000000000000400 RDI: 00000000fffffffe
-RBP: 1ffff1100b2aedc9 R08: ffff8880369ec9d7 R09: 1ffff11006d3d93a
-R10: dffffc0000000000 R11: ffffed1006d3d93b R12: ffff888059576e50
-R13: 1ffff1100b2aedca R14: 0000000000000400 R15: 00000000fffffffe
-FS:  00007f585c1b76c0(0000) GS:ffff888123134000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000000000000000 CR3: 000000007a420000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- make_spte+0x71a/0xc80 arch/x86/kvm/mmu/spte.c:296
- tdp_mmu_map_handle_target_level arch/x86/kvm/mmu/tdp_mmu.c:1144 [inline]
- kvm_tdp_mmu_map+0x140e/0x1f40 arch/x86/kvm/mmu/tdp_mmu.c:1300
- kvm_tdp_mmu_page_fault arch/x86/kvm/mmu/mmu.c:5029 [inline]
- kvm_tdp_page_fault+0x2f7/0x3a0 arch/x86/kvm/mmu/mmu.c:5042
- kvm_mmu_do_page_fault+0x31d/0x640 arch/x86/kvm/mmu/mmu.c:5089
- kvm_mmu_page_fault+0x1f8/0xc00 arch/x86/kvm/mmu/mmu.c:6698
- vt_handle_exit+0x28/0x160 arch/x86/kvm/vmx/main.c:974
- vcpu_enter_guest arch/x86/kvm/x86.c:8540 [inline]
- vcpu_run+0x4da1/0x7890 arch/x86/kvm/x86.c:8695
- kvm_arch_vcpu_ioctl_run+0xe83/0x18b0 arch/x86/kvm/x86.c:9035
- kvm_vcpu_ioctl+0xa61/0xfd0 virt/kvm/kvm_main.c:4595
- vfs_ioctl fs/ioctl.c:52 [inline]
- __do_sys_ioctl fs/ioctl.c:604 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:590
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x00007f585b3a94d9
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f585c1b7028 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00007f585b626090 RCX: 00007f585b3a94d9
-RDX: 0000000000000000 RSI: 000000000000ae80 RDI: 0000000000000005
-RBP: 00007f585b438136 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f585b626128 R14: 00007f585b626090 R15: 00007ffe50d85978
- </TASK>
+On asymmetric arm64 systems where a 32-bit deadline task can only run on
+a subset of CPUs, task_cs(tsk)->effective_cpus may retain active
+64-bit-only CPUs after the outgoing 32-bit CPU is cleared.  The loop then
+stops at task_cs(tsk), and intersecting with task_cpu_possible_mask(tsk)
+afterward produces an empty pmask.  dl_task_leaves_span() treats an empty
+msk as false and allows the last 32-bit CPU in the task's root domain to
+go offline, after which guarantee_active_cpus() (which filters by
+task_cpu_possible_mask(tsk) before testing each ancestor) walks up to an
+ancestor with a 32-bit CPU in another root domain and moves the task's
+bandwidth there without admission control.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794922146.gi=
+t.mathieu.desnoyers@efficios.com?part=3D29
