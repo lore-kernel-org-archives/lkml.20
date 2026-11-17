@@ -1,82 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794927271;
-	b=t8zte1FKU2T3cJyexp0ZlhIQ+dvweWRObXTD3lWvgz9B4l6qQi37a+/omN8i+0PqOSXy
-	 8s8EGFxkBd5XESimRMQajTgasuAieli3dfUA8/fD2dv/ywPgefLAqFsgrdAMpkBn+G7Wu
-	 QdYYx1SOasedhMqk+fGxRyXYnNwVQ1j1+SZIbiOLtkHg4CkKQnf0QfNcee0613xUPBs6j
-	 86VPXmj3NbvuA3ggLjquTVnXU8r+md1yZDIJQfhQysKKKvTuiO2oGnosGQMfuIpqo6Y19
-	 vzz+Px9IL/XkJubJsp4qXldgyRujc/r0hBUT+PFqQooxQblp5ddfXiw+nh6JiS6gMGg==
+	t=1794927275;
+	b=K80+fzk6sZ336xUlKo5s3QqI2f/BCPe9aiHlyVeyZ8GH/O1qzipa8WLFG9VNW2f8IkIh
+	 MpyEyZmieU1xmBkQnfEgLAI6SmrvY19HaxRW2vcJGvfuGYQvJsVtpBLl58S+bK21yCs7O
+	 rqPPHpsDUpeuPCu3sEJUX1LClzUk1PceJmPXADqZdkuXknXnbe2LKvbf2iNxDY3p5dRTa
+	 E12GY39Y2MHAW9hfBmAstHfKWE/yoCPn823g72wMAQlLTlxDhvVmq70Tr/LzZGeHotlJ5
+	 cccsWy2iJD1f5prLLR9pwjzUKJmdWXWjcGigO2rDb8fd0TjT7lMrzqVAHSFJT3S9NlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794927271;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=G2z1WNSCI5+9W0otpYmPG1HlbmXpwdh9y3di0gUnCg0=;
-	b=LnYXWtCsEtsW2MEBtovwXKuR0P4EHKpam47ZCYCK8SRteszc8/jm9idVOaQ1DSwjdP0s
-	 /wwalwl8POTF2ECjZP4Gdz9Kwx6MTm4ROlRvoahicEb8pEDl+VpnXmROBtVm/cHkvEjzi
-	 xVoSTrk7yIThx/o9/LRZDD5TGgR2D3V+AiDj1ZAwT+3r4fKo3R5SZqfCqgt2sGsxc02/z
-	 0kAiW8eaIv1OXlOkLhsiwDIQvlOr1agH2ZXlMu/RDrzFAH+EWS0Fio190UAU/z7omHEmn
-	 Tc0x+TKOqkmH5+g5AZT4GtVr8Ma6shw1K/IhwcA8Ol5TEFivj78dM/vF8a2LTdPZmxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794927275;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=2Wq9AE25iea427W8wiH0e2Ewq13PobRIAnClSSphGUw=;
+	b=Lik2/hyfW/bYs0/A8tKBcOHNjMGzCFh8i0ev9VwnIlMiGLohA4As4HPXqExIvYojXxrm
+	 guVR/DF4HK4KMvHHzFMCgml81opUEsEE2aBsST/lmH4Vocfe8XcLtmanrI0w1e1u/5qaS
+	 sLQKAcXvsacHMbwKCTOBFHn5aScesapg7vYL6idoiB5mp7f7GuH0ZsT4e2IiQlcxgm5+u
+	 X/ikxtNSSLFeQVVIeIDN8ZCN59Gp0w9ua7Oiva492SYNfxgblCSW+x/3OoS/uX6+TNXVK
+	 iUcqNBeRMWa4cgNcwmSy3E+ecng30A+SbsdF/fEUpxCdqEQlnwxddc1HJ16cD9J3TGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=febUlXed;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=RldvSNBi;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C47F606A32A;
-	Tue, 17 Nov 2026 14:54:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C47F606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E66C1606A335;
+	Tue, 17 Nov 2026 14:54:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E66C1606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=febUlXed
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHBwbIp1089802;
-	Tue, 17 Nov 2026 14:54:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=G2z1WN
-	SCI5+9W0otpYmPG1HlbmXpwdh9y3di0gUnCg0=; b=febUlXedSv0fOZyNM4toYN
-	pyfeQC6dy7gNvVTfcRdxgB2fUzwsApBgMgjwiLSyvnkmYorthpGF/4dCEdQHQ0mh
-	woXv5L89isg3NXd86vObo5Vo9yY0q+0R8iutl+uJpxV78jgE+ZS9D12WAp3IBD17
-	Nx4mqyHyaGK1ZZqQDOUCz2kFemq1IAipLOuQ/IOTFlUg/IMyWkEhrRkIbnbMEV38
-	dI4HiYVs77bZehmysFylepNOYUNf+vvFFKIB+fzIcueZ77ky3S3nhhy2qMV7uGUg
-	l/OAw4qyiHX5hp6B2tPV1h+TCcJP/6s4wtmlFY5YbJptX9ragMPPduh1ZAFdNO5A
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hxe2db6x0-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 17 Nov 2026 14:54:16 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHC5tAP3508343;
-	Tue, 17 Nov 2026 14:54:15 GMT
-Received: from smtprelay03.wdc07v.mail.ibm.com ([172.16.1.70])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4j067nc3p2-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 17 Nov 2026 14:54:15 +0000 (GMT)
-Received: from smtpav02.dal12v.mail.ibm.com (smtpav02.dal12v.mail.ibm.com [10.241.53.101])
-	by smtprelay03.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AHErOMQ27853368
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 17 Nov 2026 14:53:24 GMT
-Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9BB1058066;
-	Tue, 17 Nov 2026 14:54:14 +0000 (GMT)
-Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5101058060;
-	Tue, 17 Nov 2026 14:54:12 +0000 (GMT)
-Received: from [9.61.5.249] (unknown [9.61.5.249])
-	by smtpav02.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 17 Nov 2026 14:54:12 +0000 (GMT)
-Message-ID: <11341b42-f641-49da-b823-d7c083d83a9a@linux.ibm.com>
-Date: Tue, 17 Nov 2026 20:24:10 +0530
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=RldvSNBi
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 786C71A1673;
+	Tue, 17 Nov 2026 14:54:33 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 49E9E5FD6A;
+	Tue, 17 Nov 2026 14:54:33 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D187511BC0026;
+	Tue, 17 Nov 2026 15:54:23 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794927271; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=2Wq9AE25iea427W8wiH0e2Ewq13PobRIAnClSSphGUw=;
+	b=RldvSNBih/YepnuGq2MmKOY6A9rIpEumELC0ddV1Qgq3r8IhTrV9lLpBVSihJHenq/I5Vm
+	nd/D9MLgGB234C7uQ88P5bQwFSTY+e4TDToHLYcXFPrmuKPTqcBi7dLVsJw32RGbjuDYJq
+	DSpyU8dNw+tl5D0GFkjGBp4MDLolXdsuoCK7TJlQvzelGr+QaF4TV9f8tpXJQK6ktyC3U1
+	ZIIWLKrlz+S+q7+hhl7LD9tk/gm5zD17LNzTyrGIkcrpSZqz3fehRtbOjXHyJO9Z+zne/f
+	+TVHU/jYSpNFMwbDgip6SnNlQIpAKn1oCFtg8VOPxoboHaMQCZd36nFYvjiQvQ==
+Message-ID: <d06c6f0c-a0cc-4b6c-a0ec-eb459ea0eaef@bootlin.com>
+Date: Tue, 17 Nov 2026 15:54:22 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,82 +63,90 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] block: return early when the elevator doesn't
- change
-To: Qiliang Yuan <qiliang.yuan@linux.dev>, Jens Axboe <axboe@kernel.dk>,
-        Damien Le Moal <dlemoal@kernel.org>, Ming Lei <tom.leiming@gmail.com>,
-        Hannes Reinecke <hare@suse.de>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Christoph Hellwig <hch@lst.de>
-References: <20261116-bug-block-elevator-unchanged-v3-0-cb4dda2dadf4@linux.dev>
- <20261116-bug-block-elevator-unchanged-v3-2-cb4dda2dadf4@linux.dev>
+Subject: Re: [PATCH net v3 1/3] net: stmmac: honour Rx checksum errors in the
+ AF_XDP zero-copy path
+To: Christian Schmidbauer <opensource@grische.xyz>, netdev@vger.kernel.org
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, Oleksij Rempel
+ <o.rempel@pengutronix.de>, stable@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>,
+ Stanislav Fomichev <sdf@fomichev.me>,
+ Ong Boon Leong <boon.leong.ong@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ bpf@vger.kernel.org
+References: <20261114133640.3285413-1-opensource@grische.xyz>
+ <20261114133640.3285413-2-opensource@grische.xyz>
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
 Content-Language: en-US
-From: Nilay Shroff <nilay@linux.ibm.com>
-In-Reply-To: <20261116-bug-block-elevator-unchanged-v3-2-cb4dda2dadf4@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+In-Reply-To: <20261114133640.3285413-2-opensource@grische.xyz>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA1NyBTYWx0ZWRfX07yao+Tok/F/
- TNnmoz0tLbdZrao4DDgSwTvuPlMQf8A+LRAzR0Qk4vGlsFGa71pQCJfOT0Dzp1A3/9d+pAHNTnr
- Fl1EVyENoWRlc1nC0fnGm7rqxit/FAQ=
-X-Proofpoint-GUID: 9I0Bk_QM5L8rCCqSV5WjolE2W5Mhoco3
-X-Proofpoint-ORIG-GUID: PQsvkT4QhkRE6BeE1zFigzzaZ-XNRkwX
-X-Authority-Analysis: v=2.4 cv=IruL47/g c=1 sm=1 tr=0 ts=6afc6a99 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
- a=0xM2EKjX6uQc8llLSOYA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA1NyBTYWx0ZWRfX1XT07RgyJfio
- 0brGkaf+U1gMvDloTCIm/vopopUuHQaEBa/jVqTuy4ytE9A4kl05GDaJvA9YSd6NSNbN+YMhmlS
- Ptjj8x2WDpWz/gWd0p8y/eswN/B4n2PwGSbqLNbyjexLIpVQgndRpgqyjQRzNGvPi+oaQG8ZP1X
- NrOjew8C+XJXifUte/ZeccWF0AIIdH6FfBA34GQi0oNBWCM+8WHZ8T9F+NIt6TLeVuUb7kA0gLa
- GdLmieQyMSNJrXiEM8+fL9xK2D0bnGIRlclRT0WeETHeM1NwY1rUgVcvYnMZ9bAhVF7De91WXTl
- a05wJHBk/aoMYwua6Ri8LSFxD3wIGJ/2KHcTxi14czeP0FjqmjwYUvkAFmMNNK6kSwYp5I7SkUc
- vX2NGnOh+n5ZBxa2637XbuOidcLrySqtbIbQ21tu7cwfatnd5Nh0Kxxnq0gOCl3V2bj74ALyxm4
- mKOUJPSnskL84B0smaQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-17_02,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 adultscore=0 suspectscore=0 bulkscore=0
- malwarescore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170057
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 11/17/26 8:26 AM, Qiliang Yuan wrote:
-> Writing the scheduler a queue already uses to queue/scheduler used to
-> be a no-op. elevator_change() now only checks for an unchanged elevator
-> after freezing the queue, and doesn't treat "none" on a queue without
-> an elevator as unchanged at all, so that case also quiesces the queue
-> in elevator_switch() and resets nr_requests.
-> 
-> Every such write therefore drains in-flight I/O and waits for an RCU
-> grace period. udev rules and tuning tools that set the scheduler
-> unconditionally stall I/O on live disks each time they run.
-> 
-> Check under elevator_lock whether anything would change before
-> allocating scheduler resources and freezing the queue. The check can
-> race with another elevator change, which at worst leads to a redundant
-> switch, so keep the one done under the freeze as well.
-> 
-> Writing the current scheduler to queue/scheduler of a null_blk disk 20
-> times takes (median):
-> 
->    operation                 before (ms)  after (ms)  change
->    none -> none                     9.11        0.08    -99%
->    mq-deadline -> mq-deadline       9.05        0.08    -99%
-> 
-> 4k random reads at queue depth 1 for 10 seconds, while "none" is
-> written to queue/scheduler every 50 ms:
-> 
->    metric             before  after  change
->    IOPS               340562 390392    +15%
->    max latency (us)    16302   1224    -92%
-> 
-> Fixes: af2814149883e ("block: freeze the queue in queue_attr_store")
-> Signed-off-by: Qiliang Yuan<qiliang.yuan@linux.dev>
-> Reviewed-by: Christoph Hellwig<hch@lst.de>
+Hi,
 
-Looks good to me:
-Reviewed-by: Nilay Shroff <nilay@linux.ibm.com>
+On 11/14/26 14:36, Christian Schmidbauer wrote:
+> Commit ee0aace5f844 ("net: stmmac: Correctly handle Rx checksum offload
+> errors") taught stmmac_rx() to honour the csum_none status, but
+> stmmac_dispatch_skb_zc() still ignores it and sets CHECKSUM_UNNECESSARY
+> for every IP frame whenever the checksum offload engine (CoE) is
+> enabled.
+> 
+> Since commit fe4042797651 ("net: stmmac: dwmac4: stop hardware from
+> dropping checksum-error packets") dwmac4 delivers such frames instead of
+> dropping them, so this path receives them.
+> 
+> Mark the skb CHECKSUM_NONE when csum_none is set, as stmmac_rx() does.
+> 
+> Fixes: bba2556efad6 ("net: stmmac: Enable RX via AF_XDP zero-copy")
+> Cc: <stable@vger.kernel.org>
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Christian Schmidbauer <opensource@grische.xyz>
+
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+
+Maxime
+
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 7ffed295eb14..3e5803db19b4 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -5547,7 +5547,7 @@ static struct sk_buff *stmmac_construct_skb_zc(struct stmmac_channel *ch,
+>  
+>  static void stmmac_dispatch_skb_zc(struct stmmac_priv *priv, u32 queue,
+>  				   struct dma_desc *p, struct dma_desc *np,
+> -				   struct xdp_buff *xdp)
+> +				   struct xdp_buff *xdp, int status)
+>  {
+>  	struct stmmac_rxq_stats *rxq_stats = &priv->xstats.rxq_stats[queue];
+>  	struct stmmac_channel *ch = &priv->channel[queue];
+> @@ -5575,7 +5575,8 @@ static void stmmac_dispatch_skb_zc(struct stmmac_priv *priv, u32 queue,
+>  
+>  	skb->protocol = eth_type_trans(skb, priv->dev);
+>  
+> -	if (unlikely(!coe) || !stmmac_has_ip_ethertype(skb))
+> +	if (unlikely(!coe) || !stmmac_has_ip_ethertype(skb) ||
+> +	    (status & csum_none))
+>  		skb_checksum_none_assert(skb);
+>  	else
+>  		skb->ip_summed = CHECKSUM_UNNECESSARY;
+> @@ -5789,7 +5790,8 @@ static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
+>  
+>  		switch (res) {
+>  		case STMMAC_XDP_PASS:
+> -			stmmac_dispatch_skb_zc(priv, queue, p, np, buf->xdp);
+> +			stmmac_dispatch_skb_zc(priv, queue, p, np, buf->xdp,
+> +					       status);
+>  			xsk_buff_free(buf->xdp);
+>  			break;
+>  		case STMMAC_XDP_CONSUMED:
+
