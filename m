@@ -1,57 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794914138;
-	b=jNudSiR8O/SzrZiSQrNxWjGnEVOaMFsQgI2r7ak2jJJJhTncFJQICqb9P2jOpHJQvP9m
-	 eXK1shaFE/6VEf3050p3krBW705y5uQf+lXMGew5M93IjBX/a04UypJUOK/2465ljfNGn
-	 az7OhYqduuWUSvjAURiwozfEw0TrSNnBWyUlNL4Wt012OMyMcWtSMSN2jP0LRr+uYDoE6
-	 Q3Egjmm0G1jtbgjipxFuuEKcl0Dz9ueTPCXRzKcuZ4oSqoeJIpIVc0Ta7MsE8Kn9Tdtr4
-	 BmXn86oj5Z0a7f/Zc3aN9z0gP4th5YImjHO8Ary3un8NxTBmrcEUgBLifHhcT70OkZA==
+	t=1794914133;
+	b=HrCHIadsjdLDCMHwhuqAgL5iY61uWMy73XCppiFXkPwY9YZGf8KtxL5q9CRbj9U2pwvw
+	 S7K8A6KxD46SEoXPmzcms+Hkpc/OxIJNxHM9h7l2KARs77ZPPJBaaYOV8HA4KICzj89gv
+	 ey4cJEYwUzaUNQ+51WRknm0ALBrg400Ju11uHnRbquS4Q/dX+6RRRV317XtI1V3Uv/byK
+	 5oK+nbOHAtIAxOzEH8U36Pb8bOz1nzfXkcSpSkVG/nRNLAyYbLgk6oECm6zdYcEZFcMeM
+	 rz6AdBv1P0nluZrMBEyEUta93aSEZjg42ZSxWn4owqHtx5aQv7TjPdwUT+PHzaNHz3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794914138;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=HuszLLEjXpkORq58yz0GcNo/iqkBHOAIX91Mb3TYLQE=;
-	b=eRkR7BkL/LeqX87gQoD1ajaOZFkqIv8Xw8fI769IZDlfm/ELg4hM2s6thpVZjQ7mexS9
-	 rQ4xKEnFRXD59DN+zpadBI4WjYL8NIW7ZwlwOsU6jQ1F2lOVW190ZQVy98VtJDUPATc5t
-	 /btp259DDNyBT7z+TRP/seFZd5QlFQJLqBq+W51PMN181xIXwbgcUSTlBFyml4yuWjd6A
-	 fvEF3+qjBNDsP9GMV1+LHowkXbS676pTh73c/vqW/TdR5L+BA3zjHH3gKu6gIcpH2Zudz
-	 8lZxOWYDBG8pbNnyTKtJMmxV/pMlgtY8ggLzvhX0Dr7dGLocV4O3Pxh/OfTiIpWC9ug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794914133;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=i/j6OXhWE2BWJFu74iOeMBHWT4Il0cJQsXX5eDzeUIw=;
+	b=NiGRdwV++6COrGznCm+s35nZQQqUz6BWc9M3OZWyHs0x1LBUDZbxxNe4yUDeq+K44/Gc
+	 qYI4CiSRm2ykuh8MUNYqs3aIrchT/xeprLcOOMtlB9DNiGLYc0+I0vONeGDpuzn0+bwny
+	 nR8u3Xgp5NiD7DqBj+INkmsfrH3s01YSN9RQOEBSwaTC9r23hM2ABd13hUHTs42oDaRxV
+	 24na2ieR97AB4D1/M8MjehBK7jHkl1HiwPtx6uOnQxbPwr/kOZZFazcD5zVclyWHf47wS
+	 +xzcH+vs/P4ZLtgwD0eDh4+41q50mgA0RYgfz/MZnwgxNnUmztA7RLfm5Q0EktAgieA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=GFLdkHCT;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61DBF606A323;
-	Tue, 17 Nov 2026 11:15:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61DBF606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=suf7Bwoe;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 880D3606A335;
+	Tue, 17 Nov 2026 11:15:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 880D3606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=GFLdkHCT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794914136;
-	bh=Yowmv05lbR40wQjKJ7RKOMQYkspttaK5HaDL4dRGMBw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=GFLdkHCTqu2t1UmYxAlJ/UbqwGp0LcB8XoKMVuhFze4BN8fUNBw4bYVnpLaCThZ1P
-	 k8CjQEWp16KmKRxPuYRQIWp0XPuCwIm/AAL40vNZL3TbhkaPixjfq+nIUgEspqfLOR
-	 iRal+NIhfjZDoMANrXVsVzhAz5YBQUNB+AsS7Us5akG8St/Q0Yc9cTPrdud0BYYy7O
-	 v6yBalOCHkfnsW6a1ntehyf6z4Zo8nfvNkWR1501mtTsvqz55USmt9rPUXEYtjKfuw
-	 oQssNpmvbn6L/zpYZemKD0J32XAV1yvimGRj9ZWAr0+jbbdveLiOgjD5M6WxdaoWGd
-	 wHvDFVFjRrz3w==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id DE2A817E0060;
-	Tue, 17 Nov 2026 12:15:35 +0100 (CET)
-Message-ID: <843a1fba-f74c-41c0-90be-f97b8dbffc09@collabora.com>
-Date: Tue, 17 Nov 2026 12:15:35 +0100
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=suf7Bwoe
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6E0151476;
+	Tue, 17 Nov 2026 03:15:27 -0800 (PST)
+Received: from e135073.nice.Arm.com (e135073.arm.com [10.34.111.135])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 15C383F763;
+	Tue, 17 Nov 2026 03:15:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794914130; bh=m2BGvWlESmAk3p+3a2LbqSeYpicuTAHuyckwikWeVZ8=;
+	h=From:To:Cc:Subject:Date:From;
+	b=suf7Bwoe+FfV9WdUTtJshf5GvzmpqDFdT13KI6zdzgZSuDlMSWM/C6p8v3xd18boJ
+	 8lRSXBXzFbDtddOXGUfQbtumJdfH5SrNnU9OOMEMbg/F6yoPctDCX7mAyCVo4rRfaf
+	 EIbk/hsVBTaFOn1s3qAx+03aDWURAIrSIx3uYPK4=
+From: Pierre Gondois <pierre.gondois@arm.com>
+To: linux-kernel@vger.kernel.org
+Cc: Ashok Raj <ashok.raj@oss.qualcomm.com>,
+	James Morse <james.morse@arm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Pierre Gondois <pierre.gondois@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Tony Luck <tony.luck@intel.com>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Shuai Xue <xueshuai@linux.alibaba.com>,
+	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
+	"Oliver O'Halloran" <oohall@gmail.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
+	Pawel Chmielewski <pawel.chmielewski@intel.com>,
+	Yazen Ghannam <yazen.ghannam@amd.com>,
+	Radu Rendec <radu@rendec.net>,
+	Avadhut Naik <avadhut.naik@amd.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Kai-Heng Feng <kaihengf@nvidia.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	"Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>,
+	Breno Leitao <leitao@debian.org>,
+	Dan Williams <djbw@kernel.org>,
+	Terry Bowman <terry.bowman@amd.com>,
+	linux-acpi@vger.kernel.org,
+	linux-edac@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-pci@vger.kernel.org,
+	acpica-devel@lists.linux.dev
+Subject: [PATCH v1 00/19] ACPI: APEI: Share CPER reporting between GHES and extlog
+Date: Tue, 17 Nov 2026 12:10:10 +0100
+Message-ID: <20261117111444.4185512-1-pierre.gondois@arm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,39 +92,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/5] dt-bindings: watchdog: mediatek,mtk-wdt: Add
- MT6833
-To: i@udp0.com, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Sean Wang <sean.wang@mediatek.com>, Wim Van Sebroeck
- <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- linux-watchdog@vger.kernel.org, linux-serial@vger.kernel.org,
- phone-devel@vger.kernel.org, Roman Vivchar <rva333@protonmail.com>
-References: <20261117-mt6833-base-v2-0-058a0685c40c@udp0.com>
- <20261117-mt6833-base-v2-2-058a0685c40c@udp0.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20261117-mt6833-base-v2-2-058a0685c40c@udp0.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/17/26 10:11, Rui Cao via B4 Relay wrote:
-> From: Rui Cao <i@udp0.com>
-> 
-> Add MediaTek's MT6833 (Dimensity 700) as a compatible of its own.
-> 
-> It can't fall back to mediatek,mt6589-wdt, which also describes
-> MT6589's twelve TOPRGU reset lines: MediaTek's kernel for MT6833 resets
-> the connectivity CPU through bit 12 of WDT_SWSYSRST, past them, and has
-> no full reset table for the SoC to take one from.
-> 
-> Signed-off-by: Rui Cao <i@udp0.com>
+Hello,
 
-Reviewed-by: AngeloGioacchino Del Regtno <angelogioacchino.delregno@collabora.com>
+This patchset should be applied on top of [1].
 
+GHES and acpi_extlog handle many of the same CPER sections, but have
+separate implementations that do not always report errors in the same
+way. This series brings that code together so both paths can use the
+same reporting helpers.
+
+Most of the patches prepare for that move. MCE reporting for Memory
+Error Section 2 is also added. In the MCE extended-log policy, tracing
+and PCIe/CXL handling no longer depend on whether a RAS daemon is
+registered. Only fatal CPER records are printed to the console, as
+briefly suggested at [2]. For nonfatal records,
+users need tracing enabled or a subsystem handler that reports the error.
+
+With the common helper, GHES can emit memory trace events even without
+an EDAC driver registered. CXL media records that cannot be queued are
+reported through the nonstandard trace event instead of being dropped.
+
+[1] https://lore.kernel.org/lkml/20261113132600.3355836-1-pierre.gondois@arm.com/
+[2] https://lore.kernel.org/lkml/20240521183913.GGZkzqUSN1hdE-_OEY@fat_crate.local/
+
+++++++++++++
++ Testing: +
+++++++++++++
+
+Some examples of kernel logs,
+tested on x86/arm64:
+
+CPER Memory Error section:
+{1}[Hardware Error]: Hardware error from APEI Generic Hardware Error Source: 1
+{1}[Hardware Error]: event severity: recoverable
+{1}[Hardware Error]:  Error 0, type: recoverable
+{1}[Hardware Error]:  fru_text: ABCDEFGHIJKLMNOPQRST
+{1}[Hardware Error]:   section_type: memory error
+{1}[Hardware Error]:    error_status: A read was issued to data that has been poisoned (0x00000000007f1a00)
+{1}[Hardware Error]:   physical_address: 0xffffffffffffffff
+{1}[Hardware Error]:   physical_address_mask: 0xffffffffffffffff
+{1}[Hardware Error]:   node:65535 card:65535 module:65535 rank:65535 bank_group:255 bank_address:255 device:65535 row:262143 column:65535 bit_position:65535 requestor_id:0xffffffffffffffff responder_id:0xffffffffffffffff target_id:0xffffffffffffffff chip_id:7
+{1}[Hardware Error]:   error_type: 15, physical memory map-out event
+{1}[Hardware Error]:   DIMM location: not present. DMI handle: 0xfeff
+$ [arm64 specific log]
+EDAC MC0: 1 UE physical memory map-out event on unknown memory (node:65535 card:65535 module:65535 rank:65535 bank_group:255 bank_address:255 device:65535 row:262143 column:65535 bit_position:65535 requestor_id:0xffffffffffffffff responder_id:0xffffffffffffffff target_id:0xffffffffffffffff chip_id:7 DIMM location: not present. DMI handle: 0xfeff page:0xfffffffffffff offset:0xfff grain:1 - APEI location: node:65535 card:65535 module:65535 rank:65535 bank_group:255 bank_address:255 device:65535 row:262143 column:65535 bit_position:65535 requestor_id:0xffffffffffffffff responder_id:0xffffffffffffffff target_id:0xffffffffffffffff chip_id:7 DIMM location: not present. DMI handle: 0xfeff status(0x00000000007f1a00): A read was issued to data that has been poisoned)
+Memory failure: 0xfffffffffffff: recovery action for non struct page pfn: Ignored
+
+CPER Memory Error section 2:
+{2}[Hardware Error]: Hardware error from APEI Generic Hardware Error Source: 1
+{2}[Hardware Error]: event severity: recoverable
+{2}[Hardware Error]:  Error 0, type: recoverable
+{2}[Hardware Error]:  fru_text: ABCDEFGHIJKLMNOPQRST
+{2}[Hardware Error]:   section_type: memory error 2
+{2}[Hardware Error]:   error_status: A read was issued to data that has been poisoned (0x00000000007f1a00)
+{2}[Hardware Error]:   physical_address: 0xffffffffffffffff
+{2}[Hardware Error]:   physical_address_mask: 0xffffffffffffffff
+{2}[Hardware Error]:   node:65535 card:65535 module:65535 rank:4294967295 bank_group:255 bank_address:255 device:4294967295 row:4294967295 column:4294967295 bit_position:4294967295 requestor_id:0xffffffffffffffff responder_id:0xffffffffffffffff target_id:0xffffffffffffffff chip_id:255
+{2}[Hardware Error]:   error_type: 15, physical memory map-out event
+{2}[Hardware Error]:   status: 0x01
+{2}[Hardware Error]:   DIMM location: not present. DMI handle: 0x0000feff
+$ [arm64 specific log]
+EDAC MC0: 1 UE physical memory map-out event on unknown memory (node:65535 card:65535 module:65535 rank:4294967295 bank_group:255 bank_address:255 device:4294967295 row:4294967295 column:4294967295 bit_position:4294967295 requestor_id:0xffffffffffffffff responder_id:0xffffffffffffffff target_id:0xffffffffffffffff chip_id:255 DIMM location: not present. DMI handle: 0x0000feff page:0xfffffffffffff offset:0xfff grain:1 - APEI location: node:65535 card:65535 module:65535 rank:4294967295 bank_group:255 bank_address:255 device:4294967295 row:4294967295 column:4294967295 bit_position:4294967295 requestor_id:0xffffffffffffffff responder_id:0xffffffffffffffff target_id:0xffffffffffffffff chip_id:255 DIMM location: not present. DMI handle: 0x0000feff status(0x00000000007f1a00): A read was issued to data that has been poisoned section_status:0x01)
+Memory failure: 0xfffffffffffff: recovery action for non struct page pfn: Ignored
+
+Non standard (i.e. random GUID):
+{3}[Hardware Error]: Hardware error from APEI Generic Hardware Error Source: 1
+{3}[Hardware Error]: event severity: recoverable
+{3}[Hardware Error]:  Error 0, type: recoverable
+{3}[Hardware Error]:  fru_text: ABCDEFGHIJKLMNOPQRST
+{3}[Hardware Error]:   section type: unknown, 12345678-1234-5678-9abc-def012345679
+{3}[Hardware Error]:   section length: 0x21
+{3}[Hardware Error]:   00000000: 746e7953 69746568 6f6e2063 6174736e  Synthetic nonsta
+{3}[Hardware Error]:   00000010: 7261646e 50432064 65205245 746e6576  ndard CPER event
+{3}[Hardware Error]:   00000020: 00                                               .
+
+PCI:
+{4}[Hardware Error]: Hardware error from APEI Generic Hardware Error Source: 1
+{4}[Hardware Error]: event severity: recoverable
+{4}[Hardware Error]:  Error 0, type: recoverable
+{4}[Hardware Error]:  fru_text: ABCDEFGHIJKLMNOPQRST
+{4}[Hardware Error]:   section_type: PCIe error
+{4}[Hardware Error]:   port_type: 0, PCIe end point
+{4}[Hardware Error]:   device_id: 0000:01:00.0
+{4}[Hardware Error]:   slot: 0
+{4}[Hardware Error]:   secondary_bus: 0x00
+{4}[Hardware Error]:   vendor_id: 0x1234, device_id: 0x5678
+{4}[Hardware Error]:   class_code: 000000
+{4}[Hardware Error]:   aer_cor_status: 0x00000000, aer_cor_mask: 0x00000000
+{4}[Hardware Error]:   aer_uncor_status: 0x00004000, aer_uncor_mask: 0x00000000
+{4}[Hardware Error]:   aer_uncor_severity: 0x00000000
+{4}[Hardware Error]:   TLP Header: 00000000 00000000 00000000 00000000
+AER: 0000:01:00.0: no pci_dev found
+
+Tracing:
+x86:
+extlog_mem_event: {1} recoverable error: physical memory map-out event physical addr: ffffffffffffffff (mask lsb: 0) node:65535 card:65535 module:65535 rank:65535 bank_group:255 bank_address:255 device:65535 row:262143 column:65535 bit_position:65535 requestor_id:0xffffffffffffffff responder_id:0xffffffffffffffff target_id:0xffffffffffffffff chip_id:7 DIMM location: not present. DMI handle: 0xfeff FRU: 00000000-0000-0000-0000-000000000000 ABCDEFGHIJKLMNOPQRST
+mce_record: CPU: 0, MCGc/s: 100010a/0, MC255: bc0000000000009f, IPID: 0000000000000000, ADDR: ffffffffffffffff, MISC: 0000000000000080, SYND: 0000000000000000, RIP: 00:<0000000000000000>, TSC: 0, PPIN: 0, vendor: 2, CPUID: 663, time: 1794906879, socket: 0, APIC: 0, microcode: 1000065, vendor data: {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0}
+extlog_mem2_event: {2} recoverable error: validation_bits: 0x3fffbf error_status: 0x7f1a00 physical_addr: 0xffffffffffffffff physical_addr_mask: 0xffffffffffffffff node: 65535 card: 65535 module: 65535 bank: 65535 device: 4294967295 row: 4294967295 column: 4294967295 rank: 4294967295 bit_pos: 4294967295 chip_id: 255 error_type: 15 status: 0x1 requestor_id: 0xffffffffffffffff responder_id: 0xffffffffffffffff target_id: 0xffffffffffffffff mem_array_handle: 0xfeff mem_dev_handle: 0xfeff FRU: 00000000-0000-0000-0000-000000000000 ABCDEFGHIJKLMNOPQRST
+mce_record: CPU: 0, MCGc/s: 100010a/0, MC255: bc0000000000009f, IPID: 0000000000000000, ADDR: ffffffffffffffff, MISC: 0000000000000080, SYND: 0000000000000000, RIP: 00:<0000000000000000>, TSC: 0, PPIN: 0, vendor: 2, CPUID: 663, time: 1794906882, socket: 0, APIC: 0, microcode: 1000065, vendor data: {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0}
+non_standard_event: severity: 2; sec type:78563412-3412-7856-9abc-def012345679; FRU: 00000000-0000-0000-0000-000000000000 ABCDEFGHIJKLMNOPQRST; data len:33; raw data:53 79 6e 74 68 65 74 69 63 20 6e 6f 6e 73 74 61 6e 64 61 72 64 20 43 50 45 52 20 65 76 65 6e 74 00
+
+arm64:
+extlog_mem_event: {1} recoverable error: physical memory map-out event physical addr: ffffffffffffffff (mask lsb: 0) node:65535 card:65535 module:65535 rank:65535 bank_group:255 bank_address:255 device:65535 row:262143 column:65535 bit_position:65535 requestor_id:0xffffffffffffffff responder_id:0xffffffffffffffff target_id:0xffffffffffffffff chip_id:7 DIMM location: not present. DMI handle: 0xfeff FRU: 00000000-0000-0000-0000-000000000000 ABCDEFGHIJKLMNOPQRST
+mc_event: 1 Uncorrected error: physical memory map-out event on unknown memory (mc:0 location:-1:-1:-1 address:0xffffffffffffffff grain:1 syndrome:0x00000000 APEI location: node:65535 card:65535 module:65535 rank:65535 bank_group:255 bank_address:255 device:65535 row:262143 column:65535 bit_position:65535 requestor_id:0xffffffffffffffff responder_id:0xffffffffffffffff target_id:0xffffffffffffffff chip_id:7 DIMM location: not present. DMI handle: 0xfeff status(0x00000000007f1a00): A read was issued to data that has been poisoned)
+memory_failure_event: pfn 0xfffffffffffff: recovery action for non struct page pfn: Ignored
+extlog_mem2_event: {2} recoverable error: validation_bits: 0x3fffbf error_status: 0x7f1a00 physical_addr: 0xffffffffffffffff physical_addr_mask: 0xffffffffffffffff node: 65535 card: 65535 module: 65535 bank: 65535 device: 4294967295 row: 4294967295 column: 4294967295 rank: 4294967295 bit_pos: 4294967295 chip_id: 255 error_type: 15 status: 0x1 requestor_id: 0xffffffffffffffff responder_id: 0xffffffffffffffff target_id: 0xffffffffffffffff mem_array_handle: 0xfeff mem_dev_handle: 0xfeff FRU: 00000000-0000-0000-0000-000000000000 ABCDEFGHIJKLMNOPQRST
+mc_event: 1 Uncorrected error: physical memory map-out event on unknown memory (mc:0 location:-1:-1:-1 address:0xffffffffffffffff grain:1 syndrome:0x00000000 APEI location: node:65535 card:65535 module:65535 rank:4294967295 bank_group:255 bank_address:255 device:4294967295 row:4294967295 column:4294967295 bit_position:4294967295 requestor_id:0xffffffffffffffff responder_id:0xffffffffffffffff target_id:0xffffffffffffffff chip_id:255 DIMM location: not present. DMI handle: 0x0000feff status(0x00000000007f1a00): A read was issued to data that has been poisoned section_status:0x01)
+memory_failure_event: pfn 0xfffffffffffff: recovery action for non struct page pfn: Ignored
+non_standard_event: severity: 2; sec type:78563412-3412-7856-9abc-def012345679; FRU: 00000000-0000-0000-0000-000000000000 ABCDEFGHIJKLMNOPQRST; data len:33; raw data:53 79 6e 74 68 65 74 69 63 20 6e 6f 6e 73 74 61 6e 64 61 72 64 20 43 50 45 52 20 65 76 65 6e 74 00
+
+Pierre Gondois (19):
+  x86/APEI: Extract common CPER memory error reporting helper
+  x86/APEI: Report Memory Error Section 2 through MCE
+  ras: Bound CPER FRU strings in trace events
+  ACPI: APEI: Use empty FRU values if valid bit is absent
+  PCI/AER: Embed aer_capability_regs copy in struct aer_recover_entry
+  ACPI: APEI: Remove aer allocation in ghes_handle_aer()
+  ACPI: extlog: Provide HEST generic data to extlog_print_pcie()
+  ACPI: extlog: Align extlog_print_pcie() and ghes_handle_aer()
+  ACPI: extlog: Report errors independently of RAS consumers
+  ACPI: extlog: Simplify fatal record printing
+  RAS: Remove unused ras_userspace_consumers()
+  ACPI: extlog: Extract CPER reporting from acpi_extlog
+  ACPI: APEI: Share helpers with the common CPER reporter
+  ACPI: APEI: Return status from cxl_cper_post_event()
+  ACPI: APEI: Extend common CPER reporting for GHES section types
+  ACPI: extlog: Report error severity using GHES bindings in MCE
+  ACPI: APEI: Share the extlog PCIe handler with GHES
+  ACPI: APEI: Route GHES section reporting through extlog
+  PCI/ERR: Avoid NULL bridge pointer
+
+ arch/x86/include/asm/mce.h        |   5 +-
+ arch/x86/kernel/acpi/apei.c       |   7 +
+ arch/x86/kernel/cpu/mce/apei.c    |  43 ++++--
+ drivers/acpi/acpi_extlog.c        | 138 ++---------------
+ drivers/acpi/apei/Makefile        |   2 +-
+ drivers/acpi/apei/apei-base.c     |   5 +
+ drivers/acpi/apei/apei-internal.h |   7 +
+ drivers/acpi/apei/extlog.c        | 236 ++++++++++++++++++++++++++++++
+ drivers/acpi/apei/ghes.c          | 168 +++------------------
+ drivers/pci/pcie/aer.c            |  34 ++---
+ drivers/pci/pcie/err.c            |   5 +
+ drivers/ras/debugfs.c             |  10 --
+ drivers/ras/ras.c                 |   2 +-
+ include/acpi/apei.h               |   1 +
+ include/acpi/ghes.h               |   4 -
+ include/linux/aer.h               |   2 +-
+ include/linux/ras.h               |   2 -
+ include/ras/ras_event.h           |   8 +-
+ 18 files changed, 345 insertions(+), 334 deletions(-)
+ create mode 100644 drivers/acpi/apei/extlog.c
+
+--
+2.43.0
