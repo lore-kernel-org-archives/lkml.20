@@ -1,68 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.149.156.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794921694;
-	b=3nb5RIQhpNCSRTb/3Bj/gmq/hSbd5HKlIRdOiSr39tfCAW7Yrp2vt6C444b4fhkX5PdB
-	 MMTecEMfB/uJcQ8JJSEEQhttVsHlpkqHZn677BSmQjPmVdn40+PwtiqxE53DtsfIWCTIR
-	 Xi0Yrmzty66Ro6cltW8SJj/niR5U010vnSlGnz5z8smBbIj8CSFRVTdELDY9o0jg2Hs8K
-	 96c5YmCVB+6KKbJqn1C4g4mP+4v6M1Q3g/pVbCiFmT11JhDf5DFy+mAmURKtBVb85p5Nt
-	 Vn4rFhwEeZvKyNMX/23VaKZzEbwd3b/KBjnprna7kdco2jcCtgK/bGEorYiyVgGKqkg==
+	t=1794921699;
+	b=TNqjYHzveVFv6wJSFX812/8H2hKUrjoAw0me4BaOyH0g2o+6LuhV71wunFwFc18TkBRt
+	 mBC9yIzpHTiQAqaGlAtjhmF7qHnQ9Bb5FnSjK5wokl+tX9PJNF/t2p4hHDLIc64c9t2ZY
+	 Y91oyQqOgnM4uwp3a1HqCGHAQ3Et9MsMtiNjONc7EPOzYjw7QKAoXz9IoUGJupoAlONbe
+	 G+0gf4FkUM26+uKbSbI6qXU2HrKC70aMLCLjBpRl23eOs9BtaJPRP1qLhUAg0hBepNQwe
+	 9ZEncggyBwfA4JuS22HiJ8F6C1frLJ62IRhhqutW6hMKByrrYcJVr8djEs8b/K95rNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794921694;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=Zi8OAGVQukL/w4MsMi+hTnD2T6SHZKyI0yT1q7MBUxo=;
-	b=BGLuiGriEOlIEoTywbS5OKTHLJl4ai98R5637DBpCQWSRfcTyfA4C01eUySAXHIadoi2
-	 1UYlN+LolfS+iw0vTML21SV/3pRJfcguarpmSkceVDXDdb8RPoZU46Rwf7rTE/sfJD6No
-	 gRQPN64wjfpMFeHp4gS1iih3soh9wgg262D6NqRt3zMl2uXG2GRpyy82bmhIgagGZb1Mw
-	 QEhb5tfshbRQMZPn3tsYrIHS7Zd9Vgnb33c27+lZ5dxN02sni2bjeto90gPX8ORAdY/Ys
-	 z7AOfx1VWItdQ2on+3rIj44j7ZzhRvAkHXMct+x1j6wyE++XTO0I0q+kCJ0T2v2JY+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794921699;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:Content-Language:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CMAE-Envelope;
+	bh=CWKy/Xe5D3WLDxIMxxMZifmNFWiFuSMPKw85DviN7N8=;
+	b=VUoS1Xx+AUNrbqmkZJ7RPNDTyeIpYcX+bXjqoz0KLRkZ20h2Ba9odoamfANsC+e3mnxe
+	 ZXMdCzJHW8f4MoeLF9lp+P5PPGQVvlrPj72vbZ0yYjuWA1qDfCsLKB/xD5RQqbH0Ymt4Y
+	 m+EoNukWUe3u92YeEQXt7fWOLSbwVaZT2eF39It53FfTdcLso4xAohjFVQt9uIWra1+LO
+	 LVp9koUJD+vUbZ8M6GnqAX7hEuH24K/Qir67VDhGLbL4M4xo67r+aZRzrDKN2AENDELuj
+	 wQh5sIcJirgDf3l9Qahbjzb+LfSaHU5H8fwK3qeKDWY0qN5w7XMDJ8q1ifJfOu/CWaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c3hLoxO5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=enneenne.com;
+	spf=pass smtp.mailfrom=enneenne.com;
+	dkim=pass header.d=aruba.it header.i=@aruba.it header.a=rsa-sha256 header.s=a1 header.b=D3LHUF9a;
+	arc=none smtp.remote-ip=62.149.156.72
+Received: from smtpcmd0872.aruba.it (smtpcmd0872.aruba.it [62.149.156.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE27606A329
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:21:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEE8D606A333
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:21:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEE8D606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c3hLoxO5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EC3D1F000C4;
-	Tue, 17 Nov 2026 13:21:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794921694;
-	bh=Zi8OAGVQukL/w4MsMi+hTnD2T6SHZKyI0yT1q7MBUxo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=c3hLoxO5ZMuNEHZiJATEkpv8p+udzJFUOp2pu1gs8MW23Tyjvpd3D5du5cH0GIhSj
-	 Bebp/aNm3kBkENkyreMiaaRbw5sq5B+odL+4I/OoYt/D+eq54cF1xVwOpr0ITYdl9T
-	 vFQ8MCk7K2Rv4I4qO5gXK/vWG9ZjwMRyJKbFL/jvCR6LjxpncbNktpakZhu1sTJwB9
-	 B3R1lCX99cdmrzSMZYqCxRqLSKToEIIMwr9qlspSLiulHVbGM36Uj6elUKrnV/i4i0
-	 2tey4lBw3qiOmYs4BqUHA9ian1oPvcab/cuHfj8C6pFzjqrRVluLMZ02KuMLv4qJH8
-	 tkdcJye7wDIGw==
-Date: Tue, 17 Nov 2026 15:21:25 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Muchun Song <muchun.song@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Oscar Salvador <osalvador@suse.de>, Li Zhe <lizhe.67@bytedance.com>,
-	Andrew Popple <apopple@nvidia.com>,
-	Balbir Singh <balbirs@nvidia.com>, Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	James Houghton <jthoughton@google.com>,
-	Lance Yang <lance.yang@linux.dev>, Qi Zheng <qi.zheng@linux.dev>,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	Muchun Song <songmuchun@bytedance.com>
-Subject: Re: [PATCH v2 04/14] mm/mm_init: factor out common struct page
- initialization
-Message-ID: <avxU1Ypb6Vy4Sp4O@kernel.org>
-References: <20261113033442.62970-1-songmuchun@bytedance.com>
- <20261113033442.62970-5-songmuchun@bytedance.com>
- <179482576829.2379196.2091312590305150578.b4-review@b4>
- <44fc03e4-a545-465b-a7f4-174be2038884@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=aruba.it header.i=@aruba.it header.a=rsa-sha256 header.s=a1 header.b=D3LHUF9a
+Received: from [192.168.0.186] ([101.57.122.26])
+	by Aruba SMTP with ESMTPSA
+	id TJ7nx1DnacPcsTJ7nxe0qW; Tue, 17 Nov 2026 14:21:29 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
+	t=1794921689; bh=oT2PXSW88ArmQaqNSfEwrssUL0dmXrSRZQiuFx9AOd0=;
+	h=Date:MIME-Version:Subject:To:From:Content-Type;
+	b=D3LHUF9aQVXKQ9UYUAuA7NcPsl7BxfeUkL4oPBUdEqZXYDqb3z7e6J1CpDrKNvAaW
+	 FjXwqAeTCHmUYrrMsoTo9ECEVQSofvqgnLkdS16Huf5+yxZ36R6EkrMC1lwJPKt/dP
+	 W5Yv3mmn4/UEChNu7vuU6HPWQ7WotSwx9EBRzr/ilp803lg6O9lBrSeJc4kTtuW5T9
+	 JMRv6rH/v/F9jevkqU6/KbzUxwECPrTwg3y4tU/Oqod3O6X4vdWq+sdE+zr+7lJ63R
+	 smxM4IyZIlcdPa4oVOV/2RZkjbTo4owA78Gutm179EV2aTRPTlI117fu7Jmbr/WRft
+	 V6RJOdFZJ80bA==
+Message-ID: <0e20f799-e389-40d2-aaee-2f174748faae@enneenne.com>
+Date: Tue, 17 Nov 2026 14:21:26 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,47 +56,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <44fc03e4-a545-465b-a7f4-174be2038884@linux.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] KEYS: fix signature length passed to
+ KEYCTL_PKEY_VERIFY
+Content-Language: en-US
+To: Florian Bauckholt <florian.bauckholt@cispa.de>,
+ David Howells <dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Lukas Wunner <lukas@wunner.de>, Ignat Korchagin <ignat@linux.win>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>
+Cc: Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>, Hui Peng <benquike@gmail.com>,
+ Stefan Berger <stefanb@linux.ibm.com>, keyrings@vger.kernel.org,
+ linux-crypto@vger.kernel.org, linux-security-module@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261111-keyctl-pkey-fixes-v1-0-934ebaa267a7@cispa.de>
+ <20261111-keyctl-pkey-fixes-v1-1-934ebaa267a7@cispa.de>
+From: Rodolfo Giometti <giometti@enneenne.com>
+In-Reply-To: <20261111-keyctl-pkey-fixes-v1-1-934ebaa267a7@cispa.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4xfDg+biMxW//ioyRGFd9IFIlidEW1a2KiKD2evhiscr/Ncy3LgypJUgynMd+o8RcM6m0eFTTCJ1Y8aXl826d0s2qqGHBPJuRg8drh+k/ewjJ5c2Ng73LR
+ N1Sj2F7NHEHNenpSVYzQjg322kfqmTdrNt6CuKC306/WtrTJ4wHiazfLjV8+mQgXARt9KWCyR8mz5Q2XRks657UfSiRgqNd1ZYLcQs9OlasaNk6dGFhFFmoc
+ Z2FUAQk5bG+wrDzFA+GhruflgGh4nb6+rZh82j3ZE2lkIL8s4ax2X0j+qB2EBx5WDzCUIs7cD//QfBopsXqJhBSSY3asWR4psvoAO2V5DCHwWR+8fqzwZVQ3
+ zWxAZXS6nvWdCV8z6ZLxLGXwOheVDOkyjoT0+v3JinadqrBrK6t/n0Okxk/VuHAFPtIkkfgYq6Vy4j1IGNdU24E9idR72uM67iouzpuPw9J6Jja6IaR1wbL+
+ jAB4i0/IEubK9G0Zzhd8ALVt+hyPUT9Av/tFfSpZWWpWweuUW5FLEiP95GfseydpODLCfV771PTvl/oMXt1dYSIj2lWGReGq2vVbifJoiSfW5HnLMG2dyhXC
+ jiMSlAznQPDMk5GEpsO0TNidxiRm6MzTbXqm5/7lWUZAXsLBql/Qex9lAVI7JZpTq7q4veUjqLK1gtQYpyUcvHc47fqhA5ay/gp+aB5BS/wfb4HHJJChllbv
+ HUgKPjrfCjq0IoHhg1AENiug5UQqKvMh
 
-On Tue, Nov 17, 2026 at 11:13:42AM +0800, Muchun Song wrote:
-> On 2026/11/16 18:42, Mike Rapoport wrote:
+On 11/11/2026 16:56, Florian Bauckholt wrote:
+> Commit cb481e59ea6c ("KEYS: fix overflow in keyctl_pkey_params_get_2()")
+> made keyctl_pkey_params_get_2() set params->out_len to the maximum
+> output size of the operation instead of the size provided by the caller.
+> It does so for KEYCTL_PKEY_VERIFY as well, but verify has no output
+> buffer: out_len shares a union with in2_len, the length of the
+> signature.
 > 
-> > >   	page_cpupid_reset_last(page);
-> > >   	page_kasan_tag_reset(page);
-> > > +	atomic_set(&page->_mapcount, -1);
-> > > +#ifdef CONFIG_ZONE_DEVICE
-> > > +	if (zone == ZONE_DEVICE)
-> > > +		__SetPageReserved(page);
-> > > +#endif
-> > Can't we keep this in ZONE_DEVICE part?
+> As a result keyctl_pkey_verify() ignores the signature length passed by
+> the caller. It copies max_sig_size bytes from the signature pointer and
+> passes max_sig_size as the signature size to the verification.
 > 
-> We can. But I put it here because there are at least two places where
-> we need to mark a ZONE_DEVICE page as reserved. Handling it in
-> memmap_init_page_common is simpler — it reduces the number of places
-> where we have to set reserved individually. Otherwise, we would need
-> to explicitly set reserved in multiple places.
-> 
-> > 
-> > If we can't, __init_single_page() sets PG_reserved for ZONE_DEVICE pages
-> > and the
-> > 
-> > if (zone == ZONE_DEVICE)
-> > 	__SetPageReserved(page);
-> > 
-> > in the MEMINIT_HOTPLUG part of memmap_init_range() becomes redundant.
-> > 
-> 
-> Good catch. I think I could remove this redundancy next version if you
-> think handing it in memmap_init_page_common is okay.
+> This makes no difference for signatures that are always max_sig_size
+> bytes long, such as RSA. A shorter signature, e.g. a DER-encoded ECDSA
+> signature, is followed by whatever is behind it in the caller's memory,
+> or the call fails with -EFAULT if that memory is not readable. The
+> x962 ECDSA template currently ignores data following the signature,
+> which hides the problem.
 
-Let's keep the #ifdef, still better than duplication.
- 
-> Thanks,
-> Muchun
+The test suite of craf (https://github.com/giometti/crypto-afalg,
+test3008) hits this with RSA too: it cuts a genuine 256-byte RSA-2048
+PKCS#1 signature to 255 bytes and expects the verify to fail. On
+Ubuntu's 6.8.0-147 kernel, which carries the stable backport of
+cb481e59ea6c, the cut signature verifies about once in 256 runs. Over
+2000 runs per build:
+
+    plain: ok=1991 ko=9
+    asan: ok=1997 ko=3
+
+and a failing run prints (line wrapped here):
+
+    libkcrypto  [pkey-cert]: kc-check pkey-verify cert:test3008.cert
+        enc=pkcs1 hash=sha256 test3008.d256 test3008.bad: exit 0, not 1:
+    KO!
+
+To reproduce it (the count printed is the number of failures; here it
+gave 3 out of 1000 runs):
+
+    git clone https://github.com/giometti/crypto-afalg
+    cd crypto-afalg/tests
+    export TESTS_TMPDIR=$(mktemp -d)
+    for i in $(seq 1000); do ./do_test.sh 3008; done | grep -c 'KO!'
+
+I also replayed the inputs of one failing run on a UML kernel of
+current mainline (666539eecdf4, after v7.4-rc3): the 255-byte signature
+verifies 20 times out of 20, and with your patch applied it is refused
+20 times out of 20.
+
+Maybe it is worth saying so in the commit message, since this is going
+to stable?
+
+I'll send my Tested-by once test3008 has run 2000 times on a kernel
+with your patch applied.
+
+> 
+> Use the length provided by the caller, which has already been checked
+> against max_sig_size.
+> 
+> Fixes: cb481e59ea6c ("KEYS: fix overflow in keyctl_pkey_params_get_2()")
+> Cc: stable@vger.kernel.org
+> Link: https://lore.kernel.org/all/20260919221742.3709658-1-benquike@gmail.com/
+> Signed-off-by: Florian Bauckholt <florian.bauckholt@cispa.de>
+> ---
+>  security/keys/keyctl_pkey.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/security/keys/keyctl_pkey.c b/security/keys/keyctl_pkey.c
+> index 15b6bf6399b5..794fa3d01911 100644
+> --- a/security/keys/keyctl_pkey.c
+> +++ b/security/keys/keyctl_pkey.c
+> @@ -160,7 +160,7 @@ static int keyctl_pkey_params_get_2(const struct keyctl_pkey_params __user *_par
+>  		    uparams.in2_len > info.max_sig_size)
+>  			return -EINVAL;
+>  
+> -		params->out_len = info.max_sig_size;
+> +		params->in2_len = uparams.in2_len;
+>  		break;
+>  	default:
+>  		return -EOPNOTSUPP;
+>
+
+Ciao,
+
+Rodolfo
 
 -- 
-Sincerely yours,
-Mike.
+GNU/Linux Solutions                  e-mail: giometti@enneenne.com
+Linux Device Driver                          giometti@linux.it
+Embedded Systems                     phone:  +39 349 2432127
+UNIX programming
