@@ -1,90 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794913373;
-	b=HHr82lUSaX09Ps+hUkdHKkMLCfPmFM3D7MFpyzZKmlgYdNTwjnjC1+rz/XLD+o/hEVr7
-	 TZlSS1LLVKh4i6jEtD7O0SErHrfOcoe1yaUxG/wXyxy8i/h+qzUHQJP+Fu0z9cxUyrenn
-	 vOdlYnlI9aEuncAwLSc0mO5onTGQjqe6VDhVQ5Ud+tQ4+0qkE0XzHKCH6b0oAInCkUMb/
-	 EiATE04CqjT8G/Kuw4wsAqltWBU0JaXFTZUjz4Lv9nRBpHYCJGVZbHiXywRmnJaJHnojQ
-	 fZKn127EqZ3vR4b84E00OWwP65X3L3YQvoC6ODevzVscDpNpxayzZmQ3M5EhEMvy40w==
+	t=1794913415;
+	b=quIoxDXnAUa53yqQ4/Znywi+P1SjOMvT+pxd8YIySz2PYf2CP1tTgugU67do43vywtSO
+	 jq33hnv4jPxDymcc8EGCtDkx2+5wbumAoyhqcicHrqHCvRxYsBv4R3DpDL3YgKm8wPUqJ
+	 FM2soVB1w/cAHwDf13m1okA7mxMPNV7xvSl4xRkdrMfvkcPOHm+h4gEyFCxP2fhEHuiZL
+	 f0Uv73BEJQ+3ovf1ckEFkKlAzbS0oN5CT0XRF8WYGwa55kkc+GR0himzSUiFNBbdr2Ho8
+	 VEKo8+cj7LTxkx95Wg3OTIeReJ4z/Bt9ZVqDySm59t6G4+iziqyCWigwwy1ZgKQE3dg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794913373;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=crEmioOjMzsnzH6L7JboWvkyCFcBX6fDyVf9lGMy6eg=;
-	b=lC0CC8ihbBYNfsjWegm8nC4ddg010FAGzl3YRlmOAGOPrQLDZ8zVD/lGM+qSZP26kaoy
-	 om9ln42rpxn5IX/iGhyoX0epjQ1kQmrU7rXB11jVUqk7wwPHfJ2BAtZNvCV8B/UGlgpWa
-	 6E66iB0kbBcojoKesJsdCUnQEag4G6j5tw74Xckr0b8US9HRqwm8B8VjaKhUidYW/CsiJ
-	 eQCziEp7nBB9gzYaPNHPvLBr7+mbm4vAMh/B70vAOTOKnVRMb6d7BgrW3Z3wxKdCdvpSM
-	 fvmRI0PJxKcSHGcIXtUZNCQSmLMent7kmenPVvjFiS5wFsVgzpVWKZQTUNrb9ZByE5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794913415;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=pBP2YxVQh3ontLZCFQlFA3EEOT/EhtaV+AKjxMibSVc=;
+	b=pmopMF27t6HCbrbBA141AFO07ujjVp21aaugsjHxDMd8xGDzGTfc/VOvEGie7rVZK2JW
+	 q2bQNFEcw03xcd9ay/g1opNWk5enZ37BngMxkFbqbQ594YENEDkihe5v2YMpe31OA77/b
+	 OIowOHMK9FDTQJnF9kJRjiE3wlSjXzxELtlbxg9HgTzVqFGV00+ctcIDpDMOgI9Wdmp7N
+	 zWenYGNVQYGnCmZBNaLMS7T1kEkaA6mpJaTGBEu73DE6YBnweqtZVb2dvqoEwrYo8u3Hk
+	 coAX24PaOH1s6+62YIfTzpmmyUu9KiBNi0bmNwOpDTWCKJoURfigekaOElda/rMXQtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jD9TEQPU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pF61gJfK;
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E55F3606A33B;
-	Tue, 17 Nov 2026 11:02:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DBF0606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:03:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DBF0606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jD9TEQPU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 862FA1F000C9;
-	Tue, 17 Nov 2026 11:02:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794913372;
-	bh=crEmioOjMzsnzH6L7JboWvkyCFcBX6fDyVf9lGMy6eg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jD9TEQPUGxO+mI/+inKff7uoSP7g0a0erFOtxFVtDkPnPMTbL0D081VhE33DJxbG8
-	 5dVj5e9HYeiDdT8hAL5IpDQbEHbuCC69/sE82COwPzr+ih+zjcYgUBHZT8A1r02nBI
-	 je2u94IG20Y4QpFov792FdB8+HkE3G8nSGn/QCZFfy+Mcm0IRMyqEDOk0Cp1XsOY56
-	 dEtCmev7DxnVFDk0RBErzUsr70H3zpp8qfYD3s2eFGhB8qrSfj6YeG1ESbpaS5zMYQ
-	 fdYqYoUIreWD8guOCclZ13kkzJn+IAD5y2yxDBES7ERoEjpEkNFJ98Gruwt+OvGW9c
-	 nP/F+RKLvJHAg==
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 0A46D198004A;
-	Tue, 17 Nov 2026 06:02:43 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Tue, 17 Nov 2026 06:02:49 -0500
-X-ME-Sender: <xms:UzT8ajzhIRDuZQmR1yXTDLuGA3b1U0tuSaourJSyrLDTrQ_Um2nlVA>
-    <xme:UzT8ah-gVHw4IntEVOfc5Z14VjjzN7T7Q8B2FvFR5VBoen7b-HPD3m7hBY_KVQkTE
-    lA5xwY_Wo0lHo-IJ34H8B5KdKsLoJFuxG9Et2vFBrnNw5WdWVHCbak>
-X-ME-Received: <xmr:UzT8ahxcJlhvBNfVqovWJPHAn97L8-HJYkti8PJU_65bhna8ykiR1lDXN20>
-X-ME-Proxy-Cause: dmFkZTEdL3a0Ww8UBR3R2vq6MmLMcrG/RZX5swqKljzNR9iQbYhJjAbY7PI1ciZ9LK7lxN
-    G/X6ntG0iaY30AQsAjEuf57i6CZYjfm+meUK3SNiYXmeCWWUJ6eJZs3up8jphiYl4q8gjl
-    jx/Ahq1GKe6I/bXKrTuw70GcxIwNT2jp4gfkCI76UMri6prm91X5ZHCpQ0CSw70eKatw9o
-    W897R67TYQMC9tdclNiHUmVbeQonLxDDsNNr0tVhsGpDu129aHDLPo6xC+ZTyK9ZM6Qnnt
-    MYuzQ4L/hdyqL+ol7coGPamA67VuEepBf0wI/8gPf+rreyi3dAUVv7YzP/OCpkMvoNRZhV
-    YgsKbRCIilSfSP7pZVhBNK5pp+l4zUFWKPr0XsF4c/Rmq0cqJXBoQeoSNFwc2DiFDWZFSg
-    NfO+shv886RE5kd2tAFT+FTIarUIaRL9KRbOP0qtmfBkRi5y8jE6SPjvymtIKQCEHqK1h3
-    RYgAGGj/RxAuRRjdSRPlvRnDYhwbkOoHHLBugCLRdy6igxtIkdJ8SsiOfdaC9wZow2EeCV
-    Ejy4XNZF76vFloczn0M2QIsslwD2xaCsTZRX1OSP+ZOi7OtUBkmhno/iE/fXq03rTXkSbw
-    do3CK6UiTx4ST1p3Q59hLB+vj8psXH2OMMFeeHtUpnx+YFCTloQa9ChJJNoA
-X-ME-Proxy: <xmx:UzT8aruuJmQ7dDiwarHdYjVtP70RG52TxChOPLKFH7afF7h6-akdFg>
-    <xmx:UzT8aryVAcVUMmv2aTlcVJcYor6UcfL9P1w1L0anMWhtGRDIctF4jg>
-    <xmx:UzT8altjzJNLBNiYpIhGi_vWWH7VmxarJzm-N-JcvvJ1fgUMEfeHjQ>
-    <xmx:UzT8aljV0jDctEZAsJHbv0Ypfdw61mWX4M9wO2EfhtqHNe0Af12BHw>
-    <xmx:UzT8atCXyMGt2Yq-MlBZYadsi_cXIiTQmqxJmcETVf2oWtX0YRICrq70>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 17 Nov 2026 06:02:42 -0500 (EST)
-Date: Tue, 17 Nov 2026 11:02:41 +0000
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-To: Usama Arif <usama.arif@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, apopple@nvidia.com, 
-	byungchul@sk.com, david@kernel.org, gourry@gourry.net, jannh@google.com, 
-	joshua.hahnjy@gmail.com, liam@infradead.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org, matthew.brost@intel.com, 
-	mhocko@suse.com, pfalcato@suse.de, rppt@kernel.org, surenb@google.com, 
-	vbabka@kernel.org, ying.huang@linux.alibaba.com, ziy@nvidia.com, hannes@cmpxchg.org, 
-	riel@surriel.com, shakeel.butt@linux.dev, kernel-team@meta.com, 
-	baolin.wang@linux.alibaba.com, Nico Pache <nico.pache@linux.dev>, ryan.roberts@arm.com, 
-	dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] mm: don't PTE-batch a swap-in of a folio with a
- hardware-poisoned page
-Message-ID: <avwwMyk462raQFy2@shutemov.name>
-References: <20261116063624.1382944-1-usama.arif@linux.dev>
- <20261116063624.1382944-3-usama.arif@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pF61gJfK
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1aefd1bf74aso632532c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:03:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794913414; x=1795518214; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pBP2YxVQh3ontLZCFQlFA3EEOT/EhtaV+AKjxMibSVc=;
+        b=pF61gJfKJ82vwmSaya6jxWXA610wiYhVQsAj/HvXjfpTHVeax7PbmHAte2c/h1w1mv
+         reDfDdZzjY3MBA9fwLSs+zrj2yqW9lM/K7Q4Trsu/9pSH/qcg6lOXeDEeXAJB/G1Hi0R
+         DKcM0nSXVkx3hEIGq2RMIYO23o2lFgVAoFAcfe1cnGmSCPx5Ldy9keqCt/4T1GFV8uKE
+         UWMO5Gz4VzOwUTNUHJmHue/NXA1Wh7qdppzBBO3XXQaVSse7AZasMovdxMxfh5vrocmJ
+         gotAmVGsD5MOk+r1ZtO8ks4CfEqrBCSDYFKholpwb0Cpi2tmKm/H5JsnezACSW1T7O7n
+         cKZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794913414; x=1795518214;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pBP2YxVQh3ontLZCFQlFA3EEOT/EhtaV+AKjxMibSVc=;
+        b=aLhDEMqgkoXpka0BjWs3m6Yz6XXg/iQPBOUEysFJHAn4hFXcZN2HPxX8lEzP/KPpFE
+         nanALj1sc+24wy6UuXzpKGzC8AX1f5NFX7KhUFOc9l4H1K9fECEH3bHLjO9aLpY7hXP2
+         KClni1MKIi+Nn6CI0Ph07mo07vv7QNUMuVbO1lP//5fp6u+RgbxUEpyYAF/m3uAWuPC2
+         1EVjzkMGpp5Kh8qry2X2imrzXJuxfHhc5nU1O5t/o8W0FMB/XEjpXiC96AVFOAkUNgfs
+         59vgg4BZQ95cglAiPjwaGRyAVqWC4a7l1orAciaCgxaiBGtFWGa5zMkKo/WjHe9qi4b0
+         NFmA==
+X-Forwarded-Encrypted: i=1; AL+hErG0LsjLTUllOKLOBW/AhWPmfwTxjeKCZfmzrxAYZCSF/hQhkEkftryyO1KAmLdfQpia4ZGTLXzEyGg7XzY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8GWwaQIVDchtQIYKaOT/kI7SCiAs0lvOveliZjPh4fi9BPQu/s
+	fV1AxeyzMySB0bt4L/A4H34PoRLG/KG2VqMDH60juU/0iPLUw4VlEjPf
+X-Gm-Gg: AYBFou2pTuaS7FZTimUzZAIhAr84itgaM1oX84wINF25P8U3eUxPX2MgnpGA7pjd0E/
+	55PwXo5Xd09jFA+BcyQDS9eXhqACJFbtRwqfWo6TmVN4ZWWRMQbRhOUErvCR9ghveuHULlFyuBS
+	D/JLPNDzd1/0tJ5fx4+Gzpgr5+6W03wZTUeSXc7IJlHE7vwPIFFx2UiMWM6amcWuZj4JMtAup+X
+	p7ns9mmeBX/sM+F9sCt9qclOojmmxj39fOuncHbKqs+NvBzQgclReESEsoEufQiT7OgiYSXtici
+	lnh3BN1MGAgiGK7Fqp4aT0X3igO+xfKyHMdL8Hba46+EVdxa4qNk+eD+t011GRxVk/vEx6aXJH7
+	IpUaMPSkIaI+Hs2hgAtyQmSSVPeV4VyvksvSkULMA5rSQln8H2CTQR8ZVifZdx2qAkx7GP3hkc4
+	t8bhbIevSgIwfB2srz0YQYM0Nckit8wLmmLCXfEOgguydOm1s6E3H0NkxGljbTDsgHtZ+lj2jYs
+	R3CbFs9QLxqYqAIljMXvJc1/x0F49FAhgyGzI7di+ddzW7LfnMIJ59wqUsQyzSXJVwol20Cu1UO
+	Q5vFUX8vnW+SMq95DcsMsWtD45W/rcCLmRg+AD2VdQ4JxW1VS9N7v+neFKUDvITkFUs4dIwX23M
+	Fz9DZ2cC1uKZwGOOzZuqqcsvxv7zuYrvvIN0lXSO6QG3ohk13bRbxxBg9UDNK3LWfWllnEXFeJX
+	N4nDVmYte2rDxD1fLyG8XNB13Gk6Qpvx4zZL6pqswaAQ==
+X-Received: by 2002:a05:701a:8458:10b0:1a7:77ae:11f6 with SMTP id a92af1059eb24-1b53a3e47dcmr1951148c88.17.1794913414396;
+        Tue, 17 Nov 2026 03:03:34 -0800 (PST)
+Received: from kapoor.iiserb.ac.in ([203.18.51.239])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50316d9c2sm36604525c88.7.2026.11.17.03.03.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 03:03:33 -0800 (PST)
+From: Arnav Kapoor <kapoorarnav43@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Mudit Sharma <muditsharma.info@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Arnav Kapoor <kapoorarnav43@gmail.com>
+Subject: [PATCH v2] iio: light: bh1745: fix 16-bit register accesses
+Date: Tue, 17 Nov 2026 16:33:25 +0530
+Message-ID: <20261117110327.198084-1-kapoorarnav43@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,69 +102,170 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116063624.1382944-3-usama.arif@linux.dev>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 15, 2026 at 10:34:56PM -0800, Usama Arif wrote:
-> do_swap_page() checks PageHWPoison() on the faulting page, but the
-> large-folio batching path then maps the rest of the folio without
-> looking at its other pages. A poisoned page that is not the one being
-> faulted gets mapped anyway, and the fault that would have reported it
-> never happens.
-> 
-> Skip batching for such an anon folio and let each page take its own
-> fault, where the existing check catches it. do_set_pmd() already backs
-> off the same way.
-> 
-> Leave a freshly read folio alone: it is not anon yet and can only be
-> mapped as a whole, and falling back would free it with the poisoned
-> page still in it, which the retried fault can then get back from the
-> page allocator.
-> 
-> Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapcache")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+The 16-bit colour data and threshold registers are little-endian
+LSB/MSB pairs, but the driver accesses them through regmap_bulk_read()
+and regmap_bulk_write() with an int or u16 buffer and no byte-order
+conversion:
 
-With the check moved up as David and Zi suggested:
+- bh1745_read_raw() reads 2 bytes into an uninitialised int, so the
+  upper 16 bits returned to user space are stack contents.
+- bh1745_read_thresh() reads 2 bytes straight into *val, which the IIO
+  core leaves uninitialised, with the same result for the event
+  threshold attributes.
+- bh1745_write_thresh() writes the first 2 bytes of an int, which are
+  the upper (zero) bytes on big-endian.
+- bh1745_trigger_handler() pushes the raw register bytes, which are
+  little-endian, in a u16 to a buffer whose scan type is IIO_CPU, so
+  user space gets the samples byte-swapped on big-endian.
 
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Use an __le16 buffer for all of them and convert with le16_to_cpu() /
+cpu_to_le16().
 
-Do we have the same problem on the file side?
+Fixes: eab35358aae7 ("iio: light: ROHM BH1745 colour sensor")
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+---
+Changes in v2:
+- Include asm/byteorder.h for le16_to_cpu() / cpu_to_le16() (Andy)
+- Reword the trigger handler bullet: the samples are byte-swapped on
+  big-endian because the scan type is IIO_CPU (Andy)
+- Add Andy's Reviewed-by
 
-If memory_failure() cannot split a large file folio, it stays in the
-page cache with the poisoned page in it.
+v1: https://lore.kernel.org/all/20261116194214.45174-1-kapoorarnav43@gmail.com/
 
-Consider a write fault through MAP_SHARED on a good page of that folio:
+Compile-tested only (W=1, checkpatch --strict clean); I don't have
+BH1745 hardware.
 
-  do_shared_fault()
-    __do_fault()
-      PageHWPoison(vmf->page)
-        // checks the faulting page only
-    finish_fault()
-      do_set_pmd()
-        folio_test_has_hwpoisoned(folio)
-          // backs off with VM_FAULT_FALLBACK
-      set_pte_range(vmf, folio, &folio->page, folio_nr_pages(folio), addr)
-        // maps the poisoned page as well
+ drivers/iio/light/bh1745.c | 31 +++++++++++++++++++++----------
+ 1 file changed, 21 insertions(+), 10 deletions(-)
 
-Possible fix is below. I can post a proper patch if the analysis looks
-correct.
-
-diff --git a/mm/memory.c b/mm/memory.c
-index fb76d8922e37..25b53847943f 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -5893,6 +5893,10 @@ vm_fault_t finish_fault(struct vm_fault *vmf)
+diff --git a/drivers/iio/light/bh1745.c b/drivers/iio/light/bh1745.c
+index 2b8ff36071b8..e2c03cd0d1e3 100644
+--- a/drivers/iio/light/bh1745.c
++++ b/drivers/iio/light/bh1745.c
+@@ -17,6 +17,8 @@
+ #include <linux/bits.h>
+ #include <linux/bitfield.h>
+ 
++#include <asm/byteorder.h>
++
+ #include <linux/iio/iio.h>
+ #include <linux/iio/sysfs.h>
+ #include <linux/iio/trigger.h>
+@@ -421,19 +423,20 @@ static int bh1745_read_raw(struct iio_dev *indio_dev,
+ 			   int *val, int *val2, long mask)
+ {
+ 	struct bh1745_data *data = iio_priv(indio_dev);
++	__le16 value;
+ 	int ret;
+-	int value;
+ 
+ 	switch (mask) {
+ 	case IIO_CHAN_INFO_RAW:
+ 		if (!iio_device_claim_direct(indio_dev))
+ 			return -EBUSY;
+ 
+-		ret = regmap_bulk_read(data->regmap, chan->address, &value, 2);
++		ret = regmap_bulk_read(data->regmap, chan->address, &value,
++				       sizeof(value));
+ 		iio_device_release_direct(indio_dev);
+ 		if (ret)
  			return ret;
+-		*val = value;
++		*val = le16_to_cpu(value);
+ 
+ 		return IIO_VAL_INT;
+ 
+@@ -503,6 +506,7 @@ static int bh1745_read_thresh(struct iio_dev *indio_dev,
+ 			      enum iio_event_info info, int *val, int *val2)
+ {
+ 	struct bh1745_data *data = iio_priv(indio_dev);
++	__le16 value;
+ 	int ret;
+ 
+ 	switch (info) {
+@@ -510,18 +514,22 @@ static int bh1745_read_thresh(struct iio_dev *indio_dev,
+ 		switch (dir) {
+ 		case IIO_EV_DIR_RISING:
+ 			ret = regmap_bulk_read(data->regmap, BH1745_TH_LSB,
+-					       val, 2);
++					       &value, sizeof(value));
+ 			if (ret)
+ 				return ret;
+ 
++			*val = le16_to_cpu(value);
++
+ 			return IIO_VAL_INT;
+ 
+ 		case IIO_EV_DIR_FALLING:
+ 			ret = regmap_bulk_read(data->regmap, BH1745_TL_LSB,
+-					       val, 2);
++					       &value, sizeof(value));
+ 			if (ret)
+ 				return ret;
+ 
++			*val = le16_to_cpu(value);
++
+ 			return IIO_VAL_INT;
+ 
+ 		default:
+@@ -547,6 +555,7 @@ static int bh1745_write_thresh(struct iio_dev *indio_dev,
+ 			       enum iio_event_info info, int val, int val2)
+ {
+ 	struct bh1745_data *data = iio_priv(indio_dev);
++	__le16 value;
+ 	int ret;
+ 
+ 	switch (info) {
+@@ -554,10 +563,12 @@ static int bh1745_write_thresh(struct iio_dev *indio_dev,
+ 		if (val < 0x0 || val > 0xFFFF)
+ 			return -EINVAL;
+ 
++		value = cpu_to_le16(val);
++
+ 		switch (dir) {
+ 		case IIO_EV_DIR_RISING:
+ 			ret = regmap_bulk_write(data->regmap, BH1745_TH_LSB,
+-						&val, 2);
++						&value, sizeof(value));
+ 			if (ret)
+ 				return ret;
+ 
+@@ -565,7 +576,7 @@ static int bh1745_write_thresh(struct iio_dev *indio_dev,
+ 
+ 		case IIO_EV_DIR_FALLING:
+ 			ret = regmap_bulk_write(data->regmap, BH1745_TL_LSB,
+-						&val, 2);
++						&value, sizeof(value));
+ 			if (ret)
+ 				return ret;
+ 
+@@ -741,18 +752,18 @@ static irqreturn_t bh1745_trigger_handler(int interrupt, void *p)
+ 		u16 chans[4];
+ 		aligned_s64 timestamp;
+ 	} scan = { };
+-	u16 value;
++	__le16 value;
+ 	int ret;
+ 	int i;
+ 	int j = 0;
+ 
+ 	iio_for_each_active_channel(indio_dev, i) {
+ 		ret = regmap_bulk_read(data->regmap, BH1745_RED_LSB + 2 * i,
+-				       &value, 2);
++				       &value, sizeof(value));
+ 		if (ret)
+ 			goto err;
+ 
+-		scan.chans[j++] = value;
++		scan.chans[j++] = le16_to_cpu(value);
  	}
  
-+	/* A poisoned page must take its own fault */
-+	if (folio_contain_hwpoisoned_page(folio))
-+		needs_fallback = true;
-+
- 	if (!needs_fallback && vma->vm_file) {
- 		struct address_space *mapping = vma->vm_file->f_mapping;
- 		pgoff_t file_end;
+ 	iio_push_to_buffers_with_ts(indio_dev, &scan, sizeof(scan),
+
+base-commit: a6d9114f68c4b5507b2d945bd6d1e37415f913c5
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+2.53.0
+
