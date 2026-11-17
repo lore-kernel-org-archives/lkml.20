@@ -1,58 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794918138;
-	b=Pd3C53nVNiRpBOaQ0Yi263J0AGX2BLEQao9uNkLawQob5tcBYpSvsEQut5XCuJfyOYuJ
-	 RghZ6Iwdq4Pj/dKX4ddsb66kk7fu/cIGL75r0tEj4YmssZ48M57s1gmATZxnghQChBRvt
-	 V4ZFCrsVuyS9Mz09Gow53VYz3zztZUnk8EPCcy6k0FLw/rCxzXZV0fhxyxwX6RGkQlp3/
-	 eG19SBhStZpTFk8dXxItI60J5fEWZa2CCjC/ya0oqv6PeBaf4gwUC5O0wqFk04bQWw+ax
-	 mRCBXOsO4NmYEbomiRgauj9CkPuetsqN6Gfqftbi/tFMTzYIDR613G1UXU19y5kp5Eg==
+	t=1794918144;
+	b=HBLgrL6RsDaLRjDcUIlhGfFyDXVfkkDNmClv/FqhooMsMKR3FwLnlt2EkLo9FIOOjrdg
+	 j9dB46c0j230cIN7rjTO1treg6wPWFuLvJxifqkPKQDgLOL4sh6KvdrWpz2vhjmVJ3LIh
+	 DelgxxVGup2gPyR4mfp6i7RhgjMkfjH/HZQYOu/rQJpb24tkXVKJWn+vnwYwL8NJOhWfp
+	 3Po0TGTKkHKg62sysY/N1aa18hU4SlT4AbjMVnKdhCMx1svnH19rO6Zv7kSkUtNfcLlfU
+	 lIutHtuErvNR3bZUycmvWAaM/l65AXW0w0yKQbsJFEUOUTjaMFq61VEVSNmM657bmoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794918138;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=EYOpW2xyp4wYDs/95GrYDxNW739hVA53XI7RSeqe3Ss=;
-	b=pERwdcivKlOKAyeuYjfA2Ku+/TXv9F4qpUxuaUOH7b6hdZsBfw4fLOempxmg8ERxoz46
-	 Q7ux9P6XtzC06hr1Dr/bDMtF0xVsioZBiM92laQGHwNjW0L4FdKjLDYtRrct7rkJbuFEb
-	 cN5KNmnlul4zGf9mxpG8oXPjhl5PxF73Nq9K96TiZGANIVAbKd+jYkHsEgGCP9UPTSftb
-	 rxqARSu+PlRmGHqg+ksoLo0YzgsPeK8Afc4aSd/ZnWLBa+DJdURPhRQKC9wmH31BUQ9ti
-	 nw+u+uWhBTfrarfnDtJ8ewDEMxqLYLEhavwFX2AvQA1PIOP2xGt3Thl8sMdt3rj8Z9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794918144;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=mntxBemduMZ5IAPGeXV9h5oyYqbo1gfqzxaQ3yOHoUY=;
+	b=EoG/G8n+rpoeFwi48s5XBS14wewihcvF72Ywxp1fQg1jJfEp7s2O0XpfMYSJ4oK1ucqK
+	 UX/HndwuS+rI5NUYHapfRwfxvR3k6opSfXFXt4H5dQCm93VRfYsglOK3kuFpLhYIRJeOa
+	 ALx7tLufeqEY6a2buGo8/MIOnDERpa77F0R9l/R/kRbtXZYv/j3mIYYqW9BLfugvOITw0
+	 N1GAr6F1CCYowYQRW9cAd+y7m7qRn85SfaIJr4f4xR4JkmLZx1LhabN40J1KM+KrbqUfN
+	 DEgNprmY1DxiBLCc2DX8+ZbFU0t2q5Q7F8HI49S+NMZXD9vwv3dsIPQpXAAt0/E5sCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=ktwb49I3;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dUpotCsR;
+	arc=none smtp.remote-ip=209.85.214.178
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA4E2606A31C;
-	Tue, 17 Nov 2026 12:22:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA4E2606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13B05606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:22:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13B05606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=ktwb49I3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794918136;
-	bh=tlK4X7iJfVxdWbikBhdNu8DWcD6//ek2zxb6rtNVeRM=;
-	h=From:Date:Subject:To:Cc:From;
-	b=ktwb49I38KXsD31YAQ5oqisSeLavEGHwgLnMRYO88DMuRMwl0NMgkJUnWLtnsmHfF
-	 6pl79lmyQhXanj9yThuk3Nb1P9WnGdxcZcIFJBs+uSk8usohffQoUwwHGcgYl6K7Q5
-	 QCgBlex+LTS14DQKdczCHopYymtGzJRIRF/QOEuYUVYIAEuG3U69oLm7HzTTaztS4j
-	 XTLzM8yb6jZw2xA8GKkTPz8b3FpgmmdINnP/yNPGwhj/idGbB8/8rQDGp0laZdFJD2
-	 /vDTHqdrgoyq3kwxwX7fNkNoO+teuS01bEGHq7OfUVyIgyCWe2J262/Zum5c6MPlQH
-	 WnLFcZepAUmaA==
-Received: from yukiji.home (unknown [100.64.0.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: laeyraud)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 93EF917E0311;
-	Tue, 17 Nov 2026 13:22:15 +0100 (CET)
-From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Date: Tue, 17 Nov 2026 13:22:07 +0100
-Subject: [PATCH] arm64: dts: mediatek: mt8370: fix CPU map core ordering
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dUpotCsR
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e9d7791b00so45720145ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:22:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794918143; x=1795522943; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mntxBemduMZ5IAPGeXV9h5oyYqbo1gfqzxaQ3yOHoUY=;
+        b=dUpotCsR8VDbxO6BPwe2pm2Frlg8byuRtnKfEYVQxIsJBIP57ZkkVkb1pTQTWPWgFg
+         72SwPlggj7OMi622Vo5qpvNu3MddcOt+bi21dl8PBjMZDab/rWf9EAYXttijjWjgJ3Mr
+         Xs2+igDLWg+FyQrIRH9slYhs+lpwrk0iPZzVtXxAAxOFGxTS7JXoazTeg5v0jfn9Guwn
+         e7rG+9N/6gBN8zWkhYHNe4kuq7J8Z4F4be+Kl+yR2jl9Oz8YD4ZvnaG437/cYcwaN5ew
+         oVE6DYCxwEPiWQvCbtJohUg6d8pdXZovciuRaDhUUH4RFbA9e8eIe0p1f19jqkPJCgGT
+         mREA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794918143; x=1795522943;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mntxBemduMZ5IAPGeXV9h5oyYqbo1gfqzxaQ3yOHoUY=;
+        b=e/6bMZFK/aJiUZqNUX7eRbzG/MAx+X9KuThrt1wJ+WfYRsPxhwkutGPdfEdhYXVq0s
+         LgPjko/S11/Yy73O7ZgHZRDWgr04+dDO7OzT2IUk1V6dsuheHNlFVyNDmC4/AtbR2sH9
+         goAygs0aaTY5esfTM78WFbiyhQYK8jhx0zDzlWQq5hUjEtfvTjdcABsSpiS+seyxrauk
+         hnaCepMyt7rfJ5x5XRsBktDhttd5u4u+pQlyHLs1EyqFn7Mx6B/y5/zftNOrCl5hjC9l
+         bx+D2ZOotF3+A+FtErm4TBPwUTA4avbiW5JjdnQKEZLjG/gmi6xqrZTzXiMKJ1S2hh6B
+         WLMg==
+X-Forwarded-Encrypted: i=1; AL+hErFvXSb184jqKJj7qAdLjFJAq30DzxEuOpOTqHPEZz8porGWVeSp5adEf/scYOWgLO8W7mtSpbqB+4qM1bg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+T6iU22FC5jMw6cOVJemFBsFk/5k4RAXi4yQn6T6IhiCkVMBmY
+	qf3xI98T77owpBes4l2QtphU1TGsup+5o5AWMEM5nlWRyfiIO39tuKkh
+X-Gm-Gg: AZFdTZdMjrmtALjK7t0SfSCigDnPvfhtqv6NiksBzfEngjkgC/42uTK+gflnEhPnkHX
+	Vmo0WOlFqSyB4puT8QbliZtVmFxmC797viM9xR2Yjncs/T4QOGfHu1xfx7qJsjYYWLC5tN1S3Fn
+	TUnaFysoUVAK9wLSQUlA0T8i4lxr8RD0BMcfwlGjQvyGpW+gM+4Ywpi+CKp8nz1YwjnpkXZXTou
+	NfTiId0PnpJEc98bIQLokEZUPp43I9V/ejL++xtzRPDnBVVfW9cAJgKC3eq8tyXG9WdoPO6rcIb
+	bAh11zacN0cPu6EmHPtyz3ULckW6kQWGiTSqEWaWwvUZm6UEK54fqqoUP7lme5Ty2xplCZJ96TO
+	nwofIV/2Jy/rbwHSvymGO8ebxxWQHTtACnyGiyYYsztKv8juoDWDq7p+KOrN+F/usix3dIRDnb5
+	K9vzKplC2kkMEYBv2BF2CzjgMq1hoVVD4vtGNgYSA6gyaMSs33Mz/Y/ys3iFkiGs8xH1SOos7b7
+	06wTR2bV0pD/Hgzf8VadBoKwRtjhvUscly8z60R3FUd5mz+g7gHvkRXMYVey8mCXmBk3LDUVUHF
+	kBUdnDfe3Y4DmfxUAJQL83UVKP0/
+X-Received: by 2002:a17:902:c40a:b0:2e9:5059:4468 with SMTP id d9443c01a7336-2ee0d664b4emr129370335ad.7.1794918143343;
+        Tue, 17 Nov 2026 04:22:23 -0800 (PST)
+Received: from duge-G3-3500 ([183.192.223.84])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd76d86a1sm14701045ad.8.2026.11.17.04.22.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 04:22:22 -0800 (PST)
+Date: Tue, 17 Nov 2026 20:22:15 +0800
+From: Jiayu Du <duge1256@gmail.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: srini@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, dlan@kernel.org, troy.mitchell@linux.spacemit.com, me@ziyao.cc, 
+	aurelien@aurel32.net, pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, 
+	alex@ghiti.fr, devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] nvmem: Add read-only SpacemiT K3 eFuse support
+Message-ID: <gwtbssramb3rnp7dgqxm5fu6ywkn2h2jigdh5dvj5fvtv7rktk@upytexvwkjaq>
+References: <20261116075423.1519438-1-duge1256@gmail.com>
+ <20261116075423.1519438-3-duge1256@gmail.com>
+ <65f843b0a46f14df575d998acceb40b68fe64a62.camel@pengutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,85 +101,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-mt8370-fix-cpu-map-core-order-v1-1-00c6c74c7629@collabora.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2NywrDIBBFfyXMugOa0mjyKyULq9PWhY+OJgRC/
- r3SdHkul3N2KMSeCkzdDkyrLz7FBvLSgX2b+CL0rjH0oh+klApD1Vcl8Ok3tHnBYDLaxISJHTE
- KM97cSFpp0UNzZKb2/Pnv88lMn6Vl6jnCwxRqhhB8nbpIW8V/aoD5OL6djYh7oAAAAA==
-X-Change-ID: 20261117-mt8370-fix-cpu-map-core-order-0a95d9e87802
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: kernel@collabora.com, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, 
- Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794918135; l=1923;
- i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
- bh=tlK4X7iJfVxdWbikBhdNu8DWcD6//ek2zxb6rtNVeRM=;
- b=bL2y8Jmr77VlkoCdxT67HLHwyaSTFwIsIIP1lFZfF8tqFleRe+xGtbOjhaGfCjiP38Cl2l7nf
- JBlw9sT3KRmBPIZllUFFTEl347UC3xHH11osVMDc3LKoLUg8KE97bTu
-X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
- pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <65f843b0a46f14df575d998acceb40b68fe64a62.camel@pengutronix.de>
 
-In mt8370.dtsi, the child list for the cluster0 node of cpu-map is
-overridden, to reflect that the MT8370 SoC, as being less powerful
-variant of MT8188 and MT8390 SoCs, has less ARM Cortex-A55 cores
-number than MT8188 and MT8390 (4 vs 6) but the same Cortex-A78 cores
-number.
+On Mon, Nov 16, 2026 at 12:54:42PM +0100, Philipp Zabel wrote:
+> On Mo, 2026-11-16 at 15:54 +0800, Jiayu Du wrote:
+> > Add read-only NVMEM access to bank 0 and bank 7 of the SpacemiT K3 eFuse
+> > controller. These banks contain temperature calibration parameters and
+> > other configuration data.
+> > 
+> > Keep the root key and SSK registers outside the exposed bank ranges.
+> > 
+> > FUSE_READY reports completion of a software-triggered reload. Trigger a
+> > reload through GEU_CONFIG bit 22 with a 1 us reset pulse, then poll
+> > FUSE_READY at a 1 us interval with a 10 ms timeout before taking the
+> > snapshot. Fail probe if the reload times out.
+> > 
+> > Snapshot the shadow registers with aligned 32-bit reads and expose the
+> > data in little-endian order at controller-relative offsets. Serve reads
+> > from the snapshot and use keepouts for the remaining register ranges.
+> > 
+> > Enable the AES_WTM clock only while accessing the hardware. Leave its
+> > shared reset deasserted on teardown because WTM_RST resets the entire GEU.
+> 
+> I don't understand this, possibly because I don't know what GEU is.
+> 
+> What is this reset shared with, and why exactly does the reset need to
+> stay deasserted?
 
-How the cluster0 node override is done makes the core child nodes to be
-named in a non sequential way (core0 to core3, then core6 to core7).
-First, it breaks the cpu-map child nodes naming convention in the
-cpu-topology bindings. It also causes the arch_topology driver to skip
-the A78 core nodes during its devicetree parsing, leading to at least
-incorrect CPU capacity computation for them.
+GEU stands for Generic Encryption and Fuse Unit. This reset is not
+shared with another consumer and only resets the controller state.
+My explanation about needing to keep it deasserted was incorrect.
 
-So, modify the override so the A78 cores are seen as core4 and core5
-in the cluster0 node.
+For v3, I've switched to devm_reset_control_get_exclusive_deasserted()
+and removed that explanation. The reset is now asserted on driver
+detach or a subsequent probe failure.
 
-Fixes: 49b07ed22e37 ("arm64: dts: mediatek: add support for MT8370 SoC")
-Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
----
-The patch has been tested on Mediatek Genio 510-EVK board, that
-integrates a MT8379 SoC with a kernel based on linux-next tree
-(tag: next-20261116)
----
- arch/arm64/boot/dts/mediatek/mt8370.dtsi | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+Best regards
+Jiayu Du
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8370.dtsi b/arch/arm64/boot/dts/mediatek/mt8370.dtsi
-index 7ac8b8d03494..3fa48f2e6a6a 100644
---- a/arch/arm64/boot/dts/mediatek/mt8370.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8370.dtsi
-@@ -16,8 +16,16 @@ cpus {
- 
- 		cpu-map {
- 			cluster0 {
--				/delete-node/ core4;
--				/delete-node/ core5;
-+				core4 {
-+					cpu = <&cpu6>;
-+				};
-+
-+				core5 {
-+					cpu = <&cpu7>;
-+				};
-+
-+				/delete-node/ core6;
-+				/delete-node/ core7;
- 			};
- 		};
- 	};
-
----
-base-commit: 38c8be16846f10f3a710351357e4f4ace7254c8e
-change-id: 20261117-mt8370-fix-cpu-map-core-order-0a95d9e87802
-
-Best regards,
--- 
-Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-
+> 
+> regards
+> Philipp
