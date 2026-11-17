@@ -1,61 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794881418;
-	b=Jm631WHlAvMy4Uw6/vZfdPRIh654kCFfj9aach5CBj6zBYUEW2TqSmTWDBeAl6Jjx0AX
-	 Xg0IrqLDvLNL7eHhdxfe1y2AwNZceXeuKABD7ETCVpFFOuLCkk532P06KEYq1/bGKdrvC
-	 ij+1x9AospuybEgp51UXkpEg6BRzr34JO+ceX+jNwyQrpOyiOja27HFFh3sEat56s93W5
-	 fJuQmG8f+OrjpHcXWjDKqOopnzXNSbPxVA2KCUVLsKhtYb7sm0mwAt24K/5saH1HCMF0U
-	 zGAN3vx1ZbtVehIEWWfVqXob2i1rsGZXmAfg2xXLmUFQ54uUnes/XK4Xmy6/wdPVy7Q==
+	t=1794881468;
+	b=YsohvTw6/j8e6ejvNv9GN69ebV8egqjLl41adBvwEvjMZPXDQ/W0NqlixQuGFRMWT16U
+	 fWC9K2wI5S8bnHBTL78UzqeI8ke304yX5RZDcSmjmaW7fVfaqRlAdV2GGPm4AOipywa35
+	 I61gzCT1ErTFcPMIuSWKzzW1CuUC/e4lnypUz26lab/HtHa617jdUET3njKU15jCBIPP7
+	 /JSicST4ob8pHzZBVkBbbDcj7kclAY1OufpmnSBUP13uFWTACz3ZrWA7/T40htHQhC9Po
+	 g3Dk2I59lV7zhwa4ajeFkANsBBBEEk290NzQiR3nLx4R5OlYCVQUd60j3ucJkvAty3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794881418;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=gdsxziGxpnrDASs1A9+YVSyfwFEePG9frypFab9AlVU=;
-	b=LjhRkfI+sQRZiPzsacK2auwyMl9YVhGJl59fKGT7/I1nMwcsz0iH4RLs1RHmkTZm1GZ/
-	 5OFN+1Mg8HjBRmv6Qsa/FPr3Av6V47b/ldt00QwoBBl9AlyVXp3vH8XoWElEPE/rFkjMG
-	 JuGqPw+S8eB/Y69QaonkZBUs57J/+mW/D6VFVTJGRRPdWrF1rTvrLvSIQ+ZsimN/WT8+z
-	 cyx+nX2WXyOGb//D9DFyDdIoTbUFpTPlHpKwpnWJ7z2eFXM8B3r+SQRN0oWd6+45ulAQ9
-	 Mp1cVC+f+AywbSIWBeQtwmvgfa7Yka18v1yErp5ddmVmdtl9mfCJSOGtyWL/rI2OG/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794881468;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=OIU3JLNWHpOdjhC1oWugb/pA68zhrZ3nKPJMqP131yI=;
+	b=FzirN+nRzXMy/x5x/6wpdR2YopzaYrsFmQ4F8XHCO7qP9S+ZSTIEYA34wBk4L9La/d76
+	 9T9EMyN1Sshtq2i0Mt3ylwuqg4O7taUQCV7EjY5NW1Z2mkHcQb1Xuab1NlThHjeawWDS+
+	 /g5GO+aYZBeFiCCcGp/Z/8EYDm9FPvjWlWkDaoyOQJDm/FJ0/yHBvz3jwjnCqubUMCiEy
+	 oxthhFmPL4GUpwzS5EgE198HR6K2yxp99WNO+HAl1zH2OQpE0Wj8ol/jpHLPsjgTw9h5C
+	 JAhZFbxAqSi/lzit69MvUeRguQp+TJTCoRuFgx0qxzwohAcNlP5HqYqHQiq2lciyUtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b="Fsw/KBHu";
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aaCv0r6x;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20DFD606A31C;
-	Tue, 17 Nov 2026 02:10:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20DFD606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABEA0606A31C;
+	Tue, 17 Nov 2026 02:11:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=Fsw/KBHu
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=gdsxziGxpnrDASs1A9+YVSyfwFEePG9frypFab9AlVU=; b=Fsw/KBHusB+0O7hSpR/W8sU2Wc
-	JEmltrjwdNNi63acBpxPj7DzyWZyz76boh532QxlKGNQeoBsvPtoyOuWlOV44gG15W8bSzGzy+Ykb
-	NHFF6Jd5tbGQIPKUGwUZ+fwcNer2J/dbmSKxCyhvR1GsWXdQsrYLv9GEWQCvY6CylGjI=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xT8eC-00H3HL-0t; Tue, 17 Nov 2026 03:10:12 +0100
-Date: Tue, 17 Nov 2026 03:10:12 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: David Yang <mmyangfl@gmail.com>
-Cc: netdev@vger.kernel.org, Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2] net: dsa: motorcomm: Resync SMI slave before
- register access
-Message-ID: <c5f399bf-4050-4c1c-8a5f-b983b321b181@lunn.ch>
-References: <20261116162303.1368472-1-mmyangfl@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aaCv0r6x
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFCD01F000C4;
+	Tue, 17 Nov 2026 02:11:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794881468;
+	bh=OIU3JLNWHpOdjhC1oWugb/pA68zhrZ3nKPJMqP131yI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=aaCv0r6x0VGJLSAZ8LFq+GzvYSLaiP72qGaZOkYrzPNMoULqActDR/Aa7+Tj3GBUs
+	 RNdlgyuNRW29fJnli8IXGFb6reLbapmp9cwiRSXrsPdJSXbuLMmEowGS2gjtQr4xlX
+	 yqaJdxmBT63IKgHHhI2UY4yfk5EAipfdiKAi1P9ZFrdREXdUitqiDOifb2jOJKYvA5
+	 kbAkJtug1feq9gVaoFxEILGPE0ScTUXmBvU+hM/Mbq+flHarDD8rorfXrsKDOdcMpr
+	 7dghR6L1ao7Rum25NfXLIr9FTLRdGFuZqqTHAm8gDvNUtxwVliePyBZZpslvvW//Jh
+	 IE+COOfIQ0WRQ==
+From: SJ Park <sj@kernel.org>
+To: Mattathias Pinchover via B4 Relay <devnull+mattathias.pinchover.uber.com@kernel.org>
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	Mattathias Pinchover <mattathias.pinchover@uber.com>
+Subject: Re: [PATCH 2/6] mm/damon/sysfs-schemes: add sz_ops_filter_passed_last file
+Date: Mon, 16 Nov 2026 18:10:54 -0800
+Message-ID: <20261117021055.110011-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261116-damon-sz-ops-b4-v1-2-1cffe7227e6d@uber.com>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,26 +66,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116162303.1368472-1-mmyangfl@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 17, 2026 at 12:23:00AM +0800, David Yang wrote:
-> A register access over MDIO is 4 frames: 2 address writes followed by
-> 2 data reads or writes. The SMI slave tracks the phase in a state
-> machine, so an access interrupted between frames, e.g. on an MDIO bus
-> error, leaves the machine in an unknown state, and every following
-> access fails or acts on a stale address until the machine is realigned.
-> 
-> The driver has so far assumed every access succeeds, and relied on
-> manual resetting when the state machine wedged. However, without a
-> dedicated reset line, the reset itself goes through the same SMI
-> interface, causing a chicken-and-egg problem.
-> 
-> Realign the machine once at reset, before the first register access.
-> 
-> Signed-off-by: David Yang <mmyangfl@gmail.com>
+On Mon, 16 Nov 2026 19:10:05 +0000 Mattathias Pinchover via B4 Relay <devnull+mattathias.pinchover.uber.com@kernel.org> wrote:
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+> From: Mattathias Pinchover <mattathias.pinchover@uber.com>
+> 
+> Introduce a new DAMON sysfs interface file for exposing the newly added
+> DAMOS stat, sz_ops_filter_passed_last.  The file has the same
+> name as the stat and is placed under the DAMOS stats directory.  Like
+> other stats files, it is updated when the stats are refreshed via
+> refresh_ms or the update_schemes_stats command.
 
-    Andrew
+Looks good to me.
+
+> 
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Mattathias Pinchover <mattathias.pinchover@uber.com>
+> ---
+>  mm/damon/sysfs-schemes.c | 17 +++++++++++++++++
+>  1 file changed, 17 insertions(+)
+[...]
+> @@ -485,6 +495,10 @@ static struct kobj_attribute damon_sysfs_stats_sz_applied_attr =
+>  static struct kobj_attribute damon_sysfs_stats_sz_ops_filter_passed_attr =
+>  		__ATTR_RO_MODE(sz_ops_filter_passed, 0400);
+>  
+> +static struct kobj_attribute
+> +damon_sysfs_stats_sz_ops_filter_passed_last_attr =
+
+Seems the above two lines could be in a single line without breaking the 80
+characters per line limit.  Could we just do so and save one line?
+
+Other than that,
+
+Reviewed-by: SJ Park <sj@kernel.org>
+
+
+Thanks,
+SJ
+
+[...]
