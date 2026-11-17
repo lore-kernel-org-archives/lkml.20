@@ -1,83 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794893225;
-	b=0AfTzs6yz71qJhrqtI2DjEDPh7u8TAQ8eA8uyII7wHh69cojiNO2SWm2NFTD2hTUYqvu
-	 njZc2Iufuws9l5xoexiY8XU1jegvUIy+wZL/2BKIQDEHOM3Vq/Z5g5rmlPpaLh1ANjGhn
-	 5+AEUZnCDkNZ1zFudtJQFuFnFcLuBaKuwONAJxGlS5/NB9d8852yxHGJxC42Yttu8VCcG
-	 PHD+OslepLZYHucfUaqiRZsEZDmCsBpxv3A2A8Y8I5uN8L4HpuHCakD1ucWYyV3XNzlkH
-	 fo5H2sGPNG3lKU1VBxZxVE94GWi3vhm0btUnwy99I9XvCI9FIivsFNowB4MRKB4lXnQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794893225;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=boFeCftmVRRQF+PX8/aEDlWrKBeOnZHSxDS9c7xc2ig=;
-	b=rjgN2h9PPFcFH1mwIJT3IMxIxwIhdtrhVT8CRARhQWCTSblLSWilfqVIGs57ELmjbbc4
-	 u6bxwIGMdFTGw1RLrmYN70kT2boGIS2JubUADcOqQ0uwfCMDs/QdRL8HishA0sIq7yc0z
-	 LD8fIFdnHlt/o0p3z2D+mkwqErejYSX3+Dy/R4rm7UO+z1Rl/0lgQub0nA5sgGHHfz5Ub
-	 8gg2PfAmOMLc2tdgSydjbi90R6bg6PtJR6SKGoilxXamEmEdZkAMqyq2JbGJonJcc09WB
-	 3/IwSFOdml/004/xgJHseJWiheDHH6o6ISVa470wW9qMB3WwmVgeOXv2lUmYjv++c6Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=CspiWh23;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794893223;
+	b=pvkGmg6BzCU6mH/RfFj8kngPv0hoOUoyIHZmj8neEI/vjUqW5RO/NfU6mlcLg0nueL07
+	 IKUG/MBcjJrD1eZIhQQgqEePO3UDKdzGa74atugyfCdF2KrBINewBbKQSNAmnPuNT0qbj
+	 prkVQGyNaVIvAU+3tTyRhvYSLUrZ5ujslsm+xlkHPiw3QafkcuRKh5PUifYbpmrqu3SDD
+	 Ytuco+ixZez9fMpQbD7M+glZ3YSTbgy6afDK92oQeOIovGbUc+CkhdCCbclLzVFOGhE3M
+	 VUBSwM961+Zxl1S4NGekLiE3EoU01Gv9QJvhZMlgPBa1BgbaKmjF5fTK/G9x3v6Apow==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794893223;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=JSObDYvkOpJ/es70rf6LKflOVMKrBuRwaVf/ziJgxa4=;
+	b=a+DC0O22ON/VGZCgheEWGsmKXQeGIlSlOAjKFjMDxw1jYZ5ItU5XeXJQprZQHq1F61pq
+	 ouwB9gwidF5lGYLKGxjGY5FITrlP8nwmPeAXVDKa0F/JuEaXZIsL0b+jtCuKL1v+Nl22q
+	 7e3Tjs2cFi8KvQbhxG2mLJg0B6EULS1038wDVoUvIevDuUCUKZeeZSh8mWLh2V7zae48/
+	 NQ3A4HQJCL4RCR2bqhJKY5FSMboaUGiY3YNgp3r8uj7Ak94Ax3YRt27fou8xj4HjO3e7a
+	 fX50Wllmx02+UoVO8Vjg4MMkkQNzSWY88wMOdQDSuAbU84xflToya1sKnW7A6f5rcnw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=of1+oVfO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5EAF606A32C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:27:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5EAF606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6152606A31C;
+	Tue, 17 Nov 2026 05:27:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=CspiWh23
-Received: from pengutronix.de (ptz.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::77])
-	(Authenticated sender: mkl@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 8D41A20228C;
-	Tue, 17 Nov 2026 06:27:01 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794893222;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=boFeCftmVRRQF+PX8/aEDlWrKBeOnZHSxDS9c7xc2ig=;
-	b=CspiWh23LLCSbE1UhSjdaj4DOSMreIJbWzH1opfIYpVlDiJFM2XFXWs42D5AAM5IwISPi6
-	OAup75+V77f1poWcDdEekI8OVHu4j5iXh919JAWK/gj+iLh3c4zAsIxrhMXnTPotfwy2tD
-	icP26wlassxRzunuB/tOjBuL2gE3nJQeeJaN6mG0o818hEtVDIfSq6CJXxz2uJefwRM/9l
-	L0gRB02heYSIroh0u9DiZFzTquJaZdy6WCdu1tboPpvLT0lc6HZFt8IIcYnG+UuJMVdMdy
-	BHTM8jNofjKJ6/3x6YJ/96/njfVnlcE4AgfNFntET5LH5sPFV1MlTZ1U5xAhfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794893222;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=boFeCftmVRRQF+PX8/aEDlWrKBeOnZHSxDS9c7xc2ig=;
-	b=PvdFRLgwbyehE8W464Rfe2jQSd9mJCgN+L4+iL+PQtCZ9tpZV3TAEyXqsWs2iiOIc3kTEo
-	Rs+EO+2HT3noPx5W2de7Hm+w63ox+wSVdXjqSvYKWGxEqzWb9kVlO9o+G834g0ozTv0XG/
-	jS+D0EbsQrVq9pt94I5ac3JZCeCYCIinJp2gVehpDQIRBPIM5KSRluYNyxK3+e9BOlhQAf
-	FyIFQJikKzZsRWhbApJvuaaqiT74jlOIemuUUNdfzFHLjIaOudk3eqRoMqCkRfJF90vzx7
-	gzC75nT3uw9QlbJVWbsDFazQIHkC9ByMvJVTJ34q3k7GQQfLLPuO0WQXrmaKCw==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794893222; a=rsa-sha256;
-	cv=none;
-	b=LNKVRxB2nPkMQjHEPRO6500KbyTEDGZqpRa4levZaOvfYaXlj3TBPoqneaHWNNqChhU+6T
-	G0wpqoTh7IgYmP+2RzRTVkVT+QkfYnLefDJ/xl9yBYQo8R4DB2M/JNHB6d3KGBoJP76EwL
-	S11BhNUFP4xoB/k5UIUb9LMjJvFpnsQcH4MSy0OA2Gh49K83wiMaybMcXeXpOpdGDAqS1N
-	irXDO5CTX0GzzoLs/UkwSirGqpDIUTqCQxj6JseI85CF9oigdNIdRubXt48R2VvRD4f2+7
-	q7wIQprFydhgk2y4xDPHzLDdabLSqN1bwGw5LBg7C+N8q11H3dGaPJwZflc/Zw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=mkl@pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-Date: Tue, 17 Nov 2026 06:27:00 +0100
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: apw@canonical.com, joe@perches.com, akpm@linux-foundation.org, 
-	dwaipayanray1@gmail.com, elver@google.com, linux-kernel@vger.kernel.org, 
-	kernel-team@android.com
-Subject: Re: [PATCH v2] checkpatch: Add context-analysis attributes
-Message-ID: <20261117-daffy-unbreakable-wasp-faadc9-mkl@pengutronix.de>
-References: <20261116172836.2254432-1-vdonnefort@google.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=of1+oVfO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F035E1F000C4;
+	Tue, 17 Nov 2026 05:27:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1794893222;
+	bh=JSObDYvkOpJ/es70rf6LKflOVMKrBuRwaVf/ziJgxa4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=of1+oVfON52cxZzc3a/3WKeL277QTLi1XVC4UU8HLJ4ftABEbb0Ge7VFkclhJuCzZ
+	 OtMRuAfeDFvgm3QiZKjmhi8UY11kxwUNmQz5guII5RGwmq01ZLCa35c/KmGFC1YKQ6
+	 HnvDJayjTXpAhS9TpH4dokXigbLxSvIO1n7E2hgY=
+Date: Tue, 17 Nov 2026 06:26:52 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+Cc: Kevin Cernekee <cernekee@gmail.com>, Neill Kapron <nkapron@google.com>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] usb: gadget: udc: bcm63xx: Propagate iudma_init() error
+ code
+Message-ID: <2026111742-worrisome-twiddle-809b@gregkh>
+References: <20261103014457.1255-1-laixiangwu@cmss.chinamobile.com>
+ <20261117011400.1676-1-laixiangwu@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,52 +55,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="scchtmka63gwlbjw"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261116172836.2254432-1-vdonnefort@google.com>
+In-Reply-To: <20261117011400.1676-1-laixiangwu@cmss.chinamobile.com>
 
+On Tue, Nov 17, 2026 at 09:14:00AM +0800, Xiangwu Lai wrote:
+> Hi,
+> 
+> gentle ping for:
+> 
+>   usb: gadget: udc: bcm63xx: Propagate iudma_init() error code
+>   https://lore.kernel.org/all/20261103014457.1255-1-laixiangwu@cmss.chinamobile.com/
+> 
+> bcm63xx_init_udc_hw() calls iudma_init() and stores the return code,
+> but then returns 0 unconditionally.  When iudma_init() fails the
+> hardware has already been torn down, yet the probe believes the
+> initialization succeeded and registers a gadget controller with
+> non-functional IUDMA channels.  The patch propagates the error.
+> 
+> Is there anything blocking this patch, or does it just need more
+> time?
 
---scchtmka63gwlbjw
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2] checkpatch: Add context-analysis attributes
-MIME-Version: 1.0
-
-On 16.11.2026 17:28:36, Vincent Donnefort wrote:
-> Checkpatch doesn't know about the context-analysis attributes and
-> misparses annotated declarations (e.g. mistaking __guarded_by() fields
-> for extern prototypes). Add them to the known attributes list with
-> support for a single nested set of parentheses.
->
-> Handle context-analysis attributes with parentheses like __attribute__
-> in annotate_values() so unary '&' in their arguments is not mistaken for
-> binary bitwise AND.
->
-> Cc: Marco Elver <elver@google.com>
-> Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
-
-Tested-by: Marc Kleine-Budde <mkl@pengutronix.de>
-
-regards,
-Marc
-
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---scchtmka63gwlbjw
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCavvlogAKCRDMOmT6rpmt
-0kvMAQChsw8tkKx4W01Isda6bqcVcJmnL/7bFbQ3GPQs7ONBhQEAnvd7QmriyB2r
-7FhvkMBnX4Zl52jz+u/6J//0oIFfJQg=
-=hasR
------END PGP SIGNATURE-----
-
---scchtmka63gwlbjw--
+Has it been tested on real hardware?
