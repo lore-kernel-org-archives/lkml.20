@@ -1,83 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794879343;
-	b=5W35vw9+CHYkmP29Tk15qoId9xtZcP9tYh+6Dtml3vt6kku+rKnxKLpbwXYTBx4wb7lf
-	 +n3p1y1M8vbXepl4v/Xb+ktuJWMiz1qOwls8Ks3awg0vfEzyG3D23xI2KiESGpwSubC+t
-	 xBEhZ8gIgvlmSpEONu/sOumXxpLum6QGSKDMINGso3kSmlH4zYdQbQX4Z3xu9JQvm/Hso
-	 t5wtbkDML+D7xfZOrjxqCtmhInqR8wicMaTS+GOgTT4VNGgC0Am9jEdZiZZGSwLLbYBe+
-	 0uaINMsjOToUrRVQwpl6mf5/0TD1jYdIqapDlMyxzR5JUdYsqXZ7TUZF9sOiwLRpKKg==
+	t=1794879431;
+	b=3sKoN7Nj4kNWAgTsumZidNQTx9dB9F0H8anjePSpX/NtIzn8MBeQ2m44IctC+Gd0fDgN
+	 4ock3Ng4OPdgXSv3j90g+LERUlmeJAuDljis4QINjM/hBYE0DwL5U7K9amvs8voQpPw+F
+	 YTBCUYYgMf42ZKsBiyK6J1ZjDRljDVCIj4GmwmQX2T9ISMsl4EekYAiv/CqtAbdzEmHNV
+	 mSAG1ggWlU4pGXkEJ3UeVTXUZiPqrbqVyHjswnU46z1ZHPANPt7GQVzVjG3TkfCymyTLJ
+	 wqEEA1qPFfPzxbjNNYyuxUefa1NBozI+0B+/8jqk5YsT+O1CU8wFkq1n6mRq/jXr+Yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794879343;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
-	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=/GaoTHlvdwCxZnsyrE2dClN5WmkZlsTr2++LAeIbplk=;
-	b=GBgFBLlcvKbbrof6iz7XFjuvMO/1QBzCeE1w2zvIYXlvIfmjcyH2jghwltPOICEawPVM
-	 nmiuz5gzHCtkSq5cLmyafcyTX12ZphbSFCYD9uSGuAX4T562moXcYOQAD08G+pTUAPzTe
-	 SIjGQuJQtHf2rE7FgGAsRIyUa0Dvjl8zYRKSeQKb56qtYaqsiUFJMmrut4mgAzoBCIzQt
-	 lOJEwhHllgFEsAElg79vpGUqQZfGHFsAQnsGjhZGBL8dVJIrhJQvaU5wHC/II868XtcNp
-	 76BPpyU085HRTX7hcUBMoG/alre0V5o4gDunA6R7nXnKb7B0YhUquAGh9y3JcIVee6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794879431;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=BIMOnFHtb/Mb13a3T/u5ttg244elHzKV/mc7yLX3gCc=;
+	b=yH1LK7YzA8Txqct0rR5URT8O2a3LSwTt6WvCrAyPGeMycVWzPykMhw69qwek+QiAQgmO
+	 P4YClgOHJVGMv/xzjhmR5ZzU12EMjS0SpNS9XR37jVWIUhFRmhyijAHu44mdtfc9LXX4P
+	 XYmK8INpnQOpdU9bhv8KNJu9+Lx+fTWyjWy9kWi86j4+N8uk08RLNlGxz9rEY0tLgDAvn
+	 m39VTXj4K2Ep0d5peTZQgUbrpesJ9unQwHfKR7erI+IlVh+y8GC+Vn+aE+ue21QYPapzu
+	 uLCEThV+1DQB5amnK1sECFF/wG7jHDYaB+YwIulOvakvvdjeVTynHshgiOGbqOrsC0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=lF+zdThK;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l8dNYQte;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2951D606A31C;
-	Tue, 17 Nov 2026 01:35:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2951D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECEE3606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:37:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=lF+zdThK
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AH1ZdFD23943628, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1794879339; bh=/GaoTHlvdwCxZnsyrE2dClN5WmkZlsTr2++LAeIbplk=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=lF+zdThKqvQ/k6guH3nkRaHxbvHmiFozhEXc1VD7HHrtFTkFcDXuOgzz3pq8dropn
-	 fd3fxlrPw+hvZOsNrpzv0D4LgEsirWMy1NA8C57Fa8M2J3dcDhWpcWjluQPjOqsRAC
-	 KWBvYgvZBzzSSSXu+0o8wUJUD0YbS9hLluTcJ22DqtLcDknV6qiVy+G2VMvFDHJbD8
-	 8liB8VwGcZEzxg+a+pcuoHFifLekMlip1dnqaIwI5K9NaDT2fKAa3sAFnomb0TOl+L
-	 D4CU60aj6zQThYml1pNWT7bkz1K51Z90jW1kIJovZsuuRBD7cJbG4H5YFj8eanPbr+
-	 k1KGTvtlopHaQ==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AH1ZdFD23943628
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 17 Nov 2026 09:35:39 +0800
-Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 17 Nov 2026 09:35:39 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 17 Nov 2026 09:35:39 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
- 15.02.2562.056; Tue, 17 Nov 2026 09:35:38 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Rosen Penev <rosenp@gmail.com>, "linux-wireless@vger.kernel.org"
-	<linux-wireless@vger.kernel.org>
-CC: open list <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH rtw-next v3] wifi: rtw89: acpi: check for _DSM function
- support before evaluating it
-Thread-Topic: [PATCH rtw-next v3] wifi: rtw89: acpi: check for _DSM function
- support before evaluating it
-Thread-Index: AQHdb8F45Ag5kkMCtk2pEzAcm+MLY7cxhzhQgAAAwkA=
-Date: Tue, 17 Nov 2026 01:35:38 +0000
-Message-ID: <2d5e6b2071444fa5a23ff230744fce2f@realtek.com>
-References: <20261108204056.28049-1-rosenp@gmail.com>
- <c182ad839d9b44c3adcc0b208b84d85e@realtek.com>
-In-Reply-To: <c182ad839d9b44c3adcc0b208b84d85e@realtek.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l8dNYQte
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96B5D1F000C4;
+	Tue, 17 Nov 2026 01:37:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794879430;
+	bh=BIMOnFHtb/Mb13a3T/u5ttg244elHzKV/mc7yLX3gCc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=l8dNYQte0M53YUVdQTJ09cHEEm/GkG1g6FiQLENVmU4Tcmi9BNuZ6oyDbW3ql4gAA
+	 0Bf3rOM9FBbFbrGVScLXwmi4RN28kdCu5fxWRCh3bwbZ21zUQahXy47KY9BPFeIrjt
+	 doE5joDBU606+nuRIVWAKFzp+6zIFNYbe5IVRQS7XsfcSlfEKMJmCs1z9cieS/URJH
+	 G1CRyLA9K6YRugwzoxlLQB/ef2wT4k5Mf0eySpDmsYyfKq3Hk0TFIo3EZky9BUhcxr
+	 9/S+9I1zYLn79j9gspSdRuudOw6+UjyDsuyrppgEkgT+Vod2bKZzsEsEehkJosOCJf
+	 0W8lcSOy7js2w==
+From: SJ Park <sj@kernel.org>
+To: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	David Hildenbrand <david@kernel.org>,
+	Mel Gorman <mgorman@techsingularity.net>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Zi Yan <ziy@nvidia.com>,
+	Dev Jain <dev.jain@arm.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com
+Subject: Re: [PATCH] mm/compaction: do not skip the free scanner's periodic lock drop
+Date: Mon, 16 Nov 2026 17:37:02 -0800
+Message-ID: <20261117013702.109081-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261116125746.2897395-1-kas@kernel.org>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,35 +70,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Rosen,
+On Mon, 16 Nov 2026 12:57:45 +0000 "Kiryl Shutsemau (Meta)" <kas@kernel.org> wrote:
 
-Ping-Ke Shih <pkshih@realtek.com> wrote:
-> Rosen Penev <rosenp@gmail.com> wrote:
-> > When the WiFi device has no ACPI companion, or the firmware does not
-> > implement a given rtw89 _DSM function, rtw89_acpi_evaluate_dsm() calls
-> > acpi_evaluate_dsm() anyway. ACPI core then warns on every probe:
-> >
-> >   ACPI: \: failed to evaluate _DSM e8c3a8d2-694b-004f-82bd-fe8607803aa7=
- rev:0 func:10 (0x1001)
-> >   ACPI: \: failed to evaluate _DSM e8c3a8d2-694b-004f-82bd-fe8607803aa7=
- rev:0 func:6 (0x1001)
-> >
-> > Here the handle is NULL, and acpi_evaluate_object() returns
-> > AE_BAD_PARAMETER. All callers already treat failure as "no policy
-> > provided by the platform", so this is only noise.
-> >
-> > Bail out early when there is no ACPI handle,
-> >
-> > Seen on an RTL8852BE in a desktop PCIe slot.
-> >
-> > Signed-off-by: Rosen Penev <rosenp@gmail.com>
->=20
-> Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+> isolate_freepages_block() drops zone->lock, checks for a fatal signal
+> and calls cond_resched() at every pfn that is a multiple of
+> COMPACT_CLUSTER_MAX.
+> 
+> With a stride above one, the scan steps over a compound page, or over a
+> high-order free page it has just isolated, to a pfn that is not a
+> multiple of the stride.  From there it never reaches a multiple of
+> COMPACT_CLUSTER_MAX, so the rest of the pageblock is scanned without the
+> check, possibly with zone->lock held and interrupts off.
+> 
+> Count probes instead, and check every COMPACT_CLUSTER_MAX of them.
 
-Can you take by Acked-by and resend v4?
+Makes sense to me.
 
-The v3 isn't existing in patchwork, since it broken at the period you sent =
-v3.
+> 
+> Fixes: 4fca9730c51d ("mm, compaction: sample pageblocks for free pages")
+
+I understand you intentionally not Cc-ing stable@, buecase the user impact is
+not that bad.  I think that makes sense.  I just wanted to call out this for a
+case that it was not intentional.
+
+> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> ---
+>  mm/compaction.c | 12 +++++++-----
+>  1 file changed, 7 insertions(+), 5 deletions(-)
+> 
+> diff --git a/mm/compaction.c b/mm/compaction.c
+> index f1b2060eb201..4465c1551406 100644
+> --- a/mm/compaction.c
+> +++ b/mm/compaction.c
+> @@ -579,7 +579,7 @@ static unsigned long isolate_freepages_block(struct compact_control *cc,
+>  				unsigned int stride,
+>  				bool strict)
+>  {
+> -	int nr_scanned = 0, total_isolated = 0;
+> +	int nr_scanned = 0, nr_probes = 0, total_isolated = 0;
+>  	struct page *page;
+>  	unsigned long flags = 0;
+>  	bool locked = false;
+> @@ -599,13 +599,15 @@ static unsigned long isolate_freepages_block(struct compact_control *cc,
+>  		/*
+>  		 * Periodically drop the lock (if held) regardless of its
+>  		 * contention, to give chance to IRQs. Abort if fatal signal
+> -		 * pending.
+> +		 * pending. Count probes rather than pfns, as the scan does not
+> +		 * always land on a multiple of COMPACT_CLUSTER_MAX.
+>  		 */
+> -		if (!(blockpfn % COMPACT_CLUSTER_MAX)
+> -		    && compact_unlock_should_abort(&cc->zone->lock, flags,
+> -								&locked, cc))
+> +		if (!(nr_probes % COMPACT_CLUSTER_MAX) &&
+> +		    compact_unlock_should_abort(&cc->zone->lock, flags,
+> +						&locked, cc))
+
+Why don't you let the later two lines unchanged?  No strong opinion, no
+blocker.
+
+Reviewed-by: SJ Park <sj@kernel.org>
 
 
+Thanks,
+SJ
+
+[...]
