@@ -1,116 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.32
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794906215;
-	b=z68B2i8IE4vw/1JjwcZIiW4guT37BzhE+cjfdYtfIgG2etuAs5D7xoi03x/AqjlvJIuT
-	 OFuGaR+cKGZTvid3oazmV3qwUbq2qpUOT89CYU/yx07OVpIrYmU5T74b5t+wMSAfSCyPT
-	 8bp21u75AyFqdFKaEo0WFPSUBHboP/iG2RptJU1L2lSsuWDclCeOcssE92opxjyP0SsQt
-	 ILx3Mi5HB5UYy5R6XDRAPWc8sWGea191ulbEaN4wVCZhh+EIULiyoyoCVNoxgvESMW7Yj
-	 9cgP6GXxlp1kteQS9DTg/esK8+YbJllu6+Qf2nn0ykEYr7T0Hg4WH8v+OlXfVjwExfg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794906215;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-Disclaimer:
-	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=xWRZopVkJFPOfdZdb6dsUSJiNIlH3IWCafsQuDLgxfo=;
-	b=u8IcNutkcGuGfWjVQ8nsINWauSSAI+CAhqNeLQNSoxtnvrJtgjcbpglHpC94BQBrokUD
-	 rGSC4ZdOIh0KbeMGLq1FOCUm69XybBHU/SwOxrJooDqRdckevhOhCT8fMY8fkoXeEx1Sd
-	 z50gflanl3v596BDko2aMyk98WqQRQws5CtcZmSVMoRxhjqmIJsMylWmnyry2dVKwlXCh
-	 j/dVAUCDwkWaQDvCgWqDGAlA9B7aIIGpSrqZXVrcjCz4lHWnSPc3jOSmjEvApl0K4QECU
-	 uj1An3diboBLQ2Qh8pG/ByelgiWCSUTm61qkdblDZD9yYAqAstN13vLs9vd3F1vctCQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foss.st.com;
-	spf=pass smtp.mailfrom=foss.st.com;
-	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=Xb+io7vT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.32
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013032.outbound.protection.outlook.com [40.107.162.32])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794906276;
+	b=W4EkEn0ZsYaASPlmzvhHyslnIe/T12e89yKF5litFMOMnON9sql4mlAKab3dUCOvaF+F
+	 C+zRRqJT1jRZtrUpkQbbyY2eVZsfcs5JF2L0rZ8C424oyJwrDej8sjzB2JQqfdMb/9c8e
+	 Xi9XZXoTsbp3APvxi/PQO7Xswm5QAsZTcEOyBnxyPGpNe1Mj69Rb8/+MtHPJv0DiMMVdl
+	 +c6cogeo1ieBrD3ch8VVUZVeabcWb5uW63NevREU9nI30KjAfOPNbb3wzacRvWoE3QM4M
+	 ETVizlLI/F0YGJO4k1A8kgJXEF9GgEJAXv1872ZEbdWBZdExZ0548fy9YFW/yFMp5zQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794906276;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Disposition:Message-ID:User-Agent;
+	bh=Yafz3sEgHSbB0dihgrPP4811kZo9wiNYZxbrPM44ojs=;
+	b=0x4Zjp1ylHk8FtzwLZoOPsLpVs31aYdb5yMxCUy5mlQUdcPMNWBEbunx/DmTU7MTKiyf
+	 jS8iRrj8QFjh72xtytO0JY+pWv+rpknSn4gpNzRNIkupeoi5U+Qoabb9OQv/EUUyzsJxJ
+	 cRwC7AqQrWn5gqzK5FnjbsjbHdHizwib8Nwwj0fxIK6Qmxn2zo12a3fiFbtY1lJOvMVmV
+	 oXoqRXjE4B7q6whSexu8nku7VcuvfvDKFMpSK1Iy8wiim0wYO7sWv7R1P2+jYgDE4QR0+
+	 dnAIJj+g5i2errGdM5oBynPH7hNfagte1Qb9kFe9rgFjNlOsGdeUc0xxQkAZ9/PILMw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chrisdown.name;
+	spf=pass smtp.mailfrom=chrisdown.name;
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=Df6fFrOr;
+	arc=none smtp.remote-ip=209.85.216.42
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 276AC606A31C;
-	Tue, 17 Nov 2026 09:03:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 276AC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 647B3606A337
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:04:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 647B3606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=Xb+io7vT
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qUyIvV0bx66K68lSh+JyaAPZMxdbAFZKP1b0CwOSzOFbhJyEs6owsqZtmK0ARPX3VHILJzZ6bdaQH4X2fWbcCsD/ZRLbJvTvC2USfvEv2+le1BaVy/NVFzJhBADxJfGHeott3G/3JQj6vI/IZaTbeoHon6NVmmVanqxpHJ1APuxAdM2TUu3qXcUiSSBT0GBiQi7jFOVRWofFFAFBs4LfbgwOgE/4JORIbC6Yc2RkVVdFx7VBG+pvIWOyLX+ABTF5v2SMNHxTtSDupoziwsLu32L8ujGONRK4YskWlHs4wuFTXGpfDCSHhM2OYozfmeznhfNsaj1wzUXC+t1Buw00dA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xWRZopVkJFPOfdZdb6dsUSJiNIlH3IWCafsQuDLgxfo=;
- b=WOQl5CLzOD0nRxFOet8xKkL4n2JlwBhe48SBiS/5R2oh8GyppPh96oV6dUU5e7X3FKW14j4a15922PBYD6TdfOI4Nk137JUnlEeZO2PZ3oc+N7Jm0LtIPVk/YOvTmWppCGXuREOzEbwqqWBcxzQCLi/mm10ToIQuuDcjzKu62dWeFREXITxOxMUfyfJZpzTg5F2Ax2CevfxhKLfFlydG4m0kDmQ4PgckQxWFga7digToY56jMjelRzWROz5ddljKg8RVgOIlI3I9AlLDtPU6Eg12ZeRL/XEv6uHQrgj/ggTllRFtJ7Fq1mvAeojI8ZjhwRdohN+pSzYA57hSCsY9cw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xWRZopVkJFPOfdZdb6dsUSJiNIlH3IWCafsQuDLgxfo=;
- b=Xb+io7vTBLfUPPvSLga/sP6YFpXtIZn5L7em92QhP/0uN9fm/taW4PXEUaTikOQMn7ILPVgCcpeNHvRIq3vWdFrYXOUwG2dpQAZeEmvfX+zzJ2bziYBvHlArNrledVnNUNoasulnZEoxj/7SGij5ZQFhqHD1LGrgIiMtxJlqwkZgshmxeU3yq9v5lH8Ex+3QC0JAUuyvAeNj7Irht3BYWmBS/7AlEXqo1LYBR/YaO2gA36Gf+Zfk0Hz55kE1H6iwnVqLIE2bFAsj0fOClB2RmIjD8h4fO/+bTAcaRwj06lDtuXDsuAiM1t8ol1B2GhcJrQWcS7vuVx56SL3sWWFmmw==
-Received: from AM6P191CA0021.EURP191.PROD.OUTLOOK.COM (2603:10a6:209:8b::24)
- by DB8PR10MB3516.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:13c::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.7; Tue, 17 Nov
- 2026 09:03:32 +0000
-Received: from AM1PEPF000C1AD9.eurprd02.prod.outlook.com
- (2603:10a6:209:8b:cafe::a9) by AM6P191CA0021.outlook.office365.com
- (2603:10a6:209:8b::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.10 via Frontend Transport; Tue,
- 17 Nov 2026 09:03:32 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- AM1PEPF000C1AD9.mail.protection.outlook.com (10.167.242.104) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 09:03:31 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 17 Nov
- 2026 10:04:15 +0100
-Received: from gnbcxd0016.gnb.st.com (10.130.77.119) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 17 Nov
- 2026 10:03:27 +0100
-Date: Tue, 17 Nov 2026 10:03:17 +0100
-From: Alain Volmat <alain.volmat@foss.st.com>
-To: Joshua Crofts <crofts@kernel.org>
-CC: Michal Simek <michal.simek@amd.com>, Andi Shyti <andi.shyti@kernel.org>,
-	Oleksij Rempel <o.rempel@pengutronix.de>, Pengutronix Kernel Team
-	<kernel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, Sascha Hauer
-	<s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Chris Brandt
-	<chris.brandt@renesas.com>, Pierre-Yves MORDRET
-	<pierre-yves.mordret@foss.st.com>, Maxime Coquelin
-	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-i2c@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <imx@lists.linux.dev>,
-	<linux-renesas-soc@vger.kernel.org>,
-	<linux-stm32@st-md-mailman.stormreply.com>
-Subject: Re: [PATCH 5/6] i2c: stm32f7: remove redundant
- pm_runtime_dont_use_autosuspend() calls
-Message-ID: <avwYVXluZuM4vteb@gnbcxd0016.gnb.st.com>
-References: <20261109-i2c-remove-dont-use-autosuspend-v1-0-49a08b8daf36@kernel.org>
- <20261109-i2c-remove-dont-use-autosuspend-v1-5-49a08b8daf36@kernel.org>
+	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=Df6fFrOr
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3ae1da332bcso1481180a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:04:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chrisdown.name; s=google; t=1794906276; x=1795511076; darn=vger.kernel.org;
+        h=user-agent:message-id:content-disposition:content-type:mime-version
+         :references:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Yafz3sEgHSbB0dihgrPP4811kZo9wiNYZxbrPM44ojs=;
+        b=Df6fFrOrS33woqipjuxMbtgP7Mb38cga8ynzt4dnwXgr3NWyVSrac4XRUinfbr3fLw
+         ZVQFQHOVaZhwzqO9wK3QHesW8cBGX1Yir2qudEdLZW+BOY852fUftVTZY4lKH1Gctl09
+         OJTywxiLvJaQfloOQmtSK384TfG4wao7WnxHI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794906276; x=1795511076;
+        h=user-agent:message-id:content-disposition:content-type:mime-version
+         :references:in-reply-to:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Yafz3sEgHSbB0dihgrPP4811kZo9wiNYZxbrPM44ojs=;
+        b=QVkCOY7NNFTN/9MY5DcIU/L3rctBixRJVJkj2xwQ1S1e5PkB/QidkvaHHUfsaeJR5T
+         O6mL6w9WlZi9zTRjWobjj7WjodkR/hHLe78xirm80fvYqkLJywIrT2GGtzN7ZKpsl0Z1
+         4pAFcdzDN/Weh9/WfrXzq8xy0kyfp/BsNriEthGCSq1tZWuboAO+zUCAIlHUDmjNPYY+
+         5uwf4/WCgptH6muF4+N4WQ157+2gXh86qIROJNAFkM5Pi0LvGqvZsHopliZW7FVbJ/FE
+         svP6wnT0qRjJ4fAATXDXhP1yLN/x3q824gWukIgC2JqhLOPVKYglE6zWqprQcTKwKUJn
+         hp3g==
+X-Forwarded-Encrypted: i=1; AL+hErH1A6D7F+XoSot0Zer7W8mSbESTc8mlVxQG3ExYZhZJ3/bhdIUfSVW7pPYhBYtdcSwAzemOtt8ny2/mzT8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+LiFP2AJNZ2VHqqfkcFisbzJv0lPLxpgpEOf+R3s+10rG+rXr7
+	H1IbdHWxYfvZr27nu4TMRx/BFBoSHddWdW5d8i186jDTY2b0yBYPfGqASrlT8QvR0Vg=
+X-Gm-Gg: AZFdTZfc8kg7ON6dElTXNfDjLg+N3av3CUa52ARXPvpUBbbZ+9I/Pn8xihYYAqbXtig
+	fGEdnNo09O75lxFC6qrC2QdiCuIhslA/JC5+GlHOwC/OKpopxJ4kkjp/QVtvQalZMUvo90aw/ur
+	1zmx5x3+niVdnI5eI5zPpgtCr7+AsNwBFJqKvX4f3/pGxKrNWpTIF4Nl7Gu2gmncUhj6GeWYM8K
+	ZkNwruwxzmjWSIXExnTCiilx4MViHMQH8T8m6mUiS37RS5nY9lF3U/iKDx6aZcTJgUl0Pbh/HH/
+	osJqWk6oLAv+DEUVOQJCUq1niw6Qe1D8KiiJshlfoZRvtqDdKu1XoLUxqv9SH7LCAhB5h3sJTzT
+	MfCI8SGqyoF3K0RGc4JIX+PJAhBeTa8DdOA/HAY0NwsjAKbG8BYkzKLb08Mwna9mL4A+s/F/3H2
+	s/Y0U0ss1me3ExfQYT2/pD3CXGsG0XNtP38O9/c4ZwQVRHEly3q5WcpOfRU6MnffTmH2DnGzJVY
+	hNKlhtY2UtfNy6h1R2CcS6w9KtaNaC+x62vLVpHBqOjDSC7KmRsCsDveKRx3TeXHnmY2q8R3ybK
+	OItIgHAIHUBzAOZa5S3WgEKi9QgAJPCW5FwtQ64qorPhcTkimxYAjOwWX0SzycGo6oqjSr9gxS5
+	g86R6EFd6Zs+u/8DcQbTarKAwbk6TFdEm6qcgXcMuORmWACBSUU/fSlc0KTha0CjMYiD16jTV7M
+	ELaPrcEHLxhaJ7E9LdgGn5VMgq52A/fMx0dIiRXHry62jli6N3OteW8lnu+zItOLnfjKfnJDms1
+	ybutGuBJPbq6xo=
+X-Received: by 2002:a17:90b:17c7:b0:3ab:884b:65ab with SMTP id 98e67ed59e1d1-3b1b0ba4fd8mr13948715a91.55.1794906275627;
+        Tue, 17 Nov 2026 01:04:35 -0800 (PST)
+Received: from [172.20.0.3] ([172.56.235.113])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3abd068e2sm3204091a91.6.2026.11.17.01.04.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 01:04:34 -0800 (PST)
+Date: Tue, 17 Nov 2026 01:04:31 -0800
+From: Chris Down <chris@chrisdown.name>
+To: Breno Leitao <leitao@debian.org>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+	Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, linux-block@vger.kernel.org,
+	kernel-team@meta.com, Mateusz Guzik <mjguzik@gmail.com>
+Subject: Re: [PATCH RFC 3/3] fs/pipe: copy a run of anonymous buffers in one
+	user access section
+In-Reply-To: <20261113-pipe-pool-regression-smap-v1-3-b0dc69558ab3@debian.org>
+References: <20261113-pipe-pool-regression-smap-v1-0-b0dc69558ab3@debian.org>
+	<20261113-pipe-pool-regression-smap-v1-3-b0dc69558ab3@debian.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,79 +104,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Disposition: inline
-In-Reply-To: <20261109-i2c-remove-dont-use-autosuspend-v1-5-49a08b8daf36@kernel.org>
-X-Disclaimer: ce message est personnel / this message is private
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM1PEPF000C1AD9:EE_|DB8PR10MB3516:EE_
-X-MS-Office365-Filtering-Correlation-Id: 16292574-1007-4a8b-defc-08df4489a753
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|82310400026|23010399003|36860700016|10067099003|4143699003|11063799006|56012099006|261026121527099003|261028144727099003|261026140227099003|261021123027099003|261022105027099003|261022075727099003|261009221727099003|261009220027099003|261009221227099003|261009223027099003|261009223327099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	wH2IhiGGtbu2hDMra96Zr2ha+777Hz1Tlk0gPteoprWkOtJRzHLwuo3W7GHX7gGoQgxvEOhQr1tAgSaPkVP870e3FRwRCYtq71mvib+376wEd4rSWGh/JoEw7FuQfcgt72AAqbrxptfXezEit3qvSP+8hf/EtstnOAv20+H+wF5GkMQL6Mx3utS2EKJh62U7z7HFwtMFdCzkX1fQqkFLkpIxdqc/v0U2gQR7bpMYk5HJseQx4I1eKk/Y2K2OMIj2LjhnZW39fGRG4b9jBL1tLvM4iCuPPdEM8yAh+ln+0qVvtjIyPZjPifThTI99rsPaDhkVneowZpRTiAW9iRg0uj4HZ3lrIk0UQSq/XJfOIagOUp26G4NWdjYhIhlt/n9Vxo3DuJvNeVcOyr4k2hYjLD5mqtJeMnqlljsoy6nzU4mOs4hhGXpie3FFCSltVo4I29O6z1n/Jm+MT/yReob44u1TjnQOYNlUR95EplUf8EzrqefZjHxmqc1mWVrAXcjt44uHsDePKntE4eTd3Yjyjad5mqmwoA4Y+hnv7g/QHhQjKT9xr6d8ROf5i7Q1QXnDwNl3VoW3++O65yeHiS4VxAiApTWVvJdrMV9Tp1Tho++NZUTzbvn/nibPkAKlOgOgznYMnMbjlcvIunxYBoxVq/niZULHaCF9KMJOGZmidn7NKvbojdtGvaM9S6IH83Pe29YarqM+M6YX34dZQskElg==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(82310400026)(23010399003)(36860700016)(10067099003)(4143699003)(11063799006)(56012099006)(261026121527099003)(261028144727099003)(261026140227099003)(261021123027099003)(261022105027099003)(261022075727099003)(261009221727099003)(261009220027099003)(261009221227099003)(261009223027099003)(261009223327099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	tS5TH5zbjf3jxUBZ5g0u28gTLm8ewH5tnPYsZesZebK7M5FrQZNFKfdfKi6Zhja8M9XyHwflEVSWsyODGWi7kqsVPz6G/Soe3TgGGVaNpSwp9yCjOaoa3DlzVp7dlzpSsID18zLX8AfHlY7w3llOked95rZB+CiSZh4wiwDPLryQqRMYItcGhB6C6U/PahcIgzFaBgVYBqH5cB+IiKsygeFlSMq0CfZ8RmIxLAIj6Cgxi58cxHUioeyyPrlr5h5WwjxqwRCQZ0FMZemblNnhtKsXY2hSDME+/RPB5tAvn2ObAYjDxmydnvrEzAZ3NHpX0qVAhNzP709xHrtajS8MLiV2w9EaxbT0daAP2BGsD/SbkxLPBaEFHO6YOYPjqqrHi8QMzuHDO/gS86Fy1iDTVcaXowZzuf7SWj7VOAFErNzFufbBATqE/2ZDz5iYdytZ
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 09:03:31.7613
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 16292574-1007-4a8b-defc-08df4489a753
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM1PEPF000C1AD9.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR10MB3516
+Message-ID: <avwYn2KugKhjYxNh@chrisdown.name>
+User-Agent: Mutt/2.4.3 (cc9e3943) (2026-10-09)
 
-Hi,
+Hi Breno,
 
-On Mon, Nov 09, 2026 at 09:50:06PM +0100, Joshua Crofts wrote:
-> Since commit d1706f9da9f4 ("PM: runtime: call pm_runtime_dont_use_autosuspend() on reinit()"),
-> driver core is now responsible for undoing any
-> pm_runtime_use_autosuspend() calls on driver exit.
-> 
-> Remove the redundant function calls.
-> 
-> Signed-off-by: Joshua Crofts <crofts@kernel.org>
-> ---
->  drivers/i2c/busses/i2c-stm32f7.c | 2 --
->  1 file changed, 2 deletions(-)
-> 
-> diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-> index 2e1cc6a92b81..7904d888550c 100644
-> --- a/drivers/i2c/busses/i2c-stm32f7.c
-> +++ b/drivers/i2c/busses/i2c-stm32f7.c
-> @@ -2325,7 +2325,6 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
->  	pm_runtime_put_noidle(i2c_dev->dev);
->  	pm_runtime_disable(i2c_dev->dev);
->  	pm_runtime_set_suspended(i2c_dev->dev);
-> -	pm_runtime_dont_use_autosuspend(i2c_dev->dev);
->  
->  	if (i2c_dev->wakeup_src)
->  		dev_pm_clear_wake_irq(i2c_dev->dev);
-> @@ -2367,7 +2366,6 @@ static void stm32f7_i2c_remove(struct platform_device *pdev)
->  	pm_runtime_put_noidle(i2c_dev->dev);
->  	pm_runtime_disable(i2c_dev->dev);
->  	pm_runtime_set_suspended(i2c_dev->dev);
-> -	pm_runtime_dont_use_autosuspend(i2c_dev->dev);
->  
->  	if (i2c_dev->dma) {
->  		stm32_i2c_dma_free(i2c_dev->dma);
-> 
+Breno Leitao writes:
+>The numbers below come from an earlier version of this patch, which did
+>the copies in fs/pipe.c and left runs of a single buffer to the old
+>loop. Throughput change, median of 2 boots x 5 runs, SMAP on:
 
-Reviewed-by: Alain Volmat <alain.volmat@foss.st.com>
+I timed a single read() from a pipe that was already full of anonymous
+buffers, on an i9-14900HX in a 2 CPU KVM guest:
 
-Regards,
-Alain
-> -- 
-> 2.56.0
-> 
+     read size  base     this     base, nosmap  this, nosmap
+     4 KiB      175ns    181ns    152ns         155ns
+     64 KiB     2123ns   2061ns   1971ns        2070ns
+     1 MiB      49.6us   49.0us   46.4us        48.3us
+
+(nosmap here being clearcpuid=smap.)
+
+So on this CPU the 16 STAC/CLAC pairs in a 64 KiB read cost about 150ns,
+and this patch gets back about 60ns of that. But with SMAP off this patch
+is about 100ns slower for the same read. So the batched path seems to
+cost more than the old loop, and only comes out ahead where STAC/CLAC
+are expensive. I haven't looked into where that comes from.
+On CPUs where they're cheap, like the later Zen parts Linus mentioned in
+[1], this may well be a loss.
+
+It would be good for the changelog to have numbers with some
+clearcpuid=smap runs to compare with, and preferably on a few machine
+types.
+
+[1] https://lore.kernel.org/all/CAHk-=wiTN=1Sm5DVnXDtQ-tSiPuz-7QVpgP2vt6LgaEnhbubfw@mail.gmail.com/
+
+Thanks!
+
+Chris
