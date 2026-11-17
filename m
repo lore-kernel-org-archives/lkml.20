@@ -1,66 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794924960;
-	b=jClXO7CPtGsEsuOoBPMKeHRCG2YfkLXgsLDUdynS4GOSn8tCnLwN6WHcVBO+16WTF7wt
-	 cMs8FJrIgXDgCv3yvHaQ2zANPjM8TZhRD8YLysWoFdzDiZJy/6jHYb/PL4fPBWHn4Tpjv
-	 7FpcIUdJ3WX8DW97xpWv0i4xMUb0cTLtvd2iQQeLJDqz5q5WObXf3Nt/G3J3jhws/bRfb
-	 RcIguS0c1k+eQkuO/92TtTPKjh1ZBhI/EJZF988EIUU/1/kTSR3RKFU+imMaCedVH7cro
-	 pHtAE6WkzLa+drbvClQbgiiEYQzs2hRNhbaLJZDmtL9Zbu61EH13P1ghyYftCbiUV5A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794924960;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=aeDxw0dSGGlnGghiVGMTuuktj73iHEfNfkBG2eV9bYw=;
-	b=KrLyZKnYlkPch3hM8Rx8idMC2O3Zxmu6qai5cZhBIptzJIYnUOOdGUvzF5QM1z9A9W9Q
-	 sPrYlgQRYQSYVAsgsh0NWEDsghtQ4c95QnwjQR7Lvk95qGVq/4wtdI29nKDnChEQTlPFa
-	 4huZC87NJPcjSs0s5ZFd851DHmEMQJM52rrKm2YX2AY2CYL37YGGcPNFoQvSeomfBuVoy
-	 pA2v6TE8wNxXo6y91HaORbMvgkpFIksWOHrN4ZWE77OO1ELHVGIlB+eEEj1X3TlURAPTe
-	 OBTv/TZeDGFAfP77sftrgsKnrKb14anox0BtUW9VfTB9MxTnoU5JtuckXGSvVb1Jz7A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dPNVH0AX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.191.143
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794924963;
+	b=tJD8C4+c3/N9SMsfU1vOqxvoe6mrAZ9A61KLjvTCNl+9+uqr7lOsw2o79vH4nECCA1Pb
+	 UhcJcr+rNj+weLXo9OU6mjICG50Dqv1u86bO5VVNt+YckFcrPuDX3BXMn/R3ywf147UQO
+	 Kp+78jL3hl4VAfGvpHkwV+6cJwr7YqBtyR5p3L8K8g+P37YpuTp55z64FknjCYNivl8Zp
+	 zXjI4YQ9tTTurnn/Vsm0Kn+Jz87WC/Zu2jwFWGF6p+A2HEi0uivh4vWi1dmmRVRCFBHt1
+	 WxjYvfNk29uXHiNm2yd08eo8U/ZLAppOZ0xZLAOGuvSR0ElNyDzBxNNlsARP2SKOsBw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794924963;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=rJP4mSVEK2s1WQ2xmK5MUOYVucWgxPYZPxn+VFA2xbk=;
+	b=mLXTGE6HNAgA23VYLemowLbw+HFGux3vCsRYWt40lug7rBt21uh1RGfWXUHDemubOQTC
+	 CoZaC6RIFKS1DLu5yYZg3JZEyc7CV+zaNYEpN2elSbVRDccWCaeVgeU3hOv9v/nv22xcZ
+	 +LCAiSZKK++w3NF3f/XVxpznzYo+pg2v0YcHpKdkNuvfQ8uJPmVsV+HRU8m3x45ihtZzm
+	 HhP8O/m+UMqqgZSnKX5g+y8M03N5lydc4KctP0eapokAco7+OJZpmcoyNfi+WO3lDJVqD
+	 x/UQlYRefclZkRJLiRRAd9ai95Xx8OfBowQ93SOwT918ytmnbbw/JgzrHSLbuHGqKyw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b="JFb/iGY1";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.191.143
+Received: from YQZPR01CU011.outbound.protection.outlook.com (mail-canadaeastazon11020143.outbound.protection.outlook.com [52.101.191.143])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62B49606A32F
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:16:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7514F606A32F
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:16:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7514F606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dPNVH0AX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37EA61F000C5;
-	Tue, 17 Nov 2026 14:15:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794924960;
-	bh=aeDxw0dSGGlnGghiVGMTuuktj73iHEfNfkBG2eV9bYw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dPNVH0AXpNFa0FHwdRr6Z7/4yi5gjZRgwUrjrosl+dKdjTIuQg8SU4HEEHC2gyMOX
-	 yENh+gcRkrWW+s4t2i7YuO3yqtgPtES/VilTxpkAyhqaTjBuw9XwLFN6greIaGdFm4
-	 eM51fX/Ohbr+Z3ZgEyLA5AUMH9ccjukPUPSOC/rw9pdMH7TgsLalCLKE++WXAbPpNJ
-	 X5SEvuZxWXxjyT6V4ZzxRpd3Sk6lPR1PFIAVEk5Ddo/oMbbiO0UdJKBruAQMgguiIB
-	 zcmjsC7jTfLIYciA/tWXFzhphB8cK712SNihWdpWjePgRx9zMqC7GzyFbnFGjlKrRS
-	 fuBnc5E31Y4EQ==
-Date: Tue, 17 Nov 2026 16:15:53 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-Cc: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	linuxppc-dev@lists.ozlabs.org,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
-	linux-kernel@vger.kernel.org, Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Hari Bathini <hbathini@linux.ibm.com>
-Subject: Re: [PATCHv2 2/3] powerpc/execmem: Allocate kprobes insn pages from
- the modules area on book3s/32
-Message-ID: <avxhmaXa7lsQ86EA@kernel.org>
-References: <cover.1794572365.git.ritesh.list@gmail.com>
- <82c4973addebd82923c460cb44221f5b76146afe.1794572365.git.ritesh.list@gmail.com>
- <avltdwzlh07VZSFC@kernel.org>
- <f7834f3e-6c43-4b58-806d-fe4c07a93457@kernel.org>
- <avsn7Kn4a8wbB2QH@kernel.org>
- <zev77i3i.ritesh.list@gmail.com>
- <eb634d1f-cb08-44a8-88c9-e3b559c399a3@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=JFb/iGY1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UhXGy4dSnlwvq6px0skSl16mgnZ5v/ouH907sFmC0sQzOTG+OEsPA01pWx8IjmD0avwqKQBf3qVlBml0sfLBvd3SaICmaWOr3Tt1PDwRP0UacrNB7jtMCDKDlAw4p/nRqtfRS5bK6OUhfvbwpMfnGTIJnUiPYkc5IFfxibWyYOTPNk3VyvVendZIJlA8mnGQuK5LeFAOI7UZUMmceWeAz4djttHWmVHwko0pvYsEJWQ43mdmZfTeKqAV5JZlCZZM2uWitHGxfTtZ3kA/Geg7momX8yuKUZdl/14e8HqjaxVnDaJ7gyxR7cu9Tt6m8MNM7si/rx9APRqCx6icGj4dcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rJP4mSVEK2s1WQ2xmK5MUOYVucWgxPYZPxn+VFA2xbk=;
+ b=nYllvXcM9c6TJ0uHLq/3ixhvkcEsSFTy1M4p63ea2JCdq9LtHqDijTlcBacowUax+Xsn6NvehNV3RWFZenNQl7Cbi91SlPZExblpnkoPLdyjJ19zVSV5dZrSbRX71pYCC9hLFHEsxx49DizKViZ59IDv4lyiUCEuOUcNuVKEx/YTTH0M/tvzVbcG9Eeq3YUZMuyHZ2EN+3iKdyaIFF0/paCsZNHq4/whrL2VYVfBPOetHgAxvntrc4+r/Tct+o8WKfgI6lO8oP+fQ+SShrhgQpmFHNGBbzhiSKJID74hnauguqQoC7kyB8r9wntdn9tHklmqOrBKVLjr+MoZZSOm9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
+ dkim=pass header.d=efficios.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rJP4mSVEK2s1WQ2xmK5MUOYVucWgxPYZPxn+VFA2xbk=;
+ b=JFb/iGY1H7ISTSbRb+yw473ULJTINnycPvsvM0x5UatTtbrGCrp9iYAHubjcbvjWq1EQOx8AWBb/y5Nsn0PrrPa6Tv/geHKnzbIcsul2b2jlRNrkhEOywFjMC2p2LtAqhtrkxMBw4DoCXo/CW8i33KVLnL0T6pkqMoDpOr5OtAvGkuzaDPOaP4dBdQQEsFyUJ8SQyMdhgiOtbGy9WjAlHqjTaY7HFBHxnCA/1HfHPyZQ9P8giPkoQGdLou+q4n7FABwQnderSHRIgbV2mLjSah5nk0ao0kjtTFDXlL7OOfsvp1/f7/XRfDvdx3URgMJHFikPL6d4gPv2ZsibOg/6xw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=efficios.com;
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10) by YT3PR01MB10281.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:8e::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
+ 2026 14:15:59 +0000
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
+ 14:15:59 +0000
+Message-ID: <b2b9ed9b-3db6-4043-865d-8d79c7ef8d06@efficios.com>
+Date: Tue, 17 Nov 2026 09:15:58 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 16/37] sched/deadline: Record the root domain holding a
+ task's bandwidth
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org,
+ mkoutny@suse.com, linux-kernel@vger.kernel.org
+References: <20261116190549.230119-1-mathieu.desnoyers@efficios.com>
+ <20261116190549.230119-17-mathieu.desnoyers@efficios.com>
+ <sashiko-outbox-217599@kernel.org>
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Content-Language: en-US
+In-Reply-To: <sashiko-outbox-217599@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQZPR01CA0016.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:85::15) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,84 +100,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <eb634d1f-cb08-44a8-88c9-e3b559c399a3@kernel.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YT3PR01MB10281:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5bdfa6c9-4d55-425f-4c69-08df44b54d9d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|22082099003|18002099003|3023799007|4143699003|5023799004|56012099006|261028144727099003|261102123227099003|261022105027099003|261026140227099003|261022075727099003|261026121527099003|261021121427099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	1QzJUfxqmEjb/yEcuHyx/BgGaDLb/eUaG6icE3MsIbd6auE+Wr+tW5xV1cOsL6O6B+yVS5dlgzAReEH5Qg+ORFUoXVRABxMpXkSylvXWwEeWWFkJtS8PD0LZIH8YjAU7EpDbz7jv7321uhzJ7hgwC/eXZpjTLKEb1bOR8iVIAhojwoZBPhyl9LH6zNY6oiS21fhfxceP24IpbPOBMgxuQFSqk7IFvm4wUUz0s6Ao4MWZjAwjS9qk+86ErsNAkhR/L0vDpTIRVYoZ1+b8NlYj16151AUy3ugYuGmqpGUhLuXwgQQ8HxQfAX1Lfr3aZHNi6X1J7TZByRdvwE3G9YRPUaxQpbds7sEMG12oQ3LZBPt82EeTEX5hcsFhAbNrnLaAPC+tCLhjXbqog0H0FlkuWws0cIzqhtHZMmjrI9VtWdl4lcGy9NkTKH4ZRGQO37kVv4ORK/e2bNQUtBNFcu8Sw7kKF71kJoclbYJvS5K8rUf6MfxDBqvWYCPASz4B2XY+QAhJf+G+FeUPMaIIsnGUGX2TWXKnl7FMNkbtJXsnfh2B8LbbdS4HMNDPLpTGxAY13f/seT1RdiS1gWxIrvCfFDXipXLXUflize1JjccrpNs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(22082099003)(18002099003)(3023799007)(4143699003)(5023799004)(56012099006)(261028144727099003)(261102123227099003)(261022105027099003)(261026140227099003)(261022075727099003)(261026121527099003)(261021121427099003)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?a25oZEJuWS9lWGxYWGV1Y3lyQ1BJL3UxR1U1SE5GS2hoZ3ZHT0NDdEhrRzND?=
+ =?utf-8?B?RTVpeXFQL3d2bDBJNGVzNzY4bVFUZjVMRXdNRy9JQ1RVY0RGWDJpMGZpcDdZ?=
+ =?utf-8?B?NEowNFA5L3lWK3VFR0JEUnpkNTkyQmR1NmJSMDRMWkNxbzgzSWxaQ0ZKMHJW?=
+ =?utf-8?B?QjVqWXhwYlZadWF4TkNNWDROZ2VHRk84aGNVYlE3QkJnSEd0Zkp2ZUVGUTV3?=
+ =?utf-8?B?ZmhjYkkvQzVHTmVQVU8ya3lUZm03SVduR2pTVXFGYTU5NXZkRXFTc1h4eVlP?=
+ =?utf-8?B?Q2FUOFpQdkpiTG9DOFZQMmVzR1l1L0JSekdRYTIrYUhZa1NPZzZzb3lJSmMy?=
+ =?utf-8?B?VWIvekE5WVRPN21wb0tMU1Z6djlSeFpveHN3Kyt5QzF3ZFJZNVQ5SWhySUNt?=
+ =?utf-8?B?aTFCTVFqci8rdTBKY3A1UitqV1RDVU9HNkhINXpSNEtBOTlJd0FXbVk5NWUv?=
+ =?utf-8?B?NHlOYjN4V2w1Vk1kY2RLdFRHR3h4c1lnYXNTRmxwdHZ1OHlkZ1ZyVlBneThB?=
+ =?utf-8?B?Znl1SUFCdTBzQXdsYlM0Z2hEakhLeElMOE5ldDNseWtmek5EUVRpNStINzl1?=
+ =?utf-8?B?c05SMUZvcUdTY0hBZWhNTFhJUysrbkZQRTBhRWdDazd6dnlwNytWRmFYY1cz?=
+ =?utf-8?B?dy9yUGZVL1plYlltdTdLSSsxQWNuS2lyYUxkcWxablZiOWZDLytXc3hKNWZh?=
+ =?utf-8?B?L3gzamRGT0ZXVnMrOTVKM25IamF0MzY0cGI5NERWYUV1TCtPc2J5MjRoVXB6?=
+ =?utf-8?B?Wjl1enQrVUF5UWltWWJtRVV5anZoY2F5MlN5Uk9GZDJ6bVkxZ2xwbFRHdTRt?=
+ =?utf-8?B?R2ZlZURuWnloTEpnOEFnbEI3blZhVE8ySHpIUm1sV1Z6RzNqeFFkWHBGQVdR?=
+ =?utf-8?B?dXl3WlpYc3J1N2l6WHlNKzJNZ0ZLMkJIdUYvZWdrOVg4ZTRhU3FnckxHZGs2?=
+ =?utf-8?B?b1BYWlpOaVdydnJFdGd1aENGWG91TVJzUFlIQlR0dVUwekdFNDJ2bkt5QWtB?=
+ =?utf-8?B?QU9ZTWZnRXk2QjdDOTgyRWlnd2xrZmQyZm4wbzlRMnFHcW5uU2g2MGpId2ZE?=
+ =?utf-8?B?cE5pNEZXMlBuNHJoMmw0UnhjRitiUHRCTGVUcnpRWVVUTkd0UjBZU0tVc1Rw?=
+ =?utf-8?B?d2lydEJva2VxRGpBRWloaW9pOG9VTG1naFVuYisyZ0VYQlE0TlpscWQvTURz?=
+ =?utf-8?B?NHBtSnA2UWt5WW9meEtxM3lKUFI5K0dBWWREWk4zRkQ4cEZOSUJIU3hocXVa?=
+ =?utf-8?B?TFBrZzRUL0V3eENPYmlMQUdldlZRalVxQmJ5c2hCaFdLakJmdjhPN25nSmxw?=
+ =?utf-8?B?ZlNRNVJuUUF5Nko1TGJ1QkJxQXZxTXZUZmg0M2tiMWVsU1RLZGtka0VxTjJE?=
+ =?utf-8?B?K2oxMit4ZGpBN1JUcVE4dXVrQkRzSGRKd0hjNW42RGhmWVpvMzl1ZXdGNmQ2?=
+ =?utf-8?B?RVNWMW02T2tzM2ZmSHRxZjVXL0pva3ZCdHRtOWVHY3ZQbUxlTVhjTmFNZzZa?=
+ =?utf-8?B?QWMxZW03ekllUmVXT0orcW93cmZuakxxNGx5Q2ZXN2s3cWh1b3FPc1Z2aG16?=
+ =?utf-8?B?S2pIZW50S0RMd1NoQUpDek5STWVQK0hCZ3RhWkEzb0g0MC9CcG9pcGZXbnNT?=
+ =?utf-8?B?RnZsanlJODl3MW1IbnNxb1BiTkxhc240WFRWRmxTczNCM1JaZEZWMjIzbVFa?=
+ =?utf-8?B?TTRJTWtQQ1lrYU55Vk5YMk94WU55QTRVZXFHWm52ZmZKVk1oN3l1bFV1dGQz?=
+ =?utf-8?B?eDliVGwzRlc5N0F5OGhrSnQ3MlQ5OEZqQWpqVktXTlBlekpQOG9rNk12czFp?=
+ =?utf-8?B?UlZsZ2ROcnN0bmNmZ1hvWEEwSzkya2p2UTB1WUhVMDJkM2p6ajZ3SW9Nalk1?=
+ =?utf-8?B?SDRPdVNaY0pqUmlBS1RabTF1YVRQbFdLNUkwSXJYS1RSUFFVZDgrOEp0U0d0?=
+ =?utf-8?B?TVNHcUpHS2V0Slpwb1p5YnFpc2hQVEtubmFnM3BYYTUvUFE4aUt6Uk4zZGU4?=
+ =?utf-8?B?RGNxb2Jxb245dFhLUDhSNWtpTjRoOCsveTRCUTVDODZkc1lnaUVaTDJ1NUpm?=
+ =?utf-8?B?Ukd1WjRiWDl6QUFXM3NIVHhIN1NvSWxYY25nak1tNWZITk12Tk9wWThidG90?=
+ =?utf-8?B?eWtEa2p0aG4zREJSSUtsTWpVUHhFNUduV0RzWExEbFM0WnZ4Vk5lRkpPMkhX?=
+ =?utf-8?B?WUR1azNEaU9BTFFOODdWTUVjalNqOW5lNCtOVnZLN3ViM2hZUm5NVVo2RG9R?=
+ =?utf-8?B?OEU4aS9uWCtkTkh0STBHeXdEYXI3R0Z1MW4valR4dEtlQmJrWnBJYjd3Sm0w?=
+ =?utf-8?B?YndXTytWSUVqQlRIdkczL1czZmVPTE5vT29HWHVMMEYvNHFDYk1seEFXMHoz?=
+ =?utf-8?Q?HHCJz1xe5vQ34TV+YXoF/zu64HsNVvbPSrmlH?=
+X-OriginatorOrg: efficios.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5bdfa6c9-4d55-425f-4c69-08df44b54d9d
+X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 14:15:59.2557
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DuNzFp5IlvQEVniBbb0CFRTggp/rvWT/K8mCPwZqHY2MNm+HKzYiO2EoaDd7PZHLdIfLnmWHCvxUy+1UErkB22JnkItZi6lVn2nbL8OliXc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT3PR01MB10281
 
-On Tue, Nov 17, 2026 at 03:04:49PM +0100, Christophe Leroy (CS GROUP) wrote:
-> Le 17/11/2026 à 13:33, Ritesh Harjani a écrit :
-> > Mike Rapoport <rppt@kernel.org> writes:
-> > 
-> > > > > > Hence, use the modules area for EXECMEM_KPROBES on book3s/32.
-> > > > > Right, I missed that on book3s/32 does vmalloc is not executable and its
-> > > > > protection can't be changed.
-> > > > > 
-> > > > > Could it be that 8xx also need a special treatment for kprobes?
-> > > > 
-> > > > Yes indeed, not for the same reasons but because 8xx ITLB-miss handler
-> > > > doesn't expect any instruction TLB miss on kernel addresses other than the
-> > > > ones from the module area:
-> > > > 
-> > > > Commit 4afb0be7ccda ("powerpc/8xx: Avoid testing for kernel space in ITLB
-> > > > Miss.")
-> > > > Commit 16a71c045186 ("powerpc/8xx: Preallocate execmem page tables")
-> > > > Commit 33c527522f39 ("powerpc/8xx: Inconditionally use task PGDIR in ITLB
-> > > > misses")
-> > 
-> > Right. I looked at the above series which added all of this support [1].
-> > So looks like 603 might also have this related problem (other than the
-> > per segment N bit issue), since it's iTLB miss handler only walks the
-> > task's PGDIR, unlike it's dTLB handler which falls back to reloading the
-> > missing kernel PGD entry from swapper_pg_dir. So what I meant to say is
-> > that, similar to 8xx, a new PGD entry created in the kernel's vmalloc
-> > area for an insn page does not get copied over after the task is
-> > created (/PGDIR allocated), on 603 as well.
-> > But since MODLUES_VADDR is defined for both BOOK3S/32 and 8xx, so I guess it
-> > gets covered by the same change anyways.
-> > 
-> > > > So at the end as MODULES_VADDR/MODULES_END only exist on book3s/32 and 8xx I
-> > > > think when they exist they should be used as follows:
-> > > > 
-> > > > diff --git a/arch/powerpc/mm/mem.c b/arch/powerpc/mm/mem.c
-> > > > index b617b69452cd..856f4609c488 100644
-> > > > --- a/arch/powerpc/mm/mem.c
-> > > > +++ b/arch/powerpc/mm/mem.c
-> > > > @@ -428,8 +428,13 @@ struct execmem_info __init *execmem_arch_setup(void)
-> > > >   				.fallback_end	= fallback_end,
-> > > >   			},
-> > > >   			[EXECMEM_KPROBES] = {
-> > > > +#ifdef MODULES_VADDR
-> > > > +				.start	= MODULES_VADDR,
-> > > > +				.end	= MODULES_END,
-> > > > +#else
-> > > >   				.start	= VMALLOC_START,
-> > > >   				.end	= VMALLOC_END,
-> > > > +#endif
-> > > 
-> > > We already have #ifdef MODULES_VADDR a few lines above, I think the
-> > > assignment of kprobes_start and kprobes_end could go there instead of if
-> > > (IS_ENABLED(CONFIG_PPC_BOOK3S_32)).
-> > > 
-> > 
-> > Right. So let me use the following diff then?
-> > 
-> > Please let me know if this diff looks good to you? If yes, then I can
-> > send a v3.
-> 
-> My preference would go to something similar to 'start' and 'end', no init at
-> declaration, kprobes_start and kprobes_end set to VMALLOC_START/VMALLOC_END
-> inside the #else
+> Should __sched_setscheduler() also check the root domain of the recorded
+> dl_bw_cpu instead of rq->rd?
 
-I agree, it's more consistent this way.
- 
-> > Also - it will be good to know if patch-1 and patch-3 looks ok too,
-> > before I spin a next revision?
+Thanks. That EPERM is the baseline's affinity check. The cover letter
+lists it under "Not changed". It refuses the call, so nothing is
+counted wrongly.
 
-Both make sense to me, feel free to add my
+The check also matters when sched_setattr() makes a task a deadline
+task during a cpuset move. Patch 21 covers that case ("sched: Make
+deadline policy and affinity changes wait for a cpuset attach"). That
+task has no CPU recorded yet. So the root domain of the CPU it is on is
+the only one the check can use.
 
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Once the task has run on its new CPUs, its parameters can be changed as
+usual.
+
+Thanks,
+
+Mathieu
 
 -- 
-Sincerely yours,
-Mike.
+Mathieu Desnoyers
+EfficiOS Inc.
+https://www.efficios.com
