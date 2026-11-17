@@ -1,82 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794912197;
-	b=x/Cpi41nvNPdRjsINqoE5KCoTwgKGLBhuC8Gkv7Jp7q11vDGRwH7ead4ZPoiYYGDneeB
-	 +HbkSAA2oudwYgiWPEgWKdtPP14mt5rHIQkYomVTQjWOtWTRhgLtwQw4ZlKCrg8kMd/SE
-	 /srq2BmKevGd/Snqa1JKh3IpJukzs+DeGmEpwtsDpuIunp41slT1D5yth3FRyuyfCXtpb
-	 OEe7DnxjNiDNQyKuXKkAmqyfLwODXJacsJ5nFTNz8DlJs+FQ7kis848WUg5xxfHtN2Bku
-	 qIiz2Jah3PWf76zqRUXb2c97NO4FTCOv5EjYOfCa8Gl/l7acwwZW8HHptmWcKm3l5Jg==
+	t=1794912198;
+	b=VC5rALPQANdZM+tq0PeMyFBBTCY01a8LR828CQ8Fb1XlcU4kWCLXiT+gnNDpaLgR0K68
+	 2gwrbLq0daVs7PM49duYo35UccKTkcneYlWyDN3BGesJFrd1Q2MRH+75+bFwO+xfkOhpE
+	 a932y1opyUX8W7SmFk6HPlqICuRH84KnzGDqzmAKVznjTSovb2/CDeP5SqnrC9+aZdTjI
+	 DLTYZJo+XGKTXcu5B2D3sqx1mBqs2tl+XwHy8YRrfmR9fBGS2dWHoiXqJ591Vu2GpMNbx
+	 sIra5IkTVZX/XRg7KVKwDILs5M9kDOEdzbOFteoVaiP6J/T5MPvyEyPDF79whRzvpPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794912197;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=6Bx6aGWAfxN03v1MCMPsA0sS0oGqYFrxfyvjdLje8lg=;
-	b=UsFAAvBN6U9TxLJPLjXPhSAlJugW21dYk5lsskWHjwGcKoky7N0UABzaGYR/GtBJOenq
-	 pti3cG474LUYue+ilccz4+TwhJVh0kOaGuJy+xAQC3RNTKTBPqpsEWrBT4+Q+dpJZk72H
-	 zot4WcUjKBdyAUoy40x+MyFF0KwKDKY1pwp1MA6WzzAd0CHuB4B/pZt71kncTUgc6/p3o
-	 KSE2pGTIdZ8KoM4oiRaWw1u2l+UpAloxion4dfYTNsMEMgWFIOxcHF6lJom/+DFwubh2i
-	 +Qi5M9/lCfKuxgyUpDYtg5alR/05XtXXZD7AwI/3929mqi4AdB5LBObdjSTLYw7Nf/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794912198;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:
+	 X-Proofpoint-Reinject:X-QCInternal:X-QCInternal:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=a4SauZhnn74wjgYI6khUMMapX+qeM6sZyodz3gR1I0I=;
+	b=HBk2GEWP4EWWhfoHWe8g0dKNZtUQ5N6mM7Ejm2ZNtD5J7QXRgfS+5+a9YxGCxTTQRlNr
+	 NDTl5C+M9OdEKa+o7lAa9w7lgKejOOcyxfBiQNYk7UEHTCDABlqhfDzXLfQK6N+i+XELP
+	 hsYsNLDB9Dxj99DESUJImUo2PKb8oJbyQKvrEYiBbBR4kKs02qrp4jUPuvdLNYIoSZMOV
+	 5tX7ULcIGI5HdyomtS7sDqlThx0/GQDinPv3UcbHGcpgYSo1yG7iZ3FlSilKp1JSOZ8Ii
+	 QgCIhe3B6v89paHPjdEQaTbw/+EHJGtHRQu5k4vZ2Dhw/O5U5cIqNIPluJy4RMtF7jg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PA3h6R6d;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="IZ/8xgRJ";
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87497606A31C;
-	Tue, 17 Nov 2026 10:43:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87497606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 439C0606A336;
+	Tue, 17 Nov 2026 10:43:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 439C0606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PA3h6R6d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794912197; x=1826448197;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=f+rZ70jL9NuYsutro/ekKRtcwGGOxbC6WYytJj8x+/8=;
-  b=PA3h6R6d/VRwHZrSA3hU2ErZ+cR1nv3MLnk43Q3GimPsiWDVx2irWz1d
-   +u7nzZkTdWPf71gh0ZMhNJioX/DKZVPAaja6FO4YVcL3ASa8M4tB7faAU
-   Yr4SghX6FY/vJnmSFpFhYPLPulU7ehYoKg4j7ph5d44f8xQAwgRjMzryv
-   aDhr0ZOFBEG0Y3PGKrElc3LyRMluYujZrgswP0t5jZUdCb9Y9xJsPSqMI
-   GfUgEfJbzbd3/DlbqE5ayhWhakCn8P4wnGSCEY3mkFTcvIgm2ZJEXUtTc
-   XR2xdcngyOp/exXwiYeepbcKDOZ1Y29LhpJb7fkYOsdK5M4HwyezdA5NQ
-   g==;
-X-CSE-ConnectionGUID: 7YQcWJuaQ5SlvNI7iuWIPw==
-X-CSE-MsgGUID: u8SaPZSbSZK1graYWmtGNA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3600973"
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3600973"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 02:43:16 -0800
-X-CSE-ConnectionGUID: Nzqs3jYXS5GkPf0gSVdZKA==
-X-CSE-MsgGUID: 3cq5BzNoSAaTy3999ZO3ng==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="9742331"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa007.jf.intel.com with ESMTP; 17 Nov 2026 02:43:14 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 22A2C99; Tue, 17 Nov 2026 11:43:12 +0100 (CET)
-Date: Tue, 17 Nov 2026 11:43:12 +0100
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: aiyengar1990@gmail.com
-Cc: Badhri Jagan Sridharan <badhri@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Heiko Stuebner <heiko@sntech.de>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH v2 2/2] usb: typec: fusb302: Toggle with the default Rp
- current
-Message-ID: <avwvwBLFBHCc36dc@black.igk.intel.com>
-References: <20261112-tcpm-attach-reboot-v2-0-b4bc6ca83490@gmail.com>
- <20261112-tcpm-attach-reboot-v2-2-b4bc6ca83490@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IZ/8xgRJ
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH9TYh81699103;
+	Tue, 17 Nov 2026 10:43:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=a4SauZhnn74
+	wjgYI6khUMMapX+qeM6sZyodz3gR1I0I=; b=IZ/8xgRJUlUyhP+fjJT8d5pfLSr
+	jIWtiVB5FJRN20pwFbS9KRuGXkITvSyVvwlxu1h9cVH7uY+ioqHJK9xHr1rmd5bB
+	w/auEwh2jtE4xT6uK4AfVx4tQYPTC+BDSGZmzgHzQLl1Zl3pubTmBcg0+U0ArPTf
+	ZSJotYFWTjHGCz4M2S7JXa0Aw8C1SpUfHck+HaU+jMfBBkuhBtbTaZv4dozh5d9Z
+	WaJRv+24iPa7fR1Aa1T4bt1FN+JwGLYl/u8MoQSdGn8UDLBX3tszKsRfTZhfD1wM
+	AHqLQz/kkVBd4c+MlFAQwbHDVGZ3dn3ptkpvuQ3445jcQY4ZzyX5wiCY97A==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0fjuhfhp-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 17 Nov 2026 10:43:10 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHAh6ll384735;
+	Tue, 17 Nov 2026 10:43:08 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-ks5-hyd.qualcomm.com [10.147.255.18])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 6AHAh7ma384795
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 17 Nov 2026 10:43:08 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4763723)
+	id 07ECE67A; Tue, 17 Nov 2026 16:13:07 +0530 (+0530)
+From: Karthik S <karthik.s@oss.qualcomm.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: Abel Vesa <abelvesa@kernel.org>, linux-sound@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Karthik S <karthik.s@oss.qualcomm.com>
+Subject: [PATCH v1 3/3] dt-bindings: sound: qcom,sm8250: add talos-lyra-sndcard compatible
+Date: Tue, 17 Nov 2026 16:13:03 +0530
+Message-Id: <20261117104303.435294-4-karthik.s@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261117104303.435294-1-karthik.s@oss.qualcomm.com>
+References: <20261117104303.435294-1-karthik.s@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,102 +89,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112-tcpm-attach-reboot-v2-2-b4bc6ca83490@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA0MiBTYWx0ZWRfX1fTaQSkm2IsN
+ a0H6clJj5t3nhrpkqJ74Wy98pnKtv/71XpP9tOmt4gRuSkMrC9Pxu8uqgDH9tGEfVjhhfNhvPj8
+ x/CLBv2+tU49a/PJfOsRcL/etPVxIYhy0Y6AdgIoXD+9Utj0K7zjvWrd9YI1mTec7OMm/tiBuq9
+ h/f+SxfRedvROji/O+Sh42drCpWpRuMGvc+yhNp9XNsnBo7ugLZ2FFwLPQV+nI74uN08hfG/sVT
+ oUnyCwF9etDqWsd0eBN2+zlrTsq3GK3/WBx4rTPCHwOwSNN/UPUEo1bKZ7nD1aOF2/9qrhcnc0C
+ Zrr1opwclTdxSHdtlrcU9GU1ipWtggk0yYhMf8MwEgJ5deoQKmvMRtmowTFzMTL9peQT+sm/wcb
+ sq/qQ4VHtMxgprOyM+i1o44DlCRjT/0DnONHcYsx9CeMRwcIv6Op+U75dFO8g6jT9Et/2PKOqCP
+ fJHo8HQqn/WiMmyIPTA==
+X-Authority-Analysis: v=2.4 cv=JfIpPkKV c=1 sm=1 tr=0 ts=6afc2fbf cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8 a=mITDVRH8rqty5lmV4ZcA:9
+X-Proofpoint-ORIG-GUID: TFhH99QyPjUs9vHzbt1Ggfvn3U7vJD73
+X-Proofpoint-GUID: TFhH99QyPjUs9vHzbt1Ggfvn3U7vJD73
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA0MiBTYWx0ZWRfX0WIOfSyj8s0W
+ UVymtYodwmdMDmYM9qSdVCxtsLig77PgV0WOm2z0G7hoz2nT7zQ8JL3TxJyNy7JetWNsCLeUc3l
+ WkZXWYQpbC8WmitannSXep/cwbmigw4=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_01,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 adultscore=0 clxscore=1015 suspectscore=0 spamscore=0
+ priorityscore=1501 bulkscore=0 lowpriorityscore=0 malwarescore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611170042
 
-On Thu, Nov 12, 2026 at 08:23:34AM +0000, Arun Iyengar via B4 Relay wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
-> 
-> tcpm_start_toggling() programs the Rp current that tcpm asks for, which
-> is the current of the source PDO (Rp 3.0A on boards that can source
-> 3A) when the port starts toggling from Unattached.SRC, and the default
-> current when it starts from Unattached.SNK after a detach.
-> 
-> A Genesys Logic based USB-C to DisplayPort cable connected to the
-> Orange Pi 5 is often not detected after a warm reboot: the FUSB302
-> toggle state machine raises no interrupt with it while it drives the
-> high Rp current, but finds it within seconds once toggling restarts
-> with the default current after another device was detached.
-> 
-> Toggle with the default current, and switch to the requested one when
-> toggling stops on a sink, before tcpm is told about the attach, so the
-> sink sees the configured level from the start of the connection as
-> before. tcpm does not set it again after attach on every path (not on
-> ports without PD, for instance). The Rd detection threshold used for
-> unplug detection follows the restored current.
-> 
-> The FUSB302B datasheet sets the toggle up the same way: under "Toggle
-> Functionality" the processor writes HOST_CUR for the default current
-> before it sets TOGGLE, and a HOST_CUR change after attach is applied to
-> the CC line immediately ("HOST_CUR Changed After Attach").
-> 
-> Fixes: c034a43e72dd ("staging: typec: Fairchild FUSB302 Type-c chip driver")
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+Add the qcom,talos-lyra-sndcard compatible string to the
+qcom,sm8250 sound bindings.
 
-Looks okay to me, but you need to CC stable:
-https://docs.kernel.org/process/submitting-patches.html#select-the-recipients-for-your-patch
+Signed-off-by: Karthik S <karthik.s@oss.qualcomm.com>
+---
+ Documentation/devicetree/bindings/sound/qcom,sm8250.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-But let's wait for comments from Badhri to the tcpm patch.
-
-Thanks,
-
-> ---
->  drivers/usb/typec/tcpm/fusb302.c | 21 +++++++++++++++++++--
->  1 file changed, 19 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/usb/typec/tcpm/fusb302.c b/drivers/usb/typec/tcpm/fusb302.c
-> index 3319f6a2b0c9..44aa05fd4ba2 100644
-> --- a/drivers/usb/typec/tcpm/fusb302.c
-> +++ b/drivers/usb/typec/tcpm/fusb302.c
-> @@ -97,6 +97,7 @@ struct fusb302_chip {
->  	/* chip status */
->  	enum toggling_mode toggling_mode;
->  	enum src_current_status src_current_status;
-> +	enum src_current_status toggling_src_current;
->  	bool intr_togdone;
->  	bool intr_bc_lvl;
->  	bool intr_comp_chng;
-> @@ -942,10 +943,19 @@ static int tcpm_start_toggling(struct tcpc_dev *dev,
->  	}
->  
->  	mutex_lock(&chip->lock);
-> -	ret = fusb302_set_src_current(chip, cc_src_current[cc]);
-> +	/*
-> +	 * Look for a partner with the default USB current advertisement.
-> +	 * Some sinks (seen with a Genesys Logic based USB-C to DisplayPort
-> +	 * cable) present an Rd that the FUSB302 toggle state machine does
-> +	 * not detect while it drives the high (3.0 A) Rp current, so they
-> +	 * are only found when toggling starts from the sink side. The
-> +	 * requested current is restored when toggling finds a sink.
-> +	 */
-> +	chip->toggling_src_current = cc_src_current[cc];
-> +	ret = fusb302_set_src_current(chip, SRC_CURRENT_DEFAULT);
->  	if (ret < 0) {
->  		fusb302_log(chip, "unable to set src current %s, ret=%d",
-> -			    typec_cc_status_name[cc], ret);
-> +			    typec_cc_status_name[TYPEC_CC_RP_DEF], ret);
->  		goto done;
->  	}
->  	ret = fusb302_set_toggling(chip, mode);
-> @@ -1357,6 +1367,13 @@ static int fusb302_handle_togdone_src(struct fusb302_chip *chip,
->  			    typec_cc_status_name[cc2]);
->  		return fusb302_set_toggling(chip, toggling_mode);
->  	}
-> +	/* advertise the requested Rp current now that a sink is attached */
-> +	ret = fusb302_set_src_current(chip, chip->toggling_src_current);
-> +	if (ret < 0) {
-> +		fusb302_log(chip, "cannot set src current, ret=%d", ret);
-> +		return ret;
-> +	}
-> +	rd_mda = rd_mda_value[chip->src_current_status];
->  	/* set polarity and pull_up, pull_down */
->  	ret = fusb302_set_cc_polarity_and_pull(chip, cc_polarity, true, false);
->  	if (ret < 0) {
-> 
-> -- 
-> 2.55.0
-> 
-
+diff --git a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
+index e2e3fc99e6d9..40b68b72f8f4 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
+@@ -55,6 +55,7 @@ properties:
+           - qcom,sdm845-sndcard
+           - qcom,sm8250-sndcard
+           - qcom,sm8450-sndcard
++          - qcom,talos-lyra-sndcard
+           - qcom,x1e80100-sndcard
+           - thundercomm,qcs6490-rubikpi3-sndcard
+ 
 -- 
-heikki
+2.34.1
+
