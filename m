@@ -1,72 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794921869;
-	b=VG7rOcPpSdrTDlwbBQvMjf/X1JMw7HExC8JV33VwdUdnQcawOcJrFlgbgI25hf6+azJg
-	 lI1FwW/Z2qUQmaxH8jqGch2H1D84UtxNbarwfUwuz0rzG7LXNRwUkC2LXq8q0eN9AFLRJ
-	 Pfq1htiCO7feHQNFpalTX37/18CoKlWrOED1GSV1urQ9zdH6F1aVRhdGWcRsDdaR8fqih
-	 k3tbwiFMuY3SNpeDIN4DSMX8uDotVopiKF6+up4mhCxOW2KM6YrwsVsrqH3mCOHQ6stUw
-	 DJ+eL2cX+VjYLdxmx/hYSutrKcB73aJpkTVL4QskuqjDruhmVDjPhkZVkinJqSRMYMg==
+	t=1794921884;
+	b=XBZ/O7BA/VAy1VdzUT3m1c4UaP9F3Itr1VG1KnGa8RbnjhtKFwqePqxI91l9NYPU2Yx6
+	 BiZNWlpkzf1fdYazzo8NFlg319XEA9l5H1Lsn75nzJE4ja3HBdVRxw+g5DqwBdA+cFUMQ
+	 +vnRZC5YSBgg2/GHEfNKGz7zmPI7uC6DrE2e8oq+zON7WsZ6uD/LeEK7oB5v4UITvrs46
+	 E7DOoMgJO6VJjU/W9dn9vG1uAt56UUhdIL5BnxOs6Agsr4iNnsEzrVcSFf1EIzqvKeXvi
+	 HVX6paN2o2qzSxpwbIBRVAmTo1jCDRDg9TUpGmQxnHGOEcyzONnfns7geGMJE1T3C/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794921869;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=8VzTZhhpuj7dCBfLSfLDkkRJWWhBg0bTERm45L+Zsa0=;
-	b=jD0XY+ymD91Exnr/Ea5Q5zUBnmRz8mbWLNfbqtbfoUsMSwgAMPEQSNSaFBfH7asxUtgx
-	 OBcypBrAyTQ3W/yDBITw0RUVWAcgFZgedNfwB1SOL6FXpc76kPxh5bLe9HCxzXAW7H//W
-	 OSI72DlzQClZxre36gRIeEU/T6iyXFd4uJif5eMF988ZOQEAZ3H5YU1sIYlGyYPFr2MqZ
-	 dSs5ZQ05WchNoupkNXQmePui7x0KfJvyZ202bujLyypWrFvPs19yJogdokCscB0qWUejV
-	 sl1DWrLYldKUB7SBJhtadtft1NtB0fCaUGGXZwjC59UcG4r/2cAZkO+hOSMKSH+H8bQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794921884;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=PuWu8Pm15IrXuWHHBFhE92oomo9FtSDSqEAOCB4fyN4=;
+	b=yvgYbAftytxVlzeoF1RIhjaFuqXxLlZ7lTt/yFcOFsDZeh1/eI7sFZm/Fn4dAQ4I+KZB
+	 GuUPeRVhkYz9jACo8ox6kEOp5OgyCOETj9VCj7rRE3QBtVaxHOhw0hLb5t60W5+O/TLvL
+	 Cb+nlOBIS960UkC/lutStRRtA2FKFzxsJkK5nGMWFJA61+oNgPYx7h253xb+vzhvZB7W/
+	 BLBnMTTyN8iWlx44PjQil9iHac3JF/eDz0yIvHuGYWXyHVBRGRHF6/Lo15q/NRNrqHlFl
+	 /A0eFVMN0d2bCPNMV7KOSKfJhhZF1FTz6y8+IT7NHxFjruJtMDj7R2VzBAwkQrUHCjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=0YPkGJbx;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FZ0fKC2A;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33C83606A31C;
-	Tue, 17 Nov 2026 13:24:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33C83606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39AB2606A33D;
+	Tue, 17 Nov 2026 13:24:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=0YPkGJbx
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=8VzTZhhpuj7dCBfLSfLDkkRJWWhBg0bTERm45L+Zsa0=; b=0YPkGJbxP7pVYdOvqSdmkAfrGr
-	5vgCglO7ERT0ltXGaz4AzJzb2KZb8hOhnugvFjv5+4q957CzP1rYz2/y4hZ+pJz3KTgMhROEcTjzO
-	EeaSjMh31G1YcEh+jeriKWEJFyldTNSc0xisP908w+UfKoAcfPc0GIctN9RuuC5cE+V0=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xTJAW-00H9pL-IK; Tue, 17 Nov 2026 14:24:16 +0100
-Date: Tue, 17 Nov 2026 14:24:16 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Jisheng Zhang <jszhang@kernel.org>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 1/8] dt-bindings: net: Add MDIO demultiplexer
-Message-ID: <bd19b55b-00b1-406d-a16b-d04c35efb7d3@lunn.ch>
-References: <20261116135442.4827-1-jszhang@kernel.org>
- <20261116135442.4827-2-jszhang@kernel.org>
- <16ecb3ac-7876-4db5-9168-5ac9bf31d4b7@lunn.ch>
- <avvgy_bmRSVApCHA@xhacker>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FZ0fKC2A
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64FE41F00925;
+	Tue, 17 Nov 2026 13:24:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794921883;
+	bh=PuWu8Pm15IrXuWHHBFhE92oomo9FtSDSqEAOCB4fyN4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FZ0fKC2A7YO05zeb8z6e52nLDzVzza/JgCWsCH+VXWh1b4BI56qCrFJB0H1scJuzf
+	 W4/Tphx4YHcJn/u+/K+YjEMxs00mQatSoSkOmKj9xtUjf4M75ogtvGEtnI+AUGq7TG
+	 yV1kiA4rFUcvDumRKHB37/iDk7BKNlDtVjNGEOnPfXngOjd44SbowIEzsjXnN/07oH
+	 GZSCLaH/YZOnQWuG+TEQWJdmdVEcxV9XZe1IJ9F2l7ZQQss3Im0c8YypeSE+Gw8ng+
+	 D+W5VqaqKiUCe6ghWfz/Z+SHVxCroU3uKpxZ716YwgCa2RuOfLGTU5C4lZzxiN3NSH
+	 iQow4Au1ybciw==
+Date: Tue, 17 Nov 2026 15:24:36 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Mark Brown <broonie@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Mikhail Zaslonko <zaslonko@linux.ibm.com>,
+	Usama Arif <usama.arif@linux.dev>,
+	Vlastimil Babka <vbabka@kernel.org>
+Subject: Re: linux-next: manual merge of the kexec tree with the mm tree
+Message-ID: <avxVlNG_ZYLetc98@kernel.org>
+References: <avtYxJJhIzPVDYVv@sirena.org.uk>
+ <20261116114201.71afd94ec31717433939e1fe@linux-foundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,39 +66,30 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <avvgy_bmRSVApCHA@xhacker>
+In-Reply-To: <20261116114201.71afd94ec31717433939e1fe@linux-foundation.org>
 
-On Tue, Nov 17, 2026 at 01:06:19PM +0800, Jisheng Zhang wrote:
-> On Mon, Nov 16, 2026 at 04:06:25PM +0100, Andrew Lunn wrote:
-> > On Mon, Nov 16, 2026 at 09:54:35PM +0800, Jisheng Zhang wrote:
-> > > Assume we have the following implementation:
-> > >           ----------
-> > >           |mmio reg|
-> > > 	  ----------
-> > >              |
-> > >  --------    |      -------
-> > >  | MAC0 |--MDIO-----| PHY |
-> > >  -------- |     |   -------
-> > >           |     |
-> > >  -------- |     |   -------
-> > >  | MAC1 |--     ----| PHY |
-> > >  --------           -------
-> > > 
-> > > Both MAC0 and MAC1 have MDIO bus masters, and tie together to
-> > > a single set of clock and data lines, which go to some PHYs. While
-> > > there's a mmio reg to control which MAC mdio master can operate
-> > > the single mdio clock and data lines, so only one MAC can operate
-> > > the mdio clock and data lines.
-> > 
-> > How does this differ from pinmux?
-> > 
+On Mon, Nov 16, 2026 at 11:42:01AM -0800, Andrew Morton wrote:
+> On Mon, 16 Nov 2026 19:25:56 +0000 Mark Brown <broonie@kernel.org> wrote:
 > 
-> in my case, the two MAC MDIO bus masters share the same MDC and MDIO
-> pins.
+> > Today's linux-next merge of the kexec tree got a conflict in:
+> > 
+> >   kernel/crash_reserve.c
+> > 
+> > between commit:
+> > 
+> >   ed27d3cb114dd ("mm/hugetlb: allow crashkernel to reuse hugetlb CMA memory")
+> > 
+> > from the mm tree and commit:
+> > 
+> >   941aef93e9e1d ("kdump: Give crashkernel CMA areas unique names")
+> > 
+> > from the kexec tree.
+> 
+> OK, thanks.  I'll send Usama's "mm/hugetlb: allow crashkernel to reuse
+> hugetlb CMA memory" to kexec people then I shall forget all about it ;)
 
-That does not answer my question. How is this different to pinmux?
+Right, until the next conflict :)
 
-    Andrew
-
----
-pw-bot: cr
+-- 
+Sincerely yours,
+Mike.
