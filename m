@@ -1,55 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794914162;
-	b=i8ZT9FK0b4NZBjBcbnuE/p9MpA0yhpaMPiiDjckUGriO/vqhJaiTnwm0TPjAGSA/fuwB
-	 XXMkBIh+/y3IJP3rKdudb6ScLU4XgF3k247POaklDn8LdtLeDcMcOwLcJyVZ3lvlp/nWs
-	 bugKjhT7a3Ph86NFX6Q7hl5ccVHQ+Gu5yXzyypX9cXCpylDaKJ5ENlqQerrgH8pTDkcQk
-	 o249iC+P9K3h6y+gzH4IicDt3MWbPF8fZ1ZqzU7p3ShgTau/pmFWZCn/3EeqFCDKoE/1b
-	 +oz1wOdnD4xnvOqBNEy7JqkI9CT7o6wZ9WQOcVTlo/YsDUsFLkeRPqt21Ul1a0nfijQ==
+	t=1794914173;
+	b=xT9d8KN9qci1/VDwg8FgrSBekplxuil056u4vSZ0EN7eJiGmBteKzEj6K3oQU+lBl1HK
+	 r9f+1EYdunw0iXLDWO8NmDr7kDOznyRYP8GlpOb5QozgcmRLKfhAJ/UOWVW/HfIg2p27X
+	 KaayFxC3O6m3WQVDsritWffGZ8z2Db/rJLSpJ9In6CLnYNZyLqwNJUb/oXdxTkdE0g7Ks
+	 QXnk1cNwpYDNY5eTpSj0AaHCU/dVMvPF7J6sH22vYLEiQShKmKiT4BJK3FUmwbP+0R0R1
+	 TsW1slq2uezbJSjPccXfDnkXbmyT9LYtaREl+YWOkw1WI75nzp2RU8JDEUoR6BExApQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794914162;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=bfBKw5Dqe7/QCgl28CEIM4EiUR1wvD/Rw1mMg1W1wSQ=;
-	b=2w60a7m33PldgbuIisPySpO7TCkGxvSJqjXnqImt07tkhJr+4Ji6cJLmEUpgPQS2BwIT
-	 TpMHqx7Cq6DRLRb0zXIbLvmj5D45ZzziQ3uJoOP/+EGAvkT2x78qpb+x6JZ8QZhFmTb3I
-	 yBZ5cp9XcccNGR2hFzC5y9mPZJLou2CKmMa+baGCbKm677ZBXQbb2lMInSo1tfpzTgi3l
-	 +c+m53BxAJLtz8JgRYKNrr47Xm3x0ewoAxJNvT8+tIb+n5Ilp6gZVnG4fHs9iv5cKQmyB
-	 CCet1d5YA3bf7R0V+sRKP8Y8z98USYQ5QCCCO0bQq1SpEgUz78US3jlEjLPRsOxeu7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794914173;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=KdPfRKQsITkj2xTm0Ckh0nynyb6gsVLNNS8iQhKtX9Y=;
+	b=hCrehab44xWBMxmzRdffY2uxQz9YEfUgmrRThGmsGdRqtVcgqc5UpazLB68RyaZHvhp3
+	 OPVJIeMd9rnBcsoVrGY6EPJF+w5o34dXIlJvrtGp0TU7eyaR4bI7uSBjsIOOKjbrPyH8b
+	 QT8STuZV8NPbHPk/p1vfuI9jdTaSfwPC/chtLeRqgzb19oH5+J6hGY0AbeQiO4mwYeExZ
+	 WaFB25zA76vvkdpfkohMZ6X66iXp8kvHLizCHATseYn0mW0j2ChDpDuF2GDaU4YbEFHTD
+	 J/n3D0x3eeUlpk1z38E7ROb4lCFKSAD9RMYbgr+YUWJQqZQ67GJrwEBt0opOY6TxXlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YlkbXgUU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31DB0606A330
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:16:02 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=n+NzOeBA;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A89A8606A323;
+	Tue, 17 Nov 2026 11:16:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A89A8606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YlkbXgUU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D52C31F000C4
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:16:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794914161;
-	bh=bfBKw5Dqe7/QCgl28CEIM4EiUR1wvD/Rw1mMg1W1wSQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=YlkbXgUUQRhyrxgpsJ7Qvml07CSWbgUu8B9MBcv6Rb7T7SWdq8Aq1SQrmZk4EnAhp
-	 TcmeQ1ddK4h+Pu6rPK+bVxj9nTENOoMDtpxr/d7pzn6PP0stPZXXTCeTk/x9BdxWok
-	 By92sXJDNTF9T+YZxDMLuMMgthIA0MZbqwOtlsHUtiyjq7qF12Dwctp5QuSSU1oZ62
-	 3mIGTmaU9HYjlOR/Mw83mXoVkeR8viHwpqjJvVoFTQ+3NlPR3N4Vfq12juTxVu4Kvy
-	 pNy7xoR8tcMopGP9TY5NVo+AKp8eALuZYTDKFnCrTCR9bJzmyt4brkpbKPdrhEUdpo
-	 BZpOOnX6mFrCA==
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c4682977f9aso643607266b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:16:01 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGSnatINpYBMdRXdPAmrp9OODEvMpKDBBtqjJ0Q5cIX55H6IUr66ZDPxhPdwgVz/FqfizGytvrcNOJiulY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/eXwA08GMSvCBBUmIuUD1PHZc55fJrUXr5iawVl49fSigDC2AY
-	9YbCWwenfEWpWCwfD2c36xRzTMl+b9Wb5GUI7+CrjOg7QEux3HFQOIiUZgQPggycv6DXVHgu2KI
-	oEfSXW+EcJiN1l0v6Vql0W9N7P/Kj1UE=
-X-Received: by 2002:a17:907:3e9e:b0:c40:4848:f7fa with SMTP id
- a640c23a62f3a-c50965421ebmr1168834366b.44.1794914160376; Tue, 17 Nov 2026
- 03:16:00 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=n+NzOeBA
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 164BD1A00;
+	Tue, 17 Nov 2026 03:16:09 -0800 (PST)
+Received: from e135073.nice.Arm.com (e135073.arm.com [10.34.111.135])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 46A183F763;
+	Tue, 17 Nov 2026 03:16:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794914172; bh=+seG+Es6T8P/0cUkexaRG5Jcisr8c6aEc2SHs8eVSIw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=n+NzOeBAxsNGcwnMbahxLW1vlZFQM3oATmAeDVp631vAcYwtgSPnu/Tm5NR1MTRvY
+	 5VvGSJ10TUlgkE08LaxPOtttIdMeB7pXbEasWgp1oSDKNSy99Xb7h/efGIC0QZtZQY
+	 WOkvP8vP7b17X/ucRI9utTZCS6ah+ZaM2N7FSmr4=
+From: Pierre Gondois <pierre.gondois@arm.com>
+To: linux-kernel@vger.kernel.org
+Cc: Ashok Raj <ashok.raj@oss.qualcomm.com>,
+	James Morse <james.morse@arm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Pierre Gondois <pierre.gondois@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Tony Luck <tony.luck@intel.com>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Shuai Xue <xueshuai@linux.alibaba.com>,
+	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
+	"Oliver O'Halloran" <oohall@gmail.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
+	Pawel Chmielewski <pawel.chmielewski@intel.com>,
+	Yazen Ghannam <yazen.ghannam@amd.com>,
+	Avadhut Naik <avadhut.naik@amd.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>,
+	"Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>,
+	Kai-Heng Feng <kaihengf@nvidia.com>,
+	Breno Leitao <leitao@debian.org>,
+	Dan Williams <djbw@kernel.org>,
+	Terry Bowman <terry.bowman@amd.com>,
+	linux-acpi@vger.kernel.org,
+	linux-edac@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-pci@vger.kernel.org,
+	acpica-devel@lists.linux.dev
+Subject: [PATCH v1 02/19] x86/APEI: Report Memory Error Section 2 through MCE
+Date: Tue, 17 Nov 2026 12:10:12 +0100
+Message-ID: <20261117111444.4185512-3-pierre.gondois@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261117111444.4185512-1-pierre.gondois@arm.com>
+References: <20261117111444.4185512-1-pierre.gondois@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,42 +94,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116085752.3908082-1-chizhiling@163.com> <20261116085752.3908082-2-chizhiling@163.com>
-In-Reply-To: <20261116085752.3908082-2-chizhiling@163.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Tue, 17 Nov 2026 20:15:47 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd_wMVWSp1OZox-dF+G9x3seF1pTe436Y5dhR8LAqjtPdA@mail.gmail.com>
-X-Gm-Features: AclHuK_g651WVLWBvZ3JkfDxJ0juXOGnsif_vLCZ2PuPoqhZPKjOh8aIm_6kPfQ
-Message-ID: <CAKYAXd_wMVWSp1OZox-dF+G9x3seF1pTe436Y5dhR8LAqjtPdA@mail.gmail.com>
-Subject: Re: [PATCH v4 1/5] iomap: export iomap_bio_read_folio_range_sync()
-To: Chi Zhiling <chizhiling@163.com>, Christian Brauner <brauner@kernel.org>
-Cc: linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	exfat@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	Sungjong Seo <sj1557.seo@samsung.com>, Yuezhang Mo <yuezhang.mo@sony.com>, 
-	"Darrick J. Wong" <djwong@kernel.org>, Chi Zhiling <chizhiling@kylinos.cn>, 
-	Christoph Hellwig <hch@lst.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 16, 2026 at 5:59=E2=80=AFPM Chi Zhiling <chizhiling@163.com> wr=
-ote:
->
-> From: Chi Zhiling <chizhiling@kylinos.cn>
->
-> Filesystems that provide a buffered write ->read_folio_range handler
-> need to perform the same synchronous bio read as the default handler.
-> Move the declaration of iomap_bio_read_folio_range_sync() from the
-> internal header to <linux/iomap.h>, together with the !CONFIG_BLOCK
-> fallback, and export it so that modular filesystems can call it.
->
-> exfat will call it from its own ->read_folio_range handler to zero
-> the stale bytes between valid_size and the end of the block under
-> the folio lock during buffered writes.
->
-> Reviewed-by: Christoph Hellwig <hch@lst.de>
-> Signed-off-by: Chi Zhiling <chizhiling@kylinos.cn>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Add support for CPER Memory Error Section 2 through MCE, allowing
+to emit an mce_record trace event. The implementation follows
+the existing CPER Memory Error Section (1) implementation.
 
-Christian, if you apply this patch(1/5) to the iomap tree, I will
-apply the remaining patches (2-5) into the exFAT tree.
-Thanks!
+Fix the mismatch between the parameter definition/declaration
+of apei_mce_report_mem_error().
+
+Signed-off-by: Pierre Gondois <pierre.gondois@arm.com>
+---
+ arch/x86/include/asm/mce.h     |  5 ++++-
+ arch/x86/kernel/acpi/apei.c    |  7 +++++++
+ arch/x86/kernel/cpu/mce/apei.c | 12 ++++++++++++
+ drivers/acpi/apei/apei-base.c  |  5 +++++
+ drivers/acpi/apei/ghes.c       |  1 +
+ include/acpi/apei.h            |  1 +
+ 6 files changed, 30 insertions(+), 1 deletion(-)
+
+diff --git a/arch/x86/include/asm/mce.h b/arch/x86/include/asm/mce.h
+index 9995176d68790..4a590a250720d 100644
+--- a/arch/x86/include/asm/mce.h
++++ b/arch/x86/include/asm/mce.h
+@@ -336,8 +336,11 @@ extern void (*deferred_error_int_vector)(void);
+  */
+ 
+ struct cper_sec_mem_err;
+-extern void apei_mce_report_mem_error(int corrected,
++struct cper_sec_mem_err2;
++extern void apei_mce_report_mem_error(int severity,
+ 				      struct cper_sec_mem_err *mem_err);
++extern void apei_mce_report_mem_error2(int severity,
++				      struct cper_sec_mem_err2 *mem_err);
+ 
+ /*
+  * Enumerate new IP types and HWID values in AMD processors which support
+diff --git a/arch/x86/kernel/acpi/apei.c b/arch/x86/kernel/acpi/apei.c
+index e21419e686eb3..96eb75b570e4e 100644
+--- a/arch/x86/kernel/acpi/apei.c
++++ b/arch/x86/kernel/acpi/apei.c
+@@ -46,6 +46,13 @@ void arch_apei_report_mem_error(int sev, struct cper_sec_mem_err *mem_err)
+ #endif
+ }
+ 
++void arch_apei_report_mem_error2(int sev, struct cper_sec_mem_err2 *mem_err)
++{
++#ifdef CONFIG_X86_MCE
++	apei_mce_report_mem_error2(sev, mem_err);
++#endif
++}
++
+ int arch_apei_report_x86_error(struct cper_ia_proc_ctx *ctx_info, u64 lapic_id)
+ {
+ 	return apei_smca_report_x86_error(ctx_info, lapic_id);
+diff --git a/arch/x86/kernel/cpu/mce/apei.c b/arch/x86/kernel/cpu/mce/apei.c
+index b993ac78a3b36..2404faa60c325 100644
+--- a/arch/x86/kernel/cpu/mce/apei.c
++++ b/arch/x86/kernel/cpu/mce/apei.c
+@@ -68,6 +68,18 @@ void apei_mce_report_mem_error(int severity, struct cper_sec_mem_err *mem_err)
+ }
+ EXPORT_SYMBOL_GPL(apei_mce_report_mem_error);
+ 
++void apei_mce_report_mem_error2(int severity, struct cper_sec_mem_err2 *mem_err)
++{
++	u64 mask = 0;
++
++	if (!(mem_err->validation_bits & CPER_MEM2_VALID_PA))
++		return;
++	if (mem_err->validation_bits & CPER_MEM2_VALID_PA_MASK)
++		mask = mem_err->physical_addr_mask;
++
++	apei_mce_report_mem_error_common(severity, mem_err->physical_addr, mask);
++}
++
+ int apei_smca_report_x86_error(struct cper_ia_proc_ctx *ctx_info, u64 lapic_id)
+ {
+ 	const u64 *i_mce = ((const u64 *) (ctx_info + 1));
+diff --git a/drivers/acpi/apei/apei-base.c b/drivers/acpi/apei/apei-base.c
+index 7a06d30bd40e9..a2dbdfabeb6c7 100644
+--- a/drivers/acpi/apei/apei-base.c
++++ b/drivers/acpi/apei/apei-base.c
+@@ -773,6 +773,11 @@ void __weak arch_apei_report_mem_error(int sev,
+ }
+ EXPORT_SYMBOL_GPL(arch_apei_report_mem_error);
+ 
++void __weak arch_apei_report_mem_error2(int sev,
++					struct cper_sec_mem_err2 *mem_err)
++{
++}
++
+ int apei_osc_setup(void)
+ {
+ 	static u8 whea_uuid_str[] = "ed855e0c-6c90-47bf-a62a-26de0fc5ad5c";
+diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
+index 07306af5a54b9..703f3b7f700a6 100644
+--- a/drivers/acpi/apei/ghes.c
++++ b/drivers/acpi/apei/ghes.c
+@@ -1030,6 +1030,7 @@ static void ghes_do_proc(struct ghes *ghes,
+ 			}
+ 
+ 			atomic_notifier_call_chain(&ghes_report_mem2_chain, sev, mem_err);
++			arch_apei_report_mem_error2(sev, mem_err);
+ 			queued |= ghes_handle_memory_failure2(gdata, sev, sync);
+ 		} else if (guid_equal(sec_type, &CPER_SEC_PCIE)) {
+ 			ghes_handle_aer(gdata);
+diff --git a/include/acpi/apei.h b/include/acpi/apei.h
+index dc60f7db5524f..a92174793d9c2 100644
+--- a/include/acpi/apei.h
++++ b/include/acpi/apei.h
+@@ -52,6 +52,7 @@ int erst_clear(u64 record_id);
+ 
+ int arch_apei_enable_cmcff(struct acpi_hest_header *hest_hdr, void *data);
+ void arch_apei_report_mem_error(int sev, struct cper_sec_mem_err *mem_err);
++void arch_apei_report_mem_error2(int sev, struct cper_sec_mem_err2 *mem_err);
+ 
+ #endif
+ #endif
+-- 
+2.43.0
+
