@@ -1,88 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794929834;
-	b=fTXIic+SE7B18jaDDny5OOv+uuylzcxEC28xHt78mKeZE2Y1rDy+NR1AStq4mdY8QEqy
-	 uI5VPRUeK2QWO1u1GGZu3lMy7GZS5L2eAdHmjEwo/s0qRmA3TeNxNG9AHJr7esXKGWIqT
-	 XiscC87iEHokvoz6l+xw0nErScXA23b0qOVjadQdrwelH7GRIoYgt47zpnDELgoT27Rc0
-	 wXEQidV82OnP0JpcbUtIrMSQH/pqT6HxS+XAX+bNSGBXkJLpKAHTZiT46CDZFL/4BOjwY
-	 8n9EGG7Tkigj0fJ+28mGbybOVLkAIuJE5Q8wUXYcP7zJXVTW6hdvQeSLZ9+K1JjETfA==
+	t=1794929868;
+	b=DStIurJ5Mk2KQfbEJmPphi7PGeM8ie7vh6FLjw2533deqbjNNEWG8YHu+UTY+fq+5L+2
+	 z61cXRcQ80F2NlnTsM/yRqHi+k2oEUXnTK5XkUw1vVAKEAieRfcjnpdpubXou+GQk/ezp
+	 7zEljP2F/7YqT2EdctSJo4AVtIM8dhu8N23AiC/SX3LCIKzZ9Igm88PfrLqj+JQllh1bq
+	 8W4sULdqZmjdPlRf9R1Tu3s5TZue72abACW6Q0PEW0C9yCd6QfnqZPWY78g+CPb10mw9M
+	 BFM1Liu9thlZY+71+kZoHCaRFe+AfYx3PM4nX0TYygQvEv18qKsQIwxjmNHmuusXyJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794929834;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=LKdLJQzk+hjbpuBIp8LKIvBrdSbWJhDuwBNnuQ3+E9Y=;
-	b=Dw6cGodA+aTqtU0uFOVYsAZHFlSGKowLnpEyCQAUPpYJHM7e+h1PIhR1WtHfT3GpaR2t
-	 WbiSznjC1F9fHYzK9YNb3juG01GcVqaDxAfVA/eztesM5MeS+tKcP2HUBUCcn/9qF9VQc
-	 rQ4iXccuHPqbGsMkWpmP7lBa7wWBTIzr65rdtulfjctOomndiIYFo7XCwjmJ65mfV0KuB
-	 VS66TfxXy9j+S+d4B7M46MdU4ub5uANyHnMnubxALLk8myUQTQGFQBeT/IGrij8PS4YJa
-	 qBRnZnx9b5vQgiZndNlz7eMgRqIwQEs46Mu6FcSLLSVwEts1gmGUcLchGi34AG7yAZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794929868;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=edkz8rhF75H54wjVaNZcUL3aDSKXaXqJ2SuZNB31jO0=;
+	b=e167k+XT3Z01f4Vgc7TnsMRlfvQKbxijLW8qGTmUaPhtCRvfCsCDvCjcpW4/sbNrcY0A
+	 CHg97EiBwKp+wTzx2xkjXfzeirAsJCFCUDHxXLfWt5YJwhTAH0gkQnY+1iRb2RKtkROfr
+	 CQy/bZYD0TMZJLfRmqzY+LZS3R6/A4nva1V4+F+IvbBlVmnm3gXKLkwvP3cHaT59Up4OE
+	 MHmzIWHsKWrkxPQC0gZB1kIVSVLV/TVx5bHOYp/oPodJT5El39AzPYgQ3o0JGF6gHiW3u
+	 8y3dE77jTRKvpD2GsW0ZW7OcUfq5PQK/G9tYT/FemijXco63D/JeZEkgUuT8AuAwXkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="Cl3+cJ/R";
-	arc=none smtp.remote-ip=209.85.218.47
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.222.41
+Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com [209.85.222.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A24F606A32F
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:37:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A24F606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Cl3+cJ/R
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c50933bdf4bso246121066b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:37:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794929832; x=1795534632; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LKdLJQzk+hjbpuBIp8LKIvBrdSbWJhDuwBNnuQ3+E9Y=;
-        b=Cl3+cJ/RdMLwMsHTsFXKq3E92HfrGSiunfW9rpYSxRvClZF0G/Umr9IzPAULUNCy/P
-         +xNS6v7g1ViZQ6BwbJgfN/cqwz6fr7Nrrox4B/wEr94+/VoFCmFBuC0EwBNHU1GmDBJz
-         MXeiPUk2PvMwrxaGNhclltfsKmhl+u55Ew35Pp3RfaeYesKgGmqZICzb5YkQPCdnaQlo
-         GSv5o8x6IElafkcKY7tfj2BvG61ba8brJaaatvP1Q866auavXqRxt1CTfwhDTAd+v0Gc
-         +nUTIsxAfZsBcBWm1x1httoFkvGdEomHcqcPOzWdlmI/KeaP7qn4yRwCv23Fgdu64YRz
-         9wFg==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4739C606A32C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:37:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4739C606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f41.google.com with SMTP id a1e0cc1a2514c-99075306daaso2924704241.3
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:37:48 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794929832; x=1795534632;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LKdLJQzk+hjbpuBIp8LKIvBrdSbWJhDuwBNnuQ3+E9Y=;
-        b=2jsWJsSD2tI0qh6aLogW37d5hN02KbF6mFBU915bPTAiQdaJDreti9Q6RUyXWJHXCB
-         rOC0aC+4aiXvnhNBXvHpqSYmFjWOWMNfPtKzOX6lXq7p3SljjONfoSPKvaiYlkouc/Lx
-         0OomwT9krskc33zoukW6JOw+L35spihyovUHl+sQJEUe+YZ2BmB23C18E1c1jwjUdogg
-         DVgfO5DDpH/LDzLAX4ZCzGGzgzm3LinQ9K72AW/465x4Qs7jHdujGszBVqRv72iL2ahi
-         /YDRUMo6HcAGxOtCXmxHaX3Gv34EwEOkpPkGC4GzOIjBM6bf/QtkmGGGe8DvspWngeTC
-         LHKA==
-X-Forwarded-Encrypted: i=1; AL+hErFN4svDV2ykJHHtI51m99WOn6bvLdYYbgIpZVHv20Lv5HHCqg5M/sDdfSnFBN+SBdFvHwMHiThudlUScn0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Az2z12h3fO48ywkAXPiVAZbAu0P/+AanlMy6uy4S+6F+X/G8r
-	s679i0pJihB3oKYCJxkoPt77ZAWXbthl4/nBi91wRskYrRz7R5loifZabshI/xquoh8=
-X-Gm-Gg: AYBFou3eIs+iXf6JYW+OvU13zmTGazycUwFbnX/3OiXpWuRuiJyFmEj6dHxrosW2lVs
-	Qx2ca4szEe8ngFurx9ii1lLq/uxm+EKBPewWRhnf6hEN+9Lx2Lmuj2oRb9mev1FkLhHYEAaKOlm
-	a9R8Y1NFNOcaPpQ0qX8ON9wlk2jYuYrvcaW2D4+c38wWbgqvc/DkBQAipZPRpzjPhRmgBuhlZzt
-	L2B10xi23EqycvEYyI7ny4WM+Dmt3WMNh9K3Z04bsU/2gmxcXxTHSc6sufZmMnIGnLHRo2kAyqw
-	KrXXYQ1p9794X4rkudsDtt3mLoivvdjON3Rg4dqumZdmYlDZrVwDRGDS7R19Glq8An2tYz1Q/xx
-	uSDun8cSX+ClsDCVevxOaEGrCKSuiheVWLaILur2s0HnuwqJJPv1rRa6C+U48/0Z/1KAF4lhmeO
-	BePNMvHjcZEp0oE6Hm70L5RY5BcpB7BnjUebAbo64YfbXQHbRMVN/jxzQdpM5787Q8DI5Vja3JO
-	aMov2uoBZmgURYEsbuqpYxNBSyh92n4CT1LnyvE3dk8/KxDiZd4ainMhd/1LPU1gt2zWAmoKWvV
-	i+2aMJHVrV3pMAsRB2LkqpH/GVsFOBbBIfzI+u711222Ndv/g6YjtSrn2Tvl
-X-Received: by 2002:a17:907:18c3:b0:c2a:ac35:95fb with SMTP id a640c23a62f3a-c50f3781084mr288834466b.24.1794929831875;
-        Tue, 17 Nov 2026 07:37:11 -0800 (PST)
-Received: from [192.168.0.252] ([82.76.204.26])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a32155283bsm6407600f8f.37.2026.11.17.07.37.10
+        d=1e100.net; s=20260707; t=1794929867; x=1795534667;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=edkz8rhF75H54wjVaNZcUL3aDSKXaXqJ2SuZNB31jO0=;
+        b=KSIFJELiilkEVrYc4/PpiHZLi9gnbmOr2kARubMzETUgFmy4Z2M77eQP0HhG+wErK+
+         u0JhrxfoMVLDmqs9Q202b4KB+6g862TFZpQplxQr4SavlQxP6weKMXXJGRZ55JFKTcWY
+         BOUq37qM9IBctsHYvyLmrbgRgF1bflcZ1VBy5akDWiMF5xsgRi8EAyr42/EZGk2rMzcP
+         n8QMNKwMNZWp83s1HnSxLGSg0Rh+C7emlvPx1ioINNiDSSTFfVp5J3bboiVH9susBluI
+         xo7GAlwqUVjVO74fPl6V8WpMoeqqWOFZp7eP34zuAZWgPcjevmFiQ8vsZc7eHk2iDqjK
+         BOOw==
+X-Forwarded-Encrypted: i=1; AL+hErHDZQjHMob8DW7Mopn7OIYGsTnDi+KCn/TsEQtCEbj55Ss5DT5yYikvT2iDex0DM0PkjH8fdrwMp5Ks23A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Z4ioxK3w0wtTEo0NHHa94d14BnJ00w8EERwgXW+SgMoDqt02C
+	lHC6PEXiMUgiona/8P7skTO3wJa1hK3mbxMhQobueqeHxrXwlxRr/KfLLBygMv7t
+X-Gm-Gg: AYBFou1Pwc1gA6pdSlG96UBAXLUucGN145kBMpVG7yOyHk6zfgZvg/XKTOHH1M0VrUk
+	7Iz6gywqu8wL1GeP5AniPwyslxLmhCL3Wm8PjKZZOAartG+wJWkwNrj6cR2NZB5jtP7/HVUzyha
+	tUW5TFMKwyrFo6BArkpiZ5aE3/reih6oam9BdtGsK7nWT1cnDNzg8x1JQf4Uc1oWjR4EigUdf05
+	vsxSIYUaa4cf1eYB1lbIdcFP9s8rxu+lMVPphbbtoIOd32GKuxV2e+Pvu7dHWRK5WRC8HjFLsZ/
+	KK84a4wJMnCtSsk2SQlSDxvMHMusiwHkdN4DNanRPfDUW+/q7Zjl3MfCCWprlRC54aPxae+pFU7
+	UT8lIiiCCK1em4f2Nu0mHwwpkT5z2ZQD8yA5TbzkUpwdF1NTXxLRX63snbWDr7oOzzx2p81niig
+	mobiXA5IdwKQ/J5gEmkbO99wI7uOU4esjr5gmxIErhtaTv48SqLxOzbSvhX484278PKgqt6tWsE
+	RiCsyO7mfMk/FM3putYkBbeRWu6e/iyKnuqyDoCOpzH6vbyX3+s6KmMm0M4Y2UQ48w7llKifJA5
+	nSyMjj+o3CtZ1FrCT+UKHSDxtEQjPWz3BxDof8HwmDqW3iGAksVRY3BPf7XjOVmnlUA=
+X-Received: by 2002:a05:6102:f06:b0:7d2:d9c0:2e96 with SMTP id ada2fe7eead31-7d64d8e378cmr5953741137.31.1794929867121;
+        Tue, 17 Nov 2026 07:37:47 -0800 (PST)
+Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com. [209.85.217.43])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99e3390a0fcsm2328809241.7.2026.11.17.07.37.46
+        for <linux-kernel@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2026 07:37:11 -0800 (PST)
-Message-ID: <3ea5d94b-6913-4534-816a-3935c689225b@linaro.org>
-Date: Tue, 17 Nov 2026 17:37:09 +0200
+        Tue, 17 Nov 2026 07:37:46 -0800 (PST)
+Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-7cc53938a8fso5197555137.2
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:37:46 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEsvmjuPBuFfcDaU9lja6zgHHB4Whqk1whGwi5MzOKLCn16WAEreTgOv8w7QVNfleqsfjJ17IB48YxJ8KI=@vger.kernel.org
+X-Received: by 2002:a05:6102:c15:b0:7d2:8dd0:2eb with SMTP id
+ ada2fe7eead31-7d64d6ed886mr5633979137.8.1794929866113; Tue, 17 Nov 2026
+ 07:37:46 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,56 +81,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] thermal: samsung: acpm-tmu: Fix spurious CPU throttling
-To: Christian Loehle <christian.loehle@arm.com>, bzolnier@gmail.com
-Cc: krzk@kernel.org, rafael@kernel.org, daniel.lezcano@kernel.org,
- lukasz.luba@arm.com, linux-kernel@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
- Juan Yescas <jyescas@google.com>
-References: <20261117083442.830549-1-christian.loehle@arm.com>
-Content-Language: en-US
-From: Tudor Ambarus <tudor.ambarus@linaro.org>
-In-Reply-To: <20261117083442.830549-1-christian.loehle@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261112-b4-tm-pm-du-v1-1-507474331137@bp.renesas.com>
+ <CAMuHMdXQjm9rqmKn35G9-CqGSuMO9nirDw2GmFfF2PBfsCvH_Q@mail.gmail.com> <avxy_u864ZT7vsLx@tom-desktop>
+In-Reply-To: <avxy_u864ZT7vsLx@tom-desktop>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 17 Nov 2026 16:37:34 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdWLw4zYGCg5isy8Mdxfgub39CXbCNgFmNsv3XMj40U7dg@mail.gmail.com>
+X-Gm-Features: Aa3M54qPbbFS8WXjl4rVfHsNDf_vt32c6X6we35W2mQ26XiZPauxobEfSjiOsc8
+Message-ID: <CAMuHMdWLw4zYGCg5isy8Mdxfgub39CXbCNgFmNsv3XMj40U7dg@mail.gmail.com>
+Subject: Re: [PATCH] drm: renesas: rz-du: Add suspend/resume support
+To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, tomm.merciai@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi, Christian,
+Hi Tommaso,
 
-Thanks for the patch!
+On Tue, 17 Nov 2026 at 16:30, Tommaso Merciai
+<tommaso.merciai.xr@bp.renesas.com> wrote:
+> On Tue, Nov 17, 2026 at 04:12:43PM +0100, Geert Uytterhoeven wrote:
+> > On Thu, 12 Nov 2026 at 09:31, Tommaso Merciai
+> > <tommaso.merciai.xr@bp.renesas.com> wrote:
+> > > Add suspend/resume support to the RZ/G2L DU driver.
+> > >
+> > > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> >
+> > Thanks for your patch!
+> >
+> > > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
+> > > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
+> > > @@ -140,6 +140,27 @@ static const struct drm_driver rzg2l_du_driver =
+=3D {
+> > >         .minor                  =3D 0,
+> > >  };
+> > >
+> > > +/* -----------------------------------------------------------------=
+------------
+> > > + * Power management
+> > > + */
+> > > +
+> > > +static int rzg2l_du_pm_suspend(struct device *dev)
+> > > +{
+> > > +       struct rzg2l_du_device *rcdu =3D dev_get_drvdata(dev);
+> > > +
+> > > +       return drm_mode_config_helper_suspend(&rcdu->ddev);
+> >
+> > error: passing argument 1 of =E2=80=98drm_mode_config_helper_suspend=E2=
+=80=99 from
+> > incompatible pointer type [-Werror=3Dincompatible-pointer-types]
+> >
+> > The "&" should be dropped...
+>
+> Sorry are you apply this patch on top of some other series?
+> On top of next-20261116 I'm not seeing this issue.
+>
+> Maybe I'm missing somenthing?
 
-On 11/17/26 10:34 AM, Christian Loehle wrote:
-> acpm_tmu_set_trips() supplies two thresholds, but the ACPM command
-> writes all eight slots, zero-filling the rest. On GS101, slot 7
-> controls autonomous CPU throttling even when its interrupt is masked.
-> Programming it to 0 C limits all three CPU clusters to about 200 MHz
-> on Pixel 6, while cpufreq continues to report the requested
-> frequencies.
+Ah, I have your "[PATCH v9 04/10] drm: renesas: rz-du: Reference the
+DRM device by pointer" applied, too...
+https://patch.msgid.link/d5a97ddb346c5cb959b39fda45277afb1fa2ae16.179277096=
+5.git.tommaso.merciai.xr@bp.renesas.com
 
-Could you share how you discovered this? I don't have access to the
-ACPM firmware sources, and the downstream driver doesn't state it
-either.
+Gr{oetje,eeting}s,
 
-How did you measure the actual CPU frequency, given that cpufreq
-keeps reporting the requested one?
+                        Geert
 
-Do you know whether slots 2-6 have any side effects as well?
+--=20
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
 
-Also note that Daniel has already queued a set of acpm-tmu fixes in
-thermal/linux-next, so this patch will need to be reworked on top of
-them.
-
-> 
-> Program slot 7 from the zone's critical trip before enabling the
-> sensor and preserve it when updating the low/high interrupt window.
-> Cache the three temperatures so a writable critical trip can update
-> the hardware without changing that window.
-
-I think this can be handled with a smaller change: look up the
-critical trip in .set_trips() itself. The zone lock is held there, so
-for_each_thermal_trip() can be used. That avoids caching
-low/high/critical, the .set_trip_temp() callback and the probe changes.
-
-
-Cheers,
-ta
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds
