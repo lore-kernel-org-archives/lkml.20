@@ -1,79 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794906733;
-	b=r/6UEYz7FtRPHI+Ih9qF0T4smPXXlNaeBtfhs92kyiCX6749Db2P2r9yivKCUi7DbMhH
-	 ySqjECbOVrP0ZdQQQAZD2tEkQavkSguLB9SY5/kawDUACw7+kSefUue0uGWq0Xkcyc2PF
-	 syWp5g+UYXRq7awtwwTo1iXsGUya50Jd07aMlvyNVsWawx4enml9GqeF8JnR6MYTzzsSs
-	 x9UKGyodg0kVrlZOL5fXK65qFE+bmdyyg+wSprAFfSEFXlDaUy8mZJ50ExZOVIJGQBx7M
-	 spNtbXAf23thzyhJetoLP6Gcsk3FIhnSHmONHs+sTAkh71lxzu0gZ2KTNQxx6YAJbnw==
+	t=1794906752;
+	b=0pWbFUtwjDA6BUAwXVWzyCmgVKriw9a75IHmIfN7BwMdy0jrEDaxHId9i+Rt0z8iquz0
+	 9+pBoCkqfwWvHfCCA3sZ8NIASQcFmuXdykVar7v6sVMfAp9DIaONwqD5e7wRKFlLn9tx7
+	 MVlQ2YTKleQRjBttjaD7DXWJS+90SqroMGbVU+tq05UGC3aeHqmOEWXp1BGiAoyY/cI/z
+	 jS+emc1MSLGjy79OZ4RRV377YYDkTeMcJ9JGR5nW43h/xL8wUjdpekXpPdki/HVmKzspF
+	 GUwe5EECXTO7gjFyF3lIvyyhLQ7+0DJYztC7nTxQHV3p0MgF/3oEKYNo9a0TTdQMKqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794906733;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=sARh2vxI77mefNWtiaNXngUxhjlF/CvgAiwrCgNCyNw=;
-	b=MUrZHxASPqXUxKT9d4IW6HJNupwWYiq84HLAJ4hsCXf8n5vJ4XSFX4wWdbgKrDygE/yo
-	 htLGZXZzGNuytNncxobZtqmhVGfGyFWHAXnKu7gcrOdQLUbGh6NBuBQpmFgl0veJPAFxB
-	 K9anXOHV30h/WhmfeGqm302yz9VXuAvCoBJ4GFmobQKD6fneLGycBIiHR/+tk1gsetssX
-	 6OsdrY/A0hK/SZpCwrbbtZmrp20cXx4Or5COFf4DxSRm78VrxOTFeT23dJHFzm6QWJf65
-	 Qufg83LMtk3JIiHvFAPiFn47IotZrsjw2NKu+xZ8b7ZpMPNnPqvI6syCGoihWg9fC0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794906752;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=WaHgdh/hMMYwIKKAjlZv5gfGqVgYBr8yvhKkfuO1pkY=;
+	b=lhDM0F06YqEdeDp+eePSmCRbNvhX1d/XlRUrSjvjj99bukuqRzyX8Hs4CLYmYkAMxJmZ
+	 rNoD7zMDkAyZlmZSURkghWTQbejXo5NRiAdeaebk0KiA1g4RJbB6zABecSHVk4hdGCS8J
+	 5+YGoAR4R4C9ZUXCTQxcmTNO35+m7l4DQZFOXYQV6fuCCmyvdrqt7YwI59nmoLQvoXqR6
+	 HXzQb+LCUjgxubDJRP4wpVRGOkJcQXf1A8sQy10RDmbVIHvMcncNgDbrOccRQc64+vMWR
+	 DdPwElB8wU1ZXm1KTpy3gUP3mg3/hK0Pk0DQfKzcL8+8pzDbOyIo2EegP8EdXXErC/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cq+DUecl;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RqdCsSR1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1CAA606A323;
-	Tue, 17 Nov 2026 09:12:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1CAA606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB5CA606A329;
+	Tue, 17 Nov 2026 09:12:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cq+DUecl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794906732; x=1826442732;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=xK75Rwny+8YxOayz9J2hx5xcwDjlispCGjCFjO57dxk=;
-  b=cq+DUeclDtbQy2BLhgfjWrKqizJnQdVAe2QzzjNkTnFJEEYIl5awSrox
-   B1QM9dcnr+F7AC0vvu9/1e47IWqMuYGJPwisbpmEW3Gxze0WwfstvR0hi
-   VfH0ZLlKaaYqC6egwntZCf8ADTtDXAy+ZHTiceRbwKotuJJE4TMjJUSyK
-   6J8bK10r0IiT+7kJaGr7+NkCow2LVYzaL3Ep2QrL976cD29zRshbfVbi0
-   pv+qLEHvgCeGVjSs7C8bTHmxVDVYeMSZU2AZQFbam7HcrDVAxLbv/cCh8
-   IHS47nV7oFBA0jVeBRpfr73rleW3u6/wgkI2tKY3JAcXKQeVb4F5oclB8
-   A==;
-X-CSE-ConnectionGUID: etngGhuOTly5gS5Gmke63g==
-X-CSE-MsgGUID: TBx4nDeyQNS9YUQboTmpJg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3751070"
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3751070"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 01:12:12 -0800
-X-CSE-ConnectionGUID: DNi+Nw6MR7eQl3esGPmN3w==
-X-CSE-MsgGUID: EJ/9j85CRZm/6qg/Vl7mbA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="9784071"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.254])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 01:12:10 -0800
-Date: Tue, 17 Nov 2026 11:12:07 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Avishek Chaulagain <chaulagainavishek14@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Dan Carpenter <error27@gmail.com>, linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] media: atomisp: remove unused functions
-Message-ID: <avwaZ4cK8-sgJSMG@ashevche-desk.local>
-References: <cover.1794845230.git.chaulagainavishek14@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RqdCsSR1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09DC31F000C4;
+	Tue, 17 Nov 2026 09:12:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794906752;
+	bh=WaHgdh/hMMYwIKKAjlZv5gfGqVgYBr8yvhKkfuO1pkY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RqdCsSR1FdqDBZfot0BDyTnmnJcsQrXHGDcxC8vvBUlme5704R8ikXOhrJN2Lj+17
+	 MdzNeSHu1/9iJq9PaA4lEpWFC+uSFvWED4XXakYpYKnzYDz1xe99BwyaVTOpHBEhQI
+	 yqAq4Tpx2b/L7i+hYoXxidF7R0DEPV2Tb6FZObJDJcwIwUdrQ+TyGtuup/gTzrf9Bn
+	 i9UwbPgr7X5DT1huu8Ov3CiYVJw4DE2Y/E/fS/p1ArddRZsyy8/UEpMw3NQgrqwiKl
+	 m7gc9r04e3tSfLOe0fGR03no2GCENxJxhJvKfGfX9K5s4/UL9n0jBzZ+HwlAdAmkUy
+	 MnTFCSwAR2EqQ==
+Date: Tue, 17 Nov 2026 10:12:29 +0100
+From: Frederic Weisbecker <frederic@kernel.org>
+To: "Paul E. McKenney" <paulmck@kernel.org>
+Cc: rcu@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
+	rostedt@goodmis.org, Joel Fernandes <jfern@kernel.org>,
+	Puranjay Mohan <puranjay@kernel.org>
+Subject: Re: [PATCH 1/6] MAINTAINERS: Add Puranjay Mohan and RCU reviewer
+Message-ID: <avwafaVoS0LB-9Qt@localhost.localdomain>
+References: <bf761cab-7423-464b-ba8e-bd39ad0eb089@paulmck-laptop>
+ <20261116172630.3845508-1-paulmck@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,25 +59,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <cover.1794845230.git.chaulagainavishek14@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261116172630.3845508-1-paulmck@kernel.org>
 
-On Mon, Nov 16, 2026 at 05:08:10PM +0000, Avishek Chaulagain wrote:
-> These three functions have no callers anywhere in the tree. Remove
-> each unused function along with its declaration and the now-stale
-> leading comment that described it.
+Le Mon, Nov 16, 2026 at 09:26:25AM -0800, Paul E. McKenney a écrit :
+> Puranjay has made substantial contributions to RCU over the past year,
+> so it is time to add him as reviewer.
 > 
-> Found via a tree-wide search for functions whose name appears only in
-> their definition and prototype, and compile-tested under allmodconfig.
+> Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
+> Cc: Puranjay Mohan <puranjay@kernel.org>
+> ---
+>  MAINTAINERS | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 93abbb315065d..6ebe13dce75dd 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -23485,6 +23485,7 @@ R:	Steven Rostedt <rostedt@goodmis.org>
+>  R:	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+>  R:	Lai Jiangshan <jiangshanlai@gmail.com>
+>  R:	Zqiang <qiang.zhang@linux.dev>
+> +R:	Puranjay Mohan <puranjay@kernel.org>
 
-FWIW,
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Acked-by: Frederic Weisbecker <frederic@kernel.org>
+
+
+>  L:	rcu@vger.kernel.org
+>  S:	Supported
+>  W:	http://www.rdrop.com/users/paulmck/RCU/
+> -- 
+> 2.40.1
+> 
+> 
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Frederic Weisbecker
+SUSE Labs
