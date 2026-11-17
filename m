@@ -1,47 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794928182;
-	b=UhbxatJrsNnHhrCIQ+XmgmUFNYLmjcI8vVn5tryWN1GuitvLTsfDQxB9+2JZXIxmP2gs
-	 2k8LTirepb7470W+3LvmlV393dLrQxnW6XL9XU1QBbWeQXGX4l8N3qhFgmdxiERanY8Km
-	 XuQGyTqooLizmN4kbbRBOyq8OnC8IF6Gt6jj6Q0N3Ltt+x14yy219zLRKSF73xvovOl04
-	 Lbvft0yJ2m6NDx68UysNJH1g7UdB/HM5Ub3RlP4KORjzxrYV0fRUEdbYCfstcqrZ7LCtq
-	 QEjF+rS88QYgYSH9RykX6F9AxN0wB3eJaJbd0A+WUleW9rsKb1xyLcZmEjbWljyK6SQ==
+	t=1794928188;
+	b=2dRgFeqhdVVz+X5ewvzFYW9VvyHuqelJVJaSAl5R/O9q1zBxuG+F/Ox+zOnioRfOoimn
+	 zrT0pU4hVo69S/cDclINGoAol0WGBuc2SwlyQBaJdYmOFaTVwf6bi2dRGQ6EMQlu9c0Z9
+	 gFLhAE9byitQXb7mkq6PFELj2zmltgLKFus+NJYooFFzZS/si7lGdjvSZJ80580opum5I
+	 yU1RMR1LjzHdGaRun4C/rbYVwHdQhlj3Fi8hnaga+p8AHyp/DDt3Ad3BfPszByNKYakhH
+	 cju6G+NOwloMsdLAybm9w1VYO0/jmP15OXwTzHSGWUOlazLKm2qqX4WSmryoS6Kgw8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794928182;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=0sIqEz1LaF2+KzKunroBAMsjb5ekTIA0W1B9PutTqFc=;
-	b=XWzgfgxYioNQFvO8210fv5AqcaY494fn3W57HJi76UeiKWjdgN5n2u3MsAy2KnAdXnWJ
-	 HvKL//L0oc2qFe9XCh2qVvaFBYLQD/mCPI95toym0M2WO/AX5UBS4PqO+8tZfCtmnBEZ/
-	 7TH1anUwG49WBc1HcdonX+ORr3oL0cwrNDc5hZHvin9ACrLsO4y//KHgJl8U8qN6gqRSE
-	 Acmoq7jbpZwzofM7shdGxJJy4rlcucGc/dev3FVcdyRlEXXNO+cSrRdOYbacstXwbUOjb
-	 TqD/oEnMZ3rydgg//rw8g4wznO/Q58sd6jnmZVb8hiNYvPiothIJGbQ/qox6j6jwxLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794928188;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-TM-AS-GCONF:X-Proofpoint-Reinject:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=2Qz6D/MMnaIJLBmobteHtH5QPHpLY1Ir8hbKNSkhlFo=;
+	b=NLxomgo0wjCBHOWBocehBGYcC4/FKiAJ4cTGVJOOzxmyV21DuMJuTvLhoYurfHsRG+wj
+	 4AlmU5eUhjVDQ50QEG66SowH4Hq0G9CmBbmiJFLr4KuQ0hg8rwynOkKHS9a3Dyf+2DhBK
+	 7rX/XXXfV0fpNQ+BpmbLc4Br4oKHT0FRLfiQEaOKIbwdnQ4Y8AytisYoStlmcTCrHJ88X
+	 e5N2znQgbfKWm31LN1xvfM0h04P+ONSNPWTwncz/WlmwqM1Ih2i87jA4O5VfpGuUFfli5
+	 /gOmgrE/81oF9365tC63iUwD8aAiXb2O7C6q8R1buGr7eTYXwQDx9uDlV2EivHeIOJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nU+uJ0Kr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=g0UNnS8E;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C2E9606A31C;
-	Tue, 17 Nov 2026 15:09:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1B72606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:09:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1B72606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nU+uJ0Kr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69EC71F000C4;
-	Tue, 17 Nov 2026 15:09:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794928181;
-	bh=0sIqEz1LaF2+KzKunroBAMsjb5ekTIA0W1B9PutTqFc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=nU+uJ0Krv/p0zWWmbRGyr1cPRYUXNvjVxk5FBIqRmMr8PQf7JbrD3NugbmbwUvj7o
-	 oY3tq8uk4EIvesVz5P4WZFmIWC13vtmkuD/qiH1SMu2Rh/+AdT0fOCA+ldPuFH8a/h
-	 WIBmH/4LtxT/Fhnn2gEAqF7m4Y/RQXKH3uHLsWkJcqPP43Bh3TY3IdeSh7YEhRUoUL
-	 2Kxl8N5om3m/klIYFP+K68MrfRDpPv4dxpZHH4qPsApOrh9drc2S3hzza9iue/8UiN
-	 imdSMvgmyWtOzsAXTNUgWqJfOGgGA00oFWZuBN1twaWfVpEbCfCibZc5wprRCerWyf
-	 fO3yHxVFLPUFw==
-Message-ID: <53298044-3595-4231-a498-d78052799727@kernel.org>
-Date: Tue, 17 Nov 2026 16:09:35 +0100
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=g0UNnS8E
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHBwBHt2452238;
+	Tue, 17 Nov 2026 15:09:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=2Qz6D/MMnaIJLBmobteHtH5QPHpLY1Ir8hbKNSkhl
+	Fo=; b=g0UNnS8EqaFpCzo+/hZ6DKVUG5gD7xMBscPZOsx6B2lhQtLjwgw0+mw+/
+	ZqNdw+hFJuEUliMXSnuWr9Esn3UzV+REeXKzKoQ11GX0Yz1Raa6amxlNQk+Z757o
+	kGycCeqZQgcMM2Tau6McckmIEE5d5f6BQ/kkWvCWLugZrIFYenQIQcrpPNjPpQU4
+	a8mxR/Mk5b0JCRkFBh4Zg1pDOC4HE4Ym+nkoU8OqrUSubYV6l7hTJ7wVi90YmDPH
+	8bE6BKsQ2kflTWvgeZwHpKnqCmGGhlL7m0GoQSEM39i3i8HTHp+0JFbC+Mc9dr/R
+	nvzd1BdTjwMNA6/Ne/70ZOcmazPHA==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hxf56bx84-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 17 Nov 2026 15:09:34 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHC4rKP471678;
+	Tue, 17 Nov 2026 15:09:33 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4j02dfdes6-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 17 Nov 2026 15:09:33 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AHF9W4r42729768
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 17 Nov 2026 15:09:32 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0744A20040;
+	Tue, 17 Nov 2026 15:09:32 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D09312004B;
+	Tue, 17 Nov 2026 15:09:29 +0000 (GMT)
+Received: from li-7bb28a4c-2dab-11b2-a85c-887b5c60d769.ibm.com.com (unknown [9.124.217.181])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 17 Nov 2026 15:09:29 +0000 (GMT)
+From: Shrikanth Hegde <sshegde@linux.ibm.com>
+To: linux-kernel@vger.kernel.org, sudeep.holla@kernel.org,
+        gregkh@linuxfoundation.org
+Cc: sshegde@linux.ibm.com, yury.norov@gmail.com,
+        Yury Norov <ynorov@nvidia.com>
+Subject: [PATCH RESEND] arch_topology: Use cpumask_intersects where applicable
+Date: Tue, 17 Nov 2026 20:39:11 +0530
+Message-ID: <20261117150911.730754-1-sshegde@linux.ibm.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,105 +91,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] dt-bindings: display: mediatek: dpi: Add
- compatible for mt8167
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Cc: linux-mediatek@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>, CK Hu <ck.hu@mediatek.com>,
- Jitao shi <jitao.shi@mediatek.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260921113914.779393-1-l.scorcia@gmail.com>
- <20260921113914.779393-2-l.scorcia@gmail.com>
- <3701981f-cdda-46a7-8079-de5479ae9c27@kernel.org>
- <CAORyz2+wF=VDTFkRFU7jBu-zNTW7T8mnPrJZAj8ZVD-Yyr2b6A@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CAORyz2+wF=VDTFkRFU7jBu-zNTW7T8mnPrJZAj8ZVD-Yyr2b6A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA1OSBTYWx0ZWRfX2cFyPWvJ8BZH
+ 7v52makesGbPSabe/U3PkkTdfFEuCxzmRDYsPQkhly8A2Bw6ywrZ+LJ0YKNV0CsdPQiQp7mf0U8
+ TX+Y9lN9DCCxOfp3UujNtH2gJxyIHS8=
+X-Proofpoint-GUID: q7XOKXcp2MKWtMvcovcp0h6NwL6_YHUd
+X-Authority-Analysis: v=2.4 cv=ROImjIi+ c=1 sm=1 tr=0 ts=6afc6e2e cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8 a=Ikd4Dj_1AAAA:8
+ a=qAZxUrsubVgMJM8mn74A:9
+X-Proofpoint-ORIG-GUID: 5fZ9ISNKgkpQ8xAtkGJSM-JNx9kQlTzW
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA1OSBTYWx0ZWRfX2JmH7M0QvoZ1
+ xSsJuPAQtV3rVPAA6xIUjsbQ4BxuntJI5MIQ8vDZxJs1GzQf5sIIO58D+kT5TDA6bCPqGw+NAie
+ ijv9hD1XiSOd1Rn4V2wwoR859jE7F8o8QgTx1WTtslZFE7aJMWtxQvawhy0zD1dzHQMh/RAm1Lv
+ 0Rrfd/ClUQdZx2j+pU00qLv2CERn2rirtAyNDsQwYLbzfDG48ZWfe1wXjs7ZfMTmDEQIST6Qklb
+ X2iGHkGK2BzalqypF3mVdf1+6h40D2r35M4g7Fr9mDrkOcFpAm08DK+W69KNxQi3nFy82hcOHi5
+ dZCmZ+WSmF4O2d+qW2Oa9MTC4zuId9MVlbiNS02N0fo8MvCNSEkRSCsK45GNpbJkBrtnJM8l2Vo
+ XERfODwUBI/hWidDHBSJI0wS7/bU4B9/jmBfG0Stup4lMrxxIXPJ5+qDUpyUhHeU0nrWhjbtorh
+ 2dkksoNr2i1gWrOmwqw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_02,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 priorityscore=1501 bulkscore=0 spamscore=0
+ adultscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170059
 
-On 17/11/2026 14:26, Luca Leonardo Scorcia wrote:
->> Turns out you bring here undocumented ABI. NAK.
-> 
-> Hi, I'm sorry but I don't see the relation between this commit you
-> just NAKed and the bigger issue about mediatek-drm alias usage. It's
-> not like I'm introducing anything new in these DPI specific patches
-> and the individual display block drivers do not depend on the aliases
-> (they're used by mediatek-drm for building the pipeline).
+Looping over one cpumask and checking if any bit is set in another
+cpumask is same as evaluating if two cpumasks intersects or not.
 
-To clarify: you do introduce a new compatible here and in the DTS. Here
-it is documented. This is correct.
+So use cpumask_intersects instead. It is probably faster too.
 
-However your DTS introduces also new usage of the ABI - aliases - and
-that part is not documented. New DTS cannot use undocumented ABI. This
-means that the binding was not complete. There is a mismatch or missing
-pieces between the binding and DTS.
+Reviewed-by: Yury Norov <ynorov@nvidia.com>
+Reviewed-by: Sudeep Holla <sudeep.holla@kernel.org>
+Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+---
+This is resend of the v1 series posted as independent patch.
+https://lore.kernel.org/all/20261111075945.3930230-1-sshegde@linux.ibm.com/
 
-> 
-> I understand why the commit to the dtsi that includes the aliases is
-> NAKed, and the eventual fix is going to require a change in all of
-> Mediatek SoCs dtsi. I am fine with the dtsi changes being blocked
-> until an appropriate solution is found. I just don't understand the
-> NAKs on the DPI components.
+ drivers/base/arch_topology.c | 9 +--------
+ 1 file changed, 1 insertion(+), 8 deletions(-)
 
-Because this binding in relation to your DTS is incomplete. Of course if
-you drop the aliases from your DTS and this will be your final and
-working solution (bindings and DTS should be complete) then this NAK is
-not relevant and can be ignored. But in current form your bindings are
-incomplete and DTS after correcting won't work...
+diff --git a/drivers/base/arch_topology.c b/drivers/base/arch_topology.c
+index 8c5e47c28d9a..aba86e9c2516 100644
+--- a/drivers/base/arch_topology.c
++++ b/drivers/base/arch_topology.c
+@@ -34,14 +34,7 @@ EXPORT_PER_CPU_SYMBOL_GPL(capacity_freq_ref);
+ 
+ static bool supports_scale_freq_counters(const struct cpumask *cpus)
+ {
+-	int i;
+-
+-	for_each_cpu(i, cpus) {
+-		if (cpumask_test_cpu(i, &scale_freq_counters_mask))
+-			return true;
+-	}
+-
+-	return false;
++	return cpumask_intersects(cpus, &scale_freq_counters_mask);
+ }
+ 
+ bool topology_scale_freq_invariant(void)
+-- 
+2.52.0
 
-Best regards,
-Krzysztof
