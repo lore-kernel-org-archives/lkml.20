@@ -1,121 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.243.244.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794919228;
-	b=dUGywg3kgilBL42ZDxh8hdsWIvR8lvDGK2ObTNP7STLvwEcvf8hJuMqKPWGTfWphaXbh
-	 edieVbOISWtXqdqDIS7wx7tB3XVSn78WXpu1ec0P8013QyiKTBCNmdNFEB9WQV2sm6IQf
-	 CMz+0oAdfS+H7zViBisCjlWeFnnzBR5UoZnoUzj4iO7YN8kEC/6HwtJ+EnHsjHo7k2cLp
-	 QhBiPWV0NAfUEu6DWBfecZDnHPp/y4HpozdejxoAJ8J7rNOKn2AKBZtjl3C6Evabiaifh
-	 Ny2OazRaxr8FC7C0coRcAvibvBshhw7a20hcWFDviqkdCYem44ll3Lvd1KtQ1Q3I6Yg==
+	t=1794919229;
+	b=IbQMX+V9KLg268VUIwDXgSQsjUVjVluN1MnXsQINYq0g15etIpahGkn1On0t+QeihAZ5
+	 hUjGhZOBRcMKrRvVzms0Orj3v1G05WDmNirHjeJiPO+3sWxPMG4/0jUQYennqWC2/D+MJ
+	 qe4MaZYW3RuyyYDXuwWll2DTz6dnBMW3xVYEtYH1vGOIUBeo8G83Fy26fq8aAS9+2ew//
+	 hfj8Me6CCQ0A5gfIxwM/o/FCH9lGNdYr6v+Nvhkw20fz4/3x6dUHkLmXIwvtzJaXV2K1w
+	 rTR+udIFt3jYMYd0YGqyF7Vu9P7Uuu9wGtn54vI0tj6f3mZBe6ah0L5hPvaDQGDbplQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794919228;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=AKfFG/NGdMCuBI9qMp8fQoSx5ZUklEOkyEjVFWQM7P4=;
-	b=pQ7Zu/DVGxcFxwwo6KP5dbpqdpTIQYaAzwVrtsRuwHG9WHYrNq9dYTmF47QJG7NwcNp0
-	 qAI77qYVLY/fkTWo6GM9CsXsU6lTRL2D1sXcsCHcUDcetuCdUHl5DQCaYFgXRRZY+wHR9
-	 F3PA+13iw5DOoNp5u5tn8Y7+/ST61Cj2IAu9F806FKpap4DEeMu2rcPRDEOyOJLzyKe0O
-	 nw1kk+M5L4JszEU7iUiAtyrlmMKFQOfLa+Lr+5HBNmRCuvjrPE+nnPf1vywlq3YeilU6H
-	 dS8YgxBqp5iAHDDQh4aPVztNFCGjiJPlxw3Swa0AS4g0CAwSSbCtF0zAAKjyTLJEkNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794919229;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=g3XrxVl29KacKlQRIN1gy23c2VjGF2woZUCFggJlwt0=;
+	b=JEzvhavGwnlWb2zyUvt5pirbK4iXwObqkdC0AUmQp6iNswopkanNw22uwq7GAJdRCL6s
+	 dY1CyQCLWuOP3C/yQy3C/RDnVpHtmOPBTY51ABhFfU05FRogK3W4zWAqScBhsIPi3lWUD
+	 xdtA3+ZPXXxUsnDWb7s8gjUlf+uYRYhA19U/TZyWN8llTlSBGxcow1+5Kr8AwlJiQVDzx
+	 ZKQ4n1VGVr3kO3inrWSJvr3h3Q+BBnlLsEl+I543olPbVygiHryylV2FW0RODes5Awo86
+	 EAl1cUCbTG13rgwbdMKw3TNMBA8LDQbEJObmPV3iT7PCXuE/B0RBlcSbvv+yj1MMZ4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qKhQamca;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=sCppH1wJ;
+	arc=none smtp.remote-ip=54.243.244.52
+Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50CE960A5BD5
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:40:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50CE960A5BD5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C97B606A8A6;
+	Tue, 17 Nov 2026 12:40:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C97B606A8A6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qKhQamca
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4bb6ba3b244so22341735e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:40:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794919227; x=1795524027; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=AKfFG/NGdMCuBI9qMp8fQoSx5ZUklEOkyEjVFWQM7P4=;
-        b=qKhQamcaS8pi0L1C5jHfonAjTfx8vetGfeEY803a1whdLF8t9xwYwTi/2vg3onhv3A
-         GZWaa/iCkCqYmX6Mqz48dLcEjDc5yBnzI2vbJ0UauHesvx2rkkhQ3+hHl7auTL9QIEe9
-         KvUmw6DTmCqsrKyHk3bkBlEV54mOZrkrtkeDlaeBgfNkKzTHetOBJ1hm+WLYdMnU/+YO
-         ZyfPAq7EE+HfvWzMYpvWSDLWFNPrje3BE9hYI3CADCvAzbBJizyNGq/wuXa/rw+TcQFi
-         JsMBTwcXFIYydnZKtXMPzz/H6N8RwNb8osFFiyDIcj33Vde4X6SSgw7l4Epudi5JSB6R
-         CYkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794919227; x=1795524027;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=AKfFG/NGdMCuBI9qMp8fQoSx5ZUklEOkyEjVFWQM7P4=;
-        b=BLk/8XSa+aS+zFFJKOeyxdmudqBadA26tD/a4cEf/UWhUF8Z2D0aTfkXL6DmF1+jwk
-         +SB01ZDssDGQ5U1+42kpNVNO1DXOZb0xXXTHm4gv6VR3e29kC7EIoCLsnQG75xKmnV5M
-         Y5HGfFWytewa63KkyRsUBUMR7OlefLUy+TSoqo7vVakdl8gUHlvbmEj1zljP3gg6Sz6/
-         Rh/24cs+G+igdF9b/1vpqsefan0hQ7DQLY6cCHPwv1JVURV82rtcH/PBJYKqxU3obDgp
-         K3eLUVDuqWrwsfqAj7u65KbFd8v7snZcpV4QdwfcpzPugApr36zsA/O5IM0+KbDz8Zmr
-         VaNw==
-X-Forwarded-Encrypted: i=1; AL+hErFUpmiHhL1ktwsxf44G5YuYIv9sO+Rk/2B7wxLizqm8dPm0XydCrLjCLqnG4I7bsms7jYszxIdcUcrMQE8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9BQO3s7sm6Ad6Of58fVP9iPe4dZE+1O494CgdgjHI33NMzonZr
-	FtswZaj5OaPNmYnRTQkvn065VKHHeOHPwSiSAUOAnxNtYk+4XlMpV0gS
-X-Gm-Gg: AYBFou23nbHm4+tU8cFTLwV+Mu0SjS/fx7t1J0npIhQZDJkiYI3DozULRrOP7+8VP2k
-	xQB4/ZxlNV2mHvlRSfMKHamLMnS2yJxJ5p2m3jJzKd/BGvBbMAwD4rPu3Y4JGkCK0kUhwrSvDiX
-	B6aPSM6plP1Z0JpIdjJhMDBCOjantwksvEofaJxYr+A20yjmDWhC0I4xw7kW8jMW6W3qDHmkE/Q
-	EexC4SuRPD+750R4MY7C/U8LJjl0+9CnVmSC24IFELUL4U6cs+14jtMtbX0ot86ItOUgVhM3jvJ
-	TUpO+TiBRoKB9E707vUrZjiYVjgPam/AP/d5fx5TUCGS4554Ip6KhPeje7cxaLp/NeBzz2IVmgf
-	EIWzp+NLSpKVZ15iHmLKxnpzEbmIPqLatX9gM78pjzEc48Y+glGorUd2O0oZ5KSCCaKG7wL+bK8
-	uVOxVoaiY6D5wik5gd64+0S8pkP2GrYvGAgHxE9/PRMuG3bZXWJSD4vcosBnd5Nl7kqDe/AObMU
-	DqEZwHSA3/XSakMqrp8E18SsQXBv8KJN/yA+9YH4qznkt7leFPmPC/l8UTGqnhAIqj42fL0R7wc
-	TR7AQEux0T9bdYg+h8v0SpM9kW7K1RqV60AqKCK0pUhyxV9Jkg33HK/5sHMvkubvCGSJ2ubZf8m
-	5dI2NvEaADyxE+KX6ND0cUTeRCTs2AhdWIg==
-X-Received: by 2002:a05:600c:c172:b0:4bb:5f3b:25a9 with SMTP id 5b1f17b1804b1-4bb5f3b27f9mr231172735e9.30.1794919226611;
-        Tue, 17 Nov 2026 04:40:26 -0800 (PST)
-Received: from Ansuel-XPS24.localdomain (93-34-92-103.ip49.fastwebnet.it. [93.34.92.103])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4bb78386902sm73367065e9.1.2026.11.17.04.40.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 04:40:25 -0800 (PST)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	llvm@lists.linux.dev
-Subject: [PATCH net-next v22 09/15] net: phylink: support late PCS provider attach
-Date: Tue, 17 Nov 2026 13:39:49 +0100
-Message-ID: <20261117123956.11981-10-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261117123956.11981-1-ansuelsmth@gmail.com>
-References: <20261117123956.11981-1-ansuelsmth@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=sCppH1wJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1794919162;
+	bh=g3XrxVl29KacKlQRIN1gy23c2VjGF2woZUCFggJlwt0=;
+	h=From:Date:Subject:MIME-Version:Message-Id:To;
+	b=sCppH1wJ3liVVHPDa+8bt44Zl/b+1YP8l53ottzJVp36BP9xhmu6mgupC4zTbiaBW
+	 xLITLodET/sFEhLgvlVWojCiv6OaQcG9ZhAd/S/+4KE2z6OoLAaso+mJ99bMk2fQyL
+	 LeKoECc067JP0K/JHtA2Vp9jXBXe3WAd57bHH93c=
+X-QQ-mid: zesmtpsz6t1794919150t0231c823
+X-QQ-Originating-IP: xXPFKjlewoV7k+nvY5YMHUzCW0y+VjSdI5kYEFc/whM=
+Received: from LT-PANJUNZHONG.dc.com ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 17 Nov 2026 20:39:08 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 12814507513609067506
+EX-QQ-RecipientCnt: 21
+From: Junzhong Pan <panjunzhong@linux.spacemit.com>
+Date: Tue, 17 Nov 2026 20:38:48 +0800
+Subject: [PATCH v5 6/9] riscv: dts: spacemit: add USB2.0 controller nodes
+ for K1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,328 +64,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261117-b4-spacemit-k1-usb2-v5-6-52c3829cca69@linux.spacemit.com>
+References: <20261117-b4-spacemit-k1-usb2-v5-0-52c3829cca69@linux.spacemit.com>
+In-Reply-To: <20261117-b4-spacemit-k1-usb2-v5-0-52c3829cca69@linux.spacemit.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+ Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>, 
+ Peter Chen <peter.chen@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, Junzhong Pan <panjunzhong@linux.spacemit.com>, 
+ Ze Huang <huang.ze@linux.dev>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794919127; l=2186;
+ i=panjunzhong@linux.spacemit.com; s=20260306; h=from:subject:message-id;
+ bh=TE3ZmoSbwMioV1cYWrwZplLOf4/AixJgi7cmhlpJlr4=;
+ b=NKUqtzmZaXjoAU8RENbPSPsPupJ4BzMvAKw2rcSWc6RVTtVRGKKe0EmJWhDTVByiKhexzvR2S
+ zjUkK+eGbJqCsajwHVR4GMkszb8xSDybO8X7qUWzn5viZZH8cgrxLgn
+X-Developer-Key: i=panjunzhong@linux.spacemit.com; a=ed25519;
+ pk=bY08BOg2T9H93/jG8fEE/tVmdXoQQMp9M2rtzPFoyJg=
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
+X-QQ-XMAILINFO: NfGQECF1EzMaCFIGEthIjp3oc6NCoW5U9RYC1n7+M2qTGxvawEEQeicT
+	PFbC+auVWr4BtOqsRFR5cwDk6e1h0v5ktGI9SwKotyAN0YC5Xda6XWfhIECkE3Gy0ByJKFX
+	eeoZyEBQ4vsk7aVZ6uMyOfrwbxTm4AicsAR24+g2zD4GZKrd+oAB0TysJz+F+OXjfdZNEGC
+	NygI9YKXQDJwM0C5ra9h0caj/dxl22mDZIfDiN3tJDoNyjs8UoFY69Y/YxnA5sB5wFyv+Vj
+	yPnIzX9B3mANbR3s7kBz69RRmY5+hWyWhd+daabCnuox+pI2wdfnR1gPKqZGoCC8Hy8e+23
+	c4PSNGGF+GJx4WKUUpG6ztv3Hc8lScMmeHgAKiPsjbd+ofcfwPIf1RNRgtbbTyUKkSVFOcD
+	g8HHaKoGf2PWGfA8hTBuoR4Fw97cgzh9WDy5c651XxKt3NQizx0uK25kAqRkIkOowUBAQCL
+	MZc1LH9X4keBTjT/xUjURmTndpislu6PJ+co0jq6CputNwdAXAKF5GVuLHihNtf3KLLeR7p
+	Q2ztAcZIaABXowhEGucGOI5ZueuVoFkIfRMdhGqu4kfC9isWbbexI0uZB305QJx08Hvmv55
+	QgeGoDrDhcqb3B309cw+6WyXBzmYEMssYfaMz7EKR9ke14QKoEUMhtdl6gtPAlJcS1CiUBJ
+	ifKSEtO81sqKQW/RrI2WdBLNb8z8Ti7dV66qMLoQKw6MlbLaeM2kmbcL02VnxQUAMvoA4n2
+	pYzsm6m7EPKk74TobFSlj/jxU/pR3QcjD3aRkB7xrI6DIsO/WZKbTdY2Bxa34kt6FwLu65q
+	MqnlRuq3UgR+1e599ArmopAJimHDRcg41cCt/qFJlNIsnxPUEtpmHF4cJXy13Po2CHNHJt1
+	QD62piTltjKkjxR9kzzkSSLqXRXQkWlXdTE2zfLkIndkrJXkeyD5atSF9RH2RhO7gGP/i+x
+	gJ0KvlhwhR1LzA6tJtaps4qTZpqui58kT7lOqACtALFlIaHgoftkNvUf12avk/AXdiUU2ET
+	RiFXOUOYOIdFoTghLe1x4CKP97L0NJURvFE9NG2Gx0MsskcevoNlk2u2ZNrfeeYvUZ0i5hl
+	6OU5Mou1hw63Y7nXf0FP0b4FPVko/LefBPm+IT5iVPZcquBL33xQVYqhZtXEw8j5xLfYGKM
+	NeaD1dqC++dir3dtutgAMojLUHQIhNm90oSe
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 
-Add support for late PCS provider attachment to a phylink instance.
-Similar to FWNODE_PCS_PROVIDER_DEL, FWNODE_PCS_PROVIDER_ADD is added to
-address the case where a PCS provider is added after a phylink instance is
-created and started.
+The SpacemiT K1 SoC has two ChipIdea USB2.0 controllers.
+- USB2.0 Dual-Role
+- usb2.0 Host Only
 
-The PCS notifier will emit the event FWNODE_PCS_PROVIDER_ADD every time
-a new PCS provider is added.
+Add the controller and PHY nodes.
 
-If a related PCS is found, then such PCS is added to the phylink
-instance PCS list.
-
-Such PCS is then linked to the phylink instance and the supported
-interfaces of the phylink instance get refreshed.
-
-If we are in a major_config_failed scenario an interface reconfiguration
-is triggered in the next phylink resolve with a new phylink resolve right
-after with the new AN mode reevaluated if a new PCS is selected.
-
-In the example scenario where the link was previously torn down due to
-removal of PCS, the link will be established again as the PCS came back
-and is now available to phylink.
-
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+Tested-by: Ze Huang <huang.ze@linux.dev>
+Reviewed-by: Yixun Lan <dlan@kernel.org>
+Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
 ---
- drivers/net/pcs/pcs.c     |  22 ++++++++
- drivers/net/phy/phylink.c | 110 ++++++++++++++++++++++++++++++--------
- include/linux/pcs/pcs.h   |  31 +++++++++++
- 3 files changed, 141 insertions(+), 22 deletions(-)
+ arch/riscv/boot/dts/spacemit/k1.dtsi | 40 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 40 insertions(+)
 
-diff --git a/drivers/net/pcs/pcs.c b/drivers/net/pcs/pcs.c
-index f234a4635417..0a4853b756fb 100644
---- a/drivers/net/pcs/pcs.c
-+++ b/drivers/net/pcs/pcs.c
-@@ -69,6 +69,10 @@ fwnode_pcs_add_provider(struct fwnode_handle *fwnode,
+diff --git a/arch/riscv/boot/dts/spacemit/k1.dtsi b/arch/riscv/boot/dts/spacemit/k1.dtsi
+index 542bfc0d19f5..e5c701f488ea 100644
+--- a/arch/riscv/boot/dts/spacemit/k1.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k1.dtsi
+@@ -459,6 +459,22 @@ syscon_rcpu2: system-controller@c0888000 {
+ 			#reset-cells = <1>;
+ 		};
  
- 	mutex_unlock(&fwnode_pcs_mutex);
- 
-+	blocking_notifier_call_chain(&fwnode_pcs_notify_list,
-+				     FWNODE_PCS_PROVIDER_ADD,
-+				     pp);
++		usbphy0: phy@c0940000 {
++			compatible = "spacemit,k1-usb2-phy";
++			reg = <0x0 0xc0940000 0x0 0x200>;
++			clocks = <&syscon_apmu CLK_USB_AXI>;
++			#phy-cells = <0>;
++			status = "disabled";
++		};
 +
- 	pr_debug("Added pcs provider from %pfwf\n", fwnode);
- 
- 	return pp;
-@@ -201,6 +205,24 @@ struct phylink_pcs *fwnode_pcs_get(const struct fwnode_handle *fwnode, unsigned
- }
- EXPORT_SYMBOL_GPL(fwnode_pcs_get);
- 
-+struct phylink_pcs *fwnode_pcs_get_from_provider(struct fwnode_pcs_provider *provider,
-+						 const struct fwnode_handle *fwnode,
-+						 int index)
-+{
-+	struct fwnode_reference_args pcsspec;
-+	struct phylink_pcs *pcs;
-+	int ret;
++		usbphy1: phy@c09c0000 {
++			compatible = "spacemit,k1-usb2-phy";
++			reg = <0x0 0xc09c0000 0x0 0x200>;
++			clocks = <&syscon_apmu CLK_USB_P1>;
++			#phy-cells = <0>;
++			status = "disabled";
++		};
 +
-+	ret = fwnode_parse_pcsspec(fwnode, index, NULL, &pcsspec);
-+	if (ret)
-+		return ERR_PTR(ret);
+ 		usbphy2: phy@c0a30000 {
+ 			compatible = "spacemit,k1-usb2-phy";
+ 			reg = <0x0 0xc0a30000 0x0 0x200>;
+@@ -1301,6 +1317,30 @@ storage-bus {
+ 			#size-cells = <2>;
+ 			dma-ranges = <0x0 0x00000000 0x0 0x00000000 0x0 0x80000000>;
+ 
++			usb2_0: usb@c0900000 {
++				compatible = "spacemit,k1-usb2";
++				reg = <0x0 0xc0900000 0x0 0x4100>;
++				interrupts = <105>;
++				clocks = <&syscon_apmu CLK_USB_AXI>;
++				resets = <&syscon_apmu RESET_USB_AXI>;
++				phys = <&usbphy0>;
++				phy-names = "usb-phy";
++				dr_mode = "otg";
++				status = "disabled";
++			};
 +
-+	pcs = __fwnode_pcs_get_from_pcsspec_provider(&pcsspec, provider);
-+	fwnode_handle_put(pcsspec.fwnode);
-+	return pcs;
-+}
-+EXPORT_SYMBOL_GPL(fwnode_pcs_get_from_provider);
++			usb2_1: usb@c0980000 {
++				compatible = "spacemit,k1-usb2";
++				reg = <0x0 0xc0980000 0x0 0x4100>;
++				interrupts = <118>;
++				clocks = <&syscon_apmu CLK_USB_P1>;
++				resets = <&syscon_apmu RESET_USBP1_AXI>;
++				phys = <&usbphy1>;
++				phy-names = "usb-phy";
++				dr_mode = "host";
++				status = "disabled";
++			};
 +
- bool fwnode_pcs_matches_provider(struct fwnode_pcs_provider *provider,
- 				 const struct fwnode_handle *fwnode,
- 				 struct phylink_pcs *pl_pcs)
-diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-index 094a15f3dbcd..8768d8220a13 100644
---- a/drivers/net/phy/phylink.c
-+++ b/drivers/net/phy/phylink.c
-@@ -112,6 +112,7 @@ struct phylink {
- 
- 	struct sfp_bus *sfp_bus;
- 	bool sfp_may_have_phy;
-+	DECLARE_PHY_INTERFACE_MASK(sfp_module_interfaces);
- 	DECLARE_PHY_INTERFACE_MASK(sfp_interfaces);
- 	__ETHTOOL_DECLARE_LINK_MODE_MASK(sfp_support);
- 	u8 sfp_port;
-@@ -2140,6 +2141,35 @@ int phylink_set_fixed_link(struct phylink *pl,
- }
- EXPORT_SYMBOL_GPL(phylink_set_fixed_link);
- 
-+static bool phylink_add_pcs(struct phylink *pl, struct phylink_pcs *pcs)
-+{
-+	struct phylink_pcs *tmp;
-+
-+	/*
-+	 * Make sure state mutex is locked to protect concurrent
-+	 * access to phylink instance PCS list from
-+	 * initial fill_available_pcs and late PCS attach
-+	 */
-+	lockdep_assert_held(&pl->state_mutex);
-+
-+	/* Make sure PCS is not already in the list */
-+	list_for_each_entry(tmp, &pl->pcs_list, list)
-+		if (tmp == pcs)
-+			return false;
-+
-+	if (WARN(rcu_access_pointer(pcs->phylink),
-+		 "%s: PCS already attached to a phylink instance\n",
-+		 __func__))
-+		return false;
-+
-+	list_add_tail(&pcs->list, &pl->pcs_list);
-+
-+	/* Link PCS to phylink */
-+	rcu_assign_pointer(pcs->phylink, pl);
-+
-+	return true;
-+}
-+
- static int phylink_fill_available_pcs(struct phylink *pl,
- 				      struct phylink_config *config)
- {
-@@ -2172,12 +2202,7 @@ static int phylink_fill_available_pcs(struct phylink *pl,
- 		if (!pcs)
- 			continue;
- 
--		if (WARN(rcu_access_pointer(pcs->phylink),
--			 "%s: PCS already attached to a phylink instance\n",
--			 __func__))
--			continue;
--
--		list_add_tail(&pcs->list, &pl->pcs_list);
-+		phylink_add_pcs(pl, pcs);
- 	}
- 
- out:
-@@ -2358,11 +2383,24 @@ static void phylink_update_capabilities(struct phylink *pl,
- 		goto exit;
- 	}
- 
--	/* Revalidate the SFP module modes against every available interface. */
-+	/* Revalidate SFP modes against interfaces currently supported by the
-+	 * MAC and PCS. Keep the module's interface list intact so a later PCS
-+	 * addition can make an interface usable again.
-+	 */
- 	if (pl->sfp_bus && !pl->phydev && config->interface &&
--	    !phy_interface_empty(pl->sfp_interfaces)) {
-+	    !phy_interface_empty(pl->sfp_module_interfaces)) {
- 		__ETHTOOL_DECLARE_LINK_MODE_MASK(supported);
- 
-+		phy_interface_and(pl->sfp_interfaces,
-+				  pl->sfp_module_interfaces,
-+				  pl->supported_interfaces);
-+		if (phy_interface_empty(pl->sfp_interfaces)) {
-+			linkmode_zero(pl->supported);
-+			linkmode_zero(pl->advertising);
-+			linkmode_zero(config->advertising);
-+			goto exit;
-+		}
-+
- 		linkmode_copy(supported, pl->sfp_support);
- 		linkmode_copy(config->advertising, pl->sfp_support);
- 		if (!__phylink_validate_mask(pl, NULL, supported, config,
-@@ -2494,6 +2532,7 @@ static int pcs_provider_notify(struct notifier_block *self,
- 	struct phylink_pcs *pcs, *tmp;
- 	struct phy_device *phydev;
- 	bool resolve = false;
-+	int count, i;
- 
- 	rtnl_lock();
- 	mutex_lock(&pl->phydev_mutex);
-@@ -2506,16 +2545,44 @@ static int pcs_provider_notify(struct notifier_block *self,
- 	if (pl->pcs_state == PCS_STATE_DETACHING)
- 		goto exit;
- 
--	/*
--	 * Loop all the PCS for phylink instance and check if
--	 * this notification is relevant for some of them.
--	 */
--	list_for_each_entry_safe(pcs, tmp, &pl->pcs_list, list) {
--		if (!fwnode_pcs_matches_provider(pp, pl->fwnode, pcs))
--			continue;
-+	switch (val) {
-+	case FWNODE_PCS_PROVIDER_ADD:
-+		count = fwnode_phylink_pcs_count(pl->fwnode);
-+		for (i = 0; i < count; i++) {
-+			pcs = fwnode_pcs_get_from_provider(pp, pl->fwnode, i);
-+			if (IS_ERR_OR_NULL(pcs))
-+				continue;
-+
-+			/* Trigger a resolve only if a PCS is actually added */
-+			if (phylink_add_pcs(pl, pcs))
-+				resolve = true;
-+		}
-+
-+		/*
-+		 * Force an interface reconfig if major config failed.
-+		 * Configure link_failed to retrigger a resolve a
-+		 * second time to reevaluate AN mode with the new
-+		 * PCS if selected.
-+		 */
-+		if (resolve && pl->major_config_failed) {
-+			pl->force_major_config = true;
-+			pl->link_failed = true;
-+		}
-+
-+		break;
-+	case FWNODE_PCS_PROVIDER_DEL:
-+		/*
-+		 * Loop all the PCS for phylink instance and check if
-+		 * this notification is relevant for some of them.
-+		 */
-+		list_for_each_entry_safe(pcs, tmp, &pl->pcs_list, list) {
-+			if (!fwnode_pcs_matches_provider(pp, pl->fwnode, pcs))
-+				continue;
- 
--		phylink_del_pcs(pl, pcs);
--		resolve = true;
-+			phylink_del_pcs(pl, pcs);
-+			resolve = true;
-+		}
-+		break;
- 	}
- 
- 	/* Exit early if nothing has changed */
-@@ -2681,10 +2748,6 @@ struct phylink *phylink_create(struct phylink_config *config,
- 
- 	mutex_lock(&pl->state_mutex);
- 
--	/* Link available PCS to phylink */
--	list_for_each_entry(pcs, &pl->pcs_list, list)
--		rcu_assign_pointer(pcs->phylink, pl);
--
- 	phy_interface_copy(pl->supported_interfaces,
- 			   pl->config->supported_interfaces);
- 
-@@ -4424,6 +4487,7 @@ static int phylink_sfp_config_phy(struct phylink *pl, struct phy_device *phy)
- 
- 	/* We're not using pl->sfp_interfaces, so clear it. */
- 	phy_interface_zero(pl->sfp_interfaces);
-+	phy_interface_zero(pl->sfp_module_interfaces);
- 	linkmode_copy(support, phy->supported);
- 
- 	memset(&config, 0, sizeof(config));
-@@ -4485,7 +4549,7 @@ static int phylink_sfp_config_optical(struct phylink *pl)
- 	 * the SFP module.
- 	 */
- 	phy_interface_and(pl->sfp_interfaces, pl->supported_interfaces,
--			  pl->sfp_interfaces);
-+			  pl->sfp_module_interfaces);
- 	if (phy_interface_empty(pl->sfp_interfaces)) {
- 		phylink_err(pl, "unsupported SFP module: no common interface modes\n");
- 		return -EINVAL;
-@@ -4556,6 +4620,7 @@ static int phylink_sfp_module_insert(void *upstream,
- 	ASSERT_RTNL();
- 
- 	caps = sfp_get_module_caps(pl->sfp_bus);
-+	phy_interface_copy(pl->sfp_module_interfaces, caps->interfaces);
- 	phy_interface_copy(pl->sfp_interfaces, caps->interfaces);
- 	linkmode_copy(pl->sfp_support, caps->link_modes);
- 	pl->sfp_may_have_phy = caps->may_have_phy;
-@@ -4573,6 +4638,7 @@ static void phylink_sfp_module_remove(void *upstream)
- 	struct phylink *pl = upstream;
- 
- 	phy_interface_zero(pl->sfp_interfaces);
-+	phy_interface_zero(pl->sfp_module_interfaces);
- }
- 
- static int phylink_add_sfp_mod_port(struct phylink *pl)
-diff --git a/include/linux/pcs/pcs.h b/include/linux/pcs/pcs.h
-index 83e0a2ad4b09..a6fe9f71174a 100644
---- a/include/linux/pcs/pcs.h
-+++ b/include/linux/pcs/pcs.h
-@@ -5,6 +5,7 @@
- #include <linux/phylink.h>
- 
- enum fwnode_pcs_notify_event {
-+	FWNODE_PCS_PROVIDER_ADD,
- 	FWNODE_PCS_PROVIDER_DEL,
- };
- 
-@@ -50,6 +51,28 @@ int unregister_fwnode_pcs_notifier(struct notifier_block *nb);
- struct phylink_pcs *fwnode_pcs_get(const struct fwnode_handle *fwnode,
- 				   unsigned int index);
- 
-+/**
-+ * fwnode_pcs_get_from_provider() - Retrieve a PCS from a specific provider
-+ * @provider: PCS provider to use
-+ * @fwnode: firmware node
-+ * @index: index fwnode PCS handle in firmware node
-+ *
-+ * Get a PCS from the firmware node at index specifically provided by
-+ * passed PCS provider.
-+ *
-+ * Unlike fwnode_pcs_get(), this function does not search the global list of
-+ * PCS providers. The caller must provide the provider responsible for the
-+ * referenced PCS.
-+ *
-+ * Returns: a pointer to the phylink_pcs, NULL or a negative error pointer. Can
-+ * return -EINVAL if the PCS provider firmware node doesn't match the referenced
-+ * firmware node or a negative error pointer (or NULL) from the PCS provider
-+ * xlate function for the relevant firmware node and PCS handle index.
-+ */
-+struct phylink_pcs *fwnode_pcs_get_from_provider(struct fwnode_pcs_provider *provider,
-+						 const struct fwnode_handle *fwnode,
-+						 int index);
-+
- /**
-  * fwnode_pcs_matches_provider() - Check whether a PCS belongs to a provider
-  * @provider: PCS provider to check
-@@ -120,6 +143,14 @@ static inline struct phylink_pcs *fwnode_pcs_get(const struct fwnode_handle *fwn
- 	return ERR_PTR(-ENOENT);
- }
- 
-+static inline struct phylink_pcs *
-+fwnode_pcs_get_from_provider(struct fwnode_pcs_provider *provider,
-+			     const struct fwnode_handle *fwnode,
-+			     int index)
-+{
-+	return ERR_PTR(-ENOENT);
-+}
-+
- static inline bool fwnode_pcs_matches_provider(struct fwnode_pcs_provider *provider,
- 					       const struct fwnode_handle *fwnode,
- 					       struct phylink_pcs *pl_pcs)
+ 			usb_dwc3: usb@c0a00000 {
+ 				compatible = "spacemit,k1-dwc3";
+ 				reg = <0x0 0xc0a00000 0x0 0x10000>;
+
 -- 
-2.55.0
+2.34.1
 
