@@ -1,71 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794899814;
-	b=ZwBaaiZh2aKmi/Vv+js9ajh3OIjg5pifsYDFZdUP0PD/w2i1eVAG16C4lIaWTvTQKHcH
-	 FFW+JlDbciAasCcjVI8LzwBGKXTyYn9375BxkeAYVAmUmLCtczo45nZtYC/OjMaq+uX7D
-	 5y0qyPxGCAOXheq8HC2MR1ITktS/OlF0A5X9ty4qROLSM+4tvSVkKlA7eEMntJ1xFFFxW
-	 o+03yZjVjyikf/Ox2HrP21j6IY6RRClrZ8BNnq2Vg1rAN24Dkws9XbgFrSwW1y/MzPjRF
-	 7B2TNGt0fQPIgV44IN12QcaXdfadSPDdoyuX8U2gfN4kLOmMjzqi9EYUd6o145brsZg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794899814;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Rspamd-Queue-Id;
-	bh=ghlwcRdUv8BJx6TAkH6mqpsTPpkoTPRZ22GT5OhmSSM=;
-	b=SOh77EeHbjdWwDKRYDHDkP3hbVUmTeon0x1W0ohEXgtvv4TaxGmoKm+Ow1KfW7rBQK+g
-	 OkmoP3oeoiarpJTS6wEwl7EpzpzI1ZxOHykE66ipv6ykwLD9wUis52yK+vVQTO7eI22f3
-	 dlov/BrJRASSW2ucOZN3SW6wkScgSI6NmWU6rkhAoB1SES6acTSuO6fhuvEZGINU1+whu
-	 xVH/rGbmsmnVaQLQHbBehu59GLjVs6n64oeWIxwU3OusQWjOXncMNcgQQNXwdTP/HBN40
-	 k5LgmrIjo3OV73HWMfbklS42J4g49iIUcB1DPMRqogXQj9bC93at8mSaWlRkfMX8HVA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bojanowski.me;
-	spf=pass smtp.mailfrom=bojanowski.me;
-	dkim=pass header.d=bojanowski.me header.i=@bojanowski.me header.a=rsa-sha256 header.s=MBO0001 header.b=ZGiDUE2m;
-	arc=none smtp.remote-ip=80.241.56.172
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.40
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794899833;
+	b=fUkJbOm997+ETLBd6HkhIgk+hfwvVXN8bnlqZ1J1bdVhoKoSKpd4JmrvdGmiNHtY+Tiq
+	 OGME07txYSvs+xIC7t7k+YIqWbsCQQwaTkPv1E76J3SGrSdCAfWgHOzxNpnQQJhttdvTN
+	 1sy9HKsKQs+22tjz8vRFPGyIitF/2Jud43bc6HMxee5ArU4DHIwajROE1kDTzYjgiw2Fq
+	 820rl9Zcn0V/2+TCxtYVv1NroGAcKpfkEWbCD9P80UQNSbEMcNxbfVooL3iKBxOOKqnZo
+	 tETqRJb7c5IBHxIe/shNF8rbSi1aYwwFRPLvBHVRIs5pjAfi3DsHoi5GlQ//u2JwCNQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794899833;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=+xV+Q/FmcEg+DznkN+seFJKIAO0Dys4NqSGGXgUOSug=;
+	b=hTbfEphAZw7wzuK0BcBditVMZKXNx2xlIrHjalmTibKaAJA5BVTZnvUz7rKqsjYtcJlA
+	 JiQld0/7JmhZoYUaa1Bvxw2p4qBJl7LAKSHDP38aCq9EqHntL3ZXEKfxhccBHIlU8ojAJ
+	 GLNHGbIKYbp2ERhzzdD/VoqPNhx3/wBZ7NtRSjdBAYk/M1lsx3LeU1j530OsrY5QnqwTk
+	 Qa1kTcYWMmCsbA43V1igDqtE7/Nzgi2mnC7p/XnwA56BB7ZqJS81gQ3t6ovc1gYX6FrXo
+	 dimwSqUTAM65UaYgfFkrMVA+6v5dZ43ld/ldD1KdSu6WbEV5ytxv7/iIv6HT9eUjO3w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=q1K344jx;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.40
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012040.outbound.protection.outlook.com [52.101.53.40])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 487B6606A31C;
-	Tue, 17 Nov 2026 07:16:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 487B6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bojanowski.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bojanowski.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 329C3606A31C;
+	Tue, 17 Nov 2026 07:17:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 329C3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bojanowski.me header.i=@bojanowski.me header.a=rsa-sha256 header.s=MBO0001 header.b=ZGiDUE2m
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jTGJ00ZPpzMlmL;
-	Tue, 17 Nov 2026 08:16:48 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bojanowski.me;
-	s=MBO0001; t=1794899808;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=ghlwcRdUv8BJx6TAkH6mqpsTPpkoTPRZ22GT5OhmSSM=;
-	b=ZGiDUE2m0L+X9lhzdNvX+fEEyDyv2qsG0Ja/fQLQwiKXb53hhcL+rN8mn+fYlB3wve+lNo
-	sK7hBL4ApPbPQHbqkvGWPrsCjFpvi6vnvl11qa4VYvVFafhMO/T48roPrNFqeuje1Hwqvy
-	asYGjMyqa3OEzD4pu0/2g1fGFtFFExoIwdety9g+89yDY5ascKmGaR+ws8USFX76fe6n1o
-	lBTivnmubsHCeIJQGPvsDtbZ9WWDP4Pmui7saz9ph4PMscOpo/xL0ckJf6YSZrCopXTFpp
-	AYvzE7KtdKnFZ+YOfNvBMuvRgkePDGar6qhO1mYG8zXiVNAsD1HOXAvrWMzpqA==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of tomasz@bojanowski.me designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=tomasz@bojanowski.me
-From: Tomasz Bojanowski <tomasz@bojanowski.me>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org,
-	Hamza Mahfooz <someguy@effective-light.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] hwmon: (nct6683) Make pwmN_auto_channels_temp of NCT6687D-R writable
-Date: Tue, 17 Nov 2026 08:16:45 +0100
-Message-ID: <20261117071645.587863-1-tomasz@bojanowski.me>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=q1K344jx
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=u5s/HWUAXQvjamLaRznlhCiI1Eohpv+X6CoF4kPnHFuc4awZXUB+owgJd+XMJ1HgvYm87j944A0WtMtGRml2qjPNT5mD3XuRLZbdmFlG/cpG30n1m1/9xlacMFuFBcwhABmOCB7GaJt6TOxF9M4H24NTSz0UGHsIv80OlCr4s/oaabTVhSK0oYPQtsLJAOHNWtP/ymoEiP+8gc4MrK+iy9HsXOXuW1tSWEw5S53Bxub6xITy/iXi7U17ZLBuUk8Buv4sprYyMRNoLx/Gk8m15iZHhDPATbzugb7q/TmooyLt1VmLWQlAj+11rE9uPqxux6sDKh81LbfT3iIriVq0rg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+xV+Q/FmcEg+DznkN+seFJKIAO0Dys4NqSGGXgUOSug=;
+ b=TQlOz0ut8/G8BxbuaBaEhgcN2Ji90zJi/qkRMXnN7B6NsQAFs8o0Nb/Y2tsHfw/hUaMvoWOfmJqf93UiGNvwgxex+OnlWRMc0g+HgcYawakMI0SJ/zE4Y/A+Z8Tl9F7r8/ed1dN4WCzyMLpkh76eZZG/dpG5COC9gprPwpL6M6rpJNRdPsKbpa1RdKltP+rbIRr+cfLHBhWk9GO2DipWWFLlxRogLSVzwahjAyTSPLVlpfeke1/EbdATVggFiIoLUHnSgXrqYbxgDwsla42YZt21pP7tSAJ8pZzVQ48vlMw0e2lxu5WvdcrClCS1+3hqCxEDdCAukD3owbIfWg+KCg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=linux-foundation.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+xV+Q/FmcEg+DznkN+seFJKIAO0Dys4NqSGGXgUOSug=;
+ b=q1K344jxMC6hBDh96wOmu4oO2p2CiySHm4XgK9dBBVBmpkygIk8YdvQ2HtoxOMirZcOl9rk4XcvWoDp9P9qF0dxe0Z0dl4wibIJDMfQRob3O3kQXi55r9nHw5hsZBaWwdtBn2k1ykeABFoPxkY6dabho5ZUmOI/3z4pkDGAenNA=
+Received: from CH3P220CA0008.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:1e8::19)
+ by MN2PR12MB4422.namprd12.prod.outlook.com (2603:10b6:208:265::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
+ 2026 07:17:08 +0000
+Received: from CH7PEPF00000015.namprd21.prod.outlook.com
+ (2603:10b6:610:1e8:cafe::4d) by CH3P220CA0008.outlook.office365.com
+ (2603:10b6:610:1e8::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Tue,
+ 17 Nov 2026 07:17:07 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH7PEPF00000015.mail.protection.outlook.com (10.167.244.164) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.2 via Frontend Transport; Tue, 17 Nov 2026 07:17:07 +0000
+Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 17 Nov
+ 2026 01:17:01 -0600
+From: Shivank Garg <shivankg@amd.com>
+Subject: [PATCH mm-new v2 0/5] mm: remove unused functions
+Date: Tue, 17 Nov 2026 07:16:47 +0000
+Message-ID: <20261117-unused-sym-mm-v2-0-2f845e94dd50@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,336 +101,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jTGJ00ZPpzMlmL
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MSQqAMAwAvyI5G9CqdfmKeBAbNYdWaXCj+HeLx
+ 2GYCSDkmQS6JICnk4U3F0GlCUzr6BZCNpFBZUrnedbi4Q4hg/JYtBabeax1qVVVFwSx2T3NfP+
+ /HqJ3dMHwvh/93C6dZwAAAA==
+X-Change-ID: 20261109-unused-sym-mm-8fa76462573e
+To: "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
+	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
+	Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, Barry Song
+	<baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, Minchan Kim
+	<minchan@kernel.org>, Sergey Senozhatsky <senozhatsky@chromium.org>, "Liam R.
+ Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, "Vlastimil
+ Babka" <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato
+	<pfalcato@suse.de>
+CC: <linux-fsdevel@vger.kernel.org>, <linux-mm@kvack.org>,
+	<linux-kernel@vger.kernel.org>, Shivank Garg <shivankg@amd.com>
+X-Mailer: b4 0.15-dev-47d62
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794899821; l=1262;
+ i=shivankg@amd.com; s=20260518; h=from:subject:message-id;
+ bh=9cQhrJlly/ClG37s4BEv1CH0T39zF1bHVJy1LWjiDOA=;
+ b=th6hHOvFrEmqdr7Z4/7jLH2lvS2jUjI2hI1jhBhntNeSKVC+1vgstOoRc9zCHNMyJGlBqC58N
+ 02u3v1K2OtvAYFmkRAo0/2mgYz6kwPwQ+bHYn/Fjz44B+iAtxTsMtIc
+X-Developer-Key: i=shivankg@amd.com; a=ed25519;
+ pk=2l2QGTeXuGkZTtfmx0nPQU8iFZfjYmX/ymMojitevx4=
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH7PEPF00000015:EE_|MN2PR12MB4422:EE_
+X-MS-Office365-Filtering-Correlation-Id: c53d4ffc-9ee7-43e1-638d-08df447aca14
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|36860700016|82310400026|921020|11063799006|56012099006|261026140227099003|261028144727099003|10067099003|261021123027099003|261021121427099003|261022105027099003|261102123227099003|261009223027099003|18002099003|6133799003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	dAByAkezUlZesjhhzopVkRn7jxXkDm2Yr6qxPX5XVjp3nh7iu06evsLj/bSuvyrwfnYQT+vOZnfnuE2bi/AjlIC/fqmVD/pLsg6KrnlETUSOOAfIUKkAmxGgRVMhIvKvQDoknmH4aCut4yCIylgh94wyhdDCUvOexDSiHpcrMKO97XiYnJmBoKOw5oBC5qoUuUkGpnJvGh5afPP1bbKbITs5cUWytAzeMg9bZkKJB47sCjcznTYn1kqt0TAnbDFm3a0RmFogJZLiY9bUDTm8kUHgU6vzWf7h2t143cGDeqnoIz2EVzfvnkSwtpFmcg5+A5C5G/3j9H2dl9dcyp470fiQ5Eizkn89RqpovH6BrSOnfTSptROb6ASoSL5Sm37ur2KcOcSAkTHi0dJEl6lxFDudWJ8wA8Lu0kb6BnoFy35EscGag59mHjQCUqP+V79nGUF962KBCyX6kslw11MJ79VXun39PP5UX3pOx8H8zVi4julyHaVEADsrqhSEhuUfwVVVu0vvRVVP/uVRAwaTN7cCrASBVsrX7CNctRSBy/PYhMkeqM9P6V4OdULTQCnxQku7UwztJ2aqNJ6l+99DBj9gqqR7fuKhwBfxVAse3jALPsz5SqUE+Dd+GoBuC85nd5VIJynY+F/GRiW5OsSo8QHPVfe5044HiQODPTkmzgG8h3Z95oiAVw3C/4myN8b2CbrUth/Fj0GdYVwjXe4Mqg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(36860700016)(82310400026)(921020)(11063799006)(56012099006)(261026140227099003)(261028144727099003)(10067099003)(261021123027099003)(261021121427099003)(261022105027099003)(261102123227099003)(261009223027099003)(18002099003)(6133799003)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	R9tMzjEudz1Q/wQ+CNRd1ZqgEP2avBUzCXtbhsD/z4IGzdmu0bxSzYqPFKL8qKctD10eQvbltTA/WCp35/gS5xJp2QMt/PpP8SIlqjA6xOvd/IWsVU9crsmj4fQyaY+XZCjPySZ/jo1AKjtjmQZKB+CpXXxO9UP2nSsD+XxvX7slEMmnNu5qBRa6jp9SRb7BsS5hMxnKaPuDWa25+1huaAIYOCRqSilINyl1jV/vcg0MUhEhutidQoVygfJeTB8Unk+n5k3psEtrTHW6PqqYcG1rH2abxoEiCEhhaKCAp3kWrrpVrhZrxum2a/vfRn7rffNHgVV2UULojIfr82RzPJT+zDWjA4Gw3Slm3ivQX3zHnxNKGcqUUw0fGhm1NZxq2yB91qNxlClCbSQViPRyEeMN1EuGRXKFkHmgbJAykUvKoy+9lQldg/9xVWViR7fL
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 07:17:07.6381
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c53d4ffc-9ee7-43e1-638d-08df447aca14
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH7PEPF00000015.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4422
 
-Allow selecting the temperature used by a fan curve on MSI boards with
-an NCT6687D-R (customer ID 0x20d), in manual and in automatic mode.
+This series removes five functions and one variable in mm that have no
+users left anywhere in the tree. I found them with the kunused scripts
+[1], which I wrote with LLM's help. The v1 cover letter [2] has more
+details on the scripts and how LLM was used.
 
-On an MSI MAG B850M MORTAR WIFI, the BIOS setup offers four temperature
-sources for the fans: CPU Core, System, MOS and Chipset A. Reading the EC
-before and after selecting them shows that each sets a single bit in the
-lowest byte of the fan's source register, the bit of the monitoring
-channel of temp1, temp2, temp3 and temp4 respectively, and that nothing
-else in the fan curve registers changes. The other bytes were never seen
-in use, and how the EC would combine several bits is not known, so only
-a single temperature reported by the driver on the first eight monitoring
-channels can be selected; other values return -EINVAL. The range can be
-extended if a board needs it.
+Changes in v2:
+- Split v1 [2] up by MM tree, as David suggested. These five patches
+  are based on mm-new. 
+- No changes to the patches themselves.
 
-The attribute is writable if, when the driver is loaded, the curve uses
-one such temperature. Before each write the driver checks that this is
-still the case and returns -EBUSY otherwise, so that it does not overwrite
-a source which could not be selected again.
+[1] https://github.com/AMDESE/linux-mm/tree/shivank/kunused
+[2] https://lore.kernel.org/r/20261026-unused-sym-v1-0-82ca2dceabe1@amd.com
 
-The source is written in a configuration phase and read back, as the
-curve points are. If that fails while the EC responds, the previous
-source is written again. Sources selected through sysfs are restored on
-resume, after the curves and before manual mode.
-
-Tested on an MSI MAG B850M MORTAR WIFI (MS-7E61) with pwm16 and a test
-curve rising by 10 per degree Celsius around the measured temperatures.
-After selecting temp2, temp3 and temp4 in turn in automatic mode, the
-duty cycle followed the curve for the newly selected temperature. Invalid
-values returned -EINVAL and left the source unchanged. A source selected
-in manual mode took effect after switching back to automatic mode. After
-suspend to RAM, the source and the curve were the same as before, and
-manual mode was still restored. With the driver unloaded during suspend,
-the BIOS restored its own curve but the EC kept the selected source, so
-restoring the source on resume could not be tested on this board.
-
-Signed-off-by: Tomasz Bojanowski <tomasz@bojanowski.me>
+Signed-off-by: Shivank Garg <shivankg@amd.com>
 ---
-v2: Return -EBUSY instead of -EIO if the curve no longer uses a
-temperature which can be selected (Guenter). I had followed the fan
-curve points, which return -EIO in the same case; I can send a separate
-patch to change that to -EBUSY as well.
+Shivank Garg (5):
+      mm: remove unused helpers from pagemap.h
+      mm/swapops: remove unused make_guard_swp_entry()
+      mm/swap: remove unused folio_to_swp_tb()
+      mm/zsmalloc: remove unused zpdesc_lock()
+      mm: nommu: remove unused heap_stack_gap
 
-v1: https://lore.kernel.org/linux-hwmon/20261116232612.501586-1-tomasz@bojanowski.me/
+ include/linux/pagemap.h | 11 -----------
+ include/linux/swapops.h |  5 -----
+ mm/nommu.c              |  1 -
+ mm/swap_table.h         |  5 -----
+ mm/zpdesc.h             |  5 -----
+ 5 files changed, 27 deletions(-)
+---
+base-commit: 67f3b04b277373438f17300e056306adbd9edf7b
+change-id: 20261109-unused-sym-mm-8fa76462573e
 
-I used an AI assistant (Claude Code) during development, including for
-the test scripts and for comparing the EC register dumps. I reviewed all
-of the changes, ran the tests on the hardware described above, and take
-responsibility for them.
-
- Documentation/hwmon/nct6683.rst |  18 +++-
- drivers/hwmon/nct6683.c         | 158 +++++++++++++++++++++++++++++++-
- 2 files changed, 168 insertions(+), 8 deletions(-)
-
-diff --git a/Documentation/hwmon/nct6683.rst b/Documentation/hwmon/nct6683.rst
-index e72c037442e6..1afdf4788d82 100644
---- a/Documentation/hwmon/nct6683.rst
-+++ b/Documentation/hwmon/nct6683.rst
-@@ -76,7 +76,7 @@ the following attributes, if the curve sets a duty cycle:
-     millidegrees Celsius
-   * pwmN_auto_point[1-7]_pwm: duty cycle of the curve point (0-255)
-   * pwmN_auto_channels_temp: temperature channels used by the curve, as a
--    bitmap (1 is temp1, 2 is temp2, 4 is temp3 etc.), read-only
-+    bitmap (1 is temp1, 2 is temp2, 4 is temp3 etc.)
- 
- The fan curve is initially the one configured in the BIOS setup. A fan with
- Smart Fan disabled in the BIOS setup has a flat curve, with its fixed duty
-@@ -95,9 +95,21 @@ Celsius and duty cycles to 0-255, and both to the values of the adjacent
- points, so the points have to be written from point 7 to point 1 to raise
- a curve and from point 1 to point 7 to lower it.
- 
-+pwmN_auto_channels_temp is writable if, when the driver is loaded, the
-+curve uses a single temperature which can be selected; otherwise it is
-+read-only. A temperature can be selected if it is reported by the driver
-+and measured on one of the first eight monitoring channels of the chip; on
-+the MSI MAG B850M MORTAR WIFI, these are temp1 to temp4. Writing a value
-+which does not have exactly one bit set, or a temperature which cannot be
-+selected, returns -EINVAL. Writing returns -EBUSY if the curve no longer
-+uses a single temperature which can be selected, and -EIO if the EC does
-+not take the new temperature. It can be written in manual and in automatic
-+mode. In manual mode, the new temperature is used after switching to
-+automatic mode.
-+
- The BIOS may restore its own settings when resuming from suspend, so the
--driver restores the curves written through it. They are kept when the
--driver is unloaded.
-+driver restores the curves written and the temperatures selected through
-+it. They are kept when the driver is unloaded.
- 
- Tested Boards and Firmware Versions
- -----------------------------------
-diff --git a/drivers/hwmon/nct6683.c b/drivers/hwmon/nct6683.c
-index 078ec9023851..36565afe8297 100644
---- a/drivers/hwmon/nct6683.c
-+++ b/drivers/hwmon/nct6683.c
-@@ -187,6 +187,8 @@ superio_exit(int ioreg)
- #define NCT6687DR_REG_CURVE_OUT_HI(x, p) (0xb07 + (x) * 0x18 + (p) * 2)
- #define NCT6687DR_REG_CURVE_OUT_LO(x, p) (0xb08 + (x) * 0x18 + (p) * 2)
- #define NCT6687DR_REG_CURVE_SRC(x)	(0x910 + (x) * 4)	/* 32 bit */
-+/* Monitoring channels which can be selected as the source of a fan curve */
-+#define NCT6687DR_CURVE_SRC_CHANNELS	8
- #define NCT6687DR_REG_CURVE_MODE(x)	(0xa08 + (x))		/* channels 0-7 */
- #define NCT6687DR_REG_CURVE_MODE_SYS(x)	(0x240 + (x) - 10)	/* channels 10-15 */
- #define NCT6687DR_CURVE_MODE_PWM	0x40
-@@ -384,6 +386,7 @@ struct nct6683_data {
- 	u16 have_fan_ctrl;		/* channels supporting fan control */
- 	u16 have_curve;			/* channels with a duty cycle curve */
- 	u16 curve_writable;		/* channels with a writable curve */
-+	u16 src_writable;		/* channels with a writable curve source */
- 
- #ifdef CONFIG_PM
- 	/* Remember extra register values over suspend/resume */
-@@ -397,6 +400,10 @@ struct nct6683_data {
- 	/* Fan curves set through sysfs, restored on resume */
- 	u16 curve_set;
- 	struct nct6687dr_curve curve[NCT6683_NUM_REG_FAN];
-+
-+	/* Temperature sources of fan curves set through sysfs, as above */
-+	u16 src_set;
-+	u32 src[NCT6683_NUM_REG_FAN];
- };
- 
- struct nct6683_sio_data {
-@@ -1435,19 +1442,26 @@ store_pwm_auto_point_pwm(struct device *dev, struct device_attribute *attr,
- 	return err ? err : count;
- }
- 
-+/* Read the temperature source of a fan curve */
-+static u32 nct6687dr_src_read(struct nct6683_data *data, int ch)
-+{
-+	u16 reg = NCT6687DR_REG_CURVE_SRC(ch);
-+
-+	return (u32)nct6683_read16(data, reg) << 16 |
-+	       nct6683_read16(data, reg + 2);
-+}
-+
- static ssize_t
- show_pwm_auto_channels_temp(struct device *dev, struct device_attribute *attr,
- 			    char *buf)
- {
- 	struct sensor_device_attribute *sattr = to_sensor_dev_attr(attr);
- 	struct nct6683_data *data = dev_get_drvdata(dev);
--	u16 reg = NCT6687DR_REG_CURVE_SRC(sattr->index);
- 	u32 src, channels = 0;
- 	int i;
- 
- 	mutex_lock(&data->update_lock);
--	src = (u32)nct6683_read16(data, reg) << 16 |
--	      nct6683_read16(data, reg + 2);
-+	src = nct6687dr_src_read(data, sattr->index);
- 	mutex_unlock(&data->update_lock);
- 
- 	/* Bit n of the source register selects monitoring channel n */
-@@ -1465,8 +1479,109 @@ show_pwm_auto_channels_temp(struct device *dev, struct device_attribute *attr,
- 	return sysfs_emit(buf, "%u\n", channels);
- }
- 
--SENSOR_TEMPLATE(pwm_auto_channels_temp, "pwm%d_auto_channels_temp", 0444,
--		show_pwm_auto_channels_temp, NULL, 0);
-+/*
-+ * Return the index of the temperature attribute which a temperature source
-+ * selects, or -1 if it does not select exactly one temperature attribute of
-+ * the monitoring channels which can be selected.
-+ */
-+static int nct6687dr_src_temp(struct nct6683_data *data, u32 src)
-+{
-+	int i;
-+
-+	for (i = 0; i < data->temp_num; i++) {
-+		if (data->temp_index[i] < NCT6687DR_CURVE_SRC_CHANNELS &&
-+		    src == BIT(data->temp_index[i]))
-+			return i;
-+	}
-+
-+	return -1;
-+}
-+
-+struct nct6687dr_src_ctx {
-+	int ch;
-+	u32 src;
-+};
-+
-+static void nct6687dr_src_write(struct nct6683_data *data, void *ctx)
-+{
-+	const struct nct6687dr_src_ctx *sc = ctx;
-+	u16 reg = NCT6687DR_REG_CURVE_SRC(sc->ch);
-+
-+	nct6683_write(data, reg, sc->src >> 24);
-+	nct6683_write(data, reg + 1, sc->src >> 16);
-+	nct6683_write(data, reg + 2, sc->src >> 8);
-+	nct6683_write(data, reg + 3, sc->src);
-+}
-+
-+/* Write a temperature source and check that the EC has taken it */
-+static int nct6687dr_src_apply(struct nct6683_data *data, int ch, u32 src)
-+{
-+	struct nct6687dr_src_ctx sc = { .ch = ch, .src = src };
-+	int err;
-+
-+	err = nct6687dr_fan_cfg_transaction(data, nct6687dr_src_write, &sc);
-+	if (err)
-+		return err;
-+
-+	return nct6687dr_src_read(data, ch) == src ? 0 : -EIO;
-+}
-+
-+/*
-+ * Select the temperature used by a fan curve. The previous temperature
-+ * source is restored if that fails while the EC responds.
-+ */
-+static ssize_t
-+store_pwm_auto_channels_temp(struct device *dev, struct device_attribute *attr,
-+			     const char *buf, size_t count)
-+{
-+	struct sensor_device_attribute *sattr = to_sensor_dev_attr(attr);
-+	struct nct6683_data *data = dev_get_drvdata(dev);
-+	int ch = sattr->index;
-+	unsigned long val;
-+	u32 old, src;
-+	int err;
-+
-+	err = kstrtoul(buf, 10, &val);
-+	if (err)
-+		return err;
-+
-+	/* Exactly one temperature which can be selected */
-+	if (!is_power_of_2(val) || __ffs(val) >= data->temp_num)
-+		return -EINVAL;
-+	src = BIT(data->temp_index[__ffs(val)]);
-+	if (nct6687dr_src_temp(data, src) < 0)
-+		return -EINVAL;
-+
-+	mutex_lock(&data->update_lock);
-+
-+	/* Do not touch a source which could not be selected again */
-+	old = nct6687dr_src_read(data, ch);
-+	if (nct6687dr_src_temp(data, old) < 0) {
-+		err = -EBUSY;
-+		goto unlock;
-+	}
-+
-+	err = nct6687dr_src_apply(data, ch, src);
-+	if (err) {
-+		/* The EC does not respond, so do not try the old source */
-+		if (err == -ETIMEDOUT)
-+			goto unlock;
-+		if (nct6687dr_src_apply(data, ch, old))
-+			dev_err(dev, "Temperature source of pwm%d in unknown state\n",
-+				ch + 1);
-+		goto unlock;
-+	}
-+
-+	data->src_set |= BIT(ch);
-+	data->src[ch] = src;
-+unlock:
-+	mutex_unlock(&data->update_lock);
-+
-+	return err ? err : count;
-+}
-+
-+SENSOR_TEMPLATE(pwm_auto_channels_temp, "pwm%d_auto_channels_temp", 0644,
-+		show_pwm_auto_channels_temp, store_pwm_auto_channels_temp, 0);
- SENSOR_TEMPLATE_2(pwm_auto_point1_temp, "pwm%d_auto_point1_temp", 0644,
- 		  show_pwm_auto_point_temp, store_pwm_auto_point_temp, 0, 0);
- SENSOR_TEMPLATE_2(pwm_auto_point1_pwm, "pwm%d_auto_point1_pwm", 0644,
-@@ -1513,6 +1628,8 @@ static umode_t nct6683_pwm_is_visible(struct kobject *kobj,
- 	if (nr >= 2) {	/* fan curve */
- 		if (!(data->have_curve & BIT(pwm)))
- 			return 0;
-+		if (nr == 2)	/* pwm_auto_channels_temp */
-+			return (data->src_writable & BIT(pwm)) ? attr->mode : 0444;
- 		return (data->curve_writable & BIT(pwm)) ? attr->mode : 0444;
- 	}
- 
-@@ -1803,6 +1920,21 @@ static void nct6683_setup_sensors(struct nct6683_data *data)
- 	}
- }
- 
-+/*
-+ * The temperature source of a fan curve is writable if it selects one
-+ * temperature which can be selected. This needs the temperature attributes.
-+ */
-+static void nct6687dr_setup_src(struct nct6683_data *data)
-+{
-+	unsigned long curves = data->have_curve;
-+	int ch;
-+
-+	for_each_set_bit(ch, &curves, NCT6683_NUM_REG_FAN) {
-+		if (nct6687dr_src_temp(data, nct6687dr_src_read(data, ch)) >= 0)
-+			data->src_writable |= BIT(ch);
-+	}
-+}
-+
- /*
-  * Hand the fans the driver switched to manual mode back to the EC, so that
-  * they do not stay at a fixed duty cycle once nobody is left to adjust it.
-@@ -1886,6 +2018,7 @@ static int nct6683_probe(struct platform_device *pdev)
- 	nct6683_init_device(data);
- 	nct6683_setup_fans(data);
- 	nct6683_setup_sensors(data);
-+	nct6687dr_setup_src(data);
- 
- 	/* Register sysfs hooks */
- 
-@@ -1994,6 +2127,21 @@ static int nct6683_resume(struct device *dev)
- 		}
- 	}
- 
-+	/* Then the temperature sources of the curves */
-+	set = data->src_set;
-+	for_each_set_bit(ch, &set, NCT6683_NUM_REG_FAN) {
-+		if (nct6687dr_src_read(data, ch) == data->src[ch])
-+			continue;
-+		err = nct6687dr_src_apply(data, ch, data->src[ch]);
-+		if (err) {
-+			dev_warn(dev, "Failed to restore temperature source of pwm%d: %d\n",
-+				 ch + 1, err);
-+			/* The EC does not respond, skip everything else */
-+			if (err == -ETIMEDOUT)
-+				goto out;
-+		}
-+	}
-+
- 	/* The BIOS may switch the fans back to automatic mode */
- 	manual = data->pwm_manual;
- 	for_each_set_bit(ch, &manual, NCT6683_NUM_REG_FAN) {
-
-base-commit: 7feb288cbe29b58a8bc9c7be3040f4537427cfcb
+Best regards,
 -- 
-2.56.1
+Shivank Garg <shivankg@amd.com>
 
