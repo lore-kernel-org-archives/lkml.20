@@ -1,53 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794896079;
-	b=AkXQuDABqTLFhMN3wMUY7oc8FaF4q02y/voOf9CNXGUo2X5MtcDkW5Z9LuCZocLgscXW
-	 e4/W7kk6hdEt/sVNtsNiOg0j+ZeerBvKY9oyZ0l+qc+UaaKXCLxOWpZDu68vwVPZSWzVV
-	 ueJKA9wuuC81bqyv55O0nPCMxlboNIwiDjIJTOBMWyNHY94XIeRwydQzjk8oc1p33Xonf
-	 sgRFRZ/IvLAeiX87FF+twMhbJ+j6TSwSGBg8tGEnwhGr1JCfjVI8Nzhtw775i9Lp5XBio
-	 ybZUx8q6OgvVWnhcDbsN7lcnyh2HKnpRh23BUNrXvivYcYKsAZPyx3L+ha+ncj/TSew==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794896079;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ZRrB4TxEQlny3JmeM90aG4NRE2OHdl2cXY8lAve/lI4=;
-	b=4iim0DgQ0FCQmeLB9AeFPLgInAJHsex2lhLt7l6cGW+z/Q1gb3Vme+YTBE68ltOlWnJB
-	 DbMfpH78qzEleVpkCYvj6RDz8o5jwYeea4yVp7qCCLrjDXwS7nwPwGkainyXR0Dx9ycQS
-	 lqp0VdVf/pzltC45qGDt/RARzlDogJOTusfXnexyaYgVg2Vh8cFdYA92Y6aAOtb3WL7LT
-	 sUimMUln0jWtxCDYc7Rm7yaMwtJOsRrQZJ+dMr5Q2d0YIg4fqcoVDj9lwqaOtUcg1Hm2v
-	 I7Ui3EBoYivuDgsYqeox5DxeGNo6PXjjf/IBGC54agbPk9YG+EtYCe7e2GNTEJHafFA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794896101;
+	b=395nfNe4trK3H+9VoGpvkRfdswxuVhksNdfMbRWiVDcHCL774TRDbHoNpt5JmezMZQQ+
+	 1dkMUOA4oMusMvqeuG/+TIBZ23hvZpKXVqTQxu0hKjSDMyOVzi91pih+g6jI2QxXMHzOZ
+	 4Ks8KN9IuwXV/pRsgiICx1XP6clDR70aDoolsuh/p4Wtq+FEsL1qH7F1kI3K5cKOu3Cdg
+	 Md4JlVF01MYeCRbF2+5TYdvEdwQ9FVWOGEG5QJe3sTSUFMPY16ndUFjuUeMgG4Jt7y3Dv
+	 vi5ARvbGjsl1XOruRUlWaB6qD6MEPxgng6nL/+A8UhmEIEi803UgS19TFpIKIlVYvYQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794896101;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=2tlG1uGoZcjaYy1xmlXhRKnsoUqHxLQ1mQdDaLWoWxw=;
+	b=yxi2hPwDqkgDxwlMX6XC0WYcG6iNm09KYndiDIygN6Ip0+zeQKe4GYidrQLs3/+iFS75
+	 MPGTwdKpW/N+v+HIp94bWFSUERJ4QUOIEVauSrtG2ZivhuV7v58efTN2IMCy4OZR3+Ppl
+	 TlfYmKfr/+zVUDVIes2Jgri7vvuBSg/HJyvnVnACF/R5CDZ7U/2mKO6vBRTEdEAHdRQbV
+	 X3R1SdbUeOzSiHj6W1Cng1j3eoao+c2ShfHWXtJ7nRc4E6UBacmRb6h6XpUwachy1lXNX
+	 SGDKilBThDG/IClBpxItPzo0xVf2O8BQhSvObqjcUCJvXAqSGPm7VUmaedXk9dAAEaQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BG4FZG5e;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.49
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF0D4606A32C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:14:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF0D4606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b26d8d2498so5095969b6e.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:14:38 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65CC4606A32F
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:15:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65CC4606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BG4FZG5e
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-170135e43c7so6858324c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:15:01 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794896100; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Vd6JE+lz9jy40yG2PlXtPP6cz99TBVW+SPwPEQKnf4TdpyBQgU4aapZ8WKxULaIH1g
+         RDib+6yoeyLAbAPYEdlb2dB9uB7rxFxw/5eYwOqQTl9/dubEnPDhma8jTZB+94WgrKVX
+         Wbdmtp4Xbn0lNTPxtPTbcy2jRD7LOdjp9hWURLSSmOOY24klJS8Ciu2HM9CCLvUuv6OH
+         cklgbc/mU5BISCRdw4lGNiNGB4NKn5GJFeRV162I9p05yT96ZJFGU4hWuZRCwD2JWKWB
+         wXucQfajH93Oz4Dj86pcvQhVhqML1bt42uXFBVmOCHbGwQ5usUzA+lr3yhJp1pYNq2sF
+         Otyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2tlG1uGoZcjaYy1xmlXhRKnsoUqHxLQ1mQdDaLWoWxw=;
+        fh=a+t8zgszHVXnyNsAcJpt4Tdslwz+yCr0L30ZH5OAmbY=;
+        b=Xy3EjCUKjZsga4cV9r7+TvQ/GT8yft/tJUWeIBgOk8sVomGlyy02RhBxoB7ZpuIucI
+         cFvlzia6XqNZ2uprkYLHbGaXF1uZEnjq2Dm3bUyLJ+7/XLXaB0rZWAeWgBde4Q1Pg2R/
+         2gppo46yN5//3BCUwra1WUlsKsKD6fvtwaiy+uMHLjE2O+ez6lxrpmg7ojGzyrjplB67
+         KpiH1IjmXIiqdP1HwiJS3x7Op4fwI1PUEbS+R5KgRAPv8V4CcesMbOhsuzEL0BI8e527
+         ewiOJaY7B2HqPyYbe+xzdgOWconautky2oSLZalA5/BYTs4dBCtgrsyWdqMHKTL0jqC9
+         J6XA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794896100; x=1795500900; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2tlG1uGoZcjaYy1xmlXhRKnsoUqHxLQ1mQdDaLWoWxw=;
+        b=BG4FZG5ebLAflhDHW2u0yN8dm3eyrZXUYTLHo5JldGheWYi1fIsH2FaizeVmFA9kLI
+         +RyhuNCMrzqWS7kJhDGPo4BxJFoKyvf2IYtNVsgl0LkC/dmaN8aKXN2eml8i0ij6E0qs
+         BvT6Jk6X4MklIDZaKrqCiwvBjo61puWWfw2hdNfM48pEQ/LxtMvvxqI7j9nGjYxHmsE8
+         UrnoDT3FJLhp7ZFdLeDNpw5eLbBmuR/zTY+xxKAAgxqoGkfGsb9IZgXJmtfSEGleFcRE
+         ifTsOtpXm4n6cQW6dWpaKzDipKLQwPpnl/vqAnbpR0nin39ANrSZbIj8udtOVpcwRmkk
+         KvSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794896078; x=1795500878;
-        h=content-transfer-encoding:content-type:to:from:subject:message-id
-         :date:mime-version:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZRrB4TxEQlny3JmeM90aG4NRE2OHdl2cXY8lAve/lI4=;
-        b=kVgybWgS5LK+5BaSk7L+2U/86y6eImoYbjG1BpLHUScFlv238k2gJ05mYMp2kBSSaS
-         +/vQv3s06TJPOA1jytSXcKIGMjf7LyPCC4WKP1ZrfTcSNmJUBzcKry77Euxwh5snPKWS
-         K9aAvgX9W2ZcVLU6r2B1CENh9AYUiiZmGn1/flUl1dfmcy/vzKjKOalLfK7Vu3RIQP8B
-         c4eC7fAykJEp1PqAMDDQ7jqawiSxWsWPyevojw6TAaveftF34SIIwAH1FRBtMZMkJ5G2
-         cmHimtXjz4kUSERkaGf/2Q0fFgN2qJ4llv8vGmCpYBuF4Ku4RsxxT8n9DINph/gIZFzm
-         55hA==
-X-Gm-Message-State: APuU4Z/ixeqm5nceUdQfgLNz3XQm4CN7JmxNPxt2QJGBOVgBgAnahame
-	0I/h16tQ1cwlotOwc8a4BS9FKHYzKLB0rJ/mVyHpmgberan9rbhvCVTSOi/T198CAX1z4NX8LSS
-	ATPTROF8wjG48S+oYg5AAgNaPnlJBf1tNjyNIsaX8QkW6R8MqLQ4MNs3GMxY=
+        d=1e100.net; s=20260707; t=1794896100; x=1795500900;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2tlG1uGoZcjaYy1xmlXhRKnsoUqHxLQ1mQdDaLWoWxw=;
+        b=yhKL0kMx1u3uRJrfrNPDpyxQg2i0QNnOvWCtKSItYTTiYy1xnfso2w2GHF6iGuWZg4
+         M8SSCLVlNPnPKPYHvoqXBSLYsyPqSs4Zs5R6SZRCCbUANmUcGzzJscStrj4KSdNRqSFi
+         4uFm07Z75FzOPLpE/h+Fxh4fR1RfSzkP9Jcpp+i8SFh9DuV2gaUI0EUjj9S1KmXkfAir
+         B6czy43PHlnX1j65+wGexmF2eA5g7uGepCtuHh67XAsfSbylm6I6ZiTsjOG3yCbrX0QM
+         6fZBGgzuT51vQ/A0lSEdisaapZWAA3CwnYNO2AUeztn+Yv6juIlZMIAtgYKhTiEK/Va2
+         nmRg==
+X-Forwarded-Encrypted: i=1; AL+hErFTIuzbO/DWwEVBfk0nPd4Dip6iZ4IDeHpaMksLq/G0Tlw1BjBf6Q2lnN6d6MF1CrNw4IdwJKSAPDE1QQo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8YdmIO61142AbxJn74rqc/VXPBWrK53xjkCx9TCXL1qDpl9SjC
+	+zu8C1LN2jsvOTSuqkpcVJwaF+C5PzyzF1maz+FD9FbxQQzvk77P1OXiAySdjr9PhlGO8a44po2
+	RzVfDOBOiVPSpmfyMamvAzVBhiqgPLtA=
+X-Gm-Gg: AYBFou0w+UgCv8NOHDGd4w3Q6T4Rqa8H6DFOaKGLZmIo0AKW5nVwZMnCfCIhjTjzVUd
+	tUlZ7j3p575XGiUSypwBxvnexxXB7l2yrgFoUenLv5T98h2wVbNWZp+o1rEKNdMcsNg3g8v2oWC
+	FuK0LPAryLrqomtO3fNtZwEUdJC26ut9WZ6tBv+xW91r4+0+1Ehu8l1KAN43fNnqYlAqeCcwhXo
+	9PCqy4TGWDHCTJckC2FRVQj+aSu3gtTqBqUV+pps30B4qdv+i7eOMJLyL+G6m43+eMSwgWkxiK3
+	KUk7XXLmLgVryLfPGCzwYwjCmXJaxvs4nCX1aWKJEFYfm/CboZGjP08vfQtoloG6B2FCUDBE+uo
+	RInMOYOcHiPD4sCy5BWnex3aMW9IshIhZH1nCEuQ=
+X-Received: by 2002:a05:701a:cccc:20b0:1b5:32d7:7d73 with SMTP id
+ a92af1059eb24-1b532d780bbmr3902889c88.30.1794896100415; Mon, 16 Nov 2026
+ 22:15:00 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,166 +104,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1525:b0:4c3:7695:1177 with SMTP id
- 5614622812f47-56e611df7famr11384092b6e.6.1794896077862; Mon, 16 Nov 2026
- 22:14:37 -0800 (PST)
-Date: Mon, 16 Nov 2026 22:14:37 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6afbf0cd.27ea6653.1a0e84.0004.GAE@google.com>
-Subject: [syzbot] [media?] general protection fault in ec168_streaming_ctrl
-From: syzbot <syzbot+436c71c257f18c488712@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	mchehab@kernel.org, syzkaller-bugs@googlegroups.com
+References: <20261022-psci-fix-v3-0-9ce2133c5659@gmail.com>
+ <20261022-psci-fix-v3-1-9ce2133c5659@gmail.com> <CAPx+jO-rMeg8BvemcMUcC10enjt0dkqWvsK+uRwc75rWpLXhMg@mail.gmail.com>
+In-Reply-To: <CAPx+jO-rMeg8BvemcMUcC10enjt0dkqWvsK+uRwc75rWpLXhMg@mail.gmail.com>
+From: Reza Kurniawan <imkyufie@gmail.com>
+Date: Tue, 17 Nov 2026 13:14:49 +0700
+X-Gm-Features: AclHuK-92z3C_GXFHu7R-8mmf-2cWRgFAIJrCVXLvNtI2-ZT_Yern3kmnNXQGro
+Message-ID: <CAAq9HC4doEs2v=aW0-tR+ARD8a1OGes8xDi2BV=T7m40YFBmww@mail.gmail.com>
+Subject: Re: [PATCH v3 1/4] dt-bindings: arm: psci: Add skip-suspend-mode-switch
+ property
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Christian Loehle <christian.loehle@arm.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+	Val Packett <val@packett.cool>, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	Alejandro Tafalla <atafalla@dnyon.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hello,
+On Fri, Nov 13, 2026 at 8:10=E2=80=AFPM Ulf Hansson
+<ulf.hansson@oss.qualcomm.com> wrote:
+>
+> + Sudeep
+>
+> On Thu, Oct 22, 2026 at 11:41=E2=80=AFAM Reza Kurniawan <imkyufie@gmail.c=
+om> wrote:
+> >
+> > From: Alejandro Tafalla <atafalla@dnyon.com>
+> >
+> > On some SoCs (e.g. Qualcomm MSM8917 and MSM8937), PSCI_FEATURES reports
+> > that OS-initiated mode is supported, but every PSCI_SET_SUSPEND_MODE
+> > call is rejected with NOT_SUPPORTED.
+> >
+> > PSCI provides no call to read back the current suspend mode, so the OS
+> > cannot tell which mode the firmware is operating in or why the switch
+> > is rejected.
+> >
+> > Add an optional flag that tells the OS not to issue
+> > PSCI_SET_SUSPEND_MODE on such firmware.
+>
+> I think it would be nice to further clarify what's going on in the
+> PSCI FW. If I understand correctly, the only supported mode is the
+> PSCI OS-initiated mode, hence it's always running in this mode, right?
 
-syzbot found the following issue on:
+That is correct.
 
-HEAD commit:    141b164bbe18 Merge tag 'char-misc-7.4-rc4' of git://git.ke.=
-.
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linu=
-x.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=3D15d3c5be580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=3D1cf189394a856f1=
-1
-dashboard link: https://syzkaller.appspot.com/bug?extid=3D436c71c257f18c488=
-712
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Deb=
-ian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=3D134f0411580000
+>
+> This is clearly a violation of the PSCI spec - and I guess updating
+> the FW isn't possible at this late state, or is it?
 
-AI-generated root cause summary:
-In dvb_usb_start_feed(), the driver fails to synchronize against concurrent
-frontend sleep (dvb_usb_fe_sleep()) and ignores the error return value from
-usb_urb_submitv2(). Because dvb_usb_start_feed() does not hold a lock or ca=
-che
-adap->active_fe locally, dvb_usb_fe_sleep() can concurrently power down the
-hardware and reset adap->active_fe to -1. When dvb_usb_start_feed()=E9=9A=
-=8F=E5=90=8E invokes
-d->props->streaming_ctrl(adap->fe[adap->active_fe], 1), it evaluates
-adap->fe[-1], which indexes out of bounds into the adjacent struct dvb_net
-(reading NULL). Passing fe =3D NULL to the driver's streaming_ctrl callback
-(ec168_streaming_ctrl) triggers a NULL pointer dereference when fe_to_d(fe)
-accesses fe->dvb at offset 0x308.
+Just as Val stated, it's not possible sadly.
 
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=3D436c71c25=
-7f18c488712
+>
+> >
+> > Signed-off-by: Alejandro Tafalla <atafalla@dnyon.com>
+> > [Reza Kurniawan: split out the patch, rewrote the property description,
+> >  renamed the property]
+> > Co-developed-by: Reza Kurniawan <imkyufie@gmail.com>
+> > Signed-off-by: Reza Kurniawan <imkyufie@gmail.com>
+> > ---
+> >  Documentation/devicetree/bindings/arm/psci.yaml | 13 +++++++++++++
+> >  1 file changed, 13 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/arm/psci.yaml b/Document=
+ation/devicetree/bindings/arm/psci.yaml
+> > index 0d04389c81..2eee38d155 100644
+> > --- a/Documentation/devicetree/bindings/arm/psci.yaml
+> > +++ b/Documentation/devicetree/bindings/arm/psci.yaml
+> > @@ -98,6 +98,19 @@ properties:
+> >        [1] Kernel documentation - ARM idle states bindings
+> >          Documentation/devicetree/bindings/cpu/idle-states.yaml
+> >
+> > +  skip-suspend-mode-switch:
+>
+> Maybe a more descriptive name can be found?
+>
+> osi-mode-only or broken-suspend-mode-osi-only?
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit=
-:
-Reported-by: syzbot+436c71c257f18c488712@syzkaller.appspotmail.com
+I initially settled with a similar name before (with 'osi-only'
+phrasing). I ultimately went with 'skip-suspend-mode-switch' because
+the root cause was only due to the mode switch not functioning
+properly. This property doesn't do anything regarding the mode the
+firmware is stuck at as it's only fixing the failed call. Normally,
+the driver sets the PSCI to the preferred mode at driver probe (OSI if
+supported, PC otherwise). This property simply skips that part and
+assumes the FW is already in the preferred mode. It could
+theoretically work for firmware stuck at either OSI or PC mode, as long
+as the platform shows the same symptom, It is mode-agnostic essentially.
+That being said, I'm not completely against the 'osi-only' phrasing.
 
-Oops: general protection fault, probably for non-canonical address 0xdffffc=
-0000000061: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x0000000000000308-0x000000000000030f]
-CPU: 1 UID: 0 PID: 6028 Comm: syz-executor140 Not tainted syzkaller #0 PREE=
-MPT(full)=20
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Goo=
-gle 11/06/2026
-RIP: 0010:ec168_streaming_ctrl+0x73/0x210 drivers/media/usb/dvb-usb-v2/ec16=
-8.c:312
-Code: c7 40 04 00 00 f3 f3 65 48 8b 05 70 5b 60 0d 48 89 44 24 58 31 c0 e8 =
-3c 74 b3 f9 49 8d bc 24 08 03 00 00 48 89 f8 48 c1 e8 03 <42> 80 3c 28 00 0=
-f 85 77 01 00 00 4d 8b a4 24 08 03 00 00 48 b8 00
-RSP: 0018:ffffc9000360fac0 EFLAGS: 00010202
-RAX: 0000000000000061 RBX: 0000000000000001 RCX: 0000000000000000
-RDX: ffff888032d02580 RSI: ffffffff885b14a4 RDI: 0000000000000308
-RBP: 1ffff920006c1f58 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000001 R11: 0000000000000000 R12: 0000000000000000
-R13: dffffc0000000000 R14: 1ffff920006c1f6e R15: ffff888059050000
-FS:  00007f1d14ff96c0(0000) GS:ffff888122569000(0000) knlGS:000000000000000=
-0
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007ffd878908b8 CR3: 000000007eb0f000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- dvb_usb_start_feed+0xa03/0xef0 drivers/media/usb/dvb-usb-v2/dvb_usb_core.c=
-:308
- dmx_ts_feed_start_filtering+0xf6/0x220 drivers/media/dvb-core/dvb_demux.c:=
-747
- dvb_dmxdev_start_feed+0x273/0x3f0 drivers/media/dvb-core/dmxdev.c:658
- dvb_dmxdev_filter_start+0x1b6/0xdd0 drivers/media/dvb-core/dmxdev.c:769
- dvb_dmxdev_pes_filter_set drivers/media/dvb-core/dmxdev.c:985 [inline]
- dvb_demux_do_ioctl+0xe64/0x1200 drivers/media/dvb-core/dmxdev.c:1099
- dvb_usercopy+0x167/0x340 drivers/media/dvb-core/dvbdev.c:996
- dvb_demux_ioctl+0x29/0x40 drivers/media/dvb-core/dmxdev.c:1208
- vfs_ioctl fs/ioctl.c:52 [inline]
- __do_sys_ioctl fs/ioctl.c:598 [inline]
- __se_sys_ioctl fs/ioctl.c:584 [inline]
- __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:584
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x7b0 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f1d1503188b
-Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 =
-24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 f=
-f ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
-RSP: 002b:00007f1d14ff90f0 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 0000000000000005 RCX: 00007f1d1503188b
-RDX: 00007f1d14ff9150 RSI: 0000000040146f2c RDI: 0000000000000004
-RBP: 0000000000000004 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007f1d150ce100
-R13: 00007f1d150ce140 R14: 00007f1d14ff9150 R15: 00007ffc0aa43958
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:ec168_streaming_ctrl+0x73/0x210 drivers/media/usb/dvb-usb-v2/ec16=
-8.c:312
-Code: c7 40 04 00 00 f3 f3 65 48 8b 05 70 5b 60 0d 48 89 44 24 58 31 c0 e8 =
-3c 74 b3 f9 49 8d bc 24 08 03 00 00 48 89 f8 48 c1 e8 03 <42> 80 3c 28 00 0=
-f 85 77 01 00 00 4d 8b a4 24 08 03 00 00 48 b8 00
-RSP: 0018:ffffc9000360fac0 EFLAGS: 00010202
-RAX: 0000000000000061 RBX: 0000000000000001 RCX: 0000000000000000
-RDX: ffff888032d02580 RSI: ffffffff885b14a4 RDI: 0000000000000308
-RBP: 1ffff920006c1f58 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000001 R11: 0000000000000000 R12: 0000000000000000
-R13: dffffc0000000000 R14: 1ffff920006c1f6e R15: ffff888059050000
-FS:  00007f1d14ff96c0(0000) GS:ffff888122569000(0000) knlGS:000000000000000=
-0
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007ffd878908b8 CR3: 000000007eb0f000 CR4: 00000000003526f0
-----------------
-Code disassembly (best guess):
-   0:	c7 40 04 00 00 f3 f3 	movl   $0xf3f30000,0x4(%rax)
-   7:	65 48 8b 05 70 5b 60 	mov    %gs:0xd605b70(%rip),%rax        # 0xd605=
-b7f
-   e:	0d
-   f:	48 89 44 24 58       	mov    %rax,0x58(%rsp)
-  14:	31 c0                	xor    %eax,%eax
-  16:	e8 3c 74 b3 f9       	call   0xf9b37457
-  1b:	49 8d bc 24 08 03 00 	lea    0x308(%r12),%rdi
-  22:	00
-  23:	48 89 f8             	mov    %rdi,%rax
-  26:	48 c1 e8 03          	shr    $0x3,%rax
-* 2a:	42 80 3c 28 00       	cmpb   $0x0,(%rax,%r13,1) <-- trapping instruct=
-ion
-  2f:	0f 85 77 01 00 00    	jne    0x1ac
-  35:	4d 8b a4 24 08 03 00 	mov    0x308(%r12),%r12
-  3c:	00
-  3d:	48                   	rex.W
-  3e:	b8                   	.byte 0xb8
+What do you think of the above rationale? I'm open to suggestions.
 
+I admit that the word "skip" here isn't really helpful since it counts
+as an implementation detail. "broken" should better describe that it's
+a quirk.
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Best regards,
+Reza
