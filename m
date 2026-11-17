@@ -1,56 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794920907;
-	b=npG9uK5Coi09nUjdisTxOCjmUn6jSQ8piYI943D3QeIl8RYFMbHtaFi/1z9B97m4O8S+
-	 R1aL6Mr4GIpYPK6YqdiXr42Xgi0kyN4uXxsSaXYAvc2QkHPPQ6FO4iOKgImrTu77B/6gX
-	 T2uUjW1Aim3LxMGmroMhjx445TpNVAGNsxtNqt5K8gNX9vlA7OjDWQeuDcHe/yiT6kZHk
-	 R0W/n8SXr8teqYZxC1gv4+WL+XGwfYf57PltNCRYAYAhx1yRYY9QQ58r7GV4PTetubOSs
-	 qm0AieT+7FcnTMiWYHmaklwkSXHuCXrzpgJSthLEbmMOtgDul6dOGZhnjcTD3jPzKRg==
+	t=1794920912;
+	b=1iumnCiRMGnNWv/BNjW+4VidwUvakAxJw7LTa8Vz9rz9XSYsi4D9rr/b7paLXYkqr6wS
+	 i43eKJYS+tGsCQ2feu8i1yFoZUnfruLgB36pFe+ozg5xgaGOqrI24XhMKBfNt7YWqeoUX
+	 SeogmuIMk+Zx1/PbjKXFXSASNHzQlUiov89PXntCHd8uLMzY3CnYEx00EPt386ABWfedP
+	 fVbx/l0I4zScEQ4/peLI63Ji1Bv0kSuwMpJg2Rn1BHMcWHZMCU3IRheSxcE5ou+grof7H
+	 Lcb0Knavcq2OliaiIZ8ve9Mb0tX+1u4SUVrqyr6vqouo1fuJNsUlTv2NiVrz0NLOYSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920907;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=r3fOCQdjHLQtrv80w46oYG+ZzeQD38zM0ynHLGL06zg=;
-	b=N3T57GStAEM6bI4VpZwEA2s6RoQLRXFUuLRPgvVd61soyo+0XKSaSdygh6IQlQmWvviV
-	 inEsLBT16Ph4Jk+KEpUZoIY2xcaxfxPRVu6Iu8ZgamqXyWAhEKAmRUUO34OSi8n/nps9v
-	 NIWKaUE7Rodqvj9GxujdnhZPYRfBlXEl9nY0rYBsvTqwmgbc7AgtfOvqAPPn2CmtqBgTX
-	 yLEjYkJ1dHKfJXoCng6BrcjZGCnNn6DAZ+qDufIyTas4AGiYoC6SaPiJf1UmXEkOHmoyz
-	 cNIte99XY3z8U6cInvY22dMbeK5khxonaVH4t67ezcz/1XGobcMdLket3ipqHSnDuwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794920912;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=BS0imCMGjfHQIl7YcMlSSRR5WwouJwY7rnnH2z0iY9k=;
+	b=lSnbK6FzAEpxMyZydUnpK0qdDPxMPWI6D3O7FUwIUmqy8hBmtDvIvucuS6e16M/7h2e7
+	 YzJYzd99hoYxuot6ATGU1XDiaeH1WKHHM3cVNuxxrbbJa/lqCwhbvuUL+BpEnb7tTNZgw
+	 Qb3ggyLlGn/Y5nJGN/43A+J/0M2aDX8vrwQKPKLxB608ThbXwqlO+2fLhBuGCJLGgWnMM
+	 Ny23zWm+mDxWTi6db6OgWZ9Or6yN3O0bZLfeV3p7Nhxx26zRFct4Gz6fZckRByp4iTfcc
+	 wB5cERt4kuDgUtLgkboUjiis/zQ5yWSDfjIIwIVdttMjafmSq45bHmdgca3/hnTI+Bw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eODroBU1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="X/EKTTkr";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2B7E606A323;
-	Tue, 17 Nov 2026 13:08:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D2F7606A32A;
+	Tue, 17 Nov 2026 13:08:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eODroBU1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4812A1F000CA;
-	Tue, 17 Nov 2026 13:08:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X/EKTTkr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AA861F000C5;
+	Tue, 17 Nov 2026 13:08:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794920906;
-	bh=r3fOCQdjHLQtrv80w46oYG+ZzeQD38zM0ynHLGL06zg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=eODroBU1dABEtH7DPElFrq6ojWYH/JUk1tDrenPyOgangSHitSnkBEzIJbxKtiscP
-	 LoZ1g84TwXo0rSzjzehxISA49c39ReBEj8KWj6bCxc/mBv0uIpLbjafpiCHBOPqnnf
-	 K47EBkOigwykyTHGYWlgSZXsza7LJZBbi7M7Ywm2ajOMW7UqZBlPen8vRe81DfJ7y1
-	 p0Kwxb8ipPxPIxJLRayDyhoX+N3t+K1mqA7sTRELJT3xsYq7uH3CdHM0CC2HxI3Tpl
-	 0+8DstV7PKjJH9jerX6M0gl/d8SIbpT2rAEeHZbl9wGCUZ4MzRCPJAo8yvyBKV2ntP
-	 aar3zqpz5Buuw==
-From: Lee Jones <lee@kernel.org>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Danish Khateeb <danishkhateeb03@gmail.com>
-Cc: Andrew Davis <afd@ti.com>, linux-leds@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20261104193038.91614-1-danishkhateeb03@gmail.com>
-References: <20261104193038.91614-1-danishkhateeb03@gmail.com>
-Subject: Re: (subset) [PATCH v4] leds: tca6507: Fix use-after-free on
- unbind
-Message-Id: <179492090504.5831.10534337417357138621.b4-ty@b4>
-Date: Tue, 17 Nov 2026 13:08:25 +0000
+	s=k20260515; t=1794920912;
+	bh=BS0imCMGjfHQIl7YcMlSSRR5WwouJwY7rnnH2z0iY9k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=X/EKTTkrhL7VBc+MAtvhnoiN6TlDDymKZP3H635lhyaJgXZPXq+CGFoCJaYsQeErf
+	 n3rH0EVLDsvvQA8N1q/GAMK75x8van3jVyPbUSImS8uutMMlB4oQbgD0Y9uw8VjkZU
+	 uPIG/3VvO19OnQn5StEm9+ThFHK5ZQkWsFAn3Ecz3ZgxTg5Ck0p5om26ccLjDsESJQ
+	 RvbUZ9QWTglB1cpSYnGDBxd0FAA6LWYxmBIVNo79dRHflXW3SHth55c7/sr/JaebYl
+	 tgwXWbE0fJj8Ls1x+6B/ycBHC+Tl8CyyLn9bAzgksVp11MM69PmicD7KGPFMrZRgFP
+	 Md+FWgg1UZ6IA==
+Date: Tue, 17 Nov 2026 15:08:26 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	David Hildenbrand <david@kernel.org>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Vlastimil Babka <vbabka@kernel.org>, linux-s390@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH 10/14] s390/sclp_cmd: Replace page allocator calls with
+ kzalloc()
+Message-ID: <avxRyt00VGvWlKea@kernel.org>
+References: <20261108-s390-sclp-ready-v1-0-3e7c90eb6676@kernel.org>
+ <20261108-s390-sclp-ready-v1-10-3e7c90eb6676@kernel.org>
+ <545cec68-2444-4dcd-987d-cea05ffe3362-agordeev@linux.ibm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,36 +63,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <545cec68-2444-4dcd-987d-cea05ffe3362-agordeev@linux.ibm.com>
 
-On Wed, 04 Nov 2026 13:30:38 -0600, Danish Khateeb wrote:
-> Since the LEDs are registered with devm_led_classdev_register(), they
-> are unregistered only after tca6507_remove() has cancelled the work.
-> Unregistering an LED that is on turns it off, which queues the work
-> again from led_assign(), and the work then runs after devres has freed
-> the chip:
+On Mon, Nov 16, 2026 at 04:12:56PM +0100, Alexander Gordeev wrote:
+> On Sun, Nov 08, 2026 at 10:58:41AM +0200, Mike Rapoport (Microsoft) wrote:
+> > _sclp_get_core_info(), do_chp_configure() and sclp_chp_read_info()
+> > allocate the SCCBs used to read the CPU information, to configure a
+> > channel path and to read the channel path information.
+> > 
+> > These buffers can be allocated with kmalloc() as there's nothing special
+> > about them to go directly to the page allocator.
+> > 
+> > kmalloc() provides a better API that does not require ugly casts and
+> > kfree() does not need to know the size of the freed object.
+> > 
+> > Performance difference between kmalloc() and __get_free_pages() is not
+> > measurable as both allocators take an object/page from a per-CPU list for
+> > fast path allocations.
+> > 
+> > For the slow path the performance is anyway determined by the amount of
+> > reclaim involved rather than by what allocator is used.
+> > 
+> > While on it, allocate only the amount of memory the SCCB actually
+> > requires in _sclp_get_core_info() rather than rounding it up to the next
+> > power of two.
 > 
->   BUG: KASAN: slab-use-after-free in assign_work+0x414/0x5b0
->   Read of size 8 at addr ffff888010d5c0c0 by task kworker/1:2/65
->   ...
->   Last potentially related work creation:
->    ...
->    queue_work_on+0xb6/0xc0
->    led_assign+0x223/0x340 [leds_tca6507]
->    led_classdev_unregister+0x26b/0x340
->    release_nodes+0xb3/0x140
->    devres_release_group+0x247/0x470
->    i2c_device_remove+0xbf/0x1b0
+> This hints that the SCCB size is less than PAGE_SIZE, which is not the case.
 > 
-> [...]
+> > An SCCB must be page aligned and kmalloc() guarantees that
+> > the alignment of an allocation is at least its largest power of two
+> > divisor, so the extended SCCB is still page aligned.
+> 
+> This implies that the slab size path was taken, which is also not
+> the case. Yes, the result is still aligned for PAGE_SIZE, but for
+> a different reason ;)
+> 
+> I would suggest removing this whole paragraph. I can do it if you agree.
 
-Applied, thanks!
+I'm sending v2 anyway, will drop it :)
+ 
+> > Replace use of __get_free_pages() and get_zeroed_page() with kzalloc()
+> > and free_page[s]() with kfree().
+> > 
+> > Link: https://lore.kernel.org/all/635405e4-9423-4a25-a6e7-e03c8ea0bcbe@redhat.com
+> > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> > ---
+> >  drivers/s390/char/sclp_cmd.c | 12 ++++++------
+> >  1 file changed, 6 insertions(+), 6 deletions(-)
+> > 
+> > diff --git a/drivers/s390/char/sclp_cmd.c b/drivers/s390/char/sclp_cmd.c
+> > index 1dc93d945be6f..6aaf1f6a3633f 100644
+> > --- a/drivers/s390/char/sclp_cmd.c
+> > +++ b/drivers/s390/char/sclp_cmd.c
+> > @@ -102,7 +102,7 @@ int _sclp_get_core_info(struct sclp_core_info *info)
+> >  		return -EOPNOTSUPP;
+> >  
+> >  	length = test_facility(140) ? EXT_SCCB_READ_CPU : PAGE_SIZE;
+> > -	sccb = (void *)__get_free_pages(GFP_KERNEL | GFP_DMA | __GFP_ZERO, get_order(length));
+> > +	sccb = kzalloc(length, GFP_KERNEL | GFP_DMA);
+> >  	if (!sccb)
+> >  		return -ENOMEM;
+> >  	sccb->header.length = length;
+> > @@ -119,7 +119,7 @@ int _sclp_get_core_info(struct sclp_core_info *info)
+> >  	}
+> >  	sclp_fill_core_info(info, sccb);
+> >  out:
+> > -	free_pages((unsigned long)sccb, get_order(length));
+> > +	kfree(sccb);
+> >  	return rc;
+> >  }
+> >  
+> > @@ -173,7 +173,7 @@ static int do_chp_configure(sclp_cmdw_t cmd)
+> >  
+> >  	if (!SCLP_HAS_CHP_RECONFIG)
+> >  		return -EOPNOTSUPP;
+> > -	sccb = (struct chp_cfg_sccb *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
+> > +	sccb = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
+> >  	if (!sccb)
+> >  		return -ENOMEM;
+> >  	sccb->header.length = sizeof(*sccb);
+> > @@ -193,7 +193,7 @@ static int do_chp_configure(sclp_cmdw_t cmd)
+> >  		break;
+> >  	}
+> >  out:
+> > -	free_page((unsigned long)sccb);
+> > +	kfree(sccb);
+> >  	return rc;
+> >  }
+> >  
+> > @@ -236,7 +236,7 @@ int sclp_chp_read_info(struct sclp_chp_info *info)
+> >  
+> >  	if (!SCLP_HAS_CHP_INFO)
+> >  		return -EOPNOTSUPP;
+> > -	sccb = (struct chp_info_sccb *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
+> > +	sccb = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
+> >  	if (!sccb)
+> >  		return -ENOMEM;
+> >  	sccb->header.length = sizeof(*sccb);
+> > @@ -253,6 +253,6 @@ int sclp_chp_read_info(struct sclp_chp_info *info)
+> >  	memcpy(info->standby, sccb->standby, SCLP_CHP_INFO_MASK_SIZE);
+> >  	memcpy(info->configured, sccb->configured, SCLP_CHP_INFO_MASK_SIZE);
+> >  out:
+> > -	free_page((unsigned long)sccb);
+> > +	kfree(sccb);
+> >  	return rc;
+> >  }
+> > 
+> > -- 
+> > 2.53.0
+> > 
 
-[1/1] leds: tca6507: Fix use-after-free on unbind
-      commit: c92d6666ffaca04015e91df3b1789c15c965e3d2
-
---
-Lee Jones [李琼斯]
-
+-- 
+Sincerely yours,
+Mike.
