@@ -1,45 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794920647;
-	b=x9kQNxgFVSYnt3aTSt+7wx84dwOeDw75T1Dt9EI0kTf2+2lFFC702n49w0gLO8eor8xX
-	 ccZsPmH2e2h4SOda+SfgbqihwPE9i0anXd2fEG1MgDwQSTN+SyRrYXp5btRNSgoPPsmEP
-	 0nltgysjunkfH+G2XOX2qD3yuj/jrMCEHtFF48nsywV044Iwvtd4z/1S5c19Mcu5y+aWY
-	 dxtp5vB2LrhHm5h0MluWts2sUwarAig3QjlKi2MCVFY6waqCBKffDEGlVem1d/wwNQDyn
-	 Thlfvz+AXLNFCCqKxSxBkEkxCvH/O6VhMCvdBTDM6e/e+VVTe45CiY5EFIZ6t2Wqw/Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920647;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=TWJ+aPspStvsIRnsuqDDjswtcq5aPRcs0lEoUatZyeU=;
-	b=B2ySu9C0GT0gL6lU2dnatDSiuNMw0EnA/y48mWLcPmsK3qdS0B+X2AijKgNl90iarXD7
-	 peEkJfI075mgD5LWfGkDlwDhELHWSPXGaUngIh8Rc8UKsqLzKuJKCflv+uINdpAdHGwqE
-	 7EOglA60pKWpY+KE21zvONP0jogIR5NVuZhaVjTPbbqNnlKoGpZNF5ftTFaokcjKHWne0
-	 /d+F1YD/i4qJvjYaCWAAkpgE06oHkKxDJJ4gEVJ8plRXscbWJTXImXt+1+Ig+PFBVPNpC
-	 tBxg849odj8hgZyxscPcQE/TeOAfCTuES8t8A52yR8PFuw71Y7bJZHibVh0DY2TO6IA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M64jXVsn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794920680;
+	b=0oPyVYb21zgx3mkX0qAu+jx9vd9yQ68sZCOkiVBdEKt8E67pCKNFZlEeZYagJFgdwoGu
+	 c9Mx4Xhw1ZPYLtoh0eKitLCwIfKpUFczUVgxCwAw5pSbbBDJO1ATDlShfQ5bmrn0rruks
+	 sw7fx9z70AJObnYAu+pfQ75CoDoqKoFTTlTxV9PxQ/8NwgA/i+W9HUgerYSR42L4meaLr
+	 YVdDMR6xbWmi8F5mN/QFUumGHu5rfJ0+NrnDgT9tRecgtWhnC/dYexgGyuJFl/Rg6WvXO
+	 dsXlAG5IhBxdIrlWfwA8FkY3BwwXXTfRfoNrH90AmeJUnO4Anp015KFCPyjMhy8AnqA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794920680;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=3sldnPBu0waTZ/5txqwNAnRVVWR9mIFe5mEWkyluFHw=;
+	b=qgRGhlgA99cjzhJAJfqAm70ChQF3cKJcE9qGGQRVVbwl70Z/Mv/wNnw2c+x9m9rv/W+k
+	 ysMYpW5GiqhRmegtcN0VK+WrZc4Bzs+t+I9B08EoI+tJv3ZlEUb6mwt0YG7s2kAE7iNp4
+	 JLYQtPO3V/C5hyRSlXj+VzPvVpDK02gLmcRYqt4yQExhIFr0uCkLD5FGy3I7piqGDbbAm
+	 ms7/NtlcEwcpnKuo3/zg37whl8tt8F1sQ+pClDATT/JfXA7hKffQulniRhVo+UssFgrGD
+	 ltYUDwgsOuYCg8r/nma4ZRV8/1PwmkIxymfv9C2PrlvK4NIPknzP1cnbNxiwMRn2SpQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ON1Up0b9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5154E606A32C;
-	Tue, 17 Nov 2026 13:04:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94FBE606A333;
+	Tue, 17 Nov 2026 13:04:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94FBE606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M64jXVsn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4260B1F000C4;
-	Tue, 17 Nov 2026 13:04:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794920646;
-	bh=TWJ+aPspStvsIRnsuqDDjswtcq5aPRcs0lEoUatZyeU=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=M64jXVsnznj9uM5oY+mu3lrUlPt77yaGGp9PqaEVaatX5+v/4IPfUrjfW34ijwvgP
-	 2bJ+8q76T+bLZzcBNIFbiUTj9tHJWuFXC4RzU9T4JIy0X4HSQQrQQqhUHLchiBb+2y
-	 g6JTJVf66zjbmMPd7zj62OYHGOgZ7YJUziGl21ltjK1jHiVi3Jxbm7evc/odTX2b5x
-	 06dyTFPeDxWPyiqvZ78Ssp6MEZjNO0LHvlQhdNRps2Sffectc96fD/NpIbLfjzvmkX
-	 J0stg3yHFE7W8l7O8nBStvVfEEpCngNzQpKGYfRTEYeZr9gqUy3stgm5haNVnw7BLx
-	 exVccq0/4JlQA==
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ON1Up0b9
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 07A3E205A51;
+	Tue, 17 Nov 2026 14:04:38 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794920678;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3sldnPBu0waTZ/5txqwNAnRVVWR9mIFe5mEWkyluFHw=;
+	b=ON1Up0b9yaUOJGxlQjS6m9WrMbMpBJf8RpuzeW35eJPYm2vGuaZAcoZrSHXG8nUP/0bVsZ
+	zUu7gyrQ4X5MZTVLkSkJcnYnUF0vBRaWrStk6MEZBiHUr/6FR1EZp5BtDSxmiTuLvjBwCe
+	E8QNacvGB9lSDqdcmI2nSeot6qMBNkxbzWB53AbL4cHCY/RZlZNo/zb6dwN/YrEK61DR2S
+	lnl/FoWzlrc/kVnnO6GWkxtfPundiLDGa63uyohc9W8+a/aJxczd31OcOCTJrWNs3Zdgly
+	D0x7X7LNG8TP32+TnYeWgN2tS+yptybXOSTojR5zqgvLqGff8cRmAzov6trD/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794920678;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3sldnPBu0waTZ/5txqwNAnRVVWR9mIFe5mEWkyluFHw=;
+	b=YodI/S+gZYToN1CQQ4A/vCZIIX68x2bFJRbGoqrYriQnHwmZXtYKLTA7wZEYwQ6uT4zJrs
+	VZUFfpd19P1DXBXOILx2RvOkug0/zGKZYixODuiLBtK0ictLM0sWbtzopWG1ljY9LQleD1
+	HuaKZmEz7qj7cLF6RlInwYzEEXXQeQfKYNAfM0i9IR0blhqQhunGY0xUZsaqHWjTTd6+8c
+	E7uilpwlXbM9M5ORxDFSFeG0B7gcGDgZLBJyCfePxEL5H/j8+fcGgZW2Rh45Og3nCJaED3
+	bnSUFzxr+6cq9AOsgX/YYQfRGWGsx4flQr11iEJtvNIcuUzyU6PM2FUvVmn2PA==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794920678; a=rsa-sha256;
+	cv=none;
+	b=FizaN7fiHZooAAithQdKcc3AWJcBe3i4BDHngA2I7AKlpz2gFx2hYjTIyHxzncn/KZor6i
+	44EC8zOdU2f/GTLwe2Z+czI4u2gWJ6XggSXArjgGjKK4k1roVBs8sop3mUnTmUuYR8J+QP
+	mk5kyDINlm7Tq1xCUM2fnXqIQ/5qOMnF3P7y/DnFmDLBTw43aje21TnYAYx3ws/xEl87aA
+	skmML6kNol3lZSh52xAZD8L3fZFLZO/5Vs9rN990Sj/rYl49YEpX6kGesF8hf7UyBKJ1Y7
+	Sxj1PIxy3K68yaZ2o8XzWfOs2eI2mcnIk9ow2RoNsh/ECermFzZ3RcFa1Zyagg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+Message-ID: <80d4ca224b264acd5a2496ce5920e2dffd5f50b3.camel@pengutronix.de>
+Subject: Re: [PATCH 2/2] phy: sun4i-usb: Assert reset before deasserting in
+ phy init
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: admin@roadbobek.com, Bin Liu <b-liu@ti.com>, Greg Kroah-Hartman	
+ <gregkh@linuxfoundation.org>, Chen-Yu Tsai <wens@kernel.org>, Jernej
+ Skrabec	 <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>,
+ Vinod Koul	 <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-phy@lists.infradead.org
+Date: Tue, 17 Nov 2026 14:04:37 +0100
+In-Reply-To: <20261117-usb-sunxi-reset-fix-v1-2-c2b76e0e84e1@roadbobek.com>
+References: <20261117-usb-sunxi-reset-fix-v1-0-c2b76e0e84e1@roadbobek.com>
+	 <20261117-usb-sunxi-reset-fix-v1-2-c2b76e0e84e1@roadbobek.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,118 +99,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH 0/5] media: iris: HFI gen2 features and fixes for
- VA-API
-From: bod@kernel.org
-To: sophon@radxa.com
-Cc: Nicolas Dufresne <nicolas@ndufresne.ca>, 
- Bryan O'Donoghue <bod@kernel.org>, 
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, dragon@radxa.com, 
- Chris Obbard <chris.obbard@oss.qualcomm.com>, 
- Deepak Sikri <sikrid@qti.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Loic Minier <loic.minier@oss.qualcomm.com>, 
- Jason Pettit <jason.pettit@oss.qualcomm.com>
-In-Reply-To: <3B240D36F79259E9+d729c8d8-9eaa-4941-9516-401fec7970fb@radxa.com>
-References: <2a2gB7bYZ9q2UTG-mF855lyJvWdn3Ba6jqrFTEVO1EAjAIXMh7_-65v4XlrZmljww-5ozkNYL2-lWKTIH4oqOw==@protonmail.internalid>
- <20261029-iris-va-fixes-v1-0-44a2783f782b@radxa.com>
- <e0911e13-65d5-45df-9e31-7f99e5600a50@kernel.org>
- <6d16d639267c69344623f80ea91817308ef4f7d0.camel@ndufresne.ca>
- <3B240D36F79259E9+d729c8d8-9eaa-4941-9516-401fec7970fb@radxa.com>
-Date: Tue, 17 Nov 2026 13:04:00 +0000
-Message-Id: <179492064054.2846709.13243323816905529693.b4-reply@b4>
-X-Mailer: b4 0.17-dev-e3fc9
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2760; i=bod@kernel.org;
- h=from:subject:message-id; bh=2d+EYUsgqKRjG77KbowxZKwCHSW7N+tPVUxCXme3YPs=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq/FDAn48PUni9w+lCl+rKZ49HM+olEGok5/O1q
- 1lFXdppPKqJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCavxQwAAKCRAicTuzoY3I
- OnOID/9q2ounCRIwtb2DMzOhTNlBRc9smouwQQJ1Em39lVqE1y375dotyfSdRIbXIlSPjeyx15Y
- 3Y3I6ztCEzujkjC8OxIBAvGHfg8JeJ7LnsjGabwDBskaxSw2qLvlRpr6eQvnVPQtLI0oIYH9JUA
- uibrdE752dganidrN3axHivCYbkZvbxyAloxpRpEcGjye+lP7KH0gp/Czw5qm8WiAiHXG90L5K+
- e3YCWXYVCAvRGeRYKioJKmIeNs54fDggVDJn8lKYLf/CUmGON0O6AyJVyuvDk9l/kwVjaHPyH2W
- INyKafSQy6A80K9A/VaGOU4UKW/cbDBssOdjx0WV+sdUDhX7tl5Pvps9NIOJEsiSMoh0O9R/Nmw
- OAcCoraI9lMYSpw7nQwtp6h/N+0od3R9XAGR5X0eRwtkaB9U5Yo2JnF71HhdM/oQBRChc44WpF/
- TQ0kk2rPnh/u6ar7RToG1SC8JdcJNQBep8T9kHXHncCqngzB4Fdl9BWyuFLbEApsnitKKuurdHD
- Jupt8gI5+ENY9MlzBR22wFngXBJQ5INs6F9pyXup1TWbndV3tYB30qfeHaw91IGQqv33ZLux8mE
- HgoWjZXGVruXtLk0VNo3D/Gk7jKm4XMRln18h8fIEQmU9R1EIMS12+3vIf7u9RCO3KzvJ5Cwg9L
- rnKm6UdidbsR84A==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-On 2026-11-04 10:40 +0800, Xilin Wu wrote:
-> On 11/4/2026 6:29 AM, Nicolas Dufresne wrote:
-> > Le mardi 03 novembre 2026 à 23:00 +0100, Bryan O'Donoghue a écrit :
-> >> On 29/10/2026 04:58, Xilin Wu wrote:
-> >>> This series adds features and fixes to Iris HFI gen2 to support
-> >>> qcom-va-driver [1], a userspace VA-API backend for the V4L2 stateful codec
-> >>> interface.
-> >>>
-> >>> It enables decode-order output and larger CAPTURE buffer pools for VA-API
-> >>> clients, and exposes encoder deblocking controls. It also fixes
-> >>> error-buffer timestamps and handling of non-display AV1 and VP9 pictures,
-> >>> which affect both VA-API and direct V4L2 clients.
-> >>>
-> >>> [1]https://github.com/radxa-pkg/qcom-va-driver
-> >>
-> >> Is this code based on https://github.com/intel/libva and is there a
-> >> route to getting it into the upstream of that repository ?
-> > 
-> > libva is the runtime, qcom-va-driver is a driver, so that won't happen. Also,
-> > qcom-va-drivers does all sort of guessing heuristic, bitstream crafting and the
-> > readme show that it cost as much as 15% in throuput performance. Let's be
-> > honest, this is a bit of hack, not really a solution. A proper stateless
-> > firmware and driver would do a way better job and reduce complexity instead of
-> > increasing it. The provided patches though seems to all have merit, matching
-> > feature with venus, fixing bugs. A bit of spec work would not hurt though.
-> > 
-> > Nicolas
-> 
-> Hi Nicolas,
-> 
-> The userspace software ecosystem around stateful V4L2 has long been a 
-> challenge. With qcom-va-driver, we're trying to provide users with an 
-> optional, as-out-of-the-box-as-possible solution that works with 
-> existing VA-API applications.
-> 
-> I'm not sure whether the Qualcomm Iris hardware is capable of supporting 
-> a stateless interface.
-> 
-> As far as I know, some folks at Qualcomm are also working on getting 
-> qcom-va-driver into Debian:
-> https://tracker.debian.org/pkg/qcom-va-driver
-> 
-> Thanks for reviewing the patches!
-> 
-> -- 
-> Best regards,
-> Xilin Wu <sophon@radxa.com>
+On Di, 2026-11-17 at 13:00 +0000, Roadbobek via B4 Relay wrote:
+> From: Roadbobek <admin@roadbobek.com>
+>=20
+> When a bootloader initializes USB before booting Linux without
+> first tearing down the controller, phy->reset may already be
+> deasserted when sun4i_usb_phy_init() runs.
+>=20
+> Because reset_control_deassert() alone is a no-op on an
+> already deasserted reset line, stale USB PHY state can
+> persist across the bootloader-to-kernel handoff.
+>=20
+> Assert phy->reset briefly before deasserting it in
+> sun4i_usb_phy_init() so the PHY starts cleanly regardless of
+> prior bootloader USB usage. Tested on an Allwinner A33 Q8
+> tablet (Laser MID-786).
+>=20
+> Signed-off-by: Roadbobek <admin@roadbobek.com>
+> ---
+>  drivers/phy/allwinner/phy-sun4i-usb.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>=20
+> diff --git a/drivers/phy/allwinner/phy-sun4i-usb.c b/drivers/phy/allwinne=
+r/phy-sun4i-usb.c
+> index f26eed0db17e..05e6dcf035a1 100644
+> --- a/drivers/phy/allwinner/phy-sun4i-usb.c
+> +++ b/drivers/phy/allwinner/phy-sun4i-usb.c
+> @@ -270,6 +270,8 @@ static int sun4i_usb_phy_init(struct phy *_phy)
+>  		return ret;
+>  	}
+> =20
+> +	reset_control_assert(phy->reset);
 
-Iris can do some kind of stateless but that very much needs to be scoped
-out and developed further. Windows DXVA is public, some scoping work has
-been done on that too.
+No error handling?
 
-Putative future work on Iris to enable stateless need not block taking in
-these patches in the meantime.
+> +	usleep_range(10, 20);
+>  	ret =3D reset_control_deassert(phy->reset);
+>  	if (ret) {
+>  		clk_disable_unprepare(phy->clk2);
 
-As the proverb goes "A bird in the hand is worth two in the bush".
-
-Generally speaking I think these patches are close to mergable so if you
-can address the outstanding comments I see no barrier in principle to
-taking them. 
-
-The gap in browser support in particular is a pain point I'd like to see
-removed for the community.
-
----
-bod
----
-bod
-
+regards
+Philipp
