@@ -1,111 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794931833;
-	b=Ny1IinKGndDLboLQZvzSHe/mCJq32r6OkCCZANBE6uJyu4/Vh0fTuXnTLs2TBifiM4M2
-	 ossA4E+0ren74VhJQCgIa3uTA1UQWQhcMRw26+KCrTMekgHb/bFp/0NNYuw39gU4nhGPW
-	 nrJtrraGKJkvvEoMmJKKqK+sY3KYMBvgNUQ+m+vLI8D3acO+m7laicTTAk8EoV07pxf5l
-	 RcVSEWTLMbZQOk1X2BfhR7E6i7j7gVk7b6vrsv6rnc7eQHMILEOHQmB7TWvyZxJyZBe/p
-	 zSylXdLk5A1YpFe7zhSQeHRnHhVoaL/Q+21l1zuwDYh5MQnDnPBY8qMk5i+EtQsq24w==
+	t=1794931900;
+	b=SPZBf2bgwMPJfrCzhoH8r0lhPZsg1Uo4JQM7RBh70ABoRCiG9Sjwdma2FisodGN75ECk
+	 OeaRE/XmIK3SCu+sEkIEbsUg+JAtinr1SpgbUKENsg4pXj2MZX+mYPJ3m25Cc8Hh+sUp1
+	 nqyZrod1N3m6gFCENyLQAkt0WmGgHWBwTQyhYTmVmwozxNXd0QbaxHSBJTc+4zdadhuj9
+	 zxZNa6+ybfW1B5R0jSDXyS3bfg9HP6/7R0qfIHnQHlYUou5q99bo3B3NsTP6V1AfRSBs5
+	 YJ+WooC0TEGx3yXGtl53OW0qfesUPmzmAnFK/htvRz/gpsSU3Wfwfs/RdvBNss0viTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794931833;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:References:
-	 MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=KQsfspyv7FxKfVXvjs+RL244yChzQ2I63yZXKKFl0Wo=;
-	b=Hh9HKC9qHkhE1p6b/HMlLMTSkS2OHjVwrTFjSYkGIbjj9aj+dw3dJ7Egq4fRsXmkYmi8
-	 c6U2mdxclnYddXUr0jFw2dcCNHoY/1YzRij5VkbfnbAniN99Mo/1wCbTG9e3GcX0klrkq
-	 dp0h8chxzjXzcc3M0uDHzM48Vkr8TiuQ5jWJRVE9Tr2Gn6cuueJ3MU8kZoG9cFZGBNsb6
-	 h0RrG1M/JYlZ2PpQdIBfiHPolu5FzFLhG71uMv1QVWt/efgcMuicLZjK12VrAUGyfoUkr
-	 LfV0CoKacNlvdawATdnJ6l5JmCs9kGiA3OyV6UFT1MlzbBLgR5YYUfdUA36XBdMjYmA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794931900;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=NdX8rZc88M2SsKjHPh+1wD3oLhJHiw2YYjPjsmyyxSU=;
+	b=uzLYOqpvOxXqN8kaTEJzV5Gtxg0zekeKdT7QcM3SNqUPqiA1tAKVG5qb1U79dQYcCFD+
+	 e7+2xNRyXQ8QkDPwGcXye7qnr0yugSZWcP05vMwmQu6vbKS2inBZUf5+zgjxI+kCz/NUJ
+	 m94Kz/tQS5Fo35CBHXnt0c9EcIDxAZGOhfEebKsBrSbuuIIgZnEcDm9Eaw8hXwTE5XFO7
+	 hmSLAU3PiR3kXIJxnWKsxd5T+NCpKrVHOxWOs869UV3kVSDMq6v1f6Y4exZkJvXE9IjIf
+	 Y8U1Of5xJVvR4Geju/Gk1otunSn1FCaD83pUZMBWZKkcIb8Mtz9QiYE6WX2e7Gl4rcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=dama.to;
-	spf=none smtp.mailfrom=dama.to;
-	dkim=pass header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=sJy0fsKU;
-	arc=none smtp.remote-ip=209.85.210.179
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Gh1MOyij;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF7A606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:10:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEF7A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22B75606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:11:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22B75606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=sJy0fsKU
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8b5a6f2f27fso2182414b3a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:10:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20260707.gappssmtp.com; s=20260707; t=1794931832; x=1795536632; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:mail-followup-to:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KQsfspyv7FxKfVXvjs+RL244yChzQ2I63yZXKKFl0Wo=;
-        b=sJy0fsKUNBzt2aSbTq6/VhkmVQBu5hbU6sAWIVgiqlIuIveBlICoK6kPpgDs2vVfoS
-         l+pt5dinyX3Pfa99dY63jFwkrs/Afzn3jMiUOzy/f5p1Tmy0M0Nmfas+ibIbr25bBuuM
-         KYQP40YA6A9ffvxShZHUneUcRrNmB6xO1GFwnIoaoU1vHyZMdDECWRxitrlrwn2gSYF3
-         jfNrASEM4kH50eAP5fx0pYqp+TPzJH5TJijAs9OzG4X2rF6IxNTC/3ZbRPDGvGvQZrJa
-         G/ZwAS9xovP5LtGS7O16QvfFRwibkZCSCPjVIEbY1zzpB1SIklhNnm63MvX5AVHujNGv
-         cZJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794931832; x=1795536632;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:mail-followup-to:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=KQsfspyv7FxKfVXvjs+RL244yChzQ2I63yZXKKFl0Wo=;
-        b=BnnP5X2X+n3+NLomkRcfI/GYwZMEPOdShyxKVPW06/9h1e0B/ru1++4OyGfG8Q5zuD
-         R0DZ49P2zVraXA9XLqNQV8NKZJGJURyxcFFkm+hx1E+0VRu1mjK4asht3axPhYzzEg4Y
-         QygndMgvzxJyqiCVuSAmz1z3hqyh4o0R2pJFNgIPrfZzX8IZD0M/8+uk4y21dAQlwPlX
-         5y+gKA3rm42QLiacXpb7gftMr1oc8P3dwsjqiHDuMyuuOTx2rRuSCFBsaDE8Sh5xZK1+
-         czIPbQz5I50FwVz4a4szenWFkeVTa4JxDVMZSSbFnYHmPvum26RpgfcN/uLSMyj5tCYm
-         R8Ug==
-X-Forwarded-Encrypted: i=1; AL+hErFv1LUPZhVyhK5zqIyCeWQjgU4rWfVIpHto4Z1kXBiVDWZfkUj6oOYs+XRDLylKMpoFerOqtuIBm/RTRUY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+83Bj6h2G00VrLgLKDmCXV8DwTpFsvhSRZtdWoWMdh0g1bRMG+
-	Qmc095wV2JmmvTQ526kc9zpm3Rz2m0N1MDDnRzpeeK1+1Jcp7Y2JxHbyWkrz8Y2MYhI=
-X-Gm-Gg: AYBFou1RioM+E2dsn88ldqtyHC5ZSRrIQXFuID82lBc3K8DuYowKN/Sj42JEHidRQ3x
-	n8fE9J9uQwFNL3sni40HwGJd93sNAhCnFcLeE/scuxt4Fwb1N3VhhnU545U9jQfQ10kOfv6FGmw
-	+uOZJlcCx9gnkW9DYB90GmResMRrZcO1KOxNZzycLOf3GiL/dsBivs71mBdSho52mxrwAKyf4vn
-	LLkDQ/YWizMzrWjPxVYni+sjxQ2LXg31S2R8XwYWulFk11n3vmJsfyWf7RRs+GtiqS/nmpPyKCu
-	6a/tPgBV1hRsXSH021+tZDjYz96lI5WEnRaBkxc3gSVa9kBefGQDM5/qWbCbxf/tqu7nAs5Zv1z
-	ACyZV06bOJl/zKnFTqxepDFvOxWKw2MOreWSiJJWz+ocAE8Mhj/r3MVXK0+YoWSpwInxdjrTUX5
-	NlNJXSzCcQdiH1LTa8aT5IitpmeWvW8h6QDTGsZjx/sLKLGIdNmMzkaAAP4HJuWw0SiJM57Lkf6
-	1Xkcyj6y0hnxsAgYkaLK6OaSr5Sho1xJA/Pz0uLyQ4M3H/uurWqPCAFr8Do9l0THFIRXsjw8QpG
-	X7BzqdSFj2P/9Z423ecUMSQF0T9tZ9VnAQ3nSaKrHz/ZymvuVGVVGcgZQhusY3XT
-X-Received: by 2002:a05:6a20:2446:b0:3fa:63d2:4aab with SMTP id adf61e73a8af0-3fe8a41140emr2627637.37.1794931831938;
-        Tue, 17 Nov 2026 08:10:31 -0800 (PST)
-Received: from localhost ([2a03:2880:2ff:56::])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cddc18c800esm6071458a12.29.2026.11.17.08.10.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 08:10:30 -0800 (PST)
-Date: Tue, 17 Nov 2026 08:10:29 -0800
-From: Joe Damato <joe@dama.to>
-To: Kalesh Anakkur Purayil <kalesh-anakkur.purayil@broadcom.com>
-Cc: Michael Chan <michael.chan@broadcom.com>, netdev@vger.kernel.org,
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
-	pavan.chebbi@broadcom.com, linux-kernel@vger.kernel.org,
-	Selvin Xavier <selvin.xavier@broadcom.com>
-Subject: Re: [PATCH net v5 0/4] bnxt_en: Make RING FREE more robust
-Message-ID: <avx8da+htUim/x9i@devvm20253.cco0.facebook.com>
-Mail-Followup-To: Joe Damato <joe@dama.to>,
-	Kalesh Anakkur Purayil <kalesh-anakkur.purayil@broadcom.com>,
-	Michael Chan <michael.chan@broadcom.com>, netdev@vger.kernel.org,
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
-	pavan.chebbi@broadcom.com, linux-kernel@vger.kernel.org,
-	Selvin Xavier <selvin.xavier@broadcom.com>
-References: <20261106191423.4194081-1-joe@dama.to>
- <avIpEpoCYvLHYl3j@devvm20253.cco0.facebook.com>
- <CACKFLinPK+wR=TMA3zNJDKQR_=HfMFUHPxKS+yhvv9SegZw7Ow@mail.gmail.com>
- <avNWzavrxJSasfp5@devvm20253.cco0.facebook.com>
- <CACKFLikU8ax8-VN+EiAhrn_w+2=yex2TNHPxEYqni6g0BKHKKQ@mail.gmail.com>
- <avOXJf5yl8ajf8Qr@devvm20253.cco0.facebook.com>
- <CACKFLinsQdoZhEnhmZmMEMZVyGC10KZZRciBGLzA12W2iOK60Q@mail.gmail.com>
- <CAH-L+nOyNgAUMCF74OE+oU2gSCaV_tVcgm2QQFvjge10A+qAYg@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Gh1MOyij
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 9A958C4EDBD;
+	Tue, 17 Nov 2026 16:11:41 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 144195FDAD;
+	Tue, 17 Nov 2026 16:11:37 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BC52911BC0041;
+	Tue, 17 Nov 2026 17:11:31 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794931896; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=NdX8rZc88M2SsKjHPh+1wD3oLhJHiw2YYjPjsmyyxSU=;
+	b=Gh1MOyijcv4KG4FFbUzCniAQ2Br5TAyhLfw97L3kfO/jdwxaDKJ3azdXxMPO7wR8bEQyaM
+	Hq/zoX4DsHzhXn/PetKZ2ZUYgbJ3wFh6XeemzJ3gij7YlLPN3KGnfQIWkQ7eHqIyhEyPnr
+	tv1BjVNUYRtoNgbm5pv+5XKeZjPpryz+EXP5Zea/pLpoER/lYU8oLZ8dnDD7RY39Vf4/gb
+	pBUxjlbWWhGV3s5DW+V8MFEgQ2fPt+ceZkvDkIBtW2AUB8ln2xj6xZHnKxaFD8WwPNz0qI
+	ExFCHl44exOZt3RapJ0L+Wd2Xc+rIbl/ap4hlDWi5LP8PlLcjOdg7rny7SNCdg==
+Message-ID: <9a6373c3-f8df-4464-8ff7-75dd594a7e80@bootlin.com>
+Date: Tue, 17 Nov 2026 17:11:30 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,75 +62,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAH-L+nOyNgAUMCF74OE+oU2gSCaV_tVcgm2QQFvjge10A+qAYg@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/5] drm/vkms: add support for RGB332
+To: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Melissa Wen <melissa.srw@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260928005301.367977-1-matheus.aalmeida@inf.ufrgs.br>
+ <20260928005301.367977-5-matheus.aalmeida@inf.ufrgs.br>
+From: Louis Chauvet <louis.chauvet@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <20260928005301.367977-5-matheus.aalmeida@inf.ufrgs.br>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Nov 12, 2026 at 09:37:55PM +0530, Kalesh Anakkur Purayil wrote:
-> Hi Michael/ Joe,
+
+
+On 9/28/26 02:53, Matheus Alves de Almeida wrote:
+> Add support for reading and writing the RGB332 pixel format.
 > 
-> On Wed, Nov 11, 2026 at 4:34 AM Michael Chan <michael.chan@broadcom.com>
-> wrote:
+> Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+
+> ---
+>   drivers/gpu/drm/vkms/vkms_formats.c   | 21 +++++++++++++++++++++
+>   drivers/gpu/drm/vkms/vkms_plane.c     |  1 +
+>   drivers/gpu/drm/vkms/vkms_writeback.c |  3 ++-
+>   3 files changed, 24 insertions(+), 1 deletion(-)
 > 
-> > On Tue, Nov 10, 2026 at 2:13 PM Joe Damato <joe@dama.to> wrote:
-> > >
-> > > On Tue, Nov 10, 2026 at 10:14:50AM -0800, Michael Chan wrote:
-> > > > I'm copying our RoCE developers Selvin and Kalesh.  I think that if
-> > > > you call bnxt_re_suspend() before you disable DMA, nothing special
-> > > > needs to be done because the chip is still functioning.  It will go
-> > > > through the normal removal process.
-> > >
-> > > I'm probably missing something but I think that the ring frees can only
-> > fail
-> > > in __bnxt_close_nic, where rtnl and the netdev instance lock are held.
-> > DMA has
-> > > to be stopped before bnxt_free_mem. bnxt_re_suspend() takes both locks,
-> > so it
-> > > can't be called.
-> > >
-> > > I think there's two options:
-> > >
-> > > 1. Stop DMA as now, but queue a work item to run bnxt_ulp_stop without
-> > the
-> > > locks. bnxt_re_suspend would need to treat BNXT_STATE_DMA_STOPPED like
-> > > FW_FATAL_COND and take the detach path.
-> > >
-> > > or
-> > >
-> > > 2. Call bnxt_ulp_stop() in bnxt_reset() before taking the locks, the way
-> > > bnxt_fw_reset() does, and bnxt_ulp_start() after a successful reopen.
-> > That
-> > > covers the TX timeout reset, which is where all the ring free failves
-> > I've
-> > > seen come from and it doesn't need any bnxt_re change, but it restarts
-> > RoCE on
-> > > every TX timeout and it wouldn't cover a case where the user triggers
-> > > close/open.
-> > >
-> >
-> > I have a slight preference for option 2 because TX timeout ->
-> > bnxt_reset() should be rare and stopping RoCE briefly even if all the
-> > HWRM_RING_FREE calls succeed should be ok.  We don't want to stop RoCE
-> > unnecessarily during a user-initiated close/open though (failure
-> > should be very rare).  So we may still need option 1 to cover the
-> > other rare failure cases.
-> >
-> > Let's wait for Selvin's and Kalesh's feedback.
-> >
-> 
-> Yes, we are okay with option 2.
+> diff --git a/drivers/gpu/drm/vkms/vkms_formats.c b/drivers/gpu/drm/vkms/vkms_formats.c
+> index 6e4f58207..0c3bb0618 100644
+> --- a/drivers/gpu/drm/vkms/vkms_formats.c
+> +++ b/drivers/gpu/drm/vkms/vkms_formats.c
+> @@ -267,6 +267,12 @@ static struct pixel_argb_u16 argb_u16_from_BGR565(const __le16 *pixel)
+>   				    (bgr_565 >> 11) & 0x1f, 0xffff, 5, 6, 5, 0);
+>   }
+>   
+> +static struct pixel_argb_u16 argb_u16_from_RGB332(u8 pixel)
+> +{
+> +	return channels_to_argb_u16((pixel >> 5) & 0x7, (pixel >> 2) & 0x7,
+> +				    pixel & 0x3, 0xffff, 3, 3, 2, 0);
+> +}
+> +
+>   static struct pixel_argb_u16 argb_u16_from_gray8(u8 gray)
+>   {
+>   	return argb_u16_from_u8888(255, gray, gray, gray);
+> @@ -475,6 +481,8 @@ READ_LINE_le16161616(XBGR16161616_read_line, px, cpu_to_le16(0xFFFF), px[0], px[
+>   READ_LINE(RGB565_read_line, px, __le16, argb_u16_from_RGB565, px)
+>   READ_LINE(BGR565_read_line, px, __le16, argb_u16_from_BGR565, px)
+>   
+> +READ_LINE(RGB332_read_line, px, u8, argb_u16_from_RGB332, *px)
+> +
+>   READ_LINE(R8_read_line, px, u8, argb_u16_from_gray8, *px)
+>   
+>   /*
+> @@ -690,6 +698,15 @@ static void argb_u16_to_BGR565(u8 *out_pixel, const struct pixel_argb_u16 *in_pi
+>   	*pixel = cpu_to_le16(b << 11 | g << 5 | r);
+>   }
+>   
+> +static void argb_u16_to_RGB332(u8 *out_pixel, const struct pixel_argb_u16 *in_pixel)
+> +{
+> +	u16 r, g, b;
+> +
+> +	argb_u16_to_channels(&r, &g, &b, NULL, 3, 3, 2, 0, in_pixel);
+> +
+> +	*out_pixel = r << 5 | g << 2 | b;
+> +}
+> +
+>   /**
+>    * vkms_writeback_row() - Generic loop for all supported writeback format. It is executed just
+>    * after the blending to write a line in the writeback buffer.
+> @@ -752,6 +769,8 @@ pixel_read_line_t get_pixel_read_line_function(u32 format)
+>   		return &RGB565_read_line;
+>   	case DRM_FORMAT_BGR565:
+>   		return &BGR565_read_line;
+> +	case DRM_FORMAT_RGB332:
+> +		return &RGB332_read_line;
+>   	case DRM_FORMAT_NV12:
+>   	case DRM_FORMAT_NV16:
+>   	case DRM_FORMAT_NV24:
+> @@ -992,6 +1011,8 @@ pixel_write_t get_pixel_write_function(u32 format)
+>   		return &argb_u16_to_RGB565;
+>   	case DRM_FORMAT_BGR565:
+>   		return &argb_u16_to_BGR565;
+> +	case DRM_FORMAT_RGB332:
+> +		return &argb_u16_to_RGB332;
+>   	default:
+>   		/*
+>   		 * This is a bug in vkms_writeback_atomic_check. All the supported
+> diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkms_plane.c
+> index 68cb2a333..fff2d4eb5 100644
+> --- a/drivers/gpu/drm/vkms/vkms_plane.c
+> +++ b/drivers/gpu/drm/vkms/vkms_plane.c
+> @@ -29,6 +29,7 @@ static const u32 vkms_formats[] = {
+>   	DRM_FORMAT_ABGR16161616,
+>   	DRM_FORMAT_RGB565,
+>   	DRM_FORMAT_BGR565,
+> +	DRM_FORMAT_RGB332,
+>   	DRM_FORMAT_NV12,
+>   	DRM_FORMAT_NV16,
+>   	DRM_FORMAT_NV24,
+> diff --git a/drivers/gpu/drm/vkms/vkms_writeback.c b/drivers/gpu/drm/vkms/vkms_writeback.c
+> index f64b90908..54330803e 100644
+> --- a/drivers/gpu/drm/vkms/vkms_writeback.c
+> +++ b/drivers/gpu/drm/vkms/vkms_writeback.c
+> @@ -22,7 +22,8 @@ static const u32 vkms_wb_formats[] = {
+>   	DRM_FORMAT_XRGB16161616,
+>   	DRM_FORMAT_ARGB16161616,
+>   	DRM_FORMAT_RGB565,
+> -	DRM_FORMAT_BGR565
+> +	DRM_FORMAT_BGR565,
+> +	DRM_FORMAT_RGB332
+>   };
+>   
+>   static const struct drm_connector_funcs vkms_wb_connector_funcs = {
 
-One more question before I put together v6.
-
-bnxt_reset() is also called for the silent reset on a VF: the
-VF_CFG_CHANGE async event sets BNXT_RESET_TASK_SILENT_SP_EVENT, and
-bnxt_sp_task() calls bnxt_reset(bp, true). With the ULP patch as planned,
-RoCE on the VF would be stopped and restarted every time the PF changes
-that VF's config.
-
-Not sure how often config changes happen with RoCE in use on VFs? If not
-often, then treating silent and non-silent resets the same should be OK.
-The cost is a brief RoCE restart on the VF for every config change.
-
-Let me know what you think.
