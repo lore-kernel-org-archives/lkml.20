@@ -1,54 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794920498;
-	b=U0X5VVU4TZCwSJ0L9vl37WkiqZJCUKGblul2l8HKCPMvQO//6pStJegZGJ7GjhyEO2pl
-	 hE92ccDga4j2ELG8p4dieSiTpyaexfQKeGMn6SJ2KjII6G5OPzBfCByrfQS46hlePMhkm
-	 Cm0+pchdYRnDT8fPkukmXT2GlWX6dC8/4s+4UDWVfEXugrzS69fwicw+7d0tBCpiLfNrH
-	 6GylI35PEi6hxiFQRUsR0b/NbNTXarpi1DnWvAn3//2nAsn+fHqRjyyt0K6rUxpmrePpm
-	 Niku2QeBGcuieA7si1g/dA7sNzaU3ui0bmsy/L8N1S7m5hGVfjnFvhGcmEVw4CI8S3Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920498;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=C1KvfIlmYLhRC6mILExamhcqe0Ob4HfESY9lTwphRSs=;
-	b=T9+ebrupneYnG+oAwRsDVTL8x8S5hKQEhSP6H+PUS7R8ELgHKhxQqMMA1BZa86W+zedW
-	 q6uunfPBbqhQ+Z2dI00ZGzHlTEXe0Vrdv4COydB2gVZUkG1F9l2qrSEZZaQrDuu1V8zsX
-	 b3E51qLFf0Qw97SKcbYAU1uqo907RQU0r+fqEKzVxmFnC2vXLh7X7IrNY+rUNdow0kxUU
-	 UWvemSoZ+ML/KwD0cl/jt06szayd4zdONX3S9p3Lc6ShrB9H94Qy8VYKXvPqVb2oEEYNJ
-	 HK35K5GKzw9ARAEwJ5HL7sLwstCgH4CtMUgnhosV+vA3vUFhjXBgoEFPlhaKkej+6SQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.197
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794920504;
+	b=PFWmnfIu4WjAnR+okAt1COZu3FNUqiNC7qoqYN5L+n7Mo+op+0poi6IUC29OtzBCyKoo
+	 HIA9XJTtB4pdQEgCNXFx027QBdPiZQkOFfZnbJAXN9GYFS+NEXvBaTm86z+lh31l5VpCQ
+	 RMHdzrezUzp0KTcDwGdY5PsQ1TucaoeaHivm9BPXK9Low4KEQBTXgRDaF5Q54FAFs7xxu
+	 QcQ5a93NB5u/JkI4yJ4uyjEiYX1JUKu7eRL/1fXX1SmY6W8X89F6B4c4Ll3RhUD+K4sYf
+	 0VHiCsXcdTddQMWTt831MC00pCF8N+Y1IL7zma9Gg0XgNflhfwzplydvsq4/QR0GtOg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794920504;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=RTe+6VcPOf1eouGGB3XNAMNJdYSyIrM32M7JIMS1tWQ=;
+	b=so0DxchZ/cC5jRJ/RUj/4HLwTC+hZ3v0UMkQdR0PjMALRHkGfr1zmBwup7+O0qOvSfE/
+	 w9kHTsqwRoRTjmHP91M/3U07Wl+oPtiOWW7EZ9VDhi3Kz1ib9SKH9Wc1iCXmqpcIX+BGt
+	 MK22+cGxnYcfCwVIKUaRRhUYUndM0KlNA2IBsX0PvFVfyzJY4v6lcy2GGNWuKjUBoAtNE
+	 G1aawGhTAIskMnEbWvyxkegkunZtd+POhdhCEtfn+8qxuOaBdFAKpXtqO1ZCVwhBn2p3Q
+	 cRmgEltQMGj3+KeBvnUz6pkwFbrsUG9zCnJ4/uBwYZ5RcqNfh/xfPY4Pc2woikBfG+w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gMR+Yfa4;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61EFB606A32C;
+	Tue, 17 Nov 2026 13:01:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gMR+Yfa4
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794920504;
+	b=f1EFEErFvtixIuvfm4QhAhZaJn903JfBTdzVpWusUZoo0QJQ72j7bPsJqz2F3y+d/C77
+	 zKZribFre+yb5elztKF51n8oBREg9vo6g5suMyTMpK95inf0DmZa7sXiql6L9a/QUXi3a
+	 y/7Ho/sdJOac0SfdxoMaKs7Tj3VnI2g6hqYuRWixBRxZPUse83C1ZgxNmZJka7YXmBmHh
+	 9N80IDHyezhfAgqXxiHbYmbN9Lxavn9mjsnpqlW/JVklxDC7gxci0DQxxMAmm8Zzwav0H
+	 3bf1tSBtUPt6s6TksN2tLBgGiySGfCy9CJgI3+RvB9KRogWTfVwFjJlXbyBn+OUpmQw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794920504;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=RTe+6VcPOf1eouGGB3XNAMNJdYSyIrM32M7JIMS1tWQ=;
+	b=RyTBvwHvi+unKpgFahPdp8Xq+JeLTG1SEjklC1idDLbUO3dueHVx9RS6TE6ypEsRdAQZ
+	 dVJ0qQVXMsKvMcAXQf62QDrDm3FZuBlYJ3qDZDWri5kSp6Ap66Bdr58IvfV6PHfBYyoSS
+	 IA+Eci/r7/Ty5nWDCDiKgtbX4PX8+i28yO+6APke7fEzGaU7yKC1r6hqc8wt3OXxG5jgN
+	 +Lk+IHjzV6PjK1AYX2pV0Q1GBqP0v8zrGFiQX7tUKTvzjQLIGtV+OBiSQHxMm46W8Xkn8
+	 EZdYwvs3WhFaUSWHxZWGcC+cSQODg+g2Q+uhoW2HcB2BNXOR2Mr9vzdLbXmN0zGdPGA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73945606A334
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:01:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73945606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4e937c5bd4fso3351282b6e.2
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:01:38 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794920497; x=1795525297;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=C1KvfIlmYLhRC6mILExamhcqe0Ob4HfESY9lTwphRSs=;
-        b=HXrWIJUZ9IEGm014uYuYIoLn7xH2oZkTfslNloogGaRa82/KjMbvOssVFTLjh0cK8V
-         kGMB/azSaSbJC38+ppvihRKcBts1A3kKklhSb6dnE2YcqEI4iOy8RJvNSYrsxKuaHtCE
-         AHnUfktNsxO8+6F4gCgl/19cgCEC5YGDgrYPsOYQ9cHQmfSp++fW4k2z1GGOn/5ntdNN
-         c2Kjv9l0gf10pUAZ3SWISA5gdEtj4V+anauntQSYYo0paXV4HdZ14mfyN4JjVoTmt/+Z
-         2JXH9tex0NMuJRSEtXJ45R26Ht/iMHi0m83he3j8AX6ooWzju4gdQ3Yb9sgA85AI96E1
-         /T5w==
-X-Forwarded-Encrypted: i=1; AL+hErH7FG4jaytZYvuD680ed+pMFES6Jy4ByD81+zkGEx00sx28YLyDHK2uF15O4VpiZtJ5ugh45qDIO1gpExQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+sDksJgqJ5a9dt4F9mJxwVK3WsGjV8AH9g7bYkh7GKuuMnJRxW
-	SERtOdSzNu+HKCYm7fXfYIFwja171fK/higT1RWhseYfgTgy/ek6QOKmORjMzB+hLT9UQ9768jD
-	qMCck0fBxkWJNm9JD77znwMa8V2GsYq6reDU+tWkUr8avL7QoB/z0TqVg5MM=
+	by smtp.kernel.org (Postfix) with ESMTPS id 7E66F1F000C4;
+	Tue, 17 Nov 2026 13:01:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794920503;
+	bh=RTe+6VcPOf1eouGGB3XNAMNJdYSyIrM32M7JIMS1tWQ=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=gMR+Yfa4CpBuWFx+Hm5xplSUCOU3BEtzyd1gB7Rl1piOCMw0+ibzHQ5f426n0uAR8
+	 4odl/hdONsqsyOR+71ZgYkdmf34Gwc1B2fjq+Hx7n4+H2cnId267H4WZLJYEV0We2D
+	 J8xA7zq/e0RC5gnG1+xo04GmtBiQY6S3kqc/Xi7izSS1xunh1yjv8mo2bGpffDXK4N
+	 3PlGC4V4arY0itRTCTMvXCpmAHsgRmNX9Wp6ETly7kNCTk+33tYJX78YGAG2rZbFDI
+	 6QadYHcc6u91IDVEZNrBfxxmsborC1PAIij/DfceWBzHB+kmr9Pd8Yznqy+n9VakLR
+	 gNf1JPy4rQPDQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 0BDFD4A966;
+	Tue, 17 Nov 2026 13:01:43 +0000 (UTC)
+From: Robin Tetour via B4 Relay <devnull+git.robtet.dev@kernel.org>
+Date: Tue, 17 Nov 2026 14:01:40 +0100
+Subject: [PATCH] HID: logitech-hidpp: Add MX Anywhere 2S over BT
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,265 +82,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:14d2:b0:568:39f2:1254 with SMTP id
- 5614622812f47-56e64dfaba9mr11653354b6e.47.1794920497369; Tue, 17 Nov 2026
- 05:01:37 -0800 (PST)
-Date: Tue, 17 Nov 2026 05:01:37 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6afc5031.8f566acc.2517be.0001.GAE@google.com>
-Subject: [syzbot] [netfs?] possible deadlock in vfs_iocb_iter_write
-From: syzbot <syzbot+deb8af81d91415fabac1@syzkaller.appspotmail.com>
-To: dhowells@redhat.com, linux-kernel@vger.kernel.org, netfs@lists.linux.dev, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261117-hidpp-mx-anywhere-2s-bt-v1-1-e35f46d3c668@robtet.dev>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yXMTQ6CMBBA4auQWTsJU+MPXsWwaOlAx8TadAAxh
+ LtbZfkt3ltBOQsr3KoVMs+i8ooFdKigCzYOjOKLwdTmTEQXDOJTwueCNn7egTOjUXQj9pZc05y
+ 8O15rKHXK3MvyP9/b3Tq5B3fjbwfb9gXKGpztewAAAA==
+X-Change-ID: 20261117-hidpp-mx-anywhere-2s-bt-fa1b995db380
+To: =?utf-8?q?Filipe_La=C3=ADns?= <lains@riseup.net>, 
+ Bastien Nocera <hadess@hadess.net>, Jiri Kosina <jikos@kernel.org>, 
+ Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Robin Tetour <git@robtet.dev>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794920502; l=1331;
+ i=git@robtet.dev; s=20261117; h=from:subject:message-id;
+ bh=Ev+AfgsKii5S0dicVZKg/JxOksO8loG6ebX12jOZnYg=;
+ b=LlC0m+6U/LVGNy32lI1wgeoOUn+lncpo2FYX52P/nWGG1jDRCgWMgi6viRHuj+yO/IYCoqTYi
+ HZS3to78x6fCcGqgeJj6+kXtjvZRkn9Q/iehZkGo7x8iwZAlsKdxEcn
+X-Developer-Key: i=git@robtet.dev; a=ed25519;
+ pk=BJPkYl/vUfMfH9kETH7XwcLHLfC45Gy9+aWTTMkyFSs=
+X-Endpoint-Received: by B4 Relay for git@robtet.dev/20261117 with
+ auth_id=1549
+X-Original-From: Robin Tetour <git@robtet.dev>
+Reply-To: git@robtet.dev
+Content-Transfer-Encoding: 7bit
 
-Hello,
+From: Robin Tetour <git@robtet.dev>
 
-syzbot found the following issue on:
+The MX Anywhere 2S (046d:b01a) is missing from hidpp_devices[], so
+when connected over Bluetooth it is bound by hid-generic and its
+HID++ features, including high-resolution scrolling, are unavailable.
 
-HEAD commit:    aebb72744764 Linux 7.4-rc3
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=14046dad580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=3cc6a7ee2d24d208
-dashboard link: https://syzkaller.appspot.com/bug?extid=deb8af81d91415fabac1
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+Tested by adding the ID via new_id: hid-logitech-hidpp binds and
+detects the hi-res scroll wheel.
 
-Unfortunately, I don't have any reproducer for this issue yet.
+Signed-off-by: Robin Tetour <git@robtet.dev>
+---
+ drivers/hid/hid-logitech-hidpp.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-aebb7274.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/89dc91c65baa/vmlinux-aebb7274.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/ada32ef78ae3/bzImage-aebb7274.xz
-
-The issue was bisected by AI to candidate commits (most relevant first):
-
-e044374a8a0a ima: annotate iint mutex to avoid lockdep false positive warnings
-80105ed2fd27 9p: Use netfslib read/write_iter
-0d73a55208e9 ima: re-introduce own integrity cache lock
-46ed60dcd4f2 netfs: Implement unbuffered/DIO vs buffered I/O locking
-047487c947e8 cachefiles: Implement the I/O routines
-
-AI reasoning:   https://syzkaller.appspot.com/ai_job?id=e6954bda-cd55-46d8-bb68-67259c9bb743
-
-AI-generated root cause summary:
-In `security/integrity/ima/ima_iint.c`, `ima_iint_lockdep_annotate()` assigns
-`iint->mutex` to a static lockdep class array
-`ima_iint_mutex_key[IMA_MAX_NESTING]` indexed solely by
-`inode->i_sb->s_stack_depth`. When a network filesystem using netfs/fscache
-(such as 9p) caches data on a local backing filesystem (such as XFS via
-cachefiles), both filesystems have `s_stack_depth == 0`, causing their
-`iint->mutex` instances to share the same lockdep key `ima_iint_mutex_key[0]`.
-This collapses distinct locking tiers into one class, causing lockdep to flag a
-false circular locking dependency among `sb_writers` (acquired during
-`do_open(O_TRUNC)`), `ima_iint_mutex_key[0]`, and `inode->i_rwsem` (acquired
-during `netfs_buffered_read_iter()` when IMA measures a file).
-
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=deb8af81d91415fabac1
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+deb8af81d91415fabac1@syzkaller.appspotmail.com
-
-loop0: detected capacity change from 0 to 32768
-=======================================================
-WARNING: The mand mount option has been deprecated and
-         and is ignored by this kernel. Remove the mand
-         option from the mount to silence this warning.
-=======================================================
-XFS (loop0): Mounting V5 Filesystem bfdc47fc-10d8-4eed-a562-11a831b3f791
-XFS (loop0): Ending clean mount
-XFS (loop0): Quotacheck needed: Please wait.
-XFS (loop0): Quotacheck: Done.
-
-======================================================
-WARNING: possible circular locking dependency detected
-syzkaller #0 Not tainted
-------------------------------------------------------
-syz.0.0/5351 is trying to acquire lock:
-ffff88804421c478 (sb_writers#12){.+.+}-{0:0}, at: kiocb_start_write include/linux/fs.h:2799 [inline]
-ffff88804421c478 (sb_writers#12){.+.+}-{0:0}, at: vfs_iocb_iter_write+0x1cb/0x5e0 fs/read_write.c:929
-
-but task is already holding lock:
-ffff888047183c00 (&sb->s_type->i_mutex_key#25){++++}-{4:4}, at: inode_lock_killable include/linux/fs.h:1032 [inline]
-ffff888047183c00 (&sb->s_type->i_mutex_key#25){++++}-{4:4}, at: do_truncate+0x18f/0x250 fs/open.c:63
-
-which lock already depends on the new lock.
-
-
-the existing dependency chain (in reverse order) is:
-
--> #2 (&sb->s_type->i_mutex_key#25){++++}-{4:4}:
-       down_read_interruptible+0x4b/0x3b0 kernel/locking/rwsem.c:1584
-       netfs_start_io_read+0x25/0x180 fs/netfs/locking.c:67
-       netfs_buffered_read_iter+0xd6/0x160 fs/netfs/buffered_read.c:940
-       __kernel_read+0x4ca/0x960 fs/read_write.c:512
-       integrity_kernel_read+0x89/0xd0 security/integrity/iint.c:28
-       ima_calc_file_hash_tfm security/integrity/ima/ima_crypto.c:222 [inline]
-       ima_calc_file_hash+0x451/0x890 security/integrity/ima/ima_crypto.c:280
-       ima_collect_measurement+0x51b/0xa00 security/integrity/ima/ima_api.c:300
-       process_measurement+0x1272/0x1c10 security/integrity/ima/ima_main.c:425
-       ima_file_check+0xdc/0x130 security/integrity/ima/ima_main.c:686
-       security_file_post_open+0xb3/0x260 security/security.c:2777
-       do_open fs/namei.c:4853 [inline]
-       path_openat+0x1748/0x20f0 fs/namei.c:5016
-       do_file_open+0x23e/0x4a0 fs/namei.c:5045
-       do_sys_openat2+0x115/0x200 fs/open.c:1443
-       do_sys_open fs/open.c:1449 [inline]
-       __do_sys_openat fs/open.c:1465 [inline]
-       __se_sys_openat fs/open.c:1460 [inline]
-       __x64_sys_openat+0x138/0x170 fs/open.c:1460
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #1 (&ima_iint_mutex_key[depth]){+.+.}-{4:4}:
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
-       process_measurement+0x7d0/0x1c10 security/integrity/ima/ima_main.c:319
-       ima_file_check+0xdc/0x130 security/integrity/ima/ima_main.c:686
-       security_file_post_open+0xb3/0x260 security/security.c:2777
-       do_open fs/namei.c:4853 [inline]
-       path_openat+0x1748/0x20f0 fs/namei.c:5016
-       do_file_open+0x23e/0x4a0 fs/namei.c:5045
-       do_sys_openat2+0x115/0x200 fs/open.c:1443
-       do_sys_open fs/open.c:1449 [inline]
-       __do_sys_openat fs/open.c:1465 [inline]
-       __se_sys_openat fs/open.c:1460 [inline]
-       __x64_sys_openat+0x138/0x170 fs/open.c:1460
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #0 (sb_writers#12){.+.+}-{0:0}:
-       check_prev_add kernel/locking/lockdep.c:3209 [inline]
-       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
-       validate_chain kernel/locking/lockdep.c:3952 [inline]
-       __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
-       lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
-       percpu_down_read_internal include/linux/percpu-rwsem.h:53 [inline]
-       percpu_down_read_freezable include/linux/percpu-rwsem.h:83 [inline]
-       __sb_start_write include/linux/fs/super.h:19 [inline]
-       sb_start_write+0x48/0x1c0 include/linux/fs/super.h:125
-       kiocb_start_write include/linux/fs.h:2799 [inline]
-       vfs_iocb_iter_write+0x1cb/0x5e0 fs/read_write.c:929
-       __cachefiles_write+0x6c9/0xbd0 fs/cachefiles/io.c:355
-       netfs_issue_write fs/netfs/write_issue.c:290 [inline]
-       netfs_advance_write+0x328/0x4b0 fs/netfs/write_issue.c:331
-       netfs_write_folio fs/netfs/write_issue.c:510 [inline]
-       netfs_writepages+0x12d3/0x22b0 fs/netfs/write_issue.c:600
-       do_writepages+0x338/0x560 mm/page-writeback.c:2562
-       filemap_writeback mm/filemap.c:386 [inline]
-       filemap_fdatawrite_range mm/filemap.c:411 [inline]
-       filemap_fdatawrite+0x1e9/0x2f0 mm/filemap.c:417
-       v9fs_vfs_setattr_dotl+0x4dc/0xab0 fs/9p/vfs_inode_dotl.c:585
-       notify_change+0xbba/0xea0 fs/attr.c:556
-       do_truncate+0x1c2/0x250 fs/open.c:68
-       handle_truncate fs/namei.c:4306 [inline]
-       do_open fs/namei.c:4855 [inline]
-       path_openat+0x18a6/0x20f0 fs/namei.c:5016
-       do_file_open+0x23e/0x4a0 fs/namei.c:5045
-       do_sys_openat2+0x115/0x200 fs/open.c:1443
-       do_sys_open fs/open.c:1449 [inline]
-       __do_sys_openat fs/open.c:1465 [inline]
-       __se_sys_openat fs/open.c:1460 [inline]
-       __x64_sys_openat+0x138/0x170 fs/open.c:1460
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-other info that might help us debug this:
-
-Chain exists of:
-  sb_writers#12 --> &ima_iint_mutex_key[depth] --> &sb->s_type->i_mutex_key#25
-
- Possible unsafe locking scenario:
-
-       CPU0                    CPU1
-       ----                    ----
-  lock(&sb->s_type->i_mutex_key#25);
-                               lock(&ima_iint_mutex_key[depth]);
-                               lock(&sb->s_type->i_mutex_key#25);
-  rlock(sb_writers#12);
-
- *** DEADLOCK ***
-
-locks held by syz.0.0/5351: 2, on CPU#0:
- #0: ffff888042230478 (sb_writers#13){.+.+}-{0:0}, at: mnt_want_write+0x41/0x90 fs/namespace.c:531
- #1: ffff888047183c00 (&sb->s_type->i_mutex_key#25){++++}-{4:4}, at: inode_lock_killable include/linux/fs.h:1032 [inline]
- #1: ffff888047183c00 (&sb->s_type->i_mutex_key#25){++++}-{4:4}, at: do_truncate+0x18f/0x250 fs/open.c:63
-
-stack backtrace:
-CPU: 0 UID: 0 PID: 5351 Comm: syz.0.0 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_circular_bug+0x2e2/0x300 kernel/locking/lockdep.c:2087
- check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2219
- check_prev_add kernel/locking/lockdep.c:3209 [inline]
- check_prevs_add kernel/locking/lockdep.c:3328 [inline]
- validate_chain kernel/locking/lockdep.c:3952 [inline]
- __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
- lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
- percpu_down_read_internal include/linux/percpu-rwsem.h:53 [inline]
- percpu_down_read_freezable include/linux/percpu-rwsem.h:83 [inline]
- __sb_start_write include/linux/fs/super.h:19 [inline]
- sb_start_write+0x48/0x1c0 include/linux/fs/super.h:125
- kiocb_start_write include/linux/fs.h:2799 [inline]
- vfs_iocb_iter_write+0x1cb/0x5e0 fs/read_write.c:929
- __cachefiles_write+0x6c9/0xbd0 fs/cachefiles/io.c:355
- netfs_issue_write fs/netfs/write_issue.c:290 [inline]
- netfs_advance_write+0x328/0x4b0 fs/netfs/write_issue.c:331
- netfs_write_folio fs/netfs/write_issue.c:510 [inline]
- netfs_writepages+0x12d3/0x22b0 fs/netfs/write_issue.c:600
- do_writepages+0x338/0x560 mm/page-writeback.c:2562
- filemap_writeback mm/filemap.c:386 [inline]
- filemap_fdatawrite_range mm/filemap.c:411 [inline]
- filemap_fdatawrite+0x1e9/0x2f0 mm/filemap.c:417
- v9fs_vfs_setattr_dotl+0x4dc/0xab0 fs/9p/vfs_inode_dotl.c:585
- notify_change+0xbba/0xea0 fs/attr.c:556
- do_truncate+0x1c2/0x250 fs/open.c:68
- handle_truncate fs/namei.c:4306 [inline]
- do_open fs/namei.c:4855 [inline]
- path_openat+0x18a6/0x20f0 fs/namei.c:5016
- do_file_open+0x23e/0x4a0 fs/namei.c:5045
- do_sys_openat2+0x115/0x200 fs/open.c:1443
- do_sys_open fs/open.c:1449 [inline]
- __do_sys_openat fs/open.c:1465 [inline]
- __se_sys_openat fs/open.c:1460 [inline]
- __x64_sys_openat+0x138/0x170 fs/open.c:1460
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fae7e7a94d9
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fae7f5b4fe8 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
-RAX: ffffffffffffffda RBX: 00007fae7ea25fa0 RCX: 00007fae7e7a94d9
-RDX: 0000000000000300 RSI: 000020000001cac0 RDI: 0000000000000009
-RBP: 00007fae7e83804e R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fae7ea26038 R14: 00007fae7ea25fa0 R15: 00007ffedf7b33b8
- </TASK>
-
+diff --git a/drivers/hid/hid-logitech-hidpp.c b/drivers/hid/hid-logitech-hidpp.c
+index 27d83b8bbaa..4b266997568 100644
+--- a/drivers/hid/hid-logitech-hidpp.c
++++ b/drivers/hid/hid-logitech-hidpp.c
+@@ -4936,6 +4936,8 @@ static const struct hid_device_id hidpp_devices[] = {
+ 	  HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_LOGITECH, 0xb015) },
+ 	{ /* MX Master 2S mouse over Bluetooth */
+ 	  HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_LOGITECH, 0xb019) },
++	{ /* MX Anywhere 2S mouse over Bluetooth */
++	  HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_LOGITECH, 0xb01a) },
+ 	{ /* MX Ergo trackball over Bluetooth */
+ 	  HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_LOGITECH, 0xb01d) },
+ 	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_LOGITECH, 0xb01e) },
 
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+base-commit: 720806515cb6921ab05caaa6f470f7054b56385e
+change-id: 20261117-hidpp-mx-anywhere-2s-bt-fa1b995db380
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-For information about AI bisection see: https://goo.gl/tpsmEJ#ai-bisection
+Best regards,
+--  
+Robin Tetour <git@robtet.dev>
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
