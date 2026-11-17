@@ -1,93 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.244
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794934826;
-	b=4ONyB+Q1aZl3JzurH3xEBgOAWP4cZz+OJx/uXv8LNS5sEOtkRY+xc4AoKWR4QLXl0Ouj
-	 Sh1fkKJhGSTxq8ylYbOk9P1Pvyyops8RbkVc+wUUGF7tQVYcG3OUinhmEJpMV8GvsL9WR
-	 mdpfQDArRsrA0VuXyOBit5DMrjafvgNuGyAPgdVidEc+Gy5rI96UiRn0eOEVWh5+y/h90
-	 J+oGiIdc7+D2uKNie+3gZgSZGTNEJ4LunnY5XyO0AfUkQkEsgWjbJOqEdYUG3UZa+sB3A
-	 BwOB6VDIBOcp+4abcaH/U9MFFixuVxiDsMFau1XaQzSq3tY0nILmXrA9oasA9e3mptw==
+	t=1794934915;
+	b=0ZWXDs+/3aFU5MHrX9y/5rw/Bv1YMrQ1bDwx8ynIWFG4ZDG+abNAUARtrlBCT1qNdNhB
+	 DDkaoZXP7Nz9iyHDkaGmZm/y2NSVon2v8JSDlBtxfda9jbHT4waoQCdDtrgtXW6syHiyC
+	 5+fHnecooK9BR0eZhmjurPyz4x8TsVe51yUQQwsiMJTu2G3gMV04T2icgDvG4q9ktvG0q
+	 0GcIYOhXUZWD1PptElP/gIqbttxf/eJA0s9zHNcQgeJvcX9f+8btHSpRmyjBmtulOy7/Z
+	 tMRrakxby2aMY12MGkbiw+3ixYWZ6s/NAj175xY5aLzIlkyvGUjVuyzeLBVjKwiz6Cg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794934826;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=kW55Dk+yseJmN9okamfVtjuiC2NhjKfzRVvzdrDCbhA=;
-	b=rqXSYKXPieKArD85tWB66pvWnJEFx0aUItQuyZm/CuFAbF5Yn7YzhkEpd6Pb17QrEvWs
-	 KraCMV0q12a2ah11YYimki1Nb3GE6mcKrcLBMW7JCn+uA0/uOuj6M9Xrnp3gEJdOzzDpe
-	 QHlAz0H5/StHzGekLazQ2vDwoecSR82HLC0a1CddW4pxZ816IShsfalrtXVd8xj2HR0H6
-	 HS56dnh3e0J3xv689LIZuXlk6A1moRVHEuUB/Fty5HFEyKg86DtKW6AFauImOtOAarMhh
-	 dvqm8mHj49hL5K14Z/Hlp+9e7oI305FOAfd8TinU2XejvWmaw0wBDu4SVic1FM66AYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794934915;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=CkHa2sFv9CmQESaVn3NPFW88v6+W45HqsS/ucIanDx8=;
+	b=cWFwWs8AKmvtCog7dLuGJRDbelg8HVKGRIpy6vr6FIONXghTTnnOIDeHNR0qfslnSSTv
+	 OIMpkBSkh7IMAP/xszBtr4I0LidJW5aG78ZYI04+lc6e4+TgfDoFLPAJW+9LZLrgTSRKG
+	 oTUfXnldYZ0VyjNXfjC07scrBJEEtM6znk840KFl2akj/HGj8pSisYlQ5jZW5sYv2GSo5
+	 ECAOzwDkDasGoxk1mrY8YRmEsh4dd/9sLllneF138Zk3VolgPdp+hA8IReMtelU7b2tFx
+	 7/KPQ1fkLbDdTIJWub9hSvPgs9Pdn9Tu2gESMKZ2XOxIGYNgJ7vLyy9aH05gwSsNA9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Pu3P8pSQ;
-	arc=none smtp.remote-ip=209.85.216.51
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YUZwXye8;
+	arc=none smtp.remote-ip=95.215.58.244
+Received: from mta1.migadu.com (out-244.mta1.migadu.com [95.215.58.244])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 457D3606A32F
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 17:00:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 457D3606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4087F606A32F
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 17:01:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4087F606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Pu3P8pSQ
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3b09cc7ed1aso589719a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:00:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794934825; x=1795539625; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kW55Dk+yseJmN9okamfVtjuiC2NhjKfzRVvzdrDCbhA=;
-        b=Pu3P8pSQkYeHwsSeZfCsabpPPtErJFAq193jMc/KSoEkEM7kiVtNPyFLjth8wRfXMz
-         38gz70BFUCcvw4jHP8TwecK4uwYG0H6wB/FYsz0bE6kWUx8ExX5e9m5rc2n7/I3QR7rC
-         ghyjJWTyjKnDK+laNZRuqkL7ugFCEUDAORbll3wn5ypoh43eKeHNQE+8LgEo03AQnirj
-         ODeS7C4iWhD0X7naASkHB9jWCxYw/l9V2jg+ReXg0OSUkgovngM/0E2LnhUxI1Pfr7Vn
-         nTO03cTCNV2zbMMoU6BfNLgC/fAR+hPQ2fJzcXLQc0MPX+3okVwBfojyOZ/bRCOpf8yC
-         1yVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794934825; x=1795539625;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kW55Dk+yseJmN9okamfVtjuiC2NhjKfzRVvzdrDCbhA=;
-        b=NlnUBohZVTAxs2iD/tddMPTZw76NMooBYECC49/cC2z4vjwLjVJ38/7vfc13WOx2s+
-         tCdVq8Xlg3esp9UjwozfOHPIBd0A6Md0nXybP9+9gqhy0ALU6ZL6Chd8Z17J85lNh0w/
-         UWcqBMOxgAuCJivdSrElDoMi52xLzFNP52l+UNU2kMTei+4ozmYrsjL/FACL5Mvp/Fxi
-         spy/ldEx4OM9MbpED+yMQLe1VfSKnk0TgPXj//iSY8sIjKH3o7tOvqHsRxVp/eeaVW5H
-         Az/DUThXgkJgyLW+snh3W3O7Iv+XiAffFFexETffvsOWr8P4M6Fqd+960h0N2JAbpHLP
-         NVzQ==
-X-Gm-Message-State: APuU4Z8+3phwQXxQhk0RN8VMsEc6GqDOkzfHFF18bSHCjl6qZsWK0DsA
-	af/VAbLAfhgAxOXFlpcRHwoUyIc2Ur3INSOYz/gQ8vQXRqTpVrfWdrhmEJn42Zu3
-X-Gm-Gg: AZFdTZelwlF2o+rAnkgVNqI4dMN0V757wo+azg/aVultytaPP0R3eVlaVLpCkuyFPlL
-	KvWq/uzYPjbhN7iBA6zw+pf0fP3FrqjWLsdHXUt/blwe3gGejSyQepRuBKWVVIA50Bci/i8VLj0
-	xwBzNrEa0uGbIRM+LLdAXgBC0dAWzFRfTfXozg6GL6LhuTYkQQqRJgoy6WqHQHqg5Ad0Cj0djMf
-	UX//Jz9UwWis/boH702CsV7A0Y+ezRJ8uiKGmfvSkKj7xfxexKu7snOMLPxv6mJKZXjOBSFGd04
-	AorwqBpwxIdRbyvCxr9qXXzOwYeTaySGBeDPJT8QOxIXjpXHah+N2M3WKIJzpWbuXw3V7R84VkW
-	w5fGsKYgriGO+19Th88C3+Q0RvsFfBC0TYrtdyjU1uvE63tTVvNOVMp/3onFSYyCsdD8ZJrv+JA
-	1jq3dq9KUrgLVUkjgLalcWrnJOstSNLlpYvUbZZTGYRd8OYe9jZTKYs0HOhmRjMTGEDpz16cyHd
-	oYgAyvJsk4B0oasQSbH9qtjnVRw2W7shqTFS941FYHrGlcN7Y+iTyQR00FU6ZH5ArbJBLxc1h0C
-	MWC9uDKAfVTYt7q6NUSQxB6hTjAwO6aJ7VxDnEh3ssHElhPabgggzKLGY07W8qAl+iDP9w==
-X-Received: by 2002:a17:90b:1d47:b0:3b0:975b:2256 with SMTP id 98e67ed59e1d1-3b3d07a8e0fmr40970a91.4.1794934825267;
-        Tue, 17 Nov 2026 09:00:25 -0800 (PST)
-Received: from lima-buntos-dev.. ([218.239.109.48])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3abe8b263sm5183964a91.13.2026.11.17.09.00.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 09:00:24 -0800 (PST)
-From: =?UTF-8?q?GIBEOM=20LEE=20=28=EC=9D=B4=EA=B8=B0=EB=B2=94=29?= <rtx4060@gmail.com>
-To: Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Subject: [PATCH] soc: mediatek: mtk-dvfsrc: Add missing calc_dram_bw callback for MT6893
-Date: Wed, 18 Nov 2026 01:57:17 +0900
-Message-ID: <20261117165717.1348-1-rtx4060@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YUZwXye8
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Gn/OQQirr7fE8T3D1Iz1+Zh6kVmd5Ou8RsWt2FanJao=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794934910; v=1; x=1795539710;
+ b=YUZwXye8jsajGNx6LtDcCC2bV5cwvznLc10tDGC/M3MaMLFmNbXMF+gcfUKvwkfR2XTm0ea1
+ 8gOqsQnJ+dusdv+E9WGjtRnlVaiAuumM3ByTTiaruPLVmajIf41tDob2K+wMlcuA0TkBnROsM1r
+ 2dWh1RAuFzups4rUDgolr/Qk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e7457a07eb241923;
+	Tue, 17 Nov 2026 17:01:50 +0000
+X-Mizu-Trace-ID: e7457a07eb241923
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <a66d0c11-f13b-42ec-8ddb-2cbddf50682b@linux.dev>
+Date: Wed, 18 Nov 2026 01:01:46 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,66 +58,149 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 0/6] sysctl: replace overloaded extra pointers with
+ typed bounds and core stride
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>,
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <cover.1794844686.git.wen.yang@linux.dev>
+ <20261116214023.1a1b4205@pumpkin>
+Content-Language: en-US
+From: Wen Yang <wen.yang@linux.dev>
+In-Reply-To: <20261116214023.1a1b4205@pumpkin>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Commit ddb5862a43b1 ("soc: mediatek: mtk-dvfsrc: Add a new callback for
-calc_dram_bw") made __dvfsrc_set_dram_bw_v1() call the calc_dram_bw
-callback of the SoC data without checking it, and set that callback for
-MT8183 and MT8195. The MT6893 data use the same bandwidth setters, but
-were left without the callback.
 
-Any bandwidth request for MT6893 (MTK_DVFSRC_CMD_BW, MTK_DVFSRC_CMD_PEAK_BW
-or MTK_DVFSRC_CMD_HRT_BW) therefore calls a NULL function pointer.
 
-Nothing in the tree sends such a request for MT6893 today: they come from
-the EMI interconnect driver, which has no data for this SoC, and there is
-no MT6893 device tree yet.
+On 11/17/26 05:40, David Laight wrote:
+> On Tue, 17 Nov 2026 00:07:32 +0800
+> wen.yang@linux.dev wrote:
+> 
+>> From: Wen Yang <wen.yang@linux.dev>
+>>
+>> struct ctl_table has long relied on extra1 and extra2 pointers to serve
+>> multiple unrelated duties, including range limits and caller-specific
+>> context.  This series addresses both:
+>>
+>> 1. Replace bound pointers with plain unsigned long min and max fields
+>>     directly in struct ctl_table.
+>>
+>> 2. Replace per-entry context pointers with a core stride mechanism,
+>>     allowing callers to register arrays of structures embedding struct
+>>     ctl_table and recover enclosing context via standard container_of().
+>>
+>> This RFC focuses on the core stride infrastructure and two representative
+>> complex users (netfilter nf_log and IPv4 devinet), as suggested by Joel
+>> Granados.  The remaining treewide callers are converted in a single
+>> squashed commit to ensure the tree builds and tests pass cleanly.
+> 
+> I think I would have tried to avoid the indentation changes - just to
+> make the actual changes easier to see.
+> 
 
-Set the callback to dvfsrc_calc_dram_bw_v1(), as for MT8195, which has
-the same registers and bandwidth limits.
+Good point.  Looking closer at Patch 4, keeping the original
+'static struct devinet_sysctl_table { ... } devinet_sysctl' layout not
+only avoids re-indenting the 33 DEVINET_SYSCTL_* entries (cutting the
+diff from +104/-86 down to +41/-23), it also fixes a bug where
+kmemdup(&devinet_sysctl, ...) was copying a bare array into a
+struct devinet_sysctl_table that starts with sysctl_header.
 
-Claude, an AI coding assistant, found this while reading the driver to
-add another SoC.
+With the original layout preserved, the table definition change is just:
 
-Fixes: ddb5862a43b1 ("soc: mediatek: mtk-dvfsrc: Add a new callback for calc_dram_bw")
-Signed-off-by: GIBEOM LEE (이기범) <rtx4060@gmail.com>
----
-The MediaTek for-next branch and linux-next (next-20261116) have the
-same lines.
+     static struct devinet_sysctl_table {
+             struct ctl_table_header *sysctl_header;
+    -        struct ctl_table devinet_vars[IPV4_DEVCONF_MAX];
+    +        struct devinet_sysctl_entry devinet_vars[IPV4_DEVCONF_MAX];
+     } devinet_sysctl = {
+             .devinet_vars = {
+                     DEVINET_SYSCTL_COMPLEX_ENTRY(FORWARDING,
+...
 
-Testing: this has not run on hardware, as I have no MT6893 board. It
-builds with W=1 at the base commit below. mtk-dvfsrc.c also ran
-unchanged in user space, with the registers as a plain array and with
-ASan and UBSan: mtk_dvfsrc_send_request() was called with each of the
-three bandwidth commands for every SoC in the match table. Before the
-patch the three MT6893 calls jump to address 0 from
-dvfsrc_set_dram_bw_v1() and its two siblings; after it they write the
-same values as on MT8195 (20 for 2 Gbit/s) to 0x26c, 0x278 and 0x290.
-The other SoCs give the same results before and after.
+> ...
+>> 4. Baseline rebase & conflict resolution:
+>>     - Rebased onto next-20261111 (aaa2f954c21b).
+>>     - Added proc_dointvec_jiffies_minmax and proc_dointvec_ms_jiffies_minmax
+>>       to sysctl_check_table().
+> 
+> I didn't spot those in here, but are they even needed?
+> Without the bounds don't the minmax variants behave like the original functions?
+> So it was only necessary to add support for bounds to the existing functions.
+> (The only think that half makes sense is if a caller uses extra1/2 for
+> something else.)
+> 
 
-That model only shows the call path; it says nothing about the hardware.
+Sorry for the confusion: I omitted the squashed treewide patch (6/6) 
+from the v2 posting to keep the mailing list traffic small, and that 
+bullet in the cover letter referred to a change in that patch.
+I have moved the sysctl_check_table() addition into Patch 1 for v3.
 
-How this was made: Claude (claude-fable-5-2, an AI coding assistant)
-found this during a longer session of porting mainline Linux to a Lenovo
-TB375FC tablet (MT6897), while reading this driver. It wrote the patch
-and this message, and it ran the checks above. I reviewed the result
-before signing off.
+proc_dointvec_ms_jiffies_minmax() was already in the tree, and
+proc_dointvec_jiffies_minmax() was recently added in linux-next by 
+commit 75f5722df2b4 ("net: restrict message_cost and message_burst to
+non-negative values").  You are right about the historical reason: the
+separate *_minmax handlers only existed because callers of 
+proc_dointvec() and friends could stash unrelated context in 
+extra1/extra2.  Once extra1/extra2 are gone and bounds live in dedicated 
+min/max fields, merging the *_minmax variants into the base handlers 
+will be a clean follow-up.
 
- drivers/soc/mediatek/mtk-dvfsrc.c | 1 +
- 1 file changed, 1 insertion(+)
+> Related, I think you can reduce the size of the final patch and the likely hood
+> of some silly errors by making the 'dointvec' functions treat min == 0, max == 0
+> (ie no initialisers) as 'no limit' rather than 'only zero allowed'.
+> 
 
-diff --git a/drivers/soc/mediatek/mtk-dvfsrc.c b/drivers/soc/mediatek/mtk-dvfsrc.c
-index c691a895c92c..8ae924bb81c3 100644
---- a/drivers/soc/mediatek/mtk-dvfsrc.c
-+++ b/drivers/soc/mediatek/mtk-dvfsrc.c
-@@ -736,6 +736,7 @@ static const struct dvfsrc_opp_desc dvfsrc_opp_mt6893_desc[] = {
- static const struct dvfsrc_soc_data mt6893_data = {
- 	.opps_desc = dvfsrc_opp_mt6893_desc,
- 	.regs = dvfsrc_mt8195_regs,
-+	.calc_dram_bw = dvfsrc_calc_dram_bw_v1,
- 	.get_target_level = dvfsrc_get_target_level_v2,
- 	.get_current_level = dvfsrc_get_current_level_v2,
- 	.get_vcore_level = dvfsrc_get_vcore_level_v2,
+There are two reasons why treating (min == 0 && max == 0) as "no limit"
+in the *_minmax handlers turns out to be problematic:
 
-base-commit: 666539eecdf4db623f5e3c3e55cf9f2dfad24aa4
+1. It conflicts with dropping redundant '.min = 0' on signed handlers,
+    and does not help non-zero lower bounds:
+
+   - Most proc_dointvec_minmax() callers in the tree only set
+     '.extra1 = SYSCTL_ZERO' (with .extra2 = NULL) to reject negative
+     inputs, i.e. [0, INT_MAX].  Once we drop the redundant '.min = 0'
+     initialiser, omitting '.max = INT_MAX' as well leaves the entry at
+     (min == 0, max == 0).  If proc_dointvec_minmax() treats (0, 0) as
+     "no limit" ([INT_MIN, INT_MAX]), all of those non-negative entries
+     silently accept negative values again.
+
+   - For entries with a positive lower bound and no upper bound (e.g.
+     '.extra1 = SYSCTL_ONE, .extra2 = NULL' -> '.min = 1'), min is non-zero,
+     so a (min == 0 && max == 0) check does not trigger anyway; omitting
+     .max leaves max == 0 < min and rejects all writes.
+
+2. Implicitly defaulting an omitted .max to the type limit is fail-open
+    on handlers whose whole purpose is range checking:
+    Under the old "extra2 == NULL means no upper bound" rule, several
+    *_minmax entries in net-next had bugs fixed just in the past two weeks
+    because .extra2 was left unset:
+
+   - 850a7225bc61 ("tcp: limit tcp_tso_rtt_log to a valid shift count"):
+     tcp_tso_rtt_log used proc_dou8vec_minmax with neither .extra1 nor
+     .extra2 set (so both defaulted to NULL -> [0, 255]), allowing shift
+     counts >= 32 and triggering UBSAN shift-out-of-bounds in
+     tcp_tso_autosize().
+
+   - 0bc7b5b2985f ("ipv4: restrict igmp_qrv to 255") and
+     6d6bdc1b943c ("ipv6: restrict mld_qrv to 255"):
+     both entries used proc_dointvec_minmax with '.extra1 = SYSCTL_ONE'
+     and left .extra2 unset (NULL -> INT_MAX); writing 256 silently
+     wrapped the backing u8 field to 0 and triggered
+     WARN_ON(idev->mc_qrv == 0) in mld_query_work().
+
+   With an explicit [min, max] closed interval, .min defaults to 0
+   (matching non-negative inputs), while forgetting .max on a *_minmax
+   entry leaves .max = 0 (fail-closed, immediately rejecting non-zero
+   writes during testing) rather than silently allowing up to INT_MAX.
+
+To eliminate the risk of hand-written mistakes when converting existing
+one-sided entries, I will updat the coccinelle script (Patch 5) in v3 so 
+that whenever an entry uses a *_minmax handler with only a lower bound 
+(.extra2 absent), the script automatically supplies the matching type 
+maximum (INT_MAX/UINT_MAX/ULONG_MAX/U8_MAX) according to .proc_handler.
+
+
+Thanks,
+Wen
+
