@@ -1,66 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794899203;
-	b=LW+3Cxcw802NQks2W+o1vW19t65rNX8STkzSeM+qXB0igqPadGjfKgAogoUyqSME3tRS
-	 hP01dUD3r3u1nAb4RFYQZy8wrq1pdIwdO9ace1DjpQAoj6UbAWfLUC0weF9gg0AhXWM/i
-	 zk9OHMgthIpv1z+MnNekUzJnsVPxwK1JkLYfiMnmIV5WKWAQZPJbLdDkwRlEB0w4u7FB1
-	 yEPhZER8C9tN4US8YVcywwjmEqVhFk02dPJAyZilOtNDspVMGrqZIrvZ4vho4E4DY9MK4
-	 SYCQ3KWEMBtTTLlSlsb5XxhVRSdO6AsKT0NxqaHiSg5sQf2FqGQEg1BOQ4kmoOnM+3A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794899203;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=fwD0hDfcc92kFulqgZu2fazrryJJ+jqrlv2x46MWAcY=;
-	b=VKVKGBOhjsHSRRO8yOSvjnUCSg7zRFbyvD6EF9S6o8KBvhUqPM+MR1t7rQO1FMJllpN3
-	 ZTMlnTQLvlCfX17cbblNwEeqAmptkN2WFVXJFvu88LacLj403ontJ6qO6oouhKSOYWVdc
-	 4GIOeulb+6u9lykHQHBdYeox8S8yat7RfruowMpvB7SGY9eu8Qvhd0I3rPYgH20lKuldn
-	 2IpEXI4ZTre5r6O8Vfw7WxRagKyE6vs4L4AMqYxG/vpQ9MKWV6gkxJC1dS9taG6sJJ+pR
-	 C1Gm/0ZcSZ0Jvg0cPApHbcg3t3gwvfRPNMY8YmuaumpZ1dHJoHtviAHUYW5KELDFXTw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=YJZbGCTi;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 90A5D606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:06:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90A5D606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794899205;
+	b=dvRvT9N1tmblaEP5C1ggAOGAk8tWcK9yXjojRUw3raT3HimZRi/nlyMjyx0RJEmQ+xuK
+	 ujR4y8wdIRZXhfRPBa1BbrTjB2nS9VRMhS9nNgH39pDfIZSGIzemympSJfIXHc0MmAlbx
+	 olFglkAK5jvokmapS1Te6b+hWcozdPfyToGpN/UxMfJnyHTuMUPdMbfecJmP0cuAP7oB2
+	 Mef+THlW9rSn4IgYUFCCvdf85mu0NbgWqOmxNo+fXCSzP50C1ciuaXUIUFXeXJPFajqu6
+	 lcAaO/G003CgrNH8RpV42BqsLJI8c9+0ut0S5AicGUM/pZBrkchqSUXVDGEx/RHXvEQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794899205;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=QZQ0OLYxSEs5u77Q4Tee1gRSnR0YYIfa5aCuKhvSQ5M=;
+	b=JzEUm52hVJv1/n9X7GmHf9RhKRDRY1ukc3qcOVfxh0pFXQvR8oU+xuJNgr0yshvWP2ov
+	 vGAk+ugmBOO2vS8Qc8SxPCbbEetKoBmfinBqH7IT/g3bAQhRGRIWEWyrUwIwt+Vo0yfOu
+	 mWZM9/4YWDhpiToNagl9FwKOrSN93s6889Hq8URFc/vgJvhYz6h+LFzd3eq/XunFRbRhO
+	 iZE7eRULDUA797iQD/IcBf1B7X5iTBaCtslKNf3P0GfBZUW4W/MyYT8QbVpyYVjrMJQV4
+	 9krLbYzKI7PreeO2igmlvh19S+UMheMlP/8OEByoyHdXMJ/W6zdc8iuGSxeRGW5myFA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="f13az/Gh";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A27B606A883;
+	Tue, 17 Nov 2026 07:06:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=YJZbGCTi
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0547A1476;
-	Mon, 16 Nov 2026 23:06:39 -0800 (PST)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3BC7B3F763;
-	Mon, 16 Nov 2026 23:06:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794899201; bh=yC9GXzENjJXOH1CTrLMyqmXybb56e7XRWoU2chaI4Ps=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=YJZbGCTiaza4+J6dPT6sY5RGknZNH3VGE6ywRMul+CMVUbZZ4eEq2GKeZa+UFBSbB
-	 o/qcSOJeyt86zlE1xaHPJF+y1DvtwocqSnPsKBVFiFU8rO3EZmkAmOJsemMGEADWXi
-	 xZLZDQoeueKVMlpUTcASr7kg9SSrSe6zPD3nFNOg=
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: linux-arm-kernel@lists.infradead.org,
-	catalin.marinas@arm.com,
-	will@kernel.org
-Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH V3 05/14] arm64/mm: Override read-write accessors for vm_page_prot
-Date: Tue, 17 Nov 2026 12:36:04 +0530
-Message-ID: <20261117070613.1183243-6-anshuman.khandual@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261117070613.1183243-1-anshuman.khandual@arm.com>
-References: <20261117070613.1183243-1-anshuman.khandual@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f13az/Gh
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794899205;
+	b=qIGp2rUsyhr0ThHnlHW0KgrzxOGqgC+1YmzZ/aY/tgOfFUKMfHd2U/c5Ipx5iY326TUQ
+	 vZeVQqzaNxM5jnHza5da89FU8fdF8Q4todtiiZMBFarXDcGpQeibmFJ4wxrFpNyQ4rDgg
+	 dXetcCY1FZXpT/fgrqQxdJ6xGGHRdm7VUyQF5TPEnyGXbyntweW8EW5fmWTIe1/YskG0o
+	 vKsrkcQdtdFq4OiIsGLjAPzG3OkRjG48RWxv1w8MY/fSe/Ir3iZD5n1WpB3bxRMolSxL8
+	 JotrIoN8af9UxpO+jXd6d0WZQlgGIZ226Rh15ZYldfE1o8VFYlqjCH9H3ZuUtcBIXWA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794899205;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=QZQ0OLYxSEs5u77Q4Tee1gRSnR0YYIfa5aCuKhvSQ5M=;
+	b=SMrYC8/Ckf73N8Kku6V3sfCJD2vfBs5/Kx149WHEVEtJVRY0Da0sqO/9UpnTaHfsXe3W
+	 fWyfHsz3YfJKaznz/UtUBT0h9GgUSWAFKtoxZoHz8fbRM6zjH1FOcaagrXRM2YzgOC6Ls
+	 n6U3+YbEfga98pyfxMcjxxkoBv0AHP6YdGZ4Bou6C2oQIb9/Mm04KHgeIesh9hWmdQAQo
+	 rUg0zYQGX9Lg6nMhps/q/W2Ky0l/kvT2CTXcm+OEr2ctfYk+N2gDkZ9HjkDQa5NSWv4xR
+	 egNJxMtlpafWANATIQvm7QyGN/3arQhIflyVZm1BBV8l5VsZ1Hsb6kxm+/e2nRtxMuw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id DF8111F000CA;
+	Tue, 17 Nov 2026 07:06:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794899205;
+	bh=QZQ0OLYxSEs5u77Q4Tee1gRSnR0YYIfa5aCuKhvSQ5M=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=f13az/Gh0vZ9uxmidW8OChESFp3xClYqPgR4PZzyUWmT1iajWFxz/GEtx8gVNTZaF
+	 WAgST49bfQ3TrKgmqQKeRNGXfQ4/Z/kJTAThZPxf0G4KftlDMEFUiub/glvj6QQSFb
+	 f/kkbb6LvrD0aGsfCcyQaFR83MBmco9vHUrEMwWcjLUIBZ5bpIzY7/H3m7iXMJdUkv
+	 uSQp58EASgG1GxAKRPZNOK2Cu5p/uXuOZt9k/Er55B9KUkoDTD1vzt0cMPuIfSX4n5
+	 oAR/GP41QmQcAn3bPSlHzM0/xdgJwf0XKSLnByfXAHauZDg+hNCWvTonL34WAXicTX
+	 I9zgcEM8XyiyQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 6FE924A706;
+	Tue, 17 Nov 2026 07:06:43 +0000 (UTC)
+From: Cunhao Lu via B4 Relay <devnull+1579567540.qq.com@kernel.org>
+Date: Tue, 17 Nov 2026 15:06:23 +0800
+Subject: [PATCH v6 3/4] clk: rockchip: Add composite clock macro with mux
+ table
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,50 +83,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261117-add-board-ok3572-c-clk-v6-3-cabad6610c5f@qq.com>
+References: <20261117-add-board-ok3572-c-clk-v6-0-cabad6610c5f@qq.com>
+In-Reply-To: <20261117-add-board-ok3572-c-clk-v6-0-cabad6610c5f@qq.com>
+To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Elaine Zhang <zhangqing@rock-chips.com>, 
+ Richard Cochran <richardcochran@gmail.com>
+Cc: Cunhao Lu <1579567540@qq.com>, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ netdev@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794899201; l=1536;
+ i=1579567540@qq.com; s=20261015; h=from:subject:message-id;
+ bh=ARjPwse4rOa3gyvTIyxk5QA6f1wP4DKLCzCn6mGIImM=;
+ b=xZ9qFKy/b0fySTvvtwuPXLE+IiBSlXcZW0oooIqLCqhlK9LPOqBQzvvnLY76ikoqyHGoHBHZ8
+ JYXR9LKGRPfAsNarDIWdS92UKxWlnKrj97c1/ZL92+vErRLTHOxlYyP
+X-Developer-Key: i=1579567540@qq.com; a=ed25519;
+ pk=sUTWrzlIwT4C7ctjNfVZAzzg0G7QUn2XxRGpYsw4RtM=
+X-Endpoint-Received: by B4 Relay for 1579567540@qq.com/20261015 with
+ auth_id=1177
+X-Original-From: Cunhao Lu <1579567540@qq.com>
+Reply-To: 1579567540@qq.com
 
-Override pgprot_[read|write]() accessors using ptval_[get|set]() providing
-required single copy atomic operation for vma->vm_page_prot.
+From: Elaine Zhang <zhangqing@rock-chips.com>
 
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Will Deacon <will@kernel.org>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Mark Rutland <mark.rutland@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
+Some Rockchip composite clocks use mux selector values that do not
+match the order of their parent clocks.
+
+Add COMPOSITE_MUXTBL to describe the parent-to-selector mapping along
+with the divider and gate. The RK3572 audio clocks use this layout.
+
+Signed-off-by: Elaine Zhang <zhangqing@rock-chips.com>
+Signed-off-by: Cunhao Lu <1579567540@qq.com>
+
 ---
-Changes in V3:
+Changes in v4:
+- Split this helper out of the RK3572 driver patch.
+---
+ drivers/clk/rockchip/clk.h | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-- Add const pgprot_t * in pgprot_read()
-
- arch/arm64/include/asm/pgtable.h | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
-index d3a50d35fd017..737e1e42f1ec0 100644
---- a/arch/arm64/include/asm/pgtable.h
-+++ b/arch/arm64/include/asm/pgtable.h
-@@ -122,6 +122,18 @@ static inline pgd_t pgdp_get(const pgd_t *pgdp)
- 	return ptval_get(*pgdp);
- }
+diff --git a/drivers/clk/rockchip/clk.h b/drivers/clk/rockchip/clk.h
+index b89165ee261b..7bf242410f63 100644
+--- a/drivers/clk/rockchip/clk.h
++++ b/drivers/clk/rockchip/clk.h
+@@ -871,6 +871,28 @@ struct rockchip_clk_branch {
+ 		.gate_flags	= gf,				\
+ 	}
  
-+#define pgprot_read pgprot_read
-+static inline pgprot_t pgprot_read(const pgprot_t *prot)
-+{
-+	return ptval_get(*prot);
-+}
++#define COMPOSITE_MUXTBL(_id, cname, pnames, f, mo, ms, mw, mf,	\
++			 mt, ds, dw, df, go, gs, gf)		\
++	{							\
++		.id		= _id,				\
++		.branch_type	= branch_composite,		\
++		.name		= cname,			\
++		.parent_names	= pnames,			\
++		.num_parents	= ARRAY_SIZE(pnames),		\
++		.flags		= f,				\
++		.muxdiv_offset	= mo,				\
++		.mux_shift	= ms,				\
++		.mux_width	= mw,				\
++		.mux_flags	= mf,				\
++		.mux_table	= mt,				\
++		.div_shift	= ds,				\
++		.div_width	= dw,				\
++		.div_flags	= df,				\
++		.gate_offset	= go,				\
++		.gate_shift	= gs,				\
++		.gate_flags	= gf,				\
++	}
 +
-+#define pgprot_write pgprot_write
-+static inline void pgprot_write(pgprot_t *prot, pgprot_t val)
-+{
-+	ptval_set(*prot, val);
-+}
-+
- #ifdef CONFIG_TRANSPARENT_HUGEPAGE
- #define __HAVE_ARCH_FLUSH_PMD_TLB_RANGE
- 
+ #define COMPOSITE_DIV_OFFSET(_id, cname, pnames, f, mo, ms, mw,	\
+ 			     mf, do, ds, dw, df, go, gs, gf)	\
+ 	{							\
+
 -- 
-2.43.0
+2.34.1
+
 
