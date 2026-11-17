@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794922198;
-	b=TbmdYJPjnA+RVZ/Z8MhWlxIi+DF+SPNEfoiH8cKM5mIfn1MnZg8EC1Vd4x5wZi5h9S5t
-	 QnfDqjqPokH9c8ozamzD8ImYww7UIEWJrGlFJ9dWFjbXruesR2rCGCmAErF4wIklfNRmS
-	 dFxG6e5N2FODEk24CajwbzjJn6pyJpHoqIrJQEbWklVS19kbXgEIU/8qOqymYxjOZDk36
-	 b2W7C906DBJiYhKL3YiFnuHS8iKH6C/66OthMUrIBflTzgcLUcHqiEisjsePFT+x9pXGx
-	 O8iBq1xGwYuuNb+RCcx2OnROVME1XuuN3sy8tVCnDc20DD6hajq0P3F472rpuSHwUqA==
+	b=QvKJ2oMNzKYGVBlyFVysnPWtIPSG3A0vhLKqgnkJKMXq9rWeCScUlrLnwGC1PJQTERa/
+	 1b4/Q415P4rxQA+nWo9AocAbSrLI+/W387BUiXLbMcGrar4nbPuDhvbVNzcZFQ5J3GDVl
+	 5/8NlE/jP9ADrgGp3VGnuj5DW1EO8UvUOXVkxuRiE9ccmoF3kDqVxBBJKq6rs2PYB/JCd
+	 gIvRHA8wqM/2cyJCBeG8z6sgJ/4m54dFDayNcjKc9eFMpSreGiSulcRBWzzR2P7mzzSEJ
+	 aW6bY1rWpH2Zm+DOSfGpdqWuQ2ugm/q9VHJkn+AIFieArL4lLExLFUOyPQjEXYxEEzA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794922198;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=1M+tmkiw13zqQg92Zh2bUVUQ5Nt1cC1rTeaNa/qKMXY=;
-	b=thSKPeVILlU30YFIlzJmtfiPoF7nx8VdnR0+7NM2poFs9rajIoCQUW/81H7eYyUjis30
-	 fI+ibw8YMc9dEO5PEZvQvqxubcqBbmT8hWcHslEtbVQhXxoCuSh6XEeOfBfeplYB/z2ca
-	 ODaMsJg9nkJYSkpqGVSLVR0pT5qQWKdYO+z2eyoPTWfHjUjdAQCBBzPdxaifMuiyeI1DB
-	 bSXy104wxaDf/Z8LWG1/xxAFTDwQQdH1FDwVqz9hAiCy82t1CMPUWv52snxXopDv1HEnK
-	 23pxyGkUxKuHY26XZV7bFHiFLD+jow8lS/pEDRnxH5TdJL7Pdb9VBDCuduFbdxfqtmA==
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=JUKwPGMQYo18edBpP3+qVXT0aSpgE6kCrGKKM20Fta4=;
+	b=zFB2dAfXG/q3R+hSbhmRlCMXJCzRSI9e3U50FXLsCGLS5Xyrrc4U7g7QRGd2rJ3rz06i
+	 5EcjOlRJTFlAo2XGiTerSRd6NgUyupdN31mDZphaf4fuwdA/9bNWzhrjPB0wr4KPBXPtO
+	 /do9K62IzeXmOi67LjJcTjBUvd+eh1ZXh04CfEopPTDWNuqoR/+23xejR98z3feIJDNLV
+	 5LDpRHJgkDq0NsUup9j7HXVz6o1gv9He9XDgMMAt0nX2NqLbbLa1HlppQ9JxQsrAwh7an
+	 D3/nNLyXSG/tI1ISUY/YJMtBJvCrO+YHva74Fdt3VmeZlbBf5pa4CM4PONENsvopOaA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g52bDE6B;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hM9J4d5y;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F372606A332;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD22A606A33A;
 	Tue, 17 Nov 2026 13:29:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g52bDE6B
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hM9J4d5y
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794922198;
-	b=n2db2MGvTywahUHkwi80igfopV6xLT6ClyGz3/1lzVI9Grnqr7KMf7F7Qe6uBDpXyfri
-	 NpbyIDdrbNYAp1JlOKMKXxbGB2FwXnQXLaA2HmHLpmwKeqxcjo8lS0vazVUCkRTDPa7Lu
-	 YzDoeErcBn6GCx5QLRf3uvJHVryr9AXTVBR4P3YZBh+uUdzmkzwqXN7R+zFkMsJYd/s54
-	 +NN5HL5HlDkM3oV5pYFBWx9PmczANu2ODcJjSdMzCr80Sqsz03+3Xe3Sds8OHJbqUh1yC
-	 PxTLRfTBSlWzU92Mv7os2aF6SJ6RPWWLHMIIovAl6ZCL+9wT/IQvuPpwHsTess61gNA==
+	b=DWvVu8Vj2D/GHUGrMH6gVMo0e6A6zFjtu8xxDiTkQzGt46ZNEtyoNDFrXbaOldD9E4Pp
+	 +y5aDRX/vPDJpwrT74uMzi8if8zXGHf5Y8+LsZ93RNfG1c4yEhMtbzTf2boUm5h092+zf
+	 WangVtgAaf0uHF8aw20FkQljMwwSs9MuNjnY7VklQtkXpcEBPHZghW9Mp7xY1qHFgiZLr
+	 kpW3xVGEirn+U758f+/yldHD5Nl+qQK0rW+dY0G/YaCCRKQ2zg3J6nBB3yjL5Jc+rkk/E
+	 8quq23LVkJCce9YOSOAk+lFpUfGbhLWUVHhEZeUcPeNjVFr2IZ57osjbmBfnXnj/ppA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794922198;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=1M+tmkiw13zqQg92Zh2bUVUQ5Nt1cC1rTeaNa/qKMXY=;
-	b=GjFJ8rldZ77NgOwRtPByvUmxrir2/ELYJOJ0khjZjkc2wDofBI4KFihOsXtd7r26x+d3
-	 FwXXkDBD211KGtmPveT1yZK+fQQijRJDhx47V7v/rxKdBEznmsaxFIbKxrtbLOvWXBaqs
-	 RJzRqD2RjvAVz0OtHSuObTBWFiNJc9uQX3qyjIg8rluJ+8ybdQifuAfFdwdP8tvHsUbOj
-	 PYGyX+tPnikhiSjxYmf5oGxafjqzd+8oAd3lmDjV1HFeMUQCA49feGKUv+bU+17nz+0Ur
-	 fzItNU8Mf7HnNGN0RzJH1ZsZ9qiKMNi0zTmXZYz6cgZXYk9Ff8L4uVvGh1RQcKfojvw==
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=JUKwPGMQYo18edBpP3+qVXT0aSpgE6kCrGKKM20Fta4=;
+	b=Af5+QN/+eo4LNRok2jVlKdA7SCZpHpuM/xyxLcRPMFVb7Y2DoHuWaO6+tCgF42XL501Q
+	 bK1lJbAsGvhRrcPkqjXOgLE7PGVHl7o4DqImIG7DbsT2gggQkYq96o74wNBanojrrET2l
+	 eQiUSSldZ3KniV7MxSSL60+WdSdE/SjdrLFkbie9XgpbRj/bO+cYbohv344Z3hwkztf5M
+	 dA7zZths3V1xf7K9s47xoRbZ4JfcSOqMOJTFXRpmY3uhJR6qXk26nBa+4rMDKdswHiyue
+	 fJM08z4fqDMjjKGPEOz4IO+9Wpj7r/rCW4AAKl8D/2WPOC1ZXJpUMeTGFWxIsZG69vg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id A6E901F000C6;
+	by smtp.kernel.org (Postfix) with ESMTPS id A6E681F000C4;
 	Tue, 17 Nov 2026 13:29:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794922198;
-	bh=1M+tmkiw13zqQg92Zh2bUVUQ5Nt1cC1rTeaNa/qKMXY=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=g52bDE6BvBVq65dKA+1ImApcX6TTHPWrZhbdZJef1hdRIx7bVRAMDuPvZdds6Z9pz
-	 Hn7rNbP7sxbvzoQxmckmJFWRt7SnGVKbUbm6L8eHvMMHyhqgWWCyHraLBSjojMTW9Y
-	 Mu02fDQTd/erLu96A/VMxyW88nNeCRQA9YDxnLbudAg6FSwYBntuZ4YonEtAF7VIK8
-	 IQ76//GjFTw8vKNF5V78YIkfGrvS0oKQ4pdDh4XanOPxWEfSbw8Rb0PDArMt/4L8Bh
-	 LdWyZhU7yIYoQFouWX4AMYmupgha9r3sgfrS5H3kxsMf18LwdpRQ8SGQSbzS+bexZU
-	 cLws/y8ATs/4w==
+	bh=JUKwPGMQYo18edBpP3+qVXT0aSpgE6kCrGKKM20Fta4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=hM9J4d5y5QcJiLz09ACIHJdee2045D/1I88WIBnURQLy0VB7Czi+a2c1BV4M9X03u
+	 UDKRNiclVaO6h6ydnEMOAYyMsvk/5mIVmKN8L/J2t6/w+EDOS3nnHp22B5i/bZlX4X
+	 pVVsxDTvvliZK+pikITPdR1boK4tkDb2HZrw4sK8ny2RgNjaMjEKNZbRD+PTvHdbG4
+	 0tX80pyO0zf68Okdz69FeYEqVwObh5qXxnuQi3p/SVnjPNSh8c82mWCVVIcROSSYqj
+	 6PS2FbqZ8upit2EAu4OFBrAwn5bb26V0FIKp/YxDGDhxZzzudP+kxkgGF6wHl1LZa7
+	 weGjshbXU8igg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 0649A4A993;
+	by lkml.kernel.org (Postfix) with ESMTP id 2343E4A99B;
 	Tue, 17 Nov 2026 13:29:57 +0000 (UTC)
 From: Ben Grisdale via B4 Relay <devnull+bengris32.protonmail.ch@kernel.org>
-Subject: [PATCH 0/2] soc: mediatek: pwrap: Add MT8163 support
-Date: Tue, 17 Nov 2026 13:28:07 +0000
-Message-Id: <20261117-mt8163-pwrap-support-v1-0-b00fa10035a5@protonmail.ch>
+Date: Tue, 17 Nov 2026 13:28:08 +0000
+Subject: [PATCH 1/2] dt-bindings: soc: mediatek: pwrap: Add MT8163
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,11 +83,9 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CQAxA0auQrm1CK6LxKsYFzBStidBMByUh3
- N1Rl2/x/wouScXhXK2Q5KWu01hAuwrCvRtvghqLgWtuieiIz3yido/2Tp2hz2ZTyhgic8915MP
- QQEktyaDLb3u5/u1z/5CQvy/Ytg87GfMaeAAAAA==
-X-Change-ID: 20261117-mt8163-pwrap-support-cd22b20d25f4
+Message-Id: <20261117-mt8163-pwrap-support-v1-1-b00fa10035a5@protonmail.ch>
+References: <20261117-mt8163-pwrap-support-v1-0-b00fa10035a5@protonmail.ch>
+In-Reply-To: <20261117-mt8163-pwrap-support-v1-0-b00fa10035a5@protonmail.ch>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
  Matthias Brugger <matthias.bgg@gmail.com>, 
@@ -98,43 +95,42 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
  Ben Grisdale <bengris32@protonmail.ch>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794922196; l=935;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794922196; l=910;
  i=bengris32@protonmail.ch; s=20261018; h=from:subject:message-id;
- bh=H/UCJ2qAfxJA3SdM4D1y0mgjHFPRdqf+v5XoA4KVnSE=;
- b=W0fKT3k00Nmsp06bXskA6eG5czcF25ffOkNp0AHPQ5MNuJDV+/5yhMrFAPHpN1uFZ4TZQ6EmC
- 09oK9XlsU8wA1UhSSRYGCSFuBvUVmpwz23XJ59d0O6lFyjjMolv/YjC
+ bh=GV/5pX+NzfGhR+iyJ7t6HyhLHCTD5LtZGFKHPoKfPAs=;
+ b=vrAvGCB+XLv7UU8TZgokSN8oR/McBruaGO/aTnggVHhcFbKi3spHbdqO6nBuZq1ibA3RXMjb/
+ r+51jspJwILAHWnlW+yW0UoOEGCyRKPrEmCM03E65L9iGyywp+0sx0z
 X-Developer-Key: i=bengris32@protonmail.ch; a=ed25519;
  pk=4ewFRC2yNph/tXokHVzIDlgOA9Hxecf1AlBuD4eOnaU=
 X-Endpoint-Received: by B4 Relay for bengris32@protonmail.ch/20261018 with
  auth_id=1233
 X-Original-From: Ben Grisdale <bengris32@protonmail.ch>
 Reply-To: bengris32@protonmail.ch
+Content-Transfer-Encoding: 7bit
 
-This series adds a new device tree compatible and driver support
-for the PMIC wrapper on the MediaTek MT8163 SoC.
+From: Ben Grisdale <bengris32@protonmail.ch>
 
-All known MT8163 devices use the MT6323 PMIC, which is already
-supported upstream. Due to the MT6323 pairing, MT8163 can share
-the same reg clock init as MT2701.
-
-An additional series will be sent in future to make the MT6323
-device tree usable for arm64 boards.
+Add a compatible for the PMIC wrapper found on the MediaTek MT8163 SoC.
 
 Signed-off-by: Ben Grisdale <bengris32@protonmail.ch>
 ---
-Ben Grisdale (2):
-      dt-bindings: soc: mediatek: pwrap: Add MT8163
-      soc: mediatek: pwrap: Add support for MT8163
+ Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
- .../bindings/soc/mediatek/mediatek,pwrap.yaml           |  1 +
- drivers/soc/mediatek/mtk-pmic-wrap.c                    | 17 +++++++++++++++++
- 2 files changed, 18 insertions(+)
----
-base-commit: 749a4de370409464cf8501ec5b2451df45c84eb4
-change-id: 20261117-mt8163-pwrap-support-cd22b20d25f4
+diff --git a/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml b/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml
+index 79b755858bad..de739a8ab75c 100644
+--- a/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml
++++ b/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml
+@@ -38,6 +38,7 @@ properties:
+               - mediatek,mt6873-pwrap
+               - mediatek,mt7622-pwrap
+               - mediatek,mt8135-pwrap
++              - mediatek,mt8163-pwrap
+               - mediatek,mt8173-pwrap
+               - mediatek,mt8183-pwrap
+               - mediatek,mt8186-pwrap
 
-Best regards,
---  
-Ben Grisdale <bengris32@protonmail.ch>
+-- 
+2.56.0
 
 
