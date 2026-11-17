@@ -1,98 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794917839;
-	b=ORn2jfhuRhtmfXnng+kOIxHQfqPt0ng3upkYXsg3xuE7OqAadg5+qaqgUsyjIvSutvz2
-	 dU6MoX7E9Y1e0Cl6lu3fKQcfEDsIxg2PHofe3pupA9lQAStriKYHGq42tUaopIChAueoG
-	 DLVo59O6a57iI22CYogYZdVOXsqMxt0ozX5cLtCMeyVoW2oXNFUvk0PewoRzT4lanRhrN
-	 I20ut6CSgwBD4UpJato7H9oIb0m8hBmwtcqwkLTpZEYL9KqGguW+N1YLCGBiJ8YdiWoHa
-	 oloRJqy+XMNax+RFi2NONw1m37At3NH/GSqMzFsL/7E7NA1diWRjGcTpMMqByiaBzyA==
+	t=1794917846;
+	b=Fjpp11Us/Hx+u6WFq6Ez+kd6ewcF65fclEl/58S55xVkeyi3feFFpAOcA0ofpg1ertyJ
+	 pz3tiGNPtG6SZ2FRzXFdl/oHwouci49MaDB80v4QD7qAwN3ih6ZF3xW2S1OZEteamUmxO
+	 GsNxjvtAzMX529klCwa+fqAiG5ilSAH/YU97ontIhpH2KAmCMpzEUvkcw2QQemJlKdFQd
+	 NM6QovuCGoGXcKTICQ5Tu8gmZc4nS0S0r5QyCPf10Rv7sjJf964er20lyHHm5NTAYFG5s
+	 sN+3vRagK6/hD11YnnWPdsiZFVx27mD6UiLwcOBJLkrIxrI7dcWdCSTQys/te0489sA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794917839;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=nU0HNOJX5cxVhUM4H1v4s7zyRGp0x3z7E7rePfZOJiQ=;
-	b=L8wF3pmM0+3VX8te9PA/wpgOvvNA4na5bO1Abm684LAG+K5RuGkPRvQhxh2Tk1gzEDye
-	 cFdQjHagZDu8pBq2PfGE8EBHLTB2ffjg+drohOOqlBjLMSoYFtBawnln3UFD9DVwcpaHN
-	 bN7uBeD13258h4BqeAZNJo/51sWkeFU0xILRcEEHvDS/lmmjFsuBYz2ZRETjESASqZkNu
-	 +N49tmjaCejVkCvVqb1rtYiow+XzvgSSs6WG+bkzHBk1g+UKCubyoKt0dWxYcE25pK/VD
-	 K8o6xc8RviT1OUIYTcqdPREFCW2ltI+9VDIRyUXKzkmP8cVkTOaUE6FmdbAPvHj0ZuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794917846;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=FUvVAIYQ/KJjpiS9WJl1elr+LTBGSeYEuw9rsBBwZ7E=;
+	b=JodgNPFcIbKnGDe60r52G+GZiWKumj7I/XZhatUQ2pcBtOusszfKDEJ+sGxuqHS05f34
+	 zX+kvlLS4x+EJkWq9XCb4nrzJ+wc+6FY0zLqY74CIG1iZXKjlXcjHi2uqBaXtU+6DZC7M
+	 CkHEhqcUiChdYml6lTeAXy8ac0JbKr8HSUnV/GfXT5l46MxuNHW6PsO3ToHgBn9FghrTY
+	 dAq5yPQSKlD2TJHZhR8ndaqpSo9Qi7BTTzWBvkag2b29pHUdQfA88mn0YYuCVVeHS/PiI
+	 vrnMHxrf5dyMewpr5zqHH0qWJQMfDHkrgO+fBiOuryFjcB/f79tkKlK4dpkephaKKsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qBfwRgOR;
-	arc=none smtp.remote-ip=209.85.218.42
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zis+QZZw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C312606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:17:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C312606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE959606A31C;
+	Tue, 17 Nov 2026 12:17:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qBfwRgOR
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c40f29667e6so803389666b.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:17:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794917838; x=1795522638; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nU0HNOJX5cxVhUM4H1v4s7zyRGp0x3z7E7rePfZOJiQ=;
-        b=qBfwRgOR128pvEdXHm0a3UQwhgEm+6Ls2eiPpMOBn60nQsGZynyeqWF/DgvOR+xjuB
-         HnReB608vVEKzJH+4gkl752mMfF2X/M0RK8Eh6jmh891p695yqoc0KgGTT7S8215k1+v
-         2rhfQS8iaK+K9ldYbnszHLxIdWsftASol/modurz+1tbxEIiYTjAUg2UVeko2MR971/q
-         +8iH1hcWvmYjUvovx4Mnabt+E2GfCZvKRl+0f/01tWZKOB2Civ9cg3lpYKRAU2cJH+e4
-         fj1CP4mAoQtX996AcmBcRvdO0zb7MheUMBNRfpkuhBkfIumsf7RulWjXCpk8238GHz56
-         kVOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794917838; x=1795522638;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nU0HNOJX5cxVhUM4H1v4s7zyRGp0x3z7E7rePfZOJiQ=;
-        b=ScKdZ+2TeeS1mebyvqX3aPDe+FAHunJoHiTK3UhC7CKRxqezAtW5kDhDne5xq9t9N5
-         wZ9UAELIArZGq9gy62sXIOwRMQ7wIsJjW9kJxKG5MYuvVfutvghjF8vy7B8OhJHJGjNX
-         ZpvI8E0/0UEPqmprS7mskUad8od20tOghr3L9R8y4wAvGzKAtCipr9YfUtZjbIYAJD1N
-         sSfR2aB1qGPNg2p8+Q6lBoQNcJwWRyxuLuioZ2j9O1McjIa80GB1vWmbP5VKGDWNn6cJ
-         W6m02b6p6y5RaeZXibbF8Ao8F0oqvLAfRrw9z4LuAfxwmOz7whGHM1VOVpBCAIQMDTMm
-         +5FA==
-X-Forwarded-Encrypted: i=1; AL+hErHNrjXS8Y6wWilm1Ftb5b+BKQtJbRkM/81dyqRjcJDIWGpBgh7MAn/m6mMeve5d55vX7bOkMeLgYm5gXa8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/J2v+X9mF/Apm/83+wz03/57nbfNQiHOnM4CA4v577qDr6Pxwz
-	2xoNj2P66ZdVssy5mIVIS8TF05et1mRSvKyHXFw45hz5CYacM/wOd1PChWPATdnCYKY=
-X-Gm-Gg: AYBFou2ro7cEjBihKQ3brk7opzjAEz1aB7jNLtMp0ht5HOnDtPbCgf4tzmXdFFg8yuY
-	k2Pv0Kkz5ymssW0mq1tLnRzyKk9Bmxdg9oi9VT/3Kd24mkBF95TzqFkdiDOIuFc/SJoRt4JXmXG
-	B9TtyK5R2n2ZyuvJDsxSZP0eDi8uwStcV9LyNHc1JaSfYfYT1mdUnEbiyzdeWmajUCGAl5PA0Vg
-	T8la1ktdjy6bEZj/i0q7F5L9z36lZO2sa78gC800ngkhJWLkzAxAmXye2zo571yOxkdN1PLOxXe
-	gCs83JcK3sNIHmndUCh/V3nXl8zBl/NJ2mU84RgFv12mG+rRlL0WfrYWHqB5M43H0Mpcyft/stX
-	m4rv/9ItnZnVtyhNfrbB6DZS460BSjo8Vtphy75+3+1x5cDx4iJO1CeQQbIB4rmnHoDSXKgzG0k
-	xK8zLcsoGDS837HiBH/LpcGmCKjXmj4sGA2GPqZPgF1318o1NXd0vFgXioefU3Z39YRc1qLhcwy
-	HpgUxJbCu5FjbQl1PM2YUlUH6V4FXUICyKQgAd7UKwsZ1eteNCou4oTfi1aAXQB2CxmMk4ILxi4
-	XDIAzJLqDwgnQ4AjcmPYwQnQUE95ieodt72jTai7IqgVJjF2aTMYPHkHU1mXxIps6mo9gKwJRSq
-	8D8rgsDtQIMP+7hEx6nBPhw==
-X-Received: by 2002:a17:907:1b0a:b0:c50:5e0a:fbad with SMTP id a640c23a62f3a-c5096430d02mr1128651066b.39.1794917837477;
-        Tue, 17 Nov 2026 04:17:17 -0800 (PST)
-Received: from nixos-macbook (20-144-89-188.ftth.glasoperator.nl. [188.89.144.20])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c50c041600asm353859866b.10.2026.11.17.04.17.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 04:17:17 -0800 (PST)
-Date: Tue, 17 Nov 2026 13:17:13 +0100
-From: Jacob Procee <sn125164@gmail.com>
-To: Sven Peter <sven@kernel.org>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, Janne Grunau <j@jannau.net>
-Subject: Re: [PATCH] usb: typec: tipd: cd321x: replay the plug on resume
-Message-ID: <20261117131713.2db5294d@nixos-macbook>
-In-Reply-To: <3bc5a31a-ab2b-40cd-a030-d0498002776a@kernel.org>
-References: <20261112113005.16418-1-sn125164@gmail.com>
-	<avw1kOqmrUii-msr@black.igk.intel.com>
-	<3bc5a31a-ab2b-40cd-a030-d0498002776a@kernel.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; aarch64-unknown-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zis+QZZw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B54A71F000C7;
+	Tue, 17 Nov 2026 12:17:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794917846;
+	bh=FUvVAIYQ/KJjpiS9WJl1elr+LTBGSeYEuw9rsBBwZ7E=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Zis+QZZwj8GI0jzlMdjMmRhaOGgNp5Hr/MYwDJ4aF3koaJaW2gXLjuAdYcqUjvydc
+	 xm/L/rrlqX7J2HVhGbrdWPVtPRbLu3hzZyyAScG3k9/Y5BmgeZOpHNb2J1uInMkCdo
+	 762j73l/BArmRnPfSRvTsEjwyAiUe1Nyw+XpIbtilzlp7+AHrjeOcf9ZT2zGIv0OBD
+	 cbkXkLXgdXNz1G6CcHLGThCagkZJ/JMtl2gTRE5vqWTnRpgOQLISFKo5li8Q1hdCCT
+	 ZAeDDOFaMtTO8dtQzc51X4vQ6qCp+EIrm/iVw/AzdswKZsPxRrj8S5ZoWsRBTQ6BEY
+	 4U36Xuj66MamA==
+Message-ID: <f21c77ee-44da-4a1a-a289-d4ea9cbe158f@kernel.org>
+Date: Tue, 17 Nov 2026 13:17:21 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,28 +51,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] arm64: dts: qcom: talos: Add graph port
+ placeholders for USB Type-C muxing
+To: Akash Kumar <akash.kumar@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Rob Herring <robh@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20261116114411.1700153-1-akash.kumar@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261116114411.1700153-1-akash.kumar@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Tue, 17 Nov 2026 13:03:03 +0100
-Sven Peter <sven@kernel.org> wrote:
+On 16/11/2026 12:43, Akash Kumar wrote:
+> Add empty port/endpoint nodes on the primary USB QMP PHY (usb_qmpphy)
+> and the usb_1/usb_2 dwc3 controllers, along with orientation-switch on
+> the PHY. These placeholders let board files wire up a USB-C PD
+> controller's HS/SS endpoints directly via
+> &label { remote-endpoint = <...>; }; instead of redeclaring the
+> port/ports structure on the shared nodes.
+> 
+> Signed-off-by: Akash Kumar <akakum@qti.qualcomm.com>
 
-> I suspect we're just missing the proper suspend/resume work in the PHY
-> itself to put it into a low power state. Or maybe we need to keep an
-> additional power domain enabled so that the PHY doesn't lose all state
-> and keeps working in a lower power mode.
+Why isn't this part of proper patchset using it? Why Talos Lyra has 5
+independent patches, all built on top of each other or cross-depending
+while nothing is merged?
 
-Agreed, please drop this (and v2).
-
-That second option is what happens with wakeup enabled: the dwc3 node
-and the ATC PHY share the atc*_usb pmgr domain, and it's only switched
-off in s2idle because xhci and the root hubs default to power/wakeup =
-disabled. With wakeup enabled on xhci-hcd.*.auto and usb* (Asahi 7.3.3,
-j314s), the domain stays on and a device left plugged in stays
-connected through s2idle without re-enumerating (no "xHC error in
-resume ... Reinit"). Asahi's pmgr marks these domains
-GENPD_FLAG_ACTIVE_WAKEUP; mainline's doesn't yet.
-
-Wake from a USB keyboard still doesn't work: nothing calls
-enable_irq_wake() for the dwc3/xhci IRQ, and irq-apple-aic has neither
-irq_set_wake nor IRQCHIP_SKIP_SET_WAKE.
+Best regards,
+Krzysztof
