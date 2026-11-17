@@ -1,47 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.79.28
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794911108;
-	b=LpTXOrveiGN8s9k1HRzh2UB22WIaZ7cHx5vnQG8N5ww+sqGVAWI86wF1XEDkR4F5ePNy
-	 /VSJknUIjU58vMFlnRA+/E47Stez53HhOfQvieBBf3an+OqWj+JctRivVoCFqCgNZO1fl
-	 jr3Grx+Ca1TdTsvZgtKdKkwuxxLxy+uJdf9lKqFMSq1v/Y12Fj0KlrVaVRII1aqexAR6p
-	 vEJ9OqEUMdfRhC8csgH6aUvWSXo9MS9ING2FbZFEin22K/WPFZw4DKfhVk/XwejnlfXZM
-	 Md2rPcGMfi0/GmyQeM6WYTz2Ss/oNVmreqP2sS1s3lX5bLPujyIvajInSloOOn2TuOQ==
+	t=1794911111;
+	b=y04p+FrO7lRpwxTNh+PCAPDIYCANAv3iJnWPCUluQJBpQm2gbb+yhrYF1x/EBXc/6HM5
+	 Ph4cbKR3w6lPZttvSdfyZ4Xf++TVTBPldsoqmCmskeEXyzspUvpIqwZjARKPooTHwADfO
+	 WstgBTVIzGgkenelcK1zEPTSrGCgtwV4siSqJyaX0Qc2DVEmEQsC1j/DcFGmCIFsCjnIy
+	 JnGzVp5a/GocGEU2BruTpkbiGkzyMyF8hnisXJev/fewxGaY/NB7lbsBWGF4VdaRDOIfY
+	 6R0CFRxnTLriSsOey4UJWjvMbYCJh3NvsAWwR9awnECMeI3ANSjWPZUyFFHkAZzm93w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794911108;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Q2znK6jCcwZIL5Nn3GHQNM4P89lE7lhD6CjXDpbVY7E=;
-	b=r5P6N1jAHCccOPof5DhEV2kHCPIEYNo68Dg2GSOrw6RUi7nud1lS1IkRZJ0pS1Wn4otE
-	 26m9heORzteBg+sbdsQqwV5geZVReKbAMNWst1STr+IErojXMtE4Ya9k6mN0FZOevFv5t
-	 zDUYmu/ZbFECRjEq2drPSiiyIElNxB6QDiTga5FUGmgAVQOvN7JB+pttroHhxTm+GDqQf
-	 yfxLvRCSF/cgkF8iox0J4JSQ+Zydpv46FwuGnWDrg4Yw+4hHGdhNnwjzP41rUtPyFl7/D
-	 Iqfp3UHm1VKHL/g1jDPUXLe+NcAL4aBC6MAXorsGfp0DsqcbaB+EcCQw4/kZulVxcQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794911111;
+	h=DMARC-Filter:Received:X-ICL-RepId:Dkim-Signature:Received:From:To:Cc:
+	 Subject:Date:Message-ID:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Info-Out:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:X-JNJ;
+	bh=6HU+57MgwQIYqvbSD+KkyYtggnx7khmZi4J6g6F0SBM=;
+	b=Whx/ODTxRRPNLF+2LimjD2EvM3xrYsibWSr/WBUHqu4BRTdHygDCefuVA1olEaRXnu7L
+	 NL1Oa+Lu1ljWVuEp2ViygugEk4lcU08lPykYH/rHO+FTto9JvcNWjrFVybwZ7RSQiVHwc
+	 pmjJu0TwQpUKgiTZfTiFpNwXZbB4d7hzHaW4CIPr9oDNKguBFSfmw/dYGDjNvYBb4vPWe
+	 bX5D9as0jYllYJQMwadVoRLkN8hNkGcoNpzboPq43j/ro+04EC6kBA/ppie7I/M1PYi63
+	 kZ3+P82vM0ICvMZAMRhP/1VEY5RbENozQZiOmGvkHI+wY19aWyz9OoJh6uC6u/dhcjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d5mkTgNk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=icloud.com;
+	spf=pass smtp.mailfrom=icloud.com;
+	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=AM8wiTwT;
+	arc=none smtp.remote-ip=57.103.79.28
+Received: from outbound.st.icloud.com (st-2005g-snip4-5.eps.apple.com [57.103.79.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E4B606A31C;
-	Tue, 17 Nov 2026 10:25:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C32F606A331
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:25:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C32F606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d5mkTgNk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B78E1F000C4;
-	Tue, 17 Nov 2026 10:25:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794911108;
-	bh=Q2znK6jCcwZIL5Nn3GHQNM4P89lE7lhD6CjXDpbVY7E=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=d5mkTgNkXq2Ra7mECq7+jIONDntWjpK4VgFPrMvM8V/RHynNrD3wjqdssecPVtdFB
-	 1JLwOZdgWWruCHaHITxCzsnnkq0aBHys3vl8yrti55f+V2Wfkra9qdY+FPiRo1Kxa6
-	 8zZwEN1VLYMNMdCQl+/uFArRFin3Y4mb9+WMMIBUsm5wHcMPswnLsXGoJZTJz+Tvha
-	 f2bRtkjMppMJZJC9mI4EB4C4T1tD1a7cf65Shdt23C6V5K5emlOugLYciAfN+ftkiN
-	 qGIMLtmhahp02bhV3Hkx5dZ5z9vDVKKT/qwIIQkqbhzSfxj24C4O3F1nkeGfb0gxaE
-	 c9HQr+7BgkGJQ==
-Message-ID: <a1b8888b-0a30-4537-a7ea-d0798c7f7d7a@kernel.org>
-Date: Tue, 17 Nov 2026 11:24:58 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=AM8wiTwT
+Received: from outbound.st.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-east-1a-100-percent-1 (Postfix) with ESMTPS id 14D9B180018A;
+	Tue, 17 Nov 2026 10:25:06 +0000 (UTC)
+X-ICL-RepId: 01a1e909-f7b8-7aba-8bfe-4e3cb1e1c272
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1794911110; x=1826447110; bh=6HU+57MgwQIYqvbSD+KkyYtggnx7khmZi4J6g6F0SBM=; h=From:To:Subject:Date:Message-ID:Content-Type:MIME-Version:x-icloud-hme; b=AM8wiTwT2kgzq0qGpg9lrsxjguZZtieuJZW7JvrFoooosWMv4SMUEhU5xjGghdWM4MozLnOh3NBSKO7eNTNMdkUB/86jiSRtNTXBKiPFUmCnOr75qw6W1GzYJH1BPGqS0ebRk2y5q+HTiJYyTwuUM+naZFcKe74d1jMAjFAwwl1tmPxOn4krPsZe6+OtVXT4aGdGngwlvvQAc24ILE9bkggUMGYL0OTq1TShVeq4Cq48MmY3zwjq5nS+slv3mAIIEYQJGchLvPFx27SLmV/QH9bBZvNAGiblohpO7VDZJVKHkKl95Nb1ktzuF0NpwB+I0rikbnV5NMqJ7ENeYpVinw==
+Received: from [100.126.217.91] (unknown [17.156.216.30])
+	by p00-icloudmta-asmtp-us-east-1a-100-percent-1 (Postfix) with ESMTPSA id E6CB41800185;
+	Tue, 17 Nov 2026 10:24:59 +0000 (UTC)
+From: Muhammad Haris Awan <m.harisawan@icloud.com>
+To: David Hildenbrand <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Ingo Molnar <mingo@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>, Kees Cook <kees@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Liam R. Howlett <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Subject: Re: [PATCH] fork: mark memcpy() in dup_mm() with data_race()
+Date: Tue, 17 Nov 2026 15:24:51 +0500
+Message-ID: <179491109101.4015489.11185824873441987133@icloud.com>
+In-Reply-To: <0b565b9c-1462-4fed-8836-9a7d08e4b861@kernel.org>
+References: <179489519663.1444496.15875846661591982934@icloud.com>
+ <0b565b9c-1462-4fed-8836-9a7d08e4b861@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,88 +74,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] arm64: defconfig: Enable the Parade PS195 bridge
-To: Nabige Aala <nabige.aala@oss.qualcomm.com>,
- Mahadevan P <mahadevan.p@oss.qualcomm.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-References: <20261116-mahua-hdmi-v2-0-0b5af6bf9e70@oss.qualcomm.com>
- <20261116-mahua-hdmi-v2-3-0b5af6bf9e70@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261116-mahua-hdmi-v2-3-0b5af6bf9e70@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: dLUepeR5kMZHEWKIZIgDJCajbB36wGcv
+X-Proofpoint-ORIG-GUID: dLUepeR5kMZHEWKIZIgDJCajbB36wGcv
+X-Authority-Info-Out: v=2.4 cv=bISDs/+Z c=1 sm=1 tr=0 ts=6afc2b85
+ cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
+ a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=x7bEGLp0ZPQA:10 a=2kFROKt5_e8A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=EYaFdmsEC1CjpenOt5ir:22 a=5dLkQmbtQYkJk1E8iZFh:22 a=4JPYJV-aiw2Kicj_3zUA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA0MSBTYWx0ZWRfX/OdPMQ5kwIgE
+ TuhCSlT+3ixpEUjyETkQMRHdmLgESeXzX332IgJa5uXhSPjwbVYx4/bX2x2SxPTlZkugPkDIxAh
+ hIhGvRHYOLGPCdQaAqeMYybHsPbgD45iwudm4vplbdNBlb1kPaWv6s2uSYTgeo/iT6UWBo5I9iC
+ lpA4BjXL9eolAIqInQMZsqEs0KprTBlu3AI0/B5HvxG9UiWoKYsQ6mk6IdOK8zUEOLHNnX00w5p
+ WXqSnBTxn9Tmim8LzaC/E8XjdwNslvb+5PotXqMDCg37xQVTMzs8Zbf1X4pQlvCZg86o7FUbThU
+ wQ1DS984QvvkkDRl5JWNwb//BMAkoAqm3RPIJLXWz2jxNmSxBbgOa23nniH5L0=
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA0MSBTYWx0ZWRfXw6Md+FSiYDc3
+ 8ijTF810kZOWVKMShm9pjt+qHDCOJhFeyC1cAOA7djBjRi7lO3pRWVOwfHr1F7ZIE8KczXtu34c
+ Xd02MetYgufJf/Je/tAPrExnQZxfi/I=
+X-JNJ: AAAAAAABHYM+2uoVCH3FWr2d6COnBYmqzXEJ9EdGxFXkaqgX8h0Elg7IKTgfa9d7SkY+Eb
+ Gs1vkcPuAsrxpNoTdivFvSLKa9KAsYjzkkP6XrNeworQKUBwXrI6d3frYKk5Oab197zGRb
+ Y8AGDROudb5WqF6e6mzFIfvDAYy6JHvWgZVgw1itAPNh8oGmU2AxH+mnxNICT7e4Sb3hGW
+ 5aaojbQr5cNd2xrY5vRIwD0KKgZFQoV9ZOkhCAYQd1U5jG7txzW0Z2UrafE+HJ8Xoo47WI
+ zh14Nz+gVqxTrNDddQ76x0hDN+4kbJrk+s/LIDjjTJA4PE09PgYo8DeRMBWtLy+sBNHIYM
+ dalCl5nTxKlC/ctwlOqTiVTV8xGMyNmHXFB5AH4CR8TgJqoCY6mo/w0Cs9Z18JjZ+6k33K
+ KL5Y7FF1umXQOc1NxNBE5MvaHHywx9OANDUK/D3+K/WjfP43/N0iW5uRJJEJqMsGrDR1su
+ ge2BQuR51Ejcvhk71cFSzQ6j6MdhxKTX2WSKs6XX/orYdxHYuX2asYKlELnhtwOpiEVGn1
+ 17glkDiYRq3hvP63HhX3Ar1dlwqj8xQ3vZF8XowRX1Sg0Ag2clFepbYae20LugpmTpuh3l
+ gYqn3l18rScJZMWxfnskJVUxYw3Cta585ZUzKz/q+Mtz1L/roQHAZebxtxJ5iEpnZlklkj
+ BrmcCkGR9FOhZEpcdpxhpAPO0wS5/GcqjIkzj6JkXNraeahAeNIBko8Pze/f/OkiLepssW
+ F9e5mCv+DQ9/aG0CC20917u6RgyXvuvQeTV4bSC6McEzndL8xVLGM5dFLwMKhzjn+baHwC
+ dHDFah+vO9iO3uBsk3x14NJKi3qYSrhirXBYne2lXBYSHhQyeuBDI4XXTGJ6F8V5gC+55z
+ WVNEOk/mwO1bSBKqQx4ymGApYDtlWdGBCircbCB2h2oJge4id27xUJ86p4ocO1dyoI3IcF
+ oYX9v53iEmT+W5pJU4O0Zxb8OMwoo9ZK7ab+tBuzPhDS0Ahm+Mp/5lOmecKMTFm6hDp9P4
+ kqO0ZKb4VkunioE5+RSd6+B2fchJxYKQJEczHtznJZp4ojcp7gBnd+bHE1yQPYy1RmsCfe
+ VaWENMKuP+JhSa4Pu/6Df50yXqzsFuywHJE0vpPST+2YJiDak1REX8v0zdl+BjiVBjLmHa
+ 3l47K/zH2uRnPiUAzox2ipm5kNP7MhnwKpxMoHDBL8/KxPxwxjmxo9lVZw37xGS2ORv+wJ
+ riuNvxv8KLOjYEsuNI3/NWfJ3JT/dQ3WKx1QO8D26pRgSW2Aznl2tUNye4OJFIOmesVPzH
+ f8kgEw6QGet70wegw21nJUQ9/kQpU5YpVSr522RR/ED7FtesZIUypJv4tRHXBPfHUyJ+Rn
+ Je6Nbl8ES1UTOPp1PfH5TLZ9PkJpLmDIMlRRv8Z9sOJdiAho3Qo34rLYbDqr6a5G920szW
+ Kz5XKxDQv3xCEeIu1cedvHTImb+nTiQ2u3oAaP2jqqE6c3gZEgLp/qpHjL7j700DRdi14r
+ /ZiMfRQY
 
-On 16/11/2026 12:34, Nabige Aala wrote:
-> From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
-> 
-> Enable the PS195 bridge driver as a module for HDMI output on
-> Qualcomm Glymur CRDs family (Glymur/Mahua/Kalambo).
-> 
-> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
-> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
-> ---
->  arch/arm64/configs/defconfig | 1 +
->  1 file changed, 1 insertion(+)
+Hi David,
 
+Reclaim isn't touching the new mm being initialized (which isn't added to
+mm_list->fifo until lru_gen_add_mm() at the end of copy_process()).
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+The KCSAN read is on oldmm inside dup_mm()'s memcpy(mm, oldmm, sizeof(*mm)):
+oldmm is an already-live mm sitting on mm_list->fifo, so when an adjacent
+exiting mm calls lru_gen_del_mm(), list_del_init() updates
+oldmm->lru_gen.list.next/.prev under mm_list->lock.
 
-Best regards,
-Krzysztof
+Since oldmm is live, lru_gen_del_mm() has to update those list pointers.
+The alternatives in dup_mm() would be taking mm_list->lock (plus
+mmlist_lock) during fork, or avoiding copying oldmm->lru_gen / oldmm->mmlist
+(awkward because struct mm_struct uses __randomize_layout). Wrapping the
+memcpy() in data_race() avoids locking on fork and matches dup_vma() in
+mm/vma_init.c.
+
+Thanks,
+Muhammad Haris Awan
