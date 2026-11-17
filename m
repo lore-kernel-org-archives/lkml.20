@@ -1,90 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794914174;
-	b=pWEYg/y40IvZ1L/4T70z4w9CA4h7r3lGHL+qtPuLzGIbZpWMhtbnt8ZmDm5sz7V/pzCM
-	 IbwOFm21v74P6eIczmhcszfCnjMskfTCe9thOaF9TmCMJ0xICrBq918Ox7wEIfxiiMG46
-	 e+aRS7juNtoNAykzgdNXl5RR0FWRS7qae+hlf6lWeY6qw1Wu/dl1FCLTaJUmUUZNnTTtA
-	 l4ebeMwsqWY06PhM5cxa3M+qkVr4B5VTUW59TRAFAJWvXFB0+565xkkEiIFrCO1wxVjss
-	 JmwO2Bpf3g8Ivry9JXioCtTQv8w6ssUBSV9AoF63wChTuxy08yuv9CpkXwVp5HPsxCA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794914174;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=XQnFS6mscVdKFv/wz+t4a1SX3rV0MI1PwhYts/rkw90=;
-	b=4T4ns/gf04MRHGXJOZBZDhTgLAfv2rmTdjOkob2OewagFN6N2WjS1VKRZ8M9Ow4DlySd
-	 s2F2qU/Y8LPz9CJDSSSazUUs/ZEbEBAkc2YkUgxhapOyyISRln01F1pZH67vBlfLr8jEw
-	 ssH2utc+/mm0scocAAYnXvNBcfIk+C8GIy2X398QjGaTUpmehP0eo91zXCQZf+m5D6mLC
-	 ra0W5Ta8SFks6LZbMQiW3dfzIuDQvI5Hu/aMWzrlUA1WvuUI55rsSLGkgS9KyyKIu+7vD
-	 XNY/wZ2JvhsBC7XdwIF8ipcI5Czgn3avaZrFZuhGx+vgabJRUA6HGC54YNuHa6FuEug==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=CdKUAUSm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DE86606A329;
-	Tue, 17 Nov 2026 11:16:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DE86606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794914193;
+	b=4Km0zHSWq8l89Ia+LXgUGGJEjoHaLgk5i6mSFew24XXSd2xPafh19DRfu/5noj4dxgWc
+	 qK1f5pPVw4hWUAOlZ43lA/DdzjdghHt6DjXrTQ9oECIQCFX68bGpecjlWpf8GC2PVTadu
+	 Uu8QQuWcQyEeqeeNn/tVqwnYhS4zl9qAt5fwlJ9Gqwu5Zztp+wedBU0d3mWMsFGg7xPaS
+	 vLmjq4Y5ZQ70ovsgLRjStGockdLBsDhL4nUyMI8PnZ+217y2+mXvM+476CCbvN24MKGxo
+	 wbrEMr11SUuLyJt3e9JN6KIVOHkmSjT39A4PK4wRv/P6M8rsJnguBP/R11fKe9vzvpQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794914193;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=G2N13G5utyTe7izqnWDvvwrQ2fOwakujOweKmNqrGrA=;
+	b=s9M2XfaOZBuezNgok1mkisVa094Uau0HiLoQGsXWtRoSQbvhvQ0w3PALF68m6Qcziq/B
+	 02Kv+ovLhrtY3VXQa6gA2FfPnUNZxkRmWyRPvDhwlwucwJEdHu4xC5DqowQk3z33COwur
+	 dQANaA4s34rgi3qcj0ZUzQ87VdbAlLpWOURMQ3mj9pWGhhPJ193OOEwfyqmlKyMf/qgrD
+	 KnJ29c6cAH+icK2kGQ7D2d85hNbQ0hXhmHgBqIHygqQlgTPHlJr4oq/6NmaDSCEbL2fLm
+	 13zG98LmL2Lr8AXcumbQgeD3lQMQvz5qbd0rS5I+mtNdwn4J0KVsfYTLWbAm84res1w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=UE0kJdzu;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 799AF606A323;
+	Tue, 17 Nov 2026 11:16:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 799AF606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=CdKUAUSm
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 5541B205A36;
-	Tue, 17 Nov 2026 12:16:11 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794914171;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XQnFS6mscVdKFv/wz+t4a1SX3rV0MI1PwhYts/rkw90=;
-	b=CdKUAUSmNxTOw1IaS8HkYsFHYApXR2MbTnN9CaWpMge98xW7Xhk4tRWUoIe809vCH8W/vA
-	lhOFxWoHaDqWxbIwyIUR9JXBZEIi6RmOyMP7GND3ri9nn3pjfZF/ExEgwTa/cUanOqofsi
-	DMSFVMJ1NsgVrk3CQdNtnuHYgzuuzBPSdiSXW7RixhEhjwYg77XHUzCLI7AuGRTqkfGBqJ
-	M3of13q14F/HsaY4dHT/CYY0l8mshMs8hhsHyfob0f9r8/EOdHwX8WyIvz51CzIKTTGRkr
-	3aUlO6V+SPzt5G1X2ibXMsDLgL8DhTz6zJ6D+uefCpa147sDfDXboYKHLW1SPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794914171;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XQnFS6mscVdKFv/wz+t4a1SX3rV0MI1PwhYts/rkw90=;
-	b=VuoCdtiWHF/TVQTK5bFCPkgt0usZdQQIy4NeWIAim68vBtdim/GftcIVzuqi0aM5G4Xne9
-	FH6F2G7PONlPSiDHwx68TSN1vhGusZ8NGWUFS1FuJmitVyhI8C2LYiqPk2+7MUlTcXwwSx
-	H8GtLV98Fz4xXwmLglatykTBdGBPzbw5PZDkAnhNf7UlkRpf8tee4RiwNLdH5xWrA0s5vz
-	gaISL1ltvnvi+bDk7LOkOiOEOd7PYsmcIB86FE0Bv44P46AZ0IIdzByx5cm0pP4v7GUc1D
-	M0rrCuJw+CGQtH+SnSz0aRfP/ihQw7NRksLL0vhE6KzTjhnhkK4cUIeZi61x7g==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794914171; a=rsa-sha256;
-	cv=none;
-	b=ShLCdOaaDAHp9Ny3fQv46zv7amkzhGI0d/7pDk+yUCi7wu1uYScHzRSO2NFhbjudbZBC9x
-	/LMRpu0moBV3OjV7WCpIsTyPsjvDFQrB6gHbASBbmVS9XxVLbZhU/EJBXX/qNL30Ua7dsm
-	IzA30O4rYMOslvgOKepb/dVHKIenRUlh93eu8uhffLR/NNKOSuQ1hQMCuInnqsxsIfsg1G
-	lfCq7Vbp0PNXBPBmUAQJm/cCnFWseJ+5Whtn8yAnaSjOMMPDOjw6gDSQY9g9aiacbu8ss0
-	WZQO6VgQgCxSukM5M2SeR6v0AWl4Tyh7w92CmCl9l1O+s8Ij5Ket9EZZs+W8+Q==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-Message-ID: <33d3c07740e4702da3a1831415de906e940a0ae6.camel@pengutronix.de>
-Subject: Re: [PATCH] reset: rzg2l-usbphy-ctrl: Permit disabling
- POWER_SEQUENCING again
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Geert Uytterhoeven <geert+renesas@glider.be>, Arnd Bergmann
- <arnd@arndb.de>,  Biju Das <biju.das.jz@bp.renesas.com>
-Cc: linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 17 Nov 2026 12:16:11 +0100
-In-Reply-To: <0b1c87b3173a789f6227f13658e4befdac8e47e0.1794913893.git.geert+renesas@glider.be>
-References: 
-	<0b1c87b3173a789f6227f13658e4befdac8e47e0.1794913893.git.geert+renesas@glider.be>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=UE0kJdzu
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E28441682;
+	Tue, 17 Nov 2026 03:16:28 -0800 (PST)
+Received: from e135073.nice.Arm.com (e135073.arm.com [10.34.111.135])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 0A46E3F763;
+	Tue, 17 Nov 2026 03:16:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794914191; bh=nQ/pGewZ6c/kd9JIrH7S2KTGuPSpp1O8X6Rcs0KcnQQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=UE0kJdzuB5u+54VYGkLHh9IxD6zwtneuQSgzckgRUphS2F6ekg0cdSJG4nhoBtzyj
+	 eVdZ3PQcTpnwHS/ywvKtG7aSuAIbf9QXDXq3ei3yhCzJcRN9Ig9Bdk8ebrsbSfPjYZ
+	 9WkL0MWcxwOgbX0INOdI6xO0+nf5fQKsj4viqusA=
+From: Pierre Gondois <pierre.gondois@arm.com>
+To: linux-kernel@vger.kernel.org
+Cc: Ashok Raj <ashok.raj@oss.qualcomm.com>,
+	James Morse <james.morse@arm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Pierre Gondois <pierre.gondois@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Tony Luck <tony.luck@intel.com>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Shuai Xue <xueshuai@linux.alibaba.com>,
+	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
+	"Oliver O'Halloran" <oohall@gmail.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
+	Pawel Chmielewski <pawel.chmielewski@intel.com>,
+	Yazen Ghannam <yazen.ghannam@amd.com>,
+	Qiuxu Zhuo <qiuxu.zhuo@intel.com>,
+	Avadhut Naik <avadhut.naik@amd.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	"Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>,
+	Kai-Heng Feng <kaihengf@nvidia.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Breno Leitao <leitao@debian.org>,
+	Terry Bowman <terry.bowman@amd.com>,
+	Dan Williams <djbw@kernel.org>,
+	linux-acpi@vger.kernel.org,
+	linux-edac@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-pci@vger.kernel.org,
+	acpica-devel@lists.linux.dev
+Subject: [PATCH v1 03/19] ras: Bound CPER FRU strings in trace events
+Date: Tue, 17 Nov 2026 12:10:13 +0100
+Message-ID: <20261117111444.4185512-4-pierre.gondois@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261117111444.4185512-1-pierre.gondois@arm.com>
+References: <20261117111444.4185512-1-pierre.gondois@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,18 +95,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Di, 2026-11-17 at 12:13 +0100, Geert Uytterhoeven wrote:
-> The power sequencing part is optional, and only needed on RZ/G3L
-> (SYSC_R9A08G046 selects POWER_SEQUENCING).  Users of other members in
-> the RZ/G2L family may want to enable this driver built-in, while keeping
-> POWER_SEQUENCING disabled.
->=20
-> Fixes: eac3b292a26e2210 ("reset: rzg2l-usbphy-ctrl: add power sequencing =
-dependency")
-> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+CPER FRU text occupies a fixed 20-byte field and need not contain a NUL
+terminator. Using __string() can read past the field and, for a short
+nonstandard section, past the end of the firmware record.
 
-Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+Bound FRU text in the legacy memory and nonstandard trace events with
+__string_len() and strnlen(), as already done for the Section 2 event.
 
-regards
-Philipp
+Signed-off-by: Pierre Gondois <pierre.gondois@arm.com>
+---
+ include/ras/ras_event.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/include/ras/ras_event.h b/include/ras/ras_event.h
+index ce759ee1cf4cc..069c7b3a5e6c0 100644
+--- a/include/ras/ras_event.h
++++ b/include/ras/ras_event.h
+@@ -39,7 +39,7 @@ TRACE_EVENT(extlog_mem_event,
+ 		__field(u64, pa)
+ 		__field(u8, pa_mask_lsb)
+ 		__field_struct(guid_t, fru_id)
+-		__string(fru_text, fru_text)
++		__string_len(fru_text, fru_text, strnlen(fru_text, 20))
+ 		__field_struct(struct cper_mem_err_compact, data)
+ 	),
+ 
+@@ -370,7 +370,7 @@ TRACE_EVENT(non_standard_event,
+ 	TP_STRUCT__entry(
+ 		__array(char, sec_type, UUID_SIZE)
+ 		__array(char, fru_id, UUID_SIZE)
+-		__string(fru_text, fru_text)
++		__string_len(fru_text, fru_text, strnlen(fru_text, 20))
+ 		__field(u8, sev)
+ 		__field(u32, len)
+ 		__dynamic_array(u8, buf, len)
+-- 
+2.43.0
+
