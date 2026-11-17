@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794881224;
-	b=Wy0OjnFVm/lpjzhEX1Kckw6qj3SU/gPlamXQfQKtd9InbK5FNKP32szzwOI8Wq+XQrsU
-	 BlWv1BYN5eUyzD7fYWF3vNbLHHGMakC1rAOufJqL+BvaxcF/5Ds6nvpHsEACGI3j38vff
-	 1ilSye7UrCb6gz4CQO0yLk/wNEyKfNpLxHkngvtXlg7kOSYfRU67SAZv4+iQxvRnDMsur
-	 Q3tmvk4N3Gh2QBDFAIX4UVRlliJaQKHCL2h+1zbZDHZjdr2nBUDI71Nk8WgPS7d7WwAns
-	 Zhgz6pEr9773dD3MtJWwrw/KMQQuTautJBAMNoKW/XzsrX+hlFlAhvBf0PT/HsPX/rQ==
+	t=1794881227;
+	b=a4FNHw0eDNh3tTaBqvukimePeIaQ+TBbjJpataMZsPlvpXLRK1xucwn7WLYV4rFN1rf6
+	 0+Y2Unn2goh8fZsGFF0a5EWKcMAx6Yw1kxTM0vsIrRFo/4Dps4zOVgiFX0LnovxtG2wi0
+	 1aXdMQhl8oqI7gMS+PcR6Isw1Nk9i7+0i+z9l4Qxhty/qCO4V8bRCeL0MHSV6UmxP2W/+
+	 QrlgssUDHMyVDVkBJ8NIleH0n2WixjIld1JtIdlqOCr2dOgBUIEsArRgMIKePh/OLQNYE
+	 2DoZPK/7k4BB4R229AMLhJ1kFKrgMyRM2anetQzfM1yof5zXgIxKy5kfQxI2nwovPaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794881224;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794881227;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=KHqN+mR+uG5QpfV5UPkyJt+kNZKbMTcKRifAgMfeoZA=;
-	b=RYt/fTQIcccq/h39a9zn2ddZVgx8EdyRiaCwvbwB8eOWo9qhBY0ScMVUxBhfnUaCEj1I
-	 pOwjOZekegHuzZCAXgJiEaPoLjHR4RO+JWHqifdS+LtuaEJ2nGTL4+U3/tsaR1WIwYmnF
-	 VpyupcLMht5uHzX6xZHrV8zR+LOiybO9H/T8nwuDcmo/N+POiaY1vPegyz7+taxgmJ9bL
-	 dotoTLym9gXpxHBfsmz57cmudWjgtuhWOkIfZCovAMzlYk8BF1ZYpdaJO9AIVPInF6Aif
-	 YradlabjzaO9K+zEfhIOSnahFRS45NyNNhi65RSXEB2uWIanw7jV1J4NoLk8RAI8nvQ==
+	bh=4H9SESbbRGSoAq2gQL4B9mysuCtb/u5ZBxs535NDDIs=;
+	b=T6cadkjN46GcrXLLE1nWeeqEA3+9BIJxzX9p3OXCpkMur3EI/Djil9tzCk7+A0gQs03r
+	 P1VWNjRLcd5JrRAvBUGhCfCfzU0OvYsR+SZdmO+cPAfvbya4MFMF3ecp/qmdlGEdvXVzx
+	 vC5Wz7H8olvjnu1ithtxyYM2VQ4mXHaUY3d/Eb5g2NXM9+kOl7ZH4SC8yz3Jg/nlONjUB
+	 Mnv5Z9lCLDcRO4VYgEWw5ySX4Eb3U25vKR772G77sB/Fj99Sol7EQhUeniEbUksWsKdEY
+	 xOZ9J+IQSy7kGGVWCIYmLoKjvzQZnOdMmqYJomAJl4H96h/+WgJbrjQJU6csJKD0o/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--dylanbhatch.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=N6LkZ8AL;
-	arc=none smtp.remote-ip=209.85.214.199
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=RS0NTd8l;
+	arc=none smtp.remote-ip=209.85.214.198
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F3E3606A88A
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:07:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F3E3606A88A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD40606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:07:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DD40606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dylanbhatch.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=N6LkZ8AL
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ee04c49451so57147235ad.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:07:04 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=RS0NTd8l
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ed05900df7so17253435ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:07:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794881224; x=1795486024; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794881227; x=1795486027; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=KHqN+mR+uG5QpfV5UPkyJt+kNZKbMTcKRifAgMfeoZA=;
-        b=N6LkZ8ALt9kSDVqUkP38mAQiwV6aOsj7BKtCf8sgSPXs8j/LmnW65lpjo09iLIcLSf
-         2WDFz7Q7sZ9EwyeKh690g/XicCoBn5FRmsZdAWGiJOIrgerNcBFeJmS7VlBvayYyyrX0
-         8CPAsxtbGQo4nHF2qybZTmTR2uIW8QoXSS9+ZB74cg5SHd4vnigzKKjZZNlGU1zRZNnE
-         fmhS3g08YAEmfr1jCTznLMBwA9hWaV0F6egO/2eY/o8nG89X1/0MN79LwkUHNstSK/7h
-         nydY87AtEpVFiupAnrX8BCcCPVodNsc0Yp/0vOHWlO4ffvp24IJXszUT5JqR1XZYlA1m
-         eM7g==
+        bh=4H9SESbbRGSoAq2gQL4B9mysuCtb/u5ZBxs535NDDIs=;
+        b=RS0NTd8lyLPhf1ahEd/zO9Zi59bEXgNqtB8SLdJu1WczJSgrtam5QL/5Sjdd5+WyBO
+         bjsb+zcDHFy757WIlTyizzu6bFu4QSm7j6/qPbJanrYmIwczLMphCWySIHBtdv11SXHQ
+         ihNrJ9FF7hwvizOy3FZxK1CbPesdEdUrrPw1s/THg7iwXrJxUXdDGfOXnQiw+uZXpyxk
+         8TKe5Or2DFyjQgiK3owU/uwJLXn1/4hpzpmyyfPLcHOkF7dAGs/2bNsFbKmSlIPSRYvz
+         kkCoKNjrhqhxah+92VifK9C+q7cVSctVOljOkAb/Upo4vNoqc8DxXCQ4h2Clz5H9JhsS
+         XRuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794881224; x=1795486024;
+        d=1e100.net; s=20260707; t=1794881227; x=1795486027;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=KHqN+mR+uG5QpfV5UPkyJt+kNZKbMTcKRifAgMfeoZA=;
-        b=vAhNGdWWJC2YiJfY5IhfzpC0eBkMG795yXDzZmn2fJnYi1phXDhv2LaS4V3L18AVmN
-         bJEDM9fEnBH4W/K2z3zc5pjubI0/HvjFkR3sr6nRJ5agjry6lRQu3ayaUiM1eQbC/jib
-         emk6fpHQOQbT7Ayhxurbvc0uOMAK8Y40/XQkXFT6r7W8DCyiFKQT2+6st1x4+ACryvPQ
-         xX6uzle0aBMA2u4jVw1cuq46ef7fr23fhb8Nq1dxXF0EPQXiLrF/JOCPXmYTIT2DufUx
-         CGsGfEAurseSkAVmpasXpW1xNp6IFm/TBBSGVl2Io7gKOmav/pAADYjRIuoZJV3EWt0g
-         dmVQ==
-X-Forwarded-Encrypted: i=1; AL+hErG48fgau9JD34ddEhzfvaFhYzc4FFIE0uzwr78gbfFaR9gndpa5N3pzpcXiANW9zOomJDpMocMQwFeAuyQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z90rseo/mrb2uFziUqX7UjRrK7qrF6x6ateq7mGQqTfBNsyFUCY
-	1Yu6ueNmtSzjhx6r5XEf0CD5s18vSBJkXdziGJGbaKgSH1fbB2zo4JQnQL9ffJS4TFrZJwFG08h
-	lrD2cL9LvTH00hVl9CqqHjkgRZw==
-X-Received: from plse6.prod.google.com ([2002:a17:902:b786:b0:2ef:d8b5:15f5])
+        bh=4H9SESbbRGSoAq2gQL4B9mysuCtb/u5ZBxs535NDDIs=;
+        b=FpGORT6h7HUdrmOhM+VEtIdSdnh31u2dOfAblcKSC8kZYcw6zCZQTiYTtLVyAqhCtM
+         TScVpDgIp30pqbI/+mgBeBX0Suqc61wv62ysumPYozE9RNCr3A/rBNQ5c9VEgiIXMPI6
+         ES7qnjUjEX0rRvfP7a3bNwzlhYKUtbiuhkBagz8FOaat1oLPnm6gwyO55kS5PekVw9pt
+         lRAOjK7fqnfW1QScfs2ZcKs2LysYbA8ZI/CeYKnw5IR+DuGBEi2cq8gCpKzCYDASCtf6
+         FBS0WaCSv2Hc4iE6HzLgJ+2ewapF4AgxEDMYq0XMuAUt0mZVdMtdE+/C5tz4G5IL59/D
+         wI0g==
+X-Forwarded-Encrypted: i=1; AL+hErEiZ7cmJ+e2pgqArKdndeVwB8QOzG17RWyu6KFbgOW2qdMsu1nYOf9ZnWmyF7Xmt1/1o7K9cW+758+LpxY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9IggPhTUDOiD+xybhAHuyPX/D+jx+4RtfmNdHppJiyP8IhrhDn
+	JVBRs9Oh1U2PyOnIbxJZeya+WeP0PMl38mKd6ba+X1oF0pWPlofuHBpXG2juiHESr0/okh+7P0j
+	Y6CFXgxoJkCTRGUtCNCqwNEYpvw==
+X-Received: from plsb22.prod.google.com ([2002:a17:902:b616:b0:2ef:e0e7:c9d1])
  (user=dylanbhatch job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:902:e88d:b0:2ed:99b9:7fd8 with SMTP id d9443c01a7336-2ee0dad0713mr139046645ad.30.1794881223257;
- Mon, 16 Nov 2026 18:07:03 -0800 (PST)
-Date: Tue, 17 Nov 2026 02:06:44 +0000
+ 2002:a17:902:e5c9:b0:2e9:73db:3c78 with SMTP id d9443c01a7336-2ee0daa43c4mr117565405ad.17.1794881226561;
+ Mon, 16 Nov 2026 18:07:06 -0800 (PST)
+Date: Tue, 17 Nov 2026 02:06:46 +0000
 In-Reply-To: <20261117020648.323464-1-dylanbhatch@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261117020648.323464-1-dylanbhatch@google.com>
 X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
-Message-ID: <20261117020648.323464-8-dylanbhatch@google.com>
-Subject: [PATCH v9 07/11] sframe: Add debug helpers with object name
+Message-ID: <20261117020648.323464-10-dylanbhatch@google.com>
+Subject: [PATCH v9 09/11] arm64: entry: add unwind info for call_on_irq_stack()
 From: Dylan Hatch <dylanbhatch@google.com>
 To: Roman Gushchin <roman.gushchin@linux.dev>, Weinan Liu <wnliu@google.com>, 
 	Will Deacon <will@kernel.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
@@ -98,9 +98,23 @@ Cc: Dylan Hatch <dylanbhatch@google.com>, Prasanna Kumar T S M <ptsm@linux.micro
 	Herbert Xu <herbert@gondor.apana.org.au>, "David S . Miller" <davem@davemloft.net>
 Content-Type: text/plain; charset="UTF-8"
 
-Include the object name for kernel .sframe sections, indicated with the
-format "(<module-name>)" or "(vmlinux)".
+From: Weinan Liu <wnliu@google.com>
 
+DWARF CFI (Call Frame Information) specifies how to recover the return
+address and callee-saved registers at each PC in a given function.
+Compilers are able to generate the CFI annotations when they compile
+the code to assembly language. For handcrafted assembly, we need to
+annotate them by hand.
+
+Frame pointers alone are usually sufficient to recover stack frames
+(without CFI), except at the exception boundary, where more information
+is needed to determine if the LR is live.
+
+Since an exception can be taken from call_on_irq_stack(), annotate it
+with CFI. The actual entry assembly functions are left untouched, since
+they are not expected to take exceptions themselves.
+
+Signed-off-by: Weinan Liu <wnliu@google.com>
 Suggested-by: Jens Remus <jremus@linux.ibm.com>
 Reviewed-by: Jens Remus <jremus@linux.ibm.com>
 Signed-off-by: Dylan Hatch <dylanbhatch@google.com>
@@ -108,119 +122,64 @@ Signed-off-by: Dylan Hatch <dylanbhatch@google.com>
 ---
 
 Changes since v8:
- - (sashiko) Include <linux/container_of.h>, <linux/module.h>,
-   <linux/printk.h>, and <linux/stddef.h> in sframe_debug.h.
+ - (sashiko) Use SYM_START() with .cfi_startproc before 'bti c' so the
+   FDE covers the landing pad at call_on_irq_stack+0.
 ---
- kernel/unwind/sframe.c       | 11 +++++++----
- kernel/unwind/sframe_debug.h | 38 ++++++++++++++++++++++++++++++++++++
- 2 files changed, 45 insertions(+), 4 deletions(-)
- create mode 100644 kernel/unwind/sframe_debug.h
+ arch/arm64/kernel/entry.S | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/unwind/sframe.c b/kernel/unwind/sframe.c
-index d5c1c8148dadd..4d804f2ad9dde 100644
---- a/kernel/unwind/sframe.c
-+++ b/kernel/unwind/sframe.c
-@@ -19,6 +19,7 @@
- #include <asm/unwind_sframe.h>
+diff --git a/arch/arm64/kernel/entry.S b/arch/arm64/kernel/entry.S
+index 8d17f61d1b5b2..cc9290b218204 100644
+--- a/arch/arm64/kernel/entry.S
++++ b/arch/arm64/kernel/entry.S
+@@ -30,6 +30,12 @@
+ #include <asm/asm-uaccess.h>
+ #include <asm/unistd.h>
  
- #include "sframe.h"
-+#include "sframe_debug.h"
++/*
++ * Do not generate .eh_frame.  Only generate .debug_frame and optionally
++ * .sframe (via assembler option --gsframe[-N]).
++ */
++	.cfi_sections .debug_frame
++
+ 	.macro	clear_gp_regs
+ 	.irp	n,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29
+ 	mov	x\n, xzr
+@@ -881,7 +887,9 @@ NOKPROBE(ret_from_fork)
+  *
+  * Calls func(regs) using this CPU's irq stack and shadow irq stack.
+  */
+-SYM_FUNC_START(call_on_irq_stack)
++SYM_START(call_on_irq_stack, SYM_L_GLOBAL, SYM_A_ALIGN)
++	.cfi_startproc
++	bti	c
+ 	save_and_disable_daif x9
+ #ifdef CONFIG_SHADOW_CALL_STACK
+ 	get_current_task x16
+@@ -892,6 +900,9 @@ SYM_FUNC_START(call_on_irq_stack)
+ 	/* Create a frame record to save our LR and SP (implicit in FP) */
+ 	stp	x29, x30, [sp, #-16]!
+ 	mov	x29, sp
++	.cfi_def_cfa 29, 16
++	.cfi_offset 29, -16
++	.cfi_offset 30, -8
  
- static bool sframe_init __ro_after_init;
- struct sframe_section kernel_sfsec __ro_after_init;
-@@ -516,7 +517,7 @@ static int sframe_read_header(struct sframe_section *sec)
+ 	ldr_this_cpu x16, irq_stack_ptr, x17
  
- 	if (check_add_overflow(sec->sframe_start, sizeof(struct sframe_header), &header_end) ||
- 	    header_end >= sec->sframe_end) {
--		pr_debug("header struct doesn't fit in section\n");
-+		dbg_sec(sec, "header struct doesn't fit in section\n");
- 		return -EINVAL;
- 	}
+@@ -907,9 +918,13 @@ SYM_FUNC_START(call_on_irq_stack)
+ 	 */
+ 	mov	sp, x29
+ 	ldp	x29, x30, [sp], #16
++	.cfi_restore 29
++	.cfi_restore 30
++	.cfi_def_cfa 31, 0
+ 	scs_load_current
+ 	restore_irq x9
+ 	ret
++	.cfi_endproc
+ SYM_FUNC_END(call_on_irq_stack)
+ NOKPROBE(call_on_irq_stack)
  
-@@ -526,12 +527,12 @@ static int sframe_read_header(struct sframe_section *sec)
- 	    shdr->preamble.version != SFRAME_VERSION_3 ||
- 	    !(shdr->preamble.flags & SFRAME_F_FDE_FUNC_START_PCREL) ||
- 	    shdr->auxhdr_len) {
--		pr_debug("bad/unsupported sframe header\n");
-+		dbg_sec(sec, "bad/unsupported sframe header\n");
- 		return -EINVAL;
- 	}
- 
- 	if (!shdr->num_fdes || !shdr->num_fres) {
--		pr_debug("no fde/fre entries\n");
-+		dbg_sec(sec, "no fde/fre entries\n");
- 		return -EINVAL;
- 	}
- 
-@@ -542,7 +543,7 @@ static int sframe_read_header(struct sframe_section *sec)
- 	    check_add_overflow(header_end, shdr->fres_off, &fres_start) ||
- 	    check_add_overflow(fres_start, shdr->fre_len, &fres_end) ||
- 	    fres_start < fdes_end || fres_end > sec->sframe_end) {
--		pr_debug("inconsistent fde/fre offsets\n");
-+		dbg_sec(sec, "inconsistent fde/fre offsets\n");
- 		return -EINVAL;
- 	}
- 
-@@ -569,6 +570,7 @@ void __init init_sframe_table(void)
- 	}
- 
- 	sframe_init = true;
-+	dbg_print_header(&kernel_sfsec);
- }
- 
- #ifdef CONFIG_MODULES
-@@ -629,6 +631,7 @@ void sframe_module_init(struct module *mod, void *addr, unsigned int size)
- 
- 	/* Ensure SFrame is initialized when sframe_find() happens */
- 	smp_store_release(&mod->sframe_init, true);
-+	dbg_print_header(sec);
- }
- 
- #endif
-diff --git a/kernel/unwind/sframe_debug.h b/kernel/unwind/sframe_debug.h
-new file mode 100644
-index 0000000000000..748d69ff6c103
---- /dev/null
-+++ b/kernel/unwind/sframe_debug.h
-@@ -0,0 +1,38 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef _SFRAME_DEBUG_H
-+#define _SFRAME_DEBUG_H
-+
-+#include <linux/container_of.h>
-+#include <linux/module.h>
-+#include <linux/printk.h>
-+#include <linux/sframe.h>
-+#include <linux/stddef.h>
-+#include "sframe.h"
-+
-+#ifdef CONFIG_MODULES
-+
-+#define objname(sec) ((sec) == &kernel_sfsec					\
-+		     ? "vmlinux"						\
-+		     : container_of((sec), struct module, sframe_sec)->name)
-+
-+#else
-+
-+#define objname(...) "vmlinux"
-+
-+#endif
-+
-+#define dbg_sec(sec, fmt, ...)						\
-+	pr_debug("(%s): " fmt, objname(sec), ##__VA_ARGS__)
-+
-+static __always_inline void dbg_print_header(struct sframe_section *sec)
-+{
-+	unsigned long fdes_end;
-+
-+	fdes_end = sec->fdes_start + (sec->num_fdes * sizeof(struct sframe_fde_v3));
-+
-+	dbg_sec(sec, "SEC:0x%lx-0x%lx fdes:0x%lx-0x%lx fres:0x%lx-0x%lx ra_off:%d fp_off:%d\n",
-+		sec->sframe_start, sec->sframe_end, sec->fdes_start, fdes_end, sec->fres_start,
-+		sec->fres_end, sec->ra_off, sec->fp_off);
-+}
-+
-+#endif /* _SFRAME_DEBUG_H */
 -- 
 2.56.0.679.gc527c65306-goog
 
