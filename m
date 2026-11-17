@@ -1,103 +1,130 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794873834;
-	b=qYWmPYfQxfE4f5fGS07crSyTn1+5U1H5NE3y6H1KqpPmHPV93/NAb7mSXCwXyg6BH7Nt
-	 kEIvYx2tWWyLbNz+zPqL5NXdF/i8us2Q7gcbwqt45KfPmsAuFQZxSsH9LtVs8/InuLD/x
-	 1ASpIP7t+XejOVpSzwwUjnSe8s5VhSVgZK+7VVOV9C/n+NtH0dntmsb7Nxygj/BS8yM7l
-	 ii8293Xyu9768yobDJiEvcNoVHWimSl+OwjNUyU6gZqwfe7jcUZ8NE2if8ePZs190t0Se
-	 mIOWI6RO/YozX3xo8DC3DRChg98iCAY4e5Qgobk+GkoYQ97NOjh+o1L8DGMQXQWHEjA==
+	t=1794873921;
+	b=qhc//kab/ynqhtfuG1+EtE3A8m+X/trapLurCPHn87BluzK2koI5XjnGy0PHKODmVrnb
+	 ghT3+is03rxJa/3CTrrpqu8J5rORrNMAwhRmsMAPr0yKGNXFAiRaGyHe0ZQWYTB9Ub09q
+	 QcHMUmeFrq1uPzKAy1AAHPfcOfByXSNtR3Wfsmips/SRgClmjLZAYWKN7W3tgFscw6YKL
+	 zD/163+lKZvWe9z03vGRjevBXJn/v+Q/MaKvEJYErtD3g7Za0B63qaDM3WFXudBwKhND8
+	 plcLd1UkCsbYOagQb1VKGCpOWiMhZP4OlI3CnAevE5Z5KNOyKE4PI1td2qzc+D5pPEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794873834;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794873921;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=SvJ49BQDsT4BUOiui0pHG00KCPFsMBlGlawc8+RP7J4=;
-	b=NXQxAbJpnDFA7QLTg7b+Vw5o7exoKwugbS4tIYA9J+nMst6H2XhtepxAzGAMj10o6SRa
-	 UK22EGo+Lp2tIeMpMwTdzPrq287xoNeBvhhoRLUCOtfOXveKFDL/cLZc9A6NhdxUgDtkr
-	 AnW9RtCwzEA6scdxvDn3CZczmWO22/EQIHGN2L+zjWOOwmeZU5LlhpAUTScG5xVVENiUQ
-	 Vh+ESR2/xPE+VqkjDsofazOuKV5Dsj2IHFc06Pie7UOuxhdrPJJwYBK8LA7p9DpRSHSjl
-	 vdevRCkLkylugc5IRV1+cFE5c3bh4NneUoc7QYbrGnr3QFmJc1VgQJXc78tmCIHpRzQ==
+	bh=eMx+CTkXv1VoOtSvi+6D1nYsmWu0vpvPd8N8huVVt6c=;
+	b=1fqRjH9EM4SOcRaOCf1D/FDxCERa5p6/Ilw5b5ZZWCgJoWqi4fooQYhRTUhCXiljjCLn
+	 pfufbmAV6+/SYT3uULGqsjJsnyqsQLjMXoeBpDn+DULl4jhp3T8eMID48qnh6Py7OHdjE
+	 2NzJa7cNS/fXkvqfR2SQLwsX/N633PZwAyiQ7ZhMraqSjEK1NgKAFBjGAFiaNJcCaUQgu
+	 +zuzjdS/L++NUtafrsFdaA+bSGyHoWH3twcVAaKUgFQDUvWZ2JUADulZIs/Go1MykRlA3
+	 jCqvzb30i2enmwNLvqRfeNsDxrfn06zjLgfzUDqK4aHxHEDK3/xoMovuvMbDAnKtEQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=purestorage.com;
-	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=DHd2Jjnq;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=o+1molFf;
+	arc=none smtp.remote-ip=209.85.222.169
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00A52606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 00:03:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00A52606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A4A8606A332
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 00:05:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A4A8606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=DHd2Jjnq
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3282db206d3so11217568eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:03:53 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=o+1molFf
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-9496400270fso262763385a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:05:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1794873833; x=1795478633; darn=vger.kernel.org;
+        d=ziepe.ca; s=google; t=1794873920; x=1795478720; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=SvJ49BQDsT4BUOiui0pHG00KCPFsMBlGlawc8+RP7J4=;
-        b=DHd2JjnqXApBpJzo0ZveQjqnxo3+KhrdRZ7s7mb+OJblNYf2HS+HRlTwdy5gmoylGO
-         d1W13tUjVMfHUWSdUIu0O/xifTorRMlIFeq3DOOIqEJn/laXkgXOaS9SMbCG8OgOPnCV
-         PShQjufniQZbbUAWaEYhMtU7FiZf10PeJutOIqg2PfNn9+nyH69JvpNw2e4b2yaOvBuw
-         /1XZLSBKvuMjUlsQt0dXAf1xM9tQcc5LpoFiRDKEa8+Q1blu8a3o1wDwMMkCQS+x2ej7
-         UtsN5ECHTxpQUKOZ5kXTrM+X1in+OR4QKEGXZXaKVKmLH4AsIxCW1Bjv59AK1GwChzQ3
-         SocQ==
+        bh=eMx+CTkXv1VoOtSvi+6D1nYsmWu0vpvPd8N8huVVt6c=;
+        b=o+1molFffc9e6T9ddIDnNeseSjzEf2bQKujHs4vpOVw4OzSSGS4YQo8BJrSN9kd667
+         k9JFBOotGGRYa0PkAFx2E0FiQp1pgsnwgn6pcnUL3Eya4+1ObVIZXwVWtTnGOXsLpAKM
+         Qm4w4F5jBIoZdwaJAnrycuNhvr/nMKvlaRPWeoY+KemZwqtCHlIRV3pKlOZAan8ZiPyk
+         dg+rWFVtziAEodqueYjujOY8FQIiLOIqi0nCOki4SNuEx/vo4myxz/px2YhfTxnQyYx8
+         5SnT2fX1BMMsw9KBqqyDMrnK6kEETUe11lAAN+nPzvpxO9VlnJiaiLVZSGU+NSdcdbag
+         q8ig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794873833; x=1795478633;
+        d=1e100.net; s=20260707; t=1794873920; x=1795478720;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SvJ49BQDsT4BUOiui0pHG00KCPFsMBlGlawc8+RP7J4=;
-        b=DzP1QTkl0b4JWImHz/NslJWnS/FZyB8ILFd3a/fNP31dqWDGh80P53YtnPxYTdoNi8
-         8QC3Y16s8D7iJqUk/eytZxdsDAjgj+VTUtnVWlHf+3vzPAVFsj9VeayNsWkPVcvkY14y
-         cNYyIbpBU1F+9j3COSqpZRIlKD1sF4mZR20npeDyEc/A83yseg89x3bQdtF08os45UOv
-         iLfM4Ip2qLU8Jh3uLLIV98WkIVoUeXXTNt96u4JCMKbhXgSlyRk+M9UEmPbCa/PG626A
-         vUk/q1/8VV0+zIHM3rPLk4JeApPZSAbeKwBXOVIz2dM6caLJUkqO1lHVu9V/hVIeUS/O
-         uBNQ==
-X-Forwarded-Encrypted: i=1; AL+hErH9SFm+3zyyyuoJ+nE+5PiIhWOB8OZKd4IB9ObvKryFeC5x6ZdP/PQqUbHBTP/0rHtoOv3NU7hayLyr158=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+aAUF/tJbJvfZqdCXquqvusB2XviBgpwZbBaUZIykaP+RpnRzi
-	e9kf+HvNgIY4JqHduhmdOt+0l7f14+lZUN5tL5v5ZHRLE7w2sUN7IVPUoMhnDBToTPE=
-X-Gm-Gg: AZFdTZdSxqppm23h+P6NfD/aBDQ/L9n5KlvzAjj/rOEKXqiI98YwuCdqDoXZS6WJIJO
-	reCarvDDrIWb/PtN5LGPD48elnKGtyiXxN5Nmox/NwR0+9W9z9iqQRQskn/3y0iTKy+dGcCWSEx
-	tXwC5fSvlL1fnNa8RSxoqc1mPUfgfsJOyMOfvl9dorzcHuR7RzJybgFjapkAn8YugPLgDN4ni6h
-	Ae8o7x8Y9gL1fNAKfpFRZI1yZnQR8fly1Nm3FDdivqZHBGqAymUwCaKP7gBAuGn4HVXxCBK6TVE
-	ISlLWev5/K9wrJzYUPFKK817hat7v0UpUYkC6mA0v3KDrDfRFsTqNNQ1/2DTsrw11NJtQnBJYhp
-	MAWHNfiAKAN5GUbMLqoNeGrRtsak0UDgqXNpjZANyNaVYMe5YDCSy2wGuQzKgXAosR5jHVE5yU8
-	F61mdvw3ogHJMphIklvvGH42GrAkfqJ97lRZJOk0YtHrFmN/5y1AKZmIXyLS9k6CvBCVeg6krfg
-	6vQC0ru2km+okOZMpMLFUzSnbFokqNuruagvCxlWmirD0XpRUO0Yt7/KCvp5l2h6W+Y9oxasyjN
-	AmVHnQpqR8JjMnVrt7xjnNB9KkOv/Q+snSyUA6kF94Z53ocWzw==
-X-Received: by 2002:a05:693c:414c:10b0:369:9062:c392 with SMTP id 5a478bee46e88-379680cf511mr13649785eec.37.1794873832487;
-        Mon, 16 Nov 2026 16:03:52 -0800 (PST)
-Received: from medusa.lab.kspace.sh ([208.88.152.253])
-        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm68688756eec.21.2026.11.16.16.03.49
+        bh=eMx+CTkXv1VoOtSvi+6D1nYsmWu0vpvPd8N8huVVt6c=;
+        b=j+evp1e+03/i1k/zUJ/mZcI1t+cgxeO98E8jTlFQCOpK0XP66UEZXyQ9wtGGWayDM1
+         1cdd4KCQAlcsTDlOTAw+FDBNv/XCNoTkYoM4PRJK89ak1wpzUqY1vpiNqdf98HRC8LJC
+         yxQT2/HYBVM0V9L3NXGMam5F+K+hExkbBz8OpyBcQcmZ9LXbhuwbkkBBt4WZHiKZn3Ax
+         Qip6wzjEXkPhCUEicEPge1KoYX4O/dAymLL57ExVV75AODQfy/JITflo77cX5GRcWqJd
+         8JxFGLmq/wgcFwxJkMAHMUzL4QoLqT2dqOj0O1Lqx+9BtlG+TEXlPzyyhP4TEqamwHpa
+         G9Ew==
+X-Forwarded-Encrypted: i=1; AL+hErHDkUrFmzdepRERoF8mCuNuILxBB0UMoqVjFd1UWP72kf+ygmQCy2bgkLu7MWGUrRLXRjMZZfeszSzmdgI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9rH0z+f+bjFAaDtCcFJV9PrVwDsLDX/uZgzHlEtuM37XHMlJfw
+	HIVNuqclIj3rawNBZJDUOACDRbMWeQ7izS7HVGxisnOME+Wz7q7l+0ztg0b7055I01w=
+X-Gm-Gg: AYBFou37VFePcZRjx4vjPGkKMbBaBJhG76uBAcpC/OKq+FqauMCJVLJ3Xqo4BJpk1Em
+	T94Jcz3lQxH20IoKIyvscO8jPdd6LaSEz23Lqbclm/zcoY+tjiBRdLMbS0fjarknqnAiV6zhsSO
+	m7vQZvmKfHycsioqgD4tOC/NwdbpUl5XFlOgyOjNEZ0AahdSYb2Qej1QPve0zXZZpU2TQyzeuDv
+	vBOaZs5YFrLiKT85AAUGHYCtv7+s4geJqBCBTtvNWq7G7jZp2WtXC0TY9VfxFpVXXro28zFunUY
+	PEmWuZvEuloacdfy0u5q4+oX6Ns3Vhuk93psamTAKBTkcOyF0LJiK46iUa085Ro7jDvVzl2O9sw
+	qrtI6VFXZUhNUdkpfJt5lPiSw/aa6f3jj73a9TPqOh6kwzP5GUseMlJBpBZNVd6/z5V68WvNYWF
+	PJpEKWYvsdCrWoxB5rVg2Ub0luKzepw51b4x3Jrb4SEaS8sLiq1OY1uum5DiojWw0Au3MMCFnBv
+	VdLF+tGEoNVB3YPqK1zRHm2XTr65P8E7sKlDuea3uiJfTaz6jcXP9WU6neZMCZvN1cuqqmSwy0+
+	KqY9Rg==
+X-Received: by 2002:a05:620a:aa0b:b0:949:7473:b1a5 with SMTP id af79cd13be357-9497473c077mr807892285a.55.1794873920005;
+        Mon, 16 Nov 2026 16:05:20 -0800 (PST)
+Received: from ziepe.ca ([142.166.156.71])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c8b889csm969866585a.32.2026.11.16.16.05.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 16:03:51 -0800 (PST)
-Date: Mon, 16 Nov 2026 16:03:48 -0800
-From: Mohamed Khalfella <mkhalfella@purestorage.com>
-To: Dmitry Bogdanov <d.bogdanov@yadro.com>
-Cc: Mohamed Khalfella <linux-nvme-bounces@lists.infradead.org>,
-	Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	Justin Tee <justin.tee@broadcom.com>,
-	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
-	Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	James Smart <jsmart833426@gmail.com>,
-	Randy Jennings <randyj@purestorage.com>,
-	Daniel Wagner <dwagner@suse.de>, linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org, Hannes Reinecke <hare@suse.de>
-Subject: Re: [PATCH v7 03/17] nvmet: Implement CCR nvme command
-Message-ID: <20261117000348.GD1670230-mkhalfella@purestorage.com>
-References: <20261114030454.2836543-1-mkhalfella@purestorage.com>
- <20261114030454.2836543-4-mkhalfella@purestorage.com>
- <20261116084540.GA3655@yadro.com>
+        Mon, 16 Nov 2026 16:05:10 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xT6h7-0000000Apgy-1pGN;
+	Mon, 16 Nov 2026 20:05:05 -0400
+Date: Mon, 16 Nov 2026 20:05:05 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Robin Murphy <robin.murphy@arm.com>
+Cc: Leon Romanovsky <leon@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Johan Hovold <johan@kernel.org>, Eric Dumazet <edumazet@kernel.org>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Nipun Gupta <nipun.gupta@amd.com>,
+	Nikhil Agarwal <nikhil.agarwal@amd.com>,
+	Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>,
+	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-input@vger.kernel.org, netdev@vger.kernel.org,
+	linux-wireless@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-bluetooth@vger.kernel.org, linux-acpi@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-pci@vger.kernel.org,
+	iommu@lists.linux.dev
+Subject: Re: [PATCH v2 18/19] PCI: Replace untrusted state with device trust
+Message-ID: <20261117000505.GA2488304@ziepe.ca>
+References: <20261109-device-trust-core-v2-0-3b12d9a9f861@nvidia.com>
+ <20261109-device-trust-core-v2-18-3b12d9a9f861@nvidia.com>
+ <d0999161-3b27-4c3b-9d66-1d117c4836fd@arm.com>
+ <20261110122237.GG8635@unreal>
+ <b4c2538f-8021-4abc-be2e-fcd1596f84ca@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,84 +136,51 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261116084540.GA3655@yadro.com>
+In-Reply-To: <b4c2538f-8021-4abc-be2e-fcd1596f84ca@arm.com>
 
-On Mon 2026-11-16 11:45:40 +0300, Dmitry Bogdanov wrote:
-> On Fri, Nov 13, 2026 at 07:04:17PM -0800, Mohamed Khalfella wrote:
+On Mon, Nov 16, 2026 at 05:13:59PM +0000, Robin Murphy wrote:
+> Even with the slightly dubious argument that this series only intends to
+> shuffle the existing PCI code around rather than fully introduce the generic
+> abstraction that it claims to, if the PCI behaviour is still just based on
+> propagating the internal "untrusted" flag plus the new global override, both
+> of which *are* known at add_device time into the common trust state, then
+> there seems little excuse for not doing that up-front so that the new API
+> *can* just work as expected.
+
+The desired iommu flow is to start out as blocking and create the
+default domain only right before driver binding when we have the
+correct trust level.
+
+If we try to do that without this series then we have to do it all the
+time, which I'm really scared will break some embedded thing that
+expects scanout to work or something like that. My hope was this
+becomes opt-in based on the new command line stuff in this series.
+
+On the other hand this series works properly on systems without an
+iommu, which is pretty much all CC VMs today.
+
+There are probably around 15 series to complete all of this PCI device
+attestation. Without everything it isn't really usable, IMHO. I'm not
+that worried about the series ordering.
+> > We have two levels: policy - that describes the default of all devices
+> > for that bus. level - actual decision on how that device is going to be
+> > operated.
 > > 
-> > Defined by TP8028 Rapid Path Failure Recovery, CCR (Cross-Controller
-> > Reset) command is an nvme command issued to source controller by
-> > initiator to reset impacted controller. Implement CCR command for linux
-> > nvme target.
+> > "Disabled" prevents driver probing until the device is authorized,
+> > "Adversary" permits probing and requests the available protections
+> > for operating an untrusted device.
 > > 
-> > Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
-> > Reviewed-by: Hannes Reinecke <hare@suse.de>
-> > Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
-> > ---
-> >  drivers/nvme/target/admin-cmd.c | 76 ++++++++++++++++++++++++++++++
-> >  drivers/nvme/target/core.c      | 83 +++++++++++++++++++++++++++++++++
-> >  drivers/nvme/target/nvmet.h     | 13 ++++++
-> >  include/linux/nvme.h            | 23 +++++++++
-> >  4 files changed, 195 insertions(+)
-> > 
-> > diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
-> > index 5710ae53eb83..3df9db454db9 100644
-> > --- a/drivers/nvme/target/admin-cmd.c
-> > +++ b/drivers/nvme/target/admin-cmd.c
-> > @@ -378,6 +378,7 @@ static void nvmet_get_cmd_effects_admin(struct nvmet_ctrl *ctrl,
-> >         log->acs[nvme_admin_get_features] =
-> >         log->acs[nvme_admin_async_event] =
-> >         log->acs[nvme_admin_keep_alive] =
-> > +       log->acs[nvme_admin_cross_ctrl_reset] =
-> >                 cpu_to_le32(NVME_CMD_EFFECTS_CSUPP);
-> >  }
-> > 
-> > @@ -1629,6 +1630,78 @@ void nvmet_execute_keep_alive(struct nvmet_req *req)
-> >         nvmet_req_complete(req, status);
-> >  }
-> > 
-> > +void nvmet_execute_cross_ctrl_reset(struct nvmet_req *req)
-> > +{
-> > +       struct nvmet_ctrl *ictrl, *sctrl = req->sq->ctrl;
-> > +       struct nvme_command *cmd = req->cmd;
-> > +       struct nvmet_ccr *ccr, *new_ccr;
-> > +       int ccr_active, ccr_total;
-> > +       u16 cntlid, status = NVME_SC_SUCCESS;
-> > +
-> > +       if (!nvmet_check_transfer_len(req, 0))
-> > +               return;
-> > +
-> > +       cntlid = le16_to_cpu(cmd->ccr.icid);
-> > +       if (sctrl->cntlid == cntlid) {
-> > +               req->error_loc =
-> > +                       offsetof(struct nvme_cross_ctrl_reset_cmd, icid);
-> > +               status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
-> > +               goto out;
-> > +       }
+> > Both need conservative initial IOMMU setup: a disabled device may later
+> > be authorized as adversary, and authorization does not rebuild its IOMMU
+> > domain.
 > 
-> cntlid has to be validated against the configured range of the controller
-> ids (subsys->cntlid_min <= cntlid <= subsys->cntlid_max).
-> That will allow CCR to work correctly on a distributed target.
-> 
+> Urgh, I can be absolutely certain I'm not the only one who is going to be
+> confused this way... I see "disabled" and instinctively take it to mean
+> disabling the device_trust *mechanism*, as the logical thing that people
+> will reach for in terms of "I don't care what this new thing is, just get it
+> out of my way and let my drivers work like they always used to; I want to
+> disable the new thing."
 
-Thanks for the review. nvmet_ctrl_find_get_ccr() below will verify
-ictrl->dntlid == cntlid before proceeding with the reset. Is this not
-enough?
+Maybe "isolated" is a better word?
 
-Adding this check here means if either cntlid_min or cntlid_max change
-after ictrl has been created, CCR will fail saying the controller was not
-found. Why do we want to CCR to fail in this case when ictrl might
-actually be there?
-
-> > +
-> > +       /* Find and get impacted controller */
-> > +       ictrl = nvmet_ctrl_find_get_ccr(sctrl->subsys, sctrl->hostnqn,
-> > +                                       cmd->ccr.ciu, cntlid,
-> > +                                       le64_to_cpu(cmd->ccr.cirn));
-> > +       if (!ictrl) {
-> > +               /* Immediate Reset Successful */
-> > +               nvmet_set_result(req, 1);
-> > +               status = NVME_SC_SUCCESS;
-> > +               goto out;
-> > +       }
-> > +
+Jason
