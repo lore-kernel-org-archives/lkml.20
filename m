@@ -1,112 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794887077;
-	b=iK+u7p7q9KcfsdCAHi+YxoMDTkeLyDnO5ejTXbR061E9Fz1pm7cYSDwxl7qZX4yLVmTc
-	 UNyFvoxy9/SDlP5jQ3i27N4mcJTAAQ8HcocEUKclUNIovMG0ST064gTtaNwwKauX2AzQ4
-	 Ma5h8UNxDccDqFTKbPC4N9EhEQRMkCMnhO43Jyw8p73Map7gw8nGGodo4mUvJs8EJ3INh
-	 yxfF9BPO4ogDCxDKt3ID5T2//fTg3qKbmFU4OeV391pzjVR3bUcH9j7YEmh7/VVLFjtEb
-	 4aZDtVD+ck/YM0HMbuqagQT4cXGAKT3Tv7yxI8huScmscFgLE3LiTUiqn6WjKDCk9sA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794887077;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=FTr2Ir2VveDHvZNQ/ZtxXIYmnzC4Bm1U9lZRzd2tUxc=;
-	b=GYldpmtCs6jPSYt083MQH9UPBwNO/fwDwY0L+p0lKgDuJZN0MJk4G1X9QevTnJ46MlbM
-	 YfghCW3DMp0bRgQyfQ+C+JBvhfyGoyB5aUcNUtjsBHYqIii49l83gq4M18hSMuP2Fyx+t
-	 D2D1CFnf1HhSUrqsVfzfeUDwffLc6GLQ+NsLmIXt12Z9VoFGLZ706kjxpHjFdESjlJcI9
-	 5E8cQdUD2Jefqq+CtZIPUr1B6hEkV3szoegveTq4DC261fq02yJQPHldvI/GvuXIcJSUE
-	 p30zsHlhHZW7IAsjI4WcWzjhXR3wUQlBhkKgiSS+/dSgFnNaT5fqlktGO3wtkGwa6zQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Zpye+J1d;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=U7tAESKo;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794887295;
+	b=exUjngJb7gHxI08yEhtGD5LuKseHnwvgTiMvu+z8u/qEO/B0tQJ6v/ysnG1zTd2JlfvN
+	 esWc36g5xHzrhPAOX/AXNAosVwDVM1PD7dWdE5Fxu02Lrh2kAykOydMx/aaehKo9SLutH
+	 XsO09TI15WLK74i7S43aEa9u/rw0YiEETug0ErCx8+UP+/sFGeRSkE9OUjpYx6CAj3bi6
+	 9meaN3+055240ZYTsp6Y0XUiHza8Jh7Qrl7ooa6Ka+G2MhhlvTp4qaaTERFFdGY9k1llb
+	 4AR3YCVyoabmhTeDNmXTcL00Bqq4PGPM3SJC3EzgqKeyZSBGX8R5lKxUUE4pVWaDQhA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794887295;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=DLcMcTvPOEnravF7dNaq+o45VUDBU7Q6BawTdgCmL8M=;
+	b=QtlgCuiRuNlfFnNnzsnHb7CHvLyTiB+u8S/1VP1fxW3Dyu54QGbI0hsHjyXyCXeb5Da5
+	 UXID1CZu/dzK82ywT2oahFjsyknGS95YF5zlIiLBIn/Bu2kiZN4boQTJHq4gwgTOL4N2E
+	 7GzSs6qZ84ytp60bTxb0yGLtc0J8nfuflaVJ3KqLYrNZpuZAdiY7Tuh1yPKhrF5Lkrlmv
+	 qgETreM3MTwNflmG7RGG78Ic1T1NmJhJaCeJcoHYD7pNHC9Z8wV2YJYJgCs36xh3TpMKp
+	 wpTeYFDb3DN56KdPv7BpEA5gzEe+KzbTSVosPqp9BRXHk3865K4m3Smoh4Xnwa0E8xQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q4KJSdYv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2922606A329
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:44:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2922606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 119D6606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:48:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 119D6606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Zpye+J1d;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=U7tAESKo
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH2aGnw1800692
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:44:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	FTr2Ir2VveDHvZNQ/ZtxXIYmnzC4Bm1U9lZRzd2tUxc=; b=Zpye+J1dDGbqiBFt
-	sn4WDsBEVwwAyErMkl4ZOUe2hs9uQorbN8DiZS+A3FLVAlymAJr6diWQ6FtJXvOr
-	5zVe6qIyqxTTTz/XO5+rN4U1ZrGt0o0DvDqeKAB02i8qoWSR6Q4/t+j2ta7kkWYH
-	2CDgyeR2mvK3madBJsoCCPnx6N5iMxS9AexuxI/UK9H+YRppV61mcIe7mHHk9zFu
-	Y/LocpQajLjVeFeRdA8dce0tjKkqxhn7zXU/zKy5RPew6/Yk6PLIhx3qSCF28jW4
-	J3VfdM6Zdz1WVS2qCYZT7DUehNRmKFvEqPGICtYhRUnY/ZlDh/dxoIInw2z0pfHv
-	B21fmA==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j034y2wmv-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:44:35 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3b3a9ee822fso799033a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:44:35 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q4KJSdYv
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b785ca42ebso6422768a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:48:13 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794887292; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fLnAeChgzQG2yiN1r019+S/WSkNK7ED5pD3okEs0PtcrjLkCn4Yz8Fqv7fp3LHdZew
+         9dpqOxB8JeDosJ3xA6WbO9Qp40a/lS5RJmv9ImWdL5pu8qpZ/y9zoxlT/tsswXeFOf53
+         W2dwPijjI6aoWEuj80217PRR1XpCqlNz+gAeV6TVVczPrqlqw03cg8hc9mJFtFnb8X9s
+         yxVGo1WzDYGZKYKlD9BH/OYL15DSyjGqhsRU06vTsopuJ8m//bw0Q+vbGN8MTn5YvsmU
+         6BBBhDGxoCJKZ6MAb8tNojle2Q3iSNfNmZKkIhcYZjg0jD4tbJ2j8ZG0qfYQJ88KquwQ
+         mYMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=DLcMcTvPOEnravF7dNaq+o45VUDBU7Q6BawTdgCmL8M=;
+        fh=RS4Aq4n2nZPYNFZaC8rVa7YNrYZobitmTkR9XZ2uA/c=;
+        b=Rxrjl07StvlfQRt616un1Fu2XMgitwqVhLgu/UEQgv3x0g8fngAZpaeE7J3XCfqhgI
+         7qbRC85J+qj+biXlypxGe5JrrXc8WnCXQnFZCbAvYQfsgkPXwUA4HH26f6GQiAHDx001
+         KSGJOYdHMMKE99KpCngjJKS0fbymed6vJn0/NJNDl6pAk05G4gcy6FmikHF+iWH4IegQ
+         ze3R+E8qKON9IoI/gNhUf2fHrl3GWJYCrSJUF7Tp00XRLocQYC6cevaFAblBFJt3H9uj
+         asm36VQ8MqEu+BcVi2q1ADlEjF2B7Pnz/GGQIhdu+35y8kgIPEGWMzjnKuN/DJuXSyUU
+         c2tw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794887075; x=1795491875; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FTr2Ir2VveDHvZNQ/ZtxXIYmnzC4Bm1U9lZRzd2tUxc=;
-        b=U7tAESKoKneO2Q0kwazMemh9tT8DW92NdC2EioH6ugHqkWjcUCixLqn6TfQGvI2jH1
-         ZZHUWvCx6w/9vVEORf2Es3Qsk0kuRfrTQv3nvRPBFOZn9BjWLIWsrTX9nuuGAo7zBhme
-         scnbeykVpYbGONUluIluJvVQg+4wJvzothUP7Vl3GQdjK7O+1UbvvHKft30USbOWFdp1
-         LyYX+Ftzn8ohBu3wouvxzc4aBYtiiWawa0UX9W6cVOSjZFir6KKltC/chFsv/abO/4wi
-         qkdOggor6AeQMyy86dg8V+Hm5BYzhAZDGrTodkfHSpUzH4VOH0skYgIzy27MADJ9fheB
-         arvg==
+        d=gmail.com; s=20260707; t=1794887292; x=1795492092; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DLcMcTvPOEnravF7dNaq+o45VUDBU7Q6BawTdgCmL8M=;
+        b=q4KJSdYvaGm9wq4tovsDH2XavwAq0R6m6bkAywHa4lJjiwbn/FI8oLVh/KdujrUgxV
+         Cx/D4s15L3ISNRCLBUj2jRzjn6PJw6PkLsj3rHFmpdMvyB1PpFKA39bbycKl4B8JkDFy
+         jOPWa6Xn6hmz64pe2p84AVNOzuiO0TyHFgJUPEc7gynks+pF+Mne2ozJ328r3dhhIrNr
+         2hZbp+SAD2mF+7m+Nqibej3GpuzulzQvtJBvlvgv7im5rxP9hgOkjTrQB8q+RKOVnrB6
+         egNeUTBTJy9uJq93oUiGGFGwdA3a26gt2DWK2ywAyQAWfCytfoWn89F3oxmJpY8vXoK2
+         ts+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794887075; x=1795491875;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FTr2Ir2VveDHvZNQ/ZtxXIYmnzC4Bm1U9lZRzd2tUxc=;
-        b=sdLELHtrGjATXcJtQzhpyLpAt19MI7wJn4QVi0CNtgfVUI56DmxpNk7teQa/vz++x0
-         HYjn2qOSt3yNMMX9iMfO6zhlVzBV565uOO8eXmQMoC21JYBvgjNsBtXeRktqbQJA9Gjo
-         176KbI/5zQH2nX9VKkBqNqS6TDbmAB3xW4joqB2Qq66CIJh8DC40tzz8IIqBzVj7Y1Dm
-         5eXDJEsQI+D8rG0HY5YolnwkGqSrQ0p3mvpii6+D3tLaZNIdpgQv26i1KcL7ddbhB9np
-         CDvAktI4k9Jge1buaroaZGCzd2yoInQs1z7EWwZSU9iuRbiXFWnMIIdlU1XhIMS1HNG8
-         ufXA==
-X-Forwarded-Encrypted: i=1; AL+hErFtKN2DftLforA+uHLB5k0IIQ2oSpzySL8eHI4Zs2uTb1uS7AlmCXofz66VBFkQJmGM9tlvtnPki9Tmgp8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8I5VvyB+CJ07yjRx9nWB58D96jSKJLaGvMjrr8b5eVyBj7TE0Q
-	Y0k220IA6CUO3TuYrqS2ub9FCHFtKFSDBN7NVNwTlj7IW9OufFWiv51kRn+dP/Pwd5oIqO1RgIf
-	Gshh5Me+izmvUarnuMjOV5b8JVfvwJgtly788HQ3HM2ObG5x80PcQPG7IViQQ5LzJMzw=
-X-Gm-Gg: AZFdTZfO6nm9osA3RqsCI2up8a29r0wS1/oFS6Ve1hqr+8jxzD9qKZK0sSpoG5FEICS
-	IZ6BwNDoq/s3NRT5Q4fZuk1qD/2Z9/kDxR8C3ZS3imWO1B3TaTSQJ4Ulu5h5REfGhBglaQ+O3YF
-	wgGn7WKNnXe/ElMo4y1iaRsh0idCMcxZ8Yzdyx3F8bzdIuBJiw3OUP57qm0HZRoW7cR5yb9Vvn5
-	Z4FRiceQhX4K9nd51+rxG3sm4r32Rh3bwQZNjliWgiEBVNGyiq60YVUbRZd1Xrb63m4mgmPiU/C
-	wSVSrpFTfSs0MZ4eeldoDwjVDbXkZKpADtl6Po5CdtYAS/JYZlq/9nVejU47Pj80yoSavYbnkTH
-	cXBYeDWbOqF9U7mtZai/D3aWuL+DX6Qn8aIWJxilxSiRm+KyWU22ybttojA3JSFUJGuqaTHs/mb
-	ntgZIu+1XB0u7/1jD+mJ8/e9rx41BpgjeWbkz4
-X-Received: by 2002:a17:90b:4c41:b0:3ac:aa8d:19de with SMTP id 98e67ed59e1d1-3b1b089e2dcmr13233273a91.3.1794887075210;
-        Mon, 16 Nov 2026 19:44:35 -0800 (PST)
-X-Received: by 2002:a17:90b:4c41:b0:3ac:aa8d:19de with SMTP id 98e67ed59e1d1-3b1b089e2dcmr13233254a91.3.1794887074764;
-        Mon, 16 Nov 2026 19:44:34 -0800 (PST)
-Received: from [10.133.33.70] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3ac70ea45sm1718121a91.17.2026.11.16.19.44.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 19:44:34 -0800 (PST)
-Message-ID: <b586f418-a8e0-4502-9372-ed15d559305d@oss.qualcomm.com>
-Date: Tue, 17 Nov 2026 11:44:29 +0800
+        d=1e100.net; s=20260707; t=1794887292; x=1795492092;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DLcMcTvPOEnravF7dNaq+o45VUDBU7Q6BawTdgCmL8M=;
+        b=YO8Vi1MuLvGBHkem8J59fyT07nBZJJCzKYm50NBF9pdrC7odVbN4fam2md7uryW6fp
+         Fr/DK7tNuOh3RqZOrZd/oai2aL2VP1EjOUBvIZ0KkhQnufmRcyyuL33t5kM/PqDlVI5b
+         2pUZaS6lZ3IEIU9QAPGUo5vY1TihHeA6hhHhFAsNxMGXO7Fk4hHSgU/oxKfCasP6r5D6
+         5/1CW4NViNFj0HF+DVLWJOqYeGKevqJJpeFv1/E54IyKbblETCOKmF7JocBOciEuy/lb
+         rtqU1oO6Lkpd0WhNi8Kkxwc8w6H2sZQFHgf6TAczXxdGOUo7+7Jg9iuHhSiv2HkoqW02
+         q9TA==
+X-Forwarded-Encrypted: i=1; AL+hErEbde2q6jGVi2vSg0ouHie3jL7oVujnIVhn0FKph+ADd0dbBBJtRWIx6F9/QKnk8iE5zanFIlvjKLAI4AY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+VdJXxShx1bsFwQma6K8+aW+qU4Y22RYvYyCCvF9mJNf9SJ1ih
+	zKCWopR3VLtreFCCRwQWeA2+myB7/6Q+2SlpeeMMy/UHuqeO3w0t1TOHmyy+nfhK4GQuCvmsa9R
+	a7bgY5CgpotzaYouN+6Y1ZDcszdw6TiY=
+X-Gm-Gg: AYBFou1ZDvS6G0CB5Xt/P1J5KSk9hjeu27zZxBLyMIzJgqi5VNCYVQVYqrBRNGBgC8L
+	mF6mYba4KC+vXKkP97jg8usLjj5s4kiuEzbAHaD0EA/FijJWDrXI5gEWguGq6gTeAAc/x0VXjxV
+	2xznGfFF+69xI42sMYCKYyazAX40p+Z5yJ91r5E3/K/iX8kFF0iBVZV4LHpEC345Ob8qiry+1I6
+	DYsV+OWoLsgrNpkNTO32f80rC3UwExBRZYiFYRhuGpWeREmrCLyD271GGqFiVkZ0qIHY0KrDIO9
+	+DVbo3HhZPzP8dPqrG4GSH124eDFVWTp61cAsa65HMiycgJdXqnlbn/3ct4zuvPipQHwwsJrpPY
+	nijNJmqLGwZ7SBYSYdi/JvM+gJG4TyfaLGubylyDoVwtmZi6p91WCo9bJl+GNwWpYJZkDjMr3yN
+	DfM0Nx/dgpCYwEhao=
+X-Received: by 2002:a05:6402:516f:b0:6b7:df0c:18d0 with SMTP id
+ 4fb4d7f45d1cf-6b7df0c1ccfmr4938103a12.11.1794887292347; Mon, 16 Nov 2026
+ 19:48:12 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,214 +105,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] clk: qcom: gcc-ipq5018: fix swapped MDIO clocks and
- resets
-To: George Moussalem <george.moussalem@outlook.com>,
-        =?UTF-8?Q?Dav=C3=AD=C3=B0_Steinn_Geirsson?= <david@dsg.is>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Gokul Sriram Palanisamy <quic_gokulsri@quicinc.com>,
-        Varadarajan Narayanan <quic_varada@quicinc.com>,
-        Sricharan Ramabadhran <quic_srichara@quicinc.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261112155801.610730-1-david@dsg.is>
- <LV2PR19MB7970413DF8BA90E631C5D6CD349D7C2@LV2PR19MB797041.namprd19.prod.outlook.com>
-Content-Language: en-US
-From: Jie Luo <jie.luo@oss.qualcomm.com>
-In-Reply-To: <LV2PR19MB7970413DF8BA90E631C5D6CD349D7C2@LV2PR19MB797041.namprd19.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: NICDXRPzY4Vy2KafOOw4zIe-BLn-m1sv
-X-Authority-Analysis: v=2.4 cv=aNZlOr9m c=1 sm=1 tr=0 ts=6afbcda4 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=9htlYK_AAAAA:20 a=UqCG9HQmAAAA:8
- a=xG9mJ1_p4bxWt3gOV00A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22 a=bA3UWDv6hWIuX7UZL3qL:22
-X-Proofpoint-ORIG-GUID: NICDXRPzY4Vy2KafOOw4zIe-BLn-m1sv
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDAxNCBTYWx0ZWRfX2vf3dYgy61RT
- ly8UpvBSbE1qLtRKh5mm+aVoE0MDiUNeh5QQTDQdMkm4EkUN7td9wF6TVRCbFrzF0rcOyqUL8Zw
- x/gLfSbj7VBlTnKMa9/t8noVYiptLK4=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDAxNCBTYWx0ZWRfX2yoLTi/t9RcU
- e9Cf7MjJpcpUEeo42y/X95G6bzXuhh8BmUgyFewwvO7mfUyjWcYWSkrFs1X//yzkNU6f/VO6xs4
- lzJCbFPAX2I0NnxoVrTMrqGCC6GSRqz/B0d8AciOcRZkausufDpBZ4IOO4B2yFr6OeNNIZ2HGAY
- G/EZ1j+A1yX/Xj6bUy7yQjF2pP5m3cc2QgtRWRYBbLi/lDNutL6N82go69jEWIwr+e+SZrqlT0j
- VEA/vPznrbaqbMqiM6fJD4uZxzis6wBj8P+1g/Pt4Zsmq5L1rsS3Ag0Rc7uN5L6Mi0KXEcCXzsH
- gtnQuXu4cvNbHFBFZVFX9ckRSOClraTj4zW7nic/W+6CsALXaIUylcclS0eCjV7ocyrhXDVXrn9
- ZuAEKYWZdmKybJSIW7wyD5/RALiS3vG2L7+PNHZKVSv4ewZz7my+TFUTOCbJeiVlyXo+QWpIHwh
- 0a+xgbxcOpPhaqHTZ7A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-17_01,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 phishscore=0 adultscore=0
- priorityscore=1501 impostorscore=0 malwarescore=0 spamscore=0 clxscore=1015
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611170014
+References: <20261112064624.15245-1-juanagusnicco@gmail.com> <avuhR7Epvtgu--iT@google.com>
+In-Reply-To: <avuhR7Epvtgu--iT@google.com>
+From: =?UTF-8?Q?Juan_Agust=C3=ADn_Nicco?= <juanagusnicco@gmail.com>
+Date: Mon, 16 Nov 2026 22:47:59 -0500
+X-Gm-Features: AclHuK_gyo-l2I-E19IhRjvW3CZh8tP53SY2qJsWKfnOF4zx0gzCiSIv7CmIDlA
+Message-ID: <CACQ4Acg7wPaOgJ0Xx-ejsBz-k1uyuDPUDWLWs45B_w1b753ETA@mail.gmail.com>
+Subject: Re: [PATCH net] tcp_metrics: hash the destination address with SipHash
+To: Kuniyuki Iwashima <kuniyu@google.com>
+Cc: Eric Dumazet <edumazet@kernel.org>, Neal Cardwell <ncardwell@google.com>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Mon, Nov 16, 2026 at 7:36=E2=80=AFPM Kuniyuki Iwashima <kuniyu@google.co=
+m> wrote:
+>
+> On Thu, 12 Nov 2026 01:46:24 -0500, Juan Agustin Niccolini wrote:
+> > The tcp_metrics bucket is derived from a fold of the peer address.
+> > For IPv4 the fold is ipv4_addr_hash(), which returns the address
+> > unchanged. For IPv6 it is ipv6_addr_hash(), which XORs the four
+> > 32-bit words of the address. net_hash_mix() is only XORed in after
+> > that fold, so two addresses of either family with the same fold share
+> > a bucket in every netns.
+> >
+> > A host owning an IPv6 /64 can thus compute, without knowing
+> > net_hash_mix(), addresses that collide with a chosen IPv4 or IPv6 peer:
+> >
+> >   w3 =3D w2 ^ p0 ^ p1 ^ target    /* p0, p1: prefix, w2: free */
+> >
+> > A bucket holds six entries and the seventh insert replaces the oldest.
+> > An off-path host can fill a peer's bucket with its own entries and
+> > later tell whether one was evicted, because tcp_init_metrics() seeds
+> > the initial RTO from the cached RTT. This reveals whether that peer,
+> > or another address in the same bucket, connected in the meantime.
+> > XOR and multiply is not a PRF, so net_hash_mix() can be recovered the
+> > same way, after which evictions leak about 14 bits of any client's
+> > address, depending on the number of buckets.
+> >
+> > Hash the address with SipHash and a random key instead, as commit
+> > 2ee66e948717 ("inetpeer: randomize RB-tree node comparison using SipHas=
+h")
+> > did for inet_peer. net_hash_mix() and hash_32() are kept, to separate
+> > namespaces and to reduce the result to the table size.
+> >
+> > Fixes: 51c5d0c4b169 ("tcp: Maintain dynamic metrics in local cache.")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Juan Agustin Niccolini <juanagusnicco@gmail.com>
+> > ---
+> > This can be exploited remotely to recover a client's IPv4 address.
+> > A single host narrows the address to about 262 thousand candidates,
+> > and because each netns keys the hash differently, intersecting buckets
+> > extracted from multiple hosts converges quickly into one candidate;
+> > 3-5 are enough. The net_hash_mix() value only needs to be extracted
+> > once per boot per host.
+> >
+> > Many common cases facilitate this. For instance, a browser loading
+> > one page connects to several hosts within the same second. That
+> > supplies the buckets needed to converge, and the shared timing shows
+> > they belong to the same client.
+> >
+> > I reproduced the bug on a QEMU guest running mainline (2a500a04d6f9) an=
+d
+> > against Ubuntu 24.04 over the internet. With the patch applied, the
+> > reproducer no longer finds addresses that share a bucket. The
+> > reproducer is available on request.
+> >
+> > For stable: 5.10 and 5.15 lack siphash_aligned_key_t;
+> > "static siphash_key_t tcpm_hash_key __read_mostly __aligned(16);" can
+> > be used there.
+> >
+> > This bug was discovered during an LLM-based code review.
+> >
+> >  net/ipv4/tcp_metrics.c | 32 +++++++++++++++++++++++++-------
+> >  1 file changed, 25 insertions(+), 7 deletions(-)
+> >
+> > --- a/net/ipv4/tcp_metrics.c
+> > +++ b/net/ipv4/tcp_metrics.c
+> > @@ -8,6 +8,7 @@
+> >  #include <linux/init.h>
+> >  #include <linux/tcp.h>
+> >  #include <linux/hash.h>
+> > +#include <linux/siphash.h>
+> >  #include <linux/tcp_metrics.h>
+> >  #include <linux/vmalloc.h>
+> >
+> > @@ -94,6 +95,23 @@
+> >
+> >  static DEFINE_SPINLOCK(tcp_metrics_lock);
+> >  static DEFINE_SEQLOCK(fastopen_seqlock);
+> > +
+> > +static siphash_aligned_key_t tcpm_hash_key __read_mostly;
+> > +
+> > +static u32 tcpm_addr_hash(const struct inetpeer_addr *a)
+> > +{
+> > +     net_get_random_once(&tcpm_hash_key, sizeof(tcpm_hash_key));
+> > +
+> > +     if (a->family =3D=3D AF_INET)
+> > +             return siphash_2u32((__force u32)a->a4.addr, a->a4.vif,
+>
+> Isn't a->a4.vif always zero ?
 
+Yes. tcp_metrics only builds its keys with inetpeer_set_addr_v4(),
+which sets vif to 0. I carried it over from inetpeer's hash, where the
+vif can be set.
 
-On 11/16/2026 7:41 PM, George Moussalem wrote:
-> On 11/12/26 19:57, Davíð Steinn Geirsson wrote:
->> The GCC has a block reset (BCR) and an AHB clock branch for each of the
->> two MDIO controllers. The pair at 0x58000/0x58004 belongs to the
->> controller at 0x90000 (mdio1 in ipq5018.dtsi) and the pair at
->> 0x58010/0x58014 belongs to the controller at 0x88000 (mdio0). The driver
->> maps the GCC_MDIO0_* IDs to the first pair and the GCC_MDIO1_* IDs to
->> the second, so each MDIO node gets the clock and reset of the other
->> controller.
->>
->> ipq5018.dtsi enables mdio0 and leaves mdio1 disabled. On a board that
->> does not enable mdio1, clk_disable_unused() gates 0x58014 and the
->> controller at 0x88000 stops responding. Its registers then read back a
->> stale bus value, so MDIO reads return garbage instead of failing.
->>
->> Observed on a Ubiquiti UniFi 6 Pro, which has the internal GE PHY on
->> mdio0 and nothing on mdio1:
->> - Gating 0x58004 leaves the 0x88000 controller working and every
->>   0x90000 register reads 0xffff. Gating 0x58014 does the reverse.
->> - Asserting the BCR at 0x58000 resets the 0x90000 controller and halts
->>   the 0x58004 branch. The BCR at 0x58010 resets the 0x88000 controller
->>   and halts the 0x58014 branch.
->>
->> Swap the clock and reset offsets so that each ID controls the
->> controller it is named after. No in-tree DT uses the MDIO resets.
-> 
-> confirmed working on Linksys MX2000 and MR5500. Both devices don't have
-> the internal GE PHY on mdio0 wired up. With mdio1 enabled and mdio0
-> disabled, ethernet comes up.
-> 
-> Adding Luo Jie: I think this patch can be reverted because not all
-> boards use the internal GE PHY and its LDO needs not be enabled for
-> ethernet functionality on externally connected PHYs or switches
-> controlled by mdio1
-> -
-> https://lore.kernel.org/all/20260902-qcom_ipq5018_mdio_pinctrl-v3-2-629c7bb05c44@oss.qualcomm.com/
-> 
-> Tested-by: George Moussalem <george.moussalem@outlook.com>
-> 
+I will hash the address alone with siphash_1u32() in v2.
 
-Thanks for testing on the MX2000 and MR5500.
+Thanks for the review.
 
-All of the Qualcomm RDP boards have the internal GE PHY, so it makes
-sense to keep it enabled by default. A board that doesn't use the
-internal GE PHY can disable it in its own board DTS, as you already
-did for the MX2000 and MR5500:
-
-	&mdio0 {
-		status = "disabled";
-	};
-
->>
->> Fixes: e3fdbef1bab8 ("clk: qcom: Add Global Clock controller (GCC) driver for IPQ5018")
->> Signed-off-by: Davíð Steinn Geirsson <david@dsg.is>
->> ---
->>
->> Tested and confirmed working on the Ubiquiti U6 Pro with both
->> OpenWRT's v6.18.60 kernel and `qcom/clk-for-7.5`.
->>
->> A comment in OpenWRT's `ipq5018-archer-ax55-v1.dts` indicates this
->> bug has bitten people before:
->> https://github.com/openwrt/openwrt/blob/main/target/linux/qualcommax/dts/ipq5018-archer-ax55-v1.dts#L273-L279
->> That workaround should become unnecessary with this patch, though I
->> do not have the right hardware to confirm that.
->>
->> diff --git a/drivers/clk/qcom/gcc-ipq5018.c b/drivers/clk/qcom/gcc-ipq5018.c
->> index 37ccdc44a8..bf1a4745d1 100644
->> --- a/drivers/clk/qcom/gcc-ipq5018.c
->> +++ b/drivers/clk/qcom/gcc-ipq5018.c
->> @@ -1969,28 +1969,28 @@
->>  };
->>  
->>  static struct clk_branch gcc_mdio0_ahb_clk = {
->> +	.halt_reg = 0x58014,
->> +	.clkr = {
->> +		.enable_reg = 0x58014,
->> +		.enable_mask = BIT(0),
->> +		.hw.init = &(struct clk_init_data) {
->> +			.name = "gcc_mdioi0_ahb_clk",
->> +			.parent_hws = (const struct clk_hw *[]) {
->> +				&pcnoc_clk_src.hw,
->> +			},
->> +			.num_parents = 1,
->> +			.flags = CLK_SET_RATE_PARENT,
->> +			.ops = &clk_branch2_ops,
->> +		},
->> +	},
->> +};
->> +
->> +static struct clk_branch gcc_mdio1_ahb_clk = {
->>  	.halt_reg = 0x58004,
->>  	.clkr = {
->>  		.enable_reg = 0x58004,
->>  		.enable_mask = BIT(0),
->>  		.hw.init = &(struct clk_init_data) {
->> -			.name = "gcc_mdioi0_ahb_clk",
->> -			.parent_hws = (const struct clk_hw *[]) {
->> -				&pcnoc_clk_src.hw,
->> -			},
->> -			.num_parents = 1,
->> -			.flags = CLK_SET_RATE_PARENT,
->> -			.ops = &clk_branch2_ops,
->> -		},
->> -	},
->> -};
->> -
->> -static struct clk_branch gcc_mdio1_ahb_clk = {
->> -	.halt_reg = 0x58014,
->> -	.clkr = {
->> -		.enable_reg = 0x58014,
->> -		.enable_mask = BIT(0),
->> -		.hw.init = &(struct clk_init_data) {
->>  			.name = "gcc_mdio1_ahb_clk",
->>  			.parent_hws = (const struct clk_hw *[]) {
->>  				&pcnoc_clk_src.hw,
->> @@ -3585,8 +3585,8 @@
->>  	[GCC_GMAC1_SYS_ARES] = { 0x68438, 1 },
->>  	[GCC_IMEM_BCR] = { 0x0e000, 0 },
->>  	[GCC_LPASS_BCR] = { 0x2e000, 0 },
->> -	[GCC_MDIO0_BCR] = { 0x58000, 0 },
->> -	[GCC_MDIO1_BCR] = { 0x58010, 0 },
->> +	[GCC_MDIO0_BCR] = { 0x58010, 0 },
->> +	[GCC_MDIO1_BCR] = { 0x58000, 0 },
->>  	[GCC_MPM_BCR] = { 0x2c000, 0 },
->>  	[GCC_PCIE0_BCR] = { 0x75004, 0 },
->>  	[GCC_PCIE0_LINK_DOWN_BCR] = { 0x750a8, 0 },
-
-The GCC driver is correct here. GCC_MDIO0_AHB_CLK (0x58004) and
-GCC_MDIO1_AHB_CLK (0x58014), along with the matching BCRs, follow the
-IPQ5018 hardware register definitions. What is wrong is the clock
-assignment in ipq5018.dtsi: the MDIO controller at 0x88000 is clocked
-by GCC_MDIO1_AHB_CLK, and the controller at 0x90000 is clocked by
-GCC_MDIO0_AHB_CLK.
-
-
-Please drop this change and fix the DTS instead, for example:
-
---- a/arch/arm64/boot/dts/qcom/ipq5018.dtsi
-+++ b/arch/arm64/boot/dts/qcom/ipq5018.dtsi
-@@ -220,7 +220,7 @@ mdio0: mdio@88000 {
-                        #address-cells = <1>;
-                        #size-cells = <0>;
-
--                       clocks = <&gcc GCC_MDIO0_AHB_CLK>;
-+                       clocks = <&gcc GCC_MDIO1_AHB_CLK>;
-                        clock-names = "gcc_mdio_ahb_clk";
-                        clock-frequency = <6250000>;
-
-@@ -243,7 +243,7 @@ mdio1: mdio@90000 {
-                        pinctrl-0 = <&mdio_pins>;
-                        pinctrl-names = "default";
-
--                       clocks = <&gcc GCC_MDIO1_AHB_CLK>;
-+                       clocks = <&gcc GCC_MDIO0_AHB_CLK>;
-                        clock-names = "gcc_mdio_ahb_clk";
-
-                        status = "disabled";
+pw-bot: cr
