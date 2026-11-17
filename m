@@ -1,61 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794914314;
-	b=qmD+DxCytIXbskUYc0W9EuoGB8BVsUnd+qK1c68AXH8oRr2MkFdSuRc3neH3Hxf6IwL9
-	 OzRjE+lPdRe5jeYWD9rTvolc+Ae26Gttt6CAljLQ6lBtjzNVI/ini0QLDWlJvJDKmpJqa
-	 e4ozVM5wKPGzhRspJUFUNmqKvFTQzQqJ4JRwlNFM7gLBqmbgBD4YQlplSbic0gwiQ8jM3
-	 rf50TheG29tmljQ9YWezY7OgmGRoZukHzn0SQbr8K+sRhaIkCc/Uz2+mdVKRBdSl6lilN
-	 HyfGtR1TQvnusPwGC1B4fZ5K4TIKutWDPIyq/hhMu/Z4ILSSgIBY+TfOMaI41J3BjYg==
+	t=1794914330;
+	b=eckgHKXMhskj5t6aexanSEPIdWeGmmCU2qi5H6PLs/WMFZrXy6r1sHt3fZAYZ3cGgU3m
+	 pLL5mnbIoV+VBajoedmrsQOfryV3dU3ayyn6gu162/peWAizgGpxt/IgKp6aM3ki/9jYJ
+	 1GYdeBwECu4gZS3wvGpWzjJk6SJLkglmkKTvzYKCtQ1t0uSbDGoLr0uYAuO8fcMZEyRzj
+	 QgUZjDqQH+wQmZSRjZ8c8YuENGPOWfd6Rl9c/y5nyN3yshHu5zhIj8O6tuwrbpyEzbkLj
+	 eq407XqHP/Qqcx+azwSHvTnnB/YluiOv7mXAyW6S6WH+6vrPkhnOeEOgzDZyB/VsXRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794914314;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=R7dVIQ4XDHgLNO3WaDmdHDUJK2S7GdX6/1fBTD2EHk0=;
-	b=1c6Y5AoSj4UsU+fycA3mxnVo66ihKCnfljsj2vG6yL5VmVA2JJJsCSCQrjubBMieNXXI
-	 OBzNMMAyaYWXy3bcSG0ZJyZhHe3n+BfKlkj43JHRBcivj/I45HUrKWAIpRzYWgVkAtEtG
-	 7nqjxXBIHFhM1cfHKF/KxnsIxt2BLR9Vt+j2DzpdDhKbOJpLDc1yHg3fRvVFOHPjEo6un
-	 hSSEATODoeX3R3vzuFAwHBCGvrAwIgAZ8HMNczaC3/pn3Vn7FXmNGBk/dfgTmvoocYJdd
-	 MuVDoygSUdGwsYNQJQxAjqoIl8YIU3d//rK7Pv1BGZjHEw9xh1dk3t3SEGIWH2jwRKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794914330;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ae1+zxnmYBA6LucaV0oeD7zsBTx99sDPE5ClpSm1UfI=;
+	b=Bo2nvszwbi5dgErUJDl57gNwHhWUycUkof/JnVnVn7DrEQSMVEC66d6pp7UEQu4BhAPk
+	 KzFtBGNzSQ5g7mMp8TryO9N8AZoWnKmQ7JWeKQeWh9vardlBezZRGQWGgQoV2USp9bfVI
+	 u/ilJySHM5xqbEHhLBWxQgFXyPhqkkKWZkPpXSfKVvSllJPb9brFoe9VcnyqVT6v7ZwYo
+	 RgucVBEqBam0SKlfa/hp95e6ICMzlK2IwHcXXWrBAo8QoLbi+7kXqrRsVM95+OWMPaYad
+	 FOdInZoEMGyC5v5g9NqhviPa1+UizX/ZJdyX19+640FAKDByyJv54QNQlv8T1OEmlwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EYFB0ZrL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41867606A323;
-	Tue, 17 Nov 2026 11:18:34 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JMmqUw3q;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C97DC606A323;
+	Tue, 17 Nov 2026 11:18:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C97DC606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EYFB0ZrL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 783CA1F000C6;
-	Tue, 17 Nov 2026 11:18:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794914314;
-	bh=R7dVIQ4XDHgLNO3WaDmdHDUJK2S7GdX6/1fBTD2EHk0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=EYFB0ZrLqXIET4JkS/BVKgd6yRyKcwaD/R+wLWk80JIO7h+Efxbkdl3Yp5cqC8GG1
-	 7PL12tm0vPfLGwk3d5cQLYJnR8mwvIzW8gV3P54eH9tcSr//VkM0sp/vBQcfde9ozp
-	 KIVKtSjAl35HrzPLbYWvObkN9BqvTqqPKnDv63sweM9InhRe6Ghr0d4/Fgz1a60xyo
-	 f77DC9+MHuSmsi4hBUxfogtMZUDJ8kTsYLeCyQhxB2xXWywf9JsjWnsQz+O7EjY+GA
-	 oapVy78v/gPJLfES95xA+6CiJ5QaYtqbH/ik/Bnf/tdApTkNBAlwMr48u0XW5jXKij
-	 LP++VaSceUBsg==
-Subject:
- Re: [PATCH net 2/3] igb: link queues to NAPIs under RTNL after runtime resume
-From: netdev-bot+sashiko@kernel.org
-To: antonio@mandelbit.com
-Cc: intel-wired-lan@lists.osuosl.org, anthony.l.nguyen@intel.com,
- przemyslaw.kitszel@intel.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- zheng.z.yan@intel.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Date: Tue, 17 Nov 2026 11:18:33 +0000
-Message-ID: <179491431306.3136.1748912400459389536@kernel.org>
-In-Reply-To: <20261113105835.3821433-2-antonio@mandelbit.com>
-References: <20261113105835.3821433-2-antonio@mandelbit.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JMmqUw3q
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3A3151BF7;
+	Tue, 17 Nov 2026 03:18:46 -0800 (PST)
+Received: from e135073.nice.Arm.com (e135073.arm.com [10.34.111.135])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 278713F763;
+	Tue, 17 Nov 2026 03:18:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794914329; bh=gGwUF9uzvgflmhqCUjHXKFSBYmW8th+wZveFeobE1dU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=JMmqUw3qcRzMiqHL+zkl2lg3vrPOi4FA+IQufjra561byq3Wejw8Md9lp1ra9Ji3v
+	 CU+CG8XBFqHVJ+nygGzVEjUtVpRUfenzODtZmt0GJtA7714YbKi3bafCR7zWJNGIT3
+	 THE8bGYiGcWMZ5yTfvyzZL+NEkFtc6S2vNGAB9fc=
+From: Pierre Gondois <pierre.gondois@arm.com>
+To: linux-kernel@vger.kernel.org
+Cc: Ashok Raj <ashok.raj@oss.qualcomm.com>,
+	James Morse <james.morse@arm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Pierre Gondois <pierre.gondois@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Tony Luck <tony.luck@intel.com>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Shuai Xue <xueshuai@linux.alibaba.com>,
+	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
+	"Oliver O'Halloran" <oohall@gmail.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
+	Pawel Chmielewski <pawel.chmielewski@intel.com>,
+	Yazen Ghannam <yazen.ghannam@amd.com>,
+	Avadhut Naik <avadhut.naik@amd.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Kai-Heng Feng <kaihengf@nvidia.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	"Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>,
+	Breno Leitao <leitao@debian.org>,
+	Terry Bowman <terry.bowman@amd.com>,
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
+	Dan Williams <djbw@kernel.org>,
+	linux-acpi@vger.kernel.org,
+	linux-edac@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-pci@vger.kernel.org,
+	acpica-devel@lists.linux.dev
+Subject: [PATCH v1 10/19] ACPI: extlog: Simplify fatal record printing
+Date: Tue, 17 Nov 2026 12:10:20 +0100
+Message-ID: <20261117111444.4185512-11-pierre.gondois@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261117111444.4185512-1-pierre.gondois@arm.com>
+References: <20261117111444.4185512-1-pierre.gondois@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,131 +95,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Only fatal CPER records reach print_extlog_rcd().
+Merge the two helpers, remove the unused prefix argument
+and return value, and keep a single rate limiter.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Signed-off-by: Pierre Gondois <pierre.gondois@arm.com>
+---
+ drivers/acpi/acpi_extlog.c | 39 ++++++++------------------------------
+ 1 file changed, 8 insertions(+), 31 deletions(-)
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The new comment above igb_queue_napi_task() says: "The
-  q_vectors are only freed under RTNL with __IGB_DOWN set, so checking…
-
---
-
-igb: link queues to NAPIs under RTNL after runtime resume
-
-When __igb_open() is called on the resume path, it no longer links queues
-to NAPIs. On system resume the links are set directly with RTNL held. On
-runtime resume a new work item takes RTNL and sets them, checking
-__IGB_DOWN first so that it does not touch freed q_vectors.
-
-Closes: https://bugzilla.ipfire.org/show_bug.cgi?id=13562
-
-> diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
-> index 028cdd90522cb..f1ce9aa696ab7 100644
-> --- a/drivers/net/ethernet/intel/igb/igb_main.c
-> +++ b/drivers/net/ethernet/intel/igb/igb_main.c
-> @@ -2115,6 +2115,30 @@ void igb_set_queue_napi(struct igb_adapter *adapter, int vector,
->  				     NETDEV_QUEUE_TYPE_TX, napi);
->  }
->
-> +static void igb_link_queue_napis(struct igb_adapter *adapter)
-> +{
-> +	int i;
-> +
-> +	for (i = 0; i < adapter->num_q_vectors; i++)
-> +		igb_set_queue_napi(adapter, i, &adapter->q_vector[i]->napi);
-> +}
-> +
-> +/* Linking queues to NAPIs requires RTNL, which isn't held when resuming
-> + * from runtime suspend: do it from here instead. The q_vectors are only
-> + * freed under RTNL with __IGB_DOWN set, so checking it under RTNL is safe.
-> + */
-> +static void igb_queue_napi_task(struct work_struct *work)
-> +{
-> +	struct igb_adapter *adapter = container_of(work, struct igb_adapter,
-> +						   queue_napi_task);
-> +
-> +	rtnl_lock();
-> +	if (!test_bit(__IGB_DOWN, &adapter->state) &&
-> +	    netif_running(adapter->netdev))
-> +		igb_link_queue_napis(adapter);
-> +	rtnl_unlock();
-> +}
-
-[Severity: Medium]
-Is this statement accurate: "The q_vectors are only freed under RTNL with
-__IGB_DOWN set"? The commit message makes the same claim.
-
-On the runtime resume path, __igb_resume(dev, rpm=true) runs without RTNL.
-It calls igb_init_interrupt_scheme(adapter, true), which sets num_q_vectors
-and allocates q_vector[]. It then calls __igb_open(netdev, true). If MSI-X
-setup fails there, igb_request_irq() frees and reallocates the q_vectors:
-
-igb_request_irq() {
-    ...
-	if (adapter->flags & IGB_FLAG_HAS_MSIX) {
-		err = igb_request_msix(adapter);
-		if (!err)
-			goto request_done;
-		/* fall back to MSI */
-		...
-		igb_clear_interrupt_scheme(adapter);
-		err = igb_init_interrupt_scheme(adapter, false);
-    ...
-}
-
-igb_clear_interrupt_scheme()->igb_free_q_vectors() sets num_q_vectors to 0
-and frees each q_vector[i]. The fallback then reallocates them with
-num_q_vectors set to 1. None of this runs under RTNL.
-
-igb_remove() also frees the q_vectors without RTNL. It is only safe because
-set_bit(__IGB_DOWN) and cancel_work_sync(&adapter->queue_napi_task) run
-before igb_clear_interrupt_scheme().
-
-So RTNL does not seem to serialize igb_queue_napi_task() against the
-runtime resume writer. The only handoff between them is the __IGB_DOWN bit.
-The writer uses a plain clear_bit() in __igb_open() and the reader uses a
-plain test_bit() here. Neither provides release or acquire ordering.
-
-Can the following sequence happen?
-
-  runtime resume #1 queues queue_napi_task
-
-  the work is delayed (on rtnl_lock() or in the workqueue) past the
-  5 second pm_schedule_suspend() in igb_runtime_idle()
-
-  runtime suspend #2 takes RTNL, igb_down() sets __IGB_DOWN and
-  igb_clear_interrupt_scheme() NULLs q_vector[]
-
-  the work takes RTNL while runtime resume #2, without RTNL, reallocates
-  the q_vectors (possibly through the MSI fallback) and clears __IGB_DOWN
-
-On weakly ordered CPUs such as arm64 or POWER, the work could see
-__IGB_DOWN as cleared but still load stale num_q_vectors or q_vector[i]
-values. For example, it could read num_q_vectors as N from before the
-fallback and q_vector[1] as NULL from after it.
-
-igb_set_queue_napi() would then dereference q_vector->rx.ring through a
-NULL pointer, or through a pointer that was already passed to kfree_rcu().
-The work does not hold rcu_read_lock().
-
-This looks like a flag being used as a lock. One option is to pair
-clear_bit_unlock() (or smp_mb__before_atomic() plus clear_bit()) in
-__igb_open() with test_bit_acquire() here. Another is to rebuild the
-q_vectors on the rpm resume path under the same lock the work takes.
-
-At minimum, could the comment and the commit message state the real
-invariant? That is, the q_vectors only change while __IGB_DOWN is set, and
-igb_remove() cancels the work before it frees them.
-
-[ ... ]
-
+diff --git a/drivers/acpi/acpi_extlog.c b/drivers/acpi/acpi_extlog.c
+index 16a16b12d8ccf..1782a19eb474b 100644
+--- a/drivers/acpi/acpi_extlog.c
++++ b/drivers/acpi/acpi_extlog.c
+@@ -95,46 +95,23 @@ static struct acpi_hest_generic_status *extlog_elog_entry_check(int cpu, int ban
+ 	return estatus;
+ }
+ 
+-static void __print_extlog_rcd(const char *pfx,
+-			       struct acpi_hest_generic_status *estatus, int cpu)
++static void print_extlog_rcd(struct acpi_hest_generic_status *estatus, int cpu)
+ {
++	/* Not more than 2 messages every 5 seconds */
++	static DEFINE_RATELIMIT_STATE(ratelimit, 5 * HZ, 2);
+ 	static atomic_t seqno;
+ 	unsigned int curr_seqno;
+ 	char pfx_seq[64];
+ 
+-	if (!pfx) {
+-		if (estatus->error_severity <= CPER_SEV_CORRECTED)
+-			pfx = KERN_INFO;
+-		else
+-			pfx = KERN_ERR;
+-	}
++	if (!__ratelimit(&ratelimit))
++		return;
++
+ 	curr_seqno = atomic_inc_return(&seqno);
+-	snprintf(pfx_seq, sizeof(pfx_seq), "%s{%u}", pfx, curr_seqno);
++	snprintf(pfx_seq, sizeof(pfx_seq), KERN_ERR "{%u}", curr_seqno);
+ 	printk("%s""Hardware error detected on CPU%d\n", pfx_seq, cpu);
+ 	cper_estatus_print(pfx_seq, estatus);
+ }
+ 
+-static int print_extlog_rcd(const char *pfx,
+-			    struct acpi_hest_generic_status *estatus, int cpu)
+-{
+-	/* Not more than 2 messages every 5 seconds */
+-	static DEFINE_RATELIMIT_STATE(ratelimit_corrected, 5*HZ, 2);
+-	static DEFINE_RATELIMIT_STATE(ratelimit_uncorrected, 5*HZ, 2);
+-	struct ratelimit_state *ratelimit;
+-
+-	if (estatus->error_severity == CPER_SEV_CORRECTED ||
+-	    (estatus->error_severity == CPER_SEV_INFORMATIONAL))
+-		ratelimit = &ratelimit_corrected;
+-	else
+-		ratelimit = &ratelimit_uncorrected;
+-	if (__ratelimit(ratelimit)) {
+-		__print_extlog_rcd(pfx, estatus, cpu);
+-		return 0;
+-	}
+-
+-	return 1;
+-}
+-
+ static void extlog_print_pcie(struct acpi_hest_generic_data *gdata)
+ {
+ #ifdef CONFIG_ACPI_APEI_PCIEAER
+@@ -210,7 +187,7 @@ static int extlog_print(struct notifier_block *nb, unsigned long val,
+ 
+ 	/* Print fatal records regardless of RAS consumer registration. */
+ 	if (tmp->error_severity == CPER_SEV_FATAL)
+-		print_extlog_rcd(NULL, tmp, cpu);
++		print_extlog_rcd(tmp, cpu);
+ 
+ 	/* log event via trace */
+ 	err_seq++;
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261113105835.3821433-1-antonio%40mandelbit.com
+2.43.0
+
