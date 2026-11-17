@@ -1,59 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.30
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794894326;
-	b=D3lL99PJFi6SjfmGuQoW6gSPryLtm400Tbg+QWEonWjzw1WkbJ4Z9TuugSFO0WLABUfY
-	 A6Sv8qh3JRUuabbQ8XNDwcjwwWyfKKceOgcZXi9btse9oRrrDFcECNeQv1ejwy+vQmoH5
-	 yzacoz6pYN5x5eP+4yFU6fncJNE2WzQL7Yvije/7IxHSbIal+RtoKcp+2XvA48UeWXAF6
-	 lO79eo/q8UOJh+FycFEc0NHH0b7K0SQ9KwwZZARxt+9yel2PGyWF6nm30/N7WeHGDJavq
-	 kr8hnFz2QnLMy9e3zgnU9jPFATapODdOFm5iq4OAyGo1hzsF0xJz3eEw/kcf9JOYn7Q==
+	t=1794894365;
+	b=VYSk4KIt16kWkPmjP+iSmP5+ReXT9OCitpLXCy38Skdte86vzqigi66lGZ0ogYhtsRsM
+	 6aFh3Igb5C/uFW9umEAoWKER17xttfPAqZXmqdG4WCnIjnEr+0lDNuAojpDvShvP24VXN
+	 RCxTXFdMpWRATU1Lzkk56/Z5j0sg3aOKQ0KRJBFnMOU2r41IAgAoZbWZw8K6AP0P2sSUA
+	 UWmi433Wv4apIQI2wgBs5AJ6fvfQVIrB4COA3O661GeRrWbTInyxYinVdxkY2zMVjnDHB
+	 JnqtNKo1b+q29iwFgrGOVrLeE3auRdR0nEKtGa9Z5ogox1JnZiFbkWQGRWbBMkY5Wiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794894326;
-	h=DMARC-Filter:DKIM-Signature:Cc:From:X-Original-From:
-	 Content-Transfer-Encoding:X-Lms-Return-Path:In-Reply-To:Message-Id:
-	 Mime-Version:References:Content-Type:To:Subject:Date:X-Mailer:
-	 Received;
-	bh=PJxndX0XDADBhoVnQbXUa2d6kB9IkQ9K2h0BNMt2SW4=;
-	b=5D52ZVmnriySJJvJS1lXOWRV3/nWoZoU+YW5aEdBYQboR0ptbcMiccDXE3s+AMMCdu55
-	 /29XPynaemv3VG+XckZ2xKjk8KlZVWyvbd4Nj56RgrgXNvt6fR5JkM0BZncVw3NoL5jUe
-	 J7ZyselFKMYZ2iXuTDJdKDMDMj+P/Z7xLWWpsxJepP2uiEiZ/xxZUmpkQIxCcAeBKjV/F
-	 AgMHQUAc3KFEN6u9E4zqUXbGYT4G015RRTy5PTn9QTvsPGYEHy4dJVyAYXxwyLiZd3a6E
-	 TAwgV6MWA3gETCXls86yazPYSfeIU9/nPdS3Iv6gjEHeAttpXYMWAK6VAwFkxVmS6xg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794894365;
+	h=DMARC-Filter:DKIM-Signature:To:From:Subject:Message-Id:
+	 X-Lms-Return-Path:In-Reply-To:Date:Mime-Version:Cc:X-Mailer:
+	 Content-Transfer-Encoding:Received:Content-Type:References:
+	 X-Original-From;
+	bh=hDxJlFjhA2xRUr2x1bmOReaNiq2zOT9aXD0eY3fwdsI=;
+	b=PR+sNA0mydyZLZz157cXGMs2twXKOv+GSUcGLiiv8Xor2ENFQ0ZFANv1IAJ5CZFeETa0
+	 DK8TQg6eMQB1ake6YSUNlZvgwlf5rOevHAQ7SEHcC2PiKUrH88aRqW4ews6rbcX0LOXlc
+	 N1KHkX0dhiOynQi+XGQnYpfx8nKuqirL+186TesEdkE/S/88ukZmL/G4EB/Bsr1R8fYSV
+	 fSXIOe3uQLW2yuzypggqpVYLFbLpKZbMVZNVqcK9dpZLauF4GkE7vEGyMf5K3uZppo7Pp
+	 nZ4KkJurhunbRv+HLTTmIBLoX4qvR1Cf829ESP7111TClI5s+ljBDxU6bqsXlmtPndg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=deepcomputing.io;
 	spf=pass smtp.mailfrom=deepcomputing.io;
-	dkim=pass header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=OQ6LWoCs;
-	arc=none smtp.remote-ip=209.127.231.39
-Received: from va-2-39.ptr.blmpb.com (va-2-39.ptr.blmpb.com [209.127.231.39])
+	dkim=pass header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=0l3gt0RT;
+	arc=none smtp.remote-ip=209.127.231.30
+Received: from va-2-30.ptr.blmpb.com (va-2-30.ptr.blmpb.com [209.127.231.30])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69DBF606A329
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:45:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69DBF606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1129606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:46:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1129606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=OQ6LWoCs
+	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=0l3gt0RT
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1794894320;
+ s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1794894360;
   h=from:subject:mime-version:from:date:message-id:subject:to:cc:
  reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=PJxndX0XDADBhoVnQbXUa2d6kB9IkQ9K2h0BNMt2SW4=;
- b=OQ6LWoCstVLbhx2BZevFkO9DBMfZIJbhoBZ0b+58AX6cAudCT4ifvpR3PNLzg9Wjdivj0w
- +1O0F48S9aFp/7q3uH6TvJHkm4N/3sBb8tMwWXXj+n1o5c8SzwNL2OvgS+IdqWXa9fZYSI
- QUi8Xpz8t2JfQmy0vdGxcT70NbXhJdqasphPR91yZ/oeZESS9AHt9Xam3cuEkw9U/47JK8
- VtibuqEtgWjkbU7Oht4h24xksGWmjmnBDez0n8rI9zRVhtd/CianqkIeatrWCSYFZt6u3O
- DCQ4RnyU15zkoOlNYZ0ao8ov9W1tfCmt0RMf2t55Be3v/KEznpUL659lI6qOtg==
-Cc: "Alexandre Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>, 
-	<linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>, 
-	<linux-kernel@vger.kernel.org>, 
-	"Sandie Cao" <sandie.cao@deepcomputing.io>
+ bh=hDxJlFjhA2xRUr2x1bmOReaNiq2zOT9aXD0eY3fwdsI=;
+ b=0l3gt0RTg0KqTKecsXluooHrvyDXvMsfs1Z5fFcj7Ksq2qK8/g6PXrEaj9uRqatoEpML4K
+ gcJ/2+d6cy2clxeLACIsk67aFYn6ExYwJKkat0q/UKp2tive2+6vkaku6/BgneF7bpTlZ6
+ btwfHPWGKrc9p6lpu7cxDopEus3v0SGWQTf7TjdNvqcbYc2hlnybuvYf9lF6qxf9MJ8nBc
+ vrNGXkgzZy+8UFzyh+ayw2rDjcrvXQsq2pu0AeYPneVTQX8SbS/blaEdaBzD0IltenTOB1
+ 1NKErhbgMLGVMfm3bThc9oVZhlEHZZHyeeN/ikzXDlzpXhdBKWR10MPVAi8bKw==
+To: "Yixun Lan" <dlan@kernel.org>, 
+	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
+	"Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, 
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
+	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
+	"Albert Ou" <aou@eecs.berkeley.edu>
 From: "Sandie Cao" <sandie.cao@deepcomputing.io>
-X-Original-From: Sandie Cao <sandie.cao@deepcomputing.io>
-Content-Transfer-Encoding: 7bit
-X-Lms-Return-Path: <lba+26afbe9ef+03b01d+vger.kernel.org+sandie.cao@deepcomputing.io>
+Subject: [PATCH v5 2/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05: add USB controller and USB phy support
+Message-Id: <20261117054551.1048819-1-sandie.cao@deepcomputing.io>
+X-Lms-Return-Path: <lba+26afbea16+27c7dc+vger.kernel.org+sandie.cao@deepcomputing.io>
 In-Reply-To: <20261117054324.1048767-1-sandie.cao@deepcomputing.io>
-Message-Id: <20261117054502.1048786-1-sandie.cao@deepcomputing.io>
+Date: Tue, 17 Nov 2026 13:45:50 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,184 +65,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <20261117054324.1048767-1-sandie.cao@deepcomputing.io>
-Content-Type: text/plain; charset=UTF-8
-To: "Yixun Lan" <dlan@kernel.org>, 
-	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
-	"Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
-	"Albert Ou" <aou@eecs.berkeley.edu>
-Subject: [PATCH v5 1/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05: add P1 PMIC regulator tree
-Date: Tue, 17 Nov 2026 13:45:02 +0800
+Cc: "Alexandre Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>, 
+	<linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>, 
+	<linux-kernel@vger.kernel.org>, 
+	"Sandie Cao" <sandie.cao@deepcomputing.io>
 X-Mailer: git-send-email 2.43.0
-Received: from roma-Laptop-12th-Gen-Intel-Core.. ([183.23.101.74]) by smtp.feishu.cn with ESMTPS; Tue, 17 Nov 2026 13:45:18 +0800
+Content-Transfer-Encoding: 7bit
+Received: from roma-Laptop-12th-Gen-Intel-Core.. ([183.23.101.74]) by smtp.feishu.cn with ESMTPS; Tue, 17 Nov 2026 13:45:57 +0800
+Content-Type: text/plain; charset=UTF-8
+References: <20261117054324.1048767-1-sandie.cao@deepcomputing.io>
+X-Original-From: Sandie Cao <sandie.cao@deepcomputing.io>
 
-Add the P1 PMIC's regulator topology tree for DeepComputing FML13V05 board
+Add a USB 2.0 hub under the USB 2.0 controller node, to which devices such
+as the USB Bluetooth, USB fingerprint and USB camera are attached.
+
+Add USB 3.0 device node (b, c, d).
+     - Port b: PD 3.0 (65W Max), USB 3.2 Gen 1
+     - Port c: USB 3.2 Gen 1
+     - Port d: PD 3.0 (65W Max), USB 3.2 Gen 1, DP 1.4 (4K@60Hz)
 
 Signed-off-by: Sandie Cao <sandie.cao@deepcomputing.io>
 ---
- .../spacemit/k3-deepcomputing-fml13v05.dts    | 148 ++++++++++++++++++
- 1 file changed, 148 insertions(+)
+ .../spacemit/k3-deepcomputing-fml13v05.dts    | 50 +++++++++++++++++++
+ 1 file changed, 50 insertions(+)
 
 diff --git a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-index b5d5112de358..e061233c15a3 100644
+index e061233c15a3..bcd533484a73 100644
 --- a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
 +++ b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-@@ -22,6 +22,154 @@ memory@100000000 {
- 		device_type = "memory";
- 		reg = <0x1 0x00000000 0x4 0x00000000>;
+@@ -172,8 +172,58 @@ dldo7: dldo7 {
  	};
+ };
+ 
++&combophy {
++	spacemit,apmu = <&syscon_apmu 0x17>;
++	status = "okay";
++};
 +
-+	reg_aux_vcc5v: regulator-aux-vcc5v {
-+		compatible = "regulator-fixed";
-+		regulator-name = "AUX_VCC5V";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-always-on;
+ &uart0 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&uart0_0_cfg>;
+ 	status = "okay";
+ };
++
++&usb2_host {
++	#address-cells = <1>;
++	#size-cells = <0>;
++	status = "okay";
++
++	hub@1 {
++		compatible = "usb5e3,608";
++		reg = <1>;
 +	};
 +};
 +
-+&i2c8 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c8_cfg>;
++&usb2_phy {
 +	status = "okay";
++};
 +
-+	pmic@41 {
-+		compatible = "spacemit,p1";
-+		reg = <0x41>;
-+		interrupts = <64 IRQ_TYPE_LEVEL_HIGH>;
-+		vin1-supply = <&reg_aux_vcc5v>;
-+		vin2-supply = <&reg_aux_vcc5v>;
-+		vin3-supply = <&reg_aux_vcc5v>;
-+		vin4-supply = <&reg_aux_vcc5v>;
-+		vin5-supply = <&reg_aux_vcc5v>;
-+		vin6-supply = <&reg_aux_vcc5v>;
-+		aldoin-supply = <&reg_aux_vcc5v>;
-+		dldoin1-supply = <&buck4>;
-+		dldoin2-supply = <&buck4>;
++&usb3b_u2phy {
++	status = "okay";
++};
 +
-+		regulators {
-+			buck1: buck1 {
-+				regulator-min-microvolt = <1050000>;
-+				regulator-max-microvolt = <1050000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
++&usb3b {
++	phys = <&usb3b_u2phy>, <&combophy 2 PHY_TYPE_USB3>;
++	phy-names = "usb2-phy", "usb3-phy";
++	status = "okay";
++};
 +
-+			buck2: buck2 {
-+				regulator-min-microvolt = <1050000>;
-+				regulator-max-microvolt = <1050000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
++&usb3c_u2phy {
++	status = "okay";
++};
 +
-+			buck3: buck3 {
-+				regulator-min-microvolt = <800000>;
-+				regulator-max-microvolt = <800000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
++&usb3c {
++	phys = <&usb3c_u2phy>, <&combophy 3 PHY_TYPE_USB3>;
++	phy-names = "usb2-phy", "usb3-phy";
++	status = "okay";
++};
 +
-+			buck4: buck4 {
-+				regulator-min-microvolt = <2100000>;
-+				regulator-max-microvolt = <2100000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
++&usb3d_u2phy {
++	status = "okay";
++};
 +
-+			buck5: buck5 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck6: buck6 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <500000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			aldo1: aldo1 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			aldo2: aldo2 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			aldo3: aldo3 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+			};
-+
-+			aldo4: aldo4 {
-+				regulator-min-microvolt = <3300000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo1: dldo1 {
-+				regulator-min-microvolt = <1200000>;
-+				regulator-max-microvolt = <1200000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo2: dldo2 {
-+				regulator-min-microvolt = <900000>;
-+				regulator-max-microvolt = <900000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo3: dldo3 {
-+				regulator-min-microvolt = <800000>;
-+				regulator-max-microvolt = <800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo4: dldo4 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo5: dldo5 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo6: dldo6 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo7: dldo7 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+		};
-+	};
- };
- 
- &uart0 {
++&usb3d {
++	phys = <&usb3d_u2phy>, <&combophy 4 PHY_TYPE_USB3>;
++	phy-names = "usb2-phy", "usb3-phy";
++	status = "okay";
++};
 -- 
 2.43.0
