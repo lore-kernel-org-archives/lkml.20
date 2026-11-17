@@ -1,47 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794910901;
-	b=XS5mIYxKTgsvGulSJ76hNy7fOwr+zNPCeZ5j97ZAnNZdjWlGM5VpBdIEoWqr46XlHDtl
-	 B9nqGySd9eB3tulmfo4sdxCCJAfsy0N8fpvITJCvbRNgGEb14YAzr/gDjCdmIJEHo/35q
-	 PLOgYvSTiDSuEClHHF+J0hobVoQ2nKJN44Pwf/cQ8Y1KbykDdWkSIpDYPcYQHjWTm2HTS
-	 +oJhVYOC6Ro/bbUQofv1w2toXj14tusUfM9PeWgtft6sue6FfrrhNi1prSZyUYWCf3n24
-	 0nDskcGHzLYmygxt800g/90SBlTQH//zz5mZEKYBsYMWmJLzzSZV/fiRpPgzWDmbMIg==
+	t=1794910908;
+	b=khQUVSgn7Ht7bcvBheVvw//yEzo8On2fTRHxzUgg2hkjl/fiVZ3BIMUrts00x89IV2dP
+	 e3ju0XILn1l0gPT2M+b0q7mzy6Ewk4mF3mU5pTuYaJg5vr6B+CsjRJXxjQFQNJ3Ibl1rP
+	 rUlkeiI7xhb++Bj0jo22gfws2idluKzXt7j7YqUYcBwuGBHc06oJzoHJNUX0hVtONlLki
+	 d9nK4Y7OXnim1QZpxFRT8cGOmIre36ccsmbWnu1u3CbwxP95jT2sleEGPJ+6FZctI54fO
+	 8HQUphaERDJ6aHv8Ik3ES55Sm16NN7r1JEBoLx2o1SGbyYOcvcOzjgZJBY7xlfEQ7zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794910901;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=D942YyHXcVgnkkaU/11BZPN4JzbqpBRwvdb/nOY3osc=;
-	b=UZjUwf4ALFUjHS/32p8ia79c8wTkEVJzjMmVX36jYQWy65VaGqTit8/3XJDJdr4K/vle
-	 ljlXiYdQmVt1CXw/N6Z8DqnlS6dlxvMxSTTY4VW64HTbILUWPb7yaecj/CZYli1c2qENT
-	 gEo00oPCwW0vQS8P6KpkI1RfuSUXtuto8yTadg0Y9fdlH7MpebgnqoolUVpm4zGCNK16N
-	 wZouCKwHKf6IiOvfRqLGJstB+L+R5fc9VjhM1QtkoIe7zJDxkRo64RFUYP8A2H5HhnRPR
-	 MMY+r2J6yxrGZpWEmvOI9MGgeCfdzgy61mCKi94uDZ7CNCeLhPhEFoz3lFP+TBw4oAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794910908;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=EaOV9WO5qtb2YHPP46vOg4EtZLM1r5qyyr6pytop72I=;
+	b=pqsWoe+d1G2nnA/9VtEmO4IuOPvb1hFPYZQxgyrtztJQPGFoBhLEZ46dNbDq+n+tS4EW
+	 BzXet7LdXX1G3UYAXXNyJri2rZTjaVA+J9RbaQZ41LJzPVRT68prwUcoIduWkQHCB4zD6
+	 KiqK2DBA8XeXxRIq2epY4Lr6N5EhtMbPmYv0udXyToctU3ZpIxq8/rsOZnxv/xaoIxFA/
+	 MZuk+CUBNgHBVAfhCqMewHgRQ7NSVH2dI48hoFRjeVqJ4axq7yQYhBRAKi2veZJREHFy8
+	 dMsupYM7sm5lVEb289aKEydhhy2AVim0QuE4HkjTHUdACpKot20Yh2erz+Ik8ZkpkXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NaDwIaZj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fzJq5mfD;
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47DF2606A883;
-	Tue, 17 Nov 2026 10:21:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A1B5606A32C;
+	Tue, 17 Nov 2026 10:21:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A1B5606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NaDwIaZj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B8741F000CA;
-	Tue, 17 Nov 2026 10:21:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794910901;
-	bh=D942YyHXcVgnkkaU/11BZPN4JzbqpBRwvdb/nOY3osc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=NaDwIaZjAtMuIEkp98fdkOCUA7cozk999b994AOay8tjTHoGsKuVjDk5c7IE6GWs3
-	 oI0Z4VD/73ZXG31vMuuHr0FtPQs88NYXh2q+gaqouQJnVyYO04WKA69euwU+b710fF
-	 A+1WdNjEFVgQMfk9thjT4XsSLHSC4nf9gfkjxI1odqHAbW+2f7+Vzo2xdUzFZ0xDqG
-	 f9Yk3vwWmtXxjadVcd8FY0XIi2G5ovmsuJQE6ipFvl6w9gNMbV14IHRQFfpSEKqy2D
-	 Xn8rqrWjGLCWnOlrombXU+x35LGUIkXyRWR5zYluXCVDhX4aGy31IZCilZhkzv6oH0
-	 fvW/411LiEF0Q==
-Message-ID: <f290ccf7-1475-44c2-8152-b88db79d46fb@kernel.org>
-Date: Tue, 17 Nov 2026 11:21:36 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fzJq5mfD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794910907; x=1826446907;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=+uTMWuT6D/iKk+Oboc3PMt2EYstxhtXrE3u2XNyl6zs=;
+  b=fzJq5mfDzvcx0XPYdaVQcMArEmJD3EynavIRP849FuxOpmP5Jci5nFHm
+   W9+fMlK6y0KSL/0gOzsHnlEM9EmFMvLilLx5gHR5mAj4SjyMNZyAwd3RW
+   8h2an1MyC2uj/MZeNB3Eeo1tYED6jTp/bn3y55/z/JivWLO5E0V977Z2m
+   yUCIf9gFsrgS8nJVfTiP9P4OhcBYdp4t5XUPnbUtcZRKOFbMtNn9lf55H
+   9fBLNFnCiXz+dCaCkm2XBBscYKRDfix4+AFg2fTRLuHfFlCMAZ6kzbCnN
+   gBciuEIx7e1AFJuboAD3aFmLghThIaGCeac8TsqyXr461oxpTH9EGmh8C
+   g==;
+X-CSE-ConnectionGUID: +sOr7SvHS/mj/u3j4bSScQ==
+X-CSE-MsgGUID: M9uhb7rZRqe4k577HdREBA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3668145"
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="3668145"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 02:21:46 -0800
+X-CSE-ConnectionGUID: LrMiaeS3SLixjVVL2Vw09w==
+X-CSE-MsgGUID: BrXfmnB9StKvEQZHkNoaNA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="9754083"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.254])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 02:21:44 -0800
+Date: Tue, 17 Nov 2026 12:21:42 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Arnav Kapoor <kapoorarnav43@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Mudit Sharma <muditsharma.info@gmail.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: light: bh1745: fix 16-bit register accesses
+Message-ID: <avwqtvhrxmgLe8np@ashevche-desk.local>
+References: <20261116194214.45174-1-kapoorarnav43@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,91 +82,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] dt-bindings: pinctrl: qcom: Add QCS615 LPASS LPI
- pinctrl bindings
-To: Karthik S <karthik.s@oss.qualcomm.com>,
- Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson
- <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261117075100.272535-1-karthik.s@oss.qualcomm.com>
- <20261117075100.272535-2-karthik.s@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261117075100.272535-2-karthik.s@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116194214.45174-1-kapoorarnav43@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 17/11/2026 08:50, Karthik S wrote:
+On Tue, Nov 17, 2026 at 01:12:10AM +0530, Arnav Kapoor wrote:
+> The 16-bit colour data and threshold registers are little-endian
+> LSB/MSB pairs, but the driver accesses them through regmap_bulk_read()
+> and regmap_bulk_write() with an int or u16 buffer and no byte-order
+> conversion:
+> 
+> - bh1745_read_raw() reads 2 bytes into an uninitialised int, so the
+>   upper 16 bits returned to user space are stack contents.
+> - bh1745_read_thresh() reads 2 bytes straight into *val, which the IIO
+>   core leaves uninitialised, with the same result for the event
+>   threshold attributes.
+> - bh1745_write_thresh() writes the first 2 bytes of an int, which are
+>   the upper (zero) bytes on big-endian.
 
-A nit, subject: drop second/last, redundant "bindings". The
-"dt-bindings" prefix is already stating that these are bindings.
-See also:
-https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
+> - bh1745_trigger_handler() stores the raw bytes in a u16 although the
+>   scan type is IIO_CPU.
 
-> +    properties:
-> +      pins:
-> +        description:
-> +          List of gpio pins affected by the properties specified in this
-> +          subnode.
-> +        items:
-> +          pattern: "^gpio([0-9]|1[0-9]|2[0-9]|3[0-1])$"
-> +
-> +      function:
-> +        enum: [ dmic1_clk, dmic1_data, dmic2_clk, dmic2_data, gpio, i2s1_clk,
-> +                i2s1_data, i2s1_ws, spkr_i2s_mclk_a ]
+I didn't get this, what's the problem here?
 
-It's the first time spkr_i2s_mclk_a name appears. Are you sure that is
-the name of the pin function in the datasheet? You won't be able to
-change it later.
+> Use an __le16 buffer for all of them and convert with le16_to_cpu() /
+> cpu_to_le16().
+
+Otherwise seems legit to me.
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+
+And you also need to add
+
+asm/byteorder.h.
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-
-Best regards,
-Krzysztof
