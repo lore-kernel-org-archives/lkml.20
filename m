@@ -1,80 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794925406;
-	b=Vb7v5ng49S0P5dCFx8ORJNycrrPBohRB31Oj5fXOZcs4pCs7pMnNAMnrKKxDTcT+OWJr
-	 Tque96h70lSaCJ0HdoEgtaZKXMeUBS3VbIhJvs31WrgXqllSadpwiK0X5eSyaoc96LG3k
-	 dfGaZztx0Ta1Y/XutVCU27qxzi3pz5NFVwQV3z+kfcfFN3+R6jmZrBku4RkaWzFDi6M10
-	 7fpyRYWIBizLuk2JYAdiEoYM5Al3eNXOs6wFtGpjg4gq1Fj3gnnWO9DflWaWm2XOYxbm5
-	 zOBwoSPPTJNC+vGL3kf+2n1asGK1ejSI7eipRBSu1OqVzcSiEchhEHNS7W1pc4/MmxQ==
+	t=1794925409;
+	b=DCzV3Gg2gt6D08VnHQIQX0VPIB/TqWxbr5c9A2NzwhKY4txgjM5P4/EPwr7AV96G4Hhs
+	 22VRjgfDqKOPg5VKC1vbFyGUfuRkaKnGafO75kwOCoAh2z6uPlCLjpvgpOFNw+Goeac8a
+	 FTgyaMGuusjo0N/C54uffNljQ+LrqeBx7ou6wQNfRybhJmo0WHUt/puRN/kozz2PA7ZbD
+	 VbwFnr/WywyG4TtnwZaOJVeTw77lw3fHZr/5wdqe8JUEbT3evWZidMhIPcURGe+dlr+Vy
+	 be7Qy2cAcjbBSUBTtrjdIDQnytAitgE/vD+ngInDr6Ml3kTmU78To4guu3AlF4FoiWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794925406;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=oZw2MGzQ8IiVz0OwiT75c7iVj9qPAFfh3XVzGDxfLaA=;
-	b=iDWDRJnSnq2jVYliJ6FgCjCaHffgAzLlMczi9vVzpTnIMx8lS61ZUX9uAmRLfVkD4PXC
-	 4LhNgSqjRGZNm10tUAvXhHY+HJpVjfIPC5Yj57ZLJW550RYcyPl7uHD/6w2YNEu+wkbIl
-	 SWFQUmez96w8dWDoVMd/rtDlJkJiQYMw0WMkRtSSt5gmbCkElfJozCLWfa78jyLc6hFW7
-	 4NgcEwdRXz/t0RuoqfWmFD0rjpbMf8MIE7OwDaHCs8zvCgxNd7vEu9uwhBBtBg43mrxUs
-	 YSKOBpU6G06YoiNr3p6MZBxpkRjAMMaVqK1XUKRD+OfqN2HmBC6UHLzNl+t2rLrD49A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794925409;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer:
+	 X-Last-TLS-Session-Version;
+	bh=XtFQDcwceQa3Sr+OhE1k+wWRHerfk4qk4lkJyg2kfJo=;
+	b=Cqz345uwk65gNtEq3f0XO76jKq+V0sPxW3UefstdMTvldw4Bp2A2qJFmohVETvcfxhsz
+	 9BVmCCV6pVi5/w56QBxv8LUhfj9D3OqpDbtc+Rn6Kgb6ya781VRA20C6zDOdqWl5OcNhN
+	 uIn+u5iBiRlodH0el5OK/YfI5bunBgLIHDX1RcZybfgOpSe53LJMMlK7B09myWFDWobxS
+	 XRQPcDZ/W15+bDm1o4t2HR/fO6tH8nIqkB6DbPP6YEAvs1xj60d3/6jd8K+6SQ2H0t7ux
+	 oi45z2cUmUlOS8lw/ly85cgDSVSgXXPUoM1IV/5gfeXExe1kjV4d2aAaHJYWrHsC76Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IVoXwPlz;
-	arc=none smtp.remote-ip=192.198.163.19
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=1q1S9Pd7;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7BCE606A88F;
-	Tue, 17 Nov 2026 14:23:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7BCE606A88F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7291B606A8B8
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:23:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7291B606A8B8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IVoXwPlz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794925406; x=1826461406;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=0SCvhruwfEKBRvjoqvuX7ypR5M6kKuNlKf+m/n4V7VU=;
-  b=IVoXwPlztMtFE6A8/m7e63m1VMLxnJM0UHW1oqDOJf232CeiSjw8YWV4
-   8YH9jtGj1S7Cyz0exe8ceR8x9vYHVa/gmr6uIE0/rX5q7akDmYg1OOz1Z
-   adHTWnHo140U5lTeTgGxMABUGh3zyAdisnOwyUelIbwtDy+5Xlq91m+th
-   +mgSq+C5b9W5myDAIwEkSi3Qt4N5E/b+WTKoos1YAoYeF8XV/ChRWCXvA
-   ulJPCyC6eRqcEdOAxad8xXbZeJTyvqCeKk76c2u8vHQiN2NNimHUpL5ze
-   +qsHxjimZgzd13iFEzWYL4rj4/RCE9JFtI6lp8Dg8Ij6RN2ln9wzzpd3d
-   A==;
-X-CSE-ConnectionGUID: xL5pmV+gQPa4Vr360lXBQQ==
-X-CSE-MsgGUID: y1/nek3oQDKFIu69Wi70+w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3804208"
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3804208"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 06:23:26 -0800
-X-CSE-ConnectionGUID: H0Cg++A6Smajjab1DEtR/Q==
-X-CSE-MsgGUID: FNCTtjpoQFqyBnfPm3A4Hg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="9922167"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.254])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 06:23:23 -0800
-Date: Tue, 17 Nov 2026 16:23:20 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Arnav Kapoor <kapoorarnav43@gmail.com>,
-	Matti Vaittinen <mazziesaccount@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Mudit Sharma <muditsharma.info@gmail.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] iio: light: bh1745: fix 16-bit register accesses
-Message-ID: <avxjWFUiacnYrfsJ@ashevche-desk.local>
-References: <20261117110327.198084-1-kapoorarnav43@gmail.com>
- <avxi4BBJ_Ztg-aN7@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=1q1S9Pd7
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 3E62A4E4157D;
+	Tue, 17 Nov 2026 14:23:27 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 120E55FD6A;
+	Tue, 17 Nov 2026 14:23:27 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1B0D011BC0039;
+	Tue, 17 Nov 2026 15:23:23 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794925405; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=XtFQDcwceQa3Sr+OhE1k+wWRHerfk4qk4lkJyg2kfJo=;
+	b=1q1S9Pd77qyl4ks/rAZs4tWBzzKJxwbhs+GjdlKzNE8v8VfwmKF1gAM4tm+wT0HKqXcAI8
+	V85azkHVlxyod7PF09JjNMsoOJcva5H4RmM0O9j269IgEIWVqqsjN9q2t52UD2l+Pt+Rba
+	fGgerv2m2bVMgqfC3zwj7QEe38Clb9aL0GNUHpXkOwI/CzSrkE28jExKHZM51eC/e9M3I5
+	XVTsoW4/jxNOIsB0teTHQ++StlGA6+fp+3tSLe+8N9qIiCkIiblYqh6LUj/14ctV8D/8lZ
+	olnCiWeeX8ixtcvqSdcQJW7OSR/fmDNkexg9nNNHhdgJGQMCsn2h7SfendL1Aw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Richard Weinberger <richard@nod.at>, 
+ Vignesh Raghavendra <vigneshr@ti.com>, Frank Li <Frank.Li@nxp.com>, 
+ Alok Tiwari <alok.a.tiwari@oracle.com>, Runyu Xiao <runyu.xiao@seu.edu.cn>, 
+ Chen Ni <nichen@iscas.ac.cn>, Kees Cook <kees+treewide@kernel.org>, 
+ Hemanth Selam <hemanth.selam@gmail.com>, linux-mtd@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Frank.Li@oss.nxp.com
+Cc: imx@lists.linux.dev
+In-Reply-To: <20261111202502.3860647-1-Frank.Li@oss.nxp.com>
+References: <20261111202502.3860647-1-Frank.Li@oss.nxp.com>
+Subject: Re: [PATCH 1/1] mtd: nand: raw: use dmaengine accessor API
+ functions
+Message-Id: <179492540302.2259780.2818998667835752553.b4-ty@bootlin.com>
+Date: Tue, 17 Nov 2026 15:23:23 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,33 +74,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avxi4BBJ_Ztg-aN7@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Nov 17, 2026 at 04:21:25PM +0200, Andy Shevchenko wrote:
-> + Cc: Matti (even he is not listed as maintainer) for possible another pair of
-> eyes and/or having an answer why this was missed at the time of the driver
-> submission (from my perspective this patch is correct).
+On Wed, 11 Nov 2026 15:24:45 -0500, Frank.Li@oss.nxp.com wrote:
+> Use dmaengine_get_dma_device() instead of directly accessing chan->device
+> and use dmaengine_prep_dma_memcpy() instead of calling the function pointer
+> directly. This follows the dmaengine API convention of using accessor
+> helpers to decouple drivers from internal dmaengine structures.
 > 
-> On Tue, Nov 17, 2026 at 04:33:25PM +0530, Arnav Kapoor wrote:
+> Affects cadence-nand-controller and fsmc_nand drivers.
+> 
+> [...]
 
-...
+Applied to nand/next, thanks!
 
-> >  #include <linux/bits.h>
-> >  #include <linux/bitfield.h>
+[1/1] mtd: nand: raw: use dmaengine accessor API functions
+      (no commit info)
 
-Looking again at this, I just realise that we also need
+Patche(s) should be available on mtd/linux.git and will be
+part of the next PR (provided that no robot complains by then).
 
-+ types.h here.
-
-> >  
-> > +#include <asm/byteorder.h>
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Kind regards,
+Miquèl
 
