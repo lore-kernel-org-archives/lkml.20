@@ -1,61 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794879329;
-	b=OF+cDhZwuqn62IvutcAkkcKxIlX58Eq7Gsu6010Gy1TN/lNjacVcbkN6gKS5L9TZmJ1P
-	 iRnwyC6lNW3ltVpABiJxZMGhnnNebAMoMI+QPNcyiemXw35e40FDjk+V/6Mp41XjyrYo0
-	 9jYHWIZkK+kAKI+0+YZIvcBk3zD0o4aVpMZmfm8CgF4GfDr5dTV6iOFqcQOM8+VS3e9ae
-	 lN2ItUNIHIpmAu8/U41j1Rq1dav0PGv+1Awlo7q6fHhpFw3MjTs6sWyQdqGIeRMtp8TcP
-	 eE34ho5A9aowwA5HaNr0m9/yzQ5nLl44/DGNBs+ATnjX5WUKVQhEwGMj/VI4Ec2y6+A==
+	t=1794879343;
+	b=5W35vw9+CHYkmP29Tk15qoId9xtZcP9tYh+6Dtml3vt6kku+rKnxKLpbwXYTBx4wb7lf
+	 +n3p1y1M8vbXepl4v/Xb+ktuJWMiz1qOwls8Ks3awg0vfEzyG3D23xI2KiESGpwSubC+t
+	 xBEhZ8gIgvlmSpEONu/sOumXxpLum6QGSKDMINGso3kSmlH4zYdQbQX4Z3xu9JQvm/Hso
+	 t5wtbkDML+D7xfZOrjxqCtmhInqR8wicMaTS+GOgTT4VNGgC0Am9jEdZiZZGSwLLbYBe+
+	 0uaINMsjOToUrRVQwpl6mf5/0TD1jYdIqapDlMyxzR5JUdYsqXZ7TUZF9sOiwLRpKKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794879329;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=zz6WRoIrA4MtoYD+sM4sjtcaOrrRsCorOnSwGUekLOA=;
-	b=36P//qv/+hOdAKqXYbIboSE4l3y3wzWXSTuYGOszEs4A7TKdrKg7rGHWXciRXL25VaV+
-	 IP2O6FgcmCulXt8JIXmvGuGwZMLQEa/mawqTm6/NcmdEf9GXb9Od6AE4ARAeyknMCFGer
-	 jtpjdcpZuiTdOANN+7oCYyVMPuIEPN74GHmg8HsRK4kCmqfMfP/0aFv3O2rvpSCTb1DHf
-	 cYoh/OUF26R5XKn9lKwkj1euHpyqIDHiz0FdVeR4vo1I6AIvpzB9PBycr4VK4nQJo2Aau
-	 06sPIZF5/y4rKD1Xmw6+Ub5XXMx+dOsuwm7y43k8PBelKhZvj9Sn3RJX9vktJ4F5LAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794879343;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
+	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=/GaoTHlvdwCxZnsyrE2dClN5WmkZlsTr2++LAeIbplk=;
+	b=GBgFBLlcvKbbrof6iz7XFjuvMO/1QBzCeE1w2zvIYXlvIfmjcyH2jghwltPOICEawPVM
+	 nmiuz5gzHCtkSq5cLmyafcyTX12ZphbSFCYD9uSGuAX4T562moXcYOQAD08G+pTUAPzTe
+	 SIjGQuJQtHf2rE7FgGAsRIyUa0Dvjl8zYRKSeQKb56qtYaqsiUFJMmrut4mgAzoBCIzQt
+	 lOJEwhHllgFEsAElg79vpGUqQZfGHFsAQnsGjhZGBL8dVJIrhJQvaU5wHC/II868XtcNp
+	 76BPpyU085HRTX7hcUBMoG/alre0V5o4gDunA6R7nXnKb7B0YhUquAGh9y3JcIVee6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DaVzT5k3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=lF+zdThK;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE642606A31C;
-	Tue, 17 Nov 2026 01:35:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2951D606A31C;
+	Tue, 17 Nov 2026 01:35:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2951D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DaVzT5k3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D8951F000C4;
-	Tue, 17 Nov 2026 01:35:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794879329;
-	bh=zz6WRoIrA4MtoYD+sM4sjtcaOrrRsCorOnSwGUekLOA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=DaVzT5k3Fq+zRV6SmVPs9JTPinoP3eCaKUB1XQNCIY6lYVaTR/Nd/npuK2bSwB9oe
-	 kHT8SAHcNMuDj4gFWp6/Qqrl+vdqoTu8B0tQqj+5ypoUEWumz7BdZfgZFDJ9k9lsph
-	 y9mQI0A/6GoYZ8Y9IPme45ighJ8m8pEgYycpkwP2UpLjRhplCTcL2wBlMx5bP+W+4Y
-	 IgFuoWKmEQYl0euWuYCd7p/lnFT3LwEqYC0+02lWtm6rHtwhkgvNb1D7N1AIGpabpj
-	 6iPt/uxSe6GkB/4AZCS7vLdjEB1It7w1eAXj3JG3+jsNDu4YGebmSAHwSdEmIJb6Mf
-	 BTP8FJcXcrT+Q==
-Date: Tue, 17 Nov 2026 01:35:21 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Jongwon Lee <ai@linux.com>
-Cc: Davidlohr Bueso <dave@stgolabs.net>, Dave Jiang <dave.jiang@intel.com>,
- Alison Schofield <alison.schofield@intel.com>, Vishal Verma
- <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>, Ira Weiny
- <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>, Richard Cheng
- <icheng@nvidia.com>, linux-cxl@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 1/3] cxl/edac: Read cached DRAM event records under
- the xarray lock
-Message-ID: <20261117013521.5b4d034a@jic23-hlaptop>
-In-Reply-To: <20261108022022.3352-2-ai@linux.com>
-References: <20261108022022.3352-1-ai@linux.com>
-	<20261108022022.3352-2-ai@linux.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=lF+zdThK
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AH1ZdFD23943628, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1794879339; bh=/GaoTHlvdwCxZnsyrE2dClN5WmkZlsTr2++LAeIbplk=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=lF+zdThKqvQ/k6guH3nkRaHxbvHmiFozhEXc1VD7HHrtFTkFcDXuOgzz3pq8dropn
+	 fd3fxlrPw+hvZOsNrpzv0D4LgEsirWMy1NA8C57Fa8M2J3dcDhWpcWjluQPjOqsRAC
+	 KWBvYgvZBzzSSSXu+0o8wUJUD0YbS9hLluTcJ22DqtLcDknV6qiVy+G2VMvFDHJbD8
+	 8liB8VwGcZEzxg+a+pcuoHFifLekMlip1dnqaIwI5K9NaDT2fKAa3sAFnomb0TOl+L
+	 D4CU60aj6zQThYml1pNWT7bkz1K51Z90jW1kIJovZsuuRBD7cJbG4H5YFj8eanPbr+
+	 k1KGTvtlopHaQ==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AH1ZdFD23943628
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 17 Nov 2026 09:35:39 +0800
+Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 17 Nov 2026 09:35:39 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 17 Nov 2026 09:35:39 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
+ 15.02.2562.056; Tue, 17 Nov 2026 09:35:38 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Rosen Penev <rosenp@gmail.com>, "linux-wireless@vger.kernel.org"
+	<linux-wireless@vger.kernel.org>
+CC: open list <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH rtw-next v3] wifi: rtw89: acpi: check for _DSM function
+ support before evaluating it
+Thread-Topic: [PATCH rtw-next v3] wifi: rtw89: acpi: check for _DSM function
+ support before evaluating it
+Thread-Index: AQHdb8F45Ag5kkMCtk2pEzAcm+MLY7cxhzhQgAAAwkA=
+Date: Tue, 17 Nov 2026 01:35:38 +0000
+Message-ID: <2d5e6b2071444fa5a23ff230744fce2f@realtek.com>
+References: <20261108204056.28049-1-rosenp@gmail.com>
+ <c182ad839d9b44c3adcc0b208b84d85e@realtek.com>
+In-Reply-To: <c182ad839d9b44c3adcc0b208b84d85e@realtek.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,82 +87,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Sun, 08 Nov 2026 11:20:23 +0900
-Jongwon Lee <ai@linux.com> wrote:
+Hi Rosen,
 
-> The event path caches DRAM event records in an xarray. It frees a record
-> when xa_store() replaces it, when the record expires, and when the cache
-> overflows. The event path runs with device_lock() and cxl_rwsem held for
-> read.
-> 
-> The repair path looks up records with cxl_find_rec_dram() while holding
-> only cxl_rwsem for read, so both paths can run at the same time.
-> cxl_find_rec_dram() reads the record after xa_load() returns, and
-> cxl_mem_perform_sparing() reads validity_flags from the returned record
-> again later. Both reads can hit a record that the event path has just
-> freed.
-> 
-> Move the lookup into __cxl_find_rec_dram(), which is called with the
-> xarray lock held. cxl_find_rec_dram() now returns whether a record
-> matched, and copies the matching record into a buffer passed in by the
-> caller. The PPR path only needs to know whether there is a match, so it
-> passes NULL. No caller keeps a pointer to the record after the lock is
-> dropped. The event path frees a record only after xa_store() or
-> xa_erase() has removed it from the xarray, and both of them take the
-> same lock.
-> 
-> Fixes: 0b5ccb0de1e2 ("cxl/edac: Support for finding memory operation attributes from the current boot")
-> Fixes: 588ca944c277 ("cxl/edac: Add CXL memory device memory sparing control feature")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/r/sashiko-outbox-192042@kernel.org
-> Reviewed-by: Richard Cheng <icheng@nvidia.com>
-> Reviewed-by: Li Ming <ming.li@zohomail.com>
-> Signed-off-by: Jongwon Lee <ai@linux.com>
-This seems fine to me, but a suggestion inline that might make the code cleaner.
+Ping-Ke Shih <pkshih@realtek.com> wrote:
+> Rosen Penev <rosenp@gmail.com> wrote:
+> > When the WiFi device has no ACPI companion, or the firmware does not
+> > implement a given rtw89 _DSM function, rtw89_acpi_evaluate_dsm() calls
+> > acpi_evaluate_dsm() anyway. ACPI core then warns on every probe:
+> >
+> >   ACPI: \: failed to evaluate _DSM e8c3a8d2-694b-004f-82bd-fe8607803aa7=
+ rev:0 func:10 (0x1001)
+> >   ACPI: \: failed to evaluate _DSM e8c3a8d2-694b-004f-82bd-fe8607803aa7=
+ rev:0 func:6 (0x1001)
+> >
+> > Here the handle is NULL, and acpi_evaluate_object() returns
+> > AE_BAD_PARAMETER. All callers already treat failure as "no policy
+> > provided by the platform", so this is only noise.
+> >
+> > Bail out early when there is no ACPI handle,
+> >
+> > Seen on an RTL8852BE in a desktop PCIe slot.
+> >
+> > Signed-off-by: Rosen Penev <rosenp@gmail.com>
+>=20
+> Acked-by: Ping-Ke Shih <pkshih@realtek.com>
 
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Can you take by Acked-by and resend v4?
 
-> ---
->  drivers/cxl/core/edac.c | 70 +++++++++++++++++++++++++++--------------
->  1 file changed, 47 insertions(+), 23 deletions(-)
-> 
-> diff --git a/drivers/cxl/core/edac.c b/drivers/cxl/core/edac.c
-> index 34b81e8dfb..4624ab4644 100644
-> --- a/drivers/cxl/core/edac.c
-> +++ b/drivers/cxl/core/edac.c
+The v3 isn't existing in patchwork, since it broken at the period you sent =
+v3.
 
-> @@ -1029,6 +1028,30 @@ cxl_find_rec_dram(struct cxl_memdev *cxlmd,
->  	return NULL;
->  }
->  
-> +/*
-> + * cxl_store_rec_dram() replaces and frees records while the repair path only
-> + * holds cxl_rwsem for read, so look the record up and read it under the
-> + * xarray lock, and hand back a copy of the record.
-> + */
-> +static bool cxl_find_rec_dram(struct cxl_memdev *cxlmd,
-> +			      struct cxl_mem_repair_attrbs *attrbs,
-> +			      struct cxl_event_dram *out)
-> +{
-> +	struct cxl_mem_err_rec *array_rec = cxlmd->err_rec_array;
-> +	struct cxl_event_dram *rec;
-> +
-> +	if (!array_rec)
-> +		return false;
-> +
-> +	xa_lock(&array_rec->rec_dram);
-> +	rec = __cxl_find_rec_dram(&array_rec->rec_dram, attrbs);
-> +	if (rec && out)
-> +		*out = *rec;
-> +	xa_unlock(&array_rec->rec_dram);
-
-As I just sent to next patch. It would be nice to have a guard()
-for these. Maybe it is worth including as part of this. 
-
-> +
-> +	return rec;
-> +}
 
