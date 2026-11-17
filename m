@@ -1,57 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.23
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794876850;
-	b=eXilMd8NcleEK0q0XS0KwQYgWtLyUv5xXeX8CC4H3YnLW6n/gNUr8MBnyWwuZ81JLexb
-	 Dz9bbvF7cV8GDU22lbrcTJpldt3EP7AVERI8Kenp63xaiZBn5FzIWTtPhSTAxSW1WNTAw
-	 Gq6TT1nnLrdcbV8ZvUPFSh9WY0fw+zcK9dl7kTGgACUSUGYlJkNUykhY3HpXindY6iqyP
-	 grkcHG+mY6ALhfQpSgmcNp3eZLO4Z74zN+oH0llQzzR7ZZRLPJKR10gmQYTVSBFYSmHVk
-	 LAa0isXXBynb11kfENRz79n8rNC2NJN//MVEPxc+luUrYOWRJfh5BLdlcH1+VTEN/zQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794876850;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794876855;
+	b=hetYojggvYnM5m/0aJziq7q7vXOiUHcDHCB3Fm0Y6pBFt9IArkJmy4G+Uoqk9rKz7BJQ
+	 DpYejTg147f4dylug0Wymx8Q688ONqyo8I+FMZBVP4qJNlb2eLqCS09Hco/ka8e6I+Gw5
+	 +qkOI8bNYpBIyuFbqP9FsRWwJiRAHZ+XKS5IEKguGiFqXb9ZjF/ZEH2fCQlIyLkuAvoQ1
+	 aLZyAhlTbS09KV2V1xQJDagLaZrEebMvUB2trQL4KYRh6oya0ihZAasOIw6RLuHX+8ROf
+	 FXyoNlfErxAH9/yaLTicquuPOYSI5czYakcnB6+xPCV0Mau3VgdsmHHAykQJAxZX4YA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794876855;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=dbiC7zpOEBQ0UbasPePQNA0/AZ6p919eqPCqdLiBoME=;
+	b=gVrtL+k0YFazdWeGtHOfsHgRMmerSdjpjqv7aV32j29koXZS4EQs+w/qWN92iVtygaeq
+	 2Gi5EOfLeDUwEt+4GRB1d/sxWkSaiOMSu8RaUOe4UU53KX0W+RtAvDleNWWffIllR427z
+	 23qWwE/X/d9uYNeL2crGTo+75Yei5AjRZXPW9qssjAlbGqx6lZSCmQs+nZ2sdgPJfMO50
+	 chg5kniNaoK3m1rrUiENx9Jy1ZBCS5XUZ9OfoTpnRJvWRjMcWZeuIOpcPTrsKH9eUJOzQ
+	 TVz5wNp7fq+c2jaP98+KNPeT2RVgaMRK1YMPofQuY/TJ5TbWOBCclTozzXVcgSGOcFA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cv7oZbB2;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82845606A330;
+	Tue, 17 Nov 2026 00:54:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cv7oZbB2
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794876855;
+	b=CrLUme1iEj4POlCOhQxR7lk5KeaMn1RSyuA3dMY8ZB+qxY3Y/ZQSYDci6Mr5ChRzD0MC
+	 z1KOW81Ctrz0FOapyog+WiEMJJvXLX62+tuAwS02cXmxXxODeCgtCfPGIiCyYmSgbiGjt
+	 q4kND2A5nkimJ3W8FKVn3NXV0yljCH4ACg+xOVBAF3tZThhtKh55FmO0FYv14m75udva7
+	 CydmkRXHJNyZ/tqQ49sTKua42vAtdHaoDR5XBrWpKhqATegcGv0ITJ8y5Ktsp0tM9zZ6n
+	 1fwLbXGWadZGh69ZdkCoLuU0/BJFpvZWGp3MW81c5Xw1Te0YeaSe9DIzNUmxrj2fU9Q==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794876855;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
 	 Content-Transfer-Encoding;
-	bh=D3F7wDt4hle7ND8YlixfMQBigLOCmZnPNNViCkmiGls=;
-	b=n4PEfYX++M7o5hF8yHAC+TSsfErTX00aHyk0RDZVh6u/hCBatNyIpcer4Ls42ulLJOO2
-	 UWiX7ipLojSy8vyOtuvaggOS/Wy7YB2vEkhxKA28zEE/vvcS5weZfPLpucByL0Bfp4Xdm
-	 FPyYpYoSyCCPe+LIvRd+uPd8KMeUe8bmuNqB3vTHRAZQc5QdHCTa1RGfJKeV8aGnxEInf
-	 FHGDYdqJcRLt2IHO0JV/pcb9yDbFqPojAy9Fo164aFNlqfMsv+DFsIbYNazV50woj0WOB
-	 2zSRoWlIAXCpUU94TYb5s527oSKv/fqZdkQVwCvVrfXcQ7ObPE6WquPtOBaEeoSI4yA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=logarcheon.com;
-	spf=pass smtp.mailfrom=logarcheon.com;
-	dkim=pass header.d=logarcheon.com header.i=@logarcheon.com header.a=rsa-sha256 header.s=protonmail3 header.b=hTvAVxYB;
-	arc=none smtp.remote-ip=185.70.43.23
-Received: from mail-4323.protonmail.ch (mail-4323.protonmail.ch [185.70.43.23])
+	bh=dbiC7zpOEBQ0UbasPePQNA0/AZ6p919eqPCqdLiBoME=;
+	b=qNfLHbuVIlLztafFxF9tMTK9VfiNrz8TS1uRVDnrlI8BuGGKbq0zQt5TQAY9HbwYM4/C
+	 L9R6tKj8cXBknsqMbkH40eRBKeyJzDh0dq86HPx90dgAxGTPOvFOX4YsaZsMNMP/ZNAJ5
+	 sGtcAghsbfa03wwsuiojMBZOgfOTjsgywDq+vOrjG2MPXi/b6YhNYIgKAcSHrU0g8LEFt
+	 9VQo2VraXTmt0y1fpBy64WYXV0FwB18j89znH33JoS8RtFBx6VErV6RcQT/ICkWwO26X4
+	 ifa0Ri+YmF9BcDzr/JN49TuD0lAc+PekmqNKTds72Nd/HoQijKhppA8mr7ej1uL0bxg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D88A606A31C;
-	Tue, 17 Nov 2026 00:54:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D88A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=logarcheon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=logarcheon.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=logarcheon.com header.i=@logarcheon.com header.a=rsa-sha256 header.s=protonmail3 header.b=hTvAVxYB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=logarcheon.com;
-	s=protonmail3; t=1794876847; x=1795136047;
-	bh=D3F7wDt4hle7ND8YlixfMQBigLOCmZnPNNViCkmiGls=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=hTvAVxYBg9lmo3B2+J42rkIyWdboKk8K386Qt1dd0YXxGMN6QxfEOY6VoP98Pe5MP
-	 wVw5/g5wL+FtroyKN6N48Y9cBecTJ4u/wnhQSE2AUwmdtea+Iop5WtZTcyCEhWPYMF
-	 LYKozsOT6Ysn6t9v0jNtnzFoFo56HsbNXmRv/mzOzj6vB7yWoLZ5bdlvhvddvHV5l/
-	 HukoCEJrlo+ecIC3NeCw0etNYydgs3vCiPIMRn/hv3hkoW31UiGhbbFP5Nd1ejZSg6
-	 3y72XtCU/CUzPfSWTAXKj1cSvtbUNKGFaRqw085llNOGFw4fGK9YBVovoB+JhE0tnY
-	 yoSuFJEsmLH+g==
-Date: Tue, 17 Nov 2026 00:54:01 +0000
-To: Aibing Chen <chenaibing@cmss.chinamobile.com>
-From: William Chuang <founder@logarcheon.com>
-Cc: Phillip Lougher <phillip@squashfs.org.uk>, Andrew Morton <akpm@linux-foundation.org>, wangxiaolei01@kaihong.com, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, syzbot+5d7ba5f6127ed887f459@syzkaller.appspotmail.com, syzbot+7b1d0ea11475e857d063@syzkaller.appspotmail.com, syzbot+d8a69701a6e796ad5d3e@syzkaller.appspotmail.com
-Subject: Re: [PATCH 1/2] squashfs: return -EINVAL on invalid directory inode size
-Message-ID: <20261117005352.48227-1-founder@logarcheon.com>
-Feedback-ID: 145408520:user:proton
-X-Pm-Message-ID: 7021bba8452a88e0e5c6ac7d0ed92c19f6384c58
+	by smtp.kernel.org (Postfix) with ESMTPS id 6B27B1F000CC;
+	Tue, 17 Nov 2026 00:54:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794876855;
+	bh=dbiC7zpOEBQ0UbasPePQNA0/AZ6p919eqPCqdLiBoME=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=cv7oZbB2SYxCaLT3rV3TbMtYQvvHyvAyPRxJnR6yFCKKtLhF9bYaZSbjQyZ2dnAT3
+	 Pf+KE5Of9dkevIwZJeGg+4d17tKBm1WwEUuK+QXae59rNULf0mfZ33A+J6WbCZw3O2
+	 bNjIkvA4Sy5HKQ/LBHDrgOGCbV1lZ5Sf0tFL9kHlc0xlvF6JeGnTMzDKslPbnTZ4Xz
+	 RsjkisBxg4V/7LUNrosh6rWFlMYr2Zk/NDaQixnVeNv5Py5UhZyDYk8CHTqvzGjQSn
+	 WZLevzThq148EueRWKnmnLrg50VywnJuEoi8r+QGDPiKEx1IAVX+1kV88XmcRO0wIB
+	 z1fy4V2eyHEnw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C0AAC4A656;
+	Tue, 17 Nov 2026 00:54:13 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Tue, 17 Nov 2026 00:54:06 +0000
+Subject: [PATCH net v2] net: mdio: mux-meson-g12a: keep the MAC data path
+ when switching MDIO
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,48 +83,178 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261117-g12a-mux-data-path-v2-1-fc56db5973af@iav.lv>
+X-B4-Tracking: v=1; b=H4sIAK6l+2oC/32NTQ6CMBCFr0Jm7RimKn8r72FYDLTCJFpIWxsM4
+ e42PYDL77287+3gjRPjoSt2cCaKl8UmUKcCxpntZFB0YlClqojohhMpxvdnQ82BceUwY3VVPOh
+ hrAfVQhquzjxly9IHWBOgT+EsPizum48i5eqfMxISlkSadX1pqra5C8fzK0J/HMcPQbjRyLYAA
+ AA=
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Igor Velkov <iav@iav.lv>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4841; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=Oka1iBI9vfxsi4AhO3yJ38sooyDgeJia2wLavleLy1U=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFm/l25o1Wb33sA1P7/WYGdUtIT4ga9nZLmeb3rAPiUoe
+ Y5Php1fRykLgxgXg6yYIsuEQxq3MpZc/evvYf4AZg4rE8gQBi5OAZhIqwfD/zTzR62Lp0xv87za
+ +3b5mhr/Lh7x6js/L78psNGzrHt0SZHhf8WnScJL1tlOCwqYu2ZTdyFjV/f7kOyeUxZaop5nV6S
+ HMwIA
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
+Content-Transfer-Encoding: 7bit
 
-Hi Aibing,
+From: Igor Velkov <iav@iav.lv>
 
-Two more open syzbot reports on linux-next 84abb955b101 have the same
-root cause as this patch: the two new "i_size < 3" checks in
-squashfs_read_inode() reach failed_read with err still holding the
-positive byte count of the inode read (32 or 40).
+Switching the mux to the internal MDIO bus writes SMI_SRC_MAC together
+with USE_INTERNAL and RX_CLK_EPHY to ETH_PHY_CNTL2. The last two move the
+MAC data path and RX clock to the internal PHY. On boards whose MAC uses
+an external PHY, any access to the internal PHY stops reception until an
+access to the external bus switches the mux back.
 
-  kernel BUG in vfs_get_tree (3)
-  https://syzkaller.appspot.com/bug?extid=3D7b1d0ea11475e857d063
-  (mount: get_tree() returns 40 and fc->root is never set)
+phylib suspends and resumes the unattached internal PHY across system
+sleep. stmmac sets mac_managed_pm, and with Wake-on-LAN in the MAC
+phylink_resume() does not start the external PHY, so nothing switches
+the mux back. On ODROID-HC4 (RTL8211F), after suspend-to-RAM with WoL in
+the MAC and an RTC wakeup, ETH_PHY_CNTL2 stays at 0x260 and the MAC
+receives nothing while TX works.
 
-  general protection fault in security_d_instantiate
-  https://syzkaller.appspot.com/bug?extid=3Dd8a69701a6e796ad5d3e
-  (lookup: squashfs_iget() returns ERR_PTR(40), which IS_ERR() does
-  not catch, and d_splice_alias() dereferences it)
+With the MAC on the external PHY, SMI_SRC_MAC alone is enough to read
+the internal PHY ID (0x0180/0x3301) while RX keeps running; adding
+USE_INTERNAL or RX_CLK_EPHY stops RX.
 
-The second was filed under [lsm?], so it will probably stay open
-unless the fix names it.  Whichever version is applied -- this one, or
-"Squashfs: return -EINVAL when directory size check fails" (cc'd),
-which changes the same two lines -- could carry all three reports:
+Set the data path bits only when the PHY the MAC attaches sits on the
+internal bus. Look the PHY up with fwnode_get_phy_node(), as stmmac
+does, so phy-handle and the deprecated phy and phy-device all count.
 
-Reported-by: syzbot+5d7ba5f6127ed887f459@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=3D5d7ba5f6127ed887f459
-Reported-by: syzbot+7b1d0ea11475e857d063@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=3D7b1d0ea11475e857d063
-Reported-by: syzbot+d8a69701a6e796ad5d3e@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=3Dd8a69701a6e796ad5d3e
+Fixes: 7090425104db ("net: phy: add amlogic g12a mdio mux support")
+Signed-off-by: Igor Velkov <iav@iav.lv>
+---
+Tested on ODROID-HC4: three RTC wakeups from suspend-to-RAM with WoL in
+the MAC (ETH_PHY_CNTL2 0x40, RX working), one without WoL.
+---
+Changes in v2:
+- Find the PHY with fwnode_get_phy_node(), as stmmac does, so the
+  deprecated phy and phy-device references count too (Sashiko).
+- Drop the dwmac-rk comparison from the comment and commit message.
+- Link to v1: https://lore.kernel.org/r/20261115-g12a-mux-data-path-v1-1-011dad738698@iav.lv
+---
+ drivers/net/mdio/mdio-mux-meson-g12a.c | 50 ++++++++++++++++++++++++++++++----
+ 1 file changed, 45 insertions(+), 5 deletions(-)
 
-For reference, a CBMC model check of squashfs_read_inode() as it is in
-linux-next returns 40 for a long directory inode with i_size =3D 1.  With
-this patch applied it returns only 0 or -errno for every inode type,
-and squashfs_lookup() then never hands d_splice_alias() an inode that
-is neither NULL nor real.  Harnesses and outputs:
-https://github.com/williamchuang/linux-kernel-contributions/tree/main/squas=
-hfs-lookup-errcode
+diff --git a/drivers/net/mdio/mdio-mux-meson-g12a.c b/drivers/net/mdio/mdio-mux-meson-g12a.c
+index 71c44385489d..e0acbd3ed383 100644
+--- a/drivers/net/mdio/mdio-mux-meson-g12a.c
++++ b/drivers/net/mdio/mdio-mux-meson-g12a.c
+@@ -12,6 +12,7 @@
+ #include <linux/iopoll.h>
+ #include <linux/mdio-mux.h>
+ #include <linux/module.h>
++#include <linux/of.h>
+ #include <linux/phy.h>
+ #include <linux/platform_device.h>
+ 
+@@ -56,6 +57,7 @@ struct g12a_mdio_mux {
+ 	void __iomem *regs;
+ 	void *mux_handle;
+ 	struct clk *pll;
++	bool mac_uses_internal_phy;
+ };
+ 
+ struct g12a_ephy_pll {
+@@ -149,7 +151,7 @@ static const struct clk_ops g12a_ephy_pll_ops = {
+ 
+ static int g12a_enable_internal_mdio(struct g12a_mdio_mux *priv)
+ {
+-	u32 value;
++	u32 value, cntl2;
+ 	int ret;
+ 
+ 	/* Enable the phy clock */
+@@ -169,10 +171,11 @@ static int g12a_enable_internal_mdio(struct g12a_mdio_mux *priv)
+ 		PHY_CNTL1_CLK_EN |
+ 		PHY_CNTL1_CLKFREQ;
+ 	writel(value, priv->regs + ETH_PHY_CNTL1);
+-	writel(PHY_CNTL2_USE_INTERNAL |
+-	       PHY_CNTL2_SMI_SRC_MAC |
+-	       PHY_CNTL2_RX_CLK_EPHY,
+-	       priv->regs + ETH_PHY_CNTL2);
++
++	cntl2 = PHY_CNTL2_SMI_SRC_MAC;
++	if (priv->mac_uses_internal_phy)
++		cntl2 |= PHY_CNTL2_USE_INTERNAL | PHY_CNTL2_RX_CLK_EPHY;
++	writel(cntl2, priv->regs + ETH_PHY_CNTL2);
+ 
+ 	value |= PHY_CNTL1_PHY_ENB;
+ 	writel(value, priv->regs + ETH_PHY_CNTL1);
+@@ -301,6 +304,42 @@ static int g12a_ephy_glue_clk_register(struct device *dev)
+ 	return 0;
+ }
+ 
++/* The data path follows the PHY the MAC attaches, looked up as stmmac does */
++static bool g12a_mac_uses_internal_phy(struct device_node *mux_np)
++{
++	struct device_node *parent_bus, *mac, *phy_bus, *mux;
++	struct fwnode_handle *phy;
++	bool internal = false;
++	u32 reg;
++
++	parent_bus = of_parse_phandle(mux_np, "mdio-parent-bus", 0);
++	if (!parent_bus)
++		return false;
++
++	mac = of_get_parent(parent_bus);
++	of_node_put(parent_bus);
++	if (!mac)
++		return false;
++
++	phy = fwnode_get_phy_node(of_fwnode_handle(mac));
++	of_node_put(mac);
++	if (IS_ERR(phy))
++		return false;
++
++	phy_bus = of_get_parent(to_of_node(phy));
++	fwnode_handle_put(phy);
++	if (!phy_bus)
++		return false;
++
++	mux = of_get_parent(phy_bus);
++	if (mux == mux_np && !of_property_read_u32(phy_bus, "reg", &reg))
++		internal = (reg == MESON_G12A_MDIO_INTERNAL_ID);
++	of_node_put(mux);
++	of_node_put(phy_bus);
++
++	return internal;
++}
++
+ static int g12a_mdio_mux_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+@@ -313,6 +352,7 @@ static int g12a_mdio_mux_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
+ 
+ 	platform_set_drvdata(pdev, priv);
++	priv->mac_uses_internal_phy = g12a_mac_uses_internal_phy(dev->of_node);
+ 
+ 	priv->regs = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(priv->regs))
 
-This analysis was done with the help of an AI assistant; I have
-checked it and take responsibility for it.
+---
+base-commit: aa40afa831ebfe45e40a23721711059f2ac584d4
+change-id: 20261115-g12a-mux-data-path-642abdbc7b29
 
-Thanks,
-William
+Best regards,
+-- 
+Igor Velkov <iav@iav.lv>
+
 
