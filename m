@@ -1,92 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794914152;
-	b=Ezz1fi36zr9gK0ydORGdwoM86PAutAhy4JXGWThTX11xQkbKMUCJ7AI13HpuLFmH81im
-	 jwh6YDLYx79LatzswIt3MlkDXJtNQk3glw2fMIRy4hEwdSlYgoveI2YOyZZZ8aRF2fVfE
-	 bwtfCtoE3zu8k8oMEP+9Gd2gvrrzmZBDQm8iF56WctbEvE8rnhxsfvzUfrzAsmvN6c4QQ
-	 Lq8nDpdgZaMUAhNZ/P7I5sGVaWyZXaXddBLiaA92KWuud4QkhCtE9fY8P0N7IUUQeFot+
-	 KgYtn78JvVc9WKsYJdMbUo5dMjssnw4ARjG/Vca9yVxPNSizV3Gsthv+M5+cUlT1CZQ==
+	t=1794914158;
+	b=01D1X6OCbMDR/99aw0b+cljxi8gySpiWGg5elqSUV2mFJmgfxd9JN1Wsq8eKYkGj8lxu
+	 OZle0/Z20UZnW6k8f1mzibgQgFrDCGWFcXaXL5/GUw6nfT/27TNfva54PmZjvNt3H8fYQ
+	 N8UEOzuPRoMyvjet0fRE5JYtlvAkOc8aOUxtV+7H+ado9ysBOV6VT1yEk1A4dMgNHXxhJ
+	 ZFWejwhCYtWMLLgYbbm+o7iAkyocqJfYRllAWe+YIQf/1dJQm83tZCm9zWK09MGIVoppf
+	 Wabnly2PjJA6Rwh0NveCP3JGFThQ7x8KIkpSgdR2aCaRpxEPcB2wptukoNoUBS1ukcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794914152;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=mQgaO4mrJ1/PGb5G6f2VYZd+cZSDJVZYowDL8wylwCo=;
-	b=I0N4m0nzDQ+epme9wDA4DlOoxwNVCPhmd/JXfdM6yXSCxjiYw5Cu51uJrDvNW6aWTJ8r
-	 PIfy4iXxPavhfsV58a9vLoilwbwL8TGxyK+amgqI6ocQTJM5By4dwLOjyTjS3UqCKuG73
-	 m+MIufUGKNJn/w1gMrTeXJVs3+uQwYQxA9Yztdx1VTgVAEaGWhFBInwPQmc6wnAY8U3mO
-	 yCiSJU1gdwVIfGpvgtuTMo/MKQH13SfqF+cd/WflQXN5VmxjHKUoba1tpUB2k6zmKVLuq
-	 7DxconZ/jWqbsQwK+91r1+ptf916wjShN2mZzk+MWr9Yw30pa3hgU9vzmAdZ67Vyetg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794914158;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:References:Content-Language:
+	 Cc:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=HHdHq7Ji7DMycZeH+hVw1u1jAedoxZ+4tveWgOn09GY=;
+	b=xw2H01FSgrqefN2c0TzT/IH2MK/37cR5dnu0vsvcC2a+zYOTDLR5Jr8pqjTVcKC+z3Eq
+	 6f+OYHfHIaMkXolcssgUx1dPS0XQMC8228qlbA0YvcPE6kM4fh3UyDmtZvv+teTFtxVMG
+	 zI4i1HkP15EFciRVEwiFQfpUyz1VMw1Fy7u5TgDmeu4WTM08J49eXG6DGLiTOnKYmNwbM
+	 AX/SkrzmQoqJzDn1CjDHjZKi62gWnR/HtdjbC+lsuvgTS/dgv+HjWck0kDKlRHxSeXFSp
+	 Ry7XX9OqVhRcbuwPEnCcBS28DQ1bC98sNKLUMl7B7ZnotmGcrL/xYNnJvkOODdA6mFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ey53Fz+d;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E12D9606A329;
-	Tue, 17 Nov 2026 11:15:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E12D9606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=evyOwwou;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Uf7VORew;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFD4E606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:15:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFD4E606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ey53Fz+d
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3D10014BF;
-	Tue, 17 Nov 2026 03:15:48 -0800 (PST)
-Received: from e135073.nice.Arm.com (e135073.arm.com [10.34.111.135])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 341773F763;
-	Tue, 17 Nov 2026 03:15:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794914151; bh=hApODwvFYZ3XYDnq9Y8ZuF8YD8vDXmjk4z8lFM6Cyuo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=ey53Fz+d5RDQs83ECGw1AmAhQ+qHQ9sl4eduhb/EusQi+ClN+OEp159tnvmtm+6E4
-	 8gJ+Q66+Fl7k0xfIjAX50e+vh4UrpPwOKRpJQZlQM2vBwa31m8Ljha5iDvwuwf9GDz
-	 kc4Ga55mItNZhNIpYzEJGyr/ebPbSsEP1sx25kFQ=
-From: Pierre Gondois <pierre.gondois@arm.com>
-To: linux-kernel@vger.kernel.org
-Cc: Ashok Raj <ashok.raj@oss.qualcomm.com>,
-	James Morse <james.morse@arm.com>,
-	Mark Brown <broonie@kernel.org>,
-	Pierre Gondois <pierre.gondois@arm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Tony Luck <tony.luck@intel.com>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Shuai Xue <xueshuai@linux.alibaba.com>,
-	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
-	"Oliver O'Halloran" <oohall@gmail.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
-	Pawel Chmielewski <pawel.chmielewski@intel.com>,
-	Yazen Ghannam <yazen.ghannam@amd.com>,
-	Qiuxu Zhuo <qiuxu.zhuo@intel.com>,
-	Radu Rendec <radu@rendec.net>,
-	Avadhut Naik <avadhut.naik@amd.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	"Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>,
-	Kai-Heng Feng <kaihengf@nvidia.com>,
-	Breno Leitao <leitao@debian.org>,
-	Dan Williams <djbw@kernel.org>,
-	Terry Bowman <terry.bowman@amd.com>,
-	linux-acpi@vger.kernel.org,
-	linux-edac@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-pci@vger.kernel.org,
-	acpica-devel@lists.linux.dev
-Subject: [PATCH v1 01/19] x86/APEI: Extract common CPER memory error reporting helper
-Date: Tue, 17 Nov 2026 12:10:11 +0100
-Message-ID: <20261117111444.4185512-2-pierre.gondois@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261117111444.4185512-1-pierre.gondois@arm.com>
-References: <20261117111444.4185512-1-pierre.gondois@arm.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=evyOwwou;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Uf7VORew
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH8pdE42934233
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:15:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	HHdHq7Ji7DMycZeH+hVw1u1jAedoxZ+4tveWgOn09GY=; b=evyOwwouHddq8d++
+	kdjK9QVc+lA4fNHFpTatVInPlr+h5OujuMzH3MgZjqgJnlDmhvyLihal7H1v/Guz
+	KK5bQbJL2XUmeFpUB4qyBEn2Gebe7XJ6mu0E5AQ62zAGNuIB6GACCw9X4VhHwMq+
+	6evfMAXbtJ2FFk3Ls/cU7532KAi+AygcNVzg9s5FeuyOrz+OoY3NeQ6FicRYq/IR
+	47Lvuv6in83CcV4EtJt/zcQWkW8OmHSK8QzEGnTnWdB/TItqwEm01gdw2qt5SLVy
+	Ah/IOm6pDuAHc9JlhuqsNMugCI4XLWbPZABcE+08vLY1lhUTGrRsMqPgaL5nCcTA
+	kPLWog==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j09m0asw1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:15:57 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ed08be1c84so69406385ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:15:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794914156; x=1795518956; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HHdHq7Ji7DMycZeH+hVw1u1jAedoxZ+4tveWgOn09GY=;
+        b=Uf7VOReweuld+nE+bqk/R3JipnqeXuXWPXDNuQSqu7MJM47xj++LFgGjFrmE3yi+SN
+         TMu0nSVregMXiirXcyt+d+s74CBGZhGnymK5khG2h5HUNi7/G7cJrUpW6BSQkB6Rwphp
+         dJ+PIjkwvATPc1kOXfmiNhOgwRaI4DMwHkq79nyF9X4v2ZmrgMeY5VN32Akm9ifQwbhY
+         WYTIjeT+Uz4bR+vbFLaLsmuZllsCnGe6IaIXh6zfD0MewPwQo3wY2X9Dh5sdfaYIKx9C
+         VzBzbamoGR2ihz8nQUK/rv03hiGLDMFC1BuYI7jyxt1vj8HZzaAGSm9XkO6abFvpwdBT
+         SFIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794914156; x=1795518956;
+        h=content-transfer-encoding:content-type:in-reply-to:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HHdHq7Ji7DMycZeH+hVw1u1jAedoxZ+4tveWgOn09GY=;
+        b=islUMYs9nBikC4I45rUerUkl2ZRMg/q7h+Y6XoaDhH0gwNJrhjcXGYYIbFVcX6vLXf
+         RVKVGWtDU3S3K2G56M2oFGxieLgSt+PmYfWdND2JO6UBQ/xnL3te98EwgSyEx6tGRQMj
+         LDKXqNx18RDvqpK3GQcjYptfg1LSosRvs10upkyESETLeRmowYp+5feqwH8b5wjRCteK
+         vt9b84r1G5U49o2vXPHr4LQKO55/075b0jTjtYIVGWid5HLFmARkFV0q1cn28OLgafbk
+         NCc9hpZ7WPDMN2Fl5sMv5v9+MKx2y1xBIwB91oXIJLvpBHbPC8b7R1cVA+TchLdiMAtw
+         85jQ==
+X-Forwarded-Encrypted: i=1; AL+hErED7Ux+xdxgI0545cqRM9S0hVRaiMtnWaQfV+o5rSElVhcnFDYsd+6uKNqi2hzNrB30Yfd5ojEPgHBTbK8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9f9WpVfklfO6/W9eSxCoPM5HEwP+whhKSbYNNyLfa/7HfunWlJ
+	4EmKIOskEF4mtAi+R4QeseFyZnJ7XMZcESE+XoYd7YBtSzimoIt6U35p4es0B0zLgHsmZXzynQh
+	HZ9h4Awf/vAunbnNnGefywBdaT8xgPtlzaiqqDSrbHkSdMNpnpxe6o3+XKHCpqXBnY3n/p84/J/
+	8N2w==
+X-Gm-Gg: AZFdTZfpxIudjEXuhG8Wj7tbhjBzLEiqTzyrmAZQA1/TkIGFkbS/fcAW/gbLia7FMHg
+	VZ8aKkzPiignicp+islKsCRQVJ9MhWcn1MxBfae19peMYAwmcfDUPU0qtwBpkWyvkCorrhpsBl7
+	ftKv9IiXKYVt9HzrIyp6wUBjRFRJGXl51TI8xIxj1AyeL/s6WsmOf+cYhiqs/PfUuLeLBZVq1xv
+	s0c68tfgOzy7mHmGb08J37VUaQduF2GyHGh0WvINtW2Oxh2lOf3ENfsnjzNz2uPyX+hKgnjRO8p
+	+5vKhruw8+prEz/IPz4jx0S2/wqsHKOOBh2jkOJkK0c4oOWSn5C0U2lvir2Mr3psFAk7QCRemtJ
+	nsxh5YxJbezJUGQgAmt6AcEWxV/OpdiW1HcwuTpl/1FZnUUvTNzhMJCM5fk/k/K74bTJOLSiSpT
+	GPg/BpEmGXbra1kLbmhM59wBuTZLVndgdDK3o8/4M1S81S
+X-Received: by 2002:a17:902:c406:b0:2e9:3dd0:c8d with SMTP id d9443c01a7336-2ee0dd2c328mr136470495ad.14.1794914156407;
+        Tue, 17 Nov 2026 03:15:56 -0800 (PST)
+X-Received: by 2002:a17:902:c406:b0:2e9:3dd0:c8d with SMTP id d9443c01a7336-2ee0dd2c328mr136470195ad.14.1794914155885;
+        Tue, 17 Nov 2026 03:15:55 -0800 (PST)
+Received: from [10.133.33.107] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd7a58337sm13631735ad.45.2026.11.17.03.15.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 17 Nov 2026 03:15:55 -0800 (PST)
+Message-ID: <d77a8540-b1ef-476c-b03c-97e4483f71c9@oss.qualcomm.com>
+Date: Tue, 17 Nov 2026 19:15:52 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,74 +115,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 2/2] cpufreq: acpi-cpufreq: report filtered-out
+ P-states in extract_msr()
+To: lirongqing <lirongqing@baidu.com>,
+        "Rafael J . Wysocki"
+ <rafael@kernel.org>,
+        Viresh Kumar <viresh.kumar@linaro.org>, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261114140724.2336-1-lirongqing@baidu.com>
+ <20261114140724.2336-3-lirongqing@baidu.com>
+Content-Language: en-US
+Cc: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+In-Reply-To: <20261114140724.2336-3-lirongqing@baidu.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA0NCBTYWx0ZWRfX86XDer1V+f1B
+ iya8ojBhG2d5jdHzxvAU1GCI/I/3aNPs+jJC1gR8y6pxFqzaCPx/guNj3ydcJ9fG9yGj8aOEb57
+ 2M07Ah9WPebeCECX+kPW01SxklPlipg=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA0NCBTYWx0ZWRfX4HmH+vtuBOgh
+ xLATqjKxNxP0sVh+rF/zEYoD+/JaYcJzmANgq4CgIUJQx7Ke/7MsfHFX33lXUHUS/Itqw/7y6WP
+ 6psjDWnsRq7vFGpbH84Cn8aKXBhPfA1Py3QvUyQZk9wZdeh3uPzBhw5YdyWiFuHEJt504O3yZ0e
+ I7IwspUnsmjKexxkKDk8/ogD4U4dl9Mgx72mFpSHqGlJ8+cx8P4qGrdalqk0eoO4PRXX2Bcd5Iv
+ dcav5QBsG20YrF4hzF+FIAdjR7Gyh+asNhVPlSedd/WRPw7xtsBwFXDufZ1rK3IqD5qmGO5JOMm
+ ie/20d/1WwEH5U1iglmU0VNs15vPCrEc60gTxJof3ER2G+h0HEitGT1AhAlAsKgI0iAlLu7rc8y
+ 98fzqyIOeIuYHb9Ey5dBtiT5JWu6G1MIfbS1RGLi5b9NtzSfzhPflL8KEo8Drkxa40KGQA6igcM
+ rosqztgev9UBKiCBJDw==
+X-Proofpoint-GUID: JNAsZ8ydC-HhrV_qdArcqx5zE_DumMJf
+X-Proofpoint-ORIG-GUID: JNAsZ8ydC-HhrV_qdArcqx5zE_DumMJf
+X-Authority-Analysis: v=2.4 cv=F7rC5ahN c=1 sm=1 tr=0 ts=6afc376d cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=NEAV23lmAAAA:8 a=Tau1HEJIAAAA:20 a=zuLzuavZAAAA:8 a=4OL0lGWpue6yjT7UbLsA:9
+ a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22 a=bA3UWDv6hWIuX7UZL3qL:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_01,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 priorityscore=1501 clxscore=1015
+ suspectscore=0 bulkscore=0 malwarescore=0 spamscore=0 phishscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611170044
 
-Prepare for reporting CPER Memory Error Section 2 records through MCE
-by extracting apei_mce_report_mem_error_common().
+On 11/14/2026 10:07 PM, lirongqing wrote:
+> From: Li RongQing <lirongqing@baidu.com>
+> 
+> ---
+>   drivers/cpufreq/acpi-cpufreq.c | 8 ++++----
+>   1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/cpufreq/acpi-cpufreq.c b/drivers/cpufreq/acpi-cpufreq.c
+> index 2d7d147..3dc7ee4 100644
+> --- a/drivers/cpufreq/acpi-cpufreq.c
+> +++ b/drivers/cpufreq/acpi-cpufreq.c
+> @@ -210,8 +210,8 @@ static unsigned extract_io(struct cpufreq_policy *policy, u32 value)
+>   static unsigned extract_msr(struct cpufreq_policy *policy, u32 msr)
+>   {
+>   	struct acpi_cpufreq_data *data = policy->driver_data;
+> -	struct cpufreq_frequency_table *pos;
+>   	struct acpi_processor_performance *perf;
+> +	unsigned int i;
+>   
+>   	if (boot_cpu_data.x86_vendor == X86_VENDOR_AMD)
+>   		msr &= AMD_MSR_RANGE;
+> @@ -222,9 +222,9 @@ static unsigned extract_msr(struct cpufreq_policy *policy, u32 msr)
+>   
+>   	perf = to_perf_data(data);
+>   
+> -	cpufreq_for_each_entry(pos, policy->freq_table)
+> -		if (msr == perf->states[pos->driver_data].status)
+> -			return pos->frequency;
+> +	for (i = 0; i < perf->state_count; i++)
+> +		if (msr == perf->states[i].status)
+> +			return perf->states[i].core_frequency * 1000;
+>   	return policy->freq_table[0].frequency;
+>   }
+>   
 
-No functional change.
+Walking all of perf->states[] may make ->get() report _PSS entries that
+acpi_cpufreq_cpu_init() deliberately dropped from freq_table[]. Such
+entries do exist in real tables, e.g. Lenovo Legion Y9000X IAH7 in
+linuxhw/ACPI [1][3]:
 
-Signed-off-by: Pierre Gondois <pierre.gondois@arm.com>
----
- arch/x86/kernel/cpu/mce/apei.c | 31 +++++++++++++++++--------------
- 1 file changed, 17 insertions(+), 14 deletions(-)
 
-diff --git a/arch/x86/kernel/cpu/mce/apei.c b/arch/x86/kernel/cpu/mce/apei.c
-index 0a89947e47bc8..b993ac78a3b36 100644
---- a/arch/x86/kernel/cpu/mce/apei.c
-+++ b/arch/x86/kernel/cpu/mce/apei.c
-@@ -26,24 +26,15 @@
- 
- #include "internal.h"
- 
--void apei_mce_report_mem_error(int severity, struct cper_sec_mem_err *mem_err)
-+static void apei_mce_report_mem_error_common(int severity, u64 physical_addr,
-+					     u64 physical_addr_mask)
- {
- 	struct mce_hw_err err;
- 	struct mce *m;
- 	int lsb;
- 
--	if (!(mem_err->validation_bits & CPER_MEM_VALID_PA))
--		return;
--
--	/*
--	 * Even if the ->validation_bits are set for address mask,
--	 * to be extra safe, check and reject an error radius '0',
--	 * and fall back to the default page size.
--	 */
--	if (mem_err->validation_bits & CPER_MEM_VALID_PA_MASK)
--		lsb = find_first_bit((void *)&mem_err->physical_addr_mask, PAGE_SHIFT);
--	else
--		lsb = PAGE_SHIFT;
-+	/* Missing or zero masks default to page granularity. */
-+	lsb = find_first_bit((void *)&physical_addr_mask, PAGE_SHIFT);
- 
- 	mce_prep_record(&err);
- 	m = &err.m;
-@@ -60,9 +51,21 @@ void apei_mce_report_mem_error(int severity, struct cper_sec_mem_err *mem_err)
- 		m->tsc = rdtsc();
- 	}
- 
--	m->addr = mem_err->physical_addr;
-+	m->addr = physical_addr;
- 	mce_log(&err);
- }
+   2600 MHz  ctl 0x1a00  kept
+   2300 MHz  ctl 0x1700  kept
+   2400 MHz  ctl 0x1800  dropped
+   2200 MHz  ...         kept
+
+If the CPU can end up in such an entry, there are two problems:
+
+1) ->get() can return an unlisted frequency (2400 MHz on the Legion).
+    At policy creation this leaves cpufreq_stats permanently stuck.
+
+2) A dropped entry sharing its status with a later retained one is
+    matched first, so the retained state is misreported (theoretical).
+
+I wonder if we can keep the existing loop and only fall back to the
+dropped entries, restricted to listed frequencies:
+
+```diff
+@@ static unsigned extract_msr(struct cpufreq_policy *policy, u32 msr)
+  	struct acpi_cpufreq_data *data = policy->driver_data;
+  	struct cpufreq_frequency_table *pos;
+  	struct acpi_processor_performance *perf;
++	unsigned int i, freq;
+  ...
+  	cpufreq_for_each_entry(pos, policy->freq_table)
+  		if (msr == perf->states[pos->driver_data].status)
+  			return pos->frequency;
+
++	for (i = 0; i < perf->state_count; i++) {
++		if (msr != perf->states[i].status)
++			continue;
 +
-+void apei_mce_report_mem_error(int severity, struct cper_sec_mem_err *mem_err)
-+{
-+	u64 mask = 0;
++		freq = perf->states[i].core_frequency * 1000;
++		if (cpufreq_frequency_table_get_index(policy, freq) >= 0)
++			return freq;
++	}
 +
-+	if (!(mem_err->validation_bits & CPER_MEM_VALID_PA))
-+		return;
-+	if (mem_err->validation_bits & CPER_MEM_VALID_PA_MASK)
-+		mask = mem_err->physical_addr_mask;
-+
-+	apei_mce_report_mem_error_common(severity, mem_err->physical_addr, mask);
-+}
- EXPORT_SYMBOL_GPL(apei_mce_report_mem_error);
- 
- int apei_smca_report_x86_error(struct cper_ia_proc_ctx *ctx_info, u64 lapic_id)
+  	return policy->freq_table[0].frequency;
+```
+
+The first loop is unchanged, so retained entries behave exactly as
+before (2). The second loop only runs where the current code falls back
+to freq_table[0], and never returns an unlisted frequency (1).
+
+Note that what the second loop can find is then a same-frequency twin,
+like P1 on the X370[2]:
+
+   3775 MHz  4590 mW  ctl 0x0  kept
+   3775 MHz  4050 mW  ctl 0x1  dropped
+   2200 MHz  1980 mW  ctl 0x2  kept
+
+There the reported frequency is right (as is today's freq_table[0]
+fallback), but the twin may run at a different voltage, and since the
+frequency matches policy->cur the control register is not rewritten.
+
+
+Hi Rafael,
+May I ask what you think about this? And please feel free to correct me.
+
+
+[1] https://github.com/linuxhw/ACPI
+[2] 
+https://github.com/linuxhw/ACPI/blob/master/Desktop/ASUSTek%20Computer/PRIME/PRIME%20X370-PRO/22F59A67504C#L11328
+[3] 
+https://github.com/linuxhw/ACPI/blob/master/Notebook/Lenovo/Legion/Legion%20Y9000X%20IAH7%2082TF/CB118A4005F6#L135790
+
+
 -- 
-2.43.0
-
+Thx and BRs,
+Zhongqiu Han
