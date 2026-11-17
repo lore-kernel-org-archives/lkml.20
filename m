@@ -1,89 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794932616;
-	b=qQCmhF6TnxsxCug3VzTh1nR67IHi8edjHRsOW7i91OF5iXoPRgNdU5rc/ix35SyjAz4o
-	 WzdsLdPz4qKpVFygJ0aRVa4zqYSNMn5TKK4Rgne66FmTYqGMIiFNWZnEjV5mHHF3SNpDH
-	 DxihF61IdXZJS4LpCgxzvc5chVTc7+iu+HibCPVXngNN9YAGoLv37w9DWF0adJ6jRZI8d
-	 TNnTIXJNFy4OTeqoWorCmW3uciEKhXqgBIUgsXhInk7HBihKPBLwbMIyhiwgcGXIGXYhD
-	 nN6Jl1LrV8h6YfaFcNzaUFwLgpynW9A5crVkq12LM5d9a99dGw9edT6s+adIlG5sIaw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794932616;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Scanned-By;
-	bh=9bKC9y5sYZUFVKo3cJF968X4JmNJ/KKgeW9i3uCsAQ4=;
-	b=Rqk826DTrN2nR01Mkun5zQ3+b6ownRmboXYs2Qr1jlLzm3nSQLVY1tGL6w0t8oa9Msn+
-	 oQZaKxcRLgttnFK+b0RVfjmPDhByLs6q9rS4+KafUR6Hj3m+4c3YMpuD2G+LHvsb8r/C+
-	 nTepW1RsS4UqkRWicPZXrgGFQ1lmrTeD18osh41FObOA8lPkUW0xt1C2fY/ZSd7oTbTlj
-	 NZkL26dQW0i8uSA2niVNxZSMqvg/1QGX1IM3FcoEqQoN+dNgws9DwLvrzONvqyJKDAu1G
-	 zVKoQrkRt5Ff4ltWcweFCZ7kHuwBZYvNeg8eazWBx/Q+rPnmCH+oiCMTMOUCMxcDwzQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cyn03k9u;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794932670;
+	b=mhV962uAFATzGQFNvu0ExKVkOW8IwnlMOGa/ncBbWYLC7QeC+sO0UfN40GfjeaxPJLwx
+	 cNp/bfVyMdn9q+7Ke5UqIwwwGop3Dpm6KdQPGQo0j86nQy6lQVqXS/zMdC8rX4i47B/X+
+	 o1u+H9bnK7jn/FNxwPCLQS5eYsIHci66x3ouzzbwaBCDkXxoe7+Dwwa6HkfnYgXVvIv7l
+	 QjjOF6QdhJCyyEmTK7jZX8YJDgHpV26xP+oQ247jylq/PJNgUUnkchvpeZzB51uJodRnW
+	 Cp4/G5Yx3C/RX+JGM+gzJx7kBBbKdXeQiBKsPXqn1NVc6hIr4SY+d3CLy7kuyOPTL8Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794932670;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Wxewv3rmU3Q16rUyybTo0MlmIExqFujl8iHouonYjT0=;
+	b=O4+VBOqH22MpXMH2XLozesnSqWQrhgpsn4AM5XZeF20tLihAWBeS/YCre2m0xuxwDZGC
+	 1wFKwocAkurV4CUrXaKMNfqSzw0scDPUC2vqSqa10oxyCrbvzCA0KZOiwyE19GCOYpHyU
+	 OpIA/u3iR52NMfA7s+J8DEtkICoyXTuExUErXltjbAhDGRthzCf3UumgHZi181D/P3Mvd
+	 6Ddk1oVtwf60fN4sSO86RXoQe0hRpnIHNJ0yW3D+dpgF9gH2MTqlUeRaZNTRU2E8/kkBs
+	 /oFfrfMleLLLniK73D0utvvfDlO9fOagI7us+SCGjPpd8suBAIV3VjvXmfshRhQrSag==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cdqQd8jv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B28FC606A32F
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:23:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B28FC606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E465E606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:24:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E465E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cyn03k9u
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794932614;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9bKC9y5sYZUFVKo3cJF968X4JmNJ/KKgeW9i3uCsAQ4=;
-	b=cyn03k9u7ksK3KK00NhdFRgiK96Z86bg0blqGiEoS2WzXuqhRsK89NNL9RNQgn2j1CZpPA
-	oORYdQtq2Q+QjH9XaUsbZPTwuU9FhWYviyuniDF3RjawsGwbTO+TM3bmKJqx/F1hCLCbIr
-	p1atYWc5fgR4wyvZ6S1vN5eIAz/OLEs=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-577-XavX1kWgOCO_-y1dC__RfQ-1; Tue,
- 17 Nov 2026 11:23:30 -0500
-X-MC-Unique: XavX1kWgOCO_-y1dC__RfQ-1
-X-Mimecast-MFC-AGG-ID: XavX1kWgOCO_-y1dC__RfQ_1794932608
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D234E19560B5;
-	Tue, 17 Nov 2026 16:23:26 +0000 (UTC)
-Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id C0C371956054;
-	Tue, 17 Nov 2026 16:23:20 +0000 (UTC)
-Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
-	oleg@redhat.com; Tue, 17 Nov 2026 17:23:26 +0100 (CET)
-Date: Tue, 17 Nov 2026 17:23:19 +0100
-From: Oleg Nesterov <oleg@redhat.com>
-To: Renzo Davoli <renzo@cs.unibo.it>
-Cc: linux-kernel@vger.kernel.org,
-	Michal =?iso-8859-1?Q?Such=E1nek?= <msuchanek@suse.de>,
-	Kees Cook <kees@kernel.org>, Andy Lutomirski <luto@amacapital.net>,
-	Will Drewry <wad@chromium.org>, Thomas Gleixner <tglx@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Shuah Khan <shuah@kernel.org>, "Dmitry V . Levin" <ldv@strace.io>,
-	Alexey Gladkov <legion@kernel.org>,
-	Eugene Syromyatnikov <evgsyr@gmail.com>,
-	Davide Berardi <berardi.dav@gmail.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, strace-devel@lists.strace.io
-Subject: Re: [PATCH v11 2/3] ptrace: add PTRACE_SET_SYSCALL_INFO syscall
- skipping support
-Message-ID: <avx_d9SSnpwhSyqU@redhat.com>
-References: <20261114181923.370930-1-renzo@cs.unibo.it>
- <20261114181923.370930-3-renzo@cs.unibo.it>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cdqQd8jv
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c4322d310e7so871752466b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:24:29 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794932668; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iHoctMq3b6vFp63lQOo2B3sCOkJDO29bZ5rGSZ1Axs6wGk/QbKDG7X33X33UpgnUFi
+         fkuNGDnGHrqrMJ2Euez/AwFPnT3KqV2Q5nHguw5bT72NMCzXwjWhG5vcLRlgmbOcXkNU
+         WHRdh2fPGcQTrgs1FxmSzbRJI2xzjezXNwonva+azCRXcHyhr7ZhgsmSHDleGfcjdoZz
+         okyCZ2Gh0laiEiMRODgWnQSexHDcALD5TqZanwK85uljOE2SQQPsvudzkOuqmnviifYS
+         yl0EVAwXD3mAWoBlPH9NsHcl5UHspYIOWsYjP2YagUfsXuFzYzgMlyz0sIjEyW7uwQ5L
+         asPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Wxewv3rmU3Q16rUyybTo0MlmIExqFujl8iHouonYjT0=;
+        fh=YVs5raceompUzpcIvsQcMUdfZo61OR9qBJmrHTO66yw=;
+        b=Ej8T316ioWgcVNGPshl/i712UESRcggyyAef1sx448K6qJ+uwBVIrxtBtUpdUwJJFb
+         A2mwyZVqHITC4ZjyMSSWYbpOKCqfwwoT2mtHAAwCJAC/IQ8PgvhxyUK82vWbVkcldvNl
+         ed087M3jTJwlNvHAQ0ccq4wqzndyWw+EObepif5znBJV6iWMRN8zKk4xECAAN5R0j8VZ
+         ShLuGhAsC05rZLO0dZHDPxLD7PgVKzxY9S+cxs3CFjs4jq1RkEP7kK6phTHWKRDcBJsL
+         LghnN7J3ZZ/xXQA8/oaSdEU/9kop5A3MgB0lJVvbTLONRSyyR1NN+BOPZiaDz5FK3n1B
+         /Vfw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794932668; x=1795537468; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Wxewv3rmU3Q16rUyybTo0MlmIExqFujl8iHouonYjT0=;
+        b=cdqQd8jvojBdqf5S+ZlBYnRBB0iv9NrxVYWGKdwsf3qISFsmdiLHOpl+UNMQAzU5Ho
+         liy/ffvLgOjWoCC0QMtIRtCSaVqYHa8IArufbSdRmDatd8CHbeYDI8B2a59M2Wrb8O29
+         5NvqLtv4LgJz/k1d6g/ZfQrzTO47WvsKobB2eTGboiH6qTmucj3NIxw06T+MZKY4mOTH
+         seB2ppD/Pobdk//WYyirPBedKHZ3i6zq8BB2cxTSK/1zF1XG4JeHqeQQ/WrdtMt+RNK3
+         5yuPyjkXC22spPcEmapMTeUxRVzMVVw38Bm3+Ce+ODpNYfXU3pJjuC4IOnDK36O1bFx8
+         gTiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794932668; x=1795537468;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Wxewv3rmU3Q16rUyybTo0MlmIExqFujl8iHouonYjT0=;
+        b=RtLMotuhZwfd/joh39ut3f+R4xAxwtG5tB2I+YjCHdsPeRIYOjzqsju8PPzPF/LWtn
+         HW2N2BrLLgkCEnJKJbwHaOW7Ia5f9mxcmsfNOu51OJJ/qzaRCEGu/JfkLLY7QHVmJS6x
+         tioAGqaXo+RQXySBGANtxtfhH1E6N/wFP6EjiYn4O3FwaYwWrKiqrOTL21UmdgWplriK
+         e5i/CMjmle+it7Ht3neNvbypj57okoYMEmeVuTto8MfAYzsFz+X8NogYdnodEH9wnUIE
+         ThwnbhotsPixzanUHOPD19gjQYY3yVDCD6TO/Btadw3K6Ywj8tIyYoLXIxIa4S1hb3Fg
+         /WMA==
+X-Forwarded-Encrypted: i=1; AL+hErGzZdsC4h/FEitcHxCFLFGeQtjdw/PT90eq5IsDFcNrjk1j6wtD/6soCIYJLilze+PvkwZ46+MqCjYq5h0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ZZXFdZMuOeiI7C8wFwkgveFAJmqMK411W697372q1Zg5YnJT1
+	UHqRYxEYDz+UStcscPxV+2JidIh9zTJZAMLUvtn5oC/OwuMYZd2jSq/HijeguFQ+AsMQUiYq3Bh
+	jaDITYjOgoUYt3MuTqpUcWpxRRU/yVl0=
+X-Gm-Gg: AYBFou1iX9TyWDMndo/xXhsW9bFPwyzQnZIS6qzUBrpw9nbwPFaTU/e3w0ozsLJ7jkb
+	nTlj0Q2ab0E8haczWGwnyMCHsWE9fnUMYlrmYSu0jT4sLXfmUWsPvOsT64gRFCnEl80t1o90opb
+	czNu6jvsSChmj8X1rYosG/pi87DvMhfYIZdA0gwzkUctKmuqHKQSxchKiQt89qKyDJ7XkuAyyX5
+	Krsi/RRfR9AO0EvSGCkqAdltB9htExc5hq+vT3aMaJpMIVMUYGuYZiD4tfWlKTmZnQXvg/D2AnM
+	uEnpDp2PSlu5ArSuBEZEPaDTMdyBpmmId0jneBpyJ3atNUBMRMtlR2jmfA/tX/Br8ycNJc0qOJG
+	j4rIOB/cgn7FakDizWF8CsIVyxhTwej8XnSvD4xMNZ/aUJDjnev7pXzZWA5j7
+X-Received: by 2002:a17:907:d308:b0:c40:f9ea:7387 with SMTP id
+ a640c23a62f3a-c5096110ee7mr1203048466b.6.1794932668009; Tue, 17 Nov 2026
+ 08:24:28 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,43 +104,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261114181923.370930-3-renzo@cs.unibo.it>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+References: <20261117114432.2794961-1-a.shimko.dev@gmail.com>
+ <20261117114432.2794961-5-a.shimko.dev@gmail.com> <052adff8-b1d4-4cf2-941c-cfb2725d13a0@lunn.ch>
+ <CAOPX745DQDpYh=PNQxDkH1DbfwMRwD8DV81TaX33mNk-9aX3oQ@mail.gmail.com> <6b2ffa4d-b99c-42d1-8729-00f180b955b2@lunn.ch>
+In-Reply-To: <6b2ffa4d-b99c-42d1-8729-00f180b955b2@lunn.ch>
+From: Artem Shimko <a.shimko.dev@gmail.com>
+Date: Tue, 17 Nov 2026 19:24:16 +0300
+X-Gm-Features: AclHuK_kxuMbS-JfA12If6aJeq6DU7qmi51H7ZrXORdCaUCFkepguGc-ovdSkpg
+Message-ID: <CAOPX74709XiLXLoioDJStTSzzhstC2sHpM4GieAO=3-37E18pw@mail.gmail.com>
+Subject: Re: [PATCH net-next v2 4/4] net: phy: dap8211r: add PHY LED control support
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net, 
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, maxime.chevallier@bootlin.com, 
+	pavel@ucw.cz, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-leds@vger.kernel.org, netdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/14, Renzo Davoli wrote:
+On Tue, Nov 17, 2026 at 4:49=E2=80=AFPM Andrew Lunn <andrew@lunn.ch> wrote:
 >
-> Extend PTRACE_SET_SYSCALL_INFO to support skipping a system call
-> triggered via seccomp.
+> > Sashiko said only [1]: Sashiko has reviewed this patch and found no iss=
+ues
+> > For some reason it replied only to me and linux-leds.
+>
+> There are two different bots. The netdev one send emails using
+> netdev-bot+sashiko@kernel.org, and it gets the reply addresses
+> correct. It is also more accurate, less false positives.
 
-...
+Oh, okay, nice
 
-> Signed-off-by: Renzo Davoli <renzo@cs.unibo.it>
-> [v8: skip via seccomp_ptrace_skip_syscall() instead of syscall_set_nr(-1),
->  separate ptrace_set_syscall_info_seccomp_skip(), reject later
->  PTRACE_SYSCALL_INFO_SECCOMP updates during the same stop]
-> [v11: report the stop as PTRACE_SYSCALL_INFO_EXIT once the syscall is
->  skipped, instead of rejecting PTRACE_SYSCALL_INFO_SECCOMP explicitly]
-> Assisted-by: claude-opus-5-5
-> ---
->  kernel/ptrace.c | 49 +++++++++++++++++++++++++++++++++++++++++++++++--
->  1 file changed, 47 insertions(+), 2 deletions(-)
+Will wait =3D)
 
-Reviewed-by: Oleg Nesterov <oleg@redhat.com>
-
-
-
-Sashiko has some concerns
-https://sashiko.dev/#/patchset/20261114181923.370930-1-renzo%40cs.unibo.it
-but IIUC this is the "pre-existing" problem fixed by
-
-	[PATCH v3 0/2] powerpc/syscall: Fix the return value of skipped syscalls
-	https://lore.kernel.org/lkml/20261030084926.1068384-1-renzo@cs.unibo.it/
-
-so this change do not need to depend on the powerpc-specific fix above.
-
-Right? Just to be sure...
-
-Oleg.
-
+--
+Best Regards,
+artem
