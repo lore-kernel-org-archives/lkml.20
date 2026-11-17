@@ -1,70 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794919799;
-	b=UnPQDxQhRu6EhsC5+0zqdwj/H/FQdjy0VeUWCqTdx+57BMt2t8yV9h4S5nV1/z4u9CLs
-	 gRR6ji936+o+Kb6Qsi3O0nQRrCY+VS8O4Yobtu5KK3fMv1ZrlH45ehoeHz6bEYHI9yxOR
-	 WzNPaDWmQICT/JdLH03+rBd7hc9DR95syXwmhuxrkMXJzsTcYK3ekDc2w+celOdJ6hjv8
-	 kbXctKR457eOAw6iEBVYT5goaPflpbj/n7gYViU0W6DY9JH0s6aoVM5/Get8tWBWG4Zst
-	 v70TlsiHPgwmrK3H0p7Mt7xpxqhNwJLqvPjeY2CU1mvNHOGUHKzUEkQEPEYO/rQzBGw==
+	t=1794919819;
+	b=FLc9iNVED8tjVbXORalO9WJwuwHHyn8d7/b4HYcrw44mZAnUQXQAKZe1m3vw6N1+Tlnc
+	 /DmOgEGNpSsKvstCrItZ/e8UfejUH2a3xASZOExEpDTrjhJVQIIzMXlYSybq/72PulgVF
+	 PI1nQuGcGrMOzhHxAfdVYE0i6KNIzcOQ3eDnJtrZMRaKPNeSrEh98S7udpm9vfz8HT1ID
+	 dQcN52n+BzW4/HWTruSwTuZf5Z3t7rZaQcLa2KmpZLyKl1Lujfey0wHW3rgxkhwDdR1Fd
+	 SiSeNf3+Evq1TPWVuoMu0ON5sW9d0EzRVY0iNmceFEiNv/NbTZt1U+r0xzkfjky3x3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794919799;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-ID:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer;
-	bh=Vvk9cMzeKTtZ7S4jqj1+Kkd39OaGgZH54/2zezoZsLA=;
-	b=OM2HIwmy5ZqIkC0ZWkt360lv14Cyss6GV6BNZKa1dfjHntCmvLlJ4uX5JaM+k5FjTKBA
-	 BHdyXbBR7oOB+kgWb21IazaapSjKyH0+Ve/2SKGvuhzW1HsyEr8KdoJ6SPw4u2Jj/u0Cu
-	 ZIAmwYNvRMN91bSFsJW7tMZjqbn6gZDBJboA4oT/4QTWq8IUd3aZ7TLYR9kCYKoAqJ6Yq
-	 Pi+6HkOF5aH5B3UnNa8ekF6jbj0N+BtxoX09J3T5bs4cti859G3DlSZRlg1XguBg1SjiZ
-	 CaU4BxYDRJ/kQhFb/N9MgxuysWOWq69vX79N5iyKSU2MkRGmIgaTW3bnCcIzA/0aZNQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794919819;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=YB4Rm6hbxOLC4r10E9y/WD3nBCBmdRshrgHd962ScF8=;
+	b=ZyCg43sUrcpMQZHiQwZJ/ig5AjpcpwF00el5En7VzrqmpcYffmBolMxtkqjzgKWO5tVU
+	 aF/nlfvrvssezL+bqLqpc6vOeZmzDaMK6wTyeBvsjppShNrJ1hq6fIf07xmC6umS97CYF
+	 35VN3AXZDjXE6eGucvRoLWStLVFQ/eQcRpQ4m63G0iy7lFLn4IDcvoAlVlen6C/MI/hLM
+	 cjcRfVOZuZDCi2QE+B/3xe6OMQx36Byl+trsKUEibbOv6OG++ytpYOPbSaNr//Jz3nr5U
+	 ZrWnKhxhWuBiCHRtE4aEVIJVO/meOs0yKRJlo3fyAOzdJxx3i03k4zi1fMSQq0881qg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=1HPGMc2l;
-	arc=none smtp.remote-ip=68.232.154.123
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TuePYClO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF90606A31C;
-	Tue, 17 Nov 2026 12:49:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CF90606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B60D606A323;
+	Tue, 17 Nov 2026 12:50:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=1HPGMc2l
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1794919807; x=1826455807;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:to:cc;
-  bh=QxMlP43FIQ9UmHSP4knnwZ+AVDfoordYqDHuI+PDCyM=;
-  b=1HPGMc2le7Oc9KK/8iiR2VbJQwEzJ9E8cWK8YZZ0Gzsx5sPpdQ6NcUxU
-   BJyV3qNc54tTbtudfm1Zy3dmULiR2F9ZWjE9Q97mWWiqCMYSflKB6Akcd
-   kEsGtyXcSMLvBDSat6nnxnS8mm0ayIc4QwG/RceB6c3E4GAVqT/oLAeLc
-   itlETH5OX1AzXVMRSayxo4GJPsPE+ebafn4GAMy7DBiUh12XtNbn6QaKi
-   0nj6/xx9jlStcr+91kb6O4rSogHv2kcXKuijIVhQ2Zto5piJMLVdMoQAP
-   7Ax05l8VUEabBWQnrtDCwCVrutIiyG5vzPhgKUnjYVFxexnzzDX5fruC9
-   A==;
-X-CSE-ConnectionGUID: v146WzhHQIOW8VkWUI0tFg==
-X-CSE-MsgGUID: inMAtMu3Rd6+AWwJX0pX9A==
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="66869287"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 17 Nov 2026 05:50:01 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Tue, 17 Nov 2026 05:49:52 -0700
-Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Tue, 17 Nov 2026 05:49:50 -0700
-From: Daniel Machon <daniel.machon@microchip.com>
-Date: Tue, 17 Nov 2026 13:49:50 +0100
-Subject: [PATCH net-next] net: lan966x: free the RX pages when the TX
- allocation fails
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TuePYClO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E78701F000C4;
+	Tue, 17 Nov 2026 12:50:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794919818;
+	bh=YB4Rm6hbxOLC4r10E9y/WD3nBCBmdRshrgHd962ScF8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=TuePYClOw5kmn94UgSiQtLSegFdzSD4toN8mGQyksDl12VeOGoK6a4BdmfUILCJkV
+	 1gw4znUTt5s2B/7tr7XG8n7OgvM5wPt5xbhSe2XibLlIKaF7uIUOVlrHWVhUeJNVdE
+	 wmhdLxZgTNXAZqhAK7SPI8XLUOGKTj2Rwn1M0EILWLQh5KkuR8hO4ArkkxBiT+6yaM
+	 nfPJs2pu2sQDbW0BM8mVwhm42gm7Tf/XncG6IWgGmJ3GSTKAjGXHktSiImfUVlkNV5
+	 1ser9OuarpHiiSOjV+qxWqEX5qd+cwEHq1gxW8b33hyrMshlfNKGoPJk1YD4lp/juB
+	 FTaPLL+UOiYAQ==
+Message-ID: <62ff09ad-b2db-484b-9b27-6e8a3307b27b@kernel.org>
+Date: Tue, 17 Nov 2026 13:50:13 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,71 +51,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 22/22] arm64: dts: apple: t60xx: Add USB4 ACIO and NHI
+To: Sven Peter <sven@kernel.org>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Janne Grunau <j@jannau.net>,
+ Neal Gompa <neal@gompa.dev>, Andreas Noever <andreas.noever@gmail.com>,
+ Mika Westerberg <westeri@kernel.org>, Yehezkel Bernat
+ <YehezkelShB@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
+ <20260906-b4-apple-soc-tbt-v2-22-1f80085f93fb@kernel.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260906-b4-apple-soc-tbt-v2-22-1f80085f93fb@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261117-lan966x-rx-pages-tx-alloc-fail-v1-1-13f310d66650@microchip.com>
-X-B4-Tracking: v=1; b=H4sIAG1N/GoC/x3NwQrCMAyA4VcZORswxRX1VcRD3NIZKNloywiMv
- bvF43f5/wOqFJUKz+GAIrtWXa2DLgNMX7ZFUOduCNcQiShiZnvE6FgcN16kYnPknNcJE2vG8Ln
- LjUKiMQXoka1IUv8PXmDS0MQbvM/zB7Xkjcd6AAAA
-X-Change-ID: 20261116-lan966x-rx-pages-tx-alloc-fail-2b8e412f15f2
-To: Horatiu Vultur <horatiu.vultur@microchip.com>,
-	<UNGLinuxDriver@microchip.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
- S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-CC: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Daniel Machon
-	<daniel.machon@microchip.com>
-X-Mailer: b4 0.14.3
 
-lan966x_fdma_init() allocates the RX ring and fills its DCBs with pages
-from the RX page pool, then allocates the TX ring. If the TX allocation
-fails, the error path frees the RX ring and destroys the page pool, but
-does not return the pages to the pool first.
+On 06/09/2026 20:36, Sven Peter wrote:
+> Add the ACIO host router, NHI, DART and mailbox nodes for the four ATC
+> instances on each t600x and t602x die and connect the host routers to
+> the Type-C connectors on the MacBook Pro (j314/j316 and j414/j416), Mac
+> Studio (j375 and j475), Mac mini (j474) and Mac Pro (j180d) boards.
+> 
+> Also describe the USB3 path from each host router to its DWC3 controller
+> so the NHI driver can create the required device link.
+> 
+> Signed-off-by: Sven Peter <sven@kernel.org>
+> ---
+>  arch/arm64/boot/dts/apple/t6002-j375d.dts      | 101 ++++++-
+>  arch/arm64/boot/dts/apple/t600x-dieX.dtsi      | 376 +++++++++++++++++++++++++
+>  arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi | 158 ++++++++++-
+>  arch/arm64/boot/dts/apple/t600x-j375.dtsi      | 205 +++++++++++++-
+>  arch/arm64/boot/dts/apple/t6022-j180d.dts      | 304 +++++++++++++++++++-
+>  arch/arm64/boot/dts/apple/t6022-j475d.dts      |  10 +
+>  arch/arm64/boot/dts/apple/t6022-jxxxd.dtsi     |  91 +++++-
+>  arch/arm64/boot/dts/apple/t602x-dieX.dtsi      | 376 +++++++++++++++++++++++++
+>  8 files changed, 1604 insertions(+), 17 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/apple/t6002-j375d.dts b/arch/arm64/boot/dts/apple/t6002-j375d.dts
+> index e6eb6b6c386d..93f07df1c006 100644
+> --- a/arch/arm64/boot/dts/apple/t6002-j375d.dts
+> +++ b/arch/arm64/boot/dts/apple/t6002-j375d.dts
+> @@ -18,6 +18,10 @@ / {
+>  	aliases {
+>  		atcphy4 = &atcphy0_die1;
+>  		atcphy5 = &atcphy1_die1;
+> +		usb4-4-acio = &usb4_0_acio_die1;
+> +		usb4-4-nhi = &usb4_0_nhi_die1;
+> +		usb4-5-acio = &usb4_1_acio_die1;
+> +		usb4-5-nhi = &usb4_1_nhi_die1;
+>  	};
 
-The pool then never finishes its shutdown, and page_pool_release_retry()
-keeps warning about the pages still in flight.
+Sorry, that's a no-go. NAK.
 
-To let the pool shut down, return the RX pages before destroying it, as
-lan966x_fdma_deinit() does. lan966x_fdma_rx_alloc() does not check that
-every DCB got its pages, so skip the entries that are still empty.
-
-Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
----
- drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
-index 1fbe910c5ec38..586ee648c7741 100644
---- a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
-+++ b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
-@@ -54,9 +54,11 @@ static void lan966x_fdma_rx_free_pages(struct lan966x_rx *rx)
- 	int i, j;
- 
- 	for (i = 0; i < fdma->n_dcbs; ++i) {
--		for (j = 0; j < fdma->n_dbs; ++j)
--			page_pool_put_full_page(rx->page_pool,
--						rx->page[i][j], false);
-+		for (j = 0; j < fdma->n_dbs; ++j) {
-+			if (rx->page[i][j])
-+				page_pool_put_full_page(rx->page_pool,
-+							rx->page[i][j], false);
-+		}
- 	}
- }
- 
-@@ -999,6 +1001,7 @@ int lan966x_fdma_init(struct lan966x *lan966x)
- 
- 	err = lan966x_fdma_tx_alloc(&lan966x->tx);
- 	if (err) {
-+		lan966x_fdma_rx_free_pages(&lan966x->rx);
- 		fdma_free_coherent(lan966x->dma_dev, &lan966x->rx.fdma);
- 		page_pool_destroy(lan966x->rx.page_pool);
- 		return err;
-
----
-base-commit: 994089a3fa3882f27f4bed9fc5815ee7df502e88
-change-id: 20261116-lan966x-rx-pages-tx-alloc-fail-2b8e412f15f2
 
 Best regards,
--- 
-Daniel Machon <daniel.machon@microchip.com>
-
+Krzysztof
