@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794881896;
-	b=l8CJrrhTvTiU4FyxZU4X8cuPL30l+7M1shfexVlK7Lkf+DAi/EkltObHWnJO3lZC2ufa
-	 XtfBZYGp9vuDumThwvzVsWOWwnjL6yOftkp3nl91jAdKaU1+F25P53frrnEJpjGMpJ/u/
-	 IFyfqF6LaloiRM7Yvnu1OJISwV0tCgKVRLHeGgZUA2jeWfj5LfcESeya0CQ2qvBFnImUf
-	 bXP+GNYiBj8f7UjCHKIuvkfdFskx7tw81O8Oy6Hzr7dbu400NhG/QbdCafJtN5qlGcfAZ
-	 whaFtImlfGY3uQxVNAU7uBH0Nl4NXQYzTt9FIX5klk3tB6+6FPQ5xQXvPGvG5jV7z9Q==
+	t=1794881903;
+	b=mJBS7XJTDs5evo/hGWh8ph/cOxZ83+eJB4jqr8hWO/5zKqbGPokz1Ufc7XWbWTYR6WLq
+	 xd+MSt0AAMY3bLR3EPwDK6UMKxpV2m6QLHXziMNk0HhNbFmesmNBF1tinQ+o5rqZogxWg
+	 oD8/k+1nXDdK9X0PQo2UAf4aBDg2DXLrA30jc5FlfvLVjj6L1LjLE+0C+FdKLQCauUxby
+	 FLpmqCOHNsGzHFDTqaokgySnx0uBf2FekUekFkcVEkTl47hLqL4BeQUtCeIl6SAssGgQh
+	 PNfl5/xHe6zyJu52nH/b8mGSxH+DEghN9D150DcFP6fkXwqBXE8gJRPDvtz1JcZSnFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794881896;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794881903;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=sdSt55r0fTFx62nLZg0naHwKJZoMkcT4ngcWiMzRM/A=;
-	b=VgjY2ZcC/0/2lHEv4LpOS/FBZPsE6jzrVdOX0GRUlt/Xadnq6fPtuIF6h2XvXwlxIZdP
-	 QnI4eRZzGglissxian6Iqmwsv0/jqtAHDpKgvKzddhqKSt4HIbA7rsqgNVPk6K7Bik0md
-	 ES/cFzobnQpUijaPTWb9rx/HjaXlgXSlgeEDqdZ+QcSvXVC7JRd/7NYb6aG9tAU1y4sME
-	 feWKIt3zPZQ+/40lRY887yZKywS7R0huYnFDURsHrtTSqzA97WCR4UPcPlZogvrVkdw2b
-	 FT+7SH1hQoxuG6q38UqNmPmMgy2LWCYMgYSu+QMclkR19wpdU5WIctIsyLxmsPvClLw==
+	bh=brr3DvJqwDgwIdOITUi2l4ifUKdb6KRcxgyG27EeCyE=;
+	b=TOsIppLaRo6Rp1wdQhYSg1k3zDtogwAQW1XLWVYrWs8i06XhEXpzewS23I3lJJvqi9II
+	 89uNQON4co/w1lUt9V83bS4bUUROTHjxKdjaX6a24iGZdXMxJWLxGbSzkACpy+u+Emr/D
+	 Q9L8Xl8c46So9/ENWDzvkVExLogCsOxGQUkznHalpiP0gUrhF0e1sOuijunN9C5G0kb9g
+	 7UpNH4o7GgicRSZsvDK4AugXdOptAxqI3tCD2gCdmIhHyEg1y+K59Os0VGeQ7/reC+mWi
+	 jCoRXfyozETt+nKLXjQ9pIxFmpOzGKqR3FR8r8n3DkiFg/eEZ5wjuOCs88uOZdf8kRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FYnpj4H6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OAdAUAHO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D737606A881;
-	Tue, 17 Nov 2026 02:18:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2092606A331;
+	Tue, 17 Nov 2026 02:18:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FYnpj4H6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A42711F00926;
-	Tue, 17 Nov 2026 02:18:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OAdAUAHO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AF7F1F000C4;
+	Tue, 17 Nov 2026 02:18:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794881896;
-	bh=sdSt55r0fTFx62nLZg0naHwKJZoMkcT4ngcWiMzRM/A=;
+	s=k20260515; t=1794881902;
+	bh=brr3DvJqwDgwIdOITUi2l4ifUKdb6KRcxgyG27EeCyE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FYnpj4H6Bo3eq8V1WuRRrlDYgEzJaCcGY2Dq42qf/3SI/ycXw1TXWB32BpcppMtUq
-	 B/acZ39yO1dbnY9WfEzV6NVcSoLQ836lCPMVBccxa1Dj0JbOPtUhsm+o2LvAp828Rl
-	 yp7/JtobAhTGQTScXAPb3YGOfk/dm7BbFH4H5d4qAGv3kl+I7yytxp8MBufr65+GOe
-	 BLONXPDSJrw4i1EC+mUNDtnM1xUzhdZf4Ilx75etr72tCBSKebH8+APheYYysIq5Mq
-	 aiLMTQINoQt40/R2egiAXW2h2XJSpCundYWPv+wW1conefAdVpS2sMsJCGkic3DKrV
-	 XITiQ++86a2mQ==
+	b=OAdAUAHOX80FlsWZ/pjpEch4HfMWPAeYvWk8R6pdGYvp66RInorh95+VGt3FI4Bmb
+	 tbAdG3bUHqw/bft3QeP7EqXOy36RwRiIh86n+4u2jsUjp4x+OpltySkS6yVDR6+PQH
+	 ufsl7H+k9/BAtG0Pacbt031g8wUoP32w2Ii9HDDh/SbkOjn5xY/Cd2zB4FucIqOk9+
+	 T/kxFuquc3drWbTxrGnt9p3TC2moJVOM5WKWD3RWbofDF2bn7xpsyq4UJjxCVNxF5V
+	 xAIKsDWzo4rkpA+GJ09wDdsoXX9jNAViSqwMzh7wa690EoRS2tmWz95OkqqeFm+CuK
+	 25FVcZj6k2RMQ==
 From: Jakub Kicinski <kuba@kernel.org>
 To: arouhi@sitime.com
 Cc: Jakub Kicinski <kuba@kernel.org>,
@@ -56,12 +56,12 @@ Cc: Jakub Kicinski <kuba@kernel.org>,
 	devicetree@vger.kernel.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v15 06/13] dpll: sit9531x: register DPLL devices and pins
-Date: Mon, 16 Nov 2026 18:18:14 -0800
-Message-ID: <20261117021814.2220156-1-kuba@kernel.org>
+Subject: Re: [PATCH net-next v15 10/13] dpll: sit9531x: implement output pin state on a DPLL
+Date: Mon, 16 Nov 2026 18:18:21 -0800
+Message-ID: <20261117021821.2220343-1-kuba@kernel.org>
 X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261110202607.55744-7-arouhi@sitime.com>
-References: <20261110202607.55744-7-arouhi@sitime.com>
+In-Reply-To: <20261110202607.55744-11-arouhi@sitime.com>
+References: <20261110202607.55744-11-arouhi@sitime.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,385 +76,232 @@ Content-Transfer-Encoding: 8bit
 This is an AI-generated review of your patch. The human sending this
 email has considered the AI review valid, or at least plausible.
 ---
-dpll: sit9531x: register DPLL devices and pins
+dpll: sit9531x: implement output pin state on a DPLL
 
-This patch registers each SiT9531x PLL as a DPLL device with lock status
-and mode callbacks, and registers the XO as an input pin on each one. A
-kthread worker polls the status registers every 500 ms into a cache that
-the callbacks read from; INTRB, where wired, schedules an early tick. The
-clock_id is built from the SiTime OUI, the I2C bus number and the address.
+This adds state_on_dpll_get/set callbacks for output pins. DISCONNECTED
+mutes an output by forcing the slot's Hi-Z pairs inside the output
+programming state, and CONNECTED releases the force. Output pins are now
+registered when they are routed to the DPLL.
 
 > diff --git a/drivers/dpll/sit9531x/core.c b/drivers/dpll/sit9531x/core.c
-> index 3ec1ab5aa56cc..209671e7917e2 100644
+> index c7ab33993c288..458de502bc8f7 100644
 > --- a/drivers/dpll/sit9531x/core.c
 > +++ b/drivers/dpll/sit9531x/core.c
+> @@ -459,53 +459,42 @@ static int sit9531x_output_forced_hiz(struct sit9531x_dev *sitdev,
+>  	return 0;
+>  }
+>  
+> -#define SIT9531X_LOOP_LOCK_TRIES	3
+> -
+> -/* Close the loops and lock the debug block without committing */
+> -static void sit9531x_prg_abort(struct sit9531x_dev *sitdev)
+> +/* Re-read an output's mute state. Caller must hold sitdev->multiop_lock. */
+> +int sit9531x_output_state_refresh(struct sit9531x_dev *sitdev, u8 out_idx)
 
 [ ... ]
 
-> @@ -181,122 +206,1415 @@ int sit9531x_update_pll_u8(struct sit9531x_dev *sitdev, u8 pll_idx,
-
-[ ... ]
-
-> +static int sit9531x_chan_state_fetch(struct sit9531x_dev *sitdev, u8 pll_idx)
+> @@ -554,6 +543,174 @@ static int sit9531x_prg_commit(struct sit9531x_dev *sitdev)
+>  	return 0;
+>  }
+>  
+> +/*
+> + * Unlock the Page 3 debug registers and enter PRG_CMD; output-system writes
+> + * take effect only in this state.
+> + */
+> +static int sit9531x_prg_enter(struct sit9531x_dev *sitdev)
 > +{
-
-[ ... ]
-
-> +	rc = sit9531x_read_u8(sitdev, SIT9531X_REG_OUTER_LOL_STATUS,
-> +			      &outer_lol);
-> +	if (rc)
-> +		return rc;
-
-[ ... ]
-
-> +	rc = sit9531x_read_u8(sitdev, SIT9531X_REG_PLL_INNER_LOL_STATUS,
-> +			      &inner_lol);
-> +	if (rc)
-> +		return rc;
-> +
-> +	rc = sit9531x_read_u8(sitdev, SIT9531X_REG_HO_FREEZE_STATUS,
-> +			      &ho_freeze);
-> +	if (rc)
-> +		return rc;
-> +
-> +	rc = sit9531x_read_pll_u8(sitdev, pll_idx, SIT9531X_PLL_REG_STATUS_1,
-> +				  &pll_status_1);
-> +	if (rc)
-> +		return rc;
-> +
-> +	rc = sit9531x_prio_table_read(sitdev, pll_idx, srcs);
-> +	if (rc)
-> +		return rc;
-> +
-> +	sit9531x_prio_mask_build(sitdev, pll_idx, srcs);
-
-[Severity: Low]
-This runs once per PLL on every 500 ms tick. That means each of the three
-global page 0 status registers (SIT9531X_REG_OUTER_LOL_STATUS,
-SIT9531X_REG_PLL_INNER_LOL_STATUS and SIT9531X_REG_HO_FREEZE_STATUS) is
-read four times per tick, when one read would cover all PLLs. Could they
-be read once in sit9531x_dev_chan_states_update() and passed down?
-
-The 11-slot priority table is also re-read for every PLL on every tick.
-At this point in the series the only thing built from it is prio_mask,
-and nothing consumes prio_mask yet.
-
-Add the input reads, the eight notification writes and the page selects,
-and the poll issues roughly 100 I2C transactions per tick, even with no
-DPLL listener. The commit message says the poll keeps a netlink call from
-turning into "a burst of I2C transfers", but it does not mention this
-ongoing load. The redundant per-PLL reads of the global registers are
-still there at the end of the series.
-
-[ ... ]
-
-> +static void sit9531x_dev_periodic_work(struct kthread_work *work)
-> +{
-> +	struct sit9531x_dev *sitdev = container_of(work, struct sit9531x_dev,
-> +						   work.work);
-> +	struct sit9531x_dpll *sitdpll;
 > +	int rc;
 > +
-> +	/*
-> +	 * Release multiop_lock before the change checks: their notifications
-> +	 * take DPLL-subsystem locks, which nest outside it.
-> +	 */
-> +	mutex_lock(&sitdev->multiop_lock);
-> +	sit9531x_dev_ref_states_update(sitdev);
-> +	sit9531x_dev_chan_states_update(sitdev);
-> +	mutex_unlock(&sitdev->multiop_lock);
-> +
-> +	list_for_each_entry(sitdpll, &sitdev->dplls, list)
-> +		sit9531x_dpll_changes_check(sitdpll);
-> +
-> +	/*
-> +	 * Clear the W1C notification latches on pages 0 and 6 after acting on
-> +	 * them; while set they keep INTRB asserted.
-> +	 */
-> +	mutex_lock(&sitdev->multiop_lock);
-> +	rc = sit9531x_clear_notifications(sitdev);
-> +	mutex_unlock(&sitdev->multiop_lock);
-
-[Severity: Medium]
-Are any of these latches read before they are cleared?
-
-sit9531x_clear_notifications() writes 0xFF to the sticky outer LOL,
-holdover freeze, inner LOL and clock monitor notification registers on
-pages 0 and 6. The lock and holdover state, though, comes only from the
-live status bits that sit9531x_chan_state_fetch() reads.
-
-So a loss of lock or a holdover entry that recovers before the next
-status read is acknowledged in hardware here and never reported through
-dpll_device_change_ntf(). The same goes for an event that latches between
-sit9531x_dev_chan_states_update() and this clear.
-
-The interrupt path has the same problem, because sit9531x_irq_thread_fn()
-clears the latches before it queues the poll:
-
-sit9531x_irq_thread_fn()
-    sit9531x_clear_notifications()     <- latch that raised INTRB erased
-    kthread_mod_delayed_work(..., 0)
-sit9531x_dev_periodic_work()
-    sit9531x_chan_state_fetch()        <- sees only the recovered live bits
-
-Could the notification registers be read and folded into the reported
-state before they are acknowledged? At the end of the series these NOTIF
-registers are still only written, never read. EEPROM_NOTIF is the only
-notification register the driver reads.
-
-[ ... ]
-
-> +/* Queue an immediate poll tick; polling continues as a fallback. */
-> +static irqreturn_t sit9531x_irq_thread_fn(int irq, void *data)
-> +{
-> +	struct sit9531x_dev *sitdev = data;
-> +	int rc;
-> +
-> +	/*
-> +	 * Acknowledge here: IRQF_ONESHOT unmasks the line on return, and a
-> +	 * still-asserted INTRB would fire again at once.
-> +	 */
-> +	mutex_lock(&sitdev->multiop_lock);
-> +	rc = sit9531x_clear_notifications(sitdev);
-> +	mutex_unlock(&sitdev->multiop_lock);
+> +	rc = sit9531x_write_u8(sitdev, SIT9531X_REG_OUTSYS_DEBUG,
+> +			       SIT9531X_DEBUG_UNLOCK_VAL);
 > +	if (rc) {
-> +		dev_warn_ratelimited(sitdev->dev,
-> +				     "IRQ: failed to clear notifications: %d\n",
-> +				     rc);
-> +		if (++sitdev->irq_ack_fails < SIT9531X_IRQ_ACK_TRIES)
-> +			return IRQ_NONE;
+> +		sit9531x_write_close(sitdev, SIT9531X_REG_OUTSYS_DEBUG,
+> +				     SIT9531X_DEBUG_LOCK_VAL);
+> +		return rc;
+> +	}
 > +
-> +		dev_err(sitdev->dev,
-> +			"IRQ %d disabled: notifications cannot be cleared, polling only\n",
-> +			irq);
-> +		disable_irq_nosync(irq);
-> +		return IRQ_NONE;
+> +	rc = sit9531x_write_u8(sitdev, SIT9531X_REG_PRG_DIR_GEN,
+> +			       SIT9531X_PRG_CMD_STATE);
+> +	if (rc) {
+> +		sit9531x_prg_commit(sitdev);
+> +		return rc;
 > +	}
 
 [Severity: Medium]
-Can a brief I2C glitch disable this interrupt for the life of the
-binding?
+If the SIT9531X_PRG_CMD_STATE write fails, should this path really run the
+full sit9531x_prg_commit()?
 
-On failure the handler returns IRQ_NONE without queueing the early poll.
-With IRQF_ONESHOT and a level-triggered INTRB that stays asserted, the
-line fires again as soon as the thread returns. The eight attempts
-allowed by SIT9531X_IRQ_ACK_TRIES therefore happen back to back.
+Before this patch, the failure path called sit9531x_prg_abort(). Its comment
+was "Close the loops and lock the debug block without committing".
+sit9531x_prg_commit() starts by writing to the same register that just
+failed:
 
-After that, disable_irq_nosync() is called and nothing re-enables the
-line. irq_ack_fails is reset only by a successful acknowledge in this
-handler, which can no longer run. That stays true even after the poll
-later clears the same latches successfully.
+	rc = sit9531x_write_u8(sitdev, SIT9531X_REG_PRG_DIR_GEN,
+			       SIT9531X_UPDATE_NVM);
 
-Suspend/resume does not recover it either: the disable_irq() and
-enable_irq() pair there leaves the extra disable depth from
-disable_irq_nosync() in place. The handler is unchanged at the end of the
-series.
+After that it retries LOOP_LOCK, rewrites sitdev->loops_open, sleeps 100 ms
+under multiop_lock and closes the debug key. Its return value is ignored
+here.
 
-> +
-> +	sitdev->irq_ack_fails = 0;
-> +
-> +	kthread_mod_delayed_work(sitdev->kworker, &sitdev->work, 0);
-> +	return IRQ_HANDLED;
-> +}
+So an entry that may never have reached PRG_CMD now sends an NVM shadow
+update. The comment above sit9531x_prg_commit() ("re-lock the loops after
+sit9531x_prg_enter()") does not seem to describe this case.
 
-[Severity: Medium]
-Is returning IRQ_HANDLED here correct when nothing confirms that INTRB
-actually deasserted?
+This also changes how the existing caller sit9531x_output_freq_set() from
+the previous patch behaves on failure. The new sit9531x_output_enable() and
+sit9531x_output_disable() paths get the same behaviour. The commit message
+does not mention the change.
 
-The driver does not program the INTRB mask registers, so the EEPROM/GUI
-profile decides which latches can drive INTRB. Meanwhile
-sit9531x_clear_notifications() clears only a fixed set of eight
-registers. One example of a latch outside that set is the sticky EEPROM
-NOTIFY_4 register (page 0 0x97): sit9531x_eeprom_state_report() reads it
-at probe and deliberately leaves it set.
+Was this meant to be part of this patch, or should a commit-free abort stay
+on this path? The same call is still there at the end of the series.
 
-If the profile routes such a latch to INTRB, a level-triggered line with
-IRQF_ONESHOT would re-fire immediately and indefinitely. Every pass
-returns IRQ_HANDLED, so the spurious IRQ detector never trips. Every pass
-also calls kthread_mod_delayed_work(..., 0), so the full poll would run
-continuously. On an edge-triggered line the interrupt would never fire
-again.
-
-This depends on the profile, so it may not be reachable with current
-configurations. The handler is unchanged at the end of the series.
-
-[ ... ]
-
-> +static int sit9531x_derive_clock_id(struct sit9531x_dev *sitdev)
-> +{
-> +	int adap = i2c_adapter_id(sitdev->client->adapter);
-
-[ ... ]
-
-> +	sitdev->clock_id = SIT9531X_OUI << 24 | (u64)adap << 8 |
-> +			   sitdev->client->addr;
-
-[Severity: Low]
-Is i2c_adapter_id() stable enough to build the clock_id from?
-
-Adapter numbers are assigned dynamically unless the DT provides an i2cN
-alias. The clock_id that userspace uses to identify the DPLL devices and
-pins could therefore change across boots, or when adapters probe in a
-different order.
-
-The value is also laid out as an EUI-64 under the SiTime OUI, which
-implies global uniqueness. In practice every board with the part at the
-same bus number and address gets the same ID. This is unchanged at the
-end of the series.
-
-[ ... ]
-
-> +static int sit9531x_dev_probe(struct sit9531x_dev *sitdev)
-> +{
-> +	struct clk *xtal_clk;
-> +	u8 variant_id;
-> +	int rc;
-> +
-> +	/*
-> +	 * Request before enabling the XO: a probe deferral would gate the XO
-> +	 * and remove the reference of a running part.
-> +	 */
-> +	sitdev->reset_gpio = devm_gpiod_get_optional(sitdev->dev, "reset",
-> +						     GPIOD_ASIS);
-> +	if (IS_ERR(sitdev->reset_gpio))
-> +		return dev_err_probe(sitdev->dev, PTR_ERR(sitdev->reset_gpio),
-> +				     "Failed to request reset gpio\n");
-
-[Severity: Medium]
-This reworks the probe ordering added by the earlier commit "dpll: add
-basic SiTime SiT9531x support". There, the reset GPIO was requested with
-GPIOD_OUT_LOW after the XO was enabled. Here it is requested GPIOD_ASIS
-before devm_clk_get_optional_enabled(), and released later with
-gpiod_direction_output().
-
-The new comment presents this as a fix for a probe deferral that gates
-the XO of a running part. Should the fix go into the earlier commit
-instead? As things stand, that commit still has the behaviour the comment
-describes, which matters for bisection.
-
-The commit message also leaves out several other additions in this
-patch:
-
-  - the system sleep PM ops, sit9531x_suspend() and sit9531x_resume(),
-    which disable the IRQ, cancel the poll and drop the page cache
-  - the EEPROM profile ID and CRC readout in
-    sit9531x_eeprom_state_report()
-  - the 0xFF writes to eight write-1-to-clear notification registers in
-    sit9531x_clear_notifications(), on every poll tick and every INTRB
-
-Could these be described in the commit message, or split out?
-
-> +
-> +	/* Every rate the driver derives starts from the XO feeding XIN. */
-> +	xtal_clk = devm_clk_get_optional_enabled(sitdev->dev, "xtal");
-> +	if (IS_ERR(xtal_clk))
-> +		return dev_err_probe(sitdev->dev, PTR_ERR(xtal_clk),
-> +				     "Failed to get xtal clock\n");
-
-[Severity: Medium]
-Can the XO still be gated when probe fails later on?
-
-The reset GPIO request moved ahead of this call so that a deferral would
-not gate the XO of a running part. But this patch adds many failure
-points after the XO is enabled: sit9531x_derive_clock_id(),
-devm_mutex_init(), sit9531x_devm_dpll_init() (kthread creation, the I2C
-reads in sit9531x_dev_state_fetch(), DPLL device and pin registration),
-and devm_request_threaded_irq().
-
-If any of those fails, devres unwinds and calls clk_disable_unprepare()
-on the XO:
-
-sit9531x_dev_probe()
-    devm_clk_get_optional_enabled()     <- XO enabled
-    sit9531x_devm_dpll_init()
-        sit9531x_dev_start()
-            sit9531x_dev_state_fetch()  <- I2C error
-    return rc                           <- devres disables the XO
-
-The part is deliberately never reset, so it keeps running its PLLs and
-outputs from the loaded profile, now without its reference. Driver unbind
-takes the same path.
-
-[ ... ]
-
-> +static int sit9531x_resume(struct device *dev)
-> +{
-> +	struct sit9531x_dev *sitdev = dev_get_drvdata(dev);
-> +
-> +	/* After power loss the part is on page 0, not the cached page */
-> +	sit9531x_page_cache_drop(sitdev);
-> +	if (sitdev->irq > 0)
-> +		enable_irq(sitdev->irq);
-> +	kthread_queue_delayed_work(sitdev->kworker, &sitdev->work, 0);
 > +
 > +	return 0;
 > +}
+> +
+> +/*
+> + * Mute or unmute every Hi-Z pair of a slot. Caller must already be in the
+> + * programming state.
+> + */
+> +static int sit9531x_output_hiz_write(struct sit9531x_dev *sitdev, u8 slot,
+> +				     bool mute)
+> +{
+> +	u8 mask[SIT9531X_HIZ_PAIRS], state[SIT9531X_HIZ_PAIRS];
+> +	struct sit9531x_hiz_pair p[SIT9531X_HIZ_PAIRS];
+> +	int i, rc, undo_rc;
+> +
+> +	sit9531x_output_get_hiz_regs(slot, p);
+> +
+> +	if (!mute) {
+> +		for (i = 0; i < SIT9531X_HIZ_PAIRS; i++) {
+> +			rc = sit9531x_hiz_set_bit(sitdev, p[i].mask, p[i].bit,
+> +						  false);
+> +			if (rc)
+> +				return rc;
+> +		}
+> +		return 0;
+> +	}
 
 [Severity: Medium]
-The comment allows for the part losing power over suspend. In that case,
-is dropping the page cache enough?
+Does un-mute lose a Hi-Z force set by the loaded profile?
 
-After releasing reset, probe waits fsleep(10000) for the internal boot.
-Resume has no such wait: it re-enables INTRB and queues an I2C poll right
-away.
+This branch clears the MASK bit of all three pairs and restores nothing. The
+mute path saves mask[] and state[], but uses them only to roll back on
+error.
 
-Resume also does not re-read the static configuration that
-sit9531x_dev_state_fetch() cached at probe: ref[].sig_mode, out[].cmos,
-out[].routed and out[].pll_idx, chan[].manual_input and ref[].pll_mask.
+The commit message says "an un-mute releases the force and the pads return
+to the loaded configuration". Take a CMOS output whose profile forces one
+pad and leaves the other driving (part_muted). Here the force on that pad
+is cleared too.
 
-Suppose the configuration was pushed over I2C before probe (a case
-sit9531x_eeprom_state_report() detects and logs) and power is lost. The
-part then comes back with a different configuration. The driver would
-keep reporting the old mode and routing, and sit9531x_input_get_regs()
-would pick the DE or SE force/state registers based on a stale sig_mode.
+sit9531x_dpll_output_pin_state_on_dpll_get() reports such an output as
+CONNECTED, which matches the core.h kernel-doc ("reported as driven").
+However, sit9531x_dpll_output_pin_state_on_dpll_set() skips a request only
+when part_muted is clear:
 
-At the end of the series, resume re-reads phase, INTSYNC and output mute
-state, but still not these fields, and there is still no boot delay.
+	if (!sit9531x_output_state_refresh(sitdev, dpin->id) &&
+	    sitdev->out[dpin->id].enabled == enable &&
+	    !sitdev->out[dpin->id].part_muted) {
+
+dpll_pin_state_set() in the DPLL core does not compare against the current
+state. So a request for CONNECTED, which GET already reports, still reaches
+sit9531x_output_enable(). That runs the 100 ms programming sequence and
+releases the pad the profile kept in Hi-Z. A mute followed by an un-mute
+ends the same way.
+
+Should the un-mute put back the profile's original force bits instead of
+always clearing them? This code is unchanged at the end of the series.
+
+[ ... ]
+
+> +/* Caller must hold sitdev->multiop_lock. */
+> +int sit9531x_output_disable(struct sit9531x_dev *sitdev, u8 index)
+> +{
+
+[ ... ]
+
+> +	slot = info->clkout_map[index];
+> +	rc = sit9531x_prg_enter(sitdev);
+> +	if (rc)
+> +		return rc;
+> +
+> +	rc = sit9531x_output_hiz_write(sitdev, slot, true);
+> +
+> +	ret = sit9531x_prg_commit(sitdev);
+
+[Severity: Low]
+This isn't a bug, but every mute and un-mute runs the full output-system
+programming sequence. That is debug unlock, PRG_CMD, UPDATE_NVM, LOOP_LOCK
+and a 100 ms sleep under multiop_lock.
+
+The commit message says this happens "inside the programming state". The
+previous patch describes the settling time of that state, and the comment
+in sit9531x_dpll_output_pin_state_on_dpll_set() documents the 100 ms
+loop-unlock window. So this is mostly covered already.
+
+Would it still be worth stating the cost explicitly in this commit message?
 
 [ ... ]
 
 > diff --git a/drivers/dpll/sit9531x/dpll.c b/drivers/dpll/sit9531x/dpll.c
-> new file mode 100644
-> index 0000000000000..6d676fabf13ee
-> --- /dev/null
+> index a450a81d02f4c..a32d37a396b11 100644
+> --- a/drivers/dpll/sit9531x/dpll.c
 > +++ b/drivers/dpll/sit9531x/dpll.c
-> @@ -0,0 +1,295 @@
 
 [ ... ]
 
-> +/* The XO feeds every PLL and is always connected. */
-> +
+> @@ -638,10 +639,114 @@ sit9531x_dpll_output_pin_frequency_set(const struct dpll_pin *pin,
+>  	return rc;
+>  }
+>  
+> +/*
+> + * DISCONNECTED while the output is forced to Hi-Z, by a mute request or by the
+> + * loaded profile.
+> + */
 > +static int
-> +sit9531x_dpll_xo_pin_state_on_dpll_get(const struct dpll_pin *pin,
-> +				       void *pin_priv,
-> +				       const struct dpll_device *dpll,
-> +				       void *dpll_priv,
-> +				       enum dpll_pin_state *state,
-> +				       struct netlink_ext_ack *extack)
+> +sit9531x_dpll_output_pin_state_on_dpll_get(const struct dpll_pin *pin,
+> +					   void *pin_priv,
+> +					   const struct dpll_device *dpll,
+> +					   void *dpll_priv,
+> +					   enum dpll_pin_state *state,
+> +					   struct netlink_ext_ack *extack)
 > +{
-> +	*state = DPLL_PIN_STATE_CONNECTED;
-> +	return 0;
-> +}
+> +	struct sit9531x_dpll_pin *dpin = pin_priv;
+> +	struct sit9531x_dpll *sitdpll = dpll_priv;
+> +	struct sit9531x_dev *sitdev = sitdpll->dev;
+> +	const struct sit9531x_out *out;
+> +	int rc = 0;
+> +
+> +	mutex_lock(&sitdev->multiop_lock);
+> +	out = sit9531x_out_state_get(sitdev, dpin->id);
+> +	if (out->state_stale)
+> +		rc = sit9531x_output_state_refresh(sitdev, dpin->id);
 
-[Severity: Medium]
-Should this report CONNECTED unconditionally?
+[Severity: Low]
+Can this report an old mute state if the Hi-Z force bits are changed outside
+the driver?
 
-include/uapi/linux/dpll.h defines DPLL_PIN_STATE_CONNECTED as "pin
-connected, active input of phase locked loop".
-Documentation/driver-api/dpll.rst allows CONNECTED in automatic mode only
-for pins with DPLL_PIN_CAPABILITIES_STATE_CONNECTED_OVERRIDE.
+The hardware is read again here only when state_stale is set. The poll
+re-reads an output in sit9531x_dpll_output_ntf_pending() only when the
+driver itself has set ntf_pending:
 
-sit9531x_pin_props_get() sets the XO capabilities to 0, and
-sit9531x_dpll_mode_get() reports DPLL_MODE_AUTOMATIC for any PLL without
-manual_input. The driver also already reads the PLL's active source from
-CLK_ACTIVESEL into chan->selected_ref. The OCXO code there maps to
-SIT9531X_MAX_INPUTS, and the OCXO can appear in the priority table.
+	if (!out->ntf_pending)
+		return false;
 
-The result is that userspace sees the XO as the active input even while
-the PLL is locked to an external reference. This is still the case at
-the end of the series. There, sit9531x_dpll_selection_state_get() also
-reports the routed input as CONNECTED on a manual-input PLL, so that PLL
-shows two CONNECTED inputs at once. On an automatic PLL, the XO shows
-CONNECTED while the other listed inputs show SELECTABLE.
+Suppose a profile is reloaded, or the registers are written with an I2C
+tool, while the driver is bound. GET then keeps returning the old
+CONNECTED/DISCONNECTED value, and no pin change notification is sent.
 
-Could this state be derived from chan->selected_ref instead?
+The input priority tables are handled differently: the poll picks up
+external rewrites. The output frequency and phase getters read the
+registers live. Later in the series the cache is refreshed on resume, but
+runtime polling still never refreshes it.
+
+Is that difference intended?
+
+> +	if (!rc)
+> +		*state = out->enabled ? DPLL_PIN_STATE_CONNECTED
+> +				      : DPLL_PIN_STATE_DISCONNECTED;
+> +	mutex_unlock(&sitdev->multiop_lock);
+
+[ ... ]
