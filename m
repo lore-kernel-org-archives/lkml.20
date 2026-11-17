@@ -1,57 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794926336;
-	b=5B76n8kVJelf6m/Oh+YB9Y0dFryCgrO2O0w1Rh6/rzz0/oGiwscvm5aRcw3q5TNVzAaY
-	 eGkjgKUMAC8160HZ36vul6tI32IohBBSgA8H1v65b8e+/jIrnj2Ws7VeuLcgv9r444L4u
-	 kmAynU+1UGaASSH6VIPAkQAC9DfSRWqxhQ8hol0ZuHTma/IUj8x9Lyn/whU0JpQF1TGgx
-	 xHkU7zOc+va70sCWOSNR+61kTXnyDkAtUnLkPPUvZzWAxXXEdyBYxh85lm7xlajmsCxCJ
-	 TxVGUUo7SlxalaJpMMBk2/dfhQhdG3C4aIk0oiar8V8pjsQ1Z3oqOZtJbCBC49k58hg==
+	t=1794926338;
+	b=mdUATi8Xog4//FFDU9DZhN/6kj/ezRLqJc+xfc+J6mf0GYJKbv1Iel3bkWDRq9Z8GVPA
+	 K30B8P/lC43WVHbSxnSQf5Hv17olv4ejNJ1q1ozMAZv8UJDHUrjGTGXlcHTwRlXgiXmok
+	 PYRoZMaqI87TrdkXRfDrZ2jZk2KZWhS4TuwMbvX/DV4I/3MAjtEtpOx9r9gwWQ88dVM/V
+	 NdgQWIHtpLovIUYaxTpzwef9XijvlbCuxmb4olr2xq7trmG+aLZ4nObrzJwpkiBtqFcgO
+	 lZNRQnz4c2Dq6xD0Tuav9VRXrSH0zuEqQ74Ia/St+gGt8P/PXe6b+7T/1Rthzp/c37Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794926336;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=k/sW3tiPcVrf/T4i4ERuM8p7jvmYD29N3k/zmSIkPcM=;
-	b=eo/kchAb1ec7S7HRfLgq8dw4n4PGux/fLT7UgRtcB4289SunyFzxtBAGKWFd8FfIhExW
-	 4oiKklqrNqT2ABJ4AsdmwabigY8R2P1RZIyuPaPjtEX/O9r6ou+64Kws4aWDVVz+27A5n
-	 Yi7yb+cjZBapsSktM2slykrqd40rFQuyyKruZkhycKymQzX053QaO4+PHhobKXFVBqOSW
-	 3rQ81ANqX3e5gLFtwUPOVuKiyW+8JS5H4ipfvumJ8ipNt4kFi5e3qrFpZx+uSTITLFdMb
-	 CRWK3XMMxNdjr3ok9LYIAaQU7UfYtlD8SF6dmR/zQJvZCFEEXJieu3cFdJQwjzAVq2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794926338;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-INFO:X-CID-META:
+	 X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=BamAbnFFQQawAWlYae6e80WqdHKyKpD5fj6Xsp62/lo=;
+	b=DMkVYV6n1nQoXujer04HzR1QAFjr7ze1yRRWGvjTZlBrK6TkfK81k/5QIjhFjjSkLrBE
+	 XTxVhFY3pKxaiJij2QV/SLZ230RADh1ckwpDZ/7X+zH8Xp3P7GsWNTpNxHCRm0AjoLP+2
+	 ep+P3B7f97Sy0X3A30NvkkQ5MfVBZvFFd7pH/H88R5NuHngBRn6LDucbk73Ewkvn9t2z7
+	 KdcmSVOtAGa3yic4xCpjKKLFXTS8Er4gNE4xWnPjaafLh0obCqAbSPZPAweDp7koNm5Rc
+	 IJrelnIey/WCQ9r3BwTaBnECSl9AbWklwZVFsctYIyeSXXXqSLyj5ZURe1qBjTGQKmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="diKclFZ/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C944606A33F;
-	Tue, 17 Nov 2026 14:38:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=diKclFZ/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02FA81F000C4;
-	Tue, 17 Nov 2026 14:38:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794926336;
-	bh=k/sW3tiPcVrf/T4i4ERuM8p7jvmYD29N3k/zmSIkPcM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=diKclFZ/hy+w2qn0p4JZUmXbCoD8LZX08yirLm8aDAc7RhD4JRz9uaWnHTyrvgCeR
-	 pYb4KqrjuOPSPMNFoLu0oTWsQyXbdZ6NnIyUgCysPvcwGgjyx0fFkO3/EAnzVsdv4f
-	 qiL3Yp+49VnRLqk45CpFhiYGAMzP8OQEEf/eWrmz6kImuVB43UWD9qQ9SrAfeLz6Hz
-	 /EhsFRz7olPH8x7HDjgnOqFx5Wu8bOaTfk+sJocPACnbv4MzSqJbBIS1MuVQwWOOD2
-	 JXWJt/+DpGJh0elSMYpBAHf5ZI0kMrF41Z0cbDVv3V3aHa+fRkcUXkxw4d4M2XpAuU
-	 5/NSTTJ/qAt3Q==
-Message-ID: <sashiko-outbox-218977@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 05/40] sched/deadline: Refuse dl_server debugfs
- writes while the rq is offline
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
-In-Reply-To: <2bee6a143319301f082855a15274f0563e99b8a5.1794922146.git.mathieu.desnoyers@efficios.com>
-References: <cover.1794922146.git.mathieu.desnoyers@efficios.com>
- <2bee6a143319301f082855a15274f0563e99b8a5.1794922146.git.mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 14:38:55 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C965606A336;
+	Tue, 17 Nov 2026 14:38:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C965606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 983cf016e29411f19a56ed5b684f684d-20261117
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:c5bd0f4f-9094-428b-9d18-5a209eb60a9a,IP:10,
+	URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:5
+X-CID-INFO: VERSION:1.3.19,REQID:c5bd0f4f-9094-428b-9d18-5a209eb60a9a,IP:10,UR
+	L:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:5
+X-CID-META: VersionHash:7db8b62,CLOUDID:337ea644142f1252bc0273884238fd62,BulkI
+	D:261117093439WEV58BDC,BulkQuantity:3,SF:10|38|64|66|78|80|81|82|83|102|12
+	7|136|153|841|865|898|915,TC:nil,Content:0|15|52|99,EDM:-3|-100,IP:-2,URL:
+	99|1,File:nil,RT:nil,Bulk:40,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,S
+	PR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 983cf016e29411f19a56ed5b684f684d-20261117
+X-User: hehuiwen@kylinos.cn
+Received: from [192.168.0.11] [(119.39.61.161)] by mailgw.kylinos.cn
+	(envelope-from <hehuiwen@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
+	with ESMTP id 703769163; Tue, 17 Nov 2026 22:38:46 +0800
+Message-ID: <1840b905-479a-46e3-97a9-b2f40cd50c29@kylinos.cn>
+Date: Tue, 17 Nov 2026 22:38:21 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,80 +65,84 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v1] ksmbd: add use_unbound_wq module parameter for the
+ ksmbd-io workqueue
+To: Namjae Jeon <linkinjeon@kernel.org>,
+ Stefan Chulski <stefan.chulski@broadcom.com>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey
+ <tom@talpey.com>, ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+ linux-cifs@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Ilya Lifshits <ilya.lifshits@broadcom.com>,
+ Gil Benamar <gil.benamar@broadcom.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ bcm-kernel-feedback-list@broadcom.com
+References: <20261116074849.475815-1-stefan.chulski@broadcom.com>
+ <CAKYAXd9KT=1vLYsnRKxmiM6pLJQNACXuodD8wNQzb8S5apiuRQ@mail.gmail.com>
+ <CA+Fu+LPL7xqpV_vjjjehedOFtuuBqgZHZTSqJ+FgweUpYo2uBw@mail.gmail.com>
+ <CAKYAXd--x9UajLQwzRUwxRZ7PFW5T02xyHdSAnThAo326p_kxw@mail.gmail.com>
+ <CA+Fu+LPnXMd9rMtywkZL77XzLq8n+8AiBW2T8Cau10YnVbofiQ@mail.gmail.com>
+ <CAKYAXd-xM=gmpjz7g0+n+ZBA4Vb0Sz2i7B89Cs7XdHUY7U6WdA@mail.gmail.com>
+Content-Language: en-US
+From: Huiwen He <hehuiwen@kylinos.cn>
+In-Reply-To: <CAKYAXd-xM=gmpjz7g0+n+ZBA4Vb0Sz2i7B89Cs7XdHUY7U6WdA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] sched/debug: sched_server_write_common() misses CPU
-  deactivation window
---
+Hi Namjae, Stefan,
 
-commit 6c51bc6b398f0bfbd0028d2f5672f277e0ab2db8
-Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Simply routing WRITE requests to an unbound workqueue is not sufficient,
+as I've observed performance regressions across a number of workloads. 
+I've since developed a more complete approach and will post it soon.
 
-sched/deadline: Refuse dl_server debugfs writes while the rq is offline
+Thanks,
+Huiwen
 
-This commit replaces the cpu_online() check in sched_server_write_common()
-with an !rq->online check to reject dl_server debugfs writes while a
-runqueue is offline during CPU hotplug transitions.
+在 2026/11/17 22:25, Namjae Jeon 写道:
+> On Tue, Nov 17, 2026 at 5:51 PM Stefan Chulski
+> <stefan.chulski@broadcom.com> wrote:
+>>
+>> On Tue, Nov 17, 2026 at 3:34 AM Namjae Jeon <linkinjeon@kernel.org> wrote:
+>>>
+>>> On Mon, Nov 16, 2026 at 9:52 PM Stefan Chulski
+>>> <stefan.chulski@broadcom.com> wrote:
+>>>>
+>>>> On Mon, Nov 16, 2026 at 2:10 PM Namjae Jeon <linkinjeon@kernel.org> wrote:
+>>>>
+>>>> While both address the underlying scheduling limitations of per-CPU
+>>>> workqueues for ksmbd, my patch introduces the `use_unbound_wq` module
+>>>> parameter rather than changing the behavior unconditionally. Because
+>>>> the optimal behavior (cache locality vs. load balancing) heavily
+>>>> depends on the specific workload and platform, this approach keeps the
+>>>> existing per-CPU behavior as the default while allowing platforms to
+>>>> easily opt-in to the unbound workqueue when it yields better
+>>>> performance.
+>>> Could you provide the benchmark setup and actual results? If
+>>> WQ_UNBOUND generally performs better across representative workloads,
+>>> We could make it the default and provide a module parameter to opt
+>>> into WQ_PERCPU instead.
+>>
+>> These are the results from our embedded systems featuring dual-core ARM CPUs.
+>> The benchmark setup is fairly simple: writing to a USB disk over the
+>> network. Because the network traffic is a single 5-tuple TCP stream,
+>> it is pinned to one of the CPUs (depending on the 5-tuple hash).
+>>
+>> We tested this on two different platforms and saw the following
+>> throughput improvements:
+>> Platform 1: Improved from 178 MB/s to 210 MB/s
+>> Platform 2: Improved from 215 MB/s to 263 MB/s
+> Okay.
+> 
+> https://lore.kernel.org/linux-cifs/20261022092514.2590010-1-huiwen.he@linux.dev/
+> 
+> Huiwen’s RFC also provides a write_wq module parameter, disabled by
+> default, so both approaches keep per-CPU request processing as the
+> default. The main difference is that Huiwen’s patch routes eligible
+> single-channel WRITEs to a separate unbound queue, while your patch
+> switches the entire ksmbd-io queue to unbound.
+> So, Could you test Huiwen’s patch series with write_wq=1 on your
+> platform and compare the results with your patch ?
+> 
+> Thanks.
 
-> diff --git a/kernel/sched/debug.c b/kernel/sched/debug.c
-> index e6a3b516c703b..e0d6cd3bd607d 100644
-> --- a/kernel/sched/debug.c
-> +++ b/kernel/sched/debug.c
-> @@ -410,7 +410,15 @@ static ssize_t sched_server_write_common(struct file=
- *filp, const char __user *u
->  			return  -EINVAL;
->  		}
-> =20
-> -		if (!cpu_online(cpu_of(rq)))
-> +		/*
-> +		 * Refuse the write while the runqueue is offline. This
-> +		 * includes the windows where the CPU goes offline or comes
-> +		 * online. The root domain then does not count the server's
-> +		 * bandwidth, and may have no active CPU. rq->online is set
-> +		 * under this lock when the CPU joins a root domain that
-> +		 * counts it. cpu_active() is set before that.
-> +		 */
-> +		if (!rq->online)
->  			return -EBUSY;
-> =20
->  		update_rq_clock(rq);
-
-[Severity: Medium]
-Does checking only !rq->online still leave a window during CPU
-deactivation where cpu_active(cpu) is already false while rq->online is
-still set?
-
-In sched_cpu_deactivate(), set_cpu_active(cpu, false) clears the CPU from
-cpu_active_mask before synchronize_rcu(), and sched_set_rq_offline() sets
-rq->online =3D 0 only after synchronize_rcu() completes:
-
-CPU0                              CPU1
-sched_cpu_deactivate(cpu)
-  set_cpu_active(cpu, false)
-  synchronize_rcu()
-                                  sched_server_write_common()
-                                    guard(rq_lock_irqsave)(rq)
-                                    if (!rq->online)  // still 1
-                                    dl_server_apply_params()
-                                      cpus =3D dl_bw_cpus(cpu);
-                                    dl_server_start()
-  sched_set_rq_offline(rq, cpu)
-    rq->online =3D 0
-
-Because dl_bw_cpus(cpu) and dl_bw_capacity(cpu) intersect rq->rd->span
-with cpu_active_mask, they already exclude the deactivating CPU before
-cpuset_cpu_inactive() rebuilds the root domain. If the CPU was the only
-active CPU in its root domain (for example, a single-CPU cpuset
-partition), dl_bw_cpus(cpu) is 0 while rq->online is still 1. Even when
-N - 1 active CPUs remain in the root domain, dl_b->total_bw still counts
-all N servers while __dl_overflow(), __dl_sub(), and __dl_add() account
-against N - 1 CPUs, and dl_server_start() re-enqueues the server on the
-deactivating runqueue after balance_push_set(cpu, true).
-
-Checking (!rq->online || !cpu_active(cpu_of(rq))) under rq_lock_irqsave
-would close both the activation and deactivation windows.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794922146.gi=
-t.mathieu.desnoyers@efficios.com?part=3D5
