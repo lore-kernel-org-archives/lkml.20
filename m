@@ -1,50 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.64.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.64.191
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794916444;
-	b=fs3mDOUD6hiykjzMAi158ASQXbrN/8G+tqku770Zl6BCMN3xCXUdCMb4KIgy4NnpVxKh
-	 CKKxacAB2oSTiPuBHK3SVwV6AaXYH3gsyFqgKUlAEOIpgpgA2bWXfcOP50cBvjYHe/ptI
-	 b8O2j5EVIDUzSVjSNpxabzcPrDBQzC2vWGXh3Dyi84p8wHF09mf/v/Kc+eM1TfjRn/UvN
-	 ki18+aciViNfKwvugogkgGxqI5CMur73aliketAH+hQqclfaSo7TdndnjzE8Au6k3b88u
-	 bL31kI8KEGAL4avIYsXcUY3oiX+AF61L8kOpw5JZJxnwBcxVGALr2lmT7nu0SwMc8tw==
+	t=1794916441;
+	b=TI7V1cKRI2I0KfG1k9CJ1neMFYREFkZGRfCXfjAtXEn3ARlytWq1NfcsHmvE5t+fY6E2
+	 8JdWzj3bvCql0kn0ToX28ACU1igd41Yztz3JDTTHZue1/1wlPGv+mmLJJ51QuT0UQbdAw
+	 2SHrOJ1ulXcwKdwgRBKHt+2LpjDbGDSzCaaJgm0jhZsDfAH1X0YuZP+AkQ0/a0eHWwSNR
+	 2Et0XIxggCzszvRAFedVo1hf2H4ccy9wR5loWM1EN+TnAHZRVaOF/nF+f6b0wzHmODxBs
+	 s20vwoJxx9tnBPiajNpQyvGPirMnu511eM/KwXSJ2d+dT1KQeUVup4XU+dazWYmeqZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794916444;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794916441;
 	h=DMARC-Filter:Received:X-ICL-RepId:Dkim-Signature:
 	 mail-alias-created-date:Received:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Info-Out:X-JNJ;
-	bh=FfaegcM4A57BNyCt6xFHx30B4jeGSW9JyHGcmPfnxrQ=;
-	b=bcqdodARY3OYRIeOnNK0FczSBD7U/omM50OQbDHYuH71mdSu19ulpYBqvMtMo286YfPz
-	 Qtb1HcUzPqRpg+0kz88IN7XLign3ChwfDC+wZE+V14oTYKaNs4sRbtPWN7yDaMQT4Xght
-	 wFENRGmuO5hCRQYJpgRUaz9Z/hfL7ZtFV2yMRTtnpTDNzdZqHUZE4DxTXTCXAXXpcWXa5
-	 QmmG8mh0YIoZQWyftPds4ptGKnKE8uKkq6fobS/e7qiyAJYQVtPuLxsG+S46JnuUpOnem
-	 yM9HSpn4lrwj7hwShe7cv00BFt1Vl7WxkO3soPNtG5r4YauCWYHMjnY18wCM9wThfhw==
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Info-Out:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-JNJ;
+	bh=1mziqc7iCo3GycX+OIidCj8rWEHHQUb8Q9gKlOt9Y7A=;
+	b=scp0qdIIJ1aN1GmOOFCjcukiUlOhZUO3bCS0kPtcsdF1ChTxLDE4sx1BkzvhP5qbGhEC
+	 5HKMdDdDy1A1C2r7GlRMjFwZ9cKw1SdXeVvzpyLagmuZnsi1GtaLanYi0PWmxjrvVedj/
+	 fTa5o9f+n99pMrHeVZzfGhoC6G305lJnekxgKPj6XRNtmnYFqEYpXYFnFqjydmtECIys0
+	 gurJO+FebcSI4XC314GVjqAgTcSEr+cmUF+UhiOta+fjpYAyFfRS7UowRbu+hKmhuW0fE
+	 Ceq7JAIbLPGr/ULI3ZhmGLHXwyr1jW2wFxyRixywGTIaKeFN7+T6x5DOUOtE5C394CA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=verdict.gg;
 	spf=pass smtp.mailfrom=verdict.gg;
-	dkim=pass header.d=verdict.gg header.i=@verdict.gg header.a=rsa-sha256 header.s=sig1 header.b=nvxkrOpf;
-	arc=none smtp.remote-ip=57.103.64.13
-Received: from outbound.pv.icloud.com (pv-2001k-snip4-11.eps.apple.com [57.103.64.13])
+	dkim=pass header.d=verdict.gg header.i=@verdict.gg header.a=rsa-sha256 header.s=sig1 header.b=iIZ5uQDk;
+	arc=none smtp.remote-ip=57.103.64.191
+Received: from outbound.pv.icloud.com (pv-2002b-snip4-11.eps.apple.com [57.103.64.191])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B330606A890
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:54:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B330606A890
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87BF5606A8A1
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:53:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87BF5606A8A1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=verdict.gg
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=verdict.gg
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=verdict.gg header.i=@verdict.gg header.a=rsa-sha256 header.s=sig1 header.b=nvxkrOpf
+	dkim=pass (2048-bit key, unprotected) header.d=verdict.gg header.i=@verdict.gg header.a=rsa-sha256 header.s=sig1 header.b=iIZ5uQDk
 Received: from outbound.pv.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-1a-20-percent-1 (Postfix) with ESMTPS id 5D2E01800590;
-	Tue, 17 Nov 2026 11:54:00 +0000 (UTC)
-X-ICL-RepId: 01a1e95b-58eb-79b4-bc29-3a631571c354
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=verdict.gg; s=sig1; t=1794916444; x=1826452444; bh=FfaegcM4A57BNyCt6xFHx30B4jeGSW9JyHGcmPfnxrQ=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=nvxkrOpfdUyekpUfBYIzSQ8RuDRRXWiZAtJ8VxzvfVjyHM4wIvcxbaROfXubZSsoFSDGcFhX1mRk81sUZxQKa+88RTY2FLhBqf9ehY4SryB7MrGklYvybJFsLHAYygKa8Pa3OwsHi5WZTZRbCyj6+36w+JJguz5tni2guNoVkdIjcZfuCiZTq57xIUI7bd2lTERd9XNnVYtwZH6OsiUoFfSH/C6Qco1savVYwPK4UkToBdTp2z/YbrUHXUEOXFeEd2iZRJXtpy3KWTshjwnNCgYkV6cXfp+fq3oGwY6n6ghOCwLJ1iUnI4HP/Iqe6ibB0ve0qIy2cbjTld1yfOWpkQ==
+	by p00-icloudmta-asmtp-us-west-1a-20-percent-1 (Postfix) with ESMTPS id 716CC1800154;
+	Tue, 17 Nov 2026 11:53:51 +0000 (UTC)
+X-ICL-RepId: 01a1e95b-3618-7ef0-9fd5-8f088efaaaa9
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=verdict.gg; s=sig1; t=1794916435; x=1826452435; bh=1mziqc7iCo3GycX+OIidCj8rWEHHQUb8Q9gKlOt9Y7A=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=iIZ5uQDkJt2upTptYptd1IRWEsFO0JCXSheQrzhXCVrvpBThideX3ch2bACvdIHhvLVB/YKOV5SzgqLrb+pLHNpALopZqMNo35tLCDrn71xdzGrtphxCsoETZJuBYio4DyMw0BkmC8dptazKHt9eK7hQQt8YWqhMFK1Gjnq6nnigTSgLgu51oFmllvCo/OyUuZl5dRbJph9woKpKw5ZoimsckdzwI04NAPcJVBuNcG/KYoJNbeh1WAq7InWiSPHiL3i5LMs00ZbOPYuzGntBFrFQVXVVJRV7t1dWV09u/boQbXflmcgrR/wW4Fb+a/hW2I8LsAiAnckvlSAU4M0NXg==
 mail-alias-created-date: 1621344842221
 Received: from DelNac.mail.msk (unknown [17.156.192.29])
-	by p00-icloudmta-asmtp-us-west-1a-20-percent-1 (Postfix) with ESMTPSA id AD6C2180020F;
-	Tue, 17 Nov 2026 11:53:55 +0000 (UTC)
+	by p00-icloudmta-asmtp-us-west-1a-20-percent-1 (Postfix) with ESMTPSA id C3A0C180020F;
+	Tue, 17 Nov 2026 11:53:46 +0000 (UTC)
 From: Vladimir Vdovin <deliran@verdict.gg>
 To: Pablo Neira Ayuso <pablo@netfilter.org>,
 	Florian Westphal <fw@strlen.de>,
@@ -67,9 +67,9 @@ Cc: Kees Cook <kees@kernel.org>,
 	linux-hardening@vger.kernel.org,
 	Fernando Fernandez Mancera <fmancera@suse.de>,
 	Vladimir Vdovin <deliran@verdict.gg>
-Subject: [PATCH nf-next v1 4/5] openvswitch: conntrack: do not record connections above the zone limit
-Date: Tue, 17 Nov 2026 14:53:07 +0300
-Message-ID: <20261117115308.95134-5-deliran@verdict.gg>
+Subject: [PATCH nf-next v1 2/5] netfilter: nf_conncount: check last_gc before taking list_lock in gc_list
+Date: Tue, 17 Nov 2026 14:53:05 +0300
+Message-ID: <20261117115308.95134-3-deliran@verdict.gg>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261117115308.95134-1-deliran@verdict.gg>
 References: <20261117115308.95134-1-deliran@verdict.gg>
@@ -83,74 +83,71 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: gPGlgoP6yisFV7EkyvXZSTS99B0aG4_r
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA0NyBTYWx0ZWRfXxxQQuCgtzCLi
- cViC6UHdfAJv/SfkAcCPyROaa1+/zFdpiL+aIv5bxD5U6yL9C19XIXbZGdoQL3dWSKwQ16aYW1i
- R/1whHiiWd310/MC3p98P+hzc3Fb+MNhG/XwBlW2aCHaHC3x6U4JZVi5B1ENDLVjtBsjRRXnh8I
- Dm90Jp+TUlUp+JGxIhgZOVkhVDjhIA4+cBzY6KxYRAulgf3qd2JUIzvP8bKWOvUNHjZ+AlgWnAG
- zdUdbPN2mn6DhmrNFzicXMM/oHviODvtkKkGXoNwoW4o8xmP/PHQVKkHMuiwoWIshRydN02QQji
- 8iX8s8QIMrlptepAhKS0CvjW9TDcVXLmxdHJoaDSdoQkVqWVirG1elj/zM2tDU=
-X-Proofpoint-ORIG-GUID: gPGlgoP6yisFV7EkyvXZSTS99B0aG4_r
-X-Authority-Info-Out: v=2.4 cv=ZMDaWH7b c=1 sm=1 tr=0 ts=6afc4059
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA0NyBTYWx0ZWRfXytRjcHo7NObN
+ tIX/HnUIUu4bNf9CbqNjLbaNwZamVCmpyV2d2Dica/V1niSBk+Ey4u0yrJQKp+y2t7XLBDYmUWJ
+ yL5Cu45iORtBBWGVz2zCWxJIatUJG7c=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA0NyBTYWx0ZWRfXyKylkw1SG2qi
+ 1jWJxbuWzUJOjvBv0MYpk/gtdFADoftxSXepvyfsiQztz2gcdABWINCgVnwqzupeY/RUUUGLmoy
+ rvbJutmnk93yaE8t7/8uWda0yyfeWX8Excs+5eNeuvr1f07LJ8Rgy/wdJuZZYmymrXg5lOktD27
+ +u/w9WxREIO0ic0EXym3O8hQ8NAhiucu57ZQBNq31TNOnNMaPG0nd52tKPm5EtzanhAQj7lQVey
+ YqJ0AOrjV+6sYS00ITXl/uOyDsq0DIpqpK3E/ypJosTqoIbYmEKzBVL2c6qJ31q9k2rNPDtgfVs
+ faonCpBfpd2tVd04IB0K6DHFe7WzlyE4NcuVjL020uG/YUskL0FO5HiquZRD2M=
+X-Authority-Info-Out: v=2.4 cv=CtMq4X4D c=1 sm=1 tr=0 ts=6afc4051
  cx=c_apl:c_pps:t_out a=aW9mcIavGNWWFvFFKOxBSA==:117
  a=aW9mcIavGNWWFvFFKOxBSA==:17 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=V9PnWA5gqNY3N47hGgUA:9
-X-JNJ: AAAAAAABtHZCfKoXD+vXwrUqDiN4CysCExAL7oe3ijLCb67KmOEACo/yHa5ev614U6Pnq1
- AdLbAaFLjfBWWWws91R0qvGqZOieVlOy+D7fLKq0Yq9XKSyBzTi2VBjfa1qUJuBY7q2CSq
- BQ1UOdViuulUVS3bbBPrwz4xi84o60kfPecStld+nmR5iwANESJs8/RFcduVZB6aFLrl2N
- RF7tL0v72PTw/lVIiit79qVKqPMaUJnkvp4OrGACBpYXLTMUmT5Ofxk1LC1gZSLM5+iaHt
- N1yYlv8Ptn5d+IZs4cGFVaXmvzbqddmwhISz43oJ3jIZMQhgd2LApnWRopj8xEH1fVzsY6
- dTwD7dfeZ0H8L+lD5Mjb9l5XXVLYFEk6PIqY9TFiBcx0TsjGQSQxHXbKAVZp6vE6e1A9Ib
- f6VPxoKwwZvtSFF+qWk+1yTZICuPUv44iGHn0bZEbh8DoOArLYSKSd3SfcL2609DlmNcUo
- utMdvh+shdAGkb4K1DqR0HLQxkqnRJXzffcmCIgp37qwvOj4CxafvxMtDCNptJrqg25TAa
- h4iyjGKIwSUhUOVLXBO0KFSx9+CE7FOFikUcHmpAn3Yu5HPrMf1Ktv1vu6VkvLbFFyPVrj
- 9tgbuyaRvCKZss33/1MNR9gaYckt+AuvF5I2TYUMsIe9XYenCvaN5dAzHJD9mQJ9mS/32W
- WA8+pTITUhPAVhGgJDz5IZp0fO9ChyF9A/+wGIBmJuekTz5hLlyAj0/lyHNl73jUdCvioZ
- RMY5iA3yIiu6pWcI1Q+cTj9MeJ7EYU1jBQgs0duEhB/ekGgCwO69p68UZwmDwIaHheMJv1
- 2w/j3oiWPxhDgrlP1OC7GyHATCXXHyXnGdfM6AbcBpCToubTML70WgTSC5SqO5spWltrFf
- ujcUyBlRr0VLYGeVFSj1eQih8MUwsueYMutYCSHqd6+nQpSWhgoHY2FUot0AEltvQFTWCh
- 6qzRp/CmtgjDRiy+abHzFjZ8
+ a=Lz8lNifEoAKVmCoaIBl5:22 a=zaE7u2tvhngv6054aE9a:22 a=fToKmBgkPectip-2dAkA:9
+X-Proofpoint-ORIG-GUID: uhL8h6THw53LEpvX-W2BxRDsTORi6KqC
+X-Proofpoint-GUID: uhL8h6THw53LEpvX-W2BxRDsTORi6KqC
+X-JNJ: AAAAAAABcM0dWPpN9O6S6SJnrOu62RmtpkBYygQC8UKav6WZDbCEid1GDx9kXKHM9M5vVK
+ GEP0fWwuV8rCjDFahqalPj1NOssu1h5jTbqZ8DxNVwyhhk6mvP5Lrl8dygyfcloAZC4lus
+ qDP/tsobOxG8m4KlqCePJNVEwPTnNGs5y10bDGJjDyj+44xb1Fyuqyq3t9qMOsIZjUkeLq
+ A2y12wgZ9LN9Ts6RGGNVC+JOl694JmLaz8xPobul5U5HMlVSZryY1J7njxuExULj9Vhp1w
+ B2u6AxWtyLxEq0+MzjmN6CjeOsgn9047sxQnnp6k1pAiDf2Wl89hcn5/PCE74sqlMLzkO9
+ juC2BnSqWtrl6Pqb0d37JSCY8+AX3AhUl5NfXizWVdG749BZ1d/T2CU6t5JMc8l79+zJEV
+ vX5fQaLMfnP07fmahmqVNNHY7iMURMVXSnpNZGeYjFYWLo7OmuVZ1Wjm2OQDeVjW1cdf/O
+ 2SJHCU7qNj7x9wUj5ia+UqRDcWqKuIUFZ3KXwDQtQAJD3oNDisCTHpg2FsBAYaXbz+YE+r
+ 9K7Pe2FWy+LoZJtbpZLl2r+Jy8WkCL8gUtQ3o9Ci3io3u/+JUy84opRcJ0CG90JMUbUoNk
+ VgUtqFWQa/+GOd7uTcikEDmaMOeQh18JxY6jwPugX1cXMaAeurI6gHHwXWYtuFbHwMX8wP
+ iXX2uw5pW1vV/YOPlRr4Xaq+D1gDkbvEsXwEXt7Y2XOCIYFon7WA3zatID3zQN/g7o57HO
+ MyGUGaYPD1UdAMAEetLgf9kDhOHtUEtIfgeHPxLUw/YcVSj+XetF3ULUzywLAfDsrelBnj
+ GV6bTqXbUo7KWcmtKSbTcMrboDKFcJDlLp/ktVedTisqkdONELNBGXvBytxNY3qJCbRSKg
+ V2mIZmpTRVfOPyTnOkRE9caIx8eJsgWeZSvm5EqgmRUW/xjdRPWxnA/IHA5CgNzlQFf+59
+ gMpn5bU6PWQLEK4V
 
-ovs_ct_check_limit() records every new connection in nf_conncount and
-only then rejects it when the zone is above its limit. Recording means
-taking the zone's list_lock and walking the list for gc, so above the
-limit every rx cpu serializes on that lock for every packet, to add an
-entry that is rejected right after and that gc has to evict later.
+nf_conncount_gc_list() takes list_lock first and only then finds out,
+in __nf_conncount_gc_list(), that gc already ran during this jiffy and
+there is nothing to do. The trylock still writes to the lock, so every
+caller contends on it even though at most one of them per jiffy does
+any work.
 
-Look the count up first. nf_conncount_count_skb() without an skb does
-a lockless rbtree lookup, runs gc on the list if it has not been done
-during this jiffy, and returns the count without recording anything.
-When the zone has no room for another connection, reject on that
-count and never touch list_lock. Below the limit the connection is
-recorded as before, at the cost of one extra lockless lookup.
+This matters on the count-only path of nf_conncount_count_skb(), where
+the lookup itself is lockless: when many cpus query the same list at
+once, the gc attempt is the only thing they serialize on.
+
+Read last_gc before the trylock and leave early. The check under the
+lock stays, as it is the one that decides when two cpus race for the
+same jiffy.
 
 Signed-off-by: Vladimir Vdovin <deliran@verdict.gg>
 ---
- net/openvswitch/conntrack.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ net/netfilter/nf_conncount.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/net/openvswitch/conntrack.c b/net/openvswitch/conntrack.c
-index d3326edcabf7..e78a62cec051 100644
---- a/net/openvswitch/conntrack.c
-+++ b/net/openvswitch/conntrack.c
-@@ -955,6 +955,17 @@ static int ovs_ct_check_limit(struct net *net,
- 	if (per_zone_limit == OVS_CT_LIMIT_UNLIMITED)
- 		return 0;
+diff --git a/net/netfilter/nf_conncount.c b/net/netfilter/nf_conncount.c
+index 84290e363245..be9e395e25b6 100644
+--- a/net/netfilter/nf_conncount.c
++++ b/net/netfilter/nf_conncount.c
+@@ -382,6 +382,10 @@ bool nf_conncount_gc_list(struct net *net,
+ {
+ 	bool ret;
  
-+	/* Nothing is recorded while the zone has no room for another
-+	 * connection: a lookup without an skb is lockless and only runs gc
-+	 * on the list, so the count keeps following the real number of
-+	 * connections while new ones are being rejected.
-+	 */
-+	connections = nf_conncount_count_skb(net, NULL, info->family,
-+					     ct_limit_info->data,
-+					     &conncount_key);
-+	if (connections >= per_zone_limit)
-+		return -ENOMEM;
++	/* don't bother if we just did GC */
++	if ((u32)jiffies == READ_ONCE(list->last_gc))
++		return false;
 +
- 	connections = nf_conncount_count_skb(net, skb, info->family,
- 					     ct_limit_info->data,
- 					     &conncount_key);
+ 	/* don't bother if other cpu is already doing GC */
+ 	if (!spin_trylock_bh(&list->list_lock))
+ 		return false;
 -- 
 2.56.0
 
