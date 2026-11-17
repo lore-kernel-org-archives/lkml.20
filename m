@@ -1,67 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794929253;
-	b=uUFo4TZzr9TitONO6RfeHwCWr7uMjtccHfZPqW/Nk0hEZUW0Cv/rGkgxVn+a4e2/v3h+
-	 3YHXm/jba3CG9/hs9Pfp1BCPEp7VxoGE0Wzw1fq78EGy7sbvOPxLKKSiUAo8toCT6jaLA
-	 XS5Eur+C2VVpAk+dSoVaaL0iEldbymCppC84cZwj10bQyMO3F4zmjDw2VhHUZZJ1n6g5O
-	 GMblh9vGNB4QgoZa4F/xOsgEiIAs4QLuAz638+Xfu/ofG5ipRI02KZe4vN+ze+XOalvxF
-	 Xza3bsA/8QgXeWgCPjpDeL/Xm8Ke0+saQBk9SuD9UaDJHtTdOXunEf9CZFddeH+lHwA==
+	t=1794929310;
+	b=5W58SnkD7rr5TaRJbC0SkVP8d+OKdwJPYF0+82kl/WXUYrFVaY7hzvU/XpyMQzUhD8Si
+	 P9NI3AGSNmFPfvSXQUPjfOe2HkfxnsdWTj8OXr0Fu1t7D+TWfH2Q7GZh+wxQGSRI51f8N
+	 hy5WGNT96+FqJupTtsAlGVrhgPnuePgSqPo+EbI+34x903Ul6zpkKFgUleFc1WXQ7kpNr
+	 grPupR3uhe4pshUMLKRrzjkF60BezCPD0Qo6HkrQpOngb9209ny5VN7DKWflKj+a4zqja
+	 3fe42qdeyBN52RGicrO3fIg6ze7OzEr5Q2OPeXWeN3MPLBolEsDGqIXh8AS5Lbs2YLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794929253;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=l4kzxy4albyO98WwOBZXJVKpWzM9+D04m4bfPA15zDY=;
-	b=2+ykYK0BpHQoPcKpxnPHC7jZbrUvtQL7V+t7x/MYi+0zL1UHJ+kjImU8g9I71GebmsNM
-	 7q+XKR0ZvDPvS7x7jQqO5s/LIkEvG+mb1Ttm1In4sI6oZOgpwts7quQ+nlinjPMnPDu3z
-	 GV4XuzAaNCc+ygC79UXUpzgEIzqNeDRPPv4nT6mOK6mz8kBNikHLqsdk3Nw7lXRumsqJn
-	 yuEoYkeVsBFCp1GvdSv8intkNKRrpFLAbv8ZmWGBK1xhNrQszrrVpv5MrRWgAv8pF1hkr
-	 wnuYT94w9JBQMMXf6ayAI/Ln+ar9R3Vq7dA/7xxveZUxZpXMoVVQ5i5G/uLfoOk/PxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794929310;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type;
+	bh=eabcSSyR8dinR+klZl3/g1Fw10Duq9Lg/6T5SwUMuWY=;
+	b=N2WsTFXVPBHoltKNn9jfrW5tnk8M1t4L2gqUpEV0lP0Mv9ojxCY3S9e2i+lP1G1WskY/
+	 5eUO0vM2U/howQjTnyw3y3tDssVWk2kDs6lGsvkP5yyD6KP0COXbxsMoMb6/9XtNN52jK
+	 EAoR7F65yO9HSdB1mb4kyXY/wXlhWXPMyyOrq/5cLShp3/bdutfppvxcb33yAkbKYuI89
+	 V4NjNG0TzoD8Zk8sQAWgtbxyDqE1/qpJYVBGgZTcUJZ1Ub8XwKpex4FEXLSnaIwxFEgK2
+	 JtUBXft5yURC1xvZcqA39ca/clj7p3Gb658hb78EneYmfkH5+v1pTeDlD+p0aBNqIQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=h5UzsDob;
-	arc=none smtp.remote-ip=95.215.58.200
-Received: from mta1.migadu.com (out-200.mta1.migadu.com [95.215.58.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SptBZ+49;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C41E4606A331
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:27:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C41E4606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B167B606A31C;
+	Tue, 17 Nov 2026 15:28:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=h5UzsDob
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=3DZUeKMUOesEs+VwJerrWYpQyTXZPxx1uu0Yj7Mba8c=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794929249; v=1; x=1795534049;
- b=h5UzsDobXwTdLcbljCOBYaFYe87J13FwSkJD2aGzkcv+2XqnzwXyDGydEwSXrufOUaP5oqkS
- z/SKecSF9gV9vGjJqfqLe1YwTbDObJ6BZM22SciWiF89sfNdFEdbFCYvV7HkfmAdW8cbYlQe3od
- sZ5tja/+ce3xFBWIo5qmHSfM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id fd11db2d7b1f8f56;
-	Tue, 17 Nov 2026 15:27:29 +0000
-X-Mizu-Trace-ID: fd11db2d7b1f8f56
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 17 Nov 2026 16:27:28 +0100
-From: Luka Gejak <luka.gejak@linux.dev>
-To: =?ISO-8859-1?Q?David_H=E4rdeman?= <david@hardeman.nu>,
- Ping-Ke Shih <pkshih@realtek.com>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Leonard Lausen <leonard@lausen.nl>, Alastair D'Silva <alastair@d-silva.org>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Bitterblue Smith <rtl8821cerfe2@gmail.com>
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_rtw-next_0/5=5D_wifi=3A_rtw88=3A_sdi?=
- =?US-ASCII?Q?o=3A_faster_and_fairer_TX_for_the_88xx_chips?=
-In-Reply-To: <avxoWTaI2G8aklLk@hardeman.nu>
-References: <20261116190145.2736364-1-david@hardeman.nu> <4c0d81f7a207468d8bca3c3c1a5b8dc5@realtek.com> <avxoWTaI2G8aklLk@hardeman.nu>
-Message-ID: <03BBDDF6-2ACB-4B06-827D-69811DF5664A@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SptBZ+49
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A44711F000C4;
+	Tue, 17 Nov 2026 15:28:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794929310;
+	bh=eabcSSyR8dinR+klZl3/g1Fw10Duq9Lg/6T5SwUMuWY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=SptBZ+49ZOIkxFB04dM1CXWSnEFLFmyyRgTzudB0TYtbzjO6UjAk1s/fFk1zbwel+
+	 OC5NmWdNbTUVbBGwLAiA5GBxSwadyrnVZ43vzoIeUK/HM1zRS+C9n40vSwEcL3RJnA
+	 qRNMQvUCkt05yw5Ta6Tn8gusgAPRy8TDhbEPdmWMWUqxYByTM6dLKi0LWS6doxMDlb
+	 tH5Wr+iYFybXMvmsChF+zvDtui/7y/ZZzv7+VFj8oqKZQwen7LdUDaUtkUDGZG9zY5
+	 yJBV/PaeEOfBPYg5aaDU/vTD1tSMUhEi/H9Xvhk/ZutbqDLWIdIEiIRRYSsUrLiXNs
+	 l5qQuBZ8z6F4g==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Tamir Duberstein
+ <tamird@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng
+ <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn?= Roy
+ Baron
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Alice Ryhl
+ <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich
+ <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>,
+ Alexandre Courbot <acourbot@nvidia.com>, Onur =?utf-8?Q?=C3=96zkan?=
+ <work@onurozkan.dev>,
+ Matthew Wilcox <willy@infradead.org>, Andrew Morton
+ <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R.
+ Howlett" <liam@infradead.org>, Harry Yoo <harry@kernel.org>, Hao Li
+ <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, David Rientjes
+ <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>
+Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH v5 09/12] rust: mm: sheaf: allow use of C initialized
+ static caches
+In-Reply-To: <0082d06b-381d-4001-9ea6-cd3217e437dd@kernel.org>
+References: <20260902-xarray-entry-send-v5-0-d18adae40708@kernel.org>
+ <20260902-xarray-entry-send-v5-9-d18adae40708@kernel.org>
+ <0082d06b-381d-4001-9ea6-cd3217e437dd@kernel.org>
+Date: Tue, 17 Nov 2026 16:28:15 +0100
+Message-ID: <87fqwzv5o0.fsf@t14s.mail-host-address-is-not-set>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,62 +73,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Hi David,
+"Vlastimil Babka (SUSE)" <vbabka@kernel.org> writes:
 
-Thanks for your explanation, here is my two cents.
+> On 9/2/26 15:26, Andreas Hindborg wrote:
+>> Extend the sheaf abstraction to support caches initialized by C at kernel
+>> boot time, in addition to dynamically created Rust caches.
+>
+> Nit: in C code caches can be also dynamically created :)
 
-On November 17, 2026 3:44:41 PM GMT+01:00, "David Härdeman"
-<david@hardeman.nu> wrote:
+Right. But the Rust abstractions do not support interacting with those. Only
+dynamic caches created through the Rust API or static ones created in C
+are supported.
 
-> I did use a second AP as a sniffer, but it was too far from the R76S to
-> decode its VHT data frames. It did see the client's BAs, and no BAR from
-> the AP.
+>
+>> Introduce `KMemCache<T>` as a transparent wrapper around `kmem_cache` for
+>> static caches with `'static` lifetime. Rename the previous `KMemCache<T>`
+>> to `KMemCacheHandle<T>` to represent dynamically created, reference-counted
+>> caches.
+>> 
+>> Add `Static` and `Dynamic` marker types along with `StaticSheaf` and
+>> `DynamicSheaf` type aliases to distinguish sheaves from each cache type.
+>> The `Sheaf` type now carries lifetime and allocation mode type parameters.
+>> 
+>> Add `SBox::into_ptr()` and `SBox::static_from_ptr()` methods for passing
+>> allocations through C code via raw pointers.
+>> 
+>> Add `KMemCache::from_raw()` for wrapping C-initialized static caches and
+>> `Sheaf::refill()` for replenishing a sheaf to a minimum size.
+>> 
+>> Export `kmem_cache_prefill_sheaf`, `kmem_cache_return_sheaf`,
+>> `kmem_cache_refill_sheaf`, and `kmem_cache_alloc_from_sheaf_noprof` to
+>> allow Rust module code to use the sheaf API.
+>> 
+>> Cc: Vlastimil Babka <vbabka@suse.cz>
+>> Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>
+>> Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+>> Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+>> Cc: linux-mm@kvack.org
+>> Assisted-by: LLM
+>> Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
+>
+> Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-I think the closer capture would still help, with the data frames and BA
-bitmap for the same TID around a scan. The client trace shows what its
-firmware passed up, and the per MACID failure count does not identify
-which MPDU failed. Matching those to the air capture would help check
-what happened to the particular hole.
-
-[ ... ]
-
-> From what I understand, mac80211 can, but only if the driver tells it
-> which frame was dropped: the driver reports that frame as not acked,
-> with IEEE80211_TX_STAT_AMPDU_NO_BACK set, and mac80211 then sends a BAR
-> with SSN = SN + 1 (see net/mac80211/status.c).
-
-I checked the mac80211 status path, and it does send a BAR with the next
-sequence number for that QoS status. The current rtw88 report helper does
-not set AMPDU_NO_BACK, so requesting the reports alone would not exercise
-that recovery path.
-
-[ ... ]
-
-> I tried requesting that report for every QoS data frame: only about 7 %
-> of the requests were answered, roughly one per A-MPDU, and download
-> throughput dropped by about a third (~210 to ~140 Mbit/s). So per-frame
-> reports don't seem usable for this. A report that only covers the
-> dropped frames, with their SN, would be enough.
-
-One detail that might affect this experiment is that the sn passed to
-rtw_tx_report_enqueue() is a report cookie, rather than the frame's
-802.11 sequence number. It has six usable bits:
-
-        pkt_info->sn = (atomic_inc_return(&tx_report->sn) << 2) & 0xfc;
-
-As far as I can see, it repeats after 64 requests, and
-rtw_tx_report_handle() takes the first skb with a matching cookie. If an
-older request is still pending when its cookie is reused, a report for
-the newer frame can complete the older skb.
-
-Was the 7% figure from raw C2H events or from completed skbs? This would
-affect frame attribution, but would not explain a shortage of raw C2H
-events. Maybe a short run with one request outstanding at a time,
-logging the cookie, QoS TID and seq_ctrl, would help check that part.
+Thanks!
 
 Best regards,
-Luka Gejak
+Andreas Hindborg
+
+
