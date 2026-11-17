@@ -1,47 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794919965;
-	b=bDukq0C7JWSXI1hEfg9VpSu5O6EIXE3d6FGdDMf/bfMfb0CVYqgAnXCBYRnnjtPeMYA1
-	 snNEqvAwYyc0og+M7aHfFdUuan9COXgsdO5Vg8huu0U9A4gpy9LJknjNTK3zKh5BLIPe+
-	 PYhAbKwsJQte0KwxFzMG/6/nbt10OJbqRkiuzEpMxIdj9x/UddsnYASeccO2LGjboEU1Z
-	 IKmV2iIqe6HqVIv3PFWm71SqBZyDxFSV7BkPU8UR9N3cTXszOHYX3TE7qNo8ID77IrRRR
-	 xuvuN5IWbuWm6m1R86D1kHoA6djDKHncmjFN53hdInuA2xZi6z59BB6DVrleDsDjD5g==
+	t=1794919967;
+	b=TdQEbBm0sfBbJSoIM8wGbwZ//zgwQXy8TLrcmSJZ8eMDeblUx5zCLYuOaqUQpG+kGCjA
+	 ZgOaBGhMRVrpSN8YeOzEwge0Gjn2UyeP5tuih5YwXD4pi4ZNzzt1kh0vMu1dcGQPc+ryU
+	 V/C/d6iwqn8Bh+YYw50Tz0Qu6LOCSegTHVphsZTjw3i2D1P/WOk8UR2daKmj/2nNE3Vrz
+	 P0BRZ+RI7r6+9DQ5jddTCNsz/RWZaUx4oRw53NVVsUppYL8EtQfVTSQPOWP16URcKTNYx
+	 fq3G6ifVOebQVRoemALntWbnXSuKgJ2z4WhjmeiCqaer+Glfrbc7UOb9OhkLYWSSEnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794919965;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=6o7TDKHkFTQmT81k6n559xmxvDMTMHvxHuzIWW6x61g=;
-	b=OTN5ILHlnmgtKbuCKfp8vCwPEdUaQg6GdmVdtE85gb4L090ky5mCMquPQm/3P1vYh/oU
-	 JLKhhGCt1BWIUe1frIrfHOfx7k4Q8WReIpyKBC7HvCfUTmmyj7exWgYKcuAF2khYo11we
-	 rV7CBNeqpnFEH2Ysbs4LNY7AD89hdgS+I6YqWefAS/4K6iRazfTZA+aF1QeUrhZ9JfMoI
-	 Hs9kxN9Mk9tjLzz7ekqHRM6UUVHw+5w7bQVtYXzmHB5jFdfyPA1KB5k+7j0nw3O2iUN9i
-	 pvmH0Smup9d+QKqxEvvB8tbbTb4xrS6hsKfd43AFHG2LMcRRMtsL2UUakOPfjQMiBRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794919967;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=f6uY2JVEGVtzYN21lOZWPDHJr2zwjadsZxpjqzELALE=;
+	b=bzFIKAcTP9ctM2/slVksDBBCNizqqeBOMajk0bWNrUdek9hvR1FVrZPnQlORMLDXDpKr
+	 up7XGAYcVxj2ntUuceOtuVnjTOKz97zjVFX4TB0xxiIt3OP+hLlvmo45YP3NPqVKD3gjE
+	 wkIlFEUcnp6ZCDYQVSf8JPTN1RLWdMWLarSdQ30h4dWkT/+yvxR+VCEqlwq/qGCLG7dGT
+	 BDu1Bo43pSExlLWXqiwf29XCIkG9A2cDgykXEZHsrC3ErchHEPZjoDbXxxFEyQ9rI3rdn
+	 m+F/GM42qZgpTGHPML2xpTkI7xG2U/xOaJRtKsKIVlQDSfu/Dlbh907hof1p/kT+otA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=imuRLrSg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FRaYtQLS;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BD09606A338;
-	Tue, 17 Nov 2026 12:52:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EDD4606A886;
+	Tue, 17 Nov 2026 12:52:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EDD4606A886
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=imuRLrSg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77C541F000C4;
-	Tue, 17 Nov 2026 12:52:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794919965;
-	bh=6o7TDKHkFTQmT81k6n559xmxvDMTMHvxHuzIWW6x61g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=imuRLrSgXqkUdax43NRoAuK3Vpfg25+EvcIQ1nLwKxoCiVn1gGy9M+gLFAHP8JgQF
-	 cqiH91XQ9JiWpSbZlJdi6XiHyig75UmspQkg9AGvhtz4mG9RU4RrQyn+CWU9CbgTK4
-	 m5nh1f/C6sZw7/ikVovsaJQwKv1nPt45+TxGvt8BESnBXTwobjKxsC//R3NvMeRhtE
-	 UYPtzEIdYcmz07Zn0jGOqETJ2b7dO/j7qJWF+if4QhpBUFaDaiTVgOU7I0QLH+6H3/
-	 2yr53EQAvEH/87n2Dug+rFZxNbLTwKj6EPs9WT5XqTrcxgLYhY9DlBwnw8/43OhuRu
-	 Q7U5HD4vD48XQ==
-Message-ID: <3701981f-cdda-46a7-8079-de5479ae9c27@kernel.org>
-Date: Tue, 17 Nov 2026 13:52:38 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FRaYtQLS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794919967; x=1826455967;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=Q275WPfEwe6W7pcEp+TL6ULow3PdvnztyW6fJYb3THY=;
+  b=FRaYtQLSeV55XAtJxNULYjV1mmAF0Lh9R4lFMnhs+2emS3HjAt0Yj3Zb
+   nIJJZhCZILme7wKGL/F+IZ9tcNy+N0ShWUwjy37Fj6jLyNLvRCQtvoYcq
+   hPL3cmPiqC3Nuav0ITccL4fhxJ4DJVxTVshxTYJBM+Xk8UwSwTLHWfWeh
+   XW5vUICcVKMl9I90C6HUk7ey6QHOTm0M216J7OufW/4xFcDWzC50Z5CPX
+   vbgV/eds5PzaqPzyiez9bCWwABj+yzr8h+x9QCC0YdA9mxO+aeUCf15na
+   +s8ckhnZvClXRF9Y59uM+QX+DcTyu7K+H2KAjRo8HUJvCIRKrtWJXkvqs
+   g==;
+X-CSE-ConnectionGUID: 1ppKtCJ6QdeE8vyccUo15A==
+X-CSE-MsgGUID: yJ6j8ps9QguoxbmaoM7e3g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3586370"
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="3586370"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 04:52:46 -0800
+X-CSE-ConnectionGUID: zt3FFLAASBSXX040rUVezA==
+X-CSE-MsgGUID: c+7/hjrnTf+VX3mUHBpZ8w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="9768168"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa007.jf.intel.com with ESMTP; 17 Nov 2026 04:52:42 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id 3EBB499; Tue, 17 Nov 2026 13:52:41 +0100 (CET)
+Date: Tue, 17 Nov 2026 13:52:41 +0100
+From: "mika.westerberg@linux.intel.com" <mika.westerberg@linux.intel.com>
+To: Chunfeng Yun =?utf-8?B?KOS6keaYpeWzsCk=?= <Chunfeng.Yun@mediatek.com>
+Cc: "konrad.dybcio@oss.qualcomm.com" <konrad.dybcio@oss.qualcomm.com>,
+	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+	"westeri@kernel.org" <westeri@kernel.org>,
+	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	"YehezkelShB@gmail.com" <YehezkelShB@gmail.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"sven@kernel.org" <sven@kernel.org>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"andreas.noever@gmail.com" <andreas.noever@gmail.com>,
+	"matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+	"linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>
+Subject: Re: [PATCH v2 4/7] thunderbolt: add platform NHI driver
+Message-ID: <20261117125241.GA259790@black.igk.intel.com>
+References: <20261110114925.722014-1-chunfeng.yun@mediatek.com>
+ <20261110114925.722014-5-chunfeng.yun@mediatek.com>
+ <20261110143758.GC259790@black.igk.intel.com>
+ <2807832e631dca98846d201b571f623210820268.camel@mediatek.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,97 +93,192 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] dt-bindings: display: mediatek: dpi: Add
- compatible for mt8167
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
- linux-mediatek@lists.infradead.org
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>, CK Hu <ck.hu@mediatek.com>,
- Jitao shi <jitao.shi@mediatek.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260921113914.779393-1-l.scorcia@gmail.com>
- <20260921113914.779393-2-l.scorcia@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260921113914.779393-2-l.scorcia@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2807832e631dca98846d201b571f623210820268.camel@mediatek.com>
 
-On 21/09/2026 13:38, Luca Leonardo Scorcia wrote:
-> MediaTek mt8167 SoC has two Digital Parallel Interface (DPI) blocks,
-> one can be routed to a DPI display while the other is wired to the HDMI
-> block. They are not compatible with any other device, so add a new
-> compatible to describe them in the device tree.
+Hi,
+
+On Tue, Nov 17, 2026 at 12:14:29PM +0000, Chunfeng Yun (云春峰) wrote:
+> On 二, 2026-11-10 at 15:37 +0100, Mika Westerberg wrote:
+> > On Tue, Nov 10, 2026 at 07:48:52PM +0800, Chunfeng Yun wrote:
+> > >  
+> > > -void nhi_enable_int_throttling(struct tb_nhi *nhi);
+> > >  void nhi_disable_interrupts(struct tb_nhi *nhi);
+> > >  irqreturn_t tb_nhi_isr(int irq, void *data);
+> > >  irqreturn_t tb_ring_msix(int irq, void *data);
+> > > diff --git a/drivers/thunderbolt/pci.c b/drivers/thunderbolt/pci.c
+> > > index 9379c598a221..698f47ec63da 100644
+> > > --- a/drivers/thunderbolt/pci.c
+> > > +++ b/drivers/thunderbolt/pci.c
+> > > @@ -736,4 +736,5 @@ static struct pci_driver nhi_driver = {
+> > >  	.shutdown = nhi_pci_shutdown,
+> > >  	.driver.pm = &tb_nhi_pm_ops,
+> > >  };
+> > > +
+> > 
+> > I guess this is unintented change?
+> > 
+> will drop it
 > 
-> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> ---
->  .../devicetree/bindings/display/mediatek/mediatek,dpi.yaml       | 1 +
->  1 file changed, 1 insertion(+)
+> > >  module_pci_driver(nhi_driver);
+> > > diff --git a/drivers/thunderbolt/platform.c
+> > > b/drivers/thunderbolt/platform.c
+> > > new file mode 100644
+> > > index 000000000000..3562b6c7ea7d
+> > > --- /dev/null
+> > > +++ b/drivers/thunderbolt/platform.c
+> > > @@ -0,0 +1,172 @@
+> > > +// SPDX-License-Identifier: GPL-2.0-only
+> > > +/*
+> > > + * Thunderbolt driver - NHI driver (Platform bus specific
+> > > implementation)
+> > > + *
+> > > + * Author: Chunfeng Yun <chunfeng.yun@mediatek.com>
+> > > + */
+> > > +
+> > > +#include <linux/acpi.h>
+> > > +#include <linux/interrupt.h>
+> > > +#include <linux/errno.h>
+> > > +#include <linux/of.h>
+> > > +#include <linux/platform_device.h>
+> > > +#include <linux/pm_runtime.h>
+> > > +#include <linux/pm_wakeirq.h>
+> > > +#include <linux/slab.h>
+> > > +
+> > > +#include "nhi.h"
+> > > +#include "tb.h"
+> > > +
+> > > +static int nhi_platform_init(struct tb_nhi *nhi)
+> > > +{
+> > > +	/* avoid device link fail for pcie tunnel */
+> > 
+> > Do you have the ACPI _DSD there in place? 
+> Yes, we use the same uefi as WoA which pass Windows HLK and usb-if
+> certitfication
 > 
-> diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,dpi.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,dpi.yaml
-> index eb4f276e8dc4..6cd96a5cd4ae 100644
-> --- a/Documentation/devicetree/bindings/display/mediatek/mediatek,dpi.yaml
-> +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,dpi.yaml
-> @@ -21,6 +21,7 @@ properties:
->        - enum:
->            - mediatek,mt2701-dpi
->            - mediatek,mt7623-dpi
-> +          - mediatek,mt8167-dpi
+> > Then I don't think you need
+> > these. And "pcie" -> "PCIe" everywhere (except in code).
+> ACK
+> 
+> > 
+> > > +	pm_runtime_set_active(nhi->dev);
+> > > +	pm_runtime_get_noresume(nhi->dev);
+> > > +	pm_runtime_enable(nhi->dev);
+> > > +
+> > > +	device_set_wakeup_capable(nhi->dev, true);
+> > > +	device_enable_async_suspend(nhi->dev);
+> > 
+> > I also suggest not to enable all the fancy power management until you
+> > have
+> > the basic stuff like tunneling fully functional.
+> I'm not sure understand what you mean.
+> 
+> if you mean the function test:
+> I already test usb4net, usb3 tunnel, PCIe tunnel and dp tunnel data
+> transfers, and also runtime suspend/resume and system suspend/resume.
+> 
+> if you mean when to enable pm:
+> do you mean enable pm at the enable of tb_nhi_probe()?
+> 
+> +	pm_runtime_set_active(nhi->dev);
+> +	pm_runtime_get_noresume(nhi->dev);
+> +	pm_runtime_enable(nhi->dev);
+> 
+> these three line shall be put before nhi_select_cm(), otherwise, it
+> fail to link PCIe devices, and I will check it again.
+> 
+> +	device_set_wakeup_capable(nhi->dev, true);
+> +	device_enable_async_suspend(nhi->dev);
+> 
+> these two line can be put at the end of probe.
 
-Turns out you bring here undocumented ABI. NAK.
+I meant device_enable_async_suspend() it's not stricly required and we
+don't do it elsewhere so I would leave it out now and then add it
+everywhere later.
 
-Best regards,
-Krzysztof
+> 
+> if you have any suggestions, please describe more details, I will try
+> it.
+> 
+> > 
+> > > +
+> > > +	return 0;
+> > > +}
+> > > +
+> > > +static void nhi_platform_clear_wake_irq(void *dev)
+> > > +{
+> > > +	dev_pm_clear_wake_irq(dev);
+> > > +}
+> > > +
+> > > +static int nhi_platform_init_irq(struct tb_nhi *nhi)
+> > > +{
+> > > +	struct device *dev = nhi->dev;
+> > > +	int ret;
+> > > +
+> > > +	ret = devm_request_irq(dev, nhi->irq, tb_nhi_isr,
+> > > IRQF_NO_SUSPEND,
+> > > +			       dev_name(dev), nhi);
+> > > +	if (ret)
+> > > +		return dev_err_probe(dev, ret, "request irq
+> > > failed\n");
+> > 
+> > failed to request interrupt
+> > 
+> > Please be consistent with the rest of the driver.
+> ACK
+> > 
+> > > +
+> > > +	if (nhi->wake_irq) {
+> > > +		ret = dev_pm_set_dedicated_wake_irq(dev, nhi-
+> > > >wake_irq);
+> > > +		if (ret) {
+> > > +			return dev_err_probe(dev, ret, "set wake
+> > > irq %d failed\n", nhi->wake_irq);
+> > 
+> > Split this into 2 lines.
+> ACK
+> > 
+> > > +		}
+> > > +
+> > > +		dev_info(dev, "wake irq %d\n", nhi->wake_irq);
+> > 
+> > Remove this. The driver should be silent when it works. You can add
+> > debug
+> > but I don't think this is useful.
+> ACK
+> > 
+> > > +
+> > > +		ret = devm_add_action_or_reset(dev,
+> > > nhi_platform_clear_wake_irq, dev);
+> > 
+> > Can you pass dev_pm_clear_wake_irq directly here?
+> 
+> the parameter type do not match which cause build warning
+> 
+> kernel/mediatek/drivers/thunderbolt/platform.c:8:
+> kernel/mediatek/drivers/thunderbolt/platform.c: In function
+> 'nhi_platform_init_irq':
+> kernel/mediatek/drivers/thunderbolt/platform.c:53:53: error: passing
+> argument 2 of '__devm_add_action_or_reset' from incompatible pointer
+> type [-Werror=incompatible-pointer-types]
+>    53 |                 ret = devm_add_action_or_reset(dev,
+> dev_pm_clear_wake_irq, dev);
+>       |                                                    
+> ^~~~~~~~~~~~~~~~~~~~~
+>       |                                                     |
+>       |                                                     void
+> (*)(struct device *)
+> upstream/k7/kernel/mediatek/include/linux/device/devres.h:283:41: note:
+> in definition of macro 'devm_add_action_or_reset'
+>   283 |         __devm_add_action_or_reset(dev, action, data, #action)
+>       |                                         ^~~~~~
+> upstream/k7/kernel/mediatek/include/linux/device/devres.h:271:73: note:
+> expected 'void (*)(void *)' but argument is of type 'void (*)(struct
+> device *)'
+>   271 | static inline int __devm_add_action_or_reset(struct device
+> *dev, void (*action)(void *),
+
+
+Oh right it has different prototyp so you need the wrapper. Then it's okay.
