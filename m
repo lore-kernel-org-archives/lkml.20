@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794899229;
-	b=QmAoZl6EyaK4TL4kPcqw09cOYPxuUSlImtOGSu0gKsQ9hDavQn/22ygT1l+L/Ke9r9rY
-	 plK4U/iHg9z46jgdaO/nvt8pydxzmpAKoeSD5+1v2A+BEJgaq3+X9lp+3/nz43nEX70Ls
-	 1GqT7COMbsIQLBDQhVPt4T9sQe+Me0FGUeU6CmUr0T4HV0iNm365qKV6zZALkrkuRU9ae
-	 JhzShVnZR4MX89e4z/c8NGE63E5N8AiFTB7fkkVi25z2OwUcF1gsPQUhHoiLzUuT4ybG/
-	 JF5QQ9+IDoaqi8leAPxKLddaHO6PYgRJTllR64+3iPUmPc9qkRJM29qzxqSwPTtU0Sw==
+	t=1794899233;
+	b=ntePAn7HHMcKSOsO3AQphPmK/xpeoRcMf9miTXWTKWPG+qq0rzRCPnRJULsAzDla81kk
+	 KS/H+b7u7GZGa0cSCPWZHsxuI9XVO58lpHoW7ATkjOlaZgKIPhmSU9iTCyJIkB9plPlXJ
+	 g2P4kEECf3OKYnBBoRVorB+3UMYyfSU3GXnrKl1jhW1/yMJfkdyLFrfxd8bFuQIy6AcCT
+	 GTVNscJQR7ZL/8flVLMwFcQMgb6gzmoZoAx60cWn6WfGKjLDz7OvFoFthXqMDsOjAp+8Z
+	 heJGpJoulo2NMn20ndFHjQeOHCCZaRGpOuqZPE3RUt0R/vsH/r/go+9Nd98ATN0HdLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794899229;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794899233;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=In5XHn8tUjmrwGSxql+VVDMlJ1U6WaHJPkyrd9YfyY8=;
-	b=r6EWMSzl+e4uwmrvxXZT6MNv6RM2Q+3koWFTpkZB3KYIB8uCzPNxJhkbphkqSaVXnE49
-	 y5kLEd3fSLPUyu9pCN+mNqft3xULO5M8CTWr3dVYbj0rnlPSFaKWPt75CQ0VaiQsboShU
-	 CZz2dtgmX0YidqQzD8lj7YDYHjjGVwIQUksYmvUzJJrqpxFjBRvmvkExiUiWHf1U+bO7Z
-	 T1i/oniEv96PrCBwGMwJiQnD/1b8EJ/dtrovVa4EvMfMZDXt6z70O8DZbWwmP3m56K7/l
-	 pCgp8++Wskhn1tFsJNhtWFcZwcob5ALDHVDlSB7mjUr6p8xJ6OjXzyE7UQZO9aEPNBA==
+	bh=mTjrX8BPMgEQvF/l76KpwD+d59uY8XaGkIgLG0DayPI=;
+	b=r1AVoNzO/n6+GaAG+KPwhPKCTcGYSPLXkNYZh63OMz2GdurRduTYn5/Xe3euSd8V+633
+	 fQ9vNhEGzRQ5Gra74doIXkX0KTitPRBWtf88qplNYbJh7SOXcSwUcuHD3pDJgD1AMsL7P
+	 FpJ6ckBYdVxoKBNmmy24sCOINKvTGTFUHLuBjCPoMpqRV1XUrEWvb1WTElaRF/W7IHQuw
+	 KpbsFMiWE/8wZNXWxH9v7CUtJVOK0yfu6FlRPyThGVuFl2eS+XI0OHRtKENQrCjC2Lc5n
+	 kfhj9tfR23MhHJB2ObpH68qSpqvXfar6zCBmzOFDE9i4qy+MZELvxVZ9rOyCNNbNNUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=RpKDwRah;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=rYq6QArb;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EDDBB606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:07:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDDBB606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F191B606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:07:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F191B606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=RpKDwRah
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=rYq6QArb
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9E27B1688;
-	Mon, 16 Nov 2026 23:07:05 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6C1D21476;
+	Mon, 16 Nov 2026 23:07:09 -0800 (PST)
 Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D40553F882;
-	Mon, 16 Nov 2026 23:07:07 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A32693F763;
+	Mon, 16 Nov 2026 23:07:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794899228; bh=rSvlSIXr+wDtZe2exxPGHZkrukV+OXQGNowh+BkvXcY=;
+	t=1794899232; bh=rJVnBpFL56QP0tzbwghdHJEf9E+Td6sJ8tYNwYNyfgc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=RpKDwRahiZsvs5NYiVXBle9NMAptxzASgBjrEsOtbv2j12uijayfCF8G5LzpedR6X
-	 hwxBix7JkHGWE3238+qyf56bAhlEGeiko/kQ4tw6tnrP1PKUvJptKHjfjgWmc8S52H
-	 2qj6Vz1wFEM15r2AnKiOZOlMBY5d5KgPcdly8+B8=
+	b=rYq6QArbfWSLm8uS4OkY1zm8Ij6CSl/yN+vvIKSfIqJ+H9evA70BjDxNkdbkDldEp
+	 eXRqqVIRMJQMqFwLfnwstjodMH4kyKA1Ac5jzWKcjLNGqKROOSWRcuOro4tf7HXTU2
+	 HA2E7d0rj1VNO/iTkODSsEKMM85G5R99qliEUCJI=
 From: Anshuman Khandual <anshuman.khandual@arm.com>
 To: linux-arm-kernel@lists.infradead.org,
 	catalin.marinas@arm.com,
@@ -54,14 +54,10 @@ Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
 	David Hildenbrand <david@kernel.org>,
 	Mike Rapoport <rppt@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
-	Alexander Potapenko <glider@google.com>,
-	Andrey Konovalov <andreyknvl@gmail.com>,
-	kasan-dev@googlegroups.com
-Subject: [PATCH V3 12/14] arm64/mm: Relax KASAN shadow alignment for FEAT_D128
-Date: Tue, 17 Nov 2026 12:36:11 +0530
-Message-ID: <20261117070613.1183243-13-anshuman.khandual@arm.com>
+	linux-mm@kvack.org
+Subject: [PATCH V3 13/14] arm64/mm: Make ARM64_D128 selectable
+Date: Tue, 17 Nov 2026 12:36:12 +0530
+Message-ID: <20261117070613.1183243-14-anshuman.khandual@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261117070613.1183243-1-anshuman.khandual@arm.com>
 References: <20261117070613.1183243-1-anshuman.khandual@arm.com>
@@ -76,53 +72,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-D128 reduces the number of descriptors in each translation table, causing
-some VA size and page granule combinations that use two page table levels
-with D64 to now require three levels.
+All required changes are already in place including the TLBIP instruction
+support for enabling D128 translation. Just make this new ARM64_D128 user
+selectable, after ensuring necessary tools chain support required for the
+new instructions being used for D128.
 
-For three-level page tables, the PUD level is folded while the PMD level
-remains a real translation level. Hence, PUD_SIZE represents a root-level
-span. With D128, some configurations have a KASAN shadow region smaller
-than this span, making it impossible for both KASAN shadow boundaries to
-satisfy the existing PUD_SIZE alignment requirement.
-
-The KASAN initialization code on arm64 already supports shadow boundaries
-which are not root-level aligned, by installing or cloning the next-level
-table as required.
-
-Similarly for three level D128 page tables, relax SHADOW_ALIGN to PMD_SIZE,
-which corresponds to the first non-folded level below the root level. Keep
-the existing alignment requirements unchanged for all other configurations.
-
-Cc: Andrey Ryabinin <ryabinin.a.a@gmail.com>
-Cc: Alexander Potapenko <glider@google.com>
-Cc: Andrey Konovalov <andreyknvl@gmail.com>
 Cc: Catalin Marinas <catalin.marinas@arm.com>
 Cc: Will Deacon <will@kernel.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
 Cc: Mark Rutland <mark.rutland@arm.com>
-Cc: kasan-dev@googlegroups.com
 Cc: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org
 Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
 ---
- arch/arm64/mm/kasan_init.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ arch/arm64/Kconfig | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/mm/kasan_init.c b/arch/arm64/mm/kasan_init.c
-index f61f5bc09467c..e12abea6ad156 100644
---- a/arch/arm64/mm/kasan_init.c
-+++ b/arch/arm64/mm/kasan_init.c
-@@ -178,7 +178,9 @@ static void __init kasan_pgd_populate(unsigned long addr, unsigned long end,
- 	} while (pgdp++, addr = next, addr != end);
- }
+diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+index e54cff118f8a8..83faac63e5612 100644
+--- a/arch/arm64/Kconfig
++++ b/arch/arm64/Kconfig
+@@ -272,6 +272,10 @@ config GCC_SUPPORTS_DYNAMIC_FTRACE_WITH_ARGS
+ 	def_bool CC_IS_GCC
+ 	depends on $(cc-option,-fpatchable-function-entry=2)
  
--#if defined(CONFIG_ARM64_64K_PAGES) || CONFIG_PGTABLE_LEVELS > 4
-+#if defined(CONFIG_ARM64_D128) && CONFIG_PGTABLE_LEVELS == 3
-+#define SHADOW_ALIGN	PMD_SIZE
-+#elif defined(CONFIG_ARM64_64K_PAGES) || CONFIG_PGTABLE_LEVELS > 4
- #define SHADOW_ALIGN	P4D_SIZE
- #else
- #define SHADOW_ALIGN	PUD_SIZE
++config CC_SUPPORTS_LSE128
++	def_bool CC_IS_GCC
++	depends on $(cc-option, -march=armv8.1-a+lse128)
++
+ config 64BIT
+ 	def_bool y
+ 
+@@ -2385,8 +2389,17 @@ endmenu # "ARMv8.9 architectural features"
+ 
+ menu "ARMv9.3 architectural features"
+ 
++config AS_HAS_ARMV9_3
++	def_bool $(cc-option,-Wa$(comma)-march=armv9.3-a)
++
+ config ARM64_D128
+-	bool
++	bool "Enable support for 128 bit page table (FEAT_D128)"
++	depends on ARCH_SUPPORTS_INT128
++	depends on CC_SUPPORTS_LSE128
++	depends on AS_HAS_ARMV9_3
++	depends on EXPERT
++	depends on !VIRTUALIZATION
++	depends on !UNMAP_KERNEL_AT_EL0
+ 	default n
+ 	help
+ 	  ARMv9.3 introduces FEAT_D128, which provides a 128 bit page
 -- 
 2.43.0
 
