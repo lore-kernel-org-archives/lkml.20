@@ -1,101 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.173
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794878344;
-	b=MT86HJ66VrPmZkPnxUSV39SFc03mu7Ged5XR3usc73XxjXfZQuxyBWLxrqdoB74U45C0
-	 W9JTXn+Ec/lu3iCxXJvToKZem+EukG+VrrGvbirGqDkOHALdk029bbE8JHE6SXRnpFdRZ
-	 c58i52BdEtt5q7ulSarxQNDARng+fAAepI5L37InxCa+mNEXsA3Ze6oi1i4ZfL/rgNzQt
-	 LQK+NoSZkFUjN2RSkEj6rf5+TkvEwmCCAjcrVnG5BRf4pVpe2lk4nEHsT6RYMs6M2Z1Ru
-	 V6iAjmRda+U3nFhAsHlPNdpLXwUbMU7IFLc6YBSmPUwTax8jiIeqMKIJ8VIw3nXcmxA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794878344;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.177
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794878400;
+	b=N4mt9ccnzOU9bkbLHhdFfZZnbk101RDP82NBOhPBJfhtAX1Fu3lY/TG2PBl1XF7hLTuf
+	 Ow++C/5SKpkR77MYunZe3ueeA3MBPEuGFg2DitGQB6dVMynN/AV88XQ4dQnL66NfILY+P
+	 U9LyZ10HM6bM2Rsobsadwx/3RNn2D+0rsIL25TWknBXy/dYBeG8NjeHpzKULbkmrAKdLa
+	 /7H8sKpaNeeM1JJ8gkbSrqj/DaGl4qI03mSGsTxWw/3t4zsliW8kyp/tps3FgDyJIxh6z
+	 nFQFR/5kJFG9ciczd+K0UcuthN0Qi0iH6yqKVHCz5cDmTw++GUMJ2ftj8swCq6Z2ZtA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794878400;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=0LMIhRKsAqf7tkHd6CvCf8vX+HRhhWOWmXfOlVGA7zA=;
-	b=UUL9arid3bX20RCG1k2Cf4GINk24tbDF0bLhetbDXk8gt8teVqQRu6uRxMxDQdZupj+A
-	 gLNx6hMrUOpzqozwB3JZd9KMySNPtu0zTWt9G9ONSfTJBGWE/dBvSAFPcnyAtxc+7zprX
-	 RYmoY7G7uTgI8w+RqnmX7UnsrqK2q/5/7n+ABIe90jeuBU+V/ZfySxjz1hbi2Dm1j0kdU
-	 q2SkffjbMFTAZ4BP6WWsnzVmQX6+t+ZKw7jCRWWVsqFWl8Nzg2Iwm+nnH4pIRszqy1SbA
-	 9R7Wha3qkrW/ReMuuHZJRf5DUh/nvaP8IZo8iOulVZFwwNrWxLPBINPUoRYBPN/eAnw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x1sKZPNT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.173
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=NVBsEmD16FpESz0NWKiu98OgFV5Vu9Lx16xH0y2alVM=;
+	b=lYFki5AtZ8PaEVjP1+CJ3YKva4MwaHcp5uoNW6Fpjy3/7/S4wpNo18x9zbcCNqieEvEY
+	 jL/JI29T8u1JFrr2a7M8dIl2wT9CQzBY0BjTWzPS/z+mPlzhoegB11NUqdmtKdx+GMqvU
+	 ptm2bZj7sgo8SpA63Bk1j03FqKgw/GUR9Fr0XrfWYNNltIW3ElRU+HLR3LO8v9LtLopQh
+	 A0eB57mEwY0TbavZH4lF0Fhp76I/umQVagbuBmoolREFTfHYF5ko9/i0QxbZwS2Xlxqfy
+	 hD8bSeOMbkWjTOIxAf5S6F9RLhm8zegOO34GOL8Z0/E9FaLxxmpr60HE1XRIytz959A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=XMdOkI8o;
+	arc=none smtp.remote-ip=209.85.160.177
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31B98606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:19:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31B98606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 667D1606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:20:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 667D1606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x1sKZPNT
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3ac97e45a79so36924331fa.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:19:03 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794878342; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Kt+SwJvJKME/Ck3exV58fHyl+kLVjd8USY9Tp4rMgasFH7jpiDZtTjzJd3NWFzaAbv
-         KDOYYNbJFT3KFDda07xpUCvOrn/NRBM2zhR1ye+/I5HuR+IPWR5gYG0vjRYt4yYwchr+
-         XLmbSbaN7yIyph2j6eehjVUgm1U4LxRNT0Et0CKJutzBRzeDJT7b6hNEBkK+jowQDsV5
-         zAUeRP2VYIMKJ0L4wHwgR1cERMqA9ElH+ndDWUn58kWHqQ3aSCb+4QH+MqkYGKQlCKas
-         z5G3JIqVaQYtDl7ihAUKcEyu8uJKgIh1/PWD5Afd+5pnkzaMJwuAcKzDqx6eCkepLYSN
-         SqYQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=0LMIhRKsAqf7tkHd6CvCf8vX+HRhhWOWmXfOlVGA7zA=;
-        fh=cZak7WtyyzJlYEEsg3itoVJPmg+4HknBcLb/Fi6hsqM=;
-        b=ocFCN4G+qe0+uYtL8lmO/CLGFt6gmyJa++t1vuOBL/oXwlQmvcynjn+eIj+pvD17av
-         jwDkiFkJO1M0GR+gJuD/DnTI0oSPmfzQEVl+rQZj+EOzI3qWMjh8xx6xOjx/9pxJHRd6
-         S4BB9UWCmPKqss2b2aoUFhDZxwdORI8dbY/D0JXIQ/e+lMe/ZnXulNJ30wobv5LzmHZk
-         rWGlvvyL4IQUZWramnRpG9Y10NBFLp14pPZFsZwl9S4XPcKCXWTZuGahWycTzkfutNbD
-         qjVa2NfSF3QYtGHo7NIbpKpT3vSUJdjop+L+7oJRaxsn1UAXP6sW79V4M1V4o85qcEDb
-         MHZA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=XMdOkI8o
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-5365f9a04c5so68263441cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:20:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794878342; x=1795483142; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=ziepe.ca; s=google; t=1794878399; x=1795483199; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=0LMIhRKsAqf7tkHd6CvCf8vX+HRhhWOWmXfOlVGA7zA=;
-        b=x1sKZPNTBgI+oXYSIw4eVifpFiIzZkJlL4rlZLx3kOxRYR2UD5N33hRjLk3va6Vsrj
-         M9A5MgvOKKavPDk9a3EXOmoKe/tmJ0kovYBdQCX9+eLE7X90MKvW1AMtuIb7sF+5akJd
-         JJtuZGABTZhSN5r20zZx2JzH5t/DK8GNah2osDJvVVL8U+jE/pLKRX3DPNnA0qupZ+O1
-         WPbReXb48AVxZRtZw2ExHTtIg2++XNad8/9TM6zOlytRNwQMEKZEO1lzJPotKKehBdV3
-         JTkVviZDn6hP39W6ZoVO2lcMAU+nNuJvYeVX0uAe9Wo760P6h0fjCoY9xcbjJX71Eetr
-         wBow==
+        bh=NVBsEmD16FpESz0NWKiu98OgFV5Vu9Lx16xH0y2alVM=;
+        b=XMdOkI8oRv9yndwLYEnZiOr0Ma2YO7IA2OOBjZYWiWLQJp5gvOdnwsbFXDAQQcgqWv
+         w/aVigQvQwDTfdMK0Qt8bq+LFQSbQSc9gfuar+GauP+XfkyKT8sHt1cW2BzBqX9moRn8
+         2Vt5o1IP4SiKywHbLmDQ/JU8E0BfHFBoWEzpUrsvAKrudo/2BQA+3RuALd0IBJNq80Df
+         yz4xv0pYNk/EV3UFxOLXtRUrQ2wBLJiyYdQOhZrwyaKA13Z4DpKH4ucU9bvBm9VqJ/fO
+         9Fgqr7SpBH+5WLdyt8Wo+DgXWDAGov/qP36rPnQRy5l0hpSKWRgNGxDeH6BbRdSPPdFm
+         tAOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794878342; x=1795483142;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1794878399; x=1795483199;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0LMIhRKsAqf7tkHd6CvCf8vX+HRhhWOWmXfOlVGA7zA=;
-        b=T/fJRyTWqkDs4npqRlReTlr745WHiRcJpG5g3Gaq0tl923gY5pJ7lHjRLMIuH7oOuw
-         UMJrXmQ+Xot46uhwxvzCYAbGyUPq8rRxZFHIGACMzAKgPtG7+LcfzC/3wU8gGEGxGHg0
-         p1HJNC1pbassWjMFdOUnqHqnq2FSpV+P/CRDdk3SXBuBs1wlHcca+8x/SZCV0jlNN+vH
-         theIjSiQanow3ZERlKPp82QQWaRcbo1RJaVVSK639BxociBhbh+zoh1QR9IHdeoy7Kpv
-         FkLDXNPiiaoZQ0wmUzNRB6nzTSs8SPYHqla/UECD43dfh2RX26mZyReeVyj8WgkrooSr
-         ymwg==
-X-Forwarded-Encrypted: i=1; AL+hErEA6E840jdw3Y2omyiNqo2DUCaYn3uIj449Kd0EtvTGMtRa6KNXXHK1J2Hd77+v6TWY5SVr/csBXA6wISU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+H/XEcXLU7B91KJnqserJIdgKqPCRcUWg197jDFzRUabS2lLuR
-	1sEj2V6nT9MDWnfxPDzFHBUyZ7Ts9+qJROHDGjyWQ7pfAX4HnGgqBnXvJtCHp/dOlZ3J7q67lVg
-	+Bf4OlQIRqmu4+la1E+4r4HVnKFHPKZs=
-X-Gm-Gg: AYBFou0UL3PfX2txeIS18uuHrUwZgA7ND4QxLkkuV4hjwgLpwAVTc0k804mBEl81m5F
-	abvBL5n8ylgcmGBKVxcpvgUy4xWmYLhyQnasLKlzEt5brZE3GOgpJmqASOZXmWRqkCWR7mGrnNa
-	ul65LtICOUN4xK7htg6H1oo0ygMup1rFd9FJrl8pJA5ZBtYf5Msb5BKDQNDep/FXDwZNPxqNFyt
-	9elnd2qOlixnY/nZLtxB9CzKsn3FluNezLDCUMvqxIjdap6Nu1X/ZS+6EeW4Y6gRbe+D9Q5zqSQ
-	8Zb4uPrCyHgAeArJGLLmBrlgpq8tYmr7bcYkzy8HQiXGG66Hxjd3QWqUgV7lB0gmoc6WEN5Zshl
-	Mf8kCnjtcan4B1p8v32XlwZXrJYxTYRanO+z+DpQmOY5U2l/Y17uZSH95L3MH7rLoWEs+bFsEjr
-	eu+ZxqW1h4G0jR3/NFnxl6f1uxfQ==
-X-Received: by 2002:a05:651c:41cf:b0:3ab:4f5e:3edc with SMTP id
- 38308e7fff4ca-3ae2b4f0263mr32473621fa.15.1794878341861; Mon, 16 Nov 2026
- 17:19:01 -0800 (PST)
+        bh=NVBsEmD16FpESz0NWKiu98OgFV5Vu9Lx16xH0y2alVM=;
+        b=1o/r7LGhPqjtK0rP43pSCb/jouqHKAUze8Ze7pzzhsgdNgPkZoglecESh/7xxqTEep
+         f5oc8UWaR4liSK1o3rzopM7pdBQgzSlMk6On9Jug1ZHARKpcl0wdm8kzz5jJgHrCmYhu
+         gLrA9j5NrmH85MvQEe+gjqqWKj/ZJmWwO/7knwGyEAQwDuK84mdx1NL7/CZQytHVR8oq
+         RxTu7i7YmUQF20V52DEBKrrQkZPW/tRKNw6Xx4O1F+LRFY4nGhWqQM6o3nMzFD8VKRDP
+         ftw91RU9siMkutew4B2gXcGVWmfB5SmK4VXQhO8Brmjkc8vBHjU3IJMeMxWISFwVNg/p
+         a1HA==
+X-Forwarded-Encrypted: i=1; AL+hErFzvlQlX8UFqjZDGVILEMOV6SbVT58KOsOZ5dXfu5703gtTLY1XiwkAIAJeTiVoIRu8ypv4MNP72SnUJOs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9lCg7w2iBXB4FyjYP9rw4ZklmAkpqO/OvEd4Du8x+YcVA4mYSF
+	P+MpGZCiDh0stBJPELEwRdz/iCtBx0uOP691hm7fJkoXTlr2+3po+RE6oy4nj1G1Z3A=
+X-Gm-Gg: AYBFou1+7hHrAX0PClISz+XDKSDeDejLi8tnoHuU544D2eeenUOKDhMftuO329GBZxB
+	ACx7V/DsLZrlsNvOjOlSh4kVx7B2AbtKvLqzR/md0Al9VUJcxDI9eUXMT5cswTh+pXAdCyjfQq+
+	WMu8aftUmRdZ3A7mPzxDPgKCM21ROpY2Gnsq1uVecEDh0GF2TPg9MgmR56563f4edxP1V8DYjF6
+	Yt1DL3hPAsygZe+OwhJpDZ0tNwwRaQHMee9spngEhVi4hhgnGOsIZW7ucirfwph0Q4lHSFcHvO3
+	Mwcz+l5cCav+jSUFjTiV5V2V63g4mc8h/rpt38qmsrOvDf0Swa5isRCzAWeAOOVQOLyezeYb6B+
+	klNHCEb9CODaKvFYleNNfHGpJ7VdYmLHmI5V21mjS+7ReQsPgHJt16jIP2yFhG7kJSeIj8jw9q/
+	Il92VZMlEnhGhjIaV+pxlu2KYfJZIjl2UI1Vwifmb6zx0XwcKv4ESDtm5rXGTI6m5PRN5APDLSQ
+	kqEFNfnatoXlrN9AUj/DAicNLWrPv3i0+zpxED3BsZIiVM+3MFzj+LhrXxu+KMgdBmxes9p0ihI
+	nH4Ys/7dxa6A5EKEFN0nOvCCde0=
+X-Received: by 2002:a05:622a:13c6:b0:55c:c7ab:4445 with SMTP id d75a77b69052e-55cc7ab469bmr135845571cf.29.1794878399070;
+        Mon, 16 Nov 2026 17:19:59 -0800 (PST)
+Received: from ziepe.ca ([142.166.156.71])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55ace25973dsm94741791cf.2.2026.11.16.17.19.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 17:19:56 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xT7rW-0000000B1jo-16pQ;
+	Mon, 16 Nov 2026 21:19:54 -0400
+Date: Mon, 16 Nov 2026 21:19:54 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Jiahao Xu <xujiahao@cmss.chinamobile.com>
+Cc: Kevin Tian <kevin.tian@intel.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Christian Brauner <brauner@kernel.org>,
+	syzbot+7666ed2c3d42196bf7e3@syzkaller.appspotmail.com
+Subject: Re: [PATCH] iommufd: reject mapping an iommufd file into an IOAS
+Message-ID: <20261117011954.GB2606445@ziepe.ca>
+References: <20261114004101.GE2532299@ziepe.ca>
+ <20261116113808.560717-1-xujiahao@cmss.chinamobile.com>
+ <20261116134920.GK2532299@ziepe.ca>
+ <20261117091333.399547-1-xujiahao@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,59 +107,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260311194531.70441-1-festevam@gmail.com> <177344689795.3706356.13043407533958417879.robh@kernel.org>
-In-Reply-To: <177344689795.3706356.13043407533958417879.robh@kernel.org>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Mon, 16 Nov 2026 22:18:48 -0300
-X-Gm-Features: AclHuK85a0wTDwYZkXytyVwys37e_78s3w7QVgGrJmJ9qPzFcQX4mkAQjyHnXmo
-Message-ID: <CAOMZO5BdxG2_raZ--ZrrTn=_i2HKTM=pCB0hWi4+CBRno3DGtw@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: net: wireless: marvell,sd8787: Relax length constraints
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: briannorris@chromium.org, conor+dt@kernel.org, 
-	linux-wireless@vger.kernel.org, devicetree@vger.kernel.org, 
-	johannes@sipsolutions.net, krzk+dt@kernel.org, kvalo@kernel.org, 
-	linux-kernel@vger.kernel.org, Frank.Li@nxp.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261117091333.399547-1-xujiahao@cmss.chinamobile.com>
 
-Hi Rob,
+On Tue, Nov 17, 2026 at 09:13:33AM +0800, Jiahao Xu wrote:
+> > And how do you let dmabuf go through?
+> 
+> It does not reach the check, dma-bufs are taken by the branch above it.
+> dma_buf_get() only succeeds for a dma-buf fd:
+> 
+> 	file = fget(fd);
+> 	if (!file)
+> 		return ERR_PTR(-EBADF);
+> 	if (!is_dma_buf_file(file)) {
+> 		fput(file);
+> 		return ERR_PTR(-EINVAL);
+> 	}
+> 
+> so with a dma-buf fd iopt_map_file_pages() goes through
+> iopt_alloc_dmabuf_pages() and the else branch with fget() is not entered
+> at all.  iopt_pages keeps pages->dmabuf there, with type
+> IOPT_ADDRESS_DMABUF, and never a struct file, so dma-buf mappings are
+> unchanged.
+> 
+> The shmem/hugetlb test is not a new restriction either.  The file branch
+> already ends in memfd_pin_folios() when the pages get pinned
+> 
+> 	nfolios = memfd_pin_folios(user->file, start, end, user->ufolios,
+> 				   nfolios, &offset);
+> 
+> and memfd_pin_folios() rejects anything that is not shmem or file-hugetlb
+> with -EINVAL.  The check only moves that rejection to before
+> iopt_alloc_file_pages() takes the reference, which is the one thing the
+> leak needs.  A v2 doing exactly that compiles and passes checkpatch, I
+> have it ready to send if you are happy with the shape.
 
-On Fri, Mar 13, 2026 at 9:08=E2=80=AFPM Rob Herring (Arm) <robh@kernel.org>=
- wrote:
->
->
-> On Wed, 11 Mar 2026 16:45:31 -0300, Fabio Estevam wrote:
-> > Commit 31ed9d9d71ec ("ARM: dts: rockchip: Limit WiFi TX power on
-> > rk3288-veyron-jerry") added calibration data for the rk3288-veyron-jerr=
-y
-> > platform. The commit message explicitly notes that "the length can vary
-> > between hw versions", as documented in the original text binding.
-> >
-> > The current YAML schema enforces fixed maximum lengths for calibration
-> > data arrays, which causes dtbs_check warnings for rk3288-veyron-jerry.d=
-ts.
-> >
-> > Relax the constraints for the two properties that have
-> > variable-length data in this platform by adding minItems based on the
-> > actual data used in the downstream kernel:
-> >
-> > - marvell,caldata-txpwrlimit-2g: 508 bytes (from rk3288-veyron-jerry.dt=
-s)
-> > - marvell,caldata-txpwrlimit-5g-sub2: 744 bytes (from
-> > rk3288-veyron-jerry.dts)
-> >
-> > The original maxItems values are preserved as upper bounds to maintain
-> > validation for other platforms while accommodating this specific
-> > hardware variant.
-> >
-> > Fixes: 25f855413885 ("dt-bindings: net: wireless: convert marvel-8xxx.t=
-xt to yaml format")
-> > Signed-off-by: Fabio Estevam <festevam@gmail.com>
-> > ---
-> >  .../devicetree/bindings/net/wireless/marvell,sd8787.yaml        | 2 ++
-> >  1 file changed, 2 insertions(+)
-> >
->
-> Acked-by: Rob Herring (Arm) <robh@kernel.org>
+OK
 
-Can you pick this one, please?
+Jason
