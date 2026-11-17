@@ -1,66 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794922660;
-	b=JOTr2fM9eDi9eU+SQIwoe6dtPFwvsVgLG7OjSRXoDGI853VpXJ+cfI/HTGHzdAXaXiL2
-	 Beszsflkd9NjxewYQ03yYZPHvMqxPeND9o4ZNnb2x2oNyxf/Wnb1LEW1Q/6i1rsrvYVte
-	 0aV1dJu2w1ns2UeBW7kZxIgN4YDmfJvd8rbQyAKrDM3Ei7YhORvbbAOafPTxkjVw7iqDV
-	 ZTj4pugxZ3sUjNVunvOSK6zNont4yRFIk8bOFzXA/FE3HRskSh8buKGskbjZAoRlDWNMi
-	 n7JmGK1vXf1l9+OHmmvYPWNr+rqSNoE2BRL9I2U006aWDdSvxJ+EbyBFdb/xBRBGrBQ==
+	t=1794922665;
+	b=G38yjNv3L/sqqPfCiXOIgLJHuFq53eJub+8+kxIVJg95IhKixYTXLG2x1AB7LRTbhR8d
+	 Zi6+17bjRqlL7qZdsLzTOrv+g28J0qyI5Isa2NGj6YNf1wIHoJ8xFmMCuT3gCFdKLP6vl
+	 jLAD8NHCUw+bMbb1K15LSpvE+i+nfvyhebxQOeSCvUubAX6Stt7c8NnKYmF53S4drQLWH
+	 n68pJvuSepJLHv8ENtVT02on9pOvcjNdA+SaUo81FIbK56WdRXFG5noKqcNEU29/OLpMM
+	 qDmElg3tMFMTPxBMszbm0hEE7XuxFyHyPzucwOyVP1ZHmSMP9ulubVSIl7w55pcl7lA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794922660;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794922665;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
 	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:X-Mailer:
 	 X-Last-TLS-Session-Version;
-	bh=kgJsbkSFQTg78psnMvY+98h+QUISiT6jPS3j4plTkYc=;
-	b=fyn58pp3crcQazHv1SAKU4T8zdxYA/Foow0IMrlkwSCebAnbO3AH5dWOKj4T0H8LM3me
-	 lc6O4bGr/Imzdq4dwL3v3p0Xrh1ATsXv/ltOk1wqrhXgolc4WuBqFoUmhxLON/ZZweDzD
-	 zFZnjUi4KWpo7SycYi6eUjCnqiwMcvVjQI9l9HHYZpZF2UYQFxldr//tqloqiY/pDsyIT
-	 FGMlBBr8kP9C0PcBSdBvSRp7T3kRD+4tB45naIgr9reKZknJcCnU296cac7UsvZqQfkW+
-	 NeWh6FB7AmJqoTLOJg1/KKJqMBoN4X6ajgdY3lmSICEE53VYsSDOmZ1TlttHw2n9eqQ==
+	bh=rnB0xV40D7sFrEbhmOXs6h8oLu3ZRD0P5eWWboGxYiM=;
+	b=xlLRo5v40uNwnsifHKounubbPId2oYs/tqudNtpvqRZMXQtgmk8NGj4lrozJ4ApCOTGL
+	 hMFhXW6jIf8GJqfwMoX8L59run14Pc2PIfs2uWQ5XImIsgpB5WMB+jWkPDqKmslLJphO9
+	 pJ1xTDzu35nw7adNSjV5x+SpjgkaUJayScjRPFpfPok1OTFiXfCmWmAEO+YYwr+kTL2H1
+	 HGvnu/PzbzupZnwDOLstSeonei+Kki1Wh5ugETGQEnkql7dMpjR054W5TSnP4d2cBEFuv
+	 XSmBJ1+i+CpBYR1sHAeTML3cNUXWTxsjJqiWlXze1pOa9B4nqugOBoI3j3Xi3ohLk9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=giVPhq7d;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=RyH6ZLwx;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59375606A33A
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:37:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59375606A33A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF531606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:37:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF531606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=giVPhq7d
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=RyH6ZLwx
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 039324E41578;
-	Tue, 17 Nov 2026 13:37:39 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id AAD4F1A1673;
+	Tue, 17 Nov 2026 13:37:43 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C39125FC81;
-	Tue, 17 Nov 2026 13:37:38 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BF44B11BC0035;
-	Tue, 17 Nov 2026 14:37:36 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 77AAF5FC81;
+	Tue, 17 Nov 2026 13:37:43 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 699A411BC0024;
+	Tue, 17 Nov 2026 14:37:38 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794922658; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1794922662; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=kgJsbkSFQTg78psnMvY+98h+QUISiT6jPS3j4plTkYc=;
-	b=giVPhq7dRdRoR06f4TC8RWqFklXoez/76s9uytQrMgIti7gQzK+1OGpYprp7nG50WekpZa
-	DMTMNw6uui4vy6Zlw49VDko3K9MkeEHexxRxqUGa75DaN7Vr59+KeCvBN8wc4y3qgfANXy
-	vf3+xYpftUopPOUNo9S77rJSh6KnCvmm6S35gk3w9c8PJGVe54Ors4jXAtxUJfOMQK1WdT
-	VDwoX56wXNRd2IBbo2tswuOwpkP5RPeIG49xWCR44IGWb3S1ZX9gO6oSg9WMTcSgxpZ99D
-	adIrhXGMwWcgLgdvNwEbxUrkjsaCGmwJYDbhSOTf8mIEI11TGdStSNWuzlvtJg==
+	bh=rnB0xV40D7sFrEbhmOXs6h8oLu3ZRD0P5eWWboGxYiM=;
+	b=RyH6ZLwxdVYvCSRenJ86aNLOsQnB5ocRCEdI9Q9aUJFAPjnYv8vO4b8b2eW93RjASqIzhu
+	g9Sm7ISduvfnA1vaziz5XqZ9X6DPbnR1j1h+VDrQehW/qVRN0tVxJTq0FT+NBRN62OayRO
+	SpyzTb8yrS/njFRR+HNVqlfKUiM+JrT/nESQfsCFvvaJ8K/rsOq7E+DLtRDI1J4nh3/kEf
+	CcDxMy3W/Hc71rGIBkSEoA+qavUpI/KavKP6j1tXi9IrNbBQGxeEXNmnbjV1Rncv9TMfZJ
+	OHn/efXYZYeDfXZuTAJANjvx/zbs8+3NorWi4pEQUiy5XvXwsICTWC1jvA1oPw==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
 To: Richard Weinberger <richard@nod.at>, 
- Vignesh Raghavendra <vigneshr@ti.com>, 
- Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261111-e5624093d6-mtd-inftl@mail.sdu.edu.cn>
-References: <20261111-e5624093d6-mtd-inftl@mail.sdu.edu.cn>
-Subject: Re: [PATCH] mtd: inftl: Fix potential table leaks on mount failure
-Message-Id: <179492265670.2237190.17140350339838790545.b4-ty@bootlin.com>
-Date: Tue, 17 Nov 2026 14:37:36 +0100
+ Vignesh Raghavendra <vigneshr@ti.com>, linux-mtd@lists.infradead.org, 
+ Simon Wunderlich <sw@simonwunderlich.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-mips@vger.kernel.org, 
+ Hauke Mehrtens <hauke@hauke-m.de>, Aleksander Jan Bajkowski <olek2@wp.pl>, 
+ John Crispin <john@phrozen.org>, Sebastien Decourriere <sebtx452@gmail.com>, 
+ Yangtao Li <frank.li@vivo.com>, linux-kernel@vger.kernel.org
+In-Reply-To: <20261114100608.3432120-1-sw@simonwunderlich.de>
+References: <20261114100608.3432120-1-sw@simonwunderlich.de>
+Subject: Re: [PATCH 0/5] mtd: maps: lantiq-flash: support boot loaders
+ using the EBU endianness swap
+Message-Id: <179492265833.2237190.2315954934306792460.b4-ty@bootlin.com>
+Date: Tue, 17 Nov 2026 14:37:38 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,20 +81,30 @@ Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, 11 Nov 2026 20:23:12 +0800, Guangshuo Li wrote:
-> If the temporary ANAC table allocation fails, the unit tables allocated
-> by find_boot_record() are left behind when the caller frees the INFTL
-> record. Free both tables before returning the error.
-> 
-> This issue was found by our static analysis tool under development.
-> 
+On Sat, 14 Nov 2026 11:06:02 +0100, Simon Wunderlich wrote:
+> Some Lantiq boards, like the bintec elmeg RS123 and RS353, have a boot
+> loader that enables the EBU's own endianness swapping for the NOR flash
+> chip select. lantiq-flash then fails to probe the flash. Patch 4 lets
+> such boards opt in to honouring that bit with a new
+> "lantiq,ebu-swap-check" property. The bit only works on VR9 from
+> revision 1.2 and on AR10, so the driver cannot rely on it on every SoC.
+> The property follows Hauke's review of an earlier attempt at this fix
+> in 2017 [1].
 > 
 > [...]
 
 Applied to mtd/next, thanks!
 
-[1/1] mtd: inftl: Fix potential table leaks on mount failure
-      commit: dd4e68b5061efb56eea093b6a9b7a6da49efda07
+[1/5] mtd: maps: lantiq-flash: fix NULL pointer dereference on probe
+      commit: fd1cc5b1dc4f2f99917bc5c016a2593a951c2670
+[2/5] dt-bindings: mtd: Add lantiq,nor
+      (no commit info)
+[3/5] mips: lantiq: xway: sysctrl: export ltq_ebu_membase
+      (no commit info)
+[4/5] mtd: maps: lantiq-flash: honour the EBU's own endianness swap
+      (no commit info)
+[5/5] mips: lantiq: danube: rename NOR node on EASY50712 reference board
+      (no commit info)
 
 Patche(s) should be available on mtd/linux.git and will be
 part of the next PR (provided that no robot complains by then).
