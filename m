@@ -1,60 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794898621;
-	b=gQk4yDR/nCnqtst7bfvzud0DX75I7uEESwD9avnyxYReNMv8ESgoPP7SyOrAxxYjkwcu
-	 B6TdLGN/AXqTxOGm3Xc69lGMrKXvC3CSVEn5C8utToxT4rMW+/VUQwpjrGUCNeQ+FHf1k
-	 YVVzxzoop/t48isBz8FTHywj3iT2mskZT+WF91RmJx3KJ4dHyTHV88OWECNtX4zwi+RcW
-	 gwaMNsLgdPVLTx+4IECqWBVSUp6giFAffhulkzDEL6RX4lawMlO0pZcK8PHBwpDP3ypCG
-	 hoLoGWC06hIn9DjE6h9ZngIut8EdgYMCeHNF7Wt7G6cY9TtSSWtdv0V0nGPk7vldonw==
+	t=1794898623;
+	b=A/Ug/ZBdyhjDGA5EZLcvICxYX/PI+FG6MbhXAo4KZJu1E6mOkJ3DnxQpeCWD/t3MPsY0
+	 IN8alADH4sMdTgQ53b0eYHxRRIAhdgB6nYmOppAjE2a+sjxjzvL2jzX/8GTWheT54FCo9
+	 aHr28JUD/yi1VJaqfClPKWmsaPi/NDzF620h/dCud5KX2QRlyIfUc5r/BpmAxP46vqJgu
+	 N9N96hYZ3D3oW30JjNICN/1cNIN993D/fxzVM4YnQ1zFZq+0S0501ilAF0d4NT378Qwmz
+	 6jucLbWHbQN3o4WtamIkwp2gUSFRRX/haz6nKTOMSi8sdFNS+poc8+BCI5+msMSCiVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794898621;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=MHRTTtvckqKw2iT9JpzJ002kKYT/m8IOyPQ3qg8CO6M=;
-	b=y7KIFUeQLvA4uhif45jOdWVCt3B4YfL0oSxDJFeb7sddmheAX9V03yfqcJ0qV71tVSHO
-	 JDqA+jxKTZVyLJIJmMdAPXyPgm8NYM1qKq9yVUsUIShXGC6PpCgse9tSjWzC1i5NVrbUw
-	 jrnuZFlIpYSSV6pZ0ruv+jjWXe/4tsU08fZbi2wOXJTzOPeY/nRDppK/W+kMm4F341RU/
-	 2X6G54bykfKvGF6aJ6XTys9NTR4lUDfTp6ocuH7kHy9RM5abNZwcT7th7DwA0fxR9FqBZ
-	 Brxl/B7m5AnBImFsVGg4pchdIcvlJWJrGxl4E4j8Tvu7OIrcmB/buoU78gTe+soZ70Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794898623;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=pzO+V84c/OGlvURpsSNmc8TcBqYA5AT4ai98MMYMkf0=;
+	b=VmLiiPvhUmnL1ar4vy6+sU9fjO87qp+IG1qJHkGAPTf4h9CrCTkvYuYCy48r6xLKHIPd
+	 4ugmp+AzsTdmi2wqi9kHH/TBOAE7T+RCziXkAZoM7SGo9BgDX2MUfVtUKADMK/p28VwfF
+	 qhz1k9BMuHGzBkngXeEgRse/Gaq3kyxHkZIux+XiIHT74brN3CBxBQEPC4NmVOG0wL0BG
+	 lBTHINgHDOISzxwCwAR98x5BDSYM2NKuJqGm/KTuZARizdbqRJeVu7MRvUo7QfAEik7ik
+	 jRN7InKI5tHxEqhxdXxnvALVHaPFibLAA5osZJsDk8HgVyC+d1pxzXFlCTsQaHgoQVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=logarcheon.com;
-	spf=pass smtp.mailfrom=logarcheon.com;
-	dkim=pass header.d=logarcheon.com header.i=@logarcheon.com header.a=rsa-sha256 header.s=protonmail3 header.b=CmfgHZGN;
-	arc=none smtp.remote-ip=79.135.106.25
-Received: from mail-10625.protonmail.ch (mail-10625.protonmail.ch [79.135.106.25])
+	dmarc=pass header.from=columbia.edu;
+	spf=pass smtp.mailfrom=columbia.edu;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=JgLg2F8E;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b="jPu/4vVo";
+	arc=none smtp.remote-ip=148.163.135.74
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28E56606A337
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:57:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28E56606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=logarcheon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=logarcheon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0AD3606A32C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:57:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0AD3606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=logarcheon.com header.i=@logarcheon.com header.a=rsa-sha256 header.s=protonmail3 header.b=CmfgHZGN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=logarcheon.com;
-	s=protonmail3; t=1794898619; x=1795157819;
-	bh=MHRTTtvckqKw2iT9JpzJ002kKYT/m8IOyPQ3qg8CO6M=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=CmfgHZGNouZNOVuj3zr7VMTYk0zWqZTfMHrgLsw9k4uNGErmwReoaLQwsmfwLavRJ
-	 JrPdaDqg9FzCPKHU+zaQm6Ed3CalbuqiSk0PyIl4RZ+hbpBuzOjgw2vELNksvqX2SV
-	 cL9JMuU0GPNma4o3dDrbdsmgStx3v7rq/XhSnqW2KYy5JVM6jrsgM0DcAlXwGRpin2
-	 rrjwqmbh7JQSDhQXr9iou4Xk+Vp7WAUYLfc4bxRW9OsUwktcrFW7wIF2R+ROLrx8c6
-	 VH4csUDOVkAcRGOqcFr/4jFH9DCI6EuMCQv1b0oYvbAhMqwIBUMNZJxfxTUYy602LX
-	 fnq4FD0vzViyQ==
-Date: Tue, 17 Nov 2026 06:56:53 +0000
-To: Theodore Ts'o <tytso@mit.edu>
-From: William Chuang <founder@logarcheon.com>
-Cc: Andreas Dilger <adilger.kernel@dilger.ca>, Jan Kara <jack@suse.cz>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, Ritesh Harjani <ritesh.list@gmail.com>, linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2] ext4: reject a non-regular boot loader inode in EXT4_IOC_SWAP_BOOT
-Message-ID: <20261117065645.4409-1-founder@logarcheon.com>
-In-Reply-To: <20261117061822.3826-1-founder@logarcheon.com>
-References: <20261117061822.3826-1-founder@logarcheon.com>
-Feedback-ID: 145408520:user:proton
-X-Pm-Message-ID: d1a907de22ab75cfcc2e256345bfd704d9f32861
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=JgLg2F8E;
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=jPu/4vVo
+Received: from pps.filterd (m0167068.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH6o6n21097022
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:57:02 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=pzO+
+	V84c/OGlvURpsSNmc8TcBqYA5AT4ai98MMYMkf0=; b=JgLg2F8ExuBaV3iqo2Ot
+	iJ4qTJll4NDgkba3VHMyMEX+6qjdpKuFIR3j2DqUjo0ld5pE2woye0/GlDUtOFHB
+	NeuroFOeFnH7i2eYM2eMk13tDDqLtTe1Ipi7mI7sRdJahgiHkwDT9SVUaPJrqcZA
+	hPihxzKpTOdHsFB7i/A7H+aspWRVtoYbjD3GH7c+GtY3wOn6JjGUjMqcsOYa451e
+	6Fhz+gS65/8KzkQ2anzYrn2P1nHZ1+fAhzGfX2wVLzHGopqxqs1c51yxqfJJgtDS
+	JEKlNOECpbPVUJ1KYsvNlWwvcm9zp1pHbdOouSh8ciE+arA0kvANK4ks+LN9OG0K
+	Ew==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4j0598wjx8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:57:02 -0500 (EST)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-920ff6971a1so6790766d6.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:57:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=columbia.edu; s=lionmail; t=1794898621; x=1795503421; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pzO+V84c/OGlvURpsSNmc8TcBqYA5AT4ai98MMYMkf0=;
+        b=jPu/4vVot2eNJDJikpG0CL8ESmxgPOhnAWLMiCcNnAbylyezf6L+/QjlnAsrl1uatB
+         3tyxNIMrO7QWBkhJix8yHXlSLDydZNqH3weWCeFsWkNgv80tLEHQ9yTMco7ntrvCcFBm
+         70rfD0IeAXVC3HGRYvL2t/Sr28bsjEbtHbKaXApIAfB42+GVEuclPQ+AGNTplMz2OTkm
+         J4vuL6tUtSnd6UOZG1ljPPccMlce+H7Y5QL0BGM7zl5lYoq3qya80CTi2SaOBRStcGRo
+         Z+ht4DGYw0Ymdtej/Y/2PuxPy31IOOjdatq7aVWAWp+xQ3P/ZYoylVziGB8hesNoj604
+         C6JQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794898621; x=1795503421;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pzO+V84c/OGlvURpsSNmc8TcBqYA5AT4ai98MMYMkf0=;
+        b=nC0CzXAs/Pnf1AA2DmmqjcYViQr5x1fRXIdiHaQGU8OfCJ/dT1urarzdbF+9H3KWZX
+         kqmGJCgH+JWW/uZGIsCvP8KYB2U9PNosCr3R4wFJIpmFsQVq4OXj1ukYm+Tk+zfGZgGD
+         zJQ6eCG7f3uh2KPeI0dYtVvHixLiQWLUBRrANuUve2Mcwo1pjUFELvQIcPhzUgwHUzKg
+         77k/ZraG4XQp5//wVJZVyOkv499Yhy9ROZlkiMtiyx9VDq+la3PQ7dgYF1mKhsn7D5cQ
+         XAyB9y0kHI6ll2TpKcU2Ts4M2oJZFS7T+eGKI/iSib7gKHTR/j+ng12FCzNdPWhLvR5e
+         95Eg==
+X-Forwarded-Encrypted: i=1; AL+hErE6dlzl2pxoZzShwDop35GZ0uH1I0X9juShZhINkh/tpQQtFUjvwDnrVi9PvkZ/AyykltxrJFbu89CW3wI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/hXSE65XgX7wzf5T15W2yBls0722FkmX+v4RkpwGfOKQbNXhu3
+	sVtbWecmtFIP1FVdbRiVpffQOiR7de2d0kq5PZPxUQslYgpdA/b/XnJIXrsj6EDtPmYOpduXOw3
+	y4CkLOp610JT4Q5CIvO89V43qTvuWAq6V6U6X/AWQOgik+pquBPAH+b4jmTopFg==
+X-Gm-Gg: AYBFou0jXmaT+V/a4ItoFJXW6Pzgqsd6x/VKZ0n3b/MebX62dSVCTlrZG/e1ypM776H
+	a24SVmNfwhXItOMViDnPZYA8/BY1DoUS/ck3O2V7k+Ncu/VTPiZAMy37aJ4huNslHlg52Cn5GNz
+	qIrCXSMOvjCneDNTIH/tfkMWF42KjCCQqRHBHWRdpIFT3hMeRZcznjQ2QumPvoOpKfd6M53Megx
+	0yGTMCYLL0ZEa6eNKAguPLUuQt0PXedyqItYYWmGDdJ87E1rh3tEd2g+WhyOywW8F7UKqwtZemL
+	+VeYvRN+8+exayTHQtEhbbuSlqcga4WX0Qa2hf+wjrmR6RRfAvhRXwyMSHj0iJNdbYUfGQFBSEB
+	sGtuxXCIHjFSMcc/ocT5VTKP8CRZRuXwMu4tNLgrjHeO8aB4r58vFicnj0Im23oUfjWQ0oFQtkB
+	FuRg7U7p9NZD34NDyAtQ==
+X-Received: by 2002:a05:622a:1f0c:b0:55d:339e:1f90 with SMTP id d75a77b69052e-55d339e25d8mr114660501cf.32.1794898621131;
+        Mon, 16 Nov 2026 22:57:01 -0800 (PST)
+X-Received: by 2002:a05:622a:1f0c:b0:55d:339e:1f90 with SMTP id d75a77b69052e-55d339e25d8mr114660391cf.32.1794898620516;
+        Mon, 16 Nov 2026 22:57:00 -0800 (PST)
+Received: from [127.0.1.1] (dyn-160-39-33-242.dyn.columbia.edu. [160.39.33.242])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55ad0a2006csm98408871cf.10.2026.11.16.22.57.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 22:57:00 -0800 (PST)
+From: Tal Zussman <tz2294@columbia.edu>
+Date: Tue, 17 Nov 2026 01:56:18 -0500
+Subject: [PATCH 3/3] jfs: fix the read_mapping_folio() error message
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,97 +116,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261117-jfs-page-leftovers-v1-3-2722918aacdb@columbia.edu>
+References: <20261117-jfs-page-leftovers-v1-0-2722918aacdb@columbia.edu>
+In-Reply-To: <20261117-jfs-page-leftovers-v1-0-2722918aacdb@columbia.edu>
+To: Dave Kleikamp <shaggy@kernel.org>
+Cc: jfs-discussion@lists.sourceforge.net, linux-kernel@vger.kernel.org,
+        "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+        Christian Brauner <brauner@kernel.org>,
+        Tal Zussman <tz2294@columbia.edu>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794898606; l=738;
+ i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
+ bh=KL76FNN+nN+GOKj8i6z+gZUk+xWwZFLe93l4w03zOzs=;
+ b=C2AVGqx4TEOPYZ8ZIWS9Gp6yBM6qRQmaJhsyXYyR96P78n4w3G2q27UJJKRjhnQ3/CtWOzqWy
+ HBZTUoLJYiXBW5fRgfs2LcWGpNKN4y72F5uzeJuGGu/FwwOfSLl3IHB
+X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
+ pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
+X-Proofpoint-ORIG-GUID: Re0-QR7t2SALJ5t0w2Fok0Kv2_lURhrp
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDAyNyBTYWx0ZWRfX3qKhuZUarshN
+ 07zASctZ04AcGxIPfwpZFmamGiI/aBqD40+ooWtaqg+KCBjf6N0C0bwwA7AHRj8tOxC/Lf1tBSf
+ yxAiIEnJACrR00XhNcmi5jYj7cKmCBzNXxyp2ApYmdpPoGm85uGz
+X-Proofpoint-GUID: Re0-QR7t2SALJ5t0w2Fok0Kv2_lURhrp
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDAyNyBTYWx0ZWRfXxX/35opClqeI
+ sdciNYJNWPXsTx42NP1/0xtnYj1R9WNhnHrm3Q3tz6t2W/mNYBTcbc5vzMqNr7oq/MhpsUOOAvG
+ gZ82f9F3ovSRreYwIJ29wfRz2KWu5mDB/OrPE4S55ePKqfVrkx4GowqescjXEORkocBOZY8T0IB
+ c89csUKdKJBmSeqfoJ32mF7toENuiifcipqU8+hotblAiACT7WqRkLwK+xVe3JeDFDRx5ChdABN
+ U9dECVl1lPRTOGV79cEOT4KlBZW1Vov9HrGiZtL4s7IDv5Nq09tH+MXsQN76r/AN60PjtxZJyOX
+ vmg6W5yL3Ub+wNJ/mddyHqP3jaZaXWPoodVcbOqvP+ZDoRutBXh1lbS4GFXZMDKYTfQGRlcyYGp
+ +T0hPcvdUhg79FTjojHhNMpvReVAHZZksv2k3wWdOLqlpeVlg/NLHIHKaMglWqonV2LAIKAspkM
+ LSxJivm62k+mi+yE3Jg==
+X-Authority-Analysis: v=2.4 cv=ZOpCCn7b c=1 sm=1 tr=0 ts=6afbfabe cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=GaPK54s0Se3oFqK5NkZy0g==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=usPcmh10W0ubT8QP8_c3:22
+ a=UBBe07d3wXFQGX0fkxYA:9 a=QEXdDO2ut3YA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11968
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=10 bulkscore=10 impostorscore=10 spamscore=0
+ suspectscore=0 priorityscore=1501 malwarescore=0 clxscore=1015 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170027
 
-swap_inode_boot_loader() gets the boot loader inode (inode 5) with
-EXT4_IGET_BAD.  On a new filesystem that inode is unused, its mode is
-0, and ext4_iget() returns it as a bad inode, which make_bad_inode()
-sets to S_IFREG.  On a corrupted or crafted filesystem, ext4_iget()
-can instead return inode 5 as a directory or another non-regular type,
-fully set up with that type's inode and file operations.
+__get_metapage() calls read_mapping_folio() but reports a failure as
+read_mapping_page(). Fix it.
 
-Such an inode is first passed to lock_two_nondirectories(), which
-warns if it is a directory:
-
-  WARNING: fs/inode.c:1271 at lock_two_nondirectories
-   swap_inode_boot_loader
-   __ext4_ioctl
-
-The "never used as a boot loader" branch then sets inode_bl->i_mode
-to S_IFREG, changing the type of a live in-core inode while it keeps
-the operations of its old type.
-
-Check the type right after ext4_iget(): report the corruption and
-return -EFSCORRUPTED unless the inode is a regular file.  Mark the
-rejected inode bad before iput(), as ext4_get_journal_inode() does, so
-that a corrupted inode 5 with i_nlink =3D=3D 0 is not passed to the
-deletion path of ext4_evict_inode().  The unused
-case is unaffected, since make_bad_inode() has already made it
-S_IFREG.  This is the check Ted Ts'o suggested when the warning was
-first reported.
-
-Tested on UML at 666539eec: inode 5 set with debugfs to a directory
-(with i_links_count 1, and with 0) or a character device, then
-EXT4_IOC_SWAP_BOOT issued twice.  Before this patch, the directory
-cases warn, and all cases succeed and leave inode 5 as a regular file
-on disk.  After it, all return EFSCORRUPTED, the error is logged,
-inode 5 is unchanged, and no attempt is made to free it.  On a
-new filesystem the ioctl still succeeds, twice.  Not tested: KASAN
-builds and syzbot's 2023 reproducer.
-
-Fixes: 991ed014de08 ("ext4: fix bug_on in __es_tree_search caused by bad bo=
-ot loader inode")
-Suggested-by: Theodore Ts'o <tytso@mit.edu>
-Link: https://lore.kernel.org/all/tencent_DABB2333139E8D1BCF4B5D1B2725FABA9=
-108@qq.com/T/
-Link: https://sashiko.dev/#/bug/linux-8cfc8e22-8259-4c89-8a8b-64c16e4481a5
-Signed-off-by: William Chuang <founder@logarcheon.com>
+Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 ---
-v2: mark the rejected inode bad before iput(), as ext4_get_journal_inode()
-    does (Sashiko review).  Without it, a corrupted inode 5 with
-    i_links_count 0 went to the deletion path on iput(), which logged
-    "ext4_free_inode: reserved or nonexistent inode 5".  Added that case
-    to the tests.
-v1: https://lore.kernel.org/all/20261117061822.3826-1-founder@logarcheon.co=
-m/
+ fs/jfs/jfs_metapage.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- fs/ext4/ioctl.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+diff --git a/fs/jfs/jfs_metapage.c b/fs/jfs/jfs_metapage.c
+index b483c8d4d999..79f5d0c7f0cb 100644
+--- a/fs/jfs/jfs_metapage.c
++++ b/fs/jfs/jfs_metapage.c
+@@ -724,7 +724,7 @@ struct metapage *__get_metapage(struct inode *inode, unsigned long lblock,
+ 	} else {
+ 		folio = read_mapping_folio(mapping, page_index, NULL);
+ 		if (IS_ERR(folio)) {
+-			jfs_err("read_mapping_page failed!");
++			jfs_err("read_mapping_folio failed!");
+ 			return NULL;
+ 		}
+ 		folio_lock(folio);
 
-diff --git a/fs/ext4/ioctl.c b/fs/ext4/ioctl.c
-index e8e579498..8990122f5 100644
---- a/fs/ext4/ioctl.c
-+++ b/fs/ext4/ioctl.c
-@@ -390,6 +390,26 @@ static long swap_inode_boot_loader(struct super_block =
-*sb,
- =09=09return PTR_ERR(inode_bl);
- =09ei_bl =3D EXT4_I(inode_bl);
-=20
-+=09/*
-+=09 * An unused boot loader inode comes back from ext4_iget() as a bad
-+=09 * inode, which make_bad_inode() leaves as S_IFREG.  Any other type
-+=09 * means the on-disk inode is corrupted; its type cannot be changed
-+=09 * in place below.
-+=09 */
-+=09if (!S_ISREG(inode_bl->i_mode)) {
-+=09=09EXT4_ERROR_INODE(inode_bl,
-+=09=09=09=09 "boot loader inode is not a regular file (mode 0%o)",
-+=09=09=09=09 inode_bl->i_mode);
-+=09=09/*
-+=09=09 * Drop it as a bad inode, as ext4_get_journal_inode() does:
-+=09=09 * with i_nlink =3D=3D 0, a plain iput() would try to delete the
-+=09=09 * reserved inode, and otherwise it would stay cached.
-+=09=09 */
-+=09=09make_bad_inode(inode_bl);
-+=09=09iput(inode_bl);
-+=09=09return -EFSCORRUPTED;
-+=09}
-+
- =09/* Protect orig inodes against a truncate and make sure,
- =09 * that only 1 swap_inode_boot_loader is running. */
- =09lock_two_nondirectories(inode, inode_bl);
---=20
-2.43.0
-
+-- 
+2.39.5
 
