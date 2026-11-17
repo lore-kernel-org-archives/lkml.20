@@ -1,195 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=60.244.123.138
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794906086;
-	b=TivXk/Y3IB4kmXTGCWtkrSwg/yMQz7bdZ9Qykp3mFSD349EXe1TioNsyh+sP84DJRwMn
-	 T6xPO3kd5v5gqAy/0GxYN0a2P+dC0mfzcBmlrsLy3k0zMYEEGDUrfXvNmUWb+aYZqjc7m
-	 1W8J+mHILLQMJFRufZtVIEfAx/2/g9lTzV/y8TvUYXe4QXFLloa3gi6A9xqRg6V5mnVrR
-	 a90CRPtkOR6DPEAg7AoeEJ41DmMnAXBFGKucVu6mq1ugiREwiO1FEJVFKmk/pLgJ7TJXK
-	 V+ciOOKy12MHoQeVumMSarOrPG0feFivh1GF3w+zScrdOQ3Fuv4wme7Bigh7GHaQ7KQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794906086;
-	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-CACHE:X-CID-P-RULE:
-	 X-CID-O-INFO:X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:
-	 X-UUID:Received:Received:Received:DKIM-Signature:Received:Received:
-	 From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
-	 References:In-Reply-To:Accept-Language:Content-Language:
-	 X-MS-Has-Attach:X-MS-TNEF-Correlator:user-agent:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ld-processed:
-	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
-	 x-microsoft-antispam:x-microsoft-antispam-message-info:
-	 x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:Content-ID:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-MTK;
-	bh=osDT2YAwWr13ZAGqoLsFHAEj+mG13eFkoD+wC0raimE=;
-	b=lZzbSouDNzVhwMZa/npzJBTzPwnGIRcKjiTEd0TSCdiMEVaOszc+CwtzgrDIv4RlNjJc
-	 KmpqPU68T3yp5umorGPetQQdZGOn4sJ86fxINQQZ7obcL45GVA89Dl1Yqnj2krmwKbCGj
-	 28AuQf82UnuxjGNJ2vg+doUrEjlp1woqtOOt9zqQgTvnfxMx2gG+2tsjJIjrVvvjylA0i
-	 lINZMxPfw6p2l/ofp8UYBrFy0a2G3Dspm+LGELYAZGgw487Kkzn1sbYHHdGSJwmakZnRd
-	 /95gdinhp9zN2EBe2I7jOjfYn7Tgj3OTlF4Anij88JWjUim4awZM4DKUj/qE3ju80hg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mediatek.com;
-	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=Dyq6t8WG;
-	dkim=pass header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-mediateko365-onmicrosoft-com header.b=SpMVIrr7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=60.244.123.138
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.195
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794906088;
+	b=twCUcwEA2G02d44xz+FKUGKUcSs3UHFPeEGoJ5Ky23sGWa5KwQ/kmg9UaEzwG8lMk7Hv
+	 4fpz9Sbn8ZPNo3Za8raLqwkrIs1L+N0bKz5BiZaFvgo++ICwQo0yREMLvi8Y993UvyLYO
+	 OuB05eGOYgU8SpL1Minl9PL8bw27/KK30xV2NmDGjQA/LzU5kJHGssTrUd928z5m92U3+
+	 /9inBgPn1ICXdP2v8T+/4v/bSs4JnB3EbirlqxQsUg3i0oT0UTfMxm/j1bGKUKRBoahF+
+	 NKXcmS9KtiLwzCZTuqT1PYnuEl1AT7cvRPglRAKiBr2qAjxdsQeSb0hm8oEYnIeb33w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794906088;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=wEqvJgEr6hhrc1TKzzqAUfy++Ij29EJ1pS0hjLiOKLM=;
+	b=CWmwV2D1SAQHxEr1k9XhaffPf2NHMwleZM5MnNmfLGJknVE//eZfm6oDREk/XdBnv7J2
+	 cSLCA23xqysKTQL2G0mo/ame2IZJAUAOY9wH805uLwZrpD6oKq2hAid0Mm2nLJcUH+eRe
+	 pilP0y7onDCCvMGfJGhCD+FI+4MyyON7jP9w5lLTPQoEUFvsK/MJYZQNUwvQTMZ+xcOVG
+	 Q342xS4aImer2BDtyhUl83yY8b36/x7Xh5iupqM7GvWXdNNvLlNJdlKEOjbeVld3VmhQ8
+	 E818IQ6J+lNl1ncNzh8po9Ldvdw/Nvfzh6Nm9R/ztq085pmm5sVmgQvy692xLGZub1g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=PoDnjkT3;
+	arc=none smtp.remote-ip=115.124.28.195
+Received: from out28-195.mail.aliyun.com (out28-195.mail.aliyun.com [115.124.28.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 490EC606A32C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:01:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 490EC606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AA08606A31C;
+	Tue, 17 Nov 2026 09:01:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AA08606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=Dyq6t8WG;
-	dkim=pass (1024-bit key, unprotected) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-mediateko365-onmicrosoft-com header.b=SpMVIrr7
-X-UUID: 73f812a0e26511f1b1788b6acf885367-20261117
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From; bh=osDT2YAwWr13ZAGqoLsFHAEj+mG13eFkoD+wC0raimE=;
-	b=Dyq6t8WGBM43THzRH703PkEiPdqR4C9gOyL++RWDs+Dzh4KE4WLxh/D899KKVDreJmtg+QcJOwBBY5YX4/ymM0eq771FQIkr3PdGXwgYwEhQ00eetn8YUsF9/sUxOedkznE1ffv+WJe4dCqC8pjofLJSlEgOqyPo95MCQVp5fqA=;
-X-CID-CACHE: Type:Local,Time:202611171701+08,HitQuantity:2
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21,REQID:b15dbcf8-1411-4a7a-a735-7bd022768632,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:b0318ac,CLOUDID:e6b5f730-f289-4656-bb36-27baf4489f11,B
-	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|110|111|836|865|888|898,TC:-5,
-	Content:0|15|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:n
-	il,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 73f812a0e26511f1b1788b6acf885367-20261117
-Received: from mtkmbs11n2.mediatek.inc [(172.21.101.187)] by mailgw01.mediatek.com
-	(envelope-from <ck.hu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1225114462; Tue, 17 Nov 2026 17:01:19 +0800
-Received: from mtkmbs10n2.mediatek.inc (172.21.101.183) by
- MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Tue, 17 Nov 2026 17:01:15 +0800
-Received: from SG2PR04CU009.outbound.protection.outlook.com (172.21.101.237)
- by mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Tue, 17 Nov 2026 17:01:15 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vIEi4EN/VSCdQjxbsW360/esLj2dW3JemodAySKzD7N+0ER/iAHtqTIhnTzDk6OHVC2DT4NwfogR1jYur9VpSJFCtHXfhnaP4IdhHIsXcw+f2w5nkP0Wq/7pz6isnbGDnhFb+2FlnE7AlwwYW8FDuEw0gMiys0j6y2IVJevRD+fVc7d3iRqtSJppjmNjZUA8pnF629mw9GidiD10S/hszhBrqAWHKvuyPqtl18tN0PeHiVWUWmmTjknIYuNhnSmvdVfLZRhs8m845hkEFDXtnxAHdrvlx5i+3nEE4D4kwtehIwM1iERjWxjzl70tCVIzN2FJ5gW+2W5u7UAiiMJ0gA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=osDT2YAwWr13ZAGqoLsFHAEj+mG13eFkoD+wC0raimE=;
- b=rw2vMJp8JYYmvgT0MjGnLMb5HZoCGg1sNCUqPQnpxhOi3Vjlg/3gRRJAU+DV6NS8saiiGFoe8hSYh6Zm4uBzkXH/GPNx5nP4E+ierzyHDK6WkrHDK9levrOvRnB/L4zLwvg8vdHtRUYEweR/6j5PW++P6iLY5ZHuoLzUdXHVBQVA4AbQdbm5o4OfKzvvTHFu/El7a4DKrCdpUKKcuJE8Mqc1SQaWETN7IOptT7TctbPJU/RrFNOhEwX8DSmha08YASiLY29h+bTrmQM2FvjE+n9PsU/GWrJUa5ebhKJu8ea80+scFDP21WtGoWtmb2MV8P/sGR/Gj3ab/WpVNB2ceQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
- dkim=pass header.d=mediatek.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=osDT2YAwWr13ZAGqoLsFHAEj+mG13eFkoD+wC0raimE=;
- b=SpMVIrr7FWlCBx9S7INS0eVq3+/0WRiFd415T7n4/rU60F4SubjZf2ce2Y8qDyoK7pGkzKubZxWs8WuAzMfmruYZ4GRCJRzfLH2toAgeEDeEiLHs+DghFbq9+Dx4SkvpCTG1mUYs5nO0VqvBrV4nzz+BwxkJCo5dBFMAQms30pE=
-Received: from KUYPR03MB9902.apcprd03.prod.outlook.com (2603:1096:d10:91::20)
- by KUXPR03MB9477.apcprd03.prod.outlook.com (2603:1096:d10:4f::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 09:01:12 +0000
-Received: from KUYPR03MB9902.apcprd03.prod.outlook.com
- ([fe80::9598:2e59:20dd:960b]) by KUYPR03MB9902.apcprd03.prod.outlook.com
- ([fe80::9598:2e59:20dd:960b%5]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
- 09:01:12 +0000
-From: =?utf-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>
-To: "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>, "agentzoan@gmail.com"
-	<agentzoan@gmail.com>, "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
-CC: =?utf-8?B?TmF0aGFuIEx1ICjlkYLmnbHpnJYp?= <Nathan.Lu@mediatek.com>,
-	"simona@ffwll.ch" <simona@ffwll.ch>, "dri-devel@lists.freedesktop.org"
-	<dri-devel@lists.freedesktop.org>, =?utf-8?B?TmFuY3kgTGluICjmnpfmrKPonqIp?=
-	<Nancy.Lin@mediatek.com>, =?utf-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?=
-	<Jason-JH.Lin@mediatek.com>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "airlied@gmail.com"
-	<airlied@gmail.com>, "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
-	"linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 2/3] drm/mediatek: mtk_crtc: Skip the empty connector
- route slot in destroy
-Thread-Topic: [PATCH 2/3] drm/mediatek: mtk_crtc: Skip the empty connector
- route slot in destroy
-Thread-Index: AQHdWRmH3AZO8rjNuEmMv1EI8a4OtrcyMi6A
-Date: Tue, 17 Nov 2026 09:01:12 +0000
-Message-ID: <7c23daef57201926617a6ebdf6c42aa7205c0cfd.camel@mediatek.com>
-References: <20261011004248.1117649-1-agentzoan@gmail.com>
-	 <20261011004248.1117649-3-agentzoan@gmail.com>
-In-Reply-To: <20261011004248.1117649-3-agentzoan@gmail.com>
-Accept-Language: zh-TW, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.52.3-0ubuntu1.1 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mediatek.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: KUYPR03MB9902:EE_|KUXPR03MB9477:EE_
-x-ms-office365-filtering-correlation-id: 74da350d-c1fd-4371-8556-08df4489541f
-x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|42112799006|38070700021|5023799004|4143699003|11063799006|56012099006|261026121527099003|261026140227099003|261028144727099003|10067099003|261022075727099003|261021121427099003|261022105027099003|261102123227099003|261009223027099003|18002099003|22082099003|3023799007;
-x-microsoft-antispam-message-info: +ci5iPEykmeH/VYrW+NtxnvBL+OCOYhOx6fdtYLtct9TD+CtiIdPlhtIwsXWu29q/V0FEUECX8NhajQvnvz/m2erL4xzg6pOqYTkh+cdACB9fcjZK1mDFmbKBLShPFD6Z4+LZluqbTsrwZv+Q/mCtzsqi0VjSnTGUee9R6LckIimktBo3RyK3pnI6Ez+jOoOSjZqJAnF1OVVLKTszu8eoiQSiIuipIHOVSYI0Rpu6k4OlFu4A1Gg2O4nLEgftsPiJpPvKv9ZL4oE51b65QnSRukl4LncW6HwxLAdknG8UPwxpY9CW6+4rCAGVw1rfIZh6ARaohGStocQGQxcoMk9OAEJvqYM/PwRUl/2WlDh2nOSO8ZaxVqh79/69JPn3z6NS7MLX0Ec9pPUYJvGtdd8Vd19yZv4t69Q/+o1IRkJOa6FuAc7if7w8vOABvt5YjqxVihjtCRsIvH2W53IyXoxO0Xf7/iH7ay/ecI6cydPpUboUAqKjTXMM4FJkNYNk5tbz4TuDEXcgKhTwVg2SHjxcMLD7Xg0FtHE+QwM5bdz9aQu11BFvfNT6vIj2559hDypd+Md7G1aPbelMAbt6MTyds7x4HvHBA6ytORRGfhr3eFfEcy0cQ0XdtX0B0SxYEkSYKUyPhZgPXs0o8g04loZfqWL5FBk7t+YYiB+Lpta2gMBuWInZQDKphC0CdsHz+u+dCPS2cISoY2+7MQgAZIad9L2NKscy5SkqKjmhf3TxeA=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KUYPR03MB9902.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(42112799006)(38070700021)(5023799004)(4143699003)(11063799006)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(10067099003)(261022075727099003)(261021121427099003)(261022105027099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?UGxaNmR1YmpJWm5yVlJuRXJxUkMrTWNpRDg5emVUTUNySHNIeUJyMVk2T2tX?=
- =?utf-8?B?VjI3S3VPZEUxSFQvZllTa2JRSkZ4NzVENDliVHk1TmVyNHBYMkhENGRzaExD?=
- =?utf-8?B?K2d3WUVicml3VXdZb0tTbmdiaXlTQjB1ZEpSNjg3cENEV3hXTU83QnlzRU1z?=
- =?utf-8?B?QlRDblBiU1NEYjMrL0NGTjRCZFBKaklhZi9hS3h1MjMrM3JkWGk5RW1pL2lR?=
- =?utf-8?B?KzBqMjFWWmNIbmRDdnZqWHhUQjlIVkdTUVkrbDU0UHVYeElJRU0venN3ZTlO?=
- =?utf-8?B?eXRvNkQvVlB3SVFPZkdFdGFIaHJua1N6c0haWUw4M2NpaXcyYWpKbDBPS0lh?=
- =?utf-8?B?V2kxZ2lJTUd4SmIyTWNjRW83SzVZTGY5b3RKNHUycUZvNWo5Z0VHdzV4a1JY?=
- =?utf-8?B?QXNsdjJwcTVTMktwMzRGMWc3TWhXT1pWS3dhOWNCV3FWc3lFd0lIK1BNWGtC?=
- =?utf-8?B?UmFjWlRWVkFyUFpyYXhINFJabVh5WVBQYnhKVHpOYUZSRGY4aURUYlZnVVRq?=
- =?utf-8?B?bzZybG5BMExET25kUWZJTlJKSkdTVTVkeHp2S0tMUTI0MG10OURDaHZ1NXVr?=
- =?utf-8?B?ZUdLTW9JVDJCb3g2akhmZWZXeEFkbitVLzRJZ2hwZFNSTmd3M1dwRUsxRm0y?=
- =?utf-8?B?MmVRQUk5azg0blFNU3QrSGFXb0F4dGRsWWpRMDB6WW5iS05QM1d1cVlQb05w?=
- =?utf-8?B?dzhxUExtNERBdlVySks1QndaVHJBMkxzcit0YmJ1alJUSkswWGNOTnd1K1Uv?=
- =?utf-8?B?cjFXbnFscktNTlpIK1NJTzYxTjNzakRIYk1OY0JiaVpwYk5DUkZWK3M5YTYz?=
- =?utf-8?B?b01jb1Q2R01JenEvRDBkV0ZCNk1ibzNLTzhmdHdNS2d1VGJ5amVLVmFURnE4?=
- =?utf-8?B?aHpFNG9OVWdISGdlWWJXTUtjc1BPWXcxSHJyVzk3Q2ZmVktoVy9xODBXRDdU?=
- =?utf-8?B?Yy91OUJqSGNxczEzd052cVRxTlA4ZHNzaDdTY1lGNE1MbEQzUksyRzlORkxS?=
- =?utf-8?B?Zkt3YWxUdWplck43cml2a0NLa2Fmelo2OWlEUXNWc2t1N1hyTm04WjBMS3VO?=
- =?utf-8?B?M3dhRzhsTHJtNjh5MzhxTTlmQXpTY21nN2h1YUg4VFEzMXhURzVpclNITEJj?=
- =?utf-8?B?S0FzTC9TQ2ZzK3ZubU9HRHhnQ25vZEFGLzQ3ZTUvMXJYanJybm4wTFk4ZVQz?=
- =?utf-8?B?QkZOdjljRkdYK0o0Y0xFZzZpNVk5RHl6YVJwaE1LeDJwa3kyK3RRcWdpdjVQ?=
- =?utf-8?B?dmRtaW1pTFZ1MzRTR0tFbVdPRnp2bzdQTEpIVGJBYk5mdzR6YnRuSVNUMzdG?=
- =?utf-8?B?Z3EvZWpReDNzWDdReEc4THBFbkYvZ3NZWlZoWlVzSER4VmJrQmdTdmkvWW1R?=
- =?utf-8?B?aWJMSGYrdFFyRldsSS9icEluYTdJOU80ZStiUDF3aFNIY1loaDdGK2hwWms1?=
- =?utf-8?B?NE5yZW9sK0ExZURlRzlTZEp1U1drdUNPdHZ0bDF5aVRtYzV3cGNjdTBCWVR3?=
- =?utf-8?B?ZlVJZURQYURjVzl5Ynl5R1M5UjJ2SjQzQm9vRUE2cGhYVVViWmZFVkFhaGNa?=
- =?utf-8?B?L2RPTkhXeDVjbkhidVJZbmVBZnhqeXdmcWtVaklhOTJNQ3oyRy80ajlMcW9o?=
- =?utf-8?B?bUJBUzRCeEh3UEZQdDFBaDRrdDA2dExmM1RsbEdaMzlLeFRIbUtNeWxSMmcz?=
- =?utf-8?B?MkFhNDNvZzUvYlJRWG9hOS9zOUFEYitjbzZyTkpZeERIeDRyOWxOQXdpRnFm?=
- =?utf-8?B?WHMwMnlyZEhqb0VqdktQNzVQZ2VoQTd5VjdYUU1ub2F2cjFaZXk0RFk3UU1F?=
- =?utf-8?B?TVpjV0tWWW1RaXNrY3BTNlF4M3l5bkIzb1RxdExlVDRscDczZ3l2SnZybXc3?=
- =?utf-8?B?V0l6TS9Xa3htTGFrMThLNlByR0o0RkVMRHpFckpXbDhwbzJRT3JCcUNIc1FW?=
- =?utf-8?B?ZkxKOU90NnhBcVlUaS9SMU1LNzAvWkZOazFjQklwck1UdWd0cU04QXhBWkVN?=
- =?utf-8?B?QTlzNDBIdGYxY3AxWVpuYmVYaERrM3kxUDZVRFZxK2pVZ0MyLzRyeTBWVVp3?=
- =?utf-8?B?elZOWDRrWmRHSVkrWmYwdW9tTkNYYkRiR2hmdFgwaTdpOXpLT3hnUXRFNVRG?=
- =?utf-8?B?SFdmNVduL25wK25mYWNWRWV6VmxwbWVOa3BrQkp1VWo1cjU3STlSWndHT3dl?=
- =?utf-8?B?UVdUaS9GQUo2YVNCZUY4UFZFc3c4MXpOZ1ZJd2NycCtXM0FKdmJ6ZWFoRGtW?=
- =?utf-8?B?TGZ0VkRqSmRjRDI4cTl3eVBoREN5dmU5SU00YWdsR00vNVpsRjFSUzhKRjhu?=
- =?utf-8?B?eUtwSnNNRFduUnNYdGJQbWZURXEyS29sRHpSaWhpM21OT3lZZWNJdz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <934315A169DDF140B553766EA0C0A88E@apcprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=PoDnjkT3
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1794906076; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=wEqvJgEr6hhrc1TKzzqAUfy++Ij29EJ1pS0hjLiOKLM=;
+	b=PoDnjkT3SfjC45ZhIwTAdYm9JQwgEn54po7rob1mzD0KzcYcF9LwGB7gq5e216tYM+6q2OXMVfga3mt1tYu+Op8ZuKfGcsf61qqMsDH/54o7MkZ4g14r/1/tia343qLLIu/WoIDzyjn80Re1Zf7TIUo4oBQgSl+Gi+DBCYZyWEg=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00409698-7.81501e-05-0.995825;FP=16763631471610645680|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037028158;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=15;RT=15;SR=0;TI=SMTPD_---.k3m6Agc_1794906074;
+Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.k3m6Agc_1794906074 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 17 Nov 2026 17:01:14 +0800
+From: Liu Chao <liuc63@xiaopeng.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	khtsai@google.com,
+	fangxy@xiaopeng.com,
+	Randy Dunlap <rdunlap@infradead.org>,
+	dbrownell@users.sourceforge.net,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: [PATCH v5 2/2] usb: gadget: u_ether: fix out-of-bounds read in get_ether_addr
+Date: Tue, 17 Nov 2026 17:00:35 +0800
+Message-ID: <20261117090110.3263592-3-liuc63@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261117090110.3263592-1-liuc63@xiaopeng.com>
+References: <20261117090110.3263592-1-liuc63@xiaopeng.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -199,55 +73,246 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: SHQV+N0hN/ynmiEykB9Ao8zp/LHCUdq8kKK2YU2ueol6RSIaX9GrrFoKhQZh8as8bqZmXnjisyFEZbhZ4AjTgDbGx3SG108ZajokHEPgoR82AkBueOA4GgqbYgwBWGbBg7YXl31FsiO6LKHw24FkJG8VMESOPv9ZdRosXqNnu7ohUUaPSI0bxyTtD9O9yAbgUuK6ZAj/ltsnPUdRcQLHSImvzaaZNaP1dzf7FIhB2YyTBFciLku+17I7/S2lnenyrXqq+hMJw54vT41lOJTDUnszHezjd4ZuDY55nRjZuF8i5QyTeD0LLC+D88tUhpgUmyHqRqMHxz7LSJNxc9ZRNQ==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: KUYPR03MB9902.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 74da350d-c1fd-4371-8556-08df4489541f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Nov 2026 09:01:12.2002
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: oTufvtKlrVFt60FW+7ofLUb5EmDNzk3P1+YaXiuHt5N0o82DeVzN+JZanelqz/WeTKneMKDY2OWn6lzeFCVomQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KUXPR03MB9477
-X-MTK: N
+Content-Transfer-Encoding: 8bit
 
-T24gU2F0LCAyMDI2LTEwLTEwIGF0IDIwOjQyIC0wNDAwLCB6b2FuMzcgd3JvdGU6DQo+IEV4dGVy
-bmFsIGVtYWlsIDogUGxlYXNlIGRvIG5vdCBjbGljayBsaW5rcyBvciBvcGVuIGF0dGFjaG1lbnRz
-IHVudGlsIHlvdSBoYXZlIHZlcmlmaWVkIHRoZSBzZW5kZXIgb3IgdGhlIGNvbnRlbnQuDQo+IA0K
-PiANCj4gQSBDUlRDIGNyZWF0ZWQgd2l0aCBjb25uZWN0b3Igcm91dGVzIGdldHMgb25lIGV4dHJh
-IGRkcF9jb21wW10gc2xvdCBmb3INCj4gaXRzIG91dHB1dCBjb21wb25lbnQsIGFuZCBkZHBfY29t
-cF9uciBjb3VudHMgaXQsIGJ1dCB0aGUgc2xvdCBzdGF5cw0KPiBOVUxMIHVudGlsIG10a19jcnRj
-X3VwZGF0ZV9vdXRwdXQoKSBmaWxscyBpdCBpbiB0aGUgZmlyc3QgYXRvbWljDQo+IGVuYWJsZS4N
-Cj4gDQo+IG10a19jcnRjX2Rlc3Ryb3koKSB3YWxrcyBhbGwgZGRwX2NvbXBfbnIgc2xvdHMgYW5k
-IHBhc3NlcyBlYWNoIG9uZSB0bw0KPiBtdGtfZGRwX2NvbXBfdW5yZWdpc3Rlcl92YmxhbmtfY2Io
-KSwgd2hpY2ggZGVyZWZlcmVuY2VzIGl0LiBUZWFyaW5nDQo+IGRvd24gYSBDUlRDIHRoYXQgd2Fz
-IG5ldmVyIGVuYWJsZWQgdGhlcmVmb3JlIGRlcmVmZXJlbmNlcyBOVUxMOiB1bmJpbmRpbmcNCj4g
-b3IgcmVtb3ZpbmcgbWVkaWF0ZWstZHJtIHdoaWxlIHRoYXQgZGlzcGxheSBwYXRoIHdhcyBuZXZl
-ciB1c2VkLCBvcg0KPiBhbiBlcnJvciBpbiBtdGtfZHJtX2ttc19pbml0KCkgYWZ0ZXIgdGhlIENS
-VEMgd2FzIGNyZWF0ZWQuDQo+IA0KPiBTa2lwIHRoZSBlbXB0eSBzbG90LiBOb3RoaW5nIHdhcyBy
-ZWdpc3RlcmVkIGZvciBpdCBhbnl3YXk6IHRoZSByb3V0ZWQNCj4gY29tcG9uZW50cyAoRFNJLCBE
-UEksIERQX0lOVEYsIC4uLikgaGF2ZSBubyB2YmxhbmsgY2FsbGJhY2suDQoNClJldmlld2VkLWJ5
-OiBDSyBIdSA8Y2suaHVAbWVkaWF0ZWsuY29tPg0KDQo+IA0KPiBGaXhlczogMDEzODliMzI0Yzk3
-ICgiZHJtL21lZGlhdGVrOiBBZGQgY29ubmVjdG9yIGR5bmFtaWMgc2VsZWN0aW9uIGNhcGFiaWxp
-dHkiKQ0KPiBBc3Npc3RlZC1ieTogTExNDQo+IFNpZ25lZC1vZmYtYnk6IHpvYW4zNyA8YWdlbnR6
-b2FuQGdtYWlsLmNvbT4NCj4gLS0tDQo+IA0KPiBOb3RlczoNCj4gICAgIFRlc3Rpbmc6IGZvdW5k
-IGJ5IHJlYWRpbmcgdGhlIGNvZGU7IG5vdCByZXByb2R1Y2VkLiBUaGUgc2FtZSBjaGVjayBydW5z
-DQo+ICAgICBvbiB0aGUgTVQ4MTg5IENocm9tZWJvb2sgZGVzY3JpYmVkIGluIHBhdGNoIDEgKGJv
-b3QsIEhETUkvRFAgaG90cGx1ZywNCj4gICAgIHN1c3BlbmQvcmVzdW1lKSwgYnV0IHRoYXQgZG9l
-cyBub3QgZXhlcmNpc2UgdGhlIGRlc3Ryb3kgcGF0aCAodGhlDQo+ICAgICBkcml2ZXIgaXMgYnVp
-bHQgaW4gYW5kIHdhcyBub3QgdW5ib3VuZCkuIENvbXBpbGUtdGVzdGVkIChXPTEpIG9uDQo+ICAg
-ICBuZXh0LTIwMjYxMDA4Lg0KPiANCj4gIGRyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfY3J0
-Yy5jIHwgNCArKysrDQo+ICAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspDQo+IA0KPiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL21lZGlhdGVrL210a19jcnRjLmMgYi9kcml2ZXJz
-L2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2NydGMuYw0KPiBpbmRleCBiNTRmODU2NWQyZmEuLjcwNDkz
-MWIzNjliNiAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL21lZGlhdGVrL210a19jcnRj
-LmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL21lZGlhdGVrL210a19jcnRjLmMNCj4gQEAgLTE0
-NSw2ICsxNDUsMTAgQEAgc3RhdGljIHZvaWQgbXRrX2NydGNfZGVzdHJveShzdHJ1Y3QgZHJtX2Ny
-dGMgKmNydGMpDQo+ICAgICAgICAgICAgICAgICBzdHJ1Y3QgbXRrX2RkcF9jb21wICpjb21wOw0K
-PiANCj4gICAgICAgICAgICAgICAgIGNvbXAgPSBtdGtfY3J0Yy0+ZGRwX2NvbXBbaV07DQo+ICsg
-ICAgICAgICAgICAgICAvKiBUaGUgY29ubmVjdG9yIHJvdXRlIHNsb3QgaXMgZW1wdHkgdW50aWwg
-dGhlIGZpcnN0IGVuYWJsZSAqLw0KPiArICAgICAgICAgICAgICAgaWYgKCFjb21wKQ0KPiArICAg
-ICAgICAgICAgICAgICAgICAgICBjb250aW51ZTsNCj4gKw0KPiAgICAgICAgICAgICAgICAgbXRr
-X2RkcF9jb21wX3VucmVnaXN0ZXJfdmJsYW5rX2NiKGNvbXApOw0KPiAgICAgICAgIH0NCj4gDQo+
-IC0tDQo+IDIuNDMuMA0KPiANCg0K
+get_ether_addr() walks the MAC address string with a fixed six iteration
+loop, calling hex_to_bin() twice per iteration, and never checks for the
+terminating NUL.  A short string therefore makes it read past the end of
+the buffer.  The dev_addr and host_addr module parameters of the legacy
+gadget drivers are copied into their own kmalloc'ed buffer by
+param_set_charp(), so the overrun crosses a slab boundary and KASAN
+reports it at insmod time:
+
+  # insmod g_ether.ko dev_addr=ab
+
+  BUG: KASAN: slab-out-of-bounds in get_ether_addr+0x1ec/0x230
+  Read of size 1 at addr ffff888009f91f53 by task insmod/70
+  ...
+   get_ether_addr+0x1ec/0x230
+   gether_set_dev_addr+0x6b/0x180
+   eth_bind+0xfd/0x3b0 [g_ether]
+   composite_bind+0x1bb/0x7b0
+   gadget_bind_driver+0x229/0xb00
+  ...
+  Allocated by task 70:
+   __kmalloc_noprof+0x1d1/0x4a0
+   param_set_charp+0x4a/0x220
+   parse_args+0x267/0x5c0
+   load_module+0x4f6a/0x6600
+  ...
+  The buggy address is located 0 bytes to the right of
+   allocated 19-byte region [ffff888009f91f40, ffff888009f91f53)
+
+Besides reading past the end of the string, the loop ignores what
+hex_to_bin() returns: it yields -1 for a character that is not a hex
+digit, and that value is shifted and OR'ed into dev_addr unchecked, so a
+malformed address can be accepted as a valid one and the interface comes
+up with an address that nobody asked for:
+
+  # insmod g_ether.ko dev_addr=aazz:cc:dd:ee:ff
+  # cat /sys/class/net/usb0/address
+  aa:ff:cc:dd:ee:ff
+
+The configfs dev_addr and host_addr attributes of the ECM, EEM, NCM,
+RNDIS and subset functions reach the same parser through
+gether_set_dev_addr() and gether_set_host_addr().  Their store handler
+passes the whole configfs buffer on, so an overrun there stays inside the
+same object and is never reported, but a malformed address is silently
+accepted all the same.
+
+Replace the open coded loop with parse_mac_pton() for the delimited
+notations and hex2bin() for the raw one, and keep the existing
+eth_random_addr() fallback for everything both of them reject.
+parse_mac_pton() checks the minimum length and every digit before writing
+anything to dev_addr, and hex2bin() stops at the first character that is
+not a hex digit, which the NUL terminator is, so neither reads past the
+end of the string.
+
+The notations that keep working are the byte pair ones, ':' and '.', in
+any mixture, and the separator-less "aabbccddeeff".  What stops working
+is the Cisco notation "aabb.ccdd.eeff" and irregular groupings such as
+"123456:789abc", which the old loop only accepted because it skipped a
+delimiter wherever it happened to find one.  Supporting them would need
+a parser per grouping, so such input is now rejected.
+
+Neither of the two should be missed: they are historical notations that
+are rarely met these days, and the commit that introduced the loop never
+said that it accepted them.  That commit only explains that it resolves
+a FIXME by adding module parameters for stable addresses, so skipping a
+delimiter wherever one happens to turn up reads as a simplification of
+the parser rather than as support for non-standard formats.
+
+How a rejected address is reported depends on the caller.  The legacy
+module parameters go through gether_setup_name(), which keeps the random
+address that get_ether_addr() falls back to and only logs a warning.  The
+configfs attributes go through gether_set_dev_addr() and
+gether_set_host_addr(), which return -EINVAL, so the store fails and the
+attribute keeps its previous value: writing "aabb.ccdd.eeff" to dev_addr
+used to succeed and now fails.  This commit documents the accepted
+formats in the configfs ABI files of all five functions.
+
+Select GENERIC_NET_UTILS so that parse_mac_pton() is built in.
+
+The loop is older than the git history.  It was introduced by
+331a2d82bcaf ("[PATCH] USB: ethernet/rndis gadget address params") from
+v2.6.7 in drivers/usb/gadget/ether.c, and commit 2b3d942c4878 ("usb
+ethernet gadget: split out network core") copied it into u_ether.c.
+331a2d82bcaf predates the git conversion and only resolves in the
+historic tree history.git, so the Fixes: tag points at the start of the
+official git era, commit 1da177e4c3f4 ("Linux-2.6.12-rc2"), and the
+commit that actually introduced the loop is named here in prose.
+
+Suggested-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+---
+v5: no driver code change.  Describe the configfs behaviour accurately
+    (a rejected address fails the store with -EINVAL and keeps the old
+    value; only the legacy module parameters fall back to a random
+    address), name all five functions that use the parser, document the
+    accepted formats in their configfs ABI files, restore a Fixes: tag
+    for 1da177e4c3f4 ("Linux-2.6.12-rc2") while keeping the real
+    introducing commit in prose, and say "minimum length" where v4 said
+    "length".
+v4: pick up Andy's Reviewed-by; name 331a2d82bcaf from v2.6.7 as the
+    commit that introduced the loop and note that it only resolves in
+    history.git; record that the notations being dropped are historical
+    and were never documented as supported.  No code change.
+v3: fall back to hex2bin() so that the separator-less notation keeps
+    working, as suggested by Andy; drop the Fixes tag, the loop predates
+    the git history.
+v2: rework on top of parse_mac_pton(), add the KASAN report and the
+    malformed address example, select GENERIC_NET_UTILS, drop Cc: stable
+    and the Reviewed-by.
+Link: https://lore.kernel.org/all/20261106030605.576584-3-liuc63@xiaopeng.com/
+
+ .../ABI/testing/configfs-usb-gadget-ecm        |  7 ++++++-
+ .../ABI/testing/configfs-usb-gadget-eem        |  7 +++++++
+ .../ABI/testing/configfs-usb-gadget-ncm        |  6 ++++++
+ .../ABI/testing/configfs-usb-gadget-rndis      |  7 +++++++
+ .../ABI/testing/configfs-usb-gadget-subset     |  7 +++++++
+ drivers/usb/gadget/Kconfig                     |  1 +
+ drivers/usb/gadget/function/u_ether.c          | 18 ++++++++----------
+ 7 files changed, 42 insertions(+), 11 deletions(-)
+
+diff --git a/Documentation/ABI/testing/configfs-usb-gadget-ecm b/Documentation/ABI/testing/configfs-usb-gadget-ecm
+index 732101ca9d0b..076567aacf16 100644
+--- a/Documentation/ABI/testing/configfs-usb-gadget-ecm
++++ b/Documentation/ABI/testing/configfs-usb-gadget-ecm
+@@ -17,4 +17,9 @@ Description:
+ 			      - MAC address of device's end of this
+ 				Ethernet over USB link
+ 
+-
++		host_addr and dev_addr accept a MAC address as six byte
++		pairs separated by ':' or '.', in any mixture
++		(aa:bb:cc:dd:ee:ff, aa.bb.cc.dd.ee.ff), or as twelve
++		hexadecimal digits with no separator (aabbccddeeff).  Any
++		other format is rejected: the write fails with EINVAL and
++		the attribute keeps its previous value.
+diff --git a/Documentation/ABI/testing/configfs-usb-gadget-eem b/Documentation/ABI/testing/configfs-usb-gadget-eem
+index 178c3d5fb647..fb2be6ac0864 100644
+--- a/Documentation/ABI/testing/configfs-usb-gadget-eem
++++ b/Documentation/ABI/testing/configfs-usb-gadget-eem
+@@ -14,3 +14,10 @@ Description:
+ 		dev_addr	MAC address of device's end of this
+ 				Ethernet over USB link
+ 		==========	=============================================
++
++		host_addr and dev_addr accept a MAC address as six byte
++		pairs separated by ':' or '.', in any mixture
++		(aa:bb:cc:dd:ee:ff, aa.bb.cc.dd.ee.ff), or as twelve
++		hexadecimal digits with no separator (aabbccddeeff).  Any
++		other format is rejected: the write fails with EINVAL and
++		the attribute keeps its previous value.
+diff --git a/Documentation/ABI/testing/configfs-usb-gadget-ncm b/Documentation/ABI/testing/configfs-usb-gadget-ncm
+index 6fe723effc78..a98ba929f2c2 100644
+--- a/Documentation/ABI/testing/configfs-usb-gadget-ncm
++++ b/Documentation/ABI/testing/configfs-usb-gadget-ncm
+@@ -13,3 +13,9 @@ Description:
+ 		dev_addr	- MAC address of device's end of this
+ 				Ethernet over USB link
+ 
++		host_addr and dev_addr accept a MAC address as six byte
++		pairs separated by ':' or '.', in any mixture
++		(aa:bb:cc:dd:ee:ff, aa.bb.cc.dd.ee.ff), or as twelve
++		hexadecimal digits with no separator (aabbccddeeff).  Any
++		other format is rejected: the write fails with EINVAL and
++		the attribute keeps its previous value.
+diff --git a/Documentation/ABI/testing/configfs-usb-gadget-rndis b/Documentation/ABI/testing/configfs-usb-gadget-rndis
+index 9416eda7fe93..775b32cae136 100644
+--- a/Documentation/ABI/testing/configfs-usb-gadget-rndis
++++ b/Documentation/ABI/testing/configfs-usb-gadget-rndis
+@@ -17,3 +17,10 @@ Description:
+ 		subclass	USB interface subclass, default is 06 (hex)
+ 		protocol	USB interface protocol, default is 00 (hex)
+ 		=========	=============================================
++
++		host_addr and dev_addr accept a MAC address as six byte
++		pairs separated by ':' or '.', in any mixture
++		(aa:bb:cc:dd:ee:ff, aa.bb.cc.dd.ee.ff), or as twelve
++		hexadecimal digits with no separator (aabbccddeeff).  Any
++		other format is rejected: the write fails with EINVAL and
++		the attribute keeps its previous value.
+diff --git a/Documentation/ABI/testing/configfs-usb-gadget-subset b/Documentation/ABI/testing/configfs-usb-gadget-subset
+index 0061b864351f..f67537fe53a0 100644
+--- a/Documentation/ABI/testing/configfs-usb-gadget-subset
++++ b/Documentation/ABI/testing/configfs-usb-gadget-subset
+@@ -14,3 +14,10 @@ Description:
+ 		dev_addr	MAC address of device's end of this
+ 				Ethernet over USB link
+ 		==========	=============================================
++
++		host_addr and dev_addr accept a MAC address as six byte
++		pairs separated by ':' or '.', in any mixture
++		(aa:bb:cc:dd:ee:ff, aa.bb.cc.dd.ee.ff), or as twelve
++		hexadecimal digits with no separator (aabbccddeeff).  Any
++		other format is rejected: the write fails with EINVAL and
++		the attribute keeps its previous value.
+diff --git a/drivers/usb/gadget/Kconfig b/drivers/usb/gadget/Kconfig
+index 76521555e3c1..b83c42be686b 100644
+--- a/drivers/usb/gadget/Kconfig
++++ b/drivers/usb/gadget/Kconfig
+@@ -158,6 +158,7 @@ config USB_U_SERIAL
+ 
+ config USB_U_ETHER
+ 	tristate
++	select GENERIC_NET_UTILS
+ 
+ config USB_U_AUDIO
+ 	tristate
+diff --git a/drivers/usb/gadget/function/u_ether.c b/drivers/usb/gadget/function/u_ether.c
+index 59d85d6a84a8..deedea8a19fd 100644
+--- a/drivers/usb/gadget/function/u_ether.c
++++ b/drivers/usb/gadget/function/u_ether.c
+@@ -686,18 +686,16 @@ static int eth_stop(struct net_device *net)
+ static int get_ether_addr(const char *str, u8 *dev_addr)
+ {
+ 	if (str) {
+-		unsigned	i;
++		bool valid;
+ 
+-		for (i = 0; i < 6; i++) {
+-			unsigned char num;
++		/* Try the delimited formats first */
++		valid = parse_mac_pton(str, dev_addr, ".:");
++		if (valid && is_valid_ether_addr(dev_addr))
++			return 0;
+ 
+-			if ((*str == '.') || (*str == ':'))
+-				str++;
+-			num = hex_to_bin(*str++) << 4;
+-			num |= hex_to_bin(*str++);
+-			dev_addr [i] = num;
+-		}
+-		if (is_valid_ether_addr(dev_addr))
++		/* Fall back to the raw format */
++		valid = hex2bin(dev_addr, str, ETH_ALEN) == 0;
++		if (valid && is_valid_ether_addr(dev_addr))
+ 			return 0;
+ 	}
+ 	eth_random_addr(dev_addr);
+-- 
+2.50.1
+
