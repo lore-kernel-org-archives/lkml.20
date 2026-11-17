@@ -1,78 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.175.24.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794934938;
-	b=TbV3e6pu1rVBISd9LWkLLDy1DKouTCHOkxXDAJ70STSW1Vtz49ZaaSwAWoP3NtRm5z/6
-	 yw1mRmihFsbMCy92JMrAJ0VPa8C1Kyi5meHvm6m8gBf3mLzdR4JMRoON4N6kKb0guWjJY
-	 mxMVukVmk7A73Ol4ZiihS3nDEXEkNjYIH7eQhzib/ZABFoX5oApWzptzVddHPnwE+Acnd
-	 bRqkfyH0y8lJlu4+Frb0/gNpgPezmkmgj0aBOLKbMlE0MIrS5m93jXwbLfunrql257/qI
-	 VmT2JTjg30Sg/ST9WAXW5J04f4mxN1OYy3y61ZYYjQpLAAycAgEtfQAiNHrppWsPTiQ==
+	t=1794934982;
+	b=l1Dr3lpmrA0cDvc2tOJgi6eBoeVVtdomZZQHF2kkzoTY1IcdpMRGRQX3RcHVASUZIiwH
+	 9KeGxZIgM0ddEEV0imiPN831g/MxRXHXBqJbuiqLYGI/XE+DQrHCYLaKg3Os70mvjVSCy
+	 iGu9DPkxP7JwsaQS4lxdTDBsmrzZGo9dWM+fbuWd3xbHvuDB1/J2fg9ltbtFxk6c386C9
+	 6mhqmoJ8walb20V1a+EEBE2BePNM1N4amRR0rUhR1cO15tMj8NcyyF7iPid/6yd2DANhM
+	 7aWuQ9tLOFoImTj7PVx+IXc6kQTVTEKvzBkePZz0YDRsYyuVgT/ona8AwFQ5GaRYeLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794934938;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=FcrHbezu7ZWjOBBzfj/zQMKcAeBb+uf9T04gRQhuzOk=;
-	b=WG/2S9Uj7sCcJB2ddAT318IEk8YzvDnbx22ZDNSsQNpCCW0JqKu7QwSvoQ7wphUNTAi7
-	 Bio8dTvdoEnUgD/ZZa/hgayyhF4FaWyyCoOLUshB3+S0B8eHYs4fSPDMWGMCdaSPe3u49
-	 WY0w4wHboxQhpsseyqy/OHn/PBgbEWsjXO6k7kFtjzjwbKgboYSsInTwMGybarstkIjH9
-	 nU0yL/PZU7eUvpK6r+yu7UKpF/iksrtVl+RN1WJa+xsjmdlMvYMwb8mdmjZRhN3F5a7UF
-	 L51DiTqKKeg+ytaHxVIJsmwnNi9TVTdTkE15WM6r4c3xOVG/f5VKsvKZGMSi6oAxhDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794934982;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=DWSbG4O7NNcxX8fObj3HSY6oLeblqc38YjrZ70564Yc=;
+	b=zACFmkp9RXWSW3RPqgz88AMIfAgHbR/yeR056Jd+Uu8JhpEs1+NsBunzyeb10a9xcflW
+	 eTFrzjWjrJXv/Pq/PadF38O3T830YF12Avwe5XzZvh69tCN21nC1c9FyA5OWLeRh2x2Ya
+	 FniBVyXsWWv5Z1NYZmmxZnHZi5xFvz/9y7X3PMbjtQ7r0H9lvZM4A+ZUPq5nxpfBqrH8u
+	 OaVV1U/K8UoTzP1hn+PwcFeF4RjesPQ7MYW12mfZX3gUO1ph9Z/BpMuglio9jRcIpxRSt
+	 AJb2yy5VUa55bwIQSiCm/xKCoEqWkLUbAfCK0r4KfjTlnV/Al/EH9c+7l/2T8k/4/rA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b="f/DRJ1Jl";
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EEB7606A31C;
-	Tue, 17 Nov 2026 17:02:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1EEB7606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=f/DRJ1Jl
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=FcrHbezu7ZWjOBBzfj/zQMKcAeBb+uf9T04gRQhuzOk=; b=f/DRJ1JlxkjQKKgiumVsBQLZiM
-	eDTDyC59fnlSke8btoyFTBTwVRFcx+9cVDiI9CG/Pz2v9BYmdwQ+QQbltpSrGKAtu9khXAdMhvLaa
-	XUlhedOVcJCmg6GCDC8DLRu+rRMS0WFHhTYyecmdffAiAPgJi315dQDd8J2q8Y3rVGrk=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xTMZJ-00HDCG-CW; Tue, 17 Nov 2026 18:02:05 +0100
-Date: Tue, 17 Nov 2026 18:02:05 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Jisheng Zhang <jszhang@kernel.org>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 1/8] dt-bindings: net: Add MDIO demultiplexer
-Message-ID: <ae24af14-8168-44f0-a150-f18057cc3c95@lunn.ch>
-References: <20261116135442.4827-1-jszhang@kernel.org>
- <20261116135442.4827-2-jszhang@kernel.org>
- <16ecb3ac-7876-4db5-9168-5ac9bf31d4b7@lunn.ch>
- <avvgy_bmRSVApCHA@xhacker>
- <bd19b55b-00b1-406d-a16b-d04c35efb7d3@lunn.ch>
- <avxhJs-51vs2Icje@xhacker>
- <6eb16cd9-27bd-4934-9621-b8928dce6902@lunn.ch>
- <avx43Nv-DJCX5_Rr@xhacker>
- <4d4dc86c-c947-40e2-bdaf-ed00a39f3771@lunn.ch>
- <avx-RO_K5h12HWx2@xhacker>
+	dmarc=none header.from=alpha.franken.de;
+	spf=pass smtp.mailfrom=alpha.franken.de;
+	arc=none smtp.remote-ip=193.175.24.41
+Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 48050606A32A;
+	Tue, 17 Nov 2026 17:03:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48050606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alpha.franken.de
+Received: from uucp by elvis.franken.de with local-rmail (Exim 3.36 #1)
+	id 1xTMaC-0005GF-00; Tue, 17 Nov 2026 18:03:00 +0100
+Received: by alpha.franken.de (Postfix, from userid 1000)
+	id 034DFC0546; Tue, 17 Nov 2026 17:56:41 +0100 (CET)
+Date: Tue, 17 Nov 2026 17:56:40 +0100
+From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: linux-mips@vger.kernel.org, John Crispin <john@phrozen.org>,
+	Sergio Paracuellos <sergio.paracuellos@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	"open list:ARM/Mediatek SoC support" <linux-kernel@vger.kernel.org>,
+	"moderated list:ARM/Mediatek SoC support" <linux-arm-kernel@lists.infradead.org>,
+	"moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>
+Subject: Re: [PATCH] mips: ralink: mt7621: avoid casting away __iomem in
+ wraparound test
+Message-ID: <avyHSKd4l8YYdESO@alpha.franken.de>
+References: <20261004184828.31284-1-rosenp@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,30 +55,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <avx-RO_K5h12HWx2@xhacker>
+In-Reply-To: <20261004184828.31284-1-rosenp@gmail.com>
 
-On Wed, Nov 18, 2026 at 12:18:12AM +0800, Jisheng Zhang wrote:
-> On Tue, Nov 17, 2026 at 05:20:39PM +0100, Andrew Lunn wrote:
-> > > > Each transaction?
-> > > > 
-> > > > Are you proposing to use both MDIO bus master? Why? To the outside
-> > > > world, it is one MDIO bus, so you only need one active MDIO bus
-> > > 
-> > > Yep, both MDIO bus masters. I wanted to let each MAC uses its own
-> > > MDIO rather than disturbe another MAC for dual MACs case.
-> > 
-> > How does this actually work? Each bus master sees each PHY. So one
+On Sun, Oct 04, 2026 at 11:48:28AM -0700, Rosen Penev wrote:
+> CPHYSADDR() casts its argument to an integer, which strips the __iomem
+> annotation from dm and triggers a sparse warning. Compute the physical
+> address from detect_magic directly. The result is unchanged since the
+> sum never exceeds the 512MB KSEG mask.
 > 
-> This could work since the demux serializes two masters' access + only
-> point to one phy phandle in one mac's DT node.
+> Fixes: 4ddaf88aadd3 ("mips: ralink: mt7621: add missing __iomem")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202610041411.uJXWXF8i-lkp@intel.com/
+> Assisted-by: LLM
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  arch/mips/ralink/mt7621.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/mips/ralink/mt7621.c b/arch/mips/ralink/mt7621.c
+> index ae7b8cfedd5f..2d10c74b13c1 100644
+> --- a/arch/mips/ralink/mt7621.c
+> +++ b/arch/mips/ralink/mt7621.c
+> @@ -65,7 +65,7 @@ static bool __init mt7621_addr_wraparound_test(phys_addr_t size)
+>  {
+>  	void __iomem *dm = (void __iomem *)KSEG1ADDR(&detect_magic);
+>  
+> -	if (CPHYSADDR(dm + size) >= MT7621_LOWMEM_MAX_SIZE)
+> +	if (CPHYSADDR(&detect_magic) + size >= MT7621_LOWMEM_MAX_SIZE)
+>  		return true;
+>  	__raw_writel(MT7621_MEM_TEST_PATTERN, dm);
+>  	if (__raw_readl(dm) != __raw_readl(dm + size))
+> -- 
+> 2.56.0
 
-And it all blows up when you don't use DT, or the MDIO node is missing
-and of_mdiobus_register() falls back to mdiobus_register() which scans
-all the devices on the bus.
+applied to mips-next
 
-> Yep, I will switch to one MDIO bus solution by coping with the selector
-> in the sl2610 stmmac glue driver.
+Thomas.
 
-Good.
-
-	  Andrew
+-- 
+Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
+good idea.                                                [ RFC1925, 2.3 ]
