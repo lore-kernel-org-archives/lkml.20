@@ -1,71 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.222
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794879705;
-	b=3VwXx+ExvjqHJ8iFZ7RAgQBnCet10hUhUp/xVvA3lJDDRfB+nBhlv2xWQCG738a31Hyl
-	 xdA1jmk+l++8Tyu9qLzNbi5/NsoaexbmkYt6jEgAigXr/ERX8HwFtU//9PrFhmOMpYtuL
-	 gEB5ghI1urNwgP6gmh1dCf1Zqw7ylsKGzbCGDOxU0MhrksLUq+SDp//NqoQB9tKyHsBIl
-	 zeKkBU3EI6qyo+BaxQKhtL7J8Ek8rV/Sd1+GsBFQy88niaI34nZiNAuxYSMw2HZC9RxtZ
-	 GcZn5av6kYGEfWQFlFvkYkbYp8yP9pwHpI3ag1O7FBwaIqm1t3YkQ+PtAd0sZWjNUJA==
+	t=1794879798;
+	b=MdQDnKEHjjeoFpdx8p0G1jIEmEWqK2cGANIWn6+Z/eOJdQxjEXtgAfcQbrr28h5lupMk
+	 yjNPh71hWq42ZZtRLo/fqnATrTaNiGl8nVTfMXajVh7V9YOaxha9lcUiCvl5lEHwzHz5a
+	 ZZM3tPjh0Y/WGlge148NoPSBSet5hlW1ea6NJdKv8o5Gb2wc1EDumaTD9CM2odRE71UBz
+	 CXSPpFTgALPTZ1TO0Es7gD4o/Q194TDEaeycHm8XD9VEpAvmX5tEMEoSpqTVGc5ZUmiTU
+	 aOU8zQ728I3jZaVDv4TVIVFasFmli9t2BzcKy0/HlN3HUut7+Pmz4LGjsYvP+c0MWSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794879705;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=HyB4U44tHURV9jD0PFddwG89p/LeN3zz5neKsnoHjH8=;
-	b=RdawK4FYjmzaLzgDXDqiddzjt1Tx/DmYH6U20OK21C7bkd5NLZAvz5Prc4t5lTmQ3Afu
-	 8UlNA/Pbr+fmm2nW2YG25uy6HNrG4Fz9KCgpcF89qVdu5qreP4ecMjKuqpaIzjtwTjw4j
-	 F6w5bMUWJ7gdL1GlyvOKAZ8kvejbcPeCUqJ2m3LHdEEXva67bUf1Au2fQ5RFvtRrVsrPr
-	 Sl1ZJrVaspWJuZqSgW1li1jqOW3Af6bexeAbrdPl67AldmpNmxw8rGpnq/5NiAHDpTiJf
-	 JA6YQ1/EwVmQR5Ot/wOQCAxFTAwbLRlg+728foL/KMP16St3qwNIygnoqRLRDXnN9oQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794879798;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=wICdQTS/j653JNeSpq5WDtpcanKknMisPljCXOeLMss=;
+	b=LtFKseQs3NmVKFFZv2e3v9FOspDKlFER8bFEJnaKU6QeA77LhB0c8U6ZsrjoCcY73XsQ
+	 3aVkTm2X6fD1mMQ8/vVVNCDAajTAYNRu38qV8wGnOg4C/9y5Lx92nAHqJww6IKOnftG97
+	 tFaHja/lQ7b5ClhUk50W5SHXzybr3Fs8ZrPSy4xkyd2sIXFS+R7L5x6NibXKbrvZWHSz6
+	 /19YkZe+oHeubOKmIZBkk+dc7TSu5sgWKdK/Fp+mGTMFUkbK+O+8Jct9UZiUEeOsS6gE5
+	 b2V7rDINtkYsi4nkLT3Y5NUBVLk8K1BBnvZ/Dy1Br+PI378PtoBJJV8/8GG3J8CKKcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AlqsHq8i;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=frpS6OPX;
+	arc=none smtp.remote-ip=113.46.200.222
+Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EF2F606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:41:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EF2F606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7447A606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:43:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7447A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AlqsHq8i
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794879705; x=1826415705;
-  h=message-id:date:mime-version:subject:to:references:from:
-   in-reply-to:content-transfer-encoding;
-  bh=LUaw1T7bjoW+GXgRPvj9BeoUVtUWawkATYHZ49V0X4M=;
-  b=AlqsHq8i9mVYKMPShUsviXUVJhKKFCkBppiiT+lAbVh/+y5yjlFNGDpI
-   /bUuF5rvdy4E17Xm9pMPAf6v0cZQD/Zhdd0/56oxBVvSoVjLiC9U1R58E
-   Ub1S8ufzc1JvrsRnUZmDRYkpkqUxsLQPLEdyItfh5g7zYmPMFRqDEyc92
-   9H3kchrBfTGjCGpA3iWJ4iz9fVt2WVnMY/3MBjWa8DajeCEQ+dtqwEe6r
-   EATYgo+plaikP3XMXcRkI7kMErqj9n/wcJH/q83bySKergeVUxDEI7mjH
-   YQNPL66n6g4gnAFRY7n0OhkS8FwoHOOCMl8PF4XTPoBUUo1++oXvg3SGn
-   g==;
-X-CSE-ConnectionGUID: QK2HL0QOQlSFN1dN4kexEQ==
-X-CSE-MsgGUID: KBR0LivZS0i15uird1/Pdw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3486269"
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="3486269"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 17:41:44 -0800
-X-CSE-ConnectionGUID: Pr9QhlaeSRK22fSW7xyoWg==
-X-CSE-MsgGUID: jPeOc0kOTeaX5X0jwaa0+A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="9912089"
-Received: from linux.intel.com ([10.54.29.200])
-  by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 17:41:45 -0800
-Received: from [10.238.144.110] (baolizha-mobl1.ccr.corp.intel.com [10.238.144.110])
-	by linux.intel.com (Postfix) with ESMTP id 43BC520B8CD1
-	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:41:44 -0800 (PST)
-Message-ID: <5ed01aa4-1986-4db1-91b1-77dcc7f747e7@linux.intel.com>
-Date: Tue, 17 Nov 2026 09:41:43 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=frpS6OPX
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=wICdQTS/j653JNeSpq5WDtpcanKknMisPljCXOeLMss=;
+	b=frpS6OPXRpqmmhNNflCDPRrZ+OrimVw2l/RYtkrUAZlNSbLWnQs/7BEcx1Yxb2dLhNlHhAfbq
+	yi10NqiOnLyxchiHsPNhASIINfoC+5fFp6PRPkmtbslZu4Y8KjaAZksvQ15iu5yYmSFhTyqEGa4
+	VubTdFdWssd9ixX7E8x1Bls=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4jT6tk52mpzLlXR;
+	Tue, 17 Nov 2026 09:42:54 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 71FD04048B;
+	Tue, 17 Nov 2026 09:43:13 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 17 Nov
+ 2026 09:43:12 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <james.morse@arm.com>, <ben.horgan@arm.com>, <reinette.chatre@intel.com>,
+	<fenghuay@nvidia.com>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [PATCH RESEND] arm_mpam: resctrl: Annotate domain list walks as RCU under cpus lock
+Date: Tue, 17 Nov 2026 09:42:46 +0800
+Message-ID: <20261117014246.530431-1-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,134 +69,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] drm/i915/display: Let the drivers free the KMS
- objects
-To: linux-kernel@vger.kernel.org
-References: <20261116011504.3910139-1-baoli.zhang@linux.intel.com>
- <20261116011504.3910139-3-baoli.zhang@linux.intel.com>
- <171277546a58621d8b771fd7043dad0fa0559da1@intel.com>
-Content-Language: en-US
-From: "Zhang, Baoli" <baoli.zhang@linux.intel.com>
-In-Reply-To: <171277546a58621d8b771fd7043dad0fa0559da1@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
+The resctrl domain lists are RCU lists which are only modified while the
+CPU hotplug write lock is held, so traversing them is protected by
+cpus_read_lock().  That is the convention the generic resctrl code
+follows.
 
-On 11/16/2026 4:39 PM, Jani Nikula wrote:
-> On Mon, 16 Nov 2026, Baoli Zhang <baoli.zhang@linux.intel.com> wrote:
->> intel_display_driver_remove_noirq() frees all the KMS objects through
->> drm_mode_config_cleanup(), while userspace may still hold the DRM fd
->> open with references to them, e.g. framebuffers it created. Such
->> objects must only be freed with the last reference to the DRM device.
->>
->> As a first step, move drm_mode_config_cleanup() into the new
->> intel_display_driver_mode_config_cleanup() and call it from i915 and xe
->> right after intel_display_driver_remove_noirq(), so each driver can
->> then move it to the right place.
->>
->> drm_mode_config_cleanup() now runs after the rest of the noirq teardown
->> (DP tunnel manager, overlay, GMBUS, workqueues and FBC). After the
->> previous patch the KMS object destroy callbacks no longer depend on any
->> of that.
->>
->> No functional change intended.
->>
->> Tested-by: Yanx L Liu <yanx.l.liu@intel.com>
->> Signed-off-by: Baoli Zhang <baoli.zhang@linux.intel.com>
-> Please don't add new display calls to i915 or xe core drivers. The
-> direction must be the opposite, there needs to be fewer calls. Move the
-> functionality in existing higher level display functions.
->
-> I see that patch 3/3 then changes i915 and xe to behave differently
-> here. That's also the wrong direction. We need to make the drivers
-> behave more similarly. Can't have one driver make some calls, and the
-> other not.
->
-> The approach here makes future changes harder.
->
-> BR,
-> Jani.
-Sure, thanks Jani.  will have the v2 version based on your comments.
->> ---
->>   drivers/gpu/drm/i915/display/intel_display_driver.c | 12 ++++++++++++
->>   drivers/gpu/drm/i915/display/intel_display_driver.h |  1 +
->>   drivers/gpu/drm/i915/i915_driver.c                  |  2 ++
->>   drivers/gpu/drm/xe/display/xe_display.c             |  2 ++
->>   4 files changed, 17 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
->> index d513cfc881069..62a4d95d78b53 100644
->> --- a/drivers/gpu/drm/i915/display/intel_display_driver.c
->> +++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
->> @@ -160,6 +160,18 @@ static void intel_mode_config_cleanup(struct intel_display *display)
->>   {
->>   	intel_atomic_global_obj_cleanup(display);
->>   	intel_encoder_remove_all(display);
->> +}
->> +
->> +/*
->> + * Free the KMS objects, including the encoders torn down by
->> + * intel_display_driver_remove_noirq(). Userspace can keep referring to them
->> + * until the last reference to the DRM device is gone.
->> + */
->> +void intel_display_driver_mode_config_cleanup(struct intel_display *display)
->> +{
->> +	if (!HAS_DISPLAY(display))
->> +		return;
->> +
->>   	drm_mode_config_cleanup(display->drm);
->>   }
->>   
->> diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.h b/drivers/gpu/drm/i915/display/intel_display_driver.h
->> index 1ae2ad7e95f6c..88d9028e86e4b 100644
->> --- a/drivers/gpu/drm/i915/display/intel_display_driver.h
->> +++ b/drivers/gpu/drm/i915/display/intel_display_driver.h
->> @@ -23,6 +23,7 @@ void intel_display_driver_register(struct intel_display *display);
->>   void intel_display_driver_remove(struct intel_display *display);
->>   void intel_display_driver_remove_noirq(struct intel_display *display);
->>   void intel_display_driver_remove_nogem(struct intel_display *display);
->> +void intel_display_driver_mode_config_cleanup(struct intel_display *display);
->>   void intel_display_driver_unregister(struct intel_display *display);
->>   void intel_display_driver_shutdown(struct intel_display *display);
->>   void intel_display_driver_shutdown_late(struct intel_display *display);
->> diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
->> index aeb7b24c81c8b..d29b37ab2833e 100644
->> --- a/drivers/gpu/drm/i915/i915_driver.c
->> +++ b/drivers/gpu/drm/i915/i915_driver.c
->> @@ -906,6 +906,7 @@ int i915_driver_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
->>   	intel_display_driver_remove(display);
->>   	intel_irq_uninstall(i915);
->>   	intel_display_driver_remove_noirq(display);
->> +	intel_display_driver_mode_config_cleanup(display);
->>   	goto out_cleanup_modeset;
->>   out_cleanup_irq:
->>   	intel_irq_uninstall(i915);
->> @@ -951,6 +952,7 @@ void i915_driver_remove(struct drm_i915_private *i915)
->>   	intel_irq_uninstall(i915);
->>   
->>   	intel_display_driver_remove_noirq(display);
->> +	intel_display_driver_mode_config_cleanup(display);
->>   
->>   	i915_reset_error_state(i915);
->>   	i915_gem_driver_remove(i915);
->> diff --git a/drivers/gpu/drm/xe/display/xe_display.c b/drivers/gpu/drm/xe/display/xe_display.c
->> index 506f26e9c59a8..d33052a98d942 100644
->> --- a/drivers/gpu/drm/xe/display/xe_display.c
->> +++ b/drivers/gpu/drm/xe/display/xe_display.c
->> @@ -73,6 +73,7 @@ static void xe_display_fini_early(void *arg)
->>   		return;
->>   
->>   	intel_display_driver_remove_noirq(display);
->> +	intel_display_driver_mode_config_cleanup(display);
->>   	intel_display_driver_remove_nogem(display);
->>   	intel_display_power_cleanup(display);
->>   }
->> @@ -110,6 +111,7 @@ int xe_display_init_early(struct xe_device *xe)
->>   	return devm_add_action_or_reset(xe->drm.dev, xe_display_fini_early, xe);
->>   err_noirq:
->>   	intel_display_driver_remove_noirq(display);
->> +	intel_display_driver_mode_config_cleanup(display);
->>   	intel_display_power_cleanup(display);
->>   
->>   	return err;
+The MPAM implementation omits the condition at three places, so lockdep
+reports a spurious violation with CONFIG_PROVE_RCU_LIST on whenever
+they run:
+
+  WARNING: suspicious RCU usage
+  drivers/resctrl/mpam_resctrl.c:1762 RCU-list traversed in non-reader section!!
+   mpam_resctrl_get_domain_from_cpu+0x200/0x298
+   mpam_resctrl_online_cpu+0xa4/0x160
+   mpam_cpu_online+0x2b4/0x300
+   cpuhp_invoke_callback+0x304/0x700
+
+Likewise for mpam_resctrl_get_mon_domain_from_cpu() and
+resctrl_arch_update_domains().
+
+The lock really is held: lockdep_assert_cpus_held() is the first thing
+each of these functions does, and the warning's own lock list shows
+cpu_hotplug_lock and cpuhp_state-up taken.  Only the annotation is
+missing, so add lockdep_is_cpus_held() to all three walks.
+
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+---
+v1 -> RESEND:
+- Drop fix tag and not cc stable (Ben).
+---
+ drivers/resctrl/mpam_resctrl.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+index 5468367776e2..d25c2bac9678 100644
+--- a/drivers/resctrl/mpam_resctrl.c
++++ b/drivers/resctrl/mpam_resctrl.c
+@@ -1516,7 +1516,7 @@ int resctrl_arch_update_domains(struct rdt_resource *r, u32 closid)
+ 	if (!mpam_is_enabled())
+ 		return -EINVAL;
+ 
+-	list_for_each_entry_rcu(d, &r->ctrl_domains, hdr.list) {
++	list_for_each_entry_rcu(d, &r->ctrl_domains, hdr.list, lockdep_is_cpus_held()) {
+ 		for (enum resctrl_conf_type t = 0; t < CDP_NUM_TYPES; t++) {
+ 			struct resctrl_staged_config *cfg = &d->staged_config[t];
+ 
+@@ -1743,7 +1743,8 @@ static struct mpam_resctrl_dom *mpam_resctrl_get_mon_domain_from_cpu(int cpu)
+ 	if (cache_id < 0)
+ 		return NULL;
+ 
+-	list_for_each_entry_rcu(dom, &l3->resctrl_res.mon_domains, resctrl_mon_dom.hdr.list) {
++	list_for_each_entry_rcu(dom, &l3->resctrl_res.mon_domains, resctrl_mon_dom.hdr.list,
++				lockdep_is_cpus_held()) {
+ 		if (dom->resctrl_mon_dom.hdr.id == cache_id)
+ 			return dom;
+ 	}
+@@ -1759,7 +1760,8 @@ mpam_resctrl_get_domain_from_cpu(int cpu, struct mpam_resctrl_res *res)
+ 
+ 	lockdep_assert_cpus_held();
+ 
+-	list_for_each_entry_rcu(dom, &r->ctrl_domains, resctrl_ctrl_dom.hdr.list) {
++	list_for_each_entry_rcu(dom, &r->ctrl_domains, resctrl_ctrl_dom.hdr.list,
++				lockdep_is_cpus_held()) {
+ 		if (cpumask_test_cpu(cpu, &dom->ctrl_comp->affinity))
+ 			return dom;
+ 	}
+-- 
+2.34.1
+
