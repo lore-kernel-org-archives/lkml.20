@@ -1,112 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794905083;
-	b=TG50Ngzbnm23dLKypwgTyn3BLxkU7KgJytLPNr6/2iinZ1nANPE7v4u2cF7xxAi9agdl
-	 hqG3nEYW2mowipQTzS5vIQypjla5mG6sHTQhszZC4fxmMPSnxQupmfqL2rXnZhnsWl1xB
-	 pxW22vm2xAvvKcdC+XWQ+HY9qmfWiz8uam0OlQoVoVnFi+Tl4JnUaHBt0a1dREJ1xDZZx
-	 4S2/FBBiWf3O21cwh0hIF4KxFe7kWvxLrGKUzeyfnKGbdq/6thhXfbJvfAvdt+mWRIGAy
-	 fjiAJCCc6hWx5KevLcWaDhrNS2xGLlL+k3vsDdKEKbbr1yD9FlNviGJ+JKAJg/4xfSg==
+	t=1794905106;
+	b=vZsMbG6awp7xBlcrz2ftqfTdcj26X83ayknauX3nn3XgLijE3yvUqQRrp6WgmsQGWMrM
+	 JEu82QGQe9J+wHTXVvxWqlz5rVj3jAUnwPu5MidYBanCvkm1/l8BEwfETZvleiw4h2Epn
+	 oNBgN/MYmsC5s8/9jMmV+NztxJ7PdDNyzKEFTrJPJJy/oM5mJINqzoYscEsVfB23z43TB
+	 BowranDTalVPLSz52I+hHc3/+0LLIESBCbXel4kk9008qKdWNQfA/IAttkfWMR+m4o18Z
+	 B9HXoTkSLqz/+tTlytkeRGYMNGeISBJoJi9L41nSygDU9WTHB8OQsywPYcaJO6VpzKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794905083;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=YtgOPMlBsDbDRTTami0iaeC2PfdAlPMUJ3BhZBWqnDY=;
-	b=CFEk63c4EIRFnSA5A/cLTaapLSDuuUCgk+9NRMJC3yylM08cXxQOnJrSn36Cexu+WZ8/
-	 1f7awqPZ2itUJep4jE5uk/GJ9jCbXy3U/m2pKgHLDuH2ZFBlWNlAAxJvFmC6O8lzdByXp
-	 IiEKs57bAMIMPEwgi3FQDSc4Z3lVSN15PlIrNFxjLKAfgoXUCOTHbLrICJZ8Ht6WikI2Q
-	 hEo1NwYaKiA24/tYByDB0rr3rAR2Xdq2/4qyvAoWIq/vhw96nZIburQRXKD5vMXexRnQp
-	 5LIMyK/l/si9bFRKJkW/6zdH5OAUkVq0UrlHOvIy3ewkDHCqiznw45KUGQGyOwIRpfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794905106;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=yDzaN8zNsYziiwwWnbzFQP17MdrMEIb33bW6UntLbrs=;
+	b=GiPycSvCBYkhG6LPzCVIG0nKwccNmJj175d8SNvNdid+hp7ii+Yrqf8WlUpVfKV9s8EH
+	 R6aaBMUBXbPcLYeB6IScHVXbOUq2H1zkwH/3TSH2uXh4q6GDfDplQgSc8Uh2Be/WA0Aia
+	 P7J4lEleRpsvTqrTzcgC2vzoj10Ke2mSy716jnhvnUaGemOVdHhQozQYZqwAM9vohhfh5
+	 AMtIWSKiRXKK62CoweUu0qaa9Rao4TrUxM+3HMMMhG9nx2WcEBahpwAzhz6H5fE0fa22l
+	 YTDebn9+PEj+hK0kqvpucm+6gEi3uAZQ+fVTd8sH39Bj3AFBevg+IM0OdcRkyaBrDuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=amutable.com;
-	spf=pass smtp.mailfrom=amutable.com;
-	dkim=pass header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=qPWJSshs;
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Jp5Z5iRz;
+	arc=none smtp.remote-ip=220.197.31.3
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD9BF606A884
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:44:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD9BF606A884
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE3F606A8AA
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:45:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBE3F606A8AA
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=qPWJSshs
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso4618890f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 00:44:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amutable-com.20260707.gappssmtp.com; s=20260707; t=1794905081; x=1795509881; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=YtgOPMlBsDbDRTTami0iaeC2PfdAlPMUJ3BhZBWqnDY=;
-        b=qPWJSshsn8vVlxONBkwnt0Rrdn9d5F3Qc4ul63isG/q9SzfN/YeX6Opt0gSo3Jew6G
-         TPoHc3exB3o1TVJHb31ucJURrMLm+X5ZLvKQdkLiUwsGhwj3/4jXaF9QxR3XbUAvZwOE
-         a/cd4y1UcgXoBr9kVgdvuhJuBveUAauSYuunqpBOO8ny5BuS4lSdHT4xtCJFDNjS8url
-         r/ZKVJBRzaToW1BBIq0cKvkP0/i/p+OipahpXpiSl0PGBR9WYmSpn39e8LKnYXYjrWjD
-         bzQp5gYJPTRPzgdIgnmtc42HrrCv5BgaqLA/tsUHs3tWdIoSQrhFLq1gvYrghbRPmmpF
-         EcZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794905081; x=1795509881;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YtgOPMlBsDbDRTTami0iaeC2PfdAlPMUJ3BhZBWqnDY=;
-        b=vSJmuKJhShVtA/l0JYoAbf0YsexMPfHbi+m/+fuPDXZvpmps6thHw3S9n9WcnzG7He
-         Pzs9XxII5s7OmFFfr2UemhU8g+PxqOvlRjTWJipMjEgQEPjxoOa6k6eFWoAhSHoyjukS
-         AUatMT+ktwXuDihqHBN7xSWTpdUJQ46LcXpxOwj6jDjYmwAJT6QHbJNBi9kB9qgfLY50
-         P1eFl11VCaVtuRKslbIViWbPWoC3/R1LpAMByGSBvnOiRyRCgzMlHHn3+MkT8m1ZMUO/
-         dA1C/XK4hzVCv/+h4FPKa7i2HTt/kA9RXHDUzOs6bFh7edJBpcSR4mvSvq+t6e0KT7i9
-         0kaw==
-X-Forwarded-Encrypted: i=1; AL+hErGdDVNfnQM1Hc90TUGLYfbJxjO/KWOmAqcE7q5dUtjzW2KKL35U4RTcqfr9qJeGjvcd2HYn0aqJJysv/3c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z902QBSTBEcY1KT0EvDXex/V2YVedHSVc6BvFvG5+AmkffGQ1vd
-	T/wsF70fLWxUzYc8uuvkxI4cz8QlIR6huuqJ9zAH5/GI4CgJBKaq/vZvh0ou+CieRzzG
-X-Gm-Gg: AZFdTZdZcQxKFRRA/UVxwd0u2c8ZB/xNvYAehk9zPKQRYBqD6sTuNZsqksI5ZsqwkXe
-	JU/BKFcZ/MRBjB/0ll5ntgpHWcY9jo+sC0J2f6qn9s8B3EI14fYrnvMfy4mc5OxgECyfc/qbjxb
-	/5jq6T30N4mwXfWRaffk34Lt3VYzhDqlCpv6RLxKsCzKRYj4UQi7pLwAtf+GqupizYSMLgKFTUd
-	G8d+c9LqnR3SyNLCzEPyae4GiNewWwYv+u9SuyExlL7qNM6fnThko8TM01pWpDhVjyqnoJYhnkl
-	VlJfqH9wPNVDAUhp5cjTSealcF38B/IuoXq3rikVKUyeoZQ/KBO7uBnNKS4Z3TneK/jOLsSAhel
-	5CZHbODPw9LlPIF9+SyGxcEJPMacGs2kwlbjMXOldRaWxDWvptrK6m+qBBUlRZ61Mdtra/W1HLO
-	I5scEdzMTwH5rofbqufwwdp9MAVS6oe179uPrn4VlWgqdFFo4iNJD95qeIHsuuiN51QOxMQGSbK
-	zqNwQTlzBSf8HswSn6FDZIBmcb/pDu8zrQVnqZbttN/pBsWtaUNIZu+hF5rj+QuwsantLVisRG8
-	Wn3Yg6GazOMrNjnh7S4S5E8oIiDTzkPkGpWs7CnUGbctNqKJWPtjUJoKLO7Z/XCUTcNHjdxkoun
-	lCm4wIDvXzuE9W7DbIlqoM/bGzUvWx42JjBaDm7u/wKEZt8atDAeKyBAa3MRwr/kHYjE6+9lcjS
-	zaRw==
-X-Received: by 2002:a05:6000:2411:b0:48f:f26d:c5c with SMTP id ffacd0b85a97d-49c70b051d1mr27471178f8f.9.1794905081269;
-        Tue, 17 Nov 2026 00:44:41 -0800 (PST)
-Received: from ?IPv6:2003:cf:572c:2800:de4c:6789:33ce:97c2? (p200300cf572c2800de4c678933ce97c2.dip0.t-ipconnect.de. [2003:cf:572c:2800:de4c:6789:33ce:97c2])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49d673ce75fsm19982260f8f.55.2026.11.17.00.44.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 00:44:40 -0800 (PST)
-Message-ID: <d18a972cfc6a7d6da39ab9674903d7ae6e4c1826.camel@amutable.com>
-Subject: Re: [PATCH RFC v3 35/44] fs: add file_check_backing()
-From: Alexander Mikhalitsyn <alex@amutable.com>
-To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
-Cc: Jann Horn <jannh@google.com>, Chris Mason <mason@kernel.org>, Josef
- Bacik	 <josef@toxicpanda.com>, Christoph Hellwig <hch@lst.de>, 
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>,
- Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org,
- target-devel@vger.kernel.org, 	driver-core@lists.linux.dev,
- linux-mm@kvack.org, bpf@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
-	apparmor@lists.ubuntu.com, linux-nfs@vger.kernel.org,
- netdev@vger.kernel.org, 	fuse-devel@lists.linux.dev,
- linux-efi@vger.kernel.org, 	xen-devel@lists.xenproject.org,
- ocfs2-devel@lists.linux.dev, 	linux-s390@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, 	linux-usb@vger.kernel.org, Amir Goldstein
- <amir73il@gmail.com>, 	linux-erofs@lists.ozlabs.org,
- linux-kselftest@vger.kernel.org
-Date: Tue, 17 Nov 2026 09:44:39 +0100
-In-Reply-To: <20261116-work-loop-pseudo-v3-35-8cbbea1cf34f@kernel.org>
-References: <20261116-work-loop-pseudo-v3-0-8cbbea1cf34f@kernel.org>
-	 <20261116-work-loop-pseudo-v3-35-8cbbea1cf34f@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Jp5Z5iRz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=yD
+	zaN8zNsYziiwwWnbzFQP17MdrMEIb33bW6UntLbrs=; b=Jp5Z5iRzxtZlMcS2ld
+	xFWPzopOzl3JXot4N0gjTFrK67x/ou5zovgVSab0aEAweoZKIznyuHGrBvvesnm1
+	9BzkX86Q0teBISC4r1wHXQpM53oj3+rco7NJon5zVIEBpwtw+egI/P7askQHnzke
+	Gb0ZXnH/UhDLvsAITjDpxMPRY=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp5 (Coremail) with SMTP id QCgvCgD3X6evE_xq9TawGQ--.54072S2;
+	Tue, 17 Nov 2026 16:43:29 +0800 (CST)
+From: Haoxiang Li <haoxiang_li2024@163.com>
+To: sstabellini@kernel.org,
+	linux@armlinux.org.uk,
+	jgross@suse.com,
+	boris.ostrovsky@oracle.com,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	x86@kernel.org,
+	hpa@zytor.com,
+	oleksandr_tyshchenko@epam.com,
+	david.vrabel@citrix.com,
+	konrad.wilk@oracle.com
+Cc: xen-devel@lists.xenproject.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Haoxiang Li <haoxiang_li2024@163.com>
+Subject: [PATCH] xen/grant-table: fix resource leak in gnttab_init()
+Date: Tue, 17 Nov 2026 16:43:25 +0800
+Message-Id: <20261117084325.1241735-1-haoxiang_li2024@163.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,172 +73,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:QCgvCgD3X6evE_xq9TawGQ--.54072S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAFy3ZF45uF4kJr1fAry3CFg_yoW5WrWrpa
+	9xAryktrWrW347tFWaga4v9FWrCa97G3yIkrWUZwn8Zan7GF93Jr4IqFyjvr4kCrWkAF4S
+	y3srKr15Jr48ZaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0ziO6pDUUUUU=
+X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbC7hHKOWr8E7GLtAAA3H
 
-On Mon, 2026-11-16 at 12:05 +0100, Christian Brauner wrote:
-> Loop, zloop, the nvme target, the scsi target, fuse passthrough, the
-> usb
-> mass storage gadget, erofs and acct all take a file from userspace
-> and
-> use it as storage. Currently, each of them has its own idea of what
-> to
-> check before using a file like that:
->=20
-> - loop and the gadget check for a regular file or a block device, the
-> =C2=A0 nvme target, the scsi target and zloop take any file type
-> - loop checks the open mode, the gadget checks FMODE_CAN_READ, the
-> nvme
-> =C2=A0 target, the scsi target and zloop only check for ->read_iter() and
-> =C2=A0 ->write_iter()
-> - apart from acct which refuses procfs and sysfs files none of them
-> =C2=A0 cares whether the file is a kernel interface
->=20
-> Add a helper that does all of it in one place. It only accepts
-> regular
-> files and, if the caller passes S_IFBLK, block devices. It refuses
-> files
-> on pseudo filesystems. And it checks that the file is open for what
-> the
-> caller is going to do with it and implements ->read_iter() for
-> reading
-> and ->write_iter() for writing.
->=20
-> O_PATH files are refused unless the caller passes FMODE_PATH. That is
-> for callers that only need the path of the file. fuse passthrough is
-> one of them and has accepted O_PATH file descriptors since commit
-> efad7153bf93 ("fuse: allow O_PATH fd for FUSE_DEV_IOC_BACKING_OPEN").
->=20
-> Block devices are fine even though bdevfs is a pseudo filesystem. A
-> block device that userspace hands in is a device node on devtmpfs or
-> some other filesystem. Files on bdevfs only come from
-> bdev_file_open_by_*() and never end up here.
->=20
-> The pseudo filesystem check looks at the inode that actually provides
-> the data via d_real_data_inode(). overlayfs accepts sysfs, cgroup2,
-> debugfs, tracefs, configfs and securityfs as lower layers and reads
-> of
-> such an overlayfs file are served by the file on the pseudo
-> filesystem.
-> Checking the overlayfs inode would miss that.
->=20
-> For an O_PATH file nothing might have looked up the data yet.
-> overlayfs
-> only looks up the data of a metacopy file in a data-only layer when
-> the
-> file is opened. d_real_data_inode() does the lookup then and if that
-> fails we return the error.
->=20
-> Note that the file type is taken from the inode of the file and not
-> from
-> the host of ->f_mapping like loop and the gadget do it. A driver can
-> point ->f_mapping somewhere else in ->open(). It makes no difference
-> for
-> block devices as both inodes are block devices.
->=20
-> No functional changes. Nothing calls the helper yet.
->=20
+For x86 PV guests, arch_gnttab_init() allocates virtual address areas
+and PTE pointer arrays for the shared and status frames. These
+resources are not released if the subsequent gnttab_setup() call fails.
 
-Reviewed-by: Alexander Mikhalitsyn <alex@amutable.com>
+Add arch_gnttab_free() and call it on this failure path before the
+existing cleanup. Provide an empty implementation for ARM, which
+is also used by ARM64.
 
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-> ---
-> =C2=A0fs/read_write.c=C2=A0=C2=A0=C2=A0 | 53
-> +++++++++++++++++++++++++++++++++++++++++++++++++++++
-> =C2=A0include/linux/fs.h |=C2=A0 2 ++
-> =C2=A02 files changed, 55 insertions(+)
->=20
-> diff --git a/fs/read_write.c b/fs/read_write.c
-> index 6767283108991..9f1e7bfcbd4f1 100644
-> --- a/fs/read_write.c
-> +++ b/fs/read_write.c
-> @@ -866,6 +866,59 @@ static ssize_t do_loop_readv_writev(struct file
-> *filp, struct iov_iter *iter,
-> =C2=A0	return ret;
-> =C2=A0}
-> =C2=A0
-> +/**
-> + * file_check_backing - check that the kernel can use a file as
-> storage
-> + * @file: file that userspace handed in
-> + * @mode: FMODE_READ and/or FMODE_WRITE the kernel will do I/O with,
-> or
-> + *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 FMODE_PATH if only the path=
- of @file is used
-> + * @type: S_IFBLK if a block device is fine as well, 0 otherwise
-> + *
-> + * Call this where a file from userspace is taken as a backing file.
-> Only
-> + * regular files and, if @type is S_IFBLK, block devices are
-> storage. Files
-> + * on pseudo filesystems are kernel interfaces and are refused. The
-> file
-> + * must be open for @mode and implement ->read_iter() for reading
-> and
-> + * ->write_iter() for writing. O_PATH files are only fine with
-> FMODE_PATH.
-> + *
-> + * Return: 0 on success, -EBADF if @file isn't open for @mode, -
-> EINVAL if it
-> + * can't be used as storage, or the error from looking up the data
-> of @file
-> + * on a stacking filesystem.
-> + */
-> +int file_check_backing(const struct file *file, fmode_t mode,
-> umode_t type)
-> +{
-> +	fmode_t io =3D mode & (FMODE_READ | FMODE_WRITE);
-> +	/* Drivers may point ->f_mapping at something else. */
-> +	umode_t fmt =3D file_inode(file)->i_mode & S_IFMT;
-> +	struct inode *real_inode;
-> +
-> +	/* O_PATH files are only fine for callers that just use the
-> path. */
-> +	if ((file->f_mode & FMODE_PATH) && !(mode & FMODE_PATH))
-> +		return -EBADF;
-> +
-> +	if ((file->f_mode & io) !=3D io)
-> +		return -EBADF;
-> +
-> +	if (fmt !=3D S_IFREG && !(type =3D=3D S_IFBLK && fmt =3D=3D S_IFBLK))
-> +		return -EINVAL;
-> +
-> +	/* Look through stacking filesystems at the inode with the
-> data. */
-> +	real_inode =3D d_real_data_inode(file->f_path.dentry);
-> +	if (IS_ERR(real_inode))
-> +		return PTR_ERR(real_inode);
-> +	if (real_inode->i_sb->s_iflags & SB_I_PSEUDO)
-> +		return -EINVAL;
-> +
-> +	if ((mode & FMODE_READ) &&
-> +	=C2=A0=C2=A0=C2=A0 (!(file->f_mode & FMODE_CAN_READ) || !file->f_op-
-> >read_iter))
-> +		return -EINVAL;
-> +
-> +	if ((mode & FMODE_WRITE) &&
-> +	=C2=A0=C2=A0=C2=A0 (!(file->f_mode & FMODE_CAN_WRITE) || !file->f_op-
-> >write_iter))
-> +		return -EINVAL;
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(file_check_backing);
-> +
-> =C2=A0ssize_t vfs_iocb_iter_read(struct file *file, struct kiocb *iocb,
-> =C2=A0			=C2=A0=C2=A0 struct iov_iter *iter)
-> =C2=A0{
-> diff --git a/include/linux/fs.h b/include/linux/fs.h
-> index 99caef43ff3c4..b1c7ebafbadbe 100644
-> --- a/include/linux/fs.h
-> +++ b/include/linux/fs.h
-> @@ -2553,6 +2553,8 @@ static inline const struct inode
-> *file_user_inode(const struct file *f)
-> =C2=A0	return file_inode(f);
-> =C2=A0}
-> =C2=A0
-> +int file_check_backing(const struct file *file, fmode_t mode,
-> umode_t type);
-> +
-> =C2=A0static inline struct file *file_clone_open(struct file *file)
-> =C2=A0{
-> =C2=A0	return dentry_open(&file->f_path, file->f_flags, file-
-> >f_cred);
+Fixes: 162e37171276 ("x86/xen: safely map and unmap grant frames when in atomic context")
+Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+---
+ arch/arm/xen/grant-table.c | 4 ++++
+ arch/x86/xen/grant-table.c | 9 +++++++++
+ drivers/xen/grant-table.c  | 5 ++++-
+ include/xen/grant_table.h  | 1 +
+ 4 files changed, 18 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm/xen/grant-table.c b/arch/arm/xen/grant-table.c
+index 91cf08ba1e95..69db80877bb5 100644
+--- a/arch/arm/xen/grant-table.c
++++ b/arch/arm/xen/grant-table.c
+@@ -56,3 +56,7 @@ int arch_gnttab_init(unsigned long nr_shared, unsigned long nr_status)
+ {
+ 	return 0;
+ }
++
++void arch_gnttab_free(void)
++{
++}
+diff --git a/arch/x86/xen/grant-table.c b/arch/x86/xen/grant-table.c
+index 5f4060b5a40d..0a89e43d804d 100644
+--- a/arch/x86/xen/grant-table.c
++++ b/arch/x86/xen/grant-table.c
+@@ -149,6 +149,15 @@ int arch_gnttab_init(unsigned long nr_shared, unsigned long nr_status)
+ 	return -ENOMEM;
+ }
+ 
++void arch_gnttab_free(void)
++{
++	if (!xen_pv_domain())
++		return;
++
++	arch_gnttab_vfree(&gnttab_shared_vm_area);
++	arch_gnttab_vfree(&gnttab_status_vm_area);
++}
++
+ #ifdef CONFIG_XEN_PVH
+ #include <xen/events.h>
+ #include <xen/xen-ops.h>
+diff --git a/drivers/xen/grant-table.c b/drivers/xen/grant-table.c
+index 957500dd309a..fc18fe4cf7a3 100644
+--- a/drivers/xen/grant-table.c
++++ b/drivers/xen/grant-table.c
+@@ -1696,7 +1696,7 @@ int gnttab_init(void)
+ 
+ 	if (gnttab_setup() < 0) {
+ 		ret = -ENODEV;
+-		goto ini_nomem;
++		goto free_gnttab;
+ 	}
+ 
+ 	gnttab_size = nr_grant_frames * gnttab_interface->grefs_per_grant_frame;
+@@ -1707,6 +1707,9 @@ int gnttab_init(void)
+ 	printk("Grant table initialized\n");
+ 	return 0;
+ 
++ free_gnttab:
++	arch_gnttab_free();
++
+  ini_nomem:
+ 	for (i--; i >= 0; i--)
+ 		free_page((unsigned long)gnttab_list[i]);
+diff --git a/include/xen/grant_table.h b/include/xen/grant_table.h
+index a33a60a2ea72..a635cadb61f1 100644
+--- a/include/xen/grant_table.h
++++ b/include/xen/grant_table.h
+@@ -203,6 +203,7 @@ gnttab_set_unmap_op(struct gnttab_unmap_grant_ref *unmap, phys_addr_t addr,
+ }
+ 
+ int arch_gnttab_init(unsigned long nr_shared, unsigned long nr_status);
++void arch_gnttab_free(void);
+ int arch_gnttab_map_shared(xen_pfn_t *frames, unsigned long nr_gframes,
+ 			   unsigned long max_nr_gframes,
+ 			   void **__shared);
+-- 
+2.25.1
+
