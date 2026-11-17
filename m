@@ -1,49 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794910366;
-	b=CFldAV2sqQ1/L7ZxBRzeUXnYInxANiZ8HgJWFNsCGxBndfmeafvr6Fg2GP1hdshcmc+Z
-	 88YZuTolUzjzaadXjAAs8iK5GnYd66j7K5BwEg3NinB0t+ry6P3S/g23deU8q+etoA4ez
-	 QwhZfHGavLq1xFmZh87pZBTnpvLcS358IunDUnLY1DTXKD8Ok0DoLhIWwqgQNs4E1WoOZ
-	 CoufpCUtqOuKxjsxJTuhYOOufH95jbU0gJdJiCMmmkX0L0vNO+CNpKaLbDzCoqgTVMww2
-	 iAZr9HN+ZgSbgfV37S4p6K2SI/YRdhKknMYAPVG8SA+DzkPNTkyn0gjFa4HR/b4sCkg==
+	t=1794910392;
+	b=FDFRMIbpF7GwdyvFOYODV/3cEm1OaXWjRMu4Kcu6794spNBgOmPQAF9PZGuxG3udSTnb
+	 ZicDOEvaj9WkOZIDl297yKhGrb8AZTjKIWFr9uiGZa9kHYGZMz7/6dp/hgr2MfZRDcglL
+	 JuippdkSQWWCOhlJzIUJNc0I6c7+mwk8tEfKCJNTdBGZqc7ItawsEmGa/kl/2CyNOuxr3
+	 wm7lDiVgSJdDzgQJxfoBHj2a8JzNQDqL/SC3sk9+RzPNMRfNmnmcRU3eWXwyKU3nyR9C2
+	 10Sy8aOkp6PfE1toRHxzKnoILW41CJ1iEqt1sng6MlPITdcFSEVJ2+snCxRdHqt+2Vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794910366;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=D3OLF8gB3qg7oq3Zq1DXdpp9l0JzH5utHq9bO6sDOHM=;
-	b=uuOF5GhySDZfCAKjKjCsgFFu1R4uHKOZwjH8q/jneUV39GbjAgKjiWqiJ49AMiFEr7rv
-	 /ENlNWHoDuzQgvqA5gJqL0eq5oY44nBK7erVjzfWIXZ2K0v3yPmHQrKoNePQ1faP+PZuc
-	 BeBdhhzdA0xfE/7nj3+3XnQ9c3Y26zLo6/3vlI/qHmBL+/Wbo4d8o6g4dCBZdqMMJQcbW
-	 1ft+T2YLgpavksvf5zWuECQzMEDuQzdbY//tQmZNfkd+JnNnKL9ULXOsmle06HD0ycaUO
-	 vQCuzAcseKLl88NuQWnFD0wmbOjNjDCBga6UWdHKVHRg4jV8z/wTo+RaFdVkq6MEbqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794910392;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=fVeT+3BNfNqDb7R7lCpMKjeQfLaYJROPn4AJADkSt68=;
+	b=Tm+vxSjQfqMwrziZNfJJKVo28HKbBdPxQqnwz8vV1kqXjkcX0VQ1YsCedOnoU3cL5TLm
+	 oQHqYl+ag5tLixJZssVzK4hgAr57SQu+y0YtGLWMg4NBcvWmvKkIwjnZ/Ol0HAEfkQJeK
+	 FUlffuWju4n+kYPGh0dUkbmwuKHehIznK760YHrFgCuyas38Zmopv+eVKIuE7iNL9++wO
+	 JapaMfsRZnnzqPQM9hvw+HT7A8aL7t2uOu6Rn+YRjn6dhYCKj2msjUejTszESRNwKSSfe
+	 oJ7o8LxDiT0hyvS3g3pbJAwHx4evhlefTIrcSwYors8b+BWXYSnDljkc2YqxB5lvmKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=OQchZGWj;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 75C6E606A330;
-	Tue, 17 Nov 2026 10:12:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75C6E606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K5iPa7jJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 775F9606A331
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:13:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=OQchZGWj
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C53A5339;
-	Tue, 17 Nov 2026 02:12:41 -0800 (PST)
-Received: from [10.164.19.84] (a081061.arm.com [10.164.19.84])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id ADD5E3F763;
-	Tue, 17 Nov 2026 02:12:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794910364; bh=ntG9brhhod790MDNwXy0CRXHhBdlremMwhEoGBmXYPE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=OQchZGWj0BCNmNV5/FrS8pbBLF5MqnkhNpW94BFA5ILh7FEX1iX9QUkzo79s9Wkur
-	 fJcbOndj1OL5aflbhuV97ZHblj5CCOG0CP+ppX3uRTYmcDLmlwSweZLzOagSku0mfg
-	 6zL4kn76qhHdlCHjHmajIMQ8WZHY7ERskmTAUcZg=
-Message-ID: <14defc31-66b6-4f00-bfa9-2457b8466f45@arm.com>
-Date: Tue, 17 Nov 2026 15:42:38 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K5iPa7jJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D44E1F000CD
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:13:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794910392;
+	bh=fVeT+3BNfNqDb7R7lCpMKjeQfLaYJROPn4AJADkSt68=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=K5iPa7jJO4O1Ny56x+UYre1hMiIN4q06fwDElC4QwXyvKcMUscD5OULvLgaFAYq5X
+	 eqbfXwm9epbdfQWQL5xOtUA7I4k5FUWYIcEmGDRaiWqmQ+i5U2Ez6aumo8nPZyqKYu
+	 HVYN9Ic0CeDt3ZkG0598tbhFqIk30JsWnM/TsdYAqkcjQFqKNWMFc5wud0g9moNxM3
+	 iSRjzJDe/Cbi6UhGYLcmj3sSrX6R5ES4TKHAQCHpO97M1gAOJ1DHtqSpHjxl2xGG54
+	 IiYumfgjQdRT4W/KEk/RrwK5aPP1hxKZSunX+WQzgtFmwZ2xvp8qR3dvzuNqevpraf
+	 dPQpkPVX/2jPA==
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5be53e5fce1so4411740e87.1
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:13:12 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErH+5fAs3E9Boz2X5NfUWxV1x+ggC2L4nHtG0YQWthpHV1VgxZPDGxTrNPzwfsPmtBQqLVeA1QxhUIITqpM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+bvY2SZ9bM0ZhvFFuyEynXkMUKETZl164QZB6OvJVQlw/VbKx7
+	9bQt1EfMJrD/wOk3tLhqLrJYIWGUVmBvIO4cpX0cd3YZOfFO3pf1yLQ5RgGtBfbLm29wG1svFMy
+	dmYh0JbAr04Pn4Qm1o3tyNXeHd3+lzq4=
+X-Received: by 2002:a05:6512:2399:b0:5bf:b8f7:656f with SMTP id
+ 2adb3069b0e04-5c170b1c2fcmr5286367e87.16.1794910390853; Tue, 17 Nov 2026
+ 02:13:10 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,41 +59,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND v2 00/12] improve mremap_test
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, "Liam R . Howlett"
- <liam@infradead.org>, Vlastimil Babka <vbabka@suse.com>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
- John Hubbard <jhubbard@nvidia.com>, Kalesh Singh <kaleshsingh@google.com>,
- Anshuman Khandual <anshuman.khandual@arm.com>, Park Tae-sun
- <ts930@dgu.ac.kr>, linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261102100211.141831-1-sarthak.sharma@arm.com>
- <avsmKAf4MRwGdpGI@gremlin>
-Content-Language: en-US
-From: Sarthak Sharma <sarthak.sharma@arm.com>
-In-Reply-To: <avsmKAf4MRwGdpGI@gremlin>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261107-a210-pinctrl-v1-0-6ddedfb0b76b@iscas.ac.cn>
+In-Reply-To: <20261107-a210-pinctrl-v1-0-6ddedfb0b76b@iscas.ac.cn>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 17 Nov 2026 11:12:58 +0100
+X-Gmail-Original-Message-ID: <CAD++jLmk9qMP_fXkYEV5de9d-xu=GhHWkfAXws3kxwXORq1WxA@mail.gmail.com>
+X-Gm-Features: Aa3M54rHFkXM7b8oZyPnRAYA_-IYWZ6f85f3wqy9H6Dh9cQVnlkurrnqDxyrOWM
+Message-ID: <CAD++jLmk9qMP_fXkYEV5de9d-xu=GhHWkfAXws3kxwXORq1WxA@mail.gmail.com>
+Subject: Re: [PATCH 0/3] pinctrl: add Zhihe A210 pin controller support
+To: gaohan@iscas.ac.cn
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+	Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	Han Gao <rabenda.cn@gmail.com>, Conor Dooley <conor.dooley@microchip.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Fri, Nov 6, 2026 at 8:36=E2=80=AFPM Han Gao via B4 Relay
+<devnull+gaohan.iscas.ac.cn@kernel.org> wrote:
 
+> This adds the binding and driver for the Zhihe A210 pin controllers
+> (AON, PERI1 and PERI2).
 
-On 11/16/26 9:21 PM, Lorenzo Stoakes (ARM) wrote:
-> Hi Sarthak,
-> 
-> Sorry we're being slow on this one, right now mm is really inundated with stuff
-> so we're in firefighting mode (see [0]), so I'm not sure if we'll have time to
-> get back to this this cycle, will try to if I'm able to! :)
+Patches applied, very nice series Han!
 
-Yup, makes sense. I'd missed the firefighting mode email, thanks for
-pointing :)
-
-> 
-> --
-> Cheers, Lorenzo
-> 
-> [0]: https://lore.kernel.org/linux-mm/a2f584f6-e382-4876-aa6d-d5a34de6ee59@kernel.org/
-
+Yours,
+Linus Walleij
