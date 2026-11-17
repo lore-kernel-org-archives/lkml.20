@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794927349;
-	b=n2f6/09mYESoSL4iZrgyhEGyXwYSk1gcSGExSZCMUbq/v05VsdCFMwW7GD7EzZA2GOTm
-	 lThu77N+PLieirUYvV6pzIPnJp35y0FKanPensPwP6YJ2LBMsfbH5lY7IGIGXSR4aaVtI
-	 zxOIlijE6RE3Y2Mt/o6yApNKQynfiN7g+dx1Xu3IlXh0hz9fYXWMYe3Fxh7DUM2EGz08P
-	 utuj7ECIwGW9x8LsjBmhVIOhAOA+FOm+reL94Wy/K1PHnIVIHXqVLu/KDUT4RJfzkuoBU
-	 +oVley9m1v4JACZicFdPHOMiEYMvqFl1sJydZ6plcm51NCpPU6dMU3VFgKZB74Y/BWw==
+	t=1794927350;
+	b=VkZ08uxrL2QUWgZ88fGAtxXjCw9HIlGcixShDyhOjn4ctq2X3jaYzw7M1vZSY3V5eXZ3
+	 5ZIcYCOaD9XZOHzUL3mrObFeVmjjVzqg2TNgTHvrD/U5C4y6axcV7iXFJR/UNi9aMyiml
+	 YoahrAUcy5FwXBs6XO+2BmQK/U4LHfX94+XSr9TyRiFkTIONqJdjBYj5BNKjL1eplw8N0
+	 9eh8/PURQ+GHE5aH07UV/qs4/LjsHSBNo8KNk6O4KLD4eX8PtHlSFdPiw6+kmE8Zg2Bkr
+	 QKhU5ke2vWisvl6Z4DrC1QhCwnDgyBG1Py5UfcmFGmG2pHdUVmNDb5qC9pxOgdn5wxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794927349;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794927350;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=wt+9JWcwL2nVatIor+f5wPjDE3yZm0NfWPflpZZJfb0=;
-	b=uiSubwbzOq1NB6iZs5pFaLwgBo2tJadfIA2kyZi8aKsk/khY0MEUdXhZnYvNKRsQXV/0
-	 1wRUlAraasIdf8ATu+v0iZe09r4WW7sfdn7/UJmfw/eFySgYkaqG0OGLAiTjUPEDRETKY
-	 rOi3LmXCGCRB9w66BptsP49PgJVLlCHJhaYtomqB1HlL2Yoh9SJBh9rrBlPLUE2od+sTK
-	 Fz8yKSO2cE7J6zQTbH2WIi8cP8dMiOULj3fq5n97BygVso1NjD8XUWENedQ+cpR9Uy7vy
-	 yQaCt7ZToRUwrksoxD+0Dro0i8+l4K6W+bmpug0s4Mknt9qxHqh/jZmrXuUXLRVkHFQ==
+	bh=N2W1vGbTN1fxXgYMzqAEGGqqwODSJcSkIJEHTLlETcw=;
+	b=pvN88wIU3lHRouAG4SshWH6/tBK+bFM2GJOLtVRfqQy8DYMnG78i0Cp9nAtKTXugS9FM
+	 ybLgyNR9EC8bFBPcRm71ZiV3fypEmv8FEeC3e+LVbPIuu8C+b/pFLZRD3Iyb3mdDoZLUb
+	 tqJtasJG34gBJ1LPWwdOqZfTdcVd3peP9NFD8WHQHPUcFObCKH6+gmkimPV0aUrrEQ3Lj
+	 YLtfwYV8r+I6rAStHBNYmUcoyBron/FUMkiC9si7raHGpLNtj2xLuCskqIgwjbcgFeoZ0
+	 Cf6TdALrUaNad1KfaR6p8AnRbd5PjcIL8WcmVTbsGhBWplYXsrj2708bJhK1lIuPFIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--stani.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ZNWC3ICD;
-	arc=none smtp.remote-ip=209.85.128.200
-Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com [209.85.128.200])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VgDZIXUN;
+	arc=none smtp.remote-ip=209.85.128.198
+Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com [209.85.128.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13E1960A5BD4
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:55:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13E1960A5BD4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 084F860A6F55
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:55:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 084F860A6F55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stani.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ZNWC3ICD
-Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-8b4bfc0b441so42226237b3.2
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:55:48 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VgDZIXUN
+Received: by mail-yw1-f198.google.com with SMTP id 00721157ae682-8b4d1e90b9eso19227217b3.3
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:55:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794927348; x=1795532148; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794927349; x=1795532149; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wt+9JWcwL2nVatIor+f5wPjDE3yZm0NfWPflpZZJfb0=;
-        b=ZNWC3ICDF9qjM8Z4UYFQGU2TnH04ksAEYOdiV9QmDxHjI9EQM4h2MChrOKc3TTHpuD
-         Zmk5I85RQ+4INeFoTigZhueVoxAK/97dS4mWXw3L627X46vBaWULfpUgskIbuznhXY6q
-         tolTonUwuagYmq52okHCu5yR4Be5CYG2ey0bzjzXkHDaGcZIe+b2H4s+arcyymOrVJ8V
-         aLyYMMTNaV4GC9oHEQKFPrfQ/7wvNV/fqSi4GCXhvbS/lbt2cqe8YdDf94AjLIOajP/i
-         H1CyHcXKlmPUPdUsfBA4O8YS5hYZUaIF1RJF/oAatJ6vJwY4oq3uKxQmhTZjr+wWnQ+C
-         ktOg==
+        bh=N2W1vGbTN1fxXgYMzqAEGGqqwODSJcSkIJEHTLlETcw=;
+        b=VgDZIXUNb/v6nkklYfbI32flOuhEE4d7GwSXmQM+hLCunE+AZyMZcdCrUFW6+Mv/g1
+         dnApFv8C1UGnV3UxXkCp/idcKL9WX8O2l0NNkb2a3RtfZ0Ak5fMb1SSWqT3uVkRF+xEX
+         Ksa37izYL6U2uczaatstBIg4O2vVs8oPhP7jHQd7xeSLAaQ1p7haV2uL1WcCHuryu2tR
+         SNFYNLl/Y+cl2YtUPmpQe6QxGUYH8W8S3IfDLYsDRnJNP/hJw8C0nrIOzjAeu5VLg9Qx
+         d2EaVEU58m28IxcUkh+bCUHsAoCBKPyVyod0u8CC2tN8KZ+qIQfeJLL2BwhC8zBZL2zS
+         0ZIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794927348; x=1795532148;
+        d=1e100.net; s=20260707; t=1794927349; x=1795532149;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wt+9JWcwL2nVatIor+f5wPjDE3yZm0NfWPflpZZJfb0=;
-        b=1+iOAHD/c7+SaVB1XuyVDh+nVM8oZikHQu1ZmibX4wO/0Lig1JESXZhHPYncF/m9Hj
-         ZWZ5xI9D50Cm52nusAz+TPdN7rhZrjk6tKprDyblhi1D8q8EapX0qJM5Ao6wb1B8yj8Q
-         lxJvVZ2tKVDjrYmwfvva7HYyK5Rg8flU7ctf+6FXnBrUc1ESosXTzn2QHTj6Vu/1OS/p
-         gqdDs9j7NpWoWJsWP8HYt+MigYC6uQ8jQtqFXqtME78XlU2TC5wmmJFvbwnA98Wy9o9H
-         b4O/eug/ghI9GZvpW4yb9dI5GdrVKkXbWcC0zyBaE44h8vcpEcHelBopge7lf2GBKxmr
-         lDWg==
-X-Forwarded-Encrypted: i=1; AL+hErENDr5/MGkNaoY5JRPJhWtr4Hm9tReN6zf75rID50pu2yF218mfZ2cmgXNTJ6VaQba/vFvddselnHGnbXk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9sTV2Sdac+DkipcDr+s0T4g7QrPV244rK6pguEyuDpz9ugv3nR
-	zUrnK9f7iwVljMrpooeO2kY32yfLn8cTWNbZx6yJazs8sLmJIaEq/5xD2HMW0yWx+C3EbCoa1tL
-	yuA==
-X-Received: from yxvo14.prod.google.com ([2002:a53:ce8e:0:b0:67d:8220:1db9])
- (user=stani job=prod-delivery.src-stubby-dispatcher) by 2002:a05:690e:1382:b0:67d:aee7:a138
- with SMTP id 956f58d0204a3-67daee7bce3mr4616821d50.89.1794927347672; Tue, 17
- Nov 2026 06:55:47 -0800 (PST)
-Date: Tue, 17 Nov 2026 14:55:16 +0000
+        bh=N2W1vGbTN1fxXgYMzqAEGGqqwODSJcSkIJEHTLlETcw=;
+        b=Ocuv8vI8clS+SIO6Qxbnwvxa75JPnjTGtBB/TOoLLrwLTUXUXJ9NHF0QluovROOhKA
+         Yziq1hg5Fp93WXLSIPLDdnLB29EIup4rtLAP6/AgsWaDWo2LFMPFQySkx8maFnUKCc10
+         hOxeY8heGjB5+5pn6l90RrATkZggLHugZ5Idjw6wZLzDCDuigwciUjKB9sovwp+3H2Fp
+         uKCgltdd4liQoJ4S8wf+QqLv4V03lYt1kIl+LFlc8MLMKnDE+YK88YHKk6h5HIt2BakR
+         TyxKyNotf3+UN8n/KPM3N0bTj32fR0q1HNAofgvhQhcoyDVSSJNi04HyiYvBLF25hw/s
+         uyKg==
+X-Forwarded-Encrypted: i=1; AL+hErHQvG35wUjo/WOIUC6HxjslNgsnA3YgSmAxQUp6/dl8uXUaP0Gb3yODv33wM0beFtVQGzR/5VvnyucNq10=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ZNy788PAL0quR8yiKETTyMLf1NY0j6dn0Ze9T9l+Jn7yL3G31
+	1z1+uS2AU7jqNO9Z/O50nCBBMbRwN65EPMdFEndBSLwuXr7OUkVD4topKNISSXaa3si67cHbNbF
+	G+Q==
+X-Received: from yxbv18.prod.google.com ([2002:a05:690e:7d2:b0:675:604a:47fe])
+ (user=stani job=prod-delivery.src-stubby-dispatcher) by 2002:a05:690e:d8f:b0:67c:8ea:be13
+ with SMTP id 956f58d0204a3-67d896a0ae3mr6694528d50.52.1794927348674; Tue, 17
+ Nov 2026 06:55:48 -0800 (PST)
+Date: Tue, 17 Nov 2026 14:55:17 +0000
 In-Reply-To: <20261117145522.1910636-1-stani@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261117145522.1910636-1-stani@google.com>
 X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
-Message-ID: <20261117145522.1910636-11-stani@google.com>
-Subject: [PATCH iwl-next 10/15] idpf: psp: add support for psp statistics
+Message-ID: <20261117145522.1910636-12-stani@google.com>
+Subject: [PATCH iwl-next 11/15] idpf: psp: add psp tx key state
 From: Stan Iliev <stani@google.com>
 To: Tony Nguyen <anthony.l.nguyen@intel.com>, 
 	Przemek Kitszel <przemyslaw.kitszel@intel.com>, "David S. Miller" <davem@davemloft.net>, 
@@ -97,293 +97,178 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
 	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-hardening@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Add support for the PSP device statistics:
-- Introduce VIRTCHNL2_OP_GET_PSP_GLOBAL_STATS (566),
-  enum virtchnl2_psp_global_stats_type,
-  struct virtchnl2_psp_global_stats_request/_response,
-  struct virtchnl2_psp_global_common_stats and
-  struct virtchnl2_psp_global_addon_stats.
-- Implement idpf_send_get_psp_global_stats(): only the requested stat
-  groups present in the reply are reported as supported.
-- Implement the get_stats PSP device op. The last statistics read are
-  kept in adapter->psp.stats and reported when they can't be read,
-  e.g. during a reset.
+TX keys are inserted into the SADB asynchronously: the SA index of a
+key is only known when the CP replies. Add struct idpf_psp_tx_key, the
+reference counted state of a TX key, stored in the driver data of its
+PSP association in a later patch:
+- idpf_psp_tx_key_alloc(), idpf_psp_tx_key_get() and
+  idpf_psp_tx_key_put(). The TX path reads the SA index of the key
+  under RCU: the key is freed after an RCU grace period.
+- The SA index is IDPF_PSP_IDX_IN_PROG while the insertion is pending,
+  IDPF_PSP_IDX_ERROR if it failed and IDPF_PSP_IDX_DELETED once the key
+  was deleted, see idpf_psp_idx_valid().
+- idpf_psp_saidx_ok() checks the SA indexes returned by the CP against
+  the SA index width negotiated for the adapter.
 
 Signed-off-by: Stan Iliev <stani@google.com>
 ---
- drivers/net/ethernet/intel/idpf/idpf_psp.c    | 51 +++++++++++++
- .../net/ethernet/intel/idpf/idpf_psp_def.h    | 13 ++++
- .../ethernet/intel/idpf/idpf_psp_virtchnl.c   | 52 +++++++++++++
- .../ethernet/intel/idpf/idpf_psp_virtchnl.h   |  2 +
- include/linux/net/intel/virtchnl2.h           | 75 +++++++++++++++++++
- 5 files changed, 193 insertions(+)
+ drivers/net/ethernet/intel/idpf/idpf_psp.c    | 51 +++++++++++++++++++
+ drivers/net/ethernet/intel/idpf/idpf_psp.h    | 31 +++++++++++
+ .../net/ethernet/intel/idpf/idpf_psp_def.h    | 30 +++++++++++
+ 3 files changed, 112 insertions(+)
 
 diff --git a/drivers/net/ethernet/intel/idpf/idpf_psp.c b/drivers/net/ethernet/intel/idpf/idpf_psp.c
-index cf0216640ddc..844463754632 100644
+index 844463754632..ef23b1699b09 100644
 --- a/drivers/net/ethernet/intel/idpf/idpf_psp.c
 +++ b/drivers/net/ethernet/intel/idpf/idpf_psp.c
-@@ -249,11 +249,62 @@ static int idpf_psp_key_rotate(struct psp_dev *psd,
- 	return 0;
+@@ -128,6 +128,57 @@ void idpf_psp_free(struct idpf_adapter *adapter)
+ 	idpf_psp_unregister(adapter);
  }
  
 +/**
-+ * idpf_psp_get_stats - Get the PSP device statistics
-+ * @psd: PSP device
-+ * @stats: statistics to fill in
++ * idpf_psp_tx_key_alloc - Allocate the state of a PSP TX key
 + *
-+ * Read the PSP global statistics with VIRTCHNL2_OP_GET_PSP_GLOBAL_STATS. The
-+ * last statistics read are reported if they can't be read, e.g. during reset.
++ * Return: the TX key with a reference, NULL if it couldn't be allocated.
 + */
-+static void idpf_psp_get_stats(struct psp_dev *psd, struct psp_dev_stats *stats)
++struct idpf_psp_tx_key *idpf_psp_tx_key_alloc(void)
 +{
-+	struct idpf_adapter *adapter = idpf_netdev_to_adapter(psd->main_netdev);
-+	struct idpf_psp_dev_stats *cur = &adapter->psp.stats;
-+	struct virtchnl2_psp_global_stats_response resp;
-+	u32 supported;
++	struct idpf_psp_tx_key *key;
 +
-+	if (!idpf_send_get_psp_global_stats(adapter, &resp)) {
-+		supported = le32_to_cpu(resp.supported_stats);
++	key = kzalloc_obj(*key);
++	if (!key)
++		return NULL;
 +
-+		if (supported & VIRTCHNL2_PSP_STAT_COMMON) {
-+			const struct virtchnl2_psp_global_common_stats *cs =
-+				&resp.common_stats;
++	kref_init(&key->ref);
++	spin_lock_init(&key->lock);
++	key->idx = IDPF_PSP_IDX_IN_PROG;
 +
-+			cur->rx_packets = le64_to_cpu(cs->rx_decrypted_packets);
-+			cur->rx_bytes = le64_to_cpu(cs->rx_decrypted_bytes);
-+			cur->rx_auth_fail = le32_to_cpu(cs->rx_auth_failures);
-+			/* PSP spec: rx_error counts length/framing errors,
-+			 * rx_bad miscellaneous errors.
-+			 */
-+			cur->rx_error = le32_to_cpu(cs->rx_bad_packets);
-+			cur->rx_bad = le32_to_cpu(cs->rx_misc_errors);
-+			cur->tx_packets = le64_to_cpu(cs->tx_encrypted_packets);
-+			cur->tx_bytes = le64_to_cpu(cs->tx_encrypted_bytes);
-+			cur->tx_error = (u64)le32_to_cpu(cs->tx_misc_errors) +
-+					le32_to_cpu(cs->tx_bad_packets);
-+			if (supported & VIRTCHNL2_PSP_STAT_ADDON)
-+				cur->tx_error +=
-+					le32_to_cpu(resp.addon_stats.tx_inv_sa_packets);
-+		}
-+	}
-+
-+	stats->rx_packets = cur->rx_packets;
-+	stats->rx_bytes = cur->rx_bytes;
-+	stats->rx_auth_fail = cur->rx_auth_fail;
-+	stats->rx_error = cur->rx_error;
-+	stats->rx_bad = cur->rx_bad;
-+	stats->tx_packets = cur->tx_packets;
-+	stats->tx_bytes = cur->tx_bytes;
-+	stats->tx_error = cur->tx_error;
++	return key;
 +}
 +
- /* PSP device operations, see idpf_psp_register() */
- static struct psp_dev_ops idpf_psp_ops = {
- 	.set_config	= idpf_psp_set_config,
- 	.rx_spi_alloc	= idpf_psp_rx_spi_alloc,
- 	.key_rotate	= idpf_psp_key_rotate,
-+	.get_stats	= idpf_psp_get_stats,
- };
- 
++/**
++ * idpf_psp_tx_key_free - Free the state of a PSP TX key
++ * @ref: reference count of the TX key
++ */
++static void idpf_psp_tx_key_free(struct kref *ref)
++{
++	struct idpf_psp_tx_key *key = container_of(ref, struct idpf_psp_tx_key,
++						   ref);
++
++	/* The TX path may still read the SA index of the key */
++	kfree_rcu(key, rcu);
++}
++
++/**
++ * idpf_psp_tx_key_get - Get a reference on a PSP TX key
++ * @key: the TX key
++ */
++void idpf_psp_tx_key_get(struct idpf_psp_tx_key *key)
++{
++	kref_get(&key->ref);
++}
++
++/**
++ * idpf_psp_tx_key_put - Release a reference on a PSP TX key
++ * @key: the TX key
++ */
++void idpf_psp_tx_key_put(struct idpf_psp_tx_key *key)
++{
++	kref_put(&key->ref, idpf_psp_tx_key_free);
++}
++
  /**
+  * idpf_psp_set_config - Set the PSP device configuration
+  * @psd: PSP device
+diff --git a/drivers/net/ethernet/intel/idpf/idpf_psp.h b/drivers/net/ethernet/intel/idpf/idpf_psp.h
+index 34534076da47..44ac750e2c3b 100644
+--- a/drivers/net/ethernet/intel/idpf/idpf_psp.h
++++ b/drivers/net/ethernet/intel/idpf/idpf_psp.h
+@@ -16,6 +16,37 @@ void idpf_psp_recv_late_reply(struct idpf_adapter *adapter,
+ void idpf_psp_rotation_event(struct idpf_adapter *adapter,
+ 			     const struct libie_ctlq_msg *ctlq_msg);
+ 
++struct idpf_psp_tx_key *idpf_psp_tx_key_alloc(void);
++void idpf_psp_tx_key_get(struct idpf_psp_tx_key *key);
++void idpf_psp_tx_key_put(struct idpf_psp_tx_key *key);
++
++/**
++ * idpf_psp_saidx_ok - Check an SA index returned by the CP
++ * @adapter: private data struct
++ * @saidx: the SA index
++ *
++ * Return: true if @saidx fits in the SA index width negotiated for the
++ * adapter, false otherwise.
++ */
++static inline bool idpf_psp_saidx_ok(const struct idpf_adapter *adapter,
++				     u32 saidx)
++{
++	return saidx < BIT(adapter->psp.saidx_width);
++}
++
++/**
++ * idpf_psp_idx_valid - Check if the SA index of a TX key is usable
++ * @idx: SA index or state of a TX key, see struct idpf_psp_tx_key
++ *
++ * Only SA indexes checked with idpf_psp_saidx_ok() are stored in a TX key.
++ *
++ * Return: true if @idx is an SA index, false if it is a state.
++ */
++static inline bool idpf_psp_idx_valid(u32 idx)
++{
++	return idx <= IDPF_PSP_IDX_MAX;
++}
++
+ #else /* !CONFIG_INET_PSP */
+ 
+ static inline void idpf_psp_init(struct idpf_adapter *adapter) { }
 diff --git a/drivers/net/ethernet/intel/idpf/idpf_psp_def.h b/drivers/net/ethernet/intel/idpf/idpf_psp_def.h
-index 3132efe00559..fdd65bc5321a 100644
+index fdd65bc5321a..9ba99e08853a 100644
 --- a/drivers/net/ethernet/intel/idpf/idpf_psp_def.h
 +++ b/drivers/net/ethernet/intel/idpf/idpf_psp_def.h
-@@ -56,6 +56,9 @@ struct idpf_psp_rx_gen {
-  *		by the PSP device lock, see idpf_psp_key_rotate()
-  * @rx_gen: generation of the master key of each SPI phase, protected by the
-  *	    PSP device lock, see idpf_psp_rx_gen_update()
-+ * @stats: last PSP device statistics read with
-+ *	   VIRTCHNL2_OP_GET_PSP_GLOBAL_STATS, protected by the PSP device
-+ *	   lock, see idpf_psp_get_stats()
-  * @keys_allocated: RX keys allocated
-  * @psp_dev: the PSP device, see idpf_psp_register()
-  * @caps: capabilities of @psp_dev
-@@ -68,6 +71,16 @@ struct idpf_adapter_psp {
- 	u32 vport_id;
- 	u8 generation;
- 	struct idpf_psp_rx_gen rx_gen[2];
-+	struct idpf_psp_dev_stats {
-+		u64 rx_packets;
-+		u64 rx_bytes;
-+		u64 rx_auth_fail;
-+		u64 rx_error;
-+		u64 rx_bad;
-+		u64 tx_packets;
-+		u64 tx_bytes;
-+		u64 tx_error;
-+	} stats;
- 	atomic_t keys_allocated;
- 	struct psp_dev *psp_dev;
- 	struct psp_dev_caps caps;
-diff --git a/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.c b/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.c
-index ddb9fd90291f..d36f46a46cfd 100644
---- a/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.c
-+++ b/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.c
-@@ -350,6 +350,58 @@ void idpf_psp_rotation_event(struct idpf_adapter *adapter,
- 			     le32_to_cpu(rt_event->psp_rotate_event.active_master_key_generation));
- }
+@@ -3,6 +3,8 @@
+ #ifndef _IDPF_PSP_DEF_H_
+ #define _IDPF_PSP_DEF_H_
  
-+/**
-+ * idpf_send_get_psp_global_stats - Send VIRTCHNL2_OP_GET_PSP_GLOBAL_STATS
-+ * @adapter: Driver specific private structure
-+ * @stats: Output buffer for virtchnl2_psp_global_stats_response
-+ *
-+ * Request the common and add-on PSP statistics. Only the stat groups set in
-+ * @stats->supported_stats are valid: a group is only reported as supported if
-+ * it was requested and is present in the reply, which may leave out trailing
-+ * groups that are not supported.
-+ *
-+ * Return: 0 on success, negative on failure.
++#include <linux/kref.h>
++#include <linux/spinlock.h>
+ #include <linux/net/intel/virtchnl2.h>
+ #include <net/psp.h>
+ 
+@@ -12,6 +14,34 @@
+ #define IDPF_PSP_SAIDX_WIDTH_21		21
+ #define IDPF_PSP_SAIDX_WIDTH_26		26
+ 
++/* Largest SA index the driver supports. The SA indexes the CP returns are
++ * checked against the width negotiated for the adapter before they are used,
++ * see idpf_psp_saidx_ok().
 + */
-+int idpf_send_get_psp_global_stats(struct idpf_adapter *adapter,
-+				   struct virtchnl2_psp_global_stats_response *stats)
-+{
-+	struct libie_ctlq_xn_send_params xn_params = {
-+		.chnl_opcode	= VIRTCHNL2_OP_GET_PSP_GLOBAL_STATS,
-+		.timeout_ms	= IDPF_VC_XN_DEFAULT_TIMEOUT_MSEC,
-+	};
-+	const u32 requested = VIRTCHNL2_PSP_STAT_COMMON | VIRTCHNL2_PSP_STAT_ADDON;
-+	struct virtchnl2_psp_global_stats_request req = {
-+		.requested_stats = cpu_to_le32(requested),
-+	};
-+	size_t reply_sz;
-+	u32 supported;
-+	int err;
++#define IDPF_PSP_IDX_MAX		(BIT(IDPF_PSP_SAIDX_WIDTH_26) - 1)
++/* States of a TX key without a usable SA index, see struct idpf_psp_tx_key */
++#define IDPF_PSP_IDX_NONE		(U32_MAX - 3)	/* no SA index */
++#define IDPF_PSP_IDX_IN_PROG		(U32_MAX - 2)	/* insertion pending */
++#define IDPF_PSP_IDX_ERROR		(U32_MAX - 1)	/* insertion failed */
++#define IDPF_PSP_IDX_DELETED		U32_MAX		/* key deleted */
 +
-+	err = idpf_send_mb_msg_stack(adapter, &xn_params, &req);
-+	if (err)
-+		return err;
-+
-+	reply_sz = xn_params.recv_mem.iov_len;
-+	if (reply_sz < offsetof(typeof(*stats), common_stats)) {
-+		err = -EIO;
-+		goto release_rx;
-+	}
-+
-+	memset(stats, 0, sizeof(*stats));
-+	memcpy(stats, xn_params.recv_mem.iov_base, min(reply_sz, sizeof(*stats)));
-+
-+	supported = le32_to_cpu(stats->supported_stats) & requested;
-+	if (reply_sz < offsetofend(typeof(*stats), common_stats))
-+		supported &= ~VIRTCHNL2_PSP_STAT_COMMON;
-+	if (reply_sz < offsetofend(typeof(*stats), addon_stats))
-+		supported &= ~VIRTCHNL2_PSP_STAT_ADDON;
-+	stats->supported_stats = cpu_to_le32(supported);
-+
-+release_rx:
-+	libie_ctlq_release_rx_buf(&xn_params.recv_mem);
-+	return err;
-+}
++/**
++ * struct idpf_psp_tx_key - State of a PSP TX key
++ * @ref: reference count, held by the PSP association, see
++ *	 idpf_psp_tx_key_add(), and by the lists and the insert request the
++ *	 key is on
++ * @lock: protects @idx and @hw_idx updates, and @tx_queue
++ * @idx: SA index the TX path uses, or IDPF_PSP_IDX_IN_PROG,
++ *	 IDPF_PSP_IDX_ERROR or IDPF_PSP_IDX_DELETED. Read without @lock.
++ * @rcu: for freeing the key after the RCU readers of the TX path
++ */
++struct idpf_psp_tx_key {
++	struct kref ref;
++	spinlock_t lock;		/* protects the SA indexes and tx_queue */
++	u32 idx;
++	struct rcu_head rcu;
++};
 +
  /**
-  * idpf_psp_recv_late_reply - Handle a late reply to a PSP request
-  * @adapter: Driver specific private structure
-diff --git a/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.h b/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.h
-index f1b4f7747908..b7261385adf6 100644
---- a/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.h
-+++ b/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.h
-@@ -15,5 +15,7 @@ int idpf_send_get_fips_compliance_status(struct idpf_adapter *adapter);
- int idpf_send_allocate_psp_key(struct idpf_adapter *adapter,
- 			       struct idpf_psp_rx_key *key);
- int idpf_psp_rotation_request(struct idpf_adapter *adapter);
-+int idpf_send_get_psp_global_stats(struct idpf_adapter *adapter,
-+				   struct virtchnl2_psp_global_stats_response *stats);
- 
- #endif /* !_IDPF_PSP_VIRTCHNL_H_ */
-diff --git a/include/linux/net/intel/virtchnl2.h b/include/linux/net/intel/virtchnl2.h
-index 29dfa075e169..ca07c32b0f1a 100644
---- a/include/linux/net/intel/virtchnl2.h
-+++ b/include/linux/net/intel/virtchnl2.h
-@@ -89,6 +89,7 @@ enum virtchnl2_op {
- 	VIRTCHNL2_OP_PSP_ROTATE_KEYGEN_REQUEST		= 563,
- 	VIRTCHNL2_OP_CRYPTO_GET_CAPS			= 564,
- 	VIRTCHNL2_OP_PSP_GET_CAPS			= 565,
-+	VIRTCHNL2_OP_GET_PSP_GLOBAL_STATS		= 566,
- 	VIRTCHNL2_OP_GET_FIPS_COMPLIANCE_STATUS		= 567,
- };
- 
-@@ -2040,6 +2041,80 @@ struct virtchnl2_psp_rotation_event {
- };
- VIRTCHNL2_CHECK_STRUCT_LEN(32, virtchnl2_psp_rotation_event);
- 
-+enum virtchnl2_psp_global_stats_type {
-+	VIRTCHNL2_PSP_STAT_COMMON			= BIT(0),
-+	VIRTCHNL2_PSP_STAT_ADDON			= BIT(1),
-+};
-+
-+/**
-+ * struct virtchnl2_psp_global_stats_request - PSP global stats request
-+ * @requested_stats: Bitmask of requested stats (enum virtchnl2_psp_global_stats_type)
-+ * @pad: Reserved/padding
-+ *
-+ * Stat groups that are not requested are not supported in the response.
-+ */
-+struct virtchnl2_psp_global_stats_request {
-+	__le32 requested_stats;
-+	u8 pad[4];
-+};
-+VIRTCHNL2_CHECK_STRUCT_LEN(8, virtchnl2_psp_global_stats_request);
-+
-+/**
-+ * struct virtchnl2_psp_global_common_stats - PSP global common stats
-+ * @rx_decrypted_packets: Number of RX decrypted packets
-+ * @rx_decrypted_bytes: Number of RX decrypted bytes
-+ * @rx_auth_failures: Number of RX auth failures
-+ * @rx_misc_errors: Number of RX misc errors
-+ * @rx_bad_packets: Number of RX bad packets
-+ * @pad1: Reserved/padding
-+ * @tx_encrypted_packets: Number of TX encrypted packets
-+ * @tx_encrypted_bytes: Number of TX encrypted bytes
-+ * @tx_misc_errors: Number of TX misc errors
-+ * @tx_bad_packets: Number of TX bad packets
-+ */
-+struct virtchnl2_psp_global_common_stats {
-+	__le64 rx_decrypted_packets;
-+	__le64 rx_decrypted_bytes;
-+	__le32 rx_auth_failures;
-+	__le32 rx_misc_errors;
-+	__le32 rx_bad_packets;
-+	u8 pad1[4];
-+	__le64 tx_encrypted_packets;
-+	__le64 tx_encrypted_bytes;
-+	__le32 tx_misc_errors;
-+	__le32 tx_bad_packets;
-+};
-+VIRTCHNL2_CHECK_STRUCT_LEN(56, virtchnl2_psp_global_common_stats);
-+
-+/**
-+ * struct virtchnl2_psp_global_addon_stats - PSP global addon stats
-+ * @tx_inv_sa_packets: Number of TX invalid SA packets
-+ * @pad: Reserved/padding
-+ */
-+struct virtchnl2_psp_global_addon_stats {
-+	__le32 tx_inv_sa_packets;
-+	u8 pad[4];
-+};
-+VIRTCHNL2_CHECK_STRUCT_LEN(8, virtchnl2_psp_global_addon_stats);
-+
-+/**
-+ * struct virtchnl2_psp_global_stats_response - PSP global stats response
-+ * @supported_stats: Bitmask of supported stats returned
-+ * @pad1: Reserved/padding
-+ * @common_stats: Common stats structure
-+ * @addon_stats: Addon stats structure
-+ *
-+ * An unsupported stat group followed by a supported one is zero-filled,
-+ * trailing unsupported stat groups may be left out of the response.
-+ */
-+struct virtchnl2_psp_global_stats_response {
-+	__le32 supported_stats;
-+	u8 pad1[4];
-+	struct virtchnl2_psp_global_common_stats common_stats;
-+	struct virtchnl2_psp_global_addon_stats addon_stats;
-+};
-+VIRTCHNL2_CHECK_STRUCT_LEN(72, virtchnl2_psp_global_stats_response);
-+
- /**
-  * struct virtchnl2_get_fips_compliance_status_resp - FIPS compliance response
-  * @num_certs: Number of certificates, 0 if not FIPS compliant
+  * struct idpf_psp_rx_key - PSP RX key allocated by the CP
+  * @spi: SPI of the key
 -- 
 2.56.0.679.gc527c65306-goog
 
