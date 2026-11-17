@@ -1,43 +1,43 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.175.24.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794932886;
-	b=bwMtpHY4udRro4CYpSRoSdWqTo/OuxqMBEvZcf8bU4UitK/VH0TryXBvo2ziFGGPUF72
-	 EAA92w4MlfGOyoJXSYwnxqHmRdVPxO8CwAo9W/5RXfSd0sU6ph+ywuxT4p8rp6+9aJrbh
-	 4Yj5spabMt50r2pS80NI+CSWKQPbxajndaLCdyPl5bnk59+bcPMaI0gUjWcNQ6M8MAyUm
-	 u8oXUocuhxKgPqorVrZmjFG6fvKgU8iMQLEuWKRWkMxB/ghhfNMKSDcLbsFRTsxJX9XW5
-	 VHLMAGb0GkxW+9XKAb4IsWdZ3qUGXWCwqwv30pJYNTzqybtO7A1xpOuHXntEWb35YTQ==
+	b=10qKXQL4YdTIEBtdMCbGGOjPNdaiFCKVaz2pghChpo8aXKYtm2GTyMdtOIPl1lOlzJ1f
+	 1CPN0krHlbOcd7Wnsbs7j2sGT3Sh+38RQlGwW+SCMh6Jqx44lKiI67vjvVPiaBCnay/3m
+	 bHzOAglrXOgBVQR7Zo30H8jOU7G/JN6MWMVrteLUP0pRdyqLOnIUcfgfqrsEsLcYcxHWn
+	 5ZWsS9lrlHEDVVvPFGVBrvuQPjRqd3nqtOWjjrEuYpPXqgGhrK53TZJvL2czot19DsvI5
+	 GrCKokTTXmFRSER8rLKKLlaBzsjaDgsZ1lwtCUIaduxQndyPqe+pR6xS92X8u9evjQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794932886;
 	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=IbqtQ2iXuxj+cm+Qwf97VKDkQ5sBXAh3GDWM+Y5+8nU=;
-	b=tv2zGOcLmf/FvfrkOfY+V+YdI2c1YM5TC7Hn5Sn/YY525/7MRi2jiBs5lu+qeUC0c8mP
-	 2rb07H9H7Kdno+2dWdjB6KjlGLmCn6Yj+HXqLxkGUAB8E8sBs86Ql9xZXjw+CFgzLMm3p
-	 51RbZ/Kzt7bWkIh47PsyYGBi14mqWsSzzNOPdBHrprc10GUY9t06FMXBxALfvmi8ZBmuC
-	 QA74r+f7npb5gb1yoHfBTcPEpC2z65uHG0elC5SDIBBjJBr9O31ZfMrGIc4OLmSwNS8Sx
-	 yhz8K4QZCYmwGRomY5fgcCEqkBCDXxMCAwoMYIYEnoWLzxYE/9tmPns53BeDNKcPqxQ==
+	bh=BZR6sTyUIFu+KbgR3RNN3rHjb6ViVVFg38WZJ09msGQ=;
+	b=WH8kEyWCOzQJEAUC9EE1VwpiX93pytD0PRTQhb18J3+tonhQ7hpNQc22xQpdSN9n9TD8
+	 bRdKAI2OUofCBkfkzbmX6KaeohVn9pOxTeGP3tHYs2kHz0VIhivE4iIELJDT1BBLqcpq0
+	 FU5cLkolyDA7l9lDVpeG5BIRoaa00A6m7n/6rkF7ZIn8AeErr6zQxmfLS2CX9tDOsDg2f
+	 pPumXmDwD7YLNMsqCE+ymyjKMhu7kMIxPPe8PTWpCjNei5OaFoLCu1ZMBjKVxyq1fyd2I
+	 BWnBhrmv7qhrZRlxTXO/gSNQ0zo1Z1RSRM/0zrDc9okW5+crBMHShH4Gknvy5S8c9Ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=alpha.franken.de;
 	spf=pass smtp.mailfrom=alpha.franken.de;
 	arc=none smtp.remote-ip=193.175.24.41
 Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 579DE606A32F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 579EB606A330;
 	Tue, 17 Nov 2026 16:28:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 579DE606A32F
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 579EB606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alpha.franken.de
 Received: from uucp by elvis.franken.de with local-rmail (Exim 3.36 #1)
-	id 1xTM2N-0004s9-00; Tue, 17 Nov 2026 17:28:03 +0100
+	id 1xTM2N-0004s7-00; Tue, 17 Nov 2026 17:28:03 +0100
 Received: by alpha.franken.de (Postfix, from userid 1000)
-	id 3B1DBC05C3; Tue, 17 Nov 2026 17:12:47 +0100 (CET)
-Date: Tue, 17 Nov 2026 17:12:47 +0100
+	id 7EC8BC0520; Tue, 17 Nov 2026 17:10:42 +0100 (CET)
+Date: Tue, 17 Nov 2026 17:10:42 +0100
 From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-To: Orgad Shaneh <orgads@gmail.com>
-Cc: linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
-	ardb@kernel.org
-Subject: Re: [PATCH] MIPS: OCTEON: compute the FDT CRC in device_tree_init()
-Message-ID: <avx8_1ffn4OlS4YD@alpha.franken.de>
-References: <20261027060214.2687878-1-orgads@gmail.com>
+To: Thorsten Blum <blum@kernel.org>
+Cc: Rosen Penev <rosenp@gmail.com>, Hemanth Selam <hemanth.selam@gmail.com>,
+	linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/4] mips: n64: Clean up platform initialization
+Message-ID: <avx8gnAvegdcse1u@alpha.franken.de>
+References: <20261029212343.110095-6-blum@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,47 +49,21 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261027060214.2687878-1-orgads@gmail.com>
+In-Reply-To: <20261029212343.110095-6-blum@kernel.org>
 
-On Tue, Oct 27, 2026 at 06:02:14AM +0000, Orgad Shaneh wrote:
-> device_tree_init() assigns initial_boot_params directly and never calls
-> early_init_dt_verify(), so of_fdt_crc32 stays 0 and every boot logs
+On Thu, Oct 29, 2026 at 10:23:43PM +0100, Thorsten Blum wrote:
+> Clean up and simplify the Nintendo 64 initialization code.
 > 
->   OF: fdt: not creating '/sys/firmware/fdt': CRC check failed
+> Thorsten Blum (4):
+>   mips: n64: Use DEFINE_RES_*() helpers
+>   mips: n64: Simplify framebuffer allocation
+>   mips: n64: Rename the video interface register helper
+>   mips: n64: Use SZ_8M in plat_mem_setup()
 > 
-> whether the blob was passed by the bootloader, appended or built in.
-> Call early_init_dt_verify() once the prune and the MAC address fill-in
-> are done with the blob, so the CRC matches what of_fdt_raw_init() reads
-> back. x86 had the same omission, fixed by commit 628df9dc5ad8
-> ("x86/devicetree: Initialize device tree before using it").
-> 
-> Fixes: 08d53aa58cb1 ("of/fdt: export fdt blob as /sys/firmware/fdt")
-> Assisted-by: LLM
-> Signed-off-by: Orgad Shaneh <orgads@gmail.com>
-> ---
-> Tested on a CN6335 board (internal device tree, Cavium U-Boot 1.1.1),
-> in a 7.3-based tree: the warning is gone and /sys/firmware/fdt holds the
-> 11551-byte blob. mips-next with cavium_octeon_defconfig prints the
-> warning on the same board without this patch.
-> 
->  arch/mips/cavium-octeon/setup.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/arch/mips/cavium-octeon/setup.c b/arch/mips/cavium-octeon/setup.c
-> index 7497be7b9431..fa8273799b94 100644
-> --- a/arch/mips/cavium-octeon/setup.c
-> +++ b/arch/mips/cavium-octeon/setup.c
-> @@ -1213,6 +1213,8 @@ void __init device_tree_init(void)
->  	}
->  	if (fill_mac)
->  		octeon_fill_mac_addresses();
-> +	/* After the edits above, so the CRC covers the final blob */
-> +	early_init_dt_verify(initial_boot_params, __pa(initial_boot_params));
->  	unflatten_and_copy_device_tree();
->  	init_octeon_system_type();
->  }
+>  arch/mips/n64/init.c | 81 ++++++++++++++------------------------------
+>  1 file changed, 26 insertions(+), 55 deletions(-)
 
-I've applied https://lore.kernel.org/all/20261025192918.586220-1-carl.smith@alliedtelesis.co.nz/ to mips-next, which is doing the same.
+series applied to mips-next
 
 Thomas.
 
