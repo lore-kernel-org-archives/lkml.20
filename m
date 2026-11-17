@@ -1,62 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794882170;
-	b=3vMkgIR9RR1Xxp94vJHIN2xVIaaBrSnGJA4P+1xWgzm5wA3i1dE6o17V1X12/H2+13WY
-	 bG3OoY8bNhwBKDZPgaPIMCesdlx62N6dkO4GSqvDOdmwSV+YefCBiQ4gakE3UAzopDiyk
-	 LbGB/jDO+K9wrevm/XiGPw92vDGbH1Jk3lxDRS6YGwhpr7irrKhJfUjRgM18TAoeMEsN5
-	 ovFhX+hHptttkVzihWY+4u8Z7komHTQn5/6Aw6UuHA1s3G5PSxCogRjhwziYIHX7i72ds
-	 eeAEg947LV3zF8obpRhj8Y3XovI344dPUYfWgqrTVb+0IXY9CPeoGE0/yYOeSQo9mXA==
+	t=1794882271;
+	b=CWCfrfDlz5jqlZ85fkCaeWp2fNAeHkIFQzCrSXBS3qLDY5ilRMQ/6RAkoFJ3WsWOUPmN
+	 mu0B7FSYosYZy+JrxjO2BMLYd90LYvUWLkh7M18IhO2P8t73eZ+PmRfbpL/0xEKisN4bX
+	 2nny8KfpjN5aS1FMOIeXOv3i0Gu8Rdx+R20oOLruR92xRphgLNj9507pT20u8lWTKHNca
+	 FYV3FX7ewdiW+hmgShaqfCs5lpRHXnQGrE9//kGbrAMrjVqio69BLfTsYnNn7fylu9H7w
+	 IhGgtoKpBHyv6kOtCJKOLsecV1b2mWA496HhcpIhtCJZeiH40ZB2EoIS4eBgZ4fTsrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794882170;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=/3H1mpvRDxjYxRQV4+mRDY8Md93q+YJNHbYdI+GkXXs=;
-	b=IChkSsx0zYrUj3EU0b82K4xeCW6zw3AtC9sQzs6PRyJKR1H8Ndb3D3Mte/qWDkwjDos/
-	 S+5lODCte20fPv6ER3mxqxIYvRCKJShO0uIeR4HKxY0IhoB/J8rEFar9J6zyG51XBd5Ho
-	 MBah9goyWya2NiQ6Yerwwd3wbXE6lsXdfnSF1pnK4HpnR/T5UJuONAFzhCBHoz2f3JM2k
-	 UMrQFRbfcZDGu/2A1emfptFQ6WPPCTzfC08gjmRl26IcDYIogJ+Ta5zGz/IUgkT+VLcpQ
-	 fiR40zhl8QuDVEG9JJjblzix81L53jaoNMX4iCK0Wncpn5T8cFwAg6lD1OV8on4RrRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794882271;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=01IGULUu8K1iyOvpVFwG1UrKHNiQ++Ld6mpinjw7ge8=;
+	b=jB5jbfBzNEDYMKlD54YvMpskxTQbK/WltscIsN0K7odJoff3kDqf+YC8CBMRTg7ghDiR
+	 NgMSILHbRHMRTa/TPED8hBNUOAa4ENNe/SB27NHFHgJnaQ6n9D1JDLPFHx0OMForwVRqy
+	 rUjkc4WLMqER0Z4ZuraRc33NPTOjTZdLddIq3YZgEz5zjslwpWAgaO84CNy15Fiv8KB7n
+	 b/CxOaFyqAo4YDPJ7VHVG6IMB+77otW0/RKSgofdkfRZMi/A10ETadS3t45jB/7NDImee
+	 5FgyYMAcwoT0STmLPyfW5Hla9ZHkaLFIxhobOvutITQMmHtcT5LkIek8v3p6jX05B2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="oV0pcpC/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fmR77tJk;
+	arc=none smtp.remote-ip=95.215.58.139
+Received: from mta1.migadu.com (out-139.mta1.migadu.com [95.215.58.139])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28657606A31C;
-	Tue, 17 Nov 2026 02:22:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 243D3606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:24:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 243D3606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oV0pcpC/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1A391F000CC;
-	Tue, 17 Nov 2026 02:22:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794882170;
-	bh=/3H1mpvRDxjYxRQV4+mRDY8Md93q+YJNHbYdI+GkXXs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oV0pcpC/ffQh4rYzlim2rjHX6x8pya+lJQW+QWen80nRL3PhybSB2Dju8jm5K/nQR
-	 MGx2I2IQ/i5dlPw8fMOqfIf4Vhm/ETKoxUgNhjW5F16sRAYsyuWRIXy2Dp3qfRqAzf
-	 Y8DxfYWDS1WTutcjkOR1czWMIX5y4t/WG67chhmR0/l23Bl1KBqq479/K2qPjJyhIW
-	 r4HJypnvf7N7V6Hokp/vKvAdiaW8QU7sjUQFKTw51fMt2+OGI3kP4hHvtLISko815d
-	 yBFFLEYp89wdkBS4GICSJVimhvFbZg9eo3YYm7STwI/hVGS+brGP7huF61E+dvLbCk
-	 h1fm4nf2Jak1w==
-From: SJ Park <sj@kernel.org>
-To: Mattathias Pinchover via B4 Relay <devnull+mattathias.pinchover.uber.com@kernel.org>
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	Mattathias Pinchover <mattathias.pinchover@uber.com>
-Subject: Re: [PATCH 3/6] mm/damon/tests/core-kunit: test sz_ops_filter_passed_last
-Date: Mon, 16 Nov 2026 18:22:42 -0800
-Message-ID: <20261117022242.110258-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261116-damon-sz-ops-b4-v1-3-1cffe7227e6d@uber.com>
-References: 
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fmR77tJk
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=01IGULUu8K1iyOvpVFwG1UrKHNiQ++Ld6mpinjw7ge8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794882268; v=1; x=1795487068;
+ b=fmR77tJkABHZLJQYMRgthpaJFBCYIDL/W/X6XdFmwKpZGU62qfijNEZI0vgkunURWH+tm6qq
+ NSHwVTvWk4mF4Kq2hT3lFmlV9+nJe4H8ivgjIl/h/cK6dwN0w4zERCCh6nAApGSkzZsTtyDGAfz
+ 3WNXmsy03QdbIMKX5klEKWA4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 60f46d3006f9954f;
+	Tue, 17 Nov 2026 02:24:28 +0000
+X-Mizu-Trace-ID: 60f46d3006f9954f
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <efce8f30-33f9-451a-b2a8-89ca0a39917c@linux.dev>
+Date: Tue, 17 Nov 2026 03:24:27 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,46 +58,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/2] platform/x86: asus-wmi: add TUF keyboard RGB
+ readback support
+To: bartu alev <bartualev@gmail.com>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Corentin Chary <corentin.chary@gmail.com>, "Luke D. Jones"
+ <luke@ljones.dev>, Hans de Goede <hansg@kernel.org>,
+ platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+ linux-api@vger.kernel.org, Denis Benato <benato.denis96@gmail.com>
+References: <20261029-asus-tuf-rgb-v4-v4-0-0d3b877d2c30@gmail.com>
+ <20261029-asus-tuf-rgb-v4-v4-1-0d3b877d2c30@gmail.com>
+ <cc9c8655-6f7c-05f9-ad09-4ea30f1dda95@linux.intel.com>
+ <228df241-da5e-49cb-b29f-6b9158557f55@gmail.com>
+ <def9fb29-3212-4d1f-8041-4bbb1c18e89e@linux.dev>
+ <068991e6-ca31-41b5-b9ed-f0902eae8368@gmail.com>
+Content-Language: en-US
+From: Denis Benato <denis.benato@linux.dev>
+In-Reply-To: <068991e6-ca31-41b5-b9ed-f0902eae8368@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Mon, 16 Nov 2026 19:10:06 +0000 Mattathias Pinchover via B4 Relay <devnull+mattathias.pinchover.uber.com@kernel.org> wrote:
 
-> From: Mattathias Pinchover <mattathias.pinchover@uber.com>
-> 
-> Add a kunit test for the sz_ops_filter_passed_last DAMOS
-> stat.  The test runs kdamond_apply_schemes() for multiple apply intervals
-> with a stub apply_scheme() operation that reports a given ops
-> filter-passed size, and checks that the stat is set to the value of the
-> last apply interval rather than the accumulated value, and that it is
-> kept unchanged until the next apply interval is completed.
-> 
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Mattathias Pinchover <mattathias.pinchover@uber.com>
-> ---
->  mm/damon/tests/core-kunit.h | 92 +++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 92 insertions(+)
-> 
-> diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-> index a5ca4bfe2f0d..ec83598fff0e 100644
-> --- a/mm/damon/tests/core-kunit.h
-> +++ b/mm/damon/tests/core-kunit.h
-[...]
-> +	s = damon_new_scheme(&pattern, DAMOS_STAT, 0, &quota, &wmarks,
-> +			NUMA_NO_NODE);
-> +	if (!s) {
-> +		damon_destroy_ctx(c);
-> +		kunit_skip(test, "scheme alloc fail");
-> +	}
-> +	damon_add_scheme(c, s);
+On 11/17/26 01:07, bartu alev wrote:
+> On 11/17/26 2:53 AM, Denis Benato wrote:
+>
+>> Yes, it's absolutely reasonable. If the return either doesn't have the
+>> presence bit set or is 0xFFF..... it is to be counted as "not implemented".
+>>
+>> And also yes, we should respect ABIs whenever possible...
+>>
+>> However... now that I think about it asus_wmi_evaluate_method_buf() can
+>> be used on setters and those don't have the presence bit, do we have that
+>> covered?
+> yes that wont break setters:
+>
+> 1. asus_wmi_evaluate_method_buf() is strictly a buffer-getter helper (its
+>    comment states it returns an error whenever the ACPI output is not a
+>    buffer).  Integer-returning DEVS setters use
+> asus_wmi_evaluate_method*() /
+>    asus_wmi_set_devstate() instead; even today, passing an integer `1`
+>    from DEVS through _buf() returns 1 as an error.
 
-Sashiko concerns [1] the fact s->core_filters_default_reject is unset.  How
-about calling damos_set_filters_default_reject() just before
-damon_add_scheme()?
+Yeah I checked: only one caller. Make it check for known -ENODEV:
+0xff...fe.
 
-[1] https://lore.kernel.org/sashiko-outbox-217563@kernel.org
+The only reference (as far as I can tell) to ~0 being "absent" is this:
+absent=(l==0xffffffff);
+inside asus_rfkill_hotplug, maybe you can exclude checking for that,
+albeit it's not going to harm.
 
+Perhaps add proper kernel-doc to that function where possible
+errors are documented as well as input parameters.
 
-Thanks,
-SJ
+> 2. We wouldn't check ASUS_WMI_DSTS_PRESENCE_BIT in _buf() at all.  A
+>    buffer-returning call (getter or setter) still hits `case
+>    ACPI_TYPE_BUFFER` and returns 0 unchanged.  Only `case ACPI_TYPE_INTEGER`
+>    changes to decode via `u32 retval`:
+>    - 0xfffffffe or (u32)~0 (0xffffffff) -> -ENODEV
+>    - 0 or any other integer               -> -ENODATA (matching `default:`)
 
-[...]
+Sorry I am a bit spoiled by the past work of Marco where he reorganized
+the whole thing.
+
+We should really revive that, but it's a long work that touches quite a bit of
+very old code...
+
+> Then only kbd_rgb_read_status() maps -ENODATA -> -ENODEV so FX505DT /
+> 0-returning firmware matches the ABI without altering setter or legacy
+> buffer semantics.
+
+Good. Very good.
+
