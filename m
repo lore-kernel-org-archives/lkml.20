@@ -1,70 +1,46 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.79.28
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.145.95.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794911111;
-	b=y04p+FrO7lRpwxTNh+PCAPDIYCANAv3iJnWPCUluQJBpQm2gbb+yhrYF1x/EBXc/6HM5
-	 Ph4cbKR3w6lPZttvSdfyZ4Xf++TVTBPldsoqmCmskeEXyzspUvpIqwZjARKPooTHwADfO
-	 WstgBTVIzGgkenelcK1zEPTSrGCgtwV4siSqJyaX0Qc2DVEmEQsC1j/DcFGmCIFsCjnIy
-	 JnGzVp5a/GocGEU2BruTpkbiGkzyMyF8hnisXJev/fewxGaY/NB7lbsBWGF4VdaRDOIfY
-	 6R0CFRxnTLriSsOey4UJWjvMbYCJh3NvsAWwR9awnECMeI3ANSjWPZUyFFHkAZzm93w==
+	t=1794911125;
+	b=Tob2oWWrva2T3wDbr7i7IVgtX+qfa+NRcV8g+RT8eELXQO/xBecC3/bLHpcLKhXeCRe1
+	 tY/1noZurtCI9y6A3ShcmqB4c36LrfnJNYz/NRK3rjzU3CtU/7IXmkWe92dDk0oDWyQCW
+	 DHy7is8VdTILJBD0zLUFCNDDbfuk4iIhVcYy6bb2mC8X+BzReEHEP7jUWtBxDyD1Of5Qr
+	 wTJbctM6d5MXoL0+zLQLeDB3Hs8upR0Dhj4woEfTTOd4PevtZQ/qQJqkG2vqTXM6HaoZo
+	 wwxNo75A9fyg9btwsCu8XfAG/u3tHUbA5mXAzQsTR3nki7KzdNNbBCLQjt2ZhMEoiaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794911111;
-	h=DMARC-Filter:Received:X-ICL-RepId:Dkim-Signature:Received:From:To:Cc:
-	 Subject:Date:Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Info-Out:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:X-JNJ;
-	bh=6HU+57MgwQIYqvbSD+KkyYtggnx7khmZi4J6g6F0SBM=;
-	b=Whx/ODTxRRPNLF+2LimjD2EvM3xrYsibWSr/WBUHqu4BRTdHygDCefuVA1olEaRXnu7L
-	 NL1Oa+Lu1ljWVuEp2ViygugEk4lcU08lPykYH/rHO+FTto9JvcNWjrFVybwZ7RSQiVHwc
-	 pmjJu0TwQpUKgiTZfTiFpNwXZbB4d7hzHaW4CIPr9oDNKguBFSfmw/dYGDjNvYBb4vPWe
-	 bX5D9as0jYllYJQMwadVoRLkN8hNkGcoNpzboPq43j/ro+04EC6kBA/ppie7I/M1PYi63
-	 kZ3+P82vM0ICvMZAMRhP/1VEY5RbENozQZiOmGvkHI+wY19aWyz9OoJh6uC6u/dhcjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794911125;
+	h=DMARC-Filter:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 X-Clacks-Overhead:Message-ID:MIME-Version:Content-Type;
+	bh=Um5CS4DWBBrUH6jR7Nw25CFMYmy9leGAKLeb8NaQSdU=;
+	b=I3OXvXACEBjISuGw/qmDNkU0A31fv5wvg3ppklto22w5CeBLO6H4n+OllR0rHkm7ovOM
+	 1i48xkUPGu77rfhLShDPJu9Z/Czh26Byr1jq5QGRJmaYn2fEuZPaxpfWhzYKbLxQqFAZV
+	 TmI7kM+p0aulYgLw0gS0cg9l3ox93sEKdXVaTQNhaa0y1yd4rWwHkdLg4iE++OAZJQi+2
+	 fUXMJL0muGxUHVBqgGjELQcwXnkdXXt8VLRrz8myx6pUIrZvzZ84vs468X1/qV0Mr3ilg
+	 vcOUSgRfvoGdnZCjH6WR8cjCvtQhj3mIeWLI+CXWf8OFtFh7HQmBmmfpFabRcrl8CNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=icloud.com;
-	spf=pass smtp.mailfrom=icloud.com;
-	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=AM8wiTwT;
-	arc=none smtp.remote-ip=57.103.79.28
-Received: from outbound.st.icloud.com (st-2005g-snip4-5.eps.apple.com [57.103.79.28])
+	dmarc=pass header.from=toke.dk;
+	spf=pass smtp.mailfrom=toke.dk;
+	arc=none smtp.remote-ip=45.145.95.4
+Received: from mail.toke.dk (mail.toke.dk [45.145.95.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C32F606A331
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:25:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C32F606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=AM8wiTwT
-Received: from outbound.st.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-east-1a-100-percent-1 (Postfix) with ESMTPS id 14D9B180018A;
-	Tue, 17 Nov 2026 10:25:06 +0000 (UTC)
-X-ICL-RepId: 01a1e909-f7b8-7aba-8bfe-4e3cb1e1c272
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1794911110; x=1826447110; bh=6HU+57MgwQIYqvbSD+KkyYtggnx7khmZi4J6g6F0SBM=; h=From:To:Subject:Date:Message-ID:Content-Type:MIME-Version:x-icloud-hme; b=AM8wiTwT2kgzq0qGpg9lrsxjguZZtieuJZW7JvrFoooosWMv4SMUEhU5xjGghdWM4MozLnOh3NBSKO7eNTNMdkUB/86jiSRtNTXBKiPFUmCnOr75qw6W1GzYJH1BPGqS0ebRk2y5q+HTiJYyTwuUM+naZFcKe74d1jMAjFAwwl1tmPxOn4krPsZe6+OtVXT4aGdGngwlvvQAc24ILE9bkggUMGYL0OTq1TShVeq4Cq48MmY3zwjq5nS+slv3mAIIEYQJGchLvPFx27SLmV/QH9bBZvNAGiblohpO7VDZJVKHkKl95Nb1ktzuF0NpwB+I0rikbnV5NMqJ7ENeYpVinw==
-Received: from [100.126.217.91] (unknown [17.156.216.30])
-	by p00-icloudmta-asmtp-us-east-1a-100-percent-1 (Postfix) with ESMTPSA id E6CB41800185;
-	Tue, 17 Nov 2026 10:24:59 +0000 (UTC)
-From: Muhammad Haris Awan <m.harisawan@icloud.com>
-To: David Hildenbrand <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Ingo Molnar <mingo@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>, Kees Cook <kees@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Liam R. Howlett <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Subject: Re: [PATCH] fork: mark memcpy() in dup_mm() with data_race()
-Date: Tue, 17 Nov 2026 15:24:51 +0500
-Message-ID: <179491109101.4015489.11185824873441987133@icloud.com>
-In-Reply-To: <0b565b9c-1462-4fed-8836-9a7d08e4b861@kernel.org>
-References: <179489519663.1444496.15875846661591982934@icloud.com>
- <0b565b9c-1462-4fed-8836-9a7d08e4b861@kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B043606A31C;
+	Tue, 17 Nov 2026 10:25:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B043606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toke.dk
+Authentication-Results: mail.toke.dk; dkim=none
+From: Toke =?utf-8?Q?H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
+To: Mehmet Fide <mehmet.fide@gmail.com>
+Cc: Chun-Yeow Yeoh <yeohchunyeow@gmail.com>, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mehmet.fide@screeningeagle.com
+Subject: Re: [PATCH ath-next] wifi: ath9k_htc: do not fetch the beacon of a
+ finished countdown
+In-Reply-To: <20261102123430.1136741-1-mehmet.fide@gmail.com>
+References: <20261102123430.1136741-1-mehmet.fide@gmail.com>
+Date: Tue, 17 Nov 2026 11:25:21 +0100
+X-Clacks-Overhead: GNU Terry Pratchett
+Message-ID: <87fqwzu54e.fsf@toke.dk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,63 +50,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Proofpoint-GUID: dLUepeR5kMZHEWKIZIgDJCajbB36wGcv
-X-Proofpoint-ORIG-GUID: dLUepeR5kMZHEWKIZIgDJCajbB36wGcv
-X-Authority-Info-Out: v=2.4 cv=bISDs/+Z c=1 sm=1 tr=0 ts=6afc2b85
- cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
- a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=x7bEGLp0ZPQA:10 a=2kFROKt5_e8A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=EYaFdmsEC1CjpenOt5ir:22 a=5dLkQmbtQYkJk1E8iZFh:22 a=4JPYJV-aiw2Kicj_3zUA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA0MSBTYWx0ZWRfX/OdPMQ5kwIgE
- TuhCSlT+3ixpEUjyETkQMRHdmLgESeXzX332IgJa5uXhSPjwbVYx4/bX2x2SxPTlZkugPkDIxAh
- hIhGvRHYOLGPCdQaAqeMYybHsPbgD45iwudm4vplbdNBlb1kPaWv6s2uSYTgeo/iT6UWBo5I9iC
- lpA4BjXL9eolAIqInQMZsqEs0KprTBlu3AI0/B5HvxG9UiWoKYsQ6mk6IdOK8zUEOLHNnX00w5p
- WXqSnBTxn9Tmim8LzaC/E8XjdwNslvb+5PotXqMDCg37xQVTMzs8Zbf1X4pQlvCZg86o7FUbThU
- wQ1DS984QvvkkDRl5JWNwb//BMAkoAqm3RPIJLXWz2jxNmSxBbgOa23nniH5L0=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA0MSBTYWx0ZWRfXw6Md+FSiYDc3
- 8ijTF810kZOWVKMShm9pjt+qHDCOJhFeyC1cAOA7djBjRi7lO3pRWVOwfHr1F7ZIE8KczXtu34c
- Xd02MetYgufJf/Je/tAPrExnQZxfi/I=
-X-JNJ: AAAAAAABHYM+2uoVCH3FWr2d6COnBYmqzXEJ9EdGxFXkaqgX8h0Elg7IKTgfa9d7SkY+Eb
- Gs1vkcPuAsrxpNoTdivFvSLKa9KAsYjzkkP6XrNeworQKUBwXrI6d3frYKk5Oab197zGRb
- Y8AGDROudb5WqF6e6mzFIfvDAYy6JHvWgZVgw1itAPNh8oGmU2AxH+mnxNICT7e4Sb3hGW
- 5aaojbQr5cNd2xrY5vRIwD0KKgZFQoV9ZOkhCAYQd1U5jG7txzW0Z2UrafE+HJ8Xoo47WI
- zh14Nz+gVqxTrNDddQ76x0hDN+4kbJrk+s/LIDjjTJA4PE09PgYo8DeRMBWtLy+sBNHIYM
- dalCl5nTxKlC/ctwlOqTiVTV8xGMyNmHXFB5AH4CR8TgJqoCY6mo/w0Cs9Z18JjZ+6k33K
- KL5Y7FF1umXQOc1NxNBE5MvaHHywx9OANDUK/D3+K/WjfP43/N0iW5uRJJEJqMsGrDR1su
- ge2BQuR51Ejcvhk71cFSzQ6j6MdhxKTX2WSKs6XX/orYdxHYuX2asYKlELnhtwOpiEVGn1
- 17glkDiYRq3hvP63HhX3Ar1dlwqj8xQ3vZF8XowRX1Sg0Ag2clFepbYae20LugpmTpuh3l
- gYqn3l18rScJZMWxfnskJVUxYw3Cta585ZUzKz/q+Mtz1L/roQHAZebxtxJ5iEpnZlklkj
- BrmcCkGR9FOhZEpcdpxhpAPO0wS5/GcqjIkzj6JkXNraeahAeNIBko8Pze/f/OkiLepssW
- F9e5mCv+DQ9/aG0CC20917u6RgyXvuvQeTV4bSC6McEzndL8xVLGM5dFLwMKhzjn+baHwC
- dHDFah+vO9iO3uBsk3x14NJKi3qYSrhirXBYne2lXBYSHhQyeuBDI4XXTGJ6F8V5gC+55z
- WVNEOk/mwO1bSBKqQx4ymGApYDtlWdGBCircbCB2h2oJge4id27xUJ86p4ocO1dyoI3IcF
- oYX9v53iEmT+W5pJU4O0Zxb8OMwoo9ZK7ab+tBuzPhDS0Ahm+Mp/5lOmecKMTFm6hDp9P4
- kqO0ZKb4VkunioE5+RSd6+B2fchJxYKQJEczHtznJZp4ojcp7gBnd+bHE1yQPYy1RmsCfe
- VaWENMKuP+JhSa4Pu/6Df50yXqzsFuywHJE0vpPST+2YJiDak1REX8v0zdl+BjiVBjLmHa
- 3l47K/zH2uRnPiUAzox2ipm5kNP7MhnwKpxMoHDBL8/KxPxwxjmxo9lVZw37xGS2ORv+wJ
- riuNvxv8KLOjYEsuNI3/NWfJ3JT/dQ3WKx1QO8D26pRgSW2Aznl2tUNye4OJFIOmesVPzH
- f8kgEw6QGet70wegw21nJUQ9/kQpU5YpVSr522RR/ED7FtesZIUypJv4tRHXBPfHUyJ+Rn
- Je6Nbl8ES1UTOPp1PfH5TLZ9PkJpLmDIMlRRv8Z9sOJdiAho3Qo34rLYbDqr6a5G920szW
- Kz5XKxDQv3xCEeIu1cedvHTImb+nTiQ2u3oAaP2jqqE6c3gZEgLp/qpHjL7j700DRdi14r
- /ZiMfRQY
+Content-Type: text/plain
 
-Hi David,
+Mehmet Fide <mehmet.fide@gmail.com> writes:
 
-Reclaim isn't touching the new mm being initialized (which isn't added to
-mm_list->fifo until lru_gen_add_mm() at the end of copy_process()).
+> From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+>
+> ath9k_htc_send_beacon() checks the channel switch countdown only after
+> ieee80211_beacon_get(). mac80211 replaces the CSA beacon only after the
+> channel change, and ath9k_htc_set_channel() re-enables beaconing before
+> that, so an SWBA event can fetch the CSA beacon again on the new channel
+> and mac80211 reports "beacon TX faster than countdown".
+>
+> Skip the beacon while the countdown is complete and finish the switch
+> from there, as ath9k does for non-EDMA chips. Finishing from the skip
+> also covers a count of 2, where the first fetch can complete the
+> countdown before csa_vif is set.
+>
+> Tested on 6.12 with an AR9271 AP and hostapd chan_switch: the CSA beacon
+> was fetched again in 3 of 40 switches with a count of 5 before and in
+> none after, and all 60 switches with a count of 2 completed.
+>
+> Fixes: f0e449627e4a ("ath9k_htc: add support of channel switch")
+> Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
+> ---
+>  drivers/net/wireless/ath/ath9k/htc_drv_beacon.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+>
+> diff --git a/drivers/net/wireless/ath/ath9k/htc_drv_beacon.c b/drivers/net/wireless/ath/ath9k/htc_drv_beacon.c
+> index 81fa7cbad892..2b5bf07511bb 100644
+> --- a/drivers/net/wireless/ath/ath9k/htc_drv_beacon.c
+> +++ b/drivers/net/wireless/ath/ath9k/htc_drv_beacon.c
+> @@ -214,6 +214,13 @@ static void ath9k_htc_send_beacon(struct ath9k_htc_priv *priv,
+>  		return;
+>  	}
+>  
+> +	if (vif->bss_conf.csa_active &&
+> +	    ieee80211_beacon_cntdwn_is_complete(vif, 0)) {
+> +		spin_unlock_bh(&priv->beacon_lock);
+> +		ath9k_htc_csa_is_finished(priv);
+> +		return;
+> +	}
+> +
 
-The KCSAN read is on oldmm inside dup_mm()'s memcpy(mm, oldmm, sizeof(*mm)):
-oldmm is an already-live mm sitting on mm_list->fifo, so when an adjacent
-exiting mm calls lru_gen_del_mm(), list_del_init() updates
-oldmm->lru_gen.list.next/.prev under mm_list->lock.
+Hmm, there's something odd going on with the locking / vif selection
+here. In the snippet above, you're basically replicating the checks
+inside ath9k_htc_csa_is_finished(), before then calling
+ath9k_htc_csa_is_finished() itself. Which presumably then repeats the
+same checks, and does the ieee80211_csa_finish()? Or at least that's
+the logic for why this is correct, AFAIU, no?
 
-Since oldmm is live, lru_gen_del_mm() has to update those list pointers.
-The alternatives in dup_mm() would be taking mm_list->lock (plus
-mmlist_lock) during fork, or avoiding copying oldmm->lru_gen / oldmm->mmlist
-(awkward because struct mm_struct uses __randomize_layout). Wrapping the
-memcpy() in data_race() avoids locking on fork and matches dup_vma() in
-mm/vma_init.c.
+But ath9k_htc_csa_is_finished() doesn't take the 'vif' from the beacon
+slot, it takes the 'priv' pointer that was passed to the function. Which
+implies that either:
 
-Thanks,
-Muhammad Haris Awan
+(1) priv->csa_vif is guaranteed to be the same whenever csa_active is
+set, and thus this doesn't matter, or
+
+(2) there's a bug here and things can get mixed up.
+
+Since there's already a call to ath9k_htc_csa_is_finished(priv) at the
+end of that same function, I'm assuming it's case (1) that holds. In
+which case, I don't see any reason why we can't just do an early return
+before taking the lock as:
+
+if (ath9k_htc_csa_is_finished(priv))
+   return;
+
+The priv->csa_vif pointer is not protected by the beacon lock anyway[0], so
+I don't think this would lead to trouble?
+
+Thoughts?
+
+-Toke
+
+[0] Side note - the priv->csa_vif pointer seems to be quite
+inconsistently lock-protected: it's set under priv->mutex in the driver
+setup paths, under the mac80211 wiphy lock by the
+channel_switch_beacon() callback, and under the wmi lock by
+ath9k_htc_csa_is_finished() itself. Not quite sure if there's some other
+dependency between these locks that ensures this works, or if that's
+just a total coincidence...
