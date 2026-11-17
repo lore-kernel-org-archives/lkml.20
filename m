@@ -1,44 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.20.114.72
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794907611;
-	b=Ru5ro0xjyvFNDu3qhMIsikR0ZlxBzdT/zq5QSBZiMwMQMoPujlHRqoQPTvYnwZvxMf6z
-	 q0epMMP/6kAKE9jHZVSoRTvPXkDSZdbsOzkTEKY7fO5IVyAVXGcpS8kXuzVV/k8nVBpI7
-	 FLy7ESTkgcaH7YNReYWK2sB8/Hq53T9LvWQY2bITOYgMfwwQ/kATpbP7Jr9vgginviZva
-	 OTI7k43O7r5BDxtlqY6IcUWs26IlFpPx5TQ2TwWnu3ArHYD6iybcwho6nRXddWGN29SAD
-	 DrwLXHfZudGFkj7TTiFwW7owNcynh7qAmlaaUZAeQhtHPrcL8gwRjEqbW8w0IYlV6Aw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794907611;
-	h=DMARC-Filter:Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-ID:References:
-	 In-Reply-To:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=SJB1wbp4M72rX0uX1JUiX6RxERUdkwXMCgU30Qw+W1U=;
-	b=XhFy8dd3+uaS3qsB2CmEsVL4YWfbBuagVlslZI8voEEcnWk+MI4Oxp9iGhc8pAK91zpm
-	 NBeRdVywJ0skt1ywriWRnyiDpnosyo30UcN91K9/tIik9llBU4Cm2oSDnoTWyeODs+2EP
-	 hZcGtYp9Y2AosasXswwROvjq0WgPXaf++yFc+VZ65z7D9Q7KAbGQqhu6c+NRFxRYlpcBg
-	 qA/iypl3lvF8LHh2YZKLMavN7iEzPiHeGeuJZ11L++oU5EvboV4NeCtsGg6aweaVhRX6Z
-	 gXJhx51P/2Sb/ETLHlgL8VwN3ZhwGSeQKBjxqwXYvBH0s0V91zu8e3rn3rGFVBmglQQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=aspeedtech.com;
-	spf=pass smtp.mailfrom=aspeedtech.com;
-	arc=none smtp.remote-ip=211.20.114.72
-Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794907620;
+	b=RJ2mD3IsFy8MU9DeaKw6AQjk/EvFjVk2E4jvOZf8WTvvH94eaEG5bmfVJkEdR//Em6LS
+	 mFBBj313ieJ96JPZUlDeyqEi9Ss+3O+CNJZjH/Nzy4g2PvqkC+giL8tsGEq9zttiPwSPW
+	 kStvmZCe2kCe3X/tqAWzfR/2gXPr/h7mcOgv5N/h2+ngDefM7VlAsgvfb36k2XIbb22BX
+	 EaCvL1K+mbjknhmQhvX0SFOp0ZbDDW7fbqjqHMiLfOd6+eA4WjkUlw5PAo/pd9IlzX7Eq
+	 YVuY92OEHaYL0N/j00SPE2SL7jjlzaKi0BKdUPw6DxYKeXsDOyfR3XmG7V9BCw04/uw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794907620;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=FEaBVRk5Jh6NHXCmBEJ/BmwO+NyTLNfPdRUzH2LAec0=;
+	b=k17IRs3W1VtLNRk29+uYSkTDgBEIeIxdsmULTM26a9aRdaaUR/URmvuCkndFXlchfonx
+	 Lp2ZW6SOAg555BRFuYXZActlDIm66kX3lWo8wfT2P7Q1JJNyJ1+C07LprwsdvysJ6uvnp
+	 dzDuyQf7+GS5Dinkkep+wEazgpWV7Z+KBqUS41VLCcfInAGPMupeBTiXnCrcDpowWei9y
+	 IrzJfMqTkaxXsKRT7MwJECtdVAFntDpmQTOm3ucWvG2gK1Di5I8Jr6uyqvM2WWnh5Sj+g
+	 B8pO0J8PAp/GNJN34HpvyAbvC8SxcUvT74betiUGKbSr7gFEasA3GH9YSiwoa4JeKTQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CpZgny25;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF8D2606A883;
-	Tue, 17 Nov 2026 09:26:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF8D2606A883
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Tue, 17 Nov
- 2026 17:26:40 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
- Transport; Tue, 17 Nov 2026 17:26:40 +0800
-From: Ryan Chen <ryan_chen@aspeedtech.com>
-Date: Tue, 17 Nov 2026 17:26:40 +0800
-Subject: [PATCH v6 3/4] EDAC/aspeed: Add AST2700 support
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83A91606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:27:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CpZgny25
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794907620;
+	b=TScxIo3oHFvRu8iiP9B3XQIZOHWSZ7OCGJGW4WbnswJSEQwxhjeqZ6kQvSxs1MKGz0sz
+	 FNioEeVRJDh+J1TpDVE7KByPiv+dQ4W+v+DJeRnTNyrVNvdr/SNAyAlAD/LZUpHkSoN+1
+	 JkjsfgV3PIxfcr74Qb1A9efe3gd/0OaKj/cUJLJXg6SNi0vJcAXxS1le4GG27PHrGBYiY
+	 5lX/eMh64GyYsmHBbRZh5xF6AxNuVHpkvHR+Flq9c9Mz+g5oaooZxvvj4yCn0sS/G/QeY
+	 sGI26d+YRiV7BFFMBZUE5YXRatp1HvZ0aLnnG8ceURuQTrmAuOYCZdunFbLcRtIl41Q==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794907620;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=FEaBVRk5Jh6NHXCmBEJ/BmwO+NyTLNfPdRUzH2LAec0=;
+	b=ltLRdmbY4kU8DyP8jb97esAjgXjJRXllErdebrA7+P4MYGHMJOsW6tSHtmxfPs8kz+k6
+	 LHTQAOKjwWM6Kyt4NpN0cyf9dFOlMNu3Okc+VoK0zd7SKIX5cFzYlUGeo0u+ni9DhXRBJ
+	 WtoV7lm42DgEZphqrbfkSqN6HsBKA5GwDraet63o91TFwqrVulM12CBL5sKPJ+/3lENG8
+	 nbcUPbo8yRz5pDZGBorFMqz8D18K448iNFiuHQWRQVvFn6L3kl3T/9KEzKA/lQEJJ201K
+	 vxhoN7Cx8nvWr2z6B4SUopaK58UZy2Y1iiMy0Cwt3+mN0NnZkPoE7Cjja6s0g0uJRFQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id C75251F000C7;
+	Tue, 17 Nov 2026 09:26:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794907620;
+	bh=FEaBVRk5Jh6NHXCmBEJ/BmwO+NyTLNfPdRUzH2LAec0=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=CpZgny25YZUT1Qe8FAOGYi71ICmhk5u/MO2+w3e4uepuVqjqPdaCzV6izBWmXS2P6
+	 mRyBj6Z9nZR4eu/8SudQZmhJ9mwg+UdcrWVHmL3XMJ7hjfgI/kO9FOZlj2ZJ9EhjsG
+	 mYuKN8lfG2UV1ovq8j3lzu+fgcHcF6qC4nOYVesQekD2phjh5u39fkD9DsZ5LS1moD
+	 +QkVG+ZyIVBYYzoMB3SlCVeTRp1VHKJaR+jOnbryCk45GsNoekEMMkxTqtHqI07+TP
+	 ZqRVkWnNetGSUOaT2iiW3MUOtP4zT+Wy9G5M0AqRr+tvQcXO2CjMSOPiD4nDM0XIuh
+	 qRSeEzisYe/EA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 2927D4A783;
+	Tue, 17 Nov 2026 09:26:58 +0000 (UTC)
+From: Junho Cha via B4 Relay <devnull+junho.cha.xcena.com@kernel.org>
+Date: Tue, 17 Nov 2026 18:26:55 +0900
+Subject: [PATCH] mm/migrate: drop the fault lock and wait killably for
+ migration entries
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,365 +84,386 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261117-junhomax-fix-mm-migrate-killable-v1-1-f6e7b135a159@xcena.com>
+X-B4-Tracking: v=1; b=H4sIAN4d/GoC/yWNQQrCMBBFr1Jm7aCJoOJVxMUkTpupTSqTthRK7
+ 26iy/d5vL9BZhXOcG82UF4ky5gKmEMDPlDqGOVVGOzJXowxV+znFMZIK7ayYowYpVOaGN8yDOQ
+ GRuP92bT25ryzUDIf5aL+Lh7PP+fZ9eyn2q2Go8zolJIPdRpVOknHSHlihX3/AmhJrA2kAAAA
+X-Change-ID: 20261117-junhomax-fix-mm-migrate-killable-1cc31f28bcb2
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Zi Yan <ziy@nvidia.com>, Alistair Popple <apopple@nvidia.com>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Junho Cha <junho.cha@xcena.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794907617; l=13411;
+ i=junho.cha@xcena.com; s=20261113; h=from:subject:message-id;
+ bh=mnGdUHF5t1lOUgEMiGhJVwTTK36023iX/aOSJF8UJzA=;
+ b=VFwGqoZy5y6dUZ9bmlZ9RwakB3fe2c3Ij8SR67QV06QWEAjy0q5cXpEVIWpo5x8WndR5Lc9mn
+ FnR+zTWOZtHDK30vWR85alepx8lRScSnV/vsLgOx/EqImk/ermpTPV7
+X-Developer-Key: i=junho.cha@xcena.com; a=ed25519;
+ pk=OkFm4PnuJSze1AVqDdvnpHO7nnDQIheH2qYwg2a6Dyc=
+X-Endpoint-Received: by B4 Relay for junho.cha@xcena.com/20261113 with
+ auth_id=1507
+X-Original-From: Junho Cha <junho.cha@xcena.com>
+Reply-To: junho.cha@xcena.com
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261117-edac-v6-3-a2a747b95c3f@aspeedtech.com>
-References: <20261117-edac-v6-0-a2a747b95c3f@aspeedtech.com>
-In-Reply-To: <20261117-edac-v6-0-a2a747b95c3f@aspeedtech.com>
-To: Stefan Schaeckeler <sschaeck@cisco.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>, Billy Tsai
-	<billy_tsai@aspeedtech.com>
-CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
-	<linux-edac@vger.kernel.org>, Borislav Petkov <bp@suse.de>, Ryan Chen
-	<ryan_chen@aspeedtech.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794907599; l=11992;
- i=ryan_chen@aspeedtech.com; s=20251126; h=from:subject:message-id;
- bh=fO9QGrRiui5XD80bvbzNXSZKfqrQfbtcQkYU0U7QOUI=;
- b=GKVcS6IbYTXSrT37mZZQCaJyi7lJsaQ29oj9i7AWuFS6AyQWOZGnrXD/oNmpRh7rvsTFiSKWL
- RqzUkfX2zhFBGHC4afNyVMOr1L67MArR1eT7su0UpkiD3xMcADP5bde
-X-Developer-Key: i=ryan_chen@aspeedtech.com; a=ed25519;
- pk=Xe73xY6tcnkuRjjbVAB/oU30KdB3FvG4nuJuILj7ZVc=
 
-Add SDRAM ECC reporting for the Aspeed AST2700. Its DRAMC has a different
-register layout, a split interrupt status/clear/mask scheme, DDR4/DDR5
-memory and interrupt registers that are not key-protected.
+From: Junho Cha <junho.cha@xcena.com>
 
-Its interrupt status/clear and enable sequences differ from the earlier
-SoCs, so add per-chip isr() and set_irq() hooks and route the
-request_irq() and enable/disable paths through them, keeping the
-existing AST2400/2500/2600 behaviour under the shared
-aspeed_mcr_isr()/aspeed_set_irq().
+A fault that finds a migration entry sleeps in
+softleaf_entry_wait_on_locked() until the entry goes away.  So does a
+fault on a device-private entry whose folio is locked by another
+thread, since commit b570f37a2ce4 ("mm: Fix a hmm_range_fault()
+livelock / starvation problem").  The wait is in TASK_UNINTERRUPTIBLE
+and keeps the mmap_lock or per-VMA lock held throughout.
 
-Unlike the earlier SoCs it records a single failure address shared by
-both error types, so extend the shared count_rec()/count_un_rec()
-helpers with a have_addr flag to report an error without an address
-(existing SoCs pass have_addr = true, unchanged) and widen their address
-argument to phys_addr_t as the AST2700 address can exceed 32 bits.
+That is fine while a migration takes microseconds.  It is not when the
+migration is slow:
 
-Tested on an AST2700: A correctable error was injected from the console by
-unlocking the controller and writing its ECC error inject test register:
+ - The wait cannot be killed.  The signal_pending_state() check in the
+   wait loop never fires, because TASK_UNINTERRUPTIBLE contains neither
+   TASK_INTERRUPTIBLE nor TASK_WAKEKILL.  For example, if the
+   migrate_to_ram() handler of a device-private folio waits for a
+   device that has stalled, every other thread that faults on the page
+   sits in D state, and the only symptom is a hung task warning.
 
-  # mw 12c00000 1688a8a8
-  # mw 12c00080 31
-  EDAC MC0: 1 CE on mc#0csrow#0channel#0 (csrow:0 channel:0 page:0x40f6da offset:0xdb0 grain:16 syndrome:0x0)
+ - The fault lock is held across the wait.  This matters when the
+   migration itself runs without that lock, as for move_pages(),
+   compaction or memory offlining.  A writer that arrives in the
+   meantime, such as munmap() of another page in the same VMA, waits
+   for the migration to finish, and faults that come after the writer
+   queue behind it.  migrate_to_ram() is called with the fault lock
+   held, so for device-private folios only the first point applies.
 
-Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
+Making the wait killable alone is not enough.  A fault that returns 0
+is retried, so a kernel-mode fault from a uaccess routine would fault
+again on the same entry, return at once because the signal is still
+pending, and spin until the migration completes.  The fault has to
+return VM_FAULT_RETRY so that fault_signal_pending() can end it.
 
+Handle the fault lock the way __folio_lock_or_retry() does.  Pass the
+vm_fault to softleaf_entry_wait_on_locked() from do_swap_page().  On the
+first attempt of a retryable fault, drop the fault lock before sleeping
+and return VM_FAULT_RETRY, or return at once for
+FAULT_FLAG_RETRY_NOWAIT.  A FAULT_FLAG_KILLABLE fault sleeps in
+TASK_KILLABLE, and if a fatal signal ends a wait that still holds the
+lock, drop it and return VM_FAULT_RETRY.
+
+Dropping the lock there is safe.  The wait entry is queued before the
+ptl is released, and the entry can only be removed under that ptl, so
+no wake up is missed.  Nothing after that uses the vma, and
+folio_waitqueue() points into a global hash table, not into the folio.
+
+Callers outside the fault path (hmm, userfaultfd, huge_memory) and the
+PMD and hugetlb waits pass NULL and keep the current behaviour.
+
+Tested by holding the migration entries for 8 seconds, with a delay
+added after the unmap step of move_pages() and in test_hmm's
+migrate_to_ram():
+
+ - SIGKILL to a process waiting on the entry, from user mode or from a
+   write() that copies from the page, ends it within a millisecond
+   instead of after the migration.  The same holds for a thread waiting
+   on a device-private folio.
+ - munmap() of another page in the same VMA no longer waits for the
+   migration.
+ - Without a signal, the write() completes after the migration with
+   the right data, using under a millisecond of system time.
+ - hmm-tests results are unchanged, and lockdep reports nothing.
+
+Signed-off-by: Junho Cha <junho.cha@xcena.com>
 ---
-Changes in v6:
-- Follow patch 1 ("EDAC/aspeed: Replace regmap with direct register
-  access"): spinlock_t.
-
-Changes in v5:
-- Follow v5 patch 2 ("EDAC/aspeed: Free the interrupt before the
-  mem_ctl_info on remove", now applied) in using request_irq().
-
-Changes in v3:
-- Write the AST2700 interrupt mask register outright rather than
-  read-modify-write: mask every source and unmask only the ECC ones.
-  The driver owns the line exclusively, so it should establish the
-  mask itself instead of deriving it from the register's contents.
-- Mask the interrupts before requesting them rather than after, so the
-  mask is established before the handler can run.
-
-Changes in v2:
-- Return IRQ_NONE from ast2700_dramc_isr() when no ECC interrupt status
-  bit is set. The handler clears only the ECC bits, so unconditionally
-  claiming the interrupt could livelock the level-triggered line if
-  another DRAMC source was left unmasked.
-- Add AST2700_INT_ECC for the pair of ECC interrupt bits, now used by both
-  the handler and the enable path.
-- Expand the enable/disable ternary in ast2700_set_irq() into if/else,
-  matching the shape of aspeed_set_irq().
-- Pass struct aspeed_edac to the set_irq() hooks instead of
-  struct mem_ctl_info, which the callees only used to reach pvt_info.
+The delays used for testing were added locally after the unmap step of
+migrate_pages_batch() for MR_SYSCALL and after migrate_vma_setup() in
+dmirror_devmem_fault().  They are not part of this patch.
 ---
- drivers/edac/aspeed_edac.c | 161 +++++++++++++++++++++++++++++++++++++--------
- 1 file changed, 135 insertions(+), 26 deletions(-)
+ include/linux/migrate.h |  9 ++++++---
+ include/linux/swapops.h |  5 +++++
+ mm/filemap.c            | 45 ++++++++++++++++++++++++++++++++++++++++++---
+ mm/memory.c             |  6 +++---
+ mm/migrate.c            | 46 ++++++++++++++++++++++++++++++++++------------
+ 5 files changed, 90 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/edac/aspeed_edac.c b/drivers/edac/aspeed_edac.c
-index d56626821ce0..720daf77cfba 100644
---- a/drivers/edac/aspeed_edac.c
-+++ b/drivers/edac/aspeed_edac.c
-@@ -32,6 +32,24 @@
- #define ASPEED_MCR_INTR_CTRL_CNT_UNREC  GENMASK(15, 12)
- #define ASPEED_MCR_INTR_CTRL_ENABLE     (BIT(0) | BIT(1))
+diff --git a/include/linux/migrate.h b/include/linux/migrate.h
+index 78424b3824c2..f76998930f12 100644
+--- a/include/linux/migrate.h
++++ b/include/linux/migrate.h
+@@ -66,8 +66,8 @@ bool isolate_folio_to_list(struct folio *folio, struct list_head *list);
  
-+#define AST2700_INT_STS			0x04
-+#define AST2700_INT_CLR			0x08
-+#define AST2700_INT_MASK		0x0c
-+#define   AST2700_INT_ECC_RECOVERABLE	BIT(5)
-+#define   AST2700_INT_ECC_UNRECOVERABLE	BIT(4)
-+#define   AST2700_INT_ECC		(AST2700_INT_ECC_RECOVERABLE | \
-+					 AST2700_INT_ECC_UNRECOVERABLE)
-+#define   AST2700_INT_ALL		GENMASK(16, 0)
-+#define AST2700_MCFG			0x10
-+#define   AST2700_MCFG_ECC		BIT(6)
-+#define   AST2700_MCFG_DRAM_TYPE	BIT(0) /* 0=DDR4, 1=DDR5 */
-+#define AST2700_ECC_STS			0x78
-+#define   AST2700_ECC_REC_CNT		GENMASK(15, 8)
-+#define   AST2700_ECC_UNREC_CNT		GENMASK(7, 0)
-+#define AST2700_ECC_FAIL_ADDR		0x7c
-+
-+struct aspeed_edac;
-+
- struct aspeed_edac_chip {
- 	unsigned int conf_reg;
- 	u32 conf_ecc;
-@@ -40,6 +58,8 @@ struct aspeed_edac_chip {
- 	unsigned long mtype_cap;
- 	unsigned int prot_reg;
- 	u32 prot_key;
-+	irqreturn_t (*isr)(int irq, void *arg);
-+	void (*set_irq)(struct aspeed_edac *priv, bool enable);
- };
+ int migrate_huge_page_move_mapping(struct address_space *mapping,
+ 		struct folio *dst, struct folio *src);
+-void softleaf_entry_wait_on_locked(softleaf_t entry, spinlock_t *ptl)
+-		__releases(ptl);
++vm_fault_t softleaf_entry_wait_on_locked(softleaf_t entry, spinlock_t *ptl,
++					 struct vm_fault *vmf) __releases(ptl);
+ void folio_migrate_flags(struct folio *newfolio, struct folio *folio);
+ int folio_migrate_mapping(struct address_space *mapping,
+ 		struct folio *newfolio, struct folio *folio, int extra_count);
+@@ -99,12 +99,15 @@ static inline int set_movable_ops(const struct movable_operations *ops, enum pag
+ 	return -ENOSYS;
+ }
  
- struct aspeed_edac {
-@@ -50,26 +70,34 @@ struct aspeed_edac {
- 	int irq;
- };
- 
--static void count_rec(struct mem_ctl_info *mci, u8 rec_cnt, u32 rec_addr)
-+static void count_rec(struct mem_ctl_info *mci, u8 rec_cnt, phys_addr_t rec_addr,
-+		      bool have_addr)
+-static inline void softleaf_entry_wait_on_locked(softleaf_t entry, spinlock_t *ptl)
++static inline vm_fault_t softleaf_entry_wait_on_locked(softleaf_t entry,
++						       spinlock_t *ptl,
++						       struct vm_fault *vmf)
+ 	__releases(ptl)
  {
- 	struct csrow_info *csrow = mci->csrows[0];
--	u32 page, offset, syndrome;
-+	unsigned long page, offset, syndrome;
+ 	WARN_ON_ONCE(1);
  
- 	if (!rec_cnt)
- 		return;
+ 	spin_unlock(ptl);
++	return 0;
+ }
  
--	/* report first few errors (if there are) */
--	/* note: no addresses are recorded */
--	if (rec_cnt > 1) {
+ #endif /* CONFIG_MIGRATION */
+diff --git a/include/linux/swapops.h b/include/linux/swapops.h
+index 603f9e3f909c..6a647fe5e83b 100644
+--- a/include/linux/swapops.h
++++ b/include/linux/swapops.h
+@@ -216,6 +216,7 @@ static inline swp_entry_t make_migration_entry_dirty(swp_entry_t entry)
+ 
+ extern void migration_entry_wait(struct mm_struct *mm, pmd_t *pmd,
+ 					unsigned long address);
++vm_fault_t migration_entry_wait_fault(struct vm_fault *vmf);
+ extern void migration_entry_wait_huge(struct vm_area_struct *vma, unsigned long addr, pte_t *pte);
+ #else  /* CONFIG_MIGRATION */
+ static inline swp_entry_t make_readable_migration_entry(pgoff_t offset)
+@@ -235,6 +236,10 @@ static inline swp_entry_t make_writable_migration_entry(pgoff_t offset)
+ 
+ static inline void migration_entry_wait(struct mm_struct *mm, pmd_t *pmd,
+ 					unsigned long address) { }
++static inline vm_fault_t migration_entry_wait_fault(struct vm_fault *vmf)
++{
++	return 0;
++}
+ static inline void migration_entry_wait_huge(struct vm_area_struct *vma,
+ 					     unsigned long addr, pte_t *pte) { }
+ 
+diff --git a/mm/filemap.c b/mm/filemap.c
+index b04be64a5069..d3709b4e96fd 100644
+--- a/mm/filemap.c
++++ b/mm/filemap.c
+@@ -1399,6 +1399,7 @@ static inline int folio_wait_bit_common(struct folio *folio, int bit_nr,
+  * device_private entry to be removed.
+  * @entry: migration or device_private swap entry.
+  * @ptl: already locked ptl. This function will drop the lock.
++ * @vmf: the fault being handled, or NULL when not called from a fault.
+  *
+  * Wait for a migration entry referencing the given page, or device_private
+  * entry referencing a dvice_private page to be unlocked. This is
+@@ -1407,17 +1408,28 @@ static inline int folio_wait_bit_common(struct folio *folio, int bit_nr,
+  * should be called while holding the ptl for @entry referencing
+  * the page.
+  *
++ * When @vmf is given, the fault lock is handled as in __folio_lock_or_retry():
++ * if the fault may be retried, the mmap_lock or per-VMA lock is dropped
++ * before sleeping, and a FAULT_FLAG_KILLABLE fault sleeps killably.
++ *
+  * Returns after unlocking the ptl.
+  *
++ * Return: VM_FAULT_RETRY if the fault lock has been dropped, or if
++ * FAULT_FLAG_RETRY_NOWAIT asked not to wait; 0 otherwise.
++ *
+  * This follows the same logic as folio_wait_bit_common() so see the comments
+  * there.
+  */
+-void softleaf_entry_wait_on_locked(softleaf_t entry, spinlock_t *ptl)
++vm_fault_t softleaf_entry_wait_on_locked(softleaf_t entry, spinlock_t *ptl,
++					 struct vm_fault *vmf)
+ 	__releases(ptl)
+ {
+ 	struct wait_page_queue wait_page;
+ 	wait_queue_entry_t *wait = &wait_page.wait;
++	unsigned int state = TASK_UNINTERRUPTIBLE;
++	bool interrupted = false;
+ 	bool thrashing = false;
++	vm_fault_t ret = 0;
+ 	unsigned long pflags;
+ 	bool in_thrashing;
+ 	wait_queue_head_t *q;
+@@ -1452,16 +1464,34 @@ void softleaf_entry_wait_on_locked(softleaf_t entry, spinlock_t *ptl)
+ 	 */
+ 	spin_unlock(ptl);
+ 
 +	/*
-+	 * Report the errors whose address is not recorded: all of them when
-+	 * no address is available, otherwise all but the last one (reported
-+	 * with its address below).
++	 * The wait entry is queued and the entry can only change under the ptl
++	 * dropped above, so no wake up is lost from here on.  The vma is not
++	 * used below, so the fault lock can be dropped before sleeping.
 +	 */
-+	if (rec_cnt > 1 || !have_addr) {
- 		/* page, offset and syndrome are not available */
- 		page = 0;
- 		offset = 0;
- 		syndrome = 0;
--		edac_mc_handle_error(HW_EVENT_ERR_CORRECTED, mci, rec_cnt-1,
-+		edac_mc_handle_error(HW_EVENT_ERR_CORRECTED, mci,
-+				     have_addr ? rec_cnt - 1 : rec_cnt,
- 				     page, offset, syndrome, 0, 0, -1,
- 				     "address(es) not available", "");
++	if (vmf) {
++		if (fault_flag_allow_retry_first(vmf->flags)) {
++			ret = VM_FAULT_RETRY;
++			if (vmf->flags & FAULT_FLAG_RETRY_NOWAIT)
++				goto out;
++			release_fault_lock(vmf);
++		}
++		if (vmf->flags & FAULT_FLAG_KILLABLE)
++			state = TASK_KILLABLE;
++	}
++
+ 	for (;;) {
+ 		unsigned int flags;
+ 
+-		set_current_state(TASK_UNINTERRUPTIBLE);
++		set_current_state(state);
+ 
+ 		/* Loop until we've been woken or interrupted */
+ 		flags = smp_load_acquire(&wait->flags);
+ 		if (!(flags & WQ_FLAG_WOKEN)) {
+-			if (signal_pending_state(TASK_UNINTERRUPTIBLE, current))
++			if (signal_pending_state(state, current)) {
++				interrupted = true;
+ 				break;
++			}
+ 
+ 			io_schedule();
+ 			continue;
+@@ -1469,12 +1499,21 @@ void softleaf_entry_wait_on_locked(softleaf_t entry, spinlock_t *ptl)
+ 		break;
  	}
  
-+	if (!have_addr)
-+		return;
-+
- 	/* report last error */
- 	/* note: rec_addr is the last recoverable error addr */
- 	page = rec_addr >> PAGE_SHIFT;
-@@ -82,32 +110,34 @@ static void count_rec(struct mem_ctl_info *mci, u8 rec_cnt, u32 rec_addr)
- }
++out:
+ 	finish_wait(q, wait);
  
- static void count_un_rec(struct mem_ctl_info *mci, u8 un_rec_cnt,
--			 u32 un_rec_addr)
-+			 phys_addr_t un_rec_addr, bool have_addr)
- {
- 	struct csrow_info *csrow = mci->csrows[0];
--	u32 page, offset, syndrome;
-+	unsigned long page, offset, syndrome;
- 
- 	if (!un_rec_cnt)
- 		return;
- 
--	/* report 1. error */
--	/* note: un_rec_addr is the first unrecoverable error addr */
--	page = un_rec_addr >> PAGE_SHIFT;
--	offset = un_rec_addr & ~PAGE_MASK;
--	/* syndrome is not available */
--	syndrome = 0;
--	edac_mc_handle_error(HW_EVENT_ERR_UNCORRECTED, mci, 1,
--			     csrow->first_page + page, offset, syndrome,
--			     0, 0, -1, "", "");
-+	/* report the first error with its address when one is available */
-+	if (have_addr) {
-+		/* note: un_rec_addr is the first unrecoverable error addr */
-+		page = un_rec_addr >> PAGE_SHIFT;
-+		offset = un_rec_addr & ~PAGE_MASK;
-+		/* syndrome is not available */
-+		syndrome = 0;
-+		edac_mc_handle_error(HW_EVENT_ERR_UNCORRECTED, mci, 1,
-+				     csrow->first_page + page, offset, syndrome,
-+				     0, 0, -1, "", "");
-+	}
- 
--	/* report further errors (if there are) */
--	/* note: no addresses are recorded */
--	if (un_rec_cnt > 1) {
-+	/* report the remaining errors without a recorded address */
-+	if (un_rec_cnt > 1 || !have_addr) {
- 		/* page, offset and syndrome are not available */
- 		page = 0;
- 		offset = 0;
- 		syndrome = 0;
--		edac_mc_handle_error(HW_EVENT_ERR_UNCORRECTED, mci, un_rec_cnt-1,
-+		edac_mc_handle_error(HW_EVENT_ERR_UNCORRECTED, mci,
-+				     have_addr ? un_rec_cnt - 1 : un_rec_cnt,
- 				     page, offset, syndrome, 0, 0, -1,
- 				     "address(es) not available", "");
+ 	if (thrashing) {
+ 		delayacct_thrashing_end(&in_thrashing);
+ 		psi_memstall_leave(&pflags);
  	}
-@@ -164,8 +194,8 @@ static irqreturn_t aspeed_mcr_isr(int irq, void *arg)
- 		rec_cnt, un_rec_cnt);
- 
- 	/* process recoverable and unrecoverable errors */
--	count_rec(mci, rec_cnt, rec_addr);
--	count_un_rec(mci, un_rec_cnt, un_rec_addr);
-+	count_rec(mci, rec_cnt, rec_addr, true);
-+	count_un_rec(mci, un_rec_cnt, un_rec_addr, true);
- 
- 	if (!rec_cnt && !un_rec_cnt)
- 		dev_dbg_ratelimited(mci->pdev, "received edac interrupt, but did not find any ECC counters\n");
-@@ -178,6 +208,54 @@ static irqreturn_t aspeed_mcr_isr(int irq, void *arg)
- 	return IRQ_HANDLED;
- }
- 
-+static irqreturn_t ast2700_dramc_isr(int irq, void *arg)
-+{
-+	u32 int_sts, ecc_sts, fail_addr;
-+	struct mem_ctl_info *mci = arg;
-+	struct aspeed_edac *priv;
-+	u8 rec_cnt, un_rec_cnt;
-+	phys_addr_t addr;
 +
-+	priv = mci->pvt_info;
-+
-+	scoped_guard(spinlock, &priv->lock) {
-+		int_sts = readl(priv->regs + AST2700_INT_STS);
-+		if (!(int_sts & AST2700_INT_ECC))
-+			return IRQ_NONE;
-+
-+		ecc_sts = readl(priv->regs + AST2700_ECC_STS);
-+		fail_addr = readl(priv->regs + AST2700_ECC_FAIL_ADDR);
-+
-+		/* the interrupt registers are not key-protected; clear only ECC */
-+		writel(int_sts & AST2700_INT_ECC, priv->regs + AST2700_INT_CLR);
++	/* Let the fault handler see the fatal signal, as for a folio lock. */
++	if (interrupted && !ret) {
++		release_fault_lock(vmf);
++		ret = VM_FAULT_RETRY;
 +	}
 +
-+	rec_cnt = FIELD_GET(AST2700_ECC_REC_CNT, ecc_sts);
-+	un_rec_cnt = FIELD_GET(AST2700_ECC_UNREC_CNT, ecc_sts);
-+
-+	/* the register holds address bits [35:4], in units of 16 bytes */
-+	addr = (phys_addr_t)fail_addr << 4;
-+
-+	/*
-+	 * The controller records only the address of the latest failure,
-+	 * shared by both error types. When only one type occurred it owns
-+	 * that address; when both occurred attribute it to the uncorrectable
-+	 * error and report the corrected ones without an address.
-+	 */
-+	if (un_rec_cnt && !rec_cnt) {
-+		count_un_rec(mci, un_rec_cnt, addr, true);
-+	} else if (!un_rec_cnt && rec_cnt) {
-+		count_rec(mci, rec_cnt, addr, true);
-+	} else if (un_rec_cnt && rec_cnt) {
-+		count_un_rec(mci, un_rec_cnt, addr, true);
-+		count_rec(mci, rec_cnt, 0, false);
-+	} else {
-+		dev_dbg_ratelimited(mci->pdev, "received interrupt with no ECC counters set\n");
-+	}
-+
-+	return IRQ_HANDLED;
-+}
-+
- static void aspeed_set_irq(struct aspeed_edac *priv, bool enable)
- {
- 	u32 val;
-@@ -195,6 +273,19 @@ static void aspeed_set_irq(struct aspeed_edac *priv, bool enable)
- 	aspeed_mcr_irq_update_exit(priv);
++	return ret;
+ }
+ #endif
+ 
+diff --git a/mm/memory.c b/mm/memory.c
+index ec3d9d99ccee..febafef95d57 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -5007,8 +5007,7 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
+ 	entry = softleaf_from_pte(vmf->orig_pte);
+ 	if (unlikely(!softleaf_is_swap(entry))) {
+ 		if (softleaf_is_migration(entry)) {
+-			migration_entry_wait(vma->vm_mm, vmf->pmd,
+-					     vmf->address);
++			ret = migration_entry_wait_fault(vmf);
+ 		} else if (softleaf_is_device_exclusive(entry)) {
+ 			vmf->page = softleaf_to_page(entry);
+ 			ret = remove_device_exclusive_entry(vmf);
+@@ -5049,7 +5048,8 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
+ 				folio_put(folio);
+ 			} else {
+ 				pte_unmap(vmf->pte);
+-				softleaf_entry_wait_on_locked(entry, vmf->ptl);
++				ret = softleaf_entry_wait_on_locked(entry,
++								    vmf->ptl, vmf);
+ 			}
+ 		} else if (softleaf_is_hwpoison(entry)) {
+ 			ret = VM_FAULT_HWPOISON;
+diff --git a/mm/migrate.c b/mm/migrate.c
+index 875079464930..cd06a2bd487f 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -485,13 +485,9 @@ void remove_migration_ptes(struct folio *src, struct folio *dst,
+ 		rmap_walk(dst, &rwc);
  }
  
-+static void ast2700_set_irq(struct aspeed_edac *priv, bool enable)
+-/*
+- * Something used the pte of a page under migration. We need to
+- * get to the page and wait until migration is finished.
+- * When we return from this function the fault will be retried.
+- */
+-void migration_entry_wait(struct mm_struct *mm, pmd_t *pmd,
+-			  unsigned long address)
++static vm_fault_t __migration_entry_wait(struct mm_struct *mm, pmd_t *pmd,
++					 unsigned long address,
++					 struct vm_fault *vmf)
+ {
+ 	spinlock_t *ptl;
+ 	pte_t *ptep;
+@@ -500,7 +496,7 @@ void migration_entry_wait(struct mm_struct *mm, pmd_t *pmd,
+ 
+ 	ptep = pte_offset_map_lock(mm, pmd, address, &ptl);
+ 	if (!ptep)
+-		return;
++		return 0;
+ 
+ 	pte = ptep_get(ptep);
+ 	pte_unmap(ptep);
+@@ -512,10 +508,36 @@ void migration_entry_wait(struct mm_struct *mm, pmd_t *pmd,
+ 	if (!softleaf_is_migration(entry))
+ 		goto out;
+ 
+-	softleaf_entry_wait_on_locked(entry, ptl);
+-	return;
++	return softleaf_entry_wait_on_locked(entry, ptl, vmf);
+ out:
+ 	spin_unlock(ptl);
++	return 0;
++}
++
++/*
++ * Something used the pte of a page under migration. We need to
++ * get to the page and wait until migration is finished.
++ * When we return from this function the fault will be retried.
++ */
++void migration_entry_wait(struct mm_struct *mm, pmd_t *pmd,
++			  unsigned long address)
 +{
-+	u32 val = AST2700_INT_ALL;
-+
-+	guard(spinlock_irqsave)(&priv->lock);
-+
-+	/* interrupts are enabled by clearing their mask bits */
-+	if (enable)
-+		val &= ~AST2700_INT_ECC;
-+
-+	writel(val, priv->regs + AST2700_INT_MASK);
++	__migration_entry_wait(mm, pmd, address, NULL);
 +}
 +
- static int config_irq(struct mem_ctl_info *mci, struct platform_device *pdev)
- {
- 	struct aspeed_edac *priv = mci->pvt_info;
-@@ -207,14 +298,16 @@ static int config_irq(struct mem_ctl_info *mci, struct platform_device *pdev)
- 	if (irq < 0)
- 		return irq;
- 
--	rc = request_irq(irq, aspeed_mcr_isr, IRQF_TRIGGER_HIGH, DRV_NAME, mci);
-+	priv->chip->set_irq(priv, false);
-+
-+	rc = request_irq(irq, priv->chip->isr, IRQF_TRIGGER_HIGH, DRV_NAME, mci);
- 	if (rc)
- 		return rc;
- 
- 	priv->irq = irq;
- 
- 	/* enable interrupts */
--	aspeed_set_irq(priv, true);
-+	priv->chip->set_irq(priv, true);
- 
- 	return 0;
++/**
++ * migration_entry_wait_fault - wait for a migration entry from a fault
++ * @vmf: the fault being handled.
++ *
++ * Like migration_entry_wait(), but drops the fault lock before sleeping
++ * when the fault may be retried, and sleeps killably for a killable fault.
++ *
++ * Return: VM_FAULT_RETRY if the fault lock was dropped, 0 otherwise.
++ */
++vm_fault_t migration_entry_wait_fault(struct vm_fault *vmf)
++{
++	return __migration_entry_wait(vmf->vma->vm_mm, vmf->pmd,
++				      vmf->address, vmf);
  }
-@@ -362,7 +455,7 @@ static void aspeed_remove(struct platform_device *pdev)
- 	struct aspeed_edac *priv = mci->pvt_info;
  
- 	/* disable interrupts */
--	aspeed_set_irq(priv, false);
-+	priv->chip->set_irq(priv, false);
+ #ifdef CONFIG_HUGETLB_PAGE
+@@ -547,7 +569,7 @@ void migration_entry_wait_huge(struct vm_area_struct *vma, unsigned long addr, p
+ 		 * lock release in softleaf_entry_wait_on_locked().
+ 		 */
+ 		hugetlb_vma_unlock_read(vma);
+-		softleaf_entry_wait_on_locked(entry, ptl);
++		softleaf_entry_wait_on_locked(entry, ptl, NULL);
+ 		return;
+ 	}
  
- 	free_irq(priv->irq, mci);
- 
-@@ -379,6 +472,8 @@ static const struct aspeed_edac_chip ast2400_edac = {
- 	.mtype_cap = MEM_FLAG_DDR3 | MEM_FLAG_DDR4,
- 	.prot_reg = ASPEED_MCR_PROT,
- 	.prot_key = ASPEED_MCR_PROT_PASSWD,
-+	.isr = aspeed_mcr_isr,
-+	.set_irq = aspeed_set_irq,
- };
- 
- /* The AST2600 does not key-protect the interrupt control register (MCR50). */
-@@ -388,12 +483,26 @@ static const struct aspeed_edac_chip ast2600_edac = {
- 	.conf_dram_type = ASPEED_MCR_CONF_DRAM_TYPE,
- 	.dram_type = { MEM_DDR3, MEM_DDR4 },
- 	.mtype_cap = MEM_FLAG_DDR3 | MEM_FLAG_DDR4,
-+	.isr = aspeed_mcr_isr,
-+	.set_irq = aspeed_set_irq,
-+};
-+
-+/* The AST2700 interrupt registers are not key-protected either. */
-+static const struct aspeed_edac_chip ast2700_edac = {
-+	.conf_reg = AST2700_MCFG,
-+	.conf_ecc = AST2700_MCFG_ECC,
-+	.conf_dram_type = AST2700_MCFG_DRAM_TYPE,
-+	.dram_type = { MEM_DDR4, MEM_DDR5 },
-+	.mtype_cap = MEM_FLAG_DDR4 | MEM_FLAG_DDR5,
-+	.isr = ast2700_dramc_isr,
-+	.set_irq = ast2700_set_irq,
- };
- 
- static const struct of_device_id aspeed_of_match[] = {
- 	{ .compatible = "aspeed,ast2400-sdram-edac", .data = &ast2400_edac },
- 	{ .compatible = "aspeed,ast2500-sdram-edac", .data = &ast2400_edac },
- 	{ .compatible = "aspeed,ast2600-sdram-edac", .data = &ast2600_edac },
-+	{ .compatible = "aspeed,ast2700-sdram-edac", .data = &ast2700_edac },
- 	{},
- };
- 
+@@ -565,7 +587,7 @@ void pmd_migration_entry_wait(struct mm_struct *mm, pmd_t *pmd)
+ 	ptl = pmd_lock(mm, pmd);
+ 	if (!pmd_is_migration_entry(*pmd))
+ 		goto unlock;
+-	softleaf_entry_wait_on_locked(softleaf_from_pmd(*pmd), ptl);
++	softleaf_entry_wait_on_locked(softleaf_from_pmd(*pmd), ptl, NULL);
+ 	return;
+ unlock:
+ 	spin_unlock(ptl);
 
--- 
-2.34.1
+---
+base-commit: 7e1392a42ea288d70a266f6553fe06f57f8647ea
+change-id: 20261117-junhomax-fix-mm-migrate-killable-1cc31f28bcb2
+
+Best regards,
+--  
+Junho Cha <junho.cha@xcena.com>
+
 
