@@ -1,66 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794933134;
-	b=X5n2e32hXGuQEAB25iY1ZNGqYM0sDAyPcqAwW5tu6gXG571jt93nI7Hp/qd45Yz8QU6u
-	 g0JuEMYBsyzeJSHsokrF445F2a91L24AYAbrlGjwUl33FXuP3hkGHFhEqnc9Dh+ZB0mVL
-	 16doCQFXk4iDGti895gdyf2hOCaSAk7AJ87W4+dvotlG+qWsPdQbNFsXlLGTbHfV3+yVc
-	 0zat3tHW3GGxbh83fDB9a7XwEiciWaeiOZpMK0QCviNGGEufHfZyj7cnmwBRzZMU4X3Ga
-	 OwpZdJlc2UDiUWE2Q8t3kgxsewsABV0fVvkd8VGK2pwbktdAdVsMdhvqW58+VToH1bg==
+	t=1794933274;
+	b=j0HptvTPcNvRqen7p0yATImaV/ahmwdj35vwz82IAQBXq8a1umc+YKpkfufAgeS0NxRr
+	 WA+exWinrHwiItkiMTn2Rwp9ZqFCelPXh2f+tyEIqYeWGmcjGB4gNL/pi+5saS08NSTVq
+	 lrSR8zPENCvj8uUDhVg4zgwXdYQOnCN+fJmoi9R3nYVNdgsQzkIpV1Fm8bx9Cr7voWdPs
+	 zD8wdXmAHS7iq1VobwoNV56PPUvnlA384y7KpdutEsXDP+NGyD8HHk/L/GxuwBKIRDjgp
+	 suRJy6SZ/qVJfSYk0IcPXZoXtGXNR9HClIYiulO+U6V347LkVBDqY5LB7I31AWc1DGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794933134;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=J5x6mKugMf714+VHypmEFD70gWUfW6DIZ+hE0K1SzVc=;
-	b=cL1g9CSV+b7AfuNrCloMHgSo12NE4Lge8bcBRfNHfEJog/no5sNH2axwxvEYpppXx4Dh
-	 /mSYo0fdt+XresGGfzrW7BQLtiaZY+Dzrpi2aY9vdGnh1rdUEqZdADmcdZD9voDpbloGL
-	 thiV5fDexjynQkdr7aU5eNgGWYHPbH7B5szUfmD5aKlabaKl8Btca7+5BpiWYcb/Kc8LC
-	 CMW66IfeUsgzKdF0hVQFbVMrZXp4Gfs79ePXr27THsAZuqpd/CjJxwH0/hirQJLOsLG76
-	 2fsJLDkR+4LYadS0uiU8Ha0qmTDsqpaMs0U1nRht7avPA9s1Q9IjX3cJkYq112BPC7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794933274;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=JEEmq1dY81wdbCeTX7SttAeKu8NSqyPmmLobfOaFWuo=;
+	b=kveL9AobFN2AqOeZZhx8KtjtSphctlDymT2vgcpVvHVui6gi8iAlyPhceDVhM1EkLzn4
+	 zIMybDgts1AfU1vl5umrSrtykc4IU3w8AqzQpg/Prdy01NzvEVFDzBxDaBb4nQEQ9BnOZ
+	 GxFnHctsUtHY6lzU9HOgiWf736OrgGOdqxGoC4I9Ww2lEDtiUKcTrhq8jczzy5d1fQ4tF
+	 cqhTbKSP9UwovLg+fuGoWHdEre0Nhg6FTwQ8o52ysevhQ0ysdiT1fzMFrgcgTmR0JLkkA
+	 Id2UWFqwraO9Pm6TW5XshFNBMxp9nFmQWYCJck2W2MkjEY3nsGLuGEBIhCJFb5a7jfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=HUjz1fUP;
-	arc=none smtp.remote-ip=199.89.1.16
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IfpL3SzR;
+	arc=none smtp.remote-ip=91.218.175.174
+Received: from mta0.migadu.com (out-174.mta0.migadu.com [91.218.175.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78FAE606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:32:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78FAE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5857F606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:34:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5857F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=HUjz1fUP
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jTVct0553zlg7KN;
-	Tue, 17 Nov 2026 16:32:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1794933132; x=1797525133; bh=J5x6mKugMf714+VHypmEFD70
-	gWUfW6DIZ+hE0K1SzVc=; b=HUjz1fUPEKZRPP6742NaIwiyY6qob+3Oe6yfxtsg
-	uvDZ0sKK/EV7KABbXzQVIhKAj8ulv2OypNcbgzo0+1cWe2QjZVbHwztbiYmeOcuZ
-	UFiTxkbMUn5uW8+TNfLAqCBI+WKnLk5jRQxa78o5OvGeDieRVBMbCtGCsyW0AlRW
-	XNiaHjr14Zl4LmBII1Ks9wGbWBJnAfpl2ddeqDUMBe9psnKjR02QRw4qQZ/wzP5n
-	d9NoTpxQYCGUCI/wCyMMyp/vElTiTfzfPR57vXNvzUHpoMy2QWYzfm5peRYeSb5A
-	3J2WXCj6rQrnL3hM4aYheOv8UFZn60zLzCMitSgYKHJaUw==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id PLDqLh22iEZU; Tue, 17 Nov 2026 16:32:12 +0000 (UTC)
-Received: from [IPV6:2a00:79e0:2ed2:d:44bf:cc75:7d8e:9159] (unknown [104.135.182.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jTVcq6KMDzlfvpy;
-	Tue, 17 Nov 2026 16:32:11 +0000 (UTC)
-Message-ID: <fb66a344-b688-4660-90e2-018d31c2a482@acm.org>
-Date: Tue, 17 Nov 2026 08:32:11 -0800
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IfpL3SzR
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=RJgmEkz4jSKky+L1Q1MlhqmjHI4xCv6x+BFHapl0q5g=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794933271; v=1; x=1795538071;
+ b=IfpL3SzR7Nvihq9US39Oqm3zkEnRicLRID6CM6pD9965dMcj8R+v8Pg6U6oppvPgNyt/bCoO
+ 4ao82qHM39cCYvBWukc+QdjG4GgGFyXkLMMzDeysMwKkJyNztktyJfXVGjV+hiqRWDIN/3rlE59
+ dUdRes882EQpHe6tLSNPhUH0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 60d8652a3546647f;
+	Tue, 17 Nov 2026 16:34:31 +0000
+X-Mizu-Trace-ID: 60d8652a3546647f
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <a852dce9-4ece-4508-8e07-89768cf6713e@linux.dev>
+Date: Tue, 17 Nov 2026 09:34:23 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,41 +59,102 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] compiler.h: Support 64-bit bitwise types in
- is_signed_type()
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>, linux-kernel@vger.kernel.org,
- Christoph Hellwig <hch@lst.de>,
- Linus Torvalds <torvalds@linux-foundation.org>
-References: <4002a78c6bf1fa4fc96d089bd6a704bf77e2e060.1794867767.git.bvanassche@acm.org>
- <20261117080621.7ca022dd@pumpkin>
+Subject: Re: [PATCH] mm/khugepaged: mark ptes dirty and soft-dirty on mTHP
+ collapse
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Lance Yang <lance.yang@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Chris Mason <mason@kernel.org>, Daniel Wade <danjwade95@gmail.com>
+References: <20261117-khugepaged_mthp_dirty-v1-1-024e4a12c2fa@kernel.org>
 Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20261117080621.7ca022dd@pumpkin>
+From: Nico Pache <nico.pache@linux.dev>
+In-Reply-To: <20261117-khugepaged_mthp_dirty-v1-1-024e4a12c2fa@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 11/17/26 12:06 AM, David Laight wrote:
-> Don't the trace definitions need fixing?
-> The trace code prints the numeric value so you really want a host
-> ordered value in the trace record.
+
+
+On 11/17/26 2:28 AM, David Hildenbrand (Arm) wrote:
+> An mTHP collapse can lose soft-dirty PTE bits if pages were written and
+> the VMA was then made read-only, and not setting the PTE dirty in
+> VMAs without VM_WRITE can interact with a later MADV_FREE on a COW-shared
+> page such that all processes lose the data even though a single process
+> MADV_FREE'ed it.
 > 
-> An alternative view is that even asking the question 'is_signed_type'
-> of a bitwise variable makes no sense.
-Are you perhaps suggesting that we should tell ftrace users that it is
-no longer allowed to declare __le64 fields, something they probably
-would not consider reasonable? Please let me know if I misunderstood
-your question. Below is an incomplete overview of the examples of __le64
-tracing fields (__le64 typedefs have been ignored):
+> Collapse does not preserve the soft-dirty bits of the old PTEs, so the
+> new entries must be marked soft-dirty. map_anon_folio_pte_nopf() relies
+> on pte_mkdirty() to do that, but only calls it if the VMA has VM_WRITE.
+> 
+> Further, after CoW-sharing such collapsed folios later, all PTEs will be
+> clean and the folios will be clean. One process doing a MADV_FREE can mark
+> the folios as lazyfree and result in all processes sharing it losing the
+> data once memory reclaim zaps it.
+> 
+> In map_anon_folio_pte_nopf(), call pte_mkdirty() unconditionally, just
+> like map_anon_folio_pmd_nopf() already does with pmd_mkdirty().
+> 
+> Consequently, we always mark these PTEs dirty (including soft-dirty) but
+> only set them writable if the VMA has VM_WRITE.
+> 
+> This essentially reverts Hugh's commit 1ac0cb5d0e22 ("mm: fix anonymous
+> dirtying") that back then touched do_anonymous_page() to avoid forcing
+> clean anonymous pages through swap instead of discarding them. This no
+> longer applies as shrink_folio_list() allocates swap for ordinary
+> anonymous folios and unconditionally marks them dirty before unmapping,
+> regardless of PTE dirty state. Keeping their PTEs clean does not make
+> them discardable.
+> 
+> This now also marks fresh anonymous PTEs dirty and soft-dirty in read-only
+> VMAs when page faults allocate real pages.
+> 
+> This has low urgency.
+> 
+> Fixes: e22f2fe72c74 ("mm/khugepaged: generalize collapse_huge_page for mTHP collapse")
 
-$ git grep -nHF '__field(__le64'
-net/ieee802154/trace.h:74:		__field(__le64, extended_addr)
-net/ieee802154/trace.h:367:		__field(__le64, addr)
-net/ieee802154/trace.h:386:		__field(__le64, addr)
-net/mac80211/trace.h:2507:		__field(__le64, twt)
-net/mac802154/trace.h:191:		__field(__le64, extended_addr)
-net/mac802154/trace.h:272:		__field(__le64, addr)
+I was just thinking yesterday: "Im happy the mTHP collapse stuff 
+survived this AI wave". I guess I spoke a day too soon ;P
 
-Thanks,
+LGTM!
 
-Bart.
+Reviewed-by: Nico Pache <nico.pache@linux.dev>
+
+> Cc: stable@vger.kernel.org
+> Reported-by: Chris Mason <mason@kernel.org>
+> Reported-by: Daniel Wade <danjwade95@gmail.com>
+> Closes: https://lore.kernel.org/all/20261117075246.61336-1-danjwade95@gmail.com/
+> Reviewed-by: Daniel Wade <danjwade95@gmail.com>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+>   mm/memory.c | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/mm/memory.c b/mm/memory.c
+> index d2f48d78b0d7b..45875d1d3b3df 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -5522,8 +5522,7 @@ void map_anon_folio_pte_nopf(struct folio *folio, pte_t *pte,
+>   
+>   	entry = pte_sw_mkyoung(entry);
+>   
+> -	if (vma->vm_flags & VM_WRITE)
+> -		entry = pte_mkwrite(pte_mkdirty(entry), vma);
+> +	entry = maybe_mkwrite(pte_mkdirty(entry), vma);
+>   	if (uffd_wp)
+>   		entry = pte_mkuffd(entry);
+>   
+> 
+> ---
+> 
+> base-commit: 1c2962a57377c9878cbefb747488324d4e678982
+> 
+> change-id: 20261117-khugepaged_mthp_dirty-067f734d38aa
+> 
+> --
+> 
+> Cheers,
+> 
+> David
+
