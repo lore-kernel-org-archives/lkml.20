@@ -1,69 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.222
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794907953;
-	b=hR/P2q80bWgo7449wcnbRFMDRo3+8mdcVBoauH69CBZxT1W6Gi0k6gOJRRktXv4/kQ3H
-	 wdYmlIfJUUJ4atyVVzgu5osCTCewZ3x1AYTRTrbfC3gf2BG86x0Xx4u7m4u4ghyx2KpS8
-	 UhgcAhCaJSbjOxRxYtGDi1yob7kH/WYr7U06B0KMkA5SPx+WcSZGxcMAPMaYFtV/pCKu1
-	 RtL8rVFmuQ8C+0PkNT8x2+kYEOnktrZPT+30rM0MTd8QJyY2xEXzhBi9eUuUhj1T33j2b
-	 69dhlrPjmhbwVp1c9POjAE7O4QyibO8B43H9nGSYBfvllrHK+Na/oHOwS6f7DTsIiCw==
+	b=TXMrLYeGDI+F02wd1w3T1aB3aV+ZVmBaV4Ktv/lJEoTK558aQUqFJgFVcJTh/FFV2OuG
+	 UC5deeanpkLE17bWn6NuuBZ+Q2pTh+7iY84dCBJgrRcbibG+ZgTWYgKzLzByAJh3F7bFz
+	 nT2CFfJJYGWpZX9uU7bQWkEmvIay7n4QEO3tb2Y2zk2moTCZ86jrrCO6O4fi1OOzvj/t7
+	 U9Yw1TrKan+tbsoIW0mMc78dFVXXSK7Xt9tspgtie8Ge2gA2FW7hpAEcwULGYO3WoGqcz
+	 3YIJ/Gi8kEqNd3f3d52o3ZbzrM4TLYsIVlym2ZfYXKfaMdjGtmnPsR2M7HDBqJmp6zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794907953;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=zHwBqsQb9hP55ypvUI19hlmY7GweiNLDeIgyOcU9CWw=;
-	b=qfZSRxpSEyh2IrJrB/Xm+RFXuup3I7bFZaEsgIglkGUTmTkGUp1X4aSnXUMv22a4AWUM
-	 osEKG1PazkJ8gYPj1+U58VbNAlrsi/Xxv43vpnj6FNZL7io0SR38qoRX2rhbijUIw9hDE
-	 pjg1istyce5YC5BoBZRy+7R54pLyrmJNDI2xk2y8F/M6wPgO3j6YQd/YlTx6VM5exyXtK
-	 1c4t1SBH6LGfm9YyjcikD6RnFo70krw1hAj4LRJ17ohjNF3qfs2ac4PKXiGadsiZmGvLL
-	 szrztONv0ChQrahmsmC0MHidU65lfWEZqFOCSVJ/wGWp70l5CCQMJFqCU9ivgGmAOfw==
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=zkgm1t7dXdy8TcgUYM4rsV7MD9YhFwG+4zqMKohsKV0=;
+	b=pIfm2E+f5cl5tauX7bfsCMQRX3Zm2ZDTG5zbxxfoq1weSDHx2w/OPzS/xUCcyCcDjVdY
+	 IxENzOHpSidpO36GCd2gIumM4Qd/JA57aN6OelMfieJEi79fWykv5RomZ3BMRiYlzh4rf
+	 ghv3GRlMqki5Q+Q9OqIBG9RpMKlTIJulz16qJ0YMo6npIjvY06z1uzA7A9a3ijwdldFhH
+	 v1OoXcozD9+UDc5N+2DSoJLT8prPMsuQXjH0aAVmwb9vQxDCwMa2YhHDydGqmj/uUdFO9
+	 PkZsX+GC6kvz3tt5e6dlstbm53biQCWoOF/QeXVHHJ6xSXylqt8J1G7jBRVhVfaYOyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=f3ZdQ60x;
-	arc=none smtp.remote-ip=113.46.200.222
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZPxwQKau;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=B9pmi6fV;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81F24606A33D;
-	Tue, 17 Nov 2026 09:32:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81F24606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36561606A888
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:32:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36561606A888
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=f3ZdQ60x
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=zHwBqsQb9hP55ypvUI19hlmY7GweiNLDeIgyOcU9CWw=;
-	b=f3ZdQ60x7H6wkqChDThls46W0Cj8FBQAHmiIa2fPUjDGijQ4dOv7D+oAtVagCiJ6Y96aOrW8F
-	5Nc5Wc/8DtGot3qg+pz3zAiXQQhbTHWiVF/Pwl+NCdzsQSvh8YdiDFDzlzGqx7vrBzCorEkL3Vn
-	xMCAL4zk+rj9c2qSoUi9jkg=
-Received: from mail.maildlp.com (unknown [172.19.163.200])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4jTKJC17c9zLlTR;
-	Tue, 17 Nov 2026 17:32:11 +0800 (CST)
-Received: from kwepemo200009.china.huawei.com (unknown [7.202.195.26])
-	by mail.maildlp.com (Postfix) with ESMTPS id 1C1CB4055B;
-	Tue, 17 Nov 2026 17:32:30 +0800 (CST)
-Received: from localhost.localdomain (10.50.159.234) by
- kwepemo200009.china.huawei.com (7.202.195.26) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 17 Nov 2026 17:32:29 +0800
-From: Long Wei <longwei27@huawei.com>
-To: <rppt@kernel.org>, <pasha.tatashin@soleen.com>, <pratyush@kernel.org>,
-	<akpm@linux-foundation.org>
-CC: <graf@amazon.com>, <leitao@debian.org>, <corbet@lwn.net>,
-	<rdunlap@infradead.org>, <linux-mm@kvack.org>, <kexec@lists.infradead.org>,
-	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<hewenliang4@huawei.com>, Long Wei <longwei27@huawei.com>
-Subject: [PATCH 1/2] kho: expose incoming sub-blob metadata instead of contents
-Date: Tue, 17 Nov 2026 17:29:50 +0800
-Message-ID: <20261117092951.4017931-2-longwei27@huawei.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261117092951.4017931-1-longwei27@huawei.com>
-References: <20261117092951.4017931-1-longwei27@huawei.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZPxwQKau;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=B9pmi6fV
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH8upW32934224
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:32:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	zkgm1t7dXdy8TcgUYM4rsV7MD9YhFwG+4zqMKohsKV0=; b=ZPxwQKauFs7WJ+4Y
+	EMyRHC/myb44S9B132SesqbUeZ7Mr+9zbODjeFUUhtTLhcFZEqghODfYctZiWY4K
+	K8hQddKPu3OU7r4q+mSZY3E5l+BJLCzj4ziA8PXiAETq3IZ3fvWdu58j+YH9GnYB
+	3SiUY0qxgCgMNg1U/wDYNtNdFg568+4cyDa9yQteAbeDExbsWDrXP7xt5HEPig7R
+	QLIv9nsS34lammcc0fNthESM8Y4w3oJP7ksvc8SskFM5xd+sGxvhrg+qZ3AMeA1o
+	OaCqSelXp5WQKNLKx2F9YGF4fo6jdCjq5RUc+pOzqxtX6CjoQGrDo2w/Ps+jd3bx
+	MqA+bg==
+Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com [209.85.160.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j09m0ad70-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:32:32 +0000 (GMT)
+Received: by mail-oa1-f71.google.com with SMTP id 586e51a60fabf-4ad9bc6aa91so5228707fac.3
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:32:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794907952; x=1795512752; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zkgm1t7dXdy8TcgUYM4rsV7MD9YhFwG+4zqMKohsKV0=;
+        b=B9pmi6fVsFFYGYwnqBA0lWSugbglm3nX9DDobrRokxpBxUImHuVhnal5w11zKFkb11
+         PZzH2nqbArvvZnwC5kEaXo4TUEx0dgZZ7VbGvFEdQhNPN1FtnINszI4xXMJrpPsEvUNc
+         PepE5Reqxt9aV5rtVNV93bY7zXLt/QCjjNRS9+bivppQpnzPHlQ8wpzqrj789B7YynDm
+         RyIepe6Qxm8MDo5biR93lGahoKp+Q23Hg86+1W56x+JQaTgv8NOoGPntNQkVrdM0wuMn
+         tImx4okIFMVBXTiTQWLUn2zWaOh1w4tDBBqk+r4471d3yDu/f62Gd0hF5cNnl2gnPh7n
+         Jerg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794907952; x=1795512752;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zkgm1t7dXdy8TcgUYM4rsV7MD9YhFwG+4zqMKohsKV0=;
+        b=r0ggzLAlboCKCAO/gNg9qUMJG/Wgv7dOniSF7KDNbTR44YieAy+PDQMK/kGJ9VdDaO
+         tsUU4RAkek0ixq3zfU3g2sji3rV1MnCH5cfgDB7D/LAGaIDk250FWgQvKajjXVsWn5Hm
+         TDV6MtI6ihKznYzm4S9YifiV+TKQ1Y4oaUfmUAsMHrwhDhFbQJ8RoPz2W2hw1SO7OUSi
+         bKwN/DUAQ/a1XOl9iPs8sQk1eNZOB0PlqyNhR2e+yuAL/OJiGEJnNNuuUNsJNXjAoKkg
+         fWyAl+voKd5+W6HjgyIA3BkOBh6/X9bNNQdlMmKFuVxYxJzQWdZ+RM/YzcG3ZCrj++Bj
+         7QGg==
+X-Forwarded-Encrypted: i=1; AL+hErEwSy8PRzfxVsrUukLk7tYwpn5eedn4d9gByrvTIznXzIA9oJ0HkNXgeUjaelaC8MtsuQ/K0+fPR2I4PmE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+k252E4Cn/ucVIR4RBu9q2tn0bIyVtXHDEP0Ci+3A+z/CCJx07
+	MW1jDD1Msj2+yHkjh1gOLhdozojkQMgVVdDa5U9aM9MedRa3phRvFvtZpTjP6K9RC8ZWGlfW+eB
+	y5s/aoWh84CXsyTRll+rKvu1NaQc/+MHQOlUgkEbf+qjNloQoM3ihXgsOLbxvdRZAGO8=
+X-Gm-Gg: AYBFou3XzrONoD3KgJcJXItWuvk5xsaNz/zqHtMWdzHAp+zOUrvHMI90FkO/zXBddsY
+	9P/LlSjWEFSVT4sEl4ON0KUzhX22EVg7GvgUABmc0VOt1aJltsiYklTw+O5ylvbGMS8A09dskvs
+	WVY3d2EMM0MjGCqSaXb3MdjDMeY6dGW/Ed+F46prbJ1BObMeIOEXYpqzvnZz2nJ6vfjSpKHjQAC
+	6no1ob2JF0m5NY/ty/7iv265wHk6XF9tJ/koZF9yliJgGNkVhrfZop00ncGwq/Q/exYkeF9SHe6
+	uJB3vhnkSWGo0emojKr+5EkFY1Ys3ANjMUTCYwi0rwkgc+I+Lm/PO5+h5z7rr/RYgSDVshQE40c
+	NV5ZHAGMAQZPJwC+rKwn6PYkqJnFmHMM3bU0HmRljegWNDF5Mi+srvduMQiu80y7Kub/VEXx+OS
+	G2uTxjski8FRnMLV916z9IM86Q
+X-Received: by 2002:a05:6870:c2a8:b0:4a7:4324:1814 with SMTP id 586e51a60fabf-4afdf4eed55mr10942745fac.59.1794907951595;
+        Tue, 17 Nov 2026 01:32:31 -0800 (PST)
+X-Received: by 2002:a05:6870:c2a8:b0:4a7:4324:1814 with SMTP id 586e51a60fabf-4afdf4eed55mr10942736fac.59.1794907951129;
+        Tue, 17 Nov 2026 01:32:31 -0800 (PST)
+Received: from hu-fenglinw-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4afe2206dc0sm8678928fac.5.2026.11.17.01.32.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 01:32:30 -0800 (PST)
+From: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+Date: Tue, 17 Nov 2026 01:31:33 -0800
+Subject: [PATCH 1/4] leds: rgb: leds-qcom-lpg: Fix single-entry LUT leak
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,183 +116,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- kwepemo200009.china.huawei.com (7.202.195.26)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261117-led-qcom-leds-multiple-fixes-and-pwm-fm-support-v1-1-7a862240683f@oss.qualcomm.com>
+References: <20261117-led-qcom-leds-multiple-fixes-and-pwm-fm-support-v1-0-7a862240683f@oss.qualcomm.com>
+In-Reply-To: <20261117-led-qcom-leds-multiple-fixes-and-pwm-fm-support-v1-0-7a862240683f@oss.qualcomm.com>
+To: linux-arm-msm@vger.kernel.org, Lee Jones <lee@kernel.org>,
+        Pavel Machek <pavel@kernel.org>,
+        Griffin Kroah-Hartman <griffin@kroah.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Anjelique Melendez <quic_amelende@quicinc.com>,
+        Guru Das Srinagesh <linux@gurudas.dev>,
+        =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+Cc: David Collins <david.collins@oss.qualcomm.com>,
+        Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
+        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+        Pavel Machek <pavel@ucw.cz>, linux-leds@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org,
+        Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+X-Mailer: b4 0.16-dev-17187
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794907947; l=2942;
+ i=fenglin.wu@oss.qualcomm.com; s=20260324; h=from:subject:message-id;
+ bh=bMmJtTuFOhspQ50/s2y2wIQI3rsaWPAH5XFVb9ltZa8=;
+ b=5RZKvwuLTDfyyHFtUe+m8WLbDkFyGodk1XemXgtwcBiJQkYhFq+E/FYdTR4CXMLo8e4Qk8ekD
+ y5UI9w5nj5JBMWbOO1BLavbfpwnC/qTHQcaA0yiq3rGfBrZzaqcxwbX
+X-Developer-Key: i=fenglin.wu@oss.qualcomm.com; a=ed25519;
+ pk=hJdt3E7o54lql+miD2GaxwF74cDyhgNwMbmFOZ46bRU=
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDAzNyBTYWx0ZWRfX8JhZGiPHa5Q+
+ +/IM9pqVE+7G3WF7bP+OsP0cVLLWS7XN9P0TZpXakvMq8kVdsEEbsjmwiZxyNdSCDRPkbnc3K47
+ aCPRtEn7SHPLr8epMfj2YheFJnCjyHM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDAzNyBTYWx0ZWRfX/qSxc0bAP48i
+ UnANYZgWJMO6UB2dRFzQWWjWGLjGzabYqRJLALPZy55CNAdz/qhh1FSsNE1BtbtrM4yy20Er94J
+ 65rV1LV3G8HJrxwI6eg7Sevf44G+WuRpqcDqpTBasnihkdVmKkoc5XpJk3FR+pFx+aPZVIkSsix
+ 3BuTgZvCoqvDZOa7YnRvZ211QlSh1nylswaRUh/I7nAQ4tszM+knvAyLXkPHSevL8n96ri0Y1K0
+ tS+BOfUIzCbHnRihd0C73pI8WTStsWalj+XMehfyUr0i7cwcr4KI9HWFAd/uHcNmUd1H1YT7stj
+ rdOquwzlxNg+KsdjpI7FnOJaO5k+sFREFi++nHcy8ORh4MNhUkzEKl9QNEZ2ihMhmxe7dWDng9r
+ JIttTP66c+LjC6b7jy4e6FEwDRqDfZI1WJ9HAhBr12zoEAoDEbxerU6y2dYRzW2M/HngugU45+H
+ c1IJQuRLGSdR1cHVgcA==
+X-Proofpoint-GUID: sDmGe_zjS4MgTIwPmY1Z3sHs1tW6s_RX
+X-Proofpoint-ORIG-GUID: sDmGe_zjS4MgTIwPmY1Z3sHs1tW6s_RX
+X-Authority-Analysis: v=2.4 cv=F7rC5ahN c=1 sm=1 tr=0 ts=6afc1f30 cx=c_pps
+ a=CWtnpBpaoqyeOyNyJ5EW7Q==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=kaEj7Wm-z18sYFa5t94A:9 a=QEXdDO2ut3YA:10
+ a=vh23qwtRXIYOdz9xvnmn:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_01,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 priorityscore=1501 clxscore=1015
+ suspectscore=0 bulkscore=0 malwarescore=0 spamscore=0 phishscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611170037
 
-Incoming sub-blob pages are owned by their consumers and have independent
-lifetimes.  Some consumers, such as LUO, restore and free their state in
-early_initcall, i.e. before kho_init() (fs_initcall) builds the debugfs
-view:
+The LUT resource cleanup path currently treats identical high and
+low indices as an unallocated range and skips clearing the bitmap
+allocation. However, with a 2-step palindrome pattern, the high
+and low indices are identical, which can leak the LUT resource
+because the bitmap allocation remains uncleared.
 
-  early_initcall: luo_early_startup()
-                    -> kho_retrieve_subtree("LUO")
-                    -> kho_restore_free(luo_ser)   /* page is freed */
+Resolve this by tracking LUT ownership separately from the index
+range. Designate the first channel as the owner of shared
+allocations and each active multicolor channel as the owner
+of its per-channel allocation, then track this ownership state
+for both normal cleanup and allocation.
 
-  fs_initcall:    kho_init()
-                    -> kho_in_debugfs_init()
-                         -> phys_to_virt(luo_ser_phys)
-                         -> debugfs_create_blob("LUO", ...)
-
-debugfs therefore ends up pointing at a page that was already handed back
-to the page allocator, and reading the file triggers a use-after-free:
-
-  # cat /sys/kernel/debug/kho/in/sub_fdts/LUO
-  ==================================================================
-  BUG: KASAN: use-after-free in _copy_to_user+0x37/0x60
-  Read of size 32 at addr ffff88810309c000 by task cat/27436
-
-  Call Trace:
-   <TASK>
-   kasan_report+0xb9/0xf0
-   kasan_check_range+0x100/0x1b0
-   _copy_to_user+0x37/0x60
-   simple_read_from_buffer+0x77/0xd0
-   read_file_blob+0x75/0xa0
-   vfs_read+0x12d/0x520
-   ksys_read+0xc3/0x160
-   do_syscall_64+0x97/0x4b0
-   entry_SYSCALL_64_after_hwframe+0x76/0x7e
-   </TASK>
-
-  The buggy address belongs to the physical page:
-  page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x1fd
-  pfn:0x10309c
-  flags: 0x17ffffc0000000(node=0|zone=2|lastcpupid=0x1fffff)
-  page_type: f0(buddy)
-  ==================================================================
-
-The page is already in the buddy allocator (page_type: f0(buddy),
-refcount 0), which confirms it was freed before the debugfs view was
-created.
-
-KHO does not own these pages, so it cannot safely expose their contents at
-all.  Drop the in/sub_fdts raw blob nodes and replace them with a
-read-only in/blobs metadata file that lists the name, physical address and
-size of every incoming sub-blob.  The FDT itself is reserved by KHO and is
-still exposed as in/fdt.
-
-Fixes: 062dd306d99c ("kho: fix kho_in_debugfs_init() to handle non-FDT blobs")
-Signed-off-by: Long Wei <longwei27@huawei.com>
+Fixes: 24e2d05d1b689 ("leds: Add driver for Qualcomm LPG")
+Closes: https://lore.kernel.org/linux-leds/7e474cdf-fcb2-468d-844d-f8afb5976d16@oss.qualcomm.com/
+Signed-off-by: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
 ---
- kernel/liveupdate/kexec_handover_debugfs.c | 83 +++++++++++-----------
- 1 file changed, 42 insertions(+), 41 deletions(-)
+ drivers/leds/rgb/leds-qcom-lpg.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
 
-diff --git a/kernel/liveupdate/kexec_handover_debugfs.c b/kernel/liveupdate/kexec_handover_debugfs.c
-index 7d74477da0b7..3624d4bf44b2 100644
---- a/kernel/liveupdate/kexec_handover_debugfs.c
-+++ b/kernel/liveupdate/kexec_handover_debugfs.c
-@@ -95,67 +95,68 @@ static int bootmem_len_show(struct seq_file *m, void *v)
+diff --git a/drivers/leds/rgb/leds-qcom-lpg.c b/drivers/leds/rgb/leds-qcom-lpg.c
+index 24ffe079f221..e14a3316bf22 100644
+--- a/drivers/leds/rgb/leds-qcom-lpg.c
++++ b/drivers/leds/rgb/leds-qcom-lpg.c
+@@ -111,6 +111,7 @@ struct lpg_data;
+  * @ramp_hi_pause_ms: pause (in milliseconds) after iterating over pattern
+  * @pattern_lo_idx: start index of associated pattern
+  * @pattern_hi_idx: last index of associated pattern
++ * @has_lut: channel has the associated LUT allocation
+  */
+ struct lpg_channel {
+ 	struct lpg *lpg;
+@@ -147,6 +148,7 @@ struct lpg_channel {
+ 
+ 	unsigned int pattern_lo_idx;
+ 	unsigned int pattern_hi_idx;
++	bool has_lut;
+ };
+ 
+ /**
+@@ -393,15 +395,19 @@ static int lpg_lut_store(struct lpg *lpg, struct led_pattern *pattern,
+ 	return 0;
  }
- DEFINE_SHOW_ATTRIBUTE(bootmem_len);
  
--__init void kho_in_debugfs_init(struct kho_debugfs *dbg, const void *fdt)
-+static int kho_in_blobs_show(struct seq_file *m, void *v)
+-static void lpg_lut_free(struct lpg *lpg, unsigned int lo_idx, unsigned int hi_idx)
++static void lpg_lut_free(struct lpg_channel *chan)
  {
--	struct dentry *dir, *sub_fdt_dir;
--	int err, child;
--
--	INIT_LIST_HEAD(&dbg->fdt_list);
--
--	dir = debugfs_create_dir("in", debugfs_root);
--	if (IS_ERR(dir)) {
--		err = PTR_ERR(dir);
--		goto err_out;
--	}
-+	const void *fdt = m->private;
-+	int child, len;
++	struct lpg *lpg = chan->lpg;
+ 	int len;
  
--	sub_fdt_dir = debugfs_create_dir("sub_fdts", dir);
--	if (IS_ERR(sub_fdt_dir)) {
--		err = PTR_ERR(sub_fdt_dir);
--		goto err_rmdir;
-+	if (fdt_check_header(fdt)) {
-+		seq_puts(m, "invalid incoming FDT\n");
-+		return 0;
- 	}
- 
--	err = __kho_debugfs_blob_add(&dbg->fdt_list, dir, "fdt", fdt,
--				     fdt_totalsize(fdt));
--	if (err)
--		goto err_rmdir;
--
-+	seq_puts(m, "# name pa size\n");
- 	fdt_for_each_subnode(child, fdt, 0) {
--		int len = 0;
- 		const char *name = fdt_get_name(fdt, child, NULL);
- 		const u64 *blob_phys;
- 		const u64 *blob_size;
--		void *blob;
- 
- 		blob_phys = fdt_getprop(fdt, child,
- 					KHO_SUB_TREE_PROP_NAME, &len);
--		if (!blob_phys)
--			continue;
--		if (len != sizeof(*blob_phys)) {
--			pr_warn("node %s prop %s has invalid length: %d\n",
--				name, KHO_SUB_TREE_PROP_NAME, len);
-+		if (!blob_phys || len != sizeof(*blob_phys))
- 			continue;
--		}
- 
- 		blob_size = fdt_getprop(fdt, child,
- 					KHO_SUB_TREE_SIZE_PROP_NAME, &len);
--		if (!blob_size || len != sizeof(*blob_size)) {
--			pr_warn("node %s missing or invalid %s property\n",
--				name, KHO_SUB_TREE_SIZE_PROP_NAME);
-+		if (!blob_size || len != sizeof(*blob_size))
- 			continue;
--		}
- 
--		blob = phys_to_virt(*blob_phys);
--		err = __kho_debugfs_blob_add(&dbg->fdt_list, sub_fdt_dir, name,
--					     blob, *blob_size);
--		if (err) {
--			pr_warn("failed to add blob %s to debugfs: %pe\n",
--				name, ERR_PTR(err));
--			continue;
--		}
-+		seq_printf(m, "%s 0x%016llx %llu\n", name,
-+			   (u64)*blob_phys, (u64)*blob_size);
- 	}
- 
-+	return 0;
-+}
-+DEFINE_SHOW_ATTRIBUTE(kho_in_blobs);
-+
-+/*
-+ * Show the metadata of the sub-blobs referenced by the incoming FDT.  Each
-+ * line contains the name, physical address and size of a sub-blob.  The raw
-+ * contents of the sub-blobs are not exposed.
-+ */
-+__init void kho_in_debugfs_init(struct kho_debugfs *dbg, const void *fdt)
-+{
-+	struct dentry *dir;
-+	int err;
-+
-+	INIT_LIST_HEAD(&dbg->fdt_list);
-+
-+	dir = debugfs_create_dir("in", debugfs_root);
-+	if (IS_ERR(dir)) {
-+		err = PTR_ERR(dir);
-+		goto err_out;
+-	len = hi_idx - lo_idx + 1;
+-	if (len == 1)
+-		return;
++	if (chan->has_lut) {
++		len = chan->pattern_hi_idx - chan->pattern_lo_idx + 1;
++		bitmap_clear(lpg->lut_bitmap, chan->pattern_lo_idx, len);
 +	}
-+
-+	err = __kho_debugfs_blob_add(&dbg->fdt_list, dir, "fdt", fdt,
-+				     fdt_totalsize(fdt));
-+	if (err)
-+		goto err_rmdir;
-+
-+	debugfs_create_file("blobs", 0400, dir, (void *)fdt,
-+			    &kho_in_blobs_fops);
-+
- 	dbg->dir = dir;
--	dbg->sub_fdt_dir = sub_fdt_dir;
-+	dbg->sub_fdt_dir = NULL;
  
- 	return;
- err_rmdir:
+-	bitmap_clear(lpg->lut_bitmap, lo_idx, len);
++	chan->pattern_lo_idx = 0;
++	chan->pattern_hi_idx = 0;
++	chan->has_lut = false;
+ }
+ 
+ static int lpg_lut_sync(struct lpg *lpg, unsigned int mask)
+@@ -1118,6 +1124,8 @@ static int lpg_pattern_set(struct lpg_led *led, struct led_pattern *led_pattern,
+ 
+ 		chan->pattern_lo_idx = lo_idx;
+ 		chan->pattern_hi_idx = hi_idx;
++		/* The 1st channel owns the LUT while other channels share it */
++		chan->has_lut = i == 0;
+ 	}
+ 
+ out_unlock:
+@@ -1176,7 +1184,7 @@ static int lpg_pattern_clear(struct lpg_led *led)
+ 	mutex_lock(&lpg->lock);
+ 
+ 	chan = led->channels[0];
+-	lpg_lut_free(lpg, chan->pattern_lo_idx, chan->pattern_hi_idx);
++	lpg_lut_free(chan);
+ 
+ 	for (i = 0; i < led->num_channels; i++) {
+ 		chan = led->channels[i];
+
 -- 
 2.43.0
 
