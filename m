@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794927919;
-	b=Dwu/rChkgWmE8NhmVNvmemjuzFjzImBcYpxLAVLbH7Kr7V9Pt4xiKRW661bzLoL7lwUK
-	 YKqGRxlu/3AiXgD7LVFoU39OGUQjATOs9v0ZsM6VIaIG6LT0AmexSOBkdxf+Boz9D9a9M
-	 PzcnqV5XgnPiHAi/7Y6DgrkZH3TycKYECZKF6lGc1dLBzRv6KpHBN2eHbJrKFPKS9RkE/
-	 Krzivignlb2uZxYY37xPJvxM9tL2aufExUmXbQR/kuJaGNrEpOHYSCLlz8gXfO1VY0tK8
-	 4JvrrirutX/RNNit35+DWiyuePbZuyhD2cZyqa1BbrW1P5ab44L99exETehyrhB5mJA==
+	t=1794927915;
+	b=pQJIMzBMqensgMPCOenIkTxV73ikqeiLbpWeFLI2MiTGtYuf+kovRDKaf/PGDdvEduzG
+	 4AxR50Kzk/XWCF1H9VKKbzRydCGqwqjHuYItFJ2j8fDss8Yx9R1sxqPzaLx+ejg/yOAkR
+	 epiSeXq3sE88eH1StHIvW6xi9B4bYghWKMD1ME69C5cC9sZXU5bHz2r7qUbYKpLsMbihe
+	 jrlyP0T/U36g4k9k1zZce3gA6jZe4pa3udexLserl4FVPx8bhtMvaNM2wun5VMRuW4hCO
+	 IyVgXf/fqRGI6G1K65wZWQKyFa0TxcJg+sjFYNOVlIagHbrr51IHQYMnd5xQhBdP+vA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794927919;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794927915;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=PYP4pS2oYWchUxum2IV/ygrscoITw1US0wxQ3Iyq61Q=;
-	b=P2zU2u1CpAMFBRX0W+fppm8msYbU7IhC7cEVtL9omPhOe3nVmL0Q4QG1eWcTY/JUVwhx
-	 u0nFTq+ZBUhaThUjuF4SGTHJ0O42vGuXnLFRkKYl1BH+Fg3FNViDNYAq3XXDP/TXXJpaA
-	 qYVJ84pWVIlweNNvPmtO/mzmG5XIobpZuOZ9Ymvr/SMcWGtpS+eTYCj7MHjOi6D9Vuf6y
-	 Oc7SgRqez+VQjX42AQA7nv9l5T55+cLQt7YqrzKvoeaPn6urIIYfzasIJzFyV7ZcB4C/k
-	 Vm00iqVp71bCflRCP88Cs54Br+onjmZ0/ymp3jwquw9XBh0wpa65VZrSQHtuUDlhrUQ==
+	bh=moI95422xiy0MC+MfACxL3N0KddjnzeVsJz6CFp/aXg=;
+	b=LiUU7zRMhQMVhiLzBlwZr3Uqt8FLozp0/yvhkb8ea6qFEQe9MNc+iHCjjq/cnzKptDtS
+	 rYaXjGE2TGfJ+VFzHAyJukfI2c/V9IzJuivQUAeJ0YcXSjUV63iHHaHIkQm7DQjoDh9v8
+	 zktFs7H5YLNTy8S+rmDhJtHyfHIL101ngMz6RvJ6dP7+j39xdYMxlBAzH9xuej9a5OXp7
+	 7VWGzyhAkCH6/Df2sm9Pklz/ZZ+tV5Wt3aM89NVlJchintUIqDgFGXh/jqH1szUcFHcUE
+	 riSSwEvuusgHvRbBaoBfIiQ5R6p4rBILt5AWHY6xotTr+dez/FaDBQpqVMiOHGoV9Bg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GuDVO4cx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DRaPjTtH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8772606A31C;
-	Tue, 17 Nov 2026 15:05:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF95606A32F;
+	Tue, 17 Nov 2026 15:05:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GuDVO4cx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C67931F000C4;
-	Tue, 17 Nov 2026 15:05:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DRaPjTtH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B53A71F000C5;
+	Tue, 17 Nov 2026 15:05:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794927919;
-	bh=PYP4pS2oYWchUxum2IV/ygrscoITw1US0wxQ3Iyq61Q=;
+	s=k20260515; t=1794927915;
+	bh=moI95422xiy0MC+MfACxL3N0KddjnzeVsJz6CFp/aXg=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=GuDVO4cxHXZmPGgM6hpdCWPz4ZGkR3Bb6lfrkz53yHTq7PGu4zNqi3XexNu52mr2q
-	 NF2aJIbYCYD6YOCZ6E8TtcWxrBrzdnkSLoDpxfGN2W+6X+NiMibpfyuDYh/o6dk7F4
-	 0VUml8mJuX0KQqBE0F/ITeB79ps2B6PLJDL2DLeoLTHr/zir+TNOeOPCXzkWjCrFaJ
-	 OwpMBQSBGyElTlPJogqw96/eN5mXauTxPgv1mrViVekmGN8mRnMF1DlgHzyhM77meC
-	 6fPZ3Zt/uoCrTM7NfjO+LYODOZQo7EBE5GfjnTcXftNWUR5G4YVtOp3EfY3mZGlba/
-	 8Dtul7jQG269w==
-Subject: Re: [PATCH net-next v6 3/3] net: ti: icssm-prueth: Support duplicate
- HW offload feature for HSR and PRP
+	b=DRaPjTtHeCLFiBRu29uNYDU6vxF7HOU8irQR/bqLeOwQhVe0WRSmHpQfn2uUR7FOa
+	 5u3srTH5N7862bnHkVsPtwxFp6TaAlOEFQydamXy2dRtQVw1jbPxklvZKzZi8EPqco
+	 XEuKf20mm710KF2eyBup7EgGv4hq5ep2XhcZidflPv/QfV0vYAvBn1aD32TgAdgFMI
+	 X2HqM+7XYeLHWLoja2BN9XoFnw69Apqq6TLhhHFqwv9N5g4q794PPHct5vrwMchuUb
+	 soDDxbMEyjQxB9KNJe3YBqyQQ50k4PDNLWfkuAxAMR1PFyVi252/clS0evHbs6PWh/
+	 fGtCGQX0L4amg==
+Subject: Re: [PATCH net-next v6 1/3] net: ti: icssm-prueth: Add HSR and PRP HW
+ offload mode support for AM57xx, AM437x and AM335x
 From: netdev-bot+sashiko@kernel.org
 To: saivarun@couthit.com
 Cc: danishanwar@ti.com, parvathi@couthit.com, rogerq@kernel.org,
@@ -52,10 +52,10 @@ Cc: danishanwar@ti.com, parvathi@couthit.com, rogerq@kernel.org,
  linux-kernel@vger.kernel.org, pratheesh@ti.com, vigneshr@ti.com,
  praneeth@ti.com, srk@ti.com, j-rameshbabu@ti.com, m-malladi@ti.com,
  rogerq@ti.com, krishna@couthit.com, mohan@couthit.com
-Date: Tue, 17 Nov 2026 15:05:17 +0000
-Message-ID: <179492791736.3136.18287944378565620466@kernel.org>
-In-Reply-To: <20261113143127.282466-4-saivarun@couthit.com>
-References: <20261113143127.282466-4-saivarun@couthit.com>
+Date: Tue, 17 Nov 2026 15:05:13 +0000
+Message-ID: <179492791328.3136.13687380666945826943@kernel.org>
+In-Reply-To: <20261113143127.282466-2-saivarun@couthit.com>
+References: <20261113143127.282466-2-saivarun@couthit.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -69,10 +69,10 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 9 potential
+Thank you for your contribution! Sashiko AI review found 8 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 4 · Low: 5
+Critical: 0 · High: 0 (1) · Medium: 5 · Low: 3
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -80,446 +80,401 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] This patch changes the HSR/PRP driver/firmware contract but
-  keeps the same firmware file names and adds no version or capability…
-- [Medium] In PRP mode with duplicate offload, icssm_prueth_tx_enqueue()
-  treats a frame as redundancy-tagged (sets PRUETH_BD_LAN_INFO_MASK and…
-- [Medium] The full/empty check on the new shared HSR/PRP TX ring is off
-  by one.
-- [Medium] In LRE mode, icssm_prueth_tx_enqueue() classifies the frame
-  through skb_mac_header(skb) (`ethhdr = (struct ethhdr…
-- [Low] The patch contains several behavioural changes that the commit
-  message does not mention.
-- [Low] The BD layout comment in icssm_switch.h still documents bits
-  '8..12 Block_length number of valid bytes in this specific block'.
-- [Low] The new LRE queue tables describe the same rings with different
-  size constants.
-- [Low] icssm_emac_ndo_start_xmit() takes the TX queue lock with
-  spin_lock_irqsave() around the whole of icssm_prueth_tx_enqueue(),…
-- [Low] The patch now zeroes consumed host RX BDs only when
-  PRUETH_IS_SWITCH(prueth), so PRP loses the stale-BD safeguard as well…
+- [Medium] In PRP mode with ports running, the firmware MAC address for
+  slave B gets out of sync with ndev->dev_addr, and…
+- [Medium] icssm_prueth_hsr_port_link() counts every prueth port linked
+  under an HSR master into hsr_members, whatever its HSR port type.
+- [Medium] icssm_emac_ndo_set_rx_mode() picks the multicast-table lock
+  from prueth->eth_type without synchronization: prueth->addr_lock if…
+- [Medium] The PRU firmware supervision address is hard-coded to
+  01:15:4E:00:01:00.
+- [Medium] net: ti: icssm-prueth: broken rollback in
+  icssm_prueth_change_mode()
+- [Low] icssm_emac_ndo_fix_features() writes ndev->wanted_features
+  (`ndev->wanted_features |= NETIF_PRUETH_LRE_OFFLOAD_FEATURES` and `&=…
+- [Low] The patch adds `.ndo_set_mac_address = eth_mac_addr` and
+  `.ndo_validate_addr = eth_validate_addr` to emac_netdev_ops, which…
+- [Low] The commit message does not match the feature semantics in a few
+  places.
+
+Pre-existing issues:
+- [High] icssm_prueth_change_mode() calls ndo_stop() and then ndo_open()
+  directly on ports that are netif_running().
 
 --
 
-net: ti: icssm-prueth: Support duplicate HW offload feature for HSR and PRP
+net: ti: icssm-prueth: Add HSR and PRP HW offload mode support for AM57xx, AM437x and AM335x
 
-This commit adds HSR/PRP duplicate offload. The driver writes each TX
-frame once into a shared OCMC queue, both PRU ports consume it, and
-NETIF_F_HW_HSR_DUP is advertised together with the TAG_RM and FWD
-features. On RX, a new HostRecv BD bit selects which HSR duplicate goes
-to the stack, and the driver strips the HSR tag while copying. The patch
-depends on updated HSR/PRP PRU firmware that keeps the same file names.
+This commit adds HSR and PRP firmware offload modes to the ICSSM PRUETH
+driver on AM335x, AM437x and AM57xx. When both PRU ports join an hsr
+master with the LRE offload features enabled, the driver switches the PRU
+firmware to HSR or PRP mode. It also adds LRE table and timer setup, RX
+tag handling and feature negotiation callbacks.
+
+> To switch from dual-EMAC to PRP (example: eth2 and eth3 as slave raw
+> ports):
+>
+> $ ip link set eth2 down && ip link set eth3 down
+> $ ip link set eth2 address <mac-addr>
+> $ ip link set eth3 address <mac-addr>
+> $ ethtool -K eth2 hsr-tag-rm-offload on
+> $ ethtool -K eth3 hsr-tag-rm-offload on
+
+[Severity: Low]
+This isn't a bug, but does the PRP recipe match what the driver does?
+
+icssm_emac_ndo_fix_features() couples the LRE bits. Requesting only
+hsr-tag-rm-offload also forces NETIF_F_HW_HSR_FWD on and writes it into
+wanted_features. Later in the series NETIF_F_HW_HSR_DUP is forced on too.
+So PRP ports will always report hsr-fwd-offload as enabled.
+
+The changelog also doesn't mention two cases where, with offload enabled,
+icssm_prueth_hsr_port_link() returns -EOPNOTSUPP from NETDEV_CHANGEUPPER:
+an hsr version other than HSR_V1/PRP_V1, or a peer port without the
+features. In both cases creating the hsr device fails outright instead of
+falling back to software HSR.
+
+Could the commit message describe this behaviour?
 
 > diff --git a/drivers/net/ethernet/ti/icssm/icssm_prueth.c b/drivers/net/ethernet/ti/icssm/icssm_prueth.c
-> index 0536b0965c222..3ee44fdffcb1f 100644
+> index 1aadef061e923..4f631dcc4d509 100644
 > --- a/drivers/net/ethernet/ti/icssm/icssm_prueth.c
 > +++ b/drivers/net/ethernet/ti/icssm/icssm_prueth.c
 
 [ ... ]
 
-> @@ -608,6 +641,34 @@ static int icssm_prueth_tx_enqueue(struct prueth_emac *emac,
->  		free_blocks = buffer_desc_count;
->  	}
->  
-> +	/* Fetch queue state for the second LRE port */
-> +	if (prueth_is_lre(prueth)) {
-
-[ ... ]
-
-> +		if (write_block > read_block_other_port) {
-> +			free_blocks_other_port = buffer_desc_count -
-> +						 write_block;
-> +			free_blocks_other_port += read_block_other_port;
-> +		} else if (write_block < read_block_other_port) {
-> +			free_blocks_other_port = read_block_other_port -
-> +						 write_block;
-> +		} else {
-> +			free_blocks_other_port = buffer_desc_count;
-> +		}
-> +
-> +		if (free_blocks_other_port < free_blocks)
-> +			free_blocks = free_blocks_other_port;
-> +	}
->  	pkt_block_size = DIV_ROUND_UP(pktlen, ICSS_BLOCK_SIZE);
->  	if (pkt_block_size > free_blocks) /* out of queue space */
->  		return -ENOBUFS;
-
-[Severity: Medium]
-Can this fill the shared ring exactly, so that a full ring looks the same
-as an empty one?
-
-When write_block equals the peer's read block, the whole ring counts as
-free. A frame is rejected only when pkt_block_size > free_blocks. So a
-frame whose block count equals min(free_blocks, free_blocks_other_port) is
-accepted, and update_block then lands on the lagging consumer's read
-block.
-
-The same update_wr_ptr is then written to both descriptors further down:
-
-    writew(update_wr_ptr, &queue_desc->wr_ptr);
-    ...
-    if (prueth_is_lre(prueth))
-        writew(update_wr_ptr, &queue_desc_other_port->wr_ptr);
-
-The lagging PRU would then see wr_ptr == rd_ptr and treat its backlog as
-empty. On the next xmit, free_blocks_other_port becomes buffer_desc_count
-again. The driver could then overwrite OCMC blocks holding frames that PRU
-has not sent yet, and those frames were already counted in tx_packets.
-
-Would rejecting when pkt_block_size >= free_blocks, so one block always
-stays unused, avoid this? The own-port check had the same off-by-one
-before this patch. The second consumer on the shared ring is new here.
-
-> @@ -657,6 +718,40 @@ static int icssm_prueth_tx_enqueue(struct prueth_emac *emac,
->  	if (PRUETH_IS_HSR(prueth))
->  		wr_buf_desc |= BIT(PRUETH_BD_HSR_FRAME_SHIFT);
->  
-> +	if (prueth_is_lre(prueth)) {
-> +		/* LRE slave ports are driven only by the HSR/PRP master (no XDP
-> +		 * TX), so the MAC header is always set.
-> +		 */
-> +		ethhdr = (struct ethhdr *)skb_mac_header(skb);
-> +		proto = ethhdr->h_proto;
-
-[Severity: Medium]
-Is the MAC header always set here? A CAP_NET_RAW user can bind an AF_XDP
-socket in copy mode to a slave port, which gives this path:
-
-xsk_generic_xmit()
-  __dev_direct_xmit()
-    netdev_start_xmit()
-      icssm_emac_ndo_start_xmit()
-        icssm_prueth_tx_enqueue()
-          skb_mac_header(skb)
-
-xsk_build_skb() never sets the MAC header. __dev_queue_xmit() calls
-skb_reset_mac_header(), but __dev_direct_xmit() and validate_xmit_skb()
-do not. skb->mac_header would still be (u16)~0, so skb_mac_header()
-returns skb->head + 0xffff.
-
-Would this read h_proto about 64KB past the skb head, and then use that
-garbage value to choose the LAN A/LAN B/RED BD bits?
-
-The rest of the function copies from skb->data, which has at least 60
-linear bytes after eth_skb_pad(). Could the ethertype be read from
-skb->data instead?
-
-> +
-> +		if (proto == htons(ETH_P_8021Q)) {
-> +			vlan_hdr = (struct vlan_ethhdr *)ethhdr;
-> +			proto = vlan_hdr->h_vlan_encapsulated_proto;
-> +		}
-> +
-> +		/* Check if the SKB has HSR tag */
-> +		if (PRUETH_IS_HSR(prueth) && proto == htons(ETH_P_HSR)) {
-> +			/* Enable flags to duplicate transmission in firmware */
-> +			wr_buf_desc |= PRUETH_BD_LAN_INFO_MASK;
-> +			wr_buf_desc |= PRUETH_BD_RED_PKT_MASK;
-> +		} else if (PRUETH_IS_PRP(prueth)) {
-> +			/* Check if the SKB has PRP tag */
-> +			prp_ethtype = get_unaligned_be16(skb_tail_pointer(skb) -
-> +							 ETH_TLEN);
-> +
-> +			if (prp_ethtype == ETH_P_PRP) {
-> +				wr_buf_desc |= PRUETH_BD_LAN_INFO_MASK;
-> +				wr_buf_desc |= PRUETH_BD_RED_PKT_MASK;
-
-[Severity: Medium]
-Is the 2-byte suffix check enough to identify an RCT? The HSR core checks
-both the suffix and the LSDU size:
-
-net/hsr/hsr_forward.c:prp_fill_frame_info() {
-    ...
-    if (rct &&
-        prp_check_lsdu_size(skb, rct, frame->is_supervision)) {
-    ...
-}
-
-The PRP master always adds a correct RCT through prp_fill_rct(). Untagged
-frames on a slave therefore come from direct transmission on the slave
-netdev, for example AF_PACKET. If such a frame's payload happens to end
-in 0x88FB, it would be marked for both LANs and sent on the LAN it was not
-meant for.
-
-If the firmware rewrites the RCT LAN-ID for the second copy, could it
-also change real payload bytes of such a frame?
-
-[ ... ]
-
-> @@ -681,8 +780,10 @@ void icssm_parse_packet_info(struct prueth *prueth, u32 buffer_descriptor,
->  	else
->  		pkt_info->start_offset = false;
->  
-> -	pkt_info->port = (buffer_descriptor & PRUETH_BD_PORT_MASK) >>
-> -			 PRUETH_BD_PORT_SHIFT;
-> +	/* Flag from BD to indicate packet is valid for HOST or not. */
-> +	pkt_info->host_recv_flag = !!(buffer_descriptor &
-> +				      PRUETH_BD_HOST_RECV_MASK);
-> +
-
-[ ... ]
-
-> @@ -742,11 +847,36 @@ int icssm_emac_rx_packet(struct prueth_emac *emac, u16 *bd_rd_ptr,
-
-[ ... ]
-
-> -	/* Exclude the HSR tag bytes already stripped by firmware, if any. */
-> -	actual_pkt_len = pkt_info->length - start_offset;
-> +	if (PRUETH_IS_HSR(emac->prueth)) {
-> +		if (!pkt_info->host_recv_flag)
-> +			return 0;
-
-[Severity: Medium]
-What happens here when an older HSR/PRP firmware image is loaded? The
-commit message says:
-
-  The firmware file names are unchanged.
-  With older HSR/PRP firmware images, HSR and PRP offload modes are not
-  functional.
-
-icssm_prueth_sw_boot_prus() still loads fw_name[prueth->eth_type], for
-example ti-pruss/am57xx-pru0-pruhsr-fw.elf. The only revision information
-is the static per-SoC fw_rev in the match data, and nothing reads back
-from the running PRU to confirm the new ABI.
-
-The earlier patch in this series that added HSR/PRP offload was written
-against the previous firmware ABI under these same file names. So images
-with these names and the old ABI exist. That also makes the ABI change
-inside the series a bisect hazard.
-
-With such an image:
-
-- this check silently drops every HSR frame whose BD bit 10 is clear,
-  and no counter is incremented
-- the frame start is parsed as an unshifted MAC/VLAN/ethertype layout
-- on TX, both ports' wr_ptrs advance over one shared buffer, with LAN
-  bits the old firmware does not understand
-
-icssm_prueth_sw_emac_config() and icssm_prueth_lre_port_config() write
-the new queue tables anyway. Could the driver detect the firmware
-capability and refuse LRE offload, rather than running incorrectly with
-no error?
-
-[ ... ]
-
-> @@ -1313,17 +1452,31 @@ static enum netdev_tx icssm_emac_ndo_start_xmit(struct sk_buff *skb,
->  						struct net_device *ndev)
->  {
->  	struct prueth_emac *emac = netdev_priv(ndev);
-> +	/* Spinlock for Tx Queues */
-> +	spinlock_t *lock_queue;
-> +	unsigned long flags;
->  	int ret;
->  	u16 qid;
->  
->  	qid = icssm_prueth_get_tx_queue_id(emac->prueth, skb);
-> +	/* Select the TX queue spin lock for this queue ID */
-> +	if (prueth_is_lre(emac->prueth))
-> +		lock_queue = &emac->prueth->lre_host_queue_lock[qid - 2];
+> @@ -1371,8 +1454,18 @@ static void icssm_emac_ndo_set_rx_mode(struct net_device *ndev)
+>  	sram = prueth->mem[PRUETH_MEM_SHARED_RAM].va;
+>  	reg = readl(sram + EMAC_PROMISCUOUS_MODE_OFFSET);
+>
+> +	/* In LRE mode, the HSR core syncs the master's multicast list and
+> +	 * IFF_ALLMULTI to both slaves. Settings applied to a single slave are
+> +	 * not merged into the shared filter, so configure them on the HSR
+> +	 * master instead.
+> +	 */
+> +	if (prueth_is_lre(prueth))
+> +		mc_filter_tbl_lock = &prueth->addr_lock;
 > +	else
-> +		lock_queue = &emac->host_queue_lock[qid - 2];
+> +		mc_filter_tbl_lock = &emac->addr_lock;
 > +
-> +	if (eth_skb_pad(skb)) {
-> +		if (netif_msg_tx_err(emac) && net_ratelimit())
-> +			netdev_err(ndev, "packet pad failed\n");
-> +		atomic64_inc(&emac->stats.tx_dropped);
-> +		return NETDEV_TX_OK;
+>  	/* It is a shared table. So lock the access */
+> -	spin_lock_irqsave(&emac->addr_lock, flags);
+> +	spin_lock_irqsave(mc_filter_tbl_lock, flags);
+
+[Severity: Medium]
+Is prueth->eth_type stable at this point? icssm_prueth_change_mode()
+writes eth_type, and ndo_open rewrites prueth->fw_offsets through
+icssm_prueth_set_fw_offsets(). Both run under RTNL only and take neither
+addr_lock.
+
+This driver uses the synchronous __dev_set_rx_mode() path. That means
+ndo_set_rx_mode can run from dev_mc_add() callers that don't hold RTNL,
+for example igmp6_group_added() reached through IPV6_ADD_MEMBERSHIP on a
+slave.
+
+During an EMAC to HSR/PRP transition, could one slave hold
+emac->addr_lock while it writes the shared DRAM1 table, while the other
+slave holds prueth->addr_lock?
+
+The helpers icssm_emac_mc_filter_ctrl(), icssm_emac_mc_filter_reset(),
+icssm_emac_mc_filter_hashmask() and icssm_emac_mc_filter_bin_update()
+also each re-read prueth_is_lre() and prueth->fw_offsets. Consider the
+window between the eth_type update in change_mode and
+icssm_prueth_set_fw_offsets() in ndo_open. Could a call in that window
+write the EMAC filter layout into DRAM1 while the LRE firmware, whose
+filter is at different offsets, is loaded?
+
+[ ... ]
+
+> @@ -1429,15 +1522,126 @@ static void icssm_emac_ndo_set_rx_mode(struct net_device *ndev)
+>  	}
+>
+>  unlock:
+> -	spin_unlock_irqrestore(&emac->addr_lock, flags);
+> +	spin_unlock_irqrestore(mc_filter_tbl_lock, flags);
+> +}
+> +
+> +static netdev_features_t icssm_emac_ndo_fix_features(struct net_device *ndev,
+> +						     netdev_features_t features)
+> +{
+> +	/* hsr tag removal offload and hsr fwd offload are tightly coupled in
+> +	 * firmware implementation. Both these features need to be enabled /
+> +	 * disabled together.
+> +	 */
+> +	if (!(ndev->features & NETIF_PRUETH_LRE_OFFLOAD_FEATURES)) {
+> +		if ((features & NETIF_F_HW_HSR_FWD) ||
+> +		    (features & NETIF_F_HW_HSR_TAG_RM)) {
+> +			features |= NETIF_PRUETH_LRE_OFFLOAD_FEATURES;
+> +			ndev->wanted_features |=
+> +				NETIF_PRUETH_LRE_OFFLOAD_FEATURES;
+> +		}
+> +	}
+
+[Severity: Low]
+Documentation/networking/netdev-features.rst says ndo_fix_features
+should not modify hardware or driver state (it should be stateless). It
+also says it is safer to disable a feature whose dependencies are not
+met than to force the dependency on.
+
+This callback writes ndev->wanted_features, forces the other LRE bit on,
+and its result depends on the current ndev->features.
+icssm_emac_ndo_set_features() then has to undo the wanted_features
+change on its error path.
+
+Could the coupling be done by clearing the unmet bit, without touching
+wanted_features?
+
+[ ... ]
+
+>  static const struct net_device_ops emac_netdev_ops = {
+>  	.ndo_open = icssm_emac_ndo_open,
+>  	.ndo_stop = icssm_emac_ndo_stop,
+>  	.ndo_start_xmit = icssm_emac_ndo_start_xmit,
+> +	.ndo_set_mac_address = eth_mac_addr,
+> +	.ndo_validate_addr = eth_validate_addr,
+
+[Severity: Low]
+This isn't a bug, but every operating mode shares these ops. Changing
+the MAC on a stopped port now also succeeds in plain dual-EMAC and
+switch modes, where it used to return -EOPNOTSUPP.
+
+Should the commit message mention this new capability? Should it also
+say whether the two slaves need the same address for HSR/PRP?
+
+[ ... ]
+
+> @@ -1742,6 +1949,111 @@ static int icssm_prueth_ndev_port_unlink(struct net_device *ndev)
+>  	return ret;
+>  }
+>
+> +static int icssm_prueth_hsr_port_link(struct net_device *ndev,
+> +				      struct net_device *hsr_ndev)
+> +{
+
+[ ... ]
+
+> +	/* Reject HSR/PRP offload if the peer port does not have the offload
+> +	 * features enabled.
+> +	 */
+> +	if (other_emac &&
+> +	    !(other_emac->ndev->features & NETIF_PRUETH_LRE_OFFLOAD_FEATURES))
+> +		return -EOPNOTSUPP;
+> +
+> +	spin_lock_irqsave(&prueth->addr_lock, flags);
+> +
+> +	if (!prueth->hsr_members) {
+> +		prueth->hsr_dev = hsr_ndev;
+> +	} else {
+> +		/* Adding the port to a second master is not supported */
+> +		if (prueth->hsr_dev != hsr_ndev) {
+> +			spin_unlock_irqrestore(&prueth->addr_lock, flags);
+> +			return -EOPNOTSUPP;
+> +		}
 > +	}
 > +
-> +	spin_lock_irqsave(lock_queue, flags);
->  	ret = icssm_prueth_tx_enqueue(emac, skb, qid);
-> -	if (ret) {
-> -		if (ret != -ENOBUFS && netif_msg_tx_err(emac) &&
-> -		    net_ratelimit())
-> -			netdev_err(ndev, "packet queue failed: %d\n", ret);
-> +	spin_unlock_irqrestore(lock_queue, flags);
-> +	if (ret)
->  		goto fail_tx;
-> -	}
-
-[Severity: Low]
-Does this need to disable interrupts? The lock is only taken here, and
-icssm_prueth_tx_enqueue() has no other caller. Neither
-icssm_emac_tx_timer_callback() nor any IRQ handler takes host_queue_lock
-or lre_host_queue_lock.
-
-With irqsave, hard IRQs stay off while up to about 1.5KB is copied into
-uncached OCMC, plus several MMIO accesses. xmit already runs with BH
-disabled, so would plain spin_lock() be enough?
-
-In EMAC and switch modes, the per-emac host_queue_lock also looks
-redundant. The driver is not LLTX and has a single TX queue, so
-HARD_TX_LOCK already serializes xmit per netdev. The shared
-lre_host_queue_lock does look necessary in LRE mode, since two netdevs
-write the shared queue.
-
-[ ... ]
-
-> @@ -1338,10 +1491,6 @@ static enum netdev_tx icssm_emac_ndo_start_xmit(struct sk_buff *skb,
->  			      us_to_ktime(HR_TIMER_TX_DELAY_US),
->  			      HRTIMER_MODE_REL_PINNED);
->  		ret = NETDEV_TX_BUSY;
-> -	} else {
-> -		/* error */
-> -		atomic64_inc(&emac->stats.tx_dropped);
-> -		ret = NET_XMIT_DROP;
->  	}
->  
->  	return ret;
-
-[Severity: Low]
-This isn't a bug, but the commit message only covers the dup offload, the
-PRP RCT check, the feature coupling and HostRecv. These other changes in
-the patch are not mentioned:
-
-- the TX locking above also applies to dual-EMAC and switch modes
-- eth_skb_pad() moves from icssm_prueth_tx_enqueue() into
-  icssm_emac_ndo_start_xmit()
-- the "packet queue failed" print is removed
-- the tx_dropped / NET_XMIT_DROP branch above is gone, so a future
-  non-ENOBUFS error from icssm_prueth_tx_enqueue() would be returned
-  from ndo_start_xmit as a raw errno
-- icssm_prueth_common_emac_rx_packets() stops zeroing consumed BDs for
-  HSR and PRP
-- port MAC programming moves from icssm_prueth_sw_port_config() to
-  icssm_prueth_sw_emac_config() and now runs on every call
-- a new TX queue memory map is added (QUEUE_3/4_TXOPT_SIZE and the new
-  OCMC and shared RAM offsets)
-
-Could these be described in the commit message, or split out into
-separate patches?
-
-[ ... ]
-
-> diff --git a/drivers/net/ethernet/ti/icssm/icssm_prueth_common.c b/drivers/net/ethernet/ti/icssm/icssm_prueth_common.c
-> index 992fadc1521f9..df749ca0a7b1b 100644
-> --- a/drivers/net/ethernet/ti/icssm/icssm_prueth_common.c
-> +++ b/drivers/net/ethernet/ti/icssm/icssm_prueth_common.c
-> @@ -177,16 +177,17 @@ static int icssm_prueth_common_emac_rx_packets(struct prueth_emac *emac,
->  			used++;
->  		}
->  
-> -		/* Zero the BD after consuming it, a misaligned rd_ptr
-> -		 * would otherwise mistake stale data for a valid incoming
-> -		 * frame.
-> +		/* Leave the BD intact after reading. Firmware reuses it to
-> +		 * forward the frame to the second LRE port.
->  		 */
->  		if (port == 0) {
-> -			writel(0, shared_ram + bd_rd_ptr);
-> +			if (PRUETH_IS_SWITCH(prueth))
-> +				writel(0, shared_ram + bd_rd_ptr);
-
-[Severity: Low]
-Should this exception apply only to HSR? The new comment's reason,
-firmware reusing the BD to forward the frame to the second LRE port,
-describes HSR ring forwarding. PRP does no port-to-port forwarding:
-prp_drop_frame() and prp_is_lan_dup() in the HSR core forbid LAN A <->
-LAN B forwarding.
-
-The old comment covered the misaligned rd_ptr case. A zeroed BD fails
-the EMAC_MIN_PKTLEN check, and rd_ptr is resynced to wr_ptr. Without the
-zeroing in PRP mode, a stale BD with a plausible length would be
-processed and rd_ptr advanced by a stale amount.
-
-Would skipping the writel(0) only when PRUETH_IS_HSR(prueth) keep that
-safeguard for PRP?
-
-[ ... ]
-
-> diff --git a/drivers/net/ethernet/ti/icssm/icssm_prueth_switch.c b/drivers/net/ethernet/ti/icssm/icssm_prueth_switch.c
-> index 9d67fc7c23acc..7bc65b2901cbb 100644
-> --- a/drivers/net/ethernet/ti/icssm/icssm_prueth_switch.c
-> +++ b/drivers/net/ethernet/ti/icssm/icssm_prueth_switch.c
-> @@ -199,6 +199,189 @@ static const struct prueth_queue_info rx_queue_infos[][NUM_QUEUES] = {
-
-[ ... ]
-
-> +	[PRUETH_PORT_QUEUE_MII0] = {
-> +		[PRUETH_QUEUE1] = {
-> +			P0_Q3_BUFFER_OFFSET,
-> +			P0_Q3_BUFFER_OFFSET +
-> +				((HOST_QUEUE_3_SIZE - 1) * ICSS_BLOCK_SIZE),
-> +			P0_Q3_BD_OFFSET,
-> +			P0_Q3_BD_OFFSET + ((HOST_QUEUE_1_SIZE - 1) * BD_SIZE),
-> +		},
-> +		[PRUETH_QUEUE2] = {
-> +			P0_Q4_BUFFER_OFFSET,
-> +			P0_Q4_BUFFER_OFFSET +
-> +				((HOST_QUEUE_4_SIZE - 1) * ICSS_BLOCK_SIZE),
-> +			P0_Q4_BD_OFFSET,
-> +			P0_Q4_BD_OFFSET + ((HOST_QUEUE_2_SIZE - 1) * BD_SIZE),
-> +		},
-
-[Severity: Low]
-This isn't a bug today, but should buffer_desc_end here use
-HOST_QUEUE_3_SIZE and HOST_QUEUE_4_SIZE? Each entry uses HOST_QUEUE_3/4
-for the buffer end but HOST_QUEUE_1/2 for the BD end of the same ring.
-
-lre_rx_queue_infos[PRUETH_PORT_QUEUE_MII0] describes the same BD ranges
-with HOST_QUEUE_3/4_SIZE, and icssm_switch.h sizes P0_Q3/P0_Q4 with
-HOST_QUEUE_3/4_SIZE.
-
-icssm_prueth_lre_port_config() also writes HOST_QUEUE_1_SIZE and
-HOST_QUEUE_2_SIZE into the firmware queue size table for Q1/Q2 of both
-ports, whichever region backs them.
-
-All HOST_QUEUE_*_SIZE values are currently 194, so nothing differs at
-runtime. If one host queue size changes later, would the driver and
-firmware disagree on the wrap point of these shared rings?
-
-[ ... ]
-
-> diff --git a/drivers/net/ethernet/ti/icssm/icssm_switch.h b/drivers/net/ethernet/ti/icssm/icssm_switch.h
-> index b4d6b86605395..ec5925c812c36 100644
-> --- a/drivers/net/ethernet/ti/icssm/icssm_switch.h
-> +++ b/drivers/net/ethernet/ti/icssm/icssm_switch.h
-
-[ ... ]
-
-> @@ -51,18 +54,19 @@
->   *				address found in FDB). For switch only.
->   * 8..12	Block_length	number of valid bytes in this specific block.
->   *				Will be <=32 bytes on last block of packet
-> + * 8		RED_INFO	Set if the frame carries an HSR or PRP
-> + *				redundancy tag
-> + * 10		HostRecv	Set if the frame is destined for the host port.
-> + *				For HSR only.
-
-[ ... ]
-
-> @@ -86,14 +90,21 @@
->  #define PRUETH_BD_SW_FLOOD_MASK		BIT(7)
->  #define PRUETH_BD_SW_FLOOD_SHIFT	7
->  
-> +#define PRUETH_BD_RED_PKT_MASK		BIT(8)
-> +#define PRUETH_BD_RED_PKT		8
+> +	prueth->hsr_members |= BIT(emac->port_id);
 > +
-> +#define PRUETH_BD_HOST_RECV_MASK	BIT(10)
-> +#define PRUETH_BD_HOST_RECV_SHIFT	10
+> +	spin_unlock_irqrestore(&prueth->addr_lock, flags);
 > +
->  #define	PRUETH_BD_SHADOW_MASK		BIT(14)
->  #define	PRUETH_BD_SHADOW_SHIFT		14
->  
->  #define PRUETH_BD_TIMESTAMP_MASK	BIT(15)
->  #define PRUETH_BD_TIMESTAMP_SHIFT	15
->  
-> -#define PRUETH_BD_PORT_MASK		GENMASK(17, 16)
-> -#define PRUETH_BD_PORT_SHIFT		16
-> +#define PRUETH_BD_LAN_INFO_MASK		GENMASK(17, 16)
-> +#define PRUETH_BD_LAN_A_SHIFT		16
-> +#define PRUETH_BD_LAN_B_SHIFT		17
+> +	if (!prueth_is_lre(prueth) && prueth->hsr_members == all_slaves) {
+> +		ret = icssm_prueth_change_mode(prueth, mode);
 
-[Severity: Low]
-This isn't a bug, but the BD layout table still lists bits 8..12 as
-Block_length, and now also lists bit 8 as RED_INFO and bit 10 as
-HostRecv. Could the Block_length entry be narrowed or removed so that
-each bit has one meaning? The table already had similar overlaps before
-this patch, with flag bits inside the Index 0..7 field.
+[Severity: Medium]
+What state is prueth left in when icssm_prueth_change_mode() fails here?
 
-The new macro names are also inconsistent with the other pairs.
-PRUETH_BD_RED_PKT has no _SHIFT suffix, and PRUETH_BD_HOST_RECV_SHIFT and
-PRUETH_BD_LAN_B_SHIFT are never used.
+By the time change_mode() starts calling ndo_open(), it has already
+called ndo_stop() on every running port and set prueth->eth_type to HSR
+or PRP. A missing pruhsr or pruprp firmware, for example, makes
+icssm_prueth_sw_boot_prus() fail, and change_mode() then returns
+straight away. At that point:
+
+- eth_type is not restored.
+- A port that was already re-opened keeps running the LRE firmware.
+- The failed port has its NAPI disabled and its rx_irq freed, but
+  netif_running() is still true.
+
+The free_hsr path only clears this port's bit in hsr_members. It does
+not touch eth_type or hsr_dev, so prueth_is_lre() stays true.
+
+The hsr core then unwinds hsr_dev_finalize() by unlinking the first
+slave. icssm_prueth_hsr_port_unlink() sees prueth_is_lre() with
+hsr_members == 0 and calls icssm_prueth_change_mode(EMAC). That runs
+icssm_emac_ndo_stop() a second time on the port that was never
+re-opened.
+
+Wouldn't that block forever in napi_disable(&emac->napi) with RTNL
+held? It would also call free_irq(emac->rx_irq, ndev) on an IRQ that
+was already freed. Even without the unwind, a later dev_close() of
+that port would hit the same double stop.
+
+Should change_mode() restore the previous eth_type and re-open the
+ports in the old mode when ndo_open() fails? Or should the free_hsr
+path here revert to dual-EMAC itself, so that hsr_port_unlink() does
+not attempt a second mode change on half-opened ports?
+
+[Severity: Medium]
+Does this also count a port that is linked as the RedBox interlink?
+hsr_portdev_setup() links interlink ports with
+netdev_master_upper_dev_link() too. So this notifier sees
+is_hsr_master() for HSR_PT_INTERLINK ports as well.
+
+Take a configuration like this one, where eth2 and eth3 are both prueth
+ports with offload enabled:
+
+  ip link add name hsr0 type hsr slave1 eth2 slave2 Y interlink eth3
+
+hsr_members would reach all_slaves when hsr_dev_finalize() adds the
+interlink, and change_mode(HSR) would run. The firmware would then run
+an HSR ring between eth2 and the interlink port. It would forward and
+duplicate HSR-tagged frames onto the SAN side. At the same time the hsr
+core keeps doing software forwarding, because fwd_offloaded is false
+for Y.
+
+The peer-feature check above pushes users to enable offload on both
+ports. Should the hsr port type be checked before updating hsr_members?
+
+[ ... ]
+
+> +static int icssm_prueth_hsr_port_unlink(struct net_device *ndev)
+> +{
+> +	struct prueth_emac *emac = netdev_priv(ndev);
+> +	struct prueth *prueth = emac->prueth;
+> +	unsigned long flags;
+> +	int ret = 0;
+> +
+> +	spin_lock_irqsave(&prueth->addr_lock, flags);
+> +
+> +	prueth->hsr_members &= ~BIT(emac->port_id);
+> +
+> +	spin_unlock_irqrestore(&prueth->addr_lock, flags);
+> +
+> +	if (prueth_is_lre(prueth) && !prueth->hsr_members) {
+> +		ret = icssm_prueth_change_mode(prueth, PRUSS_ETHTYPE_EMAC);
+> +		if (ret < 0)
+> +			dev_err(prueth->dev, "Failed to enable dual EMAC mode\n");
+> +	}
+
+[Severity: High]
+This is a pre-existing issue in icssm_prueth_change_mode(), but this
+patch adds a new way to reach it, inside the hsr device creation
+rollback.
+
+change_mode() calls ndo_stop() and ndo_open() directly on running ports
+and returns on the first ndo_open() failure. The failed port, and any
+port not yet re-opened, keeps IFF_UP but has no resources: no IRQ, NAPI
+disabled, PHY stopped and PRUs not booted.
+
+Consider eth2 and eth3 up with LRE offload enabled and the pruhsr
+firmware missing:
+
+hsr_dev_finalize()
+  hsr_add_port(slave[1])
+    icssm_prueth_hsr_port_link()
+      icssm_prueth_change_mode(HSR)
+        ndo_stop(eth2), ndo_stop(eth3)
+        eth_type = HSR
+        ndo_open(eth2) fails in icssm_prueth_sw_boot_prus()
+  err_unregister:
+    hsr_del_ports()
+      hsr_del_port(slave A)
+        netdev_upper_dev_unlink()
+          icssm_prueth_hsr_port_unlink()
+            icssm_prueth_change_mode(EMAC)
+              ndo_stop(eth2)    <-- nothing left to tear down
+
+Can this second icssm_emac_ndo_stop() spin forever with RTNL held? Its
+napi_disable(&emac->napi) runs on a NAPI that is already disabled.
+phy_stop() would also warn on this path.
+
+Could change_mode() track which ports it actually re-opened, or could
+ndo_stop() cope with a port whose open failed?
+
+[ ... ]
+
+> @@ -1749,13 +2061,27 @@ static int icssm_prueth_ndev_event(struct notifier_block *unused,
+>  	struct netdev_notifier_changeupper_info *info;
+>  	int ret = NOTIFY_DONE;
+>
+> -	if (!icssm_prueth_sw_port_dev_check(ndev))
+> +	if (ndev->netdev_ops != &emac_netdev_ops)
+>  		return NOTIFY_DONE;
+>
+>  	switch (event) {
+>  	case NETDEV_CHANGEUPPER:
+>  		info = ptr;
+> +		if (is_hsr_master(info->upper_dev)) {
+> +			if (info->linking) {
+> +				if (ndev->features &
+> +				    NETIF_PRUETH_LRE_OFFLOAD_FEATURES)
+> +					ret = icssm_prueth_hsr_port_link
+> +						(ndev, info->upper_dev);
+> +			} else {
+> +				ret = icssm_prueth_hsr_port_unlink(ndev);
+> +			}
+> +		}
+
+[Severity: Medium]
+In PRP mode with the ports running, can the firmware MAC for slave B
+drift from ndev->dev_addr? The default case of this switch ignores
+NETDEV_CHANGEADDR.
+
+At creation, hsr_dev_finalize() adds slave B first. That runs
+icssm_prueth_hsr_port_link()->icssm_prueth_change_mode(PRP), and
+ndo_open copies the old dev_addr into emac->mac_addr and PORT_MAC_ADDR.
+Only after that does hsr_dev_finalize() run:
+
+	eth_hw_addr_set(slave[1], slave[0]->dev_addr);
+	call_netdevice_notifiers(NETDEV_CHANGEADDR, slave[1]);
+
+At deletion, hsr_del_port() unlinks slave B first. So
+icssm_prueth_hsr_port_unlink()->icssm_prueth_change_mode(EMAC) re-opens
+the ports while slave B still has slave A's MAC. Only then does it
+restore port->original_macaddress and send NETDEV_CHANGEADDR.
+
+After a PRP device is deleted, wouldn't the port B dual-EMAC firmware
+keep filtering unicast on slave A's MAC? Frames to eth3's real address
+would then be dropped until the interface is bounced. The recipe in the
+commit message brings the ports down first, but nothing enforces that.
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/ti/icssm/icssm_prueth_lre.c b/drivers/net/ethernet/ti/icssm/icssm_prueth_lre.c
+> new file mode 100644
+> index 0000000000000..9e84244e0649d
+> --- /dev/null
+> +++ b/drivers/net/ethernet/ti/icssm/icssm_prueth_lre.c
+
+[ ... ]
+
+> +static void icssm_prueth_lre_protocol_init(struct prueth *prueth)
+> +{
+
+[ ... ]
+
+> +	/* PRU firmware matches supervision frames on 01:15:4E:00:01 only
+> +	 * and forwards them to the host, bypassing the multicast filter.
+> +	 */
+> +	writel(ICSS_LRE_SUP_ADDRESS_INIT_OCTETS_HIGH,
+> +	       dram1 + ICSS_LRE_SUP_ADDR);
+> +	writel(ICSS_LRE_SUP_ADDRESS_INIT_OCTETS_LOW,
+> +	       dram1 + ICSS_LRE_SUP_ADDR_LOW);
+
+[Severity: Medium]
+This writes a fixed 01:15:4E:00:01:00 whatever the hsr device's
+supervision address is. The last byte of that address comes from the
+supervision option. The commit message example uses supervision 45,
+which gives 01:15:4E:00:01:2D.
+
+In offload mode the hsr core doesn't make the slaves promiscuous and
+doesn't add the supervision address to the slave mc lists. The driver
+also ignores IFF_PROMISC in LRE mode.
+
+The comment says the firmware matches 5 bytes. If it actually compares
+the full 6-byte value written here, would supervision frames for any
+non-zero supervision value be dropped by the LRE multicast filter?
+
+Should the configured supervision address be programmed here, or could
+the comment confirm how many bytes the firmware compares?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261113143127.282466-1-saivarun%40couthit.com
