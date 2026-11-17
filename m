@@ -1,66 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794906976;
-	b=SQmOfcrO1dRm01OS0YCpFs2jSj/lz2RfEJTcEy6Q2kG4IZl7v1nZtaZxyG/hdgFbkVlI
-	 nnP1/aExGqPdQmJ9sAv1kvtKdRA5aIWgXvoUqkmNCE1vMD+vLvUe5buTYisnQpcy/qLrE
-	 UxbMrEXS4z8WCiWyE14WdZdiNEr7kXIVxLHuAI0smAHxyYry0NcByu2AIeUuBhpjApbjK
-	 uWk1w9csm9bzq2qHfnplAd7uDfdZr6Ye5/uAh2Lfzulw81IGTh3cj2Bbom0Bkz8egDv0w
-	 z2KAgoxPrTqt1BWr47kwuu/65cOGzdtYhBd+KnoiFr8Ga4LSjg+HJx5uAOvb0OQ3fFA==
+	t=1794907004;
+	b=qwPAEeOQGYc75BxOPTJPOHZiPbUmAsyrSHO9QDmAHKW+P1l9cgyLK4B155l1t6ufcKIL
+	 ph3jHW0uxLJ/2EFyYiRCfa7ioLpx/5dm+29UR2suBexQrolQYHDcDoziuZAgtE+5Ogkbe
+	 iblBt5Vg82JMjwh0czuX0+KKj4MW0DtnfCaBVCECW2f2XqPNv/XYRetBtAdmMFaTYI8oK
+	 K9GQasyAYofLneO2feo4KlZD4TmGAXWdENWQ9qyuFijX+i+gdEAYKGfYIthEl+t/G/Rzc
+	 ogbOsent5j9Lh5y7yiGPiPMFvlhcN50qE7t6FIu7xpeStsy4Sde5saNZI8NOfpgR9Cg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794906976;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794907004;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=ZmSPDMWm7EGKlp5jjfVoyVP81u0WZlpGLRb6db7fA3w=;
-	b=FmYEDgsRTyWQt9SLi2d8nfefnbZ9cGJ+NgH+Op1SiE5C2PTxddn+hlGKxwHByPtLtC6T
-	 lDwWXcFhESeKuU2UEOx+oiTL9G4a97x61wyMATvAFEJjvDBsMRRgXvFIDxkPOVpm7wmRW
-	 xHvdMoOYW/efk1pGaO6qj05y2YgiGJvw3REIsOMAvhgRqAt0biZVRiHVxWA/BocGF1MVf
-	 q1mEp+/696o2rIi7Xf0u/kWFXpFrSkLYw45HJl1GZ3bnMrKRLXFeBvFP5XUXR2xFDb8lt
-	 E6vHPAY+XpAAVB9Wa4H811VSp9MDFDNg6AIum7YYAt+dSQY3Oa7IsFtpb4ou0Ur3/HQ==
+	bh=ENLb0c995WFDdbTZ76+5KazXvgIj1Nkaa6Go10nFBrA=;
+	b=MLaB/juyaI+9XqKOtBzr03K110JuXec14dSAW6L8CziCtqk0r08vSpvJg9MhyL0FsL6C
+	 Yiu3+8kchV9xwZoWhsBXUKOA2NBy7fLYxcHpqRCcQihG7lId8n/BaWRj4QqTOh07wy9gs
+	 6oI/kvQglAdVZxsJC3LghpLJpRVuHnnv4nrSzririXvImpndf4vCCwcL413WZxExvTtlk
+	 HEj6frOEHzZhHFBRoXqRuPcIEQxfhVBb0ExmfUkf+NclScj1cg0PoVrGONbZAK1ACd3N6
+	 +nBbdn8OMiT8ljKM2aXvQkOBoGZFfNO2KDWK4uvj73Otw5MHq5IGolOqbMCVyOky7RA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="BoHCAHF/";
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4BDD0606A31C;
-	Tue, 17 Nov 2026 09:16:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BDD0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UBZB0YyJ;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4AEF606A323;
+	Tue, 17 Nov 2026 09:16:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4AEF606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=BoHCAHF/
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9A6CE1682;
-	Tue, 17 Nov 2026 01:16:12 -0800 (PST)
-Received: from e127648.cambridge.arm.com (e127648.arm.com [10.0.130.226])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id CD9E83F673;
-	Tue, 17 Nov 2026 01:16:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794906975; bh=qhhkNaaqsoCbAT3tlJ8OFoWJOLhxKvrUFRqo2DM7EEg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=BoHCAHF/AV37DGR5Uv2tW+ru+gk9ltoGIlNvM4EEJ37LDF08h3V8cHr+kF3PgUKI+
-	 A7NoTHOM8WfQb3E5NaPo9XB+X9g8VPp1y9JWMEA4nmybxGD5tEPEtYUUzXu1XdsVGS
-	 O5IcRByrPncyPkAabkPj6eeAPyiO+dFwbVq/PUFs=
-From: Christian Loehle <christian.loehle@arm.com>
-To: rafael@kernel.org,
-	lenb@kernel.org
-Cc: ashwin.chaugule@linaro.org,
-	al.stone@linaro.org,
-	miguel.luis@oracle.com,
-	catalin.marinas@arm.com,
-	Jonathan.Cameron@huawei.com,
-	gshan@redhat.com,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Christian Loehle <christian.loehle@arm.com>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH 2/2] ACPI: processor: Prevent unsafe module unloading
-Date: Tue, 17 Nov 2026 09:15:34 +0000
-Message-Id: <20261117091534.895868-3-christian.loehle@arm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261117091534.895868-1-christian.loehle@arm.com>
-References: <20261117091534.895868-1-christian.loehle@arm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UBZB0YyJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794907003; x=1826443003;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=CwpqPPX9+w3rRm+quPuzhQxltj10PfTCUhv8FQQd3CM=;
+  b=UBZB0YyJwRlDxbRUVaX4g8YVS4j6Un9xY57ibcUu9cc8j1/ZZkFAf8m+
+   quO6F6jOQTo/LmYJsy3uB6bIJl7sTaOYkH5Jk+8pM9TtG5GkVTyxEIKs1
+   ZUCrzVT+i2tjzBl9yBC+d739aHrxe+aNdYNB06uvkzWcjmmQXbB0yATYW
+   kfN3Hr/AqBSphFtgBVQjuFXS1IDoZMFVxxhTR2U2jpjzGvPzk6JrogZ2p
+   TwrV7YT+3uuKbjh01LCpjXdtFunduIkp0iczvV+U0oSoT0AsfA9J1zSta
+   U6QOqDq5c6iSpHoj1G7HywwPoXS4Uad525+LSG1YUsmgAqKrag+NopUlr
+   A==;
+X-CSE-ConnectionGUID: 9bdmndt3T5qU4drq1W8kaw==
+X-CSE-MsgGUID: wNbbZgG6RNaHZ2OZ9RIVhw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3751679"
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="3751679"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 01:16:43 -0800
+X-CSE-ConnectionGUID: WnMy9s8fRuS3iWBWzpGvBw==
+X-CSE-MsgGUID: f16LsWyCT760siavWNcctg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="9785900"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa006.jf.intel.com with ESMTP; 17 Nov 2026 01:16:40 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1003)
+	id 808CA99; Tue, 17 Nov 2026 10:16:39 +0100 (CET)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Marcelo Schmitt <marcelo.schmitt@analog.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+	linux@analog.com,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Michael Hennerich <michael.hennerich@analog.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Esteban Blanc <eblanc@baylibre.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>
+Subject: [PATCH v1 0/3] iio: adc: Provide mult_fract() and make use of it
+Date: Tue, 17 Nov 2026 10:14:39 +0100
+Message-ID: <20261117091638.1463621-1-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,80 +92,21 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Unloading processor.ko unregisters its cpufreq notifier without removing
-the performance and thermal QoS requests from existing policies. Active
-limits remain applied. If a policy is destroyed while the notifier is
-absent, its freed constraints remain referenced by those requests.
-After processor is reloaded, removing a replacement policy accesses
-freed
-memory.
+In a couple of IIO ADC driver the suggested new helper mult_fract()
+may be used. So, provide it and update the straightforward users.
 
-Module unload can also free CPPC descriptors while cppc_cpufreq still
-uses them: CPPC accessor symbols are built in and do not themselves pin
-processor.ko.
+The helper has potential treewide, hence it's provided directly in math.h.
 
-Remove module_exit() and the CPU-hotplug state used only by it. Keep
-ACPI_PROCESSOR tristate so processor.ko and its load-time parameters
-remain available.
+Andy Shevchenko (3):
+  math.h: Add mult_fract() that takes struct __Txx_fract as argument
+  iio: adc: ad4030: Switch to use mult_fract() helper
+  iio: adc: ltc2378: Switch to use mult_fract() helper
 
-Fixes: 4f2f757351df ("CPPC: Probe for CPPC tables for each ACPI Processor object")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20260807111303.1062391-1-christian.loehle%40arm.com
-Signed-off-by: Christian Loehle <christian.loehle@arm.com>
----
- drivers/acpi/processor_driver.c | 25 -------------------------
- 1 file changed, 25 deletions(-)
+ drivers/iio/adc/ad4030.c  | 13 ++++++-------
+ drivers/iio/adc/ltc2378.c |  4 +++-
+ include/linux/math.h      |  4 ++++
+ 3 files changed, 13 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/acpi/processor_driver.c b/drivers/acpi/processor_driver.c
-index 59418b2e09b6..38783689a319 100644
---- a/drivers/acpi/processor_driver.c
-+++ b/drivers/acpi/processor_driver.c
-@@ -234,12 +234,6 @@ static struct notifier_block acpi_processor_notifier_block = {
- void __weak acpi_processor_init_invariance_cppc(void)
- { }
- 
--/*
-- * We keep the driver loaded even when ACPI is not running.
-- * This is needed for the powernow-k8 driver, that works even without
-- * ACPI, but needs symbols from this driver
-- */
--static enum cpuhp_state hp_online;
- static int __init acpi_processor_driver_init(void)
- {
- 	int result = 0;
-@@ -264,7 +258,6 @@ static int __init acpi_processor_driver_init(void)
- 				   acpi_soft_cpu_online, NULL);
- 	if (result < 0)
- 		goto err;
--	hp_online = result;
- 	cpuhp_setup_state_nocalls(CPUHP_ACPI_CPUDRV_DEAD, "acpi/cpu-drv:dead",
- 				  NULL, acpi_soft_cpu_dead);
- 
-@@ -295,24 +288,6 @@ static int __init acpi_processor_driver_init(void)
- 	return result;
- }
- 
--static void __exit acpi_processor_driver_exit(void)
--{
--	if (acpi_disabled)
--		return;
--
--	if (acpi_processor_cpufreq_init) {
--		cpufreq_unregister_notifier(&acpi_processor_notifier_block,
--					    CPUFREQ_POLICY_NOTIFIER);
--		acpi_processor_cpufreq_init = false;
--	}
--
--	cpuhp_remove_state_nocalls(hp_online);
--	cpuhp_remove_state_nocalls(CPUHP_ACPI_CPUDRV_DEAD);
--	driver_unregister(&acpi_processor_driver);
--	acpi_processor_unregister_idle_driver();
--}
--
- module_init(acpi_processor_driver_init);
--module_exit(acpi_processor_driver_exit);
- 
- MODULE_ALIAS("processor");
 -- 
-2.34.1
+2.50.1
 
