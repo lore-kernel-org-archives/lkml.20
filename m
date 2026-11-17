@@ -1,80 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.154
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794921891;
-	b=iMK9ZapocWyS+071/a8iJMiN80KsKOxjMzp1Uh2CFhWMFA9dTrwGxsYoyjgEKnMcnmPr
-	 vGBz01Woxc7h2IzuErNk7P+FNss9EbF48TrfrDc8ZMYOzBNia5OvwXxsi+I62HCu4r0BS
-	 /YJs83aoXFq/R6NRApMAcNBLH6HYh1YPuQcknQy7MEhPif5//zUNS+CE9T/xMN9LLIz/H
-	 Q1oSQURYr1IItHKlD47fJHLaGLBFsfSVE49Q65HadBW8baqWXJR3ZEDEmFHQqkgx0Wa8p
-	 SEjMYew6sAofVDb0SptJm6Kw/zNtHHLiMFwRFsE1Ks3c/RiywHOPsF/yZ2Iho/Ln6DA==
+	t=1794921902;
+	b=viCaVQPpvdyGkX3Zi+wkCh19OXccsNCjcmuh34YezfIoSF8Jzeg82YludwxGnwP3KcN4
+	 /K32u+DIorznWi7LQS+iTxEBRmc8DOkfgWjHxliJ4T9ahcB9Kduv7jCFYx4HU0mkA1YeU
+	 HqgOoylPguNeXbjVxzing6eU6MZMMSAwLh9lbzesEgsN2BZ5CwAYDMVFoe1bd2BFC7bhq
+	 x0dnUGwyOSwZ2sVT8ItNzRMOsnS3tgDKHmhLZAgA3jtPJOEYeiUUhXzgHQKicsqpSl2RY
+	 o9lakxsitz3Bp8oBDInxl742TKUBjF2BCwaTNoK7Vt3ROuSjUqAU2XC9XnyHE0Tp8ow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794921891;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=TSh22ezXGHRLL6p9Q0uV00TEiBcMEaPjIBSi8aOWR34=;
-	b=fiYEqiCHV7PuWnhPg+vJQkrd2k9auTnbPRfGlaauvVMGnJi+cqu3TAqyKbSvvRbn6yZA
-	 fJl7XcZNVvbLEeNl3tIDDnlXwdWd9TDG09lPgvX1QGqD+2LfYtdu70P/7NB43uvSaCQaF
-	 xIqwZSaBB0tgDUjj34X3FIyHrM3waISRoOwDtS7oALFKp3J+O/wWeMFh80wvsn+4qecWJ
-	 LqUqxQW7xbSYfH0YiU80WENhpwikY/pa8f8VBOBlA2YqnvpDgLBJnBirvr1xp5IvF33D6
-	 z/nWR4Rho7tJ6bSjKMbxP4lKq4+Ia24Wh9cFfNNtJa3uQWxXx3vlAJzBLqGu7sBZ5Fw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794921902;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=xYrnkQ5ALrFvyhMYjXa2KQK7bmShuxp4TgJGZ7gy57Q=;
+	b=O1tC5UjZ/YGGuiKQWAxeuIQtRBex2Ibzke2mZn96tVENb3Lgyl3/gZ/1E+X9c2G3UiKa
+	 PcHRHm0W0N5zgQc2gODJVqVFUgKqE6jyxYaP3jBvC2ME69y9Q3asZO2U3j/V1WRVuzaZd
+	 LaOjob+/3xQMT9AjwjguLRyYKZXXxO43hx1/A+aQRVas3mBKxPzNOnBjugEsT2tp0hNIe
+	 kqSDehHbSAAnMIQSPcdlBqMm4yK68HDtNJs0gyoN67rPzt4XlUcpRfEjps7daZnnSaCqe
+	 9w95bzflYncW42A3SybsS1npjo33hNBGivlZwVcVrybbYXzPjE++ERNsWhDMpGu5K4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cRV9fD4u;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=fastmail.com;
+	spf=pass smtp.mailfrom=fastmail.com;
+	dkim=pass header.d=fastmail.com header.i=@fastmail.com header.a=rsa-sha256 header.s=fm3 header.b=S4yAE0uH;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=umxxjhjg;
+	arc=none smtp.remote-ip=103.168.172.154
+Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAB1E606A333;
-	Tue, 17 Nov 2026 13:24:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CAB1E606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBBC9606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:25:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBBC9606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cRV9fD4u
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794921890; x=1826457890;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Cx25pF1Zg5JZ34f7d3pdaTETlUg3rSJZZzkOLMRlzh4=;
-  b=cRV9fD4uva+OhW98ot/mpl8LtjLltKacbPWwpATBLHU0dDyVKI6yoK69
-   TCmXR10etRss6EnCS4B+DoCXwd68IOxkIK45/VO4uETXNxUL8AGaldKYn
-   RnJWRxe4LjyxmM5fI/vn98qWnXKFdPXwtIY8fOj1nZY+vm8A8tcMyQPXO
-   2J3y73O7PNcpPVNtgCm9yFN5ymhI62KumsP0fiNVU9ZBMRrVyuRdoodeP
-   IM9UjnSwkXymWTkuS0I6VgGX/pR5VZ7BVdI2KjwfoBX0/iEQhRNtCB1lv
-   BHZwl2NiV7V2AS80sOeNJvP396+ipvnIknRytpQI4bqPT95m+H47vAmC9
-   A==;
-X-CSE-ConnectionGUID: 2td71YnCRD6SAX5HXP8nKA==
-X-CSE-MsgGUID: B+P8vTxSTr2R5x8vQQVBjw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3585957"
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3585957"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 05:24:50 -0800
-X-CSE-ConnectionGUID: Mum/vH3SQ4i65ZlQ3tkbYQ==
-X-CSE-MsgGUID: 4TANd09NT1OVA5bTVAdiWg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="10155146"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa009.fm.intel.com with ESMTP; 17 Nov 2026 05:24:49 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 1A0B499; Tue, 17 Nov 2026 14:24:48 +0100 (CET)
-Date: Tue, 17 Nov 2026 14:24:48 +0100
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Badhri Jagan Sridharan <badhri@google.com>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kernel@collabora.com
-Subject: Re: [PATCH 6/8] usb: typec: fusb302: move gpio_int_n into function
- local scope
-Message-ID: <avxVoLitepTkqAnE@black.igk.intel.com>
-References: <20261113-fusb302-probe-cleanup-v1-0-e5c65a8c58c8@collabora.com>
- <20261113-fusb302-probe-cleanup-v1-6-e5c65a8c58c8@collabora.com>
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.com header.i=@fastmail.com header.a=rsa-sha256 header.s=fm3 header.b=S4yAE0uH;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=umxxjhjg
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id E0F511400159
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:25:00 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Tue, 17 Nov 2026 08:25:00 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.com; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm3; t=1794921900; x=1795008300; bh=xYrnkQ5ALrFvyhMYjXa2K
+	QK7bmShuxp4TgJGZ7gy57Q=; b=S4yAE0uHxaoeS1vhBT8m1aDfGpBVYgs7auVHZ
+	pJemD0j5BP/T9JP2pDiu3b/iKUHdBT4mQRThpQLc7+pAippStFE67P5rJq9E+Pv2
+	UbEx3bVfmY8Bu0CTV34YSVtyeE3YahWQ/37NPSGlpYcZRF0DIIX47urwwxMI6CcV
+	MxTaOmMLC/dt049rZx1xt8AkAXrSGBh83973i50+SAGpj4FRFr+o/yI/J029ZlhG
+	pifpwVzQxJLLKpU7PSTt7wnOjI4eHMl/fSQ49dJIqrq0laG4oKY9jarZfjMsIffq
+	Oo+ZuFNyI7441irC4/jFuPeFI/gNGpZD5c+VecK3YbUzk+jKA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1794921900; x=1795008300; bh=xYrnkQ5ALrFvyhMYjXa2KQK7bmShuxp4TgJ
+	GZ7gy57Q=; b=umxxjhjgBcm8vEaynSuspiU9q8SpZr2mlYlf2dYo7ZTjrXKb3zY
+	qPmbqFJSQzoLfgRTN3N4a5GRp6rLP7u1Db739V1W95gCUTF+cIzyMqPqe1HZaNil
+	Aj+vb1oiJ6tDPUqWlyYVzXamKThDa20aB8kOJic1IlfOujJhzlLEf/jomqTlip0g
+	njYML6izxxK31cddOBDOGw0ufNzzv3XuGXUiFiOqXQEF8F7c6OwEtWtc/zP3St4B
+	U0VZSi4dXAPuOZNXUMblY4im6bL7yWqMn4M3DNJaqPaOD9lXHhDjL5QGzh5BazzY
+	GG33tTK1dJ1ed2CdRuXoNp6yeXc4x3VYuGw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=fastmail.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794921900; d=fastmail.com;
+	mf=PGdyZWVuLmtvYWxhMjk3OUBmYXN0bWFpbC5jb20+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:ZfDy8wQQy6PWUyCoHuXP42CWSL7TrdLgpfWR/zXkPMrR0/N
+	/q8YFronlR1ICg4V1bqJaPCmcykVF3Sc2PCCqD5AEkYJnLH5aGyNzfW5+ZQV3ude
+	+td/GboJXap1W4hx9QuBki1Zkf3hNBlvp0BEDBGFCzu7SkNWxffBfPGOoNA7ODvV
+	4oxsQCF2t3uPG3duNYa59Ev1f0+TfoL62cuY3yKiJQnthiOAwXE45MA/XS5xncR6
+	r+378psskMhqYvhL7FQekwfch+mk0V4+shRrV6qwNuW4LboE89YHxH/t03kUKktT
+	+CLHlNK1ayq4mDzbfC4ZWvJVBND4KZKSsI+a0bA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:DGovqwJB8eH/S/Xjwtr3t8snuSo01C1Omi9Jfo50NAA=:yz3b2V+w6SsqHsT7xXEFa4wzlY6fP5s38O3tf4o0yk4=;
+X-ME-Sender: <xms:rFX8armjVgp_4IUVVfFFa4iPy6vSaN2NRX_MNJgHPo1FbuiELB36dg>
+    <xme:rFX8avm6_QDShbnD46vVj7LEipKGpgvi2ekFQuuxh2Si4y8_A4zE1O-mEQoUlu7oR
+    4wb3vqsn4_uc3E-ObQHUg-ncqeqojStpeFR69krPohenZL0p3FY8pV3vw>
+X-ME-Received: <xmr:rFX8atxwwDxzqnbd9TS3j94o5Ur2fa59uZnjUegOEBbxTKG9fPA8F7DNFG1KPN-sdnREeztrihMZBCoEOKoMAyXWzQZ9vgZ0ZNg_gycNxE85s4w>
+X-ME-Proxy-Cause: dmFkZTEFXElo4H2OVJj6DhQewPfbgr7phfwrcHREpc8lzp2ePPfwAUqvDQneg1mWASWAR+
+    RWo+S3iRh7AamqEd8Lx63jZZ9bC2sDECiLVjQT1aUCVJp60XU02aTwrxEt0lOFT5Qgfeq6
+    YRm6b+9iCn7kl29KFGjQbiZTfV+Q8pS6GIZQpvPr1ZVemeDeV+0o6uGS+lGGQ5EDceyQSt
+    tI6kEQzGTPh+gBRgwK7bG/CihJfOswct8mwa4EfI0ZF7gnEsQCq+cVUREvFexHk/kG9IHb
+    dz15YOFiv0GEOcaGH5MUE5n/1ZBSiiGh1o+Fw/ljwE7I9oA43x7MliFAZIPkd9QjRrs/gN
+    fvvpdub92WmDAzfe+p4PZ+iZoTbUsjtGMkE15afA2kmhcf3diqPHFXhd8k52dDjNaAQQR6
+    ebr5+iFwm4tMlMbPyV+AQ1sf1cixaaQOuLdjWZwJK2KfDmzoxHNksESZGYNbuQVF3C/QRz
+    At+eHgLupLxXGerqpcsEsGL7cS75iNZ0pr9MjCUq9n9xEjDBJLkoMbyz/LPrqNmC67dPhW
+    VqkWnek+i6Ec1TP27/Hbk3Vx9EYfhfBEAbTNBUyvOKD3XGBwZYi8iE+3U8Tx8lu4tl+rhF
+    X8necmWEqrkEZrAVBtjK1T4TwGkz3VLgykLDdcDTW7HKYlS/wR2EIm3+Xfxw
+X-ME-Proxy: <xmx:rFX8akosLqTa4ptU4h0ak8lKT8YUJehlM5ZPnZGpPT5jVRApTvsQWQ>
+    <xmx:rFX8as5beWIFQCz4WckrPTcZrShTfhWfUbYWSg2VvpWSfz8AdxkUxw>
+    <xmx:rFX8arcGUyfflXZSzZj52vt97v4M0a72cPOIt_tVPjlKMJt96cSndA>
+    <xmx:rFX8ah60xce5DQqnGBnkdKJUMPSNuyNKPjKGM-pUKBRKWlktQH7pvw>
+    <xmx:rFX8auxXpFTQC6q-LYAxD0z83H4e2pZ_r-kjbdEdINgwjk9hKJPnTLpd>
+Feedback-ID: ib51446d9:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 17 Nov 2026 08:24:59 -0500 (EST)
+From: Ana Veto <green.koala2979@fastmail.com>
+To: derekjohn.clark@gmail.com,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: Ana Veto <green.koala2979@fastmail.com>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v5] HID: hid-msi: Send a uevent when the MCU changes the mode by itself
+Date: Tue, 17 Nov 2026 13:24:48 +0000
+Message-ID: <20261117132448.57489-1-green.koala2979@fastmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,69 +124,193 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261113-fusb302-probe-cleanup-v1-6-e5c65a8c58c8@collabora.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 13, 2026 at 05:42:42PM +0100, Sebastian Reichel wrote:
-> The driver only cares about the interrupt and the GPIO itself is
-> device managed, so drop the reference from the device structure
-> and only keep it in the function scope. While at it cleanup the
-> error handling by using dev_err_probe.
-> 
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+The MCU of the MSI Claw changes the M-key function by itself once a
+second while View+LB is held, and the controller can end up in desktop
+mode, where the sticks drive the mouse. The MCU reports the current
+mode and M-key function in a GAMEPAD_MODE_ACK report, unsolicited after
+such a change and in reply to a query, and the driver stores both, but
+userspace is not told. udev rules that keep the controller usable run
+only on add, change and bind (for example InputPlumber's rules that
+switch desktop mode back to xinput and set the M-keys to macro), so the
+controller stays in desktop mode or with M1/M2 disabled until the
+controller is probed again.
 
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Emit KOBJ_CHANGE from a work item whenever a report changes the stored
+mode or M-key function. Store the new values after a successful
+SWITCH_MODE write as well, so that the driver's own writes raise no
+event. A report that comes in during the write was sent either before
+the MCU applied the write or after the MCU changed the state again, so
+neither the report nor the written values can be trusted: read the state
+back and emit the event, so that userspace checks the state. Read the
+state from the MCU before each SWITCH_MODE write as well, as the show
+functions do, so that the field that is not written is sent with the
+MCU's value even when such a read-back failed. A failed read fails the
+write.
 
-> ---
->  drivers/usb/typec/tcpm/fusb302.c | 21 +++++++++------------
->  1 file changed, 9 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/usb/typec/tcpm/fusb302.c b/drivers/usb/typec/tcpm/fusb302.c
-> index 1b3ee5715a74..76851e2b9ce5 100644
-> --- a/drivers/usb/typec/tcpm/fusb302.c
-> +++ b/drivers/usb/typec/tcpm/fusb302.c
-> @@ -86,7 +86,6 @@ struct fusb302_chip {
->  	struct work_struct irq_work;
->  	bool irq_suspended;
->  	bool irq_while_suspended;
-> -	struct gpio_desc *gpio_int_n;
->  	int gpio_int_n_irq;
->  	struct extcon_dev *extcon;
->  
-> @@ -1646,19 +1645,17 @@ static void fusb302_irq_work(struct work_struct *work)
->  static int fusb302_init_irq(struct fusb302_chip *chip)
->  {
->  	struct device *dev = chip->dev;
-> +	struct gpio_desc *int_gpio;
->  	int ret = 0;
->  
-> -	chip->gpio_int_n = devm_gpiod_get(dev, "fcs,int_n", GPIOD_IN);
-> -	if (IS_ERR(chip->gpio_int_n)) {
-> -		dev_err(dev, "failed to request gpio_int_n\n");
-> -		return PTR_ERR(chip->gpio_int_n);
-> -	}
-> -	ret = gpiod_to_irq(chip->gpio_int_n);
-> -	if (ret < 0) {
-> -		dev_err(dev,
-> -			"cannot request IRQ for GPIO Int_N, ret=%d", ret);
-> -		return ret;
-> -	}
-> +	int_gpio = devm_gpiod_get(dev, "fcs,int_n", GPIOD_IN);
-> +	if (IS_ERR(int_gpio))
-> +		return dev_err_probe(dev, PTR_ERR(int_gpio), "failed to request interrupt GPIO\n");
-> +
-> +	ret = gpiod_to_irq(int_gpio);
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "cannot request IRQ for GPIO\n");
-> +
->  	chip->gpio_int_n_irq = ret;
->  	return 0;
->  }
-> 
-> -- 
-> 2.53.0
-> 
+Tested on an MSI Claw 8 EX AI+ (0db0:1901) with a v7.3.3-based kernel
+and InputPlumber's rules. The controller was switched to desktop mode by
+a SWITCH_MODE report written to hidraw, bypassing the driver. A read of
+gamepad_mode then returned desktop and raised a change uevent, and the
+rule wrote xinput 66 ms later. After another such switch, View+LB made
+the MCU report mode 4 by itself, and the rule wrote xinput within 0.3 s.
+While View+LB was held in xinput mode, the MCU reported the M-keys
+disabled once a second, and the M-key rule set macro again each time. In
+a build without the read before each write, a mode report with the state
+from before a SWITCH_MODE write was also made to arrive during the
+write, by a query written to hidraw while the driver waited to send the
+write: the driver read the state back and raised an event, and the next
+change of the M-key function by the MCU raised one as well. With such a
+report and a failed read-back forced in a test build, an M-key function
+write and then a gamepad mode write left the written M-key function in
+place; without the read before each write, the second write sent the old
+M-key function back.
 
+Fixes: a9517958e828 ("HID: hid-msi: Add MSI Claw configuration driver")
+Signed-off-by: Ana Veto <green.koala2979@fastmail.com>
+---
+
+Notes:
+    Based on hid.git for-next. This changes lines near "HID: hid-msi: Drain orphan MCU ACKs by issuing a query" (v2, posted 2026-11-14); the two patches apply in either order.
+    
+    v5: read the state from the MCU before each SWITCH_MODE write. In v4, when the read-back after a raced write failed, the stored state stayed the one from before the write, and the next write of the other field sent that old value back (CodeRabbit review of the OGC copy of v4: https://github.com/OpenGamingCollective/linux/pull/137#pullrequestreview-5931619122). Tested on the Claw with the race and a failed read-back forced in a test build: with v4, an M-key function write followed by a gamepad mode write set the old M-key function again; with v5, the written one stayed. The two longer comments are one line each now. The tool trailer of v4 is gone, as the current checkpatch rejects that tag; tool use is in the last paragraph.
+    
+    v4: if a GAMEPAD_MODE_ACK comes in during the SWITCH_MODE write, the driver now reads the state back and emits the uevent. In v3 such a report raised no event when it carried the state from before the write, and the stored state could stay wrong, so a later change by the MCU could go unreported as well (Sashiko review: https://lore.kernel.org/r/sashiko-outbox-215202@kernel.org). Tested on the Claw with the report forced into the write: with v3, no event in 2 of 2 runs; with v4, an event in 4 of 4.
+    v4: https://lore.kernel.org/r/20261115142110.65521-1-green.koala2979@fastmail.com
+    v3: https://lore.kernel.org/r/20261115032314.7094-1-green.koala2979@fastmail.com
+    v2: https://lore.kernel.org/r/20261114221440.12580-1-green.koala2979@fastmail.com
+    
+    Claude Code (claude-opus-5-5, effort xhigh) wrote the code and the changelog and ran the tests on the Claw.
+
+ drivers/hid/hid-msi.c | 61 +++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 59 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/hid/hid-msi.c b/drivers/hid/hid-msi.c
+index 3225d3b..b66d997 100644
+--- a/drivers/hid/hid-msi.c
++++ b/drivers/hid/hid-msi.c
+@@ -350,6 +350,8 @@ struct claw_drvdata {
+ 	/* Gamepad Variables */
+ 	enum claw_mkeys_function_index mkeys_function;
+ 	enum claw_gamepad_mode_index gamepad_mode;
++	struct work_struct mode_event; /* uevent when the MCU changes the mode */
++	unsigned int mode_reports; /* Mode reports stored, guarded by mode_lock */
+ 	u8 m1_codes[CLAW_KEYS_MAX];
+ 	u8 m2_codes[CLAW_KEYS_MAX];
+ 	u8 rumble_intensity_right;
+@@ -387,19 +389,43 @@ static int get_endpoint_address(struct hid_device *hdev)
+ 	return -ENODEV;
+ }
+ 
++static void claw_mode_event_fn(struct work_struct *work)
++{
++	struct claw_drvdata *drvdata = container_of(work, struct claw_drvdata, mode_event);
++
++	kobject_uevent(&drvdata->hdev->dev.kobj, KOBJ_CHANGE);
++}
++
++static void claw_queue_mode_event(struct claw_drvdata *drvdata)
++{
++	guard(spinlock_irqsave)(&drvdata->registration_lock);
++	/* Pairs with smp_store_release from cfg_setup_fn and claw_remove */
++	if (smp_load_acquire(&drvdata->gp_registered))
++		schedule_work(&drvdata->mode_event);
++}
++
+ static int claw_gamepad_mode_event(struct claw_drvdata *drvdata,
+ 				   struct claw_command_report *cmd_rep)
+ {
++	bool changed;
++
+ 	if (cmd_rep->data[0] >= ARRAY_SIZE(claw_gamepad_mode_text) ||
+ 	    !claw_gamepad_mode_text[cmd_rep->data[0]] ||
+ 	    cmd_rep->data[1] >= ARRAY_SIZE(claw_mkeys_function_text))
+ 		return -EINVAL;
+ 
+ 	scoped_guard(spinlock_irqsave, &drvdata->mode_lock) {
++		changed = drvdata->gamepad_mode != cmd_rep->data[0] ||
++			  drvdata->mkeys_function != cmd_rep->data[1];
+ 		drvdata->gamepad_mode = cmd_rep->data[0];
+ 		drvdata->mkeys_function = cmd_rep->data[1];
++		drvdata->mode_reports++;
+ 	}
+ 
++	/* The MCU also changes the state by itself, e.g. on View+LB */
++	if (changed)
++		claw_queue_mode_event(drvdata);
++
+ 	return 0;
+ }
+ 
+@@ -656,11 +682,19 @@ static int claw_hw_output_report(struct hid_device *hdev, u8 index, u8 *data,
+ static int claw_switch_mode(struct hid_device *hdev, enum claw_mode_field field, u8 val)
+ {
+ 	struct claw_drvdata *drvdata = hid_get_drvdata(hdev);
++	unsigned int reports;
++	bool raced;
+ 	u8 data[2];
++	int ret;
+ 
+ 	guard(mutex)(&drvdata->cfg_mutex);
+ 
++	ret = __claw_hw_output_report(hdev, CLAW_COMMAND_TYPE_READ_GAMEPAD_MODE, NULL, 0, 25);
++	if (ret)
++		return ret;
++
+ 	scoped_guard(spinlock_irqsave, &drvdata->mode_lock) {
++		reports = drvdata->mode_reports;
+ 		switch (field) {
+ 		case CLAW_FIELD_GAMEPAD_MODE:
+ 			data[0] = val;
+@@ -673,8 +707,27 @@ static int claw_switch_mode(struct hid_device *hdev, enum claw_mode_field field,
+ 		}
+ 	}
+ 
+-	return __claw_hw_output_report(hdev, CLAW_COMMAND_TYPE_SWITCH_MODE, data,
+-				       ARRAY_SIZE(data), 0);
++	ret = __claw_hw_output_report(hdev, CLAW_COMMAND_TYPE_SWITCH_MODE, data,
++				      ARRAY_SIZE(data), 0);
++	if (ret)
++		return ret;
++
++	/* The driver's own change is no change to report */
++	scoped_guard(spinlock_irqsave, &drvdata->mode_lock) {
++		raced = drvdata->mode_reports != reports;
++		if (!raced) {
++			drvdata->gamepad_mode = data[0];
++			drvdata->mkeys_function = data[1];
++		}
++	}
++
++	/* A report during the transfer can be older or newer than the write */
++	if (raced) {
++		__claw_hw_output_report(hdev, CLAW_COMMAND_TYPE_READ_GAMEPAD_MODE, NULL, 0, 25);
++		claw_queue_mode_event(drvdata);
++	}
++
++	return 0;
+ }
+ 
+ static ssize_t gamepad_mode_store(struct device *dev, struct device_attribute *attr,
+@@ -1871,6 +1924,7 @@ static int claw_probe(struct hid_device *hdev, u8 ep)
+ 	INIT_DELAYED_WORK(&drvdata->cfg_resume, &cfg_resume_fn);
+ 	INIT_DELAYED_WORK(&drvdata->cfg_setup, &cfg_setup_fn);
+ 	INIT_DELAYED_WORK(&drvdata->rgb_queue, &claw_rgb_queue_fn);
++	INIT_WORK(&drvdata->mode_event, &claw_mode_event_fn);
+ 
+ 	/* For control interface: open the HID transport for sending commands. */
+ 	ret = hid_hw_open(hdev);
+@@ -1946,6 +2000,9 @@ static void claw_remove(struct hid_device *hdev)
+ 		smp_store_release(&drvdata->rgb_registered, false);
+ 	}
+ 
++	/* gp_registered is false now, so no new mode event can be queued */
++	cancel_work_sync(&drvdata->mode_event);
++
+ 	if (gp_registered)
+ 		device_remove_group(&hdev->dev, &claw_gamepad_attr_group);
+ 
 -- 
-heikki
+2.56.1
+
