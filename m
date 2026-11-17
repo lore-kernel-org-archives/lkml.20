@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794906955;
-	b=I0B1763LBYZggl0y0szvE/ljqS99orIUHjb6b3FR6/GMCrl4oWieq1WL8TUZpRekND1B
-	 PhzzK6SAtLa9OSVAQtkCTIKP8vTzQeRRKrc2vY6bemMKLfMp+T0SCeL59siiwdGT9Z+rF
-	 +Z9ILZljilCsCm5Nk+G490+qPbl4psYbGc3SwlcLoAjLNOp/+Cs3dZhLHp/ZFgs0PCuqF
-	 ud9LfG+L54ULM6aJaUt6ASjd3yCeHW1V+xqS9qD9l69mg7NyAmOdxeckKhnDZ1b+JYDh5
-	 lRmYPunzz9iyOmQa9oMLYUATCvkN0XyguKu2Y2jKnjEa6xWOqNZKCJBdLA0Httd0rEw==
+	t=1794906956;
+	b=J6iWe0QaZZuxyDdud6dJreQArn4zz6Q2NRR3MRUWMUyJ38rvrD5UUTYpxJnajB5Wqdix
+	 JQjrTl7oXINd2A/cpmJCBcJfvI7dzQsX1Iq1h7yYDNsvJnmFsho3lFuA78qtitfyO2Elq
+	 tr9k3iFnd5J/qiIxFouTM8ZmaU/j1IL8vQTyaVOzXOIzyl/LJYxLOmTBIkcmTEliqi3hd
+	 LDp92MJuCFYa5NQmPhBcmxa/20dw1iZtbDtpZiyJrMNU3SfX4zh/v4HqpekTZAiGPcaTt
+	 6FsewP8N9hxJXn0Pe3zb/AyRZH42odZE97ZEJJ2IWOnqJbWcpU/ywv15ZnE01wpl5cA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794906955;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794906956;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=0m8XnYVT9DjCg9I39JLr1uBTaZ2tfQtT3Fs85gKbuOE=;
-	b=nLdXH1Hk6Yu4OO47NvlrtYapY+eCwlQWDD1CY8cGPzVA3Axua53OV7IbGGxOE5ct0XRD
-	 vTuZjkk7Nig4bpKUISYo/zoP5i859EovK0h4XDqsy1gU+mWuDUARVKNFpV0LMMlM3x935
-	 VTcSwv9lVdhpoEC+VGzb/HsS12FS79UYKZ9MAxqar/cLlSnrkaHem28VTg2Bv02VelVsY
-	 Q8QeZDBGF2gWRvjWE2Z7K2W8+BjQmvlrPX/FS2kP/BaRBR0h2RRKUekA6zsbUtoXMwnM/
-	 pbssVFYkuhcyVdJ8qsfHZRo8cUzjvrLlAVJ59Mqwb591JCwuVNehR68XUDs9/Vobgqg==
+	bh=Orab/TU7x//tl8WYikKDAEUliLfJS1G9bxffaYSsnrU=;
+	b=yyKhRuDsIhV5qaZOfb7NwEMvnEEEYb+ASg71bcxZmMQ1T3z5jWsUCJfdLg0pe3cozZef
+	 KBZp4nZTeq2qNk5To8w/OgfuIf1cAaczMaqmhDWgeS2Mfw21T6eurLo1GrzDhrdgYWFWd
+	 Oig8amWzMSITwhDMQhocWRZOLYDgdPXBbA9O7S067Tq9iqyMYjdPkJDPXqJ5PKikky/Fs
+	 Yji55j1v/noUpuLKZls+7yaXpME+nOwf4wgWy+C2Q9OtDG4Huyj6YfXib0BvSvCa9jkWu
+	 UHRrna6I6RcEgNqO/YJg1Eabi6TZgZIo0GDbzrUBFe41r1Os/wyjDqToAVhhTJTpmWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WmFgFoqp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DxnCamND;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ABE8606A32F;
-	Tue, 17 Nov 2026 09:15:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC328606A31C;
+	Tue, 17 Nov 2026 09:15:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WmFgFoqp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F28A1F000C7;
-	Tue, 17 Nov 2026 09:15:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DxnCamND
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D76EF1F000C8;
+	Tue, 17 Nov 2026 09:15:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794906955;
-	bh=0m8XnYVT9DjCg9I39JLr1uBTaZ2tfQtT3Fs85gKbuOE=;
+	s=k20260515; t=1794906956;
+	bh=Orab/TU7x//tl8WYikKDAEUliLfJS1G9bxffaYSsnrU=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=WmFgFoqpb77+UHTiRGgwU5eNNEv8FcJEOLy/ya6rFr2FaujsxbqFZ7NWeUlPIrNyt
-	 0PVK83q6cUC08QLvsvZgdJX6FeCTBMv/czsgx981v57GSmFQAcjwyH9tL9zl0s3hoo
-	 qLdMpE08LGJhEUYRUhcuKfJ//COdhToVEyYztSn0mlBiEoIpW9yndtVRIg3dd0qKNo
-	 caLfoJxbrBLJeTefW7RJzkXIasnwNdy1JwIMiBft7mSuqGxllrsMcTBJUS7EVTpDpU
-	 5qSJcYi60aIhUzOvh1NL65v+ZjYEs5VA6ieYx32geaFiT1x4RPvpFqW4rwTY8Lr/yX
-	 DtlLHKg6QiGHQ==
+	b=DxnCamNDnJqVjWQKvgZ9/K/syOKQu775Fw6++8/+st9UaW3rh4g6NRxuGiTZu07mI
+	 3CttRuAqQg4EYvQ4y4qIZHYQtPK5i4OSy64/NoL4/dfGcPQMkOX6L7dMNMduQgM8sP
+	 2JsCVUaPXVq53vms792tbE0d4pRVEBJDyJkpDYMfv1zWw2iBB1kcGRTckyVKz8FEf1
+	 vcuk58U9ejyBCQwswkXAbcA9HEt+jtuCTuZ9/HekkugJ2XbVrqB1cfeSLEeMJU+Qfd
+	 xbWdqY8an/IigmvgMUYQJl3gjAOB+Lqv30VKwPqvcM9wmuBtePDy60kNTk4GkbfF0B
+	 N0+zipCAbqrFQ==
 Subject:
- Re: [PATCH net 3/4] net: phy: quiesce the state machine during MII resets
+ Re: [PATCH net 4/4] net: phylink: reinitialize the PHY after an MII reset
 From: netdev-bot+sashiko@kernel.org
 To: james.hilliard1@gmail.com
 Cc: hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
  edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
  michael.chan@broadcom.com, hauke@hauke-m.de, andrew@lunn.ch,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 17 Nov 2026 09:15:54 +0000
-Message-ID: <179490695420.3136.9645842823943433050@kernel.org>
-In-Reply-To: <20261113-submit-phy-mii-reset-v1-v1-3-02a55f352a91@gmail.com>
-References: <20261113-submit-phy-mii-reset-v1-v1-3-02a55f352a91@gmail.com>
-X-sashiko-severity: Medium
+Date: Tue, 17 Nov 2026 09:15:55 +0000
+Message-ID: <179490695546.3136.9741825606101086256@kernel.org>
+In-Reply-To: <20261113-submit-phy-mii-reset-v1-v1-4-02a55f352a91@gmail.com>
+References: <20261113-submit-phy-mii-reset-v1-v1-4-02a55f352a91@gmail.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -68,7 +68,7 @@ MIME-Version: 1.0
 Thank you for your contribution! Sashiko AI review found 3 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 2
+Critical: 0 · High: 1 · Medium: 2 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -76,175 +76,163 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] The patch does not fully close the bug it describes.
-- [Low] The commit message's only concrete symptom, "A statistics update
-  in this window can interpret cleared hardware counters as a…
-- [Low] The patch carries `Fixes: 00db8189d984` (the original 2005 phylib
-  commit), so stable will select it for every maintained LTS branch.
+- [High] phylink_phy_write() (drivers/net/phy/phylink.c:3614-3616) now
+  sends a BMCR reset of the attached C22 PHY to phy_mii_ioctl() ->…
+- [Medium] phylink chooses the PHY's in-band AN mode (pl->phy_ib_mode:
+  disable/enable/bypass) and programs it only in phylink_major_config()…
+- [Medium] Through phylink, the BMCR reset now goes to
+  phy_mii_ioctl_reset() (drivers/net/phy/phy.c:300-322).
 
 --
 
-net: phy: quiesce the state machine during MII resets
+net: phylink: reinitialize the PHY after an MII reset
 
-This commit sends Clause 22 BMCR_RESET writes from SIOCSMIIREG through a
-new helper, phy_mii_ioctl_reset(). The helper disables and drains the PHY
-state machine work and waits for BMCR_RESET to clear via phy_poll_reset().
-It then calls phy_init_hw() and re-enables and triggers the state machine.
+This patch changes phylink_phy_write() to send BMCR reset writes for the
+attached Clause 22 PHY to phy_mii_ioctl(). The phylib reset handling then
+runs in place of a raw mdiobus_write(). All other register writes still
+use raw MDIO access.
 
-> phy_mii_ioctl() performs a BMCR reset write and calls phy_init_hw() while
-> the PHY state machine remains active. The worker can access the PHY after
-> reset but before the driver has restored its configuration and software
-> state. A statistics update in this window can interpret cleared hardware
-> counters as a wraparound.
+> diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+> index e885da1c28311..2f0e3a30615c8 100644
+> --- a/drivers/net/phy/phylink.c
+> +++ b/drivers/net/phy/phylink.c
 
-[Severity: Low]
-Which driver does the wraparound case refer to?
+[ ... ]
 
-The worker only reaches driver statistics code through phy_update_stats()
-in _phy_state_machine():
+> @@ -3608,6 +3611,10 @@ static int phylink_phy_write(struct phylink *pl, unsigned int phy_id,
+>  					 reg, val);
+>  	}
+>  
+> +	if (phy_id == phydev->mdio.addr && reg == MII_BMCR &&
+> +	    (val & BMCR_RESET))
+> +		return phy_mii_ioctl(phydev, ifr, SIOCSMIIREG);
 
-drivers/net/phy/phy.c:_phy_state_machine() {
+[Severity: High]
+Does this path ever write the advertisement back to the PHY after the reset?
+
+phy_mii_ioctl() passes this to phy_mii_ioctl_reset(), which does:
+
+drivers/net/phy/phy.c:phy_mii_ioctl_reset() {
     ...
-	case PHY_NOLINK:
-	case PHY_RUNNING:
-		err = phy_check_link_status(phydev);
-		func = &phy_check_link_status;
-
-		if (!err)
-			err = phy_update_stats(phydev);
-		break;
+	phydev->autoneg = AUTONEG_ENABLE;
+	ret = phy_init_hw(phydev);
+out:
+	if (enable_delayed_work(&phydev->state_queue))
+		phy_trigger_machine(phydev);
     ...
 }
 
-The in-tree .update_stats callbacks either add read-clear counters to a
-software total or assign absolute values:
+phy_init_hw() runs soft_reset, the fixups, config_init, config_intr and
+the autonomous EEE disable. It does not call config_aneg or
+phy_start_aneg().
 
-  qcom_phy_update_stats():   hw_stats->rx_pkts += cnt;
-  dp83tg720_update_stats():  priv->stats.tx_pkt_cnt += count;
-  dp83td510_update_stats(), gpy_update_stats(),
-  xway_gphy_update_stats(), kszphy_update_stats():  accumulate with +=
-  lan8842_update_stats():    assigns absolute values
+phydev->state also stays PHY_RUNNING or PHY_NOLINK. In those states,
+_phy_state_machine() only calls phy_check_link_status().
+_phy_start_aneg() only runs from PHY_UP or after a cable test.
 
-None of them keeps a previous snapshot or computes a delta. It doesn't look
-like any of them can mistake a reset for a wrap.
+So after the reset, MII_ADVERTISE, MII_CTRL1000 and the EEE advertisement
+seem to stay at their hardware defaults. phydev->advertising still holds
+the MAC-limited mask that phylink_bringup_phy() set up:
 
-The in-tree effects of the worker running mid-reset look different. One is
-a spurious link down/up from reading BMSR during the reset. Another is
-possible double counting if the reset clears a read-clear enable that
-config_init() restores, for example qcom_phy_counter_config().
+	linkmode_copy(phy->advertising, config.advertising);
 
-The ethtool statistics read path (ETHTOOL_GPHYSTATS) doesn't seem to be a
-gap. It and SIOCSMIIREG are both serialized by RTNL or the netdev ops lock.
+Take a 10/100-only MAC with a gigabit PHY as an example:
 
-Could the commit message describe the actual in-tree failure, or name the
-driver it refers to? The Fixes: tag will send this to all stable branches.
+  - After the reset, the PHY advertises 1000baseT again and can link at
+    1000.
+  - genphy_read_status() works out the speed from the stale
+    phydev->advertising and lp_advertising, and reports 100.
+  - phylink calls mac_link_up() at 100 while the PHY runs at 1000.
 
-> diff --git a/drivers/net/phy/phy.c b/drivers/net/phy/phy.c
-> index 4ac72a1b4f427..5da8a699446c0 100644
-> --- a/drivers/net/phy/phy.c
-> +++ b/drivers/net/phy/phy.c
-> @@ -297,6 +297,30 @@ void phy_ethtool_ksettings_get(struct phy_device *phydev,
->  }
->  EXPORT_SYMBOL(phy_ethtool_ksettings_get);
->  
-> +static int phy_mii_ioctl_reset(struct phy_device *phydev, u16 val)
-> +{
-> +	int ret;
-> +
-> +	/* Keep the worker out until the driver has restored its state. */
-> +	disable_delayed_work_sync(&phydev->state_queue);
+The commit message says:
 
-[Severity: Low]
-Will this build on the stable trees that the Fixes: tag selects?
+    The PHY worker continues using the old software state.
 
-The patch carries Fixes: 00db8189d984, the original 2005 phylib commit. That
-means it will be picked for every maintained stable branch.
+After this change, isn't that still true for the advertisement registers?
 
-disable_delayed_work_sync() and enable_delayed_work() were added in v6.10
-by commit 86898fa6b8cd ("workqueue: Implement disable/enable for (delayed)
-work items"). They don't exist in 6.6, 6.1, 5.15 or older trees.
-
-Should there be a stable version limit such as "Cc: stable # 6.10+", a
-note about the dependency, or a different quiescing approach for older
-trees?
-
-> +
-> +	ret = phy_write(phydev, MII_BMCR, val);
-> +	if (ret < 0)
-> +		goto out;
-> +
-> +	ret = phy_poll_reset(phydev);
-> +	if (ret)
-> +		goto out;
-> +
-> +	phydev->autoneg = AUTONEG_ENABLE;
-> +	ret = phy_init_hw(phydev);
-> +out:
-> +	if (enable_delayed_work(&phydev->state_queue))
-> +		phy_trigger_machine(phydev);
-> +
-> +	return ret;
-> +}
-> +
->  /**
->   * phy_mii_ioctl - generic PHY MII ioctl interface
->   * @phydev: the phy_device struct
-> @@ -349,6 +373,9 @@ int phy_mii_ioctl(struct phy_device *phydev, struct ifreq *ifr, int cmd)
->  		} else {
->  			prtad = mii_data->phy_id;
->  			devad = mii_data->reg_num;
-> +			if (prtad == phydev->mdio.addr &&
-> +			    devad == MII_BMCR && val & BMCR_RESET)
-> +				return phy_mii_ioctl_reset(phydev, val);
->  		}
->  
->  		if (mdio_phy_id_is_c45(mii_data->phy_id))
+phy_mii_ioctl_reset() was added earlier in this series, and this patch
+relies on it to resynchronize the state. Should phy_init_hw() be followed
+by phy_start_aneg() (or config_aneg) on this path?
 
 [Severity: Medium]
-Can the old reset path at the end of the SIOCSMIIREG case still call
-phy_init_hw() while the state machine is active?
+Is the PHY in-band AN mode that phylink chose lost here?
 
-The new early return only exists in the Clause 22 else branch. The old
-check at the end of phy_mii_ioctl() is still there:
+phylink only programs pl->phy_ib_mode in phylink_major_config():
 
-	if (prtad == phydev->mdio.addr &&
-	    devad == MII_BMCR &&
-	    val & BMCR_RESET)
-		return phy_init_hw(phydev);
+	err = phy_config_inband(pl->phydev, pl->phy_ib_mode);
 
-With a Clause 45 form phy_id, prtad and devad come from
-mdio_phy_id_prtad() and mdio_phy_id_devad(). This path is taken when all of
-the following hold:
+phy_init_hw() never calls drv->config_inband. After this return, phylink
+also does not set force_major_config or requeue pl->resolve.
 
-  - prtad matches the attached PHY's address
-  - the MMD is 0, which equals MII_BMCR
-  - val_in has bit 15 set
-  - the bus accepts the C45 write
+The config_init callbacks don't seem to reapply the in-band mode either.
+For example, m88e1111_config_inband() writes
+MII_M1111_HWCFG_SERIAL_AN_BYPASS and the fibre page BMCR_ANENABLE:
 
-phy_mii_ioctl()
-    mdiobus_c45_write(...)
-    case MII_BMCR: phydev->autoneg = AUTONEG_ENABLE;
-    phy_init_hw(phydev)
+	err = phy_modify(phydev, MII_M1111_PHY_EXT_SR,
+			 MII_M1111_HWCFG_SERIAL_AN_BYPASS, extsr);
+	...
+	return phy_modify_paged(phydev, MII_MARVELL_FIBER_PAGE, MII_BMCR,
+				BMCR_ANENABLE, bmcr);
 
-None of disable_delayed_work_sync(), phy_poll_reset() or
-phy_trigger_machine() runs on this path. phy_init_hw() can also do its own
-BMCR reset through drv->soft_reset (for example genphy_soft_reset()) while
-the worker is running.
+m88e1111_config_init() does not touch those bits. In the same way,
+rtl822xb_config_init() leaves RTL822X_VND1_SERDES_ADDR_AUTONEG alone.
 
-For Clause 22 IDs the tail branch is now dead code. That leaves
-phy_mii_ioctl() with two reset paths, one quiesced and one not. Could the
-leftover branch be removed, or routed through phy_mii_ioctl_reset()?
+Whether a soft reset actually clears these SerDes bits depends on the
+PHY. If it does, the PHY's in-band mode no longer matches the pcs_neg_mode
+that phylink configured. The copper side can then report link up while
+the SGMII or 1000BASE-X link to the MAC is down.
 
-The later patch in this series, "net: phy: reinitialize the PHY after an
-MII reset", doesn't change phy.c. Its phylink_phy_write() returns early for
-C45 IDs, so drivers that use phy_do_ioctl() without phylink still reach
-this path.
+The other phylink paths that run phy_init_hw() (attach or resume, then
+phylink_start()) all reach phylink_major_config() afterwards. Should the
+reset path also ask phylink to redo the major config?
 
-Could the commit message also say that genuine Clause 45 resets
-(MDIO_MMD_PMAPMD / MDIO_CTRL1 with MDIO_CTRL1_RESET) are out of scope? This
-patch doesn't intercept them either.
+[Severity: Medium]
+Can the reset and phy_init_hw() run at the same time as pl->resolve or
+the PHY interrupt thread?
 
-[ ... ]
+phy_mii_ioctl_reset() only quiesces phydev->state_queue:
+
+	disable_delayed_work_sync(&phydev->state_queue);
+
+	ret = phy_write(phydev, MII_BMCR, val);
+
+After that, the reset, phy_poll_reset() and phy_init_hw() all run under
+RTNL without phydev->lock.
+
+phylink_resolve() runs from a workqueue without RTNL. It takes phy->lock.
+When the interface changes, it calls
+phylink_major_config()->phy_config_inband(), which writes PHY registers:
+
+	mutex_lock(&pl->phydev_mutex);
+	phy = pl->phydev;
+	if (phy)
+		mutex_lock(&phy->lock);
+	...
+		phylink_major_config(pl, false, &link_state);
+
+The threaded IRQ handler is also serialized only by phydev->lock:
+
+drivers/net/phy/phy.c:phy_interrupt() {
+    ...
+	mutex_lock(&phydev->lock);
+	ret = phydev->drv->handle_interrupt(phydev);
+	mutex_unlock(&phydev->lock);
+    ...
+}
+
+Suppose phylink_phy_change() queued a resolve just before the ioctl, for
+example after an SGMII to 2500BASE-X switch on an RTL822x. Could the
+config_inband writes interleave with the config_init sequence and leave
+the PHY partly configured?
+
+Before this patch, phylink's raw reset never ran phy_init_hw(), so
+phylink users did not have this overlap. On the resume path,
+phylink_stop() and phylink_suspend() disable and flush pl->resolve before
+phy_init_hw() runs.
+
+The commit message says phy_mii_ioctl() "quiesces the PHY worker across
+reset completion and driver initialization". For phylink devices, isn't
+that only true of phydev->state_queue?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261113-submit-phy-mii-reset-v1-v1-0-02a55f352a91%40gmail.com
