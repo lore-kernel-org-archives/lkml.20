@@ -1,53 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794932225;
-	b=InnCE5Eb45xKJ8yEY6XrgHxX+EM/HyJpSQjztAxwhagCzXG5mwlOW2z+egJEmPOmrGzN
-	 TGIKYgKuBUUVuwS5LPO8owutebnzdbSVDZu+MrGn2PeQS3BN67gJ0KpDV/RRHyIGvCf4L
-	 qV/tAMCG2lCRcas4TvDYfzbc++fSmZpIGQ0qJ68wpEYov6c2wx0Q2ok/+FwPOcIe2lrmt
-	 1GSEO3RrgswS10Shepz6QTmSvXvIWPsV+cVJv+Ix6Bnl1pPqYXo3UFanKMj0wcJhV2IGh
-	 Oy1yS1lU/zSVfp5TiTkZZ10dfXdwAeJIMcMhWr/ZhKUkygsJm2Eel1nZlqjiiIBQoVQ==
+	t=1794932243;
+	b=27Z6RM13Fj5OaBKQstxQA/TgVL9YgDRxmU0MA6MCQzeKQpYR4AYxrsA6/2xG8+Nbelir
+	 SWP3Fan8I7zdfzcGLOYzVfWNLtNcfC+So4lOYJgVTB/JC5KYusiqvBhvf8WkxbFQ6FGLJ
+	 XEMOiqBVd0paL+3A44C30hHZj3bDNjxFgmjxyvjbJ7j1IOf38L8adfZtPvkXvDVnj2iUE
+	 iMXjMykboFjL88lENjJDD9Q9FC+ADe8gr9AuFB9w/IuBh5X+OeI0TWcEfdziwq5PqGKis
+	 hfzpiAzStSbdp3NiBxnWtPRXdNU1lpghvH4Z/jam3M7rx3ei2BMBF5gwb+Et45noCHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794932225;
-	h=Received:DKIM-Signature:Date:From:Cc:Subject:Message-ID:MIME-Version:
-	 Content-Type:Content-Disposition;
-	bh=XNNwTxWkKnx1cjZ15MY7VYWVBWraFUkHuxyH225BPjg=;
-	b=Gmd0hBY9NSJI7yG/gJpcpNumzRj3S0/Cv+5r83aglVLkaHQZASssojgwnzQ8JDUiscgk
-	 iFE4gyGM4EtwQ137Yn26SzgI/T9UXAZSdzJkjg4nBJ0881j7BZAmx09NbgyLTtUx9wN+h
-	 4HbbDAeO3nHbvaca+4jZZF3J9heJdXOBwKq6k5BmHfenTCjusQcy6kPM6Osk2P7BhVpaH
-	 7Jbj14dM+ykVRYOMtpRgXet+y/ObyW8WsfwcpaFqaysUyNg6IUZGXsyOWuJBmKGR9/Ao9
-	 ZHeHf9hl1pJqyIYHXIDGxq/BwODaA9ag+vkbGSSuhL50Swm/dT3aN3BjLUDlHaG9DTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794932243;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=BNeXdPblFT6nrj2baxWLtBPVceCtM0s58uH/6Q+lFQs=;
+	b=cXgiy1lwT/iruxUA1sXgXdFE/oisDcVSlBBOOp9qkViOP99mvnDE2b2XJxccwvVrYV/B
+	 K6ZfquBpqAb8+Za8UftC/3/Yq2LkusAHe8XsOU3mLm+fxq1UvO950SOXEYH84zQcp8Hyw
+	 pHw26wOaHXemvcYA56S9l+g5dL0ZmlCcrTznFU5SQTYT/lv7SPz7dkeZ0KlaGRWz/Jn2U
+	 YOHtkeS0wBFaR4F7C+GLDISEmKo6dfXQXcQsZK85xb7AIjPG+nV+q38EXecmsXLkOUnMu
+	 i0kTTwr3MBodJmJMTfeV+lylzT1CyMGJLrk70LufAVwblK+1/Qb2K7sfJDcNnZABUXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JGTemwzj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=YosMGajV;
+	arc=none smtp.remote-ip=158.69.130.18
+Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BD40606A31C;
-	Tue, 17 Nov 2026 16:17:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CC94606A31C;
+	Tue, 17 Nov 2026 16:17:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CC94606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JGTemwzj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 727041F000C4;
-	Tue, 17 Nov 2026 16:17:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794932225;
-	bh=XNNwTxWkKnx1cjZ15MY7VYWVBWraFUkHuxyH225BPjg=;
-	h=Date:From:Cc:Subject;
-	b=JGTemwzjkog0bxPchzx194Lx139l3IQWC3NlTiSYPg8LJO+yaVawZso2tV31LqylN
-	 eYNCYyAQEPwICE87h5BD4ehBk2QCrODrS2BBzK/1k2GKlK5J388bDvWTXbZseyaPHr
-	 Vtypv33rd0SVXSMm8NCiNIx79cIFhYw0qzm9b+uh6ffhflBdDHc4s3JGo+XE0CTGDs
-	 HHZNe8hwyuk+vcgrU9DQf0xyxZZ6mL6jIlbdQKBcECo/oRiWCzIcAVxTI7bJv6zxm3
-	 Vi3h/nea0MQhxvjjVurosLwPAqxgBWdkLGKC92GWU+QWscBJqiUB2J7thfR/AnetWW
-	 edSWKZHL+tZtQ==
-Date: Tue, 17 Nov 2026 16:17:01 +0000
-From: Mark Brown <broonie@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: manual merge of the fs-next tree with the
- mm-nonmm-unstable tree
-Message-ID: <avx9_c_HWPAl9i1Q@sirena.org.uk>
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=YosMGajV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+	s=smtpout1; t=1794932241;
+	bh=BNeXdPblFT6nrj2baxWLtBPVceCtM0s58uH/6Q+lFQs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=YosMGajVdr8bTyARSt14kbBXxvqSLwIkBzVVm2iFc2dB8LzONr4+DOO6kMyHMraZM
+	 HLKsDFwyYbKp1xFvRvE1bkMBPGBH+BLhOmAtqk/XLaenm0e5siruQORsZ3FVHPgQX8
+	 o0zmCt1KnhHrXRuGIQJHjydUj7lpQdmvQ+IMBt9XhF3Fl2sYHs/eXvC1fdtq36jUqM
+	 fertguGTxjKDGkk8w+3AgKjWiK51C4xlXqCXHrI5Y2Bvyl6PShOM2rwQX6gPcNECAX
+	 iHvJ3bdS7vc3BXbU9V6OjzmbnWsX7xUeRlEzgk0D/CYqsV7Z4J1GC0TUgkD9ONx8JG
+	 vO1OFuFnKMkTg==
+Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jTVHj55RDzRKW;
+	Tue, 17 Nov 2026 11:17:21 -0500 (EST)
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: tglx@kernel.org,
+	peterz@infradead.org
+Cc: linux-kernel@vger.kernel.org,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	mingo@redhat.com,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	paulmck@kernel.org,
+	boqun@kernel.org,
+	shuah@kernel.org,
+	kees@kernel.org,
+	viro@zeniv.linux.org.uk,
+	brauner@kernel.org,
+	jack@suse.cz,
+	oleg@redhat.com,
+	bestswngs@gmail.com,
+	xmei5@asu.edu,
+	xujiakai24@mails.ucas.ac.cn,
+	linux-mm@kvack.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 02/17] sched/mmcid: Give no concurrency ID to user workers
+Date: Tue, 17 Nov 2026 11:17:02 -0500
+Message-Id: <11039c504295ef6ee0eef55981993d8f5d1f40ce.1794932121.git.mathieu.desnoyers@efficios.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <cover.1794932121.git.mathieu.desnoyers@efficios.com>
+References: <cover.1794932121.git.mathieu.desnoyers@efficios.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,139 +90,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="0XI2la9RnovdJ4f6"
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
+The workers of io_uring and vhost are PF_USER_WORKER tasks. They are
+threads of the process they work for, created with CLONE_VM. They only
+run kernel code: copy_process() gives them a kernel function that ends
+in do_exit(). They never return to user space and have no rseq area.
 
---0XI2la9RnovdJ4f6
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+sched_mm_cid_fork() still makes them users of the CIDs of the mm, like
+every task with an mm. A worker takes a CID whenever it runs. It also
+counts as a user for max_cids and for the switch to per CPU mode.
 
-Hi all,
+Nothing reports the CID of a worker. But it is one CID fewer for the
+threads of the process, which then get larger ones. The added users can
+also switch the mm to per CPU mode. A process with io_uring workers
+would then read mm_cid values at or above its number of threads. This
+was found by reading the code, and has no test.
 
-Today's linux-next merge of the fs-next tree got a conflict in:
+Fix this by not making a user worker a user of the CIDs. Kernel threads
+are already left out, as they have no mm.
 
-  kernel/profile.c
+Fixes: af7f588d8f73 ("sched: Introduce per-memory-map concurrency ID")
+Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: stable@vger.kernel.org
+---
+ kernel/sched/core.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-between commits:
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index f2a981d418eb..7e213e88ac28 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -11000,7 +11000,11 @@ static void sched_mm_cid_fork(struct task_struct *t)
+ 	struct mm_struct *mm = t->mm;
+ 	bool percpu = false, flip = false;
+ 
+-	if (!mm)
++	/*
++	 * A user worker (io_uring, vhost) never returns to user space and
++	 * has no rseq area. It needs no CID.
++	 */
++	if (!mm || (t->flags & PF_USER_WORKER))
+ 		return;
+ 
+ 	WARN_ON_ONCE(t->mm_cid.cid != MM_CID_UNSET);
+-- 
+2.47.3
 
-  2ab6daee3c87d ("profile: account for partial /proc/profile reads")
-  0ff0b873d4d93 ("profile: simplify /proc/profile read layout")
-
-=66rom the mm-nonmm-unstable tree and commit:
-
-  79011a80f0646 ("proc: give kcore, kmsg, the kpage files and profile their=
- own file_operations")
-
-=66rom the fs-next tree.  This essentially discards Andrew's changes, AIUI
-the conversion to the iterator API ought to achieve roughly the same
-thing though I may be misunderstanding.  I may also have messed up the
-merge somewhere.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --cc kernel/profile.c
-index c6d5a2638a52e,c28386b6723bf..0000000000000
---- a/kernel/profile.c
-+++ b/kernel/profile.c
-@@@ -150,55 -150,31 +150,28 @@@ void profile_tick(int type
-   * buffer. Use of the program readprofile is recommended in order to
-   * get meaningful info out of these data.
-   */
-- static ssize_t
-- read_profile(struct file *file, char __user *buf, size_t count, loff_t *p=
-pos)
-+ static ssize_t read_profile(struct kiocb *iocb, struct iov_iter *to)
-  {
-- 	const size_t header_size =3D sizeof(unsigned int);
-- 	const size_t file_size =3D (prof_len + 1) * sizeof(unsigned int);
-- 	unsigned int sample_step;
-- 	loff_t offset =3D *ppos;
-- 	size_t pos;
-- 	size_t done =3D 0;
-- 	size_t n, not_copied;
-+ 	unsigned long p =3D iocb->ki_pos;
-+ 	size_t count =3D iov_iter_count(to);
-+ 	ssize_t read;
-+ 	char *pnt;
-+ 	unsigned int sample_step =3D (unsigned int)(1UL << prof_shift);
- =20
- -	if (p >=3D (prof_len+1)*sizeof(unsigned int))
- -		return 0;
- -	if (count > (prof_len+1)*sizeof(unsigned int) - p)
- -		count =3D (prof_len+1)*sizeof(unsigned int) - p;
- -	read =3D 0;
- +	/* Keep the shift word-sized before narrowing to the 32-bit ABI. */
- +	sample_step =3D (unsigned int)(1UL << prof_shift);
- =20
-- 	if (offset < 0)
-- 		return -EINVAL;
-- 	if (offset >=3D file_size)
-- 		return 0;
-- 	pos =3D offset;
-- 	count =3D min(count, file_size - pos);
--=20
-- 	/* Copy the four-byte sampling resolution. */
-- 	if (pos < header_size) {
-- 		n =3D min(count, header_size - pos);
-- 		not_copied =3D copy_to_user(buf, (u8 *)&sample_step + pos, n);
-- 		done +=3D n - not_copied;
-- 		if (not_copied)
-- 			goto fault;
-- 		buf +=3D n;
-- 		pos +=3D n;
-- 		count -=3D n;
-+ 	while (p < sizeof(unsigned int) && count > 0) {
-+ 		if (copy_to_iter((char *)(&sample_step)+p, 1, to) !=3D 1)
-+ 			return -EFAULT;
-+ 		p++; count--; read++;
-  	}
--=20
-- 	/* Copy raw counters using offsets relative to the counter array. */
-- 	if (count) {
-- 		not_copied =3D copy_to_user(buf,
-- 					(u8 *)prof_buffer + pos - header_size,
-- 					count);
-- 		done +=3D count - not_copied;
-- 		if (not_copied)
-- 			goto fault;
-- 	}
-- 	*ppos +=3D done;
-- 	return done;
-- fault:
-- 	*ppos +=3D done;
-- 	if (!done)
-+ 	pnt =3D (char *)prof_buffer + p - sizeof(atomic_t);
-+ 	if (copy_to_iter(pnt, count, to) !=3D count)
-  		return -EFAULT;
-- 	return done;
-+ 	read +=3D count;
-+ 	iocb->ki_pos +=3D read;
-+ 	return read;
-  }
- =20
-  /* default is to not implement this call */
-
---0XI2la9RnovdJ4f6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr8ff0ACgkQJNaLcl1U
-h9DKxwf+IaIJ6BbTUQI/opOjN12FpjUPdAfOq/8MvL5H6VDAV8yBwldR+eSrZfSk
-+vitaZDrEtbjyDlhVujXXklFYO+MARRA53lZcSskC92pBGYMDifRe//S+HrzAKC0
-wfdAULv5DtfnmG5ndnWDa6tOCYFzrhLCccCF3A5Kfh6nER6dTu3vvnwUbPx/82Z+
-zfJbMIe7MIZsL+f47d3kc7WpY5YfG4RQPSOnlsYnAFvcRROi/fSTPqphZ7ZrbpZS
-26+JNXdtZHz5Zp+SFr7m9KE19MEWoylfQVeszNQpD+Mev3IQ3KANxF7dnMQRWRpk
-v+7NbKx06/sUJ/YgePduSIIBKT0xTA==
-=eWEj
------END PGP SIGNATURE-----
-
---0XI2la9RnovdJ4f6--
