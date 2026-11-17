@@ -1,63 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794914385;
-	b=uAgjYChzbHPDJ0HOWmjhPEIs/mOIpa1Gota1ONooGEKNzE/tGCh8so8KfB3crV5cLsLb
-	 vqXfD/Yak0atoH5NUR+qGBPKnsc1dZwspNlzpEB53sMaoo63vtzZzLgrrcbTBGuZNJ1vQ
-	 krtQIX8TRG/k/GxB138Ji/8avP9KX6PCQoM9e+l70EaBkC6OqNNN93BwxDBQh/wspomBs
-	 qr5pjFZLzRD6phxSRnic1Cf6es7xr6BWh43+CpqhO7T71ZwynrnjYP+Fsuyi9qiRYLo4e
-	 8rBTC9VurE3GmWcGuTqaJPDSWxvvaLw6ovGcsfFkKQfHCbrpv2aNOCM2v7ijLavNAZw==
+	t=1794914388;
+	b=OX3m7x4j/wlUFu0JSBuBhH94jAOqS0umUj+7QjC/eoiNDf7qamU6T0/kroLeXyCvSUyj
+	 W1aBq3igMqHfeZ1DXJ3/YnC+A4TzoZhv/xFZdBzCNRCYtOdMg8Zy+Y7FGSub+AHQZRnt7
+	 B8ecUVAf1FcTAuAa2lJHb4LmC/HlTUGQIcKrwtw7rrlRqofGDhF8AFilo8y894pd9f2Nm
+	 zH3ua7PqhXBYgLMnkClBRmOdrra5Z9kDV+e+iu2Wo5RezQwoc65Wm26xsz5zJR8MgI6y+
+	 tf6G3FxWGH4i960wcdttTPUaGfln9OILyHN21YExWBmdRMbe2S6z8yzjdr6PUvrPPMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794914385;
-	h=DMARC-Filter:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
-	 X-CM-SenderInfo;
-	bh=7bMf3/mfwhleSFsHjm9lpm43DnA/cE2DyYKTOUyvJM8=;
-	b=omuNyDpbKc67+5CKoNRusvxA5ictaEuJVD3iT/h89lxg8CxTFx4Bt6ucN7tTbQ1Eene8
-	 AvlMTNC8Wh4zDr5tCEfB3SWORgNOJjkqeidO0iYY8gFaRPm+nkC7YPZIxBlOkQ5nKM8ZQ
-	 HBKocBB1WsSYzN+aArZCpedMmKlfr+fE6qPzYLdFqUMi1Z1OccG21NhWAGeU8iAj0KJhA
-	 MopNbovmapWYkiZM1wTQ+etbdqWWRdFcTvpooX3/gtiCVKhmPAyVsf3BpERfIUF/XsVV2
-	 qrG+1ipg+w+bYKRBm/BCp0IKwl36pPYgvCJhUtA2OoL/OB+/w8Mp7oo3Kwe8RsjbCSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794914388;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=SIYzj+lYaoqY2d7tfqlkoRpjU8XkkKSmiyZ/PHktka8=;
+	b=FpSjTR+FEcYSVryXPdU+CQushyuVdSqNVzp+22m/kfM3vPjxVfcpKWFH6+4Cjf22dFEI
+	 pH2c1g5+TRXAr48Uh25F7DLF+EQHmueLgrtUOXJLZtkDWcLSPOdPFP3LkSnLaDriaIodA
+	 z1FjafNVVB3vxiW4DJmNoXhmm8WbAht9iFE7h1GxqEvz/s1ryWzIU5B+sE2zWrxoC7bVv
+	 P+ha13GcZqEUA5motznrRODG567pKckceBjS1CyyAiHTBZuxlIiNE1sF5e7hfLttPjDiK
+	 whAy5IBgYtEDHdzHvYi2ZxujQ8LPb9LGFpDX+TDnTjB+2MWVpDb7AQbxJBIthUNkHag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.21
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 476DA606A887
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:19:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 476DA606A887
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.23])
-	by APP-01 (Coremail) with SMTP id qwCowABHcfs7OPxq1lQrAQ--.668S2;
-	Tue, 17 Nov 2026 19:19:24 +0800 (CST)
-Message-ID: <22329b456927eb2dc37c2fa2503761dcf0923d9e.camel@iscas.ac.cn>
-Subject: Re: [PATCH v2 2/4] drm/verisilicon: nuke planes' atomic_enable hooks
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Thomas Zimmermann <tzimmermann@suse.de>, Maarten Lankhorst
-	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Joey Lu
- <a0987203069@gmail.com>, Han Gao <gaohan@iscas.ac.cn>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Tue, 17 Nov 2026 19:19:23 +0800
-In-Reply-To: <4404265c-ae14-4d17-82ad-46ed6c123c6b@suse.de>
-References: <20261102075710.1286456-1-zhengxingda@iscas.ac.cn>
-	 <20261102075710.1286456-3-zhengxingda@iscas.ac.cn>
-	 <8e3b36c6-e2d8-4746-aefe-462bba1a4b05@suse.de>
-	 <5830251f1420c152b2efc2ee37248057bdfc901d.camel@iscas.ac.cn>
-	 <55991183-ab5f-4445-afce-37a79310ef27@suse.de>
-	 <83aa9fb5be26fb407c7f1393bc01099d374cf51f.camel@iscas.ac.cn>
-	 <7e4b4fd185f47404bb5f18e7c2c8086d24e673f4.camel@iscas.ac.cn>
-	 <a96e7813-6918-44f5-82e2-ca40051abea0@suse.de>
-	 <73f4e371c37c36581240ff355fef3de2afaaa033.camel@iscas.ac.cn>
-	 <4404265c-ae14-4d17-82ad-46ed6c123c6b@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Ps3EGgde;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1D0FF606A339;
+	Tue, 17 Nov 2026 11:19:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D0FF606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Ps3EGgde
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8FD151C00;
+	Tue, 17 Nov 2026 03:19:43 -0800 (PST)
+Received: from e135073.nice.Arm.com (e135073.arm.com [10.34.111.135])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 47A7B3F763;
+	Tue, 17 Nov 2026 03:19:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794914386; bh=4uxQTmCJiBMpLk/aGJKins77aw++2s56PhdCnxpSPcQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=Ps3EGgdep9GNH0IIM2nfDRpSFE3ESwrFsbgZV67NsOMuKif8ECA00O+wyfV4fkbRo
+	 uphKLcBEyo/zblvY++ZR7HzF0UnItqpCgKJGlFbGIGjnV1LM0RztYwaqP2SWTZc9Vu
+	 /1XBU39FBYufw+dabU2klb52ElFhroFtXOlvPl6U=
+From: Pierre Gondois <pierre.gondois@arm.com>
+To: linux-kernel@vger.kernel.org
+Cc: Ashok Raj <ashok.raj@oss.qualcomm.com>,
+	James Morse <james.morse@arm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Pierre Gondois <pierre.gondois@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Tony Luck <tony.luck@intel.com>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Shuai Xue <xueshuai@linux.alibaba.com>,
+	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
+	"Oliver O'Halloran" <oohall@gmail.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
+	Pawel Chmielewski <pawel.chmielewski@intel.com>,
+	Yazen Ghannam <yazen.ghannam@amd.com>,
+	Qiuxu Zhuo <qiuxu.zhuo@intel.com>,
+	Avadhut Naik <avadhut.naik@amd.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Kai-Heng Feng <kaihengf@nvidia.com>,
+	"Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Breno Leitao <leitao@debian.org>,
+	Terry Bowman <terry.bowman@amd.com>,
+	Dan Williams <djbw@kernel.org>,
+	linux-acpi@vger.kernel.org,
+	linux-edac@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-pci@vger.kernel.org,
+	acpica-devel@lists.linux.dev
+Subject: [PATCH v1 13/19] ACPI: APEI: Share helpers with the common CPER reporter
+Date: Tue, 17 Nov 2026 12:10:23 +0100
+Message-ID: <20261117111444.4185512-14-pierre.gondois@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261117111444.4185512-1-pierre.gondois@arm.com>
+References: <20261117111444.4185512-1-pierre.gondois@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,269 +95,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:qwCowABHcfs7OPxq1lQrAQ--.668S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3XFWfXrWxur4kGr1fWFW7Jwb_yoWxKw15pr
-	ykJFyUKrWrXry8JryUtw1Dta43tr47t347Xr1UJF1UXr1Dtr1qgF18XrnF9F1kXr48G3Wx
-	Jw17AF9rZr18AF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
-	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
-	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
-	1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
-	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
-	wI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
-	v20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
-	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
-	ZFpf9x07betCcUUUUU=
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Transfer-Encoding: 8bit
 
-=E5=9C=A8 2026-11-17=E4=BA=8C=E7=9A=84 08:39 +0100=EF=BC=8CThomas Zimmerman=
-n=E5=86=99=E9=81=93=EF=BC=9A
-> Hi
->=20
-> Am 17.11.26 um 08:34 schrieb Icenowy Zheng:
-> > =E5=9C=A8 2026-11-17=E4=BA=8C=E7=9A=84 08:25 +0100=EF=BC=8CThomas Zimme=
-rmann=E5=86=99=E9=81=93=EF=BC=9A
-> > > Hi
-> > >=20
-> > > Am 17.11.26 um 06:19 schrieb Icenowy Zheng:
-> > > [...]
-> > > > > > Sure, but is that a problem for this hardware?
-> > > > > For the cursor plane, the unchecked coordinate might be
-> > > > > improper
-> > > > > for
-> > > > > the registers.
-> > > > >=20
-> > > > > For the primary plane, if the plane is found to be totally
-> > > > > off by
-> > > > > drm_atomic_helper_check_plane_state(), the check for
-> > > > > can_position,
-> > > > > which is below the code snippet I referenced, would be
-> > > > > bypassed,
-> > > > > and
-> > > > > such plane would be programmed to be visible by the
-> > > > > atomic_update
-> > > > > hook
-> > > > > even if it shouldn't be visible.
-> > > > Well I am now thinking that bound-but-invisible situation is
-> > > > commonly
-> > > > ignored by drivers.
-> > > >=20
-> > > > For drm/verisilicon, maybe I'd remove both atomic_disable and
-> > > > atomic_enable; however I think the atomic helpers may need some
-> > > > flag to
-> > > > consider bound-but-invisible planes when calling
-> > > > atomic_{dis,en}able.
-> > > I don't think I really understand what you're up to, but it seems
-> > > you're
-> > > overthinking the whole thing. Other drivers only care about plane
-> > > on/off
-> > Well I don't know whether I am overthinking...
-> >=20
-> > Enabled but invisible planes are explicitly allowed in
-> > drm_atomic_helper_check_plane_state(), and even the can_position
-> > check
-> > is bypassed in such case (so such a configuration can even appear
-> > on
-> > primary planes). In addition, in most implementations for
-> > atomic_check,
-> > the invisible situations have the validity check explicitly
-> > skipped, so
-> > just disallow enabled-but-invisible planes in atomic_check would
-> > make
-> > the behavior quite different with most drivers.
-> >=20
-> > Maybe I should craft some "evil" programs to check for this
-> > situation.
->=20
-> If you can make an igt test case for broken plane coordinates, go for
-> it.
+Prepare a following patch by renaming/exporting some ghes internal
+functions to extlog.c. Namely:
+- Rename ghes_mem_err_min_len() to acpi_extlog_mem_err_min_len()
+- cxl_cper_post_event() ghes_severity() are not static anymore.
 
-It seems that all plane tests in i-g-t require pipe crc support, which
-I didn't find on verisilicon hardwares.
+No functional change intended.
 
-Maybe I'd do the test with some modification on modetest and then
-eyeball.
+Signed-off-by: Pierre Gondois <pierre.gondois@arm.com>
+---
+ drivers/acpi/apei/apei-internal.h |  5 +++++
+ drivers/acpi/apei/extlog.c        | 22 ++++++++++++++++++++++
+ drivers/acpi/apei/ghes.c          | 31 ++++---------------------------
+ 3 files changed, 31 insertions(+), 27 deletions(-)
 
-Thanks,
-Icenowy
-
->=20
-> Best regards
-> Thomas
->=20
-> >=20
-> > Thanks,
-> > Icenowy
-> >=20
-> > > and the contained image. That's also what the 3 callbacks are
-> > > for. It
-> > > usually works nicely. Hence me asking. But maybe verisilicon is
-> > > different, IDK.
-> > >=20
-> > > My suggestion is therefore to remove _enable and _disable and
-> > > keep
-> > > all
-> > > logic in _update.
-> > >=20
-> > > atomic_update()
-> > > {
-> > > =C2=A0=C2=A0=C2=A0 =C2=A0 if (plane_state->visible) {
-> > > =C2=A0=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 // do update
-> > > =C2=A0=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 // enable hw plane
-> > > =C2=A0=C2=A0=C2=A0 =C2=A0 } else {
-> > > =C2=A0=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 // disable hw plane
-> > > =C2=A0=C2=A0=C2=A0 =C2=A0 }
-> > > }
-> > >=20
-> > > If you have any special cases where you want visible to be false
-> > > (or
-> > > true), detect them in atomic_check and set the flags accordingly.
-> > >=20
-> > > atomic_check()
-> > > {
-> > > drm_atomic_helper_check_plane_state() =C2=A0 =C2=A0 if (awkward coord=
-s)
-> > > =C2=A0=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0plane_state->visible =
-=3D false;
-> > > }
-> > >=20
-> > > Best regards
-> > > Thomas
-> > >=20
-> > > > Thanks,
-> > > > Icenowy
-> > > >=20
-> > > > > Thanks,
-> > > > > Icenowy
-> > > > >=20
-> > > > > > Best regards
-> > > > > > Thomas
-> > > > > >=20
-> > > > > > > The end of drm_atomic_helper_check_plane_state() says:
-> > > > > > >=20
-> > > > > > > ```
-> > > > > > > 	if (!plane_state->visible)
-> > > > > > > 		/*
-> > > > > > > 		 * Plane isn't visible; some drivers can
-> > > > > > > handle
-> > > > > > > this
-> > > > > > > 		 * so we just return success here.=C2=A0
-> > > > > > > Drivers
-> > > > > > > that
-> > > > > > > can't
-> > > > > > > 		 * (including those that use the primary
-> > > > > > > plane
-> > > > > > > helper's
-> > > > > > > 		 * update function) will return an error
-> > > > > > > from
-> > > > > > > their
-> > > > > > > 		 * update_plane handler.
-> > > > > > > 		 */
-> > > > > > > 		return 0;
-> > > > > > > ```
-> > > > > > >=20
-> > > > > > > Thanks,
-> > > > > > > Icenowy
-> > > > > > >=20
-> > > > > > > > [1]
-> > > > > > > > https://elixir.bootlin.com/linux/v7.3.1/source/drivers/gpu/=
-drm/drm_atomic_helper.c#L3030
-> > > > > > > >=20
-> > > > > > > > Best regards
-> > > > > > > > Thomas
-> > > > > > > >=20
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 };
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=20
-> > > > > > > > > diff --git
-> > > > > > > > > a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > > > > > > > > b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > > > > > > > > index 8e94491693019..fca692f4f7d5c 100644
-> > > > > > > > > --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > > > > > > > > +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > > > > > > > > @@ -59,25 +59,6 @@ static void
-> > > > > > > > > vs_primary_plane_commit(struct
-> > > > > > > > > vs_dc
-> > > > > > > > > *dc, unsigned int output)
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0			VSDC_FB_CONFIG_EX_COMMIT=
-);
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 }
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=20
-> > > > > > > > > -static void vs_primary_plane_atomic_enable(struct
-> > > > > > > > > drm_plane
-> > > > > > > > > *plane,
-> > > > > > > > > -					=C2=A0=C2=A0 struct
-> > > > > > > > > drm_atomic_commit *atomic_state)
-> > > > > > > > > -{
-> > > > > > > > > -	struct drm_plane_state *state =3D
-> > > > > > > > > drm_atomic_get_new_plane_state(atomic_state,
-> > > > > > > > > -
-> > > > > > > > > 					=09
-> > > > > > > > > =09
-> > > > > > > > > 	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 plane);
-> > > > > > > > > -	struct drm_crtc *crtc =3D state->crtc;
-> > > > > > > > > -	struct vs_crtc *vcrtc =3D
-> > > > > > > > > drm_crtc_to_vs_crtc(crtc);
-> > > > > > > > > -	unsigned int output =3D vcrtc->id;
-> > > > > > > > > -	struct vs_dc *dc =3D vcrtc->dc;
-> > > > > > > > > -
-> > > > > > > > > -	regmap_set_bits(dc->regs,
-> > > > > > > > > VSDC_FB_CONFIG_EX(output),
-> > > > > > > > > -			VSDC_FB_CONFIG_EX_FB_EN);
-> > > > > > > > > -	regmap_update_bits(dc->regs,
-> > > > > > > > > VSDC_FB_CONFIG_EX(output),
-> > > > > > > > > -		=09
-> > > > > > > > > VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
-> > > > > > > > > -		=09
-> > > > > > > > > VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
-> > > > > > > > > -
-> > > > > > > > > -	vs_primary_plane_commit(dc, output);
-> > > > > > > > > -}
-> > > > > > > > > -
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 static void
-> > > > > > > > > vs_primary_plane_atomic_disable(struct
-> > > > > > > > > drm_plane
-> > > > > > > > > *plane,
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0					=C2=A0=C2=A0=C2=A0 str=
-uct
-> > > > > > > > > drm_atomic_commit *atomic_state)
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 {
-> > > > > > > > > @@ -144,13 +125,18 @@ static void
-> > > > > > > > > vs_primary_plane_atomic_update(struct drm_plane
-> > > > > > > > > *plane,
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0	regmap_write(dc->regs,
-> > > > > > > > > VSDC_FB_BLEND_CONFIG(output),
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0	=09
-> > > > > > > > > VSDC_FB_BLEND_CONFIG_BLEND_DISABLE);
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=20
-> > > > > > > > > +	regmap_set_bits(dc->regs,
-> > > > > > > > > VSDC_FB_CONFIG_EX(output),
-> > > > > > > > > +			VSDC_FB_CONFIG_EX_FB_EN);
-> > > > > > > > > +	regmap_update_bits(dc->regs,
-> > > > > > > > > VSDC_FB_CONFIG_EX(output),
-> > > > > > > > > +		=09
-> > > > > > > > > VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
-> > > > > > > > > +		=09
-> > > > > > > > > VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
-> > > > > > > > > +
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0	vs_primary_plane_commit(dc=
-, output);
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 }
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=20
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 static const struct drm_plane_he=
-lper_funcs
-> > > > > > > > > vs_primary_plane_helper_funcs =3D {
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0	.atomic_check	=3D
-> > > > > > > > > vs_primary_plane_atomic_check,
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0	.atomic_update	=3D
-> > > > > > > > > vs_primary_plane_atomic_update,
-> > > > > > > > > -	.atomic_enable	=3D
-> > > > > > > > > vs_primary_plane_atomic_enable,
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0	.atomic_disable	=3D
-> > > > > > > > > vs_primary_plane_atomic_disable,
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 };
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=20
+diff --git a/drivers/acpi/apei/apei-internal.h b/drivers/acpi/apei/apei-internal.h
+index a7c70adf91478..f7f0ab8e5ed7f 100644
+--- a/drivers/acpi/apei/apei-internal.h
++++ b/drivers/acpi/apei/apei-internal.h
+@@ -8,7 +8,12 @@
+ #define APEI_INTERNAL_H
+ 
+ #include <linux/acpi.h>
++#include <cxl/event.h>
+ 
++int ghes_severity(int severity);
++void cxl_cper_post_event(enum cxl_event_type event_type,
++			 struct cxl_cper_event_rec *rec, u32 len);
++u32 acpi_extlog_mem_err_min_len(u64 validation_bits);
+ void acpi_extlog_report(const struct acpi_hest_generic_status *estatus);
+ 
+ struct apei_exec_context;
+diff --git a/drivers/acpi/apei/extlog.c b/drivers/acpi/apei/extlog.c
+index 8eef33a4326a7..8d9b91a764902 100644
+--- a/drivers/acpi/apei/extlog.c
++++ b/drivers/acpi/apei/extlog.c
+@@ -55,6 +55,28 @@ static void extlog_print_pcie(struct acpi_hest_generic_data *gdata)
+ #endif
+ }
+ 
++/*
++ * The fields from "extended" on are absent from the 73-byte UEFI 2.1/2.2
++ * layout that older firmware still emits. Return the length needed for the
++ * fields the validation bits claim, so over-claiming is rejected without
++ * rejecting an honest short record.
++ */
++u32 acpi_extlog_mem_err_min_len(u64 validation_bits)
++{
++	u32 len = sizeof(struct cper_sec_mem_err_old);
++
++	if (validation_bits & (CPER_MEM_VALID_ROW_EXT | CPER_MEM_VALID_CHIP_ID))
++		len = offsetof(struct cper_sec_mem_err, rank);
++	if (validation_bits & CPER_MEM_VALID_RANK_NUMBER)
++		len = offsetof(struct cper_sec_mem_err, mem_array_handle);
++	if (validation_bits & CPER_MEM_VALID_CARD_HANDLE)
++		len = offsetof(struct cper_sec_mem_err, mem_dev_handle);
++	if (validation_bits & CPER_MEM_VALID_MODULE_HANDLE)
++		len = sizeof(struct cper_sec_mem_err);
++
++	return len;
++}
++
+ /**
+  * acpi_extlog_mem_error - trace a validated CPER memory section
+  * @gdata: section header followed by its payload
+diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
+index 49d40af791bbb..b51b621208ed1 100644
+--- a/drivers/acpi/apei/ghes.c
++++ b/drivers/acpi/apei/ghes.c
+@@ -52,7 +52,6 @@
+ #include <acpi/apei.h>
+ #include <asm/fixmap.h>
+ #include <asm/tlbflush.h>
+-#include <cxl/event.h>
+ #include <ras/ras_event.h>
+ 
+ #include "apei-internal.h"
+@@ -308,7 +307,7 @@ static void ghes_fini(struct ghes *ghes)
+ 		unmap_gen_v2(ghes);
+ }
+ 
+-static inline int ghes_severity(int severity)
++int ghes_severity(int severity)
+ {
+ 	switch (severity) {
+ 	case CPER_SEV_INFORMATIONAL:
+@@ -824,8 +823,8 @@ DEFINE_KFIFO(cxl_cper_fifo, struct cxl_cper_work_data, CXL_CPER_FIFO_DEPTH);
+ static DEFINE_RAW_SPINLOCK(cxl_cper_work_lock);
+ struct work_struct *cxl_cper_work;
+ 
+-static void cxl_cper_post_event(enum cxl_event_type event_type,
+-				struct cxl_cper_event_rec *rec, u32 len)
++void cxl_cper_post_event(enum cxl_event_type event_type,
++			 struct cxl_cper_event_rec *rec, u32 len)
+ {
+ 	struct cxl_cper_work_data wd;
+ 
+@@ -931,28 +930,6 @@ static void ghes_log_hwerr(int sev, guid_t *sec_type)
+ 	hwerr_log_error_type(HWERR_RECOV_OTHERS);
+ }
+ 
+-/*
+- * The fields from "extended" on are absent from the 73-byte UEFI 2.1/2.2
+- * layout that older firmware still emits. Return the length needed for the
+- * fields the validation bits claim, so over-claiming is rejected without
+- * rejecting an honest short record.
+- */
+-static u32 ghes_mem_err_min_len(u64 validation_bits)
+-{
+-	u32 len = sizeof(struct cper_sec_mem_err_old);
+-
+-	if (validation_bits & (CPER_MEM_VALID_ROW_EXT | CPER_MEM_VALID_CHIP_ID))
+-		len = offsetof(struct cper_sec_mem_err, rank);
+-	if (validation_bits & CPER_MEM_VALID_RANK_NUMBER)
+-		len = offsetof(struct cper_sec_mem_err, mem_array_handle);
+-	if (validation_bits & CPER_MEM_VALID_CARD_HANDLE)
+-		len = offsetof(struct cper_sec_mem_err, mem_dev_handle);
+-	if (validation_bits & CPER_MEM_VALID_MODULE_HANDLE)
+-		len = sizeof(struct cper_sec_mem_err);
+-
+-	return len;
+-}
+-
+ static void ghes_do_proc(struct ghes *ghes,
+ 			 const struct acpi_hest_generic_status *estatus)
+ {
+@@ -994,7 +971,7 @@ static void ghes_do_proc(struct ghes *ghes,
+ 
+ 			/* Then require what the claimed fields actually need. */
+ 			if (gdata->error_data_length <
+-			    ghes_mem_err_min_len(mem_err->validation_bits)) {
++			    acpi_extlog_mem_err_min_len(mem_err->validation_bits)) {
+ 				pr_warn_ratelimited(FW_WARN GHES_PFX
+ 						    "memory error section too small (%u) for the fields it claims\n",
+ 						    gdata->error_data_length);
+-- 
+2.43.0
 
