@@ -1,75 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.213
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794908760;
-	b=HftyB8r3weuwl+EgSQ/hK6TC4i8NtVHZK/k+OzZSwBQlYW7dEmQO4q4EzeD8hNZdgcfV
-	 pBXRPg5sVy6JZot7MqaRT3JhiuUTYbqHC1KXevKsIHzMf/bqagHVm2Jg39pyDjcr0aUYJ
-	 soWb+/G5jFQA0cg23EU229jC091e7I/j2sGz8qepdwDvPkSl5Fjk58V9drsCr0Pptulef
-	 Ga/QppCyf9OHmIb6OeKqLup0KXP3PDfsv45h6tbAg17EtwTlHZOwHiaGeL7U+PltUUytM
-	 OlSDNymE7JcDGeV54mp35x2ejFeUJtfy0zAtXRTtvocN/W3fo4BVfqUYyo513T46yew==
+	t=1794908765;
+	b=gyeQz5DpKeXarkZHOIlkzun4Lk0GtrSxyQfQo/HsiyFkpQAcJa4TEPKr1GZYBu2xfWDw
+	 +ihJ45KlJz980nSf5nPRCEtnK8gvXrLiaNjq9O/DqTTXWtj/FM2C+Bbet2av0yGejA12L
+	 JnJuPRu5M5EZeImtZrolvTTJMs9hlCaJZkCMmBcw3t9xUPSfl0H42ZfQ8faNQNk3t/Ty2
+	 9b5Ts3hr0yWCeyu3bv8Vg/gygQ+gijMA5tz6EqoFnL08XTdo9EIjpI8Tp/r9egwZM/KwD
+	 VIC9+XF6l7vG6g3r4J53WXvWYTWU63jDFA7y9euUfG0p0ASXXr0L4m+fQtSMbhNcI8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908760;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=AQAqYl2tn6009DL8HqBJOMfPKmQERaYIFx8LZttnag8=;
-	b=xJ8uUul2YZ1t8M3tamvHAA1pGT+2gp1yxNHXiZBWIoGcEB7Fg0rQwU09sjkGWS2N+cCf
-	 IQy0D5QoTnw1CtFWkzF10KwPdTZeuCT2MqhURQVzzpPFS9bKS/KIgOdWwbe7Kla5jrYFj
-	 vU7rdKcBPD5Dinh9xiJWLHZPQ6uq3sbfJkrCfGdQStB5HlhV77x/7Byb6xwZGxvi1eGNC
-	 evJTPqis7bnqfsaEfY+ks39LdMNM6kyO3bN5r5yPXx4hzYmOjZfbHLrLcZa36+Sz7acut
-	 0ZNnYNFPBJbGVKp/pmX9t5xcnUbtTJbf8WwCyU23Hx/B+ouIlImytGKy33atVhwsliQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908765;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-Originating-IP:X-CM-SenderInfo;
+	bh=hDf0mhHNCCxUznWDBQ9HeMybgv0XHsXOZ6MyJPAO+Iw=;
+	b=mJUG8sv6eq4eZGgQ65OsNpb145IaggKVkJnCmNAxAJS0U3mHazxVkpNMuRiImd5NM94X
+	 inZ4SSgH48laAv0AgTV0K7sZPw/YTXWO5pxfND0CpAmHz6zIrh4gVOkRmk2ee6Xu0DQIg
+	 VnmnL9Ksjf2Qswxp3o2XKmI7enWTsXzN2X530tuPofu4vDP7Hy6/mzi09ONedOuuX/mQ2
+	 jhSO+cEPVGKGjC639aRDDjw6sQpP5M+feLYDfHEEAidGXAtKej5d8NYvEuRJ2ITJaea/u
+	 l8D31ZM20fg0ktoK2HFWQxoQHUZZlmu2K6WRGcjSGDG+tw9QWiWlTcHnQCY/DOG5txA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=sK++JJdW;
-	arc=none smtp.remote-ip=95.215.58.213
-Received: from mta1.migadu.com (out-213.mta1.migadu.com [95.215.58.213])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=fvL5dE1X;
+	arc=none smtp.remote-ip=117.135.210.5
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC4AF606A32F
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:45:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC4AF606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9599F606A31C;
+	Tue, 17 Nov 2026 09:46:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9599F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=sK++JJdW
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=eNKitI6OumQU1ILYmuf2OVKQGpBdNX+qex8fxTVDt9Y=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794908758; v=1; x=1795513558;
- b=sK++JJdWVLVl0CCpvK0ISou9FM6hepE/mJvPI1cJ0sZhOfrLeOEwH7mqYVDW1w4oevDhrxNe
- E31HXe1kSDO5PtBNsO6aW1okDo/009j7UnzjMM6wT1D+u3+m0MUTtph+ZIFLDZuHLJToIbvgtzT
- lDtVeq/ezpYzoBFYU9cmRV4I=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id dac5996b5fb42819;
-	Tue, 17 Nov 2026 09:45:57 +0000
-X-Mizu-Trace-ID: dac5996b5fb42819
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: bpf@vger.kernel.org,
-	ast@kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Shuah Khan <shuah@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Michal Luczaj <mhal@rbox.co>,
-	Sechang Lim <rhkrqnwk98@gmail.com>,
-	linux-kselftest@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=fvL5dE1X
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=hD
+	f0mhHNCCxUznWDBQ9HeMybgv0XHsXOZ6MyJPAO+Iw=; b=fvL5dE1X7Cnq4xXpXX
+	iVrA371ZystQMd2CC8ydQvM5vUFd19qXZuC9AK2d47U/mZL9Aio/wYPiPO92G668
+	BrWjOYsZVWCBOf+AJK0vY2o/+Av3XgdsRsUbnKlZ3GrutV6SytaWrJAB5fAi3mTi
+	b9in4FCETbMR4JHrSUuwKUgN0=
+Received: from SYPC (unknown [])
+	by gzsmtp4 (Coremail) with SMTP id PygvCgBXg4tOIvxqd+vlGQ--.29451S2;
+	Tue, 17 Nov 2026 17:45:51 +0800 (CST)
+From: Yang Siyuan <hsyysy@163.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH bpf v1] selftests/bpf: Fix CO-RE relocation of anonymous unions for bpf-gcc
-Date: Tue, 17 Nov 2026 17:45:38 +0800
-Message-ID: <20261117094544.148437-1-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH v2] usb: phy: generic: request the vbus supply only when it is described
+Date: Tue, 17 Nov 2026 17:45:39 +0800
+Message-ID: <20261117094539.13527-1-hsyysy@163.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261117091956.12103-1-hsyysy@163.com>
+References: <20261117091956.12103-1-hsyysy@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,60 +63,58 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PygvCgBXg4tOIvxqd+vlGQ--.29451S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7WF4DAw1xuF4fuF48tF13Arb_yoW8CrW3pF
+	48GFs0kr1DtF4xZws5Gr4ft3WruF4fJrZFkr4xGwn5W3WDWa43u3srGa4rZFZxur4kX34Y
+	y34DJFyxCF1fu3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Uq9aPUUUUU=
+X-CM-SenderInfo: 5kv152r16rljoofrz/xtbC7Q91qWr8Ik+WjQAA3e
 
-bpf-gcc fails to load test_trace_iter_unix:
+usb_phy_gen_create_phy() unconditionally asks for an exclusive "vbus"
+regulator. The legacy usb_phy_generic platform device registered by USB
+glue drivers (e.g. sunxi MUSB) has no firmware node, so the lookup ends
+up in the dummy-regulator path and the regulator core warns:
 
-  Error: #766/6 verifier_sockmap_mutate/test_trace_iter_unix
-  libbpf: elf: skipping section(3) .data (size 0)
-  libbpf: elf: skipping unrecognized data section(18) .comment
-  run_subtest:PASS:obj_open_mem 0 nsec
-  libbpf: prog 'test_trace_iter_unix': relo #0: insn #0 (LDX/ST/STX) accesses field incorrectly. ...
-  libbpf: prog 'test_trace_iter_unix': BPF program load failed: -EINVAL
-  libbpf: prog 'test_trace_iter_unix': failed to load: -EINVAL
-  libbpf: failed to load object 'verifier_sockmap_mutate'
-  run_subtest:PASS:unexpected_load_success 0 nsec
-  validate_msgs:FAIL:1014 expect_msg
-  VERIFIER LOG:
-  =============
-  0: R1=ctx() R10=fp0
-  ;  @ verifier_sockmap_mutate.c:124
-  0: <invalid CO-RE relocation>
-  failed to resolve CO-RE relocation <byte_off> [4] struct bpf_iter__unix (0:0 @ offset 0)
-  processed 1 insns (limit 1000000) max_states_per_insn 0 total_states 0 peak_states 0 mark_read 0
-  =============
-  EXPECTED   SUBSTR: 'cannot update sockmap in this context'
+  usb_phy_generic usb_phy_generic.1.auto: dummy supplies not allowed for
+  exclusive requests (id=vbus)
 
-GCC only applies preserve_access_index to types that carry the attribute
-themselves. The anonymous union holding the sock pointer doesn't, so the
-CO-RE access stops at the union ("0:0") instead of reaching the pointer
-("0:0:0"), and libbpf rejects the relocation. Mark the unions too.
+Only issue the request when the device firmware actually describes a
+vbus-supply, and keep treating -ENODEV as "not present".
 
-Fixes: e16c83fa764f ("selftests/bpf: Add negative test for sockmap update from non-sockmap iter")
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Fixes: 03e607cbb293 ("usb: phy: generic: Get the vbus supply")
+
+Signed-off-by: Yang Siyuan <hsyysy@163.com>
 ---
- tools/testing/selftests/bpf/progs/verifier_sockmap_mutate.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Changes in v2:
+- Add the Fixes tag suggested by Sashiko.
 
-diff --git a/tools/testing/selftests/bpf/progs/verifier_sockmap_mutate.c b/tools/testing/selftests/bpf/progs/verifier_sockmap_mutate.c
-index 1516fe1524bb..68b1a5323470 100644
---- a/tools/testing/selftests/bpf/progs/verifier_sockmap_mutate.c
-+++ b/tools/testing/selftests/bpf/progs/verifier_sockmap_mutate.c
-@@ -16,13 +16,13 @@ struct sock {
- struct bpf_iter__sockmap {
- 	union {
- 		struct sock *sk;
--	};
-+	} __attribute__((preserve_access_index));
- } __attribute__((preserve_access_index));
+ drivers/usb/phy/phy-generic.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/usb/phy/phy-generic.c b/drivers/usb/phy/phy-generic.c
+index de26b3023..24b7ba536 100644
+--- a/drivers/usb/phy/phy-generic.c
++++ b/drivers/usb/phy/phy-generic.c
+@@ -238,7 +238,17 @@ int usb_phy_gen_create_phy(struct device *dev, struct usb_phy_generic *nop)
+ 		return dev_err_probe(dev, PTR_ERR(nop->vcc),
+ 				     "could not get vcc regulator\n");
  
- struct bpf_iter__unix {
- 	union {
- 		struct sock *unix_sk;
--	};
-+	} __attribute__((preserve_access_index));
- } __attribute__((preserve_access_index));
- 
- struct {
+-	nop->vbus_draw = devm_regulator_get_exclusive(dev, "vbus");
++	/*
++	 * vbus is an optional supply that only exists when the firmware
++	 * describes it. The legacy usb_phy_generic devices registered by USB
++	 * glue drivers have no firmware node, and requesting an exclusive
++	 * dummy supply only makes the regulator core warn.
++	 */
++	if (device_property_present(dev, "vbus-supply"))
++		nop->vbus_draw = devm_regulator_get_exclusive(dev, "vbus");
++	else
++		nop->vbus_draw = NULL;
++
+ 	if (PTR_ERR(nop->vbus_draw) == -ENODEV)
+ 		nop->vbus_draw = NULL;
+ 	if (IS_ERR(nop->vbus_draw))
+base-commit: 091b06388b117fefdcb63336ac09956a4914b961
 -- 
-2.43.0
+2.56.0
 
