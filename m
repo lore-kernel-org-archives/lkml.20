@@ -1,62 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.226.149.38
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794914382;
-	b=IIL1U+nllZyXfiX7z7UfHlYXaxu0hwhQEozQZqeeBYCmx1Y6navNnMuOpU0zC57wnjg5
-	 eJ2O7dxo4fxsu/EPQNl5zPEfiBGc0nwY52Do5StNQoFOLCjDb7M1CaS9Atzdauqdjx45L
-	 nCvm09l9I0gW2vxmhxZXRUp+yI9+oP9S/WkA5I5GpGU8nvZO/XtAfdKOVqrfBnLAxbMVO
-	 tpt1u82uGTQVbIumWOfC/5TNDzXSPgzG1RKMAEpjp2LNQHgz58ViVepnogpz7r6Fb+8II
-	 zCC8s+YQcS68wID8+M76yhFlZpwEgJNEq0Ra0oHEdCyBeIzAMhuGn7DqULNxYKuMJJQ==
+	t=1794914385;
+	b=uAgjYChzbHPDJ0HOWmjhPEIs/mOIpa1Gota1ONooGEKNzE/tGCh8so8KfB3crV5cLsLb
+	 vqXfD/Yak0atoH5NUR+qGBPKnsc1dZwspNlzpEB53sMaoo63vtzZzLgrrcbTBGuZNJ1vQ
+	 krtQIX8TRG/k/GxB138Ji/8avP9KX6PCQoM9e+l70EaBkC6OqNNN93BwxDBQh/wspomBs
+	 qr5pjFZLzRD6phxSRnic1Cf6es7xr6BWh43+CpqhO7T71ZwynrnjYP+Fsuyi9qiRYLo4e
+	 8rBTC9VurE3GmWcGuTqaJPDSWxvvaLw6ovGcsfFkKQfHCbrpv2aNOCM2v7ijLavNAZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794914382;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=mCqQJNmMZFkW4nsQs73NYaQkmKbHvRdPsyNWIbbsPg4=;
-	b=a3i7VYBjNe4A/uREAAPt2BLx17fJz6bje8zvNCe/B5utKxs6KcrTGJZi2++znh6BSh44
-	 tmC1Ds05P09lPTXOrxA/VSRhd/3zZHUvXcZATnQVx+pOHM/HdUEUSo5x9qUITbpxJgsrM
-	 n1uFb7nOiHDgv2vWAZ1/3Jir4LScXn2eyvjdgjuqxCSfLkJto5dDkJ/65v/XWpLpwibOO
-	 JiT4U4N2SYa37t34JdUXzViz9IUEpPsSzvuOd0zFiqO8tYgmUKjEkufzRGeE5Xoh3oZiQ
-	 g/SilyLS+EvLTDfWeYFxHWUgjd2GVNEQQ0kR/k0z73lrsckias8cl0Ix7VsYpYD8Usg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794914385;
+	h=DMARC-Filter:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
+	 MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
+	 X-CM-SenderInfo;
+	bh=7bMf3/mfwhleSFsHjm9lpm43DnA/cE2DyYKTOUyvJM8=;
+	b=omuNyDpbKc67+5CKoNRusvxA5ictaEuJVD3iT/h89lxg8CxTFx4Bt6ucN7tTbQ1Eene8
+	 AvlMTNC8Wh4zDr5tCEfB3SWORgNOJjkqeidO0iYY8gFaRPm+nkC7YPZIxBlOkQ5nKM8ZQ
+	 HBKocBB1WsSYzN+aArZCpedMmKlfr+fE6qPzYLdFqUMi1Z1OccG21NhWAGeU8iAj0KJhA
+	 MopNbovmapWYkiZM1wTQ+etbdqWWRdFcTvpooX3/gtiCVKhmPAyVsf3BpERfIUF/XsVV2
+	 qrG+1ipg+w+bYKRBm/BCp0IKwl36pPYgvCJhUtA2OoL/OB+/w8Mp7oo3Kwe8RsjbCSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rbox.co;
-	spf=pass smtp.mailfrom=rbox.co;
-	dkim=pass header.d=rbox.co header.i=@rbox.co header.a=rsa-sha256 header.s=selector1 header.b=YwN54L1u;
-	arc=none smtp.remote-ip=185.226.149.38
-Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com [185.226.149.38])
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.21
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF353606A338;
-	Tue, 17 Nov 2026 11:19:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF353606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rbox.co
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rbox.co header.i=@rbox.co header.a=rsa-sha256 header.s=selector1 header.b=YwN54L1u
-Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
-	by mailtransmit05.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.93)
-	(envelope-from <mhal@rbox.co>)
-	id 1xTHDg-002SPH-UO; Tue, 17 Nov 2026 12:19:24 +0100
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=rbox.co;
-	s=selector1; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:
-	Cc:To:Subject:From:MIME-Version:Date:Message-ID;
-	bh=mCqQJNmMZFkW4nsQs73NYaQkmKbHvRdPsyNWIbbsPg4=; b=YwN54L1ugDlTG8RBWa3bJUSY68
-	H76uVsuzvE+yfOftKmOscSXjzujPuebjux1NtdewBSNifWpcmZFjV4PzIoi3KAJdlVRqIxKYAKBZy
-	MPxZYd99+2IzggQVHr1pZ9JuDuY62WXHCNlIx75BNIT4d2AZ6T0C68gPZ5paqvah3Mc2zuiMBO2Tb
-	x8nMn9bcpvYBzsNIC7hJLogPypTtCbnI8WGg98kAqTDBc33YCVSVH0HeaDa4l652Y03fnSAPpfAMQ
-	O+l4sgayeBr0Siz4sTSGR8T4+pcyMqWSoYeMnvtiFni/pNdlzR110ptB/cv/R4uJH4hZQmUlzRwBu
-	I5OY/Z1g==;
-Received: from [10.9.9.73] (helo=submission02.runbox)
-	by mailtransmit02.runbox with esmtp (Exim 4.86_2)
-	(envelope-from <mhal@rbox.co>)
-	id 1xTHDa-0005zW-L6; Tue, 17 Nov 2026 12:19:18 +0100
-Received: by submission02.runbox with esmtpsa  [Authenticated ID (604044)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.95)
-	id 1xTHDZ-005o4G-AZ;
-	Tue, 17 Nov 2026 12:19:17 +0100
-Message-ID: <5efc22be-a517-4587-8e43-609bc876b54f@rbox.co>
-Date: Tue, 17 Nov 2026 12:19:15 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 476DA606A887
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:19:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 476DA606A887
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.23])
+	by APP-01 (Coremail) with SMTP id qwCowABHcfs7OPxq1lQrAQ--.668S2;
+	Tue, 17 Nov 2026 19:19:24 +0800 (CST)
+Message-ID: <22329b456927eb2dc37c2fa2503761dcf0923d9e.camel@iscas.ac.cn>
+Subject: Re: [PATCH v2 2/4] drm/verisilicon: nuke planes' atomic_enable hooks
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Thomas Zimmermann <tzimmermann@suse.de>, Maarten Lankhorst
+	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Joey Lu
+ <a0987203069@gmail.com>, Han Gao <gaohan@iscas.ac.cn>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Tue, 17 Nov 2026 19:19:23 +0800
+In-Reply-To: <4404265c-ae14-4d17-82ad-46ed6c123c6b@suse.de>
+References: <20261102075710.1286456-1-zhengxingda@iscas.ac.cn>
+	 <20261102075710.1286456-3-zhengxingda@iscas.ac.cn>
+	 <8e3b36c6-e2d8-4746-aefe-462bba1a4b05@suse.de>
+	 <5830251f1420c152b2efc2ee37248057bdfc901d.camel@iscas.ac.cn>
+	 <55991183-ab5f-4445-afce-37a79310ef27@suse.de>
+	 <83aa9fb5be26fb407c7f1393bc01099d374cf51f.camel@iscas.ac.cn>
+	 <7e4b4fd185f47404bb5f18e7c2c8086d24e673f4.camel@iscas.ac.cn>
+	 <a96e7813-6918-44f5-82e2-ca40051abea0@suse.de>
+	 <73f4e371c37c36581240ff355fef3de2afaaa033.camel@iscas.ac.cn>
+	 <4404265c-ae14-4d17-82ad-46ed6c123c6b@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,100 +67,269 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Michal Luczaj <mhal@rbox.co>
-Subject: Re: [PATCH bpf v1] selftests/bpf: Fix CO-RE relocation of anonymous
- unions for bpf-gcc
-To: Jiayuan Chen <jiayuan.chen@linux.dev>, bpf@vger.kernel.org, ast@kernel.org
-Cc: Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>,
- Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>, Sechang Lim
- <rhkrqnwk98@gmail.com>, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261117094544.148437-1-jiayuan.chen@linux.dev>
-Content-Language: pl-PL, en-GB
-In-Reply-To: <20261117094544.148437-1-jiayuan.chen@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:qwCowABHcfs7OPxq1lQrAQ--.668S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3XFWfXrWxur4kGr1fWFW7Jwb_yoWxKw15pr
+	ykJFyUKrWrXry8JryUtw1Dta43tr47t347Xr1UJF1UXr1Dtr1qgF18XrnF9F1kXr48G3Wx
+	Jw17AF9rZr18AF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
+	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
+	1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+	wI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
+	v20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
+	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
+	ZFpf9x07betCcUUUUU=
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-On 11/17/26 10:45, Jiayuan Chen wrote:
-> bpf-gcc fails to load test_trace_iter_unix:
-> 
->   Error: #766/6 verifier_sockmap_mutate/test_trace_iter_unix
->   libbpf: elf: skipping section(3) .data (size 0)
->   libbpf: elf: skipping unrecognized data section(18) .comment
->   run_subtest:PASS:obj_open_mem 0 nsec
->   libbpf: prog 'test_trace_iter_unix': relo #0: insn #0 (LDX/ST/STX) accesses field incorrectly. ...
->   libbpf: prog 'test_trace_iter_unix': BPF program load failed: -EINVAL
->   libbpf: prog 'test_trace_iter_unix': failed to load: -EINVAL
->   libbpf: failed to load object 'verifier_sockmap_mutate'
->   run_subtest:PASS:unexpected_load_success 0 nsec
->   validate_msgs:FAIL:1014 expect_msg
->   VERIFIER LOG:
->   =============
->   0: R1=ctx() R10=fp0
->   ;  @ verifier_sockmap_mutate.c:124
->   0: <invalid CO-RE relocation>
->   failed to resolve CO-RE relocation <byte_off> [4] struct bpf_iter__unix (0:0 @ offset 0)
->   processed 1 insns (limit 1000000) max_states_per_insn 0 total_states 0 peak_states 0 mark_read 0
->   =============
->   EXPECTED   SUBSTR: 'cannot update sockmap in this context'
-> 
-> GCC only applies preserve_access_index to types that carry the attribute
-> themselves. The anonymous union holding the sock pointer doesn't, so the
-> CO-RE access stops at the union ("0:0") instead of reaching the pointer
-> ("0:0:0"), and libbpf rejects the relocation. Mark the unions too.
-> 
-> Fixes: e16c83fa764f ("selftests/bpf: Add negative test for sockmap update from non-sockmap iter")
-> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-> ---
->  tools/testing/selftests/bpf/progs/verifier_sockmap_mutate.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/bpf/progs/verifier_sockmap_mutate.c b/tools/testing/selftests/bpf/progs/verifier_sockmap_mutate.c
-> index 1516fe1524bb..68b1a5323470 100644
-> --- a/tools/testing/selftests/bpf/progs/verifier_sockmap_mutate.c
-> +++ b/tools/testing/selftests/bpf/progs/verifier_sockmap_mutate.c
-> @@ -16,13 +16,13 @@ struct sock {
->  struct bpf_iter__sockmap {
->  	union {
->  		struct sock *sk;
-> -	};
-> +	} __attribute__((preserve_access_index));
->  } __attribute__((preserve_access_index));
->  
->  struct bpf_iter__unix {
->  	union {
->  		struct sock *unix_sk;
-> -	};
-> +	} __attribute__((preserve_access_index));
->  } __attribute__((preserve_access_index));
->  
->  struct {
+=E5=9C=A8 2026-11-17=E4=BA=8C=E7=9A=84 08:39 +0100=EF=BC=8CThomas Zimmerman=
+n=E5=86=99=E9=81=93=EF=BC=9A
+> Hi
+>=20
+> Am 17.11.26 um 08:34 schrieb Icenowy Zheng:
+> > =E5=9C=A8 2026-11-17=E4=BA=8C=E7=9A=84 08:25 +0100=EF=BC=8CThomas Zimme=
+rmann=E5=86=99=E9=81=93=EF=BC=9A
+> > > Hi
+> > >=20
+> > > Am 17.11.26 um 06:19 schrieb Icenowy Zheng:
+> > > [...]
+> > > > > > Sure, but is that a problem for this hardware?
+> > > > > For the cursor plane, the unchecked coordinate might be
+> > > > > improper
+> > > > > for
+> > > > > the registers.
+> > > > >=20
+> > > > > For the primary plane, if the plane is found to be totally
+> > > > > off by
+> > > > > drm_atomic_helper_check_plane_state(), the check for
+> > > > > can_position,
+> > > > > which is below the code snippet I referenced, would be
+> > > > > bypassed,
+> > > > > and
+> > > > > such plane would be programmed to be visible by the
+> > > > > atomic_update
+> > > > > hook
+> > > > > even if it shouldn't be visible.
+> > > > Well I am now thinking that bound-but-invisible situation is
+> > > > commonly
+> > > > ignored by drivers.
+> > > >=20
+> > > > For drm/verisilicon, maybe I'd remove both atomic_disable and
+> > > > atomic_enable; however I think the atomic helpers may need some
+> > > > flag to
+> > > > consider bound-but-invisible planes when calling
+> > > > atomic_{dis,en}able.
+> > > I don't think I really understand what you're up to, but it seems
+> > > you're
+> > > overthinking the whole thing. Other drivers only care about plane
+> > > on/off
+> > Well I don't know whether I am overthinking...
+> >=20
+> > Enabled but invisible planes are explicitly allowed in
+> > drm_atomic_helper_check_plane_state(), and even the can_position
+> > check
+> > is bypassed in such case (so such a configuration can even appear
+> > on
+> > primary planes). In addition, in most implementations for
+> > atomic_check,
+> > the invisible situations have the validity check explicitly
+> > skipped, so
+> > just disallow enabled-but-invisible planes in atomic_check would
+> > make
+> > the behavior quite different with most drivers.
+> >=20
+> > Maybe I should craft some "evil" programs to check for this
+> > situation.
+>=20
+> If you can make an igt test case for broken plane coordinates, go for
+> it.
 
-What about dropping the unions?
+It seems that all plane tests in i-g-t require pipe crc support, which
+I didn't find on verisilicon hardwares.
 
--struct sock {
--} __attribute__((preserve_access_index));
--
- struct bpf_iter__sockmap {
--       union {
--               struct sock *sk;
--       };
-+       struct sock *sk;
- } __attribute__((preserve_access_index));
+Maybe I'd do the test with some modification on modetest and then
+eyeball.
 
- struct bpf_iter__unix {
--       union {
--               struct sock *unix_sk;
--       };
-+       struct sock *unix_sk;
- } __attribute__((preserve_access_index));
+Thanks,
+Icenowy
 
-Works under clang.
+>=20
+> Best regards
+> Thomas
+>=20
+> >=20
+> > Thanks,
+> > Icenowy
+> >=20
+> > > and the contained image. That's also what the 3 callbacks are
+> > > for. It
+> > > usually works nicely. Hence me asking. But maybe verisilicon is
+> > > different, IDK.
+> > >=20
+> > > My suggestion is therefore to remove _enable and _disable and
+> > > keep
+> > > all
+> > > logic in _update.
+> > >=20
+> > > atomic_update()
+> > > {
+> > > =C2=A0=C2=A0=C2=A0 =C2=A0 if (plane_state->visible) {
+> > > =C2=A0=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 // do update
+> > > =C2=A0=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 // enable hw plane
+> > > =C2=A0=C2=A0=C2=A0 =C2=A0 } else {
+> > > =C2=A0=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 // disable hw plane
+> > > =C2=A0=C2=A0=C2=A0 =C2=A0 }
+> > > }
+> > >=20
+> > > If you have any special cases where you want visible to be false
+> > > (or
+> > > true), detect them in atomic_check and set the flags accordingly.
+> > >=20
+> > > atomic_check()
+> > > {
+> > > drm_atomic_helper_check_plane_state() =C2=A0 =C2=A0 if (awkward coord=
+s)
+> > > =C2=A0=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0plane_state->visible =
+=3D false;
+> > > }
+> > >=20
+> > > Best regards
+> > > Thomas
+> > >=20
+> > > > Thanks,
+> > > > Icenowy
+> > > >=20
+> > > > > Thanks,
+> > > > > Icenowy
+> > > > >=20
+> > > > > > Best regards
+> > > > > > Thomas
+> > > > > >=20
+> > > > > > > The end of drm_atomic_helper_check_plane_state() says:
+> > > > > > >=20
+> > > > > > > ```
+> > > > > > > 	if (!plane_state->visible)
+> > > > > > > 		/*
+> > > > > > > 		 * Plane isn't visible; some drivers can
+> > > > > > > handle
+> > > > > > > this
+> > > > > > > 		 * so we just return success here.=C2=A0
+> > > > > > > Drivers
+> > > > > > > that
+> > > > > > > can't
+> > > > > > > 		 * (including those that use the primary
+> > > > > > > plane
+> > > > > > > helper's
+> > > > > > > 		 * update function) will return an error
+> > > > > > > from
+> > > > > > > their
+> > > > > > > 		 * update_plane handler.
+> > > > > > > 		 */
+> > > > > > > 		return 0;
+> > > > > > > ```
+> > > > > > >=20
+> > > > > > > Thanks,
+> > > > > > > Icenowy
+> > > > > > >=20
+> > > > > > > > [1]
+> > > > > > > > https://elixir.bootlin.com/linux/v7.3.1/source/drivers/gpu/=
+drm/drm_atomic_helper.c#L3030
+> > > > > > > >=20
+> > > > > > > > Best regards
+> > > > > > > > Thomas
+> > > > > > > >=20
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 };
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=20
+> > > > > > > > > diff --git
+> > > > > > > > > a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> > > > > > > > > b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> > > > > > > > > index 8e94491693019..fca692f4f7d5c 100644
+> > > > > > > > > --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> > > > > > > > > +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> > > > > > > > > @@ -59,25 +59,6 @@ static void
+> > > > > > > > > vs_primary_plane_commit(struct
+> > > > > > > > > vs_dc
+> > > > > > > > > *dc, unsigned int output)
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0			VSDC_FB_CONFIG_EX_COMMIT=
+);
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 }
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=20
+> > > > > > > > > -static void vs_primary_plane_atomic_enable(struct
+> > > > > > > > > drm_plane
+> > > > > > > > > *plane,
+> > > > > > > > > -					=C2=A0=C2=A0 struct
+> > > > > > > > > drm_atomic_commit *atomic_state)
+> > > > > > > > > -{
+> > > > > > > > > -	struct drm_plane_state *state =3D
+> > > > > > > > > drm_atomic_get_new_plane_state(atomic_state,
+> > > > > > > > > -
+> > > > > > > > > 					=09
+> > > > > > > > > =09
+> > > > > > > > > 	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 plane);
+> > > > > > > > > -	struct drm_crtc *crtc =3D state->crtc;
+> > > > > > > > > -	struct vs_crtc *vcrtc =3D
+> > > > > > > > > drm_crtc_to_vs_crtc(crtc);
+> > > > > > > > > -	unsigned int output =3D vcrtc->id;
+> > > > > > > > > -	struct vs_dc *dc =3D vcrtc->dc;
+> > > > > > > > > -
+> > > > > > > > > -	regmap_set_bits(dc->regs,
+> > > > > > > > > VSDC_FB_CONFIG_EX(output),
+> > > > > > > > > -			VSDC_FB_CONFIG_EX_FB_EN);
+> > > > > > > > > -	regmap_update_bits(dc->regs,
+> > > > > > > > > VSDC_FB_CONFIG_EX(output),
+> > > > > > > > > -		=09
+> > > > > > > > > VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
+> > > > > > > > > -		=09
+> > > > > > > > > VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
+> > > > > > > > > -
+> > > > > > > > > -	vs_primary_plane_commit(dc, output);
+> > > > > > > > > -}
+> > > > > > > > > -
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 static void
+> > > > > > > > > vs_primary_plane_atomic_disable(struct
+> > > > > > > > > drm_plane
+> > > > > > > > > *plane,
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0					=C2=A0=C2=A0=C2=A0 str=
+uct
+> > > > > > > > > drm_atomic_commit *atomic_state)
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 {
+> > > > > > > > > @@ -144,13 +125,18 @@ static void
+> > > > > > > > > vs_primary_plane_atomic_update(struct drm_plane
+> > > > > > > > > *plane,
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0	regmap_write(dc->regs,
+> > > > > > > > > VSDC_FB_BLEND_CONFIG(output),
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0	=09
+> > > > > > > > > VSDC_FB_BLEND_CONFIG_BLEND_DISABLE);
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=20
+> > > > > > > > > +	regmap_set_bits(dc->regs,
+> > > > > > > > > VSDC_FB_CONFIG_EX(output),
+> > > > > > > > > +			VSDC_FB_CONFIG_EX_FB_EN);
+> > > > > > > > > +	regmap_update_bits(dc->regs,
+> > > > > > > > > VSDC_FB_CONFIG_EX(output),
+> > > > > > > > > +		=09
+> > > > > > > > > VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
+> > > > > > > > > +		=09
+> > > > > > > > > VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
+> > > > > > > > > +
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0	vs_primary_plane_commit(dc=
+, output);
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 }
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=20
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 static const struct drm_plane_he=
+lper_funcs
+> > > > > > > > > vs_primary_plane_helper_funcs =3D {
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0	.atomic_check	=3D
+> > > > > > > > > vs_primary_plane_atomic_check,
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0	.atomic_update	=3D
+> > > > > > > > > vs_primary_plane_atomic_update,
+> > > > > > > > > -	.atomic_enable	=3D
+> > > > > > > > > vs_primary_plane_atomic_enable,
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0	.atomic_disable	=3D
+> > > > > > > > > vs_primary_plane_atomic_disable,
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 };
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=20
 
