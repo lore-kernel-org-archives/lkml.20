@@ -1,88 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794936924;
-	b=vPwtJ7S1fZtLbd9bdU4yGLKSGgWoF/e4LYp0xm7Y69iV7upIsWWwkVHmH8+Iu5BVHYo7
-	 bZkIyWMKj5iMtgXKwnyqBMDyMg4Et0GAmV+T+E4AAeYguQR7IYZDnVFhm9THJRdLxl7iV
-	 OZi0s+vIx1pK5I1KDBMznsyWh5Xvai6a4Va4jN1IbMpxf++K1cpFSnxM+1x4lD4sVekw6
-	 JQRCBUSeP21vXcU/YYU/yM59fhfHSYVn3UWweuiJZXDHXU5I/AY04jyENIFZc3cos92Vd
-	 /3kn4+4lFxVphicyU0KAj3kc30pq1dFp+3DPWrFjeTQSPcXwfgzqtrl1EnS/oKvJDzA==
+	t=1794936915;
+	b=14OSY+FnjyhNNYk8ObhlawcrmqXycCavB1hlJpyo+KeDpq+uJuKcnbCa/ksIUeVAVU4J
+	 Mr51d5HEJnH4Mz7thSErJJscpuGM65oPEsUGDB+2zJS6OgSF86jVmHYPnfaJoXlsuOK6q
+	 DBJA586gj6ogQAbBfDT+eYiMvA2Wg05QQPAA6U/b2Wj65ngeh2InAfgi7O3LhB+ErQDSQ
+	 dgr8h5tsCQKusKuuTPYR4km0a7yfK5vHnldVAt7/ubhoFIqie6bhyYvOL3qqIH4/QEIJ6
+	 +wh9ZcnL64cSx5sZHzp1StkIrLhvXG/sSLFzPRdF8xPuKwtbT0ViGh6Dd2ncmg9sB6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794936924;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=kaDKA5hattAHds8mPaKS6kzZBkSpzp9jS+jIHno12Zk=;
-	b=F5jova7RlH/YsP34t5W2krcooIO5jdHOpYkpRjGEXaFk/MhfxdYpenzJshSFppbmk751
-	 knEVnAeiW2sOfa+iu8vNV5D9CpfvxRMdwolhO5jZHtkI3M9VgX7yhnnuo2hyrppQyIQUH
-	 y1lXaJOwLKp1Vj18y2BNWLQhmMM9gcHjeHE2pnO1vNMDI1+kvry7gck4+W3czZkq6e/Sc
-	 synnXr0KPROdr64KsYk4yRTyacjyLZzZB9sEmK28ecE0TXmd0195xl+CZ5xNGWt42Kj27
-	 nIKup7YFB8D0RKymbxgnXEsv87d9HWwxB/UsJAEVgSG/ooNIHdn5vGn/f4xk9RxVWsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794936915;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=ysk2En5dt3U606AzY6P1J/hKMgdqPY85D/NlOep2mDM=;
+	b=eg5M4InC3GKX/5WKzjNioBqx/vNrvNTNDwxxD0lPu8A19ZLcP64+zNGwnxUOell6AxzK
+	 RoNzpsD8q2/UqHdBVr+wqaGdV4Kv05y8A7+b51MhaWPUqLWdGikahrEPyBb2ad+L7HtJS
+	 NkiYcpecG4jkIv9W9T0DosfjYugFo5G9Nz4vKFwwmVL9uVMVLFR5KlbbyEWK6AqL1Z5jw
+	 TaxycKC/eBuPFh9FruPY6Udar3n/twsL20Qj6WrLzXTPJSPvi/wFEYh3Yx7gI7xltOK8Q
+	 292dMiBZv7B5WEKg1DLAXdANrtK6vg1OoSw1f+buDCXr6vnv28XwHSnDh3c+TwzChdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NYwZY+rj;
-	arc=none smtp.remote-ip=74.125.231.131
-Received: from mail-oo2-f3.google.com (mail-oo2-f3.google.com [74.125.231.131])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZIPaXsJe;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFCBC606A890
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 17:35:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFCBC606A890
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D0A7606A883;
+	Tue, 17 Nov 2026 17:35:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NYwZY+rj
-Received: by mail-oo2-f3.google.com with SMTP id 46e09a7af769-8459f7bc7c0so500a34.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:35:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794936922; x=1795541722; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kaDKA5hattAHds8mPaKS6kzZBkSpzp9jS+jIHno12Zk=;
-        b=NYwZY+rjroQjkCW+S+pwjlaO1RVFDDHzNFUYWfiPpc2ZZOOV+GLWgZS5C4tNtKgcTj
-         R7+XKsaXt5IZE3jX+ON0+nMrNozdjYFfqWixuKZONperUFZzoSwB4v3eI02n8a9iyl6d
-         clwKBwSDL1EJf9jFrwZM+AUBNcW1GKM98Uleij51X8ZRZRvx9PRTOovTfIWHtMxZHIsI
-         ssNA0bcVyUQE9Nr+usc3Gharui1AwC64uf2TGdAVLHQOte88iJkOL+pIQ09CM5oiZJ1D
-         e2nBTUhrdkHfhieASi/MxHGdZp6qU2uW8WbDKDwUjJ0mfwYZ/HAdXDMc4D8bUZsBU/6C
-         qYbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794936922; x=1795541722;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kaDKA5hattAHds8mPaKS6kzZBkSpzp9jS+jIHno12Zk=;
-        b=jwveUj2KzfNNOJ22mQCAtaTzYAtAQfOrXZF+j298zqL75eVIF1UGPIFXXkjUMp2MoO
-         SeILu/Ghw07ZG8OJYyGld8M9CwzOG6PxiardVdiplpyUSSTDlALBlA+gptJRCqn1dDpx
-         Jg3xbEVPHocnKeISiFL+QqosTQEQnpA46sUjptraYskEh4yLnA5Q7A3p2dFyg32KEhmt
-         lt5vTIMGGHHuuUBAmbLYXxqZjteaiheV6VJvfd2VUJjyFUJF8f6NLW8WUOW6Ga4JhR9J
-         JSusoNTDKxh7xa6Mq4VHci/6JghBoYUiuDBeUmlJp1gXC/pJ3i5rZ7vkKsA1Q30EhFDi
-         82Vw==
-X-Forwarded-Encrypted: i=1; AL+hErFi+ejOh5l3XYtj00ftTHyX1PYGTjr2MM/uo3nX3zBa9J7YZzsL+/9+/d+Sr6BZZciwumVmg+gLTWepoN4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/yRIgt8SCSkZpbNJF5E9BovKKTxmjYqBjJTH4cfYKgFLK+GW9/
-	3s8ZE9McYplbIviAjfuEIZ2H0QIEVAAz97eOl0J5X5L8N2yZbIKXsM5F
-X-Gm-Gg: AYBFou1UCLeGdQgQ1W+DxTu6GF2bNgmn6zffE29+I37K8qSbiTHcarx7VOXRG3XLPAf
-	kZ2Gb3xoLZftBZ/AAvx5jCA9SRgvUl4qFSRF5P6U7Tq3uPRHyTksfYf79HJqnyUDg0haHyPwS7b
-	DSsc9mPffJ9I0pcJgi0wxbir+6EiCJBe3R8O7iGaQCXVKMiS5oGsW7oaZSfT0hz36Y/qBcZgVHA
-	KvqfrstBPS/02vOgZHW9nSMItR/RNh1b43+uvxNy5Wnv9Y0CHk21dW24fHEtZuARF5HD7ed919L
-	FUgYnf/+Y7DRhzdZKBQ4EdVukjVovqUH7IP2zcov6JeTUn1KMx3uGck/Ehavrr01ywYNQGGmXEu
-	KS7fEOn74Ac7yghEXoYCbKPxOlWKZfDxbClx9VXyWaJRSPEr9nvbEJoiAvgD2DeKGnL9SHGlf1q
-	zJ8AnRCJbf4PviZpbof5VDIhUDNtys5nPuyAbyic/DT4DR/q1Cw53thTgBKJ3CrGcgeS2grm93c
-	/X/l6Km78QMwrPM/QxZ9pcTYN5/z6snSH/dkjGfOUHcrp6oLq2xYEYpJYbkqKY6w9VHHP4QJU1j
-	P5YvchkbkR6pObjVYIpBLB75w2SmuSUVrEgJENpwQin2wQ==
-X-Received: by 2002:a05:6808:1925:b0:55c:888:30ff with SMTP id 5614622812f47-5774240c0a2mr429178b6e.45.1794936922568;
-        Tue, 17 Nov 2026 09:35:22 -0800 (PST)
-Received: from ?IPV6:2600:8804:5716:d800::d500? ([2600:8804:5716:d800::d500])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4b70bfeddffsm190834fac.4.2026.11.17.09.35.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2026 09:35:21 -0800 (PST)
-Message-ID: <4c64aa52-2b75-427e-8f26-c2ef7fc5b822@gmail.com>
-Date: Tue, 17 Nov 2026 11:35:20 -0600
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZIPaXsJe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 821621F00923;
+	Tue, 17 Nov 2026 17:35:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794936914;
+	bh=ysk2En5dt3U606AzY6P1J/hKMgdqPY85D/NlOep2mDM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ZIPaXsJezFD6AiJqncn2itUrMLKrGXEgbgoPFwcEsq8boZKgknPdwJtMy2wI4sXGr
+	 HqQUFqbXQvLNgBq08hK7OekXX3IdsOfggLyQRBeNb7w083up+ru65npI5lUKFQ6xQR
+	 a+Yp57ygka+UF3/I9hhXL5MyfBnNacdwqwdYZ0XOeUp5qkcibJMnpYf2b/IK4JOV08
+	 b/uLjlkHATw4GCztXNJ40m4zvRjQjMd3RiEFXbBasTWHqLGDome3NANaagIXVkZR0S
+	 pOA2fghSKmGiAadVTXL4uHQdXzmgyb6EIt9AdoiWkW8UjTB4rysSlX3tF9GtGv3UB7
+	 vhT7ijesUk4PA==
+Subject: Re: [PATCH 3/9] dt-bindings: soc: rockchip: grf: Allow a clock for
+ the RK3588 PHP GRF
+From: netdev-bot+sashiko@kernel.org
+To: aiyengar1990@gmail.com
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, heiko@sntech.de,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, david.wu@rock-chips.com,
+ dlemoal@kernel.org, cassel@kernel.org, fancer.lancer@gmail.com,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-ide@vger.kernel.org, praan@google.com,
+ will@kernel.org, robin.murphy@arm.com, iommu@lists.linux.dev,
+ shawn.lin@rock-chips.com, sebastian.reichel@collabora.com
+Date: Tue, 17 Nov 2026 17:35:13 +0000
+Message-ID: <179493691305.3136.16311404541139130213@kernel.org>
+In-Reply-To: <20261113-mmu600-php-v1-3-231196049a3b@gmail.com>
+References: <20261113-mmu600-php-v1-3-231196049a3b@gmail.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,57 +69,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/2] iio: adc: add mt6397 PMIC AUXADC support
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>
-Cc: Roman Vivchar <rva333@protonmail.com>,
- Luca Leonardo Scorcia <l.scorcia@gmail.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Andy Shevchenko <andriy.shevchenko@intel.com>
-References: <20261025-rbrue-suez-upstreaming-mt6397-auxadc-v5-0-5c3c7a5a1851@gmail.com>
- <89c8cadb-0ccb-4aac-9b95-89f355beb24a@collabora.com>
- <60eeaaf9-57db-4ca7-b4f5-bdec111dcdbb@collabora.com>
-Content-Language: en-US
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-In-Reply-To: <60eeaaf9-57db-4ca7-b4f5-bdec111dcdbb@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-Hi Angelo,
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-On 11/17/26 5:02 AM, AngeloGioacchino Del Regno wrote:
-> I reiterate - I couldn't pick the series because, of course, that one 
-> depends
-> on the binding being merged, otherwise the header won't be there and 
-> the build
-> fails.
->
-> So I can't pick the DTS until the next cycle (granted that this series 
-> lands).
->
-> Cheers,
-> Angelo 
+Low priority / nit picks for your consideration:
 
-Thanks for the reviews, and for picking the binding and keypad patches.
+- [Low] The RK3588 PHP GRF clock is allowed but not required.
 
-The AUXADC series has already landed. Jonathan applied it to iio togreg 
-on 11-02 (the binding with the header is 8f809aa84698), and it's in 
-next-20261116, so it will be in 7.5-rc1 along with your tree.
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but there is a
+  pre-existing use-after-free in the error unwind of…
 
-The board only uses the header once, for MT6397_AUXADC_BAT_TEMP (1). If 
-it helps, I can send a v3 of the board patch that uses the plain channel 
-number and drops the include - it builds on your v7.4-next/dts64, with 
-only the binding warnings you mentioned until the trees meet. I would 
-then switch it to the macro after 7.5-rc1.
+--
 
-Just let me know if that sounds reasonable :)
+dt-bindings: soc: rockchip: grf: Allow a clock for the RK3588 PHP GRF
 
-Best Regards,
-Ryan Brue
+This patch changes the clocks conditional in the Rockchip GRF binding.
+The rockchip,rk3588-php-grf compatible is now exempt from "clocks: false",
+so the node can describe pclk_php_root and the syscon regmap can enable it.
+
+> diff --git a/Documentation/devicetree/bindings/soc/rockchip/grf.yaml b/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
+> index e94c83d7c1383..2525eb51f13b0 100644
+> --- a/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
+> +++ b/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
+> @@ -321,8 +321,16 @@ allOf:
+>          - clocks
+>  
+>      else:
+> -      properties:
+> -        clocks: false
+> +      if:
+> +        not:
+> +          properties:
+> +            compatible:
+> +              contains:
+> +                const: rockchip,rk3588-php-grf
+> +
+> +      then:
+> +        properties:
+> +          clocks: false
+
+[Severity: Low]
+Should rockchip,rk3588-php-grf go into the enum in the if: branch above,
+so that clocks is required and not just allowed?
+
+The commit message says the PHP GRF is clocked from pclk_php_root, which
+gets gated. The later patch "arm64: dts: rockchip: Add the PHP GRF clock on
+RK3588" says PHP GRF accesses hang without it.
+
+This block already handles GRFs that need a clock. rockchip,rk3588-vo-grf
+and rockchip,rk3576-dcphy-grf are listed in the enum, which both allows and
+requires clocks.
+
+As written, a php_grf node without clocks still passes dtbs_check. At
+runtime, of_syscon_register() treats a missing clock as optional:
+
+drivers/mfd/syscon.c:of_syscon_register() {
+    ...
+		clk = of_clk_get(np, 0);
+		if (IS_ERR(clk)) {
+			ret = PTR_ERR(clk);
+			/* clock is optional */
+			if (ret != -ENOENT)
+				goto err_clk;
+    ...
+}
+
+On such a DT the regmap would never enable pclk_php_root. The StreamID
+restore added later in the series ("soc: rockchip: grf: Restore the RK3588
+PHP StreamIDs after system suspend") would also be skipped without any
+warning.
+
+If the clock is meant to stay optional for older DTBs, could the commit
+message say so? The binding also doesn't say which clock is expected. There
+is no items list or description naming pclk_php_root.
+
+[Severity: High]
+This is a pre-existing issue and was not introduced by this patch. With
+this series, php_grf goes through the clock-attached path in
+of_syscon_register(). Is there a use-after-free of the struct clk in that
+function's error unwind?
+
+regmap_mmio_attach_clk() stores the clk in the regmap context before it
+prepares it:
+
+drivers/base/regmap/regmap-mmio.c:regmap_mmio_attach_clk() {
+	ctx->clk = clk;
+	ctx->attached_clk = true;
+
+	return clk_prepare(ctx->clk);
+}
+
+Two failures reach err_attach_clk: clk_prepare() failing, or
+of_reset_control_get_optional_exclusive() returning an error. For example,
+the reset lookup returns -EPROBE_DEFER if the reset controller hasn't
+probed yet. The unwind is:
+
+err_attach_clk:
+	if (!IS_ERR(clk))
+		clk_put(clk);
+err_clk:
+	regmap_exit(regmap);
+
+clk_put() frees the struct clk through __clk_put()->free_clk(). After that,
+regmap_exit()->regmap_mmio_free_context() still uses the stored pointer:
+
+	if (!IS_ERR(ctx->clk)) {
+		clk_unprepare(ctx->clk);
+		...
+
+clk_unprepare() then reads clk->core from the freed object. If
+clk_prepare() was the step that failed, it also unprepares a clock that was
+never prepared.
+
+Would it fix this to detach the clock from the regmap, or to call
+regmap_exit(), before clk_put()?
+
+The php_grf node has no resets, so for php_grf only a clk_prepare() failure
+can reach this path. Any syscon node with both clocks and resets is
+affected. Syscon registration is retried on every lookup, so the path can
+run repeatedly. The unwind comes from a00406b71c5f ("mfd: syscon: Add
+optional clock support") and 7d1e3bd94828 ("mfd: syscon: Allow reset
+control for syscon devices").
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261113-mmu600-php-v1-0-231196049a3b%40gmail.com
