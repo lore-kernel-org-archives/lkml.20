@@ -1,66 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794925415;
-	b=RqL1eYtI3o0cXc972ZUc2IWOfJfp67+4AjcfBnyLnFmsiyff4dZfLqlxaj61mOMwNreO
-	 86H9oDu2yIluPW5rPLKRsLkBzPmtUTZCYP1QG3UayVUVfYOLKyy5d8QjTX3l+yCH9H4hH
-	 mw+QD1N2EO1qxW0zooFieYQJP1FwkNZJ546lkV4RXWCHDjDLTlNDMcS6EH5a6nMSwMaBI
-	 wb17H+YcIakUSKEkQklGvD3nS0YC7TORRbgqaPvDcEG5vcRcMLXoOfncgCKK9izHAkUrD
-	 L3qxO6eaDU27mOzPN7skFb0/5wPdeUQwcR6cHN6iiKQ4FdlixfhNkAlVoufM0RttlxA==
+	t=1794925433;
+	b=ZmIJejlvM0pNkYVPK08PADdUsC6kjfS1o9opshqLaiBoTZ/JXUNcABgeRt5oGnYlBHnO
+	 DsnrdPe0GpCnHMw2S2+2pGwBMvBMaAIWaUuWYFe2+hhA1atyDE1pibTBAnYE+I/DmwJzU
+	 y7wSy6EEFuMWxIHAR7ENQJqJBWnBR6D1777RGF0tDtpc+eRVgvKiTjX9uQGsZ5MVj1lE+
+	 qmNDkLx9FIHLr6zHAqDrDtuVPvw5Tr02broPmayQ5X16GQCXXEvJqrexmMSMbT1ue8u5j
+	 EVrE9G93M6VBk3VOKNxNPf9BoevO77TSU9XQDSpnI0X+x8C5G2QIMfp/PZ4vI7D46Gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794925415;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Mailer:
-	 X-Last-TLS-Session-Version;
-	bh=lJElfTzwAuOZ5+pRGg7Cx4QSnvdl7mrqMyhfsezJNBU=;
-	b=u3sh7aihG8ZLA/TjeRoMUOcDAIXTS4XRK9CTZYi6PCmVjJEO+4LgAeLYTfDHfx2swNbp
-	 cWvB8ygiAJHa5w+spG9DD+sgWEuWunwqSt70H/rEiAeWTdNaHoLBV+c7ywlUYFc19O/YJ
-	 5M5ASYbTOKxaNH6y2TwM+P2X0twdJMKaG3+qtvqtPgNgyVCRq71kdcFk95pMdHVRVvZy0
-	 OV3vMVGsahZ97/QE8tzKqVedn1pEveCDXttEFuK0rToMSCgissyDFwUyKugnq47B0hGlg
-	 45avLmhMysHuu3vPW8VeO1bvKPvJzCxkL41WW4c8jQRSm/LOxrQ05lXH/EqnT8FQRFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794925433;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=+guh6iE7xYHMDxDlAuP+z2BJ/SuqIHLRli0tfKpcKSA=;
+	b=VQiQ8Dr0DCieizl3KMemA7jXb0zTHw1UQ0DZc/JbyzMRpSBwoHk0ZmFxKlawzmNDKPZ9
+	 USljB9aMkUGxV+luiQn//72AMhZWD3O+JAAYapBhmtMFZ+g0sqvutpi+xeSPq70qKDPTr
+	 agXcbeiHu+Se6/mLgEzx8/GykgGpc84/MFdWsow/n9Jf3D83pZST7CbszhjM3spMD0rUA
+	 MIzWh+Bt/9AmzG3AUYY7AlQY/DeD6Jy9LCOhRbz87xI6VFUQBFBy7ll808iW8vN9zNQXm
+	 tRsvKVkpHOQSVN/hVgihFFXuJuhcmI5xjU+XTyD26EhFl+E2eEBrVjBUVmwGyX2+FkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ToonxK7K;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=n8EjsBSG;
+	arc=none smtp.remote-ip=91.218.175.12
+Received: from mta0.migadu.com (out-12.mta0.migadu.com [91.218.175.12])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AC81606A885
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:23:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AC81606A885
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A81606A337
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:23:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2A81606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ToonxK7K
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id BD2981A167E;
-	Tue, 17 Nov 2026 14:23:33 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9413B5FD6A;
-	Tue, 17 Nov 2026 14:23:33 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7E9BE11BC0036;
-	Tue, 17 Nov 2026 15:23:28 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794925409; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=lJElfTzwAuOZ5+pRGg7Cx4QSnvdl7mrqMyhfsezJNBU=;
-	b=ToonxK7KN9snZt9NszwLPT7+JjcVmc9Brh0eQqmZOKZmxqQ1VpC2eUyJY2l9WvTLEUqtEj
-	G2yJPcQHSt3fX+O1pTy65Ws8GHHezYQELRC4kD0eTY8oTnZjE7e98IbIk4WV7S+ogvuxpJ
-	NqtH8jdyvhl1+noDhWU78VrGRd45FJRnM3S+jJbPSPyicnO5noM981XCHT+WL99IPOMilZ
-	a7L7vjxDfANw13VYawn134NZKRCxH1WUqyR76Gj/zrVXiWshC9USg7XTcPNzKhaxO6rOFe
-	pM3SfzSplFqAGGCiGWpV+62GZsFwP/eBsdwWc95H2HjLzfzvfAJKdf54hdvE6g==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Angelo Compagnucci <angelo.compagnucci@gmail.com>
-Cc: Richard Weinberger <richard@nod.at>, 
- Vignesh Raghavendra <vigneshr@ti.com>, linux-mtd@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261116152847.3658486-1-angelo.compagnucci@gmail.com>
-References: <20261116152847.3658486-1-angelo.compagnucci@gmail.com>
-Subject: Re: [PATCH 0/2] mtd: spinand: add GD5F4GM7UExxG and XT26G04C
-Message-Id: <179492540842.2259780.12341849740874264628.b4-ty@bootlin.com>
-Date: Tue, 17 Nov 2026 15:23:28 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=n8EjsBSG
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=vVEQh/xrnvg3iNH7ktwVr6B+e0axcBBg8VcjYROWAzs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794925431; v=1; x=1795530231;
+ b=n8EjsBSG+Ee9ykzmSLTJnG/Cibj9X7WjI++nFAR8yngKRKtOUu4zPtZ9VUsIDASylbFGOavJ
+ rijtRk+aSB2JzY4FQj48ufPfHyh8k3PlppMcvn+eIEh11MHpRQok1gVO0kWoiHyxS/RN/ZWSTaq
+ EkFxlUv8TIAqaNTBxkwL46XM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 08b26d05a708a200;
+	Tue, 17 Nov 2026 14:23:50 +0000
+X-Mizu-Trace-ID: 08b26d05a708a200
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 17 Nov 2026 14:23:46 +0000
+From: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
+To: Zhang Yi <yi.zhang@huaweicloud.com>, Theodore Ts'o <tytso@mit.edu>
+Cc: Jan Kara <jack@suse.cz>, Baokun Li <libaokun@linux.alibaba.com>, 
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>, Andreas Dilger <adilger.kernel@dilger.ca>, 
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, guolingxing <guolingxing@tju.edu.cn>, 
+	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, linux-ext4@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, regressions@lists.linux.dev
+Subject: Re: [REGRESSION] ext4: silent data loss when a split at I/O
+ completion gets ENOSPC
+Message-ID: <20261117-jf-ext4-enospc-reply-zhangyi-v9-b19eeb966ad0@linux.dev>
+References: <d400205a-0d3d-4ec3-a916-6c0a085841b4@linux.dev>
+ <d8ac3185-44c8-41e7-9cbf-3d1baa27f272@huaweicloud.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,33 +68,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d8ac3185-44c8-41e7-9cbf-3d1baa27f272@huaweicloud.com>
 
-On Mon, 16 Nov 2026 16:28:45 +0100, Angelo Compagnucci wrote:
-> This series adds two 4Gbit 3.3V SPI NAND parts:
-> 
-> - GigaDevice GD5F4GM7UExxG
-> - XTX XT26G04C
-> 
-> Both have 4096 byte pages, 256 byte OOB and 8-bit on-die ECC. The
-> GigaDevice part reuses existing code. The XTX part needs a new ECC
-> status function.
-> 
-> [...]
+On Tue, Nov 17, 2026 Zhang Yi wrote:
+> I think the solution should be based on Ojaswin's counting approach in
+> [1] or the PENDING_CONVERSION solution we discussed, and then, after
+> extent splitting fails, try to flush the journal and retry.
 
-Applied to nand/next, thanks!
+Thanks for the quick POC. Our agents ran it on [1] rebased on
+23c62304dde2 with the report's reproducer, in two separate setups (QEMU
+without KVM). None of 72 files lost data in either, against 42 and 53 of
+72 with [1] alone.
 
-[1/2] mtd: spinand: gigadevice: add support for GD5F4GM7UExxG
-      commit: 3c8f7e833f0c6373bee90b897ce0697e2e697dcb
-[2/2] mtd: spinand: xtx: add support for XT26G04C
-      commit: 2c6220ff6e7cbb287120a047e1da9509d66c4915
+They found two gaps:
 
-Patche(s) should be available on mtd/linux.git and will be
-part of the next PR (provided that no robot complains by then).
+- The new branch in ext4_ext_handle_unwritten_extents() skips both
+  ext4_update_inode_fsync_trans() calls, so fdatasync() and O_DSYNC can
+  return before the commit. On a full filesystem mounted with
+  commit=3600, a shutdown test lost the write in all 13 buffered
+  fdatasync() and O_DSYNC cases that reach the zeroout. They pass with
+  [1] alone and with that call added.
 
-Kind regards,
-Miquèl
+- Direct writes into preallocated files can still get ENOSPC with the
+  POC, on a few percent of files in both setups, with no data lost.
 
+The POC tries the zeroout before the commit and retry. Should it be the
+other way around? And will you take guolingxing's patch ([2] in my
+report) as well?
+
+- Jose
