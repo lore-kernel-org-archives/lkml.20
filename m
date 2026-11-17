@@ -1,105 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.226.149.38
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794911672;
-	b=cBDMNMcHEYBu53duYWFXgt7iFRpM6dO08HJudF0oecCm9ktp3XV8wQW7MikTRhfW67jT
-	 LcU3sENc5wHFQCw5JoTDaHR3JJs6saaiXOBx8UGTvtk5Ra8hKV38Ju0emei54x7wRPGVh
-	 oygrsXsEQohLkNDcMPwG++PzgygS7Db3rJgZTxw5XySO0Q71FcRza5/AvJOjJJYacpwK3
-	 bGGqUq6uTCLs+J4HUl/wV3oINbHhEqt1AEAjW3k0aBmZwS+LaKoEBbCxhGNhqahTUoCbz
-	 cqyga6m637+wK1CSB1BxAtYucDMFQbp3YN/YgfZVTMscqsxweMI753lvtd7SBhRETfQ==
+	b=1lBECtge8AabIgtDnchklAc9hNoPL0KVB8ZrbRH4H0o9bYmTI0VGlkuTGCEuOUOUJSXZ
+	 C5kaekRLQlDVgsqNC00U3+RiRckgSezwtdogoEm+eV2LvnsK6su0NVUpTleYYnNgiVzdF
+	 sVtQzis0EyD0YMfb7ltpWay7qvAiGZ/pYjedgUZ0F45xbEHsy/RA9EmNNPLy4tqkAtwGf
+	 471sOhAuoxQydnGngwfTgtiY17wtSBEbhX9ir1b4BepJ5ffgV2ICEW9VWbizfPY/Og8Kt
+	 zd35I7wmL5sBY1NLJlay1OkH7DlZpPozkJhUS9UTa0BSpIQQGN+EmB+r0B0Y9YUZ+bQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794911672;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=BmiLk7Woyt+5HnggThSiC1LBGvT5JbyN4EymqDd4Y40=;
-	b=g6UIhi/Y6YeAfENTrELrgxvXdDoWE+/8pFNhg0f9Qh1B44kaB0Os6iD/UOEoeTuVzHzl
-	 65UQegIFywFRrmA/w/x0EaB+EsBHS0xBV5kNIkQU7vNcgVYtHA6YkmC8yUbLerVqY3nMf
-	 DYlPKyzWDpfMyns0hq7qiVpSGXBI1ZpplqGROwJao4q+jk5kDXXonJtP2lHPy4mvOWe3t
-	 QdpDbf7pw7klSZSVQpiIK+wJwl9/TW9WPoR8gNhc+1Mgxzb9ny6uiQ5sF3EzPGP9feGce
-	 f06k7TaBqsvAQOIo5IM7DP7nhkuvKQ/fotJabaVqq5O1eyWbEowNPz5xhpSJVhKX7zQ==
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=9MJrcZ1ojZlX1FTxvVn2f3i7uCSB0bosDH9zsPLqw8s=;
+	b=p50MYUn81KWrOI+tQM5qes8usi0nYYetBH5YrsE9UxCin352LG1HyCuUvGy7d8PCExde
+	 SJImiXC8JoKBzPN9Nl+tjSbwg4pWdcF/Z9caSwpeCU/+4q1YVbeWxfxHWoWkH4QeeDz6x
+	 +xtBdXD/K+L+7R58MmqVNZdI6876Qz3D0FKPHHVW1d0kmLXHLE8/n8PHVbJ9JAVGfcFAt
+	 HPPlgmCHJLWGYgDKrK3ptX1hb/YSFbuDWNAJ6Ps/qH8D5j9gOMXEEgr3EPjD/R8Rw2cCs
+	 /gVDhGsGPaEwFazsbqqOxkeVzfu7MU4N/F1S6ZlCamNPqRwR0fOcSiAiFMiW0BVugRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=En1EFsdr;
-	arc=none smtp.remote-ip=74.125.82.42
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=fail header.from=gmail.com;
+	spf=pass smtp.mailfrom=runbox.com;
+	dkim=pass header.d=runbox.com header.i=@runbox.com header.a=rsa-sha256 header.s=selector1 header.b=e+gOGl+m;
+	arc=none smtp.remote-ip=185.226.149.38
+Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com [185.226.149.38])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA6E0606A32C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:34:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA6E0606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F281D606A332;
+	Tue, 17 Nov 2026 10:34:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F281D606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runbox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=En1EFsdr
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1b24f4b15c4so209042c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:34:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794911670; x=1795516470; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BmiLk7Woyt+5HnggThSiC1LBGvT5JbyN4EymqDd4Y40=;
-        b=En1EFsdrdIkH9eyOkefMREOOPdHM/WJ+nB7do8MFPGS2RFE46buqsjhkuWVzuC8m3+
-         3gF/6S2D7s5EKUEATZ4QiaqaxVW8vxGRVrNqRlv0ezJXermBAeEXcKla4/EuExo3AGhx
-         744hX1dAhanRL4MRxPITaiF1pZc7rjSKVLZmLgqQPaxwG9QHuvi2XbBzY2z/Oz+c8clw
-         w9aV/YcX9cHZDqQ7JoiLvJYMcZUoztZLy/qKIKtof7mobdWmjRX/Xb605HQRdDqW74k6
-         TMi/qHyRczbrpjgMZe7BkgoUBqZIoFt20gqXXVyuC5UnYYSFfLMRBcKyYryrj3FhAjnf
-         j83Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794911670; x=1795516470;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BmiLk7Woyt+5HnggThSiC1LBGvT5JbyN4EymqDd4Y40=;
-        b=iKNBTL/HIYZhK6EXB/PrdJgZQGH5PmQ+z6AiexUYXkorz6AOvZHIO+MCvENXbAVzqs
-         BbvLCrZB+CGSKN7BfCawNvHW148RLBl55o4kFEnNtrwim03WXyt0mIUKHrelEHyVv1/6
-         4MwaGHxH8KknjpkPsBwgDXOv6JC5YzvbMl0HQ222qPGqS5sQSJIuc9ljyBTMSm8a5orq
-         hGSKa+QC40QWOX1sHwZ0+i1syQR8ujX71dgUVmiTMvqmlZyXJDgP6tEAfEqDai3Cn0iQ
-         IaB/mno/3xM8RtZt6BVhIcFTpTdktY5o1W5vy+zq4OIoBOjT/27QHG2KDeSahUA/m7mJ
-         yjYw==
-X-Forwarded-Encrypted: i=1; AL+hErFUu2/cGmjagfhjE3JWz9mIwY/h9CI7UIroY3j7A+H3sbpyMDtsUAvw78yNpHTl7k1m7+/tplTAwHsvSjg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8r6zzf1PeVarkAHWGu8msmBIb66TpELKjKChJFTEPlwPA9/6cW
-	5CdQbGClKcLZhTNuAFWxvU/7qmC4VkotzbpY055luLT73fgoho8g5tDx/eNNjdukUyo=
-X-Gm-Gg: AYBFou35tLze9vFo/dCAa7VXiCWDotI+EG2WmIZaw+jHIPpRIFWPcHM5l3Dy8ed8NGs
-	mBu1/OgcUOUw92XYWvkIWj4vr/KPQ5SkgfcpiozIemGT8VKH5fszP48UdJ4xPgIA7WlDUkMy7ne
-	uiDc12h2i6KpaO1Q2an/9IdV3GL8LEOpwcznKWd+YYVLM8uWetX0u0bZzzYMMuLbR0bYgdGaGyr
-	f9KHbsRYYiyOLt/zMFxHvwUtuHF+b6P/P7S32s6nOTWouLQX/T3PGSFnjtJN1vNuEDEZGHRFfmP
-	Bm6TbgqAt8Due53HuIYsaOoQmVix84OmT+qBSz+xrmLg/UEGMdBhKN+NWB/PDxb3uRonXSpu/Ia
-	lolBAVM8k5DmQUnwp3DLn8CgUphjdud9JyT4tb7/BTL8yxFUSCFcT4ZDaWVCJepIrCYbuQekZXa
-	x5+bEGq77K7uRqOtwWYHT6FsIxQLUFuIodK6xGFaPklB5niF1K1QsvSeG1TvG9566buKwjotVw5
-	YMeO2kgfUbAbjx2RNiovHNPUtSAt0JB/QDsCCJWlS0B4HOrrA3hegrX8g07WWqQxJDhYLs74Bbj
-	ukYBYvROFjWTfcRJsrdTK3iks2IfAw==
-X-Received: by 2002:a05:7022:b052:10b0:1b1:f02b:2317 with SMTP id a92af1059eb24-1b53a4758b9mr1979699c88.22.1794911669662;
-        Tue, 17 Nov 2026 02:34:29 -0800 (PST)
-Received: from localhost ([122.172.83.36])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031b2519sm36212362c88.13.2026.11.17.02.34.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 02:34:28 -0800 (PST)
-Date: Tue, 17 Nov 2026 16:04:26 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Ananthu C V <ananthu.cv@oss.qualcomm.com>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Jie Zhan <zhanjie9@hisilicon.com>,
-	Pierre Gondois <pierre.gondois@arm.com>,
-	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-pm@vger.kernel.org,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Oleg Keri <okerixx@gmail.com>
-Subject: Re: [PATCH v3 2/2] cpufreq: fix policy max not returning to
- non-boost freq on boost disable
-Message-ID: <avwtsmp7Mqacbbtl@vireshk-B250M-D3H>
-References: <20260929-schedutil-boost-frequency-handling-v3-0-68de169498c7@oss.qualcomm.com>
- <20260929-schedutil-boost-frequency-handling-v3-2-68de169498c7@oss.qualcomm.com>
- <auhMD2-5FD4BqImG@vireshk-B250M-D3H>
- <avRiWsxCEAuBouBZ@hu-anancv-blr.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=runbox.com header.i=@runbox.com header.a=rsa-sha256 header.s=selector1 header.b=e+gOGl+m
+Received: from mailtransmit03.runbox ([10.9.9.163] helo=aibo.runbox.com)
+	by mailtransmit05.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.93)
+	(envelope-from <david.laight.linux_spam@runbox.com>)
+	id 1xTGW6-002LjE-Hl; Tue, 17 Nov 2026 11:34:22 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=runbox.com;
+	 s=selector1; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To
+	:Message-Id:Date:Subject:Cc:To:From;
+	bh=9MJrcZ1ojZlX1FTxvVn2f3i7uCSB0bosDH9zsPLqw8s=; b=e+gOGl+miKSeeZfAt7BgYzQ6+R
+	Ii1lLL2KRY6cn6uGZt6JrvSHJhBNBun60q0YvnTyRpLv68ftCvlLWXLJJA2N36fq52/krLalKQZNd
+	QNkYrofBH5K8/ERFgaW7D5z6762siXE5YMLpzgxSs1ozYwJEocuRJIKKpHdzZtNRXfbd0knHmLuEe
+	WWVYG5lHrFXYxykigMMvXgF4bURotUFH6J1fT9Uxt5L22EkzIEvk9jzdxY2MyOVtm1At0stpMAEK/
+	Z0o6gu2cIp3ZwL6YZbfdUd9W+Pn7LU8HvBFncCz43DDEn6anEOdSbjQ/JR0B48qo1GfRxC5dC/JBD
+	/8gvA0aw==;
+Received: from [10.9.9.74] (helo=submission03.runbox)
+	by mailtransmit03.runbox with esmtp (Exim 4.86_2)
+	(envelope-from <david.laight.linux_spam@runbox.com>)
+	id 1xTGW1-0002et-3g; Tue, 17 Nov 2026 11:34:17 +0100
+Received: by submission03.runbox with esmtpsa  [Authenticated ID (1493616)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.95)
+	id 1xTGVn-005qHU-AV;
+	Tue, 17 Nov 2026 11:34:03 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Petr Mladek <pmladek@suse.com>,
+	Kees Cook <kees@kernel.org>,
+	David Laight <david.laight.linux@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	linux-kbuild@vger.kernel.org,
+	bpf@vger.kernel.org,
+	Jim Cromie <jim.cromie@gmail.com>,
+	Lorenzo Stoakes <ljs@kernel.org>
+Cc: Luis Chamberlain <mcgrof@kernel.org>,
+	Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Samuel Wu <wusamuel@google.com>,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH v4 next 06/13] kallsyms: Improve selftest test_perf_kallsyms_lookup_name() output
+Date: Tue, 17 Nov 2026 10:33:45 +0000
+Message-Id: <20261117103352.1244657-7-david.laight.linux@gmail.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20261117103352.1244657-1-david.laight.linux@gmail.com>
+References: <20261117103352.1244657-1-david.laight.linux@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,61 +85,335 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avRiWsxCEAuBouBZ@hu-anancv-blr.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On 11-11-26, 18:10, Ananthu C V wrote:
-> diff --git a/drivers/cpufreq/freq_table.c b/drivers/cpufreq/freq_table.c
-> index ea994647abc8..5b364d8da4f9 100644
-> --- a/drivers/cpufreq/freq_table.c
-> +++ b/drivers/cpufreq/freq_table.c
-> @@ -49,15 +49,16 @@ int cpufreq_frequency_table_cpuinfo(struct cpufreq_policy *policy)
->                         max_freq = freq;
->         }
-> 
-> -       policy->cpuinfo.min_freq = min_freq;
-> +       policy->min = policy->cpuinfo.min_freq = min_freq;
-> +       policy->max = max_freq;
->         /*
->          * If the driver has set its own cpuinfo.max_freq above max_freq, leave
->          * it as is.
->          */
->         if (policy->cpuinfo.max_freq < max_freq)
-> -               policy->cpuinfo.max_freq = max_freq;
-> +               policy->max = policy->cpuinfo.max_freq = max_freq;
-> 
-> -       if (min_freq == ~0)
-> +       if (policy->min == ~0)
->                 return -EINVAL;
->         else
->                 return 0;
-> 
-> I am pretty sure we can maintain the policy->min status quo and only touch the
-> policy->max updation; which from a passing glance simply seems inconsequential.
-> Potential side effects, if any, aside, this would at least fix the issue at
-> hand, which is the frequency getting stuck on a higher value without being able
-> to come down. What do you think about this?
+- Fix the compression percentage output to show 50.05% not 60.5%.
+- Improve the test stability/reproducability by taking the faster of
+  two calls to kallsyms_lookup_name().
+- Check that kallsyms_lookup_name() returns the expected address
+  unless the symbol is duplicated.
+- Report the names of the min/max symbols.
+- Output an 8 line 64 entry histogram of the times taken.
+- This shows there is a reasonably normal distribution with a small
+  number of much slower outliers that don't really affect the average.
 
-So a change like this also fixes the issue ?
+Additionally:
+- Add a very long symbol to check the handling of two byte lengths.
+- Do the test_perf_kallsyms_lookup_name() last because it can take long
+  enough that the CPU frequency changes and the times reported by the
+  other tests can change.
+- Mark all the test functions noinline_for_stack since they all have a
+  quite large on-stack structure.
 
-@@ -49,15 +49,16 @@ int cpufreq_frequency_table_cpuinfo(struct cpufreq_policy *policy)
-                        max_freq = freq;
-        }
+Example output (after all these patches)
+kallsyms_on_each_symbol() traverse all: 7742950 ns
+kallsyms_on_each_match_symbol() traverse all: 951 ns
+kallsyms_lookup_name() looked up 123312 symbols, average 200 ns
+        fastest 60 ns (_rs.0)
+        slowest 662 ns (The_time_has_come_the_Walrus_said_To_talk_of_many_things_Of_sho)
+        Distribution, 20ns per column, 2916 counts per *:
+        |         **
+        |        ****
+        |        ****
+        |        ****
+        |       ******
+        |       *******
+        |      *********
+        |   ******************  **    * * *
 
-        policy->cpuinfo.min_freq = min_freq;
-+       policy->max = max_freq;
-        /*
-         * If the driver has set its own cpuinfo.max_freq above max_freq, leave
-         * it as is.
-         */
-        if (policy->cpuinfo.max_freq < max_freq)
--               policy->cpuinfo.max_freq = max_freq;
-+               policy->max = policy->cpuinfo.max_freq = max_freq;
+Signed-off-by: David Laight <david.laight.linux@gmail.com>
+---
 
-Also, can you please explain the issue again in detail. I am not very
-sure how you are reaching to this issue over current mainline (without
-the first patch).
+v3:
+- Previously patch 3.
+- Fix build when CONFIG_KALLSYMS_ALL set.
+- Fix compression ratio print (50.05% not 50.5%)
+Unchanged in v4 (apart from a minor change to the commit message).
 
+ kernel/kallsyms_selftest.c | 169 ++++++++++++++++++++++++++++---------
+ 1 file changed, 127 insertions(+), 42 deletions(-)
+
+diff --git a/kernel/kallsyms_selftest.c b/kernel/kallsyms_selftest.c
+index 0db79237fe54..f7fef70ed2c8 100644
+--- a/kernel/kallsyms_selftest.c
++++ b/kernel/kallsyms_selftest.c
+@@ -22,6 +22,8 @@
+ 
+ 
+ #define MAX_NUM_OF_RECORDS		64
++#define HISTOGRAM_BUCKETS		64
++#define HISTOGRAM_RESOLUTION		10
+ 
+ struct test_stat {
+ 	int min;
+@@ -29,39 +31,60 @@ struct test_stat {
+ 	int save_cnt;
+ 	int real_cnt;
+ 	int perf;
+-	u64 sum;
+ 	char *name;
+ 	unsigned long addr;
+ 	unsigned long addrs[MAX_NUM_OF_RECORDS];
+ };
+ 
++struct lookup_name_info {
++	unsigned int count;
++	unsigned int min;
++	unsigned int max;
++	u64 sum;
++	char min_name[64];
++	char max_name[64];
++	unsigned int histogram[HISTOGRAM_BUCKETS];
++	unsigned int scale;
++};
++
+ struct test_item {
+ 	char *name;
+ 	unsigned long addr;
+ };
+ 
+-#define ITEM_FUNC(s)				\
+-	{					\
+-		.name = #s,			\
+-		.addr = (unsigned long)s,	\
+-	}
+-
+-#define ITEM_DATA(s)				\
++#define _TEST_ITEM(s)				\
+ 	{					\
+ 		.name = #s,			\
+ 		.addr = (unsigned long)&s,	\
+ 	}
+ 
++#define TEST_ITEM(s) _TEST_ITEM(s)
+ 
+ static int kallsyms_test_var_bss_static;
+ static int kallsyms_test_var_data_static = 1;
+ int kallsyms_test_var_bss;
+ int kallsyms_test_var_data = 1;
+ 
++/* This is 509 characters, compresses to about 330 */
++#define kallsyms_very_long_name \
++The_time_has_come_the_Walrus_said_To_talk_of_many_things\
++_Of_shoes_and_ships_and_sealing_wax_Of_cabbages_and_kings\
++_And_why_the_sea_is_boiling_hot_And_whether_pigs_have_wings\
++\
++_O_Oysters_said_the_Carpenter_Youve_had_a_pleasant_run\
++_Shall_we_be_trotting_home_again_But_answer_came_there_none\
++_And_this_was_scarcely_odd_because_Theyd_eaten_every_one\
++\
++_The_moon_was_shining_sulkily_Because_she_thought_the_sun\
++_Had_got_no_business_to_be_there_After_the_day_was_done\
++_Its_very_rude_of_him_she_said_To_come_and_spoil_the_fun
++
++static int kallsyms_very_long_name = 1;
++
+ static int kallsyms_test_func_static(void)
+ {
+ 	kallsyms_test_var_bss_static++;
+-	kallsyms_test_var_data_static++;
++	kallsyms_test_var_data_static += kallsyms_very_long_name;
+ 
+ 	return 0;
+ }
+@@ -79,16 +102,17 @@ __weak int kallsyms_test_func_weak(void)
+ }
+ 
+ static struct test_item test_items[] = {
+-	ITEM_FUNC(kallsyms_test_func_static),
+-	ITEM_FUNC(kallsyms_test_func),
+-	ITEM_FUNC(kallsyms_test_func_weak),
+-	ITEM_FUNC(vmalloc_noprof),
+-	ITEM_FUNC(vfree),
++	TEST_ITEM(kallsyms_test_func_static),
++	TEST_ITEM(kallsyms_test_func),
++	TEST_ITEM(kallsyms_test_func_weak),
++	TEST_ITEM(vmalloc_noprof),
++	TEST_ITEM(vfree),
+ #ifdef CONFIG_KALLSYMS_ALL
+-	ITEM_DATA(kallsyms_test_var_bss_static),
+-	ITEM_DATA(kallsyms_test_var_data_static),
+-	ITEM_DATA(kallsyms_test_var_bss),
+-	ITEM_DATA(kallsyms_test_var_data),
++	TEST_ITEM(kallsyms_test_var_bss_static),
++	TEST_ITEM(kallsyms_test_var_data_static),
++	TEST_ITEM(kallsyms_very_long_name),
++	TEST_ITEM(kallsyms_test_var_bss),
++	TEST_ITEM(kallsyms_test_var_data),
+ #endif
+ };
+ 
+@@ -101,7 +125,7 @@ static int stat_symbol_len(void *data, const char *name, unsigned long addr)
+ 	return 0;
+ }
+ 
+-static void test_kallsyms_compression_ratio(void)
++static noinline_for_stack void test_kallsyms_compression_ratio(void)
+ {
+ 	u32 pos, off, len, num;
+ 	u32 ratio, total_size, total_len = 0;
+@@ -148,43 +172,104 @@ static void test_kallsyms_compression_ratio(void)
+ 	pr_info("| nr_symbols | compressed size | original size | ratio(%%) |\n");
+ 	pr_info("|---------------------------------------------------------|\n");
+ 	ratio = (u32)div_u64(10000ULL * total_size, total_len);
+-	pr_info("| %10d |    %10d   |   %10d  |  %2d.%-2d   |\n",
++	pr_info("| %10d |    %10d   |   %10d  |  %2d.%02d   |\n",
+ 		kallsyms_num_syms, total_size, total_len, ratio / 100, ratio % 100);
+ 	pr_info(" ---------------------------------------------------------\n");
+ }
+ 
++static int is_duplicate(void *data, unsigned long addr)
++{
++	return (*(int *)data)++;
++}
++
+ static int lookup_name(void *data, const char *name, unsigned long addr)
+ {
+-	u64 t0, t1, t;
+-	struct test_stat *stat = (struct test_stat *)data;
++	struct lookup_name_info *info = data;
++	unsigned int i, t0, t1, t;
++	unsigned long got_addr;
+ 
++	/* Improve the stability by taking the fastest of two calls. */
+ 	t0 = ktime_get_ns();
+ 	(void)kallsyms_lookup_name(name);
+ 	t1 = ktime_get_ns();
+-
+ 	t = t1 - t0;
+-	if (t < stat->min)
+-		stat->min = t;
++	got_addr = kallsyms_lookup_name(name);
++	t0 = ktime_get_ns();
++	if (t0 - t1 < t)
++		t = t0 - t1;
+ 
+-	if (t > stat->max)
+-		stat->max = t;
++	if (addr != got_addr) {
++		int c = 0;
+ 
+-	stat->real_cnt++;
+-	stat->sum += t;
++		if (!kallsyms_on_each_match_symbol(is_duplicate, name, &c)) {
++			pr_info("got %ld not %ld for %s\n", got_addr, addr, name);
++			return 1;
++		}
++	}
++
++	info->count++;
++	info->sum += t;
++
++	if (t < info->min) {
++		info->min = t;
++		strscpy(info->min_name, name);
++	}
++
++	if (t > info->max) {
++		info->max = t;
++		strscpy(info->max_name, name);
++	}
++
++	/* Create a histogram of the times */
++	t = (t / HISTOGRAM_RESOLUTION) >> info->scale;
++	while (t >= HISTOGRAM_BUCKETS) {
++		t >>= 1;
++		info->scale++;
++		for (i = 0; i < HISTOGRAM_BUCKETS / 2; i++)
++			info->histogram[i] = info->histogram[2 * i] + info->histogram[2 * i + 1];
++		for (; i < HISTOGRAM_BUCKETS; i++)
++			info->histogram[i] = 0;
++	}
++	info->histogram[t]++;
+ 
+ 	return 0;
+ }
+ 
+-static void test_perf_kallsyms_lookup_name(void)
++static noinline_for_stack void test_perf_kallsyms_lookup_name(void)
+ {
+-	struct test_stat stat;
+-
+-	memset(&stat, 0, sizeof(stat));
+-	stat.min = INT_MAX;
+-	kallsyms_on_each_symbol(lookup_name, &stat);
+-	pr_info("kallsyms_lookup_name() looked up %d symbols\n", stat.real_cnt);
+-	pr_info("The time spent on each symbol is (ns): min=%d, max=%d, avg=%lld\n",
+-		stat.min, stat.max, div_u64(stat.sum, stat.real_cnt));
++	struct lookup_name_info info;
++	unsigned int idx, scale, row;
++	char line[HISTOGRAM_BUCKETS];
++	int len;
++
++	memset(&info, 0, sizeof(info));
++	info.min = ~0u;
++	kallsyms_on_each_symbol(lookup_name, &info);
++	pr_info("kallsyms_lookup_name() looked up %d symbols, average %lld ns\n",
++		info.count, div_u64(info.sum, info.count));
++	pr_info("\tfastest %u ns (%s)\n", info.min, info.min_name);
++	pr_info("\tslowest %u ns (%s)\n", info.max, info.max_name);
++
++	scale = 0;
++	for (idx = 0; idx < HISTOGRAM_BUCKETS; idx++) {
++		if (scale < info.histogram[idx])
++			scale = info.histogram[idx];
++	}
++	row = 8;
++	scale /= row;
++	pr_info("\tDistribution, %uns per column, %u counts per *:\n",
++		HISTOGRAM_RESOLUTION << info.scale, scale);
++	while (row--) {
++		memset(line, ' ', sizeof(line));
++		len = 0;
++		for (idx = 0; idx < HISTOGRAM_BUCKETS; idx++) {
++			if (info.histogram[idx] > row * scale) {
++				len = idx + 1;
++				line[idx] = '*';
++			}
++		}
++		pr_info("\t|%.*s\n", len, line);
++	}
+ }
+ 
+ static int find_symbol(void *data, const char *name, unsigned long addr)
+@@ -207,7 +292,7 @@ static int find_symbol(void *data, const char *name, unsigned long addr)
+ 	return 0;
+ }
+ 
+-static void test_perf_kallsyms_on_each_symbol(void)
++static noinline_for_stack void test_perf_kallsyms_on_each_symbol(void)
+ {
+ 	u64 t0, t1;
+ 	struct test_stat stat;
+@@ -240,7 +325,7 @@ static int match_symbol(void *data, unsigned long addr)
+ 	return 0;
+ }
+ 
+-static void test_perf_kallsyms_on_each_match_symbol(void)
++static noinline_for_stack void test_perf_kallsyms_on_each_match_symbol(void)
+ {
+ 	u64 t0, t1;
+ 	struct test_stat stat;
+@@ -254,7 +339,7 @@ static void test_perf_kallsyms_on_each_match_symbol(void)
+ 	pr_info("kallsyms_on_each_match_symbol() traverse all: %lld ns\n", t1 - t0);
+ }
+ 
+-static int test_kallsyms_basic_function(void)
++static noinline_for_stack int test_kallsyms_basic_function(void)
+ {
+ 	int i, j, ret;
+ 	int next = 0, nr_failed = 0;
+@@ -425,9 +510,9 @@ static int test_entry(void *p)
+ 	}
+ 
+ 	test_kallsyms_compression_ratio();
+-	test_perf_kallsyms_lookup_name();
+ 	test_perf_kallsyms_on_each_symbol();
+ 	test_perf_kallsyms_on_each_match_symbol();
++	test_perf_kallsyms_lookup_name();
+ 	pr_info("finish\n");
+ 
+ 	return 0;
 -- 
-viresh
+2.39.5
+
