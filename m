@@ -1,77 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794907233;
-	b=tOCL7w0vDvy32fiyCYwn7eUBhrylJWbM7o1JUknycfT4ZDnY16UZkhjn1dz6zvH1tor+
-	 Gjk8dyAwTSGW4GtwZ1jCCqIWlOoLhFowSLZ06gnozobPM55m/ZwwjgL1CGbpw0eoKsyLo
-	 PoSqIK579PhkxrcWOrOP1zU76wedBDNZqQgsvXYuzWRQ09yrK2KzVHO4j/jsLRfrfnf1g
-	 k6ou9hw+98+LORSAbQVlaiI7B9fmoPpdBncz5hg85jHmwNIUJ+ec9DMQYnj8AiGEWt8F9
-	 r7HS5mofLS52UgEJ2zBAIy1xv/mOorYONKXL02mpooolcas7svuI4F4TrNjxahIUWyw==
+	t=1794907232;
+	b=aVYlRWz9UdmWkkwrWy/a5NUxpTaMjV6EIg8o/nn9JTOoWpLNL1nvUFepCXFy50YQva/B
+	 2uT19vvzKurPnMzueZGuOiW7+6L1zsfkyCrsDQIOEK3rCuGPt/ueT4JuBOhX4jkjTgxde
+	 6GaUvpn9Id6nOAcshXTcDGgpUKPQ295U7A9Ts26qUtwti/GEGpoRvtd2nM247sPCH+bpA
+	 wzEH7JtYW/xPXsyflxKDa4yCS14rYu04z5AdToJ5qL9Hn6M0onM/xhKaHFdaxexS9IefC
+	 +12EXHH7IJrxB34sW2oLxiGZzcD5yIyl3VtBRhv3RvYfwN1EN8MKuNbTt0xfv/B0CSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794907233;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=YxyWb61l9bZpPKlQ2mqo+AuSKiMQlhMQ26ZWLgbv6HE=;
-	b=0tS5LFmEAG5gYUxJ2CixfFWyAKeTy9VsZcVaI5o4nBISRiGKLdjGd4gTD89BXoh240IH
-	 X115hQWEF0t04Ev8OcyOgb3EH2xMEoTmq36Pbj1kg276lfdwA6USnNPU4G/O+KXM7jQjI
-	 KlUcuKlg3WMpzKzD6qGRf+6iFTyChnmWq6pLAtibbghfLIYadHcNzVFmTm2MN+sv2doy0
-	 upGtd4yKw3pDesfm9MfOubk/7FhmDBN/N3r4A8rerYZ7jlZGpVYrndULrTLdSsDZNIhQ/
-	 c+Kj0NPXiG18UfTeMySx7dWCVYzJyZ3yXbzNzUnI94RyW4c6wnnLvFdcqfnbfNZMqCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794907232;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=yxHn6IyMEc/gFXG0FL2K57vaxjrPtjjGVPSWUg++9V4=;
+	b=W2MlMF0eMVEz3qEmy4E83rbMGmuVESHW0ksi0wPG33ekGw+R7ITV7FMI8/XhWMgDH/VG
+	 UalFfZh+HHq6Ek/y8TgyHAwSbLR1Ew+t5LCE74IJMgNvA0J1yGCxP49wzqY/frcvAwsgC
+	 vszhkzaPmas6JEDsg8zUotlqMJj6K4YrR6T+AKxz+nYV8W3O0Bu3HHPqh53soKdRMhpZJ
+	 f/DXcZhv18hG4TCwqrfB2ex3SGBUxqUY/b3l9SfA5RKWYnxBMzO9eQ2NhDhuzYxsTlUGN
+	 R4Y8POcUDEx3qZpUhF4pa7FZ70L1pBMc0vL05zWiWToCILrfZvOCXxzw7Ur7Vwy5tCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.221.173
-Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com [209.85.221.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jsonSMlU;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 995A3606A330
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:20:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 995A3606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-5ee029fd76aso3927045e0c.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:20:32 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794907231; x=1795512031;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=YxyWb61l9bZpPKlQ2mqo+AuSKiMQlhMQ26ZWLgbv6HE=;
-        b=pJ/kc1zP0iZuGV3xd+UJEyFgqBRQtctwqyVTi9iF+vd95zn3dEz0lN839rs+dhknmz
-         jVWQlx3Mr3aFgwYsUYfPEqmyQA40j+XpRmz9Glxhjy5O4JTkvbUJHxkdQxwIo1REQpX8
-         VGWy1x9CjTrJxoMP5zqPOMy2oFcYaL9ozWH2Qr89A13XmsKENyOxG+MIBbkvmBvBItff
-         qB08RdfNXfrA0eg1tdUfQ2wEabn2gI/2Fz8AUVD6Y+JUtqiTWO9A6XVlnp7K5u5J2/GX
-         oD3YCJ1uhjERDil/9HUoN263eqUxt/nk7DBSMjUJCahqDX2dp4LyVZ4JstmCSt66pYKA
-         qudA==
-X-Forwarded-Encrypted: i=1; AL+hErE9BIw3lDeqT/dp9svkbDyZ6r71wph6rdwPLrlVMiA9tC1aUAvlUFDqz4Y+lXKXEkg3x1PVo+rn4dAHKPE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+gNrSXHhamk8Smu9ybND4c410DSPsqjQ9MlY0GL4Zn5LazUYYk
-	1ipf4Vo0oaUyUbYgfsxhuWfH9563NRnjfcBMXKbRyHBqpY57YjsHI10idHVpGbPK
-X-Gm-Gg: AYBFou2dKv9ZrrSwuxlMNjuUjWmgwNNHRTJcKyVEbI33adx0rPqypazoNJbnxM2JVEu
-	Ew+gYVjl6agmJcWz64qdIOduUsui3t6BQuykRWieXqeJ0uMNdl6BO7/N/eV0PuL1xIAFwQX9pZ6
-	Jz2cGXBdw21orYfrr1NQiCw492LDF/Um5p1CtpbrGpuL6QkzXl57W3m41cxmYX3nnxKMtAakmSF
-	oo7I5BqKwVRMYVbGD6V3pU8RnbRhPcxjrPzGAm5Tn7v+SofpIG6OWOf94OZc+4jcIaDOKAGxRs4
-	cCEAS8X3O40Ty/g928qUd7mm6Cn7dWr+MJuP1t6GZZlCxJUkjYhg3IyG3hUlkzYtMHRygUltW/N
-	v4+h3vtnCdU3WegJRHPq8ghb7tAMyinZgCNYqletyPbkwppzzejuGg2RVRjILT5QUrGHSGgru+k
-	iLxiEx2s2eTfYLMmFRRErtdyTFnI4aREIRADHx7Qn8ZnFnvMSiqY+05yHgbuQCR3z2eubj9agQB
-	YxoIhd+U5B3CMrIbzz3ToiAiM2aYCm/Kd5GrTmM7BEqvWRo/rz1qY6kV351IJENZX0WmcGQGrH1
-	vg9jZv3dMFyGswSxY48/PxiwAx43eFi279LcK8EOgLhN2pncrsQHyE3uVtR921d+oSTcuVk/+Wy
-	GA06SqnV5EoSo
-X-Received: by 2002:a05:6122:420e:b0:5eb:7686:48f5 with SMTP id 71dfb90a1353d-5ee34a468fbmr4941482e0c.8.1794907231476;
-        Tue, 17 Nov 2026 01:20:31 -0800 (PST)
-Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com. [209.85.217.41])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ee3e11d3c2sm6494995e0c.15.2026.11.17.01.20.30
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2026 01:20:31 -0800 (PST)
-Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-7d2e14babc8so3631760137.2
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:20:30 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEzwib/zcm2lPzrQ0W/o99jJVmHU2UiWUzTGAV84eEnVz1xyNgmbifkLUB1mT4nAFAB2x36qjowTkvwEKI=@vger.kernel.org
-X-Received: by 2002:a05:6102:54a8:b0:7cc:26a8:e716 with SMTP id
- ada2fe7eead31-7d64d78cb41mr5011377137.18.1794907230719; Tue, 17 Nov 2026
- 01:20:30 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CCF6606A337;
+	Tue, 17 Nov 2026 09:20:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CCF6606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jsonSMlU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=yx
+	Hn6IyMEc/gFXG0FL2K57vaxjrPtjjGVPSWUg++9V4=; b=jsonSMlU/qFR/LGbrw
+	US8FN5DM8ZRMxPU1uxA2FZtzN7afpX7ibK6qqV0aOnASLZyuGfYNygEkH1UeWESQ
+	/2S06Igfg++lr77IQkUFsIcjZm/6Xs+BoYrNH4jVywPmuhEODDWPUrhaApqN/ZoW
+	1FitzLJBlfpF27lY24ZMFsRQ4=
+Received: from SYPC (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PigvCgDn70U7HPxqqd4dGg--.33581S2;
+	Tue, 17 Nov 2026 17:19:55 +0800 (CST)
+From: Yang Siyuan <hsyysy@163.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	linux-gpio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 RESEND] pinctrl: sunxi: request the per-bank supply optionally
+Date: Tue, 17 Nov 2026 17:19:44 +0800
+Message-ID: <20261117091944.12082-1-hsyysy@163.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,74 +64,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <avG9T_NrXRjVDgjh@sirena.co.uk>
-In-Reply-To: <avG9T_NrXRjVDgjh@sirena.co.uk>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 17 Nov 2026 10:20:19 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdX7hahoo3OPkA1XzVrtDH=AYFqSuMvut3StbO=PKjOYQg@mail.gmail.com>
-X-Gm-Features: Aa3M54rvviiSiYUNpCwRJXk2f2O_bmZMXY6_kw3Tpa7INoLk_tUjtbybsex3TUE
-Message-ID: <CAMuHMdX7hahoo3OPkA1XzVrtDH=AYFqSuMvut3StbO=PKjOYQg@mail.gmail.com>
-Subject: Re: linux-next: manual merge of the drivers-memory-fixes tree with
- the origin tree
-To: Mark Brown <broonie@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Kees Cook <kees+treewide@kernel.org>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PigvCgDn70U7HPxqqd4dGg--.33581S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCFW7AF4rCr1UtrW5trW7CFg_yoWrtF1xpr
+	4fXryayr4rJFyxJw4xAw12yryS9a1xJa43CFykK345AFn8GFy3Jw1jkF4YkFs8Cr4kJr4Y
+	vFyDZ34xGFn8X3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07ULeOXUUUUU=
+X-CM-SenderInfo: 5kv152r16rljoofrz/xtbC7RzvJGr8HDxjQQAA3u
 
-Hi Mark,
+The per-bank "vcc-pX" supplies are optional in the device tree: the
+binding documents them, but notes that many boards do not describe them.
+sunxi_pmx_request() uses regulator_get() anyway, so the regulator core
+falls back to a dummy regulator and warns for every bank that has no
+supply:
 
-On Mon, 9 Nov 2026 at 13:48, Mark Brown <broonie@kernel.org> wrote:
-> Today's linux-next merge of the drivers-memory-fixes tree got a
-> conflict in:
->
->   drivers/memory/fsl_ifc.c
->
-> between commit:
->
->   4dd10fbbeb9c3 ("treewide: Convert devm_kmalloc() family to the devm_kmalloc_obj() family")
->
-> from the origin tree and commit:
->
->   a78ee2e05f7c7 ("memory: fsl_ifc: Clear fsl_ifc_ctrl_dev on probe failure and removal")
->
-> from the drivers-memory-fixes tree.
->
-> I fixed it up (see below) and can carry the fix as necessary. This
-> is now fixed as far as linux-next is concerned, but any non trivial
-> conflicts should be mentioned to your upstream maintainer when your tree
-> is submitted for merging.  You may also want to consider cooperating
-> with the maintainer of the conflicting tree to minimise any particularly
-> complex conflicts.
+  sun50i-h616-r-pinctrl 7022000.pinctrl: supply vcc-pl not found, using
+  dummy regulator
 
-Thanks for your resolution!
+The H616 R_PIO is such a controller, and its PL0/PL1 pins drive the
+R_I2C bus, so every H616 board hits the warning during boot.
 
-> --- a/drivers/memory/fsl_ifc.c
-> +++ b/drivers/memory/fsl_ifc.c
-> @@@ -207,15 -210,15 +210,15 @@@ static int fsl_ifc_ctrl_probe(struct pl
->
->         dev_info(&dev->dev, "Freescale Integrated Flash Controller\n");
->
-> -       fsl_ifc_ctrl_dev = devm_kzalloc_obj(&dev->dev, *fsl_ifc_ctrl_dev);
-> -       if (!fsl_ifc_ctrl_dev)
->  -      ctrl = devm_kzalloc(&dev->dev, sizeof(*ctrl), GFP_KERNEL);
-> ++      ctrl = devm_kzalloc_obj(&dev->dev, *fsl_ifc_ctrl_dev);
+Use of_regulator_get_optional() instead.  A bank supply that is described
+in the device tree is still acquired and enabled, as it powers the
+physical VCC-Px rail, but one that is absent is skipped without a
+warning.
 
-"*fsl_ifc_ctrl_dev" should be replaced by "*ctrl".
+The OF-only lookup matters here: regulator_get_optional() also falls back
+to a global regulator-name lookup.  If a regulator with the same name as
+an absent bank supply is registered later, a subsequent pin request in
+that bank could acquire it and start the per-bank refcount at one, after
+earlier pins in the bank had already been requested without a regulator.
+Freeing any of those pins would then disable the supply while other pins
+in the bank are still active.  Restricting the lookup to the pinctrl node
+makes an absent supply permanent; record that state so later pin requests
+do not retry the lookup.  The refcount therefore stays balanced.
 
-> +       if (!ctrl)
->                 return -ENOMEM;
->
+Signed-off-by: Yang Siyuan <hsyysy@163.com>
+---
 
-Gr{oetje,eeting}s,
+Changes in v3:
+- Use of_regulator_get_optional() instead of regulator_get_optional().
+  The latter still performs a global regulator-name lookup, which can
+  bind an unrelated regulator that appears after some pins were already
+  requested and unbalance the per-bank refcount.
+- Remember that a bank has no supply so later pin requests skip the
+  lookup, and keep the existing no-regulator check in sunxi_pmx_free().
+- Link to v2: https://lore.kernel.org/linux-gpio/20261026152027.1417178-1-hsyysy@163.com/
+- Link to v1: https://lore.kernel.org/linux-gpio/20261026144751.1392715-1-hsyysy@163.com/
+---
+---
+ drivers/pinctrl/sunxi/pinctrl-sunxi.c | 29 +++++++++++++++++++++++++--
+ drivers/pinctrl/sunxi/pinctrl-sunxi.h |  1 +
+ 2 files changed, 28 insertions(+), 2 deletions(-)
 
-                        Geert
-
+diff --git a/drivers/pinctrl/sunxi/pinctrl-sunxi.c b/drivers/pinctrl/sunxi/pinctrl-sunxi.c
+index 70099052d..d2345a85a 100644
+--- a/drivers/pinctrl/sunxi/pinctrl-sunxi.c
++++ b/drivers/pinctrl/sunxi/pinctrl-sunxi.c
+@@ -913,23 +913,44 @@ static int sunxi_pmx_request(struct pinctrl_dev *pctldev, unsigned offset)
+ 					    PINS_PER_BANK;
+ 	struct sunxi_pinctrl_regulator *s_reg = &pctl->regulators[bank_offset];
+ 	struct regulator *reg = s_reg->regulator;
++	struct device_node *np = dev_of_node(pctl->dev);
+ 	char supply[16];
+ 	int ret;
+ 
+ 	if (WARN_ON_ONCE(bank_offset >= ARRAY_SIZE(pctl->regulators)))
+ 		return -EINVAL;
+ 
++	if (s_reg->supply_absent)
++		return 0;
++
+ 	if (reg) {
+ 		refcount_inc(&s_reg->refcount);
+ 		return 0;
+ 	}
+ 
++	if (!np) {
++		s_reg->supply_absent = true;
++		return 0;
++	}
++
+ 	snprintf(supply, sizeof(supply), "vcc-p%c", 'a' + bank);
+-	reg = regulator_get(pctl->dev, supply);
+-	if (IS_ERR(reg))
++	/*
++	 * Use the OF-only lookup: regulator_get_optional() would also match
++	 * a same-named regulator from another device.  Such a regulator can
++	 * appear after some pins in this bank have already been requested,
++	 * which would unbalance the per-bank refcount.
++	 */
++	reg = of_regulator_get_optional(pctl->dev, np, supply);
++	if (IS_ERR(reg)) {
++		if (PTR_ERR(reg) == -ENODEV) {
++			s_reg->supply_absent = true;
++			return 0;
++		}
++
+ 		return dev_err_probe(pctl->dev, PTR_ERR(reg),
+ 				     "Couldn't get bank P%c regulator\n",
+ 				     'A' + bank);
++	}
+ 
+ 	ret = regulator_enable(reg);
+ 	if (ret) {
+@@ -959,6 +980,10 @@ static int sunxi_pmx_free(struct pinctrl_dev *pctldev, unsigned offset)
+ 					    PINS_PER_BANK;
+ 	struct sunxi_pinctrl_regulator *s_reg = &pctl->regulators[bank_offset];
+ 
++	/* The per-bank supply is optional, so this bank may not have one. */
++	if (!s_reg->regulator)
++		return 0;
++
+ 	if (!refcount_dec_and_test(&s_reg->refcount))
+ 		return 0;
+ 
+diff --git a/drivers/pinctrl/sunxi/pinctrl-sunxi.h b/drivers/pinctrl/sunxi/pinctrl-sunxi.h
+index 8bd00c6ff..651249b23 100644
+--- a/drivers/pinctrl/sunxi/pinctrl-sunxi.h
++++ b/drivers/pinctrl/sunxi/pinctrl-sunxi.h
+@@ -162,6 +162,7 @@ struct sunxi_pinctrl_group {
+ struct sunxi_pinctrl_regulator {
+ 	struct regulator	*regulator;
+ 	refcount_t		refcount;
++	bool			supply_absent;
+ };
+ 
+ struct sunxi_pinctrl {
+base-commit: 091b06388b117fefdcb63336ac09956a4914b961
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.56.0
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
