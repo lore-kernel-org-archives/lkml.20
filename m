@@ -1,55 +1,81 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794910392;
-	b=FDFRMIbpF7GwdyvFOYODV/3cEm1OaXWjRMu4Kcu6794spNBgOmPQAF9PZGuxG3udSTnb
-	 ZicDOEvaj9WkOZIDl297yKhGrb8AZTjKIWFr9uiGZa9kHYGZMz7/6dp/hgr2MfZRDcglL
-	 JuippdkSQWWCOhlJzIUJNc0I6c7+mwk8tEfKCJNTdBGZqc7ItawsEmGa/kl/2CyNOuxr3
-	 wm7lDiVgSJdDzgQJxfoBHj2a8JzNQDqL/SC3sk9+RzPNMRfNmnmcRU3eWXwyKU3nyR9C2
-	 10Sy8aOkp6PfE1toRHxzKnoILW41CJ1iEqt1sng6MlPITdcFSEVJ2+snCxRdHqt+2Vg==
+	t=1794910399;
+	b=e+TdFRfYkRyjPVYzbWnzNc9NGDlYh1Hc0IkuxOryXgMOj3I0B1GymmHGqeESM3NgJDLO
+	 Gn+XsaV0MAi2mtuEbte51tpn813RjcTytNxQ7nHKFpPAvW7W1j3gOawzZYVChol3sp8QS
+	 kwPo2t8KD8VHPurrBdtrv2WxGaUwWWdagq0B5bRGEBSO+oL0FuGkFLrOGGXAKbgY/NqDO
+	 cVLif+LSLakxTAbP4fzqkalLh4RJYT+8RhVKIdY23T8aQSx+mp4125D0kXc9P0/rxCc4p
+	 fGGfCl1sPK1VTWPCIlYwHN1l1Zyzr6rjP+kIjbltwvhF79cS03Yj6B9i2wTuxcnOasg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794910392;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=fVeT+3BNfNqDb7R7lCpMKjeQfLaYJROPn4AJADkSt68=;
-	b=Tm+vxSjQfqMwrziZNfJJKVo28HKbBdPxQqnwz8vV1kqXjkcX0VQ1YsCedOnoU3cL5TLm
-	 oQHqYl+ag5tLixJZssVzK4hgAr57SQu+y0YtGLWMg4NBcvWmvKkIwjnZ/Ol0HAEfkQJeK
-	 FUlffuWju4n+kYPGh0dUkbmwuKHehIznK760YHrFgCuyas38Zmopv+eVKIuE7iNL9++wO
-	 JapaMfsRZnnzqPQM9hvw+HT7A8aL7t2uOu6Rn+YRjn6dhYCKj2msjUejTszESRNwKSSfe
-	 oJ7o8LxDiT0hyvS3g3pbJAwHx4evhlefTIrcSwYors8b+BWXYSnDljkc2YqxB5lvmKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794910399;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=bjegpoisEbZi471m0jCHyTug5TPNI/ZEHYUEeklKtvE=;
+	b=lo3wAZyf/uVUpz54SkzJyU2OEjek9nOyxr6AdP6vZTPzUrkHZshoM1p6f4PwX2xEsfOv
+	 7K9uK9BaTAuWbi9+YH1hP5hstNAIBpkDfMT0J7Jjg1ESRwpR0e/pJgUjqCHBogG+koGNk
+	 tER7cJwuKFUQrmvzHEQdATiJhEuCVS0Zf+U43Ca0oV8QyKdAAQAL7KVfKeZCtoDj3gzEE
+	 HhDfTRtkYM6lE2+X4XeHiZzgssCncapz9ykgGLnC6Qvvg30gp2NWiY6NLvtSokS6ioEh/
+	 SZv2hamVxkEZ2n5DOIozgTlczMwFC7ltAC3EhGIeefx2xuMPT8O9XzpURA9FH4WstjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K5iPa7jJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lCWhJkXx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 775F9606A331
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:13:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96F7D606A323;
+	Tue, 17 Nov 2026 10:13:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K5iPa7jJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D44E1F000CD
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:13:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lCWhJkXx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E4161F000C4;
+	Tue, 17 Nov 2026 10:13:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794910392;
-	bh=fVeT+3BNfNqDb7R7lCpMKjeQfLaYJROPn4AJADkSt68=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=K5iPa7jJO4O1Ny56x+UYre1hMiIN4q06fwDElC4QwXyvKcMUscD5OULvLgaFAYq5X
-	 eqbfXwm9epbdfQWQL5xOtUA7I4k5FUWYIcEmGDRaiWqmQ+i5U2Ez6aumo8nPZyqKYu
-	 HVYN9Ic0CeDt3ZkG0598tbhFqIk30JsWnM/TsdYAqkcjQFqKNWMFc5wud0g9moNxM3
-	 iSRjzJDe/Cbi6UhGYLcmj3sSrX6R5ES4TKHAQCHpO97M1gAOJ1DHtqSpHjxl2xGG54
-	 IiYumfgjQdRT4W/KEk/RrwK5aPP1hxKZSunX+WQzgtFmwZ2xvp8qR3dvzuNqevpraf
-	 dPQpkPVX/2jPA==
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5be53e5fce1so4411740e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:13:12 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErH+5fAs3E9Boz2X5NfUWxV1x+ggC2L4nHtG0YQWthpHV1VgxZPDGxTrNPzwfsPmtBQqLVeA1QxhUIITqpM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+bvY2SZ9bM0ZhvFFuyEynXkMUKETZl164QZB6OvJVQlw/VbKx7
-	9bQt1EfMJrD/wOk3tLhqLrJYIWGUVmBvIO4cpX0cd3YZOfFO3pf1yLQ5RgGtBfbLm29wG1svFMy
-	dmYh0JbAr04Pn4Qm1o3tyNXeHd3+lzq4=
-X-Received: by 2002:a05:6512:2399:b0:5bf:b8f7:656f with SMTP id
- 2adb3069b0e04-5c170b1c2fcmr5286367e87.16.1794910390853; Tue, 17 Nov 2026
- 02:13:10 -0800 (PST)
+	s=k20260515; t=1794910399;
+	bh=bjegpoisEbZi471m0jCHyTug5TPNI/ZEHYUEeklKtvE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lCWhJkXxe0cd+l/aKM456yX2OjBqh13wZLpZEuhQM2jbS+ys2teSairW1BLSqz39H
+	 P4f1JlzNK1bP5fmVazLr6E5YpPmsAcCQWyZ+aMjk3YRRoY9x2c1kd2Xy11NmZPQZZ/
+	 nBLIKujMVtHAYFMKk4FRiUcSm4e9uJ2iths/rBov6xl3NUUlHEfIktYnFJkS1dsS63
+	 HpxgCf6kyYS8Gexowd2VVgg8+fLYPehQU6LUGZLe8sajy32NEX0nTKUuHyLs93tyxk
+	 991CZ2XvEZcZiNJbKxs96PsQHM3YRz2jd1+SL1g1rShIJFNzja9UdHZSDWpX+4v+Rj
+	 U++7nPWw4FK5g==
+Date: Tue, 17 Nov 2026 11:13:07 +0100
+From: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Mel Gorman <mgorman@suse.de>, Andy Whitcroft <apw@canonical.com>,
+	Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>,
+	Rik van Riel <riel@surriel.com>, Hugh Dickins <hughd@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>,
+	Dave Airlie <airlied@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, Peter Xu <peterx@redhat.com>,
+	Breno Leitao <leitao@debian.org>, Will Deacon <will@kernel.org>,
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	Nick Piggin <npiggin@gmail.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	Gerd Hoffmann <kraxel@redhat.com>, linux-doc@vger.kernel.org,
+	linux-arch@vger.kernel.org, linux-s390@vger.kernel.org
+Subject: Re: [PATCH v2 03/15] mm/hugetlb: preserve reservations when
+ shrinking on HIGHMEM
+Message-ID: <avwos-qF9ADmdHIT@localhost.localdomain>
+References: <20261116-fixes_hugetlb-v2-0-4dd9e94ea9ac@kernel.org>
+ <20261116-fixes_hugetlb-v2-3-4dd9e94ea9ac@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,31 +85,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261107-a210-pinctrl-v1-0-6ddedfb0b76b@iscas.ac.cn>
-In-Reply-To: <20261107-a210-pinctrl-v1-0-6ddedfb0b76b@iscas.ac.cn>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 17 Nov 2026 11:12:58 +0100
-X-Gmail-Original-Message-ID: <CAD++jLmk9qMP_fXkYEV5de9d-xu=GhHWkfAXws3kxwXORq1WxA@mail.gmail.com>
-X-Gm-Features: Aa3M54rHFkXM7b8oZyPnRAYA_-IYWZ6f85f3wqy9H6Dh9cQVnlkurrnqDxyrOWM
-Message-ID: <CAD++jLmk9qMP_fXkYEV5de9d-xu=GhHWkfAXws3kxwXORq1WxA@mail.gmail.com>
-Subject: Re: [PATCH 0/3] pinctrl: add Zhihe A210 pin controller support
-To: gaohan@iscas.ac.cn
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
-	Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	Han Gao <rabenda.cn@gmail.com>, Conor Dooley <conor.dooley@microchip.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116-fixes_hugetlb-v2-3-4dd9e94ea9ac@kernel.org>
 
-On Fri, Nov 6, 2026 at 8:36=E2=80=AFPM Han Gao via B4 Relay
-<devnull+gaohan.iscas.ac.cn@kernel.org> wrote:
+On Mon, Nov 16, 2026 at 07:29:24PM +0100, David Hildenbrand (Arm) wrote:
+> try_to_free_low() drops the hugetlb_lock while freeing lowmem folios.
+> set_max_huge_pages() then resumes freeing folios using the
+> min_count computed before that unlock. Reservations created in between
+> can consequently lose their backing.
+> 
+> Collect lowmem folios on the caller's existing page_list instead. Keep
+> the hugetlb_lock held through both selection passes, and free the combined
+> list at the caller's existing unlock point.
+> 
+> Likely not stable-worthy.
+> 
+> Fixes: 1121828a0c21 ("hugetlb: call update_and_free_page without hugetlb_lock")
+> Acked-by: Muchun Song <muchun.song@linux.dev>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-> This adds the binding and driver for the Zhihe A210 pin controllers
-> (AON, PERI1 and PERI2).
+Acked-by: Oscar Salvador (SUSE) <osalvador@kernel.org>
 
-Patches applied, very nice series Han!
+ 
 
-Yours,
-Linus Walleij
+-- 
+Oscar Salvador
+SUSE Labs
