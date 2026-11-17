@@ -1,56 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794919042;
-	b=M/p/5mEcjsxE1HcC76l1vPNn0YMzSQzXW0V+5azpcR9NDa3Q51jyrWX6gQRMxO2Zjjr4
-	 YkpqXMyLxbGZitPgo3cnPHEsOTW2LrGF9G2JPJu7HLoggCkuBX9PSx0PMrUv2SgnEqJCK
-	 vR5Eo2JqDgUZkIOyAPvkDsR9ePDgtGJaWIS0bT2v5pwwHvLth9fvdRYXZJFHBuH2xXgBC
-	 iwGHhbOptvXZfKOQRbOUGwfBHEsVz9Ef8aoLfkR+37uf2Ui67bQe09mpj6L0KQLPTslIs
-	 uo7B734U6XxE7wPZa9dY6kElE7iE7ZoekgQEii18l/dTdemavbCzpQh3iWchjFJw0nA==
+	t=1794919086;
+	b=hJlWAgZwnhNmTweGUksVyezP7CM0CGqLCmSkzUIZsYp7LjNUjX1UPbCVk0JwVu4RltQA
+	 hzbyakM/8TqUfBDHxWfr+VpXY/NMCrDjGendbAvWdt/I+J285e6pV3oF6fwe7h2nxpPLh
+	 VZ7BypzcBQHtrysvmL5v3spxusZ/GonHxxrb5UgEbPJ313Fkmn53oVgYcW4YQ+VzdGjua
+	 NiOjxqAQOEAALB/l/e2CCQDgrZgtMxyayeKs1EmGiOF7VSCoJEau8aQXTWAo/o/gVE9PB
+	 cMPjRjqGiq5TzN2+pafm86JqgAALBJLiLlFu2em17qIZXgb74eC1n5lCCkLmvl6CltQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794919042;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=hXSEIu+BwV1S8tPxayHCJW+kRFznr7QmQ/f2L6iJRlQ=;
-	b=WS6CB5jk2uBasuNQy63N4V3S0CRdeyB83eSWFFgM4ec7ThuZsHS8FdqYJf/U189JUupN
-	 LcFA9aZEZTAjKB5wGyonk1tGkHHAfW3HXnl55JbawvRo3fCFuf0rg1xaJSghRS56HVimc
-	 NFXH3fMZ2OaLJjrNTz8OCFtOsqofSR3/ve0fmA2FE+43E3jIK4pkW8S3+0z+S2A0mIPAP
-	 dPcMFJA8Rt3hEsH+b8qdcjALK1vqj4vwZFtq6P6Blupw9jQpUxDKp08tofYAxJ5PcrMPE
-	 cRVBBvTtFeXER9MxFBE0ol2RZgNIKJXnshX8k9RTbWCf4l+d6kfhQ9lTS4CfAnbeNRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794919086;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=O3Eobrwyq5oOakeAIYkUyc+GNwviFP9RCRghw5eCfbo=;
+	b=Iw5c6kELl+ACMUHsHSIIPturJsqMqAUuqP9xjPeh6iQjVjuaojX/euDeoFLmfMAU1QHJ
+	 yMyvI4I8VhUbxg0yl53zy+Uk2UvGxiFXC+yD2Jf9njCXqIGIgxr8oUnMM88xMlIKLgv7k
+	 GV/ldEykTKrL1epNkNa7jeb4FjttLJa7R/xmaACEPZT0h9kTwG3gC5R/Dc9UYbXJK0MI4
+	 8boYO46F6Fb9/AL/nBfKA7yOjFuNG+89UClfhxKrXlSlrMaY0sLjgojfhiOYTzNEnZS6X
+	 jSugzMm8p6d2UbzXkUkY7i/zuAP9aiSZZme8zQwNQuZd/wPyTgfQbIsf6L0FrwxpaUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b2Eja1XU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R7fOeIOI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BA5C606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:37:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 69551606A31C;
+	Tue, 17 Nov 2026 12:38:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b2Eja1XU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BD021F000C6;
-	Tue, 17 Nov 2026 12:37:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R7fOeIOI
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id B754D1F000C4;
+	Tue, 17 Nov 2026 12:38:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794919042;
-	bh=hXSEIu+BwV1S8tPxayHCJW+kRFznr7QmQ/f2L6iJRlQ=;
-	h=From:To:Cc:Subject:Date;
-	b=b2Eja1XUJTUdCidd1n03CptFLQI3lvHVjocRxQIwnkHozMgc6D/fvjlERtAHfMQRH
-	 XODOczW2lLykerwRiSiDVXMfQezSmOb1HLWOuopYuCDfdatFHK9/94p5kcgmV4wNJg
-	 qX1JKG/Qzy/ELcvHgqbRgIeL7dL09AUnsX/Y9AQLwh9Rg5kNLLYB+S9fU9l8Vl1UDU
-	 54PVq5+BXNDp4+3p2I141BJtXtqgnuXB+9+CyMlCz6OmC5pcS2bOi+rzl+rkEX8Sfw
-	 FtRio08+KyXt5MxU9lfR1dWZeOL75gomPf/bvDsXk/PExOM7WnGWN69Tg+A0oQOjjw
-	 L2mnsW1eBvyfw==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	"David Hildenbrand (Arm)" <david@kernel.org>
-Subject: [GIT PULL] Core MM fixes for 7.4-rc4
-Date: Tue, 17 Nov 2026 13:37:14 +0100
-Message-ID: <20261117123716.7567-1-david@kernel.org>
-X-Mailer: git-send-email 2.56.1
+	s=k20260515; t=1794919086;
+	bh=O3Eobrwyq5oOakeAIYkUyc+GNwviFP9RCRghw5eCfbo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=R7fOeIOIRPoY8+oP7zpF/On0647DP/j0922IzQS0EGdYL7zviM3kw2GpZmpgSM4MH
+	 xqMr4EnOqxDCoVs7I5IpabgXmVCB593y4wvmknU6ssJc5hMgA8pHdxhnTgyhrU4A+5
+	 JFs3VjlHQ9F5qxJoW2/sFS1KlV2d91w9yfbTBx88kZo+4Oi3RFs3zDFkBN5OzjT6D2
+	 Vp3WEA+o5Ce3NmNgpGkgg4Ao1lSVo3wDQRhpYtzjmVqWMX+nK62RMuy50NbWYpaQs3
+	 Nm++vzc+Q4THgxLWfn5GOSxG7FoEVBaE3yFe1Ez4kgz5c/KBZKxUgo8fI8/sHRkK9V
+	 GGLaP1WTFQrkg==
+Date: Tue, 17 Nov 2026 14:38:02 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Rustam Mustafin <rmustafin@cloudlinux.com>
+Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Jaewon Yang <yong010301@gmail.com>,
+	Tadeusz Struk <tadeusz.struk@intel.com>,
+	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] tpm: track the response read position internally, not
+ via the file offset
+Message-ID: <avxKqn-PlzJyxVdK@kernel.org>
+References: <alvD5nOP15O5B8Ai@kernel.org>
+ <20261117104838.2650999-1-rmustafin@cloudlinux.com>
+ <avwzid1Ovl4ACkaQ@kernel.org>
+ <avxJ9MxZ0PoWbQTc@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,109 +63,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avxJ9MxZ0PoWbQTc@kernel.org>
 
-Hi Linus,
+On Tue, Nov 17, 2026 at 02:35:04PM +0200, Jarkko Sakkinen wrote:
+> On Tue, Nov 17, 2026 at 12:59:25PM +0200, Jarkko Sakkinen wrote:
+> >  ...
+> 
+> I think this would be more feasible:
+> 
+>         if (current->flags & PF_IO_WORKER)
+>                 return -EIO;
+> 
+>         if ((current->flags & PF_KTHREAD) && current->io_uring)
+>                 return -EIO;
+> 
+> I.e., block io_uring entirely.
 
-please pull these core-MM fixes for 7.4-rc4.
+And kselftest can then be extended to address this case (as a
+separate patch) making this two-patch patch set.
 
-I wanted to have them ready for -rc3, but decided to give some of them
-a bit more soaking time in -next. These are all urgent fixes; non-urgent
-fixes are getting piled up for the next merge window.
+Short summary would be e.g. (or use your imagination):
 
-The biggest piece is the folio refcount overflow prevention, which you
-should be aware of and which I want to have fixed ASAP. What's missing from
-that work are the net patches.
+"tpm: Do not allow io_uring for /dev/tpm{,rm0}"
 
-I'll try getting more attention from net maintainers on the net changes
-next, so they can go through the net tree.
-
-Cheers,
-
-David
-
-----------------------------------------------------------------
-
-The following changes since commit f66469d9905b39d2c260a15d7d6db450f4db67c1:
-
-  Merge tag 'net-7.4-rc2' of git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net (2026-11-05 18:00:16 -0800)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/mm/core.git tags/mm-core-7.4-rc4
-
-for you to fetch changes up to 25f5c92e1ac06496679ea229e5c825aa88968efd:
-
-  Merge patch series "mm: limit pagecache folio refcount" (2026-11-14 16:36:05 +0100)
-
-----------------------------------------------------------------
-Core memory management fixes for 7.4-rc4
-
-This includes fixes to:
-
- - THP (Transparent Huge Pages)
- - GUP (Get User Pages)
- - USERFAULTFD
- - SHARED MEMORY (memfd)
- - Core MM
-
-The main changes are:
-
- - Prevent folio refcount overflows with pagecache folios, mostly
-   relevant for large folios today. The networking changes for this will
-   go through the net tree.
-
- - Fix out-of-bounds page table accesses with folded PMDs in 3
-   scenarios.
-
- - Fix write-sealing of memfd to detect GUP pins with concurrent
-   (un)mapping more reliably, preventing writes through GUP pins after
-   write-sealing.
-
- - Fix lost wakeups when splitting large folios.
-
- - Fix exposing uninitialized data through MADV_COLLAPSE to user space.
-
-The refcount changes also include a related iommufd fix for properly
-cleaning up when pinning memfd folios fails, which is now easier to
-trigger.
-
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-
-----------------------------------------------------------------
-David Hildenbrand (Arm) (11):
-      mm/khugepaged: don't map folios that are not uptodate in MADV_COLLAPSE
-      mm/memfd: handle GUP pins more reliably when write-sealing
-      mm/userfaultfd: fix PTE table overruns in UFFDIO_MOVE
-      mm/rmap: fix PTE table overruns during batched unmap
-      mm/rmap: fix PTE table overruns during batched reference checks
-      mm: limit pagecache folio refcount when mapping pages
-      mm: limit pagecache folio refcount when splicing into pipes
-      mm/mmu_gather: flush pending references early before the folio limit
-      iommufd: fix cleanup when adding memfd folio pins fails
-      mm/gup: limit pagecache folio refcount when grabbing references
-      Merge patch series "mm: limit pagecache folio refcount"
-
-Zi Yan (1):
-      mm/huge_memory: prevent losing PG_waiters in __split_folio_to_order()
-
- drivers/iommu/iommufd/pages.c | 15 ++++++--
- fs/fuse/dev.c                 |  4 +-
- include/asm-generic/tlb.h     |  4 +-
- include/linux/mm.h            | 89 ++++++++++++++++++++++++++++++++++++-------
- include/linux/pgtable.h       | 24 ++++++++++++
- mm/filemap.c                  | 28 +++++++++-----
- mm/folio.c                    | 26 +++++++++++++
- mm/gup.c                      | 32 ++++++++++------
- mm/huge_memory.c              | 64 ++++++++++++++++++++++++++++---
- mm/internal.h                 |  6 ++-
- mm/khugepaged.c               |  6 +++
- mm/memfd.c                    |  7 ++++
- mm/memory.c                   | 48 +++++++++++++++++------
- mm/migrate.c                  | 11 ++++++
- mm/mmu_gather.c               | 10 +++--
- mm/page_alloc.c               | 17 ++++++++-
- mm/rmap.c                     |  4 +-
- mm/shmem.c                    |  7 +++-
- mm/userfaultfd.c              |  8 +++-
- 19 files changed, 336 insertions(+), 74 deletions(-)
+Br, Jarkko
