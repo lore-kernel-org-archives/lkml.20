@@ -1,70 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.221
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794905315;
-	b=gJgsXjw0hdzQy1eEJ0JF/iwAxdrZF1jlJEkG6WWvw/fesm6mP+NqeRnDBrhlAy77ez8E
-	 Mn2GXmA4wgoKLf0TDjK0a0bZehegDWnC/FTjL8iksfxohMdkokkwa9HnZwa9Eom6bugv9
-	 ZgzHb89dcCsfvWtaeInPUwLVCWp1XFhKJmIC+s9AgbaXUXymSrEHR73IvA64Wh9G48jym
-	 hZk5xreh19XP8zvoKGgcOjnZHLiaZMak/1wXcBIOzicOJsAtW5Fox6QldI3E0c1sTOI3a
-	 8cfb/6iWUHLIrPTgfs9NP5V8fZ41+vynyKKne/HJHsViASjO6Um5N3gRONycVcmWIwA==
+	t=1794905322;
+	b=OWB+jyHMLoMPG4A/ZSkHNVgc6XxBYCYHMlQhTJcR4daeSI3EC6abM+SB+CDBsiE7Wd0D
+	 ZnFFjNMc1gH5Jc7jesA1LL8amkHX99cTWeJwJ5ICkt6BqJfSmorNzHa2v2Tz+Qh9Pj/E0
+	 iEZvsT0pBfyc85s/1O7peCVGl8g8sTNrA3Ilqu/i3EzOOY3j+DhdvxT+1uhzVH0Fy9h42
+	 BgaEnMEh/u6yHJLvqV4FTLEGW/hf2+ehh5iNg3TSmK8Su8Ujnq7E8+8sqH0VlFYTD/Gnf
+	 mXyWVXYxjQWhr5XB2ONtxw1AEKFW4gooS4NRkyeWYINw05jrbVX8aI9BKlQRi8ktFyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794905315;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=OF6Cp5FG0HrDU4fEnYEdsDYyzWBxBPMclGmCe3hKMhY=;
-	b=3Q/zIWYGAVjbo42BR9YqUe/G0hyo/kn5vOYEJvbOz8Z5NLEdngSfT/tiaf9ISYgHdqz0
-	 h36NATjVjWr50YufW39jO+MrcI2OPDdQnjbL2+jVaf3MU3XxadIwYVCQcprOBGjWi5Q3W
-	 +IDnaeJHVqXVUM6As/tCxJfnFHzUKFrrIq/TXqbY+ctkeHLU+TMOABPinpO7D4nVx3wCO
-	 2GxWLAwB59FM8WniOWOT4Pdgm+FMgvDJhho3FAFHYE3UciAgjy/T/TsQphaLQ7uYjFwvx
-	 92c1x4VeZfMIR1Dmx6SC84b/L64apzETvnc8ipJDGySpg5u+hYqPwvhWFccW7qN/YaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794905322;
+	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
+	 X-UI-Sender-Class:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-Provags-ID:
+	 X-Spam-Flag:UI-OutboundReport;
+	bh=P1ClmoZsqJJJpB1373+KjFp+S9/BiM8sayDfKuWge9U=;
+	b=2CdoMlfgKTCMn26jmqipk3k5j6BnyrkO0wplB7nOYlfZJtaXfq+sVAPNUkSgMN2Pg7v3
+	 ymA3mZgrxhppsRidcPRazVlcGe/3sltMqU/AitgpkROM4fuihyqsYieKl9CLrT3oDOS7P
+	 OJ7aU/OP+y+cWOUuAPBAaOb7e5aNCKnK/rm2wg3L57m2QhhGXUSt64CXIIIwOsY2RFOJk
+	 OD+yB4I+V80w9tgIIa/3axa3KLG3A0/cNiCHaPLwigTSsXu02I11hHt2DftvcjEJAFoDn
+	 8IDzLCNI/NWOSQzCLR1+tRiS0g1ous7kH+kNsf+RhChDRPxebC52uXH3tEC0bcCijyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="cgQgs/dO";
-	arc=none smtp.remote-ip=95.215.58.221
-Received: from mta1.migadu.com (out-221.mta1.migadu.com [95.215.58.221])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=jonasjelonek.de;
+	spf=pass smtp.mailfrom=jonasjelonek.de;
+	dkim=pass header.d=jonasjelonek.de header.i=jonas@jonasjelonek.de header.a=rsa-sha256 header.s=s1-ionos header.b="l6r+CFU/";
+	arc=none smtp.remote-ip=212.227.17.10
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.10])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD232606A8A8
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:48:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD232606A8A8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55525606A8A8
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:48:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55525606A8A8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jonasjelonek.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jonasjelonek.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cgQgs/dO
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=LQmkq3cSMRegdHM94Dm1Vc2r2vLITOvaUszwP4C6EyQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794905307; v=1; x=1795510107;
- b=cgQgs/dOoWlnzob1ObJRhaMmHYy+dgmR44aPy7coGph3V3l1WJ6er1iD1aI27clxqTg5LsQC
- ZEjLkhoR4h0F5OMr2oxuUbQX2KaCi12msTw0Xzdp1Z6lQK99CTz54WAvd6njqbAZ9cKJ85B4zTO
- mI8RKviDtSSSXfTuL+JMq3DE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 8a9d863a83631418;
-	Tue, 17 Nov 2026 08:48:26 +0000
-X-Mizu-Trace-ID: 8a9d863a83631418
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 17 Nov 2026 16:48:12 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Andrea Mayer <andrea.mayer@uniroma2.it>
-Cc: "David S. Miller" <davem@davemloft.net>,
+	dkim=pass (2048-bit key, unprotected) header.d=jonasjelonek.de header.i=jonas@jonasjelonek.de header.a=rsa-sha256 header.s=s1-ionos header.b=l6r+CFU/
+DKIM2-Signature:  i=1; m=1; t=1794905317;
+ mf=PGpvbmFzQGpvbmFzamVsb25lay5kZT4=;
+ rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+ d=jonasjelonek.de;
+ s=s1-ionos:rsa-sha256:RQ8GGeHBpOB43MwHxZn+1w2y7c7y
+   mqdJgGoKVVyEPKoH0Y3IbA7LYuWS+Gdnc9xVQvp1Aoa9ntAQu+KOvjYtfDopDi4rGixT5iNAbKr
+   FltZVjdDSANLBhH9JZLZwZLXG6fIWg0zh/OXfmSJbB7u8HXRmyUE2Ymng3XM0DNXyqPqk4sHaEw
+   yenp2QPky9Yi7sBar259H4N8r+BLqjwZnTJ8G0E8WWjv509dP+ZnBc0yCA4Uf1cd0rQw4N46Rih
+   HrAfaHS/eMx3Iu+X8PIqxxs3V9KStU/onipZg765VtC55Nfj1DtJeOC3LxNh7PkqxugMIb5E8aQ
+   MyAzlLkWA1ug1A==;
+Message-Instance:  m=1;
+ h=sha256:
+   GBdWDsheRq8mCFgtA7++7ixj32vPZ8ox+KokO93kgLA=:
+   ruHLTqrJ6FvrdfHca1vZQ9opy49MkaA+bRfzrIZf7BU=,
+  sha512:
+   RFExPx2pEJ1UoBeq0Z3U05JLTrGWQpmXUMU5KN9j3oTDG43G/PDMzxsq9ib6X9yx7DmhhvjyowI/mI+fAK9JAQ==:
+   9nnMmCMz+WLgYWtWtngRCg1zUgOLylTSn0isAjNOP5EuiNI2I81oqO9r21TqAks7u1Z0R0yUw+h8rutY10xq+A==;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jonasjelonek.de;
+	s=s1-ionos; t=1794905279; x=1795510079; i=jonas@jonasjelonek.de;
+	bh=P1ClmoZsqJJJpB1373+KjFp+S9/BiM8sayDfKuWge9U=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
+	 MIME-Version:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=l6r+CFU/1U7RmV565vXfxTwfGrxrgrSRbtuTOYCQ80PtVHwpBh3szw7O8ra2P+Ig
+	 OZ9P6N7tN52C1Vj2cUIf6PKYoRIQbj3csk6uAT9GdexuWr2mWgW0qXgC8E7e7QNGd
+	 DYHDXcNFo+DwJ9nvkvbCNT98aBPFZR2PTdyQPWUBcj7l3OobfTO94Kqe5qLiYq8J/
+	 amBC/strsmuN6yxOAzjTmWeKmrdFzKWkVL8UlWljK1M3NdYMbugvM0WAnhmO7RnO9
+	 lwVonfv0JinSRqzbLvJqcRieTSpTmgHO2YDLoqKa/WxPeWcxXr4xWxxwmqQMOgH7a
+	 JjnureTEN1/NQeX1fQ==
+X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue108
+ [213.165.67.113]) with ESMTPSA (Nemesis) id 1MdNPq-1wuB5T27A8-00c5d7; Tue, 17
+ Nov 2026 09:47:59 +0100
+From: Jonas Jelonek <jonas@jonasjelonek.de>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S . Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Hangbin Liu <liuhangbin@kylinos.cn>,
-	Stefano Salsano <stefano.salsano@uniroma2.it>,
-	Justin Iurman <justin.iurman@gmail.com>,
-	Andrea Mayer <andrea@common-net.org>
-Subject: Re: [PATCH net-next v3 5/5] selftests: seg6: add PSP flavor testing
- for SRv6 End.X
-Message-ID: <avwUzLyWxZl9cBIX@fedora>
-References: <20261112-srv6_flavors_endx-v3-0-c9177bbbd965@kylinos.cn>
- <20261112-srv6_flavors_endx-v3-5-c9177bbbd965@kylinos.cn>
- <20261117035021.e724668d726ecce54e091288@uniroma2.it>
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Jonas Jelonek <jonas@jonasjelonek.de>
+Subject: [RFC PATCH net-next 0/2] Add Realtek XSGMII interface mode
+Date: Tue, 17 Nov 2026 08:47:46 +0000
+Message-ID: <20261117084748.2387647-1-jonas@jonasjelonek.de>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,325 +101,187 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261117035021.e724668d726ecce54e091288@uniroma2.it>
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:XsOEw+7eWlSUf6jt9+H8MZzG3ZlVp0G/nbVmWm2fQBmo8hrxt0F
+ ACuZCtIDhAZGo5zFEa2pvbVTdumlMaol29Na3FdM2hS1I3UDLl1jkHCSaaUJNU9MxGZAH5d
+ KnDTtxbMQwrgg01QV3e3h5VptyZUmSvjdOnyfZRzzdO8xTZw0OLte881nRVTeELByECDGzn
+ XF+Cf1lJt1L4+VRxOlyJQ==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:ur9Ef8TBnto=;Dny9pf0tdX5h8mxiCzEicXxcO26
+ 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
 
-Hi Andrea,
-On Tue, Nov 17, 2026 at 03:50:21AM +0100, Andrea Mayer wrote:
-> On Thu, 12 Nov 2026 17:28:00 +0800
-> Hangbin Liu <hangbin.liu@linux.dev> wrote:
-> 
-> > Add an End.X flavor scenario to srv6_end_flavors_test.sh that applies
-> > the same PSP policies as the End scenario, alone and combined with
-> > NEXT-C-SID, with every node bound through its adjacency (e.g. 4>2 for
-> > rt-4 towards rt-2, 2>h towards the host), and exercise it with the
-> > existing host connectivity tests.
-> >
-> > Teach the policy and endpoint helpers about <nodeid:op:act> elements:
-> > __get_srv6_rtcfg_act() extracts the action, the __get_*_func()
-> > helpers pick the Function for the action, __get_act_cfg() derives the
-> > End.X next hop, and build_csid()/get_rt_sid() keep the adjacency so
-> > it is encoded into the C-SIDs (e.g. fcbb:0:34a9:: is End.X on rt-3
-> > towards rt-4).
-> >
-> > There is no need to re-check the ip command capability as it already
-> > supports setting PSP flavor with End.X.
-> 
-> Hi Hangbin,
-> thanks for adding the End.X scenario.
-> 
-> I see these main areas to work on:
-> - How an element is read. The "router>adjacency" form is read in
->   different places, each with its own sed or cut. IMO, the selftest
->   would be easier to extend to other behaviors and flavor combinations
->   if the nodes were read in one place, with small helpers. What
->   depends on the behavior could also be chosen in one place.
-> - A check of the elements, so that a mistake in a Policy does not go
->   unnoticed.
-> - A check of the kernel support for End.X PSP.
-> - The End.X tests with a consumed SRH.
-> - One End.X SID per adjacency also without NEXT-C-SID, where today
->   the SIDs of a router do not depend on the adjacency.
-> 
-> The comments below are ideas on how to address each of them, plus
-> some smaller points. There may also be other parts of the selftest
-> to adapt.
+Hi,
 
-Thanks for your kind review.
+This RFC adds an explicit PHY interface mode for Realtek's proprietary
+XSGMII transport. It carries eight 10/100/1000 Mbps ports over one
+10.3125 Gbaud SerDes lane. Each logical port remains limited to 1 Gbps;
+the aggregate serial rate is not a per-port Ethernet speed.
 
-> > Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
-> > ---
-> > I didn't add `host_srv6_end_flv_consumed_srh_tests()` for End.X because
-> > the extra policy insertion does not work with the End.X policy. The packet
-> > resolves the destination via the next hop directly, rather than doing a
-> > re-lookup in table 90.
-> 
-> The ingress router can insert the extra SRH instead, on the first SID
-> of the Policy. As in the End tests, an End SID of the base setup can
-> then consume it. This way, we can add these tests for End.X too. What
-> do you think?
+Motivation
+=2D---------
 
-For the End.X Policy (i.a) testing, we have SID List=fcff:3::a,fcff:4::af1,fcff:2::af1,cafe::2.
-And we configured the next hop policy for the SID on each rt. e.g
+The motivating users are downstream Realtek PCS/PHY drivers for OpenWrt,
+including RTL930x/RTL931x switches connected to RTL8218D/E octal PHYs.
+Their XSGMII connections currently use phy-mode =3D "usxgmii", with the PC=
+S
+driver inferring the actual transport from the number of described ports.
 
-On rt3: fcff:3::000a table 90 encap seg6local action End.X nh6 fcf0:0:3:4::4
-On rt4: fcff:4::0af1 table 90 encap seg6local action End.X nh6 fcf0:0:2:4::2 flavors psp
-on rt2: fcff:2::0af1 table 90 encap seg6local action End.X nh6 cafe::2 flavors psp
+Not only is this a misuse of USXGMII mode, covering two very different
+modes with a single name. It also starts to fall apart in several cases.
+A specific switch being currently worked on uses an RTL8218E PHY but
+only with 4 of the 8 ports actually wired and used. The device tree also
+only has those 4 ports but the PHY still talks in XSGMII mode to the
+switch SoC. This causes a mismatch, the switch SoC using USXGMII
+(because of the assumption that 4 ports -> USXGMII, not XSGMII) but the
+PHY using XSGMII.
 
-When the packet arrive on rt4, it's dst is set to fcff:2::af1. And the new
-insert policy (fcff:2::0af1 table 90 encap seg6 mode inline segs fcff:3::000e dev dum0)
-doesn't works as the End.X policy will goto next hop fcf0:0:2:4::2 directly
-instead of looking at fcff:2::af1 on table 90.
+Protocol identity and naming
+=2D---------------------------
 
-Would you add more info about the ingress route?
+XSGMII is the name Realtek uses for this interface. Calling it simply
+"octal SGMII" would describe its capacity without identifying its
+protocol. Existing modes such as QSGMII and PSGMII already distinguish
+multiplexed MAC-PHY transports; the PSGMII introduction is an example of
+adding the generic mode definitions separately from a driver user [1].
 
-> 
-> > [snip]
-> > diff --git a/tools/testing/selftests/net/srv6_end_flavors_test.sh b/tools/testing/selftests/net/srv6_end_flavors_test.sh
-> > index 374b43661c28..5b1b13586df0 100755
-> > --- a/tools/testing/selftests/net/srv6_end_flavors_test.sh
-> > +++ b/tools/testing/selftests/net/srv6_end_flavors_test.sh
-> > [snip]
-> >  __get_srv6_rtcfg_id()
-> >  {
-> >  	local element="$1"
-> >  
-> > +	echo "${element}" | sed 's/:.*//; s/>[1234h]//g'
-> > +}
-> > [snip]
-> > +__get_srv6_rtcfg_all_id()
-> > +{
-> > +	local element="$1"
-> > +
-> >  	echo "${element}" | cut -d':' -f1
-> >  }
-> >  
-> 
-> The same node is read again in build_csid(), get_rt_sid() and
-> setup_rt_endpoints(), each time in its own way. Two small helpers,
-> one returning the router of a node and one its adjacency, could
-> replace these sed and cut. __get_srv6_rtcfg_id() above would then not
-> need the sed, and __get_srv6_rtcfg_all_id() would probably not be
-> needed at all. Without NEXT-C-SID, __setup_rt_policy() could then get
-> each SID of the Policy from get_rt_sid(), as setup_rt_endpoints()
-> does.
+Cisco USGMII is a relevant comparison, but equivalent port capacity does
+not establish interoperability. Cisco defines Q-USGMII for four ports
+over 5.0 Gb/s and O-USGMII for eight ports over 10.0 Gb/s, using 8b/10b
+coding and a packet-control header [2]. Linux already represents the
+quad variant as "qusgmii", with its own control-word decoding [3].
 
-For a single End.X node, e.g. "4>2", we can return the router (4) and adjacent
-router (2). But how to get multi nodes. e.g. "4>2,2>3", with theses 2 small
-helpers?
+Realtek documents XSGMII and O-USGMII as separate RTL8218E interfaces:
+XSGMII runs at 10.3125 Gb/s and O-USGMII at 10.0 Gb/s, with different
+hardware strap selections [4]. The SDK also distinguishes them in
+phy_8218e_macIntfSerdesMode_get() and applies separate initialization
+tables. Realtek's O-USGMII is therefore the candidate for comparison
+with Cisco's octal USGMII; it is not evidence that XSGMII can be renamed
+to USGMII. Compatibility of those O-USGMII implementations would need
+separate confirmation.
 
-> 
-> > [snip]
-> > +__get_noflv_func()
-> > +{
-> > +	local act="$1"
-> > +
-> > +	case "${act}" in
-> > +	"End")
-> > +		echo "${END_FUNC}" ;;
-> > +	"End.X")
-> > +		echo "${ENDX_FUNC}" ;;
-> > +	esac
-> > +}
-> > +
-> > +__get_psp_func()
-> > +{
-> > +	local act="$1"
-> > +
-> > +	case "${act}" in
-> > +	"End")
-> > +		echo "${END_PSP_FUNC}" ;;
-> > +	"End.X")
-> > +		echo "${ENDX_PSP_FUNC}" ;;
-> > +	esac
-> > +}
-> > +
-> > +__get_csid_psp_func()
-> > +{
-> > +	local act="$1"
-> > +
-> > +	case "${act}" in
-> > +	"End")
-> > +		echo "${END_CSID_PSP_FUNC}" ;;
-> > +	"End.X")
-> > +		echo "${ENDX_CSID_PSP_FUNC}" ;;
-> > +	esac
-> > +}
-> 
-> The three __get_*_func() helpers differ only in the constants. As a
-> possible simplification, they could be one function with, for example,
-> a case on the behavior and the operation ("End noflv", "End psp", ...,
-> "End.X next-csid,psp"). Then the Functions are chosen in one place,
-> also for a new behavior.
+This proposal retains the vendor's XSGMII name rather than assigning an
+existing protocol name to a distinct hardware configuration. It does
+not assume a particular XSGMII line encoding merely from the line rate.
 
-Thanks, I will merge them together.
+Scope and compatibility
+=2D----------------------
 
-> 
-> > [snip]
-> > @@ -713,10 +814,10 @@ op_has_next_csid()
-> >  #  $1 - router
-> >  #  $2 - operation <op> of the element (e.g. "next-csid,psp")
-> >  #  $3 - Function (e.g. "0ef1", or "e9" with NEXT-C-SID)
-> > -# e.g. input: "4" "psp" "0ef1"
-> > -#      output: "fcff:4::0ef1"
-> > -#      input: "4" "next-csid,psp" "e9"
-> > -#      output: "fcbb:0:40e9::/48"
-> > +# e.g. input: "4" "psp" "0ef1", output: "fcff:4::0ef1"
-> > +#      input: "4>2" "psp" "0af1", output: "fcff:4::0af1"
-> > +#      input: "4" "next-csid,psp" "e9", output: "fcbb:0:40e9::/48"
-> > +#      input: "4>2" "next-csid,psp" "a9", output: "fcbb:0:42a9::/48"
-> >  get_rt_sid()
-> >  {
-> >  	local rt="$1"
-> > @@ -730,6 +831,7 @@ get_rt_sid()
-> >  		return
-> >  	fi
-> >  
-> > +	rt=$(echo "${rt}" | sed 's/>.*//')
-> >  	echo "${LOCATOR_SERVICE}:${rt}::${func}"
-> >  }
-> 
-> Without NEXT-C-SID, get_rt_sid() drops the adjacency, as the Sashiko
-> review also notes: "4>2:psp:End.X" and "4>3:psp:End.X" would both get
-> fcff:4::0af1. I think each adjacency should have its own SID. The
-> SID could carry the adjacency, as the C-SID already does. Then
-> __setup_rt_policy() needs the new SID. Calling get_rt_sid() there,
-> as suggested above, would do that.
+Patch 1 adds "xsgmii" to the Ethernet controller binding. Patch 2 adds
+PHY_INTERFACE_MODE_XSGMII, its string mapping, the eight-port capacity,
+per-port speed capabilities, phylink handling and a short interface
+description. The enum value is appended before PHY_INTERFACE_MODE_MAX,
+preserving existing enum values.
 
-Hmm, do you want to set the adjacency like xaf1 or xxa1?
-e.g. ffcf:4::2af1 for 4>2:psp:End.X, ffcf:4::3af1 for 4>3:psp:End.X
-or
-ffcf:4::42a1 for 4>2:psp:End.X, ffcf:4::43a1 for 4>3:psp:End.X?
+The phylink change classifies XSGMII with the SGMII-like PHY-status
+interfaces and uses 1 Gbps as the maximum per-port speed. This generic
+classification does not prescribe a Clause 22 register layout or a
+control-word decoder for a particular PCS implementation.
 
-The second one may also need to adjust the End address. e.g.
-fcff:x::ef1 -> fcff:x::e1
+There is no in-tree driver conversion in this RFC. The intent is to
+establish the interface representation before converting the downstream
+Realtek PCS/DSA drivers and the affected DT descriptions. Existing
+"usxgmii" and "10g-qxgmii" meanings are unchanged. Real users of this
+mode will land once PCS and PHY drivers are submitted
 
-> 
-> > [snip]
-> > @@ -765,26 +867,34 @@ setup_rt_endpoint()
-> >  
-> >  # Add an SRv6 Endpoint behavior to each router of a Policy element <nodeid:op>.
-> >  # args:
-> > -#  $1 - <nodeid> of the element: one router, or a comma-separated list
-> > +#  $1 - <nodeid:op:act> element
-> >  #  $2 - operation <op> of the element (e.g. "next-csid,psp")
-> >  #  $3 - Function (e.g. "0ef1", or "e9" with NEXT-C-SID)
-> > -#  $4 - SRv6 Endpoint behavior and flavors (e.g. "End flavors psp")
-> > -# e.g. input: "4,2" "next-csid,psp" "e9"
-> > -#             "End flavors next-csid,psp lblen 32 nflen 16"
-> > +#  $4 - flavor configuration of the behavior, without the action
-> > +#       (e.g. "flavors psp")
-> > +# e.g. input: "4,2:next-csid,psp" "next-csid,psp" "e9"
-> > +#             "flavors next-csid,psp lblen 32 nflen 16"
-> >  #      result: the behavior is added on rt-4, bound to fcbb:0:40e9::/48, and
-> >  #              on rt-2, bound to fcbb:0:20e9::/48
-> >  setup_rt_endpoints()
-> >  {
-> > -	local node="$1"
-> > +	local nodeid="$1"
-> >  	local op_type="$2"
-> >  	local func="$3"
-> >  	local behavior_cfg="$4"
-> > +	local nodes node next_node
-> > +	local act act_cfg
-> >  	local sid
-> >  	local rt
-> >  
-> > -	for rt in $(echo "${node}" | sed 's/,/ /g'); do
-> > -		sid="$(get_rt_sid "${rt}" "${op_type}" "${func}")"
-> > -		setup_rt_endpoint "${rt}" "${sid}" "${behavior_cfg}"
-> > +	nodes="$(__get_srv6_rtcfg_all_id "${nodeid}")"
-> > +	act="$(__get_srv6_rtcfg_act "${nodeid}")"
-> > +	for node in $(echo "${nodes}" | sed 's/,/ /g'); do
-> > +		rt=$(echo "${node}" | cut -d'>' -f1)
-> > +		next_node=$(echo "${node}" | cut -d'>' -f2)
-> > +		act_cfg="$(__get_act_cfg "${act}" "${rt}" "${next_node}")"
-> > +		sid="$(get_rt_sid "${node}" "${op_type}" "${func}")"
-> > +		setup_rt_endpoint "${rt}" "${sid}" "${act_cfg} ${behavior_cfg}"
-> >  	done
-> >  }
-> 
-> setup_rt_endpoints() now gets the whole element, and reads it again
-> with the same helpers as __setup_rt_policy(). I think
-> __setup_rt_policy() can read the element once, and pass only what
-> setup_rt_endpoints() needs, for example the nodes and the behavior.
-> 
-> Nit: I would declare one local per line in the new code, as in the
-> rest of the selftest.
-> 
-> > [snip]
-> > @@ -824,7 +934,8 @@ setup_rt_host_proxy()
-> >  #       cafe::x:yy on the loopback of the host (e.g. 2:e9)
-> >  #  $2 - SRv6 router configured for enforcing the SRv6 Policy
-> >  #  $3 - compact way to represent a list of SRv6 routers with their operations
-> > -#       (i.e. behaviors) that each of them needs to perform. Every <nodeid:op>
-> > +#       (i.e. behaviors) that each of them needs to perform. Every
-> > +#       <nodeid:op:act>
-> >  #       element constructs a SID that is associated with the behavior <op> on
-> >  #       the <nodeid> node. The list of such elements forms an SRv6 Policy.
-> >  #       For "next-csid,psp", <nodeid> is a comma-separated list of node IDs.
-> > @@ -841,34 +952,38 @@ __setup_rt_policy()
-> >  	local container
-> >  	local function
-> >  	local op_type
-> > +	local nodes
-> >  	local node
-> > +	local act
-> >  	local n
-> >  
-> >  	in_nsname="$(get_rtname "${encap_rt}")"
-> >  
-> >  	for n in ${policy_rts}; do
-> >  		node="$(__get_srv6_rtcfg_id "${n}")"
-> > +		nodes="$(__get_srv6_rtcfg_all_id "${n}")"
-> >  		op_type="$(__get_srv6_rtcfg_op "${n}")"
-> > +		act="$(__get_srv6_rtcfg_act "${n}")"
-> 
-> I would also describe the new syntax in the comment of
-> __setup_rt_policy() above: the ">" with the adjacency, "h" for the
-> host, and the ":End.X" field.
-> 
-> A mistake in an element can also go unnoticed. With "1>h:psp",
-> rt-1 gets End instead of End.X, and the End.X tests still pass. Could
-> a check at the top of this loop make the test fail on such an element?
-> The check could also refuse an End.X element without an adjacency,
-> e.g. "4:psp:End.X".
-> On a setup error, cleanup() reports SKIP, unless the check sets ret
-> to ksft_fail first.
+Feedback
+=2D----------------------
 
-Thanks, I will add a check for this.
+I would appreciate feedback on:
 
-> 
-> > [snip]
-> > @@ -1479,4 +1623,12 @@ host_srv6_end_flv_next_csid_psp_tests
-> >  host_srv6_end_flv_consumed_srh_tests
-> >  defer_scope_pop
-> >  
-> > +defer_scope_push
-> > +set -e
-> > +setup_endx_flv_psp
-> > +set +e
-> > +host_srv6_end_flv_psp_tests "End.X"
-> > +host_srv6_end_flv_next_csid_psp_tests "End.X"
-> > +defer_scope_pop
-> > +
-> >  print_log_test_results
-> 
-> On a kernel with End PSP but without End.X PSP, the whole script ends
-> as SKIP, after the End tests passed. This can happen without any
-> backport, since the selftests from mainline can also be run on older
-> stable kernels. The selftest already probes End PSP with
-> test_kernel_supp_or_ksft_skip(), for kernels without it. We could
-> probe End.X PSP first in the same way, with an nh6, but returning
-> instead of exiting. If each scenario is moved into its own function,
-> the End.X one can return early, and only that scenario is skipped.
-> 
-> Sashiko asks whether the End.X tests would also pass if End.X worked
-> as End. The "1>h:psp" case above suggests that they would. I think it
-> is worth a look.
+  - Whether a distinct "xsgmii" mode is the appropriate representation,
+    given the differences from USXGMII and O-USGMII.
+  - Whether the proposed per-port capabilities and phylink PHY-status
+    classification accurately capture the intended generic semantics.
+  - Whether introduction of a user of this mode is needed alongside
+    adding this new mode, or whether those can be considered separately.
 
-Also a check for this.
+References
+=2D---------
 
-Thanks
-Hangbin
+[1] 83b5f0253b1e ("net: phy: Introduce PSGMII PHY interface mode")
+    https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/com=
+mit/?id=3D83b5f0253b1ef352f4333c4fb2d24eff23045f6b
+[2] Cisco USGMII specification, Table 1 and section 2.2.3; downloads:
+    https://developer.cisco.com/site/usgmii-usxgmii/
+[3] 923454c0368b ("net: phylink: use a dedicated helper to parse usgmii
+    control word")
+    https://git.kernel.org/linus/923454c0368b8092e9d05c020f50abca577e7290
+[4] RTL8218E-CG datasheet, rev. 0.1, sections 6.2, 6.3, 6.6, 7.12 and 7.14=
+.
+    https://github.com/jameywine/realtek-doc/blob/main/datasheets/RTL8218E=
+-CG_Datasheet.pdf
+
+Thanks,
+Jonas
+=2D--
+Jonas Jelonek (2):
+  dt-bindings: net: add Realtek XSGMII interface mode
+  net: phy: add Realtek XSGMII interface mode
+
+ .../devicetree/bindings/net/ethernet-controller.yaml       | 1 +
+ Documentation/networking/phy.rst                           | 7 +++++++
+ drivers/net/phy/phy-core.c                                 | 2 ++
+ drivers/net/phy/phy_caps.c                                 | 1 +
+ drivers/net/phy/phylink.c                                  | 3 +++
+ include/linux/phy.h                                        | 4 ++++
+ 6 files changed, 18 insertions(+)
+
+
+base-commit: 7ccc5e05043b1bb84326b19a2b05938d8f7a2ae6
+=2D-=20
+2.53.0
