@@ -1,61 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794877517;
-	b=LZ8vNagJl7VRFLKw3yKGipSkzi1QlhQPkjBuOi263qsNnc7EQNCRHyGU1zwOpxIyc2O9
-	 /Y9ngSYOKovdnttwGrRLykcEYaoUBfyXvckagkssPzp0Z2bgBP3TaJVO3F3pUCX53PER6
-	 OUPIf7a3X1agPslCxpLYL2hUNaAKy72ENwB2rCTH+CzcjW/lyWFMdQ9e8UqNX5ebadzX8
-	 A1QjfwLlGiSUHIIGhgvnl2qrQAij5bpb3boKUqVoGJ392d41jZ5B5cSZH6CjQcmkgM4eV
-	 PGw0sL1gcbw8ae2gwdgBuwfyHvjrJFi2YCBMrfkYs7dVda0UjDz5lbMM40sIK6U6hwA==
+	t=1794877521;
+	b=eHqTjXB0xvtIOqztW2tpvSTawfk+/fQEcKgdpF16zIVqIFVCd8uo2fGYuxzUSNVgXjc2
+	 EZKIkAVz0KTf4H+s7vZrGX3BV7oNjKrrkx51xCeqojp1qqopss79Xqp5MIwrSSNHU5gvx
+	 3YfagbA+Asw0reqF+i0DQ9H1f5XH0t9tPJBQ68yS7ExxROyBh5LcdjEwCgWxwkF1RhISC
+	 70a8I1g91qmXkVdNZ+Ay7Ohn8F8R6HOfZLXjjPgitY71fdDlASBzywqdk8gFVH2//MmeC
+	 uq4GewhwuvqDIqjO5lziR0oTYq7UmN65XK6ZzGq0KBoAVAm5PzkFGrB/vfroXx4YH8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794877517;
-	h=Received:DKIM-Signature:From:To:Subject:Date:Message-ID:X-Mailer:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794877521;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=t2JM5GCECTkMdM3S+MJpk56aIu7bFWfVAUq5lccAk5o=;
-	b=gUv1KGmksTXS+nyaT//GQOP9H6rbdg4iZxfE1NOG7nobu9/QcgzsDE+bMzs4OmKK13KZ
-	 KcfbTBTFsgLlzZNhdnLj0Lw3qSinPE1cuV4yuN03QDL8Om9WWs9L2ii0sHZxZcoVbQVaD
-	 3qkc1Ni/i6FTjLEpIfvuMfiHbprtqVx10qCGcp4pmPboQDPZnxuq3CfXkTFaDvdDJF6uD
-	 vC1Uc/zGM8iIGfzWeUl1ngU28btIXubP2xhldYOjjdgalPDb0iMDwDGCF9z+R3F7V2dOo
-	 0GiQkQL4kiLkVBOFG3T9G+9tnl0TcD2Z6gQBN+vGlLAuvYUEf0JUa9RWwO0BEoWy/gg==
+	bh=TFVgaovpCdXFCchb47lWtFAHAaVIAA+TVCN/Y84x+Zs=;
+	b=YPQprQF8ZtYGe+kaz94YygGg7acR9SrmuCto1HOUXW0U0wwnzqIFG2NgPe91sleQjQuR
+	 a4FZ00o/vgZYYoBa0+6NwZa37KdwQa+LrXjBulH0C7PNewCOI9Yv1zTI55G8wlFOGPBTp
+	 o0QdDfneKg1RNO9qRS4wlcR1syk5jqXhVa+rqxVy4u1XuSMb6OLku0QmfuKJ50We1vglA
+	 +3dWX5Kx81moa1XtSGBkMH+E2NyXgeiyrcJRBytXAropI4TTszB89v6Ymsksnqzbt6Q8z
+	 LGwm9VGc7SYOR03+JYYo7lyXpYb6tYxNfJxTvoBqBSorOZusZA52yNw0ViFEr0zvYIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="A4lKAN/L";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="n2fw/OIp";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA73E606A330;
-	Tue, 17 Nov 2026 01:05:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C87C2606A88B;
+	Tue, 17 Nov 2026 01:05:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A4lKAN/L
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 657631F000C4;
-	Tue, 17 Nov 2026 01:05:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n2fw/OIp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09D931F000D4;
+	Tue, 17 Nov 2026 01:05:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794877516;
-	bh=t2JM5GCECTkMdM3S+MJpk56aIu7bFWfVAUq5lccAk5o=;
-	h=From:To:Subject:Date:In-Reply-To:References;
-	b=A4lKAN/LGZVzhwYKQJM0fKcJSTSH2zx+1uuV7kQ6ytSoWP+Jmkfit3Pb6fluFP6HO
-	 URy5FutMhwT5baHbX6qPXZ/RnDrns1hsLogu2WnGXfcytun5cRponp4d7thBkZRKNz
-	 EFqR5LaIg4trtKcu96bxLRZECESKL486UeIKE1MfbYpTuG13qCQPm5I6XtWoBYq+eP
-	 ilW+UVj2y2oft1VQs1dnEJmraf/dmbkwTZoKzSb7od431g3qKLD1rWcVVPP3mmffm/
-	 LdJ/FKclruaPYhQ05rh4hUX242OFm86UYI0+Hhd2p1ABFBdtQQduv2YHQA5WKdcRdQ
-	 yr909Z5YJGuQA==
+	s=k20260515; t=1794877521;
+	bh=TFVgaovpCdXFCchb47lWtFAHAaVIAA+TVCN/Y84x+Zs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=n2fw/OIp+7K0K/0LTKt3hgFIyaYyNVus6Wx40R3oGdx8Pf5FCjjTgV961RfiJ6nCh
+	 9F46RmiMp7Sl9TTSB1xtv91d3vIbCBBQWIFch37Uf/SDXZ6ML/VLWNJuwcrJo2v6fX
+	 RdAcKZWOVFYW/NccbvWZ68wp0mLPTiOkSUTldgMmkfymidzHc/DS005zyA6DwbHUAr
+	 R6nKyJqM8+zjObqKMcRlLkwOKDu583bjMGe/FfsvD5QnGPTrV+BMcGOHQQCiNXdYES
+	 L/XLenuwketM1zrwJyn13JC5mnu17L8A1XLNSx9FiMS5eWSCliUtt1J7acUKWDuCxA
+	 gbaJTEEQFRb1Q==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Luca Weiss <luca.weiss@fairphone.com>
+Cc: ~postmarketos/upstreaming@lists.sr.ht,
+	phone-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH 1/2] arm64: dts: qcom: Correct white-space style
-Date: Mon, 16 Nov 2026 19:04:48 -0600
-Message-ID: <179487749339.432567.6694138389097894424.b4-ty@b4>
+	linux-arm-msm@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v4 0/4] Add Novatek NT37705 panel driver for Fairphone (Gen. 6)
+Date: Mon, 16 Nov 2026 19:04:50 -0600
+Message-ID: <179487749299.432567.493550995991347090.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261113185426.183501-3-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20261113185426.183501-3-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20261009-fp6-panel-v4-0-7c3819664778@fairphone.com>
+References: <20261009-fp6-panel-v4-0-7c3819664778@fairphone.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,22 +81,14 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 13 Nov 2026 19:54:27 +0100, Krzysztof Kozlowski wrote:
-> Correct minor style issues around white-spaces (e.g. double space before
-> '=', missing space before bracket, spaces used for indentation) to fix
-> dt-style-check warnings like:
-> 
->   monaco-ac-evk.dts:825: [redundant-whitespace] extra whitespace after :
-> 
-> 
-> [...]
+On Fri, 09 Oct 2026 13:24:59 +0200, Luca Weiss wrote:
+> Add bindings and a panel driver for the NT37705, and then enable display
+> on the Fairphone (Gen. 6).
 
 Applied, thanks!
 
-[1/2] arm64: dts: qcom: Correct white-space style
-      commit: c4ec9fced70f2445d11cf77dbb04f5c01d0cf9ae
-[2/2] arm64: dts: qcom: qcs8550-ayntec: Use hyphens for nodenames
-      commit: dc607958bc6a13a212a947cd3a29acc704b8c446
+[3/4] arm64: defconfig: Enable Novatek NT37705 panel
+      commit: 1ff72de9902a955b8446bba2c56942028c1425ea
 
 Best regards,
 -- 
