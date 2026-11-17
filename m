@@ -1,56 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.85
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.161
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794912820;
-	b=l0+jVVYineMDBHSqXTLiI8sROfgyUs3H0CiaGcuBSjLfuHzWCnWEij6mYNPy4HCiQGbS
-	 tt3uSz1M3f6nCd6NfZJqLz/siozuRDnOQNHznlDPCiTFYSMThvkxX2jGI9kntuWWDIIIe
-	 BI1RZcZ54bQHJQeqsCAbShD5/5Mc5+k6Dfk8rDP+I7+DWV9pYK83QzqwYcCThWyp67HYQ
-	 HYZrV8V4Twt1+yAbDqyaZcw+edFYfk8ap8pbq35TYmLO7soqWYZBPms/7M7GLlYpwSEo2
-	 NT1rXs3DGusoDw86rtebFnOG3Z5fp9Y7WG+j7l3aaSLMRE8eV7Z6E9AdftdB/Spj2TA==
+	t=1794912865;
+	b=PBm31ydVL+4vw6+yNVa9tSOSoa8/WWl/0hRQBARI6b7GM3ZyNHiyETtDxwc9afggZkXN
+	 PhiAnSrrRSoqRZ2a4dqx5l9zBuU92m7VR3Dt1KGapVv08z3+jRDmNiC/MwxOf4+xU0ta1
+	 Uei1WvclkaWDGwFSP4RytLvYxlOcfOnymZNVdtcuSKE8uYKq4WjINuY2cGzzGnjMdt4XW
+	 CajanKJM8MEaEYvwcB7hStE3jjKicJfliwWWdwu/FxmV4yATcx80nXOKNGjxEWeYvmW3t
+	 uBvyslH+vVevg5KqGbDa+EgqJdcELqgRVQmc3c9BbnXLwqqK71GI4eIVDePIOixmDEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794912820;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=fT3Jad9DgAzKR5zvAS87Ds5ad4/2/jBDqrtkMOTLmbM=;
-	b=JqKZi7znZxI307nY2+izPLN9AMECOltaibtkAPdIxsyGt1MUKws56H+NHBg0VpNfXohj
-	 jZFjFmTfDu4IOQP3Lp30sHyAeFySts3Oe5qrcC5UmgeFc+cTq4vYrXo3jNf0gRsVpF7Zt
-	 kcGJLoTmuQvaXYF1R4qTERZMB9nLy1rVRJhzTc4NamUeBZurlCEULpNS34k2TZ2ZiTN97
-	 jH93U7zJEYMUEX7UHOKkb4fZwZtdNY5J8sSLPbaCFqkcVHaSqKjngjuCx+LSoYwrNstcz
-	 +tXSdTmnYD7pZHJvW3Tgej36xAkL0NkXJf+vyRRnVnYqTnFHxPYVcTNgSpHbTj52/3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794912865;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
+	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
+	 X-MBO-RS-META;
+	bh=jAWEsctWy9OQpEjem1+XN21g7NWWHbm0GcJRZLH8b4Q=;
+	b=E4JOWgNFTjED4vG1CMDfslwMM2pUfYxZ4g+xwiXMFhjbHIDNVuOjYgnCd8HWEWd3/KKz
+	 yI1O9jQC9giMXEOtXZe1wz3NJkNV3vo6VUMRBOgcf9SmX4dFygcnGs8S5ladMqP0+gp/S
+	 rG/2fEtDiRE9lxONy/4jUCiuUFa3RdX04ElU6oaqQvtTQzuaz75egnStgJYVvtHnEyqpT
+	 1AnBEnGuEnKCwSxKIEtAOqh+9C6Zp+5vFrA3ia2FJ1U6eShZqe4KaFnth9MPVprwLvaEq
+	 Ql0LCF7a2pV1dzhAiOTtgYoBI88o4FYPgaVZgMJIhaPBA3z6RlDZQgOsAQaaJC2VVRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EAqwmjiy;
-	arc=none smtp.remote-ip=91.218.175.85
-Received: from mta0.migadu.com (out-85.mta0.migadu.com [91.218.175.85])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=IHsf19vV;
+	arc=none smtp.remote-ip=80.241.56.161
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 671F5606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:53:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 671F5606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9F5A606A31C;
+	Tue, 17 Nov 2026 10:54:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9F5A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EAqwmjiy
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=YFNiLL0I2m3i/6cux7HexDCrpEBYBYGPhPSttFoXzUo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794912817; v=1; x=1795517617;
- b=EAqwmjiy79+Z5SgK11fBMosiZI3dH19WB4qihM+Fle0FvohwkOd9AgN1nA8IddLGqyLrXFuw
- oJZox1IhvoJ372DRxL1YlnhFvwvgVvVEBJkqYlFkOkNhBAA8Z5DCBek5XSMCXBIp5ZStd258rer
- IW640LClb/zsCeZ+KxXXvMZ0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 97a83f3fbac5ab3b;
-	Tue, 17 Nov 2026 10:53:37 +0000
-X-Mizu-Trace-ID: 97a83f3fbac5ab3b
-X-Migadu-Flow: FLOW_OUT
-From: Hongfu Li <hongfu.li@linux.dev>
-Date: Tue, 17 Nov 2026 18:53:12 +0800
-Subject: [PATCH 2/2] mm/hugetlb: remove the gfp_mask argument from
- alloc_hugetlb_folio_reserve()
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=IHsf19vV
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jTM6v51ZFzKn83;
+	Tue, 17 Nov 2026 11:54:15 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1794912855; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jAWEsctWy9OQpEjem1+XN21g7NWWHbm0GcJRZLH8b4Q=;
+	b=IHsf19vVA+64iwhz2z3appSHfEG3PeqVweLbhPmuQeWF05sVXfG7RXhEkhsGcOkEaVY8gk
+	4hq3tFoGpjGKY4YIQcztVAZcWxcl7/VnJzJ6Vlp7wK/c4DWp60ka4paPimUe9ADkg5jaxu
+	OTPRfodsYI3fLMYTkwGy57CTFB4fyUJ+uwm4kZN1S3o1RR2DaID+QH9NgTwAbdxdAtScb8
+	Q4TxVMYGRoxtjfdSelh5ltFF8yZjtqX5bo95dQfOQH4NdnE29ekyOfAeAIerThu3l/YO9x
+	bTtC+Odrx8/SeHfIulhU5bNMG5cbQsHDjp1aj5R2W9gSem6XMDp/9PBTAygC0A==
+Message-ID: <ab99758408df682c68a3792cc3014b77d6e1c8ab.camel@mailbox.org>
+Subject: Re: [PATCH] rust: DamFence: Remove warning about unsignaled drop
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+	phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, Danilo Krummrich
+	 <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda	
+ <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
+ <gary@garyguo.net>,  =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
+ Hindborg	 <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, Daniel
+ Almeida	 <daniel.almeida@collabora.com>, Tamir Duberstein
+ <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>, Onur
+ =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Tue, 17 Nov 2026 11:54:12 +0100
+In-Reply-To: <e2ec8a39-56c3-4274-91ce-60c273904877@amd.com>
+References: <20261112101015.528127-2-phasta@kernel.org>
+	 <5d466f7c-2e70-4011-be04-9ffdf877b915@amd.com>
+	 <49298d3a328c1695ea27993f714c20b8a1c05f32.camel@mailbox.org>
+	 <e2ec8a39-56c3-4274-91ce-60c273904877@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,121 +86,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-for-memfd-v1-2-fa68f433171e@kylinos.cn>
-References: <20261117-for-memfd-v1-0-fa68f433171e@kylinos.cn>
-In-Reply-To: <20261117-for-memfd-v1-0-fa68f433171e@kylinos.cn>
-To: Hugh Dickins <hughd@google.com>, David Hildenbrand <david@kernel.org>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>
-Cc: hongfu.li@linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Hongfu Li <lihongfu@kylinos.cn>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794912797; l=3157;
- i=lihongfu@kylinos.cn; s=20260915; h=from:subject:message-id;
- bh=IjnOZZrnZDKRLDKXw32+ol/AbXDeQpA8yo/PMl1put0=;
- b=aoZXwGlYQYYqDn+g+4J6nl2sZww5iBP8Mz0QhL1bZCaCmHxrvz7lIcPdeOHvFAV9roYI82w8y
- OCn7pyxA1VYBEateZai1fyl8qKGeJuurzqktUPxlmZH3aIf+j//3fYv
-X-Developer-Key: i=lihongfu@kylinos.cn; a=ed25519;
- pk=rUpDSpB3neoNZRlGG6dHlFb3RepiJakcev+ucyqaZzw=
+X-MBO-RS-ID: 3fc69f010e82e9128db
+X-MBO-RS-META: 1jz3zz7cp1nntsqnyo4n5fdt6zbaxuir
 
-From: Hongfu Li <lihongfu@kylinos.cn>
+On Tue, 2026-11-17 at 10:51 +0100, Christian K=C3=B6nig wrote:
+> On 11/17/26 09:24, Philipp Stanner wrote:
+> > struct DriverFoo {
+> > 	f: DriverFence<()>,
+> > }
+> >=20
+> > impl Drop for Driver Foo {
+> > 	pub fn drop(&mut self) {
+> > 		// Signals fence implicitly & automatically.
+> > 		self.f.signal(ECANCELED);
+> > 	}
+> > }
+>=20
+> Yeah, exactly that is still a bad idea :) See the HW eventually
+> doesn't necessarily stop doing DMA if you unload the driver.
 
-alloc_hugetlb_folio_reserve() takes a gfp_mask argument that
-memfd_alloc_folio() always sets to exactly htlb_alloc_mask(h), which the
-helper can derive by itself.
+I know.
 
-Derive the mask inside alloc_hugetlb_folio_reserve() as
-alloc_hugetlb_folio() does, and drop the argument.
+> So just signaling all fences with ECANCELED is not enough.
 
-No functional change intended.
 
-Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
----
- include/linux/hugetlb.h |  4 ++--
- mm/hugetlb.c            |  3 ++-
- mm/memfd.c              | 13 +------------
- 3 files changed, 5 insertions(+), 15 deletions(-)
+Yes. What I was trying to tell you as that you have no way to enforce
+this in Rust or C.
 
-diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
-index 69732e4cc03e..a88c59476e79 100644
---- a/include/linux/hugetlb.h
-+++ b/include/linux/hugetlb.h
-@@ -735,7 +735,7 @@ struct folio *alloc_hugetlb_folio_nodemask(struct hstate *h, int preferred_nid,
- 				nodemask_t *nmask, gfp_t gfp_mask,
- 				bool allow_alloc_fallback);
- struct folio *alloc_hugetlb_folio_reserve(struct hstate *h, int preferred_nid,
--					  nodemask_t *nmask, gfp_t gfp_mask);
-+					  nodemask_t *nmask);
- 
- int hugetlb_add_to_page_cache(struct folio *folio, struct address_space *mapping,
- 			pgoff_t idx);
-@@ -1161,7 +1161,7 @@ static inline struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
- 
- static inline struct folio *
- alloc_hugetlb_folio_reserve(struct hstate *h, int preferred_nid,
--			    nodemask_t *nmask, gfp_t gfp_mask)
-+			    nodemask_t *nmask)
- {
- 	return NULL;
- }
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 88c9aa700533..e84203406da3 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -2221,8 +2221,9 @@ struct folio *alloc_buddy_hugetlb_folio(struct hstate *h,
- }
- 
- struct folio *alloc_hugetlb_folio_reserve(struct hstate *h, int preferred_nid,
--		nodemask_t *nmask, gfp_t gfp_mask)
-+		nodemask_t *nmask)
- {
-+	gfp_t gfp_mask = htlb_alloc_mask(h);
- 	struct hugetlb_cgroup *h_cg = NULL;
- 	size_t nr_pages = pages_per_huge_page(h);
- 	struct folio *folio;
-diff --git a/mm/memfd.c b/mm/memfd.c
-index 8905e3e9efc8..08b9d54b0d8a 100644
---- a/mm/memfd.c
-+++ b/mm/memfd.c
-@@ -69,22 +69,14 @@ struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx)
- {
- #ifdef CONFIG_HUGETLB_PAGE
- 	struct folio *folio;
--	gfp_t gfp_mask;
- 
- 	if (is_file_hugepages(memfd)) {
--		/*
--		 * The folio would most likely be accessed by a DMA driver,
--		 * therefore, we have zone memory constraints where we can
--		 * alloc from. Also, the folio will be pinned for an indefinite
--		 * amount of time, so it is not expected to be migrated away.
--		 */
- 		struct inode *inode = file_inode(memfd);
- 		struct hstate *h = hstate_file(memfd);
- 		int err = -ENOMEM;
- 		long nr_resv;
- 		u32 hash;
- 
--		gfp_mask = htlb_alloc_mask(h);
- 		idx >>= huge_page_order(h);
- 
- 		/*
-@@ -101,10 +93,7 @@ struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx)
- 			goto out_unlock;
- 		}
- 
--		folio = alloc_hugetlb_folio_reserve(h,
--						    numa_node_id(),
--						    NULL,
--						    gfp_mask);
-+		folio = alloc_hugetlb_folio_reserve(h, numa_node_id(), NULL);
- 		if (folio) {
- 			/*
- 			 * Zero the folio to prevent information leaks to userspace.
+dma_fence_signal(f);
+free_driver_resources();
+// Driver forgets to stop the hardware. Memory corruption occurs.
 
--- 
-2.54.0
+You see? Neither your BUG_ON() or WARN_ON() saves you if the driver
+does it like that, no matter the programming language. You cannot
+prevent it.
 
+The only one who understands how the hardware works is the driver. The
+only one who can stop it is the driver.
+
+In Rust, the place where a driver drops its JobQueue is the same place
+where it has to halt its GPU ring correctly. Enforcing this cannot be
+done by dma_fence code.
+
+
+P.
