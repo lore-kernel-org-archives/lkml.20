@@ -1,93 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794882523;
-	b=AjjBZHCnhuiTD0VbXmGi/uJlbx7z3T9MWYILT7P7KnIYbAyHEN6j2PIzINSkGjhG/a4M
-	 Oz7s8AAdvxtz5l4Vl17YMp1k24a/4Kxs1u4IaUuXYjINh4a+Pg8seenYwHl10WgrrPdbg
-	 7GEYg6hh7yYipi5qwVypoPZoXuiKXJM3XvIrrvwtXAcEn6bk0Fawhfo2NA5k7mj66khzU
-	 AEY2X9jYjW3Ro9Tyn87hw2KCT/QWNKMiZN7WyxT15OENWaRiC3vB+KCfraXd0omT0pI5J
-	 Cswo6Jgdaqa8wb1yFGbaH7MR4/JFsSTIsNsQ47HFOBLemGq6xja2kKPH/2ftBR3+eGw==
+	t=1794882525;
+	b=oPhq7lat2huKZy/0WU4G4uezQy7Ke0YPw+EQ+dv57IVV1KXUtV07GsCRoS1SRxaQqYLS
+	 wYBGI5ODmrcURkqLKcrIYrJKaCCG7JokGdCdr+wP8vorviswt+lAuewbVYkMt9YLqUvcj
+	 u6GPi84HotsMZLUR46DWJGQflEEGXkfIS5aopw/ucQisBW7VpH5zfcQ/2HEm8bd6ZGinP
+	 zEgoYsldQ0MKMR+RBmxZowxrYfyRHjZtDz3PB9WgAgC/v/8/NddLQSRNjg4pXLzJhVvKL
+	 EWeIezGO8hI5JxA5iUe7ZnPU4rZw57AT1nzKJca0m3YSynRcP1pIFmphc/AJLOJyW8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794882523;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=bL0PPxjIvEL6hVmCZdriwAe6JLC2fG6POL7ld3LJpH0=;
-	b=pZTeCu/unFRcYLfkGuGf8A6mdvdakpCnsmWxWRwb24MQxOoTPvvPS7XtnqhfU0eChKrq
-	 46Ju4CUcqSdGg3lO3MY2vUKfCG5lQWhs8O5CBnJfXgUs1QKj0DaTLCH8+GIDTv+fK+tCx
-	 Jsyp+enFOKedxooWIhUE89GcHQkie4PrpCC4fKRaFh0e4eyosxtra/maEwJotjni2mErf
-	 Oga/i3pYsCfMAzDQf+knn3QZTH/lqzT7CFzUn7xpb8bnDSg38D/sCSxG0H0KwanBFLmck
-	 /HgIRpvT7p+VMM6aJPDiMzpa4X9JxKRTpcVoAC84322vrAD/JtOvPDOUEk/tMhSaOmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794882525;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=m7e4fyf2Q5mCywaw7nen7QHcArrTjTdu8X+U3sZLG8E=;
+	b=swnntYvAEYCP5CjikceVZsap/zvuWSZqy2694HsHDpG3tmSzuoQwqBDkdzs7CT3SmaEa
+	 M/udRWjbcmhcSSYfsj+xrrsKwRc3oTgn4agZiiloQ9AO87u95M84N/fADk9PtPxK7orVK
+	 5xUfBHJdpPQfhR9XZofeF92SPm+RmLxK+t/ywduD8zJceGCrvBFj7ehASor0ir7cwI5SV
+	 Cc8bmOdOS3QHz8fG3rHDavJnB8kZrVGZXoysrFvr7TCmfSzQ9U+ncN6Xw1oDps26GJN9N
+	 f21Y81uuxMBJrYfIj+trWWCwFf+ToImtQCwyxuylHCoHfvkFqxEFBxzjVHJDsw46JoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Ji8nKQK0;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=iHWDBmMW;
+	arc=none smtp.remote-ip=115.124.30.130
+Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95FF7606A32C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:28:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95FF7606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4E2B606A339;
+	Tue, 17 Nov 2026 02:28:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4E2B606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Ji8nKQK0
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3791619605cso7675603eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:28:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794882522; x=1795487322; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bL0PPxjIvEL6hVmCZdriwAe6JLC2fG6POL7ld3LJpH0=;
-        b=Ji8nKQK0LfJB18ltdwI7lWUon6kcsIhCKlygC6ST/FoiXqPoWHljTdSpyw0rqMHYfR
-         yZ6uscIEwiqiTTGLwZFhMomKnX09m5kbxmL15ZCI2xnAE4uZfNJkDoxsqnIGocgcsM1d
-         1pYb6Ta8IHFFCGSTz4GDM9UxY3jrBejarfCWA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794882522; x=1795487322;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bL0PPxjIvEL6hVmCZdriwAe6JLC2fG6POL7ld3LJpH0=;
-        b=b8rDoYylvtws6SUkuFPva8jm27V6+FYN9kQ2T0loJyEXRxzesCopK8zTt3C4WWRUmO
-         DI0iVgIcx56lZg7foA5V3WR8X3FXa6TXsz2YrOBFAIgMj1AsIqmVtXa+4lG9Qe7eKYnt
-         Gah+kmhm8HLElwyKljp0Q2IFbDhpf84GwiHSXUDPgA9Yu22qaCnX5Cv8aLHCPwdkmUJv
-         XA9zAj8h1FthJKmNo6uzJ7FkyMAtkF3mUahaA+V+r7z2zYlU+IQ6aFaP91upiiyIQF/U
-         9W9Dnch+bUJevzJ1gdJ6Xxy60PbZY89ktwqFHXI8WaAQIMwW/bTc8qru0AD2ivqHK5LQ
-         KwNw==
-X-Forwarded-Encrypted: i=1; AL+hErFGPsZqYcdKBTubL5nCxLMWQXwjp1q9qNxxjWxPaQ89Q+xxao6UqK2JbELOtnpCKOzmjrau1ylfzDxBrxA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ToysmyWcbVeRYsRQUlwdR47He/LfdbsjUCVAutLWewqgkr6J2
-	UMGLfwgvSi8WcYXnO5MoWr7bN10egThHeQaSXXDhY5Ckxs2YRyDZ9ry4zi0LoHzXzg==
-X-Gm-Gg: AZFdTZdKtOnJVaIMY7ZZN2ry/A8ja2lqE9VidfBvZD2P1GiuBK1IyuWyim+0ztklBcv
-	wSkTA5eUPkxQl7Sq59ZkA4dFmmWrE1dPsuJ3bCBeDmMmYasXuVlQwdlHzR3XQt4ILqu8u0c1YLE
-	XkQkwy/DPgYctejUPVOAGv4ikwNiKa7RPMooBuQ6kSq0LCXU+ID5LnQ09/EeEaI01AYB0cX2E9R
-	A+X0CqcTyQsm5ZW8hNXzeAkSguYQtiki/rn9GBESXGz9cjUt5/rSLE8zytEpAYYeiaJOIYvgT3h
-	AIJmSmggDUvTId0athR2TUUjnD3d2XMGIFeCe/9Q2Vq7oS5C9gfA/afEJHSlpONZp52e7Lh4Z0W
-	REVjMIp3weYOrPTNrd5+W2V8aIQ07VA2qdWPalGdElLV6N8JfUxiyW3DMIvDj3DAM5enKSGjZ8B
-	NtO3CD69B/hVBh7WQ/dxwmsEPXPSUO6j6kPHHIs1Z6VtHuC/lQAYlBwulzYL9fQh8QyfmYN+3Mp
-	LgBFCkT3VPOAZCzNdiA9ydkA4/IyHmw3X8ulVOdHnXNRsTDb7RCOvVEBZ2aCRUahxE5LzZ02KLK
-	tYyU+UzxY26yYDC0O5RXH4idtmMZNgQyfNm3AX2+fZBZ6mZ7NmkPF48yZke4b5rrJ/Lf
-X-Received: by 2002:a05:7300:fd0f:b0:36c:da71:37e0 with SMTP id 5a478bee46e88-37963564bc7mr16626879eec.2.1794882521654;
-        Mon, 16 Nov 2026 18:28:41 -0800 (PST)
-Received: from localhost ([2a00:79e0:2e7c:8:d92d:531b:8d97:bf51])
-        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-37956bad6casm37765457eec.26.2026.11.16.18.28.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 18:28:41 -0800 (PST)
-From: Brian Norris <briannorris@chromium.org>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=iHWDBmMW
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1794882520; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=m7e4fyf2Q5mCywaw7nen7QHcArrTjTdu8X+U3sZLG8E=;
+	b=iHWDBmMWqxtZUiXXN5MCDh32ysya6VqOcYP1g2stFhK7qQhD5l6rMzRsaKqLCxAUAwBWmk7PPKgw2uz84eyaYa7TSdqwsoIuscyXpFYYRJA6PTfuW2R4oh7WhA4fsxGUKgmrSBIAixmChN5gr3tPLQeAg0RVDuTq0ws3n/MTRTM=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R221e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=chengyou@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XEwnD1-_1794882519;
+Received: from localhost(mailfrom:chengyou@linux.alibaba.com fp:SMTPD_---0XEwnD1-_1794882519 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 17 Nov 2026 10:28:40 +0800
+From: Cheng Xu <chengyou@linux.alibaba.com>
+To: stable@vger.kernel.org
+Cc: linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	Brian Norris <briannorris@chromium.org>
-Subject: [PATCH 2/2] tracing: Add tests for globbing number-based strings
-Date: Mon, 16 Nov 2026 18:27:11 -0800
-Message-ID: <20261116182710.2.Ic117871c2b1e94c5a2176903a5c3316a10584e61@changeid>
-X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-In-Reply-To: <20261116182710.1.Ic0625a2bd2e6f8960c0f75e5d15f14f3c84d1d38@changeid>
-References: <20261116182710.1.Ic0625a2bd2e6f8960c0f75e5d15f14f3c84d1d38@changeid>
+	leon@kernel.org,
+	jgg@ziepe.ca,
+	kaishen@linux.alibaba.com
+Subject: [PATCH 6.6.y] RDMA/erdma: Use IRQ-safe XArray helpers for QP and CQ tables
+Date: Tue, 17 Nov 2026 10:28:39 +0800
+Message-ID: <20261117022839.23186-1-chengyou@linux.alibaba.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,222 +64,92 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In "tracing: Properly match strings that start with numbers", we fixed
-bugs related to string fields that start with a number and also use
-globs instead of full matches.
+[ Upstream commit 00baeade709fb66da647e8327e8398bb532e30f7 ]
 
-Add some additional startup test cases for this.
+Locked QP and CQ lookups from EQ interrupts can deadlock with
+create-path XArray updates. If an interrupt arrives while the create
+path holds the plain xa_lock, the lookup spins forever trying to
+acquire the same lock.
 
-For easy reproducible testing, I abused the kunit.py script to boot a
-minimal kernel with FTRACE_STARTUP_TEST enabled:
+Use IRQ-safe XArray helpers for all QP and CQ create-path updates,
+including the GSI QP store and error paths. Initialize both arrays with
+XA_FLAGS_LOCK_IRQ so sleeping allocations preserve interrupt state.
 
-  ./tools/testing/kunit/kunit.py run --arch=x86_64 \
-      --kconfig_add=CONFIG_FTRACE=y \
-      --kconfig_add=CONFIG_FUNCTION_TRACER=y \
-      --kconfig_add=CONFIG_DYNAMIC_FTRACE=y \
-      --kconfig_add=CONFIG_FTRACE_STARTUP_TEST=y \
-      --kconfig_add=CONFIG_EVENT_TRACE_STARTUP_TEST=n \
-      --raw_output=all deadbeef
+[ The GSI QP create path is not present in 6.6.y, so omit that hunk. ]
 
-Relevant line:
-
-  Testing ftrace filter: OK
-
-Without "tracing: Properly match strings that start with numbers", the
-test fails with:
-
-  Testing ftrace filter:
-  Failed to match filter 'str ~ "0001:*"', expected 1
-
-Signed-off-by: Brian Norris <briannorris@chromium.org>
+Fixes: 98df2aee1459 ("RDMA/erdma: Hold CQ references when processing EQ events")
+Fixes: a52eeff32024 ("RDMA/erdma: Hold QP references for AE and CM processing")
+Signed-off-by: Cheng Xu <chengyou@linux.alibaba.com>
+Link: https://patch.msgid.link/20260828030344.88021-1-chengyou@linux.alibaba.com
+Signed-off-by: Leon Romanovsky <leon@kernel.org>
 ---
-I was torn on whether to add to CONFIG_FTRACE_STARTUP_TEST, or to add a
-KUnit test (such as in kernel/trace/trace_events_test.c).
+ drivers/infiniband/hw/erdma/erdma_main.c  |  4 ++--
+ drivers/infiniband/hw/erdma/erdma_verbs.c | 16 ++++++++--------
+ 2 files changed, 10 insertions(+), 10 deletions(-)
 
-The former has a bit of precedent, since the existing match tests are
-very similar, except they only operate on integers. But the latter
-generally has better tooling, and is more consistent with how most
-subsystems write their unit tests these days.
-
-I chose the former for now, but let me know if you'd prefer it
-differently.
-
- kernel/trace/trace_events_filter.c      | 74 ++++++++++++++++++++++++-
- kernel/trace/trace_events_filter_test.h | 12 ++--
- 2 files changed, 80 insertions(+), 6 deletions(-)
-
-diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
-index 07ce75244233..37985168290a 100644
---- a/kernel/trace/trace_events_filter.c
-+++ b/kernel/trace/trace_events_filter.c
-@@ -2784,6 +2784,8 @@ int ftrace_profile_set_filter(struct perf_event *event, int event_id,
- #include <linux/types.h>
- #include <linux/tracepoint.h>
+diff --git a/drivers/infiniband/hw/erdma/erdma_main.c b/drivers/infiniband/hw/erdma/erdma_main.c
+index 0880c79a978c..6dc6c7f4fb2e 100644
+--- a/drivers/infiniband/hw/erdma/erdma_main.c
++++ b/drivers/infiniband/hw/erdma/erdma_main.c
+@@ -519,8 +519,8 @@ static int erdma_ib_device_add(struct pci_dev *pdev)
+ 	INIT_LIST_HEAD(&dev->cep_list);
  
-+#include "trace_probe.h"
-+
- #define CREATE_TRACE_POINTS
- #include "trace_events_filter_test.h"
+ 	spin_lock_init(&dev->lock);
+-	xa_init_flags(&dev->qp_xa, XA_FLAGS_ALLOC1);
+-	xa_init_flags(&dev->cq_xa, XA_FLAGS_ALLOC1);
++	xa_init_flags(&dev->qp_xa, XA_FLAGS_ALLOC1 | XA_FLAGS_LOCK_IRQ);
++	xa_init_flags(&dev->cq_xa, XA_FLAGS_ALLOC1 | XA_FLAGS_LOCK_IRQ);
+ 	dev->next_alloc_cqn = 1;
+ 	dev->next_alloc_qpn = 1;
  
-@@ -2795,12 +2797,22 @@ int ftrace_profile_set_filter(struct perf_event *event, int event_id,
- 	.match  = m, \
- 	.not_visited = nvisit, \
+diff --git a/drivers/infiniband/hw/erdma/erdma_verbs.c b/drivers/infiniband/hw/erdma/erdma_verbs.c
+index a9b2d0890570..94b3d4aea123 100644
+--- a/drivers/infiniband/hw/erdma/erdma_verbs.c
++++ b/drivers/infiniband/hw/erdma/erdma_verbs.c
+@@ -945,9 +945,9 @@ int erdma_create_qp(struct ib_qp *ibqp, struct ib_qp_init_attr *attrs,
+ 	kref_init(&qp->ref);
+ 	init_completion(&qp->safe_free);
+ 
+-	ret = xa_alloc_cyclic(&dev->qp_xa, &qp->ibqp.qp_num, qp,
+-			      XA_LIMIT(1, dev->attrs.max_qp - 1),
+-			      &dev->next_alloc_qpn, GFP_KERNEL);
++	ret = xa_alloc_cyclic_irq(&dev->qp_xa, &qp->ibqp.qp_num, qp,
++				  XA_LIMIT(1, dev->attrs.max_qp - 1),
++				  &dev->next_alloc_qpn, GFP_KERNEL);
+ 	if (ret < 0) {
+ 		ret = -ENOMEM;
+ 		goto err_out;
+@@ -1003,7 +1003,7 @@ int erdma_create_qp(struct ib_qp *ibqp, struct ib_qp_init_attr *attrs,
+ 	else
+ 		free_kernel_qp(qp);
+ err_out_xa:
+-	xa_erase(&dev->qp_xa, QP_ID(qp));
++	xa_erase_irq(&dev->qp_xa, QP_ID(qp));
+ err_out:
+ 	return ret;
  }
-+
-+#define DATA_STR(m, s) \
-+{ \
-+	.filter = FILTER, \
-+	.str    = s, \
-+	.match  = m, \
-+	.not_visited = "", \
-+}
-+
- #define YES 1
- #define NO  0
+@@ -1682,9 +1682,9 @@ int erdma_create_cq(struct ib_cq *ibcq, const struct ib_cq_init_attr *attr,
+ 	refcount_set(&cq->refcount, 1);
+ 	init_completion(&cq->free);
  
- static struct test_filter_data_t {
- 	char *filter;
- 	struct trace_event_raw_ftrace_test_filter rec;
-+	const char *str;
- 	int match;
- 	char *not_visited;
- } test_filter_data[] = {
-@@ -2852,9 +2864,46 @@ static struct test_filter_data_t {
- 	DATA_REC(YES, 1, 1, 1, 1, 1, 1, 1, 1, "bdfh"),
- 	DATA_REC(YES, 0, 1, 0, 1, 0, 1, 0, 1, ""),
- 	DATA_REC(YES, 1, 0, 1, 0, 1, 0, 1, 0, "bdfh"),
-+#undef FILTER
-+#define FILTER "str ~ \"0001:*\""
-+	DATA_STR(YES, "0001:01:00.0"),
-+	DATA_STR(YES, "0001:"),
-+	DATA_STR(NO,  "0002:01:00.0"),
-+	DATA_STR(NO,  "pci:0001:01:00.0"),
-+	DATA_STR(NO,  "0001"),
-+#undef FILTER
-+#define FILTER "str ~ \"!0001:*\""
-+	DATA_STR(NO,  "0001:01:00.0"),
-+	DATA_STR(YES, "0002:01:00.0"),
-+#undef FILTER
-+#define FILTER "str ~ \"0001:*:00.[0-9]\""
-+	DATA_STR(YES, "0001:01:00.0"),
-+	DATA_STR(YES, "0001:ff:00.7"),
-+	DATA_STR(NO,  "0001:01:00.a"),
-+	DATA_STR(NO,  "0002:01:00.0"),
-+#undef FILTER
-+#define FILTER "str ~ \"0001:01:00.0\""
-+	DATA_STR(YES, "0001:01:00.0"),
-+	DATA_STR(NO,  "0001:01:00.1"),
-+	DATA_STR(NO,  "0001:01:00.00"),
-+	DATA_STR(NO,  "0001:01:00"),
-+#undef FILTER
-+#define FILTER "str == \"0001:01:00.0\""
-+	DATA_STR(YES, "0001:01:00.0"),
-+	DATA_STR(NO,  "0001:01:00.1"),
-+#undef FILTER
-+#define FILTER "str ~ \"*0001:*\""
-+	DATA_STR(YES, "0001:01:00.0"),
-+	DATA_STR(YES, "pci:0001:01:00.0"),
-+	DATA_STR(NO,  "0002:01:00.0"),
-+#undef FILTER
-+#define FILTER "str ~ \"*:00.0\""
-+	DATA_STR(YES, "0001:01:00.0"),
-+	DATA_STR(NO,  "0001:01:00.1"),
- };
+-	ret = xa_alloc_cyclic(&dev->cq_xa, &cq->cqn, cq,
+-			      XA_LIMIT(1, dev->attrs.max_cq - 1),
+-			      &dev->next_alloc_cqn, GFP_KERNEL);
++	ret = xa_alloc_cyclic_irq(&dev->cq_xa, &cq->cqn, cq,
++				  XA_LIMIT(1, dev->attrs.max_cq - 1),
++				  &dev->next_alloc_cqn, GFP_KERNEL);
+ 	if (ret < 0)
+ 		return ret;
  
- #undef DATA_REC
-+#undef DATA_STR
- #undef FILTER
- #undef YES
- #undef NO
-@@ -2905,8 +2954,29 @@ static __init int ftrace_test_event_filter(void)
- 	for (i = 0; i < DATA_CNT; i++) {
- 		struct event_filter *filter = NULL;
- 		struct test_filter_data_t *d = &test_filter_data[i];
-+		union {
-+			struct trace_event_raw_ftrace_test_filter rec;
-+			/* Add some spare, to append the string contents. */
-+			char buf[sizeof(struct trace_event_raw_ftrace_test_filter) + 32];
-+		} event = { .rec = d->rec };
- 		int err;
+@@ -1731,7 +1731,7 @@ int erdma_create_cq(struct ib_cq *ibcq, const struct ib_cq_init_attr *attr,
+ 	}
  
-+		if (d->str) {
-+			struct ftrace_event_field *field;
-+			u32 offset = offsetof(typeof(event.rec), __data);
-+			u32 len = strlen(d->str) + 1;
-+			u32 *str_item;
-+
-+			field = trace_find_event_field(&event_ftrace_test_filter, "str");
-+			if (WARN_ON_ONCE(!field))
-+				break;
-+			if (WARN_ON_ONCE(offset + len > sizeof(event.buf)))
-+				break;
-+			str_item = (u32 *)&event.buf[field->offset];
-+			*str_item = make_data_loc(len, offset);
-+			memcpy(&event.buf[offset], d->str, len);
-+		}
-+
- 		err = create_filter(NULL, &event_ftrace_test_filter,
- 				    d->filter, false, &filter);
- 		if (err) {
-@@ -2928,7 +2998,7 @@ static __init int ftrace_test_event_filter(void)
- 			update_pred_fn(filter, d->not_visited);
+ err_out_xa:
+-	xa_erase(&dev->cq_xa, cq->cqn);
++	xa_erase_irq(&dev->cq_xa, cq->cqn);
  
- 		test_pred_visited = 0;
--		err = filter_match_preds(filter, &d->rec);
-+		err = filter_match_preds(filter, &event.rec);
- 		preempt_enable();
- 
- 		mutex_unlock(&event_mutex);
-@@ -2955,7 +3025,7 @@ static __init int ftrace_test_event_filter(void)
- 
- 	/* Need to call ftrace_test_filter to prevent a warning */
- 	if (!trace_ftrace_test_filter_enabled())
--		trace_ftrace_test_filter(1, 2, 3, 4, 5, 6, 7, 8);
-+		trace_ftrace_test_filter(1, 2, 3, 4, 5, 6, 7, 8, "");
- 
- 	return 0;
+ 	return ret;
  }
-diff --git a/kernel/trace/trace_events_filter_test.h b/kernel/trace/trace_events_filter_test.h
-index e651dfbd345e..74a9dba91545 100644
---- a/kernel/trace/trace_events_filter_test.h
-+++ b/kernel/trace/trace_events_filter_test.h
-@@ -9,9 +9,10 @@
- 
- TRACE_EVENT(ftrace_test_filter,
- 
--	TP_PROTO(int a, int b, int c, int d, int e, int f, int g, int h),
-+	TP_PROTO(int a, int b, int c, int d, int e, int f, int g, int h,
-+		 const char *str),
- 
--	TP_ARGS(a, b, c, d, e, f, g, h),
-+	TP_ARGS(a, b, c, d, e, f, g, h, str),
- 
- 	TP_STRUCT__entry(
- 		__field(int, a)
-@@ -22,6 +23,7 @@ TRACE_EVENT(ftrace_test_filter,
- 		__field(int, f)
- 		__field(int, g)
- 		__field(int, h)
-+		__string(str, str)
- 	),
- 
- 	TP_fast_assign(
-@@ -33,11 +35,13 @@ TRACE_EVENT(ftrace_test_filter,
- 		__entry->f = f;
- 		__entry->g = g;
- 		__entry->h = h;
-+		__assign_str(str);
- 	),
- 
--	TP_printk("a %d, b %d, c %d, d %d, e %d, f %d, g %d, h %d",
-+	TP_printk("a %d, b %d, c %d, d %d, e %d, f %d, g %d, h %d, str %s",
- 		  __entry->a, __entry->b, __entry->c, __entry->d,
--		  __entry->e, __entry->f, __entry->g, __entry->h)
-+		  __entry->e, __entry->f, __entry->g, __entry->h,
-+		  __get_str(str))
- );
- 
- #endif /* _TRACE_TEST_H || TRACE_HEADER_MULTI_READ */
 -- 
-2.56.1.703.gf848ed807c-goog
+2.31.1
 
