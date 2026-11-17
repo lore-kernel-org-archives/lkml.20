@@ -1,74 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.58
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794933436;
-	b=laxz/pklgA9MlVP7ZUIWCSGub8WKFg/pL2uoYmbclUX+xd6KeHFKY4JB61K+A4ULW//j
-	 tzhvegEdYsXsDAonzfIUhoavEHNSAbQf7/VZ2vm2KRdj1qc/IVdnzVjDVlblXP7rIUX9d
-	 MAtMrNrRDjNJPFlGNdZ1hMUWwflzhfQgBASeQI0F1OLadntZ86nqxS07+NbN8B/TsWCpv
-	 LFmq1TQ1PF2F/q4XJhYZUsmUwKN2PJDMEeyCr6/hxG3+F1A+NT4ciDK3Qpe6LnwCDax0G
-	 Eb+dXblcdH8IyBgxELPllow2DjbDrPxmolpsHaMN5BxCCg5dgvgtKOYFx7Tp3QVk+HA==
+	t=1794933479;
+	b=lYEI04i6DoiVQARMfvbZRkTQKZSAnwWeN7n1Hz33n3IxTbURh3IR4s/+M7whNwMdYEbB
+	 eoPvxFTiUgq7gLMTzphMOr3wYjcfG10d5BCywFdaLYAHAKcFeJmJWZK9iKqThHFosEW95
+	 VUrRaI94BDH2DGdmRUaa9eWDwmitMSsfIlsrLQMX9pnwMtDFmNRYkLEdItVbj6n0tL9t+
+	 WCnQHjaIU5/Tv9+mqSZI89cj+4SRjyhgQSp+mLDuN8JaQHgRBBLauoP8XbBM5R/2HYVb+
+	 xDaxVRLfTN/8PblsPwtSik9IAmijhdsZZNqxMdHK9540oNOC7gGco0bz1Kni779Euvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794933436;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=z4eKzkcWk1IKH8doz5gGRdUtFm1MYHG1rOm73vYxulA=;
-	b=HjRaA+kzVqRUF090srBAV9mPDQIJIqmfNUP/pvSKZl8SoW65DlyEgSl21m1qYoNhnxy7
-	 arUjhLCyXXUmtPURxH4ZSTnMRYiRnpoGfhM0+dRKqGWpTckSmKyL0lqkviT9ggUCQw0dF
-	 iPEqPapI/CqcIE6EyyFwxQL5qKEXUe8kahAcflJ3A+GqqvE4dUrxpLwfqGKHnnBW6KnI7
-	 NGTqwTxX5vRwJ6B5JOVuQuQy3AoWvTtM/XMzjdMg7rQreLmZhKGpKP8LK76H6BtdWYPs3
-	 6u7Di8o4fCFRSI1ScDKOtfMd4JjIzg2ZgKYPFcVyl/3ErlgdEucRsuvrRtUQ0zHmJ2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794933479;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type;
+	bh=LBXiyQLy540aAEPtNSta6m8Ru37kUuPxCoM4iwVRxzo=;
+	b=VmVTeuFUS0dFUuNTi0or9agHXCtzy/BWzbrnGbE8SDMTSphlyHqhtFR6eySxvMjXTEQb
+	 D+0org/XLfmm38JD0Z7/IdkuxxFpocqDwOvY0SXbbcNcz5Igc3yF6Dv69dYFm15R7b9kV
+	 eOPJCX+rRa0ijTYdatUDcosVOXNEIarQBFNTiKXAzcNWnw2U8n1ub3+Gy5NLycYgE16zD
+	 HC73KRE+QxpQKmGrK7AZrraAutYtbRanbCeURNLnYZnzSTTVquHt26Em7z2Jm/xOnb2eK
+	 j3IUpVO/bF8UZ2DqPOMqodIZxPNMD2a1guosNfbX+cYKzcfnkyELA5JAfqmANBBnygQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ihXQb4NC;
-	arc=none smtp.remote-ip=95.215.58.58
-Received: from mta1.migadu.com (out-58.mta1.migadu.com [95.215.58.58])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pu3VmwTq;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00444606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:37:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00444606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C954A606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:37:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C954A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ihXQb4NC
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=LbJlXuBe4UMUHY+VoPzgCOZA0cis0LLWHwrzjRk/Y8U=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794933432; v=1; x=1795538232;
- b=ihXQb4NC8XpR0PtBi8TqGTsv8vtHIhdw424+U2bJzCTvMEy7IbaESe9VxWBOYOWgxhmtabIk
- w+etAwUIpxM8bgaibwoxjE8y0d7ApkmUZrDjOmyxtdZ3p6VD741M95xOcLhEgrHFCsXNTuJtN8S
- UJQ3wp2+Ca/Z46O9fM4q0HYc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9105d92f22dcb935;
-	Tue, 17 Nov 2026 16:37:12 +0000
-X-Mizu-Trace-ID: 9105d92f22dcb935
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>
-Cc: Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Fuad Tabba <tabba@google.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/2] KVM: arm64: Don't forward the host's SDEI calls to firmware
-Date: Tue, 17 Nov 2026 16:37:00 +0000
-Message-ID: <20261117163702.1678277-2-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261117163702.1678277-1-fuad.tabba@linux.dev>
-References: <20261117163702.1678277-1-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pu3VmwTq
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so376605e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:37:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794933477; x=1795538277; darn=vger.kernel.org;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LBXiyQLy540aAEPtNSta6m8Ru37kUuPxCoM4iwVRxzo=;
+        b=pu3VmwTqFXhXYIDXsNaxCSy2vpYd9ciqG5Qt6dHE2Y2iR7/QaBDmkG/QTiFKGORlFx
+         vqaM505zEUTVNdgUH0LU4JJws9coXoENjeKKMkD3MxzCaus/FtSRCBebHbbVFHUbQ3NY
+         lTE0McxpDzkmZpIAdJsN7CLilTT6N+3D1lBEO5IgnIL/fFgVIxMBzPJI7JG+LayPWBCg
+         yHBPIjvajNZflGZLp7AKQYkrz4fswYvH2Pn+VA0+HvVvks/z8zY5yLeQKJD/ntVHGb3e
+         6v7zd2i/9US6SuQ4swNUiAicqOqhNHYyaa++H1uCpZXYMAE/V3RGOs5x5cKKwLbADWJK
+         8gfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794933477; x=1795538277;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LBXiyQLy540aAEPtNSta6m8Ru37kUuPxCoM4iwVRxzo=;
+        b=qIQS4L8STL2Do4Na8RZ7M1wTaPciwF0JGmXkf0Q2nhyxMrKGB5DOPMpw8nIsUwwFnY
+         LwjGm7jw1sBIyMaZDYxGteyEPei66gLhXsHPtq6SMxe8dZYHgKiKYz8+zKpDjo+8LRZd
+         tnzR7JDAl8iqpUWt2gcpRfNynSY/SDtmykJ95hz86Ec7Y2K57y0inuQpw4KTtj+BX2sq
+         YiFNzZpxZeitlLl08uUZgS/cvYVbp+htQOesIW0DcCFjYxTMuiLVTyx+s0xQK1kktxck
+         /PRZNiNmkX5q0UszXiRjHKiQqRznHKgJMil6/oPUfxmoOq4Mtnc6+EylvEDNAWVXCkeA
+         lb8A==
+X-Forwarded-Encrypted: i=1; AL+hErFhqCKDZ8xyTQJWcVlrIKLrCKA6g+4ooryi5fopgadIMYw1Ronfnb7nGerWadl2EulQkWABiPtuqrWbSGY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8AdNaZDHURONyFUtdkkFwOWXBJ96qmqqP9OpcNAhC8Tra/F6i+
+	Y0WmV7wAOjxvSy+VTmT+otWKdLhNXXGYlTSZ3gspH8KF6HaJlOYtJbB2
+X-Gm-Gg: AYBFou21uM6zNQ55hWVJeN6ySa10MxTBqiI98FzFpIm8tMKjKNA0vRmYP7ngptUgyag
+	xFUyfXmChMA8O7XiaDut5lux7lQGmuGtX16jgHbwsd90ncwKG2VqKS9hyhJTap/Fg96R+QVxM/s
+	GhVpcREHbig8MCTPQ1QNP6BBo01lZ2kulsasvSxYFTyShTAJ0EIfNXP/q/VaGdMMz+dwH1M2RHw
+	SIEoEl3id+pz8CeQRU6svxVyLqMAkIPRSZ8wS6XaKcQ9lG8UZrU5jrKbdiI90a9mMzOqBVvUxbq
+	68a+0JJ+MexwuWgFg01Lf6CWLhcoCZjnFKZnSgYWIWNCVcG0hxR/dT66ZWa0UPGmcztn1Dk38fk
+	FR8WKaPZlEwu0vvTNEtfqVzM21vucE4l56fzsmqXGLmCmAxlEtiJkYJGhfGyXYtTR+gluFfaXpg
+	EdbGaQP2sysodx0uUhtzClix8HqZB//jnb79kP8A1ImFJMEw50huo8teIsJh7NyOQZlY4AS2xr6
+	t/AhqnXBxz4H7UUsU8TQ52UYIXkAptbr16q7KWctVCqOoSlXYIle8k6yEzZTVWyhJJcbkYHftdT
+	Z7ZSe3ol7wyTGvndmeTO9K/FXLnjkrn279DTb2zCojAfwKMzJYBBGYxc/wu1VgEPmVm915DjL9S
+	TVrYNFYgNEc84LUmoSImd18bJGxT+r00lcs8tECK7CdlI0jBWs1nLMow2FByGplBa3BRS3uGRRN
+	iZCIK5iMSG4+vnZYJw7YyNMT4RcVvhsnQ4ikwI3RfZl3FMl1iITHWXTGas3q40Thy5G1m5Ugp2v
+	fNSq9J8/5rIHVsoHhIKHjdR73B5BWppEibff7Z27qSbiOF4wP3V1gsrZLhn+kOgnFrH
+X-Received: by 2002:a05:600c:a0b:b0:4bb:6847:7927 with SMTP id 5b1f17b1804b1-4bb68477b90mr206657185e9.7.1794933477039;
+        Tue, 17 Nov 2026 08:37:57 -0800 (PST)
+Received: from jernej-laptop.localnet (95-143-148-21.dynamic.telemach.net. [95.143.148.21])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d03b104sm29882037f8f.6.2026.11.17.08.37.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 08:37:56 -0800 (PST)
+From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Samuel Holland <samuel@sholland.org>, Jun Yan <jerrysteve1101@gmail.com>
+Cc: Jun Yan <jerrysteve1101@gmail.com>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: allwinner: h6: taiqicat-a01: Enable Ethernet
+Date: Tue, 17 Nov 2026 17:37:55 +0100
+Message-ID: <n0Gb_HzYRTi_JMXR8vuZwg@gmail.com>
+In-Reply-To: <20261117142122.246986-1-jerrysteve1101@gmail.com>
+References: <20261117142122.246986-1-jerrysteve1101@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,62 +103,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-In protected mode, EL2 forwards host SMCs that it doesn't handle to
-EL3, where they arrive as calls from EL2. TF-A treats EL2 as the SDEI
-client whenever EL2 is implemented, so the host can register an event
-handler that runs at EL2.
+Dne torek, 17. november 2026 ob 15:21:21 Srednjeevropski standardni =C4=8Da=
+s je Jun Yan napisal(a):
+> The TaiqiCat A01 has a 100 Mbit/s Ethernet port, which uses the EPHY
+> integrated into the co-packaged AC200 of the Allwinner H6 SoC.
+>=20
+> The AC200 derives its 24 MHz reference clock from PWM1, so enable the
+> PWM controller and the pwm-clock node that supplies it. Also enable
+> I2C3, over which the AC200 is accessed, and describe the AC200 EPHY
+> package on the EMAC MDIO bus, with the EMAC operating in RMII mode.
+>=20
+> Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
 
-A pKVM host kernel can't use SDEI, since sdei_arch_get_entry_point()
-fails when the kernel is booted at EL2 but runs at EL1. Return
-NOT_SUPPORTED for SDEI calls instead of forwarding them.
+Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 
-Fixes: b93c17c4185bf ("KVM: arm64: Trap host SMCs in protected mode")
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
- arch/arm64/kvm/hyp/nvhe/hyp-main.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+Best regards,
+Jernej
 
-diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-index 179d7c8277b88..37fb9896ba3ad 100644
---- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-+++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-@@ -10,6 +10,7 @@
- #include <hyp/switch.h>
- 
- #include <linux/irqchip/arm-gic-v3.h>
-+#include <uapi/linux/arm_sdei.h>
- #include <uapi/linux/psci.h>
- 
- #include <asm/pgtable-types.h>
-@@ -1647,8 +1648,14 @@ static void handle_host_hcall(struct kvm_cpu_context *host_ctxt)
- 	cpu_reg(host_ctxt, 0) = SMCCC_RET_NOT_SUPPORTED;
- }
- 
--static void default_host_smc_handler(struct kvm_cpu_context *host_ctxt)
-+static void default_host_smc_handler(struct kvm_cpu_context *host_ctxt, u64 func_id)
- {
-+	/* Firmware would enter the host's SDEI event handlers at EL2. */
-+	if ((func_id & SDEI_1_0_MASK) == SDEI_1_0_FN_BASE) {
-+		cpu_reg(host_ctxt, 0) = SMCCC_RET_NOT_SUPPORTED;
-+		return;
-+	}
-+
- 	trace_hyp_exit(host_ctxt, HYP_REASON_SMC);
- 	__kvm_hyp_host_forward_smc(host_ctxt);
- 	trace_hyp_enter(host_ctxt, HYP_REASON_SMC);
-@@ -1675,7 +1682,7 @@ static void handle_host_smc(struct kvm_cpu_context *host_ctxt)
- 	if (!handled)
- 		handled = kvm_host_ffa_handler(host_ctxt, func_id);
- 	if (!handled)
--		default_host_smc_handler(host_ctxt);
-+		default_host_smc_handler(host_ctxt, func_id);
- 
- exit_skip_instr:
- 	/* SMC was trapped, move ELR past the current PC. */
+>=20
+> ---
+> The AC200 MFD and EPHY drivers/bindings and the sun50i-h6.dtsi AC200
+> description this depends on are already merged in sunxi/dt-for-7.5.
+> ---
+>  .../dts/allwinner/sun50i-h6-taiqicat-a01.dts  | 40 +++++++++++++++++++
+>  1 file changed, 40 insertions(+)
+>=20
+> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-taiqicat-a01.dts b/a=
+rch/arm64/boot/dts/allwinner/sun50i-h6-taiqicat-a01.dts
+> index 225f42bd3b9e..9b192caeecb2 100644
+> --- a/arch/arm64/boot/dts/allwinner/sun50i-h6-taiqicat-a01.dts
+> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-taiqicat-a01.dts
+> @@ -14,6 +14,7 @@ / {
+>  	compatible =3D "ultrapower,taiqicat-a01", "allwinner,sun50i-h6";
+> =20
+>  	aliases {
+> +		ethernet0 =3D &emac;
+>  		ethernet1 =3D &sdio_wifi;
+>  		serial0 =3D &uart0;
+>  	};
+> @@ -87,6 +88,10 @@ wifi_pwrseq: wifi-pwrseq {
+>  	};
+>  };
+> =20
+> +&ac200_clk {
+> +	status =3D "okay";
+> +};
+> +
+>  &cpu0 {
+>  	cpu-supply =3D <&reg_dcdca>;
+>  };
+> @@ -107,6 +112,14 @@ &ehci3 {
+>  	status =3D "okay";
+>  };
+> =20
+> +&emac {
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&rmii_pins>;
+> +	phy-mode =3D "rmii";
+> +	phy-handle =3D <&ac200_ephy>;
+> +	status =3D "okay";
+> +};
+> +
+>  &gpu {
+>  	mali-supply =3D <&reg_dcdcc>;
+>  	status =3D "okay";
+> @@ -123,6 +136,29 @@ hdmi_out_con: endpoint {
+>  	};
+>  };
+> =20
+> +&i2c3 {
+> +	status =3D "okay";
+> +};
+> +
+> +&mdio {
+> +	ethernet-phy-package@1 {
+> +		compatible =3D "x-powers,ac200-ephy-package";
+> +		reg =3D <1>;
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +		vcc-supply =3D <&reg_aldo2>;
+> +		nvmem-cells =3D <&ephy_calibration>;
+> +		nvmem-cell-names =3D "configuration";
+> +		x-powers,ac200 =3D <&ac200>;
+> +		x-powers,xmii-rx-clock-inverted;
+> +
+> +		ac200_ephy: ethernet-phy@1 {
+> +			compatible =3D "ethernet-phy-id0044.1400";
+> +			reg =3D <1>;
+> +		};
+> +	};
+> +};
+> +
+>  &mmc0 {
+>  	vmmc-supply =3D <&reg_cldo1>;
+>  	cd-gpios =3D <&pio 5 6 GPIO_ACTIVE_LOW>; /* PF6 */
+> @@ -173,6 +209,10 @@ &pio {
+>  	vcc-pg-supply =3D <&reg_bldo3>;
+>  };
+> =20
+> +&pwm {
+> +	status =3D "okay";
+> +};
+> +
+>  &r_i2c {
+>  	status =3D "okay";
+> =20
+>=20
 
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
--- 
-2.47.3
+
+
 
