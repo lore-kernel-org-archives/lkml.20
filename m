@@ -1,57 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794930385;
-	b=tjESNbs/E/MdLbvBNpsDhDpB8nz8CXuTrIQLarjmljbmpFD/hipCB2B4AJ4aXoVI7Sx4
-	 H7ADcdKuMxnllvcs59l3D8JOr98YjqirkbI/xlhH3JedtYBocrnQjW8ZpgFVv0ZfT1b1n
-	 f1id69Roc2LKVYMrRzIR8RNe42HduUsNfnsZs9hFZ6NI8l2sYD7sks3J0eJPWNH2oC016
-	 1ViMyZEek4YL2eFPdIRrb7Vdi/r1TRSqnGtK4ZBlUv0oc421RJRandM7a3e5+Bd3bfYoP
-	 7Ay9ChX218jaZvAnZ5vMeUgBiuFruaKCoYpQeLJEZwVmQLulJHkkJtVJfRQ/GfeWRoQ==
+	t=1794930423;
+	b=zG+2e2Lcef/UGph05KDUFyIRqeZKzaPbpIQy3GTauQV6MeFHxlbuT98aDFPVAOIhgTK0
+	 N4okn5VndWpYlgvBkcM/5GpqUSXBmpfPJldS0OZu6p4HCZRtp7PagYU2iOBv2pr/ovIO6
+	 jBpMUJYmPQ+xBczKDeje8lYhkHSHRxgxNKlKDxQX12TnYDTPY4dK+SVMU9va+N/ail75+
+	 pRTB+aqe9M9RKykYuXGi+yZR5yn+4sU0oI1QwvA34coGfNywifoqscfXqEWcmGGFFp8gN
+	 MvyJoAPoiJxF8t+pZd3I2Krc0cKjoHfX/TYXQuMZNncBb9mUI9BB/InqBhA8hTFTJ7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794930385;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=IbQtyA8KclMq0kN4x7zzrFuHcipjgs9Jx0GfOWSzjDg=;
-	b=2TPyDNDNs2OgCViMEImaDKNBTIoInGVuREuYNi645750ujsfgcbAlaj9nd08sNqvHP3q
-	 LP0zyPftfsQ1tExA+uxGxFZhEFpHbsZ0gtjpUDtBXZ94Gcvkq8AjPqyDhu702zlVnvKOZ
-	 MPjRAqJeddEPkdotpsrOrg3RNuopB4ipTzFmlbqCObtbd9fWXNQ8cQ6mC7On5D68kMWhJ
-	 Vud3mEPABwhVg5QZtoeBqYFFcPDSVULI2URDob48Hll5igQV0Y184SVrE9Yx2xPkU+O5y
-	 QvHhTv5kYZaCk1fGbZAMyDjunXbASzf8x5uRkZnqh8YvfihYoGIllmdnEB6/2IfzjYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794930423;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=JFRD0CRAYZvHNjFPbyksB0QTcivDl9S2CuWxhRSo8oQ=;
+	b=r2x+esWK+ebTEC+UeTWLZxN8Ik3npKe8ZTIpsxu4FnzJfdSl4jmTiSg5eLYgiEJDbKiU
+	 789xzYPGH9YnyOjTJGmoI0y5ZRxZoA1glxV6QYv2BPxBBGgApnh0gFYW++1Wkm7v6CFzD
+	 P8CkNH9dmGQSXXyzXnTSwWmSqyb/FTghtrOrSeRPrPVC4nrKg9xFySrMog9WeizEjYK84
+	 VBt9izpqodJH7Cn1iKFB5ROeDc+SzoE9+T/3rlY5iyiOtdY827Hno6jMXjNeYsFJO2UIX
+	 8UJvZyzTKkI5o6ASHMXLCMJxLnjgffG0XgRwrqlafgaNWCvdEJikVw3RdTzLW5QoCXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AC90hsFF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=I1QbfMFe;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92391606A32A;
-	Tue, 17 Nov 2026 15:46:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8D2F606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:47:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8D2F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AC90hsFF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2523C1F000CC;
-	Tue, 17 Nov 2026 15:46:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794930385;
-	bh=IbQtyA8KclMq0kN4x7zzrFuHcipjgs9Jx0GfOWSzjDg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AC90hsFFguoJbpPB7HtofT610vQ8NSOvXExOusMiEWmpF0cimbqrwkVYv2mEmhNf/
-	 LaaTgHYyrTjxskTqAsMC/+0HnCFBAwRgyGqPtHIPeB5WEAlvmbF1NgGrXJRNEaLQHR
-	 ACZxi0ReIhnBfC+VU5B+xDREo6QEYpUsWMB2r1cGu2nWDhg7z8dm1xxd1GhnKzp/j9
-	 bT8dO/Pa7sCL7NN3BaWyP0xZKw5TI9Zqj7b1lPuLNsuC0WgtrNNufYhcxQQMF/wgQt
-	 wsP4qNGhXalSOVoM0AThGDGq5eY7KwiKPTjDHrwX6jjbbeCZYvSb0L2j8vnCiINZuQ
-	 t9AlLxjTBc+CA==
-Message-ID: <sashiko-outbox-219105@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 33/40] sched/deadline: Start a period for a task that
- enters the class blocked
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
-In-Reply-To: <263b8e16915845e823712fd5feefa7b79205f7d1.1794922146.git.mathieu.desnoyers@efficios.com>
-References: <cover.1794922146.git.mathieu.desnoyers@efficios.com>
- <263b8e16915845e823712fd5feefa7b79205f7d1.1794922146.git.mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 15:46:24 +0000
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=I1QbfMFe
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=JFRD0CRAYZvHNjFPbyksB0QTcivDl9S2CuWxhRSo8oQ=; b=I1QbfMFevmvtf7itt5JvPSdxAw
+	efQOxrPA2Ox92QYSWFfFnI3XDmp0NBveRvSUuJpoXrL73wvs+C/Hrwzko62J0y7322yyH67t6CYEn
+	d5DwbqdFk3/pe6tJwQbDlW68GrmU1k2DVy03CS0SMq+gqYVZz6g/zAtKNwijY14bk8Np8qPn3oFqQ
+	qiqYvMLSSuvK6/YzZ2BHKKvNqPJn6zkjoQHd/B9d+WHAbg3dN+QBB/6B8Ea3bLoXaY4Y3mClGvmTU
+	Ypr8NmKDC0HI6s9MT7sAAcv8j2UabY4Vh8p/k004WVMO3JniKnQswbMDVy99b2tJvQrghWTjzBHS7
+	5W5W1wXg==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xTLOb-00000001jnM-10SL;
+	Tue, 17 Nov 2026 15:46:57 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id C3828300708; Tue, 17 Nov 2026 16:46:56 +0100 (CET)
+Date: Tue, 17 Nov 2026 16:46:56 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Chris Wiseman <chriswiseman@google.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Qais Yousef <qyousef@google.com>, John Stultz <jstultz@google.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] sched/pelt: Skip redundant decay and divisions when
+ sched_avg is zero
+Message-ID: <20261117154656.GJ1813469@noisy.programming.kicks-ass.net>
+References: <18e8d60c92652608.3137322e32332e3235332e313736.371783.0000sendgmr@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,116 +73,30 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <18e8d60c92652608.3137322e32332e3235332e313736.371783.0000sendgmr@google.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] sched/deadline: unstarted period when sleeping task has
-  !dl_task_pi_blocked()
-- [Medium] sched/deadline: sched_setattr() on PI-boosted blocked task
-  skips period update
---
+On Tue, Nov 17, 2026 at 12:50:01PM +0000, Chris Wiseman wrote:
 
-commit 5f0fe1e32222b5c48a70b881608ff3bc4a90abf3
-Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+> +	sa->load_avg = sa->load_sum ? div_u64(load * sa->load_sum, divider) : 0;
+> +	sa->runnable_avg = sa->runnable_sum ?
+> +				div_u64(sa->runnable_sum, divider) : 0;
+> +	WRITE_ONCE(sa->util_avg,
+> +		   sa->util_sum ? sa->util_sum / divider : 0);
 
-sched/deadline: Start a period for a task that enters the class blocked
+This is micro-architectural.
 
-This commit starts a deadline period in switched_to_dl() and
-dl_boost_blocked() when a task blocked on an rt_mutex enters the deadline
-class or receives a new donor so its waiter does not sort with a deadline
-of 0.
+Gemini is trying to sell me:
 
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index 0b30059483136..90b17969554bf 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
-> @@ -125,6 +125,12 @@ void dl_deboost(struct sched_dl_entity *dl_se)
->  	}
->  	dl_drop_boost(dl_se);
->  }
-> +
-> +/* Return true if @p waits on an rt_mutex. The caller holds its pi_lock.=
- */
-> +static inline bool dl_task_pi_blocked(struct task_struct *p)
-> +{
-> +	return p->pi_blocked_on;
-> +}
+				IDIV latency (32/64)	Branch mispredict
 
-[Severity: Medium]
-Can gating replenish_dl_new_period() on dl_task_pi_blocked(p) still leave
-p->dl.deadline at 0 when a sleeping task participates in rt_mutex priority
-inheritance before waking up?
+Apple P-core (M4 tested):	7 			13-15
+AMD Zen[45]:			10-13 / 15-20		15-20
+Intel Golven Cove+:		12-16			17-22
 
-A non-deadline task sleeping in futex_wait_requeue_pi() on uaddr1 has
-!task_on_rq_queued(p) and p->pi_blocked_on =3D=3D NULL.  If it enters
-dl_sched_class while sleeping on uaddr1 (via sched_setattr() or a PI boost
-on another rt_mutex it owns), dl_task_pi_blocked(p) is false, so both
-switched_to_dl() and dl_boost_blocked() leave p->dl.deadline at 0.  A
-subsequent FUTEX_CMP_REQUEUE_PI then calls rt_mutex_start_proxy_lock() ->
-task_blocks_on_rt_mutex() without waking p, queueing its waiter on uaddr2
-with a deadline of 0 ahead of all real deadline waiters.
+So on these architectures it is more expensive to mispredict than to
+just do the division.
 
-Similarly, if a task holding an rt_mutex sleeps in a non-rt_mutex syscall
-(p->pi_blocked_on =3D=3D NULL) and sched_setattr() makes it SCHED_DEADLINE,
-p->dl.deadline remains 0 while dl_prio(p->normal_prio) becomes true.  If an
-earlier-deadline waiter then blocks on that rt_mutex before p wakes up,
-rt_mutex_setprio() evaluates dl_entity_preempt(&pi_task->dl, &p->dl)
-against deadline 0, which returns false and fails to boost p.
 
-[ ... ]
-
-> @@ -4483,6 +4514,17 @@ static void switched_to_dl(struct rq *rq, struct t=
-ask_struct *p)
->  	if (!task_on_rq_queued(p)) {
->  		add_rq_bw(&p->dl, &rq->dl);
-> =20
-> +		/*
-> +		 * A task that waits on an rt_mutex cannot wait for its wakeup.
-> +		 * The chain walk sorts its waiter by its deadline first. A task
-> +		 * new to the class has a deadline of 0, which goes before every
-> +		 * real one. Start a new period now, as setup_new_dl_entity()
-> +		 * does at an enqueue.
-> +		 */
-> +		if (dl_task_pi_blocked(p) && !p->dl.dl_throttled &&
-> +		    dl_time_before(p->dl.deadline, rq_clock(rq)))
-> +			replenish_dl_new_period(&p->dl, rq);
-> +
->  		return;
->  	}
-
-[Severity: Medium]
-What happens when sched_setattr() changes the policy of a task blocked on
-an rt_mutex that is already in dl_sched_class due to a PI boost?
-
-Because prev_class and next_class are both &dl_sched_class,
-__sched_setscheduler() does not set DEQUEUE_CLASS, so switched_to_dl() does
-not run:
-
-kernel/sched/syscalls.c:__setscheduler_dl_pi() {
-	if (dl_prio(newprio) && !dl_policy(policy)) {
-		struct task_struct *pi_task =3D rt_mutex_get_top_task(p);
-
-		if (pi_task) {
-			p->dl.pi_se =3D pi_task->dl.pi_se;
-			scope->flags |=3D ENQUEUE_REPLENISH;
-		}
-	}
-...
-}
-
-When sched_setattr() gives such a blocked task its own SCHED_DEADLINE
-reservation with an earlier deadline than its donor's,
-__setscheduler_dl_pi() does nothing because dl_policy(policy) is true, and
-prio_changed_dl() returns early because !task_on_rq_queued(p).  Neither
-p->dl.deadline nor p->dl.pi_se is updated, so rt_mutex_adjust_pi() sees
-rt_waiter_up_to_date(waiter, p) and stops without re-sorting p's waiter or
-propagating the earlier deadline down the lock chain.
-
-Conversely, when a blocked task leaves SCHED_DEADLINE (!dl_policy(policy))
-while remaining boosted in dl_sched_class (dl_prio(newprio)), setting
-ENQUEUE_REPLENISH in __setscheduler_dl_pi() has no effect while
-!scope->queued because dl_boost_blocked() is not called.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794922146.gi=
-t.mathieu.desnoyers@efficios.com?part=3D33
