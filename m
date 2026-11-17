@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794916768;
-	b=L6V3bhTr8nCOD4n5NrmrucXqrnsA9sf685lJyRh+xzarjJ0xhBerHwi7Hck1o9466WBS
-	 oYpMqtPec9dteKV5jAak/Ie3FY02mcDq+gnUdy55NFpjWRCQQIPPyFoLUdKpdskpfm80J
-	 N5kU99R4+OE3onbUpRCi8xQ4b5awfTmhCvInOqer3IKh7NdI3LRSJtoRBqk9UYPdFqh+k
-	 ikiRBUIdbXwVR0BqzKGGwAUuvKu5YU/HzKNf5fj0swjP4s1QZGy0U+S/n9RxPCy2OXH2B
-	 0PoDvCLmr+iY/4oAama+jPEhw79hJYSw0ICynKSCm3G6djgG3sld736IOJvweRPCaZg==
+	t=1794916772;
+	b=XA6q1kfSmqQpo1FuOxlqdVBW1Gcs7gjCXtu1hrFEO9DV+Gx3DAhiKi7r2WR9EyMel5Ej
+	 tVtT5d79EhrSPNl1mKZ/d3/QFT+lp8ZHB37Ggmjq+WwjxtKeAX0T44HpZ5CC66NRAeOv+
+	 tHEEwtNojgJOsbUBbTI4aoqzkaLqu1y9Ourwb11v3CKEEgovOFPRuJNAlOFSchXRfllol
+	 xxT2h6uxf3HxN5IQU53HPNaGDRGjEquU1QPVOwnKT2YuBSg2Dh2PHqtaFkPmZUa5XA4To
+	 PZiniVgtkjG96+5oH9E/g3G0OsVe0rqdZ3KKdq9CJFO0wqX7ciy9tvwBO6NJ89ZghMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794916768;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794916772;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References;
-	bh=d2C4wDUiGx2LoyTa/1g2kDNfLHE/CABeVD9ZXdUPYQ0=;
-	b=Ik8k5ZVz29nwKZmqeSkNsnL9zU/f6uRKcFUy5MckJKq7XrVWT0v/gPr8Fg1cvA988iqy
-	 yawtCpE+qono9iaso+x99qLL8Jdq13Pyf/Cq0GyA5xjDEKpMKH0UTowmpRBREID/S+7yR
-	 NqyzHh9YyLYFqZUZrKvCkb+uBd/q1d0ZPvDb6HrQTkzV2a9S3YEIHKJlZcDpM4LmhkUaQ
-	 cZJU1jgme5xsLhbRKyxUwNKlnhYVR+nVqTJw19saqSrmGxMwhTpZE7bk6ul2zyDDakxy5
-	 omKX3uKvMoirkIDOP24Q4hl64voaqRmMqWoD7wCBFxepASLyibSKGwtjcTBxQMeilmA==
+	bh=l9GPRcnNlXTejSSzflm9p+/Cuc/CeAyIfCspFaALo3I=;
+	b=bXTWeWo2VXVd6i7GKgiuZeYM69qFIObES9GgGxmHiglt0H7q+MertUYOeUOyUOoD1FrU
+	 3KPySCFGtZ0Ng61CjDXw/xLHJ3VB1wEmlrWbqmhppBqc3YyBVTYLdmYqWuH5DxxrWTKhO
+	 X8yKSVtFozK4XBpGnJMLqeeRhmMp/s1lsaRiaw2bjsKguJ4Pk8idGprkmeVDDBS+aMTqX
+	 HwN+dAyrRdVnSlS9rwBioxXoT5W6KzruMnQ6X6ryFIL0m1qn0LZ9/RiO0+Wjz02LQ8WfA
+	 +b1CAOInwTVJ+ZZoimJF10qAJzBBzL68+1eFzUZz1qPTWqthf+Na5+5ZctDjQOVSn0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="vlmRyna/";
-	arc=none smtp.remote-ip=209.85.208.47
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sxhaL8UP;
+	arc=none smtp.remote-ip=209.85.218.52
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BE26606A333
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:59:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BE26606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8902606A33F
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:59:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8902606A33F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vlmRyna/
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b5973a4b4cso5984539a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:59:27 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sxhaL8UP
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c4d28f75d62so881750766b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:59:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794916766; x=1795521566; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794916770; x=1795521570; darn=vger.kernel.org;
         h=references:in-reply-to:message-id:date:subject:cc:to:from:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=d2C4wDUiGx2LoyTa/1g2kDNfLHE/CABeVD9ZXdUPYQ0=;
-        b=vlmRyna/PYnRWyiCPPKuXgqnv72bD6/21jSyzsaTvlfEV1coP8Sji92h7ZywG22bh6
-         86gzI7mBD2b/Cz/Q9XNURtBrzLOVG97gzoZDargiXrg0zGN5paXXplRKS2qqvAvwi13p
-         iIzeX2POxGv2Ra7MYAMQIKis8TXrriyzc6ZqyOhg7Ettt1DCYTaYoy+D1oMCxsDB8+Wo
-         fmrPxk9rTkZeVZJkt1ZLz57cRm+VTX70LkBPkzEL1FSpUi4Xk0GQr8t+O9SJwJro4eVX
-         X260xrDR3j34ztVFV89wUqZTDhS4hrTSNFq8OEkYR1Su/TaYuTnpAfG/AUgBC29Y9Mh8
-         RBxA==
+        bh=l9GPRcnNlXTejSSzflm9p+/Cuc/CeAyIfCspFaALo3I=;
+        b=sxhaL8UPz0t1UBZm7MwnWN1Daii1gDew6mFAf54H9k+5TdOfj4z6JCE0Vtt96m7ZIr
+         psxAeQhu1YkflO75IdzxNrdRh0KAYf2rP20kmp1hw4cpVqXzVM656B4aZ/W+KsVL7vYi
+         4teaFzmA45mz1axvmY824VyyTWVGTLHOR4xNi0OYxTVRYp6HQ0ww9bkpZJClTRlRX1sX
+         ce6w0v6shfPsHVUA2xfHx6t9bIYMujyfSrsX1xZA4Sajf4bXpSxtURwnio2iPtBc0iGq
+         oRYhDWBFhKuLulenunIml0OMAcu/eV1cz1IuIquiBqonoosOWTkVNg3U4zOgHioqzgrC
+         S7Vg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794916766; x=1795521566;
+        d=1e100.net; s=20260707; t=1794916770; x=1795521570;
         h=references:in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=d2C4wDUiGx2LoyTa/1g2kDNfLHE/CABeVD9ZXdUPYQ0=;
-        b=JC1c4ek2pv7emhtQPODlHqMkjfb28E3+swKGSxjU075h7MTpjnEG3kXT3pfOWM/PiS
-         27CiC18qkeTfSimzV8QnkAnhzd3CcOGkqwDrZn0YQqe3cPEr+5fOmLidozqo+45dOPmf
-         pya01MZPZMfDB1PXkSgSDgzWfjpEFs4dIG6iwmSFAvljybpvH/qSRYZAdr+S4gubG5ZM
-         QV+wFT/waiqy7Rup43hiyGq0eggKh+FhV9DktQhJHr2j+a7rctpHKEqkC01rbnvXrFTl
-         +dtlGIPn/rFOnOlBwt3qKENbz0Z8aCs23SHLgn2YbQeNMbsLPS+0aBI51S7AsXAHnaNJ
-         Fjjg==
-X-Forwarded-Encrypted: i=1; AL+hErE1nXvv+KK13N81r40D32RC1zbQAuBxqmYIvbtjb57NCi2oAVyJaTtlBW4wChzosMUrbitDWC39pR5dM/o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9D0JfhwQcgwV3JMPj+s/dJoH1dAK9pj/1/p97nZGXwMmjJ+fN0
-	iJgFV28bwURVw9UzCu0pRhjxALw2aCwvzTbBhDWLsUDRMGNOiMkLcAovkUk3Ew==
-X-Gm-Gg: AYBFou1W8oOtUz+pFg7oNX8sd3JJWG5gk8bDWJNwLxU++x8/WGI0icU8eP9juGn6plk
-	JYv/v/ug6uUin/5OsFIa6EKCqe2vy+UdjreZDz8GX5b1Gd4rNz7R18U0PGKHaEZEUPNZPLaxCrc
-	WxWGFRx3ztEf3ptjI/A/jeBu4QLU75t2C18OlRiJS2ARGKL811w3jurPMtzW+Th2AaARKiTCdQp
-	xgPhUtbZrDJNB17glXLqtRVG4s0QJgH3lSEHgZ7CzAvgg+70zpypQa+XGG8AeBa5LNZPAzzj5b8
-	9IqQ7zaRy55n2UhVYoUkn6x/3pn6jjjwg5nEFmKhkhCgi7RR67Jyn4suv0Ay2S481drMUvIe7NU
-	Q6vSPfuVeoWK8C1KjIdTRxItRwbbRrl/dhl2Me4H2SvS5rqgaSUUjZXUIQDFEWD4diBFRXo6ZOL
-	weF/04I7Elnb298eE0R0at3d/gwSyXbv1PlmaVW8R9moK7n9OAWbU4NSKUvCkIipa3tHtQ7/j4z
-	5unKhXrJmaYf+ctzeF50d0IXMstIJnwywYeHAhJE8uZDsl7ODXcom4o5mQAVu6sw62Et12VhP2J
-	shIQcrsAjWOtk/fgWz90q15rH/eUGhZRW1/Gkz+SPkG67TeNe+VhMTh1
-X-Received: by 2002:a05:6402:4504:b0:6b4:1629:b1aa with SMTP id 4fb4d7f45d1cf-6b7c0890b5dmr11332359a12.2.1794916766491;
-        Tue, 17 Nov 2026 03:59:26 -0800 (PST)
+        bh=l9GPRcnNlXTejSSzflm9p+/Cuc/CeAyIfCspFaALo3I=;
+        b=bkj6z/p4knIKeKHwTKDIgciOululYGDJQBbgS+9iXeE2QBWL/LzL8RWCXhZe9w0ods
+         NHr2sqpYqKmuirOn/MBxa9GHfnLTq1dN9l9oCUrzRSs7LSDQR+PVRxA1J3LD1P3H7NbO
+         Sl8qVgp8ZD5Hqx0gLzTXetUoc5qm0VTqsvb7o6Qk7F7ezVdDPX2Yxz8hvh5pr/SRVguK
+         wWjeln3jBhGAAfVhsfFBqADWXG4lq0JMNGrIfqk2b3M/pzfYCFuNA4b2FIG9um02iOYZ
+         yZsRM4kXSEonkdwnzsqWBpKODnaXxPXlnSdjZBMJ+KOCMJ13mURcDrF6yo+zzqwvpeGb
+         BHNA==
+X-Forwarded-Encrypted: i=1; AL+hErEOETCmNeO1gZg/gptLPyG/2IcqQPp3ai/Yq4YYxfYGHrXvIC9RYCtv+vCjQ0Dkz/SSht+ZlS9z2skmp7w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/2hO/8DxbjQ2pFJKWhLZCWD+gcsRQWCpQp/DmVKtKaOJbXuHKr
+	bkz8+IqlFxLJ9b4GwHck42jbNskGUAgYSXdLK/dGSKse+XzXPMfEsAp57gtxpw==
+X-Gm-Gg: AYBFou0UEr+I37153ogh88ac83G8wA0OhQ3JZtWeNFZlwFaZw9OGYOTqzPJQ4jsS5Uv
+	/4t4NmErord/wltMn67YIF4/EHn/8gtjYoQKG9nY7nOayA3dU9qXMaRKyLq36JAHjZWULE1enTx
+	oBa84dZ3Cb+wNSgMyuPG/GjE/D3blI8BslNKSuheYoWyLk19bb2NX34+fISOhtdgm6jH5UvUbHe
+	OONfBIT6dHCmftFFLJaW3L5rrfhgfZ91C23wCdRvNJUUvyxmyHSPjGDYsVvf6hInoiNjPSnmTsg
+	Kwl17dkUYa7P4nWrhMD30WnZZ8pCJrXvzlmSTyUUWpfw0fWRulyR7DPP7EPhFvjy4KQHMKE4r4y
+	oozMF13aOT9AmJaGJsOE9wSNBqdCms95S2CkT3zd/eclA8KoSEXj0NeLut/WS4N2UCQwgWmRPvF
+	Cqdyu+FoJ9Qibc14QLWqxgsEAZe5kMnviMKMEWUk2ZXfUUYUKi+j5PR4KrkUYGkn9Hn6hfL3ocl
+	VBMbIkK2t8emYB/FwMt3jxJrR8bSBjwQJB8+ArSLAtUHmO0an7WvkxSOT9WbW7AYLsl/Dd2IvN8
+	03LYUjWe8Zt9GAO0ZAPw8pL8e+RHOSbOjNGu5a9Bar5OKpOUC3qS0vI/
+X-Received: by 2002:a17:907:968b:b0:c4c:bff4:202a with SMTP id a640c23a62f3a-c5096409d5dmr1143205966b.49.1794916770077;
+        Tue, 17 Nov 2026 03:59:30 -0800 (PST)
 Received: from localhost (c-85-228-45-68.bbcust.telenor.se. [85.228.45.68])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c236124esm5744241a12.6.2026.11.17.03.59.25
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b40831sm544249366b.42.2026.11.17.03.59.29
         (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Tue, 17 Nov 2026 03:59:26 -0800 (PST)
+        Tue, 17 Nov 2026 03:59:29 -0800 (PST)
 From: Eli Billauer <eli.billauer@gmail.com>
 To: gregkh@linuxfoundation.org
 Cc: arnd@arndb.de,
 	linux-kernel@vger.kernel.org,
 	Eli Billauer <eli.billauer@gmail.com>
-Subject: [PATCH v2 5/8] char: xillybus: Refactor flush function
-Date: Tue, 17 Nov 2026 12:58:59 +0100
-Message-Id: <20261117115902.41359-6-eli.billauer@gmail.com>
+Subject: [PATCH v2 8/8] char: xillybus: Cancel delayed work items before teardown
+Date: Tue, 17 Nov 2026 12:59:02 +0100
+Message-Id: <20261117115902.41359-9-eli.billauer@gmail.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20261117115902.41359-1-eli.billauer@gmail.com>
 References: <20261117115902.41359-1-eli.billauer@gmail.com>
@@ -96,211 +96,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 
-Previous flush_downstream() looped on wait_event_interruptible() and
-wait_event_interruptible_timeout() without returning if an interrupt
-occurred. Replace these with non-interruptible counterparts and use
-wake_up() instead of wake_up_interruptible() on the relevant wait queue.
+xillybus_core queues only delayed work items in its workqueue. Use
+cancel_delayed_work_sync() instead of flush_workqueue() to clean up
+queued work items, as the latter does not wait for or cancel delayed
+work items whose timers have not yet expired.
 
-In addition, flush_downstream()'s @interruptible argument is removed.
-Instead, this function either waits with a timeout only, or with an
-interruptible wait. This is what the callers of this function requested
-anyhow.
-
-Fixes: a53d1202aef1 ("char: xillybus: Add driver for XillyUSB (Xillybus variant for USB)")
+Fixes: 48bae0507410 ("staging: New driver: Xillybus generic interface for FPGA")
 Assisted-by: Sashiko-0.2.5:gemini-3.1-pro-preview
-Link: https://sashiko.dev/#/patchset/20260724094302.50761-1-eli.billauer@gmail.com
-Link: https://sashiko.dev/#/patchset/20261109112800.48663-1-eli.billauer@gmail.com
+Link: https://sashiko.dev/#/patchset/20260630092330.43534-1-eli.billauer@gmail.com
 Signed-off-by: Eli Billauer <eli.billauer@gmail.com>
 ---
 
 Notes:
     Changes in v2:
-    - Always call wait_event_timeout(), with a timeout of max(1L,
-      left_to_sleep), so that the wait condition is checked even when the
-      deadline has already passed. This addresses Sashiko's comment about
-      a missing condition check in flush_downstream().
-    - Added include of <linux/minmax.h> for max().
     - Added Fixes: tag.
 
- drivers/char/xillybus/xillyusb.c | 86 ++++++++++++++------------------
- 1 file changed, 37 insertions(+), 49 deletions(-)
+ drivers/char/xillybus/xillybus_core.c | 21 ++++++++++-----------
+ 1 file changed, 10 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/char/xillybus/xillyusb.c b/drivers/char/xillybus/xillyusb.c
-index f9c8591a679f..decc87f8e059 100644
---- a/drivers/char/xillybus/xillyusb.c
-+++ b/drivers/char/xillybus/xillyusb.c
-@@ -12,6 +12,7 @@
-  */
- 
- #include <linux/types.h>
-+#include <linux/minmax.h>
- #include <linux/slab.h>
- #include <linux/list.h>
- #include <linux/device.h>
-@@ -601,7 +602,7 @@ static void wakeup_all(struct work_struct *work)
- 
- 		mutex_unlock(&chan->lock);
- 
--		wake_up_interruptible(&chan->flushq);
-+		wake_up(&chan->flushq);
- 	}
- 
- 	mutex_unlock(&xdev->process_in_mutex);
-@@ -920,12 +921,12 @@ static int process_in_opcode(struct xillyusb_dev *xdev,
- 
- 	case OPCODE_REACHED_CHECKPOINT:
- 		chan->flushing = 0;
--		wake_up_interruptible(&chan->flushq);
-+		wake_up(&chan->flushq);
- 		break;
- 
- 	case OPCODE_CANCELED_CHECKPOINT:
- 		chan->canceled = 1;
--		wake_up_interruptible(&chan->flushq);
-+		wake_up(&chan->flushq);
- 		break;
- 
- 	default:
-@@ -1127,11 +1128,13 @@ static int xillyusb_send_opcode(struct xillyusb_dev *xdev,
-  * chan->flushed is there to avoid multiple flushes at the same position,
-  * in particular as a result of programs that close the file descriptor
-  * e.g. after a dup2() for redirection.
-+ *
-+ * If timeout == 0, no timeout is applied and the wait is interruptible,
-+ * otherwise a timeout is applied but the wait is non-interruptible.
-  */
- 
- static int flush_downstream(struct xillyusb_channel *chan,
--			    unsigned long timeout,
--			    bool interruptible)
-+			    unsigned long timeout)
- {
- 	struct xillyusb_dev *xdev = chan->xdev;
- 	int chan_num = chan->chan_idx << 1;
-@@ -1156,21 +1159,19 @@ static int flush_downstream(struct xillyusb_channel *chan,
- 			return rc; /* Only real error, never -EINTR */
- 
- 		/* Ignoring interrupts. Cancellation must be handled */
--		while (!chan->canceled) {
--			left_to_sleep = cancel_deadline - jiffies;
-+		left_to_sleep = cancel_deadline - jiffies;
- 
--			if (left_to_sleep <= 0) {
--				report_io_error(xdev, -EIO);
--				return -EIO;
--			}
-+		rc = wait_event_timeout(chan->flushq,
-+					chan->canceled ||
-+					xdev->error,
-+					max(1L, left_to_sleep));
- 
--			rc = wait_event_interruptible_timeout(chan->flushq,
--							      chan->canceled ||
--							      xdev->error,
--							      left_to_sleep);
-+		if (xdev->error)
-+			return xdev->error;
- 
--			if (xdev->error)
--				return xdev->error;
-+		if (!rc) {
-+			report_io_error(xdev, -EIO);
-+			return -EIO;
- 		}
- 	}
- 
-@@ -1191,40 +1192,27 @@ static int flush_downstream(struct xillyusb_channel *chan,
- 	if (rc)
- 		return rc; /* Only real error, never -EINTR */
- 
--	if (!timeout) {
--		while (chan->flushing) {
--			rc = wait_event_interruptible(chan->flushq,
--						      !chan->flushing ||
--						      xdev->error);
--			if (xdev->error)
--				return xdev->error;
--
--			if (interruptible && rc)
--				return -EINTR;
--		}
--
--		goto done;
--	}
--
--	while (chan->flushing) {
-+	if (timeout) {
- 		left_to_sleep = deadline - jiffies;
- 
--		if (left_to_sleep <= 0)
--			return -ETIMEDOUT;
-+		rc = wait_event_timeout(chan->flushq,
-+					!chan->flushing ||
-+					xdev->error,
-+					max(1L, left_to_sleep));
- 
--		rc = wait_event_interruptible_timeout(chan->flushq,
--						      !chan->flushing ||
--						      xdev->error,
--						      left_to_sleep);
-+		if (!rc)
-+			return -ETIMEDOUT;
-+	} else {
-+		rc = wait_event_interruptible(chan->flushq,
-+					      !chan->flushing || xdev->error);
-+	}
- 
--		if (xdev->error)
--			return xdev->error;
-+	if (xdev->error)
-+		return xdev->error;
- 
--		if (interruptible && rc < 0)
--			return -EINTR;
--	}
-+	if (rc < 0)
-+		return -EINTR;
- 
--done:
- 	chan->flushed = 1;
- 	return 0;
+diff --git a/drivers/char/xillybus/xillybus_core.c b/drivers/char/xillybus/xillybus_core.c
+index ab8ac78b28dc..644447502d09 100644
+--- a/drivers/char/xillybus/xillybus_core.c
++++ b/drivers/char/xillybus/xillybus_core.c
+@@ -1926,9 +1926,10 @@ struct xilly_endpoint *xillybus_init_endpoint(struct device *dev)
  }
-@@ -1332,7 +1320,7 @@ static int xillyusb_open(struct inode *inode, struct file *filp)
- 		 * This can't go wrong unless there's a serious hardware error
- 		 * (or the computer is stuck for 500 ms?)
- 		 */
--		rc = flush_downstream(chan, XILLY_RESPONSE_TIMEOUT, false);
-+		rc = flush_downstream(chan, XILLY_RESPONSE_TIMEOUT);
+ EXPORT_SYMBOL(xillybus_init_endpoint);
  
- 		if (rc == -ETIMEDOUT) {
- 			rc = -EIO;
-@@ -1626,7 +1614,7 @@ static int xillyusb_flush(struct file *filp, fl_owner_t id)
- 	 * the user pressed CTRL-C, that interrupt will still be in flight by
- 	 * the time we reach here, and the opportunity to flush is lost.
- 	 */
--	rc = flush_downstream(chan, HZ, false);
-+	rc = flush_downstream(chan, HZ);
+-static int xilly_quiesce(struct xilly_endpoint *endpoint)
++static int xilly_quiesce(struct xilly_endpoint *endpoint, int to_cancel)
+ {
+ 	long t;
++	int i;
  
- 	mutex_unlock(&chan->out_mutex);
+ 	endpoint->idtlen = -1;
+ 	endpoint->num_channels = 0;
+@@ -1944,6 +1945,9 @@ static int xilly_quiesce(struct xilly_endpoint *endpoint)
  
-@@ -1696,7 +1684,7 @@ static ssize_t xillyusb_write(struct file *filp, const char __user *userbuf,
- 	}
+ 	xilly_allow_isr(endpoint, false);
  
- 	if (chan->out_synchronous) {
--		int flush_rc = flush_downstream(chan, 0, true);
-+		int flush_rc = flush_downstream(chan, 0);
++	for (i = 1; i <= to_cancel; i++)
++		cancel_delayed_work_sync(&endpoint->channels[i]->rd_workitem);
++
+ 	if (t <= 0) {
+ 		dev_err(endpoint->dev,
+ 			"Failed to quiesce the device on exit.\n");
+@@ -1956,6 +1960,7 @@ int xillybus_endpoint_discovery(struct xilly_endpoint *endpoint)
+ {
+ 	int rc;
+ 	long t;
++	int quiesce_channels = 0;
  
- 		if (flush_rc && !rc)
- 			rc = flush_rc;
-@@ -1833,7 +1821,7 @@ static loff_t xillyusb_llseek(struct file *filp, loff_t offset, int whence)
+ 	void *bootstrap_resources;
+ 	int idtbuffersize = (1 << PAGE_SHIFT);
+@@ -2058,6 +2063,7 @@ int xillybus_endpoint_discovery(struct xilly_endpoint *endpoint)
+ 		goto failed_idt;
  
- 	if (chan->writable) {
- 		chan->flushed = 0;
--		rc = flush_downstream(chan, HZ, false);
-+		rc = flush_downstream(chan, HZ);
- 	}
+ 	xilly_allow_isr(endpoint, true);
++	quiesce_channels = endpoint->num_channels;
  
- end:
+ 	rc = xillybus_init_chrdev(dev, &xillybus_fops,
+ 				  endpoint->owner, endpoint,
+@@ -2074,8 +2080,7 @@ int xillybus_endpoint_discovery(struct xilly_endpoint *endpoint)
+ 	return 0;
+ 
+ failed_idt:
+-	xilly_quiesce(endpoint);
+-	flush_workqueue(xillybus_wq);
++	xilly_quiesce(endpoint, quiesce_channels);
+ 
+ 	return rc;
+ }
+@@ -2085,13 +2090,7 @@ void xillybus_endpoint_remove(struct xilly_endpoint *endpoint)
+ {
+ 	xillybus_cleanup_chrdev(endpoint, endpoint->dev);
+ 
+-	xilly_quiesce(endpoint);
+-
+-	/*
+-	 * Flushing is done upon endpoint release to prevent access to memory
+-	 * just about to be released. This makes the quiesce complete.
+-	 */
+-	flush_workqueue(xillybus_wq);
++	xilly_quiesce(endpoint, endpoint->num_channels);
+ }
+ EXPORT_SYMBOL(xillybus_endpoint_remove);
+ 
+@@ -2106,7 +2105,7 @@ static int __init xillybus_init(void)
+ 
+ static void __exit xillybus_exit(void)
+ {
+-	/* flush_workqueue() was called for each endpoint released */
++	/* Work items have been canceled for each endpoint separately */
+ 	destroy_workqueue(xillybus_wq);
+ }
+ 
 -- 
 2.17.1
 
