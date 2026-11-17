@@ -1,66 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.87.93
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794895220;
-	b=X+e12CXB50NvJJqbko0eHQrHzQ8rnfkjBFgxFy+ugC7SrgbFifl+IEncnLIcHc89Nprz
-	 HzS4JCPUvkS7pYzOCPqHyh162iNm6ZI/A5JJ4drsFQG7LJQ1uCPXQ8++i5FVFOcBmI4nZ
-	 X8QvvnOINKtiWCditPqhaLItxUeArtz0+eKla1V9mu5D0kOJVK4iHrwUFdHhidzzsp96w
-	 2cBqAxCChbU0xqfaojtkXCoSNt7WtyGFnASOpUD4cASxA0lvaUh4JQ1P8G9/6rIR0PGQO
-	 rMr98RIa9cXw4B3NcCwD5zQgYoh1hGQo3FNcb4lTLp2UqJlMyhW37mNF3bZzGurLVfw==
+	t=1794895285;
+	b=OOMgcM7fCmiQme8JSt8ViMJAZDGcXwu64rXYlidSobWPS1otl5HKu0HIzimkLbVUcuhq
+	 9gCT8FBqUVzERQpi78C/WG01ArE9YhqX+AtOcNW7nxaeh0zasNHJxDjzNaCdzzI+X4H7/
+	 j/XuJCVvNncogiU4CQkbPHPA16AhKOclDkNPfWJ8S7gATUinrTJCrfMy+F9f7cFK9Hhwt
+	 P2sT9jiWz9hw256OHAOsyq2YlahidTgNs9RSRA0C/8ue7ePYd5ii7mk39jRU+JlCRyS32
+	 YNtpmCWv4Lbi7UCp8NGheSeB0hCoNSzFtogRl9LcoZB+CZJW87WrMVq83IHCTghOLtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794895220;
-	h=DMARC-Filter:Received:X-ICL-RepId:Dkim-Signature:Received:From:To:Cc:
-	 Subject:Date:Message-ID:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Info-Out:X-JNJ;
-	bh=Ie9TBnSRuFvJfRJMkw1HwmXycVla5fkFGDRxPOE8hzA=;
-	b=UNgu/hGyUc8kSN0eDbBrn1dunTxhd0wKbSrkK7itqT8bjUSxPbEpLeMrp0637rUtuSPO
-	 uDiZo9ioHGRs2gWJQN1CUW4khpvFk5gFha9pLOfQBFm7jiRfTggW3ELzp+DgFp0m5MGFL
-	 9Udsjh/vA6qnhLcRHCg0KJJ10JPJ6y9/Mo5FwjFLOH/aRB9kYS16QKPDFj11LXQ3CAOQO
-	 VyBcmYRm5VcGKDeiiahH3iadQ/YvD49fHAl0qxdEq8Jv9p2CszcpG5G2s08kaJfEcl8j4
-	 4Nlns9ZBBPOCU+7AOJ9/BSWYx4TidYrdMK7kiCQPWsAc9FdCMS3gegUuUgp1kWkxItQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794895285;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=jpD36F91Y9IfdiFgh+/Lwnl5mIj+NvYpPUDqUPGnUgY=;
+	b=Us5ooKLbTNBAIqyl2EO32oEyciOcuwbHB+67vjq725Ki51yzk0npCeZxfU/subN77Xwg
+	 TWtwtXGUd//fmxnd7q5KL8eGFfn4hnGudEnJZkGFRQsXxHi2yU0Pz8wwbqZjp837y4UuJ
+	 jIhdeHPg2UFbMH6O8yUG4UVF7PU7atoBf0s5VdVuTrebSWLYL6qRMTso5SiaYU41L9ok5
+	 aTzcvIZLn7d1SPhvV7njGcLDnwiY+V8GP3yfWPf20HLyOdMGrOiL6m0RcCzeFvMuylSrK
+	 JBIX43gXIt7bDd8gDGYfbdB3UT549ow5zHaw1hxK0i6WnNhuwmqfSkg5VLtCRigQGGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=icloud.com;
-	spf=pass smtp.mailfrom=icloud.com;
-	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=GWkO9RfJ;
-	arc=none smtp.remote-ip=57.103.87.93
-Received: from outbound.qs.icloud.com (qs-2001i-snip4-11.eps.apple.com [57.103.87.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PrbgTbDz;
+	arc=none smtp.remote-ip=95.215.58.18
+Received: from mta1.migadu.com (out-18.mta1.migadu.com [95.215.58.18])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D910F606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:00:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D910F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B2F3606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:01:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B2F3606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=GWkO9RfJ
-Received: from outbound.qs.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-east-2d-10-percent-1 (Postfix) with ESMTPS id A1F893000167;
-	Tue, 17 Nov 2026 06:00:16 +0000 (UTC)
-X-ICL-RepId: 01a1e817-7fcd-7a89-85d9-392adaaf6cf8
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1794895218; x=1826431218; bh=Ie9TBnSRuFvJfRJMkw1HwmXycVla5fkFGDRxPOE8hzA=; h=From:To:Subject:Date:Message-ID:Content-Type:MIME-Version:x-icloud-hme; b=GWkO9RfJ06BxOFbckch+rN0PvcRS7UM49skD1gP4LwkJuboXqZMbM+DO5NvYf63Os145IC5Pm2Q1M6Obtn5bjebe9eaxTp4nXHqk3sJyPXEtwpIkLtqYvF3KF5Ub9Yh7QP7NhYbtw3iYWnBRDv12li+zxZgPyw88LoFrdoc2B0RACT0sDHLWhxhw2Kp53VWRDX9bUa599itTxHffnmb/V0aZvW4YUBfHl8hOgMTs7Ln8a3BbNcb2TpUziGLGzU3/CIltT/1tDplQ+kLcIbaXuCpc8ykcQDfsNrV9NV2nzQZM/c6vj4JHRJKWvyjKET9MODNt3R/sIvhZDa/JGj0ERQ==
-Received: from [100.126.217.91] (unknown [17.57.155.37])
-	by p00-icloudmta-asmtp-us-east-2d-10-percent-1 (Postfix) with ESMTPSA id CD5CA300014E;
-	Tue, 17 Nov 2026 06:00:08 +0000 (UTC)
-From: Muhammad Haris Awan <m.harisawan@icloud.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- Kees Cook <kees@kernel.org>, David Hildenbrand <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Liam R. Howlett <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Subject: [PATCH] fork: mark memcpy() in dup_mm() with data_race()
-Date: Tue, 17 Nov 2026 10:59:56 +0500
-Message-ID: <179489519663.1444496.15875846661591982934@icloud.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PrbgTbDz
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=82NUFJ1X4NDA1qOTuvJUv8iUvdArPHmXkqAjokjhNOg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794895282; v=1; x=1795500082;
+ b=PrbgTbDzz0ufL7DVXUrrCXunjVFpS/q23xOHAbuItacnAUkyycKj4FIbe6/e/VR0/V8MHE/z
+ 1eKUeh/xeI1LkX+tEckIhz3pzky/ZJhZybY+XQ5X2sDr45as/cOXXX0PMYRN2IMB4CCSDdXWwLF
+ pa0WGbAQ8iw2kk7WWQwOZGIM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 62e7e980c127810b;
+	Tue, 17 Nov 2026 06:01:22 +0000
+X-Mizu-Trace-ID: 62e7e980c127810b
+X-Migadu-Flow: FLOW_OUT
+From: Youling Tang <youling.tang@linux.dev>
+To: Namjae Jeon <linkinjeon@kernel.org>,
+	Sungjong Seo <sj1557.seo@samsung.com>
+Cc: Yuezhang Mo <yuezhang.mo@sony.com>,
+	Chi Zhiling <chizhiling@163.com>,
+	exfat@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	youling.tang@linux.dev,
+	Youling Tang <tangyouling@kylinos.cn>
+Subject: [PATCH] exfat: hold s_lock for cluster-chain updates in exfat_cont_expand()
+Date: Tue, 17 Nov 2026 14:00:55 +0800
+Message-ID: <20261117060055.341277-1-youling.tang@linux.dev>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,80 +68,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Proofpoint-ORIG-GUID: pUoMMQlIZVsQSMrjSPyAHBRwL_I-Pivh
-X-Proofpoint-GUID: pUoMMQlIZVsQSMrjSPyAHBRwL_I-Pivh
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDAyMyBTYWx0ZWRfX0DXmc8aPZLSQ
- W/B287taoyiHNjHkANbxhoqigOb7QJ/fLGALDAxlXNFRxmu5/qhRwfmTTtwGGrPjVFBKOtP1AoI
- Z3WG5+Rq4RxJ2TxOvdIt5bJFy6QnqSNN+fst9DqIZNh7kPqzHtziKjTBvFpObG23wyQ7HyIr1pn
- ZXYRNwt9weBnOHhYz6p3XlTxv3FO469PqW5iopOqXMaaZJAmFWmLpEe60863J+PwnyvCI+otvLg
- lJeRvwLRJCRnp6YBexNE9Gy9oQOMRPioRy8nogkF6S5ss+wd11iDv3hSjnQA/b+GS5UHWwIc+an
- HTVZ7O+tzFs3NGsD87lw7bugVF7NmKPU1CE+mG6/m2iDM5IJ4BEECP+qgbyzuo=
-X-Authority-Info-Out: v=2.4 cv=SqCdKfO0 c=1 sm=1 tr=0 ts=6afbed72
- cx=c_apl:c_pps:t_out a=bsP7O+dXZ5uKcj+dsLqiMw==:117
- a=bsP7O+dXZ5uKcj+dsLqiMw==:17 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=x7bEGLp0ZPQA:10 a=2kFROKt5_e8A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=edf1wS77AAAA:8 a=hSkVLCK3AAAA:8 a=v3ZZPjhaAAAA:8 a=9Li-14qwQSEJLBuQiiEA:9
- a=QEXdDO2ut3YA:10 a=DcSpbTIhAlouE1Uv7lRv:22 a=cQPPKAXgyycSBL8etih5:22
-X-JNJ: AAAAAAABC4lDjXeSrz98vWgaoTEW+CwIyC+MyrLWESSPjxuu4r3QE30jwIJqyeP3MNpABI
- jVClgbqV6hPK3i6zLsApEOdWWRbOTS47n9CaJimHBzh2nDwlnU5Hd4EYl2mVL8BwAcuzua
- F9i4czwAApAET2NCKe0Amr8sHE3kW/SyZMTUsPoq1X5Xq38S1lsH0E6mcKl22NKZcQm603
- Xq14eQbSdVV70mB8doJ3V6vdsFWSiT6mnYGZqHRJNrf1ltVC8NlyWSiiJEgG7FzN7LDqAW
- gmfOQLJ2IzJu6WgGZ19Y9DXO+Qr3APJBBUgbIeeMhZaADNZAT+lhtISJY8KTHRu6Khr+SO
- U3k+9n1U41NXq66N8qF7DnDYfBi2ig1dzqAGREqd8wFS+Qw6gdxrGAOIIPBdaShqPrURD4
- /NHIZRQSwn6pH4qiVzPrxtMKMSXAukjzhSOb+WijqpwxJ7+Hh4OJaq5felEY3GxcPDYzam
- PGD6JINiRUSm4BI40QKm25E8Tplm4LfBy7+ir5u4y5bP1fL/iDuGfDM47KoOiHTy4PTRhA
- pjy80ExTrMQsKcXIJEUdg0QFGi9xSwoo+13DfQruWnHMQnumS/G59pgXI8QTJSetSe/2er
- liauSbszJryBI60/bdwNysLNOkXPYhTI1t7sTL19ulMWPTeiOK+UhgtF4EblYhkviO908U
- //Y1D/+Zm+oFGVeSGopGv241sZ1Z7raS9VOmm1tgfLI0XOqL9pFPhek2Wa2w3ckOyf7M+o
- xwFbAGXPVCdJS/4HSCBIawqTnck6fTf24XA+HoMyn23rObNEzTltGWoCkWL0axg7e97Cgf
- UGKlo7QTgBm2YuJN1zR7Th4UBMFSiZ6OSQLQUM4G1Vgp78aM2BSDMPocBZMWI18q4pwSSi
- WPFg+O2YGptYiCxd+7KiAii1EZTV6r7y+A4Yf0wX9cQtu+JNtgTKva9GU3pSJUSoaYl0Gr
- 3R/Q+16OeWgBsHhe5LLixDsAFy5zIEmNQ7M1o47Vgq4B8E6mrFuXTAEQZ+JCj0hq2lLZ/g
- djYxEZ8P+kmfJnw5CsYlJGxA8xC0JZrW+6Okrn8In+r3IsNJvf17aKrIQu185RuzPDuqiH
- Ee77fUEHXtXfF4TLREdgVolD2/gSZbUAkgUzhx1MKqx1Kurb+HYZZPK+V22zXaV/PRzw8f
- GtGT3yJo6NCdSOtfDNmwh69z7Zv4e7FmsI/D+rblY9dAYuY+cDQ3hnRA583ZcR1WFXqnP/
- EUPswHmeMLH/ireMq8FZ1ukdxf0rXowNhdTyT2+KXvZSzWEVCsS2AgmsDx/npCnHmxaQSE
- wdHR/4oiSSY0DeoJMzdp8vZyaK5Mw2whiLbG+gD3OKdRe8Ya0BAXRNXWcuEGv0zOz9xwyM
- JWKD9zHv05DKtaLv/Fkunof8eDtUf35SuhJQZmR2JdsQFwuRGZaV0vcZPEsmu4wgbxBSAF
- +0K/Je/odGPfxD7xyqcAlz4B5W8espUMVax2BphV/7myDdb8bJE4Ixa2m4xiV4GNI=
+Content-Transfer-Encoding: 8bit
 
-KCSAN reported a data race between dup_mm() copying oldmm via
-memcpy(mm, oldmm, sizeof(*mm)) and lru_gen_del_mm() modifying
-oldmm->lru_gen.list when an adjacent mm_struct on the shared
-mm_list->fifo is removed under mm_list->lock.
+From: Youling Tang <tangyouling@kylinos.cn>
 
-oldmm->lru_gen and oldmm->mmlist are protected by mm_list->lock /
-mmlist_lock (or updated locklessly via lru_gen_use_mm()), not
-oldmm->mmap_lock. Because struct mm_struct uses __randomize_layout and
-mm_init() immediately reinitializes these fields on the new mm, wrap
-the memcpy() in data_race(), matching dup_vma() in mm/vma_init.c.
+exfat_cont_expand() allocates clusters, appends them to the FAT chain
+and updates ei->start_clu, ei->flags and i_blocks without holding
+sbi->s_lock.  Readers such as writeback call exfat_map_cluster() with
+s_lock held but without inode_lock, so they are not serialized against
+cont_expand() and can observe the chain metadata mid-update.
 
-Fixes: bd74fdaea146 ("mm: multi-gen LRU: support page table walks")
-Reported-by: syzbot+c6e1b1b32ff2fc3b7d60@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=c6e1b1b32ff2fc3b7d60
-Signed-off-by: Muhammad Haris Awan <m.harisawan@icloud.com>
+Hold s_lock around the cluster allocation, chain append and i_blocks
+update.  i_size is published via exfat_pagecache_isize_extended(), which
+takes the straddling folio lock; since writeback takes folio lock ->
+s_lock, this must happen after s_lock is released to avoid inverting the
+lock order.  i_blocks is therefore updated first, under s_lock, which
+also ensures a reader never sees i_size beyond the allocated chain.
+
+Signed-off-by: Youling Tang <tangyouling@kylinos.cn>
 ---
- kernel/fork.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ fs/exfat/file.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
 
-diff --git a/kernel/fork.c b/kernel/fork.c
-index 5efceb8d5..14ac9a070 100644
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -1539,7 +1539,12 @@ static struct mm_struct *dup_mm(struct task_struct *tsk,
- 		goto fail_uprobe;
- 	}
+diff --git a/fs/exfat/file.c b/fs/exfat/file.c
+index 435bbef288b8..de335c278caf 100644
+--- a/fs/exfat/file.c
++++ b/fs/exfat/file.c
+@@ -95,6 +95,7 @@ static int exfat_cont_expand(struct inode *inode, loff_t size)
+ 	if (ret)
+ 		return ret;
  
--	memcpy(mm, oldmm, sizeof(*mm));
-+	/*
-+	 * oldmm->lru_gen and oldmm->mmlist may be modified concurrently under
-+	 * mm_list->lock / mmlist_lock or locklessly via lru_gen_use_mm(),
-+	 * and mm_init() will immediately reinitialize them.
-+	 */
-+	data_race(memcpy(mm, oldmm, sizeof(*mm)));
++	mutex_lock(&sbi->s_lock);
+ 	num_clusters = exfat_bytes_to_cluster(sbi, exfat_ondisk_size(inode));
+ 	/* integer overflow is already checked in inode_newsize_ok(). */
+ 	new_num_clusters = exfat_bytes_to_cluster_round_up(sbi, size);
+@@ -106,7 +107,7 @@ static int exfat_cont_expand(struct inode *inode, loff_t size)
+ 		exfat_chain_set(&clu, ei->start_clu, num_clusters, ei->flags);
+ 		ret = exfat_find_last_cluster(sb, &clu, &last_clu);
+ 		if (ret)
+-			return ret;
++			goto unlock;
  
- 	if (!mm_init(mm, tsk)) {
- 		mmap_write_unlock(oldmm);
+ 		clu.dir = last_clu + 1;
+ 	} else {
+@@ -120,7 +121,7 @@ static int exfat_cont_expand(struct inode *inode, loff_t size)
+ 	ret = exfat_alloc_cluster(inode, new_num_clusters - num_clusters,
+ 			&clu, inode_needs_sync(inode), false);
+ 	if (ret)
+-		return ret;
++		goto unlock;
+ 
+ 	/* Append new clusters to chain */
+ 	if (num_clusters) {
+@@ -137,15 +138,20 @@ static int exfat_cont_expand(struct inode *inode, loff_t size)
+ 	ei->flags = clu.flags;
+ 
+ out:
++	/* Update i_blocks before i_size so mappings never exceed the chain. */
++	inode->i_blocks = round_up(size, sbi->cluster_size) >> 9;
+ 	inode_set_mtime_to_ts(inode, inode_set_ctime_current(inode));
++	mutex_unlock(&sbi->s_lock);
++
+ 	/*
+ 	 * When extending file size, call exfat_pagecache_isize_extended()
+ 	 * to update i_size and ensure the straddling folio is properly
+ 	 * marked RO so page_mkwrite() is called and post-EOF area is zeroed.
++	 *
++	 * It takes the folio lock; call it without s_lock (writeback uses
++	 * folio lock -> s_lock).
+ 	 */
+ 	exfat_pagecache_isize_extended(inode, oldsize, size);
+-
+-	inode->i_blocks = round_up(size, sbi->cluster_size) >> 9;
+ 	mark_inode_dirty(inode);
+ 
+ 	if (IS_SYNC(inode))
+@@ -155,7 +161,10 @@ static int exfat_cont_expand(struct inode *inode, loff_t size)
+ 
+ free_clu:
+ 	exfat_free_cluster(inode, &clu);
+-	return -EIO;
++	ret = -EIO;
++unlock:
++	mutex_unlock(&sbi->s_lock);
++	return ret;
+ }
+ 
+ /*
 -- 
-2.56.0
+2.43.0
 
