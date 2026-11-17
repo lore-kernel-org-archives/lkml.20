@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794927343;
-	b=GHbittMSt8xSGDX19yAq7cuS5Fy++f1ZeqPpHWjGVNr4yPcLVmHl2vaymta8ovbT1bh2
-	 iQjiqcXvKh/Z0vXU4RZWqHcAv/ZIJVBlqHzL/RfUpJOzklI3xPvUuGzrpnSwCQ+Kkf91Q
-	 kPXlFdVjONoKlD5PCI+TQFNz9Vq02IGm0EqZHsTF3OzJlTz2ugaSu7aED7FarhGQvcrIX
-	 JQJmCasiSpOvY/inXzO+MrIB9EDMicqqw0hApDCqRAtqS4iES+1OAA4q2IOLxFBkb0vYY
-	 1HlT6h367mvllRdIOnePZA7UUJVhRy/LQZGoWCBEIHS91dMPD6qVQf2ixM6LFx7L37Q==
+	t=1794927349;
+	b=DXnZEikkQxbgxhcbrBOCrE1ABlX5rngc1QTD0Y2L2dtXgSgDb+SJJ9SlCEAW+FL+z829
+	 hGWdPm77DXNvNu166W2D2x5p/6djkvfKkQi8y7uZ2DHyyWE0Ir2xEukw429Rdw4Oroddj
+	 XlvRomG4Kzwu5QEQdD8eEhN2vMZH+v9VJlZchqQ3Qs7Ca7pGfENVs3XIBhoNLKFqTDz25
+	 Mi/TYfs/vg7ypjOAwGb0UhK9Mzb0SiZS/EWl/h/Gt+jb56YxRc1DhjaluKVILqR+97zGU
+	 /a9Nj3TPRNLr6AMRNrJl/AJeCN5UheLFr7EZAWfjDSzRbBEJRa55Pr+zHmclgnM3XXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794927343;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794927349;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=9xGhqAumENcBNtzDfruylYbHUoXUw8SL2Wwg6sFFVmM=;
-	b=TC5MVGlit2hD4Xxfv8Wm2MdaV/GeTABspqK/mQnaGEsOH7iMRJzcBbfb6dREXUjO1Uv6
-	 EX+0VZezGwFOpviLd6rztedqA6KvOxQZNcDLyX5G9QTS6Ji5+APNMM4y4xleVsgE8nDys
-	 8r1b5UmjWbwUHCgIi3FVi+01ldGL8FiEaWXG1d6u+8Q96JLpg+pw60FdmivxfNvfC51k+
-	 9y0z4wRrgfwqocRkuEYa8jS5z/x8+ffZ4iFkD5CljWdCyNVRzaeFV+SfGtc15+Xs1XkWJ
-	 2T7zBz2WUGp+XRSwsUpnUf6KfKMY2ttDYzyDc6PXYZDnys+GNlVZy8OzsYun1V3cEMg==
+	bh=fCjsxvLvDqNAhuuyphXheko6IGHWuFB4ZrRzdmRJqpI=;
+	b=5c8LMgQJR4IcAGOvunKJ0feta3dR6vYc7y9b1I9TrJONQrVeUpsyJlIZqCJDivydPEkV
+	 Q1K/Rj3jBzvrefBxZoLXOY5Spojp8snHVPemAozZQD02BVDuhLOZEKneVC2R+KGEyQOlR
+	 1tiP9ML80qXQ7T3GIkcXecVAZiMszIo05PhN8wmztpRLW02Vl8Gw2BlNN8N7ZrmprHruh
+	 1gUt/gAyvGYatbvxQahuhCtIftWus9C7onUAuZZHenUbdhKtl2vm15nqnzetuBXvYCCam
+	 1QBBxeK/1WoJdJJ70oIBVHARKicksgOmOhDVl0w2kisBbOtwUKwRqqW4Z9ftZ0Qyy/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--stani.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Yl9PcNYX;
-	arc=none smtp.remote-ip=74.125.224.70
-Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com [74.125.224.70])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Hl59UCoa;
+	arc=none smtp.remote-ip=209.85.128.199
+Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com [209.85.128.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69D6A606A8B0
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:55:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69D6A606A8B0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05EF760A383B
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:55:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05EF760A383B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stani.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Yl9PcNYX
-Received: by mail-yx1-f70.google.com with SMTP id 956f58d0204a3-67be4f2f42eso8465870d50.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:55:43 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Hl59UCoa
+Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-879b1d03d5fso73056297b3.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:55:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794927342; x=1795532142; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794927347; x=1795532147; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=9xGhqAumENcBNtzDfruylYbHUoXUw8SL2Wwg6sFFVmM=;
-        b=Yl9PcNYXflBqIPtfKg2D4kLjvUfhx6aDhhmmzb2FGXFL7CMxrm2BNsjdBwAvRctpUd
-         6vaHXtCuMVlsv/NtTZM00x5Ey4M0LBVuJmFeOfkvElq5O97m2UjFP0FFIPNv5YB/x1Mb
-         SQdYXlFE9TRbM5e6cgUrSVVHO8xHbnpU7nX1dVS7yqBU+gXk0ujgizErg9GrmnenIwrT
-         YJXqsuAIx7OZ7ctYVWTVDLqKpBnrPYwLeK+lkAF1Wd+o1HQIE4Jv6ZYhnBgMkj6ZRunQ
-         YQZkKNniK0J5Mze9zj4H4LiLjaREoppNf107GbU9XoJ9L9GJPCNu8z88Y2eyp63DaSdZ
-         IohA==
+        bh=fCjsxvLvDqNAhuuyphXheko6IGHWuFB4ZrRzdmRJqpI=;
+        b=Hl59UCoa9cEoiZGnMQByF69Qouam7ijpD8tyz37uR/viDg/G7WzzVQd1DOcybxdM+b
+         3J/t7enzv2rezq5zM4lTL5dt5krVyXeHJJ3gsd4qIR3e6w8wIvX/PytSaBIZV2DuSHlI
+         +PMrFwm4a+yZCTZd56CMJP/Eaz9BjC2nBoL+NgczevmBeROqAq83anUPfAUsh1gwzjsQ
+         YxvObPB/J+OOn7wvrnKWSAsyIk56UjpypxFFQkVasCprQq8iS4+g50YMOdN14xOkCrUF
+         AbxB48gbvTxq+pF/FA4jHarjSaGGqu9kWdj0Y2HE2xTrFzVLyCGHX7GlrVc/nhlNlbEo
+         pH5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794927342; x=1795532142;
+        d=1e100.net; s=20260707; t=1794927347; x=1795532147;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9xGhqAumENcBNtzDfruylYbHUoXUw8SL2Wwg6sFFVmM=;
-        b=sIUONUAipNuM5hbKwGy+XUYAOqujq8o4M3/UdoTzEwxKu6ebnsdURq/6IpDCm8q/8a
-         N3hEXiV+Lh5ftlnmX9ABWWmGoQbK0QmYpx+E7fiV3NRnP+7idtu+AbBo4pD6VEEDAsLe
-         48JsHaujMpa3YeZE0FdBxbRuegVIQ6+94y6R/DWM2ws9OOQRPpyioaG4G54UtbVz33Kr
-         l0d2eAPQxkTInOtIbCOIuLE8A3xGkJEl7n/Q/H60F0felFXqw9Rrdoaz75Z6+rxBAPl7
-         EdfaTEHIgu/ZDag0JIkTN291w1K6ckqqJqhi6z1db9aXb5bveFLj7X+lsWOGHW8Gshtq
-         nToQ==
-X-Forwarded-Encrypted: i=1; AL+hErHO8qHkHillpPofZqNHUIhgYmM7xyBOr2Wa5Ci1EYIvOFyXxUDiqbH1UL43koJKQ62iA+7I9FRrqXEBDMo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/0rGNVXCnhbisitdZ5d7bKbJmcoibnOx9Wq0cMO6QsCa7e2qag
-	wb/D5Xh1eHb9/+xcPIqr7WVL0hRcFoa7ADprIcdLg6za1kpgCQSmkQwT8AKSikXhlEwfcmC5//i
-	1PQ==
-X-Received: from ywbi9-n2.prod.google.com ([2002:a05:690c:e209:20b0:8ab:3506:f904])
- (user=stani job=prod-delivery.src-stubby-dispatcher) by 2002:a05:690e:43c3:b0:67b:f19f:9690
- with SMTP id 956f58d0204a3-67d8971eb9dmr3968944d50.115.1794927342132; Tue, 17
- Nov 2026 06:55:42 -0800 (PST)
-Date: Tue, 17 Nov 2026 14:55:10 +0000
+        bh=fCjsxvLvDqNAhuuyphXheko6IGHWuFB4ZrRzdmRJqpI=;
+        b=sr/RtcmEKm2qhDvh/VjleU03yW5cQyZroLiHTB3V9MGIs4Pdkp1lZZCkxxtO6KTWbq
+         kNCLD6P7gGIinekszFU5wzq4DfabYJ6fcQUID8PN2iGSyD0e20Ci1OSrB0QLgPlNAE5L
+         lN+BfedrZz3eoJ3FbujhYiqyd8WPcWG5LTMXXFxYQVmqHe+jcmMYB7kpM1ZFVtArGsI1
+         hH3i7UHB0qoigf0rxbGYVG/G7bdQaOvg2bYr8JM6YW3s4YRDcG7BKRLjnpxQ6zPxMImw
+         W4oOIQfGJ6HHNFw6vXXtqs4CJpUr+zGzF1Vd5STAm30orL1txSUxNVZ1Ezfi2F57MIkc
+         fsYQ==
+X-Forwarded-Encrypted: i=1; AL+hErF7zOeGwNZLcD/z5pqwhVx2KV7+AnfLnn+Q3HgGvDl4NhR/TqaOKlbSVT4gfEIep45wBTyLUoNUYgNDoV8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Xf9HzXE8Wi+R3GImQOsszDTCnuhFyaKcAiveF9q3r6vNQqpzX
+	BVdblC5Hzi6DHOBMjiETyLPDivF3WcuBEDUMtlNU2Ax+YquFsajtlsGkpNan6641qF4cfEVS7v8
+	Ikw==
+X-Received: from yxwr8.prod.google.com ([2002:a53:adc8:0:b0:675:468d:a8e2])
+ (user=stani job=prod-delivery.src-stubby-dispatcher) by 2002:a05:690e:138f:b0:67d:b3b0:e00e
+ with SMTP id 956f58d0204a3-67db3b0e39amr2293513d50.58.1794927346597; Tue, 17
+ Nov 2026 06:55:46 -0800 (PST)
+Date: Tue, 17 Nov 2026 14:55:15 +0000
 In-Reply-To: <20261117145522.1910636-1-stani@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261117145522.1910636-1-stani@google.com>
 X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
-Message-ID: <20261117145522.1910636-5-stani@google.com>
-Subject: [PATCH iwl-next 04/15] idpf: psp: add psp offload initialization
+Message-ID: <20261117145522.1910636-10-stani@google.com>
+Subject: [PATCH iwl-next 09/15] idpf: psp: add support for psp key rotation
 From: Stan Iliev <stani@google.com>
 To: Tony Nguyen <anthony.l.nguyen@intel.com>, 
 	Przemek Kitszel <przemyslaw.kitszel@intel.com>, "David S. Miller" <davem@davemloft.net>, 
@@ -97,352 +97,423 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
 	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-hardening@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Add the PSP offload initialization:
-- Introduce VIRTCHNL2_CAP_CRYPTO (bit 26 of the other capabilities)
-  and request it in VIRTCHNL2_OP_GET_CAPS if CONFIG_INET_PSP is
-  enabled.
-- Add struct idpf_adapter_psp to struct idpf_adapter.
-- Implement idpf_psp_init(), called from idpf_vc_core_init() on each
-  core init, including after a hard reset, and idpf_psp_free(), called
-  from idpf_remove(). PSP is enabled if VIRTCHNL2_CAP_CRYPTO was
-  granted, see idpf_is_psp_ena(). A failure disables PSP instead of
-  failing the core init.
-- Add the PSP device ops with idpf_psp_set_config(), and
-  idpf_psp_register()/idpf_psp_unregister(). The PSP device is
-  registered in a later patch, once all mandatory PSP device ops and the
-  datapath are implemented.
-- Build idpf_psp.c only with CONFIG_INET_PSP, with static inline stubs
-  in idpf_psp.h otherwise.
+Add support for PSP master key rotation:
+- Introduce VIRTCHNL2_OP_PSP_ROTATE_KEYGEN_REQUEST (563),
+  struct virtchnl2_psp_rotate_keygen_request/_response,
+  VIRTCHNL2_EVENT_PSP_ROTATE_KEY (4) and
+  struct virtchnl2_psp_rotation_event/_data.
+- Implement the key_rotate PSP device op with
+  idpf_psp_rotation_request(), which fails with -EOPNOTSUPP if
+  VIRTCHNL2_CAP_PSP_REQUEST_ROTATION was not granted. The PSP core
+  increments the PSP device generation before calling the op and
+  doesn't restore it if the op fails: the op restores it then.
+- Track the master key of the allocated RX SPIs, to report their
+  generation on receive in a later patch: bit 31 of an SPI selects one
+  of the two master keys of the CP, and the CP master key generation
+  of the allocation tells when a master key was replaced. The packets
+  of a master key get the PSP device generation that was current when
+  its first SPI was allocated, which is the generation of the
+  associations using it. Associations then survive one rotation, as the
+  PSP core expects.
+- Handle VIRTCHNL2_EVENT_PSP_ROTATE_KEY in idpf_recv_event_msg() with
+  idpf_psp_rotation_event(), which logs the new master key generation.
+  The PSP core can't be told about rotations it didn't request, like
+  in mlx5: document the limitation and a possible solution.
 
 Signed-off-by: Stan Iliev <stani@google.com>
 ---
- drivers/net/ethernet/intel/idpf/Makefile      |   2 +
- drivers/net/ethernet/intel/idpf/idpf.h        |  15 +++
- drivers/net/ethernet/intel/idpf/idpf_lib.c    |   1 +
- drivers/net/ethernet/intel/idpf/idpf_main.c   |   2 +
- drivers/net/ethernet/intel/idpf/idpf_psp.c    | 115 ++++++++++++++++++
- drivers/net/ethernet/intel/idpf/idpf_psp.h    |  24 ++++
- .../net/ethernet/intel/idpf/idpf_psp_def.h    |  21 ++++
- .../net/ethernet/intel/idpf/idpf_virtchnl.c   |   7 ++
- include/linux/net/intel/virtchnl2.h           |   1 +
- 9 files changed, 188 insertions(+)
- create mode 100644 drivers/net/ethernet/intel/idpf/idpf_psp.c
- create mode 100644 drivers/net/ethernet/intel/idpf/idpf_psp.h
- create mode 100644 drivers/net/ethernet/intel/idpf/idpf_psp_def.h
+ drivers/net/ethernet/intel/idpf/idpf_psp.c    | 72 +++++++++++++++
+ drivers/net/ethernet/intel/idpf/idpf_psp.h    |  6 ++
+ .../net/ethernet/intel/idpf/idpf_psp_def.h    | 23 +++++
+ .../ethernet/intel/idpf/idpf_psp_virtchnl.c   | 89 +++++++++++++++++++
+ .../ethernet/intel/idpf/idpf_psp_virtchnl.h   |  1 +
+ .../net/ethernet/intel/idpf/idpf_virtchnl.c   |  3 +
+ include/linux/net/intel/virtchnl2.h           | 53 +++++++++++
+ 7 files changed, 247 insertions(+)
 
-diff --git a/drivers/net/ethernet/intel/idpf/Makefile b/drivers/net/ethernet/intel/idpf/Makefile
-index 81b27a406747..3162ea913417 100644
---- a/drivers/net/ethernet/intel/idpf/Makefile
-+++ b/drivers/net/ethernet/intel/idpf/Makefile
-@@ -21,5 +21,7 @@ idpf-$(CONFIG_IDPF_SINGLEQ)	+= idpf_singleq_txrx.o
- idpf-$(CONFIG_PTP_1588_CLOCK)	+= idpf_ptp.o
- idpf-$(CONFIG_PTP_1588_CLOCK)	+= idpf_virtchnl_ptp.o
+diff --git a/drivers/net/ethernet/intel/idpf/idpf_psp.c b/drivers/net/ethernet/intel/idpf/idpf_psp.c
+index 8ce390bcd617..cf0216640ddc 100644
+--- a/drivers/net/ethernet/intel/idpf/idpf_psp.c
++++ b/drivers/net/ethernet/intel/idpf/idpf_psp.c
+@@ -106,6 +106,11 @@ void idpf_psp_init(struct idpf_adapter *adapter)
+ 		dev_warn(dev, "Failed to get PSP FIPS compliance status: %d\n",
+ 			 err);
  
-+idpf-$(CONFIG_INET_PSP)		+= idpf_psp.o
++	/* The master keys are tracked again for the new PSP device */
++	psp->generation = 0;
++	psp->rx_gen[0].gen = IDPF_PSP_GEN_UNKNOWN;
++	psp->rx_gen[1].gen = IDPF_PSP_GEN_UNKNOWN;
 +
- idpf-y				+= xdp.o
- idpf-y				+= xsk.o
-diff --git a/drivers/net/ethernet/intel/idpf/idpf.h b/drivers/net/ethernet/intel/idpf/idpf.h
-index 77729921b0a3..fe16fd99a41d 100644
---- a/drivers/net/ethernet/intel/idpf/idpf.h
-+++ b/drivers/net/ethernet/intel/idpf/idpf.h
-@@ -28,6 +28,7 @@ struct idpf_rss_data;
- #include <linux/net/intel/virtchnl2.h>
+ 	/* The counters cover the time since the core init */
+ 	atomic_set(&psp->keys_allocated, 0);
  
- #include "idpf_txrx.h"
-+#include "idpf_psp_def.h"
- 
- #define GETMAXVAL(num_bits)		GENMASK((num_bits) - 1, 0)
- 
-@@ -625,6 +626,7 @@ struct idpf_rdma_irq {
-  * @req_vec_chunks: Requested vector chunk data
-  * @mb_vector: Mailbox vector data
-  * @irq_mb_handler: Handler for hard interrupt for mailbox
-+ * @psp: PSP offload state, see idpf_psp_init()
-  * @tx_timeout_count: Number of TX timeouts that have occurred
-  * @avail_queues: Device given queue limits
-  * @vports: Array to store vports created by the driver
-@@ -683,6 +685,7 @@ struct idpf_adapter {
- 	struct idpf_q_vector mb_vector;
- 	irqreturn_t (*irq_mb_handler)(int irq, void *data);
- 
-+	struct idpf_adapter_psp psp;
- 	u32 tx_timeout_count;
- 	struct idpf_avail_queue_info avail_queues;
- 	struct idpf_vport **vports;
-@@ -761,6 +764,18 @@ static inline bool idpf_is_rdma_cap_ena(struct idpf_adapter *adapter)
- 	return idpf_is_cap_ena(adapter, IDPF_OTHER_CAPS, VIRTCHNL2_CAP_RDMA);
+@@ -139,6 +144,36 @@ static int idpf_psp_set_config(struct psp_dev *psd, struct psp_dev_config *conf,
+ 	return 0;
  }
  
 +/**
-+ * idpf_is_psp_ena - Determine if PSP offload is enabled
++ * idpf_psp_rx_gen_update - Track the master key of an allocated SPI
 + * @adapter: private data struct
++ * @psd: PSP device, locked
++ * @spi: SPI allocated by the CP
++ * @cp_gen: CP master key generation of @spi
 + *
-+ * Return: true if PSP offload was negotiated in the last core init, see
-+ * idpf_psp_init(), false otherwise
++ * Bit 31 of an SPI selects one of the two master keys of the CP, a rotation
++ * replaces the older one. The HW doesn't tell which master key decrypted a
++ * packet: report the PSP device generation that was current when the first
++ * SPI of the master key was allocated, which is the generation of the
++ * associations using it, see idpf_psp_rx_process_skb(). The CP master key
++ * generation tells when a master key was replaced, including by a rotation
++ * the PSP core didn't request, see idpf_psp_rotation_event().
 + */
-+static inline bool idpf_is_psp_ena(const struct idpf_adapter *adapter)
++static void idpf_psp_rx_gen_update(struct idpf_adapter *adapter,
++				   struct psp_dev *psd, __be32 spi, u32 cp_gen)
 +{
-+	return IS_ENABLED(CONFIG_INET_PSP) && READ_ONCE(adapter->psp.enabled);
-+}
++	struct idpf_psp_rx_gen *rx_gen;
 +
- #define IDPF_CAP_RSS (\
- 	VIRTCHNL2_FLOW_IPV4_TCP		|\
- 	VIRTCHNL2_FLOW_IPV4_UDP		|\
-diff --git a/drivers/net/ethernet/intel/idpf/idpf_lib.c b/drivers/net/ethernet/intel/idpf/idpf_lib.c
-index e03661503e5f..1385209519b2 100644
---- a/drivers/net/ethernet/intel/idpf/idpf_lib.c
-+++ b/drivers/net/ethernet/intel/idpf/idpf_lib.c
-@@ -6,6 +6,7 @@
- #include "idpf_ptp.h"
- #include "xdp.h"
- #include "xsk.h"
-+#include "idpf_psp.h"
- 
- static const struct net_device_ops idpf_netdev_ops;
- 
-diff --git a/drivers/net/ethernet/intel/idpf/idpf_main.c b/drivers/net/ethernet/intel/idpf/idpf_main.c
-index 566d5804c8c1..2fab58f4b02b 100644
---- a/drivers/net/ethernet/intel/idpf/idpf_main.c
-+++ b/drivers/net/ethernet/intel/idpf/idpf_main.c
-@@ -5,6 +5,7 @@
- #include "idpf_devids.h"
- #include "idpf_devlink.h"
- #include "idpf_lan_vf_regs.h"
-+#include "idpf_psp.h"
- #include "idpf_virtchnl.h"
- 
- #define DRV_SUMMARY	"Intel(R) Infrastructure Data Path Function Linux Driver"
-@@ -180,6 +181,7 @@ static void idpf_remove(struct pci_dev *pdev)
- 	}
- 	kfree(adapter->vport_config);
- 	adapter->vport_config = NULL;
-+	idpf_psp_free(adapter);
- 	kfree(adapter->netdevs);
- 	adapter->netdevs = NULL;
- 
-diff --git a/drivers/net/ethernet/intel/idpf/idpf_psp.c b/drivers/net/ethernet/intel/idpf/idpf_psp.c
-new file mode 100644
-index 000000000000..c1297ec59163
---- /dev/null
-+++ b/drivers/net/ethernet/intel/idpf/idpf_psp.c
-@@ -0,0 +1,115 @@
-+// SPDX-License-Identifier: GPL-2.0-only
++	lockdep_assert_held(&psd->lock);
 +
-+#include <net/psp.h>
-+
-+#include "idpf_psp.h"
-+
-+/**
-+ * idpf_psp_init - Initialize PSP offload
-+ * @adapter: private data struct
-+ *
-+ * Called on each core init, including after a hard reset: PSP offload is
-+ * negotiated again, the CP may grant different capabilities. PSP offload uses
-+ * the virtchnl2 crypto offload API: if VIRTCHNL2_CAP_CRYPTO was not granted or
-+ * the negotiation fails, PSP stays disabled for the adapter instead of failing
-+ * the core init, see idpf_is_psp_ena().
-+ */
-+void idpf_psp_init(struct idpf_adapter *adapter)
-+{
-+	struct idpf_adapter_psp *psp = &adapter->psp;
-+	struct device *dev = &adapter->pdev->dev;
-+
-+	WRITE_ONCE(psp->enabled, false);
-+
-+	if (!idpf_is_cap_ena(adapter, IDPF_OTHER_CAPS, VIRTCHNL2_CAP_CRYPTO)) {
-+		dev_notice(dev, "PSP disabled, crypto capability not granted\n");
++	rx_gen = &adapter->psp.rx_gen[be32_to_cpu(spi) >> 31];
++	if (rx_gen->gen != IDPF_PSP_GEN_UNKNOWN && rx_gen->cp_gen == cp_gen)
 +		return;
-+	}
 +
-+	WRITE_ONCE(psp->enabled, true);
++	rx_gen->cp_gen = cp_gen;
++	WRITE_ONCE(rx_gen->gen, psd->generation);
 +}
 +
-+/**
-+ * idpf_psp_free - Release the PSP offload resources
-+ * @adapter: private data struct
-+ *
-+ * Called on remove, after idpf_vc_core_deinit().
-+ */
-+void idpf_psp_free(struct idpf_adapter *adapter)
-+{
-+	idpf_psp_unregister(adapter);
-+}
+ /**
+  * idpf_psp_rx_spi_alloc - Allocate a PSP RX SPI and key
+  * @psd: PSP device
+@@ -171,6 +206,8 @@ static int idpf_psp_rx_spi_alloc(struct psp_dev *psd, u32 version,
+ 		return err;
+ 	}
+ 
++	idpf_psp_rx_gen_update(adapter, psd, rx_key.spi, rx_key.generation);
 +
+ 	key->spi = rx_key.spi;
+ 	memcpy(key->key, rx_key.key, sizeof(rx_key.key));
+ 	memzero_explicit(&rx_key, sizeof(rx_key));
+@@ -178,10 +215,45 @@ static int idpf_psp_rx_spi_alloc(struct psp_dev *psd, u32 version,
+ 	return 0;
+ }
+ 
 +/**
-+ * idpf_psp_set_config - Set the PSP device configuration
++ * idpf_psp_key_rotate - Rotate the PSP master keys
 + * @psd: PSP device
-+ * @conf: new configuration
 + * @extack: netlink extended ack for error reporting
 + *
-+ * The configuration is applied by the PSP core.
++ * The PSP core increments the PSP device generation before calling this op
++ * and doesn't restore it if the op fails, see psp_nl_key_rotate_doit(): restore
++ * it then, the master keys didn't change.
 + *
-+ * Return: 0.
++ * Return: 0 on success, negative error code on failure.
 + */
-+static int idpf_psp_set_config(struct psp_dev *psd, struct psp_dev_config *conf,
++static int idpf_psp_key_rotate(struct psp_dev *psd,
 +			       struct netlink_ext_ack *extack)
 +{
++	struct idpf_adapter *adapter = idpf_netdev_to_adapter(psd->main_netdev);
++	int err;
++
++	err = idpf_psp_rotation_request(adapter);
++	if (err) {
++		psd->generation = adapter->psp.generation;
++
++		if (err == -EOPNOTSUPP)
++			NL_SET_ERR_MSG_MOD(extack, "PSP key rotation request not granted by CP");
++		else
++			NL_SET_ERR_MSG_MOD(extack, "PSP key rotation request failed");
++
++		return err;
++	}
++
++	adapter->psp.generation = psd->generation;
++
 +	return 0;
 +}
 +
-+/* PSP device operations, see idpf_psp_register() */
-+static struct psp_dev_ops idpf_psp_ops = {
-+	.set_config	= idpf_psp_set_config,
-+};
+ /* PSP device operations, see idpf_psp_register() */
+ static struct psp_dev_ops idpf_psp_ops = {
+ 	.set_config	= idpf_psp_set_config,
+ 	.rx_spi_alloc	= idpf_psp_rx_spi_alloc,
++	.key_rotate	= idpf_psp_key_rotate,
+ };
+ 
+ /**
+diff --git a/drivers/net/ethernet/intel/idpf/idpf_psp.h b/drivers/net/ethernet/intel/idpf/idpf_psp.h
+index fcafe71d3d00..34534076da47 100644
+--- a/drivers/net/ethernet/intel/idpf/idpf_psp.h
++++ b/drivers/net/ethernet/intel/idpf/idpf_psp.h
+@@ -13,6 +13,8 @@ void idpf_psp_register(struct idpf_adapter *adapter);
+ void idpf_psp_unregister(struct idpf_adapter *adapter);
+ void idpf_psp_recv_late_reply(struct idpf_adapter *adapter,
+ 			      const struct libie_ctlq_msg *ctlq_msg);
++void idpf_psp_rotation_event(struct idpf_adapter *adapter,
++			     const struct libie_ctlq_msg *ctlq_msg);
+ 
+ #else /* !CONFIG_INET_PSP */
+ 
+@@ -25,6 +27,10 @@ static inline void
+ idpf_psp_recv_late_reply(struct idpf_adapter *adapter,
+ 			 const struct libie_ctlq_msg *ctlq_msg) { }
+ 
++static inline void
++idpf_psp_rotation_event(struct idpf_adapter *adapter,
++			const struct libie_ctlq_msg *ctlq_msg) { }
++
+ #endif /* CONFIG_INET_PSP */
+ 
+ #endif /* !_IDPF_PSP_H_ */
+diff --git a/drivers/net/ethernet/intel/idpf/idpf_psp_def.h b/drivers/net/ethernet/intel/idpf/idpf_psp_def.h
+index f21bd7de5ae8..3132efe00559 100644
+--- a/drivers/net/ethernet/intel/idpf/idpf_psp_def.h
++++ b/drivers/net/ethernet/intel/idpf/idpf_psp_def.h
+@@ -24,6 +24,23 @@ struct idpf_psp_rx_key {
+ 	u8 key[VIRTCHNL2_PSP_KEY_SIZE_V0];
+ };
+ 
++/* PSP device generation of an SPI phase whose master key isn't known */
++#define IDPF_PSP_GEN_UNKNOWN		0xff
 +
 +/**
-+ * idpf_psp_register - Register the PSP device
-+ * @adapter: private data struct
++ * struct idpf_psp_rx_gen - Generation of the master key of an SPI phase
++ * @cp_gen: CP master key generation of the SPIs allocated in the phase
++ * @gen: PSP device generation reported for the packets of the phase,
++ *	 IDPF_PSP_GEN_UNKNOWN if no SPI was allocated in the phase
 + *
-+ * Register the PSP device of the first netdev if PSP offload was negotiated
-+ * and the netdev is registered.
++ * Bit 31 of an SPI selects one of the two master keys of the CP, see
++ * idpf_psp_rx_gen_update().
 + */
-+void idpf_psp_register(struct idpf_adapter *adapter)
++struct idpf_psp_rx_gen {
++	u32 cp_gen;
++	u8 gen;
++};
++
+ /**
+  * struct idpf_adapter_psp - PSP offload state of an adapter
+  * @enabled: PSP was negotiated with the CP in the last core init, see
+@@ -35,6 +52,10 @@ struct idpf_psp_rx_key {
+  * @vport_id: ID of adapter->vports[0] for the PSP requests. A copy, as the
+  *	      PSP device stays registered while the vports are freed and
+  *	      allocated again during a soft reset. Set in idpf_vport_alloc().
++ * @generation: PSP device generation after the last key rotation, protected
++ *		by the PSP device lock, see idpf_psp_key_rotate()
++ * @rx_gen: generation of the master key of each SPI phase, protected by the
++ *	    PSP device lock, see idpf_psp_rx_gen_update()
+  * @keys_allocated: RX keys allocated
+  * @psp_dev: the PSP device, see idpf_psp_register()
+  * @caps: capabilities of @psp_dev
+@@ -45,6 +66,8 @@ struct idpf_adapter_psp {
+ 	u8 saidx_width;
+ 	u32 psp_caps;
+ 	u32 vport_id;
++	u8 generation;
++	struct idpf_psp_rx_gen rx_gen[2];
+ 	atomic_t keys_allocated;
+ 	struct psp_dev *psp_dev;
+ 	struct psp_dev_caps caps;
+diff --git a/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.c b/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.c
+index aa50948873a7..ddb9fd90291f 100644
+--- a/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.c
++++ b/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.c
+@@ -261,6 +261,95 @@ int idpf_send_allocate_psp_key(struct idpf_adapter *adapter,
+ 	return err;
+ }
+ 
++/**
++ * idpf_psp_rotation_request - Request a PSP master key rotation
++ * @adapter: Driver specific private structure
++ *
++ * Return: 0 on success, -EOPNOTSUPP if VIRTCHNL2_CAP_PSP_REQUEST_ROTATION was
++ * not granted, other negative error code on failure.
++ */
++int idpf_psp_rotation_request(struct idpf_adapter *adapter)
 +{
-+	struct device *dev = &adapter->pdev->dev;
-+	struct psp_dev *psd;
++	struct libie_ctlq_xn_send_params xn_params = {
++		.chnl_opcode	= VIRTCHNL2_OP_PSP_ROTATE_KEYGEN_REQUEST,
++		.timeout_ms	= IDPF_VC_XN_DEFAULT_TIMEOUT_MSEC,
++	};
++	const struct virtchnl2_psp_rotate_keygen_response *resp;
++	struct virtchnl2_psp_rotate_keygen_request req = { };
++	int err;
 +
-+	if (!idpf_is_psp_ena(adapter) || adapter->psp.psp_dev)
-+		return;
++	if (!(adapter->psp.psp_caps & VIRTCHNL2_CAP_PSP_REQUEST_ROTATION))
++		return -EOPNOTSUPP;
 +
-+	if (!adapter->netdevs || !adapter->netdevs[0] ||
-+	    !test_bit(IDPF_VPORT_REG_NETDEV, adapter->vport_config[0]->flags))
-+		return;
++	req.vport_id = cpu_to_le32(READ_ONCE(adapter->psp.vport_id));
++	/* req.domain stays zeroed: VIRTCHNL2_PSP_DOMAIN_NONE */
 +
-+	/* The driver only allocates and inserts PSP version 0 keys */
-+	adapter->psp.caps.versions = BIT(PSP_VERSION_HDR0_AES_GCM_128);
++	err = idpf_send_mb_msg_stack(adapter, &xn_params, &req);
++	if (err) {
++		net_warn_ratelimited("%s: err %d\n", __func__, err);
++		return err;
++	}
 +
-+	psd = psp_dev_create(adapter->netdevs[0], &idpf_psp_ops,
-+			     &adapter->psp.caps, NULL);
-+	if (IS_ERR(psd)) {
-+		dev_err(dev, "PSP failed to register: %pe\n", psd);
++	resp = xn_params.recv_mem.iov_base;
++	if (xn_params.recv_mem.iov_len >= sizeof(*resp))
++		dev_dbg(&adapter->pdev->dev,
++			"PSP master key generation %u after rotation\n",
++			le32_to_cpu(resp->master_key_generation));
++	libie_ctlq_release_rx_buf(&xn_params.recv_mem);
++
++	return 0;
++}
++
++/**
++ * idpf_psp_rotation_event - Handle a VIRTCHNL2_EVENT_PSP_ROTATE_KEY event
++ * @adapter: Driver specific private structure
++ * @ctlq_msg: event message, its receive buffer is released by the caller
++ *
++ * The CP rotated the master keys, it reports the generation of the new active
++ * master key. The driver tracks the master keys of the RX SPIs it allocates,
++ * see idpf_psp_rx_gen_update(): the next SPIs of the new master key are
++ * reported with the PSP device generation of their associations.
++ *
++ * The PSP core is not told about a rotation that it didn't request: the
++ * associations whose master key the rotation discarded can't receive anymore,
++ * but they aren't marked stale and no key rotation notification is sent. mlx5
++ * has the same limitation, see "no support for protecting against external
++ * rotations" in mlx5e_psp_key_rotate(). The PSP device lock can't be taken
++ * here, as it is held across synchronous mailbox requests that are completed
++ * by the mailbox task running this handler.
++ *
++ * A possible solution, not implemented: a PSP core helper for drivers, e.g.
++ * psp_dev_key_rotated(psd, generation), doing what psp_nl_key_rotate_doit()
++ * does after the ->key_rotate() op succeeded: set the generation, mark the
++ * associations of the discarded master key stale with psp_assocs_key_rotated()
++ * and send the key rotation notification. idpf would call it with the PSP
++ * device lock held from a work item queued here, for the events whose
++ * generation is not the one returned by idpf_psp_rotation_request(): the CP
++ * also sends the event for the rotations the driver requested.
++ */
++void idpf_psp_rotation_event(struct idpf_adapter *adapter,
++			     const struct libie_ctlq_msg *ctlq_msg)
++{
++	const struct virtchnl2_psp_rotation_event *rt_event;
++	const struct kvec *buff = &ctlq_msg->recv_mem;
++
++	if (!idpf_is_psp_ena(adapter)) {
++		net_warn_ratelimited("PSP not enabled, ignoring PSP rotation event.\n");
 +		return;
 +	}
 +
-+	adapter->psp.psp_dev = psd;
-+	dev_info(dev, "PSP Netlink device registered successfully: id=%u\n",
-+		 psd->id);
-+}
-+
-+/**
-+ * idpf_psp_unregister - Unregister the PSP device
-+ * @adapter: private data struct
-+ *
-+ * The PSP core deletes the TX keys of all the associations, see
-+ * idpf_psp_tx_key_del(). Called before the netdev of the PSP device is
-+ * unregistered.
-+ */
-+void idpf_psp_unregister(struct idpf_adapter *adapter)
-+{
-+	struct psp_dev *psd = adapter->psp.psp_dev;
-+
-+	if (!psd)
++	if (!buff->iov_base || buff->iov_len < sizeof(*rt_event)) {
++		net_warn_ratelimited("Invalid payload size for PSP rotation event, payload size: %zu, expected min: %zu\n",
++				     buff->iov_len, sizeof(*rt_event));
 +		return;
++	}
 +
-+	psp_dev_unregister(psd);
-+	adapter->psp.psp_dev = NULL;
++	rt_event = buff->iov_base;
++
++	net_info_ratelimited("PSP Rotation Event processed, active master key generation %u.\n",
++			     le32_to_cpu(rt_event->psp_rotate_event.active_master_key_generation));
 +}
-diff --git a/drivers/net/ethernet/intel/idpf/idpf_psp.h b/drivers/net/ethernet/intel/idpf/idpf_psp.h
-new file mode 100644
-index 000000000000..0f89dcc3b398
---- /dev/null
-+++ b/drivers/net/ethernet/intel/idpf/idpf_psp.h
-@@ -0,0 +1,24 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
 +
-+#ifndef _IDPF_PSP_H_
-+#define _IDPF_PSP_H_
-+
-+#include "idpf.h"
-+
-+#if IS_ENABLED(CONFIG_INET_PSP)
-+
-+void idpf_psp_init(struct idpf_adapter *adapter);
-+void idpf_psp_free(struct idpf_adapter *adapter);
-+void idpf_psp_register(struct idpf_adapter *adapter);
-+void idpf_psp_unregister(struct idpf_adapter *adapter);
-+
-+#else /* !CONFIG_INET_PSP */
-+
-+static inline void idpf_psp_init(struct idpf_adapter *adapter) { }
-+static inline void idpf_psp_free(struct idpf_adapter *adapter) { }
-+static inline void idpf_psp_register(struct idpf_adapter *adapter) { }
-+static inline void idpf_psp_unregister(struct idpf_adapter *adapter) { }
-+
-+#endif /* CONFIG_INET_PSP */
-+
-+#endif /* !_IDPF_PSP_H_ */
-diff --git a/drivers/net/ethernet/intel/idpf/idpf_psp_def.h b/drivers/net/ethernet/intel/idpf/idpf_psp_def.h
-new file mode 100644
-index 000000000000..2edb114784c1
---- /dev/null
-+++ b/drivers/net/ethernet/intel/idpf/idpf_psp_def.h
-@@ -0,0 +1,21 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+
-+#ifndef _IDPF_PSP_DEF_H_
-+#define _IDPF_PSP_DEF_H_
-+
-+#include <net/psp.h>
-+
-+/**
-+ * struct idpf_adapter_psp - PSP offload state of an adapter
-+ * @enabled: PSP was negotiated with the CP in the last core init, see
-+ *	     idpf_is_psp_ena()
-+ * @psp_dev: the PSP device, see idpf_psp_register()
-+ * @caps: capabilities of @psp_dev
-+ */
-+struct idpf_adapter_psp {
-+	bool enabled;
-+	struct psp_dev *psp_dev;
-+	struct psp_dev_caps caps;
-+};
-+
-+#endif /* !_IDPF_PSP_DEF_H_ */
+ /**
+  * idpf_psp_recv_late_reply - Handle a late reply to a PSP request
+  * @adapter: Driver specific private structure
+diff --git a/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.h b/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.h
+index 7ba86b540f2b..f1b4f7747908 100644
+--- a/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.h
++++ b/drivers/net/ethernet/intel/idpf/idpf_psp_virtchnl.h
+@@ -14,5 +14,6 @@ int idpf_send_get_psp_caps(struct idpf_adapter *adapter,
+ int idpf_send_get_fips_compliance_status(struct idpf_adapter *adapter);
+ int idpf_send_allocate_psp_key(struct idpf_adapter *adapter,
+ 			       struct idpf_psp_rx_key *key);
++int idpf_psp_rotation_request(struct idpf_adapter *adapter);
+ 
+ #endif /* !_IDPF_PSP_VIRTCHNL_H_ */
 diff --git a/drivers/net/ethernet/intel/idpf/idpf_virtchnl.c b/drivers/net/ethernet/intel/idpf/idpf_virtchnl.c
-index fedac4716b08..3f669683c8c0 100644
+index 056fd82b3162..90fe5212095d 100644
 --- a/drivers/net/ethernet/intel/idpf/idpf_virtchnl.c
 +++ b/drivers/net/ethernet/intel/idpf/idpf_virtchnl.c
-@@ -9,6 +9,7 @@
- #include "idpf.h"
- #include "idpf_virtchnl.h"
- #include "idpf_ptp.h"
-+#include "idpf_psp.h"
- 
- /**
-  * idpf_vid_to_vport - Translate vport id to vport pointer
-@@ -584,6 +585,10 @@ static int idpf_send_get_caps_msg(struct idpf_adapter *adapter)
- 			    VIRTCHNL2_CAP_PTP			|
- 			    VIRTCHNL2_CAP_EDT);
- 
-+	/* PSP offload uses the virtchnl2 crypto offload API */
-+	if (IS_ENABLED(CONFIG_INET_PSP))
-+		caps.other_caps |= cpu_to_le64(VIRTCHNL2_CAP_CRYPTO);
-+
- 	err = idpf_send_mb_msg_stack(adapter, &xn_params, &caps);
- 	if (err)
- 		return err;
-@@ -3179,6 +3184,8 @@ int idpf_vc_core_init(struct idpf_adapter *adapter)
- 		goto intr_rel;
- 	}
- 
-+	idpf_psp_init(adapter);
-+
- 	err = idpf_ptp_init(adapter);
- 	if (err)
- 		pci_err(adapter->pdev, "PTP init failed, err=%pe\n",
+@@ -114,6 +114,9 @@ void idpf_recv_event_msg(struct libie_ctlq_ctx *ctx,
+ 	case VIRTCHNL2_EVENT_LINK_CHANGE:
+ 		idpf_handle_event_link(adapter, v2e);
+ 		break;
++	case VIRTCHNL2_EVENT_PSP_ROTATE_KEY:
++		idpf_psp_rotation_event(adapter, ctlq_msg);
++		break;
+ 	default:
+ 		dev_err(&adapter->pdev->dev,
+ 			"Unknown event %d from PF\n", event);
 diff --git a/include/linux/net/intel/virtchnl2.h b/include/linux/net/intel/virtchnl2.h
-index 39fea65c075c..ec1a742b6557 100644
+index 0ae439009f44..29dfa075e169 100644
 --- a/include/linux/net/intel/virtchnl2.h
 +++ b/include/linux/net/intel/virtchnl2.h
-@@ -221,6 +221,7 @@ enum virtchnl2_cap_other {
- 	/* Other capability 20 is reserved */
- 	VIRTCHNL2_CAP_FLOW_STEER		= BIT_ULL(21),
- 	VIRTCHNL2_CAP_LAN_MEMORY_REGIONS	= BIT_ULL(22),
-+	VIRTCHNL2_CAP_CRYPTO			= BIT_ULL(26),
+@@ -86,6 +86,7 @@ enum virtchnl2_op {
+ 	VIRTCHNL2_OP_DEL_FLOW_RULE			= 553,
+ 	/* Crypto/PSP opcodes */
+ 	VIRTCHNL2_OP_PSP_ALLOCATE_KEYS			= 560,
++	VIRTCHNL2_OP_PSP_ROTATE_KEYGEN_REQUEST		= 563,
+ 	VIRTCHNL2_OP_CRYPTO_GET_CAPS			= 564,
+ 	VIRTCHNL2_OP_PSP_GET_CAPS			= 565,
+ 	VIRTCHNL2_OP_GET_FIPS_COMPLIANCE_STATUS		= 567,
+@@ -302,6 +303,7 @@ enum virtchnl2_event_codes {
+ 	VIRTCHNL2_EVENT_UNKNOWN			= 0,
+ 	VIRTCHNL2_EVENT_LINK_CHANGE		= 1,
+ 	/* Event type 2, 3 are reserved */
++	VIRTCHNL2_EVENT_PSP_ROTATE_KEY		= 4,
+ };
  
- 	/* this must be the last capability */
- 	VIRTCHNL2_CAP_OEM			= BIT_ULL(63),
+ /* Transmit and Receive queue types are valid in legacy as well as split queue
+@@ -1987,6 +1989,57 @@ struct virtchnl2_psp_allocate_keys_response {
+ };
+ VIRTCHNL2_CHECK_STRUCT_LEN(16, virtchnl2_psp_allocate_keys_response);
+ 
++/**
++ * struct virtchnl2_psp_rotate_keygen_request - Request master key rotation
++ * @vport_id: Virtual port ID
++ * @pad: Reserved/padding
++ * @domain: Key domain, must be zero-filled if VIRTCHNL2_CAP_PSP_DOMAIN was
++ *	    not granted
++ */
++struct virtchnl2_psp_rotate_keygen_request {
++	__le32 vport_id;
++	u8 pad[4];
++	struct virtchnl2_psp_key_domain domain;
++};
++VIRTCHNL2_CHECK_STRUCT_LEN(24, virtchnl2_psp_rotate_keygen_request);
++
++/**
++ * struct virtchnl2_psp_rotate_keygen_response - Master key rotation response
++ * @vport_id: Virtual port ID
++ * @master_key_generation: Master key generation
++ */
++struct virtchnl2_psp_rotate_keygen_response {
++	__le32 vport_id;
++	__le32 master_key_generation;
++};
++VIRTCHNL2_CHECK_STRUCT_LEN(8, virtchnl2_psp_rotate_keygen_response);
++
++/**
++ * struct virtchnl2_psp_rotation_data - Master key rotation async event payload
++ * @active_master_key_generation: Active master key generation
++ * @pad: Reserved/padding
++ * @domain: Key domain
++ */
++struct virtchnl2_psp_rotation_data {
++	__le32 active_master_key_generation;
++	u8 pad[4];
++	struct virtchnl2_psp_key_domain domain;
++};
++VIRTCHNL2_CHECK_STRUCT_LEN(24, virtchnl2_psp_rotation_data);
++
++/**
++ * struct virtchnl2_psp_rotation_event - Master key rotation async event
++ * @event: Event opcode (VIRTCHNL2_EVENT_PSP_ROTATE_KEY = 4)
++ * @pad: Reserved/padding, aligns @psp_rotate_event to 8 bytes
++ * @psp_rotate_event: Rotation event payload
++ */
++struct virtchnl2_psp_rotation_event {
++	__le32 event;
++	u8 pad[4];
++	struct virtchnl2_psp_rotation_data psp_rotate_event;
++};
++VIRTCHNL2_CHECK_STRUCT_LEN(32, virtchnl2_psp_rotation_event);
++
+ /**
+  * struct virtchnl2_get_fips_compliance_status_resp - FIPS compliance response
+  * @num_certs: Number of certificates, 0 if not FIPS compliant
 -- 
 2.56.0.679.gc527c65306-goog
 
