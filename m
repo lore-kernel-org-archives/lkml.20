@@ -1,50 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794893183;
-	b=EywdOUK5QFomPk1Fvf11ALPTAO/fuqXMZASHC9m0XwaH+vzOsjf5onL3EUeABvGErKF7
-	 UqySKxA1LTqR/FSAZ3mrmGsYGchYh6ibUdun+QHAC3bZOdSCuMjtQikY9ku7i2KVklFeZ
-	 rfx825iQprrN9/XrVxwxhKQR/RYSf//2KMq9UewAgGal/2ip0X7Yb/WqQjdbTHeplSztw
-	 A7sN2P2D2G9AOA401BHt3yMyGwsfezQY6rsbNPfaaTC7EImaUtXfGUk2gZZWC/s2wwLnC
-	 5sxqNuMlEPr6Dm12Kv840oWOdmYiPQ33NqSN76niIWjX94OBtgEizwfqX3G+FFugIdw==
+	t=1794893197;
+	b=sVj+Syem/Cdgzaw7swwmA2BUup29/zIYOPOvA+Xf4GZ+TSQYLyHOREP1v7lz+ZjeBcTk
+	 TP+sQT9VQZYmAdL69B7mFDeRHwwrEtQY/7z+w30EbGntKqZHAKtdR5VBWvjXu6N3YkT6A
+	 f4kj7xZbH9UzMu5up791wYIQqZVDYwtC5gQ3FO6uIisDsb4ebTxwezIZzn05zksgMeQxN
+	 7uTzjkEckA66rCZi4ASJQTrUVZXK5asJLaE+Qg/yAJWiqti1lT0/NG0DdvashFvoaysws
+	 vN9A7YODHWt7G9EksdM+KMI18GaJrLKBCSRp/7kWikGpJDQUKmJb3WdQiE5L6l+hPGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794893183;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794893197;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=93U50a2DJWt9X0cq+xWCbY02gmFDmWqUj6QyKaq2hHw=;
-	b=lDYCyqo3xhro1mF0342x3IRXYZGKD/T2yM55KZit4sJhAzxm+/9F2oKFW7mq1TPH8jCN
-	 a52RFB+lMt2Ie+Goj/MXLKaNoOWgeIen0ZQi8DhuQqTeExr/59eLXxQ9t1oRW6wNYdFY5
-	 wVd+S4sEMMeue6Yyk8T5Y04oG8IW0qMzzM8vrn9RNSMwxV+7iMwXZ9ggaSe+Ee7KaVMTP
-	 bm88kWCiOYYue13hzREl33TY1rUDZkP3bPTryKYxfzHysNNgU7siOTn+jUTvG0o5lcQzz
-	 cQjp5/os0eVsDFumThtNBk8BlBxz4Bc+zvn2BuEB039MIj1g4Ty+KZiofuWbGEppQZQ==
+	bh=AGnupoN5tt3PzMV+QW0kCIew7myaCy1fsrhngU5DCdA=;
+	b=vLHmG2jS/FWmZVRsKwC90lsyh6t9dezkeLlWquzr9iTiof5+Z3mx/F30mnRg0Nf7EWkc
+	 WKLYQ6gdnnG7ByxNxs9oDohSbVTirqmavejQDW7ChyudpTMynHsVmFMgpmIqGTEWCC+bw
+	 hEVLj2Ood8TqoJd8uAz8PG4NQ6eb2nJ0yho/BNEzYzzywfcelQ7aYN3rp0jNEj/zTbL0i
+	 +jnaetj3pdog83beve0YZZw7KPV81WFQlhe4LGjL/3ZoHn2F9S14u6LxSL+VrmmGDmBKV
+	 9sw2w9dTl5eyOInGjGjj3Mie6iys+lwAReyUuKt04JzBGJGxXGiAGxCICElpxm1+9AA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GZJ1qzBw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cq1xm6YA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05F51606A31C;
-	Tue, 17 Nov 2026 05:26:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98BF0606A31C;
+	Tue, 17 Nov 2026 05:26:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GZJ1qzBw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 160F71F000C4;
-	Tue, 17 Nov 2026 05:26:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794893182;
-	bh=93U50a2DJWt9X0cq+xWCbY02gmFDmWqUj6QyKaq2hHw=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cq1xm6YA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B510F1F000C4;
+	Tue, 17 Nov 2026 05:26:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794893197;
+	bh=AGnupoN5tt3PzMV+QW0kCIew7myaCy1fsrhngU5DCdA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GZJ1qzBwfENjHgCgnV1VMT7/zLGsthBuOXwdi2VhUrH+wXAfqwY6v+ExM1s9Q4JQu
-	 qrvlFqs/cU2uN34Er0pOJTGAzjTpntVF3WCX3F4oxCGRV60tePgBNr4nv+/Ts0q4ib
-	 zNYYPEtEDoHIlfYCmkARRymFqrqGsUau2qHu93Yc=
-Date: Tue, 17 Nov 2026 06:26:12 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] usb: r8a66597-hcd: Fix clock leak and unchecked
- clk_prepare_enable()
-Message-ID: <2026111752-planner-uproot-4a2d@gregkh>
-References: <2026111648-landfill-skeleton-efe7@gregkh>
- <20261117010754.1599-1-laixiangwu@cmss.chinamobile.com>
+	b=cq1xm6YAUOUtiyqhKYC+ZLXtHVVnmzsjNHcLFB5NW8Sgi52PAomCEs2QT8b1Vzrzy
+	 ILp60onCIMxm6sBOjjtMhCqKvg4prALlyrfaUv9/D0r7Bf4mFlWGDqKE6WIhnoJu8G
+	 owC78w1aCmenEr0ZY09IkzW7ILYvj+36sF3N8EDI/6rLEqPQd/jinIwzEq9IaY1hbi
+	 VtlL739fiVVDdRaoSwaIWe3yqBHx70xgQUzCdo0i96YvJIKLf0M3GKsT7Z3i45fph6
+	 FTLz3xfgCKuqjXD4VHvQ0THkuY28NrurDs2VDz5wTpk5eOLwtQvhYRZdwH14HINcUK
+	 urL+5tovqV9vQ==
+Date: Tue, 17 Nov 2026 13:06:19 +0800
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 1/8] dt-bindings: net: Add MDIO demultiplexer
+Message-ID: <avvgy_bmRSVApCHA@xhacker>
+References: <20261116135442.4827-1-jszhang@kernel.org>
+ <20261116135442.4827-2-jszhang@kernel.org>
+ <16ecb3ac-7876-4db5-9168-5ac9bf31d4b7@lunn.ch>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,16 +70,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261117010754.1599-1-laixiangwu@cmss.chinamobile.com>
+In-Reply-To: <16ecb3ac-7876-4db5-9168-5ac9bf31d4b7@lunn.ch>
 
-On Tue, Nov 17, 2026 at 09:07:54AM +0800, Xiangwu Lai wrote:
-> Hi Greg,
+On Mon, Nov 16, 2026 at 04:06:25PM +0100, Andrew Lunn wrote:
+> On Mon, Nov 16, 2026 at 09:54:35PM +0800, Jisheng Zhang wrote:
+> > Assume we have the following implementation:
+> >           ----------
+> >           |mmio reg|
+> > 	  ----------
+> >              |
+> >  --------    |      -------
+> >  | MAC0 |--MDIO-----| PHY |
+> >  -------- |     |   -------
+> >           |     |
+> >  -------- |     |   -------
+> >  | MAC1 |--     ----| PHY |
+> >  --------           -------
+> > 
+> > Both MAC0 and MAC1 have MDIO bus masters, and tie together to
+> > a single set of clock and data lines, which go to some PHYs. While
+> > there's a mmio reg to control which MAC mdio master can operate
+> > the single mdio clock and data lines, so only one MAC can operate
+> > the mdio clock and data lines.
 > 
-> thanks for taking a look.
+> How does this differ from pinmux?
+> 
 
-At what?  Sorry, there is no context here.
-
-Remember, some of us get 1000+ emails a day...
-
+in my case, the two MAC MDIO bus masters share the same MDC and MDIO
+pins.
