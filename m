@@ -1,63 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794917982;
-	b=MUtgSTCHbyTaybPKmWMZY/YtvNdtFoSvb2/sV8O4aFvcelAz4DyD7q5AHQUPHoUHK4x3
-	 bPDDfSTOSrEZ3aV3TLnwFGk+We4+tdBVYYHccL20z6sdZfdZI74hMykaXI1Raa86yzxjs
-	 L+0fq9ZRiES6sao2l7ro4zBoRpnEY0aauR2iQaJhB+VCm1p0sEWC5YThkPmfS6a4YOy6J
-	 +bnezPbX/gN18y3Hai5j3TiPCxRPwmUybLFWxmcoH6ja/JDCvyiA/I6oMsqEI7oeZq54y
-	 KsVtDEtOonSkq0I3Xr58HS4OjdshQGTCb0J1xzhqkyjLXVwNXQBSG+O4CnhRMHORnoQ==
+	t=1794917983;
+	b=gTvQjD+wWBn96LPgf2ZBCQ0bbZ/qsMVCy/f8Jcol5x33fC1sjphIssnLNFh+Lhc6WqGf
+	 3zTTT0vz4wCTcrGbpNz5dTTeJqzF9EmUs5XCv7vXypxMb9T1YEUsBsutOL6f4s15Ynl1j
+	 a2auEcjb2lBHtDVBODZf8ka21l3/QJrD6ErAX/OmR8x6jmrtn5itoSAU03gC9ovNC7n+V
+	 noFiI2JB/aLP7tKsYuADY994UhibeSIPm+PFxVpH+yK+0xfY57ID5HhOaBNJ8rIf6nZE/
+	 U4OHRP9ZLL5gNjgEZmUO1vdbqNO47Xj2NqIA4pc+YCZgI3xEk7JKmD/p9j+GH0i1N9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794917982;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:User-Agent:MIME-Version:Content-Type;
-	bh=8qHTsTGMbRUu4uHJjKWa8mMXyZqa434909JPIyvfASg=;
-	b=xw33tWADPUqFcfIJCqDiONWLZzKzlSS9dKblKTj2lYq2rQJl+pkRJPjJV78XjmJyU/hr
-	 Wl10e1L5JadXVmbR9ys+cuJd64WkIt2fm5pH+jDfrKrzZSZ0Q3Q7hVEm4blP5nEEgG8rT
-	 MeF9Ls+NJbC0luSK80Q6URnvGsLtOUWs6WjaqOkFG4BE9V55EQU9BH4pY1jS1qRx7ZxrK
-	 hLRKcx2TnOghiqqO2+eKsFDmkdQAsy7hPAx0FYjREoiukstng5YiYjOEhN2+FMtnyyxsY
-	 LT9erpRs8S3UfVtTWmTMywEE/tNSTdLsa1/l0NlVmfab3f76MECRLS3FDTRoaz4C47g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794917983;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=kr69d65c6Rj/Z6BWCpKpUcKYO8nWiagPFI029c4s8h8=;
+	b=eif1PW6PLmkaaHXSvf/6bDNtfSxTZL3Ht4VV7zLLd84YzT3rSdL1ilq9e3Udew2U8Sv7
+	 1w7dUcQmVipJ7WOYiH6/9xqBgt5cMYZ+gEozMNhaJYtuiLkWVxxzpVLVHVFqAYQF0ekwW
+	 UqfT2cLGRG/vkwxDHIg0XEExQq2/ekfexTNDlyM4komOE/tyRMVV2Ag/cny9+GLAcNlaQ
+	 KjWcU6xTrig0Yk4IEGk8XrLz0daES6NYgSTHJVhdlwsS2knIMCfHY+Mbc6nJXpdUibNwQ
+	 QV87i7+/RfS3i/coQkkM11oyynrigOyRtPaU18JDKUI/HBDkNWUA1aJkTw5Rn3sFA2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J7Lr7h2H;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=pCtHdhMr;
+	arc=none smtp.remote-ip=95.215.58.89
+Received: from mta1.migadu.com (out-89.mta1.migadu.com [95.215.58.89])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48834606A8AA;
-	Tue, 17 Nov 2026 12:19:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71B07606A8A5
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:19:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71B07606A8A5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J7Lr7h2H
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63DB71F000C4;
-	Tue, 17 Nov 2026 12:19:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794917982;
-	bh=8qHTsTGMbRUu4uHJjKWa8mMXyZqa434909JPIyvfASg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=J7Lr7h2HCcgTuVQeG8fRdX1IORtvd+WG/QKrKgksiuuBAwy5PUrWttWaBgbQS4H8S
-	 +EgMMP+IqOirMk9hGcIyY9WsoYaVKR0dIYN7CN65qdqCDdOQqVenj6SaYIGh3iXEv9
-	 U+6Di/xavaw+hN85Ql0/4V6FUOGEPFsmDMcWMCC+wcDkXdAuxucNzfsGSW5rfi6Vo+
-	 PHXlulLyptBwr4ni6mh56hYPqWO77XVkXAK4NMXl3X6siimEarGlGJVr7FogKDftmU
-	 vkZMZLknl5jyFa6uP8mzNs8f3AWWO6MYFfTrD/3tElPEzr1KANCYN6qsP8TS8l+lcj
-	 7xe/CNz6RyxGw==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: Chris Down <chris@chrisdown.name>
-Cc: Pratyush Yadav <pratyush@kernel.org>,  Mike Rapoport <rppt@kernel.org>,
-  Pasha Tatashin <pasha.tatashin@soleen.com>,  Alexander Graf
- <graf@amazon.com>,  Jonathan Corbet <corbet@lwn.net>,  Shuah Khan
- <skhan@linuxfoundation.org>,  Randy Dunlap <rdunlap@infradead.org>,
-  Andrew Morton <akpm@linux-foundation.org>,  Tarun Sahu
- <tarunsahu@google.com>,  David Matlack <dmatlack@google.com>,  Samiullah
- Khawaja <skhawaja@google.com>,  kexec@lists.infradead.org,
-  linux-mm@kvack.org,  linux-doc@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  linux-kselftest@vger.kernel.org
-Subject: Re: [RFC PATCH 0/5] KHO map
-In-Reply-To: <avwoBj5ceKYjcS9G@chrisdown.name> (Chris Down's message of "Tue,
-	17 Nov 2026 02:10:14 -0800")
-References: <20261116134013.1636689-1-pratyush@kernel.org>
-	<avwoBj5ceKYjcS9G@chrisdown.name>
-Date: Tue, 17 Nov 2026 13:19:38 +0100
-Message-ID: <2vxz1p8jhcpx.fsf@kernel.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=pCtHdhMr
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=aYHlZGaTyhmputaahKiWpOi8WQ5Y9Cn60xhnkDJGIZ4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794917979; v=1; x=1795522779;
+ b=pCtHdhMr4yTk87YwbMVqWADuiTr0suTvGC80w3cdHYWZ1DUC7I1UIIGMYr5C+TsFnSMlhgqD
+ RBCavWBD9md5upoHfnEakAI0p3FSppJWmw7epi6MyyKNnvzbfuawro0uRcRvjkAr4j6Oo5idU7G
+ sya/2eWE/JAcwUiUsir0HD8s=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1a49188846ff3403;
+	Tue, 17 Nov 2026 12:19:38 +0000
+X-Mizu-Trace-ID: 1a49188846ff3403
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 17 Nov 2026 20:20:48 +0800
+From: Chen Yu <chen.yu@linux.dev>
+To: Tim Chen <tim.c.chen@linux.intel.com>,
+	Jirka Hladky <jhladky@redhat.com>
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	"Chen, Yu C" <yu.c.chen@intel.com>, Ingo Molnar <mingo@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	"Gautham R . Shenoy" <gautham.shenoy@amd.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Madadi Vineeth Reddy <vineethr@linux.ibm.com>,
+	Hillf Danton <hdanton@sina.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Jianyong Wu <jianyong.wu@outlook.com>,
+	Yangyu Chen <cyy@cyyself.name>,
+	Tingyin Duan <tingyin.duan@gmail.com>,
+	Vern Hao <vernhao@tencent.com>, Vern Hao <haoxing990@gmail.com>,
+	Len Brown <len.brown@intel.com>, Aubrey Li <aubrey.li@intel.com>,
+	Zhao Liu <zhao1.liu@intel.com>, Chen Yu <yu.chen.surf@gmail.com>,
+	Adam Li <adamli@os.amperecomputing.com>,
+	Aaron Lu <ziqianlu@bytedance.com>, Tim Chen <tim.c.chen@intel.com>,
+	Josh Don <joshdon@google.com>, Gavin Guo <gavinguo@igalia.com>,
+	Qais Yousef <qyousef@layalina.io>,
+	Libo Chen <libchen@purestorage.com>, linux-kernel@vger.kernel.org,
+	"Luck, Tony" <tony.luck@intel.com>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Philip Auld <pauld@redhat.com>, Joe Mario <jmario@redhat.com>
+Subject: Re: [Patch v4 17/22] sched/cache: Avoid cache-aware scheduling for
+ memory-heavy processes
+Message-ID: <avxGoEVvohbK0nUS@three-body>
+References: <339bb2636c7306e17540268a9295a8e673b92804.1775065312.git.tim.c.chen@linux.intel.com>
+ <20260409124642.GC3126523@noisy.programming.kicks-ass.net>
+ <a2d7e7b2-5a4c-48bc-b567-61e3cbd17786@intel.com>
+ <20260410092057.GG3126523@noisy.programming.kicks-ass.net>
+ <CAE4VaGAZavgRWDf=ukaj_EJvOO52hTpAYKPe1JEtUE3E2q0y0w@mail.gmail.com>
+ <13d982ce42116f876f01a77bae7f02d3800f08fc.camel@linux.intel.com>
+ <avqYbuJPHo4zLDOd@three-body>
+ <CAE4VaGAL5FPGUrG76pzf=9pJTaMWa60pbkLv-ZXCFjr5H2JpDg@mail.gmail.com>
+ <879c23213859f24b12a23530d6ae849bbe504b6b.camel@linux.intel.com>
+ <avxDmPs4rs39NC9O@three-body>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,72 +99,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avxDmPs4rs39NC9O@three-body>
 
-Hi Chris,
+On Tue, Nov 17, 2026 at 08:07:52PM +0800, Chen Yu wrote:
+>  
+>  		if (!ng) {
+> @@ -4210,6 +4178,15 @@ void task_numa_fault(int last_cpupid, int mem_node, int pages, int flags)
+>  	p->numa_faults[task_faults_idx(NUMA_MEMBUF, mem_node, priv)] += pages;
+>  	p->numa_faults[task_faults_idx(NUMA_CPUBUF, cpu_node, priv)] += pages;
+>  	p->numa_faults_locality[local] += pages;
+> +
+> +#ifdef CONFIG_SCHED_CACHE
+> +	scoped_guard(rcu) {
+> +		struct sched_cache_group *grp = rcu_dereference(p->sched_cache_grp);
+> +
+> +		if (grp)
+> +			atomic_long_add(pages, &grp->footprint_cur);
+> +	}
+> +#endif
 
-On Tue, Nov 17 2026, Chris Down wrote:
+I forgot the code from Tim that firstly add the footprint into per task buffer total_footprint,
+we should add back the following:
 
-> Hi Pratyush,
->
-> Pratyush Yadav writes:
->>The main user of the map is memfd. Currently memfd uses a vmalloc buffer
->>that has a pair of {index,pfn} to track the folios in the file. That
->>uses 16 bytes per page. The KHO map uses only 8 bytes per page with some
->>overhead. So for a 1 GiB memfd, it uses roughly half the memory.
->
-> That only holds for order-0 folios though. A leaf covers 512 indices, so
-> a populated memfd needs one leaf page for every 2M of file whatever the
-> folio size, while the array needs 16 bytes per folio. Per 2M of file,
-> that works out as:
->
->     folio size   array    map     map/array
->     4K (o0)      8K       4K      0.5x
->     8K (o1)      4K       4K      1x
->     16K (o2)     2K       4K      2x
->     64K (o4)     512      4K      8x
->     2M (o9)      16       4K      256x
++static void sched_cache_footprint_accum(struct task_struct *p, int pages)
++{
++	p->total_footprint += pages;
++
++	if (p->total_footprint >= SCHED_CACHE_FP_THRESHOLD)
++		sched_cache_footprint_flush(p);
++}
+...
 
-Right.
 
->
->>- Multi-index entry support: currently, while the map is very efficient
->>  with 4k folios, it is horribly inefficient with 2M folios. Each folio
->>  in the memfd takes up a full page to track. Multi-index entry support
->>  can fix this by tracking entries that cover a whole page in the
->>  previous level, similar to page tables.
->
-> Since patch 5 makes things worse for memfds with large folios, I agree
-> with Pasha that this needs fixing before memfd switches over. Storing
-
-Right, I agree as well.
-
-> PMD-sized entries at L1 fixes the 2M case, but mTHP sizes between 4K and
-> 2M would still take a full leaf for every 2M of file. Do you expect
-> mTHP-backed memfds to be preserved? If so, it's probably worth handling
-> them in the format before it becomes ABI.
-
-mTHP will still work, it will just be less space efficient than 2M THPs.
-Even then, the overhead is around 2M for every 1G, which is roughly
-0.2%. Even then, I don't think that is too bad. If you want to be more
-space efficient, use 2M THPs, or hugetlb[*]. I think that is a fair
-tradeoff. Using larger page sizes also makes KHO more efficient.
-
-We _can_ make mTHPs fairly efficient, but that comes at the cost of a
-more complicated ABI. For example, we can have a per-order KHO map in
-the memfd, and shift the keys by the order. That should improve the
-density. We could also do some other tricks like the shifted key
-encoding scheme that KHO preserved memory map uses (see
-kho_encode_radix_key()) to improve density.
-
-So unless someone can explain why mTHP memfds are important to optimize
-for, I'd say mTHP users can either take the 0.2% preservation overhead,
-or use 2M THPs.
-
-[*] I sent an RFC for that some time ago, but it's been blocked on
-    pending infrastructure rework like extended bootmem. I plan to send
-    out a refreshed version soon.
-
--- 
-Regards,
-Pratyush Yadav
+thanks,
+Chenyu
