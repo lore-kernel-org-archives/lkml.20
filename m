@@ -1,79 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794912480;
-	b=Wc/cLFdOw0MhaRoIDAJnLj53xDlzwhlgIqA36LkJYpah1NOGpdW+pNxvB0Zpu6d/cLmN
-	 0gTJ6EDer1Uk/yDpo7B/XJudyIcOh4NdGPJSlRz43ZyVF/femE0jSCx2Y9iV3O7kNKpI/
-	 amfZZl4R7THGDfeI/XU8k8aoPD/lm2ZSv9aHP7GxO2n+OiQXJgAji6Gvrz3yxY1+/PqxJ
-	 TTXMHwgPjQg/Mok12jC39KLGvQ2cr8Q/vg00C1p/ubdzImtZjuZJalkhqwafiR1XeQsZp
-	 oDn33EnWHndY0W4jbUqK0Cm1CkZMMGqccrTBDyCiIGW4NvuHzdzg4KV4Eiitpa2AihA==
+	t=1794912493;
+	b=DCSPJT528itPcR4vrLpR+DGnhfzENidpdQRv2iPM9wBo0KeAFBMw8J7OefpMpCe5rmya
+	 TkupymO/oaKf32i+d/WfLo6tYcgiMxIL9q/5YMFcjB/tud17b65b/lEAfvEMZK5fyw2c7
+	 Hx99ajrq/i4mUMrkKkekQQGgvc5e1rzWCo09OjAleZ+6JBLtvDB6V2KGKJbN1aJdWjOst
+	 YYq05mZG9X3R+skVsUqSvDjLSkPmCttApudN3vu9Y2oPBN1VtPI3XOcHTQPVrLvgEsDvQ
+	 hIctYg1XVRfrd4hGQKQyUs7pL4kY3DnWE2SbqQhNucNCacKQJHxawv4s8lLQ+APm51g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794912480;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=JIxCmE/jn2GPb4zKjgDed23TAonlzb2lFWRnVD2IiAQ=;
-	b=QsW1r2d7aGpj+XhuBjPz4Qn0PUnoHA4H9KE++ErKA4qSmhHmwFujcv8TPNm2qbRC0PnD
-	 WcN1lJQo4pXU6g31/ePiEHUBWtYDGU06AjF15W8uYv86YaRbATO2fpbDDArVOSk/9UA1g
-	 EL2OeU65yuETE5gHXH6YlGO1sjBDThXtyBsxw9qetcolnpzuVh8mWmTVlr06xV4NxFqXr
-	 dPHB4iSOypV9tKZyIQ6RjRWOVmg2/u0xWnzsIm+n10jaL+JY7HtLNsyf6wD2BDQxwXhLa
-	 5LaRId5XA5VikF1B13emYybjEf/7fw+01oEFuGfgz8+oZMrcxLTOGmq6/GVxwXVRj2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794912493;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Hl3+N4JPEAimQqaE2OfAnYmrybBk8pfQNCorbB15Ywg=;
+	b=S7dlN7s3LB+cEqhItzGlDXd+ECgJA6ue2xaKvj40ZF8ZkyvlCDD9xP/bMZr6jeDD3dfx
+	 2fFuYWrv6hv/LbUvE4sIqcFLVFhCHuLakRPEnhwznNbI5fNvyNlQ6fkHiCMLSLni2PW61
+	 72NYtNndfobukvy8+Sy7pvFjOjp/CXA8WjFoUhsMy446lcyPbg4K0D7LHO6MdeaTcF7i3
+	 Q1JNBofBPV1CXr6xcI3WDJlgBsGwKtCVjzJXb+74S/OwP+w6ffs8zEffRq4NOZ0UlBAYO
+	 oaYJGsidNsAjRWFw8oxVfvur9lq1nsmUWxKKrLUIANNjUnTKfIhcfCgekn27mSF4mBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RmnUNSlS;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=qMyuojZm;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B82F8606A331;
-	Tue, 17 Nov 2026 10:47:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B82F8606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D90D1606A31C;
+	Tue, 17 Nov 2026 10:48:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D90D1606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RmnUNSlS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794912480; x=1826448480;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Xz22oPpsqmWIXwAra7whKiWI16mTZm7bN2zqd/8pMCQ=;
-  b=RmnUNSlSlu/8TNtwEG9W/B7Mu1f1FsBkUjr4y26H3jgFFwod/AuJz+Bw
-   Awaa28VtQ7EtDh7ib2oWx4P9M7o2I1gN0YjiPe9ILnMWaJ/vkF4AeFGJj
-   A8SQW+Tmr+9RLKko+xLAUN9YpkpMwX/s9DYYLlv11opvK0CucygncGLkk
-   i73yI/OeALh0qb+9thvio1sWr+RkK9M/RFbuKpua3YR2md3J7QygeNRsN
-   jqfwCOZKfPiPU7XWEsal61o2lGhWC7mWrUxr5CR6iBvlfAimxFJEOCpad
-   wXcZuz5FXe/gRO2FRatVBv0pK45h69+3du/HWZbEmmWjns9U6bu9DNbf9
-   g==;
-X-CSE-ConnectionGUID: 4zwIxiIDS3Wjwm5bkAN59g==
-X-CSE-MsgGUID: /+zjZ4WLRa+egNtK5yCZ3Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3760362"
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3760362"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 02:48:00 -0800
-X-CSE-ConnectionGUID: 8V5XDOljRDWjxd83tWvriA==
-X-CSE-MsgGUID: N/6wuTEfS5ODpe9KyL7V5A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="9888454"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.254])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 02:47:57 -0800
-Date: Tue, 17 Nov 2026 12:47:54 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Arnav Kapoor <kapoorarnav43@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Gwendal Grignou <gwendal@chromium.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] MAINTAINERS: add a reviewer entry for the Semtech SX9xxx
- proximity drivers
-Message-ID: <avww2kChMteEjGnV@ashevche-desk.local>
-References: <20261117094737.15253-1-kapoorarnav43@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=qMyuojZm
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794912490;
+	bh=x4WVJR1u0uNzb8LS1d4YG5eAfX/gHB6/qkNUn1eJBe8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=qMyuojZmWYZ6iW/s7zSQ7lmEd6YkaEcSII3RGhfwK/0zBJ+nMsAKCJPUkoHr0qBBe
+	 wd8NFMfAvO8/HJ6u8TCepvHgkUa2U4FveX6ZO0Bzq/W2z8lHvdOR8FJnimTpddXYSg
+	 orniG//einVTXOXvI5JdtaPgwtzNRxSB+MLrtGXsqSPqerR85b3lld7f+Nirrv6QWi
+	 EVvxc782PM8FbZODG491ouJ2JuE9/WsQd2vjs5JufchLKH21QWcL+z3fuhklGAIgAB
+	 XoOUij7A9v2LInduUXa6ggHS72sNwefhTykAGUQHiogidss4+XlgCgIWx2NkRebBMf
+	 7pa2UK4TuOK/w==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7E27A17E04B2;
+	Tue, 17 Nov 2026 11:48:10 +0100 (CET)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: Matthias Brugger <matthias.bgg@gmail.com>,
+	Coia Prant <coiaprant@gmail.com>
+Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Lu <roger.lu@mediatek.com>,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] soc: mediatek: SVS: fix device reference leak in svs_add_device_link()
+Date: Tue, 17 Nov 2026 11:48:06 +0100
+Message-ID: <179491248221.154190.12390341729677427224.b4-ty@b4>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261023082948.1854252-1-coiaprant@gmail.com>
+References: <20261023082948.1854252-1-coiaprant@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,46 +75,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261117094737.15253-1-kapoorarnav43@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 17, 2026 at 03:17:35PM +0530, Arnav Kapoor wrote:
-> The Semtech SX9310, SX9324, SX9360 and SX9500 proximity sensor drivers
-> and the shared sx_common code have no MAINTAINERS entry, so
-> get_maintainer.pl only lists the IIO maintainers and reviewers for them.
+On Fri, 23 Oct 2026 16:29:48 +0800, Coia Prant wrote:
+> svs_add_device_link() calls svs_get_subsys_device(), which returns a
+> device with a reference taken by of_find_device_by_node(). If either of
+> the subsequent checks fails, the function returns an error pointer
+> without dropping that reference, and the caller only checks IS_ERR() and
+> bails out, so the reference is leaked on every -EPROBE_DEFER.
 > 
-> Add an entry with me as reviewer. There is no M: line, so maintenance
-> falls back to the IIO subsystem entry, as Jonathan suggested.
+> Both error paths can be hit in practice: device_link_add() returns NULL
+> when the link would create a reverse dependency or on allocation
+> failure, and the supplier status check fails whenever the supplier has
+> not bound yet.
+> 
+> [...]
 
-> Link: https://lore.kernel.org/all/20261117031830.69ac22f5@jic23-hlaptop/
+Applied to v7.4-next/soc, thanks!
 
-This is unreferred in the text above, so orphaned Link tag.
-Make it Link: $URL [1] and refer in the text, so we will understand why it's
-here.
+[1/1] soc: mediatek: SVS: fix device reference leak in svs_add_device_link()
+      commit: 8ba2b21adad087d7dd2fd8b12877ead8b982e694
 
-...
-
-> +F:	Documentation/devicetree/bindings/iio/proximity/semtech,sx9310.yaml
-> +F:	Documentation/devicetree/bindings/iio/proximity/semtech,sx9324.yaml
-> +F:	Documentation/devicetree/bindings/iio/proximity/semtech,sx9360.yaml
-> +F:	Documentation/devicetree/bindings/iio/proximity/semtech,sx9500.yaml
-
-These have maintainer field inside each of the file (it's a requirement
-by DT AFAIR). So, if you want, you probably need to add yourself inside
-each of that as maintainer.
-
-...
-
-> +F:	drivers/iio/proximity/sx_common.c
-> +F:	drivers/iio/proximity/sx_common.h
-
-.* ?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Cheers,
+Angelo
 
