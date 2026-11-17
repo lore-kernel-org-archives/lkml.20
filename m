@@ -1,46 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794936911;
-	b=R6uARBquxsLBokTotDCdg1m/gM0Y/fGKHebzN2A8ie19SfgQwcPwPIkRkl2a8T9R/YpZ
-	 SIjy/q8zJo/YgJbOYubf5XFzl9XBOcRVJic3tG7ziBHpSG7d7L4uxXPC5utE9VxK+PNbD
-	 tT2Xampi2bH+tLtD01YWzGXgTZb6rFpbad37t36iM7gdrEGqa193X/B/jMISOmuwmWYrY
-	 jKzEdduBrlZ+gmQRUmQN/05Ez3Lk7GLpazcTV/b/VYlpy8WgrtyHwye2Io8SKjk9bU0Zr
-	 dzQk2WeZp5bk8APghMWExb/2GG5ZWg+rNgUcRedhCzKA0yQMk4A8GxEszjQLhG0FSlQ==
+	t=1794936913;
+	b=IK6AyUwll9V62s3iIs/EslcOibo/2DHrmQAJZYVjhERnpqd190wSZ/pZF5kTlkk8DkIW
+	 ItDtdwjrNEcm06qaKZrAAEYtccolH2i4S+Bt9n0Mv9OpLF+xY9xmobmuHULrXPwwlRatV
+	 fVwyWpQeoSUKSsjjF9EJ2Z/pwQnUuPa2bdJxVHeKbUIcyJcwqInuoZyfN/ybtIIOi0F8p
+	 YKpAxGhFWwSl0FlMqN39byy1snZEM6rW7W2nYfuLWuwHk2rVPB7hIHQkeWU141ArwsdwU
+	 jGB49k6q7HxSE51MI3ErD+F9jhd8srhEiokhdI0cPUxGaEh16W/ho44MbA4sQ/ah83Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794936911;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794936913;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=+KzEQNGHNyX+d3v3aVcwTAOvdhg7OdW27uOcL3lFZr8=;
-	b=NL8vtiAFT6foIFjQ3Ve2ebdj0Mf7FAPHbcV30URrgpgiIO8PL/qiHQmRnn1keNxhF8Ll
-	 AMU4+emJQ0aCd366uVzTLmM8MwN0aqxOjsOFWtsbiO59sf4eg+4pPFKKBF3Oq56t2iZZQ
-	 FiGIqqm5hbHjmCow/tds2xuli+zg1dq3uxHlP/5EAc7wycCTXxUdKjMaFrlFk7DOmmg7r
-	 UT3tYvQ5X1Tu2VUUmEeJNAfU41AQg3atSCbQDCzISTQ/Si3cV/1t1eFe5ZuqMWQ6QRyu7
-	 tJ5Him+6GT1fNTZ2TJqGsOiDmUe4MUTEQn8jbFCNN8qX5JgIvstSaDQ7W6ikTNBp7SA==
+	bh=nB6Yq8d6ULrFd8IzeuoWmxpqPH/+v/zha4BrdYeZUfE=;
+	b=RlrYyGeeQf28DbFNjQgSBaHYt9nLt9Uddptcbdmyp1YFQRDIco55pIH+Gx3dn+Hup4+9
+	 2V1532/h36Vp0aI6eqxFqOqV7FiZA2tQ9YJQmgcJun43y7Y9qAN+RSD2fJ+sceGLI09JR
+	 c0gERjXPZvsW83Ej1whV6rIWARXJVuqslbsxqQpskArG/vg6dOwnuzvs1hr/IYmwZZ8OF
+	 iL1BW8eI+eVwvXivL79Cu188M6VmVueq34GSkkNhEA4func3SI9GqYBKduQEQdqFQ3tf8
+	 7CaQq9+EeM+WA55RgAMG3mEH7anF5XGvWfNULlFH55mOlJrcSYQoWC4Te6SGaYuizNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DB31nbrg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m+OoLnyK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED23F606A32C;
-	Tue, 17 Nov 2026 17:35:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05AD7606A88C;
+	Tue, 17 Nov 2026 17:35:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DB31nbrg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8297B1F000C4;
-	Tue, 17 Nov 2026 17:35:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m+OoLnyK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DABF1F000CA;
+	Tue, 17 Nov 2026 17:35:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794936910;
-	bh=+KzEQNGHNyX+d3v3aVcwTAOvdhg7OdW27uOcL3lFZr8=;
+	s=k20260515; t=1794936912;
+	bh=nB6Yq8d6ULrFd8IzeuoWmxpqPH/+v/zha4BrdYeZUfE=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=DB31nbrgHw4cb5wk09Uoa3sTa0f48KHnVB0If14yyoePPs2K870d/2jEQ5MCJTxk7
-	 0HbKP/tiPgmXoOHfj2InyasAd47uGI8E/6iSoGTJhOzM8dvbDWG7HZPRHc1peUVljb
-	 bpK0ef6TRTVaBEeQgE1lXV+qAr6GbTkVpd+c0RE4ulHrao45SJHUPegpUWrKFnclEo
-	 FQCp6PuFn/QNCouwAXCJuSg2lpyRKy7uDDr02088M4XQa+eLK4f+LEVvyBEA+6Nq0M
-	 nYXgyZYAq/AsgoC+Rn+TdaHymUq0WvnTsk/kCX4Ps8PLhsT1M+7GNk3Jc4PC38jZgV
-	 TkXzr9kfqXCiA==
-Subject: Re: [PATCH 1/9] dt-bindings: net: rockchip-dwmac: Allow iommus
+	b=m+OoLnyKEqRzuR8W24SKYyqeH6WL7WtYTv9Yk+iWroEVoyZLBNbO3Y34RvRRI3Li6
+	 /dqFOQJYNXfrnUueeuBIWz/Pq55xJASipZl83hyCmOTvWei+1Qp2rFUZsB73vFGKtm
+	 35NfflWKQng5deftSY4vK2xDDXYheYikiiyUb5Q0Kcbktk7ZGkEdfKE9+8qnPoZ3qN
+	 haR1l3Sym7RSui+tJMYRXzDxK5wtrwbpjr72i54Gv/hCOuiF69sGojba3BwyK8pw83
+	 v2XOdBeqx0jm8zY6gQyw7yR8rBSPJgHHM4BG5gHI15d5XFldxiAdymXaSy7s7+hiPY
+	 xYZp9hwEuww5Q==
+Subject: Re: [PATCH 2/9] dt-bindings: ata: rockchip,dwc-ahci: Allow iommus
 From: netdev-bot+sashiko@kernel.org
 To: aiyengar1990@gmail.com
 Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, heiko@sntech.de,
@@ -52,10 +52,10 @@ Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, heiko@sntech.de,
  linux-kernel@vger.kernel.org, linux-ide@vger.kernel.org, praan@google.com,
  will@kernel.org, robin.murphy@arm.com, iommu@lists.linux.dev,
  shawn.lin@rock-chips.com, sebastian.reichel@collabora.com
-Date: Tue, 17 Nov 2026 17:35:09 +0000
-Message-ID: <179493690908.3136.827247860672592948@kernel.org>
-In-Reply-To: <20261113-mmu600-php-v1-1-231196049a3b@gmail.com>
-References: <20261113-mmu600-php-v1-1-231196049a3b@gmail.com>
+Date: Tue, 17 Nov 2026 17:35:10 +0000
+Message-ID: <179493691098.3136.12498888747300831285@kernel.org>
+In-Reply-To: <20261113-mmu600-php-v1-2-231196049a3b@gmail.com>
+References: <20261113-mmu600-php-v1-2-231196049a3b@gmail.com>
 X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -75,70 +75,72 @@ you want to address the nit picks below when you respin.
 
 Low priority / nit picks for your consideration:
 
-- [Low] This patch ("dt-bindings: net: rockchip-dwmac: Allow iommus")
-  adds `iommus: maxItems: 1` to the top-level `properties:` map of…
+- [Low] The patch adds `iommus: maxItems: 1` at the top level of
+  `Documentation/devicetree/bindings/ata/rockchip,dwc-ahci.yaml` (lines…
 
 --
 
-dt-bindings: net: rockchip-dwmac: Allow iommus
+dt-bindings: ata: rockchip,dwc-ahci: Allow iommus
 
-This commit adds an iommus property, limited to one entry, to the
-Rockchip DWMAC binding. The commit message says the RK3588 GMACs sit
+This adds an iommus property, limited to one item, to the Rockchip DWC
+AHCI binding. The commit message says the RK3588 SATA controllers sit
 behind the PHP SMMU.
 
-> diff --git a/Documentation/devicetree/bindings/net/rockchip-dwmac.yaml b/Documentation/devicetree/bindings/net/rockchip-dwmac.yaml
-> index e8dda1961ab31..2a0cd56fb4fe9 100644
-> --- a/Documentation/devicetree/bindings/net/rockchip-dwmac.yaml
-> +++ b/Documentation/devicetree/bindings/net/rockchip-dwmac.yaml
-> @@ -87,6 +87,9 @@ properties:
->  
->    dma-coherent: true
+> diff --git a/Documentation/devicetree/bindings/ata/rockchip,dwc-ahci.yaml b/Documentation/devicetree/bindings/ata/rockchip,dwc-ahci.yaml
+> index b5ecaabfe2e25..e33e8b5591ee5 100644
+> --- a/Documentation/devicetree/bindings/ata/rockchip,dwc-ahci.yaml
+> +++ b/Documentation/devicetree/bindings/ata/rockchip,dwc-ahci.yaml
+> @@ -34,6 +34,9 @@ properties:
+>            - rockchip,rk3588-dwc-ahci
+>        - const: snps,dwc-ahci
 >  
 > +  iommus:
 > +    maxItems: 1
 > +
 
 [Severity: Low]
-The commit message only gives a reason for RK3588, but iommus is added to
-the top-level properties without any compatible-based condition. Was it
-intended to allow iommus on every Rockchip GMAC compatible (px30, rk3128,
-rk3228, rk3288, rk3308, rk3328, rk3366, rk3368, rk3399, rk3506, rk3528,
-rk3568, rk3576, rv1108, rv1126)?
+Should iommus be limited to rockchip,rk3588-dwc-ahci?
 
-In the in-tree DTS, the only SMMU a GMAC could reference appears to be
-mmu600_php in rk3588-base.dtsi:
+As added, the property is unconditional. That makes it valid for all
+three compatibles in the select block: rockchip,rk3568-dwc-ahci,
+rockchip,rk3576-dwc-ahci and rockchip,rk3588-dwc-ahci.
 
-arch/arm64/boot/dts/rockchip/rk3588-base.dtsi:
-	mmu600_php: iommu@fcb00000 {
+The commit message only gives a hardware reason for RK3588:
 
-The same binding already restricts the PHP-specific rockchip,php-grf
-property to the SoCs that have it:
+  The RK3588 SATA controllers are behind the PHP SMMU.
+
+The in-tree SoC descriptions match that. mmu600_php: iommu@fcb00000
+(arm,smmu-v3) exists only in rk3588-base.dtsi. In rk356x-base.dtsi and
+rk3576.dtsi, the only IOMMUs are for media blocks (vdpu, vepu, vicap,
+vop, vdec), and none of them sit in front of the SATA nodes.
+
+The binding already has a separate allOf entry for the older SoCs:
 
   - if:
       properties:
         compatible:
           contains:
             enum:
-              - rockchip,rk3576-gmac
-              - rockchip,rk3588-gmac
+              - rockchip,rk3568-dwc-ahci
+              - rockchip,rk3576-dwc-ahci
     then:
-      required:
-        - rockchip,php-grf
-    else:
       properties:
-        rockchip,php-grf: false
+        clocks:
+          maxItems: 3
 
-As written, a GMAC node for a non-RK3588 SoC that carries an iommus
-phandle (for example, one copied from an RK3588 node) would pass
-dtbs_check without a warning.
+With this patch, dtbs_check would no longer flag an iommus property
+added by mistake to an RK3568 or RK3576 SATA node.
 
-Could iommus be scoped in a similar conditional, with iommus: false for
-the compatibles other than rockchip,rk3588-gmac? If allowing it on all
-variants is intentional, could the commit message say so?
+One option is to add iommus: false to the rk3568/rk3576 then: branch.
+Another is to allow iommus only in the rk3588 branch.
 
->    clock_in_out:
->      description:
->        For RGMII, it must be "input", means main clock(125MHz)
+snps,dwc-ahci.yaml, which the commit message cites, does allow iommus
+unconditionally. This binding is per-SoC, though, and already has
+per-compatible constraints.
+
+>    ports-implemented:
+>      const: 1
+>
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261113-mmu600-php-v1-0-231196049a3b%40gmail.com
