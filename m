@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794911082;
-	b=eu7P1nTSUZD1umq7O+7Fbr0NXa+G8LLh8wwBowKhB6BDejl6mQiKPm+5vne+BECS/B//
-	 dBkrmaccicaMlC+kKXK3oiVqoRddVbG31kqLu6BhozAy/jm1FSQ+PbNSk5wz5+6f9xB8/
-	 bZz/TjxcM78COG4fPPaHmsijQ+o/wAUxJE3oMz2FQt/PkAfZnZD8ELX5/rn7sWuxzQxQs
-	 /sHmV/Mgehm5fprQWpQbh9FWCrxdosV6YsSsMu8UYXjsc33e3CNXLAw5CLm2OkxenJTeR
-	 B8ETq1SVJ68WNrPDC32puQvL2Q1+gJH9TbgW/HrbclqX+OJXniV8HsSeV6OB8H5SaxQ==
+	t=1794911108;
+	b=LpTXOrveiGN8s9k1HRzh2UB22WIaZ7cHx5vnQG8N5ww+sqGVAWI86wF1XEDkR4F5ePNy
+	 /VSJknUIjU58vMFlnRA+/E47Stez53HhOfQvieBBf3an+OqWj+JctRivVoCFqCgNZO1fl
+	 jr3Grx+Ca1TdTsvZgtKdKkwuxxLxy+uJdf9lKqFMSq1v/Y12Fj0KlrVaVRII1aqexAR6p
+	 vEJ9OqEUMdfRhC8csgH6aUvWSXo9MS9ING2FbZFEin22K/WPFZw4DKfhVk/XwejnlfXZM
+	 Md2rPcGMfi0/GmyQeM6WYTz2Ss/oNVmreqP2sS1s3lX5bLPujyIvajInSloOOn2TuOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794911082;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794911108;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=XfB5B52dyRgHhh4XLOsPPMRBRcmUL0nbC6YT+G0tvD0=;
-	b=nBGgpuSNi2F7L73ES7DCtMquqcfqDkm2Ob3OjfFl9RGRV0o4FKeN+l2OcZxz5T6k3FLS
-	 N/zSe2sitHPDzJpyNz2RXU/Xspvkj/4bX99Fqr+RVGjlGUt5ehrI1gdUAlB0wfDFPHXZ5
-	 ZmnygEw+e44x7xmwGglCqodVAHbXCeOCoMlfHvRK7x6iCbhVch5vnZW/5rpEZEXb8HDxT
-	 3cAuwnF172wWE6NyjMmemPq1R6nKdIKZfeU/R37AycUBLxZvxUEBORABRA0rTp3smlyix
-	 061XEs3fKvCPwsRB5YBQDyHjE2l9IVDOFd0/XU9DkgJDg9cLab2vhovbwsBWvAKcEVg==
+	bh=Q2znK6jCcwZIL5Nn3GHQNM4P89lE7lhD6CjXDpbVY7E=;
+	b=r5P6N1jAHCccOPof5DhEV2kHCPIEYNo68Dg2GSOrw6RUi7nud1lS1IkRZJ0pS1Wn4otE
+	 26m9heORzteBg+sbdsQqwV5geZVReKbAMNWst1STr+IErojXMtE4Ya9k6mN0FZOevFv5t
+	 zDUYmu/ZbFECRjEq2drPSiiyIElNxB6QDiTga5FUGmgAVQOvN7JB+pttroHhxTm+GDqQf
+	 yfxLvRCSF/cgkF8iox0J4JSQ+Zydpv46FwuGnWDrg4Yw+4hHGdhNnwjzP41rUtPyFl7/D
+	 Iqfp3UHm1VKHL/g1jDPUXLe+NcAL4aBC6MAXorsGfp0DsqcbaB+EcCQw4/kZulVxcQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bt5z6Z9q;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d5mkTgNk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB708606A329;
-	Tue, 17 Nov 2026 10:24:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E4B606A31C;
+	Tue, 17 Nov 2026 10:25:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bt5z6Z9q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 903781F000C4;
-	Tue, 17 Nov 2026 10:24:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d5mkTgNk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B78E1F000C4;
+	Tue, 17 Nov 2026 10:25:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794911082;
-	bh=XfB5B52dyRgHhh4XLOsPPMRBRcmUL0nbC6YT+G0tvD0=;
+	s=k20260515; t=1794911108;
+	bh=Q2znK6jCcwZIL5Nn3GHQNM4P89lE7lhD6CjXDpbVY7E=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=bt5z6Z9qAIHck9s6Z9YBZ6Zky/qSjwuhm5MTYTtCvkbtB6EtaaIsuAS8HByVm1Pt7
-	 rhlslJwscU26ScWpndfeX5lLxHIsCnJUZVNspLNJrh4sf2t/RfWhu/8PsgTahBAncD
-	 9/o5++v3iEUwTEUxlASDeMRcGtzRvsOQDysYf27OViR/fCE6sBx1QH2P6MIpdxY+EK
-	 8M27dZnOhiA5qF8Pv8eI5waL687rv/tMZwDy0/UH/HOQZ+NiIhr8VS2+mQZNAQailz
-	 bNz1LM6YzjclXcBLNxlOg4fk1YhDNp8ebRDrNlpyZzuceT6LC7KYkw+GQB9yGrpI5w
-	 +W6ozZkpTWr+Q==
-Message-ID: <357f0fcb-792b-4b40-84d2-cdfd05ca05eb@kernel.org>
-Date: Tue, 17 Nov 2026 11:24:34 +0100
+	b=d5mkTgNkXq2Ra7mECq7+jIONDntWjpK4VgFPrMvM8V/RHynNrD3wjqdssecPVtdFB
+	 1JLwOZdgWWruCHaHITxCzsnnkq0aBHys3vl8yrti55f+V2Wfkra9qdY+FPiRo1Kxa6
+	 8zZwEN1VLYMNMdCQl+/uFArRFin3Y4mb9+WMMIBUsm5wHcMPswnLsXGoJZTJz+Tvha
+	 f2bRtkjMppMJZJC9mI4EB4C4T1tD1a7cf65Shdt23C6V5K5emlOugLYciAfN+ftkiN
+	 qGIMLtmhahp02bhV3Hkx5dZ5z9vDVKKT/qwIIQkqbhzSfxj24C4O3F1nkeGfb0gxaE
+	 c9HQr+7BgkGJQ==
+Message-ID: <a1b8888b-0a30-4537-a7ea-d0798c7f7d7a@kernel.org>
+Date: Tue, 17 Nov 2026 11:24:58 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,8 +52,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/4] Add Parade PS195 bridge support to enable HDMI on
- Glymur/Mahua/Kalambo CRDs
+Subject: Re: [PATCH v2 3/4] arm64: defconfig: Enable the Parade PS195 bridge
 To: Nabige Aala <nabige.aala@oss.qualcomm.com>,
  Mahadevan P <mahadevan.p@oss.qualcomm.com>,
  Andrzej Hajda <andrzej.hajda@intel.com>,
@@ -70,6 +69,7 @@ To: Nabige Aala <nabige.aala@oss.qualcomm.com>,
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
 References: <20261116-mahua-hdmi-v2-0-0b5af6bf9e70@oss.qualcomm.com>
+ <20261116-mahua-hdmi-v2-3-0b5af6bf9e70@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -115,34 +115,24 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261116-mahua-hdmi-v2-0-0b5af6bf9e70@oss.qualcomm.com>
+In-Reply-To: <20261116-mahua-hdmi-v2-3-0b5af6bf9e70@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 On 16/11/2026 12:34, Nabige Aala wrote:
-> This series adds initial Linux support for the Parade PS195 DP-to-HDMI
-> bridge and uses it to enable HDMI on the Qualcomm Glymur CRD family
-> (Glymur CoB/SiP, Mahua, and Kalambo).
+> From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
 > 
-> The PS195 operates autonomously using firmware loaded from external
-> SPI flash — it handles link training, EDID access, and hotplug detection
-> without host register intervention at runtime, so no existing bridge
-> driver fits its power-sequencing and reset model.
+> Enable the PS195 bridge driver as a module for HDMI output on
+> Qualcomm Glymur CRDs family (Glymur/Mahua/Kalambo).
 > 
-> It introduces:
-> 
-> - a DT binding for PS195 (supplies, optional reset GPIO, and port graph),
-> - a DRM bridge driver that implements PS195 power sequencing and PM handling, and
-> - arm64 integration (defconfig + shared glymur-crd.dtsi wiring) so all three
->   variants can route DP over USB2 QMP combo PHY to HDMI through PS195.
-> 
-> Deps:
-> PHY PLL change: https://lore.kernel.org/all/20261028-glymur-phy-v3-v6-0-1f1d2e565a66@oss.qualcomm.com/
-> Glymur commonize change for regulator: https://lore.kernel.org/all/20261106-topic-sip_cob-v3-0-52cd3826ab49@oss.qualcomm.com/
+> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
+> ---
+>  arch/arm64/configs/defconfig | 1 +
+>  1 file changed, 1 insertion(+)
 
-So this cannot be merged. DTS cannot depend on drivers patchset. We
-talked about this multiple times already, please do not couple
-unnecessary dependencies.
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
