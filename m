@@ -1,62 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794884028;
-	b=JnfDjen1tDo8F7rBq5BYpKSnInIggblTLcED7NBDKxquvEUFKPBzG9pRIVv81wtdfDXm
-	 sIGnoECPcMwBVJMOTUiwV0cOTnJGnXIvXKpZMX1g0LWUTNgX+d7ajTr1iR2B1eVKXjO0e
-	 JHgGxpTlgvzjy52eUuJ3HZT3S4W61do1fhGyRlOB9IlKsJvxy9SItS37u3VrJTPjCeQN+
-	 Z6sqGBJliMvL+eTMddO7J+e+Eh2V27LYZ8x9vlohaYNd2xaHaxjYglG0UgcCs5cIsTYU/
-	 qTeYkJx0NSCOQtn9Hh2sbTrj3GLEjcme1+NZqLjfg/yC88AR+mRKMF+7LRNu8DcxKgg==
+	t=1794884034;
+	b=fxA1aPPsk5GotlUhZrqVVDalNFww4R8u2dB/qz7v0vnEStlr29gT3wBO4HAnOTKLXQ0j
+	 xXpaOQODhPLplPqnVeM2OF1IlJ86XWrrc+LUQWsBWqbursgK1y5ueRKskD5UyU6jMdl5U
+	 CbCYtVuSn0ZGN9YDvX/nc8a2P7OuIyarEPrmIlMmAbgyv8nw2+zBdJlMIHS/1JO6fi/UC
+	 vmgFHs6UClbx1bRADGDa3hb3YZuN9GmoP+uCvFzXmjcWt81jgswSlsfrWUDNBzX8i3xZX
+	 qluQm2pgxSwaXA/aFPHZRYwwI2E7Z2ZLXTmAWa3fOrPrzrsfNfQ9hv0zgndDmmAYTtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794884028;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=BaKFBe33jveFlusq4IBjG51wEJMm0MOD2d2IipYSxHQ=;
-	b=CIVkhwd7ss4EgBa9WHR1PxdwieKBRSVd3RvMLwMgZA3UC4sFBzergNfKJSRNrSF668TL
-	 O2MCliuI/RjKekZ7sEtXT8yLVtaByVrw+rIli7KN7pw5qvtvUo2GF/Bw6RzvE7mgGIdkq
-	 yqucqGYcIKe0Y488Z0ErafKNRgMYTtEF0bthff9Zgy4HxwGd9hwoAA2gLKItNtrv8IFAF
-	 Tkb7FkN5v71Zq7A0+C0zDN66DxPQ9rD/ubHHb3GAOYr9v5mp7RNhn5IW4smg29eS1I7db
-	 NXLfnXy/C5mwBTkHubLNpuzGRx97WHywyfm1oDm/zsJA6/Pb5Q51pZE69Uxge5sombw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794884034;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=MqsCvJ92VufH7QScYx+SYRb182Pj4ug+Xkrpv5KX0ug=;
+	b=c6t/SiwmucKaGZNCiw6kHpRzIrB2kq2/y5tEaU6mpXVnSvxc5MLsGtpuWDJX2RY6vtqJ
+	 kkBw3/ku4r3xgEuPXlAC5DYj2A85j8D4fZat5ZEq2oWB377nFA+LwwZsjjAnnMJ/4QZjP
+	 8x6C80KCTgTHoQgpVxbLB6JwGyxoMIm4UhmUO8n1NwWOSnvehJONhN9VxpXbi1jmftlHA
+	 4YVr/fw7s7poSMsvTJZxWS+H0TMtjY1WvvDmjPvTtijWbw2ceuGYKczWonakgC9EvBBZC
+	 7eLB9gSiQNafT29cOAyL+JJk7giQn3JYXDYSX+tLOSVnPYhWEXUGQKRMBhLkQb5CESg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IBNbqGpr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jgtitiFv;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6350B606A332;
-	Tue, 17 Nov 2026 02:53:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E80F606A333
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:53:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E80F606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IBNbqGpr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A31081F000C5;
-	Tue, 17 Nov 2026 02:53:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794884028;
-	bh=BaKFBe33jveFlusq4IBjG51wEJMm0MOD2d2IipYSxHQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IBNbqGprHyPWjFY3nxSr3fK+gPn+98qggMg4m7jAO0oaT6rhl2jEBDDPfBbcwFJ+8
-	 C421Bl3+QHudE/t8XI3sWoTzFAoILdNRQk2tMnuHwFlM7Hbm6sutE9NQULpRYe9dn7
-	 DcWlIoNdvPlTTyT+zU5ceF251snTYCPaQ/orkj3/gpMcuJnifxuHNGmAnFaUrLHH6z
-	 6G/Ms41tZ84jB7sCnx4gFNt6nqU1HwMmmDsSAvfGj8tYWCAH6Y4Fj4wiPQ8LcySzQS
-	 4HR4Ue4RFYB2Jq2ZlYPWzyYdhYoYXNTZHxH1ZEov1S7q004LiDIf+Ekv5p22TcnVd3
-	 7dXN0iPtYX9Ug==
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jgtitiFv
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-3282db206d3so11476216eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:53:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794884033; x=1795488833; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MqsCvJ92VufH7QScYx+SYRb182Pj4ug+Xkrpv5KX0ug=;
+        b=jgtitiFvqsDtVIvsq3fc37pauSfLdcqiYqgTstR8hzuc411RWrSfBIMEwJlJfDwoPR
+         PgKg9Yxjb3xuXdF6vEg2PFWhMVNfmAko1JLN7md9fz4adifAOGhxBGGveqk2xk32VDdY
+         pieFlegVOII+59SQfLHrQAnrXID/Ih5TSpBeog7ZlnJO1RzgfXSf4jNtW7v3kO88++0z
+         QcPoVXJjiLbukuilHSF/WdutsulwKs9ReEzQupH5HuvHubbT52UnJO8gbsN6zPiRmleJ
+         eoffK2MBQDdZ1dpWUXW0qsPdObiXO39B3NBC8hlPw2YBrCJHGzVCsfTyglz0Fd1INsUJ
+         nY+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794884033; x=1795488833;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MqsCvJ92VufH7QScYx+SYRb182Pj4ug+Xkrpv5KX0ug=;
+        b=yi4CUZ2pSLYuV5UYu9xeE4LTeIXysDOQyjVaUbVLKObfti+jnuUSjqOqpbERnWVZFK
+         bjtFyt4Pos/pN8EME+6WeRFLtOjWMnFzNChWJ8Z222I0223CtvcOM9am0mU8pK1X8d+Y
+         jed5+2U44ij7bOan7tzXDvggY17jK1BKFfuAvHbxy4XEOegGLq+wW+hbHp9ZEl7HrI0/
+         wEjvhnEGb08v00QBjZnMwUf80jt7uETbx9WIlw4AhwUeOZUmP39DXPmiB8qKjSRUTvV/
+         O4hPMhrR33HgfZRNMknqz9ewB08+/mNim9nA6CoUd/gbuw3DD6trLehmKnZesuq5PvRy
+         e6Bg==
+X-Forwarded-Encrypted: i=1; AL+hErG/ayUInzqAAZ5Uqx7/ZI2ygAqdqu0hUxjSyyKCNVnAoR9w1Iahk4NJzD/WgisCxeFkFDMwxRGqLwn1oWQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8IBZvKbwNTgf0eENI1R5EHJjF44AarS4Z3oOSy3OfjClwxD6tp
+	NKQKxFSw0BM7VNbbJB8BHoPMQQZSRgUn57RwwhEjZ4Gd7CnxalQmJiWp
+X-Gm-Gg: AZFdTZdrlMZ8U7tG+y4Kpg/B+h2TR5PBPsEZ5LED75Rb2ci9mh70/cVgI5OzwChUEbf
+	l1Y2kBv1FLUzaY2RrxZkpy0Mz24pSNJqeYcrLZl8h7IdqTnZ6EuLQeNXXVa/TxbW5P++/eOKmG4
+	QQlhu2G0tmWmlYUSjon5OtVXa5+ZW6AvTgPVdWIEYQXyFflP0EVq4fABR2XRsMyIOffHRBqij2a
+	x2F11pB3GMDs7mMjZxWkFScmNLl4pWtrRywSwtWz8p49cqn/h5kGhF3x6JrxCD1MFD+zFRSCn5T
+	qsr4nivZpKM52qc5whOniLaoYCL/YyXPpXl5/KI0lR3pLhYq/ms9OeGegWZlZl8HIh0OULLPAM8
+	cRicycBpkqxQz8WOcD79FlxT4FQW7wzSUTFbE6Br7z7uYFWW4rh6IpiKWsylUUVwvcVBIQDIaY/
+	GSVDVE1CZDuv9Kv4uZWMl5YGw90Z1bO46KEevczAKUOCoL1a1A7QzinuObf9zZTrHMuRLVUGchO
+	qdWEqWZ4mmC80bsJzXQJU+ay4KawD3zPN2POU2edN/NpMGQKXpr1xh1B0IaGggwbIkBn6wVO3ZV
+	BQgx6jRbX2YobW1OdfWUp5HO2QEBrdHZa4ko4VGwi59RYJp+jbH13YPnBNbDtqdbMBrEKNiOiuM
+	zqfTdVJxAz/YkkHib5sv9HTaGpgm4uF4m4OKkL8BqyiKw59SYTJcQO5IEq0gSoIngnA==
+X-Received: by 2002:a05:7301:11b:b0:36d:2b50:4eb9 with SMTP id 5a478bee46e88-37967316395mr13958034eec.25.1794884032993;
+        Mon, 16 Nov 2026 18:53:52 -0800 (PST)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955e0d966sm39357368eec.15.2026.11.16.18.53.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 18:53:52 -0800 (PST)
+From: phucduc.bui@gmail.com
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Kees Cook <kees+treewide@kernel.org>,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: [PATCH v5 12/12] perf test: Skip the LBR inline unwinding check when unsupported
-Date: Mon, 16 Nov 2026 23:53:04 -0300
-Message-ID: <20261117025305.3958882-13-acme@kernel.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261117025305.3958882-1-acme@kernel.org>
-References: <20261117025305.3958882-1-acme@kernel.org>
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 1/2] ASoC: adi: axi-i2s: Use devm_clk_get_enabled()
+Date: Tue, 17 Nov 2026 09:53:34 +0700
+Message-ID: <20261117025335.7455-2-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261117025335.7455-1-phucduc.bui@gmail.com>
+References: <20261117025335.7455-1-phucduc.bui@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,74 +105,80 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Arnaldo Carvalho de Melo <acme@redhat.com>
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-The check only looks for the PMU's caps/branches file before recording
-with --call-graph lbr.  AMD BRS advertises branches but only samples its
-own retired branches event, so the record with cycles is rejected and
-the test fails instead of skipping.
+The AXI clock is enabled once in probe() and only disabled in
+remove(). Use devm_clk_get_enabled() to let devres handle this
+automatically, and drop the now unnecessary remove() callback.
 
-Probe the record and, when it fails with "Invalid argument", "not
-supported" or "doesn't support branch stack sampling", exit with status 2
-so the test reports Skip, as the branch stack test does.  The last string
-is how evsel__open_strerror() formats EOPNOTSUPP for branch stack
-sampling.  Any other record failure still fails the test and shows the
-error.
-
-Fixes: 446c595dc0dd ("perf test addr2line_inlines: Ensure inline information shows on LBR leaves")
-Cc: Ian Rogers <irogers@google.com>
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 ---
- tools/perf/tests/shell/addr2line_inlines.sh | 24 ++++++++++++++++++++-
- 1 file changed, 23 insertions(+), 1 deletion(-)
+ sound/soc/adi/axi-i2s.c | 22 +++-------------------
+ 1 file changed, 3 insertions(+), 19 deletions(-)
 
-diff --git a/tools/perf/tests/shell/addr2line_inlines.sh b/tools/perf/tests/shell/addr2line_inlines.sh
-index e8754ef2d7f21ac2..092adaf3c48d3e15 100755
---- a/tools/perf/tests/shell/addr2line_inlines.sh
-+++ b/tools/perf/tests/shell/addr2line_inlines.sh
-@@ -8,6 +8,8 @@ err=0
- test_dir=$(mktemp -d /tmp/perf-test-inline-addr2line.XXXXXXXXXX)
- perf_data="${test_dir}/perf.data"
- perf_script_txt="${test_dir}/perf_script.txt"
-+perf_record_err="${test_dir}/perf_record.err"
-+lbr_skipped=0
+diff --git a/sound/soc/adi/axi-i2s.c b/sound/soc/adi/axi-i2s.c
+index 2c4035ff6c2d..1eeb96b7fd60 100644
+--- a/sound/soc/adi/axi-i2s.c
++++ b/sound/soc/adi/axi-i2s.c
+@@ -208,7 +208,7 @@ static int axi_i2s_probe(struct platform_device *pdev)
+ 	if (IS_ERR(i2s->regmap))
+ 		return PTR_ERR(i2s->regmap);
  
- cleanup() {
-     rm -rf "${test_dir}"
-@@ -71,7 +73,23 @@ test_lbr() {
-     fi
+-	i2s->clk = devm_clk_get(&pdev->dev, "axi");
++	i2s->clk = devm_clk_get_enabled(&pdev->dev, "axi");
+ 	if (IS_ERR(i2s->clk))
+ 		return PTR_ERR(i2s->clk);
  
-     # Record data. Currently only dwarf callchains support inlined functions.
--    perf record --call-graph lbr -e cycles:u -o "${perf_data}" -- perf test -w inlineloop 1
-+    # Some PMUs advertise branches but reject branch sampling for cycles, e.g.
-+    # AMD BRS, which only samples its own retired branches event.
-+    if ! perf record --call-graph lbr -e cycles:u -o "${perf_data}" -- \
-+            perf test -w inlineloop 1 2> "${perf_record_err}"
-+    then
-+        if grep -q -e "Invalid argument" -e "not supported" \
-+            -e "doesn't support branch stack sampling" "${perf_record_err}"
-+        then
-+            echo "Skip: LBR not supported by the PMU"
-+            lbr_skipped=1
-+        else
-+            cat "${perf_record_err}"
-+            echo "Inline unwinding lbr verification test [Failed to record]"
-+            err=1
-+        fi
-+        return
-+    fi
+@@ -216,10 +216,6 @@ static int axi_i2s_probe(struct platform_device *pdev)
+ 	if (IS_ERR(i2s->clk_ref))
+ 		return PTR_ERR(i2s->clk_ref);
  
-     # Check output with inline (default) and srcline
-     perf script -i "${perf_data}" --fields +srcline > "${perf_script_txt}"
-@@ -93,4 +111,8 @@ test_dwarf
- test_lbr
+-	ret = clk_prepare_enable(i2s->clk);
+-	if (ret)
+-		return ret;
+-
+ 	if (i2s->has_playback) {
+ 		axi_i2s_dai.playback.channels_min = 2;
+ 		axi_i2s_dai.playback.channels_max = 2;
+@@ -257,28 +253,17 @@ static int axi_i2s_probe(struct platform_device *pdev)
+ 	ret = devm_snd_soc_register_component(&pdev->dev, &axi_i2s_component,
+ 					 &axi_i2s_dai, 1);
+ 	if (ret)
+-		goto err_clk_disable;
++		return ret;
  
- cleanup
-+if [ $err -eq 0 ] && [ $lbr_skipped -eq 1 ]
-+then
-+    exit 2
-+fi
- exit $err
+ 	ret = devm_snd_dmaengine_pcm_register(&pdev->dev, NULL, 0);
+ 	if (ret)
+-		goto err_clk_disable;
++		return ret;
+ 
+ 	dev_info(&pdev->dev, "probed, capture %s, playback %s\n",
+ 		 str_enabled_disabled(i2s->has_capture),
+ 		 str_enabled_disabled(i2s->has_playback));
+ 
+ 	return 0;
+-
+-err_clk_disable:
+-	clk_disable_unprepare(i2s->clk);
+-	return ret;
+-}
+-
+-static void axi_i2s_dev_remove(struct platform_device *pdev)
+-{
+-	struct axi_i2s *i2s = platform_get_drvdata(pdev);
+-
+-	clk_disable_unprepare(i2s->clk);
+ }
+ 
+ static const struct of_device_id axi_i2s_of_match[] = {
+@@ -293,7 +278,6 @@ static struct platform_driver axi_i2s_driver = {
+ 		.of_match_table = axi_i2s_of_match,
+ 	},
+ 	.probe = axi_i2s_probe,
+-	.remove = axi_i2s_dev_remove,
+ };
+ module_platform_driver(axi_i2s_driver);
+ 
 -- 
-2.56.0
+2.43.0
 
