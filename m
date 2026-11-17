@@ -1,60 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794906956;
-	b=J6iWe0QaZZuxyDdud6dJreQArn4zz6Q2NRR3MRUWMUyJ38rvrD5UUTYpxJnajB5Wqdix
-	 JQjrTl7oXINd2A/cpmJCBcJfvI7dzQsX1Iq1h7yYDNsvJnmFsho3lFuA78qtitfyO2Elq
-	 tr9k3iFnd5J/qiIxFouTM8ZmaU/j1IL8vQTyaVOzXOIzyl/LJYxLOmTBIkcmTEliqi3hd
-	 LDp92MJuCFYa5NQmPhBcmxa/20dw1iZtbDtpZiyJrMNU3SfX4zh/v4HqpekTZAiGPcaTt
-	 6FsewP8N9hxJXn0Pe3zb/AyRZH42odZE97ZEJJ2IWOnqJbWcpU/ywv15ZnE01wpl5cA==
+	t=1794906970;
+	b=5UHk4kF6/x4Fw9Fy5CGcK+FWy/lx2Fn+gRzA5TCDHEt39tL7J00OHerrRxs/kG+h7mo5
+	 ZRwsS0sZ63TwDBNlf1rE6zXj2ZRinXNLjqCJ7P5DkTYRkWOJP51jUMs4qMsN8plKtDQ+E
+	 T3sNJ27dRgxooe7K1YQksmVHnEgKrSBPW6vSrklvsjJZlPqEDP1+bR/4VRMWSioUSL0I9
+	 AFzmC0t/1EvL8C1TfGmnoTOtD6/uypI7UlMwugC+/88xWFHeN0gOxssyzC0jzj8clZilW
+	 twWbx3l1V0jve2OF4Jj11T+Z83p5TIwHmgH5HW5LCRYhgMyV/T9TO6Al4fgJAgLgVgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794906956;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Orab/TU7x//tl8WYikKDAEUliLfJS1G9bxffaYSsnrU=;
-	b=yyKhRuDsIhV5qaZOfb7NwEMvnEEEYb+ASg71bcxZmMQ1T3z5jWsUCJfdLg0pe3cozZef
-	 KBZp4nZTeq2qNk5To8w/OgfuIf1cAaczMaqmhDWgeS2Mfw21T6eurLo1GrzDhrdgYWFWd
-	 Oig8amWzMSITwhDMQhocWRZOLYDgdPXBbA9O7S067Tq9iqyMYjdPkJDPXqJ5PKikky/Fs
-	 Yji55j1v/noUpuLKZls+7yaXpME+nOwf4wgWy+C2Q9OtDG4Huyj6YfXib0BvSvCa9jkWu
-	 UHRrna6I6RcEgNqO/YJg1Eabi6TZgZIo0GDbzrUBFe41r1Os/wyjDqToAVhhTJTpmWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794906970;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=MjS1kvczGJ9MD7C9i1acsvxqzRa5iS2JUD817p0tTWM=;
+	b=zwvQXGYeI6XSh1WQQN5IC/GN0QIGgNWKCddJ6Cb1d4I6qtGywEgkBkDXuj/IeQWXCX3f
+	 ZSdSjxOpNp0vn0wZTY3O8ZG7DFmcED5BEjULVKO2Mf+OGubgaxqH6eRltrNcxrsnUcGzv
+	 G35XgQdFonbJVNPlxWvEWuYhRD5e0/3mIgGXaJ62v4YbKItKqsiC5dX31DiI0hf2aHsZQ
+	 fuaWjtxmTCjX9uYO2vh+eCrAPaxXXuLzXxdFXUJzl4Gqd57gQFTyqg2T8hRvQX68kn0hn
+	 +1V2fQedC6yvGD7t2d+QN5Ah69ubudvG/oa0EIaoRru6K9kElJhYlm2q7cdexUBqVrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DxnCamND;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC328606A31C;
-	Tue, 17 Nov 2026 09:15:56 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=HZwwMeYl;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0EDF4606A323;
+	Tue, 17 Nov 2026 09:16:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EDF4606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DxnCamND
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D76EF1F000C8;
-	Tue, 17 Nov 2026 09:15:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794906956;
-	bh=Orab/TU7x//tl8WYikKDAEUliLfJS1G9bxffaYSsnrU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=DxnCamNDnJqVjWQKvgZ9/K/syOKQu775Fw6++8/+st9UaW3rh4g6NRxuGiTZu07mI
-	 3CttRuAqQg4EYvQ4y4qIZHYQtPK5i4OSy64/NoL4/dfGcPQMkOX6L7dMNMduQgM8sP
-	 2JsCVUaPXVq53vms792tbE0d4pRVEBJDyJkpDYMfv1zWw2iBB1kcGRTckyVKz8FEf1
-	 vcuk58U9ejyBCQwswkXAbcA9HEt+jtuCTuZ9/HekkugJ2XbVrqB1cfeSLEeMJU+Qfd
-	 xbWdqY8an/IigmvgMUYQJl3gjAOB+Lqv30VKwPqvcM9wmuBtePDy60kNTk4GkbfF0B
-	 N0+zipCAbqrFQ==
-Subject:
- Re: [PATCH net 4/4] net: phylink: reinitialize the PHY after an MII reset
-From: netdev-bot+sashiko@kernel.org
-To: james.hilliard1@gmail.com
-Cc: hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- michael.chan@broadcom.com, hauke@hauke-m.de, andrew@lunn.ch,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 17 Nov 2026 09:15:55 +0000
-Message-ID: <179490695546.3136.9741825606101086256@kernel.org>
-In-Reply-To: <20261113-submit-phy-mii-reset-v1-v1-4-02a55f352a91@gmail.com>
-References: <20261113-submit-phy-mii-reset-v1-v1-4-02a55f352a91@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=HZwwMeYl
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 464FE1476;
+	Tue, 17 Nov 2026 01:16:06 -0800 (PST)
+Received: from e127648.cambridge.arm.com (e127648.arm.com [10.0.130.226])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id AABCB3F673;
+	Tue, 17 Nov 2026 01:16:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794906969; bh=lCkK9oimo3G3AZBfJSzQ80ZQq8ND0CMwQ9euKXpr7fw=;
+	h=From:To:Cc:Subject:Date:From;
+	b=HZwwMeYlp57BFJ/DWt0yIc/3A3B08h9xCqW4Fl9PUmeVluxEkzolL4ELsjzXJ/CnN
+	 iTcxPG+m+C49gHyrcwShLmG/gJOy5CJyq2D/TnuZUIgMQlgdKsZp8XmCa3JSbb7ar4
+	 qZzoCKL84/4nsD05CWt6KV7X4j5sgkw+ZuhS86Vg=
+From: Christian Loehle <christian.loehle@arm.com>
+To: rafael@kernel.org,
+	lenb@kernel.org
+Cc: ashwin.chaugule@linaro.org,
+	al.stone@linaro.org,
+	miguel.luis@oracle.com,
+	catalin.marinas@arm.com,
+	Jonathan.Cameron@huawei.com,
+	gshan@redhat.com,
+	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Christian Loehle <christian.loehle@arm.com>
+Subject: [PATCH 0/2] ACPI: processor: Restrict unsafe driver removal
+Date: Tue, 17 Nov 2026 09:15:32 +0000
+Message-Id: <20261117091534.895868-1-christian.loehle@arm.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,175 +66,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+Hi,
+I've had the ACPI CPPC lifetime issues on my list for a while, but I've
+been hesitant to restructure the code again. Looking at other users of
+the same removal paths, I found independent failures outside CPPC too.
+Do manual bind/unbind and processor module unloading need to work, or
+can we disable them for now instead of fixing each affected teardown?
 
-Critical: 0 · High: 1 · Medium: 2 · Low: 0
+Manual unbind and module unload can tear down state still used by the
+acpi_idle cpuidle driver, processor_thermal and cpufreq. This series
+blocks those two operations.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Patch 1 suppresses manual bind/unbind. A second unbind after a nominal
+rebind dereferences an acpi_idle device freed by the first unbind; QEMU
+with KASAN reproduced the use-after-free. A separate test left a cpufreq
+policy capped at 1.6 GHz after processor cooling was unregistered and
+bind reported success. Manual removal can also free CPPC descriptors
+while cppc_cpufreq, amd_pstate or intel_pstate access them.
 
-- [High] phylink_phy_write() (drivers/net/phy/phylink.c:3614-3616) now
-  sends a BMCR reset of the attached C22 PHY to phy_mii_ioctl() ->…
-- [Medium] phylink chooses the PHY's in-band AN mode (pl->phy_ib_mode:
-  disable/enable/bypass) and programs it only in phylink_major_config()…
-- [Medium] Through phylink, the BMCR reset now goes to
-  phy_mii_ioctl_reset() (drivers/net/phy/phy.c:300-322).
+Patch 2 removes the processor module's exit function. Its cpufreq
+notifier otherwise leaves QoS requests attached to policies on unload.
+I can also reproduce a use-after-free without CPPC: unload processor,
+destroy the old policy, reload processor, then remove a replacement
+policy. Module unload can also free CPPC state used by cppc_cpufreq.
+Keeping ACPI_PROCESSOR tristate preserves late loading and load-time
+parameters while normal rmmod returns -EBUSY.
 
---
+Ordinary CPU offline/online does not call the processor driver's remove
+callback. Physical CPU ejection does, and is outside this series.
 
-net: phylink: reinitialize the PHY after an MII reset
+Christian Loehle (2):
+  ACPI: processor: Disable unsafe manual bind/unbind
+  ACPI: processor: Prevent unsafe module unloading
 
-This patch changes phylink_phy_write() to send BMCR reset writes for the
-attached Clause 22 PHY to phy_mii_ioctl(). The phylib reset handling then
-runs in place of a raw mdiobus_write(). All other register writes still
-use raw MDIO access.
-
-> diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-> index e885da1c28311..2f0e3a30615c8 100644
-> --- a/drivers/net/phy/phylink.c
-> +++ b/drivers/net/phy/phylink.c
-
-[ ... ]
-
-> @@ -3608,6 +3611,10 @@ static int phylink_phy_write(struct phylink *pl, unsigned int phy_id,
->  					 reg, val);
->  	}
->  
-> +	if (phy_id == phydev->mdio.addr && reg == MII_BMCR &&
-> +	    (val & BMCR_RESET))
-> +		return phy_mii_ioctl(phydev, ifr, SIOCSMIIREG);
-
-[Severity: High]
-Does this path ever write the advertisement back to the PHY after the reset?
-
-phy_mii_ioctl() passes this to phy_mii_ioctl_reset(), which does:
-
-drivers/net/phy/phy.c:phy_mii_ioctl_reset() {
-    ...
-	phydev->autoneg = AUTONEG_ENABLE;
-	ret = phy_init_hw(phydev);
-out:
-	if (enable_delayed_work(&phydev->state_queue))
-		phy_trigger_machine(phydev);
-    ...
-}
-
-phy_init_hw() runs soft_reset, the fixups, config_init, config_intr and
-the autonomous EEE disable. It does not call config_aneg or
-phy_start_aneg().
-
-phydev->state also stays PHY_RUNNING or PHY_NOLINK. In those states,
-_phy_state_machine() only calls phy_check_link_status().
-_phy_start_aneg() only runs from PHY_UP or after a cable test.
-
-So after the reset, MII_ADVERTISE, MII_CTRL1000 and the EEE advertisement
-seem to stay at their hardware defaults. phydev->advertising still holds
-the MAC-limited mask that phylink_bringup_phy() set up:
-
-	linkmode_copy(phy->advertising, config.advertising);
-
-Take a 10/100-only MAC with a gigabit PHY as an example:
-
-  - After the reset, the PHY advertises 1000baseT again and can link at
-    1000.
-  - genphy_read_status() works out the speed from the stale
-    phydev->advertising and lp_advertising, and reports 100.
-  - phylink calls mac_link_up() at 100 while the PHY runs at 1000.
-
-The commit message says:
-
-    The PHY worker continues using the old software state.
-
-After this change, isn't that still true for the advertisement registers?
-
-phy_mii_ioctl_reset() was added earlier in this series, and this patch
-relies on it to resynchronize the state. Should phy_init_hw() be followed
-by phy_start_aneg() (or config_aneg) on this path?
-
-[Severity: Medium]
-Is the PHY in-band AN mode that phylink chose lost here?
-
-phylink only programs pl->phy_ib_mode in phylink_major_config():
-
-	err = phy_config_inband(pl->phydev, pl->phy_ib_mode);
-
-phy_init_hw() never calls drv->config_inband. After this return, phylink
-also does not set force_major_config or requeue pl->resolve.
-
-The config_init callbacks don't seem to reapply the in-band mode either.
-For example, m88e1111_config_inband() writes
-MII_M1111_HWCFG_SERIAL_AN_BYPASS and the fibre page BMCR_ANENABLE:
-
-	err = phy_modify(phydev, MII_M1111_PHY_EXT_SR,
-			 MII_M1111_HWCFG_SERIAL_AN_BYPASS, extsr);
-	...
-	return phy_modify_paged(phydev, MII_MARVELL_FIBER_PAGE, MII_BMCR,
-				BMCR_ANENABLE, bmcr);
-
-m88e1111_config_init() does not touch those bits. In the same way,
-rtl822xb_config_init() leaves RTL822X_VND1_SERDES_ADDR_AUTONEG alone.
-
-Whether a soft reset actually clears these SerDes bits depends on the
-PHY. If it does, the PHY's in-band mode no longer matches the pcs_neg_mode
-that phylink configured. The copper side can then report link up while
-the SGMII or 1000BASE-X link to the MAC is down.
-
-The other phylink paths that run phy_init_hw() (attach or resume, then
-phylink_start()) all reach phylink_major_config() afterwards. Should the
-reset path also ask phylink to redo the major config?
-
-[Severity: Medium]
-Can the reset and phy_init_hw() run at the same time as pl->resolve or
-the PHY interrupt thread?
-
-phy_mii_ioctl_reset() only quiesces phydev->state_queue:
-
-	disable_delayed_work_sync(&phydev->state_queue);
-
-	ret = phy_write(phydev, MII_BMCR, val);
-
-After that, the reset, phy_poll_reset() and phy_init_hw() all run under
-RTNL without phydev->lock.
-
-phylink_resolve() runs from a workqueue without RTNL. It takes phy->lock.
-When the interface changes, it calls
-phylink_major_config()->phy_config_inband(), which writes PHY registers:
-
-	mutex_lock(&pl->phydev_mutex);
-	phy = pl->phydev;
-	if (phy)
-		mutex_lock(&phy->lock);
-	...
-		phylink_major_config(pl, false, &link_state);
-
-The threaded IRQ handler is also serialized only by phydev->lock:
-
-drivers/net/phy/phy.c:phy_interrupt() {
-    ...
-	mutex_lock(&phydev->lock);
-	ret = phydev->drv->handle_interrupt(phydev);
-	mutex_unlock(&phydev->lock);
-    ...
-}
-
-Suppose phylink_phy_change() queued a resolve just before the ioctl, for
-example after an SGMII to 2500BASE-X switch on an RTL822x. Could the
-config_inband writes interleave with the config_init sequence and leave
-the PHY partly configured?
-
-Before this patch, phylink's raw reset never ran phy_init_hw(), so
-phylink users did not have this overlap. On the resume path,
-phylink_stop() and phylink_suspend() disable and flush pl->resolve before
-phy_init_hw() runs.
-
-The commit message says phy_mii_ioctl() "quiesces the PHY worker across
-reset completion and driver initialization". For phylink devices, isn't
-that only true of phydev->state_queue?
+ drivers/acpi/processor_driver.c | 26 +-------------------------
+ 1 file changed, 1 insertion(+), 25 deletions(-)
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261113-submit-phy-mii-reset-v1-v1-0-02a55f352a91%40gmail.com
+2.34.1
+
