@@ -1,55 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794936204;
-	b=sEOdELuUPO2wrMlLkStynR1ZKE9vjGqWq/OxUgv6ecndWYb74YiasAWzdGdvwaH9QVl0
-	 hiP42Lo5OcVEt8Vi03d6z9WnbkQJ2sNqQ440M1BibR9g65ZAkxzb+KgCciNoiTlJ3lqUN
-	 CNuGbPRLayUpTyjXZihkL/QDRvTgNeuWoA7ZEtxl2fOjDXE2uLWajInuU1WvCSoPEXxyk
-	 Hvy0YLztKj1lsEq9odqIew7hBZwdvziIS8tf1N2qi8ZYvQwsFUz6xq2hPZ1YVpRTOtjDe
-	 4lcm/0C4yZzp6iMFHSbYs4Mv1PpkHPBy5CGrwn8QWrAxCaNvOyZ03e90V74lhkTBLEw==
+	t=1794936236;
+	b=2pGoCWXgtKRVhXt2uCrCGBCn0q2BzvoTwuBEdy/z54ZukHEHqJ88blr+yv0wkPYH+HXE
+	 p/gYMnh1pICF2ZEkPnT0QDiehM5WS+x9rRp5+uTqo+9MU/Bb3sR1gibukz75EvAoXCkpa
+	 HeMoHnxFYRxSk1xMBS1ypR4JGUuM1leC8LmoUXIozLJhVCCNmLHlpYErFAggoytUMEguU
+	 sGtJoTZGMnB23H0KtxWtyXj6Id17tIXnkKLgelIgJhFeIVWYjWE7ALb2CuZTvR3HCyR3x
+	 VeGZQNy83uRuviFyXlfKO8XV9r20b22f88dEUKB7F1mCjynoGGSMFMPXoxi+fr5OD8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794936204;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=qPbuxogoqNwU/qyRYw+LGXjvF5P4V0NFNB4XBiaBpkA=;
-	b=ePhDbGUgVCya8oJTLV4Dw+3jLVoTyvwgOEheJ1D2d4IqIwHpoobpkyiAd8W14czYBpEI
-	 Xak7TorzVLM3Qlt6nyXzOgZbdCQTw/wE5Tcw6rnLSyU5h7Ljlz3W8uON2YnY9PODCbt6p
-	 VDG+rUy4OnktZMPlUS37JORHu9Obr5hAXS2XuiZqYXN9Q27Wcgrxndsxv7e85VvQZANWN
-	 aVSVnrz2mEGrDkIyokg2Yx7D54HfgJSMAtN5IwMfxYeNBZRFD8xOaaZ59A1VWmN65bkIJ
-	 GXubRToIyrW/qRMxFshKGBPaPxdhml5AlIslnb3vg/tvKG/C8fTbrVdjfUdkm3oRlkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794936236;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=+1CUcFNE7JwfSHGV62hBf/oteDplXzPtQU4sFGBvXqM=;
+	b=0aBkCLHEv2kE88jjUzHMDc2v34pMwp34/lPCRxNGNUbmi6OlLEC//+m5QLgEcKqI/mTn
+	 B8UhZ4xeFomZgQHhw1OPNHU/wgAl/e+q4qLg5PZt3YE5s0fxsgt/Md+52HUL9222+oblg
+	 xVEykLAbbqPAzjGUZhQDRnLb92DjInPrYqXS83uZLKPsY09DnWtLvuBOXCAUKDO5ch9/S
+	 Aga1SJ4JYewRY1DVzlpdJ4vYLJ0liKhUKcFi+QAbtezwZyGb6SdiXf2PZQ4I1pynLjc6k
+	 0lz2wxTX+aLMgXG1GYMyBuU4g0dxrTKCisx8WzDdakqGZqowJt2d3KV5NFob0dwjnMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oPj6c6a0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2FBE606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 17:23:24 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=X26tYuWa;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 51B62606A32A;
+	Tue, 17 Nov 2026 17:23:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51B62606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oPj6c6a0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF30A1F000C8
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 17:23:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794936204;
-	bh=qPbuxogoqNwU/qyRYw+LGXjvF5P4V0NFNB4XBiaBpkA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=oPj6c6a0mIS9sdaEIQG36xIG1NhQ77AlC9xRI/0B3iw4C1VzrPoad7mLHqSYr0NQS
-	 QjKmf+7wI7X9H2SfF8j9IptaYl6ExlXoX5J+epfggrerRPl3jadIPph3gPQd4Mikwm
-	 ncG7jgPzELSQe0GbUG7860qCFsANtxIWH1fSj4cjCvETYHxIO44cbMsnM1+gLmpxxS
-	 UP3qsWIJVyLAnhTiM470e0pq8lGtmbn7cCJvY5DpKeqQPhnccM+PRO0EkoKYuUd2MB
-	 4VNdrZhDFIE/aP/8DqdnWPJ1iZ0SR4I+fVInBZes+O9xkCkNSgfCZaY6ztmKpNfHPT
-	 oLTVrxnkZ/Ltw==
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c468bd799ecso742879466b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:23:24 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEFZ5dl4+wDSu2r1sMR3Sj105X7i6gpDFxg0DhkEaTQf0/WLJ24OSylTeensh6arcYIi3ATLTNlkHJqvww=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+rWde61H5UAnR06LBHOk51gF/+ryBP9+akwf3nzjdcpi+T+PlR
-	VQlH02Jc8rM4cxXek/s7Yd+oBPNMJJjs6LDQ+2VVAgl++fzWPYKRbNvKpNg5HW9XAkpJtxmEiUH
-	YrCTa/cp9CwKbX/P2quolKJNLtCk1smk=
-X-Received: by 2002:a17:907:d27:b0:c41:1e13:8891 with SMTP id
- a640c23a62f3a-c50963d46ecmr1184846866b.9.1794936203620; Tue, 17 Nov 2026
- 09:23:23 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=X26tYuWa
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B615E1A00;
+	Tue, 17 Nov 2026 09:23:52 -0800 (PST)
+Received: from e144440.cambridge.arm.com (e144440.arm.com [10.2.199.104])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AE1CD3F632;
+	Tue, 17 Nov 2026 09:23:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794936235; bh=nuuxNabwLDGMU43xHBMlv65TOjY4YdPO5UFA/AgDsmQ=;
+	h=From:To:Cc:Subject:Date:From;
+	b=X26tYuWa+ayRlYoEsgE88VEUuQSKMuliPzXKPOx6yh/KWkxN39IiELtTfcS2gRk3J
+	 6SmATcQOc+s/hgPrJ2rIOdWmsmZjONdKMp3qu4lS9iHVksalcZjuqR3cNGG1+ne+gb
+	 N4PM08YSNtMxOaR3KFb20OenFJijKD09w0Es5IQ8=
+From: Ryan Roberts <ryan.roberts@arm.com>
+To: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: Ryan Roberts <ryan.roberts@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v1] arm64: Mitigate Spectre v1 in the BPF interpreter
+Date: Tue, 17 Nov 2026 17:23:40 +0000
+Message-ID: <20261117172341.3152407-1-ryan.roberts@arm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,50 +68,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112203227.289379-1-zide.chen@intel.com> <20261112203227.289379-7-zide.chen@intel.com>
-In-Reply-To: <20261112203227.289379-7-zide.chen@intel.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Tue, 17 Nov 2026 09:23:11 -0800
-X-Gmail-Original-Message-ID: <CAO9r8zPD_i2aWc3jaKRr-=1Pz0td=6nqBpgBfVVaV3jfzVTAjw@mail.gmail.com>
-X-Gm-Features: AclHuK-xecCpEbInyvGGF_p4kfoSNSZz851mSQupLC1L4HsXX_kRXqRMGPskwh8
-Message-ID: <CAO9r8zPD_i2aWc3jaKRr-=1Pz0td=6nqBpgBfVVaV3jfzVTAjw@mail.gmail.com>
-Subject: Re: [PATCH v4 06/21] KVM: x86/pmu: Drop nr_arch_{gp,fixed}_counters
- from kvm_pmu
-To: Zide Chen <zide.chen@intel.com>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, 
-	Jim Mattson <jmattson@google.com>, Andi Kleen <ak@linux.intel.com>, 
-	Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, 
-	Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>, 
-	Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
-	Xudong Hao <xudong.hao@intel.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
->  static void amd_pmu_init(struct kvm_vcpu *vcpu)
-> diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-> index 136069dfcd44..e21abcedea70 100644
-> --- a/arch/x86/kvm/svm/svm.c
-> +++ b/arch/x86/kvm/svm/svm.c
-> @@ -761,24 +761,21 @@ static void svm_recalc_pmu_msr_intercepts(struct kvm_vcpu *vcpu)
->  {
->         bool intercept = !kvm_vcpu_has_mediated_pmu(vcpu);
->         struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
-> +       unsigned long gp_mask = kvm_gp_pmc_mask(pmu);
->         int i;
->
->         if (!enable_mediated_pmu)
->                 return;
->
->         /* Legacy counters are always available for AMD CPUs with a PMU. */
-> -       for (i = 0; i < min(pmu->nr_arch_gp_counters, AMD64_NUM_COUNTERS); i++)
-> +       for (i = 0; i < AMD64_NUM_COUNTERS; i++)
->                 svm_set_intercept_for_msr(vcpu, MSR_K7_PERFCTR0 + i,
-> -                                         MSR_TYPE_RW, intercept);
-> +                                         MSR_TYPE_RW, intercept || !test_bit(i, &gp_mask));
+The BPF verifier can accept programs with unsafe speculative paths by
+inserting BPF_NOSPEC instructions instead of rejecting them. It relies
+on those instructions to prevent execution of the unsafe paths.
 
-This fixes a pre-existing bug that was reported internally, that can
-happen if a malicious VMM reduces the number of counters after
-initiating KVM_RUN but before VM-entry. The current code would fail to
-re-enable the intercept on the counters that become unsupported.
+The arm64 JIT implements BPF_NOSPEC with a speculation barrier, but the
+interpreter calls barrier_nospec(), which falls back to a no-op on
+arm64. Programs executed by the interpreter therefore lack the
+Spectre-v1 barriers assumed by the verifier. Contrary to the code
+comment, kernel-wide SSBD does not provide this protection, since it
+mitigates Spectre v4 rather than Spectre v1.
 
-Might be worth splitting this out into a standalone fix.
+Rename spec_bar() to barrier_nospec() so that the interpreter and other
+callers receive SB if supported, or DSB NSH followed by ISB otherwise.
+
+Defining barrier_nospec() would also add barriers to the generic
+copy_from_user() and copy_from_user_iter() paths. These are unnecessary
+on arm64: its uaccess primitives mask user pointers so that they cannot
+address kernel memory even when an access_ok() check is mispredicted.
+
+Introduce user_access_may_speculate_kernel_addr(), defaulting to true,
+and have arm64 return false. Then update the uaccess sites to call
+barrier_nospec() conditionally on the macro.
+
+Cc: stable@vger.kernel.org
+Fixes: d6f1c85f2253 ("bpf: Fall back to nospec for Spectre v1")
+Signed-off-by: Ryan Roberts <ryan.roberts@arm.com>
+---
+ arch/arm64/include/asm/barrier.h | 6 +++---
+ arch/arm64/include/asm/uaccess.h | 3 +++
+ arch/arm64/kernel/proton-pack.c  | 2 +-
+ include/linux/uaccess.h          | 7 ++++++-
+ kernel/bpf/core.c                | 9 +--------
+ lib/iov_iter.c                   | 3 ++-
+ 6 files changed, 16 insertions(+), 14 deletions(-)
+
+diff --git a/arch/arm64/include/asm/barrier.h b/arch/arm64/include/asm/barrier.h
+index 9495c4441a46..088ee29d36f4 100644
+--- a/arch/arm64/include/asm/barrier.h
++++ b/arch/arm64/include/asm/barrier.h
+@@ -40,9 +40,9 @@
+  */
+ #define dgh()		asm volatile("hint #6" : : : "memory")
+
+-#define spec_bar()	asm volatile(ALTERNATIVE("dsb nsh\nisb\n",		\
+-						 SB_BARRIER_INSN"nop\n",	\
+-						 ARM64_HAS_SB))
++#define barrier_nospec() asm volatile(ALTERNATIVE("dsb nsh\nisb\n",		\
++						  SB_BARRIER_INSN"nop\n",	\
++						  ARM64_HAS_SB) : : : "memory")
+
+ #define gsb_ack()	asm volatile(GSB_ACK_BARRIER_INSN : : : "memory")
+ #define gsb_sys()	asm volatile(GSB_SYS_BARRIER_INSN : : : "memory")
+diff --git a/arch/arm64/include/asm/uaccess.h b/arch/arm64/include/asm/uaccess.h
+index 9f5bd9c69c24..6fd03dc1ae76 100644
+--- a/arch/arm64/include/asm/uaccess.h
++++ b/arch/arm64/include/asm/uaccess.h
+@@ -174,6 +174,9 @@ static inline void __user *__uaccess_mask_ptr(const void __user *ptr)
+ 	return safe_ptr;
+ }
+
++/* __uaccess_mask_ptr() prevents speculative accesses to kernel addresses. */
++#define user_access_may_speculate_kernel_addr() false
++
+ /*
+  * The "__xxx" versions of the user access functions do not verify the address
+  * space - it must have been done previously with a separate "access_ok()"
+diff --git a/arch/arm64/kernel/proton-pack.c b/arch/arm64/kernel/proton-pack.c
+index 3bcf86154d95..c96e93eca3b9 100644
+--- a/arch/arm64/kernel/proton-pack.c
++++ b/arch/arm64/kernel/proton-pack.c
+@@ -559,7 +559,7 @@ static enum mitigation_state spectre_v4_enable_hw_mitigation(void)
+ 	 * could mis-speculate branches and bypass a conditional barrier.
+ 	 */
+ 	if (IS_ENABLED(CONFIG_ARM64_ERRATUM_3194386))
+-		spec_bar();
++		barrier_nospec();
+
+ 	return SPECTRE_MITIGATED;
+ }
+diff --git a/include/linux/uaccess.h b/include/linux/uaccess.h
+index 67cdb0a4f583..5a1fa4f48c77 100644
+--- a/include/linux/uaccess.h
++++ b/include/linux/uaccess.h
+@@ -50,6 +50,10 @@
+  #define mask_user_address(src) (src)
+ #endif
+
++#ifndef user_access_may_speculate_kernel_addr
++#define user_access_may_speculate_kernel_addr() true
++#endif
++
+ /*
+  * Architectures should provide two primitives (raw_copy_{to,from}_user())
+  * and get rid of their private instances of copy_{to,from}_user() and
+@@ -179,7 +183,8 @@ _inline_copy_from_user(void *to, const void __user *from, unsigned long n)
+ 		 * lead to nasty side effects *after* the copy is
+ 		 * finished:
+ 		 */
+-		barrier_nospec();
++		if (user_access_may_speculate_kernel_addr())
++			barrier_nospec();
+ 	}
+ 	instrument_copy_from_user_before(to, from, n);
+ 	res = raw_copy_from_user(to, from, n);
+diff --git a/kernel/bpf/core.c b/kernel/bpf/core.c
+index 0b8456f2dce9..abd938d310bb 100644
+--- a/kernel/bpf/core.c
++++ b/kernel/bpf/core.c
+@@ -2250,14 +2250,7 @@ static u64 ___bpf_prog_run(u64 *regs, const struct bpf_insn *insn)
+ 	/* ST, STX and LDX*/
+ 	ST_NOSPEC:
+ 		/* Speculation barrier for mitigating Speculative Store Bypass,
+-		 * Bounds-Check Bypass and Type Confusion. In case of arm64, we
+-		 * rely on the firmware mitigation as controlled via the ssbd
+-		 * kernel parameter. Whenever the mitigation is enabled, it
+-		 * works for all of the kernel code with no need to provide any
+-		 * additional instructions here. In case of x86, we use 'lfence'
+-		 * insn for mitigation. We reuse preexisting logic from Spectre
+-		 * v1 mitigation that happens to produce the required code on
+-		 * x86 for v4 as well.
++		 * Bounds-Check Bypass and Type Confusion.
+ 		 */
+ 		barrier_nospec();
+ 		CONT;
+diff --git a/lib/iov_iter.c b/lib/iov_iter.c
+index fa4fe2e92383..abd27189beff 100644
+--- a/lib/iov_iter.c
++++ b/lib/iov_iter.c
+@@ -60,7 +60,8 @@ size_t copy_from_user_iter(void __user *iter_from, size_t progress,
+ 		 * lead to nasty side effects *after* the copy is
+ 		 * finished:
+ 		 */
+-		barrier_nospec();
++		if (user_access_may_speculate_kernel_addr())
++			barrier_nospec();
+ 	}
+ 	to += progress;
+ 	instrument_copy_from_user_before(to, iter_from, len);
+--
+2.43.0
+
