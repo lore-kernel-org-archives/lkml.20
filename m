@@ -1,69 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794905106;
-	b=vZsMbG6awp7xBlcrz2ftqfTdcj26X83ayknauX3nn3XgLijE3yvUqQRrp6WgmsQGWMrM
-	 JEu82QGQe9J+wHTXVvxWqlz5rVj3jAUnwPu5MidYBanCvkm1/l8BEwfETZvleiw4h2Epn
-	 oNBgN/MYmsC5s8/9jMmV+NztxJ7PdDNyzKEFTrJPJJy/oM5mJINqzoYscEsVfB23z43TB
-	 BowranDTalVPLSz52I+hHc3/+0LLIESBCbXel4kk9008qKdWNQfA/IAttkfWMR+m4o18Z
-	 B9HXoTkSLqz/+tTlytkeRGYMNGeISBJoJi9L41nSygDU9WTHB8OQsywPYcaJO6VpzKw==
+	t=1794905126;
+	b=mi5VsEosL/iaezvFXS3sFcPk1Xi8WOnhpeWagKofC/3MSMGw1ec7dJzrJpXHA+rSPsNp
+	 688HbHuSobHP1mkFWntgtWm1I5/yMp+fopT8paXAIEVH8MAnrJ0JqXTOEAuaLHGmcyP8w
+	 BXZU6ggg1RYn43CnD7zYGVJk27oHAn9cNOacB635mkpGgxEnHjEpyGZNLxF0mWJdBzjEU
+	 9rjWEZ5GXuQ1zi/dGirPJMCDO7wJDfUz0kpXBMMj/I3NjS3LkIPVI9jdgGRj7RB0d34Do
+	 9buEVgxXkIweQO85z5U67BSColB3aUhVZnRg58Fspxkmi0ltyu8EWiezFoD1nOLXrXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794905106;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=yDzaN8zNsYziiwwWnbzFQP17MdrMEIb33bW6UntLbrs=;
-	b=GiPycSvCBYkhG6LPzCVIG0nKwccNmJj175d8SNvNdid+hp7ii+Yrqf8WlUpVfKV9s8EH
-	 R6aaBMUBXbPcLYeB6IScHVXbOUq2H1zkwH/3TSH2uXh4q6GDfDplQgSc8Uh2Be/WA0Aia
-	 P7J4lEleRpsvTqrTzcgC2vzoj10Ke2mSy716jnhvnUaGemOVdHhQozQYZqwAM9vohhfh5
-	 AMtIWSKiRXKK62CoweUu0qaa9Rao4TrUxM+3HMMMhG9nx2WcEBahpwAzhz6H5fE0fa22l
-	 YTDebn9+PEj+hK0kqvpucm+6gEi3uAZQ+fVTd8sH39Bj3AFBevg+IM0OdcRkyaBrDuA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794905126;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-Spamd-Result:
+	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
+	 X-Rspamd-Queue-Id;
+	bh=HtQfSTCDo69KwjcGYAQjqOB4/Op9vfM277fQ3LSI5Ow=;
+	b=3OLnvOn6K4DniO2aA2E4flcoM4s8blHbaC8L96+RxsoMB0qwDB3rZOrRzJqbchmQVEn2
+	 Qp1jYx+TkVIzcWI9hURomFWKu3WsGpC8GaCZQseFsXBHxsQjC6T7Ce8qpWrJkZGKDRcFH
+	 7fyOaNvT0XeeFbBgdsVgQY3h55awVvfwmKQ3QTZ6LI0ybzyyRrSyTptpl83nEygxBxxZW
+	 Ez3Hz7A4VZNU9apwrFKU+krA+l+6odNof8AlGQeCb8cujRWqdO5rVxD1hUqjIVp4Gotvd
+	 FlS8/mfQnGubjdOGURkplLuiPkpFTZ9vUEEfD71+p8/XcUbJJ1rcL1YZqr6VAdN6Psw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Jp5Z5iRz;
-	arc=none smtp.remote-ip=220.197.31.3
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="RTH1Mo2/";
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=W7mv2tzX;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="RTH1Mo2/";
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=W7mv2tzX;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE3F606A8AA
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:45:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBE3F606A8AA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81235606A88C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:45:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81235606A88C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Jp5Z5iRz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=yD
-	zaN8zNsYziiwwWnbzFQP17MdrMEIb33bW6UntLbrs=; b=Jp5Z5iRzxtZlMcS2ld
-	xFWPzopOzl3JXot4N0gjTFrK67x/ou5zovgVSab0aEAweoZKIznyuHGrBvvesnm1
-	9BzkX86Q0teBISC4r1wHXQpM53oj3+rco7NJon5zVIEBpwtw+egI/P7askQHnzke
-	Gb0ZXnH/UhDLvsAITjDpxMPRY=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgD3X6evE_xq9TawGQ--.54072S2;
-	Tue, 17 Nov 2026 16:43:29 +0800 (CST)
-From: Haoxiang Li <haoxiang_li2024@163.com>
-To: sstabellini@kernel.org,
-	linux@armlinux.org.uk,
-	jgross@suse.com,
-	boris.ostrovsky@oracle.com,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	hpa@zytor.com,
-	oleksandr_tyshchenko@epam.com,
-	david.vrabel@citrix.com,
-	konrad.wilk@oracle.com
-Cc: xen-devel@lists.xenproject.org,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RTH1Mo2/;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=W7mv2tzX;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RTH1Mo2/;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=W7mv2tzX
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 3F1EB1F6E6;
+	Tue, 17 Nov 2026 08:45:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794905119; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=HtQfSTCDo69KwjcGYAQjqOB4/Op9vfM277fQ3LSI5Ow=;
+	b=RTH1Mo2/pGsyMVQ6MZkmn8Sne7L3PSATKzVEjORb85vQE4ASWcLdtZVlJMiBn1KbpzqSON
+	EkO2cy9gnNWfiE5qYy3pi/drG3qXTVDOvziiCvavMnf2xd8ySHT+UBNmwPSqDHiCYX1/1f
+	oVSl8S1Vhl34YEp7dtcwj28Rm8F2IEA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794905119;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=HtQfSTCDo69KwjcGYAQjqOB4/Op9vfM277fQ3LSI5Ow=;
+	b=W7mv2tzXxk/39zBlHT9iI910ZFYYrOnP1dYw3039aBTdW26qrLIFpRk3LI2qYJ0ivI0ov/
+	90yh40VC+HmVviAw==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="RTH1Mo2/";
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=W7mv2tzX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794905119; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=HtQfSTCDo69KwjcGYAQjqOB4/Op9vfM277fQ3LSI5Ow=;
+	b=RTH1Mo2/pGsyMVQ6MZkmn8Sne7L3PSATKzVEjORb85vQE4ASWcLdtZVlJMiBn1KbpzqSON
+	EkO2cy9gnNWfiE5qYy3pi/drG3qXTVDOvziiCvavMnf2xd8ySHT+UBNmwPSqDHiCYX1/1f
+	oVSl8S1Vhl34YEp7dtcwj28Rm8F2IEA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794905119;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=HtQfSTCDo69KwjcGYAQjqOB4/Op9vfM277fQ3LSI5Ow=;
+	b=W7mv2tzXxk/39zBlHT9iI910ZFYYrOnP1dYw3039aBTdW26qrLIFpRk3LI2qYJ0ivI0ov/
+	90yh40VC+HmVviAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D0BCC1334C;
+	Tue, 17 Nov 2026 08:45:18 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id jcr5JR4U/GrjUQAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Tue, 17 Nov 2026 08:45:18 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: javierm@redhat.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	airlied@gmail.com,
+	simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	Haoxiang Li <haoxiang_li2024@163.com>
-Subject: [PATCH] xen/grant-table: fix resource leak in gnttab_init()
-Date: Tue, 17 Nov 2026 16:43:25 +0800
-Message-Id: <20261117084325.1241735-1-haoxiang_li2024@163.com>
-X-Mailer: git-send-email 2.25.1
+	sashiko-reviews@lists.linux.dev,
+	Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH] firmware: sysfb: Remove CONFIG_SYSFB_SIMPLEFB
+Date: Tue, 17 Nov 2026 09:44:57 +0100
+Message-ID: <20261117084514.367399-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,97 +112,377 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgD3X6evE_xq9TawGQ--.54072S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxAFy3ZF45uF4kJr1fAry3CFg_yoW5WrWrpa
-	9xAryktrWrW347tFWaga4v9FWrCa97G3yIkrWUZwn8Zan7GF93Jr4IqFyjvr4kCrWkAF4S
-	y3srKr15Jr48ZaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0ziO6pDUUUUU=
-X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbC7hHKOWr8E7GLtAAA3H
+X-Spamd-Result: default: False [-12.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_TO(0.00)[redhat.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:dkim];
+	MIME_TRACE(0.00)[0:+];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -12.01
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 3F1EB1F6E6
 
-For x86 PV guests, arch_gnttab_init() allocates virtual address areas
-and PTE pointer arrays for the shared and status frames. These
-resources are not released if the subsequent gnttab_setup() call fails.
+Enabling SYSFB_SIMPLEFB creates a system-framebuffer device on top of
+a firmware-provided UEFI or VESA framebuffer. It is inflexible and lacks
+support for various features, such as EDID and color LUTs. Therefore
+commit cc79eaf8ee25 ("firmware: sysfb: Mark CONFIG_SYSFB_SIMPLEFB as
+deprecated") marked CONFIG_SYSFB_SIMPLEFB as deprecated.
 
-Add arch_gnttab_free() and call it on this failure path before the
-existing cleanup. Provide an empty implementation for ARM, which
-is also used by ARM64.
+Remove CONFIG_SYSFB_SIMPLEFB and the related code. Remaining users are
+advised to upgrade to efi-framebuffer and vesa-framebuffer with efidrm
+and vesadrm on top. Also remove the outdated comment from sysfb.c.
 
-Fixes: 162e37171276 ("x86/xen: safely map and unmap grant frames when in atomic context")
-Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+Note that this change does not affect DeviceTree simple-framebuffer.
+The kernel still parses them and creates a simple-framebuffer device
+for each.
+
+The MIPS architecture code creates a simple-framebuffer device for the
+display output on the Nintendo N64. Removing CONFIG_SYSFB_SIMPLEFB does
+not affect this code either.
+
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- arch/arm/xen/grant-table.c | 4 ++++
- arch/x86/xen/grant-table.c | 9 +++++++++
- drivers/xen/grant-table.c  | 5 ++++-
- include/xen/grant_table.h  | 1 +
- 4 files changed, 18 insertions(+), 1 deletion(-)
+ drivers/firmware/Kconfig          |  16 ----
+ drivers/firmware/Makefile         |   1 -
+ drivers/firmware/sysfb.c          |  33 -------
+ drivers/firmware/sysfb_simplefb.c | 140 ------------------------------
+ drivers/gpu/drm/sysfb/Kconfig     |   4 +-
+ include/linux/sysfb.h             |  25 ------
+ 6 files changed, 2 insertions(+), 217 deletions(-)
+ delete mode 100644 drivers/firmware/sysfb_simplefb.c
 
-diff --git a/arch/arm/xen/grant-table.c b/arch/arm/xen/grant-table.c
-index 91cf08ba1e95..69db80877bb5 100644
---- a/arch/arm/xen/grant-table.c
-+++ b/arch/arm/xen/grant-table.c
-@@ -56,3 +56,7 @@ int arch_gnttab_init(unsigned long nr_shared, unsigned long nr_status)
- {
- 	return 0;
- }
-+
-+void arch_gnttab_free(void)
-+{
-+}
-diff --git a/arch/x86/xen/grant-table.c b/arch/x86/xen/grant-table.c
-index 5f4060b5a40d..0a89e43d804d 100644
---- a/arch/x86/xen/grant-table.c
-+++ b/arch/x86/xen/grant-table.c
-@@ -149,6 +149,15 @@ int arch_gnttab_init(unsigned long nr_shared, unsigned long nr_status)
- 	return -ENOMEM;
- }
+diff --git a/drivers/firmware/Kconfig b/drivers/firmware/Kconfig
+index 43e2e2a64594..ab76a6f7f0ab 100644
+--- a/drivers/firmware/Kconfig
++++ b/drivers/firmware/Kconfig
+@@ -210,22 +210,6 @@ config SYSFB
+ 	select BOOT_VESA_SUPPORT
+ 	select SCREEN_INFO
  
-+void arch_gnttab_free(void)
-+{
-+	if (!xen_pv_domain())
-+		return;
-+
-+	arch_gnttab_vfree(&gnttab_shared_vm_area);
-+	arch_gnttab_vfree(&gnttab_status_vm_area);
-+}
-+
- #ifdef CONFIG_XEN_PVH
- #include <xen/events.h>
- #include <xen/xen-ops.h>
-diff --git a/drivers/xen/grant-table.c b/drivers/xen/grant-table.c
-index 957500dd309a..fc18fe4cf7a3 100644
---- a/drivers/xen/grant-table.c
-+++ b/drivers/xen/grant-table.c
-@@ -1696,7 +1696,7 @@ int gnttab_init(void)
+-config SYSFB_SIMPLEFB
+-	bool "Mark VGA/VBE/EFI FB as generic system framebuffer (deprecated)"
+-	depends on X86 || EFI
+-	select SYSFB
+-	help
+-	  Firmware often provides initial graphics framebuffers so the BIOS,
+-	  bootloader or kernel can show basic video-output during boot for
+-	  user-guidance and debugging.
+-
+-	  This option, if enabled, marks VBE/EFI framebuffers as system
+-	  framebuffers so the generic simpledrm driver can be used.
+-
+-	  This option is deprecated and will be removed in the near future. If
+-	  unsure, say N and select efidrm, vesadrm instead. The dedicated DRM
+-	  drivers provide the same functionality plus additional features.
+-
+ config TH1520_AON_PROTOCOL
+ 	tristate "Always-On firmware protocol"
+ 	depends on ARCH_THEAD || COMPILE_TEST
+diff --git a/drivers/firmware/Makefile b/drivers/firmware/Makefile
+index 50b338313152..6a9413454d10 100644
+--- a/drivers/firmware/Makefile
++++ b/drivers/firmware/Makefile
+@@ -19,7 +19,6 @@ obj-$(CONFIG_RASPBERRYPI_FIRMWARE) += raspberrypi.o
+ obj-$(CONFIG_FW_CFG_SYSFS)	+= qemu_fw_cfg.o
+ obj-$(CONFIG_FW_ATTR_CLASS)	+= firmware_attributes_class.o
+ obj-$(CONFIG_SYSFB)		+= sysfb.o
+-obj-$(CONFIG_SYSFB_SIMPLEFB)	+= sysfb_simplefb.o
+ obj-$(CONFIG_TH1520_AON_PROTOCOL) += thead,th1520-aon.o
+ obj-$(CONFIG_TI_SCI_PROTOCOL)	+= ti_sci.o
+ obj-$(CONFIG_TRUSTED_FOUNDATIONS) += trusted_foundations.o
+diff --git a/drivers/firmware/sysfb.c b/drivers/firmware/sysfb.c
+index 8833582c1883..07738b9e89c5 100644
+--- a/drivers/firmware/sysfb.c
++++ b/drivers/firmware/sysfb.c
+@@ -4,33 +4,11 @@
+  * Copyright (c) 2012-2013 David Herrmann <dh.herrmann@gmail.com>
+  */
  
- 	if (gnttab_setup() < 0) {
- 		ret = -ENODEV;
--		goto ini_nomem;
-+		goto free_gnttab;
+-/*
+- * Simple-Framebuffer support
+- * Create a platform-device for any available boot framebuffer. The
+- * simple-framebuffer platform device is already available on DT systems, so
+- * this module parses the global "screen_info" object and creates a suitable
+- * platform device compatible with the "simple-framebuffer" DT object. If
+- * the framebuffer is incompatible, we instead create a legacy
+- * "vesa-framebuffer", "efi-framebuffer" or "platform-framebuffer" device and
+- * pass the screen_info as platform_data. This allows legacy drivers
+- * to pick these devices up without messing with simple-framebuffer drivers.
+- * The global "screen_info" is still valid at all times.
+- *
+- * If CONFIG_SYSFB_SIMPLEFB is not selected, never register "simple-framebuffer"
+- * platform devices, but only use legacy framebuffer devices for
+- * backwards compatibility.
+- *
+- * TODO: We set the dev_id field of all platform-devices to 0. This allows
+- * other OF/DT parsers to create such devices, too. However, they must
+- * start at offset 1 for this to work.
+- */
+-
+ #include <linux/err.h>
+ #include <linux/init.h>
+ #include <linux/kernel.h>
+ #include <linux/mm.h>
+ #include <linux/pci.h>
+-#include <linux/platform_data/simplefb.h>
+ #include <linux/platform_device.h>
+ #include <linux/screen_info.h>
+ #include <linux/sysfb.h>
+@@ -145,9 +123,7 @@ static __init int sysfb_init(void)
+ 	struct screen_info *si = &dpy->screen;
+ 	struct device *parent;
+ 	unsigned int type;
+-	struct simplefb_platform_data mode;
+ 	const char *name;
+-	bool compatible;
+ 	int ret = 0;
+ 
+ 	screen_info_apply_fixups();
+@@ -164,17 +140,8 @@ static __init int sysfb_init(void)
+ 		goto unlock_mutex;
  	}
  
- 	gnttab_size = nr_grant_frames * gnttab_interface->grefs_per_grant_frame;
-@@ -1707,6 +1707,9 @@ int gnttab_init(void)
- 	printk("Grant table initialized\n");
- 	return 0;
+-	/* try to create a simple-framebuffer device */
+-	compatible = sysfb_parse_mode(si, &mode);
+-	if (compatible) {
+-		pd = sysfb_create_simplefb(si, &mode, parent);
+-		if (!IS_ERR(pd))
+-			goto put_device;
+-	}
+-
+ 	type = screen_info_video_type(si);
  
-+ free_gnttab:
-+	arch_gnttab_free();
-+
-  ini_nomem:
- 	for (i--; i >= 0; i--)
- 		free_page((unsigned long)gnttab_list[i]);
-diff --git a/include/xen/grant_table.h b/include/xen/grant_table.h
-index a33a60a2ea72..a635cadb61f1 100644
---- a/include/xen/grant_table.h
-+++ b/include/xen/grant_table.h
-@@ -203,6 +203,7 @@ gnttab_set_unmap_op(struct gnttab_unmap_grant_ref *unmap, phys_addr_t addr,
- }
+-	/* if the FB is incompatible, create a legacy framebuffer device */
+ 	switch (type) {
+ 	case VIDEO_TYPE_EGAC:
+ 		name = "ega-framebuffer";
+diff --git a/drivers/firmware/sysfb_simplefb.c b/drivers/firmware/sysfb_simplefb.c
+deleted file mode 100644
+index 71f542e37732..000000000000
+--- a/drivers/firmware/sysfb_simplefb.c
++++ /dev/null
+@@ -1,140 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-or-later
+-/*
+- * Generic System Framebuffers
+- * Copyright (c) 2012-2013 David Herrmann <dh.herrmann@gmail.com>
+- */
+-
+-/*
+- * simple-framebuffer probing
+- * Try to convert "screen_info" into a "simple-framebuffer" compatible mode.
+- * If the mode is incompatible, we return "false" and let the caller create
+- * legacy nodes instead.
+- */
+-
+-#include <linux/err.h>
+-#include <linux/init.h>
+-#include <linux/kernel.h>
+-#include <linux/mm.h>
+-#include <linux/platform_data/simplefb.h>
+-#include <linux/platform_device.h>
+-#include <linux/screen_info.h>
+-#include <linux/sysfb.h>
+-
+-static const char simplefb_resname[] = "BOOTFB";
+-static const struct simplefb_format formats[] = SIMPLEFB_FORMATS;
+-
+-/* try parsing screen_info into a simple-framebuffer mode struct */
+-__init bool sysfb_parse_mode(const struct screen_info *si,
+-			     struct simplefb_platform_data *mode)
+-{
+-	__u8 type;
+-	u32 bits_per_pixel;
+-	unsigned int i;
+-
+-	type = si->orig_video_isVGA;
+-	if (type != VIDEO_TYPE_VLFB && type != VIDEO_TYPE_EFI)
+-		return false;
+-
+-	bits_per_pixel = __screen_info_lfb_bits_per_pixel(si);
+-
+-	for (i = 0; i < ARRAY_SIZE(formats); ++i) {
+-		const struct simplefb_format *f = &formats[i];
+-
+-		if (f->transp.length)
+-			continue; /* transparent formats are unsupported by VESA/EFI */
+-
+-		if (bits_per_pixel == f->bits_per_pixel &&
+-		    si->red_size == f->red.length &&
+-		    si->red_pos == f->red.offset &&
+-		    si->green_size == f->green.length &&
+-		    si->green_pos == f->green.offset &&
+-		    si->blue_size == f->blue.length &&
+-		    si->blue_pos == f->blue.offset) {
+-			mode->format = f->name;
+-			mode->width = si->lfb_width;
+-			mode->height = si->lfb_height;
+-			mode->stride = si->lfb_linelength;
+-			return true;
+-		}
+-	}
+-
+-	return false;
+-}
+-
+-__init struct platform_device *sysfb_create_simplefb(const struct screen_info *si,
+-						     const struct simplefb_platform_data *mode,
+-						     struct device *parent)
+-{
+-	struct platform_device *pd;
+-	struct resource res;
+-	u64 base, size;
+-	u32 length;
+-	int ret;
+-
+-	/*
+-	 * If the 64BIT_BASE capability is set, ext_lfb_base will contain the
+-	 * upper half of the base address. Assemble the address, then make sure
+-	 * it is valid and we can actually access it.
+-	 */
+-	base = si->lfb_base;
+-	if (si->capabilities & VIDEO_CAPABILITY_64BIT_BASE)
+-		base |= (u64)si->ext_lfb_base << 32;
+-	if (!base || (u64)(resource_size_t)base != base) {
+-		printk(KERN_DEBUG "sysfb: inaccessible VRAM base\n");
+-		return ERR_PTR(-EINVAL);
+-	}
+-
+-	/*
+-	 * Don't use lfb_size as IORESOURCE size, since it may contain the
+-	 * entire VMEM, and thus require huge mappings. Use just the part we
+-	 * need, that is, the part where the framebuffer is located. But verify
+-	 * that it does not exceed the advertised VMEM.
+-	 * Note that in case of VBE, the lfb_size is shifted by 16 bits for
+-	 * historical reasons.
+-	 */
+-	size = si->lfb_size;
+-	if (si->orig_video_isVGA == VIDEO_TYPE_VLFB)
+-		size <<= 16;
+-	length = mode->height * mode->stride;
+-	if (length > size) {
+-		printk(KERN_WARNING "sysfb: VRAM smaller than advertised\n");
+-		return ERR_PTR(-EINVAL);
+-	}
+-	length = PAGE_ALIGN(length);
+-
+-	/* setup IORESOURCE_MEM as framebuffer memory */
+-	memset(&res, 0, sizeof(res));
+-	res.flags = IORESOURCE_MEM;
+-	res.name = simplefb_resname;
+-	res.start = base;
+-	res.end = res.start + length - 1;
+-	if (res.end <= res.start)
+-		return ERR_PTR(-EINVAL);
+-
+-	pd = platform_device_alloc("simple-framebuffer", 0);
+-	if (!pd)
+-		return ERR_PTR(-ENOMEM);
+-
+-	pd->dev.parent = parent;
+-
+-	sysfb_set_efifb_fwnode(si, pd);
+-
+-	ret = platform_device_add_resources(pd, &res, 1);
+-	if (ret)
+-		goto err_put_device;
+-
+-	ret = platform_device_add_data(pd, mode, sizeof(*mode));
+-	if (ret)
+-		goto err_put_device;
+-
+-	ret = platform_device_add(pd);
+-	if (ret)
+-		goto err_put_device;
+-
+-	return pd;
+-
+-err_put_device:
+-	platform_device_put(pd);
+-
+-	return ERR_PTR(ret);
+-}
+diff --git a/drivers/gpu/drm/sysfb/Kconfig b/drivers/gpu/drm/sysfb/Kconfig
+index f7e48178885e..05d4b3ab4d08 100644
+--- a/drivers/gpu/drm/sysfb/Kconfig
++++ b/drivers/gpu/drm/sysfb/Kconfig
+@@ -25,7 +25,7 @@ config DRM_COREBOOTDRM
  
- int arch_gnttab_init(unsigned long nr_shared, unsigned long nr_status);
-+void arch_gnttab_free(void);
- int arch_gnttab_map_shared(xen_pfn_t *frames, unsigned long nr_gframes,
- 			   unsigned long max_nr_gframes,
- 			   void **__shared);
+ config DRM_EFIDRM
+ 	tristate "EFI framebuffer driver"
+-	depends on DRM && MMU && EFI && (!SYSFB_SIMPLEFB || COMPILE_TEST)
++	depends on DRM && MMU && EFI
+ 	select APERTURE_HELPERS
+ 	select DRM_CLIENT_SELECTION
+ 	select DRM_GEM_SHMEM_HELPER
+@@ -72,7 +72,7 @@ config DRM_SIMPLEDRM
+ 
+ config DRM_VESADRM
+ 	tristate "VESA framebuffer driver"
+-	depends on DRM && MMU && X86 && (!SYSFB_SIMPLEFB || COMPILE_TEST)
++	depends on DRM && MMU && X86
+ 	select APERTURE_HELPERS
+ 	select DRM_CLIENT_SELECTION
+ 	select DRM_GEM_SHMEM_HELPER
+diff --git a/include/linux/sysfb.h b/include/linux/sysfb.h
+index ed23d6516223..611c8f0d13da 100644
+--- a/include/linux/sysfb.h
++++ b/include/linux/sysfb.h
+@@ -110,29 +110,4 @@ static inline void sysfb_set_efifb_fwnode(const struct screen_info *si,
+ 
+ #endif /* CONFIG_EFI */
+ 
+-#ifdef CONFIG_SYSFB_SIMPLEFB
+-
+-bool sysfb_parse_mode(const struct screen_info *si,
+-		      struct simplefb_platform_data *mode);
+-struct platform_device *sysfb_create_simplefb(const struct screen_info *si,
+-					      const struct simplefb_platform_data *mode,
+-					      struct device *parent);
+-
+-#else /* CONFIG_SYSFB_SIMPLEFB */
+-
+-static inline bool sysfb_parse_mode(const struct screen_info *si,
+-				    struct simplefb_platform_data *mode)
+-{
+-	return false;
+-}
+-
+-static inline struct platform_device *sysfb_create_simplefb(const struct screen_info *si,
+-							    const struct simplefb_platform_data *mode,
+-							    struct device *parent)
+-{
+-	return ERR_PTR(-EINVAL);
+-}
+-
+-#endif /* CONFIG_SYSFB_SIMPLEFB */
+-
+ #endif /* _LINUX_SYSFB_H */
 -- 
-2.25.1
+2.56.0
 
