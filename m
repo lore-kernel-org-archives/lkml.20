@@ -1,66 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794879431;
-	b=3sKoN7Nj4kNWAgTsumZidNQTx9dB9F0H8anjePSpX/NtIzn8MBeQ2m44IctC+Gd0fDgN
-	 4ock3Ng4OPdgXSv3j90g+LERUlmeJAuDljis4QINjM/hBYE0DwL5U7K9amvs8voQpPw+F
-	 YTBCUYYgMf42ZKsBiyK6J1ZjDRljDVCIj4GmwmQX2T9ISMsl4EekYAiv/CqtAbdzEmHNV
-	 mSAG1ggWlU4pGXkEJ3UeVTXUZiPqrbqVyHjswnU46z1ZHPANPt7GQVzVjG3TkfCymyTLJ
-	 wqEEA1qPFfPzxbjNNYyuxUefa1NBozI+0B+/8jqk5YsT+O1CU8wFkq1n6mRq/jXr+Yw==
+	t=1794879481;
+	b=bQ7FHmb4HRNHfnRfb5w+2yV8p5J+sWMtXE88MccqKlPyA3sEGoJSOnnIwTQsmG9UNVeV
+	 lrRMC50n7w8pHkRL1Km5KLrBQx3bEXX2/7JLaqf2KZ9so/F1prrXT0InoZja2Jr+04rcK
+	 MDo0x1BIRYCxpsU1+ZAPuuji1Eoa3W0BwN85lVVWgG7yGi4PG+8sEUQude5dPJFHO3IVD
+	 C2f81NpiyGQyM+8TBPqbKLLPt8UW7BrUDaHCkVm+aUf2waOvOx+SMpUfBe8dM4miSso/4
+	 x/WXWTOCrQMc2ANWeR+0SyUc1SpbdZDM/B55HiEcSO/6928GF9Kbxsp2ebJXuNrt+xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794879431;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=BIMOnFHtb/Mb13a3T/u5ttg244elHzKV/mc7yLX3gCc=;
-	b=yH1LK7YzA8Txqct0rR5URT8O2a3LSwTt6WvCrAyPGeMycVWzPykMhw69qwek+QiAQgmO
-	 P4YClgOHJVGMv/xzjhmR5ZzU12EMjS0SpNS9XR37jVWIUhFRmhyijAHu44mdtfc9LXX4P
-	 XYmK8INpnQOpdU9bhv8KNJu9+Lx+fTWyjWy9kWi86j4+N8uk08RLNlGxz9rEY0tLgDAvn
-	 m39VTXj4K2Ep0d5peTZQgUbrpesJ9unQwHfKR7erI+IlVh+y8GC+Vn+aE+ue21QYPapzu
-	 uLCEThV+1DQB5amnK1sECFF/wG7jHDYaB+YwIulOvakvvdjeVTynHshgiOGbqOrsC0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794879481;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=8JcHUYWuXURIlDdVtjfl+F+I3k1RR4DC8FoHZM3MqHk=;
+	b=NrT3gXFqVJUrajPR4uoLP3nYCu9FuZbO1xkHmk6qDA6LJNKG7Vp3yrxn82JBNXIrV933
+	 cjVeofOipy88bsFFeVLmKl9Q7nSsV03ytY/rXJqk4XWXzm34Tkg10Xy94Meww7Z00ms0c
+	 F1daqfjFF8LlP2LcNF83VulvHsa4J5m0hBQ2ESBvla/V8YDMHipyDHgDcsf2ky5dFu3qf
+	 q0WYZrGGk1aTg2H6koVt+tpeaLazPZGRxyeqrxK/qeV9rzRXam3g3ITOhQLzC3MBzQ4RB
+	 x5Q4D2eudc/Lq/zYSEr3G+h72zEBxbCosJR9OvzK0NZ4ldBkVKUjnKA3267khKQmofg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l8dNYQte;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=fGFmytpc;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECEE3606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:37:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AE56606A31C;
+	Tue, 17 Nov 2026 01:38:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AE56606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l8dNYQte
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96B5D1F000C4;
-	Tue, 17 Nov 2026 01:37:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794879430;
-	bh=BIMOnFHtb/Mb13a3T/u5ttg244elHzKV/mc7yLX3gCc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=l8dNYQte0M53YUVdQTJ09cHEEm/GkG1g6FiQLENVmU4Tcmi9BNuZ6oyDbW3ql4gAA
-	 0Bf3rOM9FBbFbrGVScLXwmi4RN28kdCu5fxWRCh3bwbZ21zUQahXy47KY9BPFeIrjt
-	 doE5joDBU606+nuRIVWAKFzp+6zIFNYbe5IVRQS7XsfcSlfEKMJmCs1z9cieS/URJH
-	 G1CRyLA9K6YRugwzoxlLQB/ef2wT4k5Mf0eySpDmsYyfKq3Hk0TFIo3EZky9BUhcxr
-	 9/S+9I1zYLn79j9gspSdRuudOw6+UjyDsuyrppgEkgT+Vod2bKZzsEsEehkJosOCJf
-	 0W8lcSOy7js2w==
-From: SJ Park <sj@kernel.org>
-To: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	David Hildenbrand <david@kernel.org>,
-	Mel Gorman <mgorman@techsingularity.net>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Zi Yan <ziy@nvidia.com>,
-	Dev Jain <dev.jain@arm.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com
-Subject: Re: [PATCH] mm/compaction: do not skip the free scanner's periodic lock drop
-Date: Mon, 16 Nov 2026 17:37:02 -0800
-Message-ID: <20261117013702.109081-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261116125746.2897395-1-kas@kernel.org>
-References: 
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=fGFmytpc
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=8JcHUYWuXURIlDdVtjfl+F+I3k1RR4DC8FoHZM3MqHk=; b=fG
+	FmytpcbRtrvDNF+9s8ZwFJkcXyrWSOuUTR0YQB5jWn8N4AHzNhGRGM5Q9Un2X+3nI+il55+kZQvib
+	kv6z+w08inaseaOt7yqUlagi+X0Y0bK0r7qZkmdysaXVoL/pIxgekZqhnDTJLn6cAfmZaKLLqz5xf
+	bUnFmMvM6gOSD14=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xT88w-00H2xi-IT; Tue, 17 Nov 2026 02:37:54 +0100
+Date: Tue, 17 Nov 2026 02:37:54 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Janis Edvarts Lacis <janislacis06@gmail.com>
+Cc: netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org,
+	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+	kuba@kernel.org, pabeni@redhat.com, wellslutw@gmail.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: ethernet: sunplus: check budget before calling
+ napi_complete_done()
+Message-ID: <69fdc047-6cf4-4811-9161-8edfc5bcf355@lunn.ch>
+References: <20261114222744.535158-1-janislacis06@gmail.com>
+ <179479577764.3136.18033299607451586926@kernel.org>
+ <vj5f2zj4fpqp7qaztfp3e5elec44pih3pjqsnkmyhv4js3vxid@naaggpvburqc>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,71 +67,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <vj5f2zj4fpqp7qaztfp3e5elec44pih3pjqsnkmyhv4js3vxid@naaggpvburqc>
 
-On Mon, 16 Nov 2026 12:57:45 +0000 "Kiryl Shutsemau (Meta)" <kas@kernel.org> wrote:
-
-> isolate_freepages_block() drops zone->lock, checks for a fatal signal
-> and calls cond_resched() at every pfn that is a multiple of
-> COMPACT_CLUSTER_MAX.
+> > This note is in the commit body rather than below the --- line, so it
+> > would end up in git history.
 > 
-> With a stride above one, the scan steps over a compound page, or over a
-> high-order free page it has just isolated, to a pfn that is not a
-> multiple of the stride.  From there it never reaches a multiple of
-> COMPACT_CLUSTER_MAX, so the rest of the pageblock is scanned without the
-> check, possibly with zone->lock held and interrupts off.
-> 
-> Count probes instead, and check every COMPACT_CLUSTER_MAX of them.
+> Shouldn't it? Documentation/process/maintainer-netdev.rst, under “Bug
+> fixes”, requires describing how the fix was tested. I included the lack of
+> hardware
+> testing in the commit message to make it explicit that it has not been
+> tested on hardware.
 
-Makes sense to me.
+It is unclear if this is a bug fix.
 
-> 
-> Fixes: 4fca9730c51d ("mm, compaction: sample pageblocks for free pages")
+It is unlikely to reach the criteria for stable:
 
-I understand you intentionally not Cc-ing stable@, buecase the user impact is
-not that bad.  I think that makes sense.  I just wanted to call out this for a
-case that it was not intentional.
+https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
 
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> ---
->  mm/compaction.c | 12 +++++++-----
->  1 file changed, 7 insertions(+), 5 deletions(-)
-> 
-> diff --git a/mm/compaction.c b/mm/compaction.c
-> index f1b2060eb201..4465c1551406 100644
-> --- a/mm/compaction.c
-> +++ b/mm/compaction.c
-> @@ -579,7 +579,7 @@ static unsigned long isolate_freepages_block(struct compact_control *cc,
->  				unsigned int stride,
->  				bool strict)
->  {
-> -	int nr_scanned = 0, total_isolated = 0;
-> +	int nr_scanned = 0, nr_probes = 0, total_isolated = 0;
->  	struct page *page;
->  	unsigned long flags = 0;
->  	bool locked = false;
-> @@ -599,13 +599,15 @@ static unsigned long isolate_freepages_block(struct compact_control *cc,
->  		/*
->  		 * Periodically drop the lock (if held) regardless of its
->  		 * contention, to give chance to IRQs. Abort if fatal signal
-> -		 * pending.
-> +		 * pending. Count probes rather than pfns, as the scan does not
-> +		 * always land on a multiple of COMPACT_CLUSTER_MAX.
->  		 */
-> -		if (!(blockpfn % COMPACT_CLUSTER_MAX)
-> -		    && compact_unlock_should_abort(&cc->zone->lock, flags,
-> -								&locked, cc))
-> +		if (!(nr_probes % COMPACT_CLUSTER_MAX) &&
-> +		    compact_unlock_should_abort(&cc->zone->lock, flags,
-> +						&locked, cc))
+So i don't think it is a bug fix as such.
 
-Why don't you let the later two lines unchanged?  No strong opinion, no
-blocker.
+Since these emails are kept forever, anybody who wants to know will be
+able to find these emails and know it is untested. So i don't think it
+needs to be in the actual commit message.
 
-Reviewed-by: SJ Park <sj@kernel.org>
-
-
-Thanks,
-SJ
-
-[...]
+	Andrew
