@@ -1,59 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.210.91.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.210.91.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794919845;
-	b=k2/eVmsd1wJG3FZS6ag32OutztRgOUmgqC7EiqiY5ZR/m8cNob4lMCwoGpSsxChDpFON
-	 3Bift+vywRrQOuxGpHYXse9/YVdS6AzGvMm+QhkexpkH+/n+J1x5NZAyAA4BzvlgArVsb
-	 J5kN+ezViYqjXHTg+L/CEMqobRAaegqVQTVfmrS4PSwzwfUtsH/6Nd7DpAVAKBTwihd6g
-	 dPqTJqAkCjabsDX4Ae6w/CX/4tq9OSVriyMVgQ2pfO8S+W5T/bbd6eohn1xmFA10Dirls
-	 h84bEW3rLbkcIFcPfTlDoHL8q2LjZz58lsFPJD9eD+pVAQedvK3fnS2COUYp0Tbpt9A==
+	t=1794919852;
+	b=wjeo5ABCsZ4vYzleM0k9A6RdekIccZJcU8KQZ4i2gm3efyEIr0BnnxN2MKrAjEiaFeJu
+	 YAOQWXyJNqzcqsmbODK2bKeFngdnh7SnvDMmC46x4BYKQomvK8JlK0uCwAIRzEZX0UjLJ
+	 MMssVkdEzxAbobpSEfNHxmWdxFFK5bLLmUUOQusNdGskPWW/KdjPnhpDk0BwKgRbf2+/l
+	 BcqJ8uO1Z/+ZL1STeAiSIxHTAXKGZFcvqJVy/kPjR8zCGem0x1KB8P6G2E25lk6UdvxtW
+	 Z3oywEOOzb07cY2302/GiTwn6wAhO1vJEC+j37dB+mm3DwH0CG49kDZjStOHXrw8EfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794919845;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794919852;
 	h=DMARC-Filter:Received:Received:Received:Received:X-OVh-ClientIp:From:
 	 Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:x-ovh-tracer-id:
 	 X-VR-SPAMSTATE:X-VR-SPAMSCORE:X-VR-SPAMCAUSE:DKIM-Signature;
-	bh=WYTaQEL3UbG1DzOCc8KsS361hXXTQNnSbu4YHX11IIk=;
-	b=3tnDbVkU4qtvkDpdChRK+lPuOof2iU8cBJfQRIDBKebNDmnAeHQUgLTpYOCCfK2ktBYA
-	 a7Cep926e5dUiK3F/1Dg51IoTjmLqVm8zigUfsumTh3N2z1BalS+bEdqSJBUS9s/c2Jjg
-	 f4ucFtdK1CLCWkXXGJRlwYCzg2o66kCWds1cPELZUGyLPrbUuoE8wKFv0GY1NnrNJp+Df
-	 tNfjYU5sigkmolhXP05nJJYoW0rNI/HBCkd+Dtxd6n0HiRyahu9x305hOiLQM/1UN/LTj
-	 J3XXTxZXzEr83xXK8ReUpih00S2ykmN6DQV9rBOaIrxqo3Xy1gylMCrjCY5+geyzwpw==
+	bh=NmRVqvgA6LQRfVb3+xw0hm11h1ZXb2VqypRcp6l/2Uw=;
+	b=Iqw3Qg0Ahv7hCNK1wP1AcUNtIHgtdJdpC+bKF+IFRbfwR3XeqjlChhSMH/88bsYxjQ4k
+	 yYhkl41pdVWUkJvlS874VY2t/gq1QDj0uYJr0CJYyNfljQzMcjW2FPe3UKg8RoXoqJkRD
+	 5HsIxRD+htv97NmMAB0bOJW3olxXIjmSf+QCCHRpweeTdKiC3bNx+V3zpxQow1Q23ck2m
+	 6zM1XXq3ETKZU1uGnulAX6lbLuQr7HLctAwnZ5M0RZvlQn9DajWNMqrZ93PguYGLsPjSq
+	 6kAetrvPv8+t2IIWPIF6Wlb5U94Aj3nxNHJNqcPS+rttoDGklJkyn9rmtB4Bxo1hj+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pixelcluster.dev;
 	spf=pass smtp.mailfrom=pixelcluster.dev;
-	dkim=pass header.d=pixelcluster.dev header.i=@pixelcluster.dev header.a=rsa-sha256 header.s=ovhmo-selector-1 header.b=GoCIBufj;
-	arc=none smtp.remote-ip=51.210.91.52
-Received: from smtpout3.mo540.mail-out.ovh.net (smtpout3.mo540.mail-out.ovh.net [51.210.91.52])
+	dkim=pass header.d=pixelcluster.dev header.i=@pixelcluster.dev header.a=rsa-sha256 header.s=ovhmo-selector-1 header.b=IhHVfrGP;
+	arc=none smtp.remote-ip=51.210.91.51
+Received: from smtpout2.mo540.mail-out.ovh.net (smtpout2.mo540.mail-out.ovh.net [51.210.91.51])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78167606A333
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:50:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78167606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 769B360A262D
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:50:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 769B360A262D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pixelcluster.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pixelcluster.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.a=rsa-sha256 header.s=ovhmo-selector-1 header.b=GoCIBufj
-Received: from director3.derp.mail-out.ovh.net (director3.derp.mail-out.ovh.net [79.137.60.223])
-	by mo540.mail-out.ovh.net (Postfix) with ESMTPS id 4jTPj9089wz42yQ;
-	Tue, 17 Nov 2026 12:50:37 +0000 (UTC)
-Received: from director3.derp.mail-out.ovh.net (director3.derp.mail-out.ovh.net. [127.0.0.1])
-        by director3.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
-        for <Felix.Kuehling@amd.com>; Tue, 17 Nov 2026 12:50:36 +0000 (UTC)
-Received: from mta6.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.188.134])
-	by director3.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4jTPj86JdXz1xqt;
-	Tue, 17 Nov 2026 12:50:36 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.a=rsa-sha256 header.s=ovhmo-selector-1 header.b=IhHVfrGP
+Received: from director4.derp.mail-out.ovh.net (director4.derp.mail-out.ovh.net [79.137.60.37])
+	by mo540.mail-out.ovh.net (Postfix) with ESMTPS id 4jTPjJ2zbpz455y;
+	Tue, 17 Nov 2026 12:50:44 +0000 (UTC)
+Received: from director4.derp.mail-out.ovh.net (director4.derp.mail-out.ovh.net. [127.0.0.1])
+        by director4.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
+        for <Felix.Kuehling@amd.com>; Tue, 17 Nov 2026 12:50:44 +0000 (UTC)
+Received: from mta6.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.96.99])
+	by director4.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4jTPjJ1Y8yz1yXC;
+	Tue, 17 Nov 2026 12:50:44 +0000 (UTC)
 Received: from pixelcluster.dev (unknown [10.1.6.7])
 	(Authenticated sender: nat@pixelcluster.dev)
-	by mta6.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id 6365E8E2104;
-	Tue, 17 Nov 2026 12:50:35 +0000 (UTC)
-Authentication-Results:garm.ovh; auth=pass (GARM-98R0020d2662fe-90ba-400a-9394-b18d399cdf93,
+	by mta6.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id BF5878E2101;
+	Tue, 17 Nov 2026 12:50:42 +0000 (UTC)
+Authentication-Results:garm.ovh; auth=pass (GARM-98R0028db774df-3351-4ee4-850f-8694323585ce,
                     00F4D7524EDFA56606BD67631AE7EA1B984E627F) smtp.auth=nat@pixelcluster.dev
 X-OVh-ClientIp:141.95.41.139
 From: Natalie Vock <nat@pixelcluster.dev>
-Date: Tue, 17 Nov 2026 13:50:10 +0100
-Subject: [PATCH v2 04/10] drm/amdgpu: Make removed/cleared mappings pending
- per update context
+Date: Tue, 17 Nov 2026 13:50:16 +0100
+Subject: [PATCH v2 10/10] drm/amdgpu: Bump minor version
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,7 +64,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-prt-explicit-sync-v2-4-bb3851cb6a0c@pixelcluster.dev>
+Message-Id: <20261117-prt-explicit-sync-v2-10-bb3851cb6a0c@pixelcluster.dev>
 References: <20261117-prt-explicit-sync-v2-0-bb3851cb6a0c@pixelcluster.dev>
 In-Reply-To: <20261117-prt-explicit-sync-v2-0-bb3851cb6a0c@pixelcluster.dev>
 To: Felix Kuehling <Felix.Kuehling@amd.com>, 
@@ -78,550 +77,42 @@ To: Felix Kuehling <Felix.Kuehling@amd.com>,
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Natalie Vock <nat@pixelcluster.dev>
 X-Mailer: b4 0.15.2
-x-ovh-tracer-id: 5592344838378971452
+x-ovh-tracer-id: 5594596638179156284
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTFzrqAtohLkNGuEsTTEjYMhBXNnnBHtHlXr82nHvl74y1Ds4tD6gdWQIaN6znA7Kc2nICootiOIoSAJoKcVZ8rp5U8FkQRKMJum8l1ZxWsZwER5yGYoBenENgWUQWXXug7JLluPG10KRnjqE0Kl5lyuRTL9VhZuq0e3C3svIXTECxKlIwNHUYB90fgRdOu4jmnRBd7K89RJpSkmSRbgHrKuLzypMaeM+5cWGVoEQ6oTTWmE0xsU1QcbwOiOtQDCa9y79/2I+WiEsDNrVYvE13m5UVyUDABHZc4Hc/c4Jw8MovzmfFeZ3jJoX2OJg+vRzVsjxv9Bo6Lkb7OTIXt6tahrSIIewB29KJggoQoQzPHniNXzTFr0wurdvabX3KiMIw2MJmeF2JwwR904VWqbJxqpD3vTX/bE5KMw/VaHbNbg1bTtYyQEdWbWDU9UjSQ4ZEIjKqvTnD3U2ul8w/L4zR64SW720rPEfCfY32zfPEUZWBTLGKUI9LlDoh8zBl+yuGMH6E1S5ruuTBKPWzJZ71HpgarvRPAbyCt4sQb0/5yAF24YIrf0ZPXkUF7slFvRiZEr/X+n/rTCOcuManppa5C38pmcqHW0BJQ+UuZdYPU7S+DVtoGuiyiTiSxUFiXR37l/V+4hhz4xw3fPT7IUF+5cYyPni4F70zDJnruiVlkV8w
-DKIM-Signature: a=rsa-sha256; bh=WYTaQEL3UbG1DzOCc8KsS361hXXTQNnSbu4YHX11IIk=;
+X-VR-SPAMCAUSE: dmFkZTGsrjNRgW72yCqkGsXCnOvH7Q6+rWSTt0QN8D7NsOnSRWHW0a1UZ4YzwG3PfGhk2CpDQZK3YXmisSLYwZztr4rBMwMPXW7T3V/AOBPzHqgdP8gAtZmRSmFwzhTkWYmyZ/ZDp71KSx/CkbaMRhkClvUYNnGrD1PzweJNkj3z5YHhSlWNc9ry/1K04Ol0fBWNhEL66oxzy/AkUSTRdOPfSv1iAMFatuXPZ4igKw3QIc3MgFbd7EmFmYSHglT6XHKAJXimVe8T8Fqv0mPC+Q1p7iYCKLwWZoNUbd7LT8X0mEGw6E+B5EkhOIFNfODtMUftuzqYdLPtOdruAs2418yTTya6sqzn70iwvealvmaqO4anQOfF0wyMRadUwLGMt4ZUTHfBGEvltLlw/9AcjUUkuL0EG7JdVBqy2JfP6TZfo9buMqWSnGpxlGstaxjaKBDrftHvEqpH33VxEkxue/twETVtfkDKVbgPUUQEn48HuzYFFTyPiGQx/tNfI9v4b/cCzszYtvngNmRTmQyy4hx2ipsoPVr2yKem3XVROXv/KzHj18OKOW0RUvhKkCwjH7j1TIpqGkUDWsIwM7NuirMJPFiooCNCb6eUHV+wGPcWZWti64U6MFKk7asAf1jAROkkwwLMeZqa4m7ZPMQxmFGr/JnW6teXfeI93yp1LfHh0emsDQ
+DKIM-Signature: a=rsa-sha256; bh=NmRVqvgA6LQRfVb3+xw0hm11h1ZXb2VqypRcp6l/2Uw=;
  c=relaxed/relaxed; d=pixelcluster.dev; h=From; s=ovhmo-selector-1;
- t=1794919837; v=1;
- b=GoCIBufjQh6HN7508Rpel3AKx5w+qB7xoTPyS61gey8BQ7Cnyud3ukdfZy0NviT1qALiN1X2
- REpzrhZbM/PNMV5NfOEnHAjqlKyg6nGY54yCdeI5BNaJxsh+G02VNDE6WMp2rIzstTiGrXBdejV
- AWcZBXQc7qnxsVLbcnHa+Pin285dTT230m9FE97h0NLFyTMLl+vW4Hlao7La2c+uGBZQuIUo2Qw
- tFM9YQK2Aow5oY93GxiclB1kvJ6qVAGIRuump5Az4O/Dfh7/9tzQa3qKdP39ccDqbhgMXi2sFI+
- c0SjV128lrPm1V6+CF27l7ctTFDJjYGhHOfUaGWBzcz9A==
+ t=1794919844; v=1;
+ b=IhHVfrGPVz4jxFCa/EIJa5yDhr86zA2cKFQezqSho7Ja9xa/n+YivJ7mssW80C/ZnNBbMS22
+ Rzf0IZYYg3ZNzicPHKQq6tXOuiJF9uTnipYxoqFoVi/EUTZANKLXFxkZf6rggWEWuoFFcLRe9oE
+ SA+foZpLhbCy1QgS24nDC4AhYve6Dcce6xioEWxsD8+dhjAkdRQO60aYB51B+qLxz06tLS432lK
+ cggaj7/t6y4lUcdtejR4+Vu6dSLn2E8b5HyY64OuAC7tjEqkIPO/fDXHxw/md0Q4PNH/Mz7Tewo
+ GSqu9TMvqLh3aHZUfV7gqyJwNKSEHVf3deQPfEisDGLBQ==
 
-This completes the effort to make all mapping changes pending to be able
-to easily revert to the previous state in case an error is encountered
-after unmapping.
-
-In certain cases, it is possible to skip syncing with every submission
-in the whole VM before unmapping pagetables. The important condition is
-that no memory must be released to the system while the GPU still has a
-chance to access it. This is true for VM-always-valid buffers since the
-resv is shared with the VM's root PD and thus there will always be
-synchronization before unmapping, but also for PRT pages which do not
-point to any real memory location at all.
+To signal availability of the new AMDGPU_GEM_VA2 ioctl to userspace.
 
 Signed-off-by: Natalie Vock <nat@pixelcluster.dev>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c |   7 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 305 ++++++++++++++++++++------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h  |  24 +++
- 4 files changed, 220 insertions(+), 117 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
-index 8ec6b46e3f25a..2331c6af6ce46 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
-@@ -140,6 +140,7 @@ int amdgpu_unmap_static_csa(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 			"failed to do bo_unmap on static CSA, err=%d\n", r);
- 		goto error_ctx;
- 	}
-+	amdgpu_vm_update_ctx_commit(&update_ctx);
- 
- 	amdgpu_vm_bo_del(adev, bo_va);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index 2816d0851bf01..39c72bfb73e71 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -1044,7 +1044,12 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
- 		break;
- 	}
- 
--	amdgpu_vm_update_ctx_commit(&update_ctx);
-+	if (!r) {
-+		r = amdgpu_vm_update_ctx_execute_replace(&update_ctx);
-+		if (r)
-+			goto error;
-+		amdgpu_vm_update_ctx_commit(&update_ctx);
-+	}
- 
- 	/*
- 	 * Once the VA operation is done, update the VM and obtain the fence
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 97cf04da6a025..1e2d45979efdb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -1618,10 +1618,74 @@ static void amdgpu_vm_bo_commit_insert(struct amdgpu_device *adev,
- 	trace_amdgpu_vm_bo_map(bo_va, mapping);
- }
- 
-+static void amdgpu_vm_bo_commit_remove(struct amdgpu_vm_update_ctx *ctx,
-+				       struct amdgpu_bo_va_mapping *mapping)
-+{
-+	struct amdgpu_bo_va_mapping *entry;
-+	struct amdgpu_bo_va *bo_va = mapping->bo_va;
-+	bool valid;
-+
-+	entry = list_next_entry(mapping, list);
-+	while (!list_entry_is_head(entry, &bo_va->valids, list) &&
-+	       !list_entry_is_head(entry, &bo_va->invalids, list)) {
-+		/*
-+		 * If we go through the entire list just to end up back where
-+		 * we started without encountering either the valids or invalids
-+		 * head, that means the mapping is in neither list and probably
-+		 * doesn't even belong to the bo_va at all, which is a bug somewhere
-+		 * else in the bookkeeping.
-+		 */
-+		if (unlikely(entry == mapping)) {
-+			drm_err(adev_to_drm(ctx->adev),
-+				"Could not find to-be-unmapped mapping in BO mapping lists!\n");
-+			return;
-+		}
-+		entry = list_next_entry(entry, list);
-+	}
-+	valid = list_entry_is_head(entry, &bo_va->valids, list);
-+
-+	/* It's unlikely to happen that the mapping userq hasn't been idled
-+	 * during user requests GEM unmap IOCTL except for forcing the unmap
-+	 * from user space.
-+	 */
-+	if (unlikely(bo_va->userq_va_mapped))
-+		amdgpu_userq_gem_va_unmap_validate(ctx->adev, mapping);
-+
-+	list_del(&mapping->list);
-+	amdgpu_vm_it_remove(mapping, &bo_va->base.vm->va);
-+	mapping->bo_va = NULL;
-+	trace_amdgpu_vm_bo_unmap(bo_va, mapping);
-+
-+	if (valid) {
-+		/*
-+		 * BOs that aren't VM_ALWAYS_VALID may have their physical
-+		 * memory immediately freed when the unmap job finishes, and
-+		 * we can't trust that userspace won't still try accessing that
-+		 * memory, therefore we can't sync explicitly. This doesn't
-+		 * apply to PRT mappings because there's no physical memory for
-+		 * these at all.
-+		 */
-+		ctx->explicit_sync_unmap &=
-+			amdgpu_vm_is_bo_always_valid(ctx->vm, bo_va->base.bo) ||
-+			mapping->flags & AMDGPU_VM_PAGE_PRT;
-+		list_add(&mapping->list, &ctx->freed);
-+	} else {
-+		amdgpu_vm_free_mapping(ctx->adev, ctx->vm, mapping,
-+				       bo_va->last_pt_update);
-+	}
-+}
-+
- void amdgpu_vm_update_ctx_commit(struct amdgpu_vm_update_ctx *ctx)
- {
- 	struct amdgpu_bo_va_mapping *mapping, *next;
- 
-+	/* Users that clear/replace mappings should call amdgpu_vm_update_ctx_execute_replace() */
-+	WARN_ON(!list_empty(&ctx->cleared));
-+
-+	list_for_each_entry_safe(mapping, next, &ctx->deleted, pending_list) {
-+		list_del_init(&mapping->pending_list);
-+		amdgpu_vm_bo_commit_remove(ctx, mapping);
-+	}
- 	list_for_each_entry_safe(mapping, next, &ctx->new, pending_list) {
- 		list_del_init(&mapping->pending_list);
- 		amdgpu_vm_bo_commit_insert(ctx->adev, mapping->bo_va, mapping);
-@@ -1652,10 +1716,103 @@ amdgpu_vm_update_ctx_add_new_mapping(struct amdgpu_vm_update_ctx *ctx,
- 	interval_tree_insert(pending, &ctx->pending_maps);
- 
- 	mapping->bo_va = bo_va;
-+	WARN_ON(!list_empty(&mapping->pending_list));
- 	list_add(&mapping->pending_list, &ctx->new);
- 	return 0;
- }
- 
-+static void
-+amdgpu_vm_update_ctx_add_replaced_mapping(struct amdgpu_vm_update_ctx *ctx,
-+					  struct amdgpu_bo_va_mapping *mapping)
-+{
-+	if (list_empty(&mapping->pending_list))
-+		list_add(&mapping->pending_list, &ctx->cleared);
-+}
-+
-+static void
-+amdgpu_vm_update_ctx_add_freed_mapping(struct amdgpu_vm_update_ctx *ctx,
-+				       struct amdgpu_bo_va_mapping *mapping)
-+{
-+	WARN_ON(!list_empty(&mapping->pending_list));
-+	list_add(&mapping->pending_list, &ctx->deleted);
-+}
-+
-+int amdgpu_vm_update_ctx_execute_replace(struct amdgpu_vm_update_ctx *ctx)
-+{
-+	LIST_HEAD(new_maps);
-+	struct interval_tree_node *map;
-+	struct amdgpu_bo_va_mapping *cleared, *next, *gap;
-+	uint64_t cur_end;
-+	int r;
-+
-+	list_for_each_entry_safe(cleared, next, &ctx->cleared, pending_list) {
-+		cur_end = cleared->start;
-+
-+		map = interval_tree_iter_first(&ctx->cleared_ranges, cleared->start, cleared->last);
-+		while (map && map->start <= cleared->last) {
-+			if (map->start <= cur_end) {
-+				cur_end = map->last + 1;
-+				map = interval_tree_iter_next(map, cleared->start, cleared->last);
-+				continue;
-+			}
-+
-+			gap = kmalloc_obj(*gap);
-+			if (!gap) {
-+				r = -ENOMEM;
-+				goto error;
-+			}
-+
-+			gap->bo_va = cleared->bo_va;
-+			gap->start = cur_end;
-+			gap->last = map->start - 1;
-+			gap->offset = cleared->offset;
-+			gap->offset += (gap->start - cleared->start) << AMDGPU_GPU_PAGE_SHIFT;
-+			gap->flags = cleared->flags;
-+			list_add(&gap->pending_list, &new_maps);
-+
-+			cur_end = map->last + 1;
-+			map = interval_tree_iter_next(map, cleared->start, cleared->last);
-+		}
-+
-+		if (cur_end <= cleared->last) {
-+			gap = kmalloc_obj(*gap);
-+			if (!gap) {
-+				r = -ENOMEM;
-+				goto error;
-+			}
-+
-+			gap->bo_va = cleared->bo_va;
-+			gap->start = cur_end;
-+			gap->last = cleared->last;
-+			gap->offset = cleared->offset;
-+			gap->offset += (gap->start - cleared->start) << AMDGPU_GPU_PAGE_SHIFT;
-+			gap->flags = cleared->flags;
-+			list_add(&gap->pending_list, &new_maps);
-+		}
-+
-+		list_del_init(&cleared->pending_list);
-+		amdgpu_vm_update_ctx_add_freed_mapping(ctx, cleared);
-+	}
-+
-+	list_for_each_entry_safe(gap, next, &new_maps, pending_list) {
-+		list_del_init(&gap->pending_list);
-+		r = amdgpu_vm_update_ctx_add_new_mapping(ctx, gap->bo_va, gap);
-+		if (r) {
-+			kfree(gap);
-+			goto error;
-+		}
-+	}
-+
-+	return 0;
-+
-+error:
-+	list_for_each_entry_safe(gap, next, &new_maps, pending_list) {
-+		list_del(&gap->pending_list);
-+		kfree(gap);
-+	}
-+	return r;
-+}
-+
- /**
-  * amdgpu_vm_update_ctx_ensure_unmap_synced - VM update sync helper
-  * @ctx: context for updating the VM
-@@ -1676,7 +1833,9 @@ int amdgpu_vm_update_ctx_ensure_unmap_synced(struct amdgpu_vm_update_ctx *ctx)
- 	 */
- 	r = amdgpu_sync_resv(ctx->adev, &ctx->sync,
- 			     ctx->vm->root.bo->tbo.base.resv,
--			     AMDGPU_SYNC_EQ_OWNER, ctx->vm);
-+			     ctx->explicit_sync_unmap ? AMDGPU_SYNC_EXPLICIT :
-+							AMDGPU_SYNC_EQ_OWNER,
-+			     ctx->vm);
- 	if (r)
- 		return r;
- 
-@@ -1701,8 +1860,11 @@ void amdgpu_vm_update_ctx_init(struct amdgpu_vm_update_ctx *ctx,
- 	ctx->vm = vm;
- 
- 	ctx->pending_maps = RB_ROOT_CACHED;
-+	ctx->cleared_ranges = RB_ROOT_CACHED;
- 	INIT_LIST_HEAD(&ctx->new);
-+	INIT_LIST_HEAD(&ctx->deleted);
- 	INIT_LIST_HEAD(&ctx->freed);
-+	INIT_LIST_HEAD(&ctx->cleared);
- 	amdgpu_sync_create(&ctx->sync);
- }
- 
-@@ -1715,17 +1877,23 @@ void amdgpu_vm_update_ctx_init(struct amdgpu_vm_update_ctx *ctx,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 188c8ec234c02..5b0c373102068 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -129,9 +129,10 @@
+  * - 3.64.0 - Userq IP support query
+  * - 3.65.0 - Add userq syncobj timeline signaling support
+  * - 3.66.0 - Allow jpeg type 4 packets and VCE SEI command
++ * - 3.67.0 - Add AMDGPU_GEM_VA2 ioctl
   */
- void amdgpu_vm_update_ctx_fini(struct amdgpu_vm_update_ctx *ctx)
- {
--	struct interval_tree_node *pending, *next_pending;
-+	struct interval_tree_node *node, *next_node;
+ #define KMS_DRIVER_MAJOR	3
+-#define KMS_DRIVER_MINOR	66
++#define KMS_DRIVER_MINOR	67
+ #define KMS_DRIVER_PATCHLEVEL	0
  
- 	list_splice(&ctx->freed, &ctx->vm->delayed_freed);
- 	amdgpu_sync_free(&ctx->sync);
- 
--	rbtree_postorder_for_each_entry_safe(pending, next_pending, &ctx->pending_maps.rb_root, rb)
--		kfree(pending);
-+	rbtree_postorder_for_each_entry_safe(node, next_node, &ctx->pending_maps.rb_root, rb) {
-+		kfree(node);
-+	}
-+	rbtree_postorder_for_each_entry_safe(node, next_node, &ctx->cleared_ranges.rb_root, rb) {
-+		kfree(node);
-+	}
- 
- 	ctx->pending_maps = RB_ROOT_CACHED;
-+	ctx->cleared_ranges = RB_ROOT_CACHED;
- 
- 	WARN_ON(!list_empty(&ctx->new));
-+	WARN_ON(!list_empty(&ctx->deleted));
- }
- 
- /**
-@@ -1749,6 +1917,9 @@ int amdgpu_vm_clear_freed(struct amdgpu_vm_update_ctx *ctx,
- 	struct dma_fence *f = NULL;
- 	int r;
- 
-+	if (list_empty(&ctx->freed))
-+		return 0;
-+
- 	r = amdgpu_vm_update_ctx_ensure_unmap_synced(ctx);
- 	if (r)
- 		return r;
-@@ -2156,8 +2327,6 @@ int amdgpu_vm_bo_unmap(struct amdgpu_vm_update_ctx *ctx,
- 		       uint64_t saddr)
- {
- 	struct amdgpu_bo_va_mapping *mapping;
--	struct amdgpu_vm *vm = ctx->vm;
--	bool valid = true;
- 
- 	saddr /= AMDGPU_GPU_PAGE_SIZE;
- 
-@@ -2167,8 +2336,6 @@ int amdgpu_vm_bo_unmap(struct amdgpu_vm_update_ctx *ctx,
- 	}
- 
- 	if (&mapping->list == &bo_va->valids) {
--		valid = false;
--
- 		list_for_each_entry(mapping, &bo_va->invalids, list) {
- 			if (mapping->start == saddr)
- 				break;
-@@ -2178,24 +2345,7 @@ int amdgpu_vm_bo_unmap(struct amdgpu_vm_update_ctx *ctx,
- 			return -ENOENT;
- 	}
- 
--	/* It's unlikely to happen that the mapping userq hasn't been idled
--	 * during user requests GEM unmap IOCTL except for forcing the unmap
--	 * from user space.
--	 */
--	if (unlikely(bo_va->userq_va_mapped))
--		amdgpu_userq_gem_va_unmap_validate(ctx->adev, mapping);
--
--	list_del(&mapping->list);
--	amdgpu_vm_it_remove(mapping, &vm->va);
--	mapping->bo_va = NULL;
--	trace_amdgpu_vm_bo_unmap(bo_va, mapping);
--
--	if (valid)
--		list_add(&mapping->list, &ctx->freed);
--	else
--		amdgpu_vm_free_mapping(ctx->adev, vm, mapping,
--				       bo_va->last_pt_update);
--
-+	amdgpu_vm_update_ctx_add_freed_mapping(ctx, mapping);
- 	return 0;
- }
- 
-@@ -2214,8 +2364,8 @@ int amdgpu_vm_bo_unmap(struct amdgpu_vm_update_ctx *ctx,
- int amdgpu_vm_bo_clear_mappings(struct amdgpu_vm_update_ctx *ctx,
- 				uint64_t saddr, uint64_t size)
- {
--	struct amdgpu_bo_va_mapping *before, *after, *tmp, *next;
--	LIST_HEAD(removed);
-+	struct interval_tree_node *cleared_range;
-+	struct amdgpu_bo_va_mapping *tmp;
- 	uint64_t eaddr;
- 	int r;
- 
-@@ -2223,96 +2373,23 @@ int amdgpu_vm_bo_clear_mappings(struct amdgpu_vm_update_ctx *ctx,
- 	if (r)
- 		return r;
- 
--	saddr /= AMDGPU_GPU_PAGE_SIZE;
--	eaddr = saddr + (size - 1) / AMDGPU_GPU_PAGE_SIZE;
--
--	/* Allocate all the needed memory */
--	before = kzalloc_obj(*before);
--	if (!before)
-+	cleared_range = kmalloc_obj(*cleared_range);
-+	if (!cleared_range)
- 		return -ENOMEM;
--	INIT_LIST_HEAD(&before->list);
- 
--	after = kzalloc_obj(*after);
--	if (!after) {
--		kfree(before);
--		return -ENOMEM;
--	}
--	INIT_LIST_HEAD(&after->list);
-+	saddr /= AMDGPU_GPU_PAGE_SIZE;
-+	eaddr = saddr + (size - 1) / AMDGPU_GPU_PAGE_SIZE;
- 
- 	/* Now gather all removed mappings */
- 	tmp = amdgpu_vm_it_iter_first(&ctx->vm->va, saddr, eaddr);
- 	while (tmp) {
--		/* Remember mapping split at the start */
--		if (tmp->start < saddr) {
--			before->start = tmp->start;
--			before->last = saddr - 1;
--			before->offset = tmp->offset;
--			before->flags = tmp->flags;
--			before->bo_va = tmp->bo_va;
--			list_add(&before->list, &tmp->bo_va->invalids);
--		}
--
--		/* Remember mapping split at the end */
--		if (tmp->last > eaddr) {
--			after->start = eaddr + 1;
--			after->last = tmp->last;
--			after->offset = tmp->offset;
--			after->offset += (after->start - tmp->start) << AMDGPU_GPU_PAGE_SHIFT;
--			after->flags = tmp->flags;
--			after->bo_va = tmp->bo_va;
--			list_add(&after->list, &tmp->bo_va->invalids);
--		}
--
--		list_del(&tmp->list);
--		list_add(&tmp->list, &removed);
--
-+		amdgpu_vm_update_ctx_add_replaced_mapping(ctx, tmp);
- 		tmp = amdgpu_vm_it_iter_next(tmp, saddr, eaddr);
- 	}
- 
--	/* And free them up */
--	list_for_each_entry_safe(tmp, next, &removed, list) {
--		amdgpu_vm_it_remove(tmp, &ctx->vm->va);
--		list_del(&tmp->list);
--
--		if (tmp->start < saddr)
--		    tmp->start = saddr;
--		if (tmp->last > eaddr)
--		    tmp->last = eaddr;
--
--		tmp->bo_va = NULL;
--		list_add(&tmp->list, &ctx->freed);
--		trace_amdgpu_vm_bo_unmap(NULL, tmp);
--	}
--
--	/* Insert partial mapping before the range */
--	if (!list_empty(&before->list)) {
--		struct amdgpu_bo *bo = before->bo_va->base.bo;
--
--		amdgpu_vm_it_insert(before, &ctx->vm->va);
--		if (before->flags & AMDGPU_VM_PAGE_PRT)
--			amdgpu_vm_prt_get(ctx->adev);
--
--		if (amdgpu_vm_is_bo_always_valid(ctx->vm, bo) &&
--		    !before->bo_va->base.moved)
--			amdgpu_vm_bo_needs_update(&before->bo_va->base);
--	} else {
--		kfree(before);
--	}
--
--	/* Insert partial mapping after the range */
--	if (!list_empty(&after->list)) {
--		struct amdgpu_bo *bo = after->bo_va->base.bo;
--
--		amdgpu_vm_it_insert(after, &ctx->vm->va);
--		if (after->flags & AMDGPU_VM_PAGE_PRT)
--			amdgpu_vm_prt_get(ctx->adev);
--
--		if (amdgpu_vm_is_bo_always_valid(ctx->vm, bo) &&
--		    !after->bo_va->base.moved)
--			amdgpu_vm_bo_needs_update(&after->bo_va->base);
--	} else {
--		kfree(after);
--	}
-+	cleared_range->start = saddr;
-+	cleared_range->last = eaddr;
-+	interval_tree_insert(cleared_range, &ctx->cleared_ranges);
- 
- 	return 0;
- }
-@@ -2409,13 +2486,8 @@ void amdgpu_vm_bo_del(struct amdgpu_device *adev,
- 
- 	amdgpu_vm_update_ctx_init(&update_ctx, adev, vm);
- 
--	list_for_each_entry_safe(mapping, next, &bo_va->valids, list) {
--		list_del(&mapping->list);
--		amdgpu_vm_it_remove(mapping, &vm->va);
--		mapping->bo_va = NULL;
--		trace_amdgpu_vm_bo_unmap(bo_va, mapping);
--		list_add(&mapping->list, &update_ctx.freed);
--	}
-+	list_for_each_entry_safe(mapping, next, &bo_va->valids, list)
-+		amdgpu_vm_update_ctx_add_freed_mapping(&update_ctx, mapping);
- 	list_for_each_entry_safe(mapping, next, &bo_va->invalids, list) {
- 		list_del(&mapping->list);
- 		amdgpu_vm_it_remove(mapping, &vm->va);
-@@ -2423,6 +2495,7 @@ void amdgpu_vm_bo_del(struct amdgpu_device *adev,
- 				       bo_va->last_pt_update);
- 	}
- 
-+	amdgpu_vm_update_ctx_commit(&update_ctx);
- 	amdgpu_vm_update_ctx_fini(&update_ctx);
- 
- 	dma_fence_put(bo_va->last_pt_update);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index d35494440cb5a..5657aa63e9491 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -284,11 +284,27 @@ struct amdgpu_vm_update_ctx {
- 	 */
- 	struct rb_root_cached pending_maps;
- 
-+	/**
-+	 * @cleared_ranges: Interval tree of VA ranges cleared by this update operation.
-+	 */
-+	struct rb_root_cached cleared_ranges;
-+
- 	/**
- 	 * @new: Pending new mappings not yet applied to bookkeeping structures.
- 	 */
- 	struct list_head new;
- 
-+	/**
-+	 * @deleted: Pending freed mappings not yet applied to bookkeeping structures.
-+	 */
-+	struct list_head deleted;
-+
-+	/**
-+	 * @replaced: Pending mappings that have been cleared, potentially partially,
-+	 * and are not yet applied to bookkeeping structures.
-+	 */
-+	struct list_head cleared;
-+
- 	/**
- 	 * @freed: A list of mappings that are freed and pending PT/PD updates during
- 	 * this update operation.
-@@ -305,6 +321,13 @@ struct amdgpu_vm_update_ctx {
- 	 * i.e. all previous submissions in the VM are waited on.
- 	 */
- 	bool unmap_synced;
-+
-+	/**
-+	 * @explicit_sync_unmap: Whether it's allowed to sync explicitly (i.e. only wait
-+	 * on explicit dependencies instead of every submission that may have used the BO)
-+	 * before committing unmaps.
-+	 */
-+	bool explicit_sync_unmap;
- };
- 
- struct amdgpu_vm_fault_info {
-@@ -593,6 +616,7 @@ bool amdgpu_vm_is_bo_always_valid(struct amdgpu_vm *vm, struct amdgpu_bo *bo);
- void amdgpu_vm_update_ctx_init(struct amdgpu_vm_update_ctx *ctx,
- 			       struct amdgpu_device *adev,
- 			       struct amdgpu_vm *vm);
-+int amdgpu_vm_update_ctx_execute_replace(struct amdgpu_vm_update_ctx *ctx);
- void amdgpu_vm_update_ctx_commit(struct amdgpu_vm_update_ctx *ctx);
- void amdgpu_vm_update_ctx_fini(struct amdgpu_vm_update_ctx *ctx);
- int amdgpu_vm_update_ctx_ensure_unmap_synced(struct amdgpu_vm_update_ctx *ctx);
+ /*
 
 -- 
 2.56.1
