@@ -1,90 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.166
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794898245;
-	b=rtqUswgyva7ROmlaFYsIjT5T7Zh9FuTPrkeYUratFDAGxUI4ewtG8mnutj2A3sGHFAjH
-	 F2vbAo5V8wm4i+0gfN0jyp2CEoBRvC4JvcgfqqUda2yekRQpmmUy/Tz7UPWFX3tQSGy4e
-	 PXZq38ev0NRXxUgw4bhDO30c5Jv7PMP9GjYVaAy4dg+T5m9Uv6FZxzV+xxj7wBt+cnZsJ
-	 H8SNbTgiLZQqoPW6fL8+g9NEeAxGOzIabTV965lnzne6e0tS7O9bg+9QpTCcUidRZnWD2
-	 yUVW1+EEsynXFa/n/hRcAN1KLrKdZTZi+WubsY9VjX22P3y5iZhFPvgQgAcIDgfMO5A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794898245;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=kN/jr6xyg28Ydyr+Qj0RhkF8SbAklwXrcNPjICsMfKU=;
-	b=Rt6DqGnJnTQ6MNqBI1oizrOgW6SheHfSpKWQ+EFtxZtijrOas/I0SH3WTe5jo3NwRHix
-	 pEzb9X8ayl7HUwn5gJeWFWdUle+gkEtc+ywrf/oifiX65tUV7yriDgkDVGO1fr1WrfvIN
-	 UrsCm2UfNGbR/7fhOsu+BJ16hcolHKLNCC43C4LfDc5ssa+UR/YXtyQU4ZdbucAeKuDpQ
-	 10xDdCM5OJDbF+9pYWqfy+CP1QtosmYTjXiDQq7mWAYPMjUC5qyz5GChunSfvskVXeb5S
-	 xqALFNU6KqenBzKPmcGAVVx4ljV4zVO9EdPt6PR/ZtpRy4FlGYQqugaZof9NwXj0vww==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goldelico.com;
-	spf=pass smtp.mailfrom=goldelico.com;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=t2Xn6A7G;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=kTiKdP0G;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.166
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.166])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794898288;
+	b=uBjLm5pgwkv8Q+Aj1KvHpnuQl6nOsCy1KlcWrcqafoj/vqQwSYhUf6spyjSNGflTruOS
+	 6Dk+t6wTO2t4f5bAU/vvjrj7YNwNZGKnSe6QlDipzGa/n283g8/4ZCsTPJ+KhUitPHfv7
+	 WWaDdV823psp3mkr6ZtaLwvj+wJHYHWNl1W7vpGGOvrzqZz11N1ph5mWQ8x+IW7MU9jKw
+	 TZW8H4EZghBmJvSQQHTq3QITeONQsQIg5S40+REtf0vyKPIl7fppcYYo5uuCSun7nNcvY
+	 qyiwDioMqHyzRndci8vNRHkOvNyfb1vjbcZwJ+IKVxJhQHgwY5Aka9KmvCb9zc7ultg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794898288;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Rk1FeQzJrhht2X1kLFkG63MCPIDEd8l5/+J4eSp8hlg=;
+	b=UFaLjq3GExW8JH7hRdNB0GPC7y5/xG4JisIsZqVWciVbzCzQgCzhMHV3xRpmVoKxNqEf
+	 1WmPUBaA9lBNmJJw0pu/vaE290SUlQGJLtZbf/eS0+E3zV2j8qUgdAj4s4MjJn/9bYH8e
+	 f2ejaEImStRkmInmZdo0K1bDIkdfUFJfZzXtn6GuRs2JOaZ/0WtG0tO7QBgkUvMd89GD2
+	 dprP9tSfUc94og8peLOSNX9tetn54E/hA9H2r1fLPjYu6E2Co/+1bXGKi4ht68uvNjfLD
+	 JAROAVJSays0knPVlI/Y1wRzJQ6dRoE+UTkAP0tIioII+pc5wxxEbmsyLIbBQLjRuKw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rHLcVAlc;
+	arc=none smtp.remote-ip=74.125.82.50
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12B86606A31C;
-	Tue, 17 Nov 2026 06:50:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12B86606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5FAA606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:51:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5FAA606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=t2Xn6A7G;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=kTiKdP0G
-ARC-Seal: i=1; a=rsa-sha256; t=1794898221; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=BXJabg1znsc/I3P6qWoycDnIxuY9MlcsOSFA/2NCfjAU+D6uUiA8We3tnoYvsooikm
-    pDunKgNsON+wC0mzVYp51NiXNSVkVi54Z5S+w/3mxpsTWhRGzlFKz0EOj41d1llVYZWA
-    vkfIa640ieGg/d+H3WxFvIRg91Y+X8YKogbNi3UZBNy1xoTWfcVeWtott9KoVJZkCoa1
-    J92P+cB4XH3oA6M9MM9r9z8B6XoFp9AFyIGYuE8cxAnv06uy58RTXJQBpK7L2fwTkaHq
-    Wh5hv08YFuktUW95FCrOhD8/pEEinguNwoTrVlwMMcE9dU8xORqActB0IvOK6EboAtdF
-    2iLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794898221;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=kN/jr6xyg28Ydyr+Qj0RhkF8SbAklwXrcNPjICsMfKU=;
-    b=HNKDeCNyqju2s+vNK49o3H+SHfbJz2yUToUA91kxQOg3gpFMZxFZu5ULQwMIlGTPd1
-    ajPDUxcuO++fhpdoNBkqF+0hhVD7srVwnGMb4HQbBAkIyxCud6oPjRe6WUPrv/vU+RRY
-    nHBGg9c48/IC5LDFHLFRVCibK8r2JyYKRHpHMyJJwuMowc67hIxGEA0dvujdyMWBqOys
-    WTeuEI5913PEbzjPzV0HcAV2++Oop2KjGQ6YvT55OAM400vN4h0MlK01vI2uFikIWEZG
-    g0YMQ3WzQ/Yu1BEPT8IWGfMOnHGm8qdWR6L9J05Iw8HwCPCcLqOC4gcEyubTtyfVW247
-    sS2Q==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794898221;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=kN/jr6xyg28Ydyr+Qj0RhkF8SbAklwXrcNPjICsMfKU=;
-    b=t2Xn6A7GCsuyi/r+IxalSSKJ8L06khBEVHeBXRtD/Ck9s3VtLcSnNRdPbFRk59Bghk
-    EJt5wKvI2vbqZnDyzU0LdRvCFLkL+3/FtSkewgFjp7zbif3k4bTOpSFVXpWKnN1sMFK2
-    hM/QWDsTA1mP0/1qXWpdfEg/hOhbeJgymfhpXd0f3ja85sHNUOpxWW3ZwWcfUqtrT9Wy
-    Nk8vmSrki9hpX+8InA4CvylIc5mfAAJIdbmxy9QbfjQ2JvIhc2thtkC0+cT6BI7509l0
-    oH++LPJaM5db9Vak2IjHeDFpa5r9IFVGVqaHz+SmZOEmQ62CUk1cz3ipOmZ9hl6Pa06o
-    p2mw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794898221;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=kN/jr6xyg28Ydyr+Qj0RhkF8SbAklwXrcNPjICsMfKU=;
-    b=kTiKdP0Gdd/AP6XDzwGuM2vy6WJsbE3KeR5w2rSRu8efQXWuE5W2TJZ8MO46uy9mn9
-    oQbB/FbqYhCaFNA7BfCg==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrQ3ppelMiNKoEY92nD9kO01+3QZuyyF4VcrvHZ"
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Qb56a22AH6oLUtO
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Tue, 17 Nov 2026 07:50:21 +0100 (CET)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rHLcVAlc
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1a3c08d6928so5995042c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:51:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794898287; x=1795503087; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Rk1FeQzJrhht2X1kLFkG63MCPIDEd8l5/+J4eSp8hlg=;
+        b=rHLcVAlcz5VgIGeYPUZoTWIp0lXLEtc+z7YYIHJuJNRv0h3y9ODnxzr8NlSqrpUmIp
+         JGVZnYMxTKCfBv9PcoP6cmGRv3q+fPfFtld5dkyb5pB24UbwWSroisGfsBQkN9b7JpDv
+         vTOfJhZhPJtvgqwrd1Gpv18b4C+iqjsPNGBzFnZQ0ItBF0sgDE0CNMX0jJ0V/3IN8RVF
+         ABaqw/CAyBLKvQqFbXyYnmOAZk2L+E4BuABEwWnQtsZt183dsQ8A5ZU8tizZSOrjb5ov
+         /D8IoZiF+sxdXBFm93yFZ/BS/zncAPC2A40AOoE/RBIuDDhJObs6gNN5lWDAaGxMr6Al
+         hdcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794898287; x=1795503087;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Rk1FeQzJrhht2X1kLFkG63MCPIDEd8l5/+J4eSp8hlg=;
+        b=PM89PCGt/sYrABt1e3w8EOHSnHNkM9GldLfnDsqjcwi7bYU5k6VU3bIOloJi3B+bHA
+         yRWcqCUQZXy/qohyrLCGVI7xKLVCvJbpkANs5r/9uKKip1k58RuJf/pSmwpmgPFNULYd
+         u1S6rliBh6LKCi0XHPZMiYaBljoMuJABClwxwfu0NbLjxN0o2RsHMXwLF512QWv3A8qi
+         AQaVkXNkHxqkYf4LZG1R03fxpQlSdNartvN+bet3hiF92JDmLljsZ9377iImYLCF0Sb4
+         tTsCpxHefTTbXyIElXoRRgL/0slvQp6OiS7z6Bnn7q3cke4y0AXBja4JrgLjBMaNhe5U
+         usPw==
+X-Forwarded-Encrypted: i=1; AL+hErHeBpVoX0HKZDNcwfbLb3y/jkfTuzW+ms5hvNQEiZvhFiRxyvHmPQKxlmEzv2x9O24zR5DoC+w2z0JfoM0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z85Qke867N3r6z6JHeSFVXqSIkYFITcAZ54hdC3rAkgWGi1FZUJ
+	4n0dK6GMRRjidvyd2JM4K1GSyZxP6HFXa9MjigErkx/1uxUluR+bPsKE
+X-Gm-Gg: AYBFou1imLHnZiMEQS9sTGutZC2DDjq+BWyXQRKOxcBo9PigUBQtjFRNsa9CvU9GZ/b
+	IgIkdEcZbPBLjHikzfH3rROPeXyUzFOX2AbqOfAgfSC1atvjuHwGoQZLz9i0U7n5RgrxE9wAH0H
+	8BZp8yF1xJjd120//GYr2vGw3uh1VkPH3kPbqh+AX8PEZfvymraew+LaRbnl4C0EyISnYzi9Qzm
+	o53GR7KTEOYI6yl5zvYkWsVHdByf5XTW3GWs4D2eRPD9YvSg+J3umGLCUosI8FGx5Dw266O9EQ5
+	2akZuS/SRRzRgBI7j1FXJbvFwwQiMmr26JjEB5xkf1B4g2FNvYQKhQge3QCWqgzcjt9rym1XclM
+	0LsoJbEUNU0Sf6blwcWv0uy0z0iJFfHHu769NXrL/JiELdM91nrz+qtjGF7pzftu6vLlOShyJXc
+	Mf/3hEjQx3kQlFdNqMffE1ZGMSfvYqxm6eIDQrOSQIKKgFpIgm6Ebw1XzTA1zPzZNOfg9kJFd4c
+	JENwiehlwct+NNWnvDbvydvxixE+16DD2N82CKuyF2PBnv0gLSX7Eh2/GoIT5h3iXJV9o5k7Iy4
+	W4r4aQw+9CHBoqfmoVYZRfsZGco5jGOTgK20VLjYpZhqWkoNEr694pW96dUBTelQ
+X-Received: by 2002:a05:7022:3a87:b0:1b2:5884:a020 with SMTP id a92af1059eb24-1b50302ac09mr12374737c88.6.1794898286701;
+        Mon, 16 Nov 2026 22:51:26 -0800 (PST)
+Received: from carrot.home.local (madb688455.ap.nuro.jp. [219.104.132.85])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d269asm44099255eec.23.2026.11.16.22.51.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 22:51:24 -0800 (PST)
+From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+To: Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: Wang Jianjian <wangjianjian0@foxmail.com>,
+	linux-nilfs <linux-nilfs@vger.kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>
+Subject: [PATCH 0/2] nilfs2: atime support
+Date: Tue, 17 Nov 2026 15:47:46 +0900
+Message-ID: <20261117065122.41553-1-konishi.ryusuke@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,80 +94,78 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
-Subject: Re: [PATCH 3/3] pinctrl: ingenic: Add X2600 pin groups and functions
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <179487827555.2153459.1199232821591145638@gmail.com>
-Date: Tue, 17 Nov 2026 07:49:50 +0100
-Cc: Linus Walleij <linusw@kernel.org>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Paul Cercueil <paul@crapouillou.net>,
- Bartosz Golaszewski <brgl@kernel.org>,
- linux-gpio@vger.kernel.org,
- devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- linux-mips@vger.kernel.org,
- letux-kernel@openphoenux.org
-Content-Transfer-Encoding: 7bit
-Message-Id: <E4751395-0CE1-4073-ABEA-9F4BF57304A6@goldelico.com>
-References: <cover.1794557697.git.hns@goldelico.com>
- <afd42cc2ca2c93501ff1769b7d7a25559ef68a2f.1794557697.git.hns@goldelico.com>
- <179487827555.2153459.1199232821591145638@gmail.com>
-To: Hunter Laux <hunterlaux@gmail.com>
-X-Mailer: Apple Mail (2.3826.700.81.1.10)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+
+Hi Viacheslav,
+
+Please queue the following two patches for persistent atime support in
+nilfs2 for the next merge window.
+
+This series builds upon your original patch [1], which Wang Jianjian
+followed up on to address review comments and add compat_ro feature flag
+support [2][3].  I have made minor modifications to those patches,
+including filling in missing kernel-doc comments and adjusting the
+commit messages (such as fixing the Co-developed-by tags).
+
+To use this feature, install the updated nilfs-utils from the
+'atime-support' branch of the development repository [4] (which will be
+merged into the master branch once this patchset is queued), and either
+format a new filesystem with the atime feature enabled:
+
+  $ sudo mkfs -t nilfs2 -O atime /dev/<device>
+
+or enable the feature flag on an existing filesystem image using
+nilfs-tune:
+
+  $ sudo nilfs-tune -O atime /dev/<device>
+
+Once the atime feature flag is set, the filesystem can only be mounted
+read-only on currently deployed kernels that lack support for it (until
+the flag is cleared with "nilfs-tune -O ^atime /dev/<device>").  To
+avoid confusing users, this feature will remain optional in mkfs.nilfs2
+for the time being, though I plan to enable it by default in a future
+release of nilfs-utils.
+
+Note that when enabling the feature on an existing filesystem, inodes
+written by older mkfs or kernels have their on-disk atime fields
+initialized to 0, which will expose the epoch date (1970-01-01).
+nilfs-tune warns about this when setting the flag, and image conversion
+(such as copying mtime to atime) is not supported.
+
+The series consists of two patches:
+
+- Patch 1/2 introduces the read-only compat feature flag
+  (NILFS_FEATURE_COMPAT_RO_ATIME) to manage on-disk format compatibility
+  for atime support.
+- Patch 2/2 reads atime from on-disk inodes when the compat_ro flag is
+  enabled and stops unconditionally setting SB_NOATIME on the superblock,
+  switching VFS behavior accordingly.
+
+[1] https://lore.kernel.org/all/20260219204343.70117-1-slava@dubeyko.com
+[2] https://lore.kernel.org/all/tencent_E3847A19056D4E914FACD269A3C77BAF0905@qq.com
+[3] https://lore.kernel.org/all/tencent_F3CAF2061A8AE294D88513588FD3DE1F4806@qq.com
+[4] https://github.com/nilfs-dev/nilfs-utils.git
+
+Thanks,
+Ryusuke Konishi
 
 
+Viacheslav Dubeyko (1):
+  nilfs2: introduce atime support
 
-> Am 17.11.2026 um 02:17 schrieb Hunter Laux <hunterlaux@gmail.com>:
-> 
-> Hi Nikolaus,
-> 
-> On Fri, Nov 13, 2026 at 09:14:58AM +0100, H. Nikolaus Schaller wrote:
->> + INGENIC_PIN_GROUP("uart1-data-c", x2600_uart1_data_c, 1),
->> + INGENIC_PIN_GROUP("uart2-data", x2600_uart2_data, 1),
->> + INGENIC_PIN_GROUP("uart4-data-b", x2600_uart4_data_b, 2),
->> + INGENIC_PIN_GROUP("uart5-data-b", x2600_uart5_data_b, 2),
-> 
-> Per the X2600 PM, shouldn't these be 2, 0, 1 and 1?
-> 
->> +static int x2600_slcd_ctrl_pins[] = {
->> + 0x34, 0x3c, 0x3d, 0x3e, 0x3f,
->> +};
-> 
-> PB20 (0x34) has no function 1. Did this come from the X2000 table?
-> Should 0x34 be dropped?
-> 
->> + INGENIC_PIN_GROUP("pcm", x2600_pcm, 3),
-> [...]
->> + INGENIC_PIN_GROUP("pwm11", x2600_pwm11, 0),
->> + INGENIC_PIN_GROUP("pwm12", x2600_pwm12, 0),
->> + INGENIC_PIN_GROUP("pwm13", x2600_pwm13, 0),
->> + INGENIC_PIN_GROUP("pwm14", x2600_pwm14, 0),
->> + INGENIC_PIN_GROUP("pwm15", x2600_pwm15, 0),
->> + INGENIC_PIN_GROUP("pwm-trig-c", x2600_pwm_trig_c, 1),
->> + INGENIC_PIN_GROUP("pwm-trig-d", x2600_pwm_trig_d, 1),
-> [...]
->> + INGENIC_PIN_GROUP("wait", x2600_wait, 3),
-> 
-> These groups aren't in any function.
-> 
->> + 0x000007ff, 0xffffffff, 0x7ffbfff, 0x0000ffff, 0x000ffffe,
-> [...]
->> + 0x000007ff, 0xffffffff, 0x01ffff1, 0x0001e000, 0x000fffff,
-> 
-> Port C is missing a digit?
-> 
-> On port E, 0x80 is pull enable and 0x90 selects up/down (PEPE/PEPS).
-> Doesn't that make the X2000 pull code wrong there?
+Wang Jianjian (1):
+  nilfs2: add atime compat_ro feature
 
-All points are valid (and there are some more), and already in my
-update queue especially port E pullup/down.
+ fs/nilfs2/Kconfig                  |  2 +-
+ fs/nilfs2/inode.c                  | 11 +++++++++--
+ fs/nilfs2/nilfs.h                  |  4 ----
+ fs/nilfs2/segment.c                |  2 --
+ fs/nilfs2/super.c                  | 11 ++++++-----
+ fs/nilfs2/the_nilfs.h              |  6 ++++++
+ include/uapi/linux/nilfs2_ondisk.h | 12 +++++++-----
+ 7 files changed, 29 insertions(+), 19 deletions(-)
 
-I just didn't find to work that into a v2 because the swappingof X1600 and
-X1830 must come before...
-
-BR and thanks,
-Nikolaus
+-- 
+2.53.0
 
