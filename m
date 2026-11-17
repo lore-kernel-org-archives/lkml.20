@@ -1,94 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794912090;
-	b=3S1h1EjvjUy+yKXJIZE1ew3YjAim6BS+CJdctcglQFbC0XG4ligGylthko5nENY+CsTO
-	 e56T73KfKje60G4/8aBcOK1i6Uocsbv4RO5YT7e0KkvQAAgpZzrzZ8b+wFepjGLsnzt3K
-	 P2obZZVVW5EA8753lkiYdLUxwerV8cJwBMA/YWwan1YZfn/YB3dFuhcXeCxVWocyAvJ2d
-	 03gRbooNjZIYg3tsiKvMTkqL0x7C7LcqGxuJzwap7X3yVPExjgX0GCB8+GtT1MtbQy0JS
-	 FsCakr9KpiVhtALTw7g4fzlThWiTjsHxwPtkQfRRix6ddF7fJAXuaAuwSXBYqDxgU8g==
+	t=1794912101;
+	b=omci/7X8pkB5MGSRk2K2fTL0rnPtWbh2oz8JC4qM2Kq3eokaTrFO2xR/3hoSz4O9wQVw
+	 Xgh8HgFn7WRvjxRFbDaEivs2l5hDt/HmsnW6BjSZ92QLslIre3zuC9lsGngayVabUl4kY
+	 w+NHZEsXBSMJBvOfvJKwOcfCfxekAFrT+JfUhZrCny8mWTJAY2gOb+CxnMtTS4dIMz9L0
+	 QpoHNZtyNSyYKZave4Zf//so1kOp5PmhNSJAJfWbNjhwmMBcqM89eufkNJTc53Ieh2Lvw
+	 G5dCQm/Zymc+CApC1Txetz7VHm9cP9PHldNWcdxNQ77rBeu2iJE2fcQ8l0W2yoex2VA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794912090;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=eaga9iq2xMzHbd5n0lWO/WLBwljw+5hVBVM+gVZj3uk=;
-	b=RN1bPbQfD5QQxsO83qOxH1mQKmpTMPtzZr+ovsDn2TDYSNmlaUUwW2QF8stWPOo+SxAo
-	 pukzCesxR3TwMhQ4FHOj5s93lxSJVIDpUuiXPsU2usMGDjdrG4cTYQVD07uDT2PO+q48i
-	 8WuMHN2w3RpQ/OPUrJIIqclaaNqXJ1oUOZCLBLfKbKD05yG4tD4JTA2qDK9jSIkUFoIUU
-	 D/S4U8BTrHVydX+aINYlJNgmGTX9VO9kyKxxmrleaUa39ReCcxoGd+BxC72ETGEK1lJ1N
-	 Ai55gETh9pURBswjjzoZJWPxxbsHWZWLrOrWJy4e95RThu6qGaBYCQafYpeyWyfgVPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794912101;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=fDDgnSW1FcakdvTmyMuFJCORZ23T3YvRFBXyHKMQyeA=;
+	b=00at5eASmXAyZ8qV2CUCoAXQ+RkY7ZiK8BZsPlMOkdqsUZ5hBHNr+aA1h67PqcsAA76C
+	 CzNrF86aaFYWH3d9Azz1c5mWDdPX+V3o6lIXVTmhfR9wi7TrmpXKODu9AsRFJ0LI09qNN
+	 PuKgwpDFRP7wDunbnmOsuuZ5Un5dNlSSB8BH7g5F1H4dECP1Eze6ffWWsFvL64pcUl8Bq
+	 37GVwYTqzY7TswvPeZLBxzLxHK07+VDC0RiKB076D32WgCyajTjUoiRJYOKd32TWLb560
+	 T0nhO6HbmjKtYfHTNCfR4z0q+8JLw89Pjc7yTGWnkcPRm0qMPfi8EiurIzaep1wcs7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vzTKbVTa;
-	arc=none smtp.remote-ip=209.85.210.170
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nCyD7lXg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BF46606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:41:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BF46606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62725606A31C;
+	Tue, 17 Nov 2026 10:41:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vzTKbVTa
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8a4c72951b8so3394116b3a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:41:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794912089; x=1795516889; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eaga9iq2xMzHbd5n0lWO/WLBwljw+5hVBVM+gVZj3uk=;
-        b=vzTKbVTaO0mnOjT0wrC9bJuj2U7c8JCBOJXeERXLXjO6BfmdRweqdJxvATO5aSRSHj
-         SXb9XVeZEaBHEWOO2LUH8py3vAozCejmhPwtmDUBrZi4zh1Az2YxxawDJJz8Ml7lH5wd
-         cnrD9bJqzzgyTEoscy4of5hkrgQDPSLHsjyaApIpOGz/V3CtmNtFnDppf79BVRrpsCzn
-         nQUYFA3GFydj38LtNiRADuY95g6sUsnytyW70R+5lCmFfR3lWNafrMTBuzYZgT09nVi6
-         vV8qmPYcO67Sg/XsSJIXbi9pwdzhbSr5k1Eq7p3ooNns1OQXih4gPtmlRxyRI3d3p11k
-         rEag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794912089; x=1795516889;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eaga9iq2xMzHbd5n0lWO/WLBwljw+5hVBVM+gVZj3uk=;
-        b=CNHj623nx20s/xRaKpCbYRwQ5Bd5rfVgG+zX4/tZlK90vTOxp2eeqQJ5fYL+215rmZ
-         1VCwxuz6Ati83JW6DS3AUWemdO92vFP4MPzg9u2dn2AC7r6mwijl/F89LMIvDNSMhYKs
-         WNMHxxXqW3ZCWHVs8SDybRWRxhTEX/yLyOAGEI7evN7qGWMHySnssLwsNHiABEU/HRbW
-         mdzdLaJIY+1LOL3SbjW86s/kow9IcSU3KHwN7g48DvCIzSXzkFlEhPUGswOTr+3uaT3m
-         0aPrKeZgSJ/P+sll6fJIa2xSouylEnUxawlSUAXkDd/S8u82X7sC5g8uKrS2X+YxDzkr
-         22mw==
-X-Forwarded-Encrypted: i=1; AL+hErH7nz+x2rXj4CaB7AHrHiY3g14ifkjt01D2WlEX8BtyiKff3HlV4S9AsWiUcrMMX/8+clBI2aD06ElghDU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9SJgO3GJSBX0m66D0z1hS+cuEa7+wszVPJi+dxCmLOQk7tdWEk
-	hWL+TvQ3DM2m6XmsRRioa3fa7+TwOBtY6k1JjiNCnGyZ3qLidMAkne0Y
-X-Gm-Gg: AYBFou3KxcYVZ84FfmujHS/L2yWZUP9pgw7Y2rLDUXcATp2fmPPUYeQqCqHjVwSeKgu
-	AJFvVoavWzHuNSGLW+iMAsxL4JphJ2XUwugz79AKol10BVM8vF7MVgtdauOJRJVMOX6kJ3OeopC
-	/zVSl5S9kE2s9Znrq+Me+9MtduVA9cWHl8eJwImnDuuv1NILJ7NbzKIT8bbGBdwhRlPHyCPkbcl
-	F+WRGOybzBgPYRlwh2NxyiwF1xWIYOJZFEY7in2MkCT8udxhKYp3DVd9tyWcXuwI6jeTUvXQCPC
-	RxWemoHdBDHulIdtjXOCYtWaDSv8nHwzQeMaLMIfdLHpvPWv746lvMQkK0TApd3HYzD1T6yAdXV
-	0WwiWYDf8nxM0Dp7bV01uYdiPrd4DNcbpuhnESc1rYIs1ha5lFHq49OeQOOcBOUQSK2ua/cQTHj
-	3QyUnZg74Wm2TgLhsXTqY84L1TQSiX79w7RdyMMKzc9c7X8sCIkCd2py8j8Emv/Cbsovt1b1U4p
-	kPw7WK7YMn5ARbO7s9PgZGav0ta/OF21sEAK5zC7VEbT9b+9BVWQO517rbDA8i6gPhTruUfEBpN
-	4sx7oLYb9Vbc0IY8UsoTL2RtZUiHtpupyfZxvdIB83kYfNAk
-X-Received: by 2002:a05:6a00:2350:b0:8b3:15b4:45f2 with SMTP id d2e1a72fcca58-8beb6b6baffmr12020475b3a.25.1794912089476;
-        Tue, 17 Nov 2026 02:41:29 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed2829dcdsm4900102b3a.48.2026.11.17.02.41.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 02:41:29 -0800 (PST)
-From: Hyunjung Ko <hj351016@gmail.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: Mary Strodl <mstrodl@csh.rit.edu>,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH] gpio: mpsse: reject bulk-in endpoints smaller than 3 bytes
-Date: Tue, 17 Nov 2026 19:41:10 +0900
-Message-ID: <20261117104110.240112-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nCyD7lXg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03B5C1F000C5;
+	Tue, 17 Nov 2026 10:41:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794912101;
+	bh=fDDgnSW1FcakdvTmyMuFJCORZ23T3YvRFBXyHKMQyeA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=nCyD7lXgC/DCJDc2yB2ZR8HBmxOHQQU3PYHkGaveFzSQLILG86ZUcPLN6dCgUmNRx
+	 P04gXDM80Oi546sXdlOBmDwEUbzYAChYcI0YAfxXxUVNbmayCNxv/oA+MKnumrF7Lr
+	 APTD99RWqHRUDXvqH97AzUqkkRauuvCMaASGGr5mAQx50FFK+8b/5ofg71ZesQWtOg
+	 0OElvLE06kqFfZlVLavRI1InK3Azm6LUhJa/MFNBrsrxgWiuej/J8FFq5QY3iCrJLF
+	 +ZI0CpQwcY36TE9KvCnpBCNPKpRIyq0cM5u4NzC+QwpLpgXN3Q2zNPz+LIlaDdVUPM
+	 11hkdPbCY3zXg==
+Message-ID: <3fc512e9-c437-494f-b852-204d0d57e005@kernel.org>
+Date: Tue, 17 Nov 2026 11:41:35 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,49 +51,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] media: iris: add mahua platform data and enable
+ qcom,mahua-iris
+To: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261113-mahua_iris_enable-v1-0-b7107e1cbcaa@oss.qualcomm.com>
+ <20261113-mahua_iris_enable-v1-3-b7107e1cbcaa@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261113-mahua_iris_enable-v1-3-b7107e1cbcaa@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-mpsse_read() reads min(len + 2, wMaxPacketSize) bytes and then copies
-len_actual - 2 bytes to the caller. A device that declares a bulk-in
-endpoint with wMaxPacketSize 1 completes the read with len_actual 1, so
-the copy length becomes -1 and memcpy() runs far past the one byte
-buffer on the caller's stack and past bulk_in_buf:
+On 14/11/2026 04:09, Deepa Guthyappa Madivalara wrote:
+> Add qcom,mahua-iris compatible to initialize the hardware
+> and necessary Mahua platform data describing the needed clock
+> resets and powerdomain tables only for one core, vcodec0.
+> Most of the data is leveraged from Glymur as they are the same
+> Iris variant. Firmware, vpu ops, buffer sizes are the same as for
+> Glymur.
+> 
+> Signed-off-by: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
+> ---
+>  drivers/media/platform/qcom/iris/Makefile          |  1 +
+>  .../platform/qcom/iris/iris_platform_common.h      |  1 +
+>  .../media/platform/qcom/iris/iris_platform_mahua.c | 44 ++++++++++++++++++++++
+>  .../media/platform/qcom/iris/iris_platform_mahua.h | 14 +++++++
+>  .../media/platform/qcom/iris/iris_platform_vpu3x.c | 34 +++++++++++++++++
+>  drivers/media/platform/qcom/iris/iris_probe.c      |  4 ++
+>  drivers/media/platform/qcom/iris/iris_vpu3x.c      | 10 +++++
+>  7 files changed, 108 insertions(+)
+> 
+> diff --git a/drivers/media/platform/qcom/iris/Makefile b/drivers/media/platform/qcom/iris/Makefile
+> index 48570da56aa052577e05ead12bd26df090d97454..6c187d25980eabcd1c789b132e2f0bffa62fc805 100644
+> --- a/drivers/media/platform/qcom/iris/Makefile
+> +++ b/drivers/media/platform/qcom/iris/Makefile
+> @@ -13,6 +13,7 @@ qcom-iris-objs += iris_buffer.o \
+>               iris_hfi_gen2_response.o \
+>               iris_hfi_queue.o \
+>               iris_platform_glymur.o \
+> +             iris_platform_mahua.o \
+>               iris_platform_vpu2.o \
+>               iris_platform_vpu3x.o \
+>               iris_power.o \
+> diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
+> index 1024a2fd75a3ae2b7e194e583b91ec5f16e2773a..817b8a9e2712e7f1e335dbb8600dc033670c5cfa 100644
+> --- a/drivers/media/platform/qcom/iris/iris_platform_common.h
+> +++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
+> @@ -58,6 +58,7 @@ extern const struct iris_firmware_data iris_hfi_gen1_data;
+>  extern const struct iris_firmware_data iris_hfi_gen2_data;
+>  extern const struct iris_firmware_data iris_hfi_milos_data;
+>  
+> +extern const struct iris_platform_data mahua_data;
+>  extern const struct iris_platform_data glymur_data;
+>  extern const struct iris_platform_data milos_data;
 
-  memcpy: detected buffer overflow: 18446744073709551615 byte write of buffer size 1
-  WARNING: lib/string_helpers.c:1036 at __fortify_report+0x6e/0xc0
-  Call Trace:
-   __fortify_panic+0xd/0x10
-   gpio_mpsse_get_multiple+0x767/0x780
-   gpio_mpsse_gpio_get+0xa2/0xf0
-   gpiod_get_raw_value_commit+0xf8/0x1f0
-   gpiod_get_value_cansleep+0x1e/0xa0
-   value_show+0x42/0x90
+That's random placement, no?
 
-Reproduced with dummy_hcd and raw-gadget. A read needs room for the two
-status bytes plus at least one data byte, so refuse to bind otherwise.
+>  extern const struct iris_platform_data qcs8300_data;
 
-Fixes: c46a74ff05c0 ("gpio: add support for FTDI's MPSSE as GPIO")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
----
- drivers/gpio/gpio-mpsse.c | 4 ++++
- 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpio/gpio-mpsse.c b/drivers/gpio/gpio-mpsse.c
-index 61c5ca96314b..3ad7048f009f 100644
---- a/drivers/gpio/gpio-mpsse.c
-+++ b/drivers/gpio/gpio-mpsse.c
-@@ -676,6 +676,10 @@ static int gpio_mpsse_probe(struct usb_interface *interface,
- 	if (err)
- 		return err;
- 
-+	/* Every read carries two status bytes ahead of the data */
-+	if (usb_endpoint_maxp(priv->bulk_in) < 3)
-+		return -EINVAL;
-+
- 	priv->bulk_in_buf = devm_kmalloc(dev, usb_endpoint_maxp(priv->bulk_in),
- 					 GFP_KERNEL);
- 	if (!priv->bulk_in_buf)
--- 
-2.43.0
-
+Best regards,
+Krzysztof
