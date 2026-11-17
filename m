@@ -1,45 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794914462;
-	b=EYRu90mPFDhmQj3BBBLT3uuSJUgoF8d4YZJKn3bFoN5RPDh0ORZpzItPsfyXqF9hB1HK
-	 urOfe8JYi776jnEbGRSfwp9zxQIKWwcMv3Uo06BnS77XqdIWUhswSjnPs4S8OjFzUCwSK
-	 3P2Q7VixtU3IZCja4NYb4X4JiCV095WnPU43S0pj2SAufgdlEe7qRLGnObGfRD2tjxOnu
-	 UZhYdK0UU14ZssqwvT6QJETm4aCeqxaLZRI2Ku9dekGoCqNUiuUwQHD1IIGnx0XijhPCk
-	 q+IrbmDvwo50rONX8mr+A+0GR6af84ceZr1GgzeFaaxFwrtbqG0Sxe7Rs7JIknZ8Log==
+	t=1794914464;
+	b=AVBTwxmOEB93HrWijmB6rAGTh5xDLgUD4c/Qjl9NxzheSz3irjlp1Ry6e0k8QQ4986l1
+	 jQqXRK3qOhUEJTW+QGpLgBilX3olFcDbvHQPtwJ9JKQ2IXJZZp5vj19AB17ggbT0mEuGo
+	 icE+Zt2NDbmGNLSy4fbKMw2tyewC2MTa8b67KoymSxjYN2TYvkMlXC0yfpGftROOJ+oAK
+	 n2iKLgi16FFQXZtJpl2M2bpGYQQCmSnnEpQx0vXRChYSKFI1dOsr3Swm6ci/jdoxzo/hU
+	 gAvGVkBNOj+x4QJTrH2S2Wj//uImTLdEug43s7TE7vvC/t8Qc1085gXEJ6dCntJ9fyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794914462;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=cI/nGQMT2x2CQh+vFtSBd5pXIA0jLezpANUhvPNMlHg=;
-	b=balyGVaLp4iARWFVja1TZ4/kPSTPE48S77ciiYVg69q09B+rzUPhYC5oOzRhBFgbIOub
-	 ufSx1GiKWJOd18XzPVonXpg6R5XZduS2cNMMvluVMvkg+Hq1VwKX8q26snRzbTamZ+1KD
-	 SZC+ilO+Hr9FSsAA8FbhaBcNP2h36P1rJv0JBK1NRtKWCt7bUmNy02yhLrphPhTAl3EyL
-	 w+OfQoPWFyZqo+IY8j/a8WHmIhf7TAys4wcCY4V90C5Cmx8X06g7KsyezHw0nzbxeltV9
-	 F0pr5TMGhD0IDOv6xPHhCqLS3BhJ7pyuK0Fm7ODbIHrdvY9xEvVAVsLM8CP2rjOxlCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794914464;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=oCmAMcMI6wViFsbDTZiBivpWPFRE88xH8DYMWGs3M2E=;
+	b=URJX9BKstgfzITmg7o5FPQHeAXHSLRz/SeoTqdzExqdwjicN8sKFwWSSN8ugfvmrA15x
+	 BEfu6wfeAMdFXFhThsU/Y/PW8e5Yx3nYXwag/sCyfog8HldRSFK+bpktX1yFRFjqrtfbB
+	 F0+uFb94FReW1RflBIU2ezbZrxA8Pu/o1Yh7SGbNvINWBsnwgtfN6asCb2ik9pCO6Rn9H
+	 vRPTYIvp1Ng6TKR0SawTs5tyH7FPU1ve7k9vosZdZzq5vwbqIWqpj2qpiSWvjhfzTZpHf
+	 8yOWbIpHcNw8pE1WoqnIzR6vMiA6dTfLXyBJOrYEHJx5KnevWQwPECWnhHGChqInK5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XCRvHT0b;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4A85606A323;
-	Tue, 17 Nov 2026 11:21:01 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=NFER0dRw;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2CA89606A339;
+	Tue, 17 Nov 2026 11:21:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CA89606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XCRvHT0b
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 443C41F000C4;
-	Tue, 17 Nov 2026 11:20:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794914461;
-	bh=cI/nGQMT2x2CQh+vFtSBd5pXIA0jLezpANUhvPNMlHg=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=XCRvHT0b3PV9eMs8PaLEO7rMHF7CtLtxDCz4zROTjByksVD4zR8CDFcAXoVaw4AkI
-	 bcqGFMYnz0+dIcEakLkcaiS6MzrTtHm8LyU59UoqQiuZBQfRR6irz0sh1cDbrWRXqi
-	 OSFJS55QUL8kYvuyylz54fKNxUXd9hsKjGN/Yi8jcplW5z/Vh7L16X1/dQsyhDFulo
-	 dDRx8Ix5iNS/WZ392XEafZdYFm48ruzXzrS7NgwS93hQstW8HuAct2djaXu45jRpzp
-	 WtpSoiHvUgxL3TqablsdQPA9ZaAqVj7+bzbhpTA28CZOYmpxrUnFeCuFGT+AJ3b6Ik
-	 LHSnMrU6xM6Kg==
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=NFER0dRw
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 96FAC1C25;
+	Tue, 17 Nov 2026 03:21:00 -0800 (PST)
+Received: from e135073.nice.Arm.com (e135073.arm.com [10.34.111.135])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id D92AD3F763;
+	Tue, 17 Nov 2026 03:20:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794914463; bh=vh/3DW9oXPoEO7P7wcOum7s0VizOF+DCqp/Q3/nuvbo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=NFER0dRwXIg+hJAi+1uyUu6nQgIflMDr2B1SWVTqNH4ykm4nGfi/+i+WJZbhCwlcw
+	 TOChtXZ0BxRhkn2e/Dtj5GaSdD3KOwQPl400vG4rdDOsIxfLksOmF48fmf5ZD07LY0
+	 K5xB6SjDzusFbGxTZsqypxaoHuCJSfZ2pyeXg8Ds=
+From: Pierre Gondois <pierre.gondois@arm.com>
+To: linux-kernel@vger.kernel.org
+Cc: Ashok Raj <ashok.raj@oss.qualcomm.com>,
+	James Morse <james.morse@arm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Pierre Gondois <pierre.gondois@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Tony Luck <tony.luck@intel.com>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Shuai Xue <xueshuai@linux.alibaba.com>,
+	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
+	"Oliver O'Halloran" <oohall@gmail.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
+	Pawel Chmielewski <pawel.chmielewski@intel.com>,
+	Yazen Ghannam <yazen.ghannam@amd.com>,
+	Radu Rendec <radu@rendec.net>,
+	Avadhut Naik <avadhut.naik@amd.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>,
+	"Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>,
+	Kai-Heng Feng <kaihengf@nvidia.com>,
+	Breno Leitao <leitao@debian.org>,
+	Dan Williams <djbw@kernel.org>,
+	Terry Bowman <terry.bowman@amd.com>,
+	linux-acpi@vger.kernel.org,
+	linux-edac@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-pci@vger.kernel.org,
+	acpica-devel@lists.linux.dev
+Subject: [PATCH v1 17/19] ACPI: APEI: Share the extlog PCIe handler with GHES
+Date: Tue, 17 Nov 2026 12:10:27 +0100
+Message-ID: <20261117111444.4185512-18-pierre.gondois@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261117111444.4185512-1-pierre.gondois@arm.com>
+References: <20261117111444.4185512-1-pierre.gondois@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,89 +95,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v5 2/2] media: venus: disable recovery work before HFI
- teardown
-From: bod@kernel.org
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
- Bryan O'Donoghue <bod@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org, 
- Ijae Kim <ae878000@gmail.com>
-In-Reply-To: <20261023223635.3c895c4752c4-3-mhun512@gmail.com>
-References: <20261023223635.3c895c4752c4-1-mhun512@gmail.com>
- <20261023223635.3c895c4752c4-3-mhun512@gmail.com>
-Date: Tue, 17 Nov 2026 11:20:55 +0000
-Message-Id: <179491445504.2846709.15401208553880995023.b4-reply@b4>
-X-Mailer: b4 0.17-dev-e3fc9
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1823; i=bod@kernel.org;
- h=from:subject:message-id; bh=FSRXQ+24aToiVyHwsteWEHLX3pHh5wfgpDmcb93PRYQ=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq/DiX256l3R3aVaEmeU4eeP67NruwFoPOquwdU
- jBUYjdtw3mJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCavw4lwAKCRAicTuzoY3I
- OhQ4D/0Xe/1OJ90lYivItRDE3k9riosSRVxYBzHuwIpmpAzl4KdOn9hj4RM37Lnl/fx22dTgOPG
- YtuEbjjxjV7rP/qohyK2PcVsRAeu8TQ90PENWCJPjsJwudaWj2vvFEEin4DLmLqr9cIY6Jy3TH4
- RFEIBneVwtokj4qOOwdWLKiZUwbCRXv510SWP35woRRamdHPsVRkgaCJPWHU/P6OKDrtabHP8KD
- cj6Zegy5byR5/cPT9BzNEJyVno8ahKKfh/MKc5wjfmwrrxtCt0C4tWgfEOHg3F98XPZl3OQUmPl
- DvVLflsXB3NnNhbP6wNDW0pvFrpVezvgSSWHSNAtvnfnG3Lp9cOH7E9MEV3jJeOeh9Ly7XMHlVQ
- rzNdHUtQY4l1vZH6P10jpRvSqqCyE16XNd4ohd15objG7wNcq7QojpznOapaMu24DrugVBJJi9h
- GsgrMyimJBF8Ehw7M/5OXeyv9i4bblgVwiiqPSAgo+kb8XGeX4uBpHdMw6vur4acMruMLOfyk5l
- lrkOqUWnC0aDemq7sZ/LihxCH2Zpum6VSt95oqtttqpc27FuhXIzRlUuyTgzaLV3hNvnjKCKh94
- Pm6h/8ezgQccKLmED6TpCFFTw5M5SPU8xqNQee1kh72jAPnOPT584bxQ1Ula03wUbKKcBR10RVU
- aeb+xjBF0XxTX9w==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Transfer-Encoding: 8bit
 
-On 2026-10-23 22:40 -0400, Myeonghun Pak wrote:
-> venus_remove() cancels core->work while the IRQ can still schedule it.
-> A later IRQ can requeue recovery work, which may access HFI state after
-> it has been freed.
-> 
-> Use disable_delayed_work_sync() at the start of remove to drain recovery
-> and prevent further IRQ or worker requeues. Drain the work before
-> disabling the IRQ so recovery can finish completion waits that depend
-> on IRQs.
-> 
-> Fixes: af2c3834c8ca ("[media] media: venus: adding core part and helper functions")
+Remove ghes_handle_aer() and re-use the existing extlog_print_pcie()
+to have a common PCIe logging handler. Update the function
+documentation.
 
-Fixes: c5a85ed88e04 ("media: venus: fix use after free bug in venus_remove due to race condition")
+Except for the warning ("PCIe error section too small"),
+no functional change intended.
 
-Don't resend I'll fix the tag for you.
-
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link: https://lore.kernel.org/all/20260730153912.BAC5E1F00A3D@smtp.kernel.org/
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> ---
->  drivers/media/platform/qcom/venus/core.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/platform/qcom/venus/core.c b/drivers/media/platform/qcom/venus/core.c
-> index 7087af32060f1ed4190bf9f5d4a58cf88dad537d..6e495bc046913b46c926a498c062a6b55c6f7b64 100644
-> --- a/drivers/media/platform/qcom/venus/core.c
-> +++ b/drivers/media/platform/qcom/venus/core.c
-> @@ -596,7 +596,7 @@ static void venus_remove(struct platform_device *pdev)
->  	struct device *dev = core->dev;
->  	int ret;
->  
-> -	cancel_delayed_work_sync(&core->work);
-> +	disable_delayed_work_sync(&core->work);
->  	ret = pm_runtime_get_sync(dev);
->  	WARN_ON(ret < 0);
->  
-> -- 
-> 2.53.0
-> 
-> 
-> 
-
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Signed-off-by: Pierre Gondois <pierre.gondois@arm.com>
 ---
-bod
+ drivers/acpi/apei/apei-internal.h |  1 +
+ drivers/acpi/apei/extlog.c        | 14 +++++++-
+ drivers/acpi/apei/ghes.c          | 54 ++-----------------------------
+ 3 files changed, 16 insertions(+), 53 deletions(-)
+
+diff --git a/drivers/acpi/apei/apei-internal.h b/drivers/acpi/apei/apei-internal.h
+index 5063c743b4cf0..22a33a21017a3 100644
+--- a/drivers/acpi/apei/apei-internal.h
++++ b/drivers/acpi/apei/apei-internal.h
+@@ -14,6 +14,7 @@ int ghes_severity(int severity);
+ int cxl_cper_post_event(enum cxl_event_type event_type,
+ 			struct cxl_cper_event_rec *rec, u32 len);
+ u32 acpi_extlog_mem_err_min_len(u64 validation_bits);
++void extlog_print_pcie(struct acpi_hest_generic_data *gdata);
+ void acpi_extlog_report(const struct acpi_hest_generic_status *estatus);
+ 
+ struct apei_exec_context;
+diff --git a/drivers/acpi/apei/extlog.c b/drivers/acpi/apei/extlog.c
+index bd407436928b4..42ba8ba13804f 100644
+--- a/drivers/acpi/apei/extlog.c
++++ b/drivers/acpi/apei/extlog.c
+@@ -19,7 +19,19 @@
+ 
+ #include "apei-internal.h"
+ 
+-static void extlog_print_pcie(struct acpi_hest_generic_data *gdata)
++/*
++ * PCIe AER errors need to be sent to the AER driver for reporting and
++ * recovery. The CPER severities map to the following AER severities and
++ * require the following handling:
++ *
++ * CPER_SEV_CORRECTED or CPER_SEV_INFORMATIONAL -> AER_CORRECTABLE
++ *     These need to be reported by the AER driver but no recovery is
++ *     necessary.
++ * CPER_SEV_RECOVERABLE -> AER_NONFATAL
++ * CPER_SEV_FATAL or CPER_SEC_RESET -> AER_FATAL
++ *     These both need to be reported and recovered from by the AER driver.
++ */
++void extlog_print_pcie(struct acpi_hest_generic_data *gdata)
+ {
+ #ifdef CONFIG_ACPI_APEI_PCIEAER
+ 	struct cper_sec_pcie *pcie_err = acpi_hest_get_payload(gdata);
+diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
+index 623ac2a7f7a75..7d2864fa14503 100644
+--- a/drivers/acpi/apei/ghes.c
++++ b/drivers/acpi/apei/ghes.c
+@@ -18,6 +18,7 @@
+  */
+ 
+ #include <linux/arm_sdei.h>
++#include <linux/atomic.h>
+ #include <linux/kernel.h>
+ #include <linux/moduleparam.h>
+ #include <linux/init.h>
+@@ -37,9 +38,7 @@
+ #include <linux/llist.h>
+ #include <linux/genalloc.h>
+ #include <linux/kfifo.h>
+-#include <linux/pci.h>
+ #include <linux/pfn.h>
+-#include <linux/aer.h>
+ #include <linux/nmi.h>
+ #include <linux/sched/clock.h>
+ #include <linux/uuid.h>
+@@ -627,55 +626,6 @@ static bool ghes_handle_arm_hw_error(struct acpi_hest_generic_data *gdata,
+ 	return queued;
+ }
+ 
+-/*
+- * PCIe AER errors need to be sent to the AER driver for reporting and
+- * recovery. The GHES severities map to the following AER severities and
+- * require the following handling:
+- *
+- * GHES_SEV_CORRECTABLE -> AER_CORRECTABLE
+- *     These need to be reported by the AER driver but no recovery is
+- *     necessary.
+- * GHES_SEV_RECOVERABLE -> AER_NONFATAL
+- * GHES_SEV_RECOVERABLE && CPER_SEC_RESET -> AER_FATAL
+- *     These both need to be reported and recovered from by the AER driver.
+- * GHES_SEV_PANIC does not make it to this handling since the kernel must
+- *     panic.
+- */
+-static void ghes_handle_aer(struct acpi_hest_generic_data *gdata)
+-{
+-#ifdef CONFIG_ACPI_APEI_PCIEAER
+-	struct cper_sec_pcie *pcie_err = acpi_hest_get_payload(gdata);
+-
+-	if (gdata->error_data_length < sizeof(*pcie_err))
+-		return;
+-
+-	if (pcie_err->validation_bits & CPER_PCIE_VALID_DEVICE_ID &&
+-	    pcie_err->validation_bits & CPER_PCIE_VALID_AER_INFO) {
+-		struct aer_capability_regs aer_info;
+-		unsigned int devfn;
+-		int aer_severity;
+-
+-		devfn = PCI_DEVFN(pcie_err->device_id.device,
+-				  pcie_err->device_id.function);
+-		aer_severity = cper_severity_to_aer(gdata->error_severity);
+-
+-		/*
+-		 * If firmware reset the component to contain
+-		 * the error, we must reinitialize it before
+-		 * use, so treat it as a fatal AER error.
+-		 */
+-		if (gdata->flags & CPER_SEC_RESET)
+-			aer_severity = AER_FATAL;
+-
+-		aer_cap_regs_unpack(&aer_info, pcie_err->aer_info, sizeof(pcie_err->aer_info));
+-
+-		aer_recover_queue(pcie_err->device_id.segment,
+-				  pcie_err->device_id.bus,
+-				  devfn, aer_severity, &aer_info);
+-	}
+-#endif
+-}
+-
+ static BLOCKING_NOTIFIER_HEAD(vendor_record_notify_list);
+ 
+ int ghes_register_vendor_record_notifier(struct notifier_block *nb)
+@@ -995,7 +945,7 @@ static void ghes_do_proc(struct ghes *ghes,
+ 			arch_apei_report_mem_error2(sev, mem_err);
+ 			queued |= ghes_handle_memory_failure2(gdata, sev, sync);
+ 		} else if (guid_equal(sec_type, &CPER_SEC_PCIE)) {
+-			ghes_handle_aer(gdata);
++			extlog_print_pcie(gdata);
+ 		} else if (guid_equal(sec_type, &CPER_SEC_PROC_ARM)) {
+ 			queued |= ghes_handle_arm_hw_error(gdata, sev, sync);
+ 		} else if (guid_equal(sec_type, &CPER_SEC_CXL_PROT_ERR)) {
+-- 
+2.43.0
 
