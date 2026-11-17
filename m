@@ -1,94 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794930008;
-	b=QARijLpLJkbvHpS0KudfbMiTACCOS9UEbiZTjjA6Ie/Trc2F/KBADex6rif0MUTKtWYX
-	 JWumn+kvDK+4kZ+1LUqL8Ug71kY57dGYSWJy0m4Q6TGyp6W0HDtwKqMSAVOZO7Ro5urkJ
-	 MeRh3U8dY7vgKUsT8ej2V9TV1v9EjOiIw3iUU3SlmeHqAXPXplSinLrBn0Lt0acSAUp5u
-	 FLgaasZE0UHdrOnXXxaMNOBZktpR8186R3bqRlk39hhmNnFkKq7yMtoOKbE+TWJZsZ8EB
-	 M0NnRG44m3bunEtrCywyNLftz2PlfFZCCB8k/eXzi/yF1lNW49f4UkRc3K8Hh5A6fuw==
+	t=1794930048;
+	b=zFqDo5WzZdS8fTsr/AsVY+YEXPRNYPTrvZ6yCDU7mRs2/7Y3I9w+c94TNYDkUmIrNoW8
+	 tBkosH++CVIJuoDjwKVfEW/GXbiAAzRAXjy3PbkThU+eWMxT/tQ16K8gdTVEr8mOY8W1b
+	 ZI76dW96Zl3DU4AAU7+PMURsb/LSixNXpE5yAz0L7CLX6jBocu2QQy4BHPTvqWlXOZk/5
+	 t5Q8p+KW0N8RsSnzenkdNvI8wMVbsKJJIBDzldkMl/crVFyaCvPY4fSAuTxIENxTqndOz
+	 b29u0/y/m6zM2d0EGeaLuYDXc6wTie4SCYoRb27Y5pyyQkSdy0q1EJSbelt9GhtYRRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794930008;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Unj9HOPE9r4xn1Fl/kApFZLZDm7bfKMcYAzdh+ABMHA=;
-	b=aQBlK5kEgPp9HyW0TOxlaMNyVyN6GZctMT6hg8CFm0Cz4umxs18YdA8omaq55jbIn4hU
-	 At3lmd9RnORqyCcQZ/KptLv2ZA3rvskqIW/ePlRdpuxJuTL+rMgSkyEL2e4aRd+BKhHYQ
-	 jjfhw//SPMk9B6n+7gQyfl5z0InhIp80b9kz4TtS29V1vN6Ooyqb/jPkwdxOjYbKrNWGI
-	 LuZMMyxrKXWAbAVTy7PAJYJlXMWSyTrEjt8UROq9VaXSMKBIzt5Agq4+6fFbL92Wblc1Z
-	 IjOj2Ny3WPkhAarvo/nGCke91sOeIA2tElLaTg6qwYoqbEMbHHJJKI4kQQglt8XCutw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794930048;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=2uRobH7cB+V+f7/Yy8ygzoo6bmhP7SFuLxqTJKOlnTU=;
+	b=huM2NXogitoe0IdiyLLX2MqXOGCcHMX9rD0YBPQ6zrsdvd/7JHuAofH7OiVEb7aicUC2
+	 fJn1JYV9AI8Mxv4/Rv8b4LV1OZfH+Grwkc52/ipop0B2d7dK63kV8AnIUP5PS8SoRIbqX
+	 mde9IZj4GnjFUL6My6cicI3D5RXvgOwlCMdjPsI3eiiB7jo+9+dEer5XHfJ30T1ipciei
+	 +kmoHZmESNSjYaOE3p0sEff4QKdXRgPuOuQW9wz9W+80cSXeapMw6LkzEkTIKzqdxUaVt
+	 qZ8EVlqJ2N33L1l0ZxuCIS7jk+MVSBtjtSLRoz2LLTZ94xsY0/ot93eV64RfhsIqJag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="qnui/jmQ";
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.210.72
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AC8F606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:40:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AC8F606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qnui/jmQ
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso28413eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:40:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794930006; x=1795534806; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Unj9HOPE9r4xn1Fl/kApFZLZDm7bfKMcYAzdh+ABMHA=;
-        b=qnui/jmQ7ZBK2yUhzkT7buTqD6BP6tFQgtLPtN1Dzk4Zd7TJuQ+gsudAo4zOzJp5Sx
-         hNZl5Ruen+SJ5tBnYnNGrDLqdMOeDZNDMpmcMTg4wsMoMsxwrfRJxxkqdP1qPJQidMPw
-         9/wkIZHk7+IqkVBVFuDgCUyaPrWJ8FsdKMAbgUH+1gnRvlCOFqEZvhXD9aciHr/isyJz
-         KaTxc8bOR9OHVjNgH8TOyTM+KZ2otNUsnG/L6Xl5HYpLduTi/3LCMfzrGvEXqiQhGU3e
-         gK+gMIBC1/Pdl3YscP/oMH0SD7SEw015l1JAjoXWMyF4HEPbGlsqxw1POjINuyUwS/1D
-         icdw==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51177606A32C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:40:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51177606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-85c1135c289so3331980a34.3
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:40:48 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794930006; x=1795534806;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Unj9HOPE9r4xn1Fl/kApFZLZDm7bfKMcYAzdh+ABMHA=;
-        b=zobHNlJvdiAopbzu41COI4A3IODYLnGE5ZEHi3CnuoCUzKNaxJ7JuRVEjNXIeSjhFs
-         qMlm4HTzFOuzlp4qYT+mk+H1vrX+e92VQiR7J8WqgwEhTHU2VLIUplCn4Dlmi9/GptdB
-         84C9L8KDWzitNa6oRcXzhaqXzGqxFaR0NMwjcJwTbdVxo0kk4VRL+trsTEHuYPogtvCS
-         64FyZyDEQRam0RoF25V4EdjxElwJsD+y4HZ5vQD2L/Karkch4gtjJ16BiAlf+XioYfkF
-         AEGvlh9kINf4i57sZgpuMo6fC2UL9u87VrIX1ILqDhNTUGDuYsGjuHra6SMRTXlDX5gj
-         vvrQ==
-X-Gm-Message-State: APuU4Z9AKL45SWjdf98SMsO7jtq0UD00w7ZeNbthly8hWl5gL8bZJpXg
-	lrfmCb6fm60Wjz8WqVfxaBxoJtZGppRTJUqXPE8va0E0E/g93L4u9QuB
-X-Gm-Gg: AZFdTZfnmWzkfgjyugqHmAuunps8yDQbCMFv7IasmYGSYNyJSzyJJ3g5P/KcW5r1CaO
-	6myo1TvCgDcqpVtPqWuc+gdK1aUvle0eJ/qrCjNo9aINPt9S1tBAgpvqnBknq8GVaordOdBYt8Y
-	OqrsDPSdVXXTNmOG3EVtETpKpfP+NI7UmcaD2kklVE7P+21Td2pHYnk/fZSJ1oIDrdXxzCo5MA+
-	1l6AcqVTdsF7m86sO1WOEsa2N51zsOAMnyeAgab8LWVRwgMjofnv8JUnqkAr+YSs4/7Y5cFVE2c
-	BZ/WHkXgPiRO+CO0X+ALsUn4gbR/odydwdOhzexSlG7Dj27WuHGI1C3KmSWc3S/NiemViBko4SA
-	tF6ymk0dduJog/BIHC583XJ8Sso5PMtuFvadK7sfpC1BWLYPhXMV/VSmV85W8/pwcWwSvbiB2Xo
-	/k5DQ09wyRDfM1SdUbspWbbZ/9L5K0KEIA9ra2yo6ZmJs+Cw36VLnw8PEN3tVSmj4sKnAtxMBOJ
-	jzns6JhEfqHNGSIXsZHj513KpCri+gChrbUkkD/gubtKDCsZFhYaGcFYuUuOtYyPZuiXNh1KKES
-	wNM5uNk6rsQP4JD9IzMVc+UdF8ol3ly+67ebqX2NbWuelBZfM1Q=
-X-Received: by 2002:a05:7300:e10f:b0:381:ccd2:f6be with SMTP id 5a478bee46e88-381ccd303d5mr2073471eec.21.1794930006414;
-        Tue, 17 Nov 2026 07:40:06 -0800 (PST)
-Received: from localhost.localdomain ([103.178.205.74])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3815045b90esm6542980eec.13.2026.11.17.07.40.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 07:40:06 -0800 (PST)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: tiwai@suse.de
-Cc: linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz,
-	sreekuttan2156239@gmail.com
-Subject: [PATCH v2] ALSA: core: Validate card indices in lookup helpers
-Date: Tue, 17 Nov 2026 15:39:31 +0000
-Message-ID: <20261117153931.2784-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <87se0zxzyt.wl-tiwai@suse.de>
-References: <87se0zxzyt.wl-tiwai@suse.de>
+        d=1e100.net; s=20260707; t=1794930047; x=1795534847;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=2uRobH7cB+V+f7/Yy8ygzoo6bmhP7SFuLxqTJKOlnTU=;
+        b=uqEllUbjjKxpP9lCaH23eA4le6IriEcQLPfI39WraTKOX4jT1FVlrKrqKd4WU4cVoo
+         iHmjhs4P0fgIxrmGrIEovhs8G1YAB0cqhKn8EV/KaMU+JQ08c1nkbmTUTcp2JSTCIT9m
+         j0idMK3eYUSr9itMvqogxoI5bdugl323FqdNkHsl/gmsbOjn+lAiviPm+KGAe9gYn7Ja
+         nA9ALjheGlCWtKK53BzUB4yUg97Gxttsujm6bsOdKEOYqnf02KX1GUudjMye/PyvfQ5w
+         w7Pze0U24dXto3QkyEvoaxQYUlpDYNI31syWebJlXlb56edgGONpJ+Jbs/1u8Mp5ARxN
+         F81g==
+X-Forwarded-Encrypted: i=1; AL+hErEo+CqJNaXrWf1jebcwHaA3i9V0uVSrrGMyt48RmSuO049i651nCXcOuJ8A5HaBuSE3QAA1ndvracdoFhI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8OnTFrc6ni3/Yt110MHWquVsDtdlVgIGObUu6XPj+s8elFpOw6
+	o/FHLaYK9NoUBvEePAdRIXGQBL9Lo7/dTUNBEL+ogWAh3FQTGMwx7lghh1WL2l8/YFOie64PtDR
+	34Y5+TjOqGdag/AUHw7sXB0RNUe/nEl0fMLCl9y6Bh6cqH9qs6Fu7zb3XAMk=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,52 +58,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:8419:b0:571:a186:d6b9 with SMTP id
+ 5614622812f47-571a186df41mr10001430b6e.13.1794930047213; Tue, 17 Nov 2026
+ 07:40:47 -0800 (PST)
+Date: Tue, 17 Nov 2026 07:40:47 -0800
+In-Reply-To: <6afbad4d.f3cfa7c9.844a4.0002.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6afc757f.6a9a30c8.1f5211.0003.GAE@google.com>
+Subject: Re: [syzbot] [kvm?] WARNING in kvm_dirty_ring_push (2)
+From: syzbot <syzbot+55eaa971f4924b62c9a5@syzkaller.appspotmail.com>
+To: kvm@vger.kernel.org, lei.cao@stratus.com, linux-kernel@vger.kernel.org, 
+	pbonzini@redhat.com, peterx@redhat.com, seanjc@google.com, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Ensure card indices are within the valid range before accessing
-the card array or lock bitmap in snd_card_ref() and
-snd_card_locked().
+syzbot has found a reproducer for the following issue on:
 
-This prevents out-of-range indices from causing invalid memory
-accesses in these lookup helpers. It also protects against
-invalid indices passed by existing or future callers.
+HEAD commit:    749a4de37040 Add linux-next specific files for 20261116
+git tree:       linux-next
+console output: https://syzkaller.appspot.com/x/log.txt?x=1341e5c3580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=fedda7175e1c0b47
+dashboard link: https://syzkaller.appspot.com/bug?extid=55eaa971f4924b62c9a5
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=139fd73d580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=10c1e5c3580000
 
-Warn about invalid card indices and return NULL from
-snd_card_ref() and 0 from snd_card_locked() when an
-invalid card index is supplied.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/9bd53057353b/disk-749a4de3.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/a0d84c6a978c/vmlinux-749a4de3.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/7e9b601ca025/bzImage-749a4de3.xz
 
-Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
----
-v2:
- - Add WARN_ON() to report invalid card indices, as suggested by Takashi Iwai.
+The issue was bisected by AI to:
 
- sound/core/init.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+commit fb04a1eddb1a65b6588a021bdc132270d5ae48bb
+Author: Peter Xu <peterx@redhat.com>
+Date:   Thu Oct 1 01:22:22 2020 +0000
 
-diff --git a/sound/core/init.c b/sound/core/init.c
-index d518cb838777..343c06d714c2 100644
---- a/sound/core/init.c
-+++ b/sound/core/init.c
-@@ -384,6 +384,9 @@ struct snd_card *snd_card_ref(int idx)
- {
- 	struct snd_card *card;
- 
-+	if (WARN_ON(idx < 0 || idx >= SNDRV_CARDS))
-+		return NULL;
-+
- 	guard(mutex)(&snd_card_mutex);
- 	card = snd_cards[idx];
- 	if (card)
-@@ -395,6 +398,9 @@ EXPORT_SYMBOL_GPL(snd_card_ref);
- /* return non-zero if a card is already locked */
- int snd_card_locked(int card)
- {
-+	if (WARN_ON(card < 0 || card >= SNDRV_CARDS))
-+		return 0;
-+
- 	guard(mutex)(&snd_card_mutex);
- 	return test_bit(card, snd_cards_lock);
- }
--- 
-2.55.0
+    KVM: X86: Implement ring-based dirty memory tracking
 
+AI reasoning:   https://syzkaller.appspot.com/ai_job?id=8ec79404-c0f6-4141-a152-96124787ad82
+
+AI-generated root cause summary:
+The KVM dirty ring implementation maps the per-vCPU dirty ring buffer
+(ring->dirty_gfns) writable into userspace. In kvm_dirty_ring_reset(), KVM
+iterates over entries marked with KVM_DIRTY_GFN_F_RESET and increments
+ring->reset_index without verifying that reset_index has not advanced past
+ring->dirty_index. When userspace sets KVM_DIRTY_GFN_F_RESET on un-dirtied
+entries, reset_index surpasses dirty_index, causing kvm_dirty_ring_used()
+(dirty_index - reset_index) to underflow to a large 32-bit unsigned integer
+(~UINT_MAX). On subsequent guest memory writes, kvm_dirty_ring_push() checks
+kvm_dirty_ring_full(), observes that the used entry count exceeds ring->size,
+and triggers the WARN_ON_ONCE(kvm_dirty_ring_full(ring)) assertion.
+
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=55eaa971f4924b62c9a5
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+55eaa971f4924b62c9a5@syzkaller.appspotmail.com
+
+The cause commit was identified by AI and may be wrong.
+If you agree with it, please also add:
+Fixes: fb04a1eddb1a ("KVM: X86: Implement ring-based dirty memory tracking")
+
+------------[ cut here ]------------
+kvm_dirty_ring_full(ring)
+WARNING: arch/x86/kvm/../../../virt/kvm/dirty_ring.c:225 at kvm_dirty_ring_push+0x2b2/0x5e0 virt/kvm/dirty_ring.c:225, CPU#0: syz.0.2477/13660
+Modules linked in:
+CPU: 0 UID: 0 PID: 13660 Comm: syz.0.2477 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
+RIP: 0010:kvm_dirty_ring_push+0x2b2/0x5e0 virt/kvm/dirty_ring.c:225
+Code: 38 be 08 00 00 00 e8 8d 10 08 01 f0 80 4b 38 08 48 83 c4 18 5b 41 5c 41 5d 41 5e 41 5f 5d c3 cc cc cc cc cc e8 cf 84 88 00 90 <0f> 0b 90 e9 f8 fd ff ff e8 c1 84 88 00 90 0f 0b 90 e9 00 ff ff ff
+RSP: 0018:ffffc900065872e0 EFLAGS: 00010293
+RAX: ffffffff81412d31 RBX: ffff888059575100 RCX: ffff88802a9b0000
+RDX: 0000000000000000 RSI: 0000000000000400 RDI: 00000000fffffffe
+RBP: 1ffff1100b2aedc9 R08: ffff8880369ec9d7 R09: 1ffff11006d3d93a
+R10: dffffc0000000000 R11: ffffed1006d3d93b R12: ffff888059576e50
+R13: 1ffff1100b2aedca R14: 0000000000000400 R15: 00000000fffffffe
+FS:  00007f585c1b76c0(0000) GS:ffff888123134000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000000000000000 CR3: 000000007a420000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ make_spte+0x71a/0xc80 arch/x86/kvm/mmu/spte.c:296
+ tdp_mmu_map_handle_target_level arch/x86/kvm/mmu/tdp_mmu.c:1144 [inline]
+ kvm_tdp_mmu_map+0x140e/0x1f40 arch/x86/kvm/mmu/tdp_mmu.c:1300
+ kvm_tdp_mmu_page_fault arch/x86/kvm/mmu/mmu.c:5029 [inline]
+ kvm_tdp_page_fault+0x2f7/0x3a0 arch/x86/kvm/mmu/mmu.c:5042
+ kvm_mmu_do_page_fault+0x31d/0x640 arch/x86/kvm/mmu/mmu.c:5089
+ kvm_mmu_page_fault+0x1f8/0xc00 arch/x86/kvm/mmu/mmu.c:6698
+ vt_handle_exit+0x28/0x160 arch/x86/kvm/vmx/main.c:974
+ vcpu_enter_guest arch/x86/kvm/x86.c:8540 [inline]
+ vcpu_run+0x4da1/0x7890 arch/x86/kvm/x86.c:8695
+ kvm_arch_vcpu_ioctl_run+0xe83/0x18b0 arch/x86/kvm/x86.c:9035
+ kvm_vcpu_ioctl+0xa61/0xfd0 virt/kvm/kvm_main.c:4595
+ vfs_ioctl fs/ioctl.c:52 [inline]
+ __do_sys_ioctl fs/ioctl.c:604 [inline]
+ __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:590
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x00007f585b3a94d9
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f585c1b7028 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 00007f585b626090 RCX: 00007f585b3a94d9
+RDX: 0000000000000000 RSI: 000000000000ae80 RDI: 0000000000000005
+RBP: 00007f585b438136 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f585b626128 R14: 00007f585b626090 R15: 00007ffe50d85978
+ </TASK>
