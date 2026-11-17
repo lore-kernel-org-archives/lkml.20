@@ -1,80 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.219
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794912714;
-	b=dKDlhePZE044Fi+wRuXqYQjkL8a5FsfAz2roRAgV/fD+uw64DFkph5a0rLEN1eaQl4YW
-	 w0GrQWLz9S1+sbM43ZKsoRCyF58e6gzmoMtviAV10X8P1Ncrz6MO4GNKUW2o2PnZPIaGc
-	 +/XBMLN5yCmZ6Syq+pcDhaikHRjaJHIwEePX2KUXDcBzPBrkoYondinKRc1eVmye1zbRj
-	 NgpfwX7LhDmFr4Slod4QO0EZv38U1u/BOiJSDeMIEqAaw5X5Az+2T/f+M1BXxvwPG2qLP
-	 2lJasRLG7HB3qHjDVuvKCS3I5e8T2mgYvPOSCLaKf45YlAHgG2pAJv3hHcnRDRbVYPA==
+	t=1794912767;
+	b=3oJdnV/yrQWVXrcejcO0pvk78gwgby7hQVaS8nrxcTZ2sYfOVJbYm73QKMM0QbDYtaxr
+	 DNe6WUsVa1epkIMR2rcY9FBsDzFqwZOTDMWmmBOJHO2xbJtn+lBiz2tDkQKjaCsppbycf
+	 AhHxFSgTBpwaHKlt485KR1T68lYh6W2Wa1heL0+TJfEcjeKG1+xkinGu3FyWGYyNPZ/rr
+	 rMcqwgPZeWkDIUrM6p2dLX7LT6wJfZQcr9tex41apRnzi6HDg5Kz1dycWaKQEDbO8awpx
+	 1ysqPg21kWn4/HJYMIWarEzJQGq16I3FVRSacJG1LzEt7fwhQq+jS7QZu6YcBJGeOiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794912714;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=1kU0oUKFP8qs3a/uIzyFa5iGsKNkg9VEancdWHE3XQM=;
-	b=flw9fwlj/xnfYtHMVh3CJ6M7v6mUhdY497BjrHSTA7Hp20NVc+e2xrDqLIsUSfAXCb38
-	 Lp/6RT1CtrLvEWN6GIk09kkTGg89gP4zT7Or7lDaDeeGr1+npQNxM9agdIAHivqB6xaMC
-	 I5cRqQLdOYvJb0RHr9mmta1bU9NIGicqILHL1GUbl2wTpyKU4TISwjfuSkZfjjiIDV6Hp
-	 +VKFylbQdnMYC9Gd+BVSNeZDH8DuI3eFvsK2uMXo3HYljikh9K6ck60RWpQXtFp55IEy3
-	 esjpezi8eDvLq87W7Rgwc3le4sRH4C7jwbqH9Faubo5YVWJ+sRqYne0yhsIrL3P0bCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794912767;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=gIDyOlmda9Z172HEhXPnShF0sdY8RfmEkzJnJkYDlTI=;
+	b=fZquUZa6DIK3vSSl3nRy/ddnzXmmSInvQEIQfQqpwGV3RmDKCdSZ2ap/lt0+4fFCSbdL
+	 3vYNIdT+mIWx0JA8pAIF4FLEKUWWXsbfCJwfuUN/fdnXeqGx7FpMD5Q7zsk2Nw9W2r414
+	 B4SFk7C0f3K61nWJTZOkK8oUNCDRVOhlEICKS7KvA0tVw24GfhvgjX1iJsabg6kVNBLBn
+	 MvCh+PPObRuz32oH+W8nWWQD14sxZxAK5066WbodzDVq1iIikr7zrwAtbn92sT6X9JFUV
+	 s8l59BzhV8fPtmSPEWHcXezGCy1TbJZZf1SaMIbqUvk3/ydFcHcRv48rvmUMwk36rzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WjSweDpC;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=aPDnMgab;
+	arc=none smtp.remote-ip=113.46.200.219
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FD77606A334;
-	Tue, 17 Nov 2026 10:51:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FD77606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D907606A33A;
+	Tue, 17 Nov 2026 10:52:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D907606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WjSweDpC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794912715; x=1826448715;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=1UlDPg4H4GiOwBIiBQ4CE7u0ZPEqreZmQXDPKyudEx4=;
-  b=WjSweDpCrx6Om1ysJGuC1XvBWWGeOPLYtGpuHQfEDIoTTTSm6ghnIJYM
-   DQFE+ZC3wkCaZ7VVCx6QxjyGQIyRVz3L3d1aHcF5QJDerjK9cQ1DT9vcB
-   iE0wa/yv5QSqTemWFxTmUnxBg3/DDwIjokzHtxJ98pyYWk3qxl5twhYvL
-   iizlYmx7AWGHPj+M+w7K3oQFuXWgLorTQg2oQ+IRH/mtOWkgdsmeTr/ky
-   +mfvvMNhVhXgYaGT81Y72CbRKzdxs84dQnp25LfJ1+txezXw8qZ16PoEj
-   jHBtWsxZqQdd93B2E82BJMH7lPT4zd8olxKcJ3MCWs34YH6jmBb27qK6F
-   A==;
-X-CSE-ConnectionGUID: RNh6FDNMQh+ZYKQIzx76uA==
-X-CSE-MsgGUID: OlQnGND1TDupR/muAQrHgA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3577931"
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3577931"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 02:51:54 -0800
-X-CSE-ConnectionGUID: 0nLnxp+xRA6LUYWI5bwi4g==
-X-CSE-MsgGUID: 9PSUDEkUS6mBMFNKGWUBRg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="10033258"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.254])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 02:51:52 -0800
-Date: Tue, 17 Nov 2026 12:51:49 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Arnav Kapoor <kapoorarnav43@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Mudit Sharma <muditsharma.info@gmail.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: light: bh1745: fix 16-bit register accesses
-Message-ID: <avwxxbyzHP8tCgkV@ashevche-desk.local>
-References: <20261116194214.45174-1-kapoorarnav43@gmail.com>
- <avwqtvhrxmgLe8np@ashevche-desk.local>
- <20261117104152.137597-1-kapoorarnav43@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=aPDnMgab
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=gIDyOlmda9Z172HEhXPnShF0sdY8RfmEkzJnJkYDlTI=;
+	b=aPDnMgabkVBwnbZqz3ckgrFm5tY2iFKJmN/QOtJ41/1jaWQe3MTzW4Cr2Z0mi6dHO/GTiOd5V
+	/XopetpJeY6PPkUEnqdRw/BC3h3I73h7rfjTUk6jGvHfcICVNOa9xg/BascYAUGZYgycOLw4VWO
+	aipkS99/7W+Msiabp4eJrZ8=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4jTM4s2TwQz1prKZ;
+	Tue, 17 Nov 2026 18:52:29 +0800 (CST)
+Received: from kwepemr200004.china.huawei.com (unknown [7.202.195.241])
+	by mail.maildlp.com (Postfix) with ESMTPS id AEF7740686;
+	Tue, 17 Nov 2026 18:52:41 +0800 (CST)
+Received: from huawei.com (10.50.163.32) by kwepemr200004.china.huawei.com
+ (7.202.195.241) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 17 Nov
+ 2026 18:52:40 +0800
+From: Pengjie Zhang <zhangpengjie2@huawei.com>
+To: <rafael@kernel.org>, <viresh.kumar@linaro.org>
+CC: <linuxarm@huawei.com>, <zhanjie9@hisilicon.com>,
+	<prime.zeng@hisilicon.com>, <wanghuiqiang@huawei.com>, <xuwei5@huawei.com>,
+	<zhenglifeng1@huawei.com>, <christian.loehle@arm.com>, <yubowen8@huawei.com>,
+	<pierre.gondois@arm.com>, <sumitg@nvidia.com>, <linux-pm@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <zhangpengjie2@huawei.com>,
+	<mojunjun4@huawei.com>
+Subject: [PATCH v3] cpufreq: CPPC: Enable boost by default
+Date: Tue, 17 Nov 2026 18:52:40 +0800
+Message-ID: <20261117105240.1113405-1-zhangpengjie2@huawei.com>
+X-Mailer: git-send-email 2.33.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,38 +72,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261117104152.137597-1-kapoorarnav43@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemr200004.china.huawei.com (7.202.195.241)
 
-On Tue, Nov 17, 2026 at 04:11:52PM +0530, Arnav Kapoor wrote:
-> On Tue, Nov 17, 2026 at 12:21:42PM +0200, Andy Shevchenko wrote:
-> > On Tue, Nov 17, 2026 at 01:12:10AM +0530, Arnav Kapoor wrote:
+The CPPC driver leaves boost disabled by default when Highest Performance
+exceeds Nominal Performance. Userspace must explicitly enable boost
+before governors can use the full advertised performance range.
 
-...
+For user convenience, set .boost_enabled = true in cppc_cpufreq_driver.
+Since cppc_cpufreq_cpu_init() sets policy->boost_supported when
+highest_perf > nominal_perf, the cpufreq core will enable boost by
+default only for policies that support it.
 
-> > > - bh1745_trigger_handler() stores the raw bytes in a u16 although the
-> > >   scan type is IIO_CPU.
-> >
-> > I didn't get this, what's the problem here?
+Signed-off-by: Pengjie Zhang <zhangpengjie2@huawei.com>
+---
+Changes in v3:
+- Drop cppc_cpufreq_default_boost_init() and set .boost_enabled = true
+  statically in cppc_cpufreq_driver (Christian).
+- Link to v2: https://lore.kernel.org/all/20261022075901.3436021-1-zhangpengjie2@huawei.com/
 
-> The handler does regmap_bulk_read(..., &value, 2) into a u16 and puts
+Changes in v2:
+- Drop "even" from the commit message (Christian).
+- Link to v1: https://lore.kernel.org/all/20261015015812.867988-1-zhangpengjie2@huawei.com/
+---
+ drivers/cpufreq/cppc_cpufreq.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-> that straight into scan.chans[], so the buffer gets the register bytes
-> as they come off the bus, LSB first. The channels declare
-> .endianness = IIO_CPU, so user space reads each sample as a native u16.
-> That is right on little-endian, but on big-endian every sample comes
-> out byte-swapped. The patch reads into an __le16 and stores
-> le16_to_cpu(value), so the data matches IIO_CPU on both.
-> 
-> I'll reword that bullet in v2 to say this directly.
-
-Yes, please do.
-
+diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
+index 957fa7775260..1ea16e95c0e9 100644
+--- a/drivers/cpufreq/cppc_cpufreq.c
++++ b/drivers/cpufreq/cppc_cpufreq.c
+@@ -1059,6 +1059,7 @@ static struct cpufreq_driver cppc_cpufreq_driver = {
+ 	.fast_switch = cppc_cpufreq_fast_switch,
+ 	.init = cppc_cpufreq_cpu_init,
+ 	.exit = cppc_cpufreq_cpu_exit,
++	.boost_enabled = true,
+ 	.set_boost = cppc_cpufreq_set_boost,
+ 	.attr = cppc_cpufreq_attr,
+ 	.name = "cppc_cpufreq",
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.33.0
 
