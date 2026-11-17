@@ -1,55 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794923185;
-	b=FdrCHYvGn2AaDN9KjqCI9w6brLf8Vr8Dz0KTFHL2jIkSq8kL8w9/NPlevuVmEsDdwdzz
-	 hNYNBkAXERr4ZrdmJfIQalp6Dy4psWUF2EtyucruGG0L9joybLPcQBsis5k6ZXLMM4zv+
-	 0HhrkTE4b0yfYuMYAcHVVXFYiR/B9y1QOKAN1SMBiKCKJbviyRneyTYJO8g6JKA1+Z4B/
-	 mQjdgu/rR/AyyurDUeWuUFgZ/U5f82RS+VB3CVPn/j+zGYExjUDzxOC8dRS8kANjMeWsJ
-	 KkFCt9hHvb3b7webmbZMWzn76Y9LM3Zhs/LPzoSOGkdVd/9PDq0vyLh13aU19PCr70Q==
+	t=1794923229;
+	b=gaolA/VeDK5ALLajMleTlG/ufuTpXAvZIs+9UEd0T8TRdsgFgs2+4177Q6A30ZZBs3ia
+	 33JJ6/0S/whl1DsRancEzF9ls68Z3zTWEq06Z0VHf+GrQ09sEah4SOupZKWvL9Tnu58UV
+	 gkQCxC/Lexjv5ygwP8NTSFrL7OYBuWTmx3xBs9mROOgjXHb95S+JZYRCCoWqBsi3HZ+Hu
+	 oursNNzXCX1LrPAi3LxmivA/OOt3Wbrvl0eZcobOmFMAm+SaaQHXl2OrszmGHfC/SDgbb
+	 oMhe8N4ggSLgow8e/OF9WZUM4BZui1zGvfnDH4/bKDq28RLzmDQ9xJsnDNeJNSI1HnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794923185;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:From:
-	 To:Cc:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=8f6rccMSyPsIrN1Q18fCGix5pfk1/BssylUZ+J+Wx/M=;
-	b=uxLMMiYfE7hZ97XzawKgAFZzZcdjiSghTi0HKtGXHLJR1sQPLl8J3RjKUXXhFuadgkVs
-	 oCLLIc/pvktSAxBjt/IMGhK+uBtI/iOPGee8kggw4nHP+HcZYil9WGcTw0/AzrZcM9f+D
-	 8D2DFDwCxYl0f2a7E+2NzkKp04UV5aP1zqHwC8HuvYAQZ555rka1x08X6RCAdz+LWVTTu
-	 74fzp0eK9YNjDswAvhCSIxrNSuSosbP2VEeu/OwEq8+gnEFTbAJhADCynJJoJ9xg+GN4u
-	 2iHFaTpuq/FC1MDsGWaA+rRuMwS1YxHLQ1qfiqL7/1trXudU7lxa6MLSXe9kFTNMybw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794923229;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=8ymDBll+m8njIQXnZhzBbLu14ANrEaXlecK0b9Ys2iA=;
+	b=bLsWuH83oua0wqVDzsGQ3GJgOs6QbMqPSlGnpeOIffFMqLWXKQrkgCI0Y6kwdgPJZiEA
+	 GQsCS/cdCzFn1CA33eA9/UWAX3mG+Um4k7APmKD08fAd6gu1x+3UMJbHQ6tP+W1bTnoEB
+	 fu16QyZ0PaP8ttiyBHtkNNP6SPtEejcCHWVIpQH5zRsQAInDH99ETW0DkOWaVtCNXD+o2
+	 9t8CSKQo5hU64wRp8molZVV2Adko+ldXH3IcjEczBPY+d97LLOqdVyREd+YafYLUTsy1M
+	 7nebjLWlVmTugANeRisNbxhRNa1WpNg0ijlbiAp6OUT4PacMYy73zPNil3qH4NAzIPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=QrlVUiB7;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YZ5dD1TX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AAAD606A32C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:46:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AAAD606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D51F606A31C;
+	Tue, 17 Nov 2026 13:47:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=QrlVUiB7
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id B34001A0645;
-	Tue, 17 Nov 2026 13:46:23 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 7095D5FC81;
-	Tue, 17 Nov 2026 13:46:23 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2DAE411BC0036;
-	Tue, 17 Nov 2026 14:46:16 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794923182; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=8f6rccMSyPsIrN1Q18fCGix5pfk1/BssylUZ+J+Wx/M=;
-	b=QrlVUiB7S4f1Ljw6XDjLtzE2yG37yYuxWaCy7J6yDQCfIRxyIDLwGdJ06Yv14L2f350FY+
-	ePr3GM2ejnyWcN1TAjLk25JfSOxnUtJ/sCFT1dIusRNynHfbkaPtIIRD4IEN0cVw5j/LBm
-	fv6RuaZTTAHIisqx2FJvLJU3zgoCrIjCd/zz/VAhADqNsV8dLYarDjqYvJskwJ3RKr7WhT
-	87RcHIbVIXbKakCoCygkmlQ5UCyz7Hn2I8YsaI572ctUTW1uDcdvvs4YGS8oU402LU97yL
-	2DSc45NejMlZq5YK0fHmiqIEpYGQoH4Tu/Fau9mLw71kT0EiOlQovgsTx66IAA==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YZ5dD1TX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2AFD1F000C4;
+	Tue, 17 Nov 2026 13:47:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794923228;
+	bh=8ymDBll+m8njIQXnZhzBbLu14ANrEaXlecK0b9Ys2iA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YZ5dD1TXczNz8vy5JFg/Cbdwz8n5zn4twRanmeNYDUkn/gzKNyoewoS6v31CeqFGA
+	 EeHo/w3G7pPaDdZIb3kfKf+GV3SgmOzi/DNjF7MKyS/FaHqpvzBUE1DwQ/+cMQ94oY
+	 rAsdzN4Y2G2qUAB1OQIwmz3hvBdYDy8Y83PGxKBHh2+lrMy3OVK8RpMgxwVb+oVfQE
+	 00xxwNOOiQr1cFltlgVkGiFdaPqcuz20LvUmrghFa7lagRSgg+tCaWK527M3vf3g+K
+	 PGR9/7t6VmRuwUfybQLduE1GK1P1voR4Q3J5Nw6VEbr8xWBgl4OUybiGgMoEG6EH1k
+	 BD+X1ME5MKaSg==
+Received: from johan by xi.lan with local (Exim 4.100.1)
+	(envelope-from <johan@kernel.org>)
+	id 1xTJWc-00000004N0p-0reK;
+	Tue, 17 Nov 2026 14:47:06 +0100
+Date: Tue, 17 Nov 2026 14:47:06 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] software node: make swnodes hold their own references on
+ parents
+Message-ID: <avxa2k9HyHX9CvYl@hovoldconsulting.com>
+References: <20261106-swnode-kobject-parent-ref-v1-1-77dbd7213dd0@oss.qualcomm.com>
+ <avxEGiacULc2eciv@hovoldconsulting.com>
+ <k3yo7tpvb33prcuuw2a2qthvuww2edb7tsszj5hxlkcfaurt7k@m2czeig46clb>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,63 +72,39 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 17 Nov 2026 14:46:15 +0100
-Message-Id: <DMXJ5VMIPGL9.1917ON486UJRD@bootlin.com>
-Subject: Re: [PATCH v7 3/3] ARM: dts: renesas: r9a06g032: add EDAC node
-From: "Paul Louvel" <paul.louvel@bootlin.com>
-To: "Wolfram Sang" <wsa+renesas@sang-engineering.com>, "Paul Louvel"
- <paul.louvel@bootlin.com>
-Cc: "Borislav Petkov" <bp@alien8.de>, "Tony Luck" <tony.luck@intel.com>,
- "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Geert
- Uytterhoeven" <geert+renesas@glider.be>, "Magnus Damm"
- <magnus.damm@gmail.com>, <linux-kernel@vger.kernel.org>,
- <linux-renesas-soc@vger.kernel.org>, <linux-edac@vger.kernel.org>,
- <devicetree@vger.kernel.org>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>, "Miquel Raynal"
- <miquel.raynal@bootlin.com>, "Herve Codina" <herve.codina@bootlin.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261019-paul-v7-3-rc1-edac-v7-0-84c76c6d7595@bootlin.com>
- <20261019-paul-v7-3-rc1-edac-v7-3-84c76c6d7595@bootlin.com>
- <avxR5VZESPLklIuG@ninjato>
-In-Reply-To: <avxR5VZESPLklIuG@ninjato>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <k3yo7tpvb33prcuuw2a2qthvuww2edb7tsszj5hxlkcfaurt7k@m2czeig46clb>
 
-Hi Wolfram,
+On Tue, Nov 17, 2026 at 02:39:27PM +0100, Bartosz Golaszewski wrote:
+> On Tue, Nov 17, 2026 at 01:10:02PM +0100, Johan Hovold wrote:
+> > On Fri, Nov 06, 2026 at 12:13:28PM +0100, Bartosz Golaszewski wrote:
 
-On Tue Nov 17, 2026 at 2:08 PM CET, Wolfram Sang wrote:
->
->> +		edac: memory-controller@4000d000 {
->> +			compatible =3D "renesas,r9a06g032-ddr-edac", "cdns,ddr-edac";
->> +			reg =3D <0x4000d000 0x1000>;
->> +			interrupts =3D <GIC_SPI 76 IRQ_TYPE_LEVEL_HIGH>;
->> +			clocks =3D <&sysctrl R9A06G032_CLK_DDRC>, <&sysctrl R9A06G032_HCLK_D=
-DRC>;
->> +			clock-names =3D "ddrc", "pclk";
->> +			status =3D "disabled";
->> +		};
->
-> On second thought, any reason we don't want this enabled by default?
+> > > @@ -843,11 +843,12 @@ static void software_node_free(const struct software_node *node)
+> > >  static void software_node_release(struct kobject *kobj)
+> > >  {
+> > >  	struct swnode *swnode = kobj_to_swnode(kobj);
+> > > +	struct swnode *parent = swnode->parent;
+> > >  
+> > >  	fwnode_links_purge(&swnode->fwnode);
+> > >  
+> > > -	if (swnode->parent) {
+> > > -		ida_free(&swnode->parent->child_ids, swnode->id);
+> > > +	if (parent) {
+> > > +		ida_free(&parent->child_ids, swnode->id);
+> > >  		list_del(&swnode->entry);
+> > 
+> > Why not simply
+> > 
+> > 		swnode_put(swnode->parent);
+> > 
+> > here?
+> >
+> 
+> Because swnode_put() doesn't accept NULL. I have it on my TODO list to
+> add it but this is a fix, so I want to keep it minimal.
 
-Please see my answer to Geert [1].
-After reconsideration, maybe it is advisable to enable it by default. Enabl=
-ing
-ECC is done by the bootloader, and it might be better if no further actions=
- are
-required to enable it kernel side.
-If ECC is disabled, no errors will be generated, and the capabilties will j=
-ust be
-set to EDAC_CAP_NONE.
+swnode->parent is not NULL here in the conditional block.
 
-[1]: https://lore.kernel.org/all/DM3OXV8IQQKR.36V79A742H52F@bootlin.com/
-
-Thanks.
-Best regards,
---=20
-Paul Louvel, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+Johan
