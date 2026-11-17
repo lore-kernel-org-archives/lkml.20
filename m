@@ -1,85 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794907747;
-	b=2LYBcqFdm777MPqYhu+OX9NxpJCa7o8kNHdkDD0qBfcRO1WwAc/mbcA/e1fd4c679HH1
-	 4on5+a1pWXGS+H9gCxPoNL6Gnb1CBTcg/kqbZg4C6oX4mh5YlLAE+T7TZXEgQRZWXI4aM
-	 mOyGwRRbixiagDpDvHvcqpyo8IRNCOVIqU60Hi7IfrtCDqMtPQBhfss/XtOYMUOsf73vE
-	 oHxZp7CdFiFolEh1yaadNd2jHihZExRmC8uOaxCz+iAzrrg1PcADVI7y0R/QKWUEpAebM
-	 DqO2Y/sOTL9eL6tBqzuiHlbBdX30cKNJlqGkhcSEtLU4e4szspbXhMGBoz6l6CJgqyw==
+	t=1794907752;
+	b=jqkilJu51IQ+IyhH5ZmdIR1F7y5e7aO/5hrJ4xefzYKwpVFRtbe2iGkozd1tkNDiuvcL
+	 DkhFYFAC0xDiMB3uO/2gjmXXPEhZACa8UohkeFHBkPUfU9EeLoes3SIIusX2vlsSQyaXR
+	 PHtNYKQGcnmZ1e0KiFLkP7hLtRhVTTsgCDNDVGGDUr+7z3sv+9AwGIgxbh3+uJUCMkewK
+	 amexntZdHxc2iPG5o9o7JQLE8oR7UbcNbHBUlhbXGDOwS6ic0WBdBFZf8PJf3nypfrLin
+	 RyyFWwCvEmGSP0XPVNSCKPNvwFNybwZkiRIUWbPToQGSq5CsNhx5B2RXE9XM6zXvYmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794907747;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=pwh1ZuUgyzVobDFnDosRkpIc8VIXPPyqqOxv+keTtXU=;
-	b=lkAAqsUxIFE/EMX6pUOqoFMy5gud610+23Vs87M9krp60eB5GY/vJ4Tbt7lcDcz6BPtA
-	 dbkjHJ6NPVJNcBvOkIhtHLpq4mq7k5xVlarYNAN/aUiExO2ko8nntawunatnRay3YkKAx
-	 7QRpMn4yhP+XGfCDEdacKB8DSkM4nqaa6uRkbbdBf7uKQIFSc9bc0U4uNxa6RnQy8kL6x
-	 3fec40NvbcN6dQaqZ4drtSw1elC/3+kagdxulBlygXpeJD1cgkKd+F3lM6IMdjVOJhoEW
-	 Ll28Bp3EIq7IoEJax2qf8efoVyVmerxRyFMOoQ/crQU8uZINIbDVvEq3ythQ8Ga4fJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794907752;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=dF5MViTg8YOEEudif96/pwRP0E0s9rCachj6JTmLUVQ=;
+	b=3EV+I7ojmK6D0vn+5gObrcXtjlqlBioATAFDYURN9kc5YTfxrDFebrVMqOsgMRqdGxkg
+	 QAo9pLe+p1wy29iqUmV2+Ybdgqs8T8H/h7hFQOpn+77MsDt+GMQg+DGjShnDFc0AnjPn6
+	 p/5S342zbL38FOmRYBqpwOgCCAkO6XTBbE7JDLJXhEzOGLgy24YsEpHrtC2BxpZlvtPOV
+	 wT8j962iU5koLJBdOifmmP8jDvrOktWhKTqJ+hMcdx6mOq3rZe7LOtVQL0pQXhGh/MWWj
+	 qQ7bFpJf/9exPjrjtMvSDZIyEcD52dlwvQceftPRqttL1F5rtyiHToly0z4V7SpHQIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=FSNeyk81;
-	arc=none smtp.remote-ip=209.85.219.45
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 044DF606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:29:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 044DF606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=msinmYKc;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9AE2A606A31C;
+	Tue, 17 Nov 2026 09:29:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AE2A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=FSNeyk81
-Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-91c6ce60697so87651026d6.3
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:29:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1794907746; x=1795512546; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=pwh1ZuUgyzVobDFnDosRkpIc8VIXPPyqqOxv+keTtXU=;
-        b=FSNeyk81VBZnVas/yOiF9lNcnD5m1NpcmzZmjNKv3Xom86jOMcLH49g5LkZbsH2rF1
-         2xGTs5nFc9Sr9/uvd/CUq0sh2A7j8vA7ebxAiLj0h1ywuBJ3uZRIAnkANTaM7D+Gl5tI
-         gWL+nfcoHLPgnVUliK1IDmsMFvroaNJQ0lRkZ+PRjSdjU1vNQKo9Fw4+jDGXbY407sX4
-         TeDUgMliu3izvBFUfQWIgyUR++KZyK9v3nYhjcXbHDtCqAVFerZZAZcHyaSnIjlwG0ZO
-         l8eInFg1GQ7iAJGnVqG0MbAlVCXCTEIpB3VA4bcfH2wVlIXY7aU8DZBVlfJRnlc4gu26
-         YnTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794907746; x=1795512546;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pwh1ZuUgyzVobDFnDosRkpIc8VIXPPyqqOxv+keTtXU=;
-        b=0smQYbGT3fGemMZDgsa7z98s8MSEaGUP39UCdTObXZfkWgqTa4mjhNugNTCKjvovbg
-         7vMk8ufqXphfdD9bhSEq+uuJJGHI2yd73KKAh4V+4Hqe/eESIFcKkvCsoMJs817HvGzC
-         x4M6VdUV0ho8yVNorrjzcDdT0naFfO03bu4PiOfkp8o7T5nQLwLScV7/LURSsZ1VjinI
-         F4jWWPYniXdc3u8WOyaIpvz3MK/CV17ZE0thzKDQRXSOlYou8yxeAJ3Q9VVALxjHnc+4
-         Bf1S4xZWgDiSEvGyF7bPsllFyoYCLEROEfWXBMPQKEaIYON4z14xPewsgbYSC6TMpQMl
-         TuQw==
-X-Forwarded-Encrypted: i=1; AL+hErHAqK5/0zs4MyqFiVAG7bsR5V8xT+IADPOpOBkVNDNzohTDmjiNJnMeQPibTKnltR7wnh/09f9XsMw8HaY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z85z2ZVAqUUA2Dh/VLqaL/b+JQiBVsoDdz8rsGNVqFm5OxUcqHu
-	x4e7Kg/gBl3X73oIcOFtPxTtwi64h3Ho9oHSwABrJKXnRLHqdIT7bBqxQcYBYbkvtvQ=
-X-Gm-Gg: AYBFou3Jm8CQfLf0c5RAyEt5gZ/R//BoY0BYCXd9XUub6FUVLzrQ/2YwamLq9Jsn4i4
-	gtCEDYrk/+1a+QmbNBgvvlR+ksu4EZGXis8ubgyFOluiOCRvEpPsKEJAAMNYytxwO6xokE/kAhD
-	dPjkqMUU2kDkZhchMcdsR82X2YsY4YRi+o0ZJKYJrsZjUdqQA0r5eMSXG3o+SqCGBDrWRN8sfBA
-	Pz9CKX1xuuyZqXiKzXLtCTpTWLw8GNH6KGGfZLSEDm6SL/9PHKmrkIo8GJacjrer0/x56hzzXeL
-	hLSkbLMhspYCEKQSwf/S9z2ZwKZLZk4PsYfq7NGJh4jhiemGugiNvF+/tNWVhVsByn9wvNUCAhV
-	l3Pu4E/4Xf8Flrv6iwNL/yRXh7yBuDsg3T0udmccXUyVxM3GN+qr8vdADNUtgqJCPsPuUxaFogc
-	xwhKTo0GMw0Pilt0Czi3a6ry2DRox/m3HWgasOf7RjI4n5RvUg+/Y6X2phl0wcN/39yEeYIP56f
-	c8ls1t8as0HOdxUZmRbmOpX9c7XhBmN+IUrUzNmrxBlAiiuG/yzljKIopSzZ9NFTgelPgGOUOKR
-	cfxm780sng+bGl0b1uemH5aS4+71oRbmRDQtXVowaCcwLVsF+WpxW+IgGLlmG48ShBY3VxdAIm2
-	ENytCJdV+8b3GY2gmNOrdzy/5xAQh
-X-Received: by 2002:a05:622a:1b91:b0:55c:b331:a9fd with SMTP id d75a77b69052e-55cb331acabmr148011521cf.56.1794907745752;
-        Tue, 17 Nov 2026 01:29:05 -0800 (PST)
-Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d38b2cf5fsm43935171cf.25.2026.11.17.01.29.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 01:29:05 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=msinmYKc
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9C4DE339;
+	Tue, 17 Nov 2026 01:29:07 -0800 (PST)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2934E3F673;
+	Tue, 17 Nov 2026 01:29:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794907750; bh=kYJCY4Q16lrxSHjHkE75I7AzcqNZxfjGXDBq1dW4/kA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=msinmYKcP7h/+3CgM+h7kdrK5GrIERhYbL2MsSCCh1EfKnt2NPt+3ozymW9Fx2nYe
+	 iv+ISEGOMpbrbvls5z4OD/fBZ9jT03+KQ7sDkm5g44QFKIvp3D85WWc0SnEgvw/yyd
+	 2MoU69TEdUGgBjY+MbRsUB7Qo6QPuOg9X0UHLyXE=
+Date: Tue, 17 Nov 2026 09:29:08 +0000
+From: Leo Yan <leo.yan@arm.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Jeremy Linton <jeremy.linton@arm.com>,
+	Marc Zyngier <maz@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@arm.com>,
+	James Clark <james.clark@linaro.org>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Al Grant <al.grant@arm.com>, "Johnny.Fan" <johnny.fan@cixtech.com>,
+	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	driver-core@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-perf-users@vger.kernel.org
+Subject: Re: [PATCH 1/8] device property: Add firmware node IRQ affinity
+ callbacks
+Message-ID: <20261117092908.GU9176@e132581.arm.com>
+References: <20261116-acpi_arm_pmu_registration_hmp-v1-0-0371d4eca626@arm.com>
+ <20261116-acpi_arm_pmu_registration_hmp-v1-1-0371d4eca626@arm.com>
+ <avwFYMdr7g4r6Z9y@ashevche-desk.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,48 +86,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 2/3] mm/page_alloc: move the kswapd node skip check
- into a helper
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- Vlastimil Babka <vbabka@kernel.org>, David Hildenbrand <david@kernel.org>, 
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>, 
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com
-In-Reply-To: <20261116232346.788145-3-joshua.hahnjy@gmail.com>
-References: <20261116232346.788145-1-joshua.hahnjy@gmail.com>
- <20261116232346.788145-3-joshua.hahnjy@gmail.com>
-Date: Tue, 17 Nov 2026 04:29:04 -0500
-Message-Id: <179490774466.482102.3857219640524403633.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <avwFYMdr7g4r6Z9y@ashevche-desk.local>
 
-On 2026-11-16 15:23 -0800, Joshua Hahn wrote:
-> get_page_from_freelist() checks many conditions for each zone, often
-> with a big comment block explaining the conditions.
+On Tue, Nov 17, 2026 at 09:42:24AM +0200, Andy Shevchenko wrote:
+> On Mon, Nov 16, 2026 at 06:21:28PM +0000, Leo Yan wrote:
+> > Platform IRQ affinity lookup currently selects the OF or ACPI helper
+> > directly. Add fwnode_irq_get_affinity() and an irq_get_affinity operation
+> > implemented by both firmware types.
+> > 
+> > Use the new helper for platform devices, preserving the existing fallback
+> > to cpu_possible_mask when affinity information is unavailable.
 > 
-> Move the kswapd check and its comment into should_skip_kswapd_zone() to
-> make the zone iteration cleaner to read.
-> 
-> While moving this, also resolve a checkpatch warning which complains of
-> a waitqueue_active() call with no corresponding comment explaining why
-> the lockless use is OK in this case.
-> 
-> No functional change intended.
-> 
-> Reviewed-by: SJ Park <sj@kernel.org>
-> Reviewed-by: Chris Down <chris@chrisdown.name>
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> Tested-by: Chris Down <chris@chrisdown.name>
-> Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+> From this commit message it's unclear why we do that. Is it any helpful in the
+> future? If yes, for what?
 
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+This refactoring lets platform devices backed by swnode provide IRQ
+affinity through the common fwnode interface. Patch 02 provides swnode's
+IRQ affinity callback.
 
--- 
-~Gregory
+I will reply your comments in patch 02 for why we need swnode to
+store IRQ affinity.
 
+> ...
+> 
+> > static const struct cpumask *get_irq_affinity(struct platform_device *dev,
+> 
+> >  {
+> >  	const struct cpumask *mask = NULL;
+> >  #ifndef CONFIG_SPARC
+> 
+> > -	struct fwnode_handle *fwnode = dev_fwnode(&dev->dev);
+> > -
+> 
+> Might be unneeded churn — you can leave these two lines being untouched.
+> 
+> > -	if (is_of_node(fwnode))
+> > -		mask = of_irq_get_affinity(to_of_node(fwnode), num);
+> > -	else if (is_acpi_device_node(fwnode))
+> > -		mask = acpi_irq_get_affinity(ACPI_HANDLE_FWNODE(fwnode), num);
+> 
+> > +	mask = fwnode_irq_get_affinity(dev_fwnode(&dev->dev), num);
+> 
+> 	mask = fwnode_irq_get_affinity(fwnode, num);
+> 
+> >  #endif
+> 
+> >  	return mask ?: cpu_possible_mask;
+> 
+> But I understand the point as we have only a single user left. So I am not
+> objecting the proposed approach, just pointed out on an alternative.
+
+I'll keep the local fwnode variable as you suggest.
+
+> ...
+> 
+> > +++ b/include/linux/fwnode.h
+> 
+> >  struct fwnode_operations;
+> >  struct device;
+> > +struct cpumask;
+> 
+> Yes, it's a bit disordered, can you place the new one before the 'device'
+> to follow alphabetical order?
+
+Will do.
+
+Thanks,
+Leo
