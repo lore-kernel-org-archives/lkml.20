@@ -1,102 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794899371;
-	b=Inyo20NkioKFmpAzpmIqUd9ICFO2uABmJnl4Z0jFdMKBbqS7+UzozpgX8/Yx95htEet+
-	 +LrSJndWLFIjvjzeB6Hht7tHK2umEOqWEG6j6DLmSlge3cTuBFlXp79o+YpXoP4ZQkSiR
-	 5jEym3h3jLV9WYy/BCj4CaU2GsCt1RflaFkZi7K/ik9CfWmNXaDKabvkUIW1B4zA/1lch
-	 5InZMIbvar44STGQ3NRwsuKTBiSGuwfr7mjrb0bzCYsLRhtm22nHk+StTyy5HjdyJhITK
-	 QnkeWx6uRstJduhmeFHb6A2VyNI7r3w/w8RCAdAzfbsZO8E2XNBUvpfA5wc7YbL3bAA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794899371;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Spam-Flag:X-Spam-Level:
-	 X-Spamd-Result:X-Spam-Score;
-	bh=UfdGpWtgTLDzFQ8nU2mzJ6EvNoOQYOiNgDYthHagyV8=;
-	b=Wg87KlPJCTdNAJNoV0YcByW+YFAC5EinMutu5ljSkO12yRs6lbJ2kCk2i+UsAyt1ryTF
-	 3feTIW0ZdyT2YbfPAwG2i4T2xSFDWadssg3IUaFuMsMckCG6ASq9rnV8T4/z6Op6E4JBS
-	 ABgOtX5l7kPyRSCzl5Pa24l6bEDQw1S0d10Y0dLIcUtQwP9VgYbHcQaTCFw6kwhrCW7bA
-	 z3Kk8XPAudMvn98FiNJCdwvfTZgx6U9lwfAozBg35vD320w7YB91rcwICNdOXyeFbgvRr
-	 w+N4dUgyQf0hy6WNjb8HJ7NP+x2WWS4h+ssuEzJ/6g/DiwbN4sYi2NjhvhWUMW8GBMA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=sE9HnRkd;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=SHKFWJwa;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=sE9HnRkd;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=SHKFWJwa;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.176
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794899377;
+	b=qoiwJxItYupKk9l+ojM5+AFC+3LFpseYMpEHe7DUNi7UfnCxVamTM10vJ+VhPzvrF/My
+	 Js5MKHsgIGxQ64U5LTiAI9oUyArd+gTZEZj4KjhsmTczJpDQ9LX4ZztQawdhVzefNGhW8
+	 tEZ99P1LREExvRa5NS7LJsYCZeLbRPQtls+e5Y7CGuCsyOrKci8EHfidfX9U9S8N2Ty7e
+	 gq23JM4YLRbAKFxLqBuCuoJQ+/e3TXLdqGQsEW24xZILBC1B0zYABJAzCSzhPENg/6OKG
+	 phs6MqJ+J2k6PAmL4+v4YuQi7HF2LX+OXGpQ847uzoHj9IMVCopmvnF8232mBZk8rJQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794899377;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=WnR+cG1zrK99ABssRDEAQLG69JFukBqigLZq1PXp1Q0=;
+	b=2yB3a7e6fRDnnWc0kVPnamppckZo5QhQVTsF1sUjp+tPtrkIuW1ONsdysE3IXjmfVcca
+	 x+edPHWFtT+MoBiC5V9E4jgwggSAjZk97Ubci0qVqYtNJtGWJE5Nyl9QtwwK3Q5v+itsv
+	 MbrPcC2Ncg+fa90qtXWrWw37ktDLA/7nKenrDtahguJ7aBal5Zchsr2QBJo0QbsyUSA+g
+	 U3nvrFImrVnLz8XcOnJaCuC/ExbGB2TBKJS2S3aETnHZWbPGz+dnWWUBeFnAh3gbeNO29
+	 NBkbUfGZFYt+8tes1L7s919s970afSGRkxcWljeW3oxdZvO+cUZAR8mByBW2S4Bb//w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=shopee.com;
+	spf=pass smtp.mailfrom=shopee.com;
+	dkim=pass header.d=shopee.com header.i=@shopee.com header.a=rsa-sha256 header.s=shopee.com header.b=CTcpkO4P;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB130606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:09:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB130606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76AEE606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:09:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76AEE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=shopee.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shopee.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=sE9HnRkd;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=SHKFWJwa;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=sE9HnRkd;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=SHKFWJwa
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 85FA422298;
-	Tue, 17 Nov 2026 07:09:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794899368; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UfdGpWtgTLDzFQ8nU2mzJ6EvNoOQYOiNgDYthHagyV8=;
-	b=sE9HnRkdS/woZlNm9Wj+G1JECjUCb4rn0MCeryzwIxYvvriUOLX20g6qTuLwEOfayzn3FF
-	8gS9tEF/rSfUtpP91v0tnVBITpbVSzYNCSgAOtqVOd9wglnpbkcP6RdZAIcr0SEvf7jOq+
-	JD5iafcou2p8jT/S1d1cgvrBAwKpbus=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794899368;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UfdGpWtgTLDzFQ8nU2mzJ6EvNoOQYOiNgDYthHagyV8=;
-	b=SHKFWJwaSEPnXO5VkGfNu+KZPbGTrLH2h5eRX31uDGs8bcJh37gKlkI7rnjvfSQrgus75S
-	H+5dFeF6B06IL7DA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794899368; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UfdGpWtgTLDzFQ8nU2mzJ6EvNoOQYOiNgDYthHagyV8=;
-	b=sE9HnRkdS/woZlNm9Wj+G1JECjUCb4rn0MCeryzwIxYvvriUOLX20g6qTuLwEOfayzn3FF
-	8gS9tEF/rSfUtpP91v0tnVBITpbVSzYNCSgAOtqVOd9wglnpbkcP6RdZAIcr0SEvf7jOq+
-	JD5iafcou2p8jT/S1d1cgvrBAwKpbus=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794899368;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UfdGpWtgTLDzFQ8nU2mzJ6EvNoOQYOiNgDYthHagyV8=;
-	b=SHKFWJwaSEPnXO5VkGfNu+KZPbGTrLH2h5eRX31uDGs8bcJh37gKlkI7rnjvfSQrgus75S
-	H+5dFeF6B06IL7DA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A465D1334C;
-	Tue, 17 Nov 2026 07:09:27 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id JiZ5Gaf9+2pcbgAAD6G6ig
-	(envelope-from <hare@suse.de>); Tue, 17 Nov 2026 07:09:27 +0000
-Message-ID: <44dcc2bc-e7eb-48c6-9aa0-96f2ad5dcb0b@suse.de>
-Date: Tue, 17 Nov 2026 08:09:27 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=shopee.com header.i=@shopee.com header.a=rsa-sha256 header.s=shopee.com header.b=CTcpkO4P
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-37071c0f42aso6404484eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:09:37 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794899377; cv=none;
+        d=google.com; s=arc-20260327;
+        b=B75RPBoO9gMAZ3fJ/uJooE+88DLaslVD/qMSCOSm+JY3P7FdlJoQYZ3bULipS28l0C
+         MNa08U5pQGEFZinOgLnzEPsGqhvizJy1f+1R/6h82PabZu6I+QdkDUFLDaOhNPx4NoMJ
+         UnzLP7GdQyHfRDPXaQ6GZg4JYrjlI8XWxY630+x36SPOpDdWc36JTVbHbSADgjWq5fWv
+         bT8ALPahji+KRy9n30cgH5E6SNRbHIM5zSbMI/0XhFGy6Yn3jOIKK7eHPe8v2ct3GCPA
+         w4Rd0rL5b74ZCDypq4QwTFO+5CiHOHANDR2ptcJVumT4kIMwAbjRsiqEsWh5wUuOBffx
+         RnqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=WnR+cG1zrK99ABssRDEAQLG69JFukBqigLZq1PXp1Q0=;
+        fh=jAW3srTNV67rxzq+k0a5ZzoxF6ZYsXk4ohqSC1CTuHw=;
+        b=rAhyDA4rhxhr5xxNacNfyR2oEuA3WPuzgDSwn9KjffF++47BKv7UkicSxlUcgildxE
+         EqvIP2jqVxhZcuowXJbSwe+b8NwNtv6zskpEuPx9CwSyeGjpgrRnJWKvC516y3DtElw4
+         4MQLEpKSrMJJBOFJJqi5uvT5Ou45zracC29M8nflSOR1oK467ravH1pU9BsOIOsgNows
+         Gn0UDVsO+zRTOcdKKW1wH4ojkfQc+3SGztUwznnpQ1U1IhPs3D5LF9VjpQKy7O0Hd0py
+         l0or4vxlCuvEEleKMqU/ckYEM/hJRbvWfqrauJsRAm8DTtegDx2DSaKEdGwP9N6qkZzN
+         Hzxw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=shopee.com; s=shopee.com; t=1794899377; x=1795504177; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WnR+cG1zrK99ABssRDEAQLG69JFukBqigLZq1PXp1Q0=;
+        b=CTcpkO4PLCpBqPK8o80jLKsvFQ7xoxL6FJfwDu1B++lsZ2e8LKBao0dTLIBjOVXc5G
+         1MtSy3XS+Q78u6mk9/LeVoJR3RgH1uihf0LZg7ooTscb6j/7W7kCVNveoWF9URiYpaRu
+         O7cWDNVZMt44ArumJKf5LKdGeY+ZmL6hhEy49tNx1R7FAiQ3efC7KJSy32cmAt8pKU/O
+         HYo6/8b1DnQorFswbjMHlgrn6+wPAA5bNcg5IzLIPtB3+ykbWdjS7jlPPsnl69B3X3YE
+         zihJh9dSKzipTtcb5nYz9bI/WTJXzaIdJrGXlPC9Ki98kDRbccd5lKeedywjQHyof27W
+         42cw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794899377; x=1795504177;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=WnR+cG1zrK99ABssRDEAQLG69JFukBqigLZq1PXp1Q0=;
+        b=WxZuD/GyGMUvLVFMiPtIuF3rQqs0/sVPg+Tzm0pzR6ZeCFEZWGL0iNx+zJ+wUtoQzR
+         M/I2YGHsyRTHr1JubGxGidc+4yFWsb34pukMQbvyLiS7ihJ5mtxuDvUZGZ6OTgVaqdvd
+         kjeXm3iVTY7Ck/wKepDUBLi9mcrcxYigFeBFtlN/Yp4U4ncVUJaK81Va9CEs6dCr3Ldu
+         XExns5qjw+c/W7cagJ0DxdXa3IAZWJIeU8j4mmgVymI/Wt+q96L3/MQkzjxbcitrMopB
+         QBlNgw4zB0mL0RaTfvLqjhtkbPsSCGOC4uFmAUQr69uKUppgwKfBFGkZ/+/kBuDzpDRL
+         +CHg==
+X-Forwarded-Encrypted: i=1; AL+hErE6gHGkudlJdvLe3mGp852nByeef9B3Q3ZOeO/4lnFhJ7JYXPpxdkyHAQlJYV9w5LC/Sy+vlRRE/pdQ1+0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9DiIV2Dca2mI3uQEhvo+CDF9FEGkMroJiRklCgM8XS0z/gTeMt
+	BFAtIRZzJUPj21R4g74mh+X9W8eyeP3HwbP+Xi0KD5tHuFB+2l3TRA5xtoGkPZnJ5H0LnzJur+v
+	pEEpSHDiaBKwAKLURzbdQBhTc8LMxVGZKT2v0Bk8CZA==
+X-Gm-Gg: AZFdTZdUHq+shagBltqhjfVTjX018TuPerIjAQgpQinO7z7isU+ZRQFCOG97ZnqHAju
+	SDXazPFYjHHXDU5GT0LM0rbxwC7hPRx7849VEgrJVmawLcpaMNEu1HKtmGnNPpcd8DZ1BHJedPt
+	9OQxogJQABl68z56AYe+UudUoXjLNXIAY5fYANBDqUFloh2h2yYBYX7So1RiFdskzKje1VdQjgI
+	T9yGGLDUuElhw64HHDJsVqAP2r1N2roBtRMrD+2/E9Gdh/mARekMWOilxaWzEBPI3h9s9KEB2yu
+	Pbp/G6diiEW67LDNeHmmRZwypFD+kAjue0aVEAHhan7tpFaliIZXF2tU38rlKWsYKIStFKLd0DJ
+	kYNYxNCSg2WBvwnkvvvOnDgzCeejv7S8MaFDH
+X-Received: by 2002:a05:7300:de01:b0:369:daea:812a with SMTP id
+ 5a478bee46e88-379682c2053mr10636754eec.30.1794899376652; Mon, 16 Nov 2026
+ 23:09:36 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,141 +103,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 03/17] nvmet: Implement CCR nvme command
-To: Mohamed Khalfella <mkhalfella@purestorage.com>,
- Dmitry Bogdanov <d.bogdanov@yadro.com>
-Cc: Mohamed Khalfella <linux-nvme-bounces@lists.infradead.org>,
- Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
- Justin Tee <justin.tee@broadcom.com>,
- Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
- Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
- Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>,
- Randy Jennings <randyj@purestorage.com>, Daniel Wagner <dwagner@suse.de>,
- linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261114030454.2836543-1-mkhalfella@purestorage.com>
- <20261114030454.2836543-4-mkhalfella@purestorage.com>
- <20261116084540.GA3655@yadro.com>
- <20261117000348.GD1670230-mkhalfella@purestorage.com>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20261117000348.GD1670230-mkhalfella@purestorage.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-13.29 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	RCVD_TLS_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[17];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	URIBL_BLOCKED(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo,grimberg.me:email];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[lists.infradead.org,kernel.org,kernel.dk,lst.de,grimberg.me,broadcom.com,gmail.com,nvidia.com,purestorage.com,suse.de,vger.kernel.org];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email]
-X-Spam-Score: -13.29
+References: <20261112041348.66915-1-mingyu.he@shopee.com>
+In-Reply-To: <20261112041348.66915-1-mingyu.he@shopee.com>
+From: Mingyu He <mingyu.he@shopee.com>
+Date: Tue, 17 Nov 2026 15:09:23 +0800
+X-Gm-Features: AclHuK_OdWVIh2slf7tcPI8uUm8C9Xejgxejc9Hqh6QFSCrmh8eY8O7vcMROZXY
+Message-ID: <CAAoBcuTiyvYHPpKNzYsHdLTGmkQmrKUZPkJAkm1qEdOeu18hRw@mail.gmail.com>
+Subject: Re: [PATCH v3] mm/bpf: Always flush memcg stats when explicitly requested
+To: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, linux-mm@kvack.org
+Cc: Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	Yosry Ahmed <yosry@kernel.org>, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	littleswimmingwhale@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 11/17/26 1:03 AM, Mohamed Khalfella wrote:
-> On Mon 2026-11-16 11:45:40 +0300, Dmitry Bogdanov wrote:
->> On Fri, Nov 13, 2026 at 07:04:17PM -0800, Mohamed Khalfella wrote:
->>>
->>> Defined by TP8028 Rapid Path Failure Recovery, CCR (Cross-Controller
->>> Reset) command is an nvme command issued to source controller by
->>> initiator to reset impacted controller. Implement CCR command for linux
->>> nvme target.
->>>
->>> Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
->>> Reviewed-by: Hannes Reinecke <hare@suse.de>
->>> Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
->>> ---
->>>   drivers/nvme/target/admin-cmd.c | 76 ++++++++++++++++++++++++++++++
->>>   drivers/nvme/target/core.c      | 83 +++++++++++++++++++++++++++++++++
->>>   drivers/nvme/target/nvmet.h     | 13 ++++++
->>>   include/linux/nvme.h            | 23 +++++++++
->>>   4 files changed, 195 insertions(+)
->>>
->>> diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
->>> index 5710ae53eb83..3df9db454db9 100644
->>> --- a/drivers/nvme/target/admin-cmd.c
->>> +++ b/drivers/nvme/target/admin-cmd.c
->>> @@ -378,6 +378,7 @@ static void nvmet_get_cmd_effects_admin(struct nvmet_ctrl *ctrl,
->>>          log->acs[nvme_admin_get_features] =
->>>          log->acs[nvme_admin_async_event] =
->>>          log->acs[nvme_admin_keep_alive] =
->>> +       log->acs[nvme_admin_cross_ctrl_reset] =
->>>                  cpu_to_le32(NVME_CMD_EFFECTS_CSUPP);
->>>   }
->>>
->>> @@ -1629,6 +1630,78 @@ void nvmet_execute_keep_alive(struct nvmet_req *req)
->>>          nvmet_req_complete(req, status);
->>>   }
->>>
->>> +void nvmet_execute_cross_ctrl_reset(struct nvmet_req *req)
->>> +{
->>> +       struct nvmet_ctrl *ictrl, *sctrl = req->sq->ctrl;
->>> +       struct nvme_command *cmd = req->cmd;
->>> +       struct nvmet_ccr *ccr, *new_ccr;
->>> +       int ccr_active, ccr_total;
->>> +       u16 cntlid, status = NVME_SC_SUCCESS;
->>> +
->>> +       if (!nvmet_check_transfer_len(req, 0))
->>> +               return;
->>> +
->>> +       cntlid = le16_to_cpu(cmd->ccr.icid);
->>> +       if (sctrl->cntlid == cntlid) {
->>> +               req->error_loc =
->>> +                       offsetof(struct nvme_cross_ctrl_reset_cmd, icid);
->>> +               status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
->>> +               goto out;
->>> +       }
->>
->> cntlid has to be validated against the configured range of the controller
->> ids (subsys->cntlid_min <= cntlid <= subsys->cntlid_max).
->> That will allow CCR to work correctly on a distributed target.
->>
-> 
-> Thanks for the review. nvmet_ctrl_find_get_ccr() below will verify
-> ictrl->dntlid == cntlid before proceeding with the reset. Is this not
-> enough?
-> 
-> Adding this check here means if either cntlid_min or cntlid_max change
-> after ictrl has been created, CCR will fail saying the controller was not
-> found. Why do we want to CCR to fail in this case when ictrl might
-> actually be there?
-> 
-The point is that in a distributed system the cntlid range is 
-distributed across all nodes in the cluster (as indicated by
-min/max_cntlid).
-While logically all cntlids belong to the same subsystem,
-technically each node can only reach (and reset!) the cntlids
-of controllers local on that node.
-With CCR each node can receive a CCR for any cntlid, but it
-can handle only those cntlids which are local on the node.
+Hi, I wanna gently pin this email, thanks.
 
-But as we're looking up the actual controller structures
-(which are only present if the cntlid is local to the node)
-I think we should be good here.
-
-Cheers,
-
-Hannes
--- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+Runli
