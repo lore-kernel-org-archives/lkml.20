@@ -1,64 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794908661;
-	b=SCbW+xWu03i2+XZX8kV2WANgz6OmuF+a++cmMg00UEbLHY3N1HEtq2g3eFZ+FS69ue5I
-	 uXdCjJ3wUlVa1MASRSfTmTeY4ZxYuTQPfQPQOrT+S3iwgJpCcfBaZvzrnjfFiILQ7+bS8
-	 vaKZTAs8HqD/UnqSx3PdoDhECmQsFubFRPG+oZv/opbP8NREoV39kqIXYcC+i2jKKqamT
-	 lnwd4MqFYt4fL7tHJli4HD+CRzni6E5J8ccs7mDeGcWp73WNlzzonXRaswjr8M9ar6+RZ
-	 x8zmBt8OvItoDvQwvm+rv3GRxytMxxrYbihLlJDR9RQeLgjEZ7NAqjnptPo01OHic6A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908661;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=wNd2LPZyuAEEWn7MpVOXJDJO7rW6ewQN3AF71lVeLY8=;
-	b=weSC8UqzFA7ttGD0paRa6arMI+zINted9s95BO1Qi1PHw5e2GqOugtm9DYBGaMaSFs9S
-	 lvzkj0biZWZsd8buGUgfDjmp1Yng2MIlFAJP+s9qJkwLjD6eMsEzc1p84waTxCK1HFXjk
-	 0MCMq2gThFE8//uscPqdbubJSZWvA0gKpPeSMiQ53EscCX+Ava1QLuYkM5mCG5dlfWpW+
-	 rR6ltFGSKFXkD/NFIdyQFw/M7/zCxfVeUXdMZc+YJPPsCxxdYvVHJ7J33JMiTVfDlVhSL
-	 6JLDBwRsBlwd6lNZiksoU2l8yFdbPv44u43ugstrfFLxsvjTyPdBAlBROtpXx50nhGg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ph4ntom-rev.uz;
-	spf=pass smtp.mailfrom=ph4ntom-rev.uz;
-	dkim=pass header.d=ph4ntom-rev.uz header.i=@ph4ntom-rev.uz header.a=rsa-sha256 header.s=zoho header.b="NX/ZVNUm";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.54
-Received: from sender5-of-o54.zoho.com (sender5-of-o54.zoho.com [165.173.182.54])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.156
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794908675;
+	b=v2989bGkmkKxXo70b95U2lWRLY/cVIsrzCKRaZIXoRg/OYb9CXT2LXAaw97qh3P9Dmj5
+	 axmJiu1CCP29inQTvd3SHmT+GI40Vuexfbwanel/wJJfSCcV0oMh2d5S2zl47IbBZdtik
+	 iYvVVmZxha/nwQzeb+BCIgbnobKCAz9xJDzhoR3QlqHu9e5FafsryGUKjfvvLr/29Zhhm
+	 AzxZ8FjWRsjbCSMCGw/MkskGRnQXgfeUr7+MLNoKjezDcIMJeipUZjMHYotSuKkyDWO0W
+	 G89o78snpkf3QGiCyCvVSEv343FRl0p61mJse+MNf3/sVqT82A0bLsXqFRSr918ucrg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908675;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=b1MgxZIkRyIZLzSIguBbm4Gv1Oa7PXI6OyAlFx5p6L8=;
+	b=yRQcUe58ttnMa8jkjIw/W0cMP9PO38yMKm84irR2h2Xb7+ZkJM5Edk+l9N7QqyoXKgnX
+	 P3NBIXDpfxieIRkY6jcS/72E1IiDwTxFKDj+61MnXi0+11Zv3sbCemclSE3QgoNWm4m+4
+	 +Ygw/ShN+hT0huw0MemWfM8KYMGyn1qRJAz/vl0mV78UUd2kjacga8EwmJKTIhUm/xESs
+	 jRVMOpgu6WSzD7BJlugyKAoflewL26pAw+u+QRmHyvcyMZ0hl61eKbN63kxRO9slRheiM
+	 v7ZVABjc8v7oVvrilx7L1zZjzdueEapK/pz2nZPQQs7pzFPGGQN58C8QJiogP5+Hg3w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XLQEKduI;
+	arc=none smtp.remote-ip=91.218.175.156
+Received: from mta0.migadu.com (out-156.mta0.migadu.com [91.218.175.156])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E79E060A382D;
-	Tue, 17 Nov 2026 09:44:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E79E060A382D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ph4ntom-rev.uz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ph4ntom-rev.uz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2FF0606A886
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:44:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2FF0606A886
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ph4ntom-rev.uz header.i=@ph4ntom-rev.uz header.a=rsa-sha256 header.s=zoho header.b=NX/ZVNUm
-ARC-Seal: i=1; a=rsa-sha256; t=1794908505; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=EzdVFzDFj0cCQ4ajqjVD1nK7h5nxaEri3vO3kDnBHiMfq0Bg7p9m8jDE9+6sFpXMAUG7bHKFOv2AhoDltKP/3vSRRiKiMhrTTSNgqnk5dSWLtxzY/gfR1EQDTzKgUUpB0CQ7A8ilh60PFgTNgRIWbdJEioaM9G4wE6FWr3uZpRw=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794908505; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=wNd2LPZyuAEEWn7MpVOXJDJO7rW6ewQN3AF71lVeLY8=; 
-	b=f65W9fUs8170dkGN/Rfg/Z/H9zPp4uI7ZLgT5/FWOXlBXdCq/HVXtUUCaeZIZ0JRIDPoSrqXa5Sw1XtbfOReTp4SpUUQlE0qb8gfQOdQXIOG88cfHud+DLI5NMnmvfn+l5F7XWHsl/d+s+Gd7LrL6d402e7MrS1z5kF9v3we6Vc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=ph4ntom-rev.uz;
-	spf=pass  smtp.mailfrom=owner@ph4ntom-rev.uz;
-	dmarc=pass header.from=<owner@ph4ntom-rev.uz>
-DKIM-Signature: a=rsa-sha256; b=NX/ZVNUmrnrupsev8ejXNgmmWw7Dg/DYeDTSnEYdySYFkQOE59PomTBa7CCe54qVNxBLcsaGU3XyYEOO8FU+986H8tHmD1+U/0tFfeE6RaQuohedm6YxKfjt3P4mseTCopLYyNTAlFS2+aS4jaikCAtChYC0ac9HOLIs3/J3QVKkLDpOQie44WxGtRKSDL4PfkWOcdPYCiSO2mLupydtV118TvKVi/ja96k1J8G/pjZbgIpjdGfwPaksXzKPbbQYOEDHXuBwSPJ1vMat5v38dHMMbeC6Y5odw6ULNTlt7lfoVnUJdsONhXKRVLOz0JuS/khjji3lRxNRTGgfT873bw==; c=relaxed/relaxed; s=zoho; d=ph4ntom-rev.uz; v=1; bh=wNd2LPZyuAEEWn7MpVOXJDJO7rW6ewQN3AF71lVeLY8=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794908503541181.40351159060526;
-	Tue, 17 Nov 2026 01:41:43 -0800 (PST)
-From: Enver Ikromov <owner@ph4ntom-rev.uz>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: Zong-Zhe Yang <kevin_yang@realtek.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Enver Ikromov <owner@ph4ntom-rev.uz>
-Subject: [PATCH rtw-next v6 2/5] wifi: rtw89: handle negative rate index for injected frames
-Date: Tue, 17 Nov 2026 14:41:32 +0500
-Message-ID: <20261117094135.1772-3-owner@ph4ntom-rev.uz>
-X-Mailer: git-send-email 2.56.0.windows.4
-In-Reply-To: <20261117094135.1772-1-owner@ph4ntom-rev.uz>
-References: <20261117094135.1772-1-owner@ph4ntom-rev.uz>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XLQEKduI
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=jI/HSOH27gn3z7/oko7i56d6vS3jdN32+/PktpMz0A4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794908672; v=1; x=1795513472;
+ b=XLQEKduI5S7OoJaD318kt2WdpE4i66ILaNjf4ZND1hyV/5upjC4qviynepTAsgGSG4aXn7jg
+ ycJFBN2MfsQNDJu+Rjj2Nieep1si6xWrQwSSD2AGZGiy7r7TyS9tECdZj5xfNUcwD7qPgc7vJF2
+ jUz8XPV8Jt7f9I0+RlrSQTew=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 35110425c39f87d5;
+	Tue, 17 Nov 2026 09:44:32 +0000
+X-Mizu-Trace-ID: 35110425c39f87d5
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <f450f415-2a49-4471-8640-4c185c1d8689@linux.dev>
+Date: Tue, 17 Nov 2026 17:44:25 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,38 +58,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] docs/zh_CN: Add RCU/index.rst translation
+To: Dongliang Mu <dzm91@hust.edu.cn>, alexs@kernel.org, si.yanteng@linux.dev
+Cc: corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+ paulmck@kernel.org, linux-doc@vger.kernel.org, rcu@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261113013054.5662-1-xiongwei.song@linux.dev>
+ <20261113013054.5662-2-xiongwei.song@linux.dev>
+ <14c51094-0bb0-4cf8-8daf-0d307d5436db@hust.edu.cn>
+From: Bruce Song <xiongwei.song@linux.dev>
+In-Reply-To: <14c51094-0bb0-4cf8-8daf-0d307d5436db@hust.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
 
-When user space injects a frame with a radiotap rate that is not
-supported on the current band (for example 1 Mbps CCK on 5 GHz),
-mac80211 sets the rate index to -1. Storing that index in an unsigned
-byte turns it into 0xff and programs an invalid hardware rate into the
-TX descriptor.
 
-Clamp negative rate indices to 0 so the lowest valid band rate (1 Mbps
-on 2.4 GHz, 6 Mbps on 5/6 GHz) is selected.
 
-Fixes: e96abe4fd7cd ("wifi: rtw89: consider data rate/bandwidth/GI for injected packets")
-Cc: stable@vger.kernel.org
-Signed-off-by: Enver Ikromov <owner@ph4ntom-rev.uz>
----
- drivers/net/wireless/realtek/rtw89/core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 11/16/2026 10:49 PM, Dongliang Mu wrote:
+> 
+> On 11/13/26 9:30 AM, xiongwei.song@linux.dev wrote:
+>> From: Xiongwei Song <xiongwei.song@linux.dev>
+>>
+>> Translate .../RCU/index.rst into Chinese and update subsystem-apis.rst
+>>
+>> Update the translation through commit b3eb16109ae1
+>> ("doc: Update stallwarn.rst based on RCU Tasks Trace as SRCU")
+>>
+>> Signed-off-by: Xiongwei Song <xiongwei.song@linux.dev>
+>> ---
+>>   .../translations/zh_CN/RCU/index.rst          | 49 +++++++++++++++++++
+>>   .../translations/zh_CN/subsystem-apis.rst     |  1 +
+>>   2 files changed, 50 insertions(+)
+>>   create mode 100644 Documentation/translations/zh_CN/RCU/index.rst
+>>
+>> diff --git a/Documentation/translations/zh_CN/RCU/index.rst b/ 
+>> Documentation/translations/zh_CN/RCU/index.rst
+>> new file mode 100644
+>> index 000000000000..6db03061fd87
+>> --- /dev/null
+>> +++ b/Documentation/translations/zh_CN/RCU/index.rst
+>> @@ -0,0 +1,49 @@
+>> +.. SPDX-License-Identifier: GPL-2.0
+>> +
+>> +.. _rcu_handbook:
+>> +
+>> +.. include:: ../disclaimer-zh_CN.rst
+>> +
+>> +:Original: Documentation/RCU/index.rst
+>> +
+>> +:翻译:
+>> +
+>> + 宋雄微 Xiongwei Song <xiongwei.song@linux.dev>
+>> +
+>> +:校译:
+>> +
+>> +============
+>> +RCU Handbook
+>> +============
+>> +
+>> +.. toctree::
+>> +   :maxdepth: 2
+>> +
+>> +TODOLIST:
+>> +
+>> +* checklist
+>> +* lockdep
+>> +* lockdep-splat
+>> +* rcubarrier
+>> +* rcu_dereference
+>> +* whatisRCU
+>> +* rcu
+>> +* rculist_nulls
+>> +* rcuref
+>> +* torture
+>> +* stallwarn
+>> +* listRCU
+>> +* NMI-RCU
+>> +* UP
+>> +
+>> +* Design/Memory-Ordering/Tree-RCU-Memory-Ordering
+>> +* Design/Expedited-Grace-Periods/Expedited-Grace-Periods
+>> +* Design/Requirements/Requirements
+>> +* Design/Data-Structures/Data-Structures
+>> +
+>> +.. only::  subproject and html
+>> +
+>> +   Indices
+>> +   ====
+> 
+> Documentation/translations/zh_CN/RCU/index.rst:48: WARNING: Title 
+> underline too short.
+> 
+> Please use make htmldocs to double check your added documents has no 
+> compilation errors.
+> 
 
-diff --git a/drivers/net/wireless/realtek/rtw89/core.c b/drivers/net/wireless/realtek/rtw89/core.c
-index 1e8b60e..37ff745 100644
---- a/drivers/net/wireless/realtek/rtw89/core.c
-+++ b/drivers/net/wireless/realtek/rtw89/core.c
-@@ -1259,7 +1259,7 @@ static void rtw89_core_tx_update_injection(struct rtw89_dev *rtwdev,
- 	enum mac80211_rate_control_flags flags = info->control.rates[0].flags;
- 	struct rtw89_tx_desc_info *desc_info = &tx_req->desc_info;
- 	const struct rtw89_chan *chan;
--	u8 idx = info->control.rates[0].idx;
-+	u8 idx = max_t(s8, info->control.rates[0].idx, 0);
- 	u8 nss, mcs;
- 
- 	desc_info->use_rate = true;
--- 
-2.56.0.windows.4
+Thank you for pointing this out, Dongliang.
+
+I've built the docs following the instructions in how-to.rst before
+sending the series out.Then I checked the html files, which looked good.
+But I didn't notice the WARNING. I will fix it and resend.
+
+Thanks,
+Xiongwei
+
 
