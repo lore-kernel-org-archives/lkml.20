@@ -1,97 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=91.99.108.219
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794904898;
-	b=DVuAbgN7GyfPfjZxtxN/8GZupXAZNHgtXGomre6zIPxS0Scy9KROYkUEktfgPE2ujYOa
-	 UFSax8s6X8cGuGjEWzmioHQwW7tIqLaTnPyLVNcsxGREEliOcuf6nFjS/n5N5HN054kmS
-	 ZveuefaALPTuXyU96KmREs/tHA+LKwdKYiAXB4ngqYyc0XUt5kW9qBexZCi7/CJsq8uwk
-	 VomEQ0SZlJDzAG2YyTO4vtcnR2po5VY+q+SwEcqm1oUFijrdh5ZN21nsFcX0gxVQ8/sr6
-	 ozW9l+Dj/xUP+JKyFixifQoujRXfQxmR+1oORgMFDs+JN6LZ/cGnIb5s/MsC4hQRsgA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794904898;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:MIME-Version:Content-Transfer-Encoding;
-	bh=CVfYoaBNObrkp80HEIdRTSpIjFPTdVaCg6pMCfg6WxU=;
-	b=YC4WNgGWi38WlOJoTF+lXkNZSj5XLOTq7KayKu80Qcllqixxt1Zf9MkUpRgow4wAVQO/
-	 76hg1DMugfl30ww0SSlnvWyzlECaZs1cIvQXq1Jbafv6YhWEiAjczX3Zs2xTSm8YIIlzr
-	 TtaFmA3Fyw73+C6IDqYGa/gdvMdNmFC4vNo5+gcLGdx3syJ0XIlnVbhQxwcTorYC9Ql6i
-	 NgkcVdJZaJ7qBqv0GAGaiGvHHJCy6E0CWAaDCNLb+CDO9vjvGnw8ojszyHhXK27gsfe0q
-	 +KJ0bQDDcQ9SwsSI+k7kOMjgHHlem+XZnsHeJ8DCmpSGt5s/5DTyeULrHI8iA1jaM5g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=catcrafts.net;
-	spf=pass smtp.mailfrom=catcrafts.net;
-	dkim=pass header.d=catcrafts.net header.i=@catcrafts.net header.a=rsa-sha256 header.s=mail2026 header.b=UBxHGU69;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=91.99.108.219
-Received: from mail.catcrafts.net (mail.catcrafts.net [91.99.108.219])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.174
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794904944;
+	b=stGJOxEvRZKLAMplHOUimR8GyZy1AVS5c7p1BxOGBAnv10wn1vLeNmzOYqL7lBKYguI+
+	 RdauNsFIvxtZoBsU1Mgqv6wMBfCk4TyCa/PH3+4UKgbNoaiuMsgFtV7CI2uHFUnl0BkfS
+	 7zGh0227Dgvd3ak4Tdm5TS1S4wQFFKW7OcnxUYed8cW8rE8J6a01/gn/g8nihpOEmtXUn
+	 ZbFDrrIqfKVS+KPkK+a01L++AtaEMqdxAFocM779BGvnaqp7dqSbu31JeqIkHRsbAkMVS
+	 tn4e+4FOqS53D17ry59vRv7EKo0QX5e34x7aa85ooNdTq3Z0TOxd7z/RKl/zuS7URAg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794904944;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=beHv4RWKzAGXqCj9AQIheRdqq9/SqD5ToQS6bWhTNyw=;
+	b=FY/+urvCmFB58a/OEiXydWy6LOZ/ADqXt78k7v/mzo/3ek1hB85JmdedM6INCyyrrO0e
+	 Kk4butzljOdB9ARkSE+vE6oPTtYGJoFHz9sggSb57DRXaenSnqZ/3M4Hfg4ChB4kSzXIM
+	 KodKmEL0X/aQ6CJa8F67zxq19YLEL+pZP0W4ZZPb/0UEVC9Lzfc65Yd9wQ2SJadB2K2V6
+	 uZvfzWtvzo309i7CipMkhng+83dRAFlotOpiCHmyGc7U/YKDQJjlxejiv6cxCDfHwVTuU
+	 iG5U8tN6W9L+7zOHHPTno1NpXM9BpUBL2VwnsgcXoe9RfYYUS3Aye0oCckXO4185A5g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=iz47Vl8v;
+	arc=none smtp.remote-ip=209.85.160.174
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42768606A33E;
-	Tue, 17 Nov 2026 08:41:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42768606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=catcrafts.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE64D606A88B
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:42:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE64D606A88B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=catcrafts.net header.i=@catcrafts.net header.a=rsa-sha256 header.s=mail2026 header.b=UBxHGU69
-Received: from jorijnpc (unknown [87.215.145.39])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by mail.catcrafts.net (Postfix) with ESMTPSA id 37F5CFA9BB;
-	Tue, 17 Nov 2026 08:41:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=catcrafts.net;
-	s=mail2026; t=1794904888;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=CVfYoaBNObrkp80HEIdRTSpIjFPTdVaCg6pMCfg6WxU=;
-	b=UBxHGU692K1X2THNUDVohCpy1G93BAoi+dlgrAcqZFofWbhkitjxSmlDiPsXWZ1EwwvFH9
-	wyI6hjDjdbbkoh60igLztrV+MKz0VG0dTmBwbmU9iwEPTzuylHODKq0kkg1UeJagE7jBom
-	uVGh1SngGCK+elFSShWMULasRcZy24BsPjf0Ovz1oopQgGaRxCsVkUGxp8LJEWn1X7GT99
-	3wXAy5b4WdJV7VSV59mxNvalM32z9b2NPZ+cXEz7Oo735xdRTK3uf83NNnZSAqR9d0Ulai
-	K9o4vWjGsXRgXNDe4EaTNPoFHPh6T2uThbdVWpyyC5/8mTUR7uqPiPi/t41U8Q==
-Authentication-Results: ORIGINATING;
-	auth=pass smtp.auth=jorijnvdgraaf@catcrafts.net smtp.mailfrom=jorijnvdgraaf@catcrafts.net
-ARC-Seal: i=1; s=mail2026; d=catcrafts.net; t=1794904888; a=rsa-sha256;
-	cv=none;
-	b=Sp5dGIFGY6ZJLNhdo05xcDdgOm5766qJwkCkpwWGKvcYaUm6T0L+1dY/dmQ5/yupSmHTm4
-	T1eaeu9pm/loRgzp5XbdpK7waaCCVsSCnOPuoD+qkKe5rKrxxcSn5fld2ldD584Ol1QAb9
-	swYGPEDai4Na9935PGZYbagJmAReE076I7FgR7WMIarWKt4s+V2cvGYX9rE+4zxRFdRfji
-	jDIozUQlrKQ+yhg93X7D+WuvnAZbLtG/nw3EWXjZPJDtN+Od3IxjeHfSZnGe2x59Z8b+bM
-	u3wjMxvwwetLwQyzerujuo1XY02v88R3UyJorj3dx3GQmRwzgbp0CQnM88WymQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=jorijnvdgraaf@catcrafts.net smtp.mailfrom=jorijnvdgraaf@catcrafts.net
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=catcrafts.net;
-	s=mail2026; t=1794904888;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=CVfYoaBNObrkp80HEIdRTSpIjFPTdVaCg6pMCfg6WxU=;
-	b=BrxyVN/16ak+XLMM7XAhXNGJXNhbuR4RDzHPrmRFtDqTSCSIcxnGVXntedFFgMtzJty9rW
-	wa3Ixoa03GhptON4t9PMJ7alzq3u3d6NIs8aWiwJSv57+stDrl2P2jZJcIX7b8DAhdgW1X
-	OM2bdcDsIogQbRsrmmcHy2fYaJk7HJ8P6y1Anarg7m+etfvMMHrCAOlb5kRK7A2jm2knmJ
-	e9BaAyuwM2Ug7ySdJK/iyKQvYhvbtv2Wf05HJSJpy0gbS0KEp5PetARdVEzdpLju4vQqbv
-	F8RadySCqTJ7/DutDW1WhrxT0FGPWnb+M6r42KAdGX2Hnt4tV998h5WI/stWGA==
-From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-To: Jonathan Cameron <jic23@kernel.org>,
-	linux-iio@vger.kernel.org
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Eddie James <eajames@linux.ibm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Paulius Zaleckas <paulius.zaleckas@gmail.com>,
-	Rupesh Majhi <zoone.rupert@gmail.com>,
-	Joshua Crofts <crofts@kernel.org>,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-Subject: [PATCH 0/3] iio: pressure: dps310: add Goermicro SPL07-003
-Date: Tue, 17 Nov 2026 09:39:51 +0100
-Message-ID: <20261117083954.335814-1-jorijnvdgraaf@catcrafts.net>
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=iz47Vl8v
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-5365f9a04c5so71790651cf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 00:42:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1794904943; x=1795509743; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=beHv4RWKzAGXqCj9AQIheRdqq9/SqD5ToQS6bWhTNyw=;
+        b=iz47Vl8v6JkIKZg9UYfyENByJGkp8YiAPJZj5aT+ZIWJtz26JLkljfdgVeOeTUHKpi
+         fD+WdtGKspa4q2AxzmQeXoGQQk32iqFWo6zZZR3yDrVQ1vK/HbB3xBejTJBvr/T16oNW
+         P1H614T3EMYfwy+o6FHrygopJOeOGa1XEaxFCJNqvbCTcx8I1gaWn0iBhdTWEqp6pW7I
+         k8fPNOjH1RutKyHx2SDDsKfQoQn9h0StyHhNNC2VqNR0bEmdsDQA7kQxJTrh/gxuZqR+
+         kfMtR0Yh9a2YiCZc6WHAGleSyiuHDgem22R+ssBXM/t8XJBZxYGh+Byyuv/RtLwZWCxo
+         W/yA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794904943; x=1795509743;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=beHv4RWKzAGXqCj9AQIheRdqq9/SqD5ToQS6bWhTNyw=;
+        b=N2isUvZdxyo3GuMjXV5RSlMT0fhv6bLlWuoFXbnuwK++9kg8WdfC/VMeGxjR9UbKCt
+         WDLOPeqp6nuU4LO5tGcsl0x9pp3XotCaPoVbhGK/j89ect7wisAwCXz3A39K0sEGl+IA
+         FwaTbZLob3QyoeKMDSTd1fkTE/4tWluU6PKP66Whs0Y1goNpd91rLohntEJo3kYtcI4A
+         XU9Bw9zBlrDTz4V47WlKldXl9jdeAExo49J0xvBaRJ7nTmzI/SHiTfDxqzJ+DWx0nWbt
+         iNwU1f+RZvUy279VL5FJ2jdwULiAAyIWZ4A/6gvb+975RfGYEROo3CSmNExo2g0LzsAT
+         Xa4Q==
+X-Forwarded-Encrypted: i=1; AL+hErGOGHEC6b5hHdtF0bgiDwyLF6OplRPExwgGetuXKi/tVkughyXHUTu5YsIsKaWJjKC14Jk8Yx/WOltqLWw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9IIZVJ6sdeKyhUlXRUhR2P9rVUvVahYk+hv2w0VyIMgqShxJDa
+	VX/i2Lk6Oyi3lbOh74omIRLXYekZvhHL53kbevKzcS/gWyfKfN82DQ8pE+bSL4g5IBc=
+X-Gm-Gg: AYBFou3qR8QsKY65hfd6IhGalYuVoaRJ3Ncij8w6YinHrwrFZw2aTSPaR6W8iYsIf0v
+	V2LmqtQVTxvhuv0vY1JRej/kActQlfMyW9bS5+bJWRcoiyOnezI3MNaPzrh6E5n/etYUi/eNC5U
+	qgPSPHdoCLubj6Tz/HfP/Tj032ahi5fVstm2HB8MK03DztdoKC47LCJ7KgVTIR1dsXIqyIc3LkM
+	2fp7XoMIUaxdbDjYfnz+Ch2Aov8npVnTUwTEmCto5RLtdOwMeGZRrNIjjWRrAhrvhprSP7yz/tf
+	5/AMm4t9t7IwzrCt1N3SG2ZYG9UObq9Qf1TGFniQqynlHZ2v/6DLic/ybv5s0dShz12JOCfpQBP
+	WUTOpU/4OyDU5Wrkg2J+HFXZ8wYH0nUKYIKzyHuLNmbskBIPNlQeV5mwPs1fq+aZ8RlxbtXaUzE
+	Hi98QlUR01FUcqbl0rW/Do81aVOgi44wPioIqSZnkOmhLKj+FadEq74VPDaQZsfwe+XJYT77ZZa
+	Oyq1NyfVT7E+HzymOJWvDnvMQeQsLHLggNfoXppewZjQBCZ2RkfahNINmLwd5V5kCEq6Bh3yDuj
+	NG21hbZNBp79cV0mWYyhq2n1D6xu0Y95UAp0yCYYs/0d4ugMoUjOF6Y58gd4Eb6Cpldi3saS8ea
+	TV0L2ul3SEAjs1/Ayb7pGRG5hYrY6
+X-Received: by 2002:a05:622a:758e:b0:55c:5ebd:8823 with SMTP id d75a77b69052e-55c5ebd936dmr138487931cf.66.1794904942797;
+        Tue, 17 Nov 2026 00:42:22 -0800 (PST)
+Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d37daf422sm44268211cf.15.2026.11.17.00.42.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 00:42:22 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,42 +89,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 06/15] mm/hugetlb: fix mremap() racing with page
+ migration
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, Mel Gorman <mgorman@suse.de>, 
+ Andy Whitcroft <apw@canonical.com>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>, 
+ Hugh Dickins <hughd@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+ Dave Airlie <airlied@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Peter Xu <peterx@redhat.com>, 
+ Breno Leitao <leitao@debian.org>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>, 
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Gerd Hoffmann <kraxel@redhat.com>, linux-doc@vger.kernel.org, 
+ linux-arch@vger.kernel.org, linux-s390@vger.kernel.org, stable@kernel.org, 
+ Chris Mason <mason@kernel.org>
+In-Reply-To: <20261116-fixes_hugetlb-v2-6-4dd9e94ea9ac@kernel.org>
+References: <20261116-fixes_hugetlb-v2-0-4dd9e94ea9ac@kernel.org>
+ <20261116-fixes_hugetlb-v2-6-4dd9e94ea9ac@kernel.org>
+Date: Tue, 17 Nov 2026 03:42:20 -0500
+Message-Id: <179490494079.482102.4618915344813254218.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-The Goermicro SPL07-003 is a barometric pressure sensor that is register
-compatible with the DPS310. Like the Zilltek ZTS8032 it has two more
-pressure calibration coefficients (c31, c40) and a rate bit where the
-DPS310 selects its temperature sensor, but it packs c31 and c40 as 12
-bit values where the ZTS8032 has 16 bit ones. So it needs chip data of
-its own, and neither existing compatible can be its fallback.
+On 2026-11-16 19:29 +0100, David Hildenbrand (Arm) wrote:
+> Migration of anon hugetlb folios walks the anon_vma, so the file's
+> i_mmap_rwsem does not serialize it against move_hugetlb_page_tables().
+> 
+> There are various issues with that. Most importantly, move_huge_pte()
+> releases both page table locks before the TLB is flushed. Migration can
+> then find the destination entry and finish migration, reusing the old
+> folio while the TLB still has entries cached.
+> 
+> Hold the anon_vma write lock across the move and the final TLB flush.
+> This also prevents concurrent rmap walks from missing entries moved
+> during rollback.
+> 
+> When we must allocate a destination page table, flush the TLB before
+> dropping the anon_vma lock, then reacquire it after allocation.
+> 
+> Dropping the lock only works around lockdep: hugetlb folios are not
+> reclaimed or migrated by allocation compaction, but their anon_vmas
+> share the lock class used by ordinary anonymous memory. Having a
+> separate lock class for hugetlb's anon_vma (like already done for
+> i_mmap_rwsem via hugetlbfs_i_mmap_rwsem_key) requires more thought.
+> 
+> There is a concern that this can block page migration of anonymous
+> folios quite a while ... which is not really different to what happens
+> to page-cache folios today. If ever a problem, we can temporarily
+> release the lock.
+> 
+> So let's keep it simple for now.
+> 
+> It is a shame that hugetlb has to implement everything core-mm implements
+> in a different way that just screams for problems.
+> 
+> Fixes: 550a7d60bd5e ("mm, hugepages: add mremap() support for hugepage backed vma")
+> Cc: stable@kernel.org
+> Reported-by: Chris Mason <mason@kernel.org>
+> Acked-by: Muchun Song <muchun.song@linux.dev>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Tested on a Fairphone (Gen. 6) running this series on iio/testing, with
-nodes for the sensor and its I2C bus added to the board's devicetree
-and the driver bound through the new compatible: in_pressure_input is
-within 1 Pa of the datasheet formula evaluated from the raw and
-coefficient registers at every combination of pressure and temperature
-oversampling ratios from 1 to 128, TMP_CFG reads 0x00 after probe, and
-at 16x pressure oversampling buffered capture through the FIFO and
-through a sysfs trigger averages within 2 Pa of direct reads.
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
 
-The series was written with Claude Code Fable 5.2 Max.
-The code, the commit messages and this cover were drafted by the model
-and reviewed and edited by me and 1521 Opus 5.5 Max agents
-over 7 rounds using Crafter.Review.
-
-Jorijn van der Graaf (3):
-  dt-bindings: vendor-prefixes: Add Goermicro
-  dt-bindings: iio: pressure: infineon,dps310: Add Goermicro SPL07-003
-  iio: pressure: dps310: add Goermicro SPL07-003 support
-
- .../iio/pressure/infineon,dps310.yaml         |  5 +--
- .../devicetree/bindings/vendor-prefixes.yaml  |  2 ++
- drivers/iio/pressure/Kconfig                  |  1 +
- drivers/iio/pressure/dps310.c                 | 32 ++++++++++++++++---
- 4 files changed, 34 insertions(+), 6 deletions(-)
-
-
-base-commit: 94921bc9eb214f838481faa847cda5c42e486013
 -- 
-2.56.0
+~Gregory
 
