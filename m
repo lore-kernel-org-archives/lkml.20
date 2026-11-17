@@ -1,68 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.209.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794887000;
-	b=iyEzXauoH3efHSXP8u7dFzBTkpZ7IO5P6QcglqxPHx7B3M0mQddESCS3lULWi1k7h279
-	 D6z7OxrB4iV/2nCEtYueFeKA7TMbnEZ5E4a7hg4/El8C584zimxXI9e3tXdI2gs2JhNvB
-	 k2fAWGLL+X8KkyJLrIYdZBT/7S76HChOGrExYpA89DLcPC+GfQB9JiZvI4zBqrww7JQtP
-	 v1JMmJvKJqO0N2sP9EBLcqCtlsoy/7doBm9UX+Dk0jZ8WoOigculH9RnYGk2L+DviSnu7
-	 i69F2xjU1P1aNCHm/VN1xJkxgFMaWg3rMWHBIyoKnCJKqd8NH3JfE/HXkCB0r55Wt/A==
+	t=1794887025;
+	b=bZI6S0r5vTrD7EdcLsYCdbaR+hmsGFCKmf6/9B3PQQwGCf7dTkwG404yu69G/cM9cW2H
+	 krU0pMXDF9cYb6dsRx08U+xG4Bl6OWSS5lTFZtpRqlLORcJshfAgRGydIGlwmTdZXuDpZ
+	 OkAZszg8R9czKXaN8XmpI8LxclFkW1cpK4DS/6I7waES4H8y/BkqpM9TNF3eeFrIUih76
+	 4NY8nnGjAJ1X0utE1fBEKJbfESKfs50Veu2kKRk0/m9nl+uKdPTGSy0gd5eODJVzXhVlS
+	 gN/Q6qOtryPWqXHg/V1usp4O10Nn3aLOedbrJZIaT0k6wAe8iESuYXx8nXzT9hvM4dw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794887000;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=5de7j5buijetKe9mhmqKAeLcHieeqVgYr8IfmGSIxhM=;
-	b=n8G2Au5z21sBhpyjESPsw1EfE/2wV3SZOfZtXpBBWwy8atEs8+5uCxUkjz8NLFWWYefs
-	 tqqelalstiHkgbXbTW0gW/+FdRk6ITxDU8gc9/a5HZlVqiOCdGA8BMpIjiGtAAGM+yB83
-	 5hexQ1LwBM3dD/luTRVJQfHXofr5GQAymJvfHoQbMt0snRsd4FSmVJ4ly/OfSgz6WWsDp
-	 EBFN97VkKYPpADQcVmFgCK7H9rZfU2QQ5Gmtwd+CweIZ/B51mBqPodiFjydRA5kXeQ7Ad
-	 GrbbWv4GBL0hrIjkXsrKyXzRsBFnqXdCHmBXA4aE+YT1Uqtbc0VJltHPPQ9fqdFey4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794887025;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=8z5exWLOsArB3n8YhVSSxwP7PGSyUO5muX6NLLxT+tM=;
+	b=ozWaLtAiUEjKrD8KPxobnLGbvsaV5Dl+4XSCGn/BoO41e4eBtf/izHIi0hgTbb8uceLY
+	 7OkosgiEGy+cg4fSd86anHTq1zgyxlebz4Vv/XvFhj6DSqvYMD3ORD2xfqiddbBO1WG/c
+	 khlOoTSKrxDoicawZFZzXi0AHZKng/JmsvEQiNPO0LYOAaERdfV8OrV254WV0ME6xe1T7
+	 U0cM7er8Ad75NR8n0snH4H6hjYUp7d/w3akxTrEsccvvpnp+aHakz6bWPkGTGSsAAq1Td
+	 HGcb6jX+PbFXz5pr8sLBWOrlcDKRmpdKGCiTtsKWg5w+YVRkD3PuKrWineMT1yKWpzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Kemm3CLw;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E816B606A31C;
-	Tue, 17 Nov 2026 03:43:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E816B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=FOdr7igg;
+	arc=none smtp.remote-ip=103.209.128.47
+Received: from mail-m12847.netease.com (mail-m12847.netease.com [103.209.128.47])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E4CA606A31C;
+	Tue, 17 Nov 2026 03:43:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E4CA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Kemm3CLw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=Kemm3CLwCcIKAD933FqXmrDxKMbH2+HVT/bov0HfMmyUNHWO8PP0IiZIaP8iJWrv12oUwv92jmRl4
-	 gmuKXl1ZtCsW/4OsVql59F3pZX7IRMTOp7Vy7DMPo6mKvYnKy3Wp6W6wiRiHwIm3+wwUyWkl055dL1
-	 TCjAC2P6t0RWcScI=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96afbcd54e5a-0a617;
-	Tue, 17 Nov 2026 11:43:16 +0800 (CST)
-X-RM-TRANSID:2ee96afbcd54e5a-0a617
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from [198.18.0.50] (unknown[223.108.79.102])
-	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76afbcd527b8-a1a99;
-	Tue, 17 Nov 2026 11:43:16 +0800 (CST)
-X-RM-TRANSID:2ee76afbcd527b8-a1a99
-From: Xia Yan <yanxia@cmss.chinamobile.com>
-To: Daniel Wade <danjwade95@gmail.com>, netdev@vger.kernel.org
-Cc: razor@blackwall.org, idosch@nvidia.com, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- bridge@lists.linux.dev, linux-kernel@vger.kernel.org, yana06070@163.com
-Subject:
- Re: [PATCH net] net: bridge: fix skb leak of reinjected link-local frames
-Date: Tue, 17 Nov 2026 11:43:15 +0800
-Message-ID: <1794886995000.600537.2725044486872632095@cmss.chinamobile.com>
-In-Reply-To: <20261115130211.7724-1-danjwade95@gmail.com>
-References: <20261115130211.7724-1-danjwade95@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=FOdr7igg
+Received: from localhost.localdomain (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 54eddf876;
+	Tue, 17 Nov 2026 11:43:32 +0800 (GMT+08:00)
+From: David Wu <david.wu@rock-chips.com>
+To: david.wu@rock-chips.com
+Cc: rmk+kernel@armlinux.org.uk,
+	maxime.chevallier@bootlin.com,
+	lorenzo.bianconi@oss.qualcomm.com,
+	luis.la@mail.de,
+	netdev@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next] net: stmmac: dwmac4: schedule RX NAPI on Receive Buffer Unavailable
+Date: Tue, 17 Nov 2026 11:43:32 +0800
+Message-Id: <20261117034332.88443-1-david.wu@rock-chips.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,32 +58,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1e79a4feb09cckunm6f20b5ba25f9a0
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSENCVhhNGEIfTh9CHUpCHVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=FOdr7iggoJFupP9V0ZsdiSwag9vjLW4IEkRAB9z+H+WN4TcR3UfAx5Fo25vciX4J0eXH8d+EAkzXH9KstFUhMyu6iPm61CQG0ESqPRux48rwEtKH5BTSGWjc4qmCJT/AThr9Xvzim6sbdxxcGGMlKPqSR9mmKkSFV/XZtB13uqY=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=8z5exWLOsArB3n8YhVSSxwP7PGSyUO5muX6NLLxT+tM=;
+	h=date:mime-version:subject:message-id:from;
 
-On 11/15/26 23:32, Daniel Wade wrote:
-> br_handle_frame() passes the link-local frames it neither forwards nor
-> delivers (01:80:c2:00:00:02 to 0d and 0f, unless set in the group
-> forward mask) through NF_HOOK() at NF_BR_LOCAL_IN. Since commit
-> 3b2e2904deb3 ("net: bridge: fix per-port af_packet sockets") the okfn
-> only learns the source and returns 1, which becomes RX_HANDLER_PASS.
+Once the RX ring is exhausted, the RX DMA enters the suspend state and
+no more Receive Interrupts can be generated: incoming frames are kept
+in the MTL RX FIFO and are dropped once it overflows. The RX DMA only
+resumes after software refills the ring and updates the RX tail
+pointer, which is done by the RX NAPI poll (stmmac_rx_refill()).
 
-Before that commit the okfn called br_pass_frame_up() and the frame
-was consumed on reinjection. The leak starts at 3b2e2904deb3.
+Commit 1b9707e6f1a9 ("net: stmmac: enable RPS and RBU interrupts")
+enabled the RBU interrupt for dwmac4, but the interrupt handler only
+updates the statistics counter without scheduling the RX NAPI. The RX
+NAPI is therefore never invoked, stmmac_rx_refill() never runs, and
+the RX path hangs forever once the ring has been exhausted.
 
-The queue paths hold up too. Both fail-open exits in
-__nfqnl_enqueue_packet() reinject NF_ACCEPT inside the enqueue call,
-and nf_queue() still reports the frame as queued. nf_hook() returns
-0, br_handle_frame() answers RX_HANDLER_CONSUMED, and the single free
-is the kfree_skb() in the new okfn. QUEUE_BYPASS just resumes the
-hook walk. If the remaining hooks accept, nf_hook() returns 1 and the
-frame is passed up from br_handle_frame() itself. The branch now
-matches the 0x00 and 0x0e cases above it, including the *pskb
-assignment after skb_share_check().
+Schedule the RX NAPI when the RBU interrupt is received, aligning the
+dwmac4 behaviour with XGMAC (commit 6338488356d2 ("net: stmmac: xgmac:
+Add RBU handling in DMA interrupt")).
 
-No other bridge okfn leaves the skb with the caller. Delivered frames
-reach netif_receive_skb() through br_pass_frame_up() and forwarding
-goes through br_forward_finish(). The link-local hook was the
-exception.
+This can be observed on a GMAC4 based platform with Split Header (SPH)
+enabled under high TCP RX pressure, where the slower RX refill path
+lets the RX ring run dry.
 
-Reviewed-by: Xia Yan <yanxia@cmss.chinamobile.com>
+Tested with Split Header (SPH) enabled, running a large file download
+over TCP:
 
+- Without this change, the RX path hangs permanently once the RX ring
+  is exhausted: the RX tail pointer is never updated again and the
+  DMA channel status register latches the RBU bit, while the TX path
+  keeps running.
+
+- With this change, each RBU interrupt is handled and the RX path
+  recovers by itself. e.g. 3 RBU events within 6 ms during a download
+  peak, each one self-recovered (the RX tail pointer resumes advancing
+  right after), with no further RBU events afterwards.
+
+Signed-off-by: David Wu <david.wu@rock-chips.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
+index a0249715fafa..929aa77ce247 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
+@@ -153,8 +153,10 @@ int dwmac4_dma_interrupt(struct stmmac_priv *priv, void __iomem *ioaddr,
+ 
+ 	/* ABNORMAL interrupts */
+ 	if (unlikely(intr_status & DMA_CHAN_STATUS_AIS)) {
+-		if (unlikely(intr_status & DMA_CHAN_STATUS_RBU))
++		if (unlikely(intr_status & DMA_CHAN_STATUS_RBU)) {
+ 			x->rx_buf_unav_irq++;
++			ret |= handle_rx;
++		}
+ 		if (unlikely(intr_status & DMA_CHAN_STATUS_RPS))
+ 			x->rx_process_stopped_irq++;
+ 		if (unlikely(intr_status & DMA_CHAN_STATUS_ETI))
+-- 
+2.25.1
 
