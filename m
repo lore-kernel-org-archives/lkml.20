@@ -1,86 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794908951;
-	b=hlc/DVAfonayP7FlDCgiJK1mNGOOF003x0xyIL0UFDjbCSTlXSt0pPruj6+VgyifS2ix
-	 rdI+Qh2S0XTwiLj2aH2eRW0mXDu86O3F2YW62dtvlsHRXLkEW17IhVElwmyJcTzvzysOh
-	 E6C6IWbjMp1YdjUD/Pj6y/3mQAKmqtAHRQ9J00QmdgfiJ3prGHsmqrjqWgjULaC2i9UhB
-	 qqc80LsnxMuTxbneHHRQHyQX5TuCymwKxHZyAfXmX3SjLV8m1DXoqWCKqEwfqb2Zb4WzA
-	 vR3SUI28MmAA9lXX2Du8QQinDKBUxysTxPh7UOAllnYq1oj4eIkN11LQmZwuL3srtpQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908951;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=3Q7tJA/hWkM7pBtd/K4GljKp9oRMuO4CBdoh0ya9JKg=;
-	b=r0HrnvMzBZszkL5dlhLOIC4V3lSOIRcZwiHlQGojQ+FrCLyN6jtARHGkiKQl8P18xsq0
-	 ICNIDgx3a94J0v8Ndp01Px6QutIvBeO7BdQBzLKl0rlbW/gJ2Z9KOeuYXR1HSbLt0J6vI
-	 PXX17vmhV5mf9egN2h0sdkWWyBaolaI7KO+mHhXzGE56I06o/VEOvG8CO2CJItdcDL3JB
-	 RihezdWx5e+TMSZf+GnVUZkxYTeMMyeTSEf68OIuABct9UfTg6GfEFS3ROQAblQJqb4JW
-	 sY3ZrgsNh+Li2Jy483Xtkvai328AbIaYh1UeoV2u1tSFh76JyypoI/jUcaNLsPnWNVA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ihtgyhuq;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794908957;
+	b=sjz6nZSH00kFZApxOz+DOe7ljkKibM5XHh64DFzVHi+sGMzB2Wt4Rc6LbnwJWMMV8+qi
+	 jEqZirkRqHsryLta8qNwStWop5e/KWnz8KADSONmIhfwGtlM5BFNIBUlf9IFevSZ1XFCf
+	 ZEJjusEzCMaVXZUkkylBRI/KJ5R96PcjgPlyvmvdGNDcthSTw6DEAmzHJWOKF6nte3tck
+	 3eBezjeyg8OxyKvxuxRaYdgMzQeZyyPe14MxiSHAGIJP0lIWmlcLNKffiJ1+PE2uD+ncF
+	 sxb9FG2zP4jLio8V66Nk7Ga9gvhj3Yrhk+0/H5FXvK8D3NvKnnZIEqG8oyb00fUewpQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908957;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:MIME-Version:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=uUk3sA9aIJBcJMhjXoYzgYu+JPE3gi1flMqsb1Ts5PA=;
+	b=wj9HENgJcmGwoKVYhWdbbgYXm7B/43LX5ToN/Z942L6zqYIWSxhxETLSoOcyH9Q8pTs+
+	 vYYlSo63658SsAWEYHCSX/aTFePXw0bUCMQystco5EPHXyDg14KsPzmim+vaNaw4/E9kp
+	 Xp4EjqGqNowu5lFfUKxp82n+pNpWf+VlreLxmL77h8znEG4JYF9VDUVWdGklQ8I02uNRR
+	 UQLqJadT90ckUh2p/Iwuv8XHc0OL2k6ohPEjkWHNSSBFfVjEB7iLjSfbdmP0EeqvAN9aB
+	 Vhi4PXvkqpmwoc2UUp9USKEYawf1sazBgcJmbtJSGaPzmPdlHs1Dg+4QXR7mbLRVu1w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XWp6841t;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.53
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75BAB606A323;
-	Tue, 17 Nov 2026 09:49:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75BAB606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05007606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:49:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05007606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ihtgyhuq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794908951; x=1826444951;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=sJ18Jf4VXrBJ6WMpaYmgubx0JBlxlmL0zAQrq13QY6I=;
-  b=ihtgyhuqzhnpbHHfALaslfdcLGExtm6k+GijdOrJfh6MbDY5YOg8cH8L
-   qbq2hOWraT2kslyl+AXHvg9z0ZtsBcKRduq1BWT40YdAdSa8kLNhMygFV
-   PCEtcKSRdvAAE71c3senohQWafjRxQDxNpjDV8X7kj6EEqIko9OY8YfGc
-   9/M8ZzSwkBLBLzi1pidkejqic43sBzeV2cvXIUKSk+47EiS3lu04tbuLV
-   +yCkTtBhw02JzThcqPexkIU9PaQemcWsVAj+bncDbeokgpnorJaiJ6oe8
-   ZCoFj9gUw+78HnJoxs1ivX61kxBrJMbbjf1eGgsfv6qxDETRkpDc2bAKs
-   A==;
-X-CSE-ConnectionGUID: QVx72QgLRaC1bBLNPMWorQ==
-X-CSE-MsgGUID: fCPjOlq3QvuEdm2pk01XGQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3525949"
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3525949"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 01:49:09 -0800
-X-CSE-ConnectionGUID: j1RkJ33xS92Q0uicRK6A9Q==
-X-CSE-MsgGUID: KL8ggzyTQnWQHsQiXPUGlQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="9868687"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.254])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 01:49:06 -0800
-Date: Tue, 17 Nov 2026 11:49:03 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Eddie James <eajames@linux.ibm.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Paulius Zaleckas <paulius.zaleckas@gmail.com>,
-	Rupesh Majhi <zoone.rupert@gmail.com>,
-	Joshua Crofts <crofts@kernel.org>,
-	Luca Weiss <luca.weiss@fairphone.com>
-Subject: Re: [PATCH 3/3] iio: pressure: dps310: add Goermicro SPL07-003
- support
-Message-ID: <avwjD41YxQ8dL2gx@ashevche-desk.local>
-References: <20261117083954.335814-1-jorijnvdgraaf@catcrafts.net>
- <20261117083954.335814-4-jorijnvdgraaf@catcrafts.net>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XWp6841t
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c4d2b741ed9so716135466b.2
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:49:16 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794908955; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RhdxLF/aJa+p2VbV1plZjKQcZhJtV8B1qX+ewWMiR3HwT9fmfORTIENfMzvcZjTLbK
+         B+ihK8fxO96Y7y7nTvzaSa5Lte6IXdmCTncU+pgqS8q6hA9XFVIJtTCxekj3U0O3uksL
+         A0slZQBWYpyYQoYKP7a7tsIt6D4Ez3hfm1KWic+qKShf4KW20atcOQPof5N2AAwViltW
+         1L97ztgw/XJBL5B041y6X/ph0KjE2mmMJ0tkCmoThA8Eegs8uWo+/7UId3MWaq+V8D6S
+         SOj87dCDTT9iA2k0ebgEYZFB3ShtGw8LnzzmM8aoHRHO0021DcZRRx6UHBtSeIoEXdVv
+         ya7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
+        bh=uUk3sA9aIJBcJMhjXoYzgYu+JPE3gi1flMqsb1Ts5PA=;
+        fh=uDxjA2rMIGnXPX0ZU1LV3Jeein3CU1cR5FdJ7FN1YoU=;
+        b=eAXqxhdEXvAqPY76QcGvneCSaFs3iQUvAnpD9L9E/60UVqDJtwIdoP9XX6hoij55Vc
+         cQBwHqkmjUy9LGL8pbJAQbFI/5InY4xCzaSD0vyysfZyVLJrevl/Fma8TwgjptNUD5+6
+         Zbl0oUubnMkar7J7Bj/zYt3uqpGnEHKKGDEetfewy5MlwtJbjhWWTOx7xX1o+ZTWM4lY
+         DqcsmhKVzIxFfLOtCWe1rl/HW9I7H6Q8rdAPwGb5PJt2Y+WHJ4T7bwgsYdUO1ID93+Ie
+         C6kFwS0YC3Gl8B1uIK3T7yPFZeP8ypFK34vwgYvcbfuj3vfuISGVz0BEz4osFIdewyea
+         n98w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794908955; x=1795513755; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uUk3sA9aIJBcJMhjXoYzgYu+JPE3gi1flMqsb1Ts5PA=;
+        b=XWp6841t2tBg+AcIvD9nkKqxKkWYAFCMZ6gPyP8JvKmEkhgmpMwz3P6BLPYrl4mRgu
+         bOns8Wnx77TKmPFmpC6pv8sK005a9Ok/KmoEgZ1W2ssavUVhf8kIZkV3eHySmkxSua/k
+         m7sV16MVo5FidkYaoFSE7XfHv66NSn8SJe9LOLPfx3eqnR4B+DHQ8BLvwFDLbMTA9SJf
+         sMR0VHP/o9ADWySLYO9k780Aj4jsE+yresY+BY9XJlzL3cYP8FEudRF4RRk6sNsRsQTb
+         wOtnu4ElrPAIUFfIvAQ6ftLt2XufaK12q99Y2+bwonBsSNwi1RSRPFU27xPsM+AOi0lG
+         q9Ow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794908955; x=1795513755;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=uUk3sA9aIJBcJMhjXoYzgYu+JPE3gi1flMqsb1Ts5PA=;
+        b=fqqVbGHFzMv88cb7rZO5qWzucC1vqNYBuYnVTMU+sbf3whjriW7KYbm2VjywGuo7U7
+         avqYf1mOHv0dLauWOyQsyvP3LxZnrzecAyx33M7k0Nbsk7AqmiIRI+gvShwReQ8H05sH
+         kmRksBow5uwdVwWGAPk8KNKC71OwTbyNzrZRzt2Dw7bqmIKN911j1UXUDOlAi2D82W1l
+         qMVeoyqujyfnl1fcyzCG9VdpmK3WoR9Zr6WMwVH7IMs4rtV2ExwOOwiVRKRTJPnplM7y
+         5x2+SJwk+F6qSyadK04lORm4+3Cy7bzMR3Gcmy6X6uH4fwqaQyR0uk7LxFNKPA+C1/Z7
+         J0tQ==
+X-Forwarded-Encrypted: i=1; AL+hErFXA8kTitmxNLdjuw726F2nMPRvhL6mVyR0wR6+St2XYCOCe4SBDNvKQ1h28oSGBNAOolc/SlabeLihXmE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9uAlb5J+GyPCibxZkPV1q8jIMmXEok2LxZunWi/MSzvUw4DeKH
+	FC2Zefj22Rv/sXHqBMRSyNTVOox1S+sogJDqu7JqdLf8On9X3iIwyZ4jY6h3tnV0+ztPvYVDV8w
+	U94RySs85UrRtZP2WY6KTdUIeMP9zS0A=
+X-Gm-Gg: AYBFou27UBQ3gsZ90DtcKSkvsUgLZhqQD4e8Gdn5OozLTofFlUx/1EZ3Y8RFMN602Ui
+	xL0HGFRtaJdYGmrJIPivADxBFm/nGegzaXSAmw54eXUCnelela7UhDyvAHYGJ7avuQv4omKqib2
+	RkhxfZ/wgoXsf73on9KE9Ii/BgEHX4l3KygDKfePqh5r7/tjNCBusoW1gPeKup3y+s/2gc32Fkz
+	zUb8ZVNleGKNdrZ0AlP9BEve45QO4sbV/c79XDihIpa2Q8qkz5UTZHvt8faBBiZsIE3NjRKCVs4
+	lW/SPF6yt2fB6EJJNOHanKMgBZD2nPwlctcq0MqNWIeg8MBea2NfD+7NLbjKos22fwAxbGSbR8J
+	ZUXQOLVi7C3tCXN0qMHNgUmkT/n9lJQIQYgO6
+X-Received: by 2002:a17:907:9605:b0:c4d:31c5:cda with SMTP id
+ a640c23a62f3a-c50963afc72mr1091209666b.21.1794908955013; Tue, 17 Nov 2026
+ 01:49:15 -0800 (PST)
+Received: from 118528743069 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 17 Nov 2026 01:49:14 -0800
+From: Christian <servidorjarvis1@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,31 +104,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261117083954.335814-4-jorijnvdgraaf@catcrafts.net>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Date: Tue, 17 Nov 2026 01:49:14 -0800
+X-Gm-Features: AclHuK9N-vqPsY0Ts34Lvuo6XImgGfYr8a292qKiik_W9v-CPxQUC0mkuRPMmBA
+Message-ID: <CAMas6S2z+9-TyTfFTRDM+Qk2rKpRoYAUJSvmMxEwG6eAnQQn-w@mail.gmail.com>
+Subject: [PATCH 0/2] x86/mm/pat: HIGHMEM pages in set_pages_array_*()
+To: Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski <luto@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, x86@kernel.org
+Cc: "H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Nov 17, 2026 at 09:39:54AM +0100, Jorijn van der Graaf wrote:
-> The Goermicro SPL07-003 needs what the ZTS8032 chip data already
-> describes: c31 and c40 in the pressure polynomial, and TMP_CFG bit 7, a
-> rate bit on this chip too, left clear. Its TMP_EXT is MEAS_CFG bit 3 and
-> stays at the reset value, the internal sensor the datasheet recommends.
-> 
-> Its c31 and c40 are 12 bit values packed into 0x22-0x24, where the
-> ZTS8032 has 16 bit values in 0x22-0x25, so the coefficient block is 21
-> bytes. Add a chip flag for that layout, the chip data and the I2C and OF
-> IDs.
-> 
-> Tested on a Fairphone (Gen. 6). The DPS310 temperature workaround skips
-> this unit: bit 1 of register 0x32 is set.
+On i386 without PAE nearly all memory is HIGHMEM, and a DRM driver that
+keeps its shmem buffers there (drm_gem_shmem_get_pages_locked() ->
+set_pages_array_wc()) hits two problems in the page-array CPA paths:
 
-I haven't checked with Datasheet, but code wise it is nice and clean
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+1. The CPA walk takes __cpa_addr()'s 0 for a HIGHMEM page as a virtual
+   address and oopses in __cpa_process_fault()'s warning path, with the
+   CPA lock held, so every later CPA user hangs.
+
+2. _set_pages_array() and set_pages_array_wb() skip HIGHMEM pages when
+   they reserve and free the memory type, so a write-combined user mapping
+   of such a page is left write-back by PAT. A device that does not snoop
+   the CPU's caches then reads stale data.
+
+Patch 1 skips HIGHMEM pages in the CPA walk, as there is nothing there for
+it to change. Patch 2 reserves and frees their memory type like any other
+page's.
+
+Found and tested on an HP ElitePad 900 G1 (Atom Z2760, Clover Trail, i386
+without PAE, 2 GB) running an out-of-tree PowerVR SGX545 DRM driver with
+its buffers in HIGHMEM. Before: an oops in set_pages_array_wc() on the
+first buffer and an unreachable machine (patch 1), then continuous GPU page
+faults and firmware resets until the GPU wedged (patch 2). With both: no
+GPU faults or kernel warnings through the driver's uAPI tests (50/50), 100
+rendered frames checked against a reference, glmark2 and video playback.
+Written and tested on 7.3.4; this series is rebased on v7.4-rc3, where it
+builds for i386.
+
+Christian (2):
+  x86/mm/pat: skip HIGHMEM pages in a page array
+  x86/mm/pat: track the memory type of HIGHMEM pages in a page array
+
+ arch/x86/mm/pat/set_memory.c | 21 +++++++++++++++------
+ 1 file changed, 15 insertions(+), 6 deletions(-)
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+2.47.3
