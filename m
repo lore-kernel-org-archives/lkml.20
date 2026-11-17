@@ -1,116 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794915523;
-	b=yCuZV6v8w2nUcNMVZSPtv766nXkK//j4xdhuAtwD7A7ImfqLoaGCpOwykRMw4lRaoXk1
-	 pNMkTwEqA5yfJzqNY5YbEcVMWloXX1U2rtdU0UpwDvbPdLEkiAQ3OT579dS7bN1Q0aK9x
-	 61AOp9iiOMleIyLtM5cpLXNif3k6yY3VIHfGoO2Wom838Xbl2GwCiUxttMrytu8u34agW
-	 RqPyYqfBt5iOQZo43vUouPSRr+kswtmHA6YuCMZWpxn9coiQ29RZbLgvvG2xLte+UZ1t0
-	 YDzyaGB6XcVDIHv3gN+++by30hXj5VvlEJ2WqLIWniiVja1XjkaXEO41nQ/VYzH0KCQ==
+	t=1794915546;
+	b=3NOdF7LXLgBXBykXGmtv1mn6u7pULVWvME2y4CoTzOemX887vBO5dnwnqyi19PD2tuPC
+	 C0OAAmHPg+MS8izFCF2J3T0DQLgoIzItF81zF5FsbsvVLBELQs+qevetULP0JUiG6bgJl
+	 aexPF9/o2oXsuxTUHlvOXpZ4b/4N3R20UDOkIiBgcYNDpe0KBLfBil02zXQkPrifZBxiL
+	 XuoamqH1Q+AVvbmF8to3AT//CLYzWj8mBwD6VkxXaGv5Gk65AX/OrQZisNXkO9jCktErw
+	 Kd/RKPMRkV3kmBVIW1HZ4QBeE71WLJ/l9gw8yyKXu63ianQPjty6K/5GymQ4Rf7NDcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794915523;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=CQvQ2XC64f8xZtkViw8OYspDjMnnUYT6pRTW9cIpfZo=;
-	b=Vf/16ln6+woyokS5gQL05KHCVFTTFGXrhkjTxxYpJAdch/fYVynxscqrXgWOWe+0uLiQ
-	 q1M5wWKdUrvMtdtHbVm9ae1giviDGwDEJIhIt7QVKJMktlgpmJWvog0Ptu0313lfeOHiD
-	 xXcBJ65F/bCuAGEi7pkiEPYquD9x/+WI/0bwOjrl7C33F0pqNj/LxnqJ1CAVf1KONT5c7
-	 Pd0xfGp/jlw/DxDzIl7ZeoxXk6MrhVYhSt4u4Pl3tiEV+H87rF3ugqvdS0ghsgSRW/6lD
-	 YHZOl2lEBrzfaESUCYXy1LhQe3S0yLLqcJOYGfEQ+mMuF/nEGlnCDFwAqPAR3rkSuTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794915546;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=5QFm4/7llb/j/07OzcUIgHm6qGl30pGitU6RrQ/neVs=;
+	b=jaV07fCBMSE2Pvoy/RZPgYWw0M4/0J+D0uA+/6QG5FoKJcEhQ4V5CBO3H1gjQ0b4knoT
+	 QKwCiK4+Dn5YDbZjsWuX0GYQhQB0ElgVGA1aCC9lCjmr8/wsww8weZVWG+s2WqmRimeVa
+	 FNKPWFcU9SWqn0dBGgiph3reXcJf0Wl5SSU/Rszn7XuDQMNWW6I855p8VhhTl7Ng7SxYw
+	 10QibykqWR90ucFKqs5cgs5PYvfCs7JXmoGMQekmiLSwyGN0CZc21okYl/Y7hqqtkFwam
+	 4RcHah/rFpTZWrQUvXHsn01hgrGzswZosW8MAmuFr5jqaL393ZOymhZUfJRuaEwQPOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TvKapnRn;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=T7E8lEmv;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=boo9cVih;
+	arc=none smtp.remote-ip=54.204.34.130
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12248606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:38:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12248606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4AB3606A31C;
+	Tue, 17 Nov 2026 11:39:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4AB3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TvKapnRn;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=T7E8lEmv
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH8WNMX3407488
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:38:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=CQvQ2XC64f8xZtkViw8OYspDjMnnUYT6pRT
-	W9cIpfZo=; b=TvKapnRnBm+Q2P+N44+Ns1WvXwN1Ob8vW3mebXZxLXqpwLbo+S5
-	fTWeRMmTdRJLIEYY8CqBB/5FxeYQcDc6Zx1cXp4zYrgjZM6KR3wDfT2pen1NihuA
-	/VubIkhW92t1DjOT9PqgSozn7eV/jmaJML78BKOuES7oZFHcF+3V+JdJ3BwNkToW
-	EM2D2dxYT/wx72qTK3bsZ+UgjQ6poaDcsys6tZGN6c0OWQcv8mHzNUB8Hcc+LTtF
-	dixJuXFi0t6LB4ybHf3ioQuGtm0I7ZpYkHB5bUKA0mJ2OuwWbB3XVJRilv1HkAcy
-	Gxpn631FrGm2wngerzOItOp2pn/nUptHyxQ==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j09htjvw9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:38:41 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc1cdfb337eso2566748a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:38:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794915520; x=1795520320; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CQvQ2XC64f8xZtkViw8OYspDjMnnUYT6pRTW9cIpfZo=;
-        b=T7E8lEmvlSs6iXqV1KzqIsA4zhylfoJ07xAcUwJQp4hQ0R4PRbBUWbm3GSMxHac++B
-         P822vpFnk6v1SN7a5uIsCMLg+ROVmFw15G/of/DrkK2pA+jpuFljEtc0QopbUFrTJn5k
-         gDRJ4i+dmKPtk1sY41ppryIruTQ8EVZk6MW4HpOBaEwDO4tvLgfAlwkVPujF7lY6uDbU
-         KGXJCKk23V5ZOordgKrqW4WVDvxZt7jikPbELibrdhQGPtThtUq9tyOA3buWXW/NqGJ7
-         Qhy7QO2OarWSk2ib+GFv0LGSqLGasofPberrI1S3rKA5AeM7X7lm8BsPlQfdlMKxBZU2
-         27GA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794915520; x=1795520320;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CQvQ2XC64f8xZtkViw8OYspDjMnnUYT6pRTW9cIpfZo=;
-        b=rzQUNPc8/fFIRwaWYYZa5jx+kdZ0e+mgiyU6ziZvavnR/7lUdyx8v6sHfkOpIn9uc/
-         PPqoTqXVY4GE2JOvUqFkttmjdQ+qmHsruOjq0mtNTwWEAKrkJhATG5CbU/cP4CXhgsLc
-         OM3UvDzU7iKHeX+jgcIoCQOJd/KEycMPQsALMU80u8KYhfMGvW0W6Sm8H8XkZcqdS6lj
-         wqvPE+TzeL5stjlGBnRirFWdV/QTO9/8sVUJxkfHxHzY7AAuALzAi5A53iR5QgATVkHE
-         Y/2ZYmcnRl4iqleazTmNRBXIiMc1bqTrd0Yra8keGxzHwlGFQYMCqCEjRaH6JpWmianK
-         WGgA==
-X-Forwarded-Encrypted: i=1; AL+hErGoUtEVlRM8aaGTupY4MBbKjSJ2+lFfyGnQJlahjpt9Mb5QI4C1qAwaO5+LY/5KSXDVto41aYtotmz2NhE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8IxJ4phL0+ndTDsFe7Wkkl1hyCIDIsXwAgrNskMEVmL7cHn/gw
-	3VouQ0fGzxixDBIIWEApWAa81sXTx8LUzS7LGV3oTUnXVwpo707EtTEUCckU2u2ThFKILBj1GqF
-	EMs8tO7eM2o/PNcPMn4wdVOaj12o7xQAqAt7G3o6If9es9QxY5gW7rEVs0kKwslHlt24=
-X-Gm-Gg: AYBFou1maIb21o+3vze/fXeEKO6TllV1j9HWqfKX4vouYV/EAC59/8W76eKSxh4sEHA
-	xOJNZvNuA6GAf/rqVnECEdyf6Wp8YbpWdy1QhBxhs4lc1+7L4UyDHb7qp2skxnAWr+LS3o2Rzgo
-	ugl2YEuw4vGeuAXyW2jkGZ4Mp/JstAMMrCnQLeqhOkGbjbByFTZ0hSKgFsqfmX51Hmfchw4LB8v
-	YoPSSJsMq9fv4BoT1skvlUsfXKYcY3ZZEDQKL1Dbm8yz0ycY8u+eFI7SsXg/klQuH1RWixKHHH7
-	T9cQ9loas8SDed+NG/dXrm+lTv0A4gndca8KZOZ64zOx3+F/h5TT2221MSJEDbJ8Cs8E3jc0Pdi
-	lUu0yDZGQ2uHxZM2a8GyJI9TUDVBCtCg6AZ2mZ/7uSuMTTFuu0RZ+FI4OuDUn1TTyOaGftgeoQu
-	vYrok=
-X-Received: by 2002:a05:6a20:d80d:b0:3eb:a638:7c6e with SMTP id adf61e73a8af0-3f7a85c3a5bmr12849386637.60.1794915520505;
-        Tue, 17 Nov 2026 03:38:40 -0800 (PST)
-X-Received: by 2002:a05:6a20:d80d:b0:3eb:a638:7c6e with SMTP id adf61e73a8af0-3f7a85c3a5bmr12849361637.60.1794915520037;
-        Tue, 17 Nov 2026 03:38:40 -0800 (PST)
-Received: from hu-taparana-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cddc186fc81sm5886985a12.8.2026.11.17.03.38.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 03:38:39 -0800 (PST)
-From: Tapas Rana <tapas.rana@oss.qualcomm.com>
-To: andersson@kernel.org, konradybcio@kernel.org
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        abel.vesa@oss.qualcomm.com, dmitry.baryshkov@oss.qualcomm.com,
-        konrad.dybcio@oss.qualcomm.com, 26rote@gmail.com,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Tapas Rana <tapas.rana@oss.qualcomm.com>
-Subject: [PATCH] arm64: dts: qcom: glymur: Add mode-switch to the USB controllers
-Date: Tue, 17 Nov 2026 17:08:34 +0530
-Message-ID: <20261117113834.925310-1-tapas.rana@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=boo9cVih
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1794915520;
+	bh=5QFm4/7llb/j/07OzcUIgHm6qGl30pGitU6RrQ/neVs=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=boo9cVihgo6Jqix1XpEmeBcSaPct7Zl8kp/6/kRmzPjlZikfkvpWC5nAvJ+7RuW1n
+	 Yx0ijCDK5lSvC1bryXQIPCr2Wej9dGWLQfk7+xqlQvhDkyx6gZubrpWDzH9OgS7sAm
+	 pUHfW6V5frSFPHrWise+3eq7eVMNbwTD19xiOUWg=
+X-QQ-mid: esmtpgz13t1794915515t6b445356
+X-QQ-Originating-IP: eG9PVL/S70p3ZY5sbdOW2QvStsmEFfLnDmJFGp9BGaI=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 17 Nov 2026 19:38:24 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 17527824163099040394
+EX-QQ-RecipientCnt: 5
+From: Siqi Chen <chensiqi@uniontech.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Siqi Chen <chensiqi@uniontech.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] hwmon: (pcf8591) Propagate channel access errors
+Date: Tue, 17 Nov 2026 19:38:19 +0800
+Message-Id: <20261117113819.3336050-1-chensiqi@uniontech.com>
+X-Mailer: git-send-email 2.20.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -121,79 +70,122 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA0NiBTYWx0ZWRfXz0BptpYCflkD
- CicKRn8F+EZY3qj0hiOD5KcxexFRWI+mPq0d8OQqkJFQxS+YYiAwYrUO1leIKty/Ryy2uKONEwk
- SIkiOnWVj/bQ4s2lUK/XjAYy1aHd/lI=
-X-Proofpoint-ORIG-GUID: TXzVDankhHrbkBxBvV7Vk8rW_BYvtFIT
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA0NiBTYWx0ZWRfX3AjE8QEtw8HO
- l6VDpznbG8RiYLv7TfvkrlOOnhXcSilrGICQGg1vR6mTdsoteW1V0lJ0ucdTcTwkCiPCbzAIiL5
- AndDFj2TpZNEHhj9YovI8HLRAXeUOuNtd4dOqbK8IvfvmD/vEzQTx7i8y99XBbqZz4vt3GJ5cJw
- 09adbimac3rbLTDMGCGpnc7o5T3NR+FyE3XQ2k4SqCWLBuoRA6h40/mmUwczCQJyqzweXNyS103
- GEJ3ekcXrUDlp2txyMmMARa09p5eHP4qZWAhWzhaSRB5xch8i/byP6LElCMcvMwpGHgxKc5Hzkr
- +gzu6zP2HfuE6BjGHKCOnBKTzPRMTSNbJt0H3PI1TQ+flDq1DiUK/O5TyVL88CbnmE8nWxo2X3d
- LTeud4N/uaaRIhLIsyUhDkxFEnDxHCApYGktzRT7/V5ypuuSUinGSix3yWvtgY8d4Az4P2P1BZF
- WHLLR4QmfX3rEfXTO5w==
-X-Authority-Analysis: v=2.4 cv=K963jCWI c=1 sm=1 tr=0 ts=6afc3cc1 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=-rp_c-N0KskbNC3IIIMA:9
- a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-GUID: TXzVDankhHrbkBxBvV7Vk8rW_BYvtFIT
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-17_01,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 phishscore=0
- lowpriorityscore=0 bulkscore=0 spamscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170046
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: OD6FFkn240CDbIOb/5HyV7pBJQyRknUwa5fQvDWGhHvSgtwW4OITrtOk
+	HTDoj9cyyNQOBCBCAjDPTe93Aa12fxh2SyWoXzd4mJo/BNuAyLYczCvAtBpa84NsS+TorL4
+	lJNDmYTxJePGBlnHTLgJYWiqtMJuboQN+1K1+e85qMud/tWgFIDBRxM8EU+U5yZReeKt6Aq
+	bvDjDFO9cTBvj+5uiXT9kwOvPZIl7B6y52TinYGI+pJJB9K1PTcHU09C7nzDFG5aQPxdRFy
+	uD71zxx7BVGnREneIjX41SGgb6Twt8oSQCknvtVU+jBkm5n8VnOOtZ1INUfENIuMHJ6iIer
+	xureP0klczkOMi/cuJbN4cENZYJf7pmdFjA6sNiosZ8fsEgJtOPP4oDqVaEWwptupusVxKc
+	4p3lCkIswkpcx0ZCOXr/zor7tp1OXsN/8UA7PUSFNAJMmIT7Oz/kJywmtbEWzI5DTYQLZlU
+	3iwspNrLatqQeZZjNU2owsagQsVRO9TeJcl8uIqOqbG+2Z0zGgqW77Lt5bVVW9uE3EZdpV0
+	YH/uphu9Z/lpvIybsCJftIAq5fxgtpMWHOMyWy1Dfx+bXtDUlu14ffbPYvFHnuob0ML5v62
+	umbPfhb3DuE7Epkmcc03waTncZ6kLzaeGVlSPUv+AD9lSyWRtAg+8ekKOeIn/hbkFU/ajH8
+	dDvCmYsE2zapGKhD9vkleIRIrYEUsnCCtuXNIoryWZwHEJcXfR8G7gZeCmiJEaFVJ2EWeww
+	kOY06OsGeDn+I9q5rHJNO9E3h8sx4UnAFLD7l1NYWSJMkNNW99c0rEuhuQv2TUpkZ/OQMW6
+	PhA01TFum1Vtr3nytBqcr2u1BUf28E+cZcRCEzdR4D4BYNbIInxGZUsnIOtaq6JYnR5oHGy
+	HD8riWmn3+OAD1EOkq8WhMcPEYzEaSe98rrnNFad7IJno6eHbKu65UrR9ydFa+ui4lyaf2B
+	7/1W6KNGpawHtLy89sS9f0oBS97+qpPU4++b47HnJFNeTYn3zGynwH8RWKL7M0wH4B//hkr
+	mLWu/mev+nGcv/ZXoFbyOjXGsHYL9xLP3epd6bwCbjUPWmAJFs
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-RECHKSPAM: 0
 
-When the USB3-DP combo PHY is a mode switch, DisplayPort pin
-assignments C and E put it in DP-only mode, where it stops the USB3
-PIPE clock. Add mode-switch to the USB controllers as well, so that
-they get the Type-C mode, move to the UTMI clock first and keep their
-USB 2.0 ports working.
+The SMBus channel operations return negative error codes on failure.
+The final read result is stored in a u8, causing an error to be
+truncated and exposed through sysfs as a valid ADC value. Errors from
+the channel selection and dummy read are also ignored.
 
-Signed-off-by: Tapas Rana <tapas.rana@oss.qualcomm.com>
+Check all three operations and propagate their errors through sysfs.
+Keep the cached channel invalid until both channel selection and the
+dummy read succeed so that a later read retries synchronization after
+a failure.
+
+An AI coding assistant was used to identify the issue and help develop
+the fix.
+
+The change was compile-tested with W=1. No hardware testing was
+performed.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Siqi Chen <chensiqi@uniontech.com>
 ---
-Depends on Joonhoe Kim's dwc3 mode-switch series, which adds the
-mode-switch binding and registers the controller as a Type-C mux in
-dwc3-qcom. Without it, pmic_glink_altmode defers its probe
-indefinitely:
-https://lore.kernel.org/all/20261112113838.506-1-26rote@gmail.com/
+ drivers/hwmon/pcf8591.c | 32 +++++++++++++++++++++++++-------
+ 1 file changed, 25 insertions(+), 7 deletions(-)
 
- arch/arm64/boot/dts/qcom/glymur.dtsi | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
-index 65a398c0a992..e9469bb7a832 100644
---- a/arch/arm64/boot/dts/qcom/glymur.dtsi
-+++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
-@@ -4998,6 +4998,7 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
- 			snps,dis_u2_susphy_quirk;
- 			snps,dis_enblslpm_quirk;
+diff --git a/drivers/hwmon/pcf8591.c b/drivers/hwmon/pcf8591.c
+index ec98e6b66c49..602d0caeaced 100644
+--- a/drivers/hwmon/pcf8591.c
++++ b/drivers/hwmon/pcf8591.c
+@@ -68,6 +68,7 @@ struct pcf8591_data {
+ 	struct device *hwmon_dev;
+ 	struct mutex update_lock;
  
-+			mode-switch;
- 			usb-role-switch;
- 			wakeup-source;
++	bool channel_valid;
+ 	u8 control;
+ 	u8 aout;
+ };
+@@ -81,7 +82,11 @@ static ssize_t show_in##channel##_input(struct device *dev,		\
+ 					struct device_attribute *attr,	\
+ 					char *buf)			\
+ {									\
+-	return sprintf(buf, "%d\n", pcf8591_read_channel(dev, channel));\
++	int value = pcf8591_read_channel(dev, channel);			\
++									\
++	if (value < 0)						\
++		return value;						\
++	return sysfs_emit(buf, "%d\n", value);				\
+ }									\
+ static DEVICE_ATTR(in##channel##_input, S_IRUGO,			\
+ 		   show_in##channel##_input, NULL);
+@@ -255,27 +260,40 @@ static void pcf8591_init_client(struct i2c_client *client)
  
-@@ -5088,6 +5089,7 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
- 			snps,dis_u2_susphy_quirk;
- 			snps,dis_enblslpm_quirk;
+ static int pcf8591_read_channel(struct device *dev, int channel)
+ {
+-	u8 value;
+ 	struct i2c_client *client = to_i2c_client(dev);
+ 	struct pcf8591_data *data = i2c_get_clientdata(client);
++	u8 control;
++	int value;
  
-+			mode-switch;
- 			usb-role-switch;
- 			wakeup-source;
+ 	mutex_lock(&data->update_lock);
  
-@@ -5178,6 +5180,7 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
- 			snps,dis_u2_susphy_quirk;
- 			snps,dis_enblslpm_quirk;
+-	if ((data->control & PCF8591_CONTROL_AICH_MASK) != channel) {
+-		data->control = (data->control & ~PCF8591_CONTROL_AICH_MASK)
+-			      | channel;
+-		i2c_smbus_write_byte(client, data->control);
++	if (!data->channel_valid ||
++	    (data->control & PCF8591_CONTROL_AICH_MASK) != channel) {
++		control = (data->control & ~PCF8591_CONTROL_AICH_MASK) | channel;
++		data->channel_valid = false;
++		value = i2c_smbus_write_byte(client, control);
++		if (value < 0)
++			goto out;
  
-+			mode-switch;
- 			usb-role-switch;
- 			wakeup-source;
+ 		/*
+ 		 * The first byte transmitted contains the conversion code of
+ 		 * the previous read cycle. FLUSH IT!
+ 		 */
+-		i2c_smbus_read_byte(client);
++		value = i2c_smbus_read_byte(client);
++		if (value < 0)
++			goto out;
++
++		data->control = control;
++		data->channel_valid = true;
+ 	}
+ 	value = i2c_smbus_read_byte(client);
  
++out:
+ 	mutex_unlock(&data->update_lock);
+ 
++	if (value < 0)
++		return value;
++
+ 	if ((channel == 2 && input_mode == 2) ||
+ 	    (channel != 3 && (input_mode == 1 || input_mode == 3)))
+ 		return 10 * REG_TO_SIGNED(value);
 -- 
-2.43.0
+2.20.1
 
