@@ -1,60 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794922516;
-	b=zWv01/40GsXB5hjY46N/oVPrrPazyoKN8pxw1IXEIAI4z4LBJ9jTsg6MmjUffv1VStH9
-	 XYNwrw5FSS3iXFieUUHAuFuLDg3sEfKbjWmMsxeOIlGBbw5WidI7P55jR1jVlVoYo3GQw
-	 MU2F4fz0qSiQjJc+PX7M5PhaC4WQGvKWZF8EJS1EOO/M99JgUkawCwmiu4cTdef6jSAA/
-	 evyJIazQtIT0crBvFI/p9RZVnWpQDd1nIX4sO2Bi79TKcA5hZ2ev1oIGpe1YCJg2+RoX2
-	 0K2sk439s9iXQiktKQhIfWdz/ZKoHXWqt1xJft7OhlOocKl2Nwt08U6b0UoEYtuFmeg==
+	t=1794922567;
+	b=lnoi/O4WqgFNfs/K5w2rSpJuX5MQD1id4ezJghqXPz7t0u0qAf/yjG7KTyLN+EaBjUB1
+	 vevYdDtS4wizXL2/Vr9bCAF0lvw2E3UVyoAXcuIP7M3AqQ9HsVuTEbfEuFxGxvgp3a7DJ
+	 6CtWZaLkWZcujvSOjcrP0+gBACnSIVbTwXBbMpotFaHk6p87L6cKO7iLe8SP5Gm640AlS
+	 wsGK9cW2wNe2oQElmEkdvCSHor4QnC3qT+Y1Yr52x1L/6BvjothLF2x/Rc0x9ruNxD7uP
+	 zAOeeg7GM1E3X+FKA090HCnJOIUQJL2AA45jrLSY5T2szOwsfMTMqFz2CcnbNq4MbZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794922516;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=EFX2yIyrHAd/8VFoISAI9yJxJbG4dUZg6w3jxNvGRko=;
-	b=HN+7r2bWEUCUMiFMGPhrtScgRh0F+xtO78A+Ke5m1cp+D6xk6EGSYPrcAyKp0aJE2EQE
-	 FUzBDC3PJ/YENnaEE/cQQHuZeTTdtKFRtNJOj1C2EhmnGr0sGduhtRFZh8X2WExdwsOey
-	 VQ//sV3IGrUWyUFFzYuXKdQ22aJx7gDgbeE3gqdZlohYVvGNKaCAr4Lc9tqZkiHYniWMi
-	 rZj/q6jlh1TBdGklhEBIHHe0nlDw7Relj9eSYyccN93AqN0wSpoZEhXsOV4iOpFO81nOh
-	 pWH707eQGBNECuR/ZinBORLMx+I7g17ivbCqDP36KKGUppJ8QeG/rc7gF64K+O34T3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794922567;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=zrjNaK2BMmlXskrm0KIplH9eRZPk+1mRx+s4P8jKOWE=;
+	b=p6vY0AnZWp1ofu+ZsUff8mEC6r63tbpw08+bZOUImBYNIcozYbdq/sGHgi1F/nCUhZ53
+	 QFHxXli6FiT9i4jRSj8gOmiD/5g9SiAi3jBhr1uj9m0ykIRH+VeTSdxbl0aNwCCm72J5l
+	 /40HELYcT4Y+ryRnxBMGzUP7RTksr7qVtWvlWlBfHXWErM4TUZZy/YNtEElo3QQQSEZMT
+	 NPTDluITaoxweOC0oIgekB+debAk4WpxEnQyFRF9VbgIwbEtyMdMTI4z1aHBiHTbXLTFE
+	 X/jzJvJJrqcSioSZwexJzf3bVL6FZyHIYBfeQTeI4dcc+cpUFpx5B8iZwRCJ81t1Z5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=II1s7i5t;
-	arc=none smtp.remote-ip=210.118.77.12
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=lyyzifHP;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E31E606A333
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:35:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E31E606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8CC7606A31C;
+	Tue, 17 Nov 2026 13:36:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8CC7606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=II1s7i5t
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261117133507euoutp02ac4c94b45d9647d7daffb45666f0419f~o2IK0IOQM0956609566euoutp02P
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:35:07 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261117133507euoutp02ac4c94b45d9647d7daffb45666f0419f~o2IK0IOQM0956609566euoutp02P
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1794922507;
-	bh=EFX2yIyrHAd/8VFoISAI9yJxJbG4dUZg6w3jxNvGRko=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=II1s7i5t7SASuJOymU5Cv0mPRU23QdOzGTVMsq+hjxyw1vzCUCcRSo+WPwMwEKc56
-	 /7HEh1fepPaUR2KVfJWACHOD91PuImEcEjD2NJPLHIQ9MiREtAmxI1O3wkD1Z32Gmx
-	 Goiti5wvEEH883ohY9hO7gTE3ADwVpn3OCmobOOE=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261117133504eucas1p14aee6e1d3b716ecd4eac84c21058c78d~o2IIkbNDp2647226472eucas1p1D;
-	Tue, 17 Nov 2026 13:35:04 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261117133504eusmtip2249a3600a4be2a7cefdbb1bd4ce187e4~o2IILas3v1494014940eusmtip2T;
-	Tue, 17 Nov 2026 13:35:04 +0000 (GMT)
-Message-ID: <05c05ec4-b321-49d4-acf7-b9fa4223dba9@samsung.com>
-Date: Tue, 17 Nov 2026 14:35:04 +0100
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=lyyzifHP
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 934F6C79A97;
+	Tue, 17 Nov 2026 13:36:09 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 25CAD5FC81;
+	Tue, 17 Nov 2026 13:36:05 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D9E8811BC0008;
+	Tue, 17 Nov 2026 14:35:53 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794922560; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=zrjNaK2BMmlXskrm0KIplH9eRZPk+1mRx+s4P8jKOWE=;
+	b=lyyzifHPUW/TF25iVGcxxozdbgkY/qmW1+lpBdGXZzGqQBZBIxE9ZXOrdLz16IlpxWvZAk
+	e3266PE7euLObTyJBNNOD797XSiUMy+84nhboxxypsKcu5qqeCH+AMH8pXUbz7yQIOFi4m
+	SaWzef4Ie2MByykrYRur3B+bdJc6V5dqFAfpqMamQs7QDl4nqcqBC+BSxjqGrt5p/Ofweb
+	bXxizpY1Ry07WMp2HJIXA8/jPSrSjJC/q2QZ72HJvH3QYlAcD0LHnTLH+PFyxi9O5KdQFf
+	My8aknE77tEPjHyXg5TFzJ3Vqdwj5lkD7lGsu+sQypAq3Y72ZkyBr6VTHnsgag==
+Message-ID: <613e303b-635c-4751-8988-2687f8f39c4b@bootlin.com>
+Date: Tue, 17 Nov 2026 14:35:52 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,90 +62,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH] dma-debug: Avoid uninitialized hash traversal in
- mapping dumps
-To: Robin Murphy <robin.murphy@arm.com>, Anthony Iliopoulos
-	<ailiop@suse.com>, Avi Weiss <thnkslprpt@gmail.com>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net: stmmac: drop the rest of the frame when
+ napi_build_skb() fails
+To: aiyengar1990@gmail.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <Jose.Abreu@synopsys.com>
+Cc: Lorenzo Bianconi <lorenzo@kernel.org>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>, stable@vger.kernel.org
+References: <20261113-stmmac-rx-skb-fail-v1-1-fcaae89f2d2c@gmail.com>
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
 Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <609175e0-4e1c-4130-a9f1-0cfc7815c134@arm.com>
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261117133504eucas1p14aee6e1d3b716ecd4eac84c21058c78d
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261116134536eucas1p1b30ea07e1a1e3be753ff25a653be59a6
-X-EPHeader: CA
-X-CMS-RootMailID: 20261116134536eucas1p1b30ea07e1a1e3be753ff25a653be59a6
-References: <20261115082505.2012573-2-thnkslprpt@gmail.com>
-	<E9412813-7A76-46D0-94E5-0537E9FF5DB8@suse.com>
-	<CGME20261116134536eucas1p1b30ea07e1a1e3be753ff25a653be59a6@eucas1p1.samsung.com>
-	<609175e0-4e1c-4130-a9f1-0cfc7815c134@arm.com>
+In-Reply-To: <20261113-stmmac-rx-skb-fail-v1-1-fcaae89f2d2c@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 16.11.2026 14:45, Robin Murphy wrote:
-> On 16/11/2026 12:09 am, Anthony Iliopoulos wrote:
->> On Sun, Nov 15, 2026 at 10:25:06AM +0200, Avi Weiss wrote:
->>> Booting with dma_debug=off causes dma_debug_init() to return before
->>> initializing the hash buckets. The debugfs dump file is registered
->>> independently, so reading it traverses an uninitialized list and
->>> triggers a NULL pointer dereference in dump_show(). The
->>> debug_dma_dump_mappings() helper has the same unchecked traversal.
->>
->> So the debug_dma_dump_mappings() issue seems preexisting (the risk was
->> there since its introduction in commit ac26c18bd35d, given that it
->> doesn't check if dma_debug has been initialized), and it is not related
->> to decoupling the debugfs init.
->>
->>> Skip both dump paths until dma_debug_initialized is set. Check the
->>> initialization state rather than global_disable so that mappings
->>> recorded before DMA debugging disables itself at runtime remain
->>> available.
->>
->> I suppose this makes sense for debug_dma_dump_mappings, but I am not
->> sure we need this for dump_show. See my next comment.
->>
->>> With CONFIG_DMA_API_DEBUG=y and CONFIG_DEBUG_FS=y, reading the dump
->>> with dma_debug=off triggers an oops in the unpatched kernel. The
->>> patched kernel returns an empty dump, while dumping with DMA debugging
->>> enabled still returns mapping information.
->>>
->>> Fixes: 173735c346c4 ("dma-debug: fix debugfs initialization order")
->>> Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
->>> ---
->>>   kernel/dma/debug.c | 6 ++++++
->>>   1 file changed, 6 insertions(+)
->>>
->>> diff --git a/kernel/dma/debug.c b/kernel/dma/debug.c
->>> index 36c1f7cbb2ae..2f487246d8ce 100644
->>> --- a/kernel/dma/debug.c
->>> +++ b/kernel/dma/debug.c
->>> @@ -543,6 +543,9 @@ void debug_dma_dump_mappings(struct device *dev)
->>>       int idx;
->>>       phys_addr_t cln;
->>>   +    if (!dma_debug_initialized)
->>> +        return;
->>> +
->>>       for (idx = 0; idx < HASH_SIZE; idx++) {
->>>           struct hash_bucket *bucket = &dma_entry_hash[idx];
->>>           struct dma_debug_entry *entry;
->>> @@ -576,6 +579,9 @@ static int dump_show(struct seq_file *seq, void *v)
->>>       int idx;
->>>       phys_addr_t cln;
->>>   +    if (!dma_debug_initialized)
->>> +        return 0;
->>> +
->>
->> I think it makes better sense to skip creating debugfs files altogether
->> when debugging is disabled, which was also the case before 15b28bbcd567.
->
-> TBH there's probably an argument for just getting rid of debug_dma_dump_mappings() now too...
+Hi,
 
-Agreed, remove it completely and register the debugfs entries only if (dma_debug_initialized).
+On 11/13/26 18:13, Arun Iyengar via B4 Relay wrote:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+> 
+> If napi_build_skb() fails on the first buffer of a frame that spans
+> several descriptors, stmmac_rx() drops that buffer but goes on with the
+> next descriptor of the same frame as if a new frame started there. The
+> rest of the frame is then passed up the stack as a frame of its own. A
+> frame spans several descriptors when it does not fit in the RX buffers
+> of one descriptor.
+> 
+> Mark the frame as errored instead, so that its remaining descriptors are
+> discarded like those of a frame with a receive error. The frame is
+> counted once in rx_dropped and once against the NAPI budget.
+> 
+> Fixes: ec222003bd94 ("net: stmmac: Prepare to add Split Header support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 
+As you say, this only makes sense until Lorenzo's work makes it, this
+should be suitable for net.
 
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+
+Maxime
 
