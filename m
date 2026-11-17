@@ -1,58 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.70.190.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794920125;
-	b=W3dVV2+ZL8fGihuRkseMNAsYE81YNSHDk0C4tkJp9HhwB70f3RzraE7ek4vdQpegjn65
-	 l5M9Tm59dRU+/kBuSVTLTA/Gz++/+noDrVJQ7lFkyWP5P3DETAUny4j2VuYLE0xuzHT6H
-	 rf71Ak3G9j+OOWkqw8XfxJ6k4dRVohofUk1maT1CkBYnMiH5IgN9EU04+13Wl+rTX9Dj4
-	 s7xkba2yma+7pd8NC45NG2iwz+NcMuL0YUK2PsVJeSlZdJx7pTUCFXBQMbFw3laeAfO1k
-	 bBoA5bDbcQy/7WVC6osVFZ0kz1CVRwEPN3uW9A+9MuoMYxQ1mxtj68S3TRC50bRnSCA==
+	t=1794920219;
+	b=hoiBfhDT4jm19agBCyjnbfcVXan6uFFWC5wYteQ2kiuzd6jXTaTaFYTvNySWMDowm/xM
+	 tuDIHWe+HY4yOru+W/vJtRnUIW6FardUvUzqIJ5S1PiFeh4NcrNLD5qr7uAZ/ZWClne6g
+	 pHUrc7n4Jj2E5cK17HrSv+xRWG4qp29YdfM+x0bS+qHrnDDVAB59daOwjHufyB7CfOfSo
+	 Jufv5r9OwPNjg9Id6uVL0dcbY1BAGBrE7o0JYeP/Dh1ecYhOx5Q9Whqq1J6SoDkwxeB0H
+	 bj0g7ZulJeyXAx1R9wVt+gEKQXax4mjedpbl3Nk4S3b9yRtobqchyLzYY8ErsRfgxYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920125;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=eMdm5R6kr9FBKHBQZ//DR8je0iHDg73uHiHu/KHyhUU=;
-	b=dI9slvKdF+iYxWY3L+HYeBAD44e4rdlYCH9d0+MJz74vnsJm7A08wgftyea6RKWY+oQk
-	 3a0cEnNwra/YDuxxTK1k61vJRXhclHUauD/KMzdQ7JiN8gA/iDMTew/fNIggk59M/u7Zf
-	 9SivlcXhCXuNbigMmZJlsroQop+nsxPNCBwwRsoRgeX356SwvDSOyye7tN/rwtqBlXOaf
-	 f1j1IeTKnt6It97YHJpMIYKbo1IUjpO7AJ+tkHmay+X6hTV/auoMJdnmFt5w+srUE3tQ+
-	 Br/tB0PEK3pJ+nOMxrS4pVTs8t0br3CLQQcLanPkBjpaZA6qQacje0yYV1c85br3qsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794920219;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spam-Status:X-Spam-Checker-Version;
+	bh=OTVVvYxat9orkcdedi+eKMTu2VNYh4nZrH1KaOtguVU=;
+	b=jXrM9Y2qbFjAwLRC+i4qYVLgmeAqsAM5mwGaffwNes5pKPh2gXRJuBmrh9VYk0NVJBQj
+	 WaJt/JKFXGIsutcwmEcDB6kSDHQP3pen0dtKArT2vDstZKqdvDOwqcXc/U2w6aRHk9Dpz
+	 V3SYNgXkCJPI7hWT9uJY8lsE7Ql+U2cet7BY9ww9MmXM1em1NF+mGDI9riXbi8m2sHjy4
+	 8v8jy6dc/qbCwx+Uz9fUULHLZGDSutUTT00wW+mNejcDfLygjTY86OPmCJJXgd30qXjwB
+	 MXdnNmkjqOHW4qiQZS/auM/zJ0h61KbueIQ2iZoA2ouL84KjhwxxUJdTC7sEqamO0hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ghSrE+Kb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=netfilter.org;
+	spf=pass smtp.mailfrom=netfilter.org;
+	dkim=pass header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=bnAuemer;
+	arc=none smtp.remote-ip=217.70.190.124
+Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B19606A32F;
-	Tue, 17 Nov 2026 12:55:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 4A589606A31C;
+	Tue, 17 Nov 2026 12:56:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A589606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ghSrE+Kb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C05F21F000C4;
-	Tue, 17 Nov 2026 12:55:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794920125;
-	bh=eMdm5R6kr9FBKHBQZ//DR8je0iHDg73uHiHu/KHyhUU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ghSrE+KbMEoLJMEAyMAz01tGCL/ewJ8Ly84wLkOtBOCzWOcKNdKdT5/FtCixN+/NX
-	 OewAjrdv4UDBxYRE1K8IhBiTXM2mpUihYbG/CNsUEx0dRg0xak+hoah9PesLLTaEqX
-	 lr+iQDN8D/gVvJNqSBg/EH4z/IKISX4LUpjCEmuTy9UcX03nOm+eGF6UzwSMWsH0VS
-	 BN2GdyyDAWE1Qy23RF4E1AA5IXeyOPR8ZhVFgizvqH//sXFlg07lFnxA9NI12HaeVL
-	 ERTUG8VLY9Eq0gtYaDv4E5VerKtnxqFSCSdAo1NjooOCi3ywFvvi4MZ3F43OcjcwSX
-	 URNHic/rdHS3A==
-Date: Tue, 17 Nov 2026 13:55:19 +0100
-From: Niklas Cassel <cassel@kernel.org>
-To: Damien Le Moal <dlemoal@kernel.org>,
-	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
-	"Martin K . Petersen" <mkp@kernel.org>,
-	John Garry <john.garry@linux.dev>, Hannes Reinecke <hare@suse.de>,
-	Jens Axboe <axboe@kernel.dk>, linux-ide@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Justinien Bouron <jbouron@amazon.com>
-Cc: Gunnar Kudrjavets <gunnarku@amazon.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] ata: libata-core: Add max sector quirk to INTEL
- SSDSCKKB240G8
-Message-ID: <avxOtx5ueJXmYMlz@ryzen>
-References: <20261116205430.44305-1-jbouron@amazon.com>
- <179491952051.3464613.10156120067978467700.b4-ty@kernel.org>
+	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=bnAuemer
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
+	s=2025; t=1794920217;
+	bh=OTVVvYxat9orkcdedi+eKMTu2VNYh4nZrH1KaOtguVU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=bnAuemerWRXRXSGbr01HnF1Pqn4KLiRbAMCVJJEkHBCt+43PNXE2ZPv0HBvIK+c4w
+	 T3uLMWBm5o/b01JCcjJOoJEhIVVauEd2Irkc8p1OAYasU4Ir+O+ZlCVJJqLiXHV0aG
+	 WTA5SwbHuDxQ8ntTpUt2TuzsgHUHGrryekdJx3gZQCEA+fTZJ1TunXXhyJYNI3XoD3
+	 XtnW/hZ3dP88eTKLO6PUmoIZr8F2GycEkLhIH/oLFXVZPPQzWT/Vd+4qZ9cGwqBmZc
+	 pLFb+igoik9pR9b/cyL8enJ6eGBogvsI0JVH1Zw6O3urpT0y1v8fKKj8QTtBNEzfZx
+	 JMFCHzQe0nBMg==
+Received: from netfilter.org (mail-agni [217.70.190.124])
+	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 0386260057;
+	Tue, 17 Nov 2026 13:56:57 +0100 (CET)
+Date: Tue, 17 Nov 2026 13:56:53 +0100
+From: Pablo Neira Ayuso <pablo@netfilter.org>
+To: Leonard Lausen <leonard@lausen.nl>
+Cc: netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>, Shuah Khan <shuah@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v4 0/2] ipv6: Honor suppress_prefixlength in
+ fib6_lookup()
+Message-ID: <avxPFYfEirXzTup8@chamomile>
+References: <20261117110813.9894-2-leonard@lausen.nl>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,32 +72,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <179491952051.3464613.10156120067978467700.b4-ty@kernel.org>
+In-Reply-To: <20261117110813.9894-2-leonard@lausen.nl>
 
-On Tue, Nov 17, 2026 at 01:45:20PM +0100, Niklas Cassel wrote:
-> On Mon, 16 Nov 2026 12:54:30 -0800, Justinien Bouron wrote:
-> > INTEL SSDSCKKB240G8 with firmware version XC311102 runs into FPDMA
-> > timeout errors when queue/max_sectors_kb is set to
-> > BLK_DEF_MAX_SECTORS_CAP = 4096KiB / 8192 sectors. Similar to model
-> > SSDSC2KG480G8, the issue disappears when setting this max size to 8191
-> > sectors, thus apply the same quirk.
-> > 
-> > Firmware version X5A1ME59 for SSDSCKKB240G8 is un-affected by this bug
-> > thus keep the quirk specific to firmware XC311102.
-> > 
-> > [...]
+On Tue, Nov 17, 2026 at 11:08:10AM +0000, Leonard Lausen wrote:
+> This revision removes the cached-exception patch and its PMTU test, as
+> requested. The series fixes the nftables regression introduced by
+> 1c32b24c234b and leaves dst-based prefix suppression unchanged.
+
+Is this a LLM finding? Or a real issue in production?
+
+> The cached-exception work is deferred to net-next after the
+> fib6_lookup() fix is present there. Interface-group suppression also
+> remains deferred.
 > 
-> Applied to libata/linux.git (for-7.5), thanks!
+> Patch 1 makes fib6_lookup() honor suppress_prefixlength while preserving
+> terminal reject results, including blackhole nexthop objects. Patch 2
+> adds six checks to nft_fib.sh using its existing fixture.
 > 
-> [1/1] ata: libata-core: Add max sector quirk to INTEL SSDSCKKB240G8
->       https://git.kernel.org/libata/linux/c/3dccf22a
+> Changes since v3:
+> - Drop the cached-exception fix and its PMTU regression case.
+> - Remove the PMTU-only gateway and peer setup from the test fixture.
+> - Renumber the remaining fix and test patches as a two-patch series.
 > 
-
-I moved this to for-7.4-fixes instead, because of the severity of the bug
-and that it is quite recent.
-
-
-Kind regards,
-Niklas
+> V3 review:
+> https://lore.kernel.org/netdev/20261117091340.GA581197@shredder/T/#t
+> 
+> The rebuilt v7.4-rc2-based laptop kernel now contains the v4 series,
+> without the deferred cached-exception fix. All six added selftest checks
+> pass in normal and eight-second-delayed runs; both full runs exit 0.
+> Twelve separate reject-route controls also pass. The changed source
+> compiles without warnings and passes 17 focused ASan/UBSan callback
+> checks. Automated kernel-log checks were unavailable. Target-net runtime
+> and full W=1 config builds remain unchecked.
+> 
+> OpenAI Codex assisted with investigation, reproduction, implementation,
+> tests and descriptions. Prompts asked it to investigate VPN failures,
+> simplify the series and address review feedback.
+> 
+> Leonard Lausen (2):
+>   ipv6: Honor suppress_prefixlength in fib6_lookup()
+>   selftests: netfilter: cover IPv6 FIB prefix suppression
+> 
+>  net/ipv6/fib6_rules.c                         |  6 ++
+>  .../selftests/net/netfilter/nft_fib.sh        | 90 +++++++++++++++++++
+>  2 files changed, 96 insertions(+)
+> 
+> 
+> base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+> -- 
+> 2.55.0
+> 
