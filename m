@@ -1,148 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=2 smtp.remote-ip=52.101.65.12
-ARC-Seal: i=3; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794925862;
-	b=yFyMhiQsAllQwvmLW6yChQ7na9hPRpkZlGlCru28oXHJHp5uiiAPOK7zHrxaiGO0a2gE
-	 CswQMsbGptHVESzy7+8MsmpsGP3CZq/L8DIHuLbhoI5idR/G18L3cEStzFpJy4OiaTVU9
-	 rUSYt1oZLq/kVc27SduLm5Sepg0zHWbVniH43mAenc0VLynBIzxIaLvkQ+Ra1v2iyPIFa
-	 2ki55VVBJPPX4sEDyduR5BmaslnhtYzHFdA2OsuT+KQtYHiFSrNuUD4JOxd1LcIV8Tm5D
-	 b2aNZmqJjVP7kr9F2pYNIsJGfAUgO9O4ND6nA0M9ZhfU02/hNhU9NxGI25oUrSHsVTQ==
-ARC-Message-Signature: i=3; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794925862;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:
-	 DKIM-Signature:Authentication-Results-Original:Received:Received:
-	 Message-ID:Date:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-ClientProxiedBy:MIME-Version:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:x-checkrecipientrouted:
-	 NoDisclaimer:X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam-Untrusted:
-	 X-Microsoft-Antispam-Message-Info-Original:
-	 X-Forefront-Antispam-Report-Untrusted:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-EOPAttributedMessage:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
-	 X-MS-PublicTrafficType:X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=mSgZAo2mesbk7WooWs40RKryz8l/f62/vPo9vEe588Q=;
-	b=FiE5d+cY9rEtbElY7cM/iGNcuH1tNt4bxf6jAzFKFNaCI0GwJMsEP75/I8xh663Sbqbv
-	 XF89cgfKy7F9mrqm6YTd2Uq4yMuaLUVcV3lGYd93rCGxNxnbfryeP5/6PinbmniMKk//N
-	 uSvqR3WdyabkheO0Rv57lsEbgthVqfS666HIemg0OaX2cc2hDaOBrUAcZrBaUL/kF2gSH
-	 xG18nVotrgGG0YAg41aMC+YT3mw/bbwvmoiV6/7vrFWeyocFI3/NCzBqbSqpliiIJwhRN
-	 5L1+PFtGezbpZKE5oVlkeldtJS2hv532PWCblxCnCQTpgZYxaO3+8gJD5LUUaDoeUFg==
-ARC-Authentication-Results: i=3; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=PTRMPtKn;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=PTRMPtKn;
-	arc=pass header.oldest-pass=2 smtp.remote-ip=52.101.65.12
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011012.outbound.protection.outlook.com [52.101.65.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794925863;
+	b=r8Kzd+4oCKZHwvILXZwrwojsNYM/OuMtiXs7aUgup92c6GQ3yKXc6mada0d8HfKfbnr7
+	 NhLDY4hcuKxgqB5flnQg8rdBBTz2VLeIUG0FyC/+/5zP1BtRl5yQap7Y85TvolU072ZCX
+	 03GZunU1fn5VbyUJbMLJ1ZB5+sKXbxgQ5lpXR9H17Ec03gJmSQwzL4+bKaF5TQSZJAZ83
+	 ASi805vBRsLhwK/7PlivevciAPTcaD84MilBaTN1Iv3axQu+tGczEGWXom+5hh0yYaT6f
+	 I73Yro4ZHXrAjcsIPgnAmzfRuGCTRov7jgKgj7aL32X65kzAIwdDFv4u5rAEV0wDlNQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794925863;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:References:
+	 MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=0ph2zl6rwyEKg3O5TgI+UXa3FjOJ6TNy4j3lJzs1fJg=;
+	b=xdCPHaNNuc9xPIqwdYVtdsHPrSq74KLRmn/PmmlzGxAhVXMyfrM4LzOBgnU2uXprmGxj
+	 YC5QIV80tt6Y/9KIL43CmkJyll6fxkbNKEx0E/bSyE/cB1tAUO5HEw0xt94mlLTqFxw7Q
+	 c3QcouIPLIrvoig0ezLKROFq3IO0CusyPsxKNTYkko7nrLO06pogG2kBXJzvVVV2yl9E7
+	 /fPlaqmziGJnrHGeg5H+UGZF45uSW/FGU7OtOFIm8DoCxeRzBUaEfzGISiVsAUwxdjDu+
+	 j2SzMSQ2IVTfDykDKZWj4qPIhaLS58aaTWEzIkNErfqFCvVdvAxhKeAKg66ijPPEHVA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linbit.com;
+	spf=pass smtp.mailfrom=linbit.com;
+	dkim=pass header.d=linbit.com header.i=@linbit.com header.a=rsa-sha256 header.s=google header.b=dkZwvxCn;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7862F606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:31:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7862F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FC1A606A331
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:31:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FC1A606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linbit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linbit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=PTRMPtKn;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=PTRMPtKn
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=vyrF4a++f+bi3jwNA0I3W8VsQMf25SwapOaSW/b5wVZQ72JVRB305neN8cCB/UCvBhFUmU33AyKq1F2FgEGcDD0Jdz4f+Rn5xRnsQyLDRDM7eZc9YxXaG/hXPpHp3W0kPErRucsbss5OJrXRgeSyKtnxau37sDecMwW77HgTK5sc3xYB6nWbTlapI7uMmvaW3SkyrNKw4tKprdmcJsKj5Vlxdc1xHp4fAQU4ecgZLdDNzntkkpjA0e8GyfHFU6f9xyQJCEY+IFURUXAnGq7e3iI+3pndPdR092w+/+DzUbx/6vZABn0+BInGwKk2ZaIlidTsBLPATkaEd4iYQ+Dz4A==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mSgZAo2mesbk7WooWs40RKryz8l/f62/vPo9vEe588Q=;
- b=MqiSxAPUrUGuSxpxD/VAeEiihMZ5fcUJttKaEIk2C4QRWvnjJQ9mLhZIFgbOtNBbJ7Ay4x8/3EnyNaPRsYp0IuW+CETLuvQa9gEWQtpsYdbqVz0ekUyqdkquu7cEzAoKd9HiECload5zqG4C4ddTIpRrv8TJoedXM+iT/Ykxs/aTM+cQJ9YOMpKMlz2NMF2BIKpmPAdBLVshE/XSq9UM489kPJaHCdW2CFZzznVbKu/tuJQiyIrMS7nGNakOYcG3foWKToweA6I4E6Th0ZuMWZ+nhUnsT95a8flAf1UOE9jlP8ZNu+BwtwIY2QYgUHwR+j2mX7HgYytps2dnmuC4aA==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=nvidia.com smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mSgZAo2mesbk7WooWs40RKryz8l/f62/vPo9vEe588Q=;
- b=PTRMPtKneAcuEQ4wTbbRUnKmGd8103+YsvOuO9ruVvbNwYlDKkO0GP8FvnFE0B99nk8t2A3M+T+e+iwOlRfORuuoS8f71yKkzOmPvK+Rc2+fnyUOwfjjlw1jrVgrpxVMI1L8ztVmaDVmD5xuw2z6HvQVMXBzkLLt3b7noONZhAA=
-Received: from AM6P194CA0009.EURP194.PROD.OUTLOOK.COM (2603:10a6:209:84::15)
- by AS8PR08MB6085.eurprd08.prod.outlook.com (2603:10a6:20b:294::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 14:30:55 +0000
-Received: from AM2PEPF00070CF4.eurprd02.prod.outlook.com
- (2603:10a6:209:84:cafe::77) by AM6P194CA0009.outlook.office365.com
- (2603:10a6:209:84::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.10 via Frontend Transport; Tue,
- 17 Nov 2026 14:30:55 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 4.158.2.129) smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- AM2PEPF00070CF4.mail.protection.outlook.com (10.167.242.6) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
- via Frontend Transport; Tue, 17 Nov 2026 14:30:55 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=L4gZdqJu7dz5ymafcbLlVnW0OX73/vZNsvvrjdY0+n1TR0rUNc/GnMvVoLkJBKmeU0e47ZwpeJ4hnsm8ia/XPdCgGzFpp+5sgMPWK7UlBdbzTRjicvsuXz8Fvps1n8i+u9BGJJRZdRIXy7lAHNeBciL5YeoM6375ZnchbO9vdmwxCqyneK4Hfdhuqd46K8isGIVmFCKddMBD+x+v4twoncb2msGSqnQQTUvDlCuKpsXUqi5QvCkpdaQsqvFd+7UBuwVRn6OIH5+L/8Dx803w3aHUJKXIdl50oAjkYbuiqqE0uFMIDXMGmQpQptjkqVot2es4xdOp8iP7SI7kCnxBvA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mSgZAo2mesbk7WooWs40RKryz8l/f62/vPo9vEe588Q=;
- b=UBOc7mxFkwfroeQJ8Zl/126tiUM6RvgVdzTQBBao4tDj88TYf2Lk/SW5dzK+5iFRqo4HIiRDvJ0BTA1C6mWBs4TIEpGuRbTxigmuvT0qXO7wREVm4kTtECjKD/ZIUft6F4KowxgRom1TZ2Mq5Ez2l/7Z+m58grQB275E5RCSHtiVxY3G1x8rf/QPBOCq15tfAblQWnarkydLCZBdge0LHhCEym72OiZo1Tqih68bQTQCfjBO+BoGuGYdNb73M6ePX8JaVAo+FGwEigTPTdvtCVsqktzPRJr+S73x3g0Aq0UhCOIY024HONEHH/ic8nxyFfcYIxj2QQSmW8BYZVYNfQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mSgZAo2mesbk7WooWs40RKryz8l/f62/vPo9vEe588Q=;
- b=PTRMPtKneAcuEQ4wTbbRUnKmGd8103+YsvOuO9ruVvbNwYlDKkO0GP8FvnFE0B99nk8t2A3M+T+e+iwOlRfORuuoS8f71yKkzOmPvK+Rc2+fnyUOwfjjlw1jrVgrpxVMI1L8ztVmaDVmD5xuw2z6HvQVMXBzkLLt3b7noONZhAA=
-Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
- signed) header.d=none;dmarc=none action=none header.from=arm.com;
-Received: from PAWPR08MB8959.eurprd08.prod.outlook.com (2603:10a6:102:33f::15)
- by PA1PR08MB402775.eurprd08.prod.outlook.com (2603:10a6:102:54f::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 14:30:21 +0000
-Received: from PAWPR08MB8959.eurprd08.prod.outlook.com
- ([fe80::71d3:7b21:3594:e33f]) by PAWPR08MB8959.eurprd08.prod.outlook.com
- ([fe80::71d3:7b21:3594:e33f%7]) with mapi id 15.21.0615.012; Tue, 17 Nov 2026
- 14:30:21 +0000
-Message-ID: <cef6ee03-7b2a-41a2-b7bf-b321ad6a03b9@arm.com>
-Date: Tue, 17 Nov 2026 14:30:20 +0000
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 04/12] iommu/arm-smmu-v3: Pack the MSI vectors of the
- used sources
-To: Nicolin Chen <nicolinc@nvidia.com>
-Cc: will@kernel.org, jgg@nvidia.com, robin.murphy@arm.com, joro@8bytes.org,
- praan@google.com, kevin.tian@intel.com, smostafa@google.com,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, jamien@nvidia.com, kas@kernel.org,
- Cristian Prundeanu <cpru@amazon.com>, Breno Leitao <leitao@kernel.org>,
- xueshuai@linux.alibaba.com
-References: <cover.1793593923.git.nicolinc@nvidia.com>
- <0d28afd67694fc6882e0ff5f054027488b1cf816.1793593923.git.nicolinc@nvidia.com>
- <db4f83f3-d35b-49b7-8570-04e158125b53@arm.com> <avtSD34Rj5+XAz3t@nvidia.com>
-Content-Language: en-US
-From: John Garry <john.garry@arm.com>
-In-Reply-To: <avtSD34Rj5+XAz3t@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P123CA0565.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:33b::19) To PAWPR08MB8959.eurprd08.prod.outlook.com
- (2603:10a6:102:33f::15)
+	dkim=pass (2048-bit key) header.d=linbit.com header.i=@linbit.com header.a=rsa-sha256 header.s=google header.b=dkZwvxCn
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4b79502c27aso40584315e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:31:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linbit.com; s=google; t=1794925861; x=1795530661; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:mail-followup-to:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0ph2zl6rwyEKg3O5TgI+UXa3FjOJ6TNy4j3lJzs1fJg=;
+        b=dkZwvxCn+HSmhAh2arRbuUnjflLbwYkcqJ6vsT3a843aQrKbK4v6U2ckv0sjj87sRm
+         Q12htFrZ0zRZZ1k9gPt3MntpwX0oqMEkcsD5Mb7B5JG/OZV5nAWkdRdU4JMMIIkVqKCx
+         VqIJNo5Ne+mBvDlR4eqkSdxg8SBhQYFnRoKr3nJs7JOeLvKrNtRY+2GVY1AaqtKRYM3/
+         ko7RqPZbWHYSEjgXYf82Y9jUo6Mgx57XNzvuiuXBRMUOuXsMR2xgAfftV8GK99zRXJ/g
+         22FXnWLxdWdJovuDvIofejBHuiJzramtuaXgKgNABE8ntCXwrHZ0yEJsJCwR59GKB4UI
+         xqJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794925861; x=1795530661;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:mail-followup-to:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0ph2zl6rwyEKg3O5TgI+UXa3FjOJ6TNy4j3lJzs1fJg=;
+        b=Ur9XMyMcGNXLfU5g1skExWEjz33UdD1BbXzJmVu5Zzu9dnYfHzZBPFTq14J5Xs+j3X
+         R0ypGiw5CqHdytLhnxp1qdUPEMmyzh3asyZWPLzdbW7PcY8GBYL/UfcW5y/DurvcCX4A
+         omD/6gIORYYWCjiELY/E9wc/ABo3rdQ93tYSgh37IboVg4ji8sfH0I3kOQ/JH1KK1IK9
+         BzOCgrYX+tLfquNbOTP2j7Pzy8mfrENfdQOh+rT7y5tYvw1sTNjsZAqXhgnl+802n9mc
+         YF/f0IKwZVL0TsmdV4t0QPEYSRJizWT14/DeOW167HUbeaitFvu4FQz1iN1oQUuHi2c9
+         tYSA==
+X-Forwarded-Encrypted: i=1; AL+hErEhpXeqe6BXYiZCYCYaIPgL27uMQ6O+Jl3Zf/ggZS7b0Cmc/e3t2YFWPtmtH1n1UV4ODDutz4OjjiHNxw8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z89wiMHyvgXZzy1/GVO11lA5tzmZuyYgrv2vFwMVg86LBh9Rc3h
+	ska6eSptIArg6CJoO3iEc4FL4bwybhk1ZuboF+trZ/XzkulrgQd5ar6wyY9lLcd8W/0=
+X-Gm-Gg: AYBFou1otpBzOtQ+OWVtk5eyfu2mm3kh21BIW+jpr3XDWHfqlLApSjECZA2QrWSDICR
+	Xz/crlV2B+M0kBYxxgQA5CZKpQnfReSgNmVgig9A+HrLeg+xQbdRqtM6g24rWBLwii4rvVTjwC7
+	npSN3rtMrosLM7/o4ycgJ+rQrDclCqozDeh0jB7HsqYt/JctSHvX9JLyIICbDCOdfFuvpcllsSd
+	tjte2rn4WNL6gsw5bD9pDWyNAoBPgm31DSbgxQovQh8RQL8ynFkbCpc0tErXwnSFtoklxjbRJcG
+	0BRD8d8Tk09JrPjLD/IoKQVNCEIWRvZKMpMAmeiJ6bijW4LpH0UyNt8QMViAaP1csXkc5mbgHUH
+	XVVuR3mOezElnKmxF7OjNFMkOvDtFVu7BrxxdJDYNig7DQa5XjlGjWRBU7rrICbXF9VxdQOIbdp
+	ts89mo8KtLR/aq6oly4QnRDMa0WwY+9uL0COzdzrvmjp7bT5bqm1O/0ntXSGqFWrwnPsWM+jlq/
+	zp2LIvS+4cLxlccz5z3QiB6F/++ee+aYyahgwF98HCpcYsgvEqrunmWBDa34Cs6LcCY86uSoAtD
+	JZkaII6Os6CwWO2bYn7ahLvTuoeMJMXnzOG04eShalMUkRN//RIVOLgZ+rflMFccI0c0Um/I
+X-Received: by 2002:a05:600c:512:b0:4a2:1a:a120 with SMTP id 5b1f17b1804b1-4bb55a5d7bamr222461205e9.6.1794925860901;
+        Tue, 17 Nov 2026 06:31:00 -0800 (PST)
+Received: from localhost (h082218129081.host.wavenet.at. [82.218.129.81])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb783e9288sm73541775e9.15.2026.11.17.06.30.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 06:30:59 -0800 (PST)
+Date: Tue, 17 Nov 2026 15:30:58 +0100
+From: Christoph =?utf-8?Q?B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: Jens Axboe <axboe@kernel.dk>, drbd-dev@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, Lars Ellenberg <lars.ellenberg@linbit.com>, 
+	Philipp Reisner <philipp.reisner@linbit.com>, linux-block@vger.kernel.org
+Subject: Re: [PATCH] drbd: select CRYPTO and CRYPTO_HASH
+Message-ID: <avxkfIwp5tqxpwoX@linbit.com>
+Mail-Followup-To: Eric Biggers <ebiggers@kernel.org>, 
+	Jens Axboe <axboe@kernel.dk>, drbd-dev@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Lars Ellenberg <lars.ellenberg@linbit.com>, Philipp Reisner <philipp.reisner@linbit.com>, 
+	linux-block@vger.kernel.org
+References: <20261111083505.3998706-1-christoph.boehmwalder@linbit.com>
+ <20261111212245.GB41158@quark>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -152,63 +104,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic:
-	PAWPR08MB8959:EE_|PA1PR08MB402775:EE_|AM2PEPF00070CF4:EE_|AS8PR08MB6085:EE_
-X-MS-Office365-Filtering-Correlation-Id: df195cad-322d-4138-4f79-08df44b763bc
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|18002099003|22082099003|261009223027099003|4143699003|56012099006|11063799006|261102123227099003|261026121527099003|261021121427099003|261021135927099003|10067099003;
-X-Microsoft-Antispam-Message-Info-Original:
- /c3YS6fhfwTObEdz2yneW3geVobrGwfFS9Bb/fJy/Kx5c8rC/an/Q85+4GRp4OVB9x8XEvV+oQ/PWUav+Es9OWwyx17bigZv812l1ufdTgFWFlkZOYczLxZKYkP+6clvxhvdcAoOMol4u/vqRV5Dm0Pr1jXctTMfHnUrPwlbHVn6HglVkrRtMxWO74DOtVx/yVbwYQA/I0Wubj9Kvz9SF52ql8j6swvr8xW6TbGj58EISliLoULM36TZmYDXRfio+f3IEf7Xz2P4mpn6/pkAh8p5p6IPNfIsK+uGdt7IVdXALp7tpQ22TorrMmPYoyTvGuPkXKZMf9kvgRh52rrGlkKoPaIhWTzqC01Ah9AXqmdJfXGkOyaahSR34IWF5p1Byc4bX6or8hTkJKqHmwPd+ALYsJUrTYOmBrxrMnqaM1rVCta2WJHL5cx2SlOcK2zF+ayKCrO4jmPOGEwxfuQ0Rwasm3+traXoE2ZWe6IqP6JK4PAeUhntpF9LMQdom32ZU5O8rH0lUtBMME4uepPgycBuAxiBTmJiryL2Y58AhTjIYDqBFendHRGbagUxKiptaTsKMqhwREmiJc1px9m29FTk6Lb6omSSdjrJgiCjiM3j8apfbqTmXh0bDMWa+Y+xgC8ISDFU1QzG4wqjoOYWGFSLr7k3tWcIssqLz6Vq9zY=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAWPR08MB8959.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(18002099003)(22082099003)(261009223027099003)(4143699003)(56012099006)(11063799006)(261102123227099003)(261026121527099003)(261021121427099003)(261021135927099003)(10067099003);DIR:OUT;SFP:1101;
-X-Exchange-RoutingPolicyChecked:
- Nl3lvyhhLbdMDu5tIOpjQ2sAH+Qtnx/nzlI1Qd21JUMh1R/FlysTIEj/wwDE36Iz5WsvwqVA2LukcKWDY07EBGxssVyNbgxZGHOoZEzVLzYyqPVAa+17Hh+bQCumSplxkzizUzu14q/melU2aSzkXEThK2895kfvT6OrEnz60N6Ibdk7D16jkNOKUgqFDEPvSX6cE+h6oKSyyie2vVhNt8CsGEb37OOC5sm7XvXzgUBW9ySX0w6/bxrv+fI1HJAzygsAelKmpAX7X4hUwaAEDHdHC7D/i1+6wEPJxDeEaGBo39ib/Ni7g+7mvZo5EFYuwX4bkc5O+d99n5AKTpzXBA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR08MB402775
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM2PEPF00070CF4.eurprd02.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	487cdb67-1f2b-491c-4968-08df44b74f52
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|23010399003|36860700016|14060799003|1800799024|376014|35042699022|7416014|22082099003|18002099003|261009223027099003|56012099006|4143699003|11063799006|261102123227099003|261021121427099003|261026121527099003|261021135927099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	0uQtSX4JbOYkDLURxxegr10BI/cCF2/zm7cZywvxBeNcEkDVhLpSinXhF4WVDWE0iy+iKL+V6O3Li68NOmGl6NkDXhEDPb9sAurXP6L/Ew1aWlzM0UGQk/W//9Jxgvmr4Y6VGaQEQtyl3CoTTPBgghTteMkBKNmcG4+m3Wp36j0mKuq+Qf3IRFsPkT/3ewYeKhUnYVHD+SK0QdjdoMyuAYW01+ySD5bJmoKhVrqcHe5I7YNi4xZSG4cPG4RS61hcmLXeYhIoInlyXQdgT4FxQyEH//jJTZAEJAuvLktiiJridEKv9tHYVg7a2VHAU87zmQiNPbM5y7qBrwoCqKfyD6j6FlFWkEfu4Ki8d32UJQwLP3cCkS8xZsLnIC6VL1u15pZjSUfBajwGa/Mii51qMFNaJQ2gVOlhmZeQPtbLXe3xnHf8rqiflcKbg0rpbl9QnJipIjZgOVDmQPZQIxPWkru4yRgpWvP+VkFn6UJCI/+Xf1Y+rakBW/0ir//nl97Va2AsNsAHp87US60OPAnpTY7FeLAYmbvsWPd8wTWDozeJ4ODivfOmxiup8jETHT/OH7BMUJ9Q7kPyV4qrtMXcykPaZQ9nZtbOf6lWypr+MvpLezNRgnhY59rVWfSEioLGJ9FlW+Fue2GRnTC0yIx971BEJ4gX26htw9T+bO9EbuZHHbVqXZ/D1iZVJq/6CsWyK/6Y1y/smRgraYREZb2vOA==
-X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(36860700016)(14060799003)(1800799024)(376014)(35042699022)(7416014)(22082099003)(18002099003)(261009223027099003)(56012099006)(4143699003)(11063799006)(261102123227099003)(261021121427099003)(261026121527099003)(261021135927099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	VSwaeOv5LHM/wfP4KxmS5N+uUeyQAvK6OGkGOp54UpGR0/N+xrVqKHg6ji8RaUnKO4BVW9W0wf/K6YtQhOZz0Ls7tR5ksGSEcukGhvj1XytTSJChv0MXKY//c9HcRluWdnWIuz8fM/kq4jrFF9DuQvKuIwHOOimp8/P1FfTlguw3w5laD9pr/62rhJs20eoaOB5DgAbM/imxURQEKhCRWnNGH5dH71bHPBOE9bRttpicPT9ZmDBK6XVl2rllEwylxen3q+RtM+Kb1X1AVxBySyvUQDCkJerE2wAEiHrLFdnaMLYGABFwtz8YzZHo2h2pSRCluVlhr1J9Kp0HqDvLzphTBri0RAEYqPLn9SrqQZ3MKH3WakMx51ypNIZUYmdC/cSlW0ZoOTVnxVCqerqz/4BHEWPejR9Mpn7DWg2pyoxqRVDojmtMZC/BD9uXEGKr
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 14:30:55.2035
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: df195cad-322d-4138-4f79-08df44b763bc
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM2PEPF00070CF4.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB6085
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261111212245.GB41158@quark>
 
-On 11/16/26 18:57, Nicolin Chen wrote:
->>> @@ -993,6 +1000,8 @@ struct arm_smmu_device {
->>>    	int				gerr_irq;
->>>    	int				combined_irq;
->>> +	/* MSI vector index to enum arm_smmu_msi_index */
->>> +	u8				msi_map[ARM_SMMU_MAX_MSIS];
->> should this be an array of enum arm_smmu_msi_index, as in
->> arm_smmu_setup_msi_vector() we write a enum arm_smmu_msi_index? I am
->> assuming that is why enum arm_smmu_msi_index was relocated.
-> u8 is optimal in cost of memory; ARM_SMMU_MAX_MSIS is needed here.
+On Wed, Nov 11, 2026 at 01:22:45PM -0800, Eric Biggers wrote:
+>On Wed, Nov 11, 2026 at 09:35:05AM +0100, Christoph Böhmwalder wrote:
+>> DRBD uses the shash API for the data integrity, online verify and
+>> checksum-based resync algorithms and for peer authentication, but
+>> BLK_DEV_DRBD does not select the crypto core. With CRYPTO=n, a kernel
+>> with DRBD built in does not link:
+>>
+>>   ld: drbd_sender.c:(.text+0x137f): undefined reference to `crypto_shash_finup'
+>>   ld: drbd_receiver.c:(.text+0x58f): undefined reference to `crypto_alloc_shash'
+>>
+>> Select CRYPTO and CRYPTO_HASH.
+>>
+>> Fixes: b411b3637fa7 ("The DRBD driver")
+>> Signed-off-by: Christoph Böhmwalder <christoph.boehmwalder@linbit.com>
+>
+>Looks fine for now, but you should consider what algorithms DRBD
+>actually needs and consider switching to the library APIs for those
+>instead of crypto_shash.  Presumably not more than a handful are
+>actually used in practice with DRBD, and you don't really need to keep
+>"supporting" MD4, Whirlpool, RIPEMD, CMAC-SM4, etc.?
+>
+>The "pass arbitrary string from userspace to crypto_alloc_*()" strategy
+>has been problematic for other kernel features using it.  For one, it
+>gives access to algorithms that are obsolete, insecure, redundant or
+>make no sense for the use case.  And it makes it more difficult to
+>remove unused algorithms from the crypto API, since it makes it harder
+>to prove that they are in fact unused.
+>
+>Note that the crypto_shash API is also somewhat inefficient and
+>difficult to use correctly, even though it's better than crypto_ahash.
+>(And the DRBD driver got it wrong, so just FYI, you should expect fixes
+>if you keep using it...).
+>
+>- Eric
 
-Since ARM_SMMU_MAX_MSIS would be 3, I don't think that the memory saving 
-would be so large. And since the next member in arm_smmu_device - oas - 
-is unsigned long, I'm guessing that a gap is formed anyway.
+Noted, we'll work on that separately. But I think in the meantime this 
+is better and more correct than nothing.
 
-Thanks,
-John
+Best Regards,
+Christoph
