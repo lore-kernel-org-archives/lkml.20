@@ -1,55 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794879268;
-	b=iXbzYwmn24nFrFau1MhdXtNJaCJuUn8susUNiPXGkYOsTFk0mrbt9ucHUZLMvjXt/wC3
-	 ii1joc95zY0sllhG/YKvQpjxlaVrJBtu4STP0JtT/GF8sRbHZyT79X6W78GQ3Qwkz0kg2
-	 wOky8l2s4DtlQrn5Rxy97/JyMhsWP+Cy66AoBXgLmgTHkOM6n1dLRbnCduKziuhg0fdsE
-	 2GuFYP0yTwoZwi5VTdlqGIhqgR8HCzZXIiEIWzhjHsWGLGk4ChJytzim5Npi5A9M5JxdT
-	 yKGQldrBs50cPV9yENpuFtCvMBniWpo5s6r/Som/J+eqnVYbvqmXk+oduFXey4tcP7g==
+	t=1794879329;
+	b=OF+cDhZwuqn62IvutcAkkcKxIlX58Eq7Gsu6010Gy1TN/lNjacVcbkN6gKS5L9TZmJ1P
+	 iRnwyC6lNW3ltVpABiJxZMGhnnNebAMoMI+QPNcyiemXw35e40FDjk+V/6Mp41XjyrYo0
+	 9jYHWIZkK+kAKI+0+YZIvcBk3zD0o4aVpMZmfm8CgF4GfDr5dTV6iOFqcQOM8+VS3e9ae
+	 lN2ItUNIHIpmAu8/U41j1Rq1dav0PGv+1Awlo7q6fHhpFw3MjTs6sWyQdqGIeRMtp8TcP
+	 eE34ho5A9aowwA5HaNr0m9/yzQ5nLl44/DGNBs+ATnjX5WUKVQhEwGMj/VI4Ec2y6+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794879268;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=6NFvMXt49n0aMhQ+tPrYzjCU429v93v4p/pcosygBN4=;
-	b=s82O7R31op/OvteO8qyA7gefOxS5P9wia+ekroM6jxkYYFlhGCBuF8VyPlMBJhyeYHED
-	 2lSJZgwKdFNAk4R5pg65dN4ctSQuPpKqwAcY2YDTMeNTWisQ5KyDik9gJv2avJnQbmQ05
-	 0HdAe2itPEyF7jHU4FgpdmslKZiX+aLnauGQ7V0eNnHTY3/oxTCVxlDv4RMH4MalLAsKr
-	 Jnh47qrQVxo9ooMT9xb59XU/k1+WcBdewoawPOEDSNa4LG6kTCIPE4OFnJsQ/Zf76IBfm
-	 paDi/P9pBPNaLiBxSkPPiR/gxbeJVgIg7I+xqq11615gHXol3E6x24V/w99zxKb8/iQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794879329;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=zz6WRoIrA4MtoYD+sM4sjtcaOrrRsCorOnSwGUekLOA=;
+	b=36P//qv/+hOdAKqXYbIboSE4l3y3wzWXSTuYGOszEs4A7TKdrKg7rGHWXciRXL25VaV+
+	 IP2O6FgcmCulXt8JIXmvGuGwZMLQEa/mawqTm6/NcmdEf9GXb9Od6AE4ARAeyknMCFGer
+	 jtpjdcpZuiTdOANN+7oCYyVMPuIEPN74GHmg8HsRK4kCmqfMfP/0aFv3O2rvpSCTb1DHf
+	 cYoh/OUF26R5XKn9lKwkj1euHpyqIDHiz0FdVeR4vo1I6AIvpzB9PBycr4VK4nQJo2Aau
+	 06sPIZF5/y4rKD1Xmw6+Ub5XXMx+dOsuwm7y43k8PBelKhZvj9Sn3RJX9vktJ4F5LAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TXyO5odc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DaVzT5k3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FB9B606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:34:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE642606A31C;
+	Tue, 17 Nov 2026 01:35:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TXyO5odc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD3CC1F000C5
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:34:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DaVzT5k3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D8951F000C4;
+	Tue, 17 Nov 2026 01:35:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794879267;
-	bh=6NFvMXt49n0aMhQ+tPrYzjCU429v93v4p/pcosygBN4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=TXyO5odcsAp87+zayuxVviAd5mVihReFEhyekjHo/UnS0k0+VPdXzGwVjFDNLN6Bn
-	 RYzRcIVIS5WhSh6hOqI1qO2BkY4cGsMpYm3/tQXY+wgtxDW/wAAXeuwV2q+UHg3Dsm
-	 20RUhPHB/6HK6gLQys1EbpJfGQfrJx8snGqz4ZqRKMLUAboBZqQpDE54/1RWytJ9hY
-	 BvWnqm+BffC8Wnnl+NZ590ly+bia+USZKVL1G6kP48uHNG2UOxxXJufuDp+AJxOkuJ
-	 9usGjjazXJR4mz0y81QovlVKWhjZLxkXYFBNYlP50Ts/QdX2lCfa0OfkTFZidtGGMp
-	 H6HT8lMBi4g3Q==
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b86bbce3d1so126991a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:34:27 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHAZeUj+v+nVh1c+KhBUAwRV/gOjBiRN9+D3thN6llYym7OaeLnfzlB9uXRMRZb8nDjG8USMjGfUOZU82s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9f2t6ocfWnDtOxeuyVYWufUiw3FsnVGdQSM20oAPnagqKUxNhs
-	y0lr3vWwrpyGIZWNwkBTu1RWfPAolzpD/GuGw6BFf1nOru16RgARcW8+f2jy07RLBk5hR0qMppG
-	B8vgCQtCMo6abZqc8kToS0AD70DfG3ec=
-X-Received: by 2002:a17:906:c14d:b0:c50:5cd7:2901 with SMTP id
- a640c23a62f3a-c509640bfa8mr990170866b.23.1794879266573; Mon, 16 Nov 2026
- 17:34:26 -0800 (PST)
+	s=k20260515; t=1794879329;
+	bh=zz6WRoIrA4MtoYD+sM4sjtcaOrrRsCorOnSwGUekLOA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=DaVzT5k3Fq+zRV6SmVPs9JTPinoP3eCaKUB1XQNCIY6lYVaTR/Nd/npuK2bSwB9oe
+	 kHT8SAHcNMuDj4gFWp6/Qqrl+vdqoTu8B0tQqj+5ypoUEWumz7BdZfgZFDJ9k9lsph
+	 y9mQI0A/6GoYZ8Y9IPme45ighJ8m8pEgYycpkwP2UpLjRhplCTcL2wBlMx5bP+W+4Y
+	 IgFuoWKmEQYl0euWuYCd7p/lnFT3LwEqYC0+02lWtm6rHtwhkgvNb1D7N1AIGpabpj
+	 6iPt/uxSe6GkB/4AZCS7vLdjEB1It7w1eAXj3JG3+jsNDu4YGebmSAHwSdEmIJb6Mf
+	 BTP8FJcXcrT+Q==
+Date: Tue, 17 Nov 2026 01:35:21 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Jongwon Lee <ai@linux.com>
+Cc: Davidlohr Bueso <dave@stgolabs.net>, Dave Jiang <dave.jiang@intel.com>,
+ Alison Schofield <alison.schofield@intel.com>, Vishal Verma
+ <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>, Ira Weiny
+ <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>, Richard Cheng
+ <icheng@nvidia.com>, linux-cxl@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 1/3] cxl/edac: Read cached DRAM event records under
+ the xarray lock
+Message-ID: <20261117013521.5b4d034a@jic23-hlaptop>
+In-Reply-To: <20261108022022.3352-2-ai@linux.com>
+References: <20261108022022.3352-1-ai@linux.com>
+	<20261108022022.3352-2-ai@linux.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,92 +65,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116074849.475815-1-stefan.chulski@broadcom.com>
- <CAKYAXd9KT=1vLYsnRKxmiM6pLJQNACXuodD8wNQzb8S5apiuRQ@mail.gmail.com> <CA+Fu+LPL7xqpV_vjjjehedOFtuuBqgZHZTSqJ+FgweUpYo2uBw@mail.gmail.com>
-In-Reply-To: <CA+Fu+LPL7xqpV_vjjjehedOFtuuBqgZHZTSqJ+FgweUpYo2uBw@mail.gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Tue, 17 Nov 2026 10:34:13 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd--x9UajLQwzRUwxRZ7PFW5T02xyHdSAnThAo326p_kxw@mail.gmail.com>
-X-Gm-Features: AclHuK-kfPqc8Bh37Jzng9-4IO0zn_61dopqd1mYNeZxWXG2ijut7JfpzpvArRM
-Message-ID: <CAKYAXd--x9UajLQwzRUwxRZ7PFW5T02xyHdSAnThAo326p_kxw@mail.gmail.com>
-Subject: Re: [PATCH RFC v1] ksmbd: add use_unbound_wq module parameter for the
- ksmbd-io workqueue
-To: Stefan Chulski <stefan.chulski@broadcom.com>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, linux-cifs@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Ilya Lifshits <ilya.lifshits@broadcom.com>, Huiwen He <hehuiwen@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 16, 2026 at 9:52=E2=80=AFPM Stefan Chulski
-<stefan.chulski@broadcom.com> wrote:
->
-> On Mon, Nov 16, 2026 at 2:10=E2=80=AFPM Namjae Jeon <linkinjeon@kernel.or=
-g> wrote:
-> >
-> > On Mon, Nov 16, 2026 at 4:49=E2=80=AFPM Stefan Chulski
-> > <stefan.chulski@broadcom.com> wrote:
-> > >
-> > > The "ksmbd-io" workqueue has always been per-CPU. Commit 69635d7f4b34
-> > > ("fs: WQ_PERCPU added to alloc_workqueue users") only made that
-> > > default explicit as part of the treewide transition to unbound-by-def=
-ault;
-> > > it was not a ksmbd-specific decision.
-> > >
-> > > Per-CPU work keeps request processing on the CPU that queued it, whic=
-h
-> > > is good for cache locality, but it also runs work on CPUs that were
-> > > isolated from workqueue noise (isolcpus=3D, nohz_full=3D) and prevent=
-s the
-> > > scheduler from placing blocked or long-running workers elsewhere.
-> > > Which behaviour is better depends on the workload and platform.
-> > >
-> > > Add a boolean use_unbound_wq module parameter. It defaults to false, =
-so
-> > > behaviour is unchanged unless it is set; when true, "ksmbd-io" is
-> > > allocated with WQ_UNBOUND instead of WQ_PERCPU. The "ksmbd-break"
-> > > workqueue is already WQ_UNBOUND and is not affected.
-> > >
-> > > Document the parameter in ksmbd.rst.
-> > >
-> > > Signed-off-by: Stefan Chulski <stefan.chulski@broadcom.com>
-> > Hi Stefan,
-> >
-> > Do you have numbers comparing the per-CPU and unbound queues,
->
-> Yes, on our systems we observed up to an 18% performance improvement
-> when using the unbound workqueue.
->
-> The primary reason for this improvement is that with the default
-> per-CPU workqueue, ksmbd-io work can sometimes start on a CPU that is
-> already heavily loaded. Because it is bound to that specific CPU, the
-> scheduler cannot move it to a less loaded or idle CPU, leading to
-> bottlenecks. By using WQ_UNBOUND, the scheduler is free to migrate the
-> work to less loaded CPUs, which significantly improves our CPU cycle
-> efficiency.
->
-> > How does this compare with the earlier following RFC ?
-> >
-> > https://lore.kernel.org/linux-cifs/20261022092514.2590010-1-huiwen.he@l=
-inux.dev/
-> >
-> > Thanks.
->
-> While both address the underlying scheduling limitations of per-CPU
-> workqueues for ksmbd, my patch introduces the `use_unbound_wq` module
-> parameter rather than changing the behavior unconditionally. Because
-> the optimal behavior (cache locality vs. load balancing) heavily
-> depends on the specific workload and platform, this approach keeps the
-> existing per-CPU behavior as the default while allowing platforms to
-> easily opt-in to the unbound workqueue when it yields better
-> performance.
-Could you provide the benchmark setup and actual results? If
-WQ_UNBOUND generally performs better across representative workloads,
-We could make it the default and provide a module parameter to opt
-into WQ_PERCPU instead.
+On Sun, 08 Nov 2026 11:20:23 +0900
+Jongwon Lee <ai@linux.com> wrote:
 
-Thanks!
->
-> Thanks,
-> Stefan
+> The event path caches DRAM event records in an xarray. It frees a record
+> when xa_store() replaces it, when the record expires, and when the cache
+> overflows. The event path runs with device_lock() and cxl_rwsem held for
+> read.
+> 
+> The repair path looks up records with cxl_find_rec_dram() while holding
+> only cxl_rwsem for read, so both paths can run at the same time.
+> cxl_find_rec_dram() reads the record after xa_load() returns, and
+> cxl_mem_perform_sparing() reads validity_flags from the returned record
+> again later. Both reads can hit a record that the event path has just
+> freed.
+> 
+> Move the lookup into __cxl_find_rec_dram(), which is called with the
+> xarray lock held. cxl_find_rec_dram() now returns whether a record
+> matched, and copies the matching record into a buffer passed in by the
+> caller. The PPR path only needs to know whether there is a match, so it
+> passes NULL. No caller keeps a pointer to the record after the lock is
+> dropped. The event path frees a record only after xa_store() or
+> xa_erase() has removed it from the xarray, and both of them take the
+> same lock.
+> 
+> Fixes: 0b5ccb0de1e2 ("cxl/edac: Support for finding memory operation attributes from the current boot")
+> Fixes: 588ca944c277 ("cxl/edac: Add CXL memory device memory sparing control feature")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/r/sashiko-outbox-192042@kernel.org
+> Reviewed-by: Richard Cheng <icheng@nvidia.com>
+> Reviewed-by: Li Ming <ming.li@zohomail.com>
+> Signed-off-by: Jongwon Lee <ai@linux.com>
+This seems fine to me, but a suggestion inline that might make the code cleaner.
+
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+
+> ---
+>  drivers/cxl/core/edac.c | 70 +++++++++++++++++++++++++++--------------
+>  1 file changed, 47 insertions(+), 23 deletions(-)
+> 
+> diff --git a/drivers/cxl/core/edac.c b/drivers/cxl/core/edac.c
+> index 34b81e8dfb..4624ab4644 100644
+> --- a/drivers/cxl/core/edac.c
+> +++ b/drivers/cxl/core/edac.c
+
+> @@ -1029,6 +1028,30 @@ cxl_find_rec_dram(struct cxl_memdev *cxlmd,
+>  	return NULL;
+>  }
+>  
+> +/*
+> + * cxl_store_rec_dram() replaces and frees records while the repair path only
+> + * holds cxl_rwsem for read, so look the record up and read it under the
+> + * xarray lock, and hand back a copy of the record.
+> + */
+> +static bool cxl_find_rec_dram(struct cxl_memdev *cxlmd,
+> +			      struct cxl_mem_repair_attrbs *attrbs,
+> +			      struct cxl_event_dram *out)
+> +{
+> +	struct cxl_mem_err_rec *array_rec = cxlmd->err_rec_array;
+> +	struct cxl_event_dram *rec;
+> +
+> +	if (!array_rec)
+> +		return false;
+> +
+> +	xa_lock(&array_rec->rec_dram);
+> +	rec = __cxl_find_rec_dram(&array_rec->rec_dram, attrbs);
+> +	if (rec && out)
+> +		*out = *rec;
+> +	xa_unlock(&array_rec->rec_dram);
+
+As I just sent to next patch. It would be nice to have a guard()
+for these. Maybe it is worth including as part of this. 
+
+> +
+> +	return rec;
+> +}
+
