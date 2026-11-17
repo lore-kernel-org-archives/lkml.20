@@ -1,96 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794921381;
-	b=bE0FzgJYw2vOpxUGuY+75HFk1diLDg9K53wrld1qc/qdBMTVPNXMvuxjxtISc7VJ/9RY
-	 Ugr/6KcvlPPziSiTv3kD85MtBEC2vwsAthFMdQdqDBsmlH+8jxrmWDq17zRDDdhOLsvYS
-	 IHUKuU4rd+XpxUMPM1GsmZMbAbHGDHDjCEMaSGcnkDNLdSPfyi/iRp0lTKMMlUb37Z/pl
-	 Lc4VrmoLvFGSv32QkZW9w3+QS6W8xXTnNmgSimZBkm87XhvhI4qKo8NHiI22BzAQXzKYo
-	 C1E8vIwUkVWK5EyA6ELl/QbCow+vKKSbr57Q2B7HwJo8Z4U9Lw6wyxBXTOC2jY44vAQ==
+	t=1794921409;
+	b=omBeK+KsyuOkCwQW48zQ5oyVioIDLn4VeVXsggOaRjksaNwtVaUPxs4FsRqLddj0H25f
+	 WDso2ME3Xng7AL9xESYYa3lxQ10tW4UKTRUaJ09AgZEHaFmFBAtIouQVToLdcsT45gv/T
+	 onoI8XeVf5RDVZNxFpshXIBuaVOxGe+0d3jZL4l7NX8tX+0sySTQXAuH1A/YrcGO1WqFs
+	 tl8zXCBTrmzlR+obMj6zK2F9p8cyEHLmK2OKzETMoSOPjEqJxcoc5ZI1dK0xr1GzJCkLO
+	 l3gmxiu8jhLx2qhlnF06xTHsrGyJHpe/TqNdUtEivUhwun3oBw5EHm8ih5cyjXYPPBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794921381;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=4adGshk3DcGvhqFeQZWKT+ilTqCtanGq6mRdY2JYAuk=;
-	b=twIkkdLq3Y5yHiomwvnYOys0FfFUI/hsAEB01TinbIymRePc+z6N2+ICKug5D0uVdUHp
-	 0+Qc2qviEEBa1d6Nc/Ewp5tdXizlhCOPemUhxsWWLANqS52Yk2bMztL4Sd00FXdGM5FDc
-	 muS7rk7cL590/B05w4Z02Y3grrgzk5SEbXFLsqh7oF0PYKFT2NJgelLoAxpfeZVna24hl
-	 lNkOPZcRSdqYM++WNTj4R24DzjGS7wNivXsoL+10iqwaQHkobbeKZ9w2zARU0LPFAnCPU
-	 BUT92kkpusJKGHQFxN2nroWtnKv0pBtNajuL5i0Pqad2kcRwRN5tn70iQqXLOj2+I/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794921409;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-TM-AS-GCONF:X-Proofpoint-Reinject:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=cm6R1R2vCEewkg/KNH92sifk6exBKeKqAth5N7vwZdI=;
+	b=qG2rmeNRtdi7bk+wQRSfGcVALOiI0elvBEIF40L2sRhE8bAed6ZWteWpRyCWsl0mITdA
+	 LiIa2YABSV4NFQ4lcriEheEpuY8Z7QYLegjAl2AQhL2YX6Kd9vprQlt6l0lDHq1LyPh5p
+	 wKwLAYb5PUwfLOrWc0wBjV+hP2A8ZSmkHQwe17CsKUYAz0im8tK1ut9JbIhq64pAfX1T4
+	 LbBVZhtemWg9wDs/N0XvdYzvImwCpSiXSk52ZIuIhuO8sA/6iKookPFLc1X5IyJNsbz4V
+	 Gb3m6YUQKdXr+UYQokq4bpI76Ge8TwdWiNid93mWTaHf/XqXjmj+IF7b3ROXiIj13Tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R9xDzHcN;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=QTY3Sx7l;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6EA9606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:16:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6EA9606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2919B606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:16:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2919B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R9xDzHcN
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4ba013938d7so48551965e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:16:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794921379; x=1795526179; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4adGshk3DcGvhqFeQZWKT+ilTqCtanGq6mRdY2JYAuk=;
-        b=R9xDzHcNtbAZjwxTgsRkpU00vR8dAcHdR2bQUcQMgXtJ29uPBNV5HvCf5l8rQttRoU
-         j50+31s/MFCrwGtfCl+1y1JZbqGiPIOubKvNZyDPqfxwKninTM8eq2b6GncLMfzT+paE
-         auuFwus4cD3ZKr206CdTVtqE+/XtjBNqgQt3JG+oJk838roaYk0uVLe3DmJkuF169GhD
-         bGS1VT4+smy7G8XNBXg2mIFncStLasLSYFX6NxXHCa1heoQv2Ty4p9ebOqPruauNJqKE
-         /QkRZTitMwIz85KaFilZbGSvvn8cXZzZ9Hz6PCgNNkIIr1qTyr65bFfoZO+qCiScLF9x
-         qD/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794921379; x=1795526179;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4adGshk3DcGvhqFeQZWKT+ilTqCtanGq6mRdY2JYAuk=;
-        b=A52z8Nkvpxzqcx37AXPapNPtxaPc0hN0+JP1ikxaXG+hBr8SSm7RrMDqVFpOeJQa8/
-         Ap3UI//pJgjaPcYefNsoPAAhsjQI7aHKNiMQMPgkcCXdLkpaN9SSHddyYyHgKxY3pJWO
-         Y55PrNmh9sfV03sgJUvNOcmy/zdWenWCg45iY4DpG78W+wTuPCP7Piv+0zBjposZcWXK
-         4fESHHRScJzz08dc2Kns8OB+Hny1w36+Wp7k9MV6YBQs8yIBrGNswJeQz2EC3bBOOpPc
-         oL6x82YF08Kv+HzqbdymdVpn6izf/gH1hf8sjlKBHMhiuuZycdDsgNgJwapZseE6A8J8
-         ixKQ==
-X-Forwarded-Encrypted: i=1; AL+hErHB4VZ/aWwunoeyLffuBuDElvl0B69fYVL2D3spnC2SbG1AXPeAyuyEJfDWbi0TBeBDN4vIG20EfMcIiko=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8wr8rsb6qfHMR/wgOrVitnfGbfa1mjOj8kvPU5GsahqzhGVYcY
-	4N5unuLTV8LfdVMg2bAgo5lNGnNtjTeQLbp6/Qz6P10J+2+r7nEaZez5
-X-Gm-Gg: AYBFou0c9YlhZYvlhpEgUkndg2S1bRoS3IroeCF7XTJ8J3RoQw15gxvjIBn3M+TqH3u
-	tA1g143tX5qvPSiwsVBf4scD4YAIy3FEsdNktwMkn6x4AHet/+30lF49s3q7MLlAg96PVUtrVK9
-	EPrjgTqypqgLiq6ihYJEkHqmff+pXA1lsPWqPo5DjVy1mdyVfA6xO8Bp3pZbwLKGIhmfmOpfG90
-	dyBhfi/gTVVIJGy4PEi1tx1iOiD5YSO6a4FNOl2AtllU4Ll44U5s18dlMGNEV2PAyStB7QBL0pM
-	uXetrkJEZr9HAP1ILXpWWm3J+tdceGox9ZVFbeo3I5uioaFiTvswqMDcRrgGyYtYsObTOBR2NaO
-	9HqXiZPL9WH+kWqJTIzQE3/j3HclZhEiZ12PkaoPqfD3v05lFj6JXIle66FND6f9Xvn8DsvBOZC
-	dKJ/+OsgxL0eA4eX1bOgbmv0T9veYZE2XLo8ih30XK5pyGED1Vefj7SFR+uo7hKTy3q8hIr+WaB
-	TGjH+KC4l27XU0EiUfcduKDm5BsCXekh5xvJPQ1+sSFidnAy+7jeGmNYbsoFUo/nI6XVlahPyas
-	IpsGrUhR/OXlwnfG+5ZXnRSGsFNlnj/g7SFyxKUG91rtM4DP6/7StbNJ7nGCWtuQ+Q==
-X-Received: by 2002:a05:600d:3:b0:4a1:ddaa:571e with SMTP id 5b1f17b1804b1-4bb55a50eacmr238269805e9.15.1794921378994;
-        Tue, 17 Nov 2026 05:16:18 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f5972a7sm26817173f8f.21.2026.11.17.05.16.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 05:16:17 -0800 (PST)
-Date: Tue, 17 Nov 2026 13:16:16 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
-Cc: Linus Walleij <linusw@kernel.org>, Michal Simek <michal.simek@amd.com>,
- <linux-gpio@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>, <saikrishna12468@gmail.com>, <git@amd.com>
-Subject: Re: [PATCH] pinctrl: zynqmp: Ensure function names are NUL
- terminated
-Message-ID: <20261117131616.0a631d5c@pumpkin>
-In-Reply-To: <20261117073947.1100444-1-sai.krishna.potthuri@amd.com>
-References: <20261117073947.1100444-1-sai.krishna.potthuri@amd.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=QTY3Sx7l
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHBwNio1089481;
+	Tue, 17 Nov 2026 13:16:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=cm6R1R2vCEewkg/KNH92sifk6exBKeKqAth5N7vwZ
+	dI=; b=QTY3Sx7lM362dgTnv+x6ODXGK324D605IrJ58RvqrjucVq1P7FA7KOSM9
+	nSaA5xxRnhaNoz/hR4cYectUKMjDDQdmppJ8ElsN93D9/onmnDrhA+gruDelgA7D
+	ICDYrITN9ZHeF03NT4rAKE8jY0mafEsHyj5udn9nXmjXxFcMIxPDXhDXCjsoi225
+	aU6buMUcOMrw4qyI/YNk6mpFWlW+U3vlBzJmE2Ml6nmtLc/uB8l48hsrVmopecJn
+	QuDdMVZ0NEKQkcIijs7J+YUYUh3saJioNhF8/4qMASvz8dhywzIsAA5qCTkoqpfI
+	Wlt3szaKToP47ZlaaLO/KJT8HICOg==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hxe2darsc-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 17 Nov 2026 13:16:26 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHC4r9j1803088;
+	Tue, 17 Nov 2026 13:16:25 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hyxwt4cc1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 17 Nov 2026 13:16:25 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AHDGLHh16581058
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 17 Nov 2026 13:16:21 GMT
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7464420043;
+	Tue, 17 Nov 2026 13:16:21 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 56B6220040;
+	Tue, 17 Nov 2026 13:16:16 +0000 (GMT)
+Received: from li-7bb28a4c-2dab-11b2-a85c-887b5c60d769.ibm.com.com (unknown [9.124.217.181])
+	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 17 Nov 2026 13:16:16 +0000 (GMT)
+From: Shrikanth Hegde <sshegde@linux.ibm.com>
+To: maddy@linux.ibm.com, linuxppc-dev@lists.ozlabs.org, chzigotzky@xenosoft.de
+Cc: sshegde@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+        christophe.leroy@csgroup.eu, linux-kernel@vger.kernel.org,
+        msuchanek@suse.de, ritesh.list@gmail.com, harshpb@linux.ibm.com,
+        gautam@linux.ibm.com, amachhiw@linux.ibm.com, venkat88@linux.ibm.com,
+        nnmlinux@linux.ibm.com, mkchauras@gmail.com
+Subject: [PATCH v4 0/3] KVM: PPC: BookE: Fix boot hang on preemptible kernels
+Date: Tue, 17 Nov 2026 18:46:09 +0530
+Message-ID: <20261117131612.707038-1-sshegde@linux.ibm.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,59 +93,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA1MSBTYWx0ZWRfX29ndNyD08frC
+ Sd/NfS93s/eEo3jO9mSU7Bgz6A/ouUDwuOvv2Pw2wkRNDH5cqDtbWpdL8b/VQCS7elpiAGz0g5z
+ 7hwWh3fi9Wapb4b+MjAMVFHhdo3Gpl4=
+X-Proofpoint-GUID: QQnBVqfmxoKEvc9MdzhG-bGMlsrdn-lY
+X-Proofpoint-ORIG-GUID: iumkmghRL_LaQpdYex5rimoqsJ6LOjR2
+X-Authority-Analysis: v=2.4 cv=IruL47/g c=1 sm=1 tr=0 ts=6afc53aa cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=TEUKsyddKFnqGGVLVlYA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA1MSBTYWx0ZWRfX1bMC8Clidaln
+ B/eIkHFVXOCMy+YhK+uOIYAFe96ST3G/qBwB1DUieRx0TWIGbKW9V9j9yXRf5sgDf16/HhfTfZe
+ HQXe4d1cpdBMewXl+0QotnxRZC1KwqN0AVEtEF2px5dhhTu+DcnYo7Gz6KZnqn50IxqU7y/3Qc6
+ 2GnmAeWC3tevLHcD7qOgm1D9Otoczfr4q//AzSAAU82YSaRmw9498WccaRxGTAhlRxrDiInFpP8
+ y7PSMquAMHdBp2GJx5kte669IXTxMRc/ZxV3up9RoeIDR0LtQyKQNvpfWB0GpulT6YROQTXGCPz
+ J5pro1aonLXWP66hL+TvKOwCEe9nTmshtPmsDrULYTGBv8M9zDm0ZqmWdHXG/cSthRk3fb1ibd2
+ JX6DsgWL7404uGoa+NkjborVBZF1nCVm+udhQuQWgve1yQ8a5heQeuZVXp9vbLqmx/FKOB1R/NU
+ AIisbtyhiJBaxpEIs4Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_02,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ malwarescore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170051
 
-On Tue, 17 Nov 2026 13:09:47 +0530
-Sai Krishna Potthuri <sai.krishna.potthuri@amd.com> wrote:
+Christian Zigotzky had reported that preemptible kernels don't boot on
+his FSL Cyrus+ board. The board freezes on running either full/lazy
+preemption and has been an issue for a while now (years!).
 
-> PM_QID_PINCTRL_GET_FUNCTION_NAME returns the function name in a fixed
-> 16-byte field and does not guarantee NUL termination. A 16-character
-> name fills the entire field.
-> The driver copies this field into a 16-byte buffer and subsequently
-> uses it as a C string. For a non-NUL-terminated name, string operations
-> can read past the end of the buffer into the adjacent groups pointer.
-> 
-> Reserve an extra byte for the NUL terminator and explicitly terminate
-> the copied function name.
-> 
-> Signed-off-by: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
-> ---
->  drivers/pinctrl/pinctrl-zynqmp.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/pinctrl/pinctrl-zynqmp.c b/drivers/pinctrl/pinctrl-zynqmp.c
-> index aba129ead04c..c778133fadc2 100644
-> --- a/drivers/pinctrl/pinctrl-zynqmp.c
-> +++ b/drivers/pinctrl/pinctrl-zynqmp.c
-> @@ -29,7 +29,11 @@
->  
->  #define ZYNQMP_PIN_PREFIX			"MIO"
->  #define PINCTRL_GET_FUNC_NAME_RESP_LEN		16
-> -#define MAX_FUNC_NAME_LEN			16
-> +/*
-> + * Firmware returns the name in a fixed-size field and does not guarantee a
-> + * NUL terminator. Keep one extra byte for the NUL terminator.
-> + */
-> +#define MAX_FUNC_NAME_LEN			(PINCTRL_GET_FUNC_NAME_RESP_LEN + 1)
->  #define MAX_GROUP_PIN				50
->  #define MAX_PIN_GROUPS				50
->  #define END_OF_FUNCTIONS			"END_OF_FUNCTIONS"
-> @@ -650,6 +654,7 @@ static void zynqmp_pinctrl_get_function_name(u32 fid, char *name)
->  	 */
->  	zynqmp_pm_query_data(qdata, payload);
->  	memcpy(name, payload, PINCTRL_GET_FUNC_NAME_RESP_LEN);
-> +	name[PINCTRL_GET_FUNC_NAME_RESP_LEN] = '\0';
+https://lore.kernel.org/all/b897b0fd-90f2-4215-bcd4-3714e497d773@xenosoft.de/#t
+More details in cover-letter of v2[1]
 
-Too many constants....
-You might want to try embedding 'name' in a structure.
+v3->v4:
+- Modify hard_irq_disable for PPC32 to simply call
+  local_irq_disable which does tracing/lockdep in addition
+  to actually disabling the EE bit. (Ritesh Harjani)
+- Modify the guest entry code to use the above (Ritesh Harjani)
+- Collected tags. Thanks to Ritesh Harjani, Narayana Murty N.
 
-Then, at least, you can use sizeof().
+v2->v3:
+- Comment removal (Mukesh Kumar Chaurasiya)
+- Add missing booke change (Sashiko)
+- Collect tags (Thanks to Mukesh Kumar Chaurasiya, Christian Zigotzky)
 
-David
+v1->v2:
+- Re-order to avoid preempt count dance (Narayana Murty N)
+- Do only hard_irq_disable on PPC64 to avoid second warning. On PPC32
+  use local_irq_disable to acheive the same. (Ritesh Harjani)
 
+v2: https://lore.kernel.org/all/20261110053238.3794500-1-sshegde@linux.ibm.com/#t [1]
 
->  }
->  
->  static int zynqmp_pinctrl_get_num_functions(unsigned int *nfuncs)
+Apologies in case any nitpicks are missed.
+I'm surviving on half a night's sleep these days.
+
+As said in v2, remaining usecases of hard_irq_disable will be taken up
+later, which are in:
+arch/powerpc/kexec/core_64.c
+arch/powerpc/kvm/book3s_hv.c
+arch/powerpc/platforms/85xx/smp.c
+
+Shrikanth Hegde (3):
+  PPC32: Fix hard_irq_disable to follow tracing and lockdep state
+  KVM: PPC: BookE: Load FP and Altivec before enabling the interrupts
+  KVM: PPC: Hard disable interrupts before guest entry
+
+ arch/powerpc/include/asm/hw_irq.h | 2 +-
+ arch/powerpc/kvm/booke.c          | 4 +---
+ arch/powerpc/kvm/powerpc.c        | 8 --------
+ 3 files changed, 2 insertions(+), 12 deletions(-)
+
+-- 
+2.54.0
 
