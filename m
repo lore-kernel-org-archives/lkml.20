@@ -1,108 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794901234;
-	b=qKZpQGfypKL9TfLDHPUUBjbtwRm/wtwf9eo+GAM5+VaFPV3qvhce6/mmKFNtby+oCrR9
-	 qhlNJD+q+p91PfeQTVblEFaJ6AVSFLkBT1Srd7AVk8WU+beheO8kn82FEYzRw+7fVdEos
-	 UB2FvdtBPU7coEGqfT3mRWaBjtXUNfTEpzA0wB7zYSDWK23b+9d+T1D56cjFUmdLIfctA
-	 JUcSom9idKXo7UezMKnitedKWSxqYngM62ViLAUoqhLxNqeWFYLDsj0CuN/WuaUgg0gMP
-	 dZ6xgRkp1uqtsKIUr2lgwWK3PNfbjsnIQjV+rCGHlvfXNa8Kmp8xY5+9Niosf9SuBzg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794901234;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=UM22wR0A7853gCkKnAtbktiuhCnfEEeAUoq/6XrZeN8=;
-	b=c5cMHG8Qg+Cx/ufnNw83DIG0n7wP0qfzIFDH1uIJx0R9D6Yl5knU+FN93fiW4VUOYvOJ
-	 6KqTRO1/GTEyzyALHa1rt9fSGCY+jkbPO5JvIKgaEfFEk3vJVPGUpPcAxs8kkh3ITTyGt
-	 tw+QD7/gUSjc58QbbBRSU0dYJ11rfGrssGQUKCGiayBnNsIliuk5keTmD/JzSuiNPPqIa
-	 yvkH/gfyYO1UApmoGBfD89n9vktjIw6JohPM8K6Tkpu2k1ThlnY+315vzvbyCQbM9T/RM
-	 9otfNSEE2i0rqPwCTSLdOYl4n9VoSiypbHAe7Kw4AZ7ChxA4ReaKyhnLB4Yll/UnmVw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Ax+Ngtuk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.53
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010053.outbound.protection.outlook.com [40.93.198.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=66.163.186.146
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794901239;
+	b=VMDgUaNrybaVBtfY83wpZABzDESWkHqPVupqWUCXTPnBZFVbZSx4IVDBzU5W7TEE5Gs4
+	 V7iPaZIzpdc0m5DOhohdERael333NlXVcFg0nUGuCQRO0Ggf+AKbr5UkN49iNnBfdcO6g
+	 6IelhBnU/PSbA6TAPuW6T9MIm1f1480BYkeDmPo+IeO99Pzw157F+2EecbSuQ4X6IrYP6
+	 6dN/OW9yvqpSErCZf9uPNFtBLu0hanKnfnCVt/FmF7BbEFa3ZZew1gM88xJcRnt9vut5M
+	 bQ57rP8C0/EJCT2y9wWi6Ou+Wz2ASUYxK0OF03kjo09+vus4WJV1pThqQ5AA3GuXYyQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794901239;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:From:To:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer;
+	bh=7QTZZxJ6oBMJjqpQPRp+Py0w2EH0x9xs7/5Y92TjoqE=;
+	b=vrL8mh5+UojKcUxZqVuXigmqgbBAme+4M7VIB8Cu4Sjl7wr+Xr2/5rMUYtNVabER1DJY
+	 oljKiZ5EViGX5k/owYlNPiCLXs9BECtsZPzyBzb8O1KqZQ/PWXVaW940Diab5E6Wz/cmT
+	 RSaP2TFl+Z52FqZx9ufq0OnF9h/M2AvpsJwIpr3GPV63p+vfELmBlgMC8FoAhmnsYCSFj
+	 U59o780wOyPaG6DiSQcD0tx69SJDLjgd8dzF//mw0TuslxHAg6eFAnITu3quAMozPzDPn
+	 Etkyg4b7ijofuTJ+KTP0PzTt2R1sAtut4q7oABN28E9qIYMM5FcqDbOcGdjshjRvgiQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=yahoo.com;
+	spf=pass smtp.mailfrom=yahoo.com;
+	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b="K/5yJ8D1";
+	arc=none smtp.remote-ip=66.163.186.146
+Received: from sonic302-20.consmr.mail.ne1.yahoo.com (sonic302-20.consmr.mail.ne1.yahoo.com [66.163.186.146])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB775606A323;
-	Tue, 17 Nov 2026 07:40:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB775606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E024606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:40:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E024606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Ax+Ngtuk
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nnVb7JoPwAu1vVTo2MSfWuTt6Q9Ur1jgDNo0z3A5Drpg+2BttYb9gEdT0y4WlATuLr2887DJgKsksebMbnLf65vEBtHFi4Mbr19HuJ5jq3ytwznYg7MyBo/qar5eclrZjlbOab/rW81y6WILKhrOiIVJN2FIbOje30xymx4wJ3eQSrVHXdGjdjmcH+hs6K0tbyFWxcj57W8G2J89y1qbgdgfMvaYKxVbGIUAyBD3I7eMKUSkbLcHAzNn+CJ0ceHB8us7T51GeOpk03/RR2aiGuTsss0RUIjhivA8Kd79WmTj4rY3+l15A2S3r0yZSf4eokDzF9Hor66vKbMzkVgwlQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UM22wR0A7853gCkKnAtbktiuhCnfEEeAUoq/6XrZeN8=;
- b=vuF/w21xYz6HLwBaxtZOUWG+yeE2PZTNWKR+vugbXmO0Edom9D6+TBxr2pb34gTM7utoCtso2N+uRHN8KSahuCAkAqxkttNehYlh4PpcbR95TeTEyKt4cBbR/3KbDQKLqcUVuBvDYG3Wwou8YMrOYm1Ip/uSVHbZSSFbX0x44qX9URu1uHPDDbDk722Qkbbl53a24KuIOvvP0EPXeDoAzihqNh3pX4bVI6IYDh08Fyn5XA9IXriVkQoE20mmoyhzTcZ6X8Skx9LdKcgkmhK6wOskR6t/GMC+BnJs5d/Y5RheMKXm6u596VFI/w4GV9MXzrGuVWD4UC5PNrq1Ue4bLA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UM22wR0A7853gCkKnAtbktiuhCnfEEeAUoq/6XrZeN8=;
- b=Ax+NgtukHLZOVBd34SMFRSLyfX4YmbLlfU98/pGzYDnnKTpmsKz4kjYp6Z8SKUCp7iOEQzLbMxDlxG4FQI3Oagbsc6GSKTXBELVLt8kzDzE17ajA7tPKQsMTXkqdxMLhbqrsJqLKwIdlZ00b7OkYYROm4SIxFAzGgaXP8cGl0T4=
-Received: from CH5P221CA0003.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:1f2::22)
- by LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Tue, 17 Nov
- 2026 07:40:29 +0000
-Received: from BN3PEPF0000B371.namprd21.prod.outlook.com
- (2603:10b6:610:1f2:cafe::7e) by CH5P221CA0003.outlook.office365.com
- (2603:10b6:610:1f2::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Tue,
- 17 Nov 2026 07:40:29 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B371.mail.protection.outlook.com (10.167.243.168) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.662.0 via Frontend Transport; Tue, 17 Nov 2026 07:40:29 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 17 Nov
- 2026 01:40:19 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 17 Nov
- 2026 01:40:19 -0600
-Received: from xhdlakshmis40.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
- Transport; Tue, 17 Nov 2026 01:40:16 -0600
-From: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
-To: Linus Walleij <linusw@kernel.org>, Michal Simek <michal.simek@amd.com>
-CC: <linux-gpio@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <saikrishna12468@gmail.com>, <git@amd.com>,
-	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
-Subject: [PATCH] pinctrl: zynqmp: Ensure function names are NUL terminated
-Date: Tue, 17 Nov 2026 13:09:47 +0530
-Message-ID: <20261117073947.1100444-1-sai.krishna.potthuri@amd.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=K/5yJ8D1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794901238; bh=7QTZZxJ6oBMJjqpQPRp+Py0w2EH0x9xs7/5Y92TjoqE=; h=Date:Subject:From:To:References:In-Reply-To:Content-Type:From:Subject:Reply-To:Content-Type; b=K/5yJ8D1TA7Lu0djclkFU9OfXkLd4soLhW7PbizmpWKMwO1Ues+DgSi5h09jlgoozYmFNXnns65gMaVvs4O3mnss/JLZ+MoMAMzWWonlX12aRc0KSlKhP2C/bQuUNCJbeuh+Nv245JnKjNR0U8x3xtoo7943h1ZUY+gcAGooirMToh7epnxxZ5lgzWANvIiiTG/btNiTsRnOopdBCBg97Sgkw7oogSPk8KHebRDx3ZRgT8rBXTYRVEhMx2Ckcyo3pkz2sw8gnwuhAyj++ulSfow7mRPrkfnRTuZApsifPgt0HAEY6YUkUSID465cY7/53zwZHpUT/ack1rd2dG9LNw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794901238; bh=jcPHSMUBEz2QoRD6tFMOSyHC6CpG6HAUXqmAIke2P3G=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=g0qj4CqXftJb1525k70sbhR3sBL8r0i21EqeLZBKtSpcJ76ef8uEwXii8gT8ICcqu2eJ0fL5H4HG2tA1ToMVochuZEgpNxJOJ79IOgRy7dPjsishV+Ft3oKLfB+eD8kId5Nx50KJWLbVURDRtgBOwXdvkVr8DEvyNE7uR6KpULnRUC7bT7yb3px2vERPVTftVtdo+i3Gld0eUm/ATYCK/SRkseAooHSVX7aPfPPQuuR/CGTJmRVwRBh4w/0BxbgjoLGgIVltVQiDI0wtns+6mHsgU4fL0epuGuBsjk4io12W/OqUXb3fdAjre5XELzLSyEVnUIgqEly9duc8bE54RQ==
+X-YMail-OSG: pa9EuVMVM1lNIm9aM8Ncx9eTEFAdWJIyWB.LprcmIKEldvcERW6K84OyG_BIUxO
+ BZjmH8c19IP0iRZy.ytJXo8bylUIaDnHptOKvMefhbAihky4q.l2fGaFBH2A04If45yWPgGh.wQc
+ AXKUt2zq31xdYtqySNcShf8swUs1HdmRXQ7ZmIikUxcoV5txA.vza5UgiWZ9TSVPfjBGxHr8SRXM
+ MsMNjqvqoyPox6HuxCWUHG.VkwQGdVS65YVMfRaVxgQ3bL1PWrruVJjvbQ14MTV6ry4UFRuHMlRz
+ lfVvHe5jATkHDnU3Zcevat5LNDlG7m42eha1UnmQi1JBcVtUgHmoifTDYmL2YDozSwVoG4dbgzNO
+ tpXAPCRRoqPND_NmJ1Iyg4.VPEmOpodPcV3j1H9VrntgyyHWLj0cDIYdmRqPLsUzTK9WeH31rSZH
+ B44xDYSxmAl0kylBotp8G9yYG5iG0g9w2beRy2u9zqjxmGe1fWmi4Ra8cPP80ClFFwXqXIaDaaSF
+ YcY18edj2vgwSaa6SFGEeOPs7qto2KjGVDYdK2FXs2n9zhnlT2IhP1eTpeHFr9De4G37OJl59w3e
+ the_DhnrLtkB8JiORiLjzHm5iTEiIGf2.Q28P5udZSyE7EFYqqvoKgAWC9AQ0vjbstj9aNv8J76Q
+ JyKSoAPV_4xS8oX8sCgzWzShKwVNIJgU.Ru0r4Pbru_8ll_dzQ4zhNtctwH61I0nZY98nOlprtuV
+ y6HZKSpLkaS.zCKU9NQb8mnfvypF5KH1HtaLlpONjwo1o5Zc.Zt44Kn9HbYjKNLopX_pdWzdw.9C
+ 29XVMiT2S9yHNbbbyDqScnhztT.nNjEgLS9NN.NGvuxPT.9nccaL6SG6Qq2PcNga5jR_WBnPMIyY
+ yxdh0WOTw5F.oEZ_189NOaFKB3wUUa49oaPYxwyGIx9bN9IG9ydaic.lqoC3pPWHez_y.EtS75Xy
+ ykLeBvjwUHP1KAssqPGjC5IoKezvZBcyEQ9sEXo2zOPfcIYiiDvpL1OgDGrDOs1iHK3fg1aLAqf0
+ rbC3wUcCnSESQm6hMppzH2Jxo.WIRRoljeNVbfw97mvnsNjP8ElnXEq3RpGN_OQmSUPAqWFq7fpI
+ kr9vXTz8gQHnce_M69XUXHnEg5_pJVFlY3GKn0E2c6iQy2p93ot31Acy3N4J75fY23bsJOx0G4yK
+ uG4qyvu8Fir8VB5Hnkwr8Kn9nieI5D6OlgfRHg9TqQxC4JVZ_06qDr0xJfLCTGJxaSyVBsxYHp5D
+ gtsvzmTeNHJPXiJMEFKI.3.qdLjdF5iJGxa0H7jI07HZOmmBwN1HNSuE7WkMmcD82kzcMprhGN73
+ e.iqgyKzkjnGOrK4WQs9tv9.IDyR7Sm2ptaKjyALlPsaFa3h1asRxrJ8QvxXKeIUf0eus5F90Cdj
+ agojNZjUSOGc74rW71ydxIWmm29P8hReL5UBDr_FGdq51KmVyYXgFHGRVBWXqxtAfGCioyGSg_G0
+ OOkwWUnk0Oied34fP6LgR_K62ZWkx1sfRM5jPxRQ9oG_VJDicGUu1Hcea5f8rrIgmhI5t7ekOoIk
+ c29eY4CXJvs_PUnkWBYJWcwJlZGOzgZzQTOxtKaBeRn5XC0y1pl8dMjAhNduo1U.GkEBGPj44e0Q
+ mUpjSTpmirm3OgpofkxPdnTs3OGSCcyE_rkNHWC1Pfw67.bS5H3ImsbMZTNjOcLtZBRyQYQIJ0VP
+ w.6kc4zoRk02yKNo6ms1G6yX.E4wUH8wkyMtE_VP0y3RnGaf0mMGDX8uYwNQO.2lcsmxqM3T8.ov
+ 4sJ2UV79zWQBVoikgpmRa81Q6qx_9MzDBBEGRLIKjzKqCtlNm5_tZI84ubIXvS3rOEsjHXtot5tw
+ YxSKEqVjzpWV552FkyhCvMLX2wNwtsa1KGGENAXMMkaml5YreNjlU4yZOQQnlLcJP5UBdK0ETiQF
+ .IajPkseHZRp1xnyPSKaNsT.uMVSYgs5ZujPfCJ5RZVdrC5UkmKuz3k3b6Nnzs5URNlDXI4Cap3j
+ EVGTNgcdQo8bx2_iNjTQijac6en1_7Qs.1ZRF1gYL8Hnk3UbBIs094tlbOuZAVpEP66Ma3soEsAR
+ AuxnWZMiSl3Swam61NvQEO425icMgh7n57s5r2i77oSuT_by9ievEiTWAj2mPyKYfGJMAPfsZiTm
+ 0ui4z4iqTHS8dU2rwbhpfLApyj1anu9vS.IjSr4WuOrdo0R3Dvjm0vJ7JG9n1Yw2K.JDmMAku_XA
+ PF7yAl8etLP65s0kq.78e2DTaBkE4YQqIDPUSUsd3SUCIntRTAxN4xy6LWZ1e1FYukmQECRq1T3B
+ eskw0SITMz3lKRCN_y14-
+X-Sonic-MF: <namiltd@yahoo.com>
+X-Sonic-ID: 9e8bf8d6-f6d7-41c2-ba82-b55d9b04c7ea
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic302.consmr.mail.ne1.yahoo.com with HTTP; Tue, 17 Nov 2026 07:40:38 +0000
+Received: by hermes--production-ir2-5dd9bf4598-p4sz7 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 9aacdc0928108e45940ad344d4be53a5;
+          Tue, 17 Nov 2026 07:40:33 +0000 (UTC)
+Message-ID: <62c7fce5-0296-4e66-92c9-fdb501ef592a@yahoo.com>
+Date: Tue, 17 Nov 2026 08:40:32 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,75 +84,326 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B371:EE_|LV3PR12MB9356:EE_
-X-MS-Office365-Filtering-Correlation-Id: 20d68780-f69a-4cb0-cc59-08df447e0d80
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|82310400026|23010399003|36860700016|10067099003|11063799006|56012099006|261022075727099003|261021130227099003|261026130827099003|261026140227099003|261021121427099003|261021135927099003|261026121527099003|261021123027099003|261026135527099003|261022115727099003|261022113327099003|261022105027099003|261021133027099003|261102123227099003|261028144727099003|261009221227099003|261009221727099003|261009223327099003|261009220027099003|261009223027099003|18002099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	pPmXx+KfoO+uwXAzjb4fTamkBN0wpqPkQ5SUPJHTprAo/acNG8HKimr1vCFTrK6ntnof8N2c4vproNQ779hkBoGc+h+bMYB0lAd6M9g55sEHYtTQWTvx+ZeIXtDZUrMFgfqAQBu3hrwruGkD5WzZr12V0P1JJGNzbrceuZcbJK2f4/Qs0fJOhHJrSY2R6vOGhd5Njzs10vXGDJhkGFOkwCl6Sx0aOVzPkJpbQfpsxJboKx5ln129ZluVjjexVTiU8jzlL9V3hmwLQSyoqFeKNc9v/4co5Kl+WLq1QjpBvAU+PoT03MhhTENn5K9iHgVd0TCeW79D6EsClM6tcA045NYDtcp4TsIFFeQ/mqvpclo3AeDkG0DNjZCdjz9Gfy5bS8PW8pxL03kZiYtdWI58GAQFMBIxWnFFIgya9qyguObhcpO6D8WuJXH2DKeNJTulICxFXceQuA85NFh6wX2POh3mcWUAOLbAd2bEYvhJeIbvEw2DjIoHdfOOz+aEHtvII3caQFrx1y778xdW0GknW1BdZfLiHvOZKXUPb2dgMowwWHQgcYnrLMkXjWgO3e7J8OPZMh8DqE06dxgFAWFJLaZ+4er/4tguzhgdm0Ka/BsWxD99gpL+3ED8NQZ7Dkgf3p54II7xlTyb32sk1ZoXX5wDM10B3YAzbpy5hnvICSzMzRU3rfveUv4Dxvmj7GLdvxsOl52Bv/H8gx5WmX5oFA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(23010399003)(36860700016)(10067099003)(11063799006)(56012099006)(261022075727099003)(261021130227099003)(261026130827099003)(261026140227099003)(261021121427099003)(261021135927099003)(261026121527099003)(261021123027099003)(261026135527099003)(261022115727099003)(261022113327099003)(261022105027099003)(261021133027099003)(261102123227099003)(261028144727099003)(261009221227099003)(261009221727099003)(261009223327099003)(261009220027099003)(261009223027099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	NoKuE6SCW3dGqMupJnzSEvFBpJr9c98PoJ16P+4DkhU/ZYOBy7Wm1+/WVn2R6VDi3r7L8vLVUVT6SUgc8TLTxYDtJzezXuHtkNHD2wP846/vaOiqubfM24g/E93TtEvgrroksj79UzWWTTPXjb61Q5kEy9Y0UPVdF2zHzWS5BU4SakbOBO0+l6jyR/FZje+r4SEgbmjVYSECOo8AlEt8N1mmRT6U7xAeCaq5eNw3LkfogIn7E21pEuTX9Tk/SKLZ+0ISx990AfSekkH0218h680+AKEVtUgdVlayH/N9ctz1RUUhAtroe8RmiCW0iAdWwVJShCNpbz73v0YNpXRfnWGllqkhJXH04u+aZEVezeSdVHxO/3cWcGSSIacEZvkPbn/9dDMW4Lp9aBiID2MhsXGTPJFDvIZ8MbLSu+R4XXitbKEmZI7xpnNxZow/fEtC
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 07:40:29.2622
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20d68780-f69a-4cb0-cc59-08df447e0d80
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF0000B371.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9356
+User-Agent: Mozilla Thunderbird
+Subject: [PATCH net-next v11 09/13] net: dsa: realtek: rtl8365mb: use raw VID
+ for PVID on family D
+From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+To: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
+ davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+ linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ alvin.sipraga@analog.com, gusfmora@gmail.com, kuncy7@gmail.com,
+ fabianotassotti@gmail.com, gabonpivovich@gmail.com, contact@c127.dev
+References: <cf3fd237-2290-4002-8de0-ea4100ef0f85@yahoo.com>
+Content-Language: pl
+In-Reply-To: <cf3fd237-2290-4002-8de0-ea4100ef0f85@yahoo.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailer: WebService/1.1.27017 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-PM_QID_PINCTRL_GET_FUNCTION_NAME returns the function name in a fixed
-16-byte field and does not guarantee NUL termination. A 16-character
-name fills the entire field.
-The driver copies this field into a 16-byte buffer and subsequently
-uses it as a C string. For a non-NUL-terminated name, string operations
-can read past the end of the buffer into the adjacent groups pointer.
+Family D has no working VLAN member config (MC) table. Its PVID is a raw
+12-bit VID in a per-port register at 0x0700 + port, whereas family C
+stores a 5-bit MC table index, two ports per register, at
+0x0700 + (port >> 1).
 
-Reserve an extra byte for the NUL terminator and explicitly terminate
-the copied function name.
+Running the family C code on family D therefore reads an MC table that
+does not exist, and writes an MC index into the VID register of port
+(port >> 1) instead of the one of the port being configured.
 
-Signed-off-by: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
+Add the family D implementations of the PVID helpers,
+rtl8365mb_d_vlan_port_get_pvid(), rtl8365mb_d_vlan_pvid_port_set() and
+rtl8365mb_d_vlan_pvid_port_clear(), which skip the MC table. They keep the
+family C frame filter handling and rollback on error. The shared code
+reaches them through the vlan_port_get_pvid, vlan_pvid_port_set and
+vlan_pvid_port_clear pointers in struct rtl8365mb_family_info, so it
+needs no is_d() check.
+
+Also clear the family D PVID registers when the VLAN support is set up.
+Unlike on family C, where VLANMC index 0 is the neutral PVID, the
+register holds a raw VID, and after a reset it keeps its hardware (or
+EEPROM) default. Without clearing it an unconfigured port could report
+a stale PVID from rtl8365mb_vlan_port_get_pvid(), and
+rtl8365mb_port_vlan_filtering() would accept untagged frames into it.
+rtl8365mb_c_vlan_port_reset_pvid() does nothing on family C.
+
+No functional change for family C.
+
+Nothing points to the new functions until the family D info is added
+together with the chip table entry in the last patch. Until then they are
+not static and are declared in rtl8365mb_vlan.h, so that the build does
+not warn about unused functions.
+
+Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
 ---
- drivers/pinctrl/pinctrl-zynqmp.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/net/dsa/realtek/rtl8365mb_main.c |  11 ++
+ drivers/net/dsa/realtek/rtl8365mb_vlan.c | 191 ++++++++++++++++++++++-
+ drivers/net/dsa/realtek/rtl8365mb_vlan.h |   6 +
+ 3 files changed, 207 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/pinctrl/pinctrl-zynqmp.c b/drivers/pinctrl/pinctrl-zynqmp.c
-index aba129ead04c..c778133fadc2 100644
---- a/drivers/pinctrl/pinctrl-zynqmp.c
-+++ b/drivers/pinctrl/pinctrl-zynqmp.c
-@@ -29,7 +29,11 @@
+diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
+index 77ad84e..9832572 100644
+--- a/drivers/net/dsa/realtek/rtl8365mb_main.c
++++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
+@@ -2432,11 +2432,22 @@ out_unlock:
+  */
+ static int rtl8365mb_vlan_setup(struct dsa_switch *ds)
+ {
++	const struct rtl8365mb_family_info *fi;
+ 	struct realtek_priv *priv = ds->priv;
+ 	struct dsa_port *dp;
+ 	int ret;
  
- #define ZYNQMP_PIN_PREFIX			"MIO"
- #define PINCTRL_GET_FUNC_NAME_RESP_LEN		16
--#define MAX_FUNC_NAME_LEN			16
-+/*
-+ * Firmware returns the name in a fixed-size field and does not guarantee a
-+ * NUL terminator. Keep one extra byte for the NUL terminator.
-+ */
-+#define MAX_FUNC_NAME_LEN			(PINCTRL_GET_FUNC_NAME_RESP_LEN + 1)
- #define MAX_GROUP_PIN				50
- #define MAX_PIN_GROUPS				50
- #define END_OF_FUNCTIONS			"END_OF_FUNCTIONS"
-@@ -650,6 +654,7 @@ static void zynqmp_pinctrl_get_function_name(u32 fid, char *name)
- 	 */
- 	zynqmp_pm_query_data(qdata, payload);
- 	memcpy(name, payload, PINCTRL_GET_FUNC_NAME_RESP_LEN);
-+	name[PINCTRL_GET_FUNC_NAME_RESP_LEN] = '\0';
++	fi = rtl8365mb_get_family_info(priv);
+ 	dsa_switch_for_each_available_port(dp, ds) {
++		/* Start every port with the neutral PVID */
++		ret = fi->vlan_port_reset_pvid(priv, dp->index);
++		if (ret) {
++			dev_err(priv->dev,
++				"Failed to reset PVID on port %d\n",
++				dp->index);
++			return ret;
++		}
++
+ 		/* Disable vlan-filtering for all ports */
+ 		ret = rtl8365mb_port_vlan_filtering(ds, dp->index, false, NULL);
+ 		if (ret) {
+diff --git a/drivers/net/dsa/realtek/rtl8365mb_vlan.c b/drivers/net/dsa/realtek/rtl8365mb_vlan.c
+index 85880c3..afe894f 100644
+--- a/drivers/net/dsa/realtek/rtl8365mb_vlan.c
++++ b/drivers/net/dsa/realtek/rtl8365mb_vlan.c
+@@ -44,6 +44,10 @@
+  *
+  * VLANMC index 0 is reserved as a neutral PVID, used for standalone ports.
+  *
++ * Everything above describes chips that have a VLAN membership configuration
++ * table. RTL8365MB_FAMILY_D chips do not have one: their PVID is a raw 12-bit
++ * VID in a per-port register, and no VLANMC entries are allocated.
++ *
+  */
+ 
+ #include "rtl8365mb_vlan.h"
+@@ -121,6 +125,12 @@
+ #define   RTL8365MB_VLAN_PVID_CTRL_PORT_MCIDX_MASK(_p) \
+ 		(0x1F << RTL8365MB_VLAN_PVID_CTRL_PORT_MCIDX_OFFSET(_p))
+ 
++/* Family D: the PVID is a raw VID, one register per port */
++#define RTL8365MB_D_VLAN_PVID_CTRL_BASE			0x0700
++#define RTL8365MB_D_VLAN_PVID_CTRL_REG(port) \
++	(RTL8365MB_D_VLAN_PVID_CTRL_BASE + (port))
++#define RTL8365MB_D_VLAN_PVID_CTRL_MASK			GENMASK(11, 0)
++
+ /* Frame type filtering registers */
+ #define RTL8365MB_VLAN_ACCEPT_FRAME_TYPE_BASE	0x07aa
+ #define RTL8365MB_VLAN_ACCEPT_FRAME_TYPE_REG(port) \
+@@ -172,7 +182,7 @@ struct rtl8365mb_vlan4k {
+  * This structure is used to get/set entries in the VLAN membership
+  * configuration database. This feature is largely vestigial, but
+  * still needed for at least the following features:
+- *   - PVID configuration
++ *   - PVID configuration (family C only, family D has no VLAN MC table)
+  *   - ACL configuration
+  *   - selection of VLAN by the CPU tag when VSEL=1, although the switch
+  *     can also select VLAN based on the VLAN tag if VSEL=0
+@@ -1171,3 +1181,182 @@ int rtl8365mb_vlan_pvid_port_clear(struct dsa_switch *ds, int port, u16 vid)
+ 
+ 	return fi->vlan_pvid_port_clear(ds, port, vid);
  }
++
++/**
++ * rtl8365mb_d_vlan_port_reset_pvid() - Put a port's PVID in its neutral state
++ * (family D)
++ * @priv: realtek_priv pointer
++ * @port: the port number
++ *
++ * On family D the PVID is a raw VID in a per-port register whose value after
++ * reset is not defined by the driver (it may come from the hardware default or
++ * from an EEPROM), so clear it to 0.
++ *
++ * Context: Can sleep. Takes and releases &priv->map_lock.
++ * Return: 0 on success, or a negative error code on failure.
++ */
++int rtl8365mb_d_vlan_port_reset_pvid(struct realtek_priv *priv, int port)
++{
++	return regmap_update_bits(priv->map,
++				  RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
++				  RTL8365MB_D_VLAN_PVID_CTRL_MASK, 0);
++}
++
++/*
++ * rtl8365mb_d_vlan_port_get_pvid() - Retrieve the port PVID (family D)
++ *
++ * Family D has no VLAN MC table: the PVID is read straight from the per-port
++ * register.
++ *
++ * Context: Can sleep. Takes and releases &priv->map_lock.
++ * Return: 0 on success or a negative error code on failure.
++ */
++int rtl8365mb_d_vlan_port_get_pvid(struct realtek_priv *priv, int port,
++				   u16 *pvid)
++{
++	u32 data;
++	int ret;
++
++	ret = regmap_read(priv->map, RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
++			  &data);
++	if (ret)
++		return ret;
++
++	*pvid = data & RTL8365MB_D_VLAN_PVID_CTRL_MASK;
++	return 0;
++}
++
++/*
++ * rtl8365mb_d_vlan_pvid_port_set() - Configure a port's PVID as a raw VID
++ * written to its dedicated register (family D)
++ *
++ * Reads back the previous PVID and frame filter first so both can be
++ * restored if enabling the new PVID fails partway through, matching the
++ * rollback behavior of the family C implementation.
++ *
++ * Context: Can sleep. Must be called with &priv->vlan_lock held.
++ * Return: 0 on success, or a negative error code on failure.
++ */
++int rtl8365mb_d_vlan_pvid_port_set(struct dsa_switch *ds, int port, u16 vid,
++				   struct netlink_ext_ack *extack)
++{
++	enum rtl8365mb_frame_ingress prev_accepted_frame;
++	struct realtek_priv *priv = ds->priv;
++	u32 prev_pvid;
++	int ret;
++
++	lockdep_assert_held(&priv->vlan_lock);
++
++	ret = regmap_read(priv->map, RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
++			  &prev_pvid);
++	if (ret) {
++		dev_err(priv->dev, "Failed to read current PVID\n");
++		return ret;
++	}
++	prev_pvid &= RTL8365MB_D_VLAN_PVID_CTRL_MASK;
++
++	ret = rtl8365mb_vlan_port_get_framefilter(priv, port,
++						  &prev_accepted_frame);
++	if (ret) {
++		dev_err(priv->dev, "Failed to get current framefilter\n");
++		return ret;
++	}
++
++	ret = regmap_update_bits(priv->map,
++				 RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
++				 RTL8365MB_D_VLAN_PVID_CTRL_MASK,
++				 vid & RTL8365MB_D_VLAN_PVID_CTRL_MASK);
++	if (ret) {
++		dev_err(priv->dev, "Failed to set port PVID\n");
++		return ret;
++	}
++
++	/* Changing accept frame is what enables PVID (if not enabled before) */
++	ret = rtl8365mb_vlan_port_set_framefilter(priv, port,
++						  RTL8365MB_FRAME_TYPE_ANY_FRAME);
++	if (ret) {
++		dev_err(priv->dev, "Failed to set port frame filter\n");
++		goto undo_pvid_write;
++	}
++
++	return 0;
++
++undo_pvid_write:
++	(void)regmap_update_bits(priv->map,
++				 RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
++				 RTL8365MB_D_VLAN_PVID_CTRL_MASK, prev_pvid);
++	(void)rtl8365mb_vlan_port_set_framefilter(priv, port,
++						  prev_accepted_frame);
++	return ret;
++}
++
++/*
++ * rtl8365mb_d_vlan_pvid_port_clear() - Remove a port's raw-VID PVID
++ * configuration (family D)
++ *
++ * Reads back the previous frame filter first so it can be restored if
++ * clearing the PVID register fails.
++ *
++ * Context: Can sleep. Must be called with &priv->vlan_lock held.
++ * Return: 0 on success, or a negative error code on failure.
++ */
++int rtl8365mb_d_vlan_pvid_port_clear(struct dsa_switch *ds, int port, u16 vid)
++{
++	enum rtl8365mb_frame_ingress prev_accepted_frame =
++		RTL8365MB_FRAME_TYPE_ANY_FRAME;
++	struct realtek_priv *priv = ds->priv;
++	bool filtering;
++	u32 cur_pvid;
++	int ret;
++
++	lockdep_assert_held(&priv->vlan_lock);
++
++	ret = regmap_read(priv->map, RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
++			  &cur_pvid);
++	if (ret) {
++		dev_err(priv->dev, "Failed to read current PVID\n");
++		return ret;
++	}
++
++	/* Port is not using this VID as PVID. Nothing to remove. */
++	if ((cur_pvid & RTL8365MB_D_VLAN_PVID_CTRL_MASK) != vid)
++		return 0;
++
++	filtering = dsa_port_is_vlan_filtering(dsa_to_port(ds, port));
++
++	/* Changing accept frame is what really removes PVID. But only do
++	 * that if VLAN filtering is enabled.
++	 */
++	if (filtering) {
++		ret = rtl8365mb_vlan_port_get_framefilter(priv, port,
++							  &prev_accepted_frame);
++		if (ret) {
++			dev_err(priv->dev,
++				"Failed to get current framefilter\n");
++			return ret;
++		}
++
++		ret = rtl8365mb_vlan_port_set_framefilter(
++			priv, port, RTL8365MB_FRAME_TYPE_TAGGED_ONLY);
++		if (ret) {
++			dev_err(priv->dev, "Failed to set port frame filter\n");
++			return ret;
++		}
++	}
++
++	ret = regmap_update_bits(priv->map,
++				 RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
++				 RTL8365MB_D_VLAN_PVID_CTRL_MASK, 0);
++	if (ret) {
++		dev_err(priv->dev, "Failed to set port PVID to 0\n");
++		goto undo_set_framefilter;
++	}
++
++	return 0;
++
++undo_set_framefilter:
++	if (filtering)
++		(void)rtl8365mb_vlan_port_set_framefilter(priv, port,
++							  prev_accepted_frame);
++	return ret;
++}
+diff --git a/drivers/net/dsa/realtek/rtl8365mb_vlan.h b/drivers/net/dsa/realtek/rtl8365mb_vlan.h
+index 62ee59c..d8187bc 100644
+--- a/drivers/net/dsa/realtek/rtl8365mb_vlan.h
++++ b/drivers/net/dsa/realtek/rtl8365mb_vlan.h
+@@ -34,6 +34,12 @@ int rtl8365mb_c_vlan_port_reset_pvid(struct realtek_priv *priv, int port);
+ int rtl8365mb_c_vlan_pvid_port_set(struct dsa_switch *ds, int port, u16 vid,
+ 				   struct netlink_ext_ack *extack);
+ int rtl8365mb_c_vlan_pvid_port_clear(struct dsa_switch *ds, int port, u16 vid);
++int rtl8365mb_d_vlan_port_get_pvid(struct realtek_priv *priv, int port,
++				   u16 *pvid);
++int rtl8365mb_d_vlan_port_reset_pvid(struct realtek_priv *priv, int port);
++int rtl8365mb_d_vlan_pvid_port_set(struct dsa_switch *ds, int port, u16 vid,
++				   struct netlink_ext_ack *extack);
++int rtl8365mb_d_vlan_pvid_port_clear(struct dsa_switch *ds, int port, u16 vid);
  
- static int zynqmp_pinctrl_get_num_functions(unsigned int *nfuncs)
+ int rtl8365mb_vlan_port_get_pvid(struct realtek_priv *priv, int port,
+ 				 u16 *pvid);
 -- 
-2.25.1
+2.53.0
 
