@@ -1,101 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794913913;
-	b=P9/VWNWguLVcVk3rtddNqYQbr3cta6SGtbrE+1DcoUL7EQjIIQSzi6N+8S+rexKSvhEh
-	 B55Tkx4bif7EYHVOhy+OsNhSkbBmK2mEF+Ks+KKGaOPMwEM6L5Nq++9qnC+bNMSzkW3lH
-	 2F4zbDkxTP+XWfLWGH7Ad3EYmtQCvrp5yHXU0eKU4iQVJJkZ4h1Ad422DN5/Vh38uraPZ
-	 1ClNAHDiB13Y7ljxIbrGbY+J9tfdbQaTlES2EA0aKYiSoFtbapWndOfCd9xjitehBTquI
-	 nVbAfL09Hf8H0B64VCQ61TQEC9HG2SrpqZxy0SGLzrR07c07N/vwxFnnXFAhbjZLFvA==
+	t=1794913935;
+	b=MlaoS8ymjD55bt226KHKhtZDwWdrTMqGAUYI4+w+3+P67f6rjVcP+bXIG3DjQTFsJjpL
+	 ZW1HKfTCmzJFTA7lT2aN2BT+Vtwg9pcB/AbEkxH02EyXFs4G2S4aKwvmVfJOSIM51ik0M
+	 icpEx7NnnqMwitmFO2CCJdu0slTKXcUcqKpogKg+WPlWWivQR9j3asVD367Rn362KbsyS
+	 YDvvv4pjTBq9ZHeObwTDkifPD4FhDjUZ0xMAGjVUcKX1i4Q/ouUPwEwg9oSaUVLqNd6mw
+	 VRZU7zGbe6ScPXspYCMssaxxgcj9E/K1+w73IOok7VBAWhZyFq1NPjP4haubl7toHtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794913913;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794913935;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Kn42LlYA1UZYSbOfHBABnjOJ0sk0wIks9BO0RA5nM0A=;
-	b=Rly0dpQGHUCZUMZv/eNzTuQ8zVrLR8xd6JsVVa/fyTXjhgz2U0MLJyerKet6wKV8JetX
-	 r3S65qeVWMdYmq+nkRQKIVp0w35B7ZHvttXxh0LpQ2CbShXpTfgLWYZ22MHIZmv5Ocgpy
-	 wGE/ANTbsgUQRzfgUfaj5rxzOiEvIhompjSE+1vmlgJsr1fD6wvDxhRSqWkkAKgtYPSoV
-	 lDfP2rjIBh8MCLQ7W8qme9Kg/C/qMEm4pi9hdy5FFyMm2jMP23yO6BKLoN3YneSdio3c1
-	 7HsWYv1LozoNzdAol+5jLBfiaz0Fa+kNd6i6/yqMRXoGmnkecGCbtUtqCiZd+7cu1/A==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=YpT6onB1YW1VQSPE7BNmbI9BqwBaWK5/0IYsluHOeG0=;
+	b=Z7p+rOsIqKrNmybOfRtg4DWAmFE0x7bV2PIZuZCozU3nnVS7l2Wc9HYO+ZBUQxW9CnhO
+	 El9qkPl+t6XAviakFHTHqXNuTPU20HJI+uQrtvVeZGiL+ytko7uSHksrtOrdQrpwPitJ6
+	 GygtUOIleTcgP3oOX08jNbqtm3+VMK2kmqe+/G8Xj+rdYOBoIqR1jTLR9WX/KTqdEj3ms
+	 a5pWVhR99Q8dsLw30teX4LhUNPWV7YmGkunw3TtBGRFgfO1dYespFhEr55aiuD2vTyC0e
+	 cve+d+ufUB/Ifgl90lcGp0cTVrvEXEXeFnJX/Yz1l7/r7dOGi0G0i08swq9X5CZ4SyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Xoti1UPF;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g4LDFMlr;
+	arc=none smtp.remote-ip=74.125.227.137
+Received: from mail-pj2-f9.google.com (mail-pj2-f9.google.com [74.125.227.137])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DA34606A339
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:11:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DA34606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF51606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:12:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DF51606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Xoti1UPF
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so53789655e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:11:53 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g4LDFMlr
+Received: by mail-pj2-f9.google.com with SMTP id 98e67ed59e1d1-3b18c01238eso1418251a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:12:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794913911; x=1795518711; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Kn42LlYA1UZYSbOfHBABnjOJ0sk0wIks9BO0RA5nM0A=;
-        b=Xoti1UPFBkdCRg1wJtWTgJebl78EAyum6NLyeXMBjInnZaQf/BDLrKBM4H5EV2pAbF
-         JwJa9I/jgNtrlVjyDfXH5ba/6o7AuiKyQ6j2vsMKPhcKxey8wg2AgZRFgIXcX2+I6ahJ
-         SHmQBoXdxhciovY1Ye5hau4B4nfWWhCOUYdqWwcOKyv775YEbeaQMZu9o8mbR5ruwqO/
-         6ytdBWC5TgHiIiHDmqq5edAwW89whsEt/RPFB75zzGVVfDAU4nghMIT7Hq0vdnedX+FT
-         QvSs1iDc+mCxnxCZgWLgStG72s039JqZc6jQpztIauhYdyvksGa2irDhTqAOYCLGgRTy
-         ls9w==
+        d=gmail.com; s=20260707; t=1794913934; x=1795518734; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YpT6onB1YW1VQSPE7BNmbI9BqwBaWK5/0IYsluHOeG0=;
+        b=g4LDFMlrT5xVMlwDAzPW6YO9fwosGC32nZ8FGPwgQ929gmyDlQJBvF7cdWdtE5cxbq
+         AA6oag+4HbkPqb5A/aS7cQ4Bypozy14dRYwQxivHjjckNYbKALh6Ybs1Z7iDxwNl/Dyj
+         3bNGFHApW4Gms7Rlml3EwnhUunTz07O8k7AdJCwqgbdkhFFsGB/mBlvAAuaBXhQp5F5B
+         yP9ah/qyo7/dBzUkKidSA7HDL2e4UIAXIOEctXKSFChg7Nvlmj4R7zRQChhww6K0a8v4
+         CcWf9ImLVQjogHY99Igr9wpp0wJo0BAmtRM0xDYMWq5PSOmIaoOWCfzdrtwx+F869Rw0
+         qcGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794913911; x=1795518711;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Kn42LlYA1UZYSbOfHBABnjOJ0sk0wIks9BO0RA5nM0A=;
-        b=BnI4g7ucMKkaBTd2d29wLpgEeDcHjqeWp8w1o5N/VooxVLy86ptmQ4olo4+N5Kxftz
-         EMvUSdlvHYJeOUBVu+vp8A0fnkFhW+N6SB7fPYSmyg5t1EOC/Ih/F0zv7nPcJZvuCR1S
-         D5IXqi1FMjoC2oUfEqafX3aPFXX/E6UbZ7Mogr7kYLfk4vPJ0vKRuJF1GOxgHDiSVq1J
-         srq8C9lBzO8ATg/jJsJyhB5edxJyuFcAjq9faWv9B1/ZayxMWAWHWJMP4gxOopnwz6R4
-         9O8YummwnOoRn5wlzr6P9xV2ihXGYQ8fYOuy5q91IygoXfCCtExkWqGdEw78vgVlebfa
-         Bs7Q==
-X-Forwarded-Encrypted: i=1; AL+hErEQkZ2uWQ301JAww27odaXR+o5aH1BLar6+hePhH53jlMlf1tclCObfrkjwM8IGVyAZTsM+lWp/WLes06w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+2gSKAyEPzuGNmfYQEcRulgJUmLJF8VJujcdi996TuPgDtWbUB
-	yORzcbtGmRHgZpm+pqfU6wvWSf2sQR7CBdQNdRDCbfT0qp/CyU3etvha
-X-Gm-Gg: AYBFou0l13aJB4RL9snFqmdyMYEHpBZJIEoJLOJ1fiZNdM/1+iauX0UiF5NKdil/0ir
-	Wt/i+pjMxkfwp+hsT792CYsX5ULtLjSBpxUj4H2NNR6Av8n7R65pK/EJAR2kXj3YjNaJ7iFnet0
-	VyuDmwTffOq6XcCKn/WxwHfMX9QNwUKIiIwxwfsnuaWWBc+SgIdBje5C+e09IQVfb6kor75Wttg
-	CF0PrZDKZQgrhQnaCUGfsxEhR6/bv4+1fxJhX+wseRm7VcLK7MKyJvEjBHsKWCge8tiEW6u48CF
-	MM8IvRjMUmnobhrlHVVKnebow8oJTMxUYn6+yJ3EirLSn0nh600tNxFyISLeqk9HC4656lZ/ILg
-	dN2X2aApyESdGw2dq3IJa83+HpGZYi1DA5/+x1KnyjnwKbwe/pdmZjcb6PPjMgTVU2q7cey1Wae
-	88fm+iRKeSoW3DCqjNJBZ4H/pNIlzWJDFqZbf8g4r19ERgA/0GtHTh8tSvDtsTjtWAWOsfBZ3ed
-	87XQIIOB21lmurZrkS5kf7zDxKovzmsKTZBfhFK71larlyLwaOJt6F3NeXOVAT1YNQeI/YK0RuY
-	6A+sRGGg4LuKt+970jaqnQ7PXSorAB8jUkARVUCF8um7y5XQyxFGaA/q1B37Eh0BItGE3xtTceA
-	HCUdlIb97LrBlp2IrXA==
-X-Received: by 2002:a05:600c:4ecd:b0:4a2:1655:87db with SMTP id 5b1f17b1804b1-4bb5599d31bmr293588205e9.0.1794913911432;
-        Tue, 17 Nov 2026 03:11:51 -0800 (PST)
-Received: from lima-fedora (eduroam-269-3-018.epfl.ch. [192.33.199.18])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49d673ce75fsm20642423f8f.55.2026.11.17.03.11.50
+        d=1e100.net; s=20260707; t=1794913934; x=1795518734;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YpT6onB1YW1VQSPE7BNmbI9BqwBaWK5/0IYsluHOeG0=;
+        b=P8mIcBo1Qp6J578Xj+TzuirtYYMZmwG2fBZncMfqG2lQqNbdwU9vJklA7A8yngrWNN
+         rnckYgK0y1ySZ602xTXIE/pOM6Kjeib6xTp8KE9gyYIiPHiwqCV/jemxsmczPlc0ifRP
+         VmvisYcEL3GSv0daMjZwtDtYyCDN1yRz0PtTXKcecufaZJjMfJDUx1gYI5m54CONyZTO
+         ohwsVxXeW57ABf4F3NO561xzQeE3CZFs1AkkXZBw318q5N6FYapQ07x1vBSuxvQXM4hB
+         PlgpMH8UVJYBamSEzB1u26jX0mR3KDSNUupW6MDPzAS5HV1dQiNrnOqnnFhTcM5G5TMd
+         VXxw==
+X-Forwarded-Encrypted: i=1; AL+hErElU9NnCtB81cDaZFHsPgwpgfyHFK5FxOfKqM5TtPWLUFjZYJJIHYrLXi7uSrqqgPnXvCbEFmOHYZGuVfQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9HoZG1JQOzrydjqdlvlGdv53/VPNbCb7U9+ceMYAaZ/qBWgidM
+	LAt5yvjz7FABGdmVntKAjPePy8kM5iIiZT+DvFcf+I63m210jaGov9Gm
+X-Gm-Gg: AZFdTZfrCvxQsXntRXDhpSSrZKSbN+RL1mbTnyj9G/SkiaKs8d+EYGTzks8S3S6D/50
+	lhbXWqv3PTNHw0rr5yJRBLP7jGTddgK5Llf6Z9lsfKfOofPRLrUbIKVC+gLtSes0iwnYAx7iBa4
+	wbepLQR+WnPg4oyqhKYAQeIy5q8JEUN00aocE/FoLm210iSmiYVCjqJH1/Riu4vBHnyUnMbx6J+
+	JsOanPcrSdz67AWpunjFPdcdAU1w9duDWXPPdtaa+OMt+Su422Z39eN3heRpwBCULLO1CsshFBZ
+	mV1Moz2g0sLdbchvzQbgSSTnyTnE+DQKvTEJ4fWF0fM0lGcMbRTnM/D7N0yPX6a23Lzyz6BoKma
+	48XM+RVxfYN0KibVck4upf1pEADA7xfjevTcnWmHwtSmt/ghdu3+5X3UV48pJGKPO2CXYZDBHiu
+	wRsOmMgThyVv3lewV1jIOgVkRw5j6KkGgcNGxs3IojnIQSogxkvXcP9xmcYEQWsmoQjITPM19qm
+	et4D2C8Xb3Km5UxyYxNvhpOpI+FPBZVr+NNg6rbQVv8fZ5M3BlnM3VQqxQhJ8CVhtM6ImkkkY9u
+	bqdEQlcnCidX/IPY4NcX/2XIbbdxEp+i8ibLDVBY7WdmU2MUnRtFKC0odPQBAPIpR4k/qLU2OzM
+	Ab02mWVqNhbZI9hUWluiZqg4Ayg9oEt9hT6+rDw==
+X-Received: by 2002:a17:90b:3b8a:b0:3b0:9f53:e8a8 with SMTP id 98e67ed59e1d1-3b1b0b5f2c1mr13037200a91.52.1794913933750;
+        Tue, 17 Nov 2026 03:12:13 -0800 (PST)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3b6da0fa8sm2752958a91.9.2026.11.17.03.12.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 03:11:50 -0800 (PST)
-Date: Tue, 17 Nov 2026 12:11:48 +0100
-From: Mihail Mihov <mihovmihailp@gmail.com>
-To: K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, mingo@kernel.org, 
-	longman@redhat.com, chenridong@huaweicloud.com, juri.lelli@redhat.com, 
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, tj@kernel.org, 
-	hannes@cmpxchg.org, mkoutny@suse.com, cgroups@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, jstultz@google.com, qyousef@layalina.io, 
-	regressions@lists.linux.dev
-Subject: Re: [REGRESSION] core scheduling latency with idle load
-Message-ID: <avwzqWkw9dJMYlkw@lima-fedora>
-References: <20260605105513.354837583@infradead.org>
- <20260605124052.227463677@infradead.org>
- <avt_mdiPQ5gwAisa@lima-fedora>
- <add0d6ee-c28d-4274-b8d1-58638abac47a@amd.com>
+        Tue, 17 Nov 2026 03:12:13 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: axboe@kernel.dk
+Cc: tj@kernel.org,
+	hannes@cmpxchg.org,
+	mkoutny@suse.com,
+	josef@toxicpanda.com,
+	bvanassche@acm.org,
+	cuitao@kylinos.cn,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	cgroups@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	dennylin0707@gmail.com
+Subject: [PATCH v2] blk-ioprio: check capabilities before promoting a cgroup to RT
+Date: Tue, 17 Nov 2026 11:11:57 +0000
+Message-ID: <20261117111157.2968-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,25 +107,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <add0d6ee-c28d-4274-b8d1-58638abac47a@amd.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Prateek,
+ioprio_set() and the per-request I/O priority of aio and io_uring only
+hand out IOPRIO_CLASS_RT to tasks that have CAP_SYS_ADMIN or
+CAP_SYS_NICE. The io.prio.class cgroup attribute has no such check.
+Writing "promote-to-rt", or its alias "none-to-rt", to it changes the
+requests of the cgroup to the RT class.
 
-On Tue, Nov 17, 2026 at 03:52:15PM +0530, K Prateek Nayak wrote:
-> That said, perhaps se_fi_update() could itself be optimized now with
-> flattened pick. Could you try below changes a try:
+The attribute exists in every cgroup that has the io controller enabled
+and it is not hierarchical. A user that got a cgroup delegated owns the
+files of the child cgroups it creates there, so it can create a child
+cgroup, move into it and write "promote-to-rt" to its io.prio.class.
+Its requests are then issued with IOPRIO_CLASS_RT although ioprio_set()
+fails with -EPERM for the same task, and mq-deadline dispatches them
+before the best-effort requests of everybody else.
 
-With this on top of v7.4-rc3 the reproducer gives:
+The delegation model in Documentation/admin-guide/cgroup-v2.rst expects
+the settings of all resource controllers to be hierarchical, so that a
+delegatee can only distribute further what it received from its parent.
+This attribute lets it raise the priority class of its own requests
+instead.
 
-  kernel              no cookie  cookie
-  v7.4-rc3            53         3290
-  v7.4-rc3 + patch    53         54
+Require CAP_SYS_ADMIN or CAP_SYS_NICE for the two policies that raise
+the priority class, like ioprio_check_cap() does. Check the credentials
+of the task that opened the file, like cgroup_release_agent_write()
+does, so that the check cannot be bypassed by passing the file
+descriptor to a privileged program. The other policies are left alone.
 
-(p99 in us, same machine and config as in the report.)
+Fixes: 556910e39249 ("block: Introduce the ioprio rq-qos policy")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+Changes in v2:
+- Check the credentials of the task that opened the file with
+  file_ns_capable() instead of the credentials of the writer (Bart).
+- Document the requirement in cgroup-v2.rst (Bart).
 
-Tested-by: Mihail Mihov <mihovmihailp@gmail.com>
+v1: https://lore.kernel.org/all/20261116090529.69650-1-dennylin0707@gmail.com/
 
-Thanks,
-Mihail
+ Documentation/admin-guide/cgroup-v2.rst | 3 +++
+ block/blk-ioprio.c                      | 6 ++++++
+ 2 files changed, 9 insertions(+)
+
+diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
+index 9e3c67b02ae2..4424f9cf583e 100644
+--- a/Documentation/admin-guide/cgroup-v2.rst
++++ b/Documentation/admin-guide/cgroup-v2.rst
+@@ -2409,6 +2409,9 @@ that attribute:
+   none-to-rt
+ 	Deprecated. Just an alias for promote-to-rt.
+ 
++Selecting promote-to-rt or none-to-rt requires CAP_SYS_ADMIN or CAP_SYS_NICE
++in the initial user namespace.
++
+ The following numerical values are associated with the I/O priority policies:
+ 
+ +----------------+---+
+diff --git a/block/blk-ioprio.c b/block/blk-ioprio.c
+index 8fa8bca35062..acec62ee94bd 100644
+--- a/block/blk-ioprio.c
++++ b/block/blk-ioprio.c
+@@ -14,6 +14,8 @@
+ 
+ #include <linux/blk-mq.h>
+ #include <linux/blk_types.h>
++#include <linux/capability.h>
++#include <linux/cred.h>
+ #include <linux/kernel.h>
+ #include <linux/module.h>
+ #include "blk-cgroup.h"
+@@ -91,6 +93,10 @@ static ssize_t ioprio_set_prio_policy(struct kernfs_open_file *of, char *buf,
+ 	ret = sysfs_match_string(policy_name, buf);
+ 	if (ret < 0)
+ 		return ret;
++	if ((ret == POLICY_PROMOTE_TO_RT || ret == POLICY_NONE_TO_RT) &&
++	    !file_ns_capable(of->file, &init_user_ns, CAP_SYS_ADMIN) &&
++	    !file_ns_capable(of->file, &init_user_ns, CAP_SYS_NICE))
++		return -EPERM;
+ 	blkcg->prio_policy = ret;
+ 	return nbytes;
+ }
+-- 
+2.43.0
+
