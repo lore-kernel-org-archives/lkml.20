@@ -1,66 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.128.198.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794910360;
-	b=jN81sv8ePJ0pBnA8aSoPLwiXZMARW2cqt/zwC0dGsFzO5Mh2uHA3AiaZhnfe3n1u3mnq
-	 l3Be51N6PsLnv5MifabL+UlqtEY5W6D435uPl6kjyiYnVQBZKFMKno/llbdujHII24nGB
-	 C49UoMJa5jI1LCi9it2EtiUVejaxx0o/HStLqlxNgbJEdxPF3DVp8rB1mXh6YD57C3LXX
-	 ooK03UMEv0YrfawNF23qTQfr/2NtRzUXOyR1J+vIaj/1EMEL1Ibp4xp1+grARN7ZJk/xM
-	 TQHP4fIYJJIClb/bo9/IXAbKM4triwvn74Y1xFn4VPrv99iK8iFklJlC85vt0Kmoj8g==
+	t=1794910366;
+	b=CFldAV2sqQ1/L7ZxBRzeUXnYInxANiZ8HgJWFNsCGxBndfmeafvr6Fg2GP1hdshcmc+Z
+	 88YZuTolUzjzaadXjAAs8iK5GnYd66j7K5BwEg3NinB0t+ry6P3S/g23deU8q+etoA4ez
+	 QwhZfHGavLq1xFmZh87pZBTnpvLcS358IunDUnLY1DTXKD8Ok0DoLhIWwqgQNs4E1WoOZ
+	 CoufpCUtqOuKxjsxJTuhYOOufH95jbU0gJdJiCMmmkX0L0vNO+CNpKaLbDzCoqgTVMww2
+	 iAZr9HN+ZgSbgfV37S4p6K2SI/YRdhKknMYAPVG8SA+DzkPNTkyn0gjFa4HR/b4sCkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794910360;
-	h=DMARC-Filter:Received:Received:Received:Date:From:To:CC:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:User-Agent:X-Originating-IP:X-ClientProxiedBy:
-	 X-DKIM-Results:X-DNSRBL:X-SPAM-SOURCE-CHECK:X-MAIL;
-	bh=hd3lpnNdLx+PWPEPuMz+oaXos4GCD/A0WeAPGnkcYEA=;
-	b=ys8JRNj+ge4imQfDsdv6tUOCMy5G/6JNHGraP7p6m9fdn3wSRmZ75ZFndr2KB79d4wK/
-	 jCY4FxGo9ylLG8IHLqzsS/k5zJAjGEa2CJyMoYeXuuMQ+VvzEnchIJna3ZhyZ1PB+vQze
-	 Hkf10ONxsRAZWrCEZYFP/DMYd9OEVQSHh7lnA4vQzJ2R1gI+tC8FMbDzrqMHTN72gOoXZ
-	 P5tG1KPucYgTQE6R7GTYPFVggEIZRbaAPYf8yRVE9fDElLlvrW4kVz0RuxvmySGqYvXKH
-	 18BcXEBybPLDtIL1MWj2yZOinFdL0aTC7tJxj1c4RkJh8e2W3hbk3kSAc+FoRM6W1GQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794910366;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=D3OLF8gB3qg7oq3Zq1DXdpp9l0JzH5utHq9bO6sDOHM=;
+	b=uuOF5GhySDZfCAKjKjCsgFFu1R4uHKOZwjH8q/jneUV39GbjAgKjiWqiJ49AMiFEr7rv
+	 /ENlNWHoDuzQgvqA5gJqL0eq5oY44nBK7erVjzfWIXZ2K0v3yPmHQrKoNePQ1faP+PZuc
+	 BeBdhhzdA0xfE/7nj3+3XnQ9c3Y26zLo6/3vlI/qHmBL+/Wbo4d8o6g4dCBZdqMMJQcbW
+	 1ft+T2YLgpavksvf5zWuECQzMEDuQzdbY//tQmZNfkd+JnNnKL9ULXOsmle06HD0ycaUO
+	 vQCuzAcseKLl88NuQWnFD0wmbOjNjDCBga6UWdHKVHRg4jV8z/wTo+RaFdVkq6MEbqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=andestech.com;
-	spf=pass smtp.mailfrom=andestech.com;
-	arc=none smtp.remote-ip=220.128.198.184
-Received: from Atcsqr.andestech.com (atcsqr.andestech.com [220.128.198.184])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87E00606A31C;
-	Tue, 17 Nov 2026 10:12:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87E00606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andestech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andestech.com
-Received: from mail.andestech.com (atcpcs55.andestech.com [10.0.1.155])
-	by Atcsqr.andestech.com with ESMTPS id 6AHABtbI090783
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 17 Nov 2026 18:11:55 +0800 (+08)
-	(envelope-from minachou@andestech.com)
-Received: from ATCPCS34.andestech.com (10.0.1.134) by atcpcs55.andestech.com
- (10.0.1.155) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Tue, 17 Nov
- 2026 18:11:55 +0800
-Received: from atcsi01.andestech.com (10.0.15.32) by ATCPCS34.andestech.com
- (10.0.1.134) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 17 Nov
- 2026 18:11:55 +0800
-Date: Tue, 17 Nov 2026 18:11:55 +0800
-From: Mina Chou <minachou@andestech.com>
-To: Conor Dooley <conor@kernel.org>
-CC: <pjw@kernel.org>, <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>,
-        <alex@ghiti.fr>, <jic23@kernel.org>, <robh@kernel.org>,
-        <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <geert+renesas@glider.be>,
-        <magnus.damm@gmail.com>, <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-        <linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
-        <linux-renesas-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <randolph@andestech.com>, <cyyang772@andestech.com>,
-        <tim609@andestech.com>, <az70021@gmail.com>
-Subject: Re: [PATCH v2 17/19] riscv: errata: andes: generalize cache errata
- for Andes cores
-Message-ID: <avwoa/UDFV8iKG11@atcsi01.andestech.com>
-References: <20261113071143.1446167-1-minachou@andestech.com>
- <20261113071143.1446167-18-minachou@andestech.com>
- <20261113-voice-pledge-d0b4e1420676@spud>
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=OQchZGWj;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 75C6E606A330;
+	Tue, 17 Nov 2026 10:12:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75C6E606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=OQchZGWj
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C53A5339;
+	Tue, 17 Nov 2026 02:12:41 -0800 (PST)
+Received: from [10.164.19.84] (a081061.arm.com [10.164.19.84])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id ADD5E3F763;
+	Tue, 17 Nov 2026 02:12:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794910364; bh=ntG9brhhod790MDNwXy0CRXHhBdlremMwhEoGBmXYPE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=OQchZGWj0BCNmNV5/FrS8pbBLF5MqnkhNpW94BFA5ILh7FEX1iX9QUkzo79s9Wkur
+	 fJcbOndj1OL5aflbhuV97ZHblj5CCOG0CP+ppX3uRTYmcDLmlwSweZLzOagSku0mfg
+	 6zL4kn76qhHdlCHjHmajIMQ8WZHY7ERskmTAUcZg=
+Message-ID: <14defc31-66b6-4f00-bfa9-2457b8466f45@arm.com>
+Date: Tue, 17 Nov 2026 15:42:38 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,75 +53,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261113-voice-pledge-d0b4e1420676@spud>
-User-Agent: Mutt/2.1.4 (2021-12-11)
-X-ClientProxiedBy: ATCPCS33.andestech.com (10.0.1.100) To
- ATCPCS34.andestech.com (10.0.1.134)
-X-DKIM-Results: atcpcs55.andestech.com; dkim=none;
-X-DNSRBL: 
-X-SPAM-SOURCE-CHECK: pass
-X-MAIL:Atcsqr.andestech.com 6AHABtbI090783
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND v2 00/12] improve mremap_test
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, "Liam R . Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@suse.com>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
+ John Hubbard <jhubbard@nvidia.com>, Kalesh Singh <kaleshsingh@google.com>,
+ Anshuman Khandual <anshuman.khandual@arm.com>, Park Tae-sun
+ <ts930@dgu.ac.kr>, linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261102100211.141831-1-sarthak.sharma@arm.com>
+ <avsmKAf4MRwGdpGI@gremlin>
+Content-Language: en-US
+From: Sarthak Sharma <sarthak.sharma@arm.com>
+In-Reply-To: <avsmKAf4MRwGdpGI@gremlin>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 13, 2026 at 01:59:11PM +0000, Conor Dooley wrote:
-> > -static void errata_probe_iocp(unsigned int stage, unsigned long arch_id, unsigned long impid)
-> > +static void errata_probe_andes_cache(unsigned int stage, unsigned long arch_id, unsigned long impid)
+
+
+On 11/16/26 9:21 PM, Lorenzo Stoakes (ARM) wrote:
+> Hi Sarthak,
 > 
-> Just call it probe so that you dont rename it again when the next
-> erratum shows up?
+> Sorry we're being slow on this one, right now mm is really inundated with stuff
+> so we're in firefighting mode (see [0]), so I'm not sure if we'll have time to
+> get back to this this cycle, will try to if I'm able to! :)
+
+Yup, makes sense. I'd missed the firefighting mode email, thanks for
+pointing :)
+
 > 
-
-Thanks for the suggestion, I'll give it a more generic name.
-
-> >  {
-> >  	static bool done;
-> >  
-> > @@ -51,11 +51,12 @@ static void errata_probe_iocp(unsigned int stage, unsigned long arch_id, unsigne
-> >  
-> >  	done = true;
-> >  
-> > -	if (arch_id != ANDES_AX45MP_MARCHID || impid != ANDES_AX45MP_MIMPID)
-> > -		return;
-> > -
-> > -	if (!ax45mp_iocp_sw_workaround())
-> > +	if (arch_id == ANDES_AX45MP_MARCHID && impid == ANDES_AX45MP_MIMPID) {
-> > +		if (!ax45mp_iocp_sw_workaround())
-> > +			return;
-> > +	} else if (riscv_isa_extension_available(NULL, ZICBOM)) {
-> >  		return;
-> > +	}
+> --
+> Cheers, Lorenzo
 > 
-> Is this correct? The code goes on to always mark noncoherent stuff
-> supported, so this means that every andes device must then support
-> noncoherent. The commit message's wording isn't that strong.
-> 
+> [0]: https://lore.kernel.org/linux-mm/a2f584f6-e382-4876-aa6d-d5a34de6ee59@kernel.org/
 
-Yes, this is intended. IOCP is configurable on Andes cores: a core
-either has no IOCP, or has IOCP that the SoC can enable or disable
-(RZ/Five, for example, disables it). As this is up to each SoC, we
-would rather not check it for every core and configuration, so the
-errata marks non-coherent DMA as supported on every Andes core without
-Zicbom.
-
-This does not make any device non-coherent: a device is still coherent
-unless the devicetree marks it dma-noncoherent, and the CCTL cache ops
-are only registered when the devicetree has the LLC node.
-
-I will make this explicit in the commit message.
-
-> >  
-> >  	/* Set this just to make core cbo code happy */
-> 
-> This comment is no longer accurate because you gave this value special
-> meaning elsewhere in the series.
-> That patch needs to change this comment.
-> 
-> Cheers,
-> Conor.
-> 
-
-I will update the comment in the patch that gives this value its meaning.
-
-Thanks,
-Mina
