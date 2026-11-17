@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794881889;
-	b=ZV3kDlzzEwSo6b6fh4a8iQy77nh/0PkqysFMtR9N2eb/hc1s+uypuG6cMJ9K+f8rIDWR
-	 r2t20NLpuaOm3zsWLfFbUJ+WMQSU4xAXvIwSHYezC6GdJcw/6Zn72GNaRfU42NSN3ufMX
-	 mN6S8RV3k4WOVxOMpV1ykbnHMzrsC/tevIzLWDs6Mxhe27P3ORfxLCc6Z4msn7n+Pc6dH
-	 nQ5Ka/MQlY3u4FRPmUCf04B6MRrWhkFbgSUvzQuriJcG6OvD1f5GtxmNY50rJUdaKWWsO
-	 bTOkMD0lhO1yH5OCXtY0SY4TqGuAM+uYbKpQKjmx1ySvvEhtRrXPlS/A6ykzRMM4V4Q==
+	t=1794881891;
+	b=JTPI0xyhcla59R9/HK+1kdjPu7kn0/FOzAD7CYnrh1ACtCiRyf3FPz55jPDTJ0yzfc0P
+	 gNFZUNo+uSmkrF5YD6oY6qGIemx3QNgU+u5dqB8Dvd3rI+MOcG6WT1Yyp7nODUHcZKmvl
+	 PpkTArM5qXeQ0yHiKLQnuuU8eV92kcGnxGMTasR1jwJHgfa4p7XmAGoEQ8KysQXrTPPe7
+	 5KEl5We2Tbkb+9V2l/Bb/Ksg2S8BPQj+LYiwzWQi7nm3MCoonadA5U5GnAFs/zAhjjCrA
+	 CTUpUBj6SGctBNtKyiYFlA6J2t32XwOQf9ckgyNiii7og3VtYw60MOgpulx+jvuv1ig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794881889;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794881891;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=mppN7GntlOCaFRrXViro60hi5hqTY4zzMWa9bIunJD8=;
-	b=2DDvY4jz9lekHE8E6uXnMxVPBhyvDKhfp79ooljHXfOKB7WOGvvp/QbIWC7zjaico4Kk
-	 4sUsL7Fs5UF+SnD6xiVX8aF5nP+K/nqq8uYY1wNhtx3Gngl9LFOZvdjW+8XmjODuQYM89
-	 JYFLJS2xtXCnWxhUfh87dAvQoOJM4wb6avhN/n5WwjkFKMSS7hn2EDx5zYkJFa+WjShUZ
-	 a7pWgJJBXiiqk5jXRO6YFvehARq93vSbCKCv3N4p61tSUlgNOgT46+AED3ATT3HB+W/Hq
-	 l6ZkOwu6LT6h+85oOBbQVzZvNRGdzj0xq3w608BE243YDSVj/tTLU+AD2Gio+hgdowg==
+	bh=AimkYquJyCFFibwV9+Pbk3SJdPbv5xwkRGDYXWIlb9k=;
+	b=JYLPUA8nBhAX/i1WxorhjcndbtBqBMcN+s8BJaZkeI7GF8VCPRl7TsFSSXeWV3Qbt9MI
+	 aYAa0tAkO9sPmgAlF06VnfS9668p31/Eb7ebCiPEzbJpJAlBBg5M0CHFvMafTk1eksorl
+	 VauQjxReGa+2wUEO54VF60rOJxNoobCU0HypTq+LQRYnhhqQR94bE6QxNHt+s3qF48vGf
+	 lw9OM3GFJVifTeXzkJ/bZ4+IOpCI3eq2/umu6mg7FPRhZ9B50ecyEoCusN3+1Ti4bCy2x
+	 xc+wPGAlNfMh+shnM97Ymhkd8C8oBtFVVakiOp4olU7lJeFWYqboZzDmiiyhKIW5GiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XbORpJKA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CXEWjSb5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BC94606A323;
-	Tue, 17 Nov 2026 02:18:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD833606A333;
+	Tue, 17 Nov 2026 02:18:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XbORpJKA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E2F81F000C4;
-	Tue, 17 Nov 2026 02:18:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CXEWjSb5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77B041F000C9;
+	Tue, 17 Nov 2026 02:18:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794881888;
-	bh=mppN7GntlOCaFRrXViro60hi5hqTY4zzMWa9bIunJD8=;
+	s=k20260515; t=1794881891;
+	bh=AimkYquJyCFFibwV9+Pbk3SJdPbv5xwkRGDYXWIlb9k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XbORpJKAPQt4CDN9QrCWjYpRfqRD8LErIUSZKaEI58Zb4TdDPTRFC9KYxd5QZdpSa
-	 AZrbetMV3gqnmzO+Uz4YGKIlbq5Id50VvYlzgualg5RdmJebvDg/8MNlx96Y6En6XA
-	 uJEf33ubcqG5S3eGteHZG9zuSXZU6Q3t7QRH+Bv3naJU4Sfi7YhoRB4WZPEez0Bgm7
-	 GjouutnMhwvLysKabKJo9QMrgrPbWLn0ESTQ2cu5JMTeyzq/mZd0XV0v0tPxzFVSdI
-	 dwRqWVsBmdW4ZrFUc4m+33M28m/4M3P+VC2qv/DN9M+jqtwbdr1H0e8l42IzuynpbE
-	 BLOG0tgBcgOrA==
+	b=CXEWjSb5ZnnpV+YPkcW++70u9Mes4qmDIt/YFUFz/eEfP/rmi47SDFz1ibbhq+jPo
+	 OnylbBBq1afLViHYoODAKVU3vmpC4+mfozzPZywVOKknDwPK5TGQVDL5L78LYNC/I0
+	 G2xmhM/Ap+6HC22V5F2L+ee7n1t80kAtXH5PU7WgLFICVqttgyGgW3j8KPeZhHhtUT
+	 ltHfvmyr+z8nY0Mo/M/wWJ7eD1zDiPpFiEd6t6e7+vUlMViky+7bHLjpUqQ+icsFrw
+	 gwi3kkwIiTgjoezKFOHgSRmA+2rGWK0KjQthpW/5wIq6EV6a2S3b3HKcWWPDfRvKwn
+	 EBu735HdLT1aw==
 From: Jakub Kicinski <kuba@kernel.org>
 To: arouhi@sitime.com
 Cc: Jakub Kicinski <kuba@kernel.org>,
@@ -56,12 +56,12 @@ Cc: Jakub Kicinski <kuba@kernel.org>,
 	devicetree@vger.kernel.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v15 03/13] dt-bindings: dpll: add SiTime SiT95316 clock generator
-Date: Mon, 16 Nov 2026 18:18:06 -0800
-Message-ID: <20261117021806.2220034-1-kuba@kernel.org>
+Subject: Re: [PATCH net-next v15 04/13] dpll: add basic SiTime SiT9531x support
+Date: Mon, 16 Nov 2026 18:18:09 -0800
+Message-ID: <20261117021809.2220080-1-kuba@kernel.org>
 X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261110202607.55744-4-arouhi@sitime.com>
-References: <20261110202607.55744-4-arouhi@sitime.com>
+In-Reply-To: <20261110202607.55744-5-arouhi@sitime.com>
+References: <20261110202607.55744-5-arouhi@sitime.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,163 +76,133 @@ Content-Transfer-Encoding: 8bit
 This is an AI-generated review of your patch. The human sending this
 email has considered the AI review valid, or at least plausible.
 ---
-dt-bindings: dpll: add SiTime SiT95316 clock generator
+dpll: add basic SiTime SiT9531x support
 
-This adds a YAML binding for the SiTime SiT95316/SiT95317 I2C DPLL clock
-generators. It covers the XO, reset and interrupt lines, the supplies, and
-the input and output pins, building on dpll-device.yaml. It also adds a
-MAINTAINERS entry for the binding.
+This adds an I2C driver for the SiTime SiT9531x DPLL family. Probe takes
+the optional reset line and the XO rate, then identifies the variant from
+the ID register. The 32-page register space goes through a flat 256-byte
+regmap window, and the driver selects pages itself under a private lock.
 
-> diff --git a/Documentation/devicetree/bindings/dpll/sitime,sit95316.yaml b/Documentation/devicetree/bindings/dpll/sitime,sit95316.yaml
+> diff --git a/drivers/dpll/sit9531x/core.c b/drivers/dpll/sit9531x/core.c
 > new file mode 100644
-> index 0000000000000..5356a73a80620
+> index 0000000000000..3ec1ab5aa56cc
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/dpll/sitime,sit95316.yaml
-> @@ -0,0 +1,214 @@
+> +++ b/drivers/dpll/sit9531x/core.c
+> @@ -0,0 +1,308 @@
 
 [ ... ]
 
-> +  Pin numbering.  An input pin's reg is its lane: 2k is INkP and 2k + 1
-> +  is INkN, 0 to 7.  A pair the loaded configuration runs differential is
-> +  one input, described at 2k.  An output pin's reg is its physical output
-> +  OUTn, 0 to 11; the SiT95317 bonds out the die's outputs 0, 3, 4, 5, 7, 8,
-> +  9 and 11, which its datasheet names OUT0 to OUT7 in that order.
-
-[ ... ]
-
-> +  input-pins:
-> +    type: object
-> +    patternProperties:
-> +      "^pin@[0-9a-f]+$":
-> +        type: object
-> +        properties:
-> +          reg:
-> +            maximum: 7
+> +/*
+> + * One 256-register page is visible at a time, selected by offset 0xFF on every
+> + * page. The map covers that window, uncached; the accessors select the page.
+> + */
+> +static const struct regmap_config sit9531x_regmap_config = {
+> +	.reg_bits	= 8,
+> +	.val_bits	= 8,
+> +	.max_register	= SIT9531X_PAGE_SEL,
+> +	.cache_type	= REGCACHE_NONE,
+> +};
 > +
-> +          supported-frequencies-hz:
-> +            maxItems: 1
-> +            description:
-> +              The rate wired to the input, in Hz, as a single entry.  An
-> +              input runs at the rate the board feeds it and has no
-> +              frequency to select, so that entry is what the pin reports
-> +              as its frequency.
+> +/* Caller holds page_lock. */
+> +static int sit9531x_page_select(struct sit9531x_dev *sitdev, int page)
+> +{
+> +	int rc;
+> +
+> +	if (sitdev->page == page)
+> +		return 0;
 
 [Severity: Low]
-Does maxItems: 1 actually limit this to a single rate?
+Could this use regmap's paged range support instead of a private page
+cache?
 
-dpll-pin.yaml gives supported-frequencies-hz no explicit type, so the type
-comes from the dtschema -hz unit-suffix rule. If that rule makes it a uint32
-matrix, a top-level maxItems only counts bracket groups. A list written the
-way microchip,zl30731.yaml writes one would then count as a single group and
-pass:
+sit9531x_regmap_config has no .ranges and max_register is 0xFF, so regmap
+only sees a single window. sit9531x_page_select() skips the selector write
+whenever sitdev->page matches. Nothing ever checks that cached value
+against the chip, and outside of resume it is only reset when a regmap
+access fails.
 
-    supported-frequencies-hz = <10000000 25000000>;
+Something outside these accessors may change register 0xFF, for example an
+I2C tool or a regmap debugfs write. If that happens, sitdev->page goes
+stale. The next sit9531x_read_u8(), sit9531x_write_u8() or
+sit9531x_update_pll_u8() for the cached page then skips the select. It
+reads or writes the same offset on whatever page the chip is actually on.
 
-This depends on how dtschema types -hz properties, so it may not apply.
+Later in the series, "dpll: sit9531x: add support to get and set priority
+on input pins" treats a priority table rewritten "by a profile reload or
+an I2C tool" as a supported case. An I2C tool has to write 0xFF to reach
+that table. A regmap debugfs registers dump would also only show the page
+that happens to be selected.
 
-If it does, the driver later in the series takes freqs[0] as the input's rate.
-It still advertises every listed value as a supported frequency, even though
-sit9531x_dpll_input_pin_ops has no .frequency_set.
+regmap's struct regmap_range_cfg supports a selector inside the window,
+here selector_reg = 0xFF, window_start = 0 and window_len = 0x100. With
+REGCACHE_NONE it reads the selector back before switching. It also keeps
+the select and the access together under the regmap lock.
 
-Would limiting the inner dimension (for example items: [ maxItems: 1 ]) or
-giving an explicit shape guarantee a single value?
+The sibling zl3073x driver already does this:
 
-> +
-> +patternProperties:
-> +  "^vddo([0-9]|1[01]|0_1|10_11)-supply$":
-> +    description: |
-> +      Supply of an output driver, named after its VDDO pin.  The SiT95317
-> +      has one per output, VDDO0 to VDDO7, numbered as that part's
-> +      datasheet numbers its outputs; in the pin numbering of this binding
-> +      those are outputs 0, 3, 4, 5, 7, 8, 9 and 11, in that order.  The
-> +      SiT95316 has VDDO0_1, VDDO2 to VDDO9 and VDDO10_11, the two shared
-> +      pins each powering the pair of outputs they are named after.
+drivers/dpll/zl3073x/core.c:
+static const struct regmap_range_cfg zl3073x_regmap_range = {
+	.range_min	= ZL_RANGE_OFFSET,
+	...
+	.selector_reg	= ZL_PAGE_SEL,
+	...
+	.window_start	= 0,
+	.window_len	= ZL_PAGE_SIZE,
+};
 
-[ ... ]
-
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          const: sitime,sit95317
-> +    then:
-> +      properties:
-> +        output-pins:
-> +          patternProperties:
-> +            "^pin@[0-9a-f]+$":
-> +              properties:
-> +                reg:
-> +                  enum: [0, 3, 4, 5, 7, 8, 9, 11]
-
-[Severity: Low]
-On the SiT95317, don't the two numberings in this node collide?
-
-Output pin reg is the die output index. The vddoN-supply names follow the
-SiT95317 datasheet numbering, VDDO0 to VDDO7.
-
-So output-pins/pin@3 is datasheet OUT1. But vddo3-supply powers datasheet
-OUT3, which is die output 5. The same thing happens for 4/7, 5/8 and 7/11.
-
-One supply name also maps to different outputs on the two parts. vddo3 feeds
-reg 3 on the SiT95316 but reg 5 on the SiT95317.
-
-This enum accepts 0, 3, 4, 5 and 7, which are also valid datasheet output
-numbers. A board DT that numbers SiT95317 output pins by datasheet OUTn would
-pass validation for five of the eight outputs. Its label, frequency and
-enable state would then describe a different physical output. Only datasheet
-OUT1, OUT2 and OUT6 would be rejected.
-
-The driver does not enable the supplies today. A later change that looks up
-per-output supplies by pin reg would work on the SiT95316 but switch the wrong
-output driver on the SiT95317.
-
-Could one numbering be used for both reg and the supply names on the
-SiT95317?
+The commit message describes the flat-window design but doesn't say why
+the regmap mechanism wasn't used. Is there a reason for that?
 
 [ ... ]
 
-> +            input-pins {
-> +                #address-cells = <1>;
-> +                #size-cells = <0>;
+> +	/*
+> +	 * Keep reset deasserted, never pulse it: a reset discards the
+> +	 * configuration from efuse or a pre-probe NVM blob. Release it before
+> +	 * the first I2C access.
+> +	 */
+> +	sitdev->reset_gpio = devm_gpiod_get_optional(sitdev->dev, "reset",
+> +						     GPIOD_OUT_LOW);
+> +	if (IS_ERR(sitdev->reset_gpio))
+> +		return dev_err_probe(sitdev->dev, PTR_ERR(sitdev->reset_gpio),
+> +				     "Failed to request reset gpio\n");
+> +	if (sitdev->reset_gpio)
+> +		fsleep(10000);	/* internal boot after release */
 > +
-> +                /* IN0P and IN0N: pair 0 runs single-ended */
-> +                pin@0 {
-> +                    reg = <0>;
-> +                    label = "clkin0";
-> +                    connection-type = "ext";
-> +                    supported-frequencies-hz = <10000000>;
+> +	rc = sit9531x_read_variant_id(sitdev, &variant_id);
 
 [Severity: Medium]
-Should the cell width of supported-frequencies-hz be fixed here before this
-becomes ABI?
+Should sit9531x_dev_probe() enable the supplies before it releases reset
+and does the first I2C access?
 
-This example uses 32-bit cells. The only other in-tree DPLL binding that
-uses the same dpll-pin.yaml property, microchip,zl30731.yaml, uses 64-bit
-cells:
+The binding in this series, sitime,sit95316.yaml, documents vdd-supply,
+vddin-supply, vdds-supply and the vddoN-supply rails. Nothing under
+drivers/dpll/sit9531x/ gets or enables a regulator, either in this patch
+or by the end of the series.
 
-    supported-frequencies-hz = /bits/ 64 <10000 10000000>;
+The binding commit says:
 
-Its consumer, zl3073x_pin_props_get() in drivers/dpll/zl3073x/prop.c, reads
-the property with fwnode_property_count_u64(). dpll-pin.yaml gives the
-property no type, and this binding does not say which width a SiT9531x node
-has to use.
+  "The driver does not enable them, since the boards so far power the part
+  permanently; describing them gives a board with switchable rails a way
+  to say so."
 
-The SiT9531x driver added later in this series reads it as u32:
+A board that describes switchable rails per the binding gets no consumer
+for them. If the rail is off at probe, the chip comes out of reset
+unpowered and the variant ID read fails.
 
-drivers/dpll/sit9531x/prop.c:
-	/* A -hz property is 32-bit; no rate of this part needs more. */
-	num_freqs = fwnode_property_count_u32(props->fwnode,
-					      "supported-frequencies-hz");
+If the bootloader left the rail on, regulator_late_cleanup() in
+drivers/regulator/core.c finds use_count == 0 on a regulator that is not
+always-on. On DT systems, where have_full_constraints() is true, it then
+disables the rail late in boot:
 
-Suppose a SiT9531x node is written the way zl30731.yaml does it:
+	if (rdev->use_count)
+		goto unlock;
+	...
+	if (have_full_constraints()) {
+		rdev_info(rdev, "disabling\n");
+		ret = _regulator_do_disable(rdev);
 
-    supported-frequencies-hz = /bits/ 64 <10000000>;
-
-The u32 count is then 2, and fwnode_property_read_u32_array() returns
-{0, 10000000}, because the high word comes first.
-
-With that input, curr_freq = freqs[0] is 0 and the reference frequency is
-never seeded. sit9531x_dpll_input_pin_frequency_get() then reports 0 Hz, and
-the pin also advertises a 0 Hz supported frequency next to the real one.
-
-Output pins have no item limit on this property, so that encoding would pass
-dt_binding_check there too.
+Wouldn't the chip then lose power while the driver is still bound? That
+would drop the pre-probe NVM configuration the commit message says is
+kept. It would also leave sitdev->page out of sync with the chip. Later
+register accesses would then fail, or reach a part that has rebooted from
+efuse.
