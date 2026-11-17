@@ -1,105 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.81
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794882546;
-	b=5trvU3Cgwb1Ve4HcF5cHSj/I0KYxzvk+hBoi2CGSjdv+SelmxDvjJZNHvYbINO82GBig
-	 gjEK+waajElq9U1/Rymza0Aws8eK2RppgyZQsnyQCAwhS+3i+QPkqt2UaHQVX+8n+ePQ4
-	 8GCmTgA5k6oKQwEBZSTP9hQw/5IZ/fppwS7Yx81hX7OTnTloDREjon/CO00vQSzjYbr7r
-	 9SAvQL4GEvwVquc0XwkCdF4FCbIakXZmOD0ComzWIF3QVRGmkVTA4k5ilXDT421Lj4keI
-	 De+b4T80qpya+PqgwXIy/0geW4ijmkOJ0FnIWdh+dQPwCXoJggH18pZ2fS7kbN4M0kw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794882546;
-	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
-	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=lvSu7AhVLbMLhLIQCXtxPqvA7yUCBiyk7/6hYNrWuec=;
-	b=toVCQrTTzyPM7xu1AsFrKoj6HGnv15OdPBXZ5zy+q9w8qZGC+BO7qBLU3/pxnBg/87jK
-	 LKpkpkwS2ozfWW2Z4EJ0yIK2qRU/iDXnUNw/7be6HDd9+RGCXxrRXqpbgdcyk8aWmpk7j
-	 J7H+Wt/r+MqWwRYhl8t2S9ZKmBwJ70skugRh89gFtECLQJA64sB5vzvxfF47PRpH7qZAW
-	 bfnB9SAxCCrsS+41k6OZ4Ucx2x7LRQQlKTl0cxcHCBrOUhLa3puOo39xsLg0Pl1q4bK+K
-	 jYW6E3DOCueRYmBYQ3YfiI7B7zRiN2U+rhyN3vUeqkWNDCs4il5DDGTk98V9ZTc4IFw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=cixtech.com;
-	spf=pass smtp.mailfrom=cixtech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.81
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022081.outbound.protection.outlook.com [52.101.126.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B7A606A323;
-	Tue, 17 Nov 2026 02:29:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88B7A606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=df84NVMEvZjwxJoYw/xmbhslXObgGdFzBQZ2ntghMA7Z4Svq1yvvng4furuDGu1eVq5Qu0IBq/N59KblZ4zLrRGuSWaGfbHjGTK+QX60ecHbXVP+4Maq2DKa6kvoSsUz436VqrVKLXgIaKo4O0PkDAWSwoPfV228dy+A9zzG6+KPxw89iKi1SjksZqEpVBppM9zITosxxn6Wxg+4wB3eFkAWybJ3UymdzaPbwM/LQjcspb8GBR0X88h6B7KDOtWbd2tY+og8W+J4fIKMIHH7Rr/r+V5VG+ZFKKCJRjpcjPOZNv0+SrlyPwy1bRO5VpAPw/me4ekTxcGde2XKMR9CxQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lvSu7AhVLbMLhLIQCXtxPqvA7yUCBiyk7/6hYNrWuec=;
- b=Qkdau7LlSPc4lNu91Z/XwFZP+wSmyqakv3q7D1uBKf7e3YqjivvjZZwt3taNsBAms98dGC1cEUiXMk6zwuPX5FpioElB0Zi3zH76NQdyppPhQkY8KyXvTGkJObzkI+/g+7UpQL3zd4wnCJcT/lawbDIDz9Rn0/Ej+gxY4LWqRkIzkPwtc1QvfQzQvCJULVqaJOhmk9ackN9glOe93K4IlbLYZbeD2sHC72RcvweUO7ytWALV+CZK5pZaNujtA4rjt/gu9O9EQknQIm3WJAorTVbKM4CUQ1kPLrZkJLQr/9MfaaLGwPxU3F5Hlsias2bsIRMHjQkHZ7m5gULDxFcLPw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from SI2PR02CA0032.apcprd02.prod.outlook.com (2603:1096:4:195::12)
- by KU2PPF056618284.apcprd06.prod.outlook.com (2603:1096:d18::487) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.8; Tue, 17 Nov
- 2026 02:29:01 +0000
-Received: from OSA0EPF000000C9.apcprd02.prod.outlook.com
- (2603:1096:4:195:cafe::1a) by SI2PR02CA0032.outlook.office365.com
- (2603:1096:4:195::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Tue,
- 17 Nov 2026 02:29:01 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- OSA0EPF000000C9.mail.protection.outlook.com (10.167.240.55) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 02:29:00 +0000
-Received: from hongliang-System-Product-Name (unknown [172.20.64.180])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 89177427EFC6;
-	Tue, 17 Nov 2026 10:28:59 +0800 (CST)
-From: Hongliang Yang <hongliang.yang@cixtech.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Gary Yang <Gary.Yang@cixtech.com>,
-	Fugang Duan <fugang.duan@cixtech.com>
-Cc: linux-phy@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	cix-kernel-upstream@cixtech.com,
-	Hongliang Yang <hongliang.yang@cixtech.com>
-Subject: [PATCH v8 1/2] dt-bindings: phy: Add CIX Sky1 USB3 PHY
-Date: Tue, 17 Nov 2026 10:28:57 +0800
-Message-ID: <20261117022858.2210212-2-hongliang.yang@cixtech.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261117022858.2210212-1-hongliang.yang@cixtech.com>
-References: <20261117022858.2210212-1-hongliang.yang@cixtech.com>
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794882565;
+	b=BZJo8jNnHJVGd9xmgQbHMI1tR0AsBQAy97+7t3q0ldBfm6FEaishNBwwLEkOFXL+WGpD
+	 M66AGOfANaZRSGj2O3jggz+O95wy3pL4KHOvkd289NQ3AlRaU6zAr8kyOGhkCgZ0Ro5Dx
+	 0YfB+d1PzL9/EIhBVtyeR26J6jcLBOOcxELf+QHEKVOx/2Ij2q207yIWKe3klnH0vBinF
+	 ZJcwrGFwJMHOViGUzRt4nR4OAcmcTmCeZ4PJntWgxg21z+ha1cj3M9DCTeywmNww5eHX9
+	 rEVYqi7lIDgAWaDLk76dJukhwxz2TdQZ9PmRW0UAxk/zzvjOMYooWkz+eR1NYN9gn5g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794882565;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Status:
+	 X-Spam-Checker-Version;
+	bh=et1Cfwppqhe2gESCp1fUau0tu1068IrztG9UL03830I=;
+	b=hY+z3As0OjQ/ABDNqduazgdfbSbwDeILna3KJTKikVJNJlvDaVmHwu3fUsg2UvscGfBo
+	 BH7nnEv7iIf384847dZ7iry+Z9xe/tkoPrdug4cJMP2Op69ny/l01NfhYdBB6IXXA+WCJ
+	 FvFLwPCxea61xgk2lbvfY9gjnJAZEQeUrixeV2zoQGZTCYOeGZkjim7R7xNCHVjXGKCBA
+	 WV9TcNhb3DEp6lIPzyjt+GHUQQdxZb2sCYgVtX6u+JkA4HhSHotBqbLXi+4Vy5YM/cu7C
+	 F6V0OaFQkatHYHXSaM2D9lRMrr0PL6gZ3FBp/FN1hTliVasen98dVty4ipgKasJM1bw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=PagRPIIx;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7194F606A31C;
+	Tue, 17 Nov 2026 02:29:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7194F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=PagRPIIx
+Received: from [192.168.0.88] (192-184-212-33.fiber.dynamic.sonic.net [192.184.212.33])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 174B120B7169;
+	Mon, 16 Nov 2026 18:29:17 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 174B120B7169
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1794882557;
+	bh=et1Cfwppqhe2gESCp1fUau0tu1068IrztG9UL03830I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=PagRPIIxxbTMHgDFbZ91wWZxI2DLyKpe3dsF3VdecEC46oHKFHJXcYu+PxDnnDjRZ
+	 HDXCKY9+TqH6koscFkhbdgl+YAbgKjIclm6OT1HisH+spBlSLxpU9Nk/NrNpcZCD2a
+	 B5fXg1HDdz4ZOQLq3vWomvM8WCQ5fVIGXq9lZiFM=
+Message-ID: <fd130973-25d6-e706-6822-793f12ba2015@linux.microsoft.com>
+Date: Mon, 16 Nov 2026 18:29:22 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,160 +53,290 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OSA0EPF000000C9:EE_|KU2PPF056618284:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 302c4cd4-3ffb-4d18-bdec-08df44528a70
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|7416014|261026140227099003|261026121527099003|261028144727099003|261022105027099003|261021121427099003|261102123227099003|5023799004|56012099006|10067099003|22082099003|18002099003|261009223027099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	ePiBjpYJMYu6L4P33LQDKfKDI8Blm9WTQi3PXOG5spZo+AKWJDpNG+NHh+oQnj0YKh18Og0b6ZMR6aTNyPCSluZYCSLm3kZLbKgLN4PTH31MDppPOEqIM/dMOlN71bG1Ej2d/BCmJVL9QTcwcQkZfHhZTArsAL7ysAgJu6vndZAvsIsplik8a5bcP2l/BceHBJQNGEMnO8+T+HS8ouHle1Xkf2zj2MFNAPkGkjU8EjvnkVIpQTjE9KbAtYipxsDMALYQtV1CH6IMTyMMvwXeuyAQwypchsKDCGSQ+crdV20C2xaEaJOc98+4vyzQNQSvPVoDqufN1jpZHC/hxhtdHa+v2sCji9xvp0cRc4zbgbac/PgHJRSX3w48kTxUIdBN7iTA6axkPzYy2chT1BQkKrMjB2cVzFbEHZRmR9mwn69uwunqh2P+syV2QiY6MzPr/SYU8+Mzv0w69b/aSXO+3S5EPvrb3c8O6Xbt+jxTHS02S+m+lGbhePHksUQUmp1Y7nZfKuZeCvzDyYAGBbVL/pmqkDGVX1bSuvx/fO3QvWFOgKec79yq/cF4ooSkBLaAKIQB6cHGup1HaoxQ/1bTitGOGB9H0OvtbM8e37A+LgelgThEaggiaJi7rpgtMbr4easPT7bo5UHMKh7t+I3oDQ==
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(7416014)(261026140227099003)(261026121527099003)(261028144727099003)(261022105027099003)(261021121427099003)(261102123227099003)(5023799004)(56012099006)(10067099003)(22082099003)(18002099003)(261009223027099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	jWXgltC8kVc4oo0DrJze4wP1QQ0H+GdBv7E+NE1s1YGzF2JU1RJAUttYrigyTv6SkxKWeHNRM5iGp/X/Mum65f4GAl8nfsnEJUoAn8YYSpRzgPhejWWRWvbxXswugtTdtsagpUlyjrWL75WAKX/PdrWIh9Ikg/L1z2Z0BD3szXLVFm17+QNkC0DTiVS3ybIhZEIPdb+AG3HMeclnu3JBvfCYFaQs+f/7OhpBkBTaUh+ZeWGXGpgp68TqIYvbexnGJ++a6aVP+gXlm4G+M6bo9+sHeq4Jy9Qwfz5vMElN2Vj+4xA3J/waa91/sWHKa0/KmGhBk7iBDcrd0i1wILT+e3ZFNhWbXXueIcCdaAndioMjaNWfcLiwS1WMWOehaMPey5HdJKOIiKgszxjYBmY8/GVmJiaHU+AnDPQrCiPK0J5Sq0pdT5AsOFqgY7fgzxIr
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 02:29:00.7962
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 302c4cd4-3ffb-4d18-bdec-08df44528a70
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	OSA0EPF000000C9.apcprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KU2PPF056618284
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.1
+Subject: Re: [PATCH V1 2/2] Drivers: hv: Fix bugs and issues around repeat
+ hypercall
+Content-Language: en-US
+To: Michael Kelley <mhklinux@outlook.com>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Vitaly Kuznetsov <vkuznets@redhat.com>
+Cc: "haiyangz@microsoft.com" <haiyangz@microsoft.com>,
+ "wei.liu@kernel.org" <wei.liu@kernel.org>,
+ "decui@microsoft.com" <decui@microsoft.com>,
+ "kameroncarr@linux.microsoft.com" <kameroncarr@linux.microsoft.com>
+References: <20261114025313.1257042-1-mrathor@linux.microsoft.com>
+ <20261114025313.1257042-3-mrathor@linux.microsoft.com>
+ <MN2PR02MB6863E6C4F59864B7833681FCD47D2@MN2PR02MB6863.namprd02.prod.outlook.com>
+From: Mukesh R <mrathor@linux.microsoft.com>
+In-Reply-To: <MN2PR02MB6863E6C4F59864B7833681FCD47D2@MN2PR02MB6863.namprd02.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Add device tree binding for the CIX Sky1 USB3 PHY, the SuperSpeedPlus
-PHY of the two USB3 Type-A ports of the SoC.
+On 11/15/26 15:48, Michael Kelley wrote:
+> From: Mukesh R <mrathor@linux.microsoft.com> Sent: Friday, November 13, 2026 6:53 PM
+>>
+>> There are few issues/bugs around repeat hypercall:
+>>   o If the hypercall fails, it could still have processed some entries.
+>>     Fix places where it assumes none of the entries were processed and will
+>>     try to undo entries already processed or print incorrect completions.
+>>
+>>   o Hypercall returns back with timeouts only for HW confidential VMs. In
+>>     that case it should be retried instead of returning back. Returning back
+>>     results in error conditions and take down of VMs in most cases.
+>>
+>>   o For non confidential VMs, the hypercall could be streamlined as it will
+>>     never return back with timeouts.
+>>
+>>   o Rename HV_STATUS_TIME_OUT to HV_STATUS_TIMEOUT to match hypervisor
+>>     public header file. There is no reason for it to be different.
+>>
+>>   o Minor formatting fix for checkpatch. Error printing missing in couple
+>>     places when rep hypercall fails.
+>>
+>> Signed-off-by: Mukesh R <mrathor@linux.microsoft.com>
+> 
+> [snip]
+> 
+>> diff --git a/include/asm-generic/mshyperv.h b/include/asm-generic/mshyperv.h
+>> index 396bcb3db0bc..87c784b9daa6 100644
+>> --- a/include/asm-generic/mshyperv.h
+>> +++ b/include/asm-generic/mshyperv.h
+>> @@ -28,6 +28,9 @@
+>>
+>>   #define VTPM_BASE_ADDRESS 0xfed40000
+>>
+>> +#define HV_REP_COUNT_MAX	\
+>> +	(HV_HYPERCALL_REP_COMP_MASK >> HV_HYPERCALL_REP_COMP_OFFSET)
+> 
+> Sashiko noted that this new #define is never used anywhere.
+> 
+>> +
+>>   enum hv_partition_type {
+>>   	HV_PARTITION_TYPE_GUEST,
+>>   	HV_PARTITION_TYPE_ROOT,
+>> @@ -128,6 +131,11 @@ static inline bool hv_result_success(u64 status)
+>>   	return hv_result(status) == HV_STATUS_SUCCESS;
+>>   }
+>>
+>> +static inline bool hv_result_timeout(u64 status)
+>> +{
+>> +	return hv_result(status) == HV_STATUS_TIMEOUT;
+>> +}
+>> +
+>>   static inline unsigned int hv_repcomp(u64 status)
+>>   {
+>>   	/* Bits [43:32] of status have 'Reps completed' data. */
+>> @@ -135,45 +143,63 @@ static inline unsigned int hv_repcomp(u64 status)
+>>   			 HV_HYPERCALL_REP_COMP_OFFSET;
+>>   }
+>>
+>> -/*
+>> - * Rep hypercalls. Callers of this functions are supposed to ensure that
+>> - * rep_count, varhead_size, and rep_start comply with Hyper-V hypercall
+>> - * definition.
+>> - */
+>> -static inline u64 hv_do_rep_hypercall_ex(u16 code, u16 rep_count,
+>> -					 u16 varhead_size, u16 rep_start,
+>> -					 void *input, void *output)
+>> +static inline u64 hv_do_rep_hypercall_reg(u16 code, u16 rep_count,
+>> +					  u16 varhead_size, u16 rep_start,
+>> +					  void *input, void *output)
+>>   {
+>>   	u64 control = code;
+>> -	u64 status;
+>> -	u16 rep_comp;
+>>
+>>   	control |= (u64)varhead_size << HV_HYPERCALL_VARHEAD_OFFSET;
+>>   	control |= (u64)rep_count << HV_HYPERCALL_REP_COMP_OFFSET;
+>>   	control |= (u64)rep_start << HV_HYPERCALL_REP_START_OFFSET;
+>>
+>> -	do {
+> 
+> Dropped the looping behavior here may be much more significant
+> than just "streamlining" as described in the commit message. The looping
+> behavior was included when rep hypercalls were originally added in
+> commit 806c89273bab in kernel 4.14, long before any SNP/TDX/CCA
+> functionality was added. So it was present for "normal" VMs doing
+> hypercalls on x86/x64 the normal way. The looping ensured that
+> rep hypercalls could not return with no errors but with the completed
+> rep count less than the requested rep count.
+> 
+> However, in my mind it *is* debatable whether that scenario could
+> ever occur. The Hyper-V TLFS describes "Hypercall Continuation" [1]
+> as essentially transparent to the caller. If a rep hypercall stops
+> processing reps because of hitting the 50 microsecond time limit,
+> it should restart and continue with the next set of reps without
+> the caller having to loop. Commit 806c89273bab mentions
+> hypercall continuation, but does not describe why the explicit
+> looping was added or how that aligns with the TLFS statements.
+> Vitaly -- it was a long time ago, but do you have any recollection?
+> 
+> Have you gotten an explicit assurance from the Hyper-V team
+> that the transparent hypercall continuation really does work,
+> and the explicit looping has all along been unnecessary? This
 
-The two lanes are not separate devices: they live in one register
-block, share the same clocks and resets, and are brought up by the
-same initialization sequence. The node is therefore a single PHY
-provider with #phy-cells = <0>, referenced by both controllers, and the
-driver reference counts phy_init() and phy_exit() so that the block is
-set up once for all of them.
+Correct, hence the patch. Waiting on confirmation that it is
+same behavior all the way back to server 2016.
 
-Signed-off-by: Hongliang Yang <hongliang.yang@cixtech.com>
----
-Changes in v7:
-- Describe the PHY as one provider of both lanes and say why. v5 had
-  one child node per lane, v6 dropped them, and nothing in the binding
-  or the changelog said where the second lane went.
-- Reword the description so that it describes the provider instead of
-  the register programming of the block.
+Basically, the hypervisor will just adjust the RIP back to the
+vmcall upon internal timeouts, and reschedule the vcpu. But for
+hw confidential vms, ie, tdx/snp/cca, it cannot adjust the RIP,
+hence return back to the guest with TIMEOUT, so cvm has to do in
+a loop.
 
-Changes in v6:
-- Drop the per-port child nodes. The parent node is the PHY provider
-  with #phy-cells = <0>, as the block drives both lanes and the ports
-  share the initialization sequence.
----
- .../bindings/phy/cix,sky1-usb3-phy.yaml       | 78 +++++++++++++++++++
- MAINTAINERS                                   |  1 +
- 2 files changed, 79 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml
+Now, for paravisor support, I was just told by a paravisor team
+dev, that it will never return with TIMEOUTs. My view on that set
+aside, I guess for paravisor we'll just call the _reg function
+then.  Thanks for bringing attention to that...
 
-diff --git a/Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml b/Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml
-new file mode 100644
-index 000000000000..205140bf84e7
---- /dev/null
-+++ b/Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml
-@@ -0,0 +1,78 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/phy/cix,sky1-usb3-phy.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: CIX Sky1 USB3 PHY
-+
-+maintainers:
-+  - Hongliang Yang <hongliang.yang@cixtech.com>
-+
-+description: |
-+  The CIX Sky1 USB3 PHY provides the SuperSpeed lanes of the USB3 Type-A
-+  ports of the SoC.
-+
-+  Both lanes are programmed through one register block and share the
-+  same clocks and resets, so the node is a single PHY provider with
-+  #phy-cells = <0> that all consumers reference. The driver reference
-+  counts phy_init() and phy_exit(), so the block is set up once for all
-+  its consumers.
-+
-+properties:
-+  compatible:
-+    const: cix,sky1-usb3-phy
-+
-+  reg:
-+    maxItems: 1
-+
-+  "#phy-cells":
-+    const: 0
-+
-+  clocks:
-+    items:
-+      - description: APB register interface clock
-+      - description: PHY reference clock
-+
-+  clock-names:
-+    items:
-+      - const: apb
-+      - const: ref
-+
-+  resets:
-+    items:
-+      - description: PHY reset
-+      - description: PHY APB preset
-+
-+  reset-names:
-+    items:
-+      - const: core
-+      - const: apb
-+
-+required:
-+  - compatible
-+  - reg
-+  - "#phy-cells"
-+  - clocks
-+  - clock-names
-+  - resets
-+  - reset-names
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/cix,sky1.h>
-+    #include <dt-bindings/reset/cix,sky1-s5-system-control.h>
-+
-+    usb-phy@9210000 {
-+        compatible = "cix,sky1-usb3-phy";
-+        reg = <0x9210000 0x40000>;
-+        #phy-cells = <0>;
-+        clocks = <&scmi_clk CLK_TREE_USB3A_PHY3_GATE>,
-+                 <&scmi_clk CLK_TREE_USB3A_PHY_x2_REF>;
-+        clock-names = "apb", "ref";
-+        resets = <&s5_syscon SKY1_USBPHY_SS_RST_N>,
-+                 <&s5_syscon SKY1_USBPHY_SS_PST_N>;
-+        reset-names = "core", "apb";
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 93abbb315065..73783abe027e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -2903,6 +2903,7 @@ S:	Maintained
- T:	git https://github.com/cixtech/linux-mainline.git
- F:	Documentation/devicetree/bindings/arm/cix.yaml
- F:	Documentation/devicetree/bindings/mailbox/cix,sky1-mbox.yaml
-+F:	Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml
- F:	arch/arm64/boot/dts/cix/
- F:	drivers/mailbox/cix-mailbox.c
- K:	\bcix\b
--- 
-2.54.0
+> assurance would be needed back to and including Windows
+> Server 2016, which is now the oldest Hyper-V version supported
+> by Linux. Also note that the rep hypercall code is architecture
+> independent, so the transparent hypercall continuation would
+> also need to work on arm64 when the hypercall is invoked via
+> the standard path of using the HVC instruction (the TLFS doesn't
+> cover arm64, so this is unclear).
+
+Both x86 and arm are same for this issue.
+
+> If you have such assurance, then I'm good with the removal of
+> the looping. But please make the removal a separate patch, with
+> sufficient discussion in the commit message to justify why it's OK
+> to do the removal (including that evidently the original commit
+> misinterpreted how continuation worked). And instead of looping,
+> perhaps do a sanity check that the completed rep count matches
+> the requested rep count.
+
+Not sure if it's worth the overhead of sanity check, looks like
+callers are checking completed and loop anyways... But I would
+be OK with BUG(), since it would be a bug for that to happen. FWIW,
+it's been running internally with couple months, and haven't seen
+any issues.
+
+
+> Without such assurance, I think the looping needs to stay. Callers
+> are not prepared for a rep hypercall to return with no errors, but
+> with the completed rep count less than the requested rep count.
+> 
+> [1] https://learn.microsoft.com/en-us/virtualization/hyper-v-on-windows/tlfs/hypercall-interface#hypercall-continuation
+> 
+>> +	return hv_do_hypercall(control, input, output);
+>> +}
+>> +
+>> +static inline u64 hv_do_rep_hypercall_cvm(u16 code, u16 rep_count,
+>> +					  u16 varhead_size, u16 rep_start,
+>> +					  void *input, void *output)
+>> +{
+>> +	u64 status, control = code;
+>> +	u16 rep_comp = 0;
+>> +
+>> +	control |= (u64)varhead_size << HV_HYPERCALL_VARHEAD_OFFSET;
+>> +	control |= (u64)rep_count << HV_HYPERCALL_REP_COMP_OFFSET;
+>> +	control |= (u64)rep_start << HV_HYPERCALL_REP_START_OFFSET;
+>> +
+>> +	for (;;) {
+>>   		status = hv_do_hypercall(control, input, output);
+>> -		if (!hv_result_success(status))
+>> +
+>> +		if (!hv_result_timeout(status))
+>>   			return status;
+>>
+>>   		rep_comp = hv_repcomp(status);
+>> -
+>>   		control &= ~HV_HYPERCALL_REP_START_MASK;
+>>   		control |= (u64)rep_comp << HV_HYPERCALL_REP_START_OFFSET;
+>>
+>>   		touch_nmi_watchdog();
+>> -	} while (rep_comp < rep_count);
+>> +	}
+>>
+>>   	return status;
+> 
+> And Sashiko noted that this "return status" is dead code. The only
+> way to exit this function is via the "return status" up in the loop.
+> 
+>>   }
+>>
+>> -/* For the typical case where rep_start is 0 */
+>> +/*
+>> + * Rep hypercalls for HW confidential VMs return back when timeouts occur,
+>> + * whereas for regular VMs they return only on success or failure. In case
+>> + * of successful completion, entire rep_count is done. But a hypercall could
+>> + * fail with partial completions, hence callers must always check that
+>> + * in case of failure. Lastly, a rep_count value of 0 is allowed for some
+>> + * hypercalls.
+>> + */
+>>   static inline u64 hv_do_rep_hypercall(u16 code, u16 rep_count, u16 varhead_size,
+>>   				      void *input, void *output)
+>>   {
+>> -	return hv_do_rep_hypercall_ex(code, rep_count, varhead_size, 0,
+>> -				      input, output);
+>> +	if (hv_isolation_type_hw())
+> 
+> I don't think this is the right test, so let me explain. You don't describe the
+> context for when HV_STATUS_TIMEOUT may be returned, and there's no
+> TLFS documentation of this status, but I'm assuming the context is hypercall
+> continuation. This isn't the typical "something isn't responding" timeout. I
+> suspect it means the hypervisor hit the 50 us limit, and returned to the guest
+> VM with some reps still to be done. In a normal VM when a hypercall is
+> initiated by the hypercall page on x86/x64 or the HVC instruction on arm64,
+> the transparent hypercall continuation mechanism makes a TIMEOUT status
+> unnecessary. But with SNP, TDX, and CCA, hypercall invocation may be
+> piggybacked on other transports, and transparent continuation isn't available.
+> So Hyper-V returns HV_STATUS_TIMEOUT with the expectation that the
+> invoking code will loop to do the remaining reps.
+> 
+> The key factor is whether the hypercall is piggybacked on other transports.
+> The tests in hv_isolation_type_hw() don't capture that. For example, if
+> a paravisor is present, hv_isolation_type_snp() will return "true" even
+> though hypercalls are invoked via the standard x86/x64 hypercall page.
+> The hypercalls trap to the paravisor. If the paravisor is functioning properly,
+> it should do transparent hypercall continuation just like the hypervisor would.
+> But this is something to be confirmed with the hypervisor and paravisor teams.
+> 
+> Piggybacking is done only when no paravisor is present, so the
+> hv_do_rep_hypercall_cvm() path should be taken only in that circumstance.
+> Your current code works, but it goes down the more expensive
+> hv_do_rep_hypercall_cvm() path when it doesn't need to. (I'm not completely
+> clear on how arm64 works with and without a paravisor, so my statement
+> applies only to SNP and TDX. Need to sort out the CCA case with Kameron.)
+> 
+> Given the non-trivial complexity in sorting all this out, I wonder if
+> distinguishing the _cvm and _reg cases is really worth it. The current
+> code for the _reg case is admittedly inefficient because it does work for
+> the looping case before likely deciding that no looping is needed. But
+> that could easily be fixed. When no looping is necessary, which is the
+> vast majority of cases, the looping code could end up being only a
+> couple of instructions slower than a separately coded non-looping
+> version (I did some builds and looked at the generated code). Since
+> there's overhead in deciding which to use, there may not be any
+> performance win from having both versions.
+
+Well, to me it's correctness issue also. If the ABI says that it will
+not return with TIMEOUTs for non-cvms, then adding loop just masks it
+instead of opening a bug report against the hypervisor.
+
+Hope that makes sense.
+
+On a side note, to solicit your thoughts, i am not sure i like the
+touch_nmi_watchdog()... it appears the the WD is triggered in seconds,
+and if a hypercall is that long, schedule() really should be done in
+between. IOW, remove the touch, instead any very long running hypercalls
+should call schedule(). Of course, that would be a different patch.
+
+Thanks,
+-Mukesh
+
+
+> Michael
+>   
+>> +		return hv_do_rep_hypercall_cvm(code, rep_count, varhead_size, 0,
+>> +					       input, output);
+>> +	else
+>> +		return hv_do_rep_hypercall_reg(code, rep_count, varhead_size, 0,
+>> +					       input, output);
+>>   }
+>>
 
