@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794906286;
-	b=lVovMPb5FIEk6L7L5pDhSHQkxJFRU9vIlXliBGdHf3Rtm8BtpNnVEMjT4DTtTuFdJyrB
-	 z3Ctiz/LL0FbVJyYt6FuM5uPjtukl1Gy4nQgy5kiFRyeOYIYrn6Z0YhAmd1zql0jYDn4c
-	 hrz1Xs77PUxlMYbCUBv5NZVRuFs36Cb6KkdRHbIG3lEg3qynCSvBjfXIgrnJH7vfWZKJ6
-	 YgjcuuNB75sh1aHEdCmZS5NHxEhNF/Ywt03fSRYvFFYDcHmcNRcaTEwuJlyXJ/zDLXM2p
-	 aMGvpIi6Njg+NqZZs5E8FWYvbdnYlsEJ801o9iYmmFNz+wXZAKbHF2Lp2l/1ASEgCDw==
+	t=1794906285;
+	b=ZaKQsmIUa+2UyL6FAirYN6GIauDcfJIMp6ZTEdiHjv2oKoXL+a2oxmk1Vgi57TzQmTgK
+	 pe0vk9ddFErTKG36bttCA5IVAP5Rvhsqan1CvmL+r5XCodGlBoZW5MYEfx9VpTcPTXKsG
+	 bdjPY4LPUHJcmYfC47YfYE1sdKx9H6D8xeDvDDdQ9q7K4mUCL4zbnH598nk8ppu+a5nmr
+	 SypmfH59cEOqOCj/sGemEu+zAMClnz9mZSvygXcaRvAwJpCggAaXjsPJ5GF9gO7CheTNR
+	 8nKMOZrjGWn4o+NA0brCy23bmeaaE733Ov4oNUPKG2L1ckPCpdgAWZbtXtOvYQ1yZfg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794906286;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=rpGdPUaYvdxV8SwlB9eFEWGNDR50djcdHcgGh/O/aFE=;
-	b=bF72VBRwJxUMln6uXPiFReXXrYzcd+DKpwyO70qpodonwsgZSjvPGC5IWN44k07Zy6EK
-	 hq1mvkbcLNmhz70zguzM6Eoc5T+78HwWgj8l7Cu4RfwJTq0kO3hlbdoIAG+5nQuVyoYpw
-	 CdS+Pd6PXlkDqMSB8W7NJOBWVlPG80jDW2AkWn/d58BiMY5N/o+YZUgXibNa4zg3FPMDX
-	 OtWkDcnrFshYal9rAR0W+kzHVyoTJfvI/FMP1M+xctKlDzh6aEMiKis/e+MuqEJf5QTib
-	 xAhDFa5TmeUSxyHnv8p/+M3ICzClP4Lmk+Zul5tSUoxlpzXtCU2u51QH3IlTN8AAJTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794906285;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=WbZ2j7KK+/J5WiFdQr9VEro+GebKdoeQF28eK62xn70=;
+	b=uoa/ONR2v2L2XtLwngdoaeFjov2zhWFkdPrTK6MMUICD66s3ChYDBDLZllm5FOme5DNM
+	 LdoWz5yYlVeaKQ9b4k7LA40wMQYAtwPuWbo6xZ84ZbneWzQUefskNdQ2F+gfida7U+3tT
+	 VCvrDOSdWF7J6HRLZb7lt2gf+cFfmTDqCOyhAinI0xkpM2YYREfGzf8VHP+Hl/fL8PSKQ
+	 QAmSBj4Rsa+K0EiC3JbqxP2NPG32ykIbmZnHRBWx6ayyNwc6SM5SqmCSeRY4s2HEyp81P
+	 AsCewZe7CsW8swI5YQVMubR+SQxWcRKEeSYRi3/n56Hp8J1Qb93kdzmWprFABwXswSg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fCOnXrdX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mpiJ6KnJ;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D8C0606A337;
-	Tue, 17 Nov 2026 09:04:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0B4C606A323;
+	Tue, 17 Nov 2026 09:04:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fCOnXrdX
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mpiJ6KnJ
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794906286;
-	b=a6gEl7dp6Ko1252OI7zeql2T+jS2QIV53nELOoKtgxnEXwSGD6ljv5pNxa0pQpGpcgLA
-	 NLQBkqThnxQPUrdPBxo6BMqGDXbAd8pv8pwnXBeKVqwT/2wkXxkuOKCxU/AX+Uk54c76a
-	 mMMmqPPTwBeXmaEAJTcS42Hx+GZ6DRbHCw0MpzV4eHfXcU6b6/V3pszePZ7UVW1agTEDA
-	 c6NH3/XuuKQzFw+2GOOXg5mH+/jSv8gO1lmWHlWHhIljB4whACe1fTRZh13SxqoYsiN/n
-	 G+4J2+GTd0CltXjPBV0w/HyWcgYx2Yh8hMOm3JR3mwuDDOExhNebL1a//HNLLdJb/mQ==
+	t=1794906285;
+	b=1mN9tnzlP1HKVhWl/IOf9omPObK4dALvuhNW5MJO0SsYH7zZxfzJKI9r+ggFDWj6ZYmk
+	 WB1pI8s/vQGrGj2NTy3ZRcSetHs5suBbuVTrfbGhQdl6GNRAkzQQag4HbWcuLNXFNisZ2
+	 +uTP27NbKPm2CwSBjgsDHPx8LsnX4JTwryI4MP6cn3R5tD4Z/lMmymZyKTNWyjAN++z+/
+	 eNn+PTYXF08+JcV81tYw69e5Y6ymwLC2vxYYlebK9XyDJJ2lUvMDQFpoHm4AyHPyMo1nR
+	 X4LLk8FOgimgT4DNJXLyzW40cZraYZ0iMPvRgFugf4FAn4gXJTomx8zU0/jkA+sDO1A==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794906286;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=rpGdPUaYvdxV8SwlB9eFEWGNDR50djcdHcgGh/O/aFE=;
-	b=POnSJnI5fhv6NihDdxidPYvm+KOnCHXTuBf7qoUF1RqlR0PfGMoDyKeBxSxKMMq+jejj
-	 cJHMfjX2fkTa5YDWT+pnIsjqtEI0GzAEW+drlucqTwyUetSdIgdblLL0ohStuYYQZos8b
-	 xekuti0qdvYQS8gA3rmo+AFQBpV4ByfrlDxnJjpHJKx1h0V9J70R4DiPxAi+1EDvEJw77
-	 vcTi+fE3iiCvwGgYsqwi32XzjLSEhoVNSXHchHysQXYmMG6JpOcWj7PFhEMLTbtX7Xgep
-	 DKMb7zn5Gb5kAk9MVEZKBlHbq3cevBn1Btahy4oxg0If3qsyLI1vOQBX8Ma0rrTcbLQ==
+	c=relaxed/relaxed; t=1794906285;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=WbZ2j7KK+/J5WiFdQr9VEro+GebKdoeQF28eK62xn70=;
+	b=Dw5MA5VQj4RGzRBElyN14VEVQMdj1ARqqIjDdTxHF8mPXdBGfBBBL0pYh9znMWqRRPlV
+	 I2Lv7IwKK2f+CWW04DY0HzFBrFHp+7UXCwMv1pAUIrM8GO5S/yzRKv1D3CxAcrI5JXs90
+	 j6Rd7qaIJXRakHTG9lSWV+u7IKpJjWGBfRFMez+Hwzrkz6u6dkRXoTfPB521DF+JXnBON
+	 1JcV9IJpfhdoc8vC9yufjSXBUVvFWteW81rUnV3OnYqcn88TFQvoTr6Ujqvke7QLcTuy+
+	 OgiDcpj8QuOm8yGaVhdeFHcl4JzgF7ZnJEd8IOz28S14755yCDbEfFT2UmbrEyqjw0Q==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0288A1F000C7;
-	Tue, 17 Nov 2026 09:04:45 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id C3B021F000C4;
+	Tue, 17 Nov 2026 09:04:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794906286;
-	bh=rpGdPUaYvdxV8SwlB9eFEWGNDR50djcdHcgGh/O/aFE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=fCOnXrdXgpOpJHDf5RNfSeWn1x/UgNBmgwOuSWpihr/Nffd7KYl4VnIorRrRxMwyx
-	 7yNPQDFvqztUatjDVKxeNKUYmH7tFSMNr4QzaDN4aUq+gRs1RQp0QRWdjHPzaKQcl/
-	 I2r4kBMAirRBl8X69iR5a8wuErGDb8SXsMIVpnPiqLngfMBhoF7VIyI0Dr9AhCsqYw
-	 CdRKRI0F1g5sKvCR6hI6Nj48yVtBG7SwgHlyUW8f7Sw/DY/0JnNzTZu5LOW7cbjY1K
-	 8bmOjQaf8McVJWpClwkDmqmsx49vhwCcqp8g0kMQcV83eIrPK9J34XIhaPAO9l+C02
-	 Db26TSj+SxoNg==
+	s=k20260515; t=1794906285;
+	bh=WbZ2j7KK+/J5WiFdQr9VEro+GebKdoeQF28eK62xn70=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=mpiJ6KnJNevN1j6B2O4VL4KJu1sYk4KKYsye2hS1B9lQ5QEWpCIxEjSPtRfmwN2ub
+	 WIVk1aW+dGL68+cOffnbaq6K+dwB7C3GVuYOiDEk7416OiF2lKHZS6uKNsG/w4A+m9
+	 wX2ykrW/wLBI5GYLesmik3ggVrIqI3LoVj2AiUfn3+ckLyUVYgbls5PUNdpx7Q66VM
+	 GK8rGo3vKuVgVp0/zydmzyyCykZ9nxWZFDDX34NMYwQrNx+FTgX5aZ/u/2SMjhL+rg
+	 ZnPlM+T8xq/0iEFV4/NrBir1N/KBxyPtcvYQ5ZaVw8XVplNpGt2kdiFwnzSiiHgUuR
+	 9+UWmEIe9vAxw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 870894A76B;
+	by lkml.kernel.org (Postfix) with ESMTP id 543834A767;
 	Tue, 17 Nov 2026 09:04:44 +0000 (UTC)
 From: Cunhao Lu via B4 Relay <devnull+1579567540.qq.com@kernel.org>
-Date: Tue, 17 Nov 2026 17:04:36 +0800
-Subject: [PATCH net-next v4 2/2] net: stmmac: dwmac-rk: Add RK3572 support
+Subject: [PATCH net-next v4 0/2] net: stmmac: Add RK3572 support
+Date: Tue, 17 Nov 2026 17:04:34 +0800
+Message-Id: <20261117-add-board-ok3572-c-net-v4-0-4e9da569395a@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,9 +84,13 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261117-add-board-ok3572-c-net-v4-2-4e9da569395a@qq.com>
-References: <20261117-add-board-ok3572-c-net-v4-0-4e9da569395a@qq.com>
-In-Reply-To: <20261117-add-board-ok3572-c-net-v4-0-4e9da569395a@qq.com>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKIY/GoC/33O227CMAwG4FdBucYozaFpudp7TLtIExeyiYYmX
+ QRCfXfSIHGQ2Hxn2f9nX0jE4DCS7epCAiYXnR9yI9YrYvZ62CE4m3vCKKurXKCthc7rYMH/cKk
+ YGBhwAmGFbBplpJI9yeFjwN6dCvxJloUBTxP5uk3ib/eNZlrcZXfv4uTDufyQqpIo5yhj786lC
+ ijQjva2kZpXiB/juDH+UPTEHvl/3k0sG5wKUde8Fa2iLwZ/Nuo/DZ4N3UrVW2Nbo/TdmOf5Ck5
+ 54LtZAQAA
+X-Change-ID: 20261111-add-board-ok3572-c-net-4d45887c575f
 To: Andrew Lunn <andrew+netdev@lunn.ch>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
@@ -100,162 +105,110 @@ To: Andrew Lunn <andrew+netdev@lunn.ch>,
 Cc: Cunhao Lu <1579567540@qq.com>, netdev@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-stm32@st-md-mailman.stormreply.com
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew@lunn.ch>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794906282; l=4926;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794906282; l=3198;
  i=1579567540@qq.com; s=20261015; h=from:subject:message-id;
- bh=PHpqZ+GOqfRjSMvMapiQiGM+AGA3jokwR7gl+Dnd1WQ=;
- b=dMpRZYGKOHZMR8D/GWCAP254JIBi6CDvFT1/dyMPXpXufhCMd4T9tTj8sw6mQWFYEF8ox4aoU
- lU13YKm+BqjCqUb0w5YhgXZBR41Dn0I3tGBxPhFcLKLcPP+BtTx/xbc
+ bh=dxVQr0Z+Jy++pw/QahoAh2q1mmxM+G108Hhqlj5hWkg=;
+ b=YZPG4bebkuCk+kQfDDvJcqu7+fUfXg2fyDNVN2awgoK9n1+HEpXKAp9n+u56ujzpUednHJz/o
+ HYeBnC1vk40AErZpP0bmqPpb9gLdh2FWcxa9FPTAA5IH7qtfHxe+HRF
 X-Developer-Key: i=1579567540@qq.com; a=ed25519;
  pk=sUTWrzlIwT4C7ctjNfVZAzzg0G7QUn2XxRGpYsw4RtM=
 X-Endpoint-Received: by B4 Relay for 1579567540@qq.com/20261015 with
  auth_id=1177
 X-Original-From: Cunhao Lu <1579567540@qq.com>
 Reply-To: 1579567540@qq.com
-Content-Transfer-Encoding: 7bit
 
-From: Cunhao Lu <1579567540@qq.com>
+This is one of the subsystem submissions for RK3572 support.
 
-The RK3572 has two GMAC controllers with separate mode and clock control
-registers in the PHP and NVM0 GRFs. RGMII delay lines are configured
-through the IOC.
+This series adds the RK3572 GMAC bindings and support for both Ethernet
+controllers in the Rockchip stmmac glue driver. It provides RGMII and
+RMII mode and clock control, with MAC RGMII delays disabled.
 
-Add the register layout and delay callback for both controllers so the
-Rockchip glue driver can configure their RGMII and RMII interfaces and
-select the appropriate clocks for each link speed. Skip parsing the
-deprecated tx_delay and rx_delay properties for RK3572.
+The RK3572 SoC has eight CPU cores: two Cortex-A73 cores and six
+Cortex-A53 cores. It also integrates an Arm Mali-G310V2 MC1 GPU.
+The OK3572-C board provides two Gigabit Ethernet ports, three USB3 Type-A
+ports, a Type-C dual-role port, eMMC, microSD, and UART.
+
+Testing was performed with Debian 13 minimal and Linux 7.3 on the
+OK3572-C with the FET3572-C module.
+
+Passed functionality:
+
+- Both Ethernet ports obtain IPv4 addresses and pass bidirectional file
+  transfers.
+
+Stability:
+
+- Ethernet error and drop counters do not increase during bidirectional
+  network tests.
+
+AI assistance:
+
+- Codex / DeepSeek V4.1 Flash were used for:
+  - Reviewing and adjusting code style to follow community conventions
+  - Automating tests
+  - Collecting data
 
 Signed-off-by: Cunhao Lu <1579567540@qq.com>
 ---
 Changes in v4:
 - Skip legacy delay properties and disable MAC RGMII delays on RK3572.
+- Link to v3:
+  https://patch.msgid.link/20261116-add-board-ok3572-c-net-v3-0-a957fdcd9c7a@qq.com
+
+Changes in v3:
+- Deprecate tx_delay and rx_delay and disallow them for RK3572.
+- Link to v2:
+  https://patch.msgid.link/20261111-add-board-ok3572-c-net-v2-0-304466394970@qq.com
+
+Changes in v2:
+- Split the original RK3572 support series by subsystem.
+- Add rockchip,rk3572-gmac to the shared Synopsys compatible list in
+  snps,dwmac.yaml.
+- Link to v1:
+  https://patch.msgid.link/20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@qq.com
+
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 94 ++++++++++++++++++++------
- 1 file changed, 75 insertions(+), 19 deletions(-)
+Raw dmesg: see the v1 cover letter.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-index a37df5767d84..95889cbc4c39 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-@@ -900,6 +900,58 @@ static const struct rk_gmac_ops rk3568_ops = {
- 	},
- };
- 
-+#define RK3572_VCCIO0_3_VO_IOC_CON1		0x10608
-+#define RK3572_VCCIO1_2_4_VI_IOC_CON1		0x12604
-+#define RK3572_VCCIO5_6_IOC_MISC0		0x14630
-+#define RK3572_PHP_GRF_GMAC0_CON		0x0070
-+#define RK3572_NVM0_GRF_GMAC1_CON		0x0020
-+
-+static int rk3572_init(struct rk_priv_data *bsp_priv)
-+{
-+	switch (bsp_priv->id) {
-+	case 0:
-+		bsp_priv->gmac_grf_reg = RK3572_PHP_GRF_GMAC0_CON;
-+		break;
-+	case 1:
-+		bsp_priv->gmac_grf_reg = RK3572_NVM0_GRF_GMAC1_CON;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	bsp_priv->clock_grf_reg = bsp_priv->gmac_grf_reg;
-+	return 0;
-+}
-+
-+static void rk3572_set_to_rgmii(struct rk_priv_data *bsp_priv,
-+				int __always_unused tx_delay,
-+				int __always_unused rx_delay)
-+{
-+	u32 val = GRF_CLR_BIT(15) | GRF_CLR_BIT(7);
-+
-+	if (bsp_priv->id == 1) {
-+		regmap_write(bsp_priv->php_grf, RK3572_VCCIO0_3_VO_IOC_CON1, val);
-+		regmap_write(bsp_priv->php_grf, RK3572_VCCIO5_6_IOC_MISC0, val);
-+	} else {
-+		regmap_write(bsp_priv->php_grf, RK3572_VCCIO1_2_4_VI_IOC_CON1, val);
-+	}
-+}
-+
-+static const struct rk_gmac_ops rk3572_ops = {
-+	.init = rk3572_init,
-+	.set_to_rgmii = rk3572_set_to_rgmii,
-+	.gmac_phy_intf_sel_mask = GENMASK_U16(11, 9),
-+	.gmac_rmii_mode_mask = BIT_U16(3),
-+	.clock.io_clksel_io_mask = BIT_U16(7),
-+	.clock.gmii_clk_sel_mask = GENMASK_U16(6, 5),
-+	.clock.rmii_clk_sel_mask = BIT_U16(5),
-+	.clock.rmii_gate_en_mask = BIT_U16(4),
-+	.supports_rmii = true,
-+	.php_grf_required = true,
-+	.regs_valid = true,
-+	.regs = { 0x29d20000, 0x2a040000, 0 },
-+};
-+
- /* VCCIO0_1_3_IOC */
- #define RK3576_VCCIO0_1_3_IOC_CON2		0X6408
- #define RK3576_VCCIO0_1_3_IOC_CON3		0X640c
-@@ -1331,26 +1383,29 @@ static struct rk_priv_data *rk_gmac_setup(struct platform_device *pdev,
- 			bsp_priv->clock_input = false;
- 	}
- 
--	ret = of_property_read_u32(dev->of_node, "tx_delay", &value);
--	if (ret) {
--		bsp_priv->tx_delay = 0x30;
--		dev_err(dev, "Can not read property: tx_delay.");
--		dev_err(dev, "set tx_delay to 0x%x\n",
--			bsp_priv->tx_delay);
--	} else {
--		dev_info(dev, "TX delay(0x%x).\n", value);
--		bsp_priv->tx_delay = value;
--	}
-+	/* Skip parsing legacy tx_delay and rx_delay properties on new SoCs. */
-+	if (ops != &rk3572_ops) {
-+		ret = of_property_read_u32(dev->of_node, "tx_delay", &value);
-+		if (ret) {
-+			bsp_priv->tx_delay = 0x30;
-+			dev_err(dev, "Can not read property: tx_delay.");
-+			dev_err(dev, "set tx_delay to 0x%x\n",
-+				bsp_priv->tx_delay);
-+		} else {
-+			dev_info(dev, "TX delay(0x%x).\n", value);
-+			bsp_priv->tx_delay = value;
-+		}
- 
--	ret = of_property_read_u32(dev->of_node, "rx_delay", &value);
--	if (ret) {
--		bsp_priv->rx_delay = 0x10;
--		dev_err(dev, "Can not read property: rx_delay.");
--		dev_err(dev, "set rx_delay to 0x%x\n",
--			bsp_priv->rx_delay);
--	} else {
--		dev_info(dev, "RX delay(0x%x).\n", value);
--		bsp_priv->rx_delay = value;
-+		ret = of_property_read_u32(dev->of_node, "rx_delay", &value);
-+		if (ret) {
-+			bsp_priv->rx_delay = 0x10;
-+			dev_err(dev, "Can not read property: rx_delay.");
-+			dev_err(dev, "set rx_delay to 0x%x\n",
-+				bsp_priv->rx_delay);
-+		} else {
-+			dev_info(dev, "RX delay(0x%x).\n", value);
-+			bsp_priv->rx_delay = value;
-+		}
- 	}
- 
- 	bsp_priv->grf = syscon_regmap_lookup_by_phandle(dev->of_node,
-@@ -1720,6 +1775,7 @@ static const struct of_device_id rk_gmac_dwmac_match[] = {
- 	{ .compatible = "rockchip,rk3506-gmac", .data = &rk3506_ops },
- 	{ .compatible = "rockchip,rk3528-gmac", .data = &rk3528_ops },
- 	{ .compatible = "rockchip,rk3568-gmac", .data = &rk3568_ops },
-+	{ .compatible = "rockchip,rk3572-gmac", .data = &rk3572_ops },
- 	{ .compatible = "rockchip,rk3576-gmac", .data = &rk3576_ops },
- 	{ .compatible = "rockchip,rk3588-gmac", .data = &rk3588_ops },
- 	{ .compatible = "rockchip,rv1108-gmac", .data = &rv1108_ops },
+To: Andrew Lunn <andrew+netdev@lunn.ch>
+To: "David S. Miller" <davem@davemloft.net>
+To: Eric Dumazet <edumazet@kernel.org>
+To: Jakub Kicinski <kuba@kernel.org>
+To: Paolo Abeni <pabeni@redhat.com>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Heiko Stuebner <heiko@sntech.de>
+To: David Wu <david.wu@rock-chips.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+To: Jose Abreu <joabreu@synopsys.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: netdev@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-rockchip@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
 
--- 
-2.34.1
+---
+Cunhao Lu (2):
+      dt-bindings: net: rockchip-dwmac: Add RK3572
+      net: stmmac: dwmac-rk: Add RK3572 support
+
+ .../devicetree/bindings/net/rockchip-dwmac.yaml    | 15 ++++
+ .../devicetree/bindings/net/snps,dwmac.yaml        |  1 +
+ drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c     | 94 +++++++++++++++++-----
+ 3 files changed, 91 insertions(+), 19 deletions(-)
+---
+base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
+change-id: 20261111-add-board-ok3572-c-net-4d45887c575f
+
+Best regards,
+--  
+Cunhao Lu <1579567540@qq.com>
 
 
