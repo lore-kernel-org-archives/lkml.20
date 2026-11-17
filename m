@@ -1,58 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794910989;
-	b=A0q63otVO1Ht/W4j0JUuqso2CqOj3H6OPUebCOzS6L/zbv9xG1QtS8b1N3YDA6o2C+W4
-	 RJM1bOTZF4bQvNzQ0op7vz/UM65+HnKVKpA3PcFXEEbHDcZW/jZo8OuKUoPjy4eu0pWsN
-	 m67+hIFR5CgPWlViAxk0Zw34dppzvB8l4Rnw5gUzeGFWKgCTTOXJp+C7zhUPLazVZypdI
-	 q6EtjHJ8mHpvoxRLAWPhE0btlUWF/jN7QGHEh3rXpd6CwglyasbA2A+LmotZAEPzr99/t
-	 G92GEcIlzuY5DSM+b+7chyexjeEEwG08po7xR1CI7Q4xyOuScsAHbkNBKzBkJmjq+zA==
+	t=1794911013;
+	b=D/zZk0l3mGMKMHerY7J09R+g8PTjs4MOEpmVszUOGbzkFlUPW77lawbpswQ5l7Tet9Rz
+	 5VdoFdSBdXvdj1tCXnXPuKyPidNMPNdynQ5kBNITKJmCsjVPEx5rYGTymLspqito9In4c
+	 yBPhW9YqGv5V4Zm88MBrX++DzhIrUimaoNMZ9uTjgwCxznVNCu9GRRoAsHje+eXc74NgT
+	 NTfEKktYuSQpNIqRRRrJwWJnv7JESb/zBrC3gDwmHmNiUfQDvssqqqvJ5NI6dAUfmlXlW
+	 qVGlZOly7zji+nZxZnFbcyVQLpUTlG946TNPFgHJdAY9TA1D1rTG60HVv8JKVf7MDXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794910989;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=jLMD7Jcy+SufZWp/84cELInAfnlXl2JNyOiu/MIj0FU=;
-	b=jc0cvI6VHqhqGNZKGXGOGI6wIMocWmtbPf6EbEEtBEzlAyJbp3RaS8n8S0jytSfWzTyA
-	 1+3OKup9mRaWamO8705t7to0M0sRRpkTDJDPXomyLvJYEXHtdlJcI9ltWFtx7Sw8dSzS/
-	 EzVU6QNu/+tVM4YFV3/UVZgpjXG+nYGbhGOxk+Wf8J/ymMcOgO4hv5trnOv0BppY/nxB4
-	 jzzxGw8S9OxdroLr7MiFbl6W6uiQB0W0bIIlK5DMBBZS4FBvmFYKxwvdOzy2UMwpAVVCQ
-	 1Hf36vSHkFm0Rtp4seakB/VTXMdbo1eb0HXUzMkSs5vTVogg6I1B1tbMr9EW8lPyK5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794911013;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=DjsejkRzYNs7HgK1jG5OP5VX/gmq6yS31WYEACSluoo=;
+	b=wdRIvuHVols3XzYlgcQlG1MMGoHg2SNbYEkxg4BMMh7vIYp29SdVRX7wRYVqQgSsyueF
+	 dOImkMsjKat5rpFINZrwmlUcuRUGXppEVs4KgyGUhV2wKkQFs/YmjO3FPwkvBUy0Jvecm
+	 ctIRmR9V2s/TEy8e5XB+8tpYe4tYTZaZShdIDFm9DbtXMtMeDssWiw4GHXAm86S/s+n8j
+	 RGZMIg2csMGWjdBTqJKWWNtxCzjly6JognU610DwGsmIRfwbua1j2q+AHGaZFEiBjLfvq
+	 t09XDilRQElNPRuC6owYRPgqQsQaIapLop/YRJ+SjN065zS7/pwHLWV/ZebI9+S41yQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=d3z5tUbW;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=etDJOiya;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=J4CIb+QY;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B142606A32C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:23:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B142606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D7F4606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:23:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D7F4606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=d3z5tUbW
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 117C01A158C;
-	Tue, 17 Nov 2026 10:23:07 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D955A5FC81;
-	Tue, 17 Nov 2026 10:23:06 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7731111BC02EE;
-	Tue, 17 Nov 2026 11:23:02 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794910986; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=jLMD7Jcy+SufZWp/84cELInAfnlXl2JNyOiu/MIj0FU=;
-	b=d3z5tUbW2GcoX0WC/98MuU2z0bAT8USRMeH+o2CGaNOep+aeNYXELx4Y1v2MHRoM0xGICq
-	oxOYKwvOKqmUeGhZfl9swdwLLx10azhdpMnKdr9ZMKtfiKYBi/1HCPBGXQAiVu3BY4g4+S
-	6tN5i+TTIz/p0rFUKOo5WN4/Cx468e3XAcwRGb7ZOeoNRlJ7hYmCmVjOSTyXHI5WuCeYO/
-	1cPo3/BM7QFOiCN6Slf0sfuS+/c4QW9arb0kJYsywuZYnO+rme+SzwOnd7zfmAhlljzNyR
-	7b40lWdEOpoO8h8tyc3b+b4Or4Bv5ymopOUXYYm6ytVPUnyGCyn9byOqwX4voA==
-Message-ID: <6c323fca-5d38-40f4-a923-26bdf43cea7c@bootlin.com>
-Date: Tue, 17 Nov 2026 11:23:01 +0100
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=etDJOiya;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=J4CIb+QY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794911012;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DjsejkRzYNs7HgK1jG5OP5VX/gmq6yS31WYEACSluoo=;
+	b=etDJOiyasiks6YIIATAsrZ9FksYaB3rxedv1Fh8ZHPAzpZ3wyyCl7QoCcWxNvkZIFeCxnH
+	YOYJMwcvKA+rcXnrwxzWsn+HUGd0eGVwvEzlMiPgG1USGerduPG5m5gMS3rxB3Gs4CaRAi
+	SuGgUOmw0Zd1bLXntuwEPNqEd1hLA2I=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-414-otSNAzPgNSuvGQyaagn7cA-1; Tue, 17 Nov 2026 05:23:30 -0500
+X-MC-Unique: otSNAzPgNSuvGQyaagn7cA-1
+X-Mimecast-MFC-AGG-ID: otSNAzPgNSuvGQyaagn7cA_1794911010
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4ba078abd70so30899655e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:23:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794911009; x=1795515809; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DjsejkRzYNs7HgK1jG5OP5VX/gmq6yS31WYEACSluoo=;
+        b=J4CIb+QYP52F5Ozz1YSRzNCLJP8GFuZ9WKhiO5qnYiSoQNpG8/9CwWGoKgL1SmKr7Y
+         D+58Njqz4HR60pBqUd2n90oOsNkK1Sy2U1zMRrSeHthZntF5pEQvvXZkoh936sFct2mi
+         egpCxuefUqMLqSSOvC22AgPh4pSB6LkTfX1A5qCP9dG0yKlMTFxCKZUXUiCBdEc2neDs
+         mBjODN41nRz9wXqyXzjXWhRSPwROi16gisiGLAQsMpNc0WqI++yt3gNo1Y0Zy1lv82fC
+         CJXCfoQQT0W5YaZJyhquybp8584U+2wQR5pRnxub3YOd7TY+EN+1Bc23h9Ta3l6apaxR
+         ZRow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794911009; x=1795515809;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DjsejkRzYNs7HgK1jG5OP5VX/gmq6yS31WYEACSluoo=;
+        b=d8com7oZGRlMlSornhnXwfHuJO4WQWGgA669k/upXacGXO5paICCKWy3Ej6HciKni8
+         UhrZ+mD4I5ALzHf7F3Gg9EiQeWMccv0MHD1SLPxlac9/rHp282c4+Nz/bcsONxAuEuvK
+         /DhhcH8pjc746n5/lymz/eoB/PFINXu+xwpXMbEUN2fdjZWzUXSzKhcNR/ImxtyIODiR
+         6ARXJLjAZHSGHo07p0ZqZ+0+aWidXieq32OPTtXRTLsQV8+kunBTFJ9cGpxQWPbiWXmV
+         R08No3v/BRZpZPKcxhZ70+xCWvVjQJot1NlWPkzW+MvgajFQdSjtFMio2vSulc2Ct3tx
+         2CzQ==
+X-Forwarded-Encrypted: i=1; AL+hErGmBiLNkfQBe3RG7HU+Y8GKUDr/5ue8F0WuAV6Y5wqYJsiPd3AezPWAaUYaCD0cGgubI6a/wKHo3Aqbu1s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/MJ+Nrz1MK5y4mqW4dWc8yMj9WZciUzbWo28tqeDB+grVQGoHr
+	hqeIJ1w5XUncYGmz2zLkQjkvvP2Vm4iponLZH+CYtPSVxNeukA5xbhDDIiNLoSeHnrx8JA2UcEt
+	Dra7ehHi8pCFhwpAif49ETm5SytXcK9KX/5lhFtMhuO33Ly75cWy6FTJn1fCJSiyxsw==
+X-Gm-Gg: AYBFou1IMVLZ0qbFpXKGhWIb558GXfJ/0YJdVP/mZUcnuE6QulmibsqSCj3T1wi3gUk
+	XmVGR5JyXpXpgY1N2+r1NiEYPe/z7DUU8p+wEqLugLKwqxKbtS/HPLJFU4Ps5/yD/JD4FxU4HMy
+	TorvIx0QrmCyc1s/1T4Mtuvc/KHg0KkqmdL2Vn2Nl8YZN3UjKv7269AIOOaRDFq8ZRk5wOplcsw
+	M36RH5Dt9lk877aaNE6Y0RFmlqOgic/LdFYGTjH04CvUxoCkDAQZyIwLymDtoVXy7nLaekrybJJ
+	CX7VHepBOY8q2hDzBkIw2WrbDc4TJVRQ1XGpNHOg73KANxlC7Hx0FkR/zkxUssfoMgUxfeiWFqj
+	kcpa+YyLYV/Yf5/MTKT/KDZ6Vm7kjpBWXxLA9cLhGPQv38C0qzzJwBhxibizfOcWuOP4i74+tDY
+	GSntktBDEZvQC19KMmQwzARLXLk0ZgrNM1tJ7oXU5LTbiO
+X-Received: by 2002:a05:600c:6097:b0:4bb:6626:5a25 with SMTP id 5b1f17b1804b1-4bb66265d0bmr183353735e9.20.1794911009434;
+        Tue, 17 Nov 2026 02:23:29 -0800 (PST)
+X-Received: by 2002:a05:600c:6097:b0:4bb:6626:5a25 with SMTP id 5b1f17b1804b1-4bb66265d0bmr183353215e9.20.1794911008961;
+        Tue, 17 Nov 2026 02:23:28 -0800 (PST)
+Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb78420edasm86900245e9.9.2026.11.17.02.23.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 17 Nov 2026 02:23:27 -0800 (PST)
+Message-ID: <09156786-c9c6-47e3-8674-816b80300a3f@redhat.com>
+Date: Tue, 17 Nov 2026 11:23:25 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,264 +113,77 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v3] net: stmmac: program the FSM timeout timer
-To: Zxyan Zhu <zxyan0222@gmail.com>, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com
-Cc: netdev@vger.kernel.org, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- rmk+kernel@armlinux.org.uk
-References: <20261116114923.1157920-1-zxyan0222@gmail.com>
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Subject: Re: [PATCH net-next v4 0/5] net: devmem: size TX net_iovs from the
+ dmabuf layout
+To: Stanislav Fomichev <sdf.kernel@gmail.com>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, michael.chan@broadcom.com, pavan.chebbi@broadcom.com,
+ andrew+netdev@lunn.ch, edumazet@kernel.org, horms@kernel.org,
+ shuah@kernel.org, almasrymina@google.com, sdf@fomichev.me,
+ leitao@debian.org, dtatulea@nvidia.com, asml.silence@gmail.com,
+ bobbyeshleman@meta.com, daniel@iogearbox.net, razor@blackwall.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+References: <20261111224740.2744522-1-sdf@fomichev.me>
+ <1b764043-2efd-4e65-adb9-a47c0136446b@redhat.com>
+ <avZC2hp_0ODMQ4SG@devvm16445.scu0.facebook.com>
+ <avZZ-6GGciPC0Lti@devvm16445.scu0.facebook.com>
 Content-Language: en-US
-In-Reply-To: <20261116114923.1157920-1-zxyan0222@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <avZZ-6GGciPC0Lti@devvm16445.scu0.facebook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
+On 11/13/26 01:41, Stanislav Fomichev wrote:
+> On 11/12, Stanislav Fomichev wrote:
+>> On 11/12, Paolo Abeni wrote:
+>>> I'm wondering if making a comparison vs MAX_SKB_FRAGS==45 would be
+>>> complex and if you could do that, too.
+>>
+>> Originally I did not want to include bigtcp to keep it apples to apples:
+>> same tso size, just 16 frags in skb vs 1 (in ideal case).
+>>
+>> I just tried running mlx5 with 45 frags configured and it fails to start with
+>> the following error:
+>> mlx5e_attach_netdev() warns "MLX5E: Max SQ WQEBBs firmware capability: 16, needed 23" and returns -EIO.
+>>
+>> (fwiw quick review with llm claims that mlx5 only supports up to 20 skb frags)
+>>
+>> What I also tried just now is `gso_max_size 524280` (on top of this series)
+>> and it ups single flow throughput from 200Gbps to 240Gbps (presumably
+>> by making the receiver go faster with 512K TSOs vs 64K TSOs) and halves
+>> the sender softirq..
+>>
+>> I hope this gives you more data, not sure running with 20 frags is worth
+>> it (vs 16)? LMK if you disagree or want me to run something else.
 
-On 11/16/26 12:49, Zxyan Zhu wrote:
-> stmmac enables the FSM timeout checker (TMOUTEN) but never programs the
-> MAC_FSM_ACT_Timer register.  Per the databook the checker only fires once
-> NTMRMD is programmed with a non-zero duration; NTMRMD == 0 disables the
-> timer, so with TMOUTEN set but the timer left at reset a stuck FSM is
-> never reported and the advertised timeout protection is ineffective.
+Thanks, the above is quite exhaustive :)
+
+> Fun fact, also setting gro_max_size on the receiver gets line rate over
+> single flow:
 > 
-> Program MAC_FSM_ACT_Timer right after TMOUTEN is enabled, deriving the
-> TMR field (CSR clocks per 1us tic) from the CSR clock rate and defaulting
-> to a 1s timeout.  A platform can override the default through the new
-> ntmrmd field in stmmac_safety_feature_cfg.
+> I   client.c: Connected 1:cpu 39 | 1:cpu 118
+> client: == Source 2401:db00:255a:4a:bace::b
+> client:   Tx389.448 Gbps (2921248849920 bytes in 60008026 usec)
+> client:   Rx  0.000 Gbps (0 bytes in 60008026 usec)
+> client:   TCP retrans reord rtt rttvar d_ce snd_wnd cwnd
+> client:             2   125  86      2    0 15300608 10142
+> client:   net CPU 39: usr: 0.03% sys: 0.06% idle:67.39% iow: 0.00% irq: 5.69% sirq:26.81%
+> client:   app CPU 40: usr: 0.05% sys: 2.91% idle:95.67% iow: 0.00% irq: 0.21% sirq: 1.14%
+> client: == Target 2401:db00:255a:44:bace::b
+> client:   Tx  0.000 Gbps (0 bytes in 60009306 usec)
+> client:   Rx389.438 Gbps (2921238435008 bytes in 60009306 usec)
+> client:   TCP retrans reord rtt rttvar d_ce snd_wnd cwnd
+> client:             0     0 210    122    0  999424   10
+> client:   net CPU118: usr: 0.00% sys: 0.00% idle: 1.60% iow: 0.00% irq: 0.33% sirq:98.05%
+> client:   app CPU119: usr: 2.75% sys:77.46% idle:18.95% iow: 0.00% irq: 0.47% sirq: 0.34%
 > 
-> The NTMRMD field holds a power-of-two microsecond timeout per the
-> databook: 0x0 disables it, and 0x1..0xa encode 1us, 1.024ms (~1ms),
-> 16.384ms (~16ms), 65.536ms (~64ms), 262.144ms (~256ms), 1.048s (~1s),
-> 4.194s (~4s), 16.777s (~16s), 33.554s (~32s), 67.108s (~64s).
-> 
-> The issue was hit in testing on dwmac4 and dwxgmac, where a stuck FSM was
-> not reported through the safety interrupt despite TMOUTEN being set.
-> 
-> Signed-off-by: Zxyan Zhu <zxyan0222@gmail.com>
-> ---
-> v3:
-> - Make the MAC_FSM_ACT_Timer write a read-modify-write so the other
->   fields (e.g. LTMRMD) are preserved.
-> - Warn when a valid CSR clock rate cannot be obtained.
-> - Document the NTMRMD encodings and fix 0x2 to 1ms (was 4ms).
-> 
-> v2: https://lore.kernel.org/netdev/20261112053321.1103678-1-zxyan0222@gmail.com/
-> v1: https://lore.kernel.org/netdev/20261111143322.2234321-1-zxyan0222@gmail.com/
-> 
->  drivers/net/ethernet/stmicro/stmmac/dwmac5.c  | 22 +++++++++++++++++-
->  drivers/net/ethernet/stmicro/stmmac/dwmac5.h  |  6 ++++-
->  .../net/ethernet/stmicro/stmmac/dwxgmac2.h    |  3 +++
->  .../ethernet/stmicro/stmmac/dwxgmac2_core.c   | 23 ++++++++++++++++++-
->  drivers/net/ethernet/stmicro/stmmac/hwif.h    |  3 ++-
->  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 11 ++++++++-
->  include/linux/stmmac.h                        | 17 ++++++++++++++
->  7 files changed, 80 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
-> index f1bb981cab7c..c1e3d634f153 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
-> @@ -2,6 +2,7 @@
->  // Copyright (c) 2017 Synopsys, Inc. and/or its affiliates.
->  // stmmac Support for 5.xx Ethernet QoS cores
->  
-> +#include <linux/bitfield.h>
->  #include <linux/bitops.h>
->  #include <linux/iopoll.h>
->  #include "common.h"
-> @@ -184,7 +185,8 @@ static void dwmac5_handle_dma_err(struct net_device *ndev,
->  }
->  
->  int dwmac5_safety_feat_config(void __iomem *ioaddr, unsigned int asp,
-> -			      struct stmmac_safety_feature_cfg *safety_feat_cfg)
-> +			      struct stmmac_safety_feature_cfg *safety_feat_cfg,
-> +			      unsigned int csr_clk_mhz)
->  {
->  	struct stmmac_safety_feature_cfg all_safety_feats = {
->  		.tsoee = 1,
-> @@ -245,6 +247,24 @@ int dwmac5_safety_feat_config(void __iomem *ioaddr, unsigned int asp,
->  		value |= TMOUTEN; /* FSM Timeout Feature */
->  	writel(value, ioaddr + MAC_FSM_CONTROL);
->  
-> +	/* Program the FSM active timer so the timeout checker actually fires.
-> +	 * TMR is the number of CSR clocks per 1us tic, i.e. csr_clk in MHz.
-> +	 * Default to a 1s timeout when the platform did not select one.
-> +	 */
-> +	if (safety_feat_cfg->tmouten && csr_clk_mhz) {
-> +		u32 ntmrmd = safety_feat_cfg->ntmrmd;
-> +
-> +		ntmrmd = (ntmrmd >= STMMAC_NTMRMD_1US &&
-> +			  ntmrmd <= STMMAC_NTMRMD_64SEC) ?
-> +			 ntmrmd : STMMAC_NTMRMD_1SEC;
-> +
-> +		value = readl(ioaddr + MAC_FSM_ACT_TIMER);
-> +		value &= ~(MAC_FSM_ACT_TIMER_NTMRMD | MAC_FSM_ACT_TIMER_TMR);
-> +		value |= FIELD_PREP(MAC_FSM_ACT_TIMER_NTMRMD, ntmrmd) |
-> +			 FIELD_PREP(MAC_FSM_ACT_TIMER_TMR, csr_clk_mhz);
-> +		writel(value, ioaddr + MAC_FSM_ACT_TIMER);
-> +	}
-> +
->  	/* 4. Enable Data Parity Protection */
->  	value = readl(ioaddr + MTL_DPP_CONTROL);
->  	if (safety_feat_cfg->edpp)
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac5.h b/drivers/net/ethernet/stmicro/stmmac/dwmac5.h
-> index 00b151b3b688..734e7630f28d 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac5.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac5.h
-> @@ -8,8 +8,11 @@
->  #define MAC_DPP_FSM_INT_STATUS		0x00000140
->  #define MAC_AXI_SLV_DPE_ADDR_STATUS	0x00000144
->  #define MAC_FSM_CONTROL			0x00000148
-> +#define MAC_FSM_ACT_TIMER		0x0000014C
->  #define PRTYEN				BIT(1)
->  #define TMOUTEN				BIT(0)
-> +#define MAC_FSM_ACT_TIMER_TMR		GENMASK(9, 0)
-> +#define MAC_FSM_ACT_TIMER_NTMRMD	GENMASK(19, 16)
->  
->  #define MAC_PPS_CONTROL			0x00000b70
->  #define PPS_MAXIDX(x)			((((x) + 1) * 8) - 1)
-> @@ -82,7 +85,8 @@
->  #define GMAC_INT_FPE_EN			BIT(17)
->  
->  int dwmac5_safety_feat_config(void __iomem *ioaddr, unsigned int asp,
-> -			      struct stmmac_safety_feature_cfg *safety_cfg);
-> +			      struct stmmac_safety_feature_cfg *safety_cfg,
-> +			      unsigned int csr_clk_mhz);
->  int dwmac5_safety_feat_irq_status(struct net_device *ndev,
->  		void __iomem *ioaddr, unsigned int asp,
->  		struct stmmac_safety_stats *stats);
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-> index f8ab347f7b5b..1fd501728b18 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-> @@ -169,8 +169,11 @@
->  #define XGMAC_HWFEAT_PCSEL		GENMASK(1, 0)
->  #define XGMAC_MAC_DPP_FSM_INT_STATUS	0x00000150
->  #define XGMAC_MAC_FSM_CONTROL		0x00000158
-> +#define XGMAC_MAC_FSM_ACT_TIMER		0x0000015C
->  #define XGMAC_PRTYEN			BIT(1)
->  #define XGMAC_TMOUTEN			BIT(0)
-> +#define XGMAC_MAC_FSM_ACT_TIMER_TMR		GENMASK(9, 0)
-> +#define XGMAC_MAC_FSM_ACT_TIMER_NTMRMD		GENMASK(19, 16)
->  #define XGMAC_MDIO_ADDR			0x00000200
->  #define XGMAC_MDIO_DATA			0x00000204
->  #define XGMAC_MDIO_C22P			0x00000220
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-> index 7ad08651675e..b3f99a6dfcd7 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-> @@ -4,6 +4,7 @@
->   * stmmac XGMAC support.
->   */
->  
-> +#include <linux/bitfield.h>
->  #include <linux/bitrev.h>
->  #include <linux/crc32.h>
->  #include <linux/iopoll.h>
-> @@ -837,7 +838,8 @@ static void dwxgmac3_handle_dma_err(struct net_device *ndev,
->  
->  static int
->  dwxgmac3_safety_feat_config(void __iomem *ioaddr, unsigned int asp,
-> -			    struct stmmac_safety_feature_cfg *safety_cfg)
-> +			    struct stmmac_safety_feature_cfg *safety_cfg,
-> +			    unsigned int csr_clk_mhz)
->  {
->  	u32 value;
->  
-> @@ -873,6 +875,25 @@ dwxgmac3_safety_feat_config(void __iomem *ioaddr, unsigned int asp,
->  	value |= XGMAC_TMOUTEN; /* FSM Timeout Feature */
->  	writel(value, ioaddr + XGMAC_MAC_FSM_CONTROL);
->  
-> +	/* Program the FSM active timer so the timeout checker actually fires.
-> +	 * TMR is the number of CSR clocks per 1us tic, i.e. csr_clk in MHz.
-> +	 * Default to a 1s timeout when the platform did not select one.
-> +	 */
-> +	if (safety_cfg && safety_cfg->tmouten && csr_clk_mhz) {
-> +		u32 ntmrmd = safety_cfg->ntmrmd;
-> +
-> +		ntmrmd = (ntmrmd >= STMMAC_NTMRMD_1US &&
-> +			  ntmrmd <= STMMAC_NTMRMD_64SEC) ?
-> +			 ntmrmd : STMMAC_NTMRMD_1SEC;
-> +
-> +		value = readl(ioaddr + XGMAC_MAC_FSM_ACT_TIMER);
-> +		value &= ~(XGMAC_MAC_FSM_ACT_TIMER_NTMRMD |
-> +			   XGMAC_MAC_FSM_ACT_TIMER_TMR);
-> +		value |= FIELD_PREP(XGMAC_MAC_FSM_ACT_TIMER_NTMRMD, ntmrmd) |
-> +			 FIELD_PREP(XGMAC_MAC_FSM_ACT_TIMER_TMR, csr_clk_mhz);
-> +		writel(value, ioaddr + XGMAC_MAC_FSM_ACT_TIMER);
-> +	}
-> +
->  	/* 5. Enable Data Path Parity Protection */
->  	value = readl(ioaddr + XGMAC_MTL_DPP_CONTROL);
->  	/* already enabled by default, explicit enable it again */
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> index 8ae95e91a36a..395655b01ea8 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> @@ -378,7 +378,8 @@ struct stmmac_ops {
->  			     bool srgmi_ral);
->  	/* Safety Features */
->  	int (*safety_feat_config)(void __iomem *ioaddr, unsigned int asp,
-> -				  struct stmmac_safety_feature_cfg *safety_cfg);
-> +				  struct stmmac_safety_feature_cfg *safety_cfg,
-> +				  unsigned int csr_clk_mhz);
->  	int (*safety_feat_irq_status)(struct net_device *ndev,
->  			void __iomem *ioaddr, unsigned int asp,
->  			struct stmmac_safety_stats *stats);
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 552840d29668..949ed3e5bb05 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -3691,10 +3691,19 @@ static void stmmac_mtl_configuration(struct stmmac_priv *priv)
->  
->  static void stmmac_safety_feat_configuration(struct stmmac_priv *priv)
->  {
-> +	unsigned int csr_clk_mhz = 0;
-> +
->  	if (priv->dma_cap.asp) {
->  		netdev_info(priv->dev, "Enabling Safety Features\n");
-> +		if (priv->plat->stmmac_clk)
-> +			csr_clk_mhz = clk_get_rate(priv->plat->stmmac_clk) /
-> +				      1000000;
-> +		if (!csr_clk_mhz)
-> +			netdev_warn(priv->dev,
-> +				    "unable to get a valid CSR clock rate\n");
+> 4200MTU, 32K rx-buf-len, this patch series, gso/gro_mas_size of 524280,
+> still the default number of frags (enough on rx to fill 512K GRO with 32K
+> chunks).
 
-I know it's the bot who asked for that, but I don't agree with this log here.
+That looks just great!
 
-FWIU it's legit to have ASP but no CSR clock (e.g. stmmac PCI)
+FTR, my understanding is that Jakub wants to say his last word here, so:
 
->  		stmmac_safety_feat_config(priv, priv->ioaddr, priv->dma_cap.asp,
-> -					  priv->plat->safety_feat_cfg);
-> +					  priv->plat->safety_feat_cfg,
-> +					  csr_clk_mhz);
->  	} else {
->  		netdev_info(priv->dev, "No Safety Features support found\n");
->  	}
-> diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-> index 00be2df63d22..35c39cd6b630 100644
-> --- a/include/linux/stmmac.h
-> +++ b/include/linux/stmmac.h
-> @@ -168,8 +168,25 @@ struct stmmac_safety_feature_cfg {
->  	u32 edpp;
->  	u32 prtyen;
->  	u32 tmouten;
-> +	/* FSM normal-mode timeout value (MAC_FSM_ACT_Timer.NTMRMD). The TMR
-> +	 * field (CSR clocks per 1us) is derived from the CSR clock by stmmac.
-> +	 * 0 selects the default 1s timeout.
-> +	 */
+Acked-by: Paolo Abeni <pabeni@redhat.com>
 
-I'd rather this comment to be with the register value definitions :)
-
-> +	u32 ntmrmd;
-
-I don't see any user for ntmrmd. If this is prep work for upcoming glue
-drivers, then this should come with the driver in question. If really
-needed, can't we just program a reasonable hardcoded default for the
-time being ?
-
-Maxime
