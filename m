@@ -1,60 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.222
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794920971;
-	b=ueu4mZa1EjTenkKqTyBV5IpRdLAjriffCY0JIYkXSbYLwcDtrNwLjaymXsrEPsgpOeTP
-	 OeU9v6fqXJNmT6BNSg1Tsbf4k/Y71YdGzc8eLfQDWQcWiJvPidcOuwArNVukRYU8ZYUCs
-	 A8yhPxz7EWb6nG3XerTq3zwPIkiS9JHxaCO2LdCCfHw0jKV9zFobJ/sxhfB458rhQrTQC
-	 N0PBitRPuxORBhT6GMhjtChvHY4I520NzePL5txP8zudqUlqZbS9kMPHZ8acn02/EBBPe
-	 9AFu/qy8+3C5UGIWTKdlon/JKDoBpr4jKw+M3vUZrJVVoTDKC984um/fnnTh8eDfUkA==
+	t=1794921021;
+	b=3AUDJuZjBMVVCDgDkfvau08/OHoUQJIL71rKFqvHuJ3dVmB554wBTzeuc8GKIvwCczB+
+	 +y3ffU9W9kyMExup5vP8UiYJ/giEBvhEu7ua/wDlHTMbZzYRvY1KX0OfPCAZvUfiWaC59
+	 q7YNsnA75qEdW+DCOJQlNLnC9ana/1Tc72BSgHnHODj6+X7XWUsTsLNivOKzHIV7fDNa2
+	 Ho3GOSNGdP9okVAHOPjiinU+FI3ZFPVmUQEGXUG6nHrN9HLVF/0/bQxLKdKW3Ae+LNU6d
+	 0rn8Kkz4MESu4Gm1dsSeEo3jFf3TDwaCuDRkLfhuAwpOOrzXYW2ZbQWb7et/4QSP4jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920971;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=MYlCavCmKBR+LcfhJHx6WNDCyIS5wdpBm9jT9WBogFw=;
-	b=i5qFnMZDSYx5G40ls+WVdLVfWvxcQwcPwDGFB/ueSbknDDAypCFZ0j6PuuD3c9YIAYMn
-	 ohkJNvT0RtgPHz0fwYK7TMMfktGNsUJaamLnMTPfa27jaMRYO6NFQhLPodZEYmUdEiOTm
-	 0bGU1vM8RIr0RBiTAb6gbh24ocZ8lCzMgtII0lkecMYQrKLuQlrFMra9LJcMp84xiovxe
-	 JSLbm6yMCAtqEBPDT/e3quc3lPlbr8QX8BFTTOxvDc3vcHDgZLr1M5qvKyv0vdvBF6SzA
-	 MrEEqqlJNU7Zh5qmcazBMISA6b510pR3VufF1hUyeQolKarnSHGS46+KH0hTv2oA5GQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794921021;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=yUxBLeSqBFW1tZQEpDjbqNslMJVyyB3QNLgXK8Yfnus=;
+	b=YwWoCxCtjSPJ8+e5PXBce5rlYvKWgzOK0pXM2XUiH8IeIpvBIP+jzv29yw4uy/BGNOTD
+	 0x2HWmqPUcNkDLpOEv3rlSA6x/hBpFgn7RdgehJBDEYpt3ZaqQP6k89asLyJptBNLlqky
+	 av8lnMOdHpjXyeSQl2aeEEZvcYbB9DxVVUt7R+VDekpl3snRhOiuUGPVHh+59aC8QHPG3
+	 1oC7gitvvj25RprJnPRD4HKHWIBaOkKAlt3UN2gZHpYQJzJAYTwroBBrmVhoQm6MC4nM/
+	 mZ9HZRDV4i6kL2sVqBEesRLctT4AFMFuvqQ4+9eY2DJaPszog0Zmx96A8j3GCmFFGJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="CN8rDF/C";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=W8PuUYuI;
+	arc=none smtp.remote-ip=113.46.200.222
+Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1348C606A32C;
-	Tue, 17 Nov 2026 13:09:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E67F606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:10:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E67F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CN8rDF/C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD3771F000C4;
-	Tue, 17 Nov 2026 13:09:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794920970;
-	bh=MYlCavCmKBR+LcfhJHx6WNDCyIS5wdpBm9jT9WBogFw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CN8rDF/CUbNhGdiyHjCAuz5IQlDn3iZmVveFZowSyDnlwjfBoBajAEkldEHCfnP+8
-	 LvzB7xSnpehC2DMCTIZcbLlcqe41Z8LGjH6LsxAK+jkmJJEn17s1ZYyGQ12QtKZB/i
-	 ZnXx4nafqJUtuwBCQZ73qMSie9EUQ39m2XRb2xZ96/OI20FTnAy8Pc7jlJHyxHf/Sy
-	 zvDjDn1lrSSjKiIJlNUjCCizTzczGQq3xngE8ajRTGZhtPh5ne3NSZmqkGoJ+VDB19
-	 yv1DVazWv0zH1+atZx6Z6FsHFZFeuKPkNvzpP828G5PswbrrAwGS0ed4yLCo81UXpN
-	 mJJJJUXu9y9Gw==
-Date: Tue, 17 Nov 2026 15:09:24 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Heiko Carstens <hca@linux.ibm.com>
-Cc: Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	David Hildenbrand <david@kernel.org>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Vlastimil Babka <vbabka@kernel.org>, linux-s390@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH 12/14] s390/sclp_ftp: Replace get_zeroed_page() with
- kzalloc()
-Message-ID: <avxSBMGhTU0_QseV@kernel.org>
-References: <20261108-s390-sclp-ready-v1-0-3e7c90eb6676@kernel.org>
- <20261108-s390-sclp-ready-v1-12-3e7c90eb6676@kernel.org>
- <20261116152608.165348B07-hca@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=W8PuUYuI
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=yUxBLeSqBFW1tZQEpDjbqNslMJVyyB3QNLgXK8Yfnus=;
+	b=W8PuUYuID/+yon+tC0FkdQANXOubdsfuuCc1vDNawbBGD78TZ+vgr13/DZoHcAYXdnbJMUPym
+	NWlULPZzPBbYjdZUc9Dn8keDsWCw5Fy91Gg2+gSkK6wePUf4KGXKjekMHX21CjXYbitg1vNVQDS
+	96OV4+rEb79z++ASGK+TVCM=
+Received: from mail.maildlp.com (unknown [172.19.163.127])
+	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4jTQ7T5Qp2zLlTR;
+	Tue, 17 Nov 2026 21:09:57 +0800 (CST)
+Received: from kwepemk200005.china.huawei.com (unknown [7.202.194.71])
+	by mail.maildlp.com (Postfix) with ESMTPS id C3C7B40561;
+	Tue, 17 Nov 2026 21:10:16 +0800 (CST)
+Received: from localhost.huawei.com (10.169.64.31) by
+ kwepemk200005.china.huawei.com (7.202.194.71) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 17 Nov 2026 21:10:16 +0800
+From: Yongbang Shi <shiyongbang@huawei.com>
+To: <tzimmermann@suse.de>, <dmitry.baryshkov@oss.qualcomm.com>,
+	<tiantao6@hisilicon.com>, <maarten.lankhorst@linux.intel.com>,
+	<mripard@kernel.org>, <airlied@gmail.com>, <daniel@ffwll.ch>,
+	<kong.kongxinwei@hisilicon.com>
+CC: <liangjian010@huawei.com>, <shuliubin@huawei.com>,
+	<chenjianmin@huawei.com>, <fengsheng5@huawei.com>, <shiyongbang@huawei.com>,
+	<helin52@h-partners.com>, <shenjian15@huawei.com>, <shaojijie@huawei.com>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH for drm-misc-fixes v5 2/2] drm/hisilicon/hibmc: Add a flag to indicate whether the OS-side driver has been loaded
+Date: Tue, 17 Nov 2026 21:00:56 +0800
+Message-ID: <20261117130056.272609-3-shiyongbang@huawei.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261117130056.272609-1-shiyongbang@huawei.com>
+References: <20261117130056.272609-1-shiyongbang@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,60 +75,252 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116152608.165348B07-hca@linux.ibm.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemk200005.china.huawei.com (7.202.194.71)
 
-On Mon, Nov 16, 2026 at 04:26:08PM +0100, Heiko Carstens wrote:
-> On Sun, Nov 08, 2026 at 10:58:43AM +0200, Mike Rapoport (Microsoft) wrote:
-> > sclp_ftp_et7() allocates the SCCB used for an HMC file transfer request
-> > and sclp_ftp_startup() allocates the SCCB used to read the SCLP info in
-> > the debug code.
-> > 
-> > These buffers can be allocated with kmalloc() as there's nothing special
-> > about them to go directly to the page allocator.
-> > 
-> > kmalloc() provides a better API that does not require ugly casts and
-> > kfree() does not need to know the size of the freed object.
-> > 
-> > Performance difference between kmalloc() and __get_free_pages() is not
-> > measurable as both allocators take an object/page from a per-CPU list for
-> > fast path allocations.
-> > 
-> > For the slow path the performance is anyway determined by the amount of
-> > reclaim involved rather than by what allocator is used.
-> > 
-> > Replace use of get_zeroed_page() with kzalloc() and free_page() with
-> > kfree().
-> > 
-> > Link: https://lore.kernel.org/all/635405e4-9423-4a25-a6e7-e03c8ea0bcbe@redhat.com
-> > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> > ---
-> >  drivers/s390/char/sclp_ftp.c | 8 ++++----
-> >  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> ...
-> 
-> > @@ -250,7 +250,7 @@ int sclp_ftp_startup(void)
-> >  		return rc;
-> >  
-> >  #ifdef DEBUG
-> > -	info = get_zeroed_page(GFP_KERNEL);
-> > +	info = (unsigned long)kzalloc(PAGE_SIZE, GFP_KERNEL);
-> >  
-> >  	if (info != 0) {
-> >  		struct sysinfo_2_2_2 *info222 = (struct sysinfo_2_2_2 *)info;
-> > @@ -262,7 +262,7 @@ int sclp_ftp_startup(void)
-> >  				 info222->lpar_number, info222->name);
-> >  		}
-> >  
-> > -		free_page(info);
-> > +		kfree((void *)info);
-> 
-> Sashiko is right here, the ugly cast can go away with a trivial code change.
+From: Lin He <helin52@huawei.com>
 
-Argh, missed that in pre-send review :(
+Add a flag to indicate whether the OS-side driver has been loaded to
+prevent the BMC from enabling DP if the driver is not loaded, which could
+lead to system failure in handling interrupts and generate error messages
+like:
 
+irq xx: nobody cared (try booting with the "irqpoll" option)
+...
+Call Trace:
+<TRQ>
+...
+
+The flag is set only after hibmc_dp_init() succeeded, so it also means
+that the DP block is ready.  If DP initialization fails, only the vblank
+MSI vector is requested, so the DP interrupt is not registered at all.
+
+Fixes: 0ab6ea261c1f ("drm/hisilicon/hibmc: add dp module in hibmc")
+Signed-off-by: Lin He <helin52@huawei.com>
+Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
+---
+ChangeLog:
+v4 -> v5:
+  - Only set the enable flag when DP was initialized, clear it only when
+    it was set, and do not request the DP interrupt if DP initialization
+    failed. (sashiko-bot)
+v2 -> v3:
+  - Move hibmc_set_enable_flag() before drm_dev_register() and
+    hibmc_set_disable_flag() after drm_dev_unregister() to narrow the
+    race window. (sashiko-bot)
+  - Add spinlock_t gpio_lock to hibmc_drm_private to protect all
+    operations on 0x0802A4. (sashiko-bot)
+v1 -> v2:
+  - The call to `hibmc_set_enable_flag()` has been moved before
+    `drm_client_setup()`, specifically before the connector detection
+    triggers the I2C bit operation. (sashiko-bot)
+  - A read-modify-write operation has been implemented instead of directly
+    writing to prevent clearing the I2C mask bits. (sashiko-bot)
+---
+ drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h    |  1 +
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c    |  1 +
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   | 45 ++++++++++++++++++-
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h   |  2 +
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c   | 19 ++++++--
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h  |  3 ++
+ 6 files changed, 66 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
+index 84faa1a7439d..10772cddcfc8 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
++++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
+@@ -57,6 +57,7 @@ struct hibmc_dp {
+ 	struct hibmc_dp_cbar_cfg cfg;
+ 	int hpd_status;
+ 	int phys_status;
++	bool initialized;
+ };
+ 
+ int hibmc_dp_hw_init(struct hibmc_dp *dp);
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+index 6ea70c31d1a9..9fa49a2ba093 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+@@ -256,6 +256,7 @@ int hibmc_dp_init(struct hibmc_drm_private *priv)
+ 	connector->polled = DRM_CONNECTOR_POLL_HPD;
+ 
+ 	dp->phys_status = connector_status_disconnected;
++	dp->initialized = true;
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+index 7920f03895fe..7ea050e89005 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+@@ -174,6 +174,8 @@ static int hibmc_kms_init(struct hibmc_drm_private *priv)
+ 	if (ret)
+ 		return ret;
+ 
++	spin_lock_init(&priv->gpio_lock);
++
+ 	dev->mode_config.min_width = 0;
+ 	dev->mode_config.min_height = 0;
+ 	dev->mode_config.max_width = 1920;
+@@ -346,12 +348,17 @@ static void hibmc_unload(struct drm_device *dev)
+ static int hibmc_msi_init(struct drm_device *dev)
+ {
+ 	struct pci_dev *pdev = to_pci_dev(dev->dev);
++	struct hibmc_drm_private *priv = to_hibmc_drm_private(dev);
++	int max_vectors = HIBMC_MIN_VECTORS;
+ 	int valid_irq_num;
+ 	int irq;
+ 	int ret;
+ 
+-	ret = pci_alloc_irq_vectors(pdev, HIBMC_MIN_VECTORS,
+-				    HIBMC_MAX_VECTORS, PCI_IRQ_MSI);
++	if (priv->dp.initialized)
++		max_vectors = HIBMC_MAX_VECTORS;
++
++	ret = pci_alloc_irq_vectors(pdev, HIBMC_MIN_VECTORS, max_vectors,
++				    PCI_IRQ_MSI);
+ 	if (ret < 0) {
+ 		drm_err(dev, "enabling MSI failed: %d\n", ret);
+ 		return ret;
+@@ -430,6 +437,36 @@ static int hibmc_load(struct drm_device *dev)
+ 	return ret;
+ }
+ 
++static inline void hibmc_set_enable_flag(struct hibmc_drm_private *priv)
++{
++	unsigned long flags;
++	u32 value;
++
++	if (!priv->dp.initialized)
++		return;
++
++	spin_lock_irqsave(&priv->gpio_lock, flags);
++	value = readl(priv->mmio + HIBMC_ENABLE_FLAG);
++	value |= HIBMC_ENABLE_STATE;
++	writel(value, priv->mmio + HIBMC_ENABLE_FLAG);
++	spin_unlock_irqrestore(&priv->gpio_lock, flags);
++}
++
++static inline void hibmc_set_disable_flag(struct hibmc_drm_private *priv)
++{
++	unsigned long flags;
++	u32 value;
++
++	if (!priv->dp.initialized)
++		return;
++
++	spin_lock_irqsave(&priv->gpio_lock, flags);
++	value = readl(priv->mmio + HIBMC_ENABLE_FLAG);
++	value &= ~HIBMC_ENABLE_STATE;
++	writel(value, priv->mmio + HIBMC_ENABLE_FLAG);
++	spin_unlock_irqrestore(&priv->gpio_lock, flags);
++}
++
+ static int hibmc_pci_probe(struct pci_dev *pdev,
+ 			   const struct pci_device_id *ent)
+ {
+@@ -465,6 +502,8 @@ static int hibmc_pci_probe(struct pci_dev *pdev,
+ 		goto err_return;
+ 	}
+ 
++	hibmc_set_enable_flag(priv);
++
+ 	ret = drm_dev_register(dev, 0);
+ 	if (ret) {
+ 		drm_err(dev, "failed to register drv for userspace access: %d\n",
+@@ -477,6 +516,7 @@ static int hibmc_pci_probe(struct pci_dev *pdev,
+ 	return 0;
+ 
+ err_unload:
++	hibmc_set_disable_flag(priv);
+ 	hibmc_unload(dev);
+ err_return:
+ 	return ret;
+@@ -487,6 +527,7 @@ static void hibmc_pci_remove(struct pci_dev *pdev)
+ 	struct drm_device *dev = pci_get_drvdata(pdev);
+ 
+ 	drm_dev_unregister(dev);
++	hibmc_set_disable_flag(to_hibmc_drm_private(dev));
+ 	hibmc_unload(dev);
+ }
+ 
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
+index dce8572bf63e..c2a82000ea7f 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
+@@ -49,6 +49,8 @@ struct hibmc_drm_private {
+ 	struct drm_crtc crtc;
+ 	struct hibmc_vdac vdac;
+ 	struct hibmc_dp dp;
++
++	spinlock_t gpio_lock; /* protects RMW on I2C/ENABLE_FLAG (0x0802A4) */
+ };
+ 
+ static inline struct hibmc_vdac *to_hibmc_vdac(struct drm_connector *connector)
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c
+index 44860011855e..4ceb87efec05 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c
+@@ -27,7 +27,11 @@ static void hibmc_set_i2c_signal(void *data, u32 mask, int value)
+ {
+ 	struct hibmc_vdac *vdac = data;
+ 	struct hibmc_drm_private *priv = to_hibmc_drm_private(vdac->connector.dev);
+-	u32 tmp_dir = readl(priv->mmio + GPIO_DATA_DIRECTION);
++	unsigned long flags;
++	u32 tmp_dir;
++
++	spin_lock_irqsave(&priv->gpio_lock, flags);
++	tmp_dir = readl(priv->mmio + GPIO_DATA_DIRECTION);
+ 
+ 	if (value) {
+ 		tmp_dir &= ~mask;
+@@ -41,20 +45,29 @@ static void hibmc_set_i2c_signal(void *data, u32 mask, int value)
+ 		tmp_dir |= mask;
+ 		writel(tmp_dir, priv->mmio + GPIO_DATA_DIRECTION);
+ 	}
++	spin_unlock_irqrestore(&priv->gpio_lock, flags);
+ }
+ 
+ static int hibmc_get_i2c_signal(void *data, u32 mask)
+ {
+ 	struct hibmc_vdac *vdac = data;
+ 	struct hibmc_drm_private *priv = to_hibmc_drm_private(vdac->connector.dev);
+-	u32 tmp_dir = readl(priv->mmio + GPIO_DATA_DIRECTION);
++	unsigned long flags;
++	u32 tmp_dir;
++	int ret;
++
++	spin_lock_irqsave(&priv->gpio_lock, flags);
++	tmp_dir = readl(priv->mmio + GPIO_DATA_DIRECTION);
+ 
+ 	if ((tmp_dir & mask) != mask) {
+ 		tmp_dir &= ~mask;
+ 		writel(tmp_dir, priv->mmio + GPIO_DATA_DIRECTION);
+ 	}
+ 
+-	return (readl(priv->mmio + GPIO_DATA) & mask) ? 1 : 0;
++	ret = (readl(priv->mmio + GPIO_DATA) & mask) ? 1 : 0;
++	spin_unlock_irqrestore(&priv->gpio_lock, flags);
++
++	return ret;
+ }
+ 
+ static void hibmc_ddc_setsda(void *data, int state)
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h
+index 17b30c393b10..b95add5b253c 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h
+@@ -200,5 +200,8 @@
+ 
+ #define HIBMC_CRT_PALETTE                       0x80C00
+ 
++#define HIBMC_ENABLE_FLAG			0x802A4
++#define HIBMC_ENABLE_STATE			BIT(2)
++
+ #define HIBMC_FIELD(field, value) (field(value) & field##_MASK)
+ #endif
 -- 
-Sincerely yours,
-Mike.
+2.33.0
+
