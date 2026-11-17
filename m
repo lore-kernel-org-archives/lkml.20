@@ -1,89 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794913897;
-	b=dVF0haHd16PLzZUvqCzjjQTqJxYKExLKKn4TM3KinJiXlPfiSal5tj7X9qvGLliUQ7Kl
-	 569AJkq2DNsy0e5vieJ8lG200KSdc1ovL/eeHqgtc3J9/E/3lvaAXbi0od+LZszHO0TKw
-	 eKGyW+9FUypLwvC355MwGdT6BkgNj+4v67P38v1/YE5OBdBMqnfKXaDBtvAPGbB0rD4I2
-	 0Pqd7QraskvHg4Rqd3TcbferjCU2ONNvbmwrobJ+yYg3ZW+h942NJRkx0JKR8Bqyz+2vU
-	 GgA/koAiXtvt/Gdt+OhZSUOAlfnM+tXURwxQ06yNDQJx/eIc0MgnPOtufjzFCWOipUA==
+	t=1794913906;
+	b=3rw2KMbnGe7dT8DieUxFoDtZYOLe64krmganUx0zZHSUp0woe2To3C16ctfT9dGn2Jpx
+	 Lsi2WAcOh57EcG0405ZVMEJhH3VAIWo3pucvL1TXNn0C8kFFXHADKOhhpHeBOjblSGDD5
+	 1CpmcB2rBil+28CdGkwt3jN2coY8LwL1EympcgZKMoo1ErZ46voyTg1O34PDSlTXPz+8b
+	 w3uSuj7zzYu8/CiZp3nJk5J3nVOd7zvxmcFpApv9eymzyBJE5uXbrnjJAp5tE49hvsLjJ
+	 ZvkzCKGqA948r/cJkML5vXOwwJs6LPKUIQkQThK783L96cpv+ijc5eQ5lOaIBXBSZcw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794913897;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=GpXetttHBWaEX1gZoCS411MAw0c/uX+R4RpgYZEjYDQ=;
-	b=tnf6SUDbOSE/SYYG0nDrD6SHCagygR7ijjF3tH+ZWPe+ijBzYfaXjk2nhU+Mu5r/H9qe
-	 mb2d7vebm9eE3mP1Uz+rE+w05C5hvrVv8eLarSH6h1/A8YKU6WBNwDhObRKdF3khUBSD3
-	 YNeyx0KYH2cpBUnrpz/ZIpoCYJyjrqEIQQ/Jtzzz9QBSW5wgtqsWBwTNAH/MNJ9OQFlVu
-	 5+RIFbWPpb51HvfifPIR1QkKLvbbiyIXcaNKucSZgCgKRqWZwkD1CDnd3crBWcdqxGaQY
-	 ZydV0rhV9uKSWyLfBrps5KvcpwSQ4vXCZXL+x+FwyimpMB+ZW2RHpk5aHPWXsQYZXdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794913906;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=+10pY0INY9MpKdeaN2+bTZktiWeoGPp9KNRq4cSBn94=;
+	b=3NUZ/V6O3HXg6rrEp3KxoTX7IDQbbpvFHpdk+muZzGCC8FXRHGz+fLNhtlBZRSIl5xvY
+	 12wFQhEuOQBfDUKxSRBvD4NWLOdNJySTcfkmOFGjTyAJZsYBlcrFrdq/5ftAM2rlTf2t/
+	 ozrFVvFNJbG37+nxAb8wVc9FyZ5ZQ61hvyb47331OACKru+ylCIJvtF86QzY7xZWvfZNh
+	 oQI+4o2+3Fw1GgDiH72FaLfJA8HCMuJlVvMdVFZh66VnzyZDu2/jQ+F62rGpKYuecbw+a
+	 ajJkZpbduKhEd09CHbRZjeUOkxh6K+wMrCI1rPcB+Zy0AYvQvN7Yd2tK2RNCjSBWcjQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=JJA5U4Bt;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yyzwQXWU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 984D4606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:11:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 984D4606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 186D9606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:11:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 186D9606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=JJA5U4Bt
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C5D992003DE;
-	Tue, 17 Nov 2026 12:11:33 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794913893;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GpXetttHBWaEX1gZoCS411MAw0c/uX+R4RpgYZEjYDQ=;
-	b=JJA5U4Bt2AdQIm/Px8Bopx8PY+gH+JuhTABw1JCgB0yKmDg4Vp4ceZzvSo+U/qehg8aMmj
-	3LNCT/SGziM12x9NoD0W2t/1d6W39NKygZ5G5ricCKZRfgF1NefzA/tfRUr2CCBrrIivo0
-	ci+Hz8zyLX9b5IgJGIDFwfUKXtCVhmjPvKr0zI3xsaXchLTcKIvcVPVQmmp+l4sRpuKU0a
-	29KzVz48jJZzznwTPUc8kbG+R6qc8NKGwz1HkUDqsye96EbiuJ9/jVlrEzN0ZArYSxsg44
-	avhFiUwK+0rJSrYuRz35AVBGPqOAns1ejyUOiRhkBY0k18nn4aWcPReHg4pwWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794913893;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GpXetttHBWaEX1gZoCS411MAw0c/uX+R4RpgYZEjYDQ=;
-	b=VYs14bflwuhVhLFPcupUS6bY/Fsr2LzbVdRUO4+JFAVRyyX5/G5fxvjpOO+ICQyp01kSSh
-	eT1dr96n/XyjALo+TP2dTkeD/y5yPbOpaJdlca/47/MNI/s4UC0R8KZRdKqTVe0GhfdV7R
-	MqfA7SoXzXVO5dNcjIj3V7Azye1d7u2LuaykeRGRgq8IsU7zfnP9wmD6Fb6QXF5p6RQ9zE
-	9o1gXZb0d0aHtwL2SZ/+wEfwPGby19o2Is97SHJpGVkzvYx1MhO05ek0/dHVR3vpwyeN0f
-	x1FOjXg7ATEFZj/2ahVfEu+NDnfntwe3Be+BM37CxIL/s9LiJLs68+PVQAtSkg==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794913893; a=rsa-sha256;
-	cv=none;
-	b=TUfJqVUqaemsWuBKUSrRn4GTJ0M3QBq9BuQdEOrCxKoa64c85B2q/gqaSWq9DW6cnv1M4y
-	Z3PmdXfQ/uhKTPPkEkOU3Sd8B7Ir6Qf6XK2HwKOgNJSZ687KrU4YmZb6rKfCtYNtYIqlac
-	ujHbaFVx78O1/Cke1KEGeeFak8OegnNxwsXeTHZmt9Fh19LUwRarxujpbWLERqoPX4GBoY
-	PIycKKFbeUvBK7gZb4CROUdwa1ygals/ey5BBxk1JYH9lyzdWNvkMLIJmky6cuxGmWm3f5
-	uoArUOhkYrz5jLKuFEfL6wunaWtTHxltrL/5q55Dhpn3j2/1nwuLtMOk5fyEjw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-Message-ID: <7e6e10acc08d15d193e9af69eba54bb2d93aadbc.camel@pengutronix.de>
-Subject: Re: [PATCH v3] reset: core: honour optional resets when the GPIO
- fallback returns -ENOENT
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Yang Siyuan <hsyysy@163.com>
-Cc: linux-kernel@vger.kernel.org
-Date: Tue, 17 Nov 2026 12:11:33 +0100
-In-Reply-To: <20261117110812.20371-1-hsyysy@163.com>
-References: <20261117095503.14115-1-hsyysy@163.com>
-	 <20261117110812.20371-1-hsyysy@163.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yyzwQXWU
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c50cc7540b7so359102866b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:11:45 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794913904; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UYZc3lzTRXlU6qGFfExFs8/5CAud6gGlrMlYZ0pjsp71dYby1SrRXBRMYlhlz+L+Yt
+         XirkISbS32SClJzY3JvwW2c7Yk1UwOt4/FilBzq9GJdDCBMdG6DowLV19HfnpW1gwFVl
+         n3vO7cvNOAhf1mrydU+QHHSm2CjPp/b0cHqTpY4wU46/2Pj7ZriU8/fZuZJvWYj/Uk7t
+         /6C2ZgM8xVzJ25kLlmDExLd7JrxcXop6U2/Je/Ra4IwVgNGRLkLOvzdzq+ZIhnxWIniR
+         DZCUKXo8DmU0UGljU6aJAmScWUB1+fVDoGxPKq8HLunnPfgAy56OlurBwMCuJPjL0k8h
+         DqyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+10pY0INY9MpKdeaN2+bTZktiWeoGPp9KNRq4cSBn94=;
+        fh=0+FBLmCcR7DxhZ7EdFXDhit1d0l/Fmm/6UUqIoqQ1dE=;
+        b=JcuawjKneJOpFs8BeYrsl+E/U4+pBvwDkI2y0dRKSCg731wF9c+bVv/zwBwtkTFe5W
+         7OyUmB81cs3f0hp9BA/msh4+487WC/qe3J61ORn9cUEw7uAb3T9h7vmKg76OL7jz4bZ3
+         7vAy0aLHCfwcCaTihBPKICyShkamO+1geJo3utwc7DujWPd5e7k+UFYC/QaLQzpoBj0c
+         UsDXjQYPDAZm5VAQSxLqdRawe+9t/sc1AMuiBa+8LLg2GIwa55kpaz+MvTT3QzfHz/KK
+         SoI5WuIMcGEfv/85oZhengWvaA+3YT+yxXKyDwwQHUkuDre2PTJKtn2X7E5CJ+rdMbCk
+         n53Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794913904; x=1795518704; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+10pY0INY9MpKdeaN2+bTZktiWeoGPp9KNRq4cSBn94=;
+        b=yyzwQXWUh3hlTm75j49756a3u40dxwVtzSwHSTRdU1++KQVLHeGLEY5oKwXhbCuaYH
+         6nWczAtsAkgzqx7tarkVTwqE/NcVSVZoNK6OuqrefHsu23luGO9vLTl0ReCdUF488lYn
+         Xctf0sJGtjqLQoPJcntw5NhbgQ1nt+25ZO5G9d6SB0G6QMIK+9CNoivLQNtlpfq8YlX2
+         bvCKhmaKDMno2IJ2CF+XBc6YetjTb5aYwyiC80kbZ0zb4Mtd9yiOq9GZfVJP1lOB2jXz
+         W2YR+wlO7NuhGWOJ237/w17lVlBl32uKbC1Xb7lNg+J4sMz5FU92rzdEDYH6v/ndnBFN
+         3FOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794913904; x=1795518704;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+10pY0INY9MpKdeaN2+bTZktiWeoGPp9KNRq4cSBn94=;
+        b=ZTaqa8aDbyQARek/hqd+q359RvsJS2fLg86f0djMNx+XxfxkQRFuSwT/BbsWc1KAzO
+         BwdHVojMg7FJaW6O404F/XzgDevIq3eKQM4IT3WXxAaEymlYkaeSdAfbUVLSDF0VAH2S
+         I/jTj0RIWe/ZLtuKMLGMgyc54OB9MfjBmfY4xoj48k5pEZ0Xv1XVdiSB2E0cJPGJ3IaG
+         LHlXaCwNoYo1n53vYcIwbvFCiZ/tzp7K2n6cNfUnqGqE7mpevisklSIpyLvpeAbsH9TF
+         ug2GRoPloAo4XKd12BlvzbFe8vM5VTkaoNwj7u0L565lSSYzr7hIxwyZzXPV/hTQfm2n
+         V2PQ==
+X-Forwarded-Encrypted: i=1; AL+hErEIRRp6kuaVrOJ1QvGKn77DKCvrZm7mAjH2+heSEgnCZIa+IeRMWO6xncgfnREzPj5Jwlj7LAkRl7YoOLE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9shaoAUXJlu5ihZUFkqgALjnsF70JB/87F5Cr4fqcoo7ycViGz
+	ECCBubz0Ihv/mWqgJrjN8RYsj5yCfyKxltjUd4y1sPbLRa88SKiBVSHHq2mMk13t0imAvmFiNq3
+	4dGRtQIGYFjZxueQWvhRxBHsY9hnsMRI=
+X-Gm-Gg: AYBFou1rKeyWgBRn5rTfbgFwIF+urgTelqtUrzvzve/c+bjhskAa9qXKEgcuvsuEOLb
+	L1BJ/Q7O9cyh8vN1+bs/Eo6t/SsPP69h04JRgfvw+sxtz26UgsYXw3hWa1m914XuPdGct5Msof1
+	4nLkPZl9RFk6oX41SirlxUB+t5jySdbyo+sltwx48Flnp4mnHXrjRy+8mHV1QeZnxaaZgQdpmfg
+	98n78Utpzf51DbpFU26b+PwjoXLRkOhYBaL6/XQV/8NJ/UgbFVEqbwIPrG9R/2N0L+BYNOUyfLv
+	hqOIaCrr5Fe6p4BeD3zd4VO9JxsXDa/QUg8mjxmPN1k7DAJalOK3oPEwRK4QqgOXCt3OSZyX4wH
+	Qyz/GDixxEHRpnI8DcVO5sG+9CpyDmjuialxCZfUaDf3W0SeRuSl++wnlDPfVe8zBXtXUC532Dx
+	DPBjtghsYEVhHb1XNroatOONc=
+X-Received: by 2002:a17:907:94c5:b0:c50:576f:b3a8 with SMTP id
+ a640c23a62f3a-c50963d9089mr1499165666b.48.1794913904361; Tue, 17 Nov 2026
+ 03:11:44 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,29 +105,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261116-marvel-env-v2-0-ef614eb2e7f1@gmail.com> <20261116-marvel-env-v2-5-ef614eb2e7f1@gmail.com>
+In-Reply-To: <20261116-marvel-env-v2-5-ef614eb2e7f1@gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Tue, 17 Nov 2026 12:11:32 +0100
+X-Gm-Features: AclHuK_ySbd-btf70cw_u0VyMg7YEG-_OS2SndJeElSe33r8vAUxyZLJAiFwxJQ
+Message-ID: <CA+=Fv5R9GknyU62ZwcGPvH9u_ucK=qP3j0mE5s-YMJgVbkGs7A@mail.gmail.com>
+Subject: Re: [PATCH v2 5/7] alpha: marvel: register a platform device for the
+ environmental sensors
+To: Matt Turner <mattst88@gmail.com>
+Cc: Richard Henderson <richard.henderson@linaro.org>, Guenter Roeck <linux@roeck-us.net>, 
+	linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Di, 2026-11-17 at 19:08 +0800, Yang Siyuan wrote:
-> __fwnode_reset_control_get() honours RESET_CONTROL_FLAGS_BIT_OPTIONAL by
-> returning NULL when the requested reset is not described in the device
-> tree.  The reset-gpio fallback breaks this: when
-> __reset_add_reset_gpio_device() fails with -ENOENT, the error is returned
-> even for an optional reset.
->=20
-> This is reachable on Allwinner SoCs, whose pinctrl uses three-cell GPIO
-> specifiers.  The reset-gpio fallback only supports two cells, so it
-> returns -ENOENT and a consumer asking for an optional reset fails to
-> probe instead of falling back to its own GPIO handling.  mmc-pwrseq-simpl=
-e
-> on the Anbernic RG35XX family hits this: its wifi_pwrseq node has
-> reset-gpios but no resets, so the SDIO WiFi adapter never probes.
->=20
-> Return NULL only for -ENOENT when the reset was requested as optional.
-> A reset that is described but cannot be used is still an error, so
-> -EPROBE_DEFER and all other failures are propagated.
->=20
-> Signed-off-by: Yang Siyuan <hsyysy@163.com>
+Hi Matt,
 
-Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+On Tue, Nov 17, 2026 at 3:59=E2=80=AFAM Matt Turner <mattst88@gmail.com> wr=
+ote:
+>
+> Register a "marvel_env" platform device on Marvel systems booted from
+> SRM, for the hwmon driver to bind to.
+>
+> Signed-off-by: Matt Turner <mattst88@gmail.com>
+> ---
+>  arch/alpha/kernel/core_marvel.c | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+>
+> diff --git a/arch/alpha/kernel/core_marvel.c b/arch/alpha/kernel/core_mar=
+vel.c
+> index 7525f3ed6b62..169a1df6adb2 100644
+> --- a/arch/alpha/kernel/core_marvel.c
+> +++ b/arch/alpha/kernel/core_marvel.c
+> @@ -21,6 +21,7 @@
+>  #include <linux/module.h>
+>  #include <linux/memblock.h>
+>  #include <linux/workqueue.h>
+> +#include <linux/platform_device.h>
+>
+>  #include <asm/ptrace.h>
+>  #include <asm/smp.h>
+> @@ -1139,3 +1140,13 @@ long marvel_cfgtree_partial_update(unsigned long o=
+ffset)
+>         return status;
+>  }
+>  EXPORT_SYMBOL_GPL(marvel_cfgtree_partial_update);
+> +
+> +static int __init marvel_env_init(void)
+> +{
+> +       if (alpha_mv.init_arch !=3D marvel_init_arch || !alpha_using_srm)
+> +               return 0;
+> +
+> +       return PTR_ERR_OR_ZERO(platform_device_register_simple("marvel_en=
+v",
+> +                                                              -1, NULL, =
+0));
+> +}
+> +device_initcall(marvel_env_init);
+>
+> --
+> 2.56.1
+>
 
-regards
-Philipp
+Looks good!
+
+Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
