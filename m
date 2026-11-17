@@ -1,67 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794930310;
-	b=ayPPg9qxbd79yIwDjGHDAm7D3H/W6JmkFiA163w8uXINpOCbgUvGsRyDYG6DDmtZOxmq
-	 qEt5QbdIT+UYCJb5/gV458AtQ+HDSp+EeDVRxKcogbXamJYtxggve7KZ/atmIHy59twXh
-	 t0wPiDqp3bX6cl2wYEcME20nB3WbRdMAjiFnX9oP8c4B/FzLrTFayYfPZPMStUo4venPh
-	 Fh3VbVAMXY6/z3gwQgnynUGUqhYJcmdAVGN2KddhvEKbhuIsWkthq8mncicazL1sq/ez1
-	 M0oNeQjXoPlC0WWJPMGcneKyMZpq8IToTaLfVY5YFKTOay0nFckKlASb/aBtZSFYByg==
+	t=1794930315;
+	b=YhHwqydTB6FpgnEUh8INVYcgKMk2O2+gJ981KunElgjFLPD8VF8dqISJK5QYI7iaYLmG
+	 bnL0m1iLT9VXVmgOsu4NSWsBtor4jYA35cNZGLw8vTslbQIYENH2GpuFR9awJ2r2FztNR
+	 357AhjzXYOCz2F2iwP19Utm19eFGI1aGHAWO0HlSNdPGpy53IUW1MOXCBvP6QjjgpmFWd
+	 xtCXzX9/Yzehts3YcbumIXfvOrADqd5Aw/36r+2/y8PfatMc4aU2/QZ4iJ0BovVgvk7mC
+	 VeM0Vznkn/vQHyhL6E4X4izfKJcp6KUoaZKr7HjvtnD2x+egqJUiNLVGMFikgE0rk/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794930310;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=A8nrZNesO9VLezCFBss71uBRpn9fM/JhgyAtVyrelME=;
-	b=pqPO8uH3XR2jizvT3AELTRnDkdNWHX/YxoKRpWHQBu7GoHaPOKZ8sOA90jz/xeVa+lpy
-	 EYbQeN8Pbgy3fsqWC+15q73koGklCRSsdR/tKTkQCBlxOEh4qcIVgDi2eLUPdNWpYX3xP
-	 9/EXLP2wy4F3kGduKUEnqCY4aG7alXW/rLaJpjb8O+y9Yzv9wCSlGZXUUnAaMiuXnfC3e
-	 OX0dpiBmsHgSdrRB4aZYKDkmgEsHpb6Z+PTMIddRqtaGnnBNQttORG71BCcYcfFIKLdTS
-	 Dzk/wQ4fBkv273T2+FK7pqblpbokregC37I6cP9jGZJz+/J9g9IIcwK89MYWEvvkoKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794930315;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=yx0f3Yir639syvYfkg79O7Kpd9xzBO9aaexbdF9atUs=;
+	b=izB1FUCNGMrwxHcIZjpnwC1s2oUedyCZZITd0m7/wgMoerXdp2hkp1yzWyqUo7z+hlFw
+	 y6uvXq22q+w3ubakcRXyXcSweedHNdhWvQr2zN/zcOu9qrwxegdLLq08VjZxvd+tR43cF
+	 sCq31I8NeImohJdFYBvqzvSbl1k8VvEGkOSOnJMX8GEuwFGzabaZ4ZZkxQsK+Ni2eISMh
+	 +EK9xWu5RrXS7jLpITGyrSM51epQaapmMHGMqIAZYlDjHZAxr7aQYxSHCKMmFWkNasMdY
+	 EqPqJdvKYp0lhduxM8YCUTF15wYq19B5HtzG3c0z7LOD5RbtXK6ydJCxn11VInEbyWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dolcini.it;
-	spf=pass smtp.mailfrom=dolcini.it;
-	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=bMyX7dQ3;
-	arc=none smtp.remote-ip=217.194.8.81
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FUFEc8xz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DE5D606A31C;
-	Tue, 17 Nov 2026 15:45:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DE5D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A514606A32C;
+	Tue, 17 Nov 2026 15:45:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=bMyX7dQ3
-Received: from francesco-nb.. (93-41-19-23.ip79.fastwebnet.it [93.41.19.23])
-	by mail11.truemail.it (Postfix) with ESMTPA id EA3E21FAD2;
-	Tue, 17 Nov 2026 16:44:57 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1794930299;
-	bh=A8nrZNesO9VLezCFBss71uBRpn9fM/JhgyAtVyrelME=; h=From:To:Subject;
-	b=bMyX7dQ3wYrLehzQAWo5jATDdKgQu3k7LcAXyKDdCovr4y/ziIiu5t1HODtiMytG9
-	 KxZxUh+ZMITBTynT228gU9DLHoLp0BO6cRnU3aVF3gdPVOYyEPxbYoKWfPvjvlVSYY
-	 v2iFNOrdGCGX5m8+wvtqoBqHciVk6PQ4G8gZOMAJ3eYsfoCFIDvSCVcLwiYIOHUJ9t
-	 uzJ4OMuZThyv+ZPB/WC7/3GfZl7h6c95pKXdSXJOel33wa0i2iJ4n3WZzK/VHxflSy
-	 qZQyK3vkTJtGVRbp0dQVOWpOP/Jznor1bqxXG3RjNMBvUFgpbBYAzl7FZ3Hw1zwPMh
-	 JpT1Iv6FOMMuQ==
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: linux-bsp@toradex.com,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1] ARM: dts: imx6ull-colibri: Add RTC aliases
-Date: Tue, 17 Nov 2026 16:44:48 +0100
-Message-ID: <20261117154450.461570-1-francesco@dolcini.it>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FUFEc8xz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5285A1F000C4;
+	Tue, 17 Nov 2026 15:45:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794930315;
+	bh=yx0f3Yir639syvYfkg79O7Kpd9xzBO9aaexbdF9atUs=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=FUFEc8xz6COW3EN33vCksYZgW8fYeid15xpqnE6bkjYb8ds8GnfyBq3Jbse/StGin
+	 aFc60FNTgNgw3W7d5QemIGS0no4qXZ1Y57Q9TPuawziXH2c0TuhNEaoDdCicQt1eXO
+	 mLINKQJOly7zZT9EFWEI89QXybe9XKEKLynkfDPWAdsbnbF1QJFyvbCGaJTiW5m1kG
+	 XV+aUd9kYT4zdS55zGYU4rzkdTaIqOWm/F3pmctvLM4fIiS4R5++zvkDuE/N2nVRgc
+	 xtB6/ntvlXr7/lq7RG0/fxX7qf/mQPblvAEk0mrhKHaLqmggThe5uOeR1czsdpOvVx
+	 mwyhL/Fo9nomA==
+From: Srinivas Kandagatla <srini@kernel.org>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, 
+ Rajendra Nayak <quic_rjendra@quicinc.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Jassi Brar <jassisinghbrar@gmail.com>, Abel Vesa <abelvesa@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Muzaffer Kadir <muzafferkadir@mainlining.org>
+Cc: David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
+ linux-watchdog@vger.kernel.org, linux-clk@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-remoteproc@vger.kernel.org, linux-input@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261105-msm8952-initial-support-v8-0-311ae8e8f14b@mainlining.org>
+References: <20261105-msm8952-initial-support-v8-0-311ae8e8f14b@mainlining.org>
+Subject: Re: (subset) [PATCH v8 00/11] Add Initial Support For MSM8952, Add
+ General Mobile Shamrock
+Message-Id: <179493030479.124445.18019484431206678491.b4-ty@kernel.org>
+Date: Tue, 17 Nov 2026 15:45:04 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,54 +90,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
 
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-The Colibri Evaluation Board and the Iris carrier board have an M41T0
-RTC backed by the carrier coin cell, besides the SNVS RTC of the SoC.
-Without aliases their numbering depends on probe order, alias the
-carrier RTC as rtc0 and the SNVS RTC as rtc1 as on the other Colibri
-modules.
+On Thu, 05 Nov 2026 13:54:04 +0300, Muzaffer Kadir wrote:
+> MSM8952 is a SoC with 8 core cpu and Adreno 405 gpu.
+> 
+> Ported without uart connection. ramoops and usb
+> mainly used to debug.
+> USB is not enabled in this series because it
+> depends on the not yet upstreamed (and not developed by me)
+> pmi8950_smbcharger.
+> 
+> [...]
 
-Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
----
- arch/arm/boot/dts/nxp/imx/imx6ull-colibri-eval-v3.dtsi | 5 +++++
- arch/arm/boot/dts/nxp/imx/imx6ull-colibri-iris.dtsi    | 5 +++++
- 2 files changed, 10 insertions(+)
+Applied, thanks!
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ull-colibri-eval-v3.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ull-colibri-eval-v3.dtsi
-index 692ef26fbab3..a296454641e9 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6ull-colibri-eval-v3.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ull-colibri-eval-v3.dtsi
-@@ -4,6 +4,11 @@
-  */
- 
- / {
-+	aliases {
-+		rtc0 = &m41t0m6;
-+		rtc1 = &snvs_rtc;
-+	};
-+
- 	chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ull-colibri-iris.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ull-colibri-iris.dtsi
-index 5e408e54b335..e0eacd0b6928 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6ull-colibri-iris.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ull-colibri-iris.dtsi
-@@ -4,6 +4,11 @@
-  */
- 
- / {
-+	aliases {
-+		rtc0 = &m41t0m6;
-+		rtc1 = &snvs_rtc;
-+	};
-+
- 	chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
+[01/11] dt-bindings: nvmem: Add compatible for MSM8952
+        commit: a3543a8b163f1edb45f0e631ea0f5905256a3684
+
+Best regards,
 -- 
-2.47.3
+Srinivas Kandagatla <srini@kernel.org>
 
