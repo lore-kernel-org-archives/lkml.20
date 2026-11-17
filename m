@@ -1,47 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794909427;
-	b=UrIlVjYer/GjTEan3BTd3pYdyY87gZp952SznOhxZbck1+WjHEAcEc7ZXd9qI8oVEotc
-	 Ml5RixySzETN/+BXno95UR1xef/DCL2g3VatyocanzaLWM3kiPuJbHxRRlN0UnxO1KJ6G
-	 1+NwCKuzDO0WXcvtCehlE5UmINETqH38PIlryTBbDUcEDv97MAK3Q9EK1l3L2sWn3iIhO
-	 TK0xL1TKq6a3G2sk+NyPHLroQH39EQ4ZbR4xmPxVo2n6sm4ckRsTnkJKVodAe/v7iofr3
-	 37nmbqWQjXlzN2XCN0CBM5Odu0MvwU41DJCQtuQWKGCft1Cy1QUWCxSzDvDoTQTArIw==
+	t=1794909437;
+	b=UyGN1kT22S8ddexpEo9hMS2zKWnWv+JV6liOSppg8lvg3Sw0/tScV4TR9O8kJvoXAa5e
+	 A5ijq5RL/k998n16gwTVkMdK6/Gt7dU7QIyYzA2breIaHf9MQxTNO8qwANsPMfvFQMJCN
+	 zpq2KytfNbSSiMDhU1UgH60SxSIKg/0DNNB6UUa6qFwns6lVdWrMxpjweIoE/w6pZB7kG
+	 WZgXQVlMEhUKseqzrypFYS8mlg4rfIrKGwtP4EfHqKGMzLcZKCS4E+A6GMowRR9O/vhZb
+	 OpcDwxx86T0524uNg0yNYhj4yTQz7bpaiWQUlr3OLUcNrtoXWlmSeBRzMrdyXBcpdDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794909427;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=2fY+2HOSK8rfddtZoh+t1ZJeqxl8EMfCbjk7Wm0pBYA=;
-	b=Azu9oZJloR1lhTu9I+Jke4lCLRzjOoyUzeNovEnc51BfqqdeeT+lSMFavCKVePkM6nuh
-	 Ubyo3Q1P+vbB+uFhj5hj52XqfJybi+JYaM0RLGxPa4cGJCHseDDWilDHCd0V9cOSCuZb+
-	 XulGcB1lXLs5mjam/0jGpKV+OGySsh84k5jNznn3NkuqVWCMZzv6GGti5OoVh6ZkhDLqS
-	 /JZf54CFy/ZDZPVIAO+ZR9dYqqYe0yGbRMafIMyYrtUOkI2CraBFLm2jTEMu4NtDDyn02
-	 Da+bIHY6Bjf2b2aUyTb2CjY3cDXmguBhjEb7pQ+mQNA/kWXlQOjXfdbTjcfH2d0Eq2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794909437;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=8LQ5Dy/ADmf7zpiEEPCreTwWA/XdI0vBH6oroij8nrg=;
+	b=ifwZF0TZBcxtiyOIu1rvAqhESFAHOlyfYJdjJuOUplzHn6vPg8bKH5W+s2aTAW8jlidV
+	 BmZESjuNZyKNkASkt1eiKBVzB6CXNGkgcbPoX+OKgqfE+nt4DiQMvbbdlXok2W9XvQw0y
+	 slnVG0akM1009RAICdcCo8HUu7W5F2PlWykn5TbxPZMwFRI2zLIgtuVnOW8dSZxlAZU/N
+	 8l6StYiTFLNBvUXqMUXfrTWB5rko5mVmJN9dj7eq32kQR40WaqXHTIKJ5IQdNU167swY1
+	 ZgGUmMQXM1h/qL917HOZlWLl6oYMgA1eCM37k8fEee7xlYsyvHoy9qxXUayFzknhUGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=egySUPph;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PZNg7sns;
+	arc=none smtp.remote-ip=192.198.163.17
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82915606A31C;
-	Tue, 17 Nov 2026 09:57:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA41606A32A;
+	Tue, 17 Nov 2026 09:57:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BA41606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=egySUPph
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC9231F000C4;
-	Tue, 17 Nov 2026 09:56:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794909427;
-	bh=2fY+2HOSK8rfddtZoh+t1ZJeqxl8EMfCbjk7Wm0pBYA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=egySUPphbrhnVdGPvwfDbJ0S9W2WlsyAyzyHcQEZ+HXIW8r+ekqkM6CL2VZpQH8UN
-	 YSpMF40egtUW100ztPnYDttbETFhQ55M1qsALTyEuKO3NV4aXhBhoIQtSO6sggkllq
-	 iPnA+RjkzdRg4U/mneZ/ts1UD6ZEu4JRi/MqH2sKIHLdVbd/zsByzjSoWuaEyiiUMA
-	 pXJUiDFYIEQeqQCAyPvGOTtOVKZQt84hXjYD0/6uCo6UxA1wOMcEFXMfdS03gWwugj
-	 C0GqvbLW3wOVuuPjvVreuZ2vQN9wEkoQf7Tz2jWTntU+pKTm0NXu5PfQL+4fxo0jLQ
-	 KEFiqUkb/ZgvQ==
-Message-ID: <767ba6ff-f153-4fc3-9b56-f2421c793bcf@kernel.org>
-Date: Tue, 17 Nov 2026 10:56:53 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PZNg7sns
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794909437; x=1826445437;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=lY2QJ+dr42ixRPBhzmuMSDm3xf6/nYnvWnvhMZfyCCw=;
+  b=PZNg7snsFPW2BzeF2H7tQ+unfqZzNvnTOsGAR/hZu+qMxO7x9UlULTZW
+   ymRWpI2p/9SnnlK0/HTWlqxoiihbm3+wrLuMBH+s3MHKWUSTtMTiXXL3N
+   BLSn5MuweHKgLP338uCknT2+3iMBb0POv++UdFeA4Mneuvy5U891ZE2pK
+   m8SUtOPFv5bJtaGzEZ9Yz5SQFLKZgix0K9U85rdYesMAenkTO+9qe5dH9
+   Pus1X9LTnIVPpZz3vjNDMNNP4A45OgluhoIUZm/eGeL17z/t5YWwwekDS
+   LuWJyRFidW+GmfOYFeF76on/CEJ+HWGIBODzYTahOdRaLv8emlajKkYnJ
+   A==;
+X-CSE-ConnectionGUID: 8o/3HO0FT6+dLkTnkT//TQ==
+X-CSE-MsgGUID: sS8F0CI9QYeSL1bZBlw8yQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3667889"
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="3667889"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 01:57:16 -0800
+X-CSE-ConnectionGUID: TZAdfFoSSH6ji+yZeU0MoQ==
+X-CSE-MsgGUID: 9IfV9blZRRyup/Kg8IWVQw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="10200192"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.254])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 01:57:13 -0800
+Date: Tue, 17 Nov 2026 11:57:11 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Volodymyr Chapman <volodymyrchapman@gmail.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Dan Scally <dan.scally@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>, Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] media: ipu-bridge: Add Sony IMX175 (INTCF1A)
+Message-ID: <avwk93N8D7AYGzDX@ashevche-desk.local>
+References: <20261116175151.20150-1-volodymyrchapman@gmail.com>
+ <20261116175151.20150-3-volodymyrchapman@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,145 +84,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/9] fs/proc/task_mmu: write-protect device-private
- THPs in PAGEMAP_SCAN
-To: Tal Zussman <tz2294@columbia.edu>,
- Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
- Peter Xu <peterx@redhat.com>, James Houghton <jthoughton@google.com>,
- Andrea Arcangeli <aarcange@redhat.com>,
- Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Michal Hocko <mhocko@suse.com>,
- =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
- Andrei Vagin <avagin@gmail.com>, Muhammad Usama Anjum <usama.anjum@arm.com>,
- Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>,
- Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>,
- =?UTF-8?Q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org
-References: <20261116-uffd-state-fixes-v2-0-4397a0196479@columbia.edu>
- <20261116-uffd-state-fixes-v2-5-4397a0196479@columbia.edu>
- <38750bd8-6bb3-40f9-901c-44cef40a9de7@kernel.org>
- <cc8daec0-c3e5-45be-9af0-d58719a43953@columbia.edu>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <cc8daec0-c3e5-45be-9af0-d58719a43953@columbia.edu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116175151.20150-3-volodymyrchapman@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 11/16/26 23:48, Tal Zussman wrote:
-> On 11/16/26 3:26 PM, David Hildenbrand (Arm) wrote:
->> On 11/16/26 21:02, Tal Zussman wrote:
->>> PAGEMAP_SCAN with PM_SCAN_WP_MATCHING write-protects a huge PMD through
->>> make_uffd_wp_pmd(), which handles a present THP and a migration entry
->>> but does nothing for a device-private THP. The PMD never gets the uffd
->>> bit.
->>>
->>> pagemap_thp_category() reports a non-present PMD without the uffd bit as
->>> written. A user tracking writes with async uffd-wp therefore sees every
->>> page of a device-private THP as written on every scan, whether it was
->>> written to or not. This requires a driver that migrates THPs to device
->>> memory.
->>>
->>> A device-private PMD must be write-protected like any other huge PMD. To
->>> fix it, pass any valid PMD softleaf entry to set_uffd_wp_softleaf_pmd(),
->>> not only a migration entry. It downgrades a writable entry and sets the
->>> uffd bit. When the THP migrates back, set_pmd_migration_entry() carries
->>> the uffd bit over to the migration entry, so the write protection is
->>> kept.
->>>
->>> Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
->>> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
->>> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
->>> ---
->>>  fs/proc/task_mmu.c | 2 +-
->>>  1 file changed, 1 insertion(+), 1 deletion(-)
->>>
->>> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
->>> index ee7f509d376e..013eeea7d1a3 100644
->>> --- a/fs/proc/task_mmu.c
->>> +++ b/fs/proc/task_mmu.c
->>> @@ -2520,7 +2520,7 @@ static void make_uffd_wp_pmd(struct vm_area_struct *vma,
->>>  		old = pmdp_invalidate_ad(vma, addr, pmdp);
->>>  		pmd = pmd_mkuffd(old);
->>>  		set_pmd_at(vma->vm_mm, addr, pmdp, pmd);
->>> -	} else if (pmd_is_migration_entry(pmd)) {
->>> +	} else if (pmd_is_valid_softleaf(pmd)) {
->>>  		pmd = set_uffd_wp_softleaf_pmd(pmd);
->>>  		set_pmd_at(vma->vm_mm, addr, pmdp, pmd);
->>>  	}
->>>
->>
->> This really should be squashed int #3 I think. Or what's the reason for keeping
->> this separate?
->>
+On Mon, Nov 16, 2026 at 05:51:50PM +0000, Volodymyr Chapman wrote:
+> Add the ACPI HID which the Lenovo ThinkPad 10 (20C1/20C3) uses for its
+> Sony IMX175 rear camera, with the 320 MHz link frequency supported by the
+> imx175 driver, so that ipu-bridge creates the fwnode graph for it. On
+> this Bay Trail machine ipu-bridge is used through the atomisp
+> csi2-bridge.
 > 
-> I viewed them as separate bugs with different Fixes: targets, one from v6.7 and
-> one from v6.19, so it seemed reasonable to keep them separate. But patch 3 handles
-> device private entries already anyways, so I can squash this in.
+> Tested on a Lenovo ThinkPad 10 (20C3) together with the rest of this
+> series: the IMX175 is found ("Found supported sensor INTCF1A:00") and
+> streams through atomisp.
 
-Oh, indeed, different fixes tags.
+Enough to mention this in the cover letter message.
 
-Okay then!
+> This patch was drafted with the help of an AI coding assistant (Claude)
+> and tested on the hardware by the submitter.
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+This paragraph needs to be once in a cover letter, no need to have it in the
+individual commit messages.
+
+...
+
+Since the ACPI HID here is broken (it's actually a PNP ID), can you also
+provide (as a comment) the excerpt from DSDT to show that device description?
 
 -- 
-Cheers,
+With Best Regards,
+Andy Shevchenko
 
-David
+
