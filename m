@@ -1,75 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.166.143.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794910746;
-	b=HNQHUDtpZZQRe591L30Ue/6y8EnOY0i/fhHaiVxTASpp8em2Tl9ISSB/PZsfYDpWPhnv
-	 DbJkbMxfdpMbGOifN2YhfTvZajPf9TJV/LX3+WHjOpTGEcyEdu+ZbgvxiBJ3A6LEfHfz4
-	 ogs8gy9lvBVKxhEGR+xKJLyrqDJOCdIv0gS+rWI5aTe/ujg4b1g64QPAkQsoY0sIN74po
-	 kIqFWDVGP0eK7kGwfW4tOtoo65uJCKh9CSu0S3YyJrmo6Zg0fAYrGVy4c2qMUAOCaP8b1
-	 y2taTMGQzGmVt+y3QD4W8KSdmKVm4ECu36rKNXbCe1eE5MqVECwmi8CGalFgxRtQQfQ==
+	t=1794910759;
+	b=DfRl9yNGJc6fQNrQ/R55EuTrZRetw3i/fPTsmA6HiJ3udlGbT1M00MTUiEXhGbmUdmgG
+	 uW007CazkLfpyHfI/O0SC8BRS1mGtoeB/oFGdV2Utlya5MmtR4+WH8fyJ0nv3ieSL44eL
+	 ixwKi9YmsBDTOeMYY09Q0xwz02nK4t35IjH8pFSYh4t0/HiwQ6k6iECqktpK4WgvDQX4H
+	 Y1Pyb3tGq2t49jxkjXVVOsJbylO83K3SIBvEXsOPGGtIJJqJ5gL8QTC7lNeXwkRp3zqUQ
+	 0ILVzU91bcX/RU+TR19Gin+Kjd5ja2RExoDHfu05wPCejk1KhPYurHA5XPMGzad2LZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794910746;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
-	 Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Infomaniak-Routing;
-	bh=/FVkAVmysI3nzoI1x0oBDOLXOnkIo/vEal3TNCx8hmg=;
-	b=pbhajr2tIQzHpRfoRNKq1jaulQbzscpxo4DtAD84oQEQk/jZSBt27YI4m+YsOXhEoIDN
-	 DF/hsyCreliWlRx08dWQHT6thT3OGNKqwK8KxU6O0SjTP4q/30n7A2V0M8UQVqf6/nM+M
-	 g0RDUClXAwhUYN5QQm4a7C5hDsLmggeGrDZknQXc97gbBca8KU3qZl6G8wcB3DnZ2x/+i
-	 jaK7/zQGwlZo75qUvpmrhm2ry3lWpRGh5M1AQLwre+DOSuistRO/XtR+60JUFTH+Yl9w2
-	 QDa/dVTNPLSiZcQhtjGOcvbuxF4LqdmVKUH/4JIOBrZXAgt+7wt1kHNTBjTVQZ6OI0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794910759;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=6tYUDeaUmXci4DtaZ3KGPX6vHUKyaaYpdht15nvdlEk=;
+	b=NSxuACZzKbvikJP4NO6c06TgygRE5b8B3Jf05I/Fn26E79g/YAb6+eoPKSSwsF2z4SIs
+	 WX1AExoO4yGDPTbwwB9jrEjofitg5D7tWRLySozIQwxSF2KH7qDawUGV9S5C/1SPuxmPR
+	 iW5cwobtHLByzjgFgZOvgpUvX0texxxwO70QYArlRJXWIPBDaoIZdDJrTL1XmAM7wojvv
+	 7OAfEciZ1zLG6syX6kJfeZul1ii+aurAx28RLj759r94fVWndeXGfyEFtFuehtr9aWNgc
+	 yI/Xx++qJgCH2nhzau/l0TDeUf9/Nhpe30bn8YMoqYwDdDc3Y9Lrd3vGDNnx9uFv4Hg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=digikod.net;
-	spf=pass smtp.mailfrom=digikod.net;
-	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=KLx8nqUb;
-	arc=none smtp.remote-ip=83.166.143.171
-Received: from smtp-8fab.mail.infomaniak.ch (smtp-8fab.mail.infomaniak.ch [83.166.143.171])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=hq3XZ0Sw;
+	arc=none smtp.remote-ip=209.85.222.178
+Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37D4E606A8AE
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:19:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37D4E606A8AE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 881DB606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:19:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 881DB606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=KLx8nqUb
-Received: from smtp-4-0001 (smtp-4-0001.mail.infomaniak.ch [10.7.10.108])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jTLLC0vC6zWDZ;
-	Tue, 17 Nov 2026 11:18:59 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1794910738;
-	bh=/FVkAVmysI3nzoI1x0oBDOLXOnkIo/vEal3TNCx8hmg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=KLx8nqUbJ5b6/SD7u7R0jjlglg9nHy5Srtf0Bh08xz10YPmlg9tH5uXgzcBujJeGz
-	 bIsv7DRbEWmLLDl9+YbhPpnaSwWg8mkjFwso+XkgCFLyphidorUPDgczkBPRewK1Wv
-	 2St/KHBtmt5/7DcRZl/GNunHgKiUWpjcdQ0qipyY=
-Received: from unknown by smtp-4-0001 (Postfix) with ESMTPA id 4jTLL93Xg8zVBq;
-	Tue, 17 Nov 2026 11:18:57 +0100 (CET)
-From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
-To: Casey Schaufler <casey@schaufler-ca.com>,
-	Georgia Garcia <georgia.garcia@canonical.com>,
-	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
-	James Morris <jmorris@namei.org>,
-	John Johansen <john.johansen@canonical.com>,
-	=?UTF-8?q?Ondrej=20Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>,
-	Paul Moore <paul@paul-moore.com>,
-	Serge Hallyn <serge@hallyn.com>,
-	Stephen Smalley <stephen.smalley.work@gmail.com>
-Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
-	Christian Brauner <brauner@kernel.org>,
-	KP Singh <kpsingh@kernel.org>,
-	Matt Bobrowski <matt@bobrowski.net>,
-	apparmor@lists.ubuntu.com,
-	bpf@vger.kernel.org,
-	kernel-team@cloudflare.com,
-	linux-kernel@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	selinux@vger.kernel.org
-Subject: [PATCH v2 6/6] selftests/landlock: Test capabilities guarding other LSMs' policies
-Date: Tue, 17 Nov 2026 11:18:43 +0100
-Message-ID: <20261117101845.2523770-7-mic@digikod.net>
-In-Reply-To: <20261117101845.2523770-1-mic@digikod.net>
-References: <20261117101845.2523770-1-mic@digikod.net>
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=hq3XZ0Sw
+Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-949664ee41cso324985385a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:19:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1794910757; x=1795515557; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6tYUDeaUmXci4DtaZ3KGPX6vHUKyaaYpdht15nvdlEk=;
+        b=hq3XZ0SwNMPqXAAFptW06QVzSro3dwLjHjkyW+FcJdX8JacGeM+g0F1PVT0NcnNGLR
+         pWIqnoRkRLpX6uT704N9lgLnJZMOXKtfyZAEfepQLPYgdPALZ8exgL8o6AtB8o2dJmoR
+         SKoc3SHsCyYtbybxCpm9+/Wlz1hWI9LfcnNS9DyKSNFe7SwwIUMZ2JZGoPpI39/iaaSj
+         NXv0MDLiflmcZEdKELJJjgKVXCGHpl4mQOY0L85DyFSj+WTjWsHWS+D7Op7kulJ1s8aj
+         W5u5c5MedZ8rtI3CtmQH0CzGl1ejvYoFEpFtBR5+ojk6BamBB1BZQKfJf6B2vQtRhnbV
+         0iyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794910757; x=1795515557;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6tYUDeaUmXci4DtaZ3KGPX6vHUKyaaYpdht15nvdlEk=;
+        b=OLnVjLR1CJ9GvTNz9fHs+wYOdtfsbEe0IlOo1jkQkZ4qk6+n4Uwdf0uwmPznkIFV26
+         kGSTUevR2b9Lf1X2YZAhQOZDd8gx52aCYdeDHhWE9M/092Y8Ep5flhnBWQAiUy+0Gyop
+         0wHfeG7n23uHPxXr+3g8V92Re35/iXVAd/i6GfJASOGflJa3Td+Lz8pDSjtYMlIYJZZ2
+         7ejw9moqqofWSAAMvMBWDtyzHcaZnW8sN0QYYt1GLAvjbPFcVArgpf6funUe78B3YIWC
+         oOwBaS4DQf8HAI2x9BdqE4uaVSKycGGWrrEp9yXfHHLTyyAGO0OeVbhp+hd8HYeUycUs
+         U7Ag==
+X-Gm-Message-State: APuU4Z9nbhEcf0SXw5rVovj518A+7DzTXqKy7uxVRI14TAjY/MIyUMdk
+	OecAN3CMcv+noUO8qeGHAQkP7sTnUqmq9F/Xt0ZDpkB45oUP9iKbPQYg6yEAMI3kDzqmJLTQPc1
+	acb1z
+X-Gm-Gg: AYBFou0rKJfRI7waGUVxhs9s1sf2lEBibJ1Cnhx1LxVig8NB/NG1vIb3gL5zieKCBc0
+	zSD/Cz1u7cICntCRC33sJG2hRSlteG6Ikgy7Cu1nIq17Qzp6nzQnCxQBFGih8nJ3+Sj5fc0d+fu
+	RnQWHj/IFwCP4k0sLuZRgIWBha8StDJfujqIkl1VmmB6Owx40YBpHBPVTv8dtF4we/FmWTTgmX9
+	v5pf9OX++zcR3gGePeeMznCxKz7sUg0GcCWEeYkf4bYco9CLB/doninFxvie3FFWtdNlDRq25R7
+	rxC+cRpJAMFbXsHo4YMF9iVASTw2tVqTKZfwmgfwmiRG0VcgK4UdqGRTldnYXh1aqRSGvGgRrlE
+	aa0qbK55A2/g2LWvEFxgvsudq0XP0MmEKFEE67qoDSYh7+2JARTRWDYFx1XSS0hU0XWk7Vd5HMa
+	6zAPRff4fHoIlAj24woqqXWMiQJLxVEkz+WL7RSJPvR+sq0fdMXhSwhKQaKY8FYXw/j97HJBO3l
+	qn8XJt1ileR5yM1uyczXYXIr++PR6yglfcGKNZJwj4oG36N8rmqCPjctUnS3gXW9ClrLOrleDeV
+	LLgOnSP2mkPCVkGjk+TfH9RaLmjaDP3T2vXDy4fupaotI/cnLYGNWfUqkp3QXIu5r5Uy68lcT9Q
+	4u0b6P45ZML9PSQc=
+X-Received: by 2002:a05:620a:4048:b0:93f:dea:3b7e with SMTP id af79cd13be357-9494baf6928mr2132633385a.24.1794910757471;
+        Tue, 17 Nov 2026 02:19:17 -0800 (PST)
+Received: from gourry-fedora-PF4VCD3F (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9496bfb7fa0sm719926685a.34.2026.11.17.02.19.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 02:19:17 -0800 (PST)
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	david@kernel.org,
+	gourry@gourry.net,
+	ziy@nvidia.com,
+	joshua.hahnjy@gmail.com,
+	rakie.kim@sk.com,
+	ying.huang@linux.alibaba.com,
+	akpm@linux-foundation.org,
+	arnd@arndb.de,
+	larips <larips950@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] mm/mempolicy: limit compat bitmap reads to the source nodemask
+Date: Tue, 17 Nov 2026 05:19:10 -0500
+Message-ID: <20261117101910.1820066-1-gourry@gourry.net>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,339 +104,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Infomaniak-Routing: alpha
 
-Check that a domain denying CAP_MAC_ADMIN prevents a process from
-changing a file's Smack label and from loading AppArmor policy.  Also
-check that denying CAP_MAC_OVERRIDE prevents a process from bypassing
-Smack rules between sockets with distinct labels.  The allowed,
-unhandled and unsandboxed variants retain each capability, and an audit
-test checks both Smack denials.
+A 32-bit get_mempolicy() call can read past the kernel's stack nodemask.
+With 64 possible nodes and maxnode=65, copy_nodes_to_user() computes an
+eight-byte copy, but compat_put_bitmap() reads two native words.
 
-Smack and AppArmor are optional and are not added to the test
-configuration: each test is skipped if its LSM is not active according
-to lsm_list_modules(2), and fails if this syscall fails.  The default
-test configuration has no other LSM, so these tests skip there and the
-capable_lsm hook is not exercised.
+A kernel built with CONFIG_NODES_SHIFT=6 reports:
 
-The cap_other_hooks fixture now covers more than commoncap's checks, so
-update its description, and add CAP_MAC_ADMIN and CAP_MAC_OVERRIDE to
-the capabilities that the tests may raise.
+    BUG: KASAN: stack-out-of-bounds in compat_put_bitmap+0x113/0x120
+    Read of size 8 at addr ff110000099afeb0 by task mpol32/246
+    Call Trace:
+     compat_put_bitmap+0x113/0x120
+     copy_nodes_to_user+0x137/0x200
+     __ia32_sys_get_mempolicy+0x1a6/0x280
 
-Without the previous commits, the denied variants and the audit test
-fail with Smack (boot with lsm=landlock,smack), and the denied variants
-fail with AppArmor (lsm=landlock,apparmor).
+Bound the compat bitmap read by MAX_NUMNODES.
 
-Cc: Casey Schaufler <casey@schaufler-ca.com>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Günther Noack <gnoack@google.com>
-Cc: John Johansen <john.johansen@canonical.com>
-Cc: Paul Moore <paul@paul-moore.com>
-Signed-off-by: Mickaël Salaün <mic@digikod.net>
+Clamping every call to nr_node_ids would remove the extra userspace
+word when the kernel nodemask is large enough to contain it, but this
+keep that existing compat behavior while preventing reads beyond the
+source allocation.
+
+Reported-by: larips <larips950@gmail.com>
+Fixes: e130242dc351 ("mm: simplify compat numa syscalls")
+Cc: stable@vger.kernel.org
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 ---
+ mm/mempolicy.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Changes since v1:
-https://patch.msgid.link/20261110203042.2410140-7-mic@digikod.net
-- Switch to EUID 0 before loading AppArmor policy, which also requires
-  the root UID or GID (reported by Sashiko).
----
- tools/testing/selftests/landlock/cap_test.c | 240 +++++++++++++++++++-
- tools/testing/selftests/landlock/common.h   |   2 +
- 2 files changed, 237 insertions(+), 5 deletions(-)
-
-diff --git a/tools/testing/selftests/landlock/cap_test.c b/tools/testing/selftests/landlock/cap_test.c
-index 144ae866c3bd..a84a1b5d82aa 100644
---- a/tools/testing/selftests/landlock/cap_test.c
-+++ b/tools/testing/selftests/landlock/cap_test.c
-@@ -10,12 +10,16 @@
- #include <fcntl.h>
- #include <linux/capability.h>
- #include <linux/landlock.h>
-+#include <linux/lsm.h>
-+#include <linux/xattr.h>
- #include <sched.h>
- #include <stdio.h>
- #include <stdlib.h>
- #include <string.h>
- #include <sys/mman.h>
- #include <sys/mount.h>
-+#include <sys/socket.h>
-+#include <sys/syscall.h>
- #include <sys/wait.h>
- #include <sys/xattr.h>
- #include <unistd.h>
-@@ -741,11 +745,12 @@ TEST(cap_target_userns_independent)
- }
+diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+index 79053ece02cd4..d9177c5504879 100644
+--- a/mm/mempolicy.c
++++ b/mm/mempolicy.c
+@@ -1715,7 +1715,8 @@ static int copy_nodes_to_user(unsigned long __user *mask, unsigned long maxnode,
  
- /*
-- * Capability checks that commoncap makes from hooks other than the capable
-- * hook.  Each test first checks that the operation needs the capability, then
-- * checks it with the capability effective.  Variants cover an unsandboxed
-- * baseline, a domain that denies the capability, a domain that allows it, and a
-- * domain that does not handle capabilities.
-+ * Capability checks that do not go through the capable hook: commoncap's checks
-+ * from other hooks, and other LSMs' checks for their own policy.  Each test
-+ * first checks that the operation needs the capability, then checks it with the
-+ * capability effective.  Variants cover an unsandboxed baseline, a domain that
-+ * denies the capability, a domain that allows it, and a domain that does not
-+ * handle capabilities.
-  */
- /* clang-format off */
- FIXTURE(cap_other_hooks) {};
-@@ -976,6 +981,190 @@ TEST_F(cap_other_hooks, capset_inheritable)
- 	clear_cap(_metadata, CAP_SETPCAP);
- }
+ 	if (compat)
+ 		return compat_put_bitmap((compat_ulong_t __user *)mask,
+-					 nodes_addr(*nodes), maxnode);
++					 nodes_addr(*nodes),
++					 min(maxnode, MAX_NUMNODES));
  
-+/* Much more than the number of LSMs that can be active at the same time. */
-+#define LSM_IDS_MAX 64
-+
-+static bool is_lsm_active(struct __test_metadata *const _metadata,
-+			  const __u64 lsm_id)
-+{
-+	__u64 ids[LSM_IDS_MAX];
-+	__u32 size = sizeof(ids);
-+	long count, i;
-+
-+	count = syscall(__NR_lsm_list_modules, ids, &size, 0);
-+	ASSERT_LE(0, count)
-+	{
-+		TH_LOG("Failed to list LSMs: %s", strerror(errno));
-+	}
-+	for (i = 0; i < count; i++) {
-+		if (ids[i] == lsm_id)
-+			return true;
-+	}
-+	return false;
-+}
-+
-+/*
-+ * The following tests check capabilities that guard another LSM's policy, which
-+ * that LSM checks with security_capable_lsm().  These LSMs are optional, and
-+ * are not in the test configuration: each test is skipped if its LSM is not
-+ * active (e.g., boot with lsm=landlock,smack).  Not tested here: SELinux only
-+ * checks CAP_MAC_ADMIN this way when a policy is loaded, and AppArmor only
-+ * checks CAP_MAC_OVERRIDE this way for unconfined profile changes when the
-+ * kernel.apparmor_restrict_unprivileged_unconfined sysctl is set.
-+ */
-+
-+/* Returns an FD to a new file on a private tmpfs. */
-+static int create_private_file(struct __test_metadata *const _metadata)
-+{
-+	int fd;
-+
-+	set_cap(_metadata, CAP_SYS_ADMIN);
-+	ASSERT_EQ(0, unshare(CLONE_NEWNS));
-+	ASSERT_EQ(0, mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL));
-+	ASSERT_EQ(0, mount("test", "/tmp", "tmpfs", 0, NULL));
-+	clear_cap(_metadata, CAP_SYS_ADMIN);
-+	fd = open("/tmp/f", O_CREAT | O_RDWR | O_CLOEXEC, 0600);
-+	ASSERT_LE(0, fd);
-+	return fd;
-+}
-+
-+static const char smack_out_label[] = "landlock-out";
-+static const char smack_in_label[] = "landlock-in";
-+
-+/* Creates connected sockets whose Smack labels deny writes. */
-+static void create_smack_socketpair(struct __test_metadata *const _metadata,
-+				    int socket_fds[2])
-+{
-+	ASSERT_EQ(0, socketpair(AF_UNIX, SOCK_DGRAM | SOCK_CLOEXEC, 0,
-+				socket_fds));
-+	set_cap(_metadata, CAP_MAC_ADMIN);
-+	ASSERT_EQ(0,
-+		  fsetxattr(socket_fds[0], XATTR_NAME_SMACKIPOUT,
-+			    smack_out_label, sizeof(smack_out_label) - 1, 0));
-+	ASSERT_EQ(0, fsetxattr(socket_fds[1], XATTR_NAME_SMACKIPIN,
-+			       smack_in_label, sizeof(smack_in_label) - 1, 0));
-+	clear_cap(_metadata, CAP_MAC_ADMIN);
-+}
-+
-+/* Smack requires CAP_MAC_ADMIN to change a file's Smack label. */
-+TEST_F(cap_other_hooks, smack_relabel)
-+{
-+	int fd;
-+
-+	if (!is_lsm_active(_metadata, LSM_ID_SMACK))
-+		SKIP(return, "Smack is not active");
-+
-+	fd = create_private_file(_metadata);
-+	enforce_cap_variant(_metadata, variant, CAP_MAC_ADMIN);
-+
-+	EXPECT_EQ(-1, fsetxattr(fd, "security.SMACK64", "_", 1, 0));
-+	EXPECT_EQ(EPERM, errno);
-+
-+	set_cap(_metadata, CAP_MAC_ADMIN);
-+	if (variant->is_allowed) {
-+		EXPECT_EQ(0, fsetxattr(fd, "security.SMACK64", "_", 1, 0))
-+		{
-+			TH_LOG("Failed to set the Smack label: %s",
-+			       strerror(errno));
-+		}
-+	} else {
-+		EXPECT_EQ(-1, fsetxattr(fd, "security.SMACK64", "_", 1, 0));
-+		EXPECT_EQ(EPERM, errno);
-+	}
-+	clear_cap(_metadata, CAP_MAC_ADMIN);
-+	EXPECT_EQ(0, close(fd));
-+}
-+
-+/* CAP_MAC_OVERRIDE bypasses Smack label rules. */
-+TEST_F(cap_other_hooks, smack_override)
-+{
-+	int socket_fds[2];
-+
-+	if (!is_lsm_active(_metadata, LSM_ID_SMACK))
-+		SKIP(return, "Smack is not active");
-+
-+	create_smack_socketpair(_metadata, socket_fds);
-+
-+	/* The distinct Smack labels deny writes without an override. */
-+	EXPECT_EQ(-1, send(socket_fds[0], "x", 1, 0));
-+	EXPECT_EQ(EACCES, errno);
-+
-+	enforce_cap_variant(_metadata, variant, CAP_MAC_OVERRIDE);
-+	set_cap(_metadata, CAP_MAC_OVERRIDE);
-+	if (variant->is_allowed) {
-+		EXPECT_EQ(1, send(socket_fds[0], "x", 1, 0));
-+	} else {
-+		EXPECT_EQ(-1, send(socket_fds[0], "x", 1, 0));
-+		EXPECT_EQ(EACCES, errno);
-+	}
-+	clear_cap(_metadata, CAP_MAC_OVERRIDE);
-+
-+	EXPECT_EQ(0, close(socket_fds[0]));
-+	EXPECT_EQ(0, close(socket_fds[1]));
-+}
-+
-+/* Switching to EUID 0 raises all permitted capabilities, so drop them again. */
-+static void set_root_euid(struct __test_metadata *const _metadata)
-+{
-+	set_cap(_metadata, CAP_SETUID);
-+	ASSERT_EQ(0, seteuid(0));
-+	disable_caps(_metadata);
-+}
-+
-+#define APPARMOR_LOAD_PATH "/sys/kernel/security/apparmor/.load"
-+
-+/*
-+ * Returns the errno of writing to AppArmor's policy load interface, or 0 on
-+ * success.  The written data is not a valid policy: a task that may not manage
-+ * policy gets EACCES, and any other task gets EPROTONOSUPPORT.
-+ */
-+static int write_apparmor_load(struct __test_metadata *const _metadata)
-+{
-+	int fd, err = 0;
-+
-+	fd = open(APPARMOR_LOAD_PATH, O_WRONLY | O_CLOEXEC);
-+	ASSERT_LE(0, fd)
-+	{
-+		TH_LOG("Failed to open %s: %s", APPARMOR_LOAD_PATH,
-+		       strerror(errno));
-+	}
-+	if (write(fd, "x", 1) < 0)
-+		err = errno;
-+	EXPECT_EQ(0, close(fd));
-+	return err;
-+}
-+
-+/* AppArmor requires CAP_MAC_ADMIN to load policy. */
-+TEST_F(cap_other_hooks, apparmor_policy_load)
-+{
-+	if (!is_lsm_active(_metadata, LSM_ID_APPARMOR))
-+		SKIP(return, "AppArmor is not active");
-+
-+	if (access(APPARMOR_LOAD_PATH, F_OK)) {
-+		set_cap(_metadata, CAP_SYS_ADMIN);
-+		ASSERT_EQ(0, unshare(CLONE_NEWNS));
-+		ASSERT_EQ(0, mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL));
-+		ASSERT_EQ(0, mount("securityfs", "/sys/kernel/security",
-+				   "securityfs", 0, NULL));
-+		clear_cap(_metadata, CAP_SYS_ADMIN);
-+	}
-+	ASSERT_EQ(0, access(APPARMOR_LOAD_PATH, F_OK));
-+
-+	/* AppArmor also requires the root UID or GID to manage policy. */
-+	set_root_euid(_metadata);
-+	enforce_cap_variant(_metadata, variant, CAP_MAC_ADMIN);
-+
-+	EXPECT_EQ(EACCES, write_apparmor_load(_metadata));
-+
-+	set_cap(_metadata, CAP_MAC_ADMIN);
-+	if (variant->is_allowed) {
-+		EXPECT_EQ(EPROTONOSUPPORT, write_apparmor_load(_metadata));
-+	} else {
-+		EXPECT_EQ(EACCES, write_apparmor_load(_metadata));
-+	}
-+	clear_cap(_metadata, CAP_MAC_ADMIN);
-+}
-+
- /*
-  * cap_vm_enough_memory() lets CAP_SYS_ADMIN use the vm.admin_reserve_kbytes
-  * reserve, but only with vm.overcommit_memory=2.  The Landlock check of this
-@@ -1233,6 +1422,47 @@ TEST_F(cap_audit, other_hooks_allowed)
- 	EXPECT_EQ(0, records.access);
+ 	return copy_to_user(mask, nodes_addr(*nodes), copy) ? -EFAULT : 0;
  }
- 
-+/* Denials in the capable_lsm hook are audited like capable hook denials. */
-+TEST_F(cap_audit, smack)
-+{
-+	struct audit_records records = {};
-+	int ruleset_fd, fd, socket_fds[2];
-+	__u64 domain_id;
-+
-+	if (!is_lsm_active(_metadata, LSM_ID_SMACK))
-+		SKIP(return, "Smack is not active");
-+
-+	fd = create_private_file(_metadata);
-+	create_smack_socketpair(_metadata, socket_fds);
-+	ruleset_fd = create_cap_ruleset();
-+	ASSERT_LE(0, ruleset_fd);
-+	/* Allow CAP_AUDIT_CONTROL for child-side audit cleanup. */
-+	ASSERT_EQ(0, add_cap_rule(ruleset_fd, CAP_AUDIT_CONTROL));
-+	enforce_ruleset(_metadata, ruleset_fd);
-+	EXPECT_EQ(0, close(ruleset_fd));
-+
-+	set_cap(_metadata, CAP_MAC_ADMIN);
-+	EXPECT_EQ(-1, fsetxattr(fd, "security.SMACK64", "_", 1, 0));
-+	EXPECT_EQ(EPERM, errno);
-+	clear_cap(_metadata, CAP_MAC_ADMIN);
-+	EXPECT_EQ(0, close(fd));
-+
-+	set_cap(_metadata, CAP_MAC_OVERRIDE);
-+	EXPECT_EQ(-1, send(socket_fds[0], "x", 1, 0));
-+	EXPECT_EQ(EACCES, errno);
-+	clear_cap(_metadata, CAP_MAC_OVERRIDE);
-+	EXPECT_EQ(0, close(socket_fds[0]));
-+	EXPECT_EQ(0, close(socket_fds[1]));
-+
-+	EXPECT_EQ(0, matches_log_cap(self->audit_fd, CAP_MAC_ADMIN));
-+	EXPECT_EQ(0, matches_log_domain_allocated(self->audit_fd, getpid(),
-+						  &domain_id));
-+	EXPECT_EQ(0, matches_log_cap(self->audit_fd, CAP_MAC_OVERRIDE));
-+	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	EXPECT_EQ(0, records.access);
-+	EXPECT_EQ(0, records.domain);
-+}
-+
- TEST_F(cap_audit, allowed)
- {
- 	struct audit_records records = {};
-diff --git a/tools/testing/selftests/landlock/common.h b/tools/testing/selftests/landlock/common.h
-index a6fdfb422fad..77a8278fe89a 100644
---- a/tools/testing/selftests/landlock/common.h
-+++ b/tools/testing/selftests/landlock/common.h
-@@ -41,6 +41,8 @@ static void _init_caps(struct __test_metadata *const _metadata, bool drop_all)
- 		/* clang-format off */
- 		CAP_AUDIT_CONTROL,
- 		CAP_DAC_OVERRIDE,
-+		CAP_MAC_ADMIN,
-+		CAP_MAC_OVERRIDE,
- 		CAP_MKNOD,
- 		CAP_NET_ADMIN,
- 		CAP_NET_BIND_SERVICE,
 -- 
-2.56.0
+2.53.1-Meta
 
