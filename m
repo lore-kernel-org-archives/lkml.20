@@ -1,95 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794920680;
-	b=0oPyVYb21zgx3mkX0qAu+jx9vd9yQ68sZCOkiVBdEKt8E67pCKNFZlEeZYagJFgdwoGu
-	 c9Mx4Xhw1ZPYLtoh0eKitLCwIfKpUFczUVgxCwAw5pSbbBDJO1ATDlShfQ5bmrn0rruks
-	 sw7fx9z70AJObnYAu+pfQ75CoDoqKoFTTlTxV9PxQ/8NwgA/i+W9HUgerYSR42L4meaLr
-	 YVdDMR6xbWmi8F5mN/QFUumGHu5rfJ0+NrnDgT9tRecgtWhnC/dYexgGyuJFl/Rg6WvXO
-	 dsXlAG5IhBxdIrlWfwA8FkY3BwwXXTfRfoNrH90AmeJUnO4Anp015KFCPyjMhy8AnqA==
+	t=1794920683;
+	b=qW4FdKMvwnPp5es60cck7/XLbXbF75Ja0UEcLTclJNcO8mUwgkdbxJMpWllQzXtTqfHD
+	 At7wgpNsjXEMEdDKJon529ZjQH+XZ/2TWFUFWw4Dar710cc7wDxaDLGy4doPt48zrMgRg
+	 PC+737dnN0ZV8r0T9ApVhwVNrxXc0zm7Narv7FPIUUcTT8Cb9zOUTLSgEk9nTFG4Xk28/
+	 1pLjDjM56on6+/AocIwjl38JwCUnn5B7SGeaKRVxjsmH1DpjG5iNbh09QMmgWcsxLtxlN
+	 qMFBSEm5AWviOuKQGRVwDQcaFGeEfoFuJxdYazPuYf+6kTKIdQiYrUiFCs4ftyD2Iww==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920680;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=3sldnPBu0waTZ/5txqwNAnRVVWR9mIFe5mEWkyluFHw=;
-	b=qgRGhlgA99cjzhJAJfqAm70ChQF3cKJcE9qGGQRVVbwl70Z/Mv/wNnw2c+x9m9rv/W+k
-	 ysMYpW5GiqhRmegtcN0VK+WrZc4Bzs+t+I9B08EoI+tJv3ZlEUb6mwt0YG7s2kAE7iNp4
-	 JLYQtPO3V/C5hyRSlXj+VzPvVpDK02gLmcRYqt4yQExhIFr0uCkLD5FGy3I7piqGDbbAm
-	 ms7/NtlcEwcpnKuo3/zg37whl8tt8F1sQ+pClDATT/JfXA7hKffQulniRhVo+UssFgrGD
-	 ltYUDwgsOuYCg8r/nma4ZRV8/1PwmkIxymfv9C2PrlvK4NIPknzP1cnbNxiwMRn2SpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794920683;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=mR0nEV2O5FZTm+jth7aDIW2PeXtt3ZXbJtCg3l+STZU=;
+	b=NCIblscLHJEaHV++Mkc53z7hat8Ro0w+9UdIairbdFbfZkBD2e2y5apUT3N2EFggyv+d
+	 4buvAxAS9AsCzpQpVawAvFRAMZX65QVLLHeXpUwh5qKWBlQ5umJASkWmZ2qQLLHli3JgQ
+	 HoBj93kNM31PlGaneXGQq2GPkUsBLHeI1v6eXXEOp78z8cMPLYbqFrsBPdJ+kjzvC+nea
+	 LiV/7RThYLfSQnRIPvaDihb+UY2FY+aSkcAbgYdgLJZDumP+UghorKQsN2GeihFwGrZZK
+	 r8VxbE6JC7X9sKKQu6jpTYbjmGwOuayi3BqU91tZJzq6sEWtQHfXtcj6ROUVcd0okMQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ON1Up0b9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fO86I4+j;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94FBE606A333;
-	Tue, 17 Nov 2026 13:04:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94FBE606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B10606A32A;
+	Tue, 17 Nov 2026 13:04:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ON1Up0b9
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 07A3E205A51;
-	Tue, 17 Nov 2026 14:04:38 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794920678;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3sldnPBu0waTZ/5txqwNAnRVVWR9mIFe5mEWkyluFHw=;
-	b=ON1Up0b9yaUOJGxlQjS6m9WrMbMpBJf8RpuzeW35eJPYm2vGuaZAcoZrSHXG8nUP/0bVsZ
-	zUu7gyrQ4X5MZTVLkSkJcnYnUF0vBRaWrStk6MEZBiHUr/6FR1EZp5BtDSxmiTuLvjBwCe
-	E8QNacvGB9lSDqdcmI2nSeot6qMBNkxbzWB53AbL4cHCY/RZlZNo/zb6dwN/YrEK61DR2S
-	lnl/FoWzlrc/kVnnO6GWkxtfPundiLDGa63uyohc9W8+a/aJxczd31OcOCTJrWNs3Zdgly
-	D0x7X7LNG8TP32+TnYeWgN2tS+yptybXOSTojR5zqgvLqGff8cRmAzov6trD/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794920678;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3sldnPBu0waTZ/5txqwNAnRVVWR9mIFe5mEWkyluFHw=;
-	b=YodI/S+gZYToN1CQQ4A/vCZIIX68x2bFJRbGoqrYriQnHwmZXtYKLTA7wZEYwQ6uT4zJrs
-	VZUFfpd19P1DXBXOILx2RvOkug0/zGKZYixODuiLBtK0ictLM0sWbtzopWG1ljY9LQleD1
-	HuaKZmEz7qj7cLF6RlInwYzEEXXQeQfKYNAfM0i9IR0blhqQhunGY0xUZsaqHWjTTd6+8c
-	E7uilpwlXbM9M5ORxDFSFeG0B7gcGDgZLBJyCfePxEL5H/j8+fcGgZW2Rh45Og3nCJaED3
-	bnSUFzxr+6cq9AOsgX/YYQfRGWGsx4flQr11iEJtvNIcuUzyU6PM2FUvVmn2PA==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794920678; a=rsa-sha256;
-	cv=none;
-	b=FizaN7fiHZooAAithQdKcc3AWJcBe3i4BDHngA2I7AKlpz2gFx2hYjTIyHxzncn/KZor6i
-	44EC8zOdU2f/GTLwe2Z+czI4u2gWJ6XggSXArjgGjKK4k1roVBs8sop3mUnTmUuYR8J+QP
-	mk5kyDINlm7Tq1xCUM2fnXqIQ/5qOMnF3P7y/DnFmDLBTw43aje21TnYAYx3ws/xEl87aA
-	skmML6kNol3lZSh52xAZD8L3fZFLZO/5Vs9rN990Sj/rYl49YEpX6kGesF8hf7UyBKJ1Y7
-	Sxj1PIxy3K68yaZ2o8XzWfOs2eI2mcnIk9ow2RoNsh/ECermFzZ3RcFa1Zyagg==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-Message-ID: <80d4ca224b264acd5a2496ce5920e2dffd5f50b3.camel@pengutronix.de>
-Subject: Re: [PATCH 2/2] phy: sun4i-usb: Assert reset before deasserting in
- phy init
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: admin@roadbobek.com, Bin Liu <b-liu@ti.com>, Greg Kroah-Hartman	
- <gregkh@linuxfoundation.org>, Chen-Yu Tsai <wens@kernel.org>, Jernej
- Skrabec	 <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>,
- Vinod Koul	 <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-phy@lists.infradead.org
-Date: Tue, 17 Nov 2026 14:04:37 +0100
-In-Reply-To: <20261117-usb-sunxi-reset-fix-v1-2-c2b76e0e84e1@roadbobek.com>
-References: <20261117-usb-sunxi-reset-fix-v1-0-c2b76e0e84e1@roadbobek.com>
-	 <20261117-usb-sunxi-reset-fix-v1-2-c2b76e0e84e1@roadbobek.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fO86I4+j
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794920682;
+	b=yAYxV6NAniNUH2YBm0dLWlOFPxzVu+LffIjuhE0Dud4/MHoQryBnMUO8jyn9xNAUP5Ek
+	 KVLZQXzx2ZXeV/ti6yefmqnWw81H3Ty4RQsiGkE4ZYwC4+yHcrHzmf2dNvCh2YE3D1xae
+	 l2YDKxV40Sl186K7P6FJDZX0IS5sIwGI4lRlqrqmiO5a5W45wdOVPMKYjT2rYIr6PJ45w
+	 bXu8MlS7ULB2zNs/A6e2Dxb2/oHEOYvsXqpSLQW6vnC8nUVtSgOod80nxOQew95cgpknL
+	 3Pn1deYu1+xBHY2vGpcGSqerg7DCZMCO1x01NxCNNdfNxAXW83ThzQ4tiybLrysSzAA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794920682;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=mR0nEV2O5FZTm+jth7aDIW2PeXtt3ZXbJtCg3l+STZU=;
+	b=HVwuMWgLwAMVlVXMvEx2TjecmpAuWn23io/5mwEs23Xa9HBgnjOIqi6fo2f1I4h1R6Bl
+	 wXYElXEtTqATkxEQh28qqFmOjJCSm5TYxaMqDqxwJnjcTNUu9/G/sS8b80BIdrR57vd2m
+	 1ZSuc939n0aZSXah8rYJwlTEl0AvOGmcpMrwh9Iy5VpVXBz4AtjAznwkadp+hvmWg/EqN
+	 ivXWDZ7z0nrTJYHXDsU0mNKn9XS/LJBkcneZ2LQ+ev0UYs2IPJkmqzHo0D/cSTggi0Be2
+	 uNDtdmKi4VyzeVfcrhoEyOyL0dPBOc3LsasAaFV4Nn+PCQUC/ZxYfIW3yl06fZFOT/Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 0E9501F000CB;
+	Tue, 17 Nov 2026 13:04:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794920682;
+	bh=mR0nEV2O5FZTm+jth7aDIW2PeXtt3ZXbJtCg3l+STZU=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=fO86I4+jI4sBttLnIbvwe4uN1TekoTNeXAzk+ias6+W8RF292LaGcPe/R6a2VcS4/
+	 6X4NLJRLSqf+RkDSEAcJ0mgDmOFHUGsrYeNGkE2UImCsK+4jbTkLxWpnTgS7sWLQtt
+	 BTxuYUj5A7aILJyUWX3atE7O77WhAE03y+0OL7+qWvBFZvGYeexmtIs+ugyx11+D1r
+	 nQf2istyCTZwP1w4xaULHS7DTGj5jDVQ7mamql9HZHUETKTpndXbLfmt6x/Gi3bXPw
+	 26MUTD75eXZTFjRfglkgH+LAwKQjjdTluDhtnh3fs6SAgamXbz2x+9u52s/QcR9mPW
+	 OVy64hKr4jNMQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 64A964A966;
+	Tue, 17 Nov 2026 13:04:41 +0000 (UTC)
+From: Suyuan Wang via B4 Relay <devnull+shyckless.gmail.com@kernel.org>
+Date: Tue, 17 Nov 2026 13:04:41 +0000
+Subject: [PATCH net] vlan: require real device netns admin to change GVRP
+ and MVRP
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,45 +83,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261117-vlan-gvrp-v1-1-53a6b0775953@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAOhQ/GoC/yWMQQqDMBQFryJvbSBfQoteRVyY9Gt/KVESDULw7
+ qZ2OcMwGZGDcERXZQROEmXxBaiu4N6jn1nJqzAa3TyI6KnSd/RqTmFVRreTc9YaTQalXwNPcty
+ vHp43DH8Zd/tht/0uOM8LXl3gOnIAAAA=
+X-Change-ID: 20261117-vlan-gvrp-409fccbb4014
+To: netdev@vger.kernel.org
+Cc: edumazet@kernel.org, kuba@kernel.org, davem@davemloft.net, 
+ linux-kernel@vger.kernel.org, elb12345@hotmail.co.uk, horms@kernel.org, 
+ pabeni@redhat.com
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794920680; l=3616;
+ i=shyckless@gmail.com; s=default; h=from:subject:message-id;
+ bh=aPzvkoJxrs75VGP9OVSKh7asGZOHTzpg2ld/W4/JnyU=;
+ b=u+HsRqt9OQMihDiNfBrDajCA2N5gyWBMaRFjPlIP3o7lKFjNddQ6JGAnhDf/v75M/vSHp42S2
+ RJNs7b+S9ryDsTgrn/IQMwKZTcgMRQ7XWC6cc/pvPYBtLmhPaLsBolW
+X-Developer-Key: i=shyckless@gmail.com; a=ed25519;
+ pk=pMtccVGiWES3bV+7YBFuBclkvq2n2HBHQ5azaBrK2lY=
+X-Endpoint-Received: by B4 Relay for shyckless@gmail.com/default with
+ auth_id=1498
+X-Original-From: Suyuan Wang <shyckless@gmail.com>
+Reply-To: shyckless@gmail.com
 
-On Di, 2026-11-17 at 13:00 +0000, Roadbobek via B4 Relay wrote:
-> From: Roadbobek <admin@roadbobek.com>
->=20
-> When a bootloader initializes USB before booting Linux without
-> first tearing down the controller, phy->reset may already be
-> deasserted when sun4i_usb_phy_init() runs.
->=20
-> Because reset_control_deassert() alone is a no-op on an
-> already deasserted reset line, stale USB PHY state can
-> persist across the bootloader-to-kernel handoff.
->=20
-> Assert phy->reset briefly before deasserting it in
-> sun4i_usb_phy_init() so the PHY starts cleanly regardless of
-> prior bootloader USB usage. Tested on an Allwinner A33 Q8
-> tablet (Laser MID-786).
->=20
-> Signed-off-by: Roadbobek <admin@roadbobek.com>
-> ---
->  drivers/phy/allwinner/phy-sun4i-usb.c | 2 ++
->  1 file changed, 2 insertions(+)
->=20
-> diff --git a/drivers/phy/allwinner/phy-sun4i-usb.c b/drivers/phy/allwinne=
-r/phy-sun4i-usb.c
-> index f26eed0db17e..05e6dcf035a1 100644
-> --- a/drivers/phy/allwinner/phy-sun4i-usb.c
-> +++ b/drivers/phy/allwinner/phy-sun4i-usb.c
-> @@ -270,6 +270,8 @@ static int sun4i_usb_phy_init(struct phy *_phy)
->  		return ret;
->  	}
-> =20
-> +	reset_control_assert(phy->reset);
+From: Suyuan Wang <stevewong@hust.edu.cn>
 
-No error handling?
+A VLAN device can be moved to another network namespace while its real
+device stays behind. CAP_NET_ADMIN in the VLAN's namespace is then
+enough to change its flags, through IFLA_VLAN_FLAGS or the
+SET_VLAN_FLAG_CMD ioctl. Two of those flags act on the real device
+rather than on the VLAN:
 
-> +	usleep_range(10, 20);
->  	ret =3D reset_control_deassert(phy->reset);
->  	if (ret) {
->  		clk_disable_unprepare(phy->clk2);
+    if (netif_running(dev) && (new_flags ^ old_flags) & VLAN_FLAG_GVRP) {
+            if (new_flags & VLAN_FLAG_GVRP)
+                    vlan_gvrp_request_join(dev);
+            ...
 
-regards
-Philipp
+vlan_gvrp_request_join() and vlan_mvrp_request_join() declare the VLAN's
+own VID on real_dev's GARP/MRP applicant, so the real device starts
+sending registrations for it on the wire, and the switch on the other
+end may add the port to that VLAN. On a running VLAN, clearing the flag
+withdraws the declaration the same way.
+
+So an administrator of the VLAN's namespace, with no capability in the
+real device's namespace, can make the real device emit GVRP/MVRP
+registrations on the wire. Check CAP_NET_ADMIN in the real device's
+namespace in vlan_dev_change_flags() when GVRP or MVRP changes, which
+covers both the rtnetlink and the ioctl path. rtnl_dev_link_net_capable()
+allows it right away when both devices are in the same namespace, so
+nothing changes for that case. This matches macvlan and the changelink
+series that gated the tunnel drivers and, recently, macsec.
+
+rtnl_dev_link_net_capable() was added by commit 8165f7ff57d9 ("net:
+ip_gre: require CAP_NET_ADMIN in the device netns for changelink"); a
+stable tree without it needs that first.
+
+Found with a static analysis tool and checked by hand.
+
+Fixes: 70c03b49b80b ("vlan: Add GVRP support")
+Fixes: 86fbe9bb599f ("net/8021q: Implement Multiple VLAN Registration Protocol (MVRP)")
+Cc: stable+noautosel@kernel.org # local DoS by a userns admin; low severity
+Co-developed-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
+Signed-off-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
+Signed-off-by: Suyuan Wang <stevewong@hust.edu.cn>
+---
+Tested under QEMU with network namespaces (x86_64, GVRP and MVRP
+enabled): an unprivileged user+net namespace admin can toggle GVRP and
+MVRP on a VLAN whose real device stays in the init netns before this
+patch, via both the SET_VLAN_FLAG_CMD ioctl and the rtnetlink
+IFLA_VLAN_FLAGS path, and is denied with -EPERM after it, while a
+same-netns privileged admin still can. W=1 and sparse show no new
+warnings. I haven't run it against a real switch.
+
+The same gap in macsec was fixed in commit ed502e485685 ("macsec:
+require CAP_NET_ADMIN in the device netns for changelink"). Its author
+described the identical VLAN case there and said a separate VLAN patch
+would follow; I could not find one on netdev, so this is sent
+independently.
+
+Link: https://lore.kernel.org/netdev/AS8P251MB000190AAD82CD30EFBC57B4DC8B42@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM/
+---
+ net/8021q/vlan_dev.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/net/8021q/vlan_dev.c b/net/8021q/vlan_dev.c
+index bca0a3693636..44067b0ccf35 100644
+--- a/net/8021q/vlan_dev.c
++++ b/net/8021q/vlan_dev.c
+@@ -269,6 +269,12 @@ int vlan_dev_change_flags(const struct net_device *dev, u32 flags, u32 mask)
+ 		return -EINVAL;
+ 
+ 	new_flags = (old_flags & ~mask) | (flags & mask);
++
++	/* GVRP and MVRP act on the real device, which may be in another netns */
++	if (((new_flags ^ old_flags) & (VLAN_FLAG_GVRP | VLAN_FLAG_MVRP)) &&
++	    !rtnl_dev_link_net_capable(dev, dev_net(vlan->real_dev)))
++		return -EPERM;
++
+ 	WRITE_ONCE(vlan->flags, new_flags);
+ 
+ 	if (netif_running(dev) && (new_flags ^ old_flags) & VLAN_FLAG_GVRP) {
+
+
+
+
