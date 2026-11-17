@@ -1,66 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.105
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794932994;
-	b=jpOhECw8+/NqyFns4dw6IjxSX4cE/nRBqUwScbayloo1oCT2J2bAjJjmLox+URJGNL8J
-	 RtO1kfn+J0PYFPG6kvcxHOjTHQNqcBS88GL66DZkkvjqjZ5Nq0wJ8esfTG+JdP800EUt7
-	 1cYTQENdZgrrM9pGMYa+M5FBatm1J1fOr8Hu/pVqv5Ykr66wSo3cIxqh42HdzHQeK0DqH
-	 S9JBSp4PJRoCTavUkJ40U8BBTn7JpHrFE/5veDuY8kXFS/U2wF0fUIZDL3E0ONkb3Ng96
-	 84qMh6v8OXMEUkEvj6i7uMHKNogVkUiLDA7lvudDqqmB33WTg75uHm0q/lDEb1w24MQ==
+	t=1794933035;
+	b=cTPRBJz67Hj1q2mVqGSur8HPqIu8eyRxA41ttZRlVyJBHZ2VBj34Ew/pC0XxqUI0T3Y8
+	 eXMtKNA4+p1gzoN1jPsZvPm4VmceL40MwXENzpe9dSOSX8lIRhcL6APaI5eYLFw0ClD+K
+	 aLVd8P1zFhXgIL/LCzEoixj3sxDp1nNg1a7XLRTIjTbaPSTS+kX3PPx6aM9qgVsPBZz7i
+	 /pjP1lJ+7eWtYjENjOZ4KCULdiZRmlC/Q+rMlYKFouasacdb+jvj/JZvaRe58DGSRraor
+	 0pBheCwGCos0oPW1SpYI2hpx5PYUWlfGBDQW4xzq87Gn5wvcTckoMM7pknEs95zABGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794932994;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Xah6kH3NsJjHjsSaD0EvODIXJgcLgPXtuKW/zjmxYTw=;
-	b=bnUTEkIzXiJ827gSHuAQvGjkBbDWby8+f92rqoufQjJWPuHfmr/PQhrgCWfJJbXwn3xC
-	 SBwvIqw9t0lwidTR+md61Hx4X8hA53YB208azqDs2w0g1T9y8cxPeDHAreg0PbAeTufB1
-	 78v/KwoOtG9WqA/baFGpQ1Hp65fAhD8ujY6BUpEUeITrT0pNNXLImsjPHZ3cEotKRcF73
-	 o7LrlZ9gGHalYHYdOZGly5mUP89BHomhCOp9yIVe4BgUHoWaZii1D9a4hd45V1d+pHo/Z
-	 fDZILjU/qqp0HiQxG4GS+wluYRgTimn3uo3VtEMeiNYOWvp9sJaXT2pelWlq0HvzsHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794933035;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=gzNj9YY/nz5fvfy6gpTsHNPiMT4iZgLl23IUytoqvOw=;
+	b=0KsZZeuWejXlNgYzmW+Tj55tjatS1lgkuV7iOh3F+A3OReSmDL3KuI0mKvvaMP+tHbK6
+	 S987IuhQe2wT6LCBWA0fwviYQiRgrbJnICCHffVwvFZo/PHrRzHaistUS9uw8O5j6dD7N
+	 1WwfSbEVRTVb2Fvj5vhamYVqEilQVwyg6Zn3oc6NlNQSkQMcBTlRKhkhHNKAuJtOnTuxz
+	 +nk5CA1Vk7sF89oQtktkpKh+MKJfE8fpGcw5+dO4sJHVexYo7kcT3zx7wy77qU3KKAP0S
+	 6Vm5yVqPtCYqd7PDv1Kd08q2j63dIpDK66RRBmAAr4WDI07J6dFDbwL/M1FHYeOVahg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=g77SUc29;
-	arc=none smtp.remote-ip=91.218.175.105
-Received: from mta0.migadu.com (out-105.mta0.migadu.com [91.218.175.105])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="OjeS/k9K";
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=qf60IkSA;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BA91606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:29:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BA91606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78C09606A32F
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:30:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78C09606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=g77SUc29
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=L5r87W+vvYhaC4SQ0Zx2qEfNiZ7OppygpT1qNDZLbu4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794932991; v=1; x=1795537791;
- b=g77SUc29ucT/305eXQyOO/RdLLnTiApw0sYGzoEYg9tr7a9qf2N6jCchSzK9gEuD6vlCP8gg
- ZtGYFskQqf4gkxIzRo5iyfvUmBn+b7M0xzh/kV6fJ1MyltaOSZYObdCp2OsO++bGXGNFNmgQxUB
- XuKC7ddVWcLSayz+JbP6QyJA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ec8f52277812aa2e;
-	Tue, 17 Nov 2026 16:29:51 +0000
-X-Mizu-Trace-ID: ec8f52277812aa2e
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 17 Nov 2026 16:29:47 +0000
-From: Bradley Morgan <bradley.morgan@linux.dev>
-To: marek.vasut+renesas@mailbox.org
-CC: akpm@linux-foundation.org, arm-scmi@vger.kernel.org, cristian.marussi@arm.com,
- eadavis@sina.com, geert+renesas@glider.be, kees+treewide@kernel.org,
- leitao@debian.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- marco.crivellari@suse.com, michal.simek@amd.com, oleg@redhat.com,
- panchuang@vivo.com, petr.pavlu@suse.com, pmladek@suse.com,
- ptikhomirov@virtuozzo.com, ptsm@linux.microsoft.com, sudeep.holla@kernel.org,
- systemd-devel@lists.freedesktop.org, willy@infradead.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_=5BRFC=5D_kernel/reboot=3A_Add_orderly?=
- =?US-ASCII?Q?=5Fsuspend=28=29_via_/sbin/suspend_user_mode_helper?=
-In-Reply-To: <20261117084523.50711-1-marek.vasut+renesas@mailbox.org>
-Message-ID: <03D974DA-29CF-404A-99BD-545D199E0A6B@linux.dev>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=OjeS/k9K;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=qf60IkSA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794933033;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gzNj9YY/nz5fvfy6gpTsHNPiMT4iZgLl23IUytoqvOw=;
+	b=OjeS/k9K+ZEeJGwLjA+B4pQfgrs1555WZIrBCTYjIeeL16SHOsepI0Aju6DM5iZAJ2b/89
+	MRO096o+Xu99Xq2wDVa5yt94APWLvRM1BCnC02dStx2qio7fLMCpux57uOdERer5G6qMJq
+	hRPN1F55iY9cTZ/z9zYcrHJeDn3nfuM=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-116-cHkP5UswPRiAFot75w1o0w-1; Tue, 17 Nov 2026 11:30:32 -0500
+X-MC-Unique: cHkP5UswPRiAFot75w1o0w-1
+X-Mimecast-MFC-AGG-ID: cHkP5UswPRiAFot75w1o0w_1794933031
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-49166c8a60dso3754414f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:30:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794933031; x=1795537831; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gzNj9YY/nz5fvfy6gpTsHNPiMT4iZgLl23IUytoqvOw=;
+        b=qf60IkSAFxTD8xr8bOjsd/byszjQSqPLfjok2uQ+ANozpf+0gR9NTS8yPJ7RUtY0eA
+         IKfVZEz+ooTfmV3fZJ0ZPon3xFvNtD5Qvmc59ZPJCk5/1J+xOLhIq1v9zlJomaZAW2H4
+         aUpvwfLGlWZ8xdmIH1uQwJfzN33jnBbmgxGNoj6XQRm6sNK/Gyq9QSz43sCTQa6Kjnfl
+         6cDq4OXrIKMWWsaSc1ryv6UsrZeF3f4vIogqHWTxd6IFuqA7Tp+7HLuhJ+4JbxnWVjXe
+         7eXmtj7+9avNVfGIN/HUPG3A48fEIcZx46uDs3vt9/5EDAh+btcari2jaZKPIQ9zA4Mx
+         Zcig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794933031; x=1795537831;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gzNj9YY/nz5fvfy6gpTsHNPiMT4iZgLl23IUytoqvOw=;
+        b=18dZIQreI14+KR2sm9hB10FCmGXQvxDbRkqn2Js2KCkXvgvzEtOmS58bKKg//QJWOM
+         BzAWt5o0cxpdgPuGg+pHshk3y2rOuV0FhhEp5ABbMGLPW6EAGYn9JQcLGYNzAxxI90Pf
+         JVwjGaM0lDGTgqHLb5y+kQLOnDvQ+gsdnT/iH0hikoJ9qMGci4pmllX/oLkFC0AB2OLI
+         oomA2lI3MMGzbTLKzg62J7Mvc74bPi3pkja/DqXIyTnDzRwmy5ewhYt4p2LPzPQaTShq
+         nourCsAq9/3cU2EDNjNWKIBnbkEHgi1iEmku/3EPkkh8zD9+aiJdzMQ/ug2l474mV8EU
+         zcZg==
+X-Forwarded-Encrypted: i=1; AL+hErHHo8PfHApYoFRA3H4WvkqPmnDOFdlh8LWjrqbKWsThgQtbaty0ARgHYGoxYD28cexFatv3/zEexh7QrG8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/IyXML7fuTKfZ0Tqt+TNuYjCUwgvVB5EzMo1KgmbQ0fEWMsbzq
+	qAFVXqW9w4tN/1x53SM0jR4tjSPTf2uyGDbH2LPDIlQiUpeS5E/KMrI9GHtOcf6eqlVOB3gi1sH
+	mpQUpCVrYmEBnTYN6fzwTJcSUipJ7H0cSCEKo8NwrvfmDQki+VYd7Q1rbMRr9rXVojw==
+X-Gm-Gg: AZFdTZc6NpFjMbY69C+kg/a+2pyWtEftmvDIi7YFhdDjKkutnESffmeChKxWVwWkzdv
+	2xBcReI6yyIqJwhWoLadNwWvm5qn1EuFBOLPX+ZUPv/ne/rdAJIArO39tHdemhCUsQFNqHqmmE6
+	nIrCT4UA5BYUBGh2VX/Vu9Q8LZvwvVYcPBk0NubGQhh8IgaWR/UAsWslUIgwCxqUMnJCwGb5/Vk
+	0ln1PYcCuMTdnyOIfv9hChQ47afHYDGTrIr3uqBFg4MCOgf/P8fnB5DA8opAtf/LRUq1DciJZ+N
+	u3xvh6dWTutbkjB3PLi2gFN6TMDchFgToiJnDaMHB6QjttXxBvw5l1Uog4OLy0c5tg9hc6/KMlH
+	/SZnfsblbOd0X5K2pSMfN6NU3M/dYr5lLQ4XtSbs3lIvEcKxb7/wI6X7jFVFNSwCD05aSM3SIx4
+	6BE+hySKY8rSN7Nc4ZOJZYrubI1OwNREKeo9eHNb0sWrjl
+X-Received: by 2002:a05:6000:1a8a:b0:48b:f93:3b87 with SMTP id ffacd0b85a97d-49c726da6e1mr33405913f8f.30.1794933030658;
+        Tue, 17 Nov 2026 08:30:30 -0800 (PST)
+X-Received: by 2002:a05:6000:1a8a:b0:48b:f93:3b87 with SMTP id ffacd0b85a97d-49c726da6e1mr33405842f8f.30.1794933030089;
+        Tue, 17 Nov 2026 08:30:30 -0800 (PST)
+Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c888b90d4sm29021988f8f.9.2026.11.17.08.30.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 17 Nov 2026 08:30:29 -0800 (PST)
+Message-ID: <09765df8-89a7-4b7e-b889-5bafd7622c20@redhat.com>
+Date: Tue, 17 Nov 2026 17:30:27 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,231 +112,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v4 0/2] ipv6: Honor suppress_prefixlength in
+ fib6_lookup()
+To: Ido Schimmel <idosch@nvidia.com>, Pablo Neira Ayuso <pablo@netfilter.org>
+Cc: Leonard Lausen <leonard@lausen.nl>, netdev@vger.kernel.org,
+ David Ahern <dsahern@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Simon Horman <horms@kernel.org>, Florian Westphal <fw@strlen.de>,
+ Phil Sutter <phil@nwl.cc>, Shuah Khan <shuah@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, netfilter-devel@vger.kernel.org,
+ coreteam@netfilter.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261117110813.9894-2-leonard@lausen.nl>
+ <avxPFYfEirXzTup8@chamomile> <94f4ea0e-c1bf-467c-94be-b65963410d30@lausen.nl>
+ <avxRfzsnke7VJq_w@chamomile> <20261117152414.GA824125@shredder>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20261117152414.GA824125@shredder>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 17 November 2026 08:44:19 GMT, Marek Vasut
-<marek.vasut+renesas@mailbox.org> wrote:
->Currently, Linux responds to firmware-issued poweroff and reboot requests
->by invoking user mode helpers /sbin/poweroff and /sbin/reboot, which give
->userspace the ability to perform orderly poweroff and reboot according to
->policy set by userspace.
->
->This is not the case for firmware-issued suspend request, which directly
->invokes pm_suspend(PM_SUSPEND_MEM), without giving userspace any way to
->determine the suspend policy. This is problematic, because the userspace
->might not be quite ready to suspend right the instant when the suspend
->request from firmware arrives, e.g. because the user is interacting with
->the device and the userspace knows that interaction will end in the near
->future, at which point the system can be suspended perfectly well.
->
->Introduce a user mode helper, /sbin/suspend, which acts the same way as
->the other user mode helpers, and which is invoked when firmware-issued
->suspend request arrives. Userspace can use the helper to apply suspend
->policy, most likely by invoking init system suspend target. In case the
->helper is not present, retain current behavior and suspend immediately.
->
->Note that /sbin/suspend is non-standard. I also considered registering
->an input device and sending KEY_SUSPEND via such a device, but that does
->not seems nice. I also had a look at wake locks, but I don't think this
->is the right tool either. I am sending this as an RFC, because I would
->like to get input on this. I am including change for two platforms, SCMI
->and ZynqMP, which could benefit from this. Thank you for your input !
-
-Hmm. let me use my thinking glasses.
-
->
->Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
->---
->Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>
->Cc: Andrew Morton <akpm@linux-foundation.org>
->Cc: Breno Leitao <leitao@debian.org>
->Cc: Cristian Marussi <cristian.marussi@arm.com>
->Cc: Edward Adam Davis <eadavis@sina.com>
->Cc: Geert Uytterhoeven <geert+renesas@glider.be>
->Cc: Kees Cook <kees+treewide@kernel.org>
->Cc: Marco Crivellari <marco.crivellari@suse.com>
->Cc: Michal Simek <michal.simek@amd.com>
->Cc: Oleg Nesterov <oleg@redhat.com>
->Cc: Pan Chuang <panchuang@vivo.com>
->Cc: Pavel Tikhomirov <ptikhomirov@virtuozzo.com>
->Cc: Petr Mladek <pmladek@suse.com>
->Cc: Petr Pavlu <petr.pavlu@suse.com>
->Cc: Prasanna Kumar T S M <ptsm@linux.microsoft.com>
->Cc: Sudeep Holla <sudeep.holla@kernel.org>
->Cc: arm-scmi@vger.kernel.org
->Cc: linux-arm-kernel@lists.infradead.org
->Cc: linux-renesas-soc@vger.kernel.org
->Cc: linux-kernel@vger.kernel.org
->Cc: systemd-devel@lists.freedesktop.org
->---
-> .../firmware/arm/scmi/scmi_power_control.c    | 11 +-----
-> drivers/soc/xilinx/zynqmp_power.c             |  4 +--
-> include/linux/reboot.h                        |  1 +
-> kernel/reboot.c                               | 34 +++++++++++++++++++
-> 4 files changed, 38 insertions(+), 12 deletions(-)
->
->diff --git a/drivers/firmware/arm/scmi/scmi_power_control.c b/drivers/firmware/arm/scmi/scmi_power_control.c
->index e791a206768c2..b61afb46ca7ef 100644
->--- a/drivers/firmware/arm/scmi/scmi_power_control.c
->+++ b/drivers/firmware/arm/scmi/scmi_power_control.c
->@@ -80,7 +80,6 @@ enum scmi_syspower_state {
->  * @reboot_nb: A notifier_block optionally used to track reboot progress
->  * @forceful_work: A worker used to trigger a forceful transition once a
->  *		   graceful has timed out.
->- * @suspend_work: A worker used to trigger system suspend
->  */
-> struct scmi_syspower_conf {
-> 	struct device *dev;
->@@ -93,7 +92,6 @@ struct scmi_syspower_conf {
-> 	struct notifier_block reboot_nb;
+On 11/17/26 16:24, Ido Schimmel wrote:
+> On Tue, Nov 17, 2026 at 02:07:11PM +0100, Pablo Neira Ayuso wrote:
+>> As Paolo suggests you explore fixing this from nft_fib itself,
 > 
-> 	struct delayed_work forceful_work;
->-	struct work_struct suspend_work;
-> };
+> Why?
 > 
-> #define userspace_nb_to_sconf(x)	\
->@@ -254,7 +252,7 @@ static void scmi_request_graceful_transition(struct scmi_syspower_conf *sc,
-> 		orderly_reboot();
-> 		break;
-> 	case SCMI_SYSTEM_SUSPEND:
->-		schedule_work(&sc->suspend_work);
->+		orderly_suspend();
-> 		break;
-> 	default:
-> 		break;
->@@ -323,11 +321,6 @@ static int scmi_userspace_notifier(struct notifier_block *nb,
-> 	return NOTIFY_OK;
-> }
-> 
->-static void scmi_suspend_work_func(struct work_struct *work)
->-{
->-	pm_suspend(PM_SUSPEND_MEM);
->-}
->-
-> static int scmi_syspower_probe(struct scmi_device *sdev)
-> {
-> 	int ret;
->@@ -352,8 +345,6 @@ static int scmi_syspower_probe(struct scmi_device *sdev)
-> 	sc->dev = &sdev->dev;
-> 	dev_set_drvdata(&sdev->dev, sc);
-> 
->-	INIT_WORK(&sc->suspend_work, scmi_suspend_work_func);
->-
-> 	return handle->notify_ops->devm_event_notifier_register(sdev,
-> 							   SCMI_PROTOCOL_SYSTEM,
-> 					 SCMI_EVENT_SYSTEM_POWER_STATE_NOTIFIER,
->diff --git a/drivers/soc/xilinx/zynqmp_power.c b/drivers/soc/xilinx/zynqmp_power.c
->index ce75bc5ca9633..cd1cab58e84ca 100644
->--- a/drivers/soc/xilinx/zynqmp_power.c
->+++ b/drivers/soc/xilinx/zynqmp_power.c
->@@ -112,7 +112,7 @@ static irqreturn_t zynqmp_pm_isr(int irq, void *data)
-> 			orderly_poweroff(true);
-> 			break;
-> 		case SUSPEND_POWER_REQUEST:
->-			pm_suspend(PM_SUSPEND_MEM);
->+			orderly_suspend();
-> 			break;
-> 		default:
-> 			pr_err("%s Unsupported InitSuspendCb reason code %d\n",
->@@ -196,7 +196,7 @@ static void zynqmp_pm_init_suspend_work_fn(struct work_struct *work)
-> 	if (pm_work->args[0] == SUSPEND_SYSTEM_SHUTDOWN) {
-> 		orderly_poweroff(true);
-> 	} else if (pm_work->args[0] == SUSPEND_POWER_REQUEST) {
->-		pm_suspend(PM_SUSPEND_MEM);
->+		orderly_suspend();
-> 	} else {
-> 		pr_err("%s Unsupported InitSuspendCb reason code %d.\n",
-> 		       __func__, pm_work->args[0]);
->diff --git a/include/linux/reboot.h b/include/linux/reboot.h
->index aa08c3bbbf59a..c009deb3eb2b6 100644
->--- a/include/linux/reboot.h
->+++ b/include/linux/reboot.h
->@@ -177,6 +177,7 @@ void ctrl_alt_del(void);
-> 
-> extern void orderly_poweroff(bool force);
-> extern void orderly_reboot(void);
->+extern void orderly_suspend(void);
-> 
-> /**
->  * enum hw_protection_action - Hardware protection action
->diff --git a/kernel/reboot.c b/kernel/reboot.c
->index bc71183d4ad87..1d830051dc920 100644
->--- a/kernel/reboot.c
->+++ b/kernel/reboot.c
->@@ -851,6 +851,7 @@ void ctrl_alt_del(void)
-> #define POWEROFF_CMD_PATH_LEN  256
-> static char poweroff_cmd[POWEROFF_CMD_PATH_LEN] = "/sbin/poweroff";
-> static const char reboot_cmd[] = "/sbin/reboot";
->+static const char suspend_cmd[] = "/sbin/suspend";
-> 
-> static int run_cmd(const char *cmd)
-> {
->@@ -872,6 +873,20 @@ static int run_cmd(const char *cmd)
-> 	return ret;
-> }
-> 
->+static int __orderly_suspend(void)
->+{
->+	int ret;
->+
->+	ret = run_cmd(suspend_cmd);
->+
->+	if (ret) {
->+		pr_info("Failed to start orderly suspend: fall back to suspend-to-mem\n");
->+		pm_suspend(PM_SUSPEND_MEM);
->+	}
->+
->+	return ret;
->+}
->+
-> static int __orderly_reboot(void)
-> {
-> 	int ret;
->@@ -951,6 +966,25 @@ void orderly_reboot(void)
-> }
-> EXPORT_SYMBOL_GPL(orderly_reboot);
-> 
->+static void suspend_work_func(struct work_struct *work)
->+{
->+	__orderly_suspend();
->+}
->+
->+static DECLARE_WORK(suspend_work, suspend_work_func);
->+
->+/**
->+ * orderly_suspend - Trigger an orderly system suspend
->+ *
->+ * This may be called from any context to trigger a system suspend.
->+ * If the orderly suspend fails, it will force an immediate suspend.
->+ */
->+void orderly_suspend(void)
->+{
->+	schedule_work(&suspend_work);
->+}
->+EXPORT_SYMBOL_GPL(orderly_suspend);
->+
-> static const char *hw_protection_action_str(enum hw_protection_action
-> action)
-> {
-> 	switch (action) {
->
+> fib6_lookup() is the IPv6 counterpart of fib_lookup() which is used by
+> nft_fib_ipv4. The fact that it's not working with
+> 'suppress_prefixlength' is an oversight, which is being fixed here.
 
+I must admit I read the previous version as the issue was caused by an
+API misuse by nft.
 
-Right, I had a look, this doesn't "hurt" to merge, like for example
-nothing will break, and this looks simple enough, but again, as you said,
-/sbin/suspend isn't standard, so that's a crux. I'm thinking using PM may
-be a "lightbulb" idea for me here. But I may be going crazy.
+It looks like I misread it, I'm fine with this fix.
 
-hmm, if I had to say tag or no, I'd give the tag:
+/P
 
-Reviewed-by: Bradley Morgan <bradley.morgan@linux.dev>
-
-Since
-
-1: this doesn't hurt to merge
-2: this looks very very simple and quite cool tbh.
-
-
---- Thanks!
