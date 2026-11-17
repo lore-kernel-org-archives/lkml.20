@@ -1,55 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794924057;
-	b=CcnlTOfVVgXpp6uFiQJPod/s33uKNFos7Je6eqlbgv4I5hZXKYOHL++Z/1gxEYf8HGeL
-	 m17t56iqChHq3lUeEFG5348luhmJSTZmw4wOqnVM2aTb/njhSDUBfD9YzYrIpgM9WB4NF
-	 t/NdqI0s18MILXzG6exFy10nCEa2Ca5ar9Q7BPkbcvScPRP0PUw3IpRK1YKOK5mj4G514
-	 hF4fGO4U0r9/F+H8xVid8YyF3Y3bkCjiuEmssjxWrAaqH0TvMzwVch3co7gAF9k8JUCUn
-	 rh89cwOgul2+zO/RegHtmN/vEajlPfDeMyr07DrQctskGqBz9BuzeTETs5MxAjlBU4g==
+	t=1794924068;
+	b=RnOLoV/GunRy1RVVkbg30jeybe/AFeinufw9t5bGZWjoWDOoXz9fVH+SnHqbJBWeIG+v
+	 cj4r6fHKcEC2ZOpOfbpYr4fXzFTFbIMEX51fNJQXKbmF2pjwoAilt73jFYHJUS8WH7fpS
+	 g5cnooEwZ7Wzscv6r9dXy/es3iaVELgGGLzOpwfxXsk3Lm2od93qLDs6HhiUuv5iR61Uh
+	 3BMeC8C12uo2g7zc8s0i8SnmDHUEaNb5h1seEDjZgs4Av/9oScLvg/BeFNwy4Fq8FNRnX
+	 jjnojlTc3Pm86lbs2E5mt8CqJ1OFGdoMfKYJBvsj6VrCj4Qd4SIDIbGbERf2NZmCc3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794924057;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=1n4akinMU4Hf+AOUS7LX8ylkG85tkNf4WcZP+gMfH/E=;
-	b=UBUOK56ywcPU5x4uJyLdcOkcIpDdz9GnlnKLPEQRUtcfLRKFUUXh1PV33/DgBVep9aXw
-	 Y2EPMetQpaCtLX1Pq/PRfSLgkgqQlL+LlKuOueFEPh99PyxbvbN3E+dW9ieNZ40xMjQFm
-	 Js9P7pH494Y/RVUI62L8938X2TmJ/DQjCjiLdwhAeGKgMrPet30+N+cStClDnzWybh8I5
-	 hay0Sg8Dmh7rMszsL0e7xreNsRK1wUPuZbO1zWBgwlK8ggiT91YeyCMkWGwAebdri8Jei
-	 +x9gu7BHB1N2sYrcXJvvZQCt8GUOIt5Mack7k84VPAwUW5t/eR4WYk3zrjpi3/v98kA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794924068;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer;
+	bh=zI+crKsh6am8tsCzPTpsROvUSZD6KicW2WP2b2xt+Q0=;
+	b=hiuZJREW/HAr6BdAf6NV9/YX8Ekjvfk0kPtfAYczPL9SXP7jpwd2P4Utc0p1gBLCmWFz
+	 hgR7GGGrIDFTzSRh0UXE9oW5iITFIy+5Y/WcOHLukpkTvHANUN3ENSuwWaDuP066QoTUH
+	 Kijeqw8aljXH1tFi6Johu2ZkpVInqRrf/nXOKPD/yvp+a1t8WYIQrcyjeKSxdFaFiR7yt
+	 dUmNV8YgHJRW+Wu4JXNkxvqewxKQoGbZnfdiqzVfjRNt3IBIH3NVgL6r+hOrgc7JVL9YV
+	 UfhY0R5SYAn5Mil6L5IBhFrp0BlJzsVFuaTGZ5W/jS5UJdt6ZkiMkvhdLlJ5FHCyIgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N0OEanuk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KbXYbI3x;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2928C606A335
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:00:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12C4606A329;
+	Tue, 17 Nov 2026 14:01:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N0OEanuk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0652B1F000CE
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:00:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KbXYbI3x
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4D9C1F000C4;
+	Tue, 17 Nov 2026 14:01:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794924057;
-	bh=1n4akinMU4Hf+AOUS7LX8ylkG85tkNf4WcZP+gMfH/E=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=N0OEanukXS6Mm9KTxE7SL8DxyX/MI0H/vbjirpu+EOJm3uRyP10i10RM03japU4sd
-	 S8em5UDMgAqF3ZDHfpH1WJ+unNr8U4+QaoqU631+jFWK54v1LM1ZMXeiV+3S0oqAYd
-	 LCaR3EuXIefsHGzJVwgsxWlbY+u1B7zw4tZqe1Jyy984WmpJFaHWCIuqiA7guWxW+d
-	 U3r6OkBn2mbKRSCZZP28Fv37+ALd7EE9Pb39iIg1ccXfX13iaNM4AXULnC2Dfg9p4y
-	 E0Cfbhsu4NWDndPrdhr8EVT4aGUZaYTddUw3lAhPYPz0hBANOFSMBh2906frfV5dpm
-	 AYnohD2AseUuA==
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5c14f7768acso3800432e87.3
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:00:56 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErE+CRggfdtrHRoenvCQ4gVXd3FJ2USQ6mcb75wIt5i+JHZNRWmZ5v7aSktD+qvsH+rwu76y8OZAFmh/4ao=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8sdJ8R+k07j8njwPMEy3wixOIxGKUOdXNX1tkWjK/9JBsVBFGz
-	tWhCNjEUGlbSvGaMo8F4vT91Z5PysMi/a62n5rHjJmZbOLW7DUJnXqWGerLEFeQKTrZMD5xWPcv
-	fJp5mQljFIwc5AnfPgCkuuRjOjyRtyb0=
-X-Received: by 2002:a05:6512:3a96:b0:5c1:4e4c:359c with SMTP id
- 2adb3069b0e04-5c1709c44cemr4959950e87.36.1794924055639; Tue, 17 Nov 2026
- 06:00:55 -0800 (PST)
+	s=k20260515; t=1794924068;
+	bh=zI+crKsh6am8tsCzPTpsROvUSZD6KicW2WP2b2xt+Q0=;
+	h=From:Date:Subject:To:Cc;
+	b=KbXYbI3x81dskh+oWDMdyPT4Z/FJMj6bW5Lsv9xGCVxgLdCwq1FZ7oGHuFCY431QQ
+	 Dv9Y1pHcIWsELImWV3CZEGBJ/34GXXxPvHWdFI6KfqQNTUOOJVWhjmxvsGJNBbjWBl
+	 d+PD3+10I2oQpjmcztO+pSK3GMOqyq+H0AXa8GkP2S8yAH4bu52IZxVPhvdi4knQCC
+	 nXjPfNwM4Ha70QEKM26tu1fJA7nenvnP0QBstBje7C8mJQHVsPRexYFjP3udGOW685
+	 YizXuxeUHebkUTkoVZJzj5qzJWtaQrxc7WqHQ4zpVmNDcvToqJkZYHq3ZZh83hlodl
+	 E4fSSumFxDApg==
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Date: Tue, 17 Nov 2026 16:01:04 +0200
+Subject: [PATCH] s390/kdump: write protect the crash kernel memory by its
+ virtual address
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,41 +53,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261107012236.28069-1-prasanth.padarthi10@gmail.com> <20261109035633.93522-1-prasanth.padarthi10@gmail.com>
-In-Reply-To: <20261109035633.93522-1-prasanth.padarthi10@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 17 Nov 2026 15:00:43 +0100
-X-Gmail-Original-Message-ID: <CAD++jLmNSdgJPG_8dVKBLxN2ewvYJm99S+32SyKj_psa0DX53Q@mail.gmail.com>
-X-Gm-Features: Aa3M54pM4N8FrMarps7ie1VxRtJp-XfzSOJDJp1i6ICkP2NWqZ4utwFMO5THjsE
-Message-ID: <CAD++jLmNSdgJPG_8dVKBLxN2ewvYJm99S+32SyKj_psa0DX53Q@mail.gmail.com>
-Subject: Re: [PATCH v2] pinctrl: aspeed: Use managed pinctrl registration
-To: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-Cc: andrew@codeconstruct.com.au, joel@jms.id.au, ryan_chen@aspeedtech.com, 
-	billy_tsai@aspeedtech.com, linux-aspeed@lists.ozlabs.org, 
-	openbmc@lists.ozlabs.org, linux-gpio@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261117-fixes-s390-v1-1-2d9d04ca0072@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMwQ7CIBBEf6XZs8QCRsBfMR4A13ZNpGa3miZN/
+ 72gxzfzZlYQZEKBS7cC45eEplJBHzrIYywDKrpXBtObs9baqQctKEps6JU34WSD9c67CHXwZvy
+ 11b/e/iyf9MQ8t4dmpCioEseSxxZNTAOV4yvKjAzbtgOgqwpvjgAAAA==
+X-Change-ID: 20261117-fixes-s390-82943938787a
+To: Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>
+Cc: Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Mike Rapoport <rppt@kernel.org>, Sven Schnelle <svens@linux.ibm.com>, 
+ linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+X-Mailer: b4 0.16.1-dev
 
-On Mon, Nov 9, 2026 at 4:57=E2=80=AFAM Prasanth Kumar Padarthi
-<prasanth.padarthi10@gmail.com> wrote:
+crash_protect_pages() passes crashk_res.start to set_memory_ro() and
+set_memory_rw(). That is a physical address. Since the identity mapping
+may start above zero, it is not the address of the crash kernel memory
+in the kernel page tables.
 
-> The shared Aspeed probe helper registers its controller with
-> pinctrl_register(), but does not unregister it on device unbind.
-> The registration can therefore outlive device-managed data.
->
-> Use devm_pinctrl_register() to ensure the controller is unregistered
-> during device teardown.
->
-> Fixes: 4d3d0e4272d8 ("pinctrl: Add core support for Aspeed SoCs")
-> Signed-off-by: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-> Reviewed-by: Andrew Jeffery <andrew@codeconstruct.com.au>
-> ---
-> Changes in v2:
-> - Add Fixes trailer.
-> - Add Reviewed-by trailer from Andrew Jeffery.
+With CONFIG_RANDOMIZE_IDENTITY_BASE the page table walk finds no mapping
+at that address and fails. The error is ignored, and the crash kernel
+memory stays writable after "kexec -p" loads it.
 
-Patch applied as nonurgent fix.
+Use the identity mapping address of the crash kernel memory.
 
-Yours,
-Linus Walleij
+Fixes: c98d2ecae08f ("s390/mm: Uncouple physical vs virtual address spaces")
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+---
+I found this while working on a generic implementation of the set_memory
+APIs. Only build tested.
+---
+ arch/s390/kernel/machine_kexec.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/arch/s390/kernel/machine_kexec.c b/arch/s390/kernel/machine_kexec.c
+index baeb3dcfc1c8..20ea3018462f 100644
+--- a/arch/s390/kernel/machine_kexec.c
++++ b/arch/s390/kernel/machine_kexec.c
+@@ -151,15 +151,16 @@ void crash_free_reserved_phys_range(unsigned long begin, unsigned long end)
+ 
+ static void crash_protect_pages(int protect)
+ {
+-	unsigned long size;
++	unsigned long addr, size;
+ 
+ 	if (!crashk_res.end)
+ 		return;
++	addr = (unsigned long)__va(crashk_res.start);
+ 	size = resource_size(&crashk_res);
+ 	if (protect)
+-		set_memory_ro(crashk_res.start, size >> PAGE_SHIFT);
++		set_memory_ro(addr, size >> PAGE_SHIFT);
+ 	else
+-		set_memory_rw(crashk_res.start, size >> PAGE_SHIFT);
++		set_memory_rw(addr, size >> PAGE_SHIFT);
+ }
+ 
+ void arch_kexec_protect_crashkres(void)
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261117-fixes-s390-82943938787a
+
+--
+Sincerely yours,
+Mike.
+
