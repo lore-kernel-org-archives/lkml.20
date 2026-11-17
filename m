@@ -1,57 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794914543;
-	b=pjcx7jI7amWyfIob2kBmEOR3pjzuPcn2Uq4Wpf7yYqX2OtCoWEFqcmxFn8OC/XKHFP1T
-	 FEi8OHuNIdr4qfy3N8Ivl8TSNqh4M+g+pLxlOZwjKFgi09fCEJbzaIE1oLDqAdfa5fCTh
-	 L91qa1shl6NFnLTvymLC1ft2x8rjTIQLkncDXYw7qa0ZvDAsojxCpTrQc/8lXRrylPBlv
-	 /Rvbo3oOP76Qf2AFw3OPl57NZkNCNQ+hKarFa9Lgz2dN5rTJ0xRbcGUjMzqxhHmYsSi7V
-	 33kNQRpVRHDWPsIlegyloVWszCLcW+QZTrBjasjBuR6jhwxd6P2XVmF9Es2TOOEP8kw==
+	t=1794914546;
+	b=F7Jr/tSBngzpF+UbEqLw+U09n/MTyw5KT+N8lHC1ky9tcMhJ9K1zZll1PEAX8bzpSwh7
+	 UydOsBWUWj0geqfwNpmjcshI+jRIRZ1W7nxMh7rvdMfICYt9ySSY4yH2c85bFLhO92qdS
+	 RmZW77C+q9ur8jYJ3i2eGczWPTbIbd6wUeSgZGUuF/NgqVaGi/61YOah0P5UHh9Vd7BtC
+	 ZD06D6uC2A0YpbseNaGs7gBHd0+Q8pwkBhtbIk/9zvteCN2IO3S1saJ4Sa/eMOV16EDFU
+	 p1ZwvZzrZRrHFADZKJ54Oci1TCQd6T5DYelF87HvE/gadZ9IYchoUv6h9KkN5XYaNDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794914543;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=oIe3p67w4/MbeGv4zncqvt3AjFKp/+ub75gyoZv00yk=;
-	b=jdU1gW1hP17A7FC+k/Cyp9EWLDWbGERSvFThvCYoC7E7nmlWPSxolwNb8KMU5qdEwjj0
-	 T6qKT8gZTgZXfr3hgyGJCOy6LhTv5OgJ7gbTTQKgMgY32LvFgqjuR7FGnlUKa+qiMrSxL
-	 XEjYAD+WGaIxkkREvtTXmMfPK7gcmjUw1YAXQYX9udr71q28Ie80u2PvpqZBaaC+pu63U
-	 BucI1eMIK/iJs5gP03OuH7vWWdXbLNTru2A+Ho0XwO1FMsuk0SWRlODcKU2E6T4S+l2HE
-	 r3Ds5DS6wCb4yxiJLoNaympVxGplzgrMHO66QWnq6Wr8sjbYl2P4fUUxupZmXweytqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794914546;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=DBWDdYeJ5KNHUCcYayk7e9to+UqL74ZokWwi2GyVhLE=;
+	b=aLq4r9kHG02OznirNvTmCRvaa2SgdMclWDv+CPcw85luM6gepyKukEeJD4hdDgaBqwnY
+	 FjJ+OP6eDl80XYJjlVjt3TpDTBuU7t3R6Jvs26u9QBiie07OXEK90KTPsEkLuhI28eiyt
+	 g7r4sVfhmqey0CV4phRrgYI9kOd4qe0A3bR48fxgoGx+F1QLTQn+yBmnKHKsI9CR7xZGF
+	 /SZsdu3NJuzo+NfUrWgeMvfBO17i7NLAc+Qm7t4V0D7VGGdxPElwK5L1Hc3y9REUVS7sZ
+	 u0aacIohZmaxDUZVfTeEDbFFTZ5RIvJN9B2vdvozYHCPMcM+PI6SFu1qDh/wENboTfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=RCJ4jS0O;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BXR+xf2Q;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B343606A31C;
-	Tue, 17 Nov 2026 11:22:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B343606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE2C1606A331
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:22:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=RCJ4jS0O
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794914541;
-	bh=fA7EhNWJGQMJleB4jeAMNpc2PM2vJfFLxpgDHBdrh/Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=RCJ4jS0O1HgXzb6a7gu4e2T24gqN8Sq6ElCpkeEzqhKHDWzHxucj6RSxoY0gKXb6+
-	 kSS1ilPDNoclzdLQzkEts/2EHXVHs3b+WsQm5VJlX4SGvlg0miHdiF+aYr5nqgTa23
-	 90XS0A7GxLhacqR4ITX5hw6Z18fvBHQWJFEDsDHnTJMSToGp0PD8RyKYwVN85X2UjV
-	 T47zlhaPyupNsFckWGP1f/moMioiwRkfcQQk512x+FzuKOZW8uEU+BMhzImMJd7EV1
-	 At0U7fDzKFivcP8mcXX3E9gtTjTosIyz3YBraDkr3UAY+65oqKspx4LaQgLv9xG6f5
-	 8hyclFiQY99kw==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7924F17E0A27;
-	Tue, 17 Nov 2026 12:22:20 +0100 (CET)
-Message-ID: <0956ff3c-1bf9-42bd-b498-721696ce2b9e@collabora.com>
-Date: Tue, 17 Nov 2026 12:22:20 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BXR+xf2Q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C8421F000C7;
+	Tue, 17 Nov 2026 11:22:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794914546;
+	bh=DBWDdYeJ5KNHUCcYayk7e9to+UqL74ZokWwi2GyVhLE=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=BXR+xf2QWqrPdbYaM7Lh9ObomQVhPJFQxAy5QlAu2VwSzq23RuHbw2ttLRc7fXN8E
+	 iEOrgh8j4cpMMS0NJ8n0ZHJmYIG9ObruvGuqD9J1tAQEw3LakbQ29s3dbbLytExbgO
+	 Qpq+XMOyVkK2WUoiKpR/qjx757/uAZd6jIOB2UfJDhQJBDVu1S5RnhLSI2nWRze2iB
+	 k5rtEx/hQWljZ3zRG8oHMKXtb+EZQggDvtHX/16X3MKXNnwUqxk3suPgjChyo9kw9R
+	 rAaru+c7Yo9At8JIVjdO3wxK42ScRy0wAw0/6oE+W8c1f9H+5gIRk+yo5TZBb5T974
+	 ogfKmuOnvwUBw==
+Message-ID: <fa41d65f-358a-4b8b-bfd5-1e73ed04e723@kernel.org>
+Date: Tue, 17 Nov 2026 19:22:23 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,40 +52,39 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/5] watchdog: mediatek: Add MT6833
-To: i@udp0.com, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Sean Wang <sean.wang@mediatek.com>, Wim Van Sebroeck
- <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- linux-watchdog@vger.kernel.org, linux-serial@vger.kernel.org,
- phone-devel@vger.kernel.org, Roman Vivchar <rva333@protonmail.com>
-References: <20261117-mt6833-base-v2-0-058a0685c40c@udp0.com>
- <20261117-mt6833-base-v2-3-058a0685c40c@udp0.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: chao@kernel.org, Daeho Jeong <daehojeong@google.com>
+Subject: Re: [f2fs-dev] [PATCH v2 11/20] f2fs: support subpage blocks in move
+ range
+To: Daeho Jeong <daeho43@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, kernel-team@android.com
+References: <20261116040851.2849696-1-daeho43@gmail.com>
+ <20261116040851.2849696-12-daeho43@gmail.com>
 Content-Language: en-US
-In-Reply-To: <20261117-mt6833-base-v2-3-058a0685c40c@udp0.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20261116040851.2849696-12-daeho43@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11/17/26 10:11, Rui Cao via B4 Relay wrote:
-> From: Rui Cao <i@udp0.com>
+On 11/16/26 12:08, Daeho Jeong wrote:
+> From: Daeho Jeong <daehojeong@google.com>
 > 
-> Match MT6833's watchdog. It works as MT6589's, but its TOPRGU reset
-> layout isn't known well enough to describe, so it gets no match data
-> and the driver registers no reset controller for it.
+> Folios at both ends of the moved ranges can straddle the range
+> boundaries. Write back and truncate the page cache from PAGE_SIZE
+> boundaries, and hold invalidate_lock of both inodes during the exchange
+> so that faults and readahead cannot bring back stale data. After the
+> exchange, also after one that failed part way, drop the source blocks
+> that it read into the page cache, and call pagecache_isize_extended()
+> for the gap between the old EOF of dst and the moved data. The page
+> cache was not truncated before, so this also applies when the block
+> size equals PAGE_SIZE. Remove the -EOPNOTSUPP check.
 > 
-> Signed-off-by: Rui Cao <i@udp0.com>
+> Zero the cached data past the old EOF of dst with
+> f2fs_zero_post_eof_page() before the move extends dst over it, as the
+> other paths that extend a file do. Otherwise data stored past EOF
+> through a mapping becomes file data. This also applies when the block
+> size equals PAGE_SIZE.
+> 
+> Signed-off-by: Daeho Jeong <daehojeong@google.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
 
-Hopefully we can get the TOPRGU reset controller layout somehow somewhere, because
-it's a pity not to have it... though, I think that the only reset that would be
-actually needed is the CONN one (for the modem) and nothing else.
-
-So
-
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-
+Thanks,
