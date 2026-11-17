@@ -1,62 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794880988;
-	b=G8qyZNIdLnhaJKZ4VHAHhHwyJezSfn33MPQ6+LvvvSzhpGA3s7o4v39uY4ekNTKKvJv1
-	 6YCnpAXKD+NdpePZhW2jgPzP2eiyAgZlgYnivVDYsCxEY7r0uDHhhQHOsXscswa7LNFuK
-	 riMMErIjV2DMScX1qybNQCA0rr//ErUhcsKdu2zoh5XwDwmj25Elxq/CU80Y6T51eSrg8
-	 Jz0ZGaA9mzpEqsCANrnVGiEGiqO9YtZ1QPHjRpJVKjMLL3wSdX5ipAigSBVSN5wWKSlD9
-	 pCaDCHpf0RMmrI+t7T78XHck7xE3m6khemOtXIEmgUGMOWYFwDFvu/Ad/IEy8zjOKFA==
+	t=1794880999;
+	b=tWd16HXKKBM+08rYqpi3durNbtAfMbIAsHr59dlhdig9E53CkWSTZfbi2ud/DNrfHo6u
+	 lIYZF6BdTAjXRhbEz/JCy4PgMOdfxVW7w6yUJ+3hER7vNUTy+wiZQcgiaxXm+hB2igqYx
+	 zb4KcXADT+M656gEZb7S3HDWYtPVG68W7rX1z/E01t53FnKBHJRVUzhbPnhPO5BaqsIHY
+	 8QSSIny5TvnnFS8PQxy29nNiiNUWGJWoPClfhqlzVsEyQfiyr8yHWAxq1ZSxk4HhzTE4G
+	 foLNLumwRfQtdZukuq6iPLPU1DB1RsCOH/prNcEBSpZUoPsKeJkmo614F7c0+iwEI/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794880988;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Xk4s00lH1jP8Kym1YXaLQ7Wf0LEh2ORBX1GhbZk7f6s=;
-	b=omZ/TlGkjN/JK9NKjyKBvCagQFcUt8TFysgLwBrdr1idzxBlUsRRkteh9wsJucXYTaHE
-	 8KJdmZ7ybHoZQx9Cc5zjPVR1GlUGK7cgb69cmp1ftpWvTv707+d553Wg+dvXNRf6cD0/K
-	 aQ6YtBFKFg6ab00OltPrRY6NC17mGfel/Z5nGesRsyhUPTh5Ou9WjGiKfl4yxXKzIEQUT
-	 QIcmvaLWbl/9dtxBX9Ww5I6zIqhV4O7PjT4AjlFchm7gFy8L6q18gbyIWXfHBoVn8JbKp
-	 oWoXdjlXT3XqhIlVGwLpFxIbubPowscMMOIXiaXdgm9PCeWKtbbqJwFHMExXc2PFFQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794880999;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=cOL8N2teNxogAj2QZ3s9w+sDWkha0NfM6W36/zyXk8k=;
+	b=AWyGNcjRWDH/+mP+XRLTXgcpsL7UK++cn99X8Z08QT7uY4GW7OsF88my9m+ZPi8PbowG
+	 8bEmhf1P46vi3DFVbQRXj5P3/HpfcgEYeAubefsCR2ka2Izqp8Si/8WKlem6yB4BGyjXU
+	 XpVXetWRJHHWVpuQxzNgFHFg8LG9+NGjmVPyH8rOu8QYHFST8FqDMZ83dsTNdTVn7qLt7
+	 600Nhh37i/VNsL5CqB8mV49liwG9P9VQfmCwGIXRvpQ75KIfs2R2KBjkPa9Egw185JPHT
+	 dFaQN2ociVia/5NhVQVg+6IHt/591MAaNSnws4aUZKZl5f9Wdh8DvSU8vnKw/enyBhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hrwJiClt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=kqdqUChk;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AE38606A31C;
-	Tue, 17 Nov 2026 02:03:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 766E7606A323;
+	Tue, 17 Nov 2026 02:03:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 766E7606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hrwJiClt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CF621F000C8;
-	Tue, 17 Nov 2026 02:03:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794880988;
-	bh=Xk4s00lH1jP8Kym1YXaLQ7Wf0LEh2ORBX1GhbZk7f6s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hrwJiClto+C48EC49n/1H+Cjq63wAPZR54SZhU2EAPoOznhGsCcLABIaJWwDaJbw6
-	 rfN8nr7hASd96R0hpYkrxOSruU11D/asS2RZYm27yucpVPGnrqDCA5cgjVZU/nW1mW
-	 Ln45+zLNkAjf59tt4NtJhM11f2uAt/96RnwjFz4kiqDAGSzzp4ac6X72ofkiJ1yMBQ
-	 j/NLU9aJTIhW4ayxlU1IfkIPaIe+KOp6jom6cXnqtTTIpcmMaqIxLnzSM5wLjbUiBw
-	 KL5dH8sv+n9Iuu9OzitAAlg3DQf5bIpi7NjAN3evObsWIZS2bky+RYSCYwzjJ0ftMj
-	 m/gPZJYqROqiA==
-From: SJ Park <sj@kernel.org>
-To: Mattathias Pinchover via B4 Relay <devnull+mattathias.pinchover.uber.com@kernel.org>
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	Mattathias Pinchover <mattathias.pinchover@uber.com>
-Subject: Re: [PATCH 1/6] mm/damon/core: introduce sz_ops_filter_passed_last stat
-Date: Mon, 16 Nov 2026 18:03:00 -0800
-Message-ID: <20261117020301.109715-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261116-damon-sz-ops-b4-v1-1-1cffe7227e6d@uber.com>
-References: 
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=kqdqUChk
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=cOL8N2teNxogAj2QZ3s9w+sDWkha0NfM6W36/zyXk8k=; b=kqdqUChkOKuA4n8Jn8fkv5ngVF
+	mlN4pD/nCoYKAPxp2c3eBr+74fqWyH6/acvEhkkVxork8/V6E3V/VU5nN3BRWG2Z1Lu9M+/Qd09pb
+	SriGbrgOAJOJTYTTklVo1LeOcEUplqkpk5EDYSt+XRO+817rx7jJwDhCYID+rZch4hEU=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xT8XR-00H39E-Qa; Tue, 17 Nov 2026 03:03:13 +0100
+Date: Tue, 17 Nov 2026 03:03:13 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Paul Louvel <paul.louvel@bootlin.com>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Herve Codina <herve.codina@bootlin.com>
+Subject: Re: [PATCH net-next v2 2/4] net: phy: marvell: de-duplicate mode
+ initialization code
+Message-ID: <5e93bbae-2ffd-4f0d-b22e-3cc93570c4d6@lunn.ch>
+References: <20261116-marvell-phy-rgmii-v2-0-e04dca67e89a@bootlin.com>
+ <20261116-marvell-phy-rgmii-v2-2-e04dca67e89a@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,36 +71,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116-marvell-phy-rgmii-v2-2-e04dca67e89a@bootlin.com>
 
-On Mon, 16 Nov 2026 19:10:04 +0000 Mattathias Pinchover via B4 Relay <devnull+mattathias.pinchover.uber.com@kernel.org> wrote:
-
-> From: Mattathias Pinchover <mattathias.pinchover@uber.com>
+On Mon, Nov 16, 2026 at 04:27:02PM +0100, Paul Louvel wrote:
+> The code that initializes the m88e151x PHYs to use the SGMII-to-Copper
+> interface is duplicated, and does not restore the old page in case of an
+> error.
 > 
-> DAMOS stat sz_ops_filter_passed shows the total bytes that passed
-> operations layer-handled DAMOS filters, accumulated from the beginning of
-> the scheme's execution.  Users who want the amount for only the latest
-> apply interval, e.g., the size of a workload's anonymous memory that is
-> cold as of now, need to keep the previous values in user space and
-> compute the difference with the help of nr_snapshots.  Because
-> nr_snapshots is increased once per target per apply interval, the
-> computation is complicated and error-prone, especially for contexts
-> having multiple targets.
+> Instead, use m88e1510_config_mode().
 > 
-> Introduce a new DAMOS stat, sz_ops_filter_passed_last.  It is
-> updated at the end of each apply interval of the scheme with the amount
-> of sz_ops_filter_passed increase in the interval.
+> Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com>
 
-Looks good to me.
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-> 
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Mattathias Pinchover <mattathias.pinchover@uber.com>
-
-Reviewed-by: SJ Park <sj@kernel.org>
-
-
-Thanks,
-SJ
-
-[...]
+    Andrew
