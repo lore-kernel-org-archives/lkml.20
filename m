@@ -1,96 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794929079;
-	b=CoeDeBCZb1d/wHpAdc/ubdr2dEm5/Vr4WBR2YPEVntG/gb82YppmaAAF9m6T66pC2per
-	 Bez3d93FefybQsZ0Sdz2m9asKKFd5dFbqy8L77NICCuhxKpTXosy6fykJ8pvwOCMpFsvr
-	 iMro9DNSVDZa094W6hQFvVS/H9/kVHcTeGT1ZpiT2FHNyIFd6KzlY0U3593H4JBB1dZau
-	 ZWvUa6UIN+JkeV4fjQVfxtGUyhUjPi0UPY7DUfsSkZGMTgATf7fMuM/wg22cNmKaJQ9g/
-	 BS/Y4gSz+VAi4S9pQ1ly5Nj7F7Eu+CfNEEEgSXqAiA6lgUbZBkI9W58v09MWvcf8ehg==
+	t=1794929092;
+	b=1gDJ0poU9kJRCeeAYbpFp4DS5iyQITAg9uKT2PDOCDzAaSGfjKCWEuGINLKBf/4GZc6r
+	 Y/Uvw8m8gcOVYTGF6i7ZAI41RgDcBZzqNqgVIJzyz2hxZLVlmNclvA3liz8o6dWWoy6qn
+	 M9hEpsy2owZ00Onlv8PYclSUDVTsyQ+Ak1zZSRumfkQT2t64gj2BT35GqJ/GYLmDQCXX6
+	 mM4G9oMAXQcdPWInuimhoVUyWg48DLWqYN+/TMwvm4pto84VortnX8JYMs2TCenuzL45M
+	 XBfKmDYNZdKQ4T2flXnXEThv4UX0Wn5ol/7foGj3Zw6sr8mOGRb7/qtPYRRnY9x1IjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794929079;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=QytR4D/8pfr26rJ2lN3lFwyHa1r4NNacXwQ6mOgcs9Q=;
-	b=ZvszpUUy6RWyQl9ZitW+0Jfweh1NUS/1cBJFkJuraxGPhuuYwrqcrzHDXo8e6A51NWJM
-	 r6HWfoORQTo7YHJGTd2kztVPvAm8x3obP5YEkARSO+hmnt3OG7q51K60XQZqlnW8m57o6
-	 ce+lrvp6YkRYwj1qeqbQgABCALGEKcvCsfoW6pN1pdiSB/9DWZjhrd517xuJkw5tON1ll
-	 CYcL4Eoj47z5yj5GJAslGA2SjGw4Be+zOVajmlMpuT6WrhoI5KehFfH17N9kEnxo/Nrlt
-	 vtPFEqiDR4PDJ/FbkoSaUaMrrE9oeNxQTJKuuAvCEoDb2JPoTfFScf3/fnTFTUJlMLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794929092;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=owUxkx0waQYLHyGdkFtlGZQfGLiII76Q0xu/x3d+nRw=;
+	b=PgUa8fSP1afZhbjpkwFYl7fnZzjpXmGQUePmftB2JeLPjF0X00WkQk+kCj9+KQS6B8lL
+	 kYbXbgQuzqzDDE5VdVjn56GXvy6gvZUX8Izwrn/Ps+D1KV8Du15+HsJ441OgJN7D9Vyp9
+	 uvWOjrOu1DyPVrj6feA1Cqez/VbhqbRijpGLYSvLV53xKAJwdaNbxc95irxtqUCYlobDM
+	 52+xG1C9kxw1WsH7Sv5dDBAGTKkC7pieWHg5Ht3CS/VFroDSlZQodK717qpTwsThVy25/
+	 pZcYHi5AqbDagyght44AHQxfr92dsdESgafvVaVXI2uC/YkKzx3uRQZPxogSeRvxb4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=knIZtXHX;
-	arc=none smtp.remote-ip=209.85.214.175
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OPXWqmgB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75642606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:24:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75642606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28631606A333
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:24:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=knIZtXHX
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2ea19c28a50so2432805ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:24:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794929079; x=1795533879; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QytR4D/8pfr26rJ2lN3lFwyHa1r4NNacXwQ6mOgcs9Q=;
-        b=knIZtXHXnYHrMUTT2JW65bkHnI6h9Q1Z+tKVaqFCRHFtqWJcuUaCTRq+2VE5zyiDp7
-         b5BS4+ppl2QI9YQa+GKXLiGVl5UZ1ZGUFTIMA1oO2PtdIIb4DiVz6kt609vPm3B1D1gK
-         NewfLKDC1pN6E3C/51zQmSxeRzLNvyI45StNjz0gkzdjRXtf2KZsQmNkfhuZOPW9LmF7
-         Hj1MomHib+2VmgzlzGEAGsAHKGXR2uc/4xmr1+5xztYT0focv7MoelkuGZeZAlT7WPq8
-         zPAL64JmoLBwMMWcjBySSqLJUJtN7l6sqZdtUeEEvfGFw1CK1zN69AJMsIvGZsJKEyzb
-         6c8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794929079; x=1795533879;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QytR4D/8pfr26rJ2lN3lFwyHa1r4NNacXwQ6mOgcs9Q=;
-        b=JJNl/PFN5JTnp+94ODyqVDjQ8KJC5zRHjjqDD5Zm62C+1lIohvJLQqIWLVQwQkJi8I
-         8DCpm8lfDDDkOXDoSRE5l2shfYlXP6YahbW3JwEqIrHDWnEKvO+9LPiR6M09/Q70wPpI
-         /g2B2xoduvqPkPifv4HBRcs+qMkDuKVRzuURClqOCCTemy6GfibxZzk/w7+PAkm/RVku
-         KxiENVnuKoK+hjy87WHhYgyyTwm3+zwEXspXD79LiagAtDbjgJ01Nq6W9Ggv8Ci495x6
-         xJ+AUk1EOYW+U4Qnsb/tro/pyji1N2uVj6xC/tgoXx7o3U76+KqDpaqqAYYUpP5OFUSF
-         ZTxQ==
-X-Forwarded-Encrypted: i=1; AL+hErEt6mVhXBktP4q41211C6E85k4Es1hBrOrRaEyzbOmMfTxr55HUmJYKCUW1R1+5k0XnbF1DOfeW4unt7/A=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8711CmszV45tWBKN2hZtK4YABRzxJhvGhumQIRFJYX5kKq36Eu
-	hkRgkxiHuF3iLbHvq4yQ0xetDaZ40XwqsS7FubvTtjzRdYANKnFqmBku
-X-Gm-Gg: AZFdTZfjHMMHERodBtnay6Vm/i3CjeMQztcuxlnIVtZiZyB5Q9KLDZ7iLwJ+lUgEmjm
-	3D6++uYhHlFuOZAR41In0quXnEOSt9R471rrYkXFQx6l6vjgJJQDkUP/Lb9s+UbNM0ypg8pBx4A
-	EYGrz5xSpBldZvlhunvYBsW6kn0Hs2pcDR9QuLcHem7ZfAlzH157AI5nOr0YZzPuq1Snn9/PIYJ
-	ravNegBSNVuZlNrhma57grSd6mpOHdwL0V+IQ+fmJH/Szo7aOnZLlMuZPgxfkyPEZ6T9STFUyQg
-	SrtJkfYHqkx6C/HmqyemYAaplhKccX+f/kmXhaQXBGTcbFTO7TAFGoTUU4GRdkFiAgdRTN3meyw
-	PsIEDy4YvKcalaFs00mt77M0OJ6u57aYFYZTln13bmwmaMbXPc+0aLxOFaCMnEMZdmnp/YXh90W
-	ASa7XiHdfreh6pk+aU6zIZ+nnVugEHNoMBXIrQVm3n+Y8o2Ds7/AVJvCdYvwy0ojLig9XG8xMGk
-	dYj88rSSnLNsLPltKUjZ6TjPZzJ9IqaDj+iLoqGPSQ1x6FXNlTB8jkwbe4y7oBJb/SJHXnGjaNz
-	FPgkcLP5HjIfDhSSYG2Et1w6qIoqyPIzM5+GR5oB3BHlqyV3xbAaMKy1WrRwxvE5zQulNEf8HO/
-	I770=
-X-Received: by 2002:a17:903:4410:b0:2e9:9263:a58 with SMTP id d9443c01a7336-2ee0d9e2804mr210962175ad.1.1794929078716;
-        Tue, 17 Nov 2026 07:24:38 -0800 (PST)
-Received: from DESKTOP-CJ1L666.localdomain ([211.198.99.62])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd7a5867asm18050795ad.42.2026.11.17.07.24.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 07:24:38 -0800 (PST)
-From: Jiwoo Kim <arpe1618@gmail.com>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	Darren Hart <dvhart@infradead.org>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	=?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] futex: Don't check lock_ptr of an unqueued requeue-PI waiter
-Date: Wed, 18 Nov 2026 00:24:28 +0900
-Message-ID: <20261117152428.1477-1-arpe1618@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OPXWqmgB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00AEB1F000C8
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:24:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794929092;
+	bh=owUxkx0waQYLHyGdkFtlGZQfGLiII76Q0xu/x3d+nRw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=OPXWqmgBgZOxpK6QofRA+AYEy7YqwjRQmH+GgpqtW5jLIIh276sYWaL7z4xEF107x
+	 qJfrvGyb+T3oy7U20NAADKHAEQiiRl02MILK17RY9hBt2XBh3b4x8DkzdTlLQr4MtG
+	 B82VWTm4Xpsq/hH2N+Qhf4mBtptNM90t3/Ql0GWvFagvj9AZYLhl1yKpTCzxEZQlxH
+	 8hAXXDwSYIfnIinKiIxd4HPbqIhj4nnreQqAtJ/jPxCjS9+BS1IPZzA80ux07TyLCG
+	 NgXVegj+OILymFq+6dYeirBn1KV3LS+NFwgJG1pZQuSA9MNpmHJERzcNnlIALtNAQT
+	 TSFlIi7tPvTAw==
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3ae25d9e2fdso52532861fa.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:24:51 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFFfDCRQHmReQSqF3hhPBeBXUBZEUxokkdCEEa0eCMFXLpEoMH3eScsivdp8sgOMhYzaOG0ZD4+5n8hl5Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/7kBwx4Q7DDzK9nLnKqgk8IzEZzjm879Y99wsTDYgMn5+7K8jm
+	VLm3DDVZbIzb3YZDosbCrT0dWApSBmjkgc2LI32rDA4pWuUQgqu57oeDcYCiYs/5hOCqIai1Dsw
+	IUaVWATYM4aFxNZ1sR/58T3kxZ51Jpg8=
+X-Received: by 2002:a05:651c:a349:b0:3ab:3607:df9e with SMTP id
+ 38308e7fff4ca-3ae2b55b51dmr43508751fa.13.1794929090359; Tue, 17 Nov 2026
+ 07:24:50 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,96 +59,157 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261117101336.980216-1-johan@kernel.org> <20261117101336.980216-6-johan@kernel.org>
+In-Reply-To: <20261117101336.980216-6-johan@kernel.org>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Tue, 17 Nov 2026 16:24:37 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0gqzdTE6DcqDf_cVh5t4h5rgRN8CZuHxnBrf-rbcu3bCA@mail.gmail.com>
+X-Gm-Features: AclHuK-EMNJERpEtRyMX7j8M3ufXfjpr3tV94hB12B8ho6-cZ5LQAbTgYt7J0Tc
+Message-ID: <CAJZ5v0gqzdTE6DcqDf_cVh5t4h5rgRN8CZuHxnBrf-rbcu3bCA@mail.gmail.com>
+Subject: Re: [PATCH v3 5/8] driver core: platform: warn on bad fwnode assignment
+To: Johan Hovold <johan@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Daniel Scally <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Andi Shyti <andi.shyti@kernel.org>, Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+	driver-core@lists.linux.dev, linux-acpi@vger.kernel.org, 
+	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Since commit bc7304f3ae20 ("futex: Prevent lockup in requeue-PI during
-signal/ timeout wakeup"), futex_proxy_trylock_atomic() unqueues a top
-waiter in Q_REQUEUE_PI_IGNORE state from hb1 itself, and
-handle_early_requeue_pi_wakeup() only unqueues the futex_q when it is
-still queued.
+On Tue, Nov 17, 2026 at 11:13=E2=80=AFAM Johan Hovold <johan@kernel.org> wr=
+ote:
+>
+> Commit e6054f410c97 ("driver core: platform: amend the API contract for
+> fwnode setters") added a warning to platform_device_set_fwnode() in case
+> the current firmware node pointer points to a software node as that may
+> prevent software_node_notify_remove() from being called.
+>
+> This is only an issue if the platform device has been registered however
+> as software_node_notify() is only called for registered devices. A
+> bigger issue is that a secondary firmware node assigned before the call
+> may be silently lost (and leaked in case of software nodes) as these
+> helpers do not use set_primary_fwnode().
+>
+> Amend the current software node check, which fails to trigger if the
+> device also has a primary non-software node, with a warning in case the
+> device already has a secondary firmware node assigned to catch any
+> (hard-to-debug) issues due to a secondary node being assigned before the
+> call.
+>
+> Note that this also avoids making claims about the device firmware node
+> pointing to the primary firmware node, which is not the case when the
+> device only has a secondary node.
+>
+> Fixes: e6054f410c97 ("driver core: platform: amend the API contract for f=
+wnode setters")
+> Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Signed-off-by: Johan Hovold <johan@kernel.org>
 
-A futex_q unqueued this way keeps q->lock_ptr pointing to the lock of
-its hash bucket. futex_rehash_private() only moves futex_qs which are
-on a hash bucket chain, so a resize of the private hash before the
-waiter gets to handle_early_requeue_pi_wakeup() leaves q->lock_ptr
-pointing into the old hash:
+LGTM
 
-  Task A (waiter)                 Task B (requeue), Task C (resize)
-  futex_wait_requeue_pi()
-    times out, requeue_state
-    = Q_REQUEUE_PI_IGNORE
-                                  B: futex_proxy_trylock_atomic()
-                                       unqueues A from hb1
-                                  C: futex_rehash_private()
-                                       does not move A
-    locks its hash bucket in
-    the new hash
-    handle_early_requeue_pi_wakeup()
-      WARN_ON_ONCE(&hb->lock != q->lock_ptr)
+Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
 
-The warning triggers, although the futex_q is not queued anymore and
-q->lock_ptr is not used. Besides PR_FUTEX_HASH_SET_SLOTS, the private
-hash is also resized when threads are created, see
-futex_hash_allocate_default().
-
-This was observed as an unprivileged user in a QEMU guest, with threads
-of one process doing FUTEX_WAIT_REQUEUE_PI with short timeouts,
-FUTEX_CMP_REQUEUE_PI and PR_FUTEX_HASH_SET_SLOTS at the same time:
-
-  WARNING: kernel/futex/requeue.c:734 at futex_wait_requeue_pi+0x67a/0x6f0
-
-It did not trigger with the requeue or the resize left out.
-
-Only check q->lock_ptr while the futex_q is queued.
-
-This was found with an AI coding assistant, which also drafted this
-patch and its changelog. The problem was reproduced in a QEMU guest,
-and the fix was tested there.
-
-Fixes: bc7304f3ae20 ("futex: Prevent lockup in requeue-PI during signal/ timeout wakeup")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
----
-This is a different case from the one in [1], which was about unlocking
-through q.lock_ptr after a requeue. Locking through q->lock_ptr would
-not help here, as it can point into the old hash, which is freed after
-the resize.
-
-A reproducer is available on request.
-
-[1] https://lore.kernel.org/all/20260919221730.3707261-1-benquike@gmail.com/
-
- kernel/futex/requeue.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
-
-diff --git a/kernel/futex/requeue.c b/kernel/futex/requeue.c
-index 842d852302dd..6e3557a9f409 100644
---- a/kernel/futex/requeue.c
-+++ b/kernel/futex/requeue.c
-@@ -730,14 +730,17 @@ int handle_early_requeue_pi_wakeup(struct futex_hash_bucket *hb,
- 	 * wakeup code can't change q.key from uaddr to uaddr2 if we hold hb.
- 	 * It can't be requeued from uaddr2 to something else since we don't
- 	 * support a PI aware source futex for requeue.
--	 */
--	WARN_ON_ONCE(&hb->lock != q->lock_ptr);
--
--	/*
-+	 *
- 	 * We were woken prior to requeue by a timeout or a signal.
- 	 * Conditionally unqueue the futex_q and determine which it was.
-+	 *
-+	 * If futex_proxy_trylock_atomic() unqueued the futex_q already, a
-+	 * resize of the private hash since then did not move it, so
-+	 * q->lock_ptr can still point into the old hash, which may have
-+	 * been freed. Only check it while the futex_q is queued.
- 	 */
- 	if (!plist_node_empty(&q->list)) {
-+		WARN_ON_ONCE(&hb->lock != q->lock_ptr);
- 		plist_del(&q->list, &hb->chain);
- 		futex_hb_waiters_dec(hb);
- 	}
-
-base-commit: 408b129aac48b574c0c9d11137a89eefba825d5d
--- 
-2.43.0
-
+> ---
+>  drivers/base/platform.c | 40 ++++++++++++++++++++++++----------------
+>  1 file changed, 24 insertions(+), 16 deletions(-)
+>
+> diff --git a/drivers/base/platform.c b/drivers/base/platform.c
+> index e0b38dbd5acf..06ce980b57b1 100644
+> --- a/drivers/base/platform.c
+> +++ b/drivers/base/platform.c
+> @@ -708,9 +708,10 @@ EXPORT_SYMBOL_GPL(platform_device_add_data);
+>   *
+>   * Assign an OF node to this platform device. Internally keep track of t=
+he
+>   * reference count. Devices created with platform_device_alloc() must us=
+e this
+> - * function instead of assigning the node manually. This function must n=
+ot be
+> - * called for a platform device that already has a software node as its =
+primary
+> - * firmware node assigned.
+> + * function instead of assigning the node manually.
+> + *
+> + * This function must not be called for a platform device that already h=
+as a
+> + * software node or secondary firmware node assigned.
+>   */
+>  void platform_device_set_of_node(struct platform_device *pdev,
+>                                  struct device_node *np)
+> @@ -726,21 +727,24 @@ EXPORT_SYMBOL_GPL(platform_device_set_of_node);
+>   *
+>   * Assign a firmware node to this platform device. Internally keep track=
+ of the
+>   * reference count. Devices created with platform_device_alloc() must us=
+e this
+> - * function instead of assigning the node manually. This function must n=
+ot be
+> - * called for a platform device that already has a software node as its =
+primary
+> - * firmware node assigned.
+> + * function instead of assigning the node manually.
+> + *
+> + * This function must not be called for a platform device that already h=
+as a
+> + * software node or secondary firmware node assigned.
+>   */
+>  void platform_device_set_fwnode(struct platform_device *pdev,
+>                                 struct fwnode_handle *fwnode)
+>  {
+> +       struct fwnode_handle *old =3D pdev->dev.fwnode;
+> +
+>         /*
+> -        * If we call this function for a platform device whose primary
+> -        * firmware node is a software node, we'll never end up calling t=
+he
+> -        * symmetric software_node_notify_remove(). There are no users fo=
+r this
+> -        * right now in the tree so just disallow it.
+> +        * A secondary firmware node may be lost as set_primary_fwnode() =
+is
+> +        * not used here, and software_node_notify_remove() is not called=
+ for
+> +        * a registered device with a software node, warn for now.
+>          */
+> -       WARN_ON(is_software_node(dev_fwnode(&pdev->dev)));
+> -       fwnode_handle_put(pdev->dev.fwnode);
+> +       WARN_ON(old && (old->secondary || is_software_node(old)));
+> +
+> +       fwnode_handle_put(old);
+>         device_set_node(&pdev->dev, fwnode_handle_get(fwnode));
+>  }
+>  EXPORT_SYMBOL_GPL(platform_device_set_fwnode);
+> @@ -751,15 +755,19 @@ EXPORT_SYMBOL_GPL(platform_device_set_fwnode);
+>   * @dev2: device whose OF node to reuse
+>   *
+>   * Reuses the OF node of another device in this platform device while
+> - * internally keeping track of reference counting. This function must no=
+t be
+> - * called for a platform device that already has a software node as its =
+primary
+> - * firmware node assigned.
+> + * internally keeping track of reference counting.
+> + *
+> + * This function must not be called for a platform device that already h=
+as a
+> + * software node or secondary firmware node assigned.
+>   */
+>  void platform_device_set_of_node_from_dev(struct platform_device *pdev,
+>                                           const struct device *dev2)
+>  {
+> +       struct fwnode_handle *old =3D pdev->dev.fwnode;
+> +
+>         /* See platform_device_set_fwnode(). */
+> -       WARN_ON(is_software_node(dev_fwnode(&pdev->dev)));
+> +       WARN_ON(old && (old->secondary || is_software_node(old)));
+> +
+>         device_set_of_node_from_dev(&pdev->dev, dev2);
+>         pdev->dev.fwnode =3D of_fwnode_handle(pdev->dev.of_node);
+>  }
+> --
+> 2.56.1
+>
+>
