@@ -1,55 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794932503;
-	b=xqrtPqAI8W6UM3oobPN0ShEZvUfVpenn6VWoy3eHxOtQFp/s+TzwgavV0mBRbT7yiVEW
-	 UNAk9niu2HWML407dTrcMKfoCAO0U09Nnvxv/9gPmJWC2nUtbA9gXaXvtcyFvbc/ucswj
-	 2DpoISyTVh7ierPq/Odn40oAPTOgqIJ47OYfQTYEnWkfyYrX9kCPvuGdBt+QRJAwkO2gX
-	 uXmgfmxVueyxqi41goFtS/Oxje8C9+xmytt0d3Uj2xempafdmVkCd1Cx0yTlVzCYsAaWb
-	 OhdAKQAdMUTSjbRLxKoL2n16WuZUN0Nt29EVDUKFqVPaC7Ea/CVlAlWo6UJ7Dv/b5JQ==
+	t=1794932537;
+	b=eBhYvR8cXf7qfgPing8bR2/V+N3ugtCPAJND+IaedbFJ9CLKrLxU5/kG0wTNo/eN9CMA
+	 F/RvraMlbLcHv+/eumZ/pVDM8NU6UYKlxIEm8ciHo82zJ4xk+QxPQ0TXAV/nNXrbdeQVK
+	 /jrPPaWFnuyjvmKfspFmpkRENIOS0QgnE9331v+a2bI906PjTO3G+BUBqh5dz4IhWAdxO
+	 hYJT0q8su54+N8ppN8mpzOd/otWCP5Iv81dgH39H5loaWBW+pquxOYMOxCa2F4uWPBF+g
+	 Iff2ANBIUKK5n2+0uzAbY+ocF1n+KIiT64H+jvbaWWph3AhdkqTsw5EviGEfftrdzZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794932503;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=5Sbwiu099EEmkll6l+3qxwbiHX0TRA9iUayOe3qQEAY=;
-	b=NLaWLK9wXtI49wjay5sytsESRs46rOj3uFWOwkQmreB8bWiN45UXYOFRLWC5bKDidQ2x
-	 KMjOzDM6yBTz213EVmSIHEuPrIxGV6rbTOVBPxKJBbzV7FmdLgdanpD/1MN1euEClJTxQ
-	 bzm9ANPBr505YLD9XVCsjMsITKy5dy6pBRCYxOlTcP6Ifz204Nd1TECquLdtQuD/Ua0v9
-	 bUzYoGVrS4cQmDuuiFc+wRcs3JbwmedmFbUZDpesmcrH5Pb8kvR8hmX3GgAKECPANY5Ym
-	 dvjq5Eqtq2orhPtfNGi9V0FbDXBRuCVrZyFxeq5J676SkhxaUEk/5CnAa3cZa44ccOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794932537;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=+u0XvPm1yl8lpppCa0o7Ub3ZqbKbjWd/kwvQc+jK5VQ=;
+	b=F2KWvaLHY2KfHGzWcDFuf9NZEBXoZikoCSKLZBSrjoEp8MrUl7J6vGZVZJX1g5StlhvS
+	 Hk5wCf/ohza/C84Q4k+/MulVEtnP9CbCdW5OyoRUD81OYmWBX2hxGNidZviCwlrOufuOc
+	 UpYf6PjOfDCtIIzVL9JUY9jNupG2NpmmhtAGiqSk7YLG5zW7lGtoImf2Zg+g2Bp1lCYYC
+	 qESBg04bukPFnjNyopU5KkdgwZsVV4lO4GdM2PzpvAj4wZaZ/s5aFf73402D5q8ovEqSP
+	 GYarxwpU3bDiYscda4XoSr6Wyakc/4XF/SCKFCI9ss4mCJ2M79zwCsgAr/FqmvgvdsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="BLIU/e/p";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g96uGOli;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id F1FF3606A31C;
-	Tue, 17 Nov 2026 16:21:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01173606A31C;
+	Tue, 17 Nov 2026 16:22:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BLIU/e/p
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 1B8D91F000C4;
-	Tue, 17 Nov 2026 16:21:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g96uGOli
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E6DD1F000C4;
+	Tue, 17 Nov 2026 16:22:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794932502;
-	bh=5Sbwiu099EEmkll6l+3qxwbiHX0TRA9iUayOe3qQEAY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BLIU/e/p90vTcWhqUlSbvXNa4REM3DwnSJeFrxkE9qn6bLbWOLgaDy7GJmPG3yz9h
-	 gmLjXPKyk/1DDMZ8s+FCkc3iWzbFoLCx4Uol8auvP1vLtFyw97v2M3V72d444l87+2
-	 TNQGnKvO8fkNIKN20bxd9aEom9DgptKS4B+TojXOmXQDMSG2kkcA2yqabIV42YWVhR
-	 wzlAJAOFVW5e9NcLgqEwBusqyVVnEGEqLRuAAmxBOLJiSeVUyouYv9TeWxnOkh6jBK
-	 UVQAuoV1ywvcnJsYz4xgvlvhVFfwUcQFGFaKwsVxez5Gibs2zcy7nUry39OGVkp8lN
-	 Oh8rw8SG1FJeQ==
-Date: Tue, 17 Nov 2026 18:21:38 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Sinan Turunc <enscrpt@pm.me>
-Cc: David Howells <dhowells@redhat.com>, paul@paul-moore.com,
-	jmorris@namei.org, serge@hallyn.com, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] keys: serialise key instantiation against
- keyctl_chown_key()
-Message-ID: <avx_Eu0rbWtwPDGK@kernel.org>
-References: <20261117123353.1822-1-enscrpt@pm.me>
+	s=k20260515; t=1794932536;
+	bh=+u0XvPm1yl8lpppCa0o7Ub3ZqbKbjWd/kwvQc+jK5VQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=g96uGOlizPLYBJJRsK+FTKMmsGeaNP9VPNN1fuNODhjDw/mG0D43hUdrwZTpddwXG
+	 /Z0UTEUTIEf58Z4VAJm4t61vIFvRFe8eVZPefJ59dIlSrGdKf+6WU9weImo6EUMpxp
+	 Nud1h3CYvt8I76Xw92EczkTMlNHu06zUMdsxIr87SjSunZHDXDbSygpMC2PxwFhGGQ
+	 z+ogIJCU3dUL0HMPmecWdGOidfpaA7GjVehQQBsmfnrQ+e3SUhi37Xz2yx4dAqWIDU
+	 FXg3tlRB32Jaigk0PJcQaM29bbqR2EJjTvUMCxZrq1+A4G6YR1XxJJi9KNsaMt3wJ+
+	 Pb4XFPmAj2i5Q==
+Message-ID: <7ae17206-829d-4fdb-afd0-cc14c5411b74@kernel.org>
+Date: Tue, 17 Nov 2026 17:22:09 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,21 +51,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261117123353.1822-1-enscrpt@pm.me>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] mm/memory: fix handling of PTE markers in
+ insert_page_into_pte_locked()
+To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Jan Kara <jack@suse.cz>, Jingyi Sun <1045704958@qq.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Matthew Wilcox <willy@infradead.org>, Michal Hocko <mhocko@suse.com>,
+ Muhammad Usama Anjum <usama.anjum@arm.com>, Peter Xu <peterx@redhat.com>,
+ Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, nvdimm@lists.linux.dev
+References: <20261117-uffd-dax-async-wp-fix-v1-0-c9a30f27f452@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261117-uffd-dax-async-wp-fix-v1-0-c9a30f27f452@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 17, 2026 at 12:34:12PM +0000, Sinan Turunc wrote:
-> Subclass 2 is an unused lockdep subclass that is
-> only ever taken inside key_construction_mutex. Subclasses 0 and 1 are
-> already taken outside keyring_serialise_link_lock by __key_link_lock() and
-> __key_move_lock().
+On 11/17/26 16:58, Mike Rapoport (Microsoft) wrote:
+> Jingyi reported that a uffd-wp marker in a DAX mapping causes endless
+> refaults on reads and SIGBUS on writes [1].
+> 
+> The root cause is that insert_page_into_pte_locked() treats every PTE that
+> is not none as a present mapping. Besides uffd-wp markers, this also
+> affects guard markers that MADV_GUARD_INSTALL can put into a DAX mapping
+> concurrently with a write fault.
+> 
+> The first patch restructures insert_page_into_pte_locked() to make room
+> for the fixes, the second patch fixes the reported issue and the third
+> makes write faults back off on non-present PTEs.
+> 
+> Both issues were reproduced on ext4 with dax=always on emulated pmem, and
+> the fixes were verified with these reproducers.
+> selftests.
+> 
+> [1] https://lore.kernel.org/all/tencent_1874C71D4177A1624528043E008DB1A5EF05@qq.com
+> 
+> ---
+> Mike Rapoport (Microsoft) (3):
+>       mm/memory: install new PTEs first in insert_page_into_pte_locked()
+>       mm/memory: replace uffd-wp markers in insert_page_into_pte_locked()
+>       mm/memory: don't upgrade non-present PTEs in insert_page_into_pte_locked()
+> 
+>  mm/memory.c | 68 +++++++++++++++++++++++++++++++------------------------------
+>  1 file changed, 35 insertions(+), 33 deletions(-)
+> ---
+> base-commit: 93d7a816a2df3e907e2719bd12b0073f1285fc5c
+> change-id: 20261117-uffd-dax-async-wp-fix-867acc8dc78f
+> 
+> --
+> Sincerely yours,
+> Mike.
 
-Delete also this as there was no bug associated with nesting levels.
 
-And this does not need additional fixes despite I forewarned about that.
+I have here a fix to disallow uffd on DAX entirely. It's completely broken.
 
-I'll wait for v3.
+I was staging it to send with others, but I can send it out separately.
 
-Br, Jarkko
+-- 
+Cheers,
 
+David
