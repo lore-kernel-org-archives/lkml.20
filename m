@@ -1,81 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794886593;
-	b=mhMKYJEFT46J+2Q1t5arqnfD/Sg9Jf7lCPyGlXtYca0aNx9DsIl59ESRPyOYLwwoW7dj
-	 YOniQjDChaVaaCQj62PqtJ3IPgkWDsr+d/H2ngeKF01ltqaXAvsEEZMX6iKg9AMvkady7
-	 uQPIvuILBD3E/xy6puqHoIRBsuRq+PplfkHI85gsc6w1LST1Q2exm5St5/n28FzQag3GD
-	 6PcV34TzdO3cF+HSrGxhHshJOJprRTIjriSOSWVNZzd/qgh5Ji6JESn0woxi6s3qxnY7A
-	 S17WHONgvhofvQqNUSKmNH9Lz1500xYh13bMgtqM914wkDsDRcqy2VYQTiAPRctD+3Q==
+	t=1794886667;
+	b=DCCnDzC/yX97Cxig1fL/MuFyfsiXfU66258s92SSGCSBjRYvDWGEJVJcD0iVQDWIcLgY
+	 9oG62aasTXEuTywelyri8NEYNtgLaWy5X1Mb/HDuRqc1crxZ4VPmhnV1ChIB4R2bPF9eT
+	 uuO7Hw66V4ITr56bunxi4YDRFUVW8GcEstiiGQBTfFp3V88lTEcU2K6GYeFMyeTNtogLQ
+	 pB9jw0mbWpPOTUchj3PRhITdHO27jf5N4OS8JMpDsFlhOrBbLkgFT3mDkww0DeXpSLPhR
+	 3hAoWOYCmvbQMwjXLp0yN4mDdVn+R8d2yuhTu9pXez8WFc39cFvPOw/I+o+4gM74RfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794886593;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=dSLf2LTiNtQC3p4vX6VQ3IQVNmBzkisDh8Hpz5xzqNw=;
-	b=UyaRHvxkuTEtjmt03k45xvZjyuvYjI40bTb7G86qtFVfUJkUHgmSE7EKc2+wPCBXP8RZ
-	 nQQs15XP0y5eFpcHxzKnE70sMD31VNw+For76S1Fw03IxhVvZVlMaVtvZZaES5H/3LkwL
-	 9FGHT0EcWNh6vgMCjLCny0XIHv2n7uSlnD/DbJKLSe1NzSUnsElivxu//1TZ+LNLpu3eY
-	 q7o+O3dZrgp5WuOiMRnjzR5Hx4HRb6L8IqbQFvHpHI5yNO9nHAgcCyE61QAYuc2RWioPD
-	 ImhXwPfv99PIaCGmaJC85e/DbB3Q5zQ1oaI9bMsGSkQWdUnpBfZMK2+CqJwzZLJZV7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794886667;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=4AV/MAasXEtTYyfh7qcjnTdrgUPx3E4ctzJU8c4gChI=;
+	b=ZDfcOcoSFW3uO1BgkLyTQiUtSArL1EnUMGWYmes/Ycuy9Pe2WAcMR10aNoR2uuYeVFYf
+	 WF4rTXXxuh0nyg08EP2f5rpghTy3o9YNxa79XnfA3/4Y0+PE12fnk9YQ3Ab2+u4egBYuI
+	 ZpB8VPiW90vzNmx5Q6aAzbOi/4FrVlSmgcWKglhzJZisnlLwIuymdnKiSHR/0aXrECwea
+	 2BpdotfpIO9YXZ1imfy+mdlwpAwEG7+CkXux8ODTztKWmXP3QAjdBZrMVGGCf04q3PRum
+	 hRU8PzldyuTGLVy2tYyIVNlTPZn0xTj3jPsYmShlkNKZe/57ixUI7tCiADBPJZEk/tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IcYia+4C;
-	arc=none smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="WQIFN5/R";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE56606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:36:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EE56606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8EBF606A31C;
+	Tue, 17 Nov 2026 03:37:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IcYia+4C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794886593; x=1826422593;
-  h=date:from:to:cc:subject:message-id:mime-version:
-   content-transfer-encoding:in-reply-to;
-  bh=4FBjm49gA65DGtEjbVkxm3YsLT31o/1ZsnxQ/paQWrM=;
-  b=IcYia+4Cn3L/o0GehTe5Ap8na3n2rOiqIYh1wCMUsVYk9Hpp0OCwpCuA
-   JIe9d4jSF6g3WMug/yKebd9vAnUi7CG7T5PBj3lgI2rUHUwxy6BJy7pd/
-   NqHI4GECXaszjw/ReTzUpEcCCHxc1MKAc8+l2pFUNMQP9C3RSeJ5ck414
-   Im+iDDbBoeF+DYRKcf7XB/9VUtR3dKgKIi1c6lsc+mtLjMuLM2DjgyVRl
-   N3mXLvv2dXTIcY44qfzMv/OEc4K6xBtpSCirgPaP4sv/lowdlWtoyUF3H
-   pRZSR8bEkS7cuW4TLjD0XKYIFtJckkuAxRIXGh0NF4QOPBk8KPOIlTYRv
-   Q==;
-X-CSE-ConnectionGUID: IwfK5sjbTxi1vdmvVcX35Q==
-X-CSE-MsgGUID: 5o1GHfSUQqSeBrNyLNd0Gw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3514830"
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3514830"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 19:36:32 -0800
-X-CSE-ConnectionGUID: lplMVgfySv+H8oS5TJx3zQ==
-X-CSE-MsgGUID: unj4XYIBRlOQXRoTBztMpQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="10235007"
-Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 19:36:27 -0800
-Date: Tue, 17 Nov 2026 11:36:24 +0800
-From: kernel test robot <yi1.lai@intel.com>
-To: Reinette Chatre <reinette.chatre@intel.com>
-Cc: oe-lkp@lists.linux.dev, lkp@intel.com, Chen Yu <yu.c.chen@intel.com>,
-	Tony Luck <tony.luck@intel.com>,
-	Jinjie Ruan <ruanjinjie@huawei.com>, linux-kernel@vger.kernel.org,
-	ben.horgan@arm.com, james.morse@arm.com, Dave.Martin@arm.com,
-	babu.moger@amd.com, bp@alien8.de, tglx@linutronix.de,
-	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
-	fustini@kernel.org, fenghuay@nvidia.com, peternewman@google.com,
-	patches@lists.linux.dev, reinette.chatre@intel.com,
-	yi1.lai@intel.com
-Subject: Re: [PATCH v3 2/5] x86,fs/resctrl: Remove unnecessary non-linear MBA
- configuration check
-Message-ID: <202611171056.912725cf-lkp@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WQIFN5/R
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 143A71F000C4;
+	Tue, 17 Nov 2026 03:37:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794886666;
+	bh=4AV/MAasXEtTYyfh7qcjnTdrgUPx3E4ctzJU8c4gChI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=WQIFN5/RbBheEj54u5u4RKiKL8ak9UOT18MXWk8rNkbO1UI5Bkavbdx2X8UyArRuq
+	 6puZjBq3WVDulhJh9z7Fq52K5Jgkv4K0bNq/cwlib7hoD9eNSbaCys56B2R4C6hqK5
+	 AUgWJAaoY1rtuB6XTiIN4d1u4I8uvL5WC59Ov9DGEPDItJPXkgx/2xObzUSujyzVkz
+	 MF0JhDkZMj4CzP0AUDUNYP2wpSlFKlFd2Y0W3HrBXkX5roEKh8IBzfLQYY/6JKws6m
+	 2GZy8mkIoB5Wt6/Cuce2hcZFyDkJV8OpTXxDGqI37DMuqVGsRxjvVoZbHD94waFJUk
+	 HHK0RmEgMfyCw==
+Date: Tue, 17 Nov 2026 03:37:41 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Rupesh Majhi <zoone.rupert@gmail.com>
+Cc: Andy Shevchenko <andy@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Eddie James <eajames@linux.ibm.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, Arnav
+ Kapoor <kapoorarnav43@gmail.com>
+Subject: Re: [PATCH v2] iio: pressure: dps310: don't wait for new
+ temperature in trigger handler
+Message-ID: <20261117033741.39724519@jic23-hlaptop>
+In-Reply-To: <20261117033153.608b124e@jic23-hlaptop>
+References: <20261113230241.82046-1-zoone.rupert@gmail.com>
+	<20261114013817.476f8fb9@jic23-hlaptop>
+	<20261114083525.11972-1-zoone.rupert@gmail.com>
+	<20261115010203.2a939bd6@jic23-hlaptop>
+	<20261115183949.11591-1-zoone.rupert@gmail.com>
+	<20261115203150.7faed0b1@jic23-hlaptop>
+	<20261115223817.10568-1-zoone.rupert@gmail.com>
+	<20261117033153.608b124e@jic23-hlaptop>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,71 +70,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7e1aeee81a38a33ca889db68e4c645f935e4e6cd.1793834224.git.reinette.chatre@intel.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Tue, 17 Nov 2026 03:31:53 +0000
+Jonathan Cameron <jic23@kernel.org> wrote:
 
-Hello,
+> On Mon, 16 Nov 2026 00:38:17 +0200
+> Rupesh Majhi <zoone.rupert@gmail.com> wrote:
+> 
+> > On Sun, 15 Nov 2026 20:34:11 +0000
+> > Jonathan Cameron <jic23@kernel.org> wrote:
+> >   
+> > > That all sounds good.  I tried to apply it to the testing branch of iio.git
+> > > but I'm getting some build errors (+ a load of fuzz). I guess this
+> > > has dependencies that I'm missing?  If they are fixes, then I may just have
+> > > to wait until I can merge back into my tree (after they are upstream).    
+> > 
+> > No dependencies. It is based on fixes-togreg. On testing probe
+> > hunk no longer matches and with fuzz it lands in
+> > dps310_fifo_interval(). git am -3 gets it right there and it builds.
+> > 
+> > I can send a version on testing if that is easier.  
+> I actually looked at what was messing up this time.  It was just that
+> int rc; had been dropped.  It's just used locally in this patch so I
+> put a declaration in.
+> 
+> Have just merged rc3 into the testing branch anyway as a bunch of
+> other stuff is queued up on it. So hopefully what I push out in a minute
+> should be good.
+> 
+Scratch that - I just backed out the merge as completely failed to notice
+the char-misc merge was after rc3, thus little point :(  Will have to wait
+for rc4 for a suitable tag to merge.
 
-kernel test robot noticed a 4.4% regression of stress-ng.sockfd.ops_per_sec on:
+Anyhow, I cherry-picked my fixed up version and it applies fine without
+that anyway.
 
-commit: 12a0f554b3d62eb1270d6d60e9c6ab2c07dbbe35 ("[PATCH v3 2/5] x86,fs/resctrl: Remove unnecessary non-linear MBA configuration check")
-url: https://github.com/intel-lab-lkp/linux/commits/Reinette-Chatre/x86-fs-resctrl-Remove-unused-non-linear-bandwidth-delay-mapping/20261104-161329
-patch link: https://lore.kernel.org/all/7e1aeee81a38a33ca889db68e4c645f935e4e6cd.1793834224.git.reinette.chatre@intel.com/
-patch subject: [PATCH v3 2/5] x86,fs/resctrl: Remove unnecessary non-linear MBA configuration check
+Thanks
 
-testcase: stress-ng
-config: x86_64-rhel-9.4
-compiler: gcc-14
-test machine: 224 threads 2 sockets Intel(R) Xeon(R) Platinum 8480CTDX (Sapphire Rapids) with 256G memory
-parameters:
+Jonathan
 
-	nr_threads: 100%
-	testtime: 60s
-	test: sockfd
-	cpufreq_governor: performance
-
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <yi1.lai@intel.com>
-| Closes: https://lore.kernel.org/oe-lkp/202611171056.912725cf-lkp@intel.com
-
-
-Details are as below:
--------------------------------------------------------------------------------------------------->
-
-
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20261117/202611171056.912725cf-lkp@intel.com
-
-=========================================================================================
-compiler/cpufreq_governor/kconfig/nr_threads/rootfs/tbox_group/test/testcase/testtime:
-  gcc-14/performance/x86_64-rhel-9.4/100%/debian-13-x86_64-20250902.cgz/lkp-spr-r02/sockfd/stress-ng/60s
-
-commit: 
-  0d4f0ec1db ("x86,fs/resctrl: Remove unused non-linear bandwidth delay mapping")
-  12a0f554b3 ("[PATCH v3 2/5] x86,fs/resctrl: Remove unnecessary non-linear MBA configuration check")
-
-0d4f0ec1dbca25be 12a0f554b3d62eb1270d6d60e9c
----------------- --------------------------- 
-         %stddev     %change         %stddev
-             \          |                \  
-  56484401            -4.4%   54013430        stress-ng.sockfd.ops
-    940555            -4.4%     899375        stress-ng.sockfd.ops_per_sec
-   3901263            -1.5%    3841842        stress-ng.time.involuntary_context_switches
-   2386355 ±  6%     -10.4%    2138169 ±  5%  stress-ng.time.voluntary_context_switches
-
-
-Disclaimer:
-Results have been estimated based on internal Intel analysis and are provided
-for informational purposes only. Any difference in system hardware or software
-design or configuration may affect actual performance.
-
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-
+> Jonathan
+> 
+> > 
+> > Thanks,
+> > Rupesh  
+> 
+> 
 
