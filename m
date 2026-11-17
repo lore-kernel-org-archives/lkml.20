@@ -1,91 +1,133 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794884366;
-	b=B4trlI7Ed3yw/P0J6gCkw79H+PTKIkWlw2PCH4ScVzWCUtJq9RgiKhtHWu/+9J6TXue1
-	 iEbcmcQq4RAN2idR6pvHEta0K1QXQU90Wv5WnKHp04cKhjd2YCD1aFX10WfUVHc8hqVKF
-	 nq+JD1367kCGDrj2cSlr39YEHjrN9ou3tK8E3m2x+YWsapjTL07GUnCDFfl4I2ePSgpit
-	 KkK78XRmckoRWFMQriFxGPf7fxDpeq1z7o6MJrOw5bdCfHYGoTh8Nd2PG4XTw5n2RcoTz
-	 OP8d5xue4CJephYI3hlXqSwXDCu8qtOTX+LTYAaKQq4+PRzf+aX1eZxvkp1V0Oud8QQ==
+	t=1794884428;
+	b=2RHXk51HiRMAG0iTDxDhpZonIpZMfEQiM1/Nf9HTOzJe58TatR3dg0VxzlTu5DeBnTfX
+	 zhw8nYcdk2/h1dZBR+FDVAqY/zm84yw0A/ejNOT4ie+r382wrU1R7wtXMDqb5LjiacaDf
+	 JEOGpzyAeGaCdlebYYDF9zjIBom1+NUkQAtg78oiYLlL4sRJI4ezblu9NUy+aGp45FtII
+	 RETksDQW14cz80xgYkfanXc2GQVjGIubzihv84YUGb1LA1JJZoQd3kqvQSQ8I59nhQxvh
+	 Up4DgCqOH9q6pnbuzjnCmx05rxBegWbWmPbMRgusMHTOJ0VBT818zIZmw9uFSUK0bmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794884366;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=AbmuMYrAD3R3QYQWqAcaIesqyWG9etnRE0AvyAHfMrA=;
-	b=P7tR8f8f0rxRPy7ac021xRbvB8Ze6aITrm9xm8VVO/GLWvWOeGNlRIbWVIMZ1klAry/K
-	 i3KrI4IjP4r9e+XBWB4qrt+05BMZ+NW4BsAA89bDDkU05BJ1ztdLjxpTlyQdz8XaWIhcP
-	 aGV1eTM8/qIee9DCsqUId+BPC3VHqXAGQUbvoaH1fgnPVnst7nxMugfDFzz7Qdbk7OrCc
-	 CffepQ+IHYkI6/4h4a8d/YZQkgJQh8zIafGgsi0H9CSkcsCgSG4bktEzgoiCYRc+b6fe3
-	 /TRAou14cgEYT9MV9jigOOGvQVNoLWi+HLRNf8OKCTDV1cfO31uJK+phXL+Rvnk2TrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794884428;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=pxoBSMsRqRAfxvCgosYriPsm/EIyLsxkC0pfqHHdRVg=;
+	b=aNkEkZ1o4JzDDcMlWcTk4VdfCR7XsTcAy9rrMw0FlUJRIJtpQpEsnuR+SksqGi04kjn4
+	 u2N4nVfBpIrYeTvVyzl44d32i8GaYPozKsuCpXbZ+WnjQB2mDTw9tfqA0cyN5sGHaoEzp
+	 8HVz98ppT+x5xZa/iMH00BKNQmcx6L/E1JA4Cj5aUFXdDOiRa/jthJS+nVxDurNVWaKZ8
+	 ke9Zk3ZInoV8RAX4isHcoP3ImB3vxLNQUBTJ4elRqH2KRNlWbqML8BrGkHjvVcbi+l3rh
+	 GeV6YV7OrYUOGvcSqD/3ekGG1Ep8sNldvmpDMf1x2XykcFKL066hpSZ3cRn++wVD5Ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="mj/CR3iV";
-	arc=none smtp.remote-ip=209.85.128.178
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=muUJqIr5;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FnYZ62gb;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22A91606A8AC
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:59:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22A91606A8AC
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FF28606A334
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:00:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FF28606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mj/CR3iV
-Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8b4d26094beso16652347b3.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:59:25 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=muUJqIr5;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FnYZ62gb
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH2aSKE844371
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:00:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	pxoBSMsRqRAfxvCgosYriPsm/EIyLsxkC0pfqHHdRVg=; b=muUJqIr5E5bpiDnl
+	fPKEs1M3qJ1AKWljp/NRaz8kWxlIpSs1ly4uZFVTb5xPYNTDRIsisFTUrq3B+buh
+	bhNk2YbazmXHMXOusolSEHbVzv52VxoKnjLytBZ6L+BRGX3Nnkd387oqVFl+Ocqw
+	Nmw4m8O65wrkYakIXcljI7aeZ6czygqV3JjH8z91EuPVcmWiK1ReRFuo0sK7sehF
+	h2GwPQqkX8zzSFcQXXu9iah4sHv97Vix56fFgnvhzmSDkKIcfOU+MOPARRCQacRO
+	XJaRT0widME0MVAP1ttfsaOXSTBsOb7E3jaMlam0HJzMG8t/dnXToO0tJT6wvoqU
+	RGWE9Q==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0c7h0g14-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:00:27 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3b175a69ab8so2646892a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:00:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794884365; x=1795489165; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AbmuMYrAD3R3QYQWqAcaIesqyWG9etnRE0AvyAHfMrA=;
-        b=mj/CR3iVgnsHOL7YyCd8robOiBaWlhrnYHmDK7X2TgQH1R/27i5KXgpiqrkOcAPOsf
-         Cv9X24vxQk3ByoX+2SvUCdYpw/Dx3z7ClRqmrkClHV60xtpZ2zUGKa2dfwDYeyYZb19z
-         ZGldWHr61gPYGGml/MJ5eX8FIEMTLkO+xwuThXCMMyIb52aL93brkBSQXFPmht+mzhEr
-         2fir73xPnZmNmQd0Wrf5VKQFNCHeBQY6+Nh1kW2O2qg4K68PITdifzRI4dyheiHyQyMs
-         4QF9P0U+2c71fXYqeQF9JViCCJY9lxOW+qJqOgp8aFuA5KDPM3q6SBj+8BQ3ECUM2TTx
-         brrQ==
+        d=oss.qualcomm.com; s=google; t=1794884426; x=1795489226; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=pxoBSMsRqRAfxvCgosYriPsm/EIyLsxkC0pfqHHdRVg=;
+        b=FnYZ62gbj0SOMEEsAvGzBsLRcwWdiJHCIRuxG51u3+OVcQ6f5mEn2AipGImCv9drE0
+         /S6r9nisLbttiiWtROsaiEdMmFIRarcEJku7q4f0mNGS1xE/9nc65qX1M7euWB5Be+Ma
+         fwrEqFICZg0ko3kZ/qrWJZBy+O/wYFsOiSHuMDqgXwobgc2Gbi6WlPT6/OXzSdRYxaPb
+         YwX7R4a4eOh8RLcldLhj1cnywz2HoNH3Gefen6UjpfgT2UepXpa2a0MoVHcuYx317tZe
+         3RzXBbsUdfZPGPGPcJxcJOsCebc538Xl1SsJvfchE3EI1iCUSIKqG2xUCtG0IarWNVz3
+         0ssg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794884365; x=1795489165;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794884426; x=1795489226;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=AbmuMYrAD3R3QYQWqAcaIesqyWG9etnRE0AvyAHfMrA=;
-        b=uJMT8vRPA7HasZcs+neOdpXZV5ZhKIrP3eqhbPybVwHleDYlWsDNVaW4dMOAeFu7DL
-         ki5eGsPkkdhXSc2HG1YOhFurfpHwPzPtms1e+5+C+YHN+KcjWMZDtrMc0j7jQpwAjJoJ
-         VEr6dNWbllrVYHMP8dU3qZ4hDNejp+bao41B8Bh68TyExc+hfl3vacqoaydo96fj92MC
-         vApWWzoXmI2llv0+Uhqd9greb8N7q+cWg0cOJsWE1zeGGq3QxXZUIMb9ndijHsffrhxf
-         vW7lcYSvfHuUIIbzL0K6bQIieTyaviy7+45vQuJns7+k0G9hW+sDC03XeyQIz+rknB8m
-         Hk0Q==
-X-Forwarded-Encrypted: i=1; AL+hErGZY7yw8793e7mbwERu6IsXON1dr5nt101uhdlGyjJR3cq51Psn8u8e/TjcydmZ32HMce9p+mB7UBWe2PQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8T0rqkMEPiF0JXVjj32X4eb//gGs24v8xYDdalntwm2HT3+Wc9
-	iOZYpaaMT/km5v8F25w4T4VQp2qS5uzB3xH21mGiGbtjcQqwHWJeP/pTVTsj+dhnbcA=
-X-Gm-Gg: AZFdTZcUpdDreic8TZZ4swO/yH17x6tFqMgw+NGxapajMvfeWhAI3w89zMR8+2Ura3E
-	VC2X/O/Is3XRDeMGMJz+k9X7h/mgWGBoLp0zoT4fhjZlqwS6vnwhDKJ3MGdMeTQtLXdtph+sRuZ
-	pwwkMNQRBjIxgcyV18yQqiIQxEJCcyerqagH0EGBUJOu+GGNaOzZMXpxwrxr/3x+FGhUvXTY7hN
-	QeBySC4bTkifZaTyqN9Qju+iGm/S1Kbgc9GuHgH6u+aoqHUW9VmCm1SXLqOwanWGimHGsWpRzoE
-	Q4wzmZdqUmT19LB9mbfVVJ99uY12xC+15c+0rDK+cGVGRF9ERj7kGh6496uufIFurVziIXNMf5M
-	vro7ZNTV8ZZ9sBNKaD6bG+W7WpF0x2zEEr209igTVunz2b0kQ5I8S2oV4yWv2LuKsuH6Py+9d4r
-	YE70ohUdMSPjUigPzK14MVhunqGpGv2oTPB2PBjIgMP0HTHi689VFRhjfgAOZ1m16o+rtxkvBm5
-	1SKWoESOo7HbVM9CT7sAGvZcxLYeidBygB0rZFhaR/czvvCz3s6w4DxzLS80HgJDWmUAYzwGUJN
-	GWWWZceNIxMMNA9g2xNvEEwZTqPDatA35Qm9F1Qad2SJWp+lkQGI36XbXm0XT+C8dmioYaofToB
-	gTeM+157kQrk/anpTKC1XdIM0K8N47XVqdAEiZ6ULVD1sD7wOiW4qEbF73kMxv+zfAwym9E5B1X
-	O/8CMxi/7ttxd7X02ucA==
-X-Received: by 2002:a05:690c:5c06:b0:81f:e7c5:f420 with SMTP id 00721157ae682-8b4aa23b923mr56305437b3.20.1794884365108;
-        Mon, 16 Nov 2026 18:59:25 -0800 (PST)
-Received: from localhost (107-220-129-194.lightspeed.chrlnc.sbcglobal.net. [107.220.129.194])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4eb7f0525sm14553297b3.3.2026.11.16.18.59.23
+        bh=pxoBSMsRqRAfxvCgosYriPsm/EIyLsxkC0pfqHHdRVg=;
+        b=qmCr+G5Nw2VQTtInfVFtxK9jyePnn+265lun5gPY3RA3N7UT1mNlJ+WQUknuM7eEUg
+         6VHHZiqYlaWH5XOMy5gKgbFRIVnSpKeE4B0vz+YG4UyKvWZuKURQ6+chxu48FJ7FvOV9
+         xVG0eh/gN2w7sssvKrmZtJy0C7ApIWMCjGGhlFAiWaDf5M3TY8NfRZi0n+FbtTnU2bnr
+         5/V3Iuxm4KOQ+V0fqZG19nag5cfNeIA2DdkhH6n3sQQLS8gmAp02ic2674ChuFs2eUee
+         sifHTkU53kPWs4LKRur6apR7P0kV1HdsOHlO3P3woDKdpK/ucMOzGgwYZctOb76TMywd
+         zkwA==
+X-Forwarded-Encrypted: i=1; AL+hErGcc5hzdMrgSPbncc2QoFGqd0Z9Mg8/8uNahu1vST2H1mKfNMAMdQ8FyahNRpLXLHb/VHwcjmFbq2K8R+g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+G5z+0J450XCJhpdx3VwrAauuUxjAztmB56FP7ulyvwa3ozK8q
+	4OatJHXRYcK04NDTMeu2Jtp5SapjcBrkCYRvaNH/vkGXL8+YG3Lye/Z7AaVy8U2/L/9wwVchVr8
+	5iGZbvcNHpHyWkkPCglGeS4B9i5WnmpPWgRZ5/oF/w0tUGoUZl0V0s5k5QPXFGYTGDPbi/TpMI1
+	I=
+X-Gm-Gg: AZFdTZf0fqVkmN4YJGGA1DJnjN/V+nDvfswyWxJI476XIUflky39OfvIwPiQmhgwpQd
+	EYRNH9Yl+fDa61JNjtGw+y5oN1wMggdf9z7LZIchL0TvtpL9PMDsWRQD1+oRsmpdF3WhXz0+UqC
+	9tw9lCLjRVcyEagiDMs8XFGMPIQxKaU6JSocuZrZPhKaiI4IRAiSPwVwR7avsEhMVHpV05seN1D
+	k6uzUvrHuR6AJgddJtUBUPY83PNDhfxK2Fs083no2sCG67CjqvJn2P5CYqYd28TOkApDZFyJ6UH
+	Os+hDYOg8jksnQuLhJiFT29ER4PyWXzR5SR8VVJppu6+OczNZLe1MWOZwT8w7QTeM4pSYkROGPK
+	t+VbyAiGa2FCRzvAbqG8rrqFYE6j6c2YY0GPGccX9jh7EulrWZUVEuLNcLTiZAtoxXtE=
+X-Received: by 2002:a17:90b:1b01:b0:3ab:2d46:1dd2 with SMTP id 98e67ed59e1d1-3b1b08798bcmr12415274a91.6.1794884425541;
+        Mon, 16 Nov 2026 19:00:25 -0800 (PST)
+X-Received: by 2002:a17:90b:1b01:b0:3ab:2d46:1dd2 with SMTP id 98e67ed59e1d1-3b1b08798bcmr12415197a91.6.1794884424516;
+        Mon, 16 Nov 2026 19:00:24 -0800 (PST)
+Received: from jic23-hlaptop ([50.35.44.179])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3abeaf532sm1595030a91.14.2026.11.16.19.00.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 18:59:24 -0800 (PST)
-From: Matt Turner <mattst88@gmail.com>
-Date: Mon, 16 Nov 2026 21:59:14 -0500
-Subject: [PATCH v2 7/7] hwmon: (marvel-env) Notify userspace of
- environmental events
+        Mon, 16 Nov 2026 19:00:23 -0800 (PST)
+Date: Tue, 17 Nov 2026 03:00:14 +0000
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: Anisa Su <anisa.su887@gmail.com>
+Cc: linux-cxl@vger.kernel.org, nvdimm@lists.linux.dev,
+        linux-kernel@vger.kernel.org, Dave Jiang <dave.jiang@intel.com>,
+        Alison
+ Schofield <alison.schofield@intel.com>,
+        Davidlohr Bueso
+ <dave@stgolabs.net>, Ira Weiny <iweiny@kernel.org>,
+        Vishal Verma
+ <vishal.l.verma@intel.com>, Fan Ni <nifan.cxl@gmail.com>,
+        Li Ming
+ <ming.li@zohomail.com>,
+        Benjamin Cheatham <benjamin.cheatham@amd.com>,
+        Gregory Price <gourry@gourry.net>, Richard Cheng <icheng@nvidia.com>,
+        Anisa
+ Su <anisa.su@samsung.com>
+Subject: Re: [PATCH v1 05/14] cxl/mem: Add 20 second timeout for stalled DC
+ event chains
+Message-ID: <20261117030014.6676dd47@jic23-hlaptop>
+In-Reply-To: <20261104230445.66625-6-anisa.su@samsung.com>
+References: <20261104230445.66625-1-anisa.su@samsung.com>
+	<20261104230445.66625-6-anisa.su@samsung.com>
+Organization: Qualcomm
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,221 +137,269 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-marvel-env-v2-7-ef614eb2e7f1@gmail.com>
-References: <20261116-marvel-env-v2-0-ef614eb2e7f1@gmail.com>
-In-Reply-To: <20261116-marvel-env-v2-0-ef614eb2e7f1@gmail.com>
-To: Richard Henderson <richard.henderson@linaro.org>, 
- Magnus Lindholm <linmag7@gmail.com>, Guenter Roeck <linux@roeck-us.net>
-Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org, 
- Matt Turner <mattst88@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6604; i=mattst88@gmail.com;
- h=from:subject:message-id; bh=2sZ75RvdBquSs6v+CNUDraJp2UgMJdTjJYy8BoqJh9Q=;
- b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLJ+H/oztXFjUEfz4unzZTbzv7WYdk3l47OL/KW5l7Qr9
- wT5Mrx+0vGRhUGMi2GmmCJL3HpFllltO5b6nJb+BTOHlQlkiLRIAwMQsDDw5SbmlRrpGOmZahvq
- GQIZOkbxEDk9Bo3M4uLS1CLdtIIih7z8ksSSzPy8Yr38gtS8gvQCvbTMtJKMjPyi4lSgEXp5qSW
- mro5uRoYGJpaOFmZOFo6mJs7OToZObo6Ozq5ORpbmJgbOlo4mrpbmDFycAjDXLK9lZJjIqNesNG
- tbR6VR9WlXbr/LKTrHj/buuCh2M4/xlV355iaG/xnLnme7LGhjXF1dX+G84/2blcGmLcYnb/QJv
- /W9/WzafT4A
-X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
- fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
+X-Proofpoint-GUID: BNGquBwH2Vnn1gHX2vnMnlz_1fHjp2qH
+X-Proofpoint-ORIG-GUID: BNGquBwH2Vnn1gHX2vnMnlz_1fHjp2qH
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDAxMSBTYWx0ZWRfX6ztqmUWaniS+
+ +8uXTpT11FMlHsXHS8BsBSbqoyGUySOwrP7QUo1E9JyuS/kd4alwRiAkqLDv6FKy4+kZabDPZED
+ WGSBDuDM/DqcS3+wyHGvuAAjWvdN3CP+00TPlFNazwFh+DfZgFC+eEIuXwdz8Mna/U1w6v1cmoM
+ Xkxn+huW/OQroF1VqcAZqotc6/EcV1pgz/5JyHqOOYJa6pfHXu08JoUMEB6Kh1Bfj6LlFaaAzKm
+ Xt4lMkLrHArtpz4H85g5Jz08nI0uOmmkonvbS3YyOA67OFo+4dPylIEjpcmGTQRXD+gSOxBzOzp
+ HCwwTFITd2IIKQXlYpZ+NJOCzqZu2YU2H46mBj2rqZLKUXIbQUaXp/GEkRLI45lBV+VgE4ZlIpj
+ 5wFrJAn8cd/LrRHWeoDXNW7ZWjiPOIT/zw6Cu0dqU4JlQvi1cJpjFbEFaOGJkfBkADT9aUIN2Un
+ 6NMReOx4SyUo8817GPA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDAxMSBTYWx0ZWRfXz6OJ+JvkjQ7u
+ ekiUtyyHiSnE9YTg6AMckBNppnottyVtouwuXpfmQ8mEUX0mmrYnH0v03tCV3Shn6bMQUEhA8oD
+ 2iQRFFmYhFAW8Syt1IU1Bm76A/5WxOQ=
+X-Authority-Analysis: v=2.4 cv=bobZl0ai c=1 sm=1 tr=0 ts=6afbc34b cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=aNnz9XPx1a4JIXSYt2cE/A==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=pGLkceISAAAA:8 a=hD80L64hAAAA:8 a=rNSifS95Xc4NCOkr_3UA:9 a=CjuIK1q_8ugA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_01,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 lowpriorityscore=0 adultscore=0 suspectscore=0
+ priorityscore=1501 phishscore=0 clxscore=1015 malwarescore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170011
 
-The firmware reports each change of a sensor's state as a system event
-machine check. On one, reread every node from a workqueue and notify
-userspace of each alarm attribute whose value changed. The notifier runs
-in machine check context, so it only queues an irq_work, which queues
-the work. The work takes the hwmon device lock to serialize the refresh
-with the sysfs callbacks.
+On Thu,  5 Nov 2026 08:02:29 +0900
+Anisa Su <anisa.su887@gmail.com> wrote:
 
-Signed-off-by: Matt Turner <mattst88@gmail.com>
----
- Documentation/hwmon/marvel-env.rst |  4 ++
- drivers/hwmon/Kconfig              |  1 +
- drivers/hwmon/marvel-env.c         | 89 ++++++++++++++++++++++++++++++++++++--
- 3 files changed, 90 insertions(+), 4 deletions(-)
+> A Dynamic Capacity event can span multiple event records grouped
+> together by the CXL_DCD_EVENT_MORE flag. Extents are staged in the
+> pending list until the last event record ('More'=0) is received, at
+> which point the chain is processed. If the device opens such a chain
+> (More=1) but never sends the closing record, the staged list sits
+> indefinitely.
+> 
+> Add a delayed-work watchdog that drops the chain on timeout: an add
+> chain is refused with an empty Add Dynamic Capacity Response (4802h),
+> a release chain is left for the device to retry.
+> 
+> The spec sets no limit; 20s is a generous upper bound that may be
+> tightened later, and guards against a lost mailbox response or a
+> crashed fabric manager.
 
-diff --git a/Documentation/hwmon/marvel-env.rst b/Documentation/hwmon/marvel-env.rst
-index 7e0457a60094..ae3edda557ab 100644
---- a/Documentation/hwmon/marvel-env.rst
-+++ b/Documentation/hwmon/marvel-env.rst
-@@ -27,6 +27,10 @@ A refresh keeps the boot CPU in the console with interrupts disabled for up
- to 300 ms per unit, so a unit is refreshed at most once every
- ``update_interval`` milliseconds (10000 by default).
- 
-+The firmware also reports every change of state as a system event machine
-+check. When one arrives, the driver refreshes all units and notifies
-+userspace through the alarm attributes.
-+
- Sysfs entries
- -------------
- 
-diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
-index c0ce5591c82d..99c5d84c8752 100644
---- a/drivers/hwmon/Kconfig
-+++ b/drivers/hwmon/Kconfig
-@@ -1258,6 +1258,7 @@ config SENSORS_MACSMC_HWMON
- config SENSORS_MARVEL_ENV
- 	tristate "Marvel (EV7) AlphaServer environmental sensors"
- 	depends on ALPHA_MARVEL || (ALPHA_GENERIC && !ALPHA_LEGACY_START_ADDRESS)
-+	select IRQ_WORK
- 	help
- 	  If you say yes here you get support for the temperature, fan,
- 	  voltage and power supply sensors of Marvel AlphaServers (the
-diff --git a/drivers/hwmon/marvel-env.c b/drivers/hwmon/marvel-env.c
-index e501e049d702..d319556929e3 100644
---- a/drivers/hwmon/marvel-env.c
-+++ b/drivers/hwmon/marvel-env.c
-@@ -17,12 +17,15 @@
-  */
- 
- #include <linux/hwmon.h>
-+#include <linux/irq_work.h>
- #include <linux/jiffies.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
-+#include <linux/notifier.h>
- #include <linux/platform_device.h>
- #include <linux/slab.h>
- #include <linux/string.h>
-+#include <linux/workqueue.h>
- 
- #include <asm/gct.h>
- #include <asm/marvel_env.h>
-@@ -94,16 +97,21 @@ struct marvel_env_chan {
- 	unsigned int pkt;		/* packet offset in the node */
- 	bool ps;			/* power supply, as an in channel */
- 	bool present;			/* known when the driver loaded */
-+	u32 alarms;			/* alarm attributes last reported */
- 	char label[32];
- };
- 
- struct marvel_env_data {
- 	struct device *dev;
-+	struct device *hwmon;
- 	unsigned int update_interval;	/* ms */
- 	struct marvel_env_node *nodes;
- 	unsigned int nr_nodes;
- 	struct marvel_env_chan *chans[hwmon_max];
- 	unsigned int nr_chans[hwmon_max];
-+	struct irq_work irq_work;
-+	struct work_struct work;
-+	struct notifier_block nb;
- };
- 
- static const char * const pe_names[] = {
-@@ -290,6 +298,7 @@ static void marvel_env_add_chan(struct marvel_env_data *data,
- 	c->ps = ps;
- 	status = marvel_env_status(type, c);
- 	c->present = env_status_valid(status);
-+	c->alarms = marvel_env_alarms(type, c, status);
- 
- 	if (n->cabinet || n->drawer)
- 		len = scnprintf(c->label, sizeof(c->label), "Cab%u Dra%u ",
-@@ -512,6 +521,72 @@ static u32 marvel_env_config(enum hwmon_sensor_types type,
- 	}
- }
- 
-+/* Reread everything after a system event and report changed alarms. */
-+static void marvel_env_event_work(struct work_struct *work)
-+{
-+	struct marvel_env_data *data =
-+		container_of(work, struct marvel_env_data, work);
-+	unsigned int i, k;
-+
-+	guard(hwmon_lock)(data->hwmon);
-+
-+	for (i = 0; i < data->nr_nodes; i++) {
-+		data->nodes[i].valid = false;
-+		marvel_env_refresh(data, &data->nodes[i]);
-+	}
-+
-+	for (k = 0; k < ARRAY_SIZE(marvel_env_types); k++) {
-+		enum hwmon_sensor_types type = marvel_env_types[k];
-+
-+		for (i = 0; i < data->nr_chans[type]; i++) {
-+			struct marvel_env_chan *c = &data->chans[type][i];
-+			unsigned long changed;
-+			unsigned int attr;
-+			u8 status;
-+			u32 alarms;
-+
-+			if (!c->present)
-+				continue;
-+			status = marvel_env_status(type, c);
-+			if (!env_status_valid(status))
-+				continue;
-+			alarms = marvel_env_alarms(type, c, status);
-+			changed = alarms ^ c->alarms;
-+			c->alarms = alarms;
-+			for_each_set_bit(attr, &changed, 32)
-+				hwmon_notify_event(data->hwmon, type, attr, i);
-+		}
-+	}
-+}
-+
-+static void marvel_env_irq_work(struct irq_work *irq_work)
-+{
-+	struct marvel_env_data *data =
-+		container_of(irq_work, struct marvel_env_data, irq_work);
-+
-+	schedule_work(&data->work);
-+}
-+
-+/* Runs in machine check context, so only queue the irq_work. */
-+static int marvel_env_event(struct notifier_block *nb, unsigned long action,
-+			    void *unused)
-+{
-+	struct marvel_env_data *data =
-+		container_of(nb, struct marvel_env_data, nb);
-+
-+	irq_work_queue(&data->irq_work);
-+	return NOTIFY_OK;
-+}
-+
-+static void marvel_env_unregister(void *arg)
-+{
-+	struct marvel_env_data *data = arg;
-+
-+	atomic_notifier_chain_unregister(&marvel_env_notifier, &data->nb);
-+	irq_work_sync(&data->irq_work);
-+	cancel_work_sync(&data->work);
-+}
-+
- static const struct hwmon_channel_info * const marvel_env_chip_info =
- 	HWMON_CHANNEL_INFO(chip, HWMON_C_UPDATE_INTERVAL);
- 
-@@ -522,7 +597,6 @@ static int marvel_env_probe(struct platform_device *pdev)
- 	const struct hwmon_channel_info **info;
- 	struct marvel_env_data *data;
- 	struct hwmon_chip_info *chip;
--	struct device *hwmon;
- 	unsigned int i, k, nr_info = 0;
- 
- 	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-@@ -591,9 +665,16 @@ static int marvel_env_probe(struct platform_device *pdev)
- 	chip->ops = &marvel_env_ops;
- 	chip->info = info;
- 
--	hwmon = devm_hwmon_device_register_with_info(dev, DRVNAME, data, chip,
--						     NULL);
--	return PTR_ERR_OR_ZERO(hwmon);
-+	data->hwmon = devm_hwmon_device_register_with_info(dev, DRVNAME, data,
-+							   chip, NULL);
-+	if (IS_ERR(data->hwmon))
-+		return PTR_ERR(data->hwmon);
-+
-+	init_irq_work(&data->irq_work, marvel_env_irq_work);
-+	INIT_WORK(&data->work, marvel_env_event_work);
-+	data->nb.notifier_call = marvel_env_event;
-+	atomic_notifier_chain_register(&marvel_env_notifier, &data->nb);
-+	return devm_add_action_or_reset(dev, marvel_env_unregister, data);
- }
- 
- static struct platform_driver marvel_env_driver = {
+My gut feeling on this is don't paper over it. 
+I think there should be a standard recovery flow from crashed fabric
+manager and today we may have a hole here that needs closing. That
+might be as simple as a zero length dcd extent sent with the more
+flag not set to terminate any sequences in flight.
 
--- 
-2.56.1
+Lost mailbox responses should only happen if something worse
+went on so I'd expect some other ras indication.
+
+Anyhow, I'd suggest asking your spec folk to raise this (or poking John
+Groves)..
+
+> 
+> The deadline is fixed when the chain opens rather than extended per
+> record, so a device cannot keep a chain alive, and the staged list
+> growing, by streaming More=1 records.
+> 
+> Signed-off-by: Anisa Su <anisa.su@samsung.com>
+> Tested-by: Wonjae Lee <wj28.lee@samsung.com>
+> Tested-by: Junhee Park <jh9934.park@samsung.com>
+> Tested-by: Heesoo Kim <habil.kim@samsung.com>
+> ---
+>  drivers/cxl/core/mbox.c | 84 +++++++++++++++++++++++++++++++++++++++++
+>  drivers/cxl/cxlmem.h    | 15 ++++++++
+>  2 files changed, 99 insertions(+)
+> 
+> diff --git a/drivers/cxl/core/mbox.c b/drivers/cxl/core/mbox.c
+> index 3acf5ace48db..fea910e6c510 100644
+> --- a/drivers/cxl/core/mbox.c
+> +++ b/drivers/cxl/core/mbox.c
+> @@ -873,6 +873,8 @@ static const uuid_t log_uuid[] = {
+>  	[VENDOR_DEBUG_UUID] = DEFINE_CXL_VENDOR_DEBUG_UUID,
+>  };
+>  
+> +static void cxl_cancel_dcd_chain_work(void *_mds);
+> +
+>  /**
+>   * cxl_enumerate_cmds() - Enumerate commands for a device.
+>   * @mds: The driver data for the operation
+> @@ -891,6 +893,16 @@ int cxl_enumerate_cmds(struct cxl_memdev_state *mds)
+>  	struct cxl_mem_command *cmd;
+>  	int i, rc;
+>  
+> +	/*
+> +	 * The DC chain watchdog sends a mailbox command when it fires.  Register
+> +	 * its cancellation here, once the mailbox is usable, so devm runs it
+> +	 * before the mailbox goes away: in cxl_pci the device registers were
+> +	 * mapped before this point and are unmapped after the cancel.
+> +	 */
+> +	rc = devm_add_action_or_reset(dev, cxl_cancel_dcd_chain_work, mds);
+> +	if (rc)
+> +		return rc;
+> +
+>  	gsl = cxl_get_gsl(mds);
+>  	if (IS_ERR(gsl))
+>  		return PTR_ERR(gsl);
+> @@ -1198,6 +1210,14 @@ static void clear_pending_extents(void *_mds)
+>  		delete_extent_node(pos);
+>  }
+>  
+> +/*
+> + * Bound on how long the host will wait for a device to finish a
+> + * multi-record DC event chain (More=1 ... More=0) before refusing the
+> + * chain.  The spec sets no limit; 20s is a generous upper bound, the
+> + * maximum GPF timeout.
+> + */
+> +#define CXL_DC_CHAIN_TIMEOUT	(20 * HZ)
+> +
+>  static const char *cxl_dcd_evt_type_str(u8 type)
+>  {
+>  	switch (type) {
+> @@ -1226,6 +1246,11 @@ static void cxl_dc_chain_abort(struct cxl_memdev_state *mds)
+>  	struct cxl_dc_event_chain *chain = &mds->dc_chain;
+>  	struct device *dev = mds->cxlds.dev;
+>  
+> +	lockdep_assert_held(&chain->lock);
+> +
+> +	chain->armed = false;
+> +	cancel_delayed_work(&chain->timeout_work);
+> +
+>  	if (chain->event_type == DCD_ADD_CAPACITY &&
+>  	    cxl_send_dc_response(mds, CXL_MBOX_OP_ADD_DC_RESPONSE,
+>  				 &chain->pending_extents, 0))
+> @@ -1234,6 +1259,43 @@ static void cxl_dc_chain_abort(struct cxl_memdev_state *mds)
+>  	clear_pending_extents(mds);
+>  }
+>  
+> +static void cxl_dc_chain_timeout(struct work_struct *work)
+> +{
+> +	struct cxl_dc_event_chain *chain = container_of(to_delayed_work(work),
+> +							struct cxl_dc_event_chain,
+> +							timeout_work);
+> +	struct cxl_memdev_state *mds = container_of(chain,
+> +						    struct cxl_memdev_state,
+> +						    dc_chain);
+> +	struct device *dev = mds->cxlds.dev;
+> +
+> +	guard(mutex)(&chain->lock);
+> +
+> +	/*
+> +	 * handle_dcd_chain_event() cancels this work non-synchronously (a sync
+> +	 * cancel would deadlock on @chain->lock, which the chain-close path
+> +	 * holds), so a callback that already started running can reach here
+> +	 * after its chain has moved on.  Abort only if a chain is still armed
+> +	 * AND the timer has not been re-armed since this expiry fired: a new
+> +	 * chain's queue_delayed_work() makes delayed_work_pending() true,
+> +	 * meaning this expiry belongs to a superseded deadline and must not
+> +	 * abort the current chain.
+> +	 */
+> +	if (!chain->armed || delayed_work_pending(&chain->timeout_work))
+> +		return;
+> +
+> +	dev_warn(dev, "DC %s chain timed out\n",
+> +		 cxl_dcd_evt_type_str(chain->event_type));
+> +	cxl_dc_chain_abort(mds);
+> +}
+> +
+> +static void cxl_cancel_dcd_chain_work(void *_mds)
+> +{
+> +	struct cxl_memdev_state *mds = _mds;
+> +
+> +	cancel_delayed_work_sync(&mds->dc_chain.timeout_work);
+> +}
+> +
+>  static int stage_pending_extent(struct list_head *pending,
+>  				struct cxl_extent *to_add)
+>  {
+> @@ -1260,6 +1322,8 @@ static int handle_dcd_chain_event(struct cxl_memdev_state *mds,
+>  	struct device *dev = mds->cxlds.dev;
+>  	int rc;
+>  
+> +	guard(mutex)(&chain->lock);
+> +
+>  	/* Chained records share one event type (CXL r4.0 Table 8-229) */
+>  	if (list_empty(&chain->pending_extents)) {
+>  		chain->event_type = event->event_type;
+> @@ -1279,9 +1343,22 @@ static int handle_dcd_chain_event(struct cxl_memdev_state *mds,
+>  
+>  	if (event->flags & CXL_DCD_EVENT_MORE) {
+>  		dev_dbg(dev, "more bit set; delay processing of extent\n");
+> +		/* The deadline is fixed when the chain opens, not per record */
+> +		if (!chain->armed) {
+> +			queue_delayed_work(system_wq, &chain->timeout_work,
+> +					   CXL_DC_CHAIN_TIMEOUT);
+> +			chain->armed = true;
+> +		}
+>  		return 0;
+>  	}
+>  
+> +	/*
+> +	 * Chain is closing.  Disarm before flushing so a pending watchdog
+> +	 * (queued but blocked on @chain->lock) sees !armed and bails out.
+> +	 */
+> +	chain->armed = false;
+> +	cancel_delayed_work(&chain->timeout_work);
+> +
+>  	/* Nothing is tracked yet: refuse every add, acknowledge every release */
+>  	if (event->event_type == DCD_ADD_CAPACITY)
+>  		rc = cxl_send_dc_response(mds, CXL_MBOX_OP_ADD_DC_RESPONSE,
+> @@ -2021,7 +2098,14 @@ struct cxl_memdev_state *cxl_memdev_state_create(struct device *dev, u64 serial,
+>  
+>  	mutex_init(&mds->event.log_lock);
+>  	INIT_LIST_HEAD(&mds->dc_chain.pending_extents);
+> +	mutex_init(&mds->dc_chain.lock);
+> +	INIT_DELAYED_WORK(&mds->dc_chain.timeout_work, cxl_dc_chain_timeout);
+>  
+> +	/*
+> +	 * The watchdog cancel is registered later, by cxl_enumerate_cmds(), so
+> +	 * devm's reverse-order unwind cancels (and waits for) the watchdog
+> +	 * before this list cleanup runs.
+> +	 */
+>  	rc = devm_add_action_or_reset(dev, clear_pending_extents, mds);
+>  	if (rc)
+>  		return ERR_PTR(rc);
+> diff --git a/drivers/cxl/cxlmem.h b/drivers/cxl/cxlmem.h
+> index c88de7cb65d1..52c936ec15a9 100644
+> --- a/drivers/cxl/cxlmem.h
+> +++ b/drivers/cxl/cxlmem.h
+> @@ -8,6 +8,8 @@
+>  #include <linux/uuid.h>
+>  #include <linux/node.h>
+>  #include <linux/list.h>
+> +#include <linux/mutex.h>
+> +#include <linux/workqueue.h>
+>  #include <cxl/event.h>
+>  #include <cxl/mailbox.h>
+>  #include "cxl.h"
+> @@ -431,6 +433,11 @@ static inline struct cxl_dev_state *mbox_to_cxlds(struct cxl_mailbox *cxl_mbox)
+>   * struct cxl_dc_event_chain - staged Dynamic Capacity event chain
+>   * @pending_extents: extents received so far; flushed when the chain
+>   *		     closes (More=0)
+> + * @timeout_work: watchdog that fires if a chain is opened with
+> + *		  CXL_DCD_EVENT_MORE but the closing record never arrives
+> + * @lock: serialises updates to the chain state against the watchdog
+> + * @armed: set when a More=1 chain opens; cleared when the chain closes
+> + *	   (More=0), is aborted by cxl_dc_chain_abort(), or times out.
+>   * @event_type: DCD event type of the open chain (add or release)
+>   *
+>   * The records of one Dynamic Capacity operation can be chained by the
+> @@ -439,9 +446,17 @@ static inline struct cxl_dev_state *mbox_to_cxlds(struct cxl_mailbox *cxl_mbox)
+>   * chain is open at a time.  Both Add Capacity and Release Capacity chains
+>   * are staged here, @event_type says which.  Records are staged until
+>   * More=0, then the chain is processed and responded to as a whole.
+> + *
+> + * If a chain is opened (More=1) but the device never sends the closing
+> + * record, the staged list would otherwise sit indefinitely.  @timeout_work
+> + * is a defensive watchdog that drops such a chain: an add is refused with
+> + * an empty response, a release is held for the device to retry.
+>   */
+>  struct cxl_dc_event_chain {
+>  	struct list_head pending_extents;
+> +	struct delayed_work timeout_work;
+> +	struct mutex lock;	/* chain state, against the watchdog */
+> +	bool armed;
+>  	u8 event_type;
+>  };
+>  
 
