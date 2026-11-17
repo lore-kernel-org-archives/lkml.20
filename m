@@ -1,50 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794902096;
-	b=U+z5BnuB4Ei3SVDEC/yaVBwlli3WiJOlkaiT43hqpwhSWqoTlPsRc4dK+ULwOqGt2/0+
-	 5sqLhYwmvLgmxNGTbVO4e+fQaInLaIsdzhJpUL+0Ht5R5HywFuSXYXPo7yx6JA7vMc4eV
-	 z8tHLHnPIsPVeGYs6+GrvgpiPkY4ZKj38Vuaiv1J9GnFpHMLdS1GhYWk3jr6/1rZyMWOQ
-	 +kRFWbPOM2XyMiaFcncsoqUBkF6C0npIYOv2+0bwKaZdnqsMOBhmUNPpOVtivQ0L/vksI
-	 MpEgi2z4jUOOOaH3I6oUecGsf6TdUKJPvMRYnSPZsR3NWluNf4BpL2j/U5/L5UlQdWg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794902096;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=eLAQP0umCUNV9SDro5xHJpGm9BPwiX/kosczXjIBD2w=;
-	b=LavIFRc9tKvOwFoSLVVvTG421qATMvm7jNkVNvlTV4tglkqDxcoJzqGAb9mqSIwXk6aj
-	 V+nfKiuvL7Wb0uOu54jWrHwPI635820DJqgzHNIE1d9Krm5tl5tIVr7l88BQXVm4XlUp3
-	 xLUAmRZ1BXxnzMOFJCyHPC3Ejt7PgBZtTy/WvsCgbE+/jdolUaODSACFJ7kl2KA4Tdylo
-	 KJySzGFX8r8ihb0aKz+NZ7YNBjUNzT3282O2wOOZyB4XIRVMw6akkM6Wx8prgSv9pPo1G
-	 1y5ABHk5UnV8F0LwXL2B+sgjDZI6SniK0y+XZ74vWQ6tQwyyEeQwREJQr5stz9AKaZg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=YRFQs9Vc;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794902119;
+	b=oigHZQXTty97IaO2gsWsUhZseygwh4MQi7wOIDvycnv2cjBhOC7NmPiCB6iP4RSAWr2T
+	 c4K2t0n69Pc9oWE3TSfXTfm0PNprXl7eu7U57sf8JBbGD2Wolj+TdOrqFnME80G3VOPuL
+	 TzMMdAPiX2D7hdoic1A3lyZ8rObfAALZyPTysjJmWFwDMY84KAIkPNwKGNMjJsOrbckIm
+	 qox5N/0m+qCwiZXijvHgNbW6o5zdnapMNqKGWIo37+AVt1Rx6a04gR/3DxjfA3X7dQ4Ix
+	 X/D2yKANo9Pxc/KJdtL2oL1seIbVpRgMaI8z0h3YQePJd0uFhbtmn9JqHEYQqKivyAQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794902119;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=gQ5jNNaD4mkGwzcMPPwN2+p4gr50KSGDaJm/fNLGsrg=;
+	b=qAcs1b5k2JoRJDzmyG2lJzw0ZLHReJ28Z3UK2U7h/snIil9f0hMgJe+tuQfTi3zbgW6+
+	 qLHqQxfa+9D8vs/oPI/GTQ14OKOPBOw3NzD5RFRTGlY3q5gCgRfgs6EzrGF/DQMvbQv+4
+	 yCtHHutBvQwlImUTUdKL74tGEU6H5tvVUcKp8nqWZ/BlWDziNhQi9wLgcC+k9g501+/jE
+	 cNsCqIMtSx/ilPBmr3ehGH8yuOewOJ/W+okA4Y+z62S/mlxnJG01IDGQBa+sndlZM4ej+
+	 lg3XhzWmYmRCdUz2c7SUUul2bJDwibDH1d8Lelw424iaq8KHvjShX2SGpCEenFEaJMA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IQoQ2pY2;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4144606A31C;
+	Tue, 17 Nov 2026 07:55:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IQoQ2pY2
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794902118;
+	b=27NwjAcNMzKTE5ZvApF7ATZANpaFQbch29bjI6rwRXxjJbyO+gjyf/bgFMFmSLZ9tCkW
+	 V7IPxGfgtI9zqd9rmjGIGFG3ur49Etzt/JQXxlpNJl4/k+Ts4EyqWLQwCkg9ogh2ybpId
+	 7rYgVy2aVgwX5AHXIieBD8PAq7fXunU6dyq3yHUq+6DlSTXk8EIOg//zcNpOpJ13ZAlJ7
+	 qsqjIM4bYwtrzwsFbNV+udESSsSaG6l9pPtBABlxuZfs0WDhu9pNxsfYbvH7/VyEda+w/
+	 IimHzV1EMvTWJD3jm4wFTHON4pz12sqcnso9yojK/p4NpspCtN40kTVTucTgGFjcLzA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794902118;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=gQ5jNNaD4mkGwzcMPPwN2+p4gr50KSGDaJm/fNLGsrg=;
+	b=de/rVjRKJRl3AfwEDk4l+XOjObA1t3o4wWfSifKC9pr5N6D7/iLEPOrrOE9xhswgwZyz
+	 AxL3OEmIrYD5sLiUecQwpgnDieFWS2bTftkvZ6J7+mufxN/yokyui/mNWA31yIOKzNkCL
+	 pKZM648rasrEgvjXx3z6ZJz5NVWAIOvkHjisj/Z6NMJKy1TtvTfl/pYZONTZvfBEJbwGc
+	 c2baqTLKNhRzxQdHocybLbqDQouM+HFRY1TfMl9E0jTebkly1DCrLByXxim+dJJJ6HXne
+	 RqKqf6L++pU7gSGgHXcR84ihd2UKMb1KJkD4brpE/WDV0/D7tYgGMyX6ycnDBawLR+Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA159606A31C;
-	Tue, 17 Nov 2026 07:54:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA159606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=YRFQs9Vc
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 37C2D177;
-	Tue, 17 Nov 2026 08:52:18 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794901939;
-	bh=Rs2TZRDYMtfEO5dZ9Ed294/LGxR/gQNKjwq+FdxuUqY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=YRFQs9VcmKm2vUqPqdHinkvhqFfhMK1skDzco9OpBxUGc9aO6y+RSj4tgwtU8en3s
-	 tGqWeGMSOAPTuZ4hysCFFqeYwC7DzIdXmERcGlCQCDj+3t+lipZfhZMnVRLTGsXla5
-	 JJw/yvLKh1dbb9IJfbWdsm9M+U6jwvy2YEgYCFaM=
-Message-ID: <16f237de-d223-470d-915b-0542c263bd52@ideasonboard.com>
-Date: Tue, 17 Nov 2026 09:54:42 +0200
+	by smtp.kernel.org (Postfix) with ESMTPS id DF7411F000C4;
+	Tue, 17 Nov 2026 07:55:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794902118;
+	bh=gQ5jNNaD4mkGwzcMPPwN2+p4gr50KSGDaJm/fNLGsrg=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=IQoQ2pY2jZ5bHClm4/P5zec+NiE+klPoklZKAQaAS7x1Q+HTZFarMMqq9b1JlzsVa
+	 9BCNXEY5cmEaHGNG5bHBra6ELmZLtU8fl4i7TxwNgpmHK7YrDz2IB+nEVYa7FbFVx6
+	 B9yE0gJMyJ0mqKr09u5JjqMjDnmImt+zvAPsIllE5r5wZJmqUgQ43HFrPQJ5SM0kjw
+	 C2y2WC91xxVlNIi7MKiA29aId7jkeJsyC42WR2C/j7t3ZPS24F8O1NfOs9ial2m9lP
+	 plm3myngDbQ3ilai+NzNWH2DUYHNTto7EmXJi55ajFAnu4OoGYske8e02WOXED+gFH
+	 zpcu/833v9H/Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 3FCB94A72D;
+	Tue, 17 Nov 2026 07:55:17 +0000 (UTC)
+From: Raffaele Tranfaglia via B4 Relay <devnull+raffaele.tranfaglia.gmail.com@kernel.org>
+Date: Tue, 17 Nov 2026 07:55:14 +0000
+Subject: [PATCH RFC] regmap: kunit: add tests for values wider than
+ val_bits
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,155 +83,186 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 00/15] drm/tidss: Add BeagleY-AI display support (and
- some more)
-To: dri-devel@lists.freedesktop.org
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, Jayesh Choudhary <j-choudhary@ti.com>,
- Aradhya Bhatia <a-bhatia1@ti.com>, Andrew Davis <afd@ti.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
- Aradhya Bhatia <aradhya.bhatia@linux.dev>, Nishanth Menon <nm@ti.com>,
- Vignesh Raghavendra <vigneshr@ti.com>, Swamil Jain <s-jain1@ti.com>,
- Devarsh Thakkar <devarsht@ti.com>, Louis Chauvet <louis.chauvet@bootlin.com>
-References: <20261103-beagley-ai-display-v5-0-f1c8d0e52bb4@ideasonboard.com>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <20261103-beagley-ai-display-v5-0-f1c8d0e52bb4@ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261117-regmap-kunit-val-bits-v1-1-a1cd02063217@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ6CMBAAv0L27CYtRTBeTXiAV8OhxQVXpZBuI
+ SaEv1vlOJPMrCAUmATO2QqBFhYefQJ9yKB9WN8T8j0x5CovtdYVBuoHO+Fr9hxxsW90HAXLojJ
+ GHUmdjIPUToE6/vy/N7jWF2h2KbN7Uht/R9i2L9Ah5bl+AAAA
+X-Change-ID: 20261117-regmap-kunit-val-bits-6473305e083b
+To: Mark Brown <broonie@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+ Johan Hovold <johan@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, 
+ Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
+ Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794902116; l=5896;
+ i=raffaele.tranfaglia@gmail.com; s=20261011; h=from:subject:message-id;
+ bh=sa63Aup+aU28axygQ8eJYjxlMYwC6XzaZSpCzUHWHO8=;
+ b=K6oYsRALgdvBPyAAmXvIrsv6TEUhkPOLaUS1pYxsmI2JTDFmXQcH+tBpdSPYps4XXFNnwp7zC
+ 6oyXoSXtRRQBNeVRJR/dVqelTiahE1fkbHr5cNPcAnhkpadJUO3VgV1
+X-Developer-Key: i=raffaele.tranfaglia@gmail.com; a=ed25519;
+ pk=mweuSGNM6vguCTdqa+aiHwMXdgk70suj2wolzCp6XGM=
+X-Endpoint-Received: by B4 Relay for raffaele.tranfaglia@gmail.com/20261011
+ with auth_id=1160
+X-Original-From: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
+Reply-To: raffaele.tranfaglia@gmail.com
 Content-Transfer-Encoding: 7bit
 
-Hi,
+From: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
 
-On 03/11/2026 13:34, Tomi Valkeinen wrote:
-> This series aims to add display support for all display interfaces on
-> BeagleY-AI board. More generally, it adds display support for TI AM62P,
-> J722S, and related SoCs.
-> 
-> The main topics to highlight:
-> 
-> - The data and sync signal polarities require accessing a register
->    (DPI0_CLK_CTRL) in the CTRL_MMR block. This has already been discussed
->    e.g. in
->    https://lore.kernel.org/all/20250730-fix-edge-handling-v1-0-1bdfb3fe7922%40bootlin.com/.
->    This topic is still open, and it also touches already upstreamed SoCs
->    with DSS (AM625). In other words, with this series, we don't have full
->    polarity support, and DPI works exactly like upstream AM625's does.
-> 
-> - In the SoC, the two OLDI TX instances are shared between the two DSS
->    instances. This has been a bit tricky to solve neatly. In this series
->    the result is that in the DT we have three OLDI TX nodes, two under
->    DSS0, one under DSS1, representing the OLDIs that the DSS instance
->    can use.
-> 
-> - I'm no audio expert, but based on the original dts from Robert Nelson,
->    I did get HDMI audio working, but I see "davinci-mcasp
->    2b10000.audio-controller: Sample-rate is off by 400 PPM".
-> 
-> With this series one can use the HDMI output on BeagleY-AI. I have also
-> tested the DSI output with Raspberry Pi's 7" DSI display, and OLDI
-> output with an oscilloscope (I don't have a suitable OLDI panel) with
-> extra DT overlays.
-> 
->   Tomi
-> 
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> ---
-> Changes in v5:
-> - Add Rb tags from Aradhya
-> - New cleanup patch: "drm/tidss: Use the AM625 features for AM62A7"
-> - Ensure tidss_oldi_create_pd_devs() is only called for primary OLDI
-> - Add missing cbass ranges for DSS1 and DSI (DSS was already there) to k3-am62p.dtsi
-> - Link to v4: https://patch.msgid.link/20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com
-> 
-> Changes in v4:
-> - Based on today's drm-misc-next
-> - Dropped the CTRL MMR related code. This means the DPI polarities are
->    not quite right (the same as AM625)
-> - Dropped the commit to convert OLDI to an aux driver. This version uses
->    a new (unmerged) PM dev_pm_domain_attach_by_node() to manage the OLDI
->    power domains.
-> - Dropped a bunch of commits which were merged via "[PATCH 00/10]
->    drm/tidss: Preparation for AM62P and BeagleY-AI display support"
->    series.
-> - Dropped tested-by tags, as the series has changed quite a bit.
-> - Includes new fixes and cleanup patches:
->    - vp_bus_type removal:
->      - "Add helper to identify the AM65x OLDI video port"
->      - "Stop using vp_bus_type for directly connected panels"
->      - "Drop the tied off video port check from mode validation"
->      - "Remove the unused vp_bus_type feat"
->    - OLDI:
->      - "Drop unnecessary forward declaration"
->      - "Fix wrong return value from tidss_oldi_mode_valid()"
->      - "Fix serial clock reference leak"
->      - "Fix cleanup on a failed init"
->      - "Move the setup of one OLDI TX to its own function"
->      - "Add power domain support"
-> - Link to v3: https://patch.msgid.link/20260529-beagley-ai-display-v3-0-7fefdc5d1adf@ideasonboard.com
-> 
-> Changes in v3:
-> - Base on "[PATCH 0/6] arm64: ti: Use syscon for the Control Module"
-> - Drop quotation marks from Rb tags
-> - Drop Tested-by tags for the bindings patches
-> - "drm/tidss: Add external data and sync signal edge configuration": Fix
->    error handling
-> - "drm/tidss: Add support for DPIENABLE bit": set/unset DPIENABLE in
->    prepare/unprepare
-> - "drm/tidss: oldi: Convert OLDI to an aux driver": Improve cleanups
->    (of_node_put, clk_put, device_link_del)
-> - Dropped "arm64: dts: ti: k3-am62p-j722s-common-main: Make main_conf a syscon"
-> - "arm64: dts: ti: k3-am62p-j722s-common-main: Add support for DSS": Add
->    missing clocks and ti,oldi-io-ctrl for oldi1 node. Drop unused
->    main-gpio0-ioexp-intr-default-pins node. Fix MCASP1_AXR0 pin
->    direction. Fix DSS videoport numbering.
-> - Link to v2: https://lore.kernel.org/r/20260513-beagley-ai-display-v2-0-9e9bcefde6bc@ideasonboard.com
-> 
-> Changes in v2:
-> - Add Rb and Tb tags
-> - Drop "dt-bindings: mfd: syscon: Add ti,am625-dss-dpi0-clk-ctrl
->    compatible", which is now implemented with the below changes.
-> - New patch "dt-bindings: display: ti,am65x-dss: Add ti,dpi-io-ctrl"
-> - Modify "drm/tidss: Add external data and sync signal edge
->    configuration" to use the 'ti,dpi-io-ctrl' with offset.
-> - New patch "arm64: dts: ti: k3-am62p-j722s-common-main: Make main_conf
->    a syscon".
-> - Modify "arm64: dts: ti: k3-am62p-j722s-common-main: Add support for
->    DSS" to set 'ti,dpi-io-ctrl' properties
-> - Drop generic desc in DT bindings for power-domains property
-> - Fix pm_runtime_get_sync() return value check
-> - Link to v1: https://lore.kernel.org/r/20260420-beagley-ai-display-v1-0-f628543dfd14@ideasonboard.com
-> 
-> ---
-> Andrew Davis (1):
->        arm64: dts: ti: beagley-ai: Enable HDMI display and audio
-> 
-> Jayesh Choudhary (1):
->        arm64: dts: ti: k3-am62p-j722s-common-main: Add support for DSS
-> 
-> Swamil Jain (1):
->        drm/tidss: Add support for AM62P display subsystem
-> 
-> Tomi Valkeinen (12):
->        dt-bindings: display: ti,am65x-dss: Add AM62P DSS
->        drm/tidss: Add helper to identify the AM65x OLDI video port
->        drm/tidss: Stop using vp_bus_type for directly connected panels
->        drm/tidss: Drop the tied off video port check from mode validation
->        drm/tidss: Remove the unused vp_bus_type feat
->        drm/tidss: Use the AM625 features for AM62A7
->        drm/tidss: oldi: Drop unnecessary forward declaration
->        drm/tidss: oldi: Fix wrong return value from tidss_oldi_mode_valid()
->        drm/tidss: oldi: Fix serial clock reference leak
->        drm/tidss: oldi: Fix cleanup on a failed init
->        drm/tidss: oldi: Move the setup of one OLDI TX to its own function
->        drm/tidss: oldi: Add power domain support
+Add two test cases writing 0xffffff0f with regmap_write() to a regmap
+with val_bits = 16:
 
-I'll pick patches 2-11 (inclusive) to drm-misc-next. They stand alone 
-and do not depend on the PD change we need for the oldi.
+- write_wider_than_val_bits uses the RAM regmap, a bus that only
+  provides reg_write()/reg_read();
+- raw_write_wider_than_val_bits uses the raw RAM regmap, which goes
+  through the value formatters.
 
-  Tomi
+Both expect that only the low 16 bits reach the bus and can be read
+back. The raw test passes, since regmap_format_16_*() only store 16
+bits. The RAM test currently fails: _regmap_bus_reg_write() hands the
+value to bus->reg_write() unmodified, so the bus sees 0xffffff0f. With
+the rbtree cache the value is in addition truncated in the cache only,
+so the cache and the bus disagree.
+
+Signed-off-by: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
+---
+regmap_write() takes an unsigned int, also for regmaps with
+val_bits < 32. What happens to the bits above val_bits currently
+depends on the bus and on the cache type:
+
+- buses with raw write() go through the value formatters, which
+  silently drop the upper bits;
+- buses with only reg_write() get the value unmodified. regmap-i2c's
+  SMBus backends and regmap-fsi then return -EINVAL, others (like
+  regmap-ram here) take the full value;
+- with a reg_write() bus and the rbtree cache, the cache stores the
+  truncated value while the bus got the full one.
+
+This was found in the adux1020 IIO driver, which writes ~u16 (promoted
+to int) to a 16-bit register. It works on I2C adapters and fails with
+-EINVAL on SMBus-only ones [1]. I am raising it here as other drivers
+can hit the same thing.
+
+The tests in this patch expect masking to val_bits on both kinds of
+buses, so the reg_write one fails today. This is only to show the
+difference: should regmap_write() mask the value to val_bits for
+reg_write() buses, or should it reject such values consistently for all
+buses? I can send a patch for whichever is preferred and adjust the
+tests accordingly.
+
+I prepared this patch with the help of an AI coding assistant, and
+reviewed and tested it myself.
+
+[1] https://lore.kernel.org/linux-iio/20261109-adux1020-measure-fixes-v1-1-fe1ba63f28bc@gmail.com/
+---
+ drivers/base/regmap/regmap-kunit.c | 62 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 62 insertions(+)
+
+diff --git a/drivers/base/regmap/regmap-kunit.c b/drivers/base/regmap/regmap-kunit.c
+index c78772b660d6..ed51a98efeb0 100644
+--- a/drivers/base/regmap/regmap-kunit.c
++++ b/drivers/base/regmap/regmap-kunit.c
+@@ -319,6 +319,33 @@ static void basic_read_write(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, config.cache_type == REGCACHE_NONE, data->read[0]);
+ }
+ 
++static void write_wider_than_val_bits(struct kunit *test)
++{
++	const struct regmap_test_param *param = test->param_value;
++	struct regmap *map;
++	struct regmap_config config;
++	struct regmap_ram_data *data;
++	unsigned int rval;
++
++	config = test_regmap_config;
++	config.val_bits = 16;
++
++	map = gen_regmap(test, &config, &data);
++	KUNIT_ASSERT_FALSE(test, IS_ERR(map));
++	if (IS_ERR(map))
++		return;
++
++	/* Write a value with bits set above val_bits */
++	KUNIT_EXPECT_EQ(test, 0, regmap_write(map, param->from_reg, 0xffffff0f));
++
++	/* The bus should only have seen the low val_bits bits */
++	KUNIT_EXPECT_EQ(test, 0xff0f, data->vals[param->from_reg]);
++
++	/* And that is what we should read back */
++	KUNIT_EXPECT_EQ(test, 0, regmap_read(map, param->from_reg, &rval));
++	KUNIT_EXPECT_EQ(test, 0xff0f, rval);
++}
++
+ static void bulk_write(struct kunit *test)
+ {
+ 	struct regmap *map;
+@@ -1984,6 +2011,39 @@ static void raw_write_read_single(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, val, rval);
+ }
+ 
++static void raw_write_wider_than_val_bits(struct kunit *test)
++{
++	struct regmap *map;
++	struct regmap_config config;
++	struct regmap_ram_data *data;
++	u16 *hw_buf;
++	unsigned int rval;
++
++	config = raw_regmap_config;
++
++	map = gen_raw_regmap(test, &config, &data);
++	KUNIT_ASSERT_FALSE(test, IS_ERR(map));
++	if (IS_ERR(map))
++		return;
++
++	hw_buf = (u16 *)data->vals;
++
++	/* Write a value with bits set above val_bits */
++	KUNIT_EXPECT_EQ(test, 0, regmap_write(map, 0, 0xffffff0f));
++
++	/* The "hardware" should only have seen the low val_bits bits */
++	if (config.val_format_endian == REGMAP_ENDIAN_BIG)
++		KUNIT_EXPECT_EQ(test, 0xff0f,
++				be16_to_cpu((__force __be16)hw_buf[0]));
++	else
++		KUNIT_EXPECT_EQ(test, 0xff0f,
++				le16_to_cpu((__force __le16)hw_buf[0]));
++
++	/* And that is what we should read back */
++	KUNIT_EXPECT_EQ(test, 0, regmap_read(map, 0, &rval));
++	KUNIT_EXPECT_EQ(test, 0xff0f, rval);
++}
++
+ static void raw_write(struct kunit *test)
+ {
+ 	struct regmap *map;
+@@ -2229,6 +2289,7 @@ static void raw_ranges(struct kunit *test)
+ 
+ static struct kunit_case regmap_test_cases[] = {
+ 	KUNIT_CASE_PARAM(basic_read_write, regcache_types_gen_params),
++	KUNIT_CASE_PARAM(write_wider_than_val_bits, regcache_types_gen_params),
+ 	KUNIT_CASE_PARAM(read_bypassed, real_cache_types_gen_params),
+ 	KUNIT_CASE_PARAM(read_bypassed_volatile, real_cache_types_gen_params),
+ 	KUNIT_CASE_PARAM(bulk_write, regcache_types_gen_params),
+@@ -2265,6 +2326,7 @@ static struct kunit_case regmap_test_cases[] = {
+ 	KUNIT_CASE_PARAM(raw_read_defaults_single, raw_test_types_gen_params),
+ 	KUNIT_CASE_PARAM(raw_read_defaults, raw_test_types_gen_params),
+ 	KUNIT_CASE_PARAM(raw_write_read_single, raw_test_types_gen_params),
++	KUNIT_CASE_PARAM(raw_write_wider_than_val_bits, raw_test_types_gen_params),
+ 	KUNIT_CASE_PARAM(raw_write, raw_test_types_gen_params),
+ 	KUNIT_CASE_PARAM(raw_noinc_write, raw_test_types_gen_params),
+ 	KUNIT_CASE_PARAM(raw_sync, raw_test_cache_types_gen_params),
+
+---
+base-commit: 666539eecdf4db623f5e3c3e55cf9f2dfad24aa4
+change-id: 20261117-regmap-kunit-val-bits-6473305e083b
+
+Best regards,
+--  
+Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
+
 
