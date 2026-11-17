@@ -1,85 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794913747;
-	b=G4Le2JHmEDGPzNIDJqSzpSqraXGHjSlMS4lL3weFmpBMc0vBAHMRVnJAD6PTTL2o+UEU
-	 5J3KYd+DDT56Cm8bFmaunDNdmGwGphwLmy80uypQhtFp8PonTYlUEyMerhGsJSYquqPBD
-	 5C9yEBpzH4v44mBIRXX+HL9os5Pj3LSOitCJWNcAwji3YD0higETU5Ed3p8d8w07E3gli
-	 5Rb8QRzxHxyheQ4DED3HMeJGAEumQOqYXN7nHAtKsuXpH0Lc62tkMKS1dTaG5HV+wOIhW
-	 mb1UK1L+oK/dpxQLUgZkjc2SIzu2at1BMSON9p9Bn0Ia4h35rrV7Sa6tGcSi9NRaH6Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794913747;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:
-	 X-Proofpoint-Reinject:X-QCInternal:X-QCInternal:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=Mp7QfcDF4eYK2qgorUpWu9tmVBH1gAJUqwT9MG/SYsc=;
-	b=qT/MvozQCDMOoSUPWJ8kdzHvSIzv2zShX7ddKEQ90PUg2KqNttLmTqrglmTcf6NwQUrY
-	 XPVKlnThFeQw59gGdHNgua3UzFURexuQMr9D+vKMpcyONEnQju6jZQhP3Q6fuZ1pBqerW
-	 u05rvGkK13lnLnc0+xVvmPKA8PGnJnW2B33VekAFL1Fwx9fg3H/OnTX93gmxfnKzVuY61
-	 e0uUSGjKHZB9wd8c5C6GfT/ONiBs8Qc/+4ivhdYIUT1Pgt/fIt2lOJkfj++kreIfON9GZ
-	 IfMOioRHdUtiEC03OTYb1yY/qfm/2NkdZ/I/K901i5SXnxIdkRZ99lTNC8kv9fYwNmA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=etyFSegG;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794913753;
+	b=Pf2AaHWcE2HHnewdT5PjhvUOxGgCf7dp+iEULW2SGHgwJbSJzOiIg2K3Y5sjybAXGzb+
+	 m+G4k0iJkO58IgrW+wquziRwwHJDyKYYsvnAgBo3OTr8oGqRi+FPDes2e9iXuP8nW0NgM
+	 1IEPNoFsP/En5dcUzXubHo51WgGUTnCv16FslXZ9IcrC2c++AA5ABDXY7U4XkM6wQerb+
+	 hD+j9q3wVlcXSaZmqpDvu6PCJ66oUfhUxVWohS7ehY1pAdfkUa4VbnPD6GQJDV/5gixNL
+	 hX11F7KiGGcFCUr91IhUjjXvJHGpwHOgcy9q8eJ7cuV+D0UshZ26Lxm6w5QM8vsiBAw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794913753;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=+5RFtFeHVJYTUWfudaVF9Kzy7VFX5fFixoIPN3O+g6o=;
+	b=G/Xqg3S5CvLy6N7Z1lk7Q3i37iA+GaX99Vx5gtBik6Zf7WrUjLBvNSmMWwXsC1lypoF4
+	 7QWF/hXYC/Wc/Jtm/f6tgbS3UKZsH4Jo+UCH9N2Yv3HN9OERStlltJpojuFawwXHHfvRG
+	 sc6A0eIwiN5LXkAgOkd2TXylLUcMOPr166As68FxK4bbtoMI91DcUEaugijm3idq69gxU
+	 nxQMWWWdRXaqL7hOyKGn0b/qt+ORbNvUzbPZM1DPwXknPNaS/5jXO3cy/qVNRgdoMHSfy
+	 x39Fe+aws5n5yOJ21uLrf6sa/KshF4yKYCxHGmlZWk2tV83sQv4pMLOP59EFggXr0kA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="o/On8or2";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCB8D606A323;
-	Tue, 17 Nov 2026 11:09:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCB8D606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E41D3606A335
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:09:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E41D3606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=etyFSegG
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH8Wtbh3624157;
-	Tue, 17 Nov 2026 11:08:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=Mp7QfcDF4eY
-	K2qgorUpWu9tmVBH1gAJUqwT9MG/SYsc=; b=etyFSegGtu0QIVggSj1EHWN2PJJ
-	vDGSrgnOfgA7T3X1VvuqtGS0vQNBtYLx7mihQLU4uQGUM8N7lzJv3BPAPtXpFxS9
-	tt6PAm6QAzleTI/+fvMifmnnhHUDw6Ux10xSAiZlaHYWvQXcNl6nds07QygbX63/
-	QOo0dQO5rW3UL8BYpn0AbOCsXpx9hAXRu/49Mgm6BgPHcpKucJ4IwAFFqSovZsQG
-	zRGUtdTc9ZYEvShtk2ZlscAqsAPpeUfuJcKvRmGtDMcXUBCCWOd1MOAULIDpD2ux
-	/ygqDz6tbZd28tAyunqu1JKno4u4YlUPTltzbuFRR6Kio9qLMbm/qnO4yOw==
-Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j07rek93d-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 17 Nov 2026 11:08:56 +0000 (GMT)
-Received: from pps.filterd (apblrppmta02.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHB8rbg2620872;
-	Tue, 17 Nov 2026 11:08:53 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-ks5-hyd.qualcomm.com [10.147.255.18])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 6AHB8qKf2620860
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 17 Nov 2026 11:08:53 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4763723)
-	id 18FC667A; Tue, 17 Nov 2026 16:38:52 +0530 (+0530)
-From: Karthik S <karthik.s@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Karthik S <karthik.s@oss.qualcomm.com>
-Subject: [PATCH v1 2/3] ASoC: qcom: sc8280xp: enable support for talos-lyra
-Date: Tue, 17 Nov 2026 16:38:47 +0530
-Message-Id: <20261117110848.465407-3-karthik.s@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261117110848.465407-1-karthik.s@oss.qualcomm.com>
-References: <20261117110848.465407-1-karthik.s@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o/On8or2
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c4d21051042so264945266b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:09:12 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794913751; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aNVYZoyakfdaurIQuz5S+wVWJ0wOghfpBNIQq0wvEocuJCWpFaG0zKpJg6skY5iPKF
+         LfYaZKfxv6UovSei9VhJZECdqswjsA0WoR4fhL21JYBVgt/+jUD73gHviib4NiGZZtcS
+         MBYZURUbjFe0/WglV/QuZBZ0Im+ot/xGnJuWCOocW++xJ9feme+W9yBXa7vewpYrbetb
+         Vuv6YX4ctGyBLwKIwStAPYZUXxomu2/u0Y3QtHbZ8ZpmW+ufLGltaVDqoiLSnks2SzRG
+         m4y6noc016HG9sjtpt9Lq21t3Bj28ZmiUtTotwziSB/FsMQpN1hD+qFMAPzHT/SM3Qeu
+         XaiQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+5RFtFeHVJYTUWfudaVF9Kzy7VFX5fFixoIPN3O+g6o=;
+        fh=WPhBTavSdZ8EoAWu1so8MTkHdE12dwBJYH2LzoOJl9Q=;
+        b=AROkzPBlC+dZkoUrrBwh1PAX6ReUwoD8YTvtlqNeZe+T0snuMRRFt1ttytbDE8dIEC
+         965C5XT7OZNRvi9fAw8f1DkusQCKE+4tuh843XqpepbGl9W15f9wgFdzGkKl7/RHQClm
+         UvfwjvrjpC/95caDyebrETyHjzeeMzqu07FzFF3bm+mhLoQchjUk1bahNwuaDEQZTYHn
+         Po0e/D6jkhdkshBNMkVIjofTsSGhu1imi7VHSvD2+kHd2uJ4pvYhjLyilw6KII3UXZqd
+         j/WEhMT8N/tP0hkMZH4tUxeOuKDOekPCwjcTPKlqsoCnbZ3wVOVEEotxoZj2XI9vy5mq
+         29Lw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794913751; x=1795518551; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+5RFtFeHVJYTUWfudaVF9Kzy7VFX5fFixoIPN3O+g6o=;
+        b=o/On8or2Oy8aXwijm1DRzoNacf/V3nZElWzRSDwSRPXorudIiUm7z5ReWWOfwU7t+N
+         FxE/Zvi47jjzme9Lysc90014NGArwMqIcUWi1NYFUM8PGTsn0bgMLOPQrBG43NR0rn+r
+         OAL9Xdd5h+X7DKdyMUjyhkIzkyeE3GBWqk42Xc0VSLCaZ+S0UPci6he5xnxPl94FgAaj
+         wttOV9UE9SqgW7Uw8I13SZYbzfRGSfffzi2z866IVOZrsXAq8YgbJFOApgpnjlrIQK/N
+         CKvAAkRpHLdc6K9YBdByBff7iopDEzkKBYCjKdwo84c44cflbcMF8ZrDZFb2PtRkXdPF
+         YiFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794913751; x=1795518551;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+5RFtFeHVJYTUWfudaVF9Kzy7VFX5fFixoIPN3O+g6o=;
+        b=ZggM42KK8QxmOj7wPm1+l8pM69rQdK3SUhXNYah7hAX01kULUe2gVcROVCv1ucX9AI
+         6nfbAI26SYTbAeu5bsY3fzBTO6wSHlqYr8pu4OL8ULkHBR6I/mi4/QzPhsFDnG4I+XTt
+         oF/LAZjVth5EVXpGuFqTY5nMDOnvD/G1bpIUlu8pU4tqTH+1u+NKHDaW9fyrbbgOjGny
+         7d5Z1nxZJYdZbupNCxiMzzMvMT7RilQu8nLpYFAJozTwYqKRNd3tgMF3QXPWCh1OxsVk
+         rRjMixxFi9QMmziQcI2jXPrs8DFGUr77535nNPfNgH5FvmF86i/wb0YoeBCXgvauos0j
+         2C7Q==
+X-Forwarded-Encrypted: i=1; AL+hErFWwQ02U0nTKi9WnhwKSukMtSWhv+vSde6uPR9pyYDDye4CP8HQxgTSNFLGYis0WFlGiTx8UMlXb0r3rWk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z87j/n6vxERJxiINCyGgZoXYzem2I1oZQ0NU1xy5pensKOLOqUc
+	q6J1TI5HNsMqkJKP5ilKsN9mDp6u+NFIDYZZTS76Nn8ChniDKv+KdXBo6S5PP9H+MJZwdktNYhW
+	zSar1Ger02AgfSWs1B4bEqSf4fAIsW2A=
+X-Gm-Gg: AYBFou1RR3StTbNfl5/YsJ+7P8SkFpDT115x63pYS73iN6AeWDS4WE/l5Wog5XmAVbT
+	+hUEQGqf6o8tQPjl0+huA1Isud2AHN8oVb0Uni+Ypk2Nma0JeDszVQYf+ojAjOuqqJ8xtPPKTRf
+	2hT3rUai3mx/MeuLUfYRx48+hxDc+YQ04JTebk22P8ITpXwcSKAc594d9WNa6F4aYKEERxma6HO
+	soNax4bqjMJqGYpPPKC46LAj/LUXh5ntuK5KxXEcQopp9VOK+b43B9RqGlD6d2ZzMXKx0XxxaDE
+	CQBxzyhWCWXu1F2cR1CheGXqkvzOBC5wibpJeQ3kIMQdre5XsLmnUnQ9gLIPH6Ky/Gk+2P5REUJ
+	NyHuXZEZYPF38M47p9ie99qwV/qFKr5XP1/tHwWsW0bTuBpbUnUgZ6f78Oj/aGkp/DiM3WuTOnB
+	3kC2ppKlN4nB9QJR+XgPTCw+E=
+X-Received: by 2002:a17:907:94c2:b0:c41:26b8:c49d with SMTP id
+ a640c23a62f3a-c50963cccbdmr1046355966b.38.1794913751100; Tue, 17 Nov 2026
+ 03:09:11 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,116 +105,149 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA0NCBTYWx0ZWRfXy+gJmvc9ztpB
- aoqfq1GBu5otnNUDyz6rBX2/C+SSExng1R0Ep/KWKzslZoLdgwZVVWbNaw7MAkOUZEjFxPcTFpw
- q7n9Rt5okszSkTOCc9xh3iM/P+8OoHs=
-X-Proofpoint-ORIG-GUID: WPen3OcejZ2ZU5GBJPw8KuwF2Kkf3JGp
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA0NCBTYWx0ZWRfX6foummd0XJ28
- o7yyhsPinSqMNUwFyH/Ho3VBicKmK1RPYZYtMwL6uvb6d0NO2X+HSRsOeSa5ys7ZSuDAMcimhbX
- CY8NKgxVaTMt60pUEDn5oHLPvj7UAV5544Gy+px9az2i7atxuk/a/krt+BcA+ZOtguasbbkER90
- kESa7Kl3XZPiy9Mkmh9oc+Za0v4xL4U4QERtcJnw+r4rrxI7z9LsT/rimijtwGv8JK7v3923Ym1
- jvEESLJnr5uNQyXIV1OHNDp0XGZ5aMSH78kp4t6rtcAPxNbd2SxcQ4S1g8/R3LPNQhwlXOm/9Ig
- KfmX6pqdP+PhHCU5apoE6Hrqd84cwhKqnu6Jop/4pGe0Jy/mxLFt2yGf7qJO8SKmDvsZtcGJ5i5
- nNYpPVsrnzG8roMwgkb0MDW01q/qerB7gJCGncwrKVKLObIzHQFFZTLgjuZ4wR4MVUfiC0zW2vc
- 68ffRjakihKdYURSDwA==
-X-Proofpoint-GUID: WPen3OcejZ2ZU5GBJPw8KuwF2Kkf3JGp
-X-Authority-Analysis: v=2.4 cv=R9uWitRX c=1 sm=1 tr=0 ts=6afc35c8 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8 a=5wlQ8WN9U6JOc18lOXEA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-17_01,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 malwarescore=0 phishscore=0 priorityscore=1501
- adultscore=0 impostorscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170044
+References: <20261116-marvel-env-v2-0-ef614eb2e7f1@gmail.com> <20261116-marvel-env-v2-1-ef614eb2e7f1@gmail.com>
+In-Reply-To: <20261116-marvel-env-v2-1-ef614eb2e7f1@gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Tue, 17 Nov 2026 12:08:59 +0100
+X-Gm-Features: AclHuK9H_8vU3hJPZ8dHPtT7XE9N0U_m1mhQuXonsqEgANhu7g6ac_7o1E3AWCc
+Message-ID: <CA+=Fv5Ttsa=cbSPJSxx86krBNwcm=DRNNASfV+tvZY-sYySU6Q@mail.gmail.com>
+Subject: Re: [PATCH v2 1/7] alpha: marvel: fix the environmental subpacket layout
+To: Matt Turner <mattst88@gmail.com>
+Cc: Richard Henderson <richard.henderson@linaro.org>, Guenter Roeck <linux@roeck-us.net>, 
+	linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add the necessary board widgets, kcontrols and DAPM routes
-for max98091 codec support. Enable required DAI format, sysclk
-and other required configs.
+Hi Matt,
 
-Signed-off-by: Karthik S <karthik.s@oss.qualcomm.com>
----
- sound/soc/qcom/sc8280xp.c | 32 +++++++++++++++++++++++++++++++-
- 1 file changed, 31 insertions(+), 1 deletion(-)
+On Tue, Nov 17, 2026 at 3:59=E2=80=AFAM Matt Turner <mattst88@gmail.com> wr=
+ote:
+>
+> struct ev7_pal_environmental_subpacket does not match what the MBM and
+> CMM firmware (V2.7) put in system event frames, which is:
+>
+>   +0   cabinet
+>   +2   drawer
+>   +8   PE (the power and environment node holding the sensor)
+>   +10  sensor index
+>   +14  state: 0 ok, 1 warning, 2 fault, 0xfffe unknown, 0xffff removed
+>
+> So the byte printed as "Condition" was half of the sensor index, and the
+> state was never printed. Use the firmware's layout and print the state
+> along with the sensor's key. This matches the frames in the error log of
+> an ES47.
+>
+> Signed-off-by: Matt Turner <mattst88@gmail.com>
+> ---
+>  arch/alpha/include/asm/err_ev7.h | 16 ++++++++++++----
+>  arch/alpha/kernel/err_marvel.c   | 28 +++++++++++++++++-----------
+>  2 files changed, 29 insertions(+), 15 deletions(-)
+>
+> diff --git a/arch/alpha/include/asm/err_ev7.h b/arch/alpha/include/asm/er=
+r_ev7.h
+> index ab17e6333764..5d30af0221fb 100644
+> --- a/arch/alpha/include/asm/err_ev7.h
+> +++ b/arch/alpha/include/asm/err_ev7.h
+> @@ -147,17 +147,25 @@ struct ev7_pal_io_subpacket {
+>   *        class PAL (14), type POWER_SUPPLY (14)
+>   *        class PAL (14), type LAN (15)
+>   *        class PAL (14), type HOT_PLUG (16)
+> + *
+> + * Cabinet, drawer, PE and sensor are the keys of the sensor's GCT packe=
+t.
+>   */
+>  struct ev7_pal_environmental_subpacket {
+>         u16 cabinet;
+>         u16 drawer;
+>         u16 reserved1[2];
+> -       u8 module_type;
+> -       u8 unit_id;             /* unit reporting condition */
+> -       u8 reserved2;
+> -       u8 condition;           /* condition reported       */
+> +       u16 pe;
+> +       u16 sensor;
+> +       u16 reserved2;
+> +       u16 state;              /* EV7_ENV_STATE_* */
+>  };
+>
+> +#define EV7_ENV_STATE_OK       0
+> +#define EV7_ENV_STATE_WARNING  1
+> +#define EV7_ENV_STATE_FAULT    2
+> +#define EV7_ENV_STATE_UNKNOWN  0xfffe
+> +#define EV7_ENV_STATE_REMOVED  0xffff
+> +
+>  /*
+>   * Convert environmental type to index
+>   */
+> diff --git a/arch/alpha/kernel/err_marvel.c b/arch/alpha/kernel/err_marve=
+l.c
+> index c0c0ccefc467..85f7a56816ce 100644
+> --- a/arch/alpha/kernel/err_marvel.c
+> +++ b/arch/alpha/kernel/err_marvel.c
+> @@ -21,6 +21,19 @@
+>  #include "err_impl.h"
+>  #include "proto.h"
+>
+> +static const char *
+> +marvel_env_state(u16 state)
+> +{
+> +       switch (state) {
+> +       case EV7_ENV_STATE_OK:          return "ok";
+> +       case EV7_ENV_STATE_WARNING:     return "warning";
+> +       case EV7_ENV_STATE_FAULT:       return "fault";
+> +       case EV7_ENV_STATE_UNKNOWN:     return "unknown";
+> +       case EV7_ENV_STATE_REMOVED:     return "removed";
+> +       default:                        return "unrecognized";
+> +       }
+> +}
+> +
 
-diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
-index e136407c56bf..dd503dddc230 100644
---- a/sound/soc/qcom/sc8280xp.c
-+++ b/sound/soc/qcom/sc8280xp.c
-@@ -44,8 +44,9 @@ static struct snd_soc_dapm_widget sc8280xp_dapm_widgets[] = {
- 
- static const struct snd_kcontrol_new max98090_controls[] = {
- 	SOC_DAPM_PIN_SWITCH("Headset Mic12"),
--	SOC_DAPM_PIN_SWITCH("Headphone"),
-+	SOC_DAPM_PIN_SWITCH("Headset Mic34"),
- 	SOC_DAPM_PIN_SWITCH("Headset Mic56"),
-+	SOC_DAPM_PIN_SWITCH("Headphone"),
- 	SOC_DAPM_PIN_SWITCH("Speaker"),
- 	SOC_DAPM_PIN_SWITCH("Receiver"),
- 	SOC_DAPM_PIN_SWITCH("Int Mic"),
-@@ -56,12 +57,28 @@ static const struct snd_soc_dapm_widget max98090_dapm_widgets[] = {
- 	SND_SOC_DAPM_MIC("Mic Jack", NULL),
- 	SND_SOC_DAPM_HP("Headphone", NULL),
- 	SND_SOC_DAPM_MIC("Headset Mic12", NULL),
-+	SND_SOC_DAPM_MIC("Headset Mic34", NULL),
- 	SND_SOC_DAPM_MIC("Headset Mic56", NULL),
- 	SND_SOC_DAPM_MIC("Int Mic", NULL),
- 	SND_SOC_DAPM_SPK("Receiver", NULL),
- 	SND_SOC_DAPM_SPK("Speaker", NULL),
- };
- 
-+static const struct snd_soc_dapm_route talos_lyra_dapm_routes[] = {
-+	{"IN12", NULL, "Headset Mic12"},
-+	{"Headset Mic12", NULL, "MICBIAS"},
-+	{"IN34", NULL, "Headset Mic34"},
-+	{"Headset Mic34", NULL, "MICBIAS"},
-+	{"IN56", NULL, "Headset Mic56"},
-+	{"Headset Mic56", NULL, "MICBIAS"},
-+	{"Headphone", NULL, "HPL"},
-+	{"Headphone", NULL, "HPR"},
-+	{"Receiver", NULL, "RCVL"},
-+	{"Receiver", NULL, "RCVR"},
-+	{"Speaker", NULL, "SPKL"},
-+	{"Speaker", NULL, "SPKR"},
-+};
-+
- enum sc8280xp_jack_setup {
- 	SC8280XP_JACK_SETUP_NONE,
- 	SC8280XP_JACK_SETUP_CODEC,
-@@ -624,6 +641,18 @@ static const struct qcom_snd_soc_common qcs615_priv_data = {
- 	.codec_sysclk_set = true,
- };
- 
-+static const struct qcom_snd_soc_common talos_lyra_priv_data = {
-+	.driver_name = "qcs615",
-+	.dapm_widgets = max98090_dapm_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(max98090_dapm_widgets),
-+	.dapm_routes = talos_lyra_dapm_routes,
-+	.num_dapm_routes = ARRAY_SIZE(talos_lyra_dapm_routes),
-+	.controls = max98090_controls,
-+	.num_controls = ARRAY_SIZE(max98090_controls),
-+	.codec_dai_fmt = SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_BC_FC,
-+	.codec_sysclk_set = true,
-+};
-+
- static const struct qcom_snd_soc_common qcm6490_priv_data = {
- 	.driver_name = "qcm6490",
- 	.dapm_widgets = sc8280xp_dapm_widgets,
-@@ -750,6 +779,7 @@ static const struct of_device_id snd_sc8280xp_dt_match[] = {
- 	{ .compatible = "qcom,sm8550-sndcard", .data = &sm8550_priv_data },
- 	{ .compatible = "qcom,sm8650-sndcard", .data = &sm8650_priv_data },
- 	{ .compatible = "qcom,sm8750-sndcard", .data = &sm8750_priv_data },
-+	{ .compatible = "qcom,talos-lyra-sndcard", .data = &talos_lyra_priv_data },
- 	{}
- };
- 
--- 
-2.34.1
+After the reorder this sits outside the CONFIG_VERBOSE_MCHECK block but
+is only used inside it until 2/7, so this patch alone warns with
+VERBOSE_MCHECK=3Dn (and fails with CONFIG_WERROR):
 
+  arch/alpha/kernel/err_marvel.c:25:1: warning: 'marvel_env_state'
+defined but not used [-Wunused-function]
+
+Wrapping it in #ifdef CONFIG_VERBOSE_MCHECK here and dropping that in
+2/7 with the other one fixes it.
+
+Growing the struct to 16 bytes is safe, since
+ev7_collect_logout_frame_subpackets() steps by each subpacket's own
+length (err_ev7.c).
+
+>  static void
+>  marvel_print_680_frame(struct ev7_lf_subpackets *lf_subpackets)
+>  {
+> @@ -50,17 +63,10 @@ marvel_print_680_frame(struct ev7_lf_subpackets *lf_s=
+ubpackets)
+>                 if (!env)
+>                         continue;
+>
+> -               printk("%s**%s event (cabinet %d, drawer %d)\n",
+> -                      err_print_prefix,
+> -                      ev_packets[i].name,
+> -                      env->cabinet,
+> -                      env->drawer);
+> -               printk("%s   Module Type: 0x%x - Unit ID 0x%x - "
+> -                      "Condition 0x%x\n",
+> -                      err_print_prefix,
+> -                      env->module_type,
+> -                      env->unit_id,
+> -                      env->condition);
+> +               printk("%s**%s %s (cabinet %u, drawer %u, PE %u, sensor %=
+u, state %#x)\n",
+> +                      err_print_prefix, ev_packets[i].name,
+> +                      marvel_env_state(env->state), env->cabinet,
+> +                      env->drawer, env->pe, env->sensor, env->state);
+>         }
+>  #endif /* CONFIG_VERBOSE_MCHECK */
+>  }
+>
+> --
+> 2.56.1
+>
+
+
+Magnus
