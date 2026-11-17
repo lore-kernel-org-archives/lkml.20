@@ -1,54 +1,148 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794925751;
-	b=b5xjc4bnKf8q/YopDElcbGwYn1hV+YLrM5UH9fLrath4YR1dtZMFKidObJ8ZeoJM+XHl
-	 k5TmWRAsCXEkL+tGG/kmyIumsmzmB1KhKcYI0pBz/KhFsamJxwiujnRVSQIaKlUxGaTG/
-	 nWKuHSTVdyBEBpFI8BGJCqSV77BKqLYl1y3Q3yr01Qa2LroV+gDl0IKKkBsJ3gnLRvn9w
-	 MQH1x/uWOK7tD+kdxplQqrS9uE71HVoSdPJge3CN6q1KsJK9RrwVEfiKCGBLIcqmCLAqf
-	 mrcDezusugAOUcPSGf3qMNyC7jmYNmgsCkhtFoAEtAeHRTIh1FUNQ+y24wwlKiI7r4Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794925751;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Wq1Ppwh2qetKn8ycBcbJQK+Y2/jEYNmfIM9ROWtjjkU=;
-	b=TquxHbbtfkowILHUEYHXYyfmyDl2AbD9oOhvyOR6OLY2SjN/jzk8Bq0+VVrzLZjE1XiZ
-	 H7d7evleOPi9mzufs9EOg1KMGEg3lUg7D47ME6BY3NAOLwy2PUZgw56cgdduscTx0bPit
-	 qXHXnPjkAUZ9qeQy/Hu2GPvOIpVdMHvtbCIkoYC/hhkBhCqa+9st2SC5bmCW6r/dP9e+n
-	 9oaqLC49Pih6RkB2gyU99KwuYnJJPC407YbCWF7K5M5ISBxa9Fr7IUNwmWeqPt4UBaF5C
-	 HbGwzUdJq6zwi/QtLnncEifO++JkVLmTXtu7hpVnPQs1EohZFPSJVjC2y3JXhXv2Lvw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HJAv4Nhy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=2 smtp.remote-ip=52.101.65.12
+ARC-Seal: i=3; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794925862;
+	b=yFyMhiQsAllQwvmLW6yChQ7na9hPRpkZlGlCru28oXHJHp5uiiAPOK7zHrxaiGO0a2gE
+	 CswQMsbGptHVESzy7+8MsmpsGP3CZq/L8DIHuLbhoI5idR/G18L3cEStzFpJy4OiaTVU9
+	 rUSYt1oZLq/kVc27SduLm5Sepg0zHWbVniH43mAenc0VLynBIzxIaLvkQ+Ra1v2iyPIFa
+	 2ki55VVBJPPX4sEDyduR5BmaslnhtYzHFdA2OsuT+KQtYHiFSrNuUD4JOxd1LcIV8Tm5D
+	 b2aNZmqJjVP7kr9F2pYNIsJGfAUgO9O4ND6nA0M9ZhfU02/hNhU9NxGI25oUrSHsVTQ==
+ARC-Message-Signature: i=3; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794925862;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:
+	 DKIM-Signature:Authentication-Results-Original:Received:Received:
+	 Message-ID:Date:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-ClientProxiedBy:MIME-Version:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:x-checkrecipientrouted:
+	 NoDisclaimer:X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam-Untrusted:
+	 X-Microsoft-Antispam-Message-Info-Original:
+	 X-Forefront-Antispam-Report-Untrusted:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-EOPAttributedMessage:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+	 X-MS-PublicTrafficType:X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=mSgZAo2mesbk7WooWs40RKryz8l/f62/vPo9vEe588Q=;
+	b=FiE5d+cY9rEtbElY7cM/iGNcuH1tNt4bxf6jAzFKFNaCI0GwJMsEP75/I8xh663Sbqbv
+	 XF89cgfKy7F9mrqm6YTd2Uq4yMuaLUVcV3lGYd93rCGxNxnbfryeP5/6PinbmniMKk//N
+	 uSvqR3WdyabkheO0Rv57lsEbgthVqfS666HIemg0OaX2cc2hDaOBrUAcZrBaUL/kF2gSH
+	 xG18nVotrgGG0YAg41aMC+YT3mw/bbwvmoiV6/7vrFWeyocFI3/NCzBqbSqpliiIJwhRN
+	 5L1+PFtGezbpZKE5oVlkeldtJS2hv532PWCblxCnCQTpgZYxaO3+8gJD5LUUaDoeUFg==
+ARC-Authentication-Results: i=3; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=PTRMPtKn;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=PTRMPtKn;
+	arc=pass header.oldest-pass=2 smtp.remote-ip=52.101.65.12
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011012.outbound.protection.outlook.com [52.101.65.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE78E606A31C;
-	Tue, 17 Nov 2026 14:29:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7862F606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:31:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7862F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HJAv4Nhy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44C641F000C4;
-	Tue, 17 Nov 2026 14:29:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794925751;
-	bh=Wq1Ppwh2qetKn8ycBcbJQK+Y2/jEYNmfIM9ROWtjjkU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HJAv4NhypyaeCIB/GJP0eX2Pq+YaPju+VpLPgCJL+BfDGWodkaZMKQtoi5M6NIloA
-	 2Yz2AznU9mbumhIT0gsEn4fxPrtZpxf3YFRCh5FSAQ6EiumPZ04DWa2PHyVA8JI/v8
-	 +3gNJe9FPpkHjiJ6kcdho52485h7sC3e3eeVbpChEKEh1y1oQk0FTJOP/tHRad80Mk
-	 ctTZNht3HKWQclQC5iYucSrwic77tQwtSgzNhvO4BhUt9SpRuYom7Gg2Kjb1aVOVqq
-	 M8fR9kCNDv8r7GbDXjrTsUgrf0fGGVEwVLiiO+u7BuNxC3QRchQRkYP8Vq967FPfQ5
-	 qWRfE1vG9uHIA==
-Received: by venus (Postfix, from userid 1000)
-	id 457A018092D; Tue, 17 Nov 2026 15:29:09 +0100 (CET)
-Date: Tue, 17 Nov 2026 15:29:09 +0100
-From: Sebastian Reichel <sre@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Xu Rao <raoxu@uniontech.com>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: Re: linux-next: build failure after merge of the battery tree
-Message-ID: <avxjPxO1AEUpnW37@venus>
-References: <avtgQAXsxM_J0ScH@sirena.org.uk>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=PTRMPtKn;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=PTRMPtKn
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=vyrF4a++f+bi3jwNA0I3W8VsQMf25SwapOaSW/b5wVZQ72JVRB305neN8cCB/UCvBhFUmU33AyKq1F2FgEGcDD0Jdz4f+Rn5xRnsQyLDRDM7eZc9YxXaG/hXPpHp3W0kPErRucsbss5OJrXRgeSyKtnxau37sDecMwW77HgTK5sc3xYB6nWbTlapI7uMmvaW3SkyrNKw4tKprdmcJsKj5Vlxdc1xHp4fAQU4ecgZLdDNzntkkpjA0e8GyfHFU6f9xyQJCEY+IFURUXAnGq7e3iI+3pndPdR092w+/+DzUbx/6vZABn0+BInGwKk2ZaIlidTsBLPATkaEd4iYQ+Dz4A==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mSgZAo2mesbk7WooWs40RKryz8l/f62/vPo9vEe588Q=;
+ b=MqiSxAPUrUGuSxpxD/VAeEiihMZ5fcUJttKaEIk2C4QRWvnjJQ9mLhZIFgbOtNBbJ7Ay4x8/3EnyNaPRsYp0IuW+CETLuvQa9gEWQtpsYdbqVz0ekUyqdkquu7cEzAoKd9HiECload5zqG4C4ddTIpRrv8TJoedXM+iT/Ykxs/aTM+cQJ9YOMpKMlz2NMF2BIKpmPAdBLVshE/XSq9UM489kPJaHCdW2CFZzznVbKu/tuJQiyIrMS7nGNakOYcG3foWKToweA6I4E6Th0ZuMWZ+nhUnsT95a8flAf1UOE9jlP8ZNu+BwtwIY2QYgUHwR+j2mX7HgYytps2dnmuC4aA==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=nvidia.com smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
+ (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mSgZAo2mesbk7WooWs40RKryz8l/f62/vPo9vEe588Q=;
+ b=PTRMPtKneAcuEQ4wTbbRUnKmGd8103+YsvOuO9ruVvbNwYlDKkO0GP8FvnFE0B99nk8t2A3M+T+e+iwOlRfORuuoS8f71yKkzOmPvK+Rc2+fnyUOwfjjlw1jrVgrpxVMI1L8ztVmaDVmD5xuw2z6HvQVMXBzkLLt3b7noONZhAA=
+Received: from AM6P194CA0009.EURP194.PROD.OUTLOOK.COM (2603:10a6:209:84::15)
+ by AS8PR08MB6085.eurprd08.prod.outlook.com (2603:10a6:20b:294::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
+ 2026 14:30:55 +0000
+Received: from AM2PEPF00070CF4.eurprd02.prod.outlook.com
+ (2603:10a6:209:84:cafe::77) by AM6P194CA0009.outlook.office365.com
+ (2603:10a6:209:84::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.10 via Frontend Transport; Tue,
+ 17 Nov 2026 14:30:55 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 4.158.2.129) smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ AM2PEPF00070CF4.mail.protection.outlook.com (10.167.242.6) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
+ via Frontend Transport; Tue, 17 Nov 2026 14:30:55 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=L4gZdqJu7dz5ymafcbLlVnW0OX73/vZNsvvrjdY0+n1TR0rUNc/GnMvVoLkJBKmeU0e47ZwpeJ4hnsm8ia/XPdCgGzFpp+5sgMPWK7UlBdbzTRjicvsuXz8Fvps1n8i+u9BGJJRZdRIXy7lAHNeBciL5YeoM6375ZnchbO9vdmwxCqyneK4Hfdhuqd46K8isGIVmFCKddMBD+x+v4twoncb2msGSqnQQTUvDlCuKpsXUqi5QvCkpdaQsqvFd+7UBuwVRn6OIH5+L/8Dx803w3aHUJKXIdl50oAjkYbuiqqE0uFMIDXMGmQpQptjkqVot2es4xdOp8iP7SI7kCnxBvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mSgZAo2mesbk7WooWs40RKryz8l/f62/vPo9vEe588Q=;
+ b=UBOc7mxFkwfroeQJ8Zl/126tiUM6RvgVdzTQBBao4tDj88TYf2Lk/SW5dzK+5iFRqo4HIiRDvJ0BTA1C6mWBs4TIEpGuRbTxigmuvT0qXO7wREVm4kTtECjKD/ZIUft6F4KowxgRom1TZ2Mq5Ez2l/7Z+m58grQB275E5RCSHtiVxY3G1x8rf/QPBOCq15tfAblQWnarkydLCZBdge0LHhCEym72OiZo1Tqih68bQTQCfjBO+BoGuGYdNb73M6ePX8JaVAo+FGwEigTPTdvtCVsqktzPRJr+S73x3g0Aq0UhCOIY024HONEHH/ic8nxyFfcYIxj2QQSmW8BYZVYNfQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mSgZAo2mesbk7WooWs40RKryz8l/f62/vPo9vEe588Q=;
+ b=PTRMPtKneAcuEQ4wTbbRUnKmGd8103+YsvOuO9ruVvbNwYlDKkO0GP8FvnFE0B99nk8t2A3M+T+e+iwOlRfORuuoS8f71yKkzOmPvK+Rc2+fnyUOwfjjlw1jrVgrpxVMI1L8ztVmaDVmD5xuw2z6HvQVMXBzkLLt3b7noONZhAA=
+Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
+ signed) header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from PAWPR08MB8959.eurprd08.prod.outlook.com (2603:10a6:102:33f::15)
+ by PA1PR08MB402775.eurprd08.prod.outlook.com (2603:10a6:102:54f::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
+ 2026 14:30:21 +0000
+Received: from PAWPR08MB8959.eurprd08.prod.outlook.com
+ ([fe80::71d3:7b21:3594:e33f]) by PAWPR08MB8959.eurprd08.prod.outlook.com
+ ([fe80::71d3:7b21:3594:e33f%7]) with mapi id 15.21.0615.012; Tue, 17 Nov 2026
+ 14:30:21 +0000
+Message-ID: <cef6ee03-7b2a-41a2-b7bf-b321ad6a03b9@arm.com>
+Date: Tue, 17 Nov 2026 14:30:20 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 04/12] iommu/arm-smmu-v3: Pack the MSI vectors of the
+ used sources
+To: Nicolin Chen <nicolinc@nvidia.com>
+Cc: will@kernel.org, jgg@nvidia.com, robin.murphy@arm.com, joro@8bytes.org,
+ praan@google.com, kevin.tian@intel.com, smostafa@google.com,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, jamien@nvidia.com, kas@kernel.org,
+ Cristian Prundeanu <cpru@amazon.com>, Breno Leitao <leitao@kernel.org>,
+ xueshuai@linux.alibaba.com
+References: <cover.1793593923.git.nicolinc@nvidia.com>
+ <0d28afd67694fc6882e0ff5f054027488b1cf816.1793593923.git.nicolinc@nvidia.com>
+ <db4f83f3-d35b-49b7-8570-04e158125b53@arm.com> <avtSD34Rj5+XAz3t@nvidia.com>
+Content-Language: en-US
+From: John Garry <john.garry@arm.com>
+In-Reply-To: <avtSD34Rj5+XAz3t@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO4P123CA0565.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:33b::19) To PAWPR08MB8959.eurprd08.prod.outlook.com
+ (2603:10a6:102:33f::15)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,64 +152,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="swtl3vogmmffw7pz"
-Content-Disposition: inline
-In-Reply-To: <avtgQAXsxM_J0ScH@sirena.org.uk>
+X-MS-TrafficTypeDiagnostic:
+	PAWPR08MB8959:EE_|PA1PR08MB402775:EE_|AM2PEPF00070CF4:EE_|AS8PR08MB6085:EE_
+X-MS-Office365-Filtering-Correlation-Id: df195cad-322d-4138-4f79-08df44b763bc
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|18002099003|22082099003|261009223027099003|4143699003|56012099006|11063799006|261102123227099003|261026121527099003|261021121427099003|261021135927099003|10067099003;
+X-Microsoft-Antispam-Message-Info-Original:
+ /c3YS6fhfwTObEdz2yneW3geVobrGwfFS9Bb/fJy/Kx5c8rC/an/Q85+4GRp4OVB9x8XEvV+oQ/PWUav+Es9OWwyx17bigZv812l1ufdTgFWFlkZOYczLxZKYkP+6clvxhvdcAoOMol4u/vqRV5Dm0Pr1jXctTMfHnUrPwlbHVn6HglVkrRtMxWO74DOtVx/yVbwYQA/I0Wubj9Kvz9SF52ql8j6swvr8xW6TbGj58EISliLoULM36TZmYDXRfio+f3IEf7Xz2P4mpn6/pkAh8p5p6IPNfIsK+uGdt7IVdXALp7tpQ22TorrMmPYoyTvGuPkXKZMf9kvgRh52rrGlkKoPaIhWTzqC01Ah9AXqmdJfXGkOyaahSR34IWF5p1Byc4bX6or8hTkJKqHmwPd+ALYsJUrTYOmBrxrMnqaM1rVCta2WJHL5cx2SlOcK2zF+ayKCrO4jmPOGEwxfuQ0Rwasm3+traXoE2ZWe6IqP6JK4PAeUhntpF9LMQdom32ZU5O8rH0lUtBMME4uepPgycBuAxiBTmJiryL2Y58AhTjIYDqBFendHRGbagUxKiptaTsKMqhwREmiJc1px9m29FTk6Lb6omSSdjrJgiCjiM3j8apfbqTmXh0bDMWa+Y+xgC8ISDFU1QzG4wqjoOYWGFSLr7k3tWcIssqLz6Vq9zY=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAWPR08MB8959.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(18002099003)(22082099003)(261009223027099003)(4143699003)(56012099006)(11063799006)(261102123227099003)(261026121527099003)(261021121427099003)(261021135927099003)(10067099003);DIR:OUT;SFP:1101;
+X-Exchange-RoutingPolicyChecked:
+ Nl3lvyhhLbdMDu5tIOpjQ2sAH+Qtnx/nzlI1Qd21JUMh1R/FlysTIEj/wwDE36Iz5WsvwqVA2LukcKWDY07EBGxssVyNbgxZGHOoZEzVLzYyqPVAa+17Hh+bQCumSplxkzizUzu14q/melU2aSzkXEThK2895kfvT6OrEnz60N6Ibdk7D16jkNOKUgqFDEPvSX6cE+h6oKSyyie2vVhNt8CsGEb37OOC5sm7XvXzgUBW9ySX0w6/bxrv+fI1HJAzygsAelKmpAX7X4hUwaAEDHdHC7D/i1+6wEPJxDeEaGBo39ib/Ni7g+7mvZo5EFYuwX4bkc5O+d99n5AKTpzXBA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR08MB402775
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM2PEPF00070CF4.eurprd02.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	487cdb67-1f2b-491c-4968-08df44b74f52
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|23010399003|36860700016|14060799003|1800799024|376014|35042699022|7416014|22082099003|18002099003|261009223027099003|56012099006|4143699003|11063799006|261102123227099003|261021121427099003|261026121527099003|261021135927099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	0uQtSX4JbOYkDLURxxegr10BI/cCF2/zm7cZywvxBeNcEkDVhLpSinXhF4WVDWE0iy+iKL+V6O3Li68NOmGl6NkDXhEDPb9sAurXP6L/Ew1aWlzM0UGQk/W//9Jxgvmr4Y6VGaQEQtyl3CoTTPBgghTteMkBKNmcG4+m3Wp36j0mKuq+Qf3IRFsPkT/3ewYeKhUnYVHD+SK0QdjdoMyuAYW01+ySD5bJmoKhVrqcHe5I7YNi4xZSG4cPG4RS61hcmLXeYhIoInlyXQdgT4FxQyEH//jJTZAEJAuvLktiiJridEKv9tHYVg7a2VHAU87zmQiNPbM5y7qBrwoCqKfyD6j6FlFWkEfu4Ki8d32UJQwLP3cCkS8xZsLnIC6VL1u15pZjSUfBajwGa/Mii51qMFNaJQ2gVOlhmZeQPtbLXe3xnHf8rqiflcKbg0rpbl9QnJipIjZgOVDmQPZQIxPWkru4yRgpWvP+VkFn6UJCI/+Xf1Y+rakBW/0ir//nl97Va2AsNsAHp87US60OPAnpTY7FeLAYmbvsWPd8wTWDozeJ4ODivfOmxiup8jETHT/OH7BMUJ9Q7kPyV4qrtMXcykPaZQ9nZtbOf6lWypr+MvpLezNRgnhY59rVWfSEioLGJ9FlW+Fue2GRnTC0yIx971BEJ4gX26htw9T+bO9EbuZHHbVqXZ/D1iZVJq/6CsWyK/6Y1y/smRgraYREZb2vOA==
+X-Forefront-Antispam-Report:
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(36860700016)(14060799003)(1800799024)(376014)(35042699022)(7416014)(22082099003)(18002099003)(261009223027099003)(56012099006)(4143699003)(11063799006)(261102123227099003)(261021121427099003)(261026121527099003)(261021135927099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	VSwaeOv5LHM/wfP4KxmS5N+uUeyQAvK6OGkGOp54UpGR0/N+xrVqKHg6ji8RaUnKO4BVW9W0wf/K6YtQhOZz0Ls7tR5ksGSEcukGhvj1XytTSJChv0MXKY//c9HcRluWdnWIuz8fM/kq4jrFF9DuQvKuIwHOOimp8/P1FfTlguw3w5laD9pr/62rhJs20eoaOB5DgAbM/imxURQEKhCRWnNGH5dH71bHPBOE9bRttpicPT9ZmDBK6XVl2rllEwylxen3q+RtM+Kb1X1AVxBySyvUQDCkJerE2wAEiHrLFdnaMLYGABFwtz8YzZHo2h2pSRCluVlhr1J9Kp0HqDvLzphTBri0RAEYqPLn9SrqQZ3MKH3WakMx51ypNIZUYmdC/cSlW0ZoOTVnxVCqerqz/4BHEWPejR9Mpn7DWg2pyoxqRVDojmtMZC/BD9uXEGKr
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 14:30:55.2035
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: df195cad-322d-4138-4f79-08df44b763bc
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM2PEPF00070CF4.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB6085
 
+On 11/16/26 18:57, Nicolin Chen wrote:
+>>> @@ -993,6 +1000,8 @@ struct arm_smmu_device {
+>>>    	int				gerr_irq;
+>>>    	int				combined_irq;
+>>> +	/* MSI vector index to enum arm_smmu_msi_index */
+>>> +	u8				msi_map[ARM_SMMU_MAX_MSIS];
+>> should this be an array of enum arm_smmu_msi_index, as in
+>> arm_smmu_setup_msi_vector() we write a enum arm_smmu_msi_index? I am
+>> assuming that is why enum arm_smmu_msi_index was relocated.
+> u8 is optimal in cost of memory; ARM_SMMU_MAX_MSIS is needed here.
 
---swtl3vogmmffw7pz
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: linux-next: build failure after merge of the battery tree
-MIME-Version: 1.0
+Since ARM_SMMU_MAX_MSIS would be 3, I don't think that the memory saving 
+would be so large. And since the next member in arm_smmu_device - oas - 
+is unsigned long, I'm guessing that a gap is formed anyway.
 
-Hi,
-
-On Mon, Nov 16, 2026 at 07:57:52PM +0000, Mark Brown wrote:
-> Hi all,
->=20
-> After merging the battery tree, today's linux-next build (x86_64
-> allmodconfig) failed like this:
->=20
-> /tmp/next/build/drivers/power/supply/gpio-charger.c:26:35: error: variabl=
-e 'gpio_charger_properties' is not needed and will not be emitted [-Werror,=
--Wunneeded-internal-declaration]
->    26 | static enum power_supply_property gpio_charger_properties[] =3D {
->       |                                   ^~~~~~~~~~~~~~~~~~~~~~~
-> 1 error generated.
->=20
-> Caused by commit
->=20
->    fad4655224f60 (power: supply: gpio-charger: Keep properties per device)
->=20
-> I have used the tree from next-20261113 instead.
-
-Should be fixed.
-
-Thanks for the headsup,
-
--- Sebastian
-
---swtl3vogmmffw7pz
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmr8ZLEACgkQ2O7X88g7
-+prvgQ//VTM5MFr6jhnuBPz+fIOYkaN2HeIm8gkzKaZD+AAWaYSumg6u6uDvCxw0
-zN1xncMAi08cQ48HBpz0qLBm9KcUsa+TQj+VnBCAFdEN/uHkydCZAPWmUkG2kKEn
-VSnJ1WBScx+FWywDQ2TsFT5+a5guLreFw1sz31EKIkcxP6uyyE1rV3kM/xVrUllO
-9iaN4/0XKAmYgcrxZ9b2GSVIsDgDDgxqTqtHK7XCGlkOVvUX3Knviru52eD0mNVd
-MFEJlMcGity1tFrjgy2U7qcYD1aOz5jo6yIDsIiJEr8+Do0n6EHFbaZf+kIsbugy
-2oiC0cmvoxiZSTX7I5bplkLhtC4zoH1KBgE3W2nilpVDCOXUl6ZDCoD/0tTelRDa
-Obj1Wgx9CcKnWYZhuEKYb/DEWAIJClZLEisdgC81qyGSO54hg+vefwiCj8LFcfuz
-b9KIEXb0QBKorzcMyfOJQ7Qq90mwf9DrsRCR970oVy1YBeHXqpXzOkpP/N2t2Wrw
-YEu9YkaKxKrGdVp1ZBXQudKUvXERg4aj9wxDwflCxTzavicsiMziNmCfX/Qo3XKo
-FAMlXd62scjzxidDi9uesQpbQiXhMeOgUpxF3dARrkHqxjm4lwLs/F3rMUXLvhsi
-KcJ8jCyX5DkiOrRjoxAHJdkqePx81jNj2a4Z53262jfq6KlsLXI=
-=SxQB
------END PGP SIGNATURE-----
-
---swtl3vogmmffw7pz--
+Thanks,
+John
