@@ -1,89 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.246.77.92
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794925636;
-	b=wKDTGCAwiWZPfUMvbqIHaVNbV2SekrGQhYvLEENPL+TBADQVYQMpRtPNrquDH4jUdB8X
-	 ylTC6TKrikkIrQ9S7MxVmHsFOngrUwBfdSjrEvXUTypRN4wQuf9Sj2VnDSH5dw+Fq0Qho
-	 HRGywFJZeaT3IewVLE/YjmghWJQ6lyLMtQ5di1ckBNuhYWNl0pDRKk6Fz6WO0wjdRKlL7
-	 HOYv0tQ8tyPKAEDy3ElW2+k0rlC+ZRAUKb2FzlnxYSt1WOsQ1w0kwvd7/jrF70O3YqKlx
-	 wKoHS1JXQgTgWE42eMGSLAkIbdjnzg6RVXM72ydpS9MuxGhKkSiwynqavn+q9ytNQtA==
+	t=1794925637;
+	b=ajwssbwND8f0mTzXJ032x5gwvnnmF+/wh7Au4OiRs3cFYOj7kCQrGgk6eWh1QmP8F+ZO
+	 dHM6pgLCtag5K/LuoNsXexlWuKFcrPzVzFM+Cc3Cyedm3y82mURVe0VaB6z/T30/T2Z8u
+	 sHbw0sARFEQ8vuZG/jcflsJ7/F4L+/YxszeXhq+s5fHEXJLVpv1j0IJLRNqqHZRSzonsC
+	 p+xo4wGVwE6JuOjXbvltH3W6JqHZq1d4yD2rQB+lnpfzKPaZihoV9r004Pr4w5m3dX23q
+	 oqoEcrp5h5eH3nOzbd6RtX1bHCvWAq/j8fSXWbJQ4Fcnm4rpqvGJhC8LodQoxLrrRMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794925636;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=wnAbz7Gl1f6zlRr2NWm/XchokgiwNgSv132i/6lKWwU=;
-	b=bKNgVvJQX/nmhft4HyzZVu8LAtxTUF8n1+Y/pIvdL9PyqwFoy2Aei+qoP/fe93Rnbj0L
-	 WA5lCj72f7Yusmx9V4hOas1SyVQjPyWDgnJKwxKH3/zjI+fe8L73xXEn/9ZbQX6AUZvx3
-	 f8Chl6UEyzaHmdpz+Jyxd4QevKl93j8fk5Rdu7hEutKbmBbcyyi7etPxwisLjzWZGi/Yi
-	 x4sAWP8SmiM05l0B44/3YZ+3F4O8ojnj2iFtnlX6yys33M8k3a3WnY32CWsg15osaH3b3
-	 qOG+wEUc6Vjibl0Nmqc+vO7rjH7IGLdmYDjxBqDLPgw0qlaCgbxP1tcAEbrFDfznW6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794925637;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=cW65seGP9ksE5jfNfRqJ9ACaCuruaxzeO3U01S8Zm8k=;
+	b=xbI7AF20aMmf1BimxTbCNbmBDzNY4Kyw6F3sd05UlM2q3VMCZ290DaeuBmVuXuFXUlLH
+	 9R3hRQr1RrI4chlMEfG996ub561n0ruL9mhTBu8pfjtO9qZZlE5wtR4ecJeU04M6aJB10
+	 oFLaI1cbOUYC2wh5EDcNZPcKtj3mAw7wfLdwUo24ZIyhXl2WlOZrg4eJDaH+DOWZvJgYl
+	 aSlQQFifKrR0umWbIKGg+AoEdvI5vp/XPQFBGoTxitRURtUW80CapFDK/u8wsfFE7Tz2K
+	 ikSXAQdzqgBZx1Abhf2JH31TVTrWFo7swCE3SZpT8qW/AFczeay7hhCAqlGVKpb1UTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b="nKdZk5/3";
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amazon.de;
+	spf=pass smtp.mailfrom=amazon.de;
+	dkim=pass header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=cF8qtHEg;
+	arc=none smtp.remote-ip=44.246.77.92
+Received: from pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.77.92])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82888606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:27:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82888606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E319D606A330
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:27:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E319D606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=nKdZk5/3
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48e3b22e971so2436939f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:27:15 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=cF8qtHEg
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794925634; x=1795530434; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wnAbz7Gl1f6zlRr2NWm/XchokgiwNgSv132i/6lKWwU=;
-        b=nKdZk5/3s6uR6yRzxd2ICXAs5GtNn1Hewc2+nPqJt0XpqsyXOpmQS4HFm3OBNrABSj
-         ROM3xjOVXYXN2cRZ7PqdTkc9vPv6W+6Chu9o86A4iHu8P1v3YugRy8wF3Ob6pbDkl2wf
-         30BsFBqH+aashr7C5NXq3auXuVkfVQNHr32unbU3XrnxLWNVxUYYglnOf6QtZsGNmcbF
-         mPFwmsSjl6JtF/Zh6i+RbJTkgJwPWx507fdeqUwfR1WTtNd14hXBpBBWdgXjk2W1vRgs
-         HRR00UUmyxUs93FnxhZX8naZKerEG/W/T3Nbrg6Ox15QlH4OnEL6b3gFge/sPod5zBzs
-         1MAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794925634; x=1795530434;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wnAbz7Gl1f6zlRr2NWm/XchokgiwNgSv132i/6lKWwU=;
-        b=SmKv6x4RiIxOvIWN/Bv688g8HamW+h1jk2lZS6QzbMnyTzUu2v9e6HUK4Za+63wd6I
-         7fo3/KgRLVgmk+pYKsHqYyc3lx7YR+8VKxYcdl9FEJPlhR4EMW5sTWkkJ2sGLW7lNqG8
-         aSZSCrm1LoBcXANfqjtr89jmn8nWzJS3CHbjdzjmTmDrWtGUUIJddmc4baF/rrnzY+O8
-         kIZ5+vv4tCI2TUpiH+O11m3JabnGXPJlivXACA6TfB9lQLQruU2NC1TqpxsyLbXkTGm5
-         kv8W1qoOw18jj1gktQuwcydyrgh67NqWTEw4LupM4zbyQNjyIwFEHV/2WoRFuhFfhmXG
-         Rx1w==
-X-Forwarded-Encrypted: i=1; AL+hErGCwAhjcmbdMPpBmQ/Nz12kjz2xRf5W8ZzMOgnrac2f/hTwgDrPkMaLdMivGxJzS06Zg1pG3Ovgdl+JMJ4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9iCayI0iza0lonqoXGfK/8vJ4+E7Bxq2W4xjTUEOEobNrMHk7M
-	lEfcTEON5Er8BDFY1Czmh6IMaZkQby4R7pH6VTZriHhGxuubcnHSkfs30ToYAIlvDQ0=
-X-Gm-Gg: AZFdTZezPKIMqBX1d0cpVeJpfbgFx+yWRcogI2wYs0hClQhob/3UaaEp++6E3+tLywl
-	d12ffr4cTgu+vbbVrB8gwEAPxACU2mbXCjZNUSzubVPnFSpoh5ncxXqA+gWi2KgR1HsUs6elwqQ
-	UDJ3OW7Hq8jSbEQ+PJB5ZFOLnP4lL6GLXl5ra6wOZRH56ek5R5BzhCp3+5DzcKb6dtHnfZbGPtN
-	ua6tgWZomAubptEM4waNEoG6xYbf6R11ZlHew9J34WADkcMg/aYa/0uB9m1cqlXO+MswSey1bhg
-	yNvgJtflQI5rR9IwsUuMtIoCh96Rp/M3/spLDELKtsyVRJw8w5Ow9ev4+X9Uaz8Q22X5VBvvNGU
-	6e3F44HuT8DyiDDbH+E9K9rFFg/1SmtHKx+5RXadeiBym7sRqe1wJWrsgHLbTsPSbT3vDp3XaWD
-	oJguvz58DK8X3URyo4icjiBcN04bhDjfPrG10cqpy+iGaTx7WbQcve2sgBWacBaUi5njPmBveqP
-	d3Ee0JN3vA6w4OeqCIlpHW40YZTtqQDBSbAfm93pP3t8Sj33gkMrd47qmmc1LhtFloXRYDOIdzz
-	QPpf7rmO9dsRfaAbOKTemEP58dkkeIKYZgXYvQ97SRfz7HCZ4cVu2vDmn10QVvGwvp9Db5Asaus
-	3gw==
-X-Received: by 2002:a05:6000:25c3:b0:491:4e13:fde5 with SMTP id ffacd0b85a97d-49c6fc9e61bmr33439745f8f.8.1794925633802;
-        Tue, 17 Nov 2026 06:27:13 -0800 (PST)
-Received: from ?IPV6:2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183? ([2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f77fc47sm28559146f8f.22.2026.11.17.06.27.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2026 06:27:13 -0800 (PST)
-Message-ID: <c000f684-0989-4ac7-bd40-e6d224fe070b@baylibre.com>
-Date: Tue, 17 Nov 2026 14:27:12 +0000
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1794925636; x=1826461636;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=cW65seGP9ksE5jfNfRqJ9ACaCuruaxzeO3U01S8Zm8k=;
+  b=cF8qtHEgcsswlDPMBoZ9WWGXhrreqWElk3YLm8umX1wJgXAsnXbrIPQe
+   Uyl0tPU00uXW7cngeTuZT26YUr+zdxArnX+t/ePI4rL3FkMStbJ9ewTzO
+   2Kw1xAPDkJ/67V3rTYfPRATosUSNx1cSp0pF9K3UaDxrAh7VYbC3EVzta
+   ZDwEf3kT/ATXlcqtVuwFNxq1Ccq+RyICnDGAXQCx5pUGmMLx3pwaYBGVu
+   oY9546pXa3ubvu/l/qnbKS0Fpo+j9qs0QoFPiBDlOv+908vJSZ8caZW1A
+   MAEWQoRnotb+aqXZMJPpGHzJee+8r8ftUHHOmQ8YG8mydUG/GCOh4vnGA
+   g==;
+X-CSE-ConnectionGUID: RBXh+pwqQgSk/T0L0WYcDw==
+X-CSE-MsgGUID: f2gWztPHRhqKGMsnYOzR4A==
+X-IronPort-AV: E=Sophos;i="6.27,218,1787011200"; 
+   d="scan'208";a="34314686"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 14:27:14 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:25940]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.34.255:2525] with esmtp (Farcaster)
+ id e1acaeaf-9e10-45fd-9922-263e1292e0db; Tue, 17 Nov 2026 14:27:13 +0000 (UTC)
+X-Farcaster-Flow-ID: e1acaeaf-9e10-45fd-9922-263e1292e0db
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Tue, 17 Nov 2026 14:27:13 +0000
+Received: from dev-dsk-lshahed-1a-d9c3b839.eu-west-1.amazon.com
+ (172.19.123.145) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Tue, 17 Nov 2026
+ 14:27:11 +0000
+From: Ibrahim Elshahed <lshahed@amazon.de>
+To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
+	<vincent.guittot@linaro.org>
+CC: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
+	<rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
+	<mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak
+	<kprateek.nayak@amd.com>, Josh Don <joshdon@google.com>,
+	<linux-kernel@vger.kernel.org>, <nh-open-source@amazon.com>, Fernand Sieber
+	<sieberf@amazon.com>, Roman Kagan <rkagan@amazon.de>
+Subject: [PATCH 0/2] sched/core: Fix stale core_pick and forced idle after SM_IDLE fast path
+Date: Tue, 17 Nov 2026 14:27:01 +0000
+Message-ID: <20261117142704.6878-1-lshahed@amazon.de>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,47 +89,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] accel/rocket: fix ignored return value in
- rocket_ioctl_submit
-To: Kartik Nair <contact.kartikn@gmail.com>, tomeu@tomeuvizoso.net,
- ogabbay@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260510200047.6117-1-contact.kartikn@gmail.com>
-Content-Language: en-US
-From: Daniel Drake <ddrake@baylibre.com>
-In-Reply-To: <20260510200047.6117-1-contact.kartikn@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWA001.ant.amazon.com (10.13.139.88) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Hi,
+Under core scheduling, a core-wide selection can leave a pick for an
+idle sibling in rq->core_pick and force the other sibling idle. If the
+picked task is migrated away before the idle sibling schedules, and it
+was that sibling's only task, the SM_IDLE fast path (v6.12+) sends the
+sibling back to idle without consuming the pick. The core then stays
+forced idle with nothing running, and the forced idle accounting keeps
+using the stale pointer, also after the task and its cgroup are freed.
 
-On 10/05/2026 21:00, Kartik Nair wrote:
-> rocket_ioctl_submit() calls rocket_ioctl_submit_job() in a loop but
-> ignores its return value. If any job submission fails, the error is
-> silently dropped and the function returns 0 (success) to userspace,
-> leaving subsequent jobs potentially in an inconsistent state.
-> 
-> Fix this by propagating the error and breaking out of the loop on
-> the first failure.
+Patch 1 clears rq->core_pick when the picked task is dequeued. Patch 2
+stops idle CPUs from taking the SM_IDLE fast path while core scheduling
+still has a pick or forced idle to settle.
 
-There's definitely a bug in there, but this approach is just replacing 
-one incorrect behaviour with another.
+Testing, on tip sched/core d7e670601af6, schedstats=enable:
 
-After your change if there is an -EINTR generated from within the job 
-submission, this will cause drmIoctl to retry the exact same job 
-sequence, likely causing parts of the sequence to be repeated, possibly 
-with negative consequences.
+- KVM guest, 2 cores x 2 threads, idle=halt. A test init wakes a
+  SCHED_FIFO task with its own cookie and cgroup on CPU1 while a
+  cookied task yields on CPU0, migrates it to CPU2 0-50 us later, and
+  checks that CPU0 is stuck forced idle. It then kills the task,
+  removes its cgroup, waits 100 ms and wakes a task on CPU1.
+  Without the series all 6 boots hit:
 
-And on other error paths that would be bubbled up by your change, 
-userspace won't be able to know which parts of the sequence ran vs failed.
+    BUG: unable to handle page fault for address: ffffa3511fcbc018
+    #PF: supervisor write access in kernel mode
+    #PF: error_code(0x0002) - not-present page
+    RIP: 0010:__cgroup_account_cputime_field+0x51/0x70
+    Call Trace:
+     __sched_core_account_forceidle+0x14a/0x180
+     __schedule+0x105d/0x19a0
+     schedule_idle+0x1e/0x40
+     cpu_startup_entry+0x24/0x30
+     start_secondary+0xf3/0x100
 
-I think we need a deeper change here. Is it possible to fully prepare 
-and arm the whole job list first, without executing yet, returning an 
-error code if anything goes wrong in the process?
+  With the series, 6 boots of 240 s (about 1M attempts) showed no
+  stuck forced idle and no oops.
 
-Then the execution of the job list could happen as a second stage, 
-hopefully without any possibility of failure.
+- Bare metal, Intel Xeon Platinum 8375C, 128 CPUs, 2 threads per core.
+  The same churn on 32 SMT pairs for 300 s, counting a stall when the
+  yielding task makes no progress for 5 ms: 41 stalls in 123036
+  attempts without the series, 0 in 109745 with it. dmesg clean on
+  both, forced idle counters still increasing.
 
-Daniel
+- Builds with SCHED_CORE on and off, SCHEDSTATS on and off,
+  SCHED_CLASS_EXT, PREEMPT_RT, tinyconfig and allnoconfig, W=1 clean
+  in kernel/sched/.
+
+- Each patch builds on its own (kernel/sched/ with SCHED_CORE on and
+  off, W=1).
+
+I will reply with the test programs.
+
+
+Ibrahim Elshahed (2):
+  sched/core: Clear a stale rq->core_pick after dequeue
+  sched/core: Don't skip a pending core-wide pick on idle re-entry
+
+ kernel/sched/core.c | 30 ++++++++++++++++++++++++++++--
+ 1 file changed, 28 insertions(+), 2 deletions(-)
+
+-- 
+2.47.3
 
