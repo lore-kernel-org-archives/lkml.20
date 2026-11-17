@@ -1,60 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.123
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794908550;
-	b=4+v48AJVVQdRcZqNEqmfnUVSpQacp5ThMJ+AKGtxbY/e1BVXrqNCjkDp94cYE1zR97pb
-	 n9tgFShWrqxpyrMFzbFYjVUf+6Jrh55zWVHLOsyzxhwXE1aTv/An8z2dRngQsyd2+m4NS
-	 3sWe+KpDyFz04PV9omlRws4cp9tDaC/mH1Tn0qhHFZVd+9W/gc2v3rk3kdGK2Af7AEdzh
-	 iJ12UuchLBSHlvjA9rroScQhN4lTDon4HHp+R+NqQHVLHNRIBZM/8mJvgx4Vl0+y9wgLq
-	 vldQky3r7I3ZqOdo7uL8C6N1BSKiKMsy90HI4ykP88a0F2Rkx8A2GRy/HWNYU7kSQ4Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908550;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=/QfK8etD8mkzYZgvReTst2doUFcuKQeVbkwT3LaG6Tg=;
-	b=YNVeI+57vuutzkUg+AJ7G9iaE9k6FVlPYyscYDNE6rW8uTFQiUGuK5EVOzCx7Zf1sF+T
-	 wip11OozDsZCLVGrSL9bepHyGL/WP7+E05GPnPV06mxjpGmHy2UvMEYFzwShVUZL0R72I
-	 OYlX3FdJC4KuDgV+ajY8E9PpitleWerq6tYdB5DZ8MnklgbaMsdj37jKQfr0ZIgoq7Nj/
-	 yDYjqTN2zeZFDDGYE3TQpembEQ1NHohvYv30e9vm370QyJA8CrCm0c2d7WHqyucxphP/9
-	 fA50beB7WEHxCx6jIWyXWWyJvzLMpq7U6ohnjyNVvr6YQb/IW0Su45W6DG2bHiMbcrA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=TIUPSmb4;
-	arc=none smtp.remote-ip=109.224.244.123
-Received: from mail-244123.protonmail.ch (mail-244123.protonmail.ch [109.224.244.123])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794908545;
+	b=GXOxjuXTMIsl+0bW4cS9cfOZin5db8TwYE85fN5Wd5lriE0DlJDN/R6cRPMx0YPYMwva
+	 dEgv+4KrC8vyktzIUnjMZ7rSj0x8/Z3Seueeqr9047rmxEqt3rmS1BsUfb1UTA5A0qq88
+	 q1AYqEcsjgY7q5yTLxAxVOgKtvPW1tiRjpaBHlCraOANvrODUtwSnBAgGnMkIFmm+xI8j
+	 3HteYaPlZ+gOfso23OGrChMP4wkVlj9njYD94WyaqgWMKPTzWaCf49IyHgTZhWq2k4m8I
+	 O4N8ntevcAeq3q8chWI7yF48u39lD3eBMfryXx+iMUTffcgUbZ20d19rBnD547ICJRw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908545;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-ZohoMailClient;
+	bh=fVGoW8479Mk8cH7urtimysneVqixkNoyuVuufixgLcs=;
+	b=xZyciZspeqw7Cc9+v7vedCnMuvqUZsrfhmO6bwbPPiud0PVAlsx1l6FuIhuogciIgzix
+	 mMyG6/azDJMUphHIVsm17nMIYWS2DDreabe+XI2QksxHG93E6eXfeyB/VOWbZcct/fDKq
+	 z6ApDHfNbtBOedwrzvhj9qwHVrhvTIuSkCkunZYHaTHErFb2jYj0LtA0xK4SKSwLpmaqp
+	 TMTDFep/K2IBKXWaj7od8ZFDYh8kriUSrSekCRN6tjtwoR7ASBKzRJN6wlJ7QOQOXFoSC
+	 4uTa8u4YylirNCy/5bJa98siemagOvnLmpEsdjQgsUgJBx1J6oeeLWQbY7/knP8bX1g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ph4ntom-rev.uz;
+	spf=pass smtp.mailfrom=ph4ntom-rev.uz;
+	dkim=pass header.d=ph4ntom-rev.uz header.i=@ph4ntom-rev.uz header.a=rsa-sha256 header.s=zoho header.b="zuO/9/Ht";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.54
+Received: from sender5-of-o54.zoho.com (sender5-of-o54.zoho.com [165.173.182.54])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BB8B606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:42:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BB8B606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12F17606A323;
+	Tue, 17 Nov 2026 09:42:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12F17606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ph4ntom-rev.uz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ph4ntom-rev.uz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=TIUPSmb4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1794908547; x=1795167747;
-	bh=/QfK8etD8mkzYZgvReTst2doUFcuKQeVbkwT3LaG6Tg=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=TIUPSmb4KO4MeYW4DpN7jjSZeo7unSIv2qjqMLrVXFIAtiX9MJ5e8dG7u9T7KUB+k
-	 Ef43alqhd0UrIiR8RmTbzp4xOtYrzsqbN1l03y9kwu/1gGpggGYoB5tHlgqeLP6rUM
-	 BZCDztEhDi0Ulu9LopDJGcKi9C2O32rxyA3OO6kjdingnsgtE6g8Bsdvg2P8IqnQSK
-	 nTIWVGEoBi5oT7e16uBADcFPvu57xonpbR2hUWzJ6E6HwGZ/dVdXjM71rVZyQ5xNbJ
-	 y5ULvnvCRHCdhUQ//wx2Ft5+CoQ+aSk/TefrZMDOibnNUZ4V2EEFoOLbt4JcAJ93YA
-	 uhgaZuEtX0QQw==
-Date: Tue, 17 Nov 2026 09:42:22 +0000
-To: Hao Yao <hao.yao@intel.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Fernando Rimoli <fernandorimoli11@gmail.com>, Hans de Goede <hansg@kernel.org>, Daniel Scally <dan.scally@ideasonboard.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] platform/x86: int3472: Use actual clock frequency for DSM method
-Message-ID: <20261117094217.83041-1-lsa.uz@pm.me>
-In-Reply-To: <20261026111012.33347-1-fernandorimoli11@gmail.com>
-References: <20251208035122.2147678-1-hao.yao@intel.com> <20261025155048.42957-1-fernandorimoli11@gmail.com> <20261025162614.95385-1-lsa.uz@pm.me> <20261026111012.33347-1-fernandorimoli11@gmail.com>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 0c4c5f6e791ac21873776b3bd8a084c554e9d09b
+	dkim=pass (2048-bit key) header.d=ph4ntom-rev.uz header.i=@ph4ntom-rev.uz header.a=rsa-sha256 header.s=zoho header.b=zuO/9/Ht
+ARC-Seal: i=1; a=rsa-sha256; t=1794908471; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=a6UQIAFaKPrTwfBgapM+DB28b71S6N1P/StT+TGtlWSxzAdcYtnf4f8JBknEGQAOGVfJG84gDISBfDypok17vO8ciwIn73R3dheFW5jtrNhBHOO6m3RdVsh6TdzAFcC/htZh9k8X8M7b9xWPH0Hc3xtMZyJNoqYCribAQySVvWU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794908471; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=fVGoW8479Mk8cH7urtimysneVqixkNoyuVuufixgLcs=; 
+	b=MGtqf69Ic0g4GWug639/hiPngiFE9BisQL6cz0aL2BuAQlFSPsRU04xRTCaicHynHroZox4eQSX8Nye/zi33WaxO1ETOrDkOVv82oBOMla/TQnYD8tvO61VDPiIqXqMnFObwbRuKdXRsoQRDjmlY79Uq/Awk9ln/Fiqnx2S0fhU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=ph4ntom-rev.uz;
+	spf=pass  smtp.mailfrom=owner@ph4ntom-rev.uz;
+	dmarc=pass header.from=<owner@ph4ntom-rev.uz>
+DKIM-Signature: a=rsa-sha256; b=zuO/9/HtGHOxWjh0Kp0ptOEhO3eRB7XT2qvwJvLW9rH+mf2RB090vWSWBZO3nuFJUW3JRDYCKVppBUE/HOIZKzqm3h4Re/1GlMhUDIWPsHXngSXJHljCF98ijKnH1//JuSwanbWVUVfcfMBVyTk8ZPxClOB+SVV4cJQkJbBdOwRxS+0XnuUWS0LfFTQpEGWETNpTnbdJmHS+uRRie3P+i7JI6rNrhl0S9e9yYmPbsvoZ4Zw4b/Wrd4EEGCDPHZl76EwVsLTnIEsAyFxt6x6scCGNf8IS7BnJzUg7hN66gVtWhwGg5aJS2S+MgtzGkl9g0N8YK7anNQFapOrFh8vjHQ==; c=relaxed/relaxed; s=zoho; d=ph4ntom-rev.uz; v=1; bh=fVGoW8479Mk8cH7urtimysneVqixkNoyuVuufixgLcs=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794908468893302.13334844654753;
+	Tue, 17 Nov 2026 01:41:08 -0800 (PST)
+From: Enver Ikromov <owner@ph4ntom-rev.uz>
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: Enver Ikromov <owner@ph4ntom-rev.uz>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH rtw-next v5 05/10] wifi: rtw89: use AP self role for monitor interfaces
+Date: Tue, 17 Nov 2026 14:40:59 +0500
+Message-ID: <20261117094059.1744-3-owner@ph4ntom-rev.uz>
+X-Mailer: git-send-email 2.56.0.windows.4
+In-Reply-To: <ffc63e08f954499799f67fffc068c0de@realtek.com>
+References: <20261113235211.1911-1-owner@ph4ntom-rev.uz> <20261113235211.1911-6-owner@ph4ntom-rev.uz> <971ff7a2aa6e4f5bb6d4e459c386d433@realtek.com> <20261116152804.781-7-owner@ph4ntom-rev.uz> <ffc63e08f954499799f67fffc068c0de@realtek.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,28 +67,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-Hi Hao,
+On Tue, Nov 17, 2026 at 00:41:28 +0000, Ping-Ke Shih wrote:
+> But I can use your python script to inject packets without any change on
+> kernel 7.1.5. Can you describe the "raw frames" more specific?
 
-Following up on my offer of 16 October: unless you would rather send it
-yourself, I will send v3 after 24 November, based on media-committers
-next, with you as the author.
+You are right. I ran a clean A/B test on RTL8852AE (stock 7.1.5 and
+rtw-next) comparing the default monitor role (SELF_ROLE_CLIENT with
+NET_TYPE_NO_LINK) against SELF_ROLE_AP across Probe Request, NullFunc,
+16-byte RTS, Data, and QoS Data on 2.4 GHz and 5 GHz, both right after
+interface up and 12 seconds later.
 
-Fernando's results change it a little. The value for 24 MHz depends on
-the generation, and coreboot's camera_clock_ctl.asl shows the same split:
+Without this patch, R_AX_MACID_SLEEP_0 (0xC2C0) and
+R_AX_SS_MACID_PAUSE_0 (0x9EB0) remain 0, TX status reports zero
+macid_drop, and live over-the-air ProbeResp, CTS, and ACK counts from
+the AP are identical to SELF_ROLE_AP.
 
-  Tiger Lake, Jasper Lake, Alder Lake   one bit, 0 =3D 24 MHz, 1 =3D 19.2 M=
-Hz
-  Meteor Lake, Panther Lake, Nova Lake  two bits, 3 =3D 24 MHz
+My earlier test was misled by two separate effects:
+1. After monitor down/up on the same channel without the channel
+   restore fix, PHY0 stayed unconfigured so nothing went out on the
+   target channel.
+2. On 7.1.5 (before commit a371139d8be9 set B_AX_SNIFFER_MODE), frames
+   injected with a spoofed source MAC were transmitted fine, but the
+   AP's unicast ProbeResp/CTS/ACK replies to that address were dropped
+   on RX (0xCE20 = 0x03174438), making TX appear silent.
 
-The Surface Pro 11 (Lunar Lake) has the second layout, the Surface Pro 9
-(Alder Lake) the first. On the first, 3 also sets the enable bit again
-when the clock is turned off. So v3 would pick the 24 MHz value by CPU
-generation and keep 1 for 19.2 MHz, which is right on both. It would
-also have the Fixes tag and your note on 0 and 2 that Ilpo asked for. If
-Intel's _DSM documentation says otherwise, I will follow it.
+So RTW89_SELF_ROLE_AP is unnecessary and I will drop patch 05/10 in v6.
 
-Sergey
-
+Thanks,
+Enver
