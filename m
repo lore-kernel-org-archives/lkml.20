@@ -1,71 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.82
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794900413;
-	b=Q+NlQ5ySsxHmPbFsxbns4/XfE6+ire93GtDfrBlgBVC7KgZrYHXphzuFyrzCWrzrHCVE
-	 PL4Biz9Zwb8+BL2Z9mdMvpq5PXJHoyEj/sjtbqbR+Kyac+whr1alBpM7DtnG/CGrvzIjI
-	 oy1MYLx0uDrgwwpKjR3dRIyNj+2DWfQUA3PnkdF9keXgAnI9Mft1UxWY8J2qH1OgbVGNF
-	 Qy6dBRzXX//FCXOP4K3zz/5doN9K2qp65pjH7VOMY3EfNZGZKpmuLvWzwuhvSRtb3bknC
-	 AhT1+840RHh9sEnObNYzQw65yGVCsULcfTXb+m1IMpCwwCpRzecHG808Y8XCTsAD0OQ==
+	t=1794900789;
+	b=vQaUrfItvSHXg7xRfq0OA2//tY96qsGWvmPgKBq06VLgw280M1rz7TOksO6oXLq2DFZl
+	 EIh4g3TrXGBIvInaXDAnVvoNqqOUXV0wICDRxbGV+htFccWpYQIR5Nrs2MCzF6mxpbz5g
+	 PXf/vj/dnWPm9FIhgLhVrRJugu0LpPk3aVhIzepdyJLav7OrKAAiApf9L2ThzWyZOEyth
+	 jTTHbFjX3lXXx84sWokVV3X22+GPz+YurRFgxYC/koswSv9SnHzzt1ryd3+UXT9Whv/8E
+	 qzx09Rby7etUIj1kcNTfM9ETmQBwK4LEwX/lDIy/CmROdS0cavrUBWdE/x+sl4FRUFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794900413;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=MNmh1Reg5Czo+a3LVsCK+8As4ZT63TJjE//xLVoIjok=;
-	b=4bBZHAX865zfe1SZXuHpwvE8GG0W2uhezrg/gS+8sg96wvRPgd/VuuZ2ShX1k5YpkYV4
-	 EG++HV0OQWKlpEyO4UbZcThWoB9seD4e3diOQwOCu8puBGbRfjfyDgHrMXpzZfUvprmN5
-	 BWsIJKLjVpWmHGRtnshCPNie+1gXIL72PWFNXg5WU+BmECEo8in2nMyTyRAL6vSk42ptd
-	 ObfcvI8lKUtnB9Kf9utuim+8YIAtlfSqzJGtJFjnTHqNRNkpJ+aFsPurCoaVI6cBXVKiN
-	 8Bl3Le9vkgYxsgfX13rglbf1npgF37YRB3LuGkODhYZ7AYj5WnF7e/A7H3Uhh3Rn+0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794900789;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=/56n4+j5+1UyvRvIFXIBssoxwv85e0FEOJsHJTToNfw=;
+	b=XRupOTYGGmFI5KJ0e6/erG9cgdA8uZhVDOaY0cAG6escVtO2ZHdE/FRrSuKe+h7YC9kI
+	 pmbhwcGZMvNkOLjUs2idGdCXu7TGuEk9CCJQzeYA+GY57ErXws6NescgIegCaqloOtIHS
+	 OOqcWfytgyT2EQ4pfPbIYEA+pr3peyvr8DNVQofwlWmJafdMQq+TkJjSuGFr9F1WoZ2Bi
+	 U10p1oPOpKH0HVW/ksmQUmHxVofXD9KyCdWOkJFrSfqVWzCO5X09YIgHKePT0DC/JW4gA
+	 +ApCE98ssKHUUtpy9+bPi8/VbJrjsOR6I9fCzKw6FaSF4bTmMpkuUV/mz5idw/x4iqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=P2BFPSWq;
-	arc=none smtp.remote-ip=91.218.175.82
-Received: from mta0.migadu.com (out-82.mta0.migadu.com [91.218.175.82])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=kwElYU0V;
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAE13606A329
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:26:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAE13606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0112C606A31C;
+	Tue, 17 Nov 2026 07:33:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0112C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=P2BFPSWq
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ZHQ7vGXzig53gxhV15EJJjqr5AYYwWSgOJJV79sVoaQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794900410; v=1; x=1795505210;
- b=P2BFPSWq9Bsx/WL684prYR47sAoRAqgVjfLNXZoMZMvxxCgcZQ49YoewdGoXMM52aWHcTSa6
- IfGYAP4m9ieTqIWTMQ56iyp0ff1whYBeTKJ/cd12qibbIAS9pttFtym/Vpy823SFfsp5IlJUQPN
- AkmBawkdoFFzwnrgrFkLCCbE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 5c923570b0d44339;
-	Tue, 17 Nov 2026 07:26:50 +0000
-X-Mizu-Trace-ID: 5c923570b0d44339
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 17 Nov 2026 15:26:37 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Pin-yen Lin <treapking@google.com>
-Cc: Jay Vosburgh <jv@jvosburgh.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Bjoern Doebel <doebel@amazon.de>, Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>, Shuah Khan <shuah@kernel.org>,
-	netdev@vger.kernel.org, Matthieu Baerts <matttbe@kernel.org>,
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=kwElYU0V
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=/5
+	6n4+j5+1UyvRvIFXIBssoxwv85e0FEOJsHJTToNfw=; b=kwElYU0ViUCs2AYECg
+	yr33YkDRtB8k8JrY0QAOdcPRm/ychYs6TcIPeosyFG3DHS1xhlNWdfhk/IExZCOf
+	uofw6zU7WnDao/rWSldZWpVGQ9RC7gZP/XPW0JxNYdHkh41VPTbhDgc9ruZOt/qQ
+	pQC4ZVpcSambAlN4Ggg96u80A=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3v0TnAvxqvuozIQ--.53240S2;
+	Tue, 17 Nov 2026 15:31:52 +0800 (CST)
+From: Haoxiang Li <haoxiang_li2024@163.com>
+To: ysato@users.sourceforge.jp,
+	dalias@libc.org,
+	glaubitz@physik.fu-berlin.de
+Cc: linux-sh@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Jonathan Toppins <jon.toppins+linux@gmail.com>,
-	linux-kselftest@vger.kernel.org, Hangbin Liu <liuhangbin@gmail.com>
-Subject: Re: [PATCH net] selftests: bonding: fix failover race in
- bond_options.sh prio test
-Message-ID: <avwBrbJfp4ET9ifT@fedora>
-References: <20261112014942.2946303-1-treapking@google.com>
- <avaewOJD7tX1UYfE@fedora>
- <avanVkILHDYdpond@fedora>
- <CAHwYsio=qtCY10EPnh+qvWpdgtQUG5mw1b3WKMt9_Kytcc7h9A@mail.gmail.com>
+	Haoxiang Li <haoxiang_li2024@163.com>
+Subject: [PATCH] sh: dma: Fix missing IRQ cleanup on initialization failure
+Date: Tue, 17 Nov 2026 15:31:50 +0800
+Message-Id: <20261117073150.1199848-1-haoxiang_li2024@163.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,116 +62,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAHwYsio=qtCY10EPnh+qvWpdgtQUG5mw1b3WKMt9_Kytcc7h9A@mail.gmail.com>
+X-CM-TRANSID:_____wD3v0TnAvxqvuozIQ--.53240S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7JF4DGFWxKFyxJw13ArWxtFb_yoWDAwb_Gr
+	43X34xXr1vkayrGF1YkFyavry7Ca4YgF4fWF10g3ZIk343Xr13GrWkXrs5Jr18WFW7uF97
+	GayUZrWIyr47ujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRiNBM7UUUUU==
+X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbC7QmUA2r8AunssgAA3Q
 
-Hi Pin-yen,
-On Mon, Nov 16, 2026 at 05:30:28PM -0800, Pin-yen Lin wrote:
-> Hi Hangbin,
-> 
-> On Thu, Nov 12, 2026 at 10:00 PM Hangbin Liu <hangbin.liu@linux.dev> wrote:
-> >
-> > On Fri, Nov 13, 2026 at 01:23:40PM +0800, Hangbin Liu wrote:
-> > > Hi Pin-yen,
-> > > On Wed, Nov 11, 2026 at 05:46:18PM -0800, Pin-yen Lin wrote:
-> > > > The prio test intermittently fails in the arp_ip_target and
-> > > > ns_ip6_target variants:
-> > > >
-> > > >   TEST: prio (active-backup ns_ip6_target primary_reselect 1)   [FAIL]
-> > > >     Current active slave is eth0 but not eth2
-> > > >
-> > > > The ARP/NS monitor marks a slave down when it has received nothing for
-> > > > too long. With arp_interval 100 and the default arp_missed_max, that is
-> > > > about 250ms for the active slave (eth1) and 350ms for a backup slave
-> > > > (eth0, eth2). Every 100ms, eth1 sends a probe: eth1 receives the reply,
-> > > > and eth0/eth2 receive a copy forwarded by the gateway bridge. Once eth1
-> > > > is down, its probes reach no one and no slave receives anything, so
-> > > > eth1 normally times out first and the new active slave is picked by
-> > > > prio:
-> > > >
-> > > >   t=0    probe: eth1 gets the reply, eth0/eth2 get a copy
-> > > >   t=10   test sets eth1 down
-> > > >   t=300  monitor: eth1 idle 300ms -> down
-> > > >                   eth0/eth2 idle 300ms -> up, eth2 picked by prio
-> > > >
-> > > > But the test takes eth1 down right after bond_check_connection(), whose
-> > > > ping replies only arrive on eth1:
-> > > >
-> > > >   t=0    probe: eth1 gets the reply, eth0/eth2 get a copy
-> > > >   t=70   ping reply on eth1 only
-> > > >   t=85   test sets eth1 down
-> > > >   t=300  monitor: eth1 idle 230ms -> still up
-> > > >   t=400  monitor: eth1 idle 330ms -> down
-> > > >                   eth2 idle 400ms -> down too
-> > > >
-> > > > eth2 can then no longer be picked. eth0 becomes the active slave if it
-> > > > happened to receive some other packet (e.g. an MLD report), otherwise
-> > > > whichever slave comes back first does. With primary_reselect 1 or 2,
-> > > > the bond keeps eth0 even after eth2 comes back.
-> > > >
-> > > > Before taking the active slave down, wait two monitor intervals
-> > > > (200ms), so that at least one more probe is sent after the last ping
-> > > > reply and all slaves last received that probe. The miimon variants do
-> > > > not need the wait, but the extra delay is negligible.
-> > >
-> > > I'm afraid the waiting time is too strict, especially with a debug kernel
-> > > since delays can happen.
-> > >
-> > > Bjoern is also fixing[1] this issue by pinging a non-existent neighbor to
-> > > keep traffic flowing. Would you like to test whether that works for you?
-> > >
-> > > [1] https://lore.kernel.org/netdev/20261104142018.552135-1-doebel@amazon.de/
-> >
-> > BTW, using ping may not able to triger the arp request in time. You can try
-> > arping instead.
-> 
-> Thanks for the pointer, but I believe Bjoern's patch addresses a
-> different problem.
+When dmaor_reset() or register_dmac() fails after dmae_irq_init()
+succeeds, sh_dmac_init() returns without calling dmae_irq_free().
 
-I think they are the same issue, as you comment also said
+Route both failure paths through a common cleanup label that calls
+dmae_irq_free() before returning the original error code.
 
-The ARP/NS monitor marks a slave down when it has received nothing for
-too long.
+Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+---
+ arch/sh/drivers/dma/dma-sh.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-> 
-> Bjoern's patch keeps the traffic flowing so that idle slaves are kept
-> alive between the test steps. This patch fixes the case where the ping
-> replies from bond_check_connection() only arrive on the active slave
-> right before it is set down. The active slave's failure is then
-> detected one monitor interval late, when the backups have also timed
-> out.
+diff --git a/arch/sh/drivers/dma/dma-sh.c b/arch/sh/drivers/dma/dma-sh.c
+index 306fba1564e5..fc4986679308 100644
+--- a/arch/sh/drivers/dma/dma-sh.c
++++ b/arch/sh/drivers/dma/dma-sh.c
+@@ -405,10 +405,18 @@ static int __init sh_dmac_init(void)
+ 	for (i = 0; i < NR_DMAOR; i++) {
+ 		rc = dmaor_reset(i);
+ 		if (unlikely(rc != 0))
+-			return rc;
++			goto free_irq;
+ 	}
+ 
+-	return register_dmac(info);
++	rc = register_dmac(info);
++	if (unlikely(rc != 0))
++		goto free_irq;
++
++	return 0;
++
++free_irq:
++	dmae_irq_free();
++	return rc;
+ }
+ 
+ static void __exit sh_dmac_exit(void)
+-- 
+2.25.1
 
-The reason is we set arp interval to 100ms, and slowwait also check every
-100ms. If the backup slave down at the same check point, e.g.
-
-  t=300  monitor: eth1 idle 230ms -> still up
-  t=400  monitor: eth1 idle 330ms -> down
-                  eth2 idle 400ms -> down too
-
-The test failed.
-
-> 
-> The ARP requests triggered by Bjoern's ping are sent only about once
-> per second, which isn't frequent enough for this failure. I tested
-> Bjoern's patch and confirmed that it didn't fix the issue in our
-> testing environment. We also can't simply use arping instead because
-> iputils arping doesn't support sub-second intervals.
-> 
-> If you're worried that the 200ms sleep is too short, would increasing
-> it to 0.5s or 1s work for you?
-
-It's not about the sleep time before setting active slave down. I'm afraid
-about the slowwait checking time. Even we sleep 1s, with arp interval 100,
-we still only have 100ms checking window. Before the window, the active slave
-is up, after the window, the backup slave also down. With a debug kernel, this
-time is a little tight.
-
-So, either we have some background arp traffic, or let's extend the arp
-interval to a larger one.
-
-What do you think?
-
-Thanks
-Hangbin
