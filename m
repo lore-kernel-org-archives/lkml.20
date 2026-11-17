@@ -1,92 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794933581;
-	b=lOif66oSKWh7T9TI0yTCJRihTy3tkLoIVZLaYtBPNuXqxs+2jSakF5grKZJFFvXH/78y
-	 KiYT/e/kec9u06OKQL0wIDLt2xeu2KI0hAGPiCG2I5WfPMO24UBT1sa7maPyvZxSK1mqp
-	 IQJWUFF6omwhcrYUrwptu3ew8A44t+46UlE6Rx9VmtTLsPWO2n3b57uNWmRQGJ77bJ0Uk
-	 pk/WTgblq/kJvuOLPHedncZCKHSNA96rMowLRPrLIFgMO4H+xlGH75fVuCZczm94vGcai
-	 zWEFznOGUt6p9syzwHBvlPjgf0gp1ilAqLKO+f57OacMi3aEftEK0iHdX50q/VW0slA==
+	t=1794933583;
+	b=hvTucXpBO/oHl6ZZu22t2QkiJohQuTjbHQj4Y7Zi1RIs6d6uqimK9XCuTPQKlA4FiVfD
+	 5dZGOH6Dj7BlbAA7VsqG1Zrofv2/ICuEVtGOVEOq/7Xy9Hh52TpEXzVbjRJnvJnbaQOlb
+	 9dRiMY93d6WR2dCXDmSv+S8OC6kYCGCVSYrUZVfjxuXItkSMDufrE8wHEkzzkPanT1ikx
+	 OTm8cg+xF181+BBEIlFSYPeL2YGIy9n2cmrTacFISRjoSMTV28bJwP7ipMm6ty+Wi4EYI
+	 zBl+g5w3MXGCcFfhY7vPRrV7TOpTdbMVn5ed2Vz3tY4FvbcBiYmVAUEFIIJPP4K6Y3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794933581;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794933583;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=iMc4CFcXOWr3ZfmZEHkTdrVLJyWhK9ZAZAwwufof5Hc=;
-	b=407vN2RFobWB132rwvF7B32wvxZaCSWQEuCW9blIRAZnw1RdvrCJksSpGVB3NjXORICt
-	 f9A3HZ1vjJ5dk3HMO0rrfCYMlqrtkgias+Yj4vU0j3AcjLyHovw2y/51ZfLVWQT/pazRA
-	 cpYOVw0gkBWuuaSWST+tN8VQ02FqDpEMsmrkdR18bg4fRz91AsuNZHJdhUuwZn/W7sqJs
-	 cNhCAjx84ukAmeU+c2wKvvAZPmHu60QC6zxxfcQ5vhX/G3s3kQttekEjbDuqruoSrfWkZ
-	 qIKY9N2kFNK58KCQnJaebb1Q8SFVMTE+jhvGBUbJlzlg4Q1EjZqkq5RE2QiaWHwCTGA==
+	bh=0Ulm0G03sCySHIhrtUq93+/xbXgYkzf0aPutKqa+d+g=;
+	b=BFAsoNOIvbONmIS8AG5S8kLhBa6t2M2GySLtWwDoE/zS2CMhAdd1ZQYisUSnoY+C5bu9
+	 NJQBTTxuitt6fUyONrAaw/rRBWbSRSmm17eR6bB5iOGWJx2IGlLvpXYGw2itpCyRXaRkY
+	 UCkM+GmsbuPCJohXxYXJ/hlZo6HkKOHvi/S90rGSZk65Fpefzp32jHVDm7MIy+vzVF1J3
+	 tQKJIAX62V5XZad/OOxiCCLNBQ4Kw+r8sLgKjmy4OfSEZzZcBOfljGKsTyVHCoKt5TaKh
+	 Ya9GNbId7S5WRflrLpuBz/qp9mLUGD80yinbWMMWJTp027MFJnRp/P7YZBFiRdztqXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EPC3v+hM;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tJhgbQOc;
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 103FF606A33E
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:39:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 103FF606A33E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8D87606A881
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:39:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8D87606A881
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EPC3v+hM
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso639915e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:39:40 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tJhgbQOc
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-492f0a1b685so3331187f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:39:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794933579; x=1795538379; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794933581; x=1795538381; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iMc4CFcXOWr3ZfmZEHkTdrVLJyWhK9ZAZAwwufof5Hc=;
-        b=EPC3v+hMuSeFY9c3SPhNQuYOUnoCttiB0zd3Xssj9gtLLdhTAO0HRwOMyHyqMnYdVC
-         kDt7Pjr1BrVlhk1M9Qhw4n0NUIjNBcOvAPSoKmq7qXYDFEiiB4UfUPA7ImaKDAWuJ0AZ
-         9kI2NHlgFDEaEBpuXywzndeUF+SpFaxy+iBn9Gnbplporap80/3C10MVn8OCEvBnRjMv
-         FqVigchHmEy55OJow3rgtGp8a8H02nvIpFIDSC2GSz1sRGAOWuDB9U9o8++rjvLdMQEG
-         har7bqbEeN8TtmaUVZyEByRXGd6VSjRxJIyLQHSGuYhG2mRU4begVjT1bDt9dMCpNelY
-         dW3Q==
+        bh=0Ulm0G03sCySHIhrtUq93+/xbXgYkzf0aPutKqa+d+g=;
+        b=tJhgbQOcgcJYobi/hzdSu+8Tt2qQ/2dZNmpPk4e+ZxI2eSqPJl8HZJp5LUzmlv3xZp
+         XIO81DoGsShLYYtFTH8aCx+OkEoU2mrdab+0hsyWgOqDSDyVjyR3136BgT9DqiKdloTW
+         sn7yJWqorQHQGl7zYdpYaSmMWxhjU4GjiSbB1Nx3169z69VHnec5I4nZAK3eyB0fr3P+
+         HqKVmEEs1hYmQ2JMg8EyU6rDtG411OwBCPVZiJjEa6TTzt702ckdWyfWIEBzcfQ8su3f
+         wcjVe1kS+wq7QXhWd4pu91uZEALN/Ae0dQNV+/HLRbh0fPZfjXJtT6ReBtJo1KAvufa5
+         DhVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794933579; x=1795538379;
+        d=1e100.net; s=20260707; t=1794933581; x=1795538381;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=iMc4CFcXOWr3ZfmZEHkTdrVLJyWhK9ZAZAwwufof5Hc=;
-        b=H2T8LMjSniBBLpuY9dx25jgvDvhRdDsB4+QhmEArKIUHMWco2YbqDLBPAOeApmXzTn
-         Y7BpDvFwFWCpzmGEL9/wC0EThxQ707RM99zd86BeRaF03uq8B0z6IXqyW//ArXZUeya4
-         RFS9GpRGlNrvZ1C8/8LOXynR7DOMlGKb7tspbD9FmJH+YbY1ZRUMxQJ/nbr55kpk1val
-         92UlZ643jc0ZuboT5fvCAB5iSOsoouujA9eNMqC4CAyd6JQJ0MhurZjAP5y8raslSFdP
-         C5s+wLjtp2NRkWMCFaxUBiFKih8sOXL84uFOC3PZnT5Tw08AsR/pdo30ORQMLOwKtZca
-         Y/TQ==
-X-Forwarded-Encrypted: i=1; AL+hErEml/JGjYnEXPQUwfbxRnh7CG/1h/Ahva/L7JBvlnOYDm70Lfmc7aWPBIs9Yrsw/O2z27eHQhptVNp4RXo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9qQ7uym9uFsWLAeP0+6MdWlbnaH3jDtsVrGPIbN18/T2z65EVc
-	lZHTqhT45aTlV5YmHrXOEvpRGRgBK6GWgvz/nil6BTOdoHhk5dBCpze1
-X-Gm-Gg: AYBFou3uay+zFvu9FpBoCt2vzVg1jOrbH7J1sKt4Ok4XnMJerUtWlY0TjXKRT8VkJw2
-	Xt7hpQzDwqGBfAn9ee0LemgKJFikpfG6irGzwP4wXv5DyViGXONqwEfeMattDRtr89dsO5UpFsc
-	7FyxjTsbI7i0oVbde/Cg9CoCe/SvLCrSmiL0Qt0tpdtTKImaDaTkeuVvvmfb4OMON+jnoH7aKqO
-	ZJJfK/0RLhlM/WZAgXLZsMcAtXzoNkrf4RgSbbXLCNhP6OC9IBhe89HhgS/bxJaYYZ33pHpFlnA
-	kJASRFiPdYt6oz4mo4BmgQWq4g6bu0V7HpnbQZt2YUSHz29AzJHQisiLtkknmLlOA5wCHsG0F+A
-	aqyVbc4hUi6s/PDOQvV8o4rnn1E9I5CD3s3gPZsYUfB92W8ysgjFTDj64LAjvN4TxYF2hqu2rEK
-	ZrIOTau+5HoBIyWtr8/CkXg2IDZFzzCdVPlRovV+PK9Mg+O2izqkr1494kU+0yI5IO9HW1JumqA
-	UM3/1wAEH52D2PCtSSrfp7Lei3OUHt6oKRE83FVorNQh7hYlk4rP9BkQmyaEX/VsdoNxi+nEU/J
-	IfOB5nJuE9iGK1jVW39ZPXtVhRG3dc06qhOesrUIrMtL2SRQO1z6Vq9R8wJkRIvVVx0x9yrTqXn
-	Nwjqd/nstI2ZBVgS4YooB7ngJ39L6R6+N4Y6mxpxuEDA7zNQ=
-X-Received: by 2002:a05:600c:470d:b0:4bb:6b59:aac3 with SMTP id 5b1f17b1804b1-4bb6b59adeamr179333065e9.29.1794933579138;
-        Tue, 17 Nov 2026 08:39:39 -0800 (PST)
+        bh=0Ulm0G03sCySHIhrtUq93+/xbXgYkzf0aPutKqa+d+g=;
+        b=jYBc2v8aIkYLtCEECR0YT10NiSLofUP7vdDnrnCcd4Q0o8x0MVcHDZHZrarncYN1Mj
+         9tWsmNWAy5UL/ZaOwZBaLRtkRyy8tHw+U747/QW+weQULSBbxvih8/q7aKkkz0TVnIlD
+         FYvwefvacPX2cINQrzcrzmLcGVFAy6XFfVmvIbXkI3jtUVNqR+1v4KXF7D4uQ3jJ4A+o
+         eaWO23QsYMQzoVcrCCpxEQEbmaPs8BJTsJ4rQuqChWjaaTPo8HYS3XeJZVgrs7zrzayP
+         zr2fn0OU6KnmFYbRCYcidPbLZ2Mda1uSZ7t6498Wdtx1PXwCKC5XNb0+yRwbEc7z4E+v
+         eFww==
+X-Forwarded-Encrypted: i=1; AL+hErHQDAj7NWQGE3glqxYfeYzMCQZgElLx5dOBXIcnkWgREkzmvUq0I1eqL7xcl5Xav6la1I8xP2zNAM2uwfU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/NYIU13loQDbXfnH0H43ZyLpKLO0jpUc1dYyI/FYLd+DIcRaod
+	PnOa9MMmqJCaBDPz/jE05YaCG79QooluHWidMieAZMe0kX2BnoJxP24f/oLOfn8S
+X-Gm-Gg: AZFdTZelJfBlfIg0mxyCF2b4MvY50fY3uMaQOu5QsGsNgF9vykP6YuEno6DlFgRfMxl
+	c5l8s/da/urPGB7KEvLjuHbKeH3JRZ+zir533VDxFu+m7S/f6g4qRlgdtsUcswyKcNbhq0aDtXB
+	keIjxQjw4y51Cnz19nUCPjau+gWcE+FFzRjD2kdQTHaRcEJzFMuq1A+y7ZIuwR/79qu/4ebVEFa
+	aBOvuHWd9PtgzdODe8J1Cq37dg/wgiCIi7hI69k3uRQpsTO6TteDcpjTRmhZ4OeCwI9VaDNLc9q
+	XfprHKMB6aXSYCMmr1DBkDDu+qB1/Czm52p74c15O4Prcwj30jPByxtcXq+b6QuvGWT4ADgp/Zx
+	kQeDtS0ZMK0Z7uAW43VUbRXSSK0BH5Yv2r8YX8bPrEa0ky2VQK5P+Koad5rlGjvwgOLZOHsmZ7W
+	/xfIg07G1kB5PNHm/wlh1Qyp08esqNcMVVwn2oK5hVPXeiXE6K/GT7j2zV9BKaOuOIjSBu9fSPg
+	9A6L5g8+xzZeGKmx5e5sYyN+dOdmNEWuuuHFUT1JclcQDg/WKKPYuer9TOib5wOUWhOjBZQqXhd
+	vRccQKHEhA9k8xvXH+2tnQG9GzLzgmjWH16pe59PTgqmG/mvgriv/FfcZOE1nciSuuBar5fHoGo
+	ZVy6Uzj/46xAdB40E9zgHUPIyofdvzLu6+JextHm26d/byI6l
+X-Received: by 2002:a05:6000:29d3:b0:48e:6a23:4a09 with SMTP id ffacd0b85a97d-49c731641bamr21234472f8f.54.1794933580972;
+        Tue, 17 Nov 2026 08:39:40 -0800 (PST)
 Received: from center.jhjvjihww5qejoy14qwv1cc4td.frax.internal.cloudapp.net ([131.189.143.225])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb783e9288sm80817565e9.15.2026.11.17.08.39.37
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f78214dsm29292716f8f.25.2026.11.17.08.39.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 08:39:38 -0800 (PST)
+        Tue, 17 Nov 2026 08:39:40 -0800 (PST)
 From: Orgad Shaneh <orgads@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lkp@intel.com,
-	oe-kbuild-all@lists.linux.dev
-Subject: [PATCH RESEND] usb: octeon-hcd: fix the kernel-doc of struct octeon_hcd
-Date: Tue, 17 Nov 2026 16:39:37 +0000
-Message-ID: <20261117163937.3727045-1-orgads@gmail.com>
+To: tsbogend@alpha.franken.de
+Cc: linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH RESEND] MIPS: OCTEON: program L2C_CTL on CNF71XX too
+Date: Tue, 17 Nov 2026 16:39:39 +0000
+Message-ID: <20261117163939.3727065-1-orgads@gmail.com>
 X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -99,71 +97,38 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The struct octeon_hcd comment opens with /** but names its members
-without the @ prefix, so kernel-doc sees none of them and warns about
-every member. aebbc7d63407 added sof_timer without a line at all,
-which the robot reports as a new W=1 warning.
+Since commit bd978130307c ("MIPS: OCTEON: program L2C_CTL, not L2C_CFG,
+on OCTEON II"), cvmx_helper_initialize_packet_io_global() writes L2C_CTL
+instead of L2C_CFG, because L2C_CFG does not exist on OCTEON II and
+writing it hangs a CN6335. The test is OCTEON_CN6XXX, which leaves the
+CNF71XX - also an OCTEON II, as OCTEON_IS_OCTEON2() and the rest of this
+file treat it - writing the register that commit says is not there.
 
-Prefix the members with @, drop "pipe", which is no longer a member,
-and describe the three that were missing: periodic, nonperiodic and
-sof_timer. scripts/kernel-doc -Wall reports nothing for octeon_hcd
-afterwards.
+Use OCTEON_IS_OCTEON2(). OCTEON III (CN7XXX) still takes the L2C_CFG
+path, as before: I have no such part and do not know which register it
+wants.
 
-Fixes: aebbc7d63407 ("usb: octeon-hcd: sleep on an hrtimer for far-off periodic transfers")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202610151637.5srThc2q-lkp@intel.com/
+Fixes: bd978130307c ("MIPS: OCTEON: program L2C_CTL, not L2C_CFG, on OCTEON II")
 Signed-off-by: Orgad Shaneh <orgads@gmail.com>
 ---
-RESEND: no change but the Assisted-by tag, now dropped (an LLM helped
-write this patch). The warning is still there in v7.4-rc1, and this
-applies to it unchanged.
-v1: https://lore.kernel.org/all/20261015194043.1597422-1-orgads@gmail.com/
+RESEND: bd978130307c is in v7.4-rc1 now; this still applies there
+and to mips-next. No change but the Assisted-by tag, now dropped (an
+LLM helped write this patch).
+v1: https://lore.kernel.org/all/20261019034918.3805764-1-orgads@gmail.com/
 
- drivers/usb/host/octeon-hcd.c | 31 +++++++++++++++++--------------
- 1 file changed, 17 insertions(+), 14 deletions(-)
+Found by the Sashiko review bot on the original series. By inspection
+only: I have no CNF71XX board to test on.
 
-diff --git a/drivers/usb/host/octeon-hcd.c b/drivers/usb/host/octeon-hcd.c
-index 4929c6a..d6ba52b 100644
---- a/drivers/usb/host/octeon-hcd.c
-+++ b/drivers/usb/host/octeon-hcd.c
-@@ -348,20 +348,23 @@ struct cvmx_usb_tx_fifo {
- /**
-  * struct octeon_hcd - the state of the USB block
-  *
-- * lock:		   Serialization lock.
-- * init_flags:		   Flags passed to initialize.
-- * index:		   Which USB block this is for.
-- * idle_hardware_channels: Bit set for every idle hardware channel.
-- * usbcx_hprt:		   Stored port status so we don't need to read a CSR to
-- *			   determine splits.
-- * pipe_for_channel:	   Map channels to pipes.
-- * pipe:		   Storage for pipes.
-- * indent:		   Used by debug output to indent functions.
-- * port_status:		   Last port status used for change notification.
-- * idle_pipes:		   List of open pipes that have no transactions.
-- * active_pipes:	   Active pipes indexed by transfer type.
-- * frame_number:	   Increments every SOF interrupt for time keeping.
-- * active_split:	   Points to the current active split, or NULL.
-+ * @lock:		Serialization lock.
-+ * @init_flags:		Flags passed to initialize.
-+ * @index:		Which USB block this is for.
-+ * @idle_hardware_channels: Bit set for every idle hardware channel.
-+ * @usbcx_hprt:		Stored port status so we don't need to read a CSR to
-+ *			determine splits.
-+ * @pipe_for_channel:	Map channels to pipes.
-+ * @indent:		Used by debug output to indent functions.
-+ * @port_status:	Last port status used for change notification.
-+ * @idle_pipes:		List of open pipes that have no transactions.
-+ * @active_pipes:	Active pipes indexed by transfer type.
-+ * @frame_number:	Increments every SOF interrupt for time keeping.
-+ * @active_split:	Points to the current active split, or NULL.
-+ * @periodic:		Pending TX FIFO writes for periodic channels.
-+ * @nonperiodic:	Pending TX FIFO writes for non-periodic channels.
-+ * @sof_timer:		Polls the block when the next periodic transfer is
-+ *			due, so SOF interrupts can stay off until then.
-  */
- struct octeon_hcd {
- 	spinlock_t lock; /* serialization lock */
--- 
-2.53.0
-
+diff --git a/arch/mips/cavium-octeon/executive/cvmx-helper.c b/arch/mips/cavium-octeon/executive/cvmx-helper.c
+index 107b1be..c02448b 100644
+--- a/arch/mips/cavium-octeon/executive/cvmx-helper.c
++++ b/arch/mips/cavium-octeon/executive/cvmx-helper.c
+@@ -1028,7 +1028,7 @@ int cvmx_helper_initialize_packet_io_global(void)
+ 	 * to the cores. This avoids conditions where IO blocks might
+ 	 * be starved under very high L2 loads.
+ 	 */
+-	if (OCTEON_IS_MODEL(OCTEON_CN6XXX)) {
++	if (OCTEON_IS_OCTEON2()) {
+ 		union cvmx_l2c_ctl l2c_ctl;
+ 
+ 		l2c_ctl.u64 = cvmx_read_csr(CVMX_L2C_CTL);
