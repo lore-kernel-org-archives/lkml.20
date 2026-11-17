@@ -1,96 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794884029;
-	b=rNg+yvtGtbnj1vrOaItCz42WT9Lkx4zr6byYQDGpwk0MLatjvGQwyvlh/8baziKucxzg
-	 G08sFBpa2XlZGWviIPtld5TmTjjHkVCVlGgtG4MqpKW/eH5rHro76UHp9SGUVoa1qGgCr
-	 OywFVyS3RL1QRD+namXD4o8E/S2toqdm2cUcEOKZCBxZWhqKG8GN2ilmQwvNzANjgYBCz
-	 +C/fjCaJQoQALRHkZ8G6UIPhvkmMR7SkxbbRxRhyf8k4gp5GyvZaixQvC1lUWU7AeE42W
-	 RDyNf5uLJspDLGoQvD6bc4bmYKw858RPYO0niJcsc1RCIAuDa/CPEkWkWt/kIUtlGmg==
+	t=1794884028;
+	b=JnfDjen1tDo8F7rBq5BYpKSnInIggblTLcED7NBDKxquvEUFKPBzG9pRIVv81wtdfDXm
+	 sIGnoECPcMwBVJMOTUiwV0cOTnJGnXIvXKpZMX1g0LWUTNgX+d7ajTr1iR2B1eVKXjO0e
+	 JHgGxpTlgvzjy52eUuJ3HZT3S4W61do1fhGyRlOB9IlKsJvxy9SItS37u3VrJTPjCeQN+
+	 Z6sqGBJliMvL+eTMddO7J+e+Eh2V27LYZ8x9vlohaYNd2xaHaxjYglG0UgcCs5cIsTYU/
+	 qTeYkJx0NSCOQtn9Hh2sbTrj3GLEjcme1+NZqLjfg/yC88AR+mRKMF+7LRNu8DcxKgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794884029;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=uQmEnBy41LOTn8RxJD1AEVDSOb95B4r7foDkgo1mAGA=;
-	b=vvLgt82bQEoWjL9/omkw8ypWwHhdJh3T6ttK5AqsCrHFu76RtlRVcaT3aM4Tg/BCpu8S
-	 /l+W5j2XRY1oz8S0ENYbW32tRnS+YkqyE4PiMaFbVPk38KaKuvL6/jo/+0ZgzRCZLNl4I
-	 +w2NLfyAXjht1yVyCzhd1I05jUnhQD3j6hf7lpo/anNPC0CC4/UET49kGdbZ8MIjbRPmA
-	 /wE4wtB6IOoweQaQDzeXKjNz69Rz0P6SVqI+IZuOpRHhhFzs0ovt2ceROEOokm/o3+rX2
-	 39yT3tuKJxw67kPphQ3EcNkzJESz5JiU0u0WY8lPB22kf+QGsBL0TkXJtbLrBpq9KLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794884028;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=BaKFBe33jveFlusq4IBjG51wEJMm0MOD2d2IipYSxHQ=;
+	b=CIVkhwd7ss4EgBa9WHR1PxdwieKBRSVd3RvMLwMgZA3UC4sFBzergNfKJSRNrSF668TL
+	 O2MCliuI/RjKekZ7sEtXT8yLVtaByVrw+rIli7KN7pw5qvtvUo2GF/Bw6RzvE7mgGIdkq
+	 yqucqGYcIKe0Y488Z0ErafKNRgMYTtEF0bthff9Zgy4HxwGd9hwoAA2gLKItNtrv8IFAF
+	 Tkb7FkN5v71Zq7A0+C0zDN66DxPQ9rD/ubHHb3GAOYr9v5mp7RNhn5IW4smg29eS1I7db
+	 NXLfnXy/C5mwBTkHubLNpuzGRx97WHywyfm1oDm/zsJA6/Pb5Q51pZE69Uxge5sombw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mGlCNLOg;
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IBNbqGpr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CCBC606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:53:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CCBC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6350B606A332;
+	Tue, 17 Nov 2026 02:53:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mGlCNLOg
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-36f8cdd30beso6893476eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:53:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794884029; x=1795488829; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uQmEnBy41LOTn8RxJD1AEVDSOb95B4r7foDkgo1mAGA=;
-        b=mGlCNLOgSxEgkGHl6RW7klQzxte23/3WOBSsw+gEXg7D7nW0JhRUyUlRX5sAD/kVvb
-         958wYPd9B2Ru0KzHvrxZAhbIcuFXsY7XSqqgHV+Cap1fWKupxlc4GDe5Dx0n8h4WhVco
-         L1TVyqYen75PGN7s3OSrUrebX5zkYwNm1EeZBcJDjQnIONIyJUhAH4J2WO4SY8q4RZt+
-         lZmzjsQYrAWBZIS5tnuMNTLcSfHE/2Iq29eh2PWVnMAEZhk12zAt+AOmHw82nSytalio
-         B+k/CPLVB5xP6duZGbLsZlzNCd7JM8RYd4gCVMGor8PJWnhTgVF0DWRcPVZSIPoAXR4l
-         S27Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794884029; x=1795488829;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uQmEnBy41LOTn8RxJD1AEVDSOb95B4r7foDkgo1mAGA=;
-        b=ZDR8hrx4GuzEzQpZo0fJ/QiKzKKXTh102fq5AIuVDgv56ZJC08wcBN7d0qM04eaIQE
-         To6OTaXZIc3dvJKerR6auzAglMqPFf4dfrwqd6KQP0AJVyoEneza/6Fa2ezVJKVQn+UI
-         IHIe+jZeNio/sf7UfPQUCMcj40kbNyH5NL6mWTf2GemtrGogC2voZR0LbWlgyE6N/G0r
-         smIgpj0/PHvh/hF+xdDngMuW7NbjZCtlWd+WHNRSsr9nwuOG9LKu2V0RoGdeC4GRD1gb
-         kX11IG/n1N9yeJo1L6ClYsZiVOBDg5nsWHUPN13v6I7FZwizuA46f+8RcNr3109/fifG
-         x7tg==
-X-Forwarded-Encrypted: i=1; AL+hErHxj/fiMs2nbq3KpW1v8Si+gb5iUR4y0RtXjYeWTRpZscveJhVbFmjOmKDqCBiEHZeVfQojCALrftdB+Hw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+qtCCQ+Je1qBcNToeOjNqPd4hNLAbfc6zK6PwJohOdHOfpGpU7
-	JJ6YLWWObz5yaDdQs4QM8dOw/cDZbD0exu1ETZnHqUace7Hxy7VWeEp1
-X-Gm-Gg: AZFdTZfrab4KPoOz0hMJiEW75H3yUWRRlQe2sRWk6xD2/F9nAZlzzBkEP7yQakfH0Qp
-	HroCXj7D/yjs4ymhsM/EROeynMyQiJCiyF8aXxNLt9D+Jgchq1TmhTEJcOJ02dIC+2tvsO1Oie/
-	YkJGzi5KDnC5ZqYk74jU3hL+ZAYGXhwECXYtw2AofyTVbI9XZvGGxEkqB9CEDUEnIO5iwdBfQWy
-	pG+Ojnl2iQWnGyITSwb/JV4ne63vJ6LMGDWHRr9UIJx7XUaTxYpZFZzsLyIY8BH1pAOVPHQhiMm
-	M8af1PhZSx7gv2id7R9EWaenzsgTqQuBPwxHMRGr7f2CoI1o2nMRyXusdp1E62N1fpVMMFoTJBp
-	s+PqS45Tc4BKJ89vCY2qD054o+YwezHBFWMFS8mUI3I9GwWYtSOj2xuVx69P8odiN3AcbLmhOFo
-	Om1h56Th36XrwY5b1mTLvPEICj/LVHYBD92fft4M4eN7Pzrhh+acxtMZZ9nlzElMKr2kz6lqlGC
-	KiB00ffFzHEPEuNWkC2zCuhGM0oqnZfi9TU8IkowEu4Aq1X5ch8Cuu/rDpCcixQ97tUlZDU7Q5x
-	EjlJ1Ghi2638z9rKpce1qqyNs77mkt1gDAlFxEWGSuh5zm50QJRLxBG8nlYgp4nRjbUHQRgsYrg
-	h1hqjgfqm7IzjmxMuSt9eeO0+zQMsgWsqwHdBVpZ8x3hX
-X-Received: by 2002:a05:7300:6148:b0:36a:7bb7:4609 with SMTP id 5a478bee46e88-37967dd7e1dmr19122519eec.34.1794884028527;
-        Mon, 16 Nov 2026 18:53:48 -0800 (PST)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955e0d966sm39357368eec.15.2026.11.16.18.53.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 18:53:47 -0800 (PST)
-From: phucduc.bui@gmail.com
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Kees Cook <kees+treewide@kernel.org>,
-	linux-sound@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IBNbqGpr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A31081F000C5;
+	Tue, 17 Nov 2026 02:53:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794884028;
+	bh=BaKFBe33jveFlusq4IBjG51wEJMm0MOD2d2IipYSxHQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=IBNbqGprHyPWjFY3nxSr3fK+gPn+98qggMg4m7jAO0oaT6rhl2jEBDDPfBbcwFJ+8
+	 C421Bl3+QHudE/t8XI3sWoTzFAoILdNRQk2tMnuHwFlM7Hbm6sutE9NQULpRYe9dn7
+	 DcWlIoNdvPlTTyT+zU5ceF251snTYCPaQ/orkj3/gpMcuJnifxuHNGmAnFaUrLHH6z
+	 6G/Ms41tZ84jB7sCnx4gFNt6nqU1HwMmmDsSAvfGj8tYWCAH6Y4Fj4wiPQ8LcySzQS
+	 4HR4Ue4RFYB2Jq2ZlYPWzyYdhYoYXNTZHxH1ZEov1S7q004LiDIf+Ekv5p22TcnVd3
+	 7dXN0iPtYX9Ug==
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Ingo Molnar <mingo@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	James Clark <james.clark@linaro.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Clark Williams <williams@redhat.com>,
 	linux-kernel@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH 0/2] ASoC: adi: Use devm_clk_get_enabled()
-Date: Tue, 17 Nov 2026 09:53:33 +0700
-Message-ID: <20261117025335.7455-1-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@redhat.com>
+Subject: [PATCH v5 12/12] perf test: Skip the LBR inline unwinding check when unsupported
+Date: Mon, 16 Nov 2026 23:53:04 -0300
+Message-ID: <20261117025305.3958882-13-acme@kernel.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261117025305.3958882-1-acme@kernel.org>
+References: <20261117025305.3958882-1-acme@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,27 +68,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+From: Arnaldo Carvalho de Melo <acme@redhat.com>
 
-Hi all,
+The check only looks for the PMU's caps/branches file before recording
+with --call-graph lbr.  AMD BRS advertises branches but only samples its
+own retired branches event, so the record with cycles is rejected and
+the test fails instead of skipping.
 
-This series uses devm_clk_get_enabled() to simplify clock management
-in the ADI AXI I2S and SPDIF drivers, removing the need for manual
-clock enable/disable handling.
+Probe the record and, when it fails with "Invalid argument", "not
+supported" or "doesn't support branch stack sampling", exit with status 2
+so the test reports Skip, as the branch stack test does.  The last string
+is how evsel__open_strerror() formats EOPNOTSUPP for branch stack
+sampling.  Any other record failure still fails the test and shows the
+error.
 
-Compile-tested only.
+Fixes: 446c595dc0dd ("perf test addr2line_inlines: Ensure inline information shows on LBR leaves")
+Cc: Ian Rogers <irogers@google.com>
+Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+---
+ tools/perf/tests/shell/addr2line_inlines.sh | 24 ++++++++++++++++++++-
+ 1 file changed, 23 insertions(+), 1 deletion(-)
 
-Best regards,
-Phuc
-
-bui duc phuc (2):
-  ASoC: adi: axi-i2s: Use devm_clk_get_enabled()
-  ASoC: adi: axi-spdif: Use devm_clk_get_enabled()
-
- sound/soc/adi/axi-i2s.c   | 22 +++-------------------
- sound/soc/adi/axi-spdif.c | 22 +++-------------------
- 2 files changed, 6 insertions(+), 38 deletions(-)
-
+diff --git a/tools/perf/tests/shell/addr2line_inlines.sh b/tools/perf/tests/shell/addr2line_inlines.sh
+index e8754ef2d7f21ac2..092adaf3c48d3e15 100755
+--- a/tools/perf/tests/shell/addr2line_inlines.sh
++++ b/tools/perf/tests/shell/addr2line_inlines.sh
+@@ -8,6 +8,8 @@ err=0
+ test_dir=$(mktemp -d /tmp/perf-test-inline-addr2line.XXXXXXXXXX)
+ perf_data="${test_dir}/perf.data"
+ perf_script_txt="${test_dir}/perf_script.txt"
++perf_record_err="${test_dir}/perf_record.err"
++lbr_skipped=0
+ 
+ cleanup() {
+     rm -rf "${test_dir}"
+@@ -71,7 +73,23 @@ test_lbr() {
+     fi
+ 
+     # Record data. Currently only dwarf callchains support inlined functions.
+-    perf record --call-graph lbr -e cycles:u -o "${perf_data}" -- perf test -w inlineloop 1
++    # Some PMUs advertise branches but reject branch sampling for cycles, e.g.
++    # AMD BRS, which only samples its own retired branches event.
++    if ! perf record --call-graph lbr -e cycles:u -o "${perf_data}" -- \
++            perf test -w inlineloop 1 2> "${perf_record_err}"
++    then
++        if grep -q -e "Invalid argument" -e "not supported" \
++            -e "doesn't support branch stack sampling" "${perf_record_err}"
++        then
++            echo "Skip: LBR not supported by the PMU"
++            lbr_skipped=1
++        else
++            cat "${perf_record_err}"
++            echo "Inline unwinding lbr verification test [Failed to record]"
++            err=1
++        fi
++        return
++    fi
+ 
+     # Check output with inline (default) and srcline
+     perf script -i "${perf_data}" --fields +srcline > "${perf_script_txt}"
+@@ -93,4 +111,8 @@ test_dwarf
+ test_lbr
+ 
+ cleanup
++if [ $err -eq 0 ] && [ $lbr_skipped -eq 1 ]
++then
++    exit 2
++fi
+ exit $err
 -- 
-2.43.0
+2.56.0
 
