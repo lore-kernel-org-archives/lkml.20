@@ -1,68 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794924415;
-	b=vd10y+R2/2Q5rAlguG/W+ybtLAfdzgQK/CJahAdRxjUZW8LX2Sv8lMIEvZXl27VJgHfL
-	 APuEw35yxu4fT4v6dr8y2Y8o3sFuJXa9T7/9kKuYUEplCW9+BUZo9PvH5V0JzxOko7Uth
-	 4U5aub2TyXqraLY2+CNZLOj8OgjkS2UYu1nI0LLdM5W6Y6CJu8q3dh+PySKUS8CMgZG2Y
-	 DDTBytjf4+2CyEkkpxOt/4p/qKLzIO+LoH77gG1N4nCMwK8ev1wF03odwyc+HDpQfUopr
-	 T3q41OwXaJIJ+xagoN/rCB20IUoLdu7+gbuCpwSalhiysMR2FBk42/hbn7HDQK2xWWg==
+	b=NvAhVmpwUtgLf1x4+IKnqWOXACSzRk88u/QQrvBobiEvA59Qc3ZP00oBNFZsxyNJyi46
+	 gvyka9KqMupjvHz9n1Llh6j2aBcLMjPbAC4MIHUTYg26xzj46Ue7L2slj3tvc/O4C8rUT
+	 /rRZ0+eD1We5fML9z0TF/xl2YqzlkZcSYf8Gr42Yz5g/2BcAk5to6TP2bXxrwRTye5aEp
+	 sT6AzXdxQRXvvpUjg6JuAxXBXudtdhdVK/VbHaoig6AvTCVMMKgyzQrnmhvOSqJ5lVvQT
+	 IDmo4+6bmC5u7KLFds+NnyW8iE8Nr4Q25R5sZOIKbAmfW2mUh/JjHwUgW49NfBCMtYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794924415;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=wHctfggOkvMAe1zfcJUWnX6CvpKatwK3FvB6xlGPFcQ=;
-	b=vmr1lJYIzfCi3EDddNQSYUMd0PuWfTFm4utNVEq5hZ3pz8trWR/IovB0Xd9N0FaZ5yON
-	 uJnBwv90CR39LFyM9vpNq9Bl7kSDvNPeWxJ47WztbRmgCvH+vE1NS4sDBpJtM1si8QSQg
-	 7/ZLqvl4VXjLRp55Bc+6IQ+7xUqYVcwSsvb5BHZtcbLGpHGxl3h+rDsQD/C0BScTpVUke
-	 jTxonXvmyzDw1F85skT8xDO+PkYqOm9ZBEW4wCZx3Qum2WRIlALzOPxDB4OXC+FFLnNCu
-	 Moocd1X0iqJHyxwVQHVyVdzlob0sAnUL7Pjbjuub5Q0O9FERv81CnBthL/E4gZQBYwQ==
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=6uSvfC5jYn0SZCUdkQQtcniyMzEPTSPEt/ng2+mDaK4=;
+	b=oct93Y4OtStSzck4vpbwhY0w0gGBq9zYb25YZ/pbiYR45NDYCXhKf6AxfYs8gY7xf84y
+	 p51im7p0IwqxLCEjQ9ylY97aJl9F4NHjSg6vdFHa+m+zOaQVNsih7bwlp3eTNi2q6/Cqz
+	 0Sa7uClbQzA9IIJ4Z7v3Ce6qtGVeQMEzuwuj1VEhyAfhbcmYTK8xSknvh1CMYCq8uf5wp
+	 yL+jPdGdMj62CpPsIcozZNdPir8e8a4j6Oss7MlF57DgshfVe1QOBMSua+i87nWLkpvTQ
+	 t/+9JObKus8KRpDvNxNhKwT/8fV9YtDyi5UHEPH2wi5TPP+444qcoZC5b79locnSoSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=isOtUiQk;
-	arc=none smtp.remote-ip=95.215.58.42
-Received: from mta1.migadu.com (out-42.mta1.migadu.com [95.215.58.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=fBTBUT2U;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBFF2606A337
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:06:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBFF2606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1342E606A329;
+	Tue, 17 Nov 2026 14:06:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1342E606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=isOtUiQk
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=7jFL7fpobI/gZrx3DO1fKc1S5lGoMCFwS2MeczAZHWc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794924411; v=1; x=1795529211;
- b=isOtUiQkztxwwEJeqwUEgXEoCFs/dyZHEQF5FzBJ4+OSYvbFT1Z4zhBcdb6Xvd16/d9hivOj
- pdSI0GPsBzAoy95DWc1bLVPYYqQzu5aNTLNGTcF1cK3AAbJs8YHiZ7d62Xkg/pXsg16XLLcX700
- UVoV1xWFz194dIBLYO+vbEmg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 57e14dc29442016a;
-	Tue, 17 Nov 2026 14:06:51 +0000
-X-Mizu-Trace-ID: 57e14dc29442016a
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: netdev@vger.kernel.org,
-	kuba@kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Sabrina Dubroca <sd@queasysnail.net>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH net-next v2 0/2] netdevsim: add TLS device offload emulation and test
-Date: Tue, 17 Nov 2026 22:06:29 +0800
-Message-ID: <20261117140642.4008-1-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=fBTBUT2U
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794924412;
+	bh=vVV4spwHYbAauEsxYC6THPXIxk5VSqw/wZZWsp1RODU=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=fBTBUT2UiRc1Wfv+bZejMAlCy2ZeBLbuvsf9BWFa/aPGiC2UtcZHQTGLTB0ZKuvc/
+	 SHygH84hz1USDOBqriEO2osZPaJ7bOPKXD3E4xXlGPm6oXUMNoMoQGDATgQ4aceyG3
+	 FAqanQsEuobRmY0QjGkOZMz8hBbmB7xL3g5O1mYmfGqNl8ns2VmcthD2GUvjeQvPzZ
+	 qwKDscxU1uCiy644O/rHCWUWae7WMghIzrA0PzgXa/oBCw6zwBn/ou8NDc4Pukf/o2
+	 CpZQY9600AKwjhbN8EZC5XN+qgVH7VcOQcodCaRjUlOYcdyOJFnQ6sN/1W3SVkLww6
+	 O5eKPa+ZNsmhQ==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id D5B5E17E0311;
+	Tue, 17 Nov 2026 15:06:51 +0100 (CET)
+Message-ID: <3882ec4d-9f99-4419-8914-19c3a2a3cc46@collabora.com>
+Date: Tue, 17 Nov 2026 15:06:51 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,56 +61,319 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: mediatek: Remove undocumented, unapproved
+ aliases
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org
+References: <20261117130556.234785-2-krzysztof.kozlowski@oss.qualcomm.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20261117130556.234785-2-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Running kTLS over this already found a few bugs:
+On 11/17/26 14:05, Krzysztof Kozlowski wrote:
+> The ovl, aal, color, dsi, gce, rdma, split and other aliases were never
+> approved by Devicetree maintainers, because they were never documented
+> as actual ABI.  Drop them, because no new custom aliases are allowed for
+> years now.
+> 
+> This might break users of this undocumented ABI, so these should be
+> updated to use only documented and approved ABI.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-  b17cf742eaad ("tls: device: fix out-of-bounds write in tls_append_frag()")
-  ed642349d87d ("tls: fix the open record check in the max payload size setsockopt")
+That'll just break everything.
 
-So I think it is worth sending a formal patchset.  v1 [1] was asked to
-wait for a selftest that can also run against real hardware.  That test,
-drivers/net/hw/tls_hw_offload.py, is in the tree now, so this can move
-forward.
+I do have a mediatek-drm restructuring series that is partially resolving this
+situation, at least for some SoCs it's getting 0 and 1 hw instance id dynamically
+recognized, but with some caveats that could be unacceptable (as in, if 0 is
+disabled and 1 is enabled, 1 becomes 0, so it's not actually resolving anything
+for real, it's just making it tick right when stars in the sky align in the
+right way, which for some SoCs is reliably possible without side effects).
 
-The kTLS device offload path in net/tls/tls_device.c has no test
-coverage upstream -- selftests/net/tls.c is software only, and the
-offload code needs a driver that implements it.
+In any case, all of the ones that have only instance 0 (and all of the instance
+0s) can be removed even right now already (still needs some testing to make sure
+that there's no regression), but everything else can't, at least not until the
+whole restructuring thing is merged as that'd break things.
 
-So teach netdevsim to fake it.  Patch 1 implements tlsdev_ops and
-advertises the TLS features.  Patch 2 lets the existing hardware offload
-test, drivers/net/hw/tls_hw_offload.py, run on netdevsim as well, so the
-same test covers real devices and the netdevsim pair CI already uses.
+Worst part is we have two new SoCs (MT8196, MT8189) ready to be upstreamed here,
+which took almost a year of development... and it also does rely on the aliases.
+I was in the process of slowly cleaning up those (as I said, there's already a
+restructuring that makes things a little better in this regard), but at this point
+that'll need to be done with the highest possible priority.
 
-No crypto is done, like the IPsec, MACsec and PSP emulation netdevsim
-already has: TX puts the plaintext record on the wire, RX just sets
-skb->decrypted.  That only works with netdevsim on both ends and
-offload on in both directions, which is what the netdevsim environment
-of the drivers/net tests gives.  It still covers record assembly and
-the offload lifecycle.
+Let me see what can I do to make the right thing to happen.
 
-[1] https://lore.kernel.org/netdev/20260901154914.11637-3-jiayuan.chen@linux.dev/
+Anyway - thanks for pointing this.
 
-v1 -> v2:
-  - drop the netdevsim-only selftest, run the upstream tls_hw_offload.py
-    on netdevsim instead so the test also covers real hardware (Jakub)
-  - rebase on net-next
-v1: https://lore.kernel.org/netdev/20260901154914.11637-1-jiayuan.chen@linux.dev/
-RFC (July): https://lore.kernel.org/netdev/20260728125658.390500-1-jiayuan.chen@linux.dev/
+Cheers,
+Angelo
 
-Jiayuan Chen (2):
-  netdevsim: add TLS device offload emulation
-  selftests: drv-net: run tls_hw_offload on netdevsim
-
- drivers/net/Kconfig                           |   1 +
- drivers/net/netdevsim/Makefile                |   4 +
- drivers/net/netdevsim/netdev.c                |   9 +-
- drivers/net/netdevsim/netdevsim.h             |  34 ++
- drivers/net/netdevsim/tls.c                   | 477 ++++++++++++++++++
- .../drivers/net/hw/tls_hw_offload.py          |   5 +-
- 6 files changed, 527 insertions(+), 3 deletions(-)
- create mode 100644 drivers/net/netdevsim/tls.c
-
--- 
-2.43.0
+> ---
+>   arch/arm64/boot/dts/mediatek/mt6795.dtsi      | 17 ----------
+>   arch/arm64/boot/dts/mediatek/mt8173.dtsi      | 16 ---------
+>   arch/arm64/boot/dts/mediatek/mt8183.dtsi      |  5 ---
+>   arch/arm64/boot/dts/mediatek/mt8186.dtsi      |  7 ----
+>   .../boot/dts/mediatek/mt8188-geralt.dtsi      |  1 -
+>   arch/arm64/boot/dts/mediatek/mt8188.dtsi      | 33 -------------------
+>   arch/arm64/boot/dts/mediatek/mt8192.dtsi      |  8 -----
+>   arch/arm64/boot/dts/mediatek/mt8195.dtsi      | 24 --------------
+>   arch/arm64/boot/dts/mediatek/mt8365.dtsi      | 13 --------
+>   .../dts/mediatek/mt8390-genio-common.dtsi     |  1 -
+>   .../dts/mediatek/mt8390-tungsten-smarc.dtsi   |  1 -
+>   11 files changed, 126 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/mediatek/mt6795.dtsi b/arch/arm64/boot/dts/mediatek/mt6795.dtsi
+> index 6dd706b27830..971fb19e95df 100644
+> --- a/arch/arm64/boot/dts/mediatek/mt6795.dtsi
+> +++ b/arch/arm64/boot/dts/mediatek/mt6795.dtsi
+> @@ -21,23 +21,6 @@ / {
+>   	#address-cells = <2>;
+>   	#size-cells = <2>;
+>   
+> -	aliases {
+> -		ovl0 = &ovl0;
+> -		ovl1 = &ovl1;
+> -		rdma0 = &rdma0;
+> -		rdma1 = &rdma1;
+> -		rdma2 = &rdma2;
+> -		wdma0 = &wdma0;
+> -		wdma1 = &wdma1;
+> -		color0 = &color0;
+> -		color1 = &color1;
+> -		split0 = &split0;
+> -		split1 = &split1;
+> -		dpi0 = &dpi0;
+> -		dsi0 = &dsi0;
+> -		dsi1 = &dsi1;
+> -	};
+> -
+>   	psci {
+>   		compatible = "arm,psci-0.2";
+>   		method = "smc";
+> diff --git a/arch/arm64/boot/dts/mediatek/mt8173.dtsi b/arch/arm64/boot/dts/mediatek/mt8173.dtsi
+> index 6ec50125cea0..868b0fb84449 100644
+> --- a/arch/arm64/boot/dts/mediatek/mt8173.dtsi
+> +++ b/arch/arm64/boot/dts/mediatek/mt8173.dtsi
+> @@ -22,22 +22,6 @@ / {
+>   	#size-cells = <2>;
+>   
+>   	aliases {
+> -		ovl0 = &ovl0;
+> -		ovl1 = &ovl1;
+> -		rdma0 = &rdma0;
+> -		rdma1 = &rdma1;
+> -		rdma2 = &rdma2;
+> -		wdma0 = &wdma0;
+> -		wdma1 = &wdma1;
+> -		color0 = &color0;
+> -		color1 = &color1;
+> -		split0 = &split0;
+> -		split1 = &split1;
+> -		dpi0 = &dpi0;
+> -		dsi0 = &dsi0;
+> -		dsi1 = &dsi1;
+> -		mdp-rdma0 = &mdp_rdma0;
+> -		mdp-rdma1 = &mdp_rdma1;
+>   		mdp-rsz0 = &mdp_rsz0;
+>   		mdp-rsz1 = &mdp_rsz1;
+>   		mdp-rsz2 = &mdp_rsz2;
+> diff --git a/arch/arm64/boot/dts/mediatek/mt8183.dtsi b/arch/arm64/boot/dts/mediatek/mt8183.dtsi
+> index 7414c10ee664..2c3836555e55 100644
+> --- a/arch/arm64/boot/dts/mediatek/mt8183.dtsi
+> +++ b/arch/arm64/boot/dts/mediatek/mt8183.dtsi
+> @@ -35,11 +35,6 @@ aliases {
+>   		i2c9 = &i2c9;
+>   		i2c10 = &i2c10;
+>   		i2c11 = &i2c11;
+> -		ovl0 = &ovl0;
+> -		ovl-2l0 = &ovl_2l0;
+> -		ovl-2l1 = &ovl_2l1;
+> -		rdma0 = &rdma0;
+> -		rdma1 = &rdma1;
+>   	};
+>   
+>   	cluster0_opp: opp-table-cluster0 {
+> diff --git a/arch/arm64/boot/dts/mediatek/mt8186.dtsi b/arch/arm64/boot/dts/mediatek/mt8186.dtsi
+> index 621408439ffa..2f82eb532f30 100644
+> --- a/arch/arm64/boot/dts/mediatek/mt8186.dtsi
+> +++ b/arch/arm64/boot/dts/mediatek/mt8186.dtsi
+> @@ -22,13 +22,6 @@ / {
+>   	#address-cells = <2>;
+>   	#size-cells = <2>;
+>   
+> -	aliases {
+> -		ovl0 = &ovl0;
+> -		ovl-2l0 = &ovl_2l0;
+> -		rdma0 = &rdma0;
+> -		rdma1 = &rdma1;
+> -	};
+> -
+>   	fhctl: fhctl@1000ce00 {
+>   		compatible = "mediatek,mt8186-fhctl";
+>   		clocks = <&apmixedsys CLK_APMIXED_TVDPLL>;
+> diff --git a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
+> index 801eee735afe..883141d8a6d5 100644
+> --- a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
+> +++ b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
+> @@ -9,7 +9,6 @@
+>   
+>   / {
+>   	aliases {
+> -		dsi0 = &disp_dsi0;
+>   		i2c0 = &i2c0;
+>   		i2c1 = &i2c1;
+>   		i2c2 = &i2c2;
+> diff --git a/arch/arm64/boot/dts/mediatek/mt8188.dtsi b/arch/arm64/boot/dts/mediatek/mt8188.dtsi
+> index 14a320f0c70c..f14b23dd57aa 100644
+> --- a/arch/arm64/boot/dts/mediatek/mt8188.dtsi
+> +++ b/arch/arm64/boot/dts/mediatek/mt8188.dtsi
+> @@ -23,39 +23,6 @@ / {
+>   	#address-cells = <2>;
+>   	#size-cells = <2>;
+>   
+> -	aliases {
+> -		dp-intf0 = &dp_intf0;
+> -		dp-intf1 = &dp_intf1;
+> -		dpi1 = &dpi1;
+> -		dsc0 = &dsc0;
+> -		ethdr0 = &ethdr0;
+> -		gce0 = &gce0;
+> -		gce1 = &gce1;
+> -		merge0 = &merge0;
+> -		merge1 = &merge1;
+> -		merge2 = &merge2;
+> -		merge3 = &merge3;
+> -		merge4 = &merge4;
+> -		merge5 = &merge5;
+> -		mutex0 = &mutex0;
+> -		mutex1 = &mutex1;
+> -		padding0 = &padding0;
+> -		padding1 = &padding1;
+> -		padding2 = &padding2;
+> -		padding3 = &padding3;
+> -		padding4 = &padding4;
+> -		padding5 = &padding5;
+> -		padding6 = &padding6;
+> -		padding7 = &padding7;
+> -		vdo1-rdma0 = &vdo1_rdma0;
+> -		vdo1-rdma1 = &vdo1_rdma1;
+> -		vdo1-rdma2 = &vdo1_rdma2;
+> -		vdo1-rdma3 = &vdo1_rdma3;
+> -		vdo1-rdma4 = &vdo1_rdma4;
+> -		vdo1-rdma5 = &vdo1_rdma5;
+> -		vdo1-rdma6 = &vdo1_rdma6;
+> -		vdo1-rdma7 = &vdo1_rdma7;
+> -	};
+>   
+>   	cpus {
+>   		#address-cells = <1>;
+> diff --git a/arch/arm64/boot/dts/mediatek/mt8192.dtsi b/arch/arm64/boot/dts/mediatek/mt8192.dtsi
+> index 898953acdb61..bf5893e3002b 100644
+> --- a/arch/arm64/boot/dts/mediatek/mt8192.dtsi
+> +++ b/arch/arm64/boot/dts/mediatek/mt8192.dtsi
+> @@ -23,14 +23,6 @@ / {
+>   	#address-cells = <2>;
+>   	#size-cells = <2>;
+>   
+> -	aliases {
+> -		ovl0 = &ovl0;
+> -		ovl-2l0 = &ovl_2l0;
+> -		ovl-2l2 = &ovl_2l2;
+> -		rdma0 = &rdma0;
+> -		rdma4 = &rdma4;
+> -	};
+> -
+>   	clk13m: fixed-factor-clock-13m {
+>   		compatible = "fixed-factor-clock";
+>   		#clock-cells = <0>;
+> diff --git a/arch/arm64/boot/dts/mediatek/mt8195.dtsi b/arch/arm64/boot/dts/mediatek/mt8195.dtsi
+> index 9aaf8b6edcb5..389fb9d7ea89 100644
+> --- a/arch/arm64/boot/dts/mediatek/mt8195.dtsi
+> +++ b/arch/arm64/boot/dts/mediatek/mt8195.dtsi
+> @@ -23,30 +23,6 @@ / {
+>   	#address-cells = <2>;
+>   	#size-cells = <2>;
+>   
+> -	aliases {
+> -		dp-intf0 = &dp_intf0;
+> -		dp-intf1 = &dp_intf1;
+> -		dpi1 = &dpi1;
+> -		gce0 = &gce0;
+> -		gce1 = &gce1;
+> -		hdmi0 = &hdmi;
+> -		ethdr0 = &ethdr0;
+> -		mutex0 = &mutex;
+> -		mutex1 = &mutex1;
+> -		merge1 = &merge1;
+> -		merge2 = &merge2;
+> -		merge3 = &merge3;
+> -		merge4 = &merge4;
+> -		merge5 = &merge5;
+> -		vdo1-rdma0 = &vdo1_rdma0;
+> -		vdo1-rdma1 = &vdo1_rdma1;
+> -		vdo1-rdma2 = &vdo1_rdma2;
+> -		vdo1-rdma3 = &vdo1_rdma3;
+> -		vdo1-rdma4 = &vdo1_rdma4;
+> -		vdo1-rdma5 = &vdo1_rdma5;
+> -		vdo1-rdma6 = &vdo1_rdma6;
+> -		vdo1-rdma7 = &vdo1_rdma7;
+> -	};
+>   
+>   	cpus {
+>   		#address-cells = <1>;
+> diff --git a/arch/arm64/boot/dts/mediatek/mt8365.dtsi b/arch/arm64/boot/dts/mediatek/mt8365.dtsi
+> index 2e782558fb77..4b05f6a864d4 100644
+> --- a/arch/arm64/boot/dts/mediatek/mt8365.dtsi
+> +++ b/arch/arm64/boot/dts/mediatek/mt8365.dtsi
+> @@ -20,19 +20,6 @@ / {
+>   	#address-cells = <2>;
+>   	#size-cells = <2>;
+>   
+> -	aliases {
+> -		aal0 = &aal0;
+> -		ccorr0 = &ccorr0;
+> -		color0 = &color0;
+> -		dither0 = &dither0;
+> -		dpi0 = &dpi0;
+> -		dsi0 = &dsi0;
+> -		gamma0 = &gamma0;
+> -		ovl0 = &ovl0;
+> -		rdma0 = &rdma0;
+> -		rdma1 = &rdma1;
+> -	};
+> -
+>   	cpus {
+>   		#address-cells = <1>;
+>   		#size-cells = <0>;
+> diff --git a/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi b/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi
+> index 669eaec662f3..a938539c92b8 100644
+> --- a/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi
+> +++ b/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi
+> @@ -21,7 +21,6 @@
+>   
+>   / {
+>   	aliases {
+> -		dsi0 = &disp_dsi0;
+>   		ethernet0 = &eth;
+>   		i2c0 = &i2c0;
+>   		i2c1 = &i2c1;
+> diff --git a/arch/arm64/boot/dts/mediatek/mt8390-tungsten-smarc.dtsi b/arch/arm64/boot/dts/mediatek/mt8390-tungsten-smarc.dtsi
+> index f2ad9265be31..d70bed80274b 100644
+> --- a/arch/arm64/boot/dts/mediatek/mt8390-tungsten-smarc.dtsi
+> +++ b/arch/arm64/boot/dts/mediatek/mt8390-tungsten-smarc.dtsi
+> @@ -16,7 +16,6 @@
+>   
+>   / {
+>   	aliases {
+> -		dsi0 = &disp_dsi0;
+>   		ethernet0 = &eth;
+>   		i2c0 = &i2c0;
+>   		i2c1 = &i2c1;
 
