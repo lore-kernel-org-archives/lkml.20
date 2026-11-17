@@ -1,121 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794883014;
-	b=OSSbhRodDvBqYyZFHHD+y0zx393ax75m6fElLlJSLi/8nPU1fcD949kkCKt/whtTyrv9
-	 yNhzVEGl4hGIKYVyxPBPj8U+dlLiQTEX0es1UiAQ+ry2rU3Gq0AdoMEL3FylpOqgIRdw0
-	 3n5kzQuhSNaqZOadH17L/+vSdXxnWcjljbizkpgecwLhyLqVY/211aP+mZ8nk0yygU9qq
-	 SpraJbagwJ+nE2T5k84abB6T5uyOksTkb2iRAxwwcZwglFIguztH3nFa2W8ppmIHESFXM
-	 LssIdFeEJvfQmKibXlWy5oMsRBBPdTQy074gTt7JSqI1hnXA9piC09LgHwnUyqSDfHQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794883014;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794883128;
+	b=LpS96/p5qPb0/Wtb77iuu7nTAYsoL9whxs7PQjI9P45HetJWDobzwAFQoyzcFKf83Tid
+	 076QowafHa6oyX7boDEFyTLYK4o/t8TwxVdu0koTIcKmGsqiwqKC5jeAeXf2rNtmbTLoi
+	 UgYbO+Qcbm1cMxxzdjGMHMtKVL1Tqztohl16b94zLA9FQ9wGyl8rzuAMTN0HP2u8kBCK3
+	 N1t3FRBGUFsMx75hitWmqDqHgcGPtesYbvnCFYoz+UFtysiKn+mvTlVZyT001FkWAEMPL
+	 O7N3XLcSoBMbLhOtBbjAK7u3alw2g2i9fZQjo6CSdb96HBx2tCNquWQj8eAUZFQPrhg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794883128;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Nc0Kx1j/LAZLLQGwSBqbBP8FB/6wPqlG0izEEFd5vzQ=;
-	b=msKiPj2dGrk9fXoP9e0h6XaBiUJ0Tdap8cbk/Oly+DeLtly5oNxIznbmkObwMFrhEzXM
-	 O0edV4j1hmzUChaojVADuIOfzSBUH73AzP9oYuf1y8QvhWKMyiY79pFCvVY6N7myc2JIu
-	 W0rIDElk3mu/LO3TdhJnPqJqj3NmJeaFrzL3UnimxnvdCRNUClVYlMblFtkIP1eYd/znG
-	 cxT2LOrWRm5WbYCPEgYB5u8NT+y0uiRvftSn/Ipho4sw/l55g+w3bDRu+nlMfxYwyLisr
-	 CfWnRDEJTgSdcvdhq6c8/ZPbaN5A3DMesCtGQWAk3rx/b4qap4auan9As+6GduoTznA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Rua9RebK;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=ljzSf5Ms;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	bh=K13RmILmom/RrxkaTM1q3j27D29seBkDnjVNn1mUC7o=;
+	b=cng0ftV+tUGVbX/CYUB2l8VSSVeWQFb1n/hgM0Rd1X9nppRXDvcFttKeDdJeesEWdavF
+	 bzaIQRUAo1RY8i6NdJ5AADKA6rDlwB+lH6AzvH4MlD4t02CJ4JpJ+Htyo4nirELLg58AZ
+	 pmVo5pH9A47UDUS1SYlJWrIQRnmYJJNlr4YW/u+exl+CD034TdQuU1huR+ecUj5jCUZzx
+	 PXcjMTVAlzjtvFDgkZrHG+Lw6WYN6ZF24nEs/7gIHTCBwiOsHMdaWGtdOIYaMD8Y3aah0
+	 1jnnDE7vXuI2Q+CtJD0mdRRgDak3+GP9EvUVAXA6OYptqgdsEUiX7SlUw+M4HBWP+oQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WsNY8vmE;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 088B4606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:36:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 088B4606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB03D606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:38:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB03D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Rua9RebK;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=ljzSf5Ms
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794883013;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Nc0Kx1j/LAZLLQGwSBqbBP8FB/6wPqlG0izEEFd5vzQ=;
-	b=Rua9RebK8CtpD1x6eef9GPQtHxxISo5+T3Ml6MBcjMVtlUJhqywzMCeTK01tQFU/22cKrk
-	qOoCg3kc93YtzCJ7qc7nS8xmdHFKqP3AF2TvrREcZ5nz5i4EBOmPOrmvHLtx0rFQ8uAQTe
-	RjNOJb/DxfGG9+GpFLjxMszzrPxJ2rc=
-Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com
- [74.125.224.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-629-VZzy84aUN--BeXl19lOv2w-1; Mon, 16 Nov 2026 21:36:52 -0500
-X-MC-Unique: VZzy84aUN--BeXl19lOv2w-1
-X-Mimecast-MFC-AGG-ID: VZzy84aUN--BeXl19lOv2w_1794883011
-Received: by mail-yx1-f69.google.com with SMTP id 956f58d0204a3-6755fef4f96so6609985d50.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:36:52 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794883011; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TchbMJOKyYcpFWRj82a3iZNKdXtPTussedwBCdA68rsl+rVT8OqC+su9WjXeC6QXFj
-         FNT7xRaBb8i8W6OnhE/vXZU+TtTCu5kt/+UH9v8+GtRHIa0S1D1QXRcyPtEr1XaB5dtt
-         PjlEDryKSgFQhYS1PWz43cmtzUvDLeDf2IZ5ChvZNsJQmykS0qLj2nVBQjAVCQ3jy87n
-         4tdao0npQLyBO8c0f4CMc+9xbqJPx4NMRSrBDpqyw3uFCVRfegEtl+nuE6aI2p/ZYNHE
-         47pu0SoE6QzhMMjQQuMBcGh53tKWQz2S0uDhAJ971avgOI/VMcEVo1L8p723bY1mV8wt
-         9mwA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Nc0Kx1j/LAZLLQGwSBqbBP8FB/6wPqlG0izEEFd5vzQ=;
-        fh=ElmiIicq9yUfBGd0qXMcvdGUEJMaL5UIqlr6fSX0y8I=;
-        b=ludjroenfYP+HE4eeogNG0ZJLE0s3ObmpIzqRjuzqloPOl6K3GgCMedPYud+whd4So
-         MOubWN0ZkWk+eRGjb9HFrbfHG5ia8rF3D8gV7/7HkvSPc8jgAhdwtk0ZWhSmWmuGthvO
-         zJyuZmOyphu/p1uqcrnPtzWA2KN1E+aElujFUU0L6aOckC6RD5yc5vWAGf4YTVSp6nPt
-         OlD12n+qoecldNzlMUDbznZhSeTLi1KTqwflUU8r0A80p1MtlReH8AujO1pfstx2Vf+o
-         Kjj+K1g7Cx5CW4RWXXyPhMU0BuQ56eJoPrDHlipGEZCCtZD5lHrWxsYV5tgr7tVdbJnV
-         sxhQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WsNY8vmE
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-36f6295304dso3556011eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:38:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794883011; x=1795487811; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Nc0Kx1j/LAZLLQGwSBqbBP8FB/6wPqlG0izEEFd5vzQ=;
-        b=ljzSf5MsrfJHSCbtn64qvX3AyFJhYDYCWoHUOGaXhbS1K50YTAu4r6P6q1Z2KXEqzu
-         AQByMFtCw2qN4+4y2JVorbyAL7NFBSqfVfeTB6PmjagJfIKZsuToKnaXUlxA6hCVwhoA
-         OHhy3nulmmQbNHBYsEv1kZYIyrKN4GlFwMMOqOMsnGduGWrGc7ousssl9SqT8DqrRe8W
-         EYyCwrZ3aPyUrPJ57FELuC/yVe60+IxUrGCXTphhc8Vx2ynp7msSmFIfCjzKG8RxBh37
-         WPcbsTdT+v6b8S/HjkEkImSyCKmjSxs9ibv9W/q7TAx75nzXv8l6om2V3d6IbEJp+DPJ
-         o3SA==
+        d=gmail.com; s=20260707; t=1794883127; x=1795487927; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=K13RmILmom/RrxkaTM1q3j27D29seBkDnjVNn1mUC7o=;
+        b=WsNY8vmEneldOkBd4RphBF+JS9qgAPJ0O0VqBb71kwjMe8uuUZK+qOnhMsfyXeDKR1
+         w6RSMYgI764tQzPZ336Ok63c96B2i6IoBax7WbzlKBF7I3rL0M1ogAjvo4vx8u4qnn0j
+         2vpGdAQP73MVmGnlCz5rDbWWuAeNwUNZHAQdfYS6FRkuUJ56T8CcSm42fs/gipXb0bk2
+         WxYr/c3Xr4GxnNhJfy/Ts+05t+W0uTZIwb73rpQ5qlhlnt4MVIKlcJXRUZNqrezrY6RQ
+         PYELZJMxcNiekzn2XEb+lp9tHc1pHNQh7LAu1/L1TN1a73vDBlSdf5U/+QvYUxUcycAT
+         r5Yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794883011; x=1795487811;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Nc0Kx1j/LAZLLQGwSBqbBP8FB/6wPqlG0izEEFd5vzQ=;
-        b=2O7qGq2E7Wj4SbnQpjpNAsaLYjqWs873WkPs3sklg/Pq7hk++aq3E/0vavcVvfdbqX
-         y62CoER/5nV+JU0aszOlnsHgZBRu+KEQ8X2w3NiXGuRcAsMtc5kN92n6cqSN9lR9+T9j
-         +nsYEB8rEJEZ50KmBgOkBJkOSBYNs3tUENeSowj9TmVV5GfaKIo7jFQxrabnYO+DJrjz
-         H8hiYc6H3NK8dyccffwivFCYHOZ2Ucqjov6XfYEfUMaxf3k3ITUOC/JRdZx0gZYwjU8N
-         sbg4mppvqZlZ5Od0YaawgFj+yRoQB52Dt/0i5RtnTwiSKD+5NB1CIsCGFGrYkhiHc+yY
-         73jA==
-X-Forwarded-Encrypted: i=1; AL+hErFrKsjytHNGct46GtO76KKHPztxgx+mMAFtxipV5p4Giqx0vykXuiryAFdV9KXVrqk0aW1+9gAS1+BPxyo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z96D/P7EBiyz5Ss9KXe+upKVu/rKhjqdNiw2o7h9PrZD6xOySFC
-	jETxDLo2H3KpD5h4sI+6OWLqPlPRbGInUVw5gz6xQxZm8ENBooRLFoO33rJIftqh6vak8TOpR58
-	h/5vAHcxNLCtAknucU3hH0rbYXxlBeggRCnZXzPP+6fo/Wf+R89uLovleEsYVQlFoP99lOF+avS
-	NzkfZJXuBCWgbdVniexCyppOgEEcC+hS5w9s2ehp0ROIfpAI5c
-X-Gm-Gg: AZFdTZcN5PAOTQtQ0mxj+YnlmbJQLq4y4i+L1OeU+w2Ho368NbV5psuk+TBHw7bWGw8
-	IMr6hMZWlDLL8F5tqI7RS7k9aF4gLoqZvIwx/fbuvdFFHboDlCO5dUfWDeVO0SMksRKFhIWYDGv
-	rJ4toiWfQz6LALugNVb6wH+efOHDBKbPb2f7tWdhOmHGLsTDhooM5KD5fsBmxRRgw/lMmHbK7Uc
-	o6AbRuwZU88O/zgIyZMWpXukgJA0SaWMLXhhgvjBE2p1w==
-X-Received: by 2002:a05:690e:1286:b0:67d:ba39:f922 with SMTP id 956f58d0204a3-67dba39fc87mr2249543d50.105.1794883011249;
-        Mon, 16 Nov 2026 18:36:51 -0800 (PST)
-X-Received: by 2002:a05:690e:1286:b0:67d:ba39:f922 with SMTP id
- 956f58d0204a3-67dba39fc87mr2249529d50.105.1794883010751; Mon, 16 Nov 2026
- 18:36:50 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794883127; x=1795487927;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=K13RmILmom/RrxkaTM1q3j27D29seBkDnjVNn1mUC7o=;
+        b=Qxh0O0aNF3YxtAMdoJvhJqvcrAIKEIJEXjhLvdrynUVPDevLMZ5y8IQ9YDmrgqI/KV
+         3SbAMnj9fCkR+Fh0JSB+8lvkdEYDPuupB7pOYD7PgTN848k/1CPSKWEBnGk7pjXjUg53
+         CgYeEXyDzJ1wadaqDGWb316j4Ijf4wRRPf2gQh29tsutHSf/SNthTFpHwV4Q0u8AxUHr
+         v81u+NZUqwsitu6ZtNyoKSpJvwV7kAE1HcvU51jmiKYtWRnkUduyeNOwkgMovzOD6BlO
+         dgUj3bo3nZmyS9kGWm7ONvwpgPNLuROpx25iUx5iKGYMWedIeDYK4iteheRkYHKB3qQj
+         1KYA==
+X-Forwarded-Encrypted: i=1; AL+hErHFXjlp5Fk0i0cv70/k5bSBbqIInDekg61rEO+NHYipRoHWhi+rBHeDtcJjMCNxjOwSBB6JXC5pO/NP+oQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9h7aPyH6AU62pAop1TlSynVeTszgshvVM0vkQCwnst61NcnpUq
+	3XE3u/K5GUWD2LGSH1ZVaCln2qYgoYcaqiTV2jZUezBRKSgz2xRdmbtQ
+X-Gm-Gg: AZFdTZfAhJguGIZAOhZ/EwzQ2PlKcu786yX6+DA8mNIAXMB0FdbdbHEDmGlnNtzxPTB
+	NM6A/YQywTHfw/ebNA7X0NfTwImi1yz1kG+t9aa3QwTv2IDxSClR2MYozo9J5kR9rCRbIDKpows
+	TktZLzf0Su3BHo/INRAidGJjk1RjwP0oUHpLclJXcwzHFvapQE0EpXpRlL/kLceg1+lUsPP2ydX
+	G0tK9ucgH/BYpanS8dLJHGUarYFNs5/uxI+4m0hyYHAVmA/4u1xXrx2X4tvcAX1GhtGQrTkxbch
+	WZOjAWRH00ZM7JMKx3lBw9C1NycrZxPR70qkMmhHW3hf/wytEUL64wyN+Ypn7jiVXO516UGqojk
+	AKQ/heD2DTh0RVWOa2bBdltjYO7qk8dOU2OeCMRtEcjL3GbKUEkALAcdDST0qKwFw4HZ1x1fkbk
+	DYToE5OUfXcl+e+xlCXNP5tlkYgAGUn8AsP/Do4gNYWdi9c2RDjPUiUmsAO4W+w5DR+Ipesybl7
+	eSTTrN03grIfDLjwPN+BVb7PSsMF0j136p2AJoTz2xJGKqaRMAunh8iI/K9DbBEJ5AqLzwLuWbK
+	ooLwCWSzgNS4ckofK6WaK4/5NSHK9ogWuuG3Z0RcvqrxC8kPtQpvfRTsRwmf8SF2E7Gb
+X-Received: by 2002:a05:7301:1625:b0:36e:aa5c:7851 with SMTP id 5a478bee46e88-37966d40c48mr13047282eec.27.1794883126757;
+        Mon, 16 Nov 2026 18:38:46 -0800 (PST)
+Received: from youngkk-vm.localdomain (67.216.200.102.16clouds.com. [67.216.200.102])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955a1c5c2sm39022023eec.14.2026.11.16.18.38.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 18:38:46 -0800 (PST)
+From: Cheng Yongkang <teel4res@gmail.com>
+To: David Sterba <dsterba@suse.com>
+Cc: Chris Mason <mason@kernel.org>,
+	Qu Wenruo <wqu@suse.com>,
+	linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] btrfs: tree-checker: reject file extents with oversized disk_num_bytes
+Date: Mon, 16 Nov 2026 18:38:41 -0800
+Message-Id: <20261117023841.467366-1-teel4res@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,90 +96,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116180002.44336-1-founder@logarcheon.com>
- <20261116220843.378480-1-agruenba@redhat.com> <20261116232409.46988-1-founder@logarcheon.com>
-In-Reply-To: <20261116232409.46988-1-founder@logarcheon.com>
-From: Andreas Gruenbacher <agruenba@redhat.com>
-Date: Tue, 17 Nov 2026 03:36:39 +0100
-X-Gm-Features: AclHuK8jipT2sqTxWhLP9_-fF2K8gGmgIWV6DE8puWPi_tixSxFnVaitHavNBps
-Message-ID: <CAHc6FU5=ELOJiaP6VWg7q5S+=jULvgrB4mF7diNSUpOg1aiZZg@mail.gmail.com>
-Subject: Re: [PATCH v2] gfs2: Fix NULL pointer dereference in gfs2_seek_data/gfs2_seek_hole
-To: William Chuang <founder@logarcheon.com>
-Cc: gfs2@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	syzbot+5a5f492ccae698fd7434@syzkaller.appspotmail.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 17, 2026 at 12:24=E2=80=AFAM William Chuang <founder@logarcheon=
-.com> wrote:
-> gfs2_seek_data() and gfs2_seek_hole() call gfs2_glock_nq_init(), and
-> independent of the outcome, they call gfs2_glock_dq_uninit().  When the
-> gfs2_glock_nq() call in gfs2_glock_nq_init() fails, gfs2_glock_nq_init()
-> returns with an error code and gh.gh_gl is set NULL.  This causes a NULL
-> pointer dereference in gfs2_glock_dq().
->
-> Fix that by only calling gfs2_glock_dq_uninit() when
-> gfs2_glock_nq_init() succeeds.
->
-> Fixes: 3a27411cb4bc ("gfs2: Implement SEEK_HOLE / SEEK_DATA via iomap")
-> Reported-by: syzbot+5a5f492ccae698fd7434@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D5a5f492ccae698fd7434
-> Suggested-by: Andreas Gruenbacher <agruenba@redhat.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: William Chuang <founder@logarcheon.com>
-> ---
-> v2: Adopt Andreas Gruenbacher's version of the fix -- skip
->     gfs2_glock_dq_uninit() via `goto out` when gfs2_glock_nq_init() fails=
-,
->     rather than guarding the dequeue with gfs2_holder_initialized(); rewo=
-rd
->     the commit message to match. v1 posted at
->     https://lore.kernel.org/r/20261116180002.44336-1-founder@logarcheon.c=
-om
->
->  fs/gfs2/inode.c | 12 ++++++++----
->  1 file changed, 8 insertions(+), 4 deletions(-)
->
-> diff --git a/fs/gfs2/inode.c b/fs/gfs2/inode.c
-> index 2c2dc459c037..d4678e4832b3 100644
-> --- a/fs/gfs2/inode.c
-> +++ b/fs/gfs2/inode.c
-> @@ -2253,9 +2253,11 @@ loff_t gfs2_seek_data(struct file *file, loff_t of=
-fset)
->
->         inode_lock_shared(inode);
->         ret =3D gfs2_glock_nq_init(gl, LM_ST_SHARED, 0, &gh);
-> -       if (!ret)
-> -               ret =3D iomap_seek_data(inode, offset, &gfs2_iomap_ops);
-> +       if (ret)
-> +               goto out;
-> +       ret =3D iomap_seek_data(inode, offset, &gfs2_iomap_ops);
->         gfs2_glock_dq_uninit(&gh);
-> +out:
->         inode_unlock_shared(inode);
->
->         if (ret < 0)
-> @@ -2272,9 +2274,11 @@ loff_t gfs2_seek_hole(struct file *file, loff_t of=
-fset)
->
->         inode_lock_shared(inode);
->         ret =3D gfs2_glock_nq_init(gl, LM_ST_SHARED, 0, &gh);
-> -       if (!ret)
-> -               ret =3D iomap_seek_hole(inode, offset, &gfs2_iomap_ops);
-> +       if (ret)
-> +               goto out;
-> +       ret =3D iomap_seek_hole(inode, offset, &gfs2_iomap_ops);
->         gfs2_glock_dq_uninit(&gh);
-> +out:
->         inode_unlock_shared(inode);
->
->         if (ret < 0)
-> --
-> 2.43.0
->
+check_extent_data_item() only checks that disk_num_bytes of a regular or
+preallocated file extent is sector aligned. A crafted image can have a
+compressed extent far larger than anything btrfs writes, and reading it
+goes wrong in different ways:
 
-Applied.
+- With disk_num_bytes == 4GiB, btrfs_submit_compressed_read() truncates
+  it to a zero compressed_len and submits an empty bio:
 
-Thanks,
-Andreas
+    assertion failed: IS_ALIGNED(logical, blocksize) &&
+    IS_ALIGNED(length, blocksize) && length != 0, in fs/btrfs/bio.c:895
+
+- With a 4MiB zlib extent whose num_bytes and ram_bytes are above 4GiB,
+  bvec_offset + bv_len wraps in btrfs_decompress_buf2page() and memcpy()
+  reads past the zlib workspace buffer:
+
+    BUG: KASAN: slab-out-of-bounds in btrfs_decompress_buf2page+0x3e0/0x650
+
+Compression and encoded writes never create a compressed extent larger
+than BTRFS_MAX_COMPRESSED on disk or BTRFS_MAX_UNCOMPRESSED in memory.
+Uncompressed extents are limited to 256MiB since v3.9, but older kernels
+could create larger preallocated extents.
+
+Reject a compressed file extent whose ram_bytes is above
+BTRFS_MAX_UNCOMPRESSED or whose disk_num_bytes is above
+BTRFS_MAX_COMPRESSED. For an uncompressed extent, only reject a
+disk_num_bytes above U32_MAX, which should never be reached.
+
+Suggested-by: Qu Wenruo <wqu@suse.com>
+Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
+---
+Changes in v3:
+- Relax the uncompressed limit from 256MiB to U32_MAX, so preallocated
+  extents created before v3.9 are still accepted.
+- Also check ram_bytes of compressed extents against
+  BTRFS_MAX_UNCOMPRESSED.
+
+v2: https://lore.kernel.org/linux-btrfs/20261116050922.310476-1-teel4res@gmail.com/
+v1: https://lore.kernel.org/linux-btrfs/20261116044543.282187-1-teel4res@gmail.com/
+
+ fs/btrfs/tree-checker.c | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
+
+diff --git a/fs/btrfs/tree-checker.c b/fs/btrfs/tree-checker.c
+index f021ac14babf..e5d17bf4051b 100644
+--- a/fs/btrfs/tree-checker.c
++++ b/fs/btrfs/tree-checker.c
+@@ -244,6 +244,7 @@ static int check_extent_data_item(struct extent_buffer *leaf,
+ 	struct btrfs_file_extent_item *fi;
+ 	u32 sectorsize = fs_info->sectorsize;
+ 	u32 item_size = btrfs_item_size(leaf, slot);
++	u32 max_disk_num_bytes;
+ 	u64 extent_end;
+ 	u8 fi_type;
+ 
+@@ -377,6 +378,30 @@ static int check_extent_data_item(struct extent_buffer *leaf,
+ 		     CHECK_FE_ALIGNED(leaf, slot, fi, num_bytes, sectorsize)))
+ 		return -EUCLEAN;
+ 
++	/*
++	 * Compressed extents are at most 128K both on disk and uncompressed.
++	 * Uncompressed extents should never get close to U32_MAX.
++	 */
++	if (btrfs_file_extent_compression(leaf, fi) != BTRFS_COMPRESS_NONE) {
++		if (unlikely(btrfs_file_extent_ram_bytes(leaf, fi) > BTRFS_MAX_UNCOMPRESSED)) {
++			file_extent_err(leaf, slot,
++		"invalid ram_bytes for compressed file extent, have %llu expect <= %u",
++					btrfs_file_extent_ram_bytes(leaf, fi),
++					BTRFS_MAX_UNCOMPRESSED);
++			return -EUCLEAN;
++		}
++		max_disk_num_bytes = BTRFS_MAX_COMPRESSED;
++	} else {
++		max_disk_num_bytes = U32_MAX;
++	}
++	if (unlikely(btrfs_file_extent_disk_num_bytes(leaf, fi) > max_disk_num_bytes)) {
++		file_extent_err(leaf, slot,
++		"invalid disk_num_bytes for file extent, have %llu expect <= %u",
++				btrfs_file_extent_disk_num_bytes(leaf, fi),
++				max_disk_num_bytes);
++		return -EUCLEAN;
++	}
++
+ 	/* Catch extent end overflow */
+ 	if (unlikely(check_add_overflow(btrfs_file_extent_num_bytes(leaf, fi),
+ 					key->offset, &extent_end))) {
+
+base-commit: 3aefd67f08f8ed59ed0fa90619b25856df415031
+-- 
+2.34.1
 
