@@ -1,98 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794894081;
-	b=Y24uOd1Z9fKwhqABPZGSeGny2lR6I3zFJIX9KSWrWuLyrZFCtK6Ah9tCpvVHw+cdNGfc
-	 ieCyvCDqdp/rBl/6YyDascZqUIg+3yUe1bBnTWKTnFqrgD8uvn7TUCFKy/CD7soLrcaN/
-	 KG3EEkxR9BKLLpQGGTrB3+1aFOrtSAtqN9Z3IeyruyyM+KuG4aKeodLjjTW72zeSuNtqy
-	 HSs41vkICXTZQpVF6WaRxC5S5W4CXalmeqVNhr2FnC5XfiBXcVHorzPwk5MJ2EemtwtVr
-	 Z2KD8cYPYuETu8yeOriT0ftryUpQMGD/Axo8ISzt25ylu571T6wL6rZ6uOg/BxNiR9A==
+	t=1794894091;
+	b=xkfYzZKYGsVWuYJDFMijlsVEDvW0Fbtr5H9Dr5tIWY5rlvepbMR9eqwMFfPTIcxNumk+
+	 BJ+1lDzSCP5X81shAFBEIkm9PI+ACOa2ONvn9W1n//iG65lc2L6liBA7EiFc6rxJi9RDP
+	 mikEXg7GB2R35G9aZ/fn+eePlvvqDRICSgdUNYQ08xS6Rd74raDEOJwdJNOwPSiWmX+O5
+	 VSQ2kqJ4AAppdGqUEsuABGDV618qzCX7Z+KsrW+RL+rlZGp1RsiqPCU7IfH7BwTxU5qV9
+	 D/VYL+9SO5EFv5QKv5l54SYh6cuwAkgd8i91kSOLJVROQ7Wwy5OX0352vNGwVJMR9uA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794894081;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794894091;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=kgXAga4SQ2gGcYIcOPrgNzb4Xfca195d5V/zBY0TA5E=;
-	b=2Rvo0CtnH+ZxRtp1xUJSP/4+HgTbVoLU/2FTcleQnfY9/oOwQg9fKcJ1okvyIQNp9KAB
-	 3I0Y1sK66rIxbLyutE24goWVBhR9ZlQ86fnKPQ4ZwL1WchqRb5gkyVFtB4lwHiKX4d1pW
-	 cuuE37cOXE3xmeb2mj4C9Nd2N/s85uGdbC6Pwaa5Ukn2UpNCUo1NQJWhDT84LjWU+GTsO
-	 xHdWZAMITNlTFKHiRRVmf3x10hYg6tBvBHP2CtNSpxSL2hzRv24TrVtYk2w3GmX081C6Y
-	 csdJ6gQLQBCD6WSkXBgZnCWc2bwy0n3tlK33S5vIung3yRlM6jnyhnk0NT93A2bUVZg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=TXnRscLI+5p2iZDtjZSChWhyaXZPY5sKSAAfiOfGpTs=;
+	b=Xjzq8I9dMMQv0DTBODHvK53gU9Z7+ysRZwNyAZENgWzq4N/2X3qSkXURMy8VZjqGqMWC
+	 zcl2wfYhdrMMp85nwU1xhaiNx1xXE5u4mAYm1LJHqepazg6DsWXyQQBNsPJ2+ncTA1sNz
+	 jwqErkjWhgfE/Gx01IjOHFiZrq5ZJC42JoanpDSHUaG+qQUAIJFRlb20GjdN4gAmGinQv
+	 N9LIb/79sYenlbwOhSWT3s/kJzjp6Jk0UPH+tWA1C3Auf/DLO737THmzEWybL0pa02tSF
+	 dq+XiUWQecFh9sVT7YcO0l5jc7Bt7t4TC2LjD3rAK1RT+Chr40jO5jVVFead+lluLBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=PQr3PgP+;
-	arc=none smtp.remote-ip=74.125.82.45
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iSawB1nA;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C775C606A32C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:41:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C775C606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88C88606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:41:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88C88606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=PQr3PgP+
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-1b3ada81853so3923694c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:41:20 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iSawB1nA
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a2d6d01ecbso26658575e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:41:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794894080; x=1795498880; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kgXAga4SQ2gGcYIcOPrgNzb4Xfca195d5V/zBY0TA5E=;
-        b=PQr3PgP+hc6DT0aQU/F4mOKsRUSEulybv2c1ObP3i+DkihztlWEctX0OrUgl6usesp
-         LjVss/ez54+GKqptmSO447ZTgQARt4/Hqnxbxe4wKrARIDHxATiTAuXAUYnd5srby+N9
-         vIOlcV7Nd504l6AaiMlFfzLDi9l5+R6A7aeaaPeYS/SdAVWDOIhSPf47Riiy2R6M+m75
-         Ukgmqhi7cJ0OgnvcKLaHEGrytFD+SRwSV0uvePUfCnI6UPFqzp3h2OWF+CpLD3vPaxqN
-         L2GFjD1uwlGTm474BmzBxVLJXBEP3UcTQIALBo1pSXC6QfWbbogt02vvQ0hKRpb2TPsp
-         1BtQ==
+        d=gmail.com; s=20260707; t=1794894090; x=1795498890; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TXnRscLI+5p2iZDtjZSChWhyaXZPY5sKSAAfiOfGpTs=;
+        b=iSawB1nAf40dzs7ZN1+RTexY5htMcnLfQniuVkWyIpeqeLVSCcaBotb/94OvGvxaFd
+         O1ub2Bof33/b7u9dieLD80J8pUtsta8heN66MOBQ/XSJlyCIiqY7eyTGONQM/0ftf1Ya
+         E2vQsTZjyZMiBYcqEhU0ETRugiLCL+MsFwdmb0bSp8aiita7mKoPVucgvNJMKIoCATey
+         1v+zm4cM9arBYTKv9gVgfzBBoAo4z0cbAoZVlCBI6Hfz96+I5kkZU0LCtb5SbtXMlb9d
+         zguZ3cbkOSOAqSb3e9cPUsStck8DD31Jh/MRaMfdyK1FRJVw4YNlaYVLQS69iA7/X007
+         j9pg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794894080; x=1795498880;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kgXAga4SQ2gGcYIcOPrgNzb4Xfca195d5V/zBY0TA5E=;
-        b=styav+QPIMYnALhZY95uRXjXYS3RMdjsfXP2pgDpiSa4AfqQrvb/HHcYvz9W5wPpKQ
-         8/2smGiMzPSa6Sz5iFAFWZYc75tFTzoKR87OtoyeAoJvhxRJq4VLTIVl1ABGy1Ytb56b
-         PVYUhrgRPeBCgj2dBAyagHG2IO3so/OCBsNReTd94mGrBU98uypyDoVTjRDCbrrI4yw/
-         tWDPemUJKvqD51BpeXeIHr3Sb6aKi5SBdEVxxvZXzzdm8kfVyp0wGc+Gr1XkO1QUCCga
-         gN1Vu16r5qB8JNgLQFeUbEeh1efU47ySD5I7nVSKHIbz5hvY61viEj2sSNbPlzsQ4FFD
-         bQvQ==
-X-Forwarded-Encrypted: i=1; AL+hErGC6Tzzw8b+wSiDVajcZi8RdJ+DyZktC6aLcCvr/9Z/E0jPnWcFPAbOkrTYgAGpSv2fPVQ6YK4QJSvUSOM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+yHrolGRrMSm9CBxyxkbgOaZveF5CpSHkveGI4p8nnGTpqBMS1
-	R5j+qIy7f5TCkCtlr5oUi640N4iMrQTmJDfbKaTfsdlmazrjc8tK3OtxEBCPz/Ln9Zg=
-X-Gm-Gg: AYBFou1buW9adV8jErFEMVC7xRnCFKE775KXlqTQaL2C+T1QNjWU8wygmd2vf/kd5wk
-	+RSFID7OOMVv3w3+axuEBNNnBDECwOh/I3hJ51v5UpxbQE1wJXxXUDDdeFjra9W/QQg/bUVac/W
-	leX7jlOYdrWapk0LZPDbuyab37qwKgtOkasYX3OawbeKHVaJG0g4ts6u69WJNATLWRpn8z0uZuu
-	Fv43xeoRjEOQ43dX8kwSPVTb58TIUWk/hmZDVgoY/5hU3IFjQLuX4qQbjQ+NbQzDJcAi08UKjPA
-	XSAAGlHaDsbEms1GZfAvLe7UHp7UzbfSsL/uBAcvVpxIO1l32o0DEauBYXc98BZ7fT2kTAq2s1i
-	9etJW4jW8P6F7DtSMiet4Itnpt4s5q2/pvv+qX+55/4VPoJ6Ewv+LKXS8nCVf2xga/kQ60VLagN
-	6jjveaKKIwklnnEPDJjbFpwbsy4He8z6y/wjGWLclWGDdvlsebeI35XpihQbOizz3QVyo3Y9z8k
-	sKRYDoyc39VTLiKLDMSl61Oo2YKezYPfzgnnLYY5uLbuTfDnOod6PIUz9vtal+gKh/9d9t+Tsd2
-	sX0ZSyfLzDwy8LDfvtX6DxH0gFS48Q==
-X-Received: by 2002:a05:7022:290:b0:185:4ad4:3d15 with SMTP id a92af1059eb24-1b503068235mr10688010c88.1.1794894079483;
-        Mon, 16 Nov 2026 21:41:19 -0800 (PST)
-Received: from localhost ([122.172.83.36])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b524049e0asm17957878c88.4.2026.11.16.21.41.18
+        d=1e100.net; s=20260707; t=1794894090; x=1795498890;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TXnRscLI+5p2iZDtjZSChWhyaXZPY5sKSAAfiOfGpTs=;
+        b=HE8a3xy5TrtRe3CWX+mVOoIkBUOIn82gkGiAx0zcpzdsZjoSqupkKV2GYfmN9TxcwO
+         lGZyDD8TlJPM2RBN82LMfts87ae0MyKVNapT3+BiuXFTaWgCdz4FGV5MCmNjvI2hdAMb
+         sV6yBn6FzHG+J4/ri+Gdvyd3j+Ow2G3QJ9N80uZM9UhB+DVNJ84Giqpkg80Fjp+N60VV
+         hyeqmHFyaJKOZnnU35qTMbrBUQSDw4Xr7MwmfiOnMWHY7wTEzMwo4P3qAKif778F0qP5
+         /rGsjO52fXu87KGbZ5jC84iE5egnEnk4YxSm5J6o7uJfntXHQGNZvGR8ztamkuombIwj
+         pCDQ==
+X-Forwarded-Encrypted: i=1; AL+hErG1qEoPUht9ScmHr/3gXqAL4TTJNP3WCPDb1+6z9WObnYR4f2lKbdcx8eAKAn5hzOFXpGTf67pgOo3Ffoo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9VTS2oiKiGZf84Xl5AYVl5oGg6HjKmMWccKC1/FV3+OEdLsGNe
+	64rUJBlCbP86D46P9+2/aWvuq0VTNe/J6Z0INkvEV5fEizwG4cKYBOEgJxnRS9B1
+X-Gm-Gg: AYBFou2PdRS6JG0mkQDt8ljDj8xLCdaBUPksqsaGaHDaI6FYY8IVT6LjW6EO3QPaLkY
+	rpIwcCWI5bvJfmsqLZO+uhfWPa+EIAfI6WaqMnLCVfpRyY5RoVNfW4rexR2tPjUk8FwJN/MrdeU
+	x9FgXWrNJm6t6QAORoe7Z2DyntwC76Tb6S0KoRitbZSSgI+3bcLRtdbRlHsGWWDxAPkmvxjtdId
+	Mcsnu3p9EJtJT8ji2rDAUXmsnne4rXqQDV/1tCkOgv7a6fiZtYdbS/ll5wHZ+vl6BTCntcjUzBI
+	rb2FrYODFz/nY4cxtt+5MssC8MVB13YpDlrTN1Do9G7EFOqQw+UcS+/BmvYishbaTNiBFvRRn+E
+	UgddyX4BL49z+Vdcq4dy8DwxqkWsDm+Mf9Q25D4V5LyW3FBF+h1h96Wtkcn8T14/bfe9akWEtwq
+	4z46IWdEOfV+HRUqdcvjBJegGtyHJCSgk8L1in6veBFAe6jlTh7eb/nuogjzZPrNo6JGcB2QY3O
+	g9gFOs1ndUkJTUcLEBdAHkCXNB72LvPm+2CVuSCW8J9dKsOa++V7DeDu7ybXF/vA1ifwym9EV4h
+	DvRv1JqoBEe1Q4YX6nWT7HiB4h697hf51SDwjqr4j1L3kA==
+X-Received: by 2002:a05:600c:1f96:b0:4a3:5a91:5f61 with SMTP id 5b1f17b1804b1-4bb55a4d2b5mr282862915e9.14.1794894089563;
+        Mon, 16 Nov 2026 21:41:29 -0800 (PST)
+Received: from localhost.localdomain ([46.188.59.33])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb68c00b10sm125348055e9.0.2026.11.16.21.41.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 21:41:18 -0800 (PST)
-Date: Tue, 17 Nov 2026 11:11:15 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Stanislav Aleksandrov <lightofmysoul@gmail.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
-	linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] Add cpufreq support for Qualcomm Halliday
- (SXR2250P)
-Message-ID: <avvo-0Gj9u4ZdCyh@vireshk-B250M-D3H>
-References: <20261116-halliday-cpufreq-v2-0-e518cc055457@gmail.com>
+        Mon, 16 Nov 2026 21:41:29 -0800 (PST)
+From: Sergey Matsievskiy <matsievskiysv@gmail.com>
+To: dmaengine@vger.kernel.org
+Cc: lars@metafoo.de,
+	vkoul@kernel.org,
+	Frank.Li@kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sergey Matsievskiy <matsievskiysv@gmail.com>
+Subject: [PATCH v2 0/1] dmaengine: axi-dmac: fix incorrect segment size calculation
+Date: Tue, 17 Nov 2026 08:40:53 +0300
+Message-ID: <20261117054054.22409-1-matsievskiysv@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,40 +97,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116-halliday-cpufreq-v2-0-e518cc055457@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On 16-11-26, 21:25, Stanislav Aleksandrov wrote:
-> Document the CPUFREQ hardware (EPSS) of the Qualcomm Halliday SoC and
-> keep cpufreq-dt from probing on it.
-> 
-> This is part of the bring-up of the Qualcomm Halliday SoC (SXR2250P)
-> in the Samsung Galaxy XR. The DT changes follow in a separate series.
-> 
-> This work was made together with Claude, ChatGPT and Gemini.
-> Reviewed and tested on my Galaxy XR, where cpufreq runs through
-> qcom-cpufreq-hw.
-> 
-> Signed-off-by: Stanislav Aleksandrov <lightofmysoul@gmail.com>
-> ---
-> Changes in v2:
-> - Add the qcom-hw binding from the DT series (12/17 there), so that
->   the cpufreq patches are in one series:
->   https://patch.msgid.link/20261109-halliday-dts-v1-12-289114ab8197@gmail.com
-> - Use the "cpufreq: dt-platdev:" subject prefix (Zhongqiu)
-> - Link to v1: https://patch.msgid.link/20261109-halliday-cpufreq-v1-1-d87a397396fd@gmail.com
-> 
-> ---
-> Stanislav Aleksandrov (2):
->       dt-bindings: cpufreq: qcom-hw: Document Halliday CPUFREQ hardware
->       cpufreq: dt-platdev: Add Halliday to blocklist
-> 
->  Documentation/devicetree/bindings/cpufreq/cpufreq-qcom-hw.yaml | 2 ++
->  drivers/cpufreq/cpufreq-dt-platdev.c                           | 1 +
->  2 files changed, 3 insertions(+)
+v2:
+- add reviewed-by line
+v1:
+Link: https://lore.kernel.org/dmaengine/20261105131547.305510-1-matsievskiysv@gmail.com/
 
-Applied. Thanks.
+Sergey Matsievskiy (1):
+  dmaengine: axi-dmac: fix incorrect segment size calculation
+
+ drivers/dma/dma-axi-dmac.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 -- 
-viresh
+2.47.3
+
