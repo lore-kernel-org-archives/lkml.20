@@ -1,88 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.87.93
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794895205;
-	b=YruDsHhdBSsC9sTp4EOh1QVcAUNJLjF2td+5S2yaUP5+fuNIWpp6XgfrG05USpoH7mG0
-	 jCwmgbwNFjq34LrZDuNNIIQcZ0r+cv285hLkqjQQyro0qStduMi0AgFXx+zHnUU9kp2/k
-	 r8N5CGCsQwA6vX6sxE5RipQn6Fs9KjZc/viLhLmMlu6f7ouIrAub45tVWQObb94rM/IBi
-	 MjcAcf+52l8b0ZMO1t08vjJ5L0DFJUD7PkqQuJiLaYpnB+E7xCTGGxYGFiTvAyXFG41aR
-	 NcAjVqpcfmK2sMAaM6dsNwz9uzti/JhuvqMS5y200MY8t1l1Yw1SU975feXh2dzSHvQ==
+	t=1794895220;
+	b=X+e12CXB50NvJJqbko0eHQrHzQ8rnfkjBFgxFy+ugC7SrgbFifl+IEncnLIcHc89Nprz
+	 HzS4JCPUvkS7pYzOCPqHyh162iNm6ZI/A5JJ4drsFQG7LJQ1uCPXQ8++i5FVFOcBmI4nZ
+	 X8QvvnOINKtiWCditPqhaLItxUeArtz0+eKla1V9mu5D0kOJVK4iHrwUFdHhidzzsp96w
+	 2cBqAxCChbU0xqfaojtkXCoSNt7WtyGFnASOpUD4cASxA0lvaUh4JQ1P8G9/6rIR0PGQO
+	 rMr98RIa9cXw4B3NcCwD5zQgYoh1hGQo3FNcb4lTLp2UqJlMyhW37mNF3bZzGurLVfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794895205;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=lkS32XPAkky3Y3UuvpRMfImoXnZGvPVVobvUu9A3i6o=;
-	b=mlBqwieTZqCdXqL9+oU+Bta6ttBax96n2Ixu41tCQblqFLikoOdmBlBs0l4ACUNi/4jI
-	 fIe49f01Q2qc8z0GKk58qZP+kzKcjDjxvzouKR2XSca0TDplKQBd5piAad0RLZuIpmqk+
-	 IG53Iq64On7wgSgs+w8Ei1FQroVrAfgp6HZwlDjrTY+cZVsVi+fmaugj9bJegagqyGUVY
-	 G2iPLsclXsB+d6DGkCsUfuZIDdUzwTEOQ1TXK3buoPtdHEJ1/g1TiIQecDbANdw0vmGj8
-	 mmbArVSfyMxBRiP3+fKWUMRM40FpSg0g1t4g9F08MjZQOtBp9JYxw+CMlqj5PQgfdbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794895220;
+	h=DMARC-Filter:Received:X-ICL-RepId:Dkim-Signature:Received:From:To:Cc:
+	 Subject:Date:Message-ID:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Info-Out:X-JNJ;
+	bh=Ie9TBnSRuFvJfRJMkw1HwmXycVla5fkFGDRxPOE8hzA=;
+	b=UNgu/hGyUc8kSN0eDbBrn1dunTxhd0wKbSrkK7itqT8bjUSxPbEpLeMrp0637rUtuSPO
+	 uDiZo9ioHGRs2gWJQN1CUW4khpvFk5gFha9pLOfQBFm7jiRfTggW3ELzp+DgFp0m5MGFL
+	 9Udsjh/vA6qnhLcRHCg0KJJ10JPJ6y9/Mo5FwjFLOH/aRB9kYS16QKPDFj11LXQ3CAOQO
+	 VyBcmYRm5VcGKDeiiahH3iadQ/YvD49fHAl0qxdEq8Jv9p2CszcpG5G2s08kaJfEcl8j4
+	 4Nlns9ZBBPOCU+7AOJ9/BSWYx4TidYrdMK7kiCQPWsAc9FdCMS3gegUuUgp1kWkxItQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gSW6fmSK;
-	arc=none smtp.remote-ip=209.85.214.182
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=icloud.com;
+	spf=pass smtp.mailfrom=icloud.com;
+	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=GWkO9RfJ;
+	arc=none smtp.remote-ip=57.103.87.93
+Received: from outbound.qs.icloud.com (qs-2001i-snip4-11.eps.apple.com [57.103.87.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07D9D606A331
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:00:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07D9D606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D910F606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:00:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D910F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gSW6fmSK
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e9e53d011eso38039155ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:00:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794895204; x=1795500004; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=lkS32XPAkky3Y3UuvpRMfImoXnZGvPVVobvUu9A3i6o=;
-        b=gSW6fmSKs8az8HHSrcImPPlh8twk0+ePtltPv5E9/XKh6yQ60ea+87EWBeYgXYakDp
-         cl4pL0mAZ4S2Mw3OXFkqXlGJLzUamT3IaMxRfUGZB3IpAfIBF8B9LjRuhbp2bGLIV/P5
-         tJlGG6gKf02e95BnNtwnWabddrCmPJ1gEUNSBjaJpTKo4KKd1TsWge1CU7DdCmrOU6WP
-         fs257DMVTNXpHyWjQABQaMwvEK80XDuSLtwKdtl9IDYJfWkMzB6YmLWv3WZf0+sFeGii
-         J8OR3b0nJY8CVpaVT/VcqhU8kYjYG9XkG7F0p26X/SmQwehaMnIrlqzIndR3GPu3xqJU
-         pSdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794895204; x=1795500004;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=lkS32XPAkky3Y3UuvpRMfImoXnZGvPVVobvUu9A3i6o=;
-        b=bdDjfW/1A27kY+pVbAZvxGS6qvciVHXLolAGDFve7ZQpptQeaY6oYq+1vVNWkG8AVS
-         Kh7UESomAG6qVW89HnCI7MZL04ZhqzqQ6PUSMnQ+ta2whn1B4i/+c5XZle3KoseUy6RV
-         tUtAhniLRKC46Dv7AjGiT45hE09wSnTvyq+mxQwgossEWFGNyGjivaAMRBFfLoIlNs5k
-         wXDyCBGODtyCerZY/b/cPZK5T4R/vgTKXDVmfOvNxnmcM7+/TSQTrecuuIHttH8GY6Rg
-         n7STOxSgzPRQVnGBKeclrpKL2Xx21c0jZbCmH1iuJHvRoQq5XfioELSamyrUwdlQp8vr
-         fFww==
-X-Forwarded-Encrypted: i=1; AL+hErFfAu5aT4jN7bClzDulLg8VwSDwXcsUwTQqm+BKx2oSOuzdSPnHKwLFVQkDKLGpvYmo/QIBto1MGaoOOcc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9vKb33sp0yrUTZAbUSiBI49AImP90yKijYjdEU83mAAxiO5tog
-	G9qw2Y3XBXaTj2/ss7Bwq77ykn253buJfY6v4pzVO/v5+nNmI8fHIvLV
-X-Gm-Gg: AZFdTZcQ8LzS1dBJfIPHWwqphCWqZLI8AYGstWyB95b21sndKdFbzX5p2WUa+C2Nz5y
-	5mXejfVQdvv9Eix1lUJtq2iuPEkR2mQ8rMrKHc4Z5U3n5Abjeh/RLMIyNuDJ7SxkBh+MuXaf5p7
-	jRrO72TAluYLie4ryC7nVydRaqQ2nk2E9BV8mOyYJ1J0OYBA36GQP5XNNzDU2rZ30WB95uCrSbP
-	XfgtOFmhIw800oWL8fsbJPnNaz0A0Ztq9fRguaESqK7nJHoFctVCovDTqrhCN6ZGo6+4pvM5yLQ
-	S3hm/1vz7Y/JIAFRnNDEnsT9zBPzteLeA1ayZE52fnUqWxekltUtNhsNTjxy9zzrSCKletr0WQp
-	pLo6i5821Ajd9o5AK5qwiuydGIZFbT1Uc9ie/B1v+mK7a4Q55sj4aKWJv7Awz/RiKat1iJkTqVd
-	neXyEn7vEEyocr7GNy635BNYbVkVcaO7GQ/7mNrwjdgg3CyQG4FOhAJvlg3+3yiv/xvjZfpn7ZJ
-	Y3ptTwrRBqb5yQk0rx7KP0S4FmKceqhKjhzoXZzrLGpmASkcPap9C//HeIARwKFAEhbhm3LkzDh
-	XYSx7GzP+RD23EkGl2xz5rjTnT6MVRIVDobdF0ab/IfFwsJd1hR/Fi0SA4YAzEFbQqaK
-X-Received: by 2002:a17:903:1846:b0:2d9:599e:df95 with SMTP id d9443c01a7336-2ee0d6600acmr126536685ad.3.1794895204164;
-        Mon, 16 Nov 2026 22:00:04 -0800 (PST)
-Received: from [127.0.1.1] (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd7a173fasm8264435ad.14.2026.11.16.22.00.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 22:00:03 -0800 (PST)
-From: Kyle Hsieh <kylehsieh1995@gmail.com>
-Date: Tue, 17 Nov 2026 14:04:38 +0800
-Subject: [PATCH v2] dt-bindings: iio: adc: lltc,ltc2497: Make vref-supply
- optional for LTC2305/LTC2309
+	dkim=pass (2048-bit key, unprotected) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=GWkO9RfJ
+Received: from outbound.qs.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-east-2d-10-percent-1 (Postfix) with ESMTPS id A1F893000167;
+	Tue, 17 Nov 2026 06:00:16 +0000 (UTC)
+X-ICL-RepId: 01a1e817-7fcd-7a89-85d9-392adaaf6cf8
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1794895218; x=1826431218; bh=Ie9TBnSRuFvJfRJMkw1HwmXycVla5fkFGDRxPOE8hzA=; h=From:To:Subject:Date:Message-ID:Content-Type:MIME-Version:x-icloud-hme; b=GWkO9RfJ06BxOFbckch+rN0PvcRS7UM49skD1gP4LwkJuboXqZMbM+DO5NvYf63Os145IC5Pm2Q1M6Obtn5bjebe9eaxTp4nXHqk3sJyPXEtwpIkLtqYvF3KF5Ub9Yh7QP7NhYbtw3iYWnBRDv12li+zxZgPyw88LoFrdoc2B0RACT0sDHLWhxhw2Kp53VWRDX9bUa599itTxHffnmb/V0aZvW4YUBfHl8hOgMTs7Ln8a3BbNcb2TpUziGLGzU3/CIltT/1tDplQ+kLcIbaXuCpc8ykcQDfsNrV9NV2nzQZM/c6vj4JHRJKWvyjKET9MODNt3R/sIvhZDa/JGj0ERQ==
+Received: from [100.126.217.91] (unknown [17.57.155.37])
+	by p00-icloudmta-asmtp-us-east-2d-10-percent-1 (Postfix) with ESMTPSA id CD5CA300014E;
+	Tue, 17 Nov 2026 06:00:08 +0000 (UTC)
+From: Muhammad Haris Awan <m.harisawan@icloud.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Kees Cook <kees@kernel.org>, David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Liam R. Howlett <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Subject: [PATCH] fork: mark memcpy() in dup_mm() with data_race()
+Date: Tue, 17 Nov 2026 10:59:56 +0500
+Message-ID: <179489519663.1444496.15875846661591982934@icloud.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,107 +70,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-ltc2497-vref-optional-v2-1-62e9d1ac7400@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAHXu+2oC/4WNSw6DIBCGr2Jm3Wl4ibGr3qNxoQg6CYoBQ9oY7
- 17qBbr8/ucByUayCR7VAdFmShTWAuJWgZn7dbJIY2EQTGjOOUO/G6HaBnO0DsO2l3zvUQ1OqlE
- PUjIFpbsVl97X7qsrPFPaQ/xcN5n/1H+LmSNHWZtW142ThrnntPTk7yYs0J3n+QVtfMUyugAAA
- A==
-X-Change-ID: 20261110-ltc2497-vref-optional-4bf34d6b3304
-To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Michael Hennerich <Michael.Hennerich@analog.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Liam Beguin <liambeguin@gmail.com>
-Cc: Michael Hennerich <michael.hennerich@analog.com>, linux@analog.com, 
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Kyle Hsieh <kylehsieh1995@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2317;
- i=kylehsieh1995@gmail.com; h=from:subject:message-id;
- bh=Wrcor3O6J2UjW7XHhJfIbkXTOnZk7CENzM1MR5U2g1M=;
- b=owEBbQGS/pANAwAKAaWDQrcJVsSBAcsmYgBq++54Vs8iILbLbQM6li8beTDhF8wDz/11oiHts
- 1xfJ8LNU+mJATMEAAEKAB0WIQTJHsaNZOdY+THGqJelg0K3CVbEgQUCavvueAAKCRClg0K3CVbE
- gSrAB/99AyqPTsJgRsc3MtdvJ16FxWGikkgo8KkE4A7okDvCiAnQd2QYvvw4J7TVVqHtbJLqRPq
- oTkV0QXJ45MYQ+CzjmvDORGPvbuKg9D1xLnft35neBjUgMFR3cl9u2snKFocW3vAOsKADfKugYW
- to625O7j7Sz+Ppyobz7JMo9iTSkZRUeV3hQqoehJIDAiitr70x9HcwL1eerU5sFPoWdQ60JH2Z6
- hxKY1+TtSDb2m0Mks9yaNn50puIfVloc+0FE3k+2IRTiDOwYfeq0wkezQbDFYHjywQSUKt0y3yF
- nYv/aZP5LiYhgI984COjA0ZHdb06CmJG+quqdG01VKvdanMt
-X-Developer-Key: i=kylehsieh1995@gmail.com; a=openpgp;
- fpr=C91EC68D64E758F931C6A897A58342B70956C481
+X-Proofpoint-ORIG-GUID: pUoMMQlIZVsQSMrjSPyAHBRwL_I-Pivh
+X-Proofpoint-GUID: pUoMMQlIZVsQSMrjSPyAHBRwL_I-Pivh
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDAyMyBTYWx0ZWRfX0DXmc8aPZLSQ
+ W/B287taoyiHNjHkANbxhoqigOb7QJ/fLGALDAxlXNFRxmu5/qhRwfmTTtwGGrPjVFBKOtP1AoI
+ Z3WG5+Rq4RxJ2TxOvdIt5bJFy6QnqSNN+fst9DqIZNh7kPqzHtziKjTBvFpObG23wyQ7HyIr1pn
+ ZXYRNwt9weBnOHhYz6p3XlTxv3FO469PqW5iopOqXMaaZJAmFWmLpEe60863J+PwnyvCI+otvLg
+ lJeRvwLRJCRnp6YBexNE9Gy9oQOMRPioRy8nogkF6S5ss+wd11iDv3hSjnQA/b+GS5UHWwIc+an
+ HTVZ7O+tzFs3NGsD87lw7bugVF7NmKPU1CE+mG6/m2iDM5IJ4BEECP+qgbyzuo=
+X-Authority-Info-Out: v=2.4 cv=SqCdKfO0 c=1 sm=1 tr=0 ts=6afbed72
+ cx=c_apl:c_pps:t_out a=bsP7O+dXZ5uKcj+dsLqiMw==:117
+ a=bsP7O+dXZ5uKcj+dsLqiMw==:17 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=x7bEGLp0ZPQA:10 a=2kFROKt5_e8A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=edf1wS77AAAA:8 a=hSkVLCK3AAAA:8 a=v3ZZPjhaAAAA:8 a=9Li-14qwQSEJLBuQiiEA:9
+ a=QEXdDO2ut3YA:10 a=DcSpbTIhAlouE1Uv7lRv:22 a=cQPPKAXgyycSBL8etih5:22
+X-JNJ: AAAAAAABC4lDjXeSrz98vWgaoTEW+CwIyC+MyrLWESSPjxuu4r3QE30jwIJqyeP3MNpABI
+ jVClgbqV6hPK3i6zLsApEOdWWRbOTS47n9CaJimHBzh2nDwlnU5Hd4EYl2mVL8BwAcuzua
+ F9i4czwAApAET2NCKe0Amr8sHE3kW/SyZMTUsPoq1X5Xq38S1lsH0E6mcKl22NKZcQm603
+ Xq14eQbSdVV70mB8doJ3V6vdsFWSiT6mnYGZqHRJNrf1ltVC8NlyWSiiJEgG7FzN7LDqAW
+ gmfOQLJ2IzJu6WgGZ19Y9DXO+Qr3APJBBUgbIeeMhZaADNZAT+lhtISJY8KTHRu6Khr+SO
+ U3k+9n1U41NXq66N8qF7DnDYfBi2ig1dzqAGREqd8wFS+Qw6gdxrGAOIIPBdaShqPrURD4
+ /NHIZRQSwn6pH4qiVzPrxtMKMSXAukjzhSOb+WijqpwxJ7+Hh4OJaq5felEY3GxcPDYzam
+ PGD6JINiRUSm4BI40QKm25E8Tplm4LfBy7+ir5u4y5bP1fL/iDuGfDM47KoOiHTy4PTRhA
+ pjy80ExTrMQsKcXIJEUdg0QFGi9xSwoo+13DfQruWnHMQnumS/G59pgXI8QTJSetSe/2er
+ liauSbszJryBI60/bdwNysLNOkXPYhTI1t7sTL19ulMWPTeiOK+UhgtF4EblYhkviO908U
+ //Y1D/+Zm+oFGVeSGopGv241sZ1Z7raS9VOmm1tgfLI0XOqL9pFPhek2Wa2w3ckOyf7M+o
+ xwFbAGXPVCdJS/4HSCBIawqTnck6fTf24XA+HoMyn23rObNEzTltGWoCkWL0axg7e97Cgf
+ UGKlo7QTgBm2YuJN1zR7Th4UBMFSiZ6OSQLQUM4G1Vgp78aM2BSDMPocBZMWI18q4pwSSi
+ WPFg+O2YGptYiCxd+7KiAii1EZTV6r7y+A4Yf0wX9cQtu+JNtgTKva9GU3pSJUSoaYl0Gr
+ 3R/Q+16OeWgBsHhe5LLixDsAFy5zIEmNQ7M1o47Vgq4B8E6mrFuXTAEQZ+JCj0hq2lLZ/g
+ djYxEZ8P+kmfJnw5CsYlJGxA8xC0JZrW+6Okrn8In+r3IsNJvf17aKrIQu185RuzPDuqiH
+ Ee77fUEHXtXfF4TLREdgVolD2/gSZbUAkgUzhx1MKqx1Kurb+HYZZPK+V22zXaV/PRzw8f
+ GtGT3yJo6NCdSOtfDNmwh69z7Zv4e7FmsI/D+rblY9dAYuY+cDQ3hnRA583ZcR1WFXqnP/
+ EUPswHmeMLH/ireMq8FZ1ukdxf0rXowNhdTyT2+KXvZSzWEVCsS2AgmsDx/npCnHmxaQSE
+ wdHR/4oiSSY0DeoJMzdp8vZyaK5Mw2whiLbG+gD3OKdRe8Ya0BAXRNXWcuEGv0zOz9xwyM
+ JWKD9zHv05DKtaLv/Fkunof8eDtUf35SuhJQZmR2JdsQFwuRGZaV0vcZPEsmu4wgbxBSAF
+ +0K/Je/odGPfxD7xyqcAlz4B5W8espUMVax2BphV/7myDdb8bJE4Ixa2m4xiV4GNI=
 
-The LTC2305 and LTC2309 have an internal 4.096V reference, so their REF
-pin does not need to be driven by an external supply. The LTC2493,
-LTC2497 and LTC2499 have no internal reference and require one.
+KCSAN reported a data race between dup_mm() copying oldmm via
+memcpy(mm, oldmm, sizeof(*mm)) and lru_gen_del_mm() modifying
+oldmm->lru_gen.list when an adjacent mm_struct on the shared
+mm_list->fifo is removed under mm_list->lock.
 
-Only require vref-supply for the LTC2493, LTC2497 and LTC2499, so boards
-using the internal reference can be described without a dummy regulator.
+oldmm->lru_gen and oldmm->mmlist are protected by mm_list->lock /
+mmlist_lock (or updated locklessly via lru_gen_use_mm()), not
+oldmm->mmap_lock. Because struct mm_struct uses __randomize_layout and
+mm_init() immediately reinitializes these fields on the new mm, wrap
+the memcpy() in data_race(), matching dup_vma() in mm/vma_init.c.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
+Fixes: bd74fdaea146 ("mm: multi-gen LRU: support page table walks")
+Reported-by: syzbot+c6e1b1b32ff2fc3b7d60@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=c6e1b1b32ff2fc3b7d60
+Signed-off-by: Muhammad Haris Awan <m.harisawan@icloud.com>
 ---
-The ltc2309 driver already uses the internal reference when vref-supply
-is absent. This is needed by the Meta Ventura2 BMC devicetree, which
-describes LTC2305 ADCs that use their internal reference:
-https://lore.kernel.org/all/20261106-ventura2-dts-update-v1-0-b085ece9bf57@gmail.com/
----
-Changes in v2:
-- Also require vref-supply for the LTC2493, which has no internal
-  reference.
-- Add blank lines around vref-supply.
-- Link to v1: https://lore.kernel.org/r/20261110-ltc2497-vref-optional-v1-1-35c9657f3c0f@gmail.com
----
- .../devicetree/bindings/iio/adc/lltc,ltc2497.yaml   | 21 +++++++++++++++++++--
- 1 file changed, 19 insertions(+), 2 deletions(-)
+ kernel/fork.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml b/Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml
-index 4df5aadd1e1d..93cc163b73c2 100644
---- a/Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml
-+++ b/Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml
-@@ -47,14 +47,31 @@ properties:
-       - lltc,ltc2499
+diff --git a/kernel/fork.c b/kernel/fork.c
+index 5efceb8d5..14ac9a070 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -1539,7 +1539,12 @@ static struct mm_struct *dup_mm(struct task_struct *tsk,
+ 		goto fail_uprobe;
+ 	}
  
-   reg: true
--  vref-supply: true
-+
-+  vref-supply:
-+    description:
-+      Reference voltage supply. The LTC2305 and LTC2309 have an internal
-+      4.096V reference which is used when this property is absent.
-+
-   "#io-channel-cells":
-     const: 1
+-	memcpy(mm, oldmm, sizeof(*mm));
++	/*
++	 * oldmm->lru_gen and oldmm->mmlist may be modified concurrently under
++	 * mm_list->lock / mmlist_lock or locklessly via lru_gen_use_mm(),
++	 * and mm_init() will immediately reinitialize them.
++	 */
++	data_race(memcpy(mm, oldmm, sizeof(*mm)));
  
- required:
-   - compatible
-   - reg
--  - vref-supply
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - lltc,ltc2493
-+              - lltc,ltc2497
-+              - lltc,ltc2499
-+    then:
-+      required:
-+        - vref-supply
- 
- additionalProperties: false
- 
-
----
-base-commit: 1390ca4953a7400ca932cb49635f02c727f885a6
-change-id: 20261110-ltc2497-vref-optional-4bf34d6b3304
-
-Best regards,
+ 	if (!mm_init(mm, tsk)) {
+ 		mmap_write_unlock(oldmm);
 -- 
-Kyle Hsieh <kylehsieh1995@gmail.com>
+2.56.0
 
