@@ -1,80 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794931276;
-	b=GTSx+ATcHOIFPKygdH68ZwvG9gnBXTPcIYE8N4M50hjvEaTAmiQb95tr7WRQnu9PoLyn
-	 ZLUuu3+zgqiDxWHObgBjNils9lOOFFqzB+vChcaHYxkEJpGVvNIeyXaiEz8bdDMX7fJAD
-	 SfCJj/Kw52U0py/xlvHslNrmIkXnsjf/O86vEnO2xnFYbxk8lVDOHqokVlbb+iiY7UgDT
-	 14TmX21cCsELvy0xtZSNEPB3ImH8fJyQF9OPtzb4tcmCPWdyedGvuq5o4QIE65zA9He6m
-	 EWE9+tBmdQf4gv2E24qzf+Sl6qNjyL8thYfjovkV8Y4WU32K4u9t/dLiNJydk/0mSXw==
+	t=1794931339;
+	b=vUa3NhbosJZsSCzvK+f2YcKPvHAxNqD4oUDUkApaz7UtNM7wctzrba0pFnC+t2oSFAiK
+	 nHUmAC05sxiztLO38WiuOKHBTyVXKqG0hh4YFLg2u3t27KskBvn+P6TwbZSEhDDfZxpNE
+	 oh4O/e3brxB9qSfzKH+hsEbal3OFiLjQV0jZ/ZIg96NIjafU8U+lUHR/j2X/F2J65bSWZ
+	 LnY0MQXlRQU9UsLjG/mLIICeSEJojzSoEJvlS1uw0kl7EpYzR28JApAF1rSl6bIoqPwzj
+	 RUIxjXBuz9xAV+HeRv7wJoWO9/hvj4eOZGfV4uZicjRRNnljCNP5SvI4rUSx30KAE+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794931276;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794931339;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Spam-Status:X-Spam-Checker-Version;
-	bh=XYdyTfSUzueQVvCDRsPhvLxTUSbaWYQF/jWn2LIlP8c=;
-	b=sAlHX7x/v08IsBD5ABd5Ix7YJvrm/63rb42aeW9vT1zfZinyfpSPxl3QtTK7tbfaJeYR
-	 OvenSu6oQELvCOQfDumBYFeEIhMn+insoVIxwOKHalrzc3wQLpKWHWUHrIVl4XFJnQt9O
-	 dorAUl+MnjGC80m4LqVrq1CNLQL9iix45s+1fyCzZuxwiw5nVqSnzp71QTsHHwNCKNZye
-	 ZnR3azWnJjUYXnbv+C9W9+AzMky00viq24jyaoMHhcSamqlDqTASykXsc+/3gVjIr48/U
-	 q5MkMgoBLYMm/QJHzxdMaf9EH4zpY0poOMDawRHo8hD7K8UZPlrW7zwh7WMVtHKWy5w==
+	 Content-Transfer-Encoding;
+	bh=PEKvPMWHlgFXON+uH+oJ0xpBSRB+nK6bJ4V9GV4qlLE=;
+	b=ibAOBkBddxQI448adUqDHizjt3+Typ7j6LpWzzOMo7s9FroVkah/TTaZPnjyMRiyJ/Jm
+	 XKMRniB2pEViBhmbU/mRTYYU6Y0pdqphq3YY2CgzGQ5rB4PYZonLrLfw7Mv71zQ8rtbYH
+	 SzKqA0PLpl6HUtOVpoW27naQOitO2k2X0DL2D4BDqqBkT1ygmeHj3Fm3WAG1U+QLyGyem
+	 g4WssdnczU3iFIZCogvbD31bHrwa9U29rRCx9MpL2ty8gRmumD3AXlNza59Ot5/uYx7tL
+	 DMo2QiwqeR0ItKzP3Y2rGALJTFjUnGkPRqoUSvZqEqfcXQIrLEEes9l5mTfLt3sSdOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b="n/5hDP+w";
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2FC83606A896;
-	Tue, 17 Nov 2026 16:01:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FC83606A896
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W+qz8ZXE;
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44897606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:02:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44897606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=n/5hDP+w
-Received: from weh-cvm-dev-vm.y50bckvjo0hefgfnzfztsfttff.phxx.internal.cloudapp.net (unknown [20.169.55.37])
-	by linux.microsoft.com (Postfix) with ESMTPSA id B112420B716C;
-	Tue, 17 Nov 2026 08:01:08 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com B112420B716C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1794931269;
-	bh=XYdyTfSUzueQVvCDRsPhvLxTUSbaWYQF/jWn2LIlP8c=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=n/5hDP+woofI2KDVuLPu3i/KBo8cta7Gt21fdSOhQDtsrm53YLzkJdna8q7HNO81J
-	 pwEAkm8+Jnvbzsk6skYzVfhs/A5iYH2Qya598EGm/eKo7mfpGP7Q5/S4O90mUI1laB
-	 LGvWt1i6iZzpJ2bpafqYzjd5UT0/KT8O3M3HuoPg=
-From: Wei Hu <weh@linux.microsoft.com>
-To: longli@kernel.org,
-	kotaranov@microsoft.com,
-	kuba@kernel.org,
-	davem@davemloft.net,
-	pabeni@redhat.com,
-	edumazet@google.com,
-	andrew+netdev@lunn.ch,
-	jgg@ziepe.ca,
-	leon@kernel.org,
-	haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	shradhagupta@linux.microsoft.com,
-	horms@kernel.org,
-	ernis@linux.microsoft.com,
-	stephen@networkplumber.org
-Cc: netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	gargaditya@linux.microsoft.com,
-	kees+treewide@kernel.org,
-	kees@kernel.org,
-	mawasthi@linux.microsoft.com,
-	weh@microsoft.com,
-	edumazet@kernel.org,
-	shacharr@microsoft.com
-Subject: [PATCH net-next v11 2/4] net: mana: give each HWC message slot its own completion state
-Date: Tue, 17 Nov 2026 16:00:59 +0000
-Message-ID: <42d753b49df1b873b2f0f6477771820e14e9fab4.1794751992.git.weh@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1794751992.git.weh@linux.microsoft.com>
-References: <cover.1794751992.git.weh@linux.microsoft.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W+qz8ZXE
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1b3acec6677so7093103c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:02:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794931338; x=1795536138; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PEKvPMWHlgFXON+uH+oJ0xpBSRB+nK6bJ4V9GV4qlLE=;
+        b=W+qz8ZXEWvqJWZvwzsHqa4QTgmwJcYChmAwrpxXaE6VI7ZwPjsV0HSiEN3HRry4Ox8
+         hDV7fG8SvYTY6lnJvCXFFLN9taD+sYrVjHFxvyBxR5BAoMfKHuDJsIR1pYslG02f64/p
+         FUO27/X0phz3jd/frZYrJUErOAeKsUfDRkb8ZmrzB5S+1WE9sd4VJzSYzERG24Ftp04d
+         BKipFJ/afKe6eeSg09hpNgxMoKLEzt8VlzvZHDj0H2fUBNisRfgzmNm7jFrl+h434rTb
+         a5SHuRkJkn+2Eb0m2Y31Uxpbf0h5d1Kg5OXcc1+e1ENctqe7vTcsaglUdP/nQDpodNqF
+         mtNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794931338; x=1795536138;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PEKvPMWHlgFXON+uH+oJ0xpBSRB+nK6bJ4V9GV4qlLE=;
+        b=RPmNAbGwDAJJiw6rykiDrKqByxcOT0vQtHSr7sD8zaFEhGn256uNIlL+NmpQKmWFHi
+         yZinlq4L1QjBDqRfch48FFAn2iWI5859H89d2i2hGPbLOhMi/MwzDfFpJ+I16YXTtQjP
+         7kPt3QtV67g0brjC52KbOs+B6tAlv0QZhADeylow7TKqwSdjT1VsdTV/tZ+pSgOlZOY0
+         yr12s27VErd285uC1yk6S+08vwYIh68JEV99vKuC42TsN5hP9epBGc5KXpaIlOlCM4b1
+         OTuqzhidfC3Ejzo/zBzOAksnU2vG3kwcgFsvGBdl0vdu/BiSVkZYGRllCNRVN5gmjgUq
+         yvFA==
+X-Gm-Message-State: APuU4Z/qZTMXfahd1oh7hDKQDNWseD49LJsToDR8K0OxdaeyTuyUzMzz
+	X6Db1rPOiqGxucQbcfPWhAwMhpVq2zBLZSG0XxRw8vLgZgkhxwFM+4kJ
+X-Gm-Gg: AZFdTZcPrXMVFbMKlAUe7/kqj54dYecSG2+9vy+0NrbkW9P5xjFEGUEMU+0SFwnqvvM
+	beMbJRv+J7NQ7s9i9+fSYASi7L/OeJErbXJ/F8jW1JP+LbY6N3sklPpeGqfz90n7AhH5Nmfegy0
+	UA9n36cFGlyHjn2S6hNERE0Kw9CzBhyu1NyCWF1Hj/t5dMWaFEv7sP4ThiW6cuZ/LooPH4JeDLb
+	fzMhbfqoJ0/yLhk0FaybO6Zo6PlJbJ2+6Jtkq8nL+AyU+K+mmctHACxP2fFfUBssYlnzXBHdvnC
+	sklMjq0duObidJgabJdjxxgISl3qDVyrNTk0vCE0Jlj2N/f0erAotjm2bOGkBX2vc5eUhY6qVmJ
+	F0qussw3BjH4xb1DDzoanAQgSsT85M0tu4p3o2l++AUNc5M+4dM6h9A2NOIKjnWKMiLUm7goQ7V
+	/6EEHFgjhsPlen9BbUzwSok7F8Q65M2ouv7b4wqu0Tl1Cb4j5uajFR36IcOyiKb54qdTyw0/y3b
+	r++quhxQgytO1bYXKlzo+Gs5ZRIMPufIEQFtxqUnL+yNtYa+cY61a9Dv5F1XrCkXovVnB0Mbbg4
+	SC+VNfQEGXS3PXOk8eOG4UdBom4xadkC5wzFEqk2xS7lxQITo2Lm
+X-Received: by 2002:a05:693c:83cf:20b0:36a:4a08:f0f0 with SMTP id 5a478bee46e88-379684b1ba3mr17121353eec.27.1794931338166;
+        Tue, 17 Nov 2026 08:02:18 -0800 (PST)
+Received: from localhost.localdomain ([103.178.205.74])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3826fc797a3sm71414eec.22.2026.11.17.08.02.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 08:02:17 -0800 (PST)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: tiwai@suse.de
+Cc: linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	perex@perex.cz,
+	sreekuttan2156239@gmail.com
+Subject: Re: [PATCH v2] ALSA: compress: Fix task resource leak on copy_to_user() failure
+Date: Tue, 17 Nov 2026 16:01:51 +0000
+Message-ID: <20261117160151.2624-1-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <87qzgjxzh7.wl-tiwai@suse.de>
+References: <87qzgjxzh7.wl-tiwai@suse.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,284 +100,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Long Li <longli@microsoft.com>
+Hi Takashi,
 
-Concurrent requests require the response handler and the waiting sender to
-agree on the lifetime and result state of each message slot.
+Thanks for reviewing.
 
-Protect the caller's output buffer, Linux error and device status with a
-per-slot lock. Publish the output buffer only while the sender is waiting
-and withdraw it before every return. This fixes the original driver's
-late response copy through caller storage whose lifetime has ended.
+Regarding dma_buf_put(), get_dma_buf() takes an extra reference 
+for each DMA-BUF. This reference is intended to be transferred 
+to the file descriptor through fd_install(). If copy_to_user() 
+fails before fd_install(), these extra references must be 
+released separately.
 
-Reinitialize completion and result state under both the allocation and
-per-slot locks when acquiring the slot. This also fixes stale completion
-state surviving a timed-out request. A response handler can still hold the
-per-slot lock after the previous sender has returned its admission permit,
-so an unpublished bitmap bit alone is not sufficient protection. If the
-response records its result while the timed wait expires, return that
-result instead of reporting a false timeout.
+snd_compr_task_free_one() releases the task's original DMA-BUF 
+references through snd_compr_task_free(). So both the explicit 
+dma_buf_put() calls and snd_compr_task_free_one() are needed.
 
-Keep the baseline's post-timeout admission behavior at this step rather
-than introducing a temporary channel-wide latch that suppresses subsequent
-teardown commands. This patch alone does not solve late-response
-correlation or TX-buffer reuse after a timeout. The next patch adds
-response ownership, per-slot quarantine and the associated admission and
-cleanup rules together; backporting the fixes needs that dependency.
+Regarding the file descriptor ordering, I moved fd_install() 
+after copy_to_user() so that the file descriptors are installed 
+only after the task information is successfully copied to userspace.
 
-Split response-status handling and request cleanup into helpers so the send
-path has structured returns rather than phase-jumping gotos.
+There is a small time gap between copying the descriptor numbers and 
+installing the file descriptors. Userspace should use these descriptors 
+only after the ioctl completes.
 
-Fixes: ca9c54d2d6a5 ("net: mana: Add a driver for Microsoft Azure Network Adapter (MANA)")
-Link: https://lore.kernel.org/r/20260908035201.402424-3-longli@microsoft.com
-Link: https://lore.kernel.org/r/20260908035201.402424-4-longli@microsoft.com
-Link: https://lore.kernel.org/r/179196575434.434549.4428132041097324407@kernel.org
-Link: https://lore.kernel.org/r/179196575640.434549.9102950927041409151@kernel.org
-Link: https://lore.kernel.org/r/179455239815.2199510.4673285259543925635@kernel.org
-Signed-off-by: Long Li <longli@microsoft.com>
-Signed-off-by: Wei Hu <weh@microsoft.com>
-Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>
-Copilot-Session: 8c2361e6-c0f4-4b0c-bf01-b5e4cdacec50
----
- .../net/ethernet/microsoft/mana/hw_channel.c  | 125 +++++++++++++-----
- include/net/mana/hw_channel.h                 |   4 +-
- 2 files changed, 95 insertions(+), 34 deletions(-)
+Please let me know if you have any further concerns.
 
-diff --git a/drivers/net/ethernet/microsoft/mana/hw_channel.c b/drivers/net/ethernet/microsoft/mana/hw_channel.c
-index 9e0964072af9..6f0ccdeffc4f 100644
---- a/drivers/net/ethernet/microsoft/mana/hw_channel.c
-+++ b/drivers/net/ethernet/microsoft/mana/hw_channel.c
-@@ -9,6 +9,7 @@
- static int mana_hwc_get_msg_index(struct hw_channel_context *hwc, u16 *msg_id)
- {
- 	struct gdma_resource *r = &hwc->inflight_msg_res;
-+	struct hwc_caller_ctx *ctx;
- 	unsigned long flags;
- 	u32 index;
- 
-@@ -19,8 +20,17 @@ static int mana_hwc_get_msg_index(struct hw_channel_context *hwc, u16 *msg_id)
- 	index = find_first_zero_bit(hwc->inflight_msg_res.map,
- 				    hwc->inflight_msg_res.size);
- 
-+	ctx = &hwc->caller_ctx[index];
-+	spin_lock(&ctx->lock);
-+	reinit_completion(&ctx->comp_event);
-+	ctx->output_buf = NULL;
-+	ctx->output_buflen = 0;
-+	ctx->error = -EINPROGRESS;
-+	ctx->status_code = 0;
-+
- 	bitmap_set(hwc->inflight_msg_res.map, index, 1);
- 
-+	spin_unlock(&ctx->lock);
- 	spin_unlock_irqrestore(&r->lock, flags);
- 
- 	*msg_id = index;
-@@ -90,14 +100,21 @@ static void mana_hwc_handle_resp(struct hw_channel_context *hwc, u32 resp_len,
- 	}
- 
- 	ctx = hwc->caller_ctx + msg_id;
--	err = mana_hwc_verify_resp_msg(ctx, resp_msg, resp_len);
--	if (err)
--		goto out;
- 
--	ctx->status_code = resp_msg->status;
-+	spin_lock(&ctx->lock);
-+	if (!ctx->output_buf) {
-+		spin_unlock(&ctx->lock);
-+		mana_hwc_post_rx_wqe(hwc->rxq, rx_req);
-+		return;
-+	}
- 
--	memcpy(ctx->output_buf, resp_msg, resp_len);
--out:
-+	err = mana_hwc_verify_resp_msg(ctx, resp_msg, resp_len);
-+	if (!err) {
-+		ctx->status_code = resp_msg->status;
-+		memcpy(ctx->output_buf, resp_msg, resp_len);
-+	}
-+
-+	ctx->output_buf = NULL;
- 	ctx->error = err;
- 
- 	/* Must post rx wqe before complete(), otherwise the next rx may
-@@ -106,6 +123,7 @@ static void mana_hwc_handle_resp(struct hw_channel_context *hwc, u32 resp_len,
- 	mana_hwc_post_rx_wqe(hwc->rxq, rx_req);
- 
- 	complete(&ctx->comp_event);
-+	spin_unlock(&ctx->lock);
- }
- 
- static void mana_hwc_init_event_handler(void *ctx, struct gdma_queue *q_self,
-@@ -696,8 +714,10 @@ static int mana_hwc_test_channel(struct hw_channel_context *hwc, u16 q_depth,
- 	if (!ctx)
- 		return -ENOMEM;
- 
--	for (i = 0; i < q_depth; ++i)
-+	for (i = 0; i < q_depth; ++i) {
- 		init_completion(&ctx[i].comp_event);
-+		spin_lock_init(&ctx[i].lock);
-+	}
- 
- 	hwc->caller_ctx = ctx;
- 
-@@ -1000,6 +1020,37 @@ void mana_hwc_free_retained_channel(struct gdma_context *gc)
- 	gc->hwc.gdma_context = NULL;
- }
- 
-+static int mana_hwc_response_status(struct hw_channel_context *hwc,
-+				    u32 command, int error, u32 status)
-+{
-+	if (error)
-+		return error;
-+
-+	if (!status || status == GDMA_STATUS_MORE_ENTRIES)
-+		return 0;
-+
-+	if (status == GDMA_STATUS_CMD_UNSUPPORTED)
-+		return -EOPNOTSUPP;
-+
-+	if (command != MANA_QUERY_PHY_STAT)
-+		dev_err(hwc->dev, "Command 0x%x failed with status: 0x%x\n",
-+			command, status);
-+
-+	return -EPROTO;
-+}
-+
-+static void mana_hwc_finish_request(struct hw_channel_context *hwc,
-+				    struct hwc_caller_ctx *ctx, u16 msg_id)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&ctx->lock, flags);
-+	ctx->output_buf = NULL;
-+	spin_unlock_irqrestore(&ctx->lock, flags);
-+
-+	mana_hwc_put_msg_index(hwc, msg_id);
-+}
-+
- int mana_hwc_send_request(struct hw_channel_context *hwc, u32 req_len,
- 			  const void *req, u32 resp_len, void *resp)
- {
-@@ -1007,26 +1058,32 @@ int mana_hwc_send_request(struct hw_channel_context *hwc, u32 req_len,
- 	struct hwc_wq *txq = hwc->txq;
- 	struct gdma_req_hdr *req_msg;
- 	struct hwc_caller_ctx *ctx;
-+	unsigned long flags;
- 	u32 dest_vrcq;
- 	u32 dest_vrq;
- 	u32 command;
-+	u32 status;
- 	u16 msg_id;
- 	int err;
- 
--	mana_hwc_get_msg_index(hwc, &msg_id);
-+	err = mana_hwc_get_msg_index(hwc, &msg_id);
-+	if (err)
-+		return err;
- 
- 	tx_wr = &txq->msg_buf->reqs[msg_id];
-+	ctx = hwc->caller_ctx + msg_id;
- 
- 	if (req_len > tx_wr->buf_len) {
- 		dev_err(hwc->dev, "HWC: req msg size: %d > %d\n", req_len,
- 			tx_wr->buf_len);
--		err = -EINVAL;
--		goto out;
-+		mana_hwc_finish_request(hwc, ctx, msg_id);
-+		return -EINVAL;
- 	}
- 
--	ctx = hwc->caller_ctx + msg_id;
-+	spin_lock_irqsave(&ctx->lock, flags);
- 	ctx->output_buf = resp;
- 	ctx->output_buflen = resp_len;
-+	spin_unlock_irqrestore(&ctx->lock, flags);
- 
- 	req_msg = (struct gdma_req_hdr *)tx_wr->buf_va;
- 	if (req)
-@@ -1048,11 +1105,24 @@ int mana_hwc_send_request(struct hw_channel_context *hwc, u32 req_len,
- 	err = mana_hwc_post_tx_wqe(txq, tx_wr, dest_vrq, dest_vrcq, false);
- 	if (err) {
- 		dev_err(hwc->dev, "HWC: Failed to post send WQE: %d\n", err);
--		goto out;
-+		mana_hwc_finish_request(hwc, ctx, msg_id);
-+		return err;
- 	}
- 
- 	if (!wait_for_completion_timeout(&ctx->comp_event,
--					 (msecs_to_jiffies(hwc->hwc_timeout)))) {
-+					 msecs_to_jiffies(hwc->hwc_timeout))) {
-+		spin_lock_irqsave(&ctx->lock, flags);
-+		ctx->output_buf = NULL;
-+		err = ctx->error;
-+		status = ctx->status_code;
-+		spin_unlock_irqrestore(&ctx->lock, flags);
-+
-+		if (err != -EINPROGRESS) {
-+			mana_hwc_finish_request(hwc, ctx, msg_id);
-+			return mana_hwc_response_status(hwc, command, err,
-+							status);
-+		}
-+
- 		if (hwc->hwc_timeout != 0)
- 			dev_err(hwc->dev, "Command 0x%x timed out: %u ms\n",
- 				command, hwc->hwc_timeout);
-@@ -1061,27 +1131,16 @@ int mana_hwc_send_request(struct hw_channel_context *hwc, u32 req_len,
- 		if (hwc->hwc_timeout > 1)
- 			hwc->hwc_timeout = 1;
- 
--		err = -ETIMEDOUT;
--		goto out;
-+		mana_hwc_finish_request(hwc, ctx, msg_id);
-+		return -ETIMEDOUT;
- 	}
- 
--	if (ctx->error) {
--		err = ctx->error;
--		goto out;
--	}
-+	spin_lock_irqsave(&ctx->lock, flags);
-+	ctx->output_buf = NULL;
-+	err = ctx->error;
-+	status = ctx->status_code;
-+	spin_unlock_irqrestore(&ctx->lock, flags);
- 
--	if (ctx->status_code && ctx->status_code != GDMA_STATUS_MORE_ENTRIES) {
--		if (ctx->status_code == GDMA_STATUS_CMD_UNSUPPORTED) {
--			err = -EOPNOTSUPP;
--			goto out;
--		}
--		if (command != MANA_QUERY_PHY_STAT)
--			dev_err(hwc->dev, "Command 0x%x failed with status: 0x%x\n",
--				command, ctx->status_code);
--		err = -EPROTO;
--		goto out;
--	}
--out:
--	mana_hwc_put_msg_index(hwc, msg_id);
--	return err;
-+	mana_hwc_finish_request(hwc, ctx, msg_id);
-+	return mana_hwc_response_status(hwc, command, err, status);
- }
-diff --git a/include/net/mana/hw_channel.h b/include/net/mana/hw_channel.h
-index 1320bdfa9d2a..c7570a5f7376 100644
---- a/include/net/mana/hw_channel.h
-+++ b/include/net/mana/hw_channel.h
-@@ -168,10 +168,12 @@ struct hwc_wq {
- 
- struct hwc_caller_ctx {
- 	struct completion comp_event;
-+	/* Protects initialization, output storage and response state. */
-+	spinlock_t lock;
- 	void *output_buf;
- 	u32 output_buflen;
- 
--	u32 error; /* Linux error code */
-+	int error; /* Linux error code */
- 	u32 status_code;
- };
- 
--- 
-2.43.0
-
+Best regards,
+Sreeraj
