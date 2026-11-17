@@ -1,49 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794921524;
-	b=EgYWdJHryl/Wmc7DcSmjTKmzwmqSBilkoTzcija9nCUh8BsADAg9XIgjK6xy+cYsIq/+
-	 SXnKaz85EU4jmFAZ3czV626Y6kvnPUXlnOwxSgrd63M6KUlB0HKyJ34pU0Jm0tMFgTx1C
-	 /DpNKKO0VwFY+pdqsTt44jEwvwCezKXRZz59iHc6dKhasx3BnqomJsC72A6LxOwjeO26o
-	 ns8UMZYfTxB4HjP3ANVrlALRWlu4TCxiez6Gekq/4E27xpgbYhcAXvedfeSS+x71MlNP2
-	 58k7c7W73hzVVvlB216IJr/Z2f69CuYYxKPoewJ6TV7kSmUpSayErYFoptawTofEibg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794921524;
-	h=DMARC-Filter:Received:DKIM-Signature:MIME-Version:Date:From:To:Cc:
-	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=Mq6W0SJjV2XsZGqNGRaOoIh0Y0rXmbfMH2IslWU3UVU=;
-	b=MQjGS79dopAVfLdOHdkyFOMwmcconqdbQlYIqC9AgPLxSYuz6kRQqPmROWzOwSPbBpnP
-	 /b35vmaxs0WFRc13j70n8xa1sW5Ki1Ibn7JtSoOo20hLd+4OQZXdM61muNgXbVlSokIR+
-	 eko1HSvyoPsQC4BlopA9EJKLurYMR0xcPCmZia6N7DuwoDcv1oprRLp1eFgwQKWDdt7uA
-	 KGaONxyYp3iI88n0iE12YplyVfP3zKX7Tfps2aHKzSBq09fehSElu3L3FgZqGeoKI1Ea5
-	 kCxWgv2MtTyov6WjKObeHfG0inMoIvbxNrm0/kYBhGUTPityEe09XtmeD2aFL8OcxeA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tipi-net.de;
-	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=CBaZuYf2;
-	arc=none smtp.remote-ip=194.13.80.246
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.193.100
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794921571;
+	b=zE6EFUCr2FwIzV9sIKHN3ozkflGowIi+kkLxqKTT66JiZ04LfF79GapfSIv0QRa+0Bto
+	 BufaHnGAYI+pQcOaPIugOwjT8txaAJSdDvU+NZPP6kihHC3+qA2eNlVAVBctrBddcinu8
+	 3wksj3ffAMGz6YROqDu0nFeEuEgC1tTKlBAaAgp61n8RRb+nH5UQJOtYFqHp+59msdMOq
+	 5wxJuG5KexihSQYZ3t5YNOwuQm/HsNxzr0ckL2pBp7rzZexID/NmX3am4RUrVzdiop39N
+	 u6nsbQ9xaE68AimHBCXG3CcTJzFloVkzWrdqdRD11s1mrHTuWHWfEJLhoB+zptJAUlw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794921571;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=m8rXEwdx7pb8ZchL7bg34gvBvvdtgFYlAchjaNwKN18=;
+	b=sn3xTZ+dBJu/9EGVLjpWXnolJEkXpe/zZMCVGhanMdadSYG3wzilQVS8TQU4lpsgG1FR
+	 mty1EUhMTAIg7IhsRgXFyFmpbj45nkk3nEdLZRtymwneZUi0Rd7AVRCPApX3vbD+wHjJl
+	 Ntfu0dKaXzonw4shj1r8vl9B/DPGXGoZkIiKc978X5cwM9EWYsmD+aERN76v3bLGgxPVI
+	 XA8zFprjCWSQf0PCXMyRZzGL+3OGlQydFEDCC+N100ChLdjezxYelt8u2yO+Vl13vGpUU
+	 7N00++hhh38U49z+on2cXMV/60dJDJXKZBltYB01jOFtxpW9/vKW6LCim33Ntg02+wA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=iGObthix;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.193.100
+Received: from YT6PR01CU002.outbound.protection.outlook.com (mail-canadacentralazon11022100.outbound.protection.outlook.com [40.107.193.100])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B584606A887;
-	Tue, 17 Nov 2026 13:18:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B584606A887
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23104606A31C;
+	Tue, 17 Nov 2026 13:19:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23104606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=CBaZuYf2
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C9770A0021;
-	Tue, 17 Nov 2026 14:18:40 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1794921522; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=Mq6W0SJjV2XsZGqNGRaOoIh0Y0rXmbfMH2IslWU3UVU=;
-	b=CBaZuYf2Jmkqul+6ohs43/H/0rXKbMHY8vJSrEFi2jXDPn8Qf/pjVEofkZdqUt538IRKRU
-	QUFTuPr9B8yDUxvZCRM92n9adYYzTVTIb/eJT3FwTaNDX6u0tFBFpETDIHkD3WvFd3Uown
-	8+Ue1IfL/9ILTBHzRu7uFrl51+b+V/ajP9xg01DIuiGmQHPUJB/YSt/to2MdeXM2Hljt/U
-	JLUes1EguIeh5nAVCb3HSVfmyt0PZ5NBa7lo12iTkU35SWlTyUStWQX7vgwNw3jUnZY38D
-	DIJoXtJnChkRphYQGz3D7Hpv9ZoEMy8nR6PPyyJH6WuEm27xx7Nqh4cZq7tr2w==
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=iGObthix
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NiRtcXYuIuj7DqOmGQwFXJFZrt2HgvEfls8f67ulibKTUO5GGWdFAPWfL9pjOLAcUlWnrzjzaV2yq1+C5cS1qSC2Lkk8OP5/qAy+RxpQV3gr0VHes5F5zAkOg1tAP4VsC4w8zV31w0EvJFpS0GQhfbeAHe86Wbl+g7AQFbXz3igAlISAE+wgEBjUA7U8yLk/iXE46TPFRVPQWX2O0O5SgcDRKKo4jS55BcNPor23/ftGS9b12D4fUZjHmOpbBDZwjp54VAVztnaZ+gCqZxZ6JEM9Fx1/erT8/UwdEg86icmCLTG8F1pBVXURo7FbgT01k32gN2J9aI9JSiQLc2VhEg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=m8rXEwdx7pb8ZchL7bg34gvBvvdtgFYlAchjaNwKN18=;
+ b=Kpw26TtuwlyTaEBZ1zQ3qNh/mqZe84jZzePL4fZ1J9ir1RK+ZcjCsYXlBsF/vfgjgabQ8JZiyroxX084ANaLwaGdlBsGuSeRxveow+mjnzFe5EsF66Oo6voNYst9U/YSVhVlaxFGK71WfSkKwJOwURFQyy36aveH2MdkLbvFW7SsV+lDX2CZVsLlaTesAfPFIndMZ3gQFjdHXDoE1HY/Fi52iXLEbgLPgH0An2H1nxUsSNXe+yl73eMA2V9QZ0LxIWFL0vvBOyyPelA1JtnBDxTkfSQO373Um/vC6fUsw5KNCimifI28C17hZ0w4ydZc4ygigMoqmjfiGVrrw8NgDg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
+ dkim=pass header.d=efficios.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=m8rXEwdx7pb8ZchL7bg34gvBvvdtgFYlAchjaNwKN18=;
+ b=iGObthixS6dwwRHX3AIlSMCH5oazpNjhyX6dfDQLpJ4Cu4IB0lfDh3AcB7tlDsxEeCvVy8TCiTA6xS9RJRhOznT/UBb56mb4KxlxJrRJfywXY8t2OA+XzPgZk0PrSDKtKfp+zYd49b9501A0t0a7VKAjgjjZIEheXk/9AG/Ug+3XfAYa/y0l9wUGnCmU1Pn7qSYLR7xxdp5eWqVCT87VHVzec4iFA5o3W9CVh817k/IYodbw+zO3SURQPbgMQY5Q3rrGFyydNTE2Ouo6z84cxVNFQnWk3nxgrtYlDMIv7t25Cn1LJIQmEBov+vS1z409QF3VR6GlogWmajvl4zIqew==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=efficios.com;
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10) by TO1PPFB99324EBE.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b08::686) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
+ 2026 13:19:27 +0000
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
+ 13:19:27 +0000
+Message-ID: <82799f74-40f6-4790-8243-5eb6d29292f1@efficios.com>
+Date: Tue, 17 Nov 2026 08:19:26 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v1 2/8] sched/proxy: Wake blocked RT and deadline
+ tasks through the full path
+To: John Stultz <jstultz@google.com>
+Cc: peterz@infradead.org, mingo@redhat.com, juri.lelli@redhat.com,
+ vincent.guittot@linaro.org, linux-kernel@vger.kernel.org,
+ dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
+ mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+ connoro@google.com, arighi@nvidia.com, akpm@linux-foundation.org,
+ shuah@kernel.org, linux-kselftest@vger.kernel.org
+References: <20261116192638.233125-1-mathieu.desnoyers@efficios.com>
+ <20261116192638.233125-3-mathieu.desnoyers@efficios.com>
+ <CANDhNCoWGAPr+TBPAiZB1bd3o-CGpkYG_w2ssgx0WQryBXe_bQ@mail.gmail.com>
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Content-Language: en-US
+In-Reply-To: <CANDhNCoWGAPr+TBPAiZB1bd3o-CGpkYG_w2ssgx0WQryBXe_bQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0271.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:68::32) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,81 +104,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Tue, 17 Nov 2026 14:18:40 +0100
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Daniel Machon <daniel.machon@microchip.com>
-Cc: Horatiu Vultur <horatiu.vultur@microchip.com>,
- UNGLinuxDriver@microchip.com, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next] net: lan966x: free the RX pages when the TX
- allocation fails
-In-Reply-To: <20261117-lan966x-rx-pages-tx-alloc-fail-v1-1-13f310d66650@microchip.com>
-References: <20261117-lan966x-rx-pages-tx-alloc-fail-v1-1-13f310d66650@microchip.com>
-Message-ID: <ca8a0d98bb7981610f0b4e33ce92aac0@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|TO1PPFB99324EBE:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9f9d6d33-6110-41a2-adec-08df44ad67f9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|366016|376014|1800799024|18002099003|22082099003|4143699003|56012099006|261022075727099003|261028144727099003|10067099003|261026140227099003|261022105027099003;
+X-Microsoft-Antispam-Message-Info:
+	Y6//vIRLW4IbnsGAj3D+3JoeWUpPkAOKZauYPYV4eApktd9qxKlHF1muI2qoigak0dbACHQcIKaqFumYl+eWf6p1xvpBgQeVnq8UKFrFO+sYw9dbi2270uwkbEgHSn8cyccEe6s1SQf2cJUTu34YIF9ztqCUul6rmOjpZfTQh5wRxzwyOko5E7QvR8WhNupnlZbF502RMZd5xuU4/ed8cf4R8tnY0YA3y1HGojH0B/knV4epZOrq2MZB5lNPbdD/+F9cGuPv+MHtHvo/vvD9/dVFwyXM4RM5myf1RjfHDAP8IMNk53CD5Yekji/KAV+izZaRlPzU7d4n3FHk6WCneuSgE/55rAqs2gQDyP14f//yxkCce2ET8PEBNEyRHVDWz3z9CLjg2/XUZg+S+/sXNLud9T6dAnAzxhtyrIKFDGwQpLzoaAdvgb/OcqMDsbFpJ8F4EDOftc+ieWpJfvgyvYTqlHyzNiDW6YVmf9sDE8Og3dAwFKeRW6u5g1I2pbrE0flRBOSJ/v59SKQlW3OwMlP9l2BI1O1RJQ/HNck+mB4oXjI4Sp5akW9bdr+qvvcLPUMcYz3cuxjnzvpYmC1/K//foCcZyquCsDQyRMfSw14=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(366016)(376014)(1800799024)(18002099003)(22082099003)(4143699003)(56012099006)(261022075727099003)(261028144727099003)(10067099003)(261026140227099003)(261022105027099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?emNva0xLWUVHdkFDV0xoaSsxb3RmbFJab1RtcHFrb3NqK1ZCWUE5ZTAzMnFn?=
+ =?utf-8?B?OXdjVHo2a1dZZFBpeU96Q2o3bFd5Vy9kUGR2aHlWYTFQaS90Q3V4L1NYMkJu?=
+ =?utf-8?B?UFU5b3RmU2xiVERMZEg5M2RHcUpkZ3hLVnJuRENJdVFOVk5Vbml4ckxRTEpy?=
+ =?utf-8?B?SHlUbFJHWHZQeWdTZG02QkNLMHhLVWlWNWUxNWRyK2h6MGNodzY0UWRCOXJs?=
+ =?utf-8?B?eHZZdFQzeTRCbWs2K2JsWkl0alRCbXdIcW96QWo4UWljditsS21mVWtTamkv?=
+ =?utf-8?B?aW1RMzFaV1BFR2l5SUZQKzZFeGtyZ2YyZGU1RE1SVTVoeGVEaVJSVWVJaHla?=
+ =?utf-8?B?ZWl3VElCT0dCUGtPclRLcHJzV1ZkRkpORGVXZU9UZ1pzTTMxMUp5elJ4NGp4?=
+ =?utf-8?B?TytVUGdXSW1BcXlGb2NFSHcxN0NobWd5dk1BcGhCRFJ5dGcvZmpxQUxMc1ZS?=
+ =?utf-8?B?K1dodjUzRmlxWmZSNWsrSDNmaUFSSnhnaHVkQ1Fxd0xhMGZsT0VMc09kclZx?=
+ =?utf-8?B?SENFeWVYb0xna05LWnIyWitrN1JQeTJuMlY2VmcxMEc5QlNFZUVnOTF5QWwr?=
+ =?utf-8?B?K0ljVExEYmlDUUtFNTNJT20vb1JJSGsybFpaNk05VkE2Q01JZEdjNlRXU1RX?=
+ =?utf-8?B?R1ZyQjUxYm5ES215K2pwOTZzOThuUWltWW1zUjhpaWpZSFlaa3JxUksxb0t0?=
+ =?utf-8?B?cnV5UjA2TURxb256VllLdmR1cjdrTG9nWml3QUlxeFMza3F0eFNuV1hIVW4x?=
+ =?utf-8?B?V29ZTnBQT05CaHQvN014dDVHZ3JnZC8vbWRjMmp1NitsWXdNZUxJeDJ1L0lL?=
+ =?utf-8?B?U3JZY2d6N3dzZFFXQWFNWW1CNS9od0E1ODc0cWo1aXdOaDU2WXNCOGsxTVhk?=
+ =?utf-8?B?R0Z4T0h5MS9qZVdHeHRrUEtKczZKK3VJbkVWd04xYVh6Q1E5QVNjZTZEM2Vy?=
+ =?utf-8?B?eGFFT3UyM1JucEpwYnYwUzJnWWJKNVBmQ1FIb205RlZSSzV0b0JFN1Rka2xH?=
+ =?utf-8?B?S2NrU2ZKWEZLQlFPc0VZd0hYQVJZTVRNL0llUFlmZExnajBYRysrMkJaSjhG?=
+ =?utf-8?B?enhUTENVTWJEUWRaK3BFOFp0SzUvdnU0aU15TXB6S241VHFiK3pHUmhCRXNr?=
+ =?utf-8?B?cHZSNVJqVmRrYzBSTzhVbmkxRlNxVU0wZGlSSStpOUkrT09ySjZxTS9mQnor?=
+ =?utf-8?B?YkFpN3U4MjJ4bFcrRHdNUk41MzM0aVJES3BreGRqTWk4WEdXQnhKa3MwOStX?=
+ =?utf-8?B?azlBVTBzM0pFN1Avd0s3Umo3Z3ZFMVBKM1lDMlRhZ1dzNExiWmg5VUN3TTY0?=
+ =?utf-8?B?VGJzU1FxOHFKam1qYnhOdVNySkw2N3JoMXFRSUE4VWY5NkhBQnFMUmt5ZGJu?=
+ =?utf-8?B?b1dVZVhoYk14dk5kL3ZLSXAxQU5OMW9LWWtFd01wMUJ3RmlDWFVZK2lYeGYx?=
+ =?utf-8?B?N2xEU2lVZ1NMZjg2UUY1WThSZ3dObmxXVkczZWEwdWQzc1g2TWczNVE2RytD?=
+ =?utf-8?B?eEVscUxHM0VYMlFKcEFXcDd2Mlhqb2J5Wm9BMEx2ZDFhRENLYUw5YXBTZE5i?=
+ =?utf-8?B?S1RlNDBhZ1BVa1I3a1FtNUczVEJRLzBTbCtoeDlvZ1UwaGdtaHd2UUIwVHgx?=
+ =?utf-8?B?REkycGZvOEZSQ0FvRytwTnVXaW9tQ2xkTXc2QXdtaW9weElOakYzQXdXSWtk?=
+ =?utf-8?B?eFV6RXFwYWRFa3RicG9HWnhOUzNIeDN5N29CU1B6Y0NQbXIxVTdEajRBMlg0?=
+ =?utf-8?B?RHpGam43QkkxRS9DeTFFMktMbmtGM2RoYjN4cmlPNXFsZFREUlJ4bU1XUGxp?=
+ =?utf-8?B?NnpPMVcydkoxNmk5aHF5QU4xVFA0VXNwbXhHbkozSCtzRzNuQk9DZ1JLZkFS?=
+ =?utf-8?B?cWN3a2QzUWZBWlZwZGFiOFo2ZlNCM25BWE5yaCtIUVBNWTZLMjdsVHFnQ1po?=
+ =?utf-8?B?SUNBNmxLYmhrWlR5RmtWNUFmVTV4SjlqS1lVYS84OS9pSnpoejVFaTl0enkr?=
+ =?utf-8?B?dEdSaCtxb3hZOFV4aStRaU1renZtTVN3RzBoNFEvRDYvdk1oKzB4d0NWWGZk?=
+ =?utf-8?B?Q2xRM3NwYURrMXZncGN1UUp1Sms3R29PRmVESWg2TEhOT3hINE5OOXJUQ1VS?=
+ =?utf-8?B?bGlwdzJLN0xEK09sZ1BsV2xjQlF2Q2JFQ0pJL2RHdjZPM09JVVVvZnhsNDk5?=
+ =?utf-8?B?NXlCczFQK1dFZVVKd2xpTUZpelN3anpvNVZsdUNPNnFkVkxMbVRGcFdqLzEv?=
+ =?utf-8?B?WDYydSsxdGtqVVd2aENweU9tQ2JtM0dzNVFzcFNWOThDSDZqMStucTJCZnRl?=
+ =?utf-8?B?SVc3RkRxQTJMWm53cW9TSS9HS2tkUjJMYmthTmlvYklDMUdTcWFFUDdPVDJp?=
+ =?utf-8?Q?D8Zt8oRODikT8P3U=3D?=
+X-OriginatorOrg: efficios.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9f9d6d33-6110-41a2-adec-08df44ad67f9
+X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 13:19:27.5027
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +5QF7F4OM/1pfs+hYhekWrCEoZKcINLGjOTRoIiIleiY4SGvR2WzKa5BEOkGl6pJPsSEmt//GaQo3mf+Nv/3Z7qwy0eeWWdzA07rfTHMLnc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TO1PPFB99324EBE
 
-On 17.11.2026 13:49, Daniel Machon wrote:
-> lan966x_fdma_init() allocates the RX ring and fills its DCBs with pages
-> from the RX page pool, then allocates the TX ring. If the TX allocation
-> fails, the error path frees the RX ring and destroys the page pool, but
-> does not return the pages to the pool first.
-> 
-> The pool then never finishes its shutdown, and 
-> page_pool_release_retry()
-> keeps warning about the pages still in flight.
-> 
-> To let the pool shut down, return the RX pages before destroying it, as
-> lan966x_fdma_deinit() does. lan966x_fdma_rx_alloc() does not check that
-> every DCB got its pages, so skip the entries that are still empty.
-> 
-> Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
-> ---
->  drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c 
-> b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
-> index 1fbe910c5ec38..586ee648c7741 100644
-> --- a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
-> +++ b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
-> @@ -54,9 +54,11 @@ static void lan966x_fdma_rx_free_pages(struct 
-> lan966x_rx *rx)
->  	int i, j;
-> 
->  	for (i = 0; i < fdma->n_dcbs; ++i) {
-> -		for (j = 0; j < fdma->n_dbs; ++j)
-> -			page_pool_put_full_page(rx->page_pool,
-> -						rx->page[i][j], false);
-> +		for (j = 0; j < fdma->n_dbs; ++j) {
-> +			if (rx->page[i][j])
-> +				page_pool_put_full_page(rx->page_pool,
-> +							rx->page[i][j], false);
-> +		}
->  	}
->  }
-> 
-> @@ -999,6 +1001,7 @@ int lan966x_fdma_init(struct lan966x *lan966x)
-> 
->  	err = lan966x_fdma_tx_alloc(&lan966x->tx);
->  	if (err) {
-> +		lan966x_fdma_rx_free_pages(&lan966x->rx);
->  		fdma_free_coherent(lan966x->dma_dev, &lan966x->rx.fdma);
->  		page_pool_destroy(lan966x->rx.page_pool);
->  		return err;
-> 
-> ---
-> base-commit: 994089a3fa3882f27f4bed9fc5815ee7df502e88
-> change-id: 20261116-lan966x-rx-pages-tx-alloc-fail-2b8e412f15f2
-> 
-> Best regards,
+On 2026-11-16 16:35, John Stultz wrote:
+> Also in another thread (which I can't find right now), a good point
+> was raised that some of the early return "shortcuts" that I've used
+> elsewhere aren't good for core-scheduling either since they can break
+> the cookie checks, so I wonder if a better fix here would be just
+> removing that (task_cpu(p) == p->wake_cpu) conditional all together?
 
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+Yes, that is simpler. I kept the shortcut for the other classes only to
+keep the optimization of commit 7918cf369361. If the cookie checks need
+the full path too, I see no reason to keep it.
 
-Regards
-Nicolai
+The reply to patch 1 has what this changes there.
+
+Thanks,
+
+Mathieu
+
+
+-- 
+Mathieu Desnoyers
+EfficiOS Inc.
+https://www.efficios.com
