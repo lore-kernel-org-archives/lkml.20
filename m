@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794927995;
-	b=LRfFO3eeh9Zka6dr/VZxkljfTZWgFQsY2GF6RntgqtdCTgIeXA7Map9eDcjascZzMdUN
-	 0jFrZjqzeTMnkMY9QnjjEqfS2QL/f4GBD7ifOKT8aZF4CRN0gAEMIO3X4borafvVRVZxa
-	 vLwBN0Hx1uzxsXNAlQr1cO6h9CJxZBsxuoO8VA+Ep8Po5xx5K3LtCmJhboCXX+WvStiZm
-	 aKdo5xUTSdJ+MBnUHddDkvGU/kDKTBNhW++bULaDrg1MS3juzhkIDZur4ILnxJVxQ0sNe
-	 2YFMmMlVtGZwgVoQO31aGwPl1gHVgHd3DHBnT+B8flnR97zw04mgp4BLflDtwEl3RcA==
+	t=1794928030;
+	b=SRyTd1eFKmsNmI3O2oLF8rhjQ0Ikz1RIV+j6YIf3vcUoN/9w6bNdqTHiSvMteceIswYU
+	 dr73IvbdB0Yr5qjSL9amJ3XRGvt5znve+KQeryzXhinmP9VD5vIcmdKWEeW2Mt9TIKzuY
+	 miXVW6WkNZq3R2AVbbotmtU+t0wlr0HEJvvMl/6ZbjxzBumfCOQMUkOhkEvVOFT0w930w
+	 pzjIRC4mdU4k3ubjYd+oM+hAK/wk6mO4Gz7OWxueUSVvw+j60qc4foSZUvmqYZqfrdjRr
+	 7m/1XR/Fzsa+ENDwXfPrL0y3nlGq1NkagP+1o5tbJwyg20CInCVi+2zM8e5crv7+xEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794927995;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=97CCOpTWarpZiKxPkFrwJzakzwDUQ3GnMlQehIooZrA=;
-	b=BBZQpeiVZMm1Sz5H/ST5iI6DtKa+fY2c2q8CvK0aZn0PYIwjwiI1dc9pCP0jRY8ooSdV
-	 tW6Z1VwY7qZyUnRUXJvF4q2dyaEl8C1P4EoP63TldYnm+04RqSwj7RwNNDdZPDX/PrUiP
-	 07efs/1adWC6heJYL8PTWIDTAPREJYxMR8otE/jNwr1SgrpjVrh1pTqfsJMQoizp4DpqZ
-	 5MLg5Q+zvYOY3KIPt0OOBz6FKidkkTHvAoipnKx8r6Cqt8IhakLCZCr1y1vw9lUtICnfa
-	 qhKC3zfks2he1zFPPPvuDWXsnLuBWH9+Z9SYQScAnEdzOjq+QriNZEVKsgf8chhVd0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794928030;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=Ov/54IjmzyRGEmHUeI8L4nUadWme30lJOQSa1BrVlY8=;
+	b=fPxtb8UZz2ewNlRm7GPtsA65QGk0g/6++xjxacT9q6oqOMBmXYdyIbJQ1tQp5XbDtO32
+	 phLzqswHv0d6NLu8NPMDqutbrSiG52zNE8S1OyYxGsHsXPvI1xAClXsLXRgtiwpkqSpYJ
+	 /G6BBGJwVMJv3NiZfEiqkjeifYq0rvkk0PuxF8oMxt5ivx1TC8M45eidohAMHZJO4Nj3C
+	 uTLWbLaDFvaljZraWjRaPJ68hPsSyHEF3NS4PM99W1j+CAOQJkqBBU3wP09kVCac5h+Xo
+	 7Il+fmugNHnA+s4UK7KYS2EgzPTZZYpXMl0LPtMukATYNFtppf9rS1Ri+ffcmFZvgAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MrmZGLUT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Ok/qdum4";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE8D3606A332
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:06:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67C18606A32A;
+	Tue, 17 Nov 2026 15:07:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MrmZGLUT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C906B1F000C7
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:06:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ok/qdum4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B977B1F000C4;
+	Tue, 17 Nov 2026 15:07:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794927994;
-	bh=97CCOpTWarpZiKxPkFrwJzakzwDUQ3GnMlQehIooZrA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=MrmZGLUTapAv9feCJ3fWTnwJgToCRTjv6EMy8wRwrxkbM765SW+d4PIlFy2bDus/m
-	 UWl/kc/+lADBQ0iLALpGj6v58ORy6f7MYlUXHG4xBa3FN8tQHifPxbtnGae/AqL8gl
-	 12S7T6aN9wEDPthnpZXgAYE8tKgbYBO+Z00p52hZWd2EJmnogd6gGrTG2TvTXt4vt1
-	 2rZiCJRgIPgTRzmwHMmVyhFbvvtngElU1vDUxqRi96MsFklwiKqIZUy04zNdLgZ4Y9
-	 0LcCZUct7GJc/C4IQQ+xqgv76cLU/cEcoO1qwjLydfO3bhB4NguJBXA5Z8ACAUsmMw
-	 I5Pr7vTkxOySg==
-Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5ee36376a0dso3197194e0c.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:06:34 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHY4De5SSiSFZifjY7TkeYqIm72XdLJCfEY34JswSSkNkx7su1DJ0N97U37JPmywMm9K248RId2l3vxJxU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/pcm9XtRkXlp6GNISa5LnRfcf+nxES03G+ppVmoAeZC0umZILE
-	RLiwT/jmBGKhVbCnwzlt9vFz3maV3KJaQSUzVu/QBLekqM4kgtOBDnSc27KXL3THPziQ4Z+A5v3
-	eHV9Oa1sl4t+aT+Rdon1qsZdCDUyO0aA=
-X-Received: by 2002:a05:6122:793:b0:5ea:e223:5437 with SMTP id
- 71dfb90a1353d-5ee34a98485mr5810657e0c.12.1794927993719; Tue, 17 Nov 2026
- 07:06:33 -0800 (PST)
+	s=k20260515; t=1794928030;
+	bh=Ov/54IjmzyRGEmHUeI8L4nUadWme30lJOQSa1BrVlY8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Ok/qdum42GvLDLYkVs6rEoTUa0/XVzKXyjmo1MpguOkAJLQZfnaXtP2n/wEIX15xH
+	 S8l6iKrBjxEn0tXkmrJKiDLxo+mFnMNOLq+iw6U3rucEtQXCTTDICQdZcAtCm/dtIL
+	 BdQ0cBwDp3fxnHTkqzjR+bVZgABOWyhRgzfJ4xJpjh5wDFcxBXhARTO71F6jBoR/4W
+	 7RSWwEmmHck7T9+8r6b5VGvgnO7PSMrzPn+tGB4ixHl8bPtpWYwBUSBSvQOr8ewcf8
+	 Lu0cgrTUBXn3fF41H0/RBFBKCi/lmnR7tk1y6qNkC0KXLZV3aTZWdj+qZfgguA4cH4
+	 FnR9+wl7ReC9w==
+From: Mark Brown <broonie@kernel.org>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: lgirdwood@gmail.com, yung-chuan.liao@linux.intel.com, 
+ pierre-louis.bossart@linux.dev, ben.dooks@codethink.co.uk, 
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ patches@opensource.cirrus.com
+In-Reply-To: <20261116142314.3702643-1-ckeepax@opensource.cirrus.com>
+References: <20261116142314.3702643-1-ckeepax@opensource.cirrus.com>
+Subject: Re: [PATCH v2] ASoC: SDCA: fix __leXX types in
+ find_sdca_control_range
+Message-Id: <179491950660.77896.12912618666114216237.b4-ty@b4>
+Date: Tue, 17 Nov 2026 12:45:06 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,84 +61,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261117101336.980216-1-johan@kernel.org> <20261117101336.980216-4-johan@kernel.org>
-In-Reply-To: <20261117101336.980216-4-johan@kernel.org>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 17 Nov 2026 16:06:19 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0jsOZUMvkRSqh+YX8uwWC+AoFTxszZSxYveLQf9rPtADQ@mail.gmail.com>
-X-Gm-Features: AclHuK8Y65J3pDRJficJKbngOd5x13CYfD7qFXi0LQorI5YXYtk7K3ylF3ijT5o
-Message-ID: <CAJZ5v0jsOZUMvkRSqh+YX8uwWC+AoFTxszZSxYveLQf9rPtADQ@mail.gmail.com>
-Subject: Re: [PATCH v3 3/8] software node: fix device_add_software_node()
- kernel doc
-To: Johan Hovold <johan@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Daniel Scally <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Andi Shyti <andi.shyti@kernel.org>, Wolfram Sang <wsa+renesas@sang-engineering.com>, 
-	driver-core@lists.linux.dev, linux-acpi@vger.kernel.org, 
-	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1130; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=s+IIcwTaUhe0eIwnLnZgRoH2Vp2d/F8prPxyeBGj46M=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLL+5M7a8jH85O2LvQoHV98v4a4y3lU3q2utefDfuWtui
+ DnN33mtsaOUhUGMi0FWTJElLov7ZX3J6zV8Bxe2wcxhZQIZwsDFKQATcTjB8D/fYGYK78qYgCmm
+ M1Jv3eHKej+JK+Pajan/74eennroZeApRoYW/S3M31Uuvks0sip7krHh2cmXAZVmZ2JMJhTcXHA
+ sexcbAA==
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, Nov 17, 2026 at 11:13=E2=80=AFAM Johan Hovold <johan@kernel.org> wr=
-ote:
->
-> Software nodes added to a device by device_add_software_node() are
-> always secondary firmware nodes even if they may be stored in the
-> dev->fwnode pointer.
->
-> Fix the kernel doc which incorrectly claims that a software node added
-> using this interface "could become the primary node".
->
-> Also clarify that device_remove_software_node() should only be used to
-> remove software nodes added by device_add_software_node().
->
-> Fixes: e68d0119e328 ("software node: Introduce device_add_software_node()=
-")
-> Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-> Signed-off-by: Johan Hovold <johan@kernel.org>
+On Mon, 16 Nov 2026 14:23:14 +0000, Charles Keepax wrote:
+> ASoC: SDCA: fix __leXX types in find_sdca_control_range
 
-LGTM
+Applied to
 
-Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
 
-> ---
->  drivers/base/swnode.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/base/swnode.c b/drivers/base/swnode.c
-> index ce4efc506b9c..b2593b2fcada 100644
-> --- a/drivers/base/swnode.c
-> +++ b/drivers/base/swnode.c
-> @@ -1048,9 +1048,8 @@ EXPORT_SYMBOL_GPL(fwnode_remove_software_node);
->   * @dev: The device the software node is meant for.
->   * @node: The software node.
->   *
-> - * This function will make @node the secondary firmware node pointer of =
-@dev. If
-> - * @dev has no primary node, then @node will become the primary node. Th=
-e
-> - * function will register @node automatically if it wasn't already regis=
-tered.
-> + * Register @node if it was not already registered and make it the secon=
-dary
-> + * firmware node of @dev.
->   */
->  int device_add_software_node(struct device *dev, const struct software_n=
-ode *node)
->  {
-> @@ -1091,7 +1090,8 @@ EXPORT_SYMBOL_GPL(device_add_software_node);
->   * device_remove_software_node - Remove device's software node
->   * @dev: The device with the software node.
->   *
-> - * This function will unregister the software node of @dev.
-> + * Remove a software node added by device_add_software_node() and
-> + * deregister it if this is the last reference.
->   */
->  void device_remove_software_node(struct device *dev)
->  {
-> --
-> 2.56.1
->
->
+Thanks!
+
+[1/1] ASoC: SDCA: fix __leXX types in find_sdca_control_range
+      https://git.kernel.org/broonie/sound/c/584b499bfabf
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
