@@ -1,117 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.227
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794892464;
-	b=ks2W6avnowQ6orjOZBU8frhtcovOjoRasrblRt6eXIEG5iNvyzTUE4FEbcyJjoMEe+Kp
-	 UZjPIMfFp8XSLBKUkG4OU2FKYFMle1aT9yd100EJorfO0608E4l6zNqu3sa9ltPXaka/K
-	 ylGjeR8WUcavzQZuq1AH2WVKbkMGNFAPGHarYIAfnj+uxEU74e02Qax3e+M1hoQxwn3Ik
-	 R/aWMggUTv1t/HF/o1G5AxANfRx7fS7Svv5Rql6AzDcqIIgpo39x2gjq9gtCVCGjIvdXX
-	 O+8TI/9Cp/MuUy00tkdhT8ZCeVw99VptuqmkymZFVaETS4Vi7GSAM9S4oA1vLEAS6Uw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794892464;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=SCfz1f0OOAQVJN2xpcPcFGbJPw3mdu0gWKPmT7oxwLI=;
-	b=j0QEKnFOncK8qcFLS4l4/H76s8hiD3FJtB7Gygslit+taEWgH5wCz45kVUBHqQvO9gBw
-	 mNrS1RLphY4FDqYqfJIAF4uLkMHRs9FnVb5DWhA9jthKg0pPuTf5XLjEnqdfWV6G3CsB6
-	 N5a58Z3R3IaGbW5SsnMzGOi4L0GWYljPx1U1H3gYcShkU+Nvky5Qepyc1xympPKGtb+ZD
-	 JAg+uUIOSDU0FxJ6kUDIGjqWoWdqVyter6hnWSMFWAy5qlYuSTDP25rJL60Vg8ZFF38gU
-	 cy04RB15mbL5B5/WoReyrTbe8zqo1BjYC6/aJKaISCD7NeRP0HHrJiCRm2qe1gTb8tw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=TUfHvPFE;
-	arc=none smtp.remote-ip=209.85.215.227
-Received: from mail-pg1-f227.google.com (mail-pg1-f227.google.com [209.85.215.227])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794892546;
+	b=ObE+I+LbUV5JnST01Mb/VNbOpW4JIzMOucfySfH+ELNdxcq2JMNnaJUBFX2ZMj3PbjNi
+	 DVDhSfk446cIAOIc0c/pB7uW0A5+QnVc/9zpss5Iwn2sWB8Fa/v3vBS890zW+EC1aeYUG
+	 xnEr58yqxd1rzL3FiZAfww+ILxx2kWXmQhSetgw/UyxZ8wtvHg4wSn2+fhBFxyJ9AeTgB
+	 6i07ViFmyQnH57xFrtEThz6xVzA8CB4tFFhTwtZz3AtaNXherZ49KAzaWJcStKOQ1bCFl
+	 uiSsYHuODXt/3gOEeEm9fFJoeB5v6qLv8bKDfjGDhIk0ZIBavkCip+ZhexO4lmTkaKQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794892546;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Content-Type;
+	bh=LcB1sNEMLKmirfhBCUnEMLlOFH+/B3k68eqehlg98m0=;
+	b=ltGP12cez5Aw3xng8HTewFGHT5S1oOtl5tAzV40GlIK138ttvCcp44wbRZf5S2fVmOI9
+	 cy7vcSzfFHjwNtN9fTHGYiS/zHFFqrFCmkydpnmhzoNklfyUWhJOO1ETqzCImuFqJWZTP
+	 gPxprlHGEWhl47KgVI12XHzQZOK3xENABkimP+rsBCwzgzBNaOjwhX8/X3fEtdRCMzjQ9
+	 2NF1ZCJgar3IkvIWpzo1/79cinRk5dd+eQbo8T14T1YARK3I6dWRc8VMPH9mD43zIyM1q
+	 /rZA0TwdF1B3sMw+fy+/zAQzVE6seFy9rPCXahj4ksYd96SOhntSpfuJvT1j9ttgrYw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0VVr7Wjz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D737606A329
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:14:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D737606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F609606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:15:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F609606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=TUfHvPFE
-Received: by mail-pg1-f227.google.com with SMTP id 41be03b00d2f7-cd6028ff33fso2352200a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:14:24 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794892464; x=1795497264;
-        h=content-transfer-encoding:mime-version:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:dkim-signature
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=SCfz1f0OOAQVJN2xpcPcFGbJPw3mdu0gWKPmT7oxwLI=;
-        b=p6CviHopdebPIUugVdZyOv2BKWo8MMxq0EwScEl4dYT9NRurQy5fUbo5DA8Xqp3eqY
-         s+etLtnFTR6g54GTtXO2zexbT8WpvF4k9/Jp960EaJI4NgCf5Jjst+AIvGqubboL7k5U
-         RUHwJKmX6uqLOU7GiptbXKBv+ctwyauRYPNaJ73g3Q5SsANdWJPshK0AQPwBkLgyA/eG
-         h0pOew59LNeMjKNgWImEdqRfqUMA18anz1AZqym5E+nfoOGG7ElkMKL8DRSUD4/H/BOQ
-         lG9JiYrheuRnD8ZDVlPl6eY9zrsCmGspTDv66jnK1kQQ6j6HV39kJXOIFAitCOdLQHnj
-         AEdQ==
-X-Forwarded-Encrypted: i=1; AL+hErFdQFA7/FQDUXdqSqhpXlWJW9MKCrAA367PwJdArtc2i240A6SAXpDaMBAQ+qF9u09aUdrWs92QXqT1SI8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8tWNH3kfTakZOwum5T5yB/cVTEjzyZJ609x4jrFaAId9v1DUbt
-	nrZS6lPSft6l/RajaWXhw5ofa/iJpFf9Z+ooY46pxLvlbKR/+qNahUay9w80CUcMQwQrHJv4J9L
-	j/FOJmCpLtP/i/6ml5RKXUUxFQ2uPoEjoqXAr8u6oji+ExLKFGGIOsGf20tBgqh3xlzreqX3s33
-	RSH5o35FKstTn1RPpEPSsUgQIgDK0VW/ntzo6z3YTyiP2uoQZ4tF8sKgwTm7zx7K5Jg8U4RRHGZ
-	/phTkAdm0xVWcgk
-X-Gm-Gg: AZFdTZc9T3mT03c8GbV4yMZx09rn/bo+fmGIo4+TcBb+CUGM74aOO+eZM2jaf4tf7gX
-	UNz/hPDAElCsl2VLx6qFOF63RNO+OMK1kXqeAtR9qDZK1+r81FYu6/kUexVnZ0NhZx0/EwZOeoR
-	f8ex/M1CsvIANHLgIKwXhgGn63CAiR1x8d1J8f7+FOVSpXvsQb+q6dEFQxnBiDStjqhqRGg/StS
-	rlvEhUxRfqguCjpM2k8b0a5a5b2kcPCkNLoz58jiwGmhziHdH17TiuPBKmuUkzcEE2rsbATIc1N
-	XHcon+TJmZ5ICf9+sxVHi4WPr+i6bxTJ+cHR292pBm17q5cl1YbGVf6mfnl6TR800pIPIcLSydL
-	5WMe5ILpSJMK3kmSrjM4nR5u3DIJ2gaD7zvhqead0z9q2GXYBthkhH6/ec4R4tS5xqVm2AXZyz3
-	LFVEBhYIWM4MbUkt0uYR7x/Cf6rH6o27cw
-X-Received: by 2002:a17:90b:2246:b0:3ac:9d14:feb2 with SMTP id 98e67ed59e1d1-3b1b0a0e12dmr13044555a91.35.1794892463790;
-        Mon, 16 Nov 2026 21:14:23 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-26.dlp.protect.broadcom.com. [144.49.247.26])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b3abeca517sm1145875a91.8.2026.11.16.21.14.23
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 16 Nov 2026 21:14:23 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3b167bc8e16so3686218a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:14:22 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0VVr7Wjz
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b876afbb86so85074a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:15:46 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794892544; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jaY1JEYJwzuFxHpd1DxcGfhz2M3E+NCRfqL/jMp2mX2wg6amCemAHEl9vXGyLV5KXX
+         vNVqW89DhPVPffP3Pv6Dft6K8CIE0Z2taL2rMIgwwPjvQ5zTUcrnN+kR5GoGcI2Yrjha
+         AgD9q7gFGWnS5Y5eUFFFyFexxZvE2j1D0K1mNe/utzEXZYaotAkYuh9sLfxK6PbBGU8x
+         Zs8b4Ne7xxEwC0hf1jisl0b42SvNUWqs+heZqn29nqiToXq+mMDaUzWLtZOmfrNz3BER
+         XwZ7W3yfBFyuGPdbGBW/5MMEOBty9YXCyGl0hOW0Ee3q3DYsRVJz5vO9z4jEQk/siUh5
+         yStw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=LcB1sNEMLKmirfhBCUnEMLlOFH+/B3k68eqehlg98m0=;
+        fh=+RRYaOBGVOx71B8egXsb49MvXnOyuOf5812xJ71cLwI=;
+        b=Jxt/8SHEn+toNw3OBq9g1jvIR+w2bzorNnhdO6LCO0Me74KjzdCHFjhMOwrCWVNO2u
+         c543+cmqB5EUTA8niOr5ESDyw/OdiiEHaSNoBv8sOCMid2aA5DxS3dXlrxTd/tuGJSEi
+         VlKSWHdQeHClyncUvH8I8QSCNNHLA9MUpo8A9Dy3FMlbaq7Jai72fJLcRtRZqBu7dC+V
+         /cFKxOEBb+52YNh5vSnQXDazuxnWVLLwkm0osb1fm4Dvj4RSyzzUlkxLN2U0RWs093XY
+         tJ5bRF+KNaq3nRw50QWZFEHlgrEjc+gSYR4UJpzxlqWNCsDK4RuFDvAK5Fa6yGpuGxus
+         kNiA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794892462; x=1795497262; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SCfz1f0OOAQVJN2xpcPcFGbJPw3mdu0gWKPmT7oxwLI=;
-        b=TUfHvPFEraxXwRyTcV8fi3F2uwwJW7SwncnU4MSdreahoIo9cC/rk+Bj8yNLVdk8qB
-         MdRk4iwksTqfnEisMSfMKXt+ZdvRjwoAQSy4OvVk6eF8dozVoWKRPDz1CevBX6u9YSjm
-         YoJN/EZs7S7HO9NfWvpB1rmBpVM9L5L44O9j8=
-X-Forwarded-Encrypted: i=1; AL+hErE/v/813ZxAbbiIdmS/pu+X9ctVcuugZtYayOuyM7tgfQLSeWo4wg2qTNkrA6rm5Qz4WVEzpXxnMmFE47U=@vger.kernel.org
-X-Received: by 2002:a17:90b:3d87:b0:3b0:a831:5acc with SMTP id 98e67ed59e1d1-3b1b0a3a056mr11554930a91.42.1794892461643;
-        Mon, 16 Nov 2026 21:14:21 -0800 (PST)
-X-Received: by 2002:a17:90b:3d87:b0:3b0:a831:5acc with SMTP id 98e67ed59e1d1-3b1b0a3a056mr11554911a91.42.1794892461137;
-        Mon, 16 Nov 2026 21:14:21 -0800 (PST)
-Received: from vertex.localdomain (pool-173-49-113-140.phlapa.fios.verizon.net. [173.49.113.140])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd7a586d0sm7827675ad.47.2026.11.16.21.14.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 21:14:18 -0800 (PST)
-From: Zack Rusin <zack.rusin@broadcom.com>
-To: Dan Carpenter <error27@gmail.com>
-Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Martin Krastev <martin.krastev@broadcom.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	kernel-janitors@vger.kernel.org
-Subject: Re: [PATCH v2] drm/vmwgfx: Fix NULL vs error pointer bug in vmw_prime_import_sg_table()
-Date: Tue, 17 Nov 2026 00:14:16 -0500
-Message-ID: <179487959553.2515856.10912427542043749089@broadcom.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <akPFZ-e9usvsYgf_@stanley.mountain>
-References: <akPFZ-e9usvsYgf_@stanley.mountain>
-Content-Type: text/plain; charset="utf-8"
+        d=gmail.com; s=20260707; t=1794892544; x=1795497344; darn=vger.kernel.org;
+        h=content-type:to:subject:message-id:date:from:mime-version:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=LcB1sNEMLKmirfhBCUnEMLlOFH+/B3k68eqehlg98m0=;
+        b=0VVr7WjzVZhisIRPEOyr21EBabBoGM/LmXbDlGAyH0rlqrAl75pstEjdIeQgUJHeT9
+         m5fooPV2zwJXmm34Q5MMuisuQ5R3V1KRvNsWAi+pnnXm5wEQe0Afd6VSiSNj4w0lvoEj
+         xSR8QdVzwHxbvOZNUDi01/wQulU0irV2fzEpNIfkUvqBKs+vrRtraQ7Ea5BBjWwfE3fd
+         B37ztlclpbvSFLRADyWu9KqnTNKlD3eny6hnWCHDs5AOE3jnIcHO1wZ3n1Aw+m8AdrXF
+         C+5iRvgz294AaJfgZastU6fj65A8SBRvfdYucM6ijQTFvKM0e39SeMy7zTmzgRcJaQ2L
+         g5zA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794892544; x=1795497344;
+        h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LcB1sNEMLKmirfhBCUnEMLlOFH+/B3k68eqehlg98m0=;
+        b=XrxMw/LbEmnNacy4h3yc58XaRH9VZqAl/hHqkZU/o3n9x2YzevRmwB+kzqqCfZhemx
+         qmEB4LnLM0qbnILs2nOdsz6FtO6GS3JFfn0sPJWleDlDkXW8/bvlFVjp6Penn0O2Ml+6
+         mrvEsfAgRHTQpbKUEm+bO2q8L/cKR70qCvRBEhxoi2bwRbdpi9Ruy1dTNQ8+Ab1TOy4v
+         aAVGHkbzANA6uzyvoJWiqKkfoYTMUdg89LSouhzBFxApqocGfq1XTK7N9RdgVDiU+TLg
+         Wpy1uAWugb44blU6tehwbosVXOUA9qhnDoqdSIixISA+ehytd3TBH9F76+rd4BG0Dhv+
+         jY8w==
+X-Forwarded-Encrypted: i=1; AL+hErGtWFbRQBzWkaY8N2Rfk7fwytZRYwWVdRyd4wWIHo7ZOfUs66P0PvazsoBS/6WA3lDLPzXaacvnqI9OIsQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+3oNBPFJI9fMiF9szn0F3GJfdyPMzhijjEZWbMPT2ifm45F7+A
+	ajOYREXyAy5xMZEU4FXRPtLRBFCh2qX+7wAngWo9WFcOW+QrUUhnKabHFiP1dfEiFL6wxQYuYhT
+	5dlZWdLpJG8R4XaNPa1HX04s7cmRhG4A=
+X-Gm-Gg: AYBFou2SpgL7kJGVXPkYQH9m/FggtqkRuTdHKLC44oGXswrYvZjO96sNIt+sqlcVaab
+	b6HpjdMzOI4iYKGIfrj3nCktJik6tb/NBOJ3Yk0GUDkIiyFmuQJRcVxUZ/eFQm4J4ucfjqUoN0J
+	zBufNz8SDGJBEjrimy7M/YPreffSqn1lsHQAKe15kR1Q/bFGBBeByV90yy5zwt3+hPUKalnihbp
+	BiJexlDZFLSbp1eiqEhTkSuygahoo8cHNrRg8mSlvUJ7TjIbUFM+yWCx5pkcPbK1z0IEJG9bweM
+	EXJYHf1Nv04vAU56ryz5FGjiG96ELpCYBLqC5VrkmEedyXuZG8bq37f3ar0Fy7xkmuVn8CMpzvf
+	+I4D9Jv68s80gFVkCqfORG/AuaYfIwr7ZgLmIACjC3Hd6/gDsaucWFDgXhBjHSHAhmGJKmI2dg2
+	UoDi9tT6IqzovpOyi451MDlPQmPEGrR7qu7BQc3SnmnR4tNUc/
+X-Received: by 2002:a05:6402:1d49:b0:6b8:5ce6:d780 with SMTP id
+ 4fb4d7f45d1cf-6b85ce6d90emr740196a12.2.1794892544472; Mon, 16 Nov 2026
+ 21:15:44 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -121,9 +102,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+From: Herman Semenoff <germanaizek0@gmail.com>
+Date: Tue, 17 Nov 2026 08:15:58 +0300
+X-Gm-Features: AclHuK_4sL4dPYibnHtI-g8te8ZAr4eN6arGP0ECZ84nJIUnFTmEc6OujUbMHu8
+Message-ID: <CAMnMt5Z+BwOaPWQGTTUeSr8uaT=dysMi42xRpFpUruRRcO7=wA@mail.gmail.com>
+Subject: [PATCH] md/raid0: optimize stripe mapping with bitwise shifts for
+ power-of-2 devices
+To: song@kernel.org, yukuai@fygo.io, magiclinan@didiglobal.com, 
+	xiao@kernel.org, linux-raid@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you. Applied to drm-misc-fixes.
+From 086678202572260393864f72c06f4d67032a4b76 Mon Sep 17 00:00:00 2001
+From: Herman Semenoff <GermanAizek@yandex.ru>
+Date: Sun, 8 Nov 2026 22:43:29 +0300
+Subject: [PATCH] md/raid0: optimize stripe mapping with bitwise shifts
+for power-of-2 devices
 
-z
+In drivers/md/raid0.c, map_sector() performs two 64-bit integer divisions
+(sector_div) on every submitted bio:
+  1. sector_div(chunk, zone->nb_dev << chunksect_bits) to compute the chunk
+     offset within the member device.
+  2. sector_div(sector, zone->nb_dev) to select the target member disk.
+
+For ultra-low latency solid-state storage devices, such as Intel Optane
+(3D XPoint NVMe SSDs) capable of sub-10us latencies and multi-million IOPS,
+these un-pipelined 64-bit division instructions create unnecessary CPU
+pipeline stalls and latency overhead in the I/O submission hot path.
+
+When the number of member devices in a strip zone is a power of two
+(e.g., 2, 4, 8, 16 disks, which is the predominant configuration for
+NVMe arrays), both divisions can be replaced with bitwise shifts and
+masks:
+  - chunk >>= (zone->nb_dev_shift + chunksect_bits)
+  - disk_idx = sector & (zone->nb_dev - 1)
+  - *sector_offset = (chunk << chunksect_bits) + sect_in_chunk
+
+Store nb_dev_shift (ilog2(zone->nb_dev)) in struct strip_zone during zone
+initialization when is_power_of_2(zone->nb_dev) is true, or -1 otherwise.
+If nb_dev_shift is non-negative and chunk_sects is a power of two, fast
+bitwise math is used with zero divisions. Arrays with non-power-of-2 disk
+counts fall back to the existing sector_div() path without any behavior
+or compatibility change.
+
+In addition, annotate the bio split check in raid0_make_request() with
+unlikely(), as standard MD devices already enforce chunk_sectors limits
+via bio_split_to_limits() in md_submit_bio().
+
+Tested on an 8-disk Intel Optane Memory M10 (MEMPEK1J016GAD) RAID0 array:
+  - Random 4K read QD1 latency:  avg lat 22.06 us -> 21.10 us (-4.4%)
+  - Random 4K read QD1 IOPS:     42.6k IOPS       -> 44.6k IOPS (+4.7%)
+  - Random 4K read QD32x8 IOPS:  1.11M IOPS       -> 1.72M IOPS (+54.5%)
+  - Non-power-of-2 disk arrays:  unaffected, identical fallback path
+
+Signed-off-by: Herman Semenoff <GermanAizek@yandex.ru>
+Signed-off-by: Herman Semenoff <GermanAizek@aizekgroup.ru>
+---
+ drivers/md/raid0.c | 26 +++++++++++++++++++-------
+ drivers/md/raid0.h |  1 +
+ 2 files changed, 20 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/md/raid0.c b/drivers/md/raid0.c
+index 35e103f0c2c3..993df48eaa4c 100644
+--- a/drivers/md/raid0.c
++++ b/drivers/md/raid0.c
+@@ -207,6 +207,8 @@ static int create_strip_zones(struct mddev *mddev,
+struct r0conf **private_conf)
+  }
+  zone->nb_dev = cnt;
+  zone->zone_end = smallest->sectors * cnt;
++ zone->nb_dev_shift = is_power_of_2(zone->nb_dev) ?
++     ilog2(zone->nb_dev) : -1;
+
+  curr_zone_end = zone->zone_end;
+
+@@ -246,6 +248,8 @@ static int create_strip_zones(struct mddev *mddev,
+struct r0conf **private_conf)
+  }
+
+  zone->nb_dev = c;
++ zone->nb_dev_shift = is_power_of_2(zone->nb_dev) ?
++     ilog2(zone->nb_dev) : -1;
+  sectors = (smallest->sectors - zone->dev_start) * c;
+  pr_debug("md/raid0:%s: zone->nb_dev: %d, sectors: %llu\n",
+  mdname(mddev),
+@@ -330,6 +334,7 @@ static struct md_rdev *map_sector(struct mddev
+*mddev, struct strip_zone *zone,
+  struct r0conf *conf = mddev->private;
+  int raid_disks = conf->strip_zone[0].nb_dev;
+  unsigned int chunk_sects = mddev->chunk_sectors;
++ unsigned int disk_idx;
+
+  if (is_power_of_2(chunk_sects)) {
+  int chunksect_bits = ffz(~chunk_sects);
+@@ -338,21 +343,28 @@ static struct md_rdev *map_sector(struct mddev
+*mddev, struct strip_zone *zone,
+  sector >>= chunksect_bits;
+  /* chunk in zone */
+  chunk = *sector_offset;
+- /* quotient is the chunk in real device*/
+- sector_div(chunk, zone->nb_dev << chunksect_bits);
+- } else{
++ if (zone->nb_dev_shift >= 0) {
++ chunk >>= (zone->nb_dev_shift + chunksect_bits);
++ disk_idx = sector & (zone->nb_dev - 1);
++ } else {
++ /* quotient is the chunk in real device*/
++ sector_div(chunk, zone->nb_dev << chunksect_bits);
++ disk_idx = sector_div(sector, zone->nb_dev);
++ }
++ *sector_offset = (chunk << chunksect_bits) + sect_in_chunk;
++ } else {
+  sect_in_chunk = sector_div(sector, chunk_sects);
+  chunk = *sector_offset;
+  sector_div(chunk, chunk_sects * zone->nb_dev);
++ disk_idx = sector_div(sector, zone->nb_dev);
++ *sector_offset = (chunk * chunk_sects) + sect_in_chunk;
+  }
+  /*
+  *  position the bio over the real device
+  *  real sector = chunk in device + starting of zone
+  * + the position in the chunk
+  */
+- *sector_offset = (chunk * chunk_sects) + sect_in_chunk;
+- return conf->devlist[(zone - conf->strip_zone)*raid_disks
+-     + sector_div(sector, zone->nb_dev)];
++ return conf->devlist[(zone - conf->strip_zone) * raid_disks + disk_idx];
+ }
+
+ static sector_t raid0_size(struct mddev *mddev, sector_t sectors, int
+raid_disks)
+@@ -616,7 +628,7 @@ static bool raid0_make_request(struct mddev
+*mddev, struct bio *bio)
+  ? (sector & (chunk_sects-1))
+  : sector_div(sector, chunk_sects));
+
+- if (sectors < bio_sectors(bio)) {
++ if (unlikely(sectors < bio_sectors(bio))) {
+  bio = bio_submit_split_bioset(bio, sectors,
+       &mddev->bio_set);
+  if (!bio)
+diff --git a/drivers/md/raid0.h b/drivers/md/raid0.h
+index 8cc761ca7423..70b73511fb14 100644
+--- a/drivers/md/raid0.h
++++ b/drivers/md/raid0.h
+@@ -7,6 +7,7 @@ struct strip_zone {
+  sector_t dev_start; /* Zone offset in real dev (in sectors) */
+  int nb_dev; /* # of devices attached to the zone */
+  int disk_shift; /* start disk for the original layout */
++ int nb_dev_shift; /* log2(nb_dev) if power of 2, else -1 */
+ };
+
+ /* Linux 3.14 (20d0189b101) made an unintended change to
+-- 
+2.55.0
