@@ -1,65 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794879230;
-	b=nmLSa2+CtoNdMj2vT2ASC/hkEJEGl7SNnvRhnG5YD62p7FEgAxfE9i+va5kuIk3RiIIW
-	 LgLo38D5Yas4KRlf3FE9tPQE2Hzogshj3ektiQfuT6Fdhwk/vD4DyMTB51eqe3VsKpOcx
-	 irmo07v/A7jk9SgG/O5Ypo+0IJZ/67SvVKz5XJ+b0oWr/OQDcA7nMB/5BWYEPMDwDeile
-	 eSkmdo85mF9PVzzXxlOoJZDJde1BTKUqd4zv2gxCmVQOdhfl6FEMNuYpLewE14P3d1CmV
-	 JIzmtN/jEyyu6TjRQiZWJx85FWFFrvn6cUsRJ5nXjdh9DHBwW7gpBRFg3aeFSH+tCNQ==
+	t=1794879268;
+	b=iXbzYwmn24nFrFau1MhdXtNJaCJuUn8susUNiPXGkYOsTFk0mrbt9ucHUZLMvjXt/wC3
+	 ii1joc95zY0sllhG/YKvQpjxlaVrJBtu4STP0JtT/GF8sRbHZyT79X6W78GQ3Qwkz0kg2
+	 wOky8l2s4DtlQrn5Rxy97/JyMhsWP+Cy66AoBXgLmgTHkOM6n1dLRbnCduKziuhg0fdsE
+	 2GuFYP0yTwoZwi5VTdlqGIhqgR8HCzZXIiEIWzhjHsWGLGk4ChJytzim5Npi5A9M5JxdT
+	 yKGQldrBs50cPV9yENpuFtCvMBniWpo5s6r/Som/J+eqnVYbvqmXk+oduFXey4tcP7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794879230;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=P+QEA++iXRaxC5LQOF3XNzROfRpDGeTIxDLuT+8IbNA=;
-	b=vaVbqzJK+hRiH4e3fEU0FdhO/i6aTILddBPRiKE5z+ETJvqDetIKz8FwsR0xBMKo5Wir
-	 50KdXPxBv0Ved9JsG0T08APLSxJVvpfjHL33XvGkESNiRIMKZlJsOWT9dSXGr6I76HO5y
-	 DZXa91Nmao1gVqWi5dwmngu2yD+c5ycw1lBkbn2lPOpER2JZIuXxIPz4a7UbK0sx4+S51
-	 zQvelzjzVn0WNyZGKvT459rerh/5+8BmwKcXJ8sxp2F3BhNaY+9BChdZ1IJKKWBD9+l9G
-	 rq7dyeZQFr89YtIRc4kz3lKQp2AwK4EgIQ2qjCIP2h9VQ5WC76+o5xWwCdL34CLBBfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794879268;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=6NFvMXt49n0aMhQ+tPrYzjCU429v93v4p/pcosygBN4=;
+	b=s82O7R31op/OvteO8qyA7gefOxS5P9wia+ekroM6jxkYYFlhGCBuF8VyPlMBJhyeYHED
+	 2lSJZgwKdFNAk4R5pg65dN4ctSQuPpKqwAcY2YDTMeNTWisQ5KyDik9gJv2avJnQbmQ05
+	 0HdAe2itPEyF7jHU4FgpdmslKZiX+aLnauGQ7V0eNnHTY3/oxTCVxlDv4RMH4MalLAsKr
+	 Jnh47qrQVxo9ooMT9xb59XU/k1+WcBdewoawPOEDSNa4LG6kTCIPE4OFnJsQ/Zf76IBfm
+	 paDi/P9pBPNaLiBxSkPPiR/gxbeJVgIg7I+xqq11615gHXol3E6x24V/w99zxKb8/iQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=mDJW1g6y;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 52980606A329
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:33:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52980606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TXyO5odc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FB9B606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:34:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=mDJW1g6y
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=mDJW1g6yAMh3kLJ3lyCz4iTWyXygBlB0ozEqwHyt72u7MSOeCtLhoHPIiC6LQqHW8u9wu295wEXJN
-	 LIkHIk2ow7oi/CX1rPP9ducxX5tf/SkD5wWnvbs8FS8PtlcH9hULyoln1Ei5xuD6SEoGzfndWyokLl
-	 jSj17HxEgLSgwkQU=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16afbaef4b8b-df46e;
-	Tue, 17 Nov 2026 09:33:42 +0800 (CST)
-X-RM-TRANSID:2ee16afbaef4b8b-df46e
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from [25.255.2.225] (unknown[10.55.1.70])
-	by rmsmtp-syy-appsvr02-12002 (RichMail) with SMTP id 2ee26afbaef4ac7-9df62;
-	Tue, 17 Nov 2026 09:33:41 +0800 (CST)
-X-RM-TRANSID:2ee26afbaef4ac7-9df62
-From: Jiahao Xu <xujiahao@cmss.chinamobile.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Christian Brauner <brauner@kernel.org>, syzbot+7666ed2c3d42196bf7e3@syzkaller.appspotmail.com,
-	Jiahao Xu <xujiahao@cmss.chinamobile.com>
-Subject: [PATCH v2] iommufd: only hold references to files memfd_pin_folios() can pin
-Date: Tue, 17 Nov 2026 09:32:44 +0800
-Message-ID: <20261117093244.652569-1-xujiahao@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TXyO5odc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD3CC1F000C5
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:34:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794879267;
+	bh=6NFvMXt49n0aMhQ+tPrYzjCU429v93v4p/pcosygBN4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=TXyO5odcsAp87+zayuxVviAd5mVihReFEhyekjHo/UnS0k0+VPdXzGwVjFDNLN6Bn
+	 RYzRcIVIS5WhSh6hOqI1qO2BkY4cGsMpYm3/tQXY+wgtxDW/wAAXeuwV2q+UHg3Dsm
+	 20RUhPHB/6HK6gLQys1EbpJfGQfrJx8snGqz4ZqRKMLUAboBZqQpDE54/1RWytJ9hY
+	 BvWnqm+BffC8Wnnl+NZ590ly+bia+USZKVL1G6kP48uHNG2UOxxXJufuDp+AJxOkuJ
+	 9usGjjazXJR4mz0y81QovlVKWhjZLxkXYFBNYlP50Ts/QdX2lCfa0OfkTFZidtGGMp
+	 H6HT8lMBi4g3Q==
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b86bbce3d1so126991a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:34:27 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHAZeUj+v+nVh1c+KhBUAwRV/gOjBiRN9+D3thN6llYym7OaeLnfzlB9uXRMRZb8nDjG8USMjGfUOZU82s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9f2t6ocfWnDtOxeuyVYWufUiw3FsnVGdQSM20oAPnagqKUxNhs
+	y0lr3vWwrpyGIZWNwkBTu1RWfPAolzpD/GuGw6BFf1nOru16RgARcW8+f2jy07RLBk5hR0qMppG
+	B8vgCQtCMo6abZqc8kToS0AD70DfG3ec=
+X-Received: by 2002:a17:906:c14d:b0:c50:5cd7:2901 with SMTP id
+ a640c23a62f3a-c509640bfa8mr990170866b.23.1794879266573; Mon, 16 Nov 2026
+ 17:34:26 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,89 +59,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261116074849.475815-1-stefan.chulski@broadcom.com>
+ <CAKYAXd9KT=1vLYsnRKxmiM6pLJQNACXuodD8wNQzb8S5apiuRQ@mail.gmail.com> <CA+Fu+LPL7xqpV_vjjjehedOFtuuBqgZHZTSqJ+FgweUpYo2uBw@mail.gmail.com>
+In-Reply-To: <CA+Fu+LPL7xqpV_vjjjehedOFtuuBqgZHZTSqJ+FgweUpYo2uBw@mail.gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Tue, 17 Nov 2026 10:34:13 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd--x9UajLQwzRUwxRZ7PFW5T02xyHdSAnThAo326p_kxw@mail.gmail.com>
+X-Gm-Features: AclHuK-kfPqc8Bh37Jzng9-4IO0zn_61dopqd1mYNeZxWXG2ijut7JfpzpvArRM
+Message-ID: <CAKYAXd--x9UajLQwzRUwxRZ7PFW5T02xyHdSAnThAo326p_kxw@mail.gmail.com>
+Subject: Re: [PATCH RFC v1] ksmbd: add use_unbound_wq module parameter for the
+ ksmbd-io workqueue
+To: Stefan Chulski <stefan.chulski@broadcom.com>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, linux-cifs@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Ilya Lifshits <ilya.lifshits@broadcom.com>, Huiwen He <hehuiwen@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-iopt_map_file_pages() stores a reference to the file passed to
-IOMMU_IOAS_MAP_FILE in the iopt_pages of the new mapping:
+On Mon, Nov 16, 2026 at 9:52=E2=80=AFPM Stefan Chulski
+<stefan.chulski@broadcom.com> wrote:
+>
+> On Mon, Nov 16, 2026 at 2:10=E2=80=AFPM Namjae Jeon <linkinjeon@kernel.or=
+g> wrote:
+> >
+> > On Mon, Nov 16, 2026 at 4:49=E2=80=AFPM Stefan Chulski
+> > <stefan.chulski@broadcom.com> wrote:
+> > >
+> > > The "ksmbd-io" workqueue has always been per-CPU. Commit 69635d7f4b34
+> > > ("fs: WQ_PERCPU added to alloc_workqueue users") only made that
+> > > default explicit as part of the treewide transition to unbound-by-def=
+ault;
+> > > it was not a ksmbd-specific decision.
+> > >
+> > > Per-CPU work keeps request processing on the CPU that queued it, whic=
+h
+> > > is good for cache locality, but it also runs work on CPUs that were
+> > > isolated from workqueue noise (isolcpus=3D, nohz_full=3D) and prevent=
+s the
+> > > scheduler from placing blocked or long-running workers elsewhere.
+> > > Which behaviour is better depends on the workload and platform.
+> > >
+> > > Add a boolean use_unbound_wq module parameter. It defaults to false, =
+so
+> > > behaviour is unchanged unless it is set; when true, "ksmbd-io" is
+> > > allocated with WQ_UNBOUND instead of WQ_PERCPU. The "ksmbd-break"
+> > > workqueue is already WQ_UNBOUND and is not affected.
+> > >
+> > > Document the parameter in ksmbd.rst.
+> > >
+> > > Signed-off-by: Stefan Chulski <stefan.chulski@broadcom.com>
+> > Hi Stefan,
+> >
+> > Do you have numbers comparing the per-CPU and unbound queues,
+>
+> Yes, on our systems we observed up to an 18% performance improvement
+> when using the unbound workqueue.
+>
+> The primary reason for this improvement is that with the default
+> per-CPU workqueue, ksmbd-io work can sometimes start on a CPU that is
+> already heavily loaded. Because it is bound to that specific CPU, the
+> scheduler cannot move it to a less loaded or idle CPU, leading to
+> bottlenecks. By using WQ_UNBOUND, the scheduler is free to migrate the
+> work to less loaded CPUs, which significantly improves our CPU cycle
+> efficiency.
+>
+> > How does this compare with the earlier following RFC ?
+> >
+> > https://lore.kernel.org/linux-cifs/20261022092514.2590010-1-huiwen.he@l=
+inux.dev/
+> >
+> > Thanks.
+>
+> While both address the underlying scheduling limitations of per-CPU
+> workqueues for ksmbd, my patch introduces the `use_unbound_wq` module
+> parameter rather than changing the behavior unconditionally. Because
+> the optimal behavior (cache locality vs. load balancing) heavily
+> depends on the specific workload and platform, this approach keeps the
+> existing per-CPU behavior as the default while allowing platforms to
+> easily opt-in to the unbound workqueue when it yields better
+> performance.
+Could you provide the benchmark setup and actual results? If
+WQ_UNBOUND generally performs better across representative workloads,
+We could make it the default and provide a module parameter to opt
+into WQ_PERCPU instead.
 
-	iopt_map_file_pages()
-	  iopt_alloc_file_pages()
-	    pages->file = get_file(file)
-
-iopt_release_pages() drops that reference only when the iopt_pages is
-destroyed, which for a file mapping happens while the iommufd file is
-being torn down.  Nothing restricts which file can be passed, so
-userspace can map the iommufd file itself, or a vfio device fd bound to
-the same iommufd, both of which own an iommufd_ctx reference.  The
-reference graph then contains a cycle and the file, the iopt_pages, the
-IOAS and the iommufd_ctx are all leaked; kmemleak reports it as
-"memory leak in path_openat" with the holder taken through
-iopt_map_file_pages().
-
-Reverse the test instead of trying to enumerate the files that own an
-iommufd_ctx: accept only the files that memfd_pin_folios() is able to
-pin, which is exactly the set of files the mapping can be built from.
-memfd_pin_folios() already enforces
-
-	if (!shmem_file(memfd) && !is_file_hugepages(memfd))
-		return -EINVAL;
-
-and both predicates are inline helpers, so the same check can run here
-before the reference is handed to iopt_pages.  dma-bufs are unaffected:
-they are taken by the dma_buf_get() branch above and never reach the
-file branch, and iopt_pages holds the dma_buf there, not a struct file.
-
-Fixes: f4986a72d6e4 ("iommufd: Add IOMMU_IOAS_MAP_FILE")
-Reported-by: syzbot+7666ed2c3d42196bf7e3@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=7666ed2c3d42196bf7e3
-Link: https://lore.kernel.org/all/20261112105945.285526-1-xujiahao@cmss.chinamobile.com/
-Signed-off-by: Jiahao Xu <xujiahao@cmss.chinamobile.com>
----
-v2:
- - Replace the iommufd_fops blocklist with the allowlist of files that
-   memfd_pin_folios() can pin, as Jason asked for.  This covers a vfio
-   device fd bound to the same iommufd, and any other fd that owns an
-   iommufd_ctx, instead of only the iommufd file itself.
- - dma-buf mappings are untouched: they are taken by the dma_buf_get()
-   branch and iopt_pages holds the dma_buf there, not a struct file.
-
- drivers/iommu/iommufd/io_pagetable.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/drivers/iommu/iommufd/io_pagetable.c b/drivers/iommu/iommufd/io_pagetable.c
-index 5ac736cf5..4d10b2253 100644
---- a/drivers/iommu/iommufd/io_pagetable.c
-+++ b/drivers/iommu/iommufd/io_pagetable.c
-@@ -15,7 +15,9 @@
- #include <linux/iommu.h>
- #include <linux/iommufd.h>
- #include <linux/lockdep.h>
-+#include <linux/hugetlb.h>
- #include <linux/sched/mm.h>
-+#include <linux/shmem_fs.h>
- #include <linux/slab.h>
- #include <uapi/linux/iommufd.h>
- 
-@@ -515,6 +517,18 @@ int iopt_map_file_pages(struct iommufd_ctx *ictx, struct io_pagetable *iopt,
- 		if (!file)
- 			return -EBADF;
- 
-+		/*
-+		 * iopt_pages keeps a reference to the file until the mapping is
-+		 * destroyed, so only accept the files memfd_pin_folios() is able
-+		 * to pin.  Any other fd, in particular one that itself owns an
-+		 * iommufd_ctx (iommufd, vfio, ...), would put the file into a
-+		 * reference cycle with this iommufd and never be released.
-+		 */
-+		if (!shmem_file(file) && !is_file_hugepages(file)) {
-+			fput(file);
-+			return -EINVAL;
-+		}
-+
- 		pages = iopt_alloc_file_pages(file, start_byte, start, length,
- 					      iommu_prot & IOMMU_WRITE);
- 		fput(file);
--- 
-2.43.0
-
-
+Thanks!
+>
+> Thanks,
+> Stefan
