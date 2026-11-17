@@ -1,85 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794931550;
-	b=NwH18kaLD6j++94iIDgMI0UTClKPb1h03Ug0hWT0BbFryaVxqJShsZ28RdQ8EF45WgNw
-	 QuY34dRGEt/hoFbD2YLUtyzXCsiGrLx/Tx1pLDOJZZL8eEHs0/6nE3KFn3InxWRxVLA7l
-	 qFYULtRGYr43G6vnok/mictr+EOYNwSQRZDX8ft9ZpJTXRjpaLzCVavxCS2dMBk42691x
-	 hGRvmAfHYtufWiCzNbglDHWr4c0vqMvh4FDkQDV85HieABMAiROnvLiQZeUKELWsyEQNC
-	 8gr07LSEnixEHH4CO6v/aB00N8DWDycHKwVC0QoclFtLfyti4UP6oqwvJpqWNPN/aoA==
+	t=1794931658;
+	b=ckd+/Zyxw5JjutMp0CzlfxUpSx/W/rcqR66mmrjz3eeAKUYOFWv44TTrkMcbR2mTjPMg
+	 jVqOQpNeXWDLbDLIY+SUZueRVbnWYPQUbpUnHR8ZZS6nTzzQiKapBxgtuV4vDL57XQqxu
+	 MivX8BbrgqptL/YXLQws9c2D3LEXgkRwEYsH1zoY/dOHQsvHUxpypQGpwPAZdMQSAE7dk
+	 2iX9lk/AgIifURICHGGqkZWWKIXg18O/9TMUhuBHXGk+dsDDjugYhzqujRl4OzEAfccQC
+	 j7LXMWOjJWVRmF8x4N8vRq1GbFFkJCmtRs3koU+UENuTQN5xiNnaDtwuSjn/UwYvZeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794931550;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 From:To:Cc:Subject:X-Mailer:References:In-Reply-To;
-	bh=IG2RtveLbr6LLHiOkKFy7cZt2dAAYGYqRZMKbSVVxF4=;
-	b=Kr/0X3kpD7u2HaQQBeRy1sp0BcmLd8YOZLwghjAqD/xVFTvLbLNmntAsFdNw4aitcs7Q
-	 K/voetntIEf7RDIeXcEsNf3dkxslA03ryzvCIpt0f07aTt17OXAcX5sDMHn4GKESJHz+P
-	 vDcVCBirq+cVhqAT8SRQagXEa8rMi9jTn1BWxH6b+aXOrrwceN+w10Tx9ygUqJsDOmU8M
-	 4n8YSwt3X02MODJWjVGhMQ1/Nn0YB1P4EkpBibkYXjeZGwoWUkPv3aHqpei6HMCBWiNwi
-	 enn51psNIyIqSVcJIPtYmXdoUEYrdLsgtqcIrwF+dTW/vgfzkXEgqqmZStciLxFV/dw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794931658;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=B8rKq+lrMO2vs+TwCEpv+G1FuUz9J/1UMscRqzU7y2k=;
+	b=WZ3Tyj5Iiygl8qY4hX3Z9rQqvana9GwI67Sg3qnhXQ4bC6hRF/g0jgVqs8ranihHCFbr
+	 cs1zXBQC8H8hZr0NP90WejzrIPfum+XIrguktyxNnJVjd5UQM0f/sDj60Kt4b6vjyTH7z
+	 V5MUhTNADChRhXRslPDBdxX36w+gP6SYpHrMtp9tcaEtPXbDW1zr+8aGks4QYwsB2zAQs
+	 /uWzWteg1o/h8D6r5KmDVy/oQyVcmmFz1pmhaiObhCyHPGtbyWTJmugpkuHViREMNa+nf
+	 +RZxzEQGaBfJDhZxW8qZc+MCAO/z1QADJhusWkcsE93z++wRYttxXccoOrrzpi26REw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=soleen.com;
-	spf=pass smtp.mailfrom=soleen.com;
-	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=YKKSBogf;
-	arc=none smtp.remote-ip=209.85.217.54
-Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com [209.85.217.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=FWeA1A4v;
+	arc=none smtp.remote-ip=35.89.44.33
+Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B89A606A33A
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:05:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B89A606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA4BA606A32F
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:07:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA4BA606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=YKKSBogf
-Received: by mail-vs1-f54.google.com with SMTP id ada2fe7eead31-7cc0e865dd1so1504583137.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:05:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1794931549; x=1795536349; darn=vger.kernel.org;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=IG2RtveLbr6LLHiOkKFy7cZt2dAAYGYqRZMKbSVVxF4=;
-        b=YKKSBogfpsOaEw7hrTWHZ+eSaB0FBHjKyn8IasdKAsTgDWDfjvGtFh+QKyhd9eN7ub
-         exPwrhrKuT6LjORsHH82lqZ4CZUeXZGvFIOfzRvZV6IZds4/kHD8fD5yxbUvk4ljrWdp
-         7O+qlXhxQpfXDWZycwzanxMqdFm1ezkM6IVwJaDDSCbJntYJJ2XJPh8xO3hLu8l8Lu9s
-         XyWR6w1ij7RjVsBIdgza6nQt2FoeSRf00BMtZOyQ20SJIq9uF8PJQELrUmTxhi8t0l3h
-         LoE9nmNF4DPCG4+DhyWlB0ipvZso6GLnNXIbrSBJxkfgvKtQNK0qkKKdAv1bwXUNmcMU
-         jDEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794931549; x=1795536349;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IG2RtveLbr6LLHiOkKFy7cZt2dAAYGYqRZMKbSVVxF4=;
-        b=L2TUANQZRnivZHKQaWtm+5GF4XxYFL1i9BmFZzaavCMfy50iHU4l2A+6lJeGz00qPO
-         V6UZT5tIq+KAbTqQjEPQ31I3HNc5diSc9t2bZ96VACW2OftRI+syPt+tCgsDCTM49Eza
-         IRaV68pMUid7DGZPtw5S3yOQBp7H9ZB5mSIgRELLYAek5EYrvnPiFCiLSokrzCU2rT/X
-         jLHIAL1NPhhPJVQbjAE9XMV1EaO6Kx4kR7P+ZaZQA6bOjYRnRojoFpf5csC+ifFy2CyH
-         MOEHD9W8tlrLsnpeb9K2nYhmjOWq8609TLhBCq3CKBzls61uVYsZtMjd5LcxurSsb4bi
-         nXLA==
-X-Forwarded-Encrypted: i=1; AL+hErFeYZTTCF9ZiFZCtIllNCKPIZcPwE0yCY1ilbgIvAWq/bmYfh5iLmVxiyLvmPf2kXd8aXvqEHMhQe1KZec=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9CEmKjpoTvwAkoVpHZmBdxczS92HFVliitfe5ajx9oGeFrDJeI
-	joKUeYu4r2KY1gnjZMYrKDHwx9stahNnmBPEGL3gHxRjdGJ4n9vpge4ob1AHZOpplaY=
-X-Gm-Gg: AYBFou2NQxkgr4XwMaq3SAqjxMT6UAiTTX7FfaMGwTFwXRm+HrdLUw9VYX1J1y+A5xv
-	V9muZNLLjAm8xV+4hzdBCR6/87dcBrrDew4eeZCGz4OLPNKqaY2pDAau9O8NYH5fQnr4aoH+Mcf
-	etDHHMs3TmxBD590ilbBWRInfXjFZl2yKHflIz/vbitd8pZQ51dXnPLUhXaKzKYhPh24ZJ79oKO
-	bTam4kyZNjUPJMmhVH9Tr2tj8xlMnF/NrVvhHFQ2bOFhKv+xJvwAiI6bRuTigdpKv7P3CIdx8Xx
-	+CCjMsrzHVwFbJsVhCUCV4uh2X4wq8vxwQdthe/thKZhL6dVHOdBlngLlCHzLFQRml8NWRtbDo5
-	7XUvUblbsXUtHtINbk8LegL4K2JkYsl+wG3rWeKvBrqj9qSk71PwkpAMl6AcVgcMD5XhMTxetwG
-	50yimfnCtrtMSCeHWo5WuuG4IkhQUyJYCAmL8oWEz6kRWEYdBij67kHKPR9uKjk7ZFeZoevDGq4
-	1+33Ip76Esh6e4je1u7a2qm0Hu7eFrgQX1DeQM/UgbVAs/Wqxo5shnF0pyRd/hjXFRae6DO29gf
-	nCpb5azKKinMSBlARufFnM3OpJ11tLtdBOxVUgGufwg8Kgr69i2XIHVOOQYcT0/ChfzVxorVVpp
-	oUMkBzDRNUYza6xEpQxCEHMJZU3kNrh8=
-X-Received: by 2002:a05:6102:4457:b0:7c1:8aa5:36d6 with SMTP id ada2fe7eead31-7d64d6d4a85mr3228252137.11.1794931548510;
-        Tue, 17 Nov 2026 08:05:48 -0800 (PST)
-Received: from localhost (57.233.150.34.bc.googleusercontent.com. [34.150.233.57])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d69e023608sm2832234137.7.2026.11.17.08.05.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2026 08:05:47 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=FWeA1A4v
+Received: from eig-obgw-5007b.ext.cloudfilter.net ([10.0.29.167])
+	by cmsmtp with ESMTPS
+	id TCujx0hZCAR1iTLiUxkmre; Tue, 17 Nov 2026 16:07:31 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id TLiLxAWs0xqjjTLiLxv7R8; Tue, 17 Nov 2026 16:07:22 +0000
+X-Authority-Analysis: v=2.4 cv=bZxrUPPB c=1 sm=1 tr=0 ts=6afc7bc2
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
+ a=iHwBjlyiAAAA:8 a=n7ZOxHGsqZCoBoouLwQA:9 a=QEXdDO2ut3YA:10
+ a=uNSKXYNwxGiU6LD0JREI:22 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=B8rKq+lrMO2vs+TwCEpv+G1FuUz9J/1UMscRqzU7y2k=; b=FWeA1A4vfBgI
+	nhgLKxloJNOtVfZC680Egqmw3iDaKxTt/XkO1i57ZPMifQV/b77i/KryZrlhQf+YlWTcnnHdTzSFp
+	PHj0+0Lue8NmWVi1Eb7WY20b4wp9ZI07oMoAb6N/Iwqf9/G0ikNCXl3Jn94+4u6PUMMXgNrUFNIoi
+	oekDSKCK/dqw6W9ISag61aLlF1oFGZbwyCB5AiuCX/tSZ89q206urqM0BjzW9Ptm5W235ciSCn8KE
+	kuPO54eZgRC0zFNpyu0PfhhZuFiFbqFUm7vMTJD6OKNkZydcBKdyTEIN4sSP+/ZpCV9UH3gL7iZIF
+	fWXyEyC6K61cnBeFv8eerw==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:45048)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xTLiL-00000003JjC-10Fi;
+	Tue, 17 Nov 2026 21:37:21 +0530
+Message-ID: <aff0cb59-fc73-4081-bed1-12de5d068404@roeck-us.net>
+Date: Tue, 17 Nov 2026 08:07:20 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,65 +75,109 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 17 Nov 2026 11:05:46 -0500
-Message-Id: <DMXM4P4NQ6DH.15QJ2AU95YJRT@soleen.com>
-From: "Pasha Tatashin" <pasha.tatashin@soleen.com>
-To: "Pratyush Yadav" <pratyush@kernel.org>
-Cc: "Pasha Tatashin" <pasha.tatashin@soleen.com>, "Mike Rapoport"
- <rppt@kernel.org>, "Alexander Graf" <graf@amazon.com>, "Jonathan Corbet"
- <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "Randy Dunlap"
- <rdunlap@infradead.org>, "Andrew Morton" <akpm@linux-foundation.org>,
- "Tarun Sahu" <tarunsahu@google.com>, "David Matlack" <dmatlack@google.com>,
- "Samiullah Khawaja" <skhawaja@google.com>, <kexec@lists.infradead.org>,
- <linux-mm@kvack.org>, <linux-doc@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>
-Subject: Re: [RFC PATCH 0/5] KHO map
-X-Mailer: aerc 0.22.0-39-g5d7784875be2
-References: <20261116134013.1636689-1-pratyush@kernel.org>
- <179486913878.127049.11178890384802388709.b4-review@b4>
- <2vxzwlqbfxtf.fsf@kernel.org> <2vxzpkw3fp2y.fsf@kernel.org>
-In-Reply-To: <2vxzpkw3fp2y.fsf@kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] hwmon: (pcf8591) Propagate channel access errors
+To: Siqi Chen <chensiqi@uniontech.com>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261117113819.3336050-1-chensiqi@uniontech.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20261117113819.3336050-1-chensiqi@uniontech.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xTLiL-00000003JjC-10Fi
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:45048
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 2
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfK+mXTYsjtpzlBuqultVX9iMRLbJxIXaHIyNymfL+RKxhjCYA2w+P1QpE2rr4M6lb2qfWPX3I0gNlzNQUTVrCDtAOiVDGbLkmXPGTLPP2jZ4SfQlBeBU
+ zlE6Pp2/ioMK9ZpSaUue9OLA31TeMeU19yNN/Qxvupme3Yhn4EiaP+OuihMyzD60fw0KxqSqT5+rkoqhzSkxC8epMAR266BSlYSCPulvc2qH4Jhl8uFtczwQ
 
-On Tue Nov 17, 2026 at 10:35 AM EST, Pratyush Yadav wrote:
-> On Tue, Nov 17 2026, Pratyush Yadav wrote:
->
->> On Mon, Nov 16 2026, Pasha Tatashin wrote:
-> [...]
->>> Instead of caller-chosen depth, the tree should grow (and shrink?)
->>> dynamically bottom-up based on the widest key.
->>>
->>> Plus, with bit 0 tagging leaf values, 2M entries can be stored directly=
-=20
->>> at L1 and 1G at L2 (on 4K pages). Even for huge memfds, the pgoff space=
-=20
->>> is much smaller than 64 bits, so in practice the tree stays tiny in=20
->>> depth.
->>
->> I think it is a good idea to allow dynamic depth in the ABI, but I am
->> not sure if we should deal with the automatic resizing just yet. How
->> about we start with making callers specify the depth (max index/pgoff)
->> up-front for now? The ABI stays the same, so we can add support for
->> dynamic resizing later if needed.
->>
->> The reason for this is to keep things simpler to begin with. That said,
->> I don't have a _strong_ opinion about this, so if you insist, I can add
->> dynamic resizing from the get go.
->
-> I take this back. I went and looked at how xarray does it, and it is
-> pretty elegant. I thought some sort of rebalancing would be needed, but
-> all that is needed is to add a level above the root tree, and demote it
-> to a subtree. Similarly, for pruning, the subtree at index 0 can be
-> promoted if all other slots of the root are free.
->
-> So I'll add dynamic sizing and reparenting logic in v2.
+On 11/17/26 03:38, Siqi Chen wrote:
+> The SMBus channel operations return negative error codes on failure.
+> The final read result is stored in a u8, causing an error to be
+> truncated and exposed through sysfs as a valid ADC value. Errors from
+> the channel selection and dummy read are also ignored.
+> 
+> Check all three operations and propagate their errors through sysfs.
+> Keep the cached channel invalid until both channel selection and the
+> dummy read succeed so that a later read retries synchronization after
+> a failure.
+> 
+> An AI coding assistant was used to identify the issue and help develop
+> the fix.
+> 
+> The change was compile-tested with W=1. No hardware testing was
+> performed.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Siqi Chen <chensiqi@uniontech.com>
 
-I agree; let's implement this properly from the start. Growing from the=20
-bottom up is the right approach. I am not sure whether support for=20
-shrinking is needed, so that can be added later.
+This is an old driver, using a long since deprecated hwmon API which
+generates a warning message during boot. Such drivers will need to
+be converted to a supported API, and the result will need to be tested
+at the very least on simulated hardware, before accepting any other
+changes.
 
---=20
-Pasha
+Thanks,
+Guenter
 
