@@ -1,58 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.227
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.0.225.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794915700;
-	b=dY06f09sFjZh2NDfvedN2K6cMQAFuJDplfuOtOxG8RKjivO5oB2HlzvWyiQnjYUWFlIz
-	 GhmLSBmcOxQf5xhrUlXqQQEog0PJtQTCAOF+Ijx6bP/5ZWYqfoWeRgE8lDKHePhixeBGo
-	 qawH0KgbbutbPx1rT5YHvePOcfZx5NPSId+kQoM3TaL5FHG4MlyQPOhYRkzwnDtBIyhmj
-	 p0wcv9iOa+dafSW0bxM/a6pu1gXqt8LOnmKlHTiVKJP3/EwcypP+Znt78pGWTTGDGG0b8
-	 cOi66hb+/eP5FMZLAKg5IiuuDBOuYg9KIcw3RCUoSzrxQpCPO7mDLc1viw6DTbxyCQA==
+	t=1794915855;
+	b=KtZ0tQpi7nlt1fE1Un8cYkBWJjbuX7r+mNKzDEkh1kv1/T/v0uB8lKAoUCmANjU5q1I/
+	 K+wrpeKBS/145P5xzvH0xtusmlVZysICpLBbN/ndY14ztC5UPXoDLrJjWNPmd8vyS0kze
+	 PI8zh6CsHN0RVk32fEmF982jJOvBCHNAlCn8u2yf3ElkRM+i7Un8jH4umedWDjvcov5SD
+	 3gELWMBzsOpRWxtGhieIVkTV7TcWKbKxqHHTG/2LrNUlggd1kC5jFXMvJ6Rp8Lxb1zx/n
+	 FcAHNdu887qPJVqR7RAP6xQVn2Qpc0MAptMqznzr9LTUGFQAswXLRu55nqEEpJNyNYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794915700;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=HVapPYqDJiHV+k8pG5+sCP1jgJgY7v6gMgsmomSO36A=;
-	b=e527YZict8V1oLZ53qIIHBy3+mD6h/y8aAC7ykcW38TfPImqIhffrGjmMrKc+r/HbhS3
-	 l8cyAToHI0NFl/aHeYGex/O/AXhy1XdV9QIB0eiJILv7SxS1SE6nXN0fHLSTdsC8uFkJu
-	 0/cDaN5JhC+VVjoheo48E2V1xXOJR5yri5yYGJ5DJgiMXQsgzdzspUZXPS0l9+I55xN09
-	 84aq/jEK0RaPZBcTtwkHNHsHHeXuIw5/wbmMBqYRNTLMBktmSFUNsKhtaPcArgoBo4KlT
-	 IAZiPCmllskyYDBvPKJDS2gZnsDn2JwvKGRu87NToawtxbEySWo4yhpQUnNRmeAR0Cw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794915855;
+	h=DMARC-Filter:Received:Received:Received:X-Eyou-Smtpauth:
+	 X-Eyou-EnvelopeSender:X-Eyou-From:From:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Eyou-Sender;
+	bh=CnFWtmTzB6e1lCB3/JvbUr6eRBMHKOdxJBcATu0Xry4=;
+	b=aznc3XqL5RPT1DKItsPLyIl7DZ2lxdMo53iaMGFK8iZLRfnwh4bTzKXhT67nOQfRNwfR
+	 CvXg/Lsu7s5XrkOQ4yzdR2FIr9I28lKxB24hOusxPzTnUzu+ZKR0rxjBgiI84GDExKYwZ
+	 cMfI82HsoaNe62DmPIKZ2HB96oWJ27LSzBY3PqFRIIzFXhSBcGwS/ClxD4Rxd8aOx9FLw
+	 uoP3b9KvwhjuzBVlZssQn30NCb7CWF6gGG3oPlTKpyILPatueC4/krz1xQzL8KFOlw0kd
+	 Dy2KRYLCibcboLID9DINcHAURvWFaQd8fH0H1a0hQBLE41iycvDhldcoB0RxZrgqs0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=PstnArU8;
-	arc=none smtp.remote-ip=113.46.200.227
-Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9782606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:41:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9782606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=PstnArU8
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=HVapPYqDJiHV+k8pG5+sCP1jgJgY7v6gMgsmomSO36A=;
-	b=PstnArU8OkBdFXvuP0FmqH+j6og0/6czBUCyJjiziDEoiV5L1iGD/JFk2is0+9E6ktP2clCJI
-	v1yJKyqzMAnWB2ve4JHagm9oNvFlzCrDHSDZFXh+zjAxCDxKhFk6ARQN176QSKagfXvHBdqdpsA
-	ZbDX227SZWFAJxzrDNS6YMM=
-Received: from mail.maildlp.com (unknown [172.19.163.200])
-	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4jTN8T09ctznTZZ;
-	Tue, 17 Nov 2026 19:40:41 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id A4C6C4055B;
-	Tue, 17 Nov 2026 19:41:34 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 17 Nov
- 2026 19:41:34 +0800
-Message-ID: <f26828e6-e640-498f-81dc-d568f7cc50c7@huawei.com>
-Date: Tue, 17 Nov 2026 19:41:33 +0800
+	dmarc=none header.from=zhaoxin.com;
+	spf=pass smtp.mailfrom=zhaoxin.com;
+	arc=none smtp.remote-ip=210.0.225.12
+Received: from mx1.zhaoxin.com (MX1.ZHAOXIN.COM [210.0.225.12])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1D624606A31C;
+	Tue, 17 Nov 2026 11:44:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D624606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zhaoxin.com
+Received: from zhaoxin.com (unknown [127.0.0.1])
+	by mx1.zhaoxin.com (MTA) with ESMTP id 4jTNDL0wN3zb0pbW;
+	Tue, 17 Nov 2026 19:44:02 +0800 (CST)
+Received: from zhaoxin.com (unknown [10.28.140.201])
+	by mx1.zhaoxin.com (MTA) with ESMTP id 4jTNDK4Yq0zb0pbW;
+	Tue, 17 Nov 2026 19:44:01 +0800 (CST)
+Received: from [10.29.8.50] ([10.29.8.50] [10.29.8.50])
+	by zhaoxin.com (8.30) with ESMTPa7a6895ed00357bec528d64555ac5126
+	Tue, 17 Nov 2026 19:44:01 +0800
+X-Eyou-Smtpauth: weitaowang-oc@zhaoxin.com
+X-Eyou-EnvelopeSender: weitaowang-oc@zhaoxin.com
+X-Eyou-From: zhaoxinweitaowangoc <weitaowang-oc@zhaoxin.com>
+From: "=?UTF-8?B?V2VpdGFvV2FuZy1vYw==?=" <weitaowang-oc@zhaoxin.com>
+Message-ID: <455b3899-386f-4731-8508-afcecff1a90c@zhaoxin.com>
+Date: Tue, 17 Nov 2026 19:44:00 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,164 +53,61 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] arm_mpam: resctrl: Only enable CDP on a resource
- that supports it
-To: Ben Horgan <ben.horgan@arm.com>, Gavin Shan <gshan@redhat.com>,
-	<james.morse@arm.com>, <reinette.chatre@intel.com>, <fenghuay@nvidia.com>,
-	<zengheng4@huawei.com>, <tan.shaopeng@jp.fujitsu.com>, <jic23@kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-References: <20261111081316.3828283-1-ruanjinjie@huawei.com>
- <20261111081316.3828283-3-ruanjinjie@huawei.com>
- <a783b375-7c27-4c91-b40e-7e615d33bc5b@redhat.com>
- <b1fd5fa8-bf03-4575-bc05-540a288b609d@huawei.com>
- <ce03205e-6405-4269-a061-266ef6d67e1d@arm.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <ce03205e-6405-4269-a061-266ef6d67e1d@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Subject: Re: [PATCH v3] x86/apic/msi: Fix MSI interrupt affinity configuration
+To: Thomas Gleixner <tglx@linutronix.de>, Koichiro Den <den@valinux.co.jp>
+Cc: mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
+ x86@kernel.org, hpa@zytor.com, linux-kernel@vger.kernel.org,
+ WeitaoWang@zhaoxin.com, wwt8723@163.com, CobeChen@zhaoxin.com,
+ stable@vger.kernel.org
+References: <20260928164839.6381-1-WeitaoWang-oc@zhaoxin.com>
+ <6mg2eqdehsmb5fh6hf7icsha2547xfdfvulnycawiit2czhhmh@6bbmicaoz2zd>
+ <87jynid352.ffs@fw13> <316900d3-2ce8-4391-ad8f-556bb5540c2a@zhaoxin.com>
+ <87bj8uc7rv.ffs@fw13> <a6c0d634-f16b-4999-9e04-f13b123d195b@zhaoxin.com>
+Content-Language: en-US
+In-Reply-To: <a6c0d634-f16b-4999-9e04-f13b123d195b@zhaoxin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Eyou-Sender: <weitaowang-oc@zhaoxin.com>
 
-
-
-在 2026/11/17 18:35, Ben Horgan 写道:
-> Hi Gavin, Jinjie,
-
-Hi Ben,
-
-> 
-> On 17/11/2026 03:31, Jinjie Ruan wrote:
->> Hi Gavin,
+On 10/16/26 19:58, WeitaoWang-oc wrote:
+> On 10/16/26 17:30, Thomas Gleixner wrote:
+>> On Fri, Oct 16 2026 at 11:36, WeitaoWang-oc wrote:
+>>> On 10/16/26 06:12, Thomas Gleixner wrote:
+>>>> On Wed, Sep 30 2026 at 01:29, Koichiro Den wrote:
+>>>>> On Tue, Sep 29, 2026 at 12:48:39AM +0800, WeitaoWang-oc wrote:
+>>>>>> commit b56ebe7c896d ("x86/apic/msi: Fix misconfigured non-maskable MSI
+>>>>>> quirk") try to fix the issue of misconfigured non-maskable MSI quirk.
+>>>>>> For non-maskable MSI interrupts, use the slow path to fix the MSI affinity
+>>>>>> race. Maskable MSI interrupts use the direct path to update configuration
+>>>>>> info. However, the current code logic is the opposite as only maskable
+>>>>>> MSI interrupts will enable reservation mode.
+>>> Thank you for the suggestions. I realize the problem description in my
+>>> previous patch needed to be more precise. Before posting v3, I have
+>>> updated the change log as shown below. Could you please take a look?
+>>> If this looks good to you, I will send out the next version.
 >>
->> 在 2026/11/13 7:42, Gavin Shan 写道:
->>> On 11/11/26 6:13 PM, Jinjie Ruan wrote:
->>>> resctrl_arch_set_cdp_enabled() enables CDP for any cache level that is
->>>> requested, even one that has no MPAM cache controls. Mounting resctrl
->>>> with -o cdpl2 when only L3 can allocate still turns CDP emulation on for
->>>> the whole system, so every CLOSID takes two PARTIDs while resctrl keeps
->>>> its CLOSID count at the number of PARTIDs. Control groups in the upper
->>>> half then map to PARTIDs beyond mpam_partid_max, which index past the
->>>> configuration and monitor arrays and program out of range PARTIDs into
->>>> the MSCs. On QEMU with 5 PARTIDs the first monitor read after creating
->>>> 2 control groups raises MSMONCFG_ID_RANGE for PARTID 5, and MPAM is
->>>> disabled.
->>>>
->>>> Do not enable CDP when a resource cannot allocate or is not CDP capable,
->>>> as x86 does, so the mount fails instead. Only the enable path is checked,
->>>> since unmount disables CDP on both cache levels to restore the MBA
->>>> control.
->>>>
->>>> A system where only MBA can allocate, or that only has monitors, now
->>>> fails a mount with CDP as well: CDP hides the MBA control because
->>>> mbw_max is a per-PARTID maximum, leaving nothing for CDP to apply to.
->>>>
->>>> Fixes: 6789fb99282c ("arm_mpam: resctrl: Add CDP emulation")
->>>> Link: https://sashiko.dev/#/bug/linux-05c19551-0bba-4a06-
->>>> aa2c-3c90fab5853d
->>>> Suggested-by: Ben Horgan <ben.horgan@arm.com>
->>>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
->>>> Cc: <stable@vger.kernel.org> # 7.1+
->>>> ---
->>>>   drivers/resctrl/mpam_resctrl.c | 4 ++++
->>>>   1 file changed, 4 insertions(+)
->>>>
->>>> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/
->>>> mpam_resctrl.c
->>>> index 573617ba09df..afa3c084c475 100644
->>>> --- a/drivers/resctrl/mpam_resctrl.c
->>>> +++ b/drivers/resctrl/mpam_resctrl.c
->>>> @@ -222,6 +222,10 @@ int resctrl_arch_set_cdp_enabled(enum
->>>> resctrl_res_level rid, bool enable)
->>>>       if (enable && mpam_partid_max < 1)
->>>>           return -EINVAL;
->>>>   +    if (enable && (!
->>>> mpam_resctrl_controls[rid].resctrl_res.alloc_capable ||
->>>> +               !mpam_resctrl_controls[rid].resctrl_res.cdp_capable))
->>>> +        return -EINVAL;
->>>> +
->>>
->>> x86 only checks 'cdp_capable', so this check isn't exactly same as to
->>> what's
->>> done on x86, as claimed in the commit log?
->>
->> Sorry, the commit message is somewhat misleading and need updated.
->>
->> In my opinion, CDP is a feature related to resource allocation, and it
->> is always reasonable to check alloc_capable.
+>> Looks good
+> Hi Thomas,
 > 
-> Hmm, I know the patch came from my suggestion but I think the reason
-> that x86 only checks cdp_capable is that alloc_capable is that the
-> alloc_capable flag is also used to indicate that the resource is fully
-> setup and can be used.
+> I've reworked the changelog as you requested. The correct version is
+> the v3 sent at 18:10 UTC (Message-ID:
+> 20261016181016.3850-1-WeitaoWang-oc@zhaoxin.com,
+> https://lore.kernel.org/20261016181016.3850-1-WeitaoWang-oc@zhaoxin.com/),
+> which includes the changelog and Cc to stable. Please ignore the
+> earlier v3 from 18:06 UTC. Sorry for the noise.
 
-Thank you for your explanation.
+Hi Thomas,
 
-> 
-> In resctrl_arch_set_cdp_enabled() we manipulate alloc_capable for
-> re-enabling the MBA resource and the added !alloc_capable check would
+A gentle ping on this patch. I sent the corrected v3 on
+2026-10-16 18:10 UTC (Message-ID:
+20261016181016.3850-1-WeitaoWang-oc@zhaoxin.com),
+with the reworked changelog and the Cc to stable you asked for.
 
-I think you mean the following code:
+Is there anything else you would like me to address before it
+can be picked up? I am happy to respin it if the current v3 no
+longer applies cleanly, or to adjust the changelog further if
+the wording is still not what you had in mind.
 
-        if (cdp_enabled &&
-!mpam_resctrl_controls[RDT_RESOURCE_MBA].cdp_enabled)
-
-mpam_resctrl_controls[RDT_RESOURCE_MBA].resctrl_res.alloc_capable = false;
-
-        if (mpam_resctrl_controls[RDT_RESOURCE_MBA].cdp_enabled &&
-            mpam_resctrl_controls[RDT_RESOURCE_MBA].class)
-
-mpam_resctrl_controls[RDT_RESOURCE_MBA].resctrl_res.alloc_capable = true;
-
-
-> mean that we'd never be able to do that manipulation. resctrl doesn't
-
-Does you mean that we enable CDP for L2 or L3, but not for MBA, which
-causes aclloc_capable to be cleared to hide MBA. Then, when we try to
-enable CDP for MBA, it gets intercepted by this newly added
-alloc_capable() check, resulting in the enabling process failing?
-
-Sounds we should remove the alloc_capable().
-
-> call resctrl_arch_set_cdp_enabled() for the MBA resource but to be more
-> resilient the MPAM interface allows it.
-
-Yes.
-
-> 
-> In the future, once we start adding more controls for resources we'll
-> have to be careful to do the cdp enabling and hiding of features at the
-> control level rather than the feature level.
-
-I agree, in the future there will more control such as
-MBW_MAX、MBW_MIN、INTPRI、CMAX etc.
-
-> 
-> Thanks,
-> 
-> Ben
-> 
->>
->> Best regards,
->> Jinjie
->>
->>>
->>> int resctrl_arch_set_cdp_enabled(enum resctrl_res_level l, bool enable)
->>> {
->>>         struct rdt_hw_resource *hw_res = &rdt_resources_all[l];
->>>
->>>         if (!hw_res->r_resctrl.cdp_capable)
->>>                 return -EINVAL;
->>>
->>>         :
->>> }
->>>
->>>
->>>>       /*
->>>>        * resctrl_arch_set_cdp_enabled() is only called with enable set to
->>>>        * false on error and unmount.
->>>
->>> Thanks,
->>> Gavin
->>
-> 
+Thanks for your time,
+Weitao
 
