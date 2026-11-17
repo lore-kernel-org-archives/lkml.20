@@ -1,96 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.52
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.43
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794921988;
-	b=c6iInFHa2S0gTA7k/n4v9Lkrkqnxi/oEobRXMmaek1apd+OD4icN5L0WzHk1nGwhKxIq
-	 cKngXVQqI08caYcqn9NJ13PH2l3mK8xZRsnBzDaw+na7aq2GxeJS8prc6u8HOJ2VAo6bm
-	 JlCv4RrLI8PPBUCokpgI7UzL9d79XBgYw5//3MOTsut3JL29OqK6CYDqvfxNa0pZrp3O7
-	 nXXzCdZnxZgtiMcfX/WNXu/BnPOKht3nDjHFm8qG5vcuN2FaUOJDhiQSAbPxgZuTQaOxi
-	 0TxMetqvTxftnq9rDpQrvSKamSj9397awRm5421I3JeOurSOfl2YpCqINFpjWpdBA0g==
+	t=1794922002;
+	b=Enw1VSqjmhiTlL4tW8Cu389GJRfH/POcta+yYApNqdb6sAGSnz+y8HDxdUE5Ucj9fUdH
+	 ya/n4kprn8cCZjyyLvI4cwRMuZhJYcxSJ31sQEhRUQffw8VSd3w1M0jzx+Xvl6HpKCAZC
+	 CBJmbHla3PxiNsg5uzM4Yc+biTGMABw676P0iSaHnR2njEwxMM2M4bPeVZfdALfs56wG2
+	 metkOEZtLsKHq/xzdFteDmKY+7KKa5Y+TrlidgT06z0QT6vMtecS1nqduAmInaK02jYau
+	 HGt8/QUcj9uxa7fl89Q78LxA1xozvKsNEoxqAfbqpwB1JiytcNa0r3aEO9ArxfkKQGg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794921988;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type;
-	bh=ivwsWDpMxt3u9ZDGitRO0hmUHFO149xyZsPbyhGqEts=;
-	b=HQxapE75Nn1b8HTZvMRauca296qL+TodEsyXjqUBjtNwjd5hJSLsvJ4kiLxLxjDVTuKF
-	 sY5Q6OiiwL2xdyZ30NbR3uyK1vzlkZIlWNZ0NsLimnArcn10glBcqkcs0f64C+el1tsrT
-	 PaEJecFq/4ReLBvDcetu1ncAtB4xBWAQ0XdcjbaR/2pGxyHI/e0Ft5cAzkreHVDMT8AHj
-	 CKY4jdFDsiDxtxUl51MlQsjxZlFcZ9H0yjRNWfkF8FaJLzAr+l9Iv8veHt8QCB7omcEXy
-	 ZQY/WlEUgatIsbfnNlVDYVD/+vPcHO47v/i/T/jOGLxGyBQ6YcaEpEcVPoatgIQzGGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794922002;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=AaDKJsLWEh7/iLpR8aPgnfDX6Rsn+z2sYbKJVVqDKhM=;
+	b=Wjc6hVYRohkYLUEYlUqjspQ77HcMwqEeMWUS4ubYOejiJncroQmhBnGk2u+3JhuTyJBP
+	 f8kCzo+EJTR2u0XvrN6mIbPQf7RIt99MY26Bq5IIEw2rWKTR1ulnh0LjiB3IQAG3RSmpy
+	 TLHQaSIaPWD6rBiT/jR3lmTVNjCEuCeBEA/JClqz/Gp+UV3mmRVdJHJaSq6O3z39904lT
+	 DIlvTr1/GEmBIFDSJjqwZ/CYF+npb0/snPtZ+tRFP4cBVQIpewr4+cY/xe6XTgVMw5mbA
+	 StgTMFNQKYQZwcC3RcbIclDcAGuF231WVvF3k1+lu4UGm7GNHxuOzFsiy+6bKcbr3Dw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ommer.net;
-	spf=fail smtp.mailfrom=ommer.net;
-	dkim=pass header.d=ommer.net header.i=@ommer.net header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=F3OOwJKN;
-	dkim=pass header.d=ommer.net header.i=@ommer.net header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=RZJf5Ybt;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.52
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.52])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tTsTP4U1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.43
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED55B606A33D;
-	Tue, 17 Nov 2026 13:26:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED55B606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ommer.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=ommer.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64C26606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:26:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64C26606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ommer.net header.i=@ommer.net header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=F3OOwJKN;
-	dkim=pass header.d=ommer.net header.i=@ommer.net header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=RZJf5Ybt
-ARC-Seal: i=1; a=rsa-sha256; t=1794921985; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=ZIe0ra2Wq44Q5qNARxBT3IcX0HGWyKI32ugq2A22YZV9NfqXyR0iQFHW1u85NcAJiS
-    1UaMBsvGv+ZpcswMSQmO1N71+vNkRi5+l9qIBNb8Nm5bSqLKyfxR/3XRg8z8zUbctq7J
-    ig6n0ncuKYOwpoIKmoy6CDs5vNJYGFaRaSq1l1gdMHmeoZqr34vCCbEtfDCduN+eGdme
-    hJEggnMQ4x/3QqvLWS6jwN9Qrbih7SeEesAMEU3708IV2OCf49ypaR3R/dDJj/Ji0y4X
-    zSdtzl9x1a+vt3hucFexeDmAWRHxPqTWzVpP0BOJF6K7u6/Kwk4DAtKJfxEpAtqjgJZ6
-    t1nw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794921985;
-    s=strato-dkim-0002; d=strato.com;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=ivwsWDpMxt3u9ZDGitRO0hmUHFO149xyZsPbyhGqEts=;
-    b=U8WNwSWMnfgdNNvDSpLvzFqVLaqrJXQBojWOm1XFxZlFh41EpXyHqUBfTY5ZRad97f
-    wtJkEzZ/+94H5Zl6zZF/MplztiaPTCY0RHHepmGHJOTXnKhRZ1n/CNZIBoGZGzY42326
-    TTraxl/1yvTA1oFjt76gF85WiGVftHaRKL2pwvBiPxdJq/pxevwQIfFe2hOchcigURQb
-    7PXnVcJqCgyFkoaD3KEVaxC5GcXmxuOyoEiQ+aV74FXJbGxdbrEGZt2AGYpSbl4qD3uY
-    OLTksZIz1NZRCWOM5+HxDq1me3HchXzyfqYw84190i6Adkkg33bGDu0EsqYoSvKHNoA1
-    hDXA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794921985;
-    s=strato-dkim-0002; d=ommer.net;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=ivwsWDpMxt3u9ZDGitRO0hmUHFO149xyZsPbyhGqEts=;
-    b=F3OOwJKNcCfnIP3P7uRD1Oyx5lK1OaLx1yiOYqpJsvGYW9zq+D/GrApd9rABL8W4dd
-    0CFlATPYuLvdjiDnw1LWLIHX20yzJ+gMnFtIzfHovE9XR9W3zcI58oHE5CmRv3g1po7c
-    DIK+C44lEfy+FIaZGVz3MY1EobqNcS5JSitT3ye7smvOzApU1vuagk6CAKjxzjXIuzU4
-    6zY+xtcBDuRY8qLThAq7+FiSpFB7cmOavX8CeJkMGqFKJddYQt9vKIy8yN/JTysik34s
-    skWZMjjVSzQuLNMsqxrqrKD86W/cArADgkmki85EFcasgT+IF1N7egaj8jnPfFgi10c/
-    UyIQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794921985;
-    s=strato-dkim-0003; d=ommer.net;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=ivwsWDpMxt3u9ZDGitRO0hmUHFO149xyZsPbyhGqEts=;
-    b=RZJf5YbtWuvyBkNUpiJNInAbkgSHKg3G1wNjDiBWV1bX5CrbQcSzjnVM/lnXcbS0/Z
-    oy0CaJnmtC4LV56foMAA==
-X-RZG-AUTH: ":JGkKZ0mIdPJLfj3rk5MOrv6kH/tvwFubxUqMvsWOyVXJkOABZnPqvKUstHY8FQgnq3rT6NoXCyjULwIut1Tf8meVypGj6A=="
-Received: from localhost.localdomain
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id n2f42d2AHDQOvuW
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Tue, 17 Nov 2026 14:26:24 +0100 (CET)
-From: Henri Ommer <henri@ommer.net>
-To: job@noorman.info,
-	dmitry.torokhov@gmail.com
-Cc: phone-devel@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Henri Ommer <henri@ommer.net>
-Subject: [PATCH v2 2/3] input: himax_hx83112b: Add hx83102d support
-Date: Tue, 17 Nov 2026 14:26:22 +0100
-Message-ID: <20261117132622.12178-1-henri@ommer.net>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tTsTP4U1
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b87a92c17eso564162a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:26:42 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794922001; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dlH4M3x/a+eaRBrqshNwQi5F2ZB6RxwNbK/K0yXeIVFUTuauHYw+z2V72dNJ2ZWzDI
+         fbd7Glnvmb2Z7V2Q/T2IXKGPF9TxCrR3haTw/N1okCF7qKWjzI+62my1CYbsXj9QGHqi
+         Aq6IbWVQ8nVCC2vPnv9KJ8QZ+hMTMCaKgIIx16/S/fUnZyq4tjdegYzC4WaOFsJgVG2i
+         OLN2THINjxDfVVAd/b/8uQHPfbaM0eFDXpAp6SMJMI+muMr20f7lfrJr605WP2QzWaUE
+         frJafH8UcrHe0yILixicMPedIWu6rSy0szd7ZDW0F7Pg8fC8eNSGlrbiIt/MZOIof9nR
+         bAOA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=AaDKJsLWEh7/iLpR8aPgnfDX6Rsn+z2sYbKJVVqDKhM=;
+        fh=4NVQLmQM18IZJ5t899LcyV1EVUsztVhBOpD6QOwI/ws=;
+        b=XMCHA5MgA2eWpl3+CuU+ltI1sA5IIoT6XGjz0KCgWicdHtSYDtD/BkfCe7vroWAlmT
+         Q4BauTIviJP4j6p3jfu9YsQOf6S6y+6x9/TybV5c6HlZJR3PYaqePF/TU85it4joytDK
+         85UIULHeZ45+Gkmr+pgQXlTxc+xomAQMZOFFdRvNqCnKrVSnglUn3RwQpQXYpsPDAzfH
+         mHQMvQBm+zeWPtep1RHZG7i8B/EWqXHeHZfAHG4T6aSCPk8D01sr1s9KtALBtqMbFw7/
+         /FSAMWLU0ictqlfekZZ8hsYV58Hec/C+t8yMYCXJS5mL9bfvpN+yNC4aQYwbKlD+ZkHe
+         nVaA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794922001; x=1795526801; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AaDKJsLWEh7/iLpR8aPgnfDX6Rsn+z2sYbKJVVqDKhM=;
+        b=tTsTP4U1cCg9Rk1KBSRbSUm6wrsPHp1ZGTzobUTmseCRCyq7/058crmjpXgSCDQrVD
+         Oo//fiT1U/F1MgOxMmxooc4czK40/OUnCOlhjrsYgDN9x3tSKk16GX1Hh49zChF2aP1L
+         MHLP4aI98Sg3L2qBUjcpxaIE2XkQkpiMlmnY1UOMMW395k4HisBZyhNzgBrFASyHdSoy
+         Avg3UUwBdhjJXOLDxSd0mL2t7078Cy4hytGP8ZlALjQYHCUUZGiP9E82hfdRNeRf3Tia
+         VRF8x8qN569gR7x1QNnbgToOet2Laa74J4mR2YGYkSdMROuuFvFVVPJYWX7gsQ/a0Irh
+         QcUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794922001; x=1795526801;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=AaDKJsLWEh7/iLpR8aPgnfDX6Rsn+z2sYbKJVVqDKhM=;
+        b=2JP8fDhnTCkzZwni8LEVesLagsM+XA4EOYZ/Ov6A9kcfX7771KKuzz49lA//m9eEc0
+         f5Kpxjoq+OuHVAjBJYr7mkjo4+SxoOl5VBjEodRstO7r55WVY5a/A7C5u4vNeEXDmOyn
+         evD7B3bZXSWYsH3+oznw+Fl/7CYG81eXbo0Pw+M7mQl+a8eyBsN3xBecYC9mtdbRkbUV
+         8AMpfjSFG9WuZQkKWuNI8F8f2xpS33XxE15WRa1pTxl8Q22KNFTPrc/LKgYbZoe9kyo3
+         FqkhpST8idFbKMvePlWHyQbSxeihztGS2HSwRQKt/A9979eXVieU8aIsjpZR2DZ6sFzi
+         zfkQ==
+X-Forwarded-Encrypted: i=1; AL+hErH4vEKwBc7ZYUilMPbkEZO6GTkyvXs8oruS3kmP9gFHTu0Il1XsrCg25QAgszslN7kZU9g+EvjpdZw2sko=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9OqKWBllhhNqIHe0uMv5zcj8jwhVF3/seDol6KFkLxA0j0kwF9
+	KvocM4cC0aNV3A6K8tM9zLyPzIEUp4rXIPNaHy0X1BsZlnHM+pq8w987/gwW+ZTTfos5gPgv8Lh
+	8g55rTzndQUwMrRCD8P8xZCBt96iZ+Ic=
+X-Gm-Gg: AYBFou3nbwsoC8R5joPp6zHQ9EN7ecKbDPnbsmHeAJFMWIgxb0nNLyfZTMNWCDVYz3X
+	RXtQMS/0jgtEgbHlphZ1FDobdEPhJUU3BQGVfxCNYpOMaBaK29OUPB0aP1QqnJxhFOIqZ9eHtcH
+	tG8087IUjs1oRg8u8qJkwI7C3sjbtGqVnwVrop5+u9o1gN6j8RVYjEIcRR+WBO3LxXHcGF4OQTj
+	Z4FnEiSQ8NYUWxuWQeoyUTQExqGVVhqb4c5WG1+2dvY8/Qnq44j7AcM5BldQDiaGu2ZC2XJNLup
+	HzzJQI4KYVqIDJBkukUIRpMbDo7I/x6bDO/CmFqbzrQzf+n9VC0c0f88/m+c98333GrmWrus+La
+	4bF/+nAW940N8POPxm0bfDrmLC6lRjBvy5mA=
+X-Received: by 2002:a05:6402:4504:b0:6b5:7de8:87cd with SMTP id
+ 4fb4d7f45d1cf-6b7c0d06f9amr10641554a12.42.1794922000158; Tue, 17 Nov 2026
+ 05:26:40 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,61 +103,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="us-ascii"
+References: <20260921113914.779393-1-l.scorcia@gmail.com> <20260921113914.779393-2-l.scorcia@gmail.com>
+ <3701981f-cdda-46a7-8079-de5479ae9c27@kernel.org>
+In-Reply-To: <3701981f-cdda-46a7-8079-de5479ae9c27@kernel.org>
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Date: Tue, 17 Nov 2026 14:26:28 +0100
+X-Gm-Features: AclHuK-pAjMxUsyMno9u008purn-se7dqQHzpp18oe2HOK5CuVKhIbMUqhDzQWQ
+Message-ID: <CAORyz2+wF=VDTFkRFU7jBu-zNTW7T8mnPrJZAj8ZVD-Yyr2b6A@mail.gmail.com>
+Subject: Re: [PATCH v2 1/4] dt-bindings: display: mediatek: dpi: Add
+ compatible for mt8167
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-mediatek@lists.infradead.org, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Chun-Kuang Hu <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, CK Hu <ck.hu@mediatek.com>, 
+	Jitao shi <jitao.shi@mediatek.com>, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-The core functionality of the hx83102d is software-compatible with the hx83112b. As with the hx83112b, firmware flashing is unimplemented.
+> Turns out you bring here undocumented ABI. NAK.
 
-Tested on: Samsung Galaxy A20e (SM-A202F)
+Hi, I'm sorry but I don't see the relation between this commit you
+just NAKed and the bigger issue about mediatek-drm alias usage. It's
+not like I'm introducing anything new in these DPI specific patches
+and the individual display block drivers do not depend on the aliases
+(they're used by mediatek-drm for building the pipeline).
 
-Signed-off-by: Henri Ommer <henri@ommer.net>
----
- drivers/input/touchscreen/himax_hx83112b.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+I understand why the commit to the dtsi that includes the aliases is
+NAKed, and the eventual fix is going to require a change in all of
+Mediatek SoCs dtsi. I am fine with the dtsi changes being blocked
+until an appropriate solution is found. I just don't understand the
+NAKs on the DPI components.
 
-diff --git a/drivers/input/touchscreen/himax_hx83112b.c b/drivers/input/touchscreen/himax_hx83112b.c
-index 3521b05d509f..4bd52c1e8f4a 100644
---- a/drivers/input/touchscreen/himax_hx83112b.c
-+++ b/drivers/input/touchscreen/himax_hx83112b.c
-@@ -7,6 +7,9 @@
-  * HX83100A support
-  * Copyright (C) 2024 Felix Kaechele <felix@kaechele.ca>
-  *
-+ * HX83102D support
-+ * Copyright (C) 2026 Henri Ommer <henri@ommer.net>
-+ *
-  * This code is based on "Himax Android Driver Sample Code for QCT platform":
-  *
-  * Copyright (C) 2017 Himax Corporation.
-@@ -407,6 +410,12 @@ static const struct himax_chip hx83100a_chip = {
- 	.read_events = hx83100a_read_events,
- };
- 
-+static const struct himax_chip hx83102d_chip = {
-+	.id = 0x83102d,
-+	.check_id = himax_check_product_id,
-+	.read_events = himax_read_events,
-+};
-+
- static const struct himax_chip hx83112b_chip = {
- 	.id = 0x83112b,
- 	.check_id = himax_check_product_id,
-@@ -415,6 +424,7 @@ static const struct himax_chip hx83112b_chip = {
- 
- static const struct i2c_device_id himax_ts_id[] = {
- 	{ .name = "hx83100a", .driver_data = (kernel_ulong_t)&hx83100a_chip },
-+	{ .name = "hx83102d", .driver_data = (kernel_ulong_t)&hx83102d_chip },
- 	{ .name = "hx83112b", .driver_data = (kernel_ulong_t)&hx83112b_chip },
- 	{ /* sentinel */ }
- };
-@@ -423,6 +433,7 @@ MODULE_DEVICE_TABLE(i2c, himax_ts_id);
- #ifdef CONFIG_OF
- static const struct of_device_id himax_of_match[] = {
- 	{ .compatible = "himax,hx83100a", .data = &hx83100a_chip },
-+	{ .compatible = "himax,hx83102d", .data = &hx83102d_chip },
- 	{ .compatible = "himax,hx83112b", .data = &hx83112b_chip },
- 	{ /* sentinel */ }
- };
--- 
-2.56.0
-
+Thank you for your help
+--
+Luca Leonardo Scorcia
+l.scorcia@gmail.com
