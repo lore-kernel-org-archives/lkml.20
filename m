@@ -1,97 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.72
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794884479;
-	b=euGkFeq4cMW6VRFONMuGXLjR/npy8Z5QSXpHV2qJgW1VAOIWiAxm5kFOEsYTdpjDUOl9
-	 i5NoCXT1RafQirn7o9Na7T2S2nwR09bQCP6UAYCvibC6up2Bn8RI3rCLqDp4LlkFxSEEe
-	 0+xas5Gq3hAl1rgrApCHLPFIbEzu7eAXX3M1uF5NKT17QJ4tRVirzsBortz3UkoBh3qOv
-	 Xv5tAhsikSTKl0pTl1F/odQfnn9iSg/Bgek/m7n9YPvtWdpCkKwfPa+PrNytE14cRzWTt
-	 WpDUg21xaaA/lJabIBSQ5ZuSirv5f0YvWekF5+XonrPer2K+mvnIgO7NrMVDd4VfRnw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794884479;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type;
-	bh=rxu4C+D4IFtlQQXxGEHNwNvtWVbx7dC0E7mSZshpwlE=;
-	b=s3WAtZnr4CFK+26LdZ+g8AzBZ3wKnBlQDZytMRGAZEEdba+qL4J4U0Fi6y6mYDN+z+MG
-	 yMXg+SsVK8ldMjgNqkrUt0pCuu8/ilxZV3LGWnyCgW6uiTjYUIsIOdFwOPzTUYoU0EYVZ
-	 ypBCyco7BdVLPcUGK2kT4CI3twJipBK3r4+Ns4Z0gKVxF2LWjtN/BE5sARWB+NkR+pQwE
-	 hpV8rVu+Wf//ZXq1Ew9/iWPHqqLeKkJTDFbNpVtRlz0VvEojEa5nv+vWxheHKoKRpVQ7g
-	 3FenQBCUcUf6Aw8ORBcCeERzCnfn4Z2ImR1H/wq70Nml3u27jJCW/THUPR2dEpze69g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N1QhM67D;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.72
-Received: from mail-lr2-f8.google.com (mail-lr2-f8.google.com [74.125.230.72])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794884587;
+	b=KcobqpXwgBVFFkJU+8PQQzH2E4PLmV74MZsk+8CMG+paX9qffY63CthlEivzPt5oUPta
+	 IO6Hg9pxNVRqb7GbAknCvkMOVi97sSeAcY0cWlQwQi6XvB+R4twimM/W2+1cnj+NJLURM
+	 3KkfIqtq1HLIb3B5fPvR7KW5VYDubqzsz+H77LIgutYKvKyfkfUTA8vDYfLTI75aIxpvQ
+	 QOIa9CBlqE0Jtp10mo/lucsFpeinEbW7Gw9pKrcSqQSbhVnmTTsRKbIKujCQVmCGOvYcu
+	 IjzO+Bn+JPwdzRCIAF0PNsK8dc6F5Ad77gI3XZ3yzMAvLEuZp68j3QdWFitOrjAtLgg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794884587;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=v86ECrw4hTZS+oi6SL4n7LCSWP3uQBdnZrQC4d8hSfE=;
+	b=MVKG/3v9MxVKiz7oa48EjinJbnqj2dDWmbvS2z87Gf2POmZlLKEDcRhIhAZyrourSBZi
+	 akGa2NuOl2AampstTnjsWNkqnI+27qy9TGvRkDuQcW2Xa1YM6qzSU4dLHRa4cMNv6UOpj
+	 zGMcC5d0uOQOyc4lTmfsWF43igY4tSxre7Ee4h6xudcAGF8Lzm3goyWSIeVdbwe4sLbIm
+	 Uj9IR5w+VhPnlwazRm7iw2qQeeKFvKO5IRsCYoSQ1ywe1o3St9VYIlJHgnyeHpLo6TbQT
+	 HMfqpPTt5fir/qoO8vVGHDkAEz3IUlElJYgDmaVJblLZvbwXlUpgBL7WbhLxwYTnlXA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="EAF/911a";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DB16606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:01:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DB16606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27F5606A31C;
+	Tue, 17 Nov 2026 03:03:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N1QhM67D
-Received: by mail-lr2-f8.google.com with SMTP id 38308e7fff4ca-3adf2e3fd87so24932911fa.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:01:18 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794884477; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NcCKVIOev/x65Ejnha7JgWXvFbeSZFoRMaU+1ckD27CADGVtOzB0jQbEb65WZW4nhH
-         FZ+4Y67YH4luX9aN74U4iRUCM02NICTYVrkJBNSACJcLgy/83cSSsjk1G6SrJp8X7OWO
-         M4ZiY8G6EDOcrxPwyOEpXyidgXcxgGXQ4M5RJ98wKVp5FjFJ1Krj3v5YHar5y0ULOqdc
-         VIdsrQ4duARBLra3UJlRf3Ih00BLW+z5Y0pFDqL8QsyLvzsPkYj2uYAUCTXjMGEcckqL
-         rRVOcR3fa0kcPxjCwttFEBIq04/noE5A9xWar8Bd5ScmuHnsLUufZmBTN06lbXelJLzr
-         J7Ww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=rxu4C+D4IFtlQQXxGEHNwNvtWVbx7dC0E7mSZshpwlE=;
-        fh=z2H/xPGYGLRiWNgRvdK1seZOI1RF0vOXLIH6IocLovg=;
-        b=HdHa4GAkrD328NvG9c/NX8vAQUMuUtDtWvXGBVf8VxjZ05Jq4BcBfZWPLSO/yuOyIA
-         ny0YK3DIhOCdtCo3DPv46oCqLYmD/7Okvqzye2DgG+u+7mf3qmHEQsn/b+idRtUVFAQR
-         L8V+Hu9nnaSXc03V6o9QAEIoU/lS2kIKVkT+g2CfX+d7Za0ZIK4JqVsJVv6nGzGrwOub
-         xQ9MBLwO64Nf9hH0H25Q6wF4OlGrtUgVeSomq7+1BGDBTo3Tmt+TfUGAPsansEawQoIQ
-         00j3+CH7p7L3hFJPSEIIbdv0d4B0rQ/QMOyRn4bX3gkMV4zxWVBXnqBbAapEIRjJLsJ0
-         9K9Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794884477; x=1795489277; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rxu4C+D4IFtlQQXxGEHNwNvtWVbx7dC0E7mSZshpwlE=;
-        b=N1QhM67DV+KItdZzSHIydtjJrH9Bc/bfjj1i4+zIcjMjcm5tftNElc+p1Tq0xEqLwE
-         Ljou7jWP2BagD5W1rQQsr2fFgdZ+ZF+yc/lqemCB38x+yKdAhuaQ8woia8IJA7oXCGsV
-         mLjgT+e3x3rBF4Wmpo4C3GTh+Q5ffavHeNDL3/F3yyKJcuU++9aymFLYE0kKhrXlsj+E
-         zIdQLz75EIqEEphsoB48/hkipZW3/7U8ieO5VUHck2jRs7D4Bg171EW3EPNMgallfe7b
-         GCJcsI4OwTv8tj04iPAPEkbBGp3xyZkFUjt1gXCE9Jq4MdWoiK0+8Bg9+1juXMYh+YBo
-         2l+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794884477; x=1795489277;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=rxu4C+D4IFtlQQXxGEHNwNvtWVbx7dC0E7mSZshpwlE=;
-        b=fWugh1fa90f5hW4BkwArlDq8JKSBg6doGf/LNaNq3IUY3T0factbqtNmOIK3HOCOQj
-         HytO+xa0vbtL7+mo8xeqKiqzWYHG4Mu7oB4cRDgPt25GyyiVDWpqkIaad00wgBGvJnDo
-         ukVoisF2Z1DcJXjFQlPLxzx0CX8Jl3VTYwoFbZSJKNaUMvSNi/5GuXB8KSCP/GMW0SDI
-         9BabtBzHu9fn3EGgSLxNzzxu9SyA5OOBiieaK5F3QXJo43ZnVP+hHzJNbf72fzevORFu
-         IlHw/CLKraqKxM8r8+rf1DcGE5An46z6paDec4Y1o7PtcdCzg32wDvsIYv+Z3AJkaw4K
-         8kaQ==
-X-Forwarded-Encrypted: i=1; AL+hErG1XGNZY8YvecAmXgeSuqp4lySeTTK255BYgCp319p/xW7S5sU6bHt1ElcuXBV3JLlS0/HXk4CgQCyawbA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8QRUaiHP6WR8F4XAKC1tLUHVSrkyzY3Q0gTb7NFOgkADqhJadD
-	YNc+5tGBK0xyg+6KIdg6pAiGDRo8fOSiBD4JoayaLLXy/K7jrt2sCzjjUy/ag+aFS6v+xqwpcDM
-	c7eWeAWn6YTSwthvZi1iNgwnn6hbt7TQ=
-X-Gm-Gg: AYBFou3UDvxnZlwk9ahmOlZqNNxhDOy5oA56s1owtBt/p3KlV1QjIiq0B2/7suWXSx5
-	T2eQ/uuMk3KJqJwVLsCPufr5X5pPhKBX9OeSKnHh4iMVOylsYL2BdJm/YkiR57axgB69cHQv7ab
-	zI2rPF28DbWlgdYgssCRuKs+nRLG6jfQzv9HJbyn1FGZzaiIICXAMUtTypt+G7tnqUh2wDmQo+s
-	GQ6Fj2V9liBFEPRXuDmRc4XJFhJ1CwOn7ukbdJSl7pu6oYRq3YHt8x5hRWVB4gcuyVdNDVfy86F
-	zWeQ0wp6FvP2+UOrD9afNUgcgYuLNixVOt0wq+2q7OVXoruYzI9SBctDJrmevBP2dL809rcGp+W
-	A2SkzpIkVFvNCGylnwlWK1eKewEm7UUr0usc/NjRmvFYNaDwsbSlgbmbtjkhoHekJXUU1gA==
-X-Received: by 2002:a2e:bea4:0:b0:3a6:6d05:7375 with SMTP id
- 38308e7fff4ca-3ae2b53711emr40965391fa.8.1794884476943; Mon, 16 Nov 2026
- 19:01:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EAF/911a
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADA6D1F000C4;
+	Tue, 17 Nov 2026 03:03:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794884587;
+	bh=v86ECrw4hTZS+oi6SL4n7LCSWP3uQBdnZrQC4d8hSfE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=EAF/911aT3K/HgLF7Z/UTT8qhiixqrvj+5cC5G9mJXdj9Bm4icfnFSRvuognvA+4d
+	 TJC6Ir5HtYyI1539/i7VyL30DbqZ8gLppaMkDoYfqpMINGAwQMbwpzGXKRBgXQ/7We
+	 hpjy2c1Sj0KRpWS9HwAQbT3fp8dDy1KTMloD2IjIthAFnnGBNUwtjTexfF091/gwSL
+	 NB8/UB5kZUf0j5qea6V6f+owdNjBu/Voqmlb8s0Ht9ZKtKOvQ0JvRzOO33JEtSUT1a
+	 n/7EZFowKNUWhsz8t0owOk0tI6hK1K5YJ7qc3OOSrQylSoq4ws4ZejpfONouuwKlzD
+	 rN6VzJv88KSAQ==
+Date: Tue, 17 Nov 2026 03:02:58 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Luo Yifan <luoyifan@cmss.chinamobile.com>
+Cc: linux-iio@vger.kernel.org, Eugen Hristev <ehristev@kernel.org>, Nicolas
+ Ferre <nicolas.ferre@microchip.com>, Alexandre Belloni
+ <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] spi: pl022: handle clk_prepare_enable() failure on
+ runtime resume
+Message-ID: <20261117030258.364ba429@jic23-hlaptop>
+In-Reply-To: <20261117020711.20158-1-luoyifan@cmss.chinamobile.com>
+References: <20261117020711.20158-1-luoyifan@cmss.chinamobile.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,205 +62,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: Zheng Zheng <fengaojigui88@gmail.com>
-Date: Tue, 17 Nov 2026 11:01:03 +0800
-X-Gm-Features: AclHuK8TdYMEcKuub8UUYCj7RSAfjmeEyg8A9aR21g-EKu6aFiCgkApYO0WXhsU
-Message-ID: <CAO-4RZ1a46EoJY7x6euiS+7aTOb-T9X62E9nGyToRcyvKU+eHg@mail.gmail.com>
-Subject: [BUG] WARNING: possible recursive locking in hfsplus_get_block
- (fs/hfsplus/extents.c:264, v7.4-rc3)
-To: slava@dubeyko.com
-Cc: glaubitz@physik.fu-berlin.de, frank.li@vivo.com, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Viacheslav,
+On Tue, 17 Nov 2026 10:07:11 +0800
+Luo Yifan <luoyifan@cmss.chinamobile.com> wrote:
 
-We found a reproducible lockdep recursive-locking warning in hfsplus on
-v7.4-rc3 with syzkaller. The same signature is present on v7.4-rc2.
+> pl022_runtime_resume() ignores the return value of clk_prepare_enable()
+> and always returns 0.  A failed runtime resume is therefore reported as
+> success and the controller is used with its clock off.
+> 
+> Return the error from clk_prepare_enable().
+> 
+> Signed-off-by: Luo Yifan <luoyifan@cmss.chinamobile.com>
 
-The following is the key excerpt from the rc3 external verification log
-(`rc3/logs/external-verification/run1-singleproc-serial.log`, hit at 114.00 s):
+You should probably resend including linux-spi and appropriate maintainers
+and dropping IIO folk.
 
-  [  114.001303][T10445] WARNING: possible recursive locking detected
-  [  114.003629][T10445] 7.4.0-rc3-kernsight-kasan #1 Tainted: G            E
-  [  114.005869][T10445] --------------------------------------------
-  [  114.008132][T10445] syz-executor/10445 is trying to acquire lock:
-  [  114.010406][T10445] ff1100017d7545c0
-(&HFSPLUS_I(inode)->extents_lock){+.+.}-{4:4},
-                          at: hfsplus_get_block+0x282/0xab0
-  [  114.021835][T10445] but task is already holding lock:
-  [  114.024125][T10445] ff1100017d753300
-(&HFSPLUS_I(inode)->extents_lock){+.+.}-{4:4},
-                          at: hfsplus_file_truncate+0x20d/0xd70
-  [  114.044862][T10445]   lock(&HFSPLUS_I(inode)->extents_lock);
-  [  114.058492][T10445]   lock(&HFSPLUS_I(inode)->extents_lock);
-  [  114.058944][T10445]  *** DEADLOCK ***
-  [  114.058944][T10445]  May be due to missing lock nesting notation
-  [  114.060170][T10445] locks held by syz-executor/10445: 6, on CPU#3:
-  [  114.063858][T10445]  #4: ff1100017d753300
-(&HFSPLUS_I(inode)->extents_lock){+.+.}-{4:4},
-                          at: hfsplus_file_truncate+0x20d/0xd70
-  [  114.064748][T10445]  #5: ff1100017d26e8f0 (&sbi->alloc_mutex){+.+.}-{4:4},
-                          at: hfsplus_block_free+0xf3/0x690
-  [  114.068038][T10445] Call Trace:
-  [  114.068542][T10445]  dump_stack_lvl+0x116/0x1b0
-  [  114.068921][T10445]  print_deadlock_bug+0x293/0x3d0
-  [  114.069329][T10445]  __lock_acquire+0x153c/0x2110
-  [  114.070151][T10445]  lock_acquire+0x1bf/0x370
-  [  114.071749][T10445]  __mutex_lock+0x178/0x1dd0
-  [  114.075318][T10445]  hfsplus_get_block+0x282/0xab0
-  [  114.075713][T10445]  block_read_full_folio+0x305/0x850
-  [  114.076997][T10445]  filemap_read_folio+0xc4/0x2a0
-  [  114.077824][T10445]  do_read_cache_folio+0x255/0x5a0
-  [  114.078746][T10445]  read_cache_page+0x62/0x150
-  [  114.079124][T10445]  hfsplus_block_free+0x156/0x690
-  [  114.079520][T10445]  hfsplus_free_extents+0x345/0x4a0
-  [  114.079928][T10445]  hfsplus_file_truncate+0x59b/0xd70
-  [  114.159730][T10445]  hfsplus_delete_inode+0x196/0x230
-  [  114.160139][T10445]  hfsplus_unlink+0x7b5/0x980
-  [  114.162948][T10445]  vfs_unlink+0x30d/0xc90
-  [  114.169449][T10445]  filename_unlinkat+0x3ee/0x680
-  [  114.171418][T10445]  __x64_sys_unlink+0x4c/0xa0
-  [  114.171796][T10445]  do_syscall_64+0x132/0x7c0
-  [  114.172170][T10445]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> ---
+>  drivers/spi/spi-pl022.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/drivers/spi/spi-pl022.c b/drivers/spi/spi-pl022.c
+> index f52130465a..64bf9c4b0a 100644
+> --- a/drivers/spi/spi-pl022.c
+> +++ b/drivers/spi/spi-pl022.c
+> @@ -2067,9 +2067,8 @@ static int pl022_runtime_resume(struct device *dev)
+>  	struct pl022 *pl022 = dev_get_drvdata(dev);
+>  
+>  	pinctrl_pm_select_default_state(dev);
+> -	clk_prepare_enable(pl022->clk);
+>  
+> -	return 0;
+> +	return clk_prepare_enable(pl022->clk);
+>  }
+>  
+>  static const struct dev_pm_ops pl022_dev_pm_ops = {
 
-What seems to happen:
-
-1. hfsplus_file_truncate() on the unlinked file holds that file inode's
-   extents_lock (extents.c:579).
-2. hfsplus_free_extents() -> hfsplus_block_free() reads the allocation
-   bitmap through sbi->alloc_file->i_mapping while the file inode's
-   extents_lock is still held (bitmap.c:183-185).
-3. The bitmap read enters hfsplus_get_block() for the allocation-file inode
-   and takes its own extents_lock (extents.c:264).
-
-The two mutexes are different instances (the external-log addresses differ:
-ff1100017d7545c0 vs ff1100017d753300) but share the same lockdep class,
-because extents_lock is initialized in a common inode-initialization path.
-lockdep therefore reports recursive locking.
-
-Is this a lockdep false positive caused by the shared class, or is there a
-real lock-ordering issue? If it is a false positive, should the
-allocation-file inode use a separate lockdep class (or a nested annotation)
-for extents_lock? Alternatively, should hfsplus_block_free() run outside the
-file inode's extents_lock?
-
-Reproduction:
-
-  kernel: v7.4-rc3, CONFIG_KASAN=y, CONFIG_PROVE_LOCKING=y,
-          CONFIG_HFSPLUS_FS=y, booted with oops=panic panic_on_warn=1
-  guest:  Debian trixie x86_64, 6 GiB RAM, 4 vCPU, KVM
-  syzkaller: 853b104bb454141a5b0fc0e4218ec78e9f34ffb1
-
-  in the guest, as root:
-  syz-execprog -procs=1 -threaded -repeat=1 \
-      -executor ./syz-executor repro.kernsight.prog
-
-The reproducer is a 56-entry state-reconstruction recipe. The main fuzzing
-pipeline verified it 2/2 on freshly replayed VMs; the crash was reproduced
-during crash-log replay at entry 55/55. An external fresh-VM run also
-reproduced it 2/2 with -procs=1 -repeat=1 (114.00 s and 110.75 s). Note that
-the recipe needs strict single-process ordering; 8 parallel workers did not
-reproduce it.
-
-How to reproduce reliably on mainline (v7.4-rc3)
-------------------------------------------------
-We reproduced this on mainline v7.4-rc3 with the following recipe. No
-local HFS+ patches are applied; the source tree is vanilla v7.4-rc3.
-
-1. Build the mainline v7.4-rc3 kernel with the configuration in
-   rc3/kernel.config. The essential options are CONFIG_KASAN=y,
-   CONFIG_PROVE_LOCKING=y, CONFIG_HFSPLUS_FS=y and CONFIG_DEBUG_INFO=y.
-   The bzImage used here has sha256
-   0c16409f8aec508ac44a63e631c2bd352536401f3fd0856df1d839fb953a1882.
-
-2. Boot a Debian trixie x86_64 guest (6 GiB RAM, 4 vCPU, KVM) with the QEMU
-   command line in rc3/environment.txt. Keep the serial console; the lockdep
-   report appears there (and in dmesg). panic_on_warn=1 is not required to
-   observe this lockdep report.
-
-3. Copy syz-execprog and syz-executor built from syzkaller commit
-   853b104bb454141a5b0fc0e4218ec78e9f34ffb1, plus
-   rc3/reproducer/repro.kernsight.prog, into the guest.
-
-4. In the guest, as root, run:
-
-     syz-execprog -procs=1 -threaded -repeat=1 \
-         -executor ./syz-executor repro.kernsight.prog
-
-5. Expect "WARNING: possible recursive locking detected" after roughly
-   110-115 seconds, with:
-
-     hfsplus_get_block+0x282/0xab0
-      hfsplus_file_truncate+0x20d/0xd70
-
-   We observed this 2/2 on fresh VMs at 114.00 s and 110.75 s.
-
-Important details for stable reproduction:
-
-- Use -procs=1. With -procs=8 (or -repeat=0) the 56-program state recipe is
-  interleaved and did not reproduce in a 20-minute run.
-- Use the full repro.kernsight.prog recipe. The minimal repro.prog alone is
-  state-dependent and does not reproduce by itself.
-- The report is a lockdep recursive-locking warning, so serial/dmesg is the
-  reliable success signal; it is not a KASAN panic.
-
-A repository with the syzkaller programs, kernel configs and full logs is
-available at:
-
-  https://github.com/Zheng-zheng-codes/hfsplus-extents-lock-deadlock
-
-The repository keeps the v7.4-rc2 and v7.4-rc3 results in separate `rc2/`
-and `rc3/` directories so the two kernels are not mixed.
-
-Repository layout:
-
-- `README.md` at the repository root
-  Overview of the report and an explicit rc2/rc3 split.
-
-- `rc2/` -- original v7.4-rc2 results
-  - `README.md`: v7.4-rc2 report and reproduction notes.
-  - `environment.txt`: rc2 kernel image/hash, QEMU command line and
-    syzkaller revision.
-  - `kernel.config`: v7.4-rc2 kernel configuration.
-  - `reproducer/repro.kernsight.prog`: rc2 pipeline-verified state recipe.
-  - `reproducer/repro.priming.prog`: rc2 priming portion.
-  - `reproducer/repro.prog`: rc2 triggering testcase.
-  - `logs/log0..log3`, `logs/report0..report3`: original rc2 syzkaller
-    execution logs and crash reports.
-  - `logs/machineInfo0..machineInfo3`, `logs/title-stat.json`: guest
-    environment and title statistics.
-  - `logs/crash-excerpt.txt`: rc2 crash excerpt.
-
-- `rc3/` -- new v7.4-rc3 results (the results in this report)
-  - `README.md`: v7.4-rc3 report, locking analysis and reproduction notes.
-  - `environment.txt`: rc3 kernel image/hash, guest image/hash, QEMU command
-    line and syzkaller revision.
-  - `kernel.config`: v7.4-rc3 kernel configuration.
-  - `reproducer/repro.kernsight.prog`: rc3 56-entry state recipe.
-  - `reproducer/repro.priming.prog`: rc3 priming portion.
-  - `reproducer/repro.prog`: rc3 triggering testcase.
-  - `reproducer/repro.report`, `repro.stats`, `repro.outcomes.jsonl`,
-    `repro.context.json`: pipeline verification evidence, including the
-    2/2 fresh-VM result.
-  - `logs/log-0.txt`, `logs/report-0.txt`: original rc3 syzkaller log and
-    crash report.
-  - `logs/machineInfo-0.txt`, `logs/title-stat.json`: rc3 guest environment
-    and title statistics.
-  - `logs/external-verification/run1-singleproc-serial.log` and
-    `run2-singleproc-serial.log`: full serial consoles of the two
-    independent rc3 fresh-VM reproductions (114.00 s and 110.75 s).
-  - `logs/external-verification/*-run.log` and `*-execprog-out.log`: the
-    corresponding run records and syz-execprog output.
-  - `SHA256SUMS`: checksums for the rc3 inputs and logs.
-
-When reproducing, note the difference:
-- rc2 reproduces from its own recipe in `rc2/reproducer/` (see
-  `rc2/README.md` for the exact command used in that testing round).
-- rc3 must be run with strict single-process ordering:
-    syz-execprog -procs=1 -threaded -repeat=1 \
-        -executor ./syz-executor repro.kernsight.prog
-
-Best regards,
-Zheng Zheng
