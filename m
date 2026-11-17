@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794930911;
-	b=QAWJCA9fDoujX+TeYH8+eNf4zp/nwFimK6q8Yqqgs7Hv4WNDGDlWPcPMO/x6kdFCndtX
-	 YDdONHmmSjF5dYcocdQvk8w6lAQCreuHMrkiLImGDkhD3asLw/Uv49pGVi62e92AK+Rdt
-	 9OyyoZzKRVD1fxk6ycjqmFqYxggOS0thm0gDUfnYrdUJ3AqOvnD4OP9zKbYGVgXEkcOsi
-	 68qw7IjvGwin8Qs4ZE6aLBuCAh+FRdj6kJH6M7tgbMHJmceHBEhh/tYRPrakxmogqT+Y8
-	 mXCviCNeYprrdKZp/eTkSn/irrKWZ9v2f/kQWTigi7xPdCCTEIgKFi/nP1MBTBBtA3Q==
+	t=1794930913;
+	b=mEZVLzxQJ8Nvua3fblcXwLjeAXK/wOosgy98+IAcFwwNGGGZISJkWEH1msy3uH9Suz4F
+	 a0AGVhKRtWP5tXQ3Qsn22Gcf32z6PBBzFChwWASh1cZbmG4fRYvnGNMfYLHtIoXvPfYU3
+	 D36ZukvwpzCIyM1ix+WmwTkW4K0FtDXhruHT6Tr9r2k/yRbYvXeTOR5MtWvWc3T7tLElv
+	 GrA12f4jL0gSyabGQDq8w1xfb/xe7RlqhpcNMbVJOveKoz+tSkLM6cY7MWIzaP89mboNt
+	 o0MQp+nHvR27WV6I+794BoDQCb6NzalteR7plO48ZL9aA9rZuruxAYcv+wdMD3Sy0uA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794930911;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794930913;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=JjXoxd40XZCM2J7imHc+xCLCgdNEwbxkjgF0ryjpVlA=;
-	b=FyfaHAyPmxHd9atqWdIO9LVnPXXjqDOq++jY1T+aZQMPVfyi9qiwgxcEqjAxU0zA1tlV
-	 B7fsHlzVejcnEJcwclP3VMIGhSspDicafgFIyuo/W2Ylib/lVUJ8eGJvBsFKlT+3GBiTr
-	 IypQclhGLwN/jH0FA8rHVpYjYYQBDCruB1/DQA+d8beejltMbXR51mcOny269Dx4XDPVy
-	 e5fPOKtCdbGJZTQJgBsjlBVLr0KmOW+Eu5anHMNFrcDU7y5NQMphPiXXNFE8ZaHlsdD90
-	 8xxURmAfXsAE88Sm6jGxJNSmjEhtV1Z2ySEBvBpbHmT5DPkbxeos7j/fy/AVIouHeeQ==
+	bh=6bCvhPLnnm+x36XG0GpxIEo0rb/nMiCAcSqBb2qIBKg=;
+	b=o9NGXZ5jMe52rntldgxem26iPWPXWEltziZRB148qyRwgCWapt5+BGiRx3uVFT/W8fxn
+	 aSRqlPrmxQxRNcRmQk5YvDO6vN4UTiaeQuAcPLMwRXydUL6+ziO3N0Hm1Ir66CFsj1fPn
+	 ecGmpkZ0SBUE59kvv6PUF4PNMJPxp3a4lCofdhV6fYkPfaw3+rzbG1U4+Rb4rNzTl14K7
+	 zMCHUThL5/Snj5pU3RGhNRMrlLbIjZUe3RKVm14Px01UsjvtbqMgBzXY1mTC+N6C5mJmc
+	 CGI4Mu52ixotwDR0M8CPp3Aw3rTW9BNqtV+n9n8YRszkVyqboiosLxvPQzwCB7G0uew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aP8BaIh4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ExCPJJqS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA026606A332;
-	Tue, 17 Nov 2026 15:55:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0CA606A88F;
+	Tue, 17 Nov 2026 15:55:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aP8BaIh4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3194B1F000C7;
-	Tue, 17 Nov 2026 15:55:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ExCPJJqS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34F061F000D2;
+	Tue, 17 Nov 2026 15:55:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794930911;
-	bh=JjXoxd40XZCM2J7imHc+xCLCgdNEwbxkjgF0ryjpVlA=;
+	s=k20260515; t=1794930913;
+	bh=6bCvhPLnnm+x36XG0GpxIEo0rb/nMiCAcSqBb2qIBKg=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=aP8BaIh4sP4CnWtehw0gVhPcmNcGR4lQ4G+wP2mbhujNlC3TafX+BIajd7bAM1hXc
-	 C1J8tstlQsf99ilWORjsZ+H6yRsD+ohfcqH4fmdDAa2z1DU7s0TkMlhVi0u+Oijp7W
-	 Lw03Of3eOFxNNEN8dQE6nMiQqOFz121SCbf1P1xAH9K514S1jcYsRZ/HkOznRP72r1
-	 CHBnwic1sgSQ4plsvNjLNRzffzgDR4QWLBAlbfRH053KABJIduTXvJKNl/x3jx1xuz
-	 UQS1E0XvBTr2TMQnneDs/XhJMlsOmFe08lzNRat7kize5kLd7vh1UKmVMPTDwn+u8Z
-	 gy/lV/oJq4xVw==
-Subject:
- Re: [PATCH net-next v4 3/6] net: enetc: Enable probing of version 4.4 devices
+	b=ExCPJJqSVFYbGRCRoeGHdRPjcp7c5XR5sXvaHEfBIvbTpE874gwVT2xa0uS9EYwHz
+	 R1+5zuyP0bgGuEuVXPxTwDhLkHIg9wBnY1eKpgFG+1kxDzvWvXfxHcXn7d9rtG5XNf
+	 CV+3z519/znfxZPhXBp8oHX6kTsi7/UHbYP/lDS/XQznxy73wU/cNqx3EoHc5hbLF3
+	 lguwZhTHyjer3GL8pNyRc7C0bBbDLHzR0naF+fNhfTq9nKkJtef1bsXvpMn4eK7kMM
+	 aOcgyNWVKp6saEfhxT7bN56IgMSX1OpDwj+uC3zjfSE24K6DfJmuidqvEq0cJUiXni
+	 Nk0veVvzsWWkA==
+Subject: Re: [PATCH net-next v4 6/6] PCI: Create OF node for NXP ENETC
+ pseudo-MAC functions
 From: netdev-bot+sashiko@kernel.org
 To: claudiu.manoil@nxp.com
 Cc: netdev@vger.kernel.org, s32@nxp.com, bhelgaas@google.com,
  linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, kuba@kernel.org
-Date: Tue, 17 Nov 2026 15:55:10 +0000
-Message-ID: <179493091076.3136.7730860553084197808@kernel.org>
-In-Reply-To: <d783ccebf4b38bfd1e2ede44c36682269a5bc68e.1794581338.git.claudiu.manoil@nxp.com>
-References: <d783ccebf4b38bfd1e2ede44c36682269a5bc68e.1794581338.git.claudiu.manoil@nxp.com>
+Date: Tue, 17 Nov 2026 15:55:12 +0000
+Message-ID: <179493091275.3136.9482657927785539194@kernel.org>
+In-Reply-To: <e256f380f2f1bc88752ee261101cc83ad84ebedd.1794581338.git.claudiu.manoil@nxp.com>
+References: <e256f380f2f1bc88752ee261101cc83ad84ebedd.1794581338.git.claudiu.manoil@nxp.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -66,7 +66,7 @@ MIME-Version: 1.0
 Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 0
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -74,138 +74,98 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] This patch adds ENETC_REV_4_4 entries to enetc_info[] so that
-  S32N79 PFs (0xe101/0xe110) and VFs (0xef00) now probe.
-- [Medium] When an ENETC v4 VF cannot get the IP minor revision from its
-  PF over the VSI-PSI mailbox, enetc_vf_get_revision()…
+- [Medium] The two new fixups for 0xe101 and 0xe110 in
+  drivers/pci/quirks.c only do something when…
+- [Low] The comment above the of_pci_make_dev_node() fixup block in
+  drivers/pci/quirks.c (lines 6553-6560) gives one reason for the…
 
 --
 
-net: enetc: Enable probing of version 4.4 devices
+PCI: Create OF node for NXP ENETC pseudo-MAC functions
 
-This commit adds driver data and platform info entries for the ENETC v4.4
-PF and VF devices on S32N79 SoCs. These run with a 500 MHz system clock.
-The PFs use the 0xe101 or 0xe110 device ID and the VFs use 0xef00.
+This commit registers of_pci_make_dev_node() as a final fixup for the NXP
+ENETC4 PCI device IDs 0xe101 and 0xe110. The new per-function OF node lets
+the ENETC4 driver attach a fixed-link child to pseudo-MAC ports that have
+no static DT node. The fixup only does anything when
+CONFIG_PCI_DYNAMIC_OF_NODES is enabled.
 
-> diff --git a/drivers/net/ethernet/freescale/enetc/enetc.c b/drivers/net/ethernet/freescale/enetc/enetc.c
-> index 855b2d3b87182..e3aa117d323d5 100644
-> --- a/drivers/net/ethernet/freescale/enetc/enetc.c
-> +++ b/drivers/net/ethernet/freescale/enetc/enetc.c
-> @@ -3840,6 +3840,20 @@ static const struct enetc_drvdata enetc4_vf_data = {
-
-[ ... ]
-
-> +static const struct enetc_drvdata enetc4_s32n79_vf_data = {
-> +	.sysclk_freq = ENETC_CLK_500M,
-> +	.tx_csum = true,
-> +	.max_frags = ENETC4_MAX_SKB_FRAGS,
-> +	.eth_ops = &enetc_vf_ethtool_ops,
-> +};
+> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+> index 7f1f47ea2ee41..71f272d8a2965 100644
+> --- a/drivers/pci/quirks.c
+> +++ b/drivers/pci/quirks.c
+> @@ -6563,6 +6563,8 @@ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_XILINX, 0x5021, of_pci_make_dev_node);
+>  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_REDHAT, 0x0005, of_pci_make_dev_node);
+>  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_EFAR, 0x9660, of_pci_make_dev_node);
+>  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_TOSHIBA, 0x0220, of_pci_make_dev_node);
+> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_PHILIPS, 0xe101, of_pci_make_dev_node);
+> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_PHILIPS, 0xe110, of_pci_make_dev_node);
 
 [Severity: Medium]
-Can an S32N79 VF end up with the 333 MHz drvdata instead of this one?
+With the default arm64 config, will these fixups do anything on the
+S32N79 platform this series targets?
 
-The VF gets its minor revision from the PF over the VSI-PSI mailbox. If
-that query fails, enetc_vf_get_revision() falls back to 4.1:
+If CONFIG_PCI_DYNAMIC_OF_NODES is not set, of_pci_make_dev_node() is an
+empty stub:
 
-drivers/net/ethernet/freescale/enetc/enetc_vf.c:enetc_vf_get_revision() {
+drivers/pci/pci.h:
+#else
+static inline void of_pci_make_dev_node(struct pci_dev *pdev) { }
+
+PCI_DYNAMIC_OF_NODES is a user-visible bool, and nothing in the tree
+selects it. NXP_ENETC4 selects OF_DYNAMIC, so there is no build problem.
+However, it does not select or imply PCI_DYNAMIC_OF_NODES.
+
+arch/arm64/configs/defconfig sets CONFIG_ARCH_S32=y and
+CONFIG_NXP_ENETC4=m, but it does not set PCI_DYNAMIC_OF_NODES.
+
+The s32n79.dtsi change in this series adds netc_iep18 without child nodes
+for the PCI functions. So dev->of_node stays NULL for the pseudo-MAC PF,
+and enetc4_link_init() fails the probe:
+
+drivers/net/ethernet/freescale/enetc/enetc4_pf.c:enetc4_link_init() {
     ...
-	ip_mn = enetc_vf_get_ip_minor_revision(si);
-	if (ip_mn >= 0) {
-		si->revision = (si->pdev->revision << 8) | ip_mn;
-		return;
-	}
-
-	si->revision = ENETC_REV_4_1;
+		if (!node) {
+			dev_err(dev, "Missing of_node for Pseudo-MAC port\n");
+			return -ENODEV;
+		}
     ...
 }
 
-The query can fail in several ways:
+This error message does not mention the missing config option.
 
-- -EIO when the mailbox is busy
-- -ETIMEDOUT after the 200 ms poll
-- an error status returned by the PSI
-- -ENOMEM from dma_alloc_coherent()
+So with the default arm64 config, "arm64: dts: s32n79-rdb: enable NETC
+IEP18" does not get the PPM PF/VF instances probed, which is what it sets
+out to do.
 
-S32N79 VFs use the same 0xef00 device ID. So in that case
-enetc_get_driver_data() matches {ENETC_REV_4_1, NXP_ENETC_VF_DEV_ID} and
-selects enetc4_vf_data, which uses ENETC_CLK_333M. enetc_vf_netdev_setup()
-then copies that value into priv->sysclk_freq.
+The commit messages say this dependency is intentional, because the
+driver also handles ports described by static DT. That is a reason not to
+add a hard "depends on". Would an "imply PCI_DYNAMIC_OF_NODES" on
+NXP_ENETC4, or a defconfig update, work instead? The Kconfig help text
+notes that turning the option on also creates OF nodes for all PCI
+bridges.
 
-Before this patch every v4 platform ran at 333 MHz, so the fallback made no
-difference. On a 500 MHz platform, wouldn't enetc_usecs_to_cycles() program
-the default 600 us tx_ictt, the DIM rx_ictt and the set_coalesce values at
-roughly 0.67x the requested timeout?
+[Severity: Low]
+This isn't a bug, but the comment above this block of fixups no longer
+covers every entry:
 
-enetc_get_coalesce() converts back with the same clock. So ethtool -c would
-still show the requested values while the hardware fires about 1.5x sooner.
+/*
+ * For a PCI device with multiple downstream devices, its driver may use
+ * a flattened device tree to describe the downstream devices.
+ * To overlay the flattened device tree, the PCI device and all its ancestor
+ * devices need to have device tree nodes on system base device tree. Thus,
+ * before driver probing, it might need to add a device tree node as the final
+ * fixup.
+ */
 
-Should the fallback change now that v4 platforms don't all use the same
-clock frequency?
+An ENETC4 pseudo-MAC function has no downstream devices and loads no FDT
+overlay. enetc4_add_ppm_fixed_link() only applies an of_changeset that
+adds a fixed-link child to the function's own node.
 
-> @@ -3870,6 +3884,18 @@ static const struct enetc_platform_info enetc_info[] = {
->  	  .dev_id = NXP_ENETC_VF_DEV_ID,
->  	  .data = &enetc4_vf_data,
->  	},
-> +	{ .revision = ENETC_REV_4_4,
-> +	  .dev_id = NXP_ENETC_PPM_DEV_ID,
-> +	  .data = &enetc4_s32n79_ppm_data,
-> +	},
-> +	{ .revision = ENETC_REV_4_4,
-> +	  .dev_id = NXP_ENETC_PF_DEV_ID,
-> +	  .data = &enetc4_s32n79_ppm_data,
-> +	},
-> +	{ .revision = ENETC_REV_4_4,
-> +	  .dev_id = NXP_ENETC_VF_DEV_ID,
-> +	  .data = &enetc4_s32n79_vf_data,
-> +	},
+The PCI_DYNAMIC_OF_NODES help text in drivers/pci/Kconfig also describes
+only the overlay use case.
 
-[Severity: Medium]
-Does enetc_get_phc_index_by_pdev() in enetc_ethtool.c also need an
-ENETC_REV_4_4 case? It has its own per-revision table for the timer devfn:
-
-drivers/net/ethernet/freescale/enetc/enetc_ethtool.c:enetc_get_phc_index_by_pdev() {
-    ...
-	switch (si->revision) {
-	case ENETC_REV_1_0:
-		devfn = PCI_DEVFN(0, 4);
-		break;
-	case ENETC_REV_4_1:
-		devfn = PCI_DEVFN(24, 0);
-		break;
-	case ENETC_REV_4_3:
-		devfn = PCI_DEVFN(0, 1);
-		break;
-	default:
-		return -1;
-	}
-    ...
-}
-
-enetc4_s32n79_vf_data uses enetc_vf_ethtool_ops, which provides
-enetc_get_ts_info(). SR-IOV VFs have no OF node, so enetc_get_phc_index()
-always takes the per-pdev path. For a v4.4 VF the call chain is:
-
-enetc_get_ts_info()
-  enetc_get_phc_index()
-    enetc_get_phc_index_by_pdev()
-      default: return -1
-
-enetc_get_ts_info() then jumps to timestamp_tx_sw. It reports no PHC and
-only SOF_TIMESTAMPING_TX_SOFTWARE.
-
-enetc_hwtstamp_set() and enetc_hwtstamp_get() still accept hardware
-timestamping configs, because they only check
-enetc_ptp_clock_is_enabled().
-
-Would ptp4l and similar tools then fail to find a PHC on S32N79 VFs?
-
-The v4.4 PF uses enetc4_ppm_ethtool_ops, which has no get_ts_info, so this
-seems to affect only the VFs.
-
-The code doesn't show whether a NETC timer is reachable on the VF's PCI
-bus on S32N79. If PTP is intentionally left unsupported on v4.4, could the
-commit message say so?
+Could the comment, and perhaps the help text, be updated to cover this
+use?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1794581338.git.claudiu.manoil%40nxp.com
