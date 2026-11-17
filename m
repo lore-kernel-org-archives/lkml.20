@@ -1,101 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794887295;
-	b=exUjngJb7gHxI08yEhtGD5LuKseHnwvgTiMvu+z8u/qEO/B0tQJ6v/ysnG1zTd2JlfvN
-	 esWc36g5xHzrhPAOX/AXNAosVwDVM1PD7dWdE5Fxu02Lrh2kAykOydMx/aaehKo9SLutH
-	 XsO09TI15WLK74i7S43aEa9u/rw0YiEETug0ErCx8+UP+/sFGeRSkE9OUjpYx6CAj3bi6
-	 9meaN3+055240ZYTsp6Y0XUiHza8Jh7Qrl7ooa6Ka+G2MhhlvTp4qaaTERFFdGY9k1llb
-	 4AR3YCVyoabmhTeDNmXTcL00Bqq4PGPM3SJC3EzgqKeyZSBGX8R5lKxUUE4pVWaDQhA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794887295;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=DLcMcTvPOEnravF7dNaq+o45VUDBU7Q6BawTdgCmL8M=;
-	b=QtlgCuiRuNlfFnNnzsnHb7CHvLyTiB+u8S/1VP1fxW3Dyu54QGbI0hsHjyXyCXeb5Da5
-	 UXID1CZu/dzK82ywT2oahFjsyknGS95YF5zlIiLBIn/Bu2kiZN4boQTJHq4gwgTOL4N2E
-	 7GzSs6qZ84ytp60bTxb0yGLtc0J8nfuflaVJ3KqLYrNZpuZAdiY7Tuh1yPKhrF5Lkrlmv
-	 qgETreM3MTwNflmG7RGG78Ic1T1NmJhJaCeJcoHYD7pNHC9Z8wV2YJYJgCs36xh3TpMKp
-	 wpTeYFDb3DN56KdPv7BpEA5gzEe+KzbTSVosPqp9BRXHk3865K4m3Smoh4Xnwa0E8xQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q4KJSdYv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794887351;
+	b=H+/lf1xfhSRKhofKS3MHDNw/COvaLtYTMPSs/GlMMgfOc4gHmRpmjJZ94Yc2TfLV+yaf
+	 s9+LL6tmAQYMwWki3ACLpKy3sZgOJ9ljl0iGLB4je4cElxcbU4ZIyltsvWfGM3YIdlh0n
+	 IyGDgpNe+b752p4m5sHiPYpuWSmQHqDA/uDEinznK89JBUR0M7SyrA8qddQkbSCA9VQTa
+	 zswgBdZETmbt7WAspQ3hL2aAVNA/iahVv0dgbzBPhvHPAQ2MBG9+3hW3FrLlWXhlcFam0
+	 kjjd3fSwI9o/UH8I0hbgq0R030hx9fvtKrojCvH4t1AWC3zZ/zWjy/oH6fCtN0eCQ7w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794887351;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=UUfQmcJmeina73n+agSEMEO5RkiRbU9Vd01jnzLh+SE=;
+	b=AlJaRm21KlEfxauHQYwcDmc4uVJvungj9hjzRBjfH9QbpQbHkTDWBbnyigN9+NAHfLoP
+	 yTSLBUZTqQhzPLJn5smdGEazta7JJ/a7bbTLRPQ1aqcWVdKwFX9270OKpicJEvoXAggx4
+	 7c4nCXZJKJDl01kqr/9ez2AvAu4Fbjq2e6mIsGEkZRBLlm5JjLUi4jC5RXEYAv8fCN78G
+	 qSKruc3dRKJtuOELk5P6z5t7V3rRVOm5s9LeegHudWYQVW3KetUwWcLlxceoCR0Cou4HE
+	 KJsnvtL3Aj8VwxZdWajCcxaotpYYcUeHwyNOt/7g/LmYG+aU93EBsQkPyEeWoSdJVEw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=gibson.dropbear.id.au;
+	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
+	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=SUlA+37c;
+	arc=none smtp.remote-ip=150.107.74.76
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 119D6606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:48:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 119D6606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A772F606A31C;
+	Tue, 17 Nov 2026 03:49:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A772F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q4KJSdYv
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b785ca42ebso6422768a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:48:13 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794887292; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fLnAeChgzQG2yiN1r019+S/WSkNK7ED5pD3okEs0PtcrjLkCn4Yz8Fqv7fp3LHdZew
-         9dpqOxB8JeDosJ3xA6WbO9Qp40a/lS5RJmv9ImWdL5pu8qpZ/y9zoxlT/tsswXeFOf53
-         W2dwPijjI6aoWEuj80217PRR1XpCqlNz+gAeV6TVVczPrqlqw03cg8hc9mJFtFnb8X9s
-         yxVGo1WzDYGZKYKlD9BH/OYL15DSyjGqhsRU06vTsopuJ8m//bw0Q+vbGN8MTn5YvsmU
-         6BBBhDGxoCJKZ6MAb8tNojle2Q3iSNfNmZKkIhcYZjg0jD4tbJ2j8ZG0qfYQJ88KquwQ
-         mYMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DLcMcTvPOEnravF7dNaq+o45VUDBU7Q6BawTdgCmL8M=;
-        fh=RS4Aq4n2nZPYNFZaC8rVa7YNrYZobitmTkR9XZ2uA/c=;
-        b=Rxrjl07StvlfQRt616un1Fu2XMgitwqVhLgu/UEQgv3x0g8fngAZpaeE7J3XCfqhgI
-         7qbRC85J+qj+biXlypxGe5JrrXc8WnCXQnFZCbAvYQfsgkPXwUA4HH26f6GQiAHDx001
-         KSGJOYdHMMKE99KpCngjJKS0fbymed6vJn0/NJNDl6pAk05G4gcy6FmikHF+iWH4IegQ
-         ze3R+E8qKON9IoI/gNhUf2fHrl3GWJYCrSJUF7Tp00XRLocQYC6cevaFAblBFJt3H9uj
-         asm36VQ8MqEu+BcVi2q1ADlEjF2B7Pnz/GGQIhdu+35y8kgIPEGWMzjnKuN/DJuXSyUU
-         c2tw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=SUlA+37c
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794887292; x=1795492092; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DLcMcTvPOEnravF7dNaq+o45VUDBU7Q6BawTdgCmL8M=;
-        b=q4KJSdYvaGm9wq4tovsDH2XavwAq0R6m6bkAywHa4lJjiwbn/FI8oLVh/KdujrUgxV
-         Cx/D4s15L3ISNRCLBUj2jRzjn6PJw6PkLsj3rHFmpdMvyB1PpFKA39bbycKl4B8JkDFy
-         jOPWa6Xn6hmz64pe2p84AVNOzuiO0TyHFgJUPEc7gynks+pF+Mne2ozJ328r3dhhIrNr
-         2hZbp+SAD2mF+7m+Nqibej3GpuzulzQvtJBvlvgv7im5rxP9hgOkjTrQB8q+RKOVnrB6
-         egNeUTBTJy9uJq93oUiGGFGwdA3a26gt2DWK2ywAyQAWfCytfoWn89F3oxmJpY8vXoK2
-         ts+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794887292; x=1795492092;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DLcMcTvPOEnravF7dNaq+o45VUDBU7Q6BawTdgCmL8M=;
-        b=YO8Vi1MuLvGBHkem8J59fyT07nBZJJCzKYm50NBF9pdrC7odVbN4fam2md7uryW6fp
-         Fr/DK7tNuOh3RqZOrZd/oai2aL2VP1EjOUBvIZ0KkhQnufmRcyyuL33t5kM/PqDlVI5b
-         2pUZaS6lZ3IEIU9QAPGUo5vY1TihHeA6hhHhFAsNxMGXO7Fk4hHSgU/oxKfCasP6r5D6
-         5/1CW4NViNFj0HF+DVLWJOqYeGKevqJJpeFv1/E54IyKbblETCOKmF7JocBOciEuy/lb
-         rtqU1oO6Lkpd0WhNi8Kkxwc8w6H2sZQFHgf6TAczXxdGOUo7+7Jg9iuHhSiv2HkoqW02
-         q9TA==
-X-Forwarded-Encrypted: i=1; AL+hErEbde2q6jGVi2vSg0ouHie3jL7oVujnIVhn0FKph+ADd0dbBBJtRWIx6F9/QKnk8iE5zanFIlvjKLAI4AY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+VdJXxShx1bsFwQma6K8+aW+qU4Y22RYvYyCCvF9mJNf9SJ1ih
-	zKCWopR3VLtreFCCRwQWeA2+myB7/6Q+2SlpeeMMy/UHuqeO3w0t1TOHmyy+nfhK4GQuCvmsa9R
-	a7bgY5CgpotzaYouN+6Y1ZDcszdw6TiY=
-X-Gm-Gg: AYBFou1ZDvS6G0CB5Xt/P1J5KSk9hjeu27zZxBLyMIzJgqi5VNCYVQVYqrBRNGBgC8L
-	mF6mYba4KC+vXKkP97jg8usLjj5s4kiuEzbAHaD0EA/FijJWDrXI5gEWguGq6gTeAAc/x0VXjxV
-	2xznGfFF+69xI42sMYCKYyazAX40p+Z5yJ91r5E3/K/iX8kFF0iBVZV4LHpEC345Ob8qiry+1I6
-	DYsV+OWoLsgrNpkNTO32f80rC3UwExBRZYiFYRhuGpWeREmrCLyD271GGqFiVkZ0qIHY0KrDIO9
-	+DVbo3HhZPzP8dPqrG4GSH124eDFVWTp61cAsa65HMiycgJdXqnlbn/3ct4zuvPipQHwwsJrpPY
-	nijNJmqLGwZ7SBYSYdi/JvM+gJG4TyfaLGubylyDoVwtmZi6p91WCo9bJl+GNwWpYJZkDjMr3yN
-	DfM0Nx/dgpCYwEhao=
-X-Received: by 2002:a05:6402:516f:b0:6b7:df0c:18d0 with SMTP id
- 4fb4d7f45d1cf-6b7df0c1ccfmr4938103a12.11.1794887292347; Mon, 16 Nov 2026
- 19:48:12 -0800 (PST)
+	d=gibson.dropbear.id.au; s=202610; t=1794887347;
+	bh=UUfQmcJmeina73n+agSEMEO5RkiRbU9Vd01jnzLh+SE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=SUlA+37ckvNlv/+2S2BBq0R7kMGBWHSuD5NotZRuPwHwMttxhbzGXAnIJkJ6OmAwG
+	 ITsOsYUXkaDyT5H/S/Ce7Ii7+Ed8uSqhzaPW+kg2cqmaoFu6aGk+6tyF3Qr1LSaRrl
+	 +X9GK+9YOawLJlvU2B/+mvUdXtW94vFeLMlRnfnbqcpy+RW7G6Z4RWLbRD6dfyiNfX
+	 WjiC1SSoV5uhF9IOi9EJw8f1OE0quJEiaX8eRPQX4HMOWS4S5cZi9HH/VQP/VL2COK
+	 VA54C6yODT5q6iqgDPUnI2/N62xEFMEaHzXCklMrCGUKLjUQn+VlixwcT0JkmwYx27
+	 SN913eZI+XtZw==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4jT9hM4nMxz4wLn; Tue, 17 Nov 2026 14:49:07 +1100 (AEDT)
+Date: Tue, 17 Nov 2026 14:48:43 +1100
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Douglas Anderson <dianders@chromium.org>
+Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>, Devicetree@vger.kernel.org,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
+	Simon Glass <sjg@chromium.org>, linux-kernel@vger.kernel.org,
+	Brian Norris <briannorris@chromium.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Julius Werner <jwerner@chromium.org>
+Subject: Re: [PATCH v4 00/14] fdtfactor: Introduce fdtfactor to auto-factor
+ overlays
+Message-ID: <avvOmgFusDlAGLrw@gractus.seuss>
+References: <20261116205320.1621386-1-dianders@chromium.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,114 +73,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112064624.15245-1-juanagusnicco@gmail.com> <avuhR7Epvtgu--iT@google.com>
-In-Reply-To: <avuhR7Epvtgu--iT@google.com>
-From: =?UTF-8?Q?Juan_Agust=C3=ADn_Nicco?= <juanagusnicco@gmail.com>
-Date: Mon, 16 Nov 2026 22:47:59 -0500
-X-Gm-Features: AclHuK_gyo-l2I-E19IhRjvW3CZh8tP53SY2qJsWKfnOF4zx0gzCiSIv7CmIDlA
-Message-ID: <CACQ4Acg7wPaOgJ0Xx-ejsBz-k1uyuDPUDWLWs45B_w1b753ETA@mail.gmail.com>
-Subject: Re: [PATCH net] tcp_metrics: hash the destination address with SipHash
-To: Kuniyuki Iwashima <kuniyu@google.com>
-Cc: Eric Dumazet <edumazet@kernel.org>, Neal Cardwell <ncardwell@google.com>, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="AGlCOYzL1NTzOHS+"
+Content-Disposition: inline
+In-Reply-To: <20261116205320.1621386-1-dianders@chromium.org>
+
+--AGlCOYzL1NTzOHS+
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 16, 2026 at 7:36=E2=80=AFPM Kuniyuki Iwashima <kuniyu@google.co=
-m> wrote:
->
-> On Thu, 12 Nov 2026 01:46:24 -0500, Juan Agustin Niccolini wrote:
-> > The tcp_metrics bucket is derived from a fold of the peer address.
-> > For IPv4 the fold is ipv4_addr_hash(), which returns the address
-> > unchanged. For IPv6 it is ipv6_addr_hash(), which XORs the four
-> > 32-bit words of the address. net_hash_mix() is only XORed in after
-> > that fold, so two addresses of either family with the same fold share
-> > a bucket in every netns.
-> >
-> > A host owning an IPv6 /64 can thus compute, without knowing
-> > net_hash_mix(), addresses that collide with a chosen IPv4 or IPv6 peer:
-> >
-> >   w3 =3D w2 ^ p0 ^ p1 ^ target    /* p0, p1: prefix, w2: free */
-> >
-> > A bucket holds six entries and the seventh insert replaces the oldest.
-> > An off-path host can fill a peer's bucket with its own entries and
-> > later tell whether one was evicted, because tcp_init_metrics() seeds
-> > the initial RTO from the cached RTT. This reveals whether that peer,
-> > or another address in the same bucket, connected in the meantime.
-> > XOR and multiply is not a PRF, so net_hash_mix() can be recovered the
-> > same way, after which evictions leak about 14 bits of any client's
-> > address, depending on the number of buckets.
-> >
-> > Hash the address with SipHash and a random key instead, as commit
-> > 2ee66e948717 ("inetpeer: randomize RB-tree node comparison using SipHas=
-h")
-> > did for inet_peer. net_hash_mix() and hash_32() are kept, to separate
-> > namespaces and to reduce the result to the table size.
-> >
-> > Fixes: 51c5d0c4b169 ("tcp: Maintain dynamic metrics in local cache.")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Juan Agustin Niccolini <juanagusnicco@gmail.com>
-> > ---
-> > This can be exploited remotely to recover a client's IPv4 address.
-> > A single host narrows the address to about 262 thousand candidates,
-> > and because each netns keys the hash differently, intersecting buckets
-> > extracted from multiple hosts converges quickly into one candidate;
-> > 3-5 are enough. The net_hash_mix() value only needs to be extracted
-> > once per boot per host.
-> >
-> > Many common cases facilitate this. For instance, a browser loading
-> > one page connects to several hosts within the same second. That
-> > supplies the buckets needed to converge, and the shared timing shows
-> > they belong to the same client.
-> >
-> > I reproduced the bug on a QEMU guest running mainline (2a500a04d6f9) an=
-d
-> > against Ubuntu 24.04 over the internet. With the patch applied, the
-> > reproducer no longer finds addresses that share a bucket. The
-> > reproducer is available on request.
-> >
-> > For stable: 5.10 and 5.15 lack siphash_aligned_key_t;
-> > "static siphash_key_t tcpm_hash_key __read_mostly __aligned(16);" can
-> > be used there.
-> >
-> > This bug was discovered during an LLM-based code review.
-> >
-> >  net/ipv4/tcp_metrics.c | 32 +++++++++++++++++++++++++-------
-> >  1 file changed, 25 insertions(+), 7 deletions(-)
-> >
-> > --- a/net/ipv4/tcp_metrics.c
-> > +++ b/net/ipv4/tcp_metrics.c
-> > @@ -8,6 +8,7 @@
-> >  #include <linux/init.h>
-> >  #include <linux/tcp.h>
-> >  #include <linux/hash.h>
-> > +#include <linux/siphash.h>
-> >  #include <linux/tcp_metrics.h>
-> >  #include <linux/vmalloc.h>
-> >
-> > @@ -94,6 +95,23 @@
-> >
-> >  static DEFINE_SPINLOCK(tcp_metrics_lock);
-> >  static DEFINE_SEQLOCK(fastopen_seqlock);
-> > +
-> > +static siphash_aligned_key_t tcpm_hash_key __read_mostly;
-> > +
-> > +static u32 tcpm_addr_hash(const struct inetpeer_addr *a)
-> > +{
-> > +     net_get_random_once(&tcpm_hash_key, sizeof(tcpm_hash_key));
-> > +
-> > +     if (a->family =3D=3D AF_INET)
-> > +             return siphash_2u32((__force u32)a->a4.addr, a->a4.vif,
->
-> Isn't a->a4.vif always zero ?
+On Mon, Nov 16, 2026 at 12:52:57PM -0800, Douglas Anderson wrote:
+>=20
+> Devicetree overlays exist at both the source level (via `/include/` and
+> `.dtsi` files) and the binary level (where a compiled `.dtbo` overlay is
+> applied to a "base" `.dtb` at runtime to add or modify nodes).
 
-Yes. tcp_metrics only builds its keys with inetpeer_set_addr_v4(),
-which sets vif to 0. I carried it over from inetpeer's hash, where the
-vif can be set.
+Patches 1..4 are all nice cleanups regardless of the rest of the
+series, so I've merged them.  Still looking at the remainder.
 
-I will hash the address alone with siphash_1u32() in v2.
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
 
-Thanks for the review.
+--AGlCOYzL1NTzOHS+
+Content-Type: application/pgp-signature; name=signature.asc
 
-pw-bot: cr
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmr7zpoACgkQzQJF27ox
+2GeU0w/7B3YEv89zRZuKiPTHtC4y1cxgIyoJaelpCqSrDQ+2kx/JYDGUb/TXm3Hl
+mnxqIig26zshY9e46yBgFhAWSZlhEHO70+gegbwCT8Wqd//rYzitfyx3dJjaz6IG
+5OhQbCeZtenHwncyVcdKuVsi4pE/OM87nvPN/qLJwRtiQ6ChywTFTptzh/Vfc2BW
+9PmW/K4T3b09oQhgEFApEUNrFJcgNzNBIumvHV5zFF+2MwVD82ICG5oCMpDJocMD
+cR7gZUDRWG0T5lrF0zjmcT28JzcDD9zfvxtdcsfaRNUurruylT5KqUA1Qf69xKkm
+kTcO6Zims5RnTyJcibWIAAIjbFicJORaGxif6LhAwDI2B0bjzwiElbWQVv5MMZY+
+dGkErNn+Wf/mmbm1IBNp37kN5WdymUsLF3awsR5YplXPmZ5acZ2IxOkQCn1vD1xM
+lowWOw/s+h7mUv2DQ0x/mEKvk0Pvel//1tN/s3usFUzgcs9VTRx9YIrSxc76DgYF
+Ol+TbJEomNXZp2nhe+1qsrzEWiB3CvY1YqtyyJgUlO1SotM7B0Ix+bE6gwPYhMqB
+WVvR+77obhl2+CfGJx5tN/CZXLZ4Wa/KGs2kPIeCtdNQobHMlRDKURnc4mxeRFzX
+wnHBzq5f88Umy+PnWvmsP5BxtuEqAFvrQ68AbURJlro7L9ktbkk=
+=/Fww
+-----END PGP SIGNATURE-----
+
+--AGlCOYzL1NTzOHS+--
