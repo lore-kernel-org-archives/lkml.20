@@ -1,99 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794884038;
-	b=qink+sDqTaIekRyUb8U8/14dzUNFVPymdRBCYGw4Q+RCWdVyXZwsWBvzfxmeU8Ont4FB
-	 +Ex0qQ2A+GmaFW5A3ZLnMcn2JkwyUwv7I7Sei+Wc5EHbUoBzjPQoo25pHYdWqr46+hY9n
-	 sl9oK9xj70AZpHNZdIRZ7+OBhZiFch7sbQE4mdl5eguaHYlzW1uwv9f5svu+ha4Ar/3eq
-	 kq8D9EYAefdZlj+E9/yMv69tyUqxUxzITKHdCArkVWU1mN3zuVpryDyQALTG7DAvovKqw
-	 /5fc4c5VMEmNxpmMTHIg4rELpFIpPLNP7yYhwBireY7zNuMJ1H1YxFZXgSqt+qPMcJQ==
+	t=1794884078;
+	b=f4e11GgTT7GiW8EP4yTCZ3cUQWKSBp5HP60SaPfjS8TBbuS90xbEua6DWCAmChilb6sd
+	 kul5yXMA6e6VIpnI0W65KAxcuFbE9/pJuT1HQBhPC6+Z1pW0J72gFZ5TB8s1WtK6BHP3C
+	 q5zX+VA2OxXzGn7yBrZf7bSFMFr5ZWmE5yEmUTcbQ3MtEV+n+SvkeuBvBszvPNr2zXEe6
+	 hw1Apwen5iAmxE08io4vi1HaNDGpCPXX3p1TaZOFQISQ19KGKMAQQ867Pj4cKW2vxSfHM
+	 WqlGGmbpU1XZlYC8anetL17LnizY22Nvfo/fW2hpo/0ou4Gtv7/G8Hg+wmriVJnatQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794884038;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=/jGsnbvqpg8VUf1JW+l1p8xWO2BdDeqdoP4RVIqoBKc=;
-	b=VVir260OP1GsH+t+E+1k9loMz8AV6ZG0iYOGDL4kXrV3F20eQhLs5e24TYwsSb0Kq1ua
-	 EQIIK2yImtQ5zzGsECS5cisjGd+lxt1LAsvlztCsmozTCoSFWlOK0+ZDrBWLBMNe1FYEp
-	 VTWWBvosIiaCyEcNDFvC55BcHOqcNqQcvwtFgP6vqk7d8F+ij/7iaWpA3Uz2IQYOXCg22
-	 KxGcUJqTw6avx1dhEDtNs7vrLHqASeEpY64GungTt1uMvcKTfWYDPkuG61ux5merndsNM
-	 34hhHeTxE515Hyhm64tSKGKxi4Bo1QQgwYE2gdJaHBHUwRXmVWDdfw/FYZtUK6VGtPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794884078;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=REPG2PTjjlLBXySmbr3czUPyqylqIzZwgGf/Je96Dk0=;
+	b=draQSwPmAcf5M4LG4YV39CFlsZ8BgNyC+4NdJd90XK6vgRE/5KUNT9PP/ib/VsQau7+j
+	 IZOWWWXeH6seVjly9qWSvbfDWOSEDScvDs/vZHMAL6bwVeIyWk6mHHHcRgz1U4CzsBvXd
+	 gfCZvVew9unCYHBmtkYQC4pC9cDdpWaa0UvEz3rD2WdA+nkM5tKvDr6bAwtExzNuRXJrF
+	 aQJE4aFwCNmwiC0rkn6aW78E4v93suFLzDVWXfonPFz2NKedSRPLeOULmCS2RpI2Jj+XO
+	 GFt2jjJtReAAt7mJdrzF47uYz5J40qc2BNZ9PqSBDYswL363VmsNEM5ZyrWFr4CdD/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FXhnx6PK;
-	arc=none smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NTRaI7mJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80199606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:53:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80199606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE1F606A32A;
+	Tue, 17 Nov 2026 02:54:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FXhnx6PK
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-38133db970bso743908eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:53:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794884038; x=1795488838; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/jGsnbvqpg8VUf1JW+l1p8xWO2BdDeqdoP4RVIqoBKc=;
-        b=FXhnx6PKZido9GbsyRF5sc508uIYTPPtevEuYVxNTnCjvGl0/ORmRGiknL9j55fiFv
-         yc7Pmdj81ViA2Bijt8Onc19iZeDPScQEqxBSp8x0IV+CQdYwnH+BQTz5k9woOih6KCru
-         I0iz530Z7rVsEGUx8JZ89Aukq/232rAK9nmWauqOWjKZYWkXoFyTtHte4wYWhsgawkI0
-         9v5qOKvZQT9qF49c36a6MBz2zxiFlICux7zkjUEASIYlsrM10M++RdnTqtW/9kpYMG62
-         1ie9uxg90HS307BAD6EQb/8XwI62MTxeuYPVCbQ+yE4+Bg3USVKLTaISIjkfTQ4ztZi+
-         L3cQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794884038; x=1795488838;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/jGsnbvqpg8VUf1JW+l1p8xWO2BdDeqdoP4RVIqoBKc=;
-        b=B+FRxDuVEK5t+xTOitkQjOTP4nlkFSeTL7tkPJnLO1cubtpDs0PBmUiT5H78aYC+Nn
-         Eke7URZdd1/YyF3pzzlE1njf1l6qbtTBk591TpwCV2rbffUmqobwAiAGj8YNgIKdLAUE
-         oKcK0aAVgNSxcWrl4yPuezFdVK1GWsStH/DXZpojAlzel0STpfuqW5vBZpzQ3DzGYgVG
-         gWB0JQG2tSJPF8JprCNqsOmoel2BL60OKMCfYxbwdDOCY8reQPAzNAoHtDTnH02lmqvj
-         Lz3aXY02dBbwDtbSoTvtJLsKVl61zrfUCmxJj6pNm0GQay+VnRs9Qgp5vERvuKA+pQCq
-         L05Q==
-X-Forwarded-Encrypted: i=1; AL+hErGVSH/iiC5wMiipn1idKDd9NhJt5yuNf82e7jQhLqVxE8mEHw41ZO5/uDkkXeDj6Xkjo3tmCFAffZmjryQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+0USf6DJOz9JsA5T3SnBpVq+r73HXrFGjcEo3zDOHKT7WyXVlW
-	ep6SLqqRCSSABaCBvUoXjFsv2Det0hOXG1iM9kEEWARvlMpb3FAglOLJ
-X-Gm-Gg: AZFdTZfjES9RtZURDz+kXs9Naa1n7WDgZQX/LCaYCtY14oyglrSBzTd7PE+ZTURuV1+
-	EOBlSaCSSqIfEpAmumo1FafSrAJByKYsf+dB9pdOjHFyXH/1P5ngt2lFwOduAT6Tv8pMgnT5V4Q
-	0isj3dW/yVvMjZNU5/2i81y1QSoqicjMIL8pHXvrNsUq8anxxiUOngKFrukMAJaR0GiyRKCHkMj
-	fMda/3LAFAWQ9jTGCrfLT5ne2DudUT//OwPlU73CcOzHwG6sKDNW6qFBhC+1bYCsh7gF7K6V5t4
-	WPt7oP+TKG4f8N1+FrBjHXtD6IYB3T0ZGlSTGCnD7cBNyurYAQZCinHNhJw0kdKXbc4VMviEg7c
-	HM0/yRAbP60igYLsaCQOvc1quuS+CCTZwmQXEwi3Hcc3s2pTg1MxFZ1RIV66vmBUlGRaYlI7qFz
-	PNq2AMGCM/DR8VyVmOvNDurDSc4+Q+tnyLJu/NHOkraCYnNb3fvhjvGCGEMcHyrkueGekMlSPTU
-	0HofgdUB9cze82FJYDsel7LW4IlKUGaTBpD8f83CgLv3i/cO4RAV8U8M3pi2eAQACrdBvIPsVqH
-	OLXa1L3BK0GxAaHBE0rxcIzsFGgEq8X4G3CAloBHjsuHViIfzGVcQ7rYvhA4pAxHbdbnWPMl3Q4
-	TEAqDGfRqHd7szugtXb8mEV2UKKWf2WEx35fjykcNSbj1vSRmb45WOZvhByqEoVCjKw==
-X-Received: by 2002:a05:7301:1e42:b0:380:f8fd:d19b with SMTP id 5a478bee46e88-380f8fddfacmr1913628eec.38.1794884037636;
-        Mon, 16 Nov 2026 18:53:57 -0800 (PST)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955e0d966sm39357368eec.15.2026.11.16.18.53.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 18:53:57 -0800 (PST)
-From: phucduc.bui@gmail.com
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Kees Cook <kees+treewide@kernel.org>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH 2/2] ASoC: adi: axi-spdif: Use devm_clk_get_enabled()
-Date: Tue, 17 Nov 2026 09:53:35 +0700
-Message-ID: <20261117025335.7455-3-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261117025335.7455-1-phucduc.bui@gmail.com>
-References: <20261117025335.7455-1-phucduc.bui@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NTRaI7mJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C0FC1F000C4;
+	Tue, 17 Nov 2026 02:54:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794884078;
+	bh=REPG2PTjjlLBXySmbr3czUPyqylqIzZwgGf/Je96Dk0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=NTRaI7mJ5qh98ipqHqdO/ndG3EnSNDGY9CdRgJVYrwS9wfCs9E04qU/3WAlxO4yEr
+	 IqIawjyCv5B//hBTpV3FWR5y0QrXgRWBPUsS9UeMmY1r5dIXNXVzn22+BuMM7KsQ90
+	 5dVBRNakOQQfveonn5zaTOjJ47bCfdnFkEy5npjzlTBD78AxAyTaRI1n11ubYyYl8b
+	 sXquIKEpqVkbwekmmyQsojMvLcieOySDPU74MHmUQi3n2E4znCfm9jxnfFzGMUZKR1
+	 IuECUSCls4vmgDrubz92N3UyJ6+H2W1gwD8CKA4KfhoFRPavHQwnR6PVHPLtzEz8vh
+	 C81xfO/3kq78A==
+Date: Tue, 17 Nov 2026 02:54:27 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Anisa Su <anisa.su887@gmail.com>
+Cc: linux-cxl@vger.kernel.org, nvdimm@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Dave Jiang <dave.jiang@intel.com>, Alison
+ Schofield <alison.schofield@intel.com>, Davidlohr Bueso
+ <dave@stgolabs.net>, Ira Weiny <iweiny@kernel.org>, Vishal Verma
+ <vishal.l.verma@intel.com>, Fan Ni <nifan.cxl@gmail.com>, Li Ming
+ <ming.li@zohomail.com>, Benjamin Cheatham <benjamin.cheatham@amd.com>,
+ Gregory Price <gourry@gourry.net>, Richard Cheng <icheng@nvidia.com>, Anisa
+ Su <anisa.su@samsung.com>
+Subject: Re: [PATCH v1 04/14] cxl/mem: Introduce DC event handlers
+Message-ID: <20261117025427.48bb687d@jic23-hlaptop>
+In-Reply-To: <20261104230445.66625-5-anisa.su@samsung.com>
+References: <20261104230445.66625-1-anisa.su@samsung.com>
+	<20261104230445.66625-5-anisa.su@samsung.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,78 +66,270 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+On Thu,  5 Nov 2026 08:02:28 +0900
+Anisa Su <anisa.su887@gmail.com> wrote:
 
-The AXI clock is enabled once in probe() and only disabled in
-remove(). Use devm_clk_get_enabled() to let devres handle this
-automatically, and drop the now unnecessary remove() callback.
+> From: Ira Weiny <iweiny@kernel.org>
+> 
+> Add the handling skeleton for DC Add and DC Release events. Per CXL
+> r4.0 Section 8.2.10.9.9.3, the host is expected to respond to one or
+> more Add Capacity Event Record(s) with an Add Dynamic Capacity Response
+> (Opcode 4802h) to acknowledge which extents the host accepts for use.
+> Similarly, per CXL r4.0 Section 8.2.10.9.9.4, the host is expected to
+> respond to Release Capacity Event Record(s) with a Release Dynamic
+> Capacity command (Opcode 4803h), or to issue one that is not
+> associated with any event to release capacity on its own.
+> 
+> The records of one operation can be chained by the More flag. Chained
+> records are contiguous in the event log and share one event type (CXL
+> r4.0 Table 8-229), so a single staging context, mds->dc_chain, holds
+> the records of the open chain until the closing record (More=0)
+> arrives and the chain is processed and responded to as a whole. A
+> record that fails to stage, or one of the other type arriving inside an
+> open chain, drops the chain: an add is refused with an empty response,
+> a release is left for the device to retry.
+> 
+> This commit refuses all extents from Add Capacity chains and acks all
+> Release Capacity chains. Subsequent commits implement accepting and
+> releasing extents.
+> 
+> Forced Capacity Release and Region Configuration Updated events are
+> logged and ignored.
+> 
+> Based on an original patch by Navneet Singh.
+> 
+> Signed-off-by: Ira Weiny <iweiny@kernel.org>
+> Co-developed-by: Anisa Su <anisa.su@samsung.com>
+> Signed-off-by: Anisa Su <anisa.su@samsung.com>
+> Tested-by: Wonjae Lee <wj28.lee@samsung.com>
+> Tested-by: Junhee Park <jh9934.park@samsung.com>
+> Tested-by: Heesoo Kim <habil.kim@samsung.com>
+Sashiko does raise an interesting question about trailing events
+in a chain after an error.  If it's shared capacity we aren't allowed
+a partial accept. Otherwise it is fine (I think) but perhaps not complexity we
+want.  So probably need some flag to say problem occured on a record
+with more flag set. Keep dropping until we have had a closing record.
 
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
----
- sound/soc/adi/axi-spdif.c | 22 +++-------------------
- 1 file changed, 3 insertions(+), 19 deletions(-)
+For force release, I'm not sure if we should just panic() (maybe
+with a sanity check that the range was mapped) or ignore it and
+die in a storm of poison (hopefully rather than zeros).
 
-diff --git a/sound/soc/adi/axi-spdif.c b/sound/soc/adi/axi-spdif.c
-index faa1fc7cb973..07363ddebb77 100644
---- a/sound/soc/adi/axi-spdif.c
-+++ b/sound/soc/adi/axi-spdif.c
-@@ -199,7 +199,7 @@ static int axi_spdif_probe(struct platform_device *pdev)
- 	if (IS_ERR(spdif->regmap))
- 		return PTR_ERR(spdif->regmap);
- 
--	spdif->clk = devm_clk_get(&pdev->dev, "axi");
-+	spdif->clk = devm_clk_get_enabled(&pdev->dev, "axi");
- 	if (IS_ERR(spdif->clk))
- 		return PTR_ERR(spdif->clk);
- 
-@@ -207,10 +207,6 @@ static int axi_spdif_probe(struct platform_device *pdev)
- 	if (IS_ERR(spdif->clk_ref))
- 		return PTR_ERR(spdif->clk_ref);
- 
--	ret = clk_prepare_enable(spdif->clk);
--	if (ret)
--		return ret;
--
- 	spdif->dma_data.addr = res->start + AXI_SPDIF_REG_TX_FIFO;
- 	spdif->dma_data.addr_width = 4;
- 	spdif->dma_data.maxburst = 1;
-@@ -226,24 +222,13 @@ static int axi_spdif_probe(struct platform_device *pdev)
- 	ret = devm_snd_soc_register_component(&pdev->dev, &axi_spdif_component,
- 					 &axi_spdif_dai, 1);
- 	if (ret)
--		goto err_clk_disable;
-+		return ret;
- 
- 	ret = devm_snd_dmaengine_pcm_register(&pdev->dev, NULL, 0);
- 	if (ret)
--		goto err_clk_disable;
-+		return ret;
- 
- 	return 0;
--
--err_clk_disable:
--	clk_disable_unprepare(spdif->clk);
--	return ret;
--}
--
--static void axi_spdif_dev_remove(struct platform_device *pdev)
--{
--	struct axi_spdif *spdif = platform_get_drvdata(pdev);
--
--	clk_disable_unprepare(spdif->clk);
- }
- 
- static const struct of_device_id axi_spdif_of_match[] = {
-@@ -258,7 +243,6 @@ static struct platform_driver axi_spdif_driver = {
- 		.of_match_table = axi_spdif_of_match,
- 	},
- 	.probe = axi_spdif_probe,
--	.remove = axi_spdif_dev_remove,
- };
- module_platform_driver(axi_spdif_driver);
- 
--- 
-2.43.0
+> ---
+>  drivers/cxl/core/mbox.c  | 246 ++++++++++++++++++++++++++++++++++++++-
+>  drivers/cxl/core/trace.h |   3 +-
+>  drivers/cxl/cxl.h        |   9 ++
+>  drivers/cxl/cxlmem.h     |  46 ++++++++
+>  drivers/cxl/pci.c        |  20 +++-
+>  include/cxl/event.h      |  37 ++++++
+>  6 files changed, 353 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/cxl/core/mbox.c b/drivers/cxl/core/mbox.c
+> index 13a68f5cef69..3acf5ace48db 100644
+> --- a/drivers/cxl/core/mbox.c
+> +++ b/drivers/cxl/core/mbox.c
+
+> +static int cxl_send_dc_response(struct cxl_memdev_state *mds, int opcode,
+> +				struct list_head *extent_list, int cnt)
+> +{
+> +	struct cxl_mailbox *cxl_mbox = &mds->cxlds.cxl_mbox;
+> +	struct cxl_mbox_dc_response *p;
+> +	struct cxl_extent_list_node *pos, *tmp;
+> +	struct cxl_extent *extent;
+> +	u32 pl_index;
+> +
+> +	size_t pl_size = struct_size(p, extent_list, cnt);
+> +	u32 max_extents = cnt;
+> +
+> +	/* May have to use more bit on response. */
+> +	if (pl_size > cxl_mbox->payload_size) {
+> +		max_extents = (cxl_mbox->payload_size - sizeof(*p)) /
+> +			      sizeof(struct updated_extent_list);
+> +		pl_size = struct_size(p, extent_list, max_extents);
+> +	}
+> +
+> +	struct cxl_mbox_dc_response *response __free(kfree) =
+> +						kzalloc(pl_size, GFP_KERNEL);
+> +	if (!response) {
+> +		struct cxl_mbox_dc_response empty = { };
+> +
+> +		/* An empty Release DC is invalid (CXL r4.0 Table 8-352) */
+> +		if (opcode == CXL_MBOX_OP_RELEASE_DC)
+> +			return -ENOMEM;
+> +		/* Refuse all extents rather than stall the device. */
+> +		return send_one_response(cxl_mbox, &empty, opcode, 0, 0);
+> +	}
+> +
+> +	/* Set __counted_by to capacity before populating; reset per response. */
+> +	response->extent_list_size = cpu_to_le32(max_extents);
+> +
+> +	if (cnt == 0)
+> +		return send_one_response(cxl_mbox, response, opcode, 0, 0);
+> +
+> +	pl_index = 0;
+> +	list_for_each_entry_safe(pos, tmp, extent_list, list) {
+> +		extent = pos->extent;
+> +		response->extent_list[pl_index].dpa_start = extent->start_dpa;
+> +		response->extent_list[pl_index].length = extent->length;
+> +		pl_index++;
+> +
+> +		if (pl_index == max_extents) {
+Maybe flip?
+		if (pl_index != max_extents)
+			continue;
+
+		flags = 0;
+
+		...
+
+> +			u8 flags = 0;
+> +			int rc;
+> +
+> +			if (pl_index < cnt)
+> +				flags |= CXL_DCD_EVENT_MORE;
+> +			rc = send_one_response(cxl_mbox, response, opcode,
+> +					       pl_index, flags);
+> +			if (rc)
+> +				return rc;
+> +			cnt -= pl_index;
+> +			if (cnt < max_extents)
+> +				max_extents = cnt;
+> +			pl_index = 0;
+> +		}
+> +	}
+> +
+> +	if (!pl_index) /* nothing more to do */
+> +		return 0;
+> +	return send_one_response(cxl_mbox, response, opcode, pl_index, 0);
+> +}
+
+> +
+> +static int stage_pending_extent(struct list_head *pending,
+> +				struct cxl_extent *to_add)
+> +{
+> +	struct cxl_extent_list_node *node = kzalloc(sizeof(*node), GFP_KERNEL);
+> +	struct cxl_extent *extent;
+> +
+> +	if (!node)
+> +		return -ENOMEM;
+> +	extent = kmemdup(to_add, sizeof(*extent), GFP_KERNEL);
+
+Maybe scatter some __free() magic in here and no_free_ptr() where
+they get handed off..
+
+> +	if (!extent) {
+> +		kfree(node);
+> +		return -ENOMEM;
+> +	}
+> +
+> +	node->extent = extent;
+e.g.
+	node->extent = no_free_ptr(extent);
+
+> +	list_add_tail(&node->list, pending);
+
+	list_add_tail(&no_free_ptr(node)->list, pending);
+
+> +	return 0;
+> +}
+
+> +
+> +static void cxl_handle_dcd_event_records(struct cxl_memdev_state *mds,
+> +					 struct cxl_event_record_raw *raw_rec)
+> +{
+> +	struct cxl_event_dcd *event = &raw_rec->event.dcd;
+> +	struct cxl_extent *extent = &event->extent;
+> +	struct device *dev = mds->cxlds.dev;
+> +	uuid_t *id = &raw_rec->id;
+> +	int rc;
+> +
+> +	if (!uuid_equal(id, &CXL_EVENT_DC_EVENT_UUID))
+> +		return;
+> +
+> +	dev_dbg(dev, "DCD event %s : DPA:%#llx LEN:%#llx\n",
+> +		cxl_dcd_evt_type_str(event->event_type),
+> +		le64_to_cpu(extent->start_dpa), le64_to_cpu(extent->length));
+> +
+> +	switch (event->event_type) {
+> +	case DCD_ADD_CAPACITY:
+> +	case DCD_RELEASE_CAPACITY:
+> +		rc = handle_dcd_chain_event(mds, event);
+> +		break;
+> +	case DCD_FORCED_CAPACITY_RELEASE:
+> +		dev_err_ratelimited(dev, "Forced release event ignored.\n");
+
+If that actually happens to us, maybe we should panic?  All bets are off
+if we get one of these for capacity that was actually in use.
+
+> +		rc = 0;
+> +		break;
+> +	case DCD_REGION_CONFIGURATION_UPDATED:
+> +		dev_dbg(dev, "Region configuration updated event ignored.\n");
+> +		rc = 0;
+> +		break;
+> +	default:
+> +		rc = -EINVAL;
+> +		break;
+> +	}
+> +
+> +	if (rc)
+> +		dev_err_ratelimited(dev, "dcd event failed: %d\n", rc);
+> +}
+> +
+>  static void cxl_mem_get_records_log(struct cxl_memdev_state *mds,
+>  				    enum cxl_event_log_type type)
+>  {
+> @@ -1136,9 +1368,13 @@ static void cxl_mem_get_records_log(struct cxl_memdev_state *mds,
+>  		if (!nr_rec)
+>  			break;
+>  
+> -		for (i = 0; i < nr_rec; i++)
+> +		for (i = 0; i < nr_rec; i++) {
+>  			__cxl_event_trace_record(cxlmd, type,
+>  						 &payload->records[i]);
+> +			if (type == CXL_EVENT_TYPE_DCD)
+> +				cxl_handle_dcd_event_records(mds,
+> +							     &payload->records[i]);
+
+Just go long on that one. I wouldn't do the normal thing of flipping the condition
+because this being out of line makes sense as its an oddity in this function.
+
+> +		}
+>  
+>  		if (payload->flags & CXL_GET_EVENT_FLAG_OVERFLOW)
+>  			trace_cxl_overflow(cxlmd, type, payload);
+
+> diff --git a/drivers/cxl/cxl.h b/drivers/cxl/cxl.h
+> index d098f7f50bef..64138e1768a1 100644
+> --- a/drivers/cxl/cxl.h
+> +++ b/drivers/cxl/cxl.h
+> @@ -12,6 +12,7 @@
+>  #include <linux/node.h>
+>  #include <linux/io.h>
+>  #include <linux/range.h>
+> +#include <linux/xarray.h>
+
+This looks misplaces as nothing in the header changed
+that has anything to do with xarrays.
+
+>  #include <cxl/cxl.h>
+>  
+>  extern const struct nvdimm_security_ops *cxl_security_ops;
+> @@ -557,6 +558,14 @@ struct cxl_pmem_region {
+>  	struct cxl_pmem_region_mapping mapping[];
+>  };
+>  
+> +/* See CXL r4.0 8.2.10.2.1.6 */
+> +enum dc_event {
+> +	DCD_ADD_CAPACITY,
+> +	DCD_RELEASE_CAPACITY,
+> +	DCD_FORCED_CAPACITY_RELEASE,
+> +	DCD_REGION_CONFIGURATION_UPDATED,
+> +};
+> +
+>  struct cxl_dax_region {
+>  	struct device dev;
+>  	struct cxl_region *cxlr;
 
