@@ -1,99 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794930232;
-	b=lzSDPu0Jtl8xJ3wXEqyLY2pkX89Vpga+iI6te0SGrug9hiXeHVPjqRcgEbvavl85dxpt
-	 Bp976QbffqV8m+iPPZpC55/uBO1LG+IBnUkxHCZTvuR8jZ68YtLUTrrHYhfA/YeFkZY/4
-	 T8lOQz/kyLXs3+1zLj78vHWHbr5BfQ0dHHANupCcWUVW/1iWe3SlBeYFuFkLIHz1MS7B9
-	 F2xmgL5vUe0dkflb93g7ZDqZa6WLp0mm90EmZA6/t/3SjZKTy6/I58vzDllltGoKD6AkL
-	 MPEB1md/raO6hDOYht10K9ERXI19xxfqEaW3PeOG/uUiJZT/e5jO7pELGtGTTQ4PBZg==
+	t=1794930239;
+	b=rcxhNzF8T+A2mjJtPY3S+KL4guSrFIrfjtpFgzTvAQvOUbxegadWGI7Sqdj5/cCGipbt
+	 OueABNDT2q9w6KajRbm7xyXcki423l59YlsJJCFM9JFZJx3JU+H/nvEXimWJoLMb9IERL
+	 BjG09fRT+A4pvUFSk4lHrznBu1/X9lz1bMskonV+N+fH1jrzGUMVtYGe90kWRQTZBWIzA
+	 2OaDDrRSKLszX3oowOvORWkL/UVX3bEKxdntGtPJ4LuprjCIDhTeOZbeTHKxmu0OuKXny
+	 5yOiMx1gc+WElV/AbTB/uQ5n7T1jdozBRihn6vPfTKpIkpdBH8jF0BfBvf5wZ2R/EEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794930232;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=Wd1stQW0PnAi11G70cjVexCVdL0BocGOfoLmEtZFQiM=;
-	b=YdWIqVEdSjFupGF5Q1xgAQGhbvf0fuw5ktK+Dciwb8uwPGN6pUExS4gPEbQpij4EZch7
-	 /lmXlIGkN7chpZG8zXdvcc18ImeWtqRZxA1D4EHJZI6ZvBj4lCx8R2zjy8pZO4DM7Ej/O
-	 DpuyMLsh215ftysHnkD27g2R/dQk3k3nyP0OUtYNnjShEjBB6I+xU9rqj3uQY9SehU/WL
-	 rzk7feo/LTRCk2KxoJeUoYjbRk65m1sQlK9H0XIUo9wkzV0Htgo99dBHVWMLldVr/1lN3
-	 K22xX9SOY2ipbYwgZ2Y93k1uMjJsg8+zrd8I4BzkixZY7hldv35aAYKrWNw8uGOlPFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794930239;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=rmlNl+cN1v4ObBPuPGFVK0GCt9dkXWFacMXpgZLubfc=;
+	b=eOCEDglz+m4VnZzQ8fAyPppPx4WdlDQuo/8UZlz8eh1Lo22CrXXn4cw2fgl8cVaWVtvb
+	 cdnwIUGmzEuLkoHF23hphoFphMjhJ/qwuRswT/iWRej1qIkfJr2Tk0Nl4cy/6iD/Xsd0L
+	 8NEnjX5hkk7elm31dKexr0WeZ6Rr9i/NlLzbF6o/CT9BRsLmaY8nIeRlSUPT2SqZL0pcl
+	 zbeNPAZR2q/TjOKzop5V6qLbK0htkLkODUHT1vbhaXZbM7v172WFHFgyBMmb+FB8gmir7
+	 mSxdN9yk4FCb24iz0jd0Zu6oQrBpTOEOJ2KLNm1lJ3nC5To68po3CoX8bJmeEV3DM0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ODHK5hx+;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Q2Jl2sdW;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2001D606A32C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:43:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2001D606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49A90606A31C;
+	Tue, 17 Nov 2026 15:43:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49A90606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ODHK5hx+
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4bb68c197c7so31915e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:43:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794930230; x=1795535030; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Wd1stQW0PnAi11G70cjVexCVdL0BocGOfoLmEtZFQiM=;
-        b=ODHK5hx+CJtmtLLRX9383lNNMFawi9iv9cvkjFR+rdOwyyvJedpqLeXMOxleYJuw3q
-         gu/tHsFeimW6HYfsF9dmqVesit7SL+ADMo/MQDoHeL2NjKYV0WJLXuDbEPgop54jTwF0
-         jmOJTMC+mx8xLm7u8uNmUv9rwf9jlV9hgpCgq5J7BJMpQzKtaJhTqyS1RGxYXRJikPiH
-         MbrHJxHBHda9Z+92/MZwgR2HIB6vK7Mmnr6BAOH4xwhjDPdbO09n/gx7vzHKBYZbeSvW
-         H9MLH7n7C0A+6kjnPtGh1HVgt9UOayqImdWlqsaxzpAfjnwUJ8mt0jbQdalCSgKSj7m3
-         oWeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794930230; x=1795535030;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Wd1stQW0PnAi11G70cjVexCVdL0BocGOfoLmEtZFQiM=;
-        b=p1RmZB/ymu2lHPxfpMRCJ8rgsQ+SmJ5N5v9rwhuBSvRhRQZaKu+znCFowhMwBCYBrF
-         BMHL2o1vlwLY3gg4NRGjWB/jqCk9EsC+AXHHtsqeEUWWyUfCm14KoNAnRM90Bmg+ULJR
-         z4neVHKoRumyeCple7GzldpiC5LKL9luPN2v17yNLo9mgK/WgfbtZ5UEnTsCSoPEyQh6
-         m1w8RbJwIF/wqtW7bA01Wvf7d8PXF12F6P01GnqmSDfy07QNwwSePHxq+CLqRr6p6CMO
-         mA9Lfe59ajFBUg/ZzbgMrC+wBDNqFKSu6AiXdbflUpeyVtOZAH1bxHummIUeA8pacuwT
-         gEXQ==
-X-Forwarded-Encrypted: i=1; AL+hErE+UXEcTtjZ98HiIvu7QwV7CkLgHX/tLexaYOYGOK8mk9b8NS1EqYb/CYgrNDjkGPA3AhWcqG1LolzrJPc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+U3xnWcbZFstwozsejXa9RrH8JrHrPGLQ1/IfrMSzPDlUhq1YS
-	hHF6LZs1l4+7shiokRvVg8pKm9YroUiGOLiGxw0h97JrSNymEYPPnNdXefH31NjlSA==
-X-Gm-Gg: AYBFou2/LGeZM2hAgOCSn3QvOjuyIP4vbcwIUXADk4bFQ+8mrTECTX+7uPJGeu/9lBF
-	vNFtFtiRSfVvn8sPuVyDQFK1fbYbUmdrs69z0GNSsWb1GHaRBbmQ34ctS3LnoMdmeUlNQZWynMy
-	N2TjdBpq3W02YMS4pyCpJaTL2CZ0ufwXOjFYPtLsviEJSxfPN0U6c5+RTEDOBSHCMBRVO+wazM9
-	QHe72XLpNvXVWrK3ILDNDlNuWfBkh9bN/Dk7oyQQKFcF7cdyNqUq0yed5KlUsM+kBE1J3qppJux
-	zBrkxUpTtZISaWKsJqM8BNDKQ/Hz9ausTgW9m2r0cXANuYzYeKY0Gx3QloKmVXXloXFvPWUnzRe
-	rXxAv9CCGjN8N6sTwtQ4aOCFH09PvQfNukd4Gdz5kdZaNhxSTNC8FEwpGDTsxYIKDYtBVjv0S4Q
-	Di/8fF5FdMPtCU1sysvuQGkINfXp3olI/YZ86cYGhO7jd8dIhT/DCrbzwXBMt0cFFHkbi02uc/e
-	jfkvG9JAalWpsPUL1ylQ1zbyAP0ht5dCe+rfAP1XqipVQXAMAryPUO5Y3FFcPjYbPqAfFrwjpLa
-	yxWRaqVgte3jETzKoMSN6PXobSKzqjUEW+qD1GEQwW0A2r4liHsLa3COAqTx
-X-Received: by 2002:a05:600c:c166:b0:4ba:6d8:df8f with SMTP id 5b1f17b1804b1-4bb55a832c0mr330308195e9.15.1794930229860;
-        Tue, 17 Nov 2026 07:43:49 -0800 (PST)
-Received: from google.com ([2a00:79e0:288a:8:12e4:4602:d8d8:3043])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb571d7e87sm265535875e9.3.2026.11.17.07.43.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 07:43:49 -0800 (PST)
-Date: Tue, 17 Nov 2026 16:43:43 +0100
-From: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
-To: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-Cc: Ada Smith <adasmithgt@gmail.com>, Hungyu Lin <dennylin0707@gmail.com>,
-	James Morris <jmorris@namei.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Paul Moore <paul@paul-moore.com>, Serge Hallyn <serge@hallyn.com>,
-	Serge Hallyn <sergeh@kernel.org>, kernel-team@cloudflare.com,
-	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org
-Subject: Re: [PATCH v2 4/6] landlock: Mediate CAP_SYS_ADMIN for the admin
- memory reserve
-Message-ID: <avx2Lzzv-i9KrKFO@google.com>
-References: <20261117101157.2520463-1-mic@digikod.net>
- <20261117101157.2520463-5-mic@digikod.net>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Q2Jl2sdW
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHFQV0E1096766;
+	Tue, 17 Nov 2026 15:43:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=rmlNl+
+	cN1v4ObBPuPGFVK0GCt9dkXWFacMXpgZLubfc=; b=Q2Jl2sdW7R/r+rRsLKXYJD
+	nAc+mng8ZG27UM+XVUSbUqXSPgBC3rPO7YgOQX+oQbLjRa7ycJd9T6eoNTOOkAU4
+	JzFuMUjM0O/Kk713/wrYYlXnNypnEknghpD+N49++ObMjGh2Pr6Q+CFR8+LbDDbq
+	Tx6p+LXYabDlJxOceNRW2u61MOY9G59uQ2NveRTzt/uFO/7UMbqlGDI/4+luvocY
+	vwSVTbTeOXdG+gqtOkzvr7pPFrmvGHddFY4NzRDYQr9tqMYW+v536emLnUxpXeRK
+	yQkwY/6vB73NFK1i8+vl8SPKuzCUwBYts8ksRt6yzoPFRfjbzX0Z293/aUZINIrA
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hxfat43c3-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 17 Nov 2026 15:43:46 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHFYutg713417;
+	Tue, 17 Nov 2026 15:43:46 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4j02dfdjxa-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 17 Nov 2026 15:43:46 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AHFhgAA44040666
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 17 Nov 2026 15:43:42 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3D19C20040;
+	Tue, 17 Nov 2026 15:43:42 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C0D2E2004B;
+	Tue, 17 Nov 2026 15:43:39 +0000 (GMT)
+Received: from [9.124.217.181] (unknown [9.124.217.181])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 17 Nov 2026 15:43:39 +0000 (GMT)
+Message-ID: <4b5c9a61-5876-4508-87a2-5451d363a181@linux.ibm.com>
+Date: Tue, 17 Nov 2026 21:13:38 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,82 +85,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261117101157.2520463-5-mic@digikod.net>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCHv2 2/4] powerpc/watchdog: Disable preemption in
+ arch_touch_nmi_watchdog()
+To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        linuxppc-dev@lists.ozlabs.org
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
+        linux-kernel@vger.kernel.org, chleroy@kernel.org,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Mukesh Kumar Chaurasiya <mkchauras@gmail.com>, stable@vger.kernel.org
+References: <cover.1794924821.git.ritesh.list@gmail.com>
+ <3cb2893bf883be87ea1c3712344ac03f727937d0.1794924821.git.ritesh.list@gmail.com>
+Content-Language: en-US
+From: Shrikanth Hegde <sshegde@linux.ibm.com>
+In-Reply-To: <3cb2893bf883be87ea1c3712344ac03f727937d0.1794924821.git.ritesh.list@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA2MSBTYWx0ZWRfX5zMOjNZaoSCU
+ sOrqbYEexznfceCYddY+QiLKtxOkgTHsl8W360ARlCOVGBnNtyuu6XGShSNDS8HS4Xlwj7x5zHt
+ BKm/vetgkzKZbftZZVm5nxEN7SKfNvw=
+X-Proofpoint-ORIG-GUID: h-wmP1IUSblYLkRfDfVYj5uljJtAMwN6
+X-Proofpoint-GUID: W-TGwsihpCE7ooHZ-hsMEY16rcbokUKZ
+X-Authority-Analysis: v=2.4 cv=IaESymqa c=1 sm=1 tr=0 ts=6afc7633 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
+ a=pGLkceISAAAA:8 a=VnNF1IyMAAAA:8 a=_Q28vid90O0EagN2oV8A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA2MSBTYWx0ZWRfX4fAeVGJSlOR/
+ 3Le4Gbt7cvGgu8g6yggHeUAbDUaPFUaqOSaPUcVdZwsgTFvJyMRXW/nHjRbYgOs+pvLrCOc57LM
+ h4Ze3djpVXjhCLy0/qnUj2ygmQfFb6cbRaM+rDZXn+rpufJVxjNpdfChrmRxOh8RszRT4MERs3+
+ /FNW/j380uLXbDEVQWV6ycOiiTrXeOrWkGW+m181TQzEH4XbUIHuBfcw5E/5ZTWXag709DhK6ve
+ oetIb0O4BLp3ptaJJUaJmiIrRu7eqAJx+raY0KfzvPUFfvjhxGZXL5wCef9/1ny5DYUTrSKz6p5
+ 3xxMW4/cjhuAmYYaht9H+OaSUJ5FRpqpg2/YiXtGOcz/eogIWqdAvlp03ojZHzTxPPVg/DQZAtm
+ oQhHoPaw0xzJEvpCKqmd/WpjPkAcYQMZdeOzpF7eFA8OKZsNCT6euJz9EjJ5qvyXTGRgTnQXsV5
+ MUq8M7KjPBPkX+eHdfQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_03,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 phishscore=0 adultscore=0
+ lowpriorityscore=0 clxscore=1015 impostorscore=0 malwarescore=0 bulkscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611170061
 
-On Tue, Nov 17, 2026 at 11:11:54AM +0100, Mickaël Salaün wrote:
-> With vm.overcommit_memory set to 2, __vm_enough_memory() keeps the
-> vm.admin_reserve_kbytes reserve for callers whose LSMs all agree that
-> they hold CAP_SYS_ADMIN.  cap_vm_enough_memory() checks it with
-> cap_capable(), so a process in a domain that denies CAP_SYS_ADMIN could
-> still use this reserve, which is meant to let an administrator recover
-> from memory exhaustion.
+
+
+On 11/17/26 7:55 PM, Ritesh Harjani (IBM) wrote:
+> touch_nmi_watchdog() can be called from preemptible context, e.g.
+> sysrq-w via /proc/sysrq-trigger. The powerpc implementation uses
+> smp_processor_id(), so with DEBUG_PREEMPT we get:
 > 
-> Add a Landlock vm_enough_memory hook that withholds the reserve when the
-> domain denies CAP_SYS_ADMIN.  Like commoncap and SELinux, do not audit
-> this check: it only selects a limit, it runs for every accounted
-> mapping, and withholding the reserve can only make an allocation fail
-> with -ENOMEM.  As with the previous hooks, LSMs implement their own
-> policy in this hook: SELinux already checks CAP_SYS_ADMIN in its own
-> vm_enough_memory hook, so making commoncap call security_capable() would
-> make SELinux check it twice.
+>    root@buildroot:/# echo w > /proc/sysrq-trigger
+>    sysrq: Show Blocked State
+>    BUG: using smp_processor_id() in preemptible [00000000] code: bash/238
+>    caller is arch_touch_nmi_watchdog+0x3c/0xd4
+>    CPU: 0 UID: 0 PID: 238 Comm: bash Not tainted 7.4.0-rc2-00029-g7664547149ae-dirty #126 PREEMPT
+>    Call Trace:
+>     dump_stack_lvl+0x138/0x150 (unreliable)
+>     check_preemption_disabled+0x120/0x158
+>     arch_touch_nmi_watchdog+0x3c/0xd4
+>     show_state_filter+0xf0/0x338
+>     sysrq_handle_showstate_blocked+0x24/0x38
+>     __handle_sysrq+0x134/0x3a8
+>     write_sysrq_trigger+0x178/0x22c
+>     proc_reg_write+0xf4/0x150
+>     vfs_write+0xfc/0x71c
+>     ksys_write+0x8c/0x150
+>     system_call_exception+0x310/0x590
+>     system_call_vectored_common+0x15c/0x2ec
+>    ---- interrupt: 3000 at 0x7ffd01755b98
 > 
-> Cc: Günther Noack <gnoack@google.com>
-> Cc: Paul Moore <paul@paul-moore.com>
-> Cc: Serge Hallyn <serge@hallyn.com>
-> Acked-by: Serge Hallyn (AMD) <sergeh@kernel.org>
-> Fixes: 97c8386f1d74 ("landlock: Enforce capability restrictions")
-> Signed-off-by: Mickaël Salaün <mic@digikod.net>
+> Unlike the generic version, which only sets a flag, we update the CPU's
+> timebase stamp and its SMP watchdog pending bit, so a migration in
+> between touches the state of a CPU we are no longer on.
+> 
+> Disable preemption across the update. While at it, let's also mark the
+> function as notrace (since we might be within a tracer when this
+> function gets called).
+> 
+> Fixes: 2104180a5369 ("powerpc/64s: implement arch-specific hardlockup watchdog")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+
+Reviewed-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+
 > ---
+>   arch/powerpc/kernel/watchdog.c | 8 ++++++--
+>   1 file changed, 6 insertions(+), 2 deletions(-)
 > 
-> Changes since v1:
-> https://patch.msgid.link/20261110202436.2408244-5-mic@digikod.net
-> - Add Serge Hallyn's Acked-by.
-> ---
->  security/landlock/cap.c | 22 ++++++++++++++++++++++
->  1 file changed, 22 insertions(+)
+> diff --git a/arch/powerpc/kernel/watchdog.c b/arch/powerpc/kernel/watchdog.c
+> index 44f178e07531..32d4e716cb0a 100644
+> --- a/arch/powerpc/kernel/watchdog.c
+> +++ b/arch/powerpc/kernel/watchdog.c
+> @@ -456,12 +456,16 @@ static enum hrtimer_restart watchdog_timer_fn(struct hrtimer *hrtimer)
+>   	return HRTIMER_RESTART;
+>   }
 > 
-> diff --git a/security/landlock/cap.c b/security/landlock/cap.c
-> index c89e8d76db8c..c9a900888f3b 100644
-> --- a/security/landlock/cap.c
-> +++ b/security/landlock/cap.c
-> @@ -140,10 +140,32 @@ static int hook_mmap_addr(unsigned long addr)
->  	return check_cap(current_cred(), CAP_SYS_RAWIO, CAP_OPT_NONE);
->  }
->  
-> +/**
-> + * hook_vm_enough_memory - Restrict the admin memory reserve
-> + *
-> + * @mm: Address space being charged (unused).
-> + * @pages: Number of pages being charged (unused).
-> + *
-> + * cap_vm_enough_memory() lets CAP_SYS_ADMIN use the vm.admin_reserve_kbytes
-> + * reserve, but calls cap_capable() directly, which skips hook_capable().  Check
-> + * the same capability against the domain.  commoncap runs first, so this only
-> + * sees tasks that commoncap let use the reserve.  Like commoncap, do not log
-> + * denials: this only selects a memory limit.
-> + *
-> + * Return: 0 if the domain does not withhold the reserve, -EPERM if
-> + * CAP_SYS_ADMIN use is denied.  An error does not fail the allocation by
-> + * itself, but without the reserve, the allocation may fail with -ENOMEM.
-> + */
-> +static int hook_vm_enough_memory(struct mm_struct *mm, long pages)
-> +{
-> +	return check_cap(current_cred(), CAP_SYS_ADMIN, CAP_OPT_NOAUDIT);
-> +}
+> -void arch_touch_nmi_watchdog(void)
+> +notrace void arch_touch_nmi_watchdog(void)
+>   {
+>   	unsigned long ticks = tb_ticks_per_usec * wd_timer_period_ms * 1000;
+> -	int cpu = smp_processor_id();
+> +	int cpu;
+>   	u64 tb;
+> 
+> +	/* Callers may be preemptible. Stay on this CPU for the update. */
+> +	guard(preempt_notrace)();
+> +	cpu = raw_smp_processor_id();
 > +
->  static struct security_hook_list landlock_hooks[] __ro_after_init = {
->  	LSM_HOOK_INIT(capable, hook_capable),
->  	LSM_HOOK_INIT(capset, hook_capset),
->  	LSM_HOOK_INIT(mmap_addr, hook_mmap_addr),
-> +	LSM_HOOK_INIT(vm_enough_memory, hook_vm_enough_memory),
->  };
->  
->  __init void landlock_add_cap_hooks(void)
-> -- 
-> 2.56.0
+>   	if (!cpumask_test_cpu(cpu, &watchdog_cpumask))
+>   		return;
+> 
+> --
+> 2.39.5
 > 
 
-Reviewed-by: Günther Noack <gnoack@google.com>
