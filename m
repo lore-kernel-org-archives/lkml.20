@@ -1,49 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794934213;
-	b=TUZeqR1flfrMMoDlWO1GRdWLwdVEiK/1nGVgTYcB9XKXSEqTf9BAempMrHu39l0cel23
-	 vMmJYTRrt+XRoEgFKuJKno1gC+GvhmRVbej6MiN5yThUZFoacFvGYPTci6vBYkwxKL79z
-	 8M8rCSVYb++h3PeFHlFzbE6DSoZmf9l2XIsdCotHGjaTzcqT6zt7VFmSD6RZia21JbBPL
-	 E+j5O80GS3d4OIhAbMGWi1pnLu6aT9RgWWggnZapO2AVo3ZFXIiWNhJ3n/ss1+6knfIqe
-	 gZKsux8Yc99XN9NUI1JexgixGAkB+RiZkrIQJx0tJ6ROzMbTG5gahZRY85QCeEogK+g==
+	t=1794934263;
+	b=Ed/momU7PgTIto65E6RwwqREr8ZG86ILxaeyOfHMuYK/T+A+ul3+hCU9SRJhTk74nWAS
+	 AT8P3vJhnWzBLQC+4Xvs1pj8xWCmwqaaS+q6eHIAlZKmPMuct8lLNKgXLR4mvU++UH0f8
+	 4RywKO8gLsdwOlnEMvh2Abz6DBfRME++WJyFveAB6SL3tsEPsv1GDVsKBajpRr/j1Fte+
+	 Qsv+YAtEsEyd/YAGa6kOZ25CyyeM3o5seNZpWDaX/WGUW4GA/urfI1Tg5628ScDUIp0LH
+	 7tA4hDJk0z1Zj3WpkvnDc5i6HShcdDuvtl6jtbHsfvAF3i2hUm3xUQOc+wyxjFDEUfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794934213;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=mYmFqNItA657S80cwv0+5oWCVc/8rWIHSqTpW1wpY4g=;
-	b=5n4lCqPOx7aTl5YrculfH0AYTGLdot48qbsc47mWJDLxw7KjxRl+oYDNNtWjXMthaF9E
-	 fCKWn1Df6R6pdvk6q8h9sRqAnvO5qz/3C4uY2rIfluQzmz2gefX2oFmr119ojE4UHoG8I
-	 i1oJmQhcqqd8mJRGN1hAtv4Xu8Cg7y+geJ3be4qUaeI5EznWzqTrixq45hJXFcNDstVR2
-	 HTP550hl9mfg9x+zKwCKW+CoPAk+8v1BQo+iV3LK9HxnEhaYvoLghtSCMBlhRnQH1C9eB
-	 jTic04WfLvMfrx0vCfB1gEhc/KEQmB6U3HqP5LVb+B7eH9ylBQk2akdFaPMxPg2j5JQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794934263;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=9zOO5rAdZD5bgN+m83G9k8CmEqp9m+/UuZhzOcs9Gjc=;
+	b=WWrimjMs8FByj0dJfFeuiivVfytvs4SvBJlP6mP/XtlPbfJSCRVtVNp+FhrHdk6zu9CH
+	 eKwq+NOT2+yHWKWL3UI4ouh3VR/sl7cBDr7qStXoN7O3lwI+aXcoau/7lRG7euNYja1U4
+	 Lhij83TrVEmn2syqIS3Blw91ZVsKKhvtQ5sda6F3DCyCbVvRoV9R6iGp9TID6eEUup6Id
+	 L8m0JBQCROmuSSFKbIu1CzA/2kZfbvLUI8/RgFfA7cflNtFPqmLJSSRgOrI3zob5he7G/
+	 8vLbyFfz8k7U5L3nHpQlw2Xny3sPkormUY+cu+vvsx/4qlM4s1AiuLDMZPQpLulTpBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Szr7rKyT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LnZfU0ID;
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E180D606A332
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:50:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76D80606A31C;
+	Tue, 17 Nov 2026 16:51:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76D80606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Szr7rKyT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC7031F000C6;
-	Tue, 17 Nov 2026 16:50:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794934212;
-	bh=mYmFqNItA657S80cwv0+5oWCVc/8rWIHSqTpW1wpY4g=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=Szr7rKyTESR1Z2xk0sYhcungVL2UV91/bOQbAuOydLUayVg7/IUG5FxuzS+F9b1ED
-	 YozZ+ApBIV/XRhG2ZIpDwcEy0YbsdmDP3vCZltLBAd/oaobdukxVKqeL9XSWs7Wott
-	 8TLRH4ynRI4zYF3XziS1p0MabCqDQDqwO33q1n5Ghqc6Lw0Vvtycu+qv29vqZK7o+X
-	 KeG/VPSMXElyp8g85yzNCmGTv7gCkwaDoETG9thM1Z1a3DxmV0z9ndGCloT9yfpCuQ
-	 4kJo3TQ2OIWcLQ1zTkjeIaieSfYDNq+Ag8PoG6oYNLmpSIsHHz3dwWjjYeXoLbZQfB
-	 HCZaIol380gLQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B462D392706F;
-	Tue, 17 Nov 2026 16:50:12 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LnZfU0ID
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794934262; x=1826470262;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Oo2HLD57CgDs74O09Fghy16vcY7J9AgvHbmS51v8TSw=;
+  b=LnZfU0ID6/cLl01vSRfJvV5LuhtkvJAiYEpYQ0M2865zT48PsSdcdj9d
+   P+MsmT9/pru+1DhQ+jUXL8EKU7rZKN5HYg8jxlXT2Ltb1lpzYnQPqS2J3
+   AaTUctKbtHryS48it30pE7bAk04QHizD4VPlm8izN7mOZ/LVuQ3sI/zMu
+   0QJ5zWGEwwc7jZyZ8MNL86nztvDdyl10qJoIK7uKxFVIbvxZ+rW4DBBMc
+   8qZEe6uHMSWHWyFQ3/GPOJbLSD2TnI8/MGNki6Bpekib0dCR3rSV4sNSH
+   AUhOj51OF5M27X1ZJr9kNwshDc0NKfwyeLLpKvA4MCr7Izz27EvEBlPWG
+   A==;
+X-CSE-ConnectionGUID: ou6TTQC1QKGa2VddEfsO+Q==
+X-CSE-MsgGUID: 7425SbxSRM2KRFUiJZejkw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3755780"
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="3755780"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 08:51:01 -0800
+X-CSE-ConnectionGUID: 6tM/lD3oRAq3KwdQab2P1g==
+X-CSE-MsgGUID: 4zP3eVtsQQeWnvSFsHSBjw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="9790442"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.254])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 08:50:56 -0800
+Date: Tue, 17 Nov 2026 18:50:54 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Cc: jic23@kernel.org, linux-iio@vger.kernel.org, dlechner@baylibre.com,
+	nuno.sa@analog.com, andy@kernel.org, nicolas.ferre@microchip.com,
+	alexandre.belloni@bootlin.com, claudiu.beznea@tuxon.dev,
+	giorgitchankvetadze1997@gmail.com, amin.gattout@gmail.com,
+	antoniu.miclaus@analog.com, gregkh@linuxfoundation.org,
+	mripard@kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/3] iio: adc: at91_adc: use local struct device
+ pointer in probe
+Message-ID: <avyF7vllhuE-cJA0@ashevche-desk.local>
+References: <20261117140510.391907-1-abdelnasserhussein11@gmail.com>
+ <20261117140510.391907-3-abdelnasserhussein11@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,43 +85,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [f2fs-dev] [PATCH] f2fs: don't BUG_ON a missing orphan inode at
- mount
-From: patchwork-bot+f2fs@kernel.org
-Message-Id: 
- <179493421127.698822.8936869244996483473.git-patchwork-notify@kernel.org>
-Date: Tue, 17 Nov 2026 16:50:11 +0000
-References: <20261105034419.2701443-1-zhanxusheng1024@gmail.com>
-In-Reply-To: <20261105034419.2701443-1-zhanxusheng1024@gmail.com>
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>
-Cc: jaegeuk@kernel.org, chao@kernel.org, yangguikun19@qq.com,
- stable@kernel.org, zhanxusheng@xiaomi.com, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261117140510.391907-3-abdelnasserhussein11@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hello:
-
-This patch was applied to jaegeuk/f2fs.git (dev)
-by Jaegeuk Kim <jaegeuk@kernel.org>:
-
-On Thu,  5 Nov 2026 11:44:19 +0800 you wrote:
-> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+On Tue, Nov 17, 2026 at 04:05:09PM +0200, Abdelnasser Hussein wrote:
+> Introduce a local struct device pointer in at91_adc_probe() and use it
+> in place of &pdev->dev and &idev->dev throughout the function.As a
+> result, messages previously logged against the IIO device are now
+> printed using the platform device being probed.
 > 
-> recover_orphan_inode() treats -ENOENT from f2fs_iget() as a kernel
-> bug, but the ino comes from the on-disk orphan block. An image whose
-> orphan entry names an inode without a NAT entry hits the BUG_ON at
-> mount with CONFIG_F2FS_CHECK_FS, or a WARN and a failed mount
-> without it.
-> 
-> [...]
+> switch devm_iio_device_alloc() to use sizeof(*st) instead of
+> spelling out the full private structure type.
 
-Here is the summary with links:
-  - [f2fs-dev] f2fs: don't BUG_ON a missing orphan inode at mount
-    https://git.kernel.org/jaegeuk/f2fs/c/b61a029304bb
+...
 
-You are awesome, thank you!
+> +	struct device *dev = &pdev->dev;
+> +	struct device_node *node = dev->of_node;
+
+Before doing this, switch to device_property_*() / fwnode_property_*() APIs
+first.
+
+...
+
+> -	st->caps = of_device_get_match_data(&pdev->dev);
+> +	st->caps = of_device_get_match_data(dev);
+
+In a separate patch (perhaps in the first one in this block, convert this
+to use device_get_match_data() and add an error check (for now until we able
+the driver_override case to address differently.
+
+>  	st->use_external = of_property_read_bool(node, "atmel,adc-use-external-triggers");
+>  
+>  	if (of_property_read_u32(node, "atmel,adc-channels-used", &prop))
+> -		return dev_err_probe(&idev->dev, -EINVAL,
+> +		return dev_err_probe(dev, -EINVAL,
+>  				     "Missing adc-channels-used property in the DT.\n");
+>  	st->channels_mask = prop;
+>  
+>  	st->sleep_mode = of_property_read_bool(node, "atmel,adc-sleep-mode");
+>  
+>  	if (of_property_read_u32(node, "atmel,adc-startup-time", &prop))
+> -		return dev_err_probe(&idev->dev, -EINVAL,
+> +		return dev_err_probe(dev, -EINVAL,
+>  				     "Missing adc-startup-time property in the DT.\n");
+>  	st->startup_time = prop;
+
+...
+
+>  	if (st->caps->has_tsmr)
+> -		ret = devm_request_irq(&pdev->dev, st->irq,
+> +		ret = devm_request_irq(dev, st->irq,
+>  				       at91_adc_9x5_interrupt, 0,
+> -				       pdev->dev.driver->name, idev);
+> +				       dev->driver->name, idev);
+>  	else
+> -		ret = devm_request_irq(&pdev->dev, st->irq,
+> +		ret = devm_request_irq(dev, st->irq,
+>  				       at91_adc_rl_interrupt, 0,
+> -				       pdev->dev.driver->name, idev);
+> +				       dev->driver->name, idev);
+>  	if (ret)
+
+> -		return dev_err_probe(&pdev->dev, ret,
+> +		return dev_err_probe(dev, ret,
+>  				     "Failed to allocate IRQ.\n");
+
+In a separate patch, before this one drop this dup message. It's printed
+by the devm_request_irq().
+
+...
+
+>  	adc_clk_khz = adc_clk / 1000;
+
+At some point better to use HZ_PER_KHZ instead of odd 1000.
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+With Best Regards,
+Andy Shevchenko
 
 
