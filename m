@@ -1,108 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794918386;
-	b=Md4uwgQepWMJq1wOb7+X95BaLv2FKQ2Gf5rRO0AR7SEi4Td0FKhcaVxObU0iDvZQ6r36
-	 FV1f89R3nSNo9WCfem8z4OQKue06+3aKrzmA0b2QHkfexmRMg9LXtw1yI/cZrKUFrNUt6
-	 1i5wLN1hlyokpVdEYYXNZDOj4/qjUZL9C6cq89BOBy1kBIIMPMa41w1dToJjZAnohTFQ/
-	 TSv9Of0XO8pf7x+uehQ2TdTjk0nzAQwiFzF9NTcryaoaMdltBgY5znxA1/AheHBScNTNH
-	 48WZvoA2UCEAUxpu7IbkxF6L5G3XREE8fVwNzQMNw0xtsk7EtcxdiSPdj88mbrfhHSg==
+	t=1794918411;
+	b=Ca20UHwH8Qd+1UwLTa6MLoEFDB/4Rx46QcDVsb7O/C0xCwHrAiUlKLZw+OhXYAeSKY9t
+	 BKpCl0JWyvijA3L6vnBozwsj8y6cvh/p2hrt0LjCJvzKJVSC5Qr7+LftH8nnAWv1ryjcN
+	 eWrhsR1ZjlJ5HlO1064VeF4JNXl1FhaH56Lv37L64lgr+ugLEbRao4tPFst9nDLDGkbf+
+	 GFEcsM4DXNFKJWLq9nY6205e5vhx323jbdcLimPY8o8tT7poEKFcmNu4B/mHY+1S08Xoc
+	 iIVKpbgJPmyGlRwz25DxGvN+6Qu0igfo2TBgbo8W6dQVLB8PV7Hloq78FUIvo06Yzhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794918386;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=JhEF3QYgCBT5k7drshdDG8SKBLfKYdoUoRI0T7Kouwk=;
-	b=HGayiEPjZghiAZUUD+TnDLSJamwH8C/f1+d3fX431zDdrsvONzMhJ82btTTuSSQgMr3q
-	 S8f3AIq8rl7C1fQpUeLT/tTebGayeLFOCHS24baNGOmrSEM1G+y5c5kMgZriRiB4QjfPj
-	 If+N58MCNBpN4DxACyWbP0tJfCnsn73iB8tFo5dFTtCEYA+LQOvrO05s0Xb3BnPMPi+Ta
-	 XMXn3qynZghc4gRUeho0/HXhXlMsWwCQoaqZYNg19U48sEDXTApYYn4tcdGCBEAoTe0+B
-	 JNWo6jqxH73uhafAdTV1DCVT/XB0RMPRKacayy2dxLn0Y6y6cZGkEbXfmN2JIV8q82A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794918411;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=O0O5QnW9444oDYOMuHq6ymaBPNXYeEt/n8ZpeSe0y6A=;
+	b=BgWRp3DagB2t1rwmsNHjwCKQ4eGXH868Z2zVI1JFcvE5AfsNDE/f9Fv3fUVCFi6l/KHu
+	 IuDeZxF8JC5VKgDYuqQnhI6dXjxgBGtvxcMY+GBkpzE1cEkxP7o3DAPpBloP9nFH+7y5S
+	 sp+ncwOYv6TeUUYjzxzSA22N8aW8vTOR6rQ6X6O1QBqxrki7smV/I3Tt0nWbRrdrfuSPz
+	 09sw8nAeCmEhRXMIomwGhWw0DUajBZAZrhV+poI8mNJHMod/SOJamWPY46i5fNq4VuBYH
+	 3gTAqszkTQBnj7lE5BfkufzNGyf3KvfL7RQUhoGLXbAxPHnaHHmvHIIQjSTa4AdA6xg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Re81gehC;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=kMlQjMZR;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EmV7o2sM;
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 952BA606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:26:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 952BA606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66395606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:26:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66395606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Re81gehC;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=kMlQjMZR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794918384;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JhEF3QYgCBT5k7drshdDG8SKBLfKYdoUoRI0T7Kouwk=;
-	b=Re81gehCZ1PHaOLfqlohfNTAeFiyuygY7XqGFzmmtBbKKDws/IXQKiBjM071xinvLcYodu
-	86jH6eStHehKFzeNjdffLWhcNPf3YO3Xv/Cxuca86yI8H5wnEt1cmdayiuY59LHh4MqMa8
-	PfZ5ujOTHOfUfJdp/8Tv3riUwWMy3X8=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-596-QCS6oV9vNymAnz7WJAeEGQ-1; Tue, 17 Nov 2026 07:26:23 -0500
-X-MC-Unique: QCS6oV9vNymAnz7WJAeEGQ-1
-X-Mimecast-MFC-AGG-ID: QCS6oV9vNymAnz7WJAeEGQ_1794918382
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49febef74e3so5885875e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:26:22 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EmV7o2sM
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-4919a880834so2405765f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:26:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794918382; x=1795523182; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JhEF3QYgCBT5k7drshdDG8SKBLfKYdoUoRI0T7Kouwk=;
-        b=kMlQjMZRPNKwDSBOc0UKGjFqWKovOS4kQi+mgEaat7pWWMkcDrZK7TRi6M7Zx7zM+O
-         Yh5FUFkna2FhLd0/IdFTI+oUnRgHKqB19EeNiDaexVxGefFNU9bEh9RQFP1p5fP700oa
-         pjB0ZZU5NUo3Qi64+JRTFBHMq7qfqhtg4nR7NsL6TalPPdap67dbmK9q2fJT4bOfI8f4
-         57nkIIe3Ep4F0k+7hiGIojibIGRaZNRAxbkHVE2DxsqUrU+mpcO9JR++oZsh1KOvw0NV
-         FjW+uV+qPus2NXgPNEG4ll7q7OheD1tx5CON2XXc6qbuBRmzRlqWE3egBp/FcF+dxMJm
-         XBxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794918382; x=1795523182;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794918410; x=1795523210; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JhEF3QYgCBT5k7drshdDG8SKBLfKYdoUoRI0T7Kouwk=;
-        b=N53yVV/4Vp3ByGS/bY4dnHwpyB8Iu9xEiulHSwprUMmV3pZtFapc4drhuVl7X7aHA8
-         ZeDYW3veYvRR5TOiKqAUw2Fia53q3UmMOPHwaCBx9XVyjN8U0b8s6LRuvRk5zHMEHlMU
-         JxoLFRqR51Tpypu6FP/1BJ/DCn8OEHin0Nk5PSLZaSualN4P8UCsUghKY05SUBoMNZdh
-         JMt4KzBdYe/BrRFwtY5LKtvB3k31SJQKmTKCNpuD7VVfM34zCqMfvfo7B37o/a565lSy
-         9qjuxEBklHjSIFx9I4GWNIODN+/kCoA7peKgTi1emYFqAPgMfdTTyLbn8MM1asdX22OL
-         5hFA==
-X-Forwarded-Encrypted: i=1; AL+hErH3aeMERFyOKWLtQu4dkHS60ypi187MkG2VHHA9UmNnBT6UZtusuHzE0H8hsXrwV01iBoSMnjd5rMBNrvM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+aZJiI2eBXWol2Y8PPhyObx45/J8MouAUz+MYAOGNttB0wKBti
-	gaXZ0T2kskkCjOxCLjNxAj3i19Sq/KcXtvmZR0/i5LDo97KmaVWbOyM+oZBgvhdxjb5zlCVHmfd
-	oeZm76adHTl12urS83XCbGoGM/wYKikVRlSrOTSsPyGJYfZrK1HBkBL1ipsWtfV7EBQ==
-X-Gm-Gg: AYBFou0ynHXWpMomFSWaxdhgcV9xh2JVg1hEMXDmKUKioD/vP4sNPetyKbsOFDetctH
-	oTVpdTvwuBTz96jjU0PxVgVNoD0U6TrWSp0Mi54S4+6kOdg7dOxzC/ppvdknrGoYDgywgx4YxsO
-	Orife0l2wq93uUUKVI5CfEl4pmvDxBdJ9LRn0InrOEOFptj1H05Df8IGF6u76QudVfnPGLMt+IY
-	z7YTAco+U7n8ObTVDoyx//L3L5xSGN7Ef1F5wfaNXgGR5Cbxj9Cn11mJAm9yw3EgKCMFkR+hnLo
-	E+F5kJD1wvWS8GNy0gnzjLfYXTbf31XmNoTTErzIDx+14WKSrQzXUNzMsSEVRvYvOB9MecQ3mbT
-	9JfIZB2VFuhP8zJLeI7oSZSuJqyY1+FkpEfj2wmRpxp+jDHnd7tg/lwsSwOLwC8dFIXd9wNyBcl
-	3U7vqxLNdRJRWB1Hz8ms8ZtGeTFJRZmpbHFQKKwuBjF95y
-X-Received: by 2002:a05:600c:5012:b0:4b4:a551:681a with SMTP id 5b1f17b1804b1-4bb7837264cmr54139545e9.3.1794918381863;
-        Tue, 17 Nov 2026 04:26:21 -0800 (PST)
-X-Received: by 2002:a05:600c:5012:b0:4b4:a551:681a with SMTP id 5b1f17b1804b1-4bb7837264cmr54138805e9.3.1794918381402;
-        Tue, 17 Nov 2026 04:26:21 -0800 (PST)
-Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb783f7eecsm114134115e9.3.2026.11.17.04.26.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2026 04:26:20 -0800 (PST)
-Message-ID: <cbaa372f-6ec1-4ceb-a012-30eaac5ae8eb@redhat.com>
-Date: Tue, 17 Nov 2026 13:26:19 +0100
+        bh=O0O5QnW9444oDYOMuHq6ymaBPNXYeEt/n8ZpeSe0y6A=;
+        b=EmV7o2sMw8zLM6Mk9vWC4ydcQmpstfNzFWT8TIlmEqiAuNzaa8OOFUeq/p99z4zf/L
+         CTN31nK7nbWPjsNUWy5Nxe3xWqx1PSfXblVP2lGfOEsVTeINPmswlmXG5MGFfzLlhGpl
+         PQA5opqDFQceDefBdOKiHuNLVPy0Bs1bHzn2aDQQVeZiEF9nJnZPvJxJx4eidmMtEEEJ
+         mpNQMZ5Btkoql/paSHb/TCnPAS65Sfq5Rv0TK1c4PNysrZJJz0YMMCjrdxolBCZ/xoLS
+         XIfhu2j7EPIm4OOJPjkCelNZtmn2LJUgKLrFMwrnOcsLXyYSlyL2R2F4y5keajo5A0kU
+         5JIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794918410; x=1795523210;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=O0O5QnW9444oDYOMuHq6ymaBPNXYeEt/n8ZpeSe0y6A=;
+        b=CV1N7ixH035tMGaQh4oZjgLAwgoYiHKYSMbk5sjupi/xql7ZSJRaS7vC9gSt/4H7ha
+         hxqjm2vLlrXySB+iT/tzyfoS5DbuufRKSXYZKttaUdS5GSOumwx6y2UNgDFGIUZjkVWu
+         pO7SasaN0ot17i1aCM9yDsG9pONCfHtTPqJXZOOomvSUg9xPYsgA57m7ItJNZEasO/Ro
+         qCIUxhbFHc6xM89Uts8H6GstY76w71pHKGRX8PwT8e5lBYNKTBxPYtRtA7Hz44o4gSTf
+         SvHa0wypwMOrBH16c8Td1OJL2EVB8IQ1DkJ97Ura+BclxkvzYGG2MrUCrDZhHwSKG1h/
+         JUYw==
+X-Forwarded-Encrypted: i=1; AL+hErGO2f8CEetTvNHF57BC3ObHqi1HbTtgh7hZgSMwOOIcXd9N+jVQvvJOszzoCGf5s4srDz/E12DwNVDBCPQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/eLa8uMH1fd7an1zI+eGgX4VUNqVRYxJ6FxTaPBMOF8mgYa0RY
+	eTNq8KZp/6jWKQP7Ob9BWsqg6yiDs+hlFMSMRviXsnUidoXTa1hcZ2/l
+X-Gm-Gg: AYBFou3HLn4KZo3tennZAwWtd4R02dQsK/BQ8JMJrP1X9IUY3D6vgo6kI8RvGAuWKXC
+	Df/K6XNOU7dmmAyXysRNTpLFqHtQzQ7ii4mHzXK+5WFwYApvjeSWRIWm5760wBVAtfAtMyThrt4
+	CxqWFyokQiUYrjTwHDxfyQ7Qs9Qt63e5YnA8giNpRxWJXriqX7wPp4LwUaG3lmW9rNo2R+80pVI
+	4eHQWMWnDjp4ZyHLLAk/jJLUCukWSbXq8P6MTJRFqc4FR5umo0P+fnXh0YwyywiIGan8nJuHv1E
+	tUAYXPKeZ9YcJm82ROvAeKdTfgGFaPCLY1iqHPInuU0aK6jYSVqWg0Fha7iTxIlauqD/vAVWGin
+	UTz9R56TpTCgKwVLZ4SNZ+cqBmWxTumRWd7ICKxinHQeISoUK59yheB0oifUk4C/n0lu2eJwmKn
+	fbIUtMaEZGxnBP5e2RNvGzkhampSvvKHhLiJYN3XjK4fP6nBSxiexsqPY9ZlHiQBf7g+0MDZcss
+	ocs3/T97PgKocjYtVbk9gdWevAFCKLMebMEPhtwRYfwjnIl/AZ55gqYHXzl+rtEiFTtyoZmq1xk
+	h5m6gNmM6AYNPI7J0dUp+oRQJduPGWAIyQY=
+X-Received: by 2002:a05:600d:82c7:b0:4bb:69f2:87f7 with SMTP id 5b1f17b1804b1-4bb69f28901mr184215535e9.18.1794918409634;
+        Tue, 17 Nov 2026 04:26:49 -0800 (PST)
+Received: from deb05.proceq.com ([213.160.61.66])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb783853b5sm66458935e9.2.2026.11.17.04.26.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 04:26:49 -0800 (PST)
+From: Mehmet Fide <mehmet.fide@gmail.com>
+To: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
+Cc: Chun-Yeow Yeoh <yeohchunyeow@gmail.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	mehmet.fide@screeningeagle.com
+Subject: Re: [PATCH ath-next] wifi: ath9k_htc: do not fetch the beacon of a finished countdown
+Date: Tue, 17 Nov 2026 13:26:48 +0100
+Message-ID: <20261117122648.1731207-1-mehmet.fide@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <87fqwzu54e.fsf@toke.dk>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,103 +99,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] ipv6, calipso: fix data-race in calipso_cache_add()
- bucketsize check
-To: Jiayuan Chen <jiayuan.chen@linux.dev>, netdev@vger.kernel.org,
- paul@paul-moore.com
-Cc: "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Simon Horman <horms@kernel.org>, Huw Davies <huw@codeweavers.com>,
- linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261115144508.71543-1-jiayuan.chen@linux.dev>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20261115144508.71543-1-jiayuan.chen@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/15/26 15:45, Jiayuan Chen wrote:
-> Issue found by sashiko when reviewing my data-races patch [1]. This is
-> not a plain READ_ONCE() annotation like the rest of that series but a
-> real fix, so it is sent separately.
-> 
-> calipso_cache_add() reads calipso_cache_bucketsize twice: the "<= 0"
-> guard on entry, then the "size < bucketsize" test after taking the
-> bucket lock. A writer can flip it to 0 in between:
-> 
->    CPU0                                    CPU1
->    calipso_cache_add()
->      calipso_cache_bucketsize == 10 (> 0)
->                                            proc_dointvec()
->                                              calipso_cache_bucketsize = 0
->      spin_lock_bh(&bucket.lock)
->      size(0) < calipso_cache_bucketsize(0) -> false
->      -> else branch, but the bucket is empty
-> 
-> On an empty bucket the else branch takes list.prev (the list head
-> itself), list_del()s it and then list_add()s through the now poisoned
-> head:
-> 
->   Oops: general protection fault, probably for non-canonical address
->   0xdead000000000108
->   RIP: 0010:calipso_cache_add+0x2f0/0x380
->   Call Trace:
->    <IRQ>
->    calipso_cache_add+0x4c/0x70
->    netlbl_cache_add+0x4a/0xa0
->    selinux_netlbl_skbuff_getsid+0x1ac/0x280
->    selinux_skb_peerlbl_sid+0x7d/0x100
->    selinux_socket_sock_rcv_skb+0x2d3/0x460
->    security_sock_rcv_skb+0x86/0x150
->    sk_filter_trim_cap+0x56/0x730
->    sock_queue_rcv_skb_reason+0x1e/0x80
->    rawv6_rcv+0x679/0xb20
->    raw6_local_deliver+0x1f0/0x5b0
->    ip6_protocol_deliver_rcu+0x215/0x9a0
->    ip6_input_finish+0xb0/0x1b0
->    ip6_input+0xa8/0x250
->    ipv6_rcv+0x14b/0x1c0
->    __netif_receive_skb_one_core+0x8f/0xe0
->    __netif_receive_skb+0x23/0xb0
->    process_backlog+0x27a/0x950
->    __napi_poll.constprop.0+0x61/0x2c0
->    net_rx_action+0x372/0x800
->    handle_softirqs+0x109/0x570
->    __do_softirq+0x10/0x18
->    do_softirq.part.0+0x47/0xd0
->    </IRQ>
->    <TASK>
->    __local_bh_enable_ip+0xf0/0x120
->    __dev_queue_xmit+0x578/0x23f0
->    neigh_resolve_output+0x278/0x3c0
->    ip6_finish_output2+0x4b1/0xcb0
->    ip6_finish_output+0x2b6/0x6b0
->    ip6_output+0x122/0x400
->    ip6_local_out+0x61/0xb0
->    ip6_send_skb+0xa0/0x260
->    ip6_push_pending_frames+0x2b/0x40
->    rawv6_sendmsg+0x1b7a/0x2750
->    inet_sendmsg+0xa1/0xb0
->    __sys_sendto+0x2fe/0x350
->    __x64_sys_sendto+0x7f/0xb0
->    do_syscall_64+0xe1/0x450
->    entry_SYSCALL_64_after_hwframe+0x76/0x7e
-> 
-> Snapshot the sysctl into a local once and use it for both tests, like
-> cipso_v4_cache_add() has since commit dd44f04b9214 ("cipso: Fix
-> data-races around sysctl.").
-> 
-> [1] https://lore.kernel.org/netdev/179428999963.994134.16904544500890053668@kernel.org/
-> 
-> Fixes: 4fee5242bf41 ("calipso: Add a label cache.")
-> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-LGTM, but let's wait for Paul's explicit ack.
+Hi Toke,
 
-@Paul: please LMK if you prefer we apply this kind of
-simple, clean fixes directly.
+> if (ath9k_htc_csa_is_finished(priv))
+>    return;
 
-Thanks,
+That would skip one beacon at most. ath9k_htc_csa_is_finished() clears
+csa_vif when it calls ieee80211_csa_finish(), but csa_active stays set
+until the second round of __ieee80211_csa_finalize(), after the channel
+change, and ath9k_htc_set_channel() turns beaconing back on in between.
+The next SWBA finds csa_vif NULL and fetches the CSA beacon again.
 
-Paolo
+On an AR9271 AP, with a sniffer on each channel counting CSA beacons
+heard on the new channel, in 120 switches: 3 without a change, 5 with
+the early return, 1 with this patch.
 
+The one left comes from mac80211. __ieee80211_csa_finalize() clears
+csa_active before ieee80211_set_after_csa_beacon() replaces the CSA
+beacon, and ieee80211_beacon_get() still counts that beacon down, so an
+SWBA in between passes the csa_active test and gets the old beacon.
+With a print added: 3 such fetches in 200 switches, the same 3 beacons
+on the air. ath9k_csa_is_finished() has the same window.
+
+Dropping the csa_active test here would close it, but
+ieee80211_beacon_cntdwn_is_complete() warns when the AP has no beacon,
+and ieee80211_stop_ap() removes it before beaconing is disabled. So I'd
+rather fix the order in mac80211 in a separate patch. Does that sound
+right to you?
+
+On csa_vif: remove_interface, bss_info_changed and
+channel_switch_beacon all run under the wiphy mutex; only the WMI
+tasklet does not, as wmi_lock is dropped before the SWBA is handled.
+250 back-to-back switches and 25 AP stops in a countdown showed no
+problem.
+
+Mehmet
