@@ -1,112 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794900812;
-	b=OB5PkPEg8TwN0MFjy1eG99Tm0CQLj+slx1eEx76oGuVtVsH7oOqqxcIwQBm79E6EGqa/
-	 Zi77x31S5vMC3wLjZki53Oh0zYfBlcBnpTiThEU2xakXsB+w5vWOETh3f18lBukpN3xzf
-	 FhswWA7iV8FdgQiO7ob5AXDvE15lqkcCGmpTzD2dqdWp5VHybyzDBXi28lV78Sd+rAAcZ
-	 wwXd836ivHz1zYbCdIcvUo0kQrq1hbt45/xMNP2k4Dgen7KDxAOIxTAg4SFs6cAgNhKzg
-	 qGCPpIAQfR92eaNL0UICdKq4K6mA49aB+TNgFqYktEVzi9V+WgUDaNRbP9CFhAk1Cow==
+	t=1794900814;
+	b=UuxQ6jjFeEGdqWNUMPg/9SkTcMrODNwWuARR6wSqeytjclziecGoklTEfJ1gOcmEHYZd
+	 TWTGcBw0MY2V1vyQH4RL+pWYT0DZFYOqgoqMh7FsoZo7u4ZQcv3i/H7wc8TFQMdpn57v4
+	 n0lgg6hGoG6Rnf8SLoRqzibAKvtpEjl+mcxrrlrXWUMVX1+JRtSu1KExpMQUeFLn2rYwX
+	 p5B9c5IUPYqrhBpmmJX+fKhS9Yrz3xww6eprmlLy1NLNmUnkZk+7ihGnV+jqJMQdpZDyM
+	 wgvopxpQNEXaUKx5KJ7kXqFTB8b2zGoMw2l/neXR07wDVco+H/5/4hYb2TdnqWq1zOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794900812;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794900814;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=D1PofqN9VO+f3dursuBgYbD8mpWVQv4pbEKGr63A14I=;
-	b=5Vi1W5SEkAiSetlBabarzZAx7IwY3H08GkTUBIhJ1mdYsdIjcoPeyNLmdpkLcW7JfGWZ
-	 GMfZyubdMoh9le5q2Ofqc2bkfc05hNHLatkY0pZuouNTf8Z0zDrwXlvbyZOR0UjfQ+tWR
-	 5ayoc1MNDAAz0IfKQDjknu5+BGXx9Hie2hL7U7yO4rnBOwjL/84ziKJ9kw4T8J4A7bS5i
-	 4ouhrjtx3gRh7/EPQmBNz/2adjNSybRC+yynFRKOiWWPcLChxzee3kdcdb6EylE1wv8uB
-	 H7wIEvI8vcSBhh8iRdMr7dDYHOKDxYn+QWxH2KLc8W+XMvwED+imB9PpXqvc/KzlOYg==
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=ljr3p7bWWmksZNtse/bv/k+6EcSlJjIABS0byFl3p0I=;
+	b=bYnizpSQm3a3Bc8DtLV2OBwb5jq3tIJnblHHH0WtOTos4qkkSuUWLym53gK1LUXsovWr
+	 dZb5Sq8GN7vWj7XkTHKwPhwJ4WzpcnViwg+AnDlhhpm66QA9WE/OFCPaaemr6EmbFaQ+Q
+	 x+1uPJm+qnW+9Y7VZ4vdTsHh1SK8ECFgkRJk//o8fNx55z+HOxErW/q+cHHtnqYtL53n7
+	 A075S60e/zHTHGuAaD8CYSQ7GcQk55SoiHOLgqsL5e8B6RWtfOr0y9Md4jL9yuSrAzCfZ
+	 OBixBF1ABe5Am2xU/oBYoEUJ4dk9amxM+TYTOn3p1Zw6aToD5AhpfTrfEmCeNtJT5SQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bMLLy0AT;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aTQOiOEy;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=EovQJRz7;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bIyrBoer;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 249C8606A332
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:33:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 249C8606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A272D606A887
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:33:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A272D606A887
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bMLLy0AT;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aTQOiOEy
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH55n663350408
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:33:31 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=EovQJRz7;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bIyrBoer
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH2a9K63407597
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:33:33 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	D1PofqN9VO+f3dursuBgYbD8mpWVQv4pbEKGr63A14I=; b=bMLLy0ATGBabVtq2
-	OQahNlMghwC240PPYEE1cCCK2Te31EzDJW5zSuHdVReMMQjB8lIeGvHjFjBnp3su
-	WF9tMopCZ+7Rh2JiwdnxWSwd1g1X6LWqqVtsIpCT5/chzoE7GFplGr6r1yie45Rb
-	Qgn/5kSjBy8607SMC/A4ZigqRjeB7mlBRAg1ikji1KczXneWxb/moyZPpiVIvOgE
-	LKYPo3fVrqjFUtZRUqLMZMghYJgpSpuKHd5lfqQJZXO7J1sHkqKvqE0ykfzqcciE
-	DxMY9QxLuUygouUj/55Ca32l6sVCB8M47rCjz/i/F+8NW0qeOY6u8LGCSLxbioFj
-	Rj6hqA==
-Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0gfr0gak-1
+	ljr3p7bWWmksZNtse/bv/k+6EcSlJjIABS0byFl3p0I=; b=EovQJRz75Lccah9V
+	hwXP4PYo7WCNeGceo5484oq6csllYc/jKaqdek8CP1FBcsRni+9MrE08+9DBHTON
+	h2OXfIWDNk4Njm10rTxoKC6luJP7UR0r/8cbHmX2kkeMlrHu+MzvGxFYnti5LViw
+	/YAIxb+zIEURtsX2C+Ai/P67TCBj7s6cp8w85lqcubLuTPvPdh9qOM0jtsybuNN2
+	3JaKDPezM0Ow7ZXv21ZrkC6m2Yeo4tKWjR26Hw9DNTYf/LDhwj3Z/U8m1YEKrlVf
+	1o1ioOZOeuxjemwxofmOzcN6S7xoEMqJsrYM/S24G0ct9AlMjU19hwnsuhY0CfE8
+	WXCe2A==
+Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j09hthx2h-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:33:31 +0000 (GMT)
-Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-4ad9bc6aa91so5154578fac.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:33:30 -0800 (PST)
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:33:32 +0000 (GMT)
+Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-45e83fd0663so3982227fac.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:33:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794900810; x=1795505610; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1794900812; x=1795505612; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=D1PofqN9VO+f3dursuBgYbD8mpWVQv4pbEKGr63A14I=;
-        b=aTQOiOEyHUgYCq9jgpLS83IG/N7+oLwXgvRPQXJlRCAis7JwYMIuvX7+FKMAdhMgpu
-         H1G4nee/jbUza/ZkCtJRnKWXXaGvgBph3P4yH010YtmIs0ey1mAajsI42/w70HEPjwCB
-         /e1DPlV0eUMC9fNQAOsnvgoV6PlFjozZiXcSVbIywfhO6TAW6NVSCSuDTBuNvG6sSy42
-         zSHYwAeueOk9fvJCFkZ+1hp5w3H67whUe2mCnBtU5daf7A7JlrRMAt0KGo7eJDGQNhXd
-         PRXXXdcOJV2GJXwKJaKAeo/U3HU5NzGNpWq5jhGSnlSPfRamD06hk0BNQzxj2DBjdToV
-         6gFQ==
+        bh=ljr3p7bWWmksZNtse/bv/k+6EcSlJjIABS0byFl3p0I=;
+        b=bIyrBoerXwTbAQ9BwTd6MC9ycKA/I3NeExw1ibvSA+mpbDAaTfhO098Y0H484qOOK+
+         e/cpfbR4xKfyvscY2IKo6lzdIZcX3zxwJUhkC63wVKNWDtIEJ4jmUYaUG89Rj2Zgillk
+         mkLf6SBcgfnpvNIEM+JsSWICrMauDV2lb8XZfmSwH1p7dsuuiXCTE/t94IBfhbCNUt8O
+         Ea/tFtqKF8Gr+/Jsj2AR9F1yuj3lb223TQPeQBd3O7q/SAA9SJvw0LO01bMH+5IKPFDe
+         B0pffnrfZyYD2lEC7FDfN/+8CrsRodsrCRK27yX3nikBDlsuA2IMD3ovsEtdhKlv/Vjp
+         LpPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794900810; x=1795505610;
+        d=1e100.net; s=20260707; t=1794900812; x=1795505612;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=D1PofqN9VO+f3dursuBgYbD8mpWVQv4pbEKGr63A14I=;
-        b=JFDnvcmy+9FAqE/hWo5og0jGeWset1+fOdP6+Ahv1a0urkgeLmTZ/ZNrurFrzbGXm4
-         ndEka2RDzy3XtDpB9rDJbE+SGSgBlKJQov+I9Qz0spzliVGcRxACpK8gqqn5yGZUrsTs
-         No1OP2lm9QFoDHfKy6tCHQtKWOIvPkjDOxWP1lrzeEFyRPU60bAOJjaYzjgdcw4VDok2
-         A/SFIiKM0nU6BPSJXGQtakLJ/mg2+RnZ727Ufe3fhSaWzEH+AMWURfNvkOAS4zCMzXwA
-         3cEAGGbeYdRL1+Kw3gK8chAwCjoFEpuOsTJjuW0tzoRGGhwyUIxy+wT8ztoYTOB26rHB
-         Um5w==
-X-Forwarded-Encrypted: i=1; AL+hErFlRDv1Hd7xzFGoEeRe3ehIfAskbSk7EBIA9dAuAJngMEeK4S8P9SbzIDrBOWxDhzIkFyS27ivpKkDEG1I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/txzyW7UZYLWZAT1KgYyCm19kaHZ1LBfzQHA0vZsxN7GF76axl
-	zOMDuCxolnkt+0QR27jxVorkHWXCMj9HIitcMvjdxMSC1XA2B8BoMY9aEaoI7LYVug3P9TK/tpE
-	bzJv1gIpvmB/RaDT73f4Lix4XIl5p7izQjqZZUeICgx7HP5oAZDWDTna5pRnC1J3g7HE=
-X-Gm-Gg: AYBFou21DEBTFETilsdHjpQyrZs1eDcxAlPi5fsKMw6K1J25z9CCZkDbE/7BtB+Zbyx
-	fq5KdvFv9VhL6QJSdTsXGvslqWCt/DoLLOHCfu7yDQ0M+saAlP2KFKMdnlGNpOYIHDTjBYCMJ1G
-	0rDuEFaCYILfDymkRkNicJlC2ILGckUVfW41xpOlUHCMv9ZBnKLZi7CNPJ9HQNriZTMDLvPA99H
-	seoBir+ICjJWTv0uSp/ygLCcodhPQtfZc+IjS7npEQ3w8Yv72U9GLVyoTFIijf7ybwNHX3ZGDEF
-	RN/8sSG/IgZKNfKpJxuIhZVmLNeu1GmFbUn/3E9JwJ+W9lAaQ+HlxSMlmNSPR1PIbTz182o4CRw
-	TL44+6xC1dUzJ6ggg5bJ7IsA7NfFoCJv7LdwAODSjMyN3qDckcIyE00/vcuYD/zRSYUIvIlk0qx
-	eWL2rFL2v9VGFsWwqKhx2kPE03mQ==
-X-Received: by 2002:a05:6870:ad86:b0:4a6:f698:df8f with SMTP id 586e51a60fabf-4afdf477d78mr11779806fac.42.1794900810059;
-        Mon, 16 Nov 2026 23:33:30 -0800 (PST)
-X-Received: by 2002:a05:6870:ad86:b0:4a6:f698:df8f with SMTP id 586e51a60fabf-4afdf477d78mr11779788fac.42.1794900809383;
-        Mon, 16 Nov 2026 23:33:29 -0800 (PST)
+        bh=ljr3p7bWWmksZNtse/bv/k+6EcSlJjIABS0byFl3p0I=;
+        b=cU5eBkI0x5awvRS1sgELXGk+VYwmnFzE3lYYYlaybBkw0nyVX3noUpFZTcDZUinmCC
+         zxlDVxCk7tCihtryZdv+mLYO4Rx/BDonpCM4xc50E/vRx8vHYiRHDy0Aj8sxjpGNdmbo
+         kjzHZ38/Zzov4P1PG5TrCLkoIfwrIH7fRWcKvKCXYipexBB64LcIqlVTruqypq/HWZMG
+         egeMGT3mEz9Cs8wbBGY5UKGmjzwZXCIfegG6sd9b1zLmIqDGTpWYchxwO0RMvLdQxUrH
+         cC7M77geDnJRRkeMpgdHNSQ2rV57DW4Pi9QtyxDPRAz3WCfUxYZX7b4090VQmbPgjCPu
+         n2aQ==
+X-Forwarded-Encrypted: i=1; AL+hErFhic9g7pLFlHYOSTss1nDL4L5qlAJjg75O1x1yUk5sQ9v/2mbAJCPH7quuQ9CILHq7njqkcqkFLntFk6w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z93OHhJUtpA7byvor3mYtE6FUjU53gLCQ4qR8Rn7L60//oOKbgL
+	ElIyzO7dBGMLLL6avftjjSnt2Vi0TO2NwEF7bF8DQ6pRhVusuFIJJfRVVg9/z8X3+XqqP3K/5no
+	7W1DM8sWqQ6XnKSDfG0pKXOelsXYBeviObc3wydzriYcX9jdTwqz653+Pu6k9+BQkksc=
+X-Gm-Gg: AYBFou1Dm36l44iY+x1xWr3uXYIIiRrprLkVOpX11hK1+mlnGifvSJElySShevGa3MT
+	g4t46IJkYNgPa7JJjQ+z/fsXFPW13bprzX2WRyTebf4oLQuR+gQhS44ZtXKP9tDOWUGE4bnMHjQ
+	JMKo2UHx8tt6bsdvV1zxexU2eTkvPlDShF5RURuf0ly9xMuAW/kPOz9so6eG9MUSaqxLeonZb6y
+	+x0KZQRcs9CFC8CX2hgGYkN6j/LFLLXWUTeRKwTset3M4B7b9egfLr8GYbMY2f5Ar4GRAsUNiNO
+	+W89YtbPgloNFZK6v/kKCez45bWnDqaERlj924b0/GScnU21SnUEyl1Kgt8Ee82yYlzjfCTKBvT
+	sueUQkXPImfDAD0w1C2ET52cU1nhKbYicRGhHUtvP9YiwTDDOqv8e2P1Qhhu2Q1HaH3XgInlxQ4
+	wPQwmHc9AgsVTR33umrBLOwcv/fQ==
+X-Received: by 2002:a05:6870:f627:b0:4a8:407d:4076 with SMTP id 586e51a60fabf-4afdf71a881mr11465701fac.34.1794900811811;
+        Mon, 16 Nov 2026 23:33:31 -0800 (PST)
+X-Received: by 2002:a05:6870:f627:b0:4a8:407d:4076 with SMTP id 586e51a60fabf-4afdf71a881mr11465681fac.34.1794900811324;
+        Mon, 16 Nov 2026 23:33:31 -0800 (PST)
 Received: from hu-fenglinw-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4afe228982bsm8593875fac.10.2026.11.16.23.33.27
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4afe228982bsm8593875fac.10.2026.11.16.23.33.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 23:33:28 -0800 (PST)
+        Mon, 16 Nov 2026 23:33:30 -0800 (PST)
 From: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-Date: Mon, 16 Nov 2026 23:33:18 -0800
-Subject: [PATCH v2 2/3] soc: qcom: pmic_glink: Add GIO pmic_glink instance
+Date: Mon, 16 Nov 2026 23:33:19 -0800
+Subject: [PATCH v2 3/3] rtc: Add Qualcomm GIO RTC driver
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,7 +118,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-gio-framework-rtc-driver-2026-10-12-v2-2-b60e6fe33831@oss.qualcomm.com>
+Message-Id: <20261116-gio-framework-rtc-driver-2026-10-12-v2-3-b60e6fe33831@oss.qualcomm.com>
 References: <20261116-gio-framework-rtc-driver-2026-10-12-v2-0-b60e6fe33831@oss.qualcomm.com>
 In-Reply-To: <20261116-gio-framework-rtc-driver-2026-10-12-v2-0-b60e6fe33831@oss.qualcomm.com>
 To: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
@@ -130,753 +130,292 @@ Cc: David Collins <david.collins@oss.qualcomm.com>,
         Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
         linux-kernel@vger.kernel.org, linux-rtc@vger.kernel.org,
         Fenglin Wu <fenglin.wu@oss.qualcomm.com>,
-        Tingguo Cheng <tingguo.cheng@oss.qualcomm.com>
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.16-dev-17187
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794900802; l=22017;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794900802; l=8209;
  i=fenglin.wu@oss.qualcomm.com; s=20260324; h=from:subject:message-id;
- bh=mptYCjY4gfZQ5iFfngPsJRsSfCW82kTYHmwIC9eQrPw=;
- b=SETCKnDtO9aeDT1RYU20Fa0NuK1w1sWiHiRnaXP1VtCtePF2TdnaQh8VgCYSKtj8EHeZ5tfHH
- F2VjVydqpIvAzoNsFHFIpGEGbx26KYy5apQuIbJxdkwgot/gIDSvniR
+ bh=9pSSayOZld+8+2ZtoJm1a47VtEYByZ4Mwtri1xjlJJ0=;
+ b=+9wMJQN8Fg5qHtM9J7rMJOZkwnol/zWY0bVcHoHy9ecnJrOgt2tlIr6JgjNvKDlXmU17SK5YM
+ +IN/RUZ6j5dAL1EAFHwbXtT7DeM7VO4kuctn1N9GeyDO1NwPE0T5e2q
 X-Developer-Key: i=fenglin.wu@oss.qualcomm.com; a=ed25519;
  pk=hJdt3E7o54lql+miD2GaxwF74cDyhgNwMbmFOZ46bRU=
-X-Authority-Analysis: v=2.4 cv=X/rHu2Te c=1 sm=1 tr=0 ts=6afc034b cx=c_pps
- a=Z3eh007fzM5o9awBa1HkYQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDAyOSBTYWx0ZWRfX2yvPHhPpAa/a
+ D1aAeLnEdIhIDie/ufrb2g9QsFaxtLYKFsk5k1zUbMGJH5E02SAYn23WjFpHaoBIovJm2R9ulQF
+ 9ORPIxnqjp02csAg134/Jy7/IGIN7XA=
+X-Proofpoint-ORIG-GUID: r05lWcF1eScW-hd9VdB4bP0t7pNRnKL2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDAyOSBTYWx0ZWRfX00pRHmXTKvNx
+ RCwy9iZm2sFxVjaMevOSQzVISRrcqBqB46TW+MnCAeo8GrYUYG4ks68pB8LDEvq2GLoRoGWqzUa
+ 8YNzXMkjSnjqEuOz3Vo0j/F2gN29yJyGVSc0ZJgpZ2NNlJ4WlyyJZ4tw/o2ZLAaIO+vDbL6u+ad
+ KNEj2tt17s5Cxv8ZH5K41CGQ75uBsNZ7Bax06dgkmNM+HeheoW5LEHZg3vOxpMYwZZuuO0UautL
+ mTaEc5jrQrBLlkT9qpe9K01qex0BEyp8JKAzahiaw7xLJVK+ohVgR383/3w69sNE6Wo8eJTWbwG
+ DtU4tiQpQ/ltLAz+453PM8N2Gh8mZXY1uAskpMbd5tg+hABpeqQb4hxAeXN7ID521ukL1Ib10DP
+ w+AijhpSzHM6b1hQsWgKvlscZFb2ZRTOP6mwvkA2ARTHr7Q8z3foAwoqLf4z5y4nXN/QE3qY5Hb
+ u/jIYSN33RQo/BVC5fw==
+X-Authority-Analysis: v=2.4 cv=K963jCWI c=1 sm=1 tr=0 ts=6afc034c cx=c_pps
+ a=zPxD6eHSjdtQ/OcAcrOFGw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=Xe68GOy1h7Bi-u-YiFIA:9 a=QEXdDO2ut3YA:10
- a=eBU8X_Hb5SQ8N-bgNfv4:22
-X-Proofpoint-GUID: oRDyepS3EYB5BM9JHHaHdSvNaug0NzV_
-X-Proofpoint-ORIG-GUID: oRDyepS3EYB5BM9JHHaHdSvNaug0NzV_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDAyOSBTYWx0ZWRfX4bBefikBUW+a
- Q9Slrf33GyPkjlZ1RoEyJuERc3L7LKm74SllrmgHyfhdPNwD3x8gzClQulJscSCt1ke8aKCKJp8
- qgwB5r6gK0OEa/XuKAoKBNye20p/guh12JH68+Z2sllasB5Tidj6+I6kiO3Ql3cfYnmioA1nymU
- LOh6X5jXxm6jIwwEzlxjddryBePiVwHQTG9UlBxeIVGrT6GO4je++VZVhdNc5LH6p5g0pzwtuqt
- NzIaBq8FaQzydbQ2j1AewNBCNJR73+NFgxGSM3yWAf9bQxqkQ5RQD4ZXh4cLVppsrBTGagHy0pX
- ixowlJtL8DKgbwpsYI26bkpjvwtnDBf3aiC7JlvoGVUHdGJNRDZSuXbJIvpPMWJfvV7yvohALnc
- Mfz1q/2/u3u3Pf1rht/vFkUdsHlrk/hBbMabU3km3ss6gffThG9gw5ceSgS7/avDr+K9SOBTj4W
- Z66aeQHBdYlZxEpZaEA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDAyOSBTYWx0ZWRfX7BYITvtVZzZN
- +/tdIolTQo5NmXmzU3y7Qflz88Wn2WC/RI4NSh9h1XPwZhh9Yi4BfZZaJWXExGECCThUfApx3g/
- w57VQoaykFjsJ29r+5Vfni7EsEvODOw=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=PQbxmwGiin7G8qBTPywA:9 a=QEXdDO2ut3YA:10
+ a=y8BKWJGFn5sdPF1Y92-H:22
+X-Proofpoint-GUID: r05lWcF1eScW-hd9VdB4bP0t7pNRnKL2
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-17_01,2026-11-16_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 spamscore=0 suspectscore=0 bulkscore=0
- lowpriorityscore=0 impostorscore=0 priorityscore=1501 phishscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611170029
+ impostorscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 phishscore=0
+ lowpriorityscore=0 bulkscore=0 spamscore=0 malwarescore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170029
 
-Add a PMIC GLINK transport instance for GIO (General I/O) which is a
-new communication model used by the SoCCP battery-management firmware
-on some of the Qualcomm platforms (e.g. Glymur): it turns the
-GIO_OPCODE_BLOCK_READ/_WRITE requests and the GIO_OPCODE_ALERT_IND
-notification exchanged over the pmic-glink rpmsg channel into a regmap
-and per-alert IRQ delivery. It registers as a "pmic_glink.gio"
-auxiliary driver and bound to a new "gio" auxiliary device that's created
-on GIO-capable platforms.
+On the Glymur platform, the GIO (General I/O) interface communicates
+with the SoCCP battery-management firmware and provides a set of TAD
+(Time-Alarm-Device) registers for reading and writing RTC time. The
+platform also includes registers for configuring an alarm timer and
+initiating device boot-up into different power stages, such as:
+charging only or fully powered-on system, based on the applied power
+source (AC/DC). However, repurposing this alarm timer has very limited
+value for an RTC driver because it does not expose an interrupt when
+the timer expires.
 
-Also, update the client_mask to additionally request the GIO client on
-Glymur, which is the 1st platform to support GIO. Even through the legacy
-clients (battmgr, ucsi, altmode) can also be supported using the new GIO
-interface, their per-client bits are still kept with the functionalities
-continue to be provided by the existing pmic_glink.* auxiliary devices
-using the pmic_glink interfaces, to minimize the risks associated with
-transitioning all of them to use the new GIO interface.
+Add an auxiliary RTC driver that corresponds to the auxiliary device
+created by the GIO driver, "pmic_gio.rtc", which manages the RTC timer
+by accessing to the TAD real-time register block through the regmap
+interface exposed by the GIO device.
 
-Co-developed-by: Tingguo Cheng <tingguo.cheng@oss.qualcomm.com>
-Signed-off-by: Tingguo Cheng <tingguo.cheng@oss.qualcomm.com>
+Tested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com> # Zenbook A16
 Signed-off-by: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
 ---
- drivers/soc/qcom/Kconfig            |  13 +
- drivers/soc/qcom/Makefile           |   1 +
- drivers/soc/qcom/pmic_glink.c       |  25 +-
- drivers/soc/qcom/pmic_glink_gio.c   | 544 ++++++++++++++++++++++++++++++++++++
- include/linux/soc/qcom/pmic_glink.h |   1 +
- 5 files changed, 582 insertions(+), 2 deletions(-)
+ drivers/rtc/Kconfig               |  11 +++
+ drivers/rtc/Makefile              |   1 +
+ drivers/rtc/rtc-qcom-gio.c        | 153 ++++++++++++++++++++++++++++++++++++++
+ drivers/soc/qcom/pmic_glink_gio.c |  14 ++++
+ 4 files changed, 179 insertions(+)
 
-diff --git a/drivers/soc/qcom/Kconfig b/drivers/soc/qcom/Kconfig
-index 266a1babc108..64f21fe6911e 100644
---- a/drivers/soc/qcom/Kconfig
-+++ b/drivers/soc/qcom/Kconfig
-@@ -137,6 +137,19 @@ config QCOM_PMIC_GIO
- 	  Say yes here to enable the GIO interface on a SoCCP based battery
- 	  management firmware platform.
+diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
+index 73ec9230edfd..a298f7ae68f9 100644
+--- a/drivers/rtc/Kconfig
++++ b/drivers/rtc/Kconfig
+@@ -1863,6 +1863,17 @@ config RTC_DRV_PM8XXX
+ 	  To compile this driver as a module, choose M here: the
+ 	  module will be called rtc-pm8xxx.
  
-+config QCOM_PMIC_GLINK_GIO
-+	tristate "Qualcomm PMIC GLINK GIO driver"
-+	depends on QCOM_PMIC_GLINK && QCOM_PMIC_GIO
-+	default QCOM_PMIC_GLINK && QCOM_PMIC_GIO
++config RTC_DRV_QCOM_GIO
++	tristate "Qualcomm GIO RTC driver"
++	depends on QCOM_PMIC_GLINK_GIO
 +	help
-+	  The Qualcomm PMIC GLINK GIO driver provides access, over GLINK, to
-+	  the General I/O (GIO) register space and alerts exposed by the
-+	  SoCCP coprocessor on some modern Qualcomm platforms.
++	  Say y here to support the real-time clock exposed in Qualcomm
++	  SoCCP battery management firmware through the GIO (General I/O)
++	  interface.
 +
-+	  Say yes here to support USB-C and battery functions through GIO
-+	  interface with the PMIC Glink transport exposed by SoCCP coprocessor
-+	  on a Qualcomm platform.
++	  This driver can also be built as a module. If so, the module will
++	  be called rtc-qcom-gio.
 +
- config QCOM_RAMP_CTRL
- 	tristate "Qualcomm Ramp Controller driver"
- 	help
-diff --git a/drivers/soc/qcom/Makefile b/drivers/soc/qcom/Makefile
-index c3170757b012..5a0167e8fa55 100644
---- a/drivers/soc/qcom/Makefile
-+++ b/drivers/soc/qcom/Makefile
-@@ -13,6 +13,7 @@ obj-$(CONFIG_QCOM_PDR_MSG)	+= qcom_pdr_msg.o
- obj-$(CONFIG_QCOM_PMIC_GIO)	+= pmic_gio.o
- obj-$(CONFIG_QCOM_PMIC_GLINK)	+= pmic_glink.o
- obj-$(CONFIG_QCOM_PMIC_GLINK)	+= pmic_glink_altmode.o
-+obj-$(CONFIG_QCOM_PMIC_GLINK_GIO)	+= pmic_glink_gio.o
- obj-$(CONFIG_QCOM_PMIC_PDCHARGER_ULOG)	+= pmic_pdcharger_ulog.o
- CFLAGS_pmic_pdcharger_ulog.o	:=  -I$(src)
- obj-$(CONFIG_QCOM_QMI_TMD) += qmi_tmd.o
-diff --git a/drivers/soc/qcom/pmic_glink.c b/drivers/soc/qcom/pmic_glink.c
-index 84fd0c82c0c4..059f4fd7a5d7 100644
---- a/drivers/soc/qcom/pmic_glink.c
-+++ b/drivers/soc/qcom/pmic_glink.c
-@@ -2,7 +2,9 @@
- /*
-  * Copyright (c) 2019-2020, The Linux Foundation. All rights reserved.
-  * Copyright (c) 2022, Linaro Ltd
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-  */
-+
- #include <linux/auxiliary_bus.h>
- #include <linux/cleanup.h>
- #include <linux/delay.h>
-@@ -21,6 +23,7 @@ enum {
- 	PMIC_GLINK_CLIENT_BATT = 0,
- 	PMIC_GLINK_CLIENT_ALTMODE,
- 	PMIC_GLINK_CLIENT_UCSI,
-+	PMIC_GLINK_CLIENT_GIO,
- };
- 
- struct pmic_glink_data {
-@@ -40,6 +43,7 @@ struct pmic_glink {
- 	struct auxiliary_device altmode_aux;
- 	struct auxiliary_device ps_aux;
- 	struct auxiliary_device ucsi_aux;
-+	struct auxiliary_device gio_aux;
- 
- 	/* serializing client_state and pdr_state updates */
- 	struct mutex state_lock;
-@@ -326,10 +330,15 @@ static int pmic_glink_probe(struct platform_device *pdev)
- 		return ret;
- 	}
- 
-+	if (pg->data->client_mask & BIT(PMIC_GLINK_CLIENT_GIO)) {
-+		ret = pmic_glink_add_aux_device(pg, &pg->gio_aux, "gio");
-+		if (ret)
-+			goto out_release_pdr_handle;
-+	}
- 	if (pg->data->client_mask & BIT(PMIC_GLINK_CLIENT_UCSI)) {
- 		ret = pmic_glink_add_aux_device(pg, &pg->ucsi_aux, "ucsi");
- 		if (ret)
--			goto out_release_pdr_handle;
-+			goto out_release_gio_aux;
- 	}
- 	if (pg->data->client_mask & BIT(PMIC_GLINK_CLIENT_ALTMODE)) {
- 		ret = pmic_glink_add_aux_device(pg, &pg->altmode_aux, "altmode");
-@@ -367,6 +376,9 @@ static int pmic_glink_probe(struct platform_device *pdev)
- out_release_ucsi_aux:
- 	if (pg->data->client_mask & BIT(PMIC_GLINK_CLIENT_UCSI))
- 		pmic_glink_del_aux_device(pg, &pg->ucsi_aux);
-+out_release_gio_aux:
-+	if (pg->data->client_mask & BIT(PMIC_GLINK_CLIENT_GIO))
-+		pmic_glink_del_aux_device(pg, &pg->gio_aux);
- out_release_pdr_handle:
- 	pdr_handle_release(pg->pdr);
- 
-@@ -385,6 +397,8 @@ static void pmic_glink_remove(struct platform_device *pdev)
- 		pmic_glink_del_aux_device(pg, &pg->altmode_aux);
- 	if (pg->data->client_mask & BIT(PMIC_GLINK_CLIENT_UCSI))
- 		pmic_glink_del_aux_device(pg, &pg->ucsi_aux);
-+	if (pg->data->client_mask & BIT(PMIC_GLINK_CLIENT_GIO))
-+		pmic_glink_del_aux_device(pg, &pg->gio_aux);
- 
- 	guard(mutex)(&__pmic_glink_lock);
- 	__pmic_glink = NULL;
-@@ -404,8 +418,15 @@ static const struct pmic_glink_data pmic_glink_soccp_data = {
- 		       BIT(PMIC_GLINK_CLIENT_UCSI),
- };
- 
-+static const struct pmic_glink_data pmic_glink_glymur_data = {
-+	.client_mask = BIT(PMIC_GLINK_CLIENT_GIO) |
-+		       BIT(PMIC_GLINK_CLIENT_BATT) |
-+		       BIT(PMIC_GLINK_CLIENT_ALTMODE) |
-+		       BIT(PMIC_GLINK_CLIENT_UCSI),
-+};
-+
- static const struct of_device_id pmic_glink_of_match[] = {
--	{ .compatible = "qcom,glymur-pmic-glink", .data = &pmic_glink_soccp_data },
-+	{ .compatible = "qcom,glymur-pmic-glink", .data = &pmic_glink_glymur_data },
- 	{ .compatible = "qcom,kaanapali-pmic-glink", .data = &pmic_glink_soccp_data },
- 	{ .compatible = "qcom,pmic-glink", .data = &pmic_glink_adsp_data },
- 	{}
-diff --git a/drivers/soc/qcom/pmic_glink_gio.c b/drivers/soc/qcom/pmic_glink_gio.c
+ config RTC_DRV_TEGRA
+ 	tristate "NVIDIA Tegra Internal RTC driver"
+ 	depends on ARCH_TEGRA || COMPILE_TEST
+diff --git a/drivers/rtc/Makefile b/drivers/rtc/Makefile
+index 46f1a0fc2416..9cb76aac7897 100644
+--- a/drivers/rtc/Makefile
++++ b/drivers/rtc/Makefile
+@@ -142,6 +142,7 @@ obj-$(CONFIG_RTC_DRV_PM8XXX)	+= rtc-pm8xxx.o
+ obj-$(CONFIG_RTC_DRV_POLARFIRE_SOC)	+= rtc-mpfs.o
+ obj-$(CONFIG_RTC_DRV_PS3)	+= rtc-ps3.o
+ obj-$(CONFIG_RTC_DRV_PXA)	+= rtc-pxa.o
++obj-$(CONFIG_RTC_DRV_QCOM_GIO)	+= rtc-qcom-gio.o
+ obj-$(CONFIG_RTC_DRV_R7301)	+= rtc-r7301.o
+ obj-$(CONFIG_RTC_DRV_R9701)	+= rtc-r9701.o
+ obj-$(CONFIG_RTC_DRV_RPI)	+= rtc-raspberrypi.o
+diff --git a/drivers/rtc/rtc-qcom-gio.c b/drivers/rtc/rtc-qcom-gio.c
 new file mode 100644
-index 000000000000..9a28f88152b2
+index 000000000000..679b24f2a190
 --- /dev/null
-+++ b/drivers/soc/qcom/pmic_glink_gio.c
-@@ -0,0 +1,544 @@
++++ b/drivers/rtc/rtc-qcom-gio.c
+@@ -0,0 +1,153 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +/*
 + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
 + */
 +
-+#include <linux/atomic.h>
 +#include <linux/auxiliary_bus.h>
 +#include <linux/bitfield.h>
 +#include <linux/bits.h>
-+#include <linux/cleanup.h>
-+#include <linux/completion.h>
 +#include <linux/device.h>
 +#include <linux/module.h>
 +#include <linux/regmap.h>
-+#include <linux/slab.h>
-+#include <linux/soc/qcom/pdr.h>
-+#include <linux/soc/qcom/pmic_glink.h>
++#include <linux/rtc.h>
 +#include <linux/soc/qcom/pmic_gio.h>
 +#include <linux/soc/qcom/pmic_gio_regs.h>
-+#include <linux/spinlock.h>
-+#include <linux/stddef.h>
-+#include <linux/string.h>
-+#include <linux/workqueue.h>
 +
-+#define PMIC_GLINK_SEND_TIMEOUT		(5 * HZ)
++struct tad_rt {
++	u32 ymd;
++#define RT_YMD_DAY		GENMASK(31, 24)
++#define RT_YMD_MONTH		GENMASK(23, 16)
++#define RT_YMD_YEAR		GENMASK(15, 0)
 +
-+/* GIO (Generic I/O) pmic_glink transaction opcode and mask */
-+#define GIO_OPCODE_BLOCK_READ		0x90
-+#define GIO_OPCODE_BLOCK_WRITE		0x91
-+#define GIO_OPCODE_ALERT_IND		0x92
-+#define GIO_OPCODE_MASK			GENMASK(15, 0)
++	u32 hms;
++#define RT_HMS_VALID		GENMASK(31, 24)
++#define RT_HMS_SEC		GENMASK(23, 16)
++#define RT_HMS_MINUTE		GENMASK(15, 8)
++#define RT_HMS_HOUR		GENMASK(7, 0)
 +
-+#define GIO_RW_BUFFER_SIZE		1024
-+#define GIO_ALERT_MAX_PENDING		32
-+
-+struct gio_alert_hdr {
-+	u8	revision;
-+	u8	reserved_1;
-+	__le16	serial_no;
++	u32 ms_tz;
++	u32 daylight;
 +} __packed;
 +
-+struct gio_alert_info {
-+	u8	peripheral_id;
-+	u8	reserved_1;
-+	u8	alert_id;
-+	u8	reserved_2;
-+} __packed;
++static_assert(sizeof(struct tad_rt) == GIO_SVC_TAD_RT_SIZE);
 +
-+struct gio_alert_data {
-+	struct gio_alert_hdr	hdr;
-+	struct gio_alert_info	info;
-+	u8			payload[PMIC_GIO_ALERT_PAYLOAD_SIZE];
-+} __packed;
-+
-+struct gio_alert_msg {
-+	struct pmic_glink_hdr	hdr;
-+	__le32			reserved;
-+	struct gio_alert_data	alt_data;
-+} __packed;
-+
-+struct gio_read_req {
-+	struct pmic_glink_hdr	hdr;
-+	__le32			reserved;
-+	__le32			offset;
-+	__le32			length;
-+} __packed;
-+
-+struct gio_read_resp {
-+	struct pmic_glink_hdr	hdr;
-+	u8			data[GIO_RW_BUFFER_SIZE];
-+	__le32			ret_code;
-+} __packed;
-+
-+struct gio_write_req {
-+	struct pmic_glink_hdr	hdr;
-+	__le32			reserved;
-+	__le32			offset;
-+	__le32			length;
-+	u8			data[GIO_RW_BUFFER_SIZE];
-+} __packed;
-+
-+struct gio_write_resp {
-+	struct pmic_glink_hdr	hdr;
-+	__le32			ret_code;
-+} __packed;
-+
-+struct gio_alert_work {
-+	struct work_struct	work;
-+	struct pmic_glink_gio	*pgio;
-+	u8			peripheral_id;
-+	u8			alert_id;
-+	u8			payload[PMIC_GIO_ALERT_PAYLOAD_SIZE];
++struct rtc_qcom_gio {
++	struct regmap *regmap;
++	struct rtc_device *rtc;
 +};
 +
-+struct pmic_glink_gio {
-+	struct device *dev;
-+
-+	struct pmic_glink_client *client;
-+	struct pmic_gio_device *gio;
-+
-+	struct workqueue_struct *wq;
-+	struct work_struct init_work;
-+	struct completion ack;
-+	atomic_t alert_pending;
-+
-+	spinlock_t lock;	/* protects the transaction state and flags */
-+	bool pending;
-+	u16 pending_opcode;
-+	int ack_error;
-+	unsigned int buf_size;
-+	u8 *buf;
-+	bool removing;
-+	bool service_up;
-+
-+	struct gio_write_req write_req;
-+};
-+
-+/* Must be called with pgio->lock held. */
-+static void pmic_glink_gio_reset_transaction(struct pmic_glink_gio *pgio)
++static int rtc_qcom_gio_read_time(struct device *dev, struct rtc_time *tm)
 +{
-+	pgio->pending = false;
-+	pgio->pending_opcode = 0;
-+	pgio->ack_error = 0;
-+	pgio->buf = NULL;
-+	pgio->buf_size = 0;
-+}
-+
-+/* Must be called with pgio->lock held. */
-+static void pmic_glink_gio_complete_transaction(struct pmic_glink_gio *pgio)
-+{
-+	pgio->pending = false;
-+	pgio->pending_opcode = 0;
-+	pgio->buf = NULL;
-+	pgio->buf_size = 0;
-+	complete(&pgio->ack);
-+}
-+
-+static int pmic_glink_gio_prepare_transaction(struct pmic_glink_gio *pgio, u16 opcode,
-+					      void *buf, size_t buf_size)
-+{
-+	guard(spinlock_irqsave)(&pgio->lock);
-+
-+	if (pgio->removing)
-+		return -ENODEV;
-+
-+	if (!pgio->service_up)
-+		return -ENETRESET;
-+
-+	reinit_completion(&pgio->ack);
-+	pgio->pending = true;
-+	pgio->pending_opcode = opcode;
-+	pgio->ack_error = 0;
-+	pgio->buf = buf;
-+	pgio->buf_size = buf_size;
-+
-+	return 0;
-+}
-+
-+static int pmic_glink_gio_wait_ack(struct pmic_glink_gio *pgio)
-+{
-+	unsigned long left;
++	struct rtc_qcom_gio *rtc = dev_get_drvdata(dev);
++	struct tad_rt rt;
 +	int ret;
 +
-+	left = wait_for_completion_timeout(&pgio->ack, PMIC_GLINK_SEND_TIMEOUT);
-+
-+	scoped_guard(spinlock_irqsave, &pgio->lock) {
-+		ret = pgio->ack_error;
-+		pmic_glink_gio_reset_transaction(pgio);
-+	}
++	ret = regmap_bulk_read(rtc->regmap, GIO_SVC_TAD_RT_ADDR, &rt,
++			       sizeof(rt) / PMIC_GIO_REG_GRANULARITY);
++	if (ret)
++		return ret;
 +
 +	/*
-+	 * If a BLOCK_READ/BLOCK_WRITE request times out, its response may still
-+	 * arrive later and be mistaken for a newer request with the same opcode:
-+	 * neither gio_read_resp nor gio_write_resp carries any offset/length/
-+	 * sequence identifier, so a late response cannot be distinguished from
-+	 * the response to whichever transaction is pending when it arrives.
-+	 * Fixing this would need a per-transaction generation counter/sequence
-+	 * number threaded through the request and checked against the response
-+	 * before trusting it. However, this has not been implemented at the
-+	 * firmware side, so just print an error message and abort the current
-+	 * request instead.
++	 * The firmware may return valid RTC values even when VALID is not set.
++	 * Only print out register values for potential debug if it's needed.
 +	 */
-+	if (!left) {
-+		dev_err(pgio->dev,
-+			"GIO transaction timed out, response may still be in flight\n");
-+		return -ETIMEDOUT;
-+	}
-+
-+	return ret;
-+}
-+
-+static int pmic_glink_gio_write_sync(struct pmic_glink_gio *pgio, u32 addr,
-+				     const u8 *data, size_t length)
-+{
-+	struct gio_write_req *req = &pgio->write_req;
-+	int ret;
-+
-+	if (!data || !length)
-+		return -EFAULT;
-+
-+	if (length > GIO_RW_BUFFER_SIZE) {
-+		dev_err(pgio->dev, "Write length %zu exceeds maximum buffer size %d\n",
-+			length, GIO_RW_BUFFER_SIZE);
-+		return -EINVAL;
-+	}
-+
-+	req->hdr.owner = cpu_to_le32(PMIC_GLINK_OWNER_GIO);
-+	req->hdr.type = cpu_to_le32(PMIC_GLINK_REQ_RESP);
-+	req->hdr.opcode = cpu_to_le32(GIO_OPCODE_BLOCK_WRITE);
-+	req->offset = cpu_to_le32(addr);
-+	req->length = cpu_to_le32(length);
-+	memcpy(req->data, data, length);
-+
-+	ret = pmic_glink_gio_prepare_transaction(pgio, GIO_OPCODE_BLOCK_WRITE, NULL, 0);
-+	if (ret)
-+		return ret;
-+
-+	ret = pmic_glink_send(pgio->client, req, offsetof(struct gio_write_req, data) + length);
-+	if (ret) {
-+		dev_err(pgio->dev, "Failed to send GIO write request to 0x%05x: %d\n", addr, ret);
-+
-+		scoped_guard(spinlock_irqsave, &pgio->lock)
-+			pmic_glink_gio_reset_transaction(pgio);
-+
-+		return ret;
-+	}
-+
-+	ret = pmic_glink_gio_wait_ack(pgio);
-+	if (ret)
-+		dev_err(pgio->dev, "GIO write to 0x%05x failed: %d\n", addr, ret);
-+
-+	return ret;
-+}
-+
-+static int pmic_glink_gio_read(struct pmic_gio_device *gio, unsigned int reg,
-+			       void *val, size_t val_size)
-+{
-+	struct pmic_glink_gio *pgio = gio->drvdata;
-+	struct gio_read_req req = {};
-+	int ret;
-+
-+	if (!val || !val_size)
-+		return -EFAULT;
-+
-+	if (val_size > GIO_RW_BUFFER_SIZE) {
-+		dev_err(pgio->dev, "Read length %zu exceeds maximum buffer size %d\n",
-+			val_size, GIO_RW_BUFFER_SIZE);
-+		return -EINVAL;
-+	}
-+
-+	req.hdr.owner = cpu_to_le32(PMIC_GLINK_OWNER_GIO);
-+	req.hdr.type = cpu_to_le32(PMIC_GLINK_REQ_RESP);
-+	req.hdr.opcode = cpu_to_le32(GIO_OPCODE_BLOCK_READ);
-+	req.offset = cpu_to_le32(reg);
-+	req.length = cpu_to_le32(val_size);
-+
-+	ret = pmic_glink_gio_prepare_transaction(pgio, GIO_OPCODE_BLOCK_READ, val, val_size);
-+	if (ret)
-+		return ret;
-+
-+	ret = pmic_glink_send(pgio->client, &req, sizeof(req));
-+	if (ret) {
-+		dev_err(pgio->dev, "Failed to send GIO read request to 0x%05x: %d\n", reg, ret);
-+
-+		scoped_guard(spinlock_irqsave, &pgio->lock) {
-+			pmic_glink_gio_reset_transaction(pgio);
-+		}
-+
-+		return ret;
-+	}
-+
-+	ret = pmic_glink_gio_wait_ack(pgio);
-+	if (ret)
-+		dev_err(pgio->dev, "GIO read from 0x%05x failed: %d\n", reg, ret);
-+
-+	return ret;
-+}
-+
-+static int pmic_glink_gio_write(struct pmic_gio_device *gio, unsigned int reg,
-+				const void *val, size_t val_size)
-+{
-+	struct pmic_glink_gio *pgio = gio->drvdata;
-+
-+	return pmic_glink_gio_write_sync(pgio, reg, val, val_size);
-+}
-+
-+static bool pmic_glink_gio_handle_alert(struct pmic_gio_device *gio,
-+					u8 peripheral_id, u8 alert_id,
-+					const void *payload)
-+{
-+	dev_dbg(gio->dev,
-+		"GIO alert: peripheral_id=0x%02x alert_id=0x%02x payload=%*ph\n",
-+		peripheral_id, alert_id, PMIC_GIO_ALERT_PAYLOAD_SIZE, payload);
-+
-+	return false;
-+}
-+
-+static const struct pmic_gio_device_ops pmic_glink_gio_ops = {
-+	.read = pmic_glink_gio_read,
-+	.write = pmic_glink_gio_write,
-+	.handle_alert = pmic_glink_gio_handle_alert,
-+};
-+
-+static void pmic_glink_gio_pdr_notify(void *priv, int state)
-+{
-+	struct pmic_glink_gio *pgio = priv;
-+	bool service_up;
-+
-+	service_up = state == SERVREG_SERVICE_STATE_UP;
-+
-+	scoped_guard(spinlock_irqsave, &pgio->lock) {
-+		if (pgio->removing)
-+			return;
-+
-+		WRITE_ONCE(pgio->service_up, service_up);
-+		if (!service_up && pgio->pending) {
-+			pgio->ack_error = -ENETRESET;
-+			pmic_glink_gio_complete_transaction(pgio);
-+		}
-+
-+		if (!service_up)
-+			pmic_gio_set_state(pgio->gio, PMIC_GIO_STATE_DOWN);
-+	}
-+
-+	if (service_up)
-+		queue_work(pgio->wq, &pgio->init_work);
-+}
-+
-+static void pmic_glink_gio_init_work(struct work_struct *work)
-+{
-+	struct pmic_glink_gio *pgio = container_of(work, struct pmic_glink_gio, init_work);
-+
-+	if (!READ_ONCE(pgio->service_up))
-+		return;
-+
-+	scoped_guard(spinlock_irqsave, &pgio->lock) {
-+		if (pgio->removing || !pgio->service_up)
-+			return;
-+
-+		pmic_gio_set_state(pgio->gio, PMIC_GIO_STATE_UP);
-+	}
-+}
-+
-+static void pmic_glink_gio_alert_work(struct work_struct *work)
-+{
-+	struct gio_alert_work *alert_work = container_of(work, struct gio_alert_work, work);
-+
-+	pmic_gio_handle_alert(alert_work->pgio->gio, alert_work->peripheral_id,
-+			      alert_work->alert_id, alert_work->payload);
-+	atomic_dec(&alert_work->pgio->alert_pending);
-+	kfree(alert_work);
-+}
-+
-+static void pmic_glink_gio_callback(const void *data, size_t len, void *priv)
-+{
-+	const struct pmic_glink_hdr *hdr = data;
-+	const struct gio_alert_msg *alert_msg;
-+	const struct gio_write_resp *tx_resp;
-+	const struct gio_read_resp *rx_resp;
-+	struct pmic_glink_gio *pgio = priv;
-+	size_t copy_size;
-+	u16 opcode;
-+
-+	if (!data || len < sizeof(*hdr)) {
-+		dev_warn(pgio->dev, "Invalid packet received (len: %zu)\n", len);
-+		return;
-+	}
-+
-+	opcode = FIELD_GET(GIO_OPCODE_MASK, le32_to_cpu(hdr->opcode));
-+
-+	switch (opcode) {
-+	case GIO_OPCODE_BLOCK_READ:
-+		if (len != sizeof(struct gio_read_resp)) {
-+			dev_warn(pgio->dev, "Invalid read response message, length: %zu\n", len);
-+			return;
-+		}
-+
-+		rx_resp = data;
-+
-+		scoped_guard(spinlock_irqsave, &pgio->lock) {
-+			if (!pgio->pending || pgio->pending_opcode != GIO_OPCODE_BLOCK_READ) {
-+				dev_warn(pgio->dev, "Unexpected GIO read response, dropping\n");
-+				return;
-+			}
-+
-+			if (le32_to_cpu(rx_resp->ret_code) != 0) {
-+				pgio->ack_error = -EREMOTEIO;
-+				dev_warn(pgio->dev, "GIO read response failed (%u)\n",
-+					 le32_to_cpu(rx_resp->ret_code));
-+			} else if (pgio->buf) {
-+				copy_size = min_t(size_t, pgio->buf_size, GIO_RW_BUFFER_SIZE);
-+				memcpy(pgio->buf, rx_resp->data, copy_size);
-+			}
-+			pmic_glink_gio_complete_transaction(pgio);
-+		}
-+		break;
-+
-+	case GIO_OPCODE_BLOCK_WRITE:
-+		if (len != sizeof(struct gio_write_resp)) {
-+			dev_warn(pgio->dev, "Invalid write response message, length: %zu\n", len);
-+			return;
-+		}
-+
-+		tx_resp = data;
-+
-+		scoped_guard(spinlock_irqsave, &pgio->lock) {
-+			if (!pgio->pending || pgio->pending_opcode != GIO_OPCODE_BLOCK_WRITE) {
-+				dev_warn(pgio->dev, "Unexpected GIO write response, dropping\n");
-+				return;
-+			}
-+
-+			if (le32_to_cpu(tx_resp->ret_code) != 0) {
-+				pgio->ack_error = -EREMOTEIO;
-+				dev_warn(pgio->dev, "GIO write response failed (%u)\n",
-+					 le32_to_cpu(tx_resp->ret_code));
-+			}
-+			pmic_glink_gio_complete_transaction(pgio);
-+		}
-+		break;
-+
-+	case GIO_OPCODE_ALERT_IND:
-+		if (len != sizeof(struct gio_alert_msg)) {
-+			dev_warn(pgio->dev, "Invalid alert message, length: %zu\n", len);
-+			return;
-+		}
-+
-+		if (atomic_read(&pgio->alert_pending) >= GIO_ALERT_MAX_PENDING) {
-+			dev_warn_ratelimited(pgio->dev,
-+					     "Too many pending GIO alerts, dropping\n");
-+			return;
-+		}
-+
-+		struct gio_alert_work *alert_work __free(kfree) =
-+				kmalloc_obj(*alert_work, GFP_ATOMIC);
-+		if (!alert_work)
-+			return;
-+
-+		alert_msg = data;
-+
-+		INIT_WORK(&alert_work->work, pmic_glink_gio_alert_work);
-+		alert_work->pgio = pgio;
-+		alert_work->peripheral_id = alert_msg->alt_data.info.peripheral_id;
-+		alert_work->alert_id = alert_msg->alt_data.info.alert_id;
-+		memcpy(alert_work->payload,
-+		       alert_msg->alt_data.payload,
-+		       PMIC_GIO_ALERT_PAYLOAD_SIZE);
-+
-+		scoped_guard(spinlock_irqsave, &pgio->lock) {
-+			if (pgio->removing || !pgio->service_up)
-+				return;
-+
-+			atomic_inc(&pgio->alert_pending);
-+			if (queue_work(pgio->wq, &alert_work->work))
-+				retain_and_null_ptr(alert_work);
-+			else
-+				atomic_dec(&pgio->alert_pending);
-+		}
-+		break;
-+	}
-+}
-+
-+static void pmic_glink_gio_destroy_wq(void *data)
-+{
-+	struct workqueue_struct *wq = data;
-+
-+	destroy_workqueue(wq);
-+}
-+
-+static int pmic_glink_gio_probe(struct auxiliary_device *adev,
-+				const struct auxiliary_device_id *id)
-+{
-+	struct pmic_glink_gio *pgio;
-+	struct device *dev = &adev->dev;
-+	int ret;
-+
-+	pgio = devm_kzalloc(dev, sizeof(*pgio), GFP_KERNEL);
-+	if (!pgio)
-+		return -ENOMEM;
-+
-+	pgio->dev = dev;
-+	spin_lock_init(&pgio->lock);
-+	init_completion(&pgio->ack);
-+	INIT_WORK(&pgio->init_work, pmic_glink_gio_init_work);
-+	dev_set_drvdata(dev, pgio);
-+
-+	pgio->client = devm_pmic_glink_client_alloc(dev, PMIC_GLINK_OWNER_GIO,
-+						    pmic_glink_gio_callback,
-+						    pmic_glink_gio_pdr_notify,
-+						    pgio);
-+	if (IS_ERR(pgio->client))
-+		return PTR_ERR(pgio->client);
-+
-+	pgio->gio = devm_pmic_gio_register(dev, &pmic_glink_gio_ops, pgio);
-+	if (IS_ERR(pgio->gio))
-+		return dev_err_probe(dev, PTR_ERR(pgio->gio), "failed to register GIO device\n");
-+
-+	pgio->wq = alloc_ordered_workqueue("pmic_glink_gio", 0);
-+	if (!pgio->wq)
-+		return -ENOMEM;
-+
-+	ret = devm_add_action_or_reset(dev, pmic_glink_gio_destroy_wq, pgio->wq);
-+	if (ret)
-+		return ret;
-+
-+	pmic_glink_client_register(pgio->client);
++	if (!FIELD_GET(RT_HMS_VALID, rt.hms))
++		dev_dbg(dev, "RTC registers: ymd=%#010x hms=%#010x\n", rt.ymd, rt.hms);
++
++	tm->tm_year = FIELD_GET(RT_YMD_YEAR, rt.ymd) - 1900;
++	tm->tm_mon = FIELD_GET(RT_YMD_MONTH, rt.ymd) - 1;
++	tm->tm_mday = FIELD_GET(RT_YMD_DAY, rt.ymd);
++	tm->tm_hour = FIELD_GET(RT_HMS_HOUR, rt.hms);
++	tm->tm_min = FIELD_GET(RT_HMS_MINUTE, rt.hms);
++	tm->tm_sec = FIELD_GET(RT_HMS_SEC, rt.hms);
 +
 +	return 0;
 +}
 +
-+static void pmic_glink_gio_remove(struct auxiliary_device *adev)
++static int rtc_qcom_gio_set_time(struct device *dev, struct rtc_time *tm)
 +{
-+	struct pmic_glink_gio *pgio = dev_get_drvdata(&adev->dev);
++	struct rtc_qcom_gio *rtc = dev_get_drvdata(dev);
++	struct tad_rt rt;
++	int ret;
 +
-+	scoped_guard(spinlock_irqsave, &pgio->lock) {
-+		pgio->removing = true;
-+		WRITE_ONCE(pgio->service_up, false);
-+		if (pgio->pending) {
-+			pgio->ack_error = -ENODEV;
-+			pmic_glink_gio_complete_transaction(pgio);
-+		}
-+		pmic_gio_set_state(pgio->gio, PMIC_GIO_STATE_DOWN);
-+	}
++	/*
++	 * The firmware requires the whole TAD_RT block to be written in a
++	 * single transaction, so ms_tz/daylight (which this driver never
++	 * changes) have to be read back and carried through unmodified
++	 * rather than writing just the ymd/hms words we care about. This
++	 * leaves a small window where a concurrent firmware-side update to
++	 * ms_tz/daylight between the read and the write below is clobbered
++	 * with a stale value; accepted given the firmware doesn't support
++	 * partial-block writes.
++	 */
++	ret = regmap_bulk_read(rtc->regmap, GIO_SVC_TAD_RT_ADDR, &rt,
++			       sizeof(rt) / PMIC_GIO_REG_GRANULARITY);
++	if (ret)
++		return ret;
 +
-+	cancel_work_sync(&pgio->init_work);
-+	flush_workqueue(pgio->wq);
++	rt.ymd = FIELD_PREP(RT_YMD_DAY, tm->tm_mday) |
++		 FIELD_PREP(RT_YMD_MONTH, tm->tm_mon + 1) |
++		 FIELD_PREP(RT_YMD_YEAR, tm->tm_year + 1900);
++
++	rt.hms = FIELD_PREP(RT_HMS_VALID, 1) |
++		 FIELD_PREP(RT_HMS_SEC, tm->tm_sec) |
++		 FIELD_PREP(RT_HMS_MINUTE, tm->tm_min) |
++		 FIELD_PREP(RT_HMS_HOUR, tm->tm_hour);
++
++	return regmap_bulk_write(rtc->regmap, GIO_SVC_TAD_RT_ADDR, &rt,
++				 sizeof(rt) / PMIC_GIO_REG_GRANULARITY);
 +}
 +
-+static const struct auxiliary_device_id pmic_glink_gio_id_table[] = {
-+	{ .name = "pmic_glink.gio", },
++static const struct rtc_class_ops rtc_qcom_gio_ops = {
++	.read_time = rtc_qcom_gio_read_time,
++	.set_time = rtc_qcom_gio_set_time,
++};
++
++static int rtc_qcom_gio_probe(struct auxiliary_device *adev,
++			      const struct auxiliary_device_id *id)
++{
++	struct device *dev = &adev->dev;
++	struct rtc_qcom_gio *rtc;
++	int ret;
++
++	rtc = devm_kzalloc(dev, sizeof(*rtc), GFP_KERNEL);
++	if (!rtc)
++		return -ENOMEM;
++
++	rtc->regmap = dev_get_regmap(dev->parent, NULL);
++	if (!rtc->regmap)
++		return -ENODEV;
++
++	dev_set_drvdata(dev, rtc);
++
++	rtc->rtc = devm_rtc_allocate_device(dev);
++	if (IS_ERR(rtc->rtc))
++		return PTR_ERR(rtc->rtc);
++
++	rtc->rtc->ops = &rtc_qcom_gio_ops;
++	rtc->rtc->range_min = RTC_TIMESTAMP_BEGIN_2000;
++	rtc->rtc->range_max = RTC_TIMESTAMP_END_2099;
++
++	ret = devm_rtc_register_device(rtc->rtc);
++	if (ret)
++		return ret;
++
++	return 0;
++}
++
++static const struct auxiliary_device_id rtc_qcom_gio_id_table[] = {
++	{ .name = "pmic_gio.rtc", },
 +	{},
 +};
-+MODULE_DEVICE_TABLE(auxiliary, pmic_glink_gio_id_table);
++MODULE_DEVICE_TABLE(auxiliary, rtc_qcom_gio_id_table);
 +
-+static struct auxiliary_driver pmic_glink_gio_driver = {
-+	.name = "pmic_glink_gio",
-+	.probe = pmic_glink_gio_probe,
-+	.remove = pmic_glink_gio_remove,
-+	.id_table = pmic_glink_gio_id_table,
++static struct auxiliary_driver rtc_qcom_gio_driver = {
++	.name = "rtc_qcom_gio",
++	.probe = rtc_qcom_gio_probe,
++	.id_table = rtc_qcom_gio_id_table,
 +};
 +
-+module_auxiliary_driver(pmic_glink_gio_driver);
++module_auxiliary_driver(rtc_qcom_gio_driver);
 +
-+MODULE_DESCRIPTION("Qualcomm PMIC GLINK GIO driver");
++MODULE_DESCRIPTION("Qualcomm GIO RTC driver");
 +MODULE_LICENSE("GPL");
-diff --git a/include/linux/soc/qcom/pmic_glink.h b/include/linux/soc/qcom/pmic_glink.h
-index 7cddf1027752..6283495a2396 100644
---- a/include/linux/soc/qcom/pmic_glink.h
-+++ b/include/linux/soc/qcom/pmic_glink.h
-@@ -11,6 +11,7 @@ struct pmic_glink_client;
- #define PMIC_GLINK_OWNER_BATTMGR	32778
- #define PMIC_GLINK_OWNER_USBC		32779
- #define PMIC_GLINK_OWNER_USBC_PAN	32780
-+#define PMIC_GLINK_OWNER_GIO		32785
+diff --git a/drivers/soc/qcom/pmic_glink_gio.c b/drivers/soc/qcom/pmic_glink_gio.c
+index 9a28f88152b2..1f58a8fcada3 100644
+--- a/drivers/soc/qcom/pmic_glink_gio.c
++++ b/drivers/soc/qcom/pmic_glink_gio.c
+@@ -113,6 +113,8 @@ struct pmic_glink_gio {
+ 	bool service_up;
  
- #define PMIC_GLINK_REQ_RESP		1
- #define PMIC_GLINK_NOTIFY		2
+ 	struct gio_write_req write_req;
++
++	struct auxiliary_device *rtc_aux;
+ };
+ 
+ /* Must be called with pgio->lock held. */
+@@ -339,6 +341,18 @@ static void pmic_glink_gio_init_work(struct work_struct *work)
+ 
+ 		pmic_gio_set_state(pgio->gio, PMIC_GIO_STATE_UP);
+ 	}
++
++	/*
++	 * Create GIO consumers after PDR to ensure the transport
++	 * is up before consumers use the GIO regmap device.
++	 */
++	if (!pgio->rtc_aux) {
++		pgio->rtc_aux = devm_pmic_gio_add_consumer(pgio->gio, "rtc");
++		if (!pgio->rtc_aux) {
++			dev_err(pgio->dev, "failed to add RTC consumer\n");
++			return;
++		}
++	}
+ }
+ 
+ static void pmic_glink_gio_alert_work(struct work_struct *work)
 
 -- 
 2.43.0
