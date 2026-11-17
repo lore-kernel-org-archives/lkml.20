@@ -1,74 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794913579;
-	b=C1QGEQa8K2kmm3Q7uYK31qJsseRaCjVlQBC3waLicego4dVT55xuo9dGf3fjEoCj2tz0
-	 0YX40o4nSlnYra5vvb/WCYdKIlz3Xod6ON0kgeYCJiQ6k3EZ2F67m7gsAq6ees42I1k4I
-	 Ct2Slvf85oCj8497kDIDZH66QKw+TaS95YcSqKnlDx2VOqzJMN6xFlpj0fxzpl3OyrLGM
-	 kyNODtHDLuW/oorxbRM96rsesPcHRNj9FW6NO5eEt91moO8f6C+eMvUD8PC3/kwmN/fOi
-	 ivhNB+mYDBYAyLpixmdD7JouEevHKrOTEB7PWTfkSWeUwhWks/pE306Z48TMgPUb23A==
+	t=1794913595;
+	b=wTXjKViUJgeFEwFTPNVjnqa4FxdHD62rKMRH+Q3bVAcHZpekxPc/A94RKOG4nwNtmB3b
+	 Q4iNIems76baXfcO9C3gurSz+LeksZNMW3Ap75IZ3hW8AFPFgJJSVKSXg+kt+ae/hzWBl
+	 m4hGpPzut6Y8gTbhVszCiQaMbSLPIle0SyJWwIGg1JwuAIhnliHJu2ESwtWnkeJtD0CTR
+	 7Se8NSRR9rN0E+oRbZPgeDR2zKi383OsYvipPzpMHBOj733pTyWCih1gJW2mpqV3yThpF
+	 d8/oMJ1Bz19DrKukRvzGW7snbOwwoLA4tIbLIjfIMhcBl5Fnm370MFvDIc2DznXtlSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794913579;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=y3gUkGRr0U1p2ZCNesM9xfptWY2/llhKtyiVyy36QM4=;
-	b=TFHLXkGpfniMej5q3KpYnoOEBtiWiGozdDt0Fk8MYtapPQvYigBI+a4beFkr3qfTXkqz
-	 1YZRC3I0a0+ZH+XK6Zv87fdPEwVzcAH575D8+lWabs/ziqKI3Uvy26yQmh4G8usi6RQ2l
-	 E+9432zHOLXPb/2t44D8V/vYcNvknr86/wXatyOlJWv7oAOyleANMYLUiEWjtUUsOX43b
-	 tEsrk0iZ4SarVrcncDZZRbRxny+8Ny90MBKj+I7owYq56AW2Fp1p2cB4gSl6OxYD56QSX
-	 kIloLxNHFMps+tTFyL/mrv2eXPgw1N/eziKhzKeB+Ad4vzWRmgxTDLHV3rXgYQfU40w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794913595;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=zQK0/cS+Hx5iaKVj7t0Wx1EeMLw++dccUq7SklaMz2Y=;
+	b=nZZTgoGRFiMFRAhzzNih4guhfnZgEccijt+DnBOsZxpcFa2VJ9uFHh1S3EkdPcedK9aH
+	 5cX8MXdW1xOS8x7XXTU7OpcD7DS3YAIjP7dQQJz9fj1IJ3tJjAH9HUnbrffrIYUQM0heF
+	 tWSPn6gly133yVzgt/GiJhGSNiZwHz0jYKuj3+nOD9p2ds8m1OpGSv/faiNEvaNtSSbW7
+	 Zxhg7XWlsdEyx93IXhN3N0hSsa7aAt4npylR7cQJ//gPEEQQewu6ugx4GKW5PozVhamds
+	 1ffJYS4HQLtfEaFOxHoolril7wZvLqkd3HwzzFJjPccDdkYwsUAGg9WyN+Ilr6iYYYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=yJNDrt6G;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35726606A31C;
-	Tue, 17 Nov 2026 11:06:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35726606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=gkmr2NN7;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 69A80606A31C;
+	Tue, 17 Nov 2026 11:06:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69A80606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=yJNDrt6G
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id B00D91A1605;
-	Tue, 17 Nov 2026 11:06:17 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 74F095FC81;
-	Tue, 17 Nov 2026 11:06:17 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7D8A711BC0493;
-	Tue, 17 Nov 2026 12:06:05 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794913572; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=y3gUkGRr0U1p2ZCNesM9xfptWY2/llhKtyiVyy36QM4=;
-	b=yJNDrt6GP4E62RqG9gzmjY5xkLYVMACBX7hpOVMbd/yb3GDgPTc3Z+OHXJUSvjcp+GmfR9
-	9yjBcGZ8XOEQrZcwL+i9MiMadJusbAnUczI+SDShsMcnWMVzQv1FAXiK00c8cIS90hq9r1
-	xjr1wOuEEgPn5ErFtRKWVB+6IErAe2GJe8c4XPmrtnIiSORq9WRW3QTF45DEBWlsj4J6gt
-	VRCQitDPrUDCtL6E8f1X1EppcQbjyyE3tlJk6twendRCs1TUxLWSbNlkUlHeNoXcn3WFR2
-	5eRy8ly1H138an0K1OLpt8/qurzk6GQQl0Kj/WMOg8Sh9wSFGzKveo6RQkogVA==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Petr Vaganov <petrvaganoff@gmail.com>
-Cc: Alexander Aring <alex.aring@gmail.com>,  Stefan Schmidt
- <stefan@datenfreihafen.org>,  linux-wpan@vger.kernel.org,  "David S.
- Miller" <davem@davemloft.net>,  Eric Dumazet <edumazet@kernel.org>,  Jakub
- Kicinski <kuba@kernel.org>,  Paolo Abeni <pabeni@redhat.com>,  Simon
- Horman <horms@kernel.org>,  Phoebe Buckheister
- <phoebe.buckheister@itwm.fraunhofer.de>,  netdev@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  lvc-project@linuxtesting.org,
-  stable@vger.kernel.org
-Subject: Re: [PATCH net] mac802154: remove redundant security_enabled
- assignment
-In-Reply-To: <20261116065235.27348-1-petrvaganoff@gmail.com> (Petr Vaganov's
-	message of "Mon, 16 Nov 2026 13:52:34 +0700")
-References: <20261116065235.27348-1-petrvaganoff@gmail.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Tue, 17 Nov 2026 12:06:05 +0100
-Message-ID: <87y0arlntu.fsf@bootlin.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=gkmr2NN7
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 985831476;
+	Tue, 17 Nov 2026 03:06:29 -0800 (PST)
+Received: from [10.0.130.226] (e127648.arm.com [10.0.130.226])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8188B3F763;
+	Tue, 17 Nov 2026 03:06:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794913592; bh=TxfFF/v0mXYBQ9TN3vzz9eVpedAI+KSw7wIs/PKquzU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=gkmr2NN7R4w4J2vdZjO8sR6GYogKE1DuMYLduiE/YBtDq1/IMtY62TVhsn/5ptHUd
+	 tsDlVJK7qNUvSVDs8cEr/k3WXcxhC4YH1Jr3+idT85iGZUzTy6gJVsSweuogN+Yons
+	 8hzJGYO1Hkc6mHRSQhYRcy6khSqOnkjjN8T6S7NM=
+Message-ID: <47ef2005-97ff-4841-8a87-5093323e1914@arm.com>
+Date: Tue, 17 Nov 2026 11:06:28 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,114 +53,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] cpufreq: CPPC: Enable boost by default
+To: Pengjie Zhang <zhangpengjie2@huawei.com>, rafael@kernel.org,
+ viresh.kumar@linaro.org
+Cc: linuxarm@huawei.com, zhanjie9@hisilicon.com, prime.zeng@hisilicon.com,
+ wanghuiqiang@huawei.com, xuwei5@huawei.com, zhenglifeng1@huawei.com,
+ yubowen8@huawei.com, pierre.gondois@arm.com, sumitg@nvidia.com,
+ linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, mojunjun4@huawei.com
+References: <20261117105240.1113405-1-zhangpengjie2@huawei.com>
+From: Christian Loehle <christian.loehle@arm.com>
+Content-Language: en-US
+In-Reply-To: <20261117105240.1113405-1-zhangpengjie2@huawei.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 16/11/2026 at 13:52:34 +07, Petr Vaganov <petrvaganoff@gmail.com> wrote:
+On 11/17/26 10:52, Pengjie Zhang wrote:
+> The CPPC driver leaves boost disabled by default when Highest Performance
+> exceeds Nominal Performance. Userspace must explicitly enable boost
+> before governors can use the full advertised performance range.
+> 
+> For user convenience, set .boost_enabled = true in cppc_cpufreq_driver.
+> Since cppc_cpufreq_cpu_init() sets policy->boost_supported when
+> highest_perf > nominal_perf, the cpufreq core will enable boost by
+> default only for policies that support it.
+> 
+> Signed-off-by: Pengjie Zhang <zhangpengjie2@huawei.com>
 
-> During fuzz testing, the following issue was discovered:
->
-> BUG: KMSAN: uninit-value in ieee802154_hdr_push_sechdr net/ieee802154/hea=
-der_ops.c:54 [inline]
-> BUG: KMSAN: uninit-value in ieee802154_hdr_push+0xa62/0xb20 net/ieee80215=
-4/header_ops.c:108
->  ieee802154_hdr_push_sechdr net/ieee802154/header_ops.c:54 [inline]
->  ieee802154_hdr_push+0xa62/0xb20 net/ieee802154/header_ops.c:108
->  ieee802154_header_create+0xa83/0xd20 net/mac802154/iface.c:396
->  wpan_dev_hard_header include/net/cfg802154.h:525 [inline]
->  dgram_sendmsg+0xc6d/0x15d0 net/ieee802154/socket.c:677
->  ieee802154_sock_sendmsg+0x8f/0xd0 net/ieee802154/socket.c:96
->  sock_sendmsg_nosec net/socket.c:711 [inline]
->  __sock_sendmsg+0x2f3/0x360 net/socket.c:726
->  ____sys_sendmsg+0x960/0xc30 net/socket.c:2581
->  ___sys_sendmsg+0x285/0x3e0 net/socket.c:2635
->  __sys_sendmmsg+0x33c/0x950 net/socket.c:2724
->  __do_sys_sendmmsg net/socket.c:2751 [inline]
->  __se_sys_sendmmsg net/socket.c:2748 [inline]
->  __x64_sys_sendmmsg+0xc6/0x150 net/socket.c:2748
->  x64_sys_call+0x12a8/0x3cf0 arch/x86/include/generated/asm/syscalls_64.h:=
-308
->  do_syscall_x64 arch/x86/entry/common.c:47 [inline]
->  do_syscall_64+0xd9/0x1c0 arch/x86/entry/common.c:78
->  entry_SYSCALL_64_after_hwframe+0x77/0x7f
->
-> Uninit was stored to memory at:
->  ieee802154_hdr_push_sechdr net/ieee802154/header_ops.c:51 [inline]
->  ieee802154_hdr_push+0xa5b/0xb20 net/ieee802154/header_ops.c:108
->  ieee802154_header_create+0xa83/0xd20 net/mac802154/iface.c:396
->  wpan_dev_hard_header include/net/cfg802154.h:525 [inline]
->  dgram_sendmsg+0xc6d/0x15d0 net/ieee802154/socket.c:677
->  ieee802154_sock_sendmsg+0x8f/0xd0 net/ieee802154/socket.c:96
->  sock_sendmsg_nosec net/socket.c:711 [inline]
->  __sock_sendmsg+0x2f3/0x360 net/socket.c:726
->  ____sys_sendmsg+0x960/0xc30 net/socket.c:2581
->  ___sys_sendmsg+0x285/0x3e0 net/socket.c:2635
->  __sys_sendmmsg+0x33c/0x950 net/socket.c:2724
->  __do_sys_sendmmsg net/socket.c:2751 [inline]
->  __se_sys_sendmmsg net/socket.c:2748 [inline]
->  __x64_sys_sendmmsg+0xc6/0x150 net/socket.c:2748
->  x64_sys_call+0x12a8/0x3cf0 arch/x86/include/generated/asm/syscalls_64.h:=
-308
->  do_syscall_x64 arch/x86/entry/common.c:47 [inline]
->  do_syscall_64+0xd9/0x1c0 arch/x86/entry/common.c:78
->  entry_SYSCALL_64_after_hwframe+0x77/0x7f
->
-> Commit f30be4d53cad ("mac802154: integrate llsec with wpan devices")
-> introduced mac802154_set_header_security() as the sole function
-> responsible for enabling frame-level security: it sets both
-> hdr->fc.security_enabled =3D 1 and initializes hdr->sec together,
-> maintaining the invariant that security_enabled =3D 1 implies hdr->sec
-> is initialized.
->
-> However, ieee802154_header_create() was left with a pre-existing
-> assignment:
->
->     hdr.fc.security_enabled =3D cb->secen;
->
-> This assignment can set security_enabled =3D 1 (from a stale cb->secen)
-> even when mac802154_set_header_security() returns 0 without initializing
-> hdr.sec, violating that invariant. ieee802154_hdr_push_sechdr() then
-> reads uninitialized hdr.sec fields.
->
-> The stale value in cb->secen arises from a specific setsockopt()
-> sequence: calling WPAN_SECURITY_ON (secen_override=3D1, secen=3D1) and
-> then WPAN_SECURITY_DEFAULT (secen_override=3D0, secen unchanged at 1).
-> This undocumented combination likely explains why the bug was rarely
-> triggered.
->
-> Remove the redundant assignment; mac802154_set_header_security() is the
-> only correct place to set security_enabled.
->
-> Found by Linux Verification Center (linuxtesting.org) with Syzkaller.
->
-> Closes: https://syzkaller.appspot.com/bug?extid=3D60a66d44892b66b56545
-> Closes: https://syzkaller.appspot.com/bug?id=3D23f21e76e9d2d1ed587cb5e715=
-15260d6d025b63
-> Fixes: f30be4d53cad ("mac802154: integrate llsec with wpan devices")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Petr Vaganov <petrvaganoff@gmail.com>
+Reviewed-by: Christian Loehle <christian.loehle@arm.com>
+
+That being said it doesn't apply cleanly on bleeding-edge, so you might
+wanna rebase to make Rafael's life a little easier.
+
 > ---
->  net/mac802154/iface.c | 1 -
->  1 file changed, 1 deletion(-)
->
-> diff --git a/net/mac802154/iface.c b/net/mac802154/iface.c
-> index f437b8daa00d..7b7332805ecc 100644
-> --- a/net/mac802154/iface.c
-> +++ b/net/mac802154/iface.c
-> @@ -368,7 +368,6 @@ static int ieee802154_header_create(struct sk_buff *s=
-kb,
->=20=20
->  	memset(&hdr.fc, 0, sizeof(hdr.fc));
->  	hdr.fc.type =3D cb->type;
-> -	hdr.fc.security_enabled =3D cb->secen;
->  	hdr.fc.ack_request =3D cb->ackreq;
->  	hdr.seq =3D atomic_inc_return(&dev->ieee802154_ptr->dsn) & 0xFF;
+> Changes in v3:
+> - Drop cppc_cpufreq_default_boost_init() and set .boost_enabled = true
+>   statically in cppc_cpufreq_driver (Christian).
+> - Link to v2: https://lore.kernel.org/all/20261022075901.3436021-1-zhangpengjie2@huawei.com/
+> 
+> Changes in v2:
+> - Drop "even" from the commit message (Christian).
+> - Link to v1: https://lore.kernel.org/all/20261015015812.867988-1-zhangpengjie2@huawei.com/
+> ---
+>  drivers/cpufreq/cppc_cpufreq.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
+> index 957fa7775260..1ea16e95c0e9 100644
+> --- a/drivers/cpufreq/cppc_cpufreq.c
+> +++ b/drivers/cpufreq/cppc_cpufreq.c
+> @@ -1059,6 +1059,7 @@ static struct cpufreq_driver cppc_cpufreq_driver = {
+>  	.fast_switch = cppc_cpufreq_fast_switch,
+>  	.init = cppc_cpufreq_cpu_init,
+>  	.exit = cppc_cpufreq_cpu_exit,
+> +	.boost_enabled = true,
+>  	.set_boost = cppc_cpufreq_set_boost,
+>  	.attr = cppc_cpufreq_attr,
+>  	.name = "cppc_cpufreq",
 
-There has been a similar patch in 2023 but it was never updated by the
-author. Fixes tag is better here, it should be taken.
-
-Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
-
-Thanks,
-Miqu=C3=A8l
