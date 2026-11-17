@@ -1,73 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794878115;
-	b=Z9Rvwlg97mQXL+aajVJ/p7cggWvP6f7eqIiDGZkfCi41oyuJQXTMLpqd6YWlFqupbpkW
-	 v5fsKwmEIUKygRxj9grmG7x9YN59ExMdoz/ZwZFUlu3FO1liCRhN/+8HyDjgeScOyJemR
-	 LwXAPlzBwclHqSgeXDY/0unyNB8ROrumZ7derJJOg5vsB/Rnwpa+OU+rl4YE3U1goFdLQ
-	 YVLlLudNXl5maxZERZuk1UyEgbN0EdYBOKIRYFHhT4uTNv1CVPoJ1w620We6x3NUOTxgh
-	 nCBghZdITPOeCZUPZ0/+qC6jMDsTJM3w+nkyNjj3recrSf1mILrKkuOwp+fAo8WOndg==
+	t=1794878117;
+	b=jGf4B9UH9W1kMir8m6JPD32GlrR+Y5e4j0uOGC1kLdwrqh7ZADVlz1STpPgouMMnslEB
+	 p5rWXTxx86LsJRg5AXsHbixsTLU0SYGk6mEA2JH1bKsyVosZ9b3xbaIpZ5kQ+fBGUPwED
+	 DsWturvBjqKTrrj1d8yJJ6zaXOnciUgkRjpkNhOp0bfAWx+GonVLXVGVA6I8ZUd+P8fV8
+	 /+gU0svMKF1iUN9MtIQLXHXZVipdITB6+Fj9bav3aBQs5UvQsMcsoV9oOhKjQyvDdR5z5
+	 nwlZTt1KHrpfrj6ceKjHj6T/qQ1xUzKxNYuA984vPn5QmZx5XPewyOXZtH5GsMtPEeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794878115;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794878117;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
-	 Mime-Version:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=OfKf9iYa0JD3DIaGQL4jdglFjk83Ku8ktmH0JNxa7Ss=;
-	b=kWGI0ZGadGi+vgX4Wd5rB+J7ZiHYj+Z6+mOe2vadEEyVZQ4mM73sa85wVZfxh7OobjA3
-	 4s+bt4M5IEXqmfL4ckJDOjoqFtPAPUDBSK7fsfaMFTTcGKZzD3rxe0Lbib/6Onh+27HDN
-	 0uBnm/neprwCKldV6OKkhCTWuJzbriOph9HiIz/ZcqRJwjA/yAp/xbkBYi6bJtkPCmDbx
-	 4xg40paGfxSAGAzKkX0TXrblv+46fTiUm1QpMKwHbP6oaGXFpQ3n2jDyi7qUxYwe5szgc
-	 KXB/3u4MC2G2AWPCQ0NzCrkaKW3dZFp4Pvo/z1Kph1jmsQI3OwJkZuMR/yLyz8gqV3g==
+	 In-Reply-To:Mime-Version:References:X-Mailer:Message-ID:Subject:From:
+	 To:Cc:Content-Type;
+	bh=TWP/ReH2wMYRtHWwzmCHwWYTzwY7NYJY/sX9pnvvo50=;
+	b=hO+4nycRTulBUSkkkclp/56OKK0ciPWQHdKjGI3CXjp8HgVn+CMM4+dpJd9IpGrMJl0Z
+	 Z8Irq/G1g21rxvNQQG4WfyI5idY5L705yrxfn/l1kZXtsrHyc+37DPFze/Ef50scQr9+6
+	 t8c8SDfUlDRoIqGRBKJkxSHT2ScgbNrzUvVCEauxtYmjBjh1iwaiTnhTH3McA2J/SeWjJ
+	 kHTPC52EpCA6E/Az2lKPQCmjzB1OxiyuT48o1YtrOc+T1FQwRCGV2misOY4v+4gw+Dk3n
+	 aB68P7K6hmXt8iagdJvAPYwXFW8SnMvrHc49vldN9Pq/qk1KR4BaaKAWTlL7LzCrnWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ckLzIPD9;
-	arc=none smtp.remote-ip=209.85.214.200
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OMxitlGN;
+	arc=none smtp.remote-ip=209.85.214.199
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85CA2606A329
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:15:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85CA2606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8FA8606A336
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:15:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8FA8606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ckLzIPD9
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2ed08904845so25130215ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:15:15 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OMxitlGN
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ee184a2474so28482825ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:15:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794878115; x=1795482915; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OfKf9iYa0JD3DIaGQL4jdglFjk83Ku8ktmH0JNxa7Ss=;
-        b=ckLzIPD9h52dG90sQPAujcVw+2zscj8VjKG8x1FHk5Bpokc4HRUfmh0tdIhgTsdwty
-         AqZRzGqp33Fwv2L4hCIzEc2Lf+5P4bsqARUJECvmbJn4bB4za2cvUGFh/hO9JTr4hjdM
-         fflzORtprz+GFDzwKcvCJ97QL8oIo6pSg3obKum30idQiy0LPeImzMv28ypHWyi/n+R6
-         zsnVdZIOpybZgeeJPOd/o2VON3a140fZ+/plFVIhmy6OpQkzhpNB51vGvu5Ej1vaV+nG
-         qU1O7aJq1ut1cdO5HfrYgYqnshRbY2oWamWq+6dZJQq/Z2O44NWs4UqYYbUQyH+4rAY3
-         uwYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794878115; x=1795482915;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=google.com; s=20260707; t=1794878116; x=1795482916; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=OfKf9iYa0JD3DIaGQL4jdglFjk83Ku8ktmH0JNxa7Ss=;
-        b=FdG2REqRTtuvq4Xp1ExziG3+xZIzkDVg731EY3FmJ+M6mehqWIg3jzy+ACXhXYS9zW
-         A2wbkGX96IOqnehXUvgBrpHXWeT5c5JLt7RDj9BeHL0ANiL7Xcm9ylGDgpZs1y88O4w3
-         0O6xBvqBfJaKfYjFDkG7PDc6XjcZLhBkpn3Uf2zee07VxPMzYY6ZMcHQKYShKumWGyz8
-         g2Z1PPrh7Jt3GScol1LU2zqZCxEsXC0tjb94SBDnoI46lPbFMcPVs/RPss+wmu+K6n4R
-         pjSt+VkahOpaui4Qs8gfarrB0yGRh273AZtceFoev0IpqBiXG/vCDFfgxJCjhKxAdIsb
-         2sUw==
-X-Forwarded-Encrypted: i=1; AL+hErFVXdagzXTkxXpsaxAcRdIwB7W+fWOdWUcsyuLBDUmL4uws6WODK2nDxDoXTYXxhkAQRTWOo9XSBvPknbg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+k7JIgE2tmk+lQylLzR76Z3ASTLAFH/S/9uSK2j0jH9mLacBQK
-	zDzL/C9yOfdYCuxbqGRXRIV+zFB2RL4RMEzT12gFI2TzROBmpSTUlp1Qd1BQwhZxtkbtUtyq2i7
-	ADizkDA==
-X-Received: from pjrx21.prod.google.com ([2002:a17:90a:bc95:b0:3b1:317:bac2])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:1f86:b0:3ac:7556:8ee0
- with SMTP id 98e67ed59e1d1-3b1b0b666c5mr12537753a91.19.1794878114705; Mon, 16
- Nov 2026 17:15:14 -0800 (PST)
+        bh=TWP/ReH2wMYRtHWwzmCHwWYTzwY7NYJY/sX9pnvvo50=;
+        b=OMxitlGNWdfPHCXoOJn5m+bZDiy+CMe0I6imxnS3Mc1kJnDKG/7Yr/HKHTXVzMv58k
+         2eE0p1H1Yn37Hz+huURTbs/Lu8/eg2zVuOz3FJi4zognvtsrcW33b68X/N4G/eqMTT5L
+         WlXPrfI89hZsL6gSVnC+k4CwmBgetQfnyzcoVqP6U6iW+L/Gqf7k2RMoYYu8ukpdeKBO
+         eqWKbr+Nnj/4IMY3iNIngdgLi/GqDwZSowcHlddXlW4iPGE1kjOXAHDeG+BViR5H49MF
+         MqkOOs0ZxaOc9QpuNdJuLaLvlWwWCgMXJ1sQ5rZIpdar+FY4b5pxjFvW6juKCHtWSxlU
+         ekQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794878116; x=1795482916;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TWP/ReH2wMYRtHWwzmCHwWYTzwY7NYJY/sX9pnvvo50=;
+        b=c4+fOO5gcbR+wUI/dQsA8nBwUz08FApfJu41XCSxTG07Yn8uz5d/WmQSQ9wjOv07IU
+         e6DG3x9yF2KbZ65KOlZJhP2bgQ0BMr09WlSQ+2U5HxsbJfmJeV2QF7ScZSFTqMWz96Mc
+         CgzHhTu6NDfb1HdagBB6l3oXY8iXf/NZ4IEM2eOS4UHSe/VhBagdTtbhDkCviKRvxuF3
+         aLOqv5kkYrVs/RdNnb1AL2yYj5NbG8D1pee8opBjbSgGHjfASoefEcmhfCZDjXksujZR
+         2wlOtueN3FtWLb2oTsNt+gZInljjScue75VzOoelxPXRlLhC3BzCqzx6CmUMEcA6Vzgv
+         TAOg==
+X-Forwarded-Encrypted: i=1; AL+hErHiW+R4QKxMi0hw7c/0Wu3W88rI0HLD7cB82da2F87s/B3FMkay/nD02mxN/9ht1OWUwzA6HrDZcXIHN6A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/cfX3to+xl1NIXW2bZNGnCpwrEEqkJU8CDDmd7nhxcNpszpZZX
+	RTh0kdBz9736qq0YpVbfq4mKH2Kgser9Uj/wrRBsZ03FveCC+KmNomTl/g9QKfl9lLfQzIPDpUv
+	5K91m6A==
+X-Received: from plkz8.prod.google.com ([2002:a17:902:7088:b0:2e9:84f0:65ba])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:fd8c:b0:2ef:d669:4796
+ with SMTP id d9443c01a7336-2efd6694b61mr14579925ad.57.1794878115971; Mon, 16
+ Nov 2026 17:15:15 -0800 (PST)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Mon, 16 Nov 2026 17:15:11 -0800
+Date: Mon, 16 Nov 2026 17:15:12 -0800
+In-Reply-To: <20261117011513.39419-1-seanjc@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,9 +80,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
+References: <20261117011513.39419-1-seanjc@google.com>
 X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <20261117011513.39419-1-seanjc@google.com>
-Subject: [PATCH v4 0/2] KVM: Skip mmu_notifier invalidations for gmem-only slots
+Message-ID: <20261117011513.39419-2-seanjc@google.com>
+Subject: [PATCH v4 1/2] KVM: Disallow prefetching PFNs (for SPTEs) via VMAs
+ for gmem-only memslots
 From: Sean Christopherson <seanjc@google.com>
 To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
@@ -87,36 +92,38 @@ Cc: Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org, linux-kernel@v
 	Naveen N Rao <naveen@kernel.org>, Alexandru Elisei <alexandru.elisei@arm.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Fix a lurking bug where KVM incorrectly prefetches SPTEs for gmem-only memslots
-using fast GUP, i.e. VMAs, and then skip mmu_notifier invalidations for
-gmem-only memslots (because as the name suggests, KVM MMUs are supposed to
-only get PFNs for gmem-only memslots straight from guest_memfd).
+Disallow prefetching SPTEs via fast GUP, i.e. by VMA lookup, for gmem-only
+memslots as the whole point of gmem-only memslots is that KVM MMUs should
+get PFNs *only* via the direct guest_memfd interface.  More importantly,
+this will allow skipping/ignoring/eliding mmu_notifier invalidations for
+gmem-only memslots, since it will be impossible for KVM MMUs to have any
+mappings based on the to-be-invalidated VMA (as is intended).
 
-v4:
- - Tack on a patch to disallow prefetching gmem-only memslots using a VMA.
-   [Sashiko, Lorenzo]
+Fixes: 576d035e2aef ("KVM: guest_memfd: Track guest_memfd mmap support in memslot")
+Reported-by: Sashiko Bot <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/sashiko-outbox-213282@kernel.org
+Reported-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Closes: https://lore.kernel.org/all/avdAIMDfgL_wy1rx@gremlin
+Suggested-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+---
+ virt/kvm/kvm_main.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-v3:
- - https://lore.kernel.org/all/20261113164000.467175-1-seanjc@google.com
- - v1, but with a different changelog.
-
-v2: https://lore.kernel.org/all/20260714160411.302386-1-alexandru.elisei@arm.com
-
-v1: https://lore.kernel.org/all/20260615155244.183044-1-alexandru.elisei@arm.com
-
-Alexandru Elisei (1):
-  KVM: Skip gfn-based MMU notifier invalidations for guest_memfd-only
-    memslots
-
-Sean Christopherson (1):
-  KVM: Disallow prefetching PFNs (for SPTEs) via VMAs for gmem-only
-    memslots
-
- virt/kvm/kvm_main.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-
-base-commit: d21eef2084a9af87ac2a783bc7c2b175ba114e4e
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index cf4cb586f140..9938b753948c 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -3172,6 +3172,9 @@ int kvm_prefetch_pages(struct kvm_memory_slot *slot, gfn_t gfn,
+ 	unsigned long addr;
+ 	gfn_t entry = 0;
+ 
++	if (kvm_memslot_is_gmem_only(slot))
++		return -EINVAL;
++
+ 	addr = gfn_to_hva_many(slot, gfn, &entry);
+ 	if (kvm_is_error_hva(addr))
+ 		return -1;
 -- 
 2.56.1.703.gf848ed807c-goog
 
