@@ -1,105 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794901989;
-	b=L8+X/9CjsCqSCEkhvjxd8UbKwjs1xMQZk7NjMJX6faFJn1+Fj0DdS/rXV0tUqbe0ZacZ
-	 JT0Zyo0InGboJ5UL5gOPc1HimF92DTb/CBZGOvo7KpPZs5bksNHNNie19FkhHux4dIKAh
-	 w4Ruvhb/yR1O0IkScAKHQN/WSXfZq+RiqO+ugBDqxxotryJntR3lS1mPKgwQ69eXPG4Fl
-	 gSUrszeYZLU1+qrKaoB7SWBT9DTV6VKpa5bSTOZfeIrw+Vgki/e7rlD2kzorGgvYvN1c9
-	 3jleBKzM+YfNGqV/swNuyOY8BHpSZ/qoFkh2WgXZ4Epe/Uf1BbxCqSuUyY3EMexPGDA==
+	t=1794902009;
+	b=J8rVq5N2WF4Vm9NamwFShgyT0pW5tU4ZAikWh25R52HwGWp1R0u2XTYcLAItI33Z6gwO
+	 TlZj/R2MnK+UhUri9xQ78MQ0e90OmixUkZVTfHmloH0m6I2hYHvA+S/kZ3oKwyz4JXe7T
+	 w6IeAoact7Gd8WNDM3W2oJ4sivmTMU1MFBtKCdtW5iYuRBtCNt4A7l72vrXDsn3vvASG/
+	 q/FFiEOhTmOaktADcbGbSp9Wd7cP2BZebszHfDpVSwxzI1zFnOp63TV1EMotq6hJzQPRq
+	 WRj3yl4ifwn850X56QfFwyQ8wYnUAUKXw3uukUg8iWjMt0bBlYESlb6PwEHR9bwoDRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794901989;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=bIaB3xViS8vRwH7p7m0nqayQxCVJVBaNFTxNi69Cb5s=;
-	b=BQbfehtgEyf4RgZfipEUg1wQZImk9nGYl5dOtm+KVARiPDbEpZ/cxjPZCF8mYQLgala4
-	 yyZpcxEOLThp91hR2omogm3229z0Ys/TNkpuI57yDamNweGMexrQfKY2/HiEhQNT59PmR
-	 OyJZNmlWBQa/TLo0r3yGnML6zlkQAJkCrMlo7AGHq9XJbEHiCdxhwQqCCqvEzKgKbCi5V
-	 aq7riJmZyU0scNrWNmuE21fGWy00pRScbG2jocWRrSGlXM8qYWNzalXIhTcXEQjmUhusW
-	 YLz4xFLRFJP0CK21CKc2i1c/keKmpU+LhLhKydS6I0yDYLr+Hi9znXPGNsM1JZyJBFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794902009;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:
+	 X-Proofpoint-Reinject:X-QCInternal:X-QCInternal:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=7ACsjx30oCgBe4gFtl0v4H0bSufYi2QaC1nKGbr8gmQ=;
+	b=2fjOcHHX8rtOcDmpsBTHU1cWQgXB89EwYvF8MXGbpBmtDencEmmfTnRz3JFMsF3wVUb/
+	 U7mL735ItzuNgTpddRuuPYT7z/Ekp2EcZhVVUJAiim+FE8ntSYXtt/oviVBMXMZB2id4E
+	 NA1nAKL1tlIiH9UU1NMJTujdH0hdvuzF+9gre0xul5uXfGjrLj1Q+RXeymMk39SuDgmky
+	 o4YkXwxXAzzYkTYsQzFT+NYWJzoZEIOGWjFezmjcoen1ncw90LbQ0uBYK7Lm4yyw018lx
+	 YCaTcBJyY1DIoxO3MQxnGqnsMw5yghE/ujwCtzSuB6poVJkNHU2NUziZn5o1UgvofLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pE1wQF+f;
-	arc=none smtp.remote-ip=209.85.216.46
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CO6bqMkb;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58533606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:53:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58533606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA014606A31C;
+	Tue, 17 Nov 2026 07:53:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA014606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pE1wQF+f
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3b155f50c24so5189597a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 23:53:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794901989; x=1795506789; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bIaB3xViS8vRwH7p7m0nqayQxCVJVBaNFTxNi69Cb5s=;
-        b=pE1wQF+f0cxdZaR+U+ZOkQyj3e4yuQVMr1T5T6YWyv9LVF6myLSDjq/7ZAotA8+OTa
-         ED0jpGyxM1pkNhqNZeQPfRoPfywRymYhMEmW40BAjbcP6hqICKAvZQizypmkTgmG36Xb
-         ifhmARwDauooTrtB3NZ9og9Kvy0xWMND8+h7mIVhPQterIo2P5MDCYmD76RwAZMbtAFZ
-         HJGgVHnH0+7C+1LpkG3mIoHdQbXHXqQUydQoeUuh2jLuYEtEfiTm7oKlLB2vivcBTYN1
-         633SujJnFAAYJ9VfZSt56fJWtUvKLtlnVLb7vbTMaoMqmioG0z/RzZD3QK1LH/ZvagT0
-         EhTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794901989; x=1795506789;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bIaB3xViS8vRwH7p7m0nqayQxCVJVBaNFTxNi69Cb5s=;
-        b=N8rPH7RWqI1DvonkmL47NVw8/Om+z2gt3QbyHDmYlknbmC+3/15NQjbmCIBGdYhpU0
-         omof9U0+jAfKm6kXnLYCEtW4HFUYDLBpKK/82/vUJArUFdV4ni0loMOaVE5haYxaBrAA
-         K1ZygIkFoyjMdM5U4yb0FW9ZLMaoTOGoMFaFPrnLRswUkMASJMyxzhpaJLEdKcjNIkoL
-         AfalNpBF1mDuSSw3W/jdACG6NKR4x4d57O18xaCG/hQEmQA0ABbIXdPqK+rF883nT00Y
-         KKbWIJDvaNghhNqa2ENkm+l/jglBvzxP2PJIqnxCE9SLWRy7DjC22+sTRQgmLxeKI+j8
-         AR+w==
-X-Forwarded-Encrypted: i=1; AL+hErFYORkswKOpiHwcCTMJWOwPif/+OrDdMMgDHxCu9gX3MitFVh26scKMQOXmUUijsD7dmyAQ9SiZMAr7EZo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9dXJmMLIial2aqJNoFvt6x1s2uylWX5O5GvVSp4uT/g08yo5Yn
-	DKvhkERCdh7s/IyBzXH0//CWp2KD8UKkNWNiEkCQ8Rtq9SJ9pf1j8IaT
-X-Gm-Gg: AZFdTZdjYgU6ppTHZNcM2OSSsiNNyQ+4FtsI3x5LW0FV/ErLlxfXIgv/GTPMqo2ydRt
-	CgDH36RM4mtTux0p1/mMoqc94OHQvGnkWWPgjwFtJ9ZWCQY0p1b5M3Q9/EPTdnnxP6/KPctlKtR
-	lXQIe1YErVRCtCA8iTHVAXmEH5ISvp1ebx+gtyb1+7rTzSaVRxaLEpZIafOVcGon+24ARPOBMzI
-	QCczj2GkGaq3sNcYw0kwBuLdemG++TBGTXYUeOlSWNe9cP9rmw3xFvDBPCzRYtNdKc3gwx483Er
-	BZzU1o5aa32juKDsFPKv2AALDYk8sYF2o9dufx1pBWRari3KdfQ1Dzc4s/IlVRUCprZRzaXswgB
-	9KX4+xRj2f/ZQSZ6MbO8qe08kGWFs/3J4dEwIFGG1gVCXbbiPz6Vo2ZkgRIVCpApOjsjA2HIldb
-	/gAk/z2EJi34zKA2vR0Puo59wy8XiLP+gKH24LogtQXlCLgTCEh4gX6ePeotVphcu5XLPy3+D2Y
-	th4L31ptMSu3szfWTSD2FCNflBdjKvqPa0kJAXVdmAUlhTlyJiBzVoM4nFLlA4DpBwyYmXiSMOe
-	6enjJemovkEnoKv8ZjXkAWuskgbxWoORn3NTp782sizieMJVFaZqm6gv7iYzxr7xFZ6F7ukYeCO
-	7bgF84Fvq1MoUoRbiHy2FFY4EF7IB8034NrBLdvEttWcZCs0r8YYstYmE2V9c8orIplWADXln6y
-	PP7js2Yt8lF5jBSflaMsvEYAoL1VF4DJraNR+H1azFQwrlZR556xSV46Ajg2G/QmRgPMyJN1L6Y
-	d1CQO9jf4qPsVi9aPL/ZnB0oweUinWYkGwnNefokRMIIqROGY40/AUQAB+GH7sF
-X-Received: by 2002:a17:90b:17ca:b0:3b1:fad:b1bc with SMTP id 98e67ed59e1d1-3b1b0d77ad2mr13468030a91.63.1794901988543;
-        Mon, 16 Nov 2026 23:53:08 -0800 (PST)
-Received: from localhost.localdomain (123-243-92-89.static.tpgi.com.au. [123.243.92.89])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3abe77179sm2791862a91.11.2026.11.16.23.53.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 23:53:08 -0800 (PST)
-From: Daniel Wade <danjwade95@gmail.com>
-To: David Hildenbrand <david@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] mm/khugepaged: mark a collapsed mTHP dirty
-Date: Tue, 17 Nov 2026 18:22:46 +1030
-Message-Id: <20261117075246.61336-1-danjwade95@gmail.com>
-X-Mailer: git-send-email 2.39.0.windows.2
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CO6bqMkb
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH6exoP2998571;
+	Tue, 17 Nov 2026 07:53:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=7ACsjx30oCg
+	Be4gFtl0v4H0bSufYi2QaC1nKGbr8gmQ=; b=CO6bqMkbV4fKeXzB9wQK6nR8Jm1
+	jhy0OfZ5+u7VTtMwMU1t2GI8KTBRIOZvE2oawbq9+BnbP9xHJVmXgyWYlXarTGlw
+	9EQmj7oMFOi1dMiLqV/gLYjSPNed0dbI9HoANIHCbaG0lA1sk845fexOl2dQYKsm
+	PV5IrNtEWGj3CEzaHcMtSRlnVdoxJVPDBmjgII0fRCztxe+79B5j4dLiAY0FvV2m
+	Qe35kngKPQTH3/olJMTuyER35x7URFk+YGcgTiGFEO5jy2VpveYBLTc77SD/9yXH
+	c3JhSYKwrJwoBGInWKhXIpCM3J9GU8QG8kdOH7SXbhaVnaS5fPTUNEHZJCA==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0hve08r0-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 17 Nov 2026 07:53:26 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH7p5E5128973;
+	Tue, 17 Nov 2026 07:51:05 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-ks5-hyd.qualcomm.com [10.147.255.18])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 6AH7p47m128963
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 17 Nov 2026 07:51:04 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4763723)
+	id B188E682; Tue, 17 Nov 2026 13:21:03 +0530 (+0530)
+From: Karthik S <karthik.s@oss.qualcomm.com>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Karthik S <karthik.s@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/3] dt-bindings: pinctrl: qcom: Add QCS615 LPASS LPI pinctrl bindings
+Date: Tue, 17 Nov 2026 13:20:58 +0530
+Message-Id: <20261117075100.272535-2-karthik.s@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261117075100.272535-1-karthik.s@oss.qualcomm.com>
+References: <20261117075100.272535-1-karthik.s@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,47 +87,169 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDAzMSBTYWx0ZWRfX6b0gVESPxXNt
+ F63iDm21OYIGm2c0OwWUcVSN7X7IrovfQWAZ7rV5n3DcbCSM8D0e+TGUqiMuXoMjqm9a77iefXk
+ NPjmQbaGHv/E72Ju6UZcEckVxwYtcZU=
+X-Proofpoint-GUID: upU7-Wxh9fALY0-GJCiMMEQfX3HgK0-A
+X-Proofpoint-ORIG-GUID: upU7-Wxh9fALY0-GJCiMMEQfX3HgK0-A
+X-Authority-Analysis: v=2.4 cv=dqhOmFg4 c=1 sm=1 tr=0 ts=6afc07f6 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8
+ a=CaveSyEksWnKhASb3GUA:9 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDAzMSBTYWx0ZWRfX4MxXlHNjmHFM
+ DRv2vCFi6CFVcU05vkU48oJzN1mM+j4M15wiQ8neqr586evijt0w71rKNLnoecnr+Q5TUbUILRx
+ AeLQMmjXnM4lc1N/kMtWFNFyLiK4RdqDGWDK+aw250TEW5umdp8JRvP2gmDdmdtaaZob/brLYhZ
+ CFzR1WyBkG9KOvxUD1du2zH3KcT3yq7GLpDXPKRs9bFPSfarSddj5uDjR6i8A93W+Q5wmj1kqZd
+ VxDUH1DP1CG3G41ecK1cxb2Fh4qn6tveWmqE/PVQaxFVI1XYBP6NQR0nbkLRy7lyN+/i/USYko4
+ OqoSY1iTc7k/ekcjyLxdXQyyM0xdTzs5yLjb8no8MQJpDsILcM37BpBVOcXNOGGnTVT7Grnb8u9
+ ELmunJDL2jMVogrT+zb9nkHUIciSWCANcFXG17RIgl4N3AUGbj7bF1W2cim9Jbl8yzcTpVq5PP3
+ RXPWs9Jc7gIAgrJzXIQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_01,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 priorityscore=1501 lowpriorityscore=0 clxscore=1015 phishscore=0
+ bulkscore=0 malwarescore=0 adultscore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170031
 
-When khugepaged collapses an anonymous range into a folio below PMD
-size, collapse_huge_page() copies the pages in, but
-map_anon_folio_pte_nopf() marks the PTEs dirty only when the VMA has
-VM_WRITE and nothing marks the folio itself dirty. After
-mprotect(PROT_READ) the folio therefore holds the only copy of the data
-while looking clean, so MADV_FREE in one mapping marks it lazyfree,
-reclaim frees it, and another process that maps it reads zeroes. Mark
-the folio dirty before mapping it.
+Add bindings for the pin controller in the QCS615 Low Power Audio
+SubSystem (LPASS) Low Power Island (LPI).
 
-Found by static analysis with an AI coding assistant and reproduced with
-a test program on an unmodified kernel.
+The LPASS LPI TLMM is a dedicated pin controller for audio pins on
+QCS615 which supports 32 GPIOs (gpio0-gpio31) with functions including
+i2s1, dmic1, dmic2 and spkr_i2s_mclk_a.
 
-Fixes: e22f2fe72c74 ("mm/khugepaged: generalize collapse_huge_page for mTHP collapse")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daniel Wade <danjwade95@gmail.com>
+Signed-off-by: Karthik S <karthik.s@oss.qualcomm.com>
 ---
-Claude (claude-mythos-5-2) found the bug and wrote the fix, this
-description and the test program, which is available on request.
+ .../qcom,qcs615-lpass-lpi-pinctrl.yaml        | 114 ++++++++++++++++++
+ 1 file changed, 114 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/qcom,qcs615-lpass-lpi-pinctrl.yaml
 
-Tested on b3dfbde62cf1 with KASAN and lockdep: as uid 65534, write
-64 KiB, mprotect(PROT_READ), wait for khugepaged, fork, MADV_FREE in
-the parent. Unpatched the child reads 65536 wrong bytes; patched it is
-intact.
+diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,qcs615-lpass-lpi-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,qcs615-lpass-lpi-pinctrl.yaml
+new file mode 100644
+index 000000000000..dc1525d7bf55
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pinctrl/qcom,qcs615-lpass-lpi-pinctrl.yaml
+@@ -0,0 +1,114 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pinctrl/qcom,qcs615-lpass-lpi-pinctrl.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Qualcomm QCS615 SoC LPASS LPI TLMM
++
++maintainers:
++  - Karthik S <karthik.s@oss.qualcomm.com>
++
++description:
++  Top Level Mode Multiplexer pin controller in the Low Power Audio SubSystem
++  (LPASS) Low Power Island (LPI) of Qualcomm QCS615 SoC.
++
++properties:
++  compatible:
++    const: qcom,qcs615-lpass-lpi-pinctrl
++
++  reg:
++    items:
++      - description: LPASS LPI TLMM Control and Status registers
++      - description: LPASS LPI MCC registers
++
++  clocks:
++    items:
++      - description: LPASS Core voting clock
++
++  clock-names:
++    items:
++      - const: core
++
++patternProperties:
++  "-state$":
++    oneOf:
++      - $ref: "#/$defs/qcom-qcs615-lpass-state"
++      - patternProperties:
++          "-pins$":
++            $ref: "#/$defs/qcom-qcs615-lpass-state"
++        additionalProperties: false
++
++$defs:
++  qcom-qcs615-lpass-state:
++    type: object
++    description:
++      Pinctrl node's client devices use subnodes for desired pin configuration.
++      Client device subnodes use below standard properties.
++    $ref: qcom,lpass-lpi-common.yaml#/$defs/qcom-tlmm-state
++    unevaluatedProperties: false
++
++    properties:
++      pins:
++        description:
++          List of gpio pins affected by the properties specified in this
++          subnode.
++        items:
++          pattern: "^gpio([0-9]|1[0-9]|2[0-9]|3[0-1])$"
++
++      function:
++        enum: [ dmic1_clk, dmic1_data, dmic2_clk, dmic2_data, gpio, i2s1_clk,
++                i2s1_data, i2s1_ws, spkr_i2s_mclk_a ]
++        description:
++          Specify the alternative function to be configured for the specified
++          pins.
++
++allOf:
++  - $ref: qcom,lpass-lpi-common.yaml#
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/sound/qcom,q6afe.h>
++    lpi_tlmm: pinctrl@62b40000 {
++        compatible = "qcom,qcs615-lpass-lpi-pinctrl";
++        reg = <0x62b40000 0x20000>,
++              <0x62b00000 0x10000>;
++        clocks = <&q6afecc LPASS_HW_MACRO_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>;
++        clock-names = "core";
++        gpio-controller;
++        #gpio-cells = <2>;
++        gpio-ranges = <&lpi_tlmm 0 0 32>;
++
++        i2s1-active-state {
++            clk-pins {
++                pins = "gpio8";
++                function = "i2s1_clk";
++                drive-strength = <8>;
++                bias-disable;
++                output-high;
++            };
++
++            ws-pins {
++                pins = "gpio9";
++                function = "i2s1_ws";
++                drive-strength = <8>;
++                bias-disable;
++                output-high;
++            };
++
++            data-pins {
++                pins = "gpio10", "gpio11";
++                function = "i2s1_data";
++                drive-strength = <8>;
++                bias-disable;
++            };
++        };
++    };
+-- 
+2.34.1
 
- mm/khugepaged.c |    5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 4bbe319..8a81cab 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -1422,6 +1422,11 @@ static enum scan_result collapse_huge_page(struct mm_struct *mm,
- 		if (pte_ptl != pmd_ptl)
- 			spin_lock_nested(pte_ptl, SINGLE_DEPTH_NESTING);
- 		pmd_populate(mm, pmd, pmd_pgtable(_pmd));
-+		/*
-+		 * The PTEs are clean in a read-only VMA, but the folio holds
-+		 * copied data: mark it dirty so reclaim cannot drop it.
-+		 */
-+		folio_set_dirty(folio);
- 		map_anon_folio_pte_nopf(folio, pte, vma, start_addr,
- 					  /*uffd_wp=*/ false);
- 		if (pte_ptl != pmd_ptl)
