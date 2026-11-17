@@ -1,99 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794927255;
-	b=hWUs94/jT7y8DPN9j+e6pHWSaHa1oRxl46Bmqq+XPBkumfEnviWC/RUyE3G/m1rHASd7
-	 mgfq6Bofi9ay7WYXpITrrRNVugFWJyxIs9mQpGCi9cz2dEORafEoPzkOt/T3A/vjpB7XS
-	 vUW1/iH9uNHsf3YfbzbNpj6b/iIiP4MgZR6O/RlSfYMsjj3Ctt2WgyBNkoHmvkl+iCHnZ
-	 dDKUzfh1n4Rjp/JfPCFDjayivq7S/KtzpZgU3trUjsEtcoj7vDgRY5Pd+f+S4HF8RcVxj
-	 jDIKp8UwIg/WAI5ki3uo+ryfto8MVGOZL6F31s5A4r7pHaCuy9/eAXxacElsP7IvhLw==
+	t=1794927271;
+	b=t8zte1FKU2T3cJyexp0ZlhIQ+dvweWRObXTD3lWvgz9B4l6qQi37a+/omN8i+0PqOSXy
+	 8s8EGFxkBd5XESimRMQajTgasuAieli3dfUA8/fD2dv/ywPgefLAqFsgrdAMpkBn+G7Wu
+	 QdYYx1SOasedhMqk+fGxRyXYnNwVQ1j1+SZIbiOLtkHg4CkKQnf0QfNcee0613xUPBs6j
+	 86VPXmj3NbvuA3ggLjquTVnXU8r+md1yZDIJQfhQysKKKvTuiO2oGnosGQMfuIpqo6Y19
+	 vzz+Px9IL/XkJubJsp4qXldgyRujc/r0hBUT+PFqQooxQblp5ddfXiw+nh6JiS6gMGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794927255;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=nR9F0XM+B7rn1+ea8p9fct2rHHNP071jbR/ecoiRPcU=;
-	b=bd3jQHVLqpZu771GqJ0qtoYFAPTk7KhO99+dKQFzB9GKEW4ONrJaZONqEHIxwRTtMJUB
-	 yojAeXAD/zpGvnEhiPM5R1KU1mBQx2eWNZkaC4oU350IBIYzpaSEItgez73vfVWzpZ5o9
-	 EoSi0rapSuly9RoBALVKUfYLpaKsH+fY4YhJYQ2GaZzG2aykurI0XgUzE6NW7yNOQakJO
-	 a6nrG6wulSI2Kvj0t9YO6aEy4azrMVQE9QnVTH3slKPtYr8JUScknuejK8xikCFx8dnDp
-	 3jUKaT7y35Bl+2u5rG8IVo2T7khb5drU9vn0tvTt5xME8BN4Q51MxaWYWJq8EvPAcsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794927271;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=G2z1WNSCI5+9W0otpYmPG1HlbmXpwdh9y3di0gUnCg0=;
+	b=LnYXWtCsEtsW2MEBtovwXKuR0P4EHKpam47ZCYCK8SRteszc8/jm9idVOaQ1DSwjdP0s
+	 /wwalwl8POTF2ECjZP4Gdz9Kwx6MTm4ROlRvoahicEb8pEDl+VpnXmROBtVm/cHkvEjzi
+	 xVoSTrk7yIThx/o9/LRZDD5TGgR2D3V+AiDj1ZAwT+3r4fKo3R5SZqfCqgt2sGsxc02/z
+	 0kAiW8eaIv1OXlOkLhsiwDIQvlOr1agH2ZXlMu/RDrzFAH+EWS0Fio190UAU/z7omHEmn
+	 Tc0x+TKOqkmH5+g5AZT4GtVr8Ma6shw1K/IhwcA8Ol5TEFivj78dM/vF8a2LTdPZmxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wqtSEMml;
-	arc=none smtp.remote-ip=209.85.214.172
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=febUlXed;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1F36606A32F
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:54:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1F36606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C47F606A32A;
+	Tue, 17 Nov 2026 14:54:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C47F606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wqtSEMml
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e99b1e5b4cso30089425ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:54:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794927254; x=1795532054; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nR9F0XM+B7rn1+ea8p9fct2rHHNP071jbR/ecoiRPcU=;
-        b=wqtSEMmlG1gOfAIkYZv+51zPWURrJJILxZTsD9orlam++U3NvVVUOXSrBmPeJw9TfO
-         ndE1OjEQUg8/2ntJ+aJEpDb5dbeS5eqrKx2GjOYEnS27Zpqg/mTdWGkU509KWk0OlNrX
-         5UqBDzMG9yTO7/2ztUl5MW2oQywJ1RhrHvhYslNpSj/4qGqtIwtuXdHy7l/k91EgCX6D
-         HifCS/QmJFIgOl+gYvgfSmU7PIfKRCzU0ZI4x3tBeKrn6cT9cfjmV58PaERNz8x+KuGf
-         oUjOjLKtYmaxOMM0b8IOvd/ytzCXUdpMf364wbQS8Op2iJyMN2jzT5xYqHHrhlVlLQz8
-         ZC8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794927254; x=1795532054;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nR9F0XM+B7rn1+ea8p9fct2rHHNP071jbR/ecoiRPcU=;
-        b=oYeSwkapcrnAaCysLLsZ/MsEeNbc9qa94JAxgBB8VzNkjx5hJTGjd+zbZ6KSGXRxFP
-         SaA/F3694dFQ3I6wPWcwC9nOLlc4hy+jQFyfc9VGh2MYJTHl/6gq06u+iqsDYb0P9cxD
-         O0AAEaJJywYdC19yv3TU7VljxwpkbKiNqtwDOxu3rwt7iNCNN7dJuDuGddYPN2QADCDv
-         hGl1riy7BbimWJHm6c7IDBPaDujenHzWag4y3WZIMpoZHF/LATK/FBKEHxAtzd6/MfYu
-         gANxpVWUUJ+ksxgt+GjRDV/4f7xMSyxKe4aBcBay/AB1T49sYQdXHGTHlngmPmxrocOW
-         tgnA==
-X-Forwarded-Encrypted: i=1; AL+hErGfNtQmkJplu8f/0i2JjRFGVer5keuy0doiTlcoxy3hbR8g7xHR0NTbni2YHnO0mOnRN2LbHjPN4oReFIg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/DIumL2sqO5J1E0VdR5WLcUqgACeNfbpT+5//inliMuzF0P8oo
-	pAKCopVqvhAPw7wQkM4aDOtInAUoQbWUjtT8KcKXz1GFZGM374rjztUk
-X-Gm-Gg: AZFdTZc63Ids3tBpXRunIpC2dXIT2SfALNhOM66cBd0hVsUwjgD8BXsevlsOjLhpcUf
-	eE1NFRDjW3USJFF2Aa1gwZdLWAtkWPTU/s2OqxkJLhmL36RSPhBd8UJFlvJ+epGByEEQJTOZEY3
-	GutIqInHpTxzANAWi1cRMdf6+QhXEb1IL53DBvoSTgTSVKFNKbf1dsIyD15AaehKCCuR4rdmhYa
-	mgdxE3cG9kqNGyjq92x3oaeB1F7gsZicZ400r4jiQaAK5LYJAMs6E0l6QcxSYGo/dJl4mJ6cjsq
-	QsNOazbO5QQK/0W0CsOvmbWZfkUE8Rz096zXh9+D2eCCdVc/71zH0pKG8p9oROuhPkjuaRbhVKd
-	h5XhxOxGXT4mnMpWOPkIpv8dNXFJUEdnqFfCLHSskpIE/iLfW64QShNc6+9kP2fI3OfrLDqCEhy
-	ovSMTcbn99VFE99tORWCEOTuxWffhxZwIN3ca4YyxyHDtUNS50bJK04irmYgPfDK01AnYSndDll
-	re1XhjN5g1v/1e67RJhYDwqLcQVgehtU+JGvjs2ID0AqZ40seT32oVq2EsXJSjGCkx1fBtct+ty
-	9VunwAfAE7Tg/KtlIVwkFHwBaoLkWkYu1Gy0M1RuhJ+exIiNQ9q0Qs8L3NattRRhaBL/Fiytmhs
-	epMeOnKNPkxHoeOtYgQMLU9ebdFqKl9aR5nHrKwPM
-X-Received: by 2002:a17:902:d4d2:b0:2e9:2a1a:8b69 with SMTP id d9443c01a7336-2ee0dcc33ebmr121427145ad.55.1794927254093;
-        Tue, 17 Nov 2026 06:54:14 -0800 (PST)
-Received: from lwq-System-Product-Name.. ([2602:feda:30:cafe:ec49:29ac:0:f6])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd7a7ff9asm16767345ad.54.2026.11.17.06.54.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 06:54:13 -0800 (PST)
-From: Yaohan Li <shunsheng1218@gmail.com>
-To: Felix.Kuehling@amd.com,
-	alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: airlied@gmail.com,
-	simona@ffwll.ch,
-	oded.gabbay@gmail.com,
-	kent.russell@amd.com,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/amdkfd: unlink destroyed event waiters from the wait queue
-Date: Tue, 17 Nov 2026 22:54:06 +0800
-Message-Id: <20261117145406.1092636-1-shunsheng1218@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=febUlXed
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHBwbIp1089802;
+	Tue, 17 Nov 2026 14:54:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=G2z1WN
+	SCI5+9W0otpYmPG1HlbmXpwdh9y3di0gUnCg0=; b=febUlXedSv0fOZyNM4toYN
+	pyfeQC6dy7gNvVTfcRdxgB2fUzwsApBgMgjwiLSyvnkmYorthpGF/4dCEdQHQ0mh
+	woXv5L89isg3NXd86vObo5Vo9yY0q+0R8iutl+uJpxV78jgE+ZS9D12WAp3IBD17
+	Nx4mqyHyaGK1ZZqQDOUCz2kFemq1IAipLOuQ/IOTFlUg/IMyWkEhrRkIbnbMEV38
+	dI4HiYVs77bZehmysFylepNOYUNf+vvFFKIB+fzIcueZ77ky3S3nhhy2qMV7uGUg
+	l/OAw4qyiHX5hp6B2tPV1h+TCcJP/6s4wtmlFY5YbJptX9ragMPPduh1ZAFdNO5A
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hxe2db6x0-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 17 Nov 2026 14:54:16 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHC5tAP3508343;
+	Tue, 17 Nov 2026 14:54:15 GMT
+Received: from smtprelay03.wdc07v.mail.ibm.com ([172.16.1.70])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4j067nc3p2-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 17 Nov 2026 14:54:15 +0000 (GMT)
+Received: from smtpav02.dal12v.mail.ibm.com (smtpav02.dal12v.mail.ibm.com [10.241.53.101])
+	by smtprelay03.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AHErOMQ27853368
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 17 Nov 2026 14:53:24 GMT
+Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9BB1058066;
+	Tue, 17 Nov 2026 14:54:14 +0000 (GMT)
+Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 5101058060;
+	Tue, 17 Nov 2026 14:54:12 +0000 (GMT)
+Received: from [9.61.5.249] (unknown [9.61.5.249])
+	by smtpav02.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 17 Nov 2026 14:54:12 +0000 (GMT)
+Message-ID: <11341b42-f641-49da-b823-d7c083d83a9a@linux.ibm.com>
+Date: Tue, 17 Nov 2026 20:24:10 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,84 +86,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] block: return early when the elevator doesn't
+ change
+To: Qiliang Yuan <qiliang.yuan@linux.dev>, Jens Axboe <axboe@kernel.dk>,
+        Damien Le Moal <dlemoal@kernel.org>, Ming Lei <tom.leiming@gmail.com>,
+        Hannes Reinecke <hare@suse.de>
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Christoph Hellwig <hch@lst.de>
+References: <20261116-bug-block-elevator-unchanged-v3-0-cb4dda2dadf4@linux.dev>
+ <20261116-bug-block-elevator-unchanged-v3-2-cb4dda2dadf4@linux.dev>
+Content-Language: en-US
+From: Nilay Shroff <nilay@linux.ibm.com>
+In-Reply-To: <20261116-bug-block-elevator-unchanged-v3-2-cb4dda2dadf4@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA1NyBTYWx0ZWRfX07yao+Tok/F/
+ TNnmoz0tLbdZrao4DDgSwTvuPlMQf8A+LRAzR0Qk4vGlsFGa71pQCJfOT0Dzp1A3/9d+pAHNTnr
+ Fl1EVyENoWRlc1nC0fnGm7rqxit/FAQ=
+X-Proofpoint-GUID: 9I0Bk_QM5L8rCCqSV5WjolE2W5Mhoco3
+X-Proofpoint-ORIG-GUID: PQsvkT4QhkRE6BeE1zFigzzaZ-XNRkwX
+X-Authority-Analysis: v=2.4 cv=IruL47/g c=1 sm=1 tr=0 ts=6afc6a99 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
+ a=0xM2EKjX6uQc8llLSOYA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA1NyBTYWx0ZWRfX1XT07RgyJfio
+ 0brGkaf+U1gMvDloTCIm/vopopUuHQaEBa/jVqTuy4ytE9A4kl05GDaJvA9YSd6NSNbN+YMhmlS
+ Ptjj8x2WDpWz/gWd0p8y/eswN/B4n2PwGSbqLNbyjexLIpVQgndRpgqyjQRzNGvPi+oaQG8ZP1X
+ NrOjew8C+XJXifUte/ZeccWF0AIIdH6FfBA34GQi0oNBWCM+8WHZ8T9F+NIt6TLeVuUb7kA0gLa
+ GdLmieQyMSNJrXiEM8+fL9xK2D0bnGIRlclRT0WeETHeM1NwY1rUgVcvYnMZ9bAhVF7De91WXTl
+ a05wJHBk/aoMYwua6Ri8LSFxD3wIGJ/2KHcTxi14czeP0FjqmjwYUvkAFmMNNK6kSwYp5I7SkUc
+ vX2NGnOh+n5ZBxa2637XbuOidcLrySqtbIbQ21tu7cwfatnd5Nh0Kxxnq0gOCl3V2bj74ALyxm4
+ mKOUJPSnskL84B0smaQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_02,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ malwarescore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170057
 
-destroy_event() clears waiter->event and calls wake_up_all() before the
-event is removed from the IDR.  The waiters use init_wait(), so a
-successful wake-up already unlinks the wait_queue_entry through
-autoremove_wake_function().  A waiter that is already runnable, though,
-is not woken again and stays linked to ev->wq after destroy_event()
-returns.
+On 11/17/26 8:26 AM, Qiliang Yuan wrote:
+> Writing the scheduler a queue already uses to queue/scheduler used to
+> be a no-op. elevator_change() now only checks for an unchanged elevator
+> after freezing the queue, and doesn't treat "none" on a queue without
+> an elevator as unchanged at all, so that case also quiesces the queue
+> in elevator_switch() and resets nr_requests.
+> 
+> Every such write therefore drains in-flight I/O and waits for an RCU
+> grace period. udev rules and tuning tools that set the scheduler
+> unconditionally stall I/O on live disks each time they run.
+> 
+> Check under elevator_lock whether anything would change before
+> allocating scheduler resources and freezing the queue. The check can
+> race with another elevator change, which at worst leads to a redundant
+> switch, so keep the one done under the freeze as well.
+> 
+> Writing the current scheduler to queue/scheduler of a null_blk disk 20
+> times takes (median):
+> 
+>    operation                 before (ms)  after (ms)  change
+>    none -> none                     9.11        0.08    -99%
+>    mq-deadline -> mq-deadline       9.05        0.08    -99%
+> 
+> 4k random reads at queue depth 1 for 10 seconds, while "none" is
+> written to queue/scheduler every 50 ms:
+> 
+>    metric             before  after  change
+>    IOPS               340562 390392    +15%
+>    max latency (us)    16302   1224    -92%
+> 
+> Fixes: af2814149883e ("block: freeze the queue in queue_attr_store")
+> Signed-off-by: Qiliang Yuan<qiliang.yuan@linux.dev>
+> Reviewed-by: Christoph Hellwig<hch@lst.de>
 
-free_waiters() only calls remove_wait_queue() while waiter->event is
-still set.  destroy_event() has already cleared that field, so a waiter
-that is still linked there is freed without being unlinked.
-
-ev itself is released with kfree_rcu(), so a reader that reaches it
-through RCU -- kfd_set_event() or the GPU signal interrupt path -- can
-take ev->lock afterwards and walk ev->wq in set_event(), writing
-waiter->activated into memory that has already been kfreed.  The
-waitqueue_active() test at the top of set_event() reads the same list.
-
-destroy_event() used to unlink the waiters here.  That unlink was lost
-when the code was converted to wait_queue_entry_t by 74e4071665da,
-which moved the removal into free_waiters() and left the destroyed
-path without one.
-
-Unlink whatever is left on the wait queue after wake_up_all(), while
-still holding ev->lock, so the wake-up is delivered first and the
-remainder can no longer outlive its storage.
-
-Fixes: 74e4071665da ("drm/amdkfd: Use wait_queue_t to implement event waiting")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
----
-Prepared against v7.4-rc1-1969-g666539eecdf4.
-
-AI assistance: the analysis, the change and its review notes were
-prepared with Claude (Anthropic) as a coding assistant.  The author
-reviewed the reasoning and takes responsibility for the content.
-
-History: fe528c13acc7 unlinked the waiters here.  That unlink was lost
-when the code moved to wait_queue_entry_t (74e4071665da).
-
-Testing: compile tested only (x86_64, gcc 11.4).  No AMD GPU was
-available, so the race was not run.
----
- drivers/gpu/drm/amd/amdkfd/kfd_events.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-index 6e32a892d56f..adc27f25af4d 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-@@ -219,13 +219,25 @@ int kfd_event_init_process(struct kfd_process *p)
- 
- static void destroy_event(struct kfd_process *p, struct kfd_event *ev)
- {
--	struct kfd_event_waiter *waiter;
-+	struct kfd_event_waiter *waiter, *tmp;
- 
- 	/* Wake up pending waiters. They will return failure */
- 	spin_lock(&ev->lock);
- 	list_for_each_entry(waiter, &ev->wq.head, wait.entry)
- 		WRITE_ONCE(waiter->event, NULL);
- 	wake_up_all(&ev->wq);
-+
-+	/*
-+	 * A wake-up that actually wakes a task detaches its entry through
-+	 * autoremove_wake_function(), but a waiter that was already runnable
-+	 * stays on the list.  free_waiters() only unlinks a waiter while
-+	 * waiter->event is still set, so once that field has been cleared
-+	 * above nothing else will detach the remainder.  Leaving them linked
-+	 * would let a concurrent set_event(), which reaches ev through RCU,
-+	 * walk a list pointing at already freed waiters.
-+	 */
-+	list_for_each_entry_safe(waiter, tmp, &ev->wq.head, wait.entry)
-+		remove_wait_queue(&ev->wq, &waiter->wait);
- 	spin_unlock(&ev->lock);
- 
- 	if (ev->type == KFD_EVENT_TYPE_SIGNAL ||
--- 
-2.34.1
-
+Looks good to me:
+Reviewed-by: Nilay Shroff <nilay@linux.ibm.com>
