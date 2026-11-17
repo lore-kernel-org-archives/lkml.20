@@ -1,64 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.219
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794933415;
-	b=5bOhCRtgsSb9cvZe0M7gWku66UTMRoR7xmqs7pVHq6ErKMp8halyldv20X77dH+3w0Am
-	 qDVj1RFGYtCyAuWo/18RuQ4QDRYiwNQ8SEIGjUuQCVezoEF1UFRYNOo9a8OLLXVtngDzc
-	 SDen2VULCWZr6CFCMxMHRmz99YLQTagMqKU02uRSjGSQChvDGWreUe9l8lCZ0UZlRcEV2
-	 Aj3S6IQoDUrNQ1i/8U3f5fAoL5s45q9l3DugkamwffXY+aeqK27KxEHJve/IThGrsNQJn
-	 E8khlUCnE3+jlpVAQuDOXRMNU891uu+KbwOn6Tq0wYYGmWjdzFUVd8ltFKBJ2iVUULg==
+	t=1794933418;
+	b=TKvv24QwiGl0Tc30NhSLaT94cE0lEiP4dmx2XXRdz63RIhTf+xJz0PRhsciUAN2BlMyy
+	 I2yJxIxaCkn1zse8LgzDyWpSwajScO2UAJqTTQKewQT6zxCmi0dy1FWsiSx+zAmiRxn+X
+	 IT47D4NI4MJ5og2wpa5clmjexSuftwdfwrISDKdLDPWQbeAWBGrGUbcK+mAbhfCiKE3BX
+	 J6nMdYucBV6Jm+Rcw8v4JLhOU39ZuTnQat1F3oRL/fpzNQu6D38V9MbgWIx/QKxPGHLbT
+	 3rtd6+SGIf5vC6gRvsjnl0lf2OWXa3B15g32XoSM6i4Jv/So2j6gcYoDjGU0CLKUVlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794933415;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=LtO2Y97atFfjM45o/5R+9MnpH4sUAPyrAmnZSjvt41g=;
-	b=GZIwVxzaQcmxAjLpfgFiJjhU6Vt6JY1nN0CYfpQDPzz/onM8f/SaZQXUCyKC5o+Q5WxO
-	 CiR44k1RaOzSzb86GGDBIL61xeRzaA7xPDoioJJ+NNf03tpYBbzFaUHMpPMQmogM/u7Z/
-	 35xqOTeK3XwVJBY+In4uB8FhWwmUQvtwMM796osJ0pb9JftA5aPw+nc8ncuKWhnNMj/CA
-	 pQpxr+2LbHbfB1IIXFI9TU+B+/oD0g1NSOIs/xWeWgLG0Ryccs/8hjOPPagriaZu8GyZI
-	 m4qXzXpOFIh1R4P+vaf3NYrRLmQSoTaXASu4BlC24fmKQFByovYgVkEyyPVNWB1ZwFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794933418;
+	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
+	 Content-Type:Date:Message-Id:To:From:Subject:Cc:References:
+	 In-Reply-To;
+	bh=tgGdYiCRp9arr66Rhn5MXQJr5Tmse7T13KsVZcqATvc=;
+	b=JiNiYN8+drlfviA5pgnQkOuYBYYpmYeoXAo212zf9PE8BSGswc0j/DCK8t0wvGYu7RPI
+	 vM+XcUi/o/Apy7Gg2OGF/zdPxvBFMq2w7lRAIywu6x998mKYWd4UKFNtlD0u6zOck7Wve
+	 wdhAvdqO5zRlL5vti6UJY9gsNJxS/9PLpODVcZw8ap/E5WcIbjEXURV13UWxnSpBhXko4
+	 7sUygZXNT9pDRTTkfHOemulx8eGOdVDyiZ1ciUL5NlfqAqb1MjyBf5m4n9hDn3a2fknsr
+	 J130z1Jb8MpRYdLIxteWz85V590pt1XgvPcko0xCmugLs5tgC6Vv/IBuAqPk4dGkEXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="E/8v1Q0f";
-	arc=none smtp.remote-ip=91.218.175.219
-Received: from mta0.migadu.com (out-219.mta0.migadu.com [91.218.175.219])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="J/KyEHp6";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 413E7606A32F
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:36:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 413E7606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D662B606A339;
+	Tue, 17 Nov 2026 16:36:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=E/8v1Q0f
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=wITi1xWZ2npOttf0kmXzox4ZAbCuBGj497SvMh9Y7rU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794933413; v=1; x=1795538213;
- b=E/8v1Q0ft74i1SikdgnSuuEymGQNmfur10hKj6GLML9Vu2YOVGsrVOp6PZ3VIQqpJBY0/u8I
- uR7Z7yUumqSjY2Lzw0279VELezvwz6mF7ecvyusS6pfKkkII4ByYCXYkvB3dtULCBKD9VS0ZVsM
- TBFvwmtYuVO+CnRJ4EDQZNgI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f9f8caa2c26511e5;
-	Tue, 17 Nov 2026 16:36:53 +0000
-X-Mizu-Trace-ID: f9f8caa2c26511e5
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 17 Nov 2026 16:36:54 +0000
-From: Bradley Morgan <bradley.morgan@linux.dev>
-To: Christian Brauner <brauner@kernel.org>, Serge Hallyn <serge@hallyn.com>
-CC: =?ISO-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- Josef Bacik <josef@toxicpanda.com>, linux-security-module@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_userns=3A_security=3A_Inform_LSMs_?=
- =?US-ASCII?Q?of_capability_check_during_userns_creation?=
-In-Reply-To: <20261117-brennen-tastatur-ekelhaft-22ee93d5200a@brauner>
-References: <20261111205814.3282968-1-bradley.morgan@linux.dev> <aveDlb6PlPSVoLD9@hallyn.com> <4A0D804A-1199-4402-91EE-E37E8D6EA9E7@linux.dev> <0c403a09-38cf-4953-a73a-ee57837b3799@hallyn.com> <20261117-brennen-tastatur-ekelhaft-22ee93d5200a@brauner>
-Message-ID: <69BA4071-048F-4D90-9936-4B4856AABDF7@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J/KyEHp6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A1CD1F000C4;
+	Tue, 17 Nov 2026 16:36:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794933418;
+	bh=tgGdYiCRp9arr66Rhn5MXQJr5Tmse7T13KsVZcqATvc=;
+	h=Date:To:From:Subject:Cc:References:In-Reply-To;
+	b=J/KyEHp6WZkYwqBQMW1p9K2gCDFtEvoeGxSBGmb9nCN12CYtopOnKuvpw5JKZQRR+
+	 6gLCpkBzEnH++3YQEnMORwrw+jecKasETW3mwRJbiOollaFCfCaJ1JvF6JEkHnvZfr
+	 A02Qimv9QEi8HDcxjBtIn8tfKKYPukbuOqjibH097LN8S1sYU4J9jBOyjn5zajjeta
+	 kDLivp7MbvSXALiioN206smDguo0tTi+HE/Md9Y0gj64D+ZyCuwzrwsbYPG7lybkp/
+	 VMJn7RMKGVz6LeZyit6HUW4qqmVPJLCsWis6eIIjvzqZ6PCWxLXAoD9levG7wHRHXI
+	 zTP6khDzdzqYA==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,50 +48,170 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 17 Nov 2026 17:36:53 +0100
+Message-Id: <DMXMSIQONGUW.1RRNS7I6LACD6@kernel.org>
+To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH] rust: DamFence: Remove warning about unsignaled drop
+Cc: <phasta@kernel.org>, "Sumit Semwal" <sumit.semwal@linaro.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
+ Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, <linux-media@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+References: <20261112101015.528127-2-phasta@kernel.org>
+ <5d466f7c-2e70-4011-be04-9ffdf877b915@amd.com>
+ <49298d3a328c1695ea27993f714c20b8a1c05f32.camel@mailbox.org>
+ <e2ec8a39-56c3-4274-91ce-60c273904877@amd.com>
+ <ab99758408df682c68a3792cc3014b77d6e1c8ab.camel@mailbox.org>
+ <c2dd46ea-94d8-4720-af37-897c91809338@amd.com>
+ <DMXJ8TBSZJJ4.3HG0OJDI9URTT@kernel.org>
+ <8da4a8c0-1740-450c-9cf1-1a7b21d12997@amd.com>
+In-Reply-To: <8da4a8c0-1740-450c-9cf1-1a7b21d12997@amd.com>
 
-On 17 November 2026 16:31:16 GMT, Christian Brauner <brauner@kernel.org>
-wrote:
->On Sat, Nov 14, 2026 at 08:34:07AM -0600, Serge Hallyn wrote:
->> Nov 13, 2026 15:54:37 Bradley Morgan <bradley.morgan@linux.dev>:
->> 
->> > On 13 November 2026 21:39:33 GMT, "Serge E. Hallyn" <serge@hallyn.com>
->> > wrote:
->> >> On Wed, Nov 11, 2026 at 08:58:14PM +0000, Bradley Morgan wrote:
->> >>> Right now security_capable() gets called in create_user_ns() to
->snapshot
->> >>> whether the parent could setfcap, but the LSM gets zero context on
->where
->> >>> the check actually came from. It is the same story as setid: without
->a
->> >>> dedicated flag, security modules cannot tell this apart from regular
->> >>> capability checks.
->> >>>
->> >>> Add CAP_OPT_USERNS_CREATE and pass it along from create_user_ns().
->> >>
->> >> This should be patch 1/N in a set that introduces a user of it
->> >> in some lsm.
->> >
->> > hmm. Did you read Christians suggestion?
->> 
->> I did, when he first sent it. Actually it seems to me that what the
->> lsm would really like to know is that this is not for an immediate use
->> of setfcap, but possible future use. But that doesn't really matter. I
->> wasn't judging the patch. I was just going by what i believe is
->> general lsm subsystem policy.
+On Tue Nov 17, 2026 at 3:50 PM CET, Christian K=C3=B6nig wrote:
+> On 11/17/26 14:50, Danilo Krummrich wrote:
+>> On Tue Nov 17, 2026 at 2:40 PM CET, Christian K=C3=B6nig wrote:
+>>> I completely agree that we can't fix things from the dma_fence code, bu=
+t it
+>>> is our obligation to tell the user that something very very bad happene=
+d.
+>>=20
+>> That's the point, we can't infer that "something very bad happened" from
+>> dma::DriverFence being dropped unsignaled.
+>>=20
+>> In Rust we use the RAII pattern, and drivers structurally embed a
+>> dma::DriverFence within the struct that represents the corresponding har=
+dware /
+>> firmware queue (e.g. through Jobqueue).
+>>=20
+>> Consequently, if dma::DriverFence drops unsignaled it means that the des=
+tructor
+>> of the structure that embeds it (which does the required HW teardown) di=
+d run
+>> already.
 >
->My main point is this: right now security_capable() doesn't actually
->specify what specific action it denies. I think we would be much better
->served if we had an enum that would allow us to annotate places where it
->matters what specific action is checked. I would make use of this in bpf
->lsms.
+> Oh WOW! The signaling state of the fence should *NEVER* be bound to some
+> object lifetime.
 
-Does this patch look okay to you? Would you like any improvements? (Except
-from adding a user) :)
+Let's engage with the argument and understand things before throwing
+overgeneralized statements like this around please.
 
->
+Realitiy is usually much more nuanced and what you say doesn't hold in all
+cases. The case described above (and clarified below) is one of them.
 
---- Thanks!
+I assume the fundamental reason why you say things like "software object ru=
+nning
+out of scope is not an indicator that the HW stops doing something" is beca=
+use
+the lifetime model in a lot of existing C DRM drivers is backwards.
+
+Drivers often reference count representations of hardware resources and har=
+dware
+states and hence keep them alive beyond what their actual lifetime should b=
+e --
+even beyond driver unbind.
+
+This causes lot's of issues and I'm looking into fixing this up, see my tal=
+k in
+[1] and an example from Xe [2] for reference.
+
+That said, in Rust we don't have this kind of ambiguity, lifetime and owner=
+ship
+of resources are well defined and the core infrastructure guides drivers
+accordingly.
+
+Consequently, it is perfectly reasonable to assume that a driver object tha=
+t
+owns device resources (such as DMA memory) will, in its destructor, tear do=
+wn
+the hardware to not access any of the resources it owns anymore.
+
+For instance, think about how your logic would apply to e.g. DMA coherent
+allocations.
+
+Those are allocated with e.g. dma::Coherent::zeroed() and are freed on drop=
+().
+They are then owned by whatever object represents the lifetime of the HW us=
+ing
+this buffer.
+
+Following your logic, we'd need to conclude that a dma::Coherent allocation
+needs an explicit free() method independent of its destructor as well, and =
+have
+the destructor print a warning and then call free() anyway.
+
+Now, eventually drivers would just call free() from the destructor of the o=
+bject
+owning the dma::Coherent allocation, so we wouldn't win anything.
+
+More in general, in Rust the object taking ownership of a device resource i=
+s
+responsible to deal with the device related state that makes use of this
+resource regardless.
+
+Insisting on an explicit method call is not improving anything in this mode=
+l.
+
+To get back to dma::DriverFence: This is slightly different, as there's two
+different signal states, but the fundamental guarantee is the same: If it i=
+s
+dropped, the HW has stopped accessing the resource that it guards already *=
+by
+design*.
+
+Signaling with an error on drop is arguably the correct thing to do, since =
+if
+the operation would have been completed successfully before already, it wou=
+ld
+have been signaled already -- if it drops unsignaled it means the hardware =
+was
+forcefully torn down (e.g. on driver unbind).
+
+
+[1] https://youtu.be/3A2vGbc_rxs?t=3D668
+[2] https://lore.kernel.org/all/as07AdBFlOQZrH_4@intel.com/
+
+> That sounds like an extremely bad practice to me. Just imagine anybody
+> grabbing an extra reference to the HW state object to inspect it for debu=
+gging
+> and the fence not signaling because of this.
+
+That's not how it works.
+
+Rust ownership rules will guarantee that the driver fence will be signaled =
+with
+an error (if not signaled already) if the HW state object is destroyed (i.e=
+. its
+destructor runs that tears down the HW). But that doesn't mean that the fen=
+ce
+can't be signaled (and subsequently be dropped) independently through the
+completion of a job before that.
+
+IOW, the HW state object (for instance) owns Jobqueue, Jobqueue owns jobs, =
+jobs
+own driver fences.
+
+If the HW state object drops (e.g. on driver unbind), the Jobqueue drops, w=
+hich
+makes their jobs drop, which makes the driver fences drop.
+
+At this point the driver fence either has been signaled already because the=
+ job
+completed before teardown (but wasn't dropped yet), or it will be signaled =
+with
+an error in its drop(), which is fine since at this point the HW state's dr=
+op()
+is completed already and hence the HW is stopped.
+
+Besides that, reference counting HW state objects is bad practice. HW state
+objects have a bounded lifetime, so there's no point in reference counting =
+them.
