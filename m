@@ -1,54 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794930912;
-	b=H4GkQd8ajP9ZIHzAGFS0TtJlaxpy6UGPDl9lYHFEP13Pzh5i83gvpTBHt++iBndVB6wn
-	 WfUt7Y1DJbd2J6qmOxwvO3kzbkzHcg+Fm+n36fKfeeet+j9lvmrR8zrnCHYz21QHpEfkq
-	 ihabdICc7BhVMf8TVBtQFM9zR14gKQ8StWcmrBgSmZ5iIbMr3oWnsjaiHodlq7Z/TKwt/
-	 fidY/71A93E7tbRmk6RFaNEDc0j8XB32cfJLzYphZjiJMt98Y/ZZV1NmIiZPRSkNF52gY
-	 htgNO4YRaPrpk73RSys36xOOk/Nfm1Q/tdh6CajmRVgigVg+Su+yQPxOlRG4DTuZvcw==
+	t=1794930911;
+	b=QAWJCA9fDoujX+TeYH8+eNf4zp/nwFimK6q8Yqqgs7Hv4WNDGDlWPcPMO/x6kdFCndtX
+	 YDdONHmmSjF5dYcocdQvk8w6lAQCreuHMrkiLImGDkhD3asLw/Uv49pGVi62e92AK+Rdt
+	 9OyyoZzKRVD1fxk6ycjqmFqYxggOS0thm0gDUfnYrdUJ3AqOvnD4OP9zKbYGVgXEkcOsi
+	 68qw7IjvGwin8Qs4ZE6aLBuCAh+FRdj6kJH6M7tgbMHJmceHBEhh/tYRPrakxmogqT+Y8
+	 mXCviCNeYprrdKZp/eTkSn/irrKWZ9v2f/kQWTigi7xPdCCTEIgKFi/nP1MBTBBtA3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794930912;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794930911;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=XgxlZZNQSDhCeE3vldSU17DsBsAk8DRist2NVpPCFhI=;
-	b=aMvh50t0dl/RHyyqvxwbkJKJKe//M3YXuKJbolOtiX/uPS8P65pw+LYFNfMwUlXZ0Bmm
-	 W61dneFIP4m5MfrhXJ+xHBWdDRQXKv53tOjhA66XzrATOOS9M0QYWSQp7BIuLXdbLJoJi
-	 kgPXxKF0UfHX57EPy6LxZRL2G7EkFSdRqmJSDXhSLXZ8Fw1alN42eDTezCG2RNrZtd1WJ
-	 e/KwIbqiQHGNuuZl0ptOQNS5GH+fWgqr3oh9+NttS569Ratr3NYus30arLqvd01bpQuUw
-	 PVUp8BJt8uynQuvUkczsnGeI849QDSxwKPd63na7b69XkE9ndyCdpcoH/dClELt8Ong==
+	bh=JjXoxd40XZCM2J7imHc+xCLCgdNEwbxkjgF0ryjpVlA=;
+	b=FyfaHAyPmxHd9atqWdIO9LVnPXXjqDOq++jY1T+aZQMPVfyi9qiwgxcEqjAxU0zA1tlV
+	 B7fsHlzVejcnEJcwclP3VMIGhSspDicafgFIyuo/W2Ylib/lVUJ8eGJvBsFKlT+3GBiTr
+	 IypQclhGLwN/jH0FA8rHVpYjYYQBDCruB1/DQA+d8beejltMbXR51mcOny269Dx4XDPVy
+	 e5fPOKtCdbGJZTQJgBsjlBVLr0KmOW+Eu5anHMNFrcDU7y5NQMphPiXXNFE8ZaHlsdD90
+	 8xxURmAfXsAE88Sm6jGxJNSmjEhtV1Z2ySEBvBpbHmT5DPkbxeos7j/fy/AVIouHeeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oJVbuSX0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aP8BaIh4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B04CE606A885;
-	Tue, 17 Nov 2026 15:55:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA026606A332;
+	Tue, 17 Nov 2026 15:55:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oJVbuSX0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31C6E1F000CA;
-	Tue, 17 Nov 2026 15:55:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aP8BaIh4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3194B1F000C7;
+	Tue, 17 Nov 2026 15:55:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794930912;
-	bh=XgxlZZNQSDhCeE3vldSU17DsBsAk8DRist2NVpPCFhI=;
+	s=k20260515; t=1794930911;
+	bh=JjXoxd40XZCM2J7imHc+xCLCgdNEwbxkjgF0ryjpVlA=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=oJVbuSX0KcGKZbYsciDFVrqFxcf2xwHherbHdjA31t/XqIwGeTwvavTzoeYd4Ctz8
-	 JaLz5GzMyZfmOlGW/yiCHU6TdClzdJo4w2XSLu7iF1YP7iWuJHD7f0aLytJwERjsh9
-	 YsyJUHON8R/ha0y6u2j9AW6pKrEpkZwVsqdKWN0yfem1thFfd1V2e1b/3Te+x0FKoH
-	 R3MTHRWJjXXwrzQ996H+Ttk1vVHzDGqUZmyrD3gbgHIgxeldf7qCPrLIuDsMDB0Srv
-	 KvfpjrAP7P/i/Q3gCyL+Tn99fZ9b9kIggvaL/lhlhs9L7hYxq1FisRFCPsd+pa5sVX
-	 cUZtasDRfqhGw==
-Subject: Re: [PATCH net-next v4 5/6] arm64: dts: s32n79-rdb: enable NETC IEP18
+	b=aP8BaIh4sP4CnWtehw0gVhPcmNcGR4lQ4G+wP2mbhujNlC3TafX+BIajd7bAM1hXc
+	 C1J8tstlQsf99ilWORjsZ+H6yRsD+ohfcqH4fmdDAa2z1DU7s0TkMlhVi0u+Oijp7W
+	 Lw03Of3eOFxNNEN8dQE6nMiQqOFz121SCbf1P1xAH9K514S1jcYsRZ/HkOznRP72r1
+	 CHBnwic1sgSQ4plsvNjLNRzffzgDR4QWLBAlbfRH053KABJIduTXvJKNl/x3jx1xuz
+	 UQS1E0XvBTr2TMQnneDs/XhJMlsOmFe08lzNRat7kize5kLd7vh1UKmVMPTDwn+u8Z
+	 gy/lV/oJq4xVw==
+Subject:
+ Re: [PATCH net-next v4 3/6] net: enetc: Enable probing of version 4.4 devices
 From: netdev-bot+sashiko@kernel.org
 To: claudiu.manoil@nxp.com
 Cc: netdev@vger.kernel.org, s32@nxp.com, bhelgaas@google.com,
  linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, kuba@kernel.org
-Date: Tue, 17 Nov 2026 15:55:11 +0000
-Message-ID: <179493091171.3136.308017869378286942@kernel.org>
-In-Reply-To: <6f1ea6caef6ca01c9a6384cd1024384d31848c53.1794581338.git.claudiu.manoil@nxp.com>
-References: <6f1ea6caef6ca01c9a6384cd1024384d31848c53.1794581338.git.claudiu.manoil@nxp.com>
+Date: Tue, 17 Nov 2026 15:55:10 +0000
+Message-ID: <179493091076.3136.7730860553084197808@kernel.org>
+In-Reply-To: <d783ccebf4b38bfd1e2ede44c36682269a5bc68e.1794581338.git.claudiu.manoil@nxp.com>
+References: <d783ccebf4b38bfd1e2ede44c36682269a5bc68e.1794581338.git.claudiu.manoil@nxp.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -62,10 +63,10 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
+Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 1
+Critical: 0 · High: 0 · Medium: 2 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -73,124 +74,138 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] This patch turns on `&netc_iep18` in
-  arch/arm64/boot/dts/freescale/s32n79-rdb.dts so that, per the commit…
-- [Medium] Setting `&netc_iep18` to okay makes the ENETC v4 PPM PF and
-  VFs live DMA masters.
-- [Low] The new `&netc_iep18` override in
-  arch/arm64/boot/dts/freescale/s32n79-rdb.dts is added after `&usdhc0`.
+- [Medium] This patch adds ENETC_REV_4_4 entries to enetc_info[] so that
+  S32N79 PFs (0xe101/0xe110) and VFs (0xef00) now probe.
+- [Medium] When an ENETC v4 VF cannot get the IP minor revision from its
+  PF over the VSI-PSI mailbox, enetc_vf_get_revision()…
 
 --
 
-arm64: dts: s32n79-rdb: enable NETC IEP18
+net: enetc: Enable probing of version 4.4 devices
 
-This commit enables the NETC v4 ECAM bus #18 on the S32N79-RDB board. The
-goal is for the ENETC v4 Pseudo-MAC port (PPM) PF and VF instances to be
-probed.
+This commit adds driver data and platform info entries for the ENETC v4.4
+PF and VF devices on S32N79 SoCs. These run with a 500 MHz system clock.
+The PFs use the 0xe101 or 0xe110 device ID and the VFs use 0xef00.
 
-> diff --git a/arch/arm64/boot/dts/freescale/s32n79-rdb.dts b/arch/arm64/boot/dts/freescale/s32n79-rdb.dts
-> index 1feccd61258ef..897ba24ac03ae 100644
-> --- a/arch/arm64/boot/dts/freescale/s32n79-rdb.dts
-> +++ b/arch/arm64/boot/dts/freescale/s32n79-rdb.dts
-> @@ -68,3 +68,7 @@ &usdhc0 {
->  	no-sdio;
->  	status = "okay";
->  };
-> +
-> +&netc_iep18 {
+> diff --git a/drivers/net/ethernet/freescale/enetc/enetc.c b/drivers/net/ethernet/freescale/enetc/enetc.c
+> index 855b2d3b87182..e3aa117d323d5 100644
+> --- a/drivers/net/ethernet/freescale/enetc/enetc.c
+> +++ b/drivers/net/ethernet/freescale/enetc/enetc.c
+> @@ -3840,6 +3840,20 @@ static const struct enetc_drvdata enetc4_vf_data = {
 
-[Severity: Low]
-This isn't a bug, but Documentation/devicetree/bindings/dts-coding-style.rst
-says:
+[ ... ]
 
-  When extending nodes in the board DTS via &label, the entries shall be
-  ordered either alpha-numerically or by keeping the order from DTSI,
-
-The existing overrides in this file are in alphabetical order (irqsteer_coss,
-uart0, uart5, uart6, uart7, usdhc0). Should &netc_iep18 go between
-&irqsteer_coss and &uart0? Keeping the DTSI order would also put it before
-&usdhc0.
-
-> +	status = "okay";
+> +static const struct enetc_drvdata enetc4_s32n79_vf_data = {
+> +	.sysclk_freq = ENETC_CLK_500M,
+> +	.tx_csum = true,
+> +	.max_frags = ENETC4_MAX_SKB_FRAGS,
+> +	.eth_ops = &enetc_vf_ethtool_ops,
 > +};
 
 [Severity: Medium]
-The commit message says the bus is enabled "so that the ENETC v4 Pseudo-MAC
-port (PPM) PF and VF instances are probed". Does the PF actually probe when
-the kernel is built from the in-tree arm64 defconfig?
+Can an S32N79 VF end up with the 333 MHz drvdata instead of this one?
 
-The netc_iep18 host bridge node in s32n79.dtsi has no child nodes, so the
-ENETC PF function does not get a static of_node. For a pseudo-MAC port,
-enetc4_link_init() in drivers/net/ethernet/freescale/enetc/enetc4_pf.c then
-fails here:
+The VF gets its minor revision from the PF over the VSI-PSI mailbox. If
+that query fails, enetc_vf_get_revision() falls back to 4.1:
 
-	if (!node) {
-		dev_err(dev, "Missing of_node for Pseudo-MAC port\n");
-		return -ENODEV;
+drivers/net/ethernet/freescale/enetc/enetc_vf.c:enetc_vf_get_revision() {
+    ...
+	ip_mn = enetc_vf_get_ip_minor_revision(si);
+	if (ip_mn >= 0) {
+		si->revision = (si->pdev->revision << 8) | ip_mn;
+		return;
 	}
 
-The only other way to get an of_node is of_pci_make_dev_node(). The last
-patch in the series, "PCI: Create OF node for NXP ENETC pseudo-MAC
-functions", adds it as a final fixup for 0xe101/0xe110:
+	si->revision = ENETC_REV_4_1;
+    ...
+}
 
-	DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_PHILIPS, 0xe101, of_pci_make_dev_node);
+The query can fail in several ways:
 
-However, of_pci_make_dev_node() is only built with
-CONFIG_PCI_DYNAMIC_OF_NODES. Without it, drivers/pci/pci.h provides an empty
-inline stub.
+- -EIO when the mailbox is busy
+- -ETIMEDOUT after the 200 ms poll
+- an error status returned by the PSI
+- -ENOMEM from dma_alloc_coherent()
 
-PCI_DYNAMIC_OF_NODES is a plain bool with no default, and NXP_ENETC4 only
-selects OF_DYNAMIC. arch/arm64/configs/defconfig sets
-CONFIG_PCI_HOST_GENERIC=y, CONFIG_NXP_ENETC4=m and CONFIG_FSL_ENETC_VF=m, but
-it does not set CONFIG_PCI_DYNAMIC_OF_NODES.
+S32N79 VFs use the same 0xef00 device ID. So in that case
+enetc_get_driver_data() matches {ENETC_REV_4_1, NXP_ENETC_VF_DEV_ID} and
+selects enetc4_vf_data, which uses ENETC_CLK_333M. enetc_vf_netdev_setup()
+then copies that value into priv->sysclk_freq.
 
-So on a default arm64 build, won't the only device behind the newly enabled
-bus fail with -ENODEV? The PF creates the VFs through SR-IOV, so the VFs
-would not appear either. This is still the case at the end of the series.
+Before this patch every v4 platform ran at 333 MHz, so the fallback made no
+difference. On a 500 MHz platform, wouldn't enetc_usecs_to_cycles() program
+the default 600 us tx_ictt, the DIM rx_ictt and the set_coalesce values at
+roughly 0.67x the requested timeout?
 
-Would one of these work: giving the PF a static child node in DT, adding
-CONFIG_PCI_DYNAMIC_OF_NODES=y to the arm64 defconfig, or having NXP_ENETC4
-imply or select it?
+enetc_get_coalesce() converts back with the same clock. So ethtool -c would
+still show the requested values while the hardware fires about 1.5x sooner.
+
+Should the fallback change now that v4 platforms don't all use the same
+clock frequency?
+
+> @@ -3870,6 +3884,18 @@ static const struct enetc_platform_info enetc_info[] = {
+>  	  .dev_id = NXP_ENETC_VF_DEV_ID,
+>  	  .data = &enetc4_vf_data,
+>  	},
+> +	{ .revision = ENETC_REV_4_4,
+> +	  .dev_id = NXP_ENETC_PPM_DEV_ID,
+> +	  .data = &enetc4_s32n79_ppm_data,
+> +	},
+> +	{ .revision = ENETC_REV_4_4,
+> +	  .dev_id = NXP_ENETC_PF_DEV_ID,
+> +	  .data = &enetc4_s32n79_ppm_data,
+> +	},
+> +	{ .revision = ENETC_REV_4_4,
+> +	  .dev_id = NXP_ENETC_VF_DEV_ID,
+> +	  .data = &enetc4_s32n79_vf_data,
+> +	},
 
 [Severity: Medium]
-With this bus enabled, the PPM PF and VFs become live DMA masters. The
-netc_iep18 node in s32n79.dtsi has:
+Does enetc_get_phc_index_by_pdev() in enetc_ethtool.c also need an
+ENETC_REV_4_4 case? It has its own per-revision table for the timer devfn:
 
-	iommu-map = <0x0 &smmu 0xc0000 0x100>;
-	msi-map = <0x0 &its 0xc0000 0x100>;
-	dma-coherent;
+drivers/net/ethernet/freescale/enetc/enetc_ethtool.c:enetc_get_phc_index_by_pdev() {
+    ...
+	switch (si->revision) {
+	case ENETC_REV_1_0:
+		devfn = PCI_DEVFN(0, 4);
+		break;
+	case ENETC_REV_4_1:
+		devfn = PCI_DEVFN(24, 0);
+		break;
+	case ENETC_REV_4_3:
+		devfn = PCI_DEVFN(0, 1);
+		break;
+	default:
+		return -1;
+	}
+    ...
+}
 
-The smmu node it points to is disabled at the SoC level:
+enetc4_s32n79_vf_data uses enetc_vf_ethtool_ops, which provides
+enetc_get_ts_info(). SR-IOV VFs have no OF node, so enetc_get_phc_index()
+always takes the per-pdev path. For a v4.4 VF the call chain is:
 
-	smmu: iommu@4fc00000 {
-		compatible = "arm,smmu-v3";
-		...
-		status = "disabled";
+enetc_get_ts_info()
+  enetc_get_phc_index()
+    enetc_get_phc_index_by_pdev()
+      default: return -1
 
-No board DTS under arch/arm64/boot/dts/freescale/ enables it.
-of_iommu_xlate() in drivers/iommu/of_iommu.c then ignores the mapping without
-any message:
+enetc_get_ts_info() then jumps to timestamp_tx_sw. It reports no PHC and
+only SOF_TIMESTAMPING_TX_SOFTWARE.
 
-	if (!of_device_is_available(iommu_spec->np))
-		return -ENODEV;
+enetc_hwtstamp_set() and enetc_hwtstamp_get() still accept hardware
+timestamping configs, because they only check
+enetc_ptp_clock_is_enabled().
 
-As a result, the PF and VFs fall back to dma-direct and use raw physical
-addresses for the BD rings and buffers.
+Would ptp4l and similar tools then fail to find a PHC on S32N79 VFs?
 
-The SoC dtsi commit in this series says "DMA is translated by the SMMUv3
-(iommu-map)". That does not seem to hold on this board.
+The v4.4 PF uses enetc4_ppm_ethtool_ops, which has no get_ts_info, so this
+seems to affect only the VFs.
 
-Doesn't DMA now depend entirely on the SMMU state left by boot firmware?
-Suppose firmware left the SMMU enabled with its own stream table, or set it
-to abort unmatched streams. NETC DMA would then fault or be blocked, even
-though the netdev probes.
-
-The dma-coherent property makes Linux skip cache maintenance. That too relies
-on stream attributes configured outside of Linux.
-
-Should &smmu be enabled along with this bus? Alternatively, could the
-firmware requirement be documented (SMMU in bypass with coherent attributes
-for StreamIDs 0xc0000 and up) and the dtsi commit message corrected?
+The code doesn't show whether a NETC timer is reachable on the VF's PCI
+bus on S32N79. If PTP is intentionally left unsupported on v4.4, could the
+commit message say so?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1794581338.git.claudiu.manoil%40nxp.com
