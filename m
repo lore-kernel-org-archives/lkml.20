@@ -1,71 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794880841;
-	b=23orj0tAlmxJFmWiQPvlu5t9eqx2j/K9lLNlTLo2Xe4KRN4XovxBqQ4gMibMEHaZj8Sb
-	 Lg6r2//emwaTWgHDcxnTE4tHuhp3hPxGCiZt9zcNzSpA63TBYHTGUyoERkfupNvTJBYHl
-	 5162ZJJd497A/1yyj3CrCkQFPOzSC5xxwwwcNZ4/KaxzcyJSVcMqQNxUsD1oGgNff+229
-	 m7Dbc7s7Hw4OF86ZA9CrKCE1C/qb9XCC1AAEqmkSPtoNf1ip9x8fsxWE+3hVGGEdFO1qe
-	 RoGx2IbK+EKus57s0eSWGPvw9PihsXw5l/C1arKyGmyyzG+Wd3mt4lvn8x7ceFRAjtQ==
+	t=1794880880;
+	b=c+gx4dPoxgGIFVrCrBHJnoIpiYMbaxcf2k/24kn8fctEEcmROa4a9/ir3GA6xbOfIbee
+	 VUvwXwJ004cd0tpPiRcjnUvHbg3ipXVo9SmwpyWHtsDTvrPXONXdbzXblmgY9NhfQ6awI
+	 SQVfjQhZkkbtiQ3oItgMIaD0UHMS/OTfQYYFCbY5HdbDVqpMMBbh0zDzz8l0sf7ag36jc
+	 t5ZArCbnyILWV7SuO4X4g08gackiqpuJuQOHvLtrfMx8NkVWHLmGMxfns691P2yyOu1cs
+	 F+oIQ8V9D60g5u1zo8ntqxSP2aZzRwNiWjOAbtHPiCC52ytH82YzxGg5swl3hFq4eKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794880841;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=VkLy1I0kQBdGGFa3JjJKMLWd5KGqUrPpkyuEnh2673M=;
-	b=u2CQ8SJbe2S/4HN52erSqqsTV/dbO7d1pIZDTtllPX/aE8AAY+xBIrofr49vTao+lWMP
-	 QTGTBBbEJqAF6V4DraxnjfxlrBNIcx+s1oElv4mXTuvzhIX3Yi0+5Zm6gWSSkhbbjdPad
-	 OFgAKEsaBFjU1RrpCPDGcCwSRxgmvJ/Jp9N4h5CKJi5jvnjs+KXUlIJmBPGbOxNByMS4h
-	 SQAPxTMD5AAjXlGfrQ2pfe4FAQR60d77UgLQU917girGfW2qhetFUrfoYnChJVlNYnun5
-	 bfDvDHysA0acpAUUH8G22oAksxHL9MYHPMXtl76ykrGF04J3sVXC1Zwf/DclcgtKG6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794880880;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=uOsHFAtogT/MrzfNUERoWDcF2GRA3UI2D+Hhin/pE7c=;
+	b=msTj39BXoKdQ3t+yAHYcyc/yWn98ge+s58dnNs+TQb9MXifiQsuF7oused+uP/PLdPcO
+	 U6Npa6UVqs+TFSBs0ilSbDIsJ6v00t7oiSKLiJAojue5st3AnORazpC4z213KXMB5sADT
+	 0MHrk2lJXs4TW07vLvmSNVqkcKEvwHgf7FJ25VLpXOJxKxpQxBjv75tx+2GlLi5giADk6
+	 aCNXrUxVVfbR4CkHCo9uayvrvAMSJrVbUhD0TmOXg1vRQDuZG4CdTuZt8ZQCQ7wDI5tHl
+	 J3encv5XhsCYxJEgmi9E5/wZmfLvHEyVoMe91d8BpNTA3ahSWSn6Hg1fOi5BNKusJfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mit.edu;
-	spf=pass smtp.mailfrom=mit.edu;
-	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=WcdmYwdK;
-	arc=none smtp.remote-ip=18.9.28.11
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3CE4606A330
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:00:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3CE4606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=qCO4mJZT;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 61FAA606A31C;
+	Tue, 17 Nov 2026 02:01:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61FAA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=WcdmYwdK
-Received: from macsyma.thunk.org (c-73-9-28-129.hsd1.il.comcast.net [73.9.28.129])
-	(authenticated bits=0)
-        (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 6AH206Us030545
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 16 Nov 2026 21:00:08 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1794880810; bh=VkLy1I0kQBdGGFa3JjJKMLWd5KGqUrPpkyuEnh2673M=;
-	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
-	b=WcdmYwdK/b8BiflVThD+QvJau9tSH5SE0/LeO3ZvbLeNGt+w+JTi/Sr5h1QYXdwCh
-	 vhh9bZBTJSX81ajwsFfm/ZzCNVwpLM7Ygihz39Mp+HA7wL8H08KTMUTikdKbdbw4S6
-	 dzV1+AsWE6sRU7DAAHFtAJMpCI05dgkmvBsM2wbQW3z+VveeYwsd3iNai6Ra12arfc
-	 /t5e+iRwK4fGFR8U55PGXmcJ/qCDk9aClAg/19fUSu+QZ8EVn7/0vQ41Uo20BYoI3F
-	 xLegQQAOPNKf4IxmHDG7ZoqFdE5Z42UnsoUpXFg7XPHQdS8xTuOhoFKvg31cIwn6ou
-	 6J19UUH4mLIIg==
-Received: by macsyma.thunk.org (Postfix, from userid 15806)
-	id 8394627BABE9; Mon, 16 Nov 2026 21:00:06 -0500 (EST)
-Date: Mon, 16 Nov 2026 21:00:06 -0500
-From: "Theodore Tso" <tytso@mit.edu>
-To: Gabriel Krisman Bertazi <krisman@suse.de>
-Cc: Sarthak Kukreti <sarthakkukreti@google.com>,
-        Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,
-        Alexander Viro <viro@zeniv.linux.org.uk>,
-        Christian Brauner <brauner@kernel.org>,
-        Gabriel Krisman Bertazi <krisman@collabora.co.uk>,
-        Eric Biggers <ebiggers@google.com>, Dmitry Torokhov <dtor@google.com>,
-        linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
-        linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] libfs: reject casefolded names that fold to ".",
- "..", or empty
-Message-ID: <avu0X5E298dHRBHY@mit.edu>
-References: <20261113065332.929085-1-sarthakkukreti@google.com>
- <20261113065332.929085-2-sarthakkukreti@google.com>
- <878q2swoxp.fsf@cartola>
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=qCO4mJZT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=qCO4mJZTMDd0Kz8fFDtxZGi3prdj2CsONaUObuHjJNrsB5AuP180X8kL/pmxZzUnVUDtBEm/3oGG/
+	 gp1sLeVMf5uWr0z9NpQ0oUhpgskut5Q5ub+zemwe8beJUgfOOMMsYhZXK7jqb88Zq418/daOd+QOL4
+	 1ffnHN3dwGt/23Ac=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96afbb56cbc0-09369;
+	Tue, 17 Nov 2026 10:01:16 +0800 (CST)
+X-RM-TRANSID:2ee96afbb56cbc0-09369
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from localhost.localdomain.localdomain (unknown[10.55.1.72])
+	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86afbb56a481-07544;
+	Tue, 17 Nov 2026 10:01:16 +0800 (CST)
+X-RM-TRANSID:2ee86afbb56a481-07544
+From: Luo Yifan <luoyifan@cmss.chinamobile.com>
+To: Chaotian Jing <chaotian.jing@mediatek.com>,
+	linux-mmc@vger.kernel.org
+Cc: Ulf Hansson <ulfh@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] mmc: mtk-sd: roll back clocks when msdc_ungate_clock() fails
+Date: Tue, 17 Nov 2026 10:01:19 +0800
+Message-Id: <20261117020119.19847-1-luoyifan@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.24.4
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,32 +68,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <878q2swoxp.fsf@cartola>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 16, 2026 at 02:34:26PM -0500, Gabriel Krisman Bertazi wrote:
-> Either way, this issue is another example of why treating ignorable code
-> points as 0-length strings was a bad idea.  I'd very much rather
-> utf8_casefold would treat all ignorable code points as foldable to
-> themselves, (i.e. commit 5c26d2f1d3f5 ("unicode: Don't special case
-> ignorable code points")), but that was tried and broke applications
-> that relied on variant selectors code-points being ignored.
+msdc_ungate_clock() enables h_clk, bus_clk, src_clk, src_clk_cg and
+crypto_clk before enabling the bulk clocks, but ignores the return values
+of those clk_prepare_enable() calls.  If one of them fails, the function
+keeps going and returns the result of clk_bulk_prepare_enable() or
+readl_poll_timeout() instead, leaving the clocks enabled so far on.
 
-Sigh... I really think these characters are *evil*.  I wonder if we
-should simply drop those code points unconditionally when they are fed
-to the kernel --- not only folding to themselves, but *not* preserving
-them when a misguided application tries to create a file with one of
-these misbegotten Unicode charactesr.
+The probe error path then calls msdc_gate_clock(), which also disables the
+clocks that were never enabled.  The runtime resume path only propagates
+the error, so the clocks stay on and the next suspend or resume works on
+an inconsistent clock state.
 
-I'd prefer to simply reject creating them with an EINVAL, but it's
-likely that will break those stupid applications....
+Check every clk_prepare_enable() and unwind the clocks in reverse order
+when one fails, including the controller clock stabilization timeout.
+Since msdc_ungate_clock() now cleans up after itself, a failure from it in
+the probe path can go directly to release_mem, without disabling the
+clocks a second time.  The other probe error paths still gate the clocks
+through release.
 
-Eventually we can have e2fsck offer to fix directories with those
-characters, and eventually we can make these characters become a bad
-memory.
+Signed-off-by: Luo Yifan <luoyifan@cmss.chinamobile.com>
+---
+ drivers/mmc/host/mtk-sd.c | 54 +++++++++++++++++++++++++++++++--------
+ 1 file changed, 44 insertions(+), 10 deletions(-)
 
-The other question is what *other* evil misdesigns are in the unicode
-spec that we should be preactively trying to addressw hile we're at it?
+diff --git a/drivers/mmc/host/mtk-sd.c b/drivers/mmc/host/mtk-sd.c
+index c9c6367553..49238acedb 100644
+--- a/drivers/mmc/host/mtk-sd.c
++++ b/drivers/mmc/host/mtk-sd.c
+@@ -957,19 +957,53 @@ static int msdc_ungate_clock(struct msdc_host *host)
+ 	u32 val;
+ 	int ret;
+ 
+-	clk_prepare_enable(host->h_clk);
+-	clk_prepare_enable(host->bus_clk);
+-	clk_prepare_enable(host->src_clk);
+-	clk_prepare_enable(host->src_clk_cg);
+-	clk_prepare_enable(host->crypto_clk);
++	ret = clk_prepare_enable(host->h_clk);
++	if (ret)
++		return ret;
++
++	ret = clk_prepare_enable(host->bus_clk);
++	if (ret)
++		goto err_h_clk;
++
++	ret = clk_prepare_enable(host->src_clk);
++	if (ret)
++		goto err_bus_clk;
++
++	ret = clk_prepare_enable(host->src_clk_cg);
++	if (ret)
++		goto err_src_clk;
++
++	ret = clk_prepare_enable(host->crypto_clk);
++	if (ret)
++		goto err_src_clk_cg;
++
+ 	ret = clk_bulk_prepare_enable(MSDC_NR_CLOCKS, host->bulk_clks);
+ 	if (ret) {
+ 		dev_err(host->dev, "Cannot enable pclk/axi/ahb clock gates\n");
+-		return ret;
++		goto err_crypto_clk;
+ 	}
+ 
+-	return readl_poll_timeout(host->base + MSDC_CFG, val,
+-				  (val & MSDC_CFG_CKSTB), 1, 20000);
++	ret = readl_poll_timeout(host->base + MSDC_CFG, val,
++				 (val & MSDC_CFG_CKSTB), 1, 20000);
++	if (ret)
++		goto err_bulk_clks;
++
++	return 0;
++
++err_bulk_clks:
++	clk_bulk_disable_unprepare(MSDC_NR_CLOCKS, host->bulk_clks);
++err_crypto_clk:
++	clk_disable_unprepare(host->crypto_clk);
++err_src_clk_cg:
++	clk_disable_unprepare(host->src_clk_cg);
++err_src_clk:
++	clk_disable_unprepare(host->src_clk);
++err_bus_clk:
++	clk_disable_unprepare(host->bus_clk);
++err_h_clk:
++	clk_disable_unprepare(host->h_clk);
++
++	return ret;
+ }
+ 
+ static void msdc_new_tx_setting(struct msdc_host *host)
+@@ -3130,7 +3164,8 @@ static int msdc_drv_probe(struct platform_device *pdev)
+ 	ret = msdc_ungate_clock(host);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "Cannot ungate clocks!\n");
+-		goto release_clk;
++		platform_set_drvdata(pdev, NULL);
++		goto release_mem;
+ 	}
+ 	msdc_init_hw(host);
+ 
+@@ -3186,7 +3221,6 @@ static int msdc_drv_probe(struct platform_device *pdev)
+ 	pm_runtime_disable(host->dev);
+ release:
+ 	msdc_deinit_hw(host);
+-release_clk:
+ 	msdc_gate_clock(host);
+ 	platform_set_drvdata(pdev, NULL);
+ release_mem:
+-- 
+2.24.4
 
-     	     	       		   	     - Ted
+
+
