@@ -1,96 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794921975;
-	b=q059YibiqY8F2XX5MlGCNIRsVQvvNYiAZ1K8hj/XbYnvGIBvMkDsNY3EkYkwIvFn2AZG
-	 T54I7cxlnfrHDHEwxRCTje8cndDh65AyHHD6LqbBfUdgH/bvxRxjg9jvToLLQikOkVBhm
-	 qNElSAybtc8IpJd/D+UDP/+xntwNP5YHHXcAq4/WPOE/T8t7ZaCKLvBJA4nIlM4Y1oIes
-	 wuJ5PEoU8Lw+gSWOUYrGK7Ht2jSswg7/glWgXhkcBQcO4sBVZwitMiXuJwb/oQ3oFTmYy
-	 CiWpy7MUF5bmyvNUPBhBeKIYhVRGsMM+XczuVQYw3IGTwAcZ32NmjeV8jnK67h4aAJQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794921975;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type;
-	bh=JLgV/lBDqG6GZ1zXBD8D34tpWmlQDGgMfYhw/O/fKmw=;
-	b=nKn/ACvcdq97PBogufbF9vcCCbs0LY7xEE5cVe4Q8cy7ZPdp6RorQAJ454DgAhxau4YY
-	 fEPTyJ4m+iMUUT+3ycfnSylO/HzTDRNeRezahRjuwOr8CYRlwe8CmZHrj7vCOTckF0Dfg
-	 aqbaLYA8cDsKWbxg0c+bodk1qWlqZuXVe5Rv3SnjA5j3H0Wjcm0ugVERNzDJDqIPJJs4T
-	 2DEvsSd/asSbtwgt2y2VgWgqhOIMhsoY/99dV3PQokc+EFBVsJxCSrPzHqBdB6hbOd/4F
-	 a3THz+Ip9ZlxV4VOdA5Pr5nCfV67aQ+DRcuehCDKNWU/+p/RmoJrlshhMa4V2hFeNvA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ommer.net;
-	spf=fail smtp.mailfrom=ommer.net;
-	dkim=pass header.d=ommer.net header.i=@ommer.net header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=XZRcdpBt;
-	dkim=pass header.d=ommer.net header.i=@ommer.net header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=sPrGpKkk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.52
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.52])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD59D606A330;
-	Tue, 17 Nov 2026 13:26:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD59D606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ommer.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=ommer.net
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794921983;
+	b=mN+Fc6ixMUbvB7spGJera1FPjQksD6rkG4MgT4kdpvGGhf9dLw1uw5+xr275AJqm38tx
+	 sdU6LbyHlqiQgqtLeQmCkjtXvvMQZdJ2ic5fXiE44ECMrS/hvACUwT+yV8eWIhXTkwu9J
+	 Ap6LuBCMBiNB/lYLNNzgm/4csqqy3JmBO43Xf3TE4TaKTFApANbtrUQM+Eabt9VzebuU/
+	 izNFA36/Kt0lJi9tSbwq0zKT9VBEbgIMMy0YxQy3siOvwcj5DlGSnPe7ykivTMjiBEBCe
+	 NlSomFk40VgdSL0T82LOPYAUXDLfLAFfD6VSYJbDGuxC8WY/81wsQ8P3UbjH1I4BwMw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794921983;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=04dQZCj1BDrZAF+6UeXOlw0NGYqib0zOsImSzzHzEGo=;
+	b=0sLz82Wei/A7HBMu2Qy+8DJpK3UhxsVejdy62flnX/5Z0RgXIGpbNmKLuXcWuR9hO6u2
+	 sdApWgoB06AKUkPOxiJFtJ/wl5fvu2WfIubTjXTNAbZVyw1FaSA6JLI0MR1fTjELpW2+K
+	 iiR4HQGRrUAY02ightlmGLGOAHKIgmNkjtu6xFOea89kawvfOT6C6egIS6VA9Vbb8aYS7
+	 0q52Aqg/L4TChIlcz9i4BjHtSj3YxKpjV1CtbfwBzhvjuTx3IdzpZih9gphnUDjppV058
+	 98UdJl9KXV+YpJsso9qLXHOndMk3sIjlh8YUbi+2+q6pp2ypnudxBWqKG5sbOrcu3rg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=MjkjWP4z;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E2B96606A31C;
+	Tue, 17 Nov 2026 13:26:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2B96606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ommer.net header.i=@ommer.net header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=XZRcdpBt;
-	dkim=pass header.d=ommer.net header.i=@ommer.net header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=sPrGpKkk
-ARC-Seal: i=1; a=rsa-sha256; t=1794921972; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=JePVK9fehY7HHm8ZzZmyyIUWwFiiZZfhE5EnZ0AEaG/jlcRgdXt5dJ65AUBkLfkg45
-    ygX74FB0kFVFXd0vroWFG1IF5+ORyEr7ts1DVXTbBMxPuW/4OgQjpvpHjcs7aT8gtiSA
-    qFvn+qeITRhoBAVlTravMLpL5gAg8TF5imBus9WskifY6m7cd+QVyUoPW4+u50/9rAXx
-    Cor0/CwJeeAL15Iacbz9Eldh8ghYSzqIa2AizQVMQ+JgL0SHo82byOeW8DKemnBC0m46
-    Od59FoowBcHKhfsKIQwcGwa0PnkDrZaSfJEnDluyCyCg+O3ryGs7GDdz9L4msOi0KBfN
-    zQvA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794921972;
-    s=strato-dkim-0002; d=strato.com;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=JLgV/lBDqG6GZ1zXBD8D34tpWmlQDGgMfYhw/O/fKmw=;
-    b=ivNC4Sy1kz6ZhXgKPr4QvBotFT68NQ/TFHk3sh+2p1Qna/fljk80eW8Z254e/gDyBf
-    R3WUCjJzXwdZBjdkqDotdjICdOykDGMpPED3NQPYC9Ez8H+P32l99yUiCGRBsEjMyQml
-    K068Sqd+ksy1OusJlM82HOVkW7ctQfjvC64WrZRrcjdqAQ7a7jpzOES0EG6fWs5VkVCU
-    RCVfLxys2qjikDP7nMuic2OxEzd0W0xqyPlWWNReqU9RoiA7XyJvsOpZUzCp7BV9GTt4
-    WG2NXL1YIST0jUzzwvPWt01HUx1p1EAfWdXCzRAwwAwuDZZXmMEWKovWr3+CeOITY4Nd
-    PsGA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794921972;
-    s=strato-dkim-0002; d=ommer.net;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=JLgV/lBDqG6GZ1zXBD8D34tpWmlQDGgMfYhw/O/fKmw=;
-    b=XZRcdpBtKkVP6fhWeMm/bBPX/NP0o//wxOue0I0bdFddAZhipeIVErIyPfjjDO3ymT
-    lkUBh5PZDBYZ4sC443kspnaFyYe7kfamHumhpZ6vNHxmnj48xnD+hkBG0yHWbHsUgEFs
-    n30MktV0c2bkKvgyoShNA563XgwlCGJ3zmiKKchD+UmGqkujDdw2QCWcty9VJfX8I6ZH
-    Zs/egacuaWIrrlbpP84jFi7EQoqtqfyMt2MEez8Z5Dfh3nrr3ZZ1Sl5HPVM+Ee7MBjE1
-    XPG38pXZyNbgq8ULzKhQEAJm30lPfZoBJSn767kVWpACaV4BM1NtMzDL9tqyEFmdgPXA
-    eVYA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794921972;
-    s=strato-dkim-0003; d=ommer.net;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=JLgV/lBDqG6GZ1zXBD8D34tpWmlQDGgMfYhw/O/fKmw=;
-    b=sPrGpKkkDPjE219C0HVU/1PJG+bDT9uBKrGCocs/Jj/ptvZCg7tndSstLTIhyue6lf
-    lcNx2KZbQAgNdCgb+HDg==
-X-RZG-AUTH: ":JGkKZ0mIdPJLfj3rk5MOrv6kH/tvwFubxUqMvsWOyVXJkOABZnPqvKUstHY8FQgnq3rT6NoXCyjULwIut1Tf8meVypGj6A=="
-Received: from localhost.localdomain
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id n2f42d2AHDQCvuM
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Tue, 17 Nov 2026 14:26:12 +0100 (CET)
-From: Henri Ommer <henri@ommer.net>
-To: job@noorman.info,
-	dmitry.torokhov@gmail.com
-Cc: phone-devel@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Henri Ommer <henri@ommer.net>
-Subject: [PATCH v2 1/3] input: himax_hx83112b: Make reset optional
-Date: Tue, 17 Nov 2026 14:26:11 +0100
-Message-ID: <20261117132611.12145-1-henri@ommer.net>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=MjkjWP4z
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DF6471476;
+	Tue, 17 Nov 2026 05:26:18 -0800 (PST)
+Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CA2003F632;
+	Tue, 17 Nov 2026 05:26:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794921981; bh=nDbKgdf1MwSUZ2uyvB8m7xNJGz0aC8cVtUcYiJtf3mU=;
+	h=From:To:Cc:Subject:Date:From;
+	b=MjkjWP4zD8Q/046VEhZqkP6nC/uH0/aKAJ5mmVYR6Aq9sgmTCrTEINE4zbjjYOwdj
+	 C6NA85khrR1nlCr2+9yqI/El2bEJbB0+1nP00OPx3bGlOxfE7a/HMNH2moiYkEPtf8
+	 20FotckquhBc9a7yissgUzuN2Wfea6KmcHdQ/C5w=
+From: Cristian Marussi <cristian.marussi@arm.com>
+To: linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	arm-scmi@vger.kernel.org
+Cc: sudeep.holla@kernel.org,
+	philip.radford@arm.com,
+	Cristian Marussi <cristian.marussi@arm.com>
+Subject: [PATCH v2 0/2] SCMI Power Control fixes
+Date: Tue, 17 Nov 2026 13:23:09 +0000
+Message-ID: <20261117132311.291199-1-cristian.marussi@arm.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,44 +62,30 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="us-ascii"
 
-Some versions of Himax touchscreen chips do not have a reset GPIO. In the downstream driver these chips are only reset for firmware flashes.
-Since firmware flashes aren't implemented in this driver, resets can be skipped.
+Hi,
 
-Signed-off-by: Henri Ommer <henri@ommer.net>
----
- drivers/input/touchscreen/himax_hx83112b.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+Patch 1/2 is a fix to a possible deadlock already posted on the list,
+BUT in v2 I dropped patch 1/2 from Chengyu Liu in favour of a new approach
+that keeps the original locking sections.
 
-diff --git a/drivers/input/touchscreen/himax_hx83112b.c b/drivers/input/touchscreen/himax_hx83112b.c
-index 345ece27fe74..3521b05d509f 100644
---- a/drivers/input/touchscreen/himax_hx83112b.c
-+++ b/drivers/input/touchscreen/himax_hx83112b.c
-@@ -132,6 +132,14 @@ static int himax_bus_read(struct himax_ts_data *ts, u32 address, void *dst,
- 
- static void himax_reset(struct himax_ts_data *ts)
- {
-+	/*
-+	 * Some versions of himax touchscreen chips do not contain a reset
-+	 * GPIO. The downstream driver only resets these chips for firmware
-+	 * updates (which aren't implemented in this driver)
-+	 */
-+	if (!ts->gpiod_rst)
-+		return;
-+
- 	gpiod_set_value_cansleep(ts->gpiod_rst, 1);
- 
- 	/* Delay copied from downstream driver */
-@@ -349,7 +357,7 @@ static int himax_probe(struct i2c_client *client)
- 		return error;
- 	}
- 
--	ts->gpiod_rst = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-+	ts->gpiod_rst = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
- 	error = PTR_ERR_OR_ZERO(ts->gpiod_rst);
- 	if (error) {
- 		dev_err(dev, "Failed to get reset GPIO: %d\n", error);
+Patch 2/2 is a rework aiming at fixing some unbind-time issues flagged by
+Sashiko: it still has to solve one residual Sashiko flagged issues between
+removal and reboot.
+
+Based on v7.4-rc2.
+
+Thanks,
+Cristian
+
+Cristian Marussi (2):
+  firmware: arm_scmi: Fix deadlock between reboot notifier and forceful
+    work
+  firmware: arm_scmi: Fix SCMI Power Control driver removal
+
+ .../firmware/arm_scmi/scmi_power_control.c    | 99 ++++++++++++++++---
+ 1 file changed, 88 insertions(+), 11 deletions(-)
+
 -- 
-2.56.0
+2.54.0
 
