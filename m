@@ -1,107 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.25
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.49
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794897839;
-	b=VT4XnxSENNZMgOFrA3Iy7zk0NSaIlBqrC8YFnTzESLcx+Ex3pKq5Cvsv7+M3To6uMFVC
-	 yZbHpDceP7TnnOI4mN0aM5d4P9fEUojXqVFc0w+m6t+6qpqIPGeckYWdMPONWoriVTA5l
-	 wYqYVl3Ko8K/C0dBH/h6IWj2XRRWVvbQlUmLwXIge/v44623DYk2NqRwKkZriz4kJiVld
-	 A6CRIHc3RBmf2UFKlLwoVwy4kCvdoqZhVVR0zC0vt8OOju/3rtD2KAehKromk57MqTbld
-	 if6L4NmQRogJzNXrwOW11SKdxtP+TvNxVDV7WNErLU01rwZFzwNWhgzThDt1WvXL0BQ==
+	t=1794897857;
+	b=Pe286QT8FYL+/vzlr17/b0+lzdYEznF4eWRHcbG5jNoJGeqfGy3ol+emZ6X6Ynne+F4g
+	 F91MTZumPEXL2j5KdGHbP/ee59xKTh4b/PXxdaT+Rh47Wl1db/rpB0jS9hD3B9Ko370RO
+	 92kAR+XuvcVLwVfGZmX63Lsm9TH7pHyr4jtwWKxl3K/86ix1ZTpc+p791miemv6GAiWY2
+	 c94uMUJVK4wDa07Po/VhLsQnL8gQf/X7rpywlNaB69L9W/rOagqJ6/kul76tt8jL3VMdr
+	 sxIsiNEPVu9IxhzFMmxP2kbcckDPP55eYnW7F1xovCuTGlI2L+LLarE3VWENT7TPK1Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794897839;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:X-OriginalArrivalTime:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:Content-Type:
-	 X-MS-Office365-Filtering-Correlation-Id:X-SET-LOWER-SCL-SCANNER:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=oB3jWMvDPluWwB1rGSfSkqxrSRAXzLp+G8j/5/AQToA=;
-	b=Z/9oqUNfZI0c7aiuHitRXUO4e+qMaO7z0L9t8P7zt9wUzdufCbifujr5kSF4HonDdipT
-	 B/Juq70Q/vJ+Rm0YMKZHbgeVKTcjNggAZtJtNKyaCSmd35cLXnF5yVOFTFO1lCOVQkBON
-	 mDVXOOksJcX7dfL5CPZShHQze3vLrSGWh3AdBGm2EOLwVudrqEUYlYtqBvo4SMCP/2e5N
-	 gBsJ8plart6ucpkFOAdtUEA8DUH/1kyWAXyWdRk/GPLnr0SCBYCp21aI7sYZrhjyJ99zj
-	 mg1x4knMxe2bNG7HdKy/AhaYWwldSnBOju9tz2XooaAw/KdrHED8tAtSVHA2oR1y6Jw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794897857;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=wD5UM1UlPQVzAfEMtJ8hB5L44EGsjcHAnWbquriq9h0=;
+	b=pQbBeRQ5zwjC1Nqw9XNCWnoSvzg5zMIdwBORY+ALAXY2cNpZEajxlPI3HorY2rKQA14q
+	 UQbvDKY9LG9t5ufFfAYP6FbzwZB+UhFA8zWmHCaQ2d5gmx34sHq2FqHo+EfRRhD2IULG0
+	 O+Wv4dxITPJYPFZCTVyUB60hZB6FCsQzMLhzFzjcdZPswFK2qPR9hlKIN5RT2N7Yhjw/J
+	 KX9AFNEGBYs9sTmAOHA5w8wwQ7wE9sIAIy2jU2RsHubbmzIOTTeOjWQ5hi6k/l/FjEScd
+	 GBZPpYxwEg4CN2WCILRP6ZTahVS1SsjruubXGbdly4ZDR95tBueLLSpiUHEmafdQRvg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=leica-geosystems.com;
-	spf=fail smtp.mailfrom=leica-geosystems.com;
-	dkim=pass header.d=leica-geosystems.com header.i=@leica-geosystems.com header.a=rsa-sha256 header.s=selector1 header.b="a75I/RZo";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.25
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012025.outbound.protection.outlook.com [52.101.66.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EigEqq1B;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D0FE606A335;
-	Tue, 17 Nov 2026 06:43:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D0FE606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=leica-geosystems.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=leica-geosystems.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70AAD606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:44:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70AAD606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=leica-geosystems.com header.i=@leica-geosystems.com header.a=rsa-sha256 header.s=selector1 header.b=a75I/RZo
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aJzdx0Iuv+/JkG653pud2Qjf25oeQXlN9KDguU9HcEDM2OxfKDBemMf2eRUeWsxsOmHP7/rrVRpdZ2n4xi/awfA0Jf+nAf0kc5ieZ6yeB6wSTH+GNgwOsssubimdEoRtBtVPs+F9zaSteCpxpG9ugdtl11iSH71/m6KX+Vd7ibSC8Y/MQD0w83JQSdg7pvQ/cf499jnf5Cyb5yayZWGyiwwFpJ7INtjq973jwBnV9Tw5tpWfSmZgqGPAz8OBPYHqT7eSQfyXeJPATaL891Ng9cIPB0TD2bYkjte4KqHI5XPZBrFzm0c0AkrBRl1Fn5NToHc8Sfd6ymcuU4AIgNCSsg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oB3jWMvDPluWwB1rGSfSkqxrSRAXzLp+G8j/5/AQToA=;
- b=r0y7T0XpMs5sL2SZzLse+uVgRXrkAa5bFtrqdyAbEKCaRm5TmFBYOhZv2MiUTpSoIki7hpKN2fFtYmnYFnKHkNR6GCG+uwy0rjJ4GP3zbGqLrF/9C8RhcL/lvUtQdOKmWnUEoa5uknC/Of7cFDeiUvrF+Zw1btT+R9p5o19EhSfkD0RLNO8ovY/QenVHdzquhSiigdvmgogRMCtyToWr9OV1OUQoqH/fUkGXeoWV5ldSW3XHyqPgQ5uzsOxIx4IiDMDLWsKTdi8WgIKj1GBp3kfRlS0UBlNt/WCon0HXHu5FqaAwlXp1uil8v3PWd+efWIIQ4VTwfn68tchjH7N1Ew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 193.8.40.99) smtp.rcpttodomain=vger.kernel.org
- smtp.mailfrom=leica-geosystems.com; dmarc=pass (p=reject sp=reject pct=100)
- action=none header.from=leica-geosystems.com; dkim=none (message not signed);
- arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=leica-geosystems.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oB3jWMvDPluWwB1rGSfSkqxrSRAXzLp+G8j/5/AQToA=;
- b=a75I/RZofuarWVfcA4fwiXeNvDChoBsxVcDlA+UiFjDroijtzW8QdmtjETThOKz3caJEKb7syVzKiklpSK30AuuCmI0JanhTq83UiPx33+3dfUrMAnt0CVUO8T0O832vK/U//8YbwtrmCXobjp58Jb5hBudoBMSN1PD1AA89J1Y=
-Received: from AM0PR02CA0159.eurprd02.prod.outlook.com (2603:10a6:20b:28d::26)
- by AM8PR06MB6851.eurprd06.prod.outlook.com (2603:10a6:20b:1d0::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 06:43:55 +0000
-Received: from AMS1EPF00000091.eurprd05.prod.outlook.com
- (2603:10a6:20b:28d:cafe::48) by AM0PR02CA0159.outlook.office365.com
- (2603:10a6:20b:28d::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Tue,
- 17 Nov 2026 06:43:55 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 193.8.40.99) smtp.mailfrom=leica-geosystems.com; dkim=none (message not
- signed) header.d=none;dmarc=pass action=none
- header.from=leica-geosystems.com;
-Received-SPF: Pass (protection.outlook.com: domain of leica-geosystems.com
- designates 193.8.40.99 as permitted sender) receiver=protection.outlook.com;
- client-ip=193.8.40.99; helo=hexagon.com; pr=C
-Received: from hexagon.com (193.8.40.99) by
- AMS1EPF00000091.mail.protection.outlook.com (10.167.242.88) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 06:43:55 +0000
-Received: from aherlnxbspsrv01.lgs-net.com ([10.61.228.61]) by hexagon.com with Microsoft SMTPSVC(10.0.17763.1697);
-	 Tue, 17 Nov 2026 07:43:55 +0100
-From: jiegu <jie.gu@leica-geosystems.com>
-To: Matthias Fend <matthias.fend@emfend.at>,
-	Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>
-Cc: linux-leds@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	gujie <jie.gu@leica-geosystems.com.cn>
-Subject: [PATCH 1/2] leds: tps6131x: cancel torch refresh on flash mode switch
-Date: Tue, 17 Nov 2026 06:43:27 +0000
-Message-ID: <20261117064328.4096518-2-jie.gu@leica-geosystems.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261117064328.4096518-1-jie.gu@leica-geosystems.com>
-References: <20261117064328.4096518-1-jie.gu@leica-geosystems.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EigEqq1B
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-490c3ae81d3so2370656f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:44:17 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794897856; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bSSU8i2R/+vFHRYgs8UDJN1I/GWX7rn/7g6tI50Un75zyoiS00pYhItgyRoLWJBCwD
+         fLv8bp8nCnQ8uaEAhoM2OH+RciBLdlaAB7vZFak9pQ5kj4ytlf17io2dxpM1QIj3bpJI
+         bspGxOmWlk2wNjc32i3oALTDTUK3+vAp8J4wsgGTyV2io9jI+vW8mpwGQV4s7MqZmXVS
+         uG+LW+J6P/a/LR+lPteYxJIla1SH1I3nRcHHtBjGwRsxHQ14HWPpUeOhktOPAtCqBQL6
+         zoSfloSZwW4MlyDQyXu7XNRx9k5w6hG0oY1Pg2fN8jPWuenA/Vs6esYIGwvtQdhAOwcq
+         cpKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=wD5UM1UlPQVzAfEMtJ8hB5L44EGsjcHAnWbquriq9h0=;
+        fh=XKTCr1pMhVQI/tUOkYVjuHOjt5zfcjnVfKwqN35cbuc=;
+        b=BXFTXMPP741+1pbTWXA/D3i6SXpF65mRntPu2kLfeJH2pNJnh/HExYSXbtKhjBiowF
+         7tE+arwsx/CYexk93ZRvThFU36zvmWi0QKSYKccxU4xiNyCXk75c0dEUe+ENVWjvDAHD
+         /jPK2AkOmil7ixUOif7U0N4JTDQTo24VCjOpOXhyBdauqygHUuJf5Agg5tufA+e5bn2e
+         q1OTiG+3JqNUvIkYbQwhhKS53kMh7DgUUtze8Afs3Nen/RWAeu/INMo5UtAczWfyLw7d
+         tnUtOtwJValolwPwgW36YCIvbAsNTlD2wZbJHjihTZt9hbv+oCgCFZopkNpThXukZ+Nc
+         OZBg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794897856; x=1795502656; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wD5UM1UlPQVzAfEMtJ8hB5L44EGsjcHAnWbquriq9h0=;
+        b=EigEqq1BqBN+1gG+Pzt7egI1ia+zosHBuobd0OTg3LEvkZEyLJBWCExu4SBVE0XC1j
+         ZENn3LOFmqaPL5hSsyTNg6Dr10Wg6f2hkK6zEQL3HmgohJ9uGw9Aes+r6y+h+cSScQaf
+         NKvTfCo/A9xlg6c+Zy6REo76/tw8Cs6eMBsfF9lorLWTnCqEgiaLCJLcfBI0lWSHJoFl
+         KOzYPiljOmoswMFpvgTnWRc3YoG6fpMajE32qVdW9bSNyIFFq6tu+ycqyxwcVyw4C6G2
+         NUjFC/cJ/qkq0cq3+Wbm65Pz8m50SxV4he8Lt3VfoplUy7IswyTDnUJdYJX7oh59wgu6
+         bFcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794897856; x=1795502656;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=wD5UM1UlPQVzAfEMtJ8hB5L44EGsjcHAnWbquriq9h0=;
+        b=oEQkZe42ia6VTeOIod1gY3+N0TAd8c8X4uddIxfVFHeINZ5+pwN9kAG25g401Tg69+
+         7WimO2bQVPIFdPIJvy0FQ1R97yrKYAm0rlpPlILkNauY/b0YWl0LUHEJbv/1nj3fFQrx
+         czyiuyI21VzYucg/m4gra7MgUyavtrA9ux2hFhcDgS+rXy7AybmzcMNyu+7U4qM2O3Kg
+         K3xBlQlCIbdHiVcfLNO9mVmoxS74EG3blpz9GXHGiZVdIvmwtv94lkRuyI8BqEeWhaUZ
+         EpAbTZ3O1KvsGOcwHrG5qAIvlva7fKrj80hFOWWJuVTan7aeEhrL5YdwSwOtNy8KH7LH
+         CsqQ==
+X-Forwarded-Encrypted: i=1; AL+hErERR9mFx8aFJZ1JTVwmr5sOlJ3u7jmtgsLzANvuTs+/RB+mQw6oVqn6/9TPVNuM0XVDxJKpcurlNP6N+94=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9XSrdR1JMcgc0O68rv1MtBSzd/kixvQ1lYqYmOzAdRPSWVNThZ
+	KbdnfZ3ER/AVXwTtuZdbvfumCUoboB3dosTfK84JHoEkrkylI7wKxo6U68F7UTZnUPDYN8oYygq
+	gg8GqTSMIYHUsdky2/bQ+OA1fJEiSIws=
+X-Gm-Gg: AZFdTZd+4fhRyghVusjKN206a0YRvfrNWZVnOuU8DTJrf010yMURsxxM4Dw/xNWa09c
+	w+sZDsrDTYn/roLjYAr3MsuyPDmstf+FoNFpbE+H4Bf6H9t7QZW2eEvUxpOkV7ZlqZ8Myw7pqi9
+	DZ3VBTP1kwbSEYkpjQ/yx3SCPviSaN1RIzJWbBAFhMwDzMkwObGIk6w5iAULvFuS5avYgovAxcq
+	LbbkE7bpL1Njcudj28bZBqIPRhcp9xyTak+bs7Nf2reoDyJuSzkR28Pm+MX0fypUukHzzObLKLX
+	yqVQDMgnYT6qeyQxtVPEl0zBaMhtibUKXt5utc0WE8pszPmfcu9EkBDbJL+CCQcsXX/OYa0PFrC
+	DQ0c6O67Os7GevBXxct4OAAx9bgtnhbZRpWvp
+X-Received: by 2002:a05:6000:4213:b0:493:8c32:94 with SMTP id
+ ffacd0b85a97d-49c726db093mr25624978f8f.38.1794897855591; Mon, 16 Nov 2026
+ 22:44:15 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,73 +101,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-OriginalArrivalTime: 17 Nov 2026 06:43:55.0021 (UTC) FILETIME=[03E3BBD0:01DD765F]
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS1EPF00000091:EE_|AM8PR06MB6851:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 1fdf3a5c-a95f-4285-9d19-08df4476266d
-X-SET-LOWER-SCL-SCANNER: YES
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|61400799027|36860700016|82310400026|23010399003|11063799006|56012099006|10067099003|261021123027099003|261021121427099003|261009223027099003|261009221227099003|261009223327099003|261009220027099003|261009221727099003|261026121527099003|261102123227099003|18002099003|16102099003|22082099003|43062017;
-X-Microsoft-Antispam-Message-Info:
-	4fxegQmiWgsxjaabJ6UN9IeS/rV6A1VQWA7Z1rhpmCCzXtEvzmnx7XP5DluaYOAK7HujVaXl1Wp9ruoMTw6G9VAPKmMXGtjjDfHixDeyE1/FBCuttgRHlVGjCHFcXuvi0IU7C78e2eHAXVaSWReLgJ8P3SAHPXU1kTjjY0N4d0NwDzg57CxUnXjfV30I+jpF2wIcKK6NWdKpD5XV8o98eAdDKezeMaew7YoXLm0HJv5wQql0ybmwwqItIkg5IYXPSkaTI9iOhRlAwfFA0X1VrOh+H8s/f03KGJL+O5IXIcchooTZQVFwaBdXo0NldM0YVvwLaRefkOvlBxhQWJeiK+6YvIxyKl/XPZ3czCZ4vFTpwWe+ZnxMzd22o6HlMlO/o6OH1WIxDgyOSNgYh9bKihyzceZ2Lc7KQjYr1keHsUoTiqpWCybTULspgg9EEBVLOtHsd90PQpSIQrHjVyvHle8S79GS/rVanlMM1U3oOS69ZBCizPkZQbkJoAYzuDr0BSDszzz6oKU2zXyfbrrA4Rp/bIOt1T8JHMXeifzSt4wZ0W/bgYowWGLz9iISUMAuJFhfeoh5di/FVgtJuNWj48KveQfz+yigx6IRUEI6dXQ97EzPXt0l1GAscDXwYm/peIXOqQOOGiaRrSA7XcrbTQgHa0e8HCldzxABKe8MoTzfIfD02/k1FNrwyyc/pTjqVYFOEM2skbrA536oOFQiTNpVM9ppjgPPOQsVObwysebAjvPMun6m5ayKUz93/gdJ
-X-Forefront-Antispam-Report:
-	CIP:193.8.40.99;CTRY:CH;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:hexagon.com;PTR:ahersrvdom51.leica-geosystems.com;CAT:NONE;SFS:(13230040)(376014)(61400799027)(36860700016)(82310400026)(23010399003)(11063799006)(56012099006)(10067099003)(261021123027099003)(261021121427099003)(261009223027099003)(261009221227099003)(261009223327099003)(261009220027099003)(261009221727099003)(261026121527099003)(261102123227099003)(18002099003)(16102099003)(22082099003)(43062017);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	xH+rfI5G2xiIB8LURbXZHqSbCs4MCG6H0engzt3ul+eARLeA6s6A/vg+QGpIHEFW89Z0H9qYc8C+5H2NB+W441OHJyzrsOC3Je8u18eah+1zaK7gjrKhV+9xL+51Rox5zRgtVVwc38J1CMJvTnv5xhoy9ePflRazmPGLWYpDjAWWike745Nl5B1elbNMSUMhoXL2WjzN82OENhyET8e4uYf5ZbpPcXLM6tF3OrIVwD7fp44h8mBTv7ZvHlDHWwPYD+Y6cOfsXv2gR1iYve1hliOuogViPDvSqIT4hf3WPlvNdxUAY3kb18v45B7SbXjImblcvMRSEfr/5W1TRlEV6Ake4YSU+68mUX/l1XG4cmftNToHr5TOHPpZjelmsLFnro92TR0KMTUH3nnlcN+zJURfk4gMu6axqvYWXwvrec66vLQyoGND9wTaYu9NA7Vk
-X-OriginatorOrg: leica-geosystems.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 06:43:55.0454
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1fdf3a5c-a95f-4285-9d19-08df4476266d
-X-MS-Exchange-CrossTenant-Id: 1b16ab3e-b8f6-4fe3-9f3e-2db7fe549f6a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=1b16ab3e-b8f6-4fe3-9f3e-2db7fe549f6a;Ip=[193.8.40.99];Helo=[hexagon.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AMS1EPF00000091.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR06MB6851
+From: Michael Coppola <m18coppola@gmail.com>
+Date: Tue, 17 Nov 2026 01:44:04 -0500
+X-Gm-Features: Aa3M54rZvG_hjBAGbc245IRPke91uDHwnm-RbxPY2q3kxJVoy6ojn3PTwbrEgDU
+Message-ID: <CANWVVqiK1i8aduXKxEihCUNhNgw=OsPEP1MNAzpRpKhvgqa7og@mail.gmail.com>
+Subject: [BUG] ASoC: tas2783-sdw: 3-field vs 4-field firmware filename
+ mismatch on HP OmniBook (8EA1-8EA8, etc.)
+To: Baojun Xu <baojun.xu@ti.com>, Mark Brown <broonie@kernel.org>, 
+	Niranjan H Y <niranjanhy@ti.com>, Kevin Lu <kevin-lu@ti.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: gujie <jie.gu@leica-geosystems.com.cn>
+Hi Baojun, Mark, and all,
 
-The TPS6131X torch mode uses a delayed work item to refresh the watchdog
-timer and keep torch mode active when driven over I2C. If userspace enables
-torch and then the camera stack switches the LED into flash or external
-strobe mode, the pending refresh work can still run later and force the
-device back into torch mode.
+I am testing an HP OmniBook X Flip Laptop 14-kb0xxx (Intel Core Ultra
+Series 3 / Panther Lake, PCI 8086:e428, subsystem 103c:8ea4), which has
+two TI TAS2783 smart amplifiers on SoundWire link 2 (UIDs 0x9 and 0xC)
+and a Realtek RT712-VB on SoundWire link 3.
 
-Cancel the pending torch refresh work before switching into flash mode from
-both the LED flash class strobe path and the V4L2 external strobe path.
+In sound/soc/codecs/tas2783-sdw.c, tas_generate_fw_name() formats a
+3-field firmware filename:
 
-Signed-off-by: gujie <jie.gu@leica-geosystems.com.cn>
----
- drivers/leds/flash/leds-tps6131x.c | 2 ++
- 1 file changed, 2 insertions(+)
+    scnprintf(name, size, "%04X-%1X-%s%1X.bin",
+              pci->subsystem_device, bus->link_id,
+              fw_uid_prefix, unique_id);
 
-diff --git a/drivers/leds/flash/leds-tps6131x.c b/drivers/leds/flash/leds-tps6131x.c
-index 5c9a5af5af05..823e0462939c 100644
---- a/drivers/leds/flash/leds-tps6131x.c
-+++ b/drivers/leds/flash/leds-tps6131x.c
-@@ -378,6 +378,7 @@ static int tps6131x_strobe_set(struct led_classdev_flash *fled_cdev, bool state)
- 	struct tps6131x *tps6131x = fled_cdev_to_tps6131x(fled_cdev);
- 	int ret;
- 
-+	cancel_delayed_work_sync(&tps6131x->torch_refresh_work);
- 	guard(mutex)(&tps6131x->lock);
- 
- 	ret = tps6131x_set_mode(tps6131x, state ? TPS6131X_MODE_FLASH : TPS6131X_MODE_SHUTDOWN,
-@@ -697,6 +698,7 @@ static int tps6131x_flash_external_strobe_set(struct v4l2_flash *v4l2_flash, boo
- 	struct led_classdev_flash *fled_cdev = v4l2_flash->fled_cdev;
- 	struct tps6131x *tps6131x = fled_cdev_to_tps6131x(fled_cdev);
- 
-+	cancel_delayed_work_sync(&tps6131x->torch_refresh_work);
- 	guard(mutex)(&tps6131x->lock);
- 
- 	return tps6131x_set_mode(tps6131x, enable ? TPS6131X_MODE_FLASH : TPS6131X_MODE_SHUTDOWN,
--- 
-2.43.0
+On 103c:8ea4 (link 2, UIDs 0x9 and 0xC), the driver requests:
+  - 8EA4-2-0x9.bin (fallback: 8EA4-2-9.bin)
+  - 8EA4-2-0xC.bin (fallback: 8EA4-2-C.bin)
 
+However, linux-firmware (commit 43cc9de7, "linux-firmware: Add firmware
+for new soundwire projects") ships 4-field filenames that include a
+speaker vendor ID field (<SSID>-<spk_id>-<link>-0x<uid>.bin):
+  - ti/audio/tas2783/8EA4-0-2-0x9.bin
+  - ti/audio/tas2783/8EA4-0-2-0xC.bin
+  - ti/audio/tas2783/8EA4-1-2-0x9.bin
+  - ti/audio/tas2783/8EA4-1-2-0xC.bin
+(and similarly for 8EA1, 8EA2, 8EA5, 8EA6, 8EA7, 8EA8, 1954, 1964, 1994,
+1AC4, 1AD4, 1B04, 1B94, 9013, 9014, 9015, 9026).
+
+As a result, request_firmware_nowait() fails with -ENOENT out of the box
+on all of these boards unless the user manually creates symlinks in
+/lib/firmware (e.g. 8EA4-2-0x{9,C}.bin ->
+ti/audio/tas2783/8EA4-0-2-0x{9,C}.bin).
+
+On HP systems, the speaker ID (0 = AAC, 1 = FG) is stored in the UEFI
+variable HPSpeakerID-c49593a4-d099-419b-a2c3-67e980e61d1e (as ASCII '0'
+or '1'). Should tas_generate_fw_name() read HPSpeakerID (or fall back to
+"%04X-0-%1X-0x%1X.bin" when the 3-field binary is not present), or how is
+the 4-field filename intended to be resolved upstream? I would be happy to
+send and test a patch for this on 8EA4.
+
+Thanks,
+Michael Coppola
