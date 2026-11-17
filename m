@@ -1,101 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794912120;
-	b=CYuPU57eiBiJw4Tw07TMPa7AwrDmCam2UFmWYSYQZddGhy0P9pk0zgZ0T2wxnVVoLq41
-	 eWgRpE1vhjC+isMHCuir+hzrFhRWB3wunqmXW/aUVHYoVSrTE3aRLdDxYatNUZNVt/hWY
-	 U9B/ZbsL3pqX2POpGDo4qnr2l9PJ8yfiKiqFYVO2KO0Kaqi1UUVLVKPzjoHfNrEWM2y26
-	 dEHHnW9tI4DFGaoCZwj+GfQ7ht3lv3vufwA6y/Fnr+T3E+rnY0/786LcBV0kccfefAoRy
-	 s1MEosmnkrUukw8RrbxDuO21NCF91ecPLXKQJeqbrPDIKip5JpQqdmSjLbmD21eNTGQ==
+	t=1794912122;
+	b=jKMQUal3nR6dL8Nznb6Dczpnuh3kR64DYxQxUkhczj69B+656x4IjwgdywmfC73pqvZh
+	 O6jqP6/DfS3QwpkSFVVy3+d3DcoP0WuLod2qhdTytEFLcWHY6h6fKXLsxJ22bN7EpXvf4
+	 crwvWwgbCh5frHwsLy9ecQ53GGr4HCfKdCpvnJdiCrYMpTx+ciEsOAPyLTWQXNdphr1+f
+	 9j1eI3MkM2yNa/SXfHsjzswu3CJWtju4x/cP283aVrkp1EhNcVKQ66dhbRa2Q6O5islcQ
+	 gD29mrJNQGZLT2hoAst/Um2A8UiXN7Ys/jrDk9AdstF8utVn6ANctyNJkZT4lertBQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794912120;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794912122;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=L4KOYqWx580iSeGrUMZkCkNhUGinBxxLvt7tMIPLBDc=;
-	b=djmo6wDJhIBqFFlq8kCRc1DoACfqK4eLpUIkS81j/f3RuTCHVhK+ffBKPBI2UFnJX+H9
-	 2q0ANWZ1DSMYpwB4MYc/E84MMA4mxyvMUILLIN2oKvDiKjl9IqoqdUexyA/WNEO6CfpKL
-	 uHTpCJ1gA5cGsLMAG1QEMrER6eGaZfqN/3Ttjjvo5o0g2STBKoa128Y/ZKfTGGODlyikT
-	 Za2Lq3t5cC0EwA4MX4iVIeHe46uhduTlUkXJAJzsbKLCNen4wrFcrltYZuWU+k++wzmn8
-	 kezWB+GhdNagBHgmXqPjD3KagDIUcuM2KyTCDUAfQnT6xD7CEZeuSwW55uazYuJSoaQ==
+	 Message-ID:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=PS1VfaJQo8AXeb/IwzWbByg/SH2tTkW/13Vhf/xaBJI=;
+	b=ksEz9lQIs/gbdJzInItifMlM7S985yzAVrkeZ6PnuyYiQEw06+JmfvqLZLZrcwHxyCht
+	 +J3cSNSBZ/+aIw713UTdyTul7X68hc3Gj4rLopgEY2EGQ9Btms72GafUO+yWT98Kc1+cJ
+	 /Oqu4CX7OTR5SRba31LeQmByhz6/Kt2OaJjErd8uTpUuRLWc1M+4aSkJbGQCNFlNFoKTK
+	 R1UXw+4J6O2npMl7k/9Ru/RbJMfJAsVZwCGYMzKZql8zPVzxFdTZHP3hiaxbTzbgYj2WT
+	 LZuTjMWrx44N9WCUGpCmA3VLs1WshK1B4PG7K+DrZC29s2gmniPACvpB+s5M3gASKyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VacCkSJW;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u4QkVIy4;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DFD6606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:41:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DFD6606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17A5A606A332
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:42:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17A5A606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VacCkSJW
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-37071c0f42aso6660330eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:41:59 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u4QkVIy4
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so46597595e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:42:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794912118; x=1795516918; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1794912120; x=1795516920; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:subject:cc:to:from:date:message-id:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=L4KOYqWx580iSeGrUMZkCkNhUGinBxxLvt7tMIPLBDc=;
-        b=VacCkSJWfgrSjFRQ+4vuPBmDOU1Braf46fyBOsDxjiqANqIEAQcmoi12iwoXoyvHKj
-         xK86sMaUlmdzAoQj9RTiqOyDd7VAWF0jm66tjujttFaYUxvCnEPZMGLn2uIWUvpmVmEd
-         8VkwjKmu2mraZFFVLgr+IQoqbILhH1z0ll+AGzSKT4tGydnom18ohVNMuJCc6EtGxMoE
-         juo3LCNGOOeohOkobAXhgyppA1yYENPvfhNNUaT5BfyHAb8/KjINurW+b6jZ31IeQA2h
-         LpIR4fKOBHDWup4Bkc8p/AW6yWYGprbY1QGxpshslQ/iTkyP8BFrW4ejgmxjIj1fok4m
-         UOZg==
+        bh=PS1VfaJQo8AXeb/IwzWbByg/SH2tTkW/13Vhf/xaBJI=;
+        b=u4QkVIy49fTaoNwvWvnjGQQRpk+tfWR6LLp+CW+T4swmBdd25jXMn3tdWpXy5yiFUu
+         vTuksHTy2xKLcetJrE5+cHPrQ7SxLWJnqPGTMN9w/ehtQfjowZWh/o0MvhKzh4Y/iS7O
+         6xYBLvzjnMShr5zzhLCdjsDSrscSIQQCSH02l/PcaqAJEQXPgl756vs05i3C9DwYCY5W
+         vczinvhPLm0CpccEU/4tRsoE1aQPqsbPf4TNZnjbs3G/vgRwXjcBxn0XjaCSs0vVERNJ
+         Gjc6kx/xzNqQLGXCep/9XGA84H7NXodhlQVV8d+mvDUdClsdwdAHAKjCq1WFYMkSzDsv
+         vHWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794912118; x=1795516918;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794912120; x=1795516920;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:subject:cc:to:from:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=L4KOYqWx580iSeGrUMZkCkNhUGinBxxLvt7tMIPLBDc=;
-        b=anMM0xFy/BqvEQhTRSs9mcssk/G3Ps2WquGZJYZ4W6Wom2HulCBY+4lmpAXvIZUT77
-         4UcmqPq6OzjJB+S3ZlzHfDO4u/FB7/QBzM/9d3MIrSsxYBris/r1nxcPUJN7Dpn1x+b1
-         NO2ZRXlpBJHirXmKfFDIB+PYsKEKckGl+h0vWobFFQaWAtVg1OWhGrkl2sxRah9Ipgb1
-         PJ4LK1PX9U/gRB1yz+wd5oTCUtplfcJsTXVGtyANCgvoim5T6ZZSOHdFx/eqiIeGx2o0
-         SXrWSO+j1m8pM5fX9bwXDbOawOQkoopPELmlACtFEmQL+mey0dkl3f0vHtSqQvdx7uPT
-         /QFQ==
-X-Forwarded-Encrypted: i=1; AL+hErFnE1bpY8uWMzvmrdeHY4cclgExn7H3Sg40//j0KY+xCP3baE3KIW+9Nr0zuJY7wn8mwYFrrwuZBNPuv1Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Qtx/Xuq/HApW+ieix0IvqRb7UQyluP0rvOkomhk3RKQdqWoYC
-	ze9AnmY8b+Hma+gosJSqQaO5K4G2abInXVZp4dK3++6HO3W/b4Jgff5a
-X-Gm-Gg: AZFdTZfLRnNVxCZgIiR65cA0J0ZbkPAvj2S8us8e6Ji2GM6/KMSMW6kLGAtP9vO4pHD
-	0GsM79xRpcT7xZXZ4kC3h4EIW+7GDS85EzovZrD+duVIUE94bL97roVYs+DxnEezXZibA9k2pXU
-	zI6St/zsQnK83xw/eFjZ1JB2jbFARq/I8Ih5voq2IQEeeP9D4qUX2XLzYqmevgIqwbLywePr9rT
-	ocFc+QB4H7mTRk2bKNNmUH5njNl4t1bCmY/dgylyHp6RkDPLwZM2qDBDACS/MwdhhOGtEUBfjuB
-	V5vt4l382HWs3qzX3bHPhibYoHsvfd1FAhhdyaHbMYmxNQRk6NFP/wuURgi0q5OkY4JjAEyM5Gt
-	BJgcbLcyb56ut0wVvHaQotdgbfve0bkF/IS1Vkl9O2yGJQXvLZibDN9l+jU3yX4Rte7/efDLwFc
-	tTwSGaKQr3tGQMqruDE2Ci16Z0RRAQ+4LRj0hBWqN7XDyUVKBMi57TbhrEEfI74CKgo33Z+RNGQ
-	Ss/kQ5KNEsKntb9giCiKAMOJ5koEyXYLY6gDN5oPPSGkfMNeNoEX5mAICqKGaJiMXa3JFBJD6RS
-	MdSJoatIn90/0y5H3hF91kBKzEIiKpmQW9q7DAQxQBIDpwxvGsm8jA/ApvfNo5KjqkrHtS9Y9he
-	T4BqlAnbTXYYHAAIr7JtesqyivaRSIDYUGvgX/BOXNYQunYcBfl3tYGORP/y1eUcZ+MsG5Hhdtw
-	HGZbJcsfV8l9quA8XU+Ex3M6yCajkGonF09ouJTPYIbw==
-X-Received: by 2002:a05:7301:1810:b0:381:610e:4045 with SMTP id 5a478bee46e88-381610e40ebmr1507561eec.8.1794912118275;
-        Tue, 17 Nov 2026 02:41:58 -0800 (PST)
-Received: from kapoor.iiserb.ac.in ([203.18.51.239])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955332a77sm37871973eec.4.2026.11.17.02.41.55
+        bh=PS1VfaJQo8AXeb/IwzWbByg/SH2tTkW/13Vhf/xaBJI=;
+        b=WzrzGwIeTOAMNSxxHRXQvoE+YBgBos0oSEA40K/R8Fvq9NC2i1nPJ42b2jti8AerZn
+         rFz9j8Ja9ddGexLGycdfdNHJIZaU3lmKZmP90q5ceS1+nk8TSSKLEUz+ySomdVJqXn9z
+         4A2h9rnSjcxGEoPxIE7mrjeTQZp07gEQUlfSN6TRw+xt/+09IAhiXDMxcYan7yU/wtj3
+         ykkwuRTxVOmSMMApveruzMkdYK+DxgP3ob34bInx46Gw0vQnCfIADsaYGp7y2Qu4zd5I
+         /dDAAS5Jc9LWha+yk7MTEX0JTwjPt9ILNXr3ESEETRN7M5XOaXffRY/ioepecjhr9kjX
+         bJrg==
+X-Forwarded-Encrypted: i=1; AL+hErHWnfMCsudNk4hBQ8iO9y6BYxARMCWaoGMQIPltjGxpQPkQI4uJFISyLpSJaFoVPpk+zPt0p4cQG40536Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8QVe/jfFP8YKEHm22ghg2MjPzDw1J4LlNmCBuWK0K7maUYw9tP
+	c0R3Pomcle1e+1YGjsgocF18ImXtDoMBJp+A+coEa4+BIs+uH3cxQQ3W
+X-Gm-Gg: AYBFou3JIhFgPbcNte1toTQxWOjJJp0OximnIPCN0xgqSUCsE5czKxzINbedMBw7zwo
+	Bzekw9/3jlOkDkqjschOw2Mgn903xKkuQGb0bRnGk8nHsBVFAsJIvDMFkuPAz0OtKYbZlo6xm2r
+	qDWj03ppER4E46ewdhDgAOyscUMzCM/hFYutyPdHFLD5H7USHS+lXkTYenhCLWpe5ia/pvbCAB3
+	1y3n2uyFRtMhkLR6DNXePywnCPFoemRHEv0kCClTMKUcpZJiJp7CQwIDX7nv3xPAPu6d5ibfkW8
+	E80KHkgPVdoTgRF1FEPSssiMh/sArVSNfwmapwRRTFUjQuVXuHl26loEiwVLp8iAxlES/yXM3Mm
+	diB5NX1AaswpyuRTPzhh3nMvzo3EKlLf1bYxm3rgGUITbV9Ryml/pRCBVQZIgN26FW+NFv30U6T
+	FGHeafF/dnXsL2xYcBJRzA38Fut+NwWRVsIwMd+r2i8L2SHWcBwX1l+Opb9uyUdZnEi2oYWGGnN
+	NAR2PwizSFKmW1JB2hASWYibPvJ1FFioWY2kQA+UykY
+X-Received: by 2002:a05:600c:8b11:b0:4a3:59c9:a756 with SMTP id 5b1f17b1804b1-4bb55a6a53emr281079335e9.6.1794912120251;
+        Tue, 17 Nov 2026 02:42:00 -0800 (PST)
+Received: from [127.0.1.1] ([130.61.107.245])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb783862d6sm52348035e9.2.2026.11.17.02.41.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 02:41:57 -0800 (PST)
-From: Arnav Kapoor <kapoorarnav43@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Mudit Sharma <muditsharma.info@gmail.com>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: light: bh1745: fix 16-bit register accesses
-Date: Tue, 17 Nov 2026 16:11:52 +0530
-Message-ID: <20261117104152.137597-1-kapoorarnav43@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <avwqtvhrxmgLe8np@ashevche-desk.local>
-References: <20261116194214.45174-1-kapoorarnav43@gmail.com> <avwqtvhrxmgLe8np@ashevche-desk.local>
+        Tue, 17 Nov 2026 02:41:59 -0800 (PST)
+Message-ID: <6afc2f77.2bb6edcb.1518d5.5d4f@mx.google.com>
+Date: Tue, 17 Nov 2026 02:41:59 -0800 (PST)
+From: Adil =?utf-8?q?H=C3=BCsrev?= Tepe <tadilhusrev@gmail.com>
+To: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Kaustabh Chakraborty <kauschluss@disroot.org>
+Cc: Yassine Oudjana <y.oudjana@protonmail.com>, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 0/3] power: supply: s2mu005-battery: add S2MU106
+ (Samsung Galaxy XCover5)
+In-Reply-To: <20261116074000.355176-1-tadilhusrev@gmail.com>
+References: <20261116074000.355176-1-tadilhusrev@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,36 +101,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 17, 2026 at 12:21:42PM +0200, Andy Shevchenko wrote:
-> On Tue, Nov 17, 2026 at 01:12:10AM +0530, Arnav Kapoor wrote:
-> > - bh1745_trigger_handler() stores the raw bytes in a u16 although the
-> >   scan type is IIO_CPU.
->
-> I didn't get this, what's the problem here?
+I'd like to withdraw this series rather than send a v2.
 
-The handler does regmap_bulk_read(..., &value, 2) into a u16 and puts
-that straight into scan.chans[], so the buffer gets the register bytes
-as they come off the bus, LSB first. The channels declare
-.endianness = IIO_CPU, so user space reads each sample as a native u16.
-That is right on little-endian, but on big-endian every sample comes
-out byte-swapped. The patch reads into an __le16 and stores
-le16_to_cpu(value), so the data matches IIO_CPU on both.
+A review bot (Sashiko AI) flagged that patch 1's fallback compatible
+(samsung,s2mu106-fuel-gauge falling back to samsung,s2mu005-fuel-gauge)
+is unsound: a board using that fallback binds to the S2MU005 driver as-is,
+which still reads the MONOUT average-monitoring registers for
+VOLTAGE_AVG/CURRENT_AVG and uses current_avg to help decide
+POWER_SUPPLY_STATUS. The S2MU106 doesn't have that path, so those reads
+return garbage, and garbage current_avg can flip the reported charging
+status. Patch 3's has_monout flag avoids calling into that path from the
+S2MU106 variant I added, but the binding still allows a device to bind
+through the plain samsung,s2mu005-fuel-gauge compatible with no
+has_monout gate at all, which is the actual hole.
 
-I'll reword that bullet in v2 to say this directly.
+On reflection, extending s2mu005-battery.c was the wrong shape for this
+chip regardless of that specific bug. The S2MU106 fuel gauge is a
+separate, standalone I2C device on the Galaxy XCover5 (own address,
+0x3b), not a drop-in register-compatible S2MU005 variant sharing a
+device tree node -- it only happens to reuse the same STATUS/RVBAT/
+RCURCC/RSOC register layout and scaling. A dedicated driver avoids the
+fallback-compatible construction entirely, since there's nothing to
+fall back to.
 
-> Otherwise seems legit to me.
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+I'll send that as a new series instead: a samsung,s2mu106-fuelgauge
+binding and a standalone drivers/power/supply/s2mu106-fuelgauge.c,
+with no changes to s2mu005-battery.c or its binding. Sorry for the
+noise -- I should have settled on this shape before sending v1.
 
-Thanks!
-
-> And you also need to add
->
-> asm/byteorder.h.
-
-Will do in v2.
-
-Thanks,
-Arnav
+Adil
