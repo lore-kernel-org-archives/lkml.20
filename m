@@ -1,79 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.218
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794917335;
-	b=WcEMX2cGlBjbB2LsrcqM1w0lmB5udm4YMiB4E3q8PbPjJAaHJahu7efIr43uCugnwk9O
-	 dOke+hmE9+BeG31jJ8d3fwBaYqydr9kzv1Ek3oZ+cG8aHD4PZLm5cFSMk2gBkTbXkXWC2
-	 Hf6bBNw8hHsDcYASmSAJefmlEjTwwC/hm/iQEdC4qPJaR1xrcGnmvMCwHP8APpNl29GTY
-	 DYVyF8y8nu9M5h02S21f0KhUa2Z+amENUUKqkqHj743b2hO5ENMYrGX8hDeoTbDXiiofk
-	 ny1VEYIHfWE2zfeKIss+UwYNWFMl+DgqUlBrB25Rli1K5U7avymi9fJ2/vCelYaiRwQ==
+	t=1794917401;
+	b=lalz/8mfH91NMyED8KitB0X+K88yb76sg4WrGy5zzqZ9OgJYjFsVsCiyEfSSyFvRS1fp
+	 aIA9izaxJMWq2zSrK+yQcsr+5NpguNL6VTCRxHMQ+9v2Rb8rlfNTn9wMUceTiMBjxoqTf
+	 McQWCJEbA81WVPYZi9NIk4m5CCyn3vQ8Ki3VJaOuc8uaew0M06VL7Mr76peKlvr3ODezA
+	 OyGMoNFiLpMAbXjkyyQpLYC6+FJ795S4MbgYKvTtentSYq0HRyn6ccT+ljBvYz5CJ5zpe
+	 zTcgb8rbFJIceKFdSr1CNf88HAJNEqswfoPsgjYeTMukV6gWEP6iG3kaFt2GAZSlA4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794917335;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Received:From:
-	 To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=UrKjbD4NIO/z715Re/2+j45MbSZrqVO+AEiZ66MYvko=;
-	b=0SaCM4dBwiOJXIzGT+Hh9nJEHFAouL4yBRC740o1E41aiITx3gym08yG1z+jlX5BZ6OL
-	 0zzR3MJejKDvfevqcLT21i1rikkxL19jAKGLpxu6mwJOTh4IzeIx0tik8DTQUWqXtVFTi
-	 rDsTkHikFYOnWcZo4SinrRtI457n6UKI52CwXiVf1tudJwkpdoa6sSkzBpokkVVRcc9KT
-	 Tm/MOpdnW4O+2z8tCnf042gF2AnBCA8rzWiO1QsdUfSEUYwWJtZgAzl6C9RT9H5+kF90u
-	 zGoWFaY6Rkz4WOqMIgX9TeYcTxO0dW9/dxrQpmWltRdI4GM/1ifcMW4ACq4zxJf5y0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794917401;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=PvhRwGpG/bx47LbZ5+rPkxTM1RKyVIDPm5XEYb7/QQc=;
+	b=jkoZQptSb1pqf4pnVs8sESeAjTvpm7bNlXJpPTBP2qVFxr4JzGlzCEGqtJFw2UHRkG8T
+	 TfRDcrymKKBlmepnYFWM+gIu9aVSZk+IZPVLRAzd9i4FWA2092KDjXfoABV+caebOK2nN
+	 93cxwh/ggNX4zE1XPQDwXkqn+GuxViR7z5BprVXPltR64GF+03yc7nlEa7HFbZcRTiEoH
+	 QP+angFlWIulOhnZAGvHQ1NJvalIpwmoRevu8lcomKNbUOuXRleDjbwYPv2EEAyzhccTR
+	 5+bR+a37IWr6is7rFO8VEKaAQB/2hmj82cZaoGVoEZzLX8TlWVXCvNlA+iWX/ny3RJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b="Pd/WVXhN";
-	arc=none smtp.remote-ip=113.46.200.218
-Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lqEoq3rS;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C484B606A334;
-	Tue, 17 Nov 2026 12:08:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C484B606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D927606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:10:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D927606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Pd/WVXhN
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=UrKjbD4NIO/z715Re/2+j45MbSZrqVO+AEiZ66MYvko=;
-	b=Pd/WVXhNriQ7owynLy+FqunCiygt6MTsPB+77zY8aUTCs8GN6v96bjLJrkXVRvgw5gFmIS4SE
-	V+rmlcbE/IdNIVyeDuGVahrLVES7EZFIiDPC0UVhzVPMf0OsM7IU/mTjmgKz2q6wHEZdJRoVb8M
-	6EnhWWsr/hGPoqT2Biox5EE=
-Received: from mail.maildlp.com (unknown [172.19.163.104])
-	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4jTNlx5ZqHzpStX;
-	Tue, 17 Nov 2026 20:07:57 +0800 (CST)
-Received: from dggpemr200016.china.huawei.com (unknown [7.185.36.163])
-	by mail.maildlp.com (Postfix) with ESMTPS id 27A844058C;
-	Tue, 17 Nov 2026 20:08:46 +0800 (CST)
-Received: from whupemq100015.china.huawei.com (7.152.185.230) by
- dggpemr200016.china.huawei.com (7.185.36.163) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 17 Nov 2026 20:08:45 +0800
-Received: from DESKTOP-62GVMTR.china.huawei.com (10.174.220.94) by
- whupemq100015.china.huawei.com (7.152.185.230) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 17 Nov 2026 20:08:43 +0800
-From: Fan Gong <gongfan1@huawei.com>
-To: Fan Gong <gongfan1@huawei.com>, Wu Di <wudi234@huawei.com>, Teng Peisen
-	<tengpeisen@huawei.com>, <netdev@vger.kernel.org>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
-	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
-	<horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, Ioana Ciornei
-	<ioana.ciornei@nxp.com>, Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Mohsin Bashir <mohsin.bashr@gmail.com>, Dimitri Daskalakis
-	<dimitri.daskalakis1@gmail.com>, Harshitha Ramamurthy
-	<hramamurthy@google.com>, Larysa Zaremba <larysa.zaremba@intel.com>, "Vadim
- Fedorenko" <vadim.fedorenko@linux.dev>
-CC: <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>, Zhou Shuai
-	<zhoushuai28@huawei.com>, Wu Like <wulike1@huawei.com>
-Subject: [PATCH net-next v04 1/4] hinic3: Fix the RX stalls in hinic3_rx_poll()
-Date: Tue, 17 Nov 2026 20:08:31 +0800
-Message-ID: <85bd868ec35a5963c08193a3c1870aa87004f63d.1794917917.git.gongfan1@huawei.com>
-X-Mailer: git-send-email 2.50.1.windows.1
-In-Reply-To: <cover.1794917917.git.gongfan1@huawei.com>
-References: <cover.1794917917.git.gongfan1@huawei.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lqEoq3rS
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-49d64a88222so519238f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:10:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794917400; x=1795522200; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PvhRwGpG/bx47LbZ5+rPkxTM1RKyVIDPm5XEYb7/QQc=;
+        b=lqEoq3rS7CGKKd1FRoH6cg5jsVy/s17zm7ks2uS8qdsYtYMnuEt/W7dmHQkSsVu/Sy
+         Vk7wxPGG8XL4pDq9fGbATaFcjP2DolOFNEQhhN9l4tbsWm6CjfaKNQzT4UFydcmBIXw4
+         BrjPrSux1n1ItxPmWD33uaINk7P+ty4Q9rvtg6f5XA63Fi8hEjCFJBS/xPTNCfFOwBJt
+         nYlhINgsthLCujf9eyqDLqEOdWSfhf3MvSnmU0yJNhhV7XohJZsjCgFiY4+hD3f/ShZo
+         HFbRQTRjjgrmUZ+TXelczF9MHcGlGMi+R1GMH2xpg/2tc+JzpRj6Nq9e3U8k4Q+A1lgx
+         /kbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794917400; x=1795522200;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PvhRwGpG/bx47LbZ5+rPkxTM1RKyVIDPm5XEYb7/QQc=;
+        b=XjKJ0xbuCFcf/OC8DiJexdUjdB5c24l1YQtMs8aieJw2uAY11eSfwYKNqd8ASTxgSb
+         bk4n3VYunB2eO8AkE/88D1qG9mNE6WKzWRhebAwllgASCZ6HPQxqN/DkTU520aEM7DyJ
+         D6DkIxqLhDsWZz20kY0FELR2l4kQj1N/RIb38eW1jL4UbudCsUC0nPSx6Z33gVbTDfkg
+         ZquEPnIPuYER5FuQRWTvyiSNJc0HmykOhIQ6+eQPZvIGAX8i/fd/0d2XYbM8AjpFHHb6
+         GYUKUSgWeV5dnC0Jek8ql5YNu1sYeAVFVkx+Ulj1Sp2/pb2d4YBeLNPJp4d+jiOS9kXJ
+         iv0w==
+X-Forwarded-Encrypted: i=1; AL+hErHGrmJ9cDS9NvBco0HZdPvXca0kIsIvefuWz8IUQ+v5GmTMKrvyoJcFkKxU33N+YKRpOVmDjKQZKgug7SU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+KjI/rsULAgp4h/93MrkULxEG6eVCkLCDednT67c/hx0w/kVwb
+	tHQLhzOuxqfAK5NfkKT/UgmjKvocVudQdWr1jtnoMXK7TN+q60ti7jJg
+X-Gm-Gg: AYBFou3jfsy0WNgz/NQb6VRMyBY48o6nJdNCB1sVWUMIdrmRf4sHDiRs6KjNWdpGUG8
+	pA1oodwP0QsSXIK2O65ofCsiJlZHFVQNatQqN+bVY6Fe6k6OoR9ueOqYzRymUZoOTeTMr2Ek0bw
+	tIL+Ti03Us9XwKSFeUiEQqBWlfM0wEx5qyBz4DIkUTaRyzq+O9cUy6mxzkTQVxe0/koF/DwCHtl
+	fJC08xflRInRQjQF1dufEHtj3yEbw/57OLxik+YLyDj4mqTcdl66u1pJeCw7869YdZ6NBhESzo+
+	ZtGPPi0SjxIw9Jh2LcmDjAHsrEDcLJDjD8crb2/X1KBe8xeRM5NRJ5wCVJo/9/DK/MAnb1KPNv+
+	USBLgkN5WLefKMBMrvt0siULj3kZjG0CEUefq6vRGeQ2coqjVmaucgWYaa2VPRvDgfBo1msQTu+
+	I9BrulQq81WO/wV75OHaYFzqDNuehPprYu/QTsZkVMnpvi5GHN9xcJZME1WSQcBak7bH1FAwfOE
+	8WhwGF6zk8CE1rfyATyu/rosqyRNoFFqCdBdzBFfZOTOaMNwo48abILVNX7XmG0aeL/weqU4W2d
+	rvJUQd5MSuvy3zeAX9ICrIynLPyJh9myfNV1iJ/bCTN5Bg==
+X-Received: by 2002:a05:600c:3493:b0:4ba:4928:8aec with SMTP id 5b1f17b1804b1-4bb78381293mr54280755e9.9.1794917399581;
+        Tue, 17 Nov 2026 04:09:59 -0800 (PST)
+Received: from luca-vm.lan ([154.61.61.58])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb783e9288sm66515085e9.15.2026.11.17.04.09.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 04:09:59 -0800 (PST)
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+To: linux-mediatek@lists.infradead.org
+Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v2] soc: mediatek: mt8167-mmsys: fix errors in multiple-output display paths
+Date: Tue, 17 Nov 2026 13:09:12 +0100
+Message-ID: <20261117120934.728612-1-l.scorcia@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,103 +98,116 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- whupemq100015.china.huawei.com (7.152.185.230)
 
-hinic3_rx_poll() can leave the loop with a completed CQE still sitting at
-the head of the ring, or with no WQE left to receive into, and still
-return nr_pkts, which is below budget.  hinic3_poll() then calls
-napi_complete_done() and re-enables the MSI-X interrupt, which is edge
-triggered, so nothing re-arms the queue if no further packet arrives.
+Some display blocks can be used to define multiple-output pipelines.
+The current code uses mtk_mmsys_update_bits to clear the mask bits and
+set the desired output block bit when initializing or disconnecting a
+pipeline. This breaks multiple output pipelines (only the last one set
+produces output).
 
-Three exits behave this way:
+Fix this by using the block bit alone as mask for multiple output route
+components.
 
-  - a large LRO packet consumed enough WQEs to cross lro_replenish_thld;
-  - napi_alloc_skb() failed in recv_one_pkt();
-  - hinic3_rx_fill_buffers() posted fewer WQEs than rxq->delta - 1 because
-    page_pool_dev_alloc_frag() failed.
+Also address some unfortunate copy and paste errors in routes between
+OVL<->WDMA0, DITHER0<->UFOE and DITHER0<->WDMA0.
 
-The first two leave a completed CQE unprocessed.  The third leaves the
-device without a WQE to receive into: it then drops every packet and,
-because no CQE is written, raises no interrupt either, so the queue stays
-dead until the interface is reset.
-
-Return budget from all three paths so that hinic3_poll() skips
-napi_complete_done() and NAPI runs again immediately.
-
-When recv_one_pkt() fails no CQE is consumed and no state is advanced, so
-the same CQE is simply retried on the next poll; this is the only way to
-make progress, as the completed CQE cannot be dropped.  Likewise
-hinic3_rx_fill_buffers() keeps the WQEs it could not post accounted for in
-rxq->delta, so the next poll retries the refill and the ring is complete
-again as soon as a full refill succeeds.  All three failures are transient
-(memory pressure), which bounds the immediate repoll, and i40e, ice and
-iavf return budget on a ring refill failure in the same way.  A deferred
-refill would need to be serialized against hinic3_rx_poll(), which
-retries the same WQEs from rxq->delta, so the poll based retry is used
-instead.
-
-Fixes: 17fcb3dc12bb ("hinic3: module initialization and tx/rx logic")
-Co-developed-by: Wu Di <wudi234@huawei.com>
-Signed-off-by: Wu Di <wudi234@huawei.com>
-Co-developed-by: Teng Peisen <tengpeisen@huawei.com>
-Signed-off-by: Teng Peisen <tengpeisen@huawei.com>
-Signed-off-by: Fan Gong <gongfan1@huawei.com>
+Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Fixes: 96c2b43b1fb3 ("soc: mediatek: mt8167-mmsys: add routes for all display paths")
 ---
- .../net/ethernet/huawei/hinic3/hinic3_rx.c    | 22 ++++++++++++++-----
- 1 file changed, 17 insertions(+), 5 deletions(-)
+Changes in v2:
+- Added Fixes tag
 
-diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c b/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c
-index 309ab5901379..9a02a7bf6c50 100644
---- a/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c
-+++ b/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c
-@@ -555,6 +555,7 @@ int hinic3_rx_poll(struct hinic3_rxq *rxq, int budget)
- 	struct hinic3_nic_dev *nic_dev = netdev_priv(rxq->netdev);
- 	u32 sw_ci, status, pkt_len, vlan_len;
- 	struct hinic3_rq_cqe *rx_cqe;
-+	bool poll_again = false;
- 	u32 num_wqe = 0;
- 	int nr_pkts = 0;
- 	u16 num_lro;
-@@ -571,8 +572,10 @@ int hinic3_rx_poll(struct hinic3_rxq *rxq, int budget)
+v1: [1]
+
+[1] https://lore.kernel.org/linux-mediatek/20261117113402.728183-1-l.scorcia@gmail.com/
+
+ drivers/soc/mediatek/mt8167-mmsys.h | 32 +++++++++++++++++++----------
+ 1 file changed, 21 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/soc/mediatek/mt8167-mmsys.h b/drivers/soc/mediatek/mt8167-mmsys.h
+index 858779ace895..45df210b5775 100644
+--- a/drivers/soc/mediatek/mt8167-mmsys.h
++++ b/drivers/soc/mediatek/mt8167-mmsys.h
+@@ -79,7 +79,7 @@
+ static const struct mtk_mmsys_routes mt8167_mmsys_routing_table[] = {
+ 	/* OVL0<->COLOR0 */
+ 	MMSYS_ROUTE(OVL, 0, COLOR, 0,
+-		    MT8167_DISP_REG_CONFIG_DISP_OVL0_MOUT_EN, MT8167_OVL0_MOUT_EN_MASK,
++		    MT8167_DISP_REG_CONFIG_DISP_OVL0_MOUT_EN, MT8167_OVL0_MOUT_EN_COLOR0,
+ 		    MT8167_OVL0_MOUT_EN_COLOR0),
+ 	MMSYS_ROUTE(OVL, 0, COLOR, 0,
+ 		    MT8167_DISP_REG_CONFIG_DISP_COLOR0_SEL_IN, MT8167_COLOR0_SEL_IN_MASK,
+@@ -87,26 +87,36 @@ static const struct mtk_mmsys_routes mt8167_mmsys_routing_table[] = {
  
- 		vlan_len = le32_to_cpu(rx_cqe->vlan_len);
- 		pkt_len = RQ_CQE_SGE_GET(vlan_len, LEN);
--		if (recv_one_pkt(rxq, rx_cqe, pkt_len, vlan_len, status))
-+		if (recv_one_pkt(rxq, rx_cqe, pkt_len, vlan_len, status)) {
-+			poll_again = true;
- 			break;
-+		}
+ 	/* OVL0<->WDMA0 */
+ 	MMSYS_ROUTE(OVL, 0, WDMA, 0,
+-		    MT8167_DISP_REG_CONFIG_DISP_OVL0_MOUT_EN, MT8167_OVL0_MOUT_EN_MASK,
++		    MT8167_DISP_REG_CONFIG_DISP_OVL0_MOUT_EN, MT8167_OVL0_MOUT_EN_WDMA0,
+ 		    MT8167_OVL0_MOUT_EN_WDMA0),
+ 	MMSYS_ROUTE(OVL, 0, WDMA, 0,
+-		    MT8167_DISP_REG_CONFIG_DISP_WDMA0_SEL_IN, MT8167_COLOR0_SEL_IN_MASK,
++		    MT8167_DISP_REG_CONFIG_DISP_WDMA0_SEL_IN, MT8167_WDMA0_SEL_IN_MASK,
+ 		    MT8167_WDMA0_SEL_IN_OVL0),
  
- 		nr_pkts++;
- 		num_lro = RQ_CQE_STATUS_GET(status, NUM_LRO);
-@@ -581,12 +584,21 @@ int hinic3_rx_poll(struct hinic3_rxq *rxq, int budget)
- 
- 		rx_cqe->status = 0;
- 
--		if (num_wqe >= nic_dev->lro_replenish_thld)
-+		if (num_wqe >= nic_dev->lro_replenish_thld) {
-+			poll_again = true;
- 			break;
-+		}
- 	}
- 
--	if (rxq->delta >= HINIC3_RX_BUFFER_WRITE)
--		hinic3_rx_fill_buffers(rxq);
-+	if (rxq->delta >= HINIC3_RX_BUFFER_WRITE) {
-+		u32 free_wqebbs = rxq->delta - 1;
+-	/* DITHER0 outputs */
++	/* DITHER0 output to RDMA */
+ 	MMSYS_ROUTE(DITHER, 0, RDMA, 0,
+-		    MT8167_DISP_REG_CONFIG_DISP_DITHER_MOUT_EN, MT8167_DITHER_MOUT_EN_MASK,
++		    MT8167_DISP_REG_CONFIG_DISP_DITHER_MOUT_EN, MT8167_DITHER_MOUT_EN_RDMA0,
+ 		    MT8167_DITHER_MOUT_EN_RDMA0),
 +
-+		/* Refill stops at the first failed allocation, so a short
-+		 * refill may leave the ring without any WQE posted.
-+		 */
-+		if (hinic3_rx_fill_buffers(rxq) != free_wqebbs)
-+			poll_again = true;
-+	}
++	/* DITHER<->UFOE */
+ 	MMSYS_ROUTE(DITHER, 0, UFOE, 0,
+-		    MT8167_DISP_REG_CONFIG_DISP_DITHER_MOUT_EN, MT8167_DITHER_MOUT_EN_MASK,
++		    MT8167_DISP_REG_CONFIG_DISP_DITHER_MOUT_EN, MT8167_DITHER_MOUT_EN_UFOE,
+ 		    MT8167_DITHER_MOUT_EN_UFOE),
++	MMSYS_ROUTE(DITHER, 0, UFOE, 0,
++		    MT8167_DISP_REG_CONFIG_DISP_UFOE_SEL_IN, MT8167_UFOE_SEL_IN_MASK,
++		    MT8167_UFOE_SEL_IN_DITHER),
++
++	/* DITHER<->WDMA */
+ 	MMSYS_ROUTE(DITHER, 0, WDMA, 0,
+-		    MT8167_DISP_REG_CONFIG_DISP_DITHER_MOUT_EN, MT8167_DITHER_MOUT_EN_MASK,
++		    MT8167_DISP_REG_CONFIG_DISP_DITHER_MOUT_EN, MT8167_DITHER_MOUT_EN_WDMA0,
+ 		    MT8167_DITHER_MOUT_EN_WDMA0),
++	MMSYS_ROUTE(DITHER, 0, WDMA, 0,
++		    MT8167_DISP_REG_CONFIG_DISP_WDMA0_SEL_IN, MT8167_WDMA0_SEL_IN_MASK,
++		    MT8167_WDMA0_SEL_IN_DITHER),
  
--	return nr_pkts;
-+	return poll_again ? budget : nr_pkts;
- }
+ 	/* UFOE<->DSI0 */
+ 	MMSYS_ROUTE(UFOE, 0, DSI, 0,
+-		    MT8167_DISP_REG_CONFIG_DISP_UFOE_MOUT_EN, MT8167_UFOE_MOUT_EN_MASK,
++		    MT8167_DISP_REG_CONFIG_DISP_UFOE_MOUT_EN, MT8167_UFOE_MOUT_EN_DSI0,
+ 		    MT8167_UFOE_MOUT_EN_DSI0),
+ 	MMSYS_ROUTE(UFOE, 0, DSI, 0,
+ 		    MT8167_DISP_REG_CONFIG_DISP_DSI0_SEL_IN, MT8167_DSI0_SEL_IN_MASK,
+@@ -114,7 +124,7 @@ static const struct mtk_mmsys_routes mt8167_mmsys_routing_table[] = {
+ 
+ 	/* UFOE<->DPI0 */
+ 	MMSYS_ROUTE(UFOE, 0, DPI, 0,
+-		    MT8167_DISP_REG_CONFIG_DISP_UFOE_MOUT_EN, MT8167_UFOE_MOUT_EN_MASK,
++		    MT8167_DISP_REG_CONFIG_DISP_UFOE_MOUT_EN, MT8167_UFOE_MOUT_EN_DPI0,
+ 		    MT8167_UFOE_MOUT_EN_DPI0),
+ 	MMSYS_ROUTE(UFOE, 0, DPI, 0,
+ 		    MT8167_DISP_REG_CONFIG_DISP_DPI0_SEL_IN, MT8167_DPI0_SEL_IN_MASK,
+@@ -122,7 +132,7 @@ static const struct mtk_mmsys_routes mt8167_mmsys_routing_table[] = {
+ 
+ 	/* UFOE<->DPI1 */
+ 	MMSYS_ROUTE(UFOE, 0, DPI, 1,
+-		    MT8167_DISP_REG_CONFIG_DISP_UFOE_MOUT_EN, MT8167_UFOE_MOUT_EN_MASK,
++		    MT8167_DISP_REG_CONFIG_DISP_UFOE_MOUT_EN, MT8167_UFOE_MOUT_EN_DPI1,
+ 		    MT8167_UFOE_MOUT_EN_DPI1),
+ 	MMSYS_ROUTE(UFOE, 0, DPI, 1,
+ 		    MT8167_DISP_REG_CONFIG_DISP_DPI1_SEL_IN, MT8167_DPI1_SEL_IN_MASK,
+@@ -130,7 +140,7 @@ static const struct mtk_mmsys_routes mt8167_mmsys_routing_table[] = {
+ 
+ 	/* UFOE<->WDMA0 */
+ 	MMSYS_ROUTE(UFOE, 0, WDMA, 0,
+-		    MT8167_DISP_REG_CONFIG_DISP_UFOE_MOUT_EN, MT8167_UFOE_MOUT_EN_MASK,
++		    MT8167_DISP_REG_CONFIG_DISP_UFOE_MOUT_EN, MT8167_UFOE_MOUT_EN_WDMA0,
+ 		    MT8167_UFOE_MOUT_EN_WDMA0),
+ 	MMSYS_ROUTE(UFOE, 0, WDMA, 0,
+ 		    MT8167_DISP_REG_CONFIG_DISP_WDMA0_SEL_IN, MT8167_WDMA0_SEL_IN_MASK,
 -- 
 2.43.0
 
