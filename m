@@ -1,47 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794932537;
-	b=eBhYvR8cXf7qfgPing8bR2/V+N3ugtCPAJND+IaedbFJ9CLKrLxU5/kG0wTNo/eN9CMA
-	 F/RvraMlbLcHv+/eumZ/pVDM8NU6UYKlxIEm8ciHo82zJ4xk+QxPQ0TXAV/nNXrbdeQVK
-	 /jrPPaWFnuyjvmKfspFmpkRENIOS0QgnE9331v+a2bI906PjTO3G+BUBqh5dz4IhWAdxO
-	 hYJT0q8su54+N8ppN8mpzOd/otWCP5Iv81dgH39H5loaWBW+pquxOYMOxCa2F4uWPBF+g
-	 Iff2ANBIUKK5n2+0uzAbY+ocF1n+KIiT64H+jvbaWWph3AhdkqTsw5EviGEfftrdzZg==
+	t=1794932582;
+	b=WETku+tn9cJs1zKPt1T73o8Izmlhm4H5xnQF2TqXJKjMcnjrtlK3U7VsbMU9lF8615qE
+	 VdXiCAwgf/OvqmawwyJW8Lfm1qDtgp5Z5hHde7OehTfIE+jtE/UZhjPzZAPo9VbV73uNd
+	 SZQrhD3jjE8kr7h4K4FEp8vWSOuv36meN1p8csVYagsf+XetE3cozvPWhpoBTwZeT2Rob
+	 a3eSvs9VJVipBg3BlVq4M4Pe/XX7r8HyCVutCkxtsBLDfnYBWaUde8Y+Cm54RRSq0eXPR
+	 kZygX8efiK/qLd6luG+O0GFnFMJ6IztWsuwxSlytaBtSvQ8XqjTiORtpWj/I0ZZdSEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794932537;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=+u0XvPm1yl8lpppCa0o7Ub3ZqbKbjWd/kwvQc+jK5VQ=;
-	b=F2KWvaLHY2KfHGzWcDFuf9NZEBXoZikoCSKLZBSrjoEp8MrUl7J6vGZVZJX1g5StlhvS
-	 Hk5wCf/ohza/C84Q4k+/MulVEtnP9CbCdW5OyoRUD81OYmWBX2hxGNidZviCwlrOufuOc
-	 UpYf6PjOfDCtIIzVL9JUY9jNupG2NpmmhtAGiqSk7YLG5zW7lGtoImf2Zg+g2Bp1lCYYC
-	 qESBg04bukPFnjNyopU5KkdgwZsVV4lO4GdM2PzpvAj4wZaZ/s5aFf73402D5q8ovEqSP
-	 GYarxwpU3bDiYscda4XoSr6Wyakc/4XF/SCKFCI9ss4mCJ2M79zwCsgAr/FqmvgvdsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794932582;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=grJoK+18+h3lRgJDxuY0z4u1arzCjZYyT36BXVitrDQ=;
+	b=KFS8QHg2atoCQogPDZqa77i/RUbGyYy10jQLYG460vzLtoiRRbGmLaEL0R/7maZFqZtc
+	 KUz4LrVj+pXX90RsL8wduk8z8btKjNTQcqDM+a2jz4MffJDtr8a3Rr+36juLHhGjpVtDj
+	 06+fkvuegTzU8Psfmatvv2IPnQ65DJXCTE2/6pbGEZJ7J1pfcyyrOQvzme9KYUm3aSqEU
+	 +TtfImA7KX4MJryroE+X4q1ChbbTaj2MPEFwknq0Cy+9TU747SmNGVJuhlP9QgQn98yQZ
+	 MYHms3LAo4vcG3pDWr0JbsbAAdmt8Bewr05yYVhc9psoGtBqzqbW3ieS69YbXLv8sLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g96uGOli;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b="fLd73/om";
+	arc=none smtp.remote-ip=209.85.208.51
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01173606A31C;
-	Tue, 17 Nov 2026 16:22:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C006606A32F
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:23:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C006606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g96uGOli
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E6DD1F000C4;
-	Tue, 17 Nov 2026 16:22:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794932536;
-	bh=+u0XvPm1yl8lpppCa0o7Ub3ZqbKbjWd/kwvQc+jK5VQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=g96uGOlizPLYBJJRsK+FTKMmsGeaNP9VPNN1fuNODhjDw/mG0D43hUdrwZTpddwXG
-	 /Z0UTEUTIEf58Z4VAJm4t61vIFvRFe8eVZPefJ59dIlSrGdKf+6WU9weImo6EUMpxp
-	 Nud1h3CYvt8I76Xw92EczkTMlNHu06zUMdsxIr87SjSunZHDXDbSygpMC2PxwFhGGQ
-	 z+ogIJCU3dUL0HMPmecWdGOidfpaA7GjVehQQBsmfnrQ+e3SUhi37Xz2yx4dAqWIDU
-	 FXg3tlRB32Jaigk0PJcQaM29bbqR2EJjTvUMCxZrq1+A4G6YR1XxJJi9KNsaMt3wJ+
-	 Pb4XFPmAj2i5Q==
-Message-ID: <7ae17206-829d-4fdb-afd0-cc14c5411b74@kernel.org>
-Date: Tue, 17 Nov 2026 17:22:09 +0100
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=fLd73/om
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b47c1a3c74so7248371a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:23:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1794932581; x=1795537381; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=grJoK+18+h3lRgJDxuY0z4u1arzCjZYyT36BXVitrDQ=;
+        b=fLd73/om03YWUuDkOuG8V/aIaHAVh2WpJzBN2iOKh+k+MsBvT9UpuTk1k0fmFemwIy
+         G79toC8ssyS6czusYcryxSrGNhzIe7PDWG9Lkm+l7jMYvGO7k8p/ak9K+vUJFpGCrn0a
+         OQ8EbHVHIUPg9bmNyz+BRf2m4rrcw+CIEwLmg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794932581; x=1795537381;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=grJoK+18+h3lRgJDxuY0z4u1arzCjZYyT36BXVitrDQ=;
+        b=vy//AlQyXQo1jjfX+MqvIi457C991N5DPc0f3/1nQcw7a4SbW47xp/bjYnSgXiFbvE
+         HZrybkCzaxwbZCW/qUegNzBnwd2XH9vKUAZsSJ/VjlhAu2H1rNSqyMgkDM07cl5Tgxw3
+         VeXp7lz+oZ/GpDpflQsdn/1Z75EtOPNstdg89FBpOSs8gtWAt9Hgl84GeI4iTI+3MCDL
+         Ug+LdkQdYjgBJe/+MoPRTPs5VgEsZEqjPjyIHmOeITG8SqSF9RleHB4B6MwZSJdnCC9e
+         5kaY+UVkfCJ+Ipk9qUPTxQ68HWFN6CLVMSfUEBfTYbm+6NipaqLR9SoEPJQQto47eidA
+         GVNg==
+X-Forwarded-Encrypted: i=1; AL+hErEM5tzZPojOFobcBiqf243Mr/hxDjmKFHg1d49nsEQe6ZJaIKWfVmg7eh1/JqM4QiHesG+ax3CvmMGGnBg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ho/MD4+BvtYDWlH16lzoX63iizCPa1LR4iqlWV4+uHkwJsWE0
+	/z4fKZBecvHxcYJqX2iaJ0aBHoWxjgmb3tXrpgXnjL8ZWikhn6WldVJ76lRZPen2etsC2xSDLjZ
+	aBKTWMUOzPA==
+X-Gm-Gg: AYBFou3nLeFZKzWvgJCiQHEepRO65c9158F/3IoVMU8+gN7bxgzr+oNkZ/kVTPNv1wf
+	6CEL7q+0tgocctypg+Ybg8G63aV0LPIZrVryqAr4qy9J5T6lQDzZPtcc0nDUsdyptQNQFDnvq6Q
+	l+HJaR6zp9VnFsNYrQVgeLRBot6kusM1bmublFJ6Wl8vOqii2WpAnxiikLR959DK/2LFeP9xSeY
+	t9dFVuk6jCMNF7rEL8yIoOkeiA+svpEw5Xffwu6qXjX/T7d7BPqnAWCBXHEcPfLg/7TI+PYrcJc
+	iEV+fAyFtWUcukvpWH7PmaZoAe8j4tfmO520yaIfArSOTYfkxnq3+/R8VLxoz4oASjFYF9EszUs
+	tmecXAIlQPSlvtN54+u/smuToZb6AERzVAhETlb99aaz3XU6fkmMyAPI6/29eBRklBoF6+pDKDc
+	bT/hibZg4QL1qnk7CSm3i1JTFTYBT6WSDdIZjHzsb3Gx+Qz5XZ6OGt1AFSeAW7tJC6OyV3wU/6L
+	/UlnJq7wNIrjt+T35xaMd4tpX4/smUf1x5fyo2o3zZkC08AUa6nTUuBymTD7y7O2ic1g+W5khrM
+	BBsXXBRBFExZgKm1rVHvsJ/6bb57P1jOmgV4VK0pbFVRn+iZfRUsVro4F+JEwYMhztGSezp71fk
+	/zVb/
+X-Received: by 2002:a05:6402:4504:b0:6b7:c1d4:ec3c with SMTP id 4fb4d7f45d1cf-6b7c1d4ed98mr10452930a12.0.1794932580551;
+        Tue, 17 Nov 2026 08:23:00 -0800 (PST)
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com. [209.85.218.51])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b886bd1d3fsm3754a12.25.2026.11.17.08.22.53
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 17 Nov 2026 08:22:54 -0800 (PST)
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c4cb6834eaaso358394966b.2
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:22:53 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGlfIX4EZI95EAnKxC4RbUfhq4Nu6vLfkTA9gOxKxvSdg34vvxZB7G3OvMwOflIMS5vit77U3a1/CHWcMw=@vger.kernel.org
+X-Received: by 2002:a17:906:7955:b0:c46:7ec3:fdfe with SMTP id
+ a640c23a62f3a-c5096369c4dmr1218639066b.19.1794932573142; Tue, 17 Nov 2026
+ 08:22:53 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,109 +94,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] mm/memory: fix handling of PTE markers in
- insert_page_into_pte_locked()
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Jan Kara <jack@suse.cz>, Jingyi Sun <1045704958@qq.com>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Matthew Wilcox <willy@infradead.org>, Michal Hocko <mhocko@suse.com>,
- Muhammad Usama Anjum <usama.anjum@arm.com>, Peter Xu <peterx@redhat.com>,
- Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, nvdimm@lists.linux.dev
-References: <20261117-uffd-dax-async-wp-fix-v1-0-c9a30f27f452@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261117-uffd-dax-async-wp-fix-v1-0-c9a30f27f452@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261111-pipe-epollexclusive-wakeup-v1-1-0af6283e9fda@columbia.edu>
+ <avxWKI795DthE8Sb@redhat.com>
+In-Reply-To: <avxWKI795DthE8Sb@redhat.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Tue, 17 Nov 2026 08:22:36 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wjOq+G=6gte4vX_YxOD_VfE1uZh7=+KHs8N0wU75xyHEg@mail.gmail.com>
+X-Gm-Features: AclHuK88r0MdvPyPBWEFngj9XAj85-331AH_Da3bLeV6HCZQzC7nMHyp9Qr3R6o
+Message-ID: <CAHk-=wjOq+G=6gte4vX_YxOD_VfE1uZh7=+KHs8N0wU75xyHEg@mail.gmail.com>
+Subject: Re: [PATCH] pipe: keep per-write wakeups for EPOLLEXCLUSIVE consumers
+To: Oleg Nesterov <oleg@redhat.com>
+Cc: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>, 
+	Breno Leitao <leitao@debian.org>, Christian Brauner <brauner@kernel.org>, 
+	Mateusz Guzik <mjguzik@gmail.com>, Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	tz2294@columbia.edu, stable@vger.kernel.org, 
+	Mani Tofigh <mt4022@columbia.edu>
+Content-Type: text/plain; charset="UTF-8"
 
-On 11/17/26 16:58, Mike Rapoport (Microsoft) wrote:
-> Jingyi reported that a uffd-wp marker in a DAX mapping causes endless
-> refaults on reads and SIGBUS on writes [1].
-> 
-> The root cause is that insert_page_into_pte_locked() treats every PTE that
-> is not none as a present mapping. Besides uffd-wp markers, this also
-> affects guard markers that MADV_GUARD_INSTALL can put into a DAX mapping
-> concurrently with a write fault.
-> 
-> The first patch restructures insert_page_into_pte_locked() to make room
-> for the fixes, the second patch fixes the reported issue and the third
-> makes write faults back off on non-present PTEs.
-> 
-> Both issues were reproduced on ext4 with dax=always on emulated pmem, and
-> the fixes were verified with these reproducers.
-> selftests.
-> 
-> [1] https://lore.kernel.org/all/tencent_1874C71D4177A1624528043E008DB1A5EF05@qq.com
-> 
-> ---
-> Mike Rapoport (Microsoft) (3):
->       mm/memory: install new PTEs first in insert_page_into_pte_locked()
->       mm/memory: replace uffd-wp markers in insert_page_into_pte_locked()
->       mm/memory: don't upgrade non-present PTEs in insert_page_into_pte_locked()
-> 
->  mm/memory.c | 68 +++++++++++++++++++++++++++++++------------------------------
->  1 file changed, 35 insertions(+), 33 deletions(-)
-> ---
-> base-commit: 93d7a816a2df3e907e2719bd12b0073f1285fc5c
-> change-id: 20261117-uffd-dax-async-wp-fix-867acc8dc78f
-> 
-> --
-> Sincerely yours,
-> Mike.
+On Tue, 17 Nov 2026 at 05:27, Oleg Nesterov <oleg@redhat.com> wrote:
+>
+> However, EPOLLEXCLUSIVE breaks this logic. ep_ptable_queue_proc() does
+> add_wait_queue_exclusive() if EPOLLEXCLUSIVE is set.
 
+Christ, how I hate epoll. It's a pile of stinking shit.
 
-I have here a fix to disallow uffd on DAX entirely. It's completely broken.
+This literally violates THE WHOLE AND ONLY POINT of exclusive waits.
 
-I was staging it to send with others, but I can send it out separately.
+The rule for an exclusive wait is that it *will* act on the wakeup -
+either by consuming the data, or - if it can't consume it all - by
+waking up the next waiter itself.
 
--- 
-Cheers,
+So it's not that "EPOLLEXCLUSIVE breaks this logic".
 
-David
+The logic is fine. EPOLLEXCLUSIVE is broken beyond words.
+
+I really think we need to just actively de-emphasize epoll. Starting
+with saying "you can't add EPOLLEXCLUSIVE, because you don't honor
+it".
+
+               Linus
