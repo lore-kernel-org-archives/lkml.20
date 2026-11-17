@@ -1,59 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794882834;
-	b=uw4sKZyf6IldtKa0ENgHfpCCzBudYwzpKxtJ5rnII9j9NdoxD3NU8HON77Vxz6WcJg9L
-	 +z0SWo1Zkvj6BWWxOk2XwEYi0MYyhawjaFetR9jTDOqJWdB6y5/vEiT1D8sbzG03M5DEI
-	 uqcWfNQKMDiZPqCn2z4ubBUSkxyBPBxirkmHZ0o9GRMin+USeeGNtCu9qWKOz79W9dTM9
-	 1C7pKxaSBLqHEm+4EwKXpgtv3L+WT7wErRmM3d2ubjsQRZHqncsbxjGu5Az8mDvm67AF6
-	 459dnzDKCGinEu7CaJtbAnEblSftNCVH8e/bAhPMeP3hGhJgOvencRPsb5gven7859w==
+	t=1794882892;
+	b=GSL6g3r7lLv+qexP0I+ZNNcDRm6pvJ+9QphKk6AY6PrwZN+OfyMpH7r/NtAx5fXDN3vq
+	 aG+WvHQYDbmcPkR29z/ZB/N1Fuzz37/r/6CxYP5ICxLxT623xpHMkPVJySms2lNk6N5dD
+	 TD+necmjGCPpdFatIkMk+0t/QdzBZwdZeBvHCvBMbuziSqRWyT/wiBK88CuAzAjbdVkIR
+	 qyVfyEoczXT7R9Y3koCxb8WWaOTqiKTZlDJTi3yTPkX/JrGR2XHBwirmMFsTSyc6vZnv1
+	 W33bqBdxRlMy8sc2Wj54rYQvMsffmLXQiK/6G+33QGT5iVgz2V3kgxmXfDSy1VOG10Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794882834;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Mime-Version:Subject:Reply-To:Sender:From:To:CC:X-Priority:
-	 X-Content-Kind-Code:In-Reply-To:X-CPGS-Detection:X-Drm-Type:
-	 X-Msg-Generator:X-Msg-Type:X-Reply-Demand:Message-ID:Date:
-	 X-CMS-MailID:Content-Transfer-Encoding:Content-Type:X-Sendblock-Type:
-	 CMS-TYPE:X-CPGSPASS:X-CPGSPASS:cpgsPolicy:X-CFilter-Loop:
-	 X-CMS-RootMailID:References;
-	bh=ArB9Q+6SpwJqEmLNKZLc+YWYiLFBbKz2m6bNXZrWRho=;
-	b=F+P+5LoniPE4iSnU/WNgECtU9A2Wv+gtVfmcTQg1zC9v17Q4mPzLo5W/+lfONAZAlbCv
-	 J0Xv3GqkWs+Iroutyjv84B6iyQBzZgNAvb+FE3I14HpIsR6tnqTndCMG4RUZXZ82NDE/z
-	 hb96A5j6e7m/YLEjeMJXtmLZ7u5YnhuoFsuBByu/g5Uv4++OuWqkSypLiK/Psf7HzIcDV
-	 VGkXJjrUPprzb+Z+F3qB8gJucYQD3OyM6Zl6kdYBagmAysWgfk24a4SETGskzjtbTEN4M
-	 XayW6QnA8SmgJqikmVTP2Swah50wemv+viBkyrHf0PuOMSPP5nfK5TM9P1oMYpYdd1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794882892;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
+	 References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=mMHaYLi6qxhF4029BPvXLzV/gLfpBnYAEX/lbk4LwHQ=;
+	b=oiR5GYBA4yatg8E0IXA/baLRhuuEZ4pb+LDo7DW8CHGl7JEeUvQQAaViKU5VGG/yZNlw
+	 IfMmfAMWQEeYyXbCnd9NQWcQpSc38VYcNlXN2X82HA5EJ9Xl4ltg0x5lraoUE1GijoGIM
+	 ebnUBrEdU5RKsRK3h6AKrPwSRAIRNKNJN23JPGRjgSKvZvj6ONQ9Ws44TI9G7cEPaFx8u
+	 zZ+7BeWk8Mmdm5Tyz3bPEWFzSyeIJVyoxd/YNM3bvZqTN3PsDhlVnh2dOCXs+/QwWFWWQ
+	 jZQsGuMXTsGhd2jAdJVGloofLOA73DxuOkWcZPqwy5nHeevVu/Mh65G9RyeaPn03yxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=pDEUU2eS;
-	arc=none smtp.remote-ip=203.254.224.34
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=MPOGx+AW;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81C83606A335
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:33:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81C83606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 120E8606A329;
+	Tue, 17 Nov 2026 02:34:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 120E8606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=pDEUU2eS
-Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261117023351epoutp04d78c214e9eb823343cf2116457721c7c~otGzbiuKF0371403714epoutp04k
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:33:51 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261117023351epoutp04d78c214e9eb823343cf2116457721c7c~otGzbiuKF0371403714epoutp04k
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1794882831;
-	bh=ArB9Q+6SpwJqEmLNKZLc+YWYiLFBbKz2m6bNXZrWRho=;
-	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
-	b=pDEUU2eS3oJ738BdgbpTeoOsO2xczZwZqkbkB6HTxsFdoB6Y1DX4kkSPaGXP/twdy
-	 oui0NJqRHjm+e3kST+ej1D23fHSpO8rBnCdZnOqHYtnDGkURYNTZolObh+c+H0RutV
-	 qYndwx51v9H2v+jMI2BWSG33C/dYui4PtF8f10WI=
-Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
-	epcas2p4.samsung.com (KnoxPortal) with ESMTPS id
-	20261117023346epcas2p431be1ce8e7ef82827678047a5e854052~otGvBdcur1147211472epcas2p43;
-	Tue, 17 Nov 2026 02:33:46 +0000 (GMT)
-Received: from epcas2p1.samsung.com (unknown [182.195.38.201]) by
-	epsnrtp02.localdomain (Postfix) with ESMTP id 4jT81Q0GMzz2SSKX; Tue, 17 Nov
-	2026 02:33:46 +0000 (GMT)
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=MPOGx+AW
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AH2YlVM23988713, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1794882887; bh=mMHaYLi6qxhF4029BPvXLzV/gLfpBnYAEX/lbk4LwHQ=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=MPOGx+AWGyEGBW1VmBFZUahyIS3BV061QYGk9HpTR/wq2O+cNQShgkoXe+LeX6Qne
+	 sXrZvZL1NyJQBqcuigtFR/wwyVLePVX5rUbcWjoGz9B9x9ezAoqhOSqV1kplldOGSU
+	 UYb8aIA318NRIjSZJz1UDLMWu/LYTg0kL5xj0GqDWegYMvE0RHERA0Qz9zqg/mBJMN
+	 2ESXswSA/9S/gCVdVDTLGRqvvIrWV+gJdb5fzxxRVrO/FwT/EWkiR9W+ckBeRkxqVV
+	 8QMa/dbuu2rC6Y5mJ6bF48fvKgq8QGTOcf7W90c7mFUrwY4dVPiipzeG0akx1cXUik
+	 qPx1mb3A/y8cQ==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AH2YlVM23988713
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 17 Nov 2026 10:34:47 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 17 Nov 2026 10:34:47 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
+ 15.02.2562.056; Tue, 17 Nov 2026 10:34:47 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Rishik Yechuri <epicrishik@gmail.com>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Rishik Yechuri
+	<rishik.yechuri.code@gmail.com>
+Subject: RE: [PATCH rtw-next 3/6] wifi: rtlwifi: call msecs_to_jiffies()
+ directly
+Thread-Topic: [PATCH rtw-next 3/6] wifi: rtlwifi: call msecs_to_jiffies()
+ directly
+Thread-Index: AQHdcUN+oTtF9EW4o0m3yA7BouIeXLcxlMyw
+Date: Tue, 17 Nov 2026 02:34:46 +0000
+Message-ID: <165979d31b6c4ac2b7fbc310cb2ab7fc@realtek.com>
+References: <20261110184409.42205-1-rishik.yechuri.code@gmail.com>
+ <20261110184409.42205-4-rishik.yechuri.code@gmail.com>
+In-Reply-To: <20261110184409.42205-4-rishik.yechuri.code@gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,105 +83,27 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Subject: RE:(2) [PATCH v2 0/2] xfs: skip redundant fsync cache flushes
-Reply-To: daejun7.park@samsung.com
-Sender: Daejun Park <daejun7.park@samsung.com>
-From: Daejun Park <daejun7.park@samsung.com>
-To: Dave Chinner <dgc@kernel.org>
-CC: Carlos Maiolino <cem@kernel.org>, "linux-xfs@vger.kernel.org"
-	<linux-xfs@vger.kernel.org>, Christoph Hellwig <hch@lst.de>, Dave Chinner
-	<david@fromorbit.com>, "Darrick J. Wong" <djwong@kernel.org>, Amir Goldstein
-	<amir73il@gmail.com>, Brian Foster <bfoster@redhat.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Daejun Park
-	<daejun7.park@samsung.com>
-X-Priority: 3
-X-Content-Kind-Code: NORMAL
-In-Reply-To: <avQPb5z4ExBOiEJq@dread>
-X-CPGS-Detection: blocking_info_exchange
-X-Drm-Type: N,general
-X-Msg-Generator: Mail
-X-Msg-Type: PERSONAL
-X-Reply-Demand: N
-Message-ID: <20261117023345epcms2p5117009330b6c600f68c598d5e08aef5e@epcms2p5>
-Date: Tue, 17 Nov 2026 11:33:45 +0900
-X-CMS-MailID: 20261117023345epcms2p5117009330b6c600f68c598d5e08aef5e
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-223,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261111064724epcas2p11498de70e50f2fbf4e21d5e7a723e01d
-References: <avQPb5z4ExBOiEJq@dread>
-	<20261111-xfs-fsync-flush-seq-v2-0-b5c00c25d276@samsung.com>
-	<CGME20261111064724epcas2p11498de70e50f2fbf4e21d5e7a723e01d@epcms2p5>
+MIME-Version: 1.0
 
-On Wed, Nov 11, 2026 at 05:47:11PM +1100, Dave Chinner wrote:
-> On Wed, Nov 11, 2026 at 12:17:10PM +0900, Daejun Park via B4 Relay wrote:
-[...]
-> > 16 fio jobs of 4k append + fsync in a QEMU guest: 1111 -> 4498
-> > fsyncs/s.
+Rishik Yechuri <epicrishik@gmail.com> wrote:
+> MSECS() in wifi.h is a plain alias for msecs_to_jiffies().=20
 
-Correction: fio preallocated these files by default, so they were not
-appends. Real appends (--fallocate=none) on the same disk give
-1311 -> 3416 fsyncs/s.
+Saying "in wifi.h" is really unnecessary.=20
 
-[...]
-> Hence the numbers look promising for low concurrency fsync
-> workloads, but I'd really like to know waht happens at the high end
-> when log force count rather than per-file fsync latency is the
-> performance limiting factor. I suspect that it will improve
-> performance by further mitigating the number of log writes and/or
-> cache flushes that need to be done, but it really needs to be
-> tested....
+> Call
+> msecs_to_jiffies() at the 18 sites that used it and remove the macro.
+>=20
+> No functional change intended.
+>=20
+> Signed-off-by: Rishik Yechuri <rishik.yechuri.code@gmail.com>
+> Assisted-by: Claude:claude-fable-5-1
 
-Thanks. When flushes are expensive, v2 is faster from 128 to 512
-clients but writes more log per fsync. When flushes are cheap, v2 sends
-60-80% fewer flushes and changes throughput and log writes per fsync
-by under 5%.
+The same problems as others.
 
-Setup: dbench 4.00 -t 30 in a QEMU guest (40 GiB) on a 990 PRO
-partition, for-next 48326a2382d8 without and with v2, three runs each,
-execute phase only.
+Some statements are over 80 characters.=20
 
-1) virtio-blk cache=none, volatile write cache on, 8 vCPUs:
+With proper fixes, take my Acked-by:
+Acked-by: Ping-Ke Shih <pkshih@realtek.com>
 
-clients  MB/s          log writes/fsync  max_latency ms
-128      1963 -> 6886  0.10 -> 0.12        433 -> 331
-256      3173 -> 6282  0.11 -> 0.38        312 -> 1956
-512      4696 -> 5294  0.13 -> 0.37        468 -> 20595
-1024     4466 -> 4751  0.28 -> 0.38      11128 -> 28947
-2048     3973 -> 4043  0.25 -> 0.38      21153 -> 21225
 
-2) cache=unsafe, so flushes complete without syncing, 16 vCPUs,
-agcount=16: throughput -2.5% to +1.9%, log writes per fsync -4.6% to
--0.2%.
 
-Log writes peaked at ~12,000/s (30 KiB each), below 20,000.
-
-The long max_latency is unlink() blocked in the xfs_inodegc_queue()
-throttle: from 1024 clients on base and 256 on v2 in setup 1, and from
-256 on both in setup 2.
-
-> I'd also like to know how this affects storage that does not require
-> cache flushes - in those cases flushes are no-ops, so all this
-> tracking and sequencing would likely be pure overhead....
-
-No throughput or CPU overhead measured. Setup 1 with 16 vCPUs and
-agcount=16, but the guest sets write_cache to "write through", so no
-flushes are sent. Five runs each:
-
-- dbench, 1/8/16/32/512 clients: MB/s changed by -0.8% to +0.8% and
-  guest CPU per fsync by -0.5% to +1.4%. A -3.0% at 128 clients
-  did not repeat in 15 more runs each (+0.1%).
-
-- fs_mark, 16 threads: create and unlink of 12.8M empty files and
-  fsync of 640k 4 KiB files changed time by -0.5% to -0.1% and guest
-  CPU by -1.6% to +0.6%. chown -R times (13-108 s) varied too much to
-  compare.
-
-Best regards,
-Daejun
