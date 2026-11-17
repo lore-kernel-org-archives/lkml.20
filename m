@@ -1,55 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794921206;
-	b=ojTOZYbxLDRS9SqDHZamuS0UeabVSI6v9MWpOuFZ8N7doQQUCHXmDI+H2zh/842D0uig
-	 AWw+OvN9viddtVSvVqEbZz5/wBf09kLp1tEYJS/U5v0tW4BmmNOlx92pCUZZ9aiOynyWk
-	 FusNxYvSVFjcYYzqnWpzEs6uGDbTvCaQi9o+noEhFUUZ71LHGnI1gjxdEfxuSbRbDMJOE
-	 qX0WSogu8dGWo0Fip8De5wc1+9DzgFleWCdq57RUE/MoXnKd1C0q5IysHqK8DTGEEe25C
-	 VMTPQvtCsX+n3JogJOqZndiH19KjMm5ks2wwcH7g2OyAAO2fw+m4AhwYRyUItuQXckg==
+	t=1794921224;
+	b=1bPFXtT2U/2L3hqWRN5gXj1MjOVasZ/4mUPRVWfOPcuO3+V1wwa1ZrCLybd4a68jpV8B
+	 rRDtrjIaX1ELWNM8EMi8XdqOG6ljKf1AoQjn4oAV72NH717Maj15BCv1Qx5QtEIu51EUk
+	 kKy74AxmWNJ7R79x6KDkW2NEXuWGXG5Kqh2CHQsWLu40HEPHviSP2ODP/x9yvlt22wHQ5
+	 JIMk1W9XK0QYYUyY1KroK8Onbk62FZTcg8+lnJ3iePlX+7GEfU5iVE9d6qMatjVJdEor8
+	 DG+PgiZ8EhOgZT03E3U3huNrybTXTTaLGjTArySBAHTB5DABTcr8dtf3HR1oKsEWYAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794921206;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=zs1gBpLlBJQJQ4QsuHo/kh0DAnV2azdLI6aE2HoNP18=;
-	b=z0d2den2MX8wvgS93PdnqZcoJB9zKMt7bY9eRi/L6RYlzuee/jSuhFCstiiP4uc3eM3b
-	 UgKfI60Kp1buWdNEVQ75B1xIGXXCpcAdjeFCPbzTcmC6uxZ375Nk648gyeXbxElhRHJuH
-	 MeYAjtapBzXxYHrDCNYGljOr3XSIWEzMeJ9yUh0qRUjAFibJzIJCpaUDrzqpw21BZnw6K
-	 qPexyChdQuJxM90k6kumd/4eYirMC64GeKPymtuv31rEIK01WXXSeTlVub6+URJAUjXXR
-	 2B8oKBg9kzcONdCaa/sY+zgiYAe5FznTL+II7ymzSmz8WvA0+bBEe8f1yycz1//xJyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794921224;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:User-Agent;
+	bh=jSJWGcVnNMGByPlmzCOyAgYgk+YfDmAjzO7dDGTuRwg=;
+	b=hGQQs1uxvs/Ri87Vj8Nfkq7C6GAmYF2qTjoTHqh7hPrdQBYCk8hfRf4pb2uNsz6N2MUd
+	 aV42baZmrBk2vGg5Ly0ZTWEIKpQetoDMePYcWXwnt/m0JvaT2tQe53isvEBbnPYsfyl4b
+	 E1yoBjzzDaX4juwAsCqpdgR+EHaN+OrmjT4oa2a6nSefbo1nBWv9ij359HFNdc9h0dXBK
+	 gOGkK3dYs2KvgaDbQNrCE1p7WWXcMGgq8879OjBx99d7B+3Om8xnlxQpUHVJ57C//wHlV
+	 HaQVLn2t9cJjTQ+cpkF5bir/tiF6iC97dSzU7bC6O7Bl+NK6re7oaE8FDGTJVeGej7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mDeyxXKS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TihgjNIW;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94E2F606A31C;
-	Tue, 17 Nov 2026 13:13:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A88E606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:13:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A88E606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mDeyxXKS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFC081F000C4;
-	Tue, 17 Nov 2026 13:13:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794921206;
-	bh=zs1gBpLlBJQJQ4QsuHo/kh0DAnV2azdLI6aE2HoNP18=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mDeyxXKSfsP8V86bwwY97CatYMYW0DqD/RTamw+h5+5FuzTY6MTNPYq7wtfYoTeyK
-	 E0rsY3EETecgg8OoC16QWX2AbpellNCWgBEOpgo/q70WnO9Vi8b7jRI0rW4C9VI0Cr
-	 uJ/dTS943YC3kU0TVTPL+CX49iTpIZBysZPMYEhcppHsuDIzaZFMen1nbBQ/IRJXUn
-	 oNcyhMclCYZPCNlY2GHy4Ds6oDOiRzHHKXp7XrGgH58VW9ycyUQ9pOqgaYzafLdqK+
-	 jkO1WMc7feKiHL4HfEPuuC4BW4q4HsswXUVBiErlU6smaTxW8laKDneyx3nKF6tOxd
-	 hPVIVU9k3lYyA==
-Date: Tue, 17 Nov 2026 13:13:21 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Sashiko Bot <sashiko-bot@kernel.org>, 
-	Naveen N Rao <naveen@kernel.org>, Alexandru Elisei <alexandru.elisei@arm.com>
-Subject: Re: [PATCH v4 2/2] KVM: Skip gfn-based MMU notifier invalidations
- for guest_memfd-only memslots
-Message-ID: <avxSfTKuCc1vpe2B@gremlin>
-References: <20261117011513.39419-1-seanjc@google.com>
- <20261117011513.39419-3-seanjc@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TihgjNIW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794921224; x=1826457224;
+  h=date:from:to:cc:subject:message-id;
+  bh=zPXirlT/HgBkiLCBv1wsmov1Zqg76bgR0pLqzF42djg=;
+  b=TihgjNIWE8z0jX7fxqG74n4wlwQw4tVeV7jceympYSlfRVsaF0gDEPmj
+   z9nS0heQHQV/psvQckzoYdvif3w8EZ4T2bMgJH+3DbrtZ9LpA8q7sdZ7C
+   kRkNkYIkNoaYCLaYoBjN6aSIzU3WRtr5V2qiSB9lMO02oidWGF69dcrhQ
+   yk2bI8w54XEcNsabGV0toKAtmi8NS5MmIuvnC8IqJHDc3uFDummU1QelU
+   FIEYoPucgNbofsE/0cG7WWhMqfKb9+oDOe3a6grikb/0F7mqXqwGni8cl
+   vJem9uzZGIUR+x5V8Ob14eEHPQ22x9hPsLSjdCOLQQJ1ifPtzy863aBxx
+   g==;
+X-CSE-ConnectionGUID: //5a3Lt7Q76OFFsltIAKAg==
+X-CSE-MsgGUID: urGJew2sTNSFLcn+uvCqMg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3712630"
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="3712630"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 05:11:52 -0800
+X-CSE-ConnectionGUID: kCksjsTQTEShu8VyhfBQ/A==
+X-CSE-MsgGUID: 8eEux4VPSOaNs/hjPtHP3A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="10193328"
+Received: from igk-lkp-server01.igk.intel.com (HELO 1073a420ae3a) ([10.211.93.152])
+  by fmviesa001.fm.intel.com with ESMTP; 17 Nov 2026 05:11:50 -0800
+Received: from kbuild by 1073a420ae3a with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xTIyS-0000000037Q-1RKM;
+	Tue, 17 Nov 2026 13:11:48 +0000
+Date: Tue, 17 Nov 2026 14:11:00 +0100
+From: kernel test robot <lkp@intel.com>
+To: Andrea della Porta <andrea.porta@suse.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Rob Herring <robh@kernel.org>
+Subject: drivers/pinctrl/pinctrl-rp1.c:343:39-40: WARNING: Use
+ ARRAY_SIZE
+Message-ID: <20261117140555.KfUW4BDK-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,72 +81,42 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261117011513.39419-3-seanjc@google.com>
 
-On Mon, Nov 16, 2026 at 05:15:13PM -0800, Sean Christopherson wrote:
-> From: Alexandru Elisei <alexandru.elisei@arm.com>
->
-> Don't invalidate gmem-only memslots when responding to MMU notifier
-> invalidations, as the entire point of gmem-only memslots is so that KVM
-> doesn't need a VMA to install mappings into KVM's MMU.  Specifically,
-> page faults are resolved by going straight to guest_memfd, using the gfn
-> and the associated memslot's gmem.file.  I.e. whether or not userspace
-> happens to have valid mappings to the same gmem instance is irrelevant,
-> as are any invalidations for those mappings.
->
-> Note!  The exception is KVM's gfn_to_pfn_cache implementation which isn't
-> yet wired up to pull pfns directly from guest_memfd, i.e. still relies on
-> userspace mappings/VMAs and thus need to be invalidated, e.g. to ensure KVM
-> doesn't retain a kernel mapping+pointer to PRIVATE memory.  However, as of
-> commit da260bcb56fe ("KVM: pfncache: use a dedicated invalidation sequence
-> for cache refresh"), GPC invalidation no longer relies on memslot lookups,
-> because GPCs also support HVA-based mappings.  I.e. KVM *must* be able to
-> detect and handle relevant MMU notifier invalidations even if there is *no*
-> memslot whatsoever.
->
-> In addition to the obvious performance benefits, avoiding unnecessary and
-> spurious SPTE zaps and TLB flushes will allow KVM to support features like
-> ARM's Statistical Profiling Extension (SPE)[1] and x86's Secure AVIC[2],
-> both of which rely on the pages *never* being unmapped from the stage-2
-> page tables.
->
-> Link: https://lore.kernel.org/all/20260903160623.315525-1-alexandru.elisei@arm.com [1]
-> Link: https://lore.kernel.org/all/cover.1783490022.git.naveen@kernel.org [2]
-> Cc: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Cc: Naveen N Rao (AMD) <naveen@kernel.org>
-> Signed-off-by: Alexandru Elisei <alexandru.elisei@arm.com>
-> [sean: rewrite changelog to capture the new gpc behavior]
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   666539eecdf4db623f5e3c3e55cf9f2dfad24aa4
+commit: ce26f588c8310e0fdd1bc7524a86fdf0ef6b1c85 misc: rp1: drop overlay support
+date:   11 months ago
+config: arm64-randconfig-r2109-20261116 (https://download.01.org/0day-ci/archive/20261117/20261117140555.KfUW4BDK-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 5637411ce5dc86d0b7f87cde0f7ee47406d29db6)
 
-LGTM, thanks Alex and Sean! :)
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: ce26f588c831 ("misc: rp1: drop overlay support")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/20261117140555.KfUW4BDK-lkp@intel.com/
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+cocci warnings: (new ones prefixed by >>)
+>> drivers/pinctrl/pinctrl-rp1.c:343:39-40: WARNING: Use ARRAY_SIZE
+   drivers/pinctrl/pinctrl-rp1.c:444:33-34: WARNING: Use ARRAY_SIZE
 
-> ---
->  virt/kvm/kvm_main.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-> index 9938b753948c..f0d95e8c37f4 100644
-> --- a/virt/kvm/kvm_main.c
-> +++ b/virt/kvm/kvm_main.c
-> @@ -601,6 +601,10 @@ static __always_inline kvm_mn_ret_t kvm_handle_hva_range(struct kvm *kvm,
->  			unsigned long hva_start, hva_end;
->
->  			slot = container_of(node, struct kvm_memory_slot, hva_node[slots->node_idx]);
-> +
-> +			if (kvm_slot_has_gmem(slot) && kvm_memslot_is_gmem_only(slot))
-> +				continue;
-> +
->  			hva_start = max_t(unsigned long, range->start, slot->userspace_addr);
->  			hva_end = min_t(unsigned long, range->end,
->  					slot->userspace_addr + (slot->npages << PAGE_SHIFT));
-> --
-> 2.56.1.703.gf848ed807c-goog
->
+vim +343 drivers/pinctrl/pinctrl-rp1.c
 
---
-Cheers, Lorenzo
+e3ce7b89738833 Andrea della Porta 2025-06-24  339  
+e3ce7b89738833 Andrea della Porta 2025-06-24  340  #define PIN_ARRAY(...) \
+e3ce7b89738833 Andrea della Porta 2025-06-24  341  	(const unsigned int []) {__VA_ARGS__}
+e3ce7b89738833 Andrea della Porta 2025-06-24  342  #define PIN_ARRAY_SIZE(...) \
+e3ce7b89738833 Andrea della Porta 2025-06-24 @343  	(sizeof((unsigned int[]) {__VA_ARGS__}) / sizeof(unsigned int))
+e3ce7b89738833 Andrea della Porta 2025-06-24  344  #define RP1_GROUP(name, ...) \
+e3ce7b89738833 Andrea della Porta 2025-06-24  345  	PINCTRL_PINGROUP(#name, PIN_ARRAY(__VA_ARGS__), \
+e3ce7b89738833 Andrea della Porta 2025-06-24  346  			 PIN_ARRAY_SIZE(__VA_ARGS__))
+e3ce7b89738833 Andrea della Porta 2025-06-24  347  
+
+:::::: The code at line 343 was first introduced by commit
+:::::: e3ce7b897388339b407d57969acaa26063e38209 pinctrl: rp1: Implement RaspberryPi RP1 pinmux/pinconf support
+
+:::::: TO: Andrea della Porta <andrea.porta@suse.com>
+:::::: CC: Florian Fainelli <florian.fainelli@broadcom.com>
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
