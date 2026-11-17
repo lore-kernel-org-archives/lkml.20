@@ -1,103 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.203
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794887751;
-	b=j44PoSXxn+3wHUFEJQn3x5TgD81OqrmS8eFITv7cXAWiQ0fc2CRKnuKViJlChXMyDMqc
-	 pSKe4+MUCbFLpbcKybFBLHLGh1V8hBU7dwWEKOWJre1hj+DqjujoaVTWfYW8xmCqzDmeL
-	 /nQJIaO2zuwBM1D+rQTfjNKW0F0BN/GfTE9A5QWuetc2lPwTCnfKY5IwVm2p4W8uEnkWk
-	 ftv6Sg/S7XEOWhXwMQzgg3b+zy9+WUoQfM/cxbi2oplW+lLXCZ1PgV4QjGp/MdN0sKrsJ
-	 6CebwkQRroaqYbzxXVEtyocwnL8FK4BxEpbQkiBZMaSyKYuQQy4ouUojaV8C9yBfdhw==
+	t=1794887865;
+	b=qgGBlQbsgXhdPVZ/OOxgaBBJF5mvChwg/fJZw9fTceZGPm+FvSaPeBSWei7gIVOfgHPv
+	 e+PjYfzIFXN4SekCZdx9NEMxMGjhU2AxACZ0GT3WXqJAavwUOu4ZPMIeaUiVM2n0hhpEV
+	 ZNBxpQ84Undf3/HZ/w1MewfSq2CWQ4Qs+/ofhfA4cQrVuLEYwoZ3fRl9Z5TWZ0XWBfz7C
+	 2CPUVtwgnRy5TLwpReOb3sy+g9V2TLBXixWJYzADi+qlJlF+GaBlrXRFJgn23AGXnwhDe
+	 DAotssMWXuB60H1qlJQSsmQqnsosc1GZMwmtYlY3wO9wxEQtIq/9RH3BHkd2juOrfwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794887751;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=mygYInQxR58p7J21QOwq1w85iqa2FjsjKi0zK68sH8M=;
-	b=vxDTIBabnqClZ9NOIYegzXRhVjmPcJyq5QF93ma/R2vnC3FczylNBcLEumg36uXTjnmk
-	 9T4ayyrd56jpAOXPNYYHqEUDXLEjEqhBRtSKjEWq0fBC1HQJ8gPi9ne7Tvg5CzGC1n74m
-	 xLUi65ATmYEXo0s5bJ+Gin3dtr+zkSOXj4SPedcOx2gk/ixIXZ4f4hKwaqR1M9HzTkCu9
-	 u+njt+czJ6hQ46nObNcLlxaylYHLElBc/KY8x9YSrDi/4HsS8jJ4d+mI8woHAs5ncNn4Q
-	 18tvmtnjf5CrjSixkLgYLbqlMndy+Xk5Z7kbIm3etlINwGSs1iaZCBTPWm0+uEIxlMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794887865;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=izXu3SEz8eIFng5c+cQzMPJh1su6k7eUDwqgFAEy9no=;
+	b=lBt8w6Es7/9QGPkSYGmmTDBn47M9JEasqUo+Q/pn/D6DvwQQP7ik3qOAXKk/bHZRD4oG
+	 +Or0ZXSsYmONiXpGS+UHcRBkPqzPpJyQEfrPc/A8rPkuGgN2GTeH3rVrO1898QL13Ug0c
+	 V/Jcc8ICVS1qvLsk0d+60yHZyh0UZpylN+AqOkgb5yNCAMaZ+6fpJlD+3+/HIK+3a255P
+	 ieipSppMeGNQ0gdCmW1gG3LjFf3vh/xsFvY61l8/qmNzZGrbV1MOTiLk1bEm27T8N2q8g
+	 pYba4v/jG+0ohX5hDDzmBtI1sP7oM+yN0f5msyJUB93TjHlye5SP9nl7IhhrMTuoU/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="LBjd6o/y";
-	arc=none smtp.remote-ip=209.85.214.177
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="dZ3oK/EA";
+	arc=none smtp.remote-ip=95.215.58.203
+Received: from mta1.migadu.com (out-203.mta1.migadu.com [95.215.58.203])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9898B606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:55:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9898B606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83A98606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:57:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83A98606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=LBjd6o/y
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2efc4a84e75so26925ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:55:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794887750; x=1795492550; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mygYInQxR58p7J21QOwq1w85iqa2FjsjKi0zK68sH8M=;
-        b=LBjd6o/yAggU52OhlodXDqJoVcvYEbBnB0WOCq8zJnkRdo7EzOHYqX0NeJrqKrnaAo
-         eF4weWGdQOJCbg4oYMCs5ImotDaotpgDwm2+1JqD77g2dC92z8MVsAbQpwGepXdNezQN
-         kq3scDPx3LFheFo0FxDxIGFB3F8h//x7TfrvqHsB+yVIJk+Z0bMzpzMFiUNEzcMiRZbV
-         qWJ/ui2NdhfloZ1MbzN8Qv1REspTiWO05oFJXTvEB94eUXHFCazsrA97vyIMbxdiBzp3
-         mz6yGvDqVZYkuGAXy57lafEUdi/s7mIctPNbmGOLgVr4VbcjsJkeEtVz2xDdLizhVOWP
-         QXsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794887750; x=1795492550;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mygYInQxR58p7J21QOwq1w85iqa2FjsjKi0zK68sH8M=;
-        b=Ht1ol3Eb4yhcMwXLc8YsMFzuHO5aGSuePCoc2IE/PCO9PoWC4hYYSVpDOwhlFDMyUJ
-         eHRnfjYxYrQ5bC+jb6WHdJRVFTjJMmVSScxphfZ4RZSQsdUUOecGeOviKZ8L6MVk14XQ
-         BL0RSyHLUPmdmUAoU93Qbct/eADb0v0XxDHK4UCFnYGd2+ajXyVNRF6ItP7Q235noOdW
-         yHuYUvVVnJzq52E0BXmnjnKh80GvrhQxGJaAWtT86oaTer6n9k35QZpw7vzarmC6STuB
-         2/hXZVgfSefqbEGU68H51TuhYGUsfVAa9HgmljP3MPCIXkoH2akSE15hbWtef0Tx4nOI
-         J91g==
-X-Forwarded-Encrypted: i=1; AL+hErEZic+/RljEmZAXmyDB0+nmmJPmVvE1u/ovHr24BWBx1WzDN0zuQxlIOl/EfhLdCI6TedxehmyXNcTb3r0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9EN0krX4LFAkr1HP8duHva+lTUv3adT/z7KPlFFcJ9e5OzPuDE
-	j4hwQ5CjK+zIqjvv00jZZX/GeJqSt+FJhqN4UznviEP4M8LX+yE4IlaTi5BdBIgArQ==
-X-Gm-Gg: AZFdTZcDOb2pzEUT3dPi/3u/1weh62zv+8yROajyBdKp9Itiv/ku5Fqxa/P2axDMHtw
-	9Ase45dxkp28SKbsKaSPvm+ZzdKZd4eRJsTWfaOLIz7SNpNnQB8wnxZT9Qdd5nzh9OzGZksZIMI
-	qbMP/N8Ue5R7aHc+jd5jvja2e9lwEINJXBgwdCcSt7UdYDM84c5lT5VQ4n5w31lbuBahiSkoZ85
-	nGhw+5z3LgnenTuEHU9ds3Dtio0O9TGa4A+PxRriTtxkrNYlCXSBexlhYLBMt7dXHe+ERY31ovm
-	cVq2ax4n6bn5okov9E7VSZsejFsXaQt8+Nle3XTHS7akgN4RkckoytCIAAy77AtQ4RN7E21hkDq
-	SF2cRFU0ap0iQI42dVIN/kUvcEC6aWjbc2BHmKt2jheW3nruMH3MfRN5n20Wo8lNNTHZn1cprxr
-	kwOd/X12qu4B15iNB5njF5pNi2ofZxemj7xnPPiNzH50tUhKW2/bTnFsjPx8ExS8DCIzNShHbEA
-	OJCebl/ABQSeS4FF0R7/ztH8BbfnkIaNoBw9prRDgzKNbRDqav4kr9ZV8XeDsyZLTd+lJTGkGsJ
-	SsiHVWGS6WAPgjrW6OHcggZlyGyltBO5GexRGFP4XwxLMgcvUBYgOKvgH69dMrF0nf3kAxdekZx
-	4X0wtW2kI0JQlHGSE3UZHMQ==
-X-Received: by 2002:a17:902:ce04:b0:2ec:f228:764d with SMTP id d9443c01a7336-2efdc8db07amr2084325ad.18.1794887749194;
-        Mon, 16 Nov 2026 19:55:49 -0800 (PST)
-Received: from google.com (25.75.145.34.bc.googleusercontent.com. [34.145.75.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed12a818asm4348658b3a.17.2026.11.16.19.55.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 19:55:48 -0800 (PST)
-Date: Tue, 17 Nov 2026 03:55:45 +0000
-From: Samiullah Khawaja <skhawaja@google.com>
-To: Baolu Lu <baolu.lu@linux.intel.com>
-Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, David Woodhouse <dwmw2@infradead.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>, 
-	Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Pranjal Shrivastava <praan@google.com>, 
-	Vipin Sharma <vipinsh@google.com>, Ankit Soni <Ankit.Soni@amd.com>, 
-	Nicolin Chen <nicolinc@nvidia.com>, John Starks <dev@jstarks.net>
-Subject: Re: [PATCH v7 12/18] iommu: Restore and reattach preserved domains
- to devices
-Message-ID: <avvK73lUs9RXdl0-@google.com>
-References: <20261110040828.1774343-1-skhawaja@google.com>
- <20261110040828.1774343-13-skhawaja@google.com>
- <0a38ae25-3eac-42f6-862e-3dc1d644ab97@linux.intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=dZ3oK/EA
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=5Txe0D+CvURkPmiB6vwpp+Xu6DG12FpQu2ufKeIMMqA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794887862; v=1; x=1795492662;
+ b=dZ3oK/EAar9zcpIqddMZXYRE/bC8qGS96x9te7lMTiyEodAkOYd4rN6fNsGaCFvc7fKRwrYa
+ CU9UfWEUBlQiN6hHxN9Mxy1yBZzH5J9qRsnJOBboe1q5W9Wje/B168qEuhArLTOa7iFGxocbNp4
+ TLyk25XCYiMYfVAZGLQnUrOU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id dfb182efd82b894e;
+	Tue, 17 Nov 2026 03:57:42 +0000
+X-Mizu-Trace-ID: dfb182efd82b894e
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,118 +57,113 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <0a38ae25-3eac-42f6-862e-3dc1d644ab97@linux.intel.com>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
+Subject: Re: [PATCH v2 00/14] mm: Unify memmap initialization for compound
+ pages
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <179482576829.2379196.3205677806966393313.b4-review@b4>
+Date: Tue, 17 Nov 2026 11:57:22 +0800
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>,
+ Oscar Salvador <osalvador@suse.de>,
+ Li Zhe <lizhe.67@bytedance.com>,
+ Andrew Popple <apopple@nvidia.com>,
+ Balbir Singh <balbirs@nvidia.com>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R . Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>,
+ James Houghton <jthoughton@google.com>,
+ Lance Yang <lance.yang@linux.dev>,
+ Qi Zheng <qi.zheng@linux.dev>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 7bit
+Message-Id: <A4F207DD-9535-42EC-B9A6-88578BFE369B@linux.dev>
+References: <20261113033442.62970-1-songmuchun@bytedance.com>
+ <179482576829.2379196.3205677806966393313.b4-review@b4>
+To: Mike Rapoport <rppt@kernel.org>
+X-Mailer: Apple Mail (2.3901.200.71.1.16)
 
-On Tue, Nov 17, 2026 at 10:29:37AM +0800, Baolu Lu wrote:
->On 11/10/2026 12:08 PM, Samiullah Khawaja wrote:
->>During default domain setup, restore the preserved domains by restoring
->>the page tables using restore() iommupt op. Associated the restored
->>domain with the iommu group of the preserved device, and reattach the
->>domain to the device.
->>
->>Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
->>---
->>  drivers/iommu/iommu.c            | 115 +++++++++++++++++++++++++++++--
->>  drivers/iommu/liveupdate.c       | 106 ++++++++++++++++++++++++++++
->>  include/linux/iommu-liveupdate.h |  39 +++++++++++
->>  3 files changed, 253 insertions(+), 7 deletions(-)
->
->[...]
->
->>+
->>+/**
->>+ * iommu_restore_domain() - Restore a preserved domain for a device
->>+ * @dev: Target device
->>+ * @ser: Serialized device state
->>+ *
->>+ * Restores or reuses a restored preserved domain for @dev from serialized state
->>+ * @ser.
->>+ *
->>+ * Return: Restored iommu_domain pointer, or ERR_PTR.
->>+ */
->>+struct iommu_domain *iommu_restore_domain(struct device *dev,
->>+					  struct iommu_device_ser *ser)
->>+{
->>+	struct iommu_domain_ser *domain_ser;
->>+	struct iommu_flb_obj *flb_obj;
->>+	struct iommu_domain *domain;
->>+	struct pt_iommu *pt;
->>+	int ret;
->>+
->>+	ret = iommu_liveupdate_flb_get_incoming(&flb_obj);
->>+	if (ret)
->>+		return ERR_PTR(ret);
->>+
->>+	mutex_lock(&flb_obj->lock);
->>+
->>+	/* Preserved device should have a preserved domain */
->>+	if (!ser->attachment.domain_phys) {
->>+		domain = ERR_PTR(-EINVAL);
->>+		goto out;
->>+	}
->>+
->>+	domain_ser = phys_to_virt(ser->attachment.domain_phys);
->>+	if (domain_ser->restored_domain) {
->>+		domain = domain_ser->restored_domain;
->>+		goto out;
->>+	}
->>+
->>+	domain_ser->hdr.flags |= IOMMU_SER_FLAG_INCOMING;
->>+	domain = iommu_paging_domain_alloc(dev);
->
->Ah, here it is.
->
->This allocation uses the driver's default. For VT-d, it prefers first-
->stage translation when supported. But the preserved domain may be
->second-stage, for example if it was allocated for dirty tracking or
->nested parent. Would the restore callback then walk the preserved page
->table using the wrong format-specific operations?
 
-Yes, that is a valid case. We can store the allocation flags in the
-serialized state of the domain so it picks the right domain format
-during restore. Note that in case of dirty tracking, we do not
-preserve/restore the dirty tracking state, as the restored domain is
-immutable and will be replaced with a new one.
 
->
->>+	if (IS_ERR(domain))
->>+		goto out;
->>+
->>+	pt = iommupt_from_domain(domain);
->>+	if (!pt) {
->>+		iommu_domain_free(domain);
->>+		domain = ERR_PTR(-EOPNOTSUPP);
->>+		goto out;
->>+	}
->>+
->>+	ret = pt->ops->restore(pt, domain_ser);
->>+	if (ret) {
->>+		iommu_domain_free(domain);
->>+		domain = ERR_PTR(ret);
->>+		goto out;
->>+	}
->>+
->>+	domain->domain_ser = domain_ser;
->>+	domain_ser->restored_domain = domain;
->>+
->>+out:
->>+	mutex_unlock(&flb_obj->lock);
->>+	liveupdate_flb_put_incoming(&iommu_flb);
->>+	return domain;
->>+}
->>diff --git a/include/linux/iommu-liveupdate.h b/include/linux/iommu-liveupdate.h
->>index fb1e8efac8ec..68c7ebca25f6 100644
->>--- a/include/linux/iommu-liveupdate.h
->>+++ b/include/linux/iommu-liveupdate.h
->>@@ -99,8 +99,31 @@ static inline void *dev_iommu_restored_state(struct device *dev)
->>  	return NULL;
->>  }
->Thanks,
->baolu
->
+> On Nov 16, 2026, at 18:42, Mike Rapoport <rppt@kernel.org> wrote:
+> 
+> Hi,
 
-Thanks,
-Sami
+Hi Mike,
+
+> 
+>> Hi,
+>> 
+>> This v2 is based on the mm-new branch at commit daed51c91051.
+>> 
+>> This series is split out from the earlier, larger series
+>> "mm: Generalize HVO for HugeTLB and device DAX" [1]. That series
+>> generalized vmemmap optimization across HugeTLB and device DAX. One
+>> remaining piece is the separate compound struct page initialization used
+>> by boot-time gigantic HugeTLB pages and compound ZONE_DEVICE ranges.
+>> 
+>> This v2 also folds in Li Zhe's two-patch series, using that series' v2
+>> as the integration point [2].
+>> 
+>> Li Zhe (2):
+>>  mm/mm_init: factor out memmap_init_page_from_template()
+>>  mm/hugetlb: optimize bootmem hugepage tail vmemmap init
+>> 
+>> Muchun Song (12):
+>>  mm/mm_init: verify zones for template-initialized pages
+>>  mm/mm_init: factor out common struct page initialization
+>>  mm/mm_init: simplify zone device page initialization
+>>  mm/mm_init: factor out frozen compound page initialization
+>>  mm/hugetlb: drop boot-time HVO handling for gigantic folios
+>>  mm/hugetlb: initialize all struct pages for bootmem hugepages
+>>  mm/hugetlb: use common compound page initialization helper
+>>  mm/mm_init: make __init_single_page() static
+>>  mm/mm_init: make memmap_init_page_from_template() static
+>>  mm/cma: centralize CMA pageblock initialization
+>>  mm/cma: localize init_cma_pageblock() to cma.c
+>>  mm/mm_init: move pageblock migratetype init to memmap helpers
+>> 
+>> include/linux/mm.h   |   8 --
+>> mm/cma.c             |  24 +++--
+>> mm/hugetlb.c         | 111 ++-----------------
+>> mm/hugetlb_vmemmap.c |  17 +--
+>> mm/mm_init.c         | 247 +++++++++++++++++--------------------------
+>> mm/mm_init.h         |  13 +--
+>> mm/sparse-vmemmap.c  |   7 +-
+>> 7 files changed, 129 insertions(+), 298 deletions(-)
+> 
+> That's nice :)
+> 
+> The series would be easier to review if Li Zhe's patches were integrated
+> rather than stacked in. I hoped that the changes for template
+> initialization would fit into the patches that rework other parts.
+
+I have a much clearer idea of what you mean by integration now. I'll push
+out a new version once the Zhe data testing is finished.
+
+> 
+> The way it's done now several patches in the beginning of the series
+> change code that the later patches remove or turn some of new functions
+> into static.
+> 
+> Another thing is that the numbers Li Zhe measured were for a different
+> implementation, so they would be stale for the state after these
+> changes.
+> 
+> I have some nits and naming comments in a few patches, other than that
+> the series LGTM.
+
+Thanks for your review.
+
+Muchun
+
+> 
+> -- 
+> Sincerely yours,
+> Mike.
+
+
