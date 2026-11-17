@@ -1,85 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794887676;
-	b=ltIiRg18P6YKmXiSFF3iPlvE8jyYxlO+PmzGzf+ZbqH+sknVci9mQSzLeoENwIcmqsH/
-	 5wCNjjb4vJvTw4mp2r5xJ/heUq8ZRYFO2LB1Bfcc0bo92GfVNJXr26dCTd9skSX/U34AX
-	 y1vqlMJ6bbSXI0dARF+YnIpHnrgbqK48uYFnRC/b/ch21TTffzoTVV6kj9aCAqCqjLdUe
-	 4uFJ3Y/YEqDDSUJ+CEZ3xdqhgipfYv50+wkX5sdNM4S2qsf5Ae+/MnYDLQvMYrkFxinUD
-	 hIiy2Uu2RAk5m5ADyAHBcR3HTiky8LU7fFBvO3r910GcYTWNr3gTkXj3xL7ohC+ognA==
+	t=1794887751;
+	b=j44PoSXxn+3wHUFEJQn3x5TgD81OqrmS8eFITv7cXAWiQ0fc2CRKnuKViJlChXMyDMqc
+	 pSKe4+MUCbFLpbcKybFBLHLGh1V8hBU7dwWEKOWJre1hj+DqjujoaVTWfYW8xmCqzDmeL
+	 /nQJIaO2zuwBM1D+rQTfjNKW0F0BN/GfTE9A5QWuetc2lPwTCnfKY5IwVm2p4W8uEnkWk
+	 ftv6Sg/S7XEOWhXwMQzgg3b+zy9+WUoQfM/cxbi2oplW+lLXCZ1PgV4QjGp/MdN0sKrsJ
+	 6CebwkQRroaqYbzxXVEtyocwnL8FK4BxEpbQkiBZMaSyKYuQQy4ouUojaV8C9yBfdhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794887676;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794887751;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:Date:
-	 Message-Id:To:Cc:In-Reply-To:References:X-Mailer;
-	bh=5yYPPMuupwmdDkr+0YrNM2gwTmLnnxHM0lDOoH4/yWY=;
-	b=XLXcmz8N44nVU169vumdlzr86iFq9iu4IvkSpGcN6muWbLXHixzfqt5ek55c2IeitwR8
-	 DZiNUHxfnRynFrPmWvCnLH5tqy4+2Rn6huVJo774yqAMLeIt7G/oeXuzqDLVBmU050YU6
-	 RzOBpzgwQGkY488+b9Hi9LQEpSyxWeIVYS8xkaeR4dn1BRvHA8ZK+iyYzJdSGH3fksgDa
-	 6St9/zYk/0zznM/IMF4ly49kkNkpT2fHJRXTWWsYlvkkoTAb/OVwlR95KOfA7lNSI3Hkg
-	 Yu6HupQJDvchQOUxIjtkyPi/VDZeZmkktKo6bhZ4d+2bbB/aoamPqjHmVRUyGE0HupA==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=mygYInQxR58p7J21QOwq1w85iqa2FjsjKi0zK68sH8M=;
+	b=vxDTIBabnqClZ9NOIYegzXRhVjmPcJyq5QF93ma/R2vnC3FczylNBcLEumg36uXTjnmk
+	 9T4ayyrd56jpAOXPNYYHqEUDXLEjEqhBRtSKjEWq0fBC1HQJ8gPi9ne7Tvg5CzGC1n74m
+	 xLUi65ATmYEXo0s5bJ+Gin3dtr+zkSOXj4SPedcOx2gk/ixIXZ4f4hKwaqR1M9HzTkCu9
+	 u+njt+czJ6hQ46nObNcLlxaylYHLElBc/KY8x9YSrDi/4HsS8jJ4d+mI8woHAs5ncNn4Q
+	 18tvmtnjf5CrjSixkLgYLbqlMndy+Xk5Z7kbIm3etlINwGSs1iaZCBTPWm0+uEIxlMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g2f8mTIs;
-	arc=none smtp.remote-ip=74.125.227.199
-Received: from mail-pi2-f7.google.com (mail-pi2-f7.google.com [74.125.227.199])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="LBjd6o/y";
+	arc=none smtp.remote-ip=209.85.214.177
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7C82606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:54:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7C82606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9898B606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:55:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9898B606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g2f8mTIs
-Received: by mail-pi2-f7.google.com with SMTP id 41be03b00d2f7-cd66d7e32baso1026424a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:54:35 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=LBjd6o/y
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2efc4a84e75so26925ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:55:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794887675; x=1795492475; darn=vger.kernel.org;
-        h=references:in-reply-to:cc:to:message-id:date:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=5yYPPMuupwmdDkr+0YrNM2gwTmLnnxHM0lDOoH4/yWY=;
-        b=g2f8mTIszN7dVObfqgo3fNF0P891H6ZEKGtteGSegN02r8UpGCb2URkABmGUmYG5UX
-         h7d0gzS3tRjkJRrRdxRlPb0Q+FbXKI/olJtsgjj7en8saSqG5KG1KtXWmv9v/X+yEDp1
-         ELd3qugxCtjn6OacodEj3gOCDBU0VB+iC3KeH4MlVUwYsPvkQLHn1tS4DuT4bdnwMrsi
-         Mk0KuG/ZXGEIcVOY73FmrBwF1rua0pZ4hheyQYe7+YQW1YsOUlsqR7wGCIkaFXTUn3Ia
-         oxA+RviOv+5nyuz6paA0jGNJF+sXHbsU5OpxL7bjVaxQQ4u3KejyjhKXnYIBXKpAPiJs
-         twwg==
+        d=google.com; s=20260707; t=1794887750; x=1795492550; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mygYInQxR58p7J21QOwq1w85iqa2FjsjKi0zK68sH8M=;
+        b=LBjd6o/yAggU52OhlodXDqJoVcvYEbBnB0WOCq8zJnkRdo7EzOHYqX0NeJrqKrnaAo
+         eF4weWGdQOJCbg4oYMCs5ImotDaotpgDwm2+1JqD77g2dC92z8MVsAbQpwGepXdNezQN
+         kq3scDPx3LFheFo0FxDxIGFB3F8h//x7TfrvqHsB+yVIJk+Z0bMzpzMFiUNEzcMiRZbV
+         qWJ/ui2NdhfloZ1MbzN8Qv1REspTiWO05oFJXTvEB94eUXHFCazsrA97vyIMbxdiBzp3
+         mz6yGvDqVZYkuGAXy57lafEUdi/s7mIctPNbmGOLgVr4VbcjsJkeEtVz2xDdLizhVOWP
+         QXsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794887675; x=1795492475;
-        h=references:in-reply-to:cc:to:message-id:date:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1794887750; x=1795492550;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5yYPPMuupwmdDkr+0YrNM2gwTmLnnxHM0lDOoH4/yWY=;
-        b=Wg2XUX0nYouA6RpHEDqZ2hE2TsbNb3BRvsonxN7TpNtP3sdlf7sHRepRzCEZ15xkis
-         J2j5/+yY+iyr+FSUto3am9yd2qBZBRptC/zJ7F5iCbnyIJg+FK/j2+Re2CwL1ZNb7xoo
-         DPc1aQ/xTtS2s0JA0gXzaImW16N+ziTiVIY8BoHbzBuhuveAU2ahK1X+MnKD8ySWUEiQ
-         WeejtZLi3n7+tc89Xi5QvNr36czRfS4Nh92RmmaAliXloTbRA5417420+MlU9T/GF3I3
-         /iQPsqd84qrMtHuxLXdH9wMJ/DvRbgpi2+/2Zk5akVwn0hgnqhiU9IH8xY85PNJQwan5
-         NjDg==
-X-Forwarded-Encrypted: i=1; AL+hErHNScJhcUg8rar0a3P9SO2hZZVfi64GNiwby7++bwCkrU4VwVs3CrRDgCw1DA5AtSGJusOHT8QCaHOif1s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z++3MyWORxOzKNgW4nADbuwKgO6pr3fkXJ2A1QINdjO8yJuxYwS
-	816UUtLVRsXcnpjSsgf6Izqt9LgIwA6cnwpiA6nIOsR/yxEQ5F7pBibI
-X-Gm-Gg: AYBFou2Gkunus8WqUT9Cb8r25NL/Q5LnuCCAJInzPaoVJret0PaHFZM38lmV2N+I4gZ
-	21pakIdc+KeUfKZL/l7Y1sOdG29Wvg1DW0KjnjUCpYgROh9vsI+d9c/Q9osU+QMW2cpPul7e86P
-	L9Yg9CNYENXu/Yu5dqe2xoiHhPGipoFG0mRmP7lQEw0B3Ypcw9hoaXiqtLcSECeZ3wGciAlC+xQ
-	r3LVPMHAi4L7q4kwd7kkXzhBi9Izk/wTb16LmalG+8sxYg4281Sg6lRXdf1iP1QQSSR1ViayzkA
-	Tr3IFr5xHaSsn0fkkohR3ycXmbhJTIyg5xrQjGhpPzccN5WOnsKU8Vq+gwzlo9GOyqMaP20NIQf
-	KFeeqCop3dIFP9TvFAB/ZcUjCNuDqO+cGBw2MQZIJ6JPpWP6VfYfFtRPR1JhT4UpsYILoYrAT3N
-	DFuzUsvijy0G7C/svmr7xh0T2DpHWonv/CcnaEW81vJCcy7MCLTwB5ydZZ4z+gIXU7fvKNCiOJd
-	QL/kmfScFzqKJcjk+vYgzfERp5gu9sDcBtJypI0+szYk//mLvFJbJea7nhZScE6M58xSI7wXh4Y
-	GWWALmSdyrr+OBMV+gH/Um/hPnfeO1CXaUS6k17X7eUO18C51z/Myl9ZZa82xCGEZ/lyw7RNsKE
-	ZnFj98Dz32fa3JW+Exo/3EhgiP6+FZHod93u7Ub6WeR94sqB8kFjv7bLm/e/FXw==
-X-Received: by 2002:a05:6a00:bb8c:b0:883:904e:da56 with SMTP id d2e1a72fcca58-8beb677fb7cmr12261080b3a.36.1794887675077;
-        Mon, 16 Nov 2026 19:54:35 -0800 (PST)
-Received: from localhost (n106-71-19-159.sun21.vic.optusnet.com.au. [106.71.19.159])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed263649esm4319559b3a.45.2026.11.16.19.54.23
+        bh=mygYInQxR58p7J21QOwq1w85iqa2FjsjKi0zK68sH8M=;
+        b=Ht1ol3Eb4yhcMwXLc8YsMFzuHO5aGSuePCoc2IE/PCO9PoWC4hYYSVpDOwhlFDMyUJ
+         eHRnfjYxYrQ5bC+jb6WHdJRVFTjJMmVSScxphfZ4RZSQsdUUOecGeOviKZ8L6MVk14XQ
+         BL0RSyHLUPmdmUAoU93Qbct/eADb0v0XxDHK4UCFnYGd2+ajXyVNRF6ItP7Q235noOdW
+         yHuYUvVVnJzq52E0BXmnjnKh80GvrhQxGJaAWtT86oaTer6n9k35QZpw7vzarmC6STuB
+         2/hXZVgfSefqbEGU68H51TuhYGUsfVAa9HgmljP3MPCIXkoH2akSE15hbWtef0Tx4nOI
+         J91g==
+X-Forwarded-Encrypted: i=1; AL+hErEZic+/RljEmZAXmyDB0+nmmJPmVvE1u/ovHr24BWBx1WzDN0zuQxlIOl/EfhLdCI6TedxehmyXNcTb3r0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9EN0krX4LFAkr1HP8duHva+lTUv3adT/z7KPlFFcJ9e5OzPuDE
+	j4hwQ5CjK+zIqjvv00jZZX/GeJqSt+FJhqN4UznviEP4M8LX+yE4IlaTi5BdBIgArQ==
+X-Gm-Gg: AZFdTZcDOb2pzEUT3dPi/3u/1weh62zv+8yROajyBdKp9Itiv/ku5Fqxa/P2axDMHtw
+	9Ase45dxkp28SKbsKaSPvm+ZzdKZd4eRJsTWfaOLIz7SNpNnQB8wnxZT9Qdd5nzh9OzGZksZIMI
+	qbMP/N8Ue5R7aHc+jd5jvja2e9lwEINJXBgwdCcSt7UdYDM84c5lT5VQ4n5w31lbuBahiSkoZ85
+	nGhw+5z3LgnenTuEHU9ds3Dtio0O9TGa4A+PxRriTtxkrNYlCXSBexlhYLBMt7dXHe+ERY31ovm
+	cVq2ax4n6bn5okov9E7VSZsejFsXaQt8+Nle3XTHS7akgN4RkckoytCIAAy77AtQ4RN7E21hkDq
+	SF2cRFU0ap0iQI42dVIN/kUvcEC6aWjbc2BHmKt2jheW3nruMH3MfRN5n20Wo8lNNTHZn1cprxr
+	kwOd/X12qu4B15iNB5njF5pNi2ofZxemj7xnPPiNzH50tUhKW2/bTnFsjPx8ExS8DCIzNShHbEA
+	OJCebl/ABQSeS4FF0R7/ztH8BbfnkIaNoBw9prRDgzKNbRDqav4kr9ZV8XeDsyZLTd+lJTGkGsJ
+	SsiHVWGS6WAPgjrW6OHcggZlyGyltBO5GexRGFP4XwxLMgcvUBYgOKvgH69dMrF0nf3kAxdekZx
+	4X0wtW2kI0JQlHGSE3UZHMQ==
+X-Received: by 2002:a17:902:ce04:b0:2ec:f228:764d with SMTP id d9443c01a7336-2efdc8db07amr2084325ad.18.1794887749194;
+        Mon, 16 Nov 2026 19:55:49 -0800 (PST)
+Received: from google.com (25.75.145.34.bc.googleusercontent.com. [34.145.75.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed12a818asm4348658b3a.17.2026.11.16.19.55.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 19:54:33 -0800 (PST)
+        Mon, 16 Nov 2026 19:55:48 -0800 (PST)
+Date: Tue, 17 Nov 2026 03:55:45 +0000
+From: Samiullah Khawaja <skhawaja@google.com>
+To: Baolu Lu <baolu.lu@linux.intel.com>
+Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, David Woodhouse <dwmw2@infradead.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>, 
+	Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Pranjal Shrivastava <praan@google.com>, 
+	Vipin Sharma <vipinsh@google.com>, Ankit Soni <Ankit.Soni@amd.com>, 
+	Nicolin Chen <nicolinc@nvidia.com>, John Starks <dev@jstarks.net>
+Subject: Re: [PATCH v7 12/18] iommu: Restore and reattach preserved domains
+ to devices
+Message-ID: <avvK73lUs9RXdl0-@google.com>
+References: <20261110040828.1774343-1-skhawaja@google.com>
+ <20261110040828.1774343-13-skhawaja@google.com>
+ <0a38ae25-3eac-42f6-862e-3dc1d644ab97@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,37 +107,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 3/6] mm/damon/tests/core-kunit: test
- sz_ops_filter_passed_last
-From: Aveline Noir <jm5905938@gmail.com>
-Date: Tue, 17 Nov 2026 14:49:05 +1100
-Message-Id: <179488734513.2.6285120857568566018.b4-reply@b4>
-To: mattathias.pinchover@uber.com
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- Jonathan Corbet <corbet@lwn.net>, damon@lists.linux.dev, 
- Mattathias Pinchover via B4 Relay <devnull+mattathias.pinchover.uber.com@kernel.org>, 
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- Randy Dunlap <rdunlap@infradead.org>, sashiko-bot@kernel.org, 
- sashiko-reviews@lists.linux.dev, SJ Park <sj@kernel.org>, 
- Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20261116-damon-sz-ops-b4-v1-3-1cffe7227e6d@uber.com>
-References: <20261116-damon-sz-ops-b4-v1-0-1cffe7227e6d@uber.com>
- <20261116-damon-sz-ops-b4-v1-3-1cffe7227e6d@uber.com>
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <0a38ae25-3eac-42f6-862e-3dc1d644ab97@linux.intel.com>
 
-Hi Mattathias,
+On Tue, Nov 17, 2026 at 10:29:37AM +0800, Baolu Lu wrote:
+>On 11/10/2026 12:08 PM, Samiullah Khawaja wrote:
+>>During default domain setup, restore the preserved domains by restoring
+>>the page tables using restore() iommupt op. Associated the restored
+>>domain with the iommu group of the preserved device, and reattach the
+>>domain to the device.
+>>
+>>Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+>>---
+>>  drivers/iommu/iommu.c            | 115 +++++++++++++++++++++++++++++--
+>>  drivers/iommu/liveupdate.c       | 106 ++++++++++++++++++++++++++++
+>>  include/linux/iommu-liveupdate.h |  39 +++++++++++
+>>  3 files changed, 253 insertions(+), 7 deletions(-)
+>
+>[...]
+>
+>>+
+>>+/**
+>>+ * iommu_restore_domain() - Restore a preserved domain for a device
+>>+ * @dev: Target device
+>>+ * @ser: Serialized device state
+>>+ *
+>>+ * Restores or reuses a restored preserved domain for @dev from serialized state
+>>+ * @ser.
+>>+ *
+>>+ * Return: Restored iommu_domain pointer, or ERR_PTR.
+>>+ */
+>>+struct iommu_domain *iommu_restore_domain(struct device *dev,
+>>+					  struct iommu_device_ser *ser)
+>>+{
+>>+	struct iommu_domain_ser *domain_ser;
+>>+	struct iommu_flb_obj *flb_obj;
+>>+	struct iommu_domain *domain;
+>>+	struct pt_iommu *pt;
+>>+	int ret;
+>>+
+>>+	ret = iommu_liveupdate_flb_get_incoming(&flb_obj);
+>>+	if (ret)
+>>+		return ERR_PTR(ret);
+>>+
+>>+	mutex_lock(&flb_obj->lock);
+>>+
+>>+	/* Preserved device should have a preserved domain */
+>>+	if (!ser->attachment.domain_phys) {
+>>+		domain = ERR_PTR(-EINVAL);
+>>+		goto out;
+>>+	}
+>>+
+>>+	domain_ser = phys_to_virt(ser->attachment.domain_phys);
+>>+	if (domain_ser->restored_domain) {
+>>+		domain = domain_ser->restored_domain;
+>>+		goto out;
+>>+	}
+>>+
+>>+	domain_ser->hdr.flags |= IOMMU_SER_FLAG_INCOMING;
+>>+	domain = iommu_paging_domain_alloc(dev);
+>
+>Ah, here it is.
+>
+>This allocation uses the driver's default. For VT-d, it prefers first-
+>stage translation when supported. But the preserved domain may be
+>second-stage, for example if it was allocated for dirty tracking or
+>nested parent. Would the restore callback then walk the preserved page
+>table using the wrong format-specific operations?
 
-On Mon, 16 Nov 2026 19:10:06 +0000 Mattathias Pinchover via B4 Relay wrote:
+Yes, that is a valid case. We can store the allocation flags in the
+serialized state of the domain so it picks the right domain format
+during restore. Note that in case of dirty tracking, we do not
+preserve/restore the dirty tracking state, as the restored domain is
+immutable and will be replaced with a new one.
 
-> Add a kunit test for the sz_ops_filter_passed_last DAMOS stat.
-
-Since the motivation mentions contexts with multiple targets, maybe we
-could also cover two targets in the same context, with the stub returning
-different sizes for each? Checking their sum, then changing the sizes for
-the next interval, would verify both aggregation across targets and that
-the value only includes the latest interval.
+>
+>>+	if (IS_ERR(domain))
+>>+		goto out;
+>>+
+>>+	pt = iommupt_from_domain(domain);
+>>+	if (!pt) {
+>>+		iommu_domain_free(domain);
+>>+		domain = ERR_PTR(-EOPNOTSUPP);
+>>+		goto out;
+>>+	}
+>>+
+>>+	ret = pt->ops->restore(pt, domain_ser);
+>>+	if (ret) {
+>>+		iommu_domain_free(domain);
+>>+		domain = ERR_PTR(ret);
+>>+		goto out;
+>>+	}
+>>+
+>>+	domain->domain_ser = domain_ser;
+>>+	domain_ser->restored_domain = domain;
+>>+
+>>+out:
+>>+	mutex_unlock(&flb_obj->lock);
+>>+	liveupdate_flb_put_incoming(&iommu_flb);
+>>+	return domain;
+>>+}
+>>diff --git a/include/linux/iommu-liveupdate.h b/include/linux/iommu-liveupdate.h
+>>index fb1e8efac8ec..68c7ebca25f6 100644
+>>--- a/include/linux/iommu-liveupdate.h
+>>+++ b/include/linux/iommu-liveupdate.h
+>>@@ -99,8 +99,31 @@ static inline void *dev_iommu_restored_state(struct device *dev)
+>>  	return NULL;
+>>  }
+>Thanks,
+>baolu
+>
 
 Thanks,
-Aveline Noir
+Sami
