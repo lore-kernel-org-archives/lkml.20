@@ -1,67 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794931340;
-	b=OIRZ/VUcuynCy2eAhRO0pGmGUYYTXAYl1yN1XlK5tv9Xvin3iiOvo7/k7x2YMZePUQvU
-	 VdrImnkH5pjykhSiiwoW6aDBz9VnQC+HjGozVF0hUyIhwqnmXQ+suhF/Sh8JNVfbTH1kT
-	 4udqCmsztPm++WR1YYaK+DFr+XBrfOxb4Wm7mIEfVKadkzOXtdkqw1+wBou7ms7KkQzs7
-	 q/xUW4/CpqCO9CT6RU85MpI0Q2KJgQLUeuMn/+GY3qJXpX1riBG5jkk7QvRhbVWW77QkU
-	 EaQ9PRFvrYbR03FS1EaFhfbI34ez6++qLVNauHHGlM1fd+8hZOSLYOSOHNQCt01B0+w==
+	t=1794931401;
+	b=nMZiZ+VER+CaxTq+Wwn47FSHF+HjKqnBsm7SYfLN7amKpdNg9ArajBgSNJrS6+buWdJ/
+	 fT0ru3mU8EjHyEMSCahz2ykV++95/J17kZGd69MGSUnVcwxzTasfqNNdp9hCfpCw3/DeN
+	 dHI+VKtvZ7wlAK1eBUVqs91V5NPWtB77M0p2NSSPXdgql4YSm/LJD/k3/nIm6AU0D82Jy
+	 +YvtuoYvJX+MbqHgZffTn/B1TolhZs91UQ3H+Su/d2eiQa1RKDca37AXWX/sFEtKllmD0
+	 K2qFOX8oAHV2JRF4QOXtWOCzulh3uk2zo5mS/sMl6MIZKdLVdDnz1kA8t8qClcPyMng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794931340;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
-	bh=HQXFEjcKDKmNARb95O11s6PnWmjpZQCT4DGs1RHc8QY=;
-	b=WnRaflLZH3tGlxsGp4+DxTgdV2101ild8dZxpDpucqzjVqkQp6T2nIFha68GAr8TQNd5
-	 EI3MECZZFKN4eNQIZMY6T1DvqHQ01sApE35t4h2y+qQpJ4YdRkn474k7Kh+4upVdzqTE4
-	 MMxCi9sET8jz/9bNquOpVur3QqqLAfAxotdbK2VyW2Izzk/4WPiDEvBdndTNrUc/NMbCo
-	 jKJoQvPI5XHP5jAnKLkJO41XOWh6KWYR0zDVyelU4KXBAAaABnkKsnjpgywjl999r3wOR
-	 nrXpRnO6pKSAFeT24/miuiS8ENp/tBb4uLXEVCsBp+Bcs5vNy9IE1e8ziDd/0Zhi16g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794931401;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=K44g9D+a319XGB4PD7ytYAYG94h2IajymOEoYGpnvQY=;
+	b=S5Yg5CNzPJWah5cSOkiykDB5GB3dXZsZtwsizkFtI2FU7G3w6ggS88OPu9brINbQkWyo
+	 nrqzOZBEzweI5qbbLM4hOU7T2Qb1r1AaBfDJGjiSrFltEr3HivTmFGzO8FqpUEy57x3ZV
+	 Q0w+caAqsvH33VSNGtg6d1AY8GwerUvSWjEqScRYzZFytPYuNNvr2iafM98fBjRxWMv96
+	 gw7IcxlOWN0qEvXc40DFbpvqRsOOOoQwW63eU+l1s6vXAakGcp/jGcEUY4hxaYZ1JsZDb
+	 nphVv8Em3ucWnZM34a9kUhEoQWX7572A4p66wDanKD97ORWJv+V01CC98VBrrjOZxZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=dGSMMkAd;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=DjH7rE7r;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ciYjquy3;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F5A0606A333
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:02:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F5A0606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2A37606A333
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:03:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2A37606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=dGSMMkAd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794931339;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HQXFEjcKDKmNARb95O11s6PnWmjpZQCT4DGs1RHc8QY=;
-	b=dGSMMkAdnikaHq0CVWhQZlAXyMG5JSPff0iC43yDiWFt3nIRCGIcvv48J1inX3QKtWkgEh
-	K16jz3muuZBWu98E7gfzR+rob4WRNgjkE3pUyxJof0bBaDRwYN6NdBR+ApGy4LAndt8uim
-	F2GERsksd2Xfn75t9id3QcIIDGBL7X8=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-235-mUKf0wkuPdqXZQbs14mgUw-1; Tue,
- 17 Nov 2026 11:02:15 -0500
-X-MC-Unique: mUKf0wkuPdqXZQbs14mgUw-1
-X-Mimecast-MFC-AGG-ID: mUKf0wkuPdqXZQbs14mgUw_1794931333
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 5ADB7195DE7F;
-	Tue, 17 Nov 2026 16:02:07 +0000 (UTC)
-Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id BE521349;
-	Tue, 17 Nov 2026 16:02:02 +0000 (UTC)
-Message-ID: <090384c2-c15f-4357-a7dd-4330972c8c51@redhat.com>
-Date: Tue, 17 Nov 2026 11:02:01 -0500
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=DjH7rE7r;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ciYjquy3
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHFQp5Z1663350
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:03:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	K44g9D+a319XGB4PD7ytYAYG94h2IajymOEoYGpnvQY=; b=DjH7rE7rXPUt1HX/
+	wnWqhTKgUG6zzAcP2cdBB7rOkK0/+hINtf+imirMNoaJtRDUnJ6GJb7GyFaOpjIO
+	DR+JPWNr/nHrNC8SnvdajhhbziVtD9nfokhUnKeKZ9Pm1LN4OVc+GAm2ejBf0BrK
+	G/KE3JbWvMOWvCtl4BJrotWwIw7RRQCqd8RUY3cQ2ak0kTF/07bgIpx+yTqlXtyC
+	ZLCXpZP/09lMbCe5ZBtHOgfzf1eeYWqfJXAtktIOGUaVa4wj9hlUpi4sPRFsj5Vl
+	tTsiOUuNbGvZnZqnlL0NZtgOauxcjfa8LEYVvD83+GRsYMf0S+N4STCQB6yuRuUQ
+	o+xvvg==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0kcc9u7v-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:03:18 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7cc06b9ca9eso270998137.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:03:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794931393; x=1795536193; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=K44g9D+a319XGB4PD7ytYAYG94h2IajymOEoYGpnvQY=;
+        b=ciYjquy3mKYpLBVYOeTMAYxKZKY6SRXCfL/ZSMmqwB7SPFgttRv3pq9U7tXw+tc5Er
+         IZRye7Ac27Iymk8RRwprZq3ML4zcbdlBHgXDlqKURd3F3APYAGHTqsstP+U+qFHLFtK3
+         wWPk/Kh3/6tbc/mQNNmdyOedmc7lbjJ45dGtVxiDZTltfw2tAEnEKIBt9TQGfMM+75Uo
+         rYMkgeYAgWCBEWRStnRbB5fCp6WfywXdGHxPdhIr70vVblZ/G0zjL61XA92zb/so+INV
+         yLMELCp4OGyEZx84qoG0VnQcrJs4ag1ZqNmngV6P7o9oVg70AACd3hi77HSY8w0eojp3
+         ySGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794931393; x=1795536193;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=K44g9D+a319XGB4PD7ytYAYG94h2IajymOEoYGpnvQY=;
+        b=iUrZdDGztJFCeGQFd92XUmDFfge/a9HiJQOjKayZcp3g8gh8CDEr7tEEPI50XiX3Sp
+         IcOCoJK2sE+zmkpGzbsXi9LpRcJLzWLBKWwm95vR15ygsSXPk3zOdMW5Y2fGpEP9xgkZ
+         07iZwgQujU6VWx3/rWysqwrOKl7otfwRSADW0jCJD+zqngH/TDeSphPD92hKcQjmP1UR
+         Ley/gczPfv8gy8OnU2I2yeMWaLKt6UzxzQq8UBxz1Hm83X5zh7i/eZKp/JrW6hQxUKUu
+         2f7z10p+dTdTCHybNRYVS58PgcE4pXfO+eNNbvrP1mDjK1E1iDKNBHDJd2ctuOOJEsa5
+         /k2A==
+X-Forwarded-Encrypted: i=1; AL+hErFnYx5wyqY5ELmg8TxlTY/0sqiODIOkiJsjHZwq8al/iXRAdomaeT57joPCU0Yt39zjvb5hSlQVUSupWpM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/oPu0ujVawdO+RjmWw9vKOCt9Lnk7sPWDhrIkrGlTcResco961
+	CeWtjc2kvHRJ1slq3CLhePWEINZFD1DmTO8A+hw0ZzmH4H/ij8waQZCp+Y/NV0WofGdnjcNeUgE
+	4YQAqPSU562fY9csAbe83x8KFIjsj/p4Ws4wX+bRb1RcYynqXaHCwqrmEJ3KGxzqSi/Y=
+X-Gm-Gg: AYBFou2Lb0PNIS87WKIv/YSItuVyiCWnQtNJZ5deQXLgIg7B12BtQQFQpnVKzqsFHy5
+	/fRiu3nCkIJE4hgIpVVk6Q5dSdtVzgTbIazeHm4eFZe6fHRWlDRDqGK/Pr5bTI/XjntPw9O8/3S
+	aacw99FdGR+e5MG/NFrcYxr6RahzYIHQSnUCQzbgJjtrJaZC9fUgFd6tFmR7PQd4P+lrGQYBix2
+	+5wZ1+NeSyzd8/cIQtpeZHBcp3AFOl6vpWATvsvaayfC+JjDJhmfZBVtKN2PYDvXV0gM4i5rQSP
+	Y9CIxyED6dvfH8bh7Czi4GTf4TXxH8WmOop2Pev+KC9oV/hrm2og1lWsbymM+nb4INX8sD0JtKU
+	sZFuoUWNi28e2uBreHExcL0EtjPj1opNLTeFks/kDx6vtZheN4w3OJgcZ1nZCwnSNhWnZuuib/p
+	pDwnW27rrI75TfVpCoDz3shiBoC2moN6aFagh/iA==
+X-Received: by 2002:a67:e7cc:0:b0:7cc:33c9:b3d2 with SMTP id ada2fe7eead31-7d64d84039emr4314640137.25.1794931392766;
+        Tue, 17 Nov 2026 08:03:12 -0800 (PST)
+X-Received: by 2002:a67:e7cc:0:b0:7cc:33c9:b3d2 with SMTP id ada2fe7eead31-7d64d84039emr4314573137.25.1794931392102;
+        Tue, 17 Nov 2026 08:03:12 -0800 (PST)
+Received: from ?IPV6:2a0d:e487:16f:e583:d991:ba24:64f2:e39e? ([2a0d:e487:16f:e583:d991:ba24:64f2:e39e])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb78422d2dsm111459425e9.10.2026.11.17.08.03.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 17 Nov 2026 08:03:10 -0800 (PST)
+Message-ID: <0de1444a-a0ba-4e16-a480-74a39c865ab6@oss.qualcomm.com>
+Date: Tue, 17 Nov 2026 17:03:05 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,168 +117,109 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] sched/isolation: Enable cpuset_mutex/cpus_read_lock
- synchronization before freeing old housekeeping cpumask
-To: Ridong Chen <ridong.chen@linux.dev>, Ingo Molnar <mingo@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>, Tejun Heo <tj@kernel.org>,
- Frederic Weisbecker <frederic@kernel.org>
-Cc: linux-kernel@vger.kernel.org, Guopeng Zhang <guopeng.zhang@linux.dev>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-References: <20261117051853.2429410-1-longman@redhat.com>
- <054a53a3-c038-48fe-ac01-fc24fd8065d0@linux.dev>
+Subject: Re: [PATCH v3 1/4] platform profile: Extract the core from ACPI
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: rafael@kernel.org, Len Brown <lenb@kernel.org>,
+        Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap <rdunlap@infradead.org>,
+        Viresh Kumar
+ <viresh.kumar@linaro.org>,
+        Hans de Goede <hansg@kernel.org>,
+        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+        Maximilian Luz <luzmaximilian@gmail.com>,
+        Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+        Mark Pearson <mpearson-lenovo@squebb.ca>,
+        "Derek J. Clark" <derekjohn.clark@gmail.com>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Armin Wolf <W_Armin@gmx.de>, Jai Luthra <jai.luthra@ideasonboard.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Jack Wu <jackbb_wu@compal.com>,
+        "Mario Limonciello (AMD)"
+ <superm1@kernel.org>,
+        linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-doc@vger.kernel.org, linux-pm@vger.kernel.org,
+        platform-driver-x86@vger.kernel.org
+References: <20261024223501.1420953-1-daniel.lezcano@oss.qualcomm.com>
+ <20261024223501.1420953-2-daniel.lezcano@oss.qualcomm.com>
+ <CAMuHMdXJOpcC3a6wMXF_m=uNjuqSO1Z3kyM7Az1uP_2GBurOvA@mail.gmail.com>
 Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <054a53a3-c038-48fe-ac01-fc24fd8065d0@linux.dev>
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+In-Reply-To: <CAMuHMdXJOpcC3a6wMXF_m=uNjuqSO1Z3kyM7Az1uP_2GBurOvA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA2MyBTYWx0ZWRfX4uIeDAmDokqn
+ vfVe5IgTtKn/jd0E74PikhM5+r5ACbd5IjlXrUX2AEzZjopcnoA8iKxUg2MqI3CIKKRSBPw4GjO
+ 4/el/YlXstrdfvMtIt8VPTWAW1+ysaQ=
+X-Proofpoint-ORIG-GUID: _34sRBALJiY4gxLcwUIJkViaU7x-x2pl
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA2MyBTYWx0ZWRfXxRPg+dmLuMTV
+ 7TB63+xY47pxqVvQRvr1dcSz6PVeDlyWN7JXPKnSaMHGS+ee0niPpcnwpYjMa+38IBIiWLkKXJA
+ UZ7Fcv+V46MIpdlxYkwH+237TUmnD2WThe91pqDduOWex/hqnVzx0XP7uk5qMiHtHZHG1XaEjVQ
+ gWjXIczhqvKSLA5xVYW+ZlhhMbh6BZa/oX7yuSnhlPkWs+cuES5kEBfVN1PYEZNvkpNeA8I3hop
+ rFZhHIThc+izn/E0yabHp2iPATLWjZ6BySRRy36LkF0bZNBK+9vDgrt2O4Itd3OtURjb1wK38iF
+ zwHoeRUm9LcVDWaLf5jowq554C8E9gPeuiTg0M2SUF4AO0W4B91VvLcGKCn0ReXtKdz8mj3Ljvm
+ Vi9/p1LOZNXL9HeuKZG3SPYC5ljap1GRjbJpuQfhM63V//FGD/jUZPd6VNJ5djR/BAfIWQlpyHJ
+ jKvo7p4/W2kjnT0RjSw==
+X-Proofpoint-GUID: _34sRBALJiY4gxLcwUIJkViaU7x-x2pl
+X-Authority-Analysis: v=2.4 cv=ZP1CCn7b c=1 sm=1 tr=0 ts=6afc7ac6 cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
+ a=XpNdnCcgRucV5c9rQ-UA:9 a=QEXdDO2ut3YA:10 a=crWF4MFLhNY0qMRaF8an:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_03,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 impostorscore=0 spamscore=0 bulkscore=0
+ adultscore=0 malwarescore=0 clxscore=1015 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170063
 
-On 11/17/26 3:34 AM, Ridong Chen wrote:
->
->
-> On 11/17/2026 1:18 PM, Waiman Long wrote:
->> Commit a84097e625f2 ("cgroup/cpuset: Call housekeeping_update() without
->> holding cpus_read_lock") adds a new cpuset_top_mutex on top but drops
->> cpus_read_lock and cpuset_mutex before calling housekeeping_update()
->> which calls other functions that may acquire cpus_read_lock leading
->> to a possibility of deadlock if cpus_read_lock isn't dropped before
->> calling housekeeping_update().
+
+Hi Geert,
+
+On 11/17/26 12:48, Geert Uytterhoeven wrote:
+> Hi Daniel,
+> 
+> On Sun, 25 Oct 2026 at 00:56, Daniel Lezcano
+> <daniel.lezcano@oss.qualcomm.com> wrote:
+>> Platform profile providers already use device-based callbacks and do not
+>> need ACPI types. The core is nevertheless confined to the ACPI build and
+>> refuses to initialize when ACPI is disabled.
 >>
->> This commit also changes lockdep_is_cpuset_held() to return true if
->> either cpuset_mutex or cpuset_top_mutex is held. 
->> lockdep_is_cpuset_held()
->> is used by housekeeping_dereference_check() as one of the conditions
->> that rcu_read_lock() is not needed to access HK_TYPE_DOMAIN
->> cpumask which can be changed by housekeeping_update() at run
->> time. The housekeeping_dereference_check() function also uses
->> lockdep_is_cpus_write_held() as another condition that can skip the
->> use of rcu_read_lock().
+>> Move the implementation to drivers/platform/profile and introduce the
+>> firmware-independent PLATFORM_PROFILE symbol. Update all provider
+>> selectors. Keep provider-specific ACPI dependencies and the
+>> platform_profile module name.
 >>
->> In reality, both cpuset_mutex and cpus_write_lock are now no longer
->> valid conditions to skip rcu_read_lock(). It is certainly possible
->> that there can be a parallel housekeeping_update() call going on if
->> only cpuset_mutex or cpus_write_lock is held. This can lead to a
->> potential use-after-free situation when HK_TYPE_DOMAIN housekeeping
->> cpumask is being accessed.
+>> Isolate access to the legacy ACPI kobject in an optional compatibility
+>> object linked into the same module. Retain the legacy ABI on active ACPI
+>> systems, and initialize the class even when ACPI is absent or disabled.
 >>
->> One possible solution is to hold rcu_read_lock for functions that may
->> be called with only cpuset_mutex or cpus_write_lock is held. Quite a
->> large number of functions will need to be modified if rcu_read_lock()
->> has to be added. A far simpler solution is to synchronize with other
->> cpuset_mutex and cpus_write_lock critical sections before freeing the 
->> old
->> housekeeping cpumask. This will ensure that code within those critical
->> sections will not have a UaF situation when accessing housekeeping
->> cpumask. This commit implements the latter solution and make the code
->> in lockdep_is_cpuset_held() and housekeeping_dereference_check() 
->> correct.
+>> Use subsys_initcall_sync so the class is ready before built-in thermal
+>> and CPUFreq providers, but after ACPI has initialized its compatibility
+>> kobject.
 >>
->> Fixes: a84097e625f2 ("cgroup/cpuset: Call housekeeping_update() 
->> without holding cpus_read_lock")
->> Signed-off-by: Waiman Long <longman@redhat.com>
->> ---
->>   kernel/sched/isolation.c | 10 ++++++++++
->>   1 file changed, 10 insertions(+)
->>
->> diff --git a/kernel/sched/isolation.c b/kernel/sched/isolation.c
->> index 156025ef81b7..5634d6a597bd 100644
->> --- a/kernel/sched/isolation.c
->> +++ b/kernel/sched/isolation.c
->> @@ -159,6 +159,16 @@ int housekeeping_update(struct cpumask *isol_mask)
->>       err = kthreads_update_housekeeping();
->>       WARN_ON_ONCE(err < 0);
->>   +    /*
->> +     * Synchronize with cpuset_mutex and cpus_read_lock to make sure 
->> that
->> +     * cpuset_mutex and cpus_write_lock critical sections afterward 
->> will
->> +     * not have access to the old housekeeping cpumask.
->> +     */
->> +    cpus_read_lock();
->> +    cpuset_lock();
->> +    cpuset_unlock();
->> +    cpus_read_unlock();
->> +
->>       kfree(old);
->>         return 0;
->
-> Hi Waiman,
->
-> Taking the locks and releasing them right away looks a bit odd to me.
-> It is not obvious what the empty critical section protects until one
-> reads the commit message.
->
-> Let me check that I understand the problem correctly.
-> housekeeping_dereference_check() lets readers holding cpus_write_lock
-> or cpuset_mutex access HK_TYPE_DOMAIN without rcu_read_lock(). After
-> commit a84097e625f2, the pointer is switched and the old cpumask is
-> freed after cpuset_mutex and cpus_read_lock have been dropped, and
-> synchronize_rcu() does not wait for those readers. For example:
->
->   CPU A                                  CPU B
->   rebuild_sched_domains() cpuset_update_sd_hk_unlock()
-> mutex_unlock(&cpuset_mutex)
->                                            cpus_read_unlock()
->     mutex_lock(&cpuset_mutex)
->     p = housekeeping_cpumask(DOMAIN)
->                                            housekeeping_update()
->                                              rcu_assign_pointer()
->                                              synchronize_rcu()
->                                              kfree(old)
->     access p <- UAF
->
-> Here CPU A reads the mask in asym_cpu_capacity_scan() or
-> dl_get_task_effective_cpus().
->
-> If that is right, the root cause is that the pointer is now switched
-> outside of those locks.
+>> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+> 
+> Thanks for your patch, which is now commit 699041135f75b13a
+> ("platform profile: Extract the core from ACPI") in pm/linux-next/
+> 
+>> --- a/drivers/platform/Kconfig
+>> +++ b/drivers/platform/Kconfig
+>> @@ -1,4 +1,20 @@
+>>   # SPDX-License-Identifier: GPL-2.0-only
+>> +config PLATFORM_PROFILE
+>> +       tristate "Platform profile support"
+> 
+> I guess this can be invisible (perhaps "... if COMPILE_TEST"?), as
+> you have updated all provider selectors?
+> 
+> If not, I guess this needs a "depend on X86 || COMPILE_TEST", so people
+> configuring kernels for different architectures do not see this option?
 
-The way that housekeeping cpumask is being accessed is that you are 
-going to either get the old cpumask pointer or the new cpumask 
-pointer.  It won't be a mess-up version. So lock protection is not 
-essential in this regard.
+The goal of this series is to make the platform profile firmware 
+agnostic so it is available for all architectures
 
-In the case of old pointer being used, the important point is that it 
-cannot be freed while its content is being accessed.
-
->  So instead of adding a lock barrier before
-> kfree(), how about switching the pointer before the locks are
-> dropped? housekeeping_update() could be split into two parts:
->
->  - housekeeping_publish(): allocate, check and publish the new mask,
->    called with cpus_read_lock and cpuset_mutex held.
->
->  - housekeeping_update(): synchronize_rcu(), the workqueue flushes and
->    kfree(old), called after the locks are dropped as it is now.
->
-> Then a reader holding cpuset_mutex either finishes before the pointer
-> is switched, or only sees the new mask:
->
->   CPU A                                  CPU B
-> cpuset_update_sd_hk_unlock()
->                                            housekeeping_publish()
->                                              rcu_assign_pointer()
->     mutex_lock(&cpuset_mutex) <- wait
-> mutex_unlock(&cpuset_mutex)
->                                            cpus_read_unlock()
->     p = housekeeping_cpumask(DOMAIN)       housekeeping_update()
->         <- new cpumask                       synchronize_rcu()
->                                              kfree(old)
->
-> The same applies to cpus_write_lock readers, as cpus_read_lock is held
-> until the new mask is published. The workqueue flushes still run
-> without those locks, so the deadlock fixed by a84097e625f2 does not come
-> back.
-
-That will certainly work too. I choose the current solution as it is 
-more localized instead of spreading out to a large code section. Either 
-one will work.
-
-Cheers,
-Longman
 
