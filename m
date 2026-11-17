@@ -1,97 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794930842;
-	b=b/6xzYwnuBCysbnEHVxxE/ZHz+BHyyfOVwSwdwdKXne4ohkokbMCl7dfTsXoRBYW4eWZ
-	 B7CqX7f6jqU1DwOBmTMdYhhzBDXey2B//qh3pcv5pLhvRdlN6nz4kjnAEayGm+rfKObcq
-	 3CXowzDhNtZQ0wiISa7lFAU5BWNXTluZDXBwjCLOrdT6ow+MfcgikbRX/hx4RcG9yn8/u
-	 LcLBuSrMO0JeJvHjiyA8zAGgX1YTRN+NSpB5BvaGTU6f90TqdMV5hNroMz1P+t5qwb5H1
-	 Agy1OV8c12NmREZXJM39bTxeM60IS+d/0wp0U/AnEJCj132m/CRgzrFCAYd1PDS3wgQ==
+	t=1794930848;
+	b=x570S/tEdxX9qERwXocCWtUHm8rD1putGeGqzG3owJHa1uhrj4jLZSLR6aH1XVIdmb1O
+	 OHblRg8VdisgieyniMYnij+SMoxK+wGSJ8SlvelVDDGSSH8eNePV7jm4NrguLFxuOoUj6
+	 c/mm5vmT3q72sdhFuzWK2Cmd3URFjQLRQTEqXznF+N7uFnj1uJFZVOlY+LInbAL41Bqjl
+	 esX6nt4c90M/v94vfOsN3HWQE3kUlTe3/fJwrFzuQgkGrpo4mkUte7jguFXZFgnUPuJkE
+	 AxHz0E0lMJ0Kh8R02+VRm0qqrAs7MWh/FZ+kKf/mfjRz6QMl3EjhE1Dc0ZN5V+a7OhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794930842;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794930848;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=J2IjfEFPn1TkX0JoYvkz939IJBltfJgLdRqFoj7aTGQ=;
-	b=fURYOAdG4gYg1Iio3THOxfzNhqNDK3CrxJ7svWFf/u2sHbNOBn8/flvNNKi3Iv8om81N
-	 OchWiLsgmzdX2Q6STlItH8mg9LKwFFBeV16KI/mCi24lgU9Pbq1f6qL3a+PGR5gCeru8B
-	 t3S9U7N408NDNOGiwvy9tFZZgNrW2/onb3VMSB/7TQy1M0INjCpY0IyEqennh5cal3NwI
-	 FAMnUtpGrUT618uzKuOA0zoOWIcL7Cc1dG/PUYqBGJpNTS3aCrrQtGSaYuhyxDkvRJHRM
-	 RdwdUyS6E98bq2SVkobr8Bvk+fe9j8oB8MO+oTMbsgh1033lA26A23KOXj99wHUK6YA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=T2YU1tH+CNIU0dqfT1pwQhaFGOXLajMVIubV/u5Dc70=;
+	b=1BKps4wyaT5tcm29lydvBDy85sKOGlTA5KCm9x9BpSYFl1AaOyVJgmjSjcDF4Mzn05Ow
+	 ehkgE2cWuKri35+tXfx0uT0v7gRzD7FoXXlooaeV5YryNP/PxOpJBmxAipgus2nz9OiRP
+	 JYWbFGU6DdCh7YqLf1rYrh4mdRxx2BuKSaOscNv93lY1ptFXRnjDKcIyKEF6HAwJlY1Js
+	 179o/N/UiO57BLN3dLXLQFMX13d9Ojz74N6GgFcHSo3Y80dE5yc3KPYcMQRR4kwoPxlxp
+	 UoaQL1+J2m8DtdZxNdOetDXPCyY2j5WThxQw24rjpKsGtU9DjXdej/2cEPXxmVO48PQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=dama.to;
 	spf=none smtp.mailfrom=dama.to;
-	dkim=pass header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="r0o/7UgT";
-	arc=none smtp.remote-ip=209.85.216.43
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	dkim=pass header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=NRWBHVqx;
+	arc=none smtp.remote-ip=209.85.214.175
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA72F606A32C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:54:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA72F606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A966F606A330
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:54:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A966F606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=r0o/7UgT
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3b0bbdeae06so3101090a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:54:01 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=NRWBHVqx
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e987a2ba0cso30219165ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:54:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20260707.gappssmtp.com; s=20260707; t=1794930841; x=1795535641; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=J2IjfEFPn1TkX0JoYvkz939IJBltfJgLdRqFoj7aTGQ=;
-        b=r0o/7UgTBhDVgIsXKmi3yThIJQ4HLjTGTAZHpI2yBgSCZKSe0IS0aLYLFDfjg6jbdx
-         PiTi4ETstssmo2Qe74jeOng1bOPhMoL7vHVL3FzDNsvy7btPyL2YOMV8O9Fe553pgql7
-         QpAbdV4A8Q2N2D5dIurZ8nf8/PV7lX6FlC7dScU+XD2gP/MgMRcYaLNPyhoq/iF9sp5Y
-         WqYjAMg/WXTCZU1ts+FCUkLs5dtqGImtEekwK15n9Q9S5g+5PDAX9Rk4OW3+MjlENqfr
-         BxQgRVZFjphB0NQTJOlIcwDRCs/KYWvN3tPE7EOPXeK2MiQn6Mpke7oTUA6IJ9DbW8wE
-         syaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794930841; x=1795535641;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=dama-to.20260707.gappssmtp.com; s=20260707; t=1794930847; x=1795535647; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=J2IjfEFPn1TkX0JoYvkz939IJBltfJgLdRqFoj7aTGQ=;
-        b=TcSe5z4Rnb1jjE+uLuQchlg4invf1FHdaCn6PvC7PhX7rlRwzHAasjd3NtfhRCaKya
-         1N5CA0wbKOT1JEiJ1PyQCV5IktI3VCF1jq1N/f+PDJPW62ITroh3xIqTJkLc0lfZpdCM
-         jerzZbnLMxYB1rkT0yRWBUwJDC7rKV5sgZtYcl672a+MJ7zgilHUVM2mtGWjSovUP7CW
-         /O7Emvoy5PSZsyqmCK7GJS3maM7uB6lD6y+QyifwLJonGs2K5U6Z34/gilay/uErmHf4
-         2c2fMtYhhKgsquBaOSzym9pZ0U5iawtBldWsw/Fb576xA5jwTTZzu4c3rJgl5nXyeKuY
-         d6CQ==
-X-Forwarded-Encrypted: i=1; AL+hErFVB9MNTAOnO/HKEOulOTT6qSf+0a0E8z+uk/wWq9HYOb3NZYuskhYqDLqidLcNwph/0yQ/gjwHfl8UYr0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+8hZ0uwG2I2T/+ooaxoppnGEZ9E6wD2D2+fq+PhvBomXAtKOT8
-	LjP70SzEq6GUZshNy+0oHl1CMix+HyGqZLe4Rz4/D5N/aWT0n8LSeORPVdL1YPYjTL0=
-X-Gm-Gg: AZFdTZc0Ast8VHefjavM3dpHSgHs5zcElNH7iUs9A712cYHPaL+zdmSl0z6ONF3YWrT
-	oULKmy6phf17bs1EQchs5U+opmHh/8z++Hz7C+RCyXcQ4Ywx8wIAJ1ph9KA76jf6kh40hKceQ47
-	05vONDveWbl467lzptTfViAffYjB/LTtE6wQHUM4AFGPY2oLMy4FoA+14mnc24s2gu083RAWJSl
-	KDr5G1lXNAGwlS4ex9KvrjvXV3j50M1PIIvdtpNDqz8hWC//7u+Ud0fXYtE22zVqoXk15d1rQyP
-	LQWfMecthqKApYcvKQwqWSCW2cxhRVE+XCm11RM0LDrw8YlP4+3hO/Pkuo6vTWvNz67VmppjbFh
-	LP4T9RldUDS4cbD+oYn9uzw3xuvHdrc2ItXABdBRQvuKsOdToIYMrlxkZxU2lAhD0bcH7fTG9+u
-	havsH0VMl9ksJKU6gLoW6XyuG9nJzT0HZUHcXfMKzSYFrwB0zeCUwZurhkjDLrEH88mtvFbSdme
-	mHyhvbyLd4/xOb/WZ8X0wJPNC4lLsdfol9cM3aSWdQnBzPFNmBzQKNlHwVDLURp8Mun1XEA2YBh
-	nBykOlMryeBdrptNTgklm285MMbZ9kqEI3FYPVOFWht+z4XJJQnMOxvy2EpQFlk3oQ==
-X-Received: by 2002:a17:90b:4c0f:b0:3b0:a757:e372 with SMTP id 98e67ed59e1d1-3b1b0b63d19mr13616982a91.47.1794930840793;
-        Tue, 17 Nov 2026 07:54:00 -0800 (PST)
-Received: from localhost ([2a03:2880:2ff:5f::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3ac70ea45sm4543993a91.17.2026.11.17.07.53.59
+        bh=T2YU1tH+CNIU0dqfT1pwQhaFGOXLajMVIubV/u5Dc70=;
+        b=NRWBHVqxDtrZjDj810zSeDDkUYy70Fy2OixwQJx4w288utTEJ2lhTiDKh07xvr/vYH
+         yLV+zf1kh5q1IU3c4fIARPakpLRFUzh2iQd3rORcU6P5ve41M64GrOuSBFnlvh3IFEps
+         6gFDQtoVKzUGsm8jlQNb09VLw/T4v9qt2f/ZLa0sUFXnOtpTmoNrenLOep2ZDmF9rDqG
+         lcZXqAjsuHWujLYdr9AeOIesJONIaXGLf4i7BPnL/bxAb0liHoWrPGM2CzH/41uqUF1j
+         FO7xelRfvhlmqllATZKtUfxmq+/cLf3FGwj+8rvO2cv4UKUYzKPLRFzqvP3JZYZCL8MJ
+         wu3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794930847; x=1795535647;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=T2YU1tH+CNIU0dqfT1pwQhaFGOXLajMVIubV/u5Dc70=;
+        b=J7gdch2cz78bUPy+peWKxNzt/srNV38/7xOWVAM5lgF8Zcg7hcvQydKMpmE36ss/MW
+         w3dQay/6iEeLeladev9kalwnR0UYYmup9368e5ajpmuOpKpnKhvAnh6gDJiJIrtV/i6y
+         VYsiXdrJXB6BtouZ6nsCa7xSSiRtq3Q5EXBPcXsutMLa1bmzyrWY023iwV5QGY3uxqBZ
+         P7hRKatyQ6+HDDpIy2K2Dbpg1s9PI98Dta2yEMw3BpocCE42K8Kzcdw1ISQJSu6UtcUs
+         57brwVAQzrMK40FGmOgb7RElJqeyfeao5EpJiuZPbWQWtsNUq+SlOR4iYi7Cxcde3IpT
+         m6+A==
+X-Forwarded-Encrypted: i=1; AL+hErHcbtxzu9NbBOXK81sISDQEsxISHcnlbM7BLOPg9ZWg06gNfLatqfdB6r8whYrPTB6x4uWWwAFYBmjgjqc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9LcQNplJ6ABRShW18SYeiRA6YDa1yV4ODeuvfAxnwi1VVHnoEz
+	JYzPurnM+5VAyAIKrd/hzTyABF4OGmJpZ3/fuUhqmWdhxiJc7OPZ4WUk6UhSaHED9dM=
+X-Gm-Gg: AZFdTZeqPGQlWYRD5Af6udykw37iF/5cCA2HClH20L8OLPO0iPfu5AaIarNoKlf0aNa
+	6tLyQnyQHVDQ8nR/io5KGO4eJf5+ilxBMREgckTby3UGRzNEB5F2nI0dLbXmrZx3IN2l/8rfGe8
+	D6oiGqLaMUZtBrBkwtQcqQky187PZPjt8FaDpMzg7hsNJGtYc86yvphWWGfTdvBQr7KHq4UxBW/
+	UXQlo9h8/wr8wQuDk7gQ6XQeLI4a9mA5LgrUu0KO8oHQwAq6cgHUubNGSZsZZqvYF50nh/XNqoA
+	xYwW6+BOD2gH/noJqmlH8KfU6GKA1FMcPYYVrNeKzdqfEzTSIXShKAfes9wLZEB7k4I1aQDmo4X
+	GDlb/nip7vxLhfGNNfSy9dGWNwty9vkthuZL3QWl5pl4rPMUgavhta37r1hjq0tMd60kBnkWN2t
+	n5YozdGxUzKknHJp8rObynZ595XnaLqcnmGR/Y+A270nC66WhSh4Pg7r7UEGkB6k+4kftUf7wna
+	GHQRbvpNVecjmX+FlVw/dxBVUDZMsfDftwc2ajuO1eqEqUvbtGRBTmp5Et6mzm8cxWzoBAUVrOl
+	bw/XfbQIBMTHGNvPplY02Em+7pEo+jVQednKICN1Tw==
+X-Received: by 2002:a17:902:c406:b0:2e9:3f41:4212 with SMTP id d9443c01a7336-2ee0da7af82mr132965015ad.13.1794930847005;
+        Tue, 17 Nov 2026 07:54:07 -0800 (PST)
+Received: from localhost ([2a03:2880:2ff:4::])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd7a54576sm18946785ad.40.2026.11.17.07.54.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 07:53:59 -0800 (PST)
+        Tue, 17 Nov 2026 07:54:06 -0800 (PST)
 From: Joe Damato <joe@dama.to>
-To: netdev@vger.kernel.org
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
+To: netdev@vger.kernel.org,
+	Tariq Toukan <tariqt@nvidia.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: edumazet@google.com,
 	horms@kernel.org,
 	linux-kernel@vger.kernel.org,
 	daniel.machon@microchip.com,
-	Joe Damato <joe@dama.to>
-Subject: [PATCH net-next v2 0/5] net/mlx4: TX helpers and deferred doorbell fix
-Date: Tue, 17 Nov 2026 07:53:45 -0800
-Message-ID: <20261117155353.2250540-1-joe@dama.to>
+	Joe Damato <joe@dama.to>,
+	linux-rdma@vger.kernel.org
+Subject: [PATCH net-next v2 2/5] net/mlx4: factor csum flags into mlx4_en_csum_flags()
+Date: Tue, 17 Nov 2026 07:53:47 -0800
+Message-ID: <20261117155353.2250540-3-joe@dama.to>
 X-Mailer: git-send-email 2.53.1
+In-Reply-To: <20261117155353.2250540-1-joe@dama.to>
+References: <20261117155353.2250540-1-joe@dama.to>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,58 +109,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Greetings:
+Extract the code which converts skb csum fields to WQE fields into a
+helper. This helper will be used by a follow-up series implementing
+software USO, to reduce code duplication.
 
-I am working on adding support for SW USO to mlx4 and the branch I have with
-those changes locally is becoming a bit long, so I thought I'd try to break it
-up to make it easier to review and merge by first sending this prep series.
+Signed-off-by: Joe Damato <joe@dama.to>
+Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
+---
+ drivers/net/ethernet/mellanox/mlx4/en_tx.c | 22 +++++++++++++++-------
+ 1 file changed, 15 insertions(+), 7 deletions(-)
 
-FWIW: I plan to include more detailed data in my SW USO series, but I'm
-working on SW USO because it significantly improves performance on hosts with
-an IOMMU and an mlx4 NIC. I have a lot of hosts like that in production that
-would benefit.
-
-Anyway, back to this series.
-
-Patches 1-3 factor common code out into helpers which currently have only 1
-call site each, but I will be calling these helpers in the SW USO code I plan
-to submit next.
-
-Patch 4 and 5 add code to track when a doorbell is deferred so that it can
-be written in the drop path. This is technically a bug fix (and I need this
-to avoid the same type of bug in SW USO), but since I have never seen this bug
-occur in reality I am sending to net-next.
-
-Thanks,
-Joe
-
-v2:
-  - Better cover letter subject line :)
-  - Added Daniel's Reviewed-by to all patches, including patch 4 which has a
-    minor change (hope that is OK, Daniel).
-  - Patch 4:
-    - Change the struct placement to address Sashiko's review. The new flag
-      is moved to the area of the struct marked as "cache line used and
-      dirtied in mlx4_en_xmit" and tx_dropped is moved down with the fields
-      not used in the fast path since it is only written on drop and read
-      for stats.
-    - Update the commit message to explain this.
-
-v1: https://lore.kernel.org/netdev/20261110231304.1859217-1-joe@dama.to/
-
-Joe Damato (5):
-  net/mlx4: factor VLAN parsing into mlx4_en_prep_vlan()
-  net/mlx4: factor csum flags into mlx4_en_csum_flags()
-  net/mlx4: factor HW loopback DMAC into mlx4_en_set_loopback_dmac()
-  net/mlx4: track whether a TX doorbell is pending
-  net/mlx4: flush pending doorbell when dropping a TX skb
-
- drivers/net/ethernet/mellanox/mlx4/en_tx.c   | 95 +++++++++++++-------
- drivers/net/ethernet/mellanox/mlx4/mlx4_en.h |  3 +-
- 2 files changed, 66 insertions(+), 32 deletions(-)
-
-
-base-commit: 6bc9aed3994cb04708fef02dd6d2f1cc5c5e8229
+diff --git a/drivers/net/ethernet/mellanox/mlx4/en_tx.c b/drivers/net/ethernet/mellanox/mlx4/en_tx.c
+index 00210dbae1c3..f6059b533eac 100644
+--- a/drivers/net/ethernet/mellanox/mlx4/en_tx.c
++++ b/drivers/net/ethernet/mellanox/mlx4/en_tx.c
+@@ -861,6 +861,16 @@ static bool mlx4_en_build_dma_wqe(struct mlx4_en_priv *priv,
+ 	return false;
+ }
+ 
++static __be32 mlx4_en_csum_flags(const struct sk_buff *skb)
++{
++	if (unlikely(skb->ip_summed != CHECKSUM_PARTIAL))
++		return 0;
++	if (skb->encapsulation)
++		return cpu_to_be32(MLX4_WQE_CTRL_IP_CSUM);
++
++	return cpu_to_be32(MLX4_WQE_CTRL_IP_CSUM | MLX4_WQE_CTRL_TCP_UDP_CSUM);
++}
++
+ static bool mlx4_en_prep_vlan(const struct sk_buff *skb,
+ 			      union mlx4_wqe_qpn_vlan *qpn_vlan)
+ {
+@@ -891,12 +901,12 @@ netdev_tx_t mlx4_en_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	struct mlx4_wqe_data_seg *data;
+ 	struct mlx4_en_tx_info *tx_info;
+ 	u32 __maybe_unused ring_cons;
++	__be32 op_own, csum_flags;
+ 	int tx_ind;
+ 	int nr_txbb;
+ 	int desc_size;
+ 	int real_size;
+ 	u32 index, bf_index;
+-	__be32 op_own;
+ 	int lso_header_size;
+ 	void *fragptr = NULL;
+ 	bool bounce = false;
+@@ -991,12 +1001,10 @@ netdev_tx_t mlx4_en_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	/* Prepare ctrl segment apart opcode+ownership, which depends on
+ 	 * whether LSO is used */
+ 	tx_desc->ctrl.srcrb_flags = priv->ctrl_flags;
+-	if (likely(skb->ip_summed == CHECKSUM_PARTIAL)) {
+-		if (!skb->encapsulation)
+-			tx_desc->ctrl.srcrb_flags |= cpu_to_be32(MLX4_WQE_CTRL_IP_CSUM |
+-								 MLX4_WQE_CTRL_TCP_UDP_CSUM);
+-		else
+-			tx_desc->ctrl.srcrb_flags |= cpu_to_be32(MLX4_WQE_CTRL_IP_CSUM);
++
++	csum_flags = mlx4_en_csum_flags(skb);
++	if (csum_flags) {
++		tx_desc->ctrl.srcrb_flags |= csum_flags;
+ 		ring->tx_csum++;
+ 	}
+ 
 -- 
 2.53.1-Meta
 
