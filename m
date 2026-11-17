@@ -1,109 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794929589;
-	b=A2jKcBMTrap3pXSBZ99xVKBtP5+UbGFU4gXwJTsBFwWn3HwrOC+AMPACoHju0aOHXl9s
-	 AcK7EnzczMwdz5IXdzQiZrjuJZcZj4OVoHaF2FyDQo7U1uDNheY2YFWXXfJI1uA++Ei7f
-	 mkVamWKpK6QM0rWwKdmQGzElGSvCHucDradKAKDE6czvFTvGj7vXX+buGnTPAEG8eyJaL
-	 q2Xgci0MCEi+kld6/zNNfo+spTDSDtTIgpcpCLoyFntAliQisIwJ2wkTyHzkj/hamaYmn
-	 P1KJe3C1x7rqLiTW8EYtiAmdNO2PjgAVxEov/6EWluLXzZKIvgmNNkXb5DxTorVKSWw==
+	t=1794929603;
+	b=pCaynlj2trkdmXQu+/EkOwBvAj773jb4DL4rVl5au3/XzOt6EQ7SRQ5fL+Q9g+oeqhji
+	 LR/fyOo7ktVkpPzP9ubZznGWF2tYKuW4q8/M+IN7Tj8twqQ1chRIR4g3XCk9bwvxvsyeq
+	 m9mkZNDxTtn75pj7bLw0RaNonsQDK3irwyqSPSdpePROIhNCYRfXJ0oKs2g54lacmHczD
+	 /Cx/WRfxT31vNQ6++j+B+dnkTksUJW3mCbINErM8g036Ce1yF768GJD0PzecYsPWfU/Vn
+	 gZlBRr3YgKMy3qhyFIc5wFc56SXhAZ7WSLGhFufAJuSKR9XR1F8f1YjRml6UPecqzKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794929589;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ic0ZV2l8vdmrXTqu+lMUrh7Ne4ma2q8MNEr28fS3hxw=;
-	b=OOuBJkj99K/ru0jFmmFEKUyA+j5fobTU4u2e4cUT2G7zKm+lcfY4kuDoEbxjwjOKzAZ8
-	 SCe7yj8IHc/8ybIVylNXsFjJOdUoTUXCUINIuu/zQ2DLzA8kB0wMrqTA58Gr7mt+Lzddr
-	 Uc8IbAHbj3ZLE15S8Kwcp3XkmHixlHYc9knKc0PwX6Xs1qt/ZjKTL3sBowkQek5uWEi4O
-	 nBsHds5lEzH9r0K4lzu1z2/4J4HifFLugaNrQPV6BYSmKxGRQFIx9yQYLm/IAfSkA9gHY
-	 YrZXk+TeZiJkPOyo4rAxeYOhCDmXZExG7GfRHc0XXnbvFOFRZz23+WCRxZj6elwFnqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794929603;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-TM-AS-GCONF:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=f/fjR6CwAs3q03u3k/OuMPCkcaJFzpjKdriSKK3suK4=;
+	b=KDJ7xiE+ZXjpyi0nxIE1L61J9JzK7JN20kAhR55iqgANElALjWJVsu578AxD+8RccsZ4
+	 sUNJ1Lb+1anbr+e2fmSFD5bOLhcZJTkaIX560c6Z8JwP9volMvRCLFXlEYx4iYDTvGvfj
+	 6LSIVJvWaTNJxMRPQFE/eXvHRGPKGk9bl0RM3hw04mnNWLT8XEvnU66DshLz3tk2+qj1+
+	 7vyv++vOmdWRz13Oay2UZOG6albLxJV7THSdkP4Z0npuThXw33IAFG4ZOD26P7hvACOrr
+	 vSQka9AL6lLFDngD9ozYAiBlPNXqNSusYS13JhVg2ptawiodWgnImrDuT6CaRL5zvxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=dama.to;
-	spf=none smtp.mailfrom=dama.to;
-	dkim=pass header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="Nq2As/OY";
-	arc=none smtp.remote-ip=209.85.210.174
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=JQWrAeZC;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53CB5606A32F
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:33:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53CB5606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD9A7606A32C;
+	Tue, 17 Nov 2026 15:33:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD9A7606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Nq2As/OY
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8a05b210703so2205640b3a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:33:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20260707.gappssmtp.com; s=20260707; t=1794929588; x=1795534388; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ic0ZV2l8vdmrXTqu+lMUrh7Ne4ma2q8MNEr28fS3hxw=;
-        b=Nq2As/OYS8Rk/AJs+LfYrpJSfF6Buvx+xKdbIX4flq+eZrRjURbUNWDmvARrjsOMyp
-         G4Gx7PLMS4t+lD5oQcYMVZipAItazYPQ/M4meWE5SJxFxatVGe9ROPR8uYtsVXSKDFFO
-         ktD3ViGsehj7fvmOS+rsJFzMQP/LL7SrApPeoCrIZkRytaDjhZQ0X7IYsR5XOepFhFt+
-         JKJ3eI8Od+PvKhxlcvAMz0AvFtM/rG8vP7w8MNFXVtYOsThIy0qp3z1ylgviHTV2ORwT
-         6txojRUx4fE/Wz5UNh/Mhq0JSCVkqHb7tGYrHXiJfW2XoLH9t7s6zh9hLk+TgqK7sshF
-         VhkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794929588; x=1795534388;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ic0ZV2l8vdmrXTqu+lMUrh7Ne4ma2q8MNEr28fS3hxw=;
-        b=WUH91kTzDZzPaagIVDafdUOqIvQg487gOlMs4DjE08eNODtPLX8VikscBQh6b5OwRQ
-         nS+J+KCUrVxVzyCKmoUMvYKKAlS1q+BXP2CQoE4pNJINKaTlFIEJvfYefGNWw5Gisjtl
-         Zngvl3JeVvKsSuGIEpG0R93kWnQ5C9WX4aK+XYVHy65yE7eNjUZETJa9uCi0S+5Y5orc
-         /6llJKwIelRjKqjplberXry/LCLjQGvMigk2FLuM3r+fbhVVYMX36RDc6Gx3jWHqzIoA
-         ZVG6/FBrmYoqxge+iIJj+L9mERdjFf8V3O+Eq6p9iiRyU20RlQgOzETTx+Ew1Cne6mKK
-         iKbg==
-X-Forwarded-Encrypted: i=1; AL+hErHbYK/HSh3RBzHWtfnTcoGMsUTOh1wH7PG5vX23fBqd+DqBGbXb4f7U12QL1BhnGooikDPd4EIZ/w8TUeA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9bk9Z7PAj/Qc/epkdbMq2KXDNl9rkJWJyOGwHFpSBlutBQH/Mu
-	0AppbEW+0peEcqYFPbB11yqC3y78bgwReAMCQoBk74OYpkJP1uNCRoSDsKdd0WLMSxA=
-X-Gm-Gg: AYBFou3CKVAuoECynDcsFzqJ5Hotc2ML7ae8SFGzX65hwsKK31FNpFjsNKtFRoFcfxt
-	MoqcSlNNMmrYvzotSbeDzC7kspF7jSWjySt5rIgq1pUBAmpGN8Cb8qzjG5Mv5y1NnGs1zqYQQNC
-	vb7t6s3Wo4tB5aUSVWc8dRWh//TZYP5VOXYLrVvKWDyOhBFkHWJm1tsFSxydoVaYtCZwb1wMtpU
-	ztvKUQJizAITp6nYT9NjNnYK9gfak0Wy9YGPSaASmlWUf1hx7VupW53GvsMkKFaU8uiJJ7AtqfO
-	HogrYvm0FeyfjRZv5/g7ish1qVKwQwcc3NIA2wsMjI/mf+mICpjT/Lbie6US3cao6iBpM84nizl
-	AMcnIyJGsF6nW2eiVZ3woQ0OEl9K822DRaj63NDfQi/ZogZwNHABrOKr372BpGTXlW7U9eg2i0N
-	2++F9HdcVg/WZ0QXOe/5IRGPEzuZmndJ5IzEUQ4rV3JKbA3XI/kUJEsr0I6i21VtrhsSC9lxSS1
-	hKPzu0V7qFg6AokpdqIU0HrLwn9iIEMaC0VICYhYeUbgb2blLwMy6cfCqLztFKpd0+fJJev0r0B
-	1qjgMdfkRSgN1sJj8hpxJt6cklpFm4MghPo1x6kSMA==
-X-Received: by 2002:a05:6a00:17a8:b0:8a0:70ff:ab2c with SMTP id d2e1a72fcca58-8beb7e12866mr12534223b3a.57.1794929588396;
-        Tue, 17 Nov 2026 07:33:08 -0800 (PST)
-Received: from localhost ([2a03:2880:2ff:3::])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed12a8f63sm5517226b3a.9.2026.11.17.07.33.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 07:33:07 -0800 (PST)
-Date: Tue, 17 Nov 2026 07:33:06 -0800
-From: Joe Damato <joe@dama.to>
-To: Daniel Machon <daniel.machon@microchip.com>
-Cc: netdev@vger.kernel.org, Tariq Toukan <tariqt@nvidia.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	edumazet@google.com, horms@kernel.org, linux-kernel@vger.kernel.org,
-	linux-rdma@vger.kernel.org
-Subject: Re: [PATCH net-next 5/5] net/mlx4: flush pending doorbell when
- dropping a TX skb
-Message-ID: <avxzsj1Ro8Mzazmz@devvm20253.cco0.facebook.com>
-Mail-Followup-To: Joe Damato <joe@dama.to>,
-	Daniel Machon <daniel.machon@microchip.com>, netdev@vger.kernel.org,
-	Tariq Toukan <tariqt@nvidia.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	edumazet@google.com, horms@kernel.org, linux-kernel@vger.kernel.org,
-	linux-rdma@vger.kernel.org
-References: <20261110231304.1859217-1-joe@dama.to>
- <20261110231304.1859217-6-joe@dama.to>
- <20261112134346.zvctvknj4mc5s2pm@DEN-DL-M70577>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=JQWrAeZC
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHFQeN72711641;
+	Tue, 17 Nov 2026 15:33:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=f/fjR6CwAs3q03u3k/OuMPCkcaJFzp
+	jKdriSKK3suK4=; b=JQWrAeZCbPTRiP0X3WbGG+y3i5dlhCDYLS5NZzRNQVAI/i
+	yoyYnzlMbQeYk1F0nuCu8cZt84NRpMeq7MDEV3+9A4dnFxcZxPyXkNosA1bFmQnj
+	S1rPaCUrnDv1L32h0i5LOJz72I40kj2ehIh2x189IOQoQzzI0BxtvgI5OnPKEDN5
+	5TnENXHrNUDnT+IAe8XnNBAH6CGK+6TwPO/tBYTvWBtxs/CK3ix5II5k1h3ri0eX
+	T5Yuh/RxzyAGENAlRv6+ycFWvwKMRyv5WtHQW0+wvBjvqopkY4tEOSE0fmE31wpx
+	BXl+bZZ696+JMcTsPV+9dxUyd1ASfUYVCwISNU/Q==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hxd2m3jgr-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 17 Nov 2026 15:33:17 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHC4svR471687;
+	Tue, 17 Nov 2026 15:33:16 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4j02dfdhwh-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 17 Nov 2026 15:33:16 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AHFXCeE51315008
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 17 Nov 2026 15:33:12 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 724D020049;
+	Tue, 17 Nov 2026 15:33:12 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 177A320040;
+	Tue, 17 Nov 2026 15:33:12 +0000 (GMT)
+Received: from osiris (unknown [9.111.0.235])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Tue, 17 Nov 2026 15:33:12 +0000 (GMT)
+Date: Tue, 17 Nov 2026 16:33:10 +0100
+From: Heiko Carstens <hca@linux.ibm.com>
+To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Cc: Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        David Hildenbrand <david@kernel.org>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Vlastimil Babka <vbabka@kernel.org>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH v2 10/14] s390/sclp_cmd: Replace page allocator calls
+ with kzalloc()
+Message-ID: <20261117153310.32016B6b-hca@linux.ibm.com>
+References: <20261117-s390-sclp-ready-v2-0-e518c99622c6@kernel.org>
+ <20261117-s390-sclp-ready-v2-10-e518c99622c6@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,53 +99,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261112134346.zvctvknj4mc5s2pm@DEN-DL-M70577>
+In-Reply-To: <20261117-s390-sclp-ready-v2-10-e518c99622c6@kernel.org>
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=B6UsQ+tM c=1 sm=1 tr=0 ts=6afc73bd cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
+ a=20KFwNOVAAAA:8 a=VnNF1IyMAAAA:8 a=Y6TpkvVB5ZIwULgkomUA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-GUID: UE2LM1lxxkyDFML1Deg6Nq8QGkCrI9fG
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA2MSBTYWx0ZWRfX776VWhTK8Cyj
+ OrZz9G8TfA0SCnR4DPhv+A4igq4HI6LefuihHMmPhRYfO/fOkRY5+yPag0WxkS6m17AeFufRghw
+ mOWRqd/+HNLRfFiFw2CFGVFYSAftFDI=
+X-Proofpoint-ORIG-GUID: UE2LM1lxxkyDFML1Deg6Nq8QGkCrI9fG
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA2MSBTYWx0ZWRfX6/jvNyvwN8AO
+ TPYXKpKuHvlrOrZNnsNozkrng6Z/U//W1MVvDci+dcZ/KUNXIYFPCpFwbtZmlHpTbsaIBgksWLe
+ R5xAe6TAwamKQcFb42JTVXf6BnlAUmZaRcM7ELNvBVXSHkb7+Ir1IkXCsgeK5NKlVVNW1GlFzUc
+ 2wMfVPEf+D4PF8Mldc517LY6Fy0icmLWvsDPq9ASws8pl9kyG6ng+AK7a7EkQKxvA64YsEL9tXU
+ e6jz2UZ0vbFqaWua/UTPQEatpVOSkGFkeVtIPql6KzBcXB9KGvZls+51xb6GIPf0yH6OGHRAqa2
+ F/EcsBLnbm52CFTvvnDYx9QXXIeHNR7OTg+8bSKiDDmVdiiPzu3UFrNB1IWjH+krS4RdyA9DHaI
+ QoIYgtAdeumlJqKvAT+W/KDVYpQbHc245NOitBSg87r+p3In11FmpSBFVRIEhnBBJdGs4Jr3R8i
+ a0ru0rj5IfP6yc9E6wA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_03,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 clxscore=1015 spamscore=0 phishscore=0 adultscore=0
+ priorityscore=1501 bulkscore=0 suspectscore=0 impostorscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170061
 
-On Thu, Nov 12, 2026 at 02:43:46PM +0100, Daniel Machon wrote:
-> > If mlx4_en_xmit drops an skb (for example because DMA mapping fails) and
-> > that skb happens to be the last one in the batch, the doorbell for the
-> > WQEs posted earlier in the batch isn't written.
-> > 
-> > The queue stays awake, though, so those WQEs are eventually announced to
-> > the HW after the next TX, but that depends on traffic and could induce
-> > latency.
-> > 
-> > Avoid all of that by writing the pending doorbell in the drop path.
-> > 
-> > Signed-off-by: Joe Damato <joe@dama.to>
-> > ---
-> >  drivers/net/ethernet/mellanox/mlx4/en_tx.c | 3 +++
-> >  1 file changed, 3 insertions(+)
-> > 
-> > diff --git a/drivers/net/ethernet/mellanox/mlx4/en_tx.c b/drivers/net/ethernet/mellanox/mlx4/en_tx.c
-> > index 123071a47bed..3166837711be 100644
-> > --- a/drivers/net/ethernet/mellanox/mlx4/en_tx.c
-> > +++ b/drivers/net/ethernet/mellanox/mlx4/en_tx.c
-> > @@ -1135,6 +1135,9 @@ netdev_tx_t mlx4_en_xmit(struct sk_buff *skb, struct net_device *dev)
-> >  
-> >  tx_drop_count:
-> >  	ring->tx_dropped++;
-> > +	/* an earlier skb in this batch may have deferred the doorbell */
-> > +	if (ring->doorbell_pending)
+On Tue, Nov 17, 2026 at 03:07:02PM +0200, Mike Rapoport (Microsoft) wrote:
+> _sclp_get_core_info(), do_chp_configure() and sclp_chp_read_info()
+> allocate the SCCBs used to read the CPU information, to configure a
+> channel path and to read the channel path information.
 > 
-> I think checking !netdev_xmit_more() here would let you ditch the new ring
-> state, but it seems bnxt does it the same way, so fine by me.
-
-I need the state for the SW USO followup I mentioned in the cover letter.
-
-That aside, every mlx4 doorbell site today writes it only after posting at
-least one WQE. I think replacing this with !netdev_xmit_more() might write a
-doorbell with no new WQEs and idk if that is supported by the hardware. It
-looks like the XDP path gates against that specifically.
- 
-> > +		mlx4_en_xmit_doorbell(ring);
-> >  tx_drop:
-> >  	dev_kfree_skb_any(skb);
-> >  	return NETDEV_TX_OK;
-> > -- 
-> > 2.53.0-Meta
-> >
+> These buffers can be allocated with kmalloc() as there's nothing special
+> about them to go directly to the page allocator.
 > 
-> Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
+> kmalloc() provides a better API that does not require ugly casts and
+> kfree() does not need to know the size of the freed object.
+> 
+> Performance difference between kmalloc() and __get_free_pages() is not
+> measurable as both allocators take an object/page from a per-CPU list for
+> fast path allocations.
+> 
+> For the slow path the performance is anyway determined by the amount of
+> reclaim involved rather than by what allocator is used.
+> 
+> Keep a power of two size for the SCCB in _sclp_get_core_info() so that
+> kmalloc() returns a page aligned buffer.
+> 
+> Replace use of __get_free_pages() and get_zeroed_page() with kzalloc()
+> and free_page[s]() with kfree().
+> 
+> Link: https://lore.kernel.org/all/635405e4-9423-4a25-a6e7-e03c8ea0bcbe@redhat.com
+> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> ---
+>  drivers/s390/char/sclp_cmd.c | 13 +++++++------
+>  1 file changed, 7 insertions(+), 6 deletions(-)
 
-Thanks
+Reviewed-by: Heiko Carstens <hca@linux.ibm.com>
