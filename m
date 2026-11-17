@@ -1,62 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794929787;
-	b=IWRBzmPn4B4DQHjjBIg6NE7Z4+TFuGxgP+5R3kvPNKtmvkIjp+o5zs2/qEFqz6UpGJK/
-	 xvRwJlxZJgKJjy6D8x5Hc7Zu1VrmXBdTQcpVNxaIm10CCm+Mbc0G82eNiAmtAe0SYk7x5
-	 yazpucXgfxZ8rhyibfLjWW4gSnju1gXvVWXm3N265GQtG2uhyBrHqZ6MeTQ0mM95p5PAf
-	 StTPD2T0JGW47pwi3rvYvfm+hkaNKPwahDFuVCATPIyj94j8GCiP3kLpYiM09K1UNHHYe
-	 z6wLXJxhJtfaz2zwML4OznojysgTyjzCZOVqO565m00iXiLvUqaTyxIUQhB1MJsegug==
+	t=1794929790;
+	b=j6upX6f9k3Ilq8cAHbnMbKJeh5x5lAfuMWUSIgU+Jl2zy24QArhxiclJ+0XAyXiXpTUE
+	 EYTpRr35sW4uIPOKMRitNZGcneMyYLCB2p0wEtvftwpDceZ6keB9HkW1iP3/0IZc4PiGK
+	 9EdZLsc7I3sUKKhz6S5LQe4BlLCkQbAPDt7nNM30BCZMUEUcvlbs26n4rXm5ht9mloeSs
+	 Z5nD3/5KhL/lqH3tOnXLSaNUNwOYuDxhB+Q66B5657q0U8o11pjygYQ9L+UNh5JL78JBy
+	 4vXWnpYjiowRFV1Wvpwxmer0iXtQVbvXwRzDAqucZU27d35rgoCQu4Smhcde72F9Qzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794929787;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794929790;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=7zvz6EwRvliAsRCkw906N658FyGeoANenSjHZoKASfA=;
-	b=EMni6Lw6Ti4yPaHSh9Mokxuazbp2YW3dJe1IQhtBmRGorp21FdvRJwJcS7PYvBIxEHKa
-	 p0FioCfh82WB9DC1CuhhUjwmeswJA/dc0Gv8Rkd2533/HIOaIZYE/rzZtQcuuElgh9rmT
-	 SZXilYzXEIDTdHTfwQWDpo/OFKNTYYjtDxZVoMbg4KqTiGDlqEje+3Ge2cDlBorOgfuHI
-	 q+qRIQlxf6E/WvUMp9t+KbjKhGJm5jsstSwUiKc6vwqVyOcvWIJHe3PxOKA6tv8nfuqMR
-	 REyo/tztNHftJIL5UNJlM7qPavRHcVA40EfIOSSVw+brh+br9Lp8zfLwx1ZqG3Ge9nA==
+	bh=6rHGSibkXeAMyitQUs7cECkd/i6Eq3lk/TPt+b4NONY=;
+	b=HEJxYmaBL+1Zo0bUzgleAhsnd4LnN/7iP+oNqxveJctJrF6IamuqNxXEWAfxZFUOyQB8
+	 fmZGQFKnE91y3MnrhrDTTPJvS122UbQ62h+Xk61Y0AokzAxoMO3jG+/OAQqNOiUW7MxTn
+	 698ZLOK3GiYF6S/8xMhSOcHN+gJDcBccHSyvBzyh9ae80h4NheefOfjnXjRJwA1PT1MLp
+	 0YpscSkWyG+b6JmqD5p63j0ijc2uIbvoNR3ImC/IjV8RNXrw5li+NxvzwlaJsograsEFt
+	 AdG/I5K0hVQvcvi0Vq2/A1L8u4CiMs4whjVeXH16y2brtgvWop8iSKa/nKLnPNPQ6pA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=cJDYfDfB;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=F3nMwAZP;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C975D606A330;
-	Tue, 17 Nov 2026 15:36:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C975D606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67462606A8B5;
+	Tue, 17 Nov 2026 15:36:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67462606A8B5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=cJDYfDfB
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=F3nMwAZP
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1794929785;
-	bh=ujlHVjQMDz4YaqkKi9GBL+L1DFCVvWW0bFq+wVcPWFs=;
+	bh=nhVJg4bYWvwW6u/6JHKMqODZiY5sA4DQ06OrpfY+Gto=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=cJDYfDfBOCf2V7AmWZngEB6Rh0JgeISkmkaZOuUEs95LL3GEBw48Zp22nJH7nWyJw
-	 kBNwYABi6hSDPvGpxMnheg+dUbX7gkPllIvkSX5ZMQ4XJyUShWhK7nZcfbFQlLvEBN
-	 HpGO5Cbj1OUUg782F+tt0MgyFV2tTI46kwZNZQQi3ypVU6oFycPURtzSVV2C55MpCU
-	 1F3VaGB4t4UuIn2v9IxdmqBKXGtP1S8pxGMkcdkKLWb7KX9D7I+mQk20iCeBURG9vD
-	 jUpYJn03aNj6+b+7yZ0TC2lyhMwwZZUQx4zdxKho26tJnnh6WY20I55PiT8uTOkJW5
-	 JH2tGAKl7Ts/Q==
+	b=F3nMwAZPSudLoXVI/BQZBRRwradAkX1+R3CNLXkJ2nnUSkULXp2JICoFyNvxt/Ppz
+	 FL/8Xx7an6N9dfYqB2PRuurokYzlUKCoNmukXt9ByJI35QstVdEh2pus8VTtXaFd2L
+	 9p2AV3M0n6Nq/caezyUSwOBGGD8aUfqPC5jo5LI6yPof3QNTeXA/xvdpdSexp2hozS
+	 6Ob+EJ0NO4Ell0EwFyG+2LwyhYbEKFWG/yduVcMVg0zKZFQpLxuY1WHjb8aS7Y+fUH
+	 CbghAKRQ0QBB92JPfJahYckjTGyF59HQtf1NdjDyDsHctOnptf9Vq9Vtn4mtd/2/Rk
+	 KIEQrGLAMKPuQ==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id DF2C317E0BCC;
-	Tue, 17 Nov 2026 16:36:24 +0100 (CET)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 44CF417E361B;
+	Tue, 17 Nov 2026 16:36:25 +0100 (CET)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 9B80248002B; Tue, 17 Nov 2026 16:36:24 +0100 (CET)
+	id A75B7480041; Tue, 17 Nov 2026 16:36:24 +0100 (CET)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Tue, 17 Nov 2026 16:35:37 +0100
-Subject: [PATCH v3 1/9] dt-bindings: devfreq: event: rockchip,dfi: add
- clocks to rk3588
+Date: Tue, 17 Nov 2026 16:35:44 +0100
+Subject: [PATCH v3 8/9] PM / devfreq: rockchip-dfi: prepare support for v4
+ DDRMON
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,7 +68,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v3-1-32ff1546b0e4@collabora.com>
+Message-Id: <20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v3-8-32ff1546b0e4@collabora.com>
 References: <20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v3-0-32ff1546b0e4@collabora.com>
 In-Reply-To: <20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v3-0-32ff1546b0e4@collabora.com>
 To: Chanwoo Choi <cw00.choi@samsung.com>, 
@@ -83,153 +83,169 @@ Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
  linux-kernel@vger.kernel.org, kernel@collabora.com, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3871;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5042;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=+1y02qlNP8Qcrhbmptr/ShMc6O9Y5XCldvuGMgDLz8Q=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr8dHj5yv8PYpd62mYOtn3eTpX0Tjtrd0Dl3
- +X2UJuyvB1zXokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq/HR4AAoJENju1/PI
- O/qaQBYQAII7WBcoe4n233SX+alTezfNo7/77s7PrDAZWC5YKTTWUc7vZd/xqO11/J4pk/vNcPS
- UeXmBQ/JLf2HOOgwR86e74nnkUQZeWaZg07pDe29xNfv/9kfp7ds+tr/uzslk+37vaSY5n4cK43
- J5XkUcmC+AXbYyXPOX8JV4pQ1dJ8GhsaBuRFpaI05oPcl9NJ6x5PGmbIIGCANIdWRbs6eYlD91R
- A+s3EHz3aHcffcXJZ0wmGbGCe3U0Iyk2XECqHNRHjPfcXuT6yhU9PfgLsT8ty9dlPh7KL1wK9YL
- OI+TRtZ45W52uENsC5B/p13aOb9haoAA4YeEE1HKtOhQa1vKmjERP+xCtM5HqGWJbSPJjBPUpaF
- vOqWkArfiGdzfdkVEdsBDtQj3r1KccCMuBDp55nqFlirf9ge7a5iFUP7PIXG0odLuYWS3EqIrOH
- 5BLppN2LbYSICn/5S0KYspn+XRpGqX47LRMu2JFIFMRWNWvgOhjlZng9bu88OSafJEClORonjLy
- HY1zwlxwcoc8HLbODf7QYZRiyID4MxQyzxQV312gTcLS5LDnaz9MttjegX9pxu8A+40IMu6PhhE
- JqEdGtI56IRSQT9vKbmBkj9CykYIK5s0eqk3+ynpbwU2VC/j65al5vjikWcrtKLDORlvJKVADOB
- gkBmLDbwiV8y8UZU/EM40vA==
+ bh=nhVJg4bYWvwW6u/6JHKMqODZiY5sA4DQ06OrpfY+Gto=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr8dHjd4Sq7Eo+u4UPG6oVGBK7mB18kL+G9P
+ KJ8ZxsfbUGc+IkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq/HR4AAoJENju1/PI
+ O/qaG9UQAI3/5ifYpiKuGyB8hPw4ECPOhBt4xp62bF/sJ0cPQCTZZCFiK6xCjdwCqsRMDXQ54kd
+ 48oX9CsJqMWEuwbjBZ7G1VEB0UoodI3yQcXcC8fQLCzygL2EFkvSgLcqvdQNwpDj9Ly2u9uZnf0
+ n3gzJHSU8a/0Adm3is7qcz9/VuS6qjoktZ5bkcZ0/dJck3oCtLw4mlIbev+B29BybNKSKvf6l4t
+ 0ld7iMQy0fbkP0351by5WtVYQMy2AQRybx3cB/dSDxUaR76QDfbxqOVI0jsftSu9mVIhtWUapXT
+ FdV0XylrtDo6dEuGuaYTIiGlI0IzAz1YZHvP+CvRov3ArNyof0xLdOCbEAL2tOegzRHpDLJXdpG
+ e0m9JHfaActRpMe24jlzLuCSpQaoJUKncVLa/CmqIUFH2ijl+op5J9rOHN0R01b/enN5jkXYMjZ
+ JfYe3GIH0Ym4XV4J0Wu6u5PwQ7N/Q7B7oB24IoRN7MZZcRmGJjm9/g3FxAXYYaCAHqANx05r3pK
+ 9d+IRLxhVODf2Cg/TLapF2EfPtJvO786jDP/9e8ZhHyyTHaZEbUhWI7byEi8f9uPT9VD5HYElKV
+ 9+RVR2uomgLG7zeewThlXdUyC0svPUhGxTGpuucWOaklEbieezy2fn6YcfzI1XS/5OlznpmUcIk
+ rYIFTGbDgbZqkC65m1PstRg==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Add support for the new control register layout found for DDRMON
+controllers having version 0x40. This prepares the driver for
+adding RK3576 support.
 
-RK3588's DFI has pclks for each channel. They just weren't noticed as
-missing until now because nothing ever gates them, and they're ungated
-by default on power-on.
-
-The RK3399 clock situation needs no changes, as there the hardware
-really just has one monitoring unit for both channels.
-
-Add these clocks to the binding, so that drivers for this device can
-properly know about their existence.
-
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Acked-by: Chanwoo Choi <cw00.choi@samsung.com>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- .../bindings/devfreq/event/rockchip,dfi.yaml       | 84 ++++++++++++++++++----
- 1 file changed, 72 insertions(+), 12 deletions(-)
+ drivers/devfreq/event/rockchip-dfi.c | 84 ++++++++++++++++++++++++++----------
+ 1 file changed, 61 insertions(+), 23 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/devfreq/event/rockchip,dfi.yaml b/Documentation/devicetree/bindings/devfreq/event/rockchip,dfi.yaml
-index 50d3fabe958d..d6e06a9bea19 100644
---- a/Documentation/devicetree/bindings/devfreq/event/rockchip,dfi.yaml
-+++ b/Documentation/devicetree/bindings/devfreq/event/rockchip,dfi.yaml
-@@ -17,11 +17,19 @@ properties:
-       - rockchip,rk3588-dfi
+diff --git a/drivers/devfreq/event/rockchip-dfi.c b/drivers/devfreq/event/rockchip-dfi.c
+index 33a379618eb5..ed28dc6446f1 100644
+--- a/drivers/devfreq/event/rockchip-dfi.c
++++ b/drivers/devfreq/event/rockchip-dfi.c
+@@ -42,6 +42,19 @@
+ #define DDRMON_CTRL_TIMER_CNT_EN	BIT(0)
+ #define DDRMON_CTRL_LP5_BANK_MODE_MASK	GENMASK(8, 7)
  
-   clocks:
--    maxItems: 1
-+    minItems: 1
-+    maxItems: 4
- 
-   clock-names:
-+    minItems: 1
-+    maxItems: 4
-     items:
--      - const: pclk_ddr_mon
-+      - enum:
-+          - pclk_ddr_mon
-+          - pclk_ddr_mon_ch0
-+      - const: pclk_ddr_mon_ch1
-+      - const: pclk_ddr_mon_ch2
-+      - const: pclk_ddr_mon_ch3
- 
-   interrupts:
-     minItems: 1
-@@ -40,17 +48,50 @@ required:
-   - interrupts
-   - reg
- 
--if:
--  properties:
--    compatible:
--      contains:
--        enum:
--          - rockchip,rk3399-dfi
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - rockchip,rk3399-dfi
-+    then:
-+      properties:
-+        clocks:
-+          items:
-+            - description:
-+                clock driving the DDR monitoring logic for all channels
-+        clock-names:
-+          items:
-+            - const: pclk_ddr_mon
-+      required:
-+        - clocks
-+        - clock-names
- 
--then:
--  required:
--    - clocks
--    - clock-names
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - rockchip,rk3588-dfi
-+    then:
-+      properties:
-+        clocks:
-+          items:
-+            - description:
-+                clock driving the DDR monitoring logic for memory channel 0
-+            - description:
-+                clock driving the DDR monitoring logic for memory channel 1
-+            - description:
-+                clock driving the DDR monitoring logic for memory channel 2
-+            - description:
-+                clock driving the DDR monitoring logic for memory channel 3
-+        clock-names:
-+          items:
-+            - const: pclk_ddr_mon_ch0
-+            - const: pclk_ddr_mon_ch1
-+            - const: pclk_ddr_mon_ch2
-+            - const: pclk_ddr_mon_ch3
- 
- additionalProperties: false
- 
-@@ -72,3 +113,22 @@ examples:
-         clock-names = "pclk_ddr_mon";
-       };
-     };
++#define DDRMON_CTRL0	0x04
++#define DDRMON_CTRL0_EXT_TRIGGER_EN		BIT(6)
++#define DDRMON_CTRL0_DDR4			BIT(5)
++#define DDRMON_CTRL0_LPDDR4			BIT(4)
++#define DDRMON_CTRL0_HARDWARE_EN		BIT(3)
++#define DDRMON_CTRL0_LPDDR23			BIT(2)
++#define DDRMON_CTRL0_SOFTWARE_EN		BIT(1)
++#define DDRMON_CTRL0_TIMER_CNT_EN		BIT(0)
++#define DDRMON_CTRL0_HOT_RANK			GENMASK(8, 7)
 +
-+  - |
-+    bus {
-+      #address-cells = <2>;
-+      #size-cells = <2>;
++#define DDRMON_CTRL1	0x08
++#define DDRMON_CTRL1_LPDDR5			BIT(0)
++#define DDRMON_CTRL1_LP5_BANK_MODE_MASK		GENMASK(2, 1)
+ 
+ #define PERF_EVENT_CYCLES		0x0
+ #define PERF_EVENT_READ_BYTES		0x1
+@@ -143,8 +156,6 @@ struct rockchip_dfi_variant {
+ 
+ static int rockchip_dfi_ddrtype_to_ctrl(struct rockchip_dfi *dfi, u32 *ctrl)
+ {
+-	u32 ddrmon_ver;
+-
+ 	switch (dfi->ddr_type) {
+ 	case ROCKCHIP_DDRTYPE_LPDDR2:
+ 	case ROCKCHIP_DDRTYPE_LPDDR3:
+@@ -159,26 +170,43 @@ static int rockchip_dfi_ddrtype_to_ctrl(struct rockchip_dfi *dfi, u32 *ctrl)
+ 			FIELD_PREP_WM16(DDRMON_CTRL_LPDDR5, 0);
+ 		break;
+ 	case ROCKCHIP_DDRTYPE_LPDDR5:
+-		ddrmon_ver = readl_relaxed(dfi->regs);
+-		if (ddrmon_ver < 0x40) {
+-			*ctrl = FIELD_PREP_WM16(DDRMON_CTRL_LPDDR23, 0) |
+-				FIELD_PREP_WM16(DDRMON_CTRL_LPDDR4, 0) |
+-				FIELD_PREP_WM16(DDRMON_CTRL_LPDDR5, 1) |
+-				FIELD_PREP_WM16(DDRMON_CTRL_LP5_BANK_MODE_MASK,
+-						dfi->lp5_bank_mode);
+-			break;
+-		}
+-
+-		/*
+-		 * As it is unknown whether the unpleasant special case
+-		 * behaviour used by the vendor kernel is needed for any
+-		 * shipping hardware, ask users to report if they have
+-		 * some of that hardware.
+-		 */
+-		dev_err(&dfi->edev->dev,
+-			"unsupported DDRMON version 0x%04X, please let linux-rockchip know!\n",
+-			ddrmon_ver);
++		*ctrl = FIELD_PREP_WM16(DDRMON_CTRL_LPDDR23, 0) |
++			FIELD_PREP_WM16(DDRMON_CTRL_LPDDR4, 0) |
++			FIELD_PREP_WM16(DDRMON_CTRL_LPDDR5, 1) |
++			FIELD_PREP_WM16(DDRMON_CTRL_LP5_BANK_MODE_MASK,
++					dfi->lp5_bank_mode);
++		break;
++	default:
++		dev_err(&dfi->edev->dev, "unsupported memory type 0x%X\n",
++			dfi->ddr_type);
+ 		return -EOPNOTSUPP;
++	}
 +
-+      dfi_rk3588: dfi@fe060000 {
-+        compatible = "rockchip,rk3588-dfi";
-+        reg = <0x00 0xfe060000 0x00 0x10000>;
-+        clocks = <&cru 0x53>, <&cru 0x48>, <&cru 0x49>, <&cru 0x54>;
-+        clock-names = "pclk_ddr_mon_ch0", "pclk_ddr_mon_ch1",
-+                      "pclk_ddr_mon_ch2", "pclk_ddr_mon_ch3";
-+        interrupts =  <GIC_SPI 28 IRQ_TYPE_LEVEL_HIGH 0>,
-+                      <GIC_SPI 38 IRQ_TYPE_LEVEL_HIGH 0>,
-+                      <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH 0>,
-+                      <GIC_SPI 58 IRQ_TYPE_LEVEL_HIGH 0>;
-+        rockchip,pmu = <&pmugrf>;
-+      };
-+    };
++	return 0;
++}
++
++static int rockchip_dfi_v4_ddrtype_to_ctrl(struct rockchip_dfi *dfi, u32 *ctrl0, u32 *ctrl1)
++{
++	switch (dfi->ddr_type) {
++	case ROCKCHIP_DDRTYPE_LPDDR2:
++	case ROCKCHIP_DDRTYPE_LPDDR3:
++		*ctrl0 = FIELD_PREP_WM16(DDRMON_CTRL0_LPDDR23, 1) |
++			 FIELD_PREP_WM16(DDRMON_CTRL0_LPDDR4, 0);
++		*ctrl1 = FIELD_PREP_WM16(DDRMON_CTRL1_LPDDR5, 0);
++		break;
++	case ROCKCHIP_DDRTYPE_LPDDR4:
++	case ROCKCHIP_DDRTYPE_LPDDR4X:
++		*ctrl0 = FIELD_PREP_WM16(DDRMON_CTRL0_LPDDR23, 0) |
++			 FIELD_PREP_WM16(DDRMON_CTRL0_LPDDR4, 1);
++		*ctrl1 = FIELD_PREP_WM16(DDRMON_CTRL1_LPDDR5, 0);
++		break;
++	case ROCKCHIP_DDRTYPE_LPDDR5:
++		*ctrl0 = FIELD_PREP_WM16(DDRMON_CTRL0_LPDDR23, 0) |
++			 FIELD_PREP_WM16(DDRMON_CTRL0_LPDDR4, 0);
++		*ctrl1 = FIELD_PREP_WM16(DDRMON_CTRL1_LPDDR5, 1) |
++			 FIELD_PREP_WM16(DDRMON_CTRL_LP5_BANK_MODE_MASK,
++					dfi->lp5_bank_mode);
++		break;
+ 	default:
+ 		dev_err(&dfi->edev->dev, "unsupported memory type 0x%X\n",
+ 			dfi->ddr_type);
+@@ -188,11 +216,12 @@ static int rockchip_dfi_ddrtype_to_ctrl(struct rockchip_dfi *dfi, u32 *ctrl)
+ 	return 0;
+ }
+ 
++
+ static int rockchip_dfi_enable(struct rockchip_dfi *dfi)
+ {
+ 	void __iomem *dfi_regs = dfi->regs;
++	u32 ctrl, ctrl1, ddrmon_ver;
+ 	int i, ret = 0;
+-	u32 ctrl;
+ 
+ 	mutex_lock(&dfi->mutex);
+ 
+@@ -207,7 +236,12 @@ static int rockchip_dfi_enable(struct rockchip_dfi *dfi)
+ 		goto out;
+ 	}
+ 
+-	ret = rockchip_dfi_ddrtype_to_ctrl(dfi, &ctrl);
++	ddrmon_ver = readl_relaxed(dfi->regs);
++	if (ddrmon_ver < 0x40)
++		ret = rockchip_dfi_ddrtype_to_ctrl(dfi, &ctrl);
++	else
++		ret = rockchip_dfi_v4_ddrtype_to_ctrl(dfi, &ctrl, &ctrl1);
++
+ 	if (ret) {
+ 		clk_bulk_disable_unprepare(dfi->variant->num_clks, dfi->clocks);
+ 		goto out;
+@@ -227,6 +261,10 @@ static int rockchip_dfi_enable(struct rockchip_dfi *dfi)
+ 		writel_relaxed(ctrl, dfi_regs + i * dfi->variant->stride +
+ 			       DDRMON_CTRL);
+ 
++		if (ddrmon_ver >= 0x40)
++			writel_relaxed(ctrl1, dfi_regs + i * dfi->variant->stride +
++				       DDRMON_CTRL1);
++
+ 		/* enable count, use software mode */
+ 		writel_relaxed(FIELD_PREP_WM16(DDRMON_CTRL_SOFTWARE_EN, 1),
+ 			       dfi_regs + i * dfi->variant->stride + DDRMON_CTRL);
 
 -- 
 2.53.0
