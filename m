@@ -1,160 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.76
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794890086;
-	b=UXHhbOImuisFp/N9RXouaQYA8KvBeknhANcGGhGziN5gg6laKr9gOJmC4SOExVT0yMcx
-	 zLfesWJyZ5NB162WfJemjufoWI+57X5V2PCfXgulCa4u3SUHZ6UfIuJSVd3mNcMz5Sr69
-	 aq10DiTijzVv+fdo28xd9VarDNHZtU+015pRhzHzu/2mVP1GHyWBNYIH02SsLffiD6FP5
-	 wV36Owukg3B9PVSv8OFz0cALNGyRqvzdxaRew9qzsgotPUV3jEUhAw+OyP9jtT8JrhMzW
-	 ZxjHKyvMxfbLSQTBNMoNDNYSL5Bu0LZ5ulQFHLjWre56tOFVBDWe9uU5KKrzUgK7phg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794890086;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=fGyZs87pbsSvhhgTElNPVcLsDCodgkelglp8m9Txbjc=;
-	b=0KQhPaQGwoImEukLCR5QFWCGfUgCeug1RaJeN9fTJGCxtKXIanqSDHhpIC4gjv3Kasxi
-	 9u8n+oNUvU/HYSRSvr31gDg0ZnkRVE41ddBhgJ+Jgf1Lu4/v/kYTP/3Ivm9uXESH2cjmf
-	 KshCXE8Dtk9TqSZMc2Lo5JgUvNP8TnowtGLz39eHV14CuGAbeUlVRxLKTmmwO6ucgs0nu
-	 TQhE/WgCho+UUu6sJCj49bVy2bwkyBG400EPiCmz+l01ZmlRC4IXE8lz1Z67xPwXqPvcP
-	 fYCK1Z5HgRSjbhY15uxC4lQchcaSWl05Ydl2L0HViAUWBQ4kAyiwJmQQysySu3+bJow==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=aspeedtech.com;
-	spf=pass smtp.mailfrom=aspeedtech.com;
-	dkim=pass header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b="oo1h/igA";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.76
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022076.outbound.protection.outlook.com [40.107.75.76])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.71
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794890108;
+	b=SQgg/ZMP6hEjfFzhVXnNqW+K4G5SaqgqoEuQdzSZ4nHfDWJCQtyWDOQXeUviacM3/3dP
+	 iwrkV3Ue5KgmKEgp3eH+agi30FVAvt07qSBTtav2fovYeWd40rmISeUZRTejN6vfP4oi1
+	 4DKaSktqf5tQx7dL69SEvDG7t1KNjDLhzJE+i9Wwy5km/cKP5Z4GGocpTS1kfB9iNGO7z
+	 7GZeI657FhBJ+qAuvvfEXcO0ph/1GrioydZXqNvofHB0fuAdV45BP9A8x5xrTc95TI2k5
+	 yWu3gvcJvEUwzJwEA5nPz08YCCERrInM9VArncb/9b8AmstL15JYaEyDrje7ORORFOg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794890108;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=9ljMd+8qHZtmdzxzGXfXq4+janfrVyX1V/6KLR49owU=;
+	b=DQnFhm8d/jklGp0hdWPjO3tBQm5LbEOEsCvmsBXTa5yJ436KzIrCXYKXbXiam7E+YOfE
+	 5aqQ5p5aqoTbW4wvGcf1rlrTM7sDg2Sjoz1r8DdCKmBmjWl6FZJmwM+x1YrBH613MlT3E
+	 NK82w30mQBQ6rK+0lAi5FAfgX7byoTNHMBQm4XiNTjymLQkl6crDN8kbJgYtvfGcEO2b0
+	 85rX8rg8QjRF7XyxQ7U4F6dJwYw8xvCMXXr/TuMlJ0zXSHza1BCnwZhEC755O5MtHI3jv
+	 KvgXpB+1b1QhRt2CpfdGa9rfw7KxtJdfnxBIHaoHZ9kVC/rc9DT31G93dgvoRCk4rOg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--dylanbhatch.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hRy90PAP;
+	arc=none smtp.remote-ip=209.85.216.71
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ADA8606A32A;
-	Tue, 17 Nov 2026 04:34:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1ADA8606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9A46606A32F
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:35:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9A46606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dylanbhatch.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=oo1h/igA
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IYdpykzTTUSDDh1kkTzohDG27S07F84tqREFS1FfWG8Mq+j1uAINWON/nkSzVWS4w4olpMjwyG6HDVP0K+dQCLPRKa7A6G0XNodZeIcS1HTyxv8wovi1lBvOqnz8Lll5fYn/XltUe+2wfbgBg9REDw1Lbp9BpZhthW8KdYhS36EYeTGNGgvacgfpCX/ZbFoD54MxHIH6vbykcs71Pkq6tiZ67bl+2vjypwtE5/v/aEIsMT3rWRGdOBn9/812oujHyNurvS4ZMf7V9LOWZ+oZG6W1TjtJQAK31vCVCKPQX7eYVBp/zOXJRw0JihzdEYObPqYHxNnz8HKwwkCoCt74Fg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fGyZs87pbsSvhhgTElNPVcLsDCodgkelglp8m9Txbjc=;
- b=x8QebbUNOnIV4ps6qffA6yMbkb1zE1+DuXpgSooscuDYirUB58G9MY4FbJ6GsaZJtVVGnCHiG3877CB6N6R/33Wnb/oJFSKrM8NX1+annfz5oF99M78njRX+et21jp6ZTr1xBCPmi9mzksbyAvzKs3yef8Y72NuujeRJcO/BZ1MErtJtq7Y/r83n8iiRsuRqnzmJ99HNZjEaWv7nWqW6Ltr3ToaP7Qi/DoginZjhZcAYw4tEWE0iKawUnuYCA7/lJJmNxELSA0dq/xnqIdGTrY8y3oDWJMlKgtdSqxq3N1sfOUrHVkmxWLwi6B6Ffa2ps05wN8lLHSQYiHocns7JWQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
- header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fGyZs87pbsSvhhgTElNPVcLsDCodgkelglp8m9Txbjc=;
- b=oo1h/igAMkUz3Eg4vf/kOA+u8y6c3Nu+7oMTBP2QoUPBiMnFRvPoh6z2kOlW8/0u/tV5B55acYhKEkFVt1LDs8azOjAQLaCdnoPe1xKI4QCab+EiUgT3v07N2uBMr7gUQSd69WttTMIG5Z2tftGRHjojvt597sbjSPJ6APtQ1mhi/9u97MvDbF2tQNNsfJDFtiuNiLrT0ceLbPmf829elBJLPd2XyVTg4qPtv3oKovK9N0wBB2vZ2JE30Lo1G8L5jxNPnTJ1ul08h2C2qOeICEZevmIK/IGhfx0aroN1eMku2ZDjsgyoKh5lnx6VaMS0OTTiHS1I372U34xNBAx0Sg==
-Received: from SI2PR06MB5140.apcprd06.prod.outlook.com (2603:1096:4:1af::9) by
- SEZPR06MB5965.apcprd06.prod.outlook.com (2603:1096:101:ed::8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.7; Tue, 17 Nov 2026 04:34:42 +0000
-Received: from SI2PR06MB5140.apcprd06.prod.outlook.com
- ([fe80::9d82:c43a:404:99a9]) by SI2PR06MB5140.apcprd06.prod.outlook.com
- ([fe80::9d82:c43a:404:99a9%7]) with mapi id 15.21.0639.006; Tue, 17 Nov 2026
- 04:34:37 +0000
-From: Jacky Chou <jacky_chou@aspeedtech.com>
-To: Andrew Lunn <andrew@lunn.ch>, "netdev-bot+sashiko@kernel.org"
-	<netdev-bot+sashiko@kernel.org>
-CC: "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "davem@davemloft.net"
-	<davem@davemloft.net>, "kuba@kernel.org" <kuba@kernel.org>,
-	"pabeni@redhat.com" <pabeni@redhat.com>, "robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
-	<conor+dt@kernel.org>, "ratbert@faraday-tech.com" <ratbert@faraday-tech.com>,
-	"edumazet@kernel.org" <edumazet@kernel.org>, "hkallweit1@gmail.com"
-	<hkallweit1@gmail.com>, "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject:
- =?big5?B?pl7C0DogW1BBVENIIG5ldC1uZXh0IHY2IDIvN10gZHQtYmluZGluZ3M6IG5ldDog?=
- =?big5?Q?ftgmac100:_Add_AST2700_compatible?=
-Thread-Topic: [PATCH net-next v6 2/7] dt-bindings: net: ftgmac100: Add AST2700
- compatible
-Thread-Index: AQHdcoFN+8JnXVXgiESP7FRZBqX4RrcwvuyAgAAEf4CAAPEScA==
-Date: Tue, 17 Nov 2026 04:34:37 +0000
-Message-ID:
- <SI2PR06MB51405A2A5DD4F1E8FCB108669D7B2@SI2PR06MB5140.apcprd06.prod.outlook.com>
-References: <20261112-support_ast2700-v6-2-238020bf46cf@aspeedtech.com>
- <179483725554.3136.8359940788845125105@kernel.org>
- <51667f1f-4f2b-44ea-b725-87cf63c2c9dc@lunn.ch>
-In-Reply-To: <51667f1f-4f2b-44ea-b725-87cf63c2c9dc@lunn.ch>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=aspeedtech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SI2PR06MB5140:EE_|SEZPR06MB5965:EE_
-x-ms-office365-filtering-correlation-id: d6b783ce-f1f1-44e5-701e-08df44641645
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|7416014|366016|1800799024|23010399003|38070700021|56012099006|4143699003|261022105027099003|261026121527099003|261028144727099003|261026140227099003|10067099003|22082099003|18002099003;
-x-microsoft-antispam-message-info:
- q+ahv3THG1RzljMOUSvmu3U9s0LvQB8IHnm+j1amwk7e1R33T0o7/vuzqgu+6DUGGjLeChRAdFQONeNQsW03BN5e0Gxh9PDwatY3uvAN+l/4f+grrxT3Y0Qh12o9YT1vLLBoM9qiRBvdJ+wUbvb6lZdRsSQQQYNrrw/9+VuDzwdAdbXZUtPzDlQegvQU3xePmQn8NHx7KOKxtH8tc7bUdEOGzxA9AdfPlm+YSwBdZZSYl2R7XvxdTxXc3/1ZD3JiItqcl+oIF2ZMAcf2D43ysX4Mem9nGOpkO3Z31exflYpSQbwSEBPThOUWSVg+ZuEhZUJxklHTpODt5n4NYQ5rMVmBnzZVXp/xRE6lhnxv7pJ0S92CDSn3gNFEz/wGYMtqtzOPqSe/RpgTfDD02pWw8OqsxHFTAwIYk2mNhiBCXMSXrcY7ba1zeAl7JEGcEFE9RPVApeP5myUJ2Avrr8K6uQzDKiUKJfsjVNj5tCfAxllg79XM3D8yyGeYg5DA5rJO9gKrScrKxIdgRmvan6lfPQUnQ9vA4Z3oCQJi87X4fHVehQWMsJEPf15IS3rrglveIE6ZOIpKp0YBgfmaYpgbVKkj8k0ugQ/4BJw+NSNaN3tEhFhId1anpJMm2qf1qEYiFaRy3OXAS9bPjyKGmN08ICUnI+exh85Gr2nSytdivkB6hjkgWZR8Gnfog3bLNwBI/uQskiB30kBVdunBFl7OsvyX9TKqBr5HJkuUnmin07o=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-tw;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SI2PR06MB5140.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(23010399003)(38070700021)(56012099006)(4143699003)(261022105027099003)(261026121527099003)(261028144727099003)(261026140227099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?big5?B?YWVFcU12djJad2xEWlpWQnBWc0hBSFkzdFozM2wwNFlKTlFQSGczcm5FTzBRY2pX?=
- =?big5?B?RjdCdlM1Q2JYb1ZJYXJ6Yytzd2VrdE5TSkZHVEVLYzVWajBwak0yVTVZL2hNNldZ?=
- =?big5?B?Vnk3QUJCcC9HZHQxNVU1c0RVZHlOOGJqRVNDazBxZnRUU3AwQ3k1MkhrelQzaito?=
- =?big5?B?YVRhQ0thd296QmIyczY3S09FMDc3YVlqMzZ5LzRyTElFQnZtbXA0RlZTRWs2b2dK?=
- =?big5?B?K2txMUVKdWdwVXJXaEFGdEFpYnBKN1VYYS9zYW4xRWxXZGJnWm5QNXBrd2Nhcmx2?=
- =?big5?B?VVRoUWU5cTVwblZrNHkrSTF3OUN3UnNuRzE4TUpkR0l3LzVQdTY2R042M2VuTi9X?=
- =?big5?B?anlNSllVcHlKRVR6cUx3cWUxUk05SkFBWFQ3SDJUTlVFZk1hd0hscUxhdFZxSFJN?=
- =?big5?B?VUFHWStRcUJRWFJDU3h0Q0RWWlZ2a2lrdEcrNUlWWmdtODl0SDhrcDZybzZjUE9j?=
- =?big5?B?TjR3OXhXU0t2akhLVzByOGdKRFAvTUxUUENEZ1NwM29EQmlUaTZud0VTYlgxOW90?=
- =?big5?B?VUx3Z2o3SkpKdVhMb0pPZFd4S2xPaGVBWTM4Q1V4Y1FVcmpzN2VPeUVLWDJsYUsv?=
- =?big5?B?eVY3QkdGL1JTQlFQQ1BaZ1FWOGtndnByMmZ2QStLc1pNalhnVHZNZ09kVTZGcGgy?=
- =?big5?B?U3FwdVRPd3c5a1QwVlVSYW5EK0U3anQ4NEVXQUdabURUZXJ2SjZZazErZzQ1eXNW?=
- =?big5?B?MG9Ja0EyaFNxVUNlb3JSK3h0eGlCTCs0VzJ2ZnRBMG5rcU9hREZsRDlWMm9tMjlT?=
- =?big5?B?ejk5b2tKQzBNNy9ZTVdqdTJFWnhYYkY5NTFOdjhGRTFkbmg2Q1VFRER2d0FUdGFE?=
- =?big5?B?aGhxdk5IV0grZ3NUTWNnTGhOTWNBblhqTHdmU25RVHBFNXZyUUhpSWNOZitWLytS?=
- =?big5?B?WEhEVjhEcjN1V25lU1lYWWZvK2kwVXNSV0pwMHBFT3BuS0FWU1BvK09XMi9NeElR?=
- =?big5?B?bG8zZVZ2U1pJNkIrd2NVOWxMQkdSQzVSZjVqSjhocjZhcnM1aVRGSkNmaFBCYW16?=
- =?big5?B?L0ROSlo4ZGVEbGxaOE5yZlJGRmxkMFdRUTZ5a0FOOFhWS3pqWUpCUTQ0WjMvdnM2?=
- =?big5?B?Q01pWXF0eGJWakpSRlh2RmxNRXpud1BXbHpQNlIrcHY2ZG94a3VCTmJnaHNjQWZv?=
- =?big5?B?eCttaU4xY0ZrbmJnKzczNldBK21hTGc3cGpGVFZlc0NnM0JQYWVGNytjakE2STND?=
- =?big5?B?N243VUhXMnRERnZNTWZaS0dFcEJPODZlS0RpTGZDV2hDL0cwdFlzaHNtZW04eTBD?=
- =?big5?B?dGRMVTlMWC95ZXUyaFpjM09YVzlqelBQTGp6UURKUDdUQlU2T1RWZHBDZktpamYz?=
- =?big5?B?Q0tLLzFaNmRySnE4YlhQUk9wVHZ3SmZ4dEhkQ01JTkFlUEpodEZnelNxZXNOV1FF?=
- =?big5?B?ZUkrMUFHZGlqOSttL0hHcVZ3czhOZEE2ZFAwYVQxSDVLTUxYSmhIRXFxS2szRU9E?=
- =?big5?B?UlRJSlBKOWNTZjZqeEx1Q0NmSFd6NFZXQmxFTHNYYXJlczRTTmZBRjhKZWtad2Ey?=
- =?big5?B?ZmxZblBsTHA5MmcxTnlvc3VuUEZ3ZFRDU081SCt0SDc2T3hmZnNNQyt5U3kxUGsy?=
- =?big5?B?UC9pVkdqRDZNcmtWSStRd3RpbkhUbkg4Ync4OWhkTHJaWTZUSS9wQ2lyWklKQzlX?=
- =?big5?B?VHNMRVI0S0U0UDZycW9zUnZKME5tb3FFWFkxWGpmNFdZUW9sR2l2NnlxdSthTGFl?=
- =?big5?B?MzZMbHM1MHU2WmlnMWVnZ0FkbXNmZEVscHcweGFadUtrYVFaS3R0MklVZ3YxNHhq?=
- =?big5?B?ZUxWUm1HOTBKbVhvQ1Z1RVJNRHdUSXlvc3RpZUlBZTVNaDZMakhZbW5HU1hNVWFN?=
- =?big5?B?bmd0aExEZ0Q5WUk1STFNK1NYaEVhQTM0LzVoWGZpUWFieGE1QnhjNm16QnFvR05J?=
- =?big5?B?K2J6ekNhU1JMQVN2cmZzUC9SeFBNSFdXSWp5dkliQ1k4eWpiN2kremZyT29yT1lI?=
- =?big5?B?eThPbU9FTkVZWWNyK3d5bVd6L2ZaQ2EyYTcyUldYVEcyZHBaMnA0SHl0UENuZi9K?=
- =?big5?B?alBDRHFJazFldE53TVVWVXplK29ITHlidmMvb2tOS0g3eU9OMEFlT1Z4Qk5rdlFz?=
- =?big5?B?V3FNdmc2bmJUUzZGdFdtZ1U1ME5LTVdORnZlZE1pZzRuelRLdWtqeDZnNlhJR0xm?=
- =?big5?B?WFBjSWJYTzhmaHR5bHU0OFQ1N1NZUVExdmRzcnE1S0g0T1h1bkJaOGZ3K085NFc1?=
- =?big5?B?aG4rd1pudEFkQm9QZGZDNTNGeTNvQT09?=
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hRy90PAP
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3b0a13ae043so2602305a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:35:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794890107; x=1795494907; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9ljMd+8qHZtmdzxzGXfXq4+janfrVyX1V/6KLR49owU=;
+        b=hRy90PAPuzLiC1Ugzow1TqtYICVR0C/3m9NpC/vL5oLQYPg+GMvdStu0VTqU9YJ/uo
+         sQjCyubE25syH9V+O3bwTt/MPCTRKW0T+tQCrlr27bSmfATVS4elvLUGAbA9Z6cqb29M
+         981NMSmqQjtvX1LhpBKfSQMDX8uhG5MgO8vEFip3vUKirgx4qehkhvJij7szW6WlEQiy
+         reOcS+Nt3FeJ+euRqQ9xLAkLACMmx9rGQK+rcOOa1kcCxmuh5/ubqEQXrxACoxAoxaWW
+         6/m/ZGHwHyL8zRCcKnbdvnUfABykJg1v9q6GvlkbsLflwACioNF3PgGLLnyYfl9kxGxo
+         Ihkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794890107; x=1795494907;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9ljMd+8qHZtmdzxzGXfXq4+janfrVyX1V/6KLR49owU=;
+        b=dURCgQFm823tQ2JNc5PDJJl+Aqif9DQtqqqnrIVt+TSFyQT1DmsY9eCHvfu7Fv8egA
+         NUoG3qJDZT1RPFBC6E8+6kOxRlT6ZTvsEqAlJ+D4t3JQtvg/OHP9gVCnlS5IGg8nWIXM
+         jNXwDkBM7pM4XOnsWhDYiWPGj0hjL/7UQmyvCwi9tHtHbd7EgjEYC7saOYgpKysG1/9/
+         crjz6591cNpk962Zx+Nik9ULKFoJMpZWBuO2+4FrO0E4ipRd+P/ZTNKv/oR/ZqKFIRGZ
+         gvbJyYRSj4MPN7BaWGLaDuKHZP6exxp3T9KQXfPjJXaHdo664sXkfH7709ZxxjgNCTJ2
+         OCAA==
+X-Forwarded-Encrypted: i=1; AL+hErE5SUTNkApkuQv1JDZ6ctvN0Pv3R+9ezPknx9VyzZfLowRZ+z6TDLX1/VDcXvSzAJDvCcgIQKjJ/spXlFY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9B9tT0MZ3epq2XSazPHcaoa6rbefdYvaBM30JOY89T/bdSODAe
+	WXrLVR6QeJjee5UwWJOTp5Qg2ywOh/6wHzz/q6s8VFBPlsFybD8jthLnCNpMGpHp/e1tzmRDuDa
+	dpvRopD8br2UefvNuDAUAXazBNg==
+X-Received: from pgfd23-n2.prod.google.com ([2002:a05:6a02:6557:20b0:cd6:1195:61cb])
+ (user=dylanbhatch job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:3841:b0:3a6:e99b:bbdb with SMTP id 98e67ed59e1d1-3b1b0cfe3d9mr12853706a91.50.1794890106931;
+ Mon, 16 Nov 2026 20:35:06 -0800 (PST)
+Date: Tue, 17 Nov 2026 04:34:52 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -163,50 +75,187 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	JR6wd+jEhhZA9lVfeIzhbTZNA3gHvTydbfI0oMFhyGlAPqamGj9DcxEtNsWjbAO1yy+dEp8kaUGbydzdOONl1oDHO3HaDYG9Q+JEkGFW5SMqCDmoea7HtoVWpb4nMxXPCZN1WcUj73VTCTAJr0pxzEHTtjwNxjUVmg5vzpUU/CJplKN04fd7eP9rj1KmEtXX7I0P81L9KvzjNPMTr1kpSLqG5oK8/rt3yPohLPm5tsUwKCyQXcKVAfa6LfptQN4u7biyPxL2V3dyytlmhXdSCmdm9Y4cRHjcOMbzbT8eF/Im9VNO3yM0Tm5qVxd5XXAnrEhBPukdpdQSICuCDbpMEQ==
-X-OriginatorOrg: aspeedtech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SI2PR06MB5140.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d6b783ce-f1f1-44e5-701e-08df44641645
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Nov 2026 04:34:37.0541
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: KtBzHnB/wjract1hnBcNpwhVcrDxOr3HtrlTkFVWSJGeRE3/nuFfcDnF0zz82QEUaSHnnYul/AvP9b9VHSu8VNygLLlfM2cZ3cl4Cur6ddc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB5965
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
+Message-ID: <20261117043504.1021063-1-dylanbhatch@google.com>
+Subject: [RFC PATCH 00/12] arm64, unwind: add .lr_unwind unwinder for reliable stacktrace
+From: Dylan Hatch <dylanbhatch@google.com>
+To: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>, "David S . Miller" <davem@davemloft.net>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Weinan Liu <wnliu@google.com>, 
+	Jens Remus <jremus@linux.ibm.com>, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org, 
+	linux-crypto@vger.kernel.org, llvm@lists.linux.dev, 
+	Josh Poimboeuf <jpoimboe@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Ard Biesheuvel <ardb@kernel.org>, Indu Bhagat <ibhagatgnu@gmail.com>, 
+	Prasanna Kumar T S M <ptsm@linux.microsoft.com>, live-patching@vger.kernel.org, 
+	Dylan Hatch <dylanbhatch@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-SGkgQW5kcmV3LA0KDQpUaGFuayB5b3UgZm9yIHlvdXIgcmVwbHkuDQoNCj4gPiA+ICsgIC0gaWY6
-DQo+ID4gPiArICAgICAgcHJvcGVydGllczoNCj4gPiA+ICsgICAgICAgIGNvbXBhdGlibGU6DQo+
-ID4gPiArICAgICAgICAgIGNvbnRhaW5zOg0KPiA+ID4gKyAgICAgICAgICAgIGNvbnN0OiBhc3Bl
-ZWQsYXN0MjcwMC1tYWMNCj4gPiA+ICsgICAgdGhlbjoNCj4gPiA+ICsgICAgICByZXF1aXJlZDoN
-Cj4gPiA+ICsgICAgICAgIC0gcGh5LW1vZGUNCj4gPg0KPiA+IFtTZXZlcml0eTogTWVkaXVtXQ0K
-PiA+IElzIHBoeS1tb2RlIHJlYWxseSBtYW5kYXRvcnkgZm9yIGV2ZXJ5IEFTVDI3MDAgTUFDIG5v
-ZGU/IFRoZSBiaW5kaW5nDQo+ID4gYWxzbyBkb2N1bWVudHMgdGhlIHVzZS1uY3NpIGJvb2xlYW4u
-IFRoYXQgbW9kZSBydW5zIHRoZSBOQy1TSSBzdGFjaw0KPiA+IG92ZXIgUk1JSSBpbnN0ZWFkIG9m
-IHRhbGtpbmcgdG8gYW4gTURJTyBQSFkuIFRoZSBmaXJzdCBleGFtcGxlIGluIHRoaXMNCj4gPiBm
-aWxlIHNldHMgdXNlLW5jc2kgYW5kIGhhcyBubyBwaHktbW9kZSBwcm9wZXJ0eSwgYW5kIHRoYXQg
-aXMgYSB2YWxpZA0KPiA+IHNldHVwIG9uIHRoZSBlYXJsaWVyIEFzcGVlZCBwYXJ0cy4NCj4gDQo+
-IFRoaXMgc2VlbXMgbGlrZSBhIHZhbGlkIHBvaW50LiBNYXliZSBtYWtlIGl0IGNvbmRpdGlvbmFs
-IGxpa2UgdGhlIGNvZGUsIGVpdGhlcg0KPiBwaHktbW9kZSwgb3IgdXNlLW5jc2kuIEJvdGggb3Ig
-bmVpdGhlciBpcyBpbnZhbGlkLg0KPiANCg0KQWdyZWVkLCB0aGFua3MgZm9yIGNhdGNoaW5nIHRo
-aXMuIEkgd2VudCBiYWNrIHRocm91Z2gNCmZ0Z21hYzEwMF9wcm9iZV9kdCgpIGFuZCBjb25maXJt
-ZWQgdGhlIHVzZS1uY3NpIHBhdGggbmV2ZXIgcmVhY2hlcw0KdGhlIHBoeS1tb2RlIGNoZWNrIGF0
-IGFsbCAtLSBpdCByZXR1cm5zIHZpYSBmdGdtYWMxMDBfcHJvYmVfbmNzaSgpDQpiZWZvcmUgZnRn
-bWFjMTAwX21paV9wcm9iZSgpICh3aGVyZSB0aGUgQVNUMjcwMCBwaHktbW9kZSByZXF1aXJlbWVu
-dA0KbGl2ZXMpIGlzIGV2ZXIgY2FsbGVkLiBTbyByZXF1aXJpbmcgcGh5LW1vZGUgdW5jb25kaXRp
-b25hbGx5IGZvcg0KZXZlcnkgQVNUMjcwMCBub2RlIHdhcyBpbmRlZWQgd3JvbmcsIGFuZCB0aGUg
-Zmlyc3QgZXhhbXBsZSBpbiB0aGlzDQpmaWxlICh1c2UtbmNzaSwgbm8gcGh5LW1vZGUpIHdhcyBj
-b3JyZWN0IGFzIHdyaXR0ZW4uDQoNCkknbGwgY2hhbmdlIHRoZSBiaW5kaW5nIHRvIHJlcXVpcmUg
-ZXhhY3RseSBvbmUgb2YgdGhlIHR3byBpbnN0ZWFkIG9mDQpwaHktbW9kZSBhbG9uZToNCg0KICAg
-IC0gaWY6DQogICAgICAgIHByb3BlcnRpZXM6DQogICAgICAgICAgY29tcGF0aWJsZToNCiAgICAg
-ICAgICAgIGNvbnRhaW5zOg0KICAgICAgICAgICAgICBjb25zdDogYXNwZWVkLGFzdDI3MDAtbWFj
-DQogICAgICB0aGVuOg0KICAgICAgICBvbmVPZjoNCiAgICAgICAgICAtIHJlcXVpcmVkOg0KICAg
-ICAgICAgICAgICAtIHBoeS1tb2RlDQogICAgICAgICAgLSByZXF1aXJlZDoNCiAgICAgICAgICAg
-ICAgLSB1c2UtbmNzaQ0KDQpvbmVPZiBoZXJlIG1lYW5zIGV4YWN0bHkgb25lIG9mIHBoeS1tb2Rl
-L3VzZS1uY3NpIG11c3QgYmUgcHJlc2VudCAtLQ0KYm90aCBvciBuZWl0aGVyIHdpbGwgZmFpbCB2
-YWxpZGF0aW9uLCBtYXRjaGluZyB3aGF0IHlvdSBkZXNjcmliZWQuDQoNCkknbGwgZm9sZCB0aGlz
-IGludG8gdGhlIGJpbmRpbmcgcGF0Y2ggZm9yIG5leHQgdmVyc2lvbi4NCg0KVGhhbmtzLA0KSmFj
-a3kNCg0K
+Implement a build-time .eh_frame-to-.lr_unwind table generator and
+in-kernel unwinder for arm64. The primary goal is to support reliable
+stacktrace (arch_stack_walk_reliable()) across in-kernel exception
+boundaries (pt_regs).
+
+On arm64, normal stack unwinding follows frame pointer (x29) chains.
+However, when an asynchronous exception or interrupt occurs inside the
+kernel, the frame pointer chain alone is insufficient to unwind reliably
+from the interrupted context (pt_regs):
+
+  1. Before the prologue updates x29 (mov x29, sp), after the epilogue
+     restores x29/x30, or throughout a leaf function, the interrupted
+     function's return address is live in x30 (pt_regs->regs[30]) while
+     x29 still points to the caller's frame record.
+  2. Between saving the frame record on the stack (e.g.
+     stp x29, x30, [sp, #-N]!) and updating x29 (mov x29, sp), or in
+     functions where the compiler restores x29/x30 before adjusting sp,
+     the interrupted function's frame record resides at [sp + sp_off]
+     while x29 still points to the caller's frame record.
+  3. Inside the function body after mov x29, sp, [x29] points to the
+     interrupted function's own frame record and x30 may have been
+     clobbered by nested calls.
+
+Without knowing which state holds at the interrupted PC, the unwinder
+cannot determine whether pt_regs->regs[30] is a valid frame or a
+duplicate of [x29 + 8], nor can it recover a frame record at
+[sp + sp_off] before x29 is updated, forcing arch_stack_walk_reliable()
+to reject stack traces that cross an in-kernel exception boundary.
+
+This RFC is proposed as an alternative to an SFrame [1] based solution:
+[2]. While SFrame works well with recent GNU binutils (2.46+), it is not
+yet supported by LLVM/Clang toolchains. Conversely, compiler-generated
+.eh_frame tables (-fasynchronous-unwind-tables, enabled by
+CONFIG_UNWIND_TABLES) are supported today by both GCC and Clang/LLVM,
+and arm64 already includes a DWARF .eh_frame parser in
+arch/arm64/kernel/pi/patch-scs.c for dynamic Shadow Call Stack patching.
+
+Rather than retaining bulky raw .eh_frame sections in kernel memory and
+interpreting variable-length DWARF CFI opcodes during stack unwinding,
+this series introduces a build-time host tool (scripts/gen_lr_unwind)
+that reuses and extends arm64's .eh_frame parser (<asm/eh_frame.h>) to
+distill .eh_frame into compact, fixed-width .lr_unwind_fde and
+.lr_unwind_ranges sections, and strips .eh_frame from the final vmlinux
+and module binaries.
+
+Each annotated function is described by an 8-byte struct lr_fde entry
+(32-bit PC-relative start_offset + 32-bit range_desc), sorted at build
+time by scripts/sorttable (and at module load time) for O(log N) lookup.
+Each instruction range within a function is classified into one of three
+exception-boundary unwind modes:
+  - LR_UNWIND_LIVE: x30 holds the return address, x29 is the caller's FP
+  - LR_UNWIND_FP:   [x29] holds the saved {x29, x30} frame record
+  - LR_UNWIND_SP:   [sp + sp_off] holds the saved {x29, x30} frame record
+
+Functions with non-standard x30 spills (such as frameless leaf functions
+spilling x30 without x29) are omitted from .lr_unwind_fde so the
+unwinder treats them as unreliable.
+
+For functions following the canonical 4-phase LIVE -> FP/SP -> SP -> LIVE
+layout (prologue <= 31 insns, body <= 4095 insns, epilogue/return <= 15
+insns each, and sp_off <= 496 bytes), the ranges and sp_off are packed
+directly into the 32-bit range_desc word of struct lr_fde; functions
+with more ranges or larger lengths reference 2-byte lr_range_t entries
+in .lr_unwind_ranges. Across vmlinux, .lr_unwind_fde and
+.lr_unwind_ranges total ~800-935 KiB (~4x smaller than raw .eh_frame).
+
+This series is available on github: [3].
+
+Structure of the series:
+  - Patches 1-6: Enable .eh_frame generation for CONFIG_ARM64_LR_UNWIND,
+    factor the .eh_frame parser out of patch-scs.c into <asm/eh_frame.h>,
+    extend it to track CFA and x29/x30 state, and implement
+    scripts/gen_lr_unwind (including --dump) to emit .lr_unwind sections.
+  - Patch 7: Teach scripts/sorttable to sort .lr_unwind_fde at build time.
+  - Patches 8-9: Add in-kernel .lr_unwind lookup, optional boot/module
+    validation (CONFIG_ARM64_LR_UNWIND_VALIDATION), and module support.
+  - Patches 10-11: Annotate call_on_irq_stack() and arm64 leaf assembly
+    functions (SYM_LEAF_FUNC_START / SYM_LEAF_FUNC_END) with CFI
+    directives so they are covered by .lr_unwind.
+  - Patch 12: Use .lr_unwind in arch/arm64/kernel/stacktrace.c to
+    reliably unwind across in-kernel exception boundaries.
+
+Ref:
+[1]: https://sourceware.org/binutils/docs/sframe-spec.html
+[2]: https://lore.kernel.org/all/20261117020648.323464-1-dylanbhatch@google.com/
+[3]: https://github.com/dylanbhatch/linux/tree/eh_frame
+
+Dylan Hatch (11):
+  arm64, unwind: build with .eh_frame and add gen_lr_unwind skeleton
+  arm64: factor .eh_frame parser out of patch-scs.c into
+    <asm/eh_frame.h>
+  arm64: eh_frame: track CFA and x29/x30 register state in CFI parser
+  arm64, unwind: parse .eh_frame into .lr_unwind entries in
+    gen_lr_unwind
+  scripts/gen_lr_unwind: emit .lr_unwind_fde and .lr_unwind_ranges
+  scripts/gen_lr_unwind: add --dump option to inspect .lr_unwind tables
+  scripts/sorttable: sort .lr_unwind_fde by start_offset
+  arm64, unwind: add in-kernel .lr_unwind lookup and validation
+  arm64/module, unwind: add .lr_unwind support for modules
+  arm64, crypto/lib: annotate leaf functions with CFI info
+  unwind: arm64: use .lr_unwind to unwind interrupt frames
+
+Weinan Liu (1):
+  arm64: entry: add unwind info for call_on_irq_stack()
+
+ MAINTAINERS                            |   1 +
+ arch/arm64/Kconfig                     |  20 +
+ arch/arm64/crypto/aes-ce-ccm-core.S    |  12 +-
+ arch/arm64/crypto/aes-neonbs-core.S    |  16 +-
+ arch/arm64/crypto/ghash-ce-core.S      |  20 +-
+ arch/arm64/crypto/sm4-ce-ccm-core.S    |  16 +-
+ arch/arm64/crypto/sm4-ce-cipher-core.S |   4 +-
+ arch/arm64/crypto/sm4-ce-core.S        |  44 +-
+ arch/arm64/crypto/sm4-ce-gcm-core.S    |  16 +-
+ arch/arm64/crypto/sm4-neon-core.S      |  12 +-
+ arch/arm64/include/asm/eh_frame.h      | 552 +++++++++++++++++
+ arch/arm64/include/asm/linkage.h       |  33 +
+ arch/arm64/include/asm/lr_unwind.h     | 149 +++++
+ arch/arm64/include/asm/module.h        |   6 +
+ arch/arm64/include/asm/module.lds.h    |   2 +-
+ arch/arm64/include/asm/scs.h           |   7 -
+ arch/arm64/include/asm/sections.h      |   3 +
+ arch/arm64/kernel/Makefile             |   5 +
+ arch/arm64/kernel/entry.S              |  12 +-
+ arch/arm64/kernel/lr_unwind.c          | 395 ++++++++++++
+ arch/arm64/kernel/module.c             |  11 +
+ arch/arm64/kernel/pi/patch-scs.c       | 259 +-------
+ arch/arm64/kernel/setup.c              |   3 +
+ arch/arm64/kernel/stacktrace.c         |  85 ++-
+ arch/arm64/kernel/vmlinux.lds.S        |  27 +-
+ arch/arm64/lib/clear_user.S            |   4 +-
+ arch/arm64/lib/copy_from_user.S        |   4 +-
+ arch/arm64/lib/copy_page.S             |   4 +-
+ arch/arm64/lib/copy_to_user.S          |   4 +-
+ arch/arm64/lib/memchr.S                |   4 +-
+ arch/arm64/lib/memcmp.S                |   4 +-
+ arch/arm64/lib/memcpy.S                |   8 +-
+ arch/arm64/lib/memset.S                |   8 +-
+ arch/arm64/lib/mte.S                   |  28 +-
+ arch/arm64/lib/strchr.S                |   4 +-
+ arch/arm64/lib/strcmp.S                |   4 +-
+ arch/arm64/lib/strlen.S                |   4 +-
+ arch/arm64/lib/strncmp.S               |   4 +-
+ arch/arm64/lib/strnlen.S               |   4 +-
+ arch/arm64/lib/strrchr.S               |   4 +-
+ arch/arm64/lib/tishift.S               |  12 +-
+ scripts/.gitignore                     |   1 +
+ scripts/Makefile                       |   2 +
+ scripts/Makefile.modfinal              |  10 +-
+ scripts/Makefile.vmlinux_o             |   8 +-
+ scripts/gen_lr_unwind.c                | 821 +++++++++++++++++++++++++
+ scripts/link-vmlinux.sh                |   2 +-
+ scripts/sorttable.c                    |  50 +-
+ 48 files changed, 2325 insertions(+), 383 deletions(-)
+ create mode 100644 arch/arm64/include/asm/eh_frame.h
+ create mode 100644 arch/arm64/include/asm/lr_unwind.h
+ create mode 100644 arch/arm64/kernel/lr_unwind.c
+ create mode 100644 scripts/gen_lr_unwind.c
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.56.0.679.gc527c65306-goog
+
