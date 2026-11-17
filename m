@@ -1,60 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794911295;
-	b=END+w/wWYc/22NNRx+PVqdtpoVlxqMZeJJjVlARind5l9IysJMdGjYoE5DQqyjeCm7Yr
-	 vnfNHrBOXPSbSDoueKgdrir5OG2HO1KCOYaUYUsEIhsZudfpHq246j7S0+IprffYzrBIK
-	 RHtnLDlXKxh+rqWw62ypc9yIMsDjq+m3c7+Q655QsyXoeqocgMuRlLPmLamHPTbo2xG1v
-	 ZSobM8UpacRm0B4Qw4Q0IShNimeuun1x9S03li4VOe9b04KeKB9jAK1FR2SCki9IUsL0k
-	 X+RgYQogMHyIgiSidWHFy2uFx2vnH8FYTdj5ZvlvBJdKZ1DunDwoKIGugj7SPomaItA==
+	t=1794911315;
+	b=bzIixlqg1zigZ0nCg6lKY4E/3lMEHzpsx1XVYU6aj+x9pK/R5kJMLxORzT9nvM5/h5Ww
+	 PObsPKqSfZ9uckt36ip2PXOCW523zYdSyh5vUepmR1qx2Ny8t01yOqSvPab2VOw8MIqUS
+	 5fSwHWeC/iO0zwz8pFUIRX9EdrYYimibtdNXBErFFmHT3YTgNC8/MVfK9+v8EFKevBWUo
+	 gbcZHHkHrIZYCRBZvwHgptxJCqHCKV8XFJWtTn1eu5pe/BAr0iODrln3Te0C5uVe3PLI5
+	 LljmiO/iu46NnluV9CX1cCf6tSpKxIaZx2E3j48V8tk5zBNKjutp+rTH5x322KX1AIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794911295;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=mAae2YymeFBvgHK1vqNyYqcin7uvU4iwvvKFrMdYCVQ=;
-	b=KVcRzszNVNwSpoFFQeKhxPJ4DzxlvAP3G2zOIXxcSYIDLWbdzYnlHB/UOXl3NUktMpfY
-	 ziNlIzeg/RFr+RKM42NScVxEX90hu4Z4vnPF6HHsHhBsEOYr046+gz6XPym7VC9m1Gkvn
-	 KQ+2RPVNA6QvCynfKl6nhCffee4d8bOdeHOd0R8Md1yZkXashl2r3bv9OPm9rO9PVCzVx
-	 qPfRkaAjxBlfi/mvpKguaDcbHljEHM1o4yMIVqZVPczflGzVYBslwvaGLrmc+MWFSxAuJ
-	 fFGoamyCn+lqY48r36ObxbUAIkCO0Q6HihdyUk/I6e2Fnp32xgd1yBFRNoxDqmNPnxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794911315;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=aUuc456jVRsmRWx54q8uCKHa7yeIdCKeWb6UY4IYup8=;
+	b=Surs6SIXJ7Sdsz52qG0k61Xys9AfuBBbeqnpDsZUAUw9x6UA5zyrMz1FnyN6+/pgENLT
+	 K1nwFGu2PjBjpf65wkopoj7yUcokn/w/nBIp1GSnQHHmvJssgGBctx7SLKUdcfAhZwfw+
+	 0T2U6t0vI2cnpcWLhMvzPpsaxhPY/mzOr5y/WUmtXWLgujuZ9BmycADwbCTXkyUKRivr9
+	 xW+VVWt3eBUkQwpM7/t6hex4gH+8Qbo61RnFSfpMWE5AH7wZUEdt+XHJTq3xprARjmgPF
+	 yjIo1lokGFdizhqthvtA1wax4QFesOOmW7oKO3vDbL9pZWP4zIqWMiStUgeK32ZihPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=pS61IXoS;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hFSrnfLu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4697606A330
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:28:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4697606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D35606A880
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:28:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=pS61IXoS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=mA
-	ae2YymeFBvgHK1vqNyYqcin7uvU4iwvvKFrMdYCVQ=; b=pS61IXoSB1p+0Fu40s
-	VbvRtRD3NmQUReK1OVrzWDUilbixWjznlbhNND4anFBISmCjZtVOo5Mxg1fZKwNA
-	EExLf6x1/4ikvPpXOsJWK5pPPuVKNEfTDTcc5Q8u7sut0aUdSirxDSZJ8GpLXuKI
-	9qbTw1eQSXmBlJAr9oLwBSD/U=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDXH78QLPxq+3xcIw--.35329S2;
-	Tue, 17 Nov 2026 18:27:30 +0800 (CST)
-From: Haoxiang Li <haoxiang_li2024@163.com>
-To: ojeda@kernel.org,
-	andy@kernel.org,
-	geert@linux-m68k.org,
-	pmarques@grupopie.com,
-	akpm@linux-foundation.org,
-	maxextreme@gmail.com
-Cc: linux-kernel@vger.kernel.org,
-	Haoxiang Li <haoxiang_li2024@163.com>
-Subject: [PATCH] auxdisplay: cfag12864bfb: Fix init cleanup and simplify error paths
-Date: Tue, 17 Nov 2026 18:27:28 +0800
-Message-Id: <20261117102728.1304012-1-haoxiang_li2024@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hFSrnfLu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AE131F000C6;
+	Tue, 17 Nov 2026 10:28:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794911315;
+	bh=aUuc456jVRsmRWx54q8uCKHa7yeIdCKeWb6UY4IYup8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hFSrnfLuYRHtiF9Pjsbi4to8AXQQuRh9YcBWqLaGZuvxWpiE8bg6sDIMQUFNFXg8c
+	 /K4uB+UlRk51TxHTEmrb1U3eO5FDHN6n5sl8tSpHa6XvT7LInWCdv1VSp8MrMyoxbn
+	 Q5iyjziHgJiR8H+U0ltMTM/iuBF7iU8BhGfNnjxs6s0KdRDPivrSjQ/FlBRcOfFdTK
+	 qg3SYfYUSdgawV1tSuux3eqMbVYIODN7EDNpGqm3jrJa7Xg7rem1FW/8gkoPZQiJVw
+	 DA82/kkxxmaieLWf9z/pP1D582wTgxcAuWTHhnL6PqzkMkHuL09VFsseAwBY0524sz
+	 vvSKe7w0wPbtg==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 466DA198003A;
+	Tue, 17 Nov 2026 05:28:30 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Tue, 17 Nov 2026 05:28:32 -0500
+X-ME-Sender: <xms:TSz8akoIJ8VUdPzL2SAiWezRgl-xK2V1RTwV_qy8_po38gJ4Z-kejQ>
+    <xme:TSz8ajv5tywZhKakde_bPAmx3iEyufG7ZFZ8S33VIQLqLr5Jksk3g-fQGtraUnigc
+    pzqEIUaP2eojkS-JWGjbs3iPBQmqgT7sirtzjnlSEQmTSeuqV8XBn3p>
+X-ME-Received: <xmr:TSz8aiR9EEX3NPPPgJeP7O8Kc4pvyuP2AgHF7-LAs4rWoYPBn7JNAf1LXr4>
+X-ME-Proxy-Cause: dmFkZTEyk12DcAQuIlTI2xJtbrOBSs+QrfdgWAvOUBdNOkqljsjgvALIdBr7Jffnf/Vh9w
+    FK7xcfJVC+STgtN1Cz2GRI2Kh104UxI95eHtE//tBhmqi2hu6pIyaAgxIzhFuC7GMEXmVo
+    Tpq1KL61++h1aClhBiPt5I2Yn3jUWMVxis1ka23Rhc7KaS3ObGJFW9Th80E4+x5RcGGPbe
+    pnS+zPR15R+jxQWkbj/jQwUNfYD8cZtLC4S4+TDMS1BwSEY5tBktOjQjVazb6rpLDly24h
+    9gC+Vqt8lr1zsFqyi6SwbGj5AtzFivZws+QSr5kkFEAH3QIzrdy2/D+0X7rQ4Xq1GklHiq
+    wr1w3kJJH3vFW6cRjI3TiaxeaipF5h7UYumzTynQh88nyDwB2dB4ttLfqfae9hhwVIqMlP
+    Xv2Se5iFpRzxNm5zEDAvHXtq19X/u/2icBThVFdLeh8OMxfDQADC6dXkMXkHOqvfiowEM8
+    yilSsrPCZoUftz8loKWlB7Sv+NAIwystEO7qIRBOtTwJ5Ln7PtPn1KKUJfVXRArqYOGzCO
+    QkApXqsq47Nx7BaCdwxvS0y0erKA0U/GHlU2g1PnXlx3/6vb8u7BQNcHqOEg/nFSdcYMiO
+    RZ39dUYlu4I6e2iTb5goZox7sX/U0lukWx8YhPpjGBMlrfRSc4xIsQucLWWA
+X-ME-Proxy: <xmx:TSz8anofhu7nNmVpvzT2pcY6RSTlJIgjs34zEeA4En6hvuVgwZnPXA>
+    <xmx:TSz8atIJszYvWLsH6P2BumTmmcn7RuntqIDDfHQy15asFAthMe_tlQ>
+    <xmx:TSz8aqORVjb07TSUxsL9ffSizIxS_a13Aqjri1kOT8m3ziR5nSlKcw>
+    <xmx:TSz8aopJgLyZZ_LS8fMSIt_-3-0fX2aE1MS5DP_qttsTERHtv60NgA>
+    <xmx:TSz8asGRw07OZlo26V4Qm4Tz0MATWMtrfGOnYElGyj61HDuwfmNxwEQf>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 17 Nov 2026 05:28:29 -0500 (EST)
+Date: Tue, 17 Nov 2026 10:28:28 +0000
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+To: Dev Jain <dev.jain@arm.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	David Hildenbrand <david@kernel.org>, Mel Gorman <mgorman@techsingularity.net>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH] mm/compaction: do not skip the free scanner's periodic
+ lock drop
+Message-ID: <avwrmTszH4tNSIjA@shutemov.name>
+References: <20261116125746.2897395-1-kas@kernel.org>
+ <ad8a7751-c9c1-4b0c-969b-27efd0945dc1@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,90 +91,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXH78QLPxq+3xcIw--.35329S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7uF1rWw13Xw4fWw18uF17ZFb_yoW8tF1kpa
-	1aqFWYyry5GF47KrW7tw12vFn8J34S9ayFkFyDGw1F9w4xGa18Wa4rt3W8Xr17JrWrG3W3
-	tF13WF18CFyDCrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEJPE7UUUUU=
-X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbC7hLoV2r8LBJTagAA3S
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ad8a7751-c9c1-4b0c-969b-27efd0945dc1@arm.com>
 
-If initialization fails after cfag12864b_enable() succeeds, LCD
-refreshing remains enabled. A subsequent attempt to load the
-framebuffer module can fail because refreshing is still marked
-as in use.
+On Tue, Nov 17, 2026 at 11:04:25AM +0530, Dev Jain wrote:
+> 
+> 
+> On 16/11/26 6:27 pm, Kiryl Shutsemau (Meta) wrote:
+> > isolate_freepages_block() drops zone->lock, checks for a fatal signal
+> > and calls cond_resched() at every pfn that is a multiple of
+> > COMPACT_CLUSTER_MAX.
+> > 
+> > With a stride above one, the scan steps over a compound page, or over a
+> > high-order free page it has just isolated, to a pfn that is not a
+> > multiple of the stride.  From there it never reaches a multiple of
+> > COMPACT_CLUSTER_MAX, so the rest of the pageblock is scanned without the
+> > check, possibly with zone->lock held and interrupts off.
+> > 
+> > Count probes instead, and check every COMPACT_CLUSTER_MAX of them.
+> > 
+> > Fixes: 4fca9730c51d ("mm, compaction: sample pageblocks for free pages")
+> > Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> > ---
+> 
+> Cc stable?
 
-Flatten the initialization flow and introduce cleanup labels to
-release resources in reverse order. Call cfag12864b_disable() on
-failures after refreshing has been enabled.
+I have not seen real world problem triggered by the bug. I don't think
+it is needed.
 
-Fixes: 70e840499aae ("[PATCH] drivers: add LCD support")
-Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
----
- drivers/auxdisplay/cfag12864bfb.c | 34 +++++++++++++++++--------------
- 1 file changed, 19 insertions(+), 15 deletions(-)
+> 
+> Reviewed-by: Dev Jain <dev.jain@arm.com>
 
-diff --git a/drivers/auxdisplay/cfag12864bfb.c b/drivers/auxdisplay/cfag12864bfb.c
-index 24baf6b2c587..c507286641bd 100644
---- a/drivers/auxdisplay/cfag12864bfb.c
-+++ b/drivers/auxdisplay/cfag12864bfb.c
-@@ -118,13 +118,13 @@ static struct platform_device *cfag12864bfb_device;
- 
- static int __init cfag12864bfb_init(void)
- {
--	int ret = -EINVAL;
-+	int ret;
- 
- 	/* cfag12864b_init() must be called first */
- 	if (!cfag12864b_isinited()) {
- 		printk(KERN_ERR CFAG12864BFB_NAME ": ERROR: "
- 			"cfag12864b is not initialized\n");
--		goto none;
-+		return -EINVAL;
- 	}
- 
- 	if (cfag12864b_enable()) {
-@@ -134,23 +134,27 @@ static int __init cfag12864bfb_init(void)
- 	}
- 
- 	ret = platform_driver_register(&cfag12864bfb_driver);
-+	if (ret)
-+		goto err_disable;
- 
--	if (!ret) {
--		cfag12864bfb_device =
--			platform_device_alloc(CFAG12864BFB_NAME, 0);
-+	cfag12864bfb_device = platform_device_alloc(CFAG12864BFB_NAME, 0);
-+	if (!cfag12864bfb_device) {
-+		ret = -ENOMEM;
-+		goto err_unregister_driver;
-+	}
- 
--		if (cfag12864bfb_device)
--			ret = platform_device_add(cfag12864bfb_device);
--		else
--			ret = -ENOMEM;
-+	ret = platform_device_add(cfag12864bfb_device);
-+	if (ret)
-+		goto err_put_device;
- 
--		if (ret) {
--			platform_device_put(cfag12864bfb_device);
--			platform_driver_unregister(&cfag12864bfb_driver);
--		}
--	}
-+	return 0;
- 
--none:
-+err_put_device:
-+	platform_device_put(cfag12864bfb_device);
-+err_unregister_driver:
-+	platform_driver_unregister(&cfag12864bfb_driver);
-+err_disable:
-+	cfag12864b_disable();
- 	return ret;
- }
- 
+Thanks!
+
+> >  mm/compaction.c | 12 +++++++-----
+> >  1 file changed, 7 insertions(+), 5 deletions(-)
+> > 
+> > diff --git a/mm/compaction.c b/mm/compaction.c
+> > index f1b2060eb201..4465c1551406 100644
+> > --- a/mm/compaction.c
+> > +++ b/mm/compaction.c
+> > @@ -579,7 +579,7 @@ static unsigned long isolate_freepages_block(struct compact_control *cc,
+> >  				unsigned int stride,
+> >  				bool strict)
+> >  {
+> > -	int nr_scanned = 0, total_isolated = 0;
+> > +	int nr_scanned = 0, nr_probes = 0, total_isolated = 0;
+> >  	struct page *page;
+> >  	unsigned long flags = 0;
+> >  	bool locked = false;
+> > @@ -599,13 +599,15 @@ static unsigned long isolate_freepages_block(struct compact_control *cc,
+> >  		/*
+> >  		 * Periodically drop the lock (if held) regardless of its
+> >  		 * contention, to give chance to IRQs. Abort if fatal signal
+> > -		 * pending.
+> > +		 * pending. Count probes rather than pfns, as the scan does not
+> > +		 * always land on a multiple of COMPACT_CLUSTER_MAX.
+> >  		 */
+> > -		if (!(blockpfn % COMPACT_CLUSTER_MAX)
+> > -		    && compact_unlock_should_abort(&cc->zone->lock, flags,
+> > -								&locked, cc))
+> > +		if (!(nr_probes % COMPACT_CLUSTER_MAX) &&
+> > +		    compact_unlock_should_abort(&cc->zone->lock, flags,
+> > +						&locked, cc))
+> 
+> I see this is an unrelated change but I don't mind.
+
+&& on the new line looks odd to me, it belongs to the first line.
+
 -- 
-2.25.1
-
+  Kiryl Shutsemau / Kirill A. Shutemov
