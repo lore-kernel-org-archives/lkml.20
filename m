@@ -1,69 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794914390;
-	b=OGsEKzyp1pyxCLLdzZfiSmiZjs6He/U5gYQOp4yCQn1m2qUgzqQvmHxXA7SkpdqeFNSe
-	 eEvZ71SbQwbOtqlCGBPOp8uBOpfC+M6lyP/JtXHj/hnC8eFtq4LcZkRpoucs/jpCBZMy4
-	 4Pn0KQijbTQAPDmj16AOVrgZuwrhq2+fk8zrxXecQKKiwWc/EDJ4H2VpvjuiXf9JZbod4
-	 rgRsPuvzgBxv6KMOnehJKndIgda1B5ktz+JCHxQq/e1BDvPIkvVNIeze7RtifvXqJDPDK
-	 INqEB2UVNK/Dsr5EJ9jku3vuelvPyYizCsy9Sys08oRJwBssVpXbc1VjxrPCGrR9Idw==
+	t=1794914407;
+	b=TRHmEaBk78opxE7e5dXcd/BOxJ45kzZZ0YovaZ2YqREdtoOZ/AEqtdxbHvbw3QFdFkRE
+	 YLnoMwMbF30dw0DK9DXrt0ThUguePsHme40lWhDrKo0dlmOV2L7e0hzffBpixds8BzrO+
+	 u/NgsQU7fdakvjywBr4XWAdeEOmPCLO13Gh1jviriIfaF39rkEnmi4gqtMSoI/YmWD8mo
+	 UfmSiq/tc5v4tGdIRlJmScEjvOvrSwn2LY1hP8T0YB2Z7prJXsQThc3mzvH6aPw9wh3ia
+	 40IaaAvPZcVAPikaiktsPvwHlRly6vG/0mVSPsQyDt6Fd/23v+HYyMMBI8Fp661w7eA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794914390;
-	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
-	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794914407;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=DS9RFPceSFfS0ImZMtexVx47AGwoymN92dPbqndTs9A=;
-	b=IsWLodgLCMheFtiOcrbOG8aAroT46BA6UpsEcOtTWtC2WQp6cpvntm5jvVIfzKNFvQSk
-	 zNPW7RdyqMrSdhQHDubZt9cRn9zh3fAsJ0UpM/cgoba2S5gD07rcVv+aVH5FT4XlP3HZf
-	 Tr8H4heTcZI7nfuKoQfi62ITlo8Qz9o/4dZT9b5Nyhni6vMr8VSolJZiKnLydZyI88Uqo
-	 bF7N/8Hgz4A4n9PljW5jUxX0DU2L+1ZIvbWujN301b0aOW/9C/tbvD93/swLZAa8IpQ9M
-	 Y31JS5+VQ5l1guE3rxBDKs12n3e1MrxSWmmaap+91smeTOVll9HpdUGXfOiSUemVRvw==
+	bh=lerhcVcRfU2lk4PsrpleRqAwjsseFlibrr+AoAnaIA8=;
+	b=Ch4iVHvRUSy631yIDPMD11HJOMky6wcEW4583zrRNJ0dauwvjboBm40lBn5VaQU1m0qa
+	 ph0R2bR0wBGh6EQx9AV3Vpo2PyRrUosTt88ipG+W794vGMfyTh7Jc9A6jdN0FrIdkDyFU
+	 TtPGhyyjQFGItc4F80nanJy7FO2Y5DlxHo8HtiyJpZU7a9IeIA9v1OAja8s8cbRDKC9yh
+	 USGEktLZFH0iQTcENjaT6pBEgXnYdJF/acq02qlcKOhkJYahBe63zijYSYH4+BNNOUdbv
+	 MOdRba3GDH5vVmAIHOFstTWuN47eMSFCd8SFed8HRzR/wpgxp7Tv5LaVb1pFpHscqSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C61D606A88A;
-	Tue, 17 Nov 2026 11:19:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C61D606A88A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: c6321454e27811f19a56ed5b684f684d-20261117
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:f974caa5-7ffd-4ccd-b368-56320d0b7f48,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:160f99bb53ca6582fd09f56866da212c,BulkI
-	D:nil,BulkQuantity:0,SF:80|81|82|83|102|850|865|898,TC:nil,Content:0|15|50
-	|99,EDM:-3,IP:nil,URL:99|97|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:
-	0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: c6321454e27811f19a56ed5b684f684d-20261117
-X-User: huangwei@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <huangwei@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 488385902; Tue, 17 Nov 2026 19:19:37 +0800
-From: Huang Wei <huangwei@kylinos.cn>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Johan Hovold <johan@kernel.org>,
-	leStoppe <lestoppe@gmail.com>,
-	Craig Hesling <craig@hesling.com>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	huangwei@kylinos.cn
-Subject: Re: [PATCH v2] USB: serial: simple: narrow OWON match to avoid breaking VDS1022
-Date: Tue, 17 Nov 2026 19:19:33 +0800
-Message-Id: <20261117111933.3508470-1-huangwei@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <2026111722-freckled-baking-d277@gregkh>
-References: <20260810091322.2201740-1-huangwei@kylinos.cn> <20261015025456.3927808-1-huangwei@kylinos.cn> <2026111606-penpal-reverse-14b7@gregkh> <2026111722-freckled-baking-d277@gregkh>
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Za+XRYw1;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BA186606A338;
+	Tue, 17 Nov 2026 11:20:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA186606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Za+XRYw1
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0FB971C0A;
+	Tue, 17 Nov 2026 03:20:03 -0800 (PST)
+Received: from e135073.nice.Arm.com (e135073.arm.com [10.34.111.135])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 9F24F3F763;
+	Tue, 17 Nov 2026 03:19:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794914406; bh=YDgzasSlipXKe/56e4CM9c8AHByhT73/Jmer5AUWPh0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=Za+XRYw1cGqmZ/sAMGiGXzSiQ6xN4qBcFk9Rqylzhmn/qXSsl6sVKQ7ydwzAhTxcT
+	 F2CbwSyWbFfGkIeCAw96i3tF9OTKTcCPzhxNGKEX2PMJzaLfR2lcWMNfVxkgs5DQlV
+	 qSFgMy6wd7Hh+QIizurUzIyO3/+T4tK6oKEwGeyg=
+From: Pierre Gondois <pierre.gondois@arm.com>
+To: linux-kernel@vger.kernel.org
+Cc: Ashok Raj <ashok.raj@oss.qualcomm.com>,
+	James Morse <james.morse@arm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Pierre Gondois <pierre.gondois@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Tony Luck <tony.luck@intel.com>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Shuai Xue <xueshuai@linux.alibaba.com>,
+	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
+	"Oliver O'Halloran" <oohall@gmail.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
+	Pawel Chmielewski <pawel.chmielewski@intel.com>,
+	Yazen Ghannam <yazen.ghannam@amd.com>,
+	Radu Rendec <radu@rendec.net>,
+	Avadhut Naik <avadhut.naik@amd.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	"Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>,
+	Kai-Heng Feng <kaihengf@nvidia.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Breno Leitao <leitao@debian.org>,
+	Terry Bowman <terry.bowman@amd.com>,
+	Dan Williams <djbw@kernel.org>,
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
+	linux-acpi@vger.kernel.org,
+	linux-edac@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-pci@vger.kernel.org,
+	acpica-devel@lists.linux.dev
+Subject: [PATCH v1 14/19] ACPI: APEI: Return status from cxl_cper_post_event()
+Date: Tue, 17 Nov 2026 12:10:24 +0100
+Message-ID: <20261117111444.4185512-15-pierre.gondois@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261117111444.4185512-1-pierre.gondois@arm.com>
+References: <20261117111444.4185512-1-pierre.gondois@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,132 +98,92 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 17, 2026 at 08:24:39AM +0100, Greg Kroah-Hartman wrote:
-> On Tue, Nov 17, 2026 at 03:12:50PM +0800, Huang Wei wrote:
-> > Hi Greg,
-> >
-> > Sorry about that - here's the context.
->
-> Sorry about what? You did not quote anything here, as my bot says:
->
-> A: http://en.wikipedia.org/wiki/Top_post
-> Q: Were do I find info about this thing called top-posting?
-> A: Because it messes up the order in which people normally read text.
-> Q: Why is top-posting such a bad thing?
-> A: Top-posting.
-> Q: What is the most annoying thing in e-mail?
->
-> A: No.
-> Q: Should I include quotations after my reply?
->
-> http://daringfireball.net/2007/07/on_top
->
-> thanks,
->
-> greg k-h
+Callers cannot tell whether cxl_cper_post_event() queued a CPER event or
+discarded it. Return 0 if success and 1 if aborted. Existing callers
+continue to ignore the result for now.
 
-You are right, and I apologize for the noise. My last two emails were
-both badly formatted: a bare follow-up note with no quoted context,
-and then a reply with the text on top and the reference material
-below it, without quoting the message I was replying to. Let me fix
-that here.
+A worker that is already scheduled still processes the queued event, so
+its schedule_work() return value does not indicate a delivery failure.
 
-The context: the owon_device entry in
-drivers/usb/serial/usb-serial-simple.c was added by commit 4cc01410e1c1
-with a broad USB_DEVICE(0x5345, 0x1234) match for the OWON HDS200
-series. OWON reuses that VID:PID across device families, so the entry
-also claims the VDS1022 oscilloscope, which is driven from userspace
-over libusb and stops working once a kernel driver binds its
-interface.
+This prepares for a following patch moving PCI/CXL handling to
+extlog.c.
 
-The v2 below (sent Oct 15, reworked per Johan's review and carrying
-the reporter's Tested-by) narrows the match to the HDS200 interface
-tuple (class 5, subclass 0, protocol 0), which excludes the
-reporter's VDS1022 (class 5, subclass 6, protocol 0x50).
-
-The open problem surfaced during review: Craig Hesling found that
-the VDS1022I variant reports the same (5, 0, 0) tuple as the HDS200
-series, so the narrowed match would still claim that variant. On
-Nov 3rd I laid out this data and asked Johan how he wants to
-proceed - take the v2 as-is, revert to the broad match, or take
-another approach. The thread has been waiting on that decision
-since.
-
-Full discussion:
-https://lore.kernel.org/linux-usb/20260810091322.2201740-1-huangwei@kylinos.cn/
-
-The v2 for reference:
-
-A USB_DEVICE() match on VID:PID 0x5345:0x1234 was added to the
-owon_device entry in drivers/usb/serial/usb-serial-simple.c by
-commit 4cc01410e1c1 ("USB: serial: simple: add OWON HDS200 series
-oscilloscope support"). OWON uses this VID:PID across multiple device
-families (HDS, VDS, SDS, PDS), so the broad match makes the
-owon_device driver also claim devices such as the VDS1022.
-
-While the owon_device entry is equivalent to the generic usbserial
-driver for kernel-space users, the VDS1022 is a headless scope that
-is driven from userspace over libusb (e.g. the florentbr/Owon-VDS1022
-tool), which can no longer claim the interface once a kernel driver
-binds to it. Prior to that commit, no in-kernel driver claimed these
-interfaces.
-
-The two families can be told apart by their interface descriptors
-despite sharing interface class 5 (Physical): the HDS200 series
-reports subclass 0 and protocol 0, as documented by the HDS272S dump
-(firmware V5.7.1) in that commit's message, while the VDS1022 reports
-subclass 6 and protocol 0x50. Match the full HDS200 interface
-tuple so that the VDS1022 remains unclaimed and stays accessible to
-userspace tools.
-
-Reported-by: leStoppe <lestoppe@gmail.com>
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=220193
-Tested-by: leStoppe <lestoppe@gmail.com>
-Signed-off-by: Huang Wei <huangwei@kylinos.cn>
-
+Signed-off-by: Pierre Gondois <pierre.gondois@arm.com>
 ---
-Changes in v2:
-- Rework the commit message per Johan Hovold's review: describe the
-  libusb-based userspace breakage instead of the incorrect claim
-  about falling back to the generic usbserial driver.
-- Match on the full HDS200 interface tuple (subclass 0, protocol 0)
-  instead of the interface class alone: both the HDS200 and the
-  VDS1022 are interface class 5, so a class-only match would still
-  claim the VDS1022. The tuple values are verified against the
-  HDS272S dump in the commit message of 4cc01410e1c1 and the VDS1022
-  dump provided by leStoppe.
-- Fix the multi-line comment style.
----
- drivers/usb/serial/usb-serial-simple.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+ drivers/acpi/apei/apei-internal.h |  4 ++--
+ drivers/acpi/apei/ghes.c          | 15 ++++++++-------
+ 2 files changed, 10 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/usb/serial/usb-serial-simple.c b/drivers/usb/serial/usb-serial-simple.c
-index a0afaf254d12..879508f54d69 100644
---- a/drivers/usb/serial/usb-serial-simple.c
-+++ b/drivers/usb/serial/usb-serial-simple.c
-@@ -100,9 +100,17 @@ DEVICE(nokia, NOKIA_IDS);
- 	{ USB_DEVICE(0x09d7, 0x0100) }	/* NovAtel FlexPack GPS */
- DEVICE_N(novatel_gps, NOVATEL_IDS, 3);
+diff --git a/drivers/acpi/apei/apei-internal.h b/drivers/acpi/apei/apei-internal.h
+index f7f0ab8e5ed7f..5063c743b4cf0 100644
+--- a/drivers/acpi/apei/apei-internal.h
++++ b/drivers/acpi/apei/apei-internal.h
+@@ -11,8 +11,8 @@
+ #include <cxl/event.h>
  
--/* OWON electronic test and measurement equipment driver */
-+/*
-+ * OWON electronic test and measurement equipment driver.
-+ * OWON uses the same VID:PID (0x5345:0x1234) for multiple device
-+ * families (HDS, VDS, SDS, PDS). Match the full interface tuple
-+ * reported by the HDS200 series (class 5, subclass 0, protocol 0) so
-+ * that devices with a different interface tuple, such as the VDS1022
-+ * (class 5, subclass 6, protocol 0x50) which is driven from userspace
-+ * over libusb, remain unclaimed.
-+ */
- #define OWON_IDS()			\
--	{ USB_DEVICE(0x5345, 0x1234) } /* HDS200 oscilloscopes and others */
-+	{ USB_DEVICE_AND_INTERFACE_INFO(0x5345, 0x1234, 0x05, 0x00, 0x00) }
- DEVICE(owon, OWON_IDS);
+ int ghes_severity(int severity);
+-void cxl_cper_post_event(enum cxl_event_type event_type,
+-			 struct cxl_cper_event_rec *rec, u32 len);
++int cxl_cper_post_event(enum cxl_event_type event_type,
++			struct cxl_cper_event_rec *rec, u32 len);
+ u32 acpi_extlog_mem_err_min_len(u64 validation_bits);
+ void acpi_extlog_report(const struct acpi_hest_generic_status *estatus);
  
- /* Siemens USB/MPI adapter */
+diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
+index b51b621208ed1..623ac2a7f7a75 100644
+--- a/drivers/acpi/apei/ghes.c
++++ b/drivers/acpi/apei/ghes.c
+@@ -823,42 +823,43 @@ DEFINE_KFIFO(cxl_cper_fifo, struct cxl_cper_work_data, CXL_CPER_FIFO_DEPTH);
+ static DEFINE_RAW_SPINLOCK(cxl_cper_work_lock);
+ struct work_struct *cxl_cper_work;
+ 
+-void cxl_cper_post_event(enum cxl_event_type event_type,
+-			 struct cxl_cper_event_rec *rec, u32 len)
++int cxl_cper_post_event(enum cxl_event_type event_type,
++			struct cxl_cper_event_rec *rec, u32 len)
+ {
+ 	struct cxl_cper_work_data wd;
+ 
+ 	if (len < sizeof(*rec)) {
+ 		pr_err(FW_WARN "CXL CPER section too small (%u)\n", len);
+-		return;
++		return 1;
+ 	}
+ 
+ 	if (rec->hdr.length <= sizeof(rec->hdr) ||
+ 	    rec->hdr.length > sizeof(*rec)) {
+ 		pr_err(FW_WARN "CXL CPER Invalid section length (%u)\n",
+ 		       rec->hdr.length);
+-		return;
++		return 1;
+ 	}
+ 
+ 	if (!(rec->hdr.validation_bits & CPER_CXL_COMP_EVENT_LOG_VALID)) {
+ 		pr_err(FW_WARN "CXL CPER invalid event\n");
+-		return;
++		return 1;
+ 	}
+ 
+ 	guard(raw_spinlock_irqsave)(&cxl_cper_work_lock);
+ 
+ 	if (!cxl_cper_work)
+-		return;
++		return 1;
+ 
+ 	wd.event_type = event_type;
+ 	memcpy(&wd.rec, rec, sizeof(wd.rec));
+ 
+ 	if (!kfifo_put(&cxl_cper_fifo, wd)) {
+ 		pr_err_ratelimited("CXL CPER kfifo overflow\n");
+-		return;
++		return 1;
+ 	}
+ 
+ 	schedule_work(cxl_cper_work);
++	return 0;
+ }
+ 
+ int cxl_cper_register_work(struct work_struct *work)
 -- 
-2.25.1
+2.43.0
 
-
-Thanks,
-Huang Wei
