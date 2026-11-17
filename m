@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794925551;
-	b=3/yRkPMOw8YEt6eKQXLTr7q7MDVhsXPXwdUP3cyZ4LRvt++kq55eAljVWYCNOfhHzJvi
-	 7pwGAmqyAB9FvbXODBwW/B3/YksIOTGiNGTowu1UZSFd6Qx0o3vgE4gfLTg3iTGzsyleT
-	 Iyiv2uesiHd8EyjWvmQlj66Q+kXO3Vl2Ij4hk/fWJt388+h2wvm2TO/gcJEAGC6fbmcgP
-	 L7n735LrqhwiNfyn0SRSzyByhIvxFOmfJ1nJ+NDFdwLd3v/e9Mb5FUMeGI4GPJX8U2YHu
-	 i95nOu76RRiuWT0rMFGVSjINpx7ttuNe9IQytVlpjHQJlmTaY/jJw0F4tbx2vH9/p2g==
+	t=1794925556;
+	b=nfeiQGUrVHEtENXGLFCs8+YTN9aq35lf5Qe6rRCfRuQNECD8GDTMO15ANvdajXlfp6i3
+	 hp8wyzUKRh4ldaNLwErlr1E6WR/IHSfjZvqEmILcnTWEuJZ1peyMyIId+W5QLmFoXcewZ
+	 7RAexTsLCHy00Hv7B477IJLV8Byg1GWBsFTEV4My6pzklcAjeEQNIlhJwJvT4C3AMo1UW
+	 Vsuu3fP8WXzReVH56VAOVz6VHbdaZ9CcoiAWEzpsOwtI1lz/fkcLmJnQlMnK1QYnQJqyj
+	 Nl89MzD2IDrEc5Kq104eaYGKvagMxkRGkms7LJzlEBiJY8ZlEAyYptR+VZhldCNwCtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794925551;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794925556;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=AK+gHSxZdcAvKZ7cQ385RlBq7MDtihQM1tWGeZNK/Ig=;
-	b=oLixMBpLLZlwfd3TGQqfiTiquK/d8edym5cs5Ib9Nd/BpS6ivxgB5XdRylOV1XMnJRxQ
-	 rhYQ3oSy1IhF2v259RTU8/ZX8F3raFf7438bAnySORfXskx5LH271sEKzMFuUrJxRzAyZ
-	 8Z94OioZJCJ2bRKXvdeNmeSJdIYcVj9FNogbhRprjf/TyMzsClDMeBeblOZlTktvezXDM
-	 ata8Gi91OkYh//vzVWiw/kpCixJ/xcLHJixP4X9u1nJY+v+5okp4U2B/fWcYCVl14Hi6n
-	 Pcamhr73BUqYeMAtWIo7Q0vqykibC31rTdNBAC5pYKPTXNnf5TiMDZxRfN6Aje7Edbg==
+	bh=qTTU/HttU3fjnx/LLkySkKgelZHAjJmF566oK0Z4Ap4=;
+	b=IxcLTf59NwP0TWfGyfkuIA1BmLSmWw4n5Jebq8g8trpOU5xuj+uythkjnAM/KjPkgSMx
+	 GqpNkUcYyIA44y57m4HMSMJYDfwU4ajy9Hq6Tti02AfI0wbi4tFQIU3vVtcaF+WTyhHvG
+	 Kq9othuCDuQ6vW1mtMApP7CWqfyGG5U6GZi8TGl9Z1LRm+zVUqV1g2VQElhfLVcDrYu7N
+	 RdnTFYeLUIPz8UjL4iH2svV9YvtQL9ax9loei3GDt5wATPlXkeOMDAOmVqmNFOaZw3MIn
+	 KYNv4BrQBkvevoZRB+EIUTZNDi0MXz9TnoYyRX8UtdY1hwFxicQoZ2ScejbqCXyUS5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f34hIFPx;
-	arc=none smtp.remote-ip=209.85.161.42
-Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mjZj2Wvh;
+	arc=none smtp.remote-ip=209.85.161.41
+Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com [209.85.161.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95AA3606A32F
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:25:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95AA3606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3170F606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:25:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3170F606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f34hIFPx
-Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-71ac9e15640so2423069eaf.3
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:25:50 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mjZj2Wvh
+Received: by mail-oo1-f41.google.com with SMTP id 006d021491bc7-71af0656bedso1300658eaf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:25:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794925549; x=1795530349; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794925555; x=1795530355; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AK+gHSxZdcAvKZ7cQ385RlBq7MDtihQM1tWGeZNK/Ig=;
-        b=f34hIFPxBpV4kXVxhr38KIhjXIBlnyKMpw4eYk9AZXIaaS75lQCG5xHvOTqlqOf72r
-         DsRCS9MDKuhImz+2AUSj9K7JiuFXBU5/UsZYlBYLP3NsjzUy/G0sbdLV9x7QYLrY2E+f
-         sH+tvgYXEyrPwN5v3SAj02S0TmTxrWxu8CwGd4V4etXld0HnoLYY31FNkbxsUNtJ23/D
-         bHsyT5mrgw/xJt133gORKoqZRYUXP8dqnsmVr9XJ36TKUS/WLS+Bb30i7zPwj61AgD38
-         yYWWAoZ4BCsljc+uBh5TRAWJmNX4tTuQfNHICNi0dbE6M/ySvDqb9e2todGULn5ol/ft
-         tpnQ==
+        bh=qTTU/HttU3fjnx/LLkySkKgelZHAjJmF566oK0Z4Ap4=;
+        b=mjZj2Wvhjog8aodOeIvpWtVJoReEW/rQXMk51ee9WBi+rUO6vOcSUYfWHVY0CJV5xl
+         IB6Xv7Bz7J8LtKr+Uyzc1EmzHQn8PvPzLAQk84NyTmVmNzzplhO7WcRqHGtew5lqZx0f
+         VU5G0NpVqsE4IwcNG6JAmJpGnJvnI7tVR0nnCIEYrQnXhxRJU1yuTESAQ4XXcpXvRSka
+         keLtcQw/UA+RFkxFeerXWnjTyemXZMI5WADUU/1O9ec5066n/DK/jFyM54oCeF78CePs
+         T+5anJL/92y8GVKAe+eEFyEdukIgCXJGYTY3JP157/bT8uXo8JjPSmpYF+821GaYybo6
+         1jtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794925549; x=1795530349;
+        d=1e100.net; s=20260707; t=1794925555; x=1795530355;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AK+gHSxZdcAvKZ7cQ385RlBq7MDtihQM1tWGeZNK/Ig=;
-        b=SZwp0BsloONQ5J2u7V8UM7td8JjXWfKp1jRJgJvjEqCD3Xnwo6ZhR4YgGAKG/S4ahU
-         sXSktBnxImAiMfjvijw0JcjNJvPOAtX8hSUHjpNnJLnzniSJqSqIvqn2tK3m/QzLKm9B
-         43LzMjQah3PS3nNI7xRdxY+FmybX1N95tyYvdK1meXekDAbHVN/IuoiFkfVf0hRGljlH
-         LwMLF8aRKLG7VXg/JnTXFJdu7a+sWPoFMr3jLpJrFRRy+3UKrtNdb4ujm8Sqw4BEBLqq
-         SvWsxV6w33Mh/c5my3u65BBcojQtG+kMlqu6pKgDvppi5rQ++iWumL+vjA9MoIk/xIbY
-         Oj0Q==
-X-Forwarded-Encrypted: i=1; AL+hErFu9v3FMfvad9+3gvOT7cMHEUDyy5+CDoPJdBfYjkkP4HuJBydQOpK+dsYcm6n3Zq71HHOP0iZ7BbzuTIk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/3cYWl2xnhg1D9snZ+VYa5dTWsRCI6i4ZiCRRcUeVrCkBnVplM
-	hBKReJDxjtuOJ8PtYBRje+Q8480kb/yPWD95SPcSxb9hWo7e7AD0D9t2
-X-Gm-Gg: AYBFou3ssw7H6ftE9PWcTy+BkrXEkC3PPuO7bpvBr16kcuJIBiC03wpbq3KykdwCJj+
-	wDyIafiOfE2/Js9mEdHIn01pxA6cQZNHg795HPZS0DvH51TZiV21SOWNWNoo7jRv9xszTUYH+ed
-	n1FjWrzTjmgIgLzE0xNUMDXjpRiscCGE/pN6O2S3n74BnIY4SRWYhZgm01wmGJ9+jiSYi6BZC6m
-	3Zuwm6/mpl1waPT2wL2TOdUsg8FAMhy7pmGHvyADtQh/pFEfHxFJVnyM7k4L5uHsAGuyVw30Ufj
-	y9L0g448ca3OXWDSi7tiw1wfz7YdgUF5axGk53kLdQvdddJ0tzdnr9OwXim9mCbrMFIvKmZYQjo
-	ICexilyACsXSKyK/HxcTEK9E36h0K/qz/gTx+uzvLFLswakGsf7/ofUcO9+KLTmBH2tVeA+wb1B
-	f4giVZjBSlaLy8oTbNfXvYNiB/X6ZxyLlQCFqBUOmVAlqra1NzZA5hog7XKeA7lM8aSiQbaiuhv
-	nrQ7JSjpur8rWI19z2R+hqSC1W1AsdUHLWRZ3vmwYcmcHQCSeO7WSyR7Z7FzN7iUg170301tkHw
-	KXj3iSIT8tXFpUUiLPf50RkB2xqSJkTDuw==
-X-Received: by 2002:a05:6820:2207:b0:716:bf6e:a4a5 with SMTP id 006d021491bc7-71ab52173d6mr7833605eaf.81.1794925549512;
-        Tue, 17 Nov 2026 06:25:49 -0800 (PST)
+        bh=qTTU/HttU3fjnx/LLkySkKgelZHAjJmF566oK0Z4Ap4=;
+        b=xlgUT2hXSHA5C2du1NYshpmlxiV0YkbZwt3QGdO73UoykGL/w7jQ3pIHaZz8icOSc/
+         lmVczDKGn1r2b00W4WjdZoL3l7zRCbvkBqXuV3lSHTobFsrwviZj4wsjU/ma/gCOVeAX
+         iUYcYP39ytyFCTWH7+SnEXQgSxrUcvhjD5VxZqiZHlbJ0oQiZ78kQqgUE8t1hkJyijm2
+         B8peqJRyQPChO7/DZl5e8ydcLgMgAnhuYDvvbkuMhRGrBLof0VBl+WzxlHNlOliyUo54
+         KYmSNSNdUwXDiTOOf5uZRhzaKfFI7Ewd5pxl0xsTVBWudtrw154hzNneU810gILGlUZa
+         0VYA==
+X-Forwarded-Encrypted: i=1; AL+hErHJa1mBuXxMCvniW/YVuXJVfDaake8GR2aM2rH93mXDF5QJCowQJ04v+Nel0Apnzt62Zl0MqJiTpvNsQBA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ZsR2T3HfK/8U6M7QhJlhuzHjMhZheOVDx2nFta8hImBU/BWTD
+	QyE9a0yUTFeV8/Aci0Emyc2WzHnbAeA8L+xOxnoKZb7T2KBZJp7jkc6D
+X-Gm-Gg: AYBFou0O06bfXwFE5Lu4djX1muh4zAcmlAPDCbUFcShqKPaIfSGH3Tgi+L0o8VPHaP+
+	NVPABvxKPKSIVKFNsFO3jgDnd/ypBiYBs8WbGQHSyko+YUIzK9CsgMg5Xj7d4UgR5kjCqoIgi0R
+	JcX9uf0AsTstP+eGLfJtPRh24hBvlaoyL8j0jSipuj6Yk+Z/YawijXr4Q8Tc3big6cSYGeUwbMo
+	P0EnuzSBbGvguYQJI3KBGHCoH1J+PBKhPNKQMu4cJcjySiJTBzDdl3Mw8INf5aP52Uw4b1DHfa5
+	RzL2zu0TV0nosi6XSNlrMfleU8oLGx1Dc+9NGFln+9HSuYkGMZ4MgvZEfN3YbNQxnEwvp+9U+J2
+	hkC/C+wmhGN/0F5Pt4zPyqs5ALjIGRlzCNlCsVylUlr0BjWVO61PuXV7TmBkDag/BBB8NjSY+c5
+	2r7P2iyl7eBl48XmdYXaQ0ZJXElhQp4CTMTZLKsIhfbuhd9alueRuKe1ax6/R/Nntv9jGbmuHqd
+	0UcwdNCLZJVhwbqFzG/JKqj7iBpWZWOBTDePnkqCmRQkHdvgzPCih+Hbqxmykd9ir0L3T9YwDRs
+	aNbvlJFSsgwdB8y0qqYE9fyoWydiMumFTQI=
+X-Received: by 2002:a05:6820:1353:b0:719:1ad8:a34a with SMTP id 006d021491bc7-71ab51ad506mr8840255eaf.67.1794925555161;
+        Tue, 17 Nov 2026 06:25:55 -0800 (PST)
 Received: from pve-server.rlab ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71af0a8a18csm5313709eaf.4.2026.11.17.06.25.44
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71af0a8a18csm5313709eaf.4.2026.11.17.06.25.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 06:25:48 -0800 (PST)
+        Tue, 17 Nov 2026 06:25:54 -0800 (PST)
 From: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
 To: linuxppc-dev@lists.ozlabs.org
 Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
@@ -90,9 +90,9 @@ Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
 	Mukesh Kumar Chaurasiya <mkchauras@gmail.com>,
 	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCHv2 3/4] powerpc/kvm-hv-pmu: Don't allocate gsm/gsb GFP_KERNEL allocations under spinlock
-Date: Tue, 17 Nov 2026 19:55:19 +0530
-Message-Id: <f52c0f92dacb6d9102a92aa9c6059b3edfb694da.1794924821.git.ritesh.list@gmail.com>
+Subject: [PATCHv2 4/4] powerpc/kvm-hv-pmu: Free hostwide stats buffers if perf_pmu_register() fails
+Date: Tue, 17 Nov 2026 19:55:20 +0530
+Message-Id: <f26a80d822ddfceb926aa732deb96e81c40dd2f9.1794924821.git.ritesh.list@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1794924821.git.ritesh.list@gmail.com>
 References: <cover.1794924821.git.ritesh.list@gmail.com>
@@ -107,127 +107,35 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-kvmppc_init_hostwide() takes lock_l0_stats with spin_lock_irqsave() and
-then allocates the guest state message and buffer with GFP_KERNEL. On
-a nested API v2 host with DEBUG_ATOMIC_SLEEP this warns at boot:
+kvmppc_register_pmu() calls kvmppc_init_hostwide(), which allocates
+gsm_l0_stats and gsb_l0_stats. It then registers the pmu. If
+perf_pmu_register() fails we return without freeing them.
 
-  BUG: sleeping function called from invalid context at include/linux/sched/mm.h:322
-  in_atomic(): 1, irqs_disabled(): 1, non_block: 0, pid: 1, name: swapper/0
-  preempt_count: 1, expected: 0
-  RCU nest depth: 0, expected: 0
-  locks held by swapper/0/1: 1, on CPU#0:
-   #0: c000000004ad95b8 (lock_l0_stats){....}-{3:3}, at: kvmppc_register_pmu+0x50/0x270
-  CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Not tainted 7.4.0-rc2-00028-ge5a8bf3a3ee9-dirty #124 PREEMPT
-  Call Trace:
-   dump_stack_lvl+0xe8/0x150 (unreliable)
-   __might_resched+0x190/0x30c
-   __kmalloc_cache_noprof+0x4dc/0x760
-   kvmppc_gsm_new+0x68/0xcc
-   kvmppc_register_pmu+0xd4/0x270
-   do_one_initcall+0xac/0x48c
-   kernel_init_freeable+0x3cc/0x7f0
-   kernel_init+0x3c/0x274
-   ret_from_kernel_user_thread+0x14/0x1c
-
-The lock is not needed for the allocation of gsm and gsb buffers.
-Allocate and fill the message and buffer without the lock and only take
-it to publish the two global pointers.
+Call kvmppc_cleanup_hostwide() on that error path.
 
 Fixes: f0c9c49c5067 ("powerpc/kvm-hv-pmu: Implement GSB message-ops for hostwide counters")
 Cc: stable@vger.kernel.org
 Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
 ---
- arch/powerpc/perf/kvm-hv-pmu.c | 65 ++++++++++++++++------------------
- 1 file changed, 30 insertions(+), 35 deletions(-)
+ arch/powerpc/perf/kvm-hv-pmu.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/arch/powerpc/perf/kvm-hv-pmu.c b/arch/powerpc/perf/kvm-hv-pmu.c
-index aa72b96b5a8c..a58634f656e9 100644
+index a58634f656e9..ec05b4855736 100644
 --- a/arch/powerpc/perf/kvm-hv-pmu.c
 +++ b/arch/powerpc/perf/kvm-hv-pmu.c
-@@ -314,53 +314,48 @@ static struct kvmppc_gs_msg_ops gsb_ops_l0_stats = {
- 
- static int kvmppc_init_hostwide(void)
- {
--	int rc = 0;
-+	struct kvmppc_gs_msg *gsm;
-+	struct kvmppc_gs_buff *gsb;
- 	unsigned long flags;
-+	int rc;
- 
--	spin_lock_irqsave(&lock_l0_stats, flags);
--
--	/* already registered ? */
--	if (gsm_l0_stats) {
--		rc = 0;
--		goto out;
--	}
--
--	/* setup the Guest state message/buffer to talk to L0 */
--	gsm_l0_stats = kvmppc_gsm_new(&gsb_ops_l0_stats, &l0_stats,
--				      GSM_SEND, GFP_KERNEL);
--	if (!gsm_l0_stats) {
--		rc = -ENOMEM;
--		goto out;
--	}
-+	/* allocate the Guest state message/buffer to talk to L0 */
-+	gsm = kvmppc_gsm_new(&gsb_ops_l0_stats, &l0_stats, GSM_SEND,
-+			     GFP_KERNEL);
-+	if (!gsm)
-+		return -ENOMEM;
- 
- 	/* Populate the Idents */
--	kvmppc_gsm_include(gsm_l0_stats, KVMPPC_GSID_L0_GUEST_HEAP);
--	kvmppc_gsm_include(gsm_l0_stats, KVMPPC_GSID_L0_GUEST_HEAP_MAX);
--	kvmppc_gsm_include(gsm_l0_stats, KVMPPC_GSID_L0_GUEST_PGTABLE_SIZE);
--	kvmppc_gsm_include(gsm_l0_stats, KVMPPC_GSID_L0_GUEST_PGTABLE_SIZE_MAX);
--	kvmppc_gsm_include(gsm_l0_stats, KVMPPC_GSID_L0_GUEST_PGTABLE_RECLAIM);
-+	kvmppc_gsm_include(gsm, KVMPPC_GSID_L0_GUEST_HEAP);
-+	kvmppc_gsm_include(gsm, KVMPPC_GSID_L0_GUEST_HEAP_MAX);
-+	kvmppc_gsm_include(gsm, KVMPPC_GSID_L0_GUEST_PGTABLE_SIZE);
-+	kvmppc_gsm_include(gsm, KVMPPC_GSID_L0_GUEST_PGTABLE_SIZE_MAX);
-+	kvmppc_gsm_include(gsm, KVMPPC_GSID_L0_GUEST_PGTABLE_RECLAIM);
- 
- 	/* allocate GSB. Guest/Vcpu Id is ignored */
--	gsb_l0_stats = kvmppc_gsb_new(kvmppc_gsm_size(gsm_l0_stats), 0, 0,
--				      GFP_KERNEL);
--	if (!gsb_l0_stats) {
-+	gsb = kvmppc_gsb_new(kvmppc_gsm_size(gsm), 0, 0, GFP_KERNEL);
-+	if (!gsb) {
- 		rc = -ENOMEM;
--		goto out;
-+		goto free_gsm;
+@@ -402,8 +402,10 @@ static int __init kvmppc_register_pmu(void)
+
+ 		/* Register the pmu */
+ 		rc = perf_pmu_register(&kvmppc_pmu, kvmppc_pmu.name, -1);
+-		if (rc)
++		if (rc) {
++			kvmppc_cleanup_hostwide();
+ 			goto out;
++		}
+
+ 		pr_info("Registered kvm-hv pmu");
  	}
- 
- 	/* ask the ops to fill in the info */
--	rc = kvmppc_gsm_fill_info(gsm_l0_stats, gsb_l0_stats);
-+	rc = kvmppc_gsm_fill_info(gsm, gsb);
-+	if (rc)
-+		goto free_gsb;
- 
--out:
--	if (rc) {
--		if (gsm_l0_stats)
--			kvmppc_gsm_free(gsm_l0_stats);
--		if (gsb_l0_stats)
--			kvmppc_gsb_free(gsb_l0_stats);
--		gsm_l0_stats = NULL;
--		gsb_l0_stats = NULL;
--	}
-+	/* setup the Guest state message/buffer to talk to L0 */
-+	spin_lock_irqsave(&lock_l0_stats, flags);
-+	gsm_l0_stats = gsm;
-+	gsb_l0_stats = gsb;
- 	spin_unlock_irqrestore(&lock_l0_stats, flags);
-+
-+	return 0;
-+
-+free_gsb:
-+	kvmppc_gsb_free(gsb);
-+free_gsm:
-+	kvmppc_gsm_free(gsm);
- 	return rc;
- }
- 
--- 
+--
 2.39.5
 
