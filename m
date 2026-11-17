@@ -1,59 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794928148;
-	b=wQZd3jkqnSCs54i3JiZTT+dira1lnPHbNLefpR9yJMmMQGBx6oIjsAWUJs5ipmwf7rYb
-	 7D14oAH24fYkil7KEUVw5NcoreO5VHl5kgkBUcwusFYNEmDUpVfqrVR6UYyQPW47htT+8
-	 eHKasHTlVinh7L7pdZa1nxSwKKGnuhMi3VaAo/jCXQT55W7EKYjLIeWtjLKq15kHgsw5G
-	 aMOAhyz4EwDImxQGv7q2V/PZX4ybds4+ri0K+KWKxbGH1vgGZ3gmbG6Ujgow6ghQpzJ1/
-	 qI3dEm4JJZzmB7euQy0CVGa0Xwxh2EmkZ/xhLgMgzWZI8uWQYW5fz9gIERw0HykJ7JA==
+	t=1794928182;
+	b=UhbxatJrsNnHhrCIQ+XmgmUFNYLmjcI8vVn5tryWN1GuitvLTsfDQxB9+2JZXIxmP2gs
+	 2k8LTirepb7470W+3LvmlV393dLrQxnW6XL9XU1QBbWeQXGX4l8N3qhFgmdxiERanY8Km
+	 XuQGyTqooLizmN4kbbRBOyq8OnC8IF6Gt6jj6Q0N3Ltt+x14yy219zLRKSF73xvovOl04
+	 Lbvft0yJ2m6NDx68UysNJH1g7UdB/HM5Ub3RlP4KORjzxrYV0fRUEdbYCfstcqrZ7LCtq
+	 QEjF+rS88QYgYSH9RykX6F9AxN0wB3eJaJbd0A+WUleW9rsKb1xyLcZmEjbWljyK6SQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794928148;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=dB4cEew9f/WAFHAIo06tqARg2yEsqJ/BPWF9uWXg0cQ=;
-	b=CLT7xw15CtGf4hIQUJLg6tA5OBJgFhHHNWWCe6/nkHc8GxouP+m08bfUleP22fk5Mjqr
-	 NtPbK/ln8tQ+p2Dj6uf3zOB9nu7HUYB6oYy4k8of/8EdVhqd8XdnR/a9yXzu0sdcYtlJz
-	 wR3e8O2cnt01F4gxnKCxDUczyCIa4NrvgGm490PwTd+pCP2h9/0UFPcU2uNf+WcbnBCjJ
-	 mdR/o6kCMu68QL6NHR6B26LW40iuF/WNPi7a9fjS1LJyDkeuHvTltTv5ozshpyEYvZPXw
-	 9wz556w/FM+4OaD50KaQdpnLJBNAgmJTxX7JfGNGYaPeojP3vcf7vjVlaoFI86xN/Vw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794928182;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=0sIqEz1LaF2+KzKunroBAMsjb5ekTIA0W1B9PutTqFc=;
+	b=XWzgfgxYioNQFvO8210fv5AqcaY494fn3W57HJi76UeiKWjdgN5n2u3MsAy2KnAdXnWJ
+	 HvKL//L0oc2qFe9XCh2qVvaFBYLQD/mCPI95toym0M2WO/AX5UBS4PqO+8tZfCtmnBEZ/
+	 7TH1anUwG49WBc1HcdonX+ORr3oL0cwrNDc5hZHvin9ACrLsO4y//KHgJl8U8qN6gqRSE
+	 Acmoq7jbpZwzofM7shdGxJJy4rlcucGc/dev3FVcdyRlEXXNO+cSrRdOYbacstXwbUOjb
+	 TqD/oEnMZ3rydgg//rw8g4wznO/Q58sd6jnmZVb8hiNYvPiothIJGbQ/qox6j6jwxLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=I7WO0ys4;
-	arc=none smtp.remote-ip=216.40.44.12
-Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nU+uJ0Kr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E064606A31C;
-	Tue, 17 Nov 2026 15:09:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E064606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C2E9606A31C;
+	Tue, 17 Nov 2026 15:09:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=I7WO0ys4
-Received: from omf19.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay03.hostedemail.com (Postfix) with ESMTP id AE879A043D;
-	Tue, 17 Nov 2026 15:08:59 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf19.hostedemail.com (Postfix) with ESMTPA id 7AB0020025;
-	Tue, 17 Nov 2026 15:08:57 +0000 (UTC)
-Date: Tue, 17 Nov 2026 10:08:56 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Yu Peng
- <pengyu@kylinos.cn>, Thomas Gleixner <tglx@kernel.org>, "Thomas
- =?UTF-8?B?V2Vpw59zY2h1aA==?= (Schneider Electric)"
- <thomas.weissschuh@linutronix.de>, Namhyung Kim <namhyung@kernel.org>,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH] tracing/synthetic: avoid comparing string against NULL
-Message-ID: <20261117100856.40ec1f4f@gandalf.local.home>
-In-Reply-To: <20261013205412.2579779-1-arnd@kernel.org>
-References: <20261013205412.2579779-1-arnd@kernel.org>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nU+uJ0Kr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69EC71F000C4;
+	Tue, 17 Nov 2026 15:09:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794928181;
+	bh=0sIqEz1LaF2+KzKunroBAMsjb5ekTIA0W1B9PutTqFc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=nU+uJ0Krv/p0zWWmbRGyr1cPRYUXNvjVxk5FBIqRmMr8PQf7JbrD3NugbmbwUvj7o
+	 oY3tq8uk4EIvesVz5P4WZFmIWC13vtmkuD/qiH1SMu2Rh/+AdT0fOCA+ldPuFH8a/h
+	 WIBmH/4LtxT/Fhnn2gEAqF7m4Y/RQXKH3uHLsWkJcqPP43Bh3TY3IdeSh7YEhRUoUL
+	 2Kxl8N5om3m/klIYFP+K68MrfRDpPv4dxpZHH4qPsApOrh9drc2S3hzza9iue/8UiN
+	 imdSMvgmyWtOzsAXTNUgWqJfOGgGA00oFWZuBN1twaWfVpEbCfCibZc5wprRCerWyf
+	 fO3yHxVFLPUFw==
+Message-ID: <53298044-3595-4231-a498-d78052799727@kernel.org>
+Date: Tue, 17 Nov 2026 16:09:35 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,97 +51,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] dt-bindings: display: mediatek: dpi: Add
+ compatible for mt8167
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: linux-mediatek@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, CK Hu <ck.hu@mediatek.com>,
+ Jitao shi <jitao.shi@mediatek.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260921113914.779393-1-l.scorcia@gmail.com>
+ <20260921113914.779393-2-l.scorcia@gmail.com>
+ <3701981f-cdda-46a7-8079-de5479ae9c27@kernel.org>
+ <CAORyz2+wF=VDTFkRFU7jBu-zNTW7T8mnPrJZAj8ZVD-Yyr2b6A@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CAORyz2+wF=VDTFkRFU7jBu-zNTW7T8mnPrJZAj8ZVD-Yyr2b6A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout05
-X-Rspamd-Queue-Id: 7AB0020025
-X-Stat-Signature: n4t8f1yr9zcb4kxbfg87wfytyuhem7it
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1/AES1H3mwHw2CmEzzgezaItoK2LXirnME=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=dB4cEew9f/WAFHAIo06tqARg2yEsqJ/BPWF9uWXg0cQ=; b=I7WO0ys4IpOknvK4YzTIR4/C3qghf7rvhv2epO/kn35gd9qargQ0G7pPfqrtSWqu0gREMPs0d6O0g83fM+xw909prnY/sI29fy59ep4GYTcGaPSliZuY1i+eJ3Loxhx8d0JYnSJBjIj2ZRgXBF5O3lRvS3MY5lr5WaDRVpdlOy0=
-X-HE-Tag: 1794928137-531490
-X-HE-Meta: U2FsdGVkX183wCMP7PwSqG4C6WGCBPRdxRl1aAuJSCQE6LU4esxy7fh08eYuee06Q4jgWaSxdxWrpQresmj7r6C5pqeKHUu5YMLoSfLKcuTp9MyeBJEBQ7V/cQK69TEAzcGXBXys4OX1JyEposRjZ1NkWToRVceJw21QTI0/LG9l9rdFVxKoPjM0cKVyDoM+msds5GEZPuWljymygmJlvikGHvG/7Ui+7FSAHrVrf4mf9ZCXOMC4sOFqQ+4+RhTc7mJjRWovU6tq9VbKGU9ayyTP8r1TIF4anBcLECgIfOB4mklal3Y3uP3qMHkNQvcLgIG7HUmNBZFiX9r9DnuzBqUw9YHvEFzR
 
-On Tue, 13 Oct 2026 22:53:52 +0200
-Arnd Bergmann <arnd@kernel.org> wrote:
-
-> From: Arnd Bergmann <arnd@arndb.de>
+On 17/11/2026 14:26, Luca Leonardo Scorcia wrote:
+>> Turns out you bring here undocumented ABI. NAK.
 > 
-> gcc-10 warns about passing a NULL argument into __synth_event_add_val(),
-> which uses it in an unchecked strcmp():
-> 
-> In function '__synth_event_add_val',
->     inlined from 'synth_event_add_next_val' at kernel/trace/trace_events_synth.c:2162:9:
-> kernel/trace/trace_events_synth.c:2076:8: error: argument 2 null where non-null expected [-Werror=nonnull]
->  2076 |    if (strcmp(field->name, field_name) == 0)
->       |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> In file included from include/linux/string.h:65,
->                  from kernel/trace/trace_events_synth.c:8:
-> kernel/trace/trace_events_synth.c: In function 'synth_event_add_next_val':
-> arch/s390/include/asm/string.h:39:5: note: in a call to function 'strcmp' declared here
->    39 | int strcmp(const char *s1, const char *s2);
->       |     ^~~~~~
-> 
-> The code is actually correct here, as the trace_state->add_name
-> does check for it, but this is hard for the compiler to prove.
-> 
-> Avoid the problem by repeating the check where the compiler
-> sees it.
+> Hi, I'm sorry but I don't see the relation between this commit you
+> just NAKed and the bigger issue about mediatek-drm alias usage. It's
+> not like I'm introducing anything new in these DPI specific patches
+> and the individual display block drivers do not depend on the aliases
+> (they're used by mediatek-drm for building the pipeline).
 
-Yeah, but the compiler is being stupid here. It's not that difficult for it
-to see it.
+To clarify: you do introduce a new compatible here and in the DTS. Here
+it is documented. This is correct.
 
-
-	if (field_name) {                      <<-- checks field_name
-		if (trace_state->add_next) {
-			ret = -EINVAL;
-			goto out;
-		}
-		trace_state->add_name = true;  <<-- set add_name
-	} else {
-		if (trace_state->add_name) {  <<-- If field_name is NULL and add name is set, error out here
-			ret = -EINVAL;
-			goto out;
-		}
-		trace_state->add_next = true;
-	}
-
-	if (trace_state->disabled)
-		goto out;
-
-	event = trace_state->event;
-	if (trace_state->add_name) {  <<-- Only get here if add_name is set (thus field_name is not NULL)
-		for (i = 0; i < event->n_fields; i++) {
-			field = event->fields[i];
-			if (strcmp(field->name, field_name) == 0)   <<-- test field_name
-				break;
-		}
+However your DTS introduces also new usage of the ABI - aliases - and
+that part is not documented. New DTS cannot use undocumented ABI. This
+means that the binding was not complete. There is a mismatch or missing
+pieces between the binding and DTS.
 
 > 
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
->  kernel/trace/trace_events_synth.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/kernel/trace/trace_events_synth.c b/kernel/trace/trace_events_synth.c
-> index dc15658a887c..c1287ca95aff 100644
-> --- a/kernel/trace/trace_events_synth.c
-> +++ b/kernel/trace/trace_events_synth.c
-> @@ -2073,7 +2073,8 @@ static int __synth_event_add_val(const char *field_name, u64 val,
->  	if (trace_state->add_name) {
->  		for (i = 0; i < event->n_fields; i++) {
->  			field = event->fields[i];
-> -			if (strcmp(field->name, field_name) == 0)
-> +			if (!field_name ||
-> +			    strcmp(field->name, field_name) == 0)
+> I understand why the commit to the dtsi that includes the aliases is
+> NAKed, and the eventual fix is going to require a change in all of
+> Mediatek SoCs dtsi. I am fine with the dtsi changes being blocked
+> until an appropriate solution is found. I just don't understand the
+> NAKs on the DPI components.
 
-I don't like making the code look worse to please something stupid the
-compiler is doing.
+Because this binding in relation to your DTS is incomplete. Of course if
+you drop the aliases from your DTS and this will be your final and
+working solution (bindings and DTS should be complete) then this NAK is
+not relevant and can be ignored. But in current form your bindings are
+incomplete and DTS after correcting won't work...
 
--- Steve
-
-
->  				break;
->  		}
->  		if (!field) {
-
+Best regards,
+Krzysztof
