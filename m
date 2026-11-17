@@ -1,98 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794934316;
-	b=MXUWQY3u1lsvmPg1OSFRyShD+7z9Pl1HnYqP9BrfR6a8hu0croVtIBEDm7GKforYBXjR
-	 U3x7R2ypwyEoOdpg3i1PEXOIRQhS1+uEZRCr1E+L/9oAd4fKY/ffrZhs2XgnZC/3PFlTY
-	 ysdmM/B5W/Kom5PuBzB8aKP20sag+Rl73VVB16UCVbJ7R45FgbidNXG1rbILZA2xOUhz6
-	 mXOLi+dxBVIjAgfU25gKkTLYeGwctBqdAnUdnbqJbogql4TG1btaXv3LLEE8SmaVpA/92
-	 k7h9RCfGYXdtAO0myKClaQAJ6vs6WEaWkFFxy2lhu0Hx4gMB92VkVF6LuhXf3ygnE+Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794934316;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794934315;
+	b=exWaL6C/gyCXZi076A2Ton2mhMCGUMwYv+xVTgpJrBbPJlbVMQo178FcKu1HfkysXJGd
+	 LcZRSpYgJkMZcHDniz8ZfHahGgqpPV/UbrZIcJ9l8nklHXWDu/cULCiWc2sjwaJgrNRIJ
+	 STD0Nzo3OEWRLDbvEvDtxR6XJBSqwJMzgMg7A7yt4TxNST4qUqgNI18eLYRgzCmRlYrGR
+	 SQwKJLH6+THiRYKPyFMre8rNpARcWX1DPOrhCQYdnXPA5stmj3CQrnmSx8nK84sEbTNOW
+	 6eNWHysEorkp7gk4LsCah9lnEUDCL7gwmaOgXKU6U1Jc9mMS80IwflTU7jsiaEegzZg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794934315;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:X-Google-Original-Message-ID:Date:From:To:Cc:Subject:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=UQhNopprSz0AVSKjleR7Xe3nJdZYPpFFlx8w8ov+7HM=;
-	b=1YTnza1JmT9XLFQpWqq1zMAopKBmLGQilEJtxj+EgILhUEfFhENl3I9qSdNCZb1hndK+
-	 2LjIKe/4/iTy0Nmw6W9OoQRH/I1W+AOfqOwNcPmb37P39BkXwmLY2QR6rUPRV6zIX2fpF
-	 7nUEi290IfpjQJ5yvP3rgNacP/uD1lT+s8S8nBDOfJkzKELR1rZvw4Q8QNueltxl1no/4
-	 XKPGQrRQqtfA3cGUW4jLnXxVrk+FSxBoxF49G7IGLg9tov1FEC+z9z+xsaP5EsfqfxUuC
-	 oDoMZc5k7tt8VtrxCfm1OBtvP46ZOHcY8BRzRArNLAmkiv47PT/WEFbvTARsgB0iZow==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=7JRaWtwwi9S7Z5KFGKcQeTS6a+RchtYr83xPGWINYgo=;
+	b=iqWN81xel+fKclv4JEE2Xv98hThR6ab3zWIsTAKmCs3JLfNQpyo1bNoMC/5/3eOcJRFB
+	 fJ0Uyc1bej/u0r5svOOiAa0l8R6SGx2KF1DjO540MIr69WeTSpm+o3R+L/3Lzn/1fSVdR
+	 VFGGJeIw1jK/j/ylkM8KP7LM6DXQGMp7FK0BTMixH8RLQL2wAkBgaNKOL+Kmh5yBWu8+E
+	 rhtmcNC4b5aphWcM8AxUg8VpmkyrQ9YuJLCUD1o1pymwC0F6mdxtAIBNzxdvXH1QwVXbK
+	 g775EBnY3rEGuDFbD/OlKKQpmJOCi8bRUKIRRv12dNZlpj9CWfUUoQfFZBao3RsumVg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m3lm6A1h;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0cG9HEID;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06D1A606A338
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:51:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06D1A606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6721606A331
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:51:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6721606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m3lm6A1h
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso5144931f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:51:55 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0cG9HEID
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4ac95761c85so558735e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:51:54 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794934313; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BpmyFTTEl22UpNQCYBEkZoscxu/tYECeIiQt2haCFqImbK7ud5NrSPArxu/LyfzFIt
+         EfLBGq+Zu7RyU1M3Fukay/TlzYIW/zg9Eg6qgXZFq4Exqw4ettzmTtlIUQWmSLD8OG2Y
+         7YVFHWtaMdNuhgZAqmlpenW9aupaO5XrmQdifOZ6AWFrXJ47n6PSxoTdmpS4ECisispv
+         qWKSmUEAIMUcetzzc5gwnwMIAktiiE8OvuZveChJIZ5NCP5SaNf1GVUcWpvmZTsx+VdC
+         nSz8RIg3P3O0ksBgoZL45m5ctd2P18BDvgTeHwK5bStu/cixrb6+KvB+Y1LnqKt7X/mZ
+         MPKw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7JRaWtwwi9S7Z5KFGKcQeTS6a+RchtYr83xPGWINYgo=;
+        fh=KkinvIfmUIrSWtfurzrBIL+DkXiw+mCo0ngrdMF+gWw=;
+        b=ShWw4FQ5wv2jk39u/iyC3Gm0RtkWFkFLmnNDhPLCHaSO7AgIPS9fJTykmjw0HlO2E8
+         fVShMRGGLxq5XVdXJ5vFI/oDWtsl3Bw3Mee51ouXpLktWjy04RrSofGT9sxJNE00AHRk
+         tvsGPw9klaKgm0I3yU/C7Aj1J4q0Kk/zgLHhZe0nj5p7TmUBRMQ0mAjJ+EXpV2xqxcpv
+         ncQ+wIbwuMFH3LX5CZ4KEkHLUD5CM5WKiCQUKgbpmnxtRrH46OD8LxT72oyzfHT6JP/U
+         U1+VmW1k98ajgdiUyv/OmcdwOmvFsx00d6Fj8ZiAITj4Q5XD7poy8z5KArSjjWDry8Iy
+         kBQA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794934314; x=1795539114; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1794934313; x=1795539113; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=UQhNopprSz0AVSKjleR7Xe3nJdZYPpFFlx8w8ov+7HM=;
-        b=m3lm6A1h/g3+iQL8eExyC3I2hvkQjMSCtoivGEv+A9rz1CMkEeXo11qkgi9C56129d
-         ZStkj+u9+4oTRYLOAA8H7gU2VpyjrTPUY8HcH1+n+EBixlFu7+OKzuA8dfuUBNiJIp7b
-         3wnhZtAT54lSxLGIn7U1R6tfV/yy9tgRv67KljQsVJZ+QCPBw8rhAx8xIFenF68UTLKz
-         sGRlQfnKcOiP0p9ndB+7ZGpmwOK/EUyfrI5hs5ahw0EGcMWju81ysSZqNtxncPnQ0giY
-         WjfamWL6wndgQq8BMtYB385J0v5z+5NVWwNaEa4R6E/QvoatGc8X0NUKxrdVvA0HW/wB
-         fwMw==
+        bh=7JRaWtwwi9S7Z5KFGKcQeTS6a+RchtYr83xPGWINYgo=;
+        b=0cG9HEIDKPN1IRLjWvhck/vln6wEcHrnV5TJWeVj5j0UGAlYiT9dy4RQ4G83AKqrBO
+         wfsqNqc0iqHE8NzVxg0qUKPI8/LOLteUkakQPojwzPDBrP2C3rLnPG9CT6GwlMZEYofq
+         tcqpIIhzFLtMFED//3XgkKb66wWor2VcJ8LUpV75RqG0Saq1eJdRPJqb3tku52GJg+oi
+         xkk85GAhMopSY6zJmS2QPb0i9y4L/erFssmbWusTmAx2d+sIDjCFIY3R2Rxrb0aAhMkD
+         KpoRygRV23IzbzvfZBw0Gt3VetYHpCk+74d5nQybBylkvNjT5fcJqhmbGpbe2s7Tu5oK
+         7UbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794934314; x=1795539114;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:x-gm-gg
+        d=1e100.net; s=20260707; t=1794934313; x=1795539113;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UQhNopprSz0AVSKjleR7Xe3nJdZYPpFFlx8w8ov+7HM=;
-        b=z3BS5iprA/8DmUrYiRRWwHlZFrwNdHzx6DMdWXeEeN4vw4ps+ek2Ur8sw5R4HSm4eZ
-         ZA/U9g3dJLwPs2zK8k+YMKRaWmBzCLG7NNpq5EngSCUFD1yD5iqs2w8v9mqiPQzzJvYK
-         YNZMVtOdxmHFYBfTzGj5hQLPWN2U04vGzlJQv6hTccx71eOwoilMMbik5rmfu4znhWtz
-         T3nXYBC3m/TS59whjA0qB1lLYDHZTPtn9RV8f/bfIrgNA2jNSuPlI/+PU6l0ikX3edTW
-         UPldWt7GbQ+9VbXrwvPUBkilha19THiciv2lo4eL3m9UaiM106Z7krJ2QhthnCYBLcpz
-         hYDg==
-X-Forwarded-Encrypted: i=1; AL+hErE5AVGu/iSx9lvFZ731vOt/aZo8ju0s9vpcEh2ipXG60iE9EPkUCj+nSPG5OVGJcPmYaNCqb2RcSINRSSk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/kc/kaMeHCWwAG0+AW6cSOzLzF8cQcld3O7foBKBnSdecSv7Nk
-	TnCLSpd2NXxLobWHRRfLClf56jbo+dMDNocGjgOBR2Ec4pJ17ixal2+r
-X-Gm-Gg: AZFdTZeANbofgyQBMyHZiT6JJKNTKHVbnLLMDz4UedukojcFaTJ6iZGm/3Pjq4Xmgno
-	AfANsYopxe6QPTbsuUGVWbwZzjD0eK7Zp+p8Djn3D02AGfZEJqYo2LKgDEeiHK5HGEdBBgOevKs
-	LapbC4FtXE9+RdQ7CrtLxdRKaUoLkmnH9swaMJZjtw/VXQXln5/DRlVstfvB1rX2JLM3yJL17V6
-	ASijA2VxE1KmUEX8B8cN6pe1drB4mrSa5u8IkUFSn2FKPVnjv3zvls4keRTuMSh5trflh+H252k
-	zxwz/zh7HWSxAKUstVdINjAb1gOaKuYJI3vbMeKDsI6SAJedWduqfAvz2nq2FKPQRetPDUbAiAK
-	lj0C/oyTwszdUYdc8f5243PeGOiFbVqStyOM4Z/P5txS8xQlAcpoWMQTgRIfvLkGB1wETM6Hcsj
-	uNRcN8cBJmzc4SWs3KdQUbE3Ix932yg+niY4wrzufDLqxzXpU0jNUo+jn5ZsTjOlkG6z8gkgiXt
-	X1bbXq6dVlIoWNEKH0Mc+hUAcdVgwKa0jFo/NNhOPOxxDCXn5BR8yO+fhjuuh2TccNX7CKMAyII
-	jFlW5/1mc/6woQv1mWDwLLTEuDXI3HKTClXyIMn3P80Bb7H0ho3eqH8nKUreg98zT+sFexh5v8z
-	TvuWPc3q1csOzzBOT
-X-Received: by 2002:a5d:5888:0:b0:48f:f26d:c5c with SMTP id ffacd0b85a97d-4a638058303mr43112f8f.9.1794934314251;
-        Tue, 17 Nov 2026 08:51:54 -0800 (PST)
-Received: from Ansuel-XPS. (93-34-92-103.ip49.fastwebnet.it. [93.34.92.103])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c605e5b2fsm30846431f8f.40.2026.11.17.08.51.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 08:51:53 -0800 (PST)
-Message-ID: <6afc8629.c6df0648.3437b8.c961@mx.google.com>
-X-Google-Original-Message-ID: <avyGJqEgNXfFXb8s@Ansuel-XPS.>
-Date: Tue, 17 Nov 2026 17:51:50 +0100
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Brian Masney <masneyb@kernel.org>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 1/2] clk: en7523: convert to full clk_hw
- implementation for en7581
-References: <20261110001128.1041-1-ansuelsmth@gmail.com>
- <20261110001128.1041-2-ansuelsmth@gmail.com>
- <179444135864.1126566.17591616173966524369.b4-review@b4>
+        bh=7JRaWtwwi9S7Z5KFGKcQeTS6a+RchtYr83xPGWINYgo=;
+        b=X0c6MGaSqEe/kpd+6KD6WEQrr8dukxE38W7XquC8XTrbLnBJ+DZSJnuWZJRQQpLmk2
+         O7pfT4j6sPlRmQKUkmp8s9cgQzlhB+vnXV7oeQpomXyV//vjiEKSYxwdqo/Eue6ur0T9
+         skykfkPWCz0QBNJ7qUgbSHW7weRsdGNHSVs3ighnqeTZYI2Ee9icVL6UOHxNk9E8+F6T
+         kHnyRzwh2NefwRblGC8J5ukXm2w064zV4CDZxzwq7bm6xogY1tnLbF1vF01vAsRn7f47
+         RAQ7p99sz5UiFgFnMebQThRNomlHQlxP7iVmm1K4P3pySUNflNH4ES1+eTaAGmtdOqFl
+         E+Pg==
+X-Forwarded-Encrypted: i=1; AL+hErG+g79z7mOe3MjEcbpL9+GMZmA78GniSpTs3w+bk0XmVQiY4uN5tI7PWoJRxHdBE8hAunvWrVHz2mqbrwE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8SduNtmxq9F5cIzeeL4SoaPB38acx2dMxc962NyG1PXsF2UqWF
+	7Mp4ZERe0cIQa0mZeFU5N0se9F2c3H6pgIN2Na6tF62TQmV4e/EfWo9NlcnEM9yPAviKIqJYCzI
+	N9Mh/4IgsjbIzAMS/8S7b2sN238ANIau1CmWn
+X-Gm-Gg: AYBFou2HAFShilhK5ZFSaM5Z7uqOqaQWzv1GyUEX0T7cwqgEOFole658kFVK3Uayud+
+	VQdpphhBtJdHoqcg2+JhJBCH77vtmVXZXg7H2DeP8ehty3XofD4lTizs74JYa2JrDq6g4HC7Z2C
+	hLm1hieAqwyxZ0ZvMIqD6I0S+Pfg4qKKJy7u40r6TiCBTtxJS+AnaROas78sLm/qZGzZrEG5Uu4
+	QJh4tgrXXcBNVPxq2chF/sImA2pyKVQew7coTKsxc+6rk3hbTgXbscdYwZJMpTmicWNjlfUUeCU
+	kwL52Pw/h6q7pp9EoqSN38PD7zrVA3offmzYVUL0tsVZyXkL2KDF4PfmnmOJnhrPpWV+wXF2XQ2
+	s8X2/bmltZAvUpwyxc5cjjV8HHEnb97ruYqWav4vKlPiyM1snRrEHTM6Lb3DiKJAkBUWFA6oy/4
+	L8E0BK+krqzTAo5R4kTLhcO3pl2x59clYfJg==
+X-Received: by 2002:a05:600c:3e1a:b0:4a2:191f:7cbd with SMTP id
+ 5b1f17b1804b1-4bb55a3e31emr267364685e9.11.1794934312966; Tue, 17 Nov 2026
+ 08:51:52 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,106 +105,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179444135864.1126566.17591616173966524369.b4-review@b4>
+References: <d85ece6e-27f9-4d9f-83af-4101bc76fef6@app.fastmail.com>
+ <356db94e-f5d6-4fb2-839a-b97aef72256b@app.fastmail.com> <CAHC9VhR9sjunJRnM9gy-BkBZkapQTrr8a8FtmaK7JkAmUqTrLA@mail.gmail.com>
+ <CAEf4BzZKmn6g0SK8OddjKFj_vAmZFvpZv32Hs_S+GHgT7VNfrg@mail.gmail.com>
+ <9d6bdc31-e57c-4187-be78-29d82471f710@app.fastmail.com> <CAEf4Bzb+oYDqO20v4YbJ45wdtcGgJT3xVse822P+=oA7fpFAOA@mail.gmail.com>
+ <CAHC9VhRcT3rmdpeadwi2avhwvr7aEZYStZ3bbEEx1hm=wtBGhQ@mail.gmail.com>
+In-Reply-To: <CAHC9VhRcT3rmdpeadwi2avhwvr7aEZYStZ3bbEEx1hm=wtBGhQ@mail.gmail.com>
+From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Date: Tue, 17 Nov 2026 08:51:40 -0800
+X-Gm-Features: Aa3M54rjJelQoMCxfJbdMIri9nRD0cwaH3YE08B27J2GSDu0HswQ_b0L7fMjvps
+Message-ID: <CAEf4BzZ120age2-M-a_TJ07xohb7-s=xn3e1W_-V0kopnATq6A@mail.gmail.com>
+Subject: Re: [BUG] bpf, lsm: new first argument in 7.4 inode hooks silently
+ breaks BPF LSMs
+To: Paul Moore <paul@paul-moore.com>
+Cc: roblabla <linux@roblab.la>, Daan De Meyer <daan@amutable.com>, bpf@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, paul.mabileau@harfanglab.fr, 
+	linux-kernel@vger.kernel.org, Andrii Nakryiko <andrii@kernel.org>, 
+	Christian Brauner <brauner@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 11, 2026 at 06:55:58PM -0500, Brian Masney wrote:
-> Hi Christian,
-> 
-> > In preparation for support of .set_rate, convert the clock register
-> > logic from fixed clock implementation to full clk_hw implementation with
-> > dedicated OPs for Airoha EN7581 SoC.
-> > 
-> > This is just a rework and no behaviour change is expected.
-> > 
-> > Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-> > ---
-> >  drivers/clk/clk-en7523.c | 75 +++++++++++++++++++++++++++++-----------
-> >  1 file changed, 55 insertions(+), 20 deletions(-)
-> >
-> > diff --git a/drivers/clk/clk-en7523.c b/drivers/clk/clk-en7523.c
-> > index 24fdec2e6198..6640e814d36a 100644
-> > --- a/drivers/clk/clk-en7523.c
-> > +++ b/drivers/clk/clk-en7523.c
-> > @@ -126,6 +126,12 @@ struct en_clk_gate {
-> >  	struct clk_hw hw;
-> >  };
-> >  
-> > +struct en_clk {
-> > +	struct regmap *map;
-> > +	const struct en_clk_desc *desc;
-> > +	struct clk_hw hw;
-> > +};
-> > +
-> >  struct en_rst_data {
-> >  	const u16 *bank_ofs;
-> >  	const u16 *idx_map;
-> > @@ -742,42 +748,71 @@ static int en7523_clk_hw_init(struct platform_device *pdev,
-> >  				     en7581_rst_ofs);
-> >  }
-> >  
-> > +static unsigned long en7581_recalc_rate(struct clk_hw *hw,
-> > +					unsigned long parent_rate)
-> > +{
-> > +	struct en_clk *c = container_of(hw, struct en_clk, hw);
-> > +	const struct en_clk_desc *desc = c->desc;
-> > +	struct device *dev = clk_hw_get_dev(hw);
-> > +	struct regmap *map = c->map;
-> > +	u32 val, reg;
-> > +	u32 rate;
-> > +	int err;
-> > +
-> > +	err = regmap_read(map, desc->base_reg, &val);
-> > +	if (err) {
-> > +		dev_err(dev, "Failed reading fixed clk rate %s: %d\n",
-> > +			desc->name, err);
-> > +		return 0;
-> > +	}
-> > +	rate = en7523_get_base_rate(desc, val);
-> > +
-> > +	reg = desc->div_reg ? desc->div_reg : desc->base_reg;
-> > +	err = regmap_read(map, reg, &val);
-> > +	if (err) {
-> > +		dev_err(dev, "Failed reading fixed clk div %s: %d\n",
-> > +			desc->name, err);
-> > +		return 0;
-> > +	}
-> > +
-> > +	return rate / en7523_get_div(desc, val);
-> > +}
-> > +
-> > +static const struct clk_ops en7581_clk_ops = {
-> > +	.recalc_rate = en7581_recalc_rate,
-> > +};
-> > +
-> >  static void en7581_register_clocks(struct device *dev, struct clk_hw_onecell_data *clk_data,
-> >  				   struct regmap *map, void __iomem *base)
-> >  {
-> >  	struct clk_hw *hw;
-> > -	u32 rate;
-> >  	int i;
-> >  
-> >  	for (i = 0; i < ARRAY_SIZE(en7581_base_clks); i++) {
-> >  		const struct en_clk_desc *desc = &en7581_base_clks[i];
-> > -		u32 val, reg = desc->div_reg ? desc->div_reg : desc->base_reg;
-> > +		struct clk_init_data init = {
-> > +			.ops = &en7581_clk_ops,
-> > +		};
-> > +		struct en_clk *en_clk;
-> >  		int err;
-> >  
-> > -		err = regmap_read(map, desc->base_reg, &val);
-> > +		en_clk = devm_kzalloc_obj(dev, *en_clk);
-> > +		if (!en_clk)
-> > +			continue;
+On Thu, Nov 12, 2026 at 6:41=E2=80=AFPM Paul Moore <paul@paul-moore.com> wr=
+ote:
 >
-> return -ENOMEM;
+> On Thu, Nov 12, 2026 at 6:00=E2=80=AFPM Andrii Nakryiko
+> <andrii.nakryiko@gmail.com> wrote:
+> > On Mon, Nov 9, 2026 at 7:08=E2=80=AFAM roblabla <linux@roblab.la> wrote=
+:
+> > >
+> > > Hi,
+> > >
+> > > Thanks for the replies!
+> > >
+> > > > LSMs that need to provide a stable API must provide an abstraction
+> > > > layer between the LSM hook callbacks and their stable API.  The LSM
+> > > > framework is not responsible for the stability of individual LSM AP=
+Is.
+> > >
+> > > Understood, that lines up with my expectations. I think the biggest
+> > > thing here would not necessarily be stability guarantees, but rather =
+to
+> > > make sure that the eBPFs fail to load when the compatibility is broke=
+n.
+> > > But that's probably a problem for the eBPF side, and not LSM, I assum=
+e.
+> > >
+> > > > So, in short, would it be possible to send a follow up to Daan's
+> > > > commit and move `struct mnt_idmap *idmap` to the end of LSM argumen=
+t
+> > > > list?
+> > >
+> > > If this is possible, that'd be nice so that we avoid this breakage in
+> > > the short term, since the change isn't in a released kernel yet.
+> >
+> > can you please send a patch proposing that and we can continue
+> > discussion there? please cc me so I can follow along
+>
+> Considering the original patch was submitted, reviewed, and merged
+> with the BPF LSM being the only user (none of the existing in-tree
+> LSMs use the idmap parameter at present), I'm a little surprised this
+> wasn't brought up earlier.
 
-Hi Brain,
+Yeah, unfortunately this was missed. Not sure it's surprising that it
+wasn't detected immediately, though, because unlikely someone tested
+an unreleased kernel in production. Luckily, this was still detected
+early enough before the final release and this gives us a chance to
+fix a mistake.
 
-as you pointed out in the previous revision, returning would change the
-behaviour so I currently skip the clock in such case...
- 
--- 
-	Ansuel
+>
+> Beyond that, from a style perspective, I think I prefer the idmap at
+> the front of the parameter list in most (all?) of the hooks where it
+> was added.  I'm not interested in moving it at this point in time.
+
+So on one hand we have a real user pain which is easily fixable
+without burdening kernel and LSM subsystem in particular, right? On
+the other hand there is a minor issue of argument ordering with
+mnt_idmap preferably as a first argument. I get the preference, but I
+think fixing an unnecessary (but easily fixable!) user pain should
+come first, don't you agree?
+
+Can you please reconsider?
+
+>
+> --
+> paul-moore.com
