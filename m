@@ -1,54 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.193
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794885229;
-	b=PcV2FaSsCEVnz71cIpgFkAXc0Krb4fDoRE6fJcBf/rGSh+5ZlucMAQu390x85SSRWRoC
-	 zQd0AW8JjNGV0zpT0UOoUeeFOdRUaBOYYH68jc3mEYoQIQ3paUVNG+IOczZF8iYdb/FEW
-	 xvxLGUEWAxvTlNyPVM1i6k+nHXNM+mCkqNsjrf8umLyqO1rxwJJHaLetJFZVzU7NAR0vV
-	 /g/EnwABV4ZU2YewjqEdD8qTEpvnpdxI/1geLDQpHepO10NZKECrqQ8nsGyDIBL0LoNqx
-	 uD9pPPvZGWLQDbcJNvpQJpH+eQNg/MDkOz1T6sDxjAKh/Eufg/0cME/4TE+YolLOwOg==
+	t=1794885321;
+	b=tfvyW+LzaaCHeAx8FK1NjxsjsEI6drelZqIydAPX7zmrn/iLQ+VRoMuTzEeQZ20HNoEW
+	 b82nWt4h7l5ZcVIrb50iYfNp6MBd2rIeSqb2oLto644Wacv0UyIbcTjZop2itg5MfnmaO
+	 /YYRYcF9Rmd91cV3cfRKy9Vq7gsqPEttdkv84JtgRt1Qry9ub/xTzxHZJYKe8LC9cwq/l
+	 B+LXvR8dnhM/jcf3BoN60mr4WstrEcrOL7bFeRAbMYrI/F1XqTrYJjvfnVgnNwyVIOuly
+	 76HwhsQ/XK5AO5b+Ej0Fg4VMy6BUsNErkw73lFrtXEyMm76OU7A5HmsQRIYNdvhpJCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794885229;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=8Henz0FrWmmxzwoavWH1AFferz9Sy4A9czKO41x1rhs=;
-	b=qVUFqPqvwBwRoLcXc5t9vuP6axgWZWBFwAOFmLLnp1Sdcgq+vR4riHJyXbr+tmj7I1n+
-	 r685//b5Vrxjf39oyPiSh9blUPIiRJXOOUPDR6nP4bjP0JEZSIJyhi/kXIbUEbb6Am6q3
-	 YEw2q6fIyVsj1kiOOpM+yE+GONrFg5YKLc6qE5Xa4BPoXEzKZrGN5/mAQ0+1ZQ0ziRbnS
-	 ZepKI8yBxR4Yu4zjs8P+0Yu0FmXEfgVaRBjL8AvN7ya2OvUWCFkbNK0Z0nRRXELzHeB9N
-	 XJ6OIaKvXawDJBD2Ee6loh4FOFWlPCE6M8NebCIPIu3eezjwS2iuU3zXvIx2UzO6gSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794885321;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=VuiJz2eGPHLfGtyJsLjaVLF/Zzns0rxzByENBKBwsmc=;
+	b=QafxzCCd7hbNXgFicFQkEB0ZIQ3qZ3TyXNWFdCifruGRt3zSPpHfFp2q3hW7Iop+hAAr
+	 jCFJ1ZlrK89HYBm9g4mhywUupKMk5AystRSs3l55ZC09BeCA8Qa1k+51HRItrQDknoh5Z
+	 TnzDka+gjk3lZ6BZh3utYQScDk+4AFLb3xTW5Z5FjHYdKTYSTLLNvFknL4d+c01hiQynk
+	 3kLmgsipFg62pWwSyXh6DvcpozoXEnDVYgjHzDf+CS9iy7Fn5fmZ2ZfzM8TNq/U5sYJC+
+	 3OTUwvVzatRxIGwJy4gIJH3DgZM7N0q2bYyv3pfVK2Kbc1icWpHnNuwA+lrzP9Uycig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IFQyfyc4;
-	arc=none smtp.remote-ip=95.215.58.193
-Received: from mta1.migadu.com (out-193.mta1.migadu.com [95.215.58.193])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FIv68Yiu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E2FA606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:13:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E2FA606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1504C606A31C;
+	Tue, 17 Nov 2026 03:15:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IFQyfyc4
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=R3QFMBD/atgM6V8xogzigzWPQmqYHpUv7HSFT3n7u58=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794885227; v=1; x=1795490027;
- b=IFQyfyc4sDt7Ud73LHiVUEWq8Soo68ERr2KoZoU8Z+GOwWqFBoogM3CuJBqsd+C9zbvckxb1
- qwZHNlPHTRN0PaLcr9XNOodg3JwOOM698v03nWbU2bWeMaGx6v6Q9fSTirWDIGKE2nZhJ5nAk/Q
- ohseESwX2PQGgp0XeoVeBxK4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id bf6838e5dd8e88ed;
-	Tue, 17 Nov 2026 03:13:46 +0000
-X-Mizu-Trace-ID: bf6838e5dd8e88ed
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <44fc03e4-a545-465b-a7f4-174be2038884@linux.dev>
-Date: Tue, 17 Nov 2026 11:13:42 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FIv68Yiu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0882F1F000C4;
+	Tue, 17 Nov 2026 03:15:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794885320;
+	bh=VuiJz2eGPHLfGtyJsLjaVLF/Zzns0rxzByENBKBwsmc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=FIv68Yiu8XfrJRoOfreho7V9a5y0AZd8TJ3oRMmD56blLULU+yEcRPfkRVkNRvQCz
+	 b0rlWimhoQ9fZSHGwTUfbfM8PnZ4Un3D87e4yO7Fdb1Es3FuffU7v6HoRgPfI0odE3
+	 cOXxX5dja2Adrj+6Z8fiE6DNliIRbSQCUbrwh89ZBj3j1TxWq2d7925U+Q1SpfKmxQ
+	 Colugrk3US8k/94kEG/a7guJJTZ9RY2chsUmdWYDcm+18VbsEIXppxBXArP2L15PVb
+	 5VW4IRjqrS6tYNS7fgLLQvOMP6Z/hup74n+weQYVRxMO1PAaGpi8DfE1jXvjWmeYYx
+	 bFqU0pvn4G2wg==
+Date: Tue, 17 Nov 2026 03:15:09 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: "Sabau, Radu bogdan" <Radu.Sabau@analog.com>
+Cc: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>,
+ Lars-Peter Clausen <lars@metafoo.de>, "Hennerich, Michael"
+ <Michael.Hennerich@analog.com>, "Sa, Nuno" <Nuno.Sa@analog.com>, David
+ Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ Alexandru Ardelean <alexandru.ardelean@analog.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, "Miclaus, Antoniu" <Antoniu.Miclaus@analog.com>,
+ "Budai, Robert" <Robert.Budai@analog.com>, "Gradinariu, Ramona"
+ <Ramona.Gradinariu@analog.com>, "linux-iio@vger.kernel.org"
+ <linux-iio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>, linux <linux@analog.com>, Conor Dooley
+ <conor.dooley@microchip.com>
+Subject: Re: [PATCH v6 0/8] iio: imu: Add support for the ADI ADIS16607
+Message-ID: <20261117031509.2dfbc85d@jic23-hlaptop>
+In-Reply-To: <LV9PR03MB84141F84CA155F8CDD2587FAF77C2@LV9PR03MB8414.namprd03.prod.outlook.com>
+References: <20261113-adis16607-v6-0-3f678719942a@analog.com>
+	<20261114002522.34f8aeff@jic23-hlaptop>
+	<20261114004955.71c7ed7f@jic23-hlaptop>
+	<LV9PR03MB8414D877E31EFC41535C9FF0F77C2@LV9PR03MB8414.namprd03.prod.outlook.com>
+	<LV9PR03MB84141F84CA155F8CDD2587FAF77C2@LV9PR03MB8414.namprd03.prod.outlook.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,130 +74,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 04/14] mm/mm_init: factor out common struct page
- initialization
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Oscar Salvador <osalvador@suse.de>,
- Li Zhe <lizhe.67@bytedance.com>, Andrew Popple <apopple@nvidia.com>,
- Balbir Singh <balbirs@nvidia.com>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka
- <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, James Houghton <jthoughton@google.com>,
- Lance Yang <lance.yang@linux.dev>, Qi Zheng <qi.zheng@linux.dev>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Muchun Song <songmuchun@bytedance.com>
-References: <20261113033442.62970-1-songmuchun@bytedance.com>
- <20261113033442.62970-5-songmuchun@bytedance.com>
- <179482576829.2379196.2091312590305150578.b4-review@b4>
-Content-Language: en-US
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <179482576829.2379196.2091312590305150578.b4-review@b4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Mon, 16 Nov 2026 12:18:27 +0000
+"Sabau, Radu bogdan" <Radu.Sabau@analog.com> wrote:
 
+> > -----Original Message-----
+> > From: Sabau, Radu bogdan
+> > Sent: Monday, November 16, 2026 10:55 AM  
+> 
+> ...
+> 
+> > > >  
+> > > > > This series adds support for the Analog Devices ADIS16607, a precision
+> > > > > MEMS IMU with triaxial gyroscope, triaxial accelerometer, and
+> > > > > temperature sensor, communicating over a non-standard SPI Half-Duplex
+> > > > > protocol.  
+> > > >
+> > > > Applied 1-5 to the testing branch of iio.git.
+> > > >
+> > > > I 'think' the proposed changes for the fifo handling shouldn't affect
+> > > > those and I don't fancy reviewing a mega series with library changes
+> > > > and the new device support.  So build on the base of these first 5 patches.
+> > > >
+> > > > You will need to provide a base commit for dependency list though
+> > > > or sashiko may get confused.
+> > > >  
+> > > Change of plan. Dropped it over channel type issues in patch 5.  
+> > 
+> > Thank you guys again for the review, and sorry about patch 5. I'll move the
+> > scan_index/scan_type and the timestamp channel into the FIFO patch and
+> > resend.
+> > 
+> > On the FIFO side: adis16475's has_fifo variants register an IIO trigger
+> > today and are used through trigger/current_trigger. Converting them to a
+> > trigger-less kfifo buffer, as discussed for the library, would remove
+> > that attribute on the six ADIS1657x variants, so it is an ABI change on
+> > existing devices. Is that acceptable to you?
+The ABI change is not.  That's not to say you can't bypass it under
+the hood.  So have the whole current_trigger registered but ignore
+whatever it is set to.  We have another driver that does that
+(for same reason).  IIRC you can do it using one of the less
+obvious trigger modes.
 
-On 2026/11/16 18:42, Mike Rapoport wrote:
-> Hi,
+> > 
+> > If not, the alternative is a smaller fix in adislib: iio_trigger_poll_nested()
+> > for the has_fifo path, plus a prep patch taking the sample timestamp in
+> > the handlers instead of pf->timestamp (the nested path does not run the
+> > pollfunc top half). That keeps the ABI as is, and the adis16607 would
+> > then use the adislib trigger path again.  
+> 
+> Thinking about how to split this: sync and calibration bias do not depend
+> on the FIFO, so I could resend the series as the adislib patches, the
+> binding, the base driver (raw reads only), external clock sync and
+> calibration bias, with no FIFO. Then a follow-up series with the FIFO.
+> Would that work for you?
+> 
+> For that follow-up I would still like to know which way you prefer to
+> go for the adislib FIFO handling:
+> 
+>  - kfifo helper: a trigger-less kfifo buffer with its own threaded IRQ,
+>    used by the adis16607 and the adis16475 FIFO variants. It removes the
+>    trigger/current_trigger attribute on those variants, so it is an ABI
+>    change.
+This but without the visible ABI change.  We just make the ABI do
+nothing. :)
 
-Hi Mike,
+>  - iio_trigger_poll_nested(): a smaller fix in adislib for the has_fifo
+>    path, plus a prep patch taking the sample timestamp in the handlers.
+>    It keeps the ABI, and the adis16607 would use the trigger path again.
+>    It is only two or three patches, so if you think it is the better
+>    alternative it could also be done in this series.
+> 
 
->> Several struct page fields have the same initial values for every page in
->> a zone. __init_single_page() initializes this state as part of its
->> per-page setup, while the shared vmemmap tail path open-codes only a
->> subset.
->>
->> Factor the PFN-independent state into memmap_init_page_common() and use
->> it for both regular and shared tail struct pages. Keep section-, PFN-
->> and instance-specific initialization in __init_single_page().
->>
->> This also initializes the last cpupid and KASAN tag for shared tail
->> struct pages consistently with regular struct pages.
->>
->> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
->> ---
->> v2:
->> - Remove __meminit from memmap_init_page_common() so HVO shared tail
->>    pages can call it after init text is freed (reported by Sashiko).
->> ---
->>   include/linux/mm.h  |  8 --------
->>   mm/mm_init.c        | 22 +++++++++++++++++-----
->>   mm/mm_init.h        |  1 +
->>   mm/sparse-vmemmap.c |  7 +------
->>   4 files changed, 19 insertions(+), 19 deletions(-)
->>
->> diff --git a/include/linux/mm.h b/include/linux/mm.h
->> index 77b5d450fe45b..2e182498898ec 100644
->> --- a/include/linux/mm.h
->> +++ b/include/linux/mm.h
->> @@ -3022,14 +3022,6 @@ static inline void set_page_node(struct page *page, unsigned long node)
->>   	page->flags.f |= (node & NODES_MASK) << NODES_PGSHIFT;
->>   }
->>   
->> -static inline void set_page_links(struct page *page, enum zone_type zone,
->> -	unsigned long node, unsigned long pfn)
->> -{
->> -	set_page_zone(page, zone);
->> -	set_page_node(page, node);
->> -	set_page_section_from_pfn(page, pfn);
->> -}
->> -
->>   /**
->>    * folio_nr_pages - The number of pages in the folio.
->>    * @folio: The folio.
->> diff --git a/mm/mm_init.c b/mm/mm_init.c
->> index af3b81733193b..d0a11989bd249 100644
->> --- a/mm/mm_init.c
->> +++ b/mm/mm_init.c
->> @@ -602,15 +602,27 @@ static inline void vmemmap_optimization_verify_zone(struct page *page)
->>   			page_zone_id(page));
->>   }
->>   
->> -void __meminit __init_single_page(struct page *page, unsigned long pfn,
->> -				unsigned long zone, int nid)
->> +/* Initialize PFN-independent fields common to pages in the same zone. */
->> +void memmap_init_page_common(struct page *page, enum zone_type zone, int nid)
-> I don't think _common adds much here, memmap_init_page() would do.
-
-Naming is difficult. I'm fine with memmap_init_page.
-
->
->>   {
->>   	mm_zero_struct_page(page);
->> -	set_page_links(page, zone, nid, pfn);
->> -	init_page_count(page);
->> -	atomic_set(&page->_mapcount, -1);
->> +	set_page_zone(page, zone);
->> +	set_page_node(page, nid);
->>   	page_cpupid_reset_last(page);
->>   	page_kasan_tag_reset(page);
->> +	atomic_set(&page->_mapcount, -1);
->> +#ifdef CONFIG_ZONE_DEVICE
->> +	if (zone == ZONE_DEVICE)
->> +		__SetPageReserved(page);
->> +#endif
-> Can't we keep this in ZONE_DEVICE part?
-
-We can. But I put it here because there are at least two places where
-we need to mark a ZONE_DEVICE page as reserved. Handling it in
-memmap_init_page_common is simpler — it reduces the number of places
-where we have to set reserved individually. Otherwise, we would need
-to explicitly set reserved in multiple places.
-
->
-> If we can't, __init_single_page() sets PG_reserved for ZONE_DEVICE pages
-> and the
->
-> if (zone == ZONE_DEVICE)
-> 	__SetPageReserved(page);
->
-> in the MEMINIT_HOTPLUG part of memmap_init_range() becomes redundant.
->
-
-Good catch. I think I could remove this redundancy next version if you
-think handing it in memmap_init_page_common is okay.
-
-Thanks,
-Muchun
