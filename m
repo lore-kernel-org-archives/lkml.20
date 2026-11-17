@@ -1,50 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794924024;
-	b=N2I6a3AEcSoCVn6X/Qe8EN2lKdT3qxw9nTYNnZESIq0VHLWkLOu7iiD9Y8vrPVKlOI2N
-	 0c60uhuRePzBy5LwVPLCTF612N0K5MhIaIQHo45WiS9WEMsf6TWVhYaFfynR/s3RLAgEW
-	 VI+8qlWNPagEMk+nzMvosWtMqxEZO3x+ZzC/JcqHbVptY4pPpfVHPZhS86DUUEfHB3sUE
-	 f+yNbNy68BqcV2i1k7x4Grna+NVsYTJNCvANGCmh+uk7ZHu63ncdAG5J5fvb/PCyK5Osq
-	 PzQ4D6MVwVzmJwZab/qgDhllYIuTGkH9Pnvhc710XHhnLQzbhGH4OLmb1axkrlHm5+w==
+	t=1794924027;
+	b=PhFnXlEaDbo/6ooT0HnNiQtoD3ebJKt9TOcybbo6qDEEnXg+jfhxLPhkZ4c5iMOnnQUF
+	 nHp0E+mmGJ4uiIw6dLPS5dgRVexb4z47t59yajNh6MYCOEVV9Q+SWX3rWk+k1R1ReqmvF
+	 3N2fG3Ht4wYvMPrXwS7kT8JzW4ZS6zEFmrFnXm3BHlFMLzXoj1SAanRakJvl09YxbSHDm
+	 Gba9q4KUp2oH8laHumV8sCETdsVoH2vT5orJpCndQkKnhOUaO6Y57+kyoQw1/YBk9RL2e
+	 3LMCKRlrussH/+rzqnFngIjfKJng/1rFFdC0g3C2HkucWhhEgD4nHrLnpgNMTiPZ25w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794924024;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer;
-	bh=QAKEKUUgAktJKHEVX7KI7OTga21H38xwimtePgaRsRg=;
-	b=Zu2LeutkhZm3gQsdxw6AA8l1LX3XWMsL6u8PIiEQ0TAvaAtYgAJ0LatJpHrp1g9ArASk
-	 0xrD5wU6PQhQIDpKsCYSFQqFOPzRth/pwFilxffR2DFeXyymfYy7Hi0A013RVqlAWpHMf
-	 9aiYmvlvSB6kp/KxRT0iSYnqle0aMkrpLRl9J/PEcn3/YLfq6Hiwg2IVu7xvKDSXQ6yh7
-	 GCkBkQQiyI2OrVh2U0HgfW8zB6D9Trj8y0lfBFd359ie3ad513xlnDnNSB/C7ptt5IrI9
-	 2vinTZZQKrzxxPor8S1gYseIQnMIKi4QS6UddBA9mWaZ41pci06VKU7/k9Z/DwZygmQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794924027;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer;
+	bh=+zoXsUOZLc6Lxh6C7rK9vE6qS+E7WFN3jSnhKD9U1X4=;
+	b=rBBkLoXMDupuqvgJgzhVc+1ddJUjSyv0gkQ4JvlUYRQ5fOb2Ul6x+UIE2VqIbBrfS5q3
+	 XGdEPmZ72GdGWA4nad1SFisNv1jArUclsQROidUNgzOxVa4FWK1wTTwtRGokkufsp3Xzn
+	 YBUq/LGfkw2lhidV5rtqHe+idnBfvNyvVW86jtOnYeyaUkqaru4lnIbhY45L9qvGAxuaZ
+	 T6MwwkY7OZCdk9DgRBTR2v1bwFMxHBEqlWhi6wRUcFaym1uLKG+SAaEfSdGy8tOYeeiUj
+	 vJWmfXgIKwFAv1VD291aWHKlZ3rFHIG8PYoyaCrN4RUDQsOcSfi61Dh/chVZz6FkvyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="hQv4ULh/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f0U1Y9fL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABB1B606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:00:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F541606A32C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:00:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hQv4ULh/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD12F1F000C5;
-	Tue, 17 Nov 2026 14:00:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f0U1Y9fL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 104471F000C6;
+	Tue, 17 Nov 2026 14:00:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794924024;
-	bh=QAKEKUUgAktJKHEVX7KI7OTga21H38xwimtePgaRsRg=;
-	h=From:Subject:Date:To:Cc;
-	b=hQv4ULh/2quRo1tcUh32wYacvtu6Sr7S73HF1zlVZXA0Kzb9MKlu7C6qkdnXUJQtR
-	 kfG/PLK8vU2ntfIpLupbjBFmGgC7kyvQOEnGyekTQqD18lX1micAOSOsRAbs/WIQJ3
-	 r6yhib/od8zo4eKcpjqeMJZoaZ0CyKTHdx4sIF7ru9rcEpB/L8lwQqtr92ToGB31og
-	 mrlGCuaPrOhraNzVhdRu7sKf17+u/9aYIPqgQmgKnGCm+4YoKashCjqejb4plSTpGG
-	 TvpbLUAeREeRpAmoOGa6lHKT1iL377Aj+bQD5//EygMaGUWR6Y+pNLcI2O8uIGmT1H
-	 p8t0kb0znU2Hg==
+	s=k20260515; t=1794924026;
+	bh=+zoXsUOZLc6Lxh6C7rK9vE6qS+E7WFN3jSnhKD9U1X4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=f0U1Y9fL4nBIJsnvtL0gvFQWf4QpKsjLKWYw8qFGjDPhK4GeJn8aaMf/x0pnsbCtd
+	 gBQKsEyjNP0HH1YAogQulCKnxPcy0p4xcx4uOveZvu73S+ik2KLm4K0zBfA6Gc9UQz
+	 3YWt5fbNZ246q/xVnaFPVILK6yURe+9CEx7dgj+lDe6jTUWjDuQI0wsuYIMioZDaIv
+	 ypx1KLOFYSmM8G+j9NnJDvkA0vArOtDnefFZkql5McoNaOYSSS7EQ//AQW28LKcMmG
+	 xLjo/agzDwiJqYtvCkof/l71VhAqesUuHggdze8FPZAB6GM0ftGVb03blcHZqKHtfk
+	 aJpDkcBSEiCkw==
 From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Subject: [PATCH v2 0/2] riscv: mm: fix set_memory_x() and
- kernel_page_present()
-Date: Tue, 17 Nov 2026 16:00:19 +0200
-Message-Id: <20261117-fixes-riscv-v2-0-5edc9bdc54fd@kernel.org>
+Date: Tue, 17 Nov 2026 16:00:20 +0200
+Subject: [PATCH v2 1/2] riscv: mm: do not make the linear map alias
+ executable in set_memory_*()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,11 +55,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22OyxKCMAxFf8Xp2iqtIsWV/+GwaGuA+GidBBkdh
- n+3xa3Lk5v7mAQDIbA4riZBMCJjDAn0eiV8b0MHEi+JhS70QSmlZYtvYEnIfpQ72JvKmLY0LYj
- keBIscjKcmx/zy13BDzkifzjLIB3Z4Pt8ioQdhu3D8gCU9R55iPRZ5owq5/xvHpUspPLWelWbu
- nLl6QYU4L6J1IlmnucvN5aG6NkAAAA=
-X-Change-ID: 20261112-fixes-riscv-3e48788f58fe
+Message-Id: <20261117-fixes-riscv-v2-1-5edc9bdc54fd@kernel.org>
+References: <20261117-fixes-riscv-v2-0-5edc9bdc54fd@kernel.org>
+In-Reply-To: <20261117-fixes-riscv-v2-0-5edc9bdc54fd@kernel.org>
 To: Albert Ou <aou@eecs.berkeley.edu>, Palmer Dabbelt <palmer@dabbelt.com>, 
  Paul Walmsley <pjw@kernel.org>
 Cc: Alexandre Ghiti <alex@ghiti.fr>, Jisheng Zhang <jszhang@kernel.org>, 
@@ -68,33 +65,55 @@ Cc: Alexandre Ghiti <alex@ghiti.fr>, Jisheng Zhang <jszhang@kernel.org>,
  linux-riscv@lists.infradead.org
 X-Mailer: b4 0.16.1-dev
 
-These are two riscv fixes I found while working on a generic
-implementation of the set_memory APIs.
+set_memory_*() applies the requested change to the linear map alias of the
+range. For set_memory_x() that makes the linear map alias of module text
+and of BPF programs executable, although nothing should ever execute that
+code through the linear map.
 
-The first one stops set_memory_x() from making the linear map alias of
-module and BPF text executable.
+Keep _PAGE_EXEC out of the bits set_memory_*() sets on the linear map
+alias.
 
-The second one makes kernel_page_present() report the pages removed from
-the linear map as not present. Today it says they are mapped, and
-hibernation could copy them without mapping them first.
-
+Fixes: 311cd2f6e253 ("riscv: Fix set_memory_XX() and set_direct_map_XX() by splitting huge linear mappings")
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 ---
-Changes in v2:
-- read the PMD entry once in kernel_page_present() (Jisheng)
-- Link to v1: https://patch.msgid.link/20261112-fixes-riscv-v1-0-1caac19897b5@kernel.org
+ arch/riscv/mm/pageattr.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
----
-Mike Rapoport (Microsoft) (2):
-      riscv: mm: do not make the linear map alias executable in set_memory_*()
-      riscv: mm: check the valid bit in kernel_page_present()
+diff --git a/arch/riscv/mm/pageattr.c b/arch/riscv/mm/pageattr.c
+index 5b3cf326455d..b13811375535 100644
+--- a/arch/riscv/mm/pageattr.c
++++ b/arch/riscv/mm/pageattr.c
+@@ -271,6 +271,10 @@ static int __set_memory(unsigned long addr, int numpages, pgprot_t set_mask,
+ 		.set_mask = set_mask,
+ 		.clear_mask = clear_mask
+ 	};
++	struct pageattr_masks __maybe_unused lm_masks = {
++		.set_mask = __pgprot(pgprot_val(set_mask) & ~_PAGE_EXEC),
++		.clear_mask = clear_mask
++	};
+ 
+ 	if (!numpages)
+ 		return 0;
+@@ -300,7 +304,8 @@ static int __set_memory(unsigned long addr, int numpages, pgprot_t set_mask,
+ 				goto unlock;
+ 
+ 			ret = walk_kernel_page_table_range(lm_start, lm_end,
+-						    &pageattr_ops, NULL, &masks);
++						    &pageattr_ops, NULL,
++						    &lm_masks);
+ 			if (ret)
+ 				goto unlock;
+ 		}
+@@ -318,7 +323,7 @@ static int __set_memory(unsigned long addr, int numpages, pgprot_t set_mask,
+ 			goto unlock;
+ 
+ 		ret = walk_kernel_page_table_range(lm_start, lm_end,
+-					    &pageattr_ops, NULL, &masks);
++					    &pageattr_ops, NULL, &lm_masks);
+ 		if (ret)
+ 			goto unlock;
+ 	}
 
- arch/riscv/mm/pageattr.c | 21 ++++++++++++++-------
- 1 file changed, 14 insertions(+), 7 deletions(-)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261112-fixes-riscv-3e48788f58fe
-
---
-Sincerely yours,
-Mike.
+-- 
+2.53.0
 
