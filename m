@@ -1,47 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.221
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794918678;
-	b=0ttMdPI6rZwtXJ/qKh03zQ4f7Ev/jCYIi+v1LYW+idaGS2XzAhQ0yFyR6LtgfYrrAvIK
-	 cUXgPj28hF91EJjQqdVDWxpCreolqkdhhYUKhQI/uLyo2RDXqa54KcZh6U0f4AI7E3ryx
-	 WOIf/OcrYmvGJTa67zK4pJ/oBEowjPjdOkS8BZVO9pf4vgOYn3aj9xMnhS0hX0aNOuErb
-	 6Rjm5OOTm9/e0c36pfThgVm0nI7TBomMIXrKDlmFVyLnODujOY7Y0u68AmZJqrQzoXw9l
-	 V03f8Kbesx3uVjDcCs4UpWkslHydpS/Aqem1Kl1oTz6ohtCmYa5NGQpI1abyrF0DSuQ==
+	t=1794918689;
+	b=rLObBxSUrx9VQdSrzaaDLnPGrhnyH397WYsuXu8SCi4wJyz5f2o/NpQB4OT58faWD00F
+	 4ZRRUhp9WBeFhwlTZQVK8qkcQflQ67JE8Q+lco8ZcHnK9nWI6bF1d9sunJYFXi+5vxYJu
+	 zsIRLUHTWmZcg9PXfuiPGIXZQuBng7iNe87sxTobeZso0t56hxs1pg103BRR6yjQJb/cH
+	 LbknUxVpuk6lIRfNh32WjckdWC5SPfxucECcOwEci65d1wqz1Uwv4F9WEJw7JVHqRWWTE
+	 cKeMn+kg8kNPEmELMFTW0CODeAhH4dfIBmyUr0hUxYAl/zMCH4cN4bShCGXiH4R1OgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794918678;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=B4BbyGDYOdxgrwH11x1TPj5dZD9FRkdewUB3279Jnp0=;
-	b=3/Dp3uSqlwAe0QK8Pap5cGWaRVHeQzQWcFkIEAyQDeAOs5yRiQXN2KAKNVHMc8JcE4EA
-	 9w7bqrcvv78IICdSvUceyG9BtG2g6hAckjN2seg2Vi7dPdQ5cqUNGkGkl8ZCe/g595xHh
-	 tXVQ2ERRrCRQJag/i6OfM9tlvQjO1BzGSHhrEBts72j/i4KHuXDMn/RbE9k7pnzwlb219
-	 +kSfVrifWHSh0JbhTYZQLfFMPR5pu/49Z1dRi4j0Ly3UTSkYTpYOzeXhwJeLtjeUj0crC
-	 bIZ70anGT80Sms6TVUd3scI0dtr7n1GXw5xbdmw1SEVN/oncLYyzR9YTUac3dD68rSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794918689;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=2YE/RceU1BDrUGj03KVYMBZ/+cla8lPDeG78rZvZ+NI=;
+	b=EkCKTlhDsCjWEP11TfoK4kwq6hi8MKqcXMss1S1TWV2tzkHjlfc6dVS2XXsaR4VBzzjR
+	 y9fW76OdJMrn9iSnJQH91zc9VlQgaPt/K/iX68ZuU3+T8ZfCc/Ryywzx/ngZ3S14qPseO
+	 oJYIHJ2h65mQKWdNl17MtdyhslI6CP20O3Cc8p3BqlD6Z5fODoLERF6bUQF6OWt6lmkr9
+	 HWeLlXNhfstnaVwf2IVZk2M2MjtnyuuQrBZqqEUMyGyK5AWoSdtKNyTxeZ53vBLuJ6Ga1
+	 fIdVjJfEalaIqgiTCwS+O6Vgq0WmMK3DszLsWpJHtcO+rgXVJ9PnSUc7ErwSXlYw+pQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MlnMQN4o;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=6OI71rL0;
+	arc=none smtp.remote-ip=113.46.200.221
+Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B8C5606A31C;
-	Tue, 17 Nov 2026 12:31:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 802F1606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:31:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 802F1606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MlnMQN4o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E57EE1F000C4;
-	Tue, 17 Nov 2026 12:31:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794918678;
-	bh=B4BbyGDYOdxgrwH11x1TPj5dZD9FRkdewUB3279Jnp0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MlnMQN4oD+wELQv465iIaWTgpdJXpYlMIzOz4lMQTZVkQjj/lbakefSLwDiWtMwai
-	 oD9kmxFh51nfrOJg1hr5hEFzPc0azk9Cj9jLXeycBdPw4ysM1AmHfF9YraqfFdxKIT
-	 hAc6DRc6B71jDjRLwrJguq+YbWhviPQJfmtXZ8aSHQ4cEQP3WomqsJp6Y+V/Aqz79Y
-	 oESNoh6ZOkQjGkeehtCSuiGr6+j/OdroHJ95D2c25Msnb7x0/rDImo6+nGWTcYcGL8
-	 lDy1wjztW0glyZZu6q3IDnT1YjvAqTmEmT6d4ay9/EeINQPK52sp/vKsi1HClcL/Z1
-	 YxkdEArmTNSlg==
-Message-ID: <f860d2c6-25e3-495f-9cb5-d91d5585d969@kernel.org>
-Date: Tue, 17 Nov 2026 13:31:14 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=6OI71rL0
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=2YE/RceU1BDrUGj03KVYMBZ/+cla8lPDeG78rZvZ+NI=;
+	b=6OI71rL0RN45D+2CBfhLv98JGQUKCc2nx0isLeQRxf8r6ERJPK+ReoiY+L05GjMXiuloDCk8r
+	ea+ImJUJDiRuvvdQKO1ukQWNPFOShOGOdRnPQ1xlSOTdyUkDS/TtYYFusHwWf2pGqYA81+sFbZx
+	kt70sEGchJoGC8EoaCPVq3U=
+Received: from mail.maildlp.com (unknown [172.19.162.140])
+	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4jTPGk56JZzRhXK;
+	Tue, 17 Nov 2026 20:31:10 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id BD320203AB;
+	Tue, 17 Nov 2026 20:31:24 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 17 Nov
+ 2026 20:31:24 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <maz@kernel.org>, <tglx@kernel.org>, <radu@rendec.net>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [PATCH v2] irqchip/gic-v3-its: Size the collection table for all possible CPUs
+Date: Tue, 17 Nov 2026 20:31:16 +0800
+Message-ID: <20261117123116.591621-1-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,104 +68,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: mediatek: mt8167: Add DRM nodes
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
- linux-mediatek@lists.infradead.org
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-References: <20261117122802.728987-1-l.scorcia@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261117122802.728987-1-l.scorcia@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On 17/11/2026 13:26, Luca Leonardo Scorcia wrote:
-> Add all the DRM nodes required to get DSI and DPI to work on MT8167 SoC.
-> 
-> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> ---
-> Since the DPI patches have been applied to CK Hu's -next branch, this
-> patch is the sole leftover of the previous mt8167 display series [1].
-> I am resending it separately as it now contains an additional fix to the
-> disp_pwm clocks that it took me months to figure out and was causing
-> random missing display output.
-> 
->  arch/arm64/boot/dts/mediatek/mt8167.dtsi | 369 +++++++++++++++++++++++
->  1 file changed, 369 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/mediatek/mt8167.dtsi b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
-> index 27cf32d7ae35..2bcdab2934f4 100644
-> --- a/arch/arm64/boot/dts/mediatek/mt8167.dtsi
-> +++ b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
-> @@ -16,6 +16,22 @@
->  / {
->  	compatible = "mediatek,mt8167";
->  
-> +	aliases {
-> +		aal0 = &aal;
-> +		ccorr0 = &ccorr;
-> +		color0 = &color;
-> +		dither0 = &dither;
-> +		dpi0 = &dpi0;
-> +		dpi1 = &dpi1;
-> +		dsi0 = &dsi;
-> +		gamma0 = &gamma;
-> +		ovl0 = &ovl0;
-> +		pwm0 = &disp_pwm;
-> +		rdma0 = &rdma0;
-> +		rdma1 = &rdma1;
-> +		wdma0 = &wdma;
+The collection table is currently sized at a single ITS page size,
+and the driver's allocation policy is to allocate a single collection
+per CPU. On systems with more CPUs that the ITS can fit in a single
+page, no LPI can be routed to the CPUs that don't have an allocated
+collection, and the system grinds to a halt.
 
-You do not get own aliases. Where are these documented (and approved)?
+Change the allocation policy to allow two-level tables, similarly to
+the other tables.
 
-Best regards,
-Krzysztof
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+---
+v1 -> v2:
+- Cleanup the similar calls of its_parse_indirect_baser() (Marc).
+- Simplfy the commit message (Marc).
+- Drop fix tag and comment (Marc).
+- Give nr_ids a default for unrecognised BASER types.
+---
+ drivers/irqchip/irq-gic-v3-its.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
+index c952c069f937..41cd359e52a7 100644
+--- a/drivers/irqchip/irq-gic-v3-its.c
++++ b/drivers/irqchip/irq-gic-v3-its.c
+@@ -2682,7 +2682,7 @@ static int its_alloc_tables(struct its_node *its)
+ 		u64 val = its_read_baser(its, baser);
+ 		u64 type = GITS_BASER_TYPE(val);
+ 		bool indirect = false;
+-		u32 order;
++		u32 order, nr_ids;
+ 
+ 		if (type == GITS_BASER_TYPE_NONE)
+ 			continue;
+@@ -2696,8 +2696,7 @@ static int its_alloc_tables(struct its_node *its)
+ 
+ 		switch (type) {
+ 		case GITS_BASER_TYPE_DEVICE:
+-			indirect = its_parse_indirect_baser(its, baser, &order,
+-							    device_ids(its));
++			nr_ids = device_ids(its);
+ 			break;
+ 
+ 		case GITS_BASER_TYPE_VCPU:
+@@ -2713,11 +2712,19 @@ static int its_alloc_tables(struct its_node *its)
+ 				}
+ 			}
+ 
+-			indirect = its_parse_indirect_baser(its, baser, &order,
+-							    ITS_MAX_VPEID_BITS);
++			nr_ids = ITS_MAX_VPEID_BITS;
++			break;
++
++		case GITS_BASER_TYPE_COLLECTION:
++			nr_ids = order_base_2(num_possible_cpus());
++			break;
++
++		default:
++			nr_ids = 0;
+ 			break;
+ 		}
+ 
++		indirect = its_parse_indirect_baser(its, baser, &order, nr_ids);
+ 		err = its_setup_baser(its, baser, cache, shr, order, indirect);
+ 		if (err < 0) {
+ 			its_free_tables(its);
+-- 
+2.34.1
+
