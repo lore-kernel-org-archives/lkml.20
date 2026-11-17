@@ -1,75 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794883500;
-	b=PyhP8++VZjnyLsj7dUQeVUO9VAh8mRMZ5Xg7n2qCLRzaNbEHgBed5MYcnMDPrrh18rll
-	 iZaPQnfzR53cbeGeolTKRajncdjLr9WL1iAf7eYH903ROF5i11HmtbepVTJErwh8kBhbt
-	 ZcFX7ll/NcGdbZVeZzSrCn1CSfiLbJMZttm1Dbssbl79yD2EUfA0z3bA4cEiwXsLn8K9q
-	 NTpijPNoV4JCr/aWEcZOlfhflB/xGx5jbhZ50Z4dH9gbqRLra37ywTGijHPGCmoR2tQtU
-	 LIMRd4KNS+6El+BOnjYGF5ZD88Kw/GmI6dMenggotnSXWkCveRv6cWZcekSJEo2bhyQ==
+	t=1794883513;
+	b=geuULa8jVN/UAYTE1oLbsbt4iujpN4DujpSR1cZhjdpDU0RIynrut1fABBI477vhze6F
+	 znmzRstuL9TMt37FMNwPGSHtQHe/O93Q5ZP30bfM+6C4VVyE6+/Sf8QhZZ5QM1BCBawPN
+	 Sjb7BDWuBZepDuOx81el3h9z7X2tgl09cs8cU1F+5RcNl3LdIzh6PHLFgLhZKJk0e517R
+	 OSIoWCLI9/wWeSVSHUdLv30dObwDL48uSm3OajdX87tpA9JjgdskHIaoX8KRIQ+a6D83a
+	 hVPizLHoOHOmUmdlZBocL7m6kZFZsIHQZE6LmeSYUY7GO86ESiDbLouNJoBwkkJ6XMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794883500;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794883513;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=yJ0z/cTDVgrB07z6XnWmnCa5Nm3W6f3XldUZrdDkL14=;
-	b=5F9lhbxdTMrO1HC6CD91U2xIWV4CfzN8wLWV7EYyLxig3gJkYlrm0P1QbwjYhcGxSTF2
-	 nEeGsfLQ+2ch7Kj/C/J/oHLMyENr+8zzXg4wUDZRhEzCy27bNvXaCCYQ7VoCALZ2g4E0t
-	 TeQycgLaYrxLARI4dovd7IgGLKJJuPw792ImY5d34gURyXJCBiszqETyK1KyH0OMq28n8
-	 qEf7o8Oe7jx7oWVpnS1jx6rlg5UCQsumGdhTiFzUJvO7HqywkeMA+yyXK6LPm+lJu/ciT
-	 VyioC8O3KRkBP/oNJNHwMU+gbCJP9aOtCgkoZJxm+9HgOVtsZzjWZqp3Ikey37Kce0w==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=pURlzWm9EJ5C3ayQegmkRNYY/48OUSkAow7ycdxnOIE=;
+	b=OxQv6xI9HRhc6E4JCdu1kYWG93zeeVz0DL0JvM1vzec7BIeOOei2T4Z4a7Z2eNTbnRMP
+	 8bUa2FtPScqrBcEjO8MFHfUeBwgvzc4OZKKLGgGvsHK6lWXftxfUFaPoDq936HaW+wrX7
+	 KhsTKT1NWH63nxX1BVJtVFZkRJ3kye719AwCg6H1IRjsUvP4HDJ1Fzf58HgcJcTPwVVWr
+	 wqBIHWLHFes+34Q/kwJwrjZhogkEOzWUsIM8zE3IkPhU+L83FVfwcyFFmj5sCJlqyVA6S
+	 y9b6ihuW6fverV3mbXbdR3SrgGUjglRjxoOrTD30BLfD3qMzyYxwrSzMsQPEfenRStw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--sarthakkukreti.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="kxl5d7/C";
-	arc=none smtp.remote-ip=74.125.82.71
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=GiM5kHxp;
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F04F7606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:44:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F04F7606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sarthakkukreti.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9740E606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:45:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9740E606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=kxl5d7/C
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-1b25d977b91so618304c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:44:59 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=GiM5kHxp
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-15dd124bbe7so373475c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:45:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794883499; x=1795488299; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yJ0z/cTDVgrB07z6XnWmnCa5Nm3W6f3XldUZrdDkL14=;
-        b=kxl5d7/C/t+g3pOSPDJC2Ldh7jajtnNKESNMgwNtdbWgSneqge+98L8TnRdRaqFofr
-         cDgtlOG8hyb7TWxS1+Bmk2VvXnPhX15/5XVuyCFN6h5Agt8DNOUjWkinKxJr41UQJ4sn
-         f36eZdsv+5BVnwA/Bc0X9AnTI+O9yfKFqk45hr2tMM9bH6Ao+yhB3XUoc2XmkK/SsWQ0
-         f+bEbsfajqp4ogCCoZv/KS6JwmGpSsWI7BqnEZRpW5594DBrtSQXyEirJzLeySb+/zLA
-         gtJZi3PtyivfLk3JnIYcLaurFsoZr8TubtSA1tHNA0VxBHcCXNN8yAnUO+anzhBvHART
-         9IFw==
+        d=chromium.org; s=google; t=1794883512; x=1795488312; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pURlzWm9EJ5C3ayQegmkRNYY/48OUSkAow7ycdxnOIE=;
+        b=GiM5kHxpbHlSgBe73EDBEVHyZ8dR4FiqscAYsivOqTIGboQnK69HmSSSI94qxUnUlY
+         /4VS6DpYs7r027pRB3TMucojsIyITIju1/Hks59uI9HPgjFotN7njLXCS9NHgLtUoUU0
+         /0io4uoIHgHfERHS8WNAUGd4Xsa76xUq5aSvs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794883499; x=1795488299;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yJ0z/cTDVgrB07z6XnWmnCa5Nm3W6f3XldUZrdDkL14=;
-        b=U7fgrLfX9vny1gA8w7/yLSCM8D9vcb3cJ2yxy5DHg537h8GEkrVAZgf/wcexCxe8Xf
-         91LJjTZXN7l6H7mfoutNoPvkqN0GpypCzL5MQ3M+3CQOAbb+HRhmsScO/J64QsDupUG0
-         zWjOx/FHkcC197e8V80WUT62pJBz2vkPfNIG2T/9U+UKlZFrMTZET0YjcGOFGsffjNwj
-         xM1lzoP+v0CZcU31BNu+WqY2kf2ebbyvLEFqQF6KRmvNjrGfxmS/hezpg0y4w+gqYDyp
-         oZFuwJRmcW/vKcXG4PdrUjJLRT1YCwE+M7bJBR0csIS+7L1O0FMBsoXmNg8BSzFCH6vO
-         i3YQ==
-X-Forwarded-Encrypted: i=1; AL+hErGiJzmlekR/d1LDjh04o64gnFA3Iwr8PxDvSZt/5608uINEVl6RLwaXKNU9AyOzP7nwcjT4eOsMbQwAHdg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Kf8t8qJNnK7vmk7x3yNPcqbWe+wamCf4PtmaA437WfN9VcUTm
-	tZhIV3qhs0F58fISfXloVaMsOMZrwhkUQXYdR/tm+W58LoqosboOP2fh114Kl5j5HOgGt4afKMR
-	jmiyu+mau9BO9vu4Dnx/uL0pIz92ppwzC2PuCWQ==
-X-Received: from dlbqq13.prod.google.com ([2002:a05:7022:ed0d:b0:1a7:44f:3bc7])
- (user=sarthakkukreti job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:701b:4594:20b0:1b2:4871:b1f7 with SMTP id a92af1059eb24-1b50313a743mr10766037c88.39.1794883498730;
- Mon, 16 Nov 2026 18:44:58 -0800 (PST)
-Date: Mon, 16 Nov 2026 18:44:44 -0800
-In-Reply-To: <878q2swoxp.fsf@cartola>
+        d=1e100.net; s=20260707; t=1794883512; x=1795488312;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=pURlzWm9EJ5C3ayQegmkRNYY/48OUSkAow7ycdxnOIE=;
+        b=ItE/5J1+yVw0F+r0irlkYsxapUqnhY+H0NlATBzgvepkbXCMXbIYycxwRyvvXoP3Rs
+         Zi+wQrZ3vPB7AAdftOHEDx24v/bOh8SMTc81ietaRmn/QJdBTHqXxlfEg2NbaoyMMeue
+         TxwhLLYH93k8up5x0AQZ8aOHQY8vW0nGSeF2ttP1kP2ky7eNpBAgRlWHJw1sk2D0z0js
+         0Vbix1vBFCCHakJNmfo0IXnk4DsfvH8tZdoHCXFf2KSeKgZj83dA0m6P7br/hzWzrl96
+         wrzTzdF6448T/yptIx0uD4lgHQhkSuDOuoWHeNakXWMwj/ZwJg2v517D3HXXO4DLnhWz
+         W6RA==
+X-Forwarded-Encrypted: i=1; AL+hErEfNJnvIg0Kx+ENJWzJ0BJ2WnbtWVuPi8IhJJ/sK94TYs1vE41IjzDqAs1v2LjTkjZhacMcQbT+0BPD7Io=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/jmSJwAWTOqoUFy/vTr2jbtEJLtEr9RdV5Zkz/mMZ8KJik2y1T
+	X2LX3qnxAQ6ekgA5aUG+MOsVMIGeyrGY8r78o88U56DWOeyd9TqcRv2KTRchnbmpsg==
+X-Gm-Gg: AYBFou0HQ26QXY0K1lwlGSu/M0vg5NklZLuAQgAcRC+iwMr7chxNht6S/Ur29PLQyg2
+	B0W0OMcHqgFbAY7R8fvoEDJKbxSrnO59h3AwT6PfWBXRELihknhtsLbNhsL/xWWZ1gKABgEx3VW
+	30CbmGs4Xfn94RjaLwlnvSsbkFdUCxQN6xR97MfL0JQaXXZQ/gmc8KDCaO1V4/NSZRNaupF2gvw
+	7aWM90CzM/VmgjedIOGFKnhzCqj6GADtAUAxggN/xx73Lx/ss60q42bw+on09bSZINLmQiLGck/
+	ww+qDaMs+Gk3/6EQa1PI6XY6keDorHIParkHlqd8Hw9WtYzEuDOYHoJAtVX+Dpg6CTlMF2nf1Mh
+	Fl66z7GGsUINks+CrL9zwsy3wWWOBE5U3bLgt7bqxbikg3rZsqG49yPzQItRBq3E1nSO2C5j43P
+	YvQPaSKDqKq5OqRZTveHYwYBjZVcTtY8w01fwd0kCCuXFYVhzasyQ+OXaMc2fqvLwiEDlMHIDCt
+	wZ5hKpfjpShphcC25XCypOW5Rbs0DVbysQPRsTOP5HmuKjuRUUNLbdpQeE9ZsuZhmdmijkBiyDk
+	ayRDFycsjByPZToinT/m+7ZPT6q6gC6JtGBcsl8sjXQr0NDLOYuLv29HX2CbEFdXZpGh
+X-Received: by 2002:a05:7023:a4b:20b0:1b2:4e2c:6838 with SMTP id a92af1059eb24-1b50314bed1mr11824518c88.15.1794883511648;
+        Mon, 16 Nov 2026 18:45:11 -0800 (PST)
+Received: from localhost ([2a00:79e0:2e7c:8:d92d:531b:8d97:bf51])
+        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1b50319d40asm37154597c88.11.2026.11.16.18.45.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 16 Nov 2026 18:45:11 -0800 (PST)
+Date: Mon, 16 Nov 2026 18:45:09 -0800
+From: Brian Norris <briannorris@chromium.org>
+To: Fabio Estevam <festevam@gmail.com>
+Cc: "Rob Herring (Arm)" <robh@kernel.org>, conor+dt@kernel.org,
+	linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
+	johannes@sipsolutions.net, krzk+dt@kernel.org, kvalo@kernel.org,
+	linux-kernel@vger.kernel.org, Frank.Li@nxp.com
+Subject: Re: [PATCH] dt-bindings: net: wireless: marvell,sd8787: Relax length
+ constraints
+Message-ID: <avu_tZSgwxgnLvla@google.com>
+References: <20260311194531.70441-1-festevam@gmail.com>
+ <177344689795.3706356.13043407533958417879.robh@kernel.org>
+ <CAOMZO5BdxG2_raZ--ZrrTn=_i2HKTM=pCB0hWi4+CBRno3DGtw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,96 +98,57 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261113065332.929085-1-sarthakkukreti@google.com>
- <20261113065332.929085-2-sarthakkukreti@google.com> <878q2swoxp.fsf@cartola>
-X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
-Message-ID: <20261117024444.2653745-1-sarthakkukreti@google.com>
-Subject: Re: [PATCH 1/3] libfs: reject casefolded names that fold to ".",
- "..", or empty
-From: Sarthak Kukreti <sarthakkukreti@google.com>
-To: Gabriel Krisman Bertazi <krisman@suse.de>, "Theodore Ts'o" <tytso@mit.edu>, Eric Biggers <ebiggers@kernel.org>
-Cc: Sarthak Kukreti <sarthakkukreti@google.com>, Jaegeuk Kim <jaegeuk@kernel.org>, 
-	Chao Yu <chao@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Dmitry Torokhov <dtor@google.com>, linux-fsdevel@vger.kernel.org, 
-	linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAOMZO5BdxG2_raZ--ZrrTn=_i2HKTM=pCB0hWi4+CBRno3DGtw@mail.gmail.com>
 
-On Mon, Nov 16, 2026 at 02:34:26PM -0500, Gabriel Krisman Bertazi wrote:
-> Ugh. I agree this is a problem, but I'm also trying to understand first
-> the real impact beyond filesystem complaints during lookup, if any:
->
->   1. Looking up ".\u202e" folds to "." and matches the on-disk "." entry
->      (de->inode == dir->i_ino) in generic_ci_match(), triggering
->      EXT4_ERROR_INODE ("linked to parent dir") in ext4_lookup().
->   2. Looking up "..\u202e" folds to ".." and matches the on-disk ".."
->      entry, returning -ELOOP via d_splice_alias() (or triggering
->      EXT4_ERROR_INODE on the root directory).
->
-> These two look like a "do stupid things, get stupid prizes" with no
-> further repercussions beyond the error message.  Sure, we can fix them
-> to throw EINVAL, but are there bigger repercussions I'm missing?
+On Mon, Nov 16, 2026 at 10:18:48PM -0300, Fabio Estevam wrote:
+> Hi Rob,
+> 
+> On Fri, Mar 13, 2026 at 9:08 PM Rob Herring (Arm) <robh@kernel.org> wrote:
+> >
+> >
+> > On Wed, 11 Mar 2026 16:45:31 -0300, Fabio Estevam wrote:
+> > > Commit 31ed9d9d71ec ("ARM: dts: rockchip: Limit WiFi TX power on
+> > > rk3288-veyron-jerry") added calibration data for the rk3288-veyron-jerry
+> > > platform. The commit message explicitly notes that "the length can vary
+> > > between hw versions", as documented in the original text binding.
+> > >
+> > > The current YAML schema enforces fixed maximum lengths for calibration
+> > > data arrays, which causes dtbs_check warnings for rk3288-veyron-jerry.dts.
+> > >
+> > > Relax the constraints for the two properties that have
+> > > variable-length data in this platform by adding minItems based on the
+> > > actual data used in the downstream kernel:
+> > >
+> > > - marvell,caldata-txpwrlimit-2g: 508 bytes (from rk3288-veyron-jerry.dts)
+> > > - marvell,caldata-txpwrlimit-5g-sub2: 744 bytes (from
+> > > rk3288-veyron-jerry.dts)
+> > >
+> > > The original maxItems values are preserved as upper bounds to maintain
+> > > validation for other platforms while accommodating this specific
+> > > hardware variant.
+> > >
+> > > Fixes: 25f855413885 ("dt-bindings: net: wireless: convert marvel-8xxx.txt to yaml format")
+> > > Signed-off-by: Fabio Estevam <festevam@gmail.com>
+> > > ---
+> > >  .../devicetree/bindings/net/wireless/marvell,sd8787.yaml        | 2 ++
+> > >  1 file changed, 2 insertions(+)
+> > >
+> >
+> > Acked-by: Rob Herring (Arm) <robh@kernel.org>
+> 
+> Can you pick this one, please?
 
-In addition to what Eric mentioned re: side-effects due to
-errors=remount-ro and errors=panic, encountering EXT4_ERROR_INODE marks
-the superblock with an error flag which can trigger a full fsck pass on
-the next boot.
+This must have hit my spam filter.
 
->   3. Filenames consisting solely of ignorable characters fold to "" (0
->      bytes), causing distinct ignorable-only filenames to hash and compare
->      equal and creating entries that e2fsck flags as corruption.
->
-> This seems concerning. Do we actually writes multiple files to the disk?
-> shouldn't they all be folded into the same empty string and rejected or
-> at least written as a single file?  I'm not sure how it'd be writing
-> multiple files to the disk, that seems like a bigger problem.
+And it looks like Johannes has this set to be filtered out ("not a local
+patch"):
 
-Sorry, that should have been specifically for f2fs: ext4 will only write
-the first ignorable-only file to disk and subsequent files fail with
--EEXIST. On f2fs, f2fs_init_casefolded_name() treats `len <= 0` as a
-fallback to raw bytewise hashing/matching, which allows multiple
-ignorable-only files to be written to disk (which fsck.f2fs then flags
-with hash mismatches).
+https://patchwork.kernel.org/project/linux-wireless/patch/20260311194531.70441-1-festevam@gmail.com/
 
-> > Fixes: c843843e714c ("fs: Add standard casefolding support")
->
-> This bug was just made generic by c843843e714c, but the issue was
-> introduced by b886ee3e778e in ext4 and the equivalent f2fs support.
+Anyway:
 
-Ack, I will update the Fixes tags in v2.
-
-> > +	if (name_is_dot_dotdot(str, len) ||
-> > +	    name_is_dot_dotdot(name->name, name->len))
-> > +		return 1;
->
-> This is checking for strictly encoded '.' and '..'.  But I'm not sure
-> that happens? Do we really reach the dcache for '.' and '..' instead of
-> the name of the parent or cwd?
->
-> > +	um = dentry->d_sb->s_encoding;
-> > +	cf_len = utf8_casefold(um, name, buf, sizeof(buf));
-> > +	if (cf_len == 0 || (cf_len > 0 && name_is_dot_dotdot(buf, cf_len)))
-> > +		return 1;
->
-> I think this is a bit too late in the lookup to detect these
-> code-points.  I'd much rather we fail the lookup outright instead of
-> attempting to treat them as different spellings of . and .. . But isn't
-> this dead code because we are rejecting those strings in d_hash through
-> your hunk below?  Is there a way we get here without the -EINVAL in
-> d_hash first?
-
-Ah right - let me get rid of this for v2.
-
-> But the way I'd suggest be handled is by rejecting the ignorable code
-> points lookup (all, but variant selectors for the reasons above), early
-> in the lookup path for case-insensitive directories so they never even
-> get to the filesystem.  Wdyt?
-
-As Eric pointed out, since variation selectors are also
-Default_Ignorable_Code_Point and stripped to 0 bytes by utf8_casefold(),
-allowing variation selectors means names like ".\ufe00", "..\ufe00", and
-"\ufe00" still fold to ".", "..", and "" and hit the exact same bug.
-
-Thanks,
-Sarthak
+Acked-by: Brian Norris <briannorris@chromium.org>
