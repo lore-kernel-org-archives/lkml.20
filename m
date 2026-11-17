@@ -1,79 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794915412;
-	b=ET6RzhxaRikw3CAcEA/Sh8HuMuOiqxkbnHR3DyFqgc01AIO26fJ1bT6VNet2ZA6oOzSQ
-	 JIpOXmwoUrgWR7ocJ1ERD9VhvRi8CRuL8lz+cyaW58EVqM7sgv8mUFQH1jjVYr5dKLaWL
-	 2yppYYgSgDO3KXzV4u+Rtfubu5841/52IFOHipVjMY8KSfeJWGhw3BigCqgPMDS3ZcbSQ
-	 BNQDWKbSWnFViwox0gZd3A1UTsm1baAmpel/AmFAxmAeF6KfVq8Gbtkn40kLPBGE2X+CW
-	 rsHTwh6HTJ+DQJ2yhDgVL+d843/bTMvAjGkJmR9TkX3sIdiZTmI+OsiWRREmsG75yJw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794915412;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=dxqcIqtWTxIZw43ZJIhJkSexxCStYIQHemKkftsp9Yg=;
-	b=zdfYjOIPs6VyNXA5TWTt9jDLsXn01LrK+W8lsGU7NvPCQCF1yJsebrK/r6QKvQzTNAag
-	 7sL6bhm/3HLrWWYNZO31OpORiHJlGnTaj64QFl2shp3tlwSumi0NFuTdiVMSgvHnICjDS
-	 Py/yu586Jtnkgehf5qOb2a8ZMvF8z++C1QSCWPCRq4t+VZy7+39ahCILJ7yVmPsrehvA5
-	 Y0tOi0pSze5OhJ3SN+1iOrOvqSL6yKtvUKCLz2Hq47n6DfMmturWFMAaHKiRc92dK+SUO
-	 YJxKyMb8yomsbdmCBPa6x3WrdMN15BFzDTz0+LarCnay0MdAuHXSlZH0IrED4MsQb/w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bmx5vI3N;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12C4C606A32C;
-	Tue, 17 Nov 2026 11:36:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bmx5vI3N
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794915411;
-	b=yolpu5J+3qyNUE1/VtijjH5Q3Z0leTc2vSxmU8HQYPQSqxO0Iufps+7RcUnlnFyKthrv
-	 Y6dAeg3rzZtJLIfp6kWSQKReNIIW154+ChPGKb11wbbrwTb8B6cBaOL3d2Tiv9yjGxnLb
-	 WEBgH3Wqk3sfzaQ3CVgaC2RPOwNjTEaQ0w+b7kBy3cFi3ejZOgYjNSDEEb1D5hVw4t5+q
-	 0aVf1yKrPGuaYAHea3ATR9tI2kAiTQLpAU4SwU0dFkbXvPZESxE2aPgZ+4ssVHmrmxflx
-	 96cVcqvNDOFTirUhVTHCuMzsnE9a50EIyZLsK1rIobWtcq/qBmH60zUndqn/VWj2qlA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794915411;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=dxqcIqtWTxIZw43ZJIhJkSexxCStYIQHemKkftsp9Yg=;
-	b=qU3UGzxXjmNBs+SIoZ7j2QlwjDLVluCGS109GL1+Gcsq9l2a+sUGDIdXaUtlgqKmK+8b
-	 rZbHN908uJ+K5BrjdawIreZcK7Rxx6tSh3+wzBh3jR1hFvRhGpAdNqcULSFVSRmpO7f5l
-	 S7baQmdv5y8GV9pWHN+AiLfoPmAMvFWLFQXzdj8vdCWrwykTwdsOx/haZ4MnZRWS4RnZO
-	 wxL+q2J9euZqVe8F3SjkmqWX018qsWdT+doATiglw9NeM5J6hbbM/Oi1tb3K2yBPwNWLW
-	 4/Vnb8rAN0/Z45cbQEeDOr1wndktuyZcjdVB/05Vm9heDSH1ROLl0GpgGxa2JiJvFAw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.219
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794915436;
+	b=QqT7c/BcjBr/vrH7p6nuHoK+7zW3Djag8jzW7CBoQD8FNYsDa0QS3ny2lzwMA6VThvVD
+	 P0K7VVkMeLbSzgnDWq/BwZhcSw5K+pvbAce6Qx6kVxiu/86rkWJYs+jbPW+ynYQkPVAIC
+	 dNKyc+HLhCQKvAkQlm/pqUFR+O4oN/kgkUuljZ4+U4CLQxBTTTPfGLSiNhnDh9De0khC+
+	 0Xf4aHPgxknnNgkvg0ZNSH+BUfb/NYknMS2irW6KrwWzIOeEH72TIJ3EoKHjb86YS2kFL
+	 FRIvXmmuw7wQDHJkQpT1vmC8py/0+JxYkek5sbOa8lanV57u9m1AzurHVps7yPwNX0Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794915436;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=FIq/acdz95vjbYoS5MNj8HtOBDIDNoJ60+7a7u5rlJg=;
+	b=ro2UkjbdDhBkTAjtk5P+oMEDUts7+DBbP4S9n4TYxkEzdGTx9QvtKFsjC0WoYWkdMRou
+	 r7LzcW/LvrmBUfT7ldXw2LZkO6FGSYlvQYjnJSF5UTC6t3Iu0hDMWp7NuRiNQKnQ+IVxF
+	 AxBazQpSM1LunshkzQW2F4lOE/4ULZs+hgq6w5sYVw+TESyQICYmA/owBZj4FpWT4yJoC
+	 dDGEa5kAO18sEHncSts1mTt7WY6O76pLU/BvlCpwGWlwmRkjer0ahReAGPBFzOVL+ciFO
+	 Ebl63Hz1V/6+buxV56a+QpwLrd7bo47rdlMpx1o5IxiBlbt5ZuvfgoeOgtRkbFxv0BA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fEjtek8B;
+	arc=none smtp.remote-ip=91.218.175.219
+Received: from mta0.migadu.com (out-219.mta0.migadu.com [91.218.175.219])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id CD4D01F000C7;
-	Tue, 17 Nov 2026 11:36:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794915411;
-	bh=dxqcIqtWTxIZw43ZJIhJkSexxCStYIQHemKkftsp9Yg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=bmx5vI3NgMAOo1PO5+XWgVz378rfy4oAmOhDsR39phU2KL9Gqr8mV53Bh3hi11Kkz
-	 HFEmEt2Qgk1GVTfzs2rJZeO6Npi3q3v7mNjnk62lVoloKwnlmME7Et9P31S53Nzlmp
-	 B42+tKonzpdx02OO28qWBt2XRtVD72ylDYTcE4WN4TEO+QwNTm+2ZW96M/uLTTSRMF
-	 YVkRGAR28jwxM6lackJEp8KdsTblKO4uUJ6M7eZq0Yb1sgWQfNX0H65RoHoyIttWjE
-	 YJ7AAAijNL99C8VlCftdOBnz7cf3bHarewkBXGJIEXU5Yh4zqbGxxXl/AXEa+wUHAJ
-	 HEvCMOlTjlb7A==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5C34F4A81D;
-	Tue, 17 Nov 2026 11:36:50 +0000 (UTC)
-From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Tue, 17 Nov 2026 13:33:23 +0200
-Subject: [PATCH RESEND v5 3/4] nvmem: mtk-efuse: add CPU speedbin
- post-processing
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30CDA606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:37:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30CDA606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fEjtek8B
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=1c0H7lzsrOLvPgIaEgNX/VBYlRpSEzqvqTJWZfntygs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794915433; v=1; x=1795520233;
+ b=fEjtek8BsUI4xWPpUqbNZFhH/ighpcAaON8N8vgwoQDHr+DXcSZ/NtEr9kBvqsykxPpJDysS
+ ny7ld8ldQvtiv3gU5NNkhI/AiXgwE8S1zS1MO3yh7d3oV9s0onqWDa/U4XAXTkLZy6foghdNcFs
+ wamZ869X+UZmGjT5BYnmNquY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d92e4996c9b348da;
+	Tue, 17 Nov 2026 11:37:13 +0000
+X-Mizu-Trace-ID: d92e4996c9b348da
+X-Migadu-Flow: FLOW_OUT
+From: "Hui Zhu" <hui.zhu@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Kairui Song <kasong@tencent.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Harry Yoo <harry@kernel.org>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Cc: Hui Zhu <zhuhui@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] mm: mglru: reset the mm iteration cursor in try_to_inc_max_seq_nowalk()
+Date: Tue, 17 Nov 2026 19:37:00 +0800
+Message-ID: <20261117113700.453044-1-hui.zhu@linux.dev>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,87 +79,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261117-6572-nvmem-v5-3-9b561a8a83e1@protonmail.com>
-References: <20261117-6572-nvmem-v5-0-9b561a8a83e1@protonmail.com>
-In-Reply-To: <20261117-6572-nvmem-v5-0-9b561a8a83e1@protonmail.com>
-To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Andrew-CT Chen <andrew-ct.chen@mediatek.com>, 
- Lala Lin <lala.lin@mediatek.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- Roman Vivchar <rva333@protonmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794915409; l=1737;
- i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=2fMHy4JxbvhP2Nx70MB1a2Zu4elW1Lbb73LR5vQKGOc=;
- b=GEZYIJniMHkcE0LLN+BoXraYuM1xaVRYosLrMetE1QqhfWhM0dvsvNLsGoNwPP6fVcyCeuM75
- ATyT/SPm6g5BpNXis2ddYoMCVVdfRp7NN/fMuEYTVwyCD6F3aWFEbvj
-X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
- pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
-X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
- auth_id=777
-X-Original-From: Roman Vivchar <rva333@protonmail.com>
-Reply-To: rva333@protonmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Roman Vivchar <rva333@protonmail.com>
+From: Hui Zhu <zhuhui@kylinos.cn>
 
-MediaTek SoCs are often released under the same marketing name, but with
-different suffix for the speedbin. For example, mt6572m has 1 GHz limit,
-mt6572a - 1.2 GHz, mt6572w - 1.4 GHz.
+iterate_mm_list_nowalk() and try_to_inc_max_seq_nowalk() both advance
+mm_state->seq without walking the mm_list, but only the former drops the
+cursor. When the latter races with an ongoing page table walk, head is
+left pointing into the middle of the fifo.
 
-Since the speedbin is stored as a number in the efuse, add support for
-converting it to the bitmask for opp-supported-hw usage in the DT.
+The next walker reads that as "this generation already started": it skips
+reset_bloom_filter() and resumes after the cursor. Every mm before the
+cursor is skipped, and none of them have bits in the filter being read, so
+walk_pmd_range() descends into none of their PMDs and harvests no accessed
+bits. try_to_shrink_lruvec() ignores the failed try_to_inc_max_seq() and
+keeps evicting, so those hot folios become reclaim candidates and refault
+in the parent memcg, until head wraps around a generation later.
 
-Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+Factor the pattern into skip_mm_iteration(), which carries the rationale
+that used to sit in a comment in try_to_inc_max_seq_nowalk(), so the two
+callers cannot drift apart again. The wrap-around in iterate_mm_list() is
+left open-coded on purpose: there head is already back at the fifo, and
+tail has to survive for the force_scan test. Dropping the cursor is safe:
+get_next_mm() holds an mmgrab() reference, and a concurrent walker bails
+out at "walk->seq <= mm_state->seq" before touching head again. The
+unwalked part of the fifo restarts from the head next generation, as
+iterate_mm_list_nowalk() already does.
+
+Only reachable from memcg_reparent_objcgs() -> max_lru_gen_memcg(); not a
+memory safety issue, since lru_gen_del_mm() repoints head and tail under
+mm_list->lock.
+
+Fixes: f304652609ea ("mm: vmscan: prepare for reparenting MGLRU folios")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
 ---
- drivers/nvmem/mtk-efuse.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+ mm/vmscan.c | 23 +++++++++++++++--------
+ 1 file changed, 15 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/nvmem/mtk-efuse.c b/drivers/nvmem/mtk-efuse.c
-index 980c29d01337..d2e5c69c580e 100644
---- a/drivers/nvmem/mtk-efuse.c
-+++ b/drivers/nvmem/mtk-efuse.c
-@@ -70,6 +70,18 @@ static int mtk_efuse_gpu_speedbin_pp(void *context, const char *id, int index,
- 	return 0;
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 6a1af9b92349..0dc4017b87e4 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -3235,6 +3235,7 @@ static bool iterate_mm_list(struct lru_gen_mm_walk *walk, struct mm_struct **ite
+ 	do {
+ 		mm_state->head = mm_state->head->next;
+ 		if (mm_state->head == &mm_list->fifo) {
++			/* head is back at the fifo; keep tail for force_scan below */
+ 			WRITE_ONCE(mm_state->seq, mm_state->seq + 1);
+ 			last = true;
+ 			break;
+@@ -3263,6 +3264,18 @@ static bool iterate_mm_list(struct lru_gen_mm_walk *walk, struct mm_struct **ite
+ 	return last;
  }
  
-+static int mtk_efuse_cpu_speedbin_pp(void *context, const char *id, int index,
-+				     unsigned int offset, void *data, size_t bytes)
++/*
++ * Advance mm_state->seq without walking the mm_list. The cursor must be
++ * dropped as well: iterate_mm_list() resumes from head, and resets the Bloom
++ * filter only when head == &mm_list->fifo.
++ */
++static void skip_mm_iteration(struct lru_gen_mm_state *mm_state)
 +{
-+	u8 *val = data;
-+
-+	if (val[0] >= 8)
-+		return -EINVAL;
-+
-+	val[0] = BIT(val[0]);
-+	return 0;
++	mm_state->head = NULL;
++	mm_state->tail = NULL;
++	WRITE_ONCE(mm_state->seq, mm_state->seq + 1);
 +}
 +
- static void mtk_efuse_fixup_dt_cell_info(struct nvmem_device *nvmem,
- 					 struct nvmem_cell_info *cell)
+ static bool iterate_mm_list_nowalk(struct lruvec *lruvec, unsigned long seq)
  {
-@@ -83,6 +95,13 @@ static void mtk_efuse_fixup_dt_cell_info(struct nvmem_device *nvmem,
- 	if (cell->nbits <= 3 &&
- 	    strncmp(cell->name, "gpu-speedbin", min(sz, strlen("gpu-speedbin"))) == 0)
- 		cell->read_post_process = mtk_efuse_gpu_speedbin_pp;
-+
-+	/*
-+	 * On mobile SoCs, the CPU speedbin is a number. Convert it to
-+	 * a bitmask for supported-hw usage.
-+	 */
-+	if (strncmp(cell->name, "cpu-speedbin", min(sz, strlen("cpu-speedbin"))) == 0)
-+		cell->read_post_process = mtk_efuse_cpu_speedbin_pp;
- }
+ 	bool success = false;
+@@ -3275,9 +3288,7 @@ static bool iterate_mm_list_nowalk(struct lruvec *lruvec, unsigned long seq)
+ 	VM_WARN_ON_ONCE(mm_state->seq + 1 < seq);
  
- static int mtk_efuse_probe(struct platform_device *pdev)
-
+ 	if (seq > mm_state->seq) {
+-		mm_state->head = NULL;
+-		mm_state->tail = NULL;
+-		WRITE_ONCE(mm_state->seq, mm_state->seq + 1);
++		skip_mm_iteration(mm_state);
+ 		success = true;
+ 	}
+ 
+@@ -4686,15 +4697,11 @@ static void try_to_inc_max_seq_nowalk(struct mem_cgroup *memcg,
+ 	DEFINE_MAX_SEQ(lruvec);
+ 	bool success = false;
+ 
+-	/*
+-	 * We are not iterating the mm_list here, updating mm_state->seq is just
+-	 * to make mm walkers work properly.
+-	 */
+ 	if (mm_state) {
+ 		spin_lock(&mm_list->lock);
+ 		VM_WARN_ON_ONCE(mm_state->seq + 1 < max_seq);
+ 		if (max_seq > mm_state->seq) {
+-			WRITE_ONCE(mm_state->seq, mm_state->seq + 1);
++			skip_mm_iteration(mm_state);
+ 			success = true;
+ 		}
+ 		spin_unlock(&mm_list->lock);
 -- 
-2.56.1
-
+2.53.0
 
