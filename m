@@ -1,76 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794908415;
-	b=qt1h3v9zb+dzcvxrBZQDmDACzXJC1Vi5gw23z2mdcmb1DztQw9jeofit6S16Xd4GFqXd
-	 P0d2nzHBfHV4iI6bFgzvkNt0DBjXEhMuu8yTH2FVtn7hbfHK+9rX0XawPsRFrEffN7W1z
-	 ghzQC5OdEMwctka3ZTqeupAJu49lUQGV8SJk/bPUr47Eu44DHs2dDdBfUK93EfxCLdsnP
-	 9ywfHLXw+cyY3KqPkp6kBsWS8j+jdQxOlH9KDK7nqGCTFxzpP1NqpNBMMYn6mBx1csKqH
-	 fuPSl0C4EgJNgx1TngmveE5hzdal4qFlc7/awf0ikCrv37S94nKkybZGA9v35x6hCvg==
+	t=1794908441;
+	b=SFyxDGKPd4mXe+M/4HZp4hyk7Vu4T7WntgXRrlvLURJWkTN+17lTNzi70KFW8JWGjpLq
+	 q8xodN1X9sXYjmERIkiT0pYqdQKYxf0FnpBYyC+iCnSnuCgDXzHhhRoCK95bGDbPuCI94
+	 RwQu//Afa4ZDegZQ8J1byF3d4gXxMPNIB+6NeO4idqZQQnGzSifbSh10G0LcdFUpGvIjq
+	 M2ajnwnUQa7OkOdrTnYv0LmE5rX5CnQok2tGbVV/FHKtBg/fpMz4lVSfO0BEVIF8H++Ou
+	 pzzOnW+4n8QIQrUAb9tdzBxVhCaIPN1z9TKBc2jnrO/UUwWSijV1c9P+N/eAvl8Mphg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908415;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=y0zlRMJNOStWz5trUd7/tfb0kv4utMHpqM2nmh7nLPc=;
-	b=ILTavOk4z5EnR50ZS4LXifpg8U5n9muXD0+giwTb966zfFJqBF/DgfC/9PKrlSPuI36M
-	 KI8dw2/0/SfP8kOLwe/XjvnjmfyW0iQn3qwq8ffO93EIyAIE7j1l1sy1+2ZOxJMYOGuzM
-	 FP6vGZdK/H0SfOZMJxVeQayShkJgKcBMxKcfaKGXn+gRddFFre39hz1VitYSKzI4KCVKV
-	 0PC8o9GKTLXZJ/vgar46F/kgRXg6FkEvg//icz5QUgTIpnVIo//1u1Y7a4jUy/gKmsW0l
-	 ZDK36WqPOSRsfsEPzPWqhETbW7XzrM/6PKgj7DaPgyK5wbYbBUs/XL3UQg3S3w4HOHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908441;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=8umLBLKAHg6QG2ihVkSrV333T4WbYEUzC3ulFYXPO0I=;
+	b=t6VGOC9wiQEncvE5vPE3buX3W5sYvAZmaUcZtuVDUg5ZyiHpGkQTSF7k/k4kNFmp7Zez
+	 DQ5kq2f7o/A615usiA4qr0sscdNR5Gl4E/lWu0Ec8b46yYKXAsakVWpLYia0gKkFO05Sm
+	 Td/yGsYhWRvoaMOoAgvyNYmY2Z5kUfUV0jVkqoltkH1TW+y3eYAkeCOMpFV0AyaEyU/J+
+	 uyJEhbKssaDO3eor36jUKxD4bHhHBeB2f6RSgW9LV53OgVOBv4yYP1GQBqetei0AcxEpE
+	 X0mYa4MBYoIaTafy4dCJ4pk37inesB4bu7Yrbxixkv5Zn3B9nXdx0sQG5FTBaygkOSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.217.43
-Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com [209.85.217.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UjXfD7pu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 970EB606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:40:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 970EB606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-78fb1fb9508so530123137.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:40:15 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794908414; x=1795513214;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=y0zlRMJNOStWz5trUd7/tfb0kv4utMHpqM2nmh7nLPc=;
-        b=08Tb5S8JJCs94aGDDXL+5G2itDujh7aLiab5HYjskARusip0S2ifQjXxYxkHlhh3X3
-         bTcK+BbJ8qvA6ZR7mDcawgpY1o/QuDkK5pVlL0NuUYEoB/b/DL+JXgBEg8ti4CLz/vZS
-         FmO4HivjJ4FkgDXM9cJ342USjuq7S821MMynmsETJD/kGu01be0X7hjf5I+rKFx7W33L
-         /6Rb+BN4xMD8J2jeO9p14l7u2/Jy77QFg6IcE2Z8wg2gR3uX6uIr22Sd/hI7X+74l9jI
-         3sToUGFHETx0QbBMh7AzfdlQIIzPyVrmeo30N4AKomIULpW3cOP7IZGh28B7EEXF3A+z
-         Bziw==
-X-Forwarded-Encrypted: i=1; AL+hErEDY2QFSA01AqRDqD9RmM/+pGijHwnTF2HYiHCvf1M3TLoAmoHRjQJ4zaKIHrwqvw21d5KZpxwrL/PL/DE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z//NSbgU/FAB+u3py46MjLVVHVnkaXgqebDzFCE98mpYbfvVyjM
-	IE3fiOfKLNw+4XbxZmdE1X8kiK3fg2ytbeQX6/6ClvDD142/vLW4YwpRz5Yrm+Hd
-X-Gm-Gg: AYBFou11OxawN/7H0J0f5+7OEMTiqs6W5MvTU0iCp2YkzOGAXaP6Vr6V+x62D16bEWu
-	e2lMoCuOc1i1RbvjjXwiWydSxZTvCWYPiOCAuCk0/0pHuQcvuZ4yXhkAcVTXkoa89mJt6ETYJZe
-	I2ykFFXywvsoca7dJBEs0iB+JYKrnwi0kON6B6oLh+FwfBkdOhE/R3zuTWB8wdNc9Bd5tZiXBNK
-	L4bT4J1wxZdAd97UGwrWzL/ax7fgR1yNLEy9rsJVH+HQ/XeieQYBv0LXjQ61vhSrnM9P1+C+Zi6
-	hhNUZ2sJsORC+3Cq4DsD8eVuCZQh5Dr9mGVoRsRcR4ESYz6T/d7cUfl/gqrWgH7gE2fw4RH0d5E
-	Ss1iiuX0cPLTJGSfrx8ayCN0W/td/iAoRDhlzrg9kOkwP1uZRS68X8qbUpwV5gKh3Dsjf/4YSRF
-	kQXmMEpxLg+EJCzUSZj8GrlZ+o3zSPNKg45JZC2Qja9U7EX7AGaEMZMiFPkjsWui1lKAI8aiGK3
-	vyx2sIYH5LOVrUIpYq4Ff+fZFqeh8iBhVxpw5fKwpkBx48Z+GcX0j/v7nQ6Tjw0DPLi/0Y0GYXp
-	wc9d0f1JD7Ynwpc9ttVjhTn+wksei5KRoab1pmRL0edIS/E2OSIwyJXwQItQo6nb9EY=
-X-Received: by 2002:a67:e704:0:b0:7bf:8ec:4996 with SMTP id ada2fe7eead31-7d69f7b5684mr492274137.20.1794908414474;
-        Tue, 17 Nov 2026 01:40:14 -0800 (PST)
-Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com. [209.85.217.45])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99e339155f7sm1762270241.8.2026.11.17.01.40.13
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2026 01:40:13 -0800 (PST)
-Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-7d2e43ff4b4so502533137.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:40:13 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGT95wJr/7VVX6OOKkYG5K1r4MDGRQ5mRUDUbwlO4uCY3Eu2RRnFO74MI9O4DbKgfGUXn89xF4/aibHxdY=@vger.kernel.org
-X-Received: by 2002:a05:6102:4455:b0:7aa:d0a9:c5aa with SMTP id
- ada2fe7eead31-7d69f7b5db6mr367348137.18.1794908413358; Tue, 17 Nov 2026
- 01:40:13 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38E05606A31C;
+	Tue, 17 Nov 2026 09:40:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UjXfD7pu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1822B1F000C4;
+	Tue, 17 Nov 2026 09:40:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794908440;
+	bh=8umLBLKAHg6QG2ihVkSrV333T4WbYEUzC3ulFYXPO0I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=UjXfD7pulFeLrf4zmQTgj+1Mchb+C+9SCZT7V8AcOtnyMnYceyEgDOmz/bcbjDk5U
+	 FilGiubgdxWBKUxXWRlI7Q8yzbsb/v8SH107M3LnwSbhMV3xHGsFTQnGXnbwrpRKCN
+	 X3kpk49DrC0hYiXFHQX8kciQuwkZ0UDOEHsXsqUE/lQU6ozKAnBsQ02yDSHpDss8os
+	 nrYkVuDajV5sx/5aPXovJkMxYXbhKaWq2fNQLlFKfMuvBZwHqpVUq/M/hQWujL6vzX
+	 xe+P9A8ldADfbysCJGspWrM3+yvg7K8bUR+HvfK4gf4AAdnJGp9M5H90obiJ+444lq
+	 KL8gCOe5d3cug==
+Message-ID: <e849c774-875b-494d-bf11-6810800fdcb1@kernel.org>
+Date: Tue, 17 Nov 2026 10:40:34 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,75 +51,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <aunvPGXM2F_VOMzx@sirena.org.uk>
-In-Reply-To: <aunvPGXM2F_VOMzx@sirena.org.uk>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 17 Nov 2026 10:40:01 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdWjaqsXLUD6mT6PKDdozYew1wG30jp=ZtYGXtohiSFOxA@mail.gmail.com>
-X-Gm-Features: Aa3M54qLzQogK-o6VgT_Lzi03rZSvOrS4193DJeETFJaFv9tSO3EDuIMtxMm7x8
-Message-ID: <CAMuHMdWjaqsXLUD6mT6PKDdozYew1wG30jp=ZtYGXtohiSFOxA@mail.gmail.com>
-Subject: Re: linux-next: manual merge of the iio tree with the iio-fixes tree
-To: Mark Brown <broonie@kernel.org>
-Cc: Jonathan Cameron <jic23@kernel.org>, Christopher Hoover <ch@murgatroid.com>, 
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
-	Linux Next Mailing List <linux-next@vger.kernel.org>, Sanjay Chitroda <sanjayembeddedse@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/khugepaged: mark a collapsed mTHP dirty
+To: Daniel Wade <danjwade95@gmail.com>
+Cc: Zi Yan <ziy@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R . Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <dfbf361e-8125-4f8e-9567-65e80996e2d4@kernel.org>
+ <20261117091018.63639-1-danjwade95@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261117091018.63639-1-danjwade95@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Mark,
+On 11/17/26 10:10, Daniel Wade wrote:
+> On Tue, 17 Nov 2026 09:13:09 +0100
+> "David Hildenbrand (Arm)" <david@kernel.org> wrote:
+> 
+>> I have a different patch on my queue here that fixes this as well I think. Please review.
+> 
+> Yep had a look and yours does fix it.
+> 
+> It's more than soft-dirty though. If the folio gets dropped while
+> another process still maps it that process reads zeroes, I had 64K of a
+> child's memory come back wrong. So might need a stable backport.
 
-On Tue, 3 Nov 2026 at 17:24, Mark Brown <broonie@kernel.org> wrote:
-> Today's linux-next merge of the iio tree got a conflict in:
->
->   drivers/iio/humidity/hid-sensor-humidity.c
->
-> between commit:
->
->   340d44bdf9db0 ("iio: humidity: hid-sensor-humidity: Use per-instance callbacks")
->
-> from the iio-fixes tree and commit:
->
->   5ee5d306f1bd1 ("iio: humidity: hid-sensor-humidity: convert probe and teardown to devm-managed resources")
->
-> from the iio tree.
->
-> I fixed it up (see below) and can carry the fix as necessary. This
-> is now fixed as far as linux-next is concerned, but any non trivial
-> conflicts should be mentioned to your upstream maintainer when your tree
-> is submitted for merging.  You may also want to consider cooperating
-> with the maintainer of the conflicting tree to minimise any particularly
-> complex conflicts.
+Yes, I'll add you reported-by and clarify in the patch description.
 
-Thanks for your resolution!
+I expected nobody really runs into this I practice (odd combination of things),
+but CC stable makes sense.
 
-> --- a/drivers/iio/humidity/hid-sensor-humidity.c
-> +++ b/drivers/iio/humidity/hid-sensor-humidity.c
-> @@@ -236,39 -241,13 +237,17 @@@ static int hid_humidity_probe(struct pl
->
->         platform_set_drvdata(pdev, indio_dev);
->
->  -      humidity_callbacks.pdev = pdev;
->  +      humid_st->callbacks = (struct hid_sensor_hub_callbacks) {
->  +              .send_event = humidity_proc_event,
->  +              .capture_sample = humidity_capture_sample,
->  +              .pdev = pdev,
->  +      };
-> -       ret = sensor_hub_register_callback(hsdev, HID_USAGE_SENSOR_HUMIDITY,
-> +       ret = devm_sensor_hub_register_callback(dev, hsdev, HID_USAGE_SENSOR_HUMIDITY,
->  -                                              &humidity_callbacks);
->  +                                         &humid_st->callbacks);
+> 
+> Dropping mine, yours obsoletes it.
+> 
+> Reviewed-by: Daniel Wade <danjwade95@gmail.com>
 
-The continuation is now misaligned.
-
->         if (ret)
-
-Gr{oetje,eeting}s,
-
-                        Geert
+Thanks, I just sent out a proper patch.
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Cheers,
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+David
