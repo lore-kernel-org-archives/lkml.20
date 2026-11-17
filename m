@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794917238;
-	b=IcuNlOAq67gyuaosk1b/pp7KDbpVQSRk3xEhZiPPKp5fo/K7aKgqu5ocRj9EGiS8BuVI
-	 1CJgQMDxLQ8/jEz2HG2tQlWihmV/rxexDdX3LfCUkbJms83BvIyNM4iGtvuw3fdy9gH9l
-	 P19zjZtMTCzb3sf3h9bohGkI35wAbRglAhXRQ0WkCCUmtteTrRhe6mWTiPGB/rWRFhLYJ
-	 MpOCpIgDv3WcVV6ZjsBBjOeynEDxnuljQn+KEYRKbcMhtPfOO4sTXsPUmARcvmC8j9L2O
-	 Pj7GlLi9kI4eb3AI9JoOH2qLNksJI4TsUj8KuNpRXOCaG7diTPuoLPoPJ4a2s1Gi0UA==
+	t=1794917244;
+	b=vP3NlOAFv/0CIfHJu0WaXCBdAPl13GBpOn+OU7iIJCw1iCGEViXk3o6Yh2kSELaz0ou3
+	 CMQzEkCo7xef/+cVhmHnGFHJS5zqpe2m3QTvLo6wm2X1bdR62bt+Of7HJv12sqwmcdqdU
+	 ul1muvqzz9SORumbmEMHs5Cb3p1NKVPV8HBP7piDrP6hnhIgSNkfNH9m8oz3MnZWpIvey
+	 /aPxFp/AN4BFSb1mSkSAbj1W9UvTIcvdlcHv/qztoMMONp8eKVjPaqZbnziJ7om50z2qg
+	 r+qlgfUl96Eki/8oJicJsFmJ9hu8tZ6DDF+wtqil0kyOetofzjjq2bf63AuxgUloXeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794917238;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794917244;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=C2oAxC901LsFPrZY7XEv49QJustbmbWIIv6Ichi+IBM=;
-	b=AqKUWrV1nQ6vmT3QbFOpHhH9GpExRTHcIgkRcQST4Li0r/TTmKC+9xxEWl8b6Pc1o09f
-	 1NqUmZxDG8H2sb/7X799ybAjA487tYLTxBcOvw+3yhLZw0i11foWEM6Mfk70YdwIcU7An
-	 F5wOu1ETor2mzodhzjihXOystz+WgukRutBM0tsXH+idsVgWWZO2IWAaMQPguy5TLvJ2D
-	 83lckoVSsXhICyebTf9IdGoRx0DVWD59mEm5HlIbU5p/hxhOY0JkZ3HIesWtUk9CRcBG6
-	 NhyZSa7Z5RiG6sYwtuCeBExWQLjC6QfqQQDyvDG0s5B/j/M9k7II8uDihxVwxrXkdVQ==
+	bh=pngp1egAaX0YbQYqS/9oJoUz1wuFN3ikmsU5M9jflxo=;
+	b=Y3wmpVvPBOHiS4cHpmyckEBaQpYL9erlD2ACQlEgANLEJ1hS+cxE2nBcXaHUPb5yHH8o
+	 Gp9qo+LWZXFOcjdrJx/jnF3wZJPuLfFFwn8IN2WdgBnY1hSZHxH709mJO342OUxXHniVL
+	 F5mlFgumw1RUhVltZx/zyMmx7/0LAu0pibT3z8PThsEEsddxfU85U3OntxrjW7/bHKz0f
+	 aCXBYOa7ccAdpqdVuMccfbktvwmEt+8jtydtpTLYuyYcycf/9J82c9PtmggIziqSa8KLH
+	 tHKSTGcK/ckCvhTmjkVrH+yC+fJ7JHiz/whVwn54ZI6WMhQRulMC2oNNhOPtm+TjAlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bytedance.com;
 	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=C99TFTwL;
-	arc=none smtp.remote-ip=74.125.82.43
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=KIooos2D;
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6428606A32C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:07:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6428606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62382606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:07:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62382606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=C99TFTwL
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1b3b4bcbfc9so5384909c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:07:17 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=KIooos2D
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-18818daa3e7so444343c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:07:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1794917237; x=1795522037; darn=vger.kernel.org;
+        d=bytedance.com; s=google; t=1794917243; x=1795522043; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=C2oAxC901LsFPrZY7XEv49QJustbmbWIIv6Ichi+IBM=;
-        b=C99TFTwLBJW1sd6zrlOB1YIkcU9S6RwNreCTRQ34WR1MEJjCfAMv87IGajeDDodEvq
-         fwTcvFBXhWM+R9aDeq4lbG2SD/I6vDASe1V0OpkBdoHDnqNNNIXb4nfFFJfC9rtNt5Yo
-         yoOmDvVsBw3p9fotG0CuxO15vcRUBLPf0djTXTVluXuMrUk5OYGYHggqqvK6a5PF728U
-         baKbAQMjM8AEYXTbNQQksAR0ZIiOPW3ezawtXnTQd2KeT/43Qk1P5aQNwI44ylE6IZYO
-         iMuROYjCAwCu2lphizlEcx8U4LogosDKQt8znAEcAf8evuDnygingk9szQ3o2MkLs/hb
-         v8XQ==
+        bh=pngp1egAaX0YbQYqS/9oJoUz1wuFN3ikmsU5M9jflxo=;
+        b=KIooos2DClZKouyiKhB4rzpkqn4rd+x7CloM3guhbBtlU1l0KZ2WMbtVma9sjSOz1Q
+         5JU9eamBERr7f84Z1mmg7V6b3SxsTKRSz7leQkK+CQbLM4FUJhtc5LcXvOkzIehdAImo
+         HdfCXBu/zUTJUUr0xbFUQHToM5w6WRCP3gZbQ1XjrI7P1jd8q1RzxgHQCMjV9USOCPdW
+         cnzhMguqG3vqSkGAqmh/lYscCCrHq/pPD7VP01d78p/vRBNfiqfc8tUCXOIi9b1pPaDc
+         qgeQ1ltBK/0WFa6P1OaAAUL1Pma4gfa1y09Kd8Pt6YcwYRWXYTKQ2Hr4jq5OZYCr/e3m
+         dVKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794917237; x=1795522037;
+        d=1e100.net; s=20260707; t=1794917243; x=1795522043;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C2oAxC901LsFPrZY7XEv49QJustbmbWIIv6Ichi+IBM=;
-        b=mIYEOV8UxE7pGK4HBJ9+aGcHAjZnWWqs799upQ8rUJGdPRKKBIIp7pBpzbW9fx6Yy+
-         V1AUOICPMyJRMBrqXgfnJ88tL4ipjRjs71jMUKjlH/VRSxTMvOLEKLFFEOhksA4Xi0tD
-         8jjC3BoKmxJkKPcU6qP7sJWfZyK8dofG4SFE82K+K4cAVDrkeHvCmCwMJH4INyVsc7dq
-         pTYt/ZdpZaL6n4kCQi3t4jIaDSpf6A1KmhN3hBVDct3QSGYzy1e2FS4ez2dHgXS27D/H
-         NFKEPNotnyO5LVkWFEJggnMkXRkSyaK3JHUR8f8YL1cXLeGl7pKAUo6MPJzUEvYzbyHr
-         vSGQ==
-X-Forwarded-Encrypted: i=1; AL+hErGkY+kM2WABIbB68RVSBJm+AdnODm5HQ553CCUFNJOFjCaRjFO6+kHxg2OQWMAaNS2PQ8IKmU4q1P/ewXo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9hlPGap0a9bsSDFNUXtnXHZUVu8sIwvt2qXcds7i4touiQDjyA
-	CC4KTEUO5t9foeTG11TgKAwk/Cywg6XRZF5d0NCvc9MfDnkh+RG0NL/0G4l0NKOrKPA=
-X-Gm-Gg: AYBFou1NkEUOsTcwDriiMOntRvbrGx4WlkeIiuxU1obrwT8As42RBieiY5S6cLs7oA5
-	Wa7Gx65A+OBwdSjwgHKgTDOtLgCTHkNNIKIYbXuAV5NzWinaFyTxeJgxlj9XNeREoFtRDGvejcU
-	v7pFFpBYaEP3+1hLQtL5Xk7/TtMmf4usVFGodjy58cvxJVDl5Agxuy2oJ3Q+iORdWS1xUd1FNCd
-	5KRKryWCtaa9xNDPydNlKbWoLyopj3NhalV6ZnqiWYAj4DxBNUkFy+aXcvYkoGBTO2zhc9gSAqi
-	3uUTcje2wUFSeHx1NfK9S2yh2TPbYrmtyJGHjJ/f7LQAkaNt11QxG15GwC2nt+DchtUcK4cM2d6
-	BF/7nKcd0dFc7fx7W7NIosNlpg2NLOP0OuO6HDrhVG64rwetcWZHLPKhPaQFtlnmq1p9AhHH+sC
-	bGy+SK7F9LFaTZfAbpE+3KoIfsDQ8zR5mJu6AJLECZf6pmSD8ZTvFbzsLUGhy6831xeI/+qjdfV
-	akqtuBIIbZUFq1TJy8WvLBADVFQTYIVQIibJcosFLby5oLJ3sIwknEiFb3O2M3Ht9H+6JFjritM
-	QGf0b19Px074YECgmerCRJ3cKYmY8PurKTC6S6XZu6SYic8F1OezvSNnbGOy8Pzu9M7+UsVNMZM
-	yG9hMQHWdQ+Y=
-X-Received: by 2002:a05:7022:1583:b0:1ac:1343:fa54 with SMTP id a92af1059eb24-1b503112a8cmr14843601c88.14.1794917236797;
-        Tue, 17 Nov 2026 04:07:16 -0800 (PST)
+        bh=pngp1egAaX0YbQYqS/9oJoUz1wuFN3ikmsU5M9jflxo=;
+        b=a4PkAXK1t0kZ8yB7x/Cd3ForMZ7ulMgCqXT5YHzE6vRpVdm1WTs0Oaswrdd/I5fz5O
+         VtMsGCyQMlU5EddvbP3ajKT4zgpMkMnypXQkgWL3Q7qWzv1O5o0zN+krcRpS+JjVDBOm
+         JZXaRBUUgKX9f2DFS64/bgihTbYLBpBFtBiRWzav9QG9h9EDueD2TfxqJqd42jM4MEQG
+         qM9HPgPKKJ9jpSIGo8YIXRbrM5oqLWeOASIEJIT0MPHitbQaq6m5Akoxge8wdAQEYURv
+         CDtOc0xqAKOds5HkoUWcBb21ppwuFdRKDW8KEib95znjo4IyWV32ZMu7fSFjU7sKK3a2
+         z6cA==
+X-Forwarded-Encrypted: i=1; AL+hErHL/oKRulmyWiFOFwybNi5lnWtUkevS5cw8W2ya8yrO5TFYbn4YyIVpZqQCXBVU0t+dA84df0ZU56UHxns=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9bDmC12UzkHXSIGUgPz0iO7xU+vupwbq4RdaPQHw6g43QvwHLi
+	YAwf8N+eUwsHGkHesImO4orUSM9oCU32Byd+FuF/duaXabpV0uQLfdHKYE8U/odHnwc=
+X-Gm-Gg: AYBFou2qFLEOenN/0/v6aHSq30oUrU3m0/+GQ2b2mDhJ0LbqTNFV7F99iKJW9+L5ImN
+	zgOWYXyEG4x6AzZHCL4/Gm28tYvXw5YubPQqL3jG8FFwRwyVu3nOge2q+5pEjSPffPPfK0EmxNJ
+	dzOUZFPba2UXiRI3rA7KYcwCCPAxVifW6b4jAOnJpQOF5tkw/oKlOf5odq8uqIrEZqt0rzVOgZd
+	lulj8r+MFzmWdUfQWz5ygOSzck18lAuZCwMf/te7OHgFOb5efZyY6/q7mlFS76RiuLRzMuE9EIK
+	hx0gZnxYLOuP5GFMVtDtIBx2UaKdDuUVKkRPgxmrK/4H3ouxYyLy9JBom6RtTHAbdLeMG9FJqnK
+	UKIFAhGyBeodLOL+b5yQT2KlL9KkSexIFZshMboVOTH6dg+aS5vGXmFyvApq5ZbizrntYWMHOqx
+	ei1M2JdQM0+50zsMJ5Kjp+JAqbbFrUScrbzesGRnJKujjVRlgAaDLzVIYt30YBKqIx9hkWbV7h3
+	Npnxy/oSjYoYRfFVRtlbmeO8vwQWM4lMIOjCDrN4F/76aFlqu6KFONDO7Cc5KsqBI7QQrVDxiwd
+	POzRL5CshtEIMp/xBFeaEzNYwA7d1Uoezr00+4ChNoWCVWzaMcy8EI/+CjPUjk2RIHH3caadbMo
+	B89BjvDe/Xmw=
+X-Received: by 2002:a05:7022:7e85:b0:152:dd1b:4fa7 with SMTP id a92af1059eb24-1b53a3e54fcmr2076054c88.19.1794917243422;
+        Tue, 17 Nov 2026 04:07:23 -0800 (PST)
 Received: from G6L4RL2QG9.bytedance.net ([61.213.176.7])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031468b7sm47347116c88.5.2026.11.17.04.07.10
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031468b7sm47347116c88.5.2026.11.17.04.07.17
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 17 Nov 2026 04:07:16 -0800 (PST)
+        Tue, 17 Nov 2026 04:07:22 -0800 (PST)
 From: Muchun Song <songmuchun@bytedance.com>
 To: Alexander Potapenko <glider@google.com>,
 	Andrew Morton <akpm@linux-foundation.org>
@@ -111,9 +111,9 @@ Cc: Marco Elver <elver@google.com>,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org,
 	Muchun Song <songmuchun@bytedance.com>
-Subject: [PATCH v2 2/7] mm/page_ext: fix client data alignment
-Date: Tue, 17 Nov 2026 20:06:22 +0800
-Message-ID: <20261117120627.50601-3-songmuchun@bytedance.com>
+Subject: [PATCH v2 3/7] mm/page_ext: always use vmalloc for section page extensions
+Date: Tue, 17 Nov 2026 20:06:23 +0800
+Message-ID: <20261117120627.50601-4-songmuchun@bytedance.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261117120627.50601-1-songmuchun@bytedance.com>
 References: <20261117120627.50601-1-songmuchun@bytedance.com>
@@ -128,85 +128,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-page_ext lays out client payloads consecutively without aligning their
-offsets or the final entry size. This happened to work while the active
-payload sizes kept the stride naturally aligned, but IOMMU debug page
-allocation added a four-byte payload after data requiring eight-byte
-alignment.
+SPARSEMEM currently tries to allocate each section's page extensions
+from the buddy allocator before falling back to vmalloc.  Boot-time
+section allocation happens after vmalloc is available, and memory
+hotplug allocations do not require physically contiguous backing.
 
-When page owner and IOMMU debug page allocation are both enabled on
-x86-64, struct page_ext, struct page_owner, and the IOMMU payload use
-8, 64, and 4 bytes respectively. This produces a 76-byte entry stride,
-leaving struct page_ext and page_owner data in every other entry only
-four-byte aligned instead of eight-byte aligned.
+Use vzalloc_node() directly and remove the buddy-specific allocation,
+free, and kmemleak bookkeeping.  This leaves one runtime backing type
+and lets a later change add memblock as the distinct boot-time path
+to simplify the code.
 
-Derive a suitable alignment for each payload from the lowest set bit of
-its size, capped at unsigned long alignment. Align each client offset
-and round the final entry size to the largest active alignment so every
-entry preserves the alignment required by all active clients.
-
-Fixes: 466ae6978a5b ("iommu: Add page_ext for IOMMU_DEBUG_PAGEALLOC")
 Signed-off-by: Muchun Song <songmuchun@bytedance.com>
 ---
 v2:
-- New patch to fix the existing page_ext client alignment bug
+- Add a preparatory cleanup that always uses vmalloc for SPARSEMEM
+  section page extensions (suggested by Mike Rapoport)
 ---
- mm/page_ext.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ mm/page_ext.c | 21 +++------------------
+ 1 file changed, 3 insertions(+), 18 deletions(-)
 
 diff --git a/mm/page_ext.c b/mm/page_ext.c
-index b679a8c1f7d7..dbc1bfa258f1 100644
+index dbc1bfa258f1..3b581242fd52 100644
 --- a/mm/page_ext.c
 +++ b/mm/page_ext.c
-@@ -116,8 +116,22 @@ static int __init setup_early_page_ext(char *str)
- }
- early_param("early_page_ext", setup_early_page_ext);
+@@ -285,15 +285,9 @@ static struct page_ext *lookup_page_ext(const struct page *page)
  
-+static inline size_t page_ext_data_alignment(size_t size)
-+{
-+	if (!size)
-+		return 1;
-+
-+	/*
-+	 * A type's size is a multiple of its natural alignment. The lowest
-+	 * set bit of the size is therefore at least that alignment. Cap it
-+	 * at unsigned long alignment to avoid excessive per-page padding.
-+	 */
-+	return min_t(size_t, 1UL << __ffs(size), __alignof__(unsigned long));
-+}
-+
- static bool __init invoke_need_callbacks(void)
+ static void *__meminit alloc_page_ext(size_t size, int nid)
  {
-+	size_t max_align = 1;
- 	int i;
- 	int entries = ARRAY_SIZE(page_ext_ops);
- 	bool need = false;
-@@ -126,6 +140,7 @@ static bool __init invoke_need_callbacks(void)
- 		if (page_ext_ops[i]->need()) {
- 			if (page_ext_ops[i]->need_shared_flags) {
- 				page_ext_size = sizeof(struct page_ext);
-+				max_align = __alignof__(struct page_ext);
- 				break;
- 			}
- 		}
-@@ -133,11 +148,17 @@ static bool __init invoke_need_callbacks(void)
+-	gfp_t flags = GFP_KERNEL | __GFP_ZERO | __GFP_NOWARN;
+-	void *addr = NULL;
+-
+-	addr = alloc_pages_exact_nid(nid, size, flags);
+-	if (addr)
+-		kmemleak_alloc(addr, size, 1, flags);
+-	else
+-		addr = vzalloc_node(size, nid);
++	void *addr;
  
- 	for (i = 0; i < entries; i++) {
- 		if (page_ext_ops[i]->need()) {
-+			size_t align;
-+
-+			align = page_ext_data_alignment(page_ext_ops[i]->size);
-+			page_ext_size = ALIGN(page_ext_size, align);
- 			page_ext_ops[i]->offset = page_ext_size;
- 			page_ext_size += page_ext_ops[i]->size;
-+			max_align = max(max_align, align);
- 			need = true;
- 		}
- 	}
-+	page_ext_size = ALIGN(page_ext_size, max_align);
++	addr = vzalloc_node(size, nid);
+ 	if (addr)
+ 		memmap_pages_add(DIV_ROUND_UP(size, PAGE_SIZE));
  
- 	return need;
+@@ -339,19 +333,10 @@ static int __meminit init_section_page_ext(unsigned long pfn, int nid)
+ static void free_page_ext(void *addr)
+ {
+ 	size_t table_size;
+-	struct page *page;
+ 
+ 	table_size = page_ext_size * PAGES_PER_SECTION;
+ 	memmap_pages_add(-1L * (DIV_ROUND_UP(table_size, PAGE_SIZE)));
+-
+-	if (is_vmalloc_addr(addr)) {
+-		vfree(addr);
+-	} else {
+-		page = virt_to_page(addr);
+-		BUG_ON(PageReserved(page));
+-		kmemleak_free(addr);
+-		free_pages_exact(addr, table_size);
+-	}
++	vfree(addr);
  }
+ 
+ static void __free_page_ext(unsigned long pfn)
 -- 
 2.54.0
 
