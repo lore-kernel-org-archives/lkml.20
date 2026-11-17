@@ -1,55 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.217
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794883912;
-	b=FtRCRHwKoyOgJqpyLd1baIB6Hf0U2+fhXAjpKCUJ6IxAVP0w3wyWKT0rQQT37dM7lqaq
-	 C171QnhSObgmqi+U3APuBorp8eVpE8vZbBhfxeD1PgmaT2lxOZGNyJzDLvegGIlseMUEW
-	 +F909z4DbsHdY4KV/5Q61xaquKZ+X5zWLjfxnwQkPnUBnfU6tjXTQVAV/i2Pla2Pwkp6g
-	 UD0/Mdx12epA/MIBkZKQFVMLCtjRlQ1y1pcLzFWplaYVlvg63WQ/3zMUEAp+hH56XnrBA
-	 0nMiFJ/75Py6EBtvAzwL9uDDySfxQa4r2esUAAhebGmbC5OZtjz4nX7rTdsK60NMjnA==
+	t=1794883947;
+	b=1gnaURuOtuTmIfR7lmsGjbw3BgwuuFUBasmeg+mrLChaaZg7YBEWyX7RC8s/0f859ZhR
+	 /v+ClOdt/MVb8M+m0zuyEeSDqu29klZXil4Kakg5Ck8H/f1lKLZZ0OBZrqQtc4QfMvShw
+	 9/DkGY5Wf6ZFehqUa0crefLImdj43GRMyS39zLe7ZnnKDgcKSUANszWmJ+KN5quLbDQv8
+	 WOWa4nMIp2i3rtWcP+yLrYXJIrf49UEB4trVaNPDoO8C11TokPlWr8CdULoi2KazUFI8t
+	 vXFZgxKsVTJbVAiksGwTJiKbEw4XmAiYbgzd8bK+6qFx1PIJGalw7gbA9fcHEPlKxbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794883912;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=YT7dJBTJ5NpMKHm7zef0UK+gnv6Fb8K6ANn5jOwpk54=;
-	b=jfKrYMiuiWh5nKDe++1HAYKiB0WG5tjlz2kfI3to4ZR081dzgzwCNN6PYgFqMN1A7xaD
-	 7BPR4DXumoKPkck3XFU1yGx2arEw+01fNhzaeSu6KO1b25NO3tAeIzdiEplCjGK6lL4us
-	 rbh2UihpStNLSfGPEybXpj+OTZn8GrtcezpYZH33Mi5s8SzNtTYUOXJ4KZlz5Wnd4uSqE
-	 PgXijUWKtiIIOoHBs+2JdqUMnjG21+M2chDW9qMx3Rfd2UlPwPueCccwhuW0vMnc3cAlC
-	 nHbHwab5/VBpQMiBUeIyNzgvRoNruWHip2O5GAs/ig+ZPMxcCzT8peKIGLDDg2D9VdA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794883947;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=JgfoU/2rttrrhzPFJX09pmaRfF5u+hpZcsvo5/+6at8=;
+	b=nF/E4lD5KMxt0CYI6hQEGURE1W+f+FoDKybZhBL8pWaSNMlsrN3RcrP8Qs+Y6g86UU4R
+	 nu0+elL3BIGnBvfa9ACGgNlm8TXJlhBHb1XsRU3D6izYTrA2Kn0QtnQjbSVqKpHVTCsed
+	 ZEAIeF7ZZ1jgg7LzyGfSnKFmnzhlrP6zQjGL5qet0J+Tndn+kJfNpH3+gRbbI9YleCoZz
+	 +btJZvEPxYjxpMLAwYcsBd/ysCGZejbd0DffmRHBbScPWGk3LlJOziRTrjjwtljoxEXI5
+	 h0Onk6Jr1lnC4zxt+h1DtMCyhY/QK9yI/S8QAubrKWDmfy9hOQt1O0nZFHBKBIlwFgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Bz/yjurB";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XgThOSB3;
+	arc=none smtp.remote-ip=91.218.175.217
+Received: from mta0.migadu.com (out-217.mta0.migadu.com [91.218.175.217])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD36606A31C;
-	Tue, 17 Nov 2026 02:51:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 434DC606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:52:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 434DC606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bz/yjurB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 593DA1F000C4;
-	Tue, 17 Nov 2026 02:51:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794883911;
-	bh=YT7dJBTJ5NpMKHm7zef0UK+gnv6Fb8K6ANn5jOwpk54=;
-	h=From:To:Cc:Subject:Date;
-	b=Bz/yjurB2tXqFCox6lw5FYMKZMY3cqFANa75FHh/q5cop5PzxLyd5qXy4WKkeJ6Ik
-	 MiYPqVCQdY8DMWHxoSdnjLKIcVkI9pUxxIciiQpKHZXlAi3snx3nqo6VN+tVZkACqw
-	 Bh7OGQOnn2BEQPLcOVEPa3Bcw2FytVQLi0QkjTOO7nTuiClUQha4jpYRULqh3GxiH/
-	 fcZUTG9zSNWamHOCEYdIFH6UuebMoJza3xiZGm76zub/V6bf4jFQ3wNLJsDXCpvyjW
-	 GKpTyAJtvlX3XVdLyonEeK6VHVBnMQmjKNwbf4349yk3cjBg9EFm2EslKo8xSmKYKr
-	 2RlWqddR3yi4g==
-From: SJ Park <sj@kernel.org>
-To: stable@vger.kernel.org
-Cc: SeongJae Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH 6.12.y] mm/damon/reclaim: use parameter context correctly
-Date: Mon, 16 Nov 2026 18:51:42 -0800
-Message-ID: <20261117025144.117100-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XgThOSB3
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=etM72AxM7HyhOHVdSZdb44ly+cIJWbzbD2izMnrOzLc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794883944; v=1; x=1795488744;
+ b=XgThOSB3IFcpCbXcSK2JzyUMhn6hYAZzB8PHyLC1CdGkM6QTv1kHwJ9mj3SIXzHSWYO3v4v9
+ UODoPTQ1O+RuNYGUpqmVDLqnH6lCEcbXXA3x5uRPVGHf1ZztMx8CZAsSsi0A7wUQnK5FwCTQDeQ
+ xvMnrxH6ywtkX5rOnRXFTAsw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ad60b2bf9274a504;
+	Tue, 17 Nov 2026 02:52:23 +0000
+X-Mizu-Trace-ID: ad60b2bf9274a504
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b4eee4bd-0356-4b6a-89f7-db6eaaa29949@linux.dev>
+Date: Tue, 17 Nov 2026 03:52:23 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,56 +58,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 08/13] platform/x86: eeepc-laptop: Convert to
+ pci_assign_unassigned_bus_resources()
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, Rob Herring
+ <robh@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kw@linux.com>,
+ Corentin Chary <corentin.chary@gmail.com>, "Luke D. Jones"
+ <luke@ljones.dev>, Hans de Goede <hansg@kernel.org>,
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261116152403.2672-1-ilpo.jarvinen@linux.intel.com>
+ <20261116152403.2672-9-ilpo.jarvinen@linux.intel.com>
+Content-Language: en-US
+From: Denis Benato <denis.benato@linux.dev>
+In-Reply-To: <20261116152403.2672-9-ilpo.jarvinen@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: SeongJae Park <sj@kernel.org>
 
-damon_reclaim_apply_parameters() allocates a new DAMON context, stages
-user-specified DAMON parameters on it, and commits to running DAMON
-context at once, using damon_commit_ctx().  The code is mistakenly
-over-writing the monitoring attributes and the reclaim scheme on the
-running context.  It is not causing a real problem for monitoring
-attributes, but the scheme overwriting can remove scheme's internal status
-such as charged quota.  Fix the wrong use of the parameter context.
+On 11/16/26 16:23, Ilpo Järvinen wrote:
+> The eeepc-laptop driver scans single device and then attempts to assign
+> its resource using pci_bus_assign_resources(). That function makes
+> bridge window sizing disjoint from the assignment phase and is going to
+> be removed.
+>
+> Convert pci_bus_assign_resources() to
+> pci_assign_unassigned_bus_resources() which is likely no-op in this case
+> as it looks like bridges are not involved here.
 
-Link: https://lkml.kernel.org/r/20250706193207.39810-7-sj@kernel.org
-Fixes: 11ddcfc257a3 ("mm/damon/reclaim: use damon_commit_ctx()")
-Signed-off-by: SeongJae Park <sj@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-(cherry picked from commit fed48693bdfeca666f7536ba88a05e9a4e5523b6)
-Signed-off-by: SJ Park <sj@kernel.org>
----
-Mark Polyakov found [1] this patch is missed in 6.12.y and causing an
-issue.
+Hi Ilpo,
 
-[1] https://lore.kernel.org/CAA5JH2yO-gw1gn_172hv0YWFfQpkXz915a=uoVH+e49P_D8-+Q@mail.gmail.com
+I don't know exactly why, but this smells like what I had to do in
+asus-armoury: scan the pci bus for new devices.
 
- mm/damon/reclaim.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+It has been on my TODO list for a while (and I think it will need to
+stay there some more) to try to understand why these are even needed.
 
-diff --git a/mm/damon/reclaim.c b/mm/damon/reclaim.c
-index 9df096218beb7..254d84166131f 100644
---- a/mm/damon/reclaim.c
-+++ b/mm/damon/reclaim.c
-@@ -190,7 +190,7 @@ static int damon_reclaim_apply_parameters(void)
- 		goto out;
- 	}
- 
--	err = damon_set_attrs(ctx, &damon_reclaim_mon_attrs);
-+	err = damon_set_attrs(param_ctx, &damon_reclaim_mon_attrs);
- 	if (err)
- 		goto out;
- 
-@@ -198,7 +198,7 @@ static int damon_reclaim_apply_parameters(void)
- 	scheme = damon_reclaim_new_scheme();
- 	if (!scheme)
- 		goto out;
--	damon_set_schemes(ctx, &scheme, 1);
-+	damon_set_schemes(param_ctx, &scheme, 1);
- 
- 	if (quota_mem_pressure_us) {
- 		goal = damos_new_quota_goal(DAMOS_QUOTA_SOME_MEM_PSI_US,
+Dissecting the ROG ally xg mobile ACPI I found the signal that is supposed
+to tell the kernel about the hotplug, but it's either not reaching the correct
+part of the system or the triggered rescan is not on the whole pci root port
+and the linux kernel is searching for changes where those changes aren't
+possible.
 
-base-commit: 8ea1fd6d2beedbc49a917cdccea09a0354b64d5f
--- 
-2.47.3
+I have some more notes:
+
+In https://uefi.org/specs/ACPI/6.4_A/05_ACPI_Software_Programming_Model.html#device-object-notifications
+I quote: "If the device is a bridge, OSPM may re-enumerate the bridge and the child bus"... The kernel has handling for this already with ACPI_NOTIFY_DEVICE_CHECK but it looks like
+what needs to happen isn't happening (probably is re-enumerating only the child).
+
+I will need to debug this eventually, unless someone more skilled then me in
+ACPI and pci takes a look at that and solve the issue properly without
+triggering a rescan, since the ACPI notification is surely there (at least for ally),
+not this exact case.
+
+Best regards,
+Denis
+
+Reviewed-by: Denis Benato <denis.benato@linux.dev>
+
+> Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+> ---
+>  drivers/platform/x86/eeepc-laptop.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/platform/x86/eeepc-laptop.c b/drivers/platform/x86/eeepc-laptop.c
+> index 8a640c25830a..7394221cbad1 100644
+> --- a/drivers/platform/x86/eeepc-laptop.c
+> +++ b/drivers/platform/x86/eeepc-laptop.c
+> @@ -609,7 +609,7 @@ static void eeepc_rfkill_hotplug(struct eeepc_laptop *eeepc, acpi_handle handle)
+>  		}
+>  		dev = pci_scan_single_device(bus, 0);
+>  		if (dev) {
+> -			pci_bus_assign_resources(bus);
+> +			pci_assign_unassigned_bus_resources(bus);
+>  			pci_bus_add_device(dev);
+>  		}
+>  	} else {
