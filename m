@@ -1,83 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794897890;
-	b=nbVkpnigUuiQwyNNkeeHhEhCGW9q/TICyOOq+j9siWSmxO3Hr8gjhd+68XWnRiLsDBg3
-	 DvomcqPdt84KX47XZJjveeF0QecBnsMuD7MnP3ozovX9XZtLXGk+BMyRB9Xw2gM4bco9R
-	 qySGEnzUjA5zG7bT9vsLVLomBYXDsEjNSxKjuZMVJ8oWN/CmTMOO9AbVMjI7jvzzT60/L
-	 TATrF45VjZILJZh2480JiNAS2HC/tuSuw4Z5XLxOKzWwd2YeLA2CdtInzWVNwbpQ93eux
-	 ojELikn9q/dpzPJ01+PVyiU/UkBtgZt5DPOm1S4/zLY9ouD15Y11lm5RPf7F8Tobj1Q==
+	t=1794897984;
+	b=TmAEGrbJ4hLhH3p9dUb4IP0gMfmuchaodR6deYGgkdlLUk1wZX3z4NQOzvadhrK7tYkT
+	 U4M2Ms15no6wSA7VvnXkA286foOK4H+egApkZjFxgaTe+/Fa4kstPSmM82NPD45BxY5Qq
+	 T+4ub50lhRlcWDR744nhj9kzfLB2JVLomI9hm2RzgoyhvVdIqraCE+8U9zTz8N1lXY7Wq
+	 NE8MI049NUt8Ajfg7gyrjB8XodYaAMzyTiGPE2VaVvSdFA1LtqjoG0c/74J1g64gAnC0P
+	 oly6NEKm1EcdhHUepdvB4hKGbsPPiDIBJ8xxcHquqJ2UmN9KxlKZl7Y2kVnNgfgMacw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794897890;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=hOnWhf2UYUafyeK5eqb3reqBBAwOK+jIEmpgbPZ8v1k=;
-	b=5bwoUHsBeb9saDM350QKGwpu9jUooBdYXRJOi/WDMM/xrKqOSFhqL3R9Nnvj3xazGt90
-	 cJ322sUIy1c+WJq1IyeeiQ1grdZ7Y43FQ4yJvGDePmZ0EgjcAgXqVs25UG1tLWAbQzrVv
-	 i3Hg1jX5EjnRu/R6n9jDYhJrKQPJDp1MfmalDTSU5XO4G5LG8TA2DDSmbS3jOtG2JW2Md
-	 sMKai/NiGgsrL0Tgyp64uJv41diAg9lWdE3i8gAe/RWNIjRqf4X4ObwRxAFzQMWEmjMMp
-	 PVmkR65FOX/qe+WI2cl9tksIQDSgWNPWfkEQR0TRq6xBo2FTJj43tNqFVUkG7k4D7eA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794897984;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=k5c7pJ1Iixuk0U4yRF+KLqpvtirGvPa8Ng7t1nZh858=;
+	b=UVvNzbslKVW+ON4uuH9ugyk2+dR9ALh2h3EFUEl2+mwiy38D3UYiM6Z9Y5qIgimll0F4
+	 e1eqgRzv8reHXqo0lryn+vJHYZA9ir5PKzCcS8Yi0QrC74FD7TJNCaSBP3seHMO5WaA4p
+	 O8aiVjxM5pNOa5U1pf/NQrxQy39S/Fr7HUjC4fsYFBSJUBtIcbErWzimJnPIjcb+rr72s
+	 o/koylHU3X38qKyMwj2YiOi5yVr/3v/Hci9vP9SRkZVjlcvgTaT9G38A+LLEljcgB1ofE
+	 1TGulVQRqi+s4hn+DsrtEcC3MyqD3xYTS5gnUTWcMLfjxyDTwp6iS+RP7ALe1MqlqmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gvcYvyi2;
-	arc=none smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mm6oD0nS;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3C74606A323;
-	Tue, 17 Nov 2026 06:44:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3C74606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15DC8606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:46:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15DC8606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gvcYvyi2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794897890; x=1826433890;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ESQjpD8S2LW070yACMHY9t3rIJIM32CEwZ+XZ+1Vu5E=;
-  b=gvcYvyi2Z1tJPBKlvSs3Eu9JbUzgSZQbkeY01iIV7guv1lDKYVbim4oT
-   fCApOSUphr4v7YAW82Hgmi1byDcMVZ5MDFn7BVhTvr0uCTQieiB8oDBGH
-   lheCqJ7kpF6ofSLhmNxAtnN4TL7IHZQKV6cMA2Rnkypc+OXAhwNY1dFsq
-   MhVH4NwXUJTS3rNf1hQ7T7UO6VOS87PEdyoWSgK3baNQonvqGE9EpAobY
-   hht3QGhxXQTLY1QAPryvO6rbAxCvJLrX89HLQQDhHAaP+ADpiYZq5JOnN
-   LGMLGDu1myK8MnH4nbsMdk9D9d3A2CYiUQVu9b8MFaJaHO1iPJeSx/xHQ
-   w==;
-X-CSE-ConnectionGUID: fvif3nhYS3GV8MQ1PPGmaA==
-X-CSE-MsgGUID: INSYKuGeRm+4t4mrQ+OdzA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3564578"
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3564578"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 22:44:49 -0800
-X-CSE-ConnectionGUID: K2ZTOQLqQ36QOI5pE7FNuA==
-X-CSE-MsgGUID: 3W5u5vGJQKGsicfVVW/6ag==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="10152989"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa007.fm.intel.com with ESMTP; 16 Nov 2026 22:44:46 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xTCvr-00000001AAp-04dz;
-	Tue, 17 Nov 2026 06:44:43 +0000
-Date: Tue, 17 Nov 2026 14:44:22 +0800
-From: kernel test robot <lkp@intel.com>
-To: Hang Nan <2122295973@qq.com>, netdev@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, mptcp@lists.linux.dev,
-	matttbe@kernel.org, martineau@kernel.org, geliang@kernel.org,
-	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
-	pabeni@redhat.com, horms@kernel.org, kuniyu@google.com,
-	willemb@google.com, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, 2122295973@qq.com
-Subject: Re: [PATCH net v5 2/3] net: mptcp: reject token 0 in
- mptcp_token_get_sock()
-Message-ID: <202611171407.G0WgWRA6-lkp@intel.com>
-References: <tencent_46FC62D4DE8FB8E6C90049F5AB28BDAA8C05@qq.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mm6oD0nS
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-36a315ed211so560025eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:46:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794897983; x=1795502783; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=k5c7pJ1Iixuk0U4yRF+KLqpvtirGvPa8Ng7t1nZh858=;
+        b=mm6oD0nS4LYLj+mfDtByMe2mNTXLMyjx9sDc5kJzv1E3R//3GyR1A97SsNWjOTcxp0
+         icNsLHtdrPpCuvxef4sZWX16J52Zz3v/jsvROv2aZm+3pnJgdhieTtgVvv8SCfeWcHIg
+         mIrXDcmB5QEWXPO6MHt0RmNgypMZrKO8NCrJ2mNXqx5pv30DNsZO+fH9nODIH7dkxF2x
+         B0oyf/Qv7rDIi5QAZwaQ6GaIf15RmVfJCqzeMRBlmipSpdIQDIIFD9zxxvwD3sY0P6am
+         MT8qmV8NIcwHwG8K36IqEKGrtrvhE/Vzh4s67mxuK72TKQMkI8iWzTTVfUdUddrIe+7j
+         OFSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794897983; x=1795502783;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=k5c7pJ1Iixuk0U4yRF+KLqpvtirGvPa8Ng7t1nZh858=;
+        b=Zap4TVFZAhquhy2dH+/MbT+L8A/hhALb8xBFFfxzDnKuMi0lwlPtiigfxO5OA3z3O+
+         NoSCIyQLf91TqQt2VRNcRRCZ/GCfglWNL3NeDP35Tfxtv9oylHIw5bLzCHrnvjQRsagQ
+         HaUGMCYxQoyPgyyPxLfxeN0KThjbzjeCUw3h7br5rg1te+k4gu0GEcxOUDwaCpvwCqxw
+         fZY+32jrPCcKUhRvn82wWQ5pt8GmYrueAB+8KhioPThhbUEmbXRXg97egTtozGlgjG7q
+         m0ksgg2yFlrA6rHkAKfK5qe1MwXDkdVgqj/8FgZCg3XbfiDM7s2/gX/Db1LOlPNA/K4d
+         zH4A==
+X-Forwarded-Encrypted: i=1; AL+hErFXNbJF3fIvLnKJIt1GQf+FLop1ah6/IjituGlXhC1RXCpOVkCu8mPC5GefFehMf4Ao7F25sjFjh5GMfjw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8jYg0CVVbEBbWgnFKLITYbGF5FnoTVkcEDaBO3AwE/V6ZkbKwX
+	luB1BUuxDWZime0QVp8emy4F7wvsdrGxGxNcUbyp57Q8ExVGfx7m+hfeP87l97dX
+X-Gm-Gg: AZFdTZdJSBF/pGCa+Ps/l9SbtGA2BnF0fBCYRqE61vnzIrZwkjP2TIWFffA1chzTPPj
+	Oy6Mda7F/tdYGdHdgww3it2bH7T1JoWsvyIbKktK2SwvGVpHsC4iBrYrDgee9MhHyLwSFG2R358
+	L9eZ7s3oxfbBWkvCdugl99Log5t6cnUfbzUXO6n81VtD/Vvr9H5I8rQThe5X3oJxIWwIKfSBxNW
+	44NRNLdpFxF/GsiJsVxtdtZDMrN1lOzmRH2CkbnEbAhbBUdCujc7bEzaYqLGSx4kWhfaS+lwrM3
+	f/fvB5qKskfm2HirA3GUU7q08GwuhSwwRclegkjL4ItCE26xUMYS/6ZTEbpAyVwhpaQDCGKb6ht
+	DIg+6kMJlZphgC3qq7P/bcqNGJahQdmzM+TQB4bksx6NoVPdi8ynk/vwYPwfCJ1AhbxQ4olq6/9
+	YMQVuMON4BGjBbPyB4m7BPfYq1YgxeIwDBfIAolSIIdC6YiIjC9oWQrt2HtzapQcCD/EG6NO7Gx
+	h3FWwZOpXa4nws6lm+TMrhqslqO33l4tRs6dXGWrgPyI3RBuRH2STLTAqyAuDxspSztbOVu//10
+	Zmv4XNGPP7h+HfnrWuZo/CyIIUUaggw82LuTIMcQbFlCEjshbw4RLQPlX2aU9JADw3DB
+X-Received: by 2002:a05:7301:162b:b0:36a:647b:2d7a with SMTP id 5a478bee46e88-381088b4313mr1778261eec.0.1794897982949;
+        Mon, 16 Nov 2026 22:46:22 -0800 (PST)
+Received: from youngkk-vm.localdomain (67.216.200.102.16clouds.com. [67.216.200.102])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-38116afd7f7sm4712013eec.17.2026.11.16.22.46.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 22:46:22 -0800 (PST)
+From: Cheng Yongkang <teel4res@gmail.com>
+To: David Sterba <dsterba@suse.com>
+Cc: Chris Mason <mason@kernel.org>,
+	Qu Wenruo <wqu@suse.com>,
+	linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4] btrfs: tree-checker: reject file extents with oversized disk_num_bytes
+Date: Mon, 16 Nov 2026 22:46:13 -0800
+Message-Id: <20261117064613.771336-1-teel4res@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,33 +96,152 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <tencent_46FC62D4DE8FB8E6C90049F5AB28BDAA8C05@qq.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Hang,
+check_extent_data_item() only checks that disk_num_bytes of a regular or
+preallocated file extent is sector aligned. A crafted image can have a
+compressed extent far larger than anything btrfs writes, and reading it
+goes wrong in different ways:
 
-kernel test robot noticed the following build errors:
+- With disk_num_bytes == 4GiB, btrfs_submit_compressed_read() truncates
+  it to a zero compressed_len and submits an empty bio:
 
-[auto build test ERROR on net/main]
+    assertion failed: IS_ALIGNED(logical, blocksize) &&
+    IS_ALIGNED(length, blocksize) && length != 0, in fs/btrfs/bio.c:895
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Hang-Nan/net-mptcp-reject-token-0-in-mptcp_token_get_sock/20261116-225828
-base:   net/main
-patch link:    https://lore.kernel.org/r/tencent_46FC62D4DE8FB8E6C90049F5AB28BDAA8C05%40qq.com
-patch subject: [PATCH net v5 2/3] net: mptcp: reject token 0 in mptcp_token_get_sock()
-config: x86_64-rhel-9.4-kunit (https://download.01.org/0day-ci/archive/20261117/202611171407.G0WgWRA6-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261117/202611171407.G0WgWRA6-lkp@intel.com/reproduce)
+- With a 4MiB zlib extent whose num_bytes and ram_bytes are above 4GiB,
+  bvec_offset + bv_len wraps in btrfs_decompress_buf2page() and memcpy()
+  reads past the zlib workspace buffer:
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611171407.G0WgWRA6-lkp@intel.com/
+    BUG: KASAN: slab-out-of-bounds in btrfs_decompress_buf2page+0x3e0/0x650
 
-All errors (new ones prefixed by >>, old ones prefixed by <<):
+Compression and encoded writes never create a compressed extent larger
+than BTRFS_MAX_COMPRESSED on disk or BTRFS_MAX_UNCOMPRESSED in memory,
+and its offset + num_bytes always fits in ram_bytes. Uncompressed
+extents can be larger than 256MiB, for example preallocated extents
+from kernels before v3.9 or extents from direct I/O writes, but they
+should never get close to U32_MAX.
 
->> ERROR: modpost: net/mptcp/mptcp_token_test.ko: symbol 'mptcp_token_exists' undefined!
+Reject a file extent whose disk_num_bytes is above BTRFS_MAX_COMPRESSED
+if it is compressed, or above U32_MAX otherwise. For an extent with data
+on disk, also reject:
 
+- a zero disk_num_bytes, which makes btrfs_submit_compressed_read()
+  submit an empty bio the same way;
+- a ram_bytes above BTRFS_MAX_UNCOMPRESSED if it is compressed, or above
+  U32_MAX otherwise;
+- an offset + num_bytes beyond ram_bytes if it is compressed, as the
+  compressed read path takes the decompressed range from offset and
+  num_bytes.
+
+Holes are skipped, since without NO_HOLES a hole extent has ram_bytes
+set to the size of the hole.
+
+Suggested-by: Qu Wenruo <wqu@suse.com>
+Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
+---
+Changes in v4:
+- Also check ram_bytes of uncompressed extents against U32_MAX, with
+  max_ram_bytes picked the same way as max_disk_num_bytes.
+- Reject a zero disk_num_bytes for extents with data on disk, and an
+  offset + num_bytes beyond ram_bytes for compressed extents, as
+  Sashiko pointed out on v2 and v3.
+- Skip holes for the new checks, as their ram_bytes is the hole size
+  without NO_HOLES.
+- Correct the commit message: direct I/O writes can also create
+  uncompressed extents larger than 256MiB.
+- Rebase onto misc-next.
+
+Changes in v3:
+- Relax the uncompressed disk_num_bytes limit from 256MiB to U32_MAX,
+  as preallocated extents created before v3.9 can be larger.
+- Also check ram_bytes of compressed extents against
+  BTRFS_MAX_UNCOMPRESSED.
+
+Changes in v2:
+- Use SZ_256M directly instead of adding a new macro, and leave
+  inode.c alone.
+- Shorten the comment.
+
+ fs/btrfs/tree-checker.c | 55 +++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 55 insertions(+)
+
+diff --git a/fs/btrfs/tree-checker.c b/fs/btrfs/tree-checker.c
+index f021ac14babf..e7e0bb6be76f 100644
+--- a/fs/btrfs/tree-checker.c
++++ b/fs/btrfs/tree-checker.c
+@@ -244,7 +244,10 @@ static int check_extent_data_item(struct extent_buffer *leaf,
+ 	struct btrfs_file_extent_item *fi;
+ 	u32 sectorsize = fs_info->sectorsize;
+ 	u32 item_size = btrfs_item_size(leaf, slot);
++	u32 max_disk_num_bytes;
++	u32 max_ram_bytes;
+ 	u64 extent_end;
++	u64 ram_end;
+ 	u8 fi_type;
+ 
+ 	if (unlikely(!IS_ALIGNED(key->offset, sectorsize))) {
+@@ -377,6 +380,58 @@ static int check_extent_data_item(struct extent_buffer *leaf,
+ 		     CHECK_FE_ALIGNED(leaf, slot, fi, num_bytes, sectorsize)))
+ 		return -EUCLEAN;
+ 
++	/*
++	 * Compressed extents are at most 128K both on disk and uncompressed.
++	 * Uncompressed extents should never get close to U32_MAX.
++	 */
++	if (btrfs_file_extent_compression(leaf, fi) != BTRFS_COMPRESS_NONE) {
++		max_disk_num_bytes = BTRFS_MAX_COMPRESSED;
++		max_ram_bytes = BTRFS_MAX_UNCOMPRESSED;
++	} else {
++		max_disk_num_bytes = U32_MAX;
++		max_ram_bytes = U32_MAX;
++	}
++	if (unlikely(btrfs_file_extent_disk_num_bytes(leaf, fi) > max_disk_num_bytes)) {
++		file_extent_err(leaf, slot,
++		"invalid disk_num_bytes for file extent, have %llu expect <= %u",
++				btrfs_file_extent_disk_num_bytes(leaf, fi),
++				max_disk_num_bytes);
++		return -EUCLEAN;
++	}
++
++	/*
++	 * The remaining checks only apply to extents with data on disk. Holes
++	 * are skipped, as without NO_HOLES their ram_bytes is the hole size.
++	 */
++	if (btrfs_file_extent_disk_bytenr(leaf, fi)) {
++		if (unlikely(btrfs_file_extent_disk_num_bytes(leaf, fi) == 0)) {
++			file_extent_err(leaf, slot,
++		"invalid zero disk_num_bytes for file extent with disk_bytenr %llu",
++					btrfs_file_extent_disk_bytenr(leaf, fi));
++			return -EUCLEAN;
++		}
++		if (unlikely(btrfs_file_extent_ram_bytes(leaf, fi) > max_ram_bytes)) {
++			file_extent_err(leaf, slot,
++		"invalid ram_bytes for file extent, have %llu expect <= %u",
++					btrfs_file_extent_ram_bytes(leaf, fi),
++					max_ram_bytes);
++			return -EUCLEAN;
++		}
++		/* Reads of compressed extents use offset and num_bytes in ram_bytes. */
++		if (btrfs_file_extent_compression(leaf, fi) != BTRFS_COMPRESS_NONE &&
++		    unlikely(check_add_overflow(btrfs_file_extent_offset(leaf, fi),
++						btrfs_file_extent_num_bytes(leaf, fi),
++						&ram_end) ||
++			     ram_end > btrfs_file_extent_ram_bytes(leaf, fi))) {
++			file_extent_err(leaf, slot,
++	"invalid offset + num_bytes for compressed file extent, have %llu + %llu expect <= %llu",
++					btrfs_file_extent_offset(leaf, fi),
++					btrfs_file_extent_num_bytes(leaf, fi),
++					btrfs_file_extent_ram_bytes(leaf, fi));
++			return -EUCLEAN;
++		}
++	}
++
+ 	/* Catch extent end overflow */
+ 	if (unlikely(check_add_overflow(btrfs_file_extent_num_bytes(leaf, fi),
+ 					key->offset, &extent_end))) {
+
+base-commit: d45cbbab23d3ca231771e4bff996a6a8118162cf
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.34.1
+
