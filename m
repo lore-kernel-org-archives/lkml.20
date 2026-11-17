@@ -1,58 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794892892;
-	b=EPGVfGPxEMFQbMdGdQsXqUWAA4uCoSUABS3dH0xvpVOXY44B7+4Kitrs8UCg7/TGQyu2
-	 OEIT9n55jBeqn8cpHTR/In0LfhxQn04qefukHD1JA9DhWeVvUH8tnzKVJiETKrKSDycqD
-	 dNptoCIp/tPkqlxazEIa3/fiDC7i30LEdYae2ULxP93nxN/sGjV7XAfEBgYLVGkM+dp2O
-	 c0aoPZaO1pyOctExT3LodP4ZoYVOTW7po71SGX2KYFX+RthoBXm9PykWavGE16i+TQbbq
-	 0lY6dSL4lyBrTNNGxYoxfo9TXgPi9cfxw8GZ+l6xyHnJnTeUC0iOhyDBPRivSVGOtFQ==
+	t=1794892906;
+	b=tKdfTSEBqiSZCG7qkprAWEf/eLO661yITyIIIdqjuzwDR8wXdgpfIube+Kj10UT50iWr
+	 3VijtsilO3bDafoaITvN9WS/Zdg9cXCvqoLSdz4OSyMy7esnukAGqgL5jdFoxI2yEgxVP
+	 yY3dfW+3J5zv7hVtzCKJtEQM+osE00taI4jJNEhsfjvyQwciwgfnFEldxhzeUG+D6PgN5
+	 tYGhAzHcUjxEezw9TlhC5AR4+mWOfGUVbKSr0KwYrfxfTYVLxybV5vtV1TqlQJtEw+E73
+	 A4BOHxlJrmKwU00ddgvAAp7TfjBo2l1+JdYarHlXlXXO+IjXdrE7Dj3mEo3EqTyu9Yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794892892;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794892906;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=Oap1bsEOTP6HJmx6qH4+a8BfGH+K0b0RENVgcyJfEgQ=;
-	b=006re+9woYj2GJCRb8Pz4OG0nS6pZxMkeiW3pDD8mCuzTImMb2E8gj8bJRqvrGHF6wUg
-	 rkfHtEw8vwNpv/SCl52Ns/d+NHyIMZrJ3f09e/aEOhoSFHqiQ7BYPToEG0F2K17E1WIDU
-	 ICFE4JODDAGVTU7OtcpV/cf63UBEEx7BcPqzu/SHjaafijEO4cW7qxseNlzVTPHdTZVZ1
-	 qJV48jdFD4mJD2UBP7e5LfKi58gUsTHv2LVmKugOUWAYbNZ0qaH5T3QTduooNjskm79nG
-	 u5vxRsH+zTb+EE4OFZV7/b4W9Tg+GOKHidDatVYpS3ErZHuTRQLQFl3DO7AncsbRlQQ==
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=CDKa143PPvUEeUzle9YHybF3DAxJQounYZyis6N6eeI=;
+	b=NzB6yY7A9PJ5SM0Toin9h3eY699H1OY06lcFfCC4m+db+nERaBJME3yQGcnsSRACjvcv
+	 teWZOLmPnbNv9nZ3vlNWvgINp9YekL97MkGCwdDbhzKjV8BCAAR6fI7kTnfEPmynUNbrq
+	 Qbu51+UhMSN7UTvEJwRQyaAjGrSWTJZj3Zw6tTSpSr6MlGCd89emmnLOIdqlvsERsUkUZ
+	 aHNRSvA5wlnxeuCBx4cqtUC4+vFQiYndzXXX89GqrF2CdzlBaKvKgwOAiyYQQUHoZyrTH
+	 jCzB6w40W1/076nPOTxaEAKyRrVik8YVt+RCL9JOUBBvZGI6pS/LIWyp9g0sGlWobng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.ustc.edu.cn;
 	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=qlC7YTOf;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=mbKFv6YZ;
 	arc=none smtp.remote-ip=202.38.64.46
 Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2C62F606A880;
-	Tue, 17 Nov 2026 05:21:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C62F606A880
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E0662606A31C;
+	Tue, 17 Nov 2026 05:21:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0662606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=qlC7YTOf
+	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=mbKFv6YZ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=Oap1bsEOTP
-	6HJmx6qH4+a8BfGH+K0b0RENVgcyJfEgQ=; b=qlC7YTOf6iZnbSH0ivyZU7yQ00
-	uP7/HsDjObKlpRefpyNb8bWl+JcW3UcYLqj91yncNfUBA7/lW22aenJCnfCRALmn
-	nxs/1o8M4wEOJlgzYLkCzGYB06R2MJteQHNNgqU4nY5hb1EaxVPcVpXSWWhZROtI
-	7S+BY3nNBwyShad4w=
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=CDKa143PPvUEeUzle9YHybF3DAxJQounYZ
+	yis6N6eeI=; b=mbKFv6YZoRZIoz/4ubL5DDj85pI8nUENgLrFc5W+NfnRkrKR0p
+	mU8b7Gx0QVAhoqkLTvKswCk7UlxdX9jkek+0kgGjkPIzBly3vo/KL/EDeahsWi0f
+	sO6G6fuwauKmgrndAwtUNih/7XFaCjrvQv8f3fjht8/UrJVmh3NWD0LwU=
 Received: from xuqianhui.ustc.edu.cn (unknown [114.214.190.181])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgCHCj9X5PtqqkLLAA--.229S2;
-	Tue, 17 Nov 2026 13:21:27 +0800 (CST)
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgCHBjth5Ptq2kLLAA--.1660S3;
+	Tue, 17 Nov 2026 13:21:38 +0800 (CST)
 From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-kernel@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-usb@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org
-Subject: [PATCH v12 0/2] regulator: add the Will Semiconductor WL2868C camera PMIC
-Date: Tue, 17 Nov 2026 13:21:25 +0800
-Message-ID: <cover.1794557667.git.xiaqinghuan@mail.ustc.edu.cn>
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v9 1/3] dt-bindings: usb: snps,dwc3: two connectors are two endpoints of one port
+Date: Tue, 17 Nov 2026 13:21:35 +0800
+Message-ID: <20261117052137.32833-2-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261117052137.32833-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261117052137.32833-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,122 +67,202 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgCHCj9X5PtqqkLLAA--.229S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxXFyUAF45Cr4DGw1UCF4kWFg_yoWrAFy8pF
-	s8AFZ3Gr4ktry8KrsrtF1xJa4rZrn3JrW7C34kAF1UZan8Aa4Iqry3tr4ru3WUGrn7uF1a
-	vFn0gr1kGF1kZ37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvab7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
-	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r126r1D
-	MxkIecxEwVAFwVW8WwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s
-	026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_
-	Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW8JVW5JwCI42IY6xIIjxv20x
-	vEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv
-	67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyT
-	uYvjxUgS__UUUUU
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREOB2r7WdojVwAcsj
-Message-ID: <20261117052125._RNcj5G-MmllzMzVD2QiDvPpc_f2X38-G8yAO5c1mjg@z>
+X-CM-TRANSID:3pYKCgCHBjth5Ptq2kLLAA--.1660S3
+X-Coremail-Antispam: 1UD129KBjvJXoW3Jr47JFy3WFWrAF1UZr17GFg_yoW7Gw1xpF
+	Zxta18tF4q9ryfA3y7A3W8Cwn7KF4DJrnrtryUJryUZay5WryrXF43KwnaqFWUCrn2va4a
+	q34DX3WIq3W7uF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPSb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
+	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_JFI_Gr1l8cAvFVAK0II2c7xJM28CjxkF
+	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
+	CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
+	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
+	02F40Ex7xfMcIj6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWUJVW8JwAm72CE
+	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4
+	AK67AK6r4rMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8C
+	rVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8Zw
+	CIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x02
+	67AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxV
+	W8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7I
+	U5l2MUUUUUU==
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREOB2r7WdojVwAisd
+
+Rework of the v8 binding per Rob Herring's review of
+2026-11-10 16:36Z (<20261110163640.GA85824-robh@kernel.org>):
+
+  "ports are for separate data streams. Endpoints are for mux'ed data
+   streams. This looks like the latter, so port@0 should have 2 endpoints
+   and port@2 dropped."
+
+and, for the GPIO property:
+
+  "Use the gpio mux binding."
+
+Two connectors sharing one High Speed D+/D- pair are two mux'ed data
+streams of one port, so they become endpoint@0 and endpoint@1 of port@0
+(the Super Speed lane stays port@1).  The GPIO that selects between them
+is no longer described by a private "port-select-gpios" property but by a
+"gpio-mux" controller referenced from "mux-controls", and the endpoint of
+each connector carries the mux state that reaches it.
 
 *** AI-assistance disclosure ***
-This cover letter and the two patches below were prepared with the help
-of an LLM coding assistant.  The author reviewed every line, ran every
-gate quoted in this letter himself, and takes full responsibility for
-the content.
+This patch was prepared with the help of an LLM coding assistant.  The
+author reviewed every line and ran the gates quoted in the series notes.
 
-This is v12 of the WL2868C binding+driver series.  Nothing in the code
-or in the binding changed since v11: the only difference is that 1/2
-carries Rob's Reviewed-by tag again, which v11 dropped on re-send.
+Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+---
 
-What changed in v12
-===================
+DRAFT: driver (3/3) still uses a GPIO and must be ported to mux_control_*
+in the same series; DTS (2/3 equivalent) must be rewritten to the new
+shape.  See README.md in this directory.
 
-Rob wrote on 2026-11-16 15:10 UTC, in reply to the v11 1/2
-(<20261116151052.GA1449968-robh@kernel.org>):
-
-> Missing my Reviewed-by tag. It's your responsibility to add tags when
-> sending new versions.
->
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-
-The tag is back in 1/2, ahead of the Signed-off-by.  Apart from that one
-trailer line and the version in the Subject lines, this series is
-byte-for-byte identical to the v11 postings; `diff` against v11 shows
-only those lines and no hunk is touched.
-
-What changed in v11 (unchanged here, kept for context)
-=====================================================
-
-Mark Brown asked on v10 2/2
-(<20261111111132.1296892-3-xiaqinghuan@mail.ustc.edu.cn>):
-
-> Should the driver not also override the LDOx_SEQ registers to make sure
-> we have software control of them, or hide the enable/disable ops if
-> they're non-zero?
-
-Taken the first way: the four slot registers are cleared in probe.
-
-The datasheet (WL2868C, Will Semiconductor, Rev 1.4, April 2022,
-"0x0A, 0x0B, 0x0C and 0x0D: LDOx_SEQ", p.35) defines LDOx_SEQ[3:0] as
-the power-up sequencer slot of each output:
-
-  - 0000, the reset value: the output is controlled by its LDOx_EN bit
-    in 0x0E;
-  - x001..x111: the output is controlled by the sequencer, which brings
-    the LDO up once SEQ_ON in 0x0F is set and SEQ_COUNT[2:0] reaches
-    the slot; writes to the LDOx_EN bit have no effect on it.
-
-So a non-zero slot silently defeats enable()/disable(): the register
-write succeeds, is_enabled() reports the LDOx_EN bit, and the output
-still follows the sequencer.  The binding describes no sequencing at
-all, so clearing the slots and keeping 0x0E as the only control path is
-the way to make the enable ops truthful.  The other option, hiding
-enable/disable when a slot is non-zero, would leave the outputs
-uncontrollable on exactly the boards where software needs them.
-
-Measured on the reference board (Lenovo Legion Y700 Gen4, SM8750;
-Linux 7.3.1, driver bound, read-only through regmap debugfs):
-0x0a..0x0d = 00 00 00 00, 0x0e = 0x80, 0x0f = 0x00.  The firmware left
-every slot at its reset value and the sequencer disabled, so the clear
-is a no-op on this board today; it is there so that a board whose
-firmware does program the slots does not end up with silently
-uncontrolled outputs.  Clearing a non-zero slot switches off the outputs
-it had turned on; at probe time no consumer is up yet, and the core
-re-enables whatever it needs through the enable register.
-
-Everything else is unchanged from v10, so the v10 changelog (sashiko's
-three Medium findings and the two Low binding points) still applies as
-written.
-
-Gates (unchanged since v11)
-==========================
-
-- git am of the two patches onto pristine v7.2 (25f7927e6ccb) leaves no
-  local changes after the series.
-- checkpatch --strict on the driver change: 0 errors, 0 warnings,
-  0 checks.
-- W=1 build of drivers/regulator/wl2868c-regulator.o with
-  REGULATOR_WL2868C=y and its dependencies: rc=0, no warnings.
-- dt_binding_check: unchanged and passing; the binding is not touched
-  in v11.
-
-
-Qianhui Xu (2):
-  regulator: dt-bindings: willsemi,wl2868c: add the WL2868C camera PMIC
-  regulator: willsemi,wl2868c: add the WL2868C camera PMIC driver
-
- .../bindings/regulator/willsemi,wl2868c.yaml  |  99 ++++++
- MAINTAINERS                                   |   7 +
- drivers/regulator/Kconfig                     |  11 +
- drivers/regulator/Makefile                    |   1 +
- drivers/regulator/wl2868c-regulator.c         | 301 ++++++++++++++++++
- 5 files changed, 419 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
- create mode 100644 drivers/regulator/wl2868c-regulator.c
-
--- 
-2.53.0
+--- a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
++++ b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
+@@ -13,6 +13,84 @@ description:
+   Defines the properties of the DWC3 core as being embedded in either an
+   vendor-specific implementation or as a standalone component.
+ 
++$defs:
++  hs-endpoint:
++    $ref: /schemas/graph.yaml#/$defs/endpoint-base
++    unevaluatedProperties: false
++
++    properties:
++      usb-role-switch:
++        type: boolean
++        description:
++          This connector endpoint has its own USB role switch. The switch is
++          registered against this endpoint and looked up with
++          usb_role_switch_at_endpoint().
++
++      mux-state:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        enum: [0, 1]
++        description:
++          State of the High Speed data bus multiplexer which connects this
++          connector to the controller.  The two connectors of one controller
++          must use different states; the driver rejects a device tree where
++          two connectors claim the same one.
++
++    dependentRequired:
++      usb-role-switch: [mux-state]
++      mux-state: [usb-role-switch]
++
++  hs-port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    unevaluatedProperties: false
++
++    # The two connectors are two mux'ed data streams of the same High Speed
++    # bus, so they are two endpoints of one port, not two ports: "ports"
++    # describes the controller's own data streams (HS in port@0, SS in
++    # port@1), and an endpoint describes one stream multiplexed onto a port.
++    properties:
++      '#address-cells':
++        const: 1
++
++      '#size-cells':
++        const: 0
++
++      endpoint@0:
++        $ref: '#/$defs/hs-endpoint'
++        required: [reg]
++
++      endpoint@1:
++        $ref: '#/$defs/hs-endpoint'
++        required: [reg]
++
++    required: ['#address-cells', '#size-cells', endpoint@0, endpoint@1]
++
++    # The two connectors must claim opposite mux states; requiring both
++    # endpoints in every branch is what makes the two cases mutually
++    # exclusive for oneOf.
++    oneOf:
++      - properties:
++          endpoint@0:
++            properties:
++              mux-state:
++                $ref: /schemas/types.yaml#/definitions/uint32
++                const: 0
++          endpoint@1:
++            properties:
++              mux-state:
++                $ref: /schemas/types.yaml#/definitions/uint32
++                const: 1
++      - properties:
++          endpoint@0:
++            properties:
++              mux-state:
++                $ref: /schemas/types.yaml#/definitions/uint32
++                const: 1
++          endpoint@1:
++            properties:
++              mux-state:
++                $ref: /schemas/types.yaml#/definitions/uint32
++                const: 0
++
+ allOf:
+   - $ref: usb-drd.yaml#
+   - if:
+@@ -26,8 +104,47 @@ allOf:
+       $ref: usb.yaml#
+     else:
+       $ref: usb-xhci.yaml#
++  - if:
++      required: [mux-controls]
++    then:
++      # The mux path is only taken when the controller itself carries
++      # "usb-role-switch": dwc3_get_dr_mode() forces dr_mode back to
++      # peripheral, dwc3_get_extcon() skips the role-switch branch and
++      # dwc3_drd_init() never sets the mux up without it.
++      required: [dr_mode, ports, usb-role-switch]
++      properties:
++        dr_mode:
++          const: otg
++        ports:
++          required: [port@0]
++          properties:
++            port@0:
++              $ref: '#/$defs/hs-port'
++    else:
++      properties:
++        ports:
++          properties:
++            port@0:
++              properties:
++                endpoint@0:
++                  properties:
++                    usb-role-switch: false
++                    mux-state: false
++                endpoint@1:
++                  properties:
++                    usb-role-switch: false
++                    mux-state: false
+ 
+ properties:
++  mux-controls:
++    maxItems: 1
++    description:
++      Phandle to the multiplexer that selects which of the two connectors
++      drives the controller's shared High Speed data bus, e.g. a
++      "gpio-mux" controller.  Each connector is described by the endpoint@0
++      or endpoint@1 of "port@0", and the endpoint of that connector carries
++      its own role-switch input and the "mux-state" it is reached in.
++
+   extcon:
+     maxItems: 1
+     deprecated: true
+@@ -411,7 +528,7 @@ properties:
+ 
+     properties:
+       port@0:
+-        $ref: /schemas/graph.yaml#/properties/port
++        $ref: '#/$defs/hs-port'
+         description: High Speed (HS) data bus.
+ 
+       port@1:
+@@ -429,4 +546,3 @@ required:
+ 
+ additionalProperties: true
+ ...
+-
 
