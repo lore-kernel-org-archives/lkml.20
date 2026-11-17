@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794895566;
-	b=CcUNvRPQqJM6+WWw59mjFEslEJeKnwCQUV14aYtYIxZuxTRn0RgpG1SX0bipIli6FMyr
-	 NmBWesEmEvQzTJ/HXS3GLml8zWuzAZn2663koyKqmdgvGZaTB3wRp8aClas4EAW5Ignhh
-	 Rbu1cO2ozPUTEOQhwhXvGGsFE9dxb7adc/mjm9oXdq3pvZ5T/LCiKVYGpm0hstn1Jmow2
-	 FE03Cp9REDMVtdsXGQ4DoFXLepvSNtTAWqXxKy5JWmbTuuDFv1T5a0Ryvu5nJLb+GURbG
-	 JdRBgGp8+oHNGJmMO74E01zkv9LDwbRgtW5ly/LFLrRPPebzwZQ1QkH/drXd2IQJ35w==
+	t=1794895570;
+	b=1FjtKRSCMaFQobh96/nVULglqyRWS6hinHXcp6kTD2eTjo39xiZr8aN2bU/8URFTYxLO
+	 xhHH8h40eKw0UPRvw1JSnQdhae5y9enjBKSG/Tk273bK4fUKQhRaaNZ4GIUsa6TZUt/Qt
+	 NgQAQjA5xxPpG1LUgVecfsyKlayVnK/ppB3amY2rITbLuS6CXCB9rWqSSrdoAns00yFnJ
+	 put7bYhkr3YSmVWqDTlvOTY4CGGkgzr+m0p+4IRRj002wgnEY8JHh9GyQnuqENM1vuakc
+	 BVWBj2IpFLRFrz2zEjwTQZBRRK4WQQD+crZSYov+WPGUqOfiHXGvR1sE4ngYbftdo4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794895566;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794895570;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Fn/7Nz6sEtWAi655Kzihh8bKMNCzwwsZZnavj9Q/a3U=;
-	b=gik4+ZONbgmES10LE+wTp9zY9Frs68gUN2KLLdgvuBBPBS6FLDyuzCoc+YvOhm42SV5g
-	 IH6m+no1Vt5bR+Y7iTEmeyp8fw3W0eL04N9HX4t4LAz6Lp/DCRHPfLFcap+5kTM1kO6Lj
-	 pqBkz8SDGunlYpWDN4fxvAY4AoGweTVREICbkau1ng4yy1n5rCnJ/Y/v5u8GzcU5e5XWD
-	 GZSXUPlW4wUMzMWLD2xG5B7jpNr99kif/JBbI4oyj3llN3CF5uwFnk1qX3sXkQfDpfaXe
-	 Uj3tCK7q7MVWUduyx+wTlxN+169sAc35fdCMyfBk3FHvYJTimriddsmaIBpqHYV41/Q==
+	bh=tl9vm/5oN7PPPGTUSOoXHW2ARgY0Relof58jU72z34E=;
+	b=c+SP7NQskpfTqdCPHc2bkeh7ER1Xw3gM9TFl+qv/OuVE0R7SgczWrcCH325jgJeFwnOe
+	 u2OUPM2Q3I93Xotcwt6SsMg9i3zLeBf6lIoEKXBqdLdMqLZnvp1iG1ethueqB5gqjdL5v
+	 KeF9c1fI+IZCHNUxk9R7yy+hDOmzoXoKAF96pLwjCcihf4gGXAoPD1GK5C9GoRm4Bs2b6
+	 iOJJe/qfm1x1E5ozg6Z/ZfGIrVEs7n4V5lkZ1FwBFU9ZZ3aaGW7k50HMWom906UARl7r2
+	 6MgU7qllMHIEXCpsSdXZSSWwM4fxi5IRcluiU2z2uIenPzK91Mlui3FYXasLpSMKglg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="tWi7/q6v";
-	arc=none smtp.remote-ip=209.85.210.170
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0MxHopM0;
+	arc=none smtp.remote-ip=209.85.210.171
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99A9C606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:06:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99A9C606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93C65606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:06:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93C65606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tWi7/q6v
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8a06cc097c7so3627166b3a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:06:05 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0MxHopM0
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8a06cc097c7so3627189b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 22:06:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794895565; x=1795500365; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794895569; x=1795500369; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Fn/7Nz6sEtWAi655Kzihh8bKMNCzwwsZZnavj9Q/a3U=;
-        b=tWi7/q6vl+7+X0c8AHeIlPtB1P3zi9lys0vDqtm9cI0df1oFwj0GGruQmuxMfwEKiP
-         Xvq26YKyWHF3hcJy0fdM2hrqpYAtw2jBCV/+R/03nHhKia8DmFmUExRQTkCcNIlt36f0
-         tI1Dbny3jBaV/TPAa+EbI3wAFvTMVwiDOekDX38XhGHGuzkqD0/gBiK40ack13/ItbA0
-         /0E19o6ShnYSdNojBqucpQEnp1QKszf6c899p7rLSCSqyuSo5Q34M7iCc7lrZsD/pcop
-         maoUBTLffKO95rskK6Jn7FMhYvVuh/4oMUe5mmN83E5da2u34m9NRrSMZT4vmXJIhKKA
-         QaTg==
+        bh=tl9vm/5oN7PPPGTUSOoXHW2ARgY0Relof58jU72z34E=;
+        b=0MxHopM0RoBSrxdcP0gh7Wtc+00aT+pe1XFBwhR++vrkRR9p3A4+zNGV9iJYHboU6L
+         hEyHUZ6hG2q/BZfuPXKczNao6M/nT9VoyuPZRju9iHOFdTbCAXI6yaVlNAKM2DAlCA3E
+         OvE3WqiZxLgN6mXNYVe81Uor8ozSE245dBZONxyE2SX7Rb+NbSEbCM+kEOdpCououT3z
+         QndBh9pTKIjQnK78uVltO8m0LZmGTnR7UPZQM8j0UtO3zNDWS1GSHCKcS4GSjMZE7hAq
+         Hsc1I6obwUAVhlGHgy9S02gEJj9DoWIzLb/+H+qp5dMJ0ApHw+/as+AzEtny2xus6+rp
+         f5iA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794895565; x=1795500365;
+        d=1e100.net; s=20260707; t=1794895569; x=1795500369;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Fn/7Nz6sEtWAi655Kzihh8bKMNCzwwsZZnavj9Q/a3U=;
-        b=RWkJD/DVnn+f3a8qxmByE/Q/TRT7rZ+wthuIIrLpm1AY43PljQuqtj8VLrOF1v/dJG
-         LYEKQuh92bpLGGUmMFiaSBuCKSgUcgoG24Uy3IcHDM7d4/VyLV1Z+XjF2RYO7JdHFec6
-         egWawFjUV4Xo76Oz5UQvZYdACGeWN51qC7q8stWD4XcGBxIcGrwz6S3nNr6h/YkW4CIZ
-         prDLMt2uEfsi0gSTssDB/XPZxS800mR60iuOTnNKfK06xtzVydv1QEQq0DUsfnQwRmbh
-         wiuhdxQemNH0ys3Asxrxaua/GFJzCx1WWYrNW188xuCB5FvJqijC1y3awMBXYInFnIs3
-         GEBQ==
-X-Forwarded-Encrypted: i=1; AL+hErEAWmMqYTZ03MyfYapDN0CvFZy3FUXDK2Eif5xP7ePimO9N1tbbYdevkhZxygs8QqezLjqzMXhg6ctaAyo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9UBOr5DB6ScpVMyDS+KbQWxTJwJeqhOpywqaxwQE/6hM7Ubn8W
-	gFP/C83GgO2kGXCEAbO9MTkqvKwcTe6hEpSqFUQOrKLeKp+gWAzK3ZU4
-X-Gm-Gg: AYBFou3FmaurqoCAEjORK6+uOL7njE1z7X1QlZ7d1VQ7IwK2J2tO/sdjbPRgbAmPNK/
-	zLgnPqelllMo8GeUZBKAqu1OFFmu0ye1C/t4pDI15PW3bHFlgEqp5o98wNiIUOlnZWJRp5/wA0d
-	yZkEB2fv+5gn1a1pmKBCu+filpAFYnwzlme7eUb3yArWIUdRuG5xSs97a0Jcu4vSf4Kz+cHILiO
-	HVbE9SMnm9zW5iAT2l4wKzcElUbBGsa9LvxG4l0OcIipnLEWQI+T0N5LFG56suzHxFP/KEa0J0R
-	WGXyqsfYMjWuTR2Cflwwd8bOXrDGLbMtFHL/nSWjR8qClXhj6L3xB55YqezAwO/YAzJpEAbL76K
-	3Od488viovsGL+cHBrGvIA90ra8iLqIcaE5bSwZnzMtQHlq9qK1K1arq0WIhlJ+ol8gXfVrqS+I
-	+RTsVCmlrnZgJIBmh+cWyIgSyt8wTto0YdavdkB2KzzCoFW0q8NdCd7aPDrqNR4lo56jBIyO7Bm
-	Y7YHdhIn2sbkYvkof6qIwBfLRPp/gP/Iv94Vgyfrv6aYuCZgfi5I1WcvbRnssdb/nW1XtOAndAQ
-	Ga1qSWAZxivC3xVd22hhoGW9fth4dYNFMj3I24g0kWkth1p9Xk7LSx+8ZvD/RRiHGf1aLY/ewLq
-	YJtJ+eGI1s4I=
-X-Received: by 2002:a05:6a00:1990:b0:8b5:efad:d088 with SMTP id d2e1a72fcca58-8beb609d4bbmr11260989b3a.9.1794895564913;
-        Mon, 16 Nov 2026 22:06:04 -0800 (PST)
+        bh=tl9vm/5oN7PPPGTUSOoXHW2ARgY0Relof58jU72z34E=;
+        b=fFZozSII39BRVjKB2helkNM8gjemH+M4yR6sMFTzZXpcvq+hT58awH5z+XizS9Ucf3
+         iyZ3pMEbGAaKx7iWh9/AZkzKsCNDxnSaPv74/gxpfDdpEEfgn9Cec6v982WH24dW8Gjo
+         C+BhPgAPZ+0ZLvy9qy4zmFxXn5nPmnJMQDOPOxN1zl8u1ouFkW6KCELHVYpoTl+6RH3G
+         Sg+m8ITNwTkHcRSZdDmfkXZ6igHARzYxCijKSKPLtmKla1OmbC3Ohg9mzSo4OeDEasup
+         o4095h0VUC0/2/xfgTKGsytdycg77LsTIZaq5chw1jVGPQUPSEg81XckfaE4ozJQhSG+
+         y8Wg==
+X-Forwarded-Encrypted: i=1; AL+hErHJa9nLaBZGnv4Pr/KR/9IdogtXo7qADipZ0COtqpLs4/XxVv3fIVsSg9fSpgUCz3Y/8D79kQf2z1/fIwk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8NGRJsUqHGqQOyDloMwgrM9bri7oN6lGU63jt1vEMATpJJ9XI6
+	ghEFWGseSRqCrvJTWdPPd9MdczkphZon8pMvNtwYcGhCkyUGPUuxKzjCWat0+Q==
+X-Gm-Gg: AYBFou0fQ68Yue6oDOjmSWK6+aZSfWO97bF+kxKGAlLF6QKgmC+mo6g4x4KwLaoIu4T
+	CSqNTjHlxPSXdCvc9ibrHCsIH1uXGOxk9GE/DandtbcgWeR7fhj0hn2hr30AYlxv8EOxwY4rZ9G
+	B26xXIldW09DxLM6tx1sO9dUBfQltRsl8TmLpLx2d6T0Z2ttTF1wCTvm4YE1pnQk0lQN19z8i5L
+	nsaoSjBHdSpTs/WgF+su3NQRPEsxs3jdTpUgKIus9SpnjTLn4XxhSe2T9QhOPmtTfAj+75TRzvh
+	sgMkjtQZqw24vLVT+a6DeRqQgtofOUIMvMgsJelxcgO8hOeeUXHn5uADcx4GnOrgAh8po1bRiq+
+	iZbLaS1/EiJzU3zVr/U0aAzPtSU6HW26V8POwbaRf+p9meGIpDLq6X42MsBJjfYRI/tkamsNiZI
+	aKZcxWjoIgQVjv8LHlJzbOjIPlCxRBjh9wLuEqyxj44kHVHVKB9ER9QTnbAHONhnXi+0iYk1VWt
+	no6Pc0DZFKBDj2uGGPUxes3CCrXNL99a4x0i0V+u0Xw84M/tbR7J7Vmwb0mcx8pA6ERQESUfUa1
+	9DobclwpumMJPultBGWXidGwc3ZKBwIbQSZdrpnnkK9f2Yr1EGNLAPuOPBcTrtL/nOGdsK41PFC
+	A2dog5MhF97s=
+X-Received: by 2002:a05:6a20:a79a:b0:3f9:3f64:9bad with SMTP id adf61e73a8af0-3f93f649df2mr5801702637.4.1794895568851;
+        Mon, 16 Nov 2026 22:06:08 -0800 (PST)
 Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed12a8172sm4464623b3a.13.2026.11.16.22.06.01
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed12a8172sm4464623b3a.13.2026.11.16.22.06.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 22:06:04 -0800 (PST)
+        Mon, 16 Nov 2026 22:06:08 -0800 (PST)
 From: Zi-Yu Chen <zychennvt@gmail.com>
 To: rafael@kernel.org,
 	daniel.lezcano@kernel.org
@@ -95,9 +95,9 @@ Cc: ychuang3@nuvoton.com,
 	linux-pm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Zi-Yu Chen <zychennvt@gmail.com>
-Subject: [PATCH 1/4] dt-bindings: reset: nuvoton,ma35d1-reset: Add #thermal-sensor-cells
-Date: Tue, 17 Nov 2026 14:04:58 +0800
-Message-Id: <20261117060501.2611071-2-zychennvt@gmail.com>
+Subject: [PATCH 2/4] reset: ma35d1: Register auxiliary device for the temperature sensor
+Date: Tue, 17 Nov 2026 14:04:59 +0800
+Message-Id: <20261117060501.2611071-3-zychennvt@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261117060501.2611071-1-zychennvt@gmail.com>
 References: <20261117060501.2611071-1-zychennvt@gmail.com>
@@ -112,73 +112,61 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The system management (SYS) block of the MA35D1 SoC also hosts the
-on-chip temperature sensor. The sensor is controlled through a single
-SYS register and has no resources of its own.
+The on-chip temperature sensor is controlled through a register of the
+SYS block, which is already bound to this driver. Create an auxiliary
+device so that a thermal driver can bind to it without a separate
+devicetree node.
 
-Allow the SYS node to act as a thermal sensor provider instead of
-adding a child node that would only exist to instantiate a driver.
-
-Reference the common thermal-sensor schema and update the title to
-reflect that the node describes the whole SYS block. This makes
-#thermal-sensor-cells a required property, which is fine as the sensor
-is always present in the SoC and no driver depends on the property.
+Failing to create the auxiliary device only affects temperature
+reporting, so warn and continue.
 
 Signed-off-by: Zi-Yu Chen <zychennvt@gmail.com>
 ---
- .../bindings/reset/nuvoton,ma35d1-reset.yaml        | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+ drivers/reset/Kconfig        |  1 +
+ drivers/reset/reset-ma35d1.c | 11 ++++++++++-
+ 2 files changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/reset/nuvoton,ma35d1-reset.yaml b/Documentation/devicetree/bindings/reset/nuvoton,ma35d1-reset.yaml
-index 3ce7dcecd87a..a0cb0f98c1b1 100644
---- a/Documentation/devicetree/bindings/reset/nuvoton,ma35d1-reset.yaml
-+++ b/Documentation/devicetree/bindings/reset/nuvoton,ma35d1-reset.yaml
-@@ -4,7 +4,7 @@
- $id: http://devicetree.org/schemas/reset/nuvoton,ma35d1-reset.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
+index eda9c698a95f..cf42fd6f7a3c 100644
+--- a/drivers/reset/Kconfig
++++ b/drivers/reset/Kconfig
+@@ -220,6 +220,7 @@ config RESET_NUVOTON_MA35D1
+ 	bool "Nuvoton MA35D1 Reset Driver"
+ 	depends on ARCH_MA35 || COMPILE_TEST
+ 	default ARCH_MA35
++	select AUXILIARY_BUS
+ 	help
+ 	  This enables the reset controller driver for Nuvoton MA35D1 SoC.
  
--title: Nuvoton MA35D1 Reset Controller
-+title: Nuvoton MA35D1 System Management (SYS) Block
+diff --git a/drivers/reset/reset-ma35d1.c b/drivers/reset/reset-ma35d1.c
+index d2962c0c80be..8c82175d7466 100644
+--- a/drivers/reset/reset-ma35d1.c
++++ b/drivers/reset/reset-ma35d1.c
+@@ -4,6 +4,7 @@
+  * Author: Chi-Fang Li <cfli0@nuvoton.com>
+  */
  
- maintainers:
-   - Chi-Fang Li <cfli0@nuvoton.com>
-@@ -12,7 +12,10 @@ maintainers:
++#include <linux/auxiliary_bus.h>
+ #include <linux/bits.h>
+ #include <linux/container_of.h>
+ #include <linux/device.h>
+@@ -218,7 +219,15 @@ static int ma35d1_reset_probe(struct platform_device *pdev)
+ 	if (err)
+ 		dev_warn(&pdev->dev, "failed to register restart handler\n");
  
- description:
-   The system reset controller can be used to reset various peripheral
--  controllers in MA35D1 SoC.
-+  controllers in MA35D1 SoC. It also hosts the on-chip temperature sensor.
+-	return devm_reset_controller_register(dev, &reset_data->rcdev);
++	err = devm_reset_controller_register(dev, &reset_data->rcdev);
++	if (err)
++		return err;
 +
-+allOf:
-+  - $ref: /schemas/thermal/thermal-sensor.yaml#
- 
- properties:
-   compatible:
-@@ -26,12 +29,15 @@ properties:
-   '#reset-cells':
-     const: 1
- 
-+  '#thermal-sensor-cells':
-+    const: 0
++	/* The temperature sensor is also controlled through the SYS block */
++	if (!devm_auxiliary_device_create(dev, "thermal", NULL))
++		dev_warn(dev, "failed to create thermal auxiliary device\n");
 +
- required:
-   - compatible
-   - reg
-   - '#reset-cells'
++	return 0;
+ }
  
--additionalProperties: false
-+unevaluatedProperties: false
- 
- examples:
-   # system reset controller node:
-@@ -41,6 +47,7 @@ examples:
-         compatible = "nuvoton,ma35d1-reset", "syscon";
-         reg = <0x40460000 0x200>;
-         #reset-cells = <1>;
-+        #thermal-sensor-cells = <0>;
-     };
- ...
- 
+ static struct platform_driver ma35d1_reset_driver = {
 -- 
 2.34.1
 
