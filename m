@@ -1,110 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794928419;
-	b=zH+qDfDuS9SyLvhfNevzeHhavblloQaDfAuhKmPVijcIuAiINidmJWL6hBuG1MxWDcJE
-	 xQDu0PlnvIlNOce2weLj4agi7Ccq+P8U+HsW5ojOS+iLqCq4BZAqJ/QiAdWsVZW2Ry1AX
-	 UjN0lDhs2+71ccKVuF+HJXnPEw0HyzLZtXgOUMER/PdjJEIo86R2HiQBMP9wyswRD5+wB
-	 jfI5vtl/CYEU5IJmIZ52khYx7d+mqpzQCczge67ngjWnZ/Hmbz0n0t7ban8oEaLfj884S
-	 AN3vBA30eJ7NRG2dyE8fWtBOwB5JmLcYEGdPaEZYyx1OwGM+uacjzWpserRjIqx1W7w==
+	t=1794928424;
+	b=PmWvK0c5aggBABEjooyO9OLgwGmbG2AWiDAHucp3As4eGBRRw4EvMqSj+ELPNZOoClY7
+	 8XpTRAvSioECQkVzVcj+z7Suy8ESqs0BR4PZFYX2BSoajCohHynsDbBP7bCGSriT8wsgj
+	 T0JvBryfPj1W5ZSw3pPhc3J6EFbcKihG+oXfx1K/VRH4pnIpFDWbnS4nfsk4i7qOItv76
+	 Qt3njSAJ1iDs6fNvSKJvtfI/0vhGx1kcpp9MiFPlNyL2cc4WI/LbkyDjdQBxecv89nCgh
+	 LOcDY7CzbT2KNeRFLQDX7GSOvYcW12Ux4uGd2gmhOPqL+H2JFBSH1TVnKyyBBbDotBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794928419;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=Lx/UDi9wR/Ft+kPyQK4nI2B4fjoS8MtgwlCtTpGfX24=;
-	b=5RhuFr1TShD8dt0rMypqXr4eqBF1HUJREliCo0w2cwS+tFuLh2IU58fcSumgA0sbq7LR
-	 H4gdBKGz34J231kD7TNEgL1VK0S758QA6uOSGzOGxr4RymyiCA48//8SelmMHdKiLVNTk
-	 am4qVl9vmJYcon/Y/+bJsyAXNqHAQ2wA25dywlQJpTfK9QMnOqXOTBmrx4NyojktL2z+r
-	 iC/ikYj+BWlq4DvUlHqAyz2ZN2BNSK6q9TxJnAeSS53+iZeYjyx7fjxnGnS6j7pnGT3fl
-	 9rUged7cPab0//pK3B7Z3TW7crTi9qKQq9XAiTWIp3Lp+D0xER3M5zHRFdur7I4/rEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794928424;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=5bywH9Z+lJsAxzSeeoFsm7ea77DXoKZ0Ta2n8SrOMJ8=;
+	b=l2Nh6ckWjMfn4/MS6INrXG7EBnlEvMTy/M7wQuS00UQIJ6pVPBSGN7UEoHneWHqr5lAq
+	 8SKFr5CZV5V8ge0U3ks0brMC/7/spm2Vxt4nLL3G8fmAnbhjtv9Q0eYbPrevAbPsKqH6J
+	 CDlnvt/FTQyzCHmEZ+X1Vh0fORWcfZEGibuAjlYWGxbn619TNs/mFCCQNaDK4wfbuMsPI
+	 0EQ+7l8S1LkfFg3Y9/Nk5OZ7jKnRypd3Q5JjHRQ/pQdRAAABzXw4NRSd0mFsHKL1f9acB
+	 J1g0VnsZbqrqQ6qyqq5tz6pF77dWEGD8ktMTSFL70l55wdZ/P/pVUVW0rU2QL7CUuLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hw8wn4b7;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZUhHkUfs;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=oQ1I10S7;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=bQ2MhsfT;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=oQ1I10S7;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=bQ2MhsfT;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D348606A32C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:13:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D348606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FEBF606A31C;
+	Tue, 17 Nov 2026 15:13:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FEBF606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hw8wn4b7;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZUhHkUfs
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHC1wEd4187988
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:13:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Lx/UDi9wR/Ft+kPyQK4nI2B4fjoS8MtgwlCtTpGfX24=; b=hw8wn4b7vlXPbNBb
-	3ELc5vkyLGpCe4P5F8dc1zRe7dK/4lxN75fsIwO/hK4FtcUyVCCCqbCx8Yxzomp8
-	cl97GeEu/WxdPNdUJirMLnByyTtIN+XhzSXvRaQzfaWGzgplPkWPHYjadzykE0LG
-	z91DkaELUVH13hueRYheUj97SmaUsKr3/oQ6J8Rh2QyLQr2EKjUjcCFKovwWOl/g
-	okl4AhPKF6LowSkhwOZAFdTDjMptx29x1xFZoGliV3NVUBoWyIByij/oqCjixIwC
-	63DsPZ08qxEsGqCOiL58aO7DbHg1DO5YY5FHVqKB32zkglAkrXq6cbihI1g5HF3J
-	ipdeRQ==
-Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j09m0btfy-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:13:38 +0000 (GMT)
-Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5eac74b0596so2484884e0c.3
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:13:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794928417; x=1795533217; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Lx/UDi9wR/Ft+kPyQK4nI2B4fjoS8MtgwlCtTpGfX24=;
-        b=ZUhHkUfsm2kMROOMLXw/McLVLTUz3YT4yK8KdMHg9m1lt0s3isER4bbUPcPM5Al4lZ
-         uWKzsg67C3EVj689qpAhhnXPXnEtiN/1C2Q4mp5IrzDwDkuboAnAtXkor+zjr6xb83bD
-         aI/dJcrUdw2mSGa/oarfwifDxwUsjY5V6ddqN6j20UFi6Gt2abLSah2VrvwkYRvNwY5Y
-         Gv5QTziC2F+cfhIaZ79jrMRZe89ekM0AGdK356oL6dOptzJ3KrWdePklK12oyd7u0bcQ
-         xiDWTKH9ad3XCO06krGlluHzTljxNnCCehkphmrP4767FOiRCCnpWb+0+5KeX2sMRHVj
-         TwSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794928417; x=1795533217;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Lx/UDi9wR/Ft+kPyQK4nI2B4fjoS8MtgwlCtTpGfX24=;
-        b=zbgGVB7APvfHrg3qy+gQcJWgjTcCT2ADSmMKtVMtaq9EfXgKAg3VF/iqBMxRPuZmpA
-         ktDWCBB9XVeQ+WyLZNUdBWoX+/8+YNv7JFVdAgxeYFpIIV4uxH2MMVxjsDWOJvKDjT2u
-         fRDFSPNYtvgsMKn7kwGGh3lz8ZKqsIh44vDWlywVRde5WvyvO1jVY27NvGoO1AadjOwb
-         +BWmY8N2tcqrb/RVH7RSja632vW47l4PbQOoks8yn3ayu7yMkHwCDITQWn/pZT7YeI1a
-         7TyN6rEKli/AHeruTZoJws+dgPfuB9HhsEx4mB9QMiYwReoLbYc71B8YIlnBID394Ccn
-         sRAw==
-X-Forwarded-Encrypted: i=1; AL+hErFkErpuWWyGIVxM9q8dP2oeHnIe6JHhGSKMhQIYqZOE53REoKPABEQ3kWIqFlM7o6Ed8kr5R8pXeriBRaM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9tRqO1gEpAEgTEfH3seMgBz3FyyHo8UQ0qUXqOxDcN+M9fEZWq
-	8qmzJ17ZtgTvEnXtYNiDCIfdN39zGgj5ZZwkrtrquXiRCJzfAkvwbJlDvFEf7A2/oXsIJCfpGgN
-	A0MlY6ZKu3X57ze2LDqM4S2TAgM4bCATxQbHKfZnMcWKeoWHwL6FHDviRNE4jUIDD54E=
-X-Gm-Gg: AYBFou3UEHaTzlDlbB6pPPyu4TKiuCp9u/zBBkY0slp/jWeB2oEoLlmtTFwYt1jsmed
-	XFmIenNPNb4mrqSUhPci53/UhdlKaLB3nlmXNZEBRql65M/QuJ3UdufwsF4uvlotnUntRNS4vf/
-	2jqQBI2Pe2dVpLLm/bJNavSZOJ6qxTKkRpQMUvJSinBdkkSD9ZPfWhgpojdGrMrTElzjIfBfMNr
-	H83Jlgdq2iB0XTqj0gJOlnP/NP1TUXy9nq4BGRGWgz5oQoe9XlLGuMet0ofFC+3Trrj7Y28WUNa
-	SCw5jS9JH2MAaUXTfxnG3zj8jRFjv02tagK4GQjZw1EOrOfNIof1Antm6Vbr1kodIx0mZ1tf1g2
-	lvEDtwoAvjv3hBXoSGDBiVlz7rmF4Mjkc2jf8357iG8GbmIOPUBoqzqsGFFmE2x1XZuwX3k5Bo/
-	E=
-X-Received: by 2002:a05:6122:21a5:b0:5ea:df96:c394 with SMTP id 71dfb90a1353d-5ee34a469b0mr5819019e0c.5.1794928417441;
-        Tue, 17 Nov 2026 07:13:37 -0800 (PST)
-X-Received: by 2002:a05:6122:21a5:b0:5ea:df96:c394 with SMTP id 71dfb90a1353d-5ee34a469b0mr5818968e0c.5.1794928416943;
-        Tue, 17 Nov 2026 07:13:36 -0800 (PST)
-Received: from [172.20.97.102] ([195.50.164.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb7840b05bsm108262885e9.7.2026.11.17.07.13.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2026 07:13:36 -0800 (PST)
-Message-ID: <93acb3fb-98ae-4dba-a3de-fcf1772239eb@oss.qualcomm.com>
-Date: Tue, 17 Nov 2026 16:13:34 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=oQ1I10S7;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=bQ2MhsfT;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=oQ1I10S7;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=bQ2MhsfT
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 1D17721FA3;
+	Tue, 17 Nov 2026 15:13:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794928422; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5bywH9Z+lJsAxzSeeoFsm7ea77DXoKZ0Ta2n8SrOMJ8=;
+	b=oQ1I10S7AcCaFbtDw43HzI7zRshQsWqFOHL0ZNxFUJdRUM1ZFm4us5FC5GQNnzwqy+TYch
+	8KSQQXSi+Mk+mte5Rtmn0quo5bNQTTC+n8HunlgiJ5sENnvHImVkM6jSm+eCoCVX9Jky/w
+	Xz7a/UI1PpPUIArcwgl33V2ynBVNN9E=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794928422;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5bywH9Z+lJsAxzSeeoFsm7ea77DXoKZ0Ta2n8SrOMJ8=;
+	b=bQ2MhsfTJmfobONknq/DzZ9vMV5Ppi3R4XaESqROjgzzmg13x1hgHjXLTRUXCQMuV0+xDM
+	PAZhaKm3mf26JeBw==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=oQ1I10S7;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=bQ2MhsfT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794928422; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5bywH9Z+lJsAxzSeeoFsm7ea77DXoKZ0Ta2n8SrOMJ8=;
+	b=oQ1I10S7AcCaFbtDw43HzI7zRshQsWqFOHL0ZNxFUJdRUM1ZFm4us5FC5GQNnzwqy+TYch
+	8KSQQXSi+Mk+mte5Rtmn0quo5bNQTTC+n8HunlgiJ5sENnvHImVkM6jSm+eCoCVX9Jky/w
+	Xz7a/UI1PpPUIArcwgl33V2ynBVNN9E=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794928422;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5bywH9Z+lJsAxzSeeoFsm7ea77DXoKZ0Ta2n8SrOMJ8=;
+	b=bQ2MhsfTJmfobONknq/DzZ9vMV5Ppi3R4XaESqROjgzzmg13x1hgHjXLTRUXCQMuV0+xDM
+	PAZhaKm3mf26JeBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DB9161334C;
+	Tue, 17 Nov 2026 15:13:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id ByQ+GiRv/GoLawAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 17 Nov 2026 15:13:40 +0000
+Date: Tue, 17 Nov 2026 16:13:40 +0100
+Message-ID: <87qzgjxzh7.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Cc: tiwai@suse.de,
+	linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	perex@perex.cz
+Subject: Re: [PATCH v2] ALSA: compress: Fix task resource leak on copy_to_user() failure
+In-Reply-To: <20261117062808.2807-1-sreekuttan2156239@gmail.com>
+References: <20261113110427.4256-1-sreekuttan2156239@gmail.com>
+	<20261117062808.2807-1-sreekuttan2156239@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,92 +113,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: st: stm32mp2xxx: Remove undocumented,
- unapproved eeprom0wl alias
-To: Marek Vasut <marex@nabladev.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-        Alexandre Torgue <alexandre.torgue@foss.st.com>,
-        Christoph Niedermaier <cniedermaier@dh-electronics.com>,
-        devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
-        linux-arm-kernel@lists.infradead.org, kernel@dh-electronics.com,
-        linux-kernel@vger.kernel.org
-References: <20261117133747.244933-2-krzysztof.kozlowski@oss.qualcomm.com>
- <ac1a1214-98dd-48da-b8e1-bc8ef9f09316@nabladev.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <ac1a1214-98dd-48da-b8e1-bc8ef9f09316@nabladev.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA2MCBTYWx0ZWRfX5268FWa1yRvG
- qbcvhbxEx/LMGoovA6lsssPBQBVZITRVV9EmrUeq9Ty2juKDiZJ3TpBfM1B2fd0qM/jq5Mal+HV
- t6BssRDfIPn0t0ecbNZ3fQj/XEUq8dk=
-X-Proofpoint-GUID: Sle41gBoP-8uScq-p_lXR-Bkrw8Kelki
-X-Proofpoint-ORIG-GUID: Sle41gBoP-8uScq-p_lXR-Bkrw8Kelki
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA2MCBTYWx0ZWRfX+X9e7/q7vNjn
- NmGndx1yvw+oZ0Ls/IB2La6+OfKmHeDBS9EYgZKt+ygEBsubA0c2f+bRl3fEUAaavK2qOChY4KF
- o/eCl9xmwOltQzX2tZxBqnZCwf51Mv4jU3YueBLHB99NpXbXRfnwvFU4ucPo8TudiN2n0EtvpM4
- mgfP2a8fi0pFfeItcIaciClS80n7L34m/+pS1nYveuIWlDNBgJHGnBidDrhef/8s/d0341upyR+
- L6PJqhCVDHulMyuErDQ+lyMkazZJDHwNYcebE2dfUyc3ulLrKA0mfYbonPgB9NtKLQ5mZzSX5Rp
- RBvNHbdzUwe7ljWklmx22iZYfCcmHDIA2MGorLY1R9cEP/oymfZHCZI64vWy8M6Uhdh+kJIH0vM
- 3nIDgg5YGFYwH+6iRTqs9D0oiLN/FA==
-X-Authority-Analysis: v=2.4 cv=F7rC5ahN c=1 sm=1 tr=0 ts=6afc6f22 cx=c_pps
- a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=Jk2/TV77q6/E6wQq2oQJxQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=-9-fYqzskX8NnebTxdYA:9 a=QEXdDO2ut3YA:10
- a=tNoRWFLymzeba-QzToBc:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-17_02,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0
- suspectscore=0 malwarescore=0 classifier=typeunknown authscore=0 authtc=
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.22.0-2611040001 definitions=main-2611170060
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Queue-Id: 1D17721FA3
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-12.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	MIME_TRACE(0.00)[0:+];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCPT_COUNT_FIVE(0.00)[5];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim]
+X-Spam-Score: -12.51
 
-On 17/11/2026 14:41, Marek Vasut wrote:
-> On 11/17/26 2:37 PM, Krzysztof Kozlowski wrote:
->> The eeprom0wl alias was never approved by Devicetree maintainers,
->> because it was never documented as actual ABI.  There is no in-kernel
->> user of it, although there might be U-Boot.  External DTS users cannot
->> rely on undocumented ABI, thus these are pretty safe to drop.
->>
->> No new custom aliases are allowed for years now.
->>
->> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->> ---
->>   arch/arm64/boot/dts/st/stm32mp2xxx-dhcos-som.dtsi | 1 -
->>   1 file changed, 1 deletion(-)
->>
->> diff --git a/arch/arm64/boot/dts/st/stm32mp2xxx-dhcos-som.dtsi b/arch/arm64/boot/dts/st/stm32mp2xxx-dhcos-som.dtsi
->> index bcf63e2ea989..5795b352fccf 100644
->> --- a/arch/arm64/boot/dts/st/stm32mp2xxx-dhcos-som.dtsi
->> +++ b/arch/arm64/boot/dts/st/stm32mp2xxx-dhcos-som.dtsi
->> @@ -10,7 +10,6 @@ aliases {
->>   		serial0 = &usart6;
->>   		serial1 = &uart8;
->>   		eeprom0 = &eeprom0;
->> -		eeprom0wl = &eeprom0wl;
->>   		rtc0 = &rv3032;
->>   		rtc1 = &rtc;
->>   	};
+On Tue, 17 Nov 2026 07:28:08 +0100,
+Sreeraj S Kurup wrote:
 > 
-> U-Boot depends on the alias, so please don't drop this one.
+> Hi Takashi,
+> 
+> Thanks for reviewing my other patches.
+> 
+> I noticed that this patch is still pending review. 
+> Could you please take a look when you get a chance?
 
-As explained, U-Boot CANNOT depend on undocumented ABI. U-Boot is not a
-user as understood in Linux kernel policy "we do not break users".
-Especially that U-Boot does not even consume that DTS! We do not break
-U-Boot as long as it is about documented ABI.
+I'm still considering whether it's safe.  The open code in the error
+path looks a bit scary.
 
-Here U-Boot won't be really affected, because updating DTB in the
-kernel, does not update the one in bootloader. It does not go that way.
-It could go opposite, so from bootloader -> kernel, but not the other
-way around.
+Aren't dma_buf_put() called already in snd_compr_task_free() that is
+called from snd_compr_task_free_one()?
 
-Best regards,
-Krzysztof
+Also, a bit concern is that we expose to user-space before actually
+installing the file descriptor.  I don't think there will be so much
+race here, but just need to be sure...
+
+
+thanks,
+
+Takashi
