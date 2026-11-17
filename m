@@ -1,60 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794906628;
-	b=s8fqQWfGeQk6ufmrKiaSkQhVXVLxvrYTQoG46cTnI7JGPNFtkFyiHHNKTFIsFRcJjRoR
-	 nF0AC2yRJMeKX0kXFKhbwXjjx/DfiF/qVyoZsBirRzdvetLuNCeqY66to9jmjDCNgm4AS
-	 rVRiFiGaZEGVD736+VuOr4lH4kEXz1ZveISBs9vGuVy2MIdeXv8MXTLATa8h0mxF1Ceq8
-	 yFPMqQLf+L6Tia5Jv0/x8U2ZdOw9zojM41xGXtV0/R/WF7SeYDdr2sSrubaKvaV7nA5gZ
-	 SwjGgIZXZJ82Y/CBdwJdNCG3bw8QEeL/lhm5xidvYfh5K01bYkSPUnKtui65n4wFyFw==
+	t=1794906643;
+	b=qbjP/mXH2TypiFjrVwenQ6+dteXnH9/znrgM1KYaX5QFob9bkqwEbONE6G/ZHl9dELoZ
+	 Ih8zbxidqRjz6DIDl4oEFZT7+l/KfdBxW2S5N/Vqt1sqB0KEwNvINgvvlqhPAqQXxisjI
+	 XoW/VpHBkk0WUW7X/W7ajrpKXrJkmyly+egVlppFCEBfKS2VEtP47Ex2UtUSFgKePrJVY
+	 oAF4VPPd3FuX2z+umW4XL/FONqHUNgAFgzYrNTCD3B81Npz5UTTKwQyqb3Pd1Ny7A3lac
+	 u9aoUx6VrsGbtu/6RciWXHIUAjrAsR+0sz4hbd63HSWN55w/aIDX0dES44GGTSNzEyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794906628;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=R3xjMAAodPt6ComAZI2yr4tqLZHgVn0+opeICRnPgFQ=;
-	b=zGCY1oHyiJ+M78E7PYlTDi76I2o0hRU07b20uYjwhst5YiaX6aSvF04hItLtaKp8MZdP
-	 Y8zhk6wbaSVEha+YYMssOFj6/JMOZslpLkrBTQwq+pllEEy8Q8rBsqQLp0vBSWk72ig/v
-	 8rVlshn1NFVM9zRcIi808SFA83xFuG8ZC73WVfbnSjT2cxGzm0f6Gij9rxqmJ41aZXpYG
-	 LJhXB7GzhGVIlBPCmfXyh4CwKDkb+EC8S1kLlI5EDMQQcegeOEFiIjPoMWftylDgoN1XU
-	 VymwgsR+zSQmSJ5lYIUh2MCyRtuE8SGDtiFzgbvghAX3i++WvRVQbMHa/9QQzsiSUXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794906643;
+	h=DMARC-Filter:Received:DKIM-Signature:MIME-Version:Date:From:To:Cc:
+	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=dXYDFW/0fPMnA6KvoRTsUPnIpezmhFCgKFQeXv7Zuz8=;
+	b=BCOrn58NmR086UhxyEQF0CUQSpITu7h599U7fplftZjo4IHJM3Vdioyj1Ya2iyx21YgO
+	 wSsVIQPxrgCoY9bZU2UO0neKaQnd4n6CO5GGNLGgSekuT/cy4BzsCT2ayresS+VGDlhrN
+	 AbHm0RfSMLQl6STJ/ZNx58jig8twotneF/RVNox8Kx+PRYZNOZUWUCKfTU9jnZmSBKv9J
+	 BlyNG7AKHOhdRnXl6DZeE8DK/BNulWD9g2U+OffN5NIy6QFWSYWtNYBR8XVpBmlaXXSQS
+	 eN/sjO0kDat5BI/ozJG8dYlv4UnVKNKjVMXT4g+pUrkSG/8KYlzzYgkoWqp7H6c6uTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F1+OUVYe;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=tipi-net.de;
+	spf=pass smtp.mailfrom=tipi-net.de;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=uCq7+x3I;
+	arc=none smtp.remote-ip=194.13.80.246
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19C03606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:10:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D194B606A338;
+	Tue, 17 Nov 2026 09:10:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D194B606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F1+OUVYe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 893881F000C5;
-	Tue, 17 Nov 2026 09:10:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794906627;
-	bh=R3xjMAAodPt6ComAZI2yr4tqLZHgVn0+opeICRnPgFQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=F1+OUVYeCkol6ftrcrJuGaYnKqEUJVAZwY3HVnGUBskVzs/NkRnWDCWySGL0bl+yo
-	 aM7JrMvjYhdyE4vwrAx83WgtN4P4k7vHcJ5QOoM8bz9JhhdzlS6awcU2YUCMq7K9d6
-	 5aXBlHC58z6N/DjHWJwckfiKhCvypu/oSZ9llqTKuHrwwsWLVAuHSLdzxQTEUSkpbT
-	 7OmlIeZsSHiHVnLFhe9ozqYWzkIHbDXHSWRJJ5uw7kPOD/x+S0QpSb2YXhqcy64VkI
-	 0T9PvUFb0p+yEtWQxUsEEAj8nspU1X3lrjnFU8wAuFfKleirosh1sygjWTeA98vWZ/
-	 JZ54Og9bdKNfA==
-From: David Hildenbrand <david@kernel.org>
-To: Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>, 
- Luiz Capitulino <luizcap@redhat.com>, Shivank Garg <shivankg@amd.com>, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Shao Mingyin <shao.mingyin@zte.com.cn>
-In-Reply-To: <20261116-snapshot_page_fix-v1-1-8e425984e8d1@kernel.org>
-References: <20261116-snapshot_page_fix-v1-1-8e425984e8d1@kernel.org>
-Subject: Re: [PATCH] mm/util: fix retry detection and handling in
- snapshot_page()
-Message-Id: <179490662325.3990.242767098070074559.b4-ty@b4>
-Date: Tue, 17 Nov 2026 10:10:23 +0100
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=uCq7+x3I
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D089AA1649;
+	Tue, 17 Nov 2026 10:10:39 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1794906640; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=dXYDFW/0fPMnA6KvoRTsUPnIpezmhFCgKFQeXv7Zuz8=;
+	b=uCq7+x3IblpzixUBPKoYlqjH8zs/iOR39mYOetjxr5v22ViJlPlRL+muvXn7yBh92o565H
+	l5gus2MXDJabl8FxLA1t8MIUdRA+u5G39ihbcuNPFSN9VTM008WxgqWf9lfIyD7JN2ep8V
+	kDrHJbCPio/VSRYK33xNRG9dd/il5VqhNIuuEQ+9kqeiglfJwlBVHVcz5OhLYFZ3mr2a5J
+	ncrHEMSUMy1Ir7u6dZgfiVn0Xluip131cjGo5/lmMZY5WEfFVzLJXE/hxyRBS5m8FIODaW
+	hoVRi4oUdr5EXoJBtatSgIhYtgl2kBfdJNnowSBODqoHMycjI6XY5EC3xcG9Yg==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,44 +53,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Date: Tue, 17 Nov 2026 10:10:39 +0100
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: netdev-bot+sashiko@kernel.org
+Cc: opendmb@gmail.com, florian.fainelli@broadcom.com,
+ bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, f.fainelli@gmail.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, pierremarinleclercq88@gmail.com,
+ dave.stevenson@raspberrypi.com, justin.chen@broadcom.com
+Subject: Re: [PATCH net-next v7 8/9] net: bcmgenet: allow the MTU to be
+ changed
+In-Reply-To: <179474771357.2199510.15722627746438398810@kernel.org>
+References: <20261112-nb-genet-mtu-nn-v2-v7-8-43a5d90b3256@tipi-net.de>
+ <179474771357.2199510.15722627746438398810@kernel.org>
+Message-ID: <f19d926576bb56bab6bc3656fddfcb01@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, 16 Nov 2026 15:12:13 +0100, David Hildenbrand (Arm) wrote:
-> snapshot_page() detects races with concurrent folio split+construction by
-> checking whether the given page still falls into the folio. Unfortunately,
-> we have an off-by-one error in there, and we should be checking for
-> "ps->idx >= nr_pages", because idx 0 is valid.
-> 
-> For example, we might currently report a tail page at idx 1 as faithful,
-> although the snapshotted folio is now a small folio.
-> 
+On 15.11.2026 14:01, netdev-bot+sashiko@kernel.org wrote:
 > [...]
 
-Applied, thanks!
+> [Severity: Medium]
+> Has GENET v2 been confirmed to handle the larger thresholds this 
+> enables?
 
-tree: mm/core.git
-branch: core-7.5.misc
+No, only v5. See 6/9.
 
-Applied patches will appear soon in mm-next, followed by linux-next.
+> [...]
 
-Please report any outstanding bugs that were missed during review, so we
-can either drop the patch series or decide how to fix it up.
+> [Severity: Medium]
+> Once this lets frames grow past priv->tx_thld_len, does the threshold
+> split in bcmgenet_xmit() release the head buffer with the wrong DMA API
+> call?
 
-It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
-though the patches have already been applied. If possible, patch trailers
-will be updated.
+Yes, but it cannot warn (dma_unmap_single_attrs = dma_unmap_page_attrs).
+What needs fixing is, that first_cb doesn't track the owner of the 
+mapping
+once split. Will fix this in v8.
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. Further, this is not a guarantee that the
-patches will go upstream. If in doubt, please check the listed branch.
-
-[1/1] mm/util: fix retry detection and handling in snapshot_page()
-      https://git.kernel.org/mm/core/c/d172918d
-
--- 
-Cheers,
-
-David
-
+> [...]
