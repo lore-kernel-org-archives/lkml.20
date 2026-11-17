@@ -1,92 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.77.101.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794914272;
-	b=eyiNdX9e8ZQHlU59pVk0uUkClQiAJFaDeq3k8+cRq7XRa9KOAKLBD9ofrtdcZaXuFeyl
-	 rS9P/fFue8yDjIPpMBnVXGjUWuV0S/wl3d3Q6ThtChgMWgtFm8LD2JltuswNzB2OjAcfh
-	 HGQe3TDAhe6dft4JIVhHOT6poV9xuXHvMioZSv2vXq7qVBsoxSw6xXtS7YdD9sNv9DaEW
-	 XzRBfJnSPhyJFLjGL0sBcHNOt7xAyjgBtn8uWXX4i/q54SbARSQ48RORKNonR0mm+fjuF
-	 P36wWQgtwwPjbWhw7Oz+4RemGw9WaVgfFZ+agXiPUktsXv3k77fPlRMy9vyER3amafQ==
+	t=1794914277;
+	b=Gwxdph3GxUP+Wpyk1E4VmyHX68hZFCgoYZ2VkUEO/XMcoY3s64GlwnDVUDbe+FZ3v1wc
+	 YsOqAFfxVFKzM0dAgitLqJijBEDLGInCP/EsuyvgDe4P3PJUQjIDKMTRq6eSWpANERS1W
+	 8O4yWZ0K8dQgeA9fasJXpbif6OLYxRnV7Hw8BHo6EhK1aqYHjwsQTFgeA9taE+JcRB0uq
+	 aba8qNLAnFP/ktGwFHwZ9HUkpgi0D+IZ8SPh8JiZxbnuVtdm9uKds5XmDS0mmxz1zSrkQ
+	 nsyOOmmm6QNt2YImDwDuvi8eeQ7FYZO0o1WPLQ2YMDtYkrDw8wvMe9Vb9XtuE99RS7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794914272;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=/mF8YDn9SzKZ/tBRzo19EbnjnKr9dUA+FJJmwsFwbow=;
-	b=dxtfPiw34WNbUWkuL8KogzIWoyehpOJAhLyhZOYfWwpc2cXyXcbzMIqYtrd+hmO4Pxl+
-	 YY1MZ+FlRFyjvyagz2svW7u/9dkReX+HxJCjJGkNPw7IANIXrpBIvK/srlBbXs4tpcErp
-	 ZeMJUiHLPAjU6tngxbtFP4paAHLkTBmPdvI4jdX3EuFhknAJGfZgcOHTAJHmGDOhnUS3Z
-	 ZqgtJRm+9tBJmEDb+qPESaCijAI6RdMxOVp/YpacfWuSkoCyi6DBb9zpAkiSAszNQUg3q
-	 8aDomnFWDivADnI3Jm4y7elUZouvAClh2elsQBDGV/g/xJtYHKpczX5daljNFuI5ldQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794914277;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:X-WP-MailID:
+	 X-WP-AV:X-WP-SPAM;
+	bh=lacrfJAZc9PxSg1vvmhQyROqUQhgxiKoLysqHqcOGXI=;
+	b=ZIQXYwsGoZpJLOqIUdtvBXOGqZxR++7d3Ty9Z2xdWc0PkI7l3jD28i5UIWvaZBrwKX2t
+	 ZZLpYCt+kfukcYoj1QWyMBqgQ99It14Vj0+Bf/bA2lwU0OW9t7GHx5Ujag4hszDSLqRAz
+	 b4m7A1a+SaEI6yYT3g+wFDUaXoCpLvXQ2yEo4frl0bKD1UPktwtt7z9eHA7iCG6NwEG6y
+	 nnhnwjqXhOnZ4mEsCB3XI/kjZQOZ7RHNYQVn/d+RHkfqd4n7g3I+pUGVLnQXYVxppo3AQ
+	 LI13t3ixHgRaJ2tW/wrPBkMwHHj3mrzEtrZYx76hGBL6k2WScYBt1/OOd+fV5MUCihw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="iSG/Q5CD";
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7FBF9606A331;
-	Tue, 17 Nov 2026 11:17:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FBF9606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=wp.pl;
+	spf=pass smtp.mailfrom=wp.pl;
+	dkim=pass header.d=wp.pl header.i=@wp.pl header.a=rsa-sha256 header.s=s20261001 header.b=krDZcyq4;
+	arc=none smtp.remote-ip=212.77.101.11
+Received: from mx4.wp.pl (mx4.wp.pl [212.77.101.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40DF4606A330
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:17:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40DF4606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wp.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=iSG/Q5CD
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 118611682;
-	Tue, 17 Nov 2026 03:17:48 -0800 (PST)
-Received: from e135073.nice.Arm.com (e135073.arm.com [10.34.111.135])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id E2D403F763;
-	Tue, 17 Nov 2026 03:17:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794914271; bh=BFRCbt9be3YwNyQfUo0JQonDsf0DD286+/Lqxp/rjUw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=iSG/Q5CDnoaPwkNewXjRdk8C42BPFwFsjjHkjTZdKmdBPkh49YcL9Rpc6ImhFzCOs
-	 PVQzfUn2l7bHxJfGi7fPi9mHIVgRxOjVkiv8W8fn+cyAziaRBXqvdJflajehLWhlYx
-	 FVRpcF+TH85V7yMyqj1QZxc5PcaYVDtUVSgaZ+EY=
-From: Pierre Gondois <pierre.gondois@arm.com>
-To: linux-kernel@vger.kernel.org
-Cc: Ashok Raj <ashok.raj@oss.qualcomm.com>,
-	James Morse <james.morse@arm.com>,
-	Mark Brown <broonie@kernel.org>,
-	Pierre Gondois <pierre.gondois@arm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Tony Luck <tony.luck@intel.com>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Shuai Xue <xueshuai@linux.alibaba.com>,
-	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
-	"Oliver O'Halloran" <oohall@gmail.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
-	Pawel Chmielewski <pawel.chmielewski@intel.com>,
-	Yazen Ghannam <yazen.ghannam@amd.com>,
-	Qiuxu Zhuo <qiuxu.zhuo@intel.com>,
-	Avadhut Naik <avadhut.naik@amd.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	"Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>,
-	Kai-Heng Feng <kaihengf@nvidia.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Breno Leitao <leitao@debian.org>,
-	Dan Williams <djbw@kernel.org>,
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
-	Terry Bowman <terry.bowman@amd.com>,
-	linux-acpi@vger.kernel.org,
-	linux-edac@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-pci@vger.kernel.org,
-	acpica-devel@lists.linux.dev
-Subject: [PATCH v1 07/19] ACPI: extlog: Provide HEST generic data to extlog_print_pcie()
-Date: Tue, 17 Nov 2026 12:10:17 +0100
-Message-ID: <20261117111444.4185512-8-pierre.gondois@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261117111444.4185512-1-pierre.gondois@arm.com>
-References: <20261117111444.4185512-1-pierre.gondois@arm.com>
+	dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.a=rsa-sha256 header.s=s20261001 header.b=krDZcyq4
+Received: (wp-smtpd smtp.wp.pl 27972 invoked from network); 17 Nov 2026 12:17:53 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=s20261001;
+          t=1794914273; bh=lacrfJAZc9PxSg1vvmhQyROqUQhgxiKoLysqHqcOGXI=;
+          h=From:To:Cc:Subject;
+          b=krDZcyq4M6w44sq/2G7++7hEuIo+5D8uenjztHEL3QyX5QpiXYR1+QDZTsEbKFx5A
+           zbDQ5lm6rswxursNM2fcLIX7id4AisJV+kPNkF/FOtwwtXPRGuswG3zF47VS7ZUmOt
+           GqygzPVKHffCad7cT5e1lxbat1NzHYjKsyz+8gAobfYm+sS8ZKDNSBjA+DvsPcqKnE
+           DSs95DOZ+X17zBaxfMcjt5vrfSG2LcpyLeM0K0LqDjlMbkUmyLnAHDMjxkrnTypxPy
+           hWYv8Y7QDHdkhyOH55CweX1lYo4P00iFpd31vgm9WKYtE8z3HGQoaHJosdPjy8/h4d
+           qbo6KSG9U52rg==
+Received: from localhost (77-236-5-223.static.play.pl [77.236.5.223])
+          (envelope-sender <stf_xl@wp.pl>)
+          by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
+          for <petr.pavlu@suse.com>; 17 Nov 2026 12:17:53 +0100
+Date: Tue, 17 Nov 2026 12:17:52 +0100
+From: Stanislaw Gruszka <stf_xl@wp.pl>
+To: Petr Pavlu <petr.pavlu@suse.com>
+Cc: linux-modules@vger.kernel.org, Sami Tolvanen <samitolvanen@google.com>,
+	Luis Chamberlain <mcgrof@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org, live-patching@vger.kernel.org,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Jordan Rome <linux@jordanrome.com>,
+	Viktor Malik <vmalik@redhat.com>, Petr Mladek <pmladek@suse.com>
+Subject: Re: [PATCH v2 2/2] module/kallsyms: sort function symbols and use
+ binary search
+Message-ID: <avw34F1WLGdyYUkN@wp.pl>
+References: <20260327110005.16499-1-stf_xl@wp.pl>
+ <20260327110005.16499-2-stf_xl@wp.pl>
+ <11c8e139-f9f3-4b22-863a-4e021a3947e7@suse.com>
+ <20260424091330.GA31168@wp.pl>
+ <88ae41dc-e5e0-442a-9b95-5125adf31e75@suse.com>
+ <20260428082330.GA2757@wp.pl>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,69 +78,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260428082330.GA2757@wp.pl>
+X-WP-MailID: f9197c6689b43e0d8ad86c0c3de46d46
+X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
+X-WP-SPAM: NO 0000000 [oaPU]                               
 
-Pass struct acpi_hest_generic_data to extlog_print_pcie() and derive
-the payload, severity and length from it instead of passing them
-individually. This reduces the number of arguments and makes the
-section flags available for subsequent changes.
+Hi,
 
-Signed-off-by: Pierre Gondois <pierre.gondois@arm.com>
----
- drivers/acpi/acpi_extlog.c | 16 +++++++---------
- 1 file changed, 7 insertions(+), 9 deletions(-)
+My apologies for the very long delay in responding.
 
-diff --git a/drivers/acpi/acpi_extlog.c b/drivers/acpi/acpi_extlog.c
-index 5565177be328f..125f7931b98bc 100644
---- a/drivers/acpi/acpi_extlog.c
-+++ b/drivers/acpi/acpi_extlog.c
-@@ -133,10 +133,10 @@ static int print_extlog_rcd(const char *pfx,
- 	return 1;
- }
- 
--static void extlog_print_pcie(struct cper_sec_pcie *pcie_err,
--			      int severity, u32 len)
-+static void extlog_print_pcie(struct acpi_hest_generic_data *gdata)
- {
- #ifdef CONFIG_ACPI_APEI_PCIEAER
-+	struct cper_sec_pcie *pcie_err = acpi_hest_get_payload(gdata);
- 	struct aer_capability_regs aer_regs = {};
- 	struct pci_dev *pdev;
- 	unsigned int devfn;
-@@ -144,9 +144,10 @@ static void extlog_print_pcie(struct cper_sec_pcie *pcie_err,
- 	int aer_severity;
- 	int domain;
- 
--	if (len < sizeof(*pcie_err)) {
-+	if (gdata->error_data_length < sizeof(*pcie_err)) {
- 		pr_warn_ratelimited(FW_WARN
--				    "PCIe error section too small (%u)\n", len);
-+				    "PCIe error section too small (%u)\n",
-+				    gdata->error_data_length);
- 		return;
- 	}
- 
-@@ -154,7 +155,7 @@ static void extlog_print_pcie(struct cper_sec_pcie *pcie_err,
- 	      pcie_err->validation_bits & CPER_PCIE_VALID_AER_INFO))
- 		return;
- 
--	aer_severity = cper_severity_to_aer(severity);
-+	aer_severity = cper_severity_to_aer(gdata->error_severity);
- 
- 	aer_cap_regs_unpack(&aer_regs, pcie_err->aer_info, sizeof(pcie_err->aer_info));
- 
-@@ -245,10 +246,7 @@ static int extlog_print(struct notifier_block *nb, unsigned long val,
- 					       gdata->error_severity,
- 					       gdata->error_data_length);
- 		} else if (guid_equal(sec_type, &CPER_SEC_PCIE)) {
--			struct cper_sec_pcie *pcie_err = acpi_hest_get_payload(gdata);
--
--			extlog_print_pcie(pcie_err, gdata->error_severity,
--					  gdata->error_data_length);
-+			extlog_print_pcie(gdata);
- 		} else {
- 			void *err = acpi_hest_get_payload(gdata);
- 
--- 
-2.43.0
+I wanted to understand the livepatch relocation issue before getting
+back to this patch, but I kept struggling with it and putting it off.
+Eventually, I got some help from AI to understand how livepatch
+relocations work and why reordering symtab entries breaks them.
 
+On Tue, Apr 28, 2026 at 10:23:30AM +0200, Stanislaw Gruszka wrote:
+> > >> I'm not sure if it is ok to limit the search only to function symbols
+> > >> when the address lies in MOD_TEXT. The text can theoretically contain
+> > >> non-function symbols.
+> > > 
+> > > Yes, the patch assumes that the only valid symbols in the MOD_TEXT
+> > > are functions. If there are defined OBJECT symbols in .text, the patch
+> > > would break lookup for those.
+> > > 
+> > > While it’s theoretically possible (e.g. hand-written assembly placing
+> > > data in .text ?), I’m not sure this is a practical concern. In general,
+> > > having data in executable segments is discouraged for security reasons. 
+> > > 
+> > >> Could this optimization be adjusted to sort all
+> > >> MOD_TEXT symbols (excluding anonymous and mapping symbols) and move them
+> > >> to the front of the symbol table?
+> > > 
+> > > That’s possible. We could track .text sections indices in
+> > > __layout_sections() and include all valid symbols from those sections,
+> > > and also reorder typetab accordingly.
+> > > 
+> > > However, this adds complexity. I would prefer to first confirm whether
+> > > OBJECT symbols in MOD_TEXT is a real issue before going in that direction.
+
+It turns out that identifying MOD_TEXT symbols is straightforward.
+The section's memory type is already encoded in
+sec->sh_entsize >> SH_ENTSIZE_TYPE_SHIFT, where sec is obtained from
+the symbol's st_shndx.
+
+> > I'm not aware of specific OBJECT symbols that end up in MOD_TEXT.
+> > Nonetheless, it is a valid case and it is preferable that an
+> > optimization doesn't break their lookup by address.
+> >
+> > In general, I'm worried about the several edge cases and inconsistencies
+> > that this optimization introduces. This also includes the fact that it
+> > doesn't work for livepatch modules.
+> > 
+> > An alternative could be to keep the symbol table untouched and have
+> > a separate array with symbol indexes that is sorted by their addresses,
+> > but it requires evaluation if the additional memory usage is worth it.
+
+I've implemented this approach. As a bonus, sorting during module
+loading is actually faster, since only the indexes need to be moved
+instead of entire symbol table entries.
+
+To get a rough estimate of the additional memory usage, I ran the
+following command on my system:
+
+awk 'NF == 4 && ($2 == "T" || $2 == "t")' /proc/kallsyms | wc -l
+
+It reports 83593 symbols, which would correspond to roughly 326kB
+of additional memory for 32-bit indexes across all loaded modules.
+
+For comparison, the total size of loaded modules on this system is:
+
+lsmod | awk 'NR > 1 { sum += $2 } END { printf "%.2f MB\n", sum / 1024 / 1024 }'
+49.74 MB
+
+Thus, the additional index would account for roughly 0.64% of the
+total memory occupied by modules.
+
+> I personally prefer not to over-engineer for cases that may never occur.
+> That said, your concerns about edge cases, consistency, and livepatch 
+> handling are valid.
+> 
+> Let me take some time to think this through and experiment with possible
+> solutions that handle these cases properly. I can’t work on this
+> immediately, but I’ll get back to it.
+
+I'll post v3 shortly. 
+
+Regards
+Stanislaw
