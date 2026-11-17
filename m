@@ -1,48 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=135.181.196.210
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794923851;
-	b=WPkbLHXemsIEnBmjXS5wo4Qgb9OROhFuNy+DXnDNPfD3tqJ05Hkg38aH8LvtfmnLTnMR
-	 8gV0ah19iVE5TUAiyacSbol0MRHKExsK0wgdqeIb4MeJjBt8lftOqB/R3XsC2/NNRosr9
-	 1tExuIC/2XFfrKAfQjxQGHAvCDocm7NQfN2xBKlo3m/PEqkcSJ+ftoM+hEvYko0RcDaql
-	 W0FjPYYi3PblduyPs7FUwfzcdyMktg/wGmKqJ50AcXX5HKN9Fohc4vnSo2AQB+/b5akSD
-	 6gAwEmKZR3TD0X/JF3K7Ce8ITfthKAPxJ+o6JTqr1Gy+dcFZY1mVrYbHQ0NJOVxYlLQ==
+	t=1794923898;
+	b=MnxkZNC0ZGWHOcoy0GjkPEow+wTbS6W57TSnlHjWKUQ+QkVJC3wgQ+1o1orX5Qdm+vmV
+	 Nn+pdGDmjIpfSo+DjsciMjrqyoZ1K2ambOYgppeiEEQFQ7P9I9+2Jue91v/bzX31Z2tBg
+	 +dDvS74i5nMeg58OJfPNEvp+Inei1jPWkVcnHNziEuyVuVlYTlgoZxh/2/sjACuNQkwov
+	 1Pov5N6PMo5U3k1XMEL+n58QJ5S/9DGKmWn7zhoiIemwDW6SUgtWRXajEUbKohyGSl+xU
+	 jlP/w58YJXUrNY+laD6iSi1jjcuC79gZNC4mKpcfpZDK157ehtCopUCxPgqclBf1+/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794923851;
-	h=DMARC-Filter:Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=fEuhClmaJB9i6FXWuXFxHEVU2l5a2ORvSS+UOcUmAQg=;
-	b=1B/JtAOKxPe2SIf3RtRaniHX6MobdZj/181QaySzNjVWl+Y/ACnvVuXp+PQbrj4lBSNJ
-	 EWdBgTtN5PbVHII9+eRTJKf8GYGtOYWu2knCgFNuRrvhdV3M6fJTIwlBDmzeC1SHG3KZo
-	 ihlsCbRRpM0OPOivGLvGfeVpRsRaOfYMqQPsw7snYGtCvUAGNB87Oo+9avF2Oo/Cjz0Ey
-	 Ozx/OoBt8zE91lIV9swigQvYHHUsHVtPfATPC4NGQhlwWFUE8YukfPkJuISmA6LUIgsWt
-	 YlZ+GSwR4TUvdOKzkKEK8ww839SkbzCoXj3FyVlAZYMgErTw7+Wz7jYpfxp/qvNsd2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794923898;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type;
+	bh=XSXOraS8SoZpCNyD7GSpHo4bWhfXPw6Lwr7+GX5rOE8=;
+	b=Cg9kIzpzQghGof9ZNuvgUdsQTofgxqh5QhidQ3KNoqgO9Ds5fZf6xpTe7Ex46dswAM96
+	 UklnQMFkFE39RTO2EgzM9ewK40VX5TMjCApbqBpQf4AiThto6cxAS2Z2UQj+c0nxItkTg
+	 0cwT1VoKrzf9i91jziU+hyShK/TT6JSeR9EnDDWc4DKzrs4TAmnxep7AsUNOH7CJurCm7
+	 8smsSRkRImySfRC8Hi+yEIkgR2qZTu7bQ6AMLI79mcBoWhFg5BNHEp+NJ5Cz8rEyFrDuY
+	 eTSBdRTr0y0SHp7dNA0m6vhgNlV3B5vAVKje04E5nJIuO+SBB+4pUo1NnK224roaXLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=kLRKax7Q;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dmarc=pass header.from=puri.sm;
+	spf=pass smtp.mailfrom=puri.sm;
+	dkim=pass header.d=puri.sm header.i=@puri.sm header.a=rsa-sha256 header.s=smtp2 header.b=YJfPrqPg;
+	arc=none smtp.remote-ip=135.181.196.210
+Received: from ms.puri.sm (ms.puri.sm [135.181.196.210])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 291EF606A31C;
-	Tue, 17 Nov 2026 13:57:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 291EF606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36EA3606A329;
+	Tue, 17 Nov 2026 13:58:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36EA3606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=puri.sm
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=puri.sm
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=kLRKax7Q
-Received: from [127.0.1.1] (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1C34A15B2;
-	Tue, 17 Nov 2026 14:54:59 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794923700;
-	bh=SGdF8nfS37ls6JI/8WVlvHSMe1DjBMEx5/IrVzLhb5w=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date:From;
-	b=kLRKax7Qdo2KFM3LRtNj1wG6mRam6bxjFgr5dCY7LNwEAE1gDePOPuSKuLCdROShE
-	 mDwtbAi6e5MZMtd83tcyjjfIV9fF1MrkMF8gYJzpcRzRD2SnOGUK+FEnsvfWt8wrCF
-	 xBePtEZipHyK/7oo6aczGgDw1CKchbKhlg6G3Aoo=
+	dkim=pass (2048-bit key, unprotected) header.d=puri.sm header.i=@puri.sm header.a=rsa-sha256 header.s=smtp2 header.b=YJfPrqPg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=puri.sm; s=smtp2;
+	t=1794923889; bh=DgEaRglGM4qMbbAONaV5XFSdtChkpG9X7CcGoRtcuzY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=YJfPrqPg+HLp4bZWEP8NDBVhhQfxV5AC4byvZ30u9Qn3Us+TVG6yRuMkATsOADwQU
+	 oZZ6zTA9IhvbfDe4FjPc33HXezpqrvx4V7uWyir4WgDePaRgK+L7vqCtO2H5AYf7X/
+	 0p5bdWAg7GbTwM0iPgfvxmbuNMjVMreqN8hpRXqhN2J9FtRVXyY9KD0pdM0OS2cFWp
+	 RXej3tDD+gv2W002/89NFzAYSeshr0m/JRIQ2NvJ6mpXMlZu4BdGgIgJgmll6cYjNn
+	 wog28fPxm/B5Hhgg+Q76QeXdMsWuqTgLZX28Jobv5f2I/243FQz0sVSVNnupgPTx0t
+	 ec8byidQi0UsA==
+Received: from pliszka.localnet (79.184.57.27.ipv4.supernova.orange.pl [79.184.57.27])
+	by ms.puri.sm (Postfix) with ESMTPSA id A4D021F736;
+	Tue, 17 Nov 2026 05:58:08 -0800 (PST)
+From: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
+To: broonie@kernel.org, lgirdwood@gmail.com, Chen Yuxi <chenyuxi19@huawei.com>
+Cc: ckeepax@opensource.cirrus.com, patches@opensource.cirrus.com,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ chenyuxi19@huawei.com, yeweihua4@huawei.com, pulehui@huawei.com
+Subject:
+ Re: [PATCH] ASoC: wm8962: Fix broken headset button caused by wrong guard
+ constant
+Date: Tue, 17 Nov 2026 14:57:56 +0100
+Message-ID: <S1U1JRuiRsmge3e0RKavPA@puri.sm>
+In-Reply-To: <20261117070516.3861828-1-chenyuxi19@huawei.com>
+References: <20261117070516.3861828-1-chenyuxi19@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,67 +66,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 00/26] mm/fbatch: drain lru_add_drain() and _all()
-From: Alen Karnil <alen.karnil@ideasonboard.com>
-To: Hugh Dickins <hughd@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- Ackerley Tng <ackerleytng@google.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, Alexandre Ghiti <alex@ghiti.fr>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Barry Song <baohua@kernel.org>, 
- Binbin Wu <binbin.wu@linux.intel.com>, 
- Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, 
- Christoph Lameter <cl@gentwo.org>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, 
- Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
- Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
- Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Leonardo Bras <leobras.c@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, 
- Marcelo Tosatti <mtosatti@redhat.com>, Matthew Wilcox <willy@infradead.org>, 
- Mel Gorman <mgorman@techsingularity.net>, Miaohe Lin <linmiaohe@huawei.com>, 
- Michal Hocko <mhocko@suse.com>, Minchan Kim <minchan@kernel.org>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- Peter Zijlstra <peterz@infradead.org>, Qi Zheng <qi.zheng@linux.dev>, 
- Rik van Riel <riel@surriel.com>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Shakeel Butt <shakeel.butt@linux.dev>, 
- Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
- Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, 
- Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, 
- linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-mm@kvack.org
-In-Reply-To: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
-References: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
-Date: Tue, 17 Nov 2026 13:57:16 +0000
-Message-Id: <179492383658.1554713.9260140415931487684.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=713;
- i=alen.karnil@ideasonboard.com; h=from:subject:message-id;
- bh=SGdF8nfS37ls6JI/8WVlvHSMe1DjBMEx5/IrVzLhb5w=;
- b=owGbwMvMwCUWeK6p+sMV/3mMp9WSGLL+xDr0pdpNea1+QsDbv6z1/MembZb8+62j3efM//qG6
- 59XmMr1jlIWBjEuBlkxRZYvh2SmL7VZEXZBM4QTZg4rE8gQBi5OAZhIMzfDbxbtTzlN+op2wge3
- BJtvdVutoaIlusZ26wbjRV/WT/rNHsfwP59xlbfJTeOzJaf7RQxdTF7Pmz3P4c+RKskibv3ZKyR
- aGQA=
-X-Developer-Key: i=alen.karnil@ideasonboard.com; a=openpgp;
- fpr=F4C21C97A53CA856D029540951CE827BF0D44F9E
 
-On Wed, 09 Sep 2026 02:39:08 -0700, Hugh Dickins <hughd@google.com> wrote:
-> mm/fbatch: drain lru_add_drain() and _all()
-> 
-> [PATCH v2 00/26] mm/fbatch: drain lru_add_drain() and _all()
-> 
-> This series was prompted by lru_add_drain_all() appearing in watchdog
-> backtraces: not to blame, but blocked on an unresponsive CPU to run
-> its workqueue. lru_add_drain_all() is a heavyweight operation, which
-> we often hope to avoid by a much lighter lru_add_drain(); but even
-> those local drains can aggravate the lruvec lock contention which
-> per-cpu fbatches are intended to ease.
-> 
-> [...]
+On wtorek, 17 listopada 2026 08:05:16 czas =C5=9Brodkowoeuropejski standard=
+owy Chen=20
+Yuxi wrote:
+> Commit e59075211902 ("ASoC: wm8962: Don't report a microphone if
+> it's shorted to ground on plug") guards the mic short report by
+> testing wm8962->mic_status against WM8962_MICDET_STS.  But mic_status
+> stores the reported jack status, composed of SND_JACK_MICROPHONE and
+> SND_JACK_BTN_0, which never has WM8962_MICDET_STS set.  The guard is
+> therefore always true, so every mic short event reports nothing.
+>=20
+> Pressing the button on a TRRS headset shorts the mic pin to ground,
+> which used to be reported as SND_JACK_BTN_0.  After that commit the
+> button press is silently dropped, breaking the headset button on all
+> wm8962 boards using the mic detect path.
+>=20
+> Test mic_status against SND_JACK_MICROPHONE instead, restoring the
+> intended behaviour: suppress the report only when no microphone was
+> previously detected, i.e. a TRS plug in a TRRS socket.
+>=20
+> Fixes: e59075211902 ("ASoC: wm8962: Don't report a microphone if it's
+> shorted to ground on plug") Cc: stable@vger.kernel.org
+> Signed-off-by: Chen Yuxi <chenyuxi19@huawei.com>
+> ---
+>  sound/soc/codecs/wm8962.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/sound/soc/codecs/wm8962.c b/sound/soc/codecs/wm8962.c
+> index 148480e4124f..a4868685218b 100644
+> --- a/sound/soc/codecs/wm8962.c
+> +++ b/sound/soc/codecs/wm8962.c
+> @@ -3127,7 +3127,7 @@ static void wm8962_mic_work(struct work_struct *wor=
+k)
+>  		/* Don't report a microphone if it's shorted right=20
+after
+>  		 * plugging in, as this may be a TRS plug in a TRRS=20
+socket.
+>  		 */
+> -		if (!(wm8962->mic_status & WM8962_MICDET_STS))
+> +		if (!(wm8962->mic_status & SND_JACK_MICROPHONE))
+>  			status =3D 0;
+>  	}
 
-Tested-by: Alen Karnil <alen.karnil@ideasonboard.com>
+Reviewed-by: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
 
--- 
-Alen Karnil <alen.karnil@ideasonboard.com>
+
+
