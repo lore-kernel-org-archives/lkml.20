@@ -1,73 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=120.232.169.110
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794882470;
-	b=L0c5Ht125sWm8aLrNwhNHz515vO1IqrDtJDHBSx47rsBnYL8MxsH0eZn9w3J2192dU0n
-	 prDPujiRkFx/FeRGdwtSqVJsbbclZGUcbs2FSYCfdshOoabEkvc8fphPck8CP3aMWlgmU
-	 ivDVeH7GM+pqAI6G7JFgCXS5YNTixqfKOLJ7BgkIkJOn0r+m3nKXNtCtGumcRm5iXgnqR
-	 oD52vrgHK6kYPjrBANPXDyrcfgaoxoJzkLU08iMLFVQjVFjNvVbghSXdhxomwP6iTkE1p
-	 RSRzBKJq5O4AGSa1YiG1CXcKWQBbkiDXH1jubUgR+dCXihmGN3ZQJXxtW8P7XiDBszQ==
+	t=1794882521;
+	b=uqZ2gU1addRBR2RW9AqYLHLJZrtkW7Ry10/Tloe1p0YbYOsoaJ+u4bI1sRBN5EREqR7K
+	 I2IzKIw1RNMB+tLpTlvBBJ32VSIAyC51Mal+r498Vb2OzHT3UxMd1KwsTsPpR5csgnwqv
+	 R4EEAjtAZtrnI6vjhxyPIznAREefGjns69kUP0Wr4qoYTVVVasMeygGK3F7+SzCMUuXhR
+	 qpHy5c/shrj2Je4WhjaMYTGxuT/X38kBHO94Cetj52Eaic0iI+3/3QaGNyOVdZScoZn01
+	 oGMv824kCXlg1/ijT8XnKg/KGQawDsRL3KP/xzMNrlMeSCdkkUHcqmnpE8dJGdkwP6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794882470;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM:X-RM-SPAM-FLAG:
-	 Received:X-RM-TRANSID:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 MIME-Version;
-	bh=AfTrkNR+KCynuBEvMj8k7eszWy2SUx2l0W3MzS7+vpA=;
-	b=X3nUzHPecAnSuHUkNaRYzeXO5EaivSnCo+aClN/GBIjvlL2t8wUbd1R8c59N4SgA0V3Z
-	 SeYapEs4EAdjPKrLmd3+juoqxu4fu5ZL7v5bamJKfIzfW5DLmVtlxniRN8Tq8ZfKA+8J/
-	 ytbq3WN+aHNSbNKdS9KdZhIXR4U5OhTHxPh4jHLozP70FKEf3JFb7L1gb+y/Lhh6ULSDY
-	 oZWTMI1Vfzxr6DpV3to+8YPTWrpi4ySqOO+0YPx+QZEs+5L2hLFdTyUb71/gVZk10NOVZ
-	 +97JFymbd1bhAy94uqSL3+4t1klEWbIvwS8Cv46eNNgRrz/n0cU0CkV2sMjkQeIAr3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794882521;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ypFwQA0FZOPRuiqI0RyJwEY/z4AuSyUwMT7yZK7iq/g=;
+	b=hV+1P5NWprVs8IhRJE3GBgy/44HG0l0RLrh0i1iF9e89UBAX1CEwqIQMSu+duFSMDRe/
+	 fDHbrku9JevODdsQ9KaZw3rfwetOrfsRwsu4Hl7sUdnmbzxIiaEQYaOnlk9d6A7Ief5PT
+	 aHtSY/PPKBNI7fM4pljcjwRGqiW+HRKCJelw3mCqIerL4QJKoDOY+eC/Ur19Xe9BAo3Hs
+	 HQI7hImMiMu1vgzsLQ9nKT1VnxJEqlSyBYvDCceg137AhSEgzS5dqfqDzBIm+qkP3KbQ4
+	 pgohz7QNdgyPlizzN//hMMMxacHdx6uhb8UBORpH0fZCq9yK2/BVymI1f1aPSH7GZrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=139.com;
-	spf=pass smtp.mailfrom=139.com;
-	dkim=pass header.d=139.com header.i=@139.com header.a=rsa-sha256 header.s=dkim header.b=RX5E07pz;
-	arc=none smtp.remote-ip=120.232.169.110
-Received: from n169-110.mail.139.com (n169-110.mail.139.com [120.232.169.110])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=UUIAycOK;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 217E6606A31C;
-	Tue, 17 Nov 2026 02:27:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 217E6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=139.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=139.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1243606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:28:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1243606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=139.com header.i=@139.com header.a=rsa-sha256 header.s=dkim header.b=RX5E07pz
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=UUIAycOK
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-37198ed3727so528429eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:28:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=139.com; s=dkim; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=RX5E07pzaBwUiC6/Kup2Axyvr+VNYOczB4xHd/R8PMrGUep2Oy20byrI4HtOnyJhpAftjlczyWAu5
-	 z1x/DtWHVBwyWlWgmSbcarCWhxe3YJHov8QyW/k+co4Y+J2owvEKNyKZ3MjrU5tqNP5MLEfZDfaUqA
-	 QxgEw2OjTMXoNLc8=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM:                                                                                        
-X-RM-SPAM-FLAG:00000000
-Received:from [10.103.151.114] (unknown[36.110.60.243])
-	by rmsmtp-lg-appmail-08-12086 (RichMail) with SMTP id 2f366afbbb94156-061d3;
-	Tue, 17 Nov 2026 10:27:36 +0800 (CST)
-X-RM-TRANSID:2f366afbbb94156-061d3
-Message-ID: <720a92441bb441ec1774c19a62610e3d32234911.camel@139.com>
-Subject: Re: [RFC PATCH 1/3] platform: lenovo: move the architecture
- independent WMI drivers out of x86
-From: Jackie Dong <xy-jackie@139.com>
-To: Mark Pearson <mpearson-lenovo@squebb.ca>, David Cemin
- <dcemin@nvidia.com>,  Hans de Goede <hansg@kernel.org>, Ilpo
- =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>, Armin Wolf
- <W_Armin@gmx.de>
-Cc: "Derek J . Clark" <derekjohn.clark@gmail.com>, Ike Panhc
-	 <ikepanhc@gmail.com>, "platform-driver-x86@vger.kernel.org"
-	 <platform-driver-x86@vger.kernel.org>, linux-kernel@vger.kernel.org, 
-	ldemarchi@nvidia.com
-Date: Tue, 17 Nov 2026 10:27:35 +0800
-In-Reply-To: <cbaf1595-05e3-46cd-b2aa-7bec1315cf8f@app.fastmail.com>
-References: <20261113222755.1696567-1-dcemin@nvidia.com>
-	 <20261113222755.1696567-2-dcemin@nvidia.com>
-	 <cbaf1595-05e3-46cd-b2aa-7bec1315cf8f@app.fastmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+        d=chromium.org; s=google; t=1794882520; x=1795487320; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ypFwQA0FZOPRuiqI0RyJwEY/z4AuSyUwMT7yZK7iq/g=;
+        b=UUIAycOKp8saHa3hRn/60RdoK9ypwBXAxgMsedsROiE7Kq5HCJ0vR9h/QzRk63ncXw
+         s76HKQd7otKxOUM6wG56oONR0zaKQxxusnekj5ajpK7acbCGmUctYK6+h//RHM013zW6
+         V20Flvt7xwcvvwy7M4IOt+8RMVmtwQbmxmdXA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794882520; x=1795487320;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ypFwQA0FZOPRuiqI0RyJwEY/z4AuSyUwMT7yZK7iq/g=;
+        b=Nabr4fboNk+F9J/8XOX4JCY2byk9U/VQFXaKRPUN4ANLzEfnrC6BEWsS5zt32EdLpv
+         ijE8ceZTf7PivnjCoouYygBrE+scvERRMqv1dBwmnWdUXPoH4jiEbj/9JRx5/+B5zrn1
+         MhJIpfcNImU7ZMdZXuI0GU+jg2rx6hbXJ7ft4y+rD5q3aOuL5TAGmFdnN3PNZpusCjv8
+         j+6RJRH0JMCgu2a7+i2DzrIZUcYkW+8k621ZOJFohXYxqH4obFB/KF9haFpdd6MJ46La
+         otCbCh7maHLSEdtI/3JYiPH44xU5zawfERf+SFkT7yxRMdWsowY7Wlm8rN7lhXRbd7mT
+         eaOA==
+X-Forwarded-Encrypted: i=1; AL+hErGgeDLpBSASlEuX4hCQ7ksmt65MiJMeqxj0epVIj08kV8r4WGdTldvngHHWzj9wRCLBt9U455nm8dW+V/Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8UP+CUrgIodtnhSIv2WRsWalCjEsS+f1mofI44RstKgul7MuLY
+	KMrvWsy5HEQdUU8BNHORFypa7hdmC9pRBJ3tU4YXk4ioTgClOKi7XK2MP9ZQ4aPa5g==
+X-Gm-Gg: AZFdTZdnqkZ7wJ0URcNMpLZ9bIPDD2DRAdDPomNfGPdAUP2bM4pnsY/AeMkkY0wsGQf
+	diofyOt1fA2L9G8lVrt9AXPTpAwA/m1B6Km35hec2foRC4uuVkO/Fndy2wb3vUtObVYmp4y6CAO
+	Zn7bFqtDNPXPe+BUqg86w2j+PQSdIS5qFmysgdRxnb75xHfPn9hXfbLFdVr7wU4kAx9Itb4y+N8
+	DEVhdBJUWirvsuYRVWypuLpTalHvjswz9SJlBdr4ElcobA5WyZESV2sSaOyByIz88JGeeXwJzQN
+	XDFnczPt3ReTqBLjcv3Jd+tasIAkfi1/QpbT941csHdUv4r3ZAtvfhdtpRXbpIDY8OuYFZfrlJu
+	PYo3ar98YoqzTGB7JbUU/wjtPH0h4tjFvOjJCbYVRCTVyA9qMwxdlDWqq/DPff4u6ThefRD3jId
+	G8iyrKrxRKf10OADUXTM/fVmFN95LH/LSMsbS+cjQTutcURHfAQf9IdWqkHWn+DPpxC2wSt2I6s
+	jKqczOeoPP4FmIe3NLNKSPSl5uHgXPyLTduglhV/hCl48jdeK0zyGhmSmStaWwEl93FSQ4Apwj+
+	/4zJw9aaK0ZWR0HkKNOz50cv1cH5VVLRRpXTj4fHccxVO212Qbv0A3ORPY6KBnNRicTW
+X-Received: by 2002:a05:7300:b21:b0:36d:158c:e31d with SMTP id 5a478bee46e88-3810f21a0bemr1286841eec.18.1794882519385;
+        Mon, 16 Nov 2026 18:28:39 -0800 (PST)
+Received: from localhost ([2a00:79e0:2e7c:8:d92d:531b:8d97:bf51])
+        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-380d5135221sm3648441eec.24.2026.11.16.18.28.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 16 Nov 2026 18:28:38 -0800 (PST)
+From: Brian Norris <briannorris@chromium.org>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	Brian Norris <briannorris@chromium.org>
+Subject: [PATCH 1/2] tracing: Properly match strings that start with numbers
+Date: Mon, 16 Nov 2026 18:27:10 -0800
+Message-ID: <20261116182710.1.Ic0625a2bd2e6f8960c0f75e5d15f14f3c84d1d38@changeid>
+X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,480 +94,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sun, 2026-11-15 at 16:50 -0500, Mark Pearson wrote:
->=20
->=20
-> On Fri, Nov 13, 2026, at 5:27 PM, David Cemin wrote:
-> > The Lenovo WMI drivers (events, helpers, capability data, GameZone,
-> > Other Mode, hotkey utilities and camera button) contain no x86
-> > specific
-> > code: they talk to firmware through the ACPI-WMI core only. They
-> > live
-> > under drivers/platform/x86 because that is where Lenovo drivers
-> > were
-> > collected, and X86_PLATFORM_DEVICES keeps them off every other
-> > architecture.
-> >=20
-> > Lenovo now ships ACPI based arm64 laptops whose firmware exposes
-> > the
-> > same WMI GUIDs (the Fn key events, the mic mute LED method,
-> > GameZone and
-> > Other Mode). Give these drivers an architecture independent home,
-> > drivers/platform/lenovo, following the layout of
-> > drivers/platform/surface
-> > which exists for the same reason, so they can be built wherever the
-> > WMI
-> > core is available. ideapad-laptop, thinkpad_acpi, think-lmi,
-> > yogabook and
-> > the Yoga Tablet drivers stay under x86: they depend on i8042, port
-> > I/O or
-> > x86 only ACPI devices.
-> >=20
-> > Pure code motion: the files, their Kconfig entries and the module
-> > naming
-> > scheme are unchanged. MAINTAINERS entries are updated for the new
-> > paths.
-> >=20
-> > Signed-off-by: David Cemin <dcemin@nvidia.com>
-> > ---
-> > =C2=A0MAINTAINERS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- |=C2=A0 3 +-
-> > =C2=A0drivers/platform/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 |=C2=A0 2 +
-> > =C2=A0drivers/platform/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 |=C2=A0 1 +
-> > =C2=A0drivers/platform/lenovo/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 87
-> > +++++++++++++++++++
-> > =C2=A0drivers/platform/lenovo/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 22 +++++
-> > =C2=A0.../platform/{x86 =3D> }/lenovo/wmi-camera.c=C2=A0=C2=A0=C2=A0 |=
-=C2=A0 0
-> > =C2=A0.../platform/{x86 =3D> }/lenovo/wmi-capdata.c=C2=A0=C2=A0 |=C2=A0=
- 0
-> > =C2=A0.../platform/{x86 =3D> }/lenovo/wmi-capdata.h=C2=A0=C2=A0 |=C2=A0=
- 0
-> > =C2=A0.../platform/{x86 =3D> }/lenovo/wmi-events.c=C2=A0=C2=A0=C2=A0 |=
-=C2=A0 0
-> > =C2=A0.../platform/{x86 =3D> }/lenovo/wmi-events.h=C2=A0=C2=A0=C2=A0 |=
-=C2=A0 0
-> > =C2=A0.../platform/{x86 =3D> }/lenovo/wmi-gamezone.c=C2=A0 |=C2=A0 0
-> > =C2=A0.../platform/{x86 =3D> }/lenovo/wmi-helpers.c=C2=A0=C2=A0 |=C2=A0=
- 0
-> > =C2=A0.../platform/{x86 =3D> }/lenovo/wmi-helpers.h=C2=A0=C2=A0 |=C2=A0=
- 0
-> > =C2=A0.../{x86 =3D> }/lenovo/wmi-hotkey-utilities.c=C2=A0=C2=A0 |=C2=A0=
- 0
-> > =C2=A0drivers/platform/{x86 =3D> }/lenovo/wmi-other.c |=C2=A0 0
-> > =C2=A0drivers/platform/x86/lenovo/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 67 --------------
-> > =C2=A0drivers/platform/x86/lenovo/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 7 --
-> > =C2=A017 files changed, 114 insertions(+), 75 deletions(-)
-> > =C2=A0create mode 100644 drivers/platform/lenovo/Kconfig
-> > =C2=A0create mode 100644 drivers/platform/lenovo/Makefile
-> > =C2=A0rename drivers/platform/{x86 =3D> }/lenovo/wmi-camera.c (100%)
-> > =C2=A0rename drivers/platform/{x86 =3D> }/lenovo/wmi-capdata.c (100%)
-> > =C2=A0rename drivers/platform/{x86 =3D> }/lenovo/wmi-capdata.h (100%)
-> > =C2=A0rename drivers/platform/{x86 =3D> }/lenovo/wmi-events.c (100%)
-> > =C2=A0rename drivers/platform/{x86 =3D> }/lenovo/wmi-events.h (100%)
-> > =C2=A0rename drivers/platform/{x86 =3D> }/lenovo/wmi-gamezone.c (100%)
-> > =C2=A0rename drivers/platform/{x86 =3D> }/lenovo/wmi-helpers.c (100%)
-> > =C2=A0rename drivers/platform/{x86 =3D> }/lenovo/wmi-helpers.h (100%)
-> > =C2=A0rename drivers/platform/{x86 =3D> }/lenovo/wmi-hotkey-utilities.c
-> > (100%)
-> > =C2=A0rename drivers/platform/{x86 =3D> }/lenovo/wmi-other.c (100%)
-> >=20
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index 056408bc086e..3b0ad5a3debe 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -15170,13 +15170,14 @@
-> > L:	platform-driver-x86@vger.kernel.org
-> > =C2=A0S:	Maintained
-> > =C2=A0F:	Documentation/wmi/devices/lenovo-wmi-gamezone.rst
-> > =C2=A0F:	Documentation/wmi/devices/lenovo-wmi-other.rst
-> > +F:	drivers/platform/lenovo/
-> > =C2=A0F:	drivers/platform/x86/lenovo/*
-> >=20
-> > =C2=A0LENOVO WMI HOTKEY UTILITIES DRIVER
-> > =C2=A0M:	Jackie Dong <xy-jackie@139.com>
-> > =C2=A0L:	platform-driver-x86@vger.kernel.org
-> > =C2=A0S:	Maintained
-> > -F:	drivers/platform/x86/lenovo/wmi-hotkey-utilities.c
-> > +F:	drivers/platform/lenovo/wmi-hotkey-utilities.c
-> >=20
-> > =C2=A0LENOVO HID drivers
-> > =C2=A0M:	Derek J. Clark <derekjohn.clark@gmail.com>
-> > diff --git a/drivers/platform/Kconfig b/drivers/platform/Kconfig
-> > index 312788f249c9..80b2b83b69e5 100644
-> > --- a/drivers/platform/Kconfig
-> > +++ b/drivers/platform/Kconfig
-> > @@ -15,6 +15,8 @@ source "drivers/platform/olpc/Kconfig"
-> >=20
-> > =C2=A0source "drivers/platform/surface/Kconfig"
-> >=20
-> > +source "drivers/platform/lenovo/Kconfig"
-> > +
-> > =C2=A0source "drivers/platform/x86/Kconfig"
-> >=20
-> > =C2=A0source "drivers/platform/arm64/Kconfig"
-> > diff --git a/drivers/platform/Makefile b/drivers/platform/Makefile
-> > index fa322e7f8716..0144f88ff6db 100644
-> > --- a/drivers/platform/Makefile
-> > +++ b/drivers/platform/Makefile
-> > @@ -12,6 +12,7 @@ obj-$(CONFIG_GOLDFISH)		+=3D
-> > goldfish/
-> > =C2=A0obj-$(CONFIG_CHROME_PLATFORMS)	+=3D chrome/
-> > =C2=A0obj-$(CONFIG_CZNIC_PLATFORMS)	+=3D cznic/
-> > =C2=A0obj-$(CONFIG_SURFACE_PLATFORMS)	+=3D surface/
-> > +obj-$(CONFIG_LENOVO_PLATFORMS)	+=3D lenovo/
-> > =C2=A0obj-$(CONFIG_ARM64_PLATFORM_DEVICES)	+=3D arm64/
-> > =C2=A0obj-$(CONFIG_BCM2835_VCHIQ)	+=3D raspberrypi/
-> > =C2=A0obj-$(CONFIG_ACPI_WMI)		+=3D wmi/
-> > diff --git a/drivers/platform/lenovo/Kconfig=20
-> > b/drivers/platform/lenovo/Kconfig
-> > new file mode 100644
-> > index 000000000000..8222322ca671
-> > --- /dev/null
-> > +++ b/drivers/platform/lenovo/Kconfig
-> > @@ -0,0 +1,87 @@
-> > +# SPDX-License-Identifier: GPL-2.0-only
-> > +#
-> > +# Lenovo Platform-Specific Drivers
-> > +#
-> > +
-> > +menuconfig LENOVO_PLATFORMS
-> > +	bool "Lenovo Platform-Specific Device Drivers"
-> > +	depends on ARM64 || X86 || COMPILE_TEST
-> > +	default y if ARM64 || X86
-> > +	help
-> > +	=C2=A0 Say Y here to get to see options for platform-specific
-> > device=20
-> > drivers
-> > +	=C2=A0 for Lenovo devices that do not depend on the CPU
-> > architecture, such
-> > +	=C2=A0 as the ACPI-WMI based drivers used on both x86 and arm64
-> > laptops.
-> > +	=C2=A0 This option alone does not add any kernel code.
-> > +
-> > +	=C2=A0 If you say N, all options in this submenu will be
-> > skipped and=20
-> > disabled.
-> > +
-> > +if LENOVO_PLATFORMS
-> > +
-> > +config LENOVO_WMI_HELPERS
-> > +	tristate
-> > +	depends on ACPI_WMI
-> > +
-> > +config LENOVO_WMI_EVENTS
-> > +	tristate
-> > +	depends on ACPI_WMI
-> > +
-> > +config LENOVO_WMI_CAPDATA
-> > +	tristate
-> > +	depends on ACPI_WMI
-> > +	depends on LENOVO_WMI_HELPERS
-> > +
-> > +config LENOVO_WMI_HOTKEY_UTILITIES
-> > +	tristate "Lenovo Hotkey Utility WMI extras driver"
-> > +	depends on ACPI_WMI
-> > +	select NEW_LEDS
-> > +	select LEDS_CLASS
-> > +	imply IDEAPAD_LAPTOP
-> > +	help
-> > +	=C2=A0 This driver provides WMI support for Lenovo customized
-> > hotkeys=20
-> > function,
-> > +	=C2=A0 such as LED control for audio/mic mute event for
-> > Ideapad, YOGA,
-> > XiaoXin,
-> > +	=C2=A0 Gaming, ThinkBook and so on.
-> > +
-> > +config LENOVO_WMI_CAMERA
-> > +	tristate "Lenovo WMI Camera Button driver"
-> > +	depends on ACPI_WMI
-> > +	depends on INPUT
-> > +	help
-> > +	=C2=A0 This driver provides support for Lenovo camera button.
-> > The Camera
-> > +	=C2=A0 button is a GPIO device. This driver receives ACPI
-> > notifications=20
-> > when
-> > +	=C2=A0 the camera button is switched on/off.
-> > +
-> > +	=C2=A0 To compile this driver as a module, choose M here: the
-> > module
-> > +	=C2=A0 will be called lenovo-wmi-camera.
-> > +
-> > +config LENOVO_WMI_GAMEZONE
-> > +	tristate "Lenovo GameZone WMI Driver"
-> > +	depends on ACPI_WMI
-> > +	depends on DMI
-> > +	select ACPI_PLATFORM_PROFILE
-> > +	select LENOVO_WMI_EVENTS
-> > +	select LENOVO_WMI_HELPERS
-> > +	help
-> > +	=C2=A0 Say Y here if you have a WMI aware Lenovo Legion device
-> > and would=20
-> > like to use the
-> > +	=C2=A0 platform-profile firmware interface to manage power
-> > usage.
-> > +
-> > +	=C2=A0 To compile this driver as a module, choose M here: the
-> > module will
-> > +	=C2=A0 be called lenovo-wmi-gamezone.
-> > +
-> > +config LENOVO_WMI_TUNING
-> > +	tristate "Lenovo Other Mode WMI Driver"
-> > +	depends on ACPI_WMI
-> > +	depends on ACPI_BATTERY
-> > +	select HWMON
-> > +	select FW_ATTR_CLASS
-> > +	select LENOVO_WMI_CAPDATA
-> > +	select LENOVO_WMI_EVENTS
-> > +	select LENOVO_WMI_HELPERS
-> > +	help
-> > +	=C2=A0 Say Y here if you have a WMI aware Lenovo Legion device
-> > and would=20
-> > like to use the
-> > +	=C2=A0 firmware_attributes API to control various tunable
-> > settings=20
-> > typically exposed by
-> > +	=C2=A0 Lenovo software in Windows.
-> > +
-> > +	=C2=A0 To compile this driver as a module, choose M here: the
-> > module will
-> > +	=C2=A0 be called lenovo-wmi-other.
-> > +
-> > +endif # LENOVO_PLATFORMS
-> > diff --git a/drivers/platform/lenovo/Makefile=20
-> > b/drivers/platform/lenovo/Makefile
-> > new file mode 100644
-> > index 000000000000..1cac115dd735
-> > --- /dev/null
-> > +++ b/drivers/platform/lenovo/Makefile
-> > @@ -0,0 +1,22 @@
-> > +# SPDX-License-Identifier: GPL-2.0
-> > +#
-> > +# Makefile for linux/drivers/platform/lenovo
-> > +# Lenovo Platform Specific Drivers (architecture independent)
-> > +#
-> > +
-> > +lenovo-target-$(CONFIG_LENOVO_WMI_HELPERS)	+=3D wmi-helpers.o
-> > +lenovo-target-$(CONFIG_LENOVO_WMI_EVENTS)	+=3D wmi-events.o
-> > +lenovo-target-$(CONFIG_LENOVO_WMI_CAPDATA)	+=3D wmi-capdata.o
-> > +lenovo-target-$(CONFIG_LENOVO_WMI_HOTKEY_UTILITIES)	+=3D=20
-> > wmi-hotkey-utilities.o
-> > +lenovo-target-$(CONFIG_LENOVO_WMI_CAMERA)	+=3D wmi-camera.o
-> > +lenovo-target-$(CONFIG_LENOVO_WMI_GAMEZONE)	+=3D wmi-gamezone.o
-> > +lenovo-target-$(CONFIG_LENOVO_WMI_TUNING)	+=3D wmi-other.o
-> > +
-> > +# Add 'lenovo' prefix to each module listed in lenovo-target-*
-> > +define LENOVO_OBJ_TARGET
-> > +lenovo-$(1)-y :=3D $(1).o
-> > +obj-$(2) +=3D lenovo-$(1).o
-> > +endef
-> > +
-> > +$(foreach target, $(basename $(lenovo-target-y)), $(eval $(call=20
-> > LENOVO_OBJ_TARGET,$(target),y)))
-> > +$(foreach target, $(basename $(lenovo-target-m)), $(eval $(call=20
-> > LENOVO_OBJ_TARGET,$(target),m)))
-> > diff --git a/drivers/platform/x86/lenovo/wmi-camera.c=20
-> > b/drivers/platform/lenovo/wmi-camera.c
-> > similarity index 100%
-> > rename from drivers/platform/x86/lenovo/wmi-camera.c
-> > rename to drivers/platform/lenovo/wmi-camera.c
-> > diff --git a/drivers/platform/x86/lenovo/wmi-capdata.c=20
-> > b/drivers/platform/lenovo/wmi-capdata.c
-> > similarity index 100%
-> > rename from drivers/platform/x86/lenovo/wmi-capdata.c
-> > rename to drivers/platform/lenovo/wmi-capdata.c
-> > diff --git a/drivers/platform/x86/lenovo/wmi-capdata.h=20
-> > b/drivers/platform/lenovo/wmi-capdata.h
-> > similarity index 100%
-> > rename from drivers/platform/x86/lenovo/wmi-capdata.h
-> > rename to drivers/platform/lenovo/wmi-capdata.h
-> > diff --git a/drivers/platform/x86/lenovo/wmi-events.c=20
-> > b/drivers/platform/lenovo/wmi-events.c
-> > similarity index 100%
-> > rename from drivers/platform/x86/lenovo/wmi-events.c
-> > rename to drivers/platform/lenovo/wmi-events.c
-> > diff --git a/drivers/platform/x86/lenovo/wmi-events.h=20
-> > b/drivers/platform/lenovo/wmi-events.h
-> > similarity index 100%
-> > rename from drivers/platform/x86/lenovo/wmi-events.h
-> > rename to drivers/platform/lenovo/wmi-events.h
-> > diff --git a/drivers/platform/x86/lenovo/wmi-gamezone.c=20
-> > b/drivers/platform/lenovo/wmi-gamezone.c
-> > similarity index 100%
-> > rename from drivers/platform/x86/lenovo/wmi-gamezone.c
-> > rename to drivers/platform/lenovo/wmi-gamezone.c
-> > diff --git a/drivers/platform/x86/lenovo/wmi-helpers.c=20
-> > b/drivers/platform/lenovo/wmi-helpers.c
-> > similarity index 100%
-> > rename from drivers/platform/x86/lenovo/wmi-helpers.c
-> > rename to drivers/platform/lenovo/wmi-helpers.c
-> > diff --git a/drivers/platform/x86/lenovo/wmi-helpers.h=20
-> > b/drivers/platform/lenovo/wmi-helpers.h
-> > similarity index 100%
-> > rename from drivers/platform/x86/lenovo/wmi-helpers.h
-> > rename to drivers/platform/lenovo/wmi-helpers.h
-> > diff --git a/drivers/platform/x86/lenovo/wmi-hotkey-utilities.c=20
-> > b/drivers/platform/lenovo/wmi-hotkey-utilities.c
-> > similarity index 100%
-> > rename from drivers/platform/x86/lenovo/wmi-hotkey-utilities.c
-> > rename to drivers/platform/lenovo/wmi-hotkey-utilities.c
-> > diff --git a/drivers/platform/x86/lenovo/wmi-other.c=20
-> > b/drivers/platform/lenovo/wmi-other.c
-> > similarity index 100%
-> > rename from drivers/platform/x86/lenovo/wmi-other.c
-> > rename to drivers/platform/lenovo/wmi-other.c
-> > diff --git a/drivers/platform/x86/lenovo/Kconfig=20
-> > b/drivers/platform/x86/lenovo/Kconfig
-> > index 516594993073..36bcefb61805 100644
-> > --- a/drivers/platform/x86/lenovo/Kconfig
-> > +++ b/drivers/platform/x86/lenovo/Kconfig
-> > @@ -20,29 +20,6 @@ config IDEAPAD_LAPTOP
-> > =C2=A0	=C2=A0 This is a driver for Lenovo IdeaPad netbooks contains
-> > drivers for
-> > =C2=A0	=C2=A0 rfkill switch, hotkey, fan control and backlight
-> > control.
-> >=20
-> > -config LENOVO_WMI_HOTKEY_UTILITIES
-> > -	tristate "Lenovo Hotkey Utility WMI extras driver"
-> > -	depends on ACPI_WMI
-> > -	select NEW_LEDS
-> > -	select LEDS_CLASS
-> > -	imply IDEAPAD_LAPTOP
-> > -	help
-> > -	=C2=A0 This driver provides WMI support for Lenovo customized
-> > hotkeys function,
-> > -	=C2=A0 such as LED control for audio/mic mute event for
-> > Ideapad, YOGA, XiaoXin,
-> > -	=C2=A0 Gaming, ThinkBook and so on.
-> > -
-> > -config LENOVO_WMI_CAMERA
-> > -	tristate "Lenovo WMI Camera Button driver"
-> > -	depends on ACPI_WMI
-> > -	depends on INPUT
-> > -	help
-> > -	=C2=A0 This driver provides support for Lenovo camera button.
-> > The Camera
-> > -	=C2=A0 button is a GPIO device. This driver receives ACPI
-> > notifications when
-> > -	=C2=A0 the camera button is switched on/off.
-> > -
-> > -	=C2=A0 To compile this driver as a module, choose M here: the
-> > module
-> > -	=C2=A0 will be called lenovo-wmi-camera.
-> > -
-> > =C2=A0config LENOVO_YB9_KBDOCK
-> > =C2=A0	tristate "Lenovo Yoga Book 9 keyboard dock detection"
-> > =C2=A0	depends on ACPI_WMI
-> > @@ -246,47 +223,3 @@ config YT2_1380
-> >=20
-> > =C2=A0	=C2=A0 To compile this driver as a module, choose M here: the
-> > module will
-> > =C2=A0	=C2=A0 be called lenovo-yogabook.
-> > -
-> > -config LENOVO_WMI_CAPDATA
-> > -	tristate
-> > -	depends on ACPI_WMI
-> > -	depends on LENOVO_WMI_HELPERS
-> > -
-> > -config LENOVO_WMI_EVENTS
-> > -	tristate
-> > -	depends on ACPI_WMI
-> > -
-> > -config LENOVO_WMI_HELPERS
-> > -	tristate
-> > -	depends on ACPI_WMI
-> > -
-> > -config LENOVO_WMI_GAMEZONE
-> > -	tristate "Lenovo GameZone WMI Driver"
-> > -	depends on ACPI_WMI
-> > -	depends on DMI
-> > -	select ACPI_PLATFORM_PROFILE
-> > -	select LENOVO_WMI_EVENTS
-> > -	select LENOVO_WMI_HELPERS
-> > -	help
-> > -	=C2=A0 Say Y here if you have a WMI aware Lenovo Legion device
-> > and would=20
-> > like to use the
-> > -	=C2=A0 platform-profile firmware interface to manage power
-> > usage.
-> > -
-> > -	=C2=A0 To compile this driver as a module, choose M here: the
-> > module will
-> > -	=C2=A0 be called lenovo-wmi-gamezone.
-> > -
-> > -config LENOVO_WMI_TUNING
-> > -	tristate "Lenovo Other Mode WMI Driver"
-> > -	depends on ACPI_WMI
-> > -	depends on ACPI_BATTERY
-> > -	select HWMON
-> > -	select FW_ATTR_CLASS
-> > -	select LENOVO_WMI_CAPDATA
-> > -	select LENOVO_WMI_EVENTS
-> > -	select LENOVO_WMI_HELPERS
-> > -	help
-> > -	=C2=A0 Say Y here if you have a WMI aware Lenovo Legion device
-> > and would=20
-> > like to use the
-> > -	=C2=A0 firmware_attributes API to control various tunable
-> > settings=20
-> > typically exposed by
-> > -	=C2=A0 Lenovo software in Windows.
-> > -
-> > -	=C2=A0 To compile this driver as a module, choose M here: the
-> > module will
-> > -	=C2=A0 be called lenovo-wmi-other.
-> > diff --git a/drivers/platform/x86/lenovo/Makefile=20
-> > b/drivers/platform/x86/lenovo/Makefile
-> > index 12816d8d5e24..758c36cedee8 100644
-> > --- a/drivers/platform/x86/lenovo/Makefile
-> > +++ b/drivers/platform/x86/lenovo/Makefile
-> > @@ -7,17 +7,10 @@ obj-$(CONFIG_IDEAPAD_LAPTOP)	+=3D ideapad-
-> > laptop.o
-> > =C2=A0obj-$(CONFIG_THINKPAD_LMI)	+=3D think-lmi.o
-> > =C2=A0obj-$(CONFIG_THINKPAD_ACPI)	+=3D thinkpad_acpi.o
-> >=20
-> > -lenovo-target-$(CONFIG_LENOVO_WMI_HOTKEY_UTILITIES)	+=3D wmi-
-> > hotkey-utilities.o
-> > =C2=A0lenovo-target-$(CONFIG_LENOVO_YB9_KBDOCK)	+=3D yb9-kbdock.o
-> > =C2=A0lenovo-target-$(CONFIG_LENOVO_YMC)	+=3D ymc.o
-> > =C2=A0lenovo-target-$(CONFIG_YOGABOOK)	+=3D yogabook.o
-> > =C2=A0lenovo-target-$(CONFIG_YT2_1380)	+=3D yoga-tab2-pro-1380-
-> > fastcharger.o
-> > -lenovo-target-$(CONFIG_LENOVO_WMI_CAMERA)	+=3D wmi-camera.o
-> > -lenovo-target-$(CONFIG_LENOVO_WMI_CAPDATA)	+=3D wmi-capdata.o
-> > -lenovo-target-$(CONFIG_LENOVO_WMI_EVENTS)	+=3D wmi-events.o
-> > -lenovo-target-$(CONFIG_LENOVO_WMI_HELPERS)	+=3D wmi-helpers.o
-> > -lenovo-target-$(CONFIG_LENOVO_WMI_GAMEZONE)	+=3D wmi-gamezone.o
-> > -lenovo-target-$(CONFIG_LENOVO_WMI_TUNING)	+=3D wmi-other.o
-> >=20
-> > =C2=A0# Add 'lenovo' prefix to each module listed in lenovo-target-*
-> > =C2=A0define LENOVO_OBJ_TARGET
-> > --=20
-> > 2.56.1
->=20
-> Looks good to me.
-> Will the MAINTAINERS file need updating?
->=20
-> Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
-> Mark
+As an optimization, set_ftrace_filter supports writing indices (numbers)
+instead of function names. This support was added to the generic glob
+(fake regex) function, which breaks the ability to filter string
+patterns that start with a number. For example, PCI device names tend to
+look like '0001:01:00.0', and a reasonable filter might be:
 
-It's a good idea that the Lenovo WMI drivers codes are in one lenovo
-directory for different architecture.
-It's OK for me.
-Reviewed-by: Jackie Dong <xy-jackie@139.com>
-Jackie
+  echo 'name ~ "0001:*"' > /sys/kernel/tracing/events/rpm/rpm_resume/filter
 
+Move the MATCH_INDEX code out to the only place it actually was intended
+to work -- ftrace match_records(), with a 'func' and no 'mod'.
+
+As a side effect, this also fixes :mod:<module> function filtering for
+modules whose names start with a digit.
+
+Fixes: f79b3f338564 ("ftrace: Allow enabling of filters via index of available_filter_functions")
+Signed-off-by: Brian Norris <briannorris@chromium.org>
+---
+
+ kernel/trace/ftrace.c              | 3 ++-
+ kernel/trace/trace.h               | 1 -
+ kernel/trace/trace_events_filter.c | 5 -----
+ 3 files changed, 2 insertions(+), 7 deletions(-)
+
+diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
+index c7d74b33d36d..6654da9d1bbf 100644
+--- a/kernel/trace/ftrace.c
++++ b/kernel/trace/ftrace.c
+@@ -5029,7 +5029,8 @@ match_records(struct ftrace_hash *hash, char *func, int len, char *mod)
+ 	if (unlikely(ftrace_disabled))
+ 		return 0;
+ 
+-	if (func_g.type == MATCH_INDEX)
++	if (func_g.type == MATCH_FULL && !mod &&
++	    func_g.search && isdigit(func_g.search[0]))
+ 		return add_rec_by_index(hash, &func_g, clear_filter);
+ 
+ 	do_for_each_ftrace_rec(pg, rec) {
+diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
+index 0635503a31dd..3613476e5508 100644
+--- a/kernel/trace/trace.h
++++ b/kernel/trace/trace.h
+@@ -1807,7 +1807,6 @@ enum regex_type {
+ 	MATCH_MIDDLE_ONLY,
+ 	MATCH_END_ONLY,
+ 	MATCH_GLOB,
+-	MATCH_INDEX,
+ };
+ 
+ struct regex {
+diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
+index c10951bcfc5f..07ce75244233 100644
+--- a/kernel/trace/trace_events_filter.c
++++ b/kernel/trace/trace_events_filter.c
+@@ -1118,9 +1118,6 @@ enum regex_type filter_parse_regex(char *buff, int len, char **search, int *not)
+ 
+ 	*search = buff;
+ 
+-	if (isdigit(buff[0]))
+-		return MATCH_INDEX;
+-
+ 	for (i = 0; i < len; i++) {
+ 		if (buff[i] == '*') {
+ 			if (!i) {
+@@ -1158,8 +1155,6 @@ static void filter_build_regex(struct filter_pred *pred)
+ 	}
+ 
+ 	switch (type) {
+-	/* MATCH_INDEX should not happen, but if it does, match full */
+-	case MATCH_INDEX:
+ 	case MATCH_FULL:
+ 		r->match = regex_match_full;
+ 		break;
+-- 
+2.56.1.703.gf848ed807c-goog
 
