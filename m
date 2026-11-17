@@ -1,72 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.189.121.228
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794919419;
-	b=rS/GdHGFuM283nr4LwN0b4EuJWJEQvrByC5CwyVQVq2J22HWOLQ4zXePE3XDGi5FaK++
-	 Uw2zGVPz7YQf8DlwVXIVsSMEjvNPGmw7KPIDiD+k2WrDf5Us7UgXah35sSJvMRALvFhDK
-	 XlY4rU4lcNcjGYCwp7eDnS4TuUVknM40Cnfv4w2zUKZzkKN2PiBpKaNEAkEdWObPwEQ1/
-	 3vw+aKrdXFUC2whEsNEKIFYnB2fdlQM9kGQSWfipbxk1uXd5OpmZdpzEWhiMTMx6toKAw
-	 GBE+By/FDNeLVPFKcYFVhwlXipFGFBXqaS3/YZJTrJ5H94E5IaWpn+4oSn1L8oj4diQ==
+	t=1794919459;
+	b=bthx8kJBXTbWWKLU9AQRhxbKPa1ut1+SNuqzDl0u3zOJQEOnPsrPvrDrQMfiktJrKBph
+	 8uZfAXatPMEJaAtCD02SY7FsYHMCWsYsd0LBbhUPLKb3GZqC4A9y8ikV7fwvEgT80+EZr
+	 ocGIIT4JUHiJtwXOgVYoZ52PLL5fLr92CAysadDyg4CyUxeJNPhkCVfJIuuWLI6D+lHYd
+	 QeJN93QAIo/HDQG3U+b3uXbdkRRNJD3Y/iTZJXsxSW8w5BxspdS3kxuSFAIeVye9nSo4l
+	 DdU93Gj/dIkgttaA35wttZnR22prHSO/No04EqbJR5V9n0FGAXYTv9FeX2N5Ny9M48w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794919419;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=oj2zs7YpNjut+Fle9NDI2/nVbuq1xcuWOh/20pAlrQ0=;
-	b=XaUQ+Hz7LWKdW7tww8BU5TIlSCF9jq9TzJDir8QTBvgFHBsuq1L+3jLQpU1S9XXW2oml
-	 qh8MhjTk8hI0K/KqWqW9Y0xYRLvrl6RKSjgPfh6fyWyBKRQMNNc1XUfqDm003mCUlNTAr
-	 JNj45LxbY1Nlc+hEuuXuarw5qEyDi5BrUQsF+CdYppdTtKecZYQV0/mutRXqNFge/+vTV
-	 SXUHTWR6OA9I9J64O68/DeEoFBmfa5Bgap2JxKbRCXraZT/CsTJ4w/fq9/KZCr4UfEIo7
-	 iwh9CZZAU3H7fGsfwyE7OK1jwyOLjwuxkWy+9iKoqDez1gS1wmLsJ/gh/t1uVq6BzZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794919459;
+	h=DMARC-Filter:Message-ID:DKIM-Signature:Subject:From:To:Cc:Date:
+	 In-Reply-To:References:Content-Type:MIME-Version;
+	bh=0oMpxMqAh1huD7QvmrRmZJkCRKZ5apl5xyHDTsm2JJw=;
+	b=Zofny9z6IlJP85EGS/a5HHIxERHcHjemRYdBeLxUFr/4VN6vF9IDdPkEhGWLkXPRVRJq
+	 DngKXfASDxu5hdlJ0vVDPia6xehd2FeVPVXTluApO+SWDyTpJ4Zhqt9DPEQuiRJBjddBO
+	 SIBXkhoiFRwi5Kijn0G7Lc3E0FBuvIRV9gpxX13Bd2C9BzoYN8OjkPrCNsqwRYhD+zvt5
+	 G8JCGlsrCskOvQOfd7l3a4fgUZtRvGNh4dFpwpOe5QUgeTc0ci//b0HbW1U2KcROSj74S
+	 OVCO0N+UEIeo9nuJYfgDDNj4eI8c+PojJeii4kYBgmjvUx+mIJuNplTkaQMMVy2J4BQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F0ZJZSxj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=itx.no;
+	spf=pass smtp.mailfrom=itx.no;
+	dkim=pass header.d=itx.no header.i=@itx.no header.a=rsa-sha256 header.s=mx.itx.no header.b=Vfyqj0f7;
+	arc=none smtp.remote-ip=91.189.121.228
+Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22993606A31C;
-	Tue, 17 Nov 2026 12:43:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E2C606A323;
+	Tue, 17 Nov 2026 12:44:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5E2C606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F0ZJZSxj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 531451F000C4;
-	Tue, 17 Nov 2026 12:43:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794919418;
-	bh=oj2zs7YpNjut+Fle9NDI2/nVbuq1xcuWOh/20pAlrQ0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=F0ZJZSxjVOeL7JI36iP3N5KmCRyTdKxGy4h01DD0QtpjhX38HONSEFdXyV0KyHRZJ
-	 kWrsnpi2pzMhgPlK/V2c0eO6aaf5WyUhuK62ERJdt5L7cPzxZjTbXW5ZjVLMM4nfee
-	 PRuhR/Ywc72hQV/m9h4Kge6Jw1rRgPFAaUpdu7rHq7K3mzfBdeK+OohYwNHXCp+h+w
-	 ySKZcj+G8WYbxgO7DgepXgNdP97DMaD7AlYMjW3dY5+aAwoh2sVNhWNFmF1yNObUiz
-	 rDNuEETZY5ikvWQHgjMnGmBqgW2P9GrDqenOGzgkvWoiJDrDc/BWAPS5Crf98cesYe
-	 8hk9wsBmDsVrw==
-From: netdev-bot+sinfo@kernel.org
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Lorenzo Bianconi <lorenzo@kernel.org>,
- Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>,
- Justin Stitt <justinstitt@google.com>,
- "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, llvm@lists.linux.dev
-Subject: 
- Re: [PATCH net-next v22 00/15] net: pcs: Introduce support for fwnode PCS
-Date: Tue, 17 Nov 2026 12:43:36 +0000
-Message-ID: <179491941687.3291.11313796890436002644@kernel.org>
-In-Reply-To: <20261117123956.11981-1-ansuelsmth@gmail.com>
-References: <20261117123956.11981-1-ansuelsmth@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=itx.no header.i=@itx.no header.a=rsa-sha256 header.s=mx.itx.no header.b=Vfyqj0f7
+Message-ID: <8c0c3734b9ad1ba0072ce1fbcf895b544563798f.camel@itx.no>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
+	t=1794919456;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0oMpxMqAh1huD7QvmrRmZJkCRKZ5apl5xyHDTsm2JJw=;
+	b=Vfyqj0f72ALQ/u7eN/0j8cbqTU95GvMzRaoRfB+Krw2PHCHJjECcgJkPZ7dfedjVob+JaI
+	NsQIetAtcU+qFsai8utJWoCEL1XQFYr1L+mOcg/Kal0AiuKcxySHKYVceq4SIzVd6DOQW5
+	G07VxzqaJAgnmnWjEOS9F2XwIRrBHNA=
+Subject: Re: [PATCH] sparc64: Read qemu,hwcap-list from the OF cpu node on
+ sun4u
+From: Stian Halseth <stian@itx.no>
+To: sashiko-reviews@lists.linux.dev, sparclinux@vger.kernel.org
+Cc: Andreas Larsson <andreas@gaisler.com>, "David S . Miller"
+ <davem@davemloft.net>, Eric Biggers <ebiggers@kernel.org>, Mark Cave-Ayland
+ <mark.cave-ayland@ilande.co.uk>, linux-kernel@vger.kernel.org
+Date: Tue, 17 Nov 2026 13:44:14 +0100
+In-Reply-To: <sashiko-outbox-218725@kernel.org>
+References: <20261117112914.2300417-1-stian@itx.no>
+	 <sashiko-outbox-218725@kernel.org>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-OgfmDeW2u+LdEbYAhuII"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,25 +65,59 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Hi!
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+--=-OgfmDeW2u+LdEbYAhuII
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+Hi all,
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by LLM and not proven at runtime). If it was triggered
-   please include the symptoms, like the stack trace or kernel messages.
+On Tue, 2026-11-17 at 11:46 +0000, sashiko-bot@kernel.org wrote:
+>=20
+> [Severity: High]
+> This problem wasn't introduced by this patch, but can hwcap_list_caps()
+> read out of bounds and loop forever [1] if the property buffer is not
+> null-terminated?
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account.
+Yes,=A0and we can fix that in v2. As it stands the parser trusts the list
+to end with a NUL, which is not guaranteed if a QEMU user supplies a
+fw_cfg file directly.
 
-*IMPORTANT*: If you do repost (for other reasons) - please include
-the relevant info in the cover letter or commit messages.
--- 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+>=20
+> [Severity: High]
+> Does setting HWCAP_SPARC_CRYPTO in sparc64_elf_hwcap on sun4u cause a
+> regression where the sparc64 skcipher drivers corrupt FPU state and round
+> keys across skcipher_walk_done()?
+>=20
+
+This might be a bit worse than I first thought. I was aware of the
+self-test failures, as noted in my patch notes, but it looks like this
+could also cause some data corruption. Only QEMU can hit it, since no
+real sun4u CPU has the crypto opcodes.
+
+I have not reproduced it myself, and before spending time on that,
+I would like to get Eric's take on removing the glue code altogether.
+If not, we could fix the glue itself, for example by dropping the FP
+state before skcipher_walk_done(). IMO that would be maintaining code
+that probably should be removed. Not my call, though.
+
+Andreas, please don't apply this patch as-is for now. I will wait for
+Eric's reply before proceeding.
+
+
+/Stian
+
+
+--=-OgfmDeW2u+LdEbYAhuII
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTK1ph9OaYoND1R57zoeAEuJe36VgUCavxMHgAKCRDoeAEuJe36
+VtAtAP40VSMQ5ymr7U87qFc4sjU2DlNO1iIUxQ6PAl/9qkXMbwEAhFXM6W5sZ2WK
+P3euzWF5g10P7eRmzRwhw/vt0WCezAU=
+=TGk3
+-----END PGP SIGNATURE-----
+
+--=-OgfmDeW2u+LdEbYAhuII--
