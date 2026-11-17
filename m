@@ -1,49 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794918006;
-	b=BjABsHzs6axZKYnoLxt6L5Ou9pApz+4z3es6UmzLijsFN6bHVfa4p/f8ODJZ45J+gHHZ
-	 B2njRN2jahWuqTLUx6qBiTPbByhKCZbfXdeRd/zbsCaKZmFA0Oe+ALjxqwBcsvQTylI3Y
-	 gbivp1VSe1NQbqp7g+XlfvRwQ9PVyJ5Qrkb4yNvsapIaRAo17GbKiv6+eilVyKBOuJpDU
-	 X/pqTGudNC6Pg5thNK/o9WZOQMgYDH1IKQGIUYeDYs+rR7prJodSjrZ7ounsSef2gIj2G
-	 ufL6+lUDIr4rFVvFTagv/TuLPiX1cspeBYxJEb7rZcnww6sjqRPZNeko5JKkHZVuwGA==
+	t=1794918014;
+	b=fzqgc7AgFTc2Bc0ZflsOlSDvLnHv/iHjaKwnyPwsSAyKYmTGqU8RbJ/+Fi14mQbgkGvY
+	 R/gE8BvWKClzCkvbaD+0kndkWAiRzg7L0vN46/3t9ymDt1jQJ/RkS9Kj1kfeubMVLUfAy
+	 tfSWH0h9QUcywS1ow3tyr/0uYJQCR8EBCW0FuRkczwOphmroG+YMnal7h74n38CG9N4Wb
+	 IXRQIKtZgGd5NkezIxLfitcClxfgadARw39oHbiRUGaLbbKjT8UEWBq8yk8PvmXJnyiZP
+	 G607REziBX0Sbu0CkVYeol5yBFj7OgawA7Jr+EcJdKsrTTD2+I8o+N4NZAGOgDu8DNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794918006;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=dIC6GQqXVKLou+U/WOVLQXBv5bHNyz9EKKHU7Lxe6T0=;
-	b=4l3Pq5QoZ4Pv6LmTKwOAsf3Z/bvSlmBh7NaQxt9nlOBCcG3+RbL51+/51Xg69Lg+1Wiu
-	 y4sGw0bj8D2vzA3JthdMe2Ig73g1qOCw9ltdeGenj39/bsmzXW/RoEzNRMFRW0Xx4lHFl
-	 eL0f3nZAsb1Jl0ek4X/RDxrrsrXFf+ymMyHFwh58P3k+PtmNFzftJXb65L59yT4gQhlF5
-	 RUz/sijrPiQsPA5rtpSImODRfpBP1TDq+Bh1MJV8hlU5fJuROM2BeCGzMpRFhunRK/8YK
-	 Zbfb9wm+S3OHP0x0dU6jE4GAsVnjxwwu/w+gxXf26rU8i/AJUr9aM3RFGRxXHqVVNlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794918014;
+	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
+	 In-Reply-To:References:Subject:From:To:Cc:Date;
+	bh=itS94mPURDHQuTgfMaOaJrPnv0UhhYADw1GfXqxCZ8U=;
+	b=3rCPS+z6lurTuH/80cOizMgYd1UHdjHFLk+W7kU64hxyI5ebFm7BZxiiLf3dYRgG0pLG
+	 PVJhswNx6nZsFuKFhlGPKlNV3wApaJPYkeIHoZjtgt6969HfnEEmRW152OoOleVXBE+ne
+	 /X72Rsgn+duRrIDEY9LuCtrrf4RCcFwDsXNdmz9oBxhAow4oKqWuUV41OMHaNMm5dt9+a
+	 w54CPuw4oVfaUL/mIpUopkuQijbl+jp+RNbs/OCFVjFANaohkwfGo0oemPFu+h698wXTG
+	 6GgTw5rEE1Y2Lwo+ft8iSmbCA5YwtykVRuMriN83Q6h2ggHVxWKK6ylzMR9txAcWnKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MYeD63pM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z2OKohOS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86182606A886;
-	Tue, 17 Nov 2026 12:20:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1911606A33A;
+	Tue, 17 Nov 2026 12:20:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MYeD63pM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 441D61F000C5;
-	Tue, 17 Nov 2026 12:20:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z2OKohOS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 591CD1F000C6;
+	Tue, 17 Nov 2026 12:20:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794918006;
-	bh=dIC6GQqXVKLou+U/WOVLQXBv5bHNyz9EKKHU7Lxe6T0=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=MYeD63pMBd9xh5S7aUc0BYCmO1CGmHRYmkr+CjTke6T+UFMvMoQIvTwF6hgjKY9PU
-	 3prV+CK2pJOXfPuR++Ajya073aGgFgPO5KfY79rx3cvoCL0fGID4yBd5zpEOREt3F5
-	 M+lf/ttsLytRAAzmkMLercG9R/wplUepwHUzkedklMvEBVUHRfTyynIF7TuJLJz0TW
-	 oMGY8JN+epKpHpE0JRqXM12ZujS6VyLObtN7+zyOEpovNcm45pkihMVzNcmyCDCr2o
-	 F0N8C/iY6aRW7kZhLbiBB5cr9qb1OKzop4Io9E0rci0i+kWlSeuCGXIF5hhIQcpO+s
-	 LH1NaOXj3zbQg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A47D3926663;
-	Tue, 17 Nov 2026 12:20:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1794918013;
+	bh=itS94mPURDHQuTgfMaOaJrPnv0UhhYADw1GfXqxCZ8U=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=Z2OKohOSwtd5zMUEsHNR2U6BXCrVWD0SljcAPX4n85fTuiIEdyK9zZnxamd+Ttu7b
+	 qLA9U6LuJnvXV5ierKxnLDrRZDLWbHPoe4Q5JnBS2wyPbvRJyVlz6m+qtHW7ArxLBJ
+	 iR9U/KQRk5r+KS/9knuwmOWOHu0Z+v2WyMGSfi/1AxItZkQZBTajh0kBzIL8VUPEyp
+	 bQeJJPCpl5t7ZtYo8KesyOTOC+6zoto+7V4w1fdEEZx1XHMkWOxIrn69Hx13QgHqOH
+	 zoyl/PyrNc11Ls7i6Z39mcAnsvadAluOpWxlxcGQBDl1UgRIRw7Ll2gMqmU9vzBzSD
+	 SPrgeCWdYY+Sg==
+Content-Type: multipart/mixed; boundary="===============1081829159996909370=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,47 +49,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v3] net: usb: cdc_ncm: fix out-of-bounds read of
- chained
- NDP32 offset
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179491800478.546052.18043881095735155809.git-patchwork-notify@kernel.org>
-Date: Tue, 17 Nov 2026 12:20:04 +0000
-References: <20261112082022.995351-1-rc4d5a@protonmail.com>
-In-Reply-To: <20261112082022.995351-1-rc4d5a@protonmail.com>
-To: Ryan Prinz <rc4d5a@protonmail.com>
-Cc: oliver@neukum.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-usb@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Message-Id: <846b0937d121e4e7537851e6dd045c8045b721cbe06e8a22a66686e94b51006b@mail.kernel.org>
+In-Reply-To: <20261117-bpf-preempt-v2-r2-v3-3-586376ec3672@sentinelone.com>
+References: <20261117-bpf-preempt-v2-r2-v3-3-586376ec3672@sentinelone.com>
+Subject: Re: [PATCH bpf-next v3 3/4] bpf: Check program recursion per task via bpf_ctx
+From: bot+bpf-ci@kernel.org
+To: mikeba@sentinelone.com,bpf@vger.kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org
+Cc: martin.lau@linux.dev,eddyz87@gmail.com,memxor@gmail.com,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,john.fastabend@gmail.com,emil@etsalapatis.com,ihor.solodrai@linux.dev,rostedt@goodmis.org,mhiramat@kernel.org,mathieu.desnoyers@efficios.com,jp.kobryn@linux.dev,linux-trace-kernel@vger.kernel.org,linux-kernel@vger.kernel.org,mikeba@sentinelone.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue, 17 Nov 2026 12:20:11 +0000 (UTC)
 
-Hello:
+--===============1081829159996909370==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-This patch was applied to netdev/net-next.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+> bpf: Check program recursion per task via bpf_ctx
 
-On Thu, 12 Nov 2026 08:22:09 +0000 you wrote:
-> The NDP offset read from dwNextNdpIndex on the 32-bit NTB (NDP32)
-> path is not checked for a negative value before use. A
-> device-supplied dwNextNdpIndex in the 0xFFFFFFF0-0xFFFFFFFF range
-> sign-converts to a small negative int. cdc_ncm_rx_verify_ndp32()'s
-> existing bounds check then double-wraps: promoting the negative int
-> to size_t first produces a huge value, and adding
-> sizeof(struct usb_cdc_ncm_ndp32) to that wraps it back down to a
-> small value that passes the "> skb_in->len" check, causing an
-> out-of-bounds read of up to 16 bytes before the skb's data buffer.
-> 
-> [...]
+TL;DR: Commit message only: the trade-off list omits that attaching a marked
+freplace extension to an fmod_ret target now also fails with -EINVAL, a
+userspace-visible change.
 
-Here is the summary with links:
-  - [net,v3] net: usb: cdc_ncm: fix out-of-bounds read of chained NDP32 offset
-    https://git.kernel.org/netdev/net-next/c/c1824744b3b6
+> bpf: Check program recursion per task via bpf_ctx
+>
+> Trampoline programs (fentry, fexit, fsession, fmod_ret and their
+> sleepable variants), raw tracepoint programs (raw_tp, raw_tp.s, tp_btf)
+> and tracepoint programs on syscall tracepoints run preemptibly, but
+> their recursion check is a per-CPU, per-program counter. When a task is
+> preempted inside a program, the counter stays raised, and every other
+> task that enters the program on that CPU is dropped and counted as a
+> recursion miss, although nothing recursed. A program can't avoid that:
+> the counter is checked before its first insn.
+>
+> Since commit 7dadeaa6e851 ("sched: Further restrict the preemption
+> modes") x86 and arm64 have only lazy and full preemption, so this
+> happens in normal operation. A security agent that pairs fentry and
+> fexit programs on inet_sendmsg() and inet_recvmsg() loses one half of a
+> pair with every drop. With 200,000 HTTP requests and four CPU-bound
+> tasks on a 4-CPU VM, 9,254 of 7,966,760 runs of these programs were
+> dropped on bpf-next, and none of 7,975,426 with this series.
+>
+> Check recursion per task instead. The runners already link a
+> stack-allocated bpf_run_ctx into current->bpf_ctx. Move saved_run_ctx
+> into struct bpf_run_ctx, so every frame links to the outer one, and
+> record in each frame the program it runs. A program is recursing if a
+> frame in the current task's chain already runs it. Interrupts and NMIs
+> run on top of the interrupted task's chain, so recursion through them
+> is still caught.
+>
+> bpf_prog_enter_run_ctx() and bpf_prog_exit_run_ctx() do the check for
+> all runners. The syscall tracepoint runner linked one frame around its
+> program array and now links one per program. bpf_set_run_ctx() accepts
+> a NULL ctx, which io_uring passes to hide the BPF context; the frames
+> below are not walked while it is hidden.
+>
+> Programs marked by the previous patch keep the per-CPU counter and
+> behave exactly as before, so no counted drop is traded for corrupted
+> per-CPU data or a renewed may_goto budget. An extension (freplace) runs
+> under the check of its target, so a marked one can't be attached to a
+> target that is checked per task.
+>
+> Trade-offs:
+>
+> - An unmarked program that keeps per-CPU slots of its own, see the
+>   previous patch, can have two runs use one slot, and nothing counts
+>   that.
+> - Marked programs lose runs to preemption as before.
+> - bench trig-rawtp is about 2% slower: 42.6 and 42.1 M/s on bpf-next,
+>   41.3 and 41.5 M/s with the series. trig-fentry and trig-fexit are
+>   not slower.
+> - Attaching a marked extension to an unmarked raw_tp, tp_btf or
+>   tracepoint program now fails with -EINVAL.
+>
+> Signed-off-by: Mike Bazov <mikeba@sentinelone.com>
+>
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+The trade-off list says a marked extension fails with -EINVAL when
+attached to an unmarked raw_tp, tp_btf or tracepoint program.  Is the list
+complete?
+
+bpf_prog_recur_per_task() returns bpf_prog_check_recur(prog) for
+BPF_PROG_TYPE_TRACING:
+
+	case BPF_PROG_TYPE_TRACING:
+		return bpf_prog_check_recur(prog);
+
+That is true for every expected_attach_type except BPF_TRACE_ITER, so it
+is also true for BPF_MODIFY_RETURN.  bpf_check_attach_target() only rejects
+an extension when the target is fentry, fexit, fsession or one of their
+_MULTI variants, so a non-sleepable fmod_ret program with a global subprog
+is a valid freplace target.
+
+An extension that uses a per-CPU map, a tail call, timed may_goto or
+bpf_this_cpu_ptr()/bpf_per_cpu_ptr() could be attached to such a target
+before this patch.  It now hits the new check in bpf_tracing_prog_attach():
+
+	if (prog->type == BPF_PROG_TYPE_EXT && prog->recur_per_cpu &&
+	    bpf_prog_recur_per_task(tgt_prog)) {
+		err = -EINVAL;
+		goto out_unlock;
+	}
+
+Should the commit message list fmod_ret targets next to raw_tp, tp_btf and
+tracepoint, since this is a userspace-visible attach failure?
 
 
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/44076814540
+--===============1081829159996909370==--
