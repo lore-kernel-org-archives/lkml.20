@@ -1,63 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.199.235.221
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794909085;
-	b=psur8lSVgwcimu+09EmbcI6mKdfTq6lnmDs+Q1Mk5/2fbyWkbzfKbXe4Lf9gKz2coYlW
-	 CgeMFOGpRYgtopnf7iwUEpu8UKrOIhLGIzeaAcQ9ZOefghjcR45d2ZCAWQUzqoLoBG/fl
-	 zgpO4gXWZKlUeThiiyCHQZKCwnRVQzBVOUZ51u2Y7SPxLV0YCRlKTjc2CAvZeMuC8Sw7T
-	 U93U2VwmucpQlmZuoG+YfhgjDo7116kzrHCy/zSYGLpWFm1POqUg656zalLtKRAzmN5es
-	 v09guc6zAt2G5sjBeZ36vXEHD1M7aUs6lnP5ERurBHo644HOKUr7hzKwpeB0/2Wa6UQ==
+	t=1794909104;
+	b=cBug4EknkJnQBG05exX0nZYkNpIc4dFVEx/VxM/wxx87qWM+8+7nPON2Nv/dF3M7qdtv
+	 vdnB7egku+0KDcKPX8d4OLxolsOaAzzeQb7jjX3BTvilKLuWceExaRMG1gjyUkrYm1VIV
+	 zHnykYZ/TQWJKYxawE8Tbek07BRfYakL9+5CMvYOu1qDXtDsf3qY9ydW3jWfpPfV4ho+8
+	 /ye/AdDfvSbchal6nS+t2asS8Zg8f2MgHrA04f0Wcqu/3hSeyItadHnw9ZpZporNiqNFb
+	 6vwwPzS6NOL4raATy03jA3xe204DBeQQm+ZXuZuJVKuszWek3GulTXQlV0o/0dpskxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794909085;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-Id:MIME-Version:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=8QGRrjtcy7R8vfKCbp56fKR8ZrLT6epmRKadFazehRA=;
-	b=BInPFUbAmQzdGvRvm2omN0RdPT0jBDPTZbOUaWMYXLX7tZBkgVlab7gPKTv1oM1XWF4P
-	 FLugcm/nsxCj03bBamRbNr2K+YyP0sT9bS/QO5geZOIbYaoXK4E9mJRXKo1gOkg60km5w
-	 8i5DkPbMQy9PcG975j7PS6wTb86ON5EddO/oErJZ8DHsBUHx0vcUKOFG3NEFdDH4KGjZK
-	 pVESJ9HZF4YFbHnny6fGlk39RDjgrQa7/hBVvYUyob6IeOEQAyf9oh3Fzq5QkRodq/B1v
-	 /jrKhDsBy9cGUDb/biGkHHCiCOfde01eLTLQOwRfRMBR27m67k4nK2prv6I5JPmnScw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794909104;
+	h=DMARC-Filter:Received:Received:DKIM-Filter:DKIM-Signature:
+	 X-Virus-Scanned:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ie7xlH959msYwz7Ly/QutwaJloMdPwLzBWnER2Gq/kg=;
+	b=xtWQsHU7vpg+dfjmwSt7W0o/DL9/saTqAiJ17JWlLqvZVRi1SX9hBJuHlxZRqGFgE7St
+	 Pc9TWuRnQv9iJktpZcNAhkVwM9k1EpeIxrl6kBV/OWo5RebAOHNt/dN8mSMxSMBXlUtG3
+	 jm3koUKZiguBEbAnFDLYDrUKRRfYBNkCzYDSkcioBDHfJm4Hjz/+b/qbytMGw6wpytJG3
+	 3mmSecJjcCEtzEq9CC96T+liDAz1a8SfX+dyBk79btdrDI8mV8aaM1WHup/VLCvF+1KyR
+	 pUo7/deua8g5TSNzwvyBRIzzyJ1emlUndYEyUjG2adaiPMQA3vmYTebbMp8ale+3olg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cjdns.fr;
-	spf=pass smtp.mailfrom=cjdns.fr;
-	dkim=pass header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=a+ZMPlz2;
-	arc=none smtp.remote-ip=5.135.140.105
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+	dmarc=pass header.from=cirad.fr;
+	spf=pass smtp.mailfrom=cirad.fr;
+	dkim=pass header.d=cirad.fr header.i=@cirad.fr header.a=rsa-sha256 header.s=573E3878-7916-11F1-BF4B-F68474317960 header.b=p96zj0p6;
+	arc=none smtp.remote-ip=194.199.235.221
+Received: from retz.cirad.fr (retz.cirad.fr [194.199.235.221])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 341D7606A31C;
-	Tue, 17 Nov 2026 09:51:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 341D7606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D751606A323;
+	Tue, 17 Nov 2026 09:51:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D751606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cirad.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cirad.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=a+ZMPlz2
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 61254518ACC;
-	Tue, 17 Nov 2026 10:51:20 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1794909082; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=8QGRrjtcy7R8vfKCbp56fKR8ZrLT6epmRKadFazehRA=;
-	b=a+ZMPlz2loQmIdRt40DR2Mo4KxW1D4Ol8rS+LL8GH1DoWKtLYBob++YZQ+FGatUdAFBGoy
-	JqCkSgcTUmeS2SH2cuzbkZfSfYt/p7oSWtQ9GS6Og84wztxv52Ih+KNmcvMYQMlFSP9/nT
-	uIRkJK1x5ZuiU16B9tGW5nrEW2/uECy7p75tzACr1LvBvF+7kjUoAqXUPUBrkKLlak0ZzH
-	iuYlZuud6+TnVCxWFskzlGYCRd0j1Sw3s6TPEHpodBBCKsCAzx52MDDkF4LwO1L9rib5Y0
-	aQ4kU7Vt0My0ETwPwk2xUHxciKLn4mKAbyInbrmYRH5iC9s89G8Tx7lRKfdghA==
-From: Caleb James DeLisle <cjd@cjdns.fr>
-To: linux-mips@vger.kernel.org
-Cc: conor+dt@kernel.org,
-	daniel.lezcano@kernel.org,
-	devicetree@vger.kernel.org,
-	krzk+dt@kernel.org,
-	linux-kernel@vger.kernel.org,
-	naseefkm@gmail.com,
+	dkim=pass (2048-bit key) header.d=cirad.fr header.i=@cirad.fr header.a=rsa-sha256 header.s=573E3878-7916-11F1-BF4B-F68474317960 header.b=p96zj0p6
+Received: from retz.cirad.fr (localhost [127.0.0.1])
+	by retz.cirad.fr (Postfix) with ESMTPS id 4A09420D7CE5;
+	Tue, 17 Nov 2026 10:51:41 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+	by retz.cirad.fr (Postfix) with ESMTP id 27C6D20D7CEF;
+	Tue, 17 Nov 2026 10:51:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.10.3 retz.cirad.fr 27C6D20D7CEF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirad.fr;
+	s=573E3878-7916-11F1-BF4B-F68474317960; t=1794909101;
+	bh=ie7xlH959msYwz7Ly/QutwaJloMdPwLzBWnER2Gq/kg=;
+	h=From:To:Date:Message-ID:MIME-Version;
+	b=p96zj0p6vXfJkE1WQkAKbK4G9GFIBWL4KEXcjsJ/+SUXYmPhhfHdJSDn6Dx+O/dKM
+	 8ROESkLGDxXKff542XW9p1A5Gdl4ZJtTD0QMxRhjdDNUIBGGvKQRwXPrtqRwIEssli
+	 ho7bVtgDTeyuixkftWDMnU1UbgLaHakg+ILAmW1pQkw61ig07DYjyat6rJdWLaI1cE
+	 hUcA2FY5VgBwB1tGmE/R9QQmwHDgK56WCQy94/gBE1pu3VdhZc8RPkHnkU6vi+S3k0
+	 B+9xv52rARCvMzjMTFz2BmjW0x0fZ46jOC9nydVoBDH0+hwaRnhUojd4580rtuEZzg
+	 1LGwgwCbNFjbA==
+X-Virus-Scanned: amavis at retz.cirad.fr
+Received: from retz.cirad.fr ([127.0.0.1])
+ by localhost (retz.cirad.fr [127.0.0.1]) (amavis, port 10026) with ESMTP
+ id 1qjICo2zv9do; Tue, 17 Nov 2026 10:51:41 +0100 (CET)
+Received: from localhost.localdomain (78-196-243-100.subs.proxad.net [78.196.243.100])
+	by retz.cirad.fr (Postfix) with ESMTPSA id 3194820D7CE5;
+	Tue, 17 Nov 2026 10:51:40 +0100 (CET)
+From: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>
+To: Vlad Banea <montrealtango@gmail.com>
+Cc: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>,
+	Yixun Lan <dlan@kernel.org>,
+	troy.mitchell@linux.spacemit.com,
+	wangruikang@iscas.ac.cn,
+	guodong.xu@oss.qualcomm.com,
+	jyc0019@gmail.com,
 	robh@kernel.org,
-	tglx@kernel.org,
-	grandmaster@al2klimov.de,
-	Caleb James DeLisle <cjd@cjdns.fr>
-Subject: [PATCH v12 0/5] clocksource/timer-econet-en751221: Support irq number per timer
-Date: Tue, 17 Nov 2026 09:51:12 +0000
-Message-Id: <20261117095117.173316-1-cjd@cjdns.fr>
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] riscv: dts: spacemit: k1: give each PCIe port its own DMA window
+Date: Tue, 17 Nov 2026 10:51:28 +0100
+Message-ID: <20261117095129.97140-1-frederic.mahe@cirad.fr>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261117084938.82968-1-frederic.mahe@cirad.fr>
+References: <20261113023158.2872492-1-montrealtango@gmail.com> <20261117084938.82968-1-frederic.mahe@cirad.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,94 +92,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-This timer appears on both the EcoNet EN751221 (34Kc) and on the
-EN751627 / EN7528 (1004Kc) SoCs. On the 34Kc the interrupt controller
-uses a percpu interrupt while on the others it uses an individual
-IRQ number for each CPU timer. Add support for EN751627 and EN7528.
-Add support for IRQ number for each CPU timer under the
-econet,en751627-timer compatible.
+A follow-up question on the hole that remains for each port.
 
-Changes since v11:
-* Update to tip/timers/core Nov 1, see base-commit.
+On the BPI-F3 the remaining pcie1 hole (CPU 0x1_1000_0000-0x1_1fff_ffff)
+still costs a lot: anonymous pages often come from the low end of
+ZONE_NORMAL, and when fio's buffers land there, 4k random reads lose
+about half their IOPS to SWIOTLB bouncing.
 
-Changes since v10:
-* Unconditionally setup clock_event_device for all possible CPUs so
-that error log will not access uninitialized data. Identified by:
-Link: https://sashiko.dev/#/patchset/20261015145331.453837-1-cjd@cjdns.fr?part=4
+The port only uses a small part of its 256 MB window here:
 
-Changes since v9:
-* Use dynamic size irq and iomem block arrays based on DT
-* Update commit message explicating that CPU hotplug is intentionally
-not supported
+  pci 0001:00:00.0: BAR 0 [mem 0x90000000-0x900fffff]: assigned
+  pci 0001:00:00.0: BAR 1 [mem 0x90100000-0x901fffff]: assigned
+  pci 0001:00:00.0: bridge window [mem 0x90200000-0x902fffff]: assigned
 
-Changes since v8:
-* Actually git commit changes from v7. Guys, I sincerely apologize for
-the spam.
+So I tried a test DT that excludes only bus 0x9000_0000-0x903f_ffff
+from pcie1's dma-ranges (the root port BARs and the bridge window, plus
+margin), on top of your v2:
 
-Changes since v7:
-* Use %zd for logging with ARRAY_SIZE to avoid compiler errors if
-test-compiling on 64 bit.
+  dma-ranges =3D <0x0 0x00000000 0x0 0x00000000 0x0 0x80000000>,
+               <0x0 0x80000000 0x1 0x00000000 0x0 0x10000000>,
+               <0x0 0x90400000 0x1 0x10400000 0x0 0x0fc00000>,
+               <0x0 0xa0000000 0x1 0x20000000 0x3 0x60000000>;
 
-Changes since v6:
-* Rebase to tip/timers/core (base-commit below)
+Results (v7.4-rc1, 16 GB, NVMe on pcie1):
 
-Changes since v5:
-* Integrate patch fix refcount leak from:
-Link: https://lore.kernel.org/linux-mips/20260526184105.18962-3-grandmaster@al2klimov.de/
-* NULL econet_timer.membase after unmapping
-* NULL check dev->event_handler in case clockevents_config_and_register
-  failed to fully register.
-* v5: https://lore.kernel.org/linux-mips/20260516233943.49502-1-cjd@cjdns.fr/
+- 15529 pages in CPU 0x1_1040_0000-0x1_1fff_ffff: 4 KiB O_DIRECT write
+  and read per page, no bounce, every page read back correctly
+- fio crc32c verify (16 GiB direct, 8 GiB buffered) OK, no AER
+- 4k random read, IOPS (1 job QD32 / 4 jobs QD32 / 8 jobs QD16):
+  v2 27.5k / 86k / 137k, test DT 47.5k / 185k / 193k
+  (same as booting with mem=3D2G, where nothing bounces)
 
-Changes from v4:
-* Fixed incorrect compatible in DT schema
-* Bracing in out_irq_free if statement
-* I did not move cpuhp_setup_state past the point of no return
-* v4: https://lore.kernel.org/linux-mips/20260516215720.4160831-1-cjd@cjdns.fr
+I did not try DMA into the bridge window itself, as that would target
+the drive's own BAR.
 
-Changes from v3:
-* off-by-one in out_irq_free
-* Gracefully fail if too many address resources are provided in the DT
-* Allow fewer actual timers than num_possible_cpus, as long as they
-never start
-* v3: https://lore.kernel.org/linux-mips/20260516182648.3987792-1-cjd@cjdns.fr
+So it looks like the root port only claims its programmed BARs and
+bridge window, not the whole 256 MB aperture. Troy, is that how the K1
+root port works? If so, would a smaller aperture for pcie1 (the M.2
+slot on most boards, e.g. 16 MB), with a matching smaller hole, be
+acceptable? The other ports could keep large windows.
 
-v3 note:
-
-I decided to take this patchset in a slightly different direction from
-v2. There is a certain amount of initialization that once it has run,
-it cannot be reverted in case of error. The original driver init was a
-mixture of revertible and non-revertible code which made it too easy
-for code which is designed with best practices in mind to in fact
-introduce a bug. Therefore I start by making the init process more
-legible but without any business logic changes, then fix a race
-condition by keeping IRQ disabled until after cevt is setup, then
-finally add non-percpu IRQ support.
-
-* v2: https://lore.kernel.org/linux-mips/20260514000601.3430262-1-cjd@cjdns.fr
-
-Changes from v1:
-* Split changes over 3 refactoring patches + main patch
-* Remove driver discussion from dt commit message
-* v1: https://lore.kernel.org/linux-mips/20260416175101.958073-1-cjd@cjdns.fr/
-
-Caleb James DeLisle (5):
-  dt-bindings: timer: econet: Update EN751627 for multi-IRQ
-  clocksource/timer-econet-en751221: Init teardown on error if possible
-  clocksource/timer-econet-en751221: Disable IRQ until cevt registered
-  clocksource/timer-econet-en751221: Support EN751627 without percpu IRQ
-  clocksource/timer-econet-en751221: Do not use NR_CPUS for resource
-    array size
-
- .../bindings/timer/econet,en751221-timer.yaml |  31 ++-
- drivers/clocksource/timer-econet-en751221.c   | 206 ++++++++++++++----
- 2 files changed, 181 insertions(+), 56 deletions(-)
-
-
-base-commit: 0359ecff58853a491dd0f09792fea8e87235ae06
--- 
-2.39.5
-
+Thanks,
+Fr=C3=A9d=C3=A9ric
