@@ -1,65 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.121
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794880355;
-	b=iohNZAeL3STaysRkF996TkXxleVBLm4DfkoaZnDCU984dOPVuK3noAKCd61kb2wojqoE
-	 2qo27OODQBV5pkKXlwhughiLgacR0xSEDsW1eM0XzykwbeWtofy8lgwTC+08oLe7KYvBC
-	 6eBgUUqp7zobRk2/Y9e5GWA/PxMMNXRjD59G0KX2tUkjRIoHxcF2OhNQj+sw5NWBAk2vu
-	 l0a3gZtoG4uztMNgrbwULfSJuHO16Iuv56wZx/lCTNL6Z9boxrckj+8kF3HhgOaMqN8iR
-	 J/PBTfl8IqIrW0YnWJ1Znfnk9NnYrvDm23VDjW1OLmw1mumUn5XW59xQL9ZsG+Fz2LA==
+	t=1794880468;
+	b=tmByy3kJIbN6M8qQuyqk6pQpoXUAIxMcb2VDmrHPC7iR1R0OhYfZGMMCW3TrvwdvU9Eo
+	 gro1MoPdOfsWIQOyCqaWa/ZJbn1SMm+lEb2eeHZNY/YVVcOgUGBasUSDaBPXetF1wMSV3
+	 0aAsKfQ4SuZrm4zVfIma+Ss8S1Naa4ZjTdFjYEpIDuy7oikjXaMkAgrBjNCml9FNuGagZ
+	 EdnwKf18XOt4+Jozkk802+nJAWhleUVYsfDvtCqsJO45J10/tAJlYjQlvWugTFgYnvGPj
+	 IqQnNtGThQ3/7pueRqMJwk0XQdRi60RjRsVxvgZuozr1xo2MNa1vKO9Cfs0uQLmsvhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794880355;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794880468;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=R9FDV9LumLwaqMr3fWi1CRMLzPuNQVlo3nMvXwW4siU=;
-	b=KnMLjOHm64z5P9GtWiMVw6h518rJnA2BC3rjx76Up7z8IzKsXPPPMIiSABA2BuMFnRY5
-	 lzUL8mkWL0R2z1RIm56pFR+UW9sQ+z/O1UX3vIMiA0CwKr9vHyuFIYf1qEMHk6vnukjiE
-	 hW0c/36EHt60C416W8FaQP+N6U2FgedpY/dHHhfAiPQtOVUiGYH8oCID2WiF92FMJjAoQ
-	 hg8lJ8+1H/qrI2W2oQ0kMqhNVY7SfPdwt/KxjbVK/+gpG4NcFG3/rl4GfESUqsrkmVX5E
-	 z27LDSnNYPJ2P4LxucX77MbVA91fF2RdkzoNhyma8Qn9TL8VFisqIllaInW8d7smw9A==
+	bh=w8LqwAm420t4vMGPQi+EWJzp7fMp2OcaMgt7Y6fyyHA=;
+	b=2We8HtN3hcPY67XBEUdMu26HAmx6BHCa0ki1POiYVl33WsK71EQOqkQnXqvQJCPQI1tV
+	 3YYKYTofUpJjzCvadFROITKQ64kY+uyYh+4aom3ZwO1C27+IUj7WwZkl+EuCAwUGMccs6
+	 M9W6dxIAlV6H10W3IpS+4jFRp4B/pH5ieWxknQvQxUmSANgojko5FCq7H2JDXfhNqiDF1
+	 hHGUD9IDpfwnh0SJ4/wivmaFYtmEhs89DpEUX4VKId8X12gCe2rXTQKNlMDwLXrIWqKiA
+	 vGFNILBsorHfRZSNYzX+zWzieN14FHnTxsVrM4GyB5a7mO2LVSFmjnvGtZtPPvlo9CA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="F/HxyvAJ";
-	arc=none smtp.remote-ip=91.218.175.121
-Received: from mta0.migadu.com (out-121.mta0.migadu.com [91.218.175.121])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cG5O3CQs;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44BAF606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:52:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44BAF606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96D9E606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:54:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96D9E606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=F/HxyvAJ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=2O4eEcW1l7j4Rs7t0E8EUthAkAbvzAeMUpu0A8UhMSc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794880353; v=1; x=1795485153;
- b=F/HxyvAJcB8YtJNg9x94+tZqUz2sQeFdv/Odm7E5qzW8ansC4ROhk6rHTK65ruoW9Rag0e3f
- S5kbUsk/gWwfLSx+ofPuRryDJqa/3FAAWv4adU0fXCknlID3fYGkGEREVVqJ65pVHqCRiqghmKi
- TbJdONBE1sCeKrH1CFmiDSjg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id e29ae49de9410c07;
-	Tue, 17 Nov 2026 01:52:33 +0000
-X-Mizu-Trace-ID: e29ae49de9410c07
-X-Migadu-Flow: FLOW_OUT
-From: "Xu Xin (vivo)" <xu.xin@linux.dev>
-To: xu.xin@linux.dev
-Cc: chengming.zhou@linux.dev,
-	david@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	ljs@kernel.org
-Subject: [PATCH v4 2/2] mm/ksm: add initialization helpers for scan_get_next_rmap_item()
-Date: Tue, 17 Nov 2026 09:52:25 +0800
-Message-Id: <20261117015225.618954-1-xu.xin@linux.dev>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261117015009.611551-1-xu.xin@linux.dev>
-References: <20261117015009.611551-1-xu.xin@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cG5O3CQs
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3719e3cb82bso447315eec.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 17:54:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794880467; x=1795485267; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=w8LqwAm420t4vMGPQi+EWJzp7fMp2OcaMgt7Y6fyyHA=;
+        b=cG5O3CQsdjEq6FvLwWnGU8cLdvFFlnPqB/58pOGag4tHmsOjTkfYwYzPsaM9ZQabN3
+         uAW0RPxv1qxvUHvhunG3vqIB77AiTdd0nZQcJOus5vjjmdfbwnTgRPRtHkAEbHYxoxC7
+         WVBJ6cBiQTUUFjMjQNDKiaxYFO2vXhyNMdVtBcmGcm5KvX7s3WWmjKK1H4F7OiIxsQzU
+         TQxd8cFOGBHQLch8wBPC2nIbI2WoM7CIKzATW0Vd+qu9MR8P1PR72i642KOKIRQsR/ks
+         ejfhI8311RwVteja+QzD5QjrdDFSXA2DbNQ3I2jFVQCzvUDq5m41jC7U5AOBCUzy9CXa
+         urAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794880467; x=1795485267;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=w8LqwAm420t4vMGPQi+EWJzp7fMp2OcaMgt7Y6fyyHA=;
+        b=XpD+XMBuGFYcvCOfNlkO4i3VCMRcVPen54FsfVRleTGINWcCpnqDxST27I34s8zxS9
+         CY4z7tb3abWnbXZOvpxZ49fc8zzscCOR1y1/y7nlw5NsxSZduwiTiCikGmIKYC1cutNA
+         rHcYaskWr9CMcUMrmUmsyuO8j+9/fzakYe1oGzbdHk1YYIjY1VkkRkrhQgCJMT+keDqQ
+         KLu+BqjrEFuI8VnpI0DxMmjeDV86ndI0tXx2VoNZ781V4DNw/p2LY3/+AyYXKzL0WCtt
+         C3xX+tdN2WljjCCPBWxrErWyLajCpEbZIgfeS3I8s/T7OnQxb9Cvan8qIsEWvGFCS+NN
+         u/kQ==
+X-Forwarded-Encrypted: i=1; AL+hErGWaUMJ7MNchEjQk0rkRzUmxUBajH5NU6B8xNsY2SjAK7zHD8JGkbsbi3ZvwFx+r6Lhs5LkcJFLadfgfI8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/eA+cTChM8ue49+BhtXR+24BY0Yt8rFXlp3/cnqrSHcPK/2xSK
+	rhzuyjogG1yv1iaRJaoyqzvPFTMv/MY57esoMYG8+yGY6BDCnGOK1y4E
+X-Gm-Gg: AZFdTZdTzBiUsl00dA6HXHsJw7Z/MmHJ4+CF50qXgl4YGHmqyAARc2zuPYghY85z5wO
+	tJ6sp8m5vstNtwGcULmAiaKMb+H6/Rwq4qtD8iiYf/kkTxeIH3SpkwRakCxqMpNsIC5+h/Gsj07
+	fzZt/Z51otQj5WJ6rXOyyGnrj6D3m6nPeOi1GAV/MvXoKAHOXxdAgIxMH1H4ymamhXuY3R3D5Us
+	IfAZYQZyF7JFVPHhjkYv5/drXkdE11aXEN8UdubeZFZcSuxEppQFyJxLTixO3sTeabVbLMpevDV
+	F3HDC6YXMP9vJTcEsSZ1teoSqvbWrPjI7qO5nKJKNcxTpXeG7aduFTKOY+1vxAuNGE4o+ahFlOz
+	43zuMLEtCi2z2ABXf0rHI0RMBWWPV5vUT1ZvRcVL4CBDa3kgQcbsP4N2z/FbMtjGmGAtxsjW2gb
+	GtgjqnrfwhwH2nT7H4+P+ivZNURV3+QNzf0JgD6ESIoZNUQiYRCT2iG5B1vmubKeWtnSOXdtNhK
+	ckJlD6ayXis+I+itQTki3wzxpKHBj3EAhD8MJM4S68jk92ofw9vH9sWh0G8RUUIIBo3Wp+Fc4xn
+	qO0yilAUy1w9SZm2+7xEf4LV0xKuM8M+mg/Cr0PcxgP0gm3dctWzzl9tum1QwQ2fnhTmoVjt5io
+	Hg4QwzbfnOfrHVVWsT7o=
+X-Received: by 2002:a05:7300:c00e:20b0:35e:d21c:f33e with SMTP id 5a478bee46e88-379651ecb3emr20449628eec.1.1794880466543;
+        Mon, 16 Nov 2026 17:54:26 -0800 (PST)
+Received: from localhost.localdomain ([188.253.120.78])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955332a77sm34139971eec.4.2026.11.16.17.54.18
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 16 Nov 2026 17:54:26 -0800 (PST)
+From: Qihang <q.h.hack.winter@gmail.com>
+To: Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>
+Cc: Qihang <q.h.hack.winter@gmail.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] iommu/io-pgfault: reject partial faults after device removal
+Date: Tue, 17 Nov 2026 09:54:07 +0800
+Message-ID: <20261117015409.25492-1-q.h.hack.winter@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,117 +100,57 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Extract the new scan cycle check into scan_should_start_new_cycle()
-and add the helper scan_get_first_mm() that advances the scan
-cursor to the first mm_slot.
+iopf_queue_remove_device() kfree()s the entries on
+fault_param->partial without unlinking them, leaving the list head
+pointing into freed memory.  Since a74c077b9021 the fault parameter is
+refcounted and can outlive the drain, a report that took its reference
+earlier can still list_add() through those pointers.  Unlinking
+instead turns that into a leak: the late node lands on a parameter
+that is no longer on queue->devices, whose final put does not free
+partial faults.
 
-This keeps the exact execution order intact while making
-scan_get_next_rmap_item() cleaner and easier to follow.
+This needs a device removed from its iopf queue while a non-last
+(partial) request is in flight, with the caller not blocking new reports
+for the duration.
 
-No functional change intended.
+Patch 1 unlinks each partial before freeing it, matching
+iopf_queue_discard_partial().
 
-Signed-off-by: Xu Xin (vivo) <xu.xin@linux.dev>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
----
-Changes in v4:
-- Drop redundant comment in scan_should_start_new_cycle() and
-  update the comment in scan_get_first_mm() to refer to
-  scan_get_next_rmap_item()'s list_empty() check (Lorenzo).
-- Add Reviewed-by tags.
+Patch 2 adds fault_param->removing, set and tested under
+fault_param->lock: a late partial is either drained, or rejected and
+freed by report_partial_fault() (-ENODEV).  It covers partial-list
+admission only; callers must still quiesce reports for the remaining
+lifetimes.
 
-Changes in v3:
-- Initialize mm_slot = ksm_scan.mm_slot in the else branch when continuing
-  the current scan cycle, fixing an uninitialized variable warning/bug
-  (kernel test robot).
-- Drop Lorenzo's Reviewed-by tag due to the v2 bug fix.
+Both patches are scoped to fault_param->partial, not the group path,
+the attach handle, or paths that never call iopf_queue_remove_device().
 
-Changes in v2:
-- Rename scan_begin_new_cycle() to scan_should_start_new_cycle() and keep
-  it simple (David).
-- Keep lru_add_drain_all() in scan_get_next_rmap_item() (David).
-- Use scoped_guard(spinlock, &ksm_mmlist_lock) in scan_get_first_mm()
-  (Lorenzo).
+Verified on v7.4-rc3 with KASAN + DEBUG_LIST and the iommufd mock
+driver, its caller-side IOPF serialization deliberately removed and
+test-only delays added; this shows the mechanism, not production
+reachability.  The runs cover queue-before-removal,
+removal-before-insertion, concurrent late reporters and re-enable.
+Each round queues one partial before the removal and then races the
+late reporters against the drain, so a clean run ends with every node
+accounted for: 1800 = 900 + 900 and 3600 = 900 + 2700 (allocated =
+drained + rejected), counted at a final removal with no reporter in
+flight.  Nothing was left on fault_param->partial and KASAN stayed
+quiet.
 
- mm/ksm.c | 47 ++++++++++++++++++++++++++++++++++-------------
- 1 file changed, 34 insertions(+), 13 deletions(-)
+With patch 1 reverted, the report is:
 
-diff --git a/mm/ksm.c b/mm/ksm.c
-index 8db6743ece6d..80d036baa88e 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -2638,6 +2638,34 @@ static void ksm_reset_unstable_trees(void)
- 		root_unstable_tree[nid] = RB_ROOT;
- }
- 
-+static bool scan_should_start_new_cycle(void)
-+{
-+	return ksm_scan.mm_slot == &ksm_mm_head;
-+}
-+
-+static struct ksm_mm_slot *scan_get_first_mm(void)
-+{
-+	struct ksm_mm_slot *mm_slot = &ksm_mm_head;
-+	struct mm_slot *slot;
-+
-+	scoped_guard(spinlock, &ksm_mmlist_lock) {
-+		slot = list_entry(mm_slot->slot.mm_node.next,
-+				  struct mm_slot, mm_node);
-+		mm_slot = mm_slot_entry(slot, struct ksm_mm_slot, slot);
-+		ksm_scan.mm_slot = mm_slot;
-+	}
-+
-+	/*
-+	 * Although the caller scan_get_next_rmap_item() tested list_empty(),
-+	 * a racing __ksm_exit of the last mm on the list may have removed
-+	 * it since then.
-+	 */
-+	if (mm_slot == &ksm_mm_head)
-+		return NULL;
-+
-+	return mm_slot;
-+}
-+
- static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
- {
- 	struct mm_struct *mm;
-@@ -2650,8 +2678,7 @@ static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
- 	if (list_empty(&ksm_mm_head.slot.mm_node))
- 		return NULL;
- 
--	mm_slot = ksm_scan.mm_slot;
--	if (mm_slot == &ksm_mm_head) {
-+	if (scan_should_start_new_cycle()) {
- 		advisor_start_scan();
- 		trace_ksm_start_scan(ksm_scan.seqnr, ksm_rmap_items);
- 
-@@ -2670,21 +2697,15 @@ static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
- 		ksm_prune_migrate_nodes();
- 		ksm_reset_unstable_trees();
- 
--		spin_lock(&ksm_mmlist_lock);
--		slot = list_entry(mm_slot->slot.mm_node.next,
--				  struct mm_slot, mm_node);
--		mm_slot = mm_slot_entry(slot, struct ksm_mm_slot, slot);
--		ksm_scan.mm_slot = mm_slot;
--		spin_unlock(&ksm_mmlist_lock);
--		/*
--		 * Although we tested list_empty() above, a racing __ksm_exit
--		 * of the last mm on the list may have removed it since then.
--		 */
--		if (mm_slot == &ksm_mm_head)
-+		mm_slot = scan_get_first_mm();
-+		if (!mm_slot)
- 			return NULL;
- next_mm:
- 		ksm_scan.address = 0;
- 		ksm_scan.rmap_list = &mm_slot->rmap_list;
-+	} else {
-+		/* Continue scanning the current mm. */
-+		mm_slot = ksm_scan.mm_slot;
- 	}
- 
- 	slot = &mm_slot->slot;
--- 
-2.34.1
+  BUG: KASAN: slab-use-after-free in __list_add_valid_or_report
+  Freed by task 1: kfree <- iopf_queue_remove_device
+  56 bytes inside a freed 64-byte region (struct iopf_fault, list.prev)
 
+With patch 1 only, the same reproducer runs 1460 rounds without a KASAN
+report and leaks one late node per round, which patch 2 addresses.
+
+Reachability on an unmodified production kernel, and any security
+impact, remain unconfirmed: the test shows memory corruption and a
+KASAN panic on the modified mock driver, not a user-triggerable bug on
+a stock kernel.
+
+An AI coding assistant helped find this defect and build the
+reproducer and instrumentation, which are available on request along
+with the KASAN logs.
