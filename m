@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.227
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794916195;
-	b=ewsgWJqpLF7ssWGn9jxS46Bhd6Cf3i+WBtRaOISXM3CmqkLCS5FPhFsRY0lqUOkCW3CS
-	 1BAypCj6z5VZujn2VerEgGL/eO9bhNYrj8HTLg6FmVl4iCBayrXKq/k3pduPPggoLV2lB
-	 XNkMOca1RNSqcLeVe3XsPU/jTf00TSVV3ufFWacD2SLET5L2EU4QEzl5QwOSjpm6qmz9J
-	 Wjnd3KRxrLhJKd59iUZPpXeC603FuA7mwwgs6NGsBY+LnlGa9GwcVIJCWJEH0AErxfZ/E
-	 g7OxdsXcwgkhT1VvNaXpSOvP+iPnLcs2+NBw2A4Y3lZODEtWDO+fj3yT4pky2KyL4lA==
+	t=1794916205;
+	b=CI6BJbO82pkPWwLRR0gBlgRtHi13SFwCW44TlNX2IMAorh11tL7zaENhJ2l5iiXCPdpf
+	 MySw/2Vs+Kga7EBW/UXdHG2WWZE+qoV11+0jeJV0uod8mGElG3YnHhlAL+S2MilKq8XgG
+	 3xYaPEYViw/Gp4GMEARMLqLF+UU43MHoSMNAc6B36lkofKWxCoL2FNoO0m9pohV0nZqLz
+	 jMKUZemGxWAIS9IDJqyKjtQG4BLiR7LunQX7Z2je9lhRPNWN2u34vAGqPeOYxUz67SfUX
+	 +MGHSO6Nb1lgsxSjsTv6Wgd/G2/ArdcYtMP06TO4Gb6I+cUoJPyrNGRZpsD4BAgHJag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794916195;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=18ZHHDBDT2iiqQ6vinpecoUhNdWbTNjIuab4R2JSkRw=;
-	b=KZhtWrbOT2MsPtEalBPITIRAQlO205WMbz2PgHkhlrhecQZJhKpDt+JZWxs9m8Ckm65a
-	 8kmWALMaUpRDqMEMiWtnQoyhKNwvP+uYn4WARuuK0KHK2ndD+uCO6d70+TVJHBJi5ioO4
-	 JOYjz/L4r5w6txotUM2kJIi22JPfcwS2QzCR9EheUVK2MvMb6Wi4nuUuoKUW30uO7XWrS
-	 jwR7U4hizc/ONRVAEE6iQrv7m6TgyUU+5Wyx45/XJ9hDJAJwC7WzjQDI774DHTZhdelv9
-	 84sKeA3lYUqwKQoXo29VcTB+toQQh75wkCo82B3PHUa5LRW2BVM1kvZV+dJYned50bQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794916205;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=E5XVEdzDo5JHpV+/pH5z1q3CEsULxV5blNLQaoOgStA=;
+	b=UjkSHLT1A7yr9uzql8ZzS8ByE/eOZVEFxJcaXeewWSgahC97BTgVFepQLwXLNrLXtZde
+	 ltWROu+Q6OPvtDnvchiqeAYiDnSrKnC/vI0NNb0XtE1ozGaFkTOzjvHOPEWUkCROPlrTI
+	 MPXqNmpbiTqWdJIQZ2Wqf/+gj6Xcfm5KLTXBJS+KeBSP09B+/2wdE9irm5HP728fxR640
+	 zjtNLJRYQUz9vReiDBNoUj6+c2T6TOEq4wXLIaerrRbRrQFl0ujMkNtLyxavg43QqXgUL
+	 z88P4JGpkglyl451ts7ZHNwFb4p+x+BsC7B9GuLkUAk4OUyOfe/SduN8l31FW8daFVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=k194TiNJ;
-	arc=none smtp.remote-ip=95.215.58.227
-Received: from mta1.migadu.com (out-227.mta1.migadu.com [95.215.58.227])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HssZkQHH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CC8F606A881
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:49:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CC8F606A881
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 899CB606A323;
+	Tue, 17 Nov 2026 11:50:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=k194TiNJ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=AiYQuQkup3uVDt+BqI8T8e63CilYInTtTsRGRSVebRM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794916192; v=1; x=1795520992;
- b=k194TiNJciQ9zfSjJr2C7HMEZ4rPmX3eliMeO0gINyXW7ICPYnFO7E/FjK4UVXSF025/k9vA
- 5pGRGp5pXqhBusaeb/Lp2Bp6L3E0qKnuA9ZxGNj+Nrol3ZEA0uvOCR485ac8NvmJTcGGdKMEC92
- EPJOsIcllTvjmYaeYT7Etywo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 68b5ba9fa6b5c9ee;
-	Tue, 17 Nov 2026 11:49:51 +0000
-X-Mizu-Trace-ID: 68b5ba9fa6b5c9ee
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <dde3f6de-06bd-4e36-ad03-1c36eb3be645@linux.dev>
-Date: Tue, 17 Nov 2026 19:49:45 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HssZkQHH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B23F21F000C4;
+	Tue, 17 Nov 2026 11:50:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794916205;
+	bh=E5XVEdzDo5JHpV+/pH5z1q3CEsULxV5blNLQaoOgStA=;
+	h=Date:From:To:Cc:Subject;
+	b=HssZkQHHlOSGvb3FMoa3ps12JSnp+LC+S7ElNidy52mn0thnu4c+f4uoxr17qfdzo
+	 3cU73x/t5g8oADE4ToJDb5qrgr5idPS7rbN8b7bs7zKC+KBgkWzEzNF7bCmrLrJPOa
+	 dL7Rw3NQc7Pwi8AnXPRQ8+cdHVKPDv4sCepf4AY5is3bKhUwBMHruJ7rBatkDNZYbr
+	 U+3SAngGvfqMoA4tHFsioSzwCxQOxOR6Ysas9kFcQApBjGiQTMkAcZdNh27cCNqgVb
+	 yIMmyD2AqBtpTkNrnTbDQzQWHl+oAYz4Zb1h57zv7fEbsMobg/1LqLdehGclPGSF8p
+	 PK32RvoZOpiTg==
+Date: Tue, 17 Nov 2026 11:50:01 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Andreas Gruenbacher <agruenba@redhat.com>,
+	Steven Whitehouse <swhiteho@redhat.com>
+Cc: Christian Brauner <brauner@kernel.org>,
+	Joanne Koong <joannelkoong@gmail.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	William Chuang <founder@logarcheon.com>
+Subject: linux-next: manual merge of the gfs2 tree with the origin tree
+Message-ID: <avw_aaazVSUWavzX@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,108 +59,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf v1] selftests/bpf: Fix CO-RE relocation of anonymous
- unions for bpf-gcc
-To: Michal Luczaj <mhal@rbox.co>, bpf@vger.kernel.org, ast@kernel.org
-Cc: Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>,
- Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>, Sechang Lim
- <rhkrqnwk98@gmail.com>, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261117094544.148437-1-jiayuan.chen@linux.dev>
- <5efc22be-a517-4587-8e43-609bc876b54f@rbox.co>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <5efc22be-a517-4587-8e43-609bc876b54f@rbox.co>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="VLS0vNsfEiKtuTyo"
+Content-Disposition: inline
 
 
-On 11/17/26 7:19 PM, Michal Luczaj wrote:
-> On 11/17/26 10:45, Jiayuan Chen wrote:
->> bpf-gcc fails to load test_trace_iter_unix:
->>
->>   Error: #766/6 verifier_sockmap_mutate/test_trace_iter_unix
->>   libbpf: elf: skipping section(3) .data (size 0)
->>   libbpf: elf: skipping unrecognized data section(18) .comment
->>   run_subtest:PASS:obj_open_mem 0 nsec
->>   libbpf: prog 'test_trace_iter_unix': relo #0: insn #0 (LDX/ST/STX) accesses field incorrectly. ...
->>   libbpf: prog 'test_trace_iter_unix': BPF program load failed: -EINVAL
->>   libbpf: prog 'test_trace_iter_unix': failed to load: -EINVAL
->>   libbpf: failed to load object 'verifier_sockmap_mutate'
->>   run_subtest:PASS:unexpected_load_success 0 nsec
->>   validate_msgs:FAIL:1014 expect_msg
->>   VERIFIER LOG:
->>   =============
->>   0: R1=ctx() R10=fp0
->>   ;  @ verifier_sockmap_mutate.c:124
->>   0: <invalid CO-RE relocation>
->>   failed to resolve CO-RE relocation <byte_off> [4] struct bpf_iter__unix (0:0 @ offset 0)
->>   processed 1 insns (limit 1000000) max_states_per_insn 0 total_states 0 peak_states 0 mark_read 0
->>   =============
->>   EXPECTED   SUBSTR: 'cannot update sockmap in this context'
->>
->> GCC only applies preserve_access_index to types that carry the attribute
->> themselves. The anonymous union holding the sock pointer doesn't, so the
->> CO-RE access stops at the union ("0:0") instead of reaching the pointer
->> ("0:0:0"), and libbpf rejects the relocation. Mark the unions too.
->>
->> Fixes: e16c83fa764f ("selftests/bpf: Add negative test for sockmap update from non-sockmap iter")
->> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
->> ---
->>  tools/testing/selftests/bpf/progs/verifier_sockmap_mutate.c | 4 ++--
->>  1 file changed, 2 insertions(+), 2 deletions(-)
->>
->> diff --git a/tools/testing/selftests/bpf/progs/verifier_sockmap_mutate.c b/tools/testing/selftests/bpf/progs/verifier_sockmap_mutate.c
->> index 1516fe1524bb..68b1a5323470 100644
->> --- a/tools/testing/selftests/bpf/progs/verifier_sockmap_mutate.c
->> +++ b/tools/testing/selftests/bpf/progs/verifier_sockmap_mutate.c
->> @@ -16,13 +16,13 @@ struct sock {
->>  struct bpf_iter__sockmap {
->>  	union {
->>  		struct sock *sk;
->> -	};
->> +	} __attribute__((preserve_access_index));
->>  } __attribute__((preserve_access_index));
->>  
->>  struct bpf_iter__unix {
->>  	union {
->>  		struct sock *unix_sk;
->> -	};
->> +	} __attribute__((preserve_access_index));
->>  } __attribute__((preserve_access_index));
->>  
->>  struct {
-> What about dropping the unions?
->
-> -struct sock {
-> -} __attribute__((preserve_access_index));
-> -
->  struct bpf_iter__sockmap {
-> -       union {
-> -               struct sock *sk;
-> -       };
-> +       struct sock *sk;
->  } __attribute__((preserve_access_index));
->
->  struct bpf_iter__unix {
-> -       union {
-> -               struct sock *unix_sk;
-> -       };
-> +       struct sock *unix_sk;
->  } __attribute__((preserve_access_index));
->
-> Works under clang.
+--VLS0vNsfEiKtuTyo
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+Hi all,
 
+Today's linux-next merge of the gfs2 tree got a conflict in:
 
-Right. I grepped the tree and verifier_sockmap_mutate.c is the only place
-that puts an anonymous union inside a hand-written preserve_access_index
-struct, so the test doesn't need it.
+  fs/gfs2/inode.c
 
+between commit:
 
+  9e8fc16dc6b47 ("iomap: pass iomap_iter_next_fn directly instead of struct=
+ iomap_ops")
+
+=66rom the origin tree and commit:
+
+  e3280ea8b7396 ("gfs2: Fix NULL pointer dereference in gfs2_seek_data/gfs2=
+_seek_hole")
+
+=66rom the gfs2 tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --cc fs/gfs2/inode.c
+index 75fb1a0c91425,d4678e4832b35..0000000000000
+--- a/fs/gfs2/inode.c
++++ b/fs/gfs2/inode.c
+@@@ -2253,9 -2253,11 +2253,11 @@@ loff_t gfs2_seek_data(struct file *file
+ =20
+  	inode_lock_shared(inode);
+  	ret =3D gfs2_glock_nq_init(gl, LM_ST_SHARED, 0, &gh);
+- 	if (!ret)
+- 		ret =3D iomap_seek_data(inode, offset, gfs2_iomap_next);
++ 	if (ret)
++ 		goto out;
+ -	ret =3D iomap_seek_data(inode, offset, &gfs2_iomap_ops);
+++	ret =3D iomap_seek_data(inode, offset, gfs2_iomap_next);
+  	gfs2_glock_dq_uninit(&gh);
++ out:
+  	inode_unlock_shared(inode);
+ =20
+  	if (ret < 0)
+@@@ -2272,9 -2274,11 +2274,11 @@@ loff_t gfs2_seek_hole(struct file *file
+ =20
+  	inode_lock_shared(inode);
+  	ret =3D gfs2_glock_nq_init(gl, LM_ST_SHARED, 0, &gh);
+- 	if (!ret)
+- 		ret =3D iomap_seek_hole(inode, offset, gfs2_iomap_next);
++ 	if (ret)
++ 		goto out;
+ -	ret =3D iomap_seek_hole(inode, offset, &gfs2_iomap_ops);
+++	ret =3D iomap_seek_hole(inode, offset, gfs2_iomap_next);
+  	gfs2_glock_dq_uninit(&gh);
++ out:
+  	inode_unlock_shared(inode);
+ =20
+  	if (ret < 0)
+
+--VLS0vNsfEiKtuTyo
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr8P2gACgkQJNaLcl1U
+h9BduQf/ZIvdYEF8U5McVN9Gs80ah8OshHhWFjebbP/kUoXXkykXzPy1QnSLXeBV
+LwmxM/uxiYZXl0CWyqZx6LAHHvb6DpBw1MX2IOG2Jil6gpFZ1whhgBRaUrtW3rgj
+SIcO4CpciF7uSzsOHrVxbSMssNhgnDyzyNq/Dw9oQUdq4PjHb+DTEwerD4t3MECM
+Aa5qCafgqukntT3C+VtayePtav5b+0DIjjsCkgd6FlF8HOfZD6WWTBNgSH6Jyvv7
+AXFLJnqWWwsvo2oN7eSWRfhXCZVJusKMD7VhsFJT8v3nLSzqw5WySjGToDtnVXrV
++4JI0z8L8fkuzti8nQzdWnTprfRG9w==
+=YEm4
+-----END PGP SIGNATURE-----
+
+--VLS0vNsfEiKtuTyo--
