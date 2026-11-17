@@ -1,110 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794929795;
-	b=JpdjwdaL3+GKJm79RAwu79YxrdjJRAs/LpxcjRCTCF50FTgK9RG/5pB+cWopLu3Y8hJ2
-	 bx7V8I9pzD7bqQvk1wjgOJ5hi6f6kDYiBFgw6MlmoD2EW3N0L297XNwPXAYs01z0jascH
-	 0meduVJ8qRlDS9V3PbgdjhJho3Re8C44OIn6DoBS37dJ9VWARBr3d3wIpx6AY3lmm7P+I
-	 o2Hf4Xp22/7HLPlKEWgoBIaPpZlwPApiHyZq5rCLKBFnDJfk8bcSmVTS8Wyxv/JfNmPG/
-	 Vopy9utFF6AzuG5jVIlOU13OwFtilznXMPJAjZRMunHCCB1+eMYGfVh2FbAiQhywlLw==
+	t=1794929788;
+	b=rxv+ryrYZfNipQr0/z21Bj8q529WBRRotTFs8VvuLysp49zUML6NRUnYA+cgtf2JtcRB
+	 x0ycjhKQ4xsFXQQ93qPxmB58tjpSs0zykkPKk2xBMWhVPrvSrgNgbdiKjd2zw+vpf9wPb
+	 oVoj3ugWWHf8ajJ4wGzp1jTJabHgbih3yL5PdC4XnRZMTlLDG9FXvw7ZphsTRbphUaTm4
+	 Yz6l8ErI1IghmybvVPiWV+QjXWiSQSJOh/z0VgjKnHHMW8bo8iuDfh4EH8/28TJ9Indoe
+	 PE/oA9l1UXEl47CTfIwEunvEluNeUDnmaLYxHlHJhI+/+i/VFnyVCRsufjpUaLzKxxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794929795;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=Iu0dxZTO8PcDzOB+6qCjf2Tg6FKjgEK34SzfNcCThyQ=;
-	b=4mFpwPo+8nJZCQZPNgkO9i/REbY2jkcRZ17PBIQ00boL0JLZ5oMCgp/xOkKIttfHkvJ2
-	 laZ75lTqXRgSs0nPWrkSjN3V+YqhW3C3EOd+pShqEQo7yZ8w+DNgAYpELLlV51jnq0r2g
-	 k8f6bnVCzMhxIIQ18/m3h0R0yx3a28+ctRyaG0MrYz4MJPP01OMQwyBLtA3s8k3KpO2PG
-	 VMQ7BmqMhKfUewdxHRHbYs38ZdILoyEVXLT06N4o2dagLN6Yl8mnEmOZZtJF/6oDEiMWT
-	 r36BWn8gqZFLEdG9z+GPXe+A4BldJEUrsoJRRIdm+MN4IUCkpmQHn9AS39gYBKjUvGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794929788;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=vHpmFm9uLU/BQwpwWgYZOaExDqDrGZWS7dV11F1s1Bw=;
+	b=qmm4AHDRVwKA2sxhB6ax1AsbDOokme28pBGBo4jHYWWhY7zc7Xc7v6KUsXlD6dGWIMUL
+	 KqtUkMBL5sojuJARE6d4lniKMyvXEHDQd9NqhQpgtKR9JX4gEeCKx4UFKvWZpyU3JleY8
+	 U6kXQNz8pGOFjojzcXNijuSrh+mEN3ADfzlvLnT+e9E8t3tRfXnvtPk3RcirObMn7FwPS
+	 uyJWdP7qyLtWBi609KIvXT5O452XPel+5GDoyFWKRJmH3zbvxY4pm1HQltn0zB1g8dLQS
+	 6hbRbyMGeCROCtYVBSHMBZugYq5novaCddoR7fcYoatOO5MyzWfJJP4PTdLgON9qovA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=anHTQfGT;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="eWbrFrw/";
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=GCREOlcy;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8C55606A8A2
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:36:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8C55606A8A2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9563606A31C;
+	Tue, 17 Nov 2026 15:36:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9563606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=anHTQfGT;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eWbrFrw/
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHFR4gj3503943
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:36:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Iu0dxZTO8PcDzOB+6qCjf2Tg6FKjgEK34SzfNcCThyQ=; b=anHTQfGTNUfJhltw
-	JdjFJIw1vlt50liTTE6kzzm3wE6ww8FHTIic2iGqzuK2CJF+04/IfTPElzGT8eFl
-	VRYt3GnTMHEp76+IUMgYCm4WYQzpVg98IBG47F+YX6rU7oegkq3PtMcfjEPaq+NP
-	9+D/cpze7el9fxHT2uvvJW63o4Qk7oNw++enZEBVhIAXrNWjLPcXLNW0cI9PvBYJ
-	n54o+5JrwwuwCgtGFQNLPf66HgIcGHDmqpdtuvFecu3V+rO9r8bSz4SMRxj/QWpS
-	XjusrJWKWjcukmSJ2wcp3TAK8zYwTeBEZw0sVECBXdspfF73GPFWqrGtG3+29olq
-	xUi1bQ==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0mv11bj1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:36:33 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7cc4149b885so3588758137.2
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:36:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794929793; x=1795534593; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Iu0dxZTO8PcDzOB+6qCjf2Tg6FKjgEK34SzfNcCThyQ=;
-        b=eWbrFrw/UCkHtywquS+wnebU/CS265/ydsXk/BYIHDL1Qhlj4tS2l8dCror1TltJUX
-         BBC36q+p69urs6rGkdp7mw6XxfoJsNt3agrQJG2u9+lmG+LlOtlA3jcyp/24Du/KZ+RD
-         cIKfh0i4sUH8hiK0u5UMa9KqCzyK7ahuc1O5I7PyP6eCRAC8jIa2AzXriFXgBq9SFSmd
-         0CePOkKV8smYrXe0TeXjKklcV1TL8sdDdJDbp+xBhVoisJ0HxsVhDlmI6QFeS8NQIIvi
-         gHV4t4wv02/qTsdCM55nwx6oo8RFGK3ZPLf8y7bcXBxbWTYeDVwlY/CyY0FOgF70JFjL
-         K3qQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794929793; x=1795534593;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Iu0dxZTO8PcDzOB+6qCjf2Tg6FKjgEK34SzfNcCThyQ=;
-        b=egeNR8a2MuZq//25c86HcC4cfkes+/EfgeN2A/xqG0aN4rQfdKFzwoVUpKxSkjz2rF
-         VnDfMDo7QcueuMltClq1fAHWrHEmzbETBDdRBRZdFjnCu+zazLvnWgCDO5clfEyOPNaU
-         0EJXzijGzblzD3ASRGiB/2LsEjedQ78N0fn8gQNR5whNqG9ox0oo6opnxvoZV/6/p3cB
-         aTn0ckDTuu8vz38BD6RJ5ydcO69D31imHB98/jkIAwROFvRewjcqyjntOLxHBk4A2Qtf
-         yreQWz8xkCraLoGa4Pe5ebtEyhX0tRnzEUIoHkbXsH8tXQRZbxLeGVoyr9DiSCWOOruq
-         bxIw==
-X-Forwarded-Encrypted: i=1; AL+hErG62Y/LNTSQk72uW7VMHJHCc4XgLnIs/ORgy/F2cuwTN+gFz9JGxjMzZ/0JKKiVnkmc3IIYvsh5KvNPJsQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8G9YVpTfEY/oMhmqIGs6RbTkcqkuKCN0OfxDdTamOpA1Ruviji
-	FkJrrAq2DYD974/WtaArESDycetjujh8N1qp5vsSU38G8W2J5esvTu6ZCFShpRODbO0FfybOZ1s
-	NPPvb4qA/iZZHw0P4RSm07RxYWhxVXB1rsFlfTHypFQMbDo9Z80SqJb4ZMtOa0wrqwiI=
-X-Gm-Gg: AYBFou1Lr2lKWEdjAK1ED3gZzPCruIMFJ9Xb1ej8h0SOiGIlXuqYKmsGV7AHbo8zqhu
-	d9fpTc8fffR21kXUXarsay/8Yt1pQNDSOLK3KlnIU+MYYsAXvoo4ZWZIq2H57CZnwRmIR2ZAiLS
-	Ka6y/I65ycXs+q7wjOU0IgUgGddqthiJ7mWwArOUP458XImf0OsroBgCQjA/fiFX+dvN2LlxEk3
-	3BWQv+/Mjjo/yTkN6dAMvGa64TWpg6pgoptfsKvif7OLUnRl1F+cjjVf0+QvVVOVWUUqJydyvNr
-	OE7Il4cWyeJKQ7cumZ7xaOZtuvbM95dpDS1EvT0qaKc47ctlj1uexfTehKaDCNm57kRPPotU+wt
-	aS2+MH3ECbkskbDrRQOx6i/cotbXyEPqRcPi2OldJg59B5nt/f5bI9oKz8pNSpNc3lStkDZROZy
-	I=
-X-Received: by 2002:a05:6102:5815:b0:7d2:7be1:271f with SMTP id ada2fe7eead31-7d64d8228camr6206098137.31.1794929792728;
-        Tue, 17 Nov 2026 07:36:32 -0800 (PST)
-X-Received: by 2002:a05:6102:5815:b0:7d2:7be1:271f with SMTP id ada2fe7eead31-7d64d8228camr6206081137.31.1794929792052;
-        Tue, 17 Nov 2026 07:36:32 -0800 (PST)
-Received: from [172.20.2.50] ([195.50.164.66])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4bb7839cad7sm80688825e9.10.2026.11.17.07.36.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2026 07:36:31 -0800 (PST)
-Message-ID: <65e501e0-b6d5-4204-ba6a-2d35091e2ae6@oss.qualcomm.com>
-Date: Tue, 17 Nov 2026 15:36:29 +0000
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=GCREOlcy
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794929785;
+	bh=7GoAWptegRv/cDijOkhodFadWGZgOk7IPO1AGcY1Os4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=GCREOlcyLOZIKpgr/R2zL5frVBStMwL1qOGdmXwraJErGO4vv/mjH/PoI8N27yw5n
+	 w35cA0z0sehUFde1zH/9eeN0DAF3oRPu/tZw7Cy1QsWzBXcv4r9jPf9RQSiXTVOD5E
+	 PnPPReRdPAJo4M8iEcEfPy3DG4EE8Kz14C2ABBI0thuyFmKDUAsRgS9F3ksALUux/z
+	 KJb6nWyhfGA9btq72K0ktfZyRuV9Xb2Do62bbDPyaQ3svkzzYLlzGGqpDUuV96FBpM
+	 AkIh0E91t0PiE03pArfQsgHrkNzKhmNFXrZLlfJn4JUW0yaOjO1tENXXU/cUI9p2ll
+	 LZMnevhcoIQHQ==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id E0D8017E1136;
+	Tue, 17 Nov 2026 16:36:24 +0100 (CET)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id 9E756480031; Tue, 17 Nov 2026 16:36:24 +0100 (CET)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Tue, 17 Nov 2026 16:35:39 +0100
+Subject: [PATCH v3 3/9] PM / devfreq: rockchip-dfi: move to per-variant
+ const structs
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,170 +66,310 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: qcom: q6dsp-lpass-clocks: Set driver data before
- registering clocks
-To: yzddmr6@gmail.com, Srinivas Kandagatla <srini@kernel.org>,
-        Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-References: <20261115-upstream-q6dsp-clk-drvdata-v1-1-4d7dbea52e52@gmail.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20261115-upstream-q6dsp-clk-drvdata-v1-1-4d7dbea52e52@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: qTCHbj7q-RhrSNbmcn0_MYL0mm_yk6Wp
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA2MiBTYWx0ZWRfX987n/OiEdavM
- OjrmGsjEVgQZwhqcgxqhx4hy7WKiYkt1NuZQCeaXOPrGoTQGztoG5fpbVw4YhHCTNtp9+VOhdvY
- D2JyeeWFuyyDfUhT8okvroew6UcQ0UM=
-X-Proofpoint-ORIG-GUID: qTCHbj7q-RhrSNbmcn0_MYL0mm_yk6Wp
-X-Authority-Analysis: v=2.4 cv=Cuwq4X4D c=1 sm=1 tr=0 ts=6afc7481 cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=Jk2/TV77q6/E6wQq2oQJxQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=pGLkceISAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=mFCCqUHryluRUJtW3YUA:9
- a=QEXdDO2ut3YA:10 a=crWF4MFLhNY0qMRaF8an:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA2MiBTYWx0ZWRfXwM7yWSjdFm26
- M0C11ZZJylssgz81xDOr50uzOoP0Rd2P0ijKCFXLDsaYqA6glJgm0SO7DLgVMxw941Ij6CKwj4Y
- OVlEm8cK88h3kwfAKf/oKOnJfEWN1yQkxBXGMZ1KpBRQFKqho8GBBDewZaOBrsG0ogEYDUhirgp
- /9P4Ecc4XLj2uEw+Kbq0mPk2Rt3ykFc+BgEPQhThW1BFTnMKT1Qw9kqsbEVyjY/YhI9dIPV1W0l
- 7uL5ajIaxbwCLLVh9N9nl3ST3HSmmjyVUEuwKG5aYd3rJUtjXQp9CYMNTBeks2C27h6d7vvC0WJ
- 7KK2DtvEeR/XTY+2GVi0eepR7rgErRScqHBjm4Qq4RyKt1LLC1IKO49eNwtsXgo8KigxpwmuoBT
- LauqDpkn2LgVU+p+mKOQUHuYshbz8QaJ4dag5gUG07ddT8/ITZT7c2Q4+OXo0yfHUNzX25hzq4G
- oSp7MG+BKeRseWTeY2A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-17_03,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 bulkscore=0 adultscore=0 clxscore=1015 priorityscore=1501
- spamscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170062
+Message-Id: <20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v3-3-32ff1546b0e4@collabora.com>
+References: <20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v3-0-32ff1546b0e4@collabora.com>
+In-Reply-To: <20261117-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v3-0-32ff1546b0e4@collabora.com>
+To: Chanwoo Choi <cw00.choi@samsung.com>, 
+ MyungJoo Ham <myungjoo.ham@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, kernel@collabora.com, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9589;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=eU4EgEpy7UxsxJjBW2dvb1HlzTTiqSEDSVWkQ9LdX4I=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr8dHjmNoU7t/a5RXPOOtqzXEHdb5STmMEtg
+ mr8xMp7bCCErIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq/HR4AAoJENju1/PI
+ O/qaVtMP/1tBehlrIN1gkYdGYuBAy8C73/WQq8N9u8O8TFXMoLn88LQxlvLOwkyJbZLsV/pmwKx
+ hzFtln7Gjfk4mc1P0nfTXoBGL6DlzKTNhwlrpSboYjgibruAsmtQPwiTBXvrnm2BG0zG+zpZVXc
+ 7vgt38g6pGMtiiGRmb8BcdNTVs6bOQrJrout5m3+L3rG4Xxn/sEelecZRyAVqaXkwyXmRhVoWmG
+ BjfokphMgprbUZzrRoFizhsRsLUOxjGGwCM2ZjrIb27HNQKeZghXJJ+djAIHEPOjcB/o8ckOWqr
+ gvrvwgD42v4T5TH2ihQyPPAkdKgTN75gpWY3o7RZ+SAZ4/pJ4nFN7cKzI0AWT2WpBnTbk2JHMSe
+ KDxcGpO02AHNopb/85IhyeadI0/1nZQpaLEak26eDE+7msQsOspwCSkyZX31vuussy3dgCGbWC1
+ wrAGIFtG4zfRDe2dHkt/jx6MnxUMubZo7dhVAUq7+RxuFtp8RQmOk9gUeYBf6jRhWSK6hzb2ja5
+ hqPN+WsmRws/xSV94XuFK6/6klxf6lt5p8DmK2zUN1AQI+wDRUe3QWoe3VLMYldp+d/dQiyVW7s
+ pY9INbfgVeLKVVs2+7mbR/tI3xxiVPIzVMC0o+V29CZ0G7IqX0/XIun9nm8hyOPF/8hEm0ekXUC
+ Ug3CyrqmncHXD8NMtgkA5wg==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
+The rockchip-dfi driver supports several variants of the DDR monitoring
+hardware. The differences in these variants are handled with one init
+function for each variant.
 
-On 11/15/26 1:12 PM, yzddMr6 via B4 Relay wrote:
-> From: yzddMr6 <yzddmr6@gmail.com>
-> 
-> The clk ops of the q6dsp clock controller look up struct q6dsp_cc with
-> dev_get_drvdata(), but q6dsp_clock_dev_probe() sets the driver data only
-> after it has registered the clocks and added the OF clock provider. A
-> consumer that gets and prepares one of the clocks in between
-> dereferences a NULL pointer.
-> 
-> fw_devlink does not keep consumers out of that window. The q6prm and
-> q6afe clock controllers are described below the ADSP remoteproc node,
-> and their devices are only created once the ADSP has booted and its
-> GPR/APR services have come up, long after the remoteproc device has
-> bound. fw_devlink therefore makes the remoteproc device the supplier of
-> their consumers. A consumer such as the LPASS LPI pinctrl then just
-> defers until of_clk_get() succeeds, and its retry from the deferred
-> probe worker can run while the clock controller is still in its probe.
-> 
-> That happened once on a Xiaomi Pad 8 Pro (SM8750). While the LPI pinctrl
-> probe registered its GPIO chip, gpiolib read a GPIO direction, which
-> runtime resumed the device and prepared its q6prm vote clocks through
-> pm_clk. The prepare op then faulted with a NULL pointer dereference at
-> virtual address 0x350 (trimmed):
-> 
->   pc : clk_vote_q6dsp_block+0x24/0x58 [snd_q6dsp_common]
->   lr : clk_core_prepare+0x7c/0x298
->   Call trace:
->    clk_vote_q6dsp_block+0x24/0x58 [snd_q6dsp_common] (P)
->    clk_core_prepare+0x7c/0x298
->    clk_prepare+0x28/0x44
->    pm_clk_resume+0x10c/0x188
->    pm_generic_runtime_resume+0x2c/0x44
->    ...
->    __pm_runtime_resume+0x50/0x94
->    ...
->    lpi_gpio_get_direction+0x4c/0x8c [pinctrl_lpass_lpi]
->    gpiochip_add_data_with_key+0x7b0/0x10dc
->    devm_gpiochip_add_data_with_key+0x38/0x8c
->    lpi_pinctrl_probe+0x2b8/0x320 [pinctrl_lpass_lpi]
->    ...
->    deferred_probe_work_func+0x88/0xc0
-> 
-> 0x350 is the offset of desc in struct q6dsp_cc; the driver data pointer
-> it was loaded from was NULL. The oops left the clk prepare_lock held,
-> which blocks every later clk_prepare(), and the system did not finish
-> booting.
-> 
-> On mainline the window is short, but it includes a wait for prepare_lock
-> in clk_core_reparent_orphans(), which of_clk_add_hw_provider() calls
-> right after listing the provider. The kernel that hit this had
-> out-of-tree changes to drivers/clk/clk.c that do more work at that
-> point, which makes the window wider.
-> 
-> Both q6afe-clocks and q6prm-clocks use q6dsp_clock_dev_probe(). Set the
-> driver data before the first clock is registered.
-> 
-> The oops was analysed and the fix written with the help of an AI coding
-> assistant.
-> 
-> Fixes: 9ab71ac37240 ("ASoC: qdsp6: q6afe-clocks: move audio-clocks to common file")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: yzddMr6 <yzddmr6@gmail.com>
+However, some of the members that these init functions set are actually
+constants, specific to that variant, with no runtime involvement from
+reading registers or anything.
 
-Reviewed-by: Srinivas Kandagatla<srinivas.kandagatla@oss.qualcomm.com>
+Refactor the code to move those values (and the soc_init function
+pointer) into a new struct. Declare some const instances of this variant
+struct, and use it wherever needed.
 
---Srini
-> ---
-> The kernel that hit this was v7.4-rc2 with out-of-tree board support and
-> other changes, including the clk.c changes mentioned above. The oops
-> showed up once in the 23 boots of that kernel I have logs for, and I
-> have not been able to reproduce it on demand. The patch is build-tested
-> (arm64 defconfig, W=1) on the base commit below.
-> 
-> I used an AI coding assistant for this work. It analysed the oops,
-> traced the probe ordering and drafted this patch and changelog. I have
-> reviewed the change.
-> ---
->  sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c | 14 +++++++-------
->  1 file changed, 7 insertions(+), 7 deletions(-)
-> 
-> diff --git a/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c b/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c
-> index 94d96130245e..c3628f90fdb2 100644
-> --- a/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c
-> +++ b/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c
-> @@ -146,6 +146,12 @@ int q6dsp_clock_dev_probe(struct platform_device *pdev)
->  	cc->dev = dev;
->  	q6dsp_clks = desc->clks;
->  
-> +	/*
-> +	 * The clk ops look up cc through the driver data, so set it before
-> +	 * any of the clocks can be prepared.
-> +	 */
-> +	dev_set_drvdata(dev, cc);
-> +
->  	for (i = 0; i < desc->num_clks; i++) {
->  		unsigned int id = q6dsp_clks[i].clk_id;
->  		struct clk_init_data init = {
-> @@ -174,12 +180,6 @@ int q6dsp_clock_dev_probe(struct platform_device *pdev)
->  			return ret;
->  	}
->  
-> -	ret = devm_of_clk_add_hw_provider(dev, q6dsp_of_clk_hw_get, cc);
-> -	if (ret)
-> -		return ret;
-> -
-> -	dev_set_drvdata(dev, cc);
-> -
-> -	return 0;
-> +	return devm_of_clk_add_hw_provider(dev, q6dsp_of_clk_hw_get, cc);
->  }
->  EXPORT_SYMBOL_GPL(q6dsp_clock_dev_probe);
-> 
-> ---
-> base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-> change-id: 20261114-upstream-q6dsp-clk-drvdata-e09d27f289b3
-> 
-> Best regards,
-> --  
-> yzddMr6 <yzddmr6@gmail.com>
-> 
-> 
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ drivers/devfreq/event/rockchip-dfi.c | 94 +++++++++++++++++++++---------------
+ 1 file changed, 54 insertions(+), 40 deletions(-)
+
+diff --git a/drivers/devfreq/event/rockchip-dfi.c b/drivers/devfreq/event/rockchip-dfi.c
+index e0b942028e50..d02a01188ea2 100644
+--- a/drivers/devfreq/event/rockchip-dfi.c
++++ b/drivers/devfreq/event/rockchip-dfi.c
+@@ -103,7 +103,6 @@ struct rockchip_dfi {
+ 	struct mutex mutex;
+ 	u32 ddr_type;
+ 	unsigned int channel_mask;
+-	unsigned int max_channels;
+ 	enum cpuhp_state cpuhp_state;
+ 	struct hlist_node node;
+ 	struct pmu pmu;
+@@ -112,11 +111,17 @@ struct rockchip_dfi {
+ 	int active_events;
+ 	int burst_len;
+ 	int buswidth[DMC_MAX_CHANNELS];
+-	int ddrmon_stride;
+-	bool ddrmon_ctrl_single;
+ 	u32 lp5_bank_mode;
+ 	bool lp5_ckr;	/* true if in 4:1 command-to-data clock ratio mode */
+ 	unsigned int count_multiplier;	/* number of data clocks per count */
++	const struct rockchip_dfi_variant *variant;
++};
++
++struct rockchip_dfi_variant {
++	int (*init)(struct rockchip_dfi *dfi);
++	int stride;
++	bool ctrl_single;
++	unsigned int max_channels;
+ };
+ 
+ static int rockchip_dfi_ddrtype_to_ctrl(struct rockchip_dfi *dfi, u32 *ctrl)
+@@ -190,7 +195,7 @@ static int rockchip_dfi_enable(struct rockchip_dfi *dfi)
+ 		goto out;
+ 	}
+ 
+-	for (i = 0; i < dfi->max_channels; i++) {
++	for (i = 0; i < dfi->variant->max_channels; i++) {
+ 
+ 		if (!(dfi->channel_mask & BIT(i)))
+ 			continue;
+@@ -199,16 +204,16 @@ static int rockchip_dfi_enable(struct rockchip_dfi *dfi)
+ 		writel_relaxed(FIELD_PREP_WM16(DDRMON_CTRL_TIMER_CNT_EN, 0) |
+ 			       FIELD_PREP_WM16(DDRMON_CTRL_SOFTWARE_EN, 0) |
+ 			       FIELD_PREP_WM16(DDRMON_CTRL_HARDWARE_EN, 0),
+-			       dfi_regs + i * dfi->ddrmon_stride + DDRMON_CTRL);
++			       dfi_regs + i * dfi->variant->stride + DDRMON_CTRL);
+ 
+-		writel_relaxed(ctrl, dfi_regs + i * dfi->ddrmon_stride +
++		writel_relaxed(ctrl, dfi_regs + i * dfi->variant->stride +
+ 			       DDRMON_CTRL);
+ 
+ 		/* enable count, use software mode */
+ 		writel_relaxed(FIELD_PREP_WM16(DDRMON_CTRL_SOFTWARE_EN, 1),
+-			       dfi_regs + i * dfi->ddrmon_stride + DDRMON_CTRL);
++			       dfi_regs + i * dfi->variant->stride + DDRMON_CTRL);
+ 
+-		if (dfi->ddrmon_ctrl_single)
++		if (dfi->variant->ctrl_single)
+ 			break;
+ 	}
+ out:
+@@ -231,14 +236,14 @@ static void rockchip_dfi_disable(struct rockchip_dfi *dfi)
+ 	if (dfi->usecount > 0)
+ 		goto out;
+ 
+-	for (i = 0; i < dfi->max_channels; i++) {
++	for (i = 0; i < dfi->variant->max_channels; i++) {
+ 		if (!(dfi->channel_mask & BIT(i)))
+ 			continue;
+ 
+ 		writel_relaxed(FIELD_PREP_WM16(DDRMON_CTRL_SOFTWARE_EN, 0),
+-			       dfi_regs + i * dfi->ddrmon_stride + DDRMON_CTRL);
++			       dfi_regs + i * dfi->variant->stride + DDRMON_CTRL);
+ 
+-		if (dfi->ddrmon_ctrl_single)
++		if (dfi->variant->ctrl_single)
+ 			break;
+ 	}
+ 
+@@ -252,17 +257,17 @@ static void rockchip_dfi_read_counters(struct rockchip_dfi *dfi, struct dmc_coun
+ 	u32 i;
+ 	void __iomem *dfi_regs = dfi->regs;
+ 
+-	for (i = 0; i < dfi->max_channels; i++) {
++	for (i = 0; i < dfi->variant->max_channels; i++) {
+ 		if (!(dfi->channel_mask & BIT(i)))
+ 			continue;
+ 		res->c[i].read_access = readl_relaxed(dfi_regs +
+-				DDRMON_CH0_RD_NUM + i * dfi->ddrmon_stride);
++				DDRMON_CH0_RD_NUM + i * dfi->variant->stride);
+ 		res->c[i].write_access = readl_relaxed(dfi_regs +
+-				DDRMON_CH0_WR_NUM + i * dfi->ddrmon_stride);
++				DDRMON_CH0_WR_NUM + i * dfi->variant->stride);
+ 		res->c[i].access = readl_relaxed(dfi_regs +
+-				DDRMON_CH0_DFI_ACCESS_NUM + i * dfi->ddrmon_stride);
++				DDRMON_CH0_DFI_ACCESS_NUM + i * dfi->variant->stride);
+ 		res->c[i].clock_cycles = readl_relaxed(dfi_regs +
+-				DDRMON_CH0_COUNT_NUM + i * dfi->ddrmon_stride);
++				DDRMON_CH0_COUNT_NUM + i * dfi->variant->stride);
+ 	}
+ }
+ 
+@@ -299,7 +304,7 @@ static int rockchip_dfi_get_event(struct devfreq_event_dev *edev,
+ 	rockchip_dfi_read_counters(dfi, &count);
+ 
+ 	/* We can only report one channel, so find the busiest one */
+-	for (i = 0; i < dfi->max_channels; i++) {
++	for (i = 0; i < dfi->variant->max_channels; i++) {
+ 		u32 a, c;
+ 
+ 		if (!(dfi->channel_mask & BIT(i)))
+@@ -338,7 +343,7 @@ static void rockchip_ddr_perf_counters_add(struct rockchip_dfi *dfi,
+ 	const struct dmc_count *last = &dfi->last_perf_count;
+ 	int i;
+ 
+-	for (i = 0; i < dfi->max_channels; i++) {
++	for (i = 0; i < dfi->variant->max_channels; i++) {
+ 		res->c[i].read_access = dfi->total_count.c[i].read_access +
+ 			(u32)(now->c[i].read_access - last->c[i].read_access);
+ 		res->c[i].write_access = dfi->total_count.c[i].write_access +
+@@ -479,11 +484,11 @@ static u64 rockchip_ddr_perf_event_get_count(struct perf_event *event)
+ 		count = total.c[0].clock_cycles * dfi->count_multiplier;
+ 		break;
+ 	case PERF_EVENT_READ_BYTES:
+-		for (i = 0; i < dfi->max_channels; i++)
++		for (i = 0; i < dfi->variant->max_channels; i++)
+ 			count += total.c[i].read_access * blen * dfi->buswidth[i];
+ 		break;
+ 	case PERF_EVENT_WRITE_BYTES:
+-		for (i = 0; i < dfi->max_channels; i++)
++		for (i = 0; i < dfi->variant->max_channels; i++)
+ 			count += total.c[i].write_access * blen * dfi->buswidth[i];
+ 		break;
+ 	case PERF_EVENT_READ_BYTES0:
+@@ -511,7 +516,7 @@ static u64 rockchip_ddr_perf_event_get_count(struct perf_event *event)
+ 		count = total.c[3].write_access * blen * dfi->buswidth[3];
+ 		break;
+ 	case PERF_EVENT_BYTES:
+-		for (i = 0; i < dfi->max_channels; i++)
++		for (i = 0; i < dfi->variant->max_channels; i++)
+ 			count += total.c[i].access * blen * dfi->buswidth[i];
+ 		break;
+ 	}
+@@ -728,14 +733,10 @@ static int rk3399_dfi_init(struct rockchip_dfi *dfi)
+ 	dfi->ddr_type = FIELD_GET(RK3399_PMUGRF_OS_REG2_DDRTYPE, val);
+ 
+ 	dfi->channel_mask = GENMASK(1, 0);
+-	dfi->max_channels = 2;
+ 
+ 	dfi->buswidth[0] = FIELD_GET(RK3399_PMUGRF_OS_REG2_BW_CH0, val) == 0 ? 4 : 2;
+ 	dfi->buswidth[1] = FIELD_GET(RK3399_PMUGRF_OS_REG2_BW_CH1, val) == 0 ? 4 : 2;
+ 
+-	dfi->ddrmon_stride = 0x14;
+-	dfi->ddrmon_ctrl_single = true;
+-
+ 	return 0;
+ };
+ 
+@@ -758,13 +759,9 @@ static int rk3568_dfi_init(struct rockchip_dfi *dfi)
+ 		dfi->ddr_type |= FIELD_GET(RK3568_PMUGRF_OS_REG3_DRAMTYPE_INFO_V3, reg3) << 3;
+ 
+ 	dfi->channel_mask = BIT(0);
+-	dfi->max_channels = 1;
+ 
+ 	dfi->buswidth[0] = FIELD_GET(RK3568_PMUGRF_OS_REG2_BW_CH0, reg2) == 0 ? 4 : 2;
+ 
+-	dfi->ddrmon_stride = 0x0; /* not relevant, we only have a single channel on this SoC */
+-	dfi->ddrmon_ctrl_single = true;
+-
+ 	return 0;
+ };
+ 
+@@ -793,9 +790,7 @@ static int rk3588_dfi_init(struct rockchip_dfi *dfi)
+ 	dfi->buswidth[3] = FIELD_GET(RK3588_PMUGRF_OS_REG2_BW_CH1, reg4) == 0 ? 4 : 2;
+ 	dfi->channel_mask = FIELD_GET(RK3588_PMUGRF_OS_REG2_CH_INFO, reg2) |
+ 			    FIELD_GET(RK3588_PMUGRF_OS_REG2_CH_INFO, reg4) << 2;
+-	dfi->max_channels = 4;
+ 
+-	dfi->ddrmon_stride = 0x4000;
+ 	dfi->count_multiplier = 2;
+ 
+ 	if (dfi->ddr_type == ROCKCHIP_DDRTYPE_LPDDR5) {
+@@ -809,10 +804,30 @@ static int rk3588_dfi_init(struct rockchip_dfi *dfi)
+ 	return 0;
+ };
+ 
++static const struct rockchip_dfi_variant rk3399_variant = {
++	.init = rk3399_dfi_init,
++	.stride = 0x14,
++	.ctrl_single = true,
++	.max_channels = 2,
++};
++
++static const struct rockchip_dfi_variant rk3568_variant = {
++	.init = rk3568_dfi_init,
++	.stride = 0x0,
++	.ctrl_single = true,
++	.max_channels = 1,
++};
++
++static const struct rockchip_dfi_variant rk3588_variant = {
++	.init = rk3588_dfi_init,
++	.stride = 0x4000,
++	.max_channels = 4,
++};
++
+ static const struct of_device_id rockchip_dfi_id_match[] = {
+-	{ .compatible = "rockchip,rk3399-dfi", .data = rk3399_dfi_init },
+-	{ .compatible = "rockchip,rk3568-dfi", .data = rk3568_dfi_init },
+-	{ .compatible = "rockchip,rk3588-dfi", .data = rk3588_dfi_init },
++	{ .compatible = "rockchip,rk3399-dfi", .data = &rk3399_variant },
++	{ .compatible = "rockchip,rk3568-dfi", .data = &rk3568_variant },
++	{ .compatible = "rockchip,rk3588-dfi", .data = &rk3588_variant },
+ 	{ },
+ };
+ 
+@@ -824,17 +839,16 @@ static int rockchip_dfi_probe(struct platform_device *pdev)
+ 	struct rockchip_dfi *dfi;
+ 	struct devfreq_event_desc *desc;
+ 	struct device_node *np = pdev->dev.of_node, *node;
+-	int (*soc_init)(struct rockchip_dfi *dfi);
+ 	int ret;
+ 
+-	soc_init = of_device_get_match_data(&pdev->dev);
+-	if (!soc_init)
+-		return -EINVAL;
+-
+ 	dfi = devm_kzalloc_obj(dev, *dfi);
+ 	if (!dfi)
+ 		return -ENOMEM;
+ 
++	dfi->variant = of_device_get_match_data(dev);
++	if (!dfi->variant)
++		return -EINVAL;
++
+ 	dfi->regs = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(dfi->regs))
+ 		return PTR_ERR(dfi->regs);
+@@ -856,7 +870,7 @@ static int rockchip_dfi_probe(struct platform_device *pdev)
+ 	desc->driver_data = dfi;
+ 	desc->name = np->name;
+ 
+-	ret = soc_init(dfi);
++	ret = dfi->variant->init(dfi);
+ 	if (ret)
+ 		return ret;
+ 
+
+-- 
+2.53.0
 
