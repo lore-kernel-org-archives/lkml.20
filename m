@@ -1,109 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794899523;
-	b=Ihr6iHYeUwa9fNa7LdKokUJouNIuNF3UuxIoPABr37ATQYWC7PFZzuN/hPjsUWWEZ6jq
-	 QvxSf7P/PUzvefDr0TW2x12UIwsNwyUiSpeC9BJWM5EYowVd/XlppeYApHx7v2ORf1m1Q
-	 gMBDfRAZS59ERjXWUHLsHswzCttMR9DRiGjATRFgnQ4W6YI0l0S4nDJtx3taRceAGzqUS
-	 Ab/Sn1eBAkmj0058kR+gQH4ddP7ZiT/t+1QVDgdTSu1ZyyK3g42M73nc9WlGZzxPDqOQJ
-	 CmEVkK2GSJ6ewKQe4Zj9+XZ4v18uqjDSX2mOh0T2H4ipf0evuSbrNpLFoji4xL5nK+w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794899523;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=rXqW/GOJBbRToEmI773p9d5WGXLMUmbgpxehM0c/j0o=;
-	b=rFh4wPGp2A/mVl9BvT6oVcFgI93YhjryVz4JSmDdHm347zURx21TTGwS42cMre5037t8
-	 hY/eqn6WwnV8kuqVvGVzdv17s3cimxNzgeCbfoiTgdtMpsgKDJ559UaZ1IVx1nWMZtrx7
-	 B9qjtemDCuZHZ303esnNvhatpqeoag9Z5Ond5PBnYguJ915/zv24gKry8DQxrjXMNgFKf
-	 q740ay4eS3gUliJiKWlxH8Tu/yPkN7ssLQ/fEoLU91SwBJBV0nTwspU3Sd1h2Y5l9PV/5
-	 VZDXZjQmhbK7/CmaUStaT0OFH1Mr2Zyz2p/kEKMcQQmUUwEb8MJzRbAfBSxM6TdxChQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=IUe3Vbv2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.50
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010050.outbound.protection.outlook.com [52.101.193.50])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794899585;
+	b=5CGDAmQT/J9R3OVB/WadQ1mBHe5SLQ349+Q9cE+EW+nb/dOXoIEnHwgAQUoACUlDZJMN
+	 EW50HPafOEf4SK2pixqdzzIoFGaaMeRPetCS/zgwWyUxaMuNd+DnmL9De8BNd0P5SJoCi
+	 K26O2CLY8w3jlcf16aiMp2Q5eWLedUEJgpaQpWOBFcVPV8aJpPr3EKZLGSl8T8yXaSTE7
+	 VYnZN87pC0L0SCcdAFG1WDHCh1TtjKqed8lqjQZp+46/xj3VvNTZDjVUV4PG2sqXap13l
+	 b8/qniwHmvWvHIlOUPJ9OffPf2Xa5nRIcOB6/vyv0QJFGfDU2L4XJLb8uFTFskILHVg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794899585;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=w2iYvgn6DDbcR3QUnXnHrp9nv03ht11VB7+mRxqvBGg=;
+	b=Ip5KYw7/6Fk8SUQjnH6dsTUdNzqwQlL+nTocK9MSMAo8S0tMIpZrT4jAjQQMyaSkW0qE
+	 TIgP23zC2yHtWd6kr+1zw5xMTr5xbRFDZ65pvaiP+CtJtWsHt6RjL9QuezzRKYKcJx11I
+	 eWwuiycM72aHJQfkw+pAp8hNlZt8m6rwTmuqdEovqILe5oerG1nMIfLxQAH16GY4EYjtA
+	 z0uH+iz40f/AebDXWBBfZ/3BAUIzbKjoA3OhUmWoCahY6BjLUzZzScBvIa1DkJzpyJ5l1
+	 ztMMuD3pRHRNC4vp50kPG8afDnAPYtQKb4MsM8Uuy/bom+ZZ+e2+VgPYQhLMU50m+qg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D272C606A8AA;
-	Tue, 17 Nov 2026 07:12:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D272C606A8AA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=IUe3Vbv2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=o7Xf4273pHib7shFnUwC7bBkphA7i293569pzVYG4xzdq1ACQXqDmJYwIXI2jgg4Nyxip3Ij7n+ZBEXnWIRu0tORhFw4pchjfy/CDqiL4vQ+HzQ8n5iUH7SPxD1DeWIKsMjLt/GcvitQL9O0e4erHOHbDE8O/566xdq7iAs/TURdEnart/ZDgyKhaYWUq2If3J/2q59ptywPR0qPPxj+kkQkzgQtrlPasyOg7dYzANd9N3UQvlg/AGu/rYdJrdPYtdAmNSYwzdHKGoeCwnSnToxHFbNwpxiuj62cZitv1HP5Kn/nR2I+xqHIjDSGfAgWs8hU47Nnd+6jS5HPVlG2HA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rXqW/GOJBbRToEmI773p9d5WGXLMUmbgpxehM0c/j0o=;
- b=ktaAjtuWCo40qhazYHq4wwd15K/K18yS6bDe0m8KKYiritMqrBfkp74CMxpOvCK87wM7GP0ztmh7OusKE+yL0nNc/tsnh3DYjaL3ntSacCAB01Q7HzXULg3WThG+AhTCsO4dqJt4NHQ/Db7TVkpEC4Au/UZCVlTvwLZPxAk1sOV0iMXA0+f/QVUfks70FT3vT2BfiWzdpCKMza4Qfop8XQnRMsaF15RjY2Qh7WRZjEsgccaWpVFsGf8FQFvBaOyUtpIdPGAaKegNuqo4kamGa2c7smwpJN3gnt2xixtiJfQp67xPpmtlTJpGPQu0ovsN8iaavTGqbQ8RNDMUCwRl6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rXqW/GOJBbRToEmI773p9d5WGXLMUmbgpxehM0c/j0o=;
- b=IUe3Vbv2uNYpNVBnYOXmOBzBp6hGSg+Pulb2/vdx130q0IGMT+y/D2N3nPxrXvLJXhTlU8k7WQ+nkc9t4srTBnPsQpc51xPXs6H2dk5sSh2fnzPfSulK0nHuRxI0+8Dm9h1/fysHJlkCcCByZN4FpBavw/Jr11CH/oQRqcAhM7Q=
-Received: from CH0PR03CA0344.namprd03.prod.outlook.com (2603:10b6:610:11a::35)
- by DS0PR12MB7581.namprd12.prod.outlook.com (2603:10b6:8:13d::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 07:11:53 +0000
-Received: from CH2PEPF00000144.namprd02.prod.outlook.com
- (2603:10b6:610:11a:cafe::76) by CH0PR03CA0344.outlook.office365.com
- (2603:10b6:610:11a::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Tue, 17
- Nov 2026 07:11:53 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CH2PEPF00000144.mail.protection.outlook.com (10.167.244.101) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 07:11:53 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 17 Nov
- 2026 01:11:52 -0600
-Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
- satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.57
- via Frontend Transport; Tue, 17 Nov 2026 01:11:49 -0600
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <vkoul@kernel.org>
-CC: <yung-chuan.liao@linux.intel.com>, <pierre-louis.bossart@linux.dev>,
-	<Basavaraj.Hiregoudar@amd.com>, <Sunil-kumar.Dommati@amd.com>,
-	<venkataprasad.potturu@amd.com>, <Syed.SabaKareem@amd.com>,
-	<Mario.Limonciello@amd.com>, <Richard.Gong@amd.com>, <Poojitha.N@amd.com>,
-	<lee@kernel.org>, <linux-sound@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Subject: [PATCH v6 22/23] soundwire: amd: fix shared-register RMW race in amd_sdw_set_device_state()
-Date: Tue, 17 Nov 2026 12:35:57 +0530
-Message-ID: <20261117070906.803139-23-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261117070906.803139-1-Vijendar.Mukunda@amd.com>
-References: <20261117070906.803139-1-Vijendar.Mukunda@amd.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72600606A31C;
+	Tue, 17 Nov 2026 07:13:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72600606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 4fe3ee98e25611f19a56ed5b684f684d-20261117
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:994adf11-6679-4183-a860-4a4a80d9c356,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:2a9c66e6fbf9540f5e2a88647239e607,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|83|102|850|865|898,TC:nil,Content:0|15|50|99
+	,EDM:5,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
+	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 4fe3ee98e25611f19a56ed5b684f684d-20261117
+X-User: huangwei@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <huangwei@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1729750488; Tue, 17 Nov 2026 15:12:56 +0800
+From: Huang Wei <huangwei@kylinos.cn>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Johan Hovold <johan@kernel.org>,
+	leStoppe <lestoppe@gmail.com>,
+	Craig Hesling <craig@hesling.com>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	huangwei@kylinos.cn
+Subject: Re: [PATCH v2] USB: serial: simple: narrow OWON match to avoid breaking VDS1022
+Date: Tue, 17 Nov 2026 15:12:50 +0800
+Message-Id: <20261117071250.2843769-1-huangwei@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <2026111606-penpal-reverse-14b7@gregkh>
+References: <20260810091322.2201740-1-huangwei@kylinos.cn> <20261015025456.3927808-1-huangwei@kylinos.cn> <2026111606-penpal-reverse-14b7@gregkh>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,75 +74,103 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000144:EE_|DS0PR12MB7581:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0912f06d-152c-47e0-3cf9-08df447a0ed4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|1800799024|82310400026|23010399003|11063799006|56012099006|261021121427099003|10067099003|261102123227099003|261009223027099003|261022075727099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	XVbRWNeae5hPSlkhMY+80gPPaPkumgtZj9RtrTJEQJChKFmacpbgzLGNyNU4Bg5Uvw82AIQDdlYTcdOwaUGNZ1HTLrzjde46RHf0r1xwW8n1xH/vhgv2x4u0gJJCL4XFeE7V9Y+zg8RJ2DAMahc7qtofuqB1mzWYy0HpD5KwGhrq0n+QUiGQWbRGmfg6IdbtwLZafKioZPVmzQVckCpBKyAdn6VPef3fvBXppdRC3ieb3/Q86otSwki+TQHHuVnn7Ubr0TA6AjadcgC1H1vKTQWqtf5x0VuYuMriSAszfQkseUWSYkmDhZ7+iwTZEMk1Z9b+MEzkDQDqwLXN0evqdYAFl9XGPeu+2Bq5rk2OxnFSWWjWMwWfMl3el3C62VM+QOzNNAb4zVARaBIgMXdDTAB8L2tqQH376Lluk9Jdx0yI9uB1QtXGYUozwPX/zYT+PJE7eikFIx7kYk6fVrxIGz52ZDlReN7VU3WrZVKnbIRwGunxd7IFzmryIFLuaTF8DzlCB97LgAZYqk/kyZdRAFNZcBhN4CdCUggKlgrPafq7z6UHL/P/2lsZR5DIboGfzXa0J8itqXnKOV/O4DGdfmzBmv/poYT8f2w6gJqqb0PM+BKK/bq+zJYnQzpodfS1fQE7044lWC1tQEj4TwBSM013eqAykAR4g4pU+TZ1yzHF87CxTV9bTm3DEUf1x6/sZRQXYRMrzNmuifroBeIa0Q==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(1800799024)(82310400026)(23010399003)(11063799006)(56012099006)(261021121427099003)(10067099003)(261102123227099003)(261009223027099003)(261022075727099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	q8PSdhdkf4/yVHXzW7PPmIQ6k+eoa7uMQFBWbmSW66gP8gMNGpwockUWbGlebEtWJ6BijcZjXzcpSCtmc8jasD5FQrvofi4WFJwn2YsoP8LkVjgR83S24yM/S7/VaViZ/rGRbwbNQFNdGX0KaaA2ca/dGDHWBLpAyoCNnRotlYqdybENdu/XtFBuqlw232Thn6ncFjd/ViEGvzH/i2h6R+uD6aUPU4+MF6b3EznfjxA6/b6MbxzHpRsSteFPjNaoxR4tH+UzaNH3CHjoqRm47D/PrsfIGWXhsRM8wpFE+fVZncgOXqJJkc2AhiGqSsJdCOPuAyN/8nMOBsGokXstTOyKHu7Y3yCC51jNG3qxFKfVsGqQW0q05HKWukbvjDZUAphA9olkOPNSt7PY3BWUx+wxZigzvI3sU4lQL1t3nd8aUXhVSOE9/JFO46+/SO2m
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 07:11:53.4842
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0912f06d-152c-47e0-3cf9-08df447a0ed4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF00000144.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7581
 
-AMD_SDW_DEVICE_STATE packs the D0/D3 state for SDW0 (bits [1:0]) and
-SDW1 (bits [3:2]) in a single ACP-level register.
-amd_sdw_set_device_state() performed a read-modify-write sequence on
-this shared register without holding acp_sdw_lock, leaving it open to
-a lost-update race when SDW0 and SDW1 execute concurrent PM transitions.
+Hi Greg,
 
-Acquire acp_sdw_lock around the read-modify-write sequence. Unlock
-before returning -EINVAL from the default branch so the mutex is always
-released on every exit path.
+Sorry about that - here's the context.
 
-Fixes: 829c3e1cb4a3 ("soundwire: amd: set device power state during suspend/resume sequence")
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+The patch below adds a USB_DEVICE_AND_INTERFACE_INFO() match to the
+owon_device entry in the usb-serial-simple driver, to keep the
+owon_device driver from claiming OWON VDS1022 oscilloscopes (which
+are driven from userspace over libusb and break when a kernel driver
+binds their interface). It reworks the commit message per review
+feedback and carries the reporter's Tested-by.
+
+The complication surfaced during review: the VDS1022I variant
+reports the same interface tuple (5, 0, 0) as the HDS200 series
+that the owon entry was originally written for, so the
+interface-level narrowing may not reliably separate the device
+families. The reporter's VDS1022 reports (5, 6, 0x50), which the
+narrow match does exclude, but the VDS1022I does not.
+
+The open question for Johan is whether to take the v2 as-is, or
+revert to the original broad USB_DEVICE() match given that the
+narrowing cannot fully discriminate. The full discussion is here:
+
+  https://lore.kernel.org/linux-usb/20260810091322.2201740-1-huangwei@kylinos.cn/
+
+The v2 for reference:
+
+A USB_DEVICE() match on VID:PID 0x5345:0x1234 was added to the
+owon_device entry in drivers/usb/serial/usb-serial-simple.c by
+commit 4cc01410e1c1 ("USB: serial: simple: add OWON HDS200 series
+oscilloscope support"). OWON uses this VID:PID across multiple device
+families (HDS, VDS, SDS, PDS), so the broad match makes the
+owon_device driver also claim devices such as the VDS1022.
+
+While the owon_device entry is equivalent to the generic usbserial
+driver for kernel-space users, the VDS1022 is a headless scope that
+is driven from userspace over libusb (e.g. the florentbr/Owon-VDS1022
+tool), which can no longer claim the interface once a kernel driver
+binds to it. Prior to that commit, no in-kernel driver claimed these
+interfaces.
+
+The two families can be told apart by their interface descriptors
+despite sharing interface class 5 (Physical): the HDS200 series
+reports subclass 0 and protocol 0, as documented by the HDS272S dump
+(firmware V5.7.1) in that commit's message, while the VDS1022 reports
+subclass 6 and protocol 0x50. Match the full HDS200 interface
+tuple so that the VDS1022 remains unclaimed and stays accessible to
+userspace tools.
+
+Reported-by: leStoppe <lestoppe@gmail.com>
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=220193
+Tested-by: leStoppe <lestoppe@gmail.com>
+Signed-off-by: Huang Wei <huangwei@kylinos.cn>
+
 ---
- drivers/soundwire/amd_manager.c | 3 +++
- 1 file changed, 3 insertions(+)
+Changes in v2:
+- Rework the commit message per Johan Hovold's review: describe the
+  libusb-based userspace breakage instead of the incorrect claim
+  about falling back to the generic usbserial driver.
+- Match on the full HDS200 interface tuple (subclass 0, protocol 0)
+  instead of the interface class alone: both the HDS200 and the
+  VDS1022 are interface class 5, so a class-only match would still
+  claim the VDS1022. The tuple values are verified against the
+  HDS272S dump in the commit message of 4cc01410e1c1 and the VDS1022
+  dump provided by leStoppe.
+- Fix the multi-line comment style.
+---
+ drivers/usb/serial/usb-serial-simple.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
-index 4f997198f5fe..b882ec4d5cb5 100644
---- a/drivers/soundwire/amd_manager.c
-+++ b/drivers/soundwire/amd_manager.c
-@@ -282,6 +282,7 @@ static int amd_sdw_set_device_state(struct amd_sdw_manager *amd_manager, u32 tar
- {
- 	u32 sdw_dev_state;
+diff --git a/drivers/usb/serial/usb-serial-simple.c b/drivers/usb/serial/usb-serial-simple.c
+index a0afaf254d12..879508f54d69 100644
+--- a/drivers/usb/serial/usb-serial-simple.c
++++ b/drivers/usb/serial/usb-serial-simple.c
+@@ -100,9 +100,17 @@ DEVICE(nokia, NOKIA_IDS);
+ 	{ USB_DEVICE(0x09d7, 0x0100) }	/* NovAtel FlexPack GPS */
+ DEVICE_N(novatel_gps, NOVATEL_IDS, 3);
  
-+	mutex_lock(amd_manager->acp_sdw_lock);
- 	sdw_dev_state = readl(amd_manager->acp_mmio + AMD_SDW_DEVICE_STATE);
- 	switch (amd_manager->instance) {
- 	case ACP_SDW0:
-@@ -293,10 +294,12 @@ static int amd_sdw_set_device_state(struct amd_sdw_manager *amd_manager, u32 tar
- 				  AMD_SDW1_DEVICE_STATE_MASK);
- 		break;
- 	default:
-+		mutex_unlock(amd_manager->acp_sdw_lock);
- 		return -EINVAL;
- 	}
- 	writel(sdw_dev_state, amd_manager->acp_mmio + AMD_SDW_DEVICE_STATE);
- 	sdw_dev_state = readl(amd_manager->acp_mmio + AMD_SDW_DEVICE_STATE);
-+	mutex_unlock(amd_manager->acp_sdw_lock);
- 	dev_dbg(amd_manager->dev, "AMD_SDW_DEVICE_STATE:0x%x\n", sdw_dev_state);
- 	return 0;
- }
+-/* OWON electronic test and measurement equipment driver */
++/*
++ * OWON electronic test and measurement equipment driver.
++ * OWON uses the same VID:PID (0x5345:0x1234) for multiple device
++ * families (HDS, VDS, SDS, PDS). Match the full interface tuple
++ * reported by the HDS200 series (class 5, subclass 0, protocol 0) so
++ * that devices with a different interface tuple, such as the VDS1022
++ * (class 5, subclass 6, protocol 0x50) which is driven from userspace
++ * over libusb, remain unclaimed.
++ */
+ #define OWON_IDS()			\
+-	{ USB_DEVICE(0x5345, 0x1234) } /* HDS200 oscilloscopes and others */
++	{ USB_DEVICE_AND_INTERFACE_INFO(0x5345, 0x1234, 0x05, 0x00, 0x00) }
+ DEVICE(owon, OWON_IDS);
+ 
+ /* Siemens USB/MPI adapter */
 -- 
-2.53.0
+2.25.1
 
+
+Thanks,
+Huang Wei
