@@ -1,133 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794884428;
-	b=2RHXk51HiRMAG0iTDxDhpZonIpZMfEQiM1/Nf9HTOzJe58TatR3dg0VxzlTu5DeBnTfX
-	 zhw8nYcdk2/h1dZBR+FDVAqY/zm84yw0A/ejNOT4ie+r382wrU1R7wtXMDqb5LjiacaDf
-	 JEOGpzyAeGaCdlebYYDF9zjIBom1+NUkQAtg78oiYLlL4sRJI4ezblu9NUy+aGp45FtII
-	 RETksDQW14cz80xgYkfanXc2GQVjGIubzihv84YUGb1LA1JJZoQd3kqvQSQ8I59nhQxvh
-	 Up4DgCqOH9q6pnbuzjnCmx05rxBegWbWmPbMRgusMHTOJ0VBT818zIZmw9uFSUK0bmw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794884428;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=pxoBSMsRqRAfxvCgosYriPsm/EIyLsxkC0pfqHHdRVg=;
-	b=aNkEkZ1o4JzDDcMlWcTk4VdfCR7XsTcAy9rrMw0FlUJRIJtpQpEsnuR+SksqGi04kjn4
-	 u2N4nVfBpIrYeTvVyzl44d32i8GaYPozKsuCpXbZ+WnjQB2mDTw9tfqA0cyN5sGHaoEzp
-	 8HVz98ppT+x5xZa/iMH00BKNQmcx6L/E1JA4Cj5aUFXdDOiRa/jthJS+nVxDurNVWaKZ8
-	 ke9Zk3ZInoV8RAX4isHcoP3ImB3vxLNQUBTJ4elRqH2KRNlWbqML8BrGkHjvVcbi+l3rh
-	 GeV6YV7OrYUOGvcSqD/3ekGG1Ep8sNldvmpDMf1x2XykcFKL066hpSZ3cRn++wVD5Ig==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=muUJqIr5;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FnYZ62gb;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.72
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794884479;
+	b=euGkFeq4cMW6VRFONMuGXLjR/npy8Z5QSXpHV2qJgW1VAOIWiAxm5kFOEsYTdpjDUOl9
+	 i5NoCXT1RafQirn7o9Na7T2S2nwR09bQCP6UAYCvibC6up2Bn8RI3rCLqDp4LlkFxSEEe
+	 0+xas5Gq3hAl1rgrApCHLPFIbEzu7eAXX3M1uF5NKT17QJ4tRVirzsBortz3UkoBh3qOv
+	 Xv5tAhsikSTKl0pTl1F/odQfnn9iSg/Bgek/m7n9YPvtWdpCkKwfPa+PrNytE14cRzWTt
+	 WpDUg21xaaA/lJabIBSQ5ZuSirv5f0YvWekF5+XonrPer2K+mvnIgO7NrMVDd4VfRnw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794884479;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=rxu4C+D4IFtlQQXxGEHNwNvtWVbx7dC0E7mSZshpwlE=;
+	b=s3WAtZnr4CFK+26LdZ+g8AzBZ3wKnBlQDZytMRGAZEEdba+qL4J4U0Fi6y6mYDN+z+MG
+	 yMXg+SsVK8ldMjgNqkrUt0pCuu8/ilxZV3LGWnyCgW6uiTjYUIsIOdFwOPzTUYoU0EYVZ
+	 ypBCyco7BdVLPcUGK2kT4CI3twJipBK3r4+Ns4Z0gKVxF2LWjtN/BE5sARWB+NkR+pQwE
+	 hpV8rVu+Wf//ZXq1Ew9/iWPHqqLeKkJTDFbNpVtRlz0VvEojEa5nv+vWxheHKoKRpVQ7g
+	 3FenQBCUcUf6Aw8ORBcCeERzCnfn4Z2ImR1H/wq70Nml3u27jJCW/THUPR2dEpze69g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N1QhM67D;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.72
+Received: from mail-lr2-f8.google.com (mail-lr2-f8.google.com [74.125.230.72])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FF28606A334
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:00:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FF28606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DB16606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:01:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DB16606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=muUJqIr5;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FnYZ62gb
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH2aSKE844371
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:00:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	pxoBSMsRqRAfxvCgosYriPsm/EIyLsxkC0pfqHHdRVg=; b=muUJqIr5E5bpiDnl
-	fPKEs1M3qJ1AKWljp/NRaz8kWxlIpSs1ly4uZFVTb5xPYNTDRIsisFTUrq3B+buh
-	bhNk2YbazmXHMXOusolSEHbVzv52VxoKnjLytBZ6L+BRGX3Nnkd387oqVFl+Ocqw
-	Nmw4m8O65wrkYakIXcljI7aeZ6czygqV3JjH8z91EuPVcmWiK1ReRFuo0sK7sehF
-	h2GwPQqkX8zzSFcQXXu9iah4sHv97Vix56fFgnvhzmSDkKIcfOU+MOPARRCQacRO
-	XJaRT0widME0MVAP1ttfsaOXSTBsOb7E3jaMlam0HJzMG8t/dnXToO0tJT6wvoqU
-	RGWE9Q==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0c7h0g14-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:00:27 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3b175a69ab8so2646892a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:00:27 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N1QhM67D
+Received: by mail-lr2-f8.google.com with SMTP id 38308e7fff4ca-3adf2e3fd87so24932911fa.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:01:18 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794884477; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NcCKVIOev/x65Ejnha7JgWXvFbeSZFoRMaU+1ckD27CADGVtOzB0jQbEb65WZW4nhH
+         FZ+4Y67YH4luX9aN74U4iRUCM02NICTYVrkJBNSACJcLgy/83cSSsjk1G6SrJp8X7OWO
+         M4ZiY8G6EDOcrxPwyOEpXyidgXcxgGXQ4M5RJ98wKVp5FjFJ1Krj3v5YHar5y0ULOqdc
+         VIdsrQ4duARBLra3UJlRf3Ih00BLW+z5Y0pFDqL8QsyLvzsPkYj2uYAUCTXjMGEcckqL
+         rRVOcR3fa0kcPxjCwttFEBIq04/noE5A9xWar8Bd5ScmuHnsLUufZmBTN06lbXelJLzr
+         J7Ww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=rxu4C+D4IFtlQQXxGEHNwNvtWVbx7dC0E7mSZshpwlE=;
+        fh=z2H/xPGYGLRiWNgRvdK1seZOI1RF0vOXLIH6IocLovg=;
+        b=HdHa4GAkrD328NvG9c/NX8vAQUMuUtDtWvXGBVf8VxjZ05Jq4BcBfZWPLSO/yuOyIA
+         ny0YK3DIhOCdtCo3DPv46oCqLYmD/7Okvqzye2DgG+u+7mf3qmHEQsn/b+idRtUVFAQR
+         L8V+Hu9nnaSXc03V6o9QAEIoU/lS2kIKVkT+g2CfX+d7Za0ZIK4JqVsJVv6nGzGrwOub
+         xQ9MBLwO64Nf9hH0H25Q6wF4OlGrtUgVeSomq7+1BGDBTo3Tmt+TfUGAPsansEawQoIQ
+         00j3+CH7p7L3hFJPSEIIbdv0d4B0rQ/QMOyRn4bX3gkMV4zxWVBXnqBbAapEIRjJLsJ0
+         9K9Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794884426; x=1795489226; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=pxoBSMsRqRAfxvCgosYriPsm/EIyLsxkC0pfqHHdRVg=;
-        b=FnYZ62gbj0SOMEEsAvGzBsLRcwWdiJHCIRuxG51u3+OVcQ6f5mEn2AipGImCv9drE0
-         /S6r9nisLbttiiWtROsaiEdMmFIRarcEJku7q4f0mNGS1xE/9nc65qX1M7euWB5Be+Ma
-         fwrEqFICZg0ko3kZ/qrWJZBy+O/wYFsOiSHuMDqgXwobgc2Gbi6WlPT6/OXzSdRYxaPb
-         YwX7R4a4eOh8RLcldLhj1cnywz2HoNH3Gefen6UjpfgT2UepXpa2a0MoVHcuYx317tZe
-         3RzXBbsUdfZPGPGPcJxcJOsCebc538Xl1SsJvfchE3EI1iCUSIKqG2xUCtG0IarWNVz3
-         0ssg==
+        d=gmail.com; s=20260707; t=1794884477; x=1795489277; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rxu4C+D4IFtlQQXxGEHNwNvtWVbx7dC0E7mSZshpwlE=;
+        b=N1QhM67DV+KItdZzSHIydtjJrH9Bc/bfjj1i4+zIcjMjcm5tftNElc+p1Tq0xEqLwE
+         Ljou7jWP2BagD5W1rQQsr2fFgdZ+ZF+yc/lqemCB38x+yKdAhuaQ8woia8IJA7oXCGsV
+         mLjgT+e3x3rBF4Wmpo4C3GTh+Q5ffavHeNDL3/F3yyKJcuU++9aymFLYE0kKhrXlsj+E
+         zIdQLz75EIqEEphsoB48/hkipZW3/7U8ieO5VUHck2jRs7D4Bg171EW3EPNMgallfe7b
+         GCJcsI4OwTv8tj04iPAPEkbBGp3xyZkFUjt1gXCE9Jq4MdWoiK0+8Bg9+1juXMYh+YBo
+         2l+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794884426; x=1795489226;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pxoBSMsRqRAfxvCgosYriPsm/EIyLsxkC0pfqHHdRVg=;
-        b=qmCr+G5Nw2VQTtInfVFtxK9jyePnn+265lun5gPY3RA3N7UT1mNlJ+WQUknuM7eEUg
-         6VHHZiqYlaWH5XOMy5gKgbFRIVnSpKeE4B0vz+YG4UyKvWZuKURQ6+chxu48FJ7FvOV9
-         xVG0eh/gN2w7sssvKrmZtJy0C7ApIWMCjGGhlFAiWaDf5M3TY8NfRZi0n+FbtTnU2bnr
-         5/V3Iuxm4KOQ+V0fqZG19nag5cfNeIA2DdkhH6n3sQQLS8gmAp02ic2674ChuFs2eUee
-         sifHTkU53kPWs4LKRur6apR7P0kV1HdsOHlO3P3woDKdpK/ucMOzGgwYZctOb76TMywd
-         zkwA==
-X-Forwarded-Encrypted: i=1; AL+hErGcc5hzdMrgSPbncc2QoFGqd0Z9Mg8/8uNahu1vST2H1mKfNMAMdQ8FyahNRpLXLHb/VHwcjmFbq2K8R+g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+G5z+0J450XCJhpdx3VwrAauuUxjAztmB56FP7ulyvwa3ozK8q
-	4OatJHXRYcK04NDTMeu2Jtp5SapjcBrkCYRvaNH/vkGXL8+YG3Lye/Z7AaVy8U2/L/9wwVchVr8
-	5iGZbvcNHpHyWkkPCglGeS4B9i5WnmpPWgRZ5/oF/w0tUGoUZl0V0s5k5QPXFGYTGDPbi/TpMI1
-	I=
-X-Gm-Gg: AZFdTZf0fqVkmN4YJGGA1DJnjN/V+nDvfswyWxJI476XIUflky39OfvIwPiQmhgwpQd
-	EYRNH9Yl+fDa61JNjtGw+y5oN1wMggdf9z7LZIchL0TvtpL9PMDsWRQD1+oRsmpdF3WhXz0+UqC
-	9tw9lCLjRVcyEagiDMs8XFGMPIQxKaU6JSocuZrZPhKaiI4IRAiSPwVwR7avsEhMVHpV05seN1D
-	k6uzUvrHuR6AJgddJtUBUPY83PNDhfxK2Fs083no2sCG67CjqvJn2P5CYqYd28TOkApDZFyJ6UH
-	Os+hDYOg8jksnQuLhJiFT29ER4PyWXzR5SR8VVJppu6+OczNZLe1MWOZwT8w7QTeM4pSYkROGPK
-	t+VbyAiGa2FCRzvAbqG8rrqFYE6j6c2YY0GPGccX9jh7EulrWZUVEuLNcLTiZAtoxXtE=
-X-Received: by 2002:a17:90b:1b01:b0:3ab:2d46:1dd2 with SMTP id 98e67ed59e1d1-3b1b08798bcmr12415274a91.6.1794884425541;
-        Mon, 16 Nov 2026 19:00:25 -0800 (PST)
-X-Received: by 2002:a17:90b:1b01:b0:3ab:2d46:1dd2 with SMTP id 98e67ed59e1d1-3b1b08798bcmr12415197a91.6.1794884424516;
-        Mon, 16 Nov 2026 19:00:24 -0800 (PST)
-Received: from jic23-hlaptop ([50.35.44.179])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3abeaf532sm1595030a91.14.2026.11.16.19.00.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 19:00:23 -0800 (PST)
-Date: Tue, 17 Nov 2026 03:00:14 +0000
-From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-To: Anisa Su <anisa.su887@gmail.com>
-Cc: linux-cxl@vger.kernel.org, nvdimm@lists.linux.dev,
-        linux-kernel@vger.kernel.org, Dave Jiang <dave.jiang@intel.com>,
-        Alison
- Schofield <alison.schofield@intel.com>,
-        Davidlohr Bueso
- <dave@stgolabs.net>, Ira Weiny <iweiny@kernel.org>,
-        Vishal Verma
- <vishal.l.verma@intel.com>, Fan Ni <nifan.cxl@gmail.com>,
-        Li Ming
- <ming.li@zohomail.com>,
-        Benjamin Cheatham <benjamin.cheatham@amd.com>,
-        Gregory Price <gourry@gourry.net>, Richard Cheng <icheng@nvidia.com>,
-        Anisa
- Su <anisa.su@samsung.com>
-Subject: Re: [PATCH v1 05/14] cxl/mem: Add 20 second timeout for stalled DC
- event chains
-Message-ID: <20261117030014.6676dd47@jic23-hlaptop>
-In-Reply-To: <20261104230445.66625-6-anisa.su@samsung.com>
-References: <20261104230445.66625-1-anisa.su@samsung.com>
-	<20261104230445.66625-6-anisa.su@samsung.com>
-Organization: Qualcomm
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+        d=1e100.net; s=20260707; t=1794884477; x=1795489277;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=rxu4C+D4IFtlQQXxGEHNwNvtWVbx7dC0E7mSZshpwlE=;
+        b=fWugh1fa90f5hW4BkwArlDq8JKSBg6doGf/LNaNq3IUY3T0factbqtNmOIK3HOCOQj
+         HytO+xa0vbtL7+mo8xeqKiqzWYHG4Mu7oB4cRDgPt25GyyiVDWpqkIaad00wgBGvJnDo
+         ukVoisF2Z1DcJXjFQlPLxzx0CX8Jl3VTYwoFbZSJKNaUMvSNi/5GuXB8KSCP/GMW0SDI
+         9BabtBzHu9fn3EGgSLxNzzxu9SyA5OOBiieaK5F3QXJo43ZnVP+hHzJNbf72fzevORFu
+         IlHw/CLKraqKxM8r8+rf1DcGE5An46z6paDec4Y1o7PtcdCzg32wDvsIYv+Z3AJkaw4K
+         8kaQ==
+X-Forwarded-Encrypted: i=1; AL+hErG1XGNZY8YvecAmXgeSuqp4lySeTTK255BYgCp319p/xW7S5sU6bHt1ElcuXBV3JLlS0/HXk4CgQCyawbA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8QRUaiHP6WR8F4XAKC1tLUHVSrkyzY3Q0gTb7NFOgkADqhJadD
+	YNc+5tGBK0xyg+6KIdg6pAiGDRo8fOSiBD4JoayaLLXy/K7jrt2sCzjjUy/ag+aFS6v+xqwpcDM
+	c7eWeAWn6YTSwthvZi1iNgwnn6hbt7TQ=
+X-Gm-Gg: AYBFou3UDvxnZlwk9ahmOlZqNNxhDOy5oA56s1owtBt/p3KlV1QjIiq0B2/7suWXSx5
+	T2eQ/uuMk3KJqJwVLsCPufr5X5pPhKBX9OeSKnHh4iMVOylsYL2BdJm/YkiR57axgB69cHQv7ab
+	zI2rPF28DbWlgdYgssCRuKs+nRLG6jfQzv9HJbyn1FGZzaiIICXAMUtTypt+G7tnqUh2wDmQo+s
+	GQ6Fj2V9liBFEPRXuDmRc4XJFhJ1CwOn7ukbdJSl7pu6oYRq3YHt8x5hRWVB4gcuyVdNDVfy86F
+	zWeQ0wp6FvP2+UOrD9afNUgcgYuLNixVOt0wq+2q7OVXoruYzI9SBctDJrmevBP2dL809rcGp+W
+	A2SkzpIkVFvNCGylnwlWK1eKewEm7UUr0usc/NjRmvFYNaDwsbSlgbmbtjkhoHekJXUU1gA==
+X-Received: by 2002:a2e:bea4:0:b0:3a6:6d05:7375 with SMTP id
+ 38308e7fff4ca-3ae2b53711emr40965391fa.8.1794884476943; Mon, 16 Nov 2026
+ 19:01:16 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -137,269 +101,205 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: BNGquBwH2Vnn1gHX2vnMnlz_1fHjp2qH
-X-Proofpoint-ORIG-GUID: BNGquBwH2Vnn1gHX2vnMnlz_1fHjp2qH
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDAxMSBTYWx0ZWRfX6ztqmUWaniS+
- +8uXTpT11FMlHsXHS8BsBSbqoyGUySOwrP7QUo1E9JyuS/kd4alwRiAkqLDv6FKy4+kZabDPZED
- WGSBDuDM/DqcS3+wyHGvuAAjWvdN3CP+00TPlFNazwFh+DfZgFC+eEIuXwdz8Mna/U1w6v1cmoM
- Xkxn+huW/OQroF1VqcAZqotc6/EcV1pgz/5JyHqOOYJa6pfHXu08JoUMEB6Kh1Bfj6LlFaaAzKm
- Xt4lMkLrHArtpz4H85g5Jz08nI0uOmmkonvbS3YyOA67OFo+4dPylIEjpcmGTQRXD+gSOxBzOzp
- HCwwTFITd2IIKQXlYpZ+NJOCzqZu2YU2H46mBj2rqZLKUXIbQUaXp/GEkRLI45lBV+VgE4ZlIpj
- 5wFrJAn8cd/LrRHWeoDXNW7ZWjiPOIT/zw6Cu0dqU4JlQvi1cJpjFbEFaOGJkfBkADT9aUIN2Un
- 6NMReOx4SyUo8817GPA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDAxMSBTYWx0ZWRfXz6OJ+JvkjQ7u
- ekiUtyyHiSnE9YTg6AMckBNppnottyVtouwuXpfmQ8mEUX0mmrYnH0v03tCV3Shn6bMQUEhA8oD
- 2iQRFFmYhFAW8Syt1IU1Bm76A/5WxOQ=
-X-Authority-Analysis: v=2.4 cv=bobZl0ai c=1 sm=1 tr=0 ts=6afbc34b cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=aNnz9XPx1a4JIXSYt2cE/A==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=pGLkceISAAAA:8 a=hD80L64hAAAA:8 a=rNSifS95Xc4NCOkr_3UA:9 a=CjuIK1q_8ugA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-17_01,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 lowpriorityscore=0 adultscore=0 suspectscore=0
- priorityscore=1501 phishscore=0 clxscore=1015 malwarescore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170011
+From: Zheng Zheng <fengaojigui88@gmail.com>
+Date: Tue, 17 Nov 2026 11:01:03 +0800
+X-Gm-Features: AclHuK8TdYMEcKuub8UUYCj7RSAfjmeEyg8A9aR21g-EKu6aFiCgkApYO0WXhsU
+Message-ID: <CAO-4RZ1a46EoJY7x6euiS+7aTOb-T9X62E9nGyToRcyvKU+eHg@mail.gmail.com>
+Subject: [BUG] WARNING: possible recursive locking in hfsplus_get_block
+ (fs/hfsplus/extents.c:264, v7.4-rc3)
+To: slava@dubeyko.com
+Cc: glaubitz@physik.fu-berlin.de, frank.li@vivo.com, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu,  5 Nov 2026 08:02:29 +0900
-Anisa Su <anisa.su887@gmail.com> wrote:
+Hi Viacheslav,
 
-> A Dynamic Capacity event can span multiple event records grouped
-> together by the CXL_DCD_EVENT_MORE flag. Extents are staged in the
-> pending list until the last event record ('More'=0) is received, at
-> which point the chain is processed. If the device opens such a chain
-> (More=1) but never sends the closing record, the staged list sits
-> indefinitely.
-> 
-> Add a delayed-work watchdog that drops the chain on timeout: an add
-> chain is refused with an empty Add Dynamic Capacity Response (4802h),
-> a release chain is left for the device to retry.
-> 
-> The spec sets no limit; 20s is a generous upper bound that may be
-> tightened later, and guards against a lost mailbox response or a
-> crashed fabric manager.
+We found a reproducible lockdep recursive-locking warning in hfsplus on
+v7.4-rc3 with syzkaller. The same signature is present on v7.4-rc2.
 
-My gut feeling on this is don't paper over it. 
-I think there should be a standard recovery flow from crashed fabric
-manager and today we may have a hole here that needs closing. That
-might be as simple as a zero length dcd extent sent with the more
-flag not set to terminate any sequences in flight.
+The following is the key excerpt from the rc3 external verification log
+(`rc3/logs/external-verification/run1-singleproc-serial.log`, hit at 114.00 s):
 
-Lost mailbox responses should only happen if something worse
-went on so I'd expect some other ras indication.
+  [  114.001303][T10445] WARNING: possible recursive locking detected
+  [  114.003629][T10445] 7.4.0-rc3-kernsight-kasan #1 Tainted: G            E
+  [  114.005869][T10445] --------------------------------------------
+  [  114.008132][T10445] syz-executor/10445 is trying to acquire lock:
+  [  114.010406][T10445] ff1100017d7545c0
+(&HFSPLUS_I(inode)->extents_lock){+.+.}-{4:4},
+                          at: hfsplus_get_block+0x282/0xab0
+  [  114.021835][T10445] but task is already holding lock:
+  [  114.024125][T10445] ff1100017d753300
+(&HFSPLUS_I(inode)->extents_lock){+.+.}-{4:4},
+                          at: hfsplus_file_truncate+0x20d/0xd70
+  [  114.044862][T10445]   lock(&HFSPLUS_I(inode)->extents_lock);
+  [  114.058492][T10445]   lock(&HFSPLUS_I(inode)->extents_lock);
+  [  114.058944][T10445]  *** DEADLOCK ***
+  [  114.058944][T10445]  May be due to missing lock nesting notation
+  [  114.060170][T10445] locks held by syz-executor/10445: 6, on CPU#3:
+  [  114.063858][T10445]  #4: ff1100017d753300
+(&HFSPLUS_I(inode)->extents_lock){+.+.}-{4:4},
+                          at: hfsplus_file_truncate+0x20d/0xd70
+  [  114.064748][T10445]  #5: ff1100017d26e8f0 (&sbi->alloc_mutex){+.+.}-{4:4},
+                          at: hfsplus_block_free+0xf3/0x690
+  [  114.068038][T10445] Call Trace:
+  [  114.068542][T10445]  dump_stack_lvl+0x116/0x1b0
+  [  114.068921][T10445]  print_deadlock_bug+0x293/0x3d0
+  [  114.069329][T10445]  __lock_acquire+0x153c/0x2110
+  [  114.070151][T10445]  lock_acquire+0x1bf/0x370
+  [  114.071749][T10445]  __mutex_lock+0x178/0x1dd0
+  [  114.075318][T10445]  hfsplus_get_block+0x282/0xab0
+  [  114.075713][T10445]  block_read_full_folio+0x305/0x850
+  [  114.076997][T10445]  filemap_read_folio+0xc4/0x2a0
+  [  114.077824][T10445]  do_read_cache_folio+0x255/0x5a0
+  [  114.078746][T10445]  read_cache_page+0x62/0x150
+  [  114.079124][T10445]  hfsplus_block_free+0x156/0x690
+  [  114.079520][T10445]  hfsplus_free_extents+0x345/0x4a0
+  [  114.079928][T10445]  hfsplus_file_truncate+0x59b/0xd70
+  [  114.159730][T10445]  hfsplus_delete_inode+0x196/0x230
+  [  114.160139][T10445]  hfsplus_unlink+0x7b5/0x980
+  [  114.162948][T10445]  vfs_unlink+0x30d/0xc90
+  [  114.169449][T10445]  filename_unlinkat+0x3ee/0x680
+  [  114.171418][T10445]  __x64_sys_unlink+0x4c/0xa0
+  [  114.171796][T10445]  do_syscall_64+0x132/0x7c0
+  [  114.172170][T10445]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Anyhow, I'd suggest asking your spec folk to raise this (or poking John
-Groves)..
+What seems to happen:
 
-> 
-> The deadline is fixed when the chain opens rather than extended per
-> record, so a device cannot keep a chain alive, and the staged list
-> growing, by streaming More=1 records.
-> 
-> Signed-off-by: Anisa Su <anisa.su@samsung.com>
-> Tested-by: Wonjae Lee <wj28.lee@samsung.com>
-> Tested-by: Junhee Park <jh9934.park@samsung.com>
-> Tested-by: Heesoo Kim <habil.kim@samsung.com>
-> ---
->  drivers/cxl/core/mbox.c | 84 +++++++++++++++++++++++++++++++++++++++++
->  drivers/cxl/cxlmem.h    | 15 ++++++++
->  2 files changed, 99 insertions(+)
-> 
-> diff --git a/drivers/cxl/core/mbox.c b/drivers/cxl/core/mbox.c
-> index 3acf5ace48db..fea910e6c510 100644
-> --- a/drivers/cxl/core/mbox.c
-> +++ b/drivers/cxl/core/mbox.c
-> @@ -873,6 +873,8 @@ static const uuid_t log_uuid[] = {
->  	[VENDOR_DEBUG_UUID] = DEFINE_CXL_VENDOR_DEBUG_UUID,
->  };
->  
-> +static void cxl_cancel_dcd_chain_work(void *_mds);
-> +
->  /**
->   * cxl_enumerate_cmds() - Enumerate commands for a device.
->   * @mds: The driver data for the operation
-> @@ -891,6 +893,16 @@ int cxl_enumerate_cmds(struct cxl_memdev_state *mds)
->  	struct cxl_mem_command *cmd;
->  	int i, rc;
->  
-> +	/*
-> +	 * The DC chain watchdog sends a mailbox command when it fires.  Register
-> +	 * its cancellation here, once the mailbox is usable, so devm runs it
-> +	 * before the mailbox goes away: in cxl_pci the device registers were
-> +	 * mapped before this point and are unmapped after the cancel.
-> +	 */
-> +	rc = devm_add_action_or_reset(dev, cxl_cancel_dcd_chain_work, mds);
-> +	if (rc)
-> +		return rc;
-> +
->  	gsl = cxl_get_gsl(mds);
->  	if (IS_ERR(gsl))
->  		return PTR_ERR(gsl);
-> @@ -1198,6 +1210,14 @@ static void clear_pending_extents(void *_mds)
->  		delete_extent_node(pos);
->  }
->  
-> +/*
-> + * Bound on how long the host will wait for a device to finish a
-> + * multi-record DC event chain (More=1 ... More=0) before refusing the
-> + * chain.  The spec sets no limit; 20s is a generous upper bound, the
-> + * maximum GPF timeout.
-> + */
-> +#define CXL_DC_CHAIN_TIMEOUT	(20 * HZ)
-> +
->  static const char *cxl_dcd_evt_type_str(u8 type)
->  {
->  	switch (type) {
-> @@ -1226,6 +1246,11 @@ static void cxl_dc_chain_abort(struct cxl_memdev_state *mds)
->  	struct cxl_dc_event_chain *chain = &mds->dc_chain;
->  	struct device *dev = mds->cxlds.dev;
->  
-> +	lockdep_assert_held(&chain->lock);
-> +
-> +	chain->armed = false;
-> +	cancel_delayed_work(&chain->timeout_work);
-> +
->  	if (chain->event_type == DCD_ADD_CAPACITY &&
->  	    cxl_send_dc_response(mds, CXL_MBOX_OP_ADD_DC_RESPONSE,
->  				 &chain->pending_extents, 0))
-> @@ -1234,6 +1259,43 @@ static void cxl_dc_chain_abort(struct cxl_memdev_state *mds)
->  	clear_pending_extents(mds);
->  }
->  
-> +static void cxl_dc_chain_timeout(struct work_struct *work)
-> +{
-> +	struct cxl_dc_event_chain *chain = container_of(to_delayed_work(work),
-> +							struct cxl_dc_event_chain,
-> +							timeout_work);
-> +	struct cxl_memdev_state *mds = container_of(chain,
-> +						    struct cxl_memdev_state,
-> +						    dc_chain);
-> +	struct device *dev = mds->cxlds.dev;
-> +
-> +	guard(mutex)(&chain->lock);
-> +
-> +	/*
-> +	 * handle_dcd_chain_event() cancels this work non-synchronously (a sync
-> +	 * cancel would deadlock on @chain->lock, which the chain-close path
-> +	 * holds), so a callback that already started running can reach here
-> +	 * after its chain has moved on.  Abort only if a chain is still armed
-> +	 * AND the timer has not been re-armed since this expiry fired: a new
-> +	 * chain's queue_delayed_work() makes delayed_work_pending() true,
-> +	 * meaning this expiry belongs to a superseded deadline and must not
-> +	 * abort the current chain.
-> +	 */
-> +	if (!chain->armed || delayed_work_pending(&chain->timeout_work))
-> +		return;
-> +
-> +	dev_warn(dev, "DC %s chain timed out\n",
-> +		 cxl_dcd_evt_type_str(chain->event_type));
-> +	cxl_dc_chain_abort(mds);
-> +}
-> +
-> +static void cxl_cancel_dcd_chain_work(void *_mds)
-> +{
-> +	struct cxl_memdev_state *mds = _mds;
-> +
-> +	cancel_delayed_work_sync(&mds->dc_chain.timeout_work);
-> +}
-> +
->  static int stage_pending_extent(struct list_head *pending,
->  				struct cxl_extent *to_add)
->  {
-> @@ -1260,6 +1322,8 @@ static int handle_dcd_chain_event(struct cxl_memdev_state *mds,
->  	struct device *dev = mds->cxlds.dev;
->  	int rc;
->  
-> +	guard(mutex)(&chain->lock);
-> +
->  	/* Chained records share one event type (CXL r4.0 Table 8-229) */
->  	if (list_empty(&chain->pending_extents)) {
->  		chain->event_type = event->event_type;
-> @@ -1279,9 +1343,22 @@ static int handle_dcd_chain_event(struct cxl_memdev_state *mds,
->  
->  	if (event->flags & CXL_DCD_EVENT_MORE) {
->  		dev_dbg(dev, "more bit set; delay processing of extent\n");
-> +		/* The deadline is fixed when the chain opens, not per record */
-> +		if (!chain->armed) {
-> +			queue_delayed_work(system_wq, &chain->timeout_work,
-> +					   CXL_DC_CHAIN_TIMEOUT);
-> +			chain->armed = true;
-> +		}
->  		return 0;
->  	}
->  
-> +	/*
-> +	 * Chain is closing.  Disarm before flushing so a pending watchdog
-> +	 * (queued but blocked on @chain->lock) sees !armed and bails out.
-> +	 */
-> +	chain->armed = false;
-> +	cancel_delayed_work(&chain->timeout_work);
-> +
->  	/* Nothing is tracked yet: refuse every add, acknowledge every release */
->  	if (event->event_type == DCD_ADD_CAPACITY)
->  		rc = cxl_send_dc_response(mds, CXL_MBOX_OP_ADD_DC_RESPONSE,
-> @@ -2021,7 +2098,14 @@ struct cxl_memdev_state *cxl_memdev_state_create(struct device *dev, u64 serial,
->  
->  	mutex_init(&mds->event.log_lock);
->  	INIT_LIST_HEAD(&mds->dc_chain.pending_extents);
-> +	mutex_init(&mds->dc_chain.lock);
-> +	INIT_DELAYED_WORK(&mds->dc_chain.timeout_work, cxl_dc_chain_timeout);
->  
-> +	/*
-> +	 * The watchdog cancel is registered later, by cxl_enumerate_cmds(), so
-> +	 * devm's reverse-order unwind cancels (and waits for) the watchdog
-> +	 * before this list cleanup runs.
-> +	 */
->  	rc = devm_add_action_or_reset(dev, clear_pending_extents, mds);
->  	if (rc)
->  		return ERR_PTR(rc);
-> diff --git a/drivers/cxl/cxlmem.h b/drivers/cxl/cxlmem.h
-> index c88de7cb65d1..52c936ec15a9 100644
-> --- a/drivers/cxl/cxlmem.h
-> +++ b/drivers/cxl/cxlmem.h
-> @@ -8,6 +8,8 @@
->  #include <linux/uuid.h>
->  #include <linux/node.h>
->  #include <linux/list.h>
-> +#include <linux/mutex.h>
-> +#include <linux/workqueue.h>
->  #include <cxl/event.h>
->  #include <cxl/mailbox.h>
->  #include "cxl.h"
-> @@ -431,6 +433,11 @@ static inline struct cxl_dev_state *mbox_to_cxlds(struct cxl_mailbox *cxl_mbox)
->   * struct cxl_dc_event_chain - staged Dynamic Capacity event chain
->   * @pending_extents: extents received so far; flushed when the chain
->   *		     closes (More=0)
-> + * @timeout_work: watchdog that fires if a chain is opened with
-> + *		  CXL_DCD_EVENT_MORE but the closing record never arrives
-> + * @lock: serialises updates to the chain state against the watchdog
-> + * @armed: set when a More=1 chain opens; cleared when the chain closes
-> + *	   (More=0), is aborted by cxl_dc_chain_abort(), or times out.
->   * @event_type: DCD event type of the open chain (add or release)
->   *
->   * The records of one Dynamic Capacity operation can be chained by the
-> @@ -439,9 +446,17 @@ static inline struct cxl_dev_state *mbox_to_cxlds(struct cxl_mailbox *cxl_mbox)
->   * chain is open at a time.  Both Add Capacity and Release Capacity chains
->   * are staged here, @event_type says which.  Records are staged until
->   * More=0, then the chain is processed and responded to as a whole.
-> + *
-> + * If a chain is opened (More=1) but the device never sends the closing
-> + * record, the staged list would otherwise sit indefinitely.  @timeout_work
-> + * is a defensive watchdog that drops such a chain: an add is refused with
-> + * an empty response, a release is held for the device to retry.
->   */
->  struct cxl_dc_event_chain {
->  	struct list_head pending_extents;
-> +	struct delayed_work timeout_work;
-> +	struct mutex lock;	/* chain state, against the watchdog */
-> +	bool armed;
->  	u8 event_type;
->  };
->  
+1. hfsplus_file_truncate() on the unlinked file holds that file inode's
+   extents_lock (extents.c:579).
+2. hfsplus_free_extents() -> hfsplus_block_free() reads the allocation
+   bitmap through sbi->alloc_file->i_mapping while the file inode's
+   extents_lock is still held (bitmap.c:183-185).
+3. The bitmap read enters hfsplus_get_block() for the allocation-file inode
+   and takes its own extents_lock (extents.c:264).
 
+The two mutexes are different instances (the external-log addresses differ:
+ff1100017d7545c0 vs ff1100017d753300) but share the same lockdep class,
+because extents_lock is initialized in a common inode-initialization path.
+lockdep therefore reports recursive locking.
+
+Is this a lockdep false positive caused by the shared class, or is there a
+real lock-ordering issue? If it is a false positive, should the
+allocation-file inode use a separate lockdep class (or a nested annotation)
+for extents_lock? Alternatively, should hfsplus_block_free() run outside the
+file inode's extents_lock?
+
+Reproduction:
+
+  kernel: v7.4-rc3, CONFIG_KASAN=y, CONFIG_PROVE_LOCKING=y,
+          CONFIG_HFSPLUS_FS=y, booted with oops=panic panic_on_warn=1
+  guest:  Debian trixie x86_64, 6 GiB RAM, 4 vCPU, KVM
+  syzkaller: 853b104bb454141a5b0fc0e4218ec78e9f34ffb1
+
+  in the guest, as root:
+  syz-execprog -procs=1 -threaded -repeat=1 \
+      -executor ./syz-executor repro.kernsight.prog
+
+The reproducer is a 56-entry state-reconstruction recipe. The main fuzzing
+pipeline verified it 2/2 on freshly replayed VMs; the crash was reproduced
+during crash-log replay at entry 55/55. An external fresh-VM run also
+reproduced it 2/2 with -procs=1 -repeat=1 (114.00 s and 110.75 s). Note that
+the recipe needs strict single-process ordering; 8 parallel workers did not
+reproduce it.
+
+How to reproduce reliably on mainline (v7.4-rc3)
+------------------------------------------------
+We reproduced this on mainline v7.4-rc3 with the following recipe. No
+local HFS+ patches are applied; the source tree is vanilla v7.4-rc3.
+
+1. Build the mainline v7.4-rc3 kernel with the configuration in
+   rc3/kernel.config. The essential options are CONFIG_KASAN=y,
+   CONFIG_PROVE_LOCKING=y, CONFIG_HFSPLUS_FS=y and CONFIG_DEBUG_INFO=y.
+   The bzImage used here has sha256
+   0c16409f8aec508ac44a63e631c2bd352536401f3fd0856df1d839fb953a1882.
+
+2. Boot a Debian trixie x86_64 guest (6 GiB RAM, 4 vCPU, KVM) with the QEMU
+   command line in rc3/environment.txt. Keep the serial console; the lockdep
+   report appears there (and in dmesg). panic_on_warn=1 is not required to
+   observe this lockdep report.
+
+3. Copy syz-execprog and syz-executor built from syzkaller commit
+   853b104bb454141a5b0fc0e4218ec78e9f34ffb1, plus
+   rc3/reproducer/repro.kernsight.prog, into the guest.
+
+4. In the guest, as root, run:
+
+     syz-execprog -procs=1 -threaded -repeat=1 \
+         -executor ./syz-executor repro.kernsight.prog
+
+5. Expect "WARNING: possible recursive locking detected" after roughly
+   110-115 seconds, with:
+
+     hfsplus_get_block+0x282/0xab0
+      hfsplus_file_truncate+0x20d/0xd70
+
+   We observed this 2/2 on fresh VMs at 114.00 s and 110.75 s.
+
+Important details for stable reproduction:
+
+- Use -procs=1. With -procs=8 (or -repeat=0) the 56-program state recipe is
+  interleaved and did not reproduce in a 20-minute run.
+- Use the full repro.kernsight.prog recipe. The minimal repro.prog alone is
+  state-dependent and does not reproduce by itself.
+- The report is a lockdep recursive-locking warning, so serial/dmesg is the
+  reliable success signal; it is not a KASAN panic.
+
+A repository with the syzkaller programs, kernel configs and full logs is
+available at:
+
+  https://github.com/Zheng-zheng-codes/hfsplus-extents-lock-deadlock
+
+The repository keeps the v7.4-rc2 and v7.4-rc3 results in separate `rc2/`
+and `rc3/` directories so the two kernels are not mixed.
+
+Repository layout:
+
+- `README.md` at the repository root
+  Overview of the report and an explicit rc2/rc3 split.
+
+- `rc2/` -- original v7.4-rc2 results
+  - `README.md`: v7.4-rc2 report and reproduction notes.
+  - `environment.txt`: rc2 kernel image/hash, QEMU command line and
+    syzkaller revision.
+  - `kernel.config`: v7.4-rc2 kernel configuration.
+  - `reproducer/repro.kernsight.prog`: rc2 pipeline-verified state recipe.
+  - `reproducer/repro.priming.prog`: rc2 priming portion.
+  - `reproducer/repro.prog`: rc2 triggering testcase.
+  - `logs/log0..log3`, `logs/report0..report3`: original rc2 syzkaller
+    execution logs and crash reports.
+  - `logs/machineInfo0..machineInfo3`, `logs/title-stat.json`: guest
+    environment and title statistics.
+  - `logs/crash-excerpt.txt`: rc2 crash excerpt.
+
+- `rc3/` -- new v7.4-rc3 results (the results in this report)
+  - `README.md`: v7.4-rc3 report, locking analysis and reproduction notes.
+  - `environment.txt`: rc3 kernel image/hash, guest image/hash, QEMU command
+    line and syzkaller revision.
+  - `kernel.config`: v7.4-rc3 kernel configuration.
+  - `reproducer/repro.kernsight.prog`: rc3 56-entry state recipe.
+  - `reproducer/repro.priming.prog`: rc3 priming portion.
+  - `reproducer/repro.prog`: rc3 triggering testcase.
+  - `reproducer/repro.report`, `repro.stats`, `repro.outcomes.jsonl`,
+    `repro.context.json`: pipeline verification evidence, including the
+    2/2 fresh-VM result.
+  - `logs/log-0.txt`, `logs/report-0.txt`: original rc3 syzkaller log and
+    crash report.
+  - `logs/machineInfo-0.txt`, `logs/title-stat.json`: rc3 guest environment
+    and title statistics.
+  - `logs/external-verification/run1-singleproc-serial.log` and
+    `run2-singleproc-serial.log`: full serial consoles of the two
+    independent rc3 fresh-VM reproductions (114.00 s and 110.75 s).
+  - `logs/external-verification/*-run.log` and `*-execprog-out.log`: the
+    corresponding run records and syz-execprog output.
+  - `SHA256SUMS`: checksums for the rc3 inputs and logs.
+
+When reproducing, note the difference:
+- rc2 reproduces from its own recipe in `rc2/reproducer/` (see
+  `rc2/README.md` for the exact command used in that testing round).
+- rc3 must be run with strict single-process ordering:
+    syz-execprog -procs=1 -threaded -repeat=1 \
+        -executor ./syz-executor repro.kernsight.prog
+
+Best regards,
+Zheng Zheng
