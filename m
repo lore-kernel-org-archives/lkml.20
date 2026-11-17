@@ -1,58 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794908465;
-	b=Q2XRgJYg+cC05xVXWEcOKEnKSyCZZ/Yu0h6w0xu83fXzQY4Vqmsse1/07AyCLC/cB61s
-	 HZOHuowkKq/+rJpOOLuvGTbE+2RYSDo5ag0y4yzFoALqyy+kBCbLIuDLODYfYuw5sepYT
-	 aD6wJpJ+yX866VhKUrfS5CxhtRWjJpIeAktyGVQTC7YPqrzLwkO2LSq0/GURGnOVfQTSf
-	 lw5OHdaUrqWFbR/1rKH2Yl0tpWh0wOu43AfhvEoQzeL0g3p3XNEbiW6s5g0ewoNWwZ4zZ
-	 RT7g8QxNsqt8Y7TBdQAg5md8SQFFNtm705zY6SVDzXctJK7wknEgMGPjBx4COn8k/fw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908465;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=b3iFdC4kvUX11Us3pNRfwEgLX6l6dmfhvWxrnpKmb54=;
-	b=CPA0xviSnGcloBWDyC2n+t/Mer5eT8EIqphh7g3A44yp3oK2dTlQzfdwWdRmgoCOzSHJ
-	 cYoV6tNI7Uh3R+LPrTkFQvQBPzGyJhz5gB29JPskEe9XHRV9PkO5dfG4qQCl/QDHayjtG
-	 CrDcpASJ7YxQCrcBRRBFl9ciU8EGCJiPhYi/tLmws40V8FcHGtIY62RENODAOlYPn4TXX
-	 Qcp0wb9J+p7y5AmSFM0d9mQ3LfRFB8Lwn/ZHt2kewEo2pO0Oo9fRSw2/JMTPY06U+cPJC
-	 4fVEM08MHtDIT0JWzaqY0tpfu4uAbv26vm+YvT4alxKfCpKlBeZ6Udp2J6KtcQoFPUQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O0VAwbxv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794908470;
+	b=SWzin1VZCY9CjQHkpCTDUOjb+lHw1bK3+rbxU3YDWTG6u79URLZSmWam4XPkVc7lR3RU
+	 jK8trJN1lZahGlkb3M5SxW4mwZfz0nVJvnntTqT8iwDT4BIGNlVZ7/UF/Wy4KPqJqHyWR
+	 NvaAiso0HTPH8bVncOh3Gl4M7ineVIxrr6VvUydCw8ohGvnVzJNyr9VJjXe3Qj2v5vYOU
+	 A1kZd+tnjoEbFAhrd+qk2sXmmyUpwDVxJgfClPqf1xrwtHlzbuRFqKQJg9Ba8dDREsh+w
+	 35tvL4o7B19Pj9jb1Py8E7bz9tGzLoGkqx2Bvj44Ymp7n7HmyECK6AAnyYmh+XvvYyg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908470;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-ZohoMailClient;
+	bh=zPDUmskooNba626AtSoQybWEUpg6ZGRUsqiViS2y2k0=;
+	b=i0b85g7FIO6HjZK+OOX/2uRqOQLb9V/+EeX90oPd68LKtdLE4vV/8VR++cs5fPGrM/P0
+	 wn3G2W9JLGvVCEPdLt713MigVBUl6G1Mo+iLDA8o4Zb3Rg5U0yTrOzkJib0mVoQmGwLwZ
+	 TyGsKv/0Urqot9m6He9C+MDjn/ZmIx/Pq9QXTR2tVF7gHObGO1n56zUjz09tQdBAvew1P
+	 WpKLsC6+PjSRhrtnD8uEGxHbs+rv3d23KQ6KcUsmouhk6vKhSoMPp85sFmO0Z/2f0XJAN
+	 McTHyQZHOKO0h/eykoWo6ljEU9PtIUWk18E8msu8Qhls+GppW+XbosqMMFEod281+9A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ph4ntom-rev.uz;
+	spf=pass smtp.mailfrom=ph4ntom-rev.uz;
+	dkim=pass header.d=ph4ntom-rev.uz header.i=@ph4ntom-rev.uz header.a=rsa-sha256 header.s=zoho header.b=dk5BxgIH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.54
+Received: from sender5-of-o54.zoho.com (sender5-of-o54.zoho.com [165.173.182.54])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C23CF606A31C;
-	Tue, 17 Nov 2026 09:41:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D165C606A333;
+	Tue, 17 Nov 2026 09:41:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D165C606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ph4ntom-rev.uz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ph4ntom-rev.uz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O0VAwbxv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEEDB1F000C4;
-	Tue, 17 Nov 2026 09:41:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794908465;
-	bh=b3iFdC4kvUX11Us3pNRfwEgLX6l6dmfhvWxrnpKmb54=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=O0VAwbxvvdV/COcwnjk9DUI1gzqKmA5WOW6yybIKHp7iL1VZs0zyxDA8bU0Ax+SDz
-	 a5/x+uOnG73FmZfXWfFDvUTBmbc/Gsxc3qHa+EfcYchf2gO2o/ZMqdNDgtseFRtXDI
-	 JXrGvOD/S5KgB3czpgF9hF1S7VenW37S5aIX1ZUnkOZBGPumAunw4H9od/rVQGuSSE
-	 zIXcVmc9fCg0VV0PdjHNH4VqJlxh73WMqxF8VXUDBNPWmRqOKLkwWyzJUYAyKrj1ka
-	 e7IjzRiS7ROcUCXVixjLwRQjs4JadJsIIMW4j43IMa3kQhgObLgpLv7uxQ7TtUvSnp
-	 cJG9oNXGFA8pw==
-Date: Tue, 17 Nov 2026 09:40:59 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Nico Pache <nico.pache@linux.dev>, 
-	Lance Yang <lance.yang@linux.dev>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Chris Mason <mason@kernel.org>, 
-	Daniel Wade <danjwade95@gmail.com>
-Subject: Re: [PATCH] mm/khugepaged: mark ptes dirty and soft-dirty on mTHP
- collapse
-Message-ID: <avwhJHQN_w5nUbzj@gremlin>
-References: <20261117-khugepaged_mthp_dirty-v1-1-024e4a12c2fa@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=ph4ntom-rev.uz header.i=@ph4ntom-rev.uz header.a=rsa-sha256 header.s=zoho header.b=dk5BxgIH
+ARC-Seal: i=1; a=rsa-sha256; t=1794908465; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=It3lNUtJtLw8shovqZsRAHBlC5ezAARZ/xWjJF5LUIPDBuD7dLTsFyJM42i6zCsmSpnuhxs8e9qHHtcm3PkOjAfEAjVK0p2aPpnQN6n9l2cbuhX6nRRRG7wTFHJtOZnMEvB/HNgp1ioXuMs9vz6nAu6sk41iDaXuS+4tgYwaLnk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794908465; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=zPDUmskooNba626AtSoQybWEUpg6ZGRUsqiViS2y2k0=; 
+	b=dstH2lGeCsstvVnUnVOQa4AV0z5wjmC5oy80yjr0cRXKJl93E3wlaUfPXafsMkBVFyFj/c99RFM8H2o5Fzuw3oN493DZBJNTxtwtwM5aco3tDhTg669v8oEhv+3jt5Vx1/FAZv80BduDD48bzOdCPHk9IpHJzv4Xqm9YGvcTAf4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=ph4ntom-rev.uz;
+	spf=pass  smtp.mailfrom=owner@ph4ntom-rev.uz;
+	dmarc=pass header.from=<owner@ph4ntom-rev.uz>
+DKIM-Signature: a=rsa-sha256; b=dk5BxgIHz8Ptd5ILHBN5BxSypsADUZ9x0dTqopov3DlgW2L2HEKEiKUmgf9HzTlmnreYhXMtu5JZhlu9J84dD5lwHZatDIHIaembI+OVfJ8LiFJHS6lhCLE5I5FJRmsWwQ/K3Cj59TpP30PSTHaDh8t4Y+9ATsKSFIQVI6YOeyedSdSFixIzJSTxa7WdOPmTgmoQt54vlBnAypvMieJzV8/Z6JcLs+5H2duhH0shcpwxr9kDQD+l1mz5Pc/g6HtK0k3IpFDd0TjEMcFdYiOA3UH64fiKWu4CXW+go+KjCUM5g3xiasdGQT0pCUPCD4IqKIGORWEUl0L5ZtjMQUzHHA==; c=relaxed/relaxed; s=zoho; d=ph4ntom-rev.uz; v=1; bh=zPDUmskooNba626AtSoQybWEUpg6ZGRUsqiViS2y2k0=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794908463191845.3174153458322;
+	Tue, 17 Nov 2026 01:41:03 -0800 (PST)
+From: Enver Ikromov <owner@ph4ntom-rev.uz>
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: Enver Ikromov <owner@ph4ntom-rev.uz>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH rtw-next v5 03/10] wifi: rtw89: fix RX filter configuration for monitor mode
+Date: Tue, 17 Nov 2026 14:40:57 +0500
+Message-ID: <20261117094059.1744-1-owner@ph4ntom-rev.uz>
+X-Mailer: git-send-email 2.56.0.windows.4
+In-Reply-To: <51477fcfcbb7462488e2fa3f299328b8@realtek.com>
+References: <20261113235211.1911-1-owner@ph4ntom-rev.uz> <20261113235211.1911-4-owner@ph4ntom-rev.uz> <0a6a486d052e43c0adfb7fc6445b2026@realtek.com> <20261116152804.781-5-owner@ph4ntom-rev.uz> <51477fcfcbb7462488e2fa3f299328b8@realtek.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,88 +67,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261117-khugepaged_mthp_dirty-v1-1-024e4a12c2fa@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-On Tue, Nov 17, 2026 at 10:28:18AM +0100, David Hildenbrand (Arm) wrote:
-> An mTHP collapse can lose soft-dirty PTE bits if pages were written and
-> the VMA was then made read-only, and not setting the PTE dirty in
-> VMAs without VM_WRITE can interact with a later MADV_FREE on a COW-shared
-> page such that all processes lose the data even though a single process
-> MADV_FREE'ed it.
->
-> Collapse does not preserve the soft-dirty bits of the old PTEs, so the
-> new entries must be marked soft-dirty. map_anon_folio_pte_nopf() relies
-> on pte_mkdirty() to do that, but only calls it if the VMA has VM_WRITE.
->
-> Further, after CoW-sharing such collapsed folios later, all PTEs will be
-> clean and the folios will be clean. One process doing a MADV_FREE can mark
-> the folios as lazyfree and result in all processes sharing it losing the
-> data once memory reclaim zaps it.
->
-> In map_anon_folio_pte_nopf(), call pte_mkdirty() unconditionally, just
-> like map_anon_folio_pmd_nopf() already does with pmd_mkdirty().
->
-> Consequently, we always mark these PTEs dirty (including soft-dirty) but
-> only set them writable if the VMA has VM_WRITE.
->
-> This essentially reverts Hugh's commit 1ac0cb5d0e22 ("mm: fix anonymous
-> dirtying") that back then touched do_anonymous_page() to avoid forcing
-> clean anonymous pages through swap instead of discarding them. This no
-> longer applies as shrink_folio_list() allocates swap for ordinary
-> anonymous folios and unconditionally marks them dirty before unmapping,
-> regardless of PTE dirty state. Keeping their PTEs clean does not make
-> them discardable.
->
-> This now also marks fresh anonymous PTEs dirty and soft-dirty in read-only
-> VMAs when page faults allocate real pages.
->
-> This has low urgency.
->
-> Fixes: e22f2fe72c74 ("mm/khugepaged: generalize collapse_huge_page for mTHP collapse")
-> Cc: stable@vger.kernel.org
-> Reported-by: Chris Mason <mason@kernel.org>
-> Reported-by: Daniel Wade <danjwade95@gmail.com>
-> Closes: https://lore.kernel.org/all/20261117075246.61336-1-danjwade95@gmail.com/
-> Reviewed-by: Daniel Wade <danjwade95@gmail.com>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+On Tue, Nov 17, 2026 at 07:17:09 +0000, Ping-Ke Shih wrote:
+> I also confirmed when B_AX_SNIFFER_MODE is set, B_AX_A_CRC32_ERR is the
+> additional bit you need to set. I think this bit can be enabled by
+> flag of iw set monitor command, right?
 
-LGTM and:
+Yes, running iw dev wlan0 set monitor fcsfail passes FIF_FCSFAIL to
+rtw89_ops_configure_filter(), which already toggles B_AX_A_CRC32_ERR as
+expected. No driver change is needed here, so patch 03/10 is dropped in
+v6.
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
-> ---
->  mm/memory.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
->
-> diff --git a/mm/memory.c b/mm/memory.c
-> index d2f48d78b0d7b..45875d1d3b3df 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -5522,8 +5522,7 @@ void map_anon_folio_pte_nopf(struct folio *folio, pte_t *pte,
->
->  	entry = pte_sw_mkyoung(entry);
->
-> -	if (vma->vm_flags & VM_WRITE)
-> -		entry = pte_mkwrite(pte_mkdirty(entry), vma);
-> +	entry = maybe_mkwrite(pte_mkdirty(entry), vma);
->  	if (uffd_wp)
->  		entry = pte_mkuffd(entry);
->
->
-> ---
->
-> base-commit: 1c2962a57377c9878cbefb747488324d4e678982
->
-> change-id: 20261117-khugepaged_mthp_dirty-067f734d38aa
->
-> --
->
-> Cheers,
->
-> David
->
-
---
-Cheers, Lorenzo
+Thanks,
+Enver
