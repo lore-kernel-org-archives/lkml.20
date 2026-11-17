@@ -1,111 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.158
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794907032;
-	b=FuZkeQ/WiLqOmPnxXH8R8NX1ZEkv0eThi7aGtqNLuSryKQ80NzhEa3ZJ9PhODHjRGuqm
-	 Z4dIKfi3QACGKjrdO05Vqnl7+skdMj9tYJK4kbEwATDV236trxh7MI6Huy8C6nRkPPsGN
-	 0/m3nhYkp5IX5UGKxahWpPx9NfkVQV8vFZ8TjII2RUSxVl+laQLYczCu2WamPPvV1OP38
-	 CNA14O/AGYmcYK06DTuDbk8lopMNKZ8rB8M5cXoZelipTUs7xVdMxsg9uGAFCPiXa13uZ
-	 hXt8F7FCvhCz2jkSZqh/c5V72Ls9UB86Hln7ClE0kFEZlAFDE9AgThzgCeg1C9X1+Cg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794907032;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=ylxYAdRJbN2+nc71qafuBh5CUEHqWV7dF5BSNuKNgSQ=;
-	b=aHRO08CgrJo4fSGIbQhhLZblYtHYgRfIzuVph7z9hRC9TFRKfdpXO3DlvLnZdh0Horyb
-	 mFWRNTfMOep9tYoW+qmrsYbj5mwHfOEVuB8OY7yDxyxOGbWxcsXWge5/ezMygRG5kT8Z+
-	 iwEWBMQoaKymNNLOXCKMJdGZxk+ryfZCBpJkFcjVUHV+s8Nvc85rTUTP+/tcjzbcTN3Mp
-	 8TqJf5NEejeNVLbUOnVJOZ7Zdajg3FGnuiPfUprmP9r62ryztLpxc134Fkb3wza8Z+IFO
-	 pxDJaQwkXIbtJoiy8rVIYY6hxNYjMJG3rYB9EyBZuBAp8HTbYNNxOedOkOeH3FzrB5w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=hA+RuZCt;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=tGdAx7tr;
-	arc=none smtp.remote-ip=202.12.124.158
-Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794907036;
+	b=AMNFgdKquQjyDs+tXxiJ6a1zePYgJNRAdTCfZBx+cbFxl8LFB0QuFHKfiAGtlOMvvUQ+
+	 WDtKTt9oX1w5MccbKfG9SSiOjWq3S6IuUE+75K5TAiyWNvKtx0iw3txGeXQLaetcDLOSr
+	 zyT5O1elhIvyp+i2Zf6gZqjVw8I90Fp714FCGtPAfHian1vAsSuWRQ4UDEsu7Vv9YFuJ5
+	 8oWx/WOqrRNPJ34NlA3tfMmlDq/EdBAwnxdkTxQKZlSBdm6DjX/xzGKjkdkTsCRWI6k60
+	 BkX01XYgIsId+Mr2bK7DxQK2ueXp57SIakRgFDJwEgA8VVpohcPh5lgh17e2nIGwIxQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794907036;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=k9mD4d+6c6e9/oQ4Pzb2k3qI5yqg28FGpyq/0WXhWNs=;
+	b=GRq5Xfams32G4EbLUbGwPq5Af1Wmiaa0JV3mAARY39bjLVkmKCJEhXcaytOCPHWsd7OL
+	 Z2sLlG2jDKDQYQw7bZzSN9LQ940UiCrjdYtLBiMOiXIBBXM2dI65sxpXRVw1tISX6uz7x
+	 Kx1fBLCalGSa/B/6sv8O/7XHHWHPU7sdPLPzFZvU8EDVRnRfQgc8Yf9D0R/gBlvOrYdRj
+	 V0Uo5Hx//52JZ7iZhplG2DGu744660qONXBneWwH4ruANceBy5rmFneAm8X1Z7CkGeAJN
+	 U0gzZ8vU+o9Jl8bhXm8fsCbPeF9T9gt13Aps+QI0ZHaXgq9y6ib/l+zmXfpjD6+FTVg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=chWayecA;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71371606A329
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:17:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71371606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F37F6606A334;
+	Tue, 17 Nov 2026 09:17:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F37F6606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=hA+RuZCt;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=tGdAx7tr
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id BD03D7A0176
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:17:11 -0500 (EST)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 17 Nov 2026 04:17:11 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794907026;
-	 x=1794993426; bh=ylxYAdRJbN2+nc71qafuBh5CUEHqWV7dF5BSNuKNgSQ=; b=
-	hA+RuZCtBlroKaHaa4om9KunlkijfGP3m5Jg3UQaLOMRXDqT9Gs088GRQLPFbqAp
-	PLYGf0mgpszIM4ns3teOJrWdgFX8RKIcwRmJAYU02GLXIrIl6l26ya2PInTL7blf
-	H18Z1ZEAunH3hXdRLkKbqKKw9MQNcbtDbl0nRFjjNM7IeO/7Nxw5Oi8R8mAGsDWD
-	//zAPISaT0eUicCjkV6R6jEZ6sAby/yv4NQFIfSooUR4GbZ+RYmjo7brwSO0M05W
-	JyRdnoQpGqYp0lOe7F5mXst+BW06gHPKfdEC7HgcBZLKBQUjXaV+KOeMA38FXWAW
-	GqInLtpn37TDqL7sKdvBVw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794907026; x=
-	1794993426; bh=ylxYAdRJbN2+nc71qafuBh5CUEHqWV7dF5BSNuKNgSQ=; b=t
-	GdAx7tr9oaHRUfB2MalZ7Rcqu8PJHKMZ0TovI/NdIFtDVHadNoSkmAnv5HPpm7py
-	N+y3Jm/fHIlx1qXJXdTLQWhtTKzPt5UD+SgNPrPF/cFTAJs6WeK3+VjPmFnxQ4Xp
-	dDcVsSTe6l0+cqBdjhMu0GvucYh03pCIKPwgdntGLIZrxuh7VH+T4omYBTCPQoR1
-	q3W2+OWbD73rvSqHqKLBvENeZTVYHPlngd4VjfqTUGaIUdDtH39wvWnupnpC0JE9
-	Gj6tYCPzoZpn/Fy8ykQD+Vr18dwHuLZM0PE5R8jwtP5lMiyLKluayuT0oww8YfFT
-	uC35KTMhFTO/Nk6c98KIQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794907026; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:HAisDqoJwufxbNC741JtmRv91DarmV/bHP0QxfwD0qA2nqa
-	WDKW5rj3O7ux+SH8HURf+sJZcrYwchkMXHUFSKeekO88XapL9ttzS6fpa0T5Ujys
-	ydnzw9KTOVR35u5iydG96YZ7cnxAe2FNRyMwSNO4JVJh6pq6rQcAYSj7FF720IMu
-	/EU4GMyvqTeMCniuOMoqqgk420pNbvyNR7rc5MZUvinVuuBx7doCppMK0QtE6LIS
-	Mb9sZ9rtbfgNof0Y7Y7UPsomYeHOnwoLoH9p0hOlFRgidYk4HwqjmlkxdOdD792l
-	Sb31IDPVwEDrzVb1/jsVokfOET9a8dU4NzQ05YA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:jamKSb1Mh9FEr48BCkl4zyWu3uo82vTju/A5t7S0N3o=:Am9tGrLXliDCWvBTMVenTyCZ+J+acKj5XOpZg9kpzA0=;
-X-ME-Sender: <xms:jxv8ataRDI4zM32UHdMoX2iu9LO8TbuwtWBlTB7U9_easuRFnU66PA>
-    <xme:jxv8avMvN6f3VMD2YAbeGbnZ6_3oESrJUuctc98tRLRcVNxlZxFf7iBzJKRGJwT72
-    UeH4877VjllIHcWEnqRZYlLT4tHkbpV8VdCVj-ZbW2d4KigKX5slILy>
-X-ME-Proxy-Cause: dmFkZTGJ09n7RVGHDV+ONr1e6D6IsZ0OG2CaZWAlS0KX6cFRTpTdKWBLQznxcKq+EUmVLy
-    xTDzG57fCSXaPatrWJcBUkG+Jy+VGW/J+CB0ROjg/czGo/wyNP2F0XrHSQ4KDngDLwhKV9
-    vfX4fmjtlUIlJrfXFRaYjinenkPyGvje6EjPNpP6ZY2MeXyFc4enM4lwwnq4GuNwjf4jXv
-    YfhsclJmzs80W+OD/6MC5Nvp5Eev+p1S/y8dSaThGCIo1yYxlj1DvjtJzY0tgahVmJr8N0
-    4oorMqXlGtcf3UX3+zV/7z48yK3cg9GsOkDkSn3RA6vTqMabBbheejxq0hJPj7h3+uoGfC
-    vNLWgkMlDvHY3A6q7TFxeCYWTM9ujVa1LW4rA3nk5SU5gC37ACwmm2M8niJPb4IvTBbRwS
-    U/ISeA4SuqlTaRer0izpEesK1qCd0Bu546ul3XTLjNdsuyYYtfh8LCIrmTJILPZUbvibeB
-    m/vd3/wMd8aCRdcvWUm8xBqe2burW+f1pzW2UjNOJcfYFVJKb8OLGA7wnK7mD56ckfw/OI
-    chvVxH6pT0X/CS73c/5ixlgzzbPf/29K6w6HaPz0vKIKHvPm7QCC64vflUrWCDDe4dcuL0
-    cLewWZYgiwMzBowumquS4ecSuaHRGbhbwAQ3B2rav/FsD++5URTm+AMIBHUw
-X-ME-Proxy: <xmx:kBv8agWcQvQmiaKxfascFJyX1-YfoU-OA8gjbQaMAqtMTMtkvjKisw>
-    <xmx:kBv8apihsRAHcejL5K-uj7qrnCBP2gONMAlOkTLIvCdbsoYuxoSAcA>
-    <xmx:kBv8aoqNcPyk-E6xnAilMfOVzIkaMYIeHEaIrZW17ofJ1dsbumoEnw>
-    <xmx:kBv8avH179OmU-I7pGjIwffLIVWDEUQKrhz_o91mRaKnrU7GJc07HQ>
-    <xmx:khv8aqY258t0zwwHyVJ4WFNGcx1vfkoZvRwX0-DLqfpiqQAeZDSUopUb>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id E21D832A009C; Tue, 17 Nov 2026 04:17:02 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=chWayecA
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id D9B082010F9;
+	Tue, 17 Nov 2026 10:17:12 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794907032;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=k9mD4d+6c6e9/oQ4Pzb2k3qI5yqg28FGpyq/0WXhWNs=;
+	b=chWayecAi761d/qTajeLnDr8F4kqev3ZHMeFzu8gqUI/mklE4f4fBFC2YZ1QrKsJYW7NRO
+	l/Qu+E3MbNjUFZr6T+exMUJBRwoLcCaXj/aPbr+Drk+LKCKlQe9DJHUzqakiHj+J5+SLwX
+	iK669IpRLB0qevJQ22Wk5E9TTArf6nDNqTCOglwuzLaYq4gRB3sp3ZtyCCCj9zkhbri0k6
+	P69Kg/IMsNChB1MhIBAjnrftXEo8PIfj3gT02gaoOCCUqFd9NS2rmYduGdivTGlOJRKLOB
+	LydMaVl5pVrt9iHrKxFViPN+KMzOXnqdMhlkQTeVf2Bqp88/RG+rM8Z3yIBdYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794907032;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=k9mD4d+6c6e9/oQ4Pzb2k3qI5yqg28FGpyq/0WXhWNs=;
+	b=cfu4B6QbQ8M/XuEjrajuGubsHXfuJKjqNkbmH53hsr5AgWu/CqfzM227YpnJvC7XNZsw4I
+	mNWsvYhcQnnfi2BEjOypMdG2J+7MclgrVLn0nixcbx8ZjQOpNvYMIq8fbuXPo4sAzgWZR/
+	qgjCz2JxVB/oeBxcZzg699rqeEd/tZ1FXgGTIsbt3Ft4nmRMQFtHWqTES/nj3t3iZo9v8u
+	t20nDUw09UnkoPJVf84jLESWCcIP0r1bnWUXeuOt6RO/OTLMY0e96uLWNYka2HhLqqga58
+	liA1T6U734kx/xfl6eE6vyVKVJ0LyMrL4Bdjbh90T0wc2BRrDYkXB9xPZGFH+Q==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794907032; a=rsa-sha256;
+	cv=none;
+	b=PSzNgg8HJ/BDAI/32V8IDWV82XEzb1aT4jFAzF/UuvBrLVjekLFUz9h4nPSR3wWPG9Gn8l
+	3O0aSA9W6IHOPXqjYRxKctiSS00phHkmGf088elT1+Wpb3nwDWBv+shRpd89RNBrLVHgAb
+	ed/jun/qQC1X44lu2bOgTpBWuKjEDzSrsmxTnnCgCkXeTv01W23V0N+QSbCCa0vKwdP52d
+	mFI5SttflO34wR8RuGWTptEI+dWrx9miesaqVoNxeDmVr896hHjy//SlQILAEZ4++a9S+U
+	+qRCMh+40/8jphc9vJ91iyWzaKPVOHQB9m7cTXbzGGMxc5FGzpcUbrizTWQz4A==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+Message-ID: <f1b6889a4200720b91296168815533876c907674.camel@pengutronix.de>
+Subject: Re: [PATCH v1 2/6] clk: starfive: jh71x0: Move reset controller
+ registration to jh71x0 common code
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Brian Masney <bmasney@redhat.com>, Jerome Brunet
+ <jbrunet+clk@baylibre.com>,  Stephen Boyd <sboyd@kernel.org>, Emil Renner
+ Berthing <kernel@esmil.dk>, Rob Herring <robh@kernel.org>,  Krzysztof
+ Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ "linux-clk@vger.kernel.org"	 <linux-clk@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org"	 <linux-kernel@vger.kernel.org>,
+ "linux-riscv@lists.infradead.org"	 <linux-riscv@lists.infradead.org>, Hal
+ Feng <hal.feng@starfivetech.com>,  Jerome Brunet <jbrunet@baylibre.com>
+Date: Tue, 17 Nov 2026 10:17:12 +0100
+In-Reply-To: <ZQ4PR01MB12027C86A7EC92969661032CF27B2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+References: <20261013102707.9207-1-changhuang.liang@starfivetech.com>
+	 <20261013102707.9207-3-changhuang.liang@starfivetech.com>
+	 <179475230833.3873592.13070196353304136001.b4-review@b4>
+	 <ZQ4PR01MB12027C86A7EC92969661032CF27B2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,57 +102,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AzjZfwey9aPB
-Date: Tue, 17 Nov 2026 10:16:42 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Tzu-Ching Yang" <shingekinocore@gmail.com>,
- "Brian Cain" <bcain@kernel.org>, linux-hexagon@vger.kernel.org
-Cc: "Yury Norov" <yury.norov@gmail.com>,
- "Rasmus Villemoes" <linux@rasmusvillemoes.dk>,
- Linux-Arch <linux-arch@vger.kernel.org>, llvm@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Message-Id: <e79e581e-3038-449d-a637-34389f3e9b97@app.fastmail.com>
-In-Reply-To: <20261117054939.2126980-1-shingekinocore@gmail.com>
-References: <20261117054939.2126980-1-shingekinocore@gmail.com>
-Subject: Re: [PATCH] hexagon: bitops: use the compiler builtins for ffs(), fls() and
- ffz()
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 17, 2026, at 06:49, Tzu-Ching Yang wrote:
-> The hexagon inline asm for ffs(), __ffs(), fls(), __fls() and ffz() is
-> not needed: Clang, the only compiler that builds hexagon kernels, emits
-> the same ct0, cl0 and ct1 instructions for the compiler builtins, and
-> unlike the asm, the builtins fold constant arguments. The asm dates
-> from the 2011 port (a86a7ce30ac0, "Hexagon: Add bitops support"),
-> before the builtin-based asm-generic helpers existed (048fa2df92c3,
-> "generic: Implement generic ffs/fls using __builtin_* functions").
->
-> Replace the asm with the asm-generic builtin helpers, and ffz() with
-> the generic __ffs(~x), as arm64 does.
->
-> ffs(0) and fls(0) still return 0. __ffs() and __fls() now return
-> unsigned int, which is as wide as unsigned long on hexagon, and ffz()
-> returns unsigned int instead of long. __ffs(0), __fls(0) and ffz(~0)
-> remain undefined.
->
-> With Clang 17 to 23, the functions of a defconfig vmlinux shrink by 1972
-> to 6068 bytes in total (scripts/bloat-o-meter -t). One helper in
-> lib/find_bit.c gets worse: _find_last_bit() executes one instruction
-> more per call that finds a bit, because LLVM rewrites 31 - clz as 31 ^
-> clz once it knows clz < 32, and the hexagon backend keeps the xor, which
-> needs the 31 in a register, instead of sub(#31, Rs) [1]. A few 1 <<
-> ffz() sites also grow by a few instructions, as LLVM rewrites that
-> expression too [2]. __find_nth_bit() executes two fewer, and the other
-> helpers that find_bit_benchmark calls the same number.
->
-> Suggested-by: Arnd Bergmann <arnd@arndb.de>
-> Link: 
-> https://lore.kernel.org/all/affe7da1-41aa-4710-bee0-5e3c2b8a8dfc@app.fastmail.com/
-> Link: https://github.com/llvm/llvm-project/issues/236764 [1]
-> Link: https://github.com/llvm/llvm-project/issues/236765 [2]
-> Signed-off-by: Tzu-Ching Yang <shingekinocore@gmail.com>
+Hi Changhuang,
 
-LGTM,
+On Di, 2026-11-17 at 01:23 +0000, Changhuang Liang wrote:
+> Hi, Philipp
+>=20
+> > > jh7110_reset_controller_register() is only tied to the JH7110 system
+> > > clock driver by its location. Its logic is generic: hand the CRG
+> > > register base to the reset driver through an auxiliary device.
+> > >=20
+> > > Move it to clk-starfive-jh71x0.c as jh71x0_reset_controller_register(=
+)
+> > > so that the clock drivers of other StarFive SoCs can reuse it, and
+> > > make
+> > > CLK_STARFIVE_JH71X0 select AUXILIARY_BUS accordingly.
+> > >=20
+> > > While at it, replace the open-coded auxiliary device allocation, init=
+,
+> > > add and release handling with devm_auxiliary_device_create(), which
+> > > already implements all of it. The register base is now passed to the
+> > > reset driver as platform data of the auxiliary device, so struct
+> > > jh71x0_reset_adev and the embedded auxiliary device go away.
+> > >=20
+> > > The auxiliary device ID is dropped: every CRG already uses a distinct
+> > > auxiliary device name, so the ID is not needed to keep the device
+> > > names unique, and it is always 0 now.
+> > >=20
+> > > Since the helper now lives in clk-starfive-jh71x0.c, the auxiliary
+> > > device names are prefixed with "clk_starfive_jh71x0" instead of
+> > > "clk_starfive_jh7110_sys". Update the auxiliary_device_id table of th=
+e
+> > > JH7110 reset driver in the same patch to keep the tree bisectable.
+> > >=20
+> > > Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> > > ---
+> > >  drivers/clk/starfive/Kconfig                  |  2 +-
+> > >  .../clk/starfive/clk-starfive-jh7110-aon.c    |  2 +-
+> > >  .../clk/starfive/clk-starfive-jh7110-isp.c    |  2 +-
+> > >  .../clk/starfive/clk-starfive-jh7110-stg.c    |  2 +-
+> > >  .../clk/starfive/clk-starfive-jh7110-sys.c    | 59 +----------------=
+--
+> > >  .../clk/starfive/clk-starfive-jh7110-vout.c   |  2 +-
+> > >  drivers/clk/starfive/clk-starfive-jh7110.h    |  4 --
+> > >  drivers/clk/starfive/clk-starfive-jh71x0.c    | 24 ++++++++
+> > >  drivers/clk/starfive/clk-starfive-jh71x0.h    |  2 +
+> > >  .../reset/starfive/reset-starfive-jh7110.c    | 19 +++---
+> > >  include/soc/starfive/reset-starfive-jh71x0.h  | 10 ++--
+> > >  11 files changed, 45 insertions(+), 83 deletions(-)
+> > >=20
+> > > diff --git a/drivers/clk/starfive/Kconfig
+> > > b/drivers/clk/starfive/Kconfig index bd29358ffeec..51716655554f 10064=
+4
+> > > --- a/drivers/clk/starfive/Kconfig
+> > > +++ b/drivers/clk/starfive/Kconfig
+> > > @@ -2,6 +2,7 @@
+> > >=20
+> > >  config CLK_STARFIVE_JH71X0
+> > >  	bool
+> > > +	select AUXILIARY_BUS
+> > >=20
+> > >  config CLK_STARFIVE_JH7100
+> > >  	bool "StarFive JH7100 clock support"
+> > > @@ -32,7 +33,6 @@ config CLK_STARFIVE_JH7110_PLL  config
+> > > CLK_STARFIVE_JH7110_SYS
+> > >  	bool "StarFive JH7110 system clock support"
+> > >  	depends on ARCH_STARFIVE || COMPILE_TEST
+> > > -	select AUXILIARY_BUS
+> > >  	select CLK_STARFIVE_JH71X0
+> > >  	select RESET_STARFIVE_JH7110 if RESET_CONTROLLER
+> >=20
+> > You've switched to imply for the new controller you are introducing lat=
+er in
+> > this series.
+> > You should probably be consistent and align this one too. Not in this c=
+hange
+> > though, it would be unrelated.
+> >=20
+> > This change otherwise looks good to me. It requires Philipp's opinion a=
+s it is
+> > touching reset too.
+>=20
+> This patch touches the reset subsystem. Could you please take a look
+> and give your opinion?
 
-Acked-by: Arnd Bergmann <arnd@arndb.de>
+struct jh71x0_reset_adev is misnamed now that it doesn't contain an
+auxiliary_device anymore. I'd call it jh71x0_reset_platform_data or
+similar. Otherwise,
+
+Acked-by: Philipp Zabel <p.zabel@pengutronix.de>
+
+regards
+Philipp
