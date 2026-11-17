@@ -1,82 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794879218;
-	b=ukVoFyR/u2mbf1FjBlqbBv4Vn2xwMec2p5a8GTWkAWDzIBXTLdg70cbok1aiig0BrCTM
-	 2vc2kB7PYkoePZBnBNNPBv+NgFbzPafjueZrfYSqR/5tyMcsKZvWxbhdV92DvcI817sKn
-	 LPy6gWGWdHaHvpFFCxobOeSUWNCNA6H2l/NxlxSBzo0T73TAQOMtgbG2vuuufFXnooMBJ
-	 3Dly1/3Y4yhksZ7TuSX6xICfiqMywwmwxYCib03XvuWaSCncwwal+EvgDgLPM8LBIcvTS
-	 UXOhHNAGv0JMI+yoJMOIchUWd9JdWmCNyMqMs3k4GVHGzBBFHX/llbWTG7ITXUAk74Q==
+	t=1794879230;
+	b=nmLSa2+CtoNdMj2vT2ASC/hkEJEGl7SNnvRhnG5YD62p7FEgAxfE9i+va5kuIk3RiIIW
+	 LgLo38D5Yas4KRlf3FE9tPQE2Hzogshj3ektiQfuT6Fdhwk/vD4DyMTB51eqe3VsKpOcx
+	 irmo07v/A7jk9SgG/O5Ypo+0IJZ/67SvVKz5XJ+b0oWr/OQDcA7nMB/5BWYEPMDwDeile
+	 eSkmdo85mF9PVzzXxlOoJZDJde1BTKUqd4zv2gxCmVQOdhfl6FEMNuYpLewE14P3d1CmV
+	 JIzmtN/jEyyu6TjRQiZWJx85FWFFrvn6cUsRJ5nXjdh9DHBwW7gpBRFg3aeFSH+tCNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794879218;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
-	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=Zak3hmvrrlJB42Zp7hsTxdej6HPSvfg7OhyOgB5UoS8=;
-	b=B7B4oN7kjUFDjme1S/HXf+NFmu1ecgnGpvLeOct/+MXGJu9W3W2ePuPSkry7FQJkofv1
-	 chK+OT/rZlMQn7mxhbIanBD45jSjxIQd0AHtbKyOYOjU5b6qk/qLC+/hHLPvpmCkGSU9N
-	 6zjL9X9lGZzVhyqySS3094/fI6a3dga9P3p2/g6pSa/sWsi2GMxE+igKaVJut5+8Z//6H
-	 o/fHxNuZGZ+VhumthCP+scJD1i5hfQhZ86b4e9KK3b3pLjtI5jxuCE2/oeP7at23asBKY
-	 nqGGQ0F4RNNEnENLGqWDdUonNRtMFbezsEV9u61vh8hOX6WeQEwYftYaFfo2dsOcTsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794879230;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=P+QEA++iXRaxC5LQOF3XNzROfRpDGeTIxDLuT+8IbNA=;
+	b=vaVbqzJK+hRiH4e3fEU0FdhO/i6aTILddBPRiKE5z+ETJvqDetIKz8FwsR0xBMKo5Wir
+	 50KdXPxBv0Ved9JsG0T08APLSxJVvpfjHL33XvGkESNiRIMKZlJsOWT9dSXGr6I76HO5y
+	 DZXa91Nmao1gVqWi5dwmngu2yD+c5ycw1lBkbn2lPOpER2JZIuXxIPz4a7UbK0sx4+S51
+	 zQvelzjzVn0WNyZGKvT459rerh/5+8BmwKcXJ8sxp2F3BhNaY+9BChdZ1IJKKWBD9+l9G
+	 rq7dyeZQFr89YtIRc4kz3lKQp2AwK4EgIQ2qjCIP2h9VQ5WC76+o5xWwCdL34CLBBfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=wsdLvFo2;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CFDA606A31C;
-	Tue, 17 Nov 2026 01:33:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CFDA606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=mDJW1g6y;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 52980606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:33:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52980606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=wsdLvFo2
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AH1XXiG43941852, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1794879213; bh=Zak3hmvrrlJB42Zp7hsTxdej6HPSvfg7OhyOgB5UoS8=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=wsdLvFo2Em3H18ZAXPE3oy9V1diuhdI9f95klLduItsYdidPkkluIzU2HnRZm/5GV
-	 im0RtfkADeAEzmiKsjQBSxonEHsyTQf2R+OaGLvDuSRPSvZAFUIkSgwC0EqE6EBY0K
-	 JwPQbWmKPR5UdYqHN/A7mS4mmvzGkMguW91zJy/e+TwkLzFQ6byrugo63/1mYaBBA7
-	 zeVV83CKdZauQa6N+6Xn6kTbB2RRp1CsLStEHrLcjnl8xmuv6lD6enFcx7j68cGGkR
-	 Oiaq8BKrmI6YwsDKPyz8TG3yXI8208X5CmeXR7MTmCE8Veg/7+3Kn8r54BIKWLhxJS
-	 Op8xtBD30gNbQ==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AH1XXiG43941852
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 17 Nov 2026 09:33:33 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 17 Nov 2026 09:32:41 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 17 Nov 2026 09:32:22 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
- 15.02.2562.056; Tue, 17 Nov 2026 09:32:22 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Rosen Penev <rosenp@gmail.com>, "linux-wireless@vger.kernel.org"
-	<linux-wireless@vger.kernel.org>
-CC: open list <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH rtw-next v3] wifi: rtw89: acpi: check for _DSM function
- support before evaluating it
-Thread-Topic: [PATCH rtw-next v3] wifi: rtw89: acpi: check for _DSM function
- support before evaluating it
-Thread-Index: AQHdb8F45Ag5kkMCtk2pEzAcm+MLY7cxhzhQ
-Date: Tue, 17 Nov 2026 01:32:21 +0000
-Message-ID: <c182ad839d9b44c3adcc0b208b84d85e@realtek.com>
-References: <20261108204056.28049-1-rosenp@gmail.com>
-In-Reply-To: <20261108204056.28049-1-rosenp@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=mDJW1g6y
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=mDJW1g6yAMh3kLJ3lyCz4iTWyXygBlB0ozEqwHyt72u7MSOeCtLhoHPIiC6LQqHW8u9wu295wEXJN
+	 LIkHIk2ow7oi/CX1rPP9ducxX5tf/SkD5wWnvbs8FS8PtlcH9hULyoln1Ei5xuD6SEoGzfndWyokLl
+	 jSj17HxEgLSgwkQU=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16afbaef4b8b-df46e;
+	Tue, 17 Nov 2026 09:33:42 +0800 (CST)
+X-RM-TRANSID:2ee16afbaef4b8b-df46e
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from [25.255.2.225] (unknown[10.55.1.70])
+	by rmsmtp-syy-appsvr02-12002 (RichMail) with SMTP id 2ee26afbaef4ac7-9df62;
+	Tue, 17 Nov 2026 09:33:41 +0800 (CST)
+X-RM-TRANSID:2ee26afbaef4ac7-9df62
+From: Jiahao Xu <xujiahao@cmss.chinamobile.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Christian Brauner <brauner@kernel.org>, syzbot+7666ed2c3d42196bf7e3@syzkaller.appspotmail.com,
+	Jiahao Xu <xujiahao@cmss.chinamobile.com>
+Subject: [PATCH v2] iommufd: only hold references to files memfd_pin_folios() can pin
+Date: Tue, 17 Nov 2026 09:32:44 +0800
+Message-ID: <20261117093244.652569-1-xujiahao@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,28 +69,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Rosen Penev <rosenp@gmail.com> wrote:
-> When the WiFi device has no ACPI companion, or the firmware does not
-> implement a given rtw89 _DSM function, rtw89_acpi_evaluate_dsm() calls
-> acpi_evaluate_dsm() anyway. ACPI core then warns on every probe:
->=20
->   ACPI: \: failed to evaluate _DSM e8c3a8d2-694b-004f-82bd-fe8607803aa7 r=
-ev:0 func:10 (0x1001)
->   ACPI: \: failed to evaluate _DSM e8c3a8d2-694b-004f-82bd-fe8607803aa7 r=
-ev:0 func:6 (0x1001)
->=20
-> Here the handle is NULL, and acpi_evaluate_object() returns
-> AE_BAD_PARAMETER. All callers already treat failure as "no policy
-> provided by the platform", so this is only noise.
->=20
-> Bail out early when there is no ACPI handle,
->=20
-> Seen on an RTL8852BE in a desktop PCIe slot.
->=20
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+iopt_map_file_pages() stores a reference to the file passed to
+IOMMU_IOAS_MAP_FILE in the iopt_pages of the new mapping:
 
-Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+	iopt_map_file_pages()
+	  iopt_alloc_file_pages()
+	    pages->file = get_file(file)
 
+iopt_release_pages() drops that reference only when the iopt_pages is
+destroyed, which for a file mapping happens while the iommufd file is
+being torn down.  Nothing restricts which file can be passed, so
+userspace can map the iommufd file itself, or a vfio device fd bound to
+the same iommufd, both of which own an iommufd_ctx reference.  The
+reference graph then contains a cycle and the file, the iopt_pages, the
+IOAS and the iommufd_ctx are all leaked; kmemleak reports it as
+"memory leak in path_openat" with the holder taken through
+iopt_map_file_pages().
+
+Reverse the test instead of trying to enumerate the files that own an
+iommufd_ctx: accept only the files that memfd_pin_folios() is able to
+pin, which is exactly the set of files the mapping can be built from.
+memfd_pin_folios() already enforces
+
+	if (!shmem_file(memfd) && !is_file_hugepages(memfd))
+		return -EINVAL;
+
+and both predicates are inline helpers, so the same check can run here
+before the reference is handed to iopt_pages.  dma-bufs are unaffected:
+they are taken by the dma_buf_get() branch above and never reach the
+file branch, and iopt_pages holds the dma_buf there, not a struct file.
+
+Fixes: f4986a72d6e4 ("iommufd: Add IOMMU_IOAS_MAP_FILE")
+Reported-by: syzbot+7666ed2c3d42196bf7e3@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=7666ed2c3d42196bf7e3
+Link: https://lore.kernel.org/all/20261112105945.285526-1-xujiahao@cmss.chinamobile.com/
+Signed-off-by: Jiahao Xu <xujiahao@cmss.chinamobile.com>
+---
+v2:
+ - Replace the iommufd_fops blocklist with the allowlist of files that
+   memfd_pin_folios() can pin, as Jason asked for.  This covers a vfio
+   device fd bound to the same iommufd, and any other fd that owns an
+   iommufd_ctx, instead of only the iommufd file itself.
+ - dma-buf mappings are untouched: they are taken by the dma_buf_get()
+   branch and iopt_pages holds the dma_buf there, not a struct file.
+
+ drivers/iommu/iommufd/io_pagetable.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/drivers/iommu/iommufd/io_pagetable.c b/drivers/iommu/iommufd/io_pagetable.c
+index 5ac736cf5..4d10b2253 100644
+--- a/drivers/iommu/iommufd/io_pagetable.c
++++ b/drivers/iommu/iommufd/io_pagetable.c
+@@ -15,7 +15,9 @@
+ #include <linux/iommu.h>
+ #include <linux/iommufd.h>
+ #include <linux/lockdep.h>
++#include <linux/hugetlb.h>
+ #include <linux/sched/mm.h>
++#include <linux/shmem_fs.h>
+ #include <linux/slab.h>
+ #include <uapi/linux/iommufd.h>
+ 
+@@ -515,6 +517,18 @@ int iopt_map_file_pages(struct iommufd_ctx *ictx, struct io_pagetable *iopt,
+ 		if (!file)
+ 			return -EBADF;
+ 
++		/*
++		 * iopt_pages keeps a reference to the file until the mapping is
++		 * destroyed, so only accept the files memfd_pin_folios() is able
++		 * to pin.  Any other fd, in particular one that itself owns an
++		 * iommufd_ctx (iommufd, vfio, ...), would put the file into a
++		 * reference cycle with this iommufd and never be released.
++		 */
++		if (!shmem_file(file) && !is_file_hugepages(file)) {
++			fput(file);
++			return -EINVAL;
++		}
++
+ 		pages = iopt_alloc_file_pages(file, start_byte, start, length,
+ 					      iommu_prot & IOMMU_WRITE);
+ 		fput(file);
+-- 
+2.43.0
 
 
