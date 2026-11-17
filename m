@@ -1,69 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.105
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794932940;
-	b=zGXboR9gPNeAAf4vewQrRgxFsoyv9ZQgc/qipz690WLV/VnHL/vP6LtdAHnVGeGsWMEa
-	 kKyAkdwE73SvHfYemiUyjZIbP2vM5ANJnoeFMZ9vE1fV7jW6maAv2svJXK2RFT/TZmRdr
-	 tyLFp5+xHI6ktlKFGV3zp1T0/Wld6yGry41hTxlUP8pq1itWkCB34LObmHJafLJP7fFDB
-	 Sepj5rXXzouUGwDx46dQdqlN0wP5JesCDHIDbn6lgGTvd7bonl0uEnUNSW5bjxRloNAQ0
-	 fKoKUtAZ3a2IUMuS8ez4mEbNMDF6cV0t35tCv11eVezmg6CPvCUT52NcO82Ju34mkMA==
+	t=1794932994;
+	b=jpOhECw8+/NqyFns4dw6IjxSX4cE/nRBqUwScbayloo1oCT2J2bAjJjmLox+URJGNL8J
+	 RtO1kfn+J0PYFPG6kvcxHOjTHQNqcBS88GL66DZkkvjqjZ5Nq0wJ8esfTG+JdP800EUt7
+	 1cYTQENdZgrrM9pGMYa+M5FBatm1J1fOr8Hu/pVqv5Ykr66wSo3cIxqh42HdzHQeK0DqH
+	 S9JBSp4PJRoCTavUkJ40U8BBTn7JpHrFE/5veDuY8kXFS/U2wF0fUIZDL3E0ONkb3Ng96
+	 84qMh6v8OXMEUkEvj6i7uMHKNogVkUiLDA7lvudDqqmB33WTg75uHm0q/lDEb1w24MQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794932940;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:MIME-Version:X-Received:
-	 In-Reply-To:References:Message-ID:Date:Subject:From:To:Cc:
-	 Content-Type;
-	bh=uvaP8X9r3pbFsctWYgsEyn9JtFttLYVAJk/GZvc1aYQ=;
-	b=HKTKDjXZdevvKv15B1nA+citXshOVOzi7s4cGKPun/foppUu2wZj0ilIPPHWItMALe7b
-	 B1Lfd8Z4VqBVYv4ThwgdmaQV2Xy2MrZhvYG/wTotOBJc7vKl7aSyyjsRj2yWEP1+qsrEq
-	 J8QZZlh/lQ0hsTWD4JJOOc+9/MqwnvMyTvl20ELnudOUzk3rT3JVzoImlq3H8GNdMhGMN
-	 lQwLHo7vRlQQ5irpbOjeCGNg+5ht07a31wPhY5kI7wY8BLcvrbQ0Y1vAENGegI8bTpol7
-	 My2X/YpwmEyys3BTQr5XwNpyp7C+5fX6p2TanuvQuKjiWWILUOjfjJ2HFnKWgxDQqzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794932994;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
+	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=Xah6kH3NsJjHjsSaD0EvODIXJgcLgPXtuKW/zjmxYTw=;
+	b=bnUTEkIzXiJ827gSHuAQvGjkBbDWby8+f92rqoufQjJWPuHfmr/PQhrgCWfJJbXwn3xC
+	 SBwvIqw9t0lwidTR+md61Hx4X8hA53YB208azqDs2w0g1T9y8cxPeDHAreg0PbAeTufB1
+	 78v/KwoOtG9WqA/baFGpQ1Hp65fAhD8ujY6BUpEUeITrT0pNNXLImsjPHZ3cEotKRcF73
+	 o7LrlZ9gGHalYHYdOZGly5mUP89BHomhCOp9yIVe4BgUHoWaZii1D9a4hd45V1d+pHo/Z
+	 fDZILjU/qqp0HiQxG4GS+wluYRgTimn3uo3VtEMeiNYOWvp9sJaXT2pelWlq0HvzsHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=RvKOfJ3f;
-	arc=none smtp.remote-ip=74.125.82.197
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=g77SUc29;
+	arc=none smtp.remote-ip=91.218.175.105
+Received: from mta0.migadu.com (out-105.mta0.migadu.com [91.218.175.105])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74630606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:29:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74630606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BA91606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:29:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BA91606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=RvKOfJ3f
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-30bcb065bfdso63668eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:29:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794932939; x=1795537739; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:date:message-id:references
-         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=uvaP8X9r3pbFsctWYgsEyn9JtFttLYVAJk/GZvc1aYQ=;
-        b=RvKOfJ3faG+Xs8LNfRiY6/9H6O3naspQs5cc8BOFfjVheiXcmjr2ftvmi0l8s65lD8
-         AltEVkIea76id8Q2j2CZqzj00C1n0L0J0bOCNfZ9Vr6Os+qojePWckLYcngGbyvZ2lUU
-         ftDBUI5x+71Wqkq3yrSwRLPBdpGXh8v+wddic9pNN81W33F2VxMFkyKmppf1/L0Flpmj
-         UqLTk6jZLcfa50N4phVETmuyInwlmXJNgsmwN51yooNLEw9Jk6GlHJEBPplOPnlSm/xs
-         1/Nzr3mH7qqA9qlloyB26+vj72y32ZYNVWyro4PDv6PfzjO+QmVmMStCJVfedQRPBPlJ
-         DPkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794932939; x=1795537739;
-        h=content-type:cc:to:from:subject:date:message-id:references
-         :in-reply-to:mime-version:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uvaP8X9r3pbFsctWYgsEyn9JtFttLYVAJk/GZvc1aYQ=;
-        b=DsgDfWX5sSLpdzKG4oFw4yvCgIKEJRpmOgp6vNhGX1lDI2DvibzR1sYMUDvq1AhG/f
-         dsZ3BsyN52yho4/9LJVE1gR4u6/ilCA1CkY2VoK9zXgny5axGSxMJ+aYJajs9ViU2w9A
-         TB2Ibtj369EtsIcDfx9J1YXrQouyLnvF1Jvt1/tAzvXCeKsjIrzb+sRou5gHu2uV7KNJ
-         beAcPY1FpcgZPJeW6BerNRZG1aJx2GB1STjtQzq9ffd/WG9zXZZuRvzhXEQoLne4JZId
-         p6UApHYul4O1UKEjfFOFWCepiP6szCEqeI4IAUNaG1dlf7Qr6EHOvzCFUWZ8XamX66ua
-         VpsQ==
-X-Forwarded-Encrypted: i=1; AL+hErG+vJUFmfTlsba50DdqDNh3hOhp7LhH5A7YCZP5C5aDmHxDMpyEE1FblJRFPDcaz3ql1oc7CLy35JG3vHM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/cL53Pc7RKoZ9MkjoQiF1jk0Qd8bvCHkeL1X2ruaSkMWPt9kLb
-	8juVytzX4fUeZanyhCRysMuwp2YFQgjdwlJVJLtri4Z27pSdichfM+Aw7vWX6w/K8yV6pZgM8bh
-	dqUpRlMPqmKf91IQR8ceKLzC1rASGjA==
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=g77SUc29
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=L5r87W+vvYhaC4SQ0Zx2qEfNiZ7OppygpT1qNDZLbu4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794932991; v=1; x=1795537791;
+ b=g77SUc29ucT/305eXQyOO/RdLLnTiApw0sYGzoEYg9tr7a9qf2N6jCchSzK9gEuD6vlCP8gg
+ ZtGYFskQqf4gkxIzRo5iyfvUmBn+b7M0xzh/kV6fJ1MyltaOSZYObdCp2OsO++bGXGNFNmgQxUB
+ XuKC7ddVWcLSayz+JbP6QyJA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ec8f52277812aa2e;
+	Tue, 17 Nov 2026 16:29:51 +0000
+X-Mizu-Trace-ID: ec8f52277812aa2e
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 17 Nov 2026 16:29:47 +0000
+From: Bradley Morgan <bradley.morgan@linux.dev>
+To: marek.vasut+renesas@mailbox.org
+CC: akpm@linux-foundation.org, arm-scmi@vger.kernel.org, cristian.marussi@arm.com,
+ eadavis@sina.com, geert+renesas@glider.be, kees+treewide@kernel.org,
+ leitao@debian.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ marco.crivellari@suse.com, michal.simek@amd.com, oleg@redhat.com,
+ panchuang@vivo.com, petr.pavlu@suse.com, pmladek@suse.com,
+ ptikhomirov@virtuozzo.com, ptsm@linux.microsoft.com, sudeep.holla@kernel.org,
+ systemd-devel@lists.freedesktop.org, willy@infradead.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_=5BRFC=5D_kernel/reboot=3A_Add_orderly?=
+ =?US-ASCII?Q?=5Fsuspend=28=29_via_/sbin/suspend_user_mode_helper?=
+In-Reply-To: <20261117084523.50711-1-marek.vasut+renesas@mailbox.org>
+Message-ID: <03D974DA-29CF-404A-99BD-545D199E0A6B@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,34 +70,231 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: from dycmb12-n1.prod.google.com ([2002:a05:693c:20cc:10b0:37b:7764:f755])
- (user=chriswiseman job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:693c:4003:b0:369:9af5:7bc9 with SMTP id 5a478bee46e88-3796696128emr13866209eec.23.1794932938923;
- Tue, 17 Nov 2026 08:28:58 -0800 (PST)
-In-Reply-To: <CAKfTPtB4dKRmK5hnv_Me7CJVECKmoNw7_VywgLyuFjKDi-Pa6w@mail.gmail.com>
-References: <18e8d60c92652608.3137322e32332e3235332e313736.371783.0000sendgmr@google.com>
- <20261117154656.GJ1813469@noisy.programming.kicks-ass.net>
- <20261117160522.GH1922751@noisy.programming.kicks-ass.net> <CAKfTPtB4dKRmK5hnv_Me7CJVECKmoNw7_VywgLyuFjKDi-Pa6w@mail.gmail.com>
-Message-ID: <18e8e1ff7beedd0e.3137322e32332e3235332e313736.2570a9.0000sendgmr@google.com>
-Date: Tue, 17 Nov 2026 16:28:59 +0000
-Subject: Re: [PATCH v2] sched/pelt: Skip redundant decay and divisions when
- sched_avg is zero
-From: Chris Wiseman <chriswiseman@google.com>
-To: Vincent Guittot <vincent.guittot@linaro.org>, Peter Zijlstra <peterz@infradead.org>
-Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>, 
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	Qais Yousef <qyousef@google.com>, John Stultz <jstultz@google.com>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 17, 2026 at 05:09:08PM +0100, Vincent Guittot wrote:
-> Yeah it seems that arm64 has optimized div with an early exit when the
-> dividend is null so it would be better to always do the div
+On 17 November 2026 08:44:19 GMT, Marek Vasut
+<marek.vasut+renesas@mailbox.org> wrote:
+>Currently, Linux responds to firmware-issued poweroff and reboot requests
+>by invoking user mode helpers /sbin/poweroff and /sbin/reboot, which give
+>userspace the ability to perform orderly poweroff and reboot according to
+>policy set by userspace.
+>
+>This is not the case for firmware-issued suspend request, which directly
+>invokes pm_suspend(PM_SUSPEND_MEM), without giving userspace any way to
+>determine the suspend policy. This is problematic, because the userspace
+>might not be quite ready to suspend right the instant when the suspend
+>request from firmware arrives, e.g. because the user is interacting with
+>the device and the userspace knows that interaction will end in the near
+>future, at which point the system can be suspended perfectly well.
+>
+>Introduce a user mode helper, /sbin/suspend, which acts the same way as
+>the other user mode helpers, and which is invoked when firmware-issued
+>suspend request arrives. Userspace can use the helper to apply suspend
+>policy, most likely by invoking init system suspend target. In case the
+>helper is not present, retain current behavior and suspend immediately.
+>
+>Note that /sbin/suspend is non-standard. I also considered registering
+>an input device and sending KEY_SUSPEND via such a device, but that does
+>not seems nice. I also had a look at wake locks, but I don't think this
+>is the right tool either. I am sending this as an RFC, because I would
+>like to get input on this. I am including change for two platforms, SCMI
+>and ZynqMP, which could benefit from this. Thank you for your input !
 
-Sounds like the consensus is to drop the ___update_load_avg() hunk
-(and Suggested-by) and roll with just the accumulate_sum() and
-update_irq_load_avg() skips in v3.
+Hmm. let me use my thinking glasses.
 
-Thanks,
-Chris
+>
+>Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+>---
+>Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+>Cc: Andrew Morton <akpm@linux-foundation.org>
+>Cc: Breno Leitao <leitao@debian.org>
+>Cc: Cristian Marussi <cristian.marussi@arm.com>
+>Cc: Edward Adam Davis <eadavis@sina.com>
+>Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+>Cc: Kees Cook <kees+treewide@kernel.org>
+>Cc: Marco Crivellari <marco.crivellari@suse.com>
+>Cc: Michal Simek <michal.simek@amd.com>
+>Cc: Oleg Nesterov <oleg@redhat.com>
+>Cc: Pan Chuang <panchuang@vivo.com>
+>Cc: Pavel Tikhomirov <ptikhomirov@virtuozzo.com>
+>Cc: Petr Mladek <pmladek@suse.com>
+>Cc: Petr Pavlu <petr.pavlu@suse.com>
+>Cc: Prasanna Kumar T S M <ptsm@linux.microsoft.com>
+>Cc: Sudeep Holla <sudeep.holla@kernel.org>
+>Cc: arm-scmi@vger.kernel.org
+>Cc: linux-arm-kernel@lists.infradead.org
+>Cc: linux-renesas-soc@vger.kernel.org
+>Cc: linux-kernel@vger.kernel.org
+>Cc: systemd-devel@lists.freedesktop.org
+>---
+> .../firmware/arm/scmi/scmi_power_control.c    | 11 +-----
+> drivers/soc/xilinx/zynqmp_power.c             |  4 +--
+> include/linux/reboot.h                        |  1 +
+> kernel/reboot.c                               | 34 +++++++++++++++++++
+> 4 files changed, 38 insertions(+), 12 deletions(-)
+>
+>diff --git a/drivers/firmware/arm/scmi/scmi_power_control.c b/drivers/firmware/arm/scmi/scmi_power_control.c
+>index e791a206768c2..b61afb46ca7ef 100644
+>--- a/drivers/firmware/arm/scmi/scmi_power_control.c
+>+++ b/drivers/firmware/arm/scmi/scmi_power_control.c
+>@@ -80,7 +80,6 @@ enum scmi_syspower_state {
+>  * @reboot_nb: A notifier_block optionally used to track reboot progress
+>  * @forceful_work: A worker used to trigger a forceful transition once a
+>  *		   graceful has timed out.
+>- * @suspend_work: A worker used to trigger system suspend
+>  */
+> struct scmi_syspower_conf {
+> 	struct device *dev;
+>@@ -93,7 +92,6 @@ struct scmi_syspower_conf {
+> 	struct notifier_block reboot_nb;
+> 
+> 	struct delayed_work forceful_work;
+>-	struct work_struct suspend_work;
+> };
+> 
+> #define userspace_nb_to_sconf(x)	\
+>@@ -254,7 +252,7 @@ static void scmi_request_graceful_transition(struct scmi_syspower_conf *sc,
+> 		orderly_reboot();
+> 		break;
+> 	case SCMI_SYSTEM_SUSPEND:
+>-		schedule_work(&sc->suspend_work);
+>+		orderly_suspend();
+> 		break;
+> 	default:
+> 		break;
+>@@ -323,11 +321,6 @@ static int scmi_userspace_notifier(struct notifier_block *nb,
+> 	return NOTIFY_OK;
+> }
+> 
+>-static void scmi_suspend_work_func(struct work_struct *work)
+>-{
+>-	pm_suspend(PM_SUSPEND_MEM);
+>-}
+>-
+> static int scmi_syspower_probe(struct scmi_device *sdev)
+> {
+> 	int ret;
+>@@ -352,8 +345,6 @@ static int scmi_syspower_probe(struct scmi_device *sdev)
+> 	sc->dev = &sdev->dev;
+> 	dev_set_drvdata(&sdev->dev, sc);
+> 
+>-	INIT_WORK(&sc->suspend_work, scmi_suspend_work_func);
+>-
+> 	return handle->notify_ops->devm_event_notifier_register(sdev,
+> 							   SCMI_PROTOCOL_SYSTEM,
+> 					 SCMI_EVENT_SYSTEM_POWER_STATE_NOTIFIER,
+>diff --git a/drivers/soc/xilinx/zynqmp_power.c b/drivers/soc/xilinx/zynqmp_power.c
+>index ce75bc5ca9633..cd1cab58e84ca 100644
+>--- a/drivers/soc/xilinx/zynqmp_power.c
+>+++ b/drivers/soc/xilinx/zynqmp_power.c
+>@@ -112,7 +112,7 @@ static irqreturn_t zynqmp_pm_isr(int irq, void *data)
+> 			orderly_poweroff(true);
+> 			break;
+> 		case SUSPEND_POWER_REQUEST:
+>-			pm_suspend(PM_SUSPEND_MEM);
+>+			orderly_suspend();
+> 			break;
+> 		default:
+> 			pr_err("%s Unsupported InitSuspendCb reason code %d\n",
+>@@ -196,7 +196,7 @@ static void zynqmp_pm_init_suspend_work_fn(struct work_struct *work)
+> 	if (pm_work->args[0] == SUSPEND_SYSTEM_SHUTDOWN) {
+> 		orderly_poweroff(true);
+> 	} else if (pm_work->args[0] == SUSPEND_POWER_REQUEST) {
+>-		pm_suspend(PM_SUSPEND_MEM);
+>+		orderly_suspend();
+> 	} else {
+> 		pr_err("%s Unsupported InitSuspendCb reason code %d.\n",
+> 		       __func__, pm_work->args[0]);
+>diff --git a/include/linux/reboot.h b/include/linux/reboot.h
+>index aa08c3bbbf59a..c009deb3eb2b6 100644
+>--- a/include/linux/reboot.h
+>+++ b/include/linux/reboot.h
+>@@ -177,6 +177,7 @@ void ctrl_alt_del(void);
+> 
+> extern void orderly_poweroff(bool force);
+> extern void orderly_reboot(void);
+>+extern void orderly_suspend(void);
+> 
+> /**
+>  * enum hw_protection_action - Hardware protection action
+>diff --git a/kernel/reboot.c b/kernel/reboot.c
+>index bc71183d4ad87..1d830051dc920 100644
+>--- a/kernel/reboot.c
+>+++ b/kernel/reboot.c
+>@@ -851,6 +851,7 @@ void ctrl_alt_del(void)
+> #define POWEROFF_CMD_PATH_LEN  256
+> static char poweroff_cmd[POWEROFF_CMD_PATH_LEN] = "/sbin/poweroff";
+> static const char reboot_cmd[] = "/sbin/reboot";
+>+static const char suspend_cmd[] = "/sbin/suspend";
+> 
+> static int run_cmd(const char *cmd)
+> {
+>@@ -872,6 +873,20 @@ static int run_cmd(const char *cmd)
+> 	return ret;
+> }
+> 
+>+static int __orderly_suspend(void)
+>+{
+>+	int ret;
+>+
+>+	ret = run_cmd(suspend_cmd);
+>+
+>+	if (ret) {
+>+		pr_info("Failed to start orderly suspend: fall back to suspend-to-mem\n");
+>+		pm_suspend(PM_SUSPEND_MEM);
+>+	}
+>+
+>+	return ret;
+>+}
+>+
+> static int __orderly_reboot(void)
+> {
+> 	int ret;
+>@@ -951,6 +966,25 @@ void orderly_reboot(void)
+> }
+> EXPORT_SYMBOL_GPL(orderly_reboot);
+> 
+>+static void suspend_work_func(struct work_struct *work)
+>+{
+>+	__orderly_suspend();
+>+}
+>+
+>+static DECLARE_WORK(suspend_work, suspend_work_func);
+>+
+>+/**
+>+ * orderly_suspend - Trigger an orderly system suspend
+>+ *
+>+ * This may be called from any context to trigger a system suspend.
+>+ * If the orderly suspend fails, it will force an immediate suspend.
+>+ */
+>+void orderly_suspend(void)
+>+{
+>+	schedule_work(&suspend_work);
+>+}
+>+EXPORT_SYMBOL_GPL(orderly_suspend);
+>+
+> static const char *hw_protection_action_str(enum hw_protection_action
+> action)
+> {
+> 	switch (action) {
+>
+
+
+Right, I had a look, this doesn't "hurt" to merge, like for example
+nothing will break, and this looks simple enough, but again, as you said,
+/sbin/suspend isn't standard, so that's a crux. I'm thinking using PM may
+be a "lightbulb" idea for me here. But I may be going crazy.
+
+hmm, if I had to say tag or no, I'd give the tag:
+
+Reviewed-by: Bradley Morgan <bradley.morgan@linux.dev>
+
+Since
+
+1: this doesn't hurt to merge
+2: this looks very very simple and quite cool tbh.
+
+
+--- Thanks!
