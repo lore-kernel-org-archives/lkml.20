@@ -1,47 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794912314;
-	b=JToX3LP0E4WK+2nlUTn/82cn+uhFZMqozsk3akmsBN0i6Zf9CW6mq66V/oNwUhGyhTtI
-	 C+DJFukOvL76Aiv3eOfxmX54IZkBb4FdgRV4OKF84XX7uOae9R2IWCTM54H5qh6iyh4/S
-	 2W29LSfX7iTiFP3ZUZuXqfpZkyZiQLDjZNq5YUhRo1Dms5ZzkZTGEFhMil+XrbRCxZn6j
-	 k8Q4WqKQsqAu2KZpr3/eYuDjRBIkFLUo9HvrNnSUFGj/Xy3kFd7C9GL/3OVK2klDkH/o6
-	 UU3RMd5uWLkIyPpYOdCshj0amj2qEV1qxhmG1GGvvvPG+7NI+W1eF4wGha/2ckYKvHg==
+	t=1794912340;
+	b=EqKZFE3jZt1jqwAiA0qW5ZgItQzkksTnHPYHmSXaaY3jT0S6mVexfjrJqoti9ksm5Dc6
+	 7BIUjgzVSHNM+1gcQC6X709Znm08+QK2aVB06tfLjQHXoNChJc4XMLZtbCa4KflF6pZgG
+	 aLvsVZnGjrbDkU8SQNmBmctAIveLbhZy3FCCX7WUaEqVMGhpRfI2Uyss44TmY5bX06DAC
+	 +38376+9CPk65sdMEGXiAFVbJS/fNgecIyAwgz8ddHjBNYJsP9fIbkZn6BuWk9gwYTwOi
+	 bc0cKbf9rZFS9bPHCNUuptyA0CilnECjVhAjdDEng5Vzc7yKxHZGeMVEGxONYhYUH1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794912314;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=uzUIZzED4hR+jEu4P1YFmt2PNtdzFcv6S+BMZtUimCE=;
-	b=nGxzXIfwb3jwZ9ZB+75FXeRfQUVCfHULpRUt49+phfuWxmA+P8YlH6IQeX/x3h504BU7
-	 5X3gsDEK/+uHwcmEwhR8m69svHRq+MuRTsdZm84v/JP9NR+GwPGXIz+M6SZCvwbDqjjXB
-	 yFEhai4+kCJROoOJvpgB/6LJ7B2+/eObM7SP+Cfm5RU8UTM3PeXUFrbNVfi4Yqx85vY+p
-	 dL+zUyKJJMuocjcStbBM9CEUBuX0l12f1F4bnyPN3fFHGBrEzkJzdI2pTC8oogbT0owMm
-	 MbqocpMCDnjastqOhykYxTIGsB4F62G7XChIqdzcSmccyKz6HRe6c5v/U6LUGd9Pt3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794912340;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=+QOfZWAWfuxgKbStyVvWkdAdsygA1smra+vivVT1w/I=;
+	b=SefwU0J1J0JkXHZW4nzuC+eNDW8RTGwxTU/dgLvNe6/uU4HzXo0YZb/BFKxV3JCESpwu
+	 whmqDMnyLxAloLiUPICCNcEcdTKIt9qQFjLsZr0cEJLxu1f+qIX4Djk/2qIS9LLnxFM9W
+	 gNIdSY6G/oeNv2yENRVhgptrjkak7tpa7+f2JOBMq4Muow9qwHkNk2kGhmlkkEDTUSqCA
+	 HU+Z0g7JOHni4FlsVLuw+EeNpAylq5iDGgOLmyl8YHSIdQ0AOJkh3kuLMuyep9R8u6Ucf
+	 NAxshFThwRKE2od1HolzGC1RnoIUsPN3wnUFbIFkYflD0mW6aKVLZqlR2rzaMVeB53Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BbK9k3Xt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IzWGHHgp;
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC50606A31C;
-	Tue, 17 Nov 2026 10:45:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B186606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 10:45:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B186606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BbK9k3Xt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC08A1F000C4;
-	Tue, 17 Nov 2026 10:45:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794912314;
-	bh=uzUIZzED4hR+jEu4P1YFmt2PNtdzFcv6S+BMZtUimCE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BbK9k3XtiYbyGbOENblk4eRB3A3Wnatb6CAyt9R6+CKJTVqaSPb6nr14LhWNHXOQb
-	 QIxBMfI/mizZidFesOp08klrKMiUPxFefcnKSbSuCJwuHL9602AuNMi9cdZzNlOBpE
-	 bQgptu0h6SXocozA3f1sKX3/ydxOJ+mfH30DWMiKEEWm69OawaogojYBNtRysvK7zE
-	 ggge73YY2fveokb4H4kH7eYi6z6zyOZct95UH8MH9RAgHUAIXVazQA0h6V4kc3FX9O
-	 TpV7BIGwm6I0Ly+dKMk2mEr711zqvGrVmaLCIjlsnwHLgWwv/gCmJgZU0sb9qatfvT
-	 rZZv0cvJTiQIg==
-Message-ID: <5de47ef8-58b6-40b7-9c62-f4c306cceb40@kernel.org>
-Date: Tue, 17 Nov 2026 11:45:07 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IzWGHHgp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794912340; x=1826448340;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=tV++jvHacqiiQ1xuEHsqeJB+olHXNyNtM4oKWmXmp4Y=;
+  b=IzWGHHgpg+tOw3iOu4MXL3DquFE1+uGOtNixpH0R77OComVG7rIULMQi
+   4CwRo2ooox3jL/5mex5xt4VFFMtPOOHw7TuvmuZtFg3VkBWsrFqrlrvTx
+   e0YrCqqeSljSkb4knhaAFpxZAp2tNszzkfDcHVs59Fptv8I2UInksH4TN
+   Kab33S/pfhW1AGB0fZ4a6jW8MEYnUAmCq9P940QGRMstyZjD17weBMrAY
+   /v/joj34x6ZuhHXGpoWSYLt5MJ/xfzBvOUn7MzY9w3siB2ZL1+Ve0LSuz
+   tnhMiq7LIfeEDn8P9WOBj53WMTUptvMG62djc/tcwcauBpWn1V1MTmqD2
+   g==;
+X-CSE-ConnectionGUID: B1zcMuNrSruZ9j9k2Cn0MA==
+X-CSE-MsgGUID: rNKCEc4LR9yODIinSlwwsw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3601192"
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="3601192"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 02:45:39 -0800
+X-CSE-ConnectionGUID: e4RQ87EmSrqW1D+kS1axpg==
+X-CSE-MsgGUID: deuFrh1ATdKTC7VLwxn02A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="9742682"
+Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
+  by orviesa007.jf.intel.com with ESMTP; 17 Nov 2026 02:45:33 -0800
+Date: Tue, 17 Nov 2026 18:36:45 +0800
+From: Xu Yilun <yilun.xu@linux.intel.com>
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
+Cc: "Tian, Kevin" <kevin.tian@intel.com>,
+	"Li, Xiaoyao" <xiaoyao.li@intel.com>,
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+	"Hansen, Dave" <dave.hansen@intel.com>,
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+	"kas@kernel.org" <kas@kernel.org>,
+	"seanjc@google.com" <seanjc@google.com>,
+	"mingo@redhat.com" <mingo@redhat.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"pbonzini@redhat.com" <pbonzini@redhat.com>,
+	"Verma, Vishal L" <vishal.l.verma@intel.com>,
+	"jgg@nvidia.com" <jgg@nvidia.com>,
+	"aneesh.kumar@kernel.org" <aneesh.kumar@kernel.org>,
+	"nik.borisov@suse.com" <nik.borisov@suse.com>,
+	"hpa@zytor.com" <hpa@zytor.com>,
+	"tglx@kernel.org" <tglx@kernel.org>,
+	"nicolinc@nvidia.com" <nicolinc@nvidia.com>,
+	"Peng, Chao P" <chao.p.peng@intel.com>,
+	"Duan, Zhenzhong" <zhenzhong.duan@intel.com>,
+	"bp@alien8.de" <bp@alien8.de>, "aik@amd.com" <aik@amd.com>,
+	"Gao, Chao" <chao.gao@intel.com>, "x86@kernel.org" <x86@kernel.org>
+Subject: Re: [RFC PATCH 06/15] virt: tdx-guest: Support TDI bind and unbind
+ operations
+Message-ID: <avwuPRylKEs17+UV@yilunxu-OptiPlex-7050>
+References: <IA3PR11MB9136FEF30F06D8D5118B389292692@IA3PR11MB9136.namprd11.prod.outlook.com>
+ <a63e7dbdba277b5a551ec74d09144e97f55504dc.camel@intel.com>
+ <IA3PR11MB91369A1E95D047DBEDB53B7892722@IA3PR11MB9136.namprd11.prod.outlook.com>
+ <f1cdd989f6bcf6a177dcd83e55fb8465e0ee849f.camel@intel.com>
+ <20261110195745.GG738765@nvidia.com>
+ <e44f3f12b3fecdc5f3c05aa1f1b0ceb1befad0b7.camel@intel.com>
+ <20261111001606.GH738765@nvidia.com>
+ <CO1PR11MB4835656CEB24B31B557162258C712@CO1PR11MB4835.namprd11.prod.outlook.com>
+ <avW3jZYB5/L4WaGL@yilunxu-OptiPlex-7050>
+ <49b19bcfa1b0658cc0aa5cd280acb439bbba8287.camel@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,118 +107,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: media: qcom,mahua-iris: Add Mahua video
- codec
-To: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261113-mahua_iris_enable-v1-0-b7107e1cbcaa@oss.qualcomm.com>
- <20261113-mahua_iris_enable-v1-1-b7107e1cbcaa@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261113-mahua_iris_enable-v1-1-b7107e1cbcaa@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <49b19bcfa1b0658cc0aa5cd280acb439bbba8287.camel@intel.com>
 
-On 14/11/2026 04:09, Deepa Guthyappa Madivalara wrote:
-> Add a devicetree binding for the Iris3.9 video encoder and decoder block
-> found on the Qualcomm Mahua SoC. This is a single core derivative,
-> leveraging most of Glymur data with the clks, resets present only
-> for vcodec0 core.
+On Mon, Nov 16, 2026 at 11:57:23PM +0000, Edgecombe, Rick P wrote:
+> On Thu, 2026-11-12 at 20:56 +0800, Xu Yilun wrote:
+> > > > > 
+> > > > > For errors that indicate uncooperative or buggy host, we elsewhere warn
+> > > > > in
+> > > > the
+> > > > > TDX wrappers. But in coco, not handling an error in the caller can be an
+> > > > avenue
+> > > > > to attack the guest. So I guess we would commonly need to handle these
+> > 
+> > The secure firmware should guarantee the attack can't impact TSM
+> > security.
 > 
-> Signed-off-by: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/media/qcom,mahua-iris.yaml | 243 +++++++++++++++++++++
->  1 file changed, 243 insertions(+)
+> We had some issues in core TDX guest where if the VMM lied to the guest it could
+> cause shared pages to be returned page allocator. Due to an error not getting
+> handled properly in many callers. This led to a debate about whether we should
+> even handle the error, or just panic the guest if we see weird responses from
+> the VMM. Ultimately we settled on a warn, due to the face that panic_on_warn
+> should be set. For x86 code at least, we should be consistent.
+
+I see. IIUC the problem is not the VMM lies or not, it is the guest
+itself not be consistent about the page attribute: The caller ignores
+the error and see the page private, but the guest PTE maps it share.
+
+Actually the guest can't tell if the VMM lies by GHCI return code,
+success or failure. The guest could alternatively ignore the return
+code, update its PTE and return success, later the HW can guard the
+inconsistency between the guest's view and the physical state when
+accessing the page.
+
+Of course the GHCI error detecting is useful to keep system stable when
+working with benigh VMM. So I agree that we propagate errors and handle
+in the caller for TDI LOCK/ATTESTATION/ACCEPT phase. But I also feel OK
+to treat UNLOCK as always success - the kernel rarely fails on exit.
+As long as the guest doesn't mess its own TDI state tracking, we are safe.
+
 > 
-> diff --git a/Documentation/devicetree/bindings/media/qcom,mahua-iris.yaml b/Documentation/devicetree/bindings/media/qcom,mahua-iris.yaml
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..cbae6bddf7fd4b67330ce47033874f3d349e5a3d
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/qcom,mahua-iris.yaml
-> @@ -0,0 +1,243 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/qcom,mahua-iris.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm Mahua SoC Iris video encoder and decoder
-> +
-> +maintainers:
-> +  - Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> +
-> +description:
-> +  The Iris video processing unit on Qualcomm Mahua SoC is a video encode and
-> +  decode accelerator.
-> +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - items:
-> +          - const: qcom,mahua-iris
-> +          - const: qcom,glymur-iris
-> +      - const: qcom,mahua-iris
-> +
+> So it was more about exposure to bugs then higher level issues.
+> 
+> >  For DDOS attack, the guest could always move the device to
+> > untrusted mode.
+> 
+> DDOS attack?
 
-I don't understand what you want to express at all. See DTS101 slides, I
-gave the talk in Qualcomm office this year even.
-
-Anyway, glymur is undocumented. There is nothing about dependencies in
-top of the cover letter (sorry, not going to scroll further - you ALWAYS
-put the most important information first), but anyway then it means this
-is untestable or unreviewable.
-
-Best regards,
-Krzysztof
+Sorry for the typo, DoS (Denial of Service).
