@@ -1,122 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.38
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.73
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794895982;
-	b=I2rWOAeD9yXuh0KfpR7BTq/Br0p/1XPpS5BCccX2VzJRw08fxXrmh8vLDe95f+RRXndY
-	 zdu1ifgUHba8cQecjUOSB3006zPqP6c+hIIsiMUudfLKAxyzY8H+T5uVAKkaevv/qyLpX
-	 pK/pZGbvn7Lb0yU7RsWgIF2cv/QHQWFB41p5CCQtTT92UOKp4w3D7PyJmSZ/rKQ+r8+ln
-	 RgBxEQ2M5QnIiPwSq8moyFW43zcHPBl1n+isMnVqqA22+mTNvbMC9NRCz2rrX4kGwe0NH
-	 VtEE+kGMp3FA2twnt3a0sRsJKr64kZUF5Mr0cvKTvtI9q3UptK5ShAwyNG5D3XvcSNw==
+	t=1794896060;
+	b=wtzi318xwx9+z+n6zrJ3mn+GGjmsLs+w38nRNNHwekfLZ+8nCGRrLRNetpKHi+hpagJ+
+	 vHD7BsbyfG7YqrUingIYh+RXlIfjvAfXvJ3VWZHaaQsIj1SszSHbwNK1K0SpZWVEWSEvG
+	 RW9xFrY3zIUU8SV76OlmIph+oOwjndfVrrrcPQJQxPkCqxJi3LbZ/yN5CXXKcEP6kCLBs
+	 50Zo8YAG1cNbZrUNk8+VhCSRm4WjgifSNeo9pHpKlohZxLmgfVXO+r64/gSCalxOMKzWd
+	 f3i63P7OZmCUIybTvL6smlZcLzVJmby0WFOZAfKiAAbi2l+LpzOWfsFeN+kAjuyR7Aw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794895982;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794896060;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=oshRBGc50irQGUtCxuAmm5ga3T4vXJR1vl5q0c78OsQ=;
-	b=pbHMlVi/lRzKBz/LVNuDiytK7FtyjxwFsWd0KrsKM/aLNvWp4YF5Wlk4qECCenPwcHf3
-	 JMYvJxttzdM+zyNjOIa8K1z1c5PotOrAQOvR88LxUB+lzIWe6NG23GnSgf8IfzwM9p/dE
-	 d3o7z31/aR/6tI1ACfaUA8qSf9FesSwFd0vkPCuk4n90xFxbuAxVFO/ig31kxKgZC0+GD
-	 V23CtOLA+f9AJXOmqcsMWqCoXHCxvhU7TtZQJrRwRasDk0W6yuIKioa2XwLBnsDjWP7oD
-	 vNvl+3lDIHoVFuCIwAb70ICocvnekO69gd8eQzoCY9CxsKKRMe9vEoXiEZRMD6qxlRA==
+	bh=OMJR01tGfR6XPKYp+X5lr64RnT2A0RVc996lQeEafak=;
+	b=CIKNbH92djwtSTDN9tHyRCAKY+2/sgECIqZU352l6gkSnQbLcCwmrN+bYCQ+NOs1Fkk0
+	 zALyyf5b2WVcfLREj7P9lL5gg1XuYp86GXHuvn4+xM4kAQhBzcDvvJ/048vsfwyFpwHIP
+	 TKZH16JMMoeLF2halzXLO1SBluqGbv/NE7ZXysDhyxhMynAKKLRSCbbZJOBqf5jWmaos6
+	 1QBWel9/FFT9BySnm5S4+sSsnW2N6wb9LFjaAKavIze13x7CGa/OiheP8xLUPcJaNYK6T
+	 PV45v+hZNWvBEd6dA51bncBUXuO3AW8kvpbVZeyrRaN0JVdjXJUNQbNhZQbYItyyAyQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="tHBa9/a9";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.38
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013038.outbound.protection.outlook.com [40.107.201.38])
+	dmarc=pass header.from=vaisala.com;
+	spf=pass smtp.mailfrom=vaisala.com;
+	dkim=pass header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=q5BmCs9b;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.73
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11023073.outbound.protection.outlook.com [40.107.162.73])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48F64606A323;
-	Tue, 17 Nov 2026 06:13:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48F64606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD7E6606A31C;
+	Tue, 17 Nov 2026 06:14:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD7E6606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vaisala.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vaisala.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=tHBa9/a9
+	dkim=pass (2048-bit key, unprotected) header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=q5BmCs9b
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=l3J1BOqILyaQho/WARl+ZMQvCOP5MXVO08z4yBjz48xy+fcJt7sqfiDi7GgBLkjI8KKxK7RdKf+ICBpfgR/3HKGsFZPsV90nyHXusWzv30ASv/5PZNWt/0W0soXJ5g+ztU1dvkR4HvhFenOqbgAyymZ6ZsEjsEJA/CatNeX6UjCoZnj0D32RBu2YGxObpDpiqHVk0EmfE2nU06yriJ82TVJScKs0SmoP2SJPv0/8aBepe9gNaQCjIGfuGkPt1rnzhtpj5rENDqOXMIiO6MGJCrrAGl8yhvECtylzx100xv/X6Rxiy8a6p77nW+V9YfJykHgx3hEiAw8nkgM1hMm+SQ==
+ b=jKB5I85GBVxkwTpOhj0R139XoQdkTIathfowzootSaMr70pf9vOJbBjA1XweyoOOG2i3/CyIJgIafC0vLb6pnJRfEi5yHuRta6KRxcr9kIFeXRtSChLEmpbzehVSAq1KB9aYisWv4MYKFfF+Mt+5rAY4tDxr9uTEvUSxs52443BJ9JXB08QlWhv1jd8a/2T6tWKXrssCPut/D26+MMQxtmUIdZZ5bI6kc+LhmPAcyyKYjsKJTF2/09eC1c5oiirfboIVLbJos2+kozzXjQkaTkc72z3MgFJX8NSOiM5nbC7BArnqg5lcD75XhYWEP1+cef8dFYBd2p3N97ox/tUvzQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oshRBGc50irQGUtCxuAmm5ga3T4vXJR1vl5q0c78OsQ=;
- b=pLnDic+0Fi4OOeG/s1pIJRiqcZwuCMMgIxJO3SO0Ij72MR6yrQmmzeiqHUdm2rE6CzDr9Jw67qwfTo8SIlsLns9H98ikDN8/MJdthjFHx5TmDfNTnUyh6cPt3sh3mUCNdiNxL1sqhdnzPrPQrxDSjBXtx7/9MvS5RkeZQ4KxiajAbuPOnqtMxr0ppuNTNCaYraB33q1pz4Xc+4lC72qOmZbRTBQ6TZqGvXaylHKewP9iED6xBjFBgoWFJ2V6roCh/mosRF6uuRscxc0rxHiHu5pf9NlbpR1v13hQLeXDcIyfetq4eKk0dYaEydL3VIOby6iLoZ66ZFSEr87YoQPPxQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=OMJR01tGfR6XPKYp+X5lr64RnT2A0RVc996lQeEafak=;
+ b=oFOj/BQkt6nYPcRKjTclp+5iZQt826MNc1KesL4Vy3TJmSqOUBvT94We9Ytgg0K0F1vYvHRhVb6Vi8RjTqAbeqkpMIT5aW//lEh6FR+zr5NZhfZGD3qMEInhbieIUblNYDAnE7oujBskEcfFuWl0ko96PZn5JSHY8rqAD4wMbCY2kuRXo93R9yNmgC00s/CbQ6hOegOEBMdf30PJhLIzIdxTdH/Jvt+uiUcRbzfnXUmpoGPEGfr1peMol9gCrGa+Vva/bn79k5ErbQ89Gl7ozhrHyhq1WZs3ffnn6hVQ4XrAwSU0KN1dOUqNzhVmidXiaNlFEkYIPLeQorW2JL4abA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vaisala.com; dmarc=pass action=none header.from=vaisala.com;
+ dkim=pass header.d=vaisala.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vaisala.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oshRBGc50irQGUtCxuAmm5ga3T4vXJR1vl5q0c78OsQ=;
- b=tHBa9/a9aYU6Ycpt+NoHpA/jcYlTHCDF3ypeZO4071kA/uIB9qs7mT4PqJBemmsJl9/lnP54FTcPmrP34kltZ7wZoWpUiI7/K2SEtKl2ikMDpULQkLniAyMGWzLGPXmFkUJEFjXdSvpWmYzZJBvwJQnM12pbwQJSIvVdJ0Mso1S3HDfzYgQ3JiThkRVlPncMfzJEtoZdqWDLBgz4wVENPhLWLFAqJaXOGnl9mWPXNLWnFtWnxS89BqYVXMW2CTiwZZky9DvuTmw2HLueHwb0bIqdGntkE4U/Ko9Csoctv5f/R5jo9xrJ4xHIm5+qA7CiyUiutDIfwR+2c/Nxt+EcLQ==
-Received: from DM6PR02CA0116.namprd02.prod.outlook.com (2603:10b6:5:1b4::18)
- by DM6PR12MB4340.namprd12.prod.outlook.com (2603:10b6:5:2a8::7) with
+ bh=OMJR01tGfR6XPKYp+X5lr64RnT2A0RVc996lQeEafak=;
+ b=q5BmCs9bYsiBrSMrmGeLuw3yiiSkUsmBku2cT9+71iYFzFgDESjyaXZPgow6APaEQqnyRDdT8rULttBeI+zzp6fcD27aHxZZ4hChI0hxSCUg533ksqEW2Z82ERPbduLc8vR6GZjqGxSvhIItu5vdXiuQ1KgQcZSVj2sEkaOSkAt46FLMcbf7dNkc3u61wJWYZ0wrDI0SMm9oBgsbP0zaR4t14HwUX3I3IEjbSi11TtUrzupADBTSsOT9rtyCLBC3aBluLnXoBnC1Agjm0kOiDe0kEsBfxU992qWp88cqVvtrkka/dKMphi5oP6AvzcXxvd8lzqHRlWbjKLttecus1A==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vaisala.com;
+Received: from PA2PR06MB9176.eurprd06.prod.outlook.com (2603:10a6:102:407::17)
+ by DUZPR06MB8724.eurprd06.prod.outlook.com (2603:10a6:10:4b1::6) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 06:12:54 +0000
-Received: from DS4PEPF000001C1.namprd21.prod.outlook.com
- (2603:10b6:5:1b4:cafe::26) by DM6PR02CA0116.outlook.office365.com
- (2603:10b6:5:1b4::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.10 via Frontend Transport; Tue,
- 17 Nov 2026 06:12:54 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- DS4PEPF000001C1.mail.protection.outlook.com (10.167.23.167) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.662.0 via Frontend Transport; Tue, 17 Nov 2026 06:12:53 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 16 Nov
- 2026 22:12:35 -0800
-Received: from kalok-SPC741D16QM3.nvidia.com (10.126.230.37) by
- rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 16 Nov 2026 22:12:21 -0800
-From: Alok Kumar <alkumar@nvidia.com>
-To: <dakr@kernel.org>, <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
-	<rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
-	<linux-pci@vger.kernel.org>
-CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
-	<skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
-	<simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
-	<boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
-	<lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
-	<tmgross@umich.edu>, <markus.probst@posteo.de>, <jhubbard@nvidia.com>,
-	<apopple@nvidia.com>, <joelagnelf@nvidia.com>, <ecourtney@nvidia.com>,
-	<cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
-	<alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
-	<kwankhede@nvidia.com>, <targupta@nvidia.com>,
-	<linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
-	<boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
-	<work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
-	<kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
-	<peter@colberg.org>, <xinmengs@nvidia.com>
-Subject: [PATCH 1/1] gpu: nova-core: send GPU timeout defaults in GSP_INIT
-Date: Tue, 17 Nov 2026 11:40:53 +0530
-Message-ID: <20261117061053.915254-2-alkumar@nvidia.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261117061053.915254-1-alkumar@nvidia.com>
-References: <20261117061053.915254-1-alkumar@nvidia.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Tue, 17 Nov
+ 2026 06:14:13 +0000
+Received: from PA2PR06MB9176.eurprd06.prod.outlook.com
+ ([fe80::b6d:8160:d324:3bfc]) by PA2PR06MB9176.eurprd06.prod.outlook.com
+ ([fe80::b6d:8160:d324:3bfc%7]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
+ 06:14:13 +0000
+From: Tapio Reijonen <tapio.reijonen@vaisala.com>
+Date: Tue, 17 Nov 2026 06:14:04 +0000
+Subject: [PATCH v2 1/4] serial: max310x: do not advance the TX fifo past a
+ flush
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261117-max310x-tx-fixes-v2-1-b395126fd23d@vaisala.com>
+References: <20261117-max310x-tx-fixes-v2-0-b395126fd23d@vaisala.com>
+In-Reply-To: <20261117-max310x-tx-fixes-v2-0-b395126fd23d@vaisala.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Hugo Villeneuve <hvilleneuve@dimonoff.com>, 
+ Tapio Reijonen <tapio.reijonen@vaisala.com>, stable@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794896051; l=5719;
+ i=tapio.reijonen@vaisala.com; s=20250903; h=from:subject:message-id;
+ bh=fZvX3tyRBXdZROy9Iqb6+M2b+LC3HTxFI7tN1ikb5ME=;
+ b=fT8qefFdebV6v5qwBHs3eHNGbYHGQIHMma9ydlf9kfwegeivunZDQBUGTbgnhtpHgrsZCGCag
+ 42t2sDW9VG6CmGXvDg1/sxLLY1i5NFXTsdsI/6N3Xj9fY2tPqcm9P+A
+X-Developer-Key: i=tapio.reijonen@vaisala.com; a=ed25519;
+ pk=jWBz3VD84WbWgfEgIqB5iFFiyVIHZr52zVBPOm7qiGo=
+X-ClientProxiedBy: GV3P280CA0020.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:150:b::32) To PA2PR06MB9176.eurprd06.prod.outlook.com
+ (2603:10a6:102:407::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -126,86 +107,214 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS4PEPF000001C1:EE_|DM6PR12MB4340:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8e6fce42-5d26-4940-a35a-08df4471d113
+X-MS-TrafficTypeDiagnostic: PA2PR06MB9176:EE_|DUZPR06MB8724:EE_
+X-MS-Office365-Filtering-Correlation-Id: dc12c103-ddc5-4ee1-9096-08df44720040
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|7416014|261022105027099003|261102123227099003|261028144727099003|261021121427099003|261026121527099003|261026140227099003|11063799006|56012099006|10067099003|18002099003|22082099003|261009223027099003|3023799007;
+	BCL:0;ARA:13230040|23010399003|366016|52116014|1800799024|376014|18002099003|22082099003|11063799006|10067099003|261026140227099003|261022075727099003|261026121527099003|261022113327099003|261022105027099003|261028144727099003|261021123027099003|261021121427099003|56012099006|261009223027099003|261102123227099003|38350700014|260925021911599003|260925022911599003|260925021311599003;
 X-Microsoft-Antispam-Message-Info:
-	OF1W6w0wKfwvDf04qtwSLnrWWEOvQMMi0x5cP1qCV8k3QnImPnEkurEUiVOnwH8GJPBf3a+0HDKn3ABfuQPdIJpGrXxd4W3ZavoUT1wzFi9zSb8wMEINR5nvwJIyliDAmIuT7gfmeX7ZG29O3w+kJQLmKM0ebHl9IOEqaBYjmOsaa1K4fmMlkfuC483MoE52Cwb+Nfxmpd+kJLZroW2AVXh2fcqPFjPvrErQ+KxkpNQueuHkX6ebHzPKklP/ZfUmvxqDimDnnrJ3RguY6dpsnkm0XszndiTl5SSjjvFYQ9NJhC9iKLBsPggHz/Y8u1en4teW4PDUVRDmCWj3JT0RD72jYazKQaspFOtaaFu301LHEDBU/tcrNP5P4I9J/63jxMwploenOvT24sCq6BJAkKa3zBVHBkL56WXdwbwQgTyP5KjGcYZ2//Zx8TzYVWz6Mxf3T4NKPgMez+iJ6CoKDHZnPm1yqs6gc41yxj6Xw/Ajn46Mg0incm78sfqaBzVQylsUdzrPSFuWOhv0nsSxY7nBNxmThIXiNmnWOMgN9kyB1YhL8PUgbkQhzvvGWGOj
+	l8BUpTkv/MlsthY0INPuvy76mbHm5DwT3Z5LuMykhC5oXvXD+BRbJZwnESyhPikIpETC8MmnvvL2lUY+FQN+F+eyfOr3eAv2eqDv0fqw8yQfcs0O4W+7lmD2VenLcVx6kf5qFIZRKYcHePZOM/ZNbrOn0zaO6OHFBzANYbDXqf/oHOoApnONWpW63SujNSga3w+Qnyypy5klu5o23voujg91qWgosYXTUD9xayogu2miFrWzltCUgvDPaiwYPYOOfWpjJGZb6I/fRTo978NnwVCZ3ZXV/3XgDeZnuoy4n7hy0qHkmTiDOj/IfTrMp+ZfgwAW0LC2+RvVo2iiw2NZMquBU2DDqLHtaNwTFxwzXRaEobU6CGRn1bvTTTAsBwy0+2Yw44xMPoCQq9ESknfQ1SIesAv0qK2Gjbn1Fuat9DKRDRw2yL4l3IAFe4nbuMbd2cC9/TExPL6vIV6c4HGegiMCVpxTIujvkzN/m7GeIC345ZEX/fmrpk/9vUJ0ZVL4XoLrZi0Pp1XnKbvCs7J3cGDbQJRJHI3JUZsAQ9f9GMIeCmIorGQZkVVAECeesU73mVUY+N2CQWJMm1nOQjB2tZxrxQwrjss2Rns+FhC/hsN+DGrBgkvj9h4lGYbvRFeNB35AzW/jxQxSNrEdb1wR7cvQf53a4lQJqDKQ77RmH1JSLV3vzNOJsyWoI0egtN3MfVicCGiJA3TL3RtwdL7GGESASQAk3AgSvxshzVIaaUw=
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(7416014)(261022105027099003)(261102123227099003)(261028144727099003)(261021121427099003)(261026121527099003)(261026140227099003)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003)(261009223027099003)(3023799007);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA2PR06MB9176.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(52116014)(1800799024)(376014)(18002099003)(22082099003)(11063799006)(10067099003)(261026140227099003)(261022075727099003)(261026121527099003)(261022113327099003)(261022105027099003)(261028144727099003)(261021123027099003)(261021121427099003)(56012099006)(261009223027099003)(261102123227099003)(38350700014)(260925021911599003)(260925022911599003)(260925021311599003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	WD4g8uYQrZgi7Uw5hbmFaVikTmbsZ+1SyVE9iNFtHiYlw7h3T5PkY40akJHodA1gv1vRk5KpMeT7Pe9PnmBCa0Fv+tSM+FVvM72Rlvc64mN2jCaPDlycQCOvN7ziLgJ2DN1z5XRCuUNz9/bPjBg7jhRSMr5vc70kciP+ixulCoLNIfqGvML18iJ6TNPL/KwlMgHgtoUomg7C0A4jqUiemrJoshdfASYneyufoyjMApZdxY/uWRj6T6vQvXCnxiOng/CNAO3W6NVk7+Eeq9eWblfF4HRr/m1XbJVd6vuDG0aie0iQ2N38PNOkOsfDtwH2UTAzMhE70+eQflSryPxH8K+G3V9hJke7r1AJjzrbYWTosxtoyFfq08M72BlfddEhR50BykuyrCkhG4I2vPWOTH3AVez/OIPyzo8xjn2jHA41GgXpCYKwdmtPEUnuO+Yu
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 06:12:53.8664
+	=?utf-8?B?RmhSaW9VUG5aeVZON1c2WkU5dVVxT3FoY2t3ZVZMWDN3a2kvY1RuUUtBMld0?=
+ =?utf-8?B?S2thL3ZVbE5tVWpUL2lmOWlYajFaalBYVVByZzErSzR2OEQrdlZwMTJOVXg4?=
+ =?utf-8?B?OUVLeXZxTlFIODNxdG51bnhMWmNyZ0RYVU94UVI3WU44bHdYWm1aaUxoUHZw?=
+ =?utf-8?B?ZDczbjhoL08wdUc5MEs0L1lKQzE3ZkZnVjdlYm5EOHdaSGFpd3Q5bENSS29n?=
+ =?utf-8?B?TGw1NzBNdmJGYlV2VnNmYjFpYUp5S2V1b01hbGpMWElFeWlDUTM0eWNQMGd6?=
+ =?utf-8?B?QnRLc1RpZVV0ZmRwTEpGS2xiVmIwUmkvNWNoa1F5YXExN0x0VFlDd0pIblRj?=
+ =?utf-8?B?Qmw3S01Cb1haYXRaZlE4ZXl0RmhXOGM5ZlZkM25IMDJKN1lVb1FGbGFjR0Yr?=
+ =?utf-8?B?c2o3SG02M0pvdWUraXBWNk1WMFJhUFFacUVQUFVtYnJLYWg0TzYxK1JWWVBG?=
+ =?utf-8?B?bWUxWEVwVHpiNzRkbTdFRXJheUZyc0JjOUEzKzU3eDZPOEFyVVh4WkVjNXE3?=
+ =?utf-8?B?VzhZOHgwZHY0YUdvQUQzWnoyNnVWWkVvbFl0OVhDc1pWQUNCdUxlRFQxUU5G?=
+ =?utf-8?B?dmF4MDZlMXRHSmwyRU5wc0YxdnQrSENqdVBqYlRuckVQTkZWTnE5dzlocjJB?=
+ =?utf-8?B?MUVyVGpIT0l6M0tTTWhXdnBKQ2tXajdNZENDVHY3eDhndGRSdTVvMEM5aUxs?=
+ =?utf-8?B?L1E2aHQ0UGhYTTlGc3F3K1pUMmdXeUNoMHpkZWlmbmNnY2IwcnMxa2YxMHNH?=
+ =?utf-8?B?UllGczdEUVBtY21zY0x0NVJuSkp0d0ZFbHpXb0ZNVGlpdTU0cjhvNzZNOUND?=
+ =?utf-8?B?bXVTMHlPYmFlMnhiZWlNeHA2aVUwbGkvY1hqcFlSS3o1T2J0cnpIME1TV1Vn?=
+ =?utf-8?B?ZHJkVEVZQ1I5TUVXaEY5eUMzY0pHcXcycVVLdjRMZGoyZ0MxQ3FLM2hnNlhw?=
+ =?utf-8?B?S0dxM3U4ZE41U1A4eDhrTHp3Wlp6SlJ5MjdVM1FpUEtSdXgyV0k2bkhiV2lU?=
+ =?utf-8?B?T3VzdytocnRqVGQxM2w4SFNWeTlIZUhUSmZhenNCZENYcjBMemdGU1ExdWs3?=
+ =?utf-8?B?eFpOOGxPczhLMEF1NDVSSTFQMkN3ZlAwM2JSaWFEeEZ3Q0dGMzRBMG1MUjM2?=
+ =?utf-8?B?YzdFaFpucFovN3BhUmVXbDR0dTRXUW5lcmJ3elZIYTlGWXpTR21tVmM3MG5M?=
+ =?utf-8?B?VnQzeEd3MittMlBCMFhCQkd6MVlvc0czOW5wTWRXMWZvRGtrUTNHT1BPaWRt?=
+ =?utf-8?B?eS9laFZsanZhQU0ydnFaaFdtaVBmRzlMRmUvK3U5U0V6UndKU0lvVUt4ZWk3?=
+ =?utf-8?B?SW1IS256OGIvVllaSEI2WVlMajRlbU5BRkExTkkvVXhSYzE1WlZQd293Qi9F?=
+ =?utf-8?B?WWxETG9wSlZVYmN1LzZPTE9jcnBqaGk4ZXdiR29GQ2tLNGtTS3BGcDlyVEdt?=
+ =?utf-8?B?bGVsRlF0MnB1bUFtQVpCQlhIbmNWc0FRZWFpcTE4bFV1RDdXL2R2NTFNWlc2?=
+ =?utf-8?B?cHBxMG95UTZLT0N3Z1cyZlhkbzNwdGdyTm5TYnN1NUYrekhsOGsxK01DUkNQ?=
+ =?utf-8?B?Ym9laXJRU2ZDVll5VVlKYjJiMDl2a0hRM0orenBDTFZiRGp0TzVqckFKWldC?=
+ =?utf-8?B?WW82YWg3MVVtOFh1dy9PUDlmZENPS204N01vaHkvNm5lZ1VoSm0yMkhxbWxB?=
+ =?utf-8?B?NEFEVnZDMnFYa2RQQkFjd0RMT0lDYllUZkRMMEZFa29WanViYWdCZitvZloy?=
+ =?utf-8?B?WEd2QzZSaC94SVJDV2NHbitkdWsrMnMyekwvTWk2TFU5SXhUYno3aGx5K3Zi?=
+ =?utf-8?B?NC9oV2h0V0t0VC9lSTJjdWtvdnFCaTFBeWRZOEtNSXhkcXVhdXEwbTJDSkJs?=
+ =?utf-8?B?MXpVWTdLVUgyL2VLTDIxS0I5YXJnMEhGL3lkZmFudHM5MVpZdStFSm0zV0hm?=
+ =?utf-8?B?Q05rWDRRNFdxc0s0ZEgrZWJXTG1oeDhpODZEVUxIZXNET2hwQzdUOWd6S3Yz?=
+ =?utf-8?B?Ny81YzVmbnBMZDRoNUVWbmE4OEIvSEdhUS9OWGVveFBLSXorVklvVzhmY3VK?=
+ =?utf-8?B?NDhRR1duTDBqVmR3YXdaQkw2aGlzdEVWR0UvelRNSWpHY1RmWjJ1K3FTa1Ix?=
+ =?utf-8?B?dGEzdnBmSnZ1UFAzalkwVmlQaXJCQ0JRQnV4b0wxcUZ6QWtieUdja3NvQWVj?=
+ =?utf-8?B?a2xGL0VmNVk3LzRvSlhsK0syMC9zaDBkU29TK3Vjc2VvS3pLTm1FSUVDQ1cv?=
+ =?utf-8?B?S2hpeVAyc0RxWUphR0Z3eEZYMk1XSDZqbnhPNXI1WFJjMmhDWWsvbFFCcWhI?=
+ =?utf-8?B?b0d1NFJNWFZwcG1TOEMra2x5Nmc5MXNTcTJicE9FNTRMbVhJTUFXdHdObTRq?=
+ =?utf-8?Q?gbnPWsM/qVnqoc0o=3D?=
+X-OriginatorOrg: vaisala.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc12c103-ddc5-4ee1-9096-08df44720040
+X-MS-Exchange-CrossTenant-AuthSource: PA2PR06MB9176.eurprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 06:14:13.2667
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8e6fce42-5d26-4940-a35a-08df4471d113
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS4PEPF000001C1.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4340
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 6d7393e0-41f5-4c2e-9b12-4c2be5da5c57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: R7XycV0MSaKnmNmHzAW5AmAdsz8gwECnhjHzlvVxcG+tYaewsO4+UJdakmcauGekEDGwAcmrU3mrRMO4rC8YPfa2eYF70IY4hz+6covUuZY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DUZPR06MB8724
 
-GSP firmware requires a nonzero vGPU timeout in GSP_INIT.
+max310x_handle_tx() runs from a work item. It peeks at the transmit
+fifo with kfifo_out_linear_ptr(), writes the bytes to the chip over
+SPI, which sleeps, and advances the fifo afterwards with
+uart_xmit_advance(), all without the port lock. uart_flush_buffer()
+resets the fifo under the port lock. When the reset lands between the
+peek and the advance, the advance adds the chunk length to a read
+index that is already zero, the index ends up ahead of the write
+index, and kfifo_len() wraps to a value near 4G.
 
-Populate the NVKV keys as u32 values:
+From then on the fifo never reads as empty: tcdrain() sleeps forever
+in tty_wait_until_sent(), and while the port stays open the work item
+keeps sending stale bytes from the buffer. Observed with a tcdrain()
+in flight at 300 baud when the port was hung up by an unbind, which
+flushes twice: the first flush left 498 bytes, the second found
+4294967217, the draining task read 4294967276 and never woke again.
+Before the kfifo conversion the same race left the circular buffer
+with up to 4 KiB of stale data to resend, after which it recovered.
 
-  0xA0: vGPU timeout,          1,800,000 us
-  0xA1: graphics-mode timeout, 4,000,000 us
-  0xA2: compute-mode timeout,  30,000,000 us
+Copy the bytes into a per-port buffer under the port lock, send them
+from there, and take the lock again for the advance. A flush_buffer()
+callback records a reset of the fifo, and the advance is skipped when
+one happened during the transfer. kfifo_reset() is documented to
+require that no other thread accesses the fifo, so the consumer has to
+hold the same lock as the flush.
 
-Signed-off-by: Alok Kumar <alkumar@nvidia.com>
+The bytes stay in the fifo until the chip has them. tx_empty() reads
+only the chip FIFO level, so taking them out before the transfer would
+make tcdrain() and close() see an idle transmitter with up to one FIFO
+load still to be sent.
+
+The lock is not held over the SPI transfer. regmap hands that to the
+controller straight from the buffer, which is why the buffer is per
+port and not on the stack. The copy is limited to the buffer size: its
+length is derived from port->fifosize, which TIOCSSERIAL can change,
+and from a FIFO level read from the chip.
+
+Fixes: 1788cf6a91d9 ("tty: serial: switch from circ_buf to kfifo")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
 ---
- drivers/gpu/nova-core/gsp/fw/commands.rs | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ drivers/tty/serial/max310x.c | 46 ++++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 38 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/gsp/fw/commands.rs b/drivers/gpu/nova-core/gsp/fw/commands.rs
-index 08798f150ad7..adb0b1f29ceb 100644
---- a/drivers/gpu/nova-core/gsp/fw/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/fw/commands.rs
-@@ -192,6 +192,9 @@ pub(crate) struct GspInitRequest {
-         pci_config_mirror_base: Key<u32, 0x0010>,
-         pci_config_mirror_size: Key<u32, 0x0011>,
-         host_arch: Key<HostArch, 0x0070, u32>,
-+        default_timeout_us_vgpu: Key<u32, 0x00a0>,
-+        default_timeout_us_graphics_mode: Key<u32, 0x00a1>,
-+        default_timeout_us_compute_mode: Key<u32, 0x00a2>,
-         bus_device_func: Key<u64, 0x1020>,
-         regkeys: KVVec<RegKey>,
-         vf_info: Option<VfInfo>,
-@@ -230,6 +233,11 @@ struct DomainBusDevice(u64) {
- ];
+diff --git a/drivers/tty/serial/max310x.c b/drivers/tty/serial/max310x.c
+index a0ed70185555eed745d905b36c8b8f162468dd6f..e6a740295b96653281a92f8d94999f06c2c74685 100644
+--- a/drivers/tty/serial/max310x.c
++++ b/drivers/tty/serial/max310x.c
+@@ -317,11 +317,13 @@ struct max310x_one {
+ 	bool			sw_rts_during_tx;
+ 	bool			cancel_tx_delay_tmr;
+ 	bool			tx_teardown;	/* envelope being torn down */
++	bool			tx_flushed;	/* fifo reset under a transfer */
+ 	bool			rs485_pending;	/* rs_work not yet applied */
+ 	bool			tx_break;	/* break_ctl() owns the transceiver */
+ 	enum max310x_tx_state	tx_state;
  
- impl GspInitRequest {
-+    // GPU timeout defaults in microseconds. All three values must be nonzero in GSP_INIT.
-+    const DEFAULT_TIMEOUT_US_VGPU: u32 = 1_800_000;
-+    const DEFAULT_TIMEOUT_US_GRAPHICS_MODE: u32 = 4_000_000;
-+    const DEFAULT_TIMEOUT_US_COMPUTE_MODE: u32 = 30_000_000;
+ 	u8 rx_buf[MAX310X_FIFO_SIZE];
++	u8 tx_buf[MAX310X_FIFO_SIZE];
+ };
+ #define to_max310x_port(_port) \
+ 	container_of(_port, struct max310x_one, port)
+@@ -911,6 +913,7 @@ static void max310x_delayed_stop_tx(struct uart_port *port)
+ 
+ static void max310x_handle_tx(struct uart_port *port)
+ {
++	struct max310x_one *one = to_max310x_port(port);
+ 	struct tty_port *tport = &port->state->port;
+ 
+ 	if (unlikely(port->x_char)) {
+@@ -931,23 +934,41 @@ static void max310x_handle_tx(struct uart_port *port)
+ 		return;
+ 	}
+ 
+-	/*
+-	 * It's a circ buffer -- wrap around.
+-	 * We could do that in one SPI transaction, but meh.
+-	 */
+ 	while (!kfifo_is_empty(&tport->xmit_fifo)) {
+ 		unsigned int txlen, to_send;
+-		unsigned char *tail;
++		unsigned long flags;
+ 
+ 		/* Limit to space available in TX FIFO */
+ 		txlen = max310x_port_read(port, MAX310X_TXFIFOLVL_REG);
+ 		txlen = port->fifosize - txlen;
++		txlen = min(txlen, sizeof(one->tx_buf));
+ 		if (!txlen)
+ 			break;
+ 
+-		to_send = kfifo_out_linear_ptr(&tport->xmit_fifo, &tail, txlen);
+-		max310x_batch_write(port, tail, to_send);
+-		uart_xmit_advance(port, to_send);
++		/*
++		 * Copy the bytes under the port lock, but leave them in the
++		 * fifo until the chip has them: an empty fifo with an empty
++		 * chip FIFO reads as an idle transmitter.
++		 */
++		uart_port_lock_irqsave(port, &flags);
++		to_send = kfifo_out_peek(&tport->xmit_fifo, one->tx_buf, txlen);
++		one->tx_flushed = false;
++		uart_port_unlock_irqrestore(port, flags);
++		if (!to_send)
++			break;
 +
-     fn build_vf_info(ctx: &GspBootContext<'_, '_>) -> Result<Option<VfInfo>> {
-         let total_vfs = match *ctx.vgpu_state {
-             VgpuState::Disabled => return Ok(None),
-@@ -300,6 +308,9 @@ pub(crate) fn new(ctx: &GspBootContext<'_, '_>) -> Result<Self> {
-             pci_config_mirror_base: mirror.start.into(),
-             pci_config_mirror_size: (mirror.end - mirror.start).into(),
-             host_arch: HostArch::host().into(),
-+            default_timeout_us_vgpu: Self::DEFAULT_TIMEOUT_US_VGPU.into(),
-+            default_timeout_us_graphics_mode: Self::DEFAULT_TIMEOUT_US_GRAPHICS_MODE.into(),
-+            default_timeout_us_compute_mode: Self::DEFAULT_TIMEOUT_US_COMPUTE_MODE.into(),
-             bus_device_func: u64::from(bus_device_func).into(),
-             regkeys,
-             vf_info: Self::build_vf_info(ctx)?,
++		max310x_batch_write(port, one->tx_buf, to_send);
++
++		/*
++		 * uart_flush_buffer() reset the fifo during the transfer:
++		 * advancing now would move the read index past that reset.
++		 */
++		uart_port_lock_irqsave(port, &flags);
++		if (one->tx_flushed)
++			port->icount.tx += to_send;
++		else
++			uart_xmit_advance(port, to_send);
++		uart_port_unlock_irqrestore(port, flags);
+ 	}
+ 
+ 	if (kfifo_len(&tport->xmit_fifo) < WAKEUP_CHARS)
+@@ -1094,6 +1115,14 @@ static irqreturn_t max310x_ist(int irq, void *dev_id)
+ 	return IRQ_RETVAL(handled);
+ }
+ 
++/* called with port.lock taken and irqs off */
++static void max310x_flush_buffer(struct uart_port *port)
++{
++	struct max310x_one *one = to_max310x_port(port);
++
++	one->tx_flushed = true;
++}
++
+ static void max310x_tx_proc(struct work_struct *ws)
+ {
+ 	struct max310x_one *one = container_of(ws, struct max310x_one, tx_work);
+@@ -1732,6 +1761,7 @@ static const struct uart_ops max310x_ops = {
+ 	.break_ctl	= max310x_break_ctl,
+ 	.startup	= max310x_startup,
+ 	.shutdown	= max310x_shutdown,
++	.flush_buffer	= max310x_flush_buffer,
+ 	.set_termios	= max310x_set_termios,
+ 	.type		= max310x_type,
+ 	.request_port	= max310x_request_port,
+
 -- 
-2.53.0
+2.47.3
 
