@@ -1,84 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794917244;
-	b=vP3NlOAFv/0CIfHJu0WaXCBdAPl13GBpOn+OU7iIJCw1iCGEViXk3o6Yh2kSELaz0ou3
-	 CMQzEkCo7xef/+cVhmHnGFHJS5zqpe2m3QTvLo6wm2X1bdR62bt+Of7HJv12sqwmcdqdU
-	 ul1muvqzz9SORumbmEMHs5Cb3p1NKVPV8HBP7piDrP6hnhIgSNkfNH9m8oz3MnZWpIvey
-	 /aPxFp/AN4BFSb1mSkSAbj1W9UvTIcvdlcHv/qztoMMONp8eKVjPaqZbnziJ7om50z2qg
-	 r+qlgfUl96Eki/8oJicJsFmJ9hu8tZ6DDF+wtqil0kyOetofzjjq2bf63AuxgUloXeQ==
+	t=1794917251;
+	b=qGnpmGCIG0PIY45h3gKhAGiq9l6IRmEk8FgpVJUiVbgE9aLxE+UYa4ovtFed2t9uwmyQ
+	 QenSNEtZ8XDPENOdswfNRpPFBo1YRbGerThymqTvu5j16W+AfjhGA31AYaXknLUrW3DbX
+	 om6d1SmywURc/WVFbpbxYRknFSluhzIkR5P2YJ4NtXiIR0xb15mnpOngXgt7w/yd1oOsX
+	 XAxUnd8WkQ+fLiqsMGNHkKYdhcF3TA3D9KHI/S/ZlIDqPSuObwOkIcy7iw1QBi+09aTKn
+	 gjrgkJuNKCJt//zbEBvbiFxoijKPP3xlK7UdLHmyeNfX8rm/y4WHGApCwyeysRmIivA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794917244;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794917251;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=pngp1egAaX0YbQYqS/9oJoUz1wuFN3ikmsU5M9jflxo=;
-	b=Y3wmpVvPBOHiS4cHpmyckEBaQpYL9erlD2ACQlEgANLEJ1hS+cxE2nBcXaHUPb5yHH8o
-	 Gp9qo+LWZXFOcjdrJx/jnF3wZJPuLfFFwn8IN2WdgBnY1hSZHxH709mJO342OUxXHniVL
-	 F5mlFgumw1RUhVltZx/zyMmx7/0LAu0pibT3z8PThsEEsddxfU85U3OntxrjW7/bHKz0f
-	 aCXBYOa7ccAdpqdVuMccfbktvwmEt+8jtydtpTLYuyYcycf/9J82c9PtmggIziqSa8KLH
-	 tHKSTGcK/ckCvhTmjkVrH+yC+fJ7JHiz/whVwn54ZI6WMhQRulMC2oNNhOPtm+TjAlQ==
+	bh=HdCytpgBEMMjWWjAaswQ3teC54EqiXNp/aCnfx0q/Uk=;
+	b=OCs8l5cGCkHaOPi3eLe/93AUjszKOqd8M4pTWmPwzYoXm6QGImLlwpyMYshBeFpfjXbU
+	 hfo7ZR/XtCjtaPddEzsQRHCwydnsFYpKhYRV38mScKf8tbEhv704rd0N6zukoqH7FeL1G
+	 FP+IPK9R73X1yoKkf+QskUFccYfl9RIn3h0P6cKrYezmEIPIOQj5kc+kGrRlunauvzvb2
+	 6tpcwDbcC/RJCA25nCG/giHdcVRpLNWkBZz4hPdlvAGpuLRLWOQ6yXzaxTZz7TPsyX4SZ
+	 /Bn1DXIzxRbJNZsBrQxFywDgqNO582q5h0PoewArIMd5pvInS6GV1E/8ah3w4bX15Bg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bytedance.com;
 	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=KIooos2D;
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=hJi2PmuQ;
+	arc=none smtp.remote-ip=74.125.82.46
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62382606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:07:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62382606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57F7D606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:07:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57F7D606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=KIooos2D
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-18818daa3e7so444343c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:07:24 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=hJi2PmuQ
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1b3beeaf6f9so5501038c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 04:07:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1794917243; x=1795522043; darn=vger.kernel.org;
+        d=bytedance.com; s=google; t=1794917250; x=1795522050; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pngp1egAaX0YbQYqS/9oJoUz1wuFN3ikmsU5M9jflxo=;
-        b=KIooos2DClZKouyiKhB4rzpkqn4rd+x7CloM3guhbBtlU1l0KZ2WMbtVma9sjSOz1Q
-         5JU9eamBERr7f84Z1mmg7V6b3SxsTKRSz7leQkK+CQbLM4FUJhtc5LcXvOkzIehdAImo
-         HdfCXBu/zUTJUUr0xbFUQHToM5w6WRCP3gZbQ1XjrI7P1jd8q1RzxgHQCMjV9USOCPdW
-         cnzhMguqG3vqSkGAqmh/lYscCCrHq/pPD7VP01d78p/vRBNfiqfc8tUCXOIi9b1pPaDc
-         qgeQ1ltBK/0WFa6P1OaAAUL1Pma4gfa1y09Kd8Pt6YcwYRWXYTKQ2Hr4jq5OZYCr/e3m
-         dVKg==
+        bh=HdCytpgBEMMjWWjAaswQ3teC54EqiXNp/aCnfx0q/Uk=;
+        b=hJi2PmuQQWc1txnHWZ2ca/OQT5AlTNv20+9VAkjqNfHupRnD0OIxWuhoaVXIPeGtmr
+         4oAK4mluhqafUZuPx7KrPYDvPh9mSpdo63g1QmgjEEdx6jQUWO9CscBFxGg+1KvGVxTQ
+         qvbHtKNYyuF4xPc8tKWuEypXGjIS8+v/ypRsHgSGKjj+n+ai2hZJQ0KE8KbyRduR3IVJ
+         ok1DhgHrs9QUUChJkJ95y8bKZQtYt/cGnAPx+1gmr+XB+WEPsesE4+HckaRVDfjgWIrV
+         9FW70bdITPi1+N1MS7gGoAzXAHp8Gctc54/XkN8MDWdy30SZ566lMexIK3iQb9lpoStZ
+         L8Dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794917243; x=1795522043;
+        d=1e100.net; s=20260707; t=1794917250; x=1795522050;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pngp1egAaX0YbQYqS/9oJoUz1wuFN3ikmsU5M9jflxo=;
-        b=a4PkAXK1t0kZ8yB7x/Cd3ForMZ7ulMgCqXT5YHzE6vRpVdm1WTs0Oaswrdd/I5fz5O
-         VtMsGCyQMlU5EddvbP3ajKT4zgpMkMnypXQkgWL3Q7qWzv1O5o0zN+krcRpS+JjVDBOm
-         JZXaRBUUgKX9f2DFS64/bgihTbYLBpBFtBiRWzav9QG9h9EDueD2TfxqJqd42jM4MEQG
-         qM9HPgPKKJ9jpSIGo8YIXRbrM5oqLWeOASIEJIT0MPHitbQaq6m5Akoxge8wdAQEYURv
-         CDtOc0xqAKOds5HkoUWcBb21ppwuFdRKDW8KEib95znjo4IyWV32ZMu7fSFjU7sKK3a2
-         z6cA==
-X-Forwarded-Encrypted: i=1; AL+hErHL/oKRulmyWiFOFwybNi5lnWtUkevS5cw8W2ya8yrO5TFYbn4YyIVpZqQCXBVU0t+dA84df0ZU56UHxns=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9bDmC12UzkHXSIGUgPz0iO7xU+vupwbq4RdaPQHw6g43QvwHLi
-	YAwf8N+eUwsHGkHesImO4orUSM9oCU32Byd+FuF/duaXabpV0uQLfdHKYE8U/odHnwc=
-X-Gm-Gg: AYBFou2qFLEOenN/0/v6aHSq30oUrU3m0/+GQ2b2mDhJ0LbqTNFV7F99iKJW9+L5ImN
-	zgOWYXyEG4x6AzZHCL4/Gm28tYvXw5YubPQqL3jG8FFwRwyVu3nOge2q+5pEjSPffPPfK0EmxNJ
-	dzOUZFPba2UXiRI3rA7KYcwCCPAxVifW6b4jAOnJpQOF5tkw/oKlOf5odq8uqIrEZqt0rzVOgZd
-	lulj8r+MFzmWdUfQWz5ygOSzck18lAuZCwMf/te7OHgFOb5efZyY6/q7mlFS76RiuLRzMuE9EIK
-	hx0gZnxYLOuP5GFMVtDtIBx2UaKdDuUVKkRPgxmrK/4H3ouxYyLy9JBom6RtTHAbdLeMG9FJqnK
-	UKIFAhGyBeodLOL+b5yQT2KlL9KkSexIFZshMboVOTH6dg+aS5vGXmFyvApq5ZbizrntYWMHOqx
-	ei1M2JdQM0+50zsMJ5Kjp+JAqbbFrUScrbzesGRnJKujjVRlgAaDLzVIYt30YBKqIx9hkWbV7h3
-	Npnxy/oSjYoYRfFVRtlbmeO8vwQWM4lMIOjCDrN4F/76aFlqu6KFONDO7Cc5KsqBI7QQrVDxiwd
-	POzRL5CshtEIMp/xBFeaEzNYwA7d1Uoezr00+4ChNoWCVWzaMcy8EI/+CjPUjk2RIHH3caadbMo
-	B89BjvDe/Xmw=
-X-Received: by 2002:a05:7022:7e85:b0:152:dd1b:4fa7 with SMTP id a92af1059eb24-1b53a3e54fcmr2076054c88.19.1794917243422;
-        Tue, 17 Nov 2026 04:07:23 -0800 (PST)
+        bh=HdCytpgBEMMjWWjAaswQ3teC54EqiXNp/aCnfx0q/Uk=;
+        b=JYSj3M+RYyPFNRz7Ic3fNS8twb4P5+n1ZeNQYp43ncX9Y5TOdAYm+u3qHCXlk7G0Zv
+         5yQd/3mDQ9Dr6AQdA59xxrrbBHEoUsY9QI5SdO25tC3/+uF7wsFFoU2JPEn8iB7V8Q2L
+         xet/n4DMdJ/cOti2gBR+C0EzGAwZzxkWSYXshxLHH65iAJQRZVS76PoVN6i96BYR+8cP
+         WDeDiCbeTyL6zlyXfyZXzCfIf/wC+rnFoHQh/k8sPpcPxB9QvSZ2PI5OIIQ9ELfBDNvH
+         9RhIrbaECzV2tBQSV8ABYjzRzx463VrP7naBCG3yW2UhYwE6RHUXVoCL8sEzfWRgqZTz
+         tP8Q==
+X-Forwarded-Encrypted: i=1; AL+hErHVYE+MnCNL7mqRCn2Pb5YelgKS50B+/vncGa6IH1YgeHPIwjA4zCBI4J9eUrvE2q5oLio4FiNrXef7ivU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9CVZUTLn3IKzLY9IBvYx0BFzB5te5daHuDE4JfHITGDxxMxSWu
+	9CItPi29hgYCT9A9jHeWyjqzkqlWD4ckRPJr169NdXxsvbIFYaR/TWEfgCN/HW4aHVQ=
+X-Gm-Gg: AYBFou0aa8Z9vjvXYQLAuHEOE7MNUMuKjN3p3CHL19uxF2vWHfvOKePIXCMnUWSc/HT
+	IgfXq3cGUmWpKsIQaUzcoPedEPvFsMteSuvGthdvpO9yqo5U+7ly3h+3ZLtnRW7YMkl1Eh3q1Lx
+	ii2zKRojHqcxJn2bDGW5OxsfcSsgoYpFrumdhvOAbW7apbJbboWqCxGuKeRW/XSEFWNA0TnyHtY
+	waYuAhnhkvKaZznzqoJ8xpK48o1jNKeY2Suw6IlSBoDH0fO2EeqVMwkIlAf6Bnwehf1MnD7Ikgz
+	sS9aelAwKFyPcCgvK357ZQi4O9VPYb7mg/XNIR09NuPgoRTJLYqYTQo5So0zczvoE6HxSDwq4+J
+	I8Hlo/0fgWZ94ST1jyGcc2HTqWjE+fTHdSVdZwmQu58Cnbpl2IJuWm7EHTaG/Jdb3pGRUwL+ouj
+	vz4bbMKR1wjvq6ZshI+MYL1pAJu6Qz5oTh0TZndpWqKhTMJGXgPil9Jo+NG7Wru9rL+Q9RM3JaC
+	cBlAMqNmI60tKFHJIP2/sX1lH3K3wslWJH4DBQ1HXAQ6RS3uFC+dc2IYu17a0VLxr3/nWlDd3zQ
+	IkGml8PuR+OplZJclErMedXLLohAKSSfyVqbXJKrLiRbD58XEmVqTnQaYfrdfDbu6A==
+X-Received: by 2002:a05:701a:cc97:20b0:1b5:2dce:1b88 with SMTP id a92af1059eb24-1b52dce1e79mr5203228c88.45.1794917250013;
+        Tue, 17 Nov 2026 04:07:30 -0800 (PST)
 Received: from G6L4RL2QG9.bytedance.net ([61.213.176.7])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031468b7sm47347116c88.5.2026.11.17.04.07.17
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031468b7sm47347116c88.5.2026.11.17.04.07.23
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 17 Nov 2026 04:07:22 -0800 (PST)
+        Tue, 17 Nov 2026 04:07:29 -0800 (PST)
 From: Muchun Song <songmuchun@bytedance.com>
 To: Alexander Potapenko <glider@google.com>,
 	Andrew Morton <akpm@linux-foundation.org>
@@ -111,9 +110,9 @@ Cc: Marco Elver <elver@google.com>,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org,
 	Muchun Song <songmuchun@bytedance.com>
-Subject: [PATCH v2 3/7] mm/page_ext: always use vmalloc for section page extensions
-Date: Tue, 17 Nov 2026 20:06:23 +0800
-Message-ID: <20261117120627.50601-4-songmuchun@bytedance.com>
+Subject: [PATCH v2 4/7] mm/page_ext: use common allocation and initialization entry points
+Date: Tue, 17 Nov 2026 20:06:24 +0800
+Message-ID: <20261117120627.50601-5-songmuchun@bytedance.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261117120627.50601-1-songmuchun@bytedance.com>
 References: <20261117120627.50601-1-songmuchun@bytedance.com>
@@ -128,68 +127,131 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-SPARSEMEM currently tries to allocate each section's page extensions
-from the buddy allocator before falling back to vmalloc.  Boot-time
-section allocation happens after vmalloc is available, and memory
-hotplug allocations do not require physically contiguous backing.
+FLATMEM uses separate page_ext_init_flatmem() and
+page_ext_init_flatmem_late() entry points, while SPARSEMEM performs its
+work through page_ext_init().  This exposes the memory model in the
+generic boot sequence and obscures the allocation and client
+initialization phases.
 
-Use vzalloc_node() directly and remove the buddy-specific allocation,
-free, and kmemleak bookkeeping.  This leaves one runtime backing type
-and lets a later change add memblock as the distinct boot-time path
-to simplify the code.
+Rename the early entry point to page_ext_alloc() and use
+page_ext_init() for client callbacks in both memory models.  SPARSEMEM
+keeps its existing late allocation behavior for now; its
+page_ext_alloc() remains an empty configuration stub.
+
+This also moves FLATMEM client callbacks from immediately after
+kmem_cache_init() to after vmalloc_init().  The callbacks still run
+after the buddy and slab allocators are available, as required by
+page_owner.
 
 Signed-off-by: Muchun Song <songmuchun@bytedance.com>
 ---
 v2:
-- Add a preparatory cleanup that always uses vmalloc for SPARSEMEM
-  section page extensions (suggested by Mike Rapoport)
+- Split the common allocation and initialization entry points into a
+  preparatory patch
+- Document the later FLATMEM client callback timing (noted by Chris
+  Down)
 ---
- mm/page_ext.c | 21 +++------------------
- 1 file changed, 3 insertions(+), 18 deletions(-)
+ include/linux/page_ext.h | 20 +++++---------------
+ mm/mm_init.c             |  7 +------
+ mm/page_ext.c            |  5 ++---
+ 3 files changed, 8 insertions(+), 24 deletions(-)
 
-diff --git a/mm/page_ext.c b/mm/page_ext.c
-index dbc1bfa258f1..3b581242fd52 100644
---- a/mm/page_ext.c
-+++ b/mm/page_ext.c
-@@ -285,15 +285,9 @@ static struct page_ext *lookup_page_ext(const struct page *page)
- 
- static void *__meminit alloc_page_ext(size_t size, int nid)
- {
--	gfp_t flags = GFP_KERNEL | __GFP_ZERO | __GFP_NOWARN;
--	void *addr = NULL;
--
--	addr = alloc_pages_exact_nid(nid, size, flags);
--	if (addr)
--		kmemleak_alloc(addr, size, 1, flags);
--	else
--		addr = vzalloc_node(size, nid);
-+	void *addr;
- 
-+	addr = vzalloc_node(size, nid);
- 	if (addr)
- 		memmap_pages_add(DIV_ROUND_UP(size, PAGE_SIZE));
- 
-@@ -339,19 +333,10 @@ static int __meminit init_section_page_ext(unsigned long pfn, int nid)
- static void free_page_ext(void *addr)
- {
- 	size_t table_size;
--	struct page *page;
- 
- 	table_size = page_ext_size * PAGES_PER_SECTION;
- 	memmap_pages_add(-1L * (DIV_ROUND_UP(table_size, PAGE_SIZE)));
--
--	if (is_vmalloc_addr(addr)) {
--		vfree(addr);
--	} else {
--		page = virt_to_page(addr);
--		BUG_ON(PageReserved(page));
--		kmemleak_free(addr);
--		free_pages_exact(addr, table_size);
--	}
-+	vfree(addr);
+diff --git a/include/linux/page_ext.h b/include/linux/page_ext.h
+index 79c53ec45dfa..911a84bbb3db 100644
+--- a/include/linux/page_ext.h
++++ b/include/linux/page_ext.h
+@@ -62,13 +62,10 @@ static inline bool early_page_ext_enabled(void)
  }
  
- static void __free_page_ext(unsigned long pfn)
+ #ifdef CONFIG_SPARSEMEM
+-static inline void page_ext_init_flatmem(void)
+-{
+-}
+-extern void page_ext_init(void);
+-static inline void page_ext_init_flatmem_late(void)
++static inline void page_ext_alloc(void)
+ {
+ }
++void page_ext_init(void);
+ 
+ static inline bool page_ext_iter_next_fast_possible(unsigned long next_pfn)
+ {
+@@ -79,11 +76,8 @@ static inline bool page_ext_iter_next_fast_possible(unsigned long next_pfn)
+ 	return next_pfn % PAGES_PER_SECTION;
+ }
+ #else
+-extern void page_ext_init_flatmem(void);
+-extern void page_ext_init_flatmem_late(void);
+-static inline void page_ext_init(void)
+-{
+-}
++void page_ext_alloc(void);
++void page_ext_init(void);
+ 
+ static inline bool page_ext_iter_next_fast_possible(unsigned long next_pfn)
+ {
+@@ -205,11 +199,7 @@ static inline void page_ext_init(void)
+ {
+ }
+ 
+-static inline void page_ext_init_flatmem_late(void)
+-{
+-}
+-
+-static inline void page_ext_init_flatmem(void)
++static inline void page_ext_alloc(void)
+ {
+ }
+ 
+diff --git a/mm/mm_init.c b/mm/mm_init.c
+index 2367af05570b..7344e7cb8196 100644
+--- a/mm/mm_init.c
++++ b/mm/mm_init.c
+@@ -2711,7 +2711,7 @@ void __init mm_core_init(void)
+ 	 * page_ext requires contiguous pages,
+ 	 * bigger than MAX_PAGE_ORDER unless SPARSEMEM.
+ 	 */
+-	page_ext_init_flatmem();
++	page_ext_alloc();
+ 	mem_debugging_and_hardening_init();
+ 	kfence_alloc_pool_and_metadata();
+ 	report_meminit();
+@@ -2727,11 +2727,6 @@ void __init mm_core_init(void)
+ 	memblock_free_all();
+ 	mem_init();
+ 	kmem_cache_init();
+-	/*
+-	 * page_owner must be initialized after buddy is ready, and also after
+-	 * slab is ready so that stack_depot_init() works properly
+-	 */
+-	page_ext_init_flatmem_late();
+ 	kmemleak_init();
+ 	ptlock_cache_init();
+ 	pgtable_cache_init();
+diff --git a/mm/page_ext.c b/mm/page_ext.c
+index 3b581242fd52..b41d4a957bc6 100644
+--- a/mm/page_ext.c
++++ b/mm/page_ext.c
+@@ -180,7 +180,7 @@ static inline struct page_ext *get_entry(void *base, unsigned long index)
+ }
+ 
+ #ifndef CONFIG_SPARSEMEM
+-void __init page_ext_init_flatmem_late(void)
++void __init page_ext_init(void)
+ {
+ 	invoke_init_callbacks();
+ }
+@@ -238,9 +238,8 @@ static int __init alloc_node_page_ext(int nid)
+ 	return 0;
+ }
+ 
+-void __init page_ext_init_flatmem(void)
++void __init page_ext_alloc(void)
+ {
+-
+ 	int nid, fail;
+ 
+ 	if (!invoke_need_callbacks())
 -- 
 2.54.0
 
