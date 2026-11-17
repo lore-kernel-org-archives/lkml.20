@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794925533;
-	b=whyqphx/1XU1il9pti1ZTcI0u+qYejwyx8VYKxGq00sUZwqc7H50IJWvM/RTR8KLk7K4
-	 tZOCP4przYHvqTXJ+1h3k+QwDmdKk5sksJymPBIhdLZrk2YPGWWsMGuZvUzZWko20Ejd6
-	 rgXDCshB6xqn8VuGHwzOyTD6kJr3fsyHQ/xidsrYo+OFyyLSDrYqlnBTac9Ep3CxtNvWs
-	 3YkWHCuYDBxXXp+GxEWnPTFJ57JL1fQhlv1Dfihf4eoNzih+3Z5J+37SDdt0fgNjorWA5
-	 bsxT7odo30Rui1LpykGUylEYKBjtEgW/B/x5Y4VaCWaTB2CjJuC5kR3xD+sa3HbgajA==
+	t=1794925539;
+	b=PR2gXONdBjnRF+eLcxl8vGRk5zXQ7w3c3lt9WksVyzcWSjDAKW4yCLdiGb0OG3Avc4QT
+	 yk1vH06Qje6pFSqFWQWM111Tu7HOdw9Qyoh4GOndJMhtOWOsb486anlLtGoezZRhkY5Xp
+	 TVmAUlehNUS+GnN++/jL0TVrjbkEUJXAAwXJCb0nc4NhBnlD2YY9qBtKoFwbRYvgVWakq
+	 POZgkhk9OW5vSp6/VNX10lWqAQ/C4o6DKEvVLqIm3YBV+EJj7XF4zMBjaefzYEFWcchER
+	 mDoxaA4XpkP20tNxl3rLIvBZMxXw5dNicW86w5PB3LcZkf6hE9yuwJ3L3fw23DTg5qA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794925533;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794925539;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=VuZddKkmAmaYgOMBa+Lzz2VPLUuC+ZWxc4bgcJWjLWw=;
-	b=UwEHHRkeTTUx3Gn+4yAF4eSvD0TCBYan+zclFPYSJICrpiADCJWpvt2dkxIUJhbbRsLR
-	 QhWfj5kZCStgtyH80QV3MFfM7/fZS4z5e9vePyyv6p4A5Rx/MaoR+xGOyl4RJZ06EPvEn
-	 a3AnbI+/hRTX5EJwzDpMEIGrmouQr0OxH89IhTHnAJBT8XiFyyFagfzv6udyCoq8jVVPi
-	 PelF9265eJjzVPeup7c/6SJf+GeEAy3NlMPxg5ACJz202CKi1aV8d9KEUxwMJjY16y73Q
-	 94s14s16aba1vROZ8Dvy3jVVVFmC5D53Uwm4HSyPm6VijatE4A0jgPRycKSs7twmUng==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=cJ9sO9k+T8zaWbNVfOgYQ/LgwKnb8ilExNHXvYhGb+8=;
+	b=jcNndw6QrFwXcB/PYI0pXQj+t78EdPwmi2VRYKCTnFtcrc70mexM/Ld2im8jOBG+cDol
+	 SiPdsWNwmIt8fGwht0mOtu0YIXj5vBsup6jjNifSunsAVvsUf7BxfSBMMRzrZ25HaUlne
+	 bQNQKHTZ0r6r8MzDXHa1p7N4RuPyDJ7NUofLyTxxg7rs4LNp5/xo46VPzWC3HpImTvQYT
+	 0dwR7RpBeo+YmZ+TFC6XczC9rVRyDMP0Y+saXrzcF60XmtrJteyuFl4wjuLLGccYhsZCi
+	 TZpcnVGa531dpq4M/aKUlShnyhldkYH9acoHErHn+sfdLQOg1FV1Z2jcMNE63xyO+zA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="muFz/FjR";
-	arc=none smtp.remote-ip=209.85.161.42
-Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fvU8PZwo;
+	arc=none smtp.remote-ip=209.85.161.48
+Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B151606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:25:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B151606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 709F3606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:25:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 709F3606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=muFz/FjR
-Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-71ac798b8bbso2366426eaf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:25:33 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fvU8PZwo
+Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-6df5e315bd1so4656853eaf.2
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:25:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794925532; x=1795530332; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VuZddKkmAmaYgOMBa+Lzz2VPLUuC+ZWxc4bgcJWjLWw=;
-        b=muFz/FjRovBJKn2Elu8zoPpACD6lJI4JGRM6c5pLXzo332ieg8mC03G9W8RTEO30bO
-         H2q0fR8MGHTKf5hQ8RCgP8qmB2Xmv1YKG1hg2g29kcu+NxXTjq7UVUbWqQH746cGWUhb
-         Z7+9kJjl0Q4ridAgsKpKURG+kV7blbmnn5Yq2xS3j4keguq5SkyTzGq/dYTl7vqgAlNI
-         mWLga1zBZUBbvNJgzoJmeUq8SYVQCftBJ9DIYNgGyoblTOXMuzG902McXJOM839CnI1/
-         O2IlzvCU815osz/rrp2A6H1+bOYmwsSkexNgnppBods8YWzL96qTt2e/hx/w0AE814Jz
-         eWyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794925532; x=1795530332;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794925538; x=1795530338; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VuZddKkmAmaYgOMBa+Lzz2VPLUuC+ZWxc4bgcJWjLWw=;
-        b=d+78GlnncywbmUxsFFhX2TAs7B5z9L/piJvBnQrnrFr+qQj7h0Fk5rZFDmd//kO4tY
-         hZ8MQeh9yBImKoWDbdrUgHj8sENjwYvVlYGhfQTBmiXHLaB3h1NOJr4ch9Zjd/ztsRXO
-         vIpvc9mLINSu9ZoGuyLaJFOWg/lWLOZggkWuTESXUqAiHxGDphETm0puD9dDVtEEe/4c
-         Px/sKww7CCeFy7c9nN/Wy/lYphFlqFYYDK77J1L1BgWgCQTHdVWgl1iZMtyJIhEkhk2D
-         7cdLCcGB9F/Bvl0oIgTiSgax7BrqrccYSBx6QTkiyng3iZ8KP2N39NJpXgb+DOBR4qLw
-         HyGA==
-X-Forwarded-Encrypted: i=1; AL+hErGM9PFU3K/beAoW3Is4oIxFxJfwFaVzPDssXzAgKBauLN6mR436AWQxM0uPD/FwcecQMeiKj4i/pYz3EFE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+0vA67rCdKbT98JHn9BX9m3Bj0/QsVF1TQNTzaJTTD48g2eem5
-	KuY3s+37G2U8Nn7E+DMddtx8grwFolRjW0f05P4mTvXfGjXp9CtQl0mF
-X-Gm-Gg: AYBFou20A1V1Y7BnOvrw5ZBv09sT1gDv6tEDCRRP/fQ1MZsqh57L+lz0GHWnmlLEEpx
-	iCyacgkr2wRALSwxirvqgw79pDTErxvo2fnt5ybYCHoz3PTDPxcmZNX8NXGNCWpCSWRZOcGnn2F
-	M9q8o4EbmwFvWpWO2XIBvsE3WvuDLULWxAQJiiN9XXL+zV2aLs+Vayjyu7O0zvUljmez9IlyilA
-	zdvsGD1vvXnPKL0dkqGmA8db7CCcFXAte8O2C2T6vb3UNMzsjYckZgibAt7CTjIPJkAnM7z8Gmn
-	ai6nT8p5iQLvRKOb7RGUSQ2ccv/NCnYfYjZBLv52memqKv0wNeAUVoEOZaQf+t8ORv/5whFIlkX
-	MHHjZW/hdKch0eEDg4QpPtVf+fp7LKsbFeod6Wkua1IHjYoYzRvlK73ocLmCq4a6eK8CaJ3gSwg
-	2R4d71Kn1jiq6i8srrQRErCPP1P42c0jF4gIMUJYNS/VJ0ZVrHqpllJOvLLasWEhLRpVIkDqZ9b
-	Rff07Md/o/3fta8b27ec6yRnSsPmW58M7Wx2rRy1GMebieoQo2yotF9jaVB5+DunLzQSPrD6cxV
-	/K83nnfArSmHPS1Gz/Ev+0P16EOlp+Gazw==
-X-Received: by 2002:a05:6820:8914:20b0:700:da68:739a with SMTP id 006d021491bc7-71ab5032398mr6453455eaf.47.1794925532060;
-        Tue, 17 Nov 2026 06:25:32 -0800 (PST)
+        bh=cJ9sO9k+T8zaWbNVfOgYQ/LgwKnb8ilExNHXvYhGb+8=;
+        b=fvU8PZwoJzgDdPJaufAshrKUP/8OeTfvlCP/aUkIJVTlTuE/ZnAIImHBFNHPfadx1O
+         uXiWdZPfCpMxiGeV+m/r7QhkJZIy4qWvpHlMZF0yHePZ9JXtUwojLDzmBI05aDfn4XsT
+         ppFbU0s381l1jt+a/6WIjT1bnkcziypFdr0PjCiw+yKr1lavKUwr6QVHj3f4Gd6F5XEK
+         Lv4QssdNML1FJtXIZv/d/S1nOis80tU9y0G/IsSBCDT1t6/JHAZGjEFy76O2RMAITz9+
+         PY6KmZTqseG1OEAtRt2fC8TADoyUpWhKRAU7kwBOtJpWdlCpHS2IWsMrF+nxJdgC7lRe
+         W7jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794925538; x=1795530338;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cJ9sO9k+T8zaWbNVfOgYQ/LgwKnb8ilExNHXvYhGb+8=;
+        b=UzI4E0r8OE97GbZvFoIUnTdrSvl5pGdjqHSHugFMn0MBN9hD+no68j2BTJ6hO/A/Ag
+         p/dVpJLOBJBbXnUXSLuZnFqPNp/sJuxgber9KVAw8DVUBnjFCn8jDigoMCkNh+vGZOgp
+         254u4YrwgjQ2vCST+AVJwhIFHxvN04acsbMFOWHfLyKkSticx99gfQvrwPhhJopU3HNT
+         FUZNpo8uxa+Oe8spuFLEqFvWFWK8Ymituu1RVehdcS6Wzp9SFfopRcYsrCvz0mRPIBwC
+         Y25gYXClYpFaQz7l+OD0NihgGeoL7qANAohc5wV4/mjpNTaWVoHMR1urbjp67CFHmjRg
+         5Obg==
+X-Forwarded-Encrypted: i=1; AL+hErEPWqlxGs8xgxOodvjTFFX1S8hg7PnxY87zzgbvtn+SP1Sq06H3KVHlxo3NLRwVWsvcceQJLJ1eRrM1aBk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/l3RStdPSyw71wx8UGu5Q5fkPw4bpDWXCqzX5yUerfSEbUyMcq
+	QZQ2Lmzdy99xJoaKigEeNGB0B+qDH2M/LMqOwW/+5ZV2hyNhGsoxuZC5
+X-Gm-Gg: AYBFou1jJJ4axMKgekaFSA35VcGi+BlMHi//niQ5g0LkMcArdfCT+EeF2cMqeKqD8k4
+	EjBdvoKCd/FXeIFvxtR/+fu8K+CQI5K87yEwibarESTANDoRCcTMX2YrSAWJd6TKrOILrrh81PD
+	PI2/92qZpxFl0MVSyBHjrWEQiUaqDed+e64SiNZ4B+YvTnfFo6CGE+Pe0ef8mcAUj+skasxKw8U
+	AsfkH6mFia2sUpBDG1Qi5rAjabzqhZCN/uX8Gp92gjSeeLtJXYzV4Szt+rBK5oZTSI/Wb3LLMJt
+	CIqi2yf78KRJvy+j5TZO7naF7BXUG7LD9E78WjvDKILGdb/k5XEtlvdvhDJrh6JGAMiT/BLrzcA
+	CnbVXXlYrVK33SmIJBDP2XTXL+xxJuMdZtgIFFmgeDl3A2T032nnQr6K0wObRv/ZrfzOOPp6/1A
+	CJoqI1u9/GYrtJpuGa6LpenlNcbzMN/uA9JHqR8ntLcGqa2hOtqgcrqMfvlfoe1BqPqee3s9EIB
+	3F+WTnspQ+QNotMVr7ij/Q/tGG0SC1G9aDeSjAhUY884zRt8IuENHzu98Am7Ok7pk+c6uAApytB
+	0lZfLFgwyMA/8rK2ukTmEfC3CEBj2mWKZw==
+X-Received: by 2002:a05:6820:169f:b0:71a:ee95:bfe5 with SMTP id 006d021491bc7-71aee95c36fmr4678633eaf.26.1794925538329;
+        Tue, 17 Nov 2026 06:25:38 -0800 (PST)
 Received: from pve-server.rlab ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71af0a8a18csm5313709eaf.4.2026.11.17.06.25.27
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71af0a8a18csm5313709eaf.4.2026.11.17.06.25.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 06:25:31 -0800 (PST)
+        Tue, 17 Nov 2026 06:25:36 -0800 (PST)
 From: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
 To: linuxppc-dev@lists.ozlabs.org
 Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
@@ -87,11 +88,14 @@ Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
 	Nicholas Piggin <npiggin@gmail.com>,
 	Shrikanth Hegde <sshegde@linux.ibm.com>,
 	Mukesh Kumar Chaurasiya <mkchauras@gmail.com>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-Subject: [PATCHv2 0/4]: powerpc: Misc fixes for debug kernel splats
-Date: Tue, 17 Nov 2026 19:55:16 +0530
-Message-Id: <cover.1794924821.git.ritesh.list@gmail.com>
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCHv2 1/4] powerpc/64: Leave lockdep hardirq context around replayed interrupts
+Date: Tue, 17 Nov 2026 19:55:17 +0530
+Message-Id: <cfdac7c3508cf0eb1cbf063e7f6331dccb128796.1794924821.git.ritesh.list@gmail.com>
 X-Mailer: git-send-email 2.39.5
+In-Reply-To: <cover.1794924821.git.ritesh.list@gmail.com>
+References: <cover.1794924821.git.ritesh.list@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,38 +107,123 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Enabling debug options like PROVE_LOCKING, DEBUG_PREEMPT and
-DEBUG_ATOMIC_SLEEP on powerpc64 showed these warnings.
+With PROVE_LOCKING, boot warns once and lockdep turns itself off:
+  DEBUG_LOCKS_WARN_ON(lockdep_hardirq_context())
+  WARNING: kernel/locking/lockdep.c:4448 at lockdep_hardirqs_on_prepare+0x22c/0x2d4, CPU#0: swapper/0/0
+  CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.4.0-rc2-00027-g074831f06e18-dirty #123 PREEMPT
+  NIP:  c0000000002b2f2c LR: c0000000002b2f28 CTR: c000000002426f90
+  REGS: c000000004f075c0 TRAP: 0700   Not tainted  (7.4.0-rc2-00027-g074831f06e18-dirty)
+  MSR:  8000000002021033 <SF,VEC,ME,IR,DR,RI,LE>  CR: 48022221  XER: 20040000
+  NIP [c0000000002b2f2c] lockdep_hardirqs_on_prepare+0x22c/0x2d4
+  LR [c0000000002b2f28] lockdep_hardirqs_on_prepare+0x228/0x2d4
+  Call Trace:
+    lockdep_hardirqs_on_prepare+0x228/0x2d4 (unreliable)
+    trace_hardirqs_on+0x98/0x11c
+    irqentry_exit+0x64c/0x1064
+    timer_interrupt+0x274/0x6bc
+    __replay_soft_interrupts+0x158/0x380
+    arch_local_irq_restore+0x1cc/0x244
+    console_flush_one_record+0x438/0x654
+    console_unlock+0xb8/0x1e0
+    vprintk_emit+0x300/0x56c
+    vprintk+0x20/0x34
+    _printk+0x40/0x54
+    lockdep_init+0xdc/0x104
+    start_kernel+0xa24/0xc68
+    start_here_common+0x1c/0x20
 
-Main motivation for me to look into this was - many folks internally reported
-that after generic entry/exit feature, they aren't able to use lockdep because
-of the warning splat it generates during boot, after which lockdep gets
-disabled.
+Since commit bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature") a
+replayed handler always returns via irqentry_exit(), which traces hardirqs
+on while the replay is still inside irq_enter():
+  arch_local_irq_restore()
+    irq_enter()                        hardirq_context = 1
+    __replay_soft_interrupts()
+      timer_interrupt(&regs)
+        irq_enter_rcu()                hardirq_context = 2
+        irq_exit_rcu()                 hardirq_context = 1
+        irqentry_exit()
+          trace_hardirqs_on()          hardirq_context != 0 -> WARN
+      next_interrupt()
+        lockdep_hardirq_exit()         too late
 
-Therefore this series is an attempt to fix the warnings which are generated
-- when we enable these various debug config options.
+Leave the hardirq context before each replayed handler instead of
+after it:
+  arch_local_irq_restore()
+    irq_enter()                        hardirq_context = 1
+    __replay_soft_interrupts()
+      lockdep_hardirq_exit()           hardirq_context = 0 // fix
+      timer_interrupt(&regs)
+        irq_enter_rcu()                hardirq_context = 1
+        irq_exit_rcu()                 hardirq_context = 0
+        irqentry_exit()
+          trace_hardirqs_on()          ok
+      next_interrupt()
+        trace_hardirqs_off()
+        lockdep_hardirq_enter()        hardirq_context = 1
+    irq_exit()                         hardirq_context = 0
 
-v1 -> v2:
-========
-1. Patch-4 fixes a pre-exiting issue pointed out by Sashiko.
-2. Patch-2 and patch-3 from previous revision is re-arranged.
-3. Patch-2 change smp_processor_id() to raw_smp_processor_id() since preemption
-   is already off - (From Shrikanth)
+Fixes: bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+---
+ arch/powerpc/kernel/irq_64.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
-(Sorry about a quick v2 re-spin. The main reason for this was, a new patch-4
-which Sashiko pointed out as a pre-existing issue).
+diff --git a/arch/powerpc/kernel/irq_64.c b/arch/powerpc/kernel/irq_64.c
+index d5c48d1b0a31..b189e796eb34 100644
+--- a/arch/powerpc/kernel/irq_64.c
++++ b/arch/powerpc/kernel/irq_64.c
+@@ -75,12 +75,6 @@ static inline void next_interrupt(struct pt_regs *regs)
+ 		WARN_ON(irq_soft_mask_return() != IRQS_ALL_DISABLED);
+ 	}
 
-Ritesh Harjani (IBM) (4):
-  powerpc/64: Leave lockdep hardirq context around replayed interrupts
-  powerpc/watchdog: Disable preemption in arch_touch_nmi_watchdog()
-  powerpc/kvm-hv-pmu: Don't allocate gsm/gsb GFP_KERNEL allocations under spinlock
-  powerpc/kvm-hv-pmu: Free hostwide stats buffers if perf_pmu_register() fails
+-	/*
+-	 * We are responding to the next interrupt, so interrupt-off
+-	 * latencies should be reset here.
+-	 */
+-	lockdep_hardirq_exit();
+-	trace_hardirqs_on();
+ 	trace_hardirqs_off();
+ 	lockdep_hardirq_enter();
+ }
+@@ -137,18 +131,21 @@ static __no_kcsan void __replay_soft_interrupts(void)
+ 	if (IS_ENABLED(CONFIG_PPC_BOOK3S) &&
+ 	    irq_happened_test_and_clear(PACA_IRQ_HMI)) {
+ 		regs.trap = INTERRUPT_HMI;
++		lockdep_hardirq_exit();
+ 		handle_hmi_exception(&regs);
+ 		next_interrupt(&regs);
+ 	}
 
- arch/powerpc/kernel/irq_64.c   | 11 +++---
- arch/powerpc/kernel/watchdog.c |  8 +++-
- arch/powerpc/perf/kvm-hv-pmu.c | 69 ++++++++++++++++------------------
- 3 files changed, 44 insertions(+), 44 deletions(-)
+ 	if (irq_happened_test_and_clear(PACA_IRQ_DEC)) {
+ 		regs.trap = INTERRUPT_DECREMENTER;
++		lockdep_hardirq_exit();
+ 		timer_interrupt(&regs);
+ 		next_interrupt(&regs);
+ 	}
 
+ 	if (irq_happened_test_and_clear(PACA_IRQ_EE)) {
+ 		regs.trap = INTERRUPT_EXTERNAL;
++		lockdep_hardirq_exit();
+ 		do_IRQ(&regs);
+ 		next_interrupt(&regs);
+ 	}
+@@ -156,6 +153,7 @@ static __no_kcsan void __replay_soft_interrupts(void)
+ 	if (IS_ENABLED(CONFIG_PPC_DOORBELL) &&
+ 	    irq_happened_test_and_clear(PACA_IRQ_DBELL)) {
+ 		regs.trap = INTERRUPT_DOORBELL;
++		lockdep_hardirq_exit();
+ 		doorbell_exception(&regs);
+ 		next_interrupt(&regs);
+ 	}
+@@ -164,6 +162,7 @@ static __no_kcsan void __replay_soft_interrupts(void)
+ 	if (IS_ENABLED(CONFIG_PPC_BOOK3S) &&
+ 	    irq_happened_test_and_clear(PACA_IRQ_PMI)) {
+ 		regs.trap = INTERRUPT_PERFMON;
++		lockdep_hardirq_exit();
+ 		performance_monitor_exception(&regs);
+ 		next_interrupt(&regs);
+ 	}
 --
 2.39.5
 
