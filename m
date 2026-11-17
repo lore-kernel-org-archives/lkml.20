@@ -1,57 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794882525;
-	b=oPhq7lat2huKZy/0WU4G4uezQy7Ke0YPw+EQ+dv57IVV1KXUtV07GsCRoS1SRxaQqYLS
-	 wYBGI5ODmrcURkqLKcrIYrJKaCCG7JokGdCdr+wP8vorviswt+lAuewbVYkMt9YLqUvcj
-	 u6GPi84HotsMZLUR46DWJGQflEEGXkfIS5aopw/ucQisBW7VpH5zfcQ/2HEm8bd6ZGinP
-	 zEgoYsldQ0MKMR+RBmxZowxrYfyRHjZtDz3PB9WgAgC/v/8/NddLQSRNjg4pXLzJhVvKL
-	 EWeIezGO8hI5JxA5iUe7ZnPU4rZw57AT1nzKJca0m3YSynRcP1pIFmphc/AJLOJyW8w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794882525;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=m7e4fyf2Q5mCywaw7nen7QHcArrTjTdu8X+U3sZLG8E=;
-	b=swnntYvAEYCP5CjikceVZsap/zvuWSZqy2694HsHDpG3tmSzuoQwqBDkdzs7CT3SmaEa
-	 M/udRWjbcmhcSSYfsj+xrrsKwRc3oTgn4agZiiloQ9AO87u95M84N/fADk9PtPxK7orVK
-	 5xUfBHJdpPQfhR9XZofeF92SPm+RmLxK+t/ywduD8zJceGCrvBFj7ehASor0ir7cwI5SV
-	 Cc8bmOdOS3QHz8fG3rHDavJnB8kZrVGZXoysrFvr7TCmfSzQ9U+ncN6Xw1oDps26GJN9N
-	 f21Y81uuxMBJrYfIj+trWWCwFf+ToImtQCwyxuylHCoHfvkFqxEFBxzjVHJDsw46JoA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=iHWDBmMW;
-	arc=none smtp.remote-ip=115.124.30.130
-Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.73
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794882545;
+	b=NgkRxD6Le8o2msZg1YR2qOON+CE+EUqY8zcf09H2XvGl2hUu3LcAemwDpG228yf6Mt9a
+	 JGBKbAgHIhJJzvn90FWBZbV0q114+s95TrGjEd/WXNgY4qjnmi6ujbPt1OcROX9VB3Bek
+	 5RGBWuGHodj5KliaOc7oIKQIpPF7Z+5plBGkbsPQHSlUb8Vv4IHTYlqhALpLemIHW9xEI
+	 0FYlMik1q/wP/N4B0jrrKPvlqtbqJS9Rhc7grf8MX1rbCC6NqUxCcIYuUSOXJjmYroBsj
+	 +HTc1i5zlIuVn1Qoy/Q/6kFEwidbwjy/jHgx/dS2Btt9GhdFVy+0V/lkKacU45nosqA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794882545;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=9QDgGXgHw3XmIR9vRF2eMspFA8gGWE2rjJnPNKyKzZU=;
+	b=u9ak0U5tTG0wzq5wp7ZynoQ6MhchXC4WNOoZ9eOpuAAem8EQGB6cGvvcTA+6KcVsPXBV
+	 V1Il2/5MNDV3cobr4p2cr9wsnXRrGXf1uaJBH7Dow1edZWZkBM/kGEy6Jy6ED7+NUeJEq
+	 tkebpHBUIYCWbUUSsRiL79jFUg0mIcEk2rxjBUZ1WDcDGm0M/OAaHl6YLZH4z5z6ymsyN
+	 PDeieV0KOjEYJHssEyCqLsabtkTKJ112rMN79vKk/4vAhXqRJpFX3yh8mIHlk/klRViCI
+	 Qlj4pwpKpfqrz3ufFyoRxWYHkap5Z48xWYbiEv/ZAFX0aXQrWql/f3oS+QHRIVGCwtw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.73
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023073.outbound.protection.outlook.com [40.107.44.73])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4E2B606A339;
-	Tue, 17 Nov 2026 02:28:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4E2B606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=iHWDBmMW
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1794882520; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=m7e4fyf2Q5mCywaw7nen7QHcArrTjTdu8X+U3sZLG8E=;
-	b=iHWDBmMWqxtZUiXXN5MCDh32ysya6VqOcYP1g2stFhK7qQhD5l6rMzRsaKqLCxAUAwBWmk7PPKgw2uz84eyaYa7TSdqwsoIuscyXpFYYRJA6PTfuW2R4oh7WhA4fsxGUKgmrSBIAixmChN5gr3tPLQeAg0RVDuTq0ws3n/MTRTM=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R221e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=chengyou@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XEwnD1-_1794882519;
-Received: from localhost(mailfrom:chengyou@linux.alibaba.com fp:SMTPD_---0XEwnD1-_1794882519 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 17 Nov 2026 10:28:40 +0800
-From: Cheng Xu <chengyou@linux.alibaba.com>
-To: stable@vger.kernel.org
-Cc: linux-rdma@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFF1F606A31C;
+	Tue, 17 Nov 2026 02:29:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFF1F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FM0nLpvKeH/D8Ov5pmNQNjGcK3WYAscb3b2KqTBN6ljMEzGAfusYLoBtH5P/BJRCPo3DzTXe/USK5LZ9U4YaimHhQrPgE7F81Ky8m/oCKyG9SuLl2U/LcHCtsI9teRh1DW7KGXCnI4HvINvJBrGBuK6wnwoiLcoaCk773E3OgevXx284nF1WaXpeLzLZeV+pwLLiYnXCLII0WKqdYsWcOlxZp4dGTa23FX4D5CbAPCmaG2Q8aCboBas6N+aOA9vVCekpjSLjkhwN/Ea4CjWmSgE824JacNgdqQzBwK/C84pA5eXtnX/UrBxWLJTZord6+hjEn+Nw1LnDnCHbDSfDLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9QDgGXgHw3XmIR9vRF2eMspFA8gGWE2rjJnPNKyKzZU=;
+ b=mfXPtXSWkcd0Rwr4Hq46xb7Kvs3t1BbGnCGIiDmmVbOlzKaCTVj+hEZzJePMM3vPtA8FKghfBoEJuQnl1ySOhyD+9DwLtsl7CfhQfDsHWtUh+mNEAabFNzrMnV7sLunyCaMTtExcjZXOdZOELMeAWsLPU1GVnIl81mfb8BNaWyTbx+I3873xb6lx8Gx6WGrxdsziDMYVHMG8DOCrzeycYdg5lfDUqMxmnji0I8mkk48GyKqoYzQHHZtdMqwJLS91vAJFRgQFORtZLNDr9VbseitmFtysRryOLFsPdbIXcM+knu5f5itY07I9HRa4iCgxVUB8egleewhDIAvZrSiECw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from JH0PR01CA0156.apcprd01.prod.exchangelabs.com
+ (2603:1096:990:7::14) by KUZPR06MB8074.apcprd06.prod.outlook.com
+ (2603:1096:d10:47::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.7; Tue, 17 Nov
+ 2026 02:29:00 +0000
+Received: from SG2PEPF000B66CE.apcprd03.prod.outlook.com
+ (2603:1096:990:7:cafe::22) by JH0PR01CA0156.outlook.office365.com
+ (2603:1096:990:7::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Tue, 17
+ Nov 2026 02:29:00 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ SG2PEPF000B66CE.mail.protection.outlook.com (10.167.240.21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 02:29:00 +0000
+Received: from hongliang-System-Product-Name (unknown [172.20.64.180])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 249B3427EFC5;
+	Tue, 17 Nov 2026 10:28:59 +0800 (CST)
+From: Hongliang Yang <hongliang.yang@cixtech.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Gary Yang <Gary.Yang@cixtech.com>,
+	Fugang Duan <fugang.duan@cixtech.com>
+Cc: linux-phy@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	leon@kernel.org,
-	jgg@ziepe.ca,
-	kaishen@linux.alibaba.com
-Subject: [PATCH 6.6.y] RDMA/erdma: Use IRQ-safe XArray helpers for QP and CQ tables
-Date: Tue, 17 Nov 2026 10:28:39 +0800
-Message-ID: <20261117022839.23186-1-chengyou@linux.alibaba.com>
+	cix-kernel-upstream@cixtech.com,
+	Hongliang Yang <hongliang.yang@cixtech.com>
+Subject: [PATCH v8 0/2] phy: Add CIX Sky1 USB3 PHY support
+Date: Tue, 17 Nov 2026 10:28:56 +0800
+Message-ID: <20261117022858.2210212-1-hongliang.yang@cixtech.com>
 X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -63,93 +108,102 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG2PEPF000B66CE:EE_|KUZPR06MB8074:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 80370986-2ec7-4b0f-1204-08df445289fd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|376014|7416014|1800799024|18002099003|6133799003|261009223027099003|3023799007|5023799004|56012099006|10067099003|261026121527099003|261028144727099003|261026140227099003|261021121427099003|261022075727099003|261022105027099003|261102123227099003|261102130727099003;
+X-Microsoft-Antispam-Message-Info:
+	Wa+QNK80KdbbvaNv4gYHYj9y7iSB8fGlPOhzUbzRKLq4cIxIszDLqS8dp3E3oJ3ld04RxN5jJqZqyheC+ywAPKWZbQLBnj9KCwij8i04N+wA58sFTOGnqohSD3EwGBR7SLgqlhdnilbWT8BblbMH3MEY75jMC4k9p7F20A0iY4h8VCzFY0yOIxjB3zXlSKB45bs7+XxWYpfIgzgm42gmL0XWRtcQwM2uC0600v/C3N64XL8IllsxchhsZQkcRliwSIOOs/8EhnHmTI0yTIH5NN7RwGvs6bajtF+Zu5bFEerT7sIaH9ssuvE9nGV9gFJuFIiIdd6FejfyrYjB+Tp/g+x14EPv4hZ1jK7/llm9Hg+Ju6MZNesRd8t4j73uGUQZegionvIOOTgPD9rccRraOugsX3Ygp7qHj3qGlIQArmcjXngFlCVR67zY07WqRvcWn0f4pcn5y2Wpjt+cxfj5UhqRz5+hbnARyIQgUr27JSPfLR5YiFlloHGO6v4JNmet7TkDiiy0VNnwRPTOQmYMl+FCJte2s8c8yn/Wg+GS1YqAFnOfhjm0YdbBD2rUV9QEgODlDutLxF/tzNAShrhPXHQ5vTVlzRyVH/FPobZv56+jP7kOzZr3LfZcrRE9sqxtqF9CxODbNcVHMnvSbgApH4Orbj9TSblxUaqau6Io9VzZgqFmZxm1jeGmqm5I646RslhK0WOjSrqtyVpXNKuHXg==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(7416014)(1800799024)(18002099003)(6133799003)(261009223027099003)(3023799007)(5023799004)(56012099006)(10067099003)(261026121527099003)(261028144727099003)(261026140227099003)(261021121427099003)(261022075727099003)(261022105027099003)(261102123227099003)(261102130727099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	AlCmafM9JmFA65V8JO2vTvbGZHdqzEek162sG66mJIlMTME2sDfiFOkTqiRCViw9STFGq8NftP0BMoFACuQBQApib3moCJ5QPEYBdAtMr1+iRf2BMPfcAyqcazSh1122WeYVvoj15PxJNzSDQMfVtfa+WyAT3pG1yrCvHq0TxvRs4WiJxARemTHLWxIE66qqHrdpqD7XmjT80z5Ezqn73aPGvMAFKa8zYRqpqdg5m0xyXSmNgMyFBGanUlTjkTrl+k/G4wDq7DHrdFef8DmyNliuaHTNEgZ5gFmSV5JAGZR6G3aDl4dVQAl3tGvXIpfogHmmM29IriEyXDUF2FkneacpccWWmG7aYK41/6+uxzXdZvy4IPjf5eebnNbaKRoighi73NxZoMbNIEWdxNroBWAvNHu6e359UbmZO8l26mwwvljqtYhDMAKlYGbCx0p8
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 02:29:00.1116
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 80370986-2ec7-4b0f-1204-08df445289fd
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SG2PEPF000B66CE.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KUZPR06MB8074
 
-[ Upstream commit 00baeade709fb66da647e8327e8398bb532e30f7 ]
+This series adds support for the USB3 PHY integrated in the CIX Sky1
+SoC: the device tree binding and the PHY driver. It is a PHY series
+only; the arm64 device tree nodes belong to the SoC subsystem and will
+be sent separately once the binding is accepted. The PHY and the
+USBSSP controller series were split in v4 and are posted independently.
 
-Locked QP and CQ lookups from EQ interrupts can deadlock with
-create-path XArray updates. If an interrupt arrives while the create
-path holds the plain xa_lock, the lookup spins forever trying to
-acquire the same lock.
+The PHY provides the SuperSpeed lanes for the two USB3 Type-A (USB4
+and USB5) Cadence USBSSP controllers of the SoC. There is one PHY
+block with two lanes: they share one register block, the same clocks
+and resets, and one initialization sequence, so the binding describes
+the block as a single provider with #phy-cells = <0> and both
+controllers reference the same phandle. The PHY core reference counts
+the phy_init() and phy_exit() calls accordingly.
 
-Use IRQ-safe XArray helpers for all QP and CQ create-path updates,
-including the GSI QP store and error paths. Initialize both arrays with
-XA_FLAGS_LOCK_IRQ so sleeping allocations preserve interrupt state.
+v5 described one child node per lane. v6 collapsed them into the parent
+node, but nothing in the binding or in the changelog said where the
+second lane went. The second lane did not go anywhere: it is the second
+lane of the same block and has no registers, clocks or resets of its
+own. The binding description and the commit message now say that.
 
-[ The GSI QP create path is not present in 6.6.y, so omit that hunk. ]
+Tested on Radxa Orion O6 (Sky1) together with the USBSSP controller
+series: the PHY probes and USB 3.x devices enumerate at SuperSpeed. The
+series applies on top of v7.4-rc1.
 
-Fixes: 98df2aee1459 ("RDMA/erdma: Hold CQ references when processing EQ events")
-Fixes: a52eeff32024 ("RDMA/erdma: Hold QP references for AE and CM processing")
-Signed-off-by: Cheng Xu <chengyou@linux.alibaba.com>
-Link: https://patch.msgid.link/20260828030344.88021-1-chengyou@linux.alibaba.com
-Signed-off-by: Leon Romanovsky <leon@kernel.org>
----
- drivers/infiniband/hw/erdma/erdma_main.c  |  4 ++--
- drivers/infiniband/hw/erdma/erdma_verbs.c | 16 ++++++++--------
- 2 files changed, 10 insertions(+), 10 deletions(-)
+Changes in v8:
+- Rely on the PHY core for serialization and reference counting of
+  phy_init() and phy_exit() instead of a driver-local mutex and counter,
+  and call the Sky1 init and exit functions directly from the PHY
+  operations; the per-SoC callback structure and its duplicate error
+  messages are gone.
+- Drop the register macros that the initialization sequence does not
+  use from the private header.
 
-diff --git a/drivers/infiniband/hw/erdma/erdma_main.c b/drivers/infiniband/hw/erdma/erdma_main.c
-index 0880c79a978c..6dc6c7f4fb2e 100644
---- a/drivers/infiniband/hw/erdma/erdma_main.c
-+++ b/drivers/infiniband/hw/erdma/erdma_main.c
-@@ -519,8 +519,8 @@ static int erdma_ib_device_add(struct pci_dev *pdev)
- 	INIT_LIST_HEAD(&dev->cep_list);
- 
- 	spin_lock_init(&dev->lock);
--	xa_init_flags(&dev->qp_xa, XA_FLAGS_ALLOC1);
--	xa_init_flags(&dev->cq_xa, XA_FLAGS_ALLOC1);
-+	xa_init_flags(&dev->qp_xa, XA_FLAGS_ALLOC1 | XA_FLAGS_LOCK_IRQ);
-+	xa_init_flags(&dev->cq_xa, XA_FLAGS_ALLOC1 | XA_FLAGS_LOCK_IRQ);
- 	dev->next_alloc_cqn = 1;
- 	dev->next_alloc_qpn = 1;
- 
-diff --git a/drivers/infiniband/hw/erdma/erdma_verbs.c b/drivers/infiniband/hw/erdma/erdma_verbs.c
-index a9b2d0890570..94b3d4aea123 100644
---- a/drivers/infiniband/hw/erdma/erdma_verbs.c
-+++ b/drivers/infiniband/hw/erdma/erdma_verbs.c
-@@ -945,9 +945,9 @@ int erdma_create_qp(struct ib_qp *ibqp, struct ib_qp_init_attr *attrs,
- 	kref_init(&qp->ref);
- 	init_completion(&qp->safe_free);
- 
--	ret = xa_alloc_cyclic(&dev->qp_xa, &qp->ibqp.qp_num, qp,
--			      XA_LIMIT(1, dev->attrs.max_qp - 1),
--			      &dev->next_alloc_qpn, GFP_KERNEL);
-+	ret = xa_alloc_cyclic_irq(&dev->qp_xa, &qp->ibqp.qp_num, qp,
-+				  XA_LIMIT(1, dev->attrs.max_qp - 1),
-+				  &dev->next_alloc_qpn, GFP_KERNEL);
- 	if (ret < 0) {
- 		ret = -ENOMEM;
- 		goto err_out;
-@@ -1003,7 +1003,7 @@ int erdma_create_qp(struct ib_qp *ibqp, struct ib_qp_init_attr *attrs,
- 	else
- 		free_kernel_qp(qp);
- err_out_xa:
--	xa_erase(&dev->qp_xa, QP_ID(qp));
-+	xa_erase_irq(&dev->qp_xa, QP_ID(qp));
- err_out:
- 	return ret;
- }
-@@ -1682,9 +1682,9 @@ int erdma_create_cq(struct ib_cq *ibcq, const struct ib_cq_init_attr *attr,
- 	refcount_set(&cq->refcount, 1);
- 	init_completion(&cq->free);
- 
--	ret = xa_alloc_cyclic(&dev->cq_xa, &cq->cqn, cq,
--			      XA_LIMIT(1, dev->attrs.max_cq - 1),
--			      &dev->next_alloc_cqn, GFP_KERNEL);
-+	ret = xa_alloc_cyclic_irq(&dev->cq_xa, &cq->cqn, cq,
-+				  XA_LIMIT(1, dev->attrs.max_cq - 1),
-+				  &dev->next_alloc_cqn, GFP_KERNEL);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -1731,7 +1731,7 @@ int erdma_create_cq(struct ib_cq *ibcq, const struct ib_cq_init_attr *attr,
- 	}
- 
- err_out_xa:
--	xa_erase(&dev->cq_xa, cq->cqn);
-+	xa_erase_irq(&dev->cq_xa, cq->cqn);
- 
- 	return ret;
- }
+Changes in v7:
+- Removed the arm64 dts from the series; it is a separate SoC patchset.
+- Describe the two lanes as one PHY provider and say why, instead of
+  dropping the per-lane child nodes without an explanation.
+- Renamed the register header to phy-cix-usb3.h: it holds the register
+  map of the USB3 PHY, and the usbdp name suggested a USB/DP combo PHY.
+- Fixed the module description and the Kconfig help text.
+
+Changes in v6:
+- Dropped the per-port child nodes; the PHY node itself is the provider
+  with #phy-cells = <0> and the driver exports a single PHY instance
+  shared by both controllers.
+- Selected REGMAP in the PHY Kconfig.
+- Used dev_err_probe() for the reset, clock and regmap acquisition
+  failures in the probe path.
+
+Hongliang Yang (2):
+  dt-bindings: phy: Add CIX Sky1 USB3 PHY
+  phy: cix: Add CIX Sky1 USB3 PHY driver
+
+ .../bindings/phy/cix,sky1-usb3-phy.yaml       |  78 +++++
+ MAINTAINERS                                   |   2 +
+ drivers/phy/Kconfig                           |   1 +
+ drivers/phy/Makefile                          |   1 +
+ drivers/phy/cix/Kconfig                       |  21 ++
+ drivers/phy/cix/Makefile                      |   6 +
+ drivers/phy/cix/phy-cix-usb3.c                | 313 ++++++++++++++++++
+ drivers/phy/cix/phy-cix-usb3.h                | 180 ++++++++++
+ 8 files changed, 602 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml
+ create mode 100644 drivers/phy/cix/Kconfig
+ create mode 100644 drivers/phy/cix/Makefile
+ create mode 100644 drivers/phy/cix/phy-cix-usb3.c
+ create mode 100644 drivers/phy/cix/phy-cix-usb3.h
+
 -- 
-2.31.1
+2.54.0
 
