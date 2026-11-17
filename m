@@ -1,70 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794888076;
-	b=zuVB2KJS+aiN/qxqz33UryXcLPxlBHZ4NqdgiW9YgK2zEyom4tbTRxFERq/OazC10+u6
-	 goVMnXCKe9dsXrlDD/8lW0CzeQJNTHvbtfFNxNfp4UzEgxM+ddJqANu56a/+TbS6Qe6QS
-	 t0mQEAe+rZWyLiWMl5SNjFNd1mx1oMVvGtKtmj9tBQHP8ofs8txvq1F+qRSAull837oEE
-	 rsPQJLVm0sFKgqOStQD2Z55B1HU4J6Q4BmwNKIWqkoJyahBMKDl54lC7F37choISHZWgN
-	 S2dD5JKsNJ0AINnSgyZG9rD4yuU0cRUFtatW8/iAdEhTsh13VjK0h17ZBdnJeh9jJuA==
+	t=1794888140;
+	b=jD10rgPwBfXQGxQTaCBhs7aloVo54OOoLVe10LEmly9GCHVA+aNed9vifFz+3yR2RY54
+	 ++TS98cmxD3+VTLmdcvsK4qR4uC3eZga72K5e8W0yqhzVfHGG7kHW1220CbG5H6riMFKl
+	 /6zeUAF/enXouQXc59acxtaeL9g1vjGXsgD81l2oBfhNGFgiJmLPZ5Vqx97j4KyqdFh6s
+	 LQtSSa/WVuRnqea4lZzPD1qpOnN8WY/OKIVYCNJBO3YNwAOowfp9ACm8xJcVcJN02uP/v
+	 mEBKqHufJ0xyRImiAYBBRIApQoLSVaRSP1Rsw1JJHk2XxS0L/T9vxUBFRNkF/n0cdgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794888076;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=/6A8MZ+VEy2cx7JzeZShTroUqqKoj4R+X/thRFeMnNc=;
-	b=weScmegINiYKVGCWjIOrSmcm9Z/dFLeFFxeDmJJpEkw2UQrHRq0MoCC8oVpjUCN7USlE
-	 MzF2Go42y0imnCmqlO1TyMwQ1/axkmC9JV8tNFVjRUA0HTRcQVJ2Qvy1VFD6gTC4EbtIB
-	 vO2wqRsqqjE9Jb0jyTwPb+6iCQkrmeczx9GEy6B0DjPtv/hrLBujOspycfW3qIJwz21ju
-	 7ZNXYANu2UIOuyG16jgp3Bj2ArO5LYJ0RwSDq1kjRzEazbcKvMTfEMPdGzWpjTxdqTLop
-	 A0gSA4QAaAUcrA4dudZHso+bsOQBwLDDCPOeHUmW5g2JBW5VPacsIsdVszMfzwyjSww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794888140;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=1mXmtjfaSxovkfA3DiMEsdihwIzJ53S02iXGOJSWh3I=;
+	b=d+G5b/QmG1pnaFPNLzFesDP3+QMyFRDEccT9BWm2T8+ycIO6PcLW+O2ZJ9SgX0I0B8fO
+	 S2/Faxc7sCkd0iydWM4r1f9synybVlU6ufGdQGJAYHloL2gwNY4MCoxhX506Hm/5gBuqT
+	 tYxBPjpeI74hRa0NGyxM1jm73QcWueNA3Ip4Rgo1AsZdOp1X6RHJIEj5TIvwyr1ZqQMdb
+	 J+5MPD60ksT6/xRPcF2iMA/6x3dmPXd0/Sy8u5BK86gsfdWhi0vsAkrHWiYzIvAN1Ano2
+	 rYYYN3o2sISyEEc5HRbG+zUB91sKTJwq4VjHMrGMsfyrVcSBYp2mo7QxaU3nmokDnQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gibson.dropbear.id.au;
-	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
-	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=mIrvRVrt;
-	arc=none smtp.remote-ip=150.107.74.76
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=hJ6y20sv;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BEA0606A31C;
-	Tue, 17 Nov 2026 04:01:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BEA0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 672A2606A31C;
+	Tue, 17 Nov 2026 04:02:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 672A2606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=mIrvRVrt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202610; t=1794888074;
-	bh=/6A8MZ+VEy2cx7JzeZShTroUqqKoj4R+X/thRFeMnNc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mIrvRVrtok2jJ++oc3LXmNVYv6lGPKW3cOX4pqFssVaWrPaWoyLOvPervdU8M/piJ
-	 jcscZkA8R7yDHPct15OqkKUSqZEs0v7yhv0itJ3b8gqjnpTpJHwmXJVbtHPSNLSygt
-	 2V8Zz653/gjhGd4AY2W0Yhf4zTeJqeq78+GL8TCSfavEJoj1bFwZNWhJji8Gx3AyaR
-	 XTLbU7xpoW2nrFXDdBXyS7U6fMolJ/VrO6EKXi1q3AHMSCV2dwBDSysGuCuP1e8HPi
-	 yjUfJPWEqqzcrzrBNlCK9CKn2l9TISC3Pd0W4/Ys03O5OScdNcoprbMnHGMJ9WyFzA
-	 7qjXxvZxbcZdQ==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4jT9yL5qYkz4wT2; Tue, 17 Nov 2026 15:01:14 +1100 (AEDT)
-Date: Tue, 17 Nov 2026 15:01:10 +1100
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Douglas Anderson <dianders@chromium.org>
-Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>, Devicetree@vger.kernel.org,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
-	Simon Glass <sjg@chromium.org>, linux-kernel@vger.kernel.org,
-	Brian Norris <briannorris@chromium.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Julius Werner <jwerner@chromium.org>
-Subject: Re: [PATCH v4 00/14] fdtfactor: Introduce fdtfactor to auto-factor
- overlays
-Message-ID: <avvRheLq5yGnHU50@gractus.seuss>
-References: <20261116205320.1621386-1-dianders@chromium.org>
- <avvOmgFusDlAGLrw@gractus.seuss>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=hJ6y20sv
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=1mXmtjfaSxovkfA3DiMEsdihwIzJ53S02iXGOJSWh3I=; b=hJ6y20sv5/W26cMd7/Shs7e+UZ
+	HWN/llRQ58epXk8A0FM4R1KNXDb/sWji69u0SrtrBnou71ohSs11KkGoKD+DzHYHoowFNXGyHEkot
+	oQiwtZn6hoRZLR2tT3dXZsyipg4PtTe4D8jQ4YEy1Qe1EuuXkg8KIJXdTOfBqYyAAeviHjsONGQ2V
+	hwhbgjgyPidFjTS8Kw0B4ZLv+Vz9djov0vNm4OQSROiBJ68tzIGQmz+1MfUybij9W3YAopMU7peZ8
+	y3xZPFHfJeT3o+qDEGXMyFB+Eri5aa0RJyr6Eag3Qeldq98Ob4HZLrKQOyNMJoG0wdZ6YC5p/TkYg
+	6LkPfX6g==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xTAOa-00000004WMu-0n4P;
+	Tue, 17 Nov 2026 04:02:12 +0000
+Message-ID: <c5d64937-b75f-4795-b3e3-7d15cd5e7e9e@infradead.org>
+Date: Mon, 16 Nov 2026 20:02:11 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,52 +58,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uUn+pt05xsgizILC"
-Content-Disposition: inline
-In-Reply-To: <avvOmgFusDlAGLrw@gractus.seuss>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fs: porting: Retitle
+To: Bagas Sanjaya <bagasdotme@gmail.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Documentation <linux-doc@vger.kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Christian Brauner <brauner@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
+ NeilBrown <neil@brown.name>, Eric Sandeen <sandeen@redhat.com>
+References: <20261117035004.12262-1-bagasdotme@gmail.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20261117035004.12262-1-bagasdotme@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---uUn+pt05xsgizILC
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 17, 2026 at 02:48:43PM +1100, David Gibson wrote:
-> On Mon, Nov 16, 2026 at 12:52:57PM -0800, Douglas Anderson wrote:
-> >=20
-> > Devicetree overlays exist at both the source level (via `/include/` and
-> > `.dtsi` files) and the binary level (where a compiled `.dtbo` overlay is
-> > applied to a "base" `.dtb` at runtime to add or modify nodes).
->=20
-> Patches 1..4 are all nice cleanups regardless of the rest of the
-> series, so I've merged them.  Still looking at the remainder.
 
-Sorry, meant to say 1..5.  I've now applied 8 as well.
+On 11/16/26 7:50 PM, Bagas Sanjaya wrote:
+> porting.rst is a technical reference on what changes to the fs subsystem
+> (since 2.5.0), not the whole kernel as the existing title may imply.
+> 
+> Retitle it.
+> 
+> Signed-off-by: Bagas Sanjaya <bagasdotme@gmail.com>
 
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
+Thanks.
 
---uUn+pt05xsgizILC
-Content-Type: application/pgp-signature; name=signature.asc
+> ---
+>  Documentation/filesystems/porting.rst | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
+> 
+> diff --git a/Documentation/filesystems/porting.rst b/Documentation/filesystems/porting.rst
+> index c38f5df755bb50..dd5a55e68ba7b6 100644
+> --- a/Documentation/filesystems/porting.rst
+> +++ b/Documentation/filesystems/porting.rst
+> @@ -1,6 +1,8 @@
+> -====================
+> -Changes since 2.5.0:
+> -====================
+> +=============================
+> +Filesystems API Porting Guide
+> +=============================
+> +
+> +This document details changes to the filesystem subsystem.
+>  
+>  ---
+>  
+> 
+> base-commit: 2138148bf44fd84d3e0a863f0e8cb3627cdcc606
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmr70YUACgkQzQJF27ox
-2Gd4Og//bymO9mG91o8yUC2bF+j5qSwLVjgNiOkwYj8Cm85JfnccAEmtnm8ILwul
-HWPkIeHKm1TPLcIDBaJ9fQlm02xDF5xJEwLJqed4QIj6RP+cTL0o2wMCpbydofgA
-XCttHQqJGSh1sM/FMgmhjPNNTzWdZRE6hhKckVl5YDsuq4b46/egKFWd5tGAAqrP
-w+nzpCdR1+3XLvGRwQ0E3HvBdKAOqQp+AvoFOUmrGRlqPixNLfOwFQxrYNol8aCt
-4jakCOD+ETLjX3DwJhgPlTulatzlfqYsUJohPZUBZ7eILinCE1V9CRP47yh//MqA
-E46ufi1E7TGVdco+ufAWjjCgnI5NCeR0YGF0VjdCNUxCV+nhDtJCbBl7R/UYN23m
-a8zhJ9Xaus2PknnZzve4iBCklFJKRWI4kLWKq13kmONNiDHxDp6ZR06XLbRoXbMP
-ifEkQ1vGskgORGg+7sXx3INVWmB7N4YgfFvRFsUJkMikP/9xCRvE5KOKHz4If9RE
-uQNZ6th2kANUhJTvTAXA+ET38dqF53XDo+YCnka0MBNQBmSXlqv6BfVl6RW5aAKl
-0W/Bc14lQ1X3AwDGWSpVDrrDb1Kv2gxp8JLzD/Tmb8a1dWy5Fh4rjFCZ3G59Xmxu
-PR0jdzG9is+Xr0lbH/fXsp53u5f/vIMPRJI8Ir/m3rQU3vlcUWE=
-=b5M2
------END PGP SIGNATURE-----
-
---uUn+pt05xsgizILC--
+-- 
+~Randy
