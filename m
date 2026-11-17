@@ -1,58 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794932078;
-	b=uCBQSR4baZL1tUm+Ye83qNR9rdbwJXqZybVp9hIVpiF8IafWdKvax2QJybT6LkI3TfNh
-	 CLJPTch7UOKq18yMAzdVvxngJnx3XbuXWrdoegAQpTxUd//XqRiXIFeklS/CxQLK1q8s/
-	 JT2s1fix4yRMOK48jEKAg3NkMqH9YQR65z305ky54SN+BK6kDqQ5M+Hi743d1k2mo+sR6
-	 KoKgDHjvVb5CELTY2r9R4PERFq85Cyl0mU4OPOxwP8nv1MtpLSGynAH35SZBu5NgawWKq
-	 Bx2r2Rhqx03yTuJV3r0GuqRD9lof5fjX/FBpehFCiqgxulOoxKu+b9Q9s8s6eKAqH3w==
+	t=1794932117;
+	b=bEMIOwkxstFGZWDFmt7CVZyXRZxHhK+IbUNwTbkGTy/Suu9loZ1u3c1Rkftq8qkW0jaM
+	 oYDel4nlu7neT3snmndOKl3UXpuN6IdWym7pAt3dgNtG91CqmgnxKinlH5trI3gOi4UoK
+	 EKvk3+S2Isq+V369l0Y3eiAZh6GOLKmh1WhAcmFiUXp+nseRM31NCeuiIW7f08U98c+nk
+	 xu8bRTULRvLvNQerj5KcGtg2pSOsJtzp0pxahLHA9VRYqlIPZHD29ert/vSRL1KIGabWS
+	 hUzJinFKKoSdlpaE+gGoEW4g4DdK8yQqnjb787l0A2+55QyVKVxBSO2CbpMG8qfVmrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794932078;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=MR1xRYnj436fLp3aLgKX27ILFiGpovdg1sC0kRmzkQI=;
-	b=hIPOOh32SuIY6SEMKpX/U9SrN+kfHpZDBqmq2Aaz4wKarE2gf6QUhbLw6mMQdtF/KCGk
-	 Zgr6mFewcTB0/b94TzbIqqfOP5YFiB9+BXYCDea+PpLxnNoq176za+ypYTy/NRIMyRDcT
-	 oJvxkZikyg8poXgx3JU0i4Qq39w0lIUzOWfwPmWrn7F/dyM9PpyDONa8M46hWKUooe0um
-	 CZXfIY3L1XZg5bDwrhLUqO+UwS4z+RpSntsCC6+vamyumu0yHstPmpt/mzXc2AnJNyS4p
-	 5n+fMBkHvWEpNkcHMwjxJOktLaBV9cx1OiyPRL2v09hyzYViou7o5VxwIDiQelii8MQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794932117;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=dv+qnYIg1LLX+X8u1K4k1JObdqm7jNQ4x34LTfPB/8k=;
+	b=u9Faz/uKf4kc+lxzuwUnMH6Egd1i/Yc0H1XTNtgSgyeCU8+2/rRE9m+gmK6tM0B1ySzw
+	 EasD1sIodBUMZjM2MDMLOfyS538Y4sD5/DMe4jO4ttRbwhtFANN/exMumW5la+ZsMUxbj
+	 cw6Ckv5jBXe8gKj8MfYy7f47wFieeWx5Z7Kibn93Y6PELMn9+kqVRhTc+bE+vglCVVv6h
+	 1hDQnghkRbSQk5Z7/bB/U59uXrWPIku3J0sIPmS1rSqAEsQ3/jcIFCpwAIf77yIr3YFQ/
+	 Mpy+21kImyvlwKQALNfETD50kImSWj6kp78p0sqcJIAlPLILzyLEzx6k5VLnSpcA6MA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cmXdPsoM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="o/yKKeU+";
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0268606A31C;
-	Tue, 17 Nov 2026 16:14:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 895E3606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:15:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 895E3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cmXdPsoM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B27FA1F000C5;
-	Tue, 17 Nov 2026 16:14:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794932078;
-	bh=MR1xRYnj436fLp3aLgKX27ILFiGpovdg1sC0kRmzkQI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=cmXdPsoMbsw9UNICW1NDgSR0etn2+menqMAWnT2/DPxH1t82SIcS3YKhQVne5aUd6
-	 +ZsxbSByf4u1g4b+rDCY1SJg0rsudPsxQF467Pm/T5VGc68caaAlLeGJdSaiGBbKVE
-	 CFA9B09B0zx+JWHd00CXJPB0x/rVZ/L1hHA2xDxte4QLAuH/FwWTc0y3hRUids7JZz
-	 6voI1zd/6rdF9wjqhxGYtXjjk5HqnatnPt1MEMllN2JImFRiTGK5ZN+7w7ofkYDMuE
-	 7wT6zGRelR4IYfi7wyw9pHFQyJ/mL9XsA9tpIMOjjdVacvPBzMZaEtIvNmCtGsRQBB
-	 /E4VTQUwVGL9Q==
-From: Mark Brown <broonie@kernel.org>
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, 
- Venkata Prasad Potturu <venkataprasad.potturu@amd.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, "Nicholas E. Andrade" <sdnick484@gmail.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20261109-for-next-v1-1-54a06f391bda@gmail.com>
-References: <20261109-for-next-v1-1-54a06f391bda@gmail.com>
-Subject: Re: [PATCH] ASoC: amd: acp: fix PDM ring buffer address on ACP7.x
- resume
-Message-Id: <179492850122.77896.9729881633236440429.b4-ty@b4>
-Date: Tue, 17 Nov 2026 15:15:01 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o/yKKeU+
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a73fdd2966so28155e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:15:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794932116; x=1795536916; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dv+qnYIg1LLX+X8u1K4k1JObdqm7jNQ4x34LTfPB/8k=;
+        b=o/yKKeU+P+XcDzXRSs5r85sUlYZiOprlW8nqNvPgJ7rL/8IYYWqGA6TeDO20BC/bA2
+         eLJX8bBSPcf64wl3f7wpUPWcpxgdpF8tFMVr7JXZ1k4IhVsTJ/xzsIOTKXQUGAukyg7l
+         YlH7sgK3C/Zmk2nBMnnJnbf0RDRx9NagPdR3hqXLRbc0dXr+abSa4VYXYzNRM2pPvjzJ
+         YgrGN0z6cEcdgDlTEFxCHWIp95ZNQMN98kAN7+VSEBrVGBEVLObzJecTpYW6NSCGKt0Z
+         cMRIQszSJkL8UmSI3jrBkER+aVb7AyIfVyLy6bf1TIBJwRID1xtjMq8dMfWD9uBjW+Dg
+         Frbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794932116; x=1795536916;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dv+qnYIg1LLX+X8u1K4k1JObdqm7jNQ4x34LTfPB/8k=;
+        b=uOHoswbaYYXqI8z+BclRLxCkWLStYzPTL2JZfN9YuZT7yd8XQfzzHz9Aetoo67t2mO
+         dOdGy92JZWZd26Ln0kO/RVyvzS+1XDs36M6dT0wvE56cKvLU6hAZiWeBVU+mODS/Fvt2
+         nP08oIF9RL9VigwNCU74WEMp8fQddMgXl2CSnXvR1hMIEn9GNuGx2PH8smkl2AbwrkAo
+         oZOPRzas6beHILE/7+qYZosvGcjmABrkSVUfs7/bXgumbUscFNnEaMJq01AsGD/afHYr
+         RQ+oZGDT24ODPdDN5XeR8KceVWBzzpboyDWvxokzlA73/CnB3+1qoNftTZ5bQxlwO9iy
+         fa4A==
+X-Forwarded-Encrypted: i=1; AL+hErFHyQjRqkk6h1ELoRseweTwEKWV7xY1LzZqFgpaf5KR+5pWpvBcnjWIvnyNgYKoWqua3RvqlyZ0wANtpBk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/k+2t6o8eIY4usPwj0r+l7btcOUWxrCMhamGrkPKGqna2eiGsG
+	MZKA7bhNRJ/TB9xSn5UEQLxWBFS+dCMxi7MmirgoLGyN2LayElAiVmRa
+X-Gm-Gg: AYBFou1iKBgbzyqxT8tQWGm8onSDQ3c+Lt+0+ihPw6MUx+jaU+VBeBEbuh+7Tjlt9nG
+	aRHEds5dL+H8kk0BrUdxkHu8MxWwKTr3mXVStvFhrZ6ih6At5dXk2chJkZdK2JyVob7f6LxCr0v
+	Hac2/j3hT3oxL9pNxi97HHH7Z5Bh2MlqODqY9wFj0FGEpJvVr3EYx+7iqJBUCFUA8xb5u1uSEm+
+	96BSBOjtB+4I4kr/K8pbu8cpBtgq3pHtQgcytEndB0XjylQCNEXRFa0PPUyiwHVrKO5qk9oiY37
+	U76a3NfpidlpVyYSNq4z63jr2X9/BUwjKEWOw+oakLr9ZMTLpoD2H9VrWrK8N29gHsGDISm6wob
+	YxzaSovJN0bmtohaGLrzV6NLWhyr5JsS2b6TvoIiiqv+/BxjO+bK/P7pkjmL2vtgc4YtrtCQGLU
+	ejJDWjEiTQ4Xjl6hLFCa5Gu+fDDTrqCvBTaFINYP2Ej+k2sNOCA9aNbWSaBYzhSGsga+c1iyk+r
+	4xDF3DCNfCVDhCzpuCVBD8g7Ir2NdZLPHFyJNqnWBkcj0tUp/w6RkkFERyBCQdJ6fUPU4EdjtzJ
+	9mwXjzPa7XM7dylfRCSHadR6vghL/RET9EyAMnn8yPrYQMeygRj8n3I=
+X-Received: by 2002:a05:600c:224b:b0:4bb:5ad9:50dc with SMTP id 5b1f17b1804b1-4bb5ad95277mr223398435e9.0.1794932115683;
+        Tue, 17 Nov 2026 08:15:15 -0800 (PST)
+Received: from scheduler.schedules ([85.100.69.90])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb7839c5c3sm75831465e9.12.2026.11.17.08.15.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 08:15:15 -0800 (PST)
+Date: Tue, 17 Nov 2026 19:15:12 +0300
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: peterz@infradead.org, vincent.guittot@linaro.org, 
+	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>, 
+	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>
+Cc: christian.loehle@arm.com, elif.topuz@arm.com, 
+	linux-kernel@vger.kernel.org, mingo@kernel.org, sh@gentwo.org
+Subject: Re: [PATCH v5] sched/eevdf: Fix vprot across reweighting
+Message-ID: <avx3Q0WvV5lgAhWA@scheduler.schedules>
+References: <20261016153721.7843-1-kayracizmeci@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,46 +100,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1145; i=broonie@kernel.org;
- h=from:subject:message-id; bh=XLdVceKGMkefgP7qnEm3Yg0rwyp54kMlJBBcemDLiUE=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLL+1GYVXpM72vtRdPmmFwEPRFofTj+r9uaL87dg3+MM+
- z31GiIiO0pZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCRB5EM/yzumRSvPjQ18Vi6
- yInjTpMXurR2La2quMBidf9HUF3RAnOG/zE7yxo62A0X/Pld0pJ9V62XIbfxQeeF38+2HL7Z4Wq
- wjAEA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261016153721.7843-1-kayracizmeci@gmail.com>
 
-On Mon, 09 Nov 2026 10:22:35 -0800, Nicholas E. Andrade wrote:
-> ASoC: amd: acp: fix PDM ring buffer address on ACP7.x resume
+On Fri, Oct 16, 2026 at 06:37:20PM +0300, Kayra Cizmeci wrote:
+> Currently in reweighting, while a tasks vruntime changes dead protection
+> could go alive, or alive protection could decrease, increase and go dead.
+> Fix it in reweight_eevdf(), and just cancel it in the sched_change_end()
+> path.
+> 
+> Fixes: 80390ead2080 ("sched/fair: Separate se->vlag from se->vprot")
+> Fixes: bcd74b2ffdd0 ("sched/fair: Only set slice protection at pick time")
+> Suggested-by: Vincent Guittot <vincent.guittot@linaro.org>
+> Reviewed-by: Vincent Guittot <vincent.guittot@linaro.org>
+> Signed-off-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+> ---
+> Changes v4->v5:
+> * Use Vincent's comment
+> * Grab Tags
+> 
+> v4: https://lore.kernel.org/lkml/20261016150402.6952-1-kayracizmeci@gmail.com/
+> 
+> Not tested.
 
-Applied to
+Well I got bored, so I tested this. I don't know what more to do on this
+patch. I already pinged. So the only thing left was testing, I guess.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+The results were good. I tried to verify 2 things:
 
-Thanks!
+* Only sched change thingies enter the newly added path in enqueue_task_fair()
 
-[1/1] ASoC: amd: acp: fix PDM ring buffer address on ACP7.x resume
-      https://git.kernel.org/broonie/sound/c/a3d8527ed469
+* All tasks protection gets handled correctly
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+There were ~318000 reweights of curr, ~48000 of them were alive.
+No exceptions :-). Or :-( since if there was an exception atleast it
+would be fun to check it out.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Cheers,
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Kayra
