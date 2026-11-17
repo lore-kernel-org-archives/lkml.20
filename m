@@ -1,94 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.6.130.215
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794882961;
-	b=Ccz66MN6J3LydGuLEhXQiCeaZaOO1oncuXF86VBE8xlCrapxPMqzXBCR4ePsMALgzPOD
-	 qMpkk134jEvmuseHnHzzFo6bo/hkhg5ArK5YQm/mYDaYpItrSgqLCfKd2MtidPnFobC95
-	 h1vtcM47YW5kR3NDRfi9Ek/dtZpS+LoSaHcjFLqstsbywnSfr62yyhb9PSUkcfxIwLcA2
-	 s0UT+2KSB2B2xFuIP/OZjkZi1p9gDhLbXpnxjlh9cAo4NfSwCKqJYQ4yoTzMM8YLKFHa7
-	 U/pzDROXAypznF/FifuY6SdwrvKcgGhk56kE4S7IWpmcUHrdXqqYkzbJk28dqCltsyg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794882961;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=0m/5H8ekHXmYv8Sp+ayayrocCBe6rLWYJaFS2F1QzQc=;
-	b=zsLH4tSG8LJ44O/u8YyppkaMBbIrXBwPDon/khuq6FKUb2iY6BzEfamB1YNner7i96qd
-	 rTpGZJzRNu6raEC2AaWWh15pyB/CNJpWeIGDiT/me1L9SQrcaaUwdxdKHlstyhye/czaa
-	 Tv/W5d/qgFQlyFrc4vTbiw6xzf7XwQs0sjQrlYYtMFyNmoMGwD7mKHklChBPscBQ81bdv
-	 LFwxib9AaPZ8hv+1PlYVZ4JCiyPiZT/DZGyW5XjxCdPTEBC/wX5dtBSm2fdD5h796aPUt
-	 5c352TyusggASzijRhMOFljoGK/541syBHbQJKh19H4BU3PATiuo1UybtA3QlE2DAXw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yahoo.com;
-	spf=pass smtp.mailfrom=yahoo.com;
-	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=aUkLGuwB;
-	arc=none smtp.remote-ip=74.6.130.215
-Received: from sonic316-41.consmr.mail.bf2.yahoo.com (sonic316-41.consmr.mail.bf2.yahoo.com [74.6.130.215])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794882971;
+	b=YP0bnJVCIpKmEUsLRETRjc+1A3/oQ8cIOg15VBIN5ZwUs3TsjGCVKLl5PvQshpq7IoYn
+	 ne6/ujo0LEioStTKObfloIjAKs54v9JS5IBKaYQ1agTT2jDSfI2f/wSTlxyybmbJW7Wlw
+	 jtqS4jB1wiOuVDjFV73m/jOgBK62ic7GzBRiCrVP9SaBdrKfvPz7hcPWktP/2tGDpVuCZ
+	 4smwtDcuYkr7vqpE8OGJ0F0I9vcFOty72dHuh0HVU34SjpSpqmJc3u/1F0mhrqz3cxItA
+	 jaKGbOQjqzTwVcAawuc1cli3wb/w1xAPxPDC/hr4mzZdtEGcW68XHBUvOJXA79uBtQA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794882971;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=P7WYFYjupt1wh2sDDV74CfGFKi15+W2RgoXEiZ717ZY=;
+	b=ychpEw/IQyOuCh6XNITyiRIqEvYYM0XCXdhZUpxnUVtws+5Vov+Q3JSH5EAo9u1zF6xL
+	 6ejVf49UR/aaxn31iADlvb9tkmGrMDiuBqCmqUUx+OyC+kMrc4YXSd6IomxewcZ1agq3K
+	 o9p+Y3SceqzcvqYzVI0pcRqx18QQDCs50hyr1iRYDyHJkQUsbGYhi+dfTn6zUfupSs8Gu
+	 g8ur/bTHkMBvcLKbPdAlYQ1vq2K5orpSTJ7D7DBcSWQSXy1E4aig03Bzz55rfplc/jEnE
+	 QNn3CLiRUNNO12aJPyXQfz5qNxCswoIjVSWGKNGXa152bXzVtnW1X31gDrUhQT+eZhg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sfH85jx6;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.52
+Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com [209.85.222.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE24D606A335
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:36:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE24D606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B9D2606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:36:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B9D2606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=aUkLGuwB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794882959; bh=0m/5H8ekHXmYv8Sp+ayayrocCBe6rLWYJaFS2F1QzQc=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To:Content-Type; b=aUkLGuwBGVVes6CuV+oMrqgKsUZ8QEwZbLqxQoxsFPRrEBuq9lauGPxVibiba43Oewjiyq58OuD2tuRgH+nUzLaiqaifGlp9ZdAQug0f5O6UJXxFGjA2VR7ZLSsPAfle1G1f966S3fEQVD6X830/ozf19PUspi8LpIjtTMSNSTnKklDkgOilawafKkFR5oAYomuMoA7xOollU7ozUFIEgKMRzDvY8Q6+KLesC/jEbNzMyjeqDjlCA3qpSWR92RhKmUZ70EDHdpkSDFJPDus+4wwtJhQVlbVgRW4T65Oicmc+r+jo/83EIj7SxSKwHSIorb57d+kcPtfjDPXBiLma2A==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794882959; bh=DPESRh349sjMqgDTgq+cDRn40T9D1npF+4O4zyKqdwp=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=WgEFl34gP50RzRHRugblsStCIvQwtY9+U1UOMzuE1XxKDKO5i/EqSfRLKVgi0BXaE/JrqTMQBv+AN9GBhMWDIwnq7Y/0WWcsXywgT8awCgoR6fnI1Zd/JW50+px8aO50Ey4MKXiRifrVZ6T5hFDbFtpr5PJz6+T8t8t1I5Ucj8H+f37iWcYC0sGb9M0UwSPwubmib/RIC4LLlwRSc5SvMjdSMxg4oyHSrlB8U8RhGOT2SwtH9aIDa+Bbbh2yFPzuAucBm+FkCIuqlLjjSCEHi58kxRsmCnCDA9HnZ0aoDtOw5GN4JEJZdbdSbE2ERHGUPb2NsAMlFP8JYuWAvqpEuA==
-X-YMail-OSG: SR3THOUVM1lpMD4Y4NNC6TNYILf.h2YJYisaJzrYc_kPukdosJgHNjMyaamvbpj
- mvmTxykqX3raKqteQSJtOpQdLoED27TfkpUSH4.YiWHb7KMKHnZMTzxk.i4XVVH.3pCIxRNH2lme
- .TEHYlj7duN3AwXuqE5QuTBFQ5FaLaC8fBLj2MSZt12Kc3BAkQ0i2poi68y40CBMKzMI19zrlmdI
- xYDbqvEJXMWwFRPdqrm8S79MoRuPbLLPq8xVyThmXFkmd0radUKfi8aVjUbqR7aulLjXNeYhEZX1
- nhb31KqluoJFQWeZu.jF.Qi.ahkNKj5QKvzXyopSaR7DoyETrjm_FRXrs7TzbuJ9.zXWFg49SVlE
- hO7kW9Z7ye3kJpZx8NyfiCzQHvkndx5_mUQuLmXfHIzmrpioEdrxJ6K2GKmm2erIVtsyUlQz8fyz
- uVCEMH1rFu4_mnq1mnDmLtqC45BCXkpRgoJktUTVG2WpRDJDBOjVQVI081F1NMjFodu6Vo2eq27J
- .6VLkYpWBRuEvXAU5.4VaeymlwsAqsG1CiBFi1UzKV3AQOlx.RUhhunfzArfaVY.G5gPzZJ283N0
- KatPMInZ4FDUbpmKrYck.MOUJ0KDUHXQ7GXLsnPwrxe2vqCw4gU5lTH8xrC8lLExq9BB4xrsaevl
- Aqxk3lI4eZYSNKZHoXeHUOnYPh8qoiqtT4hb3.0E9xXK6EUwi2MMC2WUSTbs1nOEuZGug5vus4e7
- kht4nit1cl4FhppGOwNmta7rk4b3ByMIhjLKANuzTvedoS0wVOIyfGUuG4Ex40_Fs.oAraRe.Qrv
- nJQJOgoWSYq5gMvKj9HG0c.B3c_r4obGUbOZ9VYHHksykgL0p8MnJgJvI_RL8shnS6rqAzZWrPX1
- J67BbmHZgeisQ46inGhXQYG9yLRPNHT4aGjq.nO6k0ReScue9iiaOWWy9ZtouM9WpbGGdnHlwQpI
- z3ZWCdoNRuzr5lCPVDoQR.zvGkFVzzuLqE54eRfhcBj63FK0E4M0CyEqgpvtkNQ.tAec97b2V_zH
- deAeAfqOUdDkJSjCG5.28jOtM6GsrOk5yz4zh.M9sXi7VTpSqyvhWb0n2IjywkypOf59oYp7gaVC
- MY5nCn6LdG8iMAn.ekis_pcxx.4YtyN.zbeLhl0lckjRvLv.B.HnPqrz1C3TK.FgVG7x..a1o1Q1
- Q_g2W439gx4vCOfmME0.TtcEMIwrCJJMXacnoOlGXL7PlDIagtekUNO2.NHDuGuYrrDXQkc.60Os
- l73u7.UsM7zSZ0D5CAtU2_T1m4TZchU_uDG7Ue9BylA1UbUWWpyR0XST2CYI6Qz1_U7adcOb7rGU
- 6Bm_ULlA13yhqwGqY02PDUiD_8f42Xcf63F2K4R0.VImGPgYu3BNqrxyIek0dM2jjKQEDP4VslmM
- XDQiw8LaqvMwqOYuyWxzzmsqKKLngDCYP.8KFN3L9KMDd3iV7.m.NFLoEzakOAaXJm71NvnEnevG
- Wm1dlsDJLAbvgzAJPgzPbgSezBJg3G3sVeyk5JfmyyLCjo0g2gGBmhbhcbOUXJKHHWheKBLLwYYq
- lRYTW69JtlpPuiMkQMaaa1qC_s.CseIVRpTTtJEOXLlh6IzTIE6yZy_IEGWM7pAR6rykDRUeK9rY
- gm2Wa8DosKgOmrawndsFeI62UitVl3Kt6_kMClR2HSi4zf0dLJs65O9NA1GjcVj1UOZ.gbHYuWdZ
- aEignzhf9LTUhcLW_5d7zvICxRqmxdgd.5Jz7i1aDeri9DDrDsakBhjVtDovbEwOMKaedcbB2Woq
- uRjfsbxwfsPwQ4OiKvYq4VMUKfBNhTM7HLF4Sd5_z1TXNMXishA9rybhkD_MRJgsyX9lsgu.cb_n
- NMYFcFhPiH4.Yj039Wk_e52l2e3nfGiwnch7N5PpLFHpzwDI4zU3BqMOHYQ0agYDTNzaFZe.nqld
- Of74uffPBbVymsC3x14ZXzYy0MrXaRnN0.FpDH6I31yC0zbvm64ukzZ4G14jLMwgNwQ6P4c3qVje
- uHFrimmyuzi5XTZ.2up_Md5QkjcxtswEhfPH1HET3N0p1Ru0usztQsKpU5A9hT7NZ72AX79UjZew
- 5bAPau57rU0BTjsBKaNwNRlByM6oF.m00mSH8QaHD0As_Mibl3khbYOI2b9vgvvlm3FmzmObkEqB
- U5yDUmlEEA46OMbliyeA3Pv_Mii763sqZJ4nimE0vSOeZR1ZHEGXR__97p16At1YA5NGntTWSkNE
- NVzg4cBcJYAIqcFkvlP55xpCkFxX0Lp_fHajf9oKGDn2zp3b.fSh8hQwHWrANad9tDqS6YFaQbp1
- IiPQ6flfMoAhKn030zBT4ucBvPLOMx42birEMKh4_rw--
-X-Sonic-MF: <deaner92@yahoo.com>
-X-Sonic-ID: d4352def-b281-4e2b-bd48-af4ad0423722
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic316.consmr.mail.bf2.yahoo.com with HTTP; Tue, 17 Nov 2026 02:35:59 +0000
-Received: by hermes--production-bf1-6d6877594b-c5dh2 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 6b4a44673d94ff3e2f092b66bff98f7f;
-          Tue, 17 Nov 2026 02:33:58 +0000 (UTC)
-From: Jeremy Dean Clifton <deaner92@yahoo.com>
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	william.xuanziyang@huawei.com,
-	johan.hedberg@intel.com,
-	hdanton@sina.com,
-	Jeremy Dean Clifton <deaner92@yahoo.com>,
-	syzbot+5897b3c764f5989ea942@syzkaller.appspotmail.com
-Subject: [PATCH v2 3/3] Bluetooth: hci_sync: Disable connection works before draining
-Date: Tue, 17 Nov 2026 02:33:44 +0000
-Message-ID: <20261117023344.278269-4-deaner92@yahoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261117023344.278269-1-deaner92@yahoo.com>
-References: <20261117023344.278269-1-deaner92@yahoo.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sfH85jx6
+Received: by mail-ua1-f52.google.com with SMTP id a1e0cc1a2514c-98301b325c4so966218241.1
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:36:10 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794882969; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MHROowq6uZGnDOkd5ELJTXDMLWsL4LAqV2rrBv+vUgEPvYLc6ynC1VUG0w27Bzwtqa
+         yFzRKWSTrUO800UVEjQsVwcohg+Mp/93s3k8yJRwHGuFvWrDEdJRk/8wFzBxLFA6TvDh
+         uscft8G3FV1nU+WPVG6B+bIDQ4BG2sFGOyXGtM7JLkiXGLqU3btL+a7lL7Quw/PF2JlU
+         57sVgiyWHN5BVydiwchFHTgJHi5+4H0IeoSZmu6NHpGHx5QrPcpMyEw37WoJ0SBAVzZK
+         eFjWWDTsQTE+Tm/AUg628+ceFiTq3Uhbb2ZMjyZvaxVT6xCG51jPskPPRLAGYOB/DiXe
+         81iA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=P7WYFYjupt1wh2sDDV74CfGFKi15+W2RgoXEiZ717ZY=;
+        fh=O4Kz5Fh7Yjdf6a96jJ9Gjwy8qcvZcea4ZKIBn1Fwul4=;
+        b=ejLtxL/80xAlkjIcSdMLogC9fgNWkPAz3E7d2L9YvXBTc6A7sxZ14S9bN9YF59Wiet
+         B9C72aYVt8TPkT1Ph6HnFu3QR6SQhiGIjevV9TXb2xpCImuEulUckMd9QW8/NhSFCIIh
+         YhvrqAE48RFz+AMvtoJ+aoYeehazhABLnIDtupgVgblqACdvBwAAiKIgBWbHSuxAtWeE
+         Zr3LoKHq2tAGWfrmaOAwMayTmCHhb6uuACjTKrWD+hNADTYPMo93anmGdJJ+3f8hcjJF
+         FFx/eH4fl64OPUmT3c5EpCgwP9vY9o2QO9Ybxtb9kXoWbEck1z9SKa4JzgDa+AwDird/
+         dPww==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794882969; x=1795487769; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=P7WYFYjupt1wh2sDDV74CfGFKi15+W2RgoXEiZ717ZY=;
+        b=sfH85jx6UDOHVe/QfxY8fPLUXzDqrNp76LfpcusrA+iGe+RSnmlNIPSvZZXUmbcjHx
+         yxQ0i4ret+BIx+nuJVVHLsbg1P+g/5xFbZpBqVR7V9pi4sVIAS7HAzJdwEYvwvR+VRX/
+         HFINyp2Yl67AgenwoscipuqoUUGq8iUd/0mEbxT8zfEg9UTAviXlt7Ioj3JA2wufDaoj
+         o+GP6/uT1/yc/3yn+w9UG2Z8MFYaYNFhn1hV+/Ju828W4K/DoX8Zr4AoyFW5KGYRRW/p
+         S+qqZVzJDJrbP0FB+BFUHa9WN9+mEX35WBBpUVBXfST+p0DTDfWODiesu1wl+rAcrw1g
+         2HgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794882969; x=1795487769;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P7WYFYjupt1wh2sDDV74CfGFKi15+W2RgoXEiZ717ZY=;
+        b=hjCmN8MaSW+yVmkR9heSXB+gB1Rni5O0Xy5cYzgaod1htWUfYsNpqJKy1zdgX7XX5z
+         0aMHkQGNNVRZ6uQoBurNnCS0ZRW0sAL2z880DAwWvWh6dMrQsRjtXehbs9y8eT1EAGV6
+         jCOca9VtKy434ToZ+l7i8+yNNvO1oO3HqC2jqK4LGHNCrdgFAyIdKZbqFodqPipzaii8
+         itL/TJB/BMBgY/DNu0zwxzKnGR/Spb5xdo+Lpsg/sb5dDAUczB/u1Sw4F1cyhrNpLnBr
+         bQTeF+UYU1PGgvvzhCaFOEj428FcyTfSiZbE5VGy80OSUadGVpBK0FgZxhlv99np/ofV
+         PTtA==
+X-Forwarded-Encrypted: i=1; AL+hErEDesAD/tXb+EMWhlvylZuliKdtCpTCT10W6n5Qw0v+Bt7lbluVkC8+qVCqEzVfZBc/5+oMshCqg0XL0hE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z83YNGuzZd6RPME7IEGQdJQ56X9f4RmuWpH2c4YZ+qJOsnEoJgT
+	Bhl4NDHtoAAZAwu1ptXZP31/VUioYLSnh6UGE3SR3DDKB8UWjnYt2MjWPrTg/kTXgG+0gLFb8ri
+	D+HAP+6pxRsg0XInfRpGzt6VfcYdEuN8=
+X-Gm-Gg: AYBFou0DnThAcrBZmji2SUHVgyJiuHSc6hLMtZfU9IaieHqGb62w7OEq2HSPjVDf/ae
+	XslUhhZ1ULfyMoSpStWWx1SYN/pgOBjh7yXtvJDjCSUidSVGGiPLQsuGDTL2BtzppplLz/wzHZt
+	qTbTCo7tnI90Cup5SMJ2lhSpxHQ2k+5iOAUgcN9djh79EHpnzU6MA5xBPjKVXnpbt0N07xJ2fE4
+	VjPuJ1hd34SlX1N/PmEJVnxri5Q770v3hyl58AHcFLOVFpTd4H89Q9vZAfKrtV5TV8h+PVOlj1V
+	hHhybNzwG874nNUXYtmzC/0zlNHovN0+v8nXRSvnPFt1XANX48JuBD4GwfHz0J7PFN8NwyWym/+
+	IBet9LjysWND3mGNf+QdDbLVR+Kt9x0sRaOZWR3uTCpUDKc/QD4Sk8AlvlKAO5iCg3zSb0Z4kmu
+	8PsID9WVFOyl/2fwm5USd3ih7i5UuCuWepqblW3r7mqnDgTNBGxZGuDwtW2n5vHPQWyFNbkTRx4
+	hsSi8MSg26PniytL9WZ/RCjAM0iGg==
+X-Received: by 2002:a05:6102:50a9:b0:7cc:2c29:54ef with SMTP id
+ ada2fe7eead31-7d64d6f7105mr3309563137.19.1794882969366; Mon, 16 Nov 2026
+ 18:36:09 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,64 +106,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261116-submit-acx00-phy-stats-v1-v6-0-8feef8e76cd5@gmail.com>
+ <20261116-submit-acx00-phy-stats-v1-v6-2-8feef8e76cd5@gmail.com> <avsBVtVgsluPNpVY@pengutronix.de>
+In-Reply-To: <avsBVtVgsluPNpVY@pengutronix.de>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Mon, 16 Nov 2026 19:35:57 -0700
+X-Gm-Features: Aa3M54pBz4tT0t7JeZwLsOLmzXp6qqOvkWqH1XF1WpTw3kHr4oh-FwmKwJHq6L0
+Message-ID: <CADvTj4qMgKrRZ_uq3K4t2+w_3eai4dwuCPod_vhEKEOsO85_Wg@mail.gmail.com>
+Subject: Re: [PATCH net-next v6 2/3] ethtool: include errored frames in PHY
+ receive byte counts
+To: Oleksij Rempel <o.rempel@pengutronix.de>
+Cc: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
+	Russell King <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-A connection delayed work whose timer was armed before
-hci_dev_close_sync() can expire while drain_workqueue() runs.
-delayed_work_timer_fn() then queues it on the draining workqueue and
-triggers the "cannot queue ... on wq" warning. hci_conn_drop() can also
-queue disc_work from another context during the drain.
+On Mon, Nov 16, 2026 at 6:12=E2=80=AFAM Oleksij Rempel <o.rempel@pengutroni=
+x.de> wrote:
+>
+> On Mon, Nov 16, 2026 at 01:59:58AM -0700, James Hilliard wrote:
+> > Some PHYs count bytes in all received frames, including frames with
+> > errors. A successful-byte count cannot be derived by subtracting a fram=
+e
+> > error count because the lengths of damaged frames are not available
+> > separately.
+> >
+> > No in-tree PHY driver currently reports rx_bytes. Define this existing
+> > counter to include bytes in frames with errors so drivers can report
+> > their hardware byte count through it.
+>
+> I do not think we should change rx_bytes.
+>
+> Comparing PHY and MAC counters, for example to find frames lost between
+> PHY and MAC, only works if both count the same kind of frames.
 
-Disable the per-connection delayed works under hdev->lock before
-draining. A disabled work is cancelled and any later attempt to queue
-it fails, so neither the timers nor hci_conn_drop() can queue it. The
-connections are deleted by hci_conn_hash_flush() below, so nothing
-needs to re-enable the works.
+I did some additional tests to understand where the observed differences
+come from. With MAC error and runt forwarding enabled, a bad-FCS
+63-byte frame increments the PHY packet, byte and error counters, but
+produces no MAC RX descriptor. At 64 bytes, it also produces a MAC
+descriptor reporting a CRC error. These lengths include the FCS.
 
-Fixes: 76727c02c1e1 ("Bluetooth: Call drain_workqueue() before resetting state")
-Reported-by: syzbot+5897b3c764f5989ea942@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=5897b3c764f5989ea942
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Jeremy Dean Clifton <deaner92@yahoo.com>
----
- net/bluetooth/hci_sync.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+MAC-internal loopback reproduces exactly the same 63/64-byte boundary,
+with PHY loopback disabled and all PHY counters unchanged. Good-FCS
+frames pass at both sizes. This shows that the MAC alone can produce
+the observed filtering; the earlier results do not establish a
+CRC-dependent runt filter in the PHY.
 
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index 931494348325..3fe179d649d0 100644
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -6012,6 +6012,7 @@ static int hci_dev_shutdown(struct hci_dev *hdev)
- 
- int hci_dev_close_sync(struct hci_dev *hdev)
- {
-+	struct hci_conn *conn;
- 	bool auto_off;
- 	int err = 0;
- 
-@@ -6079,6 +6080,22 @@ int hci_dev_close_sync(struct hci_dev *hdev)
- 			cancel_delayed_work_sync(&adv_instance->rpa_expired_cb);
- 	}
- 
-+	/* A delayed work whose timer was armed before close would queue
-+	 * itself while the workqueue is draining. Disable the connection
-+	 * works so that hci_conn_drop() and the timers can no longer queue
-+	 * them. The connections are deleted below, so nothing re-enables
-+	 * them. HCI_UP is clear, so no new connection can be added after
-+	 * this walk.
-+	 */
-+	hci_dev_lock(hdev);
-+	list_for_each_entry(conn, &hdev->conn_hash.list, list) {
-+		disable_delayed_work(&conn->disc_work);
-+		disable_delayed_work(&conn->auto_accept_work);
-+		disable_delayed_work(&conn->idle_work);
-+		disable_delayed_work(&conn->le_conn_timeout);
-+	}
-+	hci_dev_unlock(hdev);
-+
- 	/* Avoid potential lockdep warnings from the *_flush() calls by
- 	 * ensuring the workqueue is empty up front.
- 	 */
--- 
-2.43.0
+It also explains how the PHY error counter can advance without a
+corresponding MAC software error count: the MAC can discard the frame
+before providing a descriptor. That difference alone does not indicate
+a fault between the PHY and MAC.
 
+> rx_packets counts good frames only ("Total successfully received
+> frames"), and so do the 802.3 MAC counters aFramesReceivedOK and
+> aOctetsReceivedOK (30.3.1.1.5, 30.3.1.1.14). With this patch, rx_bytes
+> would also count bad frames, so two counters in the same group describe
+> different frames. A PHY without a CRC checker cannot fill either of
+> them. A PHY that has one, like ACx00, should keep them consistent.
+
+The original implementation reported the inclusive hardware packet and
+byte totals together. I changed rx_packets to subtract the error count
+after review of the successful-frame definition. The hardware does not
+provide a corresponding errored-byte count, which created this mismatch.
+
+Subtracting the error count also does not necessarily produce the MAC's
+successful-frame count. Valid-FCS runts and frames with an incorrect
+802.3 length field were counted without PHY errors, even when the MAC
+discarded them or reported a length error.
+
+> A separate counter for bad frames, as in v5, does not solve this either,
+> because "bad frame" is not one thing. 802.3 counts symbol errors at the
+> PHY (30.3.2.1.5) and FCS, alignment, length and frame-too-long errors at
+> the MAC (30.3.1.1.6, .7, .23 to .25). A symbol error points at this
+> link. A frame with a bad CRC can also come from the link partner.
+> rx_errors already means different things: mxl-gpy reports its RXERR
+> counter, qcom-phy-lib and dp83tg720 report CRC errors.
+
+The v5 addition was an inclusive byte total, rather than a separate
+bad-frame counter. Its purpose was to expose the hardware byte count
+without having to infer how many bytes belonged to errored frames.
+
+The ACx00 tests confirm that deliberately transmitting bad FCS from the
+link partner increments the PHY error counter. That does not imply a
+physical-link fault. Tested valid-FCS runts and length-field mismatches
+did not increment it, even when the MAC rejected those frames or
+reported a length error.
+
+I have not isolated symbol or non-octet alignment errors, so these
+results do not establish that FCS errors are the only events counted.
+The proposed metadata could express those distinctions without treating
+every driver's rx_errors as the same error class.
+
+> Strict definitions would need a counter for each combination, "include
+> everything" would make the counters useless for diagnosis, and moving a
+> counter between fields breaks existing users. Also, few people have the
+> hardware to confirm what a counter really counts.
+>
+> I suggest metadata for the existing counters instead, similar to how
+> ETHTOOL_MSG_MSE_GET reports the scale of its values next to them. Old
+> user space can ignore it, new user space can use it, and it lists only
+> what is confirmed for a PHY. Andrew should agree to this direction
+> first.
+
+The tests confirm that the PHY counts bad-FCS frames and their bytes,
+including FCS, and increments its error counter for them. They do not
+establish whether that error counter also includes symbol errors.
+
+Should we return to reporting the inclusive packet and byte totals
+together, with those confirmed semantics described through the proposed
+metadata, rather than deriving a successful-packet count that still
+does not match the MAC's acceptance criteria?
+
+> For this series: keep rx_bytes as it is, report rx_packets and rx_errors
+> as you do, and keep the byte total driver-private for now.
+>
+> @Andrew?
+>
+> Oleksij
