@@ -1,41 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.181.117.226
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794918849;
-	b=QJmGQNBm8nK7+ZwGqT3yX49UlFpV2hhPwo16sP39k3KzSF3rj14iiMe3NV9vq8uQBrcc
-	 pNguFhGX6ebrOUw2HmA0wc1wDHwDf0uj4rjqetRb7N2HhjlSpsTn9Ymg3lyRnE6mNfnU/
-	 F8IybvqpQAh7EPqWC5zvdCaP250QU/IUvCiTWqauY10qSWjxiJ80eiFAoEqmFrt5XSxeM
-	 9Kxa8eRyIAbksrrLLJckrQv3pJV9MevePKZZfIpoabf6jHFxqTYbCA53Qr4eU6RnKyOSa
-	 zO7UZbu8iYzll8t71AXWy5RWAGhGifcsb06gcUvQUQ3yzSFa363lSPPEEM5OF6YYUJQ==
+	t=1794918860;
+	b=gfBQJMNs8cP0XzpQA8c980O4lS0Z+/9XDqqCihgeUv9meYHTZf21kYYrD0Dq2E82FnVl
+	 YHMetSW5W8l3QabASVGljmyo8mUL383Kt5xreMYO8gxUhwYImY1oczDeGHLXutFT8Yb1e
+	 1wmBj3dUTvHh+QnXVlIjGqQPQgS88vcab2V9IvuRA/ypmLRjzGM1GObKP0GpfIbhnLD/F
+	 6k1hyUFHChupjEs+VzVY8cbXKWiviNhg+A2Lh9AtTJpwL1q+CdQyHv1qLChZS9n29K2Ih
+	 tZaiujgH+8iuHEAQZuWimeo3VTsZ1yjIj4IASifeTI0gpM5SL8yxhQBRkc89mHyRrPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794918849;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:CC:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy:X-EsetResult:X-EsetId;
-	bh=udiQZ9uQQWu7/f+tNhCCnP9r2LL6KuH2yR241zmGFYc=;
-	b=dRum0MsmnSz/AG7TLRcFK7kK51AFQ9+BqSluTz+YD1/dg1Rxd5S0SrYdpL1YpJhB8MhG
-	 37ngjEbb9WMSccgiwGvhgCkXOidd8cUdALzRgXjwqaR2JWuJJK4pJ9I+96pftzDilVj6g
-	 PHBiyp5T1g2aWzEiOSa2kBWUmHmzFLwIKZqCkZkmfpEaQjmZ/frTe/zWIA6o9ZhUdkeRM
-	 gjQpzXph461qLsVP8f/kJnVr5nRdNUXfFSxb8HZgMNuE1ufXY5Dij7yWwoo87TjncnYux
-	 KsQZjrLAHNnp6csxSn3tYaGnDv8xqDEnL0Y8Q/kBX+V4x9Uv4TP+43QhNGcoFF/RxCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794918860;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=4j9EUc4UCQbv2uPB2p9n2eNafBHD2lv4FX5nalo7h4A=;
+	b=m0vnGFP1ln9NsLXIOwdJ2fcIqLI5FquTfiRuOBJsmbT7TFcZUgJEvjeQCMx+j7vfnGBg
+	 Cy7BIbOAClnSL+Ox4G5y9MAix4N/URRZJUZA7WCNz11ZBvVCc9wlmI5DdgWCgmbwVZVhO
+	 iHTLNJywcqwBypwdOvQBje6zTBboHsQcieWcyrmpfIa1GS7AQ7gcWVl77vII5OR0Ip34c
+	 T2XV0O35TOehl5wBecKshdWkqrl7Xjy/ei/mVjQJxd5JhsQ7nV0dQ+AoXbGKxiDyfLpnL
+	 M36nXrhYT3G/Kt8acx2llCECN9UmSHJ1KIzc2RECjZnkrRfLxMaf/nyMf6FKLz4AtVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=actia.se;
-	spf=pass smtp.mailfrom=actia.se;
-	arc=none smtp.remote-ip=212.181.117.226
-Received: from mail.actia.se (mail.actia.se [212.181.117.226])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=H0wXyT7E;
+	arc=none smtp.remote-ip=109.224.244.17
+Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EF45606A31C;
-	Tue, 17 Nov 2026 12:34:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EF45606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=actia.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=actia.se
-Received: from [10.12.12.95] (10.12.12.95) by S185ANL.actianordic.se
- (10.12.31.116) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 17 Nov
- 2026 13:34:00 +0100
-Message-ID: <f2bca889-4554-4daa-be61-635fc193a276@actia.se>
-Date: Tue, 17 Nov 2026 13:33:54 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2989606A333
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 12:34:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2989606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=H0wXyT7E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1794918857; x=1795178057;
+	bh=4j9EUc4UCQbv2uPB2p9n2eNafBHD2lv4FX5nalo7h4A=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=H0wXyT7EYMtZeaRS9H4ekG1Otxm3T5mojqkEtxq7z3R48Y5lu+lUfz6dhuG0L4p/k
+	 TWfb37W7S95bnJUSv9h6DdkK/Rm4B67nG4bxjXwcGA4mPHoXUWvaINBtCqMtuZJUZt
+	 IcmS+7Qmh0wtyce26ey2/PWhKvXRXNaSCKo/YOVZZovYcgjqILaK/Eg7CPVtZSUl+F
+	 ktZ+0Qj8aNQajCpAOcG2Co6khmsXtHJ5w0F7rjHTh3TPYEKvKgkp87l2NjNgOK5nws
+	 KwRTEVZUfIPXmufp3DOOo8XbMWx0+vBCHNYEWmArLxO1lVr4+lOS+5D5jet/EHlpCX
+	 TkElrbubVRlzw==
+Date: Tue, 17 Nov 2026 12:34:12 +0000
+To: David Howells <dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>
+From: Sinan Turunc <enscrpt@pm.me>
+Cc: paul@paul-moore.com, jmorris@namei.org, serge@hallyn.com, keyrings@vger.kernel.org, linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH v2] keys: serialise key instantiation against keyctl_chown_key()
+Message-ID: <20261117123353.1822-1-enscrpt@pm.me>
+Feedback-ID: 48393780:user:proton
+X-Pm-Message-ID: be4f8e1039a65530767340844033e596d4ce055f
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -45,63 +61,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] usbip: stability changes
-To: Shuah Khan <skhan@linuxfoundation.org>, Michael Grzeschik
-	<grzeschik@puzzle.ch>, Valentina Manea <valentina.manea.m@gmail.com>, "Shuah
- Khan" <shuah@kernel.org>, Hongren Zheng <i@zenithal.me>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>
-CC: <linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-References: <20261111-usbip-v1-0-da5217ac71d7@puzzle.ch>
- <131283b8-0d92-4277-9dc7-eebfe30de5ae@linuxfoundation.org>
- <d9cbecc5-3130-48f1-adfd-4483c1bb4031@actia.se>
- <5ffddf60-7549-45a8-8b7d-496967a4e91a@linuxfoundation.org>
-Content-Language: en-US
-From: John Ernberg <john.ernberg@actia.se>
-In-Reply-To: <5ffddf60-7549-45a8-8b7d-496967a4e91a@linuxfoundation.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: S185ANL.actianordic.se (10.12.31.116) To
- S185ANL.actianordic.se (10.12.31.116)
-X-EsetResult: clean, is OK
-X-EsetId: 37303A29379CA95B617466
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Shuah,
+keyctl_chown_key() looks up the target key by calling lookup_user_key()
+with the KEY_LOOKUP_PARTIAL flag. That flag lets a caller with
+CAP_SYS_ADMIN change the UID of an uninstantiated key during construction.
+When the UID changes, keyctl_chown_key() replaces key->user under key->sem
+and drops the old reference with key_user_put().
 
-On 17/11/2026 00:16, Shuah Khan wrote:
-> On 11/13/26 04:34, John Ernberg wrote:
->> Hi Shuah,
->>
->> On 12/11/2026 23:46, Shuah Khan wrote:
->>> On 11/11/26 04:34, Michael Grzeschik wrote:
->>>> While using usbip on kirkwood embedded machine, I came accross
->>>> some stability issues. This series is addressing the reference counting
->>>> on and usage of the event handler itself.
->>>
->>> Tell me more about the stability issues? What doesn't work
->>> without these patches? Do you have reproducers for these
->>> problems?
->>>
->>
->> Since we also had the issue that 2/2 solves: The issue we have is that 
->> we see occasional CI failures with ghost USB devices remaining on the 
->> client side after our system (server side) had been suspended, even if 
->> the device was removed from the server.
->>
->> Applying a patch 2/2 (or our version of it sent earlier) solved the 
->> issue.
-> 
-> Hi John,
-> 
-> Can you send Tested-by for the 2/2 - did you also test patch 1/2?
+__key_instantiate_and_link() and key_reject_and_link() hold
+key_construction_mutex during instantiation, but neither function takes
+key->sem. Both functions increment key->user->nikeys, and
+__key_instantiate_and_link() also calls key->type->instantiate() without
+holding key->sem. When a key is in quota and its size changes,
+key_payload_reserve() reads key->user seven times without key->sem. Those
+reads include spin_lock_irqsave(&key->user->lock, flags) at the start and
+spin_unlock_irqrestore(&key->user->lock, flags) at the end.
 
-I have not tested patch 1/2 because we have not seen that problem in our 
-use cases so far, so we do not have a measurement of "good" for that 
-fix. Michael will have to comment on that one.
+If keyctl_chown_key() swaps key->user between those two calls,
+key_payload_reserve() unlocks the new owner's spinlock and leaves the old
+spinlock held. By source inspection, key_user_put() can also kfree() the
+old struct key_user while instantiation still dereferences it. That struct
+key_user use-after-free was found by reading the code and did not trigger
+during our KASAN runs.
 
-Regarding patch 2/2, it seems Michael prefers our version [1].
-I can provide a tested-by if you rather want to pick this one.
+  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+  WARNING: bad unlock balance detected!
+  7.4.0-rc2-g23c62304dde2 #3 Not tainted
+  -------------------------------------
+  request-key/163 is trying to release lock (&candidate->lock) at:
+  [<ffffffff82698fff>] key_payload_reserve+0x29f/0x370
+  but there are no more locks to release!
 
-Best regards // John Ernberg
+  other info that might help us debug this:
+  locks held by request-key/163: 2, on CPU#3:
+   #0: ffffffff871c10a0 (key_construction_mutex){+.+.}-{4:4}, at: __key_ins=
+tantiate_and_link+0x38/0x370
+   #1: ffff88800de4a8b8 (&candidate->lock){..-.}-{3:3}, at: key_payload_res=
+erve+0x160/0x370
 
-[1]: https://lore.kernel.org/linux-usb/avToeux2DxhBWGN4@toad.puzzle.ch/
+  Call Trace:
+   lock_release+0x286/0x2e0
+   _raw_spin_unlock_irqrestore+0x1a/0x50
+   key_payload_reserve+0x29f/0x370
+   generic_key_instantiate+0x42/0x230
+   __key_instantiate_and_link+0xd7/0x370
+   key_instantiate_and_link+0x40d/0x4b0
+   keyctl_instantiate_key_common+0x2d2/0x450
+   keyctl_instantiate_key+0x167/0x180
+   __do_sys_keyctl+0x391/0x550
+
+Take key->sem for write with down_write_nested(&key->sem, 2) inside
+key_construction_mutex in __key_instantiate_and_link() and
+key_reject_and_link(). Subclass 2 is an unused lockdep subclass that is
+only ever taken inside key_construction_mutex. Subclasses 0 and 1 are
+already taken outside keyring_serialise_link_lock by __key_link_lock() and
+__key_move_lock().
+
+An AI tool assisted with finding the race, writing the four-line fix and
+the reproducer, and running the tests. I reviewed the kernel source and the
+test logs and wrote this commit message myself.
+
+Fixes: 5801649d8b83 ("[PATCH] keys: let keyctl_chown() change a key's owner=
+")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sinan Turunc <enscrpt@pm.me>
+---
+v2
+Drop the inline comment changes from v1 and rewrite the commit message in
+my own words.
+Use subclass 2 in down_write_nested(&key->sem, 2) so instantiation cannot
+form a lockdep cycle with __key_move_lock().
+Update the Fixes tag from the initial git import commit to commit
+5801649d8b83.
+Tested with the reproducer and the lockdep stress workload on 7.4-rc2
+(23c62304dde2) and on for-next-keys (1dbbde3bc4).
+
+ security/keys/key.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/security/keys/key.c b/security/keys/key.c
+index 3f1f0fc..df31d10 100644
+--- a/security/keys/key.c
++++ b/security/keys/key.c
+@@ -441,6 +441,7 @@ static int __key_instantiate_and_link(struct key *key,
+ =09ret =3D -EBUSY;
+=20
+ =09mutex_lock(&key_construction_mutex);
++=09down_write_nested(&key->sem, 2);
+=20
+ =09/* can't instantiate twice */
+ =09if (key->state =3D=3D KEY_IS_UNINSTANTIATED) {
+@@ -473,6 +474,7 @@ static int __key_instantiate_and_link(struct key *key,
+ =09=09}
+ =09}
+=20
++=09up_write(&key->sem);
+ =09mutex_unlock(&key_construction_mutex);
+=20
+ =09/* wake up anyone waiting for a key to be constructed */
+@@ -609,6 +611,7 @@ int key_reject_and_link(struct key *key,
+ =09}
+=20
+ =09mutex_lock(&key_construction_mutex);
++=09down_write_nested(&key->sem, 2);
+=20
+ =09/* can't instantiate twice */
+ =09if (key->state =3D=3D KEY_IS_UNINSTANTIATED) {
+@@ -632,6 +635,7 @@ int key_reject_and_link(struct key *key,
+ =09=09=09key_invalidate(authkey);
+ =09}
+=20
++=09up_write(&key->sem);
+ =09mutex_unlock(&key_construction_mutex);
+=20
+ =09if (keyring && link_ret =3D=3D 0)
+--=20
+2.56.0
+
