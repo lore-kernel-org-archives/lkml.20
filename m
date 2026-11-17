@@ -1,102 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794925005;
-	b=aav3AN8e6/IqYJ2Bc7XZcsmaCOMD9p1oHw4xzzLxOXwx2g5laachShAvDu5ddHlte0Xv
-	 QlOJhzHfJHwSB91jJfibQslDGs/8RHE+3XKaMwjBNlAfxv4meCC+ru90hH7SbQRlT0APV
-	 qmaSRoz0YDTwOwAVAg6mK1zvhvmGyXrGL25TF9urAuNUiY45xYhcyATDFB8kSSsDSo017
-	 rHL5XO9rhNBBzm1M2j4MTCmt14RKAV33sC+ZCNC82Q15TuBTGnD+BFho0Oipit9QwYU7c
-	 leH50Qzoki2VbKHld8I8G/rp2ZeI+WHKGU1EBrReymdJTqWvv6zDS3+ahYGLNShMRMg==
+	t=1794925012;
+	b=puwIAqRYGeIIv0hHG8X5Y5t6v1QtyxveN9QMJN9lMZIjPXBu+a6x42amzArIgAGOxLQ6
+	 1QzeymasFc3DAjDLHxuOS901n6RqaD8usM09z25AtOl/Q4hbwqJu6bhpLAOYbJo1xFug9
+	 9hTTYG48XghqSQ41ollmzrb7ePG0fao/tWh+6wvJ9CSKj6/JkaGSYwHVZUXJib7WVPS5/
+	 ToQiwLFUmU3flRT6tA683n8prni1uIQgEzJX9ZLV71jrWTAW/QP7QupvObrEeEcBKGG1L
+	 qIIsjb4ZuYpU+UlqAjpDgEyBqNO8cNJAC/5uUWA0EayzvvwnA+eKGOxoPchohoOOwPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794925005;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spamd-Result:
-	 X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=dIMrI5DwpklHuh/HFLVIhoJ8k7MY1j4G5/OHe0yQI9I=;
-	b=Dfa0sWHub7dRU3RwTjJmW82e+laOh9hCVI4+UGToZjbZIfpt9VtKntAN0Cc10UETJY+L
-	 v8zZStLb+EtqGFgJvlXng93xg4id2sYsSS7S01L/Iv3gpeooy0ePImjUK0ypnDMypJGj2
-	 ixXzj7Btyqpv2c0mNPn3E/bK1p/cXa9zCCb+nCsj2wn1wkS/deajcCjPJ3nCwTV0KVA5F
-	 A/xUDuZQxyKw3aVQPm0eOIvMML+phf32xdtW2RCzyXePlk/TYcC+HUBEMCY7IGLRM/lJc
-	 uiN4YEPzVGB3tpHh8KWzT1u7Zj4SyTtrZUNC0wIi9ezyG4mA93ZUbs0384I70oao3jw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794925012;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=8mDL3N+DirypXyizj73343YIMouI63Jigsdwggl20Xk=;
+	b=V0WlQAKxERSlibGBVBFnY9V0P9OfG6cmn89biQWFbG46hXTw5CSBun5qL4LX26zuBHSh
+	 dFR0s1S/MFkKPnL/rrCi9VlgfoqJtLfyDlXcXr28+lpA2+VGB3SEhgNHjFeOtT1m0Irle
+	 j2z5MwtTh8AScHJoW7zoiEe9C3zzcxRS/2s01NuwsWk7Vgoh3XxdUAWma0lBZIv4r+YL4
+	 wybp6y2eAIQvXYy+OCfz4nL0VYeaHj8skDjRWTAUtoiCK2NC1I1OjCTv8Pl80iLJ1d+8r
+	 XF9ATTGa3/AH02a0fE18/No+SjRvQdVGwLWCNjhkm1IzurHOlJ0ZlRECIrgi0CaBDFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=jkBkxlwH;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=XNlZ+Q+h;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=jkBkxlwH;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=XNlZ+Q+h;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JMY1JauI;
+	arc=none smtp.remote-ip=209.85.128.70
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4389606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:16:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4389606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9791606A880
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:16:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9791606A880
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=jkBkxlwH;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=XNlZ+Q+h;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=jkBkxlwH;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=XNlZ+Q+h
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 9CFDC1F388;
-	Tue, 17 Nov 2026 14:16:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794925002; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=dIMrI5DwpklHuh/HFLVIhoJ8k7MY1j4G5/OHe0yQI9I=;
-	b=jkBkxlwHR9jTNMpUAXTmqinke4nK/nefQLQ/GvajkyEkOiQ7VvITdXxhnlajGcqh/CugtL
-	OZvbDPDKTbIBusTOPYuBp1jIYOqJlHbwQNOUrhgEucGcDQNOueptET0QKvWxOXQxlB/jFW
-	1JGBzaXh57xDMJ8JqAGLCal/4eMo9cA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794925002;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=dIMrI5DwpklHuh/HFLVIhoJ8k7MY1j4G5/OHe0yQI9I=;
-	b=XNlZ+Q+h4r6KcP7Ej7GSUvF571SwACf1CpRtSFl+3hi1f4HV7EUHMEg4uPnG7dAmhp64ot
-	fNC/WbZ/aD36VGBw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794925002; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=dIMrI5DwpklHuh/HFLVIhoJ8k7MY1j4G5/OHe0yQI9I=;
-	b=jkBkxlwHR9jTNMpUAXTmqinke4nK/nefQLQ/GvajkyEkOiQ7VvITdXxhnlajGcqh/CugtL
-	OZvbDPDKTbIBusTOPYuBp1jIYOqJlHbwQNOUrhgEucGcDQNOueptET0QKvWxOXQxlB/jFW
-	1JGBzaXh57xDMJ8JqAGLCal/4eMo9cA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794925002;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=dIMrI5DwpklHuh/HFLVIhoJ8k7MY1j4G5/OHe0yQI9I=;
-	b=XNlZ+Q+h4r6KcP7Ej7GSUvF571SwACf1CpRtSFl+3hi1f4HV7EUHMEg4uPnG7dAmhp64ot
-	fNC/WbZ/aD36VGBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 014D513302;
-	Tue, 17 Nov 2026 14:16:41 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Ikb4Mslh/GpBLwAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Tue, 17 Nov 2026 14:16:41 +0000
-Message-ID: <5418426d-2dfc-4dbe-a74c-47275c1fbbc0@suse.de>
-Date: Tue, 17 Nov 2026 15:16:41 +0100
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JMY1JauI
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a204ac318aso20933135e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:16:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794925010; x=1795529810; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8mDL3N+DirypXyizj73343YIMouI63Jigsdwggl20Xk=;
+        b=JMY1JauIRJg4BDtE7ceIsP/yqSL31cHZ23/Ik9MkGT4+n2Kw7Cpfte5uB0tyaRX37U
+         qsp1cU58hQjKcCLZhOrqKaeF6Pd5DVjJVtz4leic2yneF/nwFopGakk1nE1235R2ZcyN
+         6dbc/YX5XFEsQCzCWOt9fThFH6FuSo6wN5Q2p4XCIqobkIng92ewtzsxiUrLo3SVxQkn
+         J5XGnM/Oh3R7HY1fs6DsX43BwVPwrwtizcTLumjZPaHLECqgAnZAlECD859fW7BvTFrd
+         wFHyqjem/zC2xWWr1NAMISiD/sj8Iw/5r0ZkVdjMJg38L62DK/OHEfGiSGVlJf+TWy9f
+         CX7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794925010; x=1795529810;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8mDL3N+DirypXyizj73343YIMouI63Jigsdwggl20Xk=;
+        b=SCOem8UzKIpp/iftmZzu1jnRsE9IYO4eUZFGGIEHFEBcujJoCju+ZIVMFuCUcfKYL1
+         fs0HZ9PG54nWtE+GVLGennXxRqsKqO4B6SpJ3s/NbLL26kBg7uBVlZR8LZgshy8X/DtB
+         Op8AdpXHMwnP/bWMHfrb9MDH3GaUCIg1dSfQv70DX+iPV+0e1Ednw0L18nuvun08p2+N
+         wg4lgIKU17r+ku7mKCuiCFgeTmk1djwUarCc1TZP+pkAV05RbG+SLtq2YycPiSlSXG/O
+         9aXfTyTPhiX3vBnbSrAc3IP4HeKaDby/jaudzpuRp7w+Wr4HJY1R96db8v9HxvhSOt5G
+         HjgA==
+X-Forwarded-Encrypted: i=1; AL+hErFtuSsfzQhYxJd76ocQmnGiyYzcUTzX+vzpg76Gyq7DNcYd5/CVOv0KxAgiVpBX2h1/ft/qe0ZvuCtyjbs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+7Cmc0oLCcOt+J84NUa2KRnnKXqcl7+L8w72c3DDUNxuwGIXpO
+	hezNq3GC/Oa1GXONMpuzAiy+rxW2n1yLaLoDLTp6AG9vHHY4NcBkAYr5JfXzjY78ipvsoLpkLbu
+	bnY1GbNFv6iCkdRQMqg==
+X-Received: from wmaj16.prod.google.com ([2002:a05:600c:6c10:b0:4a2:d3e:ee4a])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:a302:b0:4bb:7347:d5c0 with SMTP id 5b1f17b1804b1-4bb7347d930mr100746285e9.9.1794925009887;
+ Tue, 17 Nov 2026 06:16:49 -0800 (PST)
+Date: Tue, 17 Nov 2026 14:16:48 +0000
+In-Reply-To: <20261117001507.1611984-3-dakr@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,153 +78,43 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for drm-misc-fixes v5 0/2] Fix some bugs in the hibmc DP
-To: Yongbang Shi <shiyongbang@huawei.com>, dmitry.baryshkov@oss.qualcomm.com,
- tiantao6@hisilicon.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, airlied@gmail.com, daniel@ffwll.ch,
- kong.kongxinwei@hisilicon.com
-Cc: liangjian010@huawei.com, shuliubin@huawei.com, chenjianmin@huawei.com,
- fengsheng5@huawei.com, helin52@h-partners.com, shenjian15@huawei.com,
- shaojijie@huawei.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20261117130056.272609-1-shiyongbang@huawei.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261117130056.272609-1-shiyongbang@huawei.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-13.29 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	FREEMAIL_TO(0.00)[huawei.com,oss.qualcomm.com,hisilicon.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[17];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	URIBL_BLOCKED(0.00)[suse.com:url,suse.de:email,imap1.dmz-prg2.suse.org:helo,huawei.com:email];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,huawei.com:email,suse.com:url,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -13.29
-X-Spam-Level: 
-X-Spam-Flag: NO
+Mime-Version: 1.0
+References: <20261117001507.1611984-1-dakr@kernel.org> <20261117001507.1611984-3-dakr@kernel.org>
+X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
+Message-ID: <20261117141649.2991892-1-aliceryhl@google.com>
+Subject: Re: [PATCH v3 2/5] rust: sync: add WaitQueue infrastructure
+From: Alice Ryhl <aliceryhl@google.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Alice Ryhl <aliceryhl@google.com>, boqun@kernel.org, gary@garyguo.net, 
+	lyude@redhat.com, daniel.almeida@collabora.com, work@onurozkan.dev, 
+	ojeda@kernel.org, bjorn3_gh@protonmail.com, lossin@kernel.org, 
+	a.hindborg@kernel.org, tmgross@umich.edu, tamird@kernel.org, 
+	acourbot@nvidia.com, viro@zeniv.linux.org.uk, brauner@kernel.org, 
+	jack@suse.cz, linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi
+On Tue, Nov 17, 2026 at 01:14:43AM +0100, Danilo Krummrich wrote:
+> Implement a wait queue wrapping the kernel's struct wait_queue_head,
+> with wait_event()-style methods that take a condition closure directly.
+> 
+> The API mirrors the C wait_event() family:
+> 
+>   - wait_event()
+>   - wait_event_interruptible()
+>   - wait_event_timeout()
+>   - wait_event_interruptible_timeout()
+>   - wake_up() / wake_up_all() / wake_up_sync()
+> 
+> The interruptible variant returns Result<(), Interrupted>, the timeout
+> variant Result<(), TimedOut>, and the combined variant Result<(),
+> WaitError>. These errors map to ERESTARTSYS (signal) or ETIMEDOUT
+> (timeout).
+> 
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 
-Am 17.11.26 um 14:00 schrieb Yongbang Shi:
-> From: Lin He <helin52@huawei.com>
->
-> Fix some bugs in the hibmc DP driver.
+Thanks for addressing the feedback from v1!
 
-I can't really comment on the hardware details, so
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
 
-Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-for the patch set. Please see my comments on using lock guards before 
-merging the series.
-
-Best regards
-Thomas
-
->
-> ---
-> ChangeLog:
-> v4 -> v5:
->    - Invalidate the link in the hardirq when an unplug is sampled, and
->      stop clearing the latched HPD status in hibmc_dp_hpd_cfg().
->      (sashiko-bot)
->    - Serialize a whole AUX transfer with hibmc_dp_hpd_cfg().
->      (sashiko-bot)
->    - Append HIBMC_HPD_UNKNOWN to the enum instead of prepending it, so
->      the existing HIBMC_HPD_OUT/HIBMC_HPD_IN values do not change.
->    - Only set the enable flag when DP was initialized, clear it only when
->      it was set, and do not request the DP interrupt if DP initialization
->      failed. (sashiko-bot)
-> v3 -> v4:
->    - Fix the data race on hpd_status between hardirq and process
->      contexts with WRITE_ONCE()/READ_ONCE(). (sashiko-bot)
->    - Delete the HPD_IN early return in encoder_enable that breaks KMS
->      forced modesets. (sashiko-bot)
-> v2 -> v3:
->    - Delete irq_status and use hpd_status directly for hotplug
->      detection. (sashiko-bot)
->    - Add debug logs when hpd_status is not HPD_IN in detect and
->      encoder_enable.
->    - Move hibmc_set_enable_flag() before drm_dev_register() and
->      hibmc_set_disable_flag() after drm_dev_unregister() to narrow the
->      race window. (sashiko-bot)
->    - Add spinlock_t gpio_lock to hibmc_drm_private to protect all
->      operations on 0x0802A4. (sashiko-bot)
-> v1 -> v2:
->    - More states in HIBMC_DP_HPD_STATUS are added to the
->      'hibmc_dp_get_hpd_status'.
->    - The call to `hibmc_set_enable_flag()` has been moved before
->      `drm_client_setup()`, specifically before the connector detection
->      triggers the I2C bit operation. (sashiko-bot)
->    - A read-modify-write operation has been implemented instead of directly
->      writing to prevent clearing the I2C mask bits. (sashiko-bot)
-> ---
->
-> Lin He (2):
->    drm/hisilicon/hibmc: Modify the method of obtaining the hpd_status
->    drm/hisilicon/hibmc: Add a flag to indicate whether the OS-side driver
->      has been loaded
->
->   drivers/gpu/drm/hisilicon/hibmc/dp/dp_aux.c   | 11 +++-
->   drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h  |  2 +-
->   drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c    | 40 +++++++++-----
->   drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h    |  6 ++-
->   .../gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c    | 32 +++++------
->   .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   | 54 +++++++++++++++++--
->   .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h   |  2 +
->   .../gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c   | 19 +++++--
->   .../gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h  |  3 ++
->   9 files changed, 129 insertions(+), 40 deletions(-)
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+Alice
