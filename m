@@ -1,95 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794887562;
-	b=XwWHFBcFl72AqvMeaMwibt13SEVQjejhXEzvClqJEanGx2fcTHOYyIMjcFL9t2GkN9Q/
-	 3jVq3IDymppMIcNVwUbocC9DuMbERA7b3xtmkdBdF6r8d/iW+sxScgVY0RKYoWMGQRGnf
-	 OIwIQyy9rnf9HjdKTjAR2ID9yDVdwxaNOyILcP1vC3bW/O7sP7mcw+CZ7il79IkxRUaeb
-	 EvLAOESbOYaCjgk+1IEwU25JmMyJK16A1wsAMJoKn7qoXcyrYThbaENXfIzl/2gfGiJpu
-	 JFBzMD+sKuTiwneo66m5ZTTFwhADiHBnOwBd2uolcFYl30VYJZFoMWJZh9IiB1oxyaw==
+	t=1794887676;
+	b=ltIiRg18P6YKmXiSFF3iPlvE8jyYxlO+PmzGzf+ZbqH+sknVci9mQSzLeoENwIcmqsH/
+	 5wCNjjb4vJvTw4mp2r5xJ/heUq8ZRYFO2LB1Bfcc0bo92GfVNJXr26dCTd9skSX/U34AX
+	 y1vqlMJ6bbSXI0dARF+YnIpHnrgbqK48uYFnRC/b/ch21TTffzoTVV6kj9aCAqCqjLdUe
+	 4uFJ3Y/YEqDDSUJ+CEZ3xdqhgipfYv50+wkX5sdNM4S2qsf5Ae+/MnYDLQvMYrkFxinUD
+	 hIiy2Uu2RAk5m5ADyAHBcR3HTiky8LU7fFBvO3r910GcYTWNr3gTkXj3xL7ohC+ognA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794887562;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794887676;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=98ojD7Yqgp4+QWlLYJvCdz0SkGgcS1ZlQwaV98NWAJc=;
-	b=ovHuzcENZqSVrJsCWJjQT4+h74Pk/QRLxRxd2o9KUcu5RmFu4aKQ/M1qaS+dVU+wHobm
-	 ABLuyq7KRiC1a477X9wX312EdkzS9Ry8//Y36X5BB1dY57K5eG6qMiyiM/gKAiPPwecoV
-	 IODpuR4r28gsBmegQBuTXfA+FfdQdPaoWbpzJBJjN+iEW0ORFZzFI1BS90Ix4Q9U6UI3m
-	 ho7FpRUNtQH3mDZ2FVNHhN9nK6+cy8OnvzHaMG6uS+RO2Ppw0AAZhKX11gEN+drqWog8n
-	 qzdAOpXHnRFHvLRawz45nvW4XKepXNMBMVjx7Mr02kzJXyrjjN3EjSd8zRgmrgd5T6g==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:Date:
+	 Message-Id:To:Cc:In-Reply-To:References:X-Mailer;
+	bh=5yYPPMuupwmdDkr+0YrNM2gwTmLnnxHM0lDOoH4/yWY=;
+	b=XLXcmz8N44nVU169vumdlzr86iFq9iu4IvkSpGcN6muWbLXHixzfqt5ek55c2IeitwR8
+	 DZiNUHxfnRynFrPmWvCnLH5tqy4+2Rn6huVJo774yqAMLeIt7G/oeXuzqDLVBmU050YU6
+	 RzOBpzgwQGkY488+b9Hi9LQEpSyxWeIVYS8xkaeR4dn1BRvHA8ZK+iyYzJdSGH3fksgDa
+	 6St9/zYk/0zznM/IMF4ly49kkNkpT2fHJRXTWWsYlvkkoTAb/OVwlR95KOfA7lNSI3Hkg
+	 Yu6HupQJDvchQOUxIjtkyPi/VDZeZmkktKo6bhZ4d+2bbB/aoamPqjHmVRUyGE0HupA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vAUMfgRT;
-	arc=none smtp.remote-ip=209.85.160.173
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g2f8mTIs;
+	arc=none smtp.remote-ip=74.125.227.199
+Received: from mail-pi2-f7.google.com (mail-pi2-f7.google.com [74.125.227.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5DCB606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:52:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5DCB606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7C82606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:54:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7C82606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vAUMfgRT
-Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-55d2d380f6aso24617151cf.2
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:52:41 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g2f8mTIs
+Received: by mail-pi2-f7.google.com with SMTP id 41be03b00d2f7-cd66d7e32baso1026424a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 19:54:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794887560; x=1795492360; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=98ojD7Yqgp4+QWlLYJvCdz0SkGgcS1ZlQwaV98NWAJc=;
-        b=vAUMfgRTe5L+FRb473+XUFiri9OlSQzM3Fwq2mGAYI/xsd0MceiGGUJcQ9xOa5PjfV
-         MdSdmceyC8DFmiY/IDttc2iRbooc5gFbbe7uM2JHXUIiVem/1A53TjNfMj66fIf15WM3
-         uBCuqJ892sii2nySQsGBZrHATcWI+f364XmPYEN+cvDRdsAZ/eteketmDA5hbuKJI8L1
-         Y9AFSbHYVWyDhw7bE10JHga2gzr/Gv+VWJ/sUf1ZNlyznH4fdFJA6ul9wxOyh602Y5II
-         t59+Wr+O/iFuuAW68ItNnWw/AfCuLPwWMO2xOpGVsCYj7jQXkAlS7zlm9OxVDRVx3Lxw
-         K3rg==
+        d=gmail.com; s=20260707; t=1794887675; x=1795492475; darn=vger.kernel.org;
+        h=references:in-reply-to:cc:to:message-id:date:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=5yYPPMuupwmdDkr+0YrNM2gwTmLnnxHM0lDOoH4/yWY=;
+        b=g2f8mTIszN7dVObfqgo3fNF0P891H6ZEKGtteGSegN02r8UpGCb2URkABmGUmYG5UX
+         h7d0gzS3tRjkJRrRdxRlPb0Q+FbXKI/olJtsgjj7en8saSqG5KG1KtXWmv9v/X+yEDp1
+         ELd3qugxCtjn6OacodEj3gOCDBU0VB+iC3KeH4MlVUwYsPvkQLHn1tS4DuT4bdnwMrsi
+         Mk0KuG/ZXGEIcVOY73FmrBwF1rua0pZ4hheyQYe7+YQW1YsOUlsqR7wGCIkaFXTUn3Ia
+         oxA+RviOv+5nyuz6paA0jGNJF+sXHbsU5OpxL7bjVaxQQ4u3KejyjhKXnYIBXKpAPiJs
+         twwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794887560; x=1795492360;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=98ojD7Yqgp4+QWlLYJvCdz0SkGgcS1ZlQwaV98NWAJc=;
-        b=U3DMYwm+Ch7y0NP41Qli8sjUXJ2eaHdbpyWu/Km/BZPmaKUlSLbq0qFF41q6hIPVVM
-         dmI7ezCDEYi0cu1vb4mXJTvaciUC76Y5P+JBVZBO0fQgWfyA561X6DbokLAKB0S+WI9c
-         zow2ugG1T3GdmG4vKh8P4nI1Ac2v0RIrv0EyIA7NBLar9d4jEyj947zwPMzuvU+m4icK
-         nm0B68UbetTJGjUpMtDMrz35Jli9iiLxVESdvRC6S4CsS8wzcxMgEiSCzPmwdZvdx6KV
-         j661CH93vA4fmpfogY0lZvOJLACfYxJk0fDdT9pvfBEFn8hpE6fnThvOr9Slyr1nojLG
-         Vxng==
-X-Forwarded-Encrypted: i=1; AL+hErES5l7VpYvQdgGJlNaeYhAYOty1pav/cyM+j4I3g+ETSQuk2DtBf6i3Xn/krIbR5HVmmju3Jw1Gxn1uDWE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9KjChjvQaxi9LXefF0HcZCbESGZX3hmul4ZwbmMdJOJSx6ARdy
-	cbvDGkNidgbjls1S8HgjTQq2XWRnukb3MEk+zUsW9E29k3dhC42wemXH
-X-Gm-Gg: AYBFou1mPBk5TXUQSQ5H82TedTyOvXsiKwC6M4VOwaaeE5ehZqmBzz3grne+WR29Qqe
-	OJT7bYD669dF+MEa1FbYMAm98WmdltpYLtmICPR+oC8IZPcAREGwUH2iSr1jQmJHmHn9Na8peGc
-	LAipc02vDuRbsd6/iLUzpTcuWXT/vQiK+vPSJYy9MHIkZOr7VShWpQUJ5hehgDgfc1emGHjcNdu
-	Zmre1VVElxDPETkzuqVq+x3QPkAT9zOFlYfdWN+hkHyt/WZjecsNoazPU7yfK5izkvhWd6001/e
-	D08r76eEmXu/+eg9H6t1SLWpQlpOvPkWB0HNyp6EPhzuMLa/0gu8MvVIRz546y+Lr1orHd3z9xd
-	Hhvubz32EgxKmdJLgYt3jUmxtMFUDdKUXm6Ym7iWPPq9LT0hTTu6ajDI998FOAOo/w8VwoHdPi2
-	9au8ycZ8+e1a3rALe8kH99AeeNvvZ1RuVVmGe6kAFJMTwrTzmW+jZjNj9Gq1lmGfIMzlN0hhpmc
-	n5AhELLcaQo5ViBSfI3sf9LpKxfRQ12OVdSGo0Un34l/Z44NX4vPjkV0T0wpMVvlJ6he3dBn3Z3
-	gs1Yh9S2BKCkzUalYiuHMht3cEDxM7jsW77JKKATqG8Gp7n+zzcO/oDW0DJZyTqBaEDb5vKlQhh
-	Ilbpd82+ymY1tSYT3/sIm2M+ZgZ9hBbybWv5KoGtvpf9xj561G4mYeth/mgfif81LN+s+7dcy
-X-Received: by 2002:a05:620a:6f01:b0:93e:653e:6981 with SMTP id af79cd13be357-9494ba5556bmr1927137885a.11.1794887560598;
-        Mon, 16 Nov 2026 19:52:40 -0800 (PST)
-Received: from localhost.localdomain (c-107-3-155-154.hsd1.ca.comcast.net. [107.3.155.154])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d70489sm100944006d6.21.2026.11.16.19.52.38
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 16 Nov 2026 19:52:40 -0800 (PST)
-From: Yifan Feng <evanfengff@gmail.com>
-To: David Sterba <dsterba@suse.com>
-Cc: Chris Mason <mason@kernel.org>,
-	Naohiro Aota <naohiro.aota@wdc.com>,
-	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
-	linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yifan Feng <evanfengff@gmail.com>
-Subject: [PATCH] btrfs: tests: zoned: fix NULL check of the active bitmap
-Date: Mon, 16 Nov 2026 19:51:55 -0800
-Message-Id: <20261117035155.86323-1-evanfengff@gmail.com>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+        d=1e100.net; s=20260707; t=1794887675; x=1795492475;
+        h=references:in-reply-to:cc:to:message-id:date:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5yYPPMuupwmdDkr+0YrNM2gwTmLnnxHM0lDOoH4/yWY=;
+        b=Wg2XUX0nYouA6RpHEDqZ2hE2TsbNb3BRvsonxN7TpNtP3sdlf7sHRepRzCEZ15xkis
+         J2j5/+yY+iyr+FSUto3am9yd2qBZBRptC/zJ7F5iCbnyIJg+FK/j2+Re2CwL1ZNb7xoo
+         DPc1aQ/xTtS2s0JA0gXzaImW16N+ziTiVIY8BoHbzBuhuveAU2ahK1X+MnKD8ySWUEiQ
+         WeejtZLi3n7+tc89Xi5QvNr36czRfS4Nh92RmmaAliXloTbRA5417420+MlU9T/GF3I3
+         /iQPsqd84qrMtHuxLXdH9wMJ/DvRbgpi2+/2Zk5akVwn0hgnqhiU9IH8xY85PNJQwan5
+         NjDg==
+X-Forwarded-Encrypted: i=1; AL+hErHNScJhcUg8rar0a3P9SO2hZZVfi64GNiwby7++bwCkrU4VwVs3CrRDgCw1DA5AtSGJusOHT8QCaHOif1s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z++3MyWORxOzKNgW4nADbuwKgO6pr3fkXJ2A1QINdjO8yJuxYwS
+	816UUtLVRsXcnpjSsgf6Izqt9LgIwA6cnwpiA6nIOsR/yxEQ5F7pBibI
+X-Gm-Gg: AYBFou2Gkunus8WqUT9Cb8r25NL/Q5LnuCCAJInzPaoVJret0PaHFZM38lmV2N+I4gZ
+	21pakIdc+KeUfKZL/l7Y1sOdG29Wvg1DW0KjnjUCpYgROh9vsI+d9c/Q9osU+QMW2cpPul7e86P
+	L9Yg9CNYENXu/Yu5dqe2xoiHhPGipoFG0mRmP7lQEw0B3Ypcw9hoaXiqtLcSECeZ3wGciAlC+xQ
+	r3LVPMHAi4L7q4kwd7kkXzhBi9Izk/wTb16LmalG+8sxYg4281Sg6lRXdf1iP1QQSSR1ViayzkA
+	Tr3IFr5xHaSsn0fkkohR3ycXmbhJTIyg5xrQjGhpPzccN5WOnsKU8Vq+gwzlo9GOyqMaP20NIQf
+	KFeeqCop3dIFP9TvFAB/ZcUjCNuDqO+cGBw2MQZIJ6JPpWP6VfYfFtRPR1JhT4UpsYILoYrAT3N
+	DFuzUsvijy0G7C/svmr7xh0T2DpHWonv/CcnaEW81vJCcy7MCLTwB5ydZZ4z+gIXU7fvKNCiOJd
+	QL/kmfScFzqKJcjk+vYgzfERp5gu9sDcBtJypI0+szYk//mLvFJbJea7nhZScE6M58xSI7wXh4Y
+	GWWALmSdyrr+OBMV+gH/Um/hPnfeO1CXaUS6k17X7eUO18C51z/Myl9ZZa82xCGEZ/lyw7RNsKE
+	ZnFj98Dz32fa3JW+Exo/3EhgiP6+FZHod93u7Ub6WeR94sqB8kFjv7bLm/e/FXw==
+X-Received: by 2002:a05:6a00:bb8c:b0:883:904e:da56 with SMTP id d2e1a72fcca58-8beb677fb7cmr12261080b3a.36.1794887675077;
+        Mon, 16 Nov 2026 19:54:35 -0800 (PST)
+Received: from localhost (n106-71-19-159.sun21.vic.optusnet.com.au. [106.71.19.159])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed263649esm4319559b3a.45.2026.11.16.19.54.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 19:54:33 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,45 +89,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 3/6] mm/damon/tests/core-kunit: test
+ sz_ops_filter_passed_last
+From: Aveline Noir <jm5905938@gmail.com>
+Date: Tue, 17 Nov 2026 14:49:05 +1100
+Message-Id: <179488734513.2.6285120857568566018.b4-reply@b4>
+To: mattathias.pinchover@uber.com
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ Jonathan Corbet <corbet@lwn.net>, damon@lists.linux.dev, 
+ Mattathias Pinchover via B4 Relay <devnull+mattathias.pinchover.uber.com@kernel.org>, 
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+ Randy Dunlap <rdunlap@infradead.org>, sashiko-bot@kernel.org, 
+ sashiko-reviews@lists.linux.dev, SJ Park <sj@kernel.org>, 
+ Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20261116-damon-sz-ops-b4-v1-3-1cffe7227e6d@uber.com>
+References: <20261116-damon-sz-ops-b4-v1-0-1cffe7227e6d@uber.com>
+ <20261116-damon-sz-ops-b4-v1-3-1cffe7227e6d@uber.com>
+X-Mailer: b4 0.16.0
 
-test_load_zone_info() allocates the active bitmap with bitmap_zalloc()
-but then tests zone_info, which was already checked a few lines above.
-A failed allocation is not detected, and the NULL bitmap is then used
-by __set_bit() and by btrfs_load_block_group_by_raid_type().
+Hi Mattathias,
 
-Check the active bitmap instead.
+On Mon, 16 Nov 2026 19:10:06 +0000 Mattathias Pinchover via B4 Relay wrote:
 
-Tested in QEMU with the bitmap size temporarily changed to UINT_MAX so
-that the allocation fails. Without this patch the kernel oopses in
-btrfs_test_zoned() with a NULL pointer dereference. With it the test
-prints "cannot allocate active bitmap" and fails cleanly.
+> Add a kunit test for the sz_ops_filter_passed_last DAMOS stat.
 
-Found by searching for a NULL check that tests a different pointer than
-the one just allocated, with the help of an AI coding assistant
-(Claude).
+Since the motivation mentions contexts with multiple targets, maybe we
+could also cover two targets in the same context, with the stub returning
+different sizes for each? Checking their sum, then changing the sizes for
+the next interval, would verify both aggregation across targets and that
+the value only includes the latest interval.
 
-Fixes: 1ba19a6ea9f2 ("btrfs: tests: zoned: add tests cases for zoned code")
-Signed-off-by: Yifan Feng <evanfengff@gmail.com>
----
- fs/btrfs/tests/zoned-tests.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/btrfs/tests/zoned-tests.c b/fs/btrfs/tests/zoned-tests.c
-index 2bc3b14baa41..bb9969210444 100644
---- a/fs/btrfs/tests/zoned-tests.c
-+++ b/fs/btrfs/tests/zoned-tests.c
-@@ -65,7 +65,7 @@ static int test_load_zone_info(struct btrfs_fs_info *fs_info,
- 	}
- 
- 	active = bitmap_zalloc(test->num_stripes, GFP_KERNEL);
--	if (!zone_info) {
-+	if (!active) {
- 		test_err("cannot allocate active bitmap");
- 		return -ENOMEM;
- 	}
-
-base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
--- 
-2.39.3 (Apple Git-146)
-
+Thanks,
+Aveline Noir
