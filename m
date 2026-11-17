@@ -1,60 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.23
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794927960;
-	b=kdHnoNdjo7m92+08/VrppWAR83FjSR59+SkGZ+IVSjFC2fXcLJWKJtw4JDcoq2OFcvFp
-	 xGO75md7V5LuUCAw2RWJ2eLjYCoEXZmn52uEVYwTNy1GckbNKaOBgETLWLkzu3bCT1q3G
-	 TJplUhRZyhn9bLnIafyXDPO3eHc5mNLXtohA/0Jzos/rcl+7x6uOXYP0/DgaKgseKnbPk
-	 ML4wqJy++UDktkBoCZP4HFf+szCMswvIRNLtWP7cuSuyegi6N2S9JVpisXTb9LhekDe3U
-	 AQL2CAEfxshM03K0mtoo1NiAWyu+85awyWyowz/75d2cyvQoUeNm1ybIzxjtKrO46Wg==
+	t=1794927986;
+	b=knwG/ROFv1/Vu7zzINXsUrnFzczwmi+v6bKxA2NpF34yD1rXKWujAq4tfeF7yBrBGjIl
+	 TNGKvXBqUuO1/jxgLsJ+ogVlTBB9mBPPjZgI8c2vhrd8BZP/Ph2kdmqxMII+7oOwYGC4q
+	 g9OuSaXETwWmtmLXyROAqY2+CtJ499lo4mtZ7zUaAYe66HrUkrHvfz20Rk7vcvBSVWF2U
+	 FZkGQlVXxIWy6i4Xdu5RKNwlxcTnfCLY4+MvHR2UITmPFc016tQnQlG32h5k7VREZMSyl
+	 itYQ3WsrASvg/j46q655A2PQTbQ5XUnv63YForovmRa8XuRy8GfL+H42itKxJCUcIJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794927960;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=5b0QuGyGn00iquG3GN4oGFLLZstNYi2XAOf3W9cavpk=;
-	b=M9vAJm20+eJVr6WlYFCdULxuqaELeSOK/JeUU/y1sIIGkUCVXDftMGBKIfHKes8DIQkV
-	 LMvOaA5ppZK1U+ZCvmnv4i/YJS+aJ+nic/7pczwNEfR8RjWUl9pqF3p4y8RDC1bzY2cMO
-	 2DukpcJdMt5auDVy8A25IsB0xbmxaE1UxClkJ0RFkrI8i48Vvkx5+UfXNwxC2mFzzP9qO
-	 eYgDq4UXUn4IH+Yljekq7bJQQmFKZRu0XxzbqH1tf3AU33EH5ZXHstRoygJfJ2EWi4bbr
-	 iuGsN/69x+xZ51FwcsgnPmFacjyrowpu7U7CQunAkapF1f0ewjOz4mdvjURmC5JHHQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794927986;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:User-Agent;
+	bh=ua+INsmy4uhlQErQcxDGsb1d1oetenRoWNHuRrVHb0Y=;
+	b=1iKcZuTcwxDgjaP51947nU5ONEVKx+Oyiehx2dFtOMmuAP0AgfNXA7cFGefr5lQSZBr7
+	 MWxKF/l/7JpOuJ4XzkPjX08NEcn+m8tyGeslxMMjTupa6P/48Siz0O08VlzCvbmABFnSu
+	 YZqWznztpT/sxWN2YclIgztm/OMdtYwnn3sVcRlmihZYvCpPbSk2n/B0nJUSiyIdWPbkP
+	 68IwhJV2XJyawJvKK5GU7WWRfuFVBlYPQkc4QhIJtmnZffDU3x/+dpXP9CSPJr81erfzZ
+	 /gkf4PP5Fo87wGnB51asF1WFz7Yq+I0Y6QuZBpY67p3BZXZ0kkaCuiy8SSnaJ8mFCGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dsg.is;
-	spf=pass smtp.mailfrom=dsg.is;
-	dkim=pass header.d=dsg.is header.i=@dsg.is header.a=rsa-sha256 header.s=protonmail2 header.b=PY7W5ypb;
-	arc=none smtp.remote-ip=185.70.43.23
-Received: from mail-4323.protonmail.ch (mail-4323.protonmail.ch [185.70.43.23])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hzsnpH+V;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DB34606A31C;
-	Tue, 17 Nov 2026 15:05:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DB34606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=dsg.is
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dsg.is
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C45606A32C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 15:06:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07C45606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dsg.is header.i=@dsg.is header.a=rsa-sha256 header.s=protonmail2 header.b=PY7W5ypb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dsg.is;
-	s=protonmail2; t=1794927955; x=1795187155;
-	bh=5b0QuGyGn00iquG3GN4oGFLLZstNYi2XAOf3W9cavpk=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=PY7W5ypb51Qeu9Jp1QItZvU2vuzQ/0LifSx0ug2QdYeHSajnIYceALMkQZGbmStUS
-	 PJJn7BwAAphIZV27vPxFxl2ZzW/06d6VzNslzG4iIsSyL/NatGm8IWelEyBHxBk3VL
-	 l5mas65PYpFs5ixFpjkSga1Av8Z3k6l4ESNt7YhU3j9Bl5M41tjACQv0IFMJhzmHYk
-	 +nCpxCcgbDKf6nrONRJoN8vwFV12iJj6qFx9GYrwgpy2eDQJR2d7/uNjPlbfUlhF0Y
-	 ZBxIivfddmra7PcMI+6m/S+N0I5lQiR/Amgr/vUMzPLPE3Q4/jTuMkW9z/3zIoCiFs
-	 +bN8DLLfh3rwg==
-Date: Tue, 17 Nov 2026 15:05:49 +0000
-To: Jie Luo <jie.luo@oss.qualcomm.com>
-From: =?utf-8?Q?Dav=C3=AD=C3=B0_Steinn_Geirsson?= <david@dsg.is>
-Cc: George Moussalem <george.moussalem@outlook.com>, Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Gokul Sriram Palanisamy <quic_gokulsri@quicinc.com>, Varadarajan Narayanan <quic_varada@quicinc.com>, Sricharan Ramabadhran <quic_srichara@quicinc.com>, linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] clk: qcom: gcc-ipq5018: fix swapped MDIO clocks and resets
-Message-ID: <pYqXqvnKWNe70XfoCIw5qXcD5To1lzTA1BYdwXz72HfWGIGQZN6IENgVQxGr7Z0ueVHYs_kl6W5q18m70V1jj2F_nInBNewja7Ui7ks38es=@dsg.is>
-In-Reply-To: <b586f418-a8e0-4502-9372-ed15d559305d@oss.qualcomm.com>
-References: <20261112155801.610730-1-david@dsg.is> <LV2PR19MB7970413DF8BA90E631C5D6CD349D7C2@LV2PR19MB797041.namprd19.prod.outlook.com> <b586f418-a8e0-4502-9372-ed15d559305d@oss.qualcomm.com>
-Feedback-ID: 186389362:user:proton
-X-Pm-Message-ID: 8bc7e68a41cd7f9a3925ee1d95a91dc30e40e998
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hzsnpH+V
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794927984; x=1826463984;
+  h=date:from:to:cc:subject:message-id;
+  bh=Q0xYGDHNETOUqB/QHbEJguMLOAs6v1zmKrmjlcI07uI=;
+  b=hzsnpH+V+bNWDgmX0DFKAuVgx5fp7BxmP8Q7n91TTfkWV52qy4B9VR03
+   SBr7nQyz/uwk+YltXEB7pYQIR8gzMGdtXRBuhHnv61XVrnvmRiL3avfJv
+   uM6VkoDkLdpE29dPuol4TXqjhUtnaf19Skk9LWb5mVqwAJO/PJ3BjzoFs
+   Ae1Zxb4SG1hsc7o4Cs2ISThA6Mc6VeQBRdy5698XMXzL1ZtNTkrl4uhge
+   Mjnw/eiM2lIIfMQtjn5H27IqXURiGlgaDPmd5XH1FCgDT9OFGH9yWCgfv
+   sAz32n1/hfZ30rem/khdajXBLmfzUFCRyaGaTinCw8coQDPdco2i1Rq1r
+   w==;
+X-CSE-ConnectionGUID: bSgEpBJwShiO1mspg1A9Kg==
+X-CSE-MsgGUID: CMN2fk9rR9OC2Xdk481GwA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3600352"
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="3600352"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 07:06:23 -0800
+X-CSE-ConnectionGUID: boyGYROLRnWkAXxfrj0zfg==
+X-CSE-MsgGUID: yFXtow2IQjSNvjcnXYHwVg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="10038394"
+Received: from igk-lkp-server01.igk.intel.com (HELO 1073a420ae3a) ([10.211.93.152])
+  by fmviesa002.fm.intel.com with ESMTP; 17 Nov 2026 07:06:22 -0800
+Received: from kbuild by 1073a420ae3a with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xTKlH-0000000038o-3SrS;
+	Tue, 17 Nov 2026 15:06:19 +0000
+Date: Tue, 17 Nov 2026 16:05:45 +0100
+From: kernel test robot <lkp@intel.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Subject: drivers/soc/mediatek/mtk-dvfsrc.c:524:2-3: Unneeded
+ semicolon
+Message-ID: <20261117160346.MCgJLmbK-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,189 +80,85 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   666539eecdf4db623f5e3c3e55cf9f2dfad24aa4
+commit: 75cf308fee7e4b3038741f96fd90afc3bd871e64 soc: mediatek: mtk-dvfsrc: Add support for DVFSRCv4 and MT8196
+date:   10 months ago
+config: arm64-randconfig-r2109-20261116 (https://download.01.org/0day-ci/archive/20261117/20261117160346.MCgJLmbK-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 5637411ce5dc86d0b7f87cde0f7ee47406d29db6)
 
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 75cf308fee7e ("soc: mediatek: mtk-dvfsrc: Add support for DVFSRCv4 and MT8196")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/20261117160346.MCgJLmbK-lkp@intel.com/
 
+cocci warnings: (new ones prefixed by >>)
+>> drivers/soc/mediatek/mtk-dvfsrc.c:524:2-3: Unneeded semicolon
 
+vim +524 drivers/soc/mediatek/mtk-dvfsrc.c
 
-On Tuesday, November 17th, 2026 at 3:44 AM, Jie Luo <jie.luo@oss.qualcomm.c=
-om> wrote:
+   475	
+   476	static int dvfsrc_get_hw_opps_v4(struct mtk_dvfsrc *dvfsrc)
+   477	{
+   478		struct dvfsrc_opp *dvfsrc_opps;
+   479		struct dvfsrc_opp_desc *desc;
+   480		u32 num_opps, gear_info;
+   481		u8 num_vcore, num_dram;
+   482		u8 num_emi;
+   483		int i;
+   484	
+   485		num_opps = dvfsrc_get_opp_count_v4(dvfsrc);
+   486		if (num_opps == 0) {
+   487			dev_err(dvfsrc->dev, "No OPPs programmed in DVFSRC MCU.\n");
+   488			return -EINVAL;
+   489		}
+   490	
+   491		/*
+   492		 * The first 16 bits set in the gear info table says how many OPPs
+   493		 * and how many vcore, dram and emi table entries are available.
+   494		 */
+   495		gear_info = dvfsrc_readl(dvfsrc, DVFSRC_GEAR_INFO_L);
+   496		if (gear_info == 0) {
+   497			dev_err(dvfsrc->dev, "No gear info in DVFSRC MCU.\n");
+   498			return -EINVAL;
+   499		}
+   500	
+   501		num_vcore = FIELD_GET(DVFSRC_V4_GEAR_INFO_VCORE, gear_info) + 1;
+   502		num_dram = FIELD_GET(DVFSRC_V4_GEAR_INFO_DRAM, gear_info) + 1;
+   503		num_emi = FIELD_GET(DVFSRC_V4_GEAR_INFO_EMI, gear_info) + 1;
+   504		dev_info(dvfsrc->dev,
+   505			 "Discovered %u gears and %u vcore, %u dram, %u emi table entries.\n",
+   506			 num_opps, num_vcore, num_dram, num_emi);
+   507	
+   508		/* Allocate everything now as anything else after that cannot fail */
+   509		desc = devm_kzalloc(dvfsrc->dev, sizeof(*desc), GFP_KERNEL);
+   510		if (!desc)
+   511			return -ENOMEM;
+   512	
+   513		dvfsrc_opps = devm_kcalloc(dvfsrc->dev, num_opps + 1,
+   514					   sizeof(*dvfsrc_opps), GFP_KERNEL);
+   515		if (!dvfsrc_opps)
+   516			return -ENOMEM;
+   517	
+   518		/* Read the OPP table gear indices */
+   519		for (i = 0; i <= num_opps; i++) {
+   520			gear_info = dvfsrc_get_opp_gear(dvfsrc, num_opps - i);
+   521			dvfsrc_opps[i].vcore_opp = FIELD_GET(DVFSRC_V4_GEAR_INFO_VCORE, gear_info);
+   522			dvfsrc_opps[i].dram_opp = FIELD_GET(DVFSRC_V4_GEAR_INFO_DRAM, gear_info);
+   523			dvfsrc_opps[i].emi_opp = FIELD_GET(DVFSRC_V4_GEAR_INFO_EMI, gear_info);
+ > 524		};
+   525		desc->num_opp = num_opps + 1;
+   526		desc->opps = dvfsrc_opps;
+   527	
+   528		/* Assign to main structure now that everything is done! */
+   529		dvfsrc->curr_opps = desc;
+   530	
+   531		return 0;
+   532	}
+   533	
 
->=20
->=20
-> On 11/16/2026 7:41 PM, George Moussalem wrote:
-> > On 11/12/26 19:57, Dav=C3=AD=C3=B0 Steinn Geirsson wrote:
-> >> The GCC has a block reset (BCR) and an AHB clock branch for each of th=
-e
-> >> two MDIO controllers. The pair at 0x58000/0x58004 belongs to the
-> >> controller at 0x90000 (mdio1 in ipq5018.dtsi) and the pair at
-> >> 0x58010/0x58014 belongs to the controller at 0x88000 (mdio0). The driv=
-er
-> >> maps the GCC_MDIO0_* IDs to the first pair and the GCC_MDIO1_* IDs to
-> >> the second, so each MDIO node gets the clock and reset of the other
-> >> controller.
-> >>
-> >> ipq5018.dtsi enables mdio0 and leaves mdio1 disabled. On a board that
-> >> does not enable mdio1, clk_disable_unused() gates 0x58014 and the
-> >> controller at 0x88000 stops responding. Its registers then read back a
-> >> stale bus value, so MDIO reads return garbage instead of failing.
-> >>
-> >> Observed on a Ubiquiti UniFi 6 Pro, which has the internal GE PHY on
-> >> mdio0 and nothing on mdio1:
-> >> - Gating 0x58004 leaves the 0x88000 controller working and every
-> >>   0x90000 register reads 0xffff. Gating 0x58014 does the reverse.
-> >> - Asserting the BCR at 0x58000 resets the 0x90000 controller and halts
-> >>   the 0x58004 branch. The BCR at 0x58010 resets the 0x88000 controller
-> >>   and halts the 0x58014 branch.
-> >>
-> >> Swap the clock and reset offsets so that each ID controls the
-> >> controller it is named after. No in-tree DT uses the MDIO resets.
-> >
-> > confirmed working on Linksys MX2000 and MR5500. Both devices don't have
-> > the internal GE PHY on mdio0 wired up. With mdio1 enabled and mdio0
-> > disabled, ethernet comes up.
-> >
-> > Adding Luo Jie: I think this patch can be reverted because not all
-> > boards use the internal GE PHY and its LDO needs not be enabled for
-> > ethernet functionality on externally connected PHYs or switches
-> > controlled by mdio1
-> > -
-> > https://lore.kernel.org/all/20260902-qcom_ipq5018_mdio_pinctrl-v3-2-629=
-c7bb05c44@oss.qualcomm.com/
-> >
-> > Tested-by: George Moussalem <george.moussalem@outlook.com>
-> >
->=20
-> Thanks for testing on the MX2000 and MR5500.
->=20
-> All of the Qualcomm RDP boards have the internal GE PHY, so it makes
-> sense to keep it enabled by default. A board that doesn't use the
-> internal GE PHY can disable it in its own board DTS, as you already
-> did for the MX2000 and MR5500:
->=20
-> =09&mdio0 {
-> =09=09status =3D "disabled";
-> =09};
->=20
-> >>
-> >> Fixes: e3fdbef1bab8 ("clk: qcom: Add Global Clock controller (GCC) dri=
-ver for IPQ5018")
-> >> Signed-off-by: Dav=C3=AD=C3=B0 Steinn Geirsson <david@dsg.is>
-> >> ---
-> >>
-> >> Tested and confirmed working on the Ubiquiti U6 Pro with both
-> >> OpenWRT's v6.18.60 kernel and `qcom/clk-for-7.5`.
-> >>
-> >> A comment in OpenWRT's `ipq5018-archer-ax55-v1.dts` indicates this
-> >> bug has bitten people before:
-> >> https://github.com/openwrt/openwrt/blob/main/target/linux/qualcommax/d=
-ts/ipq5018-archer-ax55-v1.dts#L273-L279
-> >> That workaround should become unnecessary with this patch, though I
-> >> do not have the right hardware to confirm that.
-> >>
-> >> diff --git a/drivers/clk/qcom/gcc-ipq5018.c b/drivers/clk/qcom/gcc-ipq=
-5018.c
-> >> index 37ccdc44a8..bf1a4745d1 100644
-> >> --- a/drivers/clk/qcom/gcc-ipq5018.c
-> >> +++ b/drivers/clk/qcom/gcc-ipq5018.c
-> >> @@ -1969,28 +1969,28 @@
-> >>  };
-> >>
-> >>  static struct clk_branch gcc_mdio0_ahb_clk =3D {
-> >> +=09.halt_reg =3D 0x58014,
-> >> +=09.clkr =3D {
-> >> +=09=09.enable_reg =3D 0x58014,
-> >> +=09=09.enable_mask =3D BIT(0),
-> >> +=09=09.hw.init =3D &(struct clk_init_data) {
-> >> +=09=09=09.name =3D "gcc_mdioi0_ahb_clk",
-> >> +=09=09=09.parent_hws =3D (const struct clk_hw *[]) {
-> >> +=09=09=09=09&pcnoc_clk_src.hw,
-> >> +=09=09=09},
-> >> +=09=09=09.num_parents =3D 1,
-> >> +=09=09=09.flags =3D CLK_SET_RATE_PARENT,
-> >> +=09=09=09.ops =3D &clk_branch2_ops,
-> >> +=09=09},
-> >> +=09},
-> >> +};
-> >> +
-> >> +static struct clk_branch gcc_mdio1_ahb_clk =3D {
-> >>  =09.halt_reg =3D 0x58004,
-> >>  =09.clkr =3D {
-> >>  =09=09.enable_reg =3D 0x58004,
-> >>  =09=09.enable_mask =3D BIT(0),
-> >>  =09=09.hw.init =3D &(struct clk_init_data) {
-> >> -=09=09=09.name =3D "gcc_mdioi0_ahb_clk",
-> >> -=09=09=09.parent_hws =3D (const struct clk_hw *[]) {
-> >> -=09=09=09=09&pcnoc_clk_src.hw,
-> >> -=09=09=09},
-> >> -=09=09=09.num_parents =3D 1,
-> >> -=09=09=09.flags =3D CLK_SET_RATE_PARENT,
-> >> -=09=09=09.ops =3D &clk_branch2_ops,
-> >> -=09=09},
-> >> -=09},
-> >> -};
-> >> -
-> >> -static struct clk_branch gcc_mdio1_ahb_clk =3D {
-> >> -=09.halt_reg =3D 0x58014,
-> >> -=09.clkr =3D {
-> >> -=09=09.enable_reg =3D 0x58014,
-> >> -=09=09.enable_mask =3D BIT(0),
-> >> -=09=09.hw.init =3D &(struct clk_init_data) {
-> >>  =09=09=09.name =3D "gcc_mdio1_ahb_clk",
-> >>  =09=09=09.parent_hws =3D (const struct clk_hw *[]) {
-> >>  =09=09=09=09&pcnoc_clk_src.hw,
-> >> @@ -3585,8 +3585,8 @@
-> >>  =09[GCC_GMAC1_SYS_ARES] =3D { 0x68438, 1 },
-> >>  =09[GCC_IMEM_BCR] =3D { 0x0e000, 0 },
-> >>  =09[GCC_LPASS_BCR] =3D { 0x2e000, 0 },
-> >> -=09[GCC_MDIO0_BCR] =3D { 0x58000, 0 },
-> >> -=09[GCC_MDIO1_BCR] =3D { 0x58010, 0 },
-> >> +=09[GCC_MDIO0_BCR] =3D { 0x58010, 0 },
-> >> +=09[GCC_MDIO1_BCR] =3D { 0x58000, 0 },
-> >>  =09[GCC_MPM_BCR] =3D { 0x2c000, 0 },
-> >>  =09[GCC_PCIE0_BCR] =3D { 0x75004, 0 },
-> >>  =09[GCC_PCIE0_LINK_DOWN_BCR] =3D { 0x750a8, 0 },
->=20
-> The GCC driver is correct here. GCC_MDIO0_AHB_CLK (0x58004) and
-> GCC_MDIO1_AHB_CLK (0x58014), along with the matching BCRs, follow the
-> IPQ5018 hardware register definitions. What is wrong is the clock
-> assignment in ipq5018.dtsi: the MDIO controller at 0x88000 is clocked
-> by GCC_MDIO1_AHB_CLK, and the controller at 0x90000 is clocked by
-> GCC_MDIO0_AHB_CLK.
->=20
->=20
-> Please drop this change and fix the DTS instead, for example:
-
-Understood, will do. I'll be traveling for a conference the rest of the wee=
-k, so I'll prepare and submit the v2 sometime next week. If George or someo=
-ne else wants to submit before then, that's also fine by me. :)
-
-Thanks,
-Dav=C3=AD=C3=B0
-
-
->=20
-> --- a/arch/arm64/boot/dts/qcom/ipq5018.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/ipq5018.dtsi
-> @@ -220,7 +220,7 @@ mdio0: mdio@88000 {
->                         #address-cells =3D <1>;
->                         #size-cells =3D <0>;
->=20
-> -                       clocks =3D <&gcc GCC_MDIO0_AHB_CLK>;
-> +                       clocks =3D <&gcc GCC_MDIO1_AHB_CLK>;
->                         clock-names =3D "gcc_mdio_ahb_clk";
->                         clock-frequency =3D <6250000>;
->=20
-> @@ -243,7 +243,7 @@ mdio1: mdio@90000 {
->                         pinctrl-0 =3D <&mdio_pins>;
->                         pinctrl-names =3D "default";
->=20
-> -                       clocks =3D <&gcc GCC_MDIO1_AHB_CLK>;
-> +                       clocks =3D <&gcc GCC_MDIO0_AHB_CLK>;
->                         clock-names =3D "gcc_mdio_ahb_clk";
->=20
->                         status =3D "disabled";
-> 
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
