@@ -1,103 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.4
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794885685;
-	b=P/lSAzZZGnt1wyAYIgSxotJaCNieppt+9VQZBkoyJR3R5vgxdUE+jDq6g4IT2v4nPGrw
-	 Z5ZwFf8NBqsF/jkofYBjCrprk46TBMqeXgs7mTuBbZ+cvy4VZlPJO4TxF3D7k4RwNCkcH
-	 pP27QfrMbzL9lddLVSbE+rxJwx84pFUvlCoD0bBKSelIDO8sPWRoMZm3me4TNab/DZMmM
-	 6J8jgB/61aggEyEFxOQeYrrc90zRozBq5n/9+rnT7Ymv6QvFHpruompxh/yrKlDiYq2IE
-	 as8kBbjWD+FUBgySc3d5PJmMZRqrtVb6I1vFon+AjmEDs021RyEfgAwEwOV2Yf4RW8g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794885685;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-OriginalArrivalTime:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:Content-Type:
-	 X-MS-Office365-Filtering-Correlation-Id:X-SET-LOWER-SCL-SCANNER:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=KGlwVSllxJ587DoCwNq857CZl9eVgkU8rusCE6w/8Cg=;
-	b=HUmI8B342GisUFaMXM3l4LwEvm/fGtMzcJr+2uJZAfaG1pPf2Iw532DUAftot/fsGyWx
-	 j/JYReiHIEkBcqjhDHaO8Ue9y9Hp9vzW0OZgrz7zujlYJIfDLqMctXasl+u91YZrbMROi
-	 cHqU8FZix5OUhjLRRsdrgDhanmT0utN9CN34WIfNPjE6l+TVPJvzfQ4S0YO8L9RWuv3sO
-	 7MVJaXvetaRhtuBySmT7X8gnLircLU7i2hNWb4qNUSbywJwY5iX7yVRKS6lHyTTB9JKAe
-	 gE3iZdYZ6Paiv7EY25C6UcWjk3NF5EnEa+CiZUmq1P2l+BgRoNEN0BYz41+cE3XTGNg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=leica-geosystems.com;
-	spf=fail smtp.mailfrom=leica-geosystems.com;
-	dkim=pass header.d=leica-geosystems.com header.i=@leica-geosystems.com header.a=rsa-sha256 header.s=selector1 header.b=lR1l4KVW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.4
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012004.outbound.protection.outlook.com [52.101.66.4])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794885772;
+	b=JL2PcFat69hj5mY6NO2jIeIYLcKw1maqAlSEar/vLOjOjiOF4XmJcUXorg3TIuB2kb+O
+	 e/fkhtKZ8zacObOck+OntgaFbpkCjZV5wqjCQck+YheDTKcN7PW6ZJM+ZPJf5FiUqklhj
+	 WOFITX/E4I3STDQAic7w61yrJL0RwyUvNl7A/XldEtKhgVKG8jdnjcAm4u5lWYbdggFCC
+	 OQouW+tOkH0qGDOusrW6I1czvJ88y44Im4NevqVN3oBXHq22mmJRiPttozuIfj2zelO3b
+	 rw8syv4xJwcy6c25vv8S9GQT2wj97U4ojZV5mEn88C/qdqIaE7E2Of+eR5gUW+chpsw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794885772;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=t/AjsBL1snAP5gb7R7uBEjYqzWe1X/S9wVxVGayJ7D8=;
+	b=aqEdxOBEcdhYUsUUTX2OPe+MhrjIRU5cc73Zimvf45U/ihYENHW8IviWPMWKrugYTu0u
+	 /alxlttZN1AlNSo7EifgG8Zc5Ti3n4cUDo/X42dL1grl7MLFSA2g/eCKLxjwtWT2Y6SOz
+	 bBQ3AO7Nt3VyqO8XOMBBJYhoRowy61q1IuipvOySZHakxaXGZ2uEJzzLwcNYOkiNmUl32
+	 SEou5Hy2tPWVSfB5/e1bxk+nt3iDns501ltOrdSHynyLZvBLffIUJsaPlKONysSAxoOry
+	 mLDeC7y7iyhBE9DKrSMm+1z0YBy+csXpQ9XUljQ8fuXdNgvAfNufdld5kR7jcDy7flA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bc1znfIV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0ECC606A894;
-	Tue, 17 Nov 2026 03:21:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0ECC606A894
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=leica-geosystems.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=leica-geosystems.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AC1F606A331;
+	Tue, 17 Nov 2026 03:22:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=leica-geosystems.com header.i=@leica-geosystems.com header.a=rsa-sha256 header.s=selector1 header.b=lR1l4KVW
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=k52clg99zmaTTGBHUfcF9gZZQg7cGPBKC7QztYg74ASpXHMDbXGTk5SasLIbpM9B2KianwweRK97qFPnmE9P7iFu39lfEnrHmeMJ90hEBSG8dqutncoH/ewy0dHBmotBnXU1XGAJbFGjyDOM/IjjhMNkqBHePAF+xaw6tfkabUjbEoIu6avWROPNdN4syefCLu5GwLZjbaIAc31XkoQvN5q62aFqNm7CAInhhYMW/HSNkIrREl9IvhTRoY9+0LnLR7StZ2q9M4E5gJM5+yic9r9Y2lM1W8KrHfJug0oj5/YCLcVsWAhjSYnqZJllgoIzG39UrHrb/jHJYPSB11l4gA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KGlwVSllxJ587DoCwNq857CZl9eVgkU8rusCE6w/8Cg=;
- b=nwAMh7+Y6s2jVDPK6zXm0PuTB9ZrRwE2CMgbGjwrbu0oS3+wBh7ZCxB4OuSm2L+8srMELs6JKXhws/KFyZ0gr7cbdeyMqzNlokK5/9Rg56bB2gjvDorGfomCXEnyLQhQqW/vWFTRVDcp45qkJNeo2t9gipfddKrQ2Yz6QpvtJ7Sxjvqys/NGZNVoapAv2m8CIfU001F78w6Dyu1TbPqpL060otWJShZWIpuAu4ZSyywHNo7gkHw5qa/AXxJf7PMDpd6OfpqtKPnrqhEF0lMUTCVby39M06B/VoL62Sq7pIZpspMNAv2yqIfwN68xTiWJZY+F23dRntVmuqaAMzAQmQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 193.8.40.99) smtp.rcpttodomain=vger.kernel.org
- smtp.mailfrom=leica-geosystems.com; dmarc=pass (p=reject sp=reject pct=100)
- action=none header.from=leica-geosystems.com; dkim=none (message not signed);
- arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=leica-geosystems.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KGlwVSllxJ587DoCwNq857CZl9eVgkU8rusCE6w/8Cg=;
- b=lR1l4KVW2oyutB6igZTHSuLvbowr+LRvcyWTSAFXaWoKoufj+a+79wSg66FWGo3z0C/yEQan2JbYMeqDAuALpkJxivLXOPVONprfm1bb+Qz/ZKmgwSaM3ABhrZlnxQz9UPCCJoLFQOqFFXLEFA3P9sX1ewAscnu244kVpOzoKOw=
-Received: from VIYP296CA0012.AUTP296.PROD.OUTLOOK.COM (2603:10a6:800:29d::13)
- by DU4PR06MB999718.eurprd06.prod.outlook.com (2603:10a6:10:637::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 03:21:20 +0000
-Received: from MI3PEPF00008490.eurprd03.prod.outlook.com
- (2603:10a6:800:29d:cafe::21) by VIYP296CA0012.outlook.office365.com
- (2603:10a6:800:29d::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Tue,
- 17 Nov 2026 03:21:20 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 193.8.40.99) smtp.mailfrom=leica-geosystems.com; dkim=none (message not
- signed) header.d=none;dmarc=pass action=none
- header.from=leica-geosystems.com;
-Received-SPF: Pass (protection.outlook.com: domain of leica-geosystems.com
- designates 193.8.40.99 as permitted sender) receiver=protection.outlook.com;
- client-ip=193.8.40.99; helo=hexagon.com; pr=C
-Received: from hexagon.com (193.8.40.99) by
- MI3PEPF00008490.mail.protection.outlook.com (10.167.240.151) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 03:21:19 +0000
-Received: from aherlnxbspsrv01.lgs-net.com ([10.61.228.61]) by hexagon.com with Microsoft SMTPSVC(10.0.17763.1697);
-	 Tue, 17 Nov 2026 04:21:19 +0100
-From: jiegu <jie.gu@leica-geosystems.com>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	gujie <jie.gu@leica-geosystems.com.cn>
-Subject: [PATCH] rfkill: gpio: initialize GPIOs according to default-blocked
-Date: Tue, 17 Nov 2026 03:20:59 +0000
-Message-ID: <20261117032059.3946777-1-jie.gu@leica-geosystems.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bc1znfIV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EA431F000C4;
+	Tue, 17 Nov 2026 03:22:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794885771;
+	bh=t/AjsBL1snAP5gb7R7uBEjYqzWe1X/S9wVxVGayJ7D8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=bc1znfIVMQznccauN9jlONfAol9goaOWdCPJSxbEMPFcHLv5l/6mKan1FcrVgCpt2
+	 YKJbJfLnuE4yb1TM/kjUhpfU7AYj5/2hspGPzWQdbOeFhPAxd9gbLAARFWygz1ErWO
+	 YKeDKCmsaSlKizBVBO08qRf2M4UqBMM5ZCexFYWXu55Mmq+DVYKTXSnTdr3kk2fSb6
+	 kqNpFREm4furlJVfyEjkWb0RFcKk1WYngCYWOlNAuqWXSCjPl9Fdh3KqaCeBwC5Eg5
+	 WZAmobKCtJjyMYWTXZmSx1PuBCnrX4atuZkWCBhoeHrvvoXjbvXTx9qmT55AFZ9aoQ
+	 ZQw+5S/TmBbag==
+Date: Tue, 17 Nov 2026 03:22:40 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux@analog.com, Conor Dooley <conor.dooley@microchip.com>, Marius Cristea
+ <marius.cristea@microchip.com>, Andy Shevchenko
+ <andriy.shevchenko@intel.com>
+Subject: Re: [PATCH v5 0/3] iio: adc: add support for the MAX34417
+ Four-Channel High Dynamic Range Power Accumulator
+Message-ID: <20261117032240.487a2b1b@jic23-hlaptop>
+In-Reply-To: <6cc41f58-970a-4a18-8a8d-dc6e7b42fe1e@linaro.org>
+References: <20261102-topic-sm8x50-iio-max34417-adc-v5-0-0ffa5e5f2d5c@linaro.org>
+	<20261104021700.14e69abb@jic23-hlaptop>
+	<01fe2a71-ba6f-470b-b6bf-e536a1013b09@linaro.org>
+	<20261107230925.5e66b234@jic23-hlaptop>
+	<51eaa37a-9634-42cb-9aac-4c842ab2af07@linaro.org>
+	<20261114184622.5d47903f@jic23-hlaptop>
+	<6cc41f58-970a-4a18-8a8d-dc6e7b42fe1e@linaro.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,94 +73,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-OriginalArrivalTime: 17 Nov 2026 03:21:19.0494 (UTC) FILETIME=[B6A18260:01DD7642]
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PEPF00008490:EE_|DU4PR06MB999718:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 969e3403-7ae3-4f57-f471-08df4459d966
-X-SET-LOWER-SCL-SCANNER: YES
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|376014|23010399003|61400799027|18002099003|16102099003|6133799003|261009223027099003|3023799007|56012099006|5023799004|11063799006|261102123227099003|261028144727099003|261026121527099003|261026140227099003|261021121427099003|261021123027099003|261022105027099003|10067099003|43062017;
-X-Microsoft-Antispam-Message-Info:
-	XmUhhFEvATZ2mRbU6fvAHcWiMBPIIJ03b06HN3tKJGEhwlcRl87KH9YD+af0qFTPSxcXG4eYJSELAMbcs7W77YFsL3hznNAzpqFWgm1kGUzqK637F9KojFiIMGqxvNj1cQpf+qVWI1J2S7YnS7nOzsrLovldAh6tJ7TI/EULWZVtv9iWy9n07YCHagpwiirifBp2+y3Q4UmKjo/IFlun0JduNub2XkuuNvpxKnpDIkVPSP6xOz62Jhy8dVYe5t5NNkdu+8h4CLna5CeYwI8z6OmVjCIgksfDhv8Z6Sth1NxysIz3IPIfbtTmTEijdtzjOodfFCxnoT9e4H3inPqhdEEbn5wHTYAgmKuIyMsqO7GzkjP37XE4iAFELUG5VZ9uLug+BWS6HSW7wPX9f8lnLvJf70z67FLdyyDkEwzOVcog0ddrC/bMY/z1ebENfbCdmjTfKMiXoctI1bYuu/pa09IjXY57VjwgofOAHjmkA+xfxSeqbCrK/P1huxH13Rf11b47oLiOhxaUIYd7GK8zYUUdOTb1iNpWJGmSzjsweMo3PnASZsOkW0oWa/Fwq4nppBQGuXFfPR0i0CwqdfLykkAlBvWXE6vv93QwuG40OdVwBRU7CKABb61WIA4NJBDzgZxSk0+btMdk7XMaba2WwCUGRIYYHh/v64puDh9hgZkmT3/mNyNVaftqn+MY10rTldRYu30kcx5KbsKU70FeWrvfgB+QjF/kQ/SzekPl9y88ZrP9yWW8Qv11SJuivjB3
-X-Forefront-Antispam-Report:
-	CIP:193.8.40.99;CTRY:CH;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:hexagon.com;PTR:ahersrvdom51.leica-geosystems.com;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(23010399003)(61400799027)(18002099003)(16102099003)(6133799003)(261009223027099003)(3023799007)(56012099006)(5023799004)(11063799006)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(261021121427099003)(261021123027099003)(261022105027099003)(10067099003)(43062017);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	QvEIpQL7Z2mvNxpiJJcJWmo5oFKoZyG43GCXPdeTVXjrMOjmCBpfB+CSHbtUIcqK1Xue7pWa+RNl/zMocSauFgz2fL/d+WY1FkxKhhlwUNHtdOMcij40xivm9M/EllSm6NUqipwoCO+RYazrJcxAIb3gDUeyZpBHq5/baOh5XnKb1aCD8D8HOG7cqZ3aGDOwI1tW/eJ3hSVbPEq4NJT492jSYfBqhvno6bsG5F/PK8rLAmmvwim4nEFlzEzX5csRwsBsIPeVFBuM7cffXxMCQ8WttNs69mDKSE2im9JGH84XBoxL2L8fa8PxG+hZwTTYxeACrLbcOfFmYijf0KM2mKy6dy9SQlPMD+ZbeRuSZKC0ozgIXkU0ghBhjxunXES4O7bHm2oizrU4nyp9zIZe3JWmDDs3wXC/0/Hni4UKLNzkR+7Fe/BzzmCBIToKQT85
-X-OriginatorOrg: leica-geosystems.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 03:21:19.9269
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 969e3403-7ae3-4f57-f471-08df4459d966
-X-MS-Exchange-CrossTenant-Id: 1b16ab3e-b8f6-4fe3-9f3e-2db7fe549f6a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=1b16ab3e-b8f6-4fe3-9f3e-2db7fe549f6a;Ip=[193.8.40.99];Helo=[hexagon.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MI3PEPF00008490.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR06MB999718
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: gujie <jie.gu@leica-geosystems.com.cn>
+On Mon, 16 Nov 2026 10:34:30 +0100
+Neil Armstrong <neil.armstrong@linaro.org> wrote:
 
-When default-blocked is present, rfkill_gpio_probe() initializes the
-software state to blocked but configures the GPIOs to the unblocked
-level.
+> On 11/14/26 19:46, Jonathan Cameron wrote:
+> > On Mon, 9 Nov 2026 10:52:22 +0100
+> > Neil Armstrong <neil.armstrong@linaro.org> wrote:
+> >   
+> >> On 11/8/26 00:09, Jonathan Cameron wrote:  
+> >>> On Wed, 4 Nov 2026 09:45:02 +0100
+> >>> Neil Armstrong <neil.armstrong@linaro.org> wrote:  
+> >>
+> >> <snip>
+> >>  
+> >>>> But for the other reports:
+> >>>> - [Medium] iio: adc: max34417: shared accumulators clobbered on CAM power/energy read
+> >>>>
+> >>>> This is a tough one, today if either we read power or energy, we erase the accumulated
+> >>>> power+count in the context, the context accumulator is only here to make sure we don't
+> >>>> loose data from other channels, like if we had a single HW channel.
+> >>>> This simulates this, if we had a single HW channel, at each UPDATE we would get back
+> >>>> to 0 in hardware anyway if we did read the power or energy.  
+> >>>
+> >>>
+> >>> I'm only half understanding this.  Let me see...
+> >>>
+> >>> I'd expect userspace to see accumulated values since we enabled the channel
+> >>> rather than since last read.  I think that's the final suggestion from
+> >>> sashiko.  
+> >>
+> >> Oh this changes quite a lot of things.
+> >> How do we handle overflow in this case ? we disable the channel and enable again to reset the state ?  
+> > 
+> > Is it possible to accumulate into a sufficiently large type that overflow won't happen in a feasible
+> > timescale?  Anything else is going to be a but unpredictable for userspace if it
+> > is expecting an accumulated number.   The other things that accumulate in IIO tend to be
+> > moderately small so it's never been an issue (things like step counters).  
+> 
+> The hardware can store up to 4.55h of data with it's 56bit with the default rate,
+> we store in 64bit in software, so we can store up to 256 times so up to 48.53 days.
+> 
+> It's possible to lower the SPS to 8, in this mode we can store up to 6211 days of data.
+> I plan to add this mode afterwards.
+> 
+> I'll switch to this and clear the overflow only if we disable the POWER channel.
 
-rfkill_init_sw_state() does not invoke the set_block callback and marks
-the state as persistent, so registration does not normally synchronize
-the GPIOs. The radio can therefore remain enabled while rfkill reports
-it as blocked, until userspace toggles the state.
+Hmm. Could use dual 64 bits values and a retry loop for theoretical tearing.
+Would then need custom code to report though which isn't ideal and
+it might rather surprise userspace.
 
-Initialize both GPIOs using !blocked, matching the existing set_block
-callback and the initial software state. Preserve the existing behavior
-when default-blocked is absent.
 
-Signed-off-by: gujie <jie.gu@leica-geosystems.com.cn>
----
- net/rfkill/rfkill-gpio.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/net/rfkill/rfkill-gpio.c b/net/rfkill/rfkill-gpio.c
-index cf2dcec6ce5a..e1248a6f7711 100644
---- a/net/rfkill/rfkill-gpio.c
-+++ b/net/rfkill/rfkill-gpio.c
-@@ -98,6 +98,7 @@ static int rfkill_gpio_probe(struct platform_device *pdev)
- 	const char *name_property;
- 	const char *type_property;
- 	struct gpio_desc *gpio;
-+	bool blocked;
- 	int ret;
- 
- 	if (dmi_check_system(rfkill_gpio_deny_table))
-@@ -148,11 +149,13 @@ static int rfkill_gpio_probe(struct platform_device *pdev)
- 		return -EINVAL;
- 	}
- 
--	ret = gpiod_direction_output(rfkill->reset_gpio, true);
-+	blocked = device_property_present(&pdev->dev, "default-blocked");
-+
-+	ret = gpiod_direction_output(rfkill->reset_gpio, !blocked);
- 	if (ret)
- 		return ret;
- 
--	ret = gpiod_direction_output(rfkill->shutdown_gpio, true);
-+	ret = gpiod_direction_output(rfkill->shutdown_gpio, !blocked);
- 	if (ret)
- 		return ret;
- 
-@@ -162,7 +165,7 @@ static int rfkill_gpio_probe(struct platform_device *pdev)
- 	if (!rfkill->rfkill_dev)
- 		return -ENOMEM;
- 
--	if (device_property_present(&pdev->dev, "default-blocked"))
-+	if (blocked)
- 		rfkill_init_sw_state(rfkill->rfkill_dev, true);
- 
- 	ret = rfkill_register(rfkill->rfkill_dev);
--- 
-2.34.1
+> 
+> Neil
+> 
+> > 
+> > Jonathan  
+> 
 
