@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794873607;
-	b=xhzR6U4MPnjRB0z7kYRnx55nEXSN9UX/5aF8vgr7TE88XYO3xp6Lw68nsv68KvbpHqP0
-	 /n5kkNw6v0P6FWEi5opbWvxQ8bHxd+U8eUG0ms4YGjlvr5wPMmiuHtoeM5AHEK9guBFXU
-	 oVHGvn1qg4DBH0mwADDhkhhTwkNvhcnwkN0ody3umUEuolVANL1dYTKjiqmFQAUF2FQdz
-	 gvP+thhD/jsvmuqmG6Ucjpvuf0oVhHrAK5WXIC3YXbzaGmEnryLa+BLlOo5VS6MqPBHBU
-	 MmwFtdOPtnu5SPFcUFrchWF3UDxtYS2QoCcBq2ms7FCYClihpqcIJahNGGZKUVUc/Bw==
+	t=1794873610;
+	b=BqXHe7JL84kE2+Lc1dHlyQUurK8Ht6+hFSKYEqziunyOWy2Sf+oxrZghWUyXRbx7A1WS
+	 PqaEMV7HdxTftDY3hA4KTbKFqozxSOenKAroTCbqyol3tQv1yDJ3YM46na+hsjFgHQafn
+	 QAxfaFlhX/HXhU17D+qXbk87BFpRh38gRaVr4KtRXPg/N8CV7uYTCiD2J54AT1GoYmFm8
+	 etcIoD0VK93oxVRQbS7DzYxEcZdZfSsPfRsnqrrzUV6eb/RzaqdEBlAVS/lleGJoG+c8w
+	 xHZI20Ch0h+BG17Xj1GbJi+H3PWvQPDwVzxByj0d2NIi/4g7uyQ2sEqOE1MS8D95tzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794873607;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794873610;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=gb226OdwCidc6WSe+jGRW6bvAhVCxuI44YctW7ONTT8=;
-	b=TQ2WJ4azdF6CdBvvMC1Km13l9FnZw1an3ToDREd1lTpwzHr2cjx9cv/ISBlBjoUJhB9t
-	 pMRUXeyB1Jh3Ctg9w0jMpNsYEJYqFTSi44Q+2kikqBSeeDhl/OJ3wG6BzqCmRCR4R2OCY
-	 XwB/3uqy9A8Rh0hVLS4y/aWUuBbDP49+E63RhqC1RVmD/WEBrjymQmI5UPBU+1aa9am4e
-	 2hCS1sTU7hGjQ1KaeyZlBiXvGTP1nyLQnIHFvAN+tfBilAwZ8VSrZ4nNjjimxQospdZY+
-	 cpXg7Y+OxLxKNA+GncjXy1y7gVFJfVoMtW2gyjKdS2N85AUH6PcjExo2bry1RbD1YeQ==
+	bh=OdZQQt6syitoBc9C2HEDvAOoOewrXacI5OUEL4JbqQY=;
+	b=HxHDCi3ThrudLgDhyTeqzyBFvnVWrtljBCYTR2c7/GYRgAcmsafajnllXFsS7qboOgCA
+	 Q3xqftO8LoVICKJN7YHLRFQgN6Fs6+0nRk1khnmpfcRtg3RDjVRProRUBs4BP6ihoU0OL
+	 al6sKKdQsyba+9hiR0DNHX6qL7bgts+yZfT33pqi3b3OIwKU8afLKuMRsoMzS0314dWLm
+	 rOfVBNAQ9tn4D5K4lHVUk0QO0PKyImqJStvt3q18qZLUsxvSeJC862QRAd7zf18e+yTaZ
+	 4CrKlEFG5tjEW5L7brgcXNa0/2G4nstEvRyJgT/V0ddLN4Eak8fh1/TlIDVtk7thMcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cvrhhiXn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nw2+AGag;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82348606A332;
-	Tue, 17 Nov 2026 00:00:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 418E6606A884;
+	Tue, 17 Nov 2026 00:00:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cvrhhiXn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B0A11F000C6;
-	Tue, 17 Nov 2026 00:00:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nw2+AGag
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D09D1F000C7;
+	Tue, 17 Nov 2026 00:00:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794873607;
-	bh=gb226OdwCidc6WSe+jGRW6bvAhVCxuI44YctW7ONTT8=;
+	s=k20260515; t=1794873610;
+	bh=OdZQQt6syitoBc9C2HEDvAOoOewrXacI5OUEL4JbqQY=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=cvrhhiXnwhGxqRWYkUq273HCl1AdWsNek+1Jwp9tl5PEoCzEJ4u2fHtvGKyHLqJzc
-	 4H82skI/oPdohVII00ayAG8fvzJX4/4O7rLxhW1BBEhL+9DmDnBOaC5NkBw5sjplu/
-	 gxbdRnkNuqoJtgBIS6/xq5fJCCrofDucQItW1O+Td2jPAqK1+yzuj1goUJ+GSvQY1M
-	 Lab36csJg34DJ0gPiF2hQerBQQv7nkMEqwt3ryl/jclxnUEU6jwjlDKgggcfk/i+7r
-	 Nm2bF4Tm7XW2c1u01geaZhdYma2kfkTIXfqlw/n7xsBHr8S0QuEV+gYCZoQy562mgN
-	 ew7VUmtT9guAQ==
+	b=nw2+AGag5DMdSS05Miu0Qc/9mj4DJiULdGBeKA5tF1K0AB7XsvuJv8ayR46JaTYBj
+	 jOsY4G7p5wElgK15r0JJFVTwRKcMOxuWT+9O4N4S7IwMv1iV19MMdCP5BdRspMsUOn
+	 Z8zo86io6CcGydNJWr3+nacH88mhLF/J9Zdj5riAcabcSsTqzSbslp3m/x6mzZ5E1E
+	 Ur0DgCmyxV3uUlZ4Db78HhG+d9LfnTpWHhQOF9rCR79rkKPQMMLwkuJliKQMPLQvj7
+	 6Dz4oxM3uN2CGwLMqrDN0rLptSrZ2XglWlMkL7DV+RNm/9W5vuayCTfAn1olgEKDqE
+	 vVzDpc7Jyd+8g==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F160D391B061;
-	Tue, 17 Nov 2026 00:00:06 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F0221391B06A;
+	Tue, 17 Nov 2026 00:00:09 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,43 +54,45 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v3] team: validate the length of U32 and S32 option
- data
+Subject: Re: [PATCH] net: kunit: move struct net_devmem_dmabuf_binding off
+ stack
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <179487360552.250117.3472263145936765475.git-patchwork-notify@kernel.org>
-Date: Tue, 17 Nov 2026 00:00:05 +0000
-References: <20261113090108.175889-1-sunwenbo@cmss.chinamobile.com>
-In-Reply-To: <20261113090108.175889-1-sunwenbo@cmss.chinamobile.com>
-To: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
-Cc: jiri@resnulli.us, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- hangbin.liu@linux.dev, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- 1342116488@qq.com
+ <179487360852.250117.8355978177760085009.git-patchwork-notify@kernel.org>
+Date: Tue, 17 Nov 2026 00:00:08 +0000
+References: <20261113101109.3227815-1-arnd@kernel.org>
+In-Reply-To: <20261113101109.3227815-1-arnd@kernel.org>
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, aleksandr.loktionov@intel.com, sdf@fomichev.me,
+ almasrymina@google.com, arnd@arndb.de, horms@kernel.org, willemb@google.com,
+ josef@toxicpanda.com, wang.zhan@smartx.com, daniel@iogearbox.net,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
 
 Hello:
 
 This patch was applied to netdev/net.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Fri, 13 Nov 2026 17:01:08 +0800 you wrote:
-> In team_nl_options_set_doit(), the policy for TEAM_ATTR_OPTION_DATA in
-> team_attr_option_nl_policy is NLA_BINARY because the payload layout
-> varies with the option type.
+On Fri, 13 Nov 2026 11:11:00 +0100 you wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
 > 
-> For TEAM_OPTION_TYPE_U32 and TEAM_OPTION_TYPE_S32, the payload is
-> read directly with nla_get_u32(attr_data) and nla_get_s32(attr_data)
-> without checking its attribute length. When userspace supplies a
-> truncated attribute (0 to 3 bytes), nla_get_u32() or nla_get_s32()
-> performs an out-of-bounds read past the attribute buffer. Conversely,
-> oversized payloads (> 4 bytes) would also have trailing bytes
-> silently ignored instead of being rejected as invalid input.
+> The net_devmem_dmabuf_binding structure is really way too big to
+> live on the stack, and causes warnings on my randconfig build machine
+> with a reasonable per-function limit:
+> 
+> net/core/net_test.c: In function 'netmem_ref_test_tcp_devmem_recv':
+> net/core/net_test.c:1720:1: error: the frame size of 1744 bytes is larger than 1536 bytes [-Werror=frame-larger-than=]
+>  1720 | }
+>       | ^
+> net/core/net_test.c: In function 'netmem_ref_test_skb_segment':
+> net/core/net_test.c:1477:1: error: the frame size of 1584 bytes is larger than 1536 bytes [-Werror=frame-larger-than=]
 > 
 > [...]
 
 Here is the summary with links:
-  - [net,v3] team: validate the length of U32 and S32 option data
-    https://git.kernel.org/netdev/net/c/de9886cb02f3
+  - net: kunit: move struct net_devmem_dmabuf_binding off stack
+    https://git.kernel.org/netdev/net/c/271884902742
 
 You are awesome, thank you!
 -- 
