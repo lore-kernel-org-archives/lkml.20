@@ -1,111 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.145
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794914074;
-	b=bn8nfOhNMtSosZ2SwaPqsNzAe17vDOO6NyIp7C8A3veDYsE2nJIDs4CXheODkJf/zFgQ
-	 RYeLhpewgZhuxhlEZVIlz5/V1N9RPR965Moa/wgDaRqaZ40+AcHhgq6oZBnuvbcjS8DF6
-	 leUn6+BC2tdGeuF2x1NqmWGBhux5v8rPgW4SQH5G6QjB5dHS5r4fsDLrzG1RqsGWBplJb
-	 6M+M69PTN5rhiUdQmoMZwtNodEms93UZAj1cz/25cvUhGRcln5YL21hrko153Hic5Iotd
-	 j/z7oVGIePv/44c83/7eCeq464SqPMXB/Ixv92vYGUnqwAZuHezrNb9BQ7rKiwK33xg==
+	t=1794914095;
+	b=onqMJsbfvFc/WoUvfcg1UJfvlPOwlQ8f2Xkonw88IumAMD71O/HAL4sqKWoNtt14Q5LC
+	 SJcL9IfDenks0yCx+RSwkRtJBKMkppU7zYacenmNr4Aej9aIkWEEORZ/pW9sfOj4sEyOg
+	 ACXCxMEjqTQibfTEB6c2XRd/1d+5zYg4HpzsPPyKroUzEnLvOkh2kLPSzYseQF4n+qthU
+	 AzE4jzxiZct/JNf0SzprgktpgWJUJBLSWD2/U7L3XzndQgqDPXRwou5PedqfUWXwdsijC
+	 OiJ8EFwoo3lpflJwoYEBJlETgUiW521KY4e2XoJrDpF4OQATcnAVOWNHZMKtt7laheA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794914074;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=nyrUSLjckhnk71y6oQ5XcHqO6QktwoFMhNW+C3YVinE=;
-	b=qss8NU+ZZyTT39IsdkApQUfEf52coWtVewjwrxR9Csahh5wgwm2dfGvrYiKj3Wm2QuQs
-	 20R1lYA1wPOajwDAO9vmdqA5TOk1JqfMy+i5iSzUTVI90QDQG+AAViTu+Tz3iRM+MXkaN
-	 N3Bsv9S7e2Z9WMnHDgwOfPBcKRwBiXMX+5/kQShsf5xDTwXYd0NukQWG5RToX0XEGPJmL
-	 haKah5geHjGj0KR0iN2By/Jkf1kBXno1oTrvF5f7fbjmkM7yf4TFnGgVIVMRqE6xEnTjO
-	 KFiaT5OwngNktnBZUUJ+9FxzuquRijG3uck26jXUyZTL+b3uBEtzSVVZTYN88QWYMGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794914095;
+	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
+	 In-Reply-To:References:Subject:From:To:Cc:Date;
+	bh=6YWTMS8olwbe+NdhLHm3e8T6gYXMU1tTD6sXec2cb60=;
+	b=aNajh/za1x/f7s9mcgFbVqrxbz0dbYRCuhrfyv7x85Ijqib5wyeWP94iSmU+NnkXECGf
+	 pQ56dOQw0xVihWAVTbi5yHzlRl7kQawH2AuWtFtt/PsSd3WshpZR0xcReVmATeJC9kioZ
+	 NM7ZfsObK6/g2X7gJrC173+0ziIt3qRuADW5ezWl4XiC+uyfrt+meYrPvUToz0hyCWfco
+	 Vz+lW4GBfJqLXP2pKuAKGgAtFWyuv8Q4ll1wcP+SNMkhz0sSfPMWwjuB95ZLZhEWCIlo/
+	 8IKYrEHZbkpq0x5X+IlCBFMl48td0Bac6yLHDsGnA1dq+bgBXPlO+no00SNIR3KxkeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=KLj5R+9Q;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=ruVZknMn;
-	arc=none smtp.remote-ip=202.12.124.145
-Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QKFPQHpd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C97C606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:14:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C97C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E308606A31C;
+	Tue, 17 Nov 2026 11:14:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=KLj5R+9Q;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=ruVZknMn
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.stl.internal (Postfix) with ESMTP id BCF441D0018C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:14:31 -0500 (EST)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 17 Nov 2026 06:14:31 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794914068;
-	 x=1795000468; bh=nyrUSLjckhnk71y6oQ5XcHqO6QktwoFMhNW+C3YVinE=; b=
-	KLj5R+9QXt6bs4gxiWjxnsiG3H1/LxfTei2NJzMk2A+/zNofzDUf2TpSDz5TbA4J
-	BcZoRR5Dnq2I76bJrmREmlouqM4af12jCA+z6SeO/h9tvW+8TIhf0Etz/mEvL4Ai
-	gIidMbKyDJZ0nEKh8OwAjuK2gs9j/mTPMwk/R/RR7ycH2gR8oIMuuhLVnZBvNb61
-	2lx0T/iVuJTzi+1QE3BVun5TcPRu4qj6fY4buWU2tSX97jpPPGzEYxubspcYSmjB
-	5cZA18pnMrdDyIQ0rMNlPtjtRwrHYNJqh3t8d9Q/8DlK5rGCqf7pRhBraoDya4fz
-	UPKVWFBCyWLAHVmXBPjMmQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794914068; x=
-	1795000468; bh=nyrUSLjckhnk71y6oQ5XcHqO6QktwoFMhNW+C3YVinE=; b=r
-	uVZknMnnPmy6QET5Bb2/X+lw4AVy/ibMwhZs9I7IyBpyQg8FoKLhheitm/Qq5W+e
-	bYTJhLRGtDhORQet7cWELUvPxbMRbcb5OySWd4G723gZXFgHi7xoSk6Fx/XlsuKr
-	QTEyADtCTJWNooNKp+6wcNWUfaRQJ8/JI0HPE9N2bA2Vu2z4jrVz9w32BgRryBei
-	NOLc/v44N8fBSqGf5wu5nRUsp2ZHUz6bJPZEggxnaNQGEDfVSIBbDltb1O3sC1HI
-	mR6JtlDeOziGVmp91H1oHY1ULNFLKEjNnCc1m+qw3/2lJaEUC70pkLCow/peFsOR
-	uG20ml1Z7DUzmhr8b3DbQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794914068; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:HwSS9ZV8XsRqF53FPagK5WwvmZ2SX3kUmgpUr/dsnV00+Pm
-	LqXpHg1ok2ycYhoEBaYQ0Swoy7M+R9jlQTlm+qBeDYsBziSaeZqqqEcqjt5hC2EJ
-	gm9bAQxowkLOpsb0XD0I3A3y17PB4qYxNMDiwmW6R8oKLQWirzdnmt738XbHX0NH
-	eEwy5XkbGtL91ykjZSF+T7TWo2SJEuptd7zJKNMN7IgLRa6gedol9I1VmeU6WOks
-	D9xDfhXHUym5IlXrbRzLFwA6P4yXR8mkxihpJDxcQRduyWVOuLmta29Nwr4b8nyH
-	Enbb75xwwO1RFXcfmYhRrF5DqODFda4BikZUB9w==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:7v4/986iFER5S6s7ld8hRw7bcqY7IaHnDM702TwBsw8=:LxReB3JN7kSgWoSI90nSdmU2kCe5+tDQe4dSG3msCoQ=;
-X-ME-Sender: <xms:ETf8aqUiqOQborDtjiFIJr82Lm3cVtOxo1qmrQ8X5c_LY-G8-ep2Xg>
-    <xme:ETf8ahbSYUxE9JWwXZN1U_62sGrSP0t7-_Mog6_-d9mnIWG9Pe2Cj2F7gqlXpsZcp
-    2DGfnEh_eNF5aXT50-zKcxR2eUxLtU-HCT3XOJNWrEluxcJtXWamjE0>
-X-ME-Proxy-Cause: dmFkZTGXKZ4HeiXVXWIq8P0hv8Ey1J8wMcJYfou/phUQCugD5tQpnrapvVyBtTNtvnU0T2
-    Zs/7v60gPN+42RlzAZ4gRA9IBbx0fYCt0Pu4WPd5hBED2NAKnVSP6xakAJtMYojz0hf7WV
-    J9gg3/EDJTV0zGMACRseOVpKVZciDdJBoz1yb864pknbX24NwqLZZte9CH7Zm8uZ9CDt7y
-    I1FPVTrMgvhQYI9Q9qDcnoLkc48Xf6VIWL3Rwz9Au47AlBj8Guz22NDJAic7FHug5gr/ft
-    hW5wS+iyLEHo3FWHdXd2/7waSuqYbM0XRkDhoJ/mrL0IYwpnlM4yZqT6Koan7Pct31EWNj
-    vuWgnhPQQEVAPh74PrIpAEfowhQK/afV+2M5T/zMuPm4ErNFi/tZNvU8WLqEv0oT1z38e/
-    N+0r9mOmSS3V3G+bs9sBgg1fj7UGXxbGv6nfgcnomvSdJ/zpDhloXsVYGYNq8rlBONbR2x
-    o7W3iCpqFif1vKmRIbrYy58JxfV+JeM+EVb3khdPjguPo/E5epNelaNEJcHKxSiWYTpAgB
-    KQZyY6YWZJEq6M3RrQSQk/Ph4o144Ugb8HrxCOwWM2ai7+ZgXhPojlyGOP3RDKue77El2N
-    06JoxfYLjl/E55CsSDntbavY9koYwgQA7G8BarKtSCHPV2anUQCTFzMcfVIw
-X-ME-Proxy: <xmx:Ezf8ahozCqriLkWg3x69SV36Gif3S7HNYcq2mtPqkd-Ph7619w_CVQ>
-    <xmx:Ezf8anVfqi-7oJTKTwn_S3UdNGLTvQSxf3zO1kQHCaPj1rRpEoCYpg>
-    <xmx:Ezf8aoAd7RtR3C-XdWouhrtQkt98Ngs0kHhNgRVTw9PGuzMNzUYX3g>
-    <xmx:Ezf8aj3_YwLg4d21b0ZDTnbUY1jMIIqjw7Wj1PLGYuvlnIjTax-GNg>
-    <xmx:FDf8arPCbJzGVEgK7AJ9z-LLKVGz5Rb-W4k4GEoro8FPNlms2En7smce>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id C57A532A009F; Tue, 17 Nov 2026 06:14:25 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QKFPQHpd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33EAC1F000C4;
+	Tue, 17 Nov 2026 11:14:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794914095;
+	bh=6YWTMS8olwbe+NdhLHm3e8T6gYXMU1tTD6sXec2cb60=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=QKFPQHpdbjoKd81tpHCEHbbYf0AewUfOCMHj0vqvj14CC46BubTwGbJ8Nax5vmMdx
+	 d7GcoWkYWL9WrWfq+4ytBFK6LmV0wqDXveKe+rvShonYIFZQ5FI0kHmLQcPjvGL4D1
+	 miNHeImiF4QiT3MdR3TZQIu2t9GXwS13o9SsJZWTCkp3E23unck6Wbr68QZWj4qER3
+	 1hxnnFwNEC1vlD1lpPWp+nwulj6hCEjefjFpfpogsu5v3+wyjU9Ty51pw0RESX9rUA
+	 x9Bu7R5Vttk/T4px77whzc/kPKi9l5XCVccpZw4LP+GI97Oaa+F6OzkLvBFY4e4Ykw
+	 USee4YwEiHHKQ==
+Content-Type: multipart/mixed; boundary="===============3794039846956546039=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,31 +49,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AXUpA_0H0_pg
-Date: Tue, 17 Nov 2026 12:14:05 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Geert Uytterhoeven" <geert+renesas@glider.be>,
- "Philipp Zabel" <p.zabel@pengutronix.de>,
- "Biju Das" <biju.das.jz@bp.renesas.com>
-Cc: Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
- linux-kernel@vger.kernel.org
-Message-Id: <44587a7a-e9d1-45bd-a698-69b6bc1389ce@app.fastmail.com>
-In-Reply-To: 
- <0b1c87b3173a789f6227f13658e4befdac8e47e0.1794913893.git.geert+renesas@glider.be>
-References: 
- <0b1c87b3173a789f6227f13658e4befdac8e47e0.1794913893.git.geert+renesas@glider.be>
-Subject: Re: [PATCH] reset: rzg2l-usbphy-ctrl: Permit disabling POWER_SEQUENCING again
-Content-Type: text/plain
+Message-Id: <2969e017a13f38b2f802a4d14a4ce565eada4a0da9d5e5bcb7b75be7b67dc670@mail.kernel.org>
+In-Reply-To: <20261117103028.4105609-2-arighi@nvidia.com>
+References: <20261117103028.4105609-2-arighi@nvidia.com>
+Subject: Re: [PATCH 1/3] bpf: Allow importing memfd pages into an arena
+From: bot+bpf-ci@kernel.org
+To: arighi@nvidia.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
+Cc: martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,john.fastabend@gmail.com,tj@kernel.org,void@manifault.com,changwoo@igalia.com,joshdon@google.com,vineethrp@google.com,yepeilin@google.com,zhiw@nvidia.com,ltrager@nvidia.com,balbirs@nvidia.com,skolothumtho@nvidia.com,himadrics@protonmail.com,royfru44@gmail.com,bpf@vger.kernel.org,sched-ext@lists.linux.dev,linux-kernel@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue, 17 Nov 2026 11:14:52 +0000 (UTC)
+
+--===============3794039846956546039==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 17, 2026, at 12:13, Geert Uytterhoeven wrote:
-> The power sequencing part is optional, and only needed on RZ/G3L
-> (SYSC_R9A08G046 selects POWER_SEQUENCING).  Users of other members in
-> the RZ/G2L family may want to enable this driver built-in, while keeping
-> POWER_SEQUENCING disabled.
->
-> Fixes: eac3b292a26e2210 ("reset: rzg2l-usbphy-ctrl: add power 
-> sequencing dependency")
-> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> bpf: Allow importing memfd pages into an arena
 
-Acked-by: Arnd Bergmann <arnd@arndb.de>
+TL;DR:
+- bpf_arena_import_memfd() may run in another task via bpf_task_work, mapping
+  a victim's memfd into the caller's arena without CAP_PERFMON
+- Commit message memcg accounting claim may be wrong for memfd holes
+
+> bpf: Allow importing memfd pages into an arena
+>
+> An arena can only map pages it allocated itself, so its memory can be
+> shared only with the BPF programs and the user space that map the arena.
+>
+> Teach the arena to map pages that it didn't allocate and add a sleepable
+> kfunc for syscall programs that imports the pages of a memfd, or of any
+> file on tmpfs or hugetlbfs:
+>
+>   int bpf_arena_import_memfd(void *map, void __arena *addr,
+>                              u32 page_cnt, int fd, u64 off);
+>
+> The folios are pinned with memfd_pin_folios(), like udmabuf does, and
+> mapped at addr. Whatever maps the file then sees the same pages as the
+> BPF programs, for example a VMM that maps it into a guest.
+>
+> Each import is kept in an interval tree with its pages, which belong to
+> the file, not to the arena:
+>  - bpf_arena_free_pages() over any of them releases the whole import:
+>    the pages are unmapped and unpinned, the data stays in the file,
+>  - they are released when the arena is destroyed,
+>  - they are not counted in the arena memory usage,
+>  - the arena mapping raises SIGBUS on them (SIGSEGV with
+>    BPF_F_SEGV_ON_FAULT): user space accesses them by mapping the file.
+>
+> The file must be open for reading and writing and the LSMs must allow a
+> shared mapping of it. It must not be append-only or sealed against
+> writes.
+>
+> F_SEAL_SHRINK is not required, unlike udmabuf: a file on tmpfs, such as
+> a VMM memory backend, can't be sealed. If the supplier shrinks the file
+> or punches a hole in the imported range, the arena keeps the pages it
+> pinned, which are no longer the file's.
+>
+> While its pages are imported, the file can't be executed, as when it's
+> open for writing.
+>
+> The pins aren't charged to locked_vm: like the rest of BPF memory, the
+> pages are accounted to a memory cgroup, the one of the supplier that
+> allocated them (hugetlbfs pages come from the hugetlb pool). Pinning
+> them adds no memory, but keeps it from being swapped out until the
+> arena releases it. Only a program with CAP_BPF, or a BPF token, can
+> import pages.
+>
+> Suggested-by: Alexei Starovoitov <ast@kernel.org>
+> Signed-off-by: Andrea Righi <arighi@nvidia.com>
+>
+
+Doesn't memfd_pin_folios() allocate folios for any holes in the range?  A
+memfd that was only ftruncate()d would get every page allocated by this call
+(shmem_read_folio() for shmem, a pool allocation for hugetlbfs).
+
+arena_import_file() has no bpf_map_memcg_enter() around memfd_pin_folios(), so
+those shmem pages look like they are charged to the memcg of the task running
+the syscall program, not to the supplier or the map.  They also stay in the
+file's page cache after the import is released.
+
+The changelog says "Pinning them adds no memory" and that the pages are
+accounted to "the one of the supplier that allocated them".  Could it describe
+this case instead?
+
+---
+
+> diff --git a/kernel/bpf/arena.c b/kernel/bpf/arena.c
+> index aff231922e11..799a8cf1ee72 100644
+> --- a/kernel/bpf/arena.c
+> +++ b/kernel/bpf/arena.c
+
+[ ... ]
+
+> +static int arena_import_memfd(struct bpf_arena *arena, long uaddr, u32 page_cnt, int fd,
+> +			      u64 off)
+> +{
+> +	int ret;
+> +
+> +	if (off & ~PAGE_MASK)
+> +		return -EINVAL;
+> +
+> +	CLASS(fd, f)(fd);
+> +	if (fd_empty(f))
+> +		return -EBADF;
+> +	/* BPF programs read and write it like a shared mapping, which needs the same */
+> +	if ((fd_file(f)->f_mode & (FMODE_READ | FMODE_WRITE)) != (FMODE_READ | FMODE_WRITE))
+> +		return -EPERM;
+> +	ret = security_mmap_file(fd_file(f), PROT_READ | PROT_WRITE, MAP_SHARED);
+> +	if (ret)
+> +		return ret;
+> +	return arena_import_file(arena, uaddr, page_cnt, fd_file(f), off);
+> +}
+
+The fd here is resolved with CLASS(fd, f)(fd) against current, and the
+FMODE and security_mmap_file() checks run with current's credentials.  The
+kfunc is KF_SLEEPABLE, and the verifier treats bpf_task_work callbacks as
+sleepable, so a BPF_PROG_TYPE_SYSCALL program can call it from one.
+
+Can this run in the context of a different task?  For example:
+
+  bpf_task_from_pid(victim_pid)
+  bpf_task_work_schedule_signal(task, &val->tw, &map, cb)
+    cb()
+      bpf_arena_import_memfd(&arena, addr, n, victim_fd, off)
+
+bpf_task_work_callback() runs cb in the target task, so victim_fd is looked up
+in the victim's fd table and security_mmap_file() is checked against the
+victim's credentials.  A read/write memfd held by the victim (a VMM guest
+memory backend, for instance) would then be pinned and mapped into the
+caller's arena, where its BPF programs can read and write it, and copy it into
+ordinary arena pages that the caller's user space maps.
+
+bpf_task_from_pid() and bpf_task_work_schedule_*() need no CAP_PERFMON, while
+other ways for BPF to read another task's user memory (bpf_copy_from_user_task,
+the probe_read_user paths) do.  The commit message only says "Only a program
+with CAP_BPF, or a BPF token, can import pages".
+
+A bpf_wq callback runs in a kworker, so there the fd is resolved against the
+kthread's file table instead.
+
+Should the kfunc refuse to run from async callbacks, check that current is the
+task running BPF_PROG_RUN, or require CAP_PERFMON (KF_PERFMON) or a
+ptrace_may_access()-style check?
+
+[ ... ]
+
+> +BTF_KFUNCS_START(arena_syscall_kfuncs)
+> +BTF_ID_FLAGS(func, bpf_arena_import_memfd, KF_ARENA_ARG2 | KF_SLEEPABLE)
+> +BTF_KFUNCS_END(arena_syscall_kfuncs)
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/44067070819
+--===============3794039846956546039==--
