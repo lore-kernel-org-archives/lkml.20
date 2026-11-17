@@ -1,96 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.179
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794936080;
-	b=Zx8Y2J3SN+sA0ev38QHdcVL2Z0G2wm+rvYjDYO8bjjToAKFhHz9pqoqKjcXL4dGQe96P
-	 jtYfuOGj9kqiIAMiBlZpZAFUxZZqa8HLKITcvEhJQfdB6yjOc/7Ub97w9xa4Gy2/t/8m+
-	 /FkKw23F3HvfKWQkiWo0HiTt+iXMQP1d3a829JH3dBdAGqfdO5znwYTcKRjiDhQdHi0Ld
-	 PJ2qeCARBWJYMkOeBgGrdNjbgdRW9ks2pS1HTMipllchbKuJDgaIN6Wz2KUQD7R9KXdP9
-	 wgpdzJQk0Gws0isEgCkmsIxKv13J+7ZejLI/7o9hu5iw9bMU6opGSWvjkspLrpWmSOA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794936080;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=HTjhDd2lXcV+orcHsdFkVuqzLNm1A7BVo1MLFFqIkMc=;
-	b=JZwxwz6J090vPcADsocBMJLwDq/V94nngBUoo8mH5PR00COrghccxszX/XIghD6hzu8f
-	 V5b9wK0r8PQdyoJCQAstUqdIdOQNEY6X17x/iKr2PIA1ZNaA2kGnQQ7WqjKZItnRAcE08
-	 9zoMDt2BUi3h3o4cJ51/17tNm7j6jnrCbLTyg5NFq9h5+Wv6oSuCn+2arOpr8GekkzR8s
-	 EDh7+euYOk4rAStC0MCz8vQoxb2mm+Wg7hPUeMD/NzDQaOc1LviAZy0yCwyahf7XyaAPm
-	 3Cdvo215D7XkCq6dFTaUIfeHXDw43F7Xn3bePHgHkrH0ioKKst7ZpHnwjHIR6QV6WSQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amarulasolutions.com;
-	spf=pass smtp.mailfrom=amarulasolutions.com;
-	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=A69UnZxS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.179
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31AC460A3804
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 17:21:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31AC460A3804
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794936078;
+	b=Lqa6FNKy493cMxgxlVRZAeudsQlGS9x6CBO5s8qIvM7oa2yaVZcpx3nQIE+0bnjWTtUU
+	 GxosfxWswrkyHwTgk6aUqirPP5WBnuH3yae5BXSdtu+Ya3rM3Vw79+/JRhY/ac0FJ7sSA
+	 NtRZ5RoXCjm2Pht3qsVpjqV53zbHBU0a0FVEQpVNma4ECm6CcuAvUDVCUhrxRbeCXBTgQ
+	 S64Uvj747Wn8YRmuYLmtdBl6ql22FJgN3+NMEwlyGXEZ+a830rIkGYSK3TDgvNVbmf0po
+	 qbLwKu9RYc0YrrAQyMSO4TYQwmg7WIjue5dAUFbaGBlwxuLOqYvT5AKmHHTFXznM7Ow==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794936078;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
+	bh=j49FQqF/5AAaYAE+Xw+IyqdKqNIf0oE/qvi3zUpU3es=;
+	b=hDtxsZnH0oIfQ5krGw/2BUWdR5cZCHqyf6YS6GoeyiaXYqD2iMdaHp9KfVfXz0RGP86Z
+	 gfnLIibUDQ6HwydAbfx9uNovCKk/G6tThO4co7XRNjqroxjW2ZisJv04MuCiRVGNDOeBW
+	 YkykzUU1Cki7xo+dX5DvbTSCvjPEHx6IvTN3kvfe07bF7BHWBS5nxKpd3oZyN9qyfelLA
+	 vg4Vt/EvxFaGM6ZMrabw6Gmkz7RF1c0tY+gK6JlBqXqV1KzV9KFx83uqpC2bgMoi5OImw
+	 gH0a0A1hxqi9cDNVoCw+p2dzs0XDR7FN9Nefxe5k+F+zF7PLoUlPzirKsxD+X+G/KUw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=XISAVZ4i;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 13973606A884;
+	Tue, 17 Nov 2026 17:21:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13973606A884
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=A69UnZxS
-Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8b4f3e22bdfso6976307b3.3
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:21:19 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794936079; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BFC8igemhPAWdFPqXp5xQ6t7rB+QFCVjkPmoooT2KridocdGB1GZBXri9/FB7B2Iye
-         yHUJnnDWXQB8Zr8IRM7Aq08LbLcLq5UjHUtlYtB/8Hla/SfFO3Hc3hcn247HZm8phinH
-         Nkq8yBdVglYJ064sukMzBSIrO/bJwMOXpfZ3BNTpJh2CPW2kfbPVN6FXBJj1IhgGCBeP
-         RAymZHXnYbQprm/l6f28xML71GSx3CdA30gyMiljKHzVJu+iKTqBi228TV4LzDReGSZ6
-         Y/rn8Vlv2s3LFtzZ2TkdoqBBSyzZh3XHIEpJhjYubUXCHktgy507k44tl8VB5Wr9RkWZ
-         45Ng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=HTjhDd2lXcV+orcHsdFkVuqzLNm1A7BVo1MLFFqIkMc=;
-        fh=6yTgili/BAr3DMPZEA/CL8DdMwokGRS7leHOpRGw53s=;
-        b=hJfsyC7djg8zn/VJzpM3yAxN06QDKUa4xrC7zA7Fz6CQgSyWvPKo2G0I6ugwFdSu60
-         16v2g6jsBBIb0bWHEQUkfuM/j2FKZDsHgyDu26Sqjr10C+g9Y9X2dx3kG/7YnzdgRwG8
-         ypX/cU/fbXTyDjys3fIWoONXjtvKRlHrn0rHA20xffkKcGw5ftSyWIykeAWCUJDmqXs9
-         yQ9WH6E9AaSreu/OHQ+bDY3wkbosxrQ4YoDzDNUPAwQcT7kW2ve2D8P8VgS3eOixhh/K
-         vMERCu+0huVgM+dLkqtIGN4Kfwb8WeVWQAEAGM6AHCkbND+KF3NzRw+DguxlgmpdSmLI
-         lUmA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1794936079; x=1795540879; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HTjhDd2lXcV+orcHsdFkVuqzLNm1A7BVo1MLFFqIkMc=;
-        b=A69UnZxSgZpATkrI9vIUDUXomeq84m7quw8KG5IeGWevfpiQe291q4HB+eRF5BNk4P
-         o6qkn4CNWByuaYVqlf1CCBoqwu+DsnBDXSl5TsO4diuoMk7fN7pjE84nJ+ZWYpCc4R1H
-         XlSAxo55M48/aCNDsZ/gdrnx5//BVl6EJJyZQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794936079; x=1795540879;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HTjhDd2lXcV+orcHsdFkVuqzLNm1A7BVo1MLFFqIkMc=;
-        b=OfgIBeB6auOpbojESr9bak3FeE4oHm1JfQdmAhBy62F8TgXjb9Ba9wg3B8FWncBgVi
-         Omm0AWyNM/ymXQ6VyksI0NXXEZjgYkO4zWqQvRiooDNvCSa1zo9hxdH8TaFb8rlr4bAZ
-         QoAJUvtgaV6NGRaVz1X6f8CZKwa0Eneo70PfqVsRnQ5OF0B2ACoeUs21/cVq2HQy+VML
-         C14iUPzll3mb9EeCDISPo4c0StlD8NkQgYYUocuspE2p2A4nSSvcVOJlVn98/xcS0saK
-         p+yY/xKLPWj9sKQTcH+DRcMXzjlgj7sqVmO+U7rwfBfpdze80i8IA1o0r1Lf1Z9U/8+L
-         tW0w==
-X-Gm-Message-State: APuU4Z8Oi0ezbRLb7I5RaAl3g5RItF1rEX3qiIAlnTfyRKv/fRICLkP3
-	j2zAhEkWbAJwAK6Sfzzj7nRc7XX6XUuiFrHfKmlimVnfdxgnq2limdScZQvKC4qoLPRVMrHdGL1
-	YC4j/TRxCW8CKsTefISnXtp95+mYhTl5rfI5CBxJCQw==
-X-Gm-Gg: AZFdTZe4odieLHHtUOKNeW1kBqhPWZ9YGm0j9K8eWdkHj4EfSEpO78Mxyb3WVQwvh7e
-	9yvkufS/LwP+QwYUNYhxjg1YSLmSiNk328+0w7PeU4jPOK+3Ha1qNJOLbJlZzVXtxpff+sbtPzC
-	2+mvdp6oXFImwgJm3R9v5DUF8KfCSiaZBlmxJxCGEp/4W5c/OtuAzT9lpWBhfYbfp+98shqHWm3
-	V79yUaveOlV51EfliCvkDAGEHoG7TuNLhkweO8RUgrU9XNvd2NfidcxejQz66yfk4U+FtoVXTgb
-	2AwU/axpt8CNXeMiJWXqF7WOoIGGqyfk+yjYq5zuJQP9My3Gmm62ruMVs7G94ltXYO1SUgGIR6W
-	zAPr1jp3L+pKUXTbwKvvu7XafGWpvbyTL8GJuHKRkIarNhqjDTI4ww/BaDs9+x/nDXw==
-X-Received: by 2002:a53:a201:0:b0:675:b778:a423 with SMTP id
- 956f58d0204a3-67dd400fd64mr68936d50.142.1794936078854; Tue, 17 Nov 2026
- 09:21:18 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=XISAVZ4i
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5DAC11A00;
+	Tue, 17 Nov 2026 09:21:14 -0800 (PST)
+Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B426A3F632;
+	Tue, 17 Nov 2026 09:21:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794936077; bh=UF4/WZWpnvhVbjnhm5Fhiug3i+G9AJ9V+I3bAy37IEw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=XISAVZ4i0KKFtENmf4YZAeVOf0w1jBZnBhSZ+hU3sV8p6PBglO0PqWm9emUhFpc9a
+	 5P4dH5Z+qPk/6NH+bBWt69XFuo+en5u+hsdgjg5xg3eFIcViu1jN33qiwD5BXvWKzf
+	 ywluq+Q2pDqzs9KM9otMDaTb7/VRQ8XTyeE450SQ=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Colton Lewis <coltonlewis@google.com>
+Cc: Leonardo Bras <leo.bras@arm.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] KVM: arm64: Fix inverted E2H0 check for HCR_EL2.NV1
+Date: Tue, 17 Nov 2026 17:21:10 +0000
+Message-ID: <avyNBn24sLjxrfgR@LeoBrasDK>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261116200418.3535619-2-coltonlewis@google.com>
+References: <20261116200418.3535619-1-coltonlewis@google.com> <20261116200418.3535619-2-coltonlewis@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,114 +70,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261115163432.2601947-1-dario.binacchi@amarulasolutions.com> <c936336b-04b1-4860-9eba-4d1ab002adff@foss.st.com>
-In-Reply-To: <c936336b-04b1-4860-9eba-4d1ab002adff@foss.st.com>
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-Date: Tue, 17 Nov 2026 18:21:08 +0100
-X-Gm-Features: AclHuK9vIKNWUheSbkNa70jfkA0aQPHHOtq4zZIwHrtQ0QLNLTppD-5SEjbbfas
-Message-ID: <CABGWkvrnq7Z-nO2LoJw1M833Mqbabn6M_r+okrJ4R-eQ-sR_SQ@mail.gmail.com>
-Subject: Re: [Linux-stm32] [PATCH 1/2] arm64: dts: st: enable eMMC on stm32mp257f-ev1
-To: Christophe KERELLO <christophe.kerello@foss.st.com>
-Cc: linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	michael@amarulasolutions.com, linux-amarula@amarulasolutions.com, 
-	linux-stm32@st-md-mailman.stormreply.com, 
-	linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-Hello Christophe,
+On Mon, Nov 16, 2026 at 08:04:17PM +0000, Colton Lewis wrote:
+> ID_AA64MMFR4_EL1.E2H0 is a signed 4-bit field where:
+>   - 0b0000 (IMP, 0): FEAT_E2H0 is implemented.
+>   - 0b1111 (NI, -1): FEAT_E2H0 is not implemented, except HCR_EL2.NV1
+>     is implemented.
+>   - 0b1110 (NI_NV1, -2): Neither HCR_EL2.E2H == 0 nor HCR_EL2.NV1 is
+>     implemented, and HCR_EL2.NV1 is RES0.
+> 
+> Prior to commit b2a324ff01fe ("KVM: arm64: Use HCR_EL2 feature map to
+> drive fixed-value bits"), kvm_init_nv_sysregs() marked HCR_EL2.NV1 as
+> RES0 when !kvm_has_feat(kvm, ID_AA64MMFR4_EL1, E2H0, NI), i.e., when the
+> signed E2H0 field is less than NI (-1), which matches NI_NV1 (-2).
+> 
+> When converting HCR_EL2 to the feature map, feat_nv2_e2h0_ni() was
+> written as !kvm_has_feat(kvm, FEAT_E2H0), where FEAT_E2H0 checks
+> E2H0 >= IMP (0). This inverted the condition: feat_nv2_e2h0_ni()
+> evaluates to true when E2H0 < 0 (including NI_NV1), leaving HCR_EL2.NV1
+> writable instead of RES0 for VHE-only nested guests where KVM advertises
+> ID_AA64MMFR4_EL1.E2H0 = NI_NV1.
+> 
+> Check kvm_has_feat(kvm, ID_AA64MMFR4_EL1, E2H0, NI) in
+> feat_nv2_e2h0_ni() so that HCR_EL2.NV1 is treated as implemented only
+> when E2H0 is IMP or NI, and forced to RES0 when E2H0 is NI_NV1.
+> 
+> Fixes: b2a324ff01fe ("KVM: arm64: Use HCR_EL2 feature map to drive fixed-value bits")
+> Signed-off-by: Colton Lewis <coltonlewis@google.com>
+> ---
+>  arch/arm64/kvm/config.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/kvm/config.c b/arch/arm64/kvm/config.c
+> index adaf26ab93b85..b4f555d39f54a 100644
+> --- a/arch/arm64/kvm/config.c
+> +++ b/arch/arm64/kvm/config.c
+> @@ -258,7 +258,8 @@ static bool feat_nv2(struct kvm *kvm)
+>  
+>  static bool feat_nv2_e2h0_ni(struct kvm *kvm)
+>  {
+> -	return feat_nv2(kvm) && !kvm_has_feat(kvm, FEAT_E2H0);
+> +	return feat_nv2(kvm) &&
+> +	       kvm_has_feat(kvm, ID_AA64MMFR4_EL1, E2H0, NI);
+>  }
+>  
+>  static bool feat_rasv1p1(struct kvm *kvm)
+> -- 
+> 2.56.1.750.gf70dc682cf-goog
+> 
 
-On Tue, Nov 17, 2026 at 5:58=E2=80=AFPM Christophe KERELLO
-<christophe.kerello@foss.st.com> wrote:
->
-> Hello Dario,
->
-> On 11/15/26 17:34, Dario Binacchi wrote:
-> > Enable the eMMC connected to SDMMC2 with an 8-bit bus on the
-> > STM32MP257F-EV1. VDDIO2 is tied to the 1.8 V rail on this board, so
-> > the DDR52 and HS200 modes are enabled. Tested in HS200 mode at 100 MHz.
-> >
-> > Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-> > ---
-> >
-> >   arch/arm64/boot/dts/st/stm32mp257f-ev1.dts | 17 +++++++++++++++++
-> >   1 file changed, 17 insertions(+)
-> >
-> > diff --git a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts b/arch/arm64/bo=
-ot/dts/st/stm32mp257f-ev1.dts
-> > index 782b4bb843ee..9c38c4fe0c1f 100644
-> > --- a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-> > +++ b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-> > @@ -431,6 +431,23 @@ &sdmmc1 {
-> >       status =3D "okay";
-> >   };
-> >
-> > +&sdmmc2 {
-> > +     pinctrl-names =3D "default", "opendrain", "sleep";
-> > +     pinctrl-0 =3D <&sdmmc2_b4_pins_a &sdmmc2_d47_pins_a>;
-> > +     pinctrl-1 =3D <&sdmmc2_b4_od_pins_a &sdmmc2_d47_pins_a>;
-> > +     pinctrl-2 =3D <&sdmmc2_b4_sleep_pins_a &sdmmc2_d47_sleep_pins_a>;
-> > +     non-removable;
-> > +     no-sd;
-> > +     no-sdio;
-> > +     st,neg-edge;
-> > +     bus-width =3D <8>;
-> > +     mmc-ddr-1_8v;
-> > +     mmc-hs200-1_8v;
-> > +     vmmc-supply =3D <&scmi_vdd_emmc>;
-> > +     vqmmc-supply =3D <&scmi_vddio2>;
-> > +     status =3D "okay";
-> > +};
->
-> This source code appears to come from ST's downstream Linux tree. When
-> upstreaming from that tree,
-> please preserve ST author and Signed-off-by tags.
+Hi Colton,
 
-I started from nodes already in mainline:
+I just read the code that uses feat_nv2_e2h0_ni(). IIUC if it returns 
+false, we get HCR_EL2.NV1 to be RES0. Otherwise it's writable.
 
-  c5ce8d7bcc78 ("arm64: dts: st: support Engicam MicroGEA-STM32MP257 SoM")
-  94911ce62b45 ("arm64: dts: st: enable eMMC on stm32mp257f-dk")
+The change you suggest is returning (ID_AA64MMFR4_EL1.E2H0 >= -1), which 
+would return false in the case of NI_NV1 (-2), and make the field RES0 only 
+in that case.
 
-and only adapted the pin groups and supplies to the EV1. The first
-one is mine, as are the SDMMC2 controller node and the pin groups
-this patch relies on:
+I think it does make sense, but maybe we should also change the name of the 
+helper from feat_nv2_e2h0_ni() to something that reflects what is being 
+tested now. feat_nv2_e2h0_imp_or_ni() would be confuse, and maybe 
+feat_nv2_e2h0_not_ni_nv1() would be as well. 
 
-  513410ae43bc ("arm64: dts: st: add SDMMC2 support on stm32mp25")
-  17d813da1689 ("arm64: dts: st: add sdmmc2 pins for stm32mp25")
+Maybe feat_nv2_e2h0_not_res0(). What do you think?
 
-Given the hardware, I don't think there is much room for it to look differe=
-nt.
-
-Thanks and regards,
-Dario
-
-> https://github.com/STMicroelectronics/linux/commit/d00ddc95c630ebf948ebe9=
-c22fcbca145d771afc
->
-> Regards,
-> Christophe Kerello.
->
-> > +
-> >   &spi3 {
-> >       pinctrl-names =3D "default", "sleep";
-> >       pinctrl-0 =3D <&spi3_pins_a>;
-> > ---
-> > base-commit: 23c62304dde29abe92013d85910d03a77dada35d
-> > branch: stm32mp257f-ev1-emmc-aliases
-> >
->
-
-
---=20
-Dario Binacchi
-Senior Embedded Software Engineer
-M. +39 328 0625246
-dario.binacchi@amarulasolutions.com
-=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=
-=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95
-Amarula Solutions SRL
- Via Felice Cavallotti 25D, 41012 Carpi, MO, IT
-info@amarulasolutions.com
-www.amarulasolutions.com
+Thanks!
+Leo
