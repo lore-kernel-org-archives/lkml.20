@@ -1,121 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794914229;
-	b=Cfh7ZYjnpNKmdGEOSTMpajv1fqNv8RmCwhE2gt5roAo7yd3qbe2NAshxXSWPBeDEA8o9
-	 KkgBioswPBKxz/FuAa3EuWdEtGyR1k1ukwiFz51Uk2ms+twXnXNvdYTkEXqfWFV7EztZE
-	 Sp3mw+hFOZ7M/w5r/27F484R9CKNz8ux3wu061nVn9iw1MBKZSugYCbk47XNY32tNsWUw
-	 UiNOLwMUNDGq0tGk2q+1XsqGuB4O6/rkXsd9CqIyGf8wsiRS/lsTIotQ1BBMjLPhPr+aE
-	 hHJ8dd+Gm9QpWlXR+Z8+yrs+BvqfMKD1E2wkcHiusOkTIMgVuQXopjR3yr1zto4fzPA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794914229;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Nbh1LEZytx4a85WFxPJciC/d8QWG3QjWnPE8NDhKfyM=;
-	b=Wx2KsOAsM2IznN7+kiin7YXZyx/GhleEc2CwpijkMpWPK0nrYxHfD7bBs+Nbg+Fx3lha
-	 y6n9nKuY8LvQb+prf2Zshn90x5jWjzPsiyBmpaeS6iLcI/GyVRl9FzA9tdn2DsSZG2w5J
-	 tr1c1KF0JknBVnCc+ho9/CG4yo8RkrsnNLJcpCuQDZeC+NCW4mmZM2VCjJFjRsLNWI5hT
-	 nVFoCB4jKV4nxR+7USOYCkIwGAvy1mg8+6jnhSDYlLKTJr7J3tQsW6PFNAq0izRtCDgMs
-	 sZM8gh+5UhXa0jP1DeXk3dPgQ4wlvT+VW5I+zjbgLm/5TOuXb9BV0U/AhuNiZTAJX3A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=j3IYsHk5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.51
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010051.outbound.protection.outlook.com [40.93.198.51])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55DE7606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:17:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55DE7606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794914232;
+	b=nSKepeIoi6iLejRxMNF+o1Onevr+jpuh6YCQPjfL+5lCrnwZfxg4/nE732sAq9dxlEub
+	 xmpbHpVmfAGq0cqN4hUBZDP1yCQQTJdFNazmJbIf9yku906hTPk7mp8sI2rKCM4ExFTch
+	 yKMH7YXAtJux/1QVQW98UtQWnxxZ23XaAEURski1pg2jslDjSW46bdTDeTJDNgh4Y46u4
+	 hGvI0gACB5MAnMgDe7VTO/U2sbd1SZxdGHNS9dQwhaqcXzVBuHKe7vncYnOp5zZBq+BID
+	 dC1smhovqNFyqKU2UBFFXHSnE+VolZjm77utXUzxyK4Fy5XVBOmEYXWe3OF3SWGms9w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794914232;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=iAO+js2/rUZAhAG04GodjeRZKIKZw8+fGRUeFO86tRw=;
+	b=gqnm66ylyk2kubCN0D/Vv+ZQBBhqeXZ3qFiEXeeByt3tcYkqrQsYzpQPjG/4303JAqSD
+	 7zSoMeV/8xiGhGTbmHm9VROHtr4nBYDez+WqAagF00TuXFrddVi5godROfZh/AA09XL+g
+	 kr1/qzcZDGL10D/dJ/YUhJYi7r8/TJLPAk0hDTSUSZEmco9Xg+v6X5CDxzBbPp3YzK4Yr
+	 Ieinb8+N8DgOnZ8HJt+Dk3g1GHByQ3uwmWtPJrb+OTdDQ9qkNt5OWhEy6KmUaC96oJJaP
+	 xPagYsPhT7KI9uziaWNzn8mobPVCuP2uTt+/e+VpQ2QSy1jTwhSAR5opV9dkDaelOlA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=EXD17zNC;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AC2E2606A338;
+	Tue, 17 Nov 2026 11:17:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC2E2606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=j3IYsHk5
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pOByz8vVwVR7+De/U84oQyqOW9qOwv4DAi5Yo1sZBavp6j+GW13IIxuARJsNsvZIsmX9I9wBabieZLteTma8J7J+MfmMPAU/nGO1gNRerjKumVexjkcTAb/3OYq27jiNLVXyeGx/evKTKKcIy1vZOgzj1kBDD2Aqa0yv5EJADLXgDHM8Mm3NUGmEccXghcsb/evgNyr3rgnJDlCzd0fDXjG7doyMo0uUA3M0oMHriVdu7fucg9s2omoPQ9JhMmU9dJC4ZVwd/o4tO3ZEccekHbfPyYjCfBGUs9FHKMO3YSbTwoFmTnXFi606VAWTADRCkupNigF7gxNnyODB+HXFSQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Nbh1LEZytx4a85WFxPJciC/d8QWG3QjWnPE8NDhKfyM=;
- b=PCSGablHFRg8QpOeue/rVfT8btgZsB7+teqN51uG8sVuBwrEgFQN9xCtYku/zL3heMaGRBjsNjYaFnC/um69AirwcjKxoe+5d/jMkynI04yBFVU1nzHjNHtCiTKYpncW5hLU/2xI2RVh/GGf7tgAddfy1FbY/yq1mm2YmIlgIQ9g5wzxFmEr2ZbJmOioSm2W4rSWze/Lrq1AlIVe6lLnksWhdQ4skHbXrWEQyEUjBdsDA/3fARaX+Vhj6U8cG2Sbz+W3hcyW+zNl2GHfptWMwnV4N+kfbbmJzyer3KteofzOyZsbEuhvC+F0GJD4mctsW/RRyUUw9qapNT8cBm47kA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Nbh1LEZytx4a85WFxPJciC/d8QWG3QjWnPE8NDhKfyM=;
- b=j3IYsHk5+iNxpJwJd0466Oaa+tgJleZjLVmzNJiUYLHoWQ5hdIHR7F/HB1N5vNB0hH3wYnmlAlrqcvCsxpckQET7ajjFeEkJz2nBhr/sdmm2BI7sbggtZ657KsfAvZKOpartQmRpN6eZTGqUPEAFyooBbCNMJp+BuVybwxcqbJ4=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA1PR12MB999228.namprd12.prod.outlook.com
- (2603:10b6:806:4db::10) by LV9PR12MB9757.namprd12.prod.outlook.com
- (2603:10b6:408:2ed::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 11:17:06 +0000
-Received: from SA1PR12MB999228.namprd12.prod.outlook.com
- ([fe80::4dba:119e:8e7c:37b3]) by SA1PR12MB999228.namprd12.prod.outlook.com
- ([fe80::4dba:119e:8e7c:37b3%6]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
- 11:17:06 +0000
-Message-ID: <9fe0eb87-bce0-469f-8a13-a8a1e310ab62@amd.com>
-Date: Tue, 17 Nov 2026 22:16:58 +1100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 06/15] virt: tdx-guest: Support TDI bind and unbind
- operations
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: "Tian, Kevin" <kevin.tian@intel.com>,
- "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
- "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
- "Li, Xiaoyao" <xiaoyao.li@intel.com>, "Hansen, Dave"
- <dave.hansen@intel.com>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "kas@kernel.org" <kas@kernel.org>, "seanjc@google.com" <seanjc@google.com>,
- "mingo@redhat.com" <mingo@redhat.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "pbonzini@redhat.com" <pbonzini@redhat.com>,
- "nik.borisov@suse.com" <nik.borisov@suse.com>,
- "aneesh.kumar@kernel.org" <aneesh.kumar@kernel.org>,
- "Verma, Vishal L" <vishal.l.verma@intel.com>,
- "Peng, Chao P" <chao.p.peng@intel.com>, "hpa@zytor.com" <hpa@zytor.com>,
- "tglx@kernel.org" <tglx@kernel.org>,
- "nicolinc@nvidia.com" <nicolinc@nvidia.com>,
- "Duan, Zhenzhong" <zhenzhong.duan@intel.com>, "bp@alien8.de" <bp@alien8.de>,
- "Gao, Chao" <chao.gao@intel.com>,
- "yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>,
- "x86@kernel.org" <x86@kernel.org>
-References: <a63e7dbdba277b5a551ec74d09144e97f55504dc.camel@intel.com>
- <IA3PR11MB91369A1E95D047DBEDB53B7892722@IA3PR11MB9136.namprd11.prod.outlook.com>
- <f1cdd989f6bcf6a177dcd83e55fb8465e0ee849f.camel@intel.com>
- <20261110195745.GG738765@nvidia.com>
- <e44f3f12b3fecdc5f3c05aa1f1b0ceb1befad0b7.camel@intel.com>
- <20261111001606.GH738765@nvidia.com>
- <CO1PR11MB4835656CEB24B31B557162258C712@CO1PR11MB4835.namprd11.prod.outlook.com>
- <20261111150029.GJ738765@nvidia.com>
- <CO1PR11MB4835C4C6DA79A84D0F123AD88C712@CO1PR11MB4835.namprd11.prod.outlook.com>
- <a2549a83-6acf-472c-9fd7-69e965707d12@amd.com>
- <20261112145450.GM738765@nvidia.com>
-From: Alexey Kardashevskiy <aik@amd.com>
-Content-Language: en-US
-In-Reply-To: <20261112145450.GM738765@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SY5PR01CA0047.ausprd01.prod.outlook.com
- (2603:10c6:10:1fc::9) To SA1PR12MB999228.namprd12.prod.outlook.com
- (2603:10b6:806:4db::10)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=EXD17zNC
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2106B1682;
+	Tue, 17 Nov 2026 03:17:08 -0800 (PST)
+Received: from e135073.nice.Arm.com (e135073.arm.com [10.34.111.135])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 804A43F763;
+	Tue, 17 Nov 2026 03:17:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794914231; bh=/UCYlm749kr59OAqytxINHkKyAyyQPMuXp7LJQhQcMs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=EXD17zNCa5OFTiFXqJKBo1sn21GcuAZ4JVPX2BNGoTpq0DC8Hcxs/yCtiHxP3B7Vf
+	 Jy/EPOyYGIQ+XugDtSL7BDu7K5XZRWl+57tKEU6R/UiP1TOU0nukXV/u9lzFmcGBit
+	 nLUCKxV/Hce7kI/cjB4MbGGpitcqz5UEjuUuKj1I=
+From: Pierre Gondois <pierre.gondois@arm.com>
+To: linux-kernel@vger.kernel.org
+Cc: Ashok Raj <ashok.raj@oss.qualcomm.com>,
+	James Morse <james.morse@arm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Pierre Gondois <pierre.gondois@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Tony Luck <tony.luck@intel.com>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Shuai Xue <xueshuai@linux.alibaba.com>,
+	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
+	"Oliver O'Halloran" <oohall@gmail.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
+	Pawel Chmielewski <pawel.chmielewski@intel.com>,
+	Yazen Ghannam <yazen.ghannam@amd.com>,
+	Avadhut Naik <avadhut.naik@amd.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Kai-Heng Feng <kaihengf@nvidia.com>,
+	"Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Breno Leitao <leitao@debian.org>,
+	Terry Bowman <terry.bowman@amd.com>,
+	Dan Williams <djbw@kernel.org>,
+	linux-acpi@vger.kernel.org,
+	linux-edac@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-pci@vger.kernel.org,
+	acpica-devel@lists.linux.dev
+Subject: [PATCH v1 05/19] PCI/AER: Embed aer_capability_regs copy in struct aer_recover_entry
+Date: Tue, 17 Nov 2026 12:10:15 +0100
+Message-ID: <20261117111444.4185512-6-pierre.gondois@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261117111444.4185512-1-pierre.gondois@arm.com>
+References: <20261117111444.4185512-1-pierre.gondois@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,127 +94,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA1PR12MB999228:EE_|LV9PR12MB9757:EE_
-X-MS-Office365-Filtering-Correlation-Id: 134e70ea-93d1-4b8a-ae6d-08df449c507b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|1800799024|376014|23010399003|6133799003|22082099003|18002099003|261021135927099003|261022075727099003|261022105027099003|261021121427099003|261026140227099003|261026121527099003|261028144727099003|56012099006|5023799004|11063799006|10067099003|261102123227099003|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	TW+DXRVSzrcuCUfC8H849fzWh3eszVdOxQJAn15WjjXy9sphsAhC/UoPFt2ak/j7giXVkJ/m6xaCXYrtfkLI4azkj+bBrgye/84s8BJg+awv+Z+58c9aXkFbn29c8/HKFakAStKQU6fEEAhisxLnWQVlHsVaN6KpcBPUUAn989SgZwbR5P1LJ7USltWloLX0FWz8gLuWFL2mrRyGg8vu00snQyWT5tEEInytQ8DwtTGbZxTEWnbuLB1HQ2Nb2t5yfzl/7sy7s+FPUj60BKS8vNW7CmJqem1Mt4IkUWcoBrKn+t6bfSlmCTsC3z9tgOmObWwG9+G9v4sMvhok5Q5O31bxLJqqrS6K8fj/G5I524IGSAp54f3QkIIBhFkJv5ZfS2+sejkvDDTgCNx11aMm1xXlNPWmhQUElwSSXb61ob0LtVQ7t9LaKG5XmdQSeKMxN7Koo0mZibhRFrE8PvXxYxSWD+u+wHscbk2NBjssFMn6q6Mx9Kb6m4PFm7sKpeE3VpzUKjx2vGY73GCnKgwEWHVFwESAdnTaRTk7EBV7HsAocTJRIRWMlSNNCsiRhAAOrHd/iyMGqpWAqIFqaCnnjmwd/CFIbMcXUfSYtWfvy/YXeG6xs0DUaOhSr8E0bteSwvik7sL5IYcd5DnOFlkSxQ9A03QCl5+fKgunL0cpEo4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR12MB999228.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(1800799024)(376014)(23010399003)(6133799003)(22082099003)(18002099003)(261021135927099003)(261022075727099003)(261022105027099003)(261021121427099003)(261026140227099003)(261026121527099003)(261028144727099003)(56012099006)(5023799004)(11063799006)(10067099003)(261102123227099003)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UTBnNWVTQ051cnUzdmdCVU13NEI4YVZCc0V6cXozcWdseFNTNUVNK0Iwb2NV?=
- =?utf-8?B?czVYQnl5NjUweTFsV0dKMmY1TTlPS3ZEOG9xZkhiQlpOMER3UjBpcTUyZUVK?=
- =?utf-8?B?THQ5eDlrRkNGUmh3UDNUZWJUYysyVFFWVkV2TlEwRHJFb3c3eEJjcm83TC9r?=
- =?utf-8?B?RWFSMzlEcWlGbk9idHV1WklhaDJmdlRaYXl5ZU1SNzFLdFMxL2p3d3VCUjBj?=
- =?utf-8?B?U2xma2dpcWNsYWwwQkFCcHFodEZUZ1o4cU45aTAwaVpjNVVtRE40VktsQ3VN?=
- =?utf-8?B?YjNCZ3FMMnRQR3F2OHVRTlVrL09ubTVRVmhhaXBwWmJLT1N4RjBPRjRIVmRJ?=
- =?utf-8?B?Um02T3JZRjJEbldjdjNhcmU2dGIrb3BBTEdoRlBNQzFwVGYwNVNqUzhRdVZy?=
- =?utf-8?B?M056REQ4VEJWWjc3cmR1TTdYaGI0NmpiWTFKeVZnYmJPdGJDU0Z3K29oM2Zx?=
- =?utf-8?B?NTlRUUMyMnhlM21zOGpWK1Y3b3VOUWhRWjM1UGVzSmpzTVBrN1VJcjBMQ0Q0?=
- =?utf-8?B?QjZtL3JoUzJXZFlTeWg1VEdrbmY1S3RVcU84ZU9IVzBBdkZNWlVXcitZMktW?=
- =?utf-8?B?WnAwMStWdjJwUEYxUzJOaGJnd3hwYko5c1dpYVFpSmk2a3JnYkZHL1ZsYkl3?=
- =?utf-8?B?Yy9mTVdFemZtUjFvU2J4eFpNT2tLUktsYzNpL2VYUGxjTEFob0VYeFE0UlIr?=
- =?utf-8?B?UktwRm9EcTFXU2I2Mi9VY0tSQUZwRzdGZ0hyWHBIWTB4NlE5L0VBSUFQNUtj?=
- =?utf-8?B?L3M1RFBhSFFXdzZzVVcxM2psN0FvRytGcmR2RGpvMGxlcklxa1QwRklUMGFV?=
- =?utf-8?B?QUZ1cGFiNWkrb0V6Q0ZjbFhJZXNNZ3EvNVhROHdEUmpoWDBwcEhIVko2VmVC?=
- =?utf-8?B?L3BRakhSc1dOWkg4bFhadkVTRDFuUWRzeTNhOGVhRjFvdUx2eEkySUdOVVFJ?=
- =?utf-8?B?WE5HZDVvK3phM0pjcGg4a0J4MWxGVUZGV21FR0wycjRETEdQMUMvdjNpSTBz?=
- =?utf-8?B?WGJScVdaWEF6UUZ5UmFSU2tYbHpOclJNRSs5TjZnN1hOT1lTUFNEVXBBODd1?=
- =?utf-8?B?N3NXc1JGSVROcXBCcSsrMzFLTmRCdXF0N3R2dWQwSkpwa2sycmpXZDdmWm9k?=
- =?utf-8?B?eUsvQXJvVVo1TVZtNEhQbzVVM3hBT0U4dFRyeWNZZllmczlLc2xtUEpVR281?=
- =?utf-8?B?NVFwYkd5V280WmpKZzlwRWlxdFJYNXdwV2FmTjlYQ0g2T2kvajk0dHhKVTRS?=
- =?utf-8?B?bnBodlZNMmFBY3BJdWR2c1QxSG1YNnVuMk1TYnF4eFdheTFXZEFIOFAvUTdv?=
- =?utf-8?B?RUkyTFd3TmJuais2MktpbDJPNS85d3hubmY1TE9LVXhNQ3JlNG5mbUd2WTdl?=
- =?utf-8?B?VnlRZ0VSVVRFZWRJUUx3TTAxQTZzcWl6WCtZaStwYWtNbzF5cjBpWUR2NU5V?=
- =?utf-8?B?RmNDVGNSRXllSUtISnF1blRUNzRtMVBwdmJ5VFhhd0NsbjlENXNJRXhMeWJz?=
- =?utf-8?B?MjZESGQ3MmtyUXJiMzZldlZ3K1BHSXhkTENhRy9YS0p1TzRsS2FwYTlGQTlG?=
- =?utf-8?B?T0lwaHBlTzU1V2thTFBlQ1ZWTnlxa2RvRE5va2tKdStWZEdTRDhnMm4xajVh?=
- =?utf-8?B?N3A1cDhlclVmMlNUc2FmNGNYdVRubkZXb0ZoOS9MYllZaGxXaWR3WitEWkR0?=
- =?utf-8?B?KzJ2Z0xKYmhFZXpPZlJ0QjduU0YrMFh6RzZCMTAva2c3aVA0SGZQRzlDSXhR?=
- =?utf-8?B?bEp2blNYell6LytiY3hTTHRjQWh6a05LZDhTbUk3bTYwa096VDFjSFQvV3Rj?=
- =?utf-8?B?dzJrNWJwZHI5R0dQNmRaM2Y4eEQ4T3NKeVJXd3hOV0o0RjNxMkoyYjJCVVBJ?=
- =?utf-8?B?RHk0UDZsS2dnd1d5Y2J5aWU5bW5SUHZxZzdSTjROaHhEUEJUYUphbnNQQlo0?=
- =?utf-8?B?UGJHS1dubERZLzB1WnE5dURycVJIcWZuNjBWLy96LytwL3NwYUZLZFJweHAx?=
- =?utf-8?B?MjRTblBrOUp3VElwTkVKN3dWYXZxWFNjWlk3QmM4SXlZSUxzYkE3ZWtvU2Zp?=
- =?utf-8?B?c1BKdkliSXZmOFdRamlCZmhFVThmWDdXa1A2OWNrUVYwdjg0Z2J4M1MwOWx3?=
- =?utf-8?B?S2oxbjc2Rjd5UXNJSG04S28vSEZOb2ppejRYcHY1dTlNUWk0ekFiWXZFaHcz?=
- =?utf-8?B?bXlheHNUZklkekhUSkVFU2IraEZTVHJqUFpKbW12eE84RmE3c0xTV2Y4cUhT?=
- =?utf-8?B?dHp1WVMrb3JMbDk3UWtIdW82OTRBTkduUFBwNzhTUEtJNUY2dHFvc2pqeUlB?=
- =?utf-8?Q?P56Gks8IUOYSx6GPHb?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 134e70ea-93d1-4b8a-ae6d-08df449c507b
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB999228.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 11:17:06.8375
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tvq8TnvLVsz1K6Q7qegf44i22iA8BXpBActDF4ZpdFxJhKf1+OPo+/fJgYi8J5tejaUS0LmbgAmJ1heWvZ8mqQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV9PR12MB9757
+Content-Transfer-Encoding: 8bit
 
-On 13/11/26 01:54, Jason Gunthorpe wrote:
-> On Thu, Nov 12, 2026 at 09:50:12PM +1100, Alexey Kardashevskiy wrote:
->> On 12/11/26 10:05, Tian, Kevin wrote:
->>>> From: Jason Gunthorpe <jgg@nvidia.com>
->>>> Sent: Wednesday, November 11, 2026 11:00 PM
->>>>
->>>> On Wed, Nov 11, 2026 at 09:44:42AM +0000, Tian, Kevin wrote:
->>>>
->>>>> The interesting case is about such failures after attest e.g. unlock
->>>>> which is supposed to be a void operation. Maybe we don't need do
->>>>> anything special in tsm core - the secure firmware maintains the
->>>>> state machine so future lock will fail if the current state is not
->>>>> unlocked.
->>>>
->>>> unlock can't fail, we have no way to cope with that.
->>>>
->>>> If unlock does not result in the MMMIO returned to host control then
->>>> the system will surely MCE.
->>>>
->>>> This should have nothing to do with a crashed device, the disposition
->>>> of the MMIO is under TDX module control, revert it back to host and
->>>> accept you get AERs for the incorrect T= bit if the device isn't syncd.
->>>>
->>>> The OS would have to kill the SPDM session and FLR the PF to bring it
->>>> all back.
->>>>
->>>
->>> Agree but we were talking about different scenarios. Your description
->>> is about real device hang, while mine is about unlock failure from
->>> guest p.o.v. which can be caused by either hardware issue or host
->>> software issues. Or a malicious host may report success w/o actually
->>> doing anything.
->>>
->>> My point was that the guest can just assume unlock always succeed
->>> and rely on the secure firmware to ensure future operations blocked
->>> in case of incomplete unlock. We don't need to do anything special
->>> within the guest tsm core upon GHCI unlock errors.
->>
->> If the guest asked for unlock() and the secure fw failed to do so
->> and reported an error (which my hosts cannot hide), then the guest
->> memory is still exposed (via DMA) to some unwanted thing. If
->> anything - it is time to panic() imho. Thanks,
-> 
-> It is completely bad FW design. If you ask for unlock it cannot fail
-> in a way that DMA is still enabled.
+commit e2abc47a5a1a ("ACPI: APEI: Fix AER info corruption when error
+status data has multiple sections") passed to aer_recover_queue() a
+newly allocated copy of pcie_err->aer_info instead of providing a
+pointer to the ghes struct. This prevented corruptions of the ghes
+record (in case the ghes record was re-used for a new error before
+the previous error was logged).
 
-Bugs in the PSP or host OS?
+To prepare for using a common logging/reporting structure for
+ghes/MCE and merging extlog_print_pcie() / ghes_handle_aer() into
+a common helper, remove the dependency of ghes_handle_aer() over
+gen_pool_alloc().
 
-> You should still clear the sDTE
-> and that should be a non-failable operation.
+To achieve the above, replace (struct aer_recover_entry).regs by a
+plain struct instead of a pointer, allowing to remove the memory
+allocation.
 
-In AMD GHCB, the host forwards guest requests to the PSP, and the host can screw this up. The guest still gets to know if the host tried to meddle. I do not expect it to fail normally but I saw some of this while debugging. Thanks,
+No functional change intended.
 
+Signed-off-by: Pierre Gondois <pierre.gondois@arm.com>
+---
+ drivers/pci/pcie/aer.c | 29 ++++++++++-------------------
+ 1 file changed, 10 insertions(+), 19 deletions(-)
 
-> 
-> Jason
-
+diff --git a/drivers/pci/pcie/aer.c b/drivers/pci/pcie/aer.c
+index 8708ca3257bb8..57406494ec1f7 100644
+--- a/drivers/pci/pcie/aer.c
++++ b/drivers/pci/pcie/aer.c
+@@ -1352,7 +1352,7 @@ struct aer_recover_entry {
+ 	u8	devfn;
+ 	u16	domain;
+ 	int	severity;
+-	struct aer_capability_regs *regs;
++	struct aer_capability_regs regs;
+ };
+ 
+ static DEFINE_KFIFO(aer_recover_ring, struct aer_recover_entry,
+@@ -1374,24 +1374,14 @@ static void aer_recover_work_func(struct work_struct *work)
+ 					   PCI_SLOT(entry.devfn),
+ 					   PCI_FUNC(entry.devfn));
+ 		else
+-			pci_print_aer(pdev, entry.severity, entry.regs);
++			pci_print_aer(pdev, entry.severity, &entry.regs);
+ 
+-		regs = entry.regs;
++		regs = &entry.regs;
+ 		if (entry.severity == AER_CORRECTABLE)
+ 			err = regs->cor_status & ~regs->cor_mask;
+ 		else
+ 			err = regs->uncor_status & ~regs->uncor_mask;
+ 
+-		/*
+-		 * Memory for aer_capability_regs(entry.regs) is being
+-		 * allocated from the ghes_estatus_pool to protect it from
+-		 * overwriting when multiple sections are present in the
+-		 * error status. Thus free the same after processing the
+-		 * data.
+-		 */
+-		ghes_estatus_pool_region_free((unsigned long)entry.regs,
+-					    sizeof(struct aer_capability_regs));
+-
+ 		if (!pdev)
+ 			continue;
+ 
+@@ -1429,9 +1419,9 @@ static DECLARE_WORK(aer_recover_work, aer_recover_work_func);
+  *
+  * Takes ownership of @aer_regs, which must have been allocated from
+  * ghes_estatus_pool with a size of sizeof(struct aer_capability_regs).
+- * The buffer is freed with ghes_estatus_pool_region_free() by the work
+- * item that processes the record, or immediately if the queue is full.
+- * The caller must not access or free @aer_regs after this call.
++ * Copies the registers into the queue entry and frees the supplied buffer
++ * before returning, including when the queue is full. The caller must not
++ * access or free @aer_regs after this call.
+  */
+ void aer_recover_queue(int domain, unsigned int bus, unsigned int devfn,
+ 		       int severity, struct aer_capability_regs *aer_regs)
+@@ -1441,17 +1431,18 @@ void aer_recover_queue(int domain, unsigned int bus, unsigned int devfn,
+ 		.devfn		= devfn,
+ 		.domain		= domain,
+ 		.severity	= severity,
+-		.regs		= aer_regs,
++		.regs		= *aer_regs,
+ 	};
+ 
++	ghes_estatus_pool_region_free((unsigned long)aer_regs,
++				      sizeof(struct aer_capability_regs));
++
+ 	if (kfifo_in_spinlocked(&aer_recover_ring, &entry, 1,
+ 				 &aer_recover_ring_lock)) {
+ 		schedule_work(&aer_recover_work);
+ 	} else {
+ 		pr_err("buffer overflow in recovery for %04x:%02x:%02x.%x\n",
+ 		       domain, bus, PCI_SLOT(devfn), PCI_FUNC(devfn));
+-		ghes_estatus_pool_region_free((unsigned long)aer_regs,
+-					      sizeof(struct aer_capability_regs));
+ 	}
+ }
+ EXPORT_SYMBOL_GPL(aer_recover_queue);
 -- 
-Alexey
+2.43.0
 
