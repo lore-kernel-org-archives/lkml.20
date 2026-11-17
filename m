@@ -1,99 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794893444;
-	b=4lnYt52XCsMYPU3ZhZCcp9MAg3RSVgNzWSlgXJAjFtVBMUuy9Nd+pJMuZnR8qPyAeKnh
-	 kheQ7gefYpDBC5xNU201DzISL+UFzUCCiA1H06jsyQErGl8K3Wo572+BEhC25mrkRX2Q9
-	 AO/K48LZ4ZDMokuwI9WngTuQ8DidWnGJzGZv0ZjQzhZrSFvJJNCe6ocEL7ta6x5HajO23
-	 w3e2UksuziMUZwbExlI0xlEZZEgZK/ytG3YJi6xYdWHlus6mG1DEb6o7snBpJJgojWuXX
-	 lXhpTpz4O3eimB8GriEQJlwDMtiYssTKK4vyfx+6EC0NE0S73DCjThSQ+h7eeXo/KxQ==
+	t=1794893596;
+	b=y/w12AuJHOcWRQxR2D8AFSS0trL9I8Ot9lSaQK3palBj4lyfOBErKoQ3m/mUs16k3si9
+	 wNZTKSxcCA4dIyThtTzs85ND1ED1AFymbxJJdRH6cYaKMzw95igsSf9XBWW1o3fK+8z1Y
+	 8kfV3lW/jkbXMaAx5mDjURhMJJjvAnRUMMf4trhz1bEBDPzsfN9AX8InigcJDNoxB2w0s
+	 Sio82M2hdg1V90r+iMfDll5iE+1rffaueAMBWM49c99Tv3SBPbOPCfFQhHl3yldBOkWii
+	 ycb4s/5DLw04u+X9ZoNXvEVRAHvjSXAE7FN1R2YjIebEsDMc/o1D/TFfrBJbzGMTc3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794893444;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794893596;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=kIAvslGIGz26KiTObfr5XZM247DFbxXRTcH4PvS8dNM=;
-	b=MAR4fvxmRW0zs4zn+o63rNnHd4AXenREQMPmb8AHhhC57vrHR1whPAKKI6Qbn5kIPnge
-	 rdQbSZt36J1vdoXprducF/a5/R9DIMMkQpo58Lk5dOaq+X6RayrwhK8Ix0THE35ldxuRe
-	 jnAv9LvGG7UEyI7mXni10iKsf+4rDOUeK3Yz3lfqPkesznx2XgokdliU4OQjtfTRtgaQ8
-	 cxHR9VHj/s5TngfNjiUaS4OdjWf0VZQQmV98zqLlD9jggsmyQsWbaYFU6ZfPLZ4PVjHtG
-	 5cL503o45aI7iuv5eGgpze6Cs4WPGb1kNrF5H8F2vQ9B4pWo/TAznAgn4pisjjdXmmg==
+	bh=Cz1YEfgAYIVyaKhtnxIgh6hL4aaxiRbKUnEOpQeT7xk=;
+	b=ro4S4VHfaOvBrx0pyVCJ0YbljNG5HE1aSwuqpwXZDqOVNDGwgqidlQsoqQsGBIb2+B1l
+	 XGfHNjx4rkzl7yG4Weo7Z8n+d1y33C21C85GaqtcBdbYSd0oaLNk+Bf645WhIAjyDET+O
+	 AcYrjuXu/os2lu/sfjR+N+UQZxcUo3xjd47Co8+Vt0MuNy7ORYbklakOLwoOQM36CEfOt
+	 qlT3WM2mTarIM7IXunbbsF5rOx6Ostw4BitNnPbdNjIl3nNQiNpg5eN+1l/p6Jh3zBfy8
+	 sN2KcrU423EnK/TNGb6Yp7yF+3M1POojbhd4MHahutzdjtlV221QYJmHa3vBhWdbHKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=zf4QXcp8;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=AGL+KI8L;
+	arc=none smtp.remote-ip=74.125.82.45
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED5E5606A330
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:30:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED5E5606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 617F7606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:33:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 617F7606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=zf4QXcp8
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36e795af1d4so401190eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:30:43 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=AGL+KI8L
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-1b3beeaf6f9so5151507c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 21:33:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794893443; x=1795498243; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1794893595; x=1795498395; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=kIAvslGIGz26KiTObfr5XZM247DFbxXRTcH4PvS8dNM=;
-        b=zf4QXcp8BIXJgVQ932XNIbJBipZ7OOoNr+x0JQwatdUhWjptVB1cVAQ0I4et3Y0vLk
-         Kc5yATO8atKFXpKmIe4fY5otpiE5bqcdClrDQWlHVlVda9SUDWarzKu87gUOjbat0Li9
-         WxQtTjeTyS+x2LvSFJqGQIpR56cZIlPEO0QOTBQyaJvjDAzOudqDA/LidrE18foibQG6
-         wpZO5e8Euu7p4lT/S270Os2CbQ9LyPAVZTkasmQAo+YAC045V1r+v6F8x+uZcLD/4kPT
-         /4RKjLFxYSj53EqbIDhapPSb08DghVty5keXFjLHVWPUEoeKTZH3qwCoRpdiArHiY79w
-         Plbw==
+        bh=Cz1YEfgAYIVyaKhtnxIgh6hL4aaxiRbKUnEOpQeT7xk=;
+        b=AGL+KI8LRIwJ8cdflaNKNFX41d2JvLSAp7FK7DVGhFMM95xQ2g6hkZnMXfgy9Dk+tz
+         jF/FOlGQCot53XTV7jjbVzexEd1ibyLLbiTnWYmzyGIob6wfhXry4Yrmn9Xjpx4n0mmx
+         64xX9MjzM7kY4bo5/t/gzirbKWGfsp9tEyCAHOimcl08rU5Jl4uBa0Wx9mSgCrQuQqsP
+         BuKV0XZjl8k+qcTtAmGxUGGvp7T/UmVu1wwVOJRLskCsA7D8hi57ogVTzIBQqTPazWwz
+         2lnQjRhPrDRp+kLd+NWigdsX7LEWGmKltMB5scA64g+l8CZQH+UdN3I43rrZuJuzgNuT
+         z4VA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794893443; x=1795498243;
+        d=1e100.net; s=20260707; t=1794893595; x=1795498395;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=kIAvslGIGz26KiTObfr5XZM247DFbxXRTcH4PvS8dNM=;
-        b=xkNeSFx7HDzmZLYbHo6dK+sScfHyNK1go6ebVNGk/ktaVRaAWBaKBR63E2hemg8wFG
-         j77GxXvsKMEOmub8MK/ZhgwlAq8Hi3SZyt2UApDDRp8iu61OzKDtIPd5buw6GLTMFl2L
-         hYeBaQT0BN9+rWOetRyBKoMf3rM9804He8Nfgu9WxBK5X8XRuRyBNSHC3JXmkqIWnMfX
-         XJgRs88v9deqE0ehLe9V6OHnjErrC0y5KytxuBWDWyLoZQoY8ctfZqXYOGPzs9NzbUg1
-         rR1dOZuXACV/CzHgABrJWHN6R03RZVIFuSAYmcmUp6ebKybAg47j9YeeRv3zMbULHX4q
-         82Hg==
-X-Forwarded-Encrypted: i=1; AL+hErGRsiqGCBWN08TyD42wujDJwL3r0pozn/C12E90Dt1eqNdVjfdm8O6uuQYpRFpJ8BddBLRo5E18ewPvZLk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9utm2kmYPGpl+0t6sWwVKbAiFvPo+DKm2g2gs+rqD3yrXke30R
-	wlNnqVKyPUbwonJrktTmpm7z6W5FxXj5fIWkpW58ElEaU8PnidYZIKGybyYW5OWUu5w=
-X-Gm-Gg: AZFdTZfW2G7hi8Dt+HgenOx4DtKFH/NpRw9k4XWjTwUdMSaeVl+GHgUx2hi61UZTzpo
-	T+KRl5BZaSuLvAA5w3G8UOSwNGG6h3fJ97TCYhGHP9kJlsaSnZyE/0BaB22CMa08ZiQiceNdFRi
-	2++ZVH3WNHsOWDZxIJh98GNT7SAZo1+SlBiOmrUiCpdzjEUcc2sJIi/auK82I8ClKJnWJb/aliG
-	Lq401YW5sAjeSuFnj1VVVMCa5/pPVTt/IjxdyTz45xR3fKfi/qyD83+H1DfEjSuG9+1k+hQYh5N
-	RIBsqveabDPqMbRlfFvWzHQjp095PsC5eEX1YAIk7m+mXu88ezxZ6tfMGncSOUEIXvn3+JGgK/5
-	dNdY/1O4HSsnUdf1ba0UY9hH/cjR6omq/Lh8vw0wTJMSGtFxvN9iiKFO1Z+Zn3StLD3f2G4l6eg
-	ju7LNB5/ZzI03nNJysP0+uSAdJQQe8D1RSAmvtdpEDt1ktFh/dIDNVdmP9LbSN50lHPDaYBHEzo
-	oIM+ot9kDTIaRjpR8wjWxCNp56sS4bWoMjh3ATFgPaWaZzitbnqUF9h0oYyIBkBM9k7r+kwp0ez
-	36UeTbV+7Z+uGeyT7C18+waPOnKBKA==
-X-Received: by 2002:a05:693c:83db:10b0:381:761b:f335 with SMTP id 5a478bee46e88-381761c0832mr629547eec.6.1794893442481;
-        Mon, 16 Nov 2026 21:30:42 -0800 (PST)
+        bh=Cz1YEfgAYIVyaKhtnxIgh6hL4aaxiRbKUnEOpQeT7xk=;
+        b=jmaBhlrdT4brRaT9UxsZf43ddfPiOrHbApkTRcJqwwUog2hgNZrlqLrDVsut9zPnfL
+         Igw90vA7Uzjy5GEvY+ilh3bfKiCQtDWAgyIGqhF6EVIyHbrL6KANf/n344CRtV4jsAVJ
+         GhZKh0wGkYzcvK07DJSRJkJbThpvv8U0Xcm6fWhGu3xIUFcwfbmhVh1SflH8Re/tqNRA
+         5U9npZYURVabiGjXCqboZ/hJ+0EVe7v4ibXrT57EblDJbb7uZnD5mohP7XYXc1hFrJot
+         8xtHzwkaQMj9puhTFzzvaEhvp6A6W+OWYPgXK4W5PbixQUQtxVViAfBKNPs8tlq1rHZn
+         rK9Q==
+X-Forwarded-Encrypted: i=1; AL+hErG8X8W2LUQcwp8ii9M1nCGclU/8b933LXBNw2Pbf288+wEsI7YqA4vpkqeBDFXsEG1HX7K3RWqmZwds9dA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+pgXJDluRIoooJHMCGa5HJcn8RpCwJdDTLi9lCcrjzf5HGjrSY
+	PTEMFA9TQz1J86sC+HKMzf+4iJrJD0Pe1hZwwLhME42vfYZpjxy/lEqLvtzz6vIUb9E=
+X-Gm-Gg: AZFdTZfs+uaIcJLwGm9VVoZsB6+Uf5y5j/IibNEM/O0vBEbV9mzX4egFkjPFWQ9ZQ26
+	kW3tRq35lN8RKoq/uHYAG6ku83HRY/qpWtzpimQ59qmQYe0kXl4Kza8bF1tP8PpDgkbgKjl5fK8
+	iSriEG3+YGgd7x9FhE7dx7f7d1De/glULfZg3sM9uZ7sbGydadzzMwWVKO605oAtggfcB1M1K/I
+	dP4uAEr5PZSYwxpLjFlUuMm35LjG4bGMe8dJ4DPfc4p00wUxGABVA29o/hquQGuhskRpPflPhHu
+	F9z4QMjl6bEaGgYRJXGRRFX9+xoidPRI9nykz+wnnH16p5WSL4gmYOjSC46pER5QLbHBwHOD0Mp
+	m0887ihEOBlXuN/sJmtzi5gTFHvE5eXKVM7BUOjv7+jNJ2ONIFhZSeP30jM0TcS/UyE8SPdhUAp
+	tT85rsu0CCepfLRb7q9P4mcI5Ws/2y2YpCtFI+IRTiMczX7Ox4fPVVObLd7pNm++QVHpLGyN7ej
+	u5IcPReL0QeP9wOGWUJQUc/yP5BiZTqh0+TF/GFb5ktSaZpdTuzHstgTQZrhV6mlVreSH0e6lRn
+	XqPph/sNapv1EvUV1pL8n/LcmkNiXQ==
+X-Received: by 2002:a05:7301:b06:b0:376:13e5:e8fe with SMTP id 5a478bee46e88-37964b08f4cmr11532201eec.3.1794893595271;
+        Mon, 16 Nov 2026 21:33:15 -0800 (PST)
 Received: from localhost ([122.172.83.36])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795533170csm40154597eec.7.2026.11.16.21.30.40
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795533170csm40174212eec.7.2026.11.16.21.33.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 21:30:41 -0800 (PST)
-Date: Tue, 17 Nov 2026 11:00:39 +0530
+        Mon, 16 Nov 2026 21:33:14 -0800 (PST)
+Date: Tue, 17 Nov 2026 11:03:11 +0530
 From: Viresh Kumar <viresh.kumar@linaro.org>
-To: David Yang <mmyangfl@gmail.com>
-Cc: linux-watchdog@vger.kernel.org,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Viresh Kumar <vireshk@kernel.org>,
-	Andre Przywara <andre.przywara@arm.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: watchdog: arm,sp805: reference the
- PrimeCell binding
-Message-ID: <avvmf71B4E2mKrgN@vireshk-B250M-D3H>
-References: <20261114184257.535546-1-mmyangfl@gmail.com>
+To: Majid Hajiheidari <majidhhdri@gmail.com>
+Cc: andersson@kernel.org, konradybcio@kernel.org, rafael@kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	abelvesa@kernel.org, mani@kernel.org, admin@mswin.me,
+	linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: cpufreq: cpufreq-qcom-hw: Add SM6125
+ compatible
+Message-ID: <avvnF7zQfYhF11so@vireshk-B250M-D3H>
+References: <20261115003158.391171-1-majidhhdri@gmail.com>
+ <20261115003158.391171-2-majidhhdri@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,44 +103,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261114184257.535546-1-mmyangfl@gmail.com>
+In-Reply-To: <20261115003158.391171-2-majidhhdri@gmail.com>
 
-On 15-11-26, 02:42, David Yang wrote:
-> Unlike the other PrimeCell bindings, the binding ends in
-> unevaluatedProperties: false without referencing
-> /schemas/arm/primecell.yaml#, so arm,primecell-periphid is not an
-> evaluated property on an arm,sp805 node. Two nodes in the tree carry
-> that property regardless -- watchdog@a2c000 in hisi-x5hd2.dtsi and
-> watchdog@8000 in mps2.dtsi.
+On 15-11-26, 01:31, Majid Hajiheidari wrote:
+> Document the cpufreq-hw (OSM) block on SM6125. Like SM6115 it has two
+> frequency domains with one register region each, so add it to both the
+> compatible list and the two-region constraint.
 > 
-> `make CHECK_DTBS=y`:
-> 
->   watchdog@a2c000 (arm,sp805): Unevaluated properties are not allowed
->   ('arm,primecell-periphid' was unexpected)
-> 
-> Add the reference so the property becomes evaluable; both nodes then
-> validate.
-> 
-> Fixes: 73d3e43f9813 ("dt-bindings: watchdog: sp-805: Convert to Json-schema")
-> Signed-off-by: David Yang <mmyangfl@gmail.com>
+> Signed-off-by: Majid Hajiheidari <majidhhdri@gmail.com>
 > ---
->  Documentation/devicetree/bindings/watchdog/arm,sp805.yaml | 1 +
->  1 file changed, 1 insertion(+)
+>  Documentation/devicetree/bindings/cpufreq/cpufreq-qcom-hw.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/watchdog/arm,sp805.yaml b/Documentation/devicetree/bindings/watchdog/arm,sp805.yaml
-> index bd7c09ed1938..690456839fcc 100644
-> --- a/Documentation/devicetree/bindings/watchdog/arm,sp805.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/arm,sp805.yaml
-> @@ -16,6 +16,7 @@ description: |+
->  
->  allOf:
->    - $ref: /schemas/watchdog/watchdog.yaml#
-> +  - $ref: /schemas/arm/primecell.yaml#
->  
->  # Need a custom select here or 'arm,primecell' will match on lots of nodes
->  select:
+> diff --git a/Documentation/devicetree/bindings/cpufreq/cpufreq-qcom-hw.yaml b/Documentation/devicetree/bindings/cpufreq/cpufreq-qcom-hw.yaml
+> index 98eb36bff..8dfe77d08 100644
+> --- a/Documentation/devicetree/bindings/cpufreq/cpufreq-qcom-hw.yaml
+> +++ b/Documentation/devicetree/bindings/cpufreq/cpufreq-qcom-hw.yaml
+> @@ -28,6 +28,7 @@ properties:
+>                - qcom,sdm670-cpufreq-hw
+>                - qcom,sdm845-cpufreq-hw
+>                - qcom,sm6115-cpufreq-hw
+> +              - qcom,sm6125-cpufreq-hw
+>                - qcom,sm6350-cpufreq-hw
+>                - qcom,sm8150-cpufreq-hw
+>            - const: qcom,cpufreq-hw
+> @@ -146,6 +147,7 @@ allOf:
+>                - qcom,sdm845-cpufreq-hw
+>                - qcom,sm4450-cpufreq-epss
+>                - qcom,sm6115-cpufreq-hw
+> +              - qcom,sm6125-cpufreq-hw
+>                - qcom,sm6350-cpufreq-hw
+>                - qcom,sm6375-cpufreq-epss
+>      then:
 
-Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
+I hope this can be applied independently.
+
+Applied. Thanks.
 
 -- 
 viresh
