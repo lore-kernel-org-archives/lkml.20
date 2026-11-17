@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794884016;
-	b=5LaZxMZ7genCvIPgzNfLV4bIsUvH2KY+h+5QvkjJ1HJfg2uxss8kUm3UEezeRLXTfjOK
-	 KkMDi1mB+nBAVHPS/JjQfOt/cwM8YVjIqY2N7dnWcNkpDoKHTg+F+u6iFcenLAccXw48P
-	 a6ki3zSHP0acn8WYQL+Ba+cwn8Cvf8S5NvRQ1lcnTTsOmkJAGIPgt+9vdldljZ1gkUNKc
-	 L1vw4bKYCZodkiUYnLS1x4xHzb39T7cQzDC0PFTC1ycPzn+8awUqcLnGoKvSwYjezrpfB
-	 bCMzYfQ4lkW3ZgeE4El0azWC0zVMNkzDtRg5dEJZ5RBJdTeyRvdvI1SmylXe2cQBIlQ==
+	t=1794884025;
+	b=wQ9yTtBF127Us8VI9QISJ7o4aJg95YG+9Kqhwfh7tfz72/MJIZnv1eLa1WQfHOvsCcDo
+	 CSf2XOMMMHmGtsFSdwS5rEcVYbDfLyrbPg1rU0AZXRXfdI8xlx7lZ5I7iEx4+IosnF+Mc
+	 O4lzN7fOd9q9it07jvR1GyieIXouaLJwCkZwGt2WAl+5VtaWPfbAapKiCS8Jmu8UfD4z6
+	 eo/KzhQyQyePTs4gC5CtKCoRu1UZ7V8HD1OuK13txZhiWNNUd6gb8jGH6igJklKv5E3lV
+	 QRfFNql8URRLplKPP+8MMEX/GWPONKaSFxI7/u7VIpDbxNQAQjFzfp3pshQo5HeNezQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794884016;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794884025;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=BPc5SLhnTp1+AhX70HT21NXZlM36xtIHfw6YHwhe0to=;
-	b=XjxBQ5fp4VDg4CqeS82U5oW8YA9WFayWxtrVhTMMe/engiM1PgfnUWL5LxQN2l0hF7BH
-	 4XrTc4OwDujMRVXgSs2IsJi7zyxQ2tufC3ruqkixQWrDEBh78IT54d2MMYYbYj37F2sY4
-	 oxWxNIwSkrhGmyzLFBgG0+q8fef8qHV/KbjmWayQgdXZSu64Via+mtsGsULXG3asYMXk7
-	 HyivFS2eGBygrdEK5C9RcAOPQu/E1Sj6X6UdagxkWKNzbUX/nL/2NzQ1FmqSkWDg0RnOR
-	 jFUsX+Kn7PB1ITc9i7JDAG1dGnQqCE4czEPPcqd1xU+/QVWh8NOxWpmwuFB1bI2ARfw==
+	bh=44M5CZ0ALtHmaz+dPQtDVPPyPJdEq+3uVAhgHrI6l7U=;
+	b=JINBSYIrHK/d4PV7k8ZeBGFB8QDelSrMGdX1BBefzIkAjEdl1buPhD0ZoVdcT4rXNYIi
+	 MXv7vVar0YgRVQBQEdo1zrBkEpf41xrIZnUQL2tUqVbQbLPRK2U+VrT7kQrrSp6lEwSvl
+	 0R24Yvmo3quQDImu/0z4ABfjdOD/kPR3EatPhVXL4CfrWKb3wa6xPO7qUleCOGebxBmKI
+	 0RBa+zqeujaKDaA4RybbnaUdB8ipPfEwtxe5b9FCc3cOwNKBIj7i20whFZjPKapp2x7Dj
+	 kvtDOYIPP0GVMVfZn/wWIx0wOkuyBHLgoD6M3c0JNoGWYs6GWNU5B4elqban6woctmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PT5K3jdg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bMe9hK4A;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0546606A323;
-	Tue, 17 Nov 2026 02:53:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 592DE606A323;
+	Tue, 17 Nov 2026 02:53:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PT5K3jdg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C4681F000CB;
-	Tue, 17 Nov 2026 02:53:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bMe9hK4A
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB1501F000C5;
+	Tue, 17 Nov 2026 02:53:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794884016;
-	bh=BPc5SLhnTp1+AhX70HT21NXZlM36xtIHfw6YHwhe0to=;
+	s=k20260515; t=1794884025;
+	bh=44M5CZ0ALtHmaz+dPQtDVPPyPJdEq+3uVAhgHrI6l7U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PT5K3jdgVavXkTHMoBg7j6bZp6aAfVU6ohDLijLlS/wCN9C7NpGEo4Wr9wuvbBvvi
-	 9roFY/VY47PdX41UZYSIaZU3Hovg8u92cTnwQuzecIhFONcUg9gzz4ETEuzFu6ZbEm
-	 d2Km8pf9rW/ECjs65WjF55vY13VqfCiWQGi5RFpTHeIuqCDsvXRlcqR7rxprRwqNpv
-	 5M2u3u4CHAm6bFi4BWLkFD+8UtQZd/7oI5yRuG3NpNFJajeCpl8HZIgH2cW5VK+DKI
-	 fBZCrs+um7XIQ+VSeSXPLsg1kregSSxdD5DmGEfDtpqryp2oX1ucN6NvJrx3+BO//Q
-	 6Hph5u6dAGI6g==
+	b=bMe9hK4AKiYKxUofJN5o8aEtXvMKf/mpr3Eae+M04OW0wMapWylhkJvEtATILIpQo
+	 qzJhgXqryIXkEz6XoS4m9Sn9bwfP9jZ2VIUUmA32AvDYBClx4SKvl5JjuSE//wcx3S
+	 /sake7Bw5zFL2//hT2WXj3KjmC5UkprRgZIlzGtE2NYn4tqX6xfm5Brk4BqTzKnj34
+	 8DtAh/8Hwmk3kilWTuWzuqDRsHRyK4onqgtyFiW9RtB74I5iAK0dDg4OMFjvyZj9pk
+	 wx3bb4PATc8JRJMxk+FYGsJW7cBErye1ZM1nABVKIf1KJ8V0Q3ReAUMPszWGeZzZar
+	 e6Ivg1iRtYWYA==
 From: Arnaldo Carvalho de Melo <acme@kernel.org>
 To: Namhyung Kim <namhyung@kernel.org>
 Cc: Ingo Molnar <mingo@kernel.org>,
@@ -51,9 +51,9 @@ Cc: Ingo Molnar <mingo@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	linux-perf-users@vger.kernel.org,
 	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: [PATCH v5 08/12] perf tests: Silence the libbfd probe in build-test
-Date: Mon, 16 Nov 2026 23:53:00 -0300
-Message-ID: <20261117025305.3958882-9-acme@kernel.org>
+Subject: [PATCH v5 11/12] perf test: Drop samples without an IP in the dlfilter test
+Date: Mon, 16 Nov 2026 23:53:03 -0300
+Message-ID: <20261117025305.3958882-12-acme@kernel.org>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261117025305.3958882-1-acme@kernel.org>
 References: <20261117025305.3958882-1-acme@kernel.org>
@@ -70,35 +70,37 @@ Content-Transfer-Encoding: 8bit
 
 From: Arnaldo Carvalho de Melo <acme@redhat.com>
 
-build-test evaluates the libbfd probe at parse time and the compiler's
-stderr isn't captured by $(shell ...), so without binutils-devel it
-prints "bfd.h: No such file or directory" once per tests/make
-invocation, five times per run.
+Since v7.3 the kernel zeroes PERF_SAMPLE_IP when a userspace-only event
+skids into kernel mode, so that kernel register state is not exposed to
+an unprivileged event (166f10836a653dfa "perf/core: Fix kernel register
+info leak via hardware skid").
 
-Redirect the compiler's stderr; the empty result still skips the
-nondistro tests as intended.
+The test dlfilter keeps those samples, and the check that nothing but
+test_loop survives then trips on their lines: the comm column reads
+"perf".  Drop them, which is what the test wants, everything except
+test_loop must be filtered out.
 
-Fixes: 523471c5163659c6 ("perf build: Skip nondistro build test if libbfd is old")
+Fixes: 199d5e872a9ce737 ("perf tests script dlfilter: Add a dlfilter test")
 Reviewed-by: Ian Rogers <irogers@google.com>
-Cc: James Clark <james.clark@linaro.org>
+Cc: Ian Rogers <irogers@google.com>
 Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
 ---
- tools/perf/tests/make | 2 +-
+ tools/perf/tests/shell/script_dlfilter.sh | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/tools/perf/tests/make b/tools/perf/tests/make
-index 7524de5228029e7e..e6d7ac49b5b1693d 100644
---- a/tools/perf/tests/make
-+++ b/tools/perf/tests/make
-@@ -128,7 +128,7 @@ make_minimal        += NO_SDT=1 NO_JVMTI=1 NO_LIBZSTD=1
- make_minimal        += NO_CAPSTONE=1
+diff --git a/tools/perf/tests/shell/script_dlfilter.sh b/tools/perf/tests/shell/script_dlfilter.sh
+index 88222280f6094fd0..797cd9ae84141f64 100755
+--- a/tools/perf/tests/shell/script_dlfilter.sh
++++ b/tools/perf/tests/shell/script_dlfilter.sh
+@@ -46,7 +46,7 @@ int filter_event(void *data, const struct perf_dlfilter_sample *sample, void *ct
+ 	const struct perf_dlfilter_al *al;
  
- # binutils 2_42 and newer have bfd_thread_init()
--new_libbfd := $(shell echo '#include <bfd.h>' | $(CC) -E -x c - | grep bfd_thread_init)
-+new_libbfd := $(shell echo '#include <bfd.h>' | $(CC) -E -x c - 2>/dev/null | grep bfd_thread_init)
+ 	if (!sample->ip)
+-		return 0;
++		return 1;
  
- # Whether libLLVM can be built, which needs the llvm-devel/llvm-dev headers and
- # libraries of version 13 or newer, not just llvm-config. This mirrors the
+ 	al = perf_dlfilter_fns.resolve_ip(ctx);
+ 	if (!al || !al->sym || strcmp(al->sym, "test_loop"))
 -- 
 2.56.0
 
