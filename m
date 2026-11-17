@@ -1,79 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794922507;
-	b=KBVZPEt6RZGDiqxWX67ZYW9abocBB1xTiVc/QwmqECY79kWjZdgQwXIUePqqsmUNIMvT
-	 a0MzWmCUI1l6cOoydx2QK6lGCACxhAKsQWtvzvJ/ZwMBWT3qx4U2IvmR9hy1uPmzo9TvD
-	 ntwKPRpzO+q3zSB68nsB6bhmgAanNaWe/598Q90ecI7CRF09ddTJkHW42ztHQSj0cu1og
-	 7/i2Si5+4jo6JKhAbhKRruEzgknolAmijbYzP/nrhD8KYdHo69FU3EJaBtoPQt1vBTzY0
-	 B/rDrgpZZNwHRbucy3YztrQO3Y5gt1S/TY4OGUtXhVWy7kcpsOXX2yK8C/6YESD7R6A==
+	t=1794922516;
+	b=zWv01/40GsXB5hjY46N/oVPrrPazyoKN8pxw1IXEIAI4z4LBJ9jTsg6MmjUffv1VStH9
+	 XYNwrw5FSS3iXFieUUHAuFuLDg3sEfKbjWmMsxeOIlGBbw5WidI7P55jR1jVlVoYo3GQw
+	 MU2F4fz0qSiQjJc+PX7M5PhaC4WQGvKWZF8EJS1EOO/M99JgUkawCwmiu4cTdef6jSAA/
+	 evyJIazQtIT0crBvFI/p9RZVnWpQDd1nIX4sO2Bi79TKcA5hZ2ev1oIGpe1YCJg2+RoX2
+	 0K2sk439s9iXQiktKQhIfWdz/ZKoHXWqt1xJft7OhlOocKl2Nwt08U6b0UoEYtuFmeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794922507;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=i+BFDNL7i4hgEPfGFThGwLCtNaracNjrr21qTOWajH8=;
-	b=LOzZM8iQQ1iSTQYGgzLTiXQqzR43ZWd5PEOITgJ4nju1HyXY1DN/YKaQaVZFXRnkTURz
-	 KmHFq0zUZ/EvQSOWHyCEHgb5iCX9aaIPIvAF/xjzl9ALTI9GI0GTvS+6HKPsIPW78xPn9
-	 Yu3OkdHuCxCyJRJqGRFGTF44KjjZsbMfTJhZdhslcIzIeeN9B+qyFRmsykTUYE2eV4TNb
-	 GZTEruYQZqrtrhccAIoarE/EIVNvRQRhPvKiv9oRbePCoZSZ4chODpYj0qBcK3134W7iH
-	 6WDH0joU+ID0QLD/JQZJ+wS2RBbyIiuFfxc9PuTD8ARP2Pigk3hKuk1M9scvYQezy6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794922516;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=EFX2yIyrHAd/8VFoISAI9yJxJbG4dUZg6w3jxNvGRko=;
+	b=HN+7r2bWEUCUMiFMGPhrtScgRh0F+xtO78A+Ke5m1cp+D6xk6EGSYPrcAyKp0aJE2EQE
+	 FUzBDC3PJ/YENnaEE/cQQHuZeTTdtKFRtNJOj1C2EhmnGr0sGduhtRFZh8X2WExdwsOey
+	 VQ//sV3IGrUWyUFFzYuXKdQ22aJx7gDgbeE3gqdZlohYVvGNKaCAr4Lc9tqZkiHYniWMi
+	 rZj/q6jlh1TBdGklhEBIHHe0nlDw7Relj9eSYyccN93AqN0wSpoZEhXsOV4iOpFO81nOh
+	 pWH707eQGBNECuR/ZinBORLMx+I7g17ivbCqDP36KKGUppJ8QeG/rc7gF64K+O34T3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NbxMBOU3;
-	arc=none smtp.remote-ip=192.198.163.12
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=II1s7i5t;
+	arc=none smtp.remote-ip=210.118.77.12
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB72C606A330;
-	Tue, 17 Nov 2026 13:35:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB72C606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E31E606A333
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:35:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E31E606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NbxMBOU3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794922507; x=1826458507;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=hPL1dAQGLHD1UvhHIpxl+Y5siEbxzeilMshvgFX8FQE=;
-  b=NbxMBOU3u/ZZMJOLDlwnqLLhMDM8tJpm+4DophJCCi0dvcgswPAa9OOj
-   jZ/hUvONFtMYWoq3uS8X0a1ols5ZPqom4Drj5qfq4M/7FuDajJwSMGKEt
-   wLDu0IPCdRbgGzpH2TOjCKO4AtKhsRlVy7M4cJbJeQ0+AT3MzOTKhWi2T
-   MqKSjnNw62RR7ZJEm9sqTA98ddQOOeMmo/sl7c1yqA0vfzro91hI+Xi1E
-   lCFChY+9+JO57NRms2nwGpJyRa0aZ/+9Jth3817D+Oo+2QEFy2llB9izF
-   XoNr6sOTsj5rrbTUg55Cd032Ghe2nSQurx/22IY0YDCItYmL2+5AlTnxD
-   g==;
-X-CSE-ConnectionGUID: nZaP2LGeTpu2C7FF6L03oA==
-X-CSE-MsgGUID: gUuf29+dQ06a9IWo4W1jhA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3595236"
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3595236"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 05:35:06 -0800
-X-CSE-ConnectionGUID: yXjUY8Q0T6Sg2SMEUDIlFg==
-X-CSE-MsgGUID: ZfeFLr+ETce1LMF0GnzsoA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="9804237"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa004.fm.intel.com with ESMTP; 17 Nov 2026 05:35:05 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id C28DF99; Tue, 17 Nov 2026 14:35:03 +0100 (CET)
-Date: Tue, 17 Nov 2026 14:35:03 +0100
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Badhri Jagan Sridharan <badhri@google.com>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kernel@collabora.com
-Subject: Re: [PATCH 7/8] usb: typec: fusb302: rework gpio_int_n_irq handling
-Message-ID: <avxYB5S9_V2wy5Wh@black.igk.intel.com>
-References: <20261113-fusb302-probe-cleanup-v1-0-e5c65a8c58c8@collabora.com>
- <20261113-fusb302-probe-cleanup-v1-7-e5c65a8c58c8@collabora.com>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=II1s7i5t
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261117133507euoutp02ac4c94b45d9647d7daffb45666f0419f~o2IK0IOQM0956609566euoutp02P
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:35:07 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261117133507euoutp02ac4c94b45d9647d7daffb45666f0419f~o2IK0IOQM0956609566euoutp02P
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1794922507;
+	bh=EFX2yIyrHAd/8VFoISAI9yJxJbG4dUZg6w3jxNvGRko=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=II1s7i5t7SASuJOymU5Cv0mPRU23QdOzGTVMsq+hjxyw1vzCUCcRSo+WPwMwEKc56
+	 /7HEh1fepPaUR2KVfJWACHOD91PuImEcEjD2NJPLHIQ9MiREtAmxI1O3wkD1Z32Gmx
+	 Goiti5wvEEH883ohY9hO7gTE3ADwVpn3OCmobOOE=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261117133504eucas1p14aee6e1d3b716ecd4eac84c21058c78d~o2IIkbNDp2647226472eucas1p1D;
+	Tue, 17 Nov 2026 13:35:04 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261117133504eusmtip2249a3600a4be2a7cefdbb1bd4ce187e4~o2IILas3v1494014940eusmtip2T;
+	Tue, 17 Nov 2026 13:35:04 +0000 (GMT)
+Message-ID: <05c05ec4-b321-49d4-acf7-b9fa4223dba9@samsung.com>
+Date: Tue, 17 Nov 2026 14:35:04 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,63 +64,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261113-fusb302-probe-cleanup-v1-7-e5c65a8c58c8@collabora.com>
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH] dma-debug: Avoid uninitialized hash traversal in
+ mapping dumps
+To: Robin Murphy <robin.murphy@arm.com>, Anthony Iliopoulos
+	<ailiop@suse.com>, Avi Weiss <thnkslprpt@gmail.com>
+Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <609175e0-4e1c-4130-a9f1-0cfc7815c134@arm.com>
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261117133504eucas1p14aee6e1d3b716ecd4eac84c21058c78d
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261116134536eucas1p1b30ea07e1a1e3be753ff25a653be59a6
+X-EPHeader: CA
+X-CMS-RootMailID: 20261116134536eucas1p1b30ea07e1a1e3be753ff25a653be59a6
+References: <20261115082505.2012573-2-thnkslprpt@gmail.com>
+	<E9412813-7A76-46D0-94E5-0537E9FF5DB8@suse.com>
+	<CGME20261116134536eucas1p1b30ea07e1a1e3be753ff25a653be59a6@eucas1p1.samsung.com>
+	<609175e0-4e1c-4130-a9f1-0cfc7815c134@arm.com>
 
-On Fri, Nov 13, 2026 at 05:42:43PM +0100, Sebastian Reichel wrote:
-> Improve the code readability, so that one does not need to jump
-> into fusb302_init_irq() to understand that chip->gpio_int_n_irq
-> is guranteed to be initialized.
-> 
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> ---
->  drivers/usb/typec/tcpm/fusb302.c | 15 +++++++--------
->  1 file changed, 7 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/usb/typec/tcpm/fusb302.c b/drivers/usb/typec/tcpm/fusb302.c
-> index 76851e2b9ce5..6105f09f96aa 100644
-> --- a/drivers/usb/typec/tcpm/fusb302.c
-> +++ b/drivers/usb/typec/tcpm/fusb302.c
-> @@ -1656,8 +1656,7 @@ static int fusb302_init_irq(struct fusb302_chip *chip)
->  	if (ret < 0)
->  		return dev_err_probe(dev, ret, "cannot request IRQ for GPIO\n");
->  
-> -	chip->gpio_int_n_irq = ret;
-> -	return 0;
-> +	return ret;
->  }
->  
->  #define PDO_FIXED_FLAGS \
-> @@ -1752,13 +1751,13 @@ static int fusb302_probe(struct i2c_client *client)
->  	if (ret < 0)
->  		return ret;
->  
-> -	if (client->irq) {
-> +	if (client->irq)
->  		chip->gpio_int_n_irq = client->irq;
-> -	} else {
-> -		ret = fusb302_init_irq(chip);
-> -		if (ret < 0)
-> -			return ret;
-> -	}
-> +	else
-> +		chip->gpio_int_n_irq = fusb302_init_irq(chip);
-> +
-> +	if (chip->gpio_int_n_irq < 0)
-> +		return chip->gpio_int_n_irq;
->  
->  	chip->tcpc_dev.fwnode = fusb302_fwnode_get(dev);
->  	if (IS_ERR(chip->tcpc_dev.fwnode)) {
+On 16.11.2026 14:45, Robin Murphy wrote:
+> On 16/11/2026 12:09 am, Anthony Iliopoulos wrote:
+>> On Sun, Nov 15, 2026 at 10:25:06AM +0200, Avi Weiss wrote:
+>>> Booting with dma_debug=off causes dma_debug_init() to return before
+>>> initializing the hash buckets. The debugfs dump file is registered
+>>> independently, so reading it traverses an uninitialized list and
+>>> triggers a NULL pointer dereference in dump_show(). The
+>>> debug_dma_dump_mappings() helper has the same unchecked traversal.
+>>
+>> So the debug_dma_dump_mappings() issue seems preexisting (the risk was
+>> there since its introduction in commit ac26c18bd35d, given that it
+>> doesn't check if dma_debug has been initialized), and it is not related
+>> to decoupling the debugfs init.
+>>
+>>> Skip both dump paths until dma_debug_initialized is set. Check the
+>>> initialization state rather than global_disable so that mappings
+>>> recorded before DMA debugging disables itself at runtime remain
+>>> available.
+>>
+>> I suppose this makes sense for debug_dma_dump_mappings, but I am not
+>> sure we need this for dump_show. See my next comment.
+>>
+>>> With CONFIG_DMA_API_DEBUG=y and CONFIG_DEBUG_FS=y, reading the dump
+>>> with dma_debug=off triggers an oops in the unpatched kernel. The
+>>> patched kernel returns an empty dump, while dumping with DMA debugging
+>>> enabled still returns mapping information.
+>>>
+>>> Fixes: 173735c346c4 ("dma-debug: fix debugfs initialization order")
+>>> Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+>>> ---
+>>>   kernel/dma/debug.c | 6 ++++++
+>>>   1 file changed, 6 insertions(+)
+>>>
+>>> diff --git a/kernel/dma/debug.c b/kernel/dma/debug.c
+>>> index 36c1f7cbb2ae..2f487246d8ce 100644
+>>> --- a/kernel/dma/debug.c
+>>> +++ b/kernel/dma/debug.c
+>>> @@ -543,6 +543,9 @@ void debug_dma_dump_mappings(struct device *dev)
+>>>       int idx;
+>>>       phys_addr_t cln;
+>>>   +    if (!dma_debug_initialized)
+>>> +        return;
+>>> +
+>>>       for (idx = 0; idx < HASH_SIZE; idx++) {
+>>>           struct hash_bucket *bucket = &dma_entry_hash[idx];
+>>>           struct dma_debug_entry *entry;
+>>> @@ -576,6 +579,9 @@ static int dump_show(struct seq_file *seq, void *v)
+>>>       int idx;
+>>>       phys_addr_t cln;
+>>>   +    if (!dma_debug_initialized)
+>>> +        return 0;
+>>> +
+>>
+>> I think it makes better sense to skip creating debugfs files altogether
+>> when debugging is disabled, which was also the case before 15b28bbcd567.
+>
+> TBH there's probably an argument for just getting rid of debug_dma_dump_mappings() now too...
 
-I think this is okay, but I now think that gpio_int_n_irq should be
-renamed. It's a bit confusing. The irq is not always gpio.
+Agreed, remove it completely and register the debugfs entries only if (dma_debug_initialized).
 
-And that said, I'm now wondering if fusb302_init_irq should be
-something else after all. Maybe fusb302_init_gpio_irq, or something
-like that?
 
-Thanks,
-
+Best regards
 -- 
-heikki
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
+
