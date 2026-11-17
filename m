@@ -1,64 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794885837;
-	b=W2vmurowHSrIKi1NPjiT/TOwVFHOC7C9NeNP+yFa00GiT1PCm8jw1bUvOcL7Elb+ifEn
-	 U5H9u8kD0Ax0Ipy4xVpIwWiU7+NE5OJlUJToFhgFYSblwFLacixFb9Q638RdhwmJTDkrQ
-	 WOz/YYVf7sB/4DEz1azz3MKxS0BV53iMKzhNZLS3+u4/KqCZGY426Aiq/geo7wD3+0wdi
-	 KbLBeWslLNKx83wUl6xHLmBPWvZZCLVhhHu4IBKZbjacT1uKYgmkEpSfvuPnOHkBeSugq
-	 V2DhylEhQ5dSEDhSOCZ1ecMNhKhcHRJU6o8VOOuZ1LSTwicxsHmK8zZ4XukGG08cv5A==
+	t=1794885848;
+	b=VWo2yZnbLFb7ubA7XslNKM/sB+WnT9baU7rgGT4jxen7smcmIzskZV1Hkr0DW4Q8/Kkw
+	 EIIKGpLwF/oDltoaytzOlMkPn+SckDHzDKVOBGrE3pUPolR8GSs74wgJGiaa22Ich+iwM
+	 dlgQeW8qsDgzQo4NL4gwk5SNA7/bV0m9IVUP1lmOv4VuKso6BEjg57zETP1814hXK32RS
+	 t301hUpOplF/XatTYUUJ9+ZQYcjaH3r2gue7x/NJbCwGPKLXzlABWb6R3UOIwEaLQ2CBb
+	 mOkkS6PAz7O2kK9x10QTJKAMLZ0tKfmHG6ryFi3WxUzxvr8uQGDx4AytrPz4gGlmgiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794885837;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=f+RUblqoorE+DmrbdAwb+wwbOFEmVzV1Vh23cpuMpTA=;
-	b=ESOSffcoxChn5pDjFtDg0WMivANRKsSS11XqJZlkVA0Z8oHq5Q+KT99G0LPL22WoHom0
-	 j4PdULskw4mlb9vE8aSC+g5eL1EnyLcwOAGRDAOWQzz7foJoZt1/l0heNup9zU892YVmo
-	 3NNAJK9aozUaljD2oSysTfGZmyngXtyoOcClftyeMgx6RvhZZrOt74jBgOKdiUEbNuVGD
-	 au2y+UU1GcDk3A/npSDL3hFBf6SLsMIOEemBs/zYH+J91ZmPiZix3I7+GUvimk7XFsdw6
-	 KavMV1kk3Tvr1eaNm4Vv5vFIzTjMuMAevtR481uW1eDEzEfyKI9Pf6SGBh3Ib0x03fg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794885848;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=3orSBMWKdzbMx744GJIWZnn0L4NEkFQ8t34eASoTZSA=;
+	b=1X452n1PXPAY9Hrz8eIVpxDt4vvONursPkNXZpcPPi2g+o8xX2LF4sbUIq67BFw4+bx2
+	 Golb7Dls8ieDBwu8ye2MdwVoFX0+Q1xWpNr+8GREo9zv/jjORrPnC2FCXinPpdlG+Urkx
+	 Jme2MdDZeyZ0KPKomS8f/JLw9struW24MN7JQvhawfYBlsPhiFVzK9whHqyXPLPcVdSoU
+	 PncPvHxd1/cectYGRid9JleHQDiFge/WbbeEjYqdO+1sbTHrvRrf97qXHxYsE2Vheyf95
+	 FuDwMVKXng6OvmwrwINZi5xh3PkoTMf8vf4/CE61GTCoAn0y3N+RCL04gkF3qfMxSEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=hzdkVEcg;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jgrPVDr/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACFED606A31C;
-	Tue, 17 Nov 2026 03:23:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACFED606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 737EE606A323;
+	Tue, 17 Nov 2026 03:24:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=hzdkVEcg
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=f+
-	RUblqoorE+DmrbdAwb+wwbOFEmVzV1Vh23cpuMpTA=; b=hzdkVEcgWpdUFB7arC
-	/n8ZIiQTOLSKL2Hdfp7b1+vyB/3rpLJljkMw4WPZCIr3JO4mttIabTHEORyoFWe5
-	d0b8p+tc32BLIcNnzproxsc2rmJbpmZXWhaUo50Dq2bBZTy3xP6w6CpTVXeSiDvs
-	BISfNpCfE28TR6MLi2is1tAWs=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wDX_0CIyPtq1HcFIQ--.40278S2;
-	Tue, 17 Nov 2026 11:22:50 +0800 (CST)
-From: Haoxiang Li <haoxiang_li2024@163.com>
-To: maddy@linux.ibm.com,
-	npiggin@gmail.com,
-	mpe@ellerman.id.au,
-	chleroy@kernel.org,
-	ritesh.list@gmail.com,
-	sshegde@linux.ibm.com,
-	bharata@linux.ibm.com,
-	paulus@ozlabs.org
-Cc: linuxppc-dev@lists.ozlabs.org,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Haoxiang Li <haoxiang_li2024@163.com>
-Subject: [PATCH] fix: KVM: PPC: Book3S HV: Clean up on uvmem initialization failure
-Date: Tue, 17 Nov 2026 11:22:47 +0800
-Message-Id: <20261117032247.1053075-1-haoxiang_li2024@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jgrPVDr/
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 3B0CF1F000C4;
+	Tue, 17 Nov 2026 03:24:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794885847;
+	bh=3orSBMWKdzbMx744GJIWZnn0L4NEkFQ8t34eASoTZSA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jgrPVDr/2pu0oWBxS7zsNS2iIhhXxVLBF68T/jibx5TmONcez9qvzUe2zs26Cnky/
+	 7fGwO7fJXVFIopWdEFlOUlhlKn6/lV3rQVSIsjb6BgNhXm9HHUy40ZHPM4acFsZvop
+	 ULsbIEktV8PZYsVqfAsdMRHDykFhpjXeEv2UMK79uc2ru1hjnzen4uzzXEaeyhbWjd
+	 7oQU+yeEJ7nbV87XK69HDu0dlUcZnajNkfsoxKXG8/cxlcYhzG+J0TNkoRzI31XihN
+	 YwcNHntvvKe0Fj8EaTSYD82mrtcc76SthYYTaLLSTumBFG5Un2jriZsELJepU7+4j8
+	 01LgtnxlI9vyw==
+Date: Tue, 17 Nov 2026 05:24:04 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: William =?utf-8?Q?Chuang=2C_Founder_=E2=80=93?= Logarcheon <founder@logarcheon.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
+	kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH] lib/asn1_decoder: add KUnit test suite
+Message-ID: <avvI1PuQUtBlfZWP@kernel.org>
+References: <20261117001711.47722-1-founder@logarcheon.com>
+ <avuumVbCS2YQi4cv@kernel.org>
+ <wzMUBnLl6Z2s-eoaXFHCl92wV6voRbr7imPSy9hdJzHqoxg3869_lCqHtMa3G5N3H0G9XfrGCW9Nzw0Vm0HCJhvNKkTUtUFDXuM7S821AIU=@logarcheon.com>
+ <avvFgRqiYnBo9Q7c@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,37 +61,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDX_0CIyPtq1HcFIQ--.40278S2
-X-Coremail-Antispam: 1Uf129KBjvdXoW7JF17tFyxGrWfKrWxJF4UXFb_yoWfJFcE9w
-	40qanrZw4rAr4j93Z5Za9IgFs8Jr48GrWFk34Yq3srArZI9w4DKrZ2yrnxuFy8W3yqyrZx
-	CFWvyF9Iyr1FkjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRKSdyUUUUUU==
-X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbC7QrtXGr7yIqVuQAA3p
+In-Reply-To: <avvFgRqiYnBo9Q7c@kernel.org>
 
-When kvmppc_uvmem_init() fails, kvmppc_book3s_init_hv() returns
-directly, bypassing the existing error path. Jump to the existing
-error path to clean up before returning the error.
+On Tue, Nov 17, 2026 at 05:09:57AM +0200, Jarkko Sakkinen wrote:
+> On Tue, Nov 17, 2026 at 02:39:37AM +0000, William Chuang, Founder – Logarcheon wrote:
+> > Fair questions.
+> > 
+> > Why at all: asn1_ber_decoder() parses untrusted ASN.1 BER/DER input. X.509 certificates (keyrings) and PKCS#7 signatures (module signing) both go through it, and it has had a length-validation bug of this kind before — CVE-2016-0758, in asn1_find_indefinite_length(). 
+> > Scope: the suite checks that malformed and truncated input is rejected rather than over-read, in the cases it exercises. It does not reproduce that CVE or prove the decoder memory-safe. That it isn’t vacuous: I weakened one bounds check in asn1_decoder.c to allow a short over-read. asn1_test_truncated_content then fails its return-value check — the decoder accepts a truncated SEQUENCE (returns 0 instead of -EBADMSG). The other 12 cases pass; reverting restores 13/13.
+> > 
+> > Why KUnit: it exercises the in-kernel decoder directly, with no
+> > userspace harness, and the cases can also run under KASAN/UBSAN
+> > (verified in my config). It is deterministic and is not built into production kernels.
+> > 
+> > Why in-kernel: the coverage travels with the code. An out-of-tree test does not run when someone changes lib/asn1_decoder.c.
+> > 
+> > I agree the maintenance has to be justified by the coverage. If the current cases are too thin to carry, I’m happy to strengthen or narrow them on your feedback.
+> > 
+> > Thanks,
+> > William
+> 
+> I'd start by learning to use the email client properly at first:
+> 
+> https://docs.kernel.org/process/email-clients.html
 
-Fixes: ca9f4942670c ("KVM: PPC: Book3S HV: Support for running secure guests")
-Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
----
- arch/powerpc/kvm/book3s_hv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Within past 17 years the total number of commits is 22. This includes
+all the possible. Of these total six carry a Fixes tag.
 
-diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
-index 22283d46e8fe..620097f292b8 100644
---- a/arch/powerpc/kvm/book3s_hv.c
-+++ b/arch/powerpc/kvm/book3s_hv.c
-@@ -6743,7 +6743,7 @@ static int kvmppc_book3s_init_hv(void)
- 	r = kvmppc_uvmem_init();
- 	if (r < 0) {
- 		pr_err("KVM-HV: kvmppc_uvmem_init failed %d\n", r);
--		return r;
-+		goto err;
- 	}
- 
- #if defined(CONFIG_KVM_XICS)
--- 
-2.25.1
+That makes about 0.35 bug fixes annually. How do you explain this?
 
+For me this looks whole a lot like LLM lottery i.e., sending random
+and useless patches in the hopes that something might happen to get
+in.
+
+Your previous kunit supports this point of view given that it is
+a possible "LLM remix" of a patch (kunit for assoc_array) that I
+sent a month ago but we discarded the idea in favor of a better
+solution.
+
+Stop doing this.
+
+Br, Jarkko
