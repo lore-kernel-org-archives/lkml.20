@@ -1,89 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794933610;
-	b=dFrMOd6pyjd4Mj/MxWIgNoCSdVhbb2yZlRAdZV6W+DsssNbaStHd2xMe65NJ8C0XONGi
-	 BtvVaBGpfFNQKn3uQcAKmPlbfCYJybQyGzLcvqc4DfwfgWdnTHRKOV0eiCqXF8NqJMOpT
-	 +LCpB+toBVD8vK0CRuXcQjPTABM2hyUYb2VIdytmNLr+65oaw1l9numRkwBLsamrEtXQe
-	 3DqAn9CDJIl68FZXMTOqBzSw4eIQuTP7P8n+lfJ0Q95yhzqGlqECAWSG+ExgdfyXVL2Ki
-	 JznHjf69ZAzp2zMBonRCfGg8LFcob2RtxG37LoIdmwz7RM7JiymEA0TeC3ifjiCC88Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794933610;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=DV4b38CcVigt3fSdaqPuGNDysKZiLQAbgGKBk8RFyiw=;
-	b=r5o3ledaENqqMrcfDmpyBBGb5fF3IjfvUobCVcmUm8pUuFVwqiCKSR0+nomj1gYWNZ4d
-	 8iZoFJNEMt+4yFEciZFhtewq3F+g50S9v7p/36hZGnJpY94O288hE8gP+Y0P7ezcAoQaX
-	 AO5arbdKV7kjXZLbC7qSslLjs44DZyFjmT8odn6ydsmunaUufQ/RrpUEztbmw0lju/I9o
-	 76vj4ewVsUUFYh0zdtycGQQ2BGX/GuuJUYN3P/0Eu4sUKQ7YhIA5AdB8i2WOMWEN5tCs/
-	 gnzNeNuMkE5BLfWmBodPoiBf3SFFArmY+zc8v0AQkccvgE8OCXjiLgfx5QoX9r738FA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="B2V2B/k1";
-	arc=none smtp.remote-ip=209.85.160.47
-Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.19
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794933624;
+	b=YdI5bO9/qv0c3Rjh9WaFVk6QG5Eds14q109EvJxowN/w3LU7MRXDUeHr53VdqCJmYynu
+	 /7BarBnI9hG5FDHjNLaR4nu+NY8AA1NuhAayfDYCHECF+uSt5E5G1wKj/ITR94JlDcxN/
+	 DK3tPUG9OyOGhrEIzm/eqmMMSOysd7j6kJdYALVAOFJoIcbEXA678UHf6WGgkKOIGzs54
+	 sXJFrJL3VJP4ZmUe8Q7v15IEaswBjE/z+aHAQWDQ5kYlKgXbraZE5uDEyGa38crpLEPFu
+	 SH2xj9YAthSeYTZnKCD4t+iV0C5YCR97rrPwTanzK4MwDkpVB4+b6hlC6TWhcnZK18w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794933624;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=M727wGkLTtjAZnjOX2TNbeV+MnJ9WDQlWKzRHPAV2Bs=;
+	b=A6tjbSDRAK3ugWAFSq48js5F5lN7Jm8G6ETGk8FoK1zrYW7cqLgg5LbK6phIG9Yj8Ipm
+	 G8g7SbATxFwxu97KaWcJms7Mn2URMnpIJa4z0JbDDxHNA5ypN8w093D+HlC2gLhA3s0tF
+	 XCTS4WPUETlId4tDVS1m1XWMHawLyGP1kwt2XHFjzzm5g5bOVwBhfNkOSliDmi/vpqCfo
+	 xDlGZt4zbFQDgyxC1RMgOId+CL8wkAWnjr2Y/J9Zv9BDfDrFZfzE88oJ2tr6AMtkgX2OT
+	 jXEOg5OiDhUX7d8GgDtL1SV34SUWkDsdABmqSBDFv1PpIYwFFrVIgrCuZiiYUdoRF7w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=b7O9dP4g;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.19
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013019.outbound.protection.outlook.com [52.101.72.19])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 891A5606A32F
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:40:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 891A5606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B24B606A32C;
+	Tue, 17 Nov 2026 16:40:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B24B606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B2V2B/k1
-Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-483d290f398so3252794fac.2
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:40:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794933609; x=1795538409; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=DV4b38CcVigt3fSdaqPuGNDysKZiLQAbgGKBk8RFyiw=;
-        b=B2V2B/k1ENbb5cOuJVzSrspC/eEsnIWd7CrCELRHJMLBanLffRr8bSll/DACeB8dp0
-         3R4M8j3GmT+BmtoZdNBF496uEJ2ZyG4Kj+2MLbJB/dXpt1YUgPNp+gHAuPd7T7JcDIdA
-         wMSFRqtMqsxM7EcEIQYeSq8XOOqXYZwArRxvoq4a2kikVjzbLSO+24bCK8VRxxcVP6V0
-         nbW+8U5M6vNd6M9UqkvaVeFuWRxLYgCnK0kHqQDrj5MS9dBzY6TV9H6/VdmfC7osJSZx
-         4RniRUfABrBHmj9yJQ/THGAiNnW8O93VBmzE83jnEWXYRZx+wK6ABAWLTEPDxJxWk/hM
-         jAtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794933609; x=1795538409;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=DV4b38CcVigt3fSdaqPuGNDysKZiLQAbgGKBk8RFyiw=;
-        b=cBBoukFZkeWzj1HsTmn2xSIbjy6/oquhkRgg1772121LVYEG9eztLtMLshLdvqJzZA
-         Du9LOKVgu3EP7q9jcskAim85ntZ9Ny6hJNCmfHp8+ba3ADm0aF3cEGIPMQWePy0M0hv2
-         OY4xw05DsXfLlcKq+qXWHUgeKIJ0fNAdC6hG6rTLTGhY3HqpXiRBACW2aozUJSyiUVMf
-         ktxZU9BvB594Cly3odySNqfg8qhZ+FQgJkAyw4ot+eeafN4dflfHdN1IyemVHR6p0BZx
-         kT57UStCWxpQR5C9C0mrZB77qhdDDWd+aF/AZTQo+XeCUzlwzEfVRAlisX8xOna+obBi
-         N/OQ==
-X-Forwarded-Encrypted: i=1; AL+hErFloldXolPIoihoKrAZmSzh8xC08jLL/kC286k4MoTWfvz+4JGNcx4ItS5v7l4tHUZ5Ql6XMqI65SZQ6mw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+rb66CMhSw6c1LVhV+vxEdQehCsVN9qrBVAEG7eBzb1ekxE8FA
-	JUoawHl6BUGIIVz26spoKLg/9YIoKH0B9VjT0R5S28WgGq9BcOeVdPwQ
-X-Gm-Gg: AYBFou1b7i0Hkvq/58kA0gEdvN7DRYAOQ32LyMzePJtSt6QByfe0171S9aNA9VNUlee
-	pPOB7tC1EbJyK3vbzI2r5wCRoHoUM5T8mOACVn2Ksf1c4Pp13CQ8PY9IZYMBPcG12c+53udCCMW
-	57zGfEgzc9GU+UNwafnxcYYGn7zTc/gCHJzHe7HpnNzx1xywp7Oc9sR/3ZcF74oh4W1FN05Cqg7
-	P7yQhinbfSEFHhnt9xMhLhkOvHtJRJq5j5cVzWmp0mvqwqW+e9TcJDu/0zzoxiWjRVjOonGo04s
-	+bdnKqihpxsTpsz7plxKkzBrQqHoJu3nEZCJPY99bFiEsgMGc4c9oefcUX/HU9EXACqBPd+WKOp
-	9Yj1XZ+ylslKkm0P6rZWJBTCXfoFHvPO1RPABwrGI9+M3AcsJ94M7p3nUI+Boznb9UxqDl7YXzz
-	hxpJBdvKEe+d0foeaPcqguEv9fkksy5lAzIwzcVVnYr7/cUlFpr5PynOG8f/0H5QWz71yJSADV9
-	rRGi6NX9/Ru1ydiznwznMYXJ6s6rbw/eo+McyS2yQmEOnglDHWK02DFP2e8aJ0EVx3OkBR8hvPC
-	Nfg08ZcOpJw/a7In2Obko1446r+NTLEN+q86Ib5WP0HunWs7jXxD0FteDllGVtfxsQvyZOhnHiD
-	muJP7hVD9/Vfa2DUiD/wPCJHOSeoDSh4jDlPqpzsLel4xY5lMPM3AaOTjCZoOD9ANd26NwEoaCM
-	T43+H5AaT5CCuoYrV4Kvt4S9/iiNB6qLCbng2biqCBTM0mAS5XtLKsIw==
-X-Received: by 2002:a05:6870:392c:b0:485:d31b:775b with SMTP id 586e51a60fabf-4afdf3e5cb1mr12548756fac.25.1794933609320;
-        Tue, 17 Nov 2026 08:40:09 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4b70e175c93sm36148fac.16.2026.11.17.08.40.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 08:40:08 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Tue, 17 Nov 2026 09:40:00 -0700
-Subject: [PATCH net v2] net: stmmac: preserve RX checksum capability when
- offload is disabled
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=b7O9dP4g
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=APbUymgVH9GuhIot43wWl8w2dWdYodK832W1UpM4eDz82w4vRwI+b+gVr3SdhRXyzfxzYlvhx2LXbStGR0imlc0LLycPx4Jh3h97JaKOfe17h9b2Lh6YT8/l97X5drs9PVQ1Xg0Whf/5yk4jGrB57jPh/0CAnjR8NgM0LGZjB0n3ZvqI1YyG1NZt9Q85DhAkhHW8tIu2ooo5veEEQxyoxuT0zrKRpA2kqoQTDi47+UyEXQP7fUARwwxYzYVbLtzIeCbpLbIpdiX63W3QdDBaiibsBP+RgWGQQcVhKbaqGuHqAu9cc/lKnLOZHHpsoH/Dn/kzx4AtYO12NvSBmVspVw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=M727wGkLTtjAZnjOX2TNbeV+MnJ9WDQlWKzRHPAV2Bs=;
+ b=rgnljJjdqANjkOdEAtnsjsvfWpNUI2y2QmvKyoGVOX+cvgDp2SQ1iV+qTR8Ey72qzk4CQS70PphmLwSQ89JvJPIWp5Zl8u9LdVi44e7se+GrydjIoMtYodv2ludYUQvDZ1ko4haOvl4txfWV5xvNz5ZamqbKia4PbJj3dh4gKoeZQPLzjBMlS1AaZkjryErt8aHmTZMBUgP45VRprUkM9lT+87LQQn8z4lLvWb79nIAkcDgVtofsUp4AKiTDL8ToGT89LQHbZo2VwrUU3xz0N+nNG2Z04aLlqcEgOEWEHmKhgFxHAh+IygiRxnVJ8DegNfWBfB1LyGbgeX7wPVfOvQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=M727wGkLTtjAZnjOX2TNbeV+MnJ9WDQlWKzRHPAV2Bs=;
+ b=b7O9dP4g8frz1JXvQKD4u31NDdFfVIsupWJCftxF54MUkd82JN/b3p+SnFpU85X65h9Fj98MkUXwmVa/GoygjGpbgqUwJwQY1RKFB8r/a+Gnk3MeFyzD6JINd4C3TCmwLM3PB7OvmHb9DeP/GLMOC1xnsIK8SITI5/qymlSLiCJGUK5lepsiRP7i6UlCjx741IDlCkPPRH6lzvHYq4s8DqhNYU93hMb9dMWURhr93vLgX/OfobeSpCeq1VK2ngojaxNF2BmRpNDnKiATZRHJ+f+ts2PNES6eOT078LgAmbvwv9s6+lYbTFBd9Q3E1MfxaFiAIJr2mSoGPazC55g9dA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by AM0PR04MB7155.eurprd04.prod.outlook.com (2603:10a6:208:194::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
+ 2026 16:40:21 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
+ 16:40:21 +0000
+Date: Tue, 17 Nov 2026 10:40:09 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, Frank Li <Frank.Li@nxp.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Jon Hunter <jonathanh@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@kernel.org>,
+	Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev,
+	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev, linux-tegra@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH v6 0/9] dmaengine: add DMA channel bus and fsl-edma
+ per-channel IOMMU support
+Message-ID: <avyDaU3oLRCMWDcz@SMW015318>
+References: <20261112-edma-iommu-v3-v6-0-b038edb8ce6f@nxp.com>
+ <20261116193021.GB2452510@ziepe.ca>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116193021.GB2452510@ziepe.ca>
+X-ClientProxiedBy: PH0PR07CA0074.namprd07.prod.outlook.com
+ (2603:10b6:510:f::19) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,78 +113,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-submit-stmmac-rx-checksum-capability-v1-v2-1-059f9499c386@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WOQQ6CMBREr0L+2m9slQquvIdhUeoHvlogbSEQw
- t0teAKT2cxkMm8W8OSYPNySBRyN7Llro5GHBEyj25qQn9GDPEklhEjRD6XlgD5Yqw26CU1D5u0
- Hi0b3uuQPhxlHgVQpdUmvWZbnEuJa76jiaSc9oKUAxS+Mey8yYWNstYZ96Ny8/xnFXv4bHRX5W
- qpKn1WWl3SvrebP0XQWinVdvyK8tL31AAAA
-X-Change-ID: 20261115-submit-stmmac-rx-checksum-capability-v1-ef6645788992
-To: netdev@vger.kernel.org, 
- Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Giuseppe CAVALLARO <peppe.cavallaro@st.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.17-dev
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM0PR04MB7155:EE_
+X-MS-Office365-Filtering-Correlation-Id: 774711b6-c958-4b5d-497e-08df44c97877
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|1800799024|376014|23010399003|7416014|366016|22082099003|18002099003|261009223027099003|11063799006|56012099006|10067099003|4143699003|261028144727099003|261026121527099003|261026140227099003|261022105027099003|261022075727099003;
+X-Microsoft-Antispam-Message-Info:
+	EFa23NMftRsM7EaJRlWoJ4fiiURk1YfKi0LdmErb48GBBu1rBjMmxjAw0dwf0EFgkPeYQ8koVBiAVnm7Nnl7e8gEWWGB5hHxagrQP8GLccXQIJ53GC4mgrm8yHIacWOk6/YDJArPu/7kcIMyf7HAKmUeNTPojUjU4O4cN4z/plUQo+17e7tn7fklungvniH7XDKEuBKh14gsaX9MOCQFTdIYF1SBtoi913OIidLlRJOw0QPIwFR+NBecYvGeHF/ggoIjc9+c627/wIL9MM7xka8BZ7mLN0fJ0u/kcI9fWBXHYANPhkg7whADTWKSLopF8wAbdObONbKH3hYqDMgcyk5d8lHFI8eEfEQ5m5chocRXNZcLV/fTMU8o3qADI/4mJa5jz/H7b7YNxjqErI6Xz/YJebmhjvbcn2A4zJOM3NAqmUv1Cr7LEBWH0eFh7S33Wj3ecufYOEL9/wRYkP3PYuJxXT8zfA3qNcdpN5J7j2GNnS8TS8ExkzCghR+8scWWI/z9P269tBpsp93jHjX2w2sdbbjaN0wlk2LlQ4TZVOsTCWkC8nhQDPpE+IURJVtyVONpzmO7wGCOeRtfU5AObPh+nsZTesku4YIssdd8s51bQ9unIaGTBlKuOeCaji4s
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(376014)(23010399003)(7416014)(366016)(22082099003)(18002099003)(261009223027099003)(11063799006)(56012099006)(10067099003)(4143699003)(261028144727099003)(261026121527099003)(261026140227099003)(261022105027099003)(261022075727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?RHOPhWL/yWWQMobudAPm1Ti3BVO4fIDecWMA5HZwL3FTMJH+KkMg6zTjaBFL?=
+ =?us-ascii?Q?lX0kAp2tiFTNb87/Tdh8j2VWng2WpKCsNGxRNYt4yoJQ8XHTjQJYFf2wwBcq?=
+ =?us-ascii?Q?DZXI8ccBL5oG6kRyxFHEx1JLqVpzthxBPX8+vC50H0e4E69wYQCh3rTB8K5U?=
+ =?us-ascii?Q?voniCHa1J+GJtQuxV7w9QgtFl9jsCYukBb+gpJMT3dtzM4NmBKlu6AwOnjYn?=
+ =?us-ascii?Q?63vh2HJgit1s/AoJVc7bTXaF5UoGIpcWsni2rSVPVUcsnwvDUBGT/ML55oHL?=
+ =?us-ascii?Q?lp8Z+06BEoNy28dVWFsHx5QSzv3ld2fUjzHf9KQmKetwAUEZ9vDIyy4aAXb1?=
+ =?us-ascii?Q?8wT4zshL6VlogmGz/Mfxth7gqPI8+xegIMeYUTmL3RI6ZcPzHF79JKoMFCVX?=
+ =?us-ascii?Q?m6h6HWUk9B5VIfJMbxz9glVj9/y3iVROWCxYKdFK7b6F0y6Af5+wGUmvo2lL?=
+ =?us-ascii?Q?yY+PSVmeP03EZhNmcUSZLDn62qjHrZcORTxkD3a5mG/v5Oz2AT1AeS94PMj2?=
+ =?us-ascii?Q?sjIj1qOruBbDLmtzm5Dd1r6WFfE9yIlmQC80lSs9ih9InWQetz/CkOn4K9fE?=
+ =?us-ascii?Q?bCPeGjIqogxYM8n7xKAa9B4lOuj3KCg9opjx8ltWJF5O8pJl6hIyCGjFhj8O?=
+ =?us-ascii?Q?tjZlCxPnLM5lCElxhUF0NlNLiXllFtlS4CZpvWW0HlnYgqXUMqWU2k7FCso4?=
+ =?us-ascii?Q?2XOl1p+7m+xaPhuMn847sQomRYgsdJJ30x+eoZXmzUOns73FLxbBQFjRtq8+?=
+ =?us-ascii?Q?Go/Kxymn5vEKP81gWDLi7U2QjVy7/zBQmZiIlUcJxnnsp3RZigP/3WvTZcg/?=
+ =?us-ascii?Q?AN+k69Y4HobwiD2WC9L0PqXqitETljDV5y+kPA0a5XVDxNLtGkr7cqBbaG1h?=
+ =?us-ascii?Q?aq2pQaaPyBMPZ9JR6evES5oF1Go+sAERKFeBf5dNUu+YSIWlQ9bFq3/hyyPf?=
+ =?us-ascii?Q?LITKIHmtgzxpGBDfHo/4fT8P7c3OShlriwT6k/3iCE9qZSwgrV7suUXobMkF?=
+ =?us-ascii?Q?NlAjdvjygm/Z9L7jyiy49cFORNk6W/fH+7Pq6SCiRnYcKO7fvcF2bKmax9NB?=
+ =?us-ascii?Q?wLXxXdt554IaMvZMhlmbqPFwQAqjXtzcmmTThPfvLEXeSH7gg3ibC9qJ7tck?=
+ =?us-ascii?Q?RsaTkC+qvRmcpbRmcgDTU0/N/O/t6/Sdq4g0yIvYEbCfWKZVWnCpcwCO8wY1?=
+ =?us-ascii?Q?WKCyPo88nRmdLHoJZoYBiASYOzQT3Ip3dHHyhO5F5vOBBG4MiyJB1tq47Aqw?=
+ =?us-ascii?Q?Yf6daUSjpjadfaLmTUEs3OGkdpq6AuVNd7D958l66rz9TqM3LmJfE0Lks3Zt?=
+ =?us-ascii?Q?QBWBCiO5BHnxUf/FR60Ntrs2Kw/2gvUbCezrxxUdFnSTueW0hDn5aPs1xRqD?=
+ =?us-ascii?Q?xEOQnSSocyCL4dfO7g8yKFcvo0/LWxcUen1Uv0RiOBr/aaRxSHgxhf5TDm8u?=
+ =?us-ascii?Q?eOzILxM4eK4/emN8urqfLPUoFtM67OIuceMFrubn/Yw3Ze14DxBu3vtw5jeS?=
+ =?us-ascii?Q?TDS9tiRKjmEGCGGSbKUq2BqFersU7psiffg/PXqEASGdaNK1AftYnlMjFEog?=
+ =?us-ascii?Q?jCn7i2B73zWb+5y9jVvS9ntpcV7sMR7uNsBBDvIn+X51W/mP0eItX4puSgGT?=
+ =?us-ascii?Q?ddMH6HKsN8jhIyE0dMCXeGodaI+SozV3vCqZ31lVPCvpV8uNs2Nt5Lzzp1sh?=
+ =?us-ascii?Q?CQrv2N2vnqwhCwbeKTwqNv/9wfjZuRfpFpKffo/vMC3NpTIOmvHKZA6FfY5p?=
+ =?us-ascii?Q?sIET0ZIiwzqAR6DXTP0gzYWbdZwYzeG4F6T0FawYzq3WT8YGqDaq?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 774711b6-c958-4b5d-497e-08df44c97877
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 16:40:21.2601
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: b2/km7n2Wj4t3YlVn9HpdlVubuUt6f3I4wDNeZSuR0wb5tQhHOO4zSpvfswzVFcME7RSpKttJj/bL8IsYO7q6Ec+xqDEofWc2NG65BRf0Yna7Cy4GgM1rSlpNtZV69jb
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB7155
 
-The GMAC, GMAC4 and XGMAC rx_ipc callbacks return whether checksum offload
-is enabled after programming the requested state. A zero return is
-therefore expected when hw->rx_csum is zero.
+On Mon, Nov 16, 2026 at 03:30:21PM -0400, Jason Gunthorpe wrote:
+> [You don't often get email from jgg@ziepe.ca. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> On Thu, Nov 12, 2026 at 03:53:03PM +0800, Peng Fan (OSS) wrote:
+> > I used iommu-map for eDMA, but iommu experts rejected it:
+> > "Using iommu-map to describe synthetic dma_chan_dev devices that the
+> > kernel creates is the same kind of DT abuse from over here:"
+> > More info: https://lore.kernel.org/all/20260917144804.GI3196566@ziepe.ca/
+> >
+> > So I followed here [2] as Krzysztof wrote for QCOM VPU:
+> > "Thanks Jason for context and detailed arguments. Robin did not chime in
+> > yet, but from what I understood the DT-child-node approach will be the
+> > way we should go here.
+> >
+> > I accept above point of view and I am fine with this, thus Vishnu and
+> > Vikash - please go ahead with DT-child-node solution we had some time ago."
+> > [2] https://lore.kernel.org/linux-iommu/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org/
+> >
+> > This series adds per-channel DT child node support to fsl-edma and, as a
+> > prerequisite, introduces a proper bus for DMA channel devices.
+>
+> To be fair this is discouraged too, now that I've seen 3-4 people
+> trying to do exactly the same thing I'm not as positive about the
+> DT-child-node hack.
 
-stmmac_hw_setup() treats every zero return as a lack of hardware support
-and clears plat->rx_coe. Disabling RX checksum offload with ethtool and
-then reopening the interface loses the saved capability. Subsequent
-attempts to enable offload are rejected by stmmac_fix_features(), which
-uses plat->rx_coe to filter NETIF_F_RXCSUM.
+Can you help list these thread?
 
-Only clear the capability if offload was requested but could not be
-enabled. Keep calling rx_ipc when offload is disabled so that the hardware
-is still programmed with the requested state.
+>
+> Can all of you come up with a proposal that doesn't involve hacking up
+> DT just to unbundle the SIDs?
 
-Found while investigating RX checksum offload behavior on H616. Maxime
-Chevallier reproduced the capability loss on AgileX5, CycloneV and
-STM32MP1 and verified that this change fixes it.
+What's you expect? Basically two methods, one is use iommux-map, other
+use child node to tell SIDs informaiton.
 
-Fixes: d2afb5bdffde3 ("stmmac: fix the rx csum feature")
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Tested-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
-Changes in v2:
-- Correct the Fixes tag to reference the mainline commit.
-- Add Maxime Chevallier's Reviewed-by and Tested-by tags.
-- Include the discovery and hardware confirmation context.
-- Link to v1: https://patch.msgid.link/20261115-submit-stmmac-rx-checksum-capability-v1-v1-1-ea26fa3689be@gmail.com
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Frank
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 25894771e9e9..e162976be2e6 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -3723,7 +3723,7 @@ static int stmmac_hw_setup(struct net_device *dev)
- 	stmmac_safety_feat_configuration(priv);
- 
- 	ret = stmmac_rx_ipc(priv, priv->hw);
--	if (!ret) {
-+	if (priv->hw->rx_csum && !ret) {
- 		netdev_warn(priv->dev, "RX IPC Checksum Offload disabled\n");
- 		priv->plat->rx_coe = STMMAC_RX_COE_NONE;
- 		priv->hw->rx_csum = 0;
-
----
-base-commit: 5e9b2ad9b8384cd3c417cd5e2c3bc7eee4a72791
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git main
-change-id: 20261115-submit-stmmac-rx-checksum-capability-v1-ef6645788992
-
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
-
+>
+> Jason
+>
