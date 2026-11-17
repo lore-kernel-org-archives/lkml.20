@@ -1,49 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.143.172.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794920490;
-	b=CtA4J5FCDw4wPtQbKhaxncr473HykeU7fzJJ35hO6lu0i/gaBBzTquMaV3sdtmxX15IG
-	 v7OeA1AoQvz+/sBg11zQ6TklOA7wL1/Gj+3Zs6bdMskLXnt38QD9tWyj0VjHCy85/8fne
-	 yHrk/Y6yTzEkUUk5TgO9lps4XqFt0yskKZ6vSC86AeV9y8sGPHB3fK916/eT4LKNABZ6o
-	 x3h4XZk629cx0ho3vw+hs4b0okVu5ACrJK+lLtBSuX2dbClkWA3rTYFIMZx3L50boy4uu
-	 DXerg/mx4pA91bjPLeLCylza6WGSyHWmvQ8rNzewaAeuTphzCq1J9rYW08sr90FyM9Q==
+	t=1794920494;
+	b=tgXREEQ+SPWEfnpIdDe1dVaq6L2N39dvxlcKMjnrbYWSBwo6P/TIjKwJ0cwHCwRWx6QT
+	 6tr1Ohqpyg/K8NeiM0fSpwkUSSevp/WzPV2QfuJLkq9no+1SIkcVZEG8SkKvZrAXdpRwb
+	 hL0tCd9rhcW38+T5j5AL3/3SaXKhiZTd29o3wVLp0LwIEVE8Do5NP5SqAZ/0GOgYz3uNf
+	 DEgCW3O9VHF2X6E2Kc6hCdemTXWUEpzzPfq3Bm1m7XFR6Fk+1Dw46fmM1k8NMNKRdAfo3
+	 C+TowsK1gZYSZKvErMm75qh4kFhwyjgIY+ztnv3Xv5T7z0N5rz0avXe97+mI9LYdcvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920490;
-	h=DMARC-Filter:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Rspamd-Bar:X-Rspamd-Report:
-	 X-Rspamd-Score:DKIM-Signature;
-	bh=ha/bB78+e8GQK0KzBRWXcQpUb3057CMIuHiE/No3ruY=;
-	b=QZAzXKIjr6RxXtyETS1rWyv0DLJJIA2fbsdnJImSUzIsnJbm5uSUQXH8gK0SO+Qmu8WP
-	 K9FPPAaxt5u3k2KSxYPz3R6j9jkznXZfkLpAJzYbxnE9g8LLvz22Wso4Xh4L0rCS2xnvO
-	 XNWJAjG4iWhRPr1VgnughkvTnEFh7B14AxzpmofzRu064xU5G3p+Tbd+gLzI9wRxK5gq3
-	 9X1zjSFv8T9ZVzwAMwXZxAy0D1jSb+UDWZNpgHvkZsCLU/5swe6FB9eSwJW58DTf/VHWo
-	 rEBjF3FPXfkPycH6Ni0z81AwAGS3ema8bSWExLDxlH0RrCwH7GqirUvW25pfeMX1KiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794920494;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ayTEljGwz/C/9F1gwd1UVwjVow2ZOVRqTAfEDPNcmCo=;
+	b=MCaKXG7j0nBjBqnaMP7PcS8vdaBEQZLsai9YI8L8b9yUsuy3tckfMC80pbY9r1aJzBLn
+	 TmR8M9p7gOvNXZJIv46vol2Uom2BxQ2oyPqvgzOyLe0PHzCIoYVTe56NpLvlSkKYeFeFc
+	 1IMppNj/FGrrFSEWPr3c4O/HtXaGmdgNhlOMcRiwXuwNGgJ+MwPzt/BAjBRccx9HDRgEb
+	 //kBiZ7W5IVuycwAmP0LufmGFAo6TnTYOXTzE3qiPRBuJWyAr60900ELidfM10wueufwc
+	 i0ILcjH9VFa1m/mxT/R72jZBjp/KgquEYPBf+bL2KttEoVDBNRsKcl6mq0KcWwypknw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lausen.nl;
-	spf=pass smtp.mailfrom=lausen.nl;
-	dkim=pass header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b="O/s6qHOT";
-	arc=none smtp.remote-ip=95.143.172.20
-Received: from mailgate01.uberspace.is (mailgate01.uberspace.is [95.143.172.20])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oLXy011t;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CCB1606A334
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:01:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CCB1606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lausen.nl
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15EFB606A888;
+	Tue, 17 Nov 2026 13:01:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=O/s6qHOT
-Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
-	by mailgate01.uberspace.is (Postfix) with ESMTPS id 34FAA60D7A
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:01:26 +0100 (CET)
-Received: (qmail 31042 invoked by uid 990); 17 Nov 2026 13:01:25 -0000
-Authentication-Results: devico.uberspace.de;
-	auth=pass (plain)
-Received: from unknown (HELO unknown) (::1)
-	by devico.uberspace.de (Haraka/3.1.1) with ESMTPSA; Tue, 17 Nov 2026 14:01:25 +0100
-Message-ID: <94f4ea0e-c1bf-467c-94be-b65963410d30@lausen.nl>
-Date: Tue, 17 Nov 2026 14:01:24 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oLXy011t
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A11DC1F000CC;
+	Tue, 17 Nov 2026 13:01:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794920493;
+	bh=ayTEljGwz/C/9F1gwd1UVwjVow2ZOVRqTAfEDPNcmCo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=oLXy011tD0Lq2XmQGbPDQXGMNJhwNlcl7ow9id2rCTBLZY7lgGwg4Hq5cXNP2uXWc
+	 s4s2qxProB4VQtOIN6Zop9n05AEqH8Ak5MYY1s4tqVfmhYyEzV22KerCWaJ/yZ/wVI
+	 cLrTTJLrhPepY39XdjZNdK8KP7aMAiwR+g0VQgCLBr9pA3+/aHtqCniC1l1rKEk/h0
+	 Y0O9z564FqUJaenebFu3Lph65xPq7+IbKx/+V4r8IN+4gr8inBR2qM/mW7CABfMFUh
+	 Om6Tq1cgGQx3Y/EZjrERb6ecCV4OPuCmsv9JGy2YLq2lgUA3pJQtIlyQTkEMiKxVve
+	 U/vSZ2C9WgwRg==
+From: Mike Rapoport <rppt@kernel.org>
+To: Jonathan Corbet <corbet@lwn.net>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Cc: Alexander Graf <graf@amazon.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Chen Pei <cp0613@linux.alibaba.com>,
+	George Guo <guodongtai@kylinos.cn>,
+	Kexin Liu <liukexin@kylinos.cn>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Sourabh Jain <sourabhjain@linux.ibm.com>,
+	kexec@lists.infradead.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+	Mukesh Pilaniya <mpilaniy@redhat.com>
+Subject: Re: [PATCH v3 0/5] kho: fix bootmem sizing
+Date: Tue, 17 Nov 2026 15:01:22 +0200
+Message-ID: <179492040138.3797543.1666695922414228895.b4-ty@b4>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261112-kho-bootmem-sizing-v3-0-f0c8d00295d5@kernel.org>
+References: <20261112-kho-bootmem-sizing-v3-0-f0c8d00295d5@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,52 +74,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v4 0/2] ipv6: Honor suppress_prefixlength in
- fib6_lookup()
-To: Pablo Neira Ayuso <pablo@netfilter.org>
-Cc: netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>,
- Ido Schimmel <idosch@nvidia.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
- Shuah Khan <shuah@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261117110813.9894-2-leonard@lausen.nl>
- <avxPFYfEirXzTup8@chamomile>
-Content-Language: en-US
-From: Leonard Lausen <leonard@lausen.nl>
-In-Reply-To: <avxPFYfEirXzTup8@chamomile>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Bar: ---
-X-Rspamd-Report: BAYES_HAM(-2.99765) XM_UA_NO_VERSION(0.01) MIME_GOOD(-0.1)
-X-Rspamd-Score: -3.08765
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-	d=lausen.nl; s=uberspace;
-	h=from:to:cc:subject:date;
-	bh=rADLIekbRc7DQulYm0UC7PjojxKYHO40B+NwALaMdzs=;
-	b=O/s6qHOTjQMTi1wFZ46WSNmg8YUIFtWgtSm6vfaVuKKFRjjA25kuvNC7rUoMuSkBWDiYgK78Tc
-	WnxCZcNwdXTSD0L7mk9GHor2kbSCMjgNryaR/UD6kAJEzKroSZhgJgHrc6V7goa00JLT+UAwxwOz
-	oIc5W8IsNVnKgpB5v2Tfx8Rmm7gmCaZloALW2Jl9kwH/zkjNO2+CuMyKjoMKkR3lwfoiaYLb2k1w
-	pM2jcUL/8CtbJvvhfv7W1ImCvB/YaBa6k+bPpuxLSJ+4mfO1n9KhcLybzPl2xe1VTljL7oJ6/wWH
-	KNcVDEikgARutOgAfgNCCvVe9IuaNQAI/61uT+uW8TjZKJQ6u5K3mJkfxnASdKt21EAuvsMf9as5
-	M9xObbNPEB2v8+uvky8vP2dmLSiDB9QMxQl3e0jiOIrPBwPkhrhw2DHasvKB5/5qNNTQ6HrIiov1
-	LJgFihCo9JhtCuGD0SE1/1N6VUYnBVHbk3scLJfKfjeDjPiB83/MCw65rYKPJncYGhX0EDwjuZUn
-	XiwBCCOcWmmgR3ce+RdNvWz263kG6Zt4xaTGrsya3UhmRt5KjjJgLObITHrC6LDVdUUkGoWNZQid
-	BkbCj3/t+FS9Sby5lZpEZfxuzBYE5j8xXbTJUm9duwgOPvhUVu4SFAqOOfGrtUQk57j8pvFd+G48
-	w=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Am 17.11.26 um 13:56 schrieb Pablo Neira Ayuso:
-> On Tue, Nov 17, 2026 at 11:08:10AM +0000, Leonard Lausen wrote:
->> This revision removes the cached-exception patch and its PMTU test, as
->> requested. The series fixes the nftables regression introduced by
->> 1c32b24c234b and leaves dst-based prefix suppression unchanged.
+From: Mike Rapoport (Microsoft) <rppt@kernel.org>
+
+On Thu, 12 Nov 2026 12:38:52 +0200, Mike Rapoport (Microsoft) wrote:
+> There were several reports about issues with KHO bootmem sizing.
 > 
-> Is this a LLM finding? Or a real issue in production?
+> The bootmem areas are sized from overlapping views of the memory reserved
+> in memblock, so on NUMA systems memory allocated on a node is accounted
+> twice and with CONFIG_NUMA=n the lowmem and the global areas are accounted
+> once again in the area of node 0. Besides, the lowmem and the global areas
+> are reserved even when they are empty.
+> 
+> [...]
 
-This is a real issue. Without the fix, Wireguard VPN does not work with 
-IPv6_rpfilter=strict firewalld setting (default setting). See 
-https://github.com/firewalld/firewalld/issues/1600
+Applied to liveupdate-7.5 branch of liveupdate/linux.git tree, thanks!
+
+[1/5] kho: reject zero bootmem scale
+      commit: caeb2173b83441d991171dbbaa59455dae5399ea
+[2/5] kho: walk bootmem areas in address order
+      commit: f117bbae706f44c7dd1e811d89057d1dc7886554
+[3/5] kho: skip zero-sized lowmem and global bootmem areas
+      commit: 1010dc3150fc835695df7b21cb9d56016477fab8
+[4/5] kho: fix bootmem sizing
+      commit: ee4505fe8c4490827244668dab3659c100f4e7cd
+[5/5] kho: docs: update description of bootmem regions
+      commit: 5b27be339c42a7540eeca5c179e7e0bbdb7a4cdb
+
+tree: https://git.kernel.org/pub/scm/linux/kernel/git/liveupdate/linux
+branch: liveupdate-7.5
+
+--
+Sincerely yours,
+Mike.
 
