@@ -1,57 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.153
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794917848;
-	b=Quvx8dfj+rwuDo1ehhy9Ug11QRfxj8Vk2yZUZceAKch2xCZOMIrU7epprdTDRQUhIDdK
-	 U273Fv9LLX1KlPxQiV8KOq5Z097TBr0kPUK7DoyB5kYnf4fxucu9004NCIttUfh0keP9/
-	 C/hZss5mMVnvcxyirZcyIGePrBT4oUNPVNHvJTS8moC9D/m+Hwm3lXUroeCEYwuX49Kk4
-	 bUblWkXA/YxBN7HT/24JPtXw3F2bpEIMPlX5Zr4Ir42AGdIJCOjltnoIkD6N7qIvf9oss
-	 CdtW5Pviq2e23jkDND1SFDKksoxaNOvpas5YrSg36uBVfPyMLPdwnnIxaMz+pXUTJ0g==
+	t=1794917849;
+	b=H6p4FRKejqQy2HQJ1APVS3SiGwRCxrv4bsyWo4T8vmv+FcBjXbuFbBoFjhy1PNtT4AqH
+	 vPfJja6MSEs/uQAvmu3x53hL/nioVIhG0iYDpSDGZD+/BOQneCOpyeEp7AKFTAzGHUnXU
+	 6NvCQOjwx3aHQxWUDs9fuddaj7C89DAUKtGAdyv43sW7zITxHSx3UI8wlvPnIUQNK9X4v
+	 fec++Anc1xb66QfaovkimuOztmYLosZNixBSkXHiQaLXDKYMlmu69GpsjB7Oyu+Y32stT
+	 dVuXqEHCwFOhrwK74MRYdOxGjVZKQLxRuM+JHcLmqOLWvO8ju8hyBHg9NUD+sXd2YbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794917848;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=jNT+l6BO0P+Rjx7Z6tCld6ldi+lTIwnNQobYF9qXSic=;
-	b=4abL+8MmsyLDzqRa85C6Z5O3foXVsx5L0a9/cHJfbAhWE8C+w2c+Z9N1tGZvLpj39jy7
-	 NINOp4iNTCFgGWvQm0snzIXAzk6njJaNl530Dx0UvrWk2zAbglgePwYAqyz+cQ2GqDGkL
-	 a+/X9GMPb39JKSZE+I9pNbxENtjwPr0nfDze5CxjxE3uyzD2Sp72iVCD9G7nmIveZ9B3L
-	 XSFJp7yvVe1Q6KiiheF1BZ1yTytVca+qNPjv+jrEg2nK2UL4pLepMCQYtxCWiVTwkGoiv
-	 54oIU8G8yiehLIosHIv/jY/M8K2YahW+tFsuiIz6K6rP4YKNqzcEYxAbOSVKbcIwMHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794917849;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=AXXxMPEgt9eEKJpgwYhNgOqc1sWnNe7LivV80ncHudk=;
+	b=Iz5+/H56BpZZRz9DJcQwvn3qQuYAmYZV7SE2G4dgeQSv4tbBzn4toxrevodgkaQPauQn
+	 GJyIwAwt+m2nKDObxo9mXGdfabvmtNpnpNimaG06NusY9nww3TkkZvB/wi8Z6hsWSDqZK
+	 cV9l7iXIucGbP5+tuSOf4k+6wZfsM5rB6Cp+39PDERXVYHdtJxXM03D1XFVExkDQJrEll
+	 UuegIaGzINFNsGTNngphjjxbzSQClaCNZWoFkwpk6G6axksp3K3InXWeP6ken3/+WI4ZK
+	 GeONyfdeWu24AuSuW2rveVK8/oJuoY74JEgqxoYZaxCI5gMlQNcanzqtFkSA5qXgIlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hfa3r9c5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=BEJ1Gyie;
+	arc=none smtp.remote-ip=203.205.221.153
+Received: from out203-205-221-153.mail.qq.com (out203-205-221-153.mail.qq.com [203.205.221.153])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D27C2606A33F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 552F3606A335;
 	Tue, 17 Nov 2026 12:17:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 552F3606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hfa3r9c5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D99431F000CA;
-	Tue, 17 Nov 2026 12:17:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794917848;
-	bh=jNT+l6BO0P+Rjx7Z6tCld6ldi+lTIwnNQobYF9qXSic=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hfa3r9c5j2esRkqiN9wTo1ASYUJcd4lQRrLzXuUgcpQ29+BpAFDi609CQXVmux5H5
-	 lRHvc97eMFBhPkUoZZAEX7o7iR6lSyJgytpQqfTRkkR4WTx4H4L12VuVXVY0A+Vk/z
-	 kg2lk8Z7OqOguGKRg2QtOxkAWn05TW8NDb78Yz0eB1p92bXkh11kUj6lO00J4IElsK
-	 pJMMxu1tgbjtMdNIHxLUS6Z2jx1Pk/7TV95dBsRDfZgDl1v4BDv8ovNx9jk1UJuRW3
-	 +zC399Cr6wD/HHgGv6D84FczMP7AOtiFWtsBqm9vwwsrmc7lDy+zl0UnkE65S0Wpjo
-	 UD68dsWKtMUcg==
-Date: Tue, 17 Nov 2026 13:17:25 +0100
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Mikko Perttunen <mperttunen@nvidia.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 5/6] arm64: tegra: Add node for the GB10B GPU on Tegra264
-Message-ID: <avxBUt6Yo3oKbEZI@orome>
-References: <20261029-b4-t264-igpu-pci-v1-0-4d843dda0b02@nvidia.com>
- <20261029-b4-t264-igpu-pci-v1-5-4d843dda0b02@nvidia.com>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=BEJ1Gyie
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794917839; bh=AXXxMPEgt9eEKJpgwYhNgOqc1sWnNe7LivV80ncHudk=;
+	h=From:To:Cc:Subject:Date;
+	b=BEJ1Gyieg1w+Ffqka4yDC1j4x+ap2Fe7avg0rYAIIEGN3ZdM/xAXjm2WDNXiukfwt
+	 iqdhdaG9ywvkL5FAQWd2VlniDn/VH1iNAWpmQYQdE1WprQhik2RmetyrDsCw+dOUd2
+	 R9X28WQ/gPi2ghHHuruW7rUkJXD991p7DEtAxNg0=
+Received: from DESKTOP-6LNKCJL.localdomain ([114.245.39.251])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 44B0D697; Tue, 17 Nov 2026 20:17:11 +0800
+X-QQ-mid: xmsmtpt1794917831tpiumovc5
+Message-ID: <tencent_1874C71D4177A1624528043E008DB1A5EF05@qq.com>
+X-QQ-XMAILINFO: NnYhxYSyuBnLvq4fxmrGrK5xu0mwsez5ZuhTDd2o4ZBNgLhhOOzPQ5wyJ55GxV
+	 A8vIc3TP23UGZcbrhJTNUNir9aPWa5PDRCyqycClygB3gvob2AObLneoeSYaTdTNhOKMTl+8Yn0y
+	 4JWrmJvMIt/JashDPWeHRJ9fwNh78wJqCqB4thDn2Dh4302Fv7EDGe6BFk9QBv637p5fl3UA+i9+
+	 NS2EtaovVYmJi2MwYnXQJMJeM7mpFSXwsQe9/ZKddA7jyqtl2vCio0cRQouos7BLQ7ErcldPzNdh
+	 +6UI+WFMVjrfWiv0DlP5YuqyBqa7Iu2BkjKoCQx3JVAWd0kIz02ceovlxu/Gy++kt3CmWxqHqCc5
+	 wglQYM2R+zFpyQ12NYh5xqu5uqeypWku/+zSfSpIzv24L6mIH0rCYwqhtwYfUOz4BRppoLdQT5iN
+	 jcHqvf4rGDyKsyOLxzgOjAxliXv58+yoF6W14KMbGXWTCeHP2n7e15FHm15MttiIlhDzVnYRxs3w
+	 GO4bNtI0ev/jtKqPr2kkzu2HY+lOi03P0Tns9IKAUc96iB0Q3P5dpHEXqXp7QG7nMMOJErUECUUw
+	 +4d0UeF3YG9/JLfGzZaYGhc4woSoc3rDYxw+tPObJsBPjuWRcIzW/r2DXOYXjKvrt7Qz0lE7PpcA
+	 ivTs9nRruDDq9vyqXpsOoTg7yzxpo2S353+WM3PdsPsf2dkeqZJbhzZa1X/oBFzPgIDRS4NCwmd5
+	 U1rWGkjPFaBY4gelj6Y1DltOWxOYn+OtzPVkOY+fxV9AYVXu/BqrEOSnQfxq6FeLCIVYa+NBghke
+	 x6V7MfenCXbvvEERXFntMPHdGYy4i8IRk9L+n+bOkWx5rdi2NTQmTPaEBUjHgLuS85ppzrS1x76I
+	 UZynA/2FONdyKSLmOjMHrDH0w7HdDbNHpG7+Mgj0GXfXyQKf1MsJdbCX6GQlPx2ZQgyMKRvyaEel
+	 qfh8f1keNjLG3R0ufduobkf9M8jBjOMiVk/Js89mhexr1/Lu47+ZQSzIjCKcKgln/kVF0Ve3DrAG
+	 SYoWZSox0WBLypJHlbXBKNruCPncvXAIi5FdgsYWg+3jujI4DOsl3UodFZ5twQZUhSa621x0sGPj
+	 f68vQpo2h8hd72LSoJXwcEY6V0MQ==
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+From: Jingyi Sun <1045704958@qq.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Peter Xu <peterx@redhat.com>
+Cc: Dan Williams <djbw@kernel.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Jan Kara <jack@suse.cz>,
+	Alistair Popple <apopple@nvidia.com>,
+	linux-mm@kvack.org,
+	nvdimm@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [BUG] mm: uffd-wp marker on a DAX file mapping: SIGBUS on write, endless refaults on read
+Date: Tue, 17 Nov 2026 20:17:11 +0800
+X-OQ-MSGID: <20261117121711.1088-1-1045704958@qq.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,76 +86,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="stybnbzoyez3jyff"
-Content-Disposition: inline
-In-Reply-To: <20261029-b4-t264-igpu-pci-v1-5-4d843dda0b02@nvidia.com>
+Content-Transfer-Encoding: 8bit
 
+Hi,
 
---stybnbzoyez3jyff
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 5/6] arm64: tegra: Add node for the GB10B GPU on Tegra264
-MIME-Version: 1.0
+On a DAX-mounted file, a uffd-wp PTE marker installed with
+UFFD_FEATURE_WP_ASYNC is treated as an already-mapped page when the
+page is later faulted in, which makes writes fail with SIGBUS and
+reads refault forever.
 
-On Thu, Oct 29, 2026 at 12:32:07PM +0900, Mikko Perttunen wrote:
-> While the integrated GB10B GPU on Tegra264 is on the PCI bus, it
-> requires a BPMP power domain to be enabled or it won't enumerate on the
-> bus. Therefore, describe it and the power domain in the device tree to
-> allow the power domain to be enabled prior to enumeration.
->=20
-> Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
-> ---
->  arch/arm64/boot/dts/nvidia/tegra264.dtsi | 6 ++++++
->  1 file changed, 6 insertions(+)
->=20
-> diff --git a/arch/arm64/boot/dts/nvidia/tegra264.dtsi b/arch/arm64/boot/d=
-ts/nvidia/tegra264.dtsi
-> index 5ab34cd09a3d..4c8b320ecc40 100644
-> --- a/arch/arm64/boot/dts/nvidia/tegra264.dtsi
-> +++ b/arch/arm64/boot/dts/nvidia/tegra264.dtsi
-> @@ -3597,6 +3597,12 @@ pcie@0 {
->  				#address-cells =3D <3>;
->  				#size-cells =3D <2>;
->  				ranges;
-> +
-> +				gpu@0 {
-> +					compatible =3D "pci10de,2b00";
-> +					reg =3D <0x00010000 0x0 0x0 0x0 0x0>;
-> +					power-domains =3D <&bpmp TEGRA264_POWER_DOMAIN_GPU>;
-> +				};
+Path (v7.3-rc2, unchanged in v7.4-rc3 and mm-unstable):
 
-My understanding is that the GPU is the only device on this PCI bus, so
-wouldn't it be simpler to add the power-domains property to the bus' DT
-node? I guess that's just another interpretation of how this hardware
-works, and I like how this power control for PCI devices allows
-individual devices to be turned on before the bus probes (there's a case
-like this on Jetson Nano where Ethernet needs a GPIO pin to be pulled up
-in order to start enumerating on the PCI bus, though I don't remember
-how we ended up solving that, sources don't have any indication of that
-GPIO being permanently set high or something).
+  handle_pte_marker()
+    pte_marker_handle_uffd_wp()
+      do_pte_missing()
+        ext4_dax_huge_fault() -> dax_iomap_fault() -> dax_fault_iter()
+          vmf_insert_page_mkwrite()
+            insert_page_into_pte_locked()
 
-Thierry
+insert_page_into_pte_locked() only checks !pte_none(pteval) to decide
+that something is already mapped. The uffd-wp marker is non-present
+but not none, so:
 
---stybnbzoyez3jyff
-Content-Type: application/pgp-signature; name="signature.asc"
+ - write fault (mkwrite == true): pte_pfn() is called on the marker,
+   which does not hold a PFN; the comparison with page_to_pfn(page)
+   fails, WARN_ON_ONCE(!is_zero_pfn(...)) fires and -EFAULT is
+   returned, so the task gets SIGBUS;
+ - read fault (mkwrite == false): -EBUSY is returned, which becomes
+   VM_FAULT_NOPAGE, the marker is never replaced and the task refaults
+   on the same address forever (about 3.5 million faults in 20s in our
+   test). The task stays killable.
 
------BEGIN PGP SIGNATURE-----
+vma_can_userfault() allows any memory type when only WP is requested
+together with UFFD_FEATURE_WP_ASYNC, so DAX VMAs can get these markers.
+Programs using async uffd-wp for dirty tracking (e.g. with
+PAGEMAP_SCAN) on DAX files are therefore killed or stuck.
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmr8RdIACgkQ3SOs138+
-s6GMShAArcrx6nhaieugr5wJethsjuUbTSbYRpsOgOzwxZ5OYxgBA7fVwgTlx4AP
-Rcvd+tEvW90FBxl7Ngm1M3/TJpSyydRF31CWUMFGIzMXvsiFJHkFhCt5R+TtQKCN
-lg7WW7vkq5ElEdxc8w2qSLBV1idfcLSPYuznmRnn0lMsZbWXBDRcEXBS9zfFn//E
-NZmOX3J1GGj29deR18rC3C1QcLYQnj68tBKQTXrePARhuelB5Ir2N95Eg3ah+yjW
-LrGGSsdmTJ4OPeSI5RNdaM9r+1v6E7bUQUVnnTv+cAFJq+y3lllduzXXynaPH1kV
-sZi41EKUlmL116fQShE54WDyOCq9nNdoNP2C5bsx6dJzeOIHSsg0UytwAYAPDUhB
-e01jIJ6w8hAg9BFx8ChZuOrFRkn3J73a4gFXFe3Uci/+tzaGcjJ0F4E1rF0EOgkd
-6WBPFXrxDjzfFTAu9/AeBWi5dJXiSf8G6ieJgkXcwQ74QJC/5vPMMudYTcKhi+eW
-3UE2gRgSapL0QDlEp6EANfa8huV7s1+PII9xymHqFzdQhjbDW/6rFeVJH91BRlV0
-Ai68z3yOmDYKtEP5nqxTO1cfKMivXcM69q1vxmcYgSVlRqaf3vJBwMzUBZ264mUC
-iIA37350bQBA0Y0Og11yeT9aZ1oMwDpcgO1SMjGKLbOMUqNbBDg=
-=BBt3
------END PGP SIGNATURE-----
+Reproducer (x86_64 in QEMU, v7.3-rc2, memmap=256M!512M as /dev/pmem0,
+ext4 mounted with -o dax=always):
 
---stybnbzoyez3jyff--
+ 1. create and fsync a file on the DAX mount (some pages written, one
+    page left as a hole by ftruncate);
+ 2. mmap() it MAP_SHARED, PROT_READ|PROT_WRITE, without touching the
+    pages;
+ 3. userfaultfd with UFFD_FEATURE_WP_ASYNC, UFFDIO_REGISTER with
+    UFFDIO_REGISTER_MODE_WP over the mapping, then UFFDIO_WRITEPROTECT
+    (MODE_WP) over the whole range; /proc/self/pagemap now shows
+    uffd-wp=1, present=0 for the pages;
+ 4. write to a page: WARNING at mm/memory.c:2495 and SIGBUS (3/3 runs,
+    both for an allocated block and for the hole);
+    read from a page: the task never returns from the fault (3/3).
+
+Controls behave normally on the same kernel: the same steps on DAX
+without userfaultfd, and with userfaultfd on shmem instead of DAX.
+
+As an attribution experiment only, treating a non-present PTE as none
+in insert_page_into_pte_locked() makes both symptoms go away, but that
+drops the write-protect state, so it is not a proposed fix. A proper
+fix probably either installs the page while keeping the uffd-wp bit
+(pte_mkuffd_wp()) when replacing a uffd-wp marker in the DAX insert
+paths, or refuses uffd-wp on DAX VMAs in vma_can_userfault(). The
+same !pte_none() pattern exists in insert_pfn() and in the PMD-level
+insert path; those were not tested.
+
+A similar present check was proposed in "mm: compare pfns only if the
+entry is present when inserting pfns/pages" (RFC, June 2025), which
+described the pte_pfn() on a non-present entry as not expected to cause
+harm in practice; that hunk is not in mainline. The reproducer above
+shows a user-visible effect. Note that returning -EBUSY for a
+non-present entry alone would only turn the SIGBUS into the same
+endless refault as in the read case.
+
+Link: https://lore.kernel.org/all/20250617154345.2494405-4-david@redhat.com/
+
+The issue was found with a research static analyzer for
+cross-architecture dependency bugs (it flags calls to helpers such as
+pte_pfn() that are only defined for present entries) and confirmed
+with the QEMU reproducer above. I can share the full reproducer
+program.
+
+Thanks,
+Jingyi Sun
+
