@@ -1,102 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794924923;
-	b=Abi9X3YXwM8DDcG7Fsgtxe6MfwdV8rEKSV+NOkSspo19V+kQgzwnkK6HXOzLT3T2PvZU
-	 48ZHStSbjRWDyxs1u4ip5CeZSWCbP+K9SbZzZyVS33J5gNRzb9X4xWtWuuuTHP/qhm2w9
-	 PsnwL/vum+HuqfJlHCnShhzs4i1ueQkT5LwRNNxYwXG3XEoQjf7vKT26A328NmWzwHQSf
-	 HJrxeruOqdlwZSr/4f8H+oqG8mIJqzaihE8JCK53KvKo2zz63NcCcF5JDe5IwDo1BSypV
-	 GRaaCpXQxiHFmYri8cG8/qStek+i4yMg/P0YQSPeINy4f91GgYiE63nbJjKT4EFI0UQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794924923;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spamd-Result:
-	 X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=/yRfYIBskde5gwPoew+i34JoQMqQKRpQXabN5yrleCQ=;
-	b=2I7Q1i3Ob8q82aJC5L75qTBNzpQCmt1QWZ9GJ9wk271sBT6Y0UWgHobu/nmzr2LLNq7c
-	 ob6ZNDBq39YH8YAPlidcv0XASA9xglCYeug/9xweKNpjvNA1NQYsPtUWnuPq671Rh+HE/
-	 pk/0nw6+EOVm10u7JicZGSs0XHyxv/Gq2rsRJCYma9NqAy4Rog0WZYEAYGNtGDYk0+g+T
-	 CmvMqc3WzH3/IHEVblE58wXa9wp/a7mjgWO+AZzLgG6gVhiVl2AWimWmQs+77iUKt1qhc
-	 J1C0teAm/5c0FtEe2Q2N3FswJvmIj/6WVO8uMZjUJzsbhjcizpdSiyqpV528Ezg77+w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=0jW3mJhs;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="Z/IQjX1l";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=0jW3mJhs;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="Z/IQjX1l";
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.191.125
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794924924;
+	b=B5sEygNbOE6x4QX5ctmgiyW2zaIZcTXhN2UeXkojqpIm2rR/6nmXvoKp/dH72OHPgc3i
+	 X5LKlU5z41+wNwbLG1RO23mqkd2NmLHuEk6lqPRseaNBLJpLXuouJcUCewbVlpvIVCjLH
+	 0ZCe4bhxO+zTUStVNK1weS3NMurpCFbkuwMiRtvz8TVImvTjDWir/zSk6SLPz52wexT3X
+	 iCqQGw6WR4nFl6L3MMC0fW8zJgG1dJDAkp16AOVj7njSWtqf41F25GseIOFU/zGyyNxyO
+	 +vSPvEWa9VmI7u+voXN2IG5Iqo5mQ/jGqftSVbyB+AaROUnahKtnt5TfO11qZEm1HxA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794924924;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=qXJVVJiA9TaoQslz3jafWjkC9oo7FGfOtE5p5gY4k/k=;
+	b=wOeNwvS/xZmpvItCarqJ3o9xBhiPfKaujWXvwMDqvF4vp4AWiObxkKLTycPAogij7uAY
+	 K7Ki4C5+leOkzNIcL8EBC3uiM6Zi/AybEYN0mrcyBIiewLfF1oS+XNc4DEDvhCxYgukhy
+	 x4/OZc1ajLhZB5aNW+C+JBkV5dZ/znadSsNhg9SERayDXFUhGwu2Rc2vIe28DuSNwZQ+A
+	 krxpMwY93IVIaWU42ZHC9GekTyXdd4Z8AIzSVWJg+fDXFTALrTGgfkFzmdMlct8uIE6+x
+	 /QLv8maCzaKDHLQEcp79Ga5gxRvKWZAxmniCOwcuzWrEteXL8H3m562jzsj4Prs0Fxg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=Om6fApap;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.191.125
+Received: from YQZPR01CU011.outbound.protection.outlook.com (mail-canadaeastazon11020125.outbound.protection.outlook.com [52.101.191.125])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7DA4606A338
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:15:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7DA4606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39E93606A88A
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:15:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39E93606A88A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=0jW3mJhs;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Z/IQjX1l;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=0jW3mJhs;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Z/IQjX1l
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id E190F223FB;
-	Tue, 17 Nov 2026 14:15:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794924920; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=/yRfYIBskde5gwPoew+i34JoQMqQKRpQXabN5yrleCQ=;
-	b=0jW3mJhsZonTHow49PXrw/7X8xegWzg8hyvNe5jB8I5Qz76CE90xltQwj/qXkapOUzbseC
-	mv1BU69E0GMbcbBLVzAjOe1tIi2PZ+uMDwohSXt3Dx6SpQitxCi4G0hXDBYF9VBC8FcnwV
-	P5X9G3fZeq8W/OBGRPHnZ5QYAOc+z6Q=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794924920;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=/yRfYIBskde5gwPoew+i34JoQMqQKRpQXabN5yrleCQ=;
-	b=Z/IQjX1l+elYc06SHHARaWBvoGDRz6mdgG4jUI5W4emYodV1O/kkB9JNTRaqRgx+47W0rV
-	ElfVxw1tcrkvWcAw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794924920; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=/yRfYIBskde5gwPoew+i34JoQMqQKRpQXabN5yrleCQ=;
-	b=0jW3mJhsZonTHow49PXrw/7X8xegWzg8hyvNe5jB8I5Qz76CE90xltQwj/qXkapOUzbseC
-	mv1BU69E0GMbcbBLVzAjOe1tIi2PZ+uMDwohSXt3Dx6SpQitxCi4G0hXDBYF9VBC8FcnwV
-	P5X9G3fZeq8W/OBGRPHnZ5QYAOc+z6Q=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794924920;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=/yRfYIBskde5gwPoew+i34JoQMqQKRpQXabN5yrleCQ=;
-	b=Z/IQjX1l+elYc06SHHARaWBvoGDRz6mdgG4jUI5W4emYodV1O/kkB9JNTRaqRgx+47W0rV
-	ElfVxw1tcrkvWcAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4772E13302;
-	Tue, 17 Nov 2026 14:15:20 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 15e3NHdh/GqxLQAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Tue, 17 Nov 2026 14:15:20 +0000
-Message-ID: <e113b27d-3065-43a2-a60f-aca3552f2002@suse.de>
-Date: Tue, 17 Nov 2026 15:15:19 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=Om6fApap
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qgknKg6jTgI3BTz3DW59HIQ4ljr/z8OSFavRMMWQUzwC9XKyaXxqmqNRje/wXHIcAMHK6ZRcqYpABoX5Y/+oOHgqFJcjhDIXs4sFCWbPK2M+4WwBkrbe1Mc7C0aY8Nfg4sHDa6P6duhjJaqpbxY/Aap958y89mTjGnH3/aLvW1tTPDVR77baJ3AlXDd0sCXD2W+t90MO4tVfA2kQ2TO/xZw5DiRUcOq1XKv0PIxI3RC5am00UpBSkQFv+zyNcIeCW7lHbixZwBZEmuW8+jWyJLbYn4JFfzMTm2oX7+m6jRcspgLcTskQ0hV8XCd9xxf14HGwxCW8gIAk+6jyHm3OTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qXJVVJiA9TaoQslz3jafWjkC9oo7FGfOtE5p5gY4k/k=;
+ b=L5bbIC5e4IpKUr7set1EWsdVh8bEVImsbfP+CQFZz2lUGlR9PdrmkZ3eHy+IL4ff8CW4P+M3tSIq+RrROXm7Lb4DZtYXxMc0tzMQqauYYIfqFbYMtxkNOsse9eGfzv1J0w4yAWdVMkQqPouWVbPj9FWcMmCshAzTspqln/49egeq7LQu4elDwZgQVhPDJYBXSOfCAoRWgYfOui7D+Tl54++nHGCygbU08RXyd+hoTvhSc43qVHeP/0lmwqN5bXZeJDId85ey/YJ2ioeXUfXDMwP6nthB4IdLbT1qfB4QIwTITk9sl/dFbt9Fi2e9QakTf/Qvo1esKKFel/P2w1IEDw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
+ dkim=pass header.d=efficios.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qXJVVJiA9TaoQslz3jafWjkC9oo7FGfOtE5p5gY4k/k=;
+ b=Om6fApapgVTyqrZ2JORdLHNiFeO1+vvOdihnKl1+GTl4hhUiot5mS/hOAIFd7XYRZBUIQ/83R9dehFySoTtv9XBsdT7EOKeazpVttcCXdK+U6+52V6asGdNfZNrVcW7CtBP3Tsbj2WyHhOe3YVma+t69SrlWPBhX6oiKQNoKfCjlMGoQEkhN8yHybST8mX8QZedvSF8HYlcHR4LqBNZ7l6cnjJ56j010UFOyQBC8Fkz9+PIDbv6GlJ4j4sEn2qrfajEvmx8kRVt8dC64sXrfsr96PZqy8VovDiOgB2nIKIs04sKsJueDWtroz8bnXGWtJjYr9uANQaXUq7r0CyDOZg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=efficios.com;
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10) by YT2PR01MB9777.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:de::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
+ 2026 14:15:22 +0000
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
+ 14:15:22 +0000
+Message-ID: <e996bc71-3b2b-4acd-b0aa-176e8529d38e@efficios.com>
+Date: Tue, 17 Nov 2026 09:15:22 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 10/37] sched/deadline: Reset the donor's runtime at a
+ deboost in the class
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org,
+ mkoutny@suse.com, linux-kernel@vger.kernel.org
+References: <20261116190549.230119-1-mathieu.desnoyers@efficios.com>
+ <20261116190549.230119-11-mathieu.desnoyers@efficios.com>
+ <sashiko-outbox-217586@kernel.org>
+Content-Language: en-US
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+In-Reply-To: <sashiko-outbox-217586@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQZPR01CA0009.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:85::22) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,332 +100,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for drm-misc-fixes v5 2/2] drm/hisilicon/hibmc: Add a flag
- to indicate whether the OS-side driver has been loaded
-To: Yongbang Shi <shiyongbang@huawei.com>, dmitry.baryshkov@oss.qualcomm.com,
- tiantao6@hisilicon.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, airlied@gmail.com, daniel@ffwll.ch,
- kong.kongxinwei@hisilicon.com
-Cc: liangjian010@huawei.com, shuliubin@huawei.com, chenjianmin@huawei.com,
- fengsheng5@huawei.com, helin52@h-partners.com, shenjian15@huawei.com,
- shaojijie@huawei.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20261117130056.272609-1-shiyongbang@huawei.com>
- <20261117130056.272609-3-shiyongbang@huawei.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261117130056.272609-3-shiyongbang@huawei.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-13.29 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	FREEMAIL_TO(0.00)[huawei.com,oss.qualcomm.com,hisilicon.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[17];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	URIBL_BLOCKED(0.00)[suse.com:url,huawei.com:email,imap1.dmz-prg2.suse.org:helo];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:url]
-X-Spam-Score: -13.29
-X-Spam-Level: 
-X-Spam-Flag: NO
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YT2PR01MB9777:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5b2b3215-5d09-4e51-b752-08df44b537c3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|18002099003|22082099003|3023799007|56012099006|4143699003|261102123227099003|261028144727099003|10067099003|261026140227099003|261026121527099003|261021121427099003|261022075727099003|261022105027099003;
+X-Microsoft-Antispam-Message-Info:
+	AvcPEuejxeolcGkvC23g4juN2NpdAI1dbvLq1kPqUFPVi7edXXZ/5WmkaqBWlOnEArCZ3tXnMy4LxqUl8Iq/dhiYwpqrKwsJNLxrzYJqIdmw6bwfNGVQ9usrcv6t+FNHgZvZR9wLz0NChCZWU6B76uWh60I6gStpCxhshjrssUna2y2XoNHRRjqDsb68UjfQhfL0QJQ2rJ3DI9+cryXKoAsNsy6D51XN+nrp+TSc02u/wNrvssAkrNkWX4OTvFOgsfWPgqPdbN009UVEvNxrcnDVQPI3Lv+O4ePb6ZELFN/T7A8Tjj+LFmbC30MFR4hlgNcykrT3Mfg1CfwieQx/clnZDthptxWVab4QFLFMOeKC8iFtve8QxeRzVGWgqChypYDqpt1KXjHvmizOVitnw4bIP1Jncs172Q3k690aEUH+ULOQUTgTpM/bOKnar8VkzzYKqmXWZkXIozRvPT4KC9TEar2pgXswOQjAbBNto6cX/SZSIgfdqHv91KBX57YJR6novKtX3TWPN5NH+sFLH5zzvyHqHunF7Q0/A+yEhJ9I6ShKNzBS15eqOhExJE0UAUBKX6I69QGvjhttFj6rPc2Q8qhGUjbif3HVSWUPxHU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(18002099003)(22082099003)(3023799007)(56012099006)(4143699003)(261102123227099003)(261028144727099003)(10067099003)(261026140227099003)(261026121527099003)(261021121427099003)(261022075727099003)(261022105027099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?K3FWSWEvUjZPT00za3Z4S3ZFRlVvTFdzYVk0VTg5VXNGNEZxQWdhaE01cExX?=
+ =?utf-8?B?QUdKTG1QakJXUi93NW5VQVBXVTVzNjFTdk81SThFc0V5eFBIcWtFdTI4VkZW?=
+ =?utf-8?B?cE8yUVpKUGlDYVdvSXR6Y3FId2c5RXdOSDk0SUtUWE4yTE1QMkpRSHpiODF4?=
+ =?utf-8?B?TTdmTDM4TE9sNkkxVjdUa2NFaTVEYngwN2E3bE1OT0wyU1hkUElGRUpIaXVS?=
+ =?utf-8?B?cVlpR3d0YTNkT05SQjFHdUw1WlUwNjNIUnFPOUFURG1jL1VIcGRoV3JiYXhv?=
+ =?utf-8?B?MGkxQXEveC9VNlpRKzNTTnBkdzNYOUdrL0wrNnpOR3JaTjQrU05lMUkwWVFk?=
+ =?utf-8?B?cUk4ZTF0V1NuVGxQWnIvT0EzY1lyMEFyZGJXZGcyekVUSE0ycUs2NkFhMFN6?=
+ =?utf-8?B?TjlBMmdGVXN2VnJZc0plV01TNCtwSjFERnhBK21nR080My9TWXQ4Q1FSOWlL?=
+ =?utf-8?B?bU5xNnBHOUZ1WXBsczlmZEtYMk83S2xiRW55NEd4bmxvWkxzQ21iOFdaMUU3?=
+ =?utf-8?B?VVQzOVRsMDNTM1M2d0VwMitja3pQekVuWlJvOTVoNVZSZFNpcGJjWEVtRFFE?=
+ =?utf-8?B?cGRJSzh5ekF6c1dJNUZKbG0yZFRvS0kyUkdMRXd4ZVdrSnBZTHhWNUg1Zmpx?=
+ =?utf-8?B?MjgvMnVjSncvRDNwOTgwTTFIckp1a1NVaDNNdm85ZmFEdXZFQTRrd1c2UGo4?=
+ =?utf-8?B?NUxzN0oxWDRnZm9RaDMxejdHYVpmRVRhVjFhbktWTDJHdFBLTjJoQW1yZnNN?=
+ =?utf-8?B?U0N4VjlqQmVvZUpsUktTUGdxR2RMWjdMWmZxNEFXZTVRWmRXejJtNXRoS3Zv?=
+ =?utf-8?B?aVRvcnYxTkVsSER6LzI1NFpyMCthN1hGQUlCWk5JTVZxZVBSVFRNL2dtWFVF?=
+ =?utf-8?B?T1J5NTdtZEh4VnlheDJlRjBTS0d2Y2lVZGhWM1l6RkNONnpSczdESmVTSTJN?=
+ =?utf-8?B?SHhiZmlWT3V4cCtPczZIcFhhWERGYnZaczNRaWw0NzlOSCtaaTdKUnRlTXRp?=
+ =?utf-8?B?QUZjTitXb0R5NS95dUI1bnZSYUE4NVlJdjdxS3BHWUNYSFFGZnRtOThmUnlp?=
+ =?utf-8?B?WThUSjVnZlJETVF3UG9CcTE5TVJ0a0hEMFZEYURHdzhBMXVRWDE3VXZ3VVVj?=
+ =?utf-8?B?anUvdXBiUmlJY1NhL09VeUpsTzc2M1Q1aFF0WUtTWUdZcUR5b0YrdjB6aGk3?=
+ =?utf-8?B?Nm5MVlFqRnVnZGg3cVhRYjUwc2NMS1IzNEQ0R0ZLUUNFb1RxL1hnc2RzTUFT?=
+ =?utf-8?B?dnhiOUdPWXdoMis2UTU2dGN3N2dtWTF4ZGY3N2xHTFBRdXhGTlBldzd0MjF0?=
+ =?utf-8?B?TkdsWC9FYmhndzQzYlRpNDNCeDRGUjB4bFRmZkt3Y1lEK2lkcUkwazRDN2wr?=
+ =?utf-8?B?SUVHRlVMS0x2WHA3WVBJLzBQenhPMzBoZmR5OG1EZ2VRUXYzbVpEeXBocldB?=
+ =?utf-8?B?Nm1nY2lwRVRHTy9rM2lpM2NKdGRGbkdVK1VybUtIZXFmK291ckZIemk3R0pY?=
+ =?utf-8?B?N0wreXprZ0JXdjJKeitnSjNxbjNOalpVUWg4WjVHTjM5MDdONDdBUDdOQmha?=
+ =?utf-8?B?dWpqWGZjeFlGOXFaUHR5Um9XWlZ3bTJEQW5iNTN6SDRrSWlGZWM3bWlXb000?=
+ =?utf-8?B?ek00NUpielljcXkyV3hpRDBSSXZZQnlQZzUvakhMQ1RTY0hyNVR5TXNoNGRO?=
+ =?utf-8?B?TXR1RC9GSnVXOG9QZ215bi9ic3UrVEI5cExFb1JUYmhPM1hLdEswbG10a2NP?=
+ =?utf-8?B?VHdLSkZEei8zV3J3YWRCWVI1bnFuUFVNS2hoT2VkbGQ4SXNtYkNHZDdOZzBq?=
+ =?utf-8?B?dlpyb25KVHVMZ3luU1ZzWHk2cERHS2oxaXBqUGRhaHdCdHU5enhZRmhoWnFa?=
+ =?utf-8?B?YmxHT21pY3RTY2JwTk1MOGVyYjVaOXRMVFNpMitWZi8vV1lGc2FTTms3RUVW?=
+ =?utf-8?B?N0NWdmtnaFNEK1hIWEovUjdaamFQeXVSWks1OHA2Z3h0cUg0TmJNOUFsaDZp?=
+ =?utf-8?B?N1RTMTQrcS94Ym16MkxWcDBra0pFY0dxYlZTMXZBSlhTdjZZZG9hOURhbXhS?=
+ =?utf-8?B?U20rc1pOY3pObHFKeEpNVGJ0Z1RXRU5US3V4NzFFa3Nkcnl6L256RmYxYkNn?=
+ =?utf-8?B?a3I2SkxvNlhPNFVMS3Mxd0E1NlIzSyt3OXNWSWFMTW1UOVJoemVjSExIMCt6?=
+ =?utf-8?B?aUhwUDROOGtCb2MvTTZXcW8xc2lOYjFib2VIYW1qYkRmai9FNmN1NTJpVnZt?=
+ =?utf-8?B?OUhBWU12QUU5TWtMa01WencwQUYwdUszUDI4U21xUnByUGgrYXdtK2NDR3RV?=
+ =?utf-8?B?S09uelVwNktlNEJlU0pkMElsOGFYcTVJMjg4NzhwUVAyci9GTEVFSHdNbGhV?=
+ =?utf-8?Q?OnXGHyrz8NBi2GV3y4keQdbGRKeVFhsJOs8y+?=
+X-OriginatorOrg: efficios.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5b2b3215-5d09-4e51-b752-08df44b537c3
+X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 14:15:22.6172
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UEos2XT1BHQ5KJ4sWWiWOltofRJYDKZvQfZ0T0Wb7jdbLqPv12XDzYg7wmJ94XIkDkDs/jM71nAbsASjV0QI9ZQr6xC+WA38x0YNPn30UCo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT2PR01MB9777
 
-Hi
+> If the first donor's refill pushed p->dl.deadline past pi_task->dl.deadline,
+> rt_mutex_setprio() takes the first branch and skips dl_deboost(). Because
+> p->dl.dl_deadline is non-zero and p->dl.runtime > 0, replenish_dl_entity()
+> leaves the first donor's remaining runtime and postponed deadline in place
+> after the unlock.
 
-Am 17.11.26 um 14:00 schrieb Yongbang Shi:
-> From: Lin He <helin52@huawei.com>
->
-> Add a flag to indicate whether the OS-side driver has been loaded to
-> prevent the BMC from enabling DP if the driver is not loaded, which could
-> lead to system failure in handling interrupts and generate error messages
-> like:
->
-> irq xx: nobody cared (try booting with the "irqpoll" option)
-> ...
-> Call Trace:
-> <TRQ>
-> ...
->
-> The flag is set only after hibmc_dp_init() succeeded, so it also means
-> that the DP block is ready.  If DP initialization fails, only the vblank
-> MSI vector is requested, so the DP interrupt is not registered at all.
->
-> Fixes: 0ab6ea261c1f ("drm/hisilicon/hibmc: add dp module in hibmc")
-> Signed-off-by: Lin He <helin52@huawei.com>
-> Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
-> ---
-> ChangeLog:
-> v4 -> v5:
->    - Only set the enable flag when DP was initialized, clear it only when
->      it was set, and do not request the DP interrupt if DP initialization
->      failed. (sashiko-bot)
-> v2 -> v3:
->    - Move hibmc_set_enable_flag() before drm_dev_register() and
->      hibmc_set_disable_flag() after drm_dev_unregister() to narrow the
->      race window. (sashiko-bot)
->    - Add spinlock_t gpio_lock to hibmc_drm_private to protect all
->      operations on 0x0802A4. (sashiko-bot)
-> v1 -> v2:
->    - The call to `hibmc_set_enable_flag()` has been moved before
->      `drm_client_setup()`, specifically before the connector detection
->      triggers the I2C bit operation. (sashiko-bot)
->    - A read-modify-write operation has been implemented instead of directly
->      writing to prevent clearing the I2C mask bits. (sashiko-bot)
-> ---
->   drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h    |  1 +
->   .../gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c    |  1 +
->   .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   | 45 ++++++++++++++++++-
->   .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h   |  2 +
->   .../gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c   | 19 ++++++--
->   .../gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h  |  3 ++
->   6 files changed, 66 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
-> index 84faa1a7439d..10772cddcfc8 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
-> @@ -57,6 +57,7 @@ struct hibmc_dp {
->   	struct hibmc_dp_cbar_cfg cfg;
->   	int hpd_status;
->   	int phys_status;
-> +	bool initialized;
->   };
->   
->   int hibmc_dp_hw_init(struct hibmc_dp *dp);
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
-> index 6ea70c31d1a9..9fa49a2ba093 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
-> @@ -256,6 +256,7 @@ int hibmc_dp_init(struct hibmc_drm_private *priv)
->   	connector->polled = DRM_CONNECTOR_POLL_HPD;
->   
->   	dp->phys_status = connector_status_disconnected;
-> +	dp->initialized = true;
->   
->   	return 0;
->   }
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-> index 7920f03895fe..7ea050e89005 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-> @@ -174,6 +174,8 @@ static int hibmc_kms_init(struct hibmc_drm_private *priv)
->   	if (ret)
->   		return ret;
->   
-> +	spin_lock_init(&priv->gpio_lock);
-> +
->   	dev->mode_config.min_width = 0;
->   	dev->mode_config.min_height = 0;
->   	dev->mode_config.max_width = 1920;
-> @@ -346,12 +348,17 @@ static void hibmc_unload(struct drm_device *dev)
->   static int hibmc_msi_init(struct drm_device *dev)
->   {
->   	struct pci_dev *pdev = to_pci_dev(dev->dev);
-> +	struct hibmc_drm_private *priv = to_hibmc_drm_private(dev);
-> +	int max_vectors = HIBMC_MIN_VECTORS;
->   	int valid_irq_num;
->   	int irq;
->   	int ret;
->   
-> -	ret = pci_alloc_irq_vectors(pdev, HIBMC_MIN_VECTORS,
-> -				    HIBMC_MAX_VECTORS, PCI_IRQ_MSI);
-> +	if (priv->dp.initialized)
-> +		max_vectors = HIBMC_MAX_VECTORS;
-> +
-> +	ret = pci_alloc_irq_vectors(pdev, HIBMC_MIN_VECTORS, max_vectors,
-> +				    PCI_IRQ_MSI);
->   	if (ret < 0) {
->   		drm_err(dev, "enabling MSI failed: %d\n", ret);
->   		return ret;
-> @@ -430,6 +437,36 @@ static int hibmc_load(struct drm_device *dev)
->   	return ret;
->   }
->   
-> +static inline void hibmc_set_enable_flag(struct hibmc_drm_private *priv)
-> +{
-> +	unsigned long flags;
-> +	u32 value;
-> +
-> +	if (!priv->dp.initialized)
-> +		return;
-> +
-> +	spin_lock_irqsave(&priv->gpio_lock, flags);
+The first branch does not clear dl_donor_refill. The flag set by the
+first donor's refill stays set while the second donor boosts the task.
+At the unlock, rt_mutex_setprio(p, NULL) takes the else branch. There,
+dl_deboost() starts a new period. So the task does not keep the first
+donor's values after the unlock.
 
-This is again a good place for a lock guard.
+A dl_deboost() at each change of top waiter would give the task a full
+runtime of its own reservation each time.
 
-Best regards
-Thomas
+> task_non_contending() then computes zerolag_time from the donor's refilled
+> deadline and runtime combined with p's own dl_period and dl_runtime.
 
-> +	value = readl(priv->mmio + HIBMC_ENABLE_FLAG);
-> +	value |= HIBMC_ENABLE_STATE;
-> +	writel(value, priv->mmio + HIBMC_ENABLE_FLAG);
-> +	spin_unlock_irqrestore(&priv->gpio_lock, flags);
-> +}
-> +
-> +static inline void hibmc_set_disable_flag(struct hibmc_drm_private *priv)
-> +{
-> +	unsigned long flags;
-> +	u32 value;
-> +
-> +	if (!priv->dp.initialized)
-> +		return;
-> +
-> +	spin_lock_irqsave(&priv->gpio_lock, flags);
-> +	value = readl(priv->mmio + HIBMC_ENABLE_FLAG);
-> +	value &= ~HIBMC_ENABLE_STATE;
-> +	writel(value, priv->mmio + HIBMC_ENABLE_FLAG);
-> +	spin_unlock_irqrestore(&priv->gpio_lock, flags);
-> +}
-> +
->   static int hibmc_pci_probe(struct pci_dev *pdev,
->   			   const struct pci_device_id *ent)
->   {
-> @@ -465,6 +502,8 @@ static int hibmc_pci_probe(struct pci_dev *pdev,
->   		goto err_return;
->   	}
->   
-> +	hibmc_set_enable_flag(priv);
-> +
->   	ret = drm_dev_register(dev, 0);
->   	if (ret) {
->   		drm_err(dev, "failed to register drv for userspace access: %d\n",
-> @@ -477,6 +516,7 @@ static int hibmc_pci_probe(struct pci_dev *pdev,
->   	return 0;
->   
->   err_unload:
-> +	hibmc_set_disable_flag(priv);
->   	hibmc_unload(dev);
->   err_return:
->   	return ret;
-> @@ -487,6 +527,7 @@ static void hibmc_pci_remove(struct pci_dev *pdev)
->   	struct drm_device *dev = pci_get_drvdata(pdev);
->   
->   	drm_dev_unregister(dev);
-> +	hibmc_set_disable_flag(to_hibmc_drm_private(dev));
->   	hibmc_unload(dev);
->   }
->   
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
-> index dce8572bf63e..c2a82000ea7f 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
-> @@ -49,6 +49,8 @@ struct hibmc_drm_private {
->   	struct drm_crtc crtc;
->   	struct hibmc_vdac vdac;
->   	struct hibmc_dp dp;
-> +
-> +	spinlock_t gpio_lock; /* protects RMW on I2C/ENABLE_FLAG (0x0802A4) */
->   };
->   
->   static inline struct hibmc_vdac *to_hibmc_vdac(struct drm_connector *connector)
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c
-> index 44860011855e..4ceb87efec05 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c
-> @@ -27,7 +27,11 @@ static void hibmc_set_i2c_signal(void *data, u32 mask, int value)
->   {
->   	struct hibmc_vdac *vdac = data;
->   	struct hibmc_drm_private *priv = to_hibmc_drm_private(vdac->connector.dev);
-> -	u32 tmp_dir = readl(priv->mmio + GPIO_DATA_DIRECTION);
-> +	unsigned long flags;
-> +	u32 tmp_dir;
-> +
-> +	spin_lock_irqsave(&priv->gpio_lock, flags);
-> +	tmp_dir = readl(priv->mmio + GPIO_DATA_DIRECTION);
->   
->   	if (value) {
->   		tmp_dir &= ~mask;
-> @@ -41,20 +45,29 @@ static void hibmc_set_i2c_signal(void *data, u32 mask, int value)
->   		tmp_dir |= mask;
->   		writel(tmp_dir, priv->mmio + GPIO_DATA_DIRECTION);
->   	}
-> +	spin_unlock_irqrestore(&priv->gpio_lock, flags);
->   }
->   
->   static int hibmc_get_i2c_signal(void *data, u32 mask)
->   {
->   	struct hibmc_vdac *vdac = data;
->   	struct hibmc_drm_private *priv = to_hibmc_drm_private(vdac->connector.dev);
-> -	u32 tmp_dir = readl(priv->mmio + GPIO_DATA_DIRECTION);
-> +	unsigned long flags;
-> +	u32 tmp_dir;
-> +	int ret;
-> +
-> +	spin_lock_irqsave(&priv->gpio_lock, flags);
-> +	tmp_dir = readl(priv->mmio + GPIO_DATA_DIRECTION);
->   
->   	if ((tmp_dir & mask) != mask) {
->   		tmp_dir &= ~mask;
->   		writel(tmp_dir, priv->mmio + GPIO_DATA_DIRECTION);
->   	}
->   
-> -	return (readl(priv->mmio + GPIO_DATA) & mask) ? 1 : 0;
-> +	ret = (readl(priv->mmio + GPIO_DATA) & mask) ? 1 : 0;
-> +	spin_unlock_irqrestore(&priv->gpio_lock, flags);
-> +
-> +	return ret;
->   }
->   
->   static void hibmc_ddc_setsda(void *data, int state)
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h
-> index 17b30c393b10..b95add5b253c 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h
-> @@ -200,5 +200,8 @@
->   
->   #define HIBMC_CRT_PALETTE                       0x80C00
->   
-> +#define HIBMC_ENABLE_FLAG			0x802A4
-> +#define HIBMC_ENABLE_STATE			BIT(2)
-> +
->   #define HIBMC_FIELD(field, value) (field(value) & field##_MASK)
->   #endif
+This is known. The cover letter lists it under "Not changed". At a
+deboost, the 0-lag time of a task comes from the deadline and runtime
+it ran on during the boost. Upstream does the same.
+
+> otherwise p keeps the donor's runtime and deadline
+> with dl_donor_refill cleared if it returns to SCHED_DEADLINE before the
+> inactive timer fires.
+
+On that return, patches 32 and 33 check the runtime left against the
+task's own parameters, as a wakeup does. Only dl_deboost() reads the
+flag, and the task is not boosted then.
+
+> Does this break the build when CONFIG_RT_MUTEXES is disabled?
+
+Yes. Fixed in the planned next version.
+
+> Should the early return when !runtime earlier in replenish_dl_entity() also
+> call dl_note_donor_refill(dl_se)?
+
+Only where the early return starts a period from the donor. The
+planned next version changes that early return in patch 8. It adds no
+runtime, and resets a negative runtime to 0. It gives a deadline of now
+to an owner with no parameters of its own, and notes a refill there. An
+owner with parameters keeps its own deadline and runtime. Setting the
+flag for it would give it a second full runtime in the same period.
+
+> Should __dl_clear_params() also clear dl_donor_refill (or call
+> dl_drop_boost()) instead of only setting dl_se->pi_se = dl_se?
+
+Yes. Fixed in the planned next version.
+
+Thanks,
+
+Mathieu
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+Mathieu Desnoyers
+EfficiOS Inc.
+https://www.efficios.com
