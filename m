@@ -1,79 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794884356;
-	b=jzqz+hNEmKro6N1JG2SWoEntqZMNhW2zFf8LyVic+aSJBZo7QGKLPwAjE5FDg/2YFu0r
-	 gbq8qJgVD6EPYI/Mg9IZOCgiogiViLQzUTL7kqsPCi3JJmsY0CnlOJb7vzEFhAxYHASUk
-	 Hw1lCM80EhkAesg0I8K8CbNCCXtmH9TEkYUeZK4ynybc2pVF54NN16dvZc+1MW0Mg3j46
-	 nEVnZHP2f/I16/Y0r7aYOMTPHWm44qHHCCUKTmb9DdW+gz5LJvoIf+J25QrIuPGfGL8xF
-	 y9e4yQzF7vZwHPDL6Pbv30axtVTY3R3QM/spxiwGDDGcP136ilbqzN11qy4l7z7mvdA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794884356;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=85ZfaL/b1CxAVL1txoIzqI2DFT6VrG9Gm4gJ0pWpPGc=;
-	b=oZgb9J1HrIrBz5pDw0sNaVduDA8BsAxuWRyWb6Bm8c61pOpKhB6mskrSsqBbHSJ827AN
-	 47NKe8UqtodBn/ziQP7r832UzL6MpXJQITYUAMYHo0xGxauovp7ILDsW13F9kqCP3Guwi
-	 wxDnoNrGCOLphN3lAJHdn4M6bBZFQjpI8bFoUqj1NGFCUPV9styFaXp3lQTvgVuxROLLV
-	 WCJ+9ayZD90INTAJErvbKOr3U5sY2+DcUc2oISfRcxdGBTc2qxAaaQoSK0IByQg4HH0Md
-	 NMx3h7f0ypnCAL0K3fktbablRE8k1YITRY5xWDNt6v6gsr8+rLI2qxFyKtl8GZjmsTA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TRAayYG6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CBFA606A31C;
-	Tue, 17 Nov 2026 02:59:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TRAayYG6
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794884356;
-	b=LjByDSCi1pc5jWsbbia5SvI8HCXOK2PNUQ7oZ0MwsNzCQ1Pr9BjNHWZ2SeZRQsgqPr9b
-	 s5hi5ugUGz+3FDc+iigxtkLrwmxq191XAwJ+i8fAPxs5F5loI6izTfnEzM24miGat69y0
-	 F2aSAPA0rJEbp3yMkrg4kuuekiAwHtIR+mJ7gQscTIQvRJdO26OfKXmLfDW428G6za+C8
-	 xQq+CKCDUBRuEea8rF0zlPBSfQS1V5mBiUyMjji3UsQ5jIHW4PoHaSSwRJ2jm76wkc+Tx
-	 LbWw+tkODytC/lmtENQ7LcnNnBdBgiBVS1tjQfQKbnMXUtzf4uSGiVNTazvzkQBewdw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794884356;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=85ZfaL/b1CxAVL1txoIzqI2DFT6VrG9Gm4gJ0pWpPGc=;
-	b=eqYKL2527oYMPSdxf6/8iHMVuQZujyLFl1qt2mopMMhVHLQoXR2dFYa90tR7uYGf0EBH
-	 uf2n2Na/lkbTU3WHNSXxtdLS85Iw13PzAXl2YnIR4D4sONRiCtkTYHokgDrELnJe1+x2K
-	 +554gc/Tsu/qHj7zTuAQtDPj9Egn9Azt25NBfwZIbSse6Qli/2Tm/0bFL86tCLWYRVzJI
-	 xrHXxva8sTa5Lg793oF14FF0GylRZtcqLfADt/Bad5j0NZSaQ4+vlPeuuKuvQlI4+ZCtw
-	 mLlPD1olsZfIdh8xFU7iZlVxcjofaTeaobiC0sB3TrYJODRLuUg9TgpuVPwe+zzC8Gw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.175
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794884357;
+	b=5C6Lm9YRRclD/roGpWDI/L/LdiDPvYP90Mk+ye2csN47G47jF9JJV4xpWn9Aq181KZYr
+	 kM8x5PZQ9pd8e8W28C0GX8cuB/YAJVSZSARtomTxxqaTLKvlJ+ESGVkCdkXhR3vcUvaXj
+	 fIIhnGIVo4j5yRvVX4bSKHbuwuYSv44vhtsHkHV1w3BhLYH+7KyyYCgHDrazbA4EY1L6i
+	 bCVeT0IfKGVI7pFA3PoOZ+f/WQHco9ek5zkf2uPkEbkaEm/0xpl010zWY3XGbkqqqNeCL
+	 pqJyz+dNvQL19/EqMs7TUz3bhCu1IbFQgAosCMHQaG5LBrfAOqWItJhI6xKKIu4L0gA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794884357;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=X8SjMxulocICOiKfYu+2cGat7NHYeq/w7Mvor/wOg5g=;
+	b=HckgwP2tlhPyezUI97VwASBgHmSZw3XsK4Egg87yFU225tFuyBQ42dlSFAwo9bmRM1QT
+	 lz5OUXGNVyvdXECwvgSGgTUzNc6sO4pyxQLyy9gaS/EcvQT3UPYURI4hNQ5mUPXiQRNu2
+	 X8DGvjrlgBhHjCdvKZ1Qt5K5Cr/Bt8JukbuhmoiyvWPG26MGXRK9TJLsXkV9leslaWhtk
+	 GH12auqnPkoG41Sj64VXTPmSTZUlE13/M/gdiPeREots6am9ut6YU5UUW4ySAmOL8ltfc
+	 zUi8KwnVj55E0QSZQo+ZAg7mfygeuWXxJSuPZgarKFUCztVo4vq2K5H93Heqt7qt6mw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GufmHECw;
+	arc=none smtp.remote-ip=209.85.128.175
+Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id A09E81F000C6;
-	Tue, 17 Nov 2026 02:59:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794884356;
-	bh=85ZfaL/b1CxAVL1txoIzqI2DFT6VrG9Gm4gJ0pWpPGc=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=TRAayYG6MPHu6v83ZNp4lET3RDipNFCPuUgT1ieq0bf8z3nOBEKg1IkvEBpkjkyu9
-	 VeOjCx6UPxr6Ce7vILFeYjSzqjLTGaSe/SjMt5HaB83AMLUj8M6C3wVkHGmWzeu98h
-	 5ThT5ex2c2jVvYoNir1tOk20kolNTQUCPqZ+XFz4z1vnIE1zlGYqLS9NwgnecVpbxO
-	 AmyEtlMDJBs+auLguxbXqAz8zjkFZFi1fTJTfDpplQ/N6v2cp1bKTA6/sBqf3tFM43
-	 qCjOU6Snb7FUNHHrpmiBc9t+V3uszi56i+0OvWeFKa/izPGJiBOtXvXQEL83S8PimL
-	 DrJXNSKzLWDlg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 015724A691;
-	Tue, 17 Nov 2026 02:59:14 +0000 (UTC)
-From: Junho Cha via B4 Relay <devnull+junho.cha.xcena.com@kernel.org>
-Date: Tue, 17 Nov 2026 11:59:15 +0900
-Subject: [PATCH] cxl/region: Fix self-deadlock when
- cxl_memdev_attach_region() fails
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 200F1606A333
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:59:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 200F1606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GufmHECw
+Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-8b4e246acc2so11511107b3.3
+        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:59:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794884356; x=1795489156; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=X8SjMxulocICOiKfYu+2cGat7NHYeq/w7Mvor/wOg5g=;
+        b=GufmHECwABO7UKejS9V0/k/4iN0Nfpe04t416Pjq799GhiP7h4Cak+ke9GOYKXHxuU
+         +Q2d1kFnb7uw7piGNFmMPNdtdd7XU8QfTYP1Yhr0EjegxbPWMwMmayAc3TNkD1Rk13uV
+         Xs6sQz1YggwRBE+NVOAppkTBRCnYckQ3sM84/44MLVceB+WcvyshHqNAPaDVCv2QI9Ou
+         rLMHK87Ez/irHc97+5TL9v4CypZohb9Mr2zzDiuueZniQ9qmI9M5gfoMT3W1yzcZe+JA
+         Qa2MzVe6LqdpGfyxUNpiCUzWAO6/Hf7rsWwNNECCJUsVTK7AuCOFVysomLWrGVpEut3G
+         jSsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794884356; x=1795489156;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=X8SjMxulocICOiKfYu+2cGat7NHYeq/w7Mvor/wOg5g=;
+        b=uRh0N7VbZgSZd43nSOyOusnrbzyt0QhexwG7r9YUfHvK1ahUiK7rhHSNDobULeR1ij
+         zCUmlk1Y1ZTi6X/3cCTzrqNOZKrm12cIkc2XJke2UPQldRnmgfOmOgQmLlwtqSOQvbJP
+         w/c8yFKqsJO2HKpwOMRC4rxA8K6xHRcd+U+2qg6l7WsuDIzjibygxKYUVro/Qd3rL9s+
+         Y5tVITchG1qi5UpDNnLmI65jYBYN78QXOgNRsN4AiLwEwl2QpqI3H+HBOPxluOQSICOP
+         0/H+gYsd/zP/dLGbPrMR1oqZ55fcIh9zT7dpFq93iwDMRU1J6SoZmc0yzZMu9x7H7MJs
+         NjEw==
+X-Forwarded-Encrypted: i=1; AL+hErGE6NYTeqIk6Aa5RAtKSHiM+YvS8zrB9cKMGepzv4BZ1Sp/onimnGL9C7kwsqwDAyLu0ncoOkjdtjDoj48=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/2texI+c1JUkHfSjUPHBwpZ1f+d4NZGnFrwnmFpLwcjyQA+eB5
+	Bmn4OMrGeQgHFs+0/pwhgnZBXVV8WFd4Q2JHjf5W2MGxxr//JsiYnbWD
+X-Gm-Gg: AZFdTZd5PL/4u0j77TwgIImNbck8276yTnSJnlO4/IEglBefAm9bEywxhV1KJc2sVIJ
+	Wj3fDWp56p7MH7fGlnxwlT2EXg0FYDlA9dQpIyw+PysW99lh094YJp7xZpnMGeUqd3IGkzWFUDl
+	FszQqqRvm3yNNhzXF7rFMhRsSYDYzZkSbs5vkHckNnpeL4gW+/CM8wafqQ7oK1RyF8P82DP7jPY
+	os0tSq6nIOGlX0k0hE8HTb193rGChDHf2Oob14BpoQoqkKU7qYN1oBYkB2Hb9U/s6K/WmXn2PFJ
+	y8AKhUeqU0pXk4XbaYOWtt39mPW6x1uOhc1u4sPJfXcIdffVi/ymS2QHnbLAYBAUSVx64cnnXSB
+	mw4LtLIVwUBlhvlTuDG5nHPpOLaHf2SzX6tpvZZQOSDsxF4JE/YlHCiG3oujLue5gIIIfeOelbr
+	46jVc9sj5XD9veBbFbsPAo4G9u4R6iklPjd7285avQfWXupD693beFgYo9YANjuSf1tDgVYI5LK
+	eZA1yjl1JdGZs+GiTIVqO0jpJ2tssAroZm+HptZzj86OO0DPcsrEDuWB1RR48t2QPFauQuMRdpn
+	4MfFT3QVeq2XHPslhqllxN9jzrq0qxVFKm2OACnhJHlPQhxeyqaI4AQNnMM2vZghabWPaiNIYUz
+	UGi1C07V6mS9uMr6A/RSRAvzuL4RHG+VvymMu0zOxQbCZQZ4QnN+fX2q9SflVOP3i5XXzOPxuOh
+	njhuzHqvsxzfX+86OyKQ==
+X-Received: by 2002:a05:690c:d8b:b0:8b4:c71b:e4f6 with SMTP id 00721157ae682-8b4c71beb96mr41119167b3.3.1794884355050;
+        Mon, 16 Nov 2026 18:59:15 -0800 (PST)
+Received: from localhost (107-220-129-194.lightspeed.chrlnc.sbcglobal.net. [107.220.129.194])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4ec3079fbsm14326407b3.41.2026.11.16.18.59.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 18:59:14 -0800 (PST)
+From: Matt Turner <mattst88@gmail.com>
+Date: Mon, 16 Nov 2026 21:59:09 -0500
+Subject: [PATCH v2 2/7] alpha: marvel: report environmental events without
+ VERBOSE_MCHECK
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,189 +96,59 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261117-junhomax-fix-cxl-attach-region-deadlock-v1-1-f373a135edd2@xcena.com>
-X-B4-Tracking: v=1; b=H4sIAALD+2oC/yWNwQ6CMBBEf4Xs2Y20Cib+ivGwXRZaxELaYpoQ/
- t2ixzeZebNBlOAkwr3aIMjHRTf7AupUAVvyg6DrCoOudauUuuC4eju/KWPvMnKekFIithhkKFP
- shLpp5hf2XNNVN/1Ntw0U2xKkLH5Pj+ef42pG4XToj4ahKGgCebZHVNxnLznBvn8BNzLMoqYAA
- AA=
-X-Change-ID: 20261113-junhomax-fix-cxl-attach-region-deadlock-fc0a425f7265
-To: Dave Jiang <dave.jiang@intel.com>, linux-cxl@vger.kernel.org
-Cc: Davidlohr Bueso <dave@stgolabs.net>, 
- Jonathan Cameron <jic23@kernel.org>, 
- Alison Schofield <alison.schofield@intel.com>, 
- Vishal Verma <vishal.l.verma@intel.com>, Ira Weiny <iweiny@kernel.org>, 
- Li Ming <ming.li@zohomail.com>, Alejandro Lucero <alucerop@amd.com>, 
- Richard Cheng <icheng@nvidia.com>, linux-kernel@vger.kernel.org, 
- Junho Cha <junho.cha@xcena.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794884354; l=5381;
- i=junho.cha@xcena.com; s=20261113; h=from:subject:message-id;
- bh=JPQrZdtVE5CtcBfCoa+/THfa0h+zu/tnz7b6oc1BUAw=;
- b=zwSYPM2z6GeOO7Xu1G64jVherJ9VbxyCl+Li3hwyhYX7SBrDoVxLkhKzczwqc3DBFTIkVUOHA
- IwjE5CHUHWqD984omNVmosUHehE2GBf8f8OTl4abp8JXUIaVtjRTYcn
-X-Developer-Key: i=junho.cha@xcena.com; a=ed25519;
- pk=OkFm4PnuJSze1AVqDdvnpHO7nnDQIheH2qYwg2a6Dyc=
-X-Endpoint-Received: by B4 Relay for junho.cha@xcena.com/20261113 with
- auth_id=1507
-X-Original-From: Junho Cha <junho.cha@xcena.com>
-Reply-To: junho.cha@xcena.com
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261116-marvel-env-v2-2-ef614eb2e7f1@gmail.com>
+References: <20261116-marvel-env-v2-0-ef614eb2e7f1@gmail.com>
+In-Reply-To: <20261116-marvel-env-v2-0-ef614eb2e7f1@gmail.com>
+To: Richard Henderson <richard.henderson@linaro.org>, 
+ Magnus Lindholm <linmag7@gmail.com>, Guenter Roeck <linux@roeck-us.net>
+Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org, 
+ Matt Turner <mattst88@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1240; i=mattst88@gmail.com;
+ h=from:subject:message-id; bh=hvA3Q0T5bLITKm5NNV73hsX++cwWKaI8fp/0V4p4/zI=;
+ b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLJ+H/oj9XQ74+/CihkSieIccSG7w9892PD6MkvjTeNKi
+ YOFRwQ6Oz6yMIhxMcwUU2SJW6/IMqttx1Kf09K/YOawMoEMkRZpYAACFga+3MS8UiMdIz1TbUM9
+ QyBDxygeIqfHoJFZXFyaWqSbVlDkkJdfkliSmZ9XrJdfkJpXkF6gl5aZVpKRkV9UnAo0Qi8vtcT
+ U1dHNyNDAxNLRwszJwtHUxNnZydDJzdHR2dXJyNLcxMDZ0tHE1dKcgYtTAOYagUeMDEuz09/9+X
+ pB71uTU+2kCX/L1SZucD1dOfu4QsF/BWlOFS5Ghk5no+WK+95mGB753qu6xiVYyy2bN3Mp63RmK
+ es7zFUyjAA=
+X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
+ fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
-From: Junho Cha <junho.cha@xcena.com>
+The service processors report temperature, fan, voltage and power supply
+alarms as system event (0x680) logout frames. The frame is already
+classified as reportable, but without CONFIG_VERBOSE_MCHECK only the
+header line reaches the log, which does not say which sensor or what
+happened. Print the subpackets unconditionally.
 
-cxl_memdev_attach_region() holds cxl_rwsem.region for read while it
-registers endpoint_unregister_region() with devm_add_action_or_reset().
-If registering the action fails, devm_add_action_or_reset() runs the
-action at once, which reaches cxl_decoder_detach() through
-unregister_region() and detach_target():
-
-  cxl_memdev_attach_region()
-    down_read(&cxl_rwsem.region)
-    devm_add_action_or_reset()          /* fails with -ENOMEM */
-      endpoint_unregister_region()
-        unregister_region()
-          detach_target()
-            cxl_decoder_detach()
-              down_write_killable(&cxl_rwsem.region)
-
-The task then waits for a write lock while holding the same rwsem for
-read, and never makes progress.  Before it hangs, lockdep also reports
-a circular dependency: endpoint_unregister_region() takes
-cxlrd->regions_lock under cxl_rwsem.dpa, while cxl_add_to_region()
-takes cxlrd->regions_lock before both rwsems.
-
-Hold cxl_rwsem.region and cxl_rwsem.dpa only while finding and
-validating the region, take the region reference and the HPA range
-under them, and register the action after dropping them.  The endpoint
-device lock stays held across the registration, as before.
-
-Reproduced with cxl_test (type2_test=1) by failing the devres
-allocation through failslab, with the stack filter limited to
-cxl_memdev_attach_region().  Without this patch the probing kworker
-hangs in cxl_decoder_detach().  With it, the cxl_mem probe fails with
--ENOMEM and lockdep stays quiet.
-
-Fixes: d8dcb0b74b04 ("cxl/region: Introduce devm_cxl_probe_mem()")
-Signed-off-by: Junho Cha <junho.cha@xcena.com>
+Signed-off-by: Matt Turner <mattst88@gmail.com>
 ---
-Dave pointed at this reset path while reviewing the Type2 multipf
-series [1]. This is a standalone fix for the existing code that keeps
-the region teardown when registering the action fails.
+ arch/alpha/kernel/err_marvel.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-[1] https://lore.kernel.org/linux-cxl/6bc33514-8bfb-44d6-8fde-28f45dff5eb9@intel.com/
----
- drivers/cxl/core/region.c | 73 +++++++++++++++++++++++++++--------------------
- 1 file changed, 42 insertions(+), 31 deletions(-)
-
-diff --git a/drivers/cxl/core/region.c b/drivers/cxl/core/region.c
-index 4cd9bb5dfd61..b7471a3aca12 100644
---- a/drivers/cxl/core/region.c
-+++ b/drivers/cxl/core/region.c
-@@ -4424,55 +4424,66 @@ int cxl_memdev_attach_region(struct cxl_memdev *cxlmd)
- 	struct cxl_port *endpoint = cxlmd->endpoint;
- 	struct cxl_endpoint_decoder *cxled;
- 	struct cxl_region *cxlr;
-+	struct range hpa_range;
- 	int rc;
- 
- 	/* hold endpoint lock to setup autoremove of the region */
- 	guard(device)(&endpoint->dev);
- 	if (!endpoint->dev.driver)
- 		return -ENXIO;
--	guard(rwsem_read)(&cxl_rwsem.region);
--	guard(rwsem_read)(&cxl_rwsem.dpa);
- 
--	/*
--	 * TODO auto-instantiate a region, for now assume this will find an
--	 * auto-region
--	 */
--	struct device *dev __free(put_device) =
--		device_find_child(&endpoint->dev, NULL, first_mapped_decoder);
-+	scoped_guard(rwsem_read, &cxl_rwsem.region) {
-+		guard(rwsem_read)(&cxl_rwsem.dpa);
- 
--	if (!dev) {
--		dev_dbg(cxlmd->cxlds->dev, "no region found for memdev %s\n",
--			dev_name(&cxlmd->dev));
--		return -ENXIO;
--	}
-+		/*
-+		 * TODO auto-instantiate a region, for now assume this will
-+		 * find an auto-region
-+		 */
-+		struct device *dev __free(put_device) =
-+			device_find_child(&endpoint->dev, NULL,
-+					  first_mapped_decoder);
-+
-+		if (!dev) {
-+			dev_dbg(cxlmd->cxlds->dev,
-+				"no region found for memdev %s\n",
-+				dev_name(&cxlmd->dev));
-+			return -ENXIO;
-+		}
- 
--	cxled = to_cxl_endpoint_decoder(dev);
--	cxlr = cxled->cxld.region;
-+		cxled = to_cxl_endpoint_decoder(dev);
-+		cxlr = cxled->cxld.region;
- 
--	if (cxlr->params.state < CXL_CONFIG_COMMIT) {
--		dev_dbg(cxlmd->cxlds->dev,
--			"region %s not committed for memdev %s\n",
--			dev_name(&cxlr->dev), dev_name(&cxlmd->dev));
--		return -ENXIO;
--	}
-+		if (cxlr->params.state < CXL_CONFIG_COMMIT) {
-+			dev_dbg(cxlmd->cxlds->dev,
-+				"region %s not committed for memdev %s\n",
-+				dev_name(&cxlr->dev), dev_name(&cxlmd->dev));
-+			return -ENXIO;
-+		}
- 
--	if (cxlr->params.nr_targets > 1) {
--		dev_dbg(cxlmd->cxlds->dev,
--			"Only attach to local non-interleaved region\n");
--		return -ENXIO;
-+		if (cxlr->params.nr_targets > 1) {
-+			dev_dbg(cxlmd->cxlds->dev,
-+				"Only attach to local non-interleaved region\n");
-+			return -ENXIO;
-+		}
-+
-+		/* Only teardown regions that pass validation */
-+		get_device(&cxlr->dev);
-+		hpa_range = (struct range) {
-+			.start = cxlr->params.res->start,
-+			.end = cxlr->params.res->end,
-+		};
+diff --git a/arch/alpha/kernel/err_marvel.c b/arch/alpha/kernel/err_marvel.c
+index 85f7a56816ce..46c521cea9a0 100644
+--- a/arch/alpha/kernel/err_marvel.c
++++ b/arch/alpha/kernel/err_marvel.c
+@@ -37,7 +37,6 @@ marvel_env_state(u16 state)
+ static void
+ marvel_print_680_frame(struct ev7_lf_subpackets *lf_subpackets)
+ {
+-#ifdef CONFIG_VERBOSE_MCHECK
+ 	struct ev7_pal_environmental_subpacket *env;
+ 	struct { int type; char *name; } ev_packets[] = {
+ 		{ EL_TYPE__PAL__ENV__AMBIENT_TEMPERATURE,
+@@ -68,7 +67,6 @@ marvel_print_680_frame(struct ev7_lf_subpackets *lf_subpackets)
+ 		       marvel_env_state(env->state), env->cabinet,
+ 		       env->drawer, env->pe, env->sensor, env->state);
  	}
- 
--	/* Only teardown regions that pass validation, ignore the rest */
--	get_device(&cxlr->dev);
-+	/*
-+	 * On failure the action runs immediately and detaching the region
-+	 * takes cxl_rwsem.region for write, so add it without the rwsem held.
-+	 */
- 	rc = devm_add_action_or_reset(&endpoint->dev,
- 				      endpoint_unregister_region, cxlr);
- 	if (rc)
- 		return rc;
- 
--	attach->hpa_range = (struct range) {
--		.start = cxlr->params.res->start,
--		.end = cxlr->params.res->end,
--	};
-+	attach->hpa_range = hpa_range;
- 	return 0;
+-#endif /* CONFIG_VERBOSE_MCHECK */
  }
- EXPORT_SYMBOL_FOR_MODULES(cxl_memdev_attach_region, "cxl_mem");
+ 
+ static int
 
----
-base-commit: 2101c39473a06ee551a8cb4d549a1112aed324ad
-change-id: 20261113-junhomax-fix-cxl-attach-region-deadlock-fc0a425f7265
-
-Best regards,
---  
-Junho Cha <junho.cha@xcena.com>
-
+-- 
+2.56.1
 
