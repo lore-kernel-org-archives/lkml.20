@@ -1,69 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.58.211
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794904819;
-	b=mSr2g94XsGiPkZC7+r3y6NWz36BTvg6tVGEsC7LOTPdz6D+dwS7Pbbd22qQVGLqU6Fzh
-	 jmp/q4WrZlrd7MafYfWwHwokrF3BvccWGkbdNwhxuKRV055DsmIcLD6Ten7zVyqf5yHqt
-	 Ki/yeeq30TtdqSNwwM31wbqfPqCaN+3SRRh1QcjbEXqsMf6BfpIPz91Rh7+KMmnm9wUyF
-	 NnqP1tCt8O6xXTyRRnY0/HQesru5lk7t9TPGoQCyt+BcZISZF0q7euAN5nxmx8PThj+uj
-	 CeUrq7aUpjFnpHCPt3HKRt7MtJzolC5xlDEvFLf8OPHntBS4/DsR39D2JKMIq6nPxNg==
+	t=1794904822;
+	b=YkI4JKpnJ94/iyIRt7wGRKe3w/lACVZIG35QPWI6x8TTrkBs4uR1cF9oJP6ehvRuDyei
+	 BLAGnmdhLXkBDgUuIf/jKVfGaXWggF4Ab5SH70VEPRuBbw9qDTokKKYnRi2qY3cY2HRS4
+	 2M2os9fJIMT9d9RXhZKN9Fg24BIFOWfNS+mBz383Fqfwg+5K8qLfiDFarqnkGn0kjIKSp
+	 reJdNlYTti9DAmClMDiEhqXbpU3JYPzvFQhzrYdWHrM8WjF8BtnFYNkYaF0Gau6MA7IqU
+	 AzOlhrk5+eCMqezq19lqRtlTjjBS8qX0YGACBgUGNUU9BR0nbHLy/Z2yzDB3VJShfbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794904819;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Developer-Signature:X-Developer-Key:
-	 X-Scanned-By;
-	bh=YR53SzLMSogIajp7ibSOv5fPIWUDgfl2vHRdlTDKtPM=;
-	b=efRFV6V/7TEa28GBvM5uc3n1ZRCqpWkoOMWk6mXABOMp0KJCK8RmXnl9s7WVo2vmrMsu
-	 x/bHDhTZGoHTUyzZWE0elwQJmpBc2X0MZEWCECJQgpg9mLCb+j/jyNXd6TlEfQfE4mmuO
-	 VTEqPIowTIV5gJ+K43LfwJw5VlFTt2C9QuKSRSqZXgrQoQ8Prjjb6O05dtvEddymd9vK+
-	 9Jeu1n+6df1BmgGQrM9+n9LAjfRtxXkg1XprtsGZxxeChtGHYVw1PoZTfYz8+1wwn48QJ
-	 CvP0bMEuuP3HaE9KVWxsG8g3n4aB8w0BpzRNLRBPYsFUnRieUYFKwa9beXXUY5SQe3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794904822;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Ow56Dh1ceICwHURLVlW6HlZuR50fD/53SALcfaqTYVk=;
+	b=QO1qpL44AkhOMomuL8gd/VAdl1y+KE2LQ35gO6Irsb0pWzsJBVgnRtuJ8Wq0KeGNCVqj
+	 vj3eQqNms18Zm770YgYd3OLBFUvDjB4lsh2uMheQBoNZzL7ghJvBN09cL/Kz7IlRn81qk
+	 LourMQO2A4XuNcrEnfZW4a/VLHCQTekD/ijK+SQ4kXKRul5SVc81H+tadkQAlFZu0iJad
+	 vYMaqVNT3TbhzOGHLcwGmqJTB4Mr801SoxbIHow0qLcpzwkXkj1hc4hEWYb+kBS00z9Sz
+	 WPF/g86VDD11rYbctG8bUpAk4d9a75PpOY9Gwpu2X9heiDc2HJClNEZJrRzZ8xYJeeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="ZoPE0I/v";
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=apGx4gLP;
+	arc=none smtp.remote-ip=162.62.58.211
+Received: from out162-62-58-211.mail.qq.com (out162-62-58-211.mail.qq.com [162.62.58.211])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B6D0606A896
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:40:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B6D0606A896
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5923606A335
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 08:40:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5923606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ZoPE0I/v
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794904816;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YR53SzLMSogIajp7ibSOv5fPIWUDgfl2vHRdlTDKtPM=;
-	b=ZoPE0I/v+Q//Vnm2R8vviMMjQCqib+e4wd0QEjx9yNvMqcSnaEtJrvJ/ELQzFfturqqajQ
-	DkZ+QvvPSQmxwjQ2+WrjIwRoEe3RP6cGOGmT+gCSXlu4F2D1CDz5LlrSn8yr4Zi4LNRgWk
-	HKX4CBZyIYcMGLuJK8geRd/haigBKkI=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-457-ZRjRG7UgMkmn0F-CJzDRtg-1; Tue,
- 17 Nov 2026 03:40:13 -0500
-X-MC-Unique: ZRjRG7UgMkmn0F-CJzDRtg-1
-X-Mimecast-MFC-AGG-ID: ZRjRG7UgMkmn0F-CJzDRtg_1794904809
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id F41301800547;
-	Tue, 17 Nov 2026 08:40:08 +0000 (UTC)
-Received: from aesteve-thinkpadp1gen8.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 78DCC195604C;
-	Tue, 17 Nov 2026 08:39:59 +0000 (UTC)
-From: Albert Esteve <aesteve@redhat.com>
-Date: Tue, 17 Nov 2026 09:39:19 +0100
-Subject: [PATCH v5 4/8] lsm: Add memcg_charge_task LSM hook
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=apGx4gLP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794904816; bh=Ow56Dh1ceICwHURLVlW6HlZuR50fD/53SALcfaqTYVk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=apGx4gLPIlOPLKOk4xL/Q/8f7+D8ZEpKLQqtBmUMTVngeESiBQKl0DdJa1Vn5BQ/+
+	 sAXfdT8Tb9pgjgtV1VrN+xHwamqZyP06gauAR6hRgeHx3LywY4HVK/N02MqOJ+yQ99
+	 vCCAAUow5oQcxdKIS4d+T2lqZeOFXvGVFs0Lpwl4=
+Received: from shuai-VMware-Virtual-Platform.. ([117.158.156.199])
+	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
+	id A0DAEC6E; Tue, 17 Nov 2026 16:40:13 +0800
+X-QQ-mid: xmsmtpt1794904813t0e4zgk25
+Message-ID: <tencent_3E79DC265C5C09B1C98951775AE90D167707@qq.com>
+X-QQ-XMAILINFO: MllZffuBkEb5dXmrjEO9y8FyXa/2kTS+cCFIhe5BjIeynOA5Xr5+NcgQhn+yhe
+	 1j3rK9VEG0RM2RZxBryByY41vRX/LchtSmGS2sJuxFFixpPnYsxyK3h/V9Q/h1OVgvrzzD5iK6Ef
+	 zEWwmB6BhcMN4vuNUqp1OHqF9DgcnwGirDTuSEPcA+pPt0jFzxbR5TVRsmqGHvR81wR9fHbT4Q8V
+	 n2yND2tDt2TUtTtHiQ++Unw6JRK0u0NlwL9PDqj/GSebrtwt9w4eLdxWyBwyEVUOTIY51dPjH9yd
+	 HSodN27I8SFJnVOwX6orkaOOlIoSStOhO0BZEXfJVdnww+7H3qfQgxkWcfSgPhXApxwCXMzmt8X5
+	 InqDuBPowkIkcYHeRdMLH5nXXjEt86BZxiL+tGl/703wIPeKYoMN74wzz0YEv8Dc4OyEzQ/3k20i
+	 zfcj59vEIs448TvLBn2aduNFRbtX/BdFKld0Prs3TLXa36Eb9yhzqpaBFm5hy+Lpc6F9YcbIZNQE
+	 3azGtG+YndmhngjCqcTo89BLUGMhEdpil/x+1ddYKQQMJiFGeq99Gpe91VP7PfjGQjiIlyoKdI9n
+	 UnT6zHeWbmW04dvT7OYnwPAY5nPhgNTmJAi0RqyYDNzgDcg3AcsQcEqHvIRIyFBi+CDLxBM7BzdD
+	 0gIdDSWkF8xOJlmu6tQaf3EkydHrCwvM5JwBDxkGUzkAIYGtrKcH7g4JC/uP7UMux9sw3MKofOxw
+	 R8UvAL6SqebrlUrnoULFeN9flSnbd3ADVdko1uCWj99jUcvgQknzr70PlIcXim5JOqzOC7413T4M
+	 iS5mg2ybrie2FvQiy2nJdC5+75Ln01MoxkxVO24hK10q4xKLrT6OKmu/vwIM3tkujBx9b8KH6s/R
+	 NZWz2/zbsG84p/leIxJTjJ6JkG4VJsXAWQ5r6MHPHWWVa9W42lHuqnOreFBHQwucJap1xR32/c1b
+	 9fb0A3pkpGu5tjd6O0H5gbJG3gzeCvt1F85J2HSvE1h4/HArfsEchI4HudvIStkZ28DuZ/iBiQ1P
+	 OXI7Om6AlNMpdXog5Qj4GCQSU7/xAH14lY1YNJYUecfC3r/+7CqBAcuGm97cigXAgwuK4p1w==
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+From: Shuai Liu <847807867@qq.com>
+To: sashiko-bot@kernel.org
+Cc: linux-mtd@lists.infradead.org,
+	miquel.raynal@bootlin.com,
+	richard@nod.at,
+	vigneshr@ti.com,
+	syzbot+c66e7044aa73c620d862@syzkaller.appspotmail.com,
+	linux-kernel@vger.kernel.org,
+	847807867@qq.com
+Subject: Re: [PATCH v2] mtd: blktrans: keep reclaim out of the ->release paths
+Date: Tue, 17 Nov 2026 16:40:13 +0800
+X-OQ-MSGID: <20261117084013.314303-1-847807867@qq.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <sashiko-outbox-218282@kernel.org>
+References: <sashiko-outbox-218282@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,179 +84,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-v2_20230123_tjmercier_google_com-v5-4-1ce975f2a9ad@redhat.com>
-References: <20261117-v2_20230123_tjmercier_google_com-v5-0-1ce975f2a9ad@redhat.com>
-In-Reply-To: <20261117-v2_20230123_tjmercier_google_com-v5-0-1ce975f2a9ad@redhat.com>
-To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
- =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
- "T.J. Mercier" <tjmercier@google.com>, 
- Christian Brauner <brauner@kernel.org>, Paul Moore <paul@paul-moore.com>, 
- James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
- =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>, 
- Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>, 
- Philipp Stanner <phasta@kernel.org>, 
- =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>
-Cc: airlied@gmail.com, cgroups@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- linux-mm@kvack.org, linux-security-module@vger.kernel.org, 
- selinux@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- op-tee@lists.trustedfirmware.org, Albert Esteve <aesteve@redhat.com>, 
- echanude@redhat.com, mripard@kernel.org
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794904759; l=5136;
- i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
- bh=606ikDq7N2a9kgQEC6+17vuKAgE3M4wERjTpnW/4vLo=;
- b=2Fup8Kz7V8rFrNeityvDdbwhzI1IfABG5aDmq79tiClm6kMZyyU9E3RsDlCnq8md4Rc4i80hy
- H45Z6eYkyo6BA6QQV1/fkHtUmZZh74Xwv0qi1RxDlYS52e4ybZqqrQg
-X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
- pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Content-Transfer-Encoding: 8bit
 
-Both DMA_HEAP_IOCTL_ALLOC and the new DMA_BUF_IOCTL_XFER_CHARGE ioctl
-accept a charge_fd field that, when set, causes the allocation to be
-charged to an arbitrary process's cgroup rather than the caller's.
+Hi,
 
-Charging is currently limited to the caller's own memcg subtree unless
-the caller holds CAP_SYS_RESOURCE. But the capability is all-or-nothing.
-A process holding it, along with a dma-heap device node or a dma-buf
-fd can charge unlimited memory to any other process's cgroup, potentially
-exhausting that cgroup's limit and triggering OOM kills independent of
-the victim's own activity or privileges.
+> [Severity: High]
+> Does mtd_queue_rq() or mtd_blktrans_work() actually call
+> memalloc_noio_save()?
 
-Add security_memcg_charge_task(), called in get_obj_cgroup_from_fd()
-when charge_fd refers to another process. The hook receives
-the credentials of the allocating process (from) and the credentials
-of the process whose cgroup will be charged (to), giving security
-modules a controlled enforcement point for cross-cgroup objcg
-attribution policy.
+Yes, the I/O path is already covered on the current tree.
+mtd_queue_rq() wraps the whole dispatch in memalloc_noio_save() /
+memalloc_noio_restore() (drivers/mtd/mtd_blkdevs.c, linux-next
+next-20261113):
 
-When CONFIG_SECURITY is not set the hook compiles to an inline
-returning 0, adding no overhead to the fast path.
+	static blk_status_t mtd_queue_rq(struct blk_mq_hw_ctx *hctx,
+					 const struct blk_mq_queue_data *bd)
+	{
+		struct mtd_blktrans_dev *dev;
+		unsigned int noio_flags;
 
-Signed-off-by: Albert Esteve <aesteve@redhat.com>
----
- include/linux/lsm_hook_defs.h |  1 +
- include/linux/security.h      |  7 +++++++
- mm/memcontrol.c               | 11 +++++++++++
- security/security.c           | 15 +++++++++++++++
- 4 files changed, 34 insertions(+)
+		dev = hctx->queue->queuedata;
+		if (!dev) {
+			blk_mq_start_request(bd->rq);
+			return BLK_STS_IOERR;
+		}
 
-diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
-index 87d9d06710cb..93c8bb5642f5 100644
---- a/include/linux/lsm_hook_defs.h
-+++ b/include/linux/lsm_hook_defs.h
-@@ -43,6 +43,7 @@ LSM_HOOK(int, 0, capset, struct cred *new, const struct cred *old,
- 	 const kernel_cap_t *permitted)
- LSM_HOOK(int, 0, capable, const struct cred *cred, struct user_namespace *ns,
- 	 int cap, unsigned int opts)
-+LSM_HOOK(int, 0, memcg_charge_task, const struct cred *from, const struct cred *to)
- LSM_HOOK(int, 0, quotactl, int cmds, int type, int id, const struct super_block *sb)
- LSM_HOOK(int, 0, quota_on, struct dentry *dentry)
- LSM_HOOK(int, 0, syslog, int type)
-diff --git a/include/linux/security.h b/include/linux/security.h
-index 40831fab5470..b21823225ed0 100644
---- a/include/linux/security.h
-+++ b/include/linux/security.h
-@@ -352,6 +352,7 @@ int security_capable(const struct cred *cred,
- 		       struct user_namespace *ns,
- 		       int cap,
- 		       unsigned int opts);
-+int security_memcg_charge_task(const struct cred *from, const struct cred *to);
- int security_quotactl(int cmds, int type, int id, const struct super_block *sb);
- int security_quota_on(struct dentry *dentry);
- int security_syslog(int type);
-@@ -710,6 +711,12 @@ static inline int security_capable(const struct cred *cred,
- 	return cap_capable(cred, ns, cap, opts);
- }
- 
-+static inline int security_memcg_charge_task(const struct cred *from,
-+					     const struct cred *to)
-+{
-+	return 0;
-+}
-+
- static inline int security_quotactl(int cmds, int type, int id,
- 				     const struct super_block *sb)
- {
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 03cd90d5e623..2e6fcbe14d43 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -60,6 +60,7 @@
- #include <linux/lockdep.h>
- #include <linux/resume_user_mode.h>
- #include <linux/psi.h>
-+#include <linux/security.h>
- #include <linux/seq_buf.h>
- #include <linux/sched/isolation.h>
- #include <linux/kmemleak.h>
-@@ -3198,10 +3199,12 @@ static bool mem_cgroup_may_charge(struct mem_cgroup *memcg)
- struct obj_cgroup *get_obj_cgroup_from_fd(int fd)
- {
- 	struct cgroup_subsys_state *css;
-+	const struct cred *tcred;
- 	struct obj_cgroup *objcg;
- 	struct mem_cgroup *memcg;
- 	struct task_struct *task;
- 	unsigned int pidfd_flags;
-+	int ret;
- 
- 	if (mem_cgroup_disabled())
- 		return ERR_PTR(-EOPNOTSUPP);
-@@ -3226,6 +3229,14 @@ struct obj_cgroup *get_obj_cgroup_from_fd(int fd)
- 		if (IS_ERR(task))
- 			return ERR_CAST(task);
- 
-+		tcred = get_task_cred(task);
-+		ret = security_memcg_charge_task(current_cred(), tcred);
-+		put_cred(tcred);
-+		if (ret) {
-+			put_task_struct(task);
-+			return ERR_PTR(ret);
-+		}
-+
- 		rcu_read_lock();
- 		css = task_css(task, memory_cgrp_id);
- 		put_task_struct(task);
-diff --git a/security/security.c b/security/security.c
-index f6583d507395..e198e00b6a40 100644
---- a/security/security.c
-+++ b/security/security.c
-@@ -674,6 +674,21 @@ int security_capable(const struct cred *cred,
- 	return call_int_hook(capable, cred, ns, cap, opts);
- }
- 
-+/**
-+ * security_memcg_charge_task() - Check if cross-cgroup memory charging is allowed
-+ * @from: credentials of the process requesting the charge
-+ * @to: credentials of the process to charge
-+ *
-+ * Check whether the process with credentials @from is allowed to charge
-+ * memory to the cgroup of the process with credentials @to.
-+ *
-+ * Return: Returns 0 if permission is granted.
-+ */
-+int security_memcg_charge_task(const struct cred *from, const struct cred *to)
-+{
-+	return call_int_hook(memcg_charge_task, from, to);
-+}
-+
- /**
-  * security_quotactl() - Check if a quotactl() syscall is allowed for this fs
-  * @cmds: commands
+		/* Reclaim must not recurse into I/O while processing requests. */
+		noio_flags = memalloc_noio_save();
+		spin_lock_irq(&dev->queue_lock);
+		list_add_tail(&bd->rq->queuelist, &dev->rq_list);
+		mtd_blktrans_work(dev);
+		spin_unlock_irq(&dev->queue_lock);
+		memalloc_noio_restore(noio_flags);
 
--- 
-2.55.0
+		return BLK_STS_OK;
+	}
+
+This was added by commit d498b2ddda99e ("mtd: block: prevent reclaim
+I/O during request processing"), which is also the precedent this patch
+mirrors for the ->release() paths.
+
+The REQ_OP_FLUSH example given in the review (mtdblock_flush() ->
+write_cached_data() -> erase_write() -> mtd_erase() -> concat_erase())
+runs inside mtd_blktrans_work() as called from mtd_queue_rq(), i.e.
+within the PF_MEMALLOC_NOIO scope, so it cannot record the
+fs_reclaim -> cache_mutex edge.  I verified this empirically in QEMU:
+a flush issued while cache pressure is high stays clean, while the
+same flush invoked from ->release() (process context, no noio scope
+before this patch) triggers the lockdep cycle.
+
+I believe the review comment was based on a truncated snippet that
+dropped the memalloc_noio_save()/memalloc_noio_restore() lines
+surrounding the quoted block.
+
+Thanks,
+Shuai Liu
 
