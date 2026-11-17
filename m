@@ -1,110 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794914470;
-	b=EaNX6VWu0KKSBedp391my5TsRm+qJIMhpMsXxAspSA1aAmQXFzpo4tDgRnCsvocOnKtO
-	 00m2FQc5LJOpWatjbLXtIecgQ9NCAXc2sxMLD2f3p7OLEWUazu2lRydIz/ItsdvCmEMj8
-	 7nqmV8evpRZNYwE09bZO4subtZUi4o2vJ7zY83Ob9z1wVN9HOEUaDC4cfQPURzczsOzYU
-	 hTb2/0hvoAqijwo53z+lWtn2PM+pjhjGYiahw6SJZkCiVcxH7dUExINykRbpqKTVpgkzI
-	 KOS4fXyD0jYz0N4S9fY2ttp2xIg64X5ddal6oyy7P/+bV+NYyRh3YcDCFykQy/HjNjA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794914470;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Gd7FYFo8njyH0x+Kz+cwp33Q26sxyxVBUrukt5YkBqI=;
-	b=z+7MCleSxKj4C2QpRoirYCBQov3gwoz4Gq59ltXwCv9Yi9+e1C8hvzjuUAji6cgjDqGe
-	 N0a0CVQY/yJ77fy4mTBTAXatsvh9uTu/Ip24tKbqrYBrNxOLxJDxV8ASQbzR2oC/PrVrb
-	 DU5/i1xrlRiRrzsQrZr/zwMOtP/vooT5rGjo40Kc5fgrPl2AXIUzP8rRXtXvSvaeuSJN/
-	 VCb1eEWsklqY6pmjsWyxt0nudDC0jfP6KfYKW8WZIZoThqcTvHEALwAlwVYi/PYVHZR0U
-	 cw1nU3nTl31s4vjdu7KwS9f+XoH+137yTsWYUaT5GssjF0m4uPU2BygEqt49Rwcg63g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ewCY9S2k;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.11
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013011.outbound.protection.outlook.com [40.93.201.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DABB606A32A;
-	Tue, 17 Nov 2026 11:21:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DABB606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794914485;
+	b=aml24ApeIHxqQJzFnsXtsJaRgCSIRA2mHdv0G0uZowHTPdnhpt+KPWshhhWVdZt0rrAB
+	 dYHi+aFB9KY7OXoGGw+fw2MyNrnpxWSKGUbXKCyi8WRZpbemt2mnqOrztcv5ly5VzmUlS
+	 J9Yz2Hzqi8e6Ng3YkQ8IN3aSqVrwh9o2f+OpRVjB+6xqDC0vY/qulD9RIuvXc3aWJUMhB
+	 wMeJQbYHfF57unw/kPGWdsUjD51HgctIDXvbsJNklRE01cO0APINmiIP/ZJacTpJruksU
+	 DryKaFfxmlfh1ISyvTbgdeKPHr3o/EeLkYRNF4wmryv8wxKVG6vai/i0DcoJBQUN/4Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794914485;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=tPN6t0FJhDsH+qTMFEOJnF2T+J/OJfxtPVagdAeddTc=;
+	b=1pJi7WRBnLHyOcR9KUUCcdGbyGFiJmQgQYIrX4ClvoyiqaU4a4GfGL9T8F+NjF4Q9lVb
+	 fBfLYsr/mmAMUQzmqCn07d2PTSnIaLMdzvx8Fzp9Falgwa+6A6tRxQSDpNIrZ0VAkrRFT
+	 kgyV42OeKubi/T+HhZKO07v2hNb+P7EvVTNhNDbqCaRSPmPXdLQLgVdf2Y0teTvisPjLL
+	 FoNL6eLAOyL017K9pqNS+d0cS77DXYnVmtTFUId8dlYv4tvH/PyJUwnPJxYc9XPKhWxK+
+	 9A5wZ1nM8rUuYizXx4zS79vorrdNF6OtG4laNzCir20cdpKy2TKX3Rf0ee8Ig4nxPhw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=NL2FiKpK;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 88D34606A331;
+	Tue, 17 Nov 2026 11:21:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88D34606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ewCY9S2k
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jnKAMZcxMG72ALcqNlsi/ykCvnd71lg1ogH3hIRd27WdDhHXRjtcBHgj3D8IgRq461aFnmNuFrpWuF58RUNrOSmaUEILM8xI5oxMcLlkHB0IBzWx7+dhdD7hkViAM7OUeBjH5b0jXT1IIwOAnuquFMocZ6SfzSZMC5+YzohbFO5OqYMDIayo9Fz+hvLboPx5vw0fL7yrKN1065ya5Bn1YO7MsqyMsYWjsmYbEmJF5X6GGdOrVezNHGTF/Ai+4PPfb8GpeOIQy9Pbc1D32cKOpefZeIC+oVG2AoNKbuz35hjJlfq7rqxlxLvShTEmGFzp1C8/+YVBKckuL1iCPRkbCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Gd7FYFo8njyH0x+Kz+cwp33Q26sxyxVBUrukt5YkBqI=;
- b=A/MUYJrDmmT3eozj5dyxjWTn6h4x8lvhN82DuOQqMr4rAAQwdzvk5+H9Jw4KOvuHeWce+fxtlJHaLrGksqnsaF+uQc1qgFhN8RKJALr4PYTDr/lfwnwL/yXgL1eMpqby4VVRUIX5X/IezGDBr1PiC76BtiivIdj41FJLvBm+BhV6wjYIySGYpOwVYTsd9Gp6TRFylEbZpI94ERSe+6MGlxkuJR/rXja9HWgIayor07nU6EBcR8d6DEeP4jLScrMEt0q24rok5ykiiFOzijtEp9tHY6C7MDulcKQGlhBS1rzrKDnzCr/38EVShQrsm9Cm3kHnecQ77CKpaL/vDFOPrQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gd7FYFo8njyH0x+Kz+cwp33Q26sxyxVBUrukt5YkBqI=;
- b=ewCY9S2kGwUPXSrP8uzLKv395NqqM0CtvGszwFHh0016RwhydTqryYkGKQp7NHp3n9VOfNpzJ3D3bDDkaw1Z6X9YoVpG5s5i4Wqru1VGxSkrBU/hbv/V2Nl5oTrNdxKWLSHYtjHP1HK8YencR+5vOmlrLYR20HBU9844UjMXdUYFauRJdi0IHtPyai4dkAIgY3JykIO2PSvZFFutVm+gZWj1NVUpzDCmKiZKostUPqAZtAaf514rkynEd/ZJtZVPmxq+5gZFT/+3dgpO48VdzyUootzhxy5B3sO4yYkhetx53CZQvNkLc0MzkU8sqBNrOQ+eDFHlMOzTdvYR6xBiSw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHAPR12MB999248.namprd12.prod.outlook.com
- (2603:10b6:610:2ff::22) by IA1PR12MB6308.namprd12.prod.outlook.com
- (2603:10b6:208:3e4::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Tue, 17 Nov
- 2026 11:21:04 +0000
-Received: from CHAPR12MB999248.namprd12.prod.outlook.com
- ([fe80::4972:8062:d74e:b205]) by CHAPR12MB999248.namprd12.prod.outlook.com
- ([fe80::4972:8062:d74e:b205%6]) with mapi id 15.21.0615.009; Tue, 17 Nov 2026
- 11:21:03 +0000
-Message-ID: <e4ae51c0-8041-4ad2-811f-cfe8fa1a092b@nvidia.com>
-Date: Tue, 17 Nov 2026 12:20:56 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next V2 10/13] net: devmem: add
- netdev_has_dmabuf_binding() helper
-To: Jakub Kicinski <kuba@kernel.org>, Tariq Toukan <tariqt@nvidia.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
- Bobby Eshleman <bobbyeshleman@meta.com>, Carolina Jubran
- <cjubran@nvidia.com>, Cosmin Ratiu <cratiu@nvidia.com>,
- Daniel Borkmann <daniel@iogearbox.net>, David Wei <dw@davidwei.uk>,
- Erfan Sharafzadeh <erfansh@meta.com>, Gal Pressman <gal@nvidia.com>,
- Jacob Keller <Jacob.e.keller@intel.com>, Kaifeng Wang <kaifengw@google.com>,
- Leon Romanovsky <leon@kernel.org>, open list <linux-kernel@vger.kernel.org>,
- linux-rdma@vger.kernel.org, Mark Bloch <mbloch@nvidia.com>,
- Matt Fleming <mfleming@cloudflare.com>, Mina Almasry
- <almasrymina@google.com>, Nikolay Aleksandrov <razor@blackwall.org>,
- Saeed Mahameed <saeedm@nvidia.com>, Simon Horman <horms@kernel.org>,
- Stanislav Fomichev <sdf@fomichev.me>,
- Stanislav Fomichev <sdf.kernel@gmail.com>, William Tu <witu@nvidia.com>,
- Bobby Eshleman <bobbyeshleman@gmail.com>
-References: <20261110183826.2927274-1-tariqt@nvidia.com>
- <20261110183826.2927274-11-tariqt@nvidia.com>
- <20261115101720.5fffb5eb@kernel.org>
-Content-Language: en-US
-From: Dragos Tatulea <dtatulea@nvidia.com>
-In-Reply-To: <20261115101720.5fffb5eb@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0011.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:15::16) To CHAPR12MB999248.namprd12.prod.outlook.com
- (2603:10b6:610:2ff::22)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=NL2FiKpK
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DAC3E1CC4;
+	Tue, 17 Nov 2026 03:21:20 -0800 (PST)
+Received: from e135073.nice.Arm.com (e135073.arm.com [10.34.111.135])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id A885C3F763;
+	Tue, 17 Nov 2026 03:21:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794914483; bh=+bvThLLNGVpaICo0kuChHAYX8t5QkzlYMXUCPq6vc/Q=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=NL2FiKpKnp16Qs6ShxRqCfGNMLtY5gfBiqOM20zRmq6FB5CYOe5bbm3Mn0fGvOJWL
+	 xKwAjfMmVaI1LVQdEmMcHMKkqEAI55ttK0B5a1/Dc+s5zKv5RhL3CPwdSI+W1/NspS
+	 ZAGigmcfxfssnjdv/9OKSwRsFcu590QJFvShC9HQ=
+From: Pierre Gondois <pierre.gondois@arm.com>
+To: linux-kernel@vger.kernel.org
+Cc: Ashok Raj <ashok.raj@oss.qualcomm.com>,
+	James Morse <james.morse@arm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Pierre Gondois <pierre.gondois@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Tony Luck <tony.luck@intel.com>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Shuai Xue <xueshuai@linux.alibaba.com>,
+	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
+	"Oliver O'Halloran" <oohall@gmail.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
+	Pawel Chmielewski <pawel.chmielewski@intel.com>,
+	Yazen Ghannam <yazen.ghannam@amd.com>,
+	Radu Rendec <radu@rendec.net>,
+	Avadhut Naik <avadhut.naik@amd.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Kai-Heng Feng <kaihengf@nvidia.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	"Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>,
+	Breno Leitao <leitao@debian.org>,
+	Dan Williams <djbw@kernel.org>,
+	Terry Bowman <terry.bowman@amd.com>,
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
+	linux-acpi@vger.kernel.org,
+	linux-edac@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-pci@vger.kernel.org,
+	acpica-devel@lists.linux.dev
+Subject: [PATCH v1 18/19] ACPI: APEI: Route GHES section reporting through extlog
+Date: Tue, 17 Nov 2026 12:10:28 +0100
+Message-ID: <20261117111444.4185512-19-pierre.gondois@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261117111444.4185512-1-pierre.gondois@arm.com>
+References: <20261117111444.4185512-1-pierre.gondois@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,78 +96,150 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHAPR12MB999248:EE_|IA1PR12MB6308:EE_
-X-MS-Office365-Filtering-Correlation-Id: 31303060-aed2-414f-d89c-08df449cddc0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|7416014|23010399003|10067099003|11063799006|4143699003|56012099006|261026121527099003|261009223027099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	SDM/n/e2Sq9KHg2sdZc/HzKanfiMPCuGXlqcWQa7v+52ArgtDRWFuhBtoSuJlkjgQYRAZct5j+jNQZmPB1xuJL7KEhyazREtrSIMkn/SsSTeT3ymAFeCaKEv49BZBQK3am1WB/BQ6SA3pKKLs5r/rSONwkxMJDUnYZIde3XnWWZOpa7bjyp+wjqdUrwVBVQi5p8O2tEWyouqZoWh4QNaZr6JDH/GcoihKdsNCpLnbK3JOgrxFf6xBfgr0nxIx6xlyp4P+dlutlnspoOQk8b1nNaHgA245vFhZ7tQx/2WUBA1uUKIednFkGPLjDuI//YyVi72sAi34QlUFzHabkLmNbxrGvsL4KPiYdwWbMh0X+NlvpNJnP9QBAhLKQBD+/bNAn9ZLzb4rUc9W3+AuAN/jXKrD6BdlwYuG7cxpYPEetUQ/ZrqWAoOqNfHohOKA0kaw4nXM7m4N7JHugVlo8JYizA+gSxoG+z6qQdzQl0kzOSu4UX2wLHIa2tNnFg9YfmaityGWaTd3AfghoVF/pK0mnxB28DHN+zaY5ArPsek2TFew2M/K5LEHUlnRbnQaDMbDB7oEyowJzSDzJfgr0YWrEJ4lDZ4DIDxYJBN7xrsGeGNoClwRnAaycS5JTRHBugireOIoxNJvsSW80Ws4wS+NYY8heRJY64NMWa5Px1gOys=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHAPR12MB999248.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(10067099003)(11063799006)(4143699003)(56012099006)(261026121527099003)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SCtxOUsvNVEya2Jsb1o5Q3A1TFdId045Wk9nYkhVN2hiRVhxYy9BTEwzWktN?=
- =?utf-8?B?a2MxZTg5K0lkVlNoQ0RTeGVidlU2TjllbzRVYWIyc1lnd0hxa05USm9JYVhv?=
- =?utf-8?B?czFheGVGMFBsT0cyenBwZ04ycDVtQ1VDelNYL1FIMTB0a1Q2dzJBdTJhdHV5?=
- =?utf-8?B?VzhGdldrZEs5R0d2Rm1FVWp1RmVRUE5vT3ZneElKQUhnT1FaVXA3QWJ6WmZt?=
- =?utf-8?B?S0U5Z1huMmthdElGbWxZUjNGV3FPY3JERTFaNFMrenhzVHJabHloZjVCSEJB?=
- =?utf-8?B?QWx3QXkvQ1gwYWIxZHhla1FCT0FWeVQ2dVd3dStUMkJRczZENjZaSldFS0dR?=
- =?utf-8?B?eHd6aGlUaTZZanNxWE5Kb3pmRlBLL3Q0bXR1UnNPNDBCWVZMM3RPd2xVWUY0?=
- =?utf-8?B?TjNnMGNpYXA5Y29yaDdlaGFma0xZN1QvRTdHbXRzR2V2eUJYRCttOFZONEJz?=
- =?utf-8?B?V21oeFQ5dEZRSGNCSmFraHhSeTVjL0NsZzhUUlQ1Uzl6aEYxc3IvbU5CZ3Rx?=
- =?utf-8?B?NndmdnB6eld4VEFBZkJNNmNZa1Y2d0QvZ21YVStFVGlEVHF2Wis3dWhCekY4?=
- =?utf-8?B?OWtBRGs5RTV3L0pxUjhSbFYwbC81NFYzb3g0dXpJRTdkZldWalRMNFJLT0h1?=
- =?utf-8?B?TCs3b3ZGQjJqUXlrdFhsVE45emxuVEtNS0ZqUlJjQlJSYkgxbGhHeEkxZ1JK?=
- =?utf-8?B?enhDMjIyMEgxVFN5ZHVaSHZjLzNGUWpRZngrcE4vcSsvV05QREwvZEFHYlZZ?=
- =?utf-8?B?Y3NIZ0FyVlU3c3RCQlA2Yk10ZWZFRHRkNXkyUHdyZG5YV2M0YWpiTXBFeXRt?=
- =?utf-8?B?cUpTUmR4WXZxamxzTzBLemhvVWQwdUJad0RZdnJwd29iaGh4NGtlbGRPZmt5?=
- =?utf-8?B?a0lBL2tFQ2dxdDJEZFpBSldJODZPZXk0cUtUMnlNdWdiNlRsK2FnUis5R1M4?=
- =?utf-8?B?cGYrb1RmYVhmMUQ3ZUs2eWV4cFNZL2RjTDMwOWVib1Q2bk9MbTMyNm9tUVNZ?=
- =?utf-8?B?a3FLSjlFR3IxM3dYdjllWlBTMnBmeUhDaEF1T3JxQ0tWcXkzT3o3eDdjOFp6?=
- =?utf-8?B?eWpkTjlES0FkNktCcEhWSStiUEpQNFpFQm54UG9ZajZzclhnNTNIS2txdUQx?=
- =?utf-8?B?Vyt1ejNjcEtISHEzbFU0ZHJqZW14MjRvT3VHT3lSQlcyUXhvaUNTSkZxL283?=
- =?utf-8?B?cnJHVGVVazFzOUppRG9CUExmWWgxZHpDVHZEUlhoTUpKeUtwY1dCcHR1UzFy?=
- =?utf-8?B?M0ZJeExIQVVZWFZLci9tNHNGbTZrRjFHYzlucCswQlY0U0pMOEpOTkY0MFFq?=
- =?utf-8?B?dDhhU2FIRDVKZDRWYjlmdjRKOXRIOVpMcm1BM2t0M0MzN0tuWVJtb21SNVk5?=
- =?utf-8?B?L2d1eENxUk9xUTlYTHdFT0FMTVh6ZkJOeEp0YzA3VjlUV1FTSG51NmJxbmR0?=
- =?utf-8?B?SDQrM3dpQjZXR0lFL2pQT3l3VHBZZCs2blMzV1l1Z0tSSHhsTHYzblBJRTNk?=
- =?utf-8?B?Y3hDa1VvOWtEQzlLRk5BREFPdTk0aTloOE9RdzhyeXBuQVdKS3BhZ0JFY1I1?=
- =?utf-8?B?dWQ0WUM0eVViSHhHcUhkVmtzLy83UVNMQ2NHcTZZQnVLR1VDeDhSRFNkM1d3?=
- =?utf-8?B?aHF6TDN2cjAyQWIzRVJ4RSsrSzRMY2ZjYkNjdFJ6ZmlkSGVIQlRLTmc2K0lT?=
- =?utf-8?B?SzZsV3hna3BlaHlPZkt2dGRFK2piK2d0RUNhSmNiT2txeWlwc0RLclprNm00?=
- =?utf-8?B?bTU0TTQyTm1iWDY2QThlUDNvUm1wdTQxbTNWQTRwa0xvT2UwNVl0eE9KNDNE?=
- =?utf-8?B?VmszQW4ySklvVWdiemluNkMzeUxDTHVrRjJGQSt2UysyZ0w0TEJXWkFTcHh5?=
- =?utf-8?B?ajJtNnNXZWQxV1dKOWM5cXcya3hvdVg0SDEvWEU2aC9VS2QxT29yWHZiV0RQ?=
- =?utf-8?B?Qjl6anRKQ2YvNmNkaUJxRElyb0VxY3JjWG5NY2cxa0phQ2xSRHpHSTMyYWZI?=
- =?utf-8?B?eCtiMnJhU2tKZTM0RWYrVDl4UElxcG1DeXp0MDVEczI2UWtxaFNCejhVWm80?=
- =?utf-8?B?bXE5SlI2emZsNGVnVUtNOU9wNXhKVDh5YlA1UFZKWStOaUt6bUJzbUFDNWJ6?=
- =?utf-8?B?bVpwNE5MWGZYOFc4MnJkZ1BIUURoQ2ZKSXlSd2dmSThKeVh6ZU5FU2x2WGVM?=
- =?utf-8?B?UUUxeGg4alAvWFdMRVc0eHdYNDA3bW1tU0w0cWVWNGl3UnY2NnFnOWRyNGlU?=
- =?utf-8?B?aFFSbHFHbUhFRDJSdUxWejZHcTRoOGxQWDNwc1RFMU85cHRMWlJTaHNMSHQw?=
- =?utf-8?B?a1JUQVNwTkE2U21hNi9URVZibW12NllDUlRQT3Vwb0JGWXhPak93QT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 31303060-aed2-414f-d89c-08df449cddc0
-X-MS-Exchange-CrossTenant-AuthSource: CHAPR12MB999248.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 11:21:03.8324
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ShHiG5AcJPsfySS9sf0FFnE2Hoi4OqrcGw/GlyukQLRPyCPpsfl2YcW2eU2SztNd+Gdy7qb3UdZAYUMuWhfu7Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6308
+Content-Transfer-Encoding: 8bit
 
-On 15.11.26 19:17, Jakub Kicinski wrote:
-> On Tue, 10 Nov 2026 20:38:23 +0200 Tariq Toukan wrote:
->>  include/net/netmem.h | 24 ++++++++++++++++++++++++
-> 
-> I haven't done a proper review but this jumps out - does the new helper
-> really belong to netmem.h ?
-Hmmm... no. It should be in include/net/netdev_queues.h, just like
-net_devmem_unbind_dma_dev().
+Use acpi_extlog_report() for GHES section reporting and remove the
+duplicate dispatch code.
 
-Thanks,
-Dragos
+GHES memory sections now emit extlog trace events independently of EDAC
+registration, using the CPER section severity and one sequence number
+per status block. CXL events that cannot be queued fall back to the
+nonstandard trace event.
+
+Report all sections before running the remaining GHES handlers. Keep
+memory recovery, SIGBUS handling and notifier calls in GHES.
+
+Signed-off-by: Pierre Gondois <pierre.gondois@arm.com>
+---
+ drivers/acpi/apei/apei-internal.h |  1 -
+ drivers/acpi/apei/extlog.c        |  2 +-
+ drivers/acpi/apei/ghes.c          | 57 +++++++------------------------
+ 3 files changed, 13 insertions(+), 47 deletions(-)
+
+diff --git a/drivers/acpi/apei/apei-internal.h b/drivers/acpi/apei/apei-internal.h
+index 22a33a21017a3..5063c743b4cf0 100644
+--- a/drivers/acpi/apei/apei-internal.h
++++ b/drivers/acpi/apei/apei-internal.h
+@@ -14,7 +14,6 @@ int ghes_severity(int severity);
+ int cxl_cper_post_event(enum cxl_event_type event_type,
+ 			struct cxl_cper_event_rec *rec, u32 len);
+ u32 acpi_extlog_mem_err_min_len(u64 validation_bits);
+-void extlog_print_pcie(struct acpi_hest_generic_data *gdata);
+ void acpi_extlog_report(const struct acpi_hest_generic_status *estatus);
+ 
+ struct apei_exec_context;
+diff --git a/drivers/acpi/apei/extlog.c b/drivers/acpi/apei/extlog.c
+index 42ba8ba13804f..d1677d299e389 100644
+--- a/drivers/acpi/apei/extlog.c
++++ b/drivers/acpi/apei/extlog.c
+@@ -31,7 +31,7 @@
+  * CPER_SEV_FATAL or CPER_SEC_RESET -> AER_FATAL
+  *     These both need to be reported and recovered from by the AER driver.
+  */
+-void extlog_print_pcie(struct acpi_hest_generic_data *gdata)
++static void extlog_print_pcie(struct acpi_hest_generic_data *gdata)
+ {
+ #ifdef CONFIG_ACPI_APEI_PCIEAER
+ 	struct cper_sec_pcie *pcie_err = acpi_hest_get_payload(gdata);
+diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
+index 7d2864fa14503..221f0a81c94f6 100644
+--- a/drivers/acpi/apei/ghes.c
++++ b/drivers/acpi/apei/ghes.c
+@@ -566,9 +566,7 @@ static bool ghes_handle_arm_hw_error(struct acpi_hest_generic_data *gdata,
+ 	char *p;
+ 
+ 	sec_sev = ghes_severity(gdata->error_severity);
+-	if (length >= sizeof(*err)) {
+-		log_arm_hw_error(err, sec_sev);
+-	} else {
++	if (length < sizeof(*err)) {
+ 		pr_warn(FW_BUG "arm error length: %d\n", length);
+ 		pr_warn(FW_BUG "length is too small\n");
+ 		pr_warn(FW_BUG "firmware-generated error record is incorrect\n");
+@@ -884,34 +882,23 @@ static void ghes_log_hwerr(int sev, guid_t *sec_type)
+ static void ghes_do_proc(struct ghes *ghes,
+ 			 const struct acpi_hest_generic_status *estatus)
+ {
+-	int sev, sec_sev;
++	int sev;
+ 	struct acpi_hest_generic_data *gdata;
+ 	guid_t *sec_type;
+-	const guid_t *fru_id;
+-	const char *fru_text;
+ 	bool queued = false;
+ 	bool sync = is_hest_sync_notify(ghes);
+ 
++	acpi_extlog_report(estatus);
++
+ 	sev = ghes_severity(estatus->error_severity);
+ 	apei_estatus_for_each_section(estatus, gdata) {
+ 		sec_type = (guid_t *)gdata->section_type;
+-		sec_sev = ghes_severity(gdata->error_severity);
+-		if (gdata->validation_bits & CPER_SEC_VALID_FRU_ID)
+-			fru_id = (guid_t *)gdata->fru_id;
+-		else
+-			fru_id = &guid_null;
+-
+-		if (gdata->validation_bits & CPER_SEC_VALID_FRU_TEXT)
+-			fru_text = gdata->fru_text;
+-		else
+-			fru_text = "";
+-
+ 		ghes_log_hwerr(sev, sec_type);
+ 		if (guid_equal(sec_type, &CPER_SEC_PLATFORM_MEM)) {
+ 			struct cper_sec_mem_err *mem_err = acpi_hest_get_payload(gdata);
+ 
+ 			/*
+-			 * Check once for all three consumers below. The 73-byte
++			 * Check once for all consumers below. The 73-byte
+ 			 * UEFI 2.1/2.2 layout is the floor, matching
+ 			 * cper_estatus_print_section() and making
+ 			 * validation_bits safe to read.
+@@ -944,37 +931,17 @@ static void ghes_do_proc(struct ghes *ghes,
+ 			atomic_notifier_call_chain(&ghes_report_mem2_chain, sev, mem_err);
+ 			arch_apei_report_mem_error2(sev, mem_err);
+ 			queued |= ghes_handle_memory_failure2(gdata, sev, sync);
+-		} else if (guid_equal(sec_type, &CPER_SEC_PCIE)) {
+-			extlog_print_pcie(gdata);
+ 		} else if (guid_equal(sec_type, &CPER_SEC_PROC_ARM)) {
+ 			queued |= ghes_handle_arm_hw_error(gdata, sev, sync);
+-		} else if (guid_equal(sec_type, &CPER_SEC_CXL_PROT_ERR)) {
+-			struct cxl_cper_sec_prot_err *prot_err = acpi_hest_get_payload(gdata);
+-
+-			cxl_cper_post_prot_err(prot_err, gdata->error_severity,
+-					       gdata->error_data_length);
+-		} else if (guid_equal(sec_type, &CPER_SEC_CXL_GEN_MEDIA_GUID)) {
+-			struct cxl_cper_event_rec *rec = acpi_hest_get_payload(gdata);
+-
+-			cxl_cper_post_event(CXL_CPER_EVENT_GEN_MEDIA, rec,
+-					    gdata->error_data_length);
+-		} else if (guid_equal(sec_type, &CPER_SEC_CXL_DRAM_GUID)) {
+-			struct cxl_cper_event_rec *rec = acpi_hest_get_payload(gdata);
+-
+-			cxl_cper_post_event(CXL_CPER_EVENT_DRAM, rec,
+-					    gdata->error_data_length);
+-		} else if (guid_equal(sec_type, &CPER_SEC_CXL_MEM_MODULE_GUID)) {
+-			struct cxl_cper_event_rec *rec = acpi_hest_get_payload(gdata);
+-
+-			cxl_cper_post_event(CXL_CPER_EVENT_MEM_MODULE, rec,
+-					    gdata->error_data_length);
++		} else if (guid_equal(sec_type, &CPER_SEC_PCIE) ||
++			   guid_equal(sec_type, &CPER_SEC_CXL_PROT_ERR) ||
++			   guid_equal(sec_type, &CPER_SEC_CXL_GEN_MEDIA_GUID) ||
++			   guid_equal(sec_type, &CPER_SEC_CXL_DRAM_GUID) ||
++			   guid_equal(sec_type, &CPER_SEC_CXL_MEM_MODULE_GUID)) {
++			/* Reporting and subsystem delivery are handled by extlog. */
++			continue;
+ 		} else {
+-			void *err = acpi_hest_get_payload(gdata);
+-
+ 			ghes_defer_non_standard_event(gdata, sev);
+-			log_non_standard_event(sec_type, fru_id, fru_text,
+-					       sec_sev, err,
+-					       gdata->error_data_length);
+ 		}
+ 	}
+ 
+-- 
+2.43.0
+
