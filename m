@@ -1,102 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794935411;
-	b=E8moayWdh74qOl8eaLPPLm4zdDwE8qyYPzX5gORLs723ssctrOJHJ55aBfaI6zVircHq
-	 fC2Jnp/xci2kRrQz8gNbozaGlmH/lhJsE18oCTuVKPC46zjgrqWHfOrbLaaRl1yyJh1j2
-	 8Hrv5QtYFzDtYgeqbJoodfiB59dIrVMVL7GPfvgnQrb0Pc2obju1G/SKSxa6mVWIrTnMN
-	 gsoLeetq+ut5Tbuqp5hzWiVzI1WkSPtc72Oz5YZ5/E1aR722KDZDDwlR4PIfpx28SyRfY
-	 Dvl/9Pj38HzYFT4Wq/5yHpRVNXczpQUt4SCkozcXlEJXXG1vG6eqVwHI1RJDPHG7aag==
+	t=1794935415;
+	b=vgYjJpFrpq20Hq16mLRb8t8yF/38vasZb0UrasPyp9Ap5q5ukfK5jcEb6IRvsV8ojWv3
+	 w2/hkGhIy3xPfJkCSZiOSu8pUi/s97jZgTpt0cmipwBx+mbTQdbssz82+4OzDqWeYrXC6
+	 FswwW01dxOERyYV4VdJYHfLxwf93VrTAK7b95Lu4rR6JoLvhaiZNHvsyl+ARV101ERUov
+	 b6ydZraE0Id91ErIttged1vVlcd0d2dKkyNuVto+BwsLuBmpIs66n80B8E8hiiMMz1C2j
+	 54jmgd/JxdyfV6AjIAMfZbjL1zjidSvK5+YLF4MfT+oYpna2PZx88sUpkJ6e/mlIEYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794935411;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=6huBfZmPJQPrAdDCa5Wk9xqnE2GPx+6fEpKq90an7Ag=;
-	b=Ku/eoNpI3pe9F5Z1W9NlRGrdxzqc9D6pdA52ihK7J9iwznhDGv5TsM/xr+B/ooOlwHMu
-	 6pjG9FTlYjh8Aw3OJ7kpJp0aDNpuy+0qaIDa2/9rL2n3EyAbaSFKEbhkdzfKHljJJTNEh
-	 Fm8Fyp8XYMySH+zKYfoYNtpmH1/mpMrGmcnie2ePDi6//WFcbU0kXGrtFuU4JfH2WDZAa
-	 52xkwQo94pkrUY5B1UdbTQGt2R0+deZ/x+A3SLhKOLLrFB8vSTMZ3IXYpq+AvZc3KiHEs
-	 x0Dm1UEHErMS1zgaeKMk1dIm9XwgxQHPaMaC/PMjg6ICWophNq2ZkO0SkgzzBEQj9Ww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794935415;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=UNMoeiPf59zYewdyjbUj2KK7jui/9PboPaDgtiTNze4=;
+	b=2Dgbyha1rDpF/cFLJBhsvR0yQLVd2jQQStgQkSbPoaDQCU3uOg3mrHvrGhmqas//v9Lt
+	 L4lm2Yk/zzUDwBYqsCiOZaa/cbZ/lMircZKXFOQ2uLB4iNLmNxqMHknob6nHH+hd6PIZU
+	 +T/M/kqAL8tMrmqx/M8zP2WjQdpHNx/3Ago6hupHmY5gIWkzETi31VXUegcVpfDAsTYaN
+	 anpg0uyrJH0+WzjADHLxgdqlIghYxczx68fB5LHgIzB6nHY07f3WiZ7UQPOT1z0mBCfjY
+	 RG5dOqn71Hd9i4cpEfWEkYPK4xpPRwYaEoEFJ7y1+Nj9AgeC0VWMQ7j+FPB++yTE5kQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ntofaL2f;
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J8VNHL7O;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A926060A2605
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 17:10:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A926060A2605
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE3ED606A332;
+	Tue, 17 Nov 2026 17:10:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ntofaL2f
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-49412eb1474so2643470f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 09:10:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794935409; x=1795540209; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6huBfZmPJQPrAdDCa5Wk9xqnE2GPx+6fEpKq90an7Ag=;
-        b=ntofaL2fBYzCjynF1c8NmGqctSSh8ulMFmY9Qxcamd4g2662lO1CL/51dKeRj4sIzd
-         asq/X1ettnzwnLTW05VhRM3QFS1ZqSI5yrs6CBtpOiVueImRsrmAWS4DtkFRBmS5o1Vt
-         Ut9d3BnEu8iRJfiGiv53rGggN8yUmKIJeeR7m6lc0qWo/LB4SU/J8JoJwLh7IzhBMHfp
-         nUv/raSDFFneQmY+YttiZio7ZvYyM90LghW7P6qvolJO74knLhgGCCoIT5elu3kSj3B1
-         OK66m+1MhR8zEny+qXxObduPj9ayVgNOoANAGLpWHtHlzBv6I3D0vTqVk56N0uAc7dZs
-         7fuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794935409; x=1795540209;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6huBfZmPJQPrAdDCa5Wk9xqnE2GPx+6fEpKq90an7Ag=;
-        b=Vgk/mog/A04J+KdUuLCXCk1h7Uuxp6if4IkezvSKtap/TejliVH18uWaUysC1IbxDK
-         4E/j8tzTll5BPwhYiLq0ADq/xApETSXix/OSsfgD3kOjBFCgpW41zumrjJ9znpTMcYuP
-         IP46HCKhGvfxugPj03Yd2ELkPaRAoiQ1mbgz/USE8DGLWAbutA3LkqtQ5vXZt8IwUrzh
-         tJ06iV+GqcL6FjrghpXVXUIXIOrxeinYklRSy7Ju0jvB9odQ17UhPEbslETNKa/6Mqjc
-         g2kfT22ka+jYS3FeIeUrqjNkXNLhzZV+UAk6lYPgKeCawZoi22eVyHGrNg3SU1JDgxeX
-         pyIg==
-X-Forwarded-Encrypted: i=1; AL+hErEbFDYSHgJ2WxJSt+FmUM43AVuwyLmjQmsmeNfHFu2AfTjlwEdkqdbwhlJzrGyY+y/PT2JZgk74xhTxx3A=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+IVc8P7f48OaQqtoeQJbeibhAMoO7sdvRRJMFJPyAcCgNoEXSn
-	RygKpxfLdGFjPOeIhzUBfcOS/dAX5zNumPyFqsCzRo/1Jt+VaNK93q0A6jBmzMcQ
-X-Gm-Gg: AZFdTZdKOeSFSjBBMVDASfMO/AOtu7mRoTA5EwwqLevahdqefCXPhYHLqmWJdifJN0e
-	91vH3NgTkAFnS2+rGocPKw69qcw5owqyGXDo08pM45M033AprrJIepNhhpvDry9siMVD2p436T6
-	2EOBPv8BTuiYub3hJ9bwQ0zFHDSmLHbjnBK+/dPgGurD02EL61I+Y5kmvW1CWDeBCt81DeJJXBG
-	Vt87b5J4IpYW8Sihk8WSaMHUUc4BC0c1h2WmSEfS7N+2W36bneEQjI1VK9Pih86mqfkjRN3la5E
-	znlKNCodlEleCd5wocNEnDhAntFSBYvnkuu7CPP81LPoPq1QpEaZIP+vLRD/r9bI0Mv33xKfS/o
-	P7nFFy3Hjyvwmh22Asj0V91j7Ic7diaJ19xuY37cn+fFjnLgLSLZIu+c3SI2KQ0Vq6ayadjHip5
-	s2TyPRHvE/zvKLULxUH2VcUBTCaH4Pxb7DU07MmSEM40OowdLXU2zAotUI1OBL1S7sVHisdJFSJ
-	5u7WG+j6nF/my1CunC/ILYXi/ZkZyhuMV67G6pkGuhoaJiNCmSNQfr3pdpD9pWjCZkkpt9t4YT5
-	NLkY/ua5Fq6lHUeRObJ2LqfHbWXkCCvTH/U=
-X-Received: by 2002:a05:6000:41c9:b0:492:b1c5:6db4 with SMTP id ffacd0b85a97d-4a63bbc379bmr82062f8f.26.1794935408907;
-        Tue, 17 Nov 2026 09:10:08 -0800 (PST)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c6d079a2asm26828762f8f.16.2026.11.17.09.10.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 09:10:08 -0800 (PST)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: Luka Gejak <luka.gejak@linux.dev>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Zong-Zhe Yang <kevin_yang@realtek.com>,
-	Tzu-En Huang <tehuang@realtek.com>,
-	Yan-Hsuan Chuang <yhchuang@realtek.com>,
-	Kalle Valo <kvalo@kernel.org>,
-	Stanislaw Gruszka <sgruszka@redhat.com>,
-	Brian Norris <briannorris@chromium.org>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mehmet.fide@screeningeagle.com
-Subject: [PATCH rtw-next v3 4/5] wifi: rtw88: reset the stations outside of RCU on firmware recovery
-Date: Tue, 17 Nov 2026 18:10:02 +0100
-Message-ID: <20261117171003.1840491-5-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261117171003.1840491-1-mehmet.fide@gmail.com>
-References: <20261117171003.1840491-1-mehmet.fide@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J8VNHL7O
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91A691F000D0;
+	Tue, 17 Nov 2026 17:10:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794935415;
+	bh=UNMoeiPf59zYewdyjbUj2KK7jui/9PboPaDgtiTNze4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=J8VNHL7O5Di6/5Eh1Hsa+2mJVMo1E4BgTzxJeLjEeRaGuZEk9jNTJE4r92Gt/IR4C
+	 jUVSpDoz1E9Ldg18one5LIpmAS/ZAxLV76EiCm7MDKwEkez+ViOzmRM5aq3mYEdpJH
+	 W0ECfaxzMRCXp9yeztZUsAVgb+IjecnR1Foy2EEuS78w3iVfK5Sr6UBlExFQhYtpI8
+	 O3D0PHyNhZpFsj+TDn9Ea6mKRR/NTIV7KspXMRPadByng4fsko6iUVU8+K8LLYIByg
+	 7UIYHxKTDgTdIZC4nFwDTgAnX/SQrTQQEDztyvpn/GTLqGWLakEX0FoxwttTA/pIov
+	 +6HPHfzqw2Frw==
+Date: Tue, 17 Nov 2026 18:10:07 +0100
+From: Christian Brauner <brauner@kernel.org>
+To: Andy Lutomirski <luto@amacapital.net>
+Cc: "Hallgrimur H. Gunnarsson" <halg@google.com>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Paul Moore <paul@paul-moore.com>, 
+	Serge Hallyn <sergeh@kernel.org>, Kees Cook <kees@kernel.org>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Jan Kara <jack@suse.cz>, 
+	James Morris <jmorris@namei.org>, Simon Horman <horms@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Jann Horn <jannh@google.com>, 
+	=?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>, KP Singh <kpsingh@kernel.org>, 
+	Jonathan Calmels <jcalmels@3xx0.net>, Casey Schaufler <casey@schaufler-ca.com>, 
+	linux-fsdevel@vger.kernel.org, linux-security-module@vger.kernel.org, linux-api@vger.kernel.org, 
+	containers@lists.linux.dev, netdev@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/8] userns: per-namespace capability bounding set and
+ opt-in netns loopback
+Message-ID: <20261117-rational-ohnehin-unbeugsam-e5c04759a156@brauner>
+References: <20261028221705.3915340-1-halg@google.com>
+ <CALCETrW9ygriu54gxiHFLEd5+hJminQo0r8Jwd63wR69Dj4W7w@mail.gmail.com>
+ <20261106-befreien-addieren-eislauf-e09212803534@brauner>
+ <CALCETrWa1SBLcb5oWjqjgzZvKvCoHjmYFk=Lf5ytEM9uqm5jYA@mail.gmail.com>
+ <avM41a80aig2de-R@google.com>
+ <20261111-behagen-faktisch-entgegen-e2e714373895@brauner>
+ <CALCETrUjW=kXxyggDUvEN+Pxc-pE98eVbdW8XBU8JzfqXj_voA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,58 +74,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CALCETrUjW=kXxyggDUvEN+Pxc-pE98eVbdW8XBU8JzfqXj_voA@mail.gmail.com>
 
-From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+On Mon, Nov 16, 2026 at 09:15:18AM -0800, Andy Lutomirski wrote:
+> On Wed, Nov 11, 2026 at 7:20 AM Christian Brauner <brauner@kernel.org> wrote:
+> > * a task that setns()es in later gets
+> >   ns->cap_bset & (cred->cap_userns | cred->cap_permitted)
+> 
+> I'm not sure this is ideal.  If a task has cap_userns & CAP_NET_ADMIN,
+> then there is no attack surface issue with allowing it to enter a
+> namespace and be NET_ADMIN there even if the namespace itself has
+> CAP_NET_ADMIN cleared from cap_bset.  But any exemption here would
+> need to be a new API so that it isn't used by accident.
+> 
+> I'm mostly saying this because container managers might want to
+> restrict cap_userns within their containers but still have it
+> themselves for management.  But maybe there isn't any need to enter
+> the userns for this purpose.
 
-The recovery after a firmware crash removes the driver state of every
-station with rtw_sta_remove(), called from an atomic station iterator.
-rtw_sta_remove() cancels the rate work of the station with
-cancel_work_sync(), which can sleep. With a station associated:
+I don't think there is. A manager that holds the capabilities itself can
+just do most things from the outside. I think it's nice that once you're
+inside a namespace you're bound by its capabiltiy set. Otherwise the set
+isn't a property of the namespace anymore. If someone comes up with a
+real need to enter we can add an explicit opt-in later?
 
-BUG: sleeping function called from invalid context at kernel/workqueue.c:4722
-in_atomic(): 0, irqs_disabled(): 0, non_block: 0, pid: 14, name: kworker/u16:1
-RCU nest depth: 1, expected: 0
-Workqueue: phy35 rtw_fw_recovery_work [rtw88_core]
-Call trace:
- __might_resched+0x13c/0x1f0
- __might_sleep+0x48/0x7c
- __cancel_work_sync+0xa8/0xb4
- cancel_work_sync+0x14/0x20
- rtw_sta_remove+0x34/0x10c [rtw88_core]
- rtw_reset_sta_iter+0x20/0x48 [rtw88_core]
- ieee80211_iterate_stations_atomic+0x80/0x144 [mac80211]
- rtw_fw_recovery_work+0x1dc/0x2b8 [rtw88_core]
+> > * Root in a container has caps as well so for containers the exemption
+> >   would be wrong.
+> >
+> >   So here we need a a lockable SECURE_NO_USERNS_CAP_RAISE bit thingy.
+> >   This turns off the exemption and prevents raising the mask.
+> >
+> >   Docker lowers the mask, sets and locks the bit, and
+> >   unshare(CLONE_NEWUSER) in the container doesn't hand out CAP_NET_ADMIN
+> >   anymore.
+> 
+> Can you clarify this part a bit?  I'm not seeing why Docker should be
+> special.  Shouldn't the inside of a Docker container work as much like
+> a normal non-container system as possible?  What's the use case?
 
-Use rtw_iterate_stas(), which collects the stations under RCU and calls
-the iterator after it. The recovery holds the driver mutex it asks for.
+I picked Docker because you brought it up, and your goal of allowing
+user namespaces even in Docker is kinda the use case. Docker can only
+drop the CLONE_NEWUSER block from its seccomp profile if nested user
+namespaces can't get more caps than root/Docker wants to give them.
 
-Fixes: bcafcb959a57 ("wifi: rtw88: use work to update rate to avoid RCU warning")
-Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
-Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
----
+But the bit isn't at all Docker specific. Any privileged task that wants the
+mask to apply to itself would benefit. With just the exemption this wouldn't be
+possible:
 
-Notes:
-    v3: no change; the station skip Luka Gejak found is removed by the
-        previous patch
-    v2: Reviewed-by Luka Gejak, no change
+(1) A runtime that holds full capabilities gives a 
+    user namespace it creates all bits.
+    It can just set the bit before creating it.
 
- drivers/net/wireless/realtek/rtw88/main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+(2) In a container without a user namespace container root has host-level
+    capabilities. Any user namespace it creates gets them through this
+    exemption thing. So it can also add them back to its mask. And the mask is
+    inherited. So every process it starts can then create user namespaces with
+    them.
 
-diff --git a/drivers/net/wireless/realtek/rtw88/main.c b/drivers/net/wireless/realtek/rtw88/main.c
-index ce65a1a80840..8e7ae747b900 100644
---- a/drivers/net/wireless/realtek/rtw88/main.c
-+++ b/drivers/net/wireless/realtek/rtw88/main.c
-@@ -664,7 +664,7 @@ static void __fw_recovery_work(struct rtw_dev *rtwdev)
- 	WARN(1, "firmware crash, start reset and recover\n");
- 
- 	rtw_iterate_keys_atomic(rtwdev, NULL, rtw_reset_key_iter, rtwdev);
--	rtw_iterate_stas_atomic(rtwdev, rtw_reset_sta_iter, rtwdev);
-+	rtw_iterate_stas(rtwdev, rtw_reset_sta_iter, rtwdev);
- 	rtw_iterate_vifs_atomic(rtwdev, rtw_reset_vif_iter, rtwdev);
- 	bitmap_zero(rtwdev->hw_port, RTW_PORT_NUM);
- 	rtw_enter_ips(rtwdev);
--- 
-2.56.0
+    by raising the bit we stop both. The locked bit keeps container root which
+    also has CAP_SETPCAP from clearing it.
 
+On the host none of that matters as the mask is root's own policy there.
+
+> In any event, the ptrace access checks also need to be updated.  If
+> we're adding cap_userns, then one should not be able to
+> PTRACE_MODE_ATTACH a task with higher cap_userns.
+
+Yeah, I mentioned that in my reply earlier.
