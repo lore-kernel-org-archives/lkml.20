@@ -1,76 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.64.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794916434;
-	b=mDyn3xJZMRSsUMpc1ZqJCWrWLXidI2c3wCRfkeWk7xWJPFCd1Mg3gCsAbt6FOhp/1V7S
-	 TPDyzunuNIchJuwiKw7EXM/q3y4rmKlmCDoy/9vE3Wi2QlL3AJszK6QRA9djFPzhXa/68
-	 1OPSNsPfhLuupduhC37KKmjEH/+Id0fD+Not1vtRe4E56JCl7/fjUSPAcMdJJT+FFT1GN
-	 3hf1dLkvAn2AqRKdLdy0+xZIWtvszR+Oi9v99VMG+L8zT+JnYOUm0raNHe9WBth6LDeQB
-	 MEEVoE7ZvxePpYzRTTxFanb7aaXv5g1/o8YoXMpvEcusPLD48XVpaVmIqgSGw5S6o3w==
+	t=1794916440;
+	b=0S/7AYFMspnErBRLqzTPnkHvRU8xobnkFcSV2RK4QHdPPCRDl/00TpIclxJu5pIo1jyE
+	 bFZqFMy0QK05L7DntXLxocXKhRUcRqAm4atDVSmttIdc8EMxjdtGdAcPm2w5YYBClRBgV
+	 4Asz++bP6RwXMTmCKRNVwbjZGTClo90neQ3YyNvDwxGcRX0OFbmBy3UHUbraTuGiwz7LE
+	 pveT+CyVHHXzAh0CT9E4xGqYMhJkn+hwfweaV3BrObMC7QyrI7GdpvF3j8bJAA+0TB8dN
+	 EE+BjEaBfn/56GoOcHMEqSjcE1t0JsqFZf5HDZDAlxHqSAhNhwPN1kegGiE4tHhCiaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794916434;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=fCqZ0Zd4HVCI/jRgXBSCy8S8OFyXtFOLF3BsI1zh8Sg=;
-	b=0Id8jgaSsEcJ0aWzWxlUgWOgybelyLqmuIURe+749FJa224kmWBo7YudIZjDLUH6l5ln
-	 kWduGjpuEjpYdTkDDFx9w97iCOSVOLBsN+XdcWVIdMxY+Z75uAAt5sGQ67bzHB0XUv869
-	 WpOZNiFAlOyPcEnKkdY22sPSKsFE9BecLbqeOAJnt+p4JWfb9vwT0siWMQVJ9MOn/ama3
-	 iriNGRZe9AY0Oe/QIQY6Zk6PjvMZNv/ZfkA1OXER0VkSmEC1S9b6DzcK3dkKNw5D640+a
-	 zRK8x4fXIA86oSSXY07MP10FMdFgQk/nDZGWotANrZEyMjMe1+9vRlRXqR6RcfqYoRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794916440;
+	h=DMARC-Filter:Received:X-ICL-RepId:Dkim-Signature:
+	 mail-alias-created-date:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Authority-Info-Out:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:X-JNJ;
+	bh=2twkXYHjF0/8A77eNfNjhV5mOhxXr6xgBT1MH1j2qYM=;
+	b=fDEjixSE5tI9UahdOk58ue1lqTnjsO12k4phjrkgMrUsKF+hooYmNjWZVN/YM736Ylfs
+	 nr+evBIIibKA92JXNbhGQijuhdrpArAh8F1vkfkD95/SSFxbuJWM0emCDiveEFPHmMv9g
+	 8M/zAQwNloRO7TMcnKAOo5qd4nusGuq6DnDLBSDj7pmiLBdtONBXmlIK1aOOSfffL/UAb
+	 qD3W1xO9JFnaT8do0msLjt4yc+xGaQt6914Xc2lngvypgFZoBZbhVYpbhleiSd0exCVV/
+	 kIkH9GaeK+NtG+ijtyK3uTeDWIl3j6la/oSgGC9bGkvmfY7JKl3MrVRrWs4j/3dYOAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.222.51
-Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com [209.85.222.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=verdict.gg;
+	spf=pass smtp.mailfrom=verdict.gg;
+	dkim=pass header.d=verdict.gg header.i=@verdict.gg header.a=rsa-sha256 header.s=sig1 header.b=ndcp1J5x;
+	arc=none smtp.remote-ip=57.103.64.118
+Received: from outbound.pv.icloud.com (pv-2001d-snip4-5.eps.apple.com [57.103.64.118])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFC4D606A33B
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:53:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFC4D606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f51.google.com with SMTP id a1e0cc1a2514c-9950a7530d9so3547859241.2
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:53:53 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794916433; x=1795521233;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=fCqZ0Zd4HVCI/jRgXBSCy8S8OFyXtFOLF3BsI1zh8Sg=;
-        b=wVBMqCXTNgmL8NsN6IO6jywK/y5tZq7yk4xlNQvD7GvY9QZcyWcNlI6BoJ3XRb6ea2
-         W1MZACCaG1NHI8juDK9ShxNW0La7wBJp28DynaD4FDh8JaTzuz8Zj8gGtR/EuGL7TaG3
-         Uop7hhT7/I2+vSMWWzd43JbuKYLVZCgEYCbyYBMMHJD/TovojuK0hOSorrpuru8AhYgE
-         Lge9XiULhFlwKkaNsRvh25JRKdlFn+S0VDkNaah8so1XeE0sNF5Zc6E/VdMW6D7qMfIu
-         l8YN4omKLLmFUFZhxOO4HcFXvNXN05bcVkURQF9aiH2MPlXYLs5yEs0UfYpHNlIZOdJn
-         3FBg==
-X-Forwarded-Encrypted: i=1; AL+hErGQ6Ib+9DfPA7PFIKQnQpw66UXeoBaaoSO5nzqwLL+4tUmcNcBt8b4DS55qxCKTubfSbv+Dxvn7r+FTVUM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9WSx66ouxOtI/1Cq9aEqSFu4kQGTVHPHw3Kb1O7//7wiEAKthv
-	ufs5Pa9lKVM8rmoCnKD/uqz7NtiPMrUlRrNumlMvGvFCFuDyEcJHKlq/P3ifke04
-X-Gm-Gg: AYBFou2oJRR4D4VDCa+kDM6AWuY2osx4no3n/gCA2h8EdqzLSYNDe6dYcFHIrSTwTjz
-	uHxWgiDcrD3KJaFP4w/O5p5EyZ+EE+vzKFlf2lxsxD4Eeg1Ce/B0roYcykiYtIBgp3i7uH3A/ix
-	UV0uEahiGxVu6kJwLbkt50HHof6mNIYV43qiH+B4nm9HyI3ng68hh8vWqhTcpIRgdq5TzYw9V9u
-	TWto7mI5MjO0gystwvfHogIbllQCDNBBp1xn4scc608xGrSo4pFYrbEwCoHzlf8Cje0xx6/DdoN
-	r1OKhRXOFcm15cjA4vCKemiYyTZrJKLDuY2aKKrjSsEtbpVTw01/G3JBXmHnTuFdu9TUD6bYfMg
-	zKNwEeFPhkWafvTEuRtIjAxlrigzSikugvBgPGQH6J2dWY2gfme98yzeQjZvURQVlQuxm/o5whP
-	4JYKhmPXSxoM8RvAAUi0NPemFdQoE01fmplSLKvjOtwdxteKPVXIWGL9vmMGkqfGspWTq1uTDa9
-	ktLXl2/RINOVmSL9Dyjtc6D8/uE0UvCbsaozll8T77KY0UZagO50qRHbtcxdmY3roVav7qRKt46
-	LYK7UzgfP1Cx4O4bF8iwuf5ZmBlihN/3DohOkTOhp0uA7bzkOcdar7RelZlz87aptzc=
-X-Received: by 2002:a05:6102:3585:b0:7cc:21cd:9b68 with SMTP id ada2fe7eead31-7d64d6f17a3mr5266082137.15.1794916432791;
-        Tue, 17 Nov 2026 03:53:52 -0800 (PST)
-Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com. [209.85.217.50])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d69dfddcebsm2003774137.5.2026.11.17.03.53.52
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2026 03:53:52 -0800 (PST)
-Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-7d2b25786d9so3196973137.0
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 03:53:52 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEMdyyEQEGD/WTUj2r9SqBaZzRdl6eQ1dyeJV62qk4i3fUbnCVvXIObezIfRbwdILKmbfH/aXwbM65LBAg=@vger.kernel.org
-X-Received: by 2002:a05:6102:578c:b0:7d2:c786:5a95 with SMTP id
- ada2fe7eead31-7d64d69dc95mr4808481137.13.1794916104363; Tue, 17 Nov 2026
- 03:48:24 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27162606A33A
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 11:53:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27162606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=verdict.gg
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=verdict.gg
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=verdict.gg header.i=@verdict.gg header.a=rsa-sha256 header.s=sig1 header.b=ndcp1J5x
+Received: from outbound.pv.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-1a-20-percent-1 (Postfix) with ESMTPS id 0FA5B18005A8;
+	Tue, 17 Nov 2026 11:53:55 +0000 (UTC)
+X-ICL-RepId: 01a1e95b-47fe-75a1-aaf2-09e0ba1f92cc
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=verdict.gg; s=sig1; t=1794916439; x=1826452439; bh=2twkXYHjF0/8A77eNfNjhV5mOhxXr6xgBT1MH1j2qYM=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=ndcp1J5x0stHpyrYYmhh1r9GBuX8+7s3pPjGH7KzAod0YJk0In3nR4Q6K+m5rL47TTEe9mdv8NMFn14IFai28oH0v/MA6ZOXWbf2J8OjqVbLwEfgkxP4z7eDHN//zYmZiCVXdZM33IcmlNqOZwbLKOgB9O+/euFp7lGnAQz8MGrYnCtqmQuqREZiaEX0XeqZq61Y0LiPEroDHY7VX/nB/pQFAUUO1Tx3WxsUcaOvTlruTPjPBH/BKfh7lcPc4QBBzmtuvXptbOcvKMbd3udOY+Pjzbfdb9C+7aJOSElwCYQ0X4ZjZcuepbAVJcFy5nU7/J8Lt4Cu+OOxwxjc2tv/4Q==
+mail-alias-created-date: 1621344842221
+Received: from DelNac.mail.msk (unknown [17.156.192.29])
+	by p00-icloudmta-asmtp-us-west-1a-20-percent-1 (Postfix) with ESMTPSA id 43C3F180014F;
+	Tue, 17 Nov 2026 11:53:51 +0000 (UTC)
+From: Vladimir Vdovin <deliran@verdict.gg>
+To: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Aaron Conole <aconole@redhat.com>,
+	Eelco Chaudron <echaudro@redhat.com>,
+	Ilya Maximets <i.maximets@ovn.org>
+Cc: Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	dev@openvswitch.org,
+	linux-hardening@vger.kernel.org,
+	Fernando Fernandez Mancera <fmancera@suse.de>,
+	Vladimir Vdovin <deliran@verdict.gg>
+Subject: [PATCH nf-next v1 3/5] netfilter: nf_conncount: size the number of slots from the cpu count
+Date: Tue, 17 Nov 2026 14:53:06 +0300
+Message-ID: <20261117115308.95134-4-deliran@verdict.gg>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261117115308.95134-1-deliran@verdict.gg>
+References: <20261117115308.95134-1-deliran@verdict.gg>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,94 +81,181 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261024223501.1420953-1-daniel.lezcano@oss.qualcomm.com> <20261024223501.1420953-2-daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <20261024223501.1420953-2-daniel.lezcano@oss.qualcomm.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 17 Nov 2026 12:48:13 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdXJOpcC3a6wMXF_m=uNjuqSO1Z3kyM7Az1uP_2GBurOvA@mail.gmail.com>
-X-Gm-Features: Aa3M54o4xtj3bYccvEv51xwUP0A3vPBfjxtiJtpZqQUGyQco56wW9LsC221L5Po
-Message-ID: <CAMuHMdXJOpcC3a6wMXF_m=uNjuqSO1Z3kyM7Az1uP_2GBurOvA@mail.gmail.com>
-Subject: Re: [PATCH v3 1/4] platform profile: Extract the core from ACPI
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Cc: rafael@kernel.org, Len Brown <lenb@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Viresh Kumar <viresh.kumar@linaro.org>, Hans de Goede <hansg@kernel.org>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Maximilian Luz <luzmaximilian@gmail.com>, Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, 
-	Mark Pearson <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
-	Lukasz Luba <lukasz.luba@arm.com>, Armin Wolf <W_Armin@gmx.de>, 
-	Jai Luthra <jai.luthra@ideasonboard.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jack Wu <jackbb_wu@compal.com>, 
-	"Mario Limonciello (AMD)" <superm1@kernel.org>, linux-acpi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-pm@vger.kernel.org, platform-driver-x86@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: rCAXIVkkF_cc1loMeC_C3WXRKh43SzxK
+X-Authority-Info-Out: v=2.4 cv=Cv+ys34D c=1 sm=1 tr=0 ts=6afc4055
+ cx=c_apl:c_pps:t_out a=aW9mcIavGNWWFvFFKOxBSA==:117
+ a=aW9mcIavGNWWFvFFKOxBSA==:17 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=sVoYjay53MzFMQOSY88A:9
+X-Proofpoint-GUID: rCAXIVkkF_cc1loMeC_C3WXRKh43SzxK
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA0NyBTYWx0ZWRfX4mBNNxI3vFUL
+ B1xermQ4KgMQOej7haWShFJTvKYxkMq0ez1HouTXCONW9difsn2aCWtr++9DVkPnIsMXdU2dkxh
+ Wkj13vJMNirjiMHdgj9KaQN/8OEa4In340C5ZPbGEc72BlQRZWGQlcEU67AdUYNk5iw9a2g7ouo
+ mB6JU9gTvoIeWepDZLhvnvfkYMgjwOjM/LOItAOvSdiWGezomAtAB9QZDdYSFKkmz2XclPc2cPT
+ vJAYY9RxIf9sPwBAK9Cp87JGkP6jKDti+GO4UzK0SYe3jDjNEdP2LghZwOdbSXBSvgd8d6wGpHY
+ 8+dSdQBJLLhpB5VScp0c6VukoD54C6wFmDri0xU2tg6GDTC2VO2kJfciSk4XYo=
+X-JNJ: AAAAAAABHfEnCad7cckNCojQUZnEkegM2FjSQ0NzN6FyQfG8rW1E4wKaGS7xTmIvZYZWjM
+ C2KHMf0W9XimiX2/czzw7nxlvHv/W0L1cuyJcZhaHIEM0Cp51O/8IZNMScHcbzR5doALpr
+ z8PvsacfQXC0KAHBjHCcDJLK6V9WqHJ9ksk290cLCcVekTfxtfZV+PKTukx2Td1FUXZdM/
+ x5I9hDCtRTX1JylkpccJ0BIHDzD3BW2Eaxkk8Ys7wntq0GIQN8Thwekxo5xbqY9qtIin2z
+ aRC9XTZV70rc5oADZ7qZYaFaMbQC/ih2/OQQmO4oB0pc5q682rmrnVop+P11nXCsTFaRYM
+ CdcAJaBjpJAcO5L63delXMFiqr/QvPNuijYBjpDNCd2iN7onWtHQe3X85W/IKgwoD7lScS
+ T/uiPR7kyiUc4nIbjfwCRGgMx5zRyz/p7m3KMT3oKpj91lJOr46JSRBBp8Frisor0td4or
+ Dz1O5ONpLBHtUahJfga7X7PadUGe2KthLi3N7YU3V8P79SDxfemEp3+GhWv+9BQDeVylqY
+ afMoV0k54MJYHYX45iVftfJKaZxUVThbDTVY/Mr9tJWzQudZ2ge7VXvI1aO7KBIJW7vXpO
+ tJCmiMK/vgxEQCLqgFwBMMJG3Z2N0Hj+crzxJ/s+ARk6kTGu5erpkPFLukXG6alA+dbYNE
+ jbu+JVJL8a/JJBnUjaL0OTBUBYvYtLR9M+ilefLspaMUMHYXcSZT8P/p2Js1Nb2vEypCi8
+ F3zkB5qRkLpyLihG6m/CxYeKaA8E49qYLNkQ75EFmGzrcLW/xEZC9xATKAeXSIvdNYr3+1
+ KSuXxWzolzHGW9kEnj9DOMyvNiZm55MLm41YxkjoAv1iPwsPMYKgNJ1zRd+7e/InRSB47u
+ qUY4Dpo3qlgNM8T14NezYWGh+JcAH959BvG7zdY3/tENNc6wSbJJH3wpy4
 
-Hi Daniel,
+Every key space is spread over CONNCOUNT_SLOTS rb-trees, each with its
+own lock, so that cpus inserting or reaping different keys do not
+serialize on one another. The number has been 256 since 2014, when
+that was comfortably above the cpu count of anything running this
+code. With 128 or more rx cpus two of them needing the same slot lock
+at once is no longer rare, and the array also bounds how many trees
+the gc worker can walk independently.
 
-On Sun, 25 Oct 2026 at 00:56, Daniel Lezcano
-<daniel.lezcano@oss.qualcomm.com> wrote:
-> Platform profile providers already use device-based callbacks and do not
-> need ACPI types. The core is nevertheless confined to the ACPI build and
-> refuses to initialize when ACPI is disabled.
->
-> Move the implementation to drivers/platform/profile and introduce the
-> firmware-independent PLATFORM_PROFILE symbol. Update all provider
-> selectors. Keep provider-specific ACPI dependencies and the
-> platform_profile module name.
->
-> Isolate access to the legacy ACPI kobject in an optional compatibility
-> object linked into the same module. Retain the legacy ABI on active ACPI
-> systems, and initialize the class even when ACPI is absent or disabled.
->
-> Use subsys_initcall_sync so the class is ready before built-in thermal
-> and CPUFreq providers, but after ACPI has initialized its compatibility
-> kobject.
->
-> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Size it at module init from the number of possible cpus, 16 slots per
+cpu rounded up to a power of two, between the historical 256 and 8192.
+A small system keeps exactly what it had; a 160 cpu one gets 4096
+slots. Possible rather than online cpus: the array is allocated once,
+and cpus that come online later still need their share of slots. The
+array becomes a flexible array member allocated with struct_size(),
+and the pending tree bitmap goes with it.
 
-Thanks for your patch, which is now commit 699041135f75b13a
-("platform profile: Extract the core from ACPI") in pm/linux-next/
+Suggested-by: Florian Westphal <fw@strlen.de>
+Signed-off-by: Vladimir Vdovin <deliran@verdict.gg>
+---
+ net/netfilter/nf_conncount.c | 48 ++++++++++++++++++++++++++----------
+ 1 file changed, 35 insertions(+), 13 deletions(-)
 
-> --- a/drivers/platform/Kconfig
-> +++ b/drivers/platform/Kconfig
-> @@ -1,4 +1,20 @@
->  # SPDX-License-Identifier: GPL-2.0-only
-> +config PLATFORM_PROFILE
-> +       tristate "Platform profile support"
-
-I guess this can be invisible (perhaps "... if COMPILE_TEST"?), as
-you have updated all provider selectors?
-
-If not, I guess this needs a "depend on X86 || COMPILE_TEST", so people
-configuring kernels for different architectures do not see this option?
-
-> +       help
-> +         Provide a common sysfs interface for selecting platform power,
-> +         performance and cooling profiles. Platform-specific provider drivers
-> +         map their operating modes onto standard profile names, independently
-> +         of the firmware interface they use.
-> +
-> +         The core exposes per-provider controls under /sys/class/platform-profile/.
-> +         A provider driver must register before profile attributes become
-> +         available. ACPI is not required; on ACPI systems the legacy system-wide
-> +         interface under /sys/firmware/acpi/ is also provided.
-> +
-> +         To compile this as a module, choose M here: the module will be called
-> +         platform_profile.
-> +
->  source "drivers/platform/mips/Kconfig"
->
->  source "drivers/platform/loongarch/Kconfig"
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
+diff --git a/net/netfilter/nf_conncount.c b/net/netfilter/nf_conncount.c
+index be9e395e25b6..7a4b00c2bc65 100644
+--- a/net/netfilter/nf_conncount.c
++++ b/net/netfilter/nf_conncount.c
+@@ -32,7 +32,11 @@
+ #include <net/netfilter/nf_conntrack_tuple.h>
+ #include <net/netfilter/nf_conntrack_zones.h>
+ 
+-#define CONNCOUNT_SLOTS		256U
++/* Number of rb-trees (and locks) a key space is spread over. Sized from
++ * the number of possible cpus at module init, see nf_conncount_modinit().
++ */
++#define CONNCOUNT_SLOTS_MIN		256U
++#define CONNCOUNT_SLOTS_MAX		8192U
+ 
+ #define CONNCOUNT_GC_MAX_NODES		8
+ #define CONNCOUNT_GC_MAX_COLLECT	64
+@@ -65,13 +69,15 @@ struct nf_conncount_root {
+ struct nf_conncount_data {
+ 	unsigned int keylen;
+ 	u32 initval;
+-	struct nf_conncount_root root[CONNCOUNT_SLOTS];
+ 	struct net *net;
+ 	struct work_struct gc_work;
+-	unsigned long pending_trees[BITS_TO_LONGS(CONNCOUNT_SLOTS)];
++	unsigned long *pending_trees;
+ 	unsigned int gc_tree;
++	unsigned int nr_slots;
++	struct nf_conncount_root root[] __counted_by(nr_slots);
+ };
+ 
++static unsigned int conncount_slots __read_mostly;
+ static struct kmem_cache *conncount_rb_cachep __read_mostly;
+ static struct kmem_cache *conncount_conn_cachep __read_mostly;
+ 
+@@ -574,7 +580,7 @@ count_tree(struct net *net,
+ 	unsigned int hash;
+ 	int ret;
+ 
+-	hash = jhash2(key, data->keylen, data->initval) % CONNCOUNT_SLOTS;
++	hash = jhash2(key, data->keylen, data->initval) & (data->nr_slots - 1);
+ 	root = &data->root[hash];
+ 
+ 	rbconn = find_tree_node(root, data, key);
+@@ -634,9 +640,9 @@ static void tree_gc_worker(struct work_struct *work)
+ 	struct rb_node *node;
+ 
+ 	if (data->gc_tree == 0)
+-		data->gc_tree = find_first_bit(data->pending_trees, CONNCOUNT_SLOTS);
++		data->gc_tree = find_first_bit(data->pending_trees, data->nr_slots);
+ 
+-	tree = data->gc_tree % CONNCOUNT_SLOTS;
++	tree = data->gc_tree & (data->nr_slots - 1);
+ 	root = &data->root[tree];
+ 
+ 	spin_lock_bh(&root->lock);
+@@ -679,10 +685,10 @@ static void tree_gc_worker(struct work_struct *work)
+ 	tree_nodes_free(root, gc_nodes, gc_count);
+ 	clear_bit(tree, data->pending_trees);
+ 
+-	next_tree = (tree + 1) % CONNCOUNT_SLOTS;
+-	next_tree = find_next_bit(data->pending_trees, CONNCOUNT_SLOTS, next_tree);
++	next_tree = (tree + 1) & (data->nr_slots - 1);
++	next_tree = find_next_bit(data->pending_trees, data->nr_slots, next_tree);
+ 
+-	if (next_tree < CONNCOUNT_SLOTS) {
++	if (next_tree < data->nr_slots) {
+ 		data->gc_tree = next_tree;
+ 		schedule_work(work);
+ 	} else {
+@@ -717,18 +723,26 @@ static void nf_conncount_root_init(struct nf_conncount_root *r)
+ struct nf_conncount_data *nf_conncount_init(struct net *net, unsigned int keylen)
+ {
+ 	struct nf_conncount_data *data;
+-	int i;
++	unsigned int i;
+ 
+ 	if (keylen % sizeof(u32) ||
+ 	    keylen / sizeof(u32) > MAX_KEYLEN ||
+ 	    keylen == 0)
+ 		return ERR_PTR(-EINVAL);
+ 
+-	data = kvzalloc_obj(*data, GFP_KERNEL_ACCOUNT);
++	data = kvzalloc(struct_size(data, root, conncount_slots),
++			GFP_KERNEL_ACCOUNT);
+ 	if (!data)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	for (i = 0; i < ARRAY_SIZE(data->root); ++i)
++	data->nr_slots = conncount_slots;
++	data->pending_trees = bitmap_zalloc(data->nr_slots, GFP_KERNEL_ACCOUNT);
++	if (!data->pending_trees) {
++		kvfree(data);
++		return ERR_PTR(-ENOMEM);
++	}
++
++	for (i = 0; i < data->nr_slots; ++i)
+ 		nf_conncount_root_init(&data->root[i]);
+ 
+ 	data->keylen = keylen / sizeof(u32);
+@@ -771,15 +785,23 @@ void nf_conncount_destroy(struct net *net, struct nf_conncount_data *data)
+ 
+ 	disable_work_sync(&data->gc_work);
+ 
+-	for (i = 0; i < ARRAY_SIZE(data->root); ++i)
++	for (i = 0; i < data->nr_slots; ++i)
+ 		destroy_tree(&data->root[i]);
+ 
++	bitmap_free(data->pending_trees);
+ 	kvfree(data);
+ }
+ EXPORT_SYMBOL_GPL(nf_conncount_destroy);
+ 
+ static int __init nf_conncount_modinit(void)
+ {
++	/* Each slot has its own lock, so give the cpus that can be in
++	 * insert_tree() or the gc worker at the same time enough of them to
++	 * rarely collide, while a small system keeps the historical 256.
++	 */
++	conncount_slots = clamp(roundup_pow_of_two(num_possible_cpus() * 16),
++				CONNCOUNT_SLOTS_MIN, CONNCOUNT_SLOTS_MAX);
++
+ 	conncount_conn_cachep = KMEM_CACHE(nf_conncount_tuple, 0);
+ 	if (!conncount_conn_cachep)
+ 		return -ENOMEM;
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.56.0
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
