@@ -1,60 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794927855;
-	b=Vgq2uFoLwvJi4aNrHg5NzK6M/9sVl0SEk+zeQqybYHXxj1WGnNr1OQG0h6sUB5L6bk9o
-	 gfEndFduVcqQ0NX0O2/5he1HDHF+LU9sWT22QFRrVPraoaKa1xnYRkep4kJBoxQZ5u9A0
-	 NNgAwD0VvpDFhSQWkUUJeC2mR0ZxqENjga6EywySFdEHaDDxlyhN+O/6Is4DYscd72OOk
-	 vMaFQZT/1rdl9Hi/tJF0jhKzuNBoZ64lZuZKZb8PMdzxEnDNZUwebl0eqV9wL4PuPIPdg
-	 OT+c3JSJmRkTf+3crJPSqG2lYjprcgjjY5EGoTWiJnwL8O84220OdqlcnpWAn4HkEcQ==
+	t=1794927862;
+	b=fIkEX/p0Rg/NuJ4MEU+Sv7o04JQDKK08SDn1qrUtoSNEH0bl7MBrNEVAZxjwPgXNDo3F
+	 Msv4ihqbeE0C1qIqn/PWhB4s2uOXRFeL26X9BR3h1lWdi3g28+frOanIkFP4EVG3xNtYV
+	 hBraGY7l7G/X9gEXyWcnCMI9y1QI3VzQs5Lav7c7+h75DMqCDYaa9kag+HxFQBgmz5zc1
+	 gvycqq07y6OQoStJ1GBMC6H88hJdarIsnQDXXvVumEfXroCkhhDRdy7tB4e8oAk2v66hg
+	 7DVfwe+DQ5q1laRG2wUp7MRZFYxDAcoGG8RR2RXRpU+Cdv1KsO8Uw0BTtkyRoyGitSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794927855;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=pzx1xyaW4sUUsdz2pDb9Y+wGAMP4JHlewv5IqeGTNg8=;
-	b=Q1dgXp0VKBla70SEZgBuIOeTdrVC+TgoFZsUDYm06JDAuiM/mpspy8xJHzeifoZ7v9TE
-	 lZf/M4Iw4ijYk1I9Oz5TJLzZ1Qd3F+lM8/xFO2Ly4nGfFR8kU0ZlmmQGuIt13H/b99oe3
-	 NomyV6WIzEHAB1H4mzrkBpu+zNxvtsKhe1dZEnyc8EnQxz7v0/FEwnb/nG5s6qAvevzqR
-	 dgxPMTUB1VHby/xSEd+Dh/sodzVmy2bFG4UQHhpiqRDPqT4U4G6z8yivC7EAMzDMrGNx/
-	 DWrDu4pPumK2UAJ8yoqlj6nxD0eb0QeFy6D2fsO9CoI3GFLiZ9uMRozknNsDehV/c7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794927862;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=AHXyk6QEYpxdCP04rxSDRnWXaEbcjS1wiyKd1DAANnM=;
+	b=UpBehlN+gi/DIWn0qvhCSJaBr0bVAe7qDsNIvkZIoYPj9XnbWe7chJlhIxreAndv0QV0
+	 77HqAaQ5EEu5hlwvu8F0iKwD5kYHiXtfsD++MjjUp3dN2/A8OWPPBkstR+XpMJdkfSGfR
+	 6XOQjmpEs9nqWl5Bs7F2v7emcLYSzdbmt9VkG5U5hQ8eyrjSNdX3Wl3pgmCNy9KojmcdI
+	 YzsOrCnstchDff293nrBuc4fDxEQp7Vs3rgkx3QAHGNw1FdJJHWA/LNglZpIrR1AYZiGn
+	 Bq+lsJv96C6+LV4bTn2F/zy9jBhTz72cCT4V6D4x08jYDZd50Pct5Y24XCMqfkxRFOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=logarcheon.com;
-	spf=pass smtp.mailfrom=logarcheon.com;
-	dkim=pass header.d=logarcheon.com header.i=@logarcheon.com header.a=rsa-sha256 header.s=protonmail3 header.b=aPCppup2;
-	arc=none smtp.remote-ip=109.224.244.118
-Received: from mail-244118.protonmail.ch (mail-244118.protonmail.ch [109.224.244.118])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IwrRu7zp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51A2F606A31C;
-	Tue, 17 Nov 2026 15:04:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51A2F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=logarcheon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=logarcheon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5059606A32A;
+	Tue, 17 Nov 2026 15:04:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=logarcheon.com header.i=@logarcheon.com header.a=rsa-sha256 header.s=protonmail3 header.b=aPCppup2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=logarcheon.com;
-	s=protonmail3; t=1794927852; x=1795187052;
-	bh=pzx1xyaW4sUUsdz2pDb9Y+wGAMP4JHlewv5IqeGTNg8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=aPCppup2m+QXQC1pRIA5uYyoA9PaPgEM2u/Bljce4E2ZYSeBeHCgq8m6Y+kFY18mG
-	 sUfxGxJrXdy0p2cIg3RZy5cwWFzxxJLIXpkeM13BW3m1KFRDxsI9hSMtYLa4XGSf9d
-	 //uXe2xrNoswYBV/yz6eRw9ny0+l9ZpMBGkjcBPwCp5/oXCYuyZ3g+8THXJfGyYz/j
-	 FDHu+nAesaXvctQMMc4jgTiZxE3DUDPUDTp5SWCOGwOXywaxX6Z5IBsnnBEfsEc7Ig
-	 UwVHAOGkJuWKDZMII5+DX+3GmNpC11JsLDlb9JYkfstu2PtQRz26fHLR3RbdNC4jg7
-	 J5R/SBbh4ndRA==
-Date: Tue, 17 Nov 2026 15:04:06 +0000
-To: Breno Leitao <leitao@debian.org>
-From: William Chuang <founder@logarcheon.com>
-Cc: Andreas Hindborg <a.hindborg@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, syzbot+c75a7db5ca6ae96ed2d4@syzkaller.appspotmail.com, syzkaller-bugs@googlegroups.com
-Subject: Re: [PATCH] configfs: give the root directory inode its own lockdep class
-Message-ID: <20261117150358.8149-1-founder@logarcheon.com>
-In-Reply-To: <20261117065314.4309-1-founder@logarcheon.com>
-References: <20261117065314.4309-1-founder@logarcheon.com>
-Feedback-ID: 145408520:user:proton
-X-Pm-Message-ID: 4a35432a783bbfda2261fff32445b853f8b7451a
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IwrRu7zp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E9FF1F000C5;
+	Tue, 17 Nov 2026 15:04:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794927862;
+	bh=AHXyk6QEYpxdCP04rxSDRnWXaEbcjS1wiyKd1DAANnM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=IwrRu7zpyMwz+3pBMKZEdNa3FOOhkJJ7rRDV7FsoGiEP25UZcd6COzVp73Ra3sDaY
+	 QTCIyNsfnvgjLMSziVizOUfmrmkBtgii/2XyZVbmzhERUvB2hsjTyXA/H4bwHHgolg
+	 iK8lvuKUTamnBheTf5ktoHxqC5Sq4or6kvlmDoN6rta1sp+KxZsYsrKlOO2wisUnVZ
+	 /mcsaO3ym5Ep9bdiCvKnkPwJbA5e2VMj4QIQ4+LHFk69aznFnALfdwhKClnREIU1Lf
+	 4sJEcX/+UELdExcK+3tr3TwMrq1jy4OPSGbMdC7ssnm7I1A3P/4cMGkkfE+3kKYI26
+	 GaW58uBuAsrjA==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Linus Walleij <linusw@kernel.org>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ulf Hansson <ulfh@kernel.org>, linux-pm@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20261115-ux500-asoc-drop-vape-v1-1-46315e14642d@kernel.org>
+References: <20261115-ux500-asoc-drop-vape-v1-1-46315e14642d@kernel.org>
+Subject: Re: [PATCH] ASoC: ux500: Drop the VAPE regulator
+Message-Id: <179491836927.77896.17333378148547307247.b4-ty@b4>
+Date: Tue, 17 Nov 2026 12:26:09 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,53 +60,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1091; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=Fgd21gAwinj6UKOy3s9OTwKF0VSp7ifD/mLKvmpQ5mg=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLL+5Hy+9cji0bmMb0eDf8fMtrezUG3b/HyGIW+i2eOe7
+ 5sEfZwmd5SyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAi+2YyMjR33XbW4ectXf2S
+ 2WL/s7ki1Q6/yhQ6FkiZVU7y6vt2sJfhr9iBy12unYnGS+f6KT+wvvcj5uLtG4u+LDtew//Kef6
+ 7+5wA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, Nov 17, 2026, Sashiko AI review wrote:
-> Does assigning a separate lockdep class to the configfs root inode's
-> i_rwsem hide a real ABBA deadlock between renameat2() and mkdir()?
+On Sun, 15 Nov 2026 23:38:14 +0100, Linus Walleij wrote:
+> ASoC: ux500: Drop the VAPE regulator
 
-Yes, and the deadlock is real.  Please drop this patch.
+Applied to
 
-My analysis missed rename(): lock_rename() locks both parent
-directories before vfs_rename() finds that configfs has no ->rename(),
-and when one parent is the configfs root, the root is locked first.
-mkdir() of target/usb_gadget/naa.<wwn>/tpgt_1 runs with the naa.<wwn>
-directory locked by the VFS, and usbg_make_tpg() then locks the root in
-configfs_depend_item_unlocked().  The two orders are opposite.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
 
-Reproduced on mainline 666539eec without this patch, in QEMU (x86_64,
-2 CPUs): one process loops mkdir/rmdir of tpgt_1, another loops
+Thanks!
 
-  rename("/sys/kernel/config/nonexistent",
-         "/sys/kernel/config/target/usb_gadget/naa.<wwn>/nonexistent")
+[1/1] ASoC: ux500: Drop the VAPE regulator
+      https://git.kernel.org/broonie/sound/c/5515e4601aa0
 
-Both hang within about a second.  sysrq-w shows:
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-  mkdir:  down_write
-          configfs_depend_item_unlocked
-          usbg_make_tpg
-          target_fabric_make_tpg
-          configfs_mkdir
-          vfs_mkdir
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-  rename: down_write_nested
-          lock_two_directories
-          __start_renaming
-          filename_renameat2
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-A third process doing readdir() of the configfs root then blocks in
-configfs_dir_open().  I ran the test as root; I have not checked how
-much privilege the rename() side needs.
-
-So the root lock that configfs_depend_item_unlocked() takes for a
-target in another subsystem, when called from a ->make_group()
-callback, can deadlock against rename() whatever the su_mutex chain in
-the syzbot report.  I don't have a fix to propose yet.  Is the root
-lock there only to keep the target subsystem from being unregistered
-during the dependency, or does it protect more than that?
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
 Thanks,
-William
+Mark
 
