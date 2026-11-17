@@ -1,60 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794908877;
-	b=g/PWdEPDbU2cB4uS4UkVyXhyF+S5qEFK9STFA3zGP1YrrVRgkbtCAy/sBdsASZTqDnxV
-	 wz+3nDXAObe2oRQ9aEiH5KBVNcrcoQyTOAnNMKaVGjzFK95vRBXGQi4XjNkZrlSVSZ5JV
-	 SntcDfjyb34nfxfNnbO1h556HK1m3CiSJ/QTWcgtmh0jDMi9yrMyWqaY6i7oivRds7jsY
-	 qcuh6fTlfHn/rfbQ+4rIL73X9HpeJfS5ted5JfkJdgf/YJVxv7u/mY59q1bcSvjNwUP4Y
-	 kJ1nJZvJ84+AbQqmF036aJ5mpWK1bCmTuWk8MzbykfqsFZFlfkEYkup2+sva4OWQqUg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908877;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Last-TLS-Session-Version;
-	bh=353zUokPVdIoWwcOZtl0MfxmeAbr3cHweTUxhjCPGGY=;
-	b=XQpPb5AXPLLr7Qi3Wn3ClDKgvM/+uD5Z24CN10V+G9PLxtYyke64gmZw9ogfbMI13XdB
-	 1Jdj2YaDeJqRfYzHs2rLKavs/LUBUy3QmLkZf66WD1pQfxuD59dTg11RLPmKnJmbUuDtl
-	 YWiCARR7htNK8R9fUr+sllBKtT0Iwzi4t71waQ/e47/1K1kxlVi+osknwkbpFftMzFmeF
-	 CKxiZnipn46bS3JAtI57hGIthUY9YG9r3kMLIzetsY4n/zkK2oeGr1QM7dL+BLQ+ntLOy
-	 IAu8wSJWO/XzY3dYBMJpBpJXrTr7eU2y51HYscw+rqu3dnIrmk2Su4XaoEtPlwDQ2aw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=fWlkNovq;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794908872;
+	b=HZ766RV4j9EcXE/iPYCiEEA0aQqwRgC6Lok5TRwcmUF94xAj5kXn0VvYLozJATwhFJ4j
+	 eJQ1bqBJYcZMnxup1azgKJeVvdSAbPZ56POXeqCzlI2KMTzVw+b5y2Tze3PImr/SYopY8
+	 9fmrRkMTfSOu4TLlxvh3LZg/eBwql8LjZNJV3hF66ucH7GfMeyG1qZ7mhyMRpLwtqxkfb
+	 ygGrRVM1Pngp85Uha+8OUvg26UXMvIpX207VFyy2HmASdbrGSYTrf0joK1gUiXAKHvlBC
+	 ERJVhEMDs+H+F5XAwgBI9csyW6dgOtoo7VvWfW+D6YmTvpE3oGKXhKc6Pehl7Ijz2gA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908872;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=XNWKjNP0ylTMFqS5R4s7agStVoLlbB3dV3UE5VmDOlE=;
+	b=jRSGRk3ZecMi1kRS1AaRYKEE/jaD2kUeEt5o3wPBKPckD6DQ51b8Wgyby4k/rv8+KAAH
+	 HeoCQOdCUON8xRsvh10oQmon5cfKWEAMutkjSrhX90sl4tSLDTQuzKKUYxKFxNk4K1EfP
+	 LGNg5r/zyuu7TGUMqaUOgKcqTstc9kxQ+ApPBOYWYXuBvEQmgQUResv9SMFpPA0pG6ssR
+	 msMjY3gmsI+TTe3E2xcB0WENlDuDXogQEpWGBI1b2ivr4X5IfZrHyx13G4bLOpOCKrV9A
+	 G2iW6wTZIc4EuvAZoeGZT67VXHqtZ7BkvUTKq7DkZl54JvCWI01jxCSibiWdQ8ke1Ww==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eukyEsXJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F73B606A329;
+	Tue, 17 Nov 2026 09:47:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eukyEsXJ
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794908872;
+	b=yFwbkhtYib77j6dtQDMc57auIPm3DqvPI66X7wUAvkgStLZ9WwOOGTt/UIULIectPfxo
+	 eE0QpJVAJcjGpi4v6y9UsfYI/Ck7DShhyAmRZaMZ/BJ0kMyK5mlq5zpr8A9OAPgm20WO9
+	 03vuYbk9Pu+V2zJmg2T/92RJKEfYTXHFdynWx2wX3K7V63adUN5k1SJsCfZeLu/HkS1AT
+	 MwVpcLWQSSiv2yaQGojudXNDOn7Q2hxeUUMTpCnxJY0JZP3ISMFu7iTCXNBpcgFdPa/A6
+	 Srextx/u6EWlmfzOXhWD3iAMYPPAtwn0UjMfT0dLjFpyatsQURhLLzbg7AIt3bdnlZA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794908872;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=XNWKjNP0ylTMFqS5R4s7agStVoLlbB3dV3UE5VmDOlE=;
+	b=NjUEWb1SCK0aBtWhsY0SXkhHA3pFmD/lPm/hhrNM/j558/shPSRBkayPzoQyoHdrhW7A
+	 US5CYDuK/2CXaG11k0iaBig3/gQgaKbyYSMZFQaBDGqgiVNLbDZlrpwfXy/QEZxcjh+jO
+	 AZHRStG+CPpd13FGIl1lmHnb7zNwaHgO/cQQZRF1rMbvR+fSjnQNJqhENiMn4aJXaPenI
+	 96i0AxRKRzu5HF2tQM4OYUvfH6eCaghIluS/4RkaDHO6D5VczWB5VNMMN+THRs1Ma82tk
+	 2VjI0dwpNIenqVmurnV0dCoI8Nh/J85QG8i4bc+i438VFZWLOsNWVzf4oIWW7gA51xQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1A8606A32A;
-	Tue, 17 Nov 2026 09:47:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A1A8606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=fWlkNovq
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 4C8F84E41561;
-	Tue, 17 Nov 2026 09:47:55 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 237805FC81;
-	Tue, 17 Nov 2026 09:47:55 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9970011BC0DE4;
-	Tue, 17 Nov 2026 10:47:53 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794908874; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=353zUokPVdIoWwcOZtl0MfxmeAbr3cHweTUxhjCPGGY=;
-	b=fWlkNovqCw48I/tAoumY3I+l3AOsZOq1u2M1BFJn1vZEn5hcMNf/H/iBdFD2mWaMnN0/3X
-	RVbrffJPc8BP9ZQqmjrr1SHjOZ+zL5VXCYUfKNPJFvSiwRqZniZ5ny/z+8UmqXV8P6Axc6
-	8eSHgnKaFvdgrqDK2/36/reQ1828vWaWhvjJgaTxadYZzNFZmL5iQFSbM9/Ol3b3H6M3e6
-	5Zcd5fksKpvxFZt40GoSgD24nDLv+MPqXytkR0rHAfz42Fp1+a3z7rbbetKTHpQ1ju+lTT
-	DM5A16nnd6deWpgvqm51Ci7DP/q6bv98ZtjC+CCq9XLcoCKZpz9bX6myjAes8A==
-From: "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>
-Date: Tue, 17 Nov 2026 10:47:42 +0100
-Subject: [PATCH v6 02/10] i2c: cgbc: Propagate hardware errors when polling
- read status
+	by smtp.kernel.org (Postfix) with ESMTPS id 9899C1F000C5;
+	Tue, 17 Nov 2026 09:47:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794908872;
+	bh=XNWKjNP0ylTMFqS5R4s7agStVoLlbB3dV3UE5VmDOlE=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=eukyEsXJqU0/4gLBim9oDaQp85TGKZh6EXzX3C7aB/u+feriK4bokpaBM42f0DkiS
+	 ucKKRLJ1QFNV55A3oehEzqmbX8OamJFtjV/OeW4mkjjSzxDWnkZsR0oMyMBKzVknOK
+	 tZnagItasZE7oc4RI/TjYepIpLCpv1KF5wv85Yclf2kcXABgLhzN0JaccdCy2ezCZF
+	 uXemzZh/2TlVX8KhfJNTdhnvLR6AZ6930x77qkQppelUhtG2SetmHCCww/tD5ce0qc
+	 J+/HCUU4dzj5LkJ50VGnLeWOTTXfBp5kS0OYT3XDwSkQk6mUWidq8YS5BKXG+YTjWi
+	 vuEinKoPyqFhA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 132BA4A793;
+	Tue, 17 Nov 2026 09:47:51 +0000 (UTC)
+From: Peder Bergan via B4 Relay <devnull+peder.bergan.gmail.com@kernel.org>
+Date: Tue, 17 Nov 2026 10:47:51 +0100
+Subject: [PATCH] rust: str: tie Formatter to its backing buffer
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,99 +83,110 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-cgbc-i2c-storage-devices-support-v6-2-bb070ad3e9aa@bootlin.com>
-References: <20261117-cgbc-i2c-storage-devices-support-v6-0-bb070ad3e9aa@bootlin.com>
-In-Reply-To: <20261117-cgbc-i2c-storage-devices-support-v6-0-bb070ad3e9aa@bootlin.com>
-To: Lee Jones <lee@kernel.org>, Andi Shyti <andi.shyti@kernel.org>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Werner Gartner <Werner.Gartner@congatec.com>, mfd@lists.linux.dev, 
- linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
- "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>, 
- stable@vger.kernel.org
+Message-Id: <20261117-formatter-lifetime-v1-1-9d7f38686552@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAMYi/GoC/yWMQQ6CQBAEv0Lm7CSuGlG/Yjws0CtjZCEzgyEh/
+ F3QY3W6aiaDCoxuxUyKj5j0eYWwK6huY36CpVmZDvvDOYRQcuq1i+5QfkuCSwc+XY7XgKaMKTW
+ 0ioMiyfSL3h9/trF6ofattD2qaOBKY67bbRoHc0XsWEdzzpicluULhAGl9psAAAA=
+X-Change-ID: 20261117-formatter-lifetime-48391ed7affd
+To: Miguel Ojeda <ojeda@kernel.org>
+Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, 
+ Georgios Androutsopoulos <georgeandrout13@gmail.com>
 X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794908870; l=2702;
+ i=peder.bergan@gmail.com; s=kernel-contributions;
+ h=from:subject:message-id;
+ bh=c2EXF63mEwnQnsVVyx1xUR6wHcOb7PHcB7oVHC4kogc=;
+ b=cmJf587r8vKEHlsRLXxBys9PRoJzmqc7PY99ABcGPBG30A/U+CR4NFqDkHVTlCpCiZjZyEmEh
+ B0zCJRZLbAaAGYDmROGMsitdX3LRLm5XVeeEoCJThHNaAH++9pnec/m
+X-Developer-Key: i=peder.bergan@gmail.com; a=ed25519;
+ pk=39790pn1YZCulHBoUG1uiQI1Hm01EvhBEa2zVrS/yN0=
+X-Endpoint-Received: by B4 Relay for
+ peder.bergan@gmail.com/kernel-contributions with auth_id=1395
+X-Original-From: Peder Bergan <peder.bergan@gmail.com>
+Reply-To: peder.bergan@gmail.com
+Content-Transfer-Encoding: 7bit
 
-From: Lee Jones <lee@kernel.org>
+From: Peder Bergan <peder.bergan@gmail.com>
 
-In cgbc_i2c_xfer_msg(), read_poll_timeout() uses the same ret variable
-to store the polled return value of cgbc_i2c_get_status() and the
-timeout result of the macro itself.  When cgbc_i2c_get_status() returns
-a negative error code (such as -EIO on an I2C NACK), the loop condition
-ret != CGBC_I2C_STAT_BUSY evaluates to true and read_poll_timeout()
-overwrites ret with 0.  The driver then issues CGBC_I2C_CMD_DATA, which
-completes with CGBC_STATUS_CMD_READY without populating msg->buf,
-leaving uninitialised heap memory in the caller's read buffer.
+Formatter::new() returns a Formatter whose lifetime is independent of the
+borrow of its backing buffer. Safe code can therefore drop the buffer and
+then write through the formatter, causing a use-after-free.
 
-Store the polled status in a separate variable, verify that it equals
-CGBC_I2C_STAT_DAT, and check that CGBC_I2C_CMD_DATA returns the expected
-number of bytes.
+Tie the buffer borrow to the formatter's lifetime so that the borrow
+checker rejects such callers and prevents overlapping mutable access.
+Add a doctest showing formatting into a borrowed buffer.
 
-Fixes: 6894f640b8f3 ("i2c: Congatec Board Controller i2c bus driver")
-Closes: https://sashiko.dev/#/bug/linux-66cbf4b1-a219-4012-969d-236417bf419a
+Fixes: 87482d6d9104 ("rust: str: allow `str::Formatter` to format into `&mut [u8]`.")
 Cc: stable@vger.kernel.org
-Reviewed-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
-Tested-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
-Signed-off-by: Lee Jones <lee@kernel.org>
-Signed-off-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
+Reported-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
+Closes: https://github.com/Rust-for-Linux/linux/issues/1261
+Signed-off-by: Peder Bergan <peder.bergan@gmail.com>
 ---
- drivers/i2c/busses/i2c-cgbc.c | 27 +++++++++++++++++++++------
- 1 file changed, 21 insertions(+), 6 deletions(-)
+I compiled the in-tree callers with Clippy and ran the string tests and
+kernel doctests under x86_64 QEMU. Three borrowing probes compiled before
+the fix and failed with the expected borrow-checker errors after it.
+Rust documentation and formatting checks passed.
 
-diff --git a/drivers/i2c/busses/i2c-cgbc.c b/drivers/i2c/busses/i2c-cgbc.c
-index 164be9b99eb3..dfdb9ffc6447 100644
---- a/drivers/i2c/busses/i2c-cgbc.c
-+++ b/drivers/i2c/busses/i2c-cgbc.c
-@@ -205,9 +205,9 @@ static int cgbc_i2c_xfer_msg(struct i2c_adapter *adap)
- 	struct cgbc_device_data *cgbc = i2c->cgbc;
- 	struct i2c_msg *msg = i2c->msg;
- 	u8 cmd[CGBC_I2C_CMD_SIZE];
--	int ret, max_len, len, i;
-+	int ret, status, max_len, len, i;
- 	unsigned int cmd_len;
--	u8 cmd_data;
-+	u8 cmd_data, data_len;
- 
- 	struct cgbc_i2c_transfer xfer = {
- 		.bus_id = algo_data->bus_id,
-@@ -266,17 +266,32 @@ static int cgbc_i2c_xfer_msg(struct i2c_adapter *adap)
- 		if (ret)
- 			goto err;
- 
--		ret = read_poll_timeout(cgbc_i2c_get_status, ret,
--					ret != CGBC_I2C_STAT_BUSY, 0,
-+		ret = read_poll_timeout(cgbc_i2c_get_status, status,
-+					status != CGBC_I2C_STAT_BUSY, 0,
- 					2 * algo_data->read_maxtime_us, false, adap);
--		if (ret < 0)
-+		if (ret)
-+			goto err;
-+
-+		if (status < 0) {
-+			ret = status;
- 			goto err;
-+		}
-+
-+		if (status != CGBC_I2C_STAT_DAT) {
-+			ret = -EIO;
-+			goto err;
-+		}
- 
- 		cmd_data = CGBC_I2C_CMD_DATA | algo_data->bus_id;
- 		ret = cgbc_command(cgbc, &cmd_data, sizeof(cmd_data),
--				   msg->buf + i2c->pos, len, NULL);
-+				   msg->buf + i2c->pos, len, &data_len);
- 		if (ret)
- 			goto err;
-+
-+		if (data_len != len) {
-+			ret = -EIO;
-+			goto err;
-+		}
- 	}
- 
- 	if (len == (msg->len - i2c->pos)) {
+OpenAI Codex assisted with coding and testing.
+---
+ rust/kernel/str.rs | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
 
--- 
-2.53.0
+diff --git a/rust/kernel/str.rs b/rust/kernel/str.rs
+index 644b4279a..6222faacf 100644
+--- a/rust/kernel/str.rs
++++ b/rust/kernel/str.rs
+@@ -645,7 +645,7 @@ impl fmt::Write for RawFormatter {
+ /// Fails if callers attempt to write more than will fit in the buffer.
+ pub struct Formatter<'a>(RawFormatter, PhantomData<&'a mut ()>);
+ 
+-impl Formatter<'_> {
++impl<'a> Formatter<'a> {
+     /// Creates a new instance of [`Formatter`] with the given buffer.
+     ///
+     /// # Safety
+@@ -658,7 +658,23 @@ impl Formatter<'_> {
+     }
+ 
+     /// Create a new [`Self`] instance.
+-    pub fn new(buffer: &mut [u8]) -> Self {
++    ///
++    /// The formatter exclusively borrows `buffer` for its lifetime.
++    ///
++    /// # Examples
++    ///
++    /// ```
++    /// use kernel::fmt::Write as _;
++    /// use kernel::str::Formatter;
++    ///
++    /// let mut buffer = [0; 4];
++    /// let mut formatter = Formatter::new(&mut buffer);
++    /// formatter.write_str("test")?;
++    /// assert_eq!(formatter.bytes_written(), 4);
++    /// assert_eq!(&buffer, b"test");
++    /// # Ok::<(), kernel::error::Error>(())
++    /// ```
++    pub fn new(buffer: &'a mut [u8]) -> Self {
+         // SAFETY: `buffer` is valid for writes for the entire length for
+         // the lifetime of `Self`.
+         unsafe { Formatter::from_buffer(buffer.as_mut_ptr(), buffer.len()) }
+
+---
+base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+change-id: 20261117-formatter-lifetime-48391ed7affd
+
+Best regards,
+--  
+Peder Bergan <peder.bergan@gmail.com>
+
 
