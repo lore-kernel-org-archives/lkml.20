@@ -1,55 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794919803;
-	b=5gp8HA6v0ho7HQwUIi4M0oqtcXVHFEEaQbRkI8QLzXeUzqqk3MhCL6hp9BH67YVmXJEx
-	 z+aS1vIU1y+5qbrDqG4m+FYH5fPuT11ASg41DCwDPKMaBvmsld0UU+MOEJp7sM1yR/0tW
-	 S+E9YoAZjJ7fijAn3RHT5mBjVose2/dVlVKL03KE09ycByyIsDm3Jp6FKLGNXyHj2sthL
-	 IGHkY4BA7M2wOvJvSfiSQgcHttPxK6Sw1F09SsHGiD23kY98alCn5FVVH9HmX+vqXwfSH
-	 9TdUB9w9gickMB0z4aHdc7RSMkL7fVxiAYrGou8oQH4Z8EayddUvuh69B0L+Wl8gz/A==
+	t=1794919799;
+	b=UnPQDxQhRu6EhsC5+0zqdwj/H/FQdjy0VeUWCqTdx+57BMt2t8yV9h4S5nV1/z4u9CLs
+	 gRR6ji936+o+Kb6Qsi3O0nQRrCY+VS8O4Yobtu5KK3fMv1ZrlH45ehoeHz6bEYHI9yxOR
+	 WzNPaDWmQICT/JdLH03+rBd7hc9DR95syXwmhuxrkMXJzsTcYK3ekDc2w+celOdJ6hjv8
+	 kbXctKR457eOAw6iEBVYT5goaPflpbj/n7gYViU0W6DY9JH0s6aoVM5/Get8tWBWG4Zst
+	 v70TlsiHPgwmrK3H0p7Mt7xpxqhNwJLqvPjeY2CU1mvNHOGUHKzUEkQEPEYO/rQzBGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794919803;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=4HuiIGauS8osGSZRga5cuuiCOITNVTElI86TFrKDufU=;
-	b=jKb7z11cQxwbicKLXqz/pNgi0qnjuP2OMm9xRpyrfiusuNHAcrmv/nNQT+5iSP2FcpMj
-	 FqYOtH+eAW+mq7/YgTW5RGBNXtFqfW/oPgKP2vi7b/bDsGUzRRUdYmAdVzENKQbmSSSjW
-	 Id167KWx8YEB1oYzvPHzE/4mMii8yga4KKVCQP4Rr9umD+DC5mbU6pCPtSLjy0XKs9EGZ
-	 pa8P25ILU/M5MzktOgChtpGYDWyvExRWKt22AFzJn9Lps+qDYsffGBPxJpk9eFpBW3ti8
-	 orayNRoO1Lb2yrhlCbeIo7IBf1p6ztE6EfEn+N/C7Kab3ehumhzNsJcgjzHPHHCsYng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794919799;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer;
+	bh=Vvk9cMzeKTtZ7S4jqj1+Kkd39OaGgZH54/2zezoZsLA=;
+	b=OM2HIwmy5ZqIkC0ZWkt360lv14Cyss6GV6BNZKa1dfjHntCmvLlJ4uX5JaM+k5FjTKBA
+	 BHdyXbBR7oOB+kgWb21IazaapSjKyH0+Ve/2SKGvuhzW1HsyEr8KdoJ6SPw4u2Jj/u0Cu
+	 ZIAmwYNvRMN91bSFsJW7tMZjqbn6gZDBJboA4oT/4QTWq8IUd3aZ7TLYR9kCYKoAqJ6Yq
+	 Pi+6HkOF5aH5B3UnNa8ekF6jbj0N+BtxoX09J3T5bs4cti859G3DlSZRlg1XguBg1SjiZ
+	 CaU4BxYDRJ/kQhFb/N9MgxuysWOWq69vX79N5iyKSU2MkRGmIgaTW3bnCcIzA/0aZNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PHHNdnzE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=microchip.com;
+	spf=pass smtp.mailfrom=microchip.com;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=1HPGMc2l;
+	arc=none smtp.remote-ip=68.232.154.123
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 73D94606A333;
-	Tue, 17 Nov 2026 12:50:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF90606A31C;
+	Tue, 17 Nov 2026 12:49:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CF90606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PHHNdnzE
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id A2BA51F000C6;
-	Tue, 17 Nov 2026 12:50:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794919803;
-	bh=4HuiIGauS8osGSZRga5cuuiCOITNVTElI86TFrKDufU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PHHNdnzEEQ0vmDGKuDhTjy7Nt5refP6ttZ5zH+Ji+iEvqr0mJebFyQrvX3RL8eHYB
-	 oTMKRNfofR6rUGHi1C8bWjmtX96Uw+UX5SRTzbdpLFg8UkFLON3fr4rpK1LWrsiRfi
-	 AXvX9YFO2FopNO3cUvb/kzJnWZ0zBATtIXl5HH57TAZB8qG08auMYWm0S2rqA443CY
-	 LkBUPJ+R/sLFzTRTmkeTFqP9qFrRUNHACs1yfmoyASO1EYzKep9/HkJGA+fN50lHll
-	 CRUSfOvW/UQ3Mk0GxnCC+ZflvV8LamLMuC4K44GRGaJzn0FHyyw0r5tVwd8WPIugz+
-	 eAwpWpmGAAahg==
-Date: Tue, 17 Nov 2026 14:49:59 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Sinan Turunc <enscrpt@pm.me>
-Cc: David Howells <dhowells@redhat.com>, paul@paul-moore.com,
-	jmorris@namei.org, serge@hallyn.com, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] keys: serialise key instantiation against
- keyctl_chown_key()
-Message-ID: <avxNd7uCbLiUAi3A@kernel.org>
-References: <20261117123353.1822-1-enscrpt@pm.me>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=1HPGMc2l
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1794919807; x=1826455807;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:to:cc;
+  bh=QxMlP43FIQ9UmHSP4knnwZ+AVDfoordYqDHuI+PDCyM=;
+  b=1HPGMc2le7Oc9KK/8iiR2VbJQwEzJ9E8cWK8YZZ0Gzsx5sPpdQ6NcUxU
+   BJyV3qNc54tTbtudfm1Zy3dmULiR2F9ZWjE9Q97mWWiqCMYSflKB6Akcd
+   kEsGtyXcSMLvBDSat6nnxnS8mm0ayIc4QwG/RceB6c3E4GAVqT/oLAeLc
+   itlETH5OX1AzXVMRSayxo4GJPsPE+ebafn4GAMy7DBiUh12XtNbn6QaKi
+   0nj6/xx9jlStcr+91kb6O4rSogHv2kcXKuijIVhQ2Zto5piJMLVdMoQAP
+   7Ax05l8VUEabBWQnrtDCwCVrutIiyG5vzPhgKUnjYVFxexnzzDX5fruC9
+   A==;
+X-CSE-ConnectionGUID: v146WzhHQIOW8VkWUI0tFg==
+X-CSE-MsgGUID: inMAtMu3Rd6+AWwJX0pX9A==
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="66869287"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 17 Nov 2026 05:50:01 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Tue, 17 Nov 2026 05:49:52 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Tue, 17 Nov 2026 05:49:50 -0700
+From: Daniel Machon <daniel.machon@microchip.com>
+Date: Tue, 17 Nov 2026 13:49:50 +0100
+Subject: [PATCH net-next] net: lan966x: free the RX pages when the TX
+ allocation fails
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,141 +74,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261117123353.1822-1-enscrpt@pm.me>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261117-lan966x-rx-pages-tx-alloc-fail-v1-1-13f310d66650@microchip.com>
+X-B4-Tracking: v=1; b=H4sIAG1N/GoC/x3NwQrCMAyA4VcZORswxRX1VcRD3NIZKNloywiMv
+ bvF43f5/wOqFJUKz+GAIrtWXa2DLgNMX7ZFUOduCNcQiShiZnvE6FgcN16kYnPknNcJE2vG8Ln
+ LjUKiMQXoka1IUv8PXmDS0MQbvM/zB7Xkjcd6AAAA
+X-Change-ID: 20261116-lan966x-rx-pages-tx-alloc-fail-2b8e412f15f2
+To: Horatiu Vultur <horatiu.vultur@microchip.com>,
+	<UNGLinuxDriver@microchip.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
+ S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, "Jakub
+ Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+CC: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Daniel Machon
+	<daniel.machon@microchip.com>
+X-Mailer: b4 0.14.3
 
-On Tue, Nov 17, 2026 at 12:34:12PM +0000, Sinan Turunc wrote:
-> keyctl_chown_key() looks up the target key by calling lookup_user_key()
-> with the KEY_LOOKUP_PARTIAL flag. That flag lets a caller with
-> CAP_SYS_ADMIN change the UID of an uninstantiated key during construction.
-> When the UID changes, keyctl_chown_key() replaces key->user under key->sem
-> and drops the old reference with key_user_put().
-> 
-> __key_instantiate_and_link() and key_reject_and_link() hold
-> key_construction_mutex during instantiation, but neither function takes
-> key->sem. Both functions increment key->user->nikeys, and
-> __key_instantiate_and_link() also calls key->type->instantiate() without
-> holding key->sem. When a key is in quota and its size changes,
-> key_payload_reserve() reads key->user seven times without key->sem. Those
-> reads include spin_lock_irqsave(&key->user->lock, flags) at the start and
-> spin_unlock_irqrestore(&key->user->lock, flags) at the end.
-> 
-> If keyctl_chown_key() swaps key->user between those two calls,
-> key_payload_reserve() unlocks the new owner's spinlock and leaves the old
-> spinlock held. By source inspection, key_user_put() can also kfree() the
-> old struct key_user while instantiation still dereferences it. That struct
-> key_user use-after-free was found by reading the code and did not trigger
-> during our KASAN runs.
+lan966x_fdma_init() allocates the RX ring and fills its DCBs with pages
+from the RX page pool, then allocates the TX ring. If the TX allocation
+fails, the error path frees the RX ring and destroys the page pool, but
+does not return the pages to the pool first.
 
-OK now this is stating to make more sense. Good job.
+The pool then never finishes its shutdown, and page_pool_release_retry()
+keeps warning about the pages still in flight.
 
-> 
->   =====================================
->   WARNING: bad unlock balance detected!
->   7.4.0-rc2-g23c62304dde2 #3 Not tainted
->   -------------------------------------
->   request-key/163 is trying to release lock (&candidate->lock) at:
->   [<ffffffff82698fff>] key_payload_reserve+0x29f/0x370
->   but there are no more locks to release!
-> 
->   other info that might help us debug this:
->   locks held by request-key/163: 2, on CPU#3:
->    #0: ffffffff871c10a0 (key_construction_mutex){+.+.}-{4:4}, at: __key_instantiate_and_link+0x38/0x370
->    #1: ffff88800de4a8b8 (&candidate->lock){..-.}-{3:3}, at: key_payload_reserve+0x160/0x370
-> 
->   Call Trace:
->    lock_release+0x286/0x2e0
->    _raw_spin_unlock_irqrestore+0x1a/0x50
->    key_payload_reserve+0x29f/0x370
->    generic_key_instantiate+0x42/0x230
->    __key_instantiate_and_link+0xd7/0x370
->    key_instantiate_and_link+0x40d/0x4b0
->    keyctl_instantiate_key_common+0x2d2/0x450
->    keyctl_instantiate_key+0x167/0x180
->    __do_sys_keyctl+0x391/0x550
-> 
-> Take key->sem for write with down_write_nested(&key->sem, 2) inside
-> key_construction_mutex in __key_instantiate_and_link() and
-> key_reject_and_link(). Subclass 2 is an unused lockdep subclass that is
-> only ever taken inside key_construction_mutex. Subclasses 0 and 1 are
-> already taken outside keyring_serialise_link_lock by __key_link_lock() and
-> __key_move_lock().
-> 
-> An AI tool assisted with finding the race, writing the four-line fix and
-> the reproducer, and running the tests. I reviewed the kernel source and the
-> test logs and wrote this commit message myself.
+To let the pool shut down, return the RX pages before destroying it, as
+lan966x_fdma_deinit() does. lan966x_fdma_rx_alloc() does not check that
+every DCB got its pages, so skip the entries that are still empty.
 
-Irrelevant in the commit message as metaphorically it is now a tool just
-like text editor is a tool.
+Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
+---
+ drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-I can write a horrific 4chan post with a text editor but if I send it to
-LKML and call it a kernel patch, I don't make claims that it was assisted
-by a text editor and reviewed by me.
+diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
+index 1fbe910c5ec38..586ee648c7741 100644
+--- a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
++++ b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
+@@ -54,9 +54,11 @@ static void lan966x_fdma_rx_free_pages(struct lan966x_rx *rx)
+ 	int i, j;
+ 
+ 	for (i = 0; i < fdma->n_dcbs; ++i) {
+-		for (j = 0; j < fdma->n_dbs; ++j)
+-			page_pool_put_full_page(rx->page_pool,
+-						rx->page[i][j], false);
++		for (j = 0; j < fdma->n_dbs; ++j) {
++			if (rx->page[i][j])
++				page_pool_put_full_page(rx->page_pool,
++							rx->page[i][j], false);
++		}
+ 	}
+ }
+ 
+@@ -999,6 +1001,7 @@ int lan966x_fdma_init(struct lan966x *lan966x)
+ 
+ 	err = lan966x_fdma_tx_alloc(&lan966x->tx);
+ 	if (err) {
++		lan966x_fdma_rx_free_pages(&lan966x->rx);
+ 		fdma_free_coherent(lan966x->dma_dev, &lan966x->rx.fdma);
+ 		page_pool_destroy(lan966x->rx.page_pool);
+ 		return err;
 
-But yeah, I get the commit message better now, thank you.
+---
+base-commit: 994089a3fa3882f27f4bed9fc5815ee7df502e88
+change-id: 20261116-lan966x-rx-pages-tx-alloc-fail-2b8e412f15f2
 
+Best regards,
+-- 
+Daniel Machon <daniel.machon@microchip.com>
 
-> 
-> Fixes: 5801649d8b83 ("[PATCH] keys: let keyctl_chown() change a key's owner")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sinan Turunc <enscrpt@pm.me>
-> ---
-> v2
-> Drop the inline comment changes from v1 and rewrite the commit message in
-> my own words.
-> Use subclass 2 in down_write_nested(&key->sem, 2) so instantiation cannot
-> form a lockdep cycle with __key_move_lock().
-> Update the Fixes tag from the initial git import commit to commit
-> 5801649d8b83.
-> Tested with the reproducer and the lockdep stress workload on 7.4-rc2
-> (23c62304dde2) and on for-next-keys (1dbbde3bc4).
-> 
->  security/keys/key.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/security/keys/key.c b/security/keys/key.c
-> index 3f1f0fc..df31d10 100644
-> --- a/security/keys/key.c
-> +++ b/security/keys/key.c
-> @@ -441,6 +441,7 @@ static int __key_instantiate_and_link(struct key *key,
->  	ret = -EBUSY;
->  
->  	mutex_lock(&key_construction_mutex);
-> +	down_write_nested(&key->sem, 2);
->  
->  	/* can't instantiate twice */
->  	if (key->state == KEY_IS_UNINSTANTIATED) {
-> @@ -473,6 +474,7 @@ static int __key_instantiate_and_link(struct key *key,
->  		}
->  	}
->  
-> +	up_write(&key->sem);
->  	mutex_unlock(&key_construction_mutex);
->  
->  	/* wake up anyone waiting for a key to be constructed */
-> @@ -609,6 +611,7 @@ int key_reject_and_link(struct key *key,
->  	}
->  
->  	mutex_lock(&key_construction_mutex);
-> +	down_write_nested(&key->sem, 2);
->  
->  	/* can't instantiate twice */
->  	if (key->state == KEY_IS_UNINSTANTIATED) {
-> @@ -632,6 +635,7 @@ int key_reject_and_link(struct key *key,
->  			key_invalidate(authkey);
->  	}
->  
-> +	up_write(&key->sem);
->  	mutex_unlock(&key_construction_mutex);
->  
->  	if (keyring && link_ret == 0)
-> -- 
-> 2.56.0
-> 
-
-I think this is right but I will re-check once I have bandwith.
-
-Thanks for addressing my complains.
-
-Br, Jarkko
