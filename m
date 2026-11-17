@@ -1,100 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794925446;
-	b=iysfNKP1bWe9oV66I1JzikmlZx0jOeUGHDz/1Z+hW8+gNM0WI6pzdyEJQIaudKmW+lHD
-	 NzHqy2R1VceQ3JknZ8zS6enyvAKnR+W0nOuyBiXyvWACK4lIVXzHF/tUxZj449mzbLiiv
-	 SD+9sDXRUtgbD809AHT7Y6Kqe67vLxMqP1wv5TfV/BKT9EEe0mAGwtIuDMTsLbunAOXKQ
-	 yyUjAKelx41QXOIDEgnF7wHsGhAOPyGA/R9Eavw2b8d/jn/pWkctWFzUR+PnNn4jURcZs
-	 /joWx5fHNoTuEP5tEDJk9WeUuBcimcDt3Nz6iiiyYs+UPCWZLONBf7bWYMWVLrVrwUg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794925446;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=vOJ+aYWhkwD6HIGtph9wp8GgSB5fsvMb0iWQS98XCE4=;
-	b=M/xkRyAG48r/SgQ5ijHXHyJzqFYkkJi2PMJN47uLyxbCr2XDWzrCipePSFCBpFD/6ap7
-	 mOfJvRyj8SapNinKpTm+lzPUxEaAqDEzAATypl5kqFHViUnLlNOMRS4gZ7Zhathx0qEQl
-	 XnsIe36H72DCqJNAvFWCaz06ZRfjkFjFJhd49ROZ1q49ETf1eR6L0gSBwqf5r+OtkZqwP
-	 NIkuTjdeng+Af4JGpU0EWJhH8VsQflLrntdVzZaYo+43WJU/x22/rVD0jCsdR2C3t/4iL
-	 k7Pll9oeAd26D1bbn7fjC9K31x+bvNu9cInfAEL39n52xtGyFyYLpAC7S0OVCzw5ptQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="I5/x7GUM";
-	arc=none smtp.remote-ip=209.85.218.49
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794925454;
+	b=DPHgT618NPBc5Og1kP0y40h0BiHe/UVi/LnQE5GxrHa25KN2HozQwxcUN9bJ//tk7wLf
+	 NtNJl5MGWjuseyKpOXeGYprGMDiAiEXaNX6vz/Uqed8Z9kBoA0+GRY4rS3mFaVLR6mIWn
+	 1MD8XtvvYCts4ZiqIvbl4MXaz0nB81LF2EPhoQTBv+bYp/kA+bZr1aGdafXwxabQDTxY5
+	 IIhVW1cJFFjeSrXaGG66Xgy24EVF4ZXPhX7LHXSm/E7ZyxuNq/h1r9NkUjg8rOzzFwiiF
+	 kRMqgQaxQ26d2DxWTgl9JxztxGu1P2FnWGo73skEwt8eUnE2MkaLN7bFLbHdyYmxzvQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794925454;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=RNF5mQYeYCWXJF3Zp7jeBqd1rboBZ/XHg91Ie4OqZH4=;
+	b=kPV03rVCp86HItEo0270QhYUQaAq/kcpdcQCbtAAcuxbYNWc4qoNjJ19isur3L/RpSZd
+	 MM/KD2Z+jqmCWrxyU70wsbmY6858YYCqmjKFdRx1+EbIfVEim65/XiOIhQOMNOxke0iUr
+	 K1w5o6HdDPGKcEWNg/WU+Q+B+haX0ALEYmhY1qVcFhCLFudru1FRQqI8bbCOxhVgYuOt9
+	 ewNABVW6mJbg9UI9HdFR20FmgGihwOr+tr40lzzxHOYq/B5PT4CrzBp6CQyWNQY0CfRsh
+	 23LpE2x2Bh0mPvyLKm77sO85XpA1GTgdqwXnb4NaPuMTXP2TO2S1PP58E9dAykRlpGg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=tGefQ1rk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.49
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010049.outbound.protection.outlook.com [52.101.85.49])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DAA7606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:24:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DAA7606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D58A7606A31C
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:24:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D58A7606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=I5/x7GUM
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c50d3ac6b51so188447066b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:24:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794925444; x=1795530244; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vOJ+aYWhkwD6HIGtph9wp8GgSB5fsvMb0iWQS98XCE4=;
-        b=I5/x7GUMTUk9ZBagKydceTqyNS9FeML64SX6ZRMO+bd9SLKBzzSfgwyCjb/NRNtrj7
-         I3J8zGygIcAvyCrS3i6apKAOlxfgKdiF00qjeO0LndpJD2pPpREubbwwf0yTl1bEg/He
-         li0KmvTtboryrQYzgYfe5Gu8qB6jHAAtjBRVzt/nGCxjl0FuTcJiUSssAEjK3wQUPYx8
-         SDBHNcJBcckCoAeokCCQ5bpBtYtc8O6f/JB7LilBqPyD5ofmvv+Ej1vXYQ3X5rV34fXN
-         gnDY3vQ5mubET2nb4rvOQRwKRkVH83lZtizEhOfVuj1WPXrzl3xVbZ6VbznNGsjj2IKe
-         R/ZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794925444; x=1795530244;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=vOJ+aYWhkwD6HIGtph9wp8GgSB5fsvMb0iWQS98XCE4=;
-        b=hKynSm2TLI65x+YGnfUMWoBVXCvolXNb2vB3FcSCHBaRB5zmQgdvIwOJz7LAq7gxKK
-         glr4dAFTG24m+8EQEcvWju8Ha9rNdkU5AXLNYeD1LTU5SIjeLq0T0EH8p0ObaZsa6djF
-         qezXVfmKnCoDwD09deC1VZwCpedO7uAo7YLYJprkaA+wdC3deft3ZVE2TtQSDyFPayjm
-         5Axr4okoOyTTcDsDIMqzqU2eJICgZOF9lrx2y7zJ/VPLkYR/SwS59Wt7uiJ+yE3NQYFw
-         qvHaNTzG2BnSo193LXnDPLPAac7n53ymFlPyXE1cQ/v3PzUoVphyW+YNE4qf0Pm9wXy6
-         GIhg==
-X-Forwarded-Encrypted: i=1; AL+hErFBQygW4FZe/DQ8En/BOzeNFK7lJYXg2mZ3GOzIR6nCg2XBYrejWXKlcX67rZ9H+MjXKJSmvqdJpp9D9Dk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/kqqtlRuaTfcKpIa1y+6yMM4eUCoz5ChI09y7QNSRdNpzZIfJg
-	BL2JObxayAXYL2ako5LyNJ8W8FG49UZ4Qg78yq9JoKqy2qqR966l1UVTnIhsyIOLqw==
-X-Gm-Gg: AYBFou31XT2DQt1Kv0UsrDb4bkIvq4K/0WKuCBxXEW0OEDXVcf6BWr+3/U1SKi3I6Gj
-	U89S+8e9kkcY/y+tTMfxCF1rye3YB546S7ePENT9Ezwo1MBsStBslSNDAHMVdyqYX0soOwy/jNb
-	DTZb2wYs08K6nT2zSrrTGBkQUxD7z/5yIAhQLuZuytEiUJWPF2SJFu3RTArlu2GrKnteXvUrrfP
-	USeAaehKjYxeQonrBM2DlyIAfU/JwJzWhOoji/MK53lj531OYv/sb5OBECNMhsdZ2xEMF1M3I16
-	yxeqK10nUPI76E/xbiPzwcLoAbRCfx0try6Ie9U7Obe1Q5AHZjNpuuOa4SExhN6zBcWtWYlD1V2
-	ESWh2ajWmVxCvz+P9SK3P1aXro0oSlgke6i6+Kb9/DLBHCgHxnnVUDKxq7CyhSeAEGLw7uf/3+Z
-	q/dZutVn8mS9lhoqdD93nOJAuky02JEkkjrgviPFMr0i+yP4LU7eLzgu3QLzDjnl1k35boDRtAP
-	ocb4B2u0ECdacdUU9gXEAaHbFu5teMs3nYtwcFjh6AYxojnx9fx9GKPf82/+UZQf+mqMSeZY8T5
-	woBB72aRMwBLa8JassBAfw9YdFkv2dg4dCSr6KcuACmAdjbc2NCMVNOGYcrJm3iwvbOV4K2/3rF
-	syD0rYg==
-X-Received: by 2002:a17:906:99c5:b0:c51:2e3:f426 with SMTP id a640c23a62f3a-c5102e3ffbemr156705666b.18.1794925443904;
-        Tue, 17 Nov 2026 06:24:03 -0800 (PST)
-Received: from google.com ([2a00:79e0:288a:8:12e4:4602:d8d8:3043])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b60988sm551518866b.59.2026.11.17.06.24.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 06:24:02 -0800 (PST)
-Date: Tue, 17 Nov 2026 15:23:56 +0100
-From: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
-To: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-Cc: Ada Smith <adasmithgt@gmail.com>, Hungyu Lin <dennylin0707@gmail.com>,
-	James Morris <jmorris@namei.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Paul Moore <paul@paul-moore.com>, Serge Hallyn <serge@hallyn.com>,
-	Serge Hallyn <sergeh@kernel.org>, kernel-team@cloudflare.com,
-	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org
-Subject: Re: [PATCH v2 2/6] landlock: Mediate CAP_SYS_RAWIO for mappings
- below mmap_min_addr
-Message-ID: <avxjfHybQBcATFKV@google.com>
-References: <20261117101157.2520463-1-mic@digikod.net>
- <20261117101157.2520463-3-mic@digikod.net>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=tGefQ1rk
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hOtbyYtAvgd+4mP7SS6iEo53gPsApRCip6FXumQPxq1L32217tjPDNcGde695SdRkLTEaq+VoBAyxLZcZ5NQOh5r8mFZIGdF/1QSa9JibUpweSnJjXEwf33rq/qdAlnSyhMmFHdDAxmUADIqqQXcEg0fnPHsnA0/ABrLyvhD/CsIIlwMeUShH8+bLzhlo9NOTEPJy6fZUGQPLRLUOoSHdqMRoX8VWNl+s+aZ7dClQ3ge9rKrvV9mf9ueOjd1nuZxbimn7AEFl6VBxix/7Q/aC4m5FuuCVGl7UHZb8TDOENI5uSzKoXt9+yqafoQENTs0Hxwm7Yj1v0sYAuheZPiNPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RNF5mQYeYCWXJF3Zp7jeBqd1rboBZ/XHg91Ie4OqZH4=;
+ b=KLKl+cy67ZjczQusmt3MESzaaFQ+VpAqGx1lbWZE9M4EXZpLO2Cw0oCsM5/QHsgHtN1wJ56RnEkf03HcMW/3QTU6KP5vpPdCtXqYhcK2HgKlP25/mmfWpxp4gb6WWa1uWNsXJwxy9GXxU3z4OiFftyyqz+w19NOott9xdeGmkWYCFLk1O3syRkGb7G6qmGnqC7XUocuAM9LCMSkQG7Yu5AFiRtMwHS/Ka0765TmqVXCnL+FqTxxMkaQI28ZBHxcrYm7x2L7oXMDIQRGKGVV6TwTe04CtMI5aT7NIqSa28a3nNTOl+edgECE8pJ8FUXy/2SaGPgOO0C9b4VuJ5/xQQw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RNF5mQYeYCWXJF3Zp7jeBqd1rboBZ/XHg91Ie4OqZH4=;
+ b=tGefQ1rkp+EnDhl193bAmgAc6ne5O8Rdhw8pEYHEfAEQ4xIHIY6HntGSj7sL0UIx0v3u5AtsZmwjTVBHf8GO5PfWLK1t7n/+hifC68jEUlbRmpNopA/29YWxLMp1H9aWsoyICd+8EuUTagJeGuvIALC1XZS6kyjUVgvsrht3kmwGq2Q9GC1hmovpM9qXFtpx1yQjFSKaZgowfWEtAkxo10WQidbAhl5/Sq+V5cdX42JUsLxRQVC8IYn6nH04L+q5IFZIijrtbNtU/iQfbroensuLC+y1tkNOjAN3/BcOoIAaVel4XL7799Xr95v5nj3otWd484R8TWJirgsV4KxljQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by CH3PR12MB8355.namprd12.prod.outlook.com
+ (2603:10b6:610:131::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
+ 2026 14:24:06 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
+ 14:24:06 +0000
+Date: Tue, 17 Nov 2026 10:24:05 -0400
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Alexey Kardashevskiy <aik@amd.com>
+Cc: "Tian, Kevin" <kevin.tian@intel.com>,
+	"Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+	"Li, Xiaoyao" <xiaoyao.li@intel.com>,
+	"Hansen, Dave" <dave.hansen@intel.com>,
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+	"kas@kernel.org" <kas@kernel.org>,
+	"seanjc@google.com" <seanjc@google.com>,
+	"mingo@redhat.com" <mingo@redhat.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"pbonzini@redhat.com" <pbonzini@redhat.com>,
+	"nik.borisov@suse.com" <nik.borisov@suse.com>,
+	"aneesh.kumar@kernel.org" <aneesh.kumar@kernel.org>,
+	"Verma, Vishal L" <vishal.l.verma@intel.com>,
+	"Peng, Chao P" <chao.p.peng@intel.com>,
+	"hpa@zytor.com" <hpa@zytor.com>,
+	"tglx@kernel.org" <tglx@kernel.org>,
+	"nicolinc@nvidia.com" <nicolinc@nvidia.com>,
+	"Duan, Zhenzhong" <zhenzhong.duan@intel.com>,
+	"bp@alien8.de" <bp@alien8.de>, "Gao, Chao" <chao.gao@intel.com>,
+	"yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>,
+	"x86@kernel.org" <x86@kernel.org>
+Subject: Re: [RFC PATCH 06/15] virt: tdx-guest: Support TDI bind and unbind
+ operations
+Message-ID: <20261117142405.GJ2245175@nvidia.com>
+References: <f1cdd989f6bcf6a177dcd83e55fb8465e0ee849f.camel@intel.com>
+ <20261110195745.GG738765@nvidia.com>
+ <e44f3f12b3fecdc5f3c05aa1f1b0ceb1befad0b7.camel@intel.com>
+ <20261111001606.GH738765@nvidia.com>
+ <CO1PR11MB4835656CEB24B31B557162258C712@CO1PR11MB4835.namprd11.prod.outlook.com>
+ <20261111150029.GJ738765@nvidia.com>
+ <CO1PR11MB4835C4C6DA79A84D0F123AD88C712@CO1PR11MB4835.namprd11.prod.outlook.com>
+ <a2549a83-6acf-472c-9fd7-69e965707d12@amd.com>
+ <20261112145450.GM738765@nvidia.com>
+ <9fe0eb87-bce0-469f-8a13-a8a1e310ab62@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9fe0eb87-bce0-469f-8a13-a8a1e310ab62@amd.com>
+X-ClientProxiedBy: MN0PR04CA0005.namprd04.prod.outlook.com
+ (2603:10b6:208:52d::9) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,124 +125,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261117101157.2520463-3-mic@digikod.net>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|CH3PR12MB8355:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2c6016c5-ffdd-47dd-5ec2-08df44b66fed
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|22082099003|18002099003|56012099006|11063799006|4143699003|261028144727099003|261026140227099003|261022105027099003|261026121527099003|261021135927099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	zlzUCFI7SHY3nRRcNQaJeKh2Y2sCx3h6+BrSdlda3H9xG/wq70STd16BedA/bV32ICboWHPLUYhv/MdG4vDjWm2xm+DLSlF6zZ/EklHqi/Alo5RBvuQxw6XeFGpwssW7pgXybvgPGSJP4tH1ndTf8xkf3C1/BgYwxArc5uaqSCHuJhPAxEcaJ87GDa01yBcIssUJFl5w4lxOu0eVNckyHVwKPW9l+0OxjM+6ycuOcWGPqnirgKvH68AGU8bUIu9BSJFzyJyb1dV2YRwyOz4E/gBCCra0MHvqI8qw+r2r4zjFCBtXr3NnjdDsD/AO5X0s9BpKwIYrH8C1FOzqbhiNq4efA+h6AUtMWtHEzNs94YHbhvsDSUjjlMlvVQvh6BuGiKobT8WBDmZeOFbkay7vD3tdvUvquLYBlzIJA+L40giFPAAHeg4JaRLvNDq7i1A60kVxU46gwwQ8rneu/AgUqKIobntz//lIZ55UAw8eUGCj/S2Oa0a6olLGd2anI+TfMWGH59nLmJfcSfeVpBqagFLKoHlAR1teqZw4HcUhTrkQtFRw6exnWD7u332F3tmnmyCE3hqtW874mEqdxOXj7o8hpmOKI12+P/zS/zugt6cjz6To7oKPwTZYV+Ea4wW9k5SXrx3eNqUhczvDiy7m5StuM9lbVH3HBDUfSLqL4Dk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(261028144727099003)(261026140227099003)(261022105027099003)(261026121527099003)(261021135927099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?khMNYhLdqrHh+lA+2sUeIv2Kf08YQBmA9v7Kh0yD+jKWmWpNvH7LmcGeXiOh?=
+ =?us-ascii?Q?veJ3LTs1gUzNGFhbcIJjl5yUL8L5+DCSHXAT8f+LTrSi3ol46sixB8Xn1cJK?=
+ =?us-ascii?Q?sY/4jB9UURPdxVH7ZnBhNyDE2yYc3g41jdF5H+PNXeeilP53fJvUkinrZByR?=
+ =?us-ascii?Q?HpCApX3aJjlf0TLPygxznjV2eJZDUX2uxMCXW9ZsjJaEr2/SxvVcSUotXW8H?=
+ =?us-ascii?Q?mhKr9YJVSDKLZZqECls9I28LthEJq9SiIDFT3ny5E+gJa4Vw9JPc90tKaA7U?=
+ =?us-ascii?Q?NkDeP5MCtTcYRDJJ5rb5tjtpDeOpxtNdcRWEv2LwmcI1mATEiuWZ+Sh6oCEA?=
+ =?us-ascii?Q?+o/j5TgOaCx296K1bEczh7XdA1+Em7cfJWum9EudaWUKmvhrn9Wnfp2bkbnG?=
+ =?us-ascii?Q?foaxWqJ6YXW6yki3mg7FYKxr9q8g40LZnA1/cvXuWyKXiuMVQsZuAIb1uAuv?=
+ =?us-ascii?Q?qE4pj43mhRkw/yfI7oM/OhL48HX+5z55NXtHwMBRZ9d/5HhVMwK++JqVb7rN?=
+ =?us-ascii?Q?MPaOwSVgd2filfe/zbLTFtAs+C6lzmAQNM62npHFov8KiOLnEWJa3s5nprSa?=
+ =?us-ascii?Q?48TazSgEc4DWRfQgattjo87gXjDhIF/a9vWiYa8kAHviVUhAAMrwgU1OIZy0?=
+ =?us-ascii?Q?tpGrm6sB/evUYFaCUPEaJF1r8PpKoPlt02dL5i5Y5C3M8TXIyb0V+t/S/hYn?=
+ =?us-ascii?Q?nAaSWhf567zPFzkOo8hcLZwEQclRrNbs7wrsNcmb9VRYRdvnatrbM8IeWxIw?=
+ =?us-ascii?Q?+1LiXTJei7EuXSiRJeDE90Vk07d6Ob+5c2IE7qSheYBWbe8imo6dhTbqxrwW?=
+ =?us-ascii?Q?T9Q/fSP1wqV7f2ebya0epiuh3LcDMf5IdZbgqEIdJ/Y0jSkPh7Bz0SBgUlgI?=
+ =?us-ascii?Q?ieQcT15DK1vzYq6RLyAvhG+z16zL+nwi8jyINIaqiTCCnK7U8EFiXGZjMCtt?=
+ =?us-ascii?Q?UIOpN3jW7w54JBRE9zzwtygMbzoUHJg4IpnXPBbTlFefWcq/5rlZqrBlCMuG?=
+ =?us-ascii?Q?3Xf6EeEjtqP9pnZNz3cvBWt1KwD967I1FB1EYcQ386J/c4EW3xvbC+3xreNX?=
+ =?us-ascii?Q?sdUoCGutjQ+QezMdL+7DuL6FP6y2N7CT8ZNWXeMsBpZI69tMTZauJtodovNo?=
+ =?us-ascii?Q?ZmGuLMCwWa9pgCy5tGmjWIhyIgRtvogOm5pMd5McN+ymQBR4KQJ4nQphOB8m?=
+ =?us-ascii?Q?hY45E/hB8ayHYCSzFRWR57PLwHLFw9hkHmTA4e6JcPddwOR2IkoRONcgAML+?=
+ =?us-ascii?Q?FY1FS97AEZHbE3wREk22z+CEQy+gL6ZeQAgpp1ozBkG6MhXF+Mu4xy6NPEk9?=
+ =?us-ascii?Q?VSG83Q1vQ9i0snsIuhsoy7kZ6u1udCVrzGIefrzh3PjxNF2TWPKyAouaFgGK?=
+ =?us-ascii?Q?uwvc2jTaAQbdfo7QnRQhxcx4Su3g9rweDLilrk0qJBXjQmli3HG3r5naUPrp?=
+ =?us-ascii?Q?OwFfvmwx12A1LbxDGIcF4HEiueuu4C4dAv4LV+FMYz2T0pyIeVtdkrf7lwzg?=
+ =?us-ascii?Q?6Y93gRIQ6fY+KIWte+BWFOjlY+/X4mGfcYHmKG1ng7RLVCJB5Di0zsQzbo6J?=
+ =?us-ascii?Q?R0LV8Lk7NE9Fji2+h4J+vCImRMN1ZYQ9jfeaGT3wYmfi536EU7snru7YhKnn?=
+ =?us-ascii?Q?UNkDa5hQxRXGgWeXcvlQTGhKXV1Vni72NYMbkZVHI8stktWqg0+cJVdR87fr?=
+ =?us-ascii?Q?t3LyGS5qmqT8qINSLmmKaLxKZOMuWi2SSDZUlmUn+c//KisZ?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2c6016c5-ffdd-47dd-5ec2-08df44b66fed
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 14:24:06.3879
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SSEN7FewnG0IHy8eKxh/cl+tkUPPdQ4Th7IwkK/6KcOqmuFmAX2FG67WQ1IL6jTL
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8355
 
-On Tue, Nov 17, 2026 at 11:11:52AM +0100, Mickaël Salaün wrote:
-> Until now, a process in a domain that denies CAP_SYS_RAWIO could still
-> map memory below the vm.mmap_min_addr limit if it held this capability.
-> cap_mmap_addr() is commoncap's mmap_addr hook, and it checks
-> CAP_SYS_RAWIO with cap_capable(), not security_capable(), so the check
-> never reaches hook_capable().  Mapping the lowest pages is what this
-> limit protects against, because it helps to exploit kernel NULL pointer
-> dereferences.
+On Tue, Nov 17, 2026 at 10:16:58PM +1100, Alexey Kardashevskiy wrote:
+
+> > You should still clear the sDTE and that should be a non-failable
+> > operation.
 > 
-> Add a Landlock mmap_addr hook that checks CAP_SYS_RAWIO against the
-> domain under the same condition as cap_mmap_addr().  With the same
-> vm.mmap_min_addr value, the hook only denies mappings for which
-> commoncap required the capability.  security_mmap_addr() stops at
-> commoncap's error, so processes without the capability get the same
-> result as before.  This also covers the x86 vm86(2) and vm86old(2)
-> system calls, which use the same check for address 0.
-> 
-> Making cap_mmap_addr() call capable() would also fix this, but it would
-> send every low mapping through the capable hook of all LSMs (SELinux,
-> AppArmor, SafeSetID, BPF LSM programs), adding capability checks that
-> their policies never had to handle.  For instance, SELinux checks
-> mmap_zero in its own mmap_addr hook and keeps it separate from the
-> capability on purpose.  LSMs with their own policy for low mappings
-> implement it in this hook, so Landlock does the same.
-> 
-> Cc: Günther Noack <gnoack@google.com>
-> Cc: Paul Moore <paul@paul-moore.com>
-> Cc: Serge Hallyn <serge@hallyn.com>
-> Acked-by: Serge Hallyn (AMD) <sergeh@kernel.org>
-> Fixes: 97c8386f1d74 ("landlock: Enforce capability restrictions")
-> Signed-off-by: Mickaël Salaün <mic@digikod.net>
-> ---
-> 
-> Changes since v1:
-> https://patch.msgid.link/20261110202436.2408244-3-mic@digikod.net
-> - Add Serge Hallyn's Acked-by.
-> ---
->  security/landlock/cap.c | 22 ++++++++++++++++++++++
->  1 file changed, 22 insertions(+)
-> 
-> diff --git a/security/landlock/cap.c b/security/landlock/cap.c
-> index fa59118e3486..10e1ca772b9c 100644
-> --- a/security/landlock/cap.c
-> +++ b/security/landlock/cap.c
-> @@ -9,6 +9,7 @@
->  #include <linux/cred.h>
->  #include <linux/lsm_audit.h>
->  #include <linux/lsm_hooks.h>
-> +#include <linux/security.h>
->  #include <uapi/linux/landlock.h>
->  
->  #include "cap.h"
-> @@ -90,8 +91,29 @@ static int hook_capable(const struct cred *cred, struct user_namespace *ns,
->  	return check_cap(cred, cap, opts);
->  }
->  
-> +/**
-> + * hook_mmap_addr - Restrict mappings below dac_mmap_min_addr
-> + *
-> + * @addr: Address of the new mapping.
-> + *
-> + * cap_mmap_addr() requires CAP_SYS_RAWIO to map below dac_mmap_min_addr, but
-> + * calls cap_capable() directly, which skips hook_capable().  Check the same
-> + * condition against the domain.  commoncap runs first, so this only sees
-> + * mappings that commoncap allowed.
-> + *
-> + * Return: 0 if allowed, -EPERM if CAP_SYS_RAWIO use is denied.
-> + */
-> +static int hook_mmap_addr(unsigned long addr)
-> +{
-> +	if (addr >= dac_mmap_min_addr)
-> +		return 0;
-> +
-> +	return check_cap(current_cred(), CAP_SYS_RAWIO, CAP_OPT_NONE);
-> +}
-> +
->  static struct security_hook_list landlock_hooks[] __ro_after_init = {
->  	LSM_HOOK_INIT(capable, hook_capable),
-> +	LSM_HOOK_INIT(mmap_addr, hook_mmap_addr),
->  };
->  
->  __init void landlock_add_cap_hooks(void)
-> -- 
-> 2.56.0
-> 
+> In AMD GHCB, the host forwards guest requests to the PSP, and the
+> host can screw this up. The guest still gets to know if the host
+> tried to meddle. I do not expect it to fail normally but I saw some
+> of this while debugging. Thanks,
 
-Reviewed-by: Günther Noack <gnoack@google.com>
+Like I said, it is completely bad you don't have a fail safe way to
+block DMA again. If the guest tries to do this operation and it fails
+then it must panic.
 
-Looks good; I compared this against the commoncap implementation of
-the same hook, and the logic checks out.
+I still don't know how your "host controlls dma enable" works with any
+possible security. Is crypto involved somehow?
 
-
-Minor nit, in case you end up sending a V3; I found the commit message
-a bit wordy.
-
-It makes intuitively sense that the commoncap LSM does not want to
-invoke functions which themselves call into LSM hooks, even if it's
-just a safeguard to prevent accidental recursion or deep call stacks.
-
-So for the few cases where commoncap checks capabilities directly, we
-need to do the equivalent checks in the same LSM hooks in Landlock.
-That means, we replicate the logic from the commoncap hook if
-necessary and treat it like a capability use that came in through the
-normal hook.  This is similar to what SELinux already does as well.
-
-What I would have found useful to discuss in this commit message would
-have been the story of PF_SUPERPRIV:
-
-commoncap sets PF_SUPERPRIV when granting the capability use, and
-Landlock does not undo that when it rejects the capability use.  In my
-understanding this is OK because the flag only gets used in "legacy
-accounting" use cases and the consequences are benign.  The
-interaction with SELinux is already the same as well - it does not
-unset that flag.
-
-—Günther
+Jason
