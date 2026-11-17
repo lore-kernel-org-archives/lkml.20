@@ -1,65 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794924303;
-	b=Mxh6YFzWs+5KChwK5nedd9rv1jLHqg1Q7MUUL41Tmiomt7jAbu1ZGaT6nMiM6ogOqFp/
-	 0Eh6lcORN8ajp/xZ6GRUlA7/YjJR1Ady8Fjk8GJQgb2Yp90MJT+3v0RcXJwdoi/sPb2GP
-	 z823Lfnu3TPppltrP2yxgoY/5ATpJ1xFoTwbP5tOnKvWc3aBg1i/gStaxDGYC4IODbrtt
-	 DhYfDUqDNc0fgNcFQB89wbDSP7nBntqLRHXFl2evl8bsqq0e0b4a3xKmoYR3HRYsjOAeR
-	 Q+DWem0I8vcte8XHeg+uS/yd3EeypuSHKlZ4PX5DlLofbXovbwddpZoVceY9mCQzLIA==
+	t=1794924311;
+	b=Xv08jH2XY79WKSNyQftLgG5FN31TXOGc+6XlLZlu6gm/yqRhwlZknpkiHFCAZljkXE3u
+	 Nxnw59hj8gDYaAOVP2K051TKyzCXK4xdqn3biypV2K65FpRSVocdpK0tCOzSzaiGJMmNI
+	 0s93S1A1pMdku6XwAhGF3JZ9R7qfaTRgdx8gw8+ZKdpwTC9sOmsgtRsC1lT10nW94HKm6
+	 QeoIALCZjoUaqtAgLLM3wPsZEBK5wllCe1HMITpgnww2EQjI3wTuyvFRGzuCRcyCRg+Zk
+	 djqAHUQOYVidCDR+NWULZkx/pbqK0FJofE5VMwT4zSctx1w3RkganpUtT+mVOH1d2Og==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794924303;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794924311;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=OrI4q83Nj/+lj2o4EIMNcwkzJoh69UNQ1KQ0/cpUzbQ=;
-	b=md6pNCEIZJrDDhlcP0LonMz6QAk+uKh/+skqbLai3sqbzRQTYCcJ+wY9ScldkJorB80u
-	 CqhwmgNf//WRC9Y75JaKLf2+kWr+YkiX+B9/ID5NfYcQIm/PDVZxzaHuNatrZym+5vQPx
-	 rAw5wxZ1+gY3d7OTiOj3uBaFLPeL4kMA8GiaaYghNNljqm42S4wh+YfKHBK5j9aVuRlkz
-	 CloBDtGEb+iDAJ82TBYhxzddsk7THxa10Ju3E3JyA0I6llllmV5rtfWl4jsnMzB+NSaEp
-	 Sd1REXGqCnr+Br7pdZ9qna268otYDyxA0Ye2jCb13o+ApIakK+qTPV0xXtmGRDty/YQ==
+	bh=tNVVhXe4dHXqs9prx7RbRtYOvhfrplBbNblNuIByhIY=;
+	b=tN+besngFGHt5f+Dg4MmGf+y1Cl+EQ9gOOeHiIhSHqU8HEGihOo88myuTLwPEpSJmhvp
+	 VIliDpphchyLbNVFpSfplNwLfMnQxsrnbWS85quy2QRsv6O14P644yMR6YVtgrsqEXLHz
+	 zDxPtz9JKtBaCSF1pG1ypnOHR4wteAFSGTAEvdWaMMk6TVxklQF/VTQe2CX+PcqdugHAu
+	 +eoxl+fy+PKR8CH36T0QZYUgL6k7rv6zJa7JEtPdPSfpwUWTVhhrohG+tP/b9ihbHeojA
+	 BbZeZAhPiZ9QxzpDI487EO2reKlZPWVKDOXSnA630oj9biAdGMZmDj9qrAMnSM3ObnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pj7JVLyC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CeZ0fAH6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27260606A894;
-	Tue, 17 Nov 2026 14:05:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF50606A334;
+	Tue, 17 Nov 2026 14:05:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pj7JVLyC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF0E51F000C6;
-	Tue, 17 Nov 2026 14:04:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CeZ0fAH6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61CFC1F000C6;
+	Tue, 17 Nov 2026 14:05:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794924303;
-	bh=OrI4q83Nj/+lj2o4EIMNcwkzJoh69UNQ1KQ0/cpUzbQ=;
+	s=k20260515; t=1794924311;
+	bh=tNVVhXe4dHXqs9prx7RbRtYOvhfrplBbNblNuIByhIY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Pj7JVLyCOMMKiDLxpVsAkhBMfZwYBbWsh9hu+jHLrvZGWAuEE/2aUzsqcN9JDVnuo
-	 cfQsjhPIFW4/EaepFMLtAWZOFpKJhlMf/YpYZ+BZVNVA5D55mtlHWr5dUIRzgNKJK7
-	 fgJEjoS/4kcszG76+J4fw+oaBLMpR3KLk/Wwu1Ehds8py4kurNxV9LAUmv6MnwKjth
-	 1FrBBZ5n+pe4WPrk6V/bR9xXEYxsEC6jpfgKpLg/CmHer+SIrky0p4Jb8sHmn9OVE9
-	 XE4UhTLs9iU/s6Z+f7KcYsJIG08bz4UIct0NOBCAcoz9nUrNhfRnBx9d8x/PKdSsBr
-	 GrH+RmOmUqvrw==
-Date: Tue, 17 Nov 2026 15:04:54 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Roberto Sassu <roberto.sassu@huaweicloud.com>, 
-	Danny Hu <dannyhu@arista.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Mimi Zohar <zohar@linux.ibm.com>, Roberto Sassu <roberto.sassu@huawei.com>, 
-	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, Eric Snowberg <eric.snowberg@oracle.com>, 
-	Jan Kara <jack@suse.cz>, Victor Kamensky <kamensky@cisco.com>, 
-	Taras Kondratiuk <takondra@cisco.com>, Zheng Zengkai <zhengzengkai@huawei.com>, 
-	zhangguangzhi <zhangguangzhi3@huawei.com>, Jason Yan <yanaijie@huawei.com>, silviu.vlasceanu@huawei.com, 
-	hpa@zytor.com, arnd@arndb.de, james.w.mcmechan@gmail.com, niveditas98@gmail.com, 
-	pierre@arista.com, julien@arista.com, kbharathi@arista.com, 
-	alexandr.lobakin@intel.com, linux-fsdevel@vger.kernel.org, linux-integrity@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, linux-kbuild@vger.kernel.org, initramfs@vger.kernel.org, 
-	linux-api@vger.kernel.org, linux-kernel@vger.kernel.org, bug-cpio@gnu.org
-Subject: Re: [PATCH v6 0/4] initramfs: add support for xattrs in the initial
- ram disk
-Message-ID: <20261117-makaber-paranoia-gefilde-7d976e97e12a@brauner>
-References: <20261105193743.2654656-1-dannyhu@arista.com>
- <20261110-hengst-tontechnik-ausfuhr-265b06d68611@brauner>
- <a9edb8a433e8efcba3d11b2a06fa1063df41a24d.camel@huaweicloud.com>
+	b=CeZ0fAH6UD1kRvnWvsdXuJqwp66ZYP/NGMl0gxvL3T1mlXpa/ezUSxFVdNgPKhBxy
+	 xXTbtGLEmoAM+gEkjikrl1svEywIXW79Nwnw34duGQXJR3XXGr5iWcNMAEATIHA2qN
+	 ZQ+GKtkKImRfaCYbnXgT04fWrZ5qj5tnTlXeLMU0f2xdF5WoddylgoRct6QkxsfSU7
+	 Bqd5qx8jVim+5OwTmSGlJ3HdyB2SHtTo8XFmxbso6I08z0+PMX/LmjAQ3PHFK2mEmz
+	 X9cJOxWg46nolHXDR2jWmuyrIU5n+dY+/js8BXNtyEfMEF0zAEpAGcJnMQBxcvWn2k
+	 CWVS3EUFfIebQ==
+Received: from johan by xi.lan with local (Exim 4.100.1)
+	(envelope-from <johan@kernel.org>)
+	id 1xTJo5-00000004NHJ-0F7a;
+	Tue, 17 Nov 2026 15:05:09 +0100
+Date: Tue, 17 Nov 2026 15:05:09 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Huang Wei <huangwei@kylinos.cn>
+Cc: Craig Hesling <craig@hesling.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	leStoppe <lestoppe@gmail.com>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] USB: serial: simple: narrow OWON match to avoid breaking
+ VDS1022
+Message-ID: <avxfFRBXbdhs66cC@hovoldconsulting.com>
+References: <20260810091322.2201740-1-huangwei@kylinos.cn>
+ <9970fa09ce5e1b468e473bc1e4bbe7d7802808e8.camel@hesling.com>
+ <20261103022311.1011677-1-huangwei@kylinos.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,33 +65,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <a9edb8a433e8efcba3d11b2a06fa1063df41a24d.camel@huaweicloud.com>
+In-Reply-To: <20261103022311.1011677-1-huangwei@kylinos.cn>
 
-On Wed, Nov 11, 2026 at 02:45:34PM +0100, Roberto Sassu wrote:
-> Similarly, the archive can already ship arbitrary binaries that get
-> executed as root. If you want, we could restrict it to security.ima and
-> security.evm only.
+On Tue, Nov 03, 2026 at 10:23:11AM +0800, Huang Wei wrote:
+> Hi Craig,
+> 
+> Thanks for the additional data points - and for the comprehensive
+> descriptor table. This changes the picture significantly.
+> 
+> The VDS1022I reporting (5, 0, 0) - the same tuple as the HDS200 -
+> means the full-tuple match in my v2 doesn't actually solve the
+> problem it was designed for. It would:
+> 
+>   - correctly claim the HDS200 (which wants serial)
+>   - incorrectly claim the VDS1022I (which needs libusb, same
+>     florentbr tooling as the VDS1022)
+> 
+> So the interface tuple is not a reliable discriminator for this
+> VID:PID - OWON reuses the same tuples across device families with
+> different userspace needs. That undermines any approach based on
+> narrowing the match at the interface level.
+> 
+> Given this, I think the options are:
+> 
+>   1. Keep the original broad USB_DEVICE() match, accepting that
+>      VDS1022/VDS1022I users need to blacklist the driver (this was
+>      the status quo before my patches, and users have workarounds)
+> 
+>   2. Remove the owon entry entirely and have HDS200 users move to
+>      libusb as well (uniform but breaks existing serial users)
+> 
+>   3. Find a different discriminator (bcdDevice, string descriptors)
+>      - but these seem equally unlikely to be reliable given OWON's
+>      firmware practices
+> 
+> Johan - given that the interface-level narrowing doesn't work,
+> what's your preference? Should we revert to the original match and
+> document the libusb incompatibility, or is there another approach?
 
-That doesn't change anything about my main objection. It's still
-in-band signalling via a magic filename that changes the meaning of
-what came before it in the stream and that no cpio tool knows about.
-We're not complicating cpio. It's point was to be so dumb that the
-kernel can safely unpack it.
+As there apparently are now users of the in-kernel driver and libusb has
+a mechanism for unbinding kernel drivers when userspace wants to handle
+a device itself, my preference is option 1.
 
-> I agree when the image is prebuilt and has a known reference value. As
-> far as I know, there is no reference value when the initial ram disk is
-> dynamically generated on the host. In the latter case, using finer-
-> granularity measurement/appraisal is the only option.
+I've tried to skim these threads and IIUC the only issue here is that
+some java-wrapper around libusb doesn't provide the unbind mechanism?
 
-Whatever generates the initrd on the host can sign or measure the image
-it produces. That's not a reason to teach the kernel to apply xattrs
-from magic files during early boot.
+For the cases where the userspace driver does not unbind the driver
+itself, users are currently already using a udev rule to unbind the
+driver (or they use module blacklisting). And they probably already have
+udev rules to set up permissions.
 
-If you want xattrs in the initramfs then that needs to be a proper,
-versioned cpio format that userspace tooling understands. I'm not
-taking METADATA!!!. So still no, sorry.
+And there should be nothing preventing a userspace application from
+using the tty interface even if a device does not speak SCPI, right?
 
-And to Mimi's point that nobody maintained initramfs back then: it's
-part of the VFS entry in MAINTAINERS now and we maintain it.
+Johan
