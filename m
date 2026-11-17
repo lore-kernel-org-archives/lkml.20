@@ -1,45 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794933418;
-	b=TKvv24QwiGl0Tc30NhSLaT94cE0lEiP4dmx2XXRdz63RIhTf+xJz0PRhsciUAN2BlMyy
-	 I2yJxIxaCkn1zse8LgzDyWpSwajScO2UAJqTTQKewQT6zxCmi0dy1FWsiSx+zAmiRxn+X
-	 IT47D4NI4MJ5og2wpa5clmjexSuftwdfwrISDKdLDPWQbeAWBGrGUbcK+mAbhfCiKE3BX
-	 J6nMdYucBV6Jm+Rcw8v4JLhOU39ZuTnQat1F3oRL/fpzNQu6D38V9MbgWIx/QKxPGHLbT
-	 3rtd6+SGIf5vC6gRvsjnl0lf2OWXa3B15g32XoSM6i4Jv/So2j6gcYoDjGU0CLKUVlA==
+	t=1794933431;
+	b=uSeQi044Y4Yr49E5Bmv3lvw+DOxB/ZDM0u31dYHWb+ANtKJVJhgRtH71kVHG3fbYx1vV
+	 LzaMKvLVBJcAtal4U1SEPxwwySL+3KFBe50BHjF+vbsY+x4u2EZ3MC3MYI8OGYN0dtzkI
+	 EDJedVhsnMnraSMtjgC9oZ/NmYfIjWVms/l8oGy5BLAd4rt0qxVWPbiTurqPuYf7ZxB/S
+	 YZ+FHQYJjICVMU/s0ty/C8tb7/XF+XhglU+QbqILWO238fDP4srlB2Ppdn0cafnlGPMJG
+	 yb3D+zsZGD3qwdIMWlriAwmhv0zmVC2HyG+pwmph/y40wog7q7eDeUdEwzeDDDKBcvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794933418;
-	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:To:From:Subject:Cc:References:
-	 In-Reply-To;
-	bh=tgGdYiCRp9arr66Rhn5MXQJr5Tmse7T13KsVZcqATvc=;
-	b=JiNiYN8+drlfviA5pgnQkOuYBYYpmYeoXAo212zf9PE8BSGswc0j/DCK8t0wvGYu7RPI
-	 vM+XcUi/o/Apy7Gg2OGF/zdPxvBFMq2w7lRAIywu6x998mKYWd4UKFNtlD0u6zOck7Wve
-	 wdhAvdqO5zRlL5vti6UJY9gsNJxS/9PLpODVcZw8ap/E5WcIbjEXURV13UWxnSpBhXko4
-	 7sUygZXNT9pDRTTkfHOemulx8eGOdVDyiZ1ciUL5NlfqAqb1MjyBf5m4n9hDn3a2fknsr
-	 J130z1Jb8MpRYdLIxteWz85V590pt1XgvPcko0xCmugLs5tgC6Vv/IBuAqPk4dGkEXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794933431;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=AuJAo5sXOKJqP6dr35P+8qt11I9icgfuipOCWrKlAKc=;
+	b=o+QHcb9CqFFTAGBKq+GKEthDplx7NSAzd59oBl/gkRYzkeeh55+WqQNi8+UZwAEhBP5U
+	 gqGRK2yLWwHOfjtA8zU6Gwqxwsf4dE5Jxkxawn1PsBnDSI8a5shcyJxCQZXue/oTNetmN
+	 7r31jc0IsVjL0HaL4RrKIdkNuol1Y9X0TajxTbloBeDhja8OVreTYP+8qlwaFjeGB+I/E
+	 sMDIL/DL48t9sz1upLEov8raAsFJ+ysiSGHcaPc4UyFNErCf26PLcZn3qw17FLFmQaITu
+	 veAO6EfxH94S2gSNvpR8S9nY06jEOAJfOY2ptoQfTAVDv7h4GyhJiQIuss1DxmvIE0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="J/KyEHp6";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UunQStG2;
+	arc=none smtp.remote-ip=91.218.175.226
+Received: from mta0.migadu.com (out-226.mta0.migadu.com [91.218.175.226])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D662B606A339;
-	Tue, 17 Nov 2026 16:36:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6635C606A33F
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 16:37:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6635C606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J/KyEHp6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A1CD1F000C4;
-	Tue, 17 Nov 2026 16:36:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794933418;
-	bh=tgGdYiCRp9arr66Rhn5MXQJr5Tmse7T13KsVZcqATvc=;
-	h=Date:To:From:Subject:Cc:References:In-Reply-To;
-	b=J/KyEHp6WZkYwqBQMW1p9K2gCDFtEvoeGxSBGmb9nCN12CYtopOnKuvpw5JKZQRR+
-	 6gLCpkBzEnH++3YQEnMORwrw+jecKasETW3mwRJbiOollaFCfCaJ1JvF6JEkHnvZfr
-	 A02Qimv9QEi8HDcxjBtIn8tfKKYPukbuOqjibH097LN8S1sYU4J9jBOyjn5zajjeta
-	 kDLivp7MbvSXALiioN206smDguo0tTi+HE/Md9Y0gj64D+ZyCuwzrwsbYPG7lybkp/
-	 VMJn7RMKGVz6LeZyit6HUW4qqmVPJLCsWis6eIIjvzqZ6PCWxLXAoD9levG7wHRHXI
-	 zTP6khDzdzqYA==
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UunQStG2
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=YdLYpWBKlUKagfnJowyll08aWW+OkxhrNMtlF8HSUF0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794933428; v=1; x=1795538228;
+ b=UunQStG2flJ7i2z/bNktiF/N/+QpV8nCmajDlax98OTEX1f+i1sJgS7Q0hTzFFHvOQAmdmKr
+ zXCjVX1BlYgtZk6v0gTGrOXPXpRiATFSkN79FeMd/s1qY+l4LoSYxTTQyVfATLcm+BuFApvgqny
+ K8UcBmsRFwINnPIAlNP9GQRQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id adf884b6486dea4a;
+	Tue, 17 Nov 2026 16:37:08 +0000
+X-Mizu-Trace-ID: adf884b6486dea4a
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>
+Cc: Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Fuad Tabba <tabba@google.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] KVM: arm64: Fixes for the host SMCs that pKVM forwards to firmware
+Date: Tue, 17 Nov 2026 16:36:59 +0000
+Message-ID: <20261117163702.1678277-1-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,170 +74,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 17 Nov 2026 17:36:53 +0100
-Message-Id: <DMXMSIQONGUW.1RRNS7I6LACD6@kernel.org>
-To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH] rust: DamFence: Remove warning about unsignaled drop
-Cc: <phasta@kernel.org>, "Sumit Semwal" <sumit.semwal@linaro.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
- Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, <linux-media@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-References: <20261112101015.528127-2-phasta@kernel.org>
- <5d466f7c-2e70-4011-be04-9ffdf877b915@amd.com>
- <49298d3a328c1695ea27993f714c20b8a1c05f32.camel@mailbox.org>
- <e2ec8a39-56c3-4274-91ce-60c273904877@amd.com>
- <ab99758408df682c68a3792cc3014b77d6e1c8ab.camel@mailbox.org>
- <c2dd46ea-94d8-4720-af37-897c91809338@amd.com>
- <DMXJ8TBSZJJ4.3HG0OJDI9URTT@kernel.org>
- <8da4a8c0-1740-450c-9cf1-1a7b21d12997@amd.com>
-In-Reply-To: <8da4a8c0-1740-450c-9cf1-1a7b21d12997@amd.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue Nov 17, 2026 at 3:50 PM CET, Christian K=C3=B6nig wrote:
-> On 11/17/26 14:50, Danilo Krummrich wrote:
->> On Tue Nov 17, 2026 at 2:40 PM CET, Christian K=C3=B6nig wrote:
->>> I completely agree that we can't fix things from the dma_fence code, bu=
-t it
->>> is our obligation to tell the user that something very very bad happene=
-d.
->>=20
->> That's the point, we can't infer that "something very bad happened" from
->> dma::DriverFence being dropped unsignaled.
->>=20
->> In Rust we use the RAII pattern, and drivers structurally embed a
->> dma::DriverFence within the struct that represents the corresponding har=
-dware /
->> firmware queue (e.g. through Jobqueue).
->>=20
->> Consequently, if dma::DriverFence drops unsignaled it means that the des=
-tructor
->> of the structure that embeds it (which does the required HW teardown) di=
-d run
->> already.
->
-> Oh WOW! The signaling state of the fence should *NEVER* be bound to some
-> object lifetime.
+Hi folks,
 
-Let's engage with the argument and understand things before throwing
-overgeneralized statements like this around please.
+Changes since v1 [1]:
+  - New patch 1, which stops forwarding the host's SDEI calls.
+  - Don't run a protected vCPU on a CPU where the firmware Spectre-v4
+    mitigation is disabled, instead of re-enabling it from EL2. (Marc)
+  - Track the host's ARCH_WORKAROUND_2 calls with a kvm_host_data flag
+    instead of a new per-CPU variable. (Marc)
+  - Handle the calls in default_host_smc_handler(). (Marc)
 
-Realitiy is usually much more nuanced and what you say doesn't hold in all
-cases. The case described above (and clarified below) is one of them.
+Two fixes for the host SMCs that EL2 forwards in protected mode, which
+reach firmware as calls from EL2.
 
-I assume the fundamental reason why you say things like "software object ru=
-nning
-out of scope is not an indicator that the HW stops doing something" is beca=
-use
-the lifetime model in a lot of existing C DRM drivers is backwards.
+The first stops forwarding the host's SDEI calls. With TF-A, the host
+could otherwise register an event handler that runs at EL2.
 
-Drivers often reference count representations of hardware resources and har=
-dware
-states and hence keep them alive beyond what their actual lifetime should b=
-e --
-even beyond driver unbind.
+The second is the v1 fix, redone as Marc suggested. It tracks the
+firmware Spectre-v4 mitigation state from the host's ARCH_WORKAROUND_2
+calls, and relies on the first patch because firmware restores that
+state when an SDEI event completes.
 
-This causes lot's of issues and I'm looking into fixing this up, see my tal=
-k in
-[1] and an example from Xe [2] for reference.
+Tested on QEMU with TF-A v2.15 and test-only host changes. When SDEI is
+built into TF-A, the host's SDEI calls succeed without the first patch
+and get NOT_SUPPORTED with it. With TF-A patched to advertise the
+dynamic Spectre-v4 workaround on the Cortex-A57 that QEMU models, a
+protected vCPU runs with the mitigation disabled, and the second patch
+stops it from running.
 
-That said, in Rust we don't have this kind of ambiguity, lifetime and owner=
-ship
-of resources are well defined and the core infrastructure guides drivers
-accordingly.
+Based on Linux 7.4-rc2 (7475ea8b58616; also applies to Linux 7.4-rc3
+aebb727447640).
 
-Consequently, it is perfectly reasonable to assume that a driver object tha=
-t
-owns device resources (such as DMA memory) will, in its destructor, tear do=
-wn
-the hardware to not access any of the resources it owns anymore.
+Cheers,
+/fuad
 
-For instance, think about how your logic would apply to e.g. DMA coherent
-allocations.
+[1] https://lore.kernel.org/all/20261113081934.1715497-1-fuad.tabba@linux.dev/
 
-Those are allocated with e.g. dma::Coherent::zeroed() and are freed on drop=
-().
-They are then owned by whatever object represents the lifetime of the HW us=
-ing
-this buffer.
+Fuad Tabba (2):
+  KVM: arm64: Don't forward the host's SDEI calls to firmware
+  KVM: arm64: Don't run a pVM with firmware Spectre-v4 mitigation
+    disabled
 
-Following your logic, we'd need to conclude that a dma::Coherent allocation
-needs an explicit free() method independent of its destructor as well, and =
-have
-the destructor print a warning and then call free() anyway.
-
-Now, eventually drivers would just call free() from the destructor of the o=
-bject
-owning the dma::Coherent allocation, so we wouldn't win anything.
-
-More in general, in Rust the object taking ownership of a device resource i=
-s
-responsible to deal with the device related state that makes use of this
-resource regardless.
-
-Insisting on an explicit method call is not improving anything in this mode=
-l.
-
-To get back to dma::DriverFence: This is slightly different, as there's two
-different signal states, but the fundamental guarantee is the same: If it i=
-s
-dropped, the HW has stopped accessing the resource that it guards already *=
-by
-design*.
-
-Signaling with an error on drop is arguably the correct thing to do, since =
-if
-the operation would have been completed successfully before already, it wou=
-ld
-have been signaled already -- if it drops unsignaled it means the hardware =
-was
-forcefully torn down (e.g. on driver unbind).
+ arch/arm64/include/asm/kvm_host.h  |  1 +
+ arch/arm64/kvm/hyp/nvhe/hyp-main.c | 30 ++++++++++++++++++++++++++++--
+ 2 files changed, 29 insertions(+), 2 deletions(-)
 
 
-[1] https://youtu.be/3A2vGbc_rxs?t=3D668
-[2] https://lore.kernel.org/all/as07AdBFlOQZrH_4@intel.com/
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+-- 
+2.47.3
 
-> That sounds like an extremely bad practice to me. Just imagine anybody
-> grabbing an extra reference to the HW state object to inspect it for debu=
-gging
-> and the fence not signaling because of this.
-
-That's not how it works.
-
-Rust ownership rules will guarantee that the driver fence will be signaled =
-with
-an error (if not signaled already) if the HW state object is destroyed (i.e=
-. its
-destructor runs that tears down the HW). But that doesn't mean that the fen=
-ce
-can't be signaled (and subsequently be dropped) independently through the
-completion of a job before that.
-
-IOW, the HW state object (for instance) owns Jobqueue, Jobqueue owns jobs, =
-jobs
-own driver fences.
-
-If the HW state object drops (e.g. on driver unbind), the Jobqueue drops, w=
-hich
-makes their jobs drop, which makes the driver fences drop.
-
-At this point the driver fence either has been signaled already because the=
- job
-completed before teardown (but wasn't dropped yet), or it will be signaled =
-with
-an error in its drop(), which is fine since at this point the HW state's dr=
-op()
-is completed already and hence the HW is stopped.
-
-Besides that, reference counting HW state objects is bad practice. HW state
-objects have a bounded lifetime, so there's no point in reference counting =
-them.
