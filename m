@@ -1,83 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794899706;
-	b=ELeMj0pZxA8CDPWx9L7MhO+PFzYX45Dr+VfVl1NJGq/y+em3cOdTGPf6wZIj2uPHd57O
-	 UCPJI6zv+d+hoj66VSpE1PTHDZG65LQ7i4nKWhuu2ha3w3Ae1U3BFf6wrJa8n3VPYTe6w
-	 723fyttYm95nkcpSfG9VkhJ88VqF73F0dI2LpMVOgnJVKjmkreHG27qcGTqqdEO++icvI
-	 ZmkPo98SBmqrj4mKCyfMz2h1AXCAZwvbFiadkj9Wz2lFEBSX0IYT5jZ/Z/5IdHFLb9yAS
-	 FswN33Sy0XGNS63ljZF+UZBKJqbAL6EpQF0zOSrs0ncS/UXUjJynZmpoNUK7scMEcvQ==
+	t=1794899707;
+	b=xXAI5+orqWeVpF1rbVVotgflve+jZL6IrdFrC4+pNsGukZxom7Mx88jnPNSRN6B/CoH4
+	 ZhFZT33JmPundzn4n3CSUQFjHgyVvQrlnjjI0WQtx3IHfhQxGHgdWqDtbte2ScjOo3VPn
+	 Xqbli33d0KbsvaqMy01bKZNLqSopaKynJzE2Jpw2YTF27DY1IE1w4fnmorhL502C33BGt
+	 emr4WhZsMgMT0t7c3lP0smDMP+vnwoE5KmBZeixUkfuDUzrgZ+ssG1cDFeDDCtSCzT1Vb
+	 OwH6fUwhr6DL0DD2mmVv/xQns6p7hI827VrfXq9fbJpejRR7teBOVO7jyHLlHKTRoEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794899706;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=FTbJEAhqZIW4NLhm9jKEdLqW9ExXzaFWa84qqGKJy7c=;
-	b=Fr+GoHNPZ25bkKxuAZn4lcHP8Jz9WyOdd4H3eyqtwv48ewzlCLjQ/vCmSoHRDhGnQwww
-	 9eTv850OgCCPxiOy9qzEE8f++0f4XMHCHdOIUtTXAKBH5lmZksjqzpiJ8zpyoQ5EeCfP5
-	 BB7dtBmRsQZE5EPfIM/JYX9X99lSEG7TgQQ3M1ALgDf7RPMQS0ZpIZlVEEVS4u3jWLInT
-	 sG9rO9+tlGzC7xsx7uo4IDI1Ag24wi9JuErwe224NdsfFdqzv9JlVIVZHgsVC08H5Xk5H
-	 Hvv0qwx8ubq6uKJ8PX2S2ULMdDfEuwQIzNHEATPInIF7w0WbFKDisKwEaJrtuUsqf6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794899707;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer;
+	bh=wKJtGPqUh8xd1e5gRSCSrRuD1kv5RiOZcl5rDs0i/H0=;
+	b=5M7Hmn9jZTPhIV1G2Re2YWU3TYBOqwbrWH8UQV4VWt2kvHsSLPomya752WUTdmuep7QT
+	 k6vKg96UGdPMp4ViqNJOfy4XqonBxIE/jGBKzWt9xKqhN+WLwbzNSlP2/6QnajCQ9DUpM
+	 aWbTeS5nBVpzCVs1V6EyA1H7Zs1OllltayAP9IM5RGgpdz/mIYkXL95gWq3BG3m1dwkTJ
+	 GFUfs+UWqc0ceS7emUSPls8RT4fxE9+aUkZslSMbSHiNLLTm9WJvnhJ66yYlCk87pcrfG
+	 hT6iAGmL00uq8W9OL1/Thk4GnVBHQ+XGm/ZW9OKKw9YFYR+OCgsJAFh9QS5MEnrM42A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=APx97lIS;
-	arc=none smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZHecvaiQ;
+	arc=none smtp.remote-ip=95.215.58.113
+Received: from mta1.migadu.com (out-113.mta1.migadu.com [95.215.58.113])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E507606A336;
-	Tue, 17 Nov 2026 07:15:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E507606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66830606A32F
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:15:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66830606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=APx97lIS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794899705; x=1826435705;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=fZqhVkjqwdNlur7QBA2RZUDCkBynb9PS3UgexHcsD0s=;
-  b=APx97lIS/2i7RVYV77HyxH3aaQOQ5NTammwBy2NE3x0gUA67RGxtW2R1
-   l3DtJDt2hqyLpX6mqif8g+Rxo/TylUTD1Rhn3UtxLqaUvBQKpAs2lx5Ke
-   EALyy2T5I2F2EgEhMaqAlDBZ9DoRlvKSoBqnjWZ+994H85SIjZbGJ4GnS
-   mC/qZdMIzEp1Dtpgmmqx04RNaF/Pn1NjnK0v1QbknNhFo0cWAB5qVWZya
-   b/GfQe7okPkeNHYqUqD/ACXwSOMMmwH9G9m/wyjWDXt1dy+Rjmjl2se2+
-   yK1M5iZGqEaZiO6k8n6NvQi2x9hQs+aEPSDxnpGh9lGR6odfBLUol1WNj
-   A==;
-X-CSE-ConnectionGUID: cd69gsmASIiDGjrhEFS9bQ==
-X-CSE-MsgGUID: k4nfjh5NQa2+8tyyBKeiiw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3699546"
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3699546"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 23:15:04 -0800
-X-CSE-ConnectionGUID: TMQ8AhdWQNibrVZIKm7Mng==
-X-CSE-MsgGUID: 9HT4e7rSTR+dUf2/DaWitQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="9809880"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.254])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 23:15:00 -0800
-Date: Tue, 17 Nov 2026 09:14:57 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Lee Jones <lee@kernel.org>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-iio@vger.kernel.org, mfd@lists.linux.dev
-Subject: Re: [PATCH v2 3/4] iio: adc: Add support for MAX8907 ADC cell
-Message-ID: <avv-8RT_btJ6dTzi@ashevche-desk.local>
-References: <20261115091120.108684-1-clamor95@gmail.com>
- <20261115091120.108684-4-clamor95@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZHecvaiQ
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=egOOHYWo88XqIsFmRrJ9jNqDbHUnSeRXeEa+bS/h07s=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794899704; v=1; x=1795504504;
+ b=ZHecvaiQA5gt/14YhiLhtDW/Br2QboeyBwUzeh38lXl3TSXoLDwP5SdhgIOU3L4yToezvy4p
+ grE4/YG+TqFO/Cx5/qKk+KcwkSOdGnU6nH/l/bODrWHQqB9WdHA2UB+gQ/66zR6YGq7h6/dnUqI
+ mUzVHiKPq+zdug9XSdwzsPaQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d5b6e237ac341039;
+	Tue, 17 Nov 2026 07:15:04 +0000
+X-Mizu-Trace-ID: d5b6e237ac341039
+X-Migadu-Flow: FLOW_OUT
+From: Peng Fan <peng.fan@linux.dev>
+Date: Tue, 17 Nov 2026 15:14:11 +0800
+Subject: [PATCH 7/8] irqchip/imx-intmux: Use
+ devm_irq_domain_create_linear()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,111 +60,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261115091120.108684-4-clamor95@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261117-imx-intmux-v1-7-189e7e0ad98d@nxp.com>
+References: <20261117-imx-intmux-v1-0-189e7e0ad98d@nxp.com>
+In-Reply-To: <20261117-imx-intmux-v1-0-189e7e0ad98d@nxp.com>
+To: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Shengjiu Wang <shengjiu.wang@nxp.com>, 
+ Marc Zyngier <maz@kernel.org>
+Cc: linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, Peng Fan <peng.fan@nxp.com>
+X-Mailer: b4 0.14.3
 
-On Sun, Nov 15, 2026 at 11:11:19AM +0200, Svyatoslav Ryhel wrote:
-> The MAX8907 PMIC has a dedicated ADC cell, which provides 8 ADC channels
-> with information about different parts of the power system, including the
-> battery, charger/plug, jack and thermal readings.
+From: Peng Fan <peng.fan@nxp.com>
 
-...
+Manage the per-channel IRQ domains with devres so that they are removed
+automatically when probe fails or the driver is unbound, instead of
+calling irq_domain_remove() explicitly in the probe error path and in
+imx_intmux_remove().
 
-> +config MAX8907_ADC
-> +	tristate "Maxim MAX8907 ADC driver"
+The child mappings are still disposed explicitly before the domains go
+away. devres runs after imx_intmux_remove(), so each domain is removed
+with an empty reverse map, and the domains are torn down before the IPG
+clock devres action disables the clock.
 
-Make MODULE_DESCRIPTION() to use the same text.
+No functional change.
 
-> +	depends on MFD_MAX8907
-> +	help
-> +	  Say yes here to build support for 8 channel 12-bit ADC
-> +	  interface found in the Maxim MAX8907 PMIC.
-> +
-> +	  To compile this driver as a module, choose M here:
-> +	  the module will be called max8907-adc.
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
+---
+ drivers/irqchip/irq-imx-intmux.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-...
-
-IWYU, please. + bits.h, types.h, et cetera.
-
-> +#include <linux/iio/iio.h>
-> +#include <linux/module.h>
-
-> +#include <linux/mfd/max8907.h>
-
-It's better to move to a separate group, as this is related to the certain HW.
-But since it's a single header I'm not too picky about it.
-
-> +#include <linux/platform_device.h>
-> +#include <linux/property.h>
-> +#include <linux/regmap.h>
-
-Should be also a group for asm/byteorder.h.
-
-> +#define MAX8907_TO_REG(n)			((n) & 0xff)
-> +#define MAX8907_TO_MEASURE(n)			(((n) >> 8) & 0xff)
-
-...
-
-> +enum {
-> +	TDIE, THM, ISNS, VMBATT, VBBATT, VCHG, AUX2, AUX1
-
-Leave trailing comma, but what is this? Is it HW related or pure Linux
-abstraction? In other words, is the order strict? Looking at the code
-below I think you have to initialise all of them to make the order strict.
-
-> +};
-
-...
-
-> +static const u32 max8907_default_ref[] = {
-> +	[TDIE] = 4096,
-> +	[THM] = 4096,
-> +	[ISNS] = 4096,
-> +	[VMBATT] = 8192,
-> +	[VBBATT] = 8192,
-> +	[VCHG] = 8192,
-> +	[AUX2] = 2500,
-> +	[AUX1] 4096,
-
-Funny thing, actually we used to have an interesting case in the kernel,
-id est 113ec87b0f26 ("pinctrl: npcm8xx: Fix incorrect struct npcm8xx_pincfg
-assignment").
-
-> +};
-
-...
-
-> +static int max8907_adc_init(struct regmap *regmap)
-> +{
-> +	u32 value;
-> +	int ret;
-> +
-> +	/* Enable internal voltage reference. Exact purpose of bits is not known. */
-> +	ret = regmap_update_bits(regmap, MAX8907_REG_TSC_CNFG1, GENMASK(1, 0), BIT(1));
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Check for internal reference IRQ */
-> +	ret = regmap_read_poll_timeout(regmap, MAX8907_REG_TSC_STA_INT, value,
-> +				       !(value & MAX8907_MASK_NREF_OK), 0, 1000);
-
-0? This makes it a tough loop. Needs a comment why.
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	return regmap_update_bits(regmap, MAX8907_REG_ADC_SCHED,
-> +				  MAX8907_ADC_SCHED_AUTOSCH_ENABLE |
-> +				  MAX8907_ADC_SCHED_AUTOSCH_TIME,
-> +				  MAX8907_ADC_SCHED_AUTOSCH_ENABLE);
-> +}
+diff --git a/drivers/irqchip/irq-imx-intmux.c b/drivers/irqchip/irq-imx-intmux.c
+index 755c07007390..1f6e5d9c797a 100644
+--- a/drivers/irqchip/irq-imx-intmux.c
++++ b/drivers/irqchip/irq-imx-intmux.c
+@@ -248,8 +248,9 @@ static int imx_intmux_probe(struct platform_device *pdev)
+ 			goto out;
+ 		}
+ 
+-		domain = irq_domain_create_linear(of_fwnode_handle(np), 32, &imx_intmux_domain_ops,
+-					       &data->irqchip_data[i]);
++		domain = devm_irq_domain_create_linear(&pdev->dev, dev_fwnode(&pdev->dev), 32,
++						       &imx_intmux_domain_ops,
++						       &data->irqchip_data[i]);
+ 		if (!domain) {
+ 			ret = -ENOMEM;
+ 			dev_err(&pdev->dev, "failed to create IRQ domain\n");
+@@ -283,7 +284,6 @@ static int imx_intmux_probe(struct platform_device *pdev)
+ 		for (unsigned int hwirq = 0; hwirq < 32; hwirq++)
+ 			irq_dispose_mapping(irq_find_mapping(data->irqchip_data[i].domain,
+ 							     hwirq));
+-		irq_domain_remove(data->irqchip_data[i].domain);
+ 		irq_dispose_mapping(data->irqchip_data[i].irq);
+ 	}
+ 	pm_runtime_disable(&pdev->dev);
+@@ -309,7 +309,6 @@ static void imx_intmux_remove(struct platform_device *pdev)
+ 		for (unsigned int hwirq = 0; hwirq < 32; hwirq++)
+ 			irq_dispose_mapping(irq_find_mapping(data->irqchip_data[i].domain,
+ 							     hwirq));
+-		irq_domain_remove(data->irqchip_data[i].domain);
+ 		irq_dispose_mapping(data->irqchip_data[i].irq);
+ 	}
+ 
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.56.0
 
