@@ -1,68 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794922163;
-	b=CwzI+hKxwB8yeMBVf2yD9BuDXt7bSrqcjtPGXCFeRD3CT6LpSGQGdSN8LcTS5y+7jqbP
-	 rNxpJoaiuPcH/RJ+QF5reSBKrbjea7Z+0VAuhsR4rmz8a3dQ3XDUzrA3WPDVp9pETJ1kA
-	 s/FZEeSmB8OZV3nUDcPTzpF48AEAKruwXSCnXHR1Zz1vtXuE4uIAu7KFmA5sTUW6m5jtb
-	 E40ucGOtL9BSZLqVGYAiFOvmZI5hGi44n5eYBIIOH0W5oiU06W/rqLpnQQoxnTmD/wx1x
-	 S7Md0P9yAhkCkATBf9TI0rTuL+GwhNibXJ/FTk/BetU6L3TD1R0ttB2rrFVnNJBgpUw==
+	t=1794922192;
+	b=4NkvePCXtX0n3dhPEYolvtFaSqLCZTAlO9FlyMW3hTY1DD1tfZRvdH5rySC7OqWaUChL
+	 fE5YhyTy9zabdmzrAows8qDtlduzgJGSx+Ztp1nKd4eKE5STMCfg0oz9cAJ879j5o2MfP
+	 qRlj+q5J+5Qt3upEdVse/V/0GA2vDmXh074PG6dbo2xioJLFB+BM+dsNhuFwPFO8bOxAz
+	 KY1nBIdaL27+A1pVto5oiF3VDqW3I507UhEAh0ponaWNrNirYmDEqSMSBbJCp4jN9fxti
+	 oBeG4Dc2R6CCtuTlqpip0OGRFOARgqVz9sjHmmrIQNgI/vnmhA/boipxG1tLWAgS4/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794922163;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=VIRjmYOXU4N+Y9CyQYs3jWDHtZ5Tq6SefAgjXNe/Yvs=;
-	b=LNrWsGz15rmmt3t+1G2nhimX0Is15lcwqbHNDQLYwHfGBUk/pgTjKc3oFnc+V9wzelKG
-	 NjGxx0zDai3XHDgHAZngN48nLD7P5IFhkp6mwS1LqdO9ySNHfVudJkFLtYwmJyS6/udkS
-	 RMRjIehFfiotGILJ4ozZ1SWMezHREsQPOlGL+m35fakBhwZGcurZ9SpHzUn67wurr3+vJ
-	 GKepvkvM/v8CwBvtBFGXyy2G3XkmiehBng/3F6rvU7r2FLhQPltgxDjmB2Mzao9x6qp+A
-	 LW86JIzU3YBIeGKRuoNM3e0iJdgZ/WmgrWs3vKlHyiAxDFvtumxwVmgzihgTg2/Gd3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794922192;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=bsVnX1KyDIRRck/Ge0hH5qDt8MGbiPeNYR9hz7k7iFM=;
+	b=5Qd5GNHlTQQjGQTg+Dq45GdT+Njwj8WyCZlKvO/w6FkbMvS8uwryHwCMkI8298RE1q+I
+	 RskqPY3y/9j3wBSzf6D01MgM/53DfREk8ZG1IJA4v+Saks+lTcguWmxUiEB0oXrjr+L8s
+	 xrh29+h5vgA6vSwQnkkRvFez7X1vodEkA39F7TiQ5EBj8ka4hP3jgD9ufGvBj9JixygPS
+	 kFo6IPBag6iyXfrqFuhSPuIyWvhfD5lasgDmpjAQ2e/+S7OeDjr9jEDTIXDeAYHJ0B6zC
+	 czx3IpVV8hsolpTUPPoBjOiy3AhYPEZHmKC1/4tFBbK32PeMxzjbrRvuNWwVeMU5gIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Vwpia829;
-	arc=none smtp.remote-ip=192.198.163.18
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=FtRU4gpj;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54974606A31C;
-	Tue, 17 Nov 2026 13:29:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54974606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D865E606A31C;
+	Tue, 17 Nov 2026 13:29:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D865E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Vwpia829
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794922163; x=1826458163;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=5w7nCuhd5TO4rsmvfXAk7zN8k8PNfTo0oC4dCz6E/kE=;
-  b=Vwpia829nJXTB7/3H6lIVZiXh8z7gpXTmIYUQIqXDPYrhf/HnYmXCVH8
-   A5sVGuLhC5ZlSachmcY+2x1ZXbout2Woba+3ST8mTJ4FpiekpG9G0NF3Q
-   HXztnP35jeooQoagIAaSu6KMjgXir7Bgda0TrUN+7iS71W52AaCnDl4sf
-   PN1TU/PnZBVbZOnhKhgz8a5BwT/GgbuJFUxTFuKIXOXq/xuhVvALQwPPT
-   LlUFvMaaGp0bpu2IkcI/A7V3MKvCQEq/dl22Qeu7m5CA1rZNzHtwZHkpe
-   08X76PZLuc2GvHrwZilWB6lh72XLacB1iD+Tqt9bOnM8menGcQJwJHP9N
-   Q==;
-X-CSE-ConnectionGUID: VZxmqny/QRexhBu623vVZw==
-X-CSE-MsgGUID: IFo+5LvdTOyaVKL9o+FHcg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3720959"
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3720959"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 05:29:14 -0800
-X-CSE-ConnectionGUID: UhIcM4MDQXCQCqChubeh9w==
-X-CSE-MsgGUID: HnCy17q3R2S6Ek3YexrTeA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="11767290"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO [10.245.245.246]) ([10.245.245.246])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 05:29:03 -0800
-Message-ID: <a73265bb-5644-414b-ad4a-2c71b50626a8@linux.intel.com>
-Date: Tue, 17 Nov 2026 15:29:42 +0200
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=FtRU4gpj
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=bsVnX1KyDIRRck/Ge0hH5qDt8MGbiPeNYR9hz7k7iFM=; b=FtRU4gpjS1lpGg1R2l8qnzEPAI
+	SKThOQRP/sgJXqt7nF/r29HzZTyIUEjMfCbol4olR3q65+GRW6qWOL/5I5mTTQ9MWcXHd9cUIta4w
+	ecfzw2eriODAzLj4UutuwL5CiqwCGaF35uz0KyXz1/JudVvpLXTp2xYHp/LtKO4aBQE8=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xTJFn-00H9t2-1T; Tue, 17 Nov 2026 14:29:43 +0100
+Date: Tue, 17 Nov 2026 14:29:43 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Artem Shimko <a.shimko.dev@gmail.com>
+Cc: hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	maxime.chevallier@bootlin.com, pavel@ucw.cz,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-leds@vger.kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH net-next v2 1/4] net: phy: dap8211r: fix kernel-doc
+ comments for extended register helpers
+Message-ID: <3918164a-f1db-4dc5-9adc-23c224a1d98b@lunn.ch>
+References: <20261117114432.2794961-1-a.shimko.dev@gmail.com>
+ <20261117114432.2794961-2-a.shimko.dev@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,140 +67,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: SOF: control: Reject out of range volume and switch
- values
-To: HyeongJun An <sammiee5311@gmail.com>, Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- sound-open-firmware@alsa-project.org, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261114021730.2349347-1-sammiee5311@gmail.com>
-From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-Content-Language: en-US
-In-Reply-To: <20261114021730.2349347-1-sammiee5311@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261117114432.2794961-2-a.shimko.dev@gmail.com>
 
-
-
-On 14/11/2026 04:17, HyeongJun An wrote:
-> The snd_sof_volume_put() and snd_sof_switch_put() pass the user values
-> to the IPC put handlers without a range check. The switch handlers
-> store any value and send it to the firmware, so on IPC3 writing 2 or -1
-> to a switch reads back as 2 or 4294967295. The volume handlers convert
-> the value to u32 and clamp it to the end of the volume table. Writing -1
-> sets the maximum volume, and on 64-bit writing LONG_MIN sets the
-> minimum, both without an error.
+On Tue, Nov 17, 2026 at 02:44:27PM +0300, Artem Shimko wrote:
+> The kernel-doc comments for dap8211r_read_ext() and dap8211r_modify_ext()
+> incorrectly state that the caller must hold the MDIO bus lock.
 > 
-> Return -EINVAL for values outside the range reported by the info
-> callback, as snd_soc_put_volsw() does. This fixes the write_invalid
-> failures in mixer-test, and the event_spurious failures caused by the
-> events those writes generated.
+> Remove the misleading sentence from both comments since the functions
+> lock MDIO internally by themselves.
 > 
-> Fixes: c3078f539704 ("ASoC: SOF: Add Sound Open Firmware KControl support")
-> Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+> Fixes: d90265e75584d ("net: phy: add DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY driver")
+> Signed-off-by: Artem Shimko <a.shimko.dev@gmail.com>
 
-> ---
-> Tested on a Dell Latitude 9420 (Tiger Lake, SOF IPC3): the out of range
-> writes now fail with -EINVAL, in range writes still work, and the 9
-> mixer-test failures on the SOF controls are gone. IPC4 was not tested.
-> Its put handlers store the value the same way and now go through the
-> same check.
-> 
-> Prepared with Claude Code (Claude Opus 5.5). Tested on x86_64.
-> 
->  sound/soc/sof/control.c | 34 ++++++++++++++++++++++++++++++++++
->  1 file changed, 34 insertions(+)
-> 
-> diff --git a/sound/soc/sof/control.c b/sound/soc/sof/control.c
-> index 74d997a4f620..b6497e50505b 100644
-> --- a/sound/soc/sof/control.c
-> +++ b/sound/soc/sof/control.c
-> @@ -30,6 +30,30 @@ int snd_sof_volume_get(struct snd_kcontrol *kcontrol,
->  	return 0;
->  }
->  
-> +/*
-> + * Reject values outside the range the info callback reports, as
-> + * snd_soc_put_volsw() does. The IPC put handlers do not check the range.
-> + */
-> +static int sof_mixer_check_values(struct soc_mixer_control *sm,
-> +				  struct snd_sof_control *scontrol,
-> +				  struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	long max = sm->max - sm->min;
-> +	unsigned int i;
-> +
-> +	if (sm->platform_max && sm->platform_max < max)
-> +		max = sm->platform_max;
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-the volume_info() reports max to user space:
-sm->platform_max - sm->min;
-
-If for example: min=10, max=100, platform_max=80
-
-here we accept up to 80, and report 70 via info for max, which is wrong.
-
-Can you update the patch and align the info() call to do similar
-calculation?
-
-int max = sm->max - sm->min;
-
-if (sm->platform_max && sm->platform_max < max)
-    max = sm->platform_max;
-
-uinfo->value.integer.min = 0;
-uinfo->value.integer.max = max;
-
-We don't have any volume control with min other than 0, but if we would
-have, the put function disregard those and write the raw value.
-Note to self to fix this.
-
-
-> +
-> +	for (i = 0; i < scontrol->num_channels; i++) {
-> +		long val = ucontrol->value.integer.value[i];
-> +
-> +		if (val < 0 || val > max)
-> +			return -EINVAL;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->  int snd_sof_volume_put(struct snd_kcontrol *kcontrol,
->  		       struct snd_ctl_elem_value *ucontrol)
->  {
-> @@ -38,6 +62,11 @@ int snd_sof_volume_put(struct snd_kcontrol *kcontrol,
->  	struct snd_soc_component *scomp = scontrol->scomp;
->  	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
->  	const struct sof_ipc_tplg_ops *tplg_ops = sof_ipc_get_ops(sdev, tplg);
-> +	int ret;
-> +
-> +	ret = sof_mixer_check_values(sm, scontrol, ucontrol);
-> +	if (ret)
-> +		return ret;
->  
->  	if (tplg_ops && tplg_ops->control && tplg_ops->control->volume_put)
->  		return tplg_ops->control->volume_put(scontrol, ucontrol);
-> @@ -90,6 +119,11 @@ int snd_sof_switch_put(struct snd_kcontrol *kcontrol,
->  	struct snd_soc_component *scomp = scontrol->scomp;
->  	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
->  	const struct sof_ipc_tplg_ops *tplg_ops = sof_ipc_get_ops(sdev, tplg);
-> +	int ret;
-> +
-> +	ret = sof_mixer_check_values(sm, scontrol, ucontrol);
-> +	if (ret)
-> +		return ret;
->  
->  	if (tplg_ops && tplg_ops->control && tplg_ops->control->switch_put)
->  		return tplg_ops->control->switch_put(scontrol, ucontrol);
-
--- 
-Péter
-
+    Andrew
