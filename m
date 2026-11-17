@@ -1,54 +1,136 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.166
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794877757;
-	b=ot/Fq2/9PdUG58yc6zE2m5GgJoTuL6uA15XEum0JmsthPPNU2azk2elO9ECz+tK9UqCZ
-	 KOfS/Y6hZuyc+MxFe4cXq4Rf7Gh6/hErx7d6Gz32WJ4G3SHKP0hciAagydZePzUXtZb4d
-	 pKgCpG/bLbyVd8KW6wJTUaxYGYWnZX+HBtyRAj55MSjazKJpSZUNH43xgGtVpR/qaNheA
-	 abFEzzYQ/joLM9sVn1u5eK2QE43d9auAP4b2v04EWFOXro/UwLdtCsoMOs56TNHm110FS
-	 Q1mMu+H0OfgKUz9so4C4xMSr1IV2UO3JZ2HY7mFwjBt9MxZgtJkGGKJLaQ0nxzc5kAA==
+	t=1794877795;
+	b=lBkqI4ZeUuHeqRERY2J5iSPPpf1KNOsH4brQFVpae7EfrUAcK1HKt1T0BFSLuxicKjk7
+	 Olt7/orrHZTo+NP9ajz2rkaVrv3lM0nyAdb60lSHMvwpGb3vWw0lvFgsOOtbqMjj8sQ/P
+	 zjo0/j9JFuEwgY7JhavC2880Uy9yXAu9IMYgrKDTptxbe0Lk+4VpP0FWJ+01ZaaNafkcn
+	 bytU+Fvl6cqhXB4e07IkhA1Ftedd0hJYjJ3rKUbiwdJNla0M/LbHzmd7McAJk89f9V7cg
+	 AzK3ugeTREWIILx212DfWpigoNmwG5BEl4njS5XYSTAY9OnZBG3ZRVykKv04FXzCe1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794877757;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=gtUAPqHMHP5k3gFwPO62jRFf/1Gqj9gZb2L6gognAgk=;
-	b=XI3SJzX+28pdMXJb83F/CFfVLN49+Q9G2S2vvlm6W16cjhL815JtpNVQg4bNcE6tC0Px
-	 UdczRdA4bnqLYENnRqJkP6g70X4Nf9hJ20+zWl65rT9IXKHKDXTZcrADB3LKWy9NiYAlB
-	 Ur5PKxjGxQaptXgYSxQZtVS4qut1bo0ZldC1VNQychrvbFDMxolMVrSo7zJMcKYEJcgTm
-	 53bDoG4sYjXDekUMBk8gyOyQleLNYRysMnXrmxNTGAy6CkplfsiAgBWA+NGKWKJQCCbQi
-	 A8hXqTPPQRYIkCR2raAooaYw9akUjci0bMVIejVzeo9wA0wxMrXZevuzbz3g3wlZAJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794877795;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=tixrKvDlE8HOBCT+YKZFYawn5B7wVxaXbSBVfB7YWRc=;
+	b=K2iC/4sNt7hUO291GMTsAVPOPmZ9mcKK7C9UKcnOQLbj1KFaatQ57JLcpr553dZH4HMD
+	 4xCBkbnTxxCIC8oVZPSO/Kdq5U1ebW3GOw7WguHiUI7Dd9buTk0UyeTWJe+d1K9KvnxxB
+	 ifnJ3UR4lfN8Unm2e79toNeh9VgdY10kcQU2XGVeVx4HbZzAWviWJSjxHS5hefyLbv7k6
+	 lr6V/QvjDg3Cf7jPXKQfOfPSZFqnyP+4DtzW+LMGrfoHopiOCXZRLtTB5jU3k4V8gBsBk
+	 fVENUCE8MP5HhaGQPr2YRDzdtvRbb71Xgj00jC9OxkZgwzpYVK7B0ch9d8DzblCtQqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=G8J1sxnp;
-	arc=none smtp.remote-ip=91.218.175.166
-Received: from mta0.migadu.com (out-166.mta0.migadu.com [91.218.175.166])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=shazbot.org;
+	spf=pass smtp.mailfrom=shazbot.org;
+	dkim=pass header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=Yv7w+f4a;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Z6Bw6rdn;
+	arc=none smtp.remote-ip=202.12.124.151
+Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF3D5606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:09:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF3D5606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BA86606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 01:09:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BA86606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=G8J1sxnp
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=MPpTPh88Nfy9eiOTO3i85nb/65Af7N8qg4f4W7GlzF4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794877755; v=1; x=1795482555;
- b=G8J1sxnpb2HhqXCIrQgzPA2of3x/kEK2N4a89CFUXBremFtqNzN4guEbVb/dEgYwqqELLTp9
- D+gUwmjqpMKt9QG2G09D6DznYpxk6vP3s1x0mxqk4B69UciIgIS4/zW45C6MKgZwIBAPWQJVt6i
- X/wJWjT9IZVZ5LrHiTX8VwGs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ac75ed4a77224e6a;
-	Tue, 17 Nov 2026 01:09:14 +0000
-X-Mizu-Trace-ID: ac75ed4a77224e6a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <a35a487b-7932-41f7-bbd5-0d0fad2035c4@linux.dev>
-Date: Tue, 17 Nov 2026 02:09:13 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=Yv7w+f4a;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Z6Bw6rdn
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.stl.internal (Postfix) with ESMTP id 5A31E1D001B3
+	for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 20:09:53 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Mon, 16 Nov 2026 20:09:53 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794877792;
+	 x=1794964192; bh=tixrKvDlE8HOBCT+YKZFYawn5B7wVxaXbSBVfB7YWRc=; b=
+	Yv7w+f4a7yLZ7pS+fyZ1mVYAgiXOLpWpxo2CVDHwqDXl1vmhcWHDd7sJ3U3MKPPw
+	b900vTAsW6wjs4L2LutPUaxBWa/Qn+BQmwQd/m6zPjDPzFUpnv94lexz09UlBaPB
+	4jIQgonKLK1QAPiav7YLgLYJWarwcoFH9yajuhIMpvgJQOo+zHcp31DR4kECfsGq
+	xjuHkHZ/GM04/N1ow/0nrNVJU/0z4RVhJfWNOvZW2BR8OJxVRAihb2Zj+41v4g9b
+	w9ntpIBlfE4+I6F2d3K2aw01bleVd2TVKA5f1LtVf+X0tilSuWr5qJfPtIppMWEg
+	m+FKe7rKC1vJcfJ1ec01Cw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794877792; x=
+	1794964192; bh=tixrKvDlE8HOBCT+YKZFYawn5B7wVxaXbSBVfB7YWRc=; b=Z
+	6Bw6rdny28CStS9ZT3Ge1pcIJzCxZPjOGEeotkhaDXB76lZzXQVOEEA9uz69AlmO
+	ktDLvuJFsZIstAbTniNobym5xQsD14TsOxA7omojaqc/7hQdqIyQnpoW7p7Z9UHr
+	xzk1bQMh3ZH0/pgyLEcpUO5OjRCps5DdizS4UplTSSn7ILKmeLeNwywTb1YnIT16
+	FhQeMiUzYg8PU9PXtOUfyZDQKMZ4Bc7EiO/QztVEfSkcw8ppZqUHXBpqORuiyiox
+	Dg/fxONsnp/GfEL9detq2rE2hNQzhZSIqdfzWe5oKF/Z3kjT3cdySUJLJ3tWLOta
+	82YUe9SKSzCoIYwFd5G2g==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=shazbot.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794877792; d=shazbot.org;
+	mf=PGFsZXhAc2hhemJvdC5vcmc+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:It5AujyVtOgOp18Yv5+ptEYOMnBwOtXFzk3tKckxqWe+29H
+	zRaVPRRvqZDHhsxEk+YIq2/R3jR/h/DO2ut0hn7/lLNn5FYulakQt++roIlv9u3M
+	bS0bQIO1QN8SQTjcj71LuazqgxFaz+ECcTfdE63Va+Tg3dSX0goUx21bdy9cOyp6
+	ZbSlYDiZltuE93+wmtvxKRJvuvC48rR+YdWvoeGnOZ97KqTNDy6riIEQbjD2jBsv
+	rjzwKgatLCJQ4kDawofzTtndMz600p4/lyyPXmD4Lx4QtkFE0hby8PWi6EemKyZG
+	t0bPwBqQkpANcHH1OCRP48X+LKjoIlJafAaDYAw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:D0E/4PDZJPnu1t1li8k5W6N3FEXxA0th0UdXIYFCnkI=:SydkCMeTxoLNHBfx2E/TOjZe/1v8iut1quLwh6idvL4=;
+X-ME-Sender: <xms:X6n7aq-MELGOqApgzAuMrkTsb2N0K7bxZ-PDs_CLglWbaWoElny0zg>
+    <xme:X6n7ahoiWK_hO5Os-hng9Ddr4HcKn0SYwJ1jtC5ZKj9Ign1n0JkCKjjC0Sd59vI-l
+    6Yt9XzAYSZlK65O9ldNC6hrpsnuqUavUm2gcXsv_9wYYACkKHjHgw>
+X-ME-Received: <xmr:X6n7ameM4l76dFyIO59e4sdYekMZU0fiH62OC-VQXZBZ2WsCgX31D5cQxLe-Cg>
+X-ME-Proxy-Cause: dmFkZTEgxcyEJ/ZnG+FHJ0CeWRTo2IzLSs3YDikR2toXXr8YQ23eVsIcbtKGIr8dsYfpSa
+    LXeDk0iE0EXpMXzwzGTeRQ9j5J9u+Y/kN5PEXjXKhAxlrQ+XnOqTVfcXWKSTj9ZwQI6NFt
+    nWkN/0BGkOxhAFMzEq7TJyoPp0a5IKkOnAKFKvLkihhprjY/MxysB59sktE1WCqtN5PgTQ
+    SnTb80Z9a/uOlWSDz/15bhAxELk/SWPPs2ghsECGsLkSVuycQlhdSpe8VXxyfPXAW75WaW
+    frJZw3qgLH2lC2BdrR3XorZoD8XBtGOBwHPMDhK96xr9VsEfauZHSr0oy9IaOexJSDcAjw
+    xN7TBzFE5JNfdE1GIgrSJZi1xzEFa9rGHe5zVJbssExAzaS/Lt3+Py/6fNwLNIitko60X1
+    4rH21PkMwyD1ZtUoIHjwuRAXXAJoeks6OsVwhy45gpOOCNYW8+yBLZXr07sq1BwvBQQo0P
+    T6PzYSWDajzebmuer1vwRzMIVtiFClpaccd6SwneVO4nHIEG510UwwcK16+Lw28lgHVUgt
+    WuLvcZUtCFDiOW4pfYOCunMmCmDJr9Xji5ak/6Tcjshf9GoUA+Bwpv8eEqnt0C9z/covJe
+    Rp/YI+G59Qqt/9h7XifbSXO9yrFLdiJlZjWF1ItoCZkyTNHqeVh0pZrW4liA
+X-ME-Proxy: <xmx:X6n7ag9bAfMSkHhDhUH57dOOoFU9HsD08wM3T6A4pGeVFSXqzzQd_w>
+    <xmx:X6n7agZv_NBVVCgjpSpQvnMGPdhb_azohY2xBadIeMpTqr_DNVQtig>
+    <xmx:X6n7ar0_YZomJQm4F8zl_QTYN74iEKENrohAmiuueEJ5iBSUKIQX5Q>
+    <xmx:X6n7ah00up13RCEJtSlDuJomE_dnJdnVfPC6NeFhBgJKtp8Xq_HdGA>
+    <xmx:YKn7agwWCfdaBDaP3evcCkByMYUCzWlaYiqTrO-xd1Zgv8YME2QH-Sra>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 16 Nov 2026 20:09:45 -0500 (EST)
+Date: Mon, 16 Nov 2026 17:09:42 -0800
+From: Alex Williamson <alex@shazbot.org>
+To: David Matlack <dmatlack@google.com>
+Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ linux-pci@vger.kernel.org, Adithya Jayachandran <ajayachandra@nvidia.com>,
+ Alexander Graf <graf@amazon.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Chris Li <chrisl@kernel.org>, David Rientjes <rientjes@google.com>, Jacob
+ Pan <jacob.pan@linux.microsoft.com>, Jason Gunthorpe <jgg@nvidia.com>,
+ Jonathan Corbet <corbet@lwn.net>, Josh Hilke <jrhilke@google.com>, Leon
+ Romanovsky <leonro@nvidia.com>, Lukas Wunner <lukas@wunner.de>, Mike
+ Rapoport <rppt@kernel.org>, Parav Pandit <parav@nvidia.com>, Pasha Tatashin
+ <pasha.tatashin@soleen.com>, Pranjal Shrivastava <praan@google.com>,
+ Pratyush Yadav <pratyush@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
+ Saeed Mahameed <saeedm@nvidia.com>, Samiullah Khawaja
+ <skhawaja@google.com>, Shuah Khan <skhan@linuxfoundation.org>, Vipin Sharma
+ <vipinsh@google.com>, William Tu <witu@nvidia.com>, Yi Liu
+ <yi.l.liu@intel.com>, alex@shazbot.org
+Subject: Re: [PATCH v10 09/13] PCI: liveupdate: Adopt ACS controls in
+ incoming preserved devices
+Message-ID: <20261116170942.720b06fd@shazbot.org>
+In-Reply-To: <20261013162529.1928093-10-dmatlack@google.com>
+References: <20261013162529.1928093-1-dmatlack@google.com>
+	<20261013162529.1928093-10-dmatlack@google.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,347 +140,212 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] platform/x86: asus-wmi: fix camera key LED on Zenbook
- S14
-To: Rong Zhang <i@rong.moe>, skyedryv <skyedryv@gmail.com>, git@turtledev.nz,
- Corentin Chary <corentin.chary@gmail.com>, "Luke D. Jones"
- <luke@ljones.dev>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- platform-driver-x86@vger.kernel.org
-Cc: =?UTF-8?Q?Jos=C3=A9_Guilherme_de_Castro_Rodrigues?=
- <jose.guilherme.cr.bh@gmail.com>, linux-kernel@vger.kernel.org
-References: <20261019-asus-wmi-camera-led-v4-1-7744c125bcc9@turtledev.nz>
- <e212e07006249d68aa7b9df25c95581b307b10e2.camel@rong.moe>
- <395209cded20a0bdc069b7bc19a68366b62a3f39.camel@rong.moe>
-Content-Language: en-US
-From: Denis Benato <denis.benato@linux.dev>
-In-Reply-To: <395209cded20a0bdc069b7bc19a68366b62a3f39.camel@rong.moe>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Tue, 13 Oct 2026 16:25:25 +0000
+David Matlack <dmatlack@google.com> wrote:
 
-On 11/16/26 13:48, Rong Zhang wrote:
-> Hi All,
->
-> On Wed, 2026-10-21 at 20:34 +0800, Rong Zhang wrote:
->> Hi Zane, José,
->>
->> Hopefully I am not too late to show up here.
+> Adopt Access Control Services (ACS) controls on all incoming preserved
+> devices (endpoints and upstream bridges) during a Live Update.
+> 
+> Inheriting ACS flags avoids changing routing rules while memory
+> transactions are in flight from preserved devices. This is also strictly
+> necessary to ensure that IOMMU group assignments do not change during or
+> after Live Update.
+> 
+> The adopted controls are recorded by the pci_save_state() call in
+> pci_bus_add_device(), which runs before drivers bind, so they are
+> automatically reapplied by pci_restore_state() if the device is reset.
+> If that save buffer could not be allocated there is nowhere to record
+> the adopted controls, and they would be silently lost by the first
+> reset. Program ACS from scratch in that case, which is a better outcome
+> than leaving ACS disabled.
+> 
+> To simplify ACS inheritance, reject preserving any devices that require
+> quirks to enable ACS as those quirks would also have to take Live Update
+> into account.
+> 
+> Signed-off-by: David Matlack <dmatlack@google.com>
+> ---
+>  drivers/pci/liveupdate.c | 78 ++++++++++++++++++++++++++++++++++++++++
+>  drivers/pci/liveupdate.h |  6 ++++
+>  drivers/pci/pci.c        |  5 +++
+>  3 files changed, 89 insertions(+)
+> 
+> diff --git a/drivers/pci/liveupdate.c b/drivers/pci/liveupdate.c
+> index 8d5ad26e948c..1d2324d339da 100644
+> --- a/drivers/pci/liveupdate.c
+> +++ b/drivers/pci/liveupdate.c
+> @@ -123,6 +123,9 @@
+>   *
+>   *  * The device cannot be a Virtual Function (VF).
+>   *
+> + *  * The device cannot require device-specific quirks to enable Access
+> + *    Control Services (ACS).
+> + *
+>   * Driver Binding
+>   * ==============
+>   *
+> @@ -174,6 +177,18 @@
+>   * bus, since the bus numbers of the failed bridge can no longer be read from
+>   * hardware and handing them to another bridge would let an unrelated device
+>   * inherit the BDF of a preserved device.
+> + *
+> + * Handling Preserved Devices
+> + * ==========================
+> + *
+> + * The PCI core treats preserved devices differently than non-preserved devices.
+> + * This section enumerates those differences.
+> + *
+> + *  * The PCI core adopts all ACS controls enabled on incoming preserved devices
+> + *    rather than assigning new ones. This ensures that TLPs are routed the same
+> + *    way after Live Update and ensures that IOMMU groups do not change. Note
+> + *    that a device will use its adopted ACS controls for the lifetime of its
+> + *    struct pci_dev (i.e. even after pci_liveupdate_finish()).
+>   */
+>  
+>  #define pr_fmt(fmt) "PCI: liveupdate: " fmt
+> @@ -189,6 +204,7 @@
+>  #include <linux/slab.h>
+>  
+>  #include "liveupdate.h"
+> +#include "pci.h"
+>  
+>  /**
+>   * struct pci_liveupdate_global - Global state for PCI Live Update support
+> @@ -520,6 +536,16 @@ static int pci_liveupdate_preserve_device(struct pci_flb_outgoing *outgoing,
+>  		return -EINVAL;
+>  	}
+>  
+> +	/*
+> +	 * Do not preserve devices that rely on device-specific ACS equivalents
+> +	 * (for now) since that would complicate keeping ACS constant across
+> +	 * Live Update.
+> +	 */
+> +	if (pci_need_dev_specific_enable_acs(dev)) {
+> +		pci_warn(dev, "Refusing to preserve device that relies on ACS quirks\n");
+> +		return -EINVAL;
+> +	}
+> +
+>  	/*
+>  	 * Endpoint devices should not be preserved more than once.
+>  	 * Bridges are preserved once for every downstream device that
+> @@ -844,6 +870,58 @@ void pci_liveupdate_finish(struct pci_dev *dev)
+>  }
+>  EXPORT_SYMBOL_GPL(pci_liveupdate_finish);
+>  
+> +/**
+> + * pci_liveupdate_adopt_acs() - Adopt ACS controls
+> + * @dev: The PCI device to adopt ACS controls for
+> + *
+> + * For devices preserved across a Live Update, leave the ACS controls
+> + * established by the previous kernel alone instead of programming new ones.
+> + * The adopted controls are recorded by the pci_save_state() call in
+> + * pci_bus_add_device(), so they are reapplied by pci_restore_state() if the
+> + * device is subsequently reset.
+> + *
+> + * Return: 0 on success, or -EINVAL if the device was not preserved, requires
+> + * device-specific quirks, or has nowhere to record the adopted controls.
+> + */
+> +int pci_liveupdate_adopt_acs(struct pci_dev *dev)
+> +{
+> +	/*
+> +	 * Check if the device was preserved over a previous Live Update (even
+> +	 * if it has already gone through pci_liveupdate_finish()). This ensures
+> +	 * that the device continues to use the ACS controls established by the
+> +	 * previous kernel.
+> +	 */
+> +	if (!dev->liveupdate.was_incoming)
+> +		return -EINVAL;
+> +
+> +	/*
+> +	 * The previous kernel should not have preserved any devices that
+> +	 * require device-specific quirks to enable ACS, but if such a device is
+> +	 * detected (e.g. new device-specific ACS quirk in the current kernel),
+> +	 * log a big warning and fall back to the normal enable ACS path.
+> +	 */
+> +	if (pci_need_dev_specific_enable_acs(dev)) {
+> +		pci_warn(dev, "Device-specific quirk required to enable ACS!\n");
+> +		WARN_ON_ONCE(true);
+> +		return -EINVAL;
+> +	}
 
-Hi all,
+This looks pretty unsafe and the comment is only explaining how we
+might get here, not why we shouldn't panic.  IIUC, the IOMMU lho
+support requires singleton groups, but I'm not sure what it does if a
+group becomes non-singleton in the new kernel (such as via a new quirk).
 
-I have been watching this silently for a while and I think I have a general
-understanding of the problem...
+Is a warning related to what might be a parent bridge rather than the
+endpoint device, really sufficient here?  Thanks,
 
->> Regarding the title, you are not fixing a bug of the driver, but adding
->> support for ASUS_WMI_DEVID_CAMERA_LED_NEG.
->>
->> On Mon, 2026-10-19 at 19:35 +1300, Zane Hunt via B4 Relay wrote:
->>> From: Zane Hunt <git@turtledev.nz>
->>>
->>> On some newer Zenbooks (Zenbook S 14 UX5406SA, Zenbook S 16 UM5606WA) the
->>> camera key turns the camera off in firmware, but the LED on the key never
->>> lights up under Linux. These machines don't have
->>> ASUS_WMI_DEVID_CAMERA_LED, so asus-wmi never registers asus::camera. The
->>> firmware exposes the state through ASUS_WMI_DEVID_CAMERA_LED_NEG instead.
->>>
->>> Reading CAMERA_LED_NEG is what drives the LED: the DSTS handler reads the
->>> camera state from the EC and writes it to the LED GPIO before returning
->>> it. The set side can't be used, the firmware only accepts DEVS on this
->>> device once per boot.
->>>
->>> When CAMERA_LED is missing but CAMERA_LED_NEG is there, register
->>> asus::camera as a read-only LED backed by CAMERA_LED_NEG, and read it
->>> after every camera key event, sending a brightness_hw_changed event.
->>> Registering the LED reads it as well, which fixes the LED being dark after
->>> a cold boot with the camera disabled.
->> I agree with José that the current ignore-anything-but-resync behavior
->> has a weird semantics, especially considering that writing to the
->> attribute has a side-effect that updates led_cdev->brightness
->> unconditionally [1].
->>
->> Unfortunately, errors from an LED driver never reach userspace through
->> brightness_store(). Also, not every code path of the LED core prints set
->> errors to kmsg. This is also the default behavior of the LED core when
->> neither brightness_set() nor brightness_set_blocking() is implemented.
->> Thus, returning an error here really doesn't make much sense here.
->>
->> If we really want to ensure the brightness and trigger attributes are
->> read-only to userspace, consult LED_SYSFS_DISABLE and do not implement
->> brightness_set[_blocking]() at all, but do we?
->>
->> [1]: While the cached brightness never reaches userspace because of the
->> presence of brightness_get(), it's still... very weird.
->>
->>> While at it, include <linux/container_of.h>, which this file already
->>> relied on.
->>>
->>> Link: https://lore.kernel.org/r/adg6GzkykThAB_4u@djouze-zen
->>> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221752
->>> Assisted-by: Claude:claude-opus-5-5 iasl
->>> Co-developed-by: José Guilherme de Castro Rodrigues <jose.guilherme.cr.bh@gmail.com>
->>> Signed-off-by: José Guilherme de Castro Rodrigues <jose.guilherme.cr.bh@gmail.com>
->>> Signed-off-by: Zane Hunt <git@turtledev.nz>
->>> ---
->>> Changes in v4:
->>> - Keep José's Signed-off-by from v2 and add his Co-developed-by
->>> - Use my full name in the tags
->>> - Include <linux/container_of.h>
->>> - Reuse the existing asus::camera registration block, only the
->>>   handlers and flags differ
->>> - camera_neg_led_available is now only set when CAMERA_LED is missing,
->>>   so asus::camera is always the CAMERA_LED_NEG one when it's set. That
->>>   makes the LED_BRIGHT_HW_CHANGED check in the event handler unneeded,
->>>   so it's gone
->>> - Drop the explicit read at probe, led_classdev_register() already
->>>   reads the state through brightness_get
->>> - Link to v3: https://patch.msgid.link/20261017-asus-wmi-camera-led-v3-1-845a82373997@turtledev.nz
->>>
->>> Changes in v3 (picking up José's v2, which had stalled):
->>> - Rebased on pdx86 for-next
->>> - Also read CAMERA_LED_NEG at probe, so the LED is right after a cold boot
->>> - Register a read-only asus::camera LED when only CAMERA_LED_NEG exists,
->>>   with brightness_hw_changed on key presses (Ilpo's suggestion on v2)
->>> - Comment on why the read is what updates the LED (also from v2 review)
->>> - v2: https://lore.kernel.org/r/adg6GzkykThAB_4u@djouze-zen
->>>
->>> Tested again on the Zenbook S 14 UX5406SA (BIOS 309), on Fedora's 7.2.9
->>> kernel with the same change applied: camera key presses keep the LED,
->>> asus::camera and the camera output in sync, and with the camera disabled
->>> and the LED forced off, loading the driver turns the LED back on.
->>>
->>> I used Claude while working on this. It helped
->>> me read through the DSDT, drafted the changes on top of v2 and wrote the
->>> test scripts. I went through the patch myself and ran the tests on my
->>> laptop.
->>> ---
->>>  drivers/platform/x86/asus-wmi.c            | 75 ++++++++++++++++++++++++++++--
->>>  include/linux/platform_data/x86/asus-wmi.h |  2 +-
->>>  2 files changed, 73 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
->>> index fb1d4a0..93b51c8 100644
->>> --- a/drivers/platform/x86/asus-wmi.c
->>> +++ b/drivers/platform/x86/asus-wmi.c
->>> @@ -17,6 +17,7 @@
->>>  #include <linux/backlight.h>
->>>  #include <linux/bits.h>
->>>  #include <linux/cleanup.h>
->>> +#include <linux/container_of.h>
->>>  #include <linux/debugfs.h>
->>>  #include <linux/delay.h>
->>>  #include <linux/dmi.h>
->>> @@ -72,6 +73,8 @@ module_param(fnlock_default, bool, 0444);
->>>  #define NOTIFY_KBD_TTP			0xae
->>>  #define NOTIFY_LID_FLIP			0xfa
->>>  #define NOTIFY_LID_FLIP_ROG		0xbd
->>> +#define NOTIFY_CAMERA_TOGGLE_1		0x82
->>> +#define NOTIFY_CAMERA_TOGGLE_2		0x85
->>>  #define NOTIFY_KEYSTONE			0xb4
->>>  
->>>  #define ASUS_WMI_FNLOCK_BIOS_DISABLED	BIT(0)
->>> @@ -312,6 +315,7 @@ struct asus_wmi {
->>>  	u32 kbd_rgb_dev;
->>>  	bool kbd_rgb_state_available;
->>>  	bool oobe_state_available;
->>> +	bool camera_neg_led_available;
->>>  
->>>  	u8 throttle_thermal_policy_mode;
->>>  	u32 throttle_thermal_policy_dev;
->>> @@ -2096,6 +2100,54 @@ static int camera_led_set(struct led_classdev *led_cdev,
->>>  	return err < 0 ? err : 0;
->>>  }
->>>  
->>> +static bool is_camera_toggle(int code)
->>> +{
->>> +	return code == NOTIFY_CAMERA_TOGGLE_1 || code == NOTIFY_CAMERA_TOGGLE_2;
->>> +}
->>> +
->>> +/*
->>> + * Some models (e.g. Zenbook S 14 UX5406SA, Zenbook S 16 UM5606WA) have no
->>> + * ASUS_WMI_DEVID_CAMERA_LED. The firmware handles the camera key itself and
->>> + * only exposes the state through ASUS_WMI_DEVID_CAMERA_LED_NEG, and reading
->>> + * that has a side effect: the firmware copies the state to the LED GPIO.
->>> + * Nothing else updates the LED, so read it after every camera key event.
->>> + * Registering asus::camera reads it too (via brightness_get), which sets the
->>> + * LED at probe. Setting it is no use, the firmware accepts DEVS on this
->>> + * device only once per boot.
->>> + *
->>> + * Returns 1 if the camera is disabled (LED lit), 0 if enabled, or -errno.
->>> + */
->>> +static int camera_neg_led_sync(struct asus_wmi *asus)
->>> +{
->>> +	u32 result;
->>> +	int err;
->>> +
->>> +	err = asus_wmi_get_devstate(asus, ASUS_WMI_DEVID_CAMERA_LED_NEG, &result);
->>> +	if (err)
->>> +		return err;
->>> +
->>> +	return !(result & ASUS_WMI_DSTS_STATUS_BIT);
->>> +}
->>> +
->>> +static enum led_brightness camera_neg_led_get(struct led_classdev *led_cdev)
->>> +{
->>> +	struct asus_wmi *asus = container_of(led_cdev, struct asus_wmi, camera_led);
->>> +	int state = camera_neg_led_sync(asus);
->>> +
->>> +	return state < 0 ? LED_OFF : state;
->>> +}
->>> +
->>> +/* The firmware owns this LED; a write just resyncs it with the camera state. */
->>> +static int camera_neg_led_set(struct led_classdev *led_cdev,
->>> +			      enum led_brightness brightness)
->>> +{
->>> +	struct asus_wmi *asus = container_of(led_cdev, struct asus_wmi, camera_led);
->>> +
->>> +	if (!(led_cdev->flags & LED_UNREGISTERING))
->>> +		camera_neg_led_sync(asus);
->>> +	return 0;
->>> +}
->> I agree with José that this should be unnecessary considering that
->> asus_wmi_handle_event_code() has handled the event.
->>
->> Still, could you confirm whether pressing the camera key during s2idle
->> toggles the camera state without emitting a WMI event or not? If so, a
->> resync should be performed on resume.
-> skyedryv tested this on their device, see
-> https://msgid.link/CA+Bqb3R2ZCrZZr6pUqLmw3qXMSA13Ft3nYqCx7jv+5PDEuH0uw@mail.gmail.com
->
-> According to the result, camera_neg_led_set() should be completely
-> useless. I'd prefer to remove it.
->
-> We don't need to set LED_SYSFS_DISABLE either. There has been a lot of
-> get-only LED drivers, none of them sets it.
->
-> As for my proposal...
+Alex
 
-I agree here.
+> +
+> +	/*
+> +	 * Adopting the previous kernel's controls depends on them being
+> +	 * captured in the ACS save buffer, so that they are reapplied if the
+> +	 * device is later reset. Without that buffer, e.g. because it could
+> +	 * not be allocated under memory pressure, the adopted controls would
+> +	 * be silently lost by the first reset. Program ACS from scratch
+> +	 * instead, which is a better outcome than leaving ACS disabled.
+> +	 */
+> +	if (dev->acs_cap && !pci_find_saved_ext_cap(dev, PCI_EXT_CAP_ID_ACS)) {
+> +		pci_err(dev, "No ACS save buffer, not adopting ACS controls\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  /**
+>   * pci_liveupdate_is_incoming() - Check if a device is incoming-preserved
+>   * @dev: The PCI device to check
+> diff --git a/drivers/pci/liveupdate.h b/drivers/pci/liveupdate.h
+> index e5d2a19d2ca2..d4721ffcecb2 100644
+> --- a/drivers/pci/liveupdate.h
+> +++ b/drivers/pci/liveupdate.h
+> @@ -15,6 +15,7 @@ void pci_liveupdate_setup_device(struct pci_dev *dev);
+>  void pci_liveupdate_cleanup_device(struct pci_dev *dev);
+>  bool pci_liveupdate_preserve_bus_numbers(void);
+>  bool pci_liveupdate_refuse_bus_numbers(struct pci_bus *bus, struct pci_dev *dev);
+> +int pci_liveupdate_adopt_acs(struct pci_dev *dev);
+>  #else
+>  static inline void pci_liveupdate_setup_device(struct pci_dev *dev)
+>  {
+> @@ -34,6 +35,11 @@ static inline bool pci_liveupdate_refuse_bus_numbers(struct pci_bus *bus,
+>  {
+>  	return false;
+>  }
+> +
+> +static inline int pci_liveupdate_adopt_acs(struct pci_dev *dev)
+> +{
+> +	return -EINVAL;
+> +}
+>  #endif
+>  
+>  #endif /* DRIVERS_PCI_LIVEUPDATE_H */
+> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+> index 944590fdef48..650d7f92f93a 100644
+> --- a/drivers/pci/pci.c
+> +++ b/drivers/pci/pci.c
+> @@ -35,6 +35,8 @@
+>  #include <linux/aer.h>
+>  #include <linux/bitfield.h>
+>  #include <linux/suspend.h>
+> +
+> +#include "liveupdate.h"
+>  #include "pci.h"
+>  
+>  DEFINE_MUTEX(pci_slot_mutex);
+> @@ -1164,6 +1166,9 @@ void pci_enable_acs(struct pci_dev *dev)
+>  	bool enable_acs = false;
+>  	int pos;
+>  
+> +	if (!pci_liveupdate_adopt_acs(dev))
+> +		return;
+> +
+>  	/* If an iommu is present we start with kernel default caps */
+>  	if (pci_acs_enable) {
+>  		if (pci_dev_specific_enable_acs(dev))
 
-I would throw an idea, perhaps not the best one but I want to hear what you think:
-what if you setup a kthread that periodically sync the device?
-
->> If there is really a need to preserve the manual resync functionality,
->> it'd be better to use custom LED attributes to achieve sensible
->> semantics, see led_cdev->groups.
->>
->>> +
->>>  static void asus_wmi_led_exit(struct asus_wmi *asus)
->>>  {
->>>  	scoped_guard(spinlock_irqsave, &asus_ref.lock)
->>> @@ -2227,11 +2279,18 @@ static int asus_wmi_led_init(struct asus_wmi *asus)
->>>  			goto error;
->>>  	}
->>>  
->>> -	if (asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_CAMERA_LED)) {
->>> +	if (asus->camera_neg_led_available ||
->>> +	    asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_CAMERA_LED)) {
->>>  		asus->camera_led.name = "asus::camera";
->>>  		asus->camera_led.max_brightness = 1;
->>> -		asus->camera_led.brightness_get = camera_led_get;
->>> -		asus->camera_led.brightness_set_blocking = camera_led_set;
->>> +		if (asus->camera_neg_led_available) {
->>> +			asus->camera_led.flags = LED_BRIGHT_HW_CHANGED;
->>> +			asus->camera_led.brightness_get = camera_neg_led_get;
->>> +			asus->camera_led.brightness_set_blocking = camera_neg_led_set;
->>> +		} else {
->>> +			asus->camera_led.brightness_get = camera_led_get;
->>> +			asus->camera_led.brightness_set_blocking = camera_led_set;
->>> +		}
->>>  
->>>  		rv = led_classdev_register(&asus->platform_device->dev,
->>>  						&asus->camera_led);
->>> @@ -4733,6 +4792,13 @@ static void asus_wmi_handle_event_code(int code, struct asus_wmi *asus)
->>>  	if (is_display_toggle(code) && asus->driver->quirks->no_display_toggle)
->>>  		return;
->>>  
->>> +	if (is_camera_toggle(code) && asus->camera_neg_led_available) {
->>> +		int state = camera_neg_led_sync(asus);
->>> +
->>> +		if (state >= 0)
->>> +			led_classdev_notify_brightness_hw_changed(&asus->camera_led, state);
->>> +	}
->>> +
->>>  	if (!sparse_keymap_report_event(asus->inputdev, code,
->>>  					key_value, autorelease))
->>>  		pr_info("Unknown key code 0x%x\n", code);
->>> @@ -5210,6 +5276,9 @@ static int asus_wmi_add(struct platform_device *pdev)
->>>  #endif /* IS_ENABLED(CONFIG_ASUS_WMI_DEPRECATED_ATTRS) */
->>>  
->>>  	asus->oobe_state_available = asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_OOBE);
->>> +	asus->camera_neg_led_available =
->>> +		!asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_CAMERA_LED) &&
->>> +		asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_CAMERA_LED_NEG);
->> When a device has both ASUS_WMI_DEVID_CAMERA_LED and
->> ASUS_WMI_DEVID_CAMERA_LED_NEG implemented, camera_neg_led_available is
->> false and the LED device can't benefit from brightness_hw_changed.
-
-Does such device even exists? Can it exists?
-
->> It'd be better to decouple the brightness_hw_changed path from
->> !ASUS_WMI_DEVID_CAMERA_LED, since devices with both IDs should be able to
->> emit the WMI event.
->>
->> With that, how about adding a wrapper function that dispatches call to
->> either asus_wmi_get_devstate(ASUS_WMI_DEVID_CAMERA_LED) or
->> asus_wmi_get_devstate(ASUS_WMI_DEVID_CAMERA_LED_NEG) according to the
->> IDs' presence? Then you can share the same brightness_hw_changed path by
->> calling the wrapper function and eliminate the need of adding a dedicated
->> brightness_get() callback in the same manner.
-
-I'm not understanding this: first the discussion moves toward "what if one
-device has both" and then you ask about reusing the code for the non-neg
-dev id.... What am I missing here?
-
->> IOW, the presence of ASUS_WMI_DEVID_CAMERA_LED determines the
->> availability of brightness_set_blocking(), and
->> ASUS_WMI_DEVID_CAMERA_LED_NEG determines brightness_hw_changed. The
->> brightness_get() callback is the same thanks to the wrapper function.
-> ...it can be implemented in a follow-up series if you don't want to make
-> the next revision too complicated.
->
-> As long as camera_neg_led_set() is gone, I will be OK with the patch.
-
-Pretty much the same, but if you find evidence that windows is polling
-that devid I think we should be doing the same.
-
-Anyway thank you all for taking care of this :)
-
-Sorry for my delay, I will try to be more present now that I have some
-context.
-
-Best regards,
-Denis
-
-> Thanks,
-> Rong
->
->> Thanks,
->> Rong
->>
->>>  
->>>  	if (asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_THROTTLE_THERMAL_POLICY))
->>>  		asus->throttle_thermal_policy_dev = ASUS_WMI_DEVID_THROTTLE_THERMAL_POLICY;
->>> diff --git a/include/linux/platform_data/x86/asus-wmi.h b/include/linux/platform_data/x86/asus-wmi.h
->>> index 4ea1ccc..5964063 100644
->>> --- a/include/linux/platform_data/x86/asus-wmi.h
->>> +++ b/include/linux/platform_data/x86/asus-wmi.h
->>> @@ -57,7 +57,7 @@
->>>  #define ASUS_WMI_DEVID_MUTE_LED	0x0004001C
->>>  
->>>  /* Disable Camera LED */
->>> -#define ASUS_WMI_DEVID_CAMERA_LED_NEG	0x00060078 /* 0 = on (unused) */
->>> +#define ASUS_WMI_DEVID_CAMERA_LED_NEG	0x00060078 /* 0 = on */
->>>  #define ASUS_WMI_DEVID_CAMERA_LED	0x00060079 /* 1 = on */
->>>  
->>>  /* Backlight and Brightness */
->>>
->>> ---
->>> base-commit: ea40f1e9f07aab937b9a217633be7a1f66260394
->>> change-id: 20261017-asus-wmi-camera-led-06a6e05f01e2
->>>
->>> Best regards,
->>> --  
->>> Zane Hunt <git@turtledev.nz>
->>>
