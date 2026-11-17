@@ -1,57 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.236.52.120
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.111.35.152
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794889706;
-	b=Ie3N1d7fCFRQhh8OVLXK4bf7PP/0PVtQJJtXjLDNjvqa+a+PUnTCSCaCcb9VCMM+Q41I
-	 fdDRUHfgkWhGnQiNX29EQeTYr8hPjz4aDJX7uwKNjwgpcmnccImNJsuqero4oTA+Rbu32
-	 jV1W2XypIsix5RZ/yPzdIYYWvpgIUxj+xGq9aAr6CkARVo4JCTiKwWhkQFydOIdxPcwes
-	 XmMb/5tml+6Il4bxjDizTqzhlRsu8blPzn4pKfISzf5CF+NbFw6of3dh4MndV68N6IImb
-	 vIUMyE1EK3AtIwOha7UGRxzLuule+p0RMZBBBHDAGZNT3Lh8hdJzkNseLEDGYEciekw==
+	t=1794889755;
+	b=ZPrryM5b9m1u4NOpsQcn8khmHNVEYtuCIAKEBnLZuZ2S9RO17skUuiWvAzAmvtrUOIbU
+	 ehpNo0dSFMykJQurqexGtja02gf2Iv0MLPxRnYi+XIQUdGOFAPwO1yO4bWhvpZxSkOVMh
+	 k8ObdCGO2Ck+gqVh+DnTKd/Hmj5mviUPgCltMDf58fgKC6xgqgjQqb1diEteo5YdVLg3O
+	 vdoLfEPwOwtIB2DzmejVAIy9B6+YaAkdDEAe5dy5IyNxT1p4MlM/hi4OuCIz+WMKXmgUL
+	 cQo8/eN5EWit3PB4AJa7eRdZ3tGnElXOyxw2aLQsshWec5vKpmUx6dDv3wUmC25gfnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794889706;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=8z5exWLOsArB3n8YhVSSxwP7PGSyUO5muX6NLLxT+tM=;
-	b=Ikj+kIvELMN7MeC+EL3JZNxf2kSESAbkHdslYAR0KkNd/GyygRRIY8E9nBTtm87naK5s
-	 btxPVPhXXshgEAX6J6xieiptgB5qwSxpGS5sGlzHRFDqRuvvAOj8d1ykurcwaFwf1aqt5
-	 /crlLwbjPjonz454DDvKDMkU3SVQgKQQviKCMmYevbrC+rV0AVm9uE4mIfPT5HgacZ3gG
-	 LYR44d/nErXG+Bb/N6VzFrgFYKjHNmYJe456eDpA/oDv9reXLznGvHjhk+qi7urOwoX6T
-	 TtMlE8ysTWlrYKJp07+/30wOx2P8Qlm/9ScxZfa8JsuH1ZskDV5uJZm6b3lUvOiQIeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794889755;
+	h=DMARC-Filter:X-Originating-IP:X-Works-Smtp-Source:Received:
+	 DKIM-Signature:X-Session-ID:MIME-Version:Message-ID:Date:From:
+	 Importance:To:Cc:Subject:X-Originating-IP:X-Works-Send-Opt:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=VBKHRt+1rWWAgiBbsb4DvQCF9QJO4kV/l0okGQpWWl0=;
+	b=Px+jqqXIiS8Axt/wlI0kqTmleuU48gM6i5Goj/BnaaThKYQUNAJu4jzMcHhE6AhKjRJs
+	 EiIRryzAgtclh6BSwMMFb6qYWrmRSjEnwfnjgaRg4YZuxBsLfyHpVwynHT524PF5UXeQP
+	 Y7aNCK2fHiebgOq7f32G1arct8ULapWCo9CsFlgPbiPAt3/F7dJUUsHdVW9jQS2uRaXp4
+	 84e+2ByPwVP1gkG6ds1/DRABWjCr2GHbRw/XCQ4XNrklJJYRtOWux2dLjOtioIas7yJap
+	 x3padvdwjTDKNyMkljjL+podxsWBcSZwQceK1KH5TvoV1jav33vDurbD//2Nui6//pA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=YrTcGqLX;
-	arc=none smtp.remote-ip=160.236.52.120
-Received: from mail-m16023652120.xmail.ntesmail.com (mail-m16023652120.xmail.ntesmail.com [160.236.52.120])
+	dmarc=pass header.from=naver.com;
+	spf=pass smtp.mailfrom=naver.com;
+	dkim=pass header.d=naver.com header.i=@naver.com header.a=rsa-sha256 header.s=s20171208 header.b="Q/sjmCuS";
+	arc=none smtp.remote-ip=114.111.35.152
+Received: from cvsmtppost03.nm.naver.com (cvsmtppost03.nm.naver.com [114.111.35.152])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CB2F606A32A;
-	Tue, 17 Nov 2026 04:28:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CB2F606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 754B5606A31C;
+	Tue, 17 Nov 2026 04:29:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 754B5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=YrTcGqLX
-Received: from localhost.localdomain (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 54ef0f5d3;
-	Tue, 17 Nov 2026 12:28:11 +0800 (GMT+08:00)
-From: David Wu <david.wu@rock-chips.com>
-To: netdev@vger.kernel.org
-Cc: andrew+netdev@lunn.ch,
-	Jose.Abreu@synopsys.com,
-	davem@davemloft.net,
-	rmk+kernel@armlinux.org.uk,
-	maxime.chevallier@bootlin.com,
-	lorenzo.bianconi@oss.qualcomm.com,
-	luis.la@mail.de,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-kernel@vger.kernel.org,
-	David Wu <david.wu@rock-chips.com>
-Subject: [PATCH net-next] net: stmmac: dwmac4: schedule RX NAPI on Receive Buffer Unavailable
-Date: Tue, 17 Nov 2026 12:27:54 +0800
-Message-Id: <20261117042754.96177-1-david.wu@rock-chips.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key, unprotected) header.d=naver.com header.i=@naver.com header.a=rsa-sha256 header.s=s20171208 header.b=Q/sjmCuS
+X-Works-Smtp-Source: VXK9aAtlFqJCpNmXFAKXWHF0
+Received: from nv1s-hmac-real-24 ([10.180.31.91])
+  by cvsmtppost03.nm.naver.com with ESMTP id KobLbu+YTG+DKyiFa5AIgg
+  for <multiple recipients>;
+  Tue, 17 Nov 2026 04:29:07 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
+	t=1794889747; bh=VBKHRt+1rWWAgiBbsb4DvQCF9QJO4kV/l0okGQpWWl0=;
+	h=Message-ID:Date:From:To:Subject:From:Subject:Feedback-ID:
+	 X-Works-Security;
+	b=Q/sjmCuS8Gzrk+o1/qb8jsgsoHnd90TyKeYMiFdUxoN8zvGFMvw6bMy05Dkb+HIeM
+	 cxLqStaaf0vmVsFHYehqV7uilB6rNUvjYQxj9ScPnn7osQ4r1fQXO/3HYaBvWayex4
+	 8ar09wB47UHUOsLDlnNWLfGeqe/5h7HhOQLDmVFS2swQZT621JfTMm7D6QuPY8nsOa
+	 snSWN1Jms1qQtspLUY8+6nDWfA6UnSMID341IAXSuQ4FHF42qcxjp6TezAZ5XJpIdK
+	 qj2b6qgFvDYFd6qWaBO3PAH8TXpmZoGgJqYp1QZc/RQ/r0B4gMnWZZtZg+zPPlwJMJ
+	 vHi4Jvgwal5Wg==
+X-Session-ID: 1ec920f968e172c92b77e4e940f71ce214bfd5f279ac19e8cc5a8b28aea1f10e
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,72 +59,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1e7c331f709cckunm33dd12d8265067
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTR8aVkNOQ0gfQ00eTB1DSlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=YrTcGqLXRx7m55KeVzUU/L6fM3vKFbPcByx7YNFZ/OrV7m5qtwL+Yw08EZ6TaCGyN1vAoytfWiSs21Nbr3ADV9HHcZvS17Hph9Ak+3M7OXwQd7JwrNGOUxfeKkkt9UMO0V5xHs1czXCmt7xC04Oej6/eur8NJd205yvC+TTuTaY=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=8z5exWLOsArB3n8YhVSSxwP7PGSyUO5muX6NLLxT+tM=;
-	h=date:mime-version:subject:message-id:from;
+Message-ID: <652bf9fd6e20ef231652b95efa65355@cweb018.nm>
+Date: Tue, 17 Nov 2026 13:29:06 +0900
+From: =?utf-8?B?U2lldW4gWWFuZw==?= <didtldms2525@naver.com>
+Importance: normal
+To: <dsterba@suse.com>
+Cc: <mason@kernel.org>,
+	<linux-btrfs@vger.kernel.org>,
+	<axboe@kernel.dk>,
+	<io-uring@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: =?utf-8?B?W1BBVENIXSBidHJmczogcmVqZWN0IGVuY29kZWQgcmVhZHMgZnJvbSB3cml0ZS1vbmx5IA==?=
+	=?utf-8?B?ZmlsZSBkZXNjcmlwdG9ycw==?=
+X-Works-Send-Opt: +9Fdpz0vjHmZFxiqW63nFBmmjA+YKxtwFA2wKqbqaBwtxBmwjAg=
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Once the RX ring is exhausted, the RX DMA enters the suspend state and
-no more Receive Interrupts can be generated: incoming frames are kept
-in the MTL RX FIFO and are dropped once it overflows. The RX DMA only
-resumes after software refills the ring and updates the RX tail
-pointer, which is done by the RX NAPI poll (stmmac_rx_refill()).
-
-Commit 1b9707e6f1a9 ("net: stmmac: enable RPS and RBU interrupts")
-enabled the RBU interrupt for dwmac4, but the interrupt handler only
-updates the statistics counter without scheduling the RX NAPI. The RX
-NAPI is therefore never invoked, stmmac_rx_refill() never runs, and
-the RX path hangs forever once the ring has been exhausted.
-
-Schedule the RX NAPI when the RBU interrupt is received, aligning the
-dwmac4 behaviour with XGMAC (commit 6338488356d2 ("net: stmmac: xgmac:
-Add RBU handling in DMA interrupt")).
-
-This can be observed on a GMAC4 based platform with Split Header (SPH)
-enabled under high TCP RX pressure, where the slower RX refill path
-lets the RX ring run dry.
-
-Tested with Split Header (SPH) enabled, running a large file download
-over TCP:
-
-- Without this change, the RX path hangs permanently once the RX ring
-  is exhausted: the RX tail pointer is never updated again and the
-  DMA channel status register latches the RBU bit, while the TX path
-  keeps running.
-
-- With this change, each RBU interrupt is handled and the RX path
-  recovers by itself. e.g. 3 RBU events within 6 ms during a download
-  peak, each one self-recovered (the RX tail pointer resumes advancing
-  right after), with no further RBU events afterwards.
-
-Signed-off-by: David Wu <david.wu@rock-chips.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
-index a0249715fafa..929aa77ce247 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
-@@ -153,8 +153,10 @@ int dwmac4_dma_interrupt(struct stmmac_priv *priv, void __iomem *ioaddr,
- 
- 	/* ABNORMAL interrupts */
- 	if (unlikely(intr_status & DMA_CHAN_STATUS_AIS)) {
--		if (unlikely(intr_status & DMA_CHAN_STATUS_RBU))
-+		if (unlikely(intr_status & DMA_CHAN_STATUS_RBU)) {
- 			x->rx_buf_unav_irq++;
-+			ret |= handle_rx;
-+		}
- 		if (unlikely(intr_status & DMA_CHAN_STATUS_RPS))
- 			x->rx_process_stopped_irq++;
- 		if (unlikely(intr_status & DMA_CHAN_STATUS_ETI))
--- 
-2.25.1
-
+QlRSRlNfSU9DX0VOQ09ERURfUkVBRCBhbmQgdGhlIG1hdGNoaW5nIGlvX3VyaW5nIGNvbW1hbmQg
+cmVxdWlyZQpDQVBfU1lTX0FETUlOLCBidXQgbmVpdGhlciBjaGVja3MgRk1PREVfUkVBRC4gQSBj
+YWxsZXIgY2FuIHRoZXJlZm9yZQpyZWFkIGZpbGUgY29udGVudHMgdGhyb3VnaCBhbiBPX1dST05M
+WSBkZXNjcmlwdG9yLCB3aGVyZWFzIHJlYWQoKSBhbmQKSU9SSU5HX09QX1JFQUQgb24gdGhhdCBk
+ZXNjcmlwdG9yIHJldHVybiBFQkFERi4KClRoaXMgaXMgb2JzZXJ2YWJsZSB1bmRlciB0aHJlZSBy
+ZWFkIHJlc3RyaWN0aW9ucyB3aGlsZSBDQVBfU1lTX0FETUlOCmlzIHJldGFpbmVkOgoKLSBMYW5k
+bG9jayBkZW5pZXMgUkVBRF9GSUxFLiBBIG5ldyBPX1JET05MWSBvcGVuIGZhaWxzIHdpdGggRUFD
+Q0VTLCBidXQKwqAgYW4gT19XUk9OTFkgb3BlbiBzdWNjZWVkcyBhZnRlciB0aGUgcmVzdHJpY3Rp
+b24gaXMgaW5zdGFsbGVkLgotIERBQyBtb2RlIDAyMDAgZGVuaWVzIE9fUkRPTkxZIGFmdGVyIENB
+UF9EQUNfT1ZFUlJJREUgYW5kCsKgIENBUF9EQUNfUkVBRF9TRUFSQ0ggYXJlIGRyb3BwZWQsIGJ1
+dCBhbGxvd3MgT19XUk9OTFkuCi0gV2l0aCBDT05GSUdfQlRSRlNfRlNfUE9TSVhfQUNMPXksIGEg
+UE9TSVggQUNMIGdyYW50cyBvbmx5IHdyaXRlIGFjY2VzcwrCoCB0byBhIG5hbWVkIHVzZXIuIFdp
+dGggZnN1aWQgc2V0IHRvIHRoYXQgdXNlciBhbmQgdGhlIERBQyBieXBhc3MKwqAgY2FwYWJpbGl0
+aWVzIGRyb3BwZWQsIE9fUkRPTkxZIGZhaWxzIGFuZCBPX1dST05MWSBzdWNjZWVkcy4KCk9uIExp
+bnV4IDcuNC4wLXJjMy1nNjY2NTM5ZWVjZGY0LCBib3RoIGVuY29kZWQtcmVhZCBwYXRocyByZXR1
+cm5lZAp0aGUgc2FtZSA4MTkyIGJ5dGVzIGZyb20gYW4gdW5jb21wcmVzc2VkIEJ0cmZzIGV4dGVu
+dCBpbiBlYWNoIGNhc2UuCk5vcm1hbCByZWFkKCkgb24gdGhlIE9fV1JPTkxZIGRlc2NyaXB0b3Ig
+cmV0dXJuZWQgRUJBREYuCgpDaGVjayBGTU9ERV9SRUFEIGluIGJvdGggZW50cnkgcG9pbnRzLCBt
+YXRjaGluZyB0aGUgRk1PREVfV1JJVEUgY2hlY2tzCmFscmVhZHkgcHJlc2VudCBpbiB0aGUgZW5j
+b2RlZC13cml0ZSBwYXRocy4gQm90aCBlbmNvZGVkIHJlYWRzIHRoZW4KcmV0dXJuIEVCQURGIGZv
+ciBPX1dST05MWTsgT19SRE9OTFkgY29udHJvbHMgd2l0aCByZWFkIHBlcm1pc3Npb24gc3RpbGwK
+c3VjY2VlZC4gVGhlIExhbmRsb2NrIGFuZCBEQUMgY2FzZXMgd2VyZSBhbHNvIHZlcmlmaWVkIG9u
+IExpbnV4IDcuMy40LgoKRml4ZXM6IDE4ODFmYmE4OWJkNSAoImJ0cmZzOiBhZGQgQlRSRlNfSU9D
+X0VOQ09ERURfUkVBRCBpb2N0bCIpCkZpeGVzOiAzNDMxMGM0NDJlMTcgKCJidHJmczogYWRkIGlv
+X3VyaW5nIGNvbW1hbmQgZm9yIGVuY29kZWQgcmVhZHMgKEVOQ09ERURfUkVBRCBpb2N0bCkiKQpD
+Yzogc3RhYmxlQHZnZXIua2VybmVsLm9yZwpTaWduZWQtb2ZmLWJ5OiBTaWV1biBZYW5nIDxkaWR0
+bGRtczI1MjVAam51LmFjLmtyPgotLS0KwqBmcy9idHJmcy9pb2N0bC5jIHwgMTAgKysrKysrKysr
+KwrCoDEgZmlsZSBjaGFuZ2VkLCAxMCBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZnMvYnRy
+ZnMvaW9jdGwuYyBiL2ZzL2J0cmZzL2lvY3RsLmMKaW5kZXggNmJhODgzZGIxLi5mMWU0NmI0ZTYg
+MTAwNjQ0Ci0tLSBhL2ZzL2J0cmZzL2lvY3RsLmMKKysrIGIvZnMvYnRyZnMvaW9jdGwuYwpAQCAt
+NDM5Miw2ICs0MzkyLDExIEBAIHN0YXRpYyBpbnQgYnRyZnNfaW9jdGxfZW5jb2RlZF9yZWFkKHN0
+cnVjdCBmaWxlICpmaWxlLCB2b2lkIF9fdXNlciAqYXJncCwKwqAJCWdvdG8gb3V0X2FjY3Q7CsKg
+CX0KwqAKKwlpZiAoIShmaWxlLT5mX21vZGUgJiBGTU9ERV9SRUFEKSkgeworCQlyZXQgPSAtRUJB
+REY7CisJCWdvdG8gb3V0X2FjY3Q7CisJfQorCsKgCWlmIChjb21wYXQpIHsKwqAjaWYgZGVmaW5l
+ZChDT05GSUdfNjRCSVQpICYmIGRlZmluZWQoQ09ORklHX0NPTVBBVCkKwqAJCXN0cnVjdCBidHJm
+c19pb2N0bF9lbmNvZGVkX2lvX2FyZ3NfMzIgYXJnczMyOwpAQCAtNDc3OSw2ICs0Nzg0LDExIEBA
+IHN0YXRpYyBpbnQgYnRyZnNfdXJpbmdfZW5jb2RlZF9yZWFkKHN0cnVjdCBpb191cmluZ19jbWQg
+KmNtZCwgdW5zaWduZWQgaW50IGlzc3VlCsKgCX0KwqAJc3FlX2FkZHIgPSB1NjRfdG9fdXNlcl9w
+dHIoUkVBRF9PTkNFKGNtZC0+c3FlLT5hZGRyKSk7CsKgCisJaWYgKCEoZmlsZS0+Zl9tb2RlICYg
+Rk1PREVfUkVBRCkpIHsKKwkJcmV0ID0gLUVCQURGOworCQlnb3RvIG91dF9hY2N0OworCX0KKwrC
+oAlpZiAoaXNzdWVfZmxhZ3MgJiBJT19VUklOR19GX0NPTVBBVCkgewrCoCNpZiBkZWZpbmVkKENP
+TkZJR182NEJJVCkgJiYgZGVmaW5lZChDT05GSUdfQ09NUEFUKQrCoAkJY29weV9lbmQgPSBvZmZz
+ZXRvZmVuZChzdHJ1Y3QgYnRyZnNfaW9jdGxfZW5jb2RlZF9pb19hcmdzXzMyLCBmbGFncyk7Cgpi
+YXNlLWNvbW1pdDogNjY2NTM5ZWVjZGY0ZGI2MjNmNWUzYzNlNTVjZjlmMmRmYWQyNGFhNAotLSAK
+Mi4zOS41CgoK
