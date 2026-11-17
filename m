@@ -1,55 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794922371;
-	b=tF+1GcPcy/jq1UacxTFSUzB4lfTnoWDCzDE75eB7/0mHps96saXSYaPQdcKRKlUgh7GX
-	 v4tHw+yDCHgVMq/0/ZoraOQ3oW+952YgwbWCG/UpOQyf7Y21K2CB4+UaFQCwBkc24pgy0
-	 /pl1DRdBWLr0h5ZBA+yqSxiyg9d6xKt9l9BfYJt5Fv6oDBw1sLxTrwAWL9xVtxNG/BOhq
-	 QxOKpS+0OtLbthhzDa3Yw2+O8oOHYaXSFDf6DYXyfDCVrlvTt/6BKFiLYrO+WV7CDw4xf
-	 2l6cF2M50AGgbmFZOlAxFf9ATjlhR/iWKRefpIboFeUpCZHRPlTaxORc8bVWRJp8vQQ==
+	t=1794922382;
+	b=JvufS3nqet4ObkkneOyrdKUmTHaUYK10GezqqCgmoihtU/C5Lu+/Vi+gVI8wrrcsjBup
+	 N1dSAM9QRyqTdBmNFrIkIXfjtJlQ5EjC/2BKKQWNrzfx172EFiuMwDfT8yu7DxuMEL/bI
+	 I8Tq9hHoRydm2OAk/hQTuYyjjc5FWgS9HdE0PLSGyqkMZ2wBBqQ/XqhvNzeb40bVqnHRD
+	 4979xeP6WeJJvfqDG1udKNrDvuKg3qA0BI4KnPk7RuvK7y55G5cfeI6rPdf/NIcMi/Uba
+	 g6FaWlLgWMpm9OeIGM4eq4HZoAiW/oZWTX297x64l9vc3QXTPxsaueE6altbmTXTyYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794922371;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:Cc:To:
-	 From:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=tiAy5PQmLZ5hEMe6QeP0gUFXTZHoS740/eNTgW6sRH8=;
-	b=FMWCNnhdw4ENUO2npUrGB914HtEReTVrDC0Hiw7QOmoSNN70Fa/NWntAVFngh0r2Pn0y
-	 o+7+3kxga1cI3+XT7PrlYDyxjTgrr+YEatZiikO6eVkw89g1SSjjawjR8NTKeLqdxRS3S
-	 0jAqbtd3bRwurBFamYph7g3gP62MVz91XIGNdhuRlCDZ6BiZrvLpqmQpfEmIMqoQJnC2w
-	 RvmS6dMWdCVo60MnpU1T87lwC3j/Ls0KSqzRo+mCmfgRIQVJ9nXHYeL8m55IbVcKzBzkj
-	 Y8o3hV+lpKNFzdJZfV3hds5g6H/e9JqeQkjmgkBWtfhU/AOx1wLlaFRnpNIClWqx4Iw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794922382;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:User-Agent;
+	bh=mty3QCtny+kxDlCmdX8ssy+X5iQX3S1usQjDW0VglUg=;
+	b=lYZU3Gyj78xCJDeLPj2mfdrCcwJRVda8AYuUyPuPtyhrzqqngQssQ5GAODK/wGA+Vvhz
+	 80SYm8pbnxkGJeyAup//2StFxDynThrhaU7flYB50LSH6LTl7qJMJc/o2GAHSI4OvlnHc
+	 h+I4abUJrVwHPAwj+TtUrp5TALFUmYFrpwOiVizn1RaYVj0lNjJMy7U4JHPlmOj5vyYE7
+	 yauEJSwWemunhZHFEDZQ2Q0nAFYHDecHNW8xGcAZWhQpyBf7F4R9QvuzrZAOTfdSWz7z0
+	 GT7ivsJPscVnJGlRSaXRWS5f6j02sxoJZCOr56auKiS29nXq8GX0v+/WDBJnQb8ZbAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=gb7PcsfV;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DQdLlc+i;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4709F606A31C
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:32:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4709F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EF92606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:33:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EF92606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=gb7PcsfV
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 18A4FC79A97;
-	Tue, 17 Nov 2026 13:32:54 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id A98DD5FC81;
-	Tue, 17 Nov 2026 13:32:49 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 59F7211BC0024;
-	Tue, 17 Nov 2026 14:32:38 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794922364; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=tiAy5PQmLZ5hEMe6QeP0gUFXTZHoS740/eNTgW6sRH8=;
-	b=gb7PcsfVBsbwlRm0khs9/jf2fe/f9ewHuUPO2aFrqIUZmXRjU0W86K651Oeo2/jfkgs7ua
-	ya1ms7sNUnc+lmdn3ziMHBAG9XuFuGatmtQzgvXtCT/TthMUW780a7tNvABZGYws3GZrM1
-	KQrGOV8pIC6dTnY6ihRIxN/3soH0PEcZK7ClMdEM8fP+tUnMN6vDVcjWIQLIvQzU1q+nAF
-	753uplltgp2ia/m6hs+oU9FzjvAxJhk7bl5e0mI3rOSj2NUVqOmutAJ/GRozkYEjVcB5e8
-	9zGDqafEiCbeWlAVIvr90prelyF1jLsMAZx9Zb0Leh5sVbWjYjEQBCRjFgejjA==
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DQdLlc+i
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794922382; x=1826458382;
+  h=date:from:to:cc:subject:message-id;
+  bh=B3k19C46oxvmNK98eF2GKdwx5NtCxSNcnqEGDdv1USw=;
+  b=DQdLlc+ibkAs8xj2q3KeR8dynwrnRaJ4Ks9cCKUhNqVERRCztigCWSQ3
+   uoGWGrKp/40Z8UxHa6KqKPQcHtdE4BXbQRna2DW7NKtslAy9hrZKQo/Ao
+   fIJhLQ06Ft80+wy5p8F55mUZokyaeoH5/HnYEkYKwjNxRA6r1cjxHb6CR
+   GmVHRGQ8CM1zJl1hJ76FvgFLaTL+P2VivOzM+uO8VE+ag/XOqh12FhcJn
+   NK3Vkijefo31gf7qLt4CrLwK9uPvaIOkNztxwPLv6GXpZazmaEbkqQG/P
+   pII+XBBDkDNriGUYxTG9t0XmdRF9flqpNVTtJAvzwhEUHqxNUe23uxRXK
+   g==;
+X-CSE-ConnectionGUID: lu39U/1nQDCpFRDtVCZ2Jg==
+X-CSE-MsgGUID: DhlxuaFySt+0hMnZStHFJA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3681701"
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="3681701"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 05:33:01 -0800
+X-CSE-ConnectionGUID: R/IVg+3bT3qJIE/3qgtrGQ==
+X-CSE-MsgGUID: IuquUHOGSnC0xtDuk6C0vA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="9624490"
+Received: from igk-lkp-server01.igk.intel.com (HELO 1073a420ae3a) ([10.211.93.152])
+  by orviesa008.jf.intel.com with ESMTP; 17 Nov 2026 05:33:00 -0800
+Received: from kbuild by 1073a420ae3a with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xTJIn-0000000037i-2Sf0;
+	Tue, 17 Nov 2026 13:32:49 +0000
+Date: Tue, 17 Nov 2026 14:32:05 +0100
+From: kernel test robot <lkp@intel.com>
+To: Kees Cook <kees+treewide@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: WARNING: modpost: vmlinux: section mismatch in reference:
+ strncmp+0x40 (section: .text.unlikely) -> initcall_level_names (section:
+ .init.data)
+Message-ID: <20261117142858.2AAnSUeF-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,94 +80,26 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 17 Nov 2026 14:32:38 +0100
-Message-Id: <DMXIVFWKAM8A.29COLJ2EC6MUM@bootlin.com>
-Subject: Re: [PATCH net] net: macb: limit jumbo frames to the RX buffer size
-Cc: <linux-riscv@lists.infradead.org>, "Han Gao" <rabenda.cn@gmail.com>,
- <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Jingkun Zheng"
- <zhengjingkun@iscas.ac.cn>
-To: <gaohan@iscas.ac.cn>, "Conor Dooley" <conor.dooley@microchip.com>,
- "Andrew Lunn" <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, "Eric Dumazet" <edumazet@kernel.org>, "Jakub
- Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Punnaiah
- Choudary Kalluri" <punnaia@xilinx.com>, "Harini Katakam"
- <harini.katakam@xilinx.com>
-From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261114-macb-jumbo-jml-v1-1-f501395eaf9e@iscas.ac.cn>
-In-Reply-To: <20261114-macb-jumbo-jml-v1-1-f501395eaf9e@iscas.ac.cn>
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hello Han,
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   666539eecdf4db623f5e3c3e55cf9f2dfad24aa4
+commit: 0af298e62e5cff4ebf9bec47b8711177a7e2f115 treewide: refresh kmalloc_obj() conversions
+date:   11 days ago
+config: xtensa-randconfig-r2306-20261117 (https://download.01.org/0day-ci/archive/20261117/20261117142858.2AAnSUeF-lkp@intel.com/config)
+compiler: xtensa-linux-gcc (GCC) 13.5.0
+sparse: v0.6.5-rc1-21-g84ec0658
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261117/20261117142858.2AAnSUeF-lkp@intel.com/reproduce)
 
-On Sat Nov 14, 2026 at 10:51 AM CET, Han Gao wrote:
-> +/* Longest frame that fits in a single RX buffer */
-> +static u32 gem_jumbo_max_len(struct macb *bp)
-> +{
-> +	u32 len =3D bp->ctx->rx_buffer_size;
-> +
-> +	/* Frame data starts NET_IP_ALIGN bytes into the buffer without RSC */
-> +	if (!(bp->caps & MACB_CAPS_RSC))
-> +		len -=3D NET_IP_ALIGN;
-> +
-> +	return min(len, bp->jumbo_max_len);
-> +}
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 0af298e62e5c ("treewide: refresh kmalloc_obj() conversions")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/20261117142858.2AAnSUeF-lkp@intel.com/
 
-Why do
+All warnings (new ones prefixed by >>, old ones prefixed by <<):
 
-   gem_writel(bp, JML, min(bp->ctx->rx_buffer_size, bp->jumbo_max_len));
-   // or
-   gem_writel(bp, JML, min(bp->ctx->rx_buffer_size - NET_IP_ALIGN, bp->jumb=
-o_max_len));
+>> WARNING: modpost: vmlinux: section mismatch in reference: strncmp+0x40 (section: .text.unlikely) -> initcall_level_names (section: .init.data)
 
-And not just
-
-   gem_writel(bp, JML, bp->ctx->rx_buffer_size);
-   // or
-   gem_writel(bp, JML, bp->ctx->rx_buffer_size - NET_IP_ALIGN);
-
-Asked another way: in what case can rx_buffer_size > jumbo_max_len? It
-this can ever occur, it sounds like a bug. It makes no sense to have
-buffers larger than the max jumbo length. If we fix it, then we can use
-the simpler form.
-
-(This is the same report as Sashiko: your min() picks jumbo_max_len only
-for some really specific values of MTU.)
-
->  /* Configure the receive DMA engine
->   * - use the correct receive buffer size
->   * - set best burst length for DMA operations
-> @@ -3286,6 +3298,13 @@ static void macb_configure_dma(struct macb *bp)
->  		netdev_dbg(bp->netdev, "Cadence configure DMA with 0x%08x\n",
->  			   dmacfg);
->  		gem_writel(bp, DMACFG, dmacfg);
-> +
-> +		/* Jumbo frames are always enabled, so limit their length to
-> +		 * what fits in one RX buffer. Longer frames would otherwise be
-> +		 * split across several descriptors and dropped by gem_rx().
-> +		 */
-> +		if ((bp->caps & MACB_CAPS_JUMBO) && bp->jumbo_max_len)
-> +			gem_writel(bp, JML, gem_jumbo_max_len(bp));
->  	}
->  }
-> =20
-> @@ -3422,8 +3441,6 @@ static void macb_init_hw(struct macb *bp)
->  		config |=3D MACB_BIT(NBC);	/* No BroadCast */
->  	config |=3D macb_dbw(bp);
->  	macb_writel(bp, NCFGR, config);
-> -	if ((bp->caps & MACB_CAPS_JUMBO) && bp->jumbo_max_len)
-> -		gem_writel(bp, JML, bp->jumbo_max_len);
->  	bp->rx_frm_len_mask =3D MACB_RX_FRMLEN_MASK;
->  	if (bp->caps & MACB_CAPS_JUMBO)
->  		bp->rx_frm_len_mask =3D MACB_RX_JFRMLEN_MASK;
-
-Thanks,
-
---
-Th=C3=A9o Lebrun, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
