@@ -1,79 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794925286;
-	b=mL5aHWa6aYdantz5wIa4S8otKH0dasL0HwzZerOLr0FzpcdPPvZvb8ZESfON2orQU6ak
-	 aT1oHTk76a9bJtjfoSunyjOD7SH95Gpj+BTAfL7oDiroA1Zq9nQYwKVHOc4TNE1AVOmHQ
-	 xMvGQm6iepcmRQF9qgGomSDqStBMV9ynHoy1NNsz9KfOkMC9kItmrx4tIFYP9w++/FIOw
-	 2q8o7NFei/p26mK4WrFS0kqNzTlRXffbi07Q5Z0a03nvvD20sT3r3tQVcgkx4tQS/kZXG
-	 5jBvU4AtD3kWtEZ28Wp391QRdTAeQTUdlqumf/PQBpklAl0UhPp816wtIKBMN2Fjk+w==
+	t=1794925297;
+	b=wq21ZhTuSyVjcRC/UumikX7t2UZ/B7bSz2ky9xhTLLzn/RfPCBtJsYDYo21XGAVH7Kwd
+	 NoC8oxFagbWgSiREo6yoMNKowsEzDz9hdW+yS1HRuWKtHOb/PNI7WvQs+UURq095Y9SQ8
+	 AxuQozQBJfwxHlorrVitcW3QkTs8BeizFttVyshfdVGezjJYWsgy35UtRofXLaZRVmGhQ
+	 2CJAcMD7oxN9pK2ZBYUBLeX7FEmE9yprgONHyDJ/g8rWbJX3ermMHs2hTmo6+cVpH2sbD
+	 C/HHRL6gMt9cSrElB//NRzPcPl0tYQuackRfe9bzMZSfM5us+le/ezeVHxtynPFJY7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794925286;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=vQlW3HcAvUYTSDMtzPIfL+5cXdgkn/vcngSliC7Vl3Y=;
-	b=lfgVDXRGBe0DTyVHd4b9142HjQcp0w0X+5iOzQ+sxFy7ZjaFCGLdzZUCI0mJ7/biSGOs
-	 Bm1m8cV1+xsy6vkAFUvfJfuAj4keUZ/wblibJeDWGqcL5Rb9nWuQXe8LmlcPfO6/g4NR5
-	 k3zJXuXCV1ooICrp4s4QWAeOoZszN6fudRwYW+eId4fW7NUQ+hApOLP5n0VS4Ex45qiKz
-	 FjtPSXMsBNvsNrCJgcp2ARQURcZ8reQO8cu99+XLiFoVq6jLUuKYXTziRNByKFl6gDr67
-	 hTF6SDor4KwZ1YC25AmarqSQZDHawXKK/4vdEgDzYcPZF8tzIUt4jZQJljO6lZNtdJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794925297;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=BHww8Xe65qt/2LoVxnXWkn4bOLdKbZqwOjujT9tpZqM=;
+	b=BaebdZ+iQa+iuRyrkDAPiwls5UqFMDituOLukNa4ugnswVbT6jgNjwTrDP6cZTlBrhZz
+	 z8d74jjXffIbMRqFuY5d47xm4mawMdkfCSaqAvRQPERcQDTIAvYEoCM0nHnMpXzaU/p2v
+	 FMTd2D3NnP7Jc+J/ymgsGnigNe/vRaT3L40tiPmjFXUZflfYA+G6Jd48a8P0o3oACwatA
+	 8uvMpqSDs5hUcjeoETbhkMTGsjXsSePcEXja6RgsMlGT6a18Z8pmSUpejJKAVcFhytuR5
+	 240dJcPnUlEeDIzVAvKVnXT4f/NqG/xs3Ru5BVFMNvxO6qLZgTq/QkW6wRp8KKOBgqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hBoOTdNy;
-	arc=none smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vf3Hjv9E;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D486B606A323;
-	Tue, 17 Nov 2026 14:21:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D486B606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8141A606A330
+	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 14:21:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8141A606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hBoOTdNy
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794925286; x=1826461286;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=X4cEMJVbzMx7e08dMmt6YaI8y5O0EyX0kqJSe3RMcDg=;
-  b=hBoOTdNyFXZpsIFagmiXEpGqmdAXW7p3UzqqJJ2xY3jKOdb3E1bNAmyW
-   +gvJFrdNzHQjtaHjWJ9NzHPX4cgvcO9ezkJO+gm8/QH/FwKRU7ic9B/tz
-   wOtjG7qx9jJ5TXvuyZfKVIjSwBrqrbJtu9oq3YCnYoZSiqKDcEr89Wngq
-   f87RZHT0EDbGy+JqnIdsqlUsaYl6N1oWB5qd0cc3qKEUV19VyygLIwJ1K
-   3Nl6vmF1PP4ku6MJf+mHt7EXmcPFhwSmiliooj2TPLL1Cjpd8Ny+U2img
-   RyhVFrnGMaojd+/k/RI7S9CxyFmwtg7SMa/MJsh1DW7Vsamd5wElYIyLE
-   w==;
-X-CSE-ConnectionGUID: CWoLQPXKRxy043WAHspX5w==
-X-CSE-MsgGUID: +0MlMCPuSSyaDR8BClnytA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3611441"
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3611441"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 06:21:25 -0800
-X-CSE-ConnectionGUID: zKwbuzF2SDa6Gehcl2GiGw==
-X-CSE-MsgGUID: 5Qeh2TKtSYq4L4KiwjX+IA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="10025942"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.254])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 06:21:23 -0800
-Date: Tue, 17 Nov 2026 16:21:20 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Arnav Kapoor <kapoorarnav43@gmail.com>,
-	Matti Vaittinen <mazziesaccount@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Mudit Sharma <muditsharma.info@gmail.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vf3Hjv9E
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-380b40319bdso2284499eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 06:21:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794925296; x=1795530096; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BHww8Xe65qt/2LoVxnXWkn4bOLdKbZqwOjujT9tpZqM=;
+        b=vf3Hjv9EeZL0XwPDoPToH9V1fcVk607RISk0iwl0VPUOXZbNujcs9J0zuN1HMjtHCC
+         U9LPx5IlJCwKxka70rvcRCr/e7FncDuFTMeBRCnYmPmDjDtCt81QLbHDQkjqrQSL+9BO
+         Bo7mTZr6ZmpUhiLTus+0K+4fUl40u+9MvqQDY1sHR2ENvNI5upRpX/HCIIuAiqN3UiV/
+         tbSBPT3HBqCSDpLdSXkp7klgDU4ZVD3EUg/Ygn/8ByY6upIsHf5YjHbI4nSNs7YGso2f
+         Mqfji1Q10OVjc9IoBKLbpSx7M6+CJFpB+wzy7m35c7NOPlzqw81eoZcIS9OEqzEK6Le3
+         bmHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794925296; x=1795530096;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BHww8Xe65qt/2LoVxnXWkn4bOLdKbZqwOjujT9tpZqM=;
+        b=agH/r74RUHzixeuTJAVhlwRWOCQzkuSM6iIir/wdExyhMUrbCmvBL3xohHdFyazecc
+         lT+Q/xj37VSXCwWuA6NAuYuanakG36an2Ka0YSBLFj12/I/mv78lUOdpRpa6MCLNNCuD
+         7f0H96tC0qrmvj0r9rraZEYkOGUtLzE3HVhIk2aMnIMyFxMzqZQpX8BeAADoep0VfrBV
+         AWFPA0ynOArQPLqtxt8YZVOARYLeG91oludWDUahtpzHkVeWS8iGOqWHG3a1KK4viYD1
+         qUtNRxmlSCw3jW8Agsa6mQRw0QhJL+dLglo70TfasVkdYTOzvtMaeYJKzR9lelISA5ws
+         qOFw==
+X-Forwarded-Encrypted: i=1; AL+hErEi5FPDPeJn6PdacAW1C6ppqKN8XppIF3qkH17CEdQ2Rsvr1iyPCjgj8T71tafXDAT0yU0+Pg4kKFqnNXg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9htcLBsX8VF+njamSQ5q3TW8NUhtQ+rXVdjsP/k7NrWa2sr7M6
+	4Dx/vS3dvZW4TcO5AwxGG0vttRST5Nvd7GT/RCveX2wmTaTUq8ttR7dA
+X-Gm-Gg: AZFdTZeh7HrUepZODUo9ewSavpcqC4sC6X9fbHmJsLipu7PlQZFY2sIsmYOlpwpT5Fb
+	U3KtqDOIZC+f3b+e5mPMwJNSlxiR29u/mUH2e6vecuFgIhlemqntO+lyUoPyCQtvupJPURUFlJu
+	EcpDqKtsIBCKPYLUny+hIqHtEBvpA5A3s3Q7BED3Crv855zEmMQxo26Ab+fF80JPI7T7jud7eFb
+	nRlxRCoT3nyqMZ82BvL3q+Mf06DfEpilgcbdatr4scCp1cmodlEjx9HW3hJS1AsZUDX7u/3iDBQ
+	c39SOm4Hqijfpi6gUyGBhNjDFkv1Bt86K5eZsxWOKfONK5dCgluAS/fPD46zFBfJhW+RI8roMvJ
+	8SwC8AadLItiBk0jY5MWzQtoioE/A/dSDvW5sV8IvKt/s7Lj+As++fYZQpls+gNYBBvo55Q9Omv
+	XBs04umKjE4+guLDnfnIaAk6ukapnx1mPtcqgdb+U57OoukyELB7Vze40kkTWYCuxlcGS/Ocw0/
+	wBj+PiwO5DNtytu1HwtQF/lOgAfaz6WKzYx2sttwIL9YRAr2lGq2yQZbhnQveDa4VUMrBHMseUa
+	Gyskq2HkK7K7yWYcWSuYiYE3LaFgy9cWgIezh+E=
+X-Received: by 2002:a05:693c:41cf:10b0:34e:9923:e372 with SMTP id 5a478bee46e88-37967506841mr13477392eec.29.1794925296009;
+        Tue, 17 Nov 2026 06:21:36 -0800 (PST)
+Received: from arch.localdomain ([152.175.35.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795378d7e5sm43828258eec.3.2026.11.17.06.21.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 06:21:35 -0800 (PST)
+From: Jun Yan <jerrysteve1101@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>
+Cc: Jun Yan <jerrysteve1101@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] iio: light: bh1745: fix 16-bit register accesses
-Message-ID: <avxi4BBJ_Ztg-aN7@ashevche-desk.local>
-References: <20261117110327.198084-1-kapoorarnav43@gmail.com>
+Subject: [PATCH] arm64: dts: allwinner: h6: taiqicat-a01: Enable Ethernet
+Date: Tue, 17 Nov 2026 22:21:21 +0800
+Message-ID: <20261117142122.246986-1-jerrysteve1101@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,182 +102,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261117110327.198084-1-kapoorarnav43@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-+ Cc: Matti (even he is not listed as maintainer) for possible another pair of
-eyes and/or having an answer why this was missed at the time of the driver
-submission (from my perspective this patch is correct).
+The TaiqiCat A01 has a 100 Mbit/s Ethernet port, which uses the EPHY
+integrated into the co-packaged AC200 of the Allwinner H6 SoC.
 
-On Tue, Nov 17, 2026 at 04:33:25PM +0530, Arnav Kapoor wrote:
-> The 16-bit colour data and threshold registers are little-endian
-> LSB/MSB pairs, but the driver accesses them through regmap_bulk_read()
-> and regmap_bulk_write() with an int or u16 buffer and no byte-order
-> conversion:
-> 
-> - bh1745_read_raw() reads 2 bytes into an uninitialised int, so the
->   upper 16 bits returned to user space are stack contents.
-> - bh1745_read_thresh() reads 2 bytes straight into *val, which the IIO
->   core leaves uninitialised, with the same result for the event
->   threshold attributes.
-> - bh1745_write_thresh() writes the first 2 bytes of an int, which are
->   the upper (zero) bytes on big-endian.
-> - bh1745_trigger_handler() pushes the raw register bytes, which are
->   little-endian, in a u16 to a buffer whose scan type is IIO_CPU, so
->   user space gets the samples byte-swapped on big-endian.
-> 
-> Use an __le16 buffer for all of them and convert with le16_to_cpu() /
-> cpu_to_le16().
-> 
-> Fixes: eab35358aae7 ("iio: light: ROHM BH1745 colour sensor")
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
-> ---
-> Changes in v2:
-> - Include asm/byteorder.h for le16_to_cpu() / cpu_to_le16() (Andy)
-> - Reword the trigger handler bullet: the samples are byte-swapped on
->   big-endian because the scan type is IIO_CPU (Andy)
-> - Add Andy's Reviewed-by
-> 
-> v1: https://lore.kernel.org/all/20261116194214.45174-1-kapoorarnav43@gmail.com/
-> 
-> Compile-tested only (W=1, checkpatch --strict clean); I don't have
-> BH1745 hardware.
-> 
->  drivers/iio/light/bh1745.c | 31 +++++++++++++++++++++----------
->  1 file changed, 21 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/iio/light/bh1745.c b/drivers/iio/light/bh1745.c
-> index 2b8ff36071b8..e2c03cd0d1e3 100644
-> --- a/drivers/iio/light/bh1745.c
-> +++ b/drivers/iio/light/bh1745.c
-> @@ -17,6 +17,8 @@
->  #include <linux/bits.h>
->  #include <linux/bitfield.h>
->  
-> +#include <asm/byteorder.h>
-> +
->  #include <linux/iio/iio.h>
->  #include <linux/iio/sysfs.h>
->  #include <linux/iio/trigger.h>
-> @@ -421,19 +423,20 @@ static int bh1745_read_raw(struct iio_dev *indio_dev,
->  			   int *val, int *val2, long mask)
->  {
->  	struct bh1745_data *data = iio_priv(indio_dev);
-> +	__le16 value;
->  	int ret;
-> -	int value;
->  
->  	switch (mask) {
->  	case IIO_CHAN_INFO_RAW:
->  		if (!iio_device_claim_direct(indio_dev))
->  			return -EBUSY;
->  
-> -		ret = regmap_bulk_read(data->regmap, chan->address, &value, 2);
-> +		ret = regmap_bulk_read(data->regmap, chan->address, &value,
-> +				       sizeof(value));
->  		iio_device_release_direct(indio_dev);
->  		if (ret)
->  			return ret;
-> -		*val = value;
-> +		*val = le16_to_cpu(value);
->  
->  		return IIO_VAL_INT;
->  
-> @@ -503,6 +506,7 @@ static int bh1745_read_thresh(struct iio_dev *indio_dev,
->  			      enum iio_event_info info, int *val, int *val2)
->  {
->  	struct bh1745_data *data = iio_priv(indio_dev);
-> +	__le16 value;
->  	int ret;
->  
->  	switch (info) {
-> @@ -510,18 +514,22 @@ static int bh1745_read_thresh(struct iio_dev *indio_dev,
->  		switch (dir) {
->  		case IIO_EV_DIR_RISING:
->  			ret = regmap_bulk_read(data->regmap, BH1745_TH_LSB,
-> -					       val, 2);
-> +					       &value, sizeof(value));
->  			if (ret)
->  				return ret;
->  
-> +			*val = le16_to_cpu(value);
-> +
->  			return IIO_VAL_INT;
->  
->  		case IIO_EV_DIR_FALLING:
->  			ret = regmap_bulk_read(data->regmap, BH1745_TL_LSB,
-> -					       val, 2);
-> +					       &value, sizeof(value));
->  			if (ret)
->  				return ret;
->  
-> +			*val = le16_to_cpu(value);
-> +
->  			return IIO_VAL_INT;
->  
->  		default:
-> @@ -547,6 +555,7 @@ static int bh1745_write_thresh(struct iio_dev *indio_dev,
->  			       enum iio_event_info info, int val, int val2)
->  {
->  	struct bh1745_data *data = iio_priv(indio_dev);
-> +	__le16 value;
->  	int ret;
->  
->  	switch (info) {
-> @@ -554,10 +563,12 @@ static int bh1745_write_thresh(struct iio_dev *indio_dev,
->  		if (val < 0x0 || val > 0xFFFF)
->  			return -EINVAL;
->  
-> +		value = cpu_to_le16(val);
-> +
->  		switch (dir) {
->  		case IIO_EV_DIR_RISING:
->  			ret = regmap_bulk_write(data->regmap, BH1745_TH_LSB,
-> -						&val, 2);
-> +						&value, sizeof(value));
->  			if (ret)
->  				return ret;
->  
-> @@ -565,7 +576,7 @@ static int bh1745_write_thresh(struct iio_dev *indio_dev,
->  
->  		case IIO_EV_DIR_FALLING:
->  			ret = regmap_bulk_write(data->regmap, BH1745_TL_LSB,
-> -						&val, 2);
-> +						&value, sizeof(value));
->  			if (ret)
->  				return ret;
->  
-> @@ -741,18 +752,18 @@ static irqreturn_t bh1745_trigger_handler(int interrupt, void *p)
->  		u16 chans[4];
->  		aligned_s64 timestamp;
->  	} scan = { };
-> -	u16 value;
-> +	__le16 value;
->  	int ret;
->  	int i;
->  	int j = 0;
->  
->  	iio_for_each_active_channel(indio_dev, i) {
->  		ret = regmap_bulk_read(data->regmap, BH1745_RED_LSB + 2 * i,
-> -				       &value, 2);
-> +				       &value, sizeof(value));
->  		if (ret)
->  			goto err;
->  
-> -		scan.chans[j++] = value;
-> +		scan.chans[j++] = le16_to_cpu(value);
->  	}
->  
->  	iio_push_to_buffers_with_ts(indio_dev, &scan, sizeof(scan),
-> 
-> base-commit: a6d9114f68c4b5507b2d945bd6d1e37415f913c5
+The AC200 derives its 24 MHz reference clock from PWM1, so enable the
+PWM controller and the pwm-clock node that supplies it. Also enable
+I2C3, over which the AC200 is accessed, and describe the AC200 EPHY
+package on the EMAC MDIO bus, with the EMAC operating in RMII mode.
 
+Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+
+---
+The AC200 MFD and EPHY drivers/bindings and the sun50i-h6.dtsi AC200
+description this depends on are already merged in sunxi/dt-for-7.5.
+---
+ .../dts/allwinner/sun50i-h6-taiqicat-a01.dts  | 40 +++++++++++++++++++
+ 1 file changed, 40 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-taiqicat-a01.dts b/arch/arm64/boot/dts/allwinner/sun50i-h6-taiqicat-a01.dts
+index 225f42bd3b9e..9b192caeecb2 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-h6-taiqicat-a01.dts
++++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-taiqicat-a01.dts
+@@ -14,6 +14,7 @@ / {
+ 	compatible = "ultrapower,taiqicat-a01", "allwinner,sun50i-h6";
+ 
+ 	aliases {
++		ethernet0 = &emac;
+ 		ethernet1 = &sdio_wifi;
+ 		serial0 = &uart0;
+ 	};
+@@ -87,6 +88,10 @@ wifi_pwrseq: wifi-pwrseq {
+ 	};
+ };
+ 
++&ac200_clk {
++	status = "okay";
++};
++
+ &cpu0 {
+ 	cpu-supply = <&reg_dcdca>;
+ };
+@@ -107,6 +112,14 @@ &ehci3 {
+ 	status = "okay";
+ };
+ 
++&emac {
++	pinctrl-names = "default";
++	pinctrl-0 = <&rmii_pins>;
++	phy-mode = "rmii";
++	phy-handle = <&ac200_ephy>;
++	status = "okay";
++};
++
+ &gpu {
+ 	mali-supply = <&reg_dcdcc>;
+ 	status = "okay";
+@@ -123,6 +136,29 @@ hdmi_out_con: endpoint {
+ 	};
+ };
+ 
++&i2c3 {
++	status = "okay";
++};
++
++&mdio {
++	ethernet-phy-package@1 {
++		compatible = "x-powers,ac200-ephy-package";
++		reg = <1>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++		vcc-supply = <&reg_aldo2>;
++		nvmem-cells = <&ephy_calibration>;
++		nvmem-cell-names = "configuration";
++		x-powers,ac200 = <&ac200>;
++		x-powers,xmii-rx-clock-inverted;
++
++		ac200_ephy: ethernet-phy@1 {
++			compatible = "ethernet-phy-id0044.1400";
++			reg = <1>;
++		};
++	};
++};
++
+ &mmc0 {
+ 	vmmc-supply = <&reg_cldo1>;
+ 	cd-gpios = <&pio 5 6 GPIO_ACTIVE_LOW>; /* PF6 */
+@@ -173,6 +209,10 @@ &pio {
+ 	vcc-pg-supply = <&reg_bldo3>;
+ };
+ 
++&pwm {
++	status = "okay";
++};
++
+ &r_i2c {
+ 	status = "okay";
+ 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.56.1
 
