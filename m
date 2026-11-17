@@ -1,85 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794904033;
-	b=oUtinbFmwjC/xKM4p88InPvxMbLRfiBs98AZ7AOb3VTYFhDgfTWcz1oVTawDbTKkx9jP
-	 o0rngSowoDMCwxGcO1oXOp/ML3JGTf3y6GKEecUvIJlSe5GnL5lrz4UGVTc/uGzfYcxXE
-	 AcC+lhD+E87nUVrT0ag1huL7oB9qHItUhfmvwEuOja/YToH6FdAXq8DERoyjD0FPSAwj9
-	 7G8NNuyftIiDYuudcAcRPbhzsX551Ac5jxWFRw0i7Rsrkp7PIHT+gnf0dbj03pt24YsVh
-	 tOAcGH3ZzGY/DLjvw/PB1ZQSsWx8Ub1LX29E6CgQU/XQb2O6mS5UaMQ8xcGytLhLOsQ==
+	t=1794904083;
+	b=EryJB7ffy6/6idoJr0EjWtds5Wq9OJsTkiR4RQbAoke/RbN9r6kWI3WM95bUru08KTOd
+	 Ohwi9OA+Kx6nxfCg9jX3P5dm+NFUvZdbLxc2hkR3owrm+rWRJIpoxtDtrSKrHCEP4bFWN
+	 IoaEAZ0DE0Eq60rwgi6gPbyn3rfudb7S7qgigPMg/exdwTJ274OTvmaTg17IyYqOuRvk1
+	 qDdPYq2DKrXJRXlmMNqf3/AU3ISqogc3BLAuY/WI3nZhWf7pXF3c8sBwOov3u+TuDSZDk
+	 U3ojTW8pBNYQiFVjTrltHc862Tkvayk8LdYjpflS3I/SvSo2vVT0ZvQNuV2qko0fguQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794904033;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=Ed7iUS0U5CnvPsuOYpamrbAR5C5+fE6nd2B780j81oU=;
-	b=Bqniaa3CwGSGU0u7RNkoFaWMtZccdJyeUsf8BziCw9q7tsa+viYQ2pbZpxHIvNQorL52
-	 I8uF54meSMhiBo9ippPMygBFP5qfo495U1KZZWBDyJv1a0JxzeROPsPOHWNyBtWaKDKaB
-	 hs186NzD2hbRFSA+oQlcNsnR60kUfV5rHK60nDCBCL6ZdRqD+e7pcNhkpUL2e51tKfzjU
-	 IAVjWeq2GmnU4mbJv/v404icajFRf0aICJpeOIOKM52fPfsE/BWa5JcDdq0f2vqse+eMd
-	 n7GlqLVgesrmbrajIEt1vPuHDu33pp7XvUigFvTWRxpkLzoqPbapyPglJuj1/wcxPnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794904083;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:Received:Received:Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-ID:
+	 References:In-Reply-To:To:CC:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-ADIRuleOP-NewSCL:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=uivMuJZoe2S/0CQvYgZGebbq60EIzw0/WQEXTk9GKmI=;
+	b=Qv5v3jXeyKoSU3H1BcUJJY3Q6fJww6I1GpV0WV837M4tidzF+6e9ytcDz/QKgZqrBaVb
+	 pvWTN3vNMqV6fmS8Qcx5CwIvZkY2Y6VeOBlF7MA4DrnoCZtGny3c/q7LalIC6kNSQ/Ngf
+	 XMa/gyoaKlx2kiyOMk0coX3Cda7Y/bwczI0DI/jUGE8PpgAYYe3IuNxHCWZ75sJiYcTZd
+	 IJOGyPASe+ZqVrFvpRpDoLShTp9rtvVziiZpOJujnINVJmnRn31s5J+LAUb5QzeB8hkuX
+	 3eBN/q4/wBQIRsGYUVwMKm84DWUbxdOJQtdR/3yjwAKDI2oc72+tlgxSia+lX1nRJuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=h+zXrz95;
-	arc=none smtp.remote-ip=192.198.163.19
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=analog.com;
+	spf=pass smtp.mailfrom=analog.com;
+	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=MRIs0DGW;
+	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=jX79ENAr;
+	arc=none smtp.remote-ip=148.163.135.77
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57830606A31C;
-	Tue, 17 Nov 2026 08:27:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57830606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37CA2606A332;
+	Tue, 17 Nov 2026 08:28:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37CA2606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=h+zXrz95
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794904032; x=1826440032;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=dMXD8ZD8ryDSCMyt3FwGmokXKv5XQH3eCmXH6aPFcug=;
-  b=h+zXrz95/JDaFfvlTL7OWpMdQoxG1nt0xmRHXWSnOmWtuUGn08aPCotl
-   l05Wi/XBf4zMYu8yYH9G0IE7dEO5akVbkk3CZps1VAx4u/M1cDilKvjpZ
-   m3aziIXNi2G/1gdHi2tm/+tzy+v86i6I0rmiuGvEejwx7MEb7UwQfBynd
-   HQLQR3sLq+/4YcIS2e05C6HqWkeGjw2mER/v5U56LW58xS1iKD4xpleAI
-   iuY4g0SU8FfvrA8y3Wm087QAXay9Df7UowHQ7CZVrX51M8CbputzWllRK
-   fXTAgzuFYHsjnEuh8X6bsFniR9pRlLdnoK0Yv1B/ZKecRGIObNcuhenIc
-   g==;
-X-CSE-ConnectionGUID: G9Eka+AAQeudJIrRTAz3yw==
-X-CSE-MsgGUID: cKmJJYiASriiFHovMqCxyg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3774903"
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3774903"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 00:27:11 -0800
-X-CSE-ConnectionGUID: Jk00HV35TASG//wsHNBoJA==
-X-CSE-MsgGUID: xt88/7hFRkKbVtmnzqxi7A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="9853008"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.254])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 00:27:07 -0800
-Date: Tue, 17 Nov 2026 10:27:04 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Joseph Telaak <joseph@telaak.dev>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Peter Rosin <peda@lysator.liu.se>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux@analog.com,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH 5/5] iio: potentiometer: mcp4018: Add Analog Devices
- AD5246
-Message-ID: <avwP2P1zTgFteODM@ashevche-desk.local>
-References: <20261116-iio-ad5246-v1-0-ef6b7c06d4b0@telaak.dev>
- <20261116-iio-ad5246-v1-5-ef6b7c06d4b0@telaak.dev>
+	dkim=pass (2048-bit key) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=MRIs0DGW;
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=jX79ENAr
+Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH8B2RD1698774;
+	Tue, 17 Nov 2026 03:27:41 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	DKIM; bh=uivMuJZoe2S/0CQvYgZGebbq60EIzw0/WQEXTk9GKmI=; b=MRIs0DG
+	WUCxIQCVHqMxgP9dLXmx0lI0ysoVFhjyLoaGzVhyZIvdL+4A2XTN87t8hMjCOPeb
+	iZxj9EwuSAGblTRu/hAbETReLUCD46TU1y9dPczBaT1+RAsJnRqNDSyJe3EU6KtJ
+	yh+Y81MAOS84W7fBiXZTcveQzr0RV6QSDuWxY/S4rvxPqRQTBWaXUjlKJKOlaWcS
+	4G8VQ3OrKxn8WNpnGVl8wlHNC8vsgRubKvtrRw/q8Cr96zjSoHGfvTIeU6cuNI+i
+	zWr1NgbMAupa0DiUHhXmE0thh0IVpBuUUJsKRELkNFwas+oH5CdlW+lMcAk+TehF
+	wpab/RP7FyPNFLA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=uivMu
+	JZoe2S/0CQvYgZGebbq60EIzw0/WQEXTk9GKmI=; b=jX79ENAr0jo8icPQZnTGS
+	+mP9qFBlHUUD4lWlpzUSmM1HuDpUKmZZbdkSCMhLSxawqbye1xPVhCXWj0/3fYDv
+	PqiqZoEwZhWmKLFIeGY3wlgPsXjjQC9pdWKjA5lHW5Mp5LyYhIjON5QNdl9lPj4E
+	cjNaKeuszsFvuT9exCDDNB7kbb5rhH6yGKsp409M+DBZW6/AlP6rJ4GbildXFK6A
+	wvQUB3qzmk9aa577YfV4sGYh7xv2An9Bage8+vLSTuz84dxa2+QX8UT+/7yyQrZv
+	nQRCl4/8ysIFPEY748DbO5M8QgiMaFOV1sZ7JZJAko+oiCciSUvq+/gCRodojq/S
+	Q==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4j0k6mr388-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 17 Nov 2026 03:27:41 -0500 (EST)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 6AH8Rdsx046873
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 17 Nov 2026 03:27:39 -0500
+Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
+ ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 17 Nov 2026 03:27:39 -0500
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
+ ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 17 Nov 2026 03:27:39 -0500
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.2562.56 via Frontend
+ Transport; Tue, 17 Nov 2026 03:27:39 -0500
+Received: from ATORRENO-L02.ad.analog.com ([10.66.6.192])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6AH8RFcl007690;
+	Tue, 17 Nov 2026 03:27:29 -0500
+From: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+Date: Tue, 17 Nov 2026 16:26:48 +0800
+Subject: [PATCH v3 1/3] dt-bindings: hwmon: ltc4283: add ltc4284
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,141 +97,170 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116-iio-ad5246-v1-5-ef6b7c06d4b0@telaak.dev>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-ID: <20261117-staging-ltc4284-v3-1-326bb844e08c@analog.com>
+References: <20261117-staging-ltc4284-v3-0-326bb844e08c@analog.com>
+In-Reply-To: <20261117-staging-ltc4284-v3-0-326bb844e08c@analog.com>
+To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+        Guenter Roeck
+	<linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski
+	<krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet
+	<corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap
+	<rdunlap@infradead.org>,
+        Linus Walleij <linusw@kernel.org>,
+        "Bartosz
+ Golaszewski" <brgl@kernel.org>
+CC: <linux-gpio@vger.kernel.org>, <linux-hwmon@vger.kernel.org>,
+        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <linux-doc@vger.kernel.org>,
+        Alexis Czezar Torreno
+	<alexisczezar.torreno@analog.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794904036; l=3512;
+ i=alexisczezar.torreno@analog.com; s=20250213; h=from:subject:message-id;
+ bh=hNTQVnQ97p9HrzNo4KRtFvaC8bGXblkMbJn2E7CYo24=;
+ b=aAxNmb9xF4fPlUwazVQD/KGyuhkPxzWG78BCFMPXA1L/5wj9RjcWsxOdAhzKfQ+pVe7kk80u2
+ BQcZZ98Hdc6B+vpnZGS4sDhk4vVhojVhi6dQtqOupR3NL9Fi7Ui1KJi
+X-Developer-Key: i=alexisczezar.torreno@analog.com; a=ed25519;
+ pk=XpXmJnRjnsKdDil6YpOlj9+44S+XYXVFnxvkbmaZ+10=
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDAzMyBTYWx0ZWRfX805T4OQbhl7r
+ 23vBA8XiGZCdlMGDCubgAwle679JW3HPEsjwkbegdL4O6xUfnUBFrfntr0ynGk0AkY66zGIcOTA
+ bn6//Omw3Uom3u7dNGv9IT5sItjJ040Q85X5i+UTyhKHtvkxJgB0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDAzMyBTYWx0ZWRfX30aCrMDQ/hN5
+ GA8hT2dJnVwGw2LqZyy8JkdeT8XduFzzdyTgZuXbsbF9JqLvXvuotn1YCF2hwjiFxqpJh002A2e
+ COPfOU99+HncLaRwRp+q1RutRNm7TuLcQYeg3+rBelvuVnHc92s233wSA771zpROlK0Ly2mI1mD
+ JCnmy4BRt3Iu5UQ82sK6QMrvwc2fB+pzP2D4BgDuFWK3+lR/DqN5QSQKAVlgb7E2KJLy52DU7cn
+ mXiWNDZhvVrOTGlBG4+gis7SelEHf/7yVwsGW22fPIysmCIMo+9ua0ebvOab/eqVAMLHf+10p8t
+ mowv33HQbvDyaP5vovOnNeH/ME+VCWleZpMtnoztbsYRE/UwUoJA2WFPVJ7JrdX4VTlV9+rY3ze
+ FxHy8TWTHMSl09IIUerrxFjfcmqGYWxx6Yjc78Y6MHE5Ie6C/Ot9q8uyyAhz+PJRtuNymQ2b6fH
+ dlVNg3lmF9XirKJ5PkA==
+X-Authority-Analysis: v=2.4 cv=O7OsLx9W c=1 sm=1 tr=0 ts=6afc0ffd cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=0sLvza09kfJOxVLZPwjg:22 a=Z0pTeXoby7EwIRygza74:22 a=gAnH3GRIAAAA:8
+ a=Mr05Dj8HPuIH2qX4H8UA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: rrjoGCD-rZm-BCJurAaUZnckVuNB8Or-
+X-Proofpoint-ORIG-GUID: rrjoGCD-rZm-BCJurAaUZnckVuNB8Or-
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_01,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 suspectscore=0 malwarescore=0 impostorscore=0 clxscore=1015
+ priorityscore=1501 adultscore=0 spamscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170033
 
-On Mon, Nov 16, 2026 at 05:59:54PM -0500, Joseph Telaak wrote:
-> The AD5246 is a 128-position digital rheostat with the same I2C
-> interface as the MCP4017/18/19: a single data byte writes the 7-bit
-> wiper and a single-byte read returns it, with no command byte. Add its
-> four resistance options.
-> 
-> Its resistance is D/128 of the end-to-end value, where the MCP401x's is
-> D/127, so the scale divisor moves into the per-part config.
-> 
-> The misc ad525x_dpot driver also knows the AD5246, by I2C id only and
-> through its own sysfs files. It can't provide an IIO channel, which a
-> consumer such as dpot-dac needs. The AD5272 is likewise in both drivers.
-> 
-> Tested on an AD5246 at 0x2e that sets a fan's speed, described as
-> adi,ad5246-010 with a vdd-supply. It probes, out_resistance0_raw_available
-> reads [0 1 127] and out_resistance_scale reads 78.125000000. Raw writes
-> of 0, 64, 100 and 127 read back the same value, and 128 is rejected.
-> Writes through iio_write_channel_raw() from an in-kernel consumer of the
-> channel read back as well (127, 38, 0 and 76).
+The LTC4284 is a negative voltage hot swap controller that drives an
+external N-channel MOSFET to allow a board to be safely inserted and
+removed from a live backplane.
 
-...
+Note that this device has a MODE pin that is determined by differing
+voltage levels (VEE, VIN, INTVCC, or left open) and cannot be
+controlled via software or GPIO.
 
->  config MCP4018
-> -	tristate "Microchip MCP4017/18/19 Digital Potentiometer driver"
-> +	tristate "Microchip MCP4017/18/19 and Analog Devices AD5246 Digital Potentiometer driver"
+Signed-off-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+---
+ .../devicetree/bindings/hwmon/adi,ltc4283.yaml     | 56 ++++++++++++++++++++--
+ 1 file changed, 52 insertions(+), 4 deletions(-)
 
-Make it shorter and more generic, in this way you spread the same text to the
-top comment in the file
-
-- * Industrial I/O driver for Microchip digital potentiometers
-+ * Industrial I/O driver for $SAME_TEXT_AS_PER_ABOVE
-
-and to MODULE_DESCRIPTION().
-
-For example,
-
-	tristate "Microchip MCP4018 and compatible Digital Potentiometer driver"
-
- * Industrial I/O driver for Microchip MCP4018 and compatible Digital Potentiometer
-
-MODULE_DESCRIPTION("Microchip MCP4018 and compatible Digital Potentiometer driver").
-
->  	depends on I2C
->  	help
->  	  Say yes here to build support for the Microchip
-> -	  MCP4017, MCP4018, MCP4019
-> -	  digital potentiometer chips.
-> +	  MCP4017, MCP4018, MCP4019 digital potentiometer chips
-> +	  and the Analog Devices AD5246 digital rheostat.
-
-And here make it list that is scalable to expand
-
-	  Say yes here to build support for the Microchip
-	  digital potentiometer chips:
-
-	  - MCP4017, MCP4018, MCP4019
-
-	  and Analog Devices digital rheostats:
-
-	  - AD5246
-
->  	  To compile this driver as a module, choose M here: the
->  	  module will be called mcp4018.
-
-...
-
->   * DEVID	#Wipers	#Positions	Resistor Opts (kOhm)
->   * mcp4017	1	128		5, 10, 50, 100
->   * mcp4018	1	128		5, 10, 50, 100
->   * mcp4019	1	128		5, 10, 50, 100
-> + * ad5246	1	128		5, 10, 50, 100
-
-Keep it sorted.
-
-...
-
->  struct mcp4018_cfg {
->  	int kohms;
-> +	/* Wiper position divisor: R = raw * kohms / div. */
-> +	int div;
-
-Why signed? Can the HW return something negative?
-
->  };
-
-...
-
->  enum mcp4018_type {
-
->  	MCP4018_103,
->  	MCP4018_503,
->  	MCP4018_104,
-> +	AD5246_005,
-> +	AD5246_010,
-> +	AD5246_050,
-> +	AD5246_100,
-
-Keep it sorted.
-
->  };
-
-...
-
->  static const struct mcp4018_cfg mcp4018_cfg[] = {
-> -	[MCP4018_502] = { .kohms =   5, },
-> -	[MCP4018_103] = { .kohms =  10, },
-> -	[MCP4018_503] = { .kohms =  50, },
-> -	[MCP4018_104] = { .kohms = 100, },
-> +	[MCP4018_502] = { .kohms =   5, .div = MCP4018_WIPER_MAX, },
-> +	[MCP4018_103] = { .kohms =  10, .div = MCP4018_WIPER_MAX, },
-> +	[MCP4018_503] = { .kohms =  50, .div = MCP4018_WIPER_MAX, },
-> +	[MCP4018_104] = { .kohms = 100, .div = MCP4018_WIPER_MAX, },
-
-Strictly speaking this patch can be split to two:
-- adding 'div' member and providing it for the existing chips
-- adding new chip support
-
-> +	/* The AD5246's resistance is D / 128 of the end-to-end value. */
-> +	[AD5246_005] = { .kohms =   5, .div = 128, },
-> +	[AD5246_010] = { .kohms =  10, .div = 128, },
-> +	[AD5246_050] = { .kohms =  50, .div = 128, },
-> +	[AD5246_100] = { .kohms = 100, .div = 128, },
-
-Keep it sorted.
-
->  };
+diff --git a/Documentation/devicetree/bindings/hwmon/adi,ltc4283.yaml b/Documentation/devicetree/bindings/hwmon/adi,ltc4283.yaml
+index 05e2132ad4d8621ab76ee89aa166c131fed08e85..ca62e76f23f1e32df157f138298a4650493b3f08 100644
+--- a/Documentation/devicetree/bindings/hwmon/adi,ltc4283.yaml
++++ b/Documentation/devicetree/bindings/hwmon/adi,ltc4283.yaml
+@@ -10,22 +10,42 @@ maintainers:
+   - Nuno Sá <nuno.sa@analog.com>
+ 
+ description: |
+-  The LTC4283 negative voltage hot swap controller drives an external N-channel
+-  MOSFET to allow a board to be safely inserted and removed from a live
+-  backplane.
++  The LTC4283 and LTC4284 are negative voltage hot swap controllers that drive
++  external N-channel MOSFETs to allow a board to be safely inserted and removed
++  from a live backplane.
++
++  The LTC4284 features dual-gate drivers with four operating modes (single
++  driver, parallel, high stress staged start, and low stress staged start)
++  configured via the hardware MODE pin. The MODE pin must be connected to the
++  appropriate voltage level (VEE, VIN, INTVCC, or left open) and cannot be
++  controlled via software or GPIO.
+ 
+   https://www.analog.com/media/en/technical-documentation/data-sheets/ltc4283.pdf
++  https://www.analog.com/media/en/technical-documentation/data-sheets/ltc4284.pdf
+ 
+ properties:
+   compatible:
+     enum:
+       - adi,ltc4283
++      - adi,ltc4284
+ 
+   reg:
+     maxItems: 1
+ 
+   adi,rsense-nano-ohms:
+-    description: Value of the sense resistor.
++    description:
++      Value of the sense resistor. For LTC4283, this is the resistor connected
++      between SENSE+/SENSE- pins. For LTC4284, this is the resistor connected
++      between SENSE1+/SENSE1- pins.
++
++  adi,rsense2-nano-ohms:
++    description:
++      Value of the SENSE2 current sense resistor. This resistor is connected
++      between SENSE2+ and SENSE2- pins.
++
++  adi,radc-nano-ohms:
++    description:
++      Value of the effective resistance seen by the ADC+/ADC- pins.
+ 
+   adi,current-limit-sense-microvolt:
+     description:
+@@ -195,6 +215,19 @@ required:
+   - adi,rsense-nano-ohms
+ 
+ allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: adi,ltc4284
++    then:
++      required:
++        - adi,radc-nano-ohms
++    else:
++      properties:
++        adi,rsense2-nano-ohms: false
++        adi,radc-nano-ohms: false
++
+   - if:
+       properties:
+         adi,pgio1-func:
+@@ -269,4 +302,19 @@ examples:
+             #gpio-cells = <2>;
+         };
+     };
++
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        swap-controller@20 {
++            compatible = "adi,ltc4284";
++            reg = <0x20>;
++
++            adi,rsense-nano-ohms = <2000000>;
++            adi,rsense2-nano-ohms = <2000000>;
++            adi,radc-nano-ohms = <1000000>;
++        };
++    };
+ ...
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.34.1
 
