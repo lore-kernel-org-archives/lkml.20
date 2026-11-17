@@ -1,74 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794874807;
-	b=x0EVLpZ/5/7QiKX+hauj+rQqKdRtnUuYVbfC/VonpfzSEs/rdl+ml/ORb+rPJE07O9AV
-	 kK0RnQnNk0kGDfW31OqxvPItGGCjxAhL+gZXnv99aYLWaransf8tZsgbdzLJFt+mmnPtW
-	 T1zYiJtqg+Hc+uU5iKM4W8pjHpkVQ7WDxSbmkbrTOTKOvu7eCdc8yYRkGV58BKYAzAPqx
-	 UTvCDhp21O9aCAuR6z3EkKDbSC12rwOoYi7i7HUrdtKZgqJgOveyd5gq9n93lZVSF91pZ
-	 z2C/AmaNYbTDpnpFS737hakIRnK2ta5HCoUPH2n6U19i3T23WZQ5y3FuBpAt9idESlw==
+	b=wBplru90nP/dGGh7YlfJzJLPJKc3bLc2NMLyh9ajFh4SnGKNn1mxCqMjveWHvvL6HDNO
+	 V2hCi+15gW57DHElCY6jKeard7GKO/U4Wu5mVaEPLiDtksF8Q1OOfEsMWnssOvmI7f5KT
+	 g+Q0QGiHPj8+Cak+Hp7V7JsoOKaC72Kq05SGN9Es1uTlUX+KsbhknkvqZwhiEn7rI+TB8
+	 51Ke0TE39noY2t9vhY8NqPcvPBaYLtUfAcTyHAx0P3M6A3tkt7XPtZ7dcqaBXHAJIdOJH
+	 S3VcYKUmNodR6evOrx9/MbHPUVcCRYxhJCwNsPLAeuPAAgvp4pqGBNIL1Be5kYGoqPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794874807;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=RbrdWR01eNMnnGuLY5WN6Vtdhl1qGXWujBNMei7/1vM=;
-	b=MXvuNvJ+SVwpy2+WYtFsgy1jgKKIFsqqZTSnL9QVHVXAT6UyuLI+e2BhDiu3Ju7saXjB
-	 K9Om5HamhQSXa+jBnyZ2cra0mvxHKeX1fuvKXlK14fdZhxwWcK7QoHed6aUAw4g9+hXWq
-	 1SoS9W/8HURQzhsKrNIvr+HmFkjWq5DC3f3Z9ytrCjAePqblnhcIr26Qnrg9OotetQadV
-	 k+h+2olZ+CHLfqZDIIUUbXJv9r+E5BbfRAqynu1N2eFGOwe1leiQXQ+3g/M5/vD7Fmeh8
-	 X1P53FALJZba4bCT5GMl26UeVEvx/3xmMdaTB2vseuk1QdFQ46S3p2DwzeYZV5paeEg==
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=YC0f0CFnTNvYryYxUtUimiX+FDelPcf3dZpNQNi0OF4=;
+	b=ehcACL2Vzz/pe4FzTHbVQnUxilkcdn/K2uRE4N+43R5Q7AuDbAaKbesOH5RVxMtV+C8P
+	 HRxN3gDdNxtzHLmJrfV94BGH/jKhtE20qiE0D6gOwJAqBKT0SdZJToIf7DTOwCJYo/DeE
+	 kJ7FLAxgO85PDbenMlbIc+Qd5TYsbklEj/4u/bqRGOhi9uG98Fu4Whxp8aTnhnBDUBBWt
+	 3Lfmg7nitrM+bqzeph8HW9ERCoDjY2qy1ZThI18oCrQrG1pMme6+o1zCF/BBJEHnKThOg
+	 Sbdl5fRJhdKcjmA6cQiJlvghEnIzHHArFTm67syholuMeuiKt6ow76RASFdJzH0DKvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="jLCrgO/i";
-	arc=none smtp.remote-ip=209.85.210.199
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XQ5MsPkw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76325606A333
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 00:20:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76325606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10B18606A31C;
+	Tue, 17 Nov 2026 00:20:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jLCrgO/i
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8bfe396acb4so1874026b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 16:20:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794874806; x=1795479606; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RbrdWR01eNMnnGuLY5WN6Vtdhl1qGXWujBNMei7/1vM=;
-        b=jLCrgO/ic/5lnMQoLSuLrcWSJJLk9j1wBeibgpvZL8bNE6cp2+DAZ4suo3V0FAEPKq
-         08+hn2pUgz9+rm4VMSeaIxfYqBX4BDOHKnP6sD+59Nhk0f1FW5RSl2QPG27DZ8+fOLSn
-         nyWialbSushN3fg6SCxfI6k5dvrXXNFQLFHXxPSmnmCdQFSQAayydmbjJFvWkH2S4Bg2
-         qPZLjVjPfykjdD7EA3sHhhKtQpO84FNt6TxtSef36NejxG0ZX2vaouBgFpbidkbUp3DQ
-         6CicRRms4ZEJCaOekZDduLe3c3J8U2AhJSvtoXBev7cYsyyRaBiyV8XGxZkSUVi9tUxG
-         97ww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794874806; x=1795479606;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RbrdWR01eNMnnGuLY5WN6Vtdhl1qGXWujBNMei7/1vM=;
-        b=u8LE2eVa4vzZYyG9vNrB+pN3u6Xsv5YQril3hK9763+xr+N4N/Uvgussx/mWFQQlhp
-         9obKLrd5sCNeUR4fVHeXGMSPT7i5327LzmkbE67VC7ugyy9agq77wMj+O01HDzpXswZs
-         Lg1wVNlVy/Y9g479NwZk6th3pzvPXrsxFgjRjLogDZNWouvip7tkq2QOwEpCuq87kb36
-         AiDgAOkb8fLUfoTjzUJnBbpDFUtUhfF6xP/i5h8CMZX4LC4HWvgkrA1cRd0rjyot5jVk
-         Xs9SDONeL0SYUCVNU1LTJ+VrWYCd0CsNmKAi+W8hzwlGCMAbFiAW5bPKdvxSRD/t/Ql9
-         kTTg==
-X-Forwarded-Encrypted: i=1; AL+hErHAKFRakUacLeJjsurhbNE0s+CCDVhluZsIG/Go55HmB6gsA52X1nsdcA8EoNumtSZrO61N0teDmP8PlYI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8JwzjtWTzYkypWEXt/p9lE4V7mQSDHf9kNm6TwRxGVVu1O80Ac
-	a7s8bgxhSx89A820Qr9rweQfVWLnq87RVF/yqfHs2DTVCmbMnhNxnjm4msYBKviveykQMYBTXnj
-	iwS9fwQ==
-X-Received: from pgby22-n1.prod.google.com ([2002:a05:6a02:6516:10b0:cd8:c6c2:d403])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:3f95:b0:3eb:b9e1:4341
- with SMTP id adf61e73a8af0-3f7a8cd8fcbmr9316238637.67.1794874806023; Mon, 16
- Nov 2026 16:20:06 -0800 (PST)
-Date: Tue, 17 Nov 2026 00:20:05 +0000
-In-Reply-To: <20261113193355.3820232-1-hengyul@cs.unc.edu>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XQ5MsPkw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82A491F000C4;
+	Tue, 17 Nov 2026 00:20:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794874806;
+	bh=YC0f0CFnTNvYryYxUtUimiX+FDelPcf3dZpNQNi0OF4=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=XQ5MsPkwbtaKe8d00NSxPCD6OAKrunNc+QRDoyviqNZYs08ebk67we41baAgJsZ2h
+	 xr/sLWo/CO092gU3aQzAQTvJysQkjXrAg49tqIWdfENtoql3GhutvIf3Mt8KZuscEB
+	 AZ8OAW1wX6zjjl5pIj/ZpB1y7m8GrXJC0nNdB2DeUv2XzPWluTcjA6tD4QzrLTI/Tg
+	 NKu7B2r7c+Ys8EUM1V6IK/wgTgZ/NaydHfhuR8FTEVQdeNGw/NE/FCr5zUrJHHKQbb
+	 smIB7QGSMg6sjhmlGlKpZla6F9JrUQYAt/F647lfLcEIbrTxXnr9ncgQ5qFzaNPc3z
+	 zkYWs2pi127hg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 7736C391AFE7;
+	Tue, 17 Nov 2026 00:20:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,57 +52,49 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261113193355.3820232-1-hengyul@cs.unc.edu>
-Message-ID: <avudn_RA-u2FweCW@google.com>
-Subject: Re: [PATCH net] neighbour: do not update an existing proxy entry on SIOCSARP
-From: Kuniyuki Iwashima <kuniyu@google.com>
-To: Hengyu Liang <hengyul@cs.unc.edu>
-Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, David Ahern <dsahern@kernel.org>, 
-	Ido Schimmel <idosch@nvidia.com>, Simon Horman <horms@kernel.org>, 
-	Sabrina Dubroca <sd@queasysnail.net>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v3 0/2] virtio_net: AF_XDP zero-copy fixes for arm64
+ and
+ XDP queues
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179487480503.257811.3119115367169464801.git-patchwork-notify@kernel.org>
+Date: Tue, 17 Nov 2026 00:20:05 +0000
+References: <20261110153003.23731-1-yanhaishuang@cmss.chinamobile.com>
+In-Reply-To: <20261110153003.23731-1-yanhaishuang@cmss.chinamobile.com>
+To: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
+Cc: mst@redhat.com, jasowangio@gmail.com, xuanzhuo@linux.alibaba.com,
+ eperezma@redhat.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, ast@kernel.org,
+ daniel@iogearbox.net, hawk@kernel.org, john.fastabend@gmail.com,
+ sdf@fomichev.me, netdev@vger.kernel.org, virtualization@lists.linux.dev,
+ bpf@vger.kernel.org, linux-kernel@vger.kernel.org
 
-On Fri, 13 Nov 2026 14:33:55 -0500, Hengyu Liang wrote:
-> Commit dc2a27e524ac ("neighbour: Update pneigh_entry in
-> pneigh_create().") moved the update of flags, protocol and permanent
-> from neigh_add() into pneigh_create().
-> 
-> However, arp_req_set_public() also calls pneigh_create(), with all
-> three set to zero. As of now, SIOCSARP on an address that already has a
-> proxy entry clears the flags of the entry and makes it non-permanent.
-> The entry is then removed when the carrier goes down, and the host no
-> longer answers ARP requests for the address.
-> 
-> A similar issue happened before with the protocol. It was fixed by
-> commit cbada1048847 ("neighbour: restore protocol != 0 check in pneigh
-> update"). Perhaps flags and permanent need a fix as well.
-> 
-> The issue can be reproduced with:
-> 
->     ip link add d0 type veth peer name d1
->     ip link set d0 up
->     ip link set d1 up
->     ip neigh add proxy 10.9.9.9 dev d0
->     arp -i d0 -Ds 10.9.9.9 d0 pub
->     ip link set d1 down
->     sleep 1
->     ip neigh show proxy
-> 
-> Before commit dc2a27e524ac ("neighbour: Update pneigh_entry in
-> pneigh_create()."), the result is:
-> 
->     10.9.9.9 dev d0 proxy
-> 
-> After that commit, the result is empty.
-> 
-> This patch will add an update argument to pneigh_create(). Only
-> neigh_add() sets it, so SIOCSARP leaves an existing entry alone again.
-> 
-> Fixes: dc2a27e524ac ("neighbour: Update pneigh_entry in pneigh_create().")
-> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+Hello:
 
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+This series was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-Thanks !
+On Wed, 11 Nov 2026 00:29:59 +0900 you wrote:
+> Two AF_XDP zero-copy fixes for virtio_net.
+> 
+> Patch 1: on arm64, binding a zero-copy socket fails with -ENOMEM and a
+> "rejecting DMA map of vmalloc memory" warning whenever the device uses
+> the DMA API (e.g. VIRTIO_F_ACCESS_PLATFORM), because the static TX
+> header lives in the kernel image, which arm64 maps in the vmalloc area.
+> 
+> [...]
+
+Here is the summary with links:
+  - [net,v3,1/2] virtio_net: Don't DMA map the kernel image for the AF_XDP TX header
+    (no matching commit)
+  - [net,v3,2/2] virtio_net: Disable AF_XDP pools on queues above curr_queue_pairs
+    https://git.kernel.org/netdev/net/c/1932779607d2
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
