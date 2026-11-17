@@ -1,115 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.43
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794920411;
-	b=F1F4aeLjIBcrdL2g5gtECMq80s1b4yXtagbkQQWvL1AQ4k1ADZHGF16FnmcEaYf0/zuz
-	 rRCoajlHteP1qovcxhNZ85SchQwuD0XMg/jpgy6gibqZlEvYXJN81jfGKixoLU5W3zTLI
-	 2pXHl2mvVjwwE6iqv2yBU8Chlh66EQNUuluwFCMG4zy1wmCvEiu9DSXvr2LS17Uenkbmb
-	 IjP47rz7ylcK81kvy1ka5o6NgRJSrQkJR2NHWw2DXWJNNwekb3SFtlTjTiymBVk3Tp93E
-	 rmQOxsxrEjEASQIhomHdOyc43D+kxPAMsdA7/73rPkHU9Cm4GA7C1xA1y4K/UnNPOiA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920411;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=QHFqCnsPAP40ABSi/lHx2qUxkasVh8VfNqtA5qQ6pG8=;
-	b=FjdDQB4/yq1z9S8CuxjPOd6BlI5W1Eb2/lt+PfaMI53FSAgg4RYiFRn4fyqzcU4M1SHv
-	 JbYp1bP0OV/8uESCG3sFJB4ITZNbYkpI5jnLLsjxOM2ob/hjQaVnYbOC4YTZ3EucnIk3G
-	 EoxVBcWmgKKuSvtDDRkMtLFKZoYWwqL4+xHEX1VPQjshQSAYNoc9qek9M0YxlNCO0V5bp
-	 Jw0NZaiQXdQ+4a701qmpvJO0NSpzgL8vtt9sJR/9xGn7XyKAVJcICsLFP2KcjAGfDgsaN
-	 NwbkvMNvhOdk9LvTV9WELCK1w0w4rjabHS1JOJL99DBkmP+iVgM9ULcBPerSJtvbG2A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b="f/sG3061";
-	arc=none smtp.remote-ip=209.85.219.43
-Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794920416;
+	b=fbxPRFhXFa+Xvb8mw5qUswlH+aMVyAYm8/9reVvFLn8hlWfkY5x+U2ISvdiA2ramwKNF
+	 0aA+EiJLridirBX0+wQTR67T01+tzxtmD0PEa+gRZEQvfxkkgDiE/kZO7DH8LnKxHKoRw
+	 LCbWU5mKgwqKyWoh7dXFLrn37lMx9eDW0aBZ/tmB2+L2YDEWtHTRyK3/TPuudYEyGGF0m
+	 ZBD7LUbR8ehQwPLOJHDLtYkJKK4K40l6WpYg/TSzeEX0J9yF70RkNI073yeLvszapOfPT
+	 ane5YGUv9zj/+/XCN0IoyLYO9fmB3attu8Hded18bPrwCBOEcwOQzONTjXDS1u4MAvw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794920416;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=XgOJof+TBeTiJZcdxs7bxkbtxyWej7BoJRUS68w6H2Q=;
+	b=2Ycqjt9NxiRYo8Alw4HBLbxEQ3QnVwhNSw0NmZ7711ptwrckhnb8HUTqst7WjjpJF2+m
+	 /hoRu2Sj9/YqxKzrlD7R7NXJvBTaYVzkzhO//lZCRc5a1t2x5EJipadMGZK3n54bHFHEo
+	 qURtnn6q2GIzuqG9HKCc6UA4CaWQ7yCAFZyz9QsEipZl79cUW4klPcw3BbOlk1zvYrp3o
+	 YdFRWSoF1WpFFAVq3nj+0glGmqJHjLyEuk3Mj16OsEUCLnD5AfuHBRVR5n+VLvUwFjPsT
+	 qQBveZqmLzRVPGiUvfvZ7S0igckD28VHy8seuX3kiXkpgUgJGw3WZlkmRpYbyl0V8Kg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LRM0eYzw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF0A1606A8BF
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 13:00:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF0A1606A8BF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2AD7606A88E;
+	Tue, 17 Nov 2026 13:00:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=f/sG3061
-Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-91f11161831so29933956d6.1
-        for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 05:00:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1794920409; x=1795525209; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QHFqCnsPAP40ABSi/lHx2qUxkasVh8VfNqtA5qQ6pG8=;
-        b=f/sG3061BiDtzYbu/u9CMnLL3fCvqZDyjJyMktvEFUz3a2EL7GbMEblMaUGHRCccZb
-         amJ1tPmMY5qRz+xDbqHepfli9In09eKumZOL0YVJbC+kk+2Oz9/6s1IvGxQxvC9H1MRM
-         4utrNUgF2Ir4qMwPkcDmFSqDiHVbdj6Hw9ZpQ5tcC6UXm/cJzsd9tuHY1yPYuo/jI5UB
-         oInfS8kaWsmVfM2HsfGTm5UGLYaBmk9MDvcmBoLxAIOdDKZZR09vjlrn77Yf8d0bgeo6
-         KbD8o1R/mXI8WEeK3aorXTXQhIOXV8P3nUOyV2fCi2oPxWeVYClMWVk2QspiPzG92hbS
-         d4Uw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794920409; x=1795525209;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QHFqCnsPAP40ABSi/lHx2qUxkasVh8VfNqtA5qQ6pG8=;
-        b=Y7AqMo/KN8fTlVAwCpLwdghFFzarFTMy/nK5rkQhiOtUClOFn8Gx7Gchldf3t8qpKr
-         PPUFINdpcwwKoQ77A8XGLNevcoFb+IxIyhiUPgeGvqBiKxRyNf9B4jo8RmRsSwlaWWbw
-         WNoYveThC2+kAsC3rM1CmHS7n7lABLy0AqnH/2wN/76n29skm5Aw37LTzeEeYsP0x/c0
-         I2/LgaOuKas1RE+Ky/OvkoMeNMwGdDv2eWqenpga6QuMHDoBN0oH+YCQj9dDBoSBCnNz
-         A6yRXaLHn8FrFzSBPkYFz8RRJPpTL7LlsY+p5Wq8jstE2Mr7J87FBbUGA2aXUuo0IOAt
-         ClFQ==
-X-Forwarded-Encrypted: i=1; AL+hErF9HS9wZOOuHfj1x1D7QEadi8FIpr3AXvgxVvdaFErcNopWbtNwbsRe1iEeU5aOrTmuZaNsed5M0M+KUSQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/weDXV73m5AQsR9hlGs6Bb7ML4WWN0u2A37NFwxlvgpw9v+NOG
-	sdOc27fw/ZlQhIbUxa+S8zcfmzJgYU9qyqsgbFq62XCDT5HUlnJBLr9GL/hAaZh2Cik=
-X-Gm-Gg: AYBFou1h25CWJDPkr9dDPi62tPyIFVhG7DjrV3pMGHKGjw+MA74RSzecKY/yVhoJuWw
-	feVW6mTNLu+9O22k6Sx8oG3pNCSpq+PQ1GfU2HfsyybVWzQDxWlZ6EVpcvAMOqYpFSXLkcgpfnn
-	Id4LSrVAqpYYa2YE1o3USTh238YVmLnBGMllqcCQzLX8p7OwzhCUqJW3V57kYmBSE26zsaHq88i
-	u5sbzQdnP1yLBbgB6VLN/9ZgSuLpB3U4NfqM1Nlt4iGkqXrl2qEnSEpzU2oqJ7OX7rWw9KlXAx1
-	63S7o7F10h/0sOAerFUn7E4Z154RQZIVgrB61yMWoimZjy7eS3ZxAmcjLdCilAhpAH19UFdTSI8
-	wQ3oMJGkxhaA1NWHZ8jxqiz7iNwua4y7rOM2DwPaJSFmGCkg1vCAk1GtmtHS2UPFgcVr3M+kbTI
-	3laSJOjhYKDdmuIPOAZgugpfaTvZehwfodwjLb2h8K5D2EepMFqMrC1Uojyqte1JwV3PuHw5/U0
-	xjWt9WMlQSA1tSPv5263TnAIuxhptsGbFc5QhXW8od30pXKdrKA3SzOpxNCBcEEBZwvyM43PHIR
-	IcOqXZ3We46+qOha/gThws49U2I=
-X-Received: by 2002:a05:620a:a208:b0:949:5c62:e775 with SMTP id af79cd13be357-9495c62ea7emr1501690585a.15.1794920408653;
-        Tue, 17 Nov 2026 05:00:08 -0800 (PST)
-Received: from ziepe.ca ([142.166.156.71])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c803abbsm1067907885a.7.2026.11.17.05.00.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 05:00:07 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xTIn7-0000000CJGS-3fNi;
-	Tue, 17 Nov 2026 09:00:05 -0400
-Date: Tue, 17 Nov 2026 09:00:05 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Peng Fan <peng.fan@linux.dev>
-Cc: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, Frank Li <Frank.Li@nxp.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@kernel.org>,
-	Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev,
-	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev, linux-tegra@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH v6 0/9] dmaengine: add DMA channel bus and fsl-edma
- per-channel IOMMU support
-Message-ID: <20261117130005.GC2606445@ziepe.ca>
-References: <20261112-edma-iommu-v3-v6-0-b038edb8ce6f@nxp.com>
- <20261116193021.GB2452510@ziepe.ca>
- <avwQl18smAW4R6ec@fedora>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LRM0eYzw
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794920416;
+	b=zSmKHEXtxQt/+MvJ0RLolmLEWR7RT41/nBUr+EjZ7Xgyx9jBFdVqEt9X0+mkPfKicZUX
+	 978lQmGjSseQb0wdV7EEOpPsul13P7ou764pUm5WZbNrFy78r9PTpuk9XipMkzTMG+BSs
+	 LinGxCiS2gassVwxUbFDsIxDD1fmTlCOBEkJcThbRy87iIZe4k6EeKHnYKlkOTxMM0Y9v
+	 M2I/puBYEGOrGXQIKRY6kJpXp/qpYxshT44gSNArxrNEw+IEMB97Ga938+tqqQkP97F9x
+	 c+UXh6wztpEXxP0PjOMYiAUwlivsux21TIfx32Ocpev2uY3VbtU53Jq2h43kBIVs3Mg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794920416;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=XgOJof+TBeTiJZcdxs7bxkbtxyWej7BoJRUS68w6H2Q=;
+	b=lMPv100zQGjZPcmX1NTHFF1URhvM36LPUNYNRaU+n3j5up0D90/pZdCKcppklDGZsKOT
+	 x4kw8LNi/vCRPdeoSXQ6xHo6ng9EJRiM0yLXfF+1fGwFvJFUK5ABA0mFPNyNHeb/FiFo2
+	 NpmJ1SSY+enAxSdThRCv6AjAew69MRAdsDHyU9ak6wt4WUU8084G0W4vkPfNDvGkBi1yc
+	 tV8aZw0MJFt4/crfIRVdMwOnsYLzzmZHsh69Ajol/nHxDGXX/sGeRNT9I3d2lBjDYSN33
+	 zrx48RkRTM8wN+1u8tn9Ll+QrQqk+UvfrnRp2O1VnWfDzTeLNC5rTibtcjsS1y11h5A==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id D820B1F000C4;
+	Tue, 17 Nov 2026 13:00:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794920416;
+	bh=XgOJof+TBeTiJZcdxs7bxkbtxyWej7BoJRUS68w6H2Q=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=LRM0eYzwOyBZ9kI/df1WB1+sh0xJv3tEkhXiKeeb6InTgmr8QndbQVxa6mnPrtxYw
+	 sLbos+J3qQcTdC7ZU5HqUhxYayzibNFtHNs52diX6Cfd789WQ8K4SREdk3YMSnaeWn
+	 +cZZYFu9Rx2cf39GOW+w7BLO/PbRC9XsAwdShIIDdira02JHQCElG9LeyZshK+e50N
+	 Gmho8NPdlO5itXxFFnpQvwhVurdeEPc1aUZrKrs2Y1KeHkCC1HGFe+Ea6itlUQPC1I
+	 bpalu0nqEgQ8K9JmvePFnTjmbUCkSLhXpzJeE/FWXDYJU+KZ90JTrdb2hbmuTN8+Tk
+	 1rMiyx5gXX+tg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 63F434A966;
+	Tue, 17 Nov 2026 13:00:15 +0000 (UTC)
+From: Roadbobek via B4 Relay <devnull+admin.roadbobek.com@kernel.org>
+Subject: [PATCH 0/2] usb/phy: sunxi: Assert reset before deasserting on
+ init
+Date: Tue, 17 Nov 2026 13:00:41 +0000
+Message-Id: <20261117-usb-sunxi-reset-fix-v1-0-c2b76e0e84e1@roadbobek.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,64 +84,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avwQl18smAW4R6ec@fedora>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDQAyF4atI1g0kIkp7ldLF6ESbLkaZOCLI3
+ N3RLr8H7z/AJKoYvKoDomxqOocCflQwfF2YBNUXQ011y8wdJuvRUtgVo5isOOqOnh0RcdOQe0J
+ 5LlHKfFffn78t9T8Z1isFOZ9oWflAdwAAAA==
+X-Change-ID: 20261117-usb-sunxi-reset-fix-d1a0001440a9
+To: Bin Liu <b-liu@ti.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ linux-phy@lists.infradead.org, Roadbobek <admin@roadbobek.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794920443; l=1351;
+ i=admin@roadbobek.com; s=20261117; h=from:subject:message-id;
+ bh=drgXmTq72phIRmNvyMX2CDu1do9KMGWYoHNHUWHEvOM=;
+ b=O92oU708WlHpNSGxF7degjuQB97mTvheQN/ZlYsp/q3UhV1O1Z4f8NqTM9ITdYpochLBYE2i2
+ +ib9LHxsVf3A8M3Xui056AQmxxvlvrVW7eKBBCCdThRWSO7dGe+ggya
+X-Developer-Key: i=admin@roadbobek.com; a=ed25519;
+ pk=TcWSTwITMylwCZLYbw80sv2LQx1zButqiT90TFVvhas=
+X-Endpoint-Received: by B4 Relay for admin@roadbobek.com/20261117 with
+ auth_id=1548
+X-Original-From: Roadbobek <admin@roadbobek.com>
+Reply-To: admin@roadbobek.com
 
-On Tue, Nov 17, 2026 at 04:30:15PM +0800, Peng Fan wrote:
-> On Mon, Nov 16, 2026 at 03:30:21PM -0400, Jason Gunthorpe wrote:
-> >On Thu, Nov 12, 2026 at 03:53:03PM +0800, Peng Fan (OSS) wrote:
-> >> I used iommu-map for eDMA, but iommu experts rejected it:
-> >> "Using iommu-map to describe synthetic dma_chan_dev devices that the
-> >> kernel creates is the same kind of DT abuse from over here:"
-> >> More info: https://lore.kernel.org/all/20260917144804.GI3196566@ziepe.ca/
-> >> 
-> >> So I followed here [2] as Krzysztof wrote for QCOM VPU:
-> >> "Thanks Jason for context and detailed arguments. Robin did not chime in
-> >> yet, but from what I understood the DT-child-node approach will be the
-> >> way we should go here.
-> >> 
-> >> I accept above point of view and I am fine with this, thus Vishnu and
-> >> Vikash - please go ahead with DT-child-node solution we had some time ago."
-> >> [2] https://lore.kernel.org/linux-iommu/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org/
-> >> 
-> >> This series adds per-channel DT child node support to fsl-edma and, as a
-> >> prerequisite, introduces a proper bus for DMA channel devices.
-> >
-> >To be fair this is discouraged too, now that I've seen 3-4 people
-> >trying to do exactly the same thing I'm not as positive about the
-> >DT-child-node hack.
-> 
-> I may not describe it clear in cover-letter.
-> 
-> I understand the concern. Let me explain why I believe it is justified here
-> rather than a hack.
-> 
-> On i.MX eDMA each channel has its own interrupt, its own register region,
-> and on i.MX8QM even its own power domain. Each channel may also have its
-> own Stream ID, or share one when SIDs are scarce. These are genuine
-> per-channel hardware resources, not software fiction.
-> 
-> In dmaengine each channel is already modeled as a channel device (see
-> dmaengine_chan_dev()), and this series puts those devices on a real bus
-> (dmaengine_chan_bus_type) as a prerequisite. The DT child node simply
-> describes that existing device, so its reg/interrupts/power-domains/iommus
-> are attached per channel instead of as index-matched flat lists on the
-> controller.
+When a bootloader such as U-Boot (for example with
+CONFIG_USB_MUSB_HOST=y) initializes USB host mode and boots Linux
+without stopping USB first, both the MUSB controller and USB0 PHY
+reset lines are already deasserted when Linux probes them.
 
-If they are real devices then why can't they come out as platform
-devices?
+Because reset_control_deassert() alone is a no-op on an already
+deasserted reset line, stale hardware register state persists across
+boot. On Allwinner A33, MUSB stays wedged in a_wait_bcon with
+DevCtl=0x99, Power=0xf0, and a frozen Frame counter even across
+hot-unplug and replug.
 
-I think you are overstating how independent they are. Many single
-devices have per "channel" resources like MMIO and IRQs. That's
-totally normal. It doesn't make the sub resources independent devices.
+This two-patch series briefly asserts reset before deasserting it in
+both drivers so USB starts cleanly regardless of prior bootloader state:
 
-AFAICT what you have here is some HW designer used SID where they
-should have used SSID and you are trying to hack DT to make that
-usable because Linux does not support a SID as SSID model today.
+- Patch 1 asserts glue->rst in sunxi_musb_init().
+- Patch 2 asserts phy->reset in sun4i_usb_phy_init().
 
-Again, since this is the 3rd - 4th case like this, it seems like a
-popular hardware choice and we should try to do better to make Linux
-support if we can.
+Tested on an Allwinner A33 Q8 tablet (Laser MID-786).
 
-Jason
+Signed-off-by: Roadbobek <admin@roadbobek.com>
+---
+Roadbobek (2):
+      usb: musb: sunxi: Assert reset before deasserting on init
+      phy: sun4i-usb: Assert reset before deasserting in phy init
+
+ drivers/phy/allwinner/phy-sun4i-usb.c | 2 ++
+ drivers/usb/musb/sunxi.c              | 3 +++
+ 2 files changed, 5 insertions(+)
+---
+base-commit: 666539eecdf4db623f5e3c3e55cf9f2dfad24aa4
+change-id: 20261117-usb-sunxi-reset-fix-d1a0001440a9
+
+Best regards,
+--  
+Roadbobek <admin@roadbobek.com>
+
+
