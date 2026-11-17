@@ -1,105 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.182
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794883270;
-	b=OsEG7ywKy8EH8fg23Y9jjF4FjzsEsPJDKFKUbNyFe3RTAG01igqbG8K7Yu/4J/hRaIDe
-	 gHBbMGEchm7i/4g4VY5o9ad8EpcG+ibEp+GXx3jTN/98SoteF1RQErvmZm9Q6f96dM4nF
-	 CK9wypMgAQUubiy3JapURvr8JOcYEhm9TpgAevJa2Yq5G4upsn8YaBEWZfQjfE/D5zGdH
-	 OoAAkV55KGu+p7RIKnjPROgxzhbrZtswjTWEuSAogqHMcDDshXhVZ/aNICeTVcpO8W8oO
-	 v0aW9MJIggElmuKGFbHLZLTBmQNx0GCB5S1NGlXzDeQrXujPaPJcUMQ+hTB8aFChTeA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794883270;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:In-Reply-To:References:MIME-Version:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=HvQs1sv0nGP1vZDuQ/BDK5aYspXa/hu3w+cobCl25Dg=;
-	b=oALxOP8V41qV3UvnnXpZitLrqITN3Q8UX9RZL4K9+Fz3iO6tc4YlQhnxnstHxOqb2Y3c
-	 Fw8ko24TMvqvxl3FRcdjjn7/ZhjQtOre0Oi3B8Vf0w8FC7dA7QpgoN4EHq1xTNLGzlpUn
-	 iQ6W910YY9v277lOM4+NYiENUPOdbUgx7ystMBbPv4RgTddTi6ZPHOhIbMAsnZsPNT1IN
-	 uZVfk6Y+k/RMH6VdjsVihthoWcTi/M3dITVaPbMVRc0u19AtaBwVr6x3K4B4R0tQ4DUpB
-	 gnkGvhKefOwvaTcXaFnCZwJgmk2F/tscTY7dP2UHXo4lU/NaOe7HOth1JwneLTBZDFw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=bK+mM2hz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.182
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794883273;
+	b=omLUJWAV+cPTyd8aabiDpJO9QYTekfEnDeERqv9kP1BM+kRKfuunSz0+/JHoUvputv1d
+	 daLIFBPHXiovAi+RsLwslJtqQbLsPCdsGSISLvXcXT804f07Z6ZAHLvk36NjGJysPKgP8
+	 DigXA/JQkS8azOrXFpeYMMZuJ6OfTZrKioMf4Xrv9yPR6XB610XQGyDLSth9PM302bPOf
+	 Hmf97vONEXWvE1HiVVMdUzjXYwGWqI8EyjY8by2HybwXArMFdkRVYpicHO0ZD7lmINXVH
+	 BwQu3ncbL0jltnzf/wfTls4Q4RilvFsWBXxbOB9y193W9KGrXG3pX+iN57hJUR6VqJw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794883273;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
+	 References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=ytDTUkiUwrOfBSNk17TqtXGuaMsqxDXcepGOwi0TLRc=;
+	b=nzaklWlX9GgKeHGMtf9Ipo4afHSiivnAigTeRFSs8G8hqfEsRtv4EFjFa2moLbKp/Pwm
+	 DfXh7MVe1jeNdXIUaTqaRP24yiK2zhX3Nz485Lk5zb+f2LlYU2br1YkFjcfwT6JFl6UeZ
+	 Zo3NKRR7j3qjAX90A3qq4qcw882VTOenAQjiE3X+QiSxmCBwjJ5VlGLsLV0c0+IfdmzLZ
+	 fNyQjkLBQY6RD0aoeDCA6KZPgs/vzjAlGFj5cYa8hsdqkLJtsZChu+9vOw9bIsyeckO8k
+	 y5SCaGbtmUEHDA2dFdIDdF9aLFtdXQiH7dGs0AoHA2iUafbuppVWlq/zj3mPBPXskvQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=iFSv5s7N;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5B23606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 02:41:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5B23606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5D9B606A330;
+	Tue, 17 Nov 2026 02:41:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5D9B606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=bK+mM2hz
-Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-55d2f5f1e26so23486191cf.3
-        for <linux-kernel@vger.kernel.org>; Mon, 16 Nov 2026 18:41:09 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794883268; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Vee7ot12O3j6QsIiZCslZC1uexxnRNC58q+KG8iWV5su3HlaPQLnJjJGOSMHrllZ2u
-         H4htjeY5DXkWPFG+SDvD2d3TtORXAu/4rxkysN/Ix34YfGFLzXB6Px0IUVN/LQPURdYF
-         yGfV3v7kIVX3AkY5yHNy/oWxCwOAvBsRIYN7Ac0blc3glOdSDfvWxsaIPq4OqWRRalWW
-         dzM156ppbqnr/1oTQRUwakUxR+s7PtSf3vj0Ve4Z5Ax0OUCJcnzeVWst6Ubc5iMdur+I
-         2ehNyggPBPdFkPq9LA1QYE0s4ANaTT4wqV3zx8zieSqq/YwOTEV0I9+6N36YgcsVoTpH
-         hkYQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=HvQs1sv0nGP1vZDuQ/BDK5aYspXa/hu3w+cobCl25Dg=;
-        fh=4klg+72Ywpa6SpNOoGmERkPvr/bDU9ei/5TK2iTzfa0=;
-        b=Y+SXqWWXEURL3pUiD9+RJWekU6MK1aNRAcfiTqcPFuxi1jj33slxcJExLu2wTqlCJZ
-         U/9Ku+gnWO5G9+wj4tFLzUwIgAdw89kOpXnQxwU0ejgkOwhR6uPqDGFXA6mKsW+XvrNu
-         VDuVd8qPhO1jzteJIFeuNYPtkDAcvNEyKiXLXkntIzBr95ezcZ/GR7n5n0koDCLmqu5/
-         qUsE98c0R3Fk3VP6s8VWHOCc/+pmAuL1pyVaPDhwf8BDs+EldkHWaRrep2Nvu01K70HK
-         Gct04kYMS7Q4+XjPGV2iMVj2e4iVugWInRVcV0wjrZgJ5qOKvloGYsxuzN09EnSzfmYy
-         eyTg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794883268; x=1795488068; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HvQs1sv0nGP1vZDuQ/BDK5aYspXa/hu3w+cobCl25Dg=;
-        b=bK+mM2hzhL6PojsFAyjZ+/eGWqpn/8XMwiX1TU71mf3U5ZH0W5J3evhcxVHf3RrJoN
-         gZl7Zzml0rB2J/0XAjMI3L+03DZWIF1bE7PPrVD16H8Tz5ItO4OlAOtzCaIxBKJ1fBas
-         Djdb5G2PP/+dk7IlJTKvJCvgsFUxQd8yvB38p0mA3g8yKOwrZnXxR5xtI0R8PytvuJvu
-         FJI92kaoiAemxXiJncgByNZ7rKfOLZQqM4XWr0HjzZISX+aE9BUVJvDEyi23Kh9iizs3
-         Q24rbJEjpzmBIhoG8q1XzZs8c1ZvqRUJclGmSBnQO65jBwwIwAmvFz0XneOFFYfN+e06
-         sgvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794883268; x=1795488068;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HvQs1sv0nGP1vZDuQ/BDK5aYspXa/hu3w+cobCl25Dg=;
-        b=BB6Lc4ZASQgEYMfcX2u9exllQQsXs9vZjtl8brpgHzeP3ZwelXM2DSvupAbEbwwEF3
-         Y3sIlTxmiyjLaQayIUJsWowGSTSKL3Pj6echNf9zOQMfeNpb1m2UYTfiYBfrc39dL5ZF
-         u9KDqcCNKIBL1wVdxpaHvzTmn/baAPDdegI/6hcJlPEbt07WF8qgXgbwqekYaQtsZa+n
-         SEuXtU4yS9wk6ksSW4sWmo6caK0jEboOJSBwxUN94YhiCc0y/BI76jUD8gztHFtjB+Ga
-         ZhLz6VJu6yeYge7jabDtYX6aVDykRtdzUZMlrr5pBMZeAjOz2NLOTK2t+HRQPAkldnjL
-         Cpqg==
-X-Forwarded-Encrypted: i=1; AL+hErEx5Q2x/gcVLOWOz9f+sO04z4vOZRzHVuK2WDFdOBiQ1TOmhiGpaIXvkgeUDMEX4ALyuRA8sArpyy12uyk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/OpOiouJL8DVmv5xcgVZYBukvEkwsEQ2mM1vJX26d7Ye9DuyFm
-	m5qxix5lf1wSbUr1G4Ltuu0v0INsbC4poUOsOWq5iydCGyAMEFGZi3DaxJq+Z+RbuRZDSWpG7nf
-	/LPEig1LvMnkRt6Qi3kVRjJcOHuQV3KReINZhNnNg
-X-Gm-Gg: AYBFou3zxtpXvzliDKvwoJ7PP7VwDjvVxI6Cpcc1pPgARAtYccVnMwd9kWQJh9stb0v
-	c62z28A169BjwQejeUNSE729ZPds+yHC529Af+NZTWDv2orL4qmvYBDMSE2I6RpZaaOwvXFWvZ8
-	37w0KSVXBcBfUgviOyjKYjFuYUwAy4NAH9/Xk76vfet+AGQIGsx5Y4IQ8SHdYrtKihsQYswCVyo
-	loFjHk8tRJXMg9jO6yciRSjeD9MgNv/fTmJP2chjfcAsL8REFF1gfJwwrC8hHQwBRTXydWbNwNb
-	Uq55sNG1FGyJsjslMoLvp4wRpOerOYHjzw33l1kudSK9GNTsnCgxEqY7DMhYAqkhSY66SMuUEv+
-	jsKidh8HLGG3E5ApuqkE0gNpbDvBEgUQaA2YRS2oQhGInJGRBa8dwrBDBoQduyjjzPVZN//puhT
-	lwRrkd1WiRUFE=
-X-Received: by 2002:a05:622a:258e:b0:536:64fd:7b5c with SMTP id
- d75a77b69052e-55ac857d00dmr229653051cf.58.1794883267864; Mon, 16 Nov 2026
- 18:41:07 -0800 (PST)
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 16 Nov 2026 18:41:06 -0800
-From: Ackerley Tng <ackerleytng@google.com>
-In-Reply-To: <20261117011513.39419-2-seanjc@google.com>
-References: <20261117011513.39419-1-seanjc@google.com> <20261117011513.39419-2-seanjc@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=iFSv5s7N
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AH2f8sA53993578, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1794883269; bh=ytDTUkiUwrOfBSNk17TqtXGuaMsqxDXcepGOwi0TLRc=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=iFSv5s7Nq3KgdS+trBgIzGma46kn6ywmRMkDnBksC+KHIWgB7uewJyJTVIooI0mde
+	 FX7Ur5PQo36AnOrbqtfReGkHQPwcO92/xOnW2rJ+c14qYQeJvuSBKzvEtacNvmNQVk
+	 l59CRblvj1bMQ/OVaSCJVvk042JklQnT2lP16hvSSvUv6QbviSGSq1jLa8ChTGMpK2
+	 yhDpZ659KOkSAN6LLCjw1ldMlblUnvtuPDNIjRvj87oZ/VYpZdh4LAdhYWWa4j7n/f
+	 7sjCrGU5xzP9izwHpmNUEfr4yCxX00OCS4ou9khx9JwK8uF2bgP1qboiHf/k+F04so
+	 bNePg/26FYd9A==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AH2f8sA53993578
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 17 Nov 2026 10:41:08 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 17 Nov 2026 10:41:09 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
+ 15.02.2562.056; Tue, 17 Nov 2026 10:41:08 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Rishik Yechuri <epicrishik@gmail.com>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Rishik Yechuri
+	<rishik.yechuri.code@gmail.com>
+Subject: RE: [PATCH rtw-next 4/6] wifi: rtlwifi: rtl8192se: use ALIGN() for
+ the H2C command length
+Thread-Topic: [PATCH rtw-next 4/6] wifi: rtlwifi: rtl8192se: use ALIGN() for
+ the H2C command length
+Thread-Index: AQHdcUN/nKj5Y1zQLUeHbHCCUhGobbcxlj+g
+Date: Tue, 17 Nov 2026 02:41:08 +0000
+Message-ID: <9020f387fe56447d9255a1c6db0a9a1a@realtek.com>
+References: <20261110184409.42205-1-rishik.yechuri.code@gmail.com>
+ <20261110184409.42205-5-rishik.yechuri.code@gmail.com>
+In-Reply-To: <20261110184409.42205-5-rishik.yechuri.code@gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,56 +84,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Mon, 16 Nov 2026 18:41:06 -0800
-X-Gm-Features: Aa3M54pz4hKgLgbckwPhwESAbXAcBthYlRHInnCY8jzXIe6R4fuYU-9UgF1wqkE
-Message-ID: <CAEvNRgGH3NABq6gioOQ3d1mLKi4dz8srjOy9LYvUSaqXVzJsAw@mail.gmail.com>
-Subject: Re: [PATCH v4 1/2] KVM: Disallow prefetching PFNs (for SPTEs) via
- VMAs for gmem-only memslots
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Sashiko Bot <sashiko-bot@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Naveen N Rao <naveen@kernel.org>, Alexandru Elisei <alexandru.elisei@arm.com>
-Content-Type: text/plain; charset="UTF-8"
 
-Sean Christopherson <seanjc@google.com> writes:
+Rishik Yechuri <epicrishik@gmail.com> wrote:
+> _rtl92s_fill_h2c_cmd() and _rtl92s_get_h2c_cmdlen() round each command
+> length up to a multiple of 8 with N_BYTE_ALIGMENT() from wifi.h. The
+> macro spells out the rounding by hand and special cases an alignment
+> of 1. ALIGN() from <linux/align.h> gives the same result for a power
+> of two.
 
-> Disallow prefetching SPTEs via fast GUP, i.e. by VMA lookup, for gmem-only
-> memslots as the whole point of gmem-only memslots is that KVM MMUs should
-> get PFNs *only* via the direct guest_memfd interface.  More importantly,
-> this will allow skipping/ignoring/eliding mmu_notifier invalidations for
-> gmem-only memslots, since it will be impossible for KVM MMUs to have any
-> mappings based on the to-be-invalidated VMA (as is intended).
->
-> Fixes: 576d035e2aef ("KVM: guest_memfd: Track guest_memfd mmap support in memslot")
-> Reported-by: Sashiko Bot <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/sashiko-outbox-213282@kernel.org
-> Reported-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Closes: https://lore.kernel.org/all/avdAIMDfgL_wy1rx@gremlin
-> Suggested-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> ---
->  virt/kvm/kvm_main.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-> index cf4cb586f140..9938b753948c 100644
-> --- a/virt/kvm/kvm_main.c
-> +++ b/virt/kvm/kvm_main.c
-> @@ -3172,6 +3172,9 @@ int kvm_prefetch_pages(struct kvm_memory_slot *slot, gfn_t gfn,
->  	unsigned long addr;
->  	gfn_t entry = 0;
->
-> +	if (kvm_memslot_is_gmem_only(slot))
-> +		return -EINVAL;
-> +
->  	addr = gfn_to_hva_many(slot, gfn, &entry);
->  	if (kvm_is_error_hva(addr))
->  		return -1;
-> --
-> 2.56.1.703.gf848ed807c-goog
+Just say N_BYTE_ALIGMENT() is identical to ALIGN()...
 
-FWIW, I also looked into kvm_read_guest*() after being pointed there by
-AI. Those take a HVA, but don't take any kind of long term pin or have
-any reliance on MMU notifiers, so those don't need extra guards.
-
-Reviewed-by: Ackerley Tng <ackerleytng@google.com>
