@@ -1,66 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794900119;
-	b=xeLdp9YWZK97tIge+2iWbN4EUv+ZX8z5jb9Vdvz4+16VnLF3HHZ9YOQY3AXhBdoju5pB
-	 NjMJeCAEjmfr3TJHpo8UKGaY2zb3gfCWThlrKZf/Zg0kIPIeB++XqwUGCV0e0YiZvwSPW
-	 HnU60/crM/cYFo27i3ZtvOqKU++khp2NLhKZtHFlrINSt6xa9O6W09NMwBceEYScWsMgq
-	 256wB5Cn0UasLYYzoGtWw5+hR+xq/IWGIy9tUxRtLFVUnUlVJYJ4WCcU/yuLL+QbbnH6W
-	 nk1SkaB51y2J4cjS4M+mmQ2r4jjnG3/r74x3oI4XNoimU3V9fY7S3A97Z/fexuC/FCg==
+	t=1794900291;
+	b=4BaDzonYQTZQUgyYTDNtoH/+D5lC+IPeDoZwNZwxjwboUfcbLupqgBj7TK49rjyunyDx
+	 ZqnZxF79FEAunTCUbIJTwrXHxubYa3w4ccTuOB39K1bDrAC7lxreF/Srfa8eR3ZPMWEVh
+	 FuKCbVjbtDBN5gABy/NZpHUGlI9RLYYaQMovq2k1ZMIj9bOOqbaD/1IW1t27VCcwC/Lb2
+	 YA8Oef67ndKrww604nbGC9t+0Vl8sRuNqUNOn45Hh+PGV9d+VdUIUmLVng33P60HYitMZ
+	 WNhehHbsQwzBXwLa803d7tY61cjBPfntbKNDJq4D9DHtYMLIEFagC9g0bfunc7OfVXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794900119;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=oxM0dfNHWhh0JA5nDAwcg0YM5ZxKXWKNv+wLwQN0H2o=;
-	b=WEpEt5twkj11qDH+umvn1e7SkwIv1jJ+y6/cmb5rE4PQuRqUrE8+B5ZAEk0f9x7w6q3h
-	 wHAa73hrUWSeofH+yqotVL2ixljVTMYyq36EMJdcuLXUUm/5K41FVW1gNakfsj3EQZcEU
-	 zmFD/xjqpVEi2U1krNpAHhPqLMACkQkpckPhz+r/jZjGWvG8i/W+GHe8g5acAes83hAxE
-	 dLk6oKQcUm7kN8R/PmQj1dLpKU8j9cGathB1p+8yJfPH4TqBn5VQ2AeIc9IXt3OsmEyCJ
-	 /w0aLOTKHeR6g9YJABBIcs6SFh/xHvhNWBl3oN+tiO3BJUQ/A0Zzf420+4ahwghGZ9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794900291;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=AVkRUZTgXWNhN4oG9wumuoURSZsv/ta/ThIe9MKkrNI=;
+	b=JMwQcR8f2zw40ZxOtsn8zH6Ybat29OqnDZ7rQqJtXG5tXUpM5EfuvkljRTOOnh71OnkP
+	 mX7cT8u3r0m+kSpyMlLJMeTWTpl3CSldagS86i0YdtmLYZFV0n6NLkgNTjD7yRwG0gZKy
+	 iCzigeBj5HwPYBSCXMlvp+EjO2W12gEfzy0whFOd+f/KBLtD2BJ0bfP50yP8i+io9Hr5k
+	 GC0dTf4NGhKnmzHdVQlUY7jeUM8w8h51Lk+FfdS+9N0T3y3aUdhvrvQfeqWv59YLi+/dL
+	 eFuB5lM9AtnOd3WV2a1uVKS3pZYHSYSj9OgEWGK4I2eY+hHU6igbqwHT8TiFHvB/3wg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YHZppQaL;
-	arc=none smtp.remote-ip=95.215.58.137
-Received: from mta1.migadu.com (out-137.mta1.migadu.com [95.215.58.137])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FqPXdYXX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BA51606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 17 Nov 2026 07:21:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BA51606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A03DA606A31C;
+	Tue, 17 Nov 2026 07:24:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YHZppQaL
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=C5pBUkm+CKl8mzMt2Ynj+HJYaQvwfObB423yYROWZWM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794900116; v=1; x=1795504916;
- b=YHZppQaL+C5s0HBFTcD3hg4U5jW3M7Xi5UG9rjn5mU2aq4LFxuJ5I3mZ5YTLTvNCSY+qC9Zo
- s03iHD/k4nbwNWG48noZzJLq1fBFyvLZRVcRJeuIojU27BehYhoxHCmAQ/5j7gtldqe+42C86Bl
- yb02MZ5J5An4GcPDxpsLrpC0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a40618706497855e;
-	Tue, 17 Nov 2026 07:21:56 +0000
-X-Mizu-Trace-ID: a40618706497855e
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 17 Nov 2026 08:21:50 +0100
-From: Luka Gejak <luka.gejak@linux.dev>
-To: =?ISO-8859-1?Q?David_H=E4rdeman?= <david@hardeman.nu>,
- Ping-Ke Shih <pkshih@realtek.com>, linux-wireless@vger.kernel.org
-CC: linux-kernel@vger.kernel.org, Leonard Lausen <leonard@lausen.nl>,
- Alastair D'Silva <alastair@d-silva.org>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Bitterblue Smith <rtl8821cerfe2@gmail.com>
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_rtw-next_3/5=5D_wifi=3A_rtw88=3A_sdio=3A?=
- =?US-ASCII?Q?_limit_the_TX_queue_length_of_the_88xx_chips?=
-In-Reply-To: <20261116190145.2736364-4-david@hardeman.nu>
-References: <20261116190145.2736364-1-david@hardeman.nu> <20261116190145.2736364-4-david@hardeman.nu>
-Message-ID: <B58755EF-D7EC-47C5-8DED-EB19A880CE26@linux.dev>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FqPXdYXX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D1A81F000C4;
+	Tue, 17 Nov 2026 07:24:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1794900291;
+	bh=AVkRUZTgXWNhN4oG9wumuoURSZsv/ta/ThIe9MKkrNI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FqPXdYXXYM3Kr5Ad29imUp6pCqSsZxQYhEceWydyiysciJAMV+4cPIlrH0ryr8Tgi
+	 2wglvIdznTecpbJxYwtnQAMviulZiyz1gJBUnV/3bHhfv7PS43hwxOEd6lwUtklYwW
+	 0Zj0PxOtdUYdkJaOWVdM4w4Go+Wb6Dd/UShU06/8=
+Date: Tue, 17 Nov 2026 08:24:39 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Huang Wei <huangwei@kylinos.cn>
+Cc: Johan Hovold <johan@kernel.org>, leStoppe <lestoppe@gmail.com>,
+	Craig Hesling <craig@hesling.com>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] USB: serial: simple: narrow OWON match to avoid
+ breaking VDS1022
+Message-ID: <2026111722-freckled-baking-d277@gregkh>
+References: <20260810091322.2201740-1-huangwei@kylinos.cn>
+ <20261015025456.3927808-1-huangwei@kylinos.cn>
+ <2026111606-penpal-reverse-14b7@gregkh>
+ <20261117071250.2843769-1-huangwei@kylinos.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,55 +58,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261117071250.2843769-1-huangwei@kylinos.cn>
 
-Hi David,
+On Tue, Nov 17, 2026 at 03:12:50PM +0800, Huang Wei wrote:
+> Hi Greg,
+> 
+> Sorry about that - here's the context.
 
-On November 16, 2026 8:01:43 PM GMT+01:00, "David Härdeman"
-<david@hardeman.nu> wrote:
+Sorry about what?  You did not quote anything here, as my bot says:
 
-> +             if (ret == -EBUSY && !rtw_chip_wcpu_8051(rtwdev))
-> +                     resched = true;
+A: http://en.wikipedia.org/wiki/Top_post
+Q: Were do I find info about this thing called top-posting?
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+A: Top-posting.
+Q: What is the most annoying thing in e-mail?
 
-I think -ENOMEM needs a retry here too. mmc_io_rw_extended() allocates a
-scatterlist when a transfer needs more than one segment. For example,
-dw_mmc with IDMAC sets max_seg_size to 4096, so an aggregate larger than
-that can fail this allocation and return -ENOMEM.
+A: No.
+Q: Should I include quotations after my reply?
 
-The aggregate is put back in the queue on error. If the retry loop keeps
-failing while the queue is stopped, no further attempt is scheduled.
-Fresh TX callbacks can kick the worker again, including for the same AC,
-but if no more arrive, recovering memory alone leaves the queued frames
-stalled. The single frame fallback can also return -ENOMEM from
-__skb_pad().
+http://daringfireball.net/2007/07/on_top
 
-Could this handle -ENOMEM as the RTL8723BS retry helper already does?
+thanks,
 
-[ ... ]
-
-> +     if (resched)
-> +             queue_delayed_work(rtwsdio->txwq, &work_data->work,
-> +                                RTW_SDIO_TX_RETRY_DELAY);
-
-So if I read it right, this also needs the work to be cancelled when the
-SDIO interface stops. The power off path is:
-
-        rtw_power_off()
-                rtw_hci_stop()
-                        rtw_sdio_stop()
-                rtw_mac_power_off()
-
-rtw_sdio_stop() only disables interrupts and invalidates the credits.
-The cancellation is in rtw_sdio_deinit_tx(), which closing the interface
-does not call. The flush callback does not drain the SDIO software queues
-either, since the SDIO operations have no flush_queues callback.
-
-A pending retry can therefore run after power off and keep rearming
-while credits are unavailable. The RTL8723BS retry helper seems to have
-the same lifetime gap already, so maybe the shared stop path is the right
-place to fix this before extending the retries to the other chips?
-
-Best regards,
-Luka Gejak
+greg k-h
